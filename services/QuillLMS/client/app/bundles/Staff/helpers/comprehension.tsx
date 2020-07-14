@@ -1,6 +1,6 @@
 import * as React from "react";
 import { promptStems, DEFAULT_MAX_ATTEMPTS, BECAUSE, MINIMUM_READING_LEVEL, MAXIMUM_READING_LEVEL, TARGET_READING_LEVEL, SCORED_READING_LEVEL } from '../../../constants/comprehension';
-import { ActivityRuleSetPrompt, PromptInterface } from '../interfaces/comprehensionInterfaces'
+import { ActivityRuleSetPrompt, ActivityRuleSetInterface, PromptInterface } from '../interfaces/comprehensionInterfaces'
 import stripHtml from "string-strip-html";
 const quillCheckmark = 'https://assets.quill.org/images/icons/check-circle-small.svg';
 
@@ -57,6 +57,17 @@ export const buildActivity = ({
       ]
     }
   };
+}
+
+export const getRuleSetIds = (rulesets: ActivityRuleSetInterface[], ruleSetId: string) => {
+  const ids = rulesets.reduce((filtered: number[], ruleSet: ActivityRuleSetInterface) => {
+    const { id } = ruleSet;
+    if (id !== parseInt(ruleSetId)) {
+       filtered.push(id);
+    }
+    return filtered;
+  }, []);
+  return ids;
 }
 
 export const promptsByConjunction = (prompts: PromptInterface[]) => {

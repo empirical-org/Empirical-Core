@@ -7,18 +7,24 @@ import { ActivityInterface, ActivityRuleSetInterface, PromptInterface, RegexRule
 import RegexSection from './regexSection';
 
 interface RuleSetFormProps {
-  activityData: ActivityInterface,
+  activityData: any,
   activityRuleSet: ActivityRuleSetInterface,
   closeModal: (event: React.MouseEvent) => void,
   ruleSetsCount: number,
-  submitRuleSet: (argumentsHash: { ruleSet: ActivityRuleSetInterface, rules: RegexRuleInterface[], rulesToDelete: object, rulesToUpdate: object }) => void
+  submitRuleSet: (argumentsHash: { 
+    ruleSet: { rule_set: ActivityRuleSetInterface}, 
+    rules: RegexRuleInterface[], 
+    rulesToDelete: object, 
+    rulesToUpdate: object
+  }) => void
 }
 type InputEvent = React.ChangeEvent<HTMLInputElement>;
 
 const RuleSetForm = ({ activityData, activityRuleSet, closeModal, ruleSetsCount, submitRuleSet }: RuleSetFormProps) => {
 
   const { feedback, name, rules, priority } = activityRuleSet;
-  const formattedPriority = priority ? { label: priority, value: priority } : { label: ruleSetsCount - 1, value: ruleSetsCount - 1};
+  const count = ruleSetsCount - 1 < 0 ? 0 : ruleSetsCount - 1;
+  const formattedPriority = priority ? { label: priority, value: priority } : { label: count, value: count};
   const [ruleSetName, setRuleSetName] = React.useState<string>(name || '');
   const [ruleSetFeedback, setRuleSetFeedback] = React.useState<string>(feedback || '');
   const [ruleSetPriority, setRuleSetPriority] = React.useState<any>(formattedPriority)
@@ -29,7 +35,7 @@ const RuleSetForm = ({ activityData, activityRuleSet, closeModal, ruleSetsCount,
   const [rulesToUpdate, setRulesToUpdate] = React.useState<object>({});
   const [errors, setErrors] = React.useState<object>({});
 
-  const ruleSetPriorityOptions = Array.from({length: ruleSetsCount}, (x, i) => { 
+  const ruleSetPriorityOptions = Array.from({length: ruleSetsCount + 1}, (x, i) => { 
     return { value: `${i}`, label: `${i}` };
   });
 
@@ -76,7 +82,7 @@ const RuleSetForm = ({ activityData, activityRuleSet, closeModal, ruleSetsCount,
       feedback: ruleSetFeedback,
       priority: parseInt(ruleSetPriority.value),
       prompt_ids: [],
-      rules: []
+      rules_attributes: []
     };
     Object.keys(ruleSetPrompts).forEach(key => {
       ruleSetPrompts[key].checked && promptIds.push(ruleSetPrompts[key].id);
@@ -85,8 +91,10 @@ const RuleSetForm = ({ activityData, activityRuleSet, closeModal, ruleSetsCount,
       rules.push(regexRules[key]);
     });
     ruleSet.prompt_ids = promptIds;
-    ruleSet.rules = rules;
-    return ruleSet;
+    ruleSet.rules_attributes = rules;
+    return {
+      rule_set: ruleSet
+    };
   }
 
   const handleSetRuleSetName = (e: InputEvent) => { setRuleSetName(e.target.value) };
@@ -96,7 +104,7 @@ const RuleSetForm = ({ activityData, activityRuleSet, closeModal, ruleSetsCount,
     const { target } = e;
     const { id, value } = target;
     let updatedPrompts = {...ruleSetPrompts};
-    const checked = updatedPrompts[value].checked
+    const checked = updatedPrompts[value].checked;
     updatedPrompts[value] = {
       id: parseInt(id),
       checked: !checked

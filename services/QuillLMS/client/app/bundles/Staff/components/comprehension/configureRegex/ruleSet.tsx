@@ -1,8 +1,8 @@
 import * as React from "react";
 import { DataTable, Error, Modal, Spinner } from 'quill-component-library/dist/componentLibrary';
-import { buildErrorMessage, getPromptsIcons } from '../../../helpers/comprehension';
+import { buildErrorMessage, getPromptsIcons, getCsrfToken, getRuleSetIds } from '../../../helpers/comprehension';
 import { BECAUSE, BUT, SO } from '../../../../../constants/comprehension';
-import { RegexRuleInterface } from '../../../interfaces/comprehensionInterfaces';
+import { RegexRuleInterface, ActivityRuleSetInterface } from '../../../interfaces/comprehensionInterfaces';
 import { deleteRuleSet, fetchRuleSet, fetchRuleSets, updateRuleSet, createRule, updateRule, deleteRule } from '../../../utils/comprehension/ruleSetAPIs';
 import { fetchActivity } from '../../../utils/comprehension/activityAPIs';
 import RuleSetForm from './ruleSetForm';
@@ -16,6 +16,7 @@ const RuleSet = ({ history, match }) => {
   const [showEditRuleSetModal, setShowEditRuleSetModal] = React.useState<boolean>(false);
   const [showSubmissionModal, setShowSubmissionModal] = React.useState<boolean>(false);
   const [errors, setErrors] = React.useState<object>({});
+  const csrfToken = getCsrfToken();
 
   // get cached activity data to pass to ruleSetForm 
   const { data: activityData } = useQuery({
@@ -105,7 +106,7 @@ const RuleSet = ({ history, match }) => {
     rules.map((rule: RegexRuleInterface, i: number) => {
       const { id } = rule;
       if(id && rulesToDelete[id]) {
-        deleteRule(activityId, ruleSetId, id).then((response) => {
+        deleteRule(ruleSetId, id, csrfToken).then((response) => {
           const { error } = response;
           if(error) {
             let updatedErrors = errors;
@@ -116,7 +117,7 @@ const RuleSet = ({ history, match }) => {
           queryCache.refetchQueries(`ruleSet-${ruleSetId}`);
         });
       } else if(id && rulesToUpdate[id]) {
-        updateRule(activityId, rule, ruleSetId, id).then((response) => {
+        updateRule(rule, ruleSetId, id, csrfToken).then((response) => {
           const { error } = response;
           if(error) {
             let updatedErrors = errors;
@@ -127,7 +128,7 @@ const RuleSet = ({ history, match }) => {
           queryCache.refetchQueries(`ruleSet-${ruleSetId}`);
         });
       } else {
-        createRule(activityId, rule, ruleSetId).then((response) => {
+        createRule(rule, ruleSetId, csrfToken).then((response) => {
           const { error } = response;
           if(error) {
             let updatedErrors = errors;
@@ -142,7 +143,8 @@ const RuleSet = ({ history, match }) => {
   }
 
   const submitRuleSet = ({ ruleSet, rules, rulesToDelete, rulesToUpdate }) => {
-    updateRuleSet(activityId, ruleSetId, ruleSet).then((response) => {
+    const ruleSetIds = ruleSetsData && ruleSetsData.rulesets && getRuleSetIds(ruleSetsData.rulesets, ruleSetId);
+    updateRuleSet(activityId, ruleSetId, ruleSet, csrfToken, ruleSetIds).then((response) => {
       const { error } = response;
       if(error) {
         let updatedErrors = errors;
@@ -160,7 +162,7 @@ const RuleSet = ({ history, match }) => {
   }
 
   const handleDeleteRuleSet = () => {
-    deleteRuleSet(activityId, ruleSetId).then((response) => {
+    deleteRuleSet(activityId, ruleSetId, csrfToken).then((response) => {
       const { error } = response;
       if(error) {
         let updatedErrors = errors;

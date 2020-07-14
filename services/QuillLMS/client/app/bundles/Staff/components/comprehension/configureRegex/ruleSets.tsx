@@ -3,12 +3,12 @@ import { Link, RouteComponentProps } from 'react-router-dom'
 import { DataTable, Error, Modal, Spinner } from 'quill-component-library/dist/componentLibrary';
 import RuleSetForm from './ruleSetForm';
 import SubmissionModal from '../shared/submissionModal';
-import { buildErrorMessage, getPromptsIcons, getCsrfToken } from '../../../helpers/comprehension';
+import { buildErrorMessage, getPromptsIcons, getCsrfToken, getRuleSetIds } from '../../../helpers/comprehension';
 import { ActivityRouteProps, ActivityRuleSetInterface, RegexRuleInterface } from '../../../interfaces/comprehensionInterfaces';
 import { BECAUSE, BUT, SO, blankRuleSet } from '../../../../../constants/comprehension';
 import { fetchActivity } from '../../../utils/comprehension/activityAPIs';
 import { createRule, createRuleSet, fetchRuleSets } from '../../../utils/comprehension/ruleSetAPIs';
-import { queryCache, useQuery } from 'react-query'
+import { queryCache, useQuery } from 'react-query';
 
 const RuleSets: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ match }) => {
   const { params } = match;
@@ -16,6 +16,7 @@ const RuleSets: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ match }) 
   const [showAddRuleSetModal, setShowAddRuleSetModal] = React.useState<boolean>(false);
   const [showSubmissionModal, setShowSubmissionModal] = React.useState<boolean>(false);
   const [errors, setErrors] = React.useState<object>({});
+  const csrfToken = getCsrfToken();
 
   // cache ruleSets data for updates 
   const { data: ruleSetsData } = useQuery({
@@ -45,7 +46,7 @@ const RuleSets: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ match }) 
 
   const handleRuleCreation = (rules: RegexRuleInterface[], ruleSetId: string) => {
     rules.map((rule: RegexRuleInterface, i: number) => {
-      createRule(activityId, rule, ruleSetId).then((response) => {
+      createRule(rule, ruleSetId, csrfToken).then((response) => {
         const { error } = response;
         if(error) {
           let updatedErrors = errors;
@@ -57,8 +58,8 @@ const RuleSets: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ match }) 
   }
 
   const submitRuleSet = ({ ruleSet }) => {
-    const csrfToken = getCsrfToken();
-    createRuleSet(activityId, ruleSet, csrfToken).then((response) => {
+    const ruleSetIds = ruleSetsData && ruleSetsData.rulesets && getRuleSetIds(ruleSetsData.rulesets, null);
+    createRuleSet(activityId, ruleSet, csrfToken, ruleSetIds).then((response) => {
       const { error, rules, ruleSetId } = response;
       if(error) {
         let updatedErrors = errors;

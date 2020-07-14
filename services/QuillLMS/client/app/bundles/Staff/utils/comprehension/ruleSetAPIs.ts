@@ -13,7 +13,7 @@ export const fetchRuleSets = async (key: string, activityId: string) => {
 
 export const fetchRuleSet = async (key: string, activityId: string, ruleSetId: string) => {
   let ruleset: ActivityRuleSetInterface;
-  const response = await fetch(`https://comprehension-247816.appspot.com/api/activities/${activityId}/rulesets/${ruleSetId}.json/`);
+  const response = await fetch(`${baseUrl}/api/v1/comprehension/activities/${activityId}/rule_sets/${ruleSetId}.json`);
   ruleset = await response.json();
   return { 
     error: handleApiError('Failed to fetch rule set, please refresh the page.', response), 
@@ -21,8 +21,9 @@ export const fetchRuleSet = async (key: string, activityId: string, ruleSetId: s
   };
 }
 
-export const createRuleSet = async (activityId: string, ruleSet: ActivityRuleSetInterface, csrfToken: string) => {
-  const { rules } = ruleSet;
+export const createRuleSet = async (activityId: string, ruleSet: { rule_set: ActivityRuleSetInterface }, csrfToken: string, ruleSetIds: number[]) => {
+  const { rule_set } = ruleSet;
+  const { rules } = rule_set;
   const response = await fetch(`${baseUrl}/api/v1/comprehension/activities/${activityId}/rule_sets.json`, {
     method: 'POST',
     body: JSON.stringify(ruleSet),
@@ -40,53 +41,73 @@ export const createRuleSet = async (activityId: string, ruleSet: ActivityRuleSet
   };
 }
 
-export const updateRuleSet = async (activityId: string, ruleSetId: string, ruleSet: ActivityRuleSetInterface) => {
-  const { rules } = ruleSet;
-  const response = await fetch(`https://comprehension-247816.appspot.com/api/activities/${activityId}/rulesets/${ruleSetId}.json/`, {
+export const updateRuleSet = async (activityId: string, ruleSetId: string, ruleSet: { rule_set: ActivityRuleSetInterface }, csrfToken: string, ruleSetIds: number[]) => {
+  const { rule_set } = ruleSet;
+  const { priority, rules_attributes } = rule_set;
+  let updatedOrder = ruleSetIds;
+  updatedOrder.splice(priority, 0, parseInt(ruleSetId));
+
+  const firstResponse = await fetch(`${baseUrl}/api/v1/comprehension/activities/${activityId}/rule_sets/${ruleSetId}/order.json`, {
+    method: 'PUT',
+    body: JSON.stringify(updatedOrder),
+    headers: {
+      "Accept": "application/JSON",
+      "Content-Type": "application/json",
+      "X-CSRF-Token": csrfToken
+    },
+  });
+
+  const secondResponse = await fetch(`${baseUrl}/api/v1/comprehension/activities/${activityId}/rule_sets/${ruleSetId}.json`, {
     method: 'PUT',
     body: JSON.stringify(ruleSet),
     headers: {
       "Accept": "application/JSON",
-      "Content-Type": "application/json"
+      "Content-Type": "application/json",
+      "X-CSRF-Token": csrfToken
     },
   });
-  const updatedRuleSet = await response.json();
+  const updatedRuleSet = await secondResponse.json();
+
   let mergedRules: object[];
   if(updatedRuleSet) {
     mergedRules = updatedRuleSet.rules;
-    rules.forEach(rule => {
+    rules_attributes.forEach(rule => {
       // add rules without IDs for rule creation
       !rule.id && mergedRules.push(rule);
     });
   }
   return { 
-    error: handleApiError('Failed to update rule set, please try again.', response), 
+    error: handleApiError('Failed to update rule set, please try again.', secondResponse), 
     rules: updatedRuleSet && mergedRules,
     ruleSetId: updatedRuleSet && updatedRuleSet.id
   };
 }
 
-export const deleteRuleSet = async (activityId: string, ruleSetId: string) => {
-  const response = await fetch(`https://comprehension-247816.appspot.com/api/activities/${activityId}/rulesets/${ruleSetId}.json`, {
-    method: 'DELETE'
+export const deleteRuleSet = async (activityId: string, ruleSetId: string, csrfToken: string) => {
+  const response = await fetch(`${baseUrl}/api/v1/comprehension/activities/${activityId}/rule_sets/${ruleSetId}.json`, {
+    method: 'DELETE',
+    headers: {
+      "X-CSRF-Token": csrfToken
+    }
   });
   return { error: handleApiError('Failed to delete rule set, please try again.', response)};
 }
 
-export const createRule = async (activityId: string, rule: RegexRuleInterface, ruleSetId: string) => {
-  const response = await fetch(`https://comprehension-247816.appspot.com/api/activities/${activityId}/rulesets/${ruleSetId}/rules.json/`, {
+export const createRule = async (rule: RegexRuleInterface, ruleSetId: string, csrfToken: string) => {
+  const response = await fetch(`${baseUrl}/api/v1/comprehension/rule_sets/${ruleSetId}/rules.json`, {
     method: 'POST',
     body: JSON.stringify(rule),
     headers: {
       "Accept": "application/JSON",
-      "Content-Type": "application/json"
+      "Content-Type": "application/json",
+      "X-CSRF-Token": csrfToken
     },
   });
   return { error: handleApiError('Failed to create rule, please try again.', response) };
 }
 
-export const updateRule = async (activityId: string, rule: RegexRuleInterface, ruleSetId: string, ruleId: number) => {
-  const response = await fetch(`https://comprehension-247816.appspot.com/api/activities/${activityId}/rulesets/${ruleSetId}/rules/${ruleId}.json/`, {
+export const updateRule = async (rule: RegexRuleInterface, ruleSetId: string, ruleId: number, csrfToken: string) => {
+  const response = await fetch(`${baseUrl}/api/v1/comprehension/rule_sets/${ruleSetId}/rules/${ruleId}.json`, {
     method: 'PUT',
     body: JSON.stringify({
       regex_text: rule.regex_text,
@@ -94,15 +115,19 @@ export const updateRule = async (activityId: string, rule: RegexRuleInterface, r
     }),
     headers: {
       "Accept": "application/JSON",
-      "Content-Type": "application/json"
+      "Content-Type": "application/json",
+      "X-CSRF-Token": csrfToken
     },
   });
   return { error: handleApiError('Failed to update rule, please try again.', response) };
 }
 
-export const deleteRule = async (activityId: string, ruleSetId: string, ruleId: number) => {
-  const response = await fetch(`https://comprehension-247816.appspot.com/api/activities/${activityId}/rulesets/${ruleSetId}/rules/${ruleId}.json`, {
-    method: 'DELETE'
+export const deleteRule = async (ruleSetId: string, ruleId: number, csrfToken: string) => {
+  const response = await fetch(`${baseUrl}/api/v1/comprehension/rule_sets/${ruleSetId}/rules/${ruleId}.json`, {
+    method: 'DELETE',
+    headers: {
+      "X-CSRF-Token": csrfToken
+    }
   });
   return { error: handleApiError('Failed to delete rule, please try again.', response) };
 }
