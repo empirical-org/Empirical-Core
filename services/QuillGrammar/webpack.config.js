@@ -104,7 +104,7 @@ module.exports = {
         new HtmlWebpackPlugin({template: resolve(__dirname, 'src/index.html')}),
         new webpack.DefinePlugin({
           "process.env.EMPIRICAL_BASE_URL": JSON.stringify('http://localhost:3000'),
-          "process.env.QUILL_CMS": JSON.stringify('http://localhost:3100'),
+          "process.env.QUILL_CMS": JSON.stringify('https://cms.quill.org'),
           "process.env.PUSHER_KEY": JSON.stringify('a253169073ce7474f0ce'),
           "process.env.QUILL_CDN_URL": JSON.stringify('http://localhost:45537')
         })

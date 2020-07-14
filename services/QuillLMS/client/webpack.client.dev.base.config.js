@@ -87,6 +87,9 @@ module.exports = {
     ],
     proofreader: [
       './app/bundles/Proofreader/clientRegistration'
+    ],
+    grammar: [
+      './app/bundles/Grammar/clientRegistration'
     ]
   },
   resolve: {
