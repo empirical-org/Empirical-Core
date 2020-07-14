@@ -24,8 +24,4 @@ describe('RuleSets component', () => {
   it('should render RuleSets', () => {
     expect(container).toMatchSnapshot();
   });
-
-  // it('should render a DataTable component', () => {
-  //   expect(container.find(DataTable).length).toEqual(1);
-  // });
 });

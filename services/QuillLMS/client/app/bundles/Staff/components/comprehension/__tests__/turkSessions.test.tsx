@@ -21,10 +21,4 @@ describe('TurkSessions component', () => {
   it('should render TurkSessions', () => {
     expect(container).toMatchSnapshot();
   });
-  // it('should render a DataTable component', () => {
-  //   expect(container.find(DataTable).length).toEqual(1);
-  // });
-  // it('should render a DatePicker component', () => {
-  //   expect(container.find('withStyles(SingleDatePicker)').length).toEqual(1);
-  // });
 });
