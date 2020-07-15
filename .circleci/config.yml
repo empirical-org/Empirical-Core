@@ -98,7 +98,7 @@ jobs:
             cd services/QuillLMS/client
             npm install
       - save_cache:
-          key: npm-cache-lms-v5-{{ checksum "services/QuillLMS/client/package-lock.json" }}-{{ checksum "services/QuillLMS/client/package-lock.json" }}
+          key: npm-cache-lms-v5-{{ checksum "services/QuillLMS/client/package.json" }}-{{ checksum "services/QuillLMS/client/package-lock.json" }}
           paths:
             - services/QuillLMS/client/node_modules
       - run:
