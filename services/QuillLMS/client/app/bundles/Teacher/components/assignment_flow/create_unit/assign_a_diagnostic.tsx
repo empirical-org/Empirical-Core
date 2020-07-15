@@ -9,12 +9,17 @@ const intermediateDiagnosticSrc = `${process.env.CDN_URL}/images/illustrations/d
 const advancedDiagnosticSrc = `${process.env.CDN_URL}/images/illustrations/diagnostics-advanced.svg`
 const ellDiagnosticSrc = `${process.env.CDN_URL}/images/illustrations/diagnostics-ell.svg`
 const ellStarterDiagnosticSrc = `${process.env.CDN_URL}/images/illustrations/diagnostics-ell-starter.svg`
+const preApWritingSkillsSrc = `${process.env.CDN_URL}/images/college_board/diagnostics-preap.svg`
+const apWritingSkillsSrc = `${process.env.CDN_URL}/images/college_board/diagnostics-ap.svg`
 
 const STARTER_DIAGNOSTIC = 'Starter Diagnostic'
 const INTERMEDIATE_DIAGNOSTIC = 'Intermediate Diagnostic'
 const ADVANCED_DIAGNOSTIC = 'Advanced Diagnostic'
 const ELL_DIAGNOSTIC = 'ELL Diagnostic'
 const ELL_STARTER_DIAGNOSTIC = 'ELL Starter Diagnostic'
+const PRE_AP_WRITINGS_SKILLS_1 = 'Pre-AP Writing Skills Survey 1'
+const PRE_AP_WRITINGS_SKILLS_2 = 'Pre-AP Writing Skills Survey 2'
+const AP_WRITINGS_SKILLS = 'AP Writing Skills Survey'
 
 const selectCard = (history: any, unitTemplateName: string, activityIdsArray: string, unitTemplateId: number) => {
   const unitTemplateIdString = unitTemplateId.toString();
@@ -25,7 +30,7 @@ const selectCard = (history: any, unitTemplateName: string, activityIdsArray: st
   history.push(`/assign/select-classes?diagnostic_unit_template_id=${unitTemplateIdString}`)
 }
 
-const minis = (props: any) => [
+const minis = ({ history }) => [
   (<AssignmentCard
     bodyArray={[
       { key: 'What', text: 'Plural and possessive nouns, pronouns, verbs, adjectives, adverbs of manner, commas, prepositions, and capitalization', },
@@ -36,7 +41,7 @@ const minis = (props: any) => [
     header={STARTER_DIAGNOSTIC}
     imgAlt="page with a little writing"
     imgSrc={starterDiagnosticSrc}
-    selectCard={() => selectCard(props.history, STARTER_DIAGNOSTIC, encodeURIComponent([849].toString()), 99)}
+    selectCard={() => selectCard(history, STARTER_DIAGNOSTIC, encodeURIComponent([849].toString()), 99)}
   />),
   (<AssignmentCard
     bodyArray={[
@@ -48,7 +53,7 @@ const minis = (props: any) => [
     header={INTERMEDIATE_DIAGNOSTIC}
     imgAlt="page with a medium amount of writing"
     imgSrc={intermediateDiagnosticSrc}
-    selectCard={() => selectCard(props.history, INTERMEDIATE_DIAGNOSTIC, encodeURIComponent([850].toString()), 100)}
+    selectCard={() => selectCard(history, INTERMEDIATE_DIAGNOSTIC, encodeURIComponent([850].toString()), 100)}
   />),
   (<AssignmentCard
     bodyArray={[
@@ -60,7 +65,7 @@ const minis = (props: any) => [
     header={ADVANCED_DIAGNOSTIC}
     imgAlt="page with a large amount of writing"
     imgSrc={advancedDiagnosticSrc}
-    selectCard={() => selectCard(props.history, ADVANCED_DIAGNOSTIC, encodeURIComponent([888].toString()), 126)}
+    selectCard={() => selectCard(history, ADVANCED_DIAGNOSTIC, encodeURIComponent([888].toString()), 126)}
   />),
   (<AssignmentCard
     bodyArray={[
@@ -72,7 +77,7 @@ const minis = (props: any) => [
     header={ELL_STARTER_DIAGNOSTIC}
     imgAlt="page with less writing that says ELL in the corner"
     imgSrc={ellStarterDiagnosticSrc}
-    selectCard={() => selectCard(props.history, ELL_STARTER_DIAGNOSTIC, encodeURIComponent([1161].toString()), 154)}
+    selectCard={() => selectCard(history, ELL_STARTER_DIAGNOSTIC, encodeURIComponent([1161].toString()), 154)}
   />),
   (<AssignmentCard
     bodyArray={[
@@ -84,7 +89,43 @@ const minis = (props: any) => [
     header={ELL_DIAGNOSTIC}
     imgAlt="page with writing that says ELL in the corner"
     imgSrc={ellDiagnosticSrc}
-    selectCard={() => selectCard(props.history, ELL_DIAGNOSTIC, encodeURIComponent([447].toString()), 34)}
+    selectCard={() => selectCard(history, ELL_DIAGNOSTIC, encodeURIComponent([447].toString()), 34)}
+  />),
+  (<AssignmentCard
+    bodyArray={[
+      { key: 'What', text: 'Subject-verb agreement, pronouns, compound subjects, objects, and predicates, and compound and complex sentences', },
+      { key: 'When', text: 'Your students are working on basic sentence patterns and the skills outlined in the Pre-AP® English High School Course Framework.', }
+    ]}
+    buttonLink="https://diagnostic.quill.org/#/play/diagnostic/-M2nZy22Ey5g75LVsH25"
+    buttonText="Preview"
+    header={PRE_AP_WRITINGS_SKILLS_1}
+    imgAlt="page with writing that says Pre-AP on bottom"
+    imgSrc={preApWritingSkillsSrc}
+    selectCard={() => selectCard(history, PRE_AP_WRITINGS_SKILLS_1, encodeURIComponent([1229].toString()), 194)}
+  />),
+  (<AssignmentCard
+    bodyArray={[
+      { key: 'What', text: 'Conjunctive adverbs, relative clauses, appositive phrases, participial phrases, and parallel structure', },
+      { key: 'When', text: 'Your students are working on basic sentence patterns and the skills outlined in the Pre-AP® English High School Course Framework.', }
+    ]}
+    buttonLink="https://diagnostic.quill.org/#/play/diagnostic/-M2ngd3CX44IwmKr_PY7"
+    buttonText="Preview"
+    header={PRE_AP_WRITINGS_SKILLS_2}
+    imgAlt="page with writing that says Pre-AP on bottom"
+    imgSrc={preApWritingSkillsSrc}
+    selectCard={() => selectCard(history, PRE_AP_WRITINGS_SKILLS_2, encodeURIComponent([1230].toString()), 195)}
+  />),
+  (<AssignmentCard
+    bodyArray={[
+      { key: 'What', text: 'Compound-complex sentences, appositive phrases, relative clauses, participial phrases, and parallel structure', },
+      { key: 'When', text: 'Your students are developing their advanced sentence-level writing skills to prepare for writing in an AP® classroom.', }
+    ]}
+    buttonLink="https://diagnostic.quill.org/#/play/diagnostic/-L_wPCxbrT6toCb1fnYR"
+    buttonText="Preview"
+    header={AP_WRITINGS_SKILLS}
+    imgAlt="page with writing that says AP in corner"
+    imgSrc={apWritingSkillsSrc}
+    selectCard={() => selectCard(history, AP_WRITINGS_SKILLS, encodeURIComponent([992].toString()), 193)}
   />)
 ];
 

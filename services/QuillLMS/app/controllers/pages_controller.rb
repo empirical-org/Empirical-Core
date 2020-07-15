@@ -439,6 +439,14 @@ class PagesController < ApplicationController
     @style_file = 'staff'
   end
 
+  def comprehension
+    @style_file = ApplicationController::COMPREHENSION
+  end
+
+  def proofreader
+    @style_file = ApplicationController::PROOFREADER
+  end
+
   private
 
   def determine_layout
@@ -447,6 +455,8 @@ class PagesController < ApplicationController
       'home'
     when 'home_new', 'diagnostic_tool', 'connect_tool', 'grammar_tool', 'proofreader_tool', 'lessons_tool'
       'twenty_seventeen_home'
+    when ApplicationController::COMPREHENSION, ApplicationController::PROOFREADER
+      'activity'
     end
   end
 
@@ -458,6 +468,10 @@ class PagesController < ApplicationController
       @js_file = 'tools'
     when 'backpack'
       @js_file = 'staff'
+    when ApplicationController::COMPREHENSION
+      @js_file = ApplicationController::COMPREHENSION
+    when ApplicationController::PROOFREADER
+      @js_file = ApplicationController::PROOFREADER
     end
   end
 

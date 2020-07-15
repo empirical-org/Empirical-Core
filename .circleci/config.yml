@@ -87,18 +87,17 @@ jobs:
       - image: circleci/node:8.11.3
     steps:
       - checkout
-#      - restore_cache:
-#          keys:
-#            - npm-cache-lms-v3-{{ checksum "services/QuillLMS/client/package.json" }}-{{ checksum "services/QuillLMS/client/package-lock.json" }}
-#            - npm-cache-lms-v3-{{ checksum "services/QuillLMS/client/package.json" }}-
-#            - npm-cache-lms-v3-
+
+      - restore_cache:
+          keys:
+            - npm-cache-lms-v3-{{ checksum "services/QuillLMS/client/package.json" }}
       - run:
           name: Install NPM dependencies
           command: |
-            cd services/QuillLMS/client
+            cd services/QuillLMS
             npm install
       - save_cache:
-          key: npm-cache-lms-v3-{{ checksum "services/QuillLMS/client/package-lock.json" }}-{{ checksum "services/QuillLMS/client/package-lock.json" }}
+          key: npm-cache-lms-v3-{{ checksum "services/QuillLMS/client/package-lock.json" }}
           paths:
             - services/QuillLMS/client/node_modules
       - run:
@@ -107,6 +106,12 @@ jobs:
             cd services/QuillLMS/client
             TESTFILES=$(circleci tests glob "app/**/*.test.*" | circleci tests split)
             node --expose-gc ./node_modules/.bin/jest $TESTFILES --maxWorkers=2 --logHeapUsage
+      - run:
+          name: Run Mocha tests
+          command: |
+            cd services/QuillLMS
+            npm run test:mocha
+
   cms_rails_build:
     working_directory: ~/Empirical-Core
     docker:
@@ -243,22 +248,6 @@ jobs:
           name: Run QuillDiagnostic Tests
           command: |
             cd services/QuillDiagnostic
-            FORCE_COLOR=true npm run test --colors
-  proofreader_node_build:
-    working_directory: ~/Empirical-Core
-    docker:
-      - image: circleci/node:8.11.2
-    steps:
-      - checkout
-      - run:
-          name: Install NPM dependencies
-          command: |
-            cd services/QuillProofreader
-            npm install
-      - run:
-          name: Run QuillProofreader Tests
-          command: |
-            cd services/QuillProofreader
             FORCE_COLOR=true npm run test --colors
   spellchecker_node_build:
     working_directory: ~/Empirical-Core
@@ -432,7 +421,6 @@ workflows:
       - grammar_node_build
       - cms_rails_build
       - lessons_node_build
-      - proofreader_node_build
       - spellchecker_node_build
       - comprehension_rails_build
       - comprehension_python_build

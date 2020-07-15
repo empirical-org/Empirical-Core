@@ -9,6 +9,7 @@ const firebaseDatabaseUrl = process.env.FIREBASE_DATABASE_URL;
 const pusherKey = process.env.PUSHER_KEY;
 const defaultUrl = process.env.DEFAULT_URL;
 const cdnUrl = process.env.CDN_URL;
+const grammarUrl = process.env.QUILL_GRAMMAR_URL || 'http://localhost:7000/#';
 const { join, } = require('path');
 const webpackConfigLoader = require('react-on-rails/webpackConfigLoader');
 
@@ -25,6 +26,7 @@ const basePlugins = [
       PUSHER_KEY: JSON.stringify(pusherKey),
       DEFAULT_URL: JSON.stringify(defaultUrl),
       CDN_URL: JSON.stringify(cdnUrl),
+      QUILL_GRAMMAR_URL: JSON.stringify(grammarUrl)
     },
     TRACE_TURBOLINKS: devBuild,
   }),
@@ -80,6 +82,12 @@ module.exports = {
     staff: [
       './app/bundles/Staff/startup/clientRegistration.js'
     ],
+    comprehension: [
+      './app/bundles/Comprehension/clientRegistration.js'
+    ],
+    proofreader: [
+      './app/bundles/Proofreader/clientRegistration'
+    ]
   },
   resolve: {
     extensions: ['.ts', '.tsx', '.js', '.jsx'],
