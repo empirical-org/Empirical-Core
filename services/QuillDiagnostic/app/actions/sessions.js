@@ -8,16 +8,16 @@ const C = require('../constants').default;
 const sessionsRef = rootRef.child('savedSessions');
 
 export default {
-  get(sessionID, cb) {
+  get(sessionID, callback) {
     SessionApi.get(sessionID).then((session) => {
-      const processed_session = process_session(session)
-      cb(processed_session)
+      const processedSession = processSession(session)
+      callback(processed_session)
     }).catch((error) => {
       sessionsRef.child(sessionID).once('value', (snapshot) => {
         if (snapshot.exists()) {
           const session = snapshot.val();
-          const processed_session = process_session(session)
-          cb(processed_session);
+          const processed_session = processSession(session)
+          callback(processed_session);
         }
       })
     })
@@ -36,7 +36,7 @@ export default {
 
 };
 
-function process_session(session) {
+function processSession(session) {
   if (session.currentQuestion) {
     if (session.currentQuestion.question) {
       session.currentQuestion.question.attempts = [];
@@ -44,7 +44,7 @@ function process_session(session) {
       session.currentQuestion.data.attempts = [];
     }
   }
-  session.unansweredQuestions ? true : session.unansweredQuestions = [];
+  session.unansweredQuestions = session.unansweredQuestions || [];
   return session
 }
 
