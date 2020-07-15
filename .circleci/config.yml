@@ -87,11 +87,11 @@ jobs:
       - image: circleci/node:8.11.3
     steps:
       - checkout
-      - restore_cache:
-          keys:
-            - npm-cache-lms-v3-{{ checksum "services/QuillLMS/client/package.json" }}-{{ checksum "services/QuillLMS/client/package-lock.json" }}
-            - npm-cache-lms-v3-{{ checksum "services/QuillLMS/client/package.json" }}-
-            - npm-cache-lms-v3-
+#      - restore_cache:
+#          keys:
+#            - npm-cache-lms-v3-{{ checksum "services/QuillLMS/client/package.json" }}-{{ checksum "services/QuillLMS/client/package-lock.json" }}
+#            - npm-cache-lms-v3-{{ checksum "services/QuillLMS/client/package.json" }}-
+#            - npm-cache-lms-v3-
       - run:
           name: Install NPM dependencies
           command: |
