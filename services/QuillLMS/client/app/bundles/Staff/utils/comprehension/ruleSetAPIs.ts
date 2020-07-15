@@ -21,7 +21,7 @@ export const fetchRuleSet = async (key: string, activityId: string, ruleSetId: s
   };
 }
 
-export const createRuleSet = async (activityId: string, ruleSet: { rule_set: ActivityRuleSetInterface }, csrfToken: string, ruleSetIds: number[]) => {
+export const createRuleSet = async (activityId: string, ruleSet: { rule_set: ActivityRuleSetInterface }, csrfToken: string) => {
   const { rule_set } = ruleSet;
   const { rules } = rule_set;
   const response = await fetch(`${baseUrl}/api/v1/comprehension/activities/${activityId}/rule_sets.json`, {
@@ -41,21 +41,9 @@ export const createRuleSet = async (activityId: string, ruleSet: { rule_set: Act
   };
 }
 
-export const updateRuleSet = async (activityId: string, ruleSetId: string, ruleSet: { rule_set: ActivityRuleSetInterface }, csrfToken: string, ruleSetIds: number[]) => {
+export const updateRuleSet = async (activityId: string, ruleSetId: string, ruleSet: { rule_set: ActivityRuleSetInterface }, csrfToken: string) => {
   const { rule_set } = ruleSet;
-  const { priority, rules_attributes } = rule_set;
-  let updatedOrder = ruleSetIds;
-  updatedOrder.splice(priority, 0, parseInt(ruleSetId));
-
-  const firstResponse = await fetch(`${baseUrl}/api/v1/comprehension/activities/${activityId}/rule_sets/${ruleSetId}/order.json`, {
-    method: 'PUT',
-    body: JSON.stringify(updatedOrder),
-    headers: {
-      "Accept": "application/JSON",
-      "Content-Type": "application/json",
-      "X-CSRF-Token": csrfToken
-    },
-  });
+  const { rules_attributes } = rule_set;
 
   const secondResponse = await fetch(`${baseUrl}/api/v1/comprehension/activities/${activityId}/rule_sets/${ruleSetId}.json`, {
     method: 'PUT',

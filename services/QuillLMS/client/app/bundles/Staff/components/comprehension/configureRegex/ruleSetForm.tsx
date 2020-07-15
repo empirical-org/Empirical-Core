@@ -1,5 +1,5 @@
 import * as React from "react";
-import { DropdownInput, Input, TextEditor } from 'quill-component-library/dist/componentLibrary';
+import { Input, TextEditor } from 'quill-component-library/dist/componentLibrary';
 import { EditorState, ContentState } from 'draft-js'
 import { validateForm } from '../../../helpers/comprehension';
 import { BECAUSE, BUT, SO } from '../../../../../constants/comprehension';
@@ -7,7 +7,7 @@ import { ActivityInterface, ActivityRuleSetInterface, PromptInterface, RegexRule
 import RegexSection from './regexSection';
 
 interface RuleSetFormProps {
-  activityData: any,
+  activityData: ActivityInterface,
   activityRuleSet: ActivityRuleSetInterface,
   closeModal: (event: React.MouseEvent) => void,
   ruleSetsCount: number,
@@ -23,21 +23,14 @@ type InputEvent = React.ChangeEvent<HTMLInputElement>;
 const RuleSetForm = ({ activityData, activityRuleSet, closeModal, ruleSetsCount, submitRuleSet }: RuleSetFormProps) => {
 
   const { feedback, name, rules, priority } = activityRuleSet;
-  const count = ruleSetsCount - 1 < 0 ? 0 : ruleSetsCount - 1;
-  const formattedPriority = priority ? { label: priority, value: priority } : { label: count, value: count};
   const [ruleSetName, setRuleSetName] = React.useState<string>(name || '');
   const [ruleSetFeedback, setRuleSetFeedback] = React.useState<string>(feedback || '');
-  const [ruleSetPriority, setRuleSetPriority] = React.useState<any>(formattedPriority)
   const [ruleSetPrompts, setRuleSetPrompts] = React.useState<object>({});
   const [regexRules, setRegexRules] = React.useState<object>({});
   const [rulesToCreate, setRulesToCreate] = React.useState<object>({});
   const [rulesToDelete, setRulesToDelete] = React.useState<object>({});
   const [rulesToUpdate, setRulesToUpdate] = React.useState<object>({});
   const [errors, setErrors] = React.useState<object>({});
-
-  const ruleSetPriorityOptions = Array.from({length: ruleSetsCount + 1}, (x, i) => { 
-    return { value: `${i}`, label: `${i}` };
-  });
 
   React.useEffect(() => {  
     formatPrompts();
@@ -80,7 +73,8 @@ const RuleSetForm = ({ activityData, activityRuleSet, closeModal, ruleSetsCount,
     const ruleSet = {
       name: ruleSetName,
       feedback: ruleSetFeedback,
-      priority: parseInt(ruleSetPriority.value),
+      // TODO: add feature for updating ruleSet priority
+      priority: priority || ruleSetsCount + 1,
       prompt_ids: [],
       rules_attributes: []
     };
@@ -99,7 +93,6 @@ const RuleSetForm = ({ activityData, activityRuleSet, closeModal, ruleSetsCount,
 
   const handleSetRuleSetName = (e: InputEvent) => { setRuleSetName(e.target.value) };
   const handleSetRuleSetFeedback = (text: string) => { setRuleSetFeedback(text) };
-  const handleSetRuleSetPriority = (priority: object) => { setRuleSetPriority(priority) };
   const handleRuleSetPromptChange = (e: InputEvent) => {
     const { target } = e;
     const { id, value } = target;
@@ -196,13 +189,6 @@ const RuleSetForm = ({ activityData, activityRuleSet, closeModal, ruleSetsCount,
           handleChange={handleSetRuleSetName}
           label="Name"
           value={ruleSetName}
-        />
-        <DropdownInput
-          handleChange={handleSetRuleSetPriority}
-          isSearchable={true}
-          label="Priority"
-          options={ruleSetPriorityOptions}
-          value={ruleSetPriority}
         />
         <p className="form-subsection-label">Feedback</p>
         <TextEditor

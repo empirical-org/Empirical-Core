@@ -3,7 +3,7 @@ import { Link, RouteComponentProps } from 'react-router-dom'
 import { DataTable, Error, Modal, Spinner } from 'quill-component-library/dist/componentLibrary';
 import RuleSetForm from './ruleSetForm';
 import SubmissionModal from '../shared/submissionModal';
-import { buildErrorMessage, getPromptsIcons, getCsrfToken, getRuleSetIds } from '../../../helpers/comprehension';
+import { buildErrorMessage, getPromptsIcons, getCsrfToken } from '../../../helpers/comprehension';
 import { ActivityRouteProps, ActivityRuleSetInterface, RegexRuleInterface } from '../../../interfaces/comprehensionInterfaces';
 import { BECAUSE, BUT, SO, blankRuleSet } from '../../../../../constants/comprehension';
 import { fetchActivity } from '../../../utils/comprehension/activityAPIs';
@@ -58,8 +58,7 @@ const RuleSets: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ match }) 
   }
 
   const submitRuleSet = ({ ruleSet }) => {
-    const ruleSetIds = ruleSetsData && ruleSetsData.rulesets && getRuleSetIds(ruleSetsData.rulesets, null);
-    createRuleSet(activityId, ruleSet, csrfToken, ruleSetIds).then((response) => {
+    createRuleSet(activityId, ruleSet, csrfToken).then((response) => {
       const { error, rules, ruleSetId } = response;
       if(error) {
         let updatedErrors = errors;

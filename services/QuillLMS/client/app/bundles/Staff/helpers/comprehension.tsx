@@ -59,17 +59,6 @@ export const buildActivity = ({
   };
 }
 
-export const getRuleSetIds = (rulesets: ActivityRuleSetInterface[], ruleSetId: string) => {
-  const ids = rulesets.reduce((filtered: number[], ruleSet: ActivityRuleSetInterface) => {
-    const { id } = ruleSet;
-    if (id !== parseInt(ruleSetId)) {
-       filtered.push(id);
-    }
-    return filtered;
-  }, []);
-  return ids;
-}
-
 export const promptsByConjunction = (prompts: PromptInterface[]) => {
   const formattedPrompts = {};
   prompts && prompts.map((prompt: PromptInterface) => formattedPrompts[prompt.conjunction] = prompt);

@@ -1,6 +1,6 @@
 import * as React from "react";
 import { DataTable, Error, Modal, Spinner } from 'quill-component-library/dist/componentLibrary';
-import { buildErrorMessage, getPromptsIcons, getCsrfToken, getRuleSetIds } from '../../../helpers/comprehension';
+import { buildErrorMessage, getPromptsIcons, getCsrfToken } from '../../../helpers/comprehension';
 import { BECAUSE, BUT, SO } from '../../../../../constants/comprehension';
 import { RegexRuleInterface, ActivityRuleSetInterface } from '../../../interfaces/comprehensionInterfaces';
 import { deleteRuleSet, fetchRuleSet, fetchRuleSets, updateRuleSet, createRule, updateRule, deleteRule } from '../../../utils/comprehension/ruleSetAPIs';
@@ -143,8 +143,7 @@ const RuleSet = ({ history, match }) => {
   }
 
   const submitRuleSet = ({ ruleSet, rules, rulesToDelete, rulesToUpdate }) => {
-    const ruleSetIds = ruleSetsData && ruleSetsData.rulesets && getRuleSetIds(ruleSetsData.rulesets, ruleSetId);
-    updateRuleSet(activityId, ruleSetId, ruleSet, csrfToken, ruleSetIds).then((response) => {
+    updateRuleSet(activityId, ruleSetId, ruleSet, csrfToken).then((response) => {
       const { error } = response;
       if(error) {
         let updatedErrors = errors;
