@@ -29,7 +29,7 @@ const ExpandableUnit = (props: ExpandableUnitProps) => {
     return activities.map((activity, i) => {
       const { activity_link, cb_anchor_tag, description, title } = activity;
       const isLocationMatch = locationHash === `#${cb_anchor_tag}`;
-      if(isLocationMatch && !focusedSectionExpanded) {
+      if(isLocationMatch && !focusedSectionExpanded && !is_first) {
         setFocusedSectionExpanded(true);
         handleSetExpanded();
       }
