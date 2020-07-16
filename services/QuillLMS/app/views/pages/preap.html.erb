@@ -103,7 +103,7 @@
       <div class="white-section-wrapper">
         <div class="units-container">
           <% @units.each_with_index do |unit, i| %>
-            <%= react_component('ExpandableUnitSection', props: {title: unit[:title], is_first: i===0, learning_cycles: unit[:learning_cycles] }) %>
+            <%= react_component('ExpandableUnitSection', props: {title: unit[:title], isFirst: i===0, learningCycles: unit[:learning_cycles] }) %>
           <% end %>
         </div>
       </div>
