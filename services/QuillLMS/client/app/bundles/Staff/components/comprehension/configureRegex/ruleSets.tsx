@@ -3,7 +3,7 @@ import { Link, RouteComponentProps } from 'react-router-dom'
 import { DataTable, Error, Modal, Spinner } from 'quill-component-library/dist/componentLibrary';
 import RuleSetForm from './ruleSetForm';
 import SubmissionModal from '../shared/submissionModal';
-import { buildErrorMessage, getPromptsIcons, getCsrfToken } from '../../../helpers/comprehension';
+import { buildErrorMessage, getPromptsIcons } from '../../../helpers/comprehension';
 import { ActivityRouteProps, RegexRuleInterface } from '../../../interfaces/comprehensionInterfaces';
 import { BECAUSE, BUT, SO, blankRuleSet } from '../../../../../constants/comprehension';
 import { fetchActivity } from '../../../utils/comprehension/activityAPIs';
@@ -16,7 +16,6 @@ const RuleSets: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ match }) 
   const [showAddRuleSetModal, setShowAddRuleSetModal] = React.useState<boolean>(false);
   const [showSubmissionModal, setShowSubmissionModal] = React.useState<boolean>(false);
   const [errors, setErrors] = React.useState<object>({});
-  const csrfToken = getCsrfToken();
 
   // cache ruleSets data for updates 
   const { data: ruleSetsData } = useQuery({
@@ -46,7 +45,7 @@ const RuleSets: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ match }) 
 
   const handleRuleCreation = (rules: RegexRuleInterface[], ruleSetId: string) => {
     rules.map((rule: RegexRuleInterface, i: number) => {
-      createRule(rule, ruleSetId, csrfToken).then((response) => {
+      createRule(rule, ruleSetId).then((response) => {
         const { error } = response;
         if(error) {
           let updatedErrors = errors;
@@ -58,7 +57,7 @@ const RuleSets: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ match }) 
   }
 
   const submitRuleSet = ({ ruleSet }) => {
-    createRuleSet(activityId, ruleSet, csrfToken).then((response) => {
+    createRuleSet(activityId, ruleSet).then((response) => {
       const { error, rules, ruleSetId } = response;
       if(error) {
         let updatedErrors = errors;

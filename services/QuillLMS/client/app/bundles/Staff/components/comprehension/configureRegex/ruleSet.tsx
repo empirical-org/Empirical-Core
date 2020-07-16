@@ -1,6 +1,6 @@
 import * as React from "react";
 import { DataTable, Error, Modal, Spinner } from 'quill-component-library/dist/componentLibrary';
-import { buildErrorMessage, getPromptsIcons, getCsrfToken } from '../../../helpers/comprehension';
+import { buildErrorMessage, getPromptsIcons } from '../../../helpers/comprehension';
 import { BECAUSE, BUT, SO } from '../../../../../constants/comprehension';
 import { RegexRuleInterface } from '../../../interfaces/comprehensionInterfaces';
 import { deleteRuleSet, fetchRuleSet, fetchRuleSets, updateRuleSet, createRule, updateRule, deleteRule } from '../../../utils/comprehension/ruleSetAPIs';
@@ -16,7 +16,6 @@ const RuleSet = ({ history, match }) => {
   const [showEditRuleSetModal, setShowEditRuleSetModal] = React.useState<boolean>(false);
   const [showSubmissionModal, setShowSubmissionModal] = React.useState<boolean>(false);
   const [errors, setErrors] = React.useState<object>({});
-  const csrfToken = getCsrfToken();
 
   // get cached activity data to pass to ruleSetForm 
   const { data: activityData } = useQuery({
@@ -106,7 +105,7 @@ const RuleSet = ({ history, match }) => {
     rules.map((rule: RegexRuleInterface, i: number) => {
       const { id } = rule;
       if(id && rulesToDelete[id]) {
-        deleteRule(ruleSetId, id, csrfToken).then((response) => {
+        deleteRule(ruleSetId, id).then((response) => {
           const { error } = response;
           if(error) {
             let updatedErrors = errors;
@@ -117,7 +116,7 @@ const RuleSet = ({ history, match }) => {
           queryCache.refetchQueries(`ruleSet-${ruleSetId}`);
         });
       } else if(id && rulesToUpdate[id]) {
-        updateRule(rule, ruleSetId, id, csrfToken).then((response) => {
+        updateRule(rule, ruleSetId, id).then((response) => {
           const { error } = response;
           if(error) {
             let updatedErrors = errors;
@@ -128,7 +127,7 @@ const RuleSet = ({ history, match }) => {
           queryCache.refetchQueries(`ruleSet-${ruleSetId}`);
         });
       } else {
-        createRule(rule, ruleSetId, csrfToken).then((response) => {
+        createRule(rule, ruleSetId).then((response) => {
           const { error } = response;
           if(error) {
             let updatedErrors = errors;
@@ -143,7 +142,7 @@ const RuleSet = ({ history, match }) => {
   }
 
   const submitRuleSet = ({ ruleSet, rules, rulesToDelete, rulesToUpdate }) => {
-    updateRuleSet(activityId, ruleSetId, ruleSet, csrfToken).then((response) => {
+    updateRuleSet(activityId, ruleSetId, ruleSet).then((response) => {
       const { error } = response;
       if(error) {
         let updatedErrors = errors;
@@ -161,7 +160,7 @@ const RuleSet = ({ history, match }) => {
   }
 
   const handleDeleteRuleSet = () => {
-    deleteRuleSet(activityId, ruleSetId, csrfToken).then((response) => {
+    deleteRuleSet(activityId, ruleSetId).then((response) => {
       const { error } = response;
       if(error) {
         let updatedErrors = errors;
