@@ -9,7 +9,7 @@ store.dispatch(initStore());
 
 class App extends React.Component<{}, {}> {
   componentDidMount() {
-    document.title = 'Quill Proofreader'
+    document.title = 'Quill Grammar'
   }
 
   public render(): JSX.Element {

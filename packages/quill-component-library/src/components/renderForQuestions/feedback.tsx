@@ -1,10 +1,10 @@
 import React from 'react';
-const icon = `${process.env.QUILL_CDN_URL}/images/icons/direction.svg`
-const revise = `${process.env.QUILL_CDN_URL}/images/icons/revise.svg`
-const multiple = `${process.env.QUILL_CDN_URL}/images/icons/multiple-choice.svg`
-const success  = `${process.env.QUILL_CDN_URL}/images/icons/correct.svg`
-const arrow = `${process.env.QUILL_CDN_URL}/images/icons/continue.svg`
-const brownArrow = `${process.env.QUILL_CDN_URL}/images/icons/continue-brown.svg`
+const icon = "https://assets.quill.org/images/icons/direction.svg"
+const revise = "https://assets.quill.org/images/icons/revise.svg"
+const multiple = "https://assets.quill.org/images/icons/multiple-choice.svg"
+const success  = "https://assets.quill.org/images/icons/correct.svg"
+const arrow = "https://assets.quill.org/images/icons/continue.svg"
+const brownArrow = "https://assets.quill.org/images/icons/continue-brown.svg"
 
 function getIconClassName(feedbackType: string): string {
   let returnVal;
