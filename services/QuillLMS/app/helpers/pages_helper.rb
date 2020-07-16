@@ -343,7 +343,7 @@ module PagesHelper
                 title: 'Sentence Combining: Excerpt from Romeo and Juliet by William Shakespeare',
                 description: 'Explore dramatic characterization and Shakepearean turns of phrase',
                 activity_link: 'https://www.quill.org/activities/packs/226',
-                cb_anchor_tag: 'the-hamilton-mixtape'
+                cb_anchor_tag: 'romeo-and-juliet'
               },
             ]
           }
