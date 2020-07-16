@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`<PlayGrammarContainer /> should render 1`] = `
+exports[`<QuestionComponent /> should render 1`] = `
 <QuestionComponent
   activity={
     Object {

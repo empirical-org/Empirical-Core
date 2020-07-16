@@ -30,7 +30,9 @@ Object.defineProperty(window, 'matchMedia', {
 process.env.DEFAULT_URL = 'https://staging.quill.org'
 process.env.QUILL_CMS = 'https://cms.quill.org'
 
-describe("<PlayGrammarContainer />", () => {
+const componentDidMount = QuestionComponent.prototype.componentDidMount = jest.fn();
+
+describe("<QuestionComponent />", () => {
   const mountWrapper = mount(<QuestionComponent
     activity={currentActivity}
     answeredQuestions={session.answeredQuestions}
