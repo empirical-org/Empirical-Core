@@ -48,7 +48,7 @@
     "net": "^1.0.2",
     "node-sass": "^4.14.1",
     "pusher-js": "^4.3.0",
-    "quill-component-library": "0.7.35",
+    "quill-component-library": "0.7.36",
     "quill-marking-logic": "0.13.7",
     "react": "^16.13.1",
     "react-contenteditable": "^3.3.4",
