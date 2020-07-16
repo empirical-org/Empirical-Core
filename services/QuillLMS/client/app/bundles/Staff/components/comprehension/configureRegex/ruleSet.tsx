@@ -2,7 +2,7 @@ import * as React from "react";
 import { DataTable, Error, Modal, Spinner } from 'quill-component-library/dist/componentLibrary';
 import { buildErrorMessage, getPromptsIcons, getCsrfToken } from '../../../helpers/comprehension';
 import { BECAUSE, BUT, SO } from '../../../../../constants/comprehension';
-import { RegexRuleInterface, ActivityRuleSetInterface } from '../../../interfaces/comprehensionInterfaces';
+import { RegexRuleInterface } from '../../../interfaces/comprehensionInterfaces';
 import { deleteRuleSet, fetchRuleSet, fetchRuleSets, updateRuleSet, createRule, updateRule, deleteRule } from '../../../utils/comprehension/ruleSetAPIs';
 import { fetchActivity } from '../../../utils/comprehension/activityAPIs';
 import RuleSetForm from './ruleSetForm';
@@ -170,7 +170,7 @@ const RuleSet = ({ history, match }) => {
       }
       toggleShowDeleteRuleSetModal();
 
-      if(errors) {
+      if(Object.keys(errors).length) {
         toggleSubmissionModal();
       } else {
         // update ruleSets cache to remove delete ruleSet

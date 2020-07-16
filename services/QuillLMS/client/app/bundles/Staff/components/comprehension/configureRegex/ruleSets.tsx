@@ -4,7 +4,7 @@ import { DataTable, Error, Modal, Spinner } from 'quill-component-library/dist/c
 import RuleSetForm from './ruleSetForm';
 import SubmissionModal from '../shared/submissionModal';
 import { buildErrorMessage, getPromptsIcons, getCsrfToken } from '../../../helpers/comprehension';
-import { ActivityRouteProps, ActivityRuleSetInterface, RegexRuleInterface } from '../../../interfaces/comprehensionInterfaces';
+import { ActivityRouteProps, RegexRuleInterface } from '../../../interfaces/comprehensionInterfaces';
 import { BECAUSE, BUT, SO, blankRuleSet } from '../../../../../constants/comprehension';
 import { fetchActivity } from '../../../utils/comprehension/activityAPIs';
 import { createRule, createRuleSet, fetchRuleSets } from '../../../utils/comprehension/ruleSetAPIs';
@@ -64,7 +64,7 @@ const RuleSets: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ match }) 
         let updatedErrors = errors;
         updatedErrors['ruleSetError'] = error;
         setErrors(updatedErrors);
-      } else if(rules.length && ruleSetId) {
+      } else if(rules && rules.length && ruleSetId) {
         handleRuleCreation(rules, ruleSetId);
       }
       // update ruleSets cache to display newly created ruleSet
