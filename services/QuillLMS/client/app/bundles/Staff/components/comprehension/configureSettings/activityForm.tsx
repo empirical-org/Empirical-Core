@@ -1,5 +1,5 @@
 import * as React from "react";
-import { DropdownInput, Input, TextEditor } from 'quill-component-library/dist/componentLibrary';
+import { Input, TextEditor } from 'quill-component-library/dist/componentLibrary';
 import { EditorState, ContentState } from 'draft-js'
 // import { flagOptions } from '../../../../../constants/comprehension'
 import { validateForm, buildActivity, buildBlankPrompt, promptsByConjunction } from '../../../helpers/comprehension';
@@ -17,7 +17,7 @@ import {
   BUT_STEM,
   SO_STEM 
 } from '../../../../../constants/comprehension';
-import { ActivityInterface, FlagInterface, PromptInterface, PassagesInterface } from '../../../interfaces/comprehensionInterfaces';
+import { ActivityInterface, PromptInterface, PassagesInterface } from '../../../interfaces/comprehensionInterfaces';
 
 // TODO: add form inputs for course, target reading level and reading level score
 
