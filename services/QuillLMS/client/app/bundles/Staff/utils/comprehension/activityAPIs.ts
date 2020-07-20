@@ -3,7 +3,7 @@ import { handleApiError, apiFetch } from '../../helpers/comprehension';
 
 export const fetchActivities = async () => {
   let activities: ActivityInterface[];
-  const response = await apiFetch('/api/v1/comprehension/activities.json');
+  const response = await apiFetch('activities');
   activities = await response.json();
   return { 
     activities, 
@@ -14,7 +14,7 @@ export const fetchActivities = async () => {
 export const fetchActivity = async (key: string, activityId: string) => {
   let activity: ActivityInterface;
   // let flagObject: any = {};
-  const response = await apiFetch(`/api/v1/comprehension/activities/${activityId}.json`);
+  const response = await apiFetch(`activities/${activityId}`);
   activity = await response.json();
   // if(activity) {
   //   const { flag } = activity
@@ -28,7 +28,7 @@ export const fetchActivity = async (key: string, activityId: string) => {
 }
 
 export const createActivity = async (activity: object) => {
-  const response = await apiFetch('/api/v1/comprehension/activities.json', {
+  const response = await apiFetch('activities', {
     method: 'POST',
     body: JSON.stringify(activity)
   });
@@ -36,7 +36,7 @@ export const createActivity = async (activity: object) => {
 }
 
 export const updateActivity = async (activity: object, activityId: string) => {
-  const response = await apiFetch(`/api/v1/comprehension/activities/${activityId}.json`, {
+  const response = await apiFetch(`activities/${activityId}`, {
     method: 'PUT',
     body: JSON.stringify(activity)
   });
