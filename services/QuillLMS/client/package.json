@@ -70,6 +70,7 @@
     "pusher": "^2.2.2",
     "pusher-js": "^5.0.1",
     "quill-component-library": "0.7.36",
+    "quill-marking-logic": "0.13.7",
     "quill-string-normalizer": "0.0.9",
     "react": "^16.13.1",
     "react-addons-css-transition-group": "^15.2.0",
