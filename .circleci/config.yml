@@ -204,31 +204,6 @@ jobs:
           command: |
             cd services/QuillLessons
             npm run jest app/
-  grammar_node_build:
-    working_directory: ~/Empirical-Core
-    docker:
-      - image: circleci/node:8.11.2
-    steps:
-      - checkout
-      - restore_cache:
-          keys:
-            - npm-cache-grammar-v2-{{ checksum "services/QuillGrammar/package.json" }}-{{ checksum "services/QuillGrammar/package-lock.json" }}
-            - npm-cache-grammar-v2-{{ checksum "services/QuillGrammar/package.json" }}
-            - npm-cache-grammar-v2
-      - run:
-          name: Install NPM dependencies
-          command: |
-            cd services/QuillGrammar
-            npm install
-      - save_cache:
-          key: npm-cache-grammar-v2-{{ checksum "services/QuillGrammar/package.json" }}-{{ checksum "services/QuillGrammar/package-lock.json" }}
-          paths:
-            - services/QuillGrammar/node_modules
-      - run:
-          name: Run QuillGrammar Tests
-          command: |
-            cd services/QuillGrammar
-            FORCE_COLOR=true npm run test --colors
   diagnostic_node_build:
     working_directory: ~/Empirical-Core
     docker:
@@ -414,7 +389,6 @@ workflows:
       - lms_node_build
       - marking_logic_node_build
       - diagnostic_node_build
-      - grammar_node_build
       - cms_rails_build
       - lessons_node_build
       - spellchecker_node_build
