@@ -87,18 +87,19 @@ jobs:
       - image: circleci/node:8.11.3
     steps:
       - checkout
+
       - restore_cache:
           keys:
-            - npm-cache-lms-v3-{{ checksum "services/QuillLMS/client/package.json" }}-{{ checksum "services/QuillLMS/client/package-lock.json" }}
-            - npm-cache-lms-v3-{{ checksum "services/QuillLMS/client/package.json" }}-
-            - npm-cache-lms-v3-
+            - npm-cache-lms-v5-{{ checksum "services/QuillLMS/client/package.json" }}-{{ checksum "services/QuillLMS/client/package-lock.json" }}
+            - npm-cache-lms-v5-{{ checksum "services/QuillLMS/client/package.json" }}-
+            - npm-cache-lms-v5-
       - run:
           name: Install NPM dependencies
           command: |
-            cd services/QuillLMS
+            cd services/QuillLMS/client
             npm install
       - save_cache:
-          key: npm-cache-lms-v3-{{ checksum "services/QuillLMS/client/package-lock.json" }}-{{ checksum "services/QuillLMS/client/package-lock.json" }}
+          key: npm-cache-lms-v5-{{ checksum "services/QuillLMS/client/package.json" }}-{{ checksum "services/QuillLMS/client/package-lock.json" }}
           paths:
             - services/QuillLMS/client/node_modules
       - run:
@@ -107,16 +108,10 @@ jobs:
             cd services/QuillLMS/client
             TESTFILES=$(circleci tests glob "app/**/*.test.*" | circleci tests split)
             node --expose-gc ./node_modules/.bin/jest $TESTFILES --maxWorkers=2 --logHeapUsage
-      - run:
-          name: Run Mocha tests
-          command: |
-            cd services/QuillLMS
-            npm run test:mocha
-
   cms_rails_build:
     working_directory: ~/Empirical-Core
     docker:
-      - image: ruby:2.3.1
+      - image: ruby:2.6.6
         environment:
           PG_DB: quill_cms_test_db
           PG_USER: ubuntu
@@ -209,31 +204,6 @@ jobs:
           command: |
             cd services/QuillLessons
             npm run jest app/
-  grammar_node_build:
-    working_directory: ~/Empirical-Core
-    docker:
-      - image: circleci/node:8.11.2
-    steps:
-      - checkout
-      - restore_cache:
-          keys:
-            - npm-cache-grammar-v2-{{ checksum "services/QuillGrammar/package.json" }}-{{ checksum "services/QuillGrammar/package-lock.json" }}
-            - npm-cache-grammar-v2-{{ checksum "services/QuillGrammar/package.json" }}
-            - npm-cache-grammar-v2
-      - run:
-          name: Install NPM dependencies
-          command: |
-            cd services/QuillGrammar
-            npm install
-      - save_cache:
-          key: npm-cache-grammar-v2-{{ checksum "services/QuillGrammar/package.json" }}-{{ checksum "services/QuillGrammar/package-lock.json" }}
-          paths:
-            - services/QuillGrammar/node_modules
-      - run:
-          name: Run QuillGrammar Tests
-          command: |
-            cd services/QuillGrammar
-            FORCE_COLOR=true npm run test --colors
   diagnostic_node_build:
     working_directory: ~/Empirical-Core
     docker:
@@ -419,7 +389,6 @@ workflows:
       - lms_node_build
       - marking_logic_node_build
       - diagnostic_node_build
-      - grammar_node_build
       - cms_rails_build
       - lessons_node_build
       - spellchecker_node_build

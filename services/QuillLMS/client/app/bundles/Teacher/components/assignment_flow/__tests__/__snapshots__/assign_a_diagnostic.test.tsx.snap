@@ -90,7 +90,7 @@ exports[`AssignADiagnostic component should render AssignADiagnostic 1`] = `
         }
         buttonLink="https://diagnostic.quill.org/#/play/diagnostic/-LyFRZvbHAmooTTIIVE2"
         buttonText="Preview"
-        header="ELL Starter Diagnostic"
+        header="ELL Starter Diagnostic (Level 1 - Emerging)"
         imgAlt="page with less writing that says ELL in the corner"
         imgSrc="undefined/images/illustrations/diagnostics-ell-starter.svg"
         selectCard={[Function]}
@@ -110,7 +110,7 @@ exports[`AssignADiagnostic component should render AssignADiagnostic 1`] = `
         }
         buttonLink="https://diagnostic.quill.org/#/play/diagnostic/ell"
         buttonText="Preview"
-        header="ELL Diagnostic"
+        header="ELL Diagnostic (Level 2 - Expanding)"
         imgAlt="page with writing that says ELL in the corner"
         imgSrc="undefined/images/illustrations/diagnostics-ell.svg"
         selectCard={[Function]}
