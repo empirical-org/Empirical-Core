@@ -358,7 +358,7 @@ exports[`FillInTheBlank component projector view inactive renders 1`] = `
             <img
               alt="Directions Icon"
               className="info"
-              src="undefined/images/icons/direction.svg"
+              src="https://assets.quill.org/images/icons/direction.svg"
             />
             <p
               dangerouslySetInnerHTML={
@@ -770,7 +770,7 @@ exports[`FillInTheBlank component projector view when an answer is being display
             <img
               alt="Directions Icon"
               className="info"
-              src="undefined/images/icons/direction.svg"
+              src="https://assets.quill.org/images/icons/direction.svg"
             />
             <p
               dangerouslySetInnerHTML={
@@ -1134,7 +1134,7 @@ exports[`FillInTheBlank component student view inactive renders 1`] = `
             <img
               alt="Directions Icon"
               className="info"
-              src="undefined/images/icons/direction.svg"
+              src="https://assets.quill.org/images/icons/direction.svg"
             />
             <p
               dangerouslySetInnerHTML={
@@ -1511,7 +1511,7 @@ exports[`FillInTheBlank component student view when an answer is being displayed
             <img
               alt="Directions Icon"
               className="info"
-              src="undefined/images/icons/direction.svg"
+              src="https://assets.quill.org/images/icons/direction.svg"
             />
             <p
               dangerouslySetInnerHTML={
@@ -1882,7 +1882,7 @@ exports[`FillInTheBlank component student view when the student has submitted an
             <img
               alt="Directions Icon"
               className="info"
-              src="undefined/images/icons/direction.svg"
+              src="https://assets.quill.org/images/icons/direction.svg"
             />
             <p
               dangerouslySetInnerHTML={

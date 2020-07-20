@@ -53,7 +53,8 @@ module NavigationHelper
   end
 
   def playing_activity?
-    controller.class == PagesController && [ApplicationController::COMPREHENSION, ApplicationController::PROOFREADER].include?(action_name)
+    activity_actions = [ApplicationController::COMPREHENSION, ApplicationController::PROOFREADER, ApplicationController::GRAMMAR]
+    controller.class == PagesController && activity_actions.include?(action_name)
   end
 
   def show_site_navigation?
