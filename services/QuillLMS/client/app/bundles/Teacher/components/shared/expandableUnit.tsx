@@ -9,15 +9,16 @@ interface Activity {
 }
 export interface ExpandableUnitProps {
   title: string;
-  is_first: boolean;
-  learning_cycles: {
+  isFirst: boolean;
+  learningCycles: {
     activities: Activity[]
   }[]
 }
 
 const ExpandableUnit = (props: ExpandableUnitProps) => {
-  const { title, is_first, learning_cycles } = props;
-  const [expanded, setExpanded] = React.useState<boolean>(is_first);
+  const { title, isFirst, learningCycles } = props;
+  // per CollegeBoard specs, first section will be expanded when visting the page
+  const [expanded, setExpanded] = React.useState<boolean>(isFirst);
   const [focusedSectionExpanded, setFocusedSectionExpanded] = React.useState<boolean>(false);
   const locationHash = document.location.hash;
 
@@ -29,7 +30,7 @@ const ExpandableUnit = (props: ExpandableUnitProps) => {
     return activities.map((activity, i) => {
       const { activity_link, cb_anchor_tag, description, title } = activity;
       const isLocationMatch = locationHash === `#${cb_anchor_tag}`;
-      if(isLocationMatch && !focusedSectionExpanded) {
+      if(isLocationMatch && !focusedSectionExpanded && !isFirst) {
         setFocusedSectionExpanded(true);
         handleSetExpanded();
       }
@@ -49,9 +50,9 @@ const ExpandableUnit = (props: ExpandableUnitProps) => {
 
   const topSectionStyle = `${expanded ? 'open' : 'closed'}`;
   
-  const learningCycles = learning_cycles.map((learningCycle, i) => {
+  const learningCyclesRows = learningCycles.map((learningCycle, i) => {
     const { activities } = learningCycle;
-    const isLastCycle = i === learning_cycles.length - 1;
+    const isLastCycle = i === learningCycles.length - 1;
     return(
       <div className="learning-cycle-container" key={i}>
         <p className="learning-cycle-header">Learning Cycle {i + 1}</p>
@@ -69,7 +70,7 @@ const ExpandableUnit = (props: ExpandableUnitProps) => {
         <div className="unit-header-container">
           <p className="unit-title">{title}</p>
           <div className="unit-sub-header-container">
-            <p>{learning_cycles.length} Learning Cycles</p>
+            <p>{learningCycles.length} Learning Cycles</p>
             <p className="bullet">•</p>
             <p>5 Passage-Aligned Activities</p>
           </div>
@@ -81,7 +82,7 @@ const ExpandableUnit = (props: ExpandableUnitProps) => {
         </div>
       </div>
       <div className={`bottom-section ${!expanded ? 'hidden' : ''}`}>
-        {learningCycles}
+        {learningCyclesRows}
       </div>
     </div>
   );
