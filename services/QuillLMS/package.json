@@ -16,7 +16,7 @@
   "scripts": {
     "postinstall": "cd ./client && npm install",
     "gulp": "cd ./client && npm run gulp",
-    "test:comprehension": "mocha --require ts-node/register ./client/app/bundles/Comprehension/**/*.spec.ts",
+    "test:mocha": "mocha --require ts-node/register ./client/app/bundles/**/**/*.spec.ts",
     "test": "npm run jest && npm run build:test && npm run lint && bundle exec rake spec",
     "lint": "cd client && npm run lint",
     "install-react-on-rails": "cd client && npm run install-react-on-rails",
