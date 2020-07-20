@@ -15,8 +15,7 @@ import {
   setSessionReducerToSavedSession,
   startListeningToFollowUpQuestionsForProofreaderSession,
   startNewSession,
-  removeGrammarSession,
-  removeProofreaderSession
+  removeSession
 } from "../../actions/session";
 import { startListeningToConceptsFeedback } from '../../actions/conceptsFeedback'
 import { startListeningToConcepts } from '../../actions/concepts'
@@ -149,11 +148,7 @@ export class PlayGrammarContainer extends React.Component<PlayGrammarContainerPr
     removeSession = () => {
       const sessionID = getParameterByName('student', window.location.href)
       const proofreaderSessionId = getParameterByName('proofreaderSessionId', window.location.href)
-      if (proofreaderSessionId) {
-        removeProofreaderSession(proofreaderSessionId)
-      } else if (sessionID) {
-        removeGrammarSession(sessionID)
-      }
+      removeSession(sessionID || proofreaderSessionId);
     }
 
     finishActivitySession = (sessionID: string, results: FormattedConceptResult[], score: number) => {
