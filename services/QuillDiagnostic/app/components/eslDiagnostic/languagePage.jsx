@@ -24,7 +24,7 @@ export class LanguagePage extends React.Component {
         <div className="introductory-text">
           <p>Hello there! You are about to start a 22 question placement activity.</p>
           <p>First, let’s set up your language preference. All the directions are in English by default.</p>
-          <p>Show directions only in:</p>
+          <p>Show directions in English only.</p>
         </div>
         <div className="language-button-container english">
           <button className="language-button" onClick={this.handleClickLanguage} type="button" value="english">
@@ -38,7 +38,7 @@ export class LanguagePage extends React.Component {
           <div className="divider" />
         </div>
         <div className="introductory-text">
-          <p>Show directions in English <span>and</span>:</p>
+          <p>Show directions in English <span>and</span> another language.</p>
         </div>
         <div className="language-button-container">
           {langs.map(language => {

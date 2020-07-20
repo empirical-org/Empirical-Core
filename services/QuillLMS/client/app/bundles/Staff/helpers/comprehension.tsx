@@ -3,6 +3,16 @@ import { promptStems, DEFAULT_MAX_ATTEMPTS, BECAUSE, MINIMUM_READING_LEVEL, MAXI
 import { ActivityRuleSetPrompt, PromptInterface } from '../interfaces/comprehensionInterfaces'
 import stripHtml from "string-strip-html";
 const quillCheckmark = 'https://assets.quill.org/images/icons/check-circle-small.svg';
+const baseUrl = `${process.env.DEFAULT_URL}/api/v1/comprehension/`;;
+const fetchDefaults = require("fetch-defaults");
+
+export const apiFetch = fetchDefaults(fetch, baseUrl, {
+  headers: {
+    "Accept": "application/JSON",
+    "Content-Type": "application/json",
+    "X-CSRF-Token": localStorage.getItem('csrfToken')
+  }
+})
 
 export const getPromptsIcons = (prompts: ActivityRuleSetPrompt[]) => {
   const icons = {};
