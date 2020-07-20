@@ -10,13 +10,19 @@ interface RuleSetFormProps {
   activityData: ActivityInterface,
   activityRuleSet: ActivityRuleSetInterface,
   closeModal: (event: React.MouseEvent) => void,
-  submitRuleSet: (argumentsHash: { ruleSet: ActivityRuleSetInterface, rules: RegexRuleInterface[], rulesToDelete: object, rulesToUpdate: object }) => void
+  ruleSetsCount: number,
+  submitRuleSet: (argumentsHash: { 
+    ruleSet: { rule_set: ActivityRuleSetInterface}, 
+    rules: RegexRuleInterface[], 
+    rulesToDelete: object, 
+    rulesToUpdate: object
+  }) => void
 }
 type InputEvent = React.ChangeEvent<HTMLInputElement>;
 
-const RuleSetForm = ({ activityData, activityRuleSet, closeModal, submitRuleSet }: RuleSetFormProps) => {
+const RuleSetForm = ({ activityData, activityRuleSet, closeModal, ruleSetsCount, submitRuleSet }: RuleSetFormProps) => {
 
-  const { feedback, id, name, rules } = activityRuleSet;
+  const { feedback, name, rules, priority } = activityRuleSet;
   const [ruleSetName, setRuleSetName] = React.useState<string>(name || '');
   const [ruleSetFeedback, setRuleSetFeedback] = React.useState<string>(feedback || '');
   const [ruleSetPrompts, setRuleSetPrompts] = React.useState<object>({});
@@ -65,11 +71,12 @@ const RuleSetForm = ({ activityData, activityRuleSet, closeModal, submitRuleSet 
     const promptIds = [];
     const rules = [];
     const ruleSet = {
-      id: id || null,
       name: ruleSetName,
       feedback: ruleSetFeedback,
+      // TODO: add feature for updating ruleSet priority
+      priority: priority || ruleSetsCount + 1,
       prompt_ids: [],
-      rules: []
+      rules_attributes: []
     };
     Object.keys(ruleSetPrompts).forEach(key => {
       ruleSetPrompts[key].checked && promptIds.push(ruleSetPrompts[key].id);
@@ -78,8 +85,10 @@ const RuleSetForm = ({ activityData, activityRuleSet, closeModal, submitRuleSet 
       rules.push(regexRules[key]);
     });
     ruleSet.prompt_ids = promptIds;
-    ruleSet.rules = rules;
-    return ruleSet;
+    ruleSet.rules_attributes = rules;
+    return {
+      rule_set: ruleSet
+    };
   }
 
   const handleSetRuleSetName = (e: InputEvent) => { setRuleSetName(e.target.value) };
@@ -88,7 +97,7 @@ const RuleSetForm = ({ activityData, activityRuleSet, closeModal, submitRuleSet 
     const { target } = e;
     const { id, value } = target;
     let updatedPrompts = {...ruleSetPrompts};
-    const checked = updatedPrompts[value].checked
+    const checked = updatedPrompts[value].checked;
     updatedPrompts[value] = {
       id: parseInt(id),
       checked: !checked
