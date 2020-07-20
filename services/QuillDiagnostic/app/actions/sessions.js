@@ -11,13 +11,13 @@ export default {
   get(sessionID, callback) {
     SessionApi.get(sessionID).then((session) => {
       const processedSession = processSession(session)
-      callback(processed_session)
+      callback(processedSession)
     }).catch((error) => {
       sessionsRef.child(sessionID).once('value', (snapshot) => {
         if (snapshot.exists()) {
           const session = snapshot.val();
-          const processed_session = processSession(session)
-          callback(processed_session);
+          const processedSession = processSession(session)
+          callback(processedSession);
         }
       })
     })
