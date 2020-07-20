@@ -41,6 +41,7 @@
     "bowser": "^1.6.0",
     "bulma": "^0.8.0",
     "css-loader": "^3.0.0",
+    "draft-js": "^0.10.4",
     "es5-shim": "^4.5.7",
     "expose-loader": "^0.7.1",
     "fetch-defaults": "^1.0.0",
