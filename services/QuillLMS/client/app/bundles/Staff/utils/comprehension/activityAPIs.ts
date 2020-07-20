@@ -1,10 +1,9 @@
 import { ActivityInterface } from '../../interfaces/comprehensionInterfaces';
-import { handleApiError } from '../../helpers/comprehension';
-const baseUrl = process.env.DEFAULT_URL;
+import { handleApiError, apiFetch } from '../../helpers/comprehension';
 
 export const fetchActivities = async () => {
   let activities: ActivityInterface[];
-  const response = await fetch(`${baseUrl}/api/v1/comprehension/activities.json`);
+  const response = await apiFetch('activities');
   activities = await response.json();
   return { 
     activities, 
@@ -15,7 +14,7 @@ export const fetchActivities = async () => {
 export const fetchActivity = async (key: string, activityId: string) => {
   let activity: ActivityInterface;
   // let flagObject: any = {};
-  const response = await fetch(`${baseUrl}/api/v1/comprehension/activities/${activityId}.json`);
+  const response = await apiFetch(`activities/${activityId}`);
   activity = await response.json();
   // if(activity) {
   //   const { flag } = activity
@@ -28,28 +27,18 @@ export const fetchActivity = async (key: string, activityId: string) => {
   };
 }
 
-export const createActivity = async (activity: object, csrfToken: string) => {
-  const response = await fetch(`${baseUrl}/api/v1/comprehension/activities.json`, {
+export const createActivity = async (activity: object) => {
+  const response = await apiFetch('activities', {
     method: 'POST',
-    body: JSON.stringify(activity),
-    headers: {
-      "Accept": "application/JSON",
-      "Content-Type": "application/json",
-      "X-CSRF-Token": csrfToken
-    },
+    body: JSON.stringify(activity)
   });
   return { error: handleApiError('Failed to create activity, please try again.', response) };
 }
 
-export const updateActivity = async (activity: object, activityId: string, csrfToken: string) => {
-  const response = await fetch(`${baseUrl}/api/v1/comprehension/activities/${activityId}.json`, {
+export const updateActivity = async (activity: object, activityId: string) => {
+  const response = await apiFetch(`activities/${activityId}`, {
     method: 'PUT',
-    body: JSON.stringify(activity),
-    headers: {
-      "Accept": "application/JSON",
-      "Content-Type": "application/json",
-      "X-CSRF-Token": csrfToken
-    },
+    body: JSON.stringify(activity)
   });
   return { error: handleApiError('Failed to update activity, please try again.', response) }
 }
