@@ -11,14 +11,14 @@ export default class PremiumMini extends React.Component {
 
   miniBuilder() {
     /* eslint-disable react/jsx-no-target-blank */
-    const supportLink = <a href="/subscriptions/activate_covid_subscription" target="_blank">Learn more about Premium</a>
+    const supportLink = <a href="https://support.quill.org/quill-premium" target="_blank">Learn more about Premium</a>
     /* eslint-enable react/jsx-no-target-blank */
     return (
       <div className="premium-container ">
-        <h4>Activate free Quill Premium</h4>
-        <button className="btn btn-orange" onClick={this.handleBeginTrialClick} type="button">Get Premium Free until 7/31/2020</button>
+        <h4>Try Premium for Free</h4>
+        <button className="btn btn-orange" onClick={this.handleBeginTrialClick} type="button">Get Premium Free for 30 days</button>
         <p className="credit-card">No credit card required.</p>
-        <p>Due to school closures, we&apos;re offering Quill Premium free for the rest of the school year.</p>
+        <p>Unlock your Premium trial to save time grading and gain actionable insights.</p>
         {supportLink}
       </div>
     );
