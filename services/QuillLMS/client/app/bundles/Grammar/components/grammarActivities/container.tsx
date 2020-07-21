@@ -7,7 +7,7 @@ import { Response } from 'quill-marking-logic'
 import getParameterByName from '../../helpers/getParameterByName';
 import { getActivity } from "../../actions/grammarActivities";
 import {
-  updateSessionOnFirebase,
+  updateSession,
   getQuestionsForConcepts,
   getQuestions,
   goToNextQuestion,
@@ -96,7 +96,7 @@ export class PlayGrammarContainer extends React.Component<PlayGrammarContainerPr
 
       const sessionID = getParameterByName('student', window.location.href)
       if (sessionID && !_.isEqual(nextProps.session, session) && !nextProps.session.pending) {
-        updateSessionOnFirebase(sessionID, nextProps.session)
+        updateSession(sessionID, nextProps.session)
       }
 
     }

@@ -13,7 +13,7 @@ import { shuffle } from '../helpers/shuffle';
 import { permittedFlag } from '../helpers/flagArray'
 import _ from 'lodash';
 
-export const updateSessionOnFirebase = (sessionID: string, session: SessionState) => {
+export const updateSession = (sessionID: string, session: SessionState) => {
   const cleanedSession = _.pickBy(session)
   // cleanedSession.currentQuestion ? cleanedSession.currentQuestion.attempts = _.compact(cleanedSession.currentQuestion.attempts) : null
   if (!cleanedSession.error) {
@@ -24,41 +24,43 @@ export const updateSessionOnFirebase = (sessionID: string, session: SessionState
 export const setSessionReducerToSavedSession = (sessionID: string) => {
   return dispatch => {
     SessionApi.get(sessionID).then((session) => {
-      handleGrammarSession(session)
+      dispatch(handleGrammarSession(session))
     }).catch((error) => {
       sessionsRef.child(sessionID).once('value', (snapshot) => {
         const session = snapshot.val()
-        handleGrammarSession(session)
+        dispatch(handleGrammarSession(session))
       })
     })
   }
 }
 
 const handleGrammarSession = (session) => {
-  if (session && Object.keys(session).length > 1 && !session.error) {
-    QuestionApi.getAll(GRAMMAR_QUESTION_TYPE).then((allQuestions) => {
-      if (session.currentQuestion) {
-        if (!session.currentQuestion.prompt || !session.currentQuestion.answers) {
-          const currentQuestion = allQuestions[session.currentQuestion.uid]
-          currentQuestion.uid = session.currentQuestion.uid
-          session.currentQuestion = currentQuestion
-        }
-      }
-      if (session.unansweredQuestions) {
-        session.unansweredQuestions = session.unansweredQuestions.map((q) => {
-          if (q.prompt && q.answers && q.uid) {
-            return q
-          } else {
-            const question = allQuestions[q.uid]
-            question.uid = q.uid
-            return question
+  return dispatch => {
+    if (session && Object.keys(session).length > 1 && !session.error) {
+      QuestionApi.getAll(GRAMMAR_QUESTION_TYPE).then((allQuestions) => {
+        if (session.currentQuestion) {
+          if (!session.currentQuestion.prompt || !session.currentQuestion.answers) {
+            const currentQuestion = allQuestions[session.currentQuestion.uid]
+            currentQuestion.uid = session.currentQuestion.uid
+            session.currentQuestion = currentQuestion
           }
-        })
-      }
-      dispatch(setSessionReducer(session))
-    })
-  } else {
-    dispatch(setSessionPending(false))
+        }
+        if (session.unansweredQuestions) {
+          session.unansweredQuestions = session.unansweredQuestions.map((q) => {
+            if (q.prompt && q.answers && q.uid) {
+              return q
+            } else {
+              const question = allQuestions[q.uid]
+              question.uid = q.uid
+              return question
+            }
+          })
+        }
+        dispatch(setSessionReducer(session))
+      })
+    } else {
+      dispatch(setSessionPending(false))
+    }
   }
 }
 
@@ -66,35 +68,37 @@ export const startListeningToFollowUpQuestionsForProofreaderSession = (proofread
   return (dispatch, getState) => {
     // All sessions are stored in the same table in the LMS, so we can use the same APIs to access them
     SessionApi.get(proofreaderSessionID).then((proofreaderSession) => {
-      handleProofreaderSession(proofreaderSession)
+      dispatch(handleProofreaderSession(proofreaderSession, getState()))
     }).catch((error) => {
       proofreaderSessionsRef.child(proofreaderSessionID).on('value', (snapshot) => {
         const proofreaderSession = snapshot.val()
         proofreaderSessionsRef.child(proofreaderSessionID).off()
-        handleProofreaderSession(proofreaderSession)
+        dispatch(handleProofreaderSession(proofreaderSession, getState()))
       })
     })
   }
 }
 
-const handleProofreaderSession = (proofreaderSession) => {
-  // but we don't want to overwrite anything if there's already a proofreader session saved to the state here
-  if (proofreaderSession && proofreaderSession.conceptResults && !getState().session.proofreaderSession) {
-    const concepts: { [key: string]: { quantity: 1|2|3 } } = {}
-    const incorrectConcepts = proofreaderSession.conceptResults.filter(cr => cr.metadata.correct === 0)
-    let quantity = 3
-    if (incorrectConcepts.length > 9) {
-      quantity = 1
-    } else if (incorrectConcepts.length > 4) {
-      quantity = 2
-    }
-    proofreaderSession.conceptResults.forEach(cr => {
-      if (cr.metadata.correct === 0) {
-        concepts[cr.concept_uid] = { quantity }
+const handleProofreaderSession = (proofreaderSession, state) => {
+  return dispatch => {
+    // but we don't want to overwrite anything if there's already a proofreader session saved to the state here
+    if (proofreaderSession && proofreaderSession.conceptResults && !state.session.proofreaderSession) {
+      const concepts: { [key: string]: { quantity: 1|2|3 } } = {}
+      const incorrectConcepts = proofreaderSession.conceptResults.filter(cr => cr.metadata.correct === 0)
+      let quantity = 3
+      if (incorrectConcepts.length > 9) {
+        quantity = 1
+      } else if (incorrectConcepts.length > 4) {
+        quantity = 2
       }
-    })
-    dispatch(saveProofreaderSessionToReducer(proofreaderSession))
-    dispatch(getQuestionsForConcepts(concepts, 'production'))
+      proofreaderSession.conceptResults.forEach(cr => {
+        if (cr.metadata.correct === 0) {
+          concepts[cr.concept_uid] = { quantity }
+        }
+      })
+      dispatch(saveProofreaderSessionToReducer(proofreaderSession))
+      dispatch(getQuestionsForConcepts(concepts, 'production'))
+    }
   }
 }
 
