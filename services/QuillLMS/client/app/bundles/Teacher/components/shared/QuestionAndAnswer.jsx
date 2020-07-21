@@ -21,9 +21,14 @@ export default class QuestionAndAnswer extends React.Component {
   expandOrCollapseButton() {
     const { questionsAndAnswersFile } = this.props
     const { expanded } = this.state
+    const files = {
+      'premium': true,
+      'preap': true,
+      'ap': true
+    }
     let innerElement;
 
-    if (questionsAndAnswersFile === 'premium' || questionsAndAnswersFile === 'preap') {
+    if (files[questionsAndAnswersFile]) {
       const imageLink = expanded ? 'collapse.svg' : 'expand.svg'
       innerElement = <img alt="expand-and-collapse" src={`${process.env.CDN_URL}/images/shared/${imageLink}`} />
     } else {
