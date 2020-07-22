@@ -6,8 +6,6 @@ if (!window.Promise) {
 }
 import BackOff from './utils/backOff';
 import * as React from "react";
-import * as ReactDOM from "react-dom";
-import App from "./app.tsx";
 import './styles/style.scss';
 import createStore from './utils/configureStore';
 import { Provider } from 'react-redux';

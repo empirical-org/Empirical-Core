@@ -9,6 +9,7 @@ class ApplicationController < ActionController::Base
   COMPREHENSION = 'comprehension'
   PROOFREADER = 'proofreader'
   GRAMMAR = 'grammar'
+  DIAGNOSTIC = 'diagnostic'
 
   #helper CMS::Helper
   helper SegmentioHelper
