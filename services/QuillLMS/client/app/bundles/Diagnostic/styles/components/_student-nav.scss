@@ -1,0 +1,38 @@
+.nav.student-nav {
+  height: 64px;
+  background-color: #06806b;
+
+  .container {
+    max-width: 800px;
+    margin: auto;
+    align-items: center;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .student-nav-section {
+    display: flex;
+    justify-content: center;
+  }
+
+  .student-nav-item {
+    color: $white;
+    font-weight: 600;
+    font-size: 16px;
+    img {
+      height: 32px;
+      max-height: 32px;
+    }
+  }
+
+  button.student-nav-item {
+    background-color: transparent;
+    border: 0;
+  }
+
+  @media (max-width: 850px) {
+    .container {
+      padding: 0 4% 0 4%;
+    }
+  }
+}
