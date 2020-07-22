@@ -9,17 +9,12 @@ const intermediateDiagnosticSrc = `${process.env.CDN_URL}/images/illustrations/d
 const advancedDiagnosticSrc = `${process.env.CDN_URL}/images/illustrations/diagnostics-advanced.svg`
 const ellDiagnosticSrc = `${process.env.CDN_URL}/images/illustrations/diagnostics-ell.svg`
 const ellStarterDiagnosticSrc = `${process.env.CDN_URL}/images/illustrations/diagnostics-ell-starter.svg`
-const preApWritingSkillsSrc = `${process.env.CDN_URL}/images/college_board/diagnostics-preap.svg`
-const apWritingSkillsSrc = `${process.env.CDN_URL}/images/college_board/diagnostics-ap.svg`
 
 const STARTER_DIAGNOSTIC = 'Starter Diagnostic'
 const INTERMEDIATE_DIAGNOSTIC = 'Intermediate Diagnostic'
 const ADVANCED_DIAGNOSTIC = 'Advanced Diagnostic'
 const ELL_DIAGNOSTIC = 'ELL Diagnostic (Level 2 - Expanding)'
 const ELL_STARTER_DIAGNOSTIC = 'ELL Starter Diagnostic (Level 1 - Emerging)'
-const PRE_AP_WRITINGS_SKILLS_1 = 'Pre-AP Writing Skills Survey 1'
-const PRE_AP_WRITINGS_SKILLS_2 = 'Pre-AP Writing Skills Survey 2'
-const AP_WRITINGS_SKILLS = 'AP Writing Skills Survey'
 
 const selectCard = (history: any, unitTemplateName: string, activityIdsArray: string, unitTemplateId: number) => {
   const unitTemplateIdString = unitTemplateId.toString();
@@ -90,42 +85,6 @@ const minis = ({ history }) => [
     imgAlt="page with writing that says ELL in the corner"
     imgSrc={ellDiagnosticSrc}
     selectCard={() => selectCard(history, ELL_DIAGNOSTIC, encodeURIComponent([447].toString()), 34)}
-  />),
-  (<AssignmentCard
-    bodyArray={[
-      { key: 'What', text: 'Subject-verb agreement, pronouns, compound subjects, objects, and predicates, and compound and complex sentences', },
-      { key: 'When', text: 'Your students are working on basic sentence patterns and the skills outlined in the Pre-AP® English High School Course Framework.', }
-    ]}
-    buttonLink="https://diagnostic.quill.org/#/play/diagnostic/-M2nZy22Ey5g75LVsH25"
-    buttonText="Preview"
-    header={PRE_AP_WRITINGS_SKILLS_1}
-    imgAlt="page with writing that says Pre-AP on bottom"
-    imgSrc={preApWritingSkillsSrc}
-    selectCard={() => selectCard(history, PRE_AP_WRITINGS_SKILLS_1, encodeURIComponent([1229].toString()), 194)}
-  />),
-  (<AssignmentCard
-    bodyArray={[
-      { key: 'What', text: 'Conjunctive adverbs, relative clauses, appositive phrases, participial phrases, and parallel structure', },
-      { key: 'When', text: 'Your students are working on basic sentence patterns and the skills outlined in the Pre-AP® English High School Course Framework.', }
-    ]}
-    buttonLink="https://diagnostic.quill.org/#/play/diagnostic/-M2ngd3CX44IwmKr_PY7"
-    buttonText="Preview"
-    header={PRE_AP_WRITINGS_SKILLS_2}
-    imgAlt="page with writing that says Pre-AP on bottom"
-    imgSrc={preApWritingSkillsSrc}
-    selectCard={() => selectCard(history, PRE_AP_WRITINGS_SKILLS_2, encodeURIComponent([1230].toString()), 195)}
-  />),
-  (<AssignmentCard
-    bodyArray={[
-      { key: 'What', text: 'Compound-complex sentences, appositive phrases, relative clauses, participial phrases, and parallel structure', },
-      { key: 'When', text: 'Your students are developing their advanced sentence-level writing skills to prepare for writing in an AP® classroom.', }
-    ]}
-    buttonLink="https://diagnostic.quill.org/#/play/diagnostic/-L_wPCxbrT6toCb1fnYR"
-    buttonText="Preview"
-    header={AP_WRITINGS_SKILLS}
-    imgAlt="page with writing that says AP in corner"
-    imgSrc={apWritingSkillsSrc}
-    selectCard={() => selectCard(history, AP_WRITINGS_SKILLS, encodeURIComponent([992].toString()), 193)}
   />)
 ];
 
@@ -133,7 +92,7 @@ const AssignADiagnostic = (props: any) => (
   <div className="assignment-flow-container">
     <AssignmentFlowNavigation />
     <ScrollToTop />
-    <div className="diagnostic-page container">
+    <div className="college-board-page container">
       <h1>Which diagnostic covers the skills you want to assess?</h1>
       <div className="minis">{minis(props)}</div>
     </div>

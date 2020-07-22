@@ -6,6 +6,7 @@ import UnitTemplatesManager from '../components/assignment_flow/unit_templates_m
 import UnitTemplateProfile from '../components/assignment_flow/unit_templates_manager/unit_template_profile/unit_template_profile.tsx'
 import AssignANewActivity from '../components/assignment_flow/create_unit/assign_a_new_activity'
 import AssignADiagnostic from '../components/assignment_flow/create_unit/assign_a_diagnostic.tsx'
+import CollegeBoard from '../components/assignment_flow/create_unit/college_board.tsx'
 import CreateUnit from '../components/assignment_flow/create_unit/create_unit'
 import LearningProcess from '../components/assignment_flow/create_unit/learning_process.tsx'
 import ActivityType from '../components/assignment_flow/create_unit/activity_type.tsx'
@@ -16,6 +17,7 @@ const AssignActivitiesRouter = props => (
     <Switch>
       <Route component={routerProps => <LearningProcess {...props} {...routerProps} />} path="/assign/learning-process" />
       <Route component={routerProps => <ActivityType {...props} {...routerProps} />} path="/assign/activity-type" />
+      <Route component={routerProps => <CollegeBoard {...props} {...routerProps} />} path="/assign/college-board" />
       <Route component={routerProps => <AssignADiagnostic {...props} {...routerProps} />} path="/assign/diagnostic" />
       <Route component={routerProps => <CreateUnit {...props} {...routerProps} />} path="/assign/create-activity-pack" />
       <Route component={routerProps => <CreateUnit {...props} {...routerProps} />} path="/assign/select-classes" />

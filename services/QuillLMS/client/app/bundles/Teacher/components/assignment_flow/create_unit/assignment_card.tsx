@@ -8,6 +8,8 @@ interface AssignmentCardProps {
   bodyArray: Array<{ key: string, text: string }>;
   buttonText?: string;
   buttonLink?: string;
+  imgClassName?: string;
+  showNewTag?: boolean;
 }
 
 export default class AssignmentCard extends React.Component<AssignmentCardProps, {}> {
@@ -37,7 +39,7 @@ export default class AssignmentCard extends React.Component<AssignmentCardProps,
   }
 
   render() {
-    const { imgSrc, imgAlt, header, bodyArray, } = this.props
+    const { imgSrc, imgAlt, imgClassName, showNewTag, header, bodyArray, } = this.props
     const bodyElements = bodyArray.map(obj => (
       <div className="body-element" key={obj.key}>
         <p className="key">{obj.key}</p>
@@ -45,11 +47,14 @@ export default class AssignmentCard extends React.Component<AssignmentCardProps,
       </div>)
     )
 
+    const newTag = showNewTag ? <span className="new-tag">NEW</span> : null
+
     return (<div className="assignment-card quill-card" onClick={this.handleClick}>
       <div className="top-row">
         <div className="left">
-          <img alt={imgAlt} src={imgSrc} />
+          <img alt={imgAlt} className={imgClassName} src={imgSrc} />
           <h2>{header}</h2>
+          {newTag}
         </div>
         {this.renderButtons()}
       </div>

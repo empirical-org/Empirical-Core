@@ -15,6 +15,7 @@ interface AssignmentFlowNavigationProps {
 const learningProcessSlug = 'learning-process'
 const diagnosticSlug = 'diagnostic'
 const activityTypeSlug = 'activity-type'
+const collegeBoardSlug = 'college-board'
 const createActivityPackSlug = 'create-activity-pack'
 const selectClassesSlug = 'select-classes'
 const featuredActivityPacksSlug = 'featured-activity-packs'
@@ -23,6 +24,7 @@ const slash = (index: number) => <span className="slash" key={index}>/</span>
 const learningProcess = () => <Link key="learning-process" to={`/assign/${learningProcessSlug}`}>Learning process</Link>
 const diagnostic = () => <Link key="diagnostic" to={`/assign/${diagnosticSlug}`}>Diagnostic</Link>
 const activityType = () => <Link key="activity-type" to={`/assign/${activityTypeSlug}`}>Activity type</Link>
+const collegeBoard = () => <Link key="college-board" to={`/assign/${collegeBoardSlug}`}>College Board</Link>
 const createActivityPack = () => <Link key="custom-activity-pack" to={`/assign/${createActivityPackSlug}`}>Custom activity pack</Link>
 const selectClasses = () => <Link key="assign-" to={`/assign/${selectClassesSlug}`}>Assign</Link>
 const activityPack = () => <Link key="activity-pack" to={`/assign/${featuredActivityPacksSlug}`}>Activity pack</Link>
@@ -32,6 +34,7 @@ const routeLinks = {
   [learningProcessSlug]: () => [slash(1), learningProcess()],
   [diagnosticSlug]: () => [slash(1), learningProcess(), slash(2), diagnostic()],
   [activityTypeSlug]: () => [slash(1), learningProcess(), slash(2), activityType()],
+  [collegeBoardSlug]: () => [slash(1), learningProcess(), slash(2), collegeBoard()],
   [createActivityPackSlug]: () => [slash(1), learningProcess(), slash(2), activityType(), slash(3), createActivityPack()],
   [selectClassesSlug]: (unitTemplateId, unitTemplateName, isFromDiagnosticPath) => {
     if (isFromDiagnosticPath) {
@@ -71,6 +74,7 @@ const routeProgress = {
   [learningProcessSlug]: () => 'step-one',
   [diagnosticSlug]: () => 'step-two',
   [activityTypeSlug]: () => 'step-two',
+  [collegeBoardSlug]: () => 'step-two',
   [createActivityPackSlug]: () => 'step-three',
   [selectClassesSlug]: () => 'step-five',
   [featuredActivityPacksSlug]: (unitTemplateId, unitTemplateName) => {
