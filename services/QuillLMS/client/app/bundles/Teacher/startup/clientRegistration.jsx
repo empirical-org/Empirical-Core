@@ -35,6 +35,7 @@ import UnitTemplateCategoriesApp from './UnitTemplateCategoriesAppClient'
 import StudentNavbarItems from '../../Student/startup/StudentNavbarItemsAppClient'
 import ExpandableUnitSection from './ExpandableUnitClient'
 import QuestionsAndAnswersSection from './QuestionsAndAnswersClient';
+import PreAp from './PreApAppClient';
 
 require('../../../assets/styles/home.scss');
 
@@ -73,5 +74,6 @@ ReactOnRails.register({ TeacherGuideApp,
   UnitTemplateCategoriesApp,
   StudentNavbarItems,
   ExpandableUnitSection,
-  QuestionsAndAnswersSection
+  QuestionsAndAnswersSection,
+  PreAp
 });
