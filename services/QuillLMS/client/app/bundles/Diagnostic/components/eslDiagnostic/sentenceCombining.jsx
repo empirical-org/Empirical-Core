@@ -17,7 +17,7 @@ import updateResponseResource from '../renderForQuestions/updateResponseResource
 import TextEditor from '../renderForQuestions/renderTextEditor.jsx';
 import translations from '../../libs/translations/index.js';
 import translationMap from '../../libs/translations/ellQuestionMapper.js';
-import { ENGLISH, rightToLeftLanguages } from '../../../public/locales/languagePageInfo';
+import { ENGLISH, rightToLeftLanguages } from '../../modules/translation/languagePageInfo';
 
 const C = require('../../constants').default;
 

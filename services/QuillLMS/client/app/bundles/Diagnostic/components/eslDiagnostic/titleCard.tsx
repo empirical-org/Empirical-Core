@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import translations from '../../libs/translations/index.js';
-import { commonText } from '../../../public/locales/commonText';
-import { ENGLISH, rightToLeftLanguages } from '../../../public/locales/languagePageInfo';
+import { commonText } from '../../modules/translation/commonText';
+import { ENGLISH, rightToLeftLanguages } from '../../modules/translation/languagePageInfo';
 
 export interface ComponentProps {
   data: any,

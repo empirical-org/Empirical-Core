@@ -1,7 +1,7 @@
 import React from 'react';
 import { Spinner } from 'quill-component-library/dist/componentLibrary';
 import translations from '../../libs/translations/index.js';
-import { ENGLISH, rightToLeftLanguages } from '../../../public/locales/languagePageInfo';
+import { ENGLISH, rightToLeftLanguages } from '../../modules/translation/languagePageInfo';
 
 export class FinishedDiagnostic extends React.Component {
 

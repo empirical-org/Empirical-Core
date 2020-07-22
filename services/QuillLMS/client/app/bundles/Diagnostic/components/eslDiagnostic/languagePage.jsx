@@ -1,5 +1,5 @@
 import React from 'react';
-import { ENGLISH, languages, languagesV2, languageData, languageDataV2 } from '../../../public/locales/languagePageInfo';
+import { ENGLISH, languages, languagesV2, languageData, languageDataV2 } from '../../modules/translation/languagePageInfo';
 import { TrackAnalyticsEvent} from '../../actions/analytics'
 import { Events } from '../../modules/analytics'
 

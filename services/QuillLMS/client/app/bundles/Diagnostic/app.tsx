@@ -17,7 +17,6 @@ import fillInBlankActions from './actions/fillInBlank';
 import sentenceFragmentActions from './actions/sentenceFragments.ts';
 import lessonActions from './actions/lessons.ts';
 import * as titleCardActions from './actions/titleCards.ts';
-import 'styles/style.scss';
 import * as Sentry from '@sentry/browser';
 import quillNormalizer from './libs/quillNormalizer';
 import './i18n';

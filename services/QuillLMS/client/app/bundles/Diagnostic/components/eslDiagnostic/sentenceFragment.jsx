@@ -16,7 +16,7 @@ import {
 } from 'quill-component-library/dist/componentLibrary';
 import translations from '../../libs/translations/index.js';
 import translationMap from '../../libs/translations/ellQuestionMapper.js';
-import { ENGLISH, rightToLeftLanguages } from '../../../public/locales/languagePageInfo';
+import { ENGLISH, rightToLeftLanguages } from '../../modules/translation/languagePageInfo';
 
 const key = ''; // enables this component to be used by both play/sentence-fragments and play/diagnostic
 
