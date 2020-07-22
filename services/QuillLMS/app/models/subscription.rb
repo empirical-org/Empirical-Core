@@ -14,8 +14,6 @@ class Subscription < ActiveRecord::Base
   after_commit :check_if_purchaser_email_is_in_database
   after_initialize :set_null_start_date_to_today
 
-  COVID_19_EXPIRATION = Date.parse('2020-07-31')
-
   COVID_19_SUBSCRIPTION_TYPE = 'Quill Premium for School Closures'
   COVID_19_SCHOOL_SUBSCRIPTION_TYPE = 'Quill School Premium for School Closures'
 
@@ -225,10 +223,6 @@ class Subscription < ActiveRecord::Base
     start_date: Date.today}
   end
 
-  def covid19?
-    account_type == COVID_19_SUBSCRIPTION_TYPE
-  end
-
   protected
 
   def charge_user_for_teacher_premium
@@ -280,10 +274,6 @@ class Subscription < ActiveRecord::Base
     {expiration: expiration, start_date: start_date}
   end
 
-  def self.set_covid_expiration_and_start_date
-    {expiration: COVID_19_EXPIRATION, start_date: Date.today}
-  end
-
   def report_to_new_relic(error)
     begin
       raise error
@@ -309,9 +299,6 @@ class Subscription < ActiveRecord::Base
       if attributes[:account_type]&.downcase == 'teacher trial'
         PremiumAnalyticsWorker.perform_async(school_or_user_id, attributes[:account_type])
         attributes = attributes.merge(Subscription.set_trial_expiration_and_start_date(school_or_user))
-      elsif [COVID_19_SUBSCRIPTION_TYPE, COVID_19_SCHOOL_SUBSCRIPTION_TYPE].include?(attributes[:account_type])
-        attributes = attributes.merge(Subscription.set_covid_expiration_and_start_date)
-        extend_current_subscription_for_covid_19(school_or_user)
       else
         attributes = attributes.merge(Subscription.set_premium_expiration_and_start_date(school_or_user))
       end
@@ -324,15 +311,6 @@ class Subscription < ActiveRecord::Base
       "#{type}Subscription".constantize.create(h)
     end
     subscription
-  end
-
-
-  def self.extend_current_subscription_for_covid_19(user)
-    existing_sub = user.subscription
-    if existing_sub&.expiration && existing_sub.expiration > Date.today
-      time_to_add = [COVID_19_EXPIRATION - Date.today, 0].max
-      existing_sub.update(expiration: existing_sub.expiration + time_to_add)
-    end
   end
 
 end
