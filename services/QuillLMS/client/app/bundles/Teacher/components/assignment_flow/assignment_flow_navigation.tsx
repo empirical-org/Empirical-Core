@@ -19,6 +19,8 @@ const collegeBoardSlug = 'college-board'
 const createActivityPackSlug = 'create-activity-pack'
 const selectClassesSlug = 'select-classes'
 const featuredActivityPacksSlug = 'featured-activity-packs'
+const preApSlug = 'pre-ap'
+const apSlug = 'ap'
 
 const slash = (index: number) => <span className="slash" key={index}>/</span>
 const learningProcess = () => <Link key="learning-process" to={`/assign/${learningProcessSlug}`}>Learning process</Link>
@@ -28,12 +30,16 @@ const collegeBoard = () => <Link key="college-board" to={`/assign/${collegeBoard
 const createActivityPack = () => <Link key="custom-activity-pack" to={`/assign/${createActivityPackSlug}`}>Custom activity pack</Link>
 const selectClasses = () => <Link key="assign-" to={`/assign/${selectClassesSlug}`}>Assign</Link>
 const activityPack = () => <Link key="activity-pack" to={`/assign/${featuredActivityPacksSlug}`}>Activity pack</Link>
+const preAp = () => <Link key="activity-pack" to={`/assign/${preApSlug}`}>Pre-AP</Link>
+const ap = () => <Link key="activity-pack" to={`/assign/${apSlug}`}>AP</Link>
 const individualFeaturedActivityPack = (unitTemplateId, unitTemplateName) => <Link key="featured-activity-pack" to={`/assign/${featuredActivityPacksSlug}/${unitTemplateId}`}>{unitTemplateName}</Link>
 
 const routeLinks = {
   [learningProcessSlug]: () => [slash(1), learningProcess()],
   [diagnosticSlug]: () => [slash(1), learningProcess(), slash(2), diagnostic()],
   [activityTypeSlug]: () => [slash(1), learningProcess(), slash(2), activityType()],
+  [preApSlug]: () => [slash(1), learningProcess(), slash(2), collegeBoard(), slash(3), preAp()],
+  [apSlug]: () => [slash(1), learningProcess(), slash(2), collegeBoard(), slash(3), ap()],
   [collegeBoardSlug]: () => [slash(1), learningProcess(), slash(2), collegeBoard()],
   [createActivityPackSlug]: () => [slash(1), learningProcess(), slash(2), activityType(), slash(3), createActivityPack()],
   [selectClassesSlug]: (unitTemplateId, unitTemplateName, isFromDiagnosticPath) => {
@@ -75,6 +81,8 @@ const routeProgress = {
   [diagnosticSlug]: () => 'step-two',
   [activityTypeSlug]: () => 'step-two',
   [collegeBoardSlug]: () => 'step-two',
+  [preApSlug]: () => 'step-three',
+  [apSlug]: () => 'step-three',
   [createActivityPackSlug]: () => 'step-three',
   [selectClassesSlug]: () => 'step-five',
   [featuredActivityPacksSlug]: (unitTemplateId, unitTemplateName) => {

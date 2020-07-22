@@ -7,9 +7,24 @@ interface PreApContainerProps {
   units?: Array<any>
 }
 
+const generateLink = (unitTemplateId, isPartOfAssignmentFlow) => {
+  if (isPartOfAssignmentFlow) { return '' }
+
+  return `/activities/packs/${unitTemplateId}`
+}
+
 const PreAp = ({ units, isPartOfAssignmentFlow, }: PreApContainerProps) => {
   const expandableUnits = units.map((u, index) => {
-    return (<ExpandableUnitSection isFirst={index === 0} key={u.id} learningCycles={u.learning_cycles} title={u.title} />)
+    return (
+      <ExpandableUnitSection
+        generateLink={generateLink}
+        isFirst={index === 0}
+        isPartOfAssignmentFlow={isPartOfAssignmentFlow}
+        key={u.id}
+        learningCycles={u.learning_cycles}
+        title={u.title}
+      />
+    )
   })
 
   const getStartedButton = isPartOfAssignmentFlow ? null : <a className="quill-button large primary contained focus-on-light" href="https://www.quill.org/account/new" rel="noopener noreferrer" target="_blank">Get started</a>
@@ -49,7 +64,7 @@ const PreAp = ({ units, isPartOfAssignmentFlow, }: PreApContainerProps) => {
         <div className="activity-container">
           <div className="activity-header-container">
             <p className="activity-header" id="writing-skills-survey-1">Pre-AP Writing Skills Survey 1: Basic of Sentence Patterns</p>
-            <a className="quill-button medium primary outlined view-button focus-on-light" href="https://www.quill.org/activities/packs/194" rel="noopener noreferrer" target="_blank">View</a>
+            <a className="quill-button medium primary outlined view-button focus-on-light" href={generateLink(isPartOfAssignmentFlow, 194)} rel="noopener noreferrer" target="_blank">View</a>
           </div>
           <div className="activity-text-container">
             <p className="activity-sub-text">Students complete a twelve-item survey to gauge their understanding of key writing skills, fundamental grammatical elements, and compound/complex sentence constructions. After students complete the survey, Quill will automatically recommend up to five activity packs for each student based on their needs. Each pack contains four to six activities that each take about 15 minutes to complete and provide scaffolded, sequenced practice on one of the five skills addressed in the survey.</p>
@@ -60,7 +75,7 @@ const PreAp = ({ units, isPartOfAssignmentFlow, }: PreApContainerProps) => {
         <div className="activity-container">
           <div className="activity-header-container">
             <p className="activity-header" id="writing-skills-survey-2">Pre-AP Writing Skills Survey 2: Tools for Sentence Expansion</p>
-            <a className="quill-button medium primary outlined view-button focus-on-light" href="https://www.quill.org/activities/packs/195" rel="noopener noreferrer" target="_blank">View</a>
+            <a className="quill-button medium primary outlined view-button focus-on-light" href={generateLink(isPartOfAssignmentFlow, 195)} rel="noopener noreferrer" target="_blank">View</a>
           </div>
           <div className="activity-text-container">
             <p className="activity-sub-text">Students complete a twelve-item survey to gauge their understanding of key writing skills, focusing on constructions for expanding sentences with description and detail. After students complete the survey, Quill will automatically recommend up to five activity packs for each student based on their needs. Each pack contains four to six activities that each take about 15 minutes to complete and provide scaffolded, sequenced practice on one of the five skills addressed in the survey.</p>

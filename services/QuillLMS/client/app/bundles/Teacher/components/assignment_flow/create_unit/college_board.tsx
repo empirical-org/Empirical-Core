@@ -20,7 +20,7 @@ const minis = ({ history }) => [
     header="View Pre-AP Activities"
     imgAlt="Page with writing with the word Pre-AP in top left corner"
     imgSrc={preApSrc}
-    selectCard={() => selectCard(history, '/assign/college-board/pre-ap')}
+    selectCard={() => selectCard(history, '/assign/pre-ap')}
   />),
   (<AssignmentCard
     bodyArray={[
@@ -30,7 +30,7 @@ const minis = ({ history }) => [
     header="View AP Activities"
     imgAlt="Page with writing with the word AP in top left corner"
     imgSrc={apSrc}
-    selectCard={() => selectCard(history, '/assign/college-board/ap')}
+    selectCard={() => selectCard(history, '/assign/ap')}
   />)
 ];
 
