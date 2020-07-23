@@ -27,7 +27,6 @@ describe('The focusPointsContainer', () => {
 
   describe('focus points', () => {
     it('should render in a sortable list', () => {
-      console.log(wrapper.debug())
       expect(wrapper.find(SortableList)).toHaveLength(1);
     });
 
