@@ -32,9 +32,7 @@ class SerializeVitallySalesAccount
     }
   end
 
-  private
-
-  def activities_per_student
+  private def activities_per_student
     if active_students > 0
       (activities_finished.to_f / active_students).round(2)
     else
@@ -42,7 +40,7 @@ class SerializeVitallySalesAccount
     end
   end
 
-  def active_students
+  private def active_students
     @active_students ||= ClassroomsTeacher
       .joins(user: :school, classroom: :activity_sessions)
         .where('schools.id = ?', @school.id)
@@ -52,7 +50,7 @@ class SerializeVitallySalesAccount
         .length
   end
 
-  def activities_finished
+  private def activities_finished
     @activities_finished ||= ClassroomsTeacher
       .joins(user: :school, classroom: :activity_sessions)
         .where('schools.id = ?', @school.id)
@@ -60,7 +58,7 @@ class SerializeVitallySalesAccount
         .count
   end
 
-  def school_subscription
+  private def school_subscription
     if @school.subscription
       @school.subscription.account_type
     else
@@ -68,22 +66,22 @@ class SerializeVitallySalesAccount
     end
   end
 
-  def employee_count
+  private def employee_count
     @school.users.where(role: 'teacher').count || 0
   end
 
-  def paid_teacher_subscriptions
+  private def paid_teacher_subscriptions
     School.joins(users: :subscriptions)
       .where(id: @school.id)
       .where('subscriptions.account_type = ?', 'Teacher Paid')
       .count
   end
 
-  def school_link
+  private def school_link
     "https://www.quill.org/cms/schools/#{@school.id}"
   end
 
-  def subscription_expiration_date
+  private def subscription_expiration_date
     @school&.subscription&.expiration || 'NA'
   end
 end

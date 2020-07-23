@@ -1,4 +1,6 @@
 class SerializeVitallySalesUser
+  BASE_USER_URL = "https://www.quill.org/cms/users"
+
   def initialize(user)
     @user = user
   end
@@ -43,11 +45,7 @@ class SerializeVitallySalesUser
     end
   end
 
-  private
-
-  BASE_USER_URL = "https://www.quill.org/cms/users"
-
-  def account_data_params
+  private def account_data_params
     @account_data_params ||= {}.tap do |hash|
       if @user.sales_contact.present?
         @user.sales_contact.stages.each do |stage|
@@ -59,15 +57,15 @@ class SerializeVitallySalesUser
     end
   end
 
-  def teacher_link
+  private def teacher_link
     "#{BASE_USER_URL}/#{@user.id}/sign_in"
   end
 
-  def edit_teacher_link
+  private def edit_teacher_link
     "#{BASE_USER_URL}/#{@user.id}/edit"
   end
 
-  def free_lunches
+  private def free_lunches
     if @user.school.present?
       @user.school.free_lunches
     else
@@ -75,7 +73,7 @@ class SerializeVitallySalesUser
     end
   end
 
-  def activities_per_student
+  private def activities_per_student
     if number_of_students > 0
       (number_of_completed_activities.to_f / number_of_students).round(2)
     else
@@ -83,11 +81,11 @@ class SerializeVitallySalesUser
     end
   end
 
-  def number_of_students
+  private def number_of_students
     @user.students.count
   end
 
-  def number_of_completed_activities
+  private def number_of_completed_activities
     @number_of_completed_activities ||= begin
       ClassroomsTeacher.joins(classroom: :activity_sessions)
         .where(user: @user)
@@ -96,7 +94,7 @@ class SerializeVitallySalesUser
     end
   end
 
-  def premium_status
+  private def premium_status
     if subscription.present?
       subscription.account_type
     else
@@ -104,7 +102,7 @@ class SerializeVitallySalesUser
     end
   end
 
-  def subscription_expiration_date
+  private def subscription_expiration_date
     if subscription.present?
       subscription.expiration
     elsif @user.last_expired_subscription.present?
@@ -114,23 +112,23 @@ class SerializeVitallySalesUser
     end
   end
 
-  def subscription
+  private def subscription
     @user.subscription
   end
 
-  def account_uid
+  private def account_uid
     @user.school.id
   end
 
-  def school
+  private def school
     @user.school&.name
   end
 
-  def city
+  private def city
     @user.school&.city
   end
 
-  def state
+  private def state
     @user.school.state if @user.school.present?
   end
 end
