@@ -1,7 +1,7 @@
 import * as React from 'react';
 import AssignmentCard from './assignment_card';
 import AssignmentFlowNavigation from '../assignment_flow_navigation'
-import { UNIT_TEMPLATE_NAME, UNIT_TEMPLATE_ID, ACTIVITY_IDS_ARRAY, UNIT_NAME, } from '../localStorageKeyConstants'
+import { UNIT_TEMPLATE_NAME, UNIT_TEMPLATE_ID, ACTIVITY_IDS_ARRAY, UNIT_NAME, } from '../assignmentFlowConstants'
 import ScrollToTop from '../../shared/scroll_to_top'
 
 const starterDiagnosticSrc = `${process.env.CDN_URL}/images/illustrations/diagnostics-starter.svg`
@@ -92,7 +92,7 @@ const AssignADiagnostic = (props: any) => (
   <div className="assignment-flow-container">
     <AssignmentFlowNavigation />
     <ScrollToTop />
-    <div className="college-board-page container">
+    <div className="diagnostic-page container">
       <h1>Which diagnostic covers the skills you want to assess?</h1>
       <div className="minis">{minis(props)}</div>
     </div>

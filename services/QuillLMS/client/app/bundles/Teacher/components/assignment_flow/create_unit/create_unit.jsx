@@ -1,5 +1,4 @@
 import React from 'react';
-import qs from 'qs'
 
 import Stage1 from './select_activities_container';
 import Stage2 from './stage2/Stage2';
@@ -12,7 +11,8 @@ import {
   UNIT_TEMPLATE_ID,
   ACTIVITY_IDS_ARRAY,
   UNIT_ID,
-} from '../localStorageKeyConstants.ts'
+} from '../assignmentFlowConstants.ts'
+import parsedQueryParams from '../parsedQueryParams'
 import { requestGet, requestPost, } from '../../../../../modules/request';
 
 export default class CreateUnit extends React.Component {
@@ -27,7 +27,7 @@ export default class CreateUnit extends React.Component {
     const path = pathArray[pathArray.length - 1]
     const previouslyStoredName = props.match.params.unitName || window.localStorage.getItem(UNIT_NAME) || window.localStorage.getItem(UNIT_TEMPLATE_NAME)
     const previouslyStoredClassrooms = window.localStorage.getItem(CLASSROOMS) ? JSON.parse(window.localStorage.getItem(CLASSROOMS)) : []
-    if (this.parsedQueryParams().unit_template_id || this.parsedQueryParams().diagnostic_unit_template_id || path === 'select-classes') {
+    if (parsedQueryParams().unit_template_id || parsedQueryParams().diagnostic_unit_template_id || path === 'select-classes') {
       stage = 2
       name = previouslyStoredName
       classrooms = previouslyStoredClassrooms
@@ -69,11 +69,6 @@ export default class CreateUnit extends React.Component {
     if (stage === 2 || window.localStorage.getItem(ACTIVITY_IDS_ARRAY)) {
       this.getActivities()
     }
-  }
-
-  parsedQueryParams = () => {
-    const { location, } = this.props
-    return qs.parse(location.search.replace('?', ''))
   }
 
   onCreateSuccess = (response) => {
@@ -282,7 +277,7 @@ export default class CreateUnit extends React.Component {
       fetchClassrooms={this.fetchClassrooms}
       fetchClassrooms={this.fetchClassrooms}
       finish={this.finish}
-      isFromDiagnosticPath={!!this.parsedQueryParams().diagnostic_unit_template_id}
+      isFromDiagnosticPath={!!parsedQueryParams().diagnostic_unit_template_id}
       selectedActivities={this.getSelectedActivities()}
       toggleActivitySelection={this.toggleActivitySelection}
       toggleClassroomSelection={this.toggleClassroomSelection}
@@ -381,7 +376,7 @@ export default class CreateUnit extends React.Component {
     this.setState({ classrooms: updated, }, () => window.localStorage.setItem(CLASSROOMS, JSON.stringify(updated)));
   }
 
-  unitTemplateId = () => this.parsedQueryParams().unit_template_id || this.parsedQueryParams().diagnostic_unit_template_id || window.localStorage.getItem(UNIT_TEMPLATE_ID)
+  unitTemplateId = () => parsedQueryParams().unit_template_id || parsedQueryParams().diagnostic_unit_template_id || window.localStorage.getItem(UNIT_TEMPLATE_ID)
 
   unitTemplateName = () => this.props.match.params.unitName || window.localStorage.getItem(UNIT_TEMPLATE_NAME)
 

@@ -38,11 +38,12 @@ const ExpandableUnit = ({ title, isFirst, learningCycles, isPartOfAssignmentFlow
       const lastActivity = isLastCycle && i === activities.length - 1;
       const additionalStyle = `${lastActivity ? 'last-activity' : ''} ${isLocationMatch ? 'highlighted' : ''}`
       const link = generateLink(isPartOfAssignmentFlow, unit_template_id)
+      const target = isPartOfAssignmentFlow ? '' : "_blank"
       return(
         <div className={`cycle-activity-container ${additionalStyle}`} id={cb_anchor_tag} key={i}>
           <div className="top-content">
-            <a className="activity-title" href={link} rel="noopener noreferrer" tabIndex={-1} target="_blank">{title}</a>
-            <a className="quill-button medium primary outlined focus-on-light" href={link} rel="noopener noreferrer" target="_blank">View</a>
+            <a className="activity-title" href={link} rel="noopener noreferrer" tabIndex={-1} target={target}>{title}</a>
+            <a className="quill-button medium primary outlined focus-on-light" href={link} rel="noopener noreferrer" target={target}>View</a>
           </div>
           <p className="description">{description}</p>
         </div>

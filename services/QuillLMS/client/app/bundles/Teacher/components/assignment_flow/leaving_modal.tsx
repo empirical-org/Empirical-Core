@@ -6,7 +6,7 @@ import {
   UNIT_NAME,
   ACTIVITY_IDS_ARRAY,
   CLASSROOMS,
-} from './localStorageKeyConstants'
+} from './assignmentFlowConstants'
 
 interface LeavingModalProps {
   cancel: () => void;

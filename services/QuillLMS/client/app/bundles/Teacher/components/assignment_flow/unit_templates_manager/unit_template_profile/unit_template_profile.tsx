@@ -13,7 +13,10 @@ import {
   ACTIVITY_IDS_ARRAY,
   UNIT_TEMPLATE_ID,
   UNIT_NAME,
-} from '../../localStorageKeyConstants.ts'
+  COLLEGE_BOARD_SLUG
+} from '../../assignmentFlowConstants.ts'
+import parsedQueryParams from '../../parsedQueryParams.ts'
+
 import { requestGet } from '../../../../../../modules/request/index.js';
 import Activity from '../../../../../../interfaces/activity';
 import UnitTemplateProfileInterface from '../../../../../../interfaces/unitTemplateProfileInterface';
@@ -92,7 +95,13 @@ export class UnitTemplateProfile extends React.Component<RouteComponentProps, Un
     window.localStorage.setItem(UNIT_NAME, name)
     window.localStorage.setItem(ACTIVITY_IDS_ARRAY, activityIdsArray)
     window.localStorage.setItem(UNIT_TEMPLATE_ID, id)
-    history.push(`/assign/select-classes?unit_template_id=${id}`)
+    let link = `/assign/select-classes?unit_template_id=${id}`
+    const collegeBoardActivityTypeSlug = parsedQueryParams()[COLLEGE_BOARD_SLUG]
+    if (collegeBoardActivityTypeSlug) {
+      link += `&${COLLEGE_BOARD_SLUG}=${collegeBoardActivityTypeSlug}`
+    }
+
+    history.push(link)
   }
 
   renderAssignButton = () => {
