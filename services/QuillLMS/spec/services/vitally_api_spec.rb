@@ -19,7 +19,7 @@ describe VitallyApi do
           Authorization: "Basic #{ENV['VITALLY_API_KEY']}",
           "Content-Type": "application/json"
         },
-        body: payload
+        body: payload.to_json
       )
       api = VitallyApi.new
       # "send" is a private method, so we get to it through the public "batch" method

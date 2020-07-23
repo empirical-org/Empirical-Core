@@ -5,6 +5,7 @@ describe SyncVitallyWorker, type: :worker do
 
   describe "#perform" do
     it "make queries for schools and users and enqueue them for further jobs" do
+      ENV['SYNC_TO_VITALLY'] = 'true'
       school = create(:school)
       user = create(:user)
       expect(worker).to receive(:schools_to_sync).and_return([school])
