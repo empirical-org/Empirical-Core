@@ -306,13 +306,26 @@
       border-bottom: 1px solid #e0e0e0;;
       .qa-section {
         .qa {
+          .question {
+            text-align: left;
+            padding-left: 0;
+          }
           .question:focus {
             outline: none !important;
           }
           .answer {
             div {
+              .preap-sub-header {
+                font-weight: 600;
+              }
               .preap-q-and-a-text {
-                padding-bottom: 15px;
+                padding-bottom: 20px;
+                strong {
+                  font-weight: 600;
+                }
+              }
+              .preap-q-and-a-text:last-child {
+                padding-bottom: 0px;
               }
               ul {
                 li {
