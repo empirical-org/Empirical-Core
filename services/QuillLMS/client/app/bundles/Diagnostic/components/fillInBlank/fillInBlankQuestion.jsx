@@ -7,7 +7,7 @@ import TestFillInBlankQuestionContainer from './testFillInBlankQuestionContainer
 import ResponseComponentWrapper from '../questions/responseRouteWrapper.jsx';
 import MassEditContainer from '../questions/massEditContainer.jsx';
 
-const icon = `${process.env.QUILL_CDN_URL}/images/icons/direction.svg`
+const icon = `${process.env.CDN_URL}/images/icons/direction.svg`
 
 class FillInBlankQuestion extends Component {
 

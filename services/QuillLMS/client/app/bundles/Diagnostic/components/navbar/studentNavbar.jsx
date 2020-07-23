@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 
-const quillLogoSrc = `${process.env.QUILL_CDN_URL}/images/logos/quill-logo-white.svg`
+const quillLogoSrc = `${process.env.CDN_URL}/images/logos/quill-logo-white.svg`
 
 const handleSaveAndExitClick = () => {
   window.location.assign(`${process.env.DEFAULT_URL}/profile`);

@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 import { shallow } from 'enzyme';
 import { DiagnosticRouter } from '../diagnosticRouter.tsx';
 import { SmartSpinner } from 'quill-component-library/dist/componentLibrary';
@@ -18,8 +18,10 @@ let mockProps = {
         }
     },
     location: {},
-    params: {
-        diagnosticID: 'test-id'
+    match: {
+        params: {
+            diagnosticID: 'test-id'
+        }
     },
     playDiagnostic: {},
     questions: {

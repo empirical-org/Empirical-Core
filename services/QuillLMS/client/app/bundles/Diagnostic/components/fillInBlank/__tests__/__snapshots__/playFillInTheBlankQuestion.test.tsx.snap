@@ -1,0 +1,490 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`PlayFillInTheBlankQuestion component should render 1`] = `
+<PlayFillInTheBlankQuestion
+  dispatch={[Function]}
+  nextQuestion={[MockFunction]}
+  question={
+    Object {
+      "attempts": Array [],
+      "blankAllowed": true,
+      "conceptID": "fJXVAoYCC8S9kByua0kXXA",
+      "cues": Array [
+        "the",
+        "an",
+        "a",
+      ],
+      "instructions": "Rewrite the sentence. Fill in the blank with one of these articles: a, an, the. If no article is needed, remove the blank.
+<br/><br/>
+Completa el espacio en blanco con una de estas palabras: a, an, the. Si no se necesita ninguna palabra, quite el espacio en blanco.",
+      "key": "-Ke_6gyGVXuHiealUgD3",
+      "prefilledText": "I have a friend named Marco who loves football.",
+      "prompt": "I have ___ friend named Marco who loves ___ football.",
+    }
+  }
+>
+  <div
+    className="student-container-inner-diagnostic"
+  >
+    <div
+      style={
+        Object {
+          "display": "flex",
+          "justifyContent": "space-between",
+        }
+      }
+    >
+      <div
+        style={
+          Object {
+            "maxWidth": 800,
+            "width": "100%",
+          }
+        }
+      >
+        <div>
+          <Prompt
+            elements={
+              Array [
+                <span
+                  style={
+                    Object {
+                      "marginRight": 5,
+                    }
+                  }
+                >
+                  I
+                </span>,
+                <span
+                  style={
+                    Object {
+                      "marginRight": 5,
+                    }
+                  }
+                >
+                  have
+                </span>,
+                <span
+                  style={
+                    Object {
+                      "marginRight": 5,
+                    }
+                  }
+                >
+                  
+                </span>,
+                <span>
+                  <input
+                    aria-label="input0"
+                    className="fill-in-blank-input"
+                    id="input0"
+                    onChange={[Function]}
+                    style={
+                      Object {
+                        "width": "55px",
+                      }
+                    }
+                    type="text"
+                    value=""
+                  />
+                </span>,
+                <span
+                  style={
+                    Object {
+                      "marginRight": 5,
+                    }
+                  }
+                >
+                  
+                </span>,
+                <span
+                  style={
+                    Object {
+                      "marginRight": 5,
+                    }
+                  }
+                >
+                  friend
+                </span>,
+                <span
+                  style={
+                    Object {
+                      "marginRight": 5,
+                    }
+                  }
+                >
+                  named
+                </span>,
+                <span
+                  style={
+                    Object {
+                      "marginRight": 5,
+                    }
+                  }
+                >
+                  Marco
+                </span>,
+                <span
+                  style={
+                    Object {
+                      "marginRight": 5,
+                    }
+                  }
+                >
+                  who
+                </span>,
+                <span
+                  style={
+                    Object {
+                      "marginRight": 5,
+                    }
+                  }
+                >
+                  loves
+                </span>,
+                <span
+                  style={
+                    Object {
+                      "marginRight": 5,
+                    }
+                  }
+                >
+                  
+                </span>,
+                <span>
+                  <input
+                    aria-label="input1"
+                    className="fill-in-blank-input"
+                    id="input1"
+                    onChange={[Function]}
+                    style={
+                      Object {
+                        "width": "55px",
+                      }
+                    }
+                    type="text"
+                    value=""
+                  />
+                </span>,
+                <span
+                  style={
+                    Object {
+                      "marginRight": 5,
+                    }
+                  }
+                >
+                  
+                </span>,
+                <span
+                  style={
+                    Object {
+                      "marginRight": 5,
+                    }
+                  }
+                >
+                  football.
+                </span>,
+              ]
+            }
+            style={
+              Object {
+                "alignItems": "center",
+                "display": "flex",
+                "flexWrap": "wrap",
+                "fontSize": 24,
+                "marginBottom": 18,
+                "marginTop": 35,
+              }
+            }
+          >
+            <div
+              style={
+                Object {
+                  "alignItems": "center",
+                  "display": "flex",
+                  "flexWrap": "wrap",
+                  "fontSize": 24,
+                  "marginBottom": 18,
+                  "marginTop": 35,
+                }
+              }
+            >
+              <span
+                key="0-0"
+                style={
+                  Object {
+                    "marginRight": 5,
+                  }
+                }
+              >
+                I
+              </span>
+              <span
+                key="0-1"
+                style={
+                  Object {
+                    "marginRight": 5,
+                  }
+                }
+              >
+                have
+              </span>
+              <span
+                key="0-2"
+                style={
+                  Object {
+                    "marginRight": 5,
+                  }
+                }
+              />
+              <span
+                key="span0"
+              >
+                <input
+                  aria-label="input0"
+                  className="fill-in-blank-input"
+                  id="input0"
+                  key="100"
+                  onChange={[Function]}
+                  style={
+                    Object {
+                      "width": "55px",
+                    }
+                  }
+                  type="text"
+                  value=""
+                />
+              </span>
+              <span
+                key="1-0"
+                style={
+                  Object {
+                    "marginRight": 5,
+                  }
+                }
+              />
+              <span
+                key="1-1"
+                style={
+                  Object {
+                    "marginRight": 5,
+                  }
+                }
+              >
+                friend
+              </span>
+              <span
+                key="1-2"
+                style={
+                  Object {
+                    "marginRight": 5,
+                  }
+                }
+              >
+                named
+              </span>
+              <span
+                key="1-3"
+                style={
+                  Object {
+                    "marginRight": 5,
+                  }
+                }
+              >
+                Marco
+              </span>
+              <span
+                key="1-4"
+                style={
+                  Object {
+                    "marginRight": 5,
+                  }
+                }
+              >
+                who
+              </span>
+              <span
+                key="1-5"
+                style={
+                  Object {
+                    "marginRight": 5,
+                  }
+                }
+              >
+                loves
+              </span>
+              <span
+                key="1-6"
+                style={
+                  Object {
+                    "marginRight": 5,
+                  }
+                }
+              />
+              <span
+                key="span1"
+              >
+                <input
+                  aria-label="input1"
+                  className="fill-in-blank-input"
+                  id="input1"
+                  key="101"
+                  onChange={[Function]}
+                  style={
+                    Object {
+                      "width": "55px",
+                    }
+                  }
+                  type="text"
+                  value=""
+                />
+              </span>
+              <span
+                key="2-0"
+                style={
+                  Object {
+                    "marginRight": 5,
+                  }
+                }
+              />
+              <span
+                key="2-1"
+                style={
+                  Object {
+                    "marginRight": 5,
+                  }
+                }
+              >
+                football.
+              </span>
+            </div>
+          </Prompt>
+          <Cues
+            customText="Add words or leave blank"
+            displayArrowAndText={true}
+            question={
+              Object {
+                "attempts": Array [],
+                "blankAllowed": true,
+                "conceptID": "fJXVAoYCC8S9kByua0kXXA",
+                "cues": Array [
+                  "the",
+                  "an",
+                  "a",
+                ],
+                "instructions": "Rewrite the sentence. Fill in the blank with one of these articles: a, an, the. If no article is needed, remove the blank.
+<br/><br/>
+Completa el espacio en blanco con una de estas palabras: a, an, the. Si no se necesita ninguna palabra, quite el espacio en blanco.",
+                "key": "-Ke_6gyGVXuHiealUgD3",
+                "prefilledText": "I have a friend named Marco who loves football.",
+                "prompt": "I have ___ friend named Marco who loves ___ football.",
+              }
+            }
+          >
+            <div
+              className="cues"
+            >
+              <Cue
+                cue="the"
+                key="0the"
+              >
+                <div
+                  className="cue"
+                >
+                  the
+                </div>
+              </Cue>
+              <Cue
+                cue="an"
+                key="1an"
+              >
+                <div
+                  className="cue"
+                >
+                  an
+                </div>
+              </Cue>
+              <Cue
+                cue="a"
+                key="2a"
+              >
+                <div
+                  className="cue"
+                >
+                  a
+                </div>
+              </Cue>
+              <img
+                alt="Arrow Icon"
+                src="undefined/images/icons/pointing-arrow.svg"
+              />
+              <CueExplanation
+                text="Add words or leave blank"
+              >
+                <div
+                  className="cue-explanation"
+                >
+                  Add words or leave blank
+                </div>
+              </CueExplanation>
+            </div>
+          </Cues>
+          <Feedback
+            feedback={
+              <p
+                dangerouslySetInnerHTML={
+                  Object {
+                    "__html": "Rewrite the sentence. Fill in the blank with one of these articles: a, an, the. If no article is needed, remove the blank.
+<br/><br/>
+Completa el espacio en blanco con una de estas palabras: a, an, the. Si no se necesita ninguna palabra, quite el espacio en blanco.",
+                  }
+                }
+              />
+            }
+            feedbackType="instructions"
+          >
+            <div
+              className="student-feedback-container default"
+              role="status"
+            >
+              <div
+                className="feedback-row student-feedback-inner-container"
+              >
+                <img
+                  alt="Directions Icon"
+                  className="info"
+                  src="https://assets.quill.org/images/icons/direction.svg"
+                />
+                <p
+                  dangerouslySetInnerHTML={
+                    Object {
+                      "__html": "Rewrite the sentence. Fill in the blank with one of these articles: a, an, the. If no article is needed, remove the blank.
+<br/><br/>
+Completa el espacio en blanco con una de estas palabras: a, an, the. Si no se necesita ninguna palabra, quite el espacio en blanco.",
+                    }
+                  }
+                />
+              </div>
+            </div>
+          </Feedback>
+        </div>
+      </div>
+    </div>
+    <div
+      className="question-button-group button-group"
+      style={
+        Object {
+          "marginTop": 20,
+        }
+      }
+    >
+      <button
+        className="quill-button focus-on-light large primary contained disabled"
+        type="button"
+      >
+        Submit
+      </button>
+    </div>
+  </div>
+</PlayFillInTheBlankQuestion>
+`;

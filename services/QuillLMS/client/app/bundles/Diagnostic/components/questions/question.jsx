@@ -23,7 +23,7 @@ import MassEditContainer from './massEditContainer.jsx';
 import ChooseModelContainer from './chooseModelContainer.jsx';
 import TestQuestionContainer from './testQuestion';
 
-const icon = `${process.env.QUILL_CDN_URL}/images/icons/direction.svg`
+const icon = `${process.env.CDN_URL}/images/icons/direction.svg`
 
 class Question extends React.Component {
   constructor(props) {

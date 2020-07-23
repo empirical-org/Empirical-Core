@@ -1,14 +1,20 @@
-import React from 'react';
+import * as React from 'react';
+import { MemoryRouter } from 'react-router'
 import { shallow, mount } from 'enzyme';
-import { genericQuestion } from '../../../../test/data/test_data.js';
+import { genericQuestion } from '../../../test/data/test_data.js';
 import { FocusPointsContainer } from '../focusPointsContainer.jsx';
 import { SortableList } from 'quill-component-library/dist/componentLibrary';
 
 function setup() {
   const params = { questionID: 100, };
+  const match = { params };
   const questions = { data: { 100: genericQuestion, }, };
-  const props = { params, questions, };
-  const wrapper = shallow(<FocusPointsContainer {...props} />);
+  const props = { match, questions, };
+  const wrapper = mount(
+    <MemoryRouter>
+      <FocusPointsContainer {...props} />
+    </MemoryRouter>
+  );
 
   return {
     props,
@@ -19,19 +25,18 @@ function setup() {
 describe('The focusPointsContainer', () => {
   const { wrapper, } = setup();
 
-  it('should render', () => {
-    expect(wrapper).toMatchSnapshot();
-  });
-
   describe('focus points', () => {
     it('should render in a sortable list', () => {
+      console.log(wrapper.debug())
       expect(wrapper.find(SortableList)).toHaveLength(1);
     });
 
     it('should render in the correct order', () => {
       const { props, } = setup();
       const wrapper = mount(
-        <FocusPointsContainer {...props} />
+        <MemoryRouter>     
+          <FocusPointsContainer {...props} />
+        </MemoryRouter>
         );
       const order = wrapper.find('.card-header-icon').map(node => Number(node.text()));
       expect(order).toEqual([1, 2, 3]);

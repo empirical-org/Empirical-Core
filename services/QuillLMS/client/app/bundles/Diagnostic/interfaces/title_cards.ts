@@ -1,4 +1,4 @@
-interface TitleCard {
+export interface TitleCard {
   uid: string;
   content: string;
   title: string;

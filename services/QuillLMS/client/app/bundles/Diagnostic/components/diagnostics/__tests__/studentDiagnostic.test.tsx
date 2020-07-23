@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 import { shallow } from 'enzyme';
 import { StudentDiagnostic } from '../studentDiagnostic';
 import {
@@ -40,9 +40,11 @@ let mockProps = {
     questions: {
         hasreceiveddata: false
     },
-    params: {
-        diagnosticID: 'testID',
-        lessonID: 'testID'
+    match: {
+        params: {
+            diagnosticID: 'testID',
+            lessonID: 'testID'
+        }
     },
 };
 
@@ -291,7 +293,7 @@ describe('StudentDiagnostic Container functions', () => {
     });
     it("getQuestionCount returns 15 if diagnosticID is 'researchDiagnostic', otherwise returns 22", () => {
         expect(container.instance().getQuestionCount()).toEqual('22');
-        mockProps.params = {
+        mockProps.match.params = {
             diagnosticID: 'researchDiagnostic',
             lessonID: 'testID'
         };
@@ -310,7 +312,7 @@ describe('StudentDiagnostic Container functions', () => {
         expect(container.instance().getQuestionType('titleCards')).toEqual('TL')
     });
     it("landingPageHtml returns html string", () => {
-        mockProps.params = { diagnosticID: 'testID' };
+        mockProps.match.params = { diagnosticID: 'testID', lessonID: 'test' };
         container = shallow(<StudentDiagnostic {...mockProps} />);
         expect(container.instance().landingPageHtml()).toEqual('test-html')
     });

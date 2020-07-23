@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Cue, CueExplanation } from 'quill-component-library/dist/componentLibrary'
-const arrow = `${process.env.QUILL_CDN_URL}/images/icons/pointing-arrow.svg`;
+const arrow = `${process.env.CDN_URL}/images/icons/pointing-arrow.svg`;
 import translations from '../../libs/translations/index.js';
 import { ENGLISH } from '../../modules/translation/languagePageInfo';
 import Question from '../../interfaces/Question.ts';
