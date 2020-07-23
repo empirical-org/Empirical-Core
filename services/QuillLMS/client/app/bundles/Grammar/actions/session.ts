@@ -15,7 +15,6 @@ import _ from 'lodash';
 
 export const updateSession = (sessionID: string, session: SessionState) => {
   const cleanedSession = _.pickBy(session)
-  // cleanedSession.currentQuestion ? cleanedSession.currentQuestion.attempts = _.compact(cleanedSession.currentQuestion.attempts) : null
   if (!cleanedSession.error) {
     SessionApi.update(sessionID, cleanedSession)
   }
