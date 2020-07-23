@@ -654,7 +654,10 @@ EmpiricalGrammar::Application.routes.draw do
   get 'admin_demo', to: 'teachers/progress_reports#admin_demo'
   get 'preap' => 'pages#preap'
   get 'pre-ap', to: redirect('/preap')
+  get 'pre-AP', to: redirect('/preap')
+  get 'preAP', to: redirect('/preap')
   get 'ap' => 'pages#ap'
+  get 'AP', to: redirect('/ap')
 
   get '/404' => 'errors#error_404'
   get '/500' => 'errors#error_500'
