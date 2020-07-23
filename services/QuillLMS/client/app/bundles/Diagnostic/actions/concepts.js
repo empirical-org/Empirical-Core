@@ -3,7 +3,7 @@ import _ from 'underscore';
 
 const C = require('../constants').default;
 
-const conceptsEndpoint = `${process.env.EMPIRICAL_BASE_URL}/api/v1/concepts.json`;
+const conceptsEndpoint = `${process.env.DEFAULT_URL}/api/v1/concepts.json`;
 
 function splitInLevels(concepts) {
   return _.groupBy(concepts, 'level');

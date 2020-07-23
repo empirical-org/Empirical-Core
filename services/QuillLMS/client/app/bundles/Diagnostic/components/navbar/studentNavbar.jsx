@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 const quillLogoSrc = `${process.env.QUILL_CDN_URL}/images/logos/quill-logo-white.svg`
 
 const handleSaveAndExitClick = () => {
-  window.location.assign(`${process.env.EMPIRICAL_BASE_URL}/profile`);
+  window.location.assign(`${process.env.DEFAULT_URL}/profile`);
 }
 
 const renderLinks = () => (
@@ -18,7 +18,7 @@ const StudentNavbar = () => (
   <header className='nav student-nav'>
     <div className="container">
       <div className="student-nav-section">
-        <a aria-label="Quill" className="student-nav-item focus-on-dark" href={`${process.env.EMPIRICAL_BASE_URL}`} tabIndex="0">
+        <a aria-label="Quill" className="student-nav-item focus-on-dark" href={`${process.env.DEFAULT_URL}`} tabIndex="0">
           <img
             alt="Quill.org logo"
             src={quillLogoSrc}

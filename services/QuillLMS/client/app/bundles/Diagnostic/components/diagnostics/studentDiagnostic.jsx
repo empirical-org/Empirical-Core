@@ -111,7 +111,7 @@ export class StudentDiagnostic extends React.Component {
   finishActivitySession = (sessionID, results, score) => {
     request(
       {
-        url: `${process.env.EMPIRICAL_BASE_URL}/api/v1/activity_sessions/${sessionID}`,
+        url: `${process.env.DEFAULT_URL}/api/v1/activity_sessions/${sessionID}`,
         method: 'PUT',
         json:
         {
@@ -124,7 +124,7 @@ export class StudentDiagnostic extends React.Component {
         if (httpResponse && httpResponse.statusCode === 200) {
           // to do, use Sentry to capture error
           SessionActions.delete(sessionID);
-          document.location.href = process.env.EMPIRICAL_BASE_URL
+          document.location.href = process.env.DEFAULT_URL
           this.setState({ saved: true, });
         } else {
           this.setState({
@@ -139,7 +139,7 @@ export class StudentDiagnostic extends React.Component {
   createAnonActivitySession = (lessonID, results, score) => {
     request(
       {
-        url: `${process.env.EMPIRICAL_BASE_URL}/api/v1/activity_sessions/`,
+        url: `${process.env.DEFAULT_URL}/api/v1/activity_sessions/`,
         method: 'POST',
         json:
         {
@@ -152,7 +152,7 @@ export class StudentDiagnostic extends React.Component {
       (err, httpResponse, body) => {
         if (httpResponse && httpResponse.statusCode === 200) {
           // to do, use Sentry to capture error
-          document.location.href = `${process.env.EMPIRICAL_BASE_URL}/activity_sessions/${body.activity_session.uid}`;
+          document.location.href = `${process.env.DEFAULT_URL}/activity_sessions/${body.activity_session.uid}`;
           this.setState({ saved: true, });
         }
       }

@@ -38,8 +38,8 @@ import SentenceFragment from '../sentenceFragments/sentenceFragment.jsx';
 import TestSentenceFragmentContainer from '../sentenceFragments/testSentenceFragmentContainer.jsx';
 import ChooseModelContainer from '../sentenceFragments/chooseModelContainer.jsx';
 import DiagnosticRouter from '../shared/diagnosticRouter.tsx';
-const usersEndpoint = `${process.env.EMPIRICAL_BASE_URL}/api/v1/users.json`;
-const newSessionEndpoint = `${process.env.EMPIRICAL_BASE_URL}/session/new`;
+const usersEndpoint = `${process.env.DEFAULT_URL}/api/v1/users.json`;
+const newSessionEndpoint = `${process.env.DEFAULT_URL}/session/new`;
 
 const TabLink = props => {
   const { children, to, } = props

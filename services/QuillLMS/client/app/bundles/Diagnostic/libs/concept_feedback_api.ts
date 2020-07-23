@@ -3,7 +3,7 @@ import { ConceptFeedback, ConceptFeedbackCollection } from '../interfaces/concep
 
 const CONNECT_TYPE = 'connect'
 
-const conceptFeedbackApiBaseUrl = `${process.env.EMPIRICAL_BASE_URL}/api/v1/concept_feedback`;
+const conceptFeedbackApiBaseUrl = `${process.env.DEFAULT_URL}/api/v1/concept_feedback`;
 
 class ConceptFeedbackApi {
   static getAll(): Promise<ConceptFeedbackCollection> {

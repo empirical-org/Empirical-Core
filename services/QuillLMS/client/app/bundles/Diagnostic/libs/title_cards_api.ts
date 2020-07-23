@@ -1,7 +1,7 @@
 import { requestGet, requestPost, requestPut } from './request';
 import { TitleCard, TitleCards } from '../interfaces/title_cards';
 
-const titleCardApiBaseUrl = `${process.env.EMPIRICAL_BASE_URL}/api/v1/title_cards`;
+const titleCardApiBaseUrl = `${process.env.DEFAULT_URL}/api/v1/title_cards`;
 const CONNECT_TITLE_CARD_TYPE = 'connect_title_card';
 const DIAGNOSTIC_TITLE_CARD_TYPE = 'diagnostic_title_card';
 
