@@ -7,7 +7,7 @@ import { Response } from 'quill-marking-logic'
 import getParameterByName from '../../helpers/getParameterByName';
 import { getActivity } from "../../actions/grammarActivities";
 import {
-  updateSessionOnFirebase,
+  updateSession,
   getQuestionsForConcepts,
   getQuestions,
   goToNextQuestion,
@@ -15,8 +15,7 @@ import {
   setSessionReducerToSavedSession,
   startListeningToFollowUpQuestionsForProofreaderSession,
   startNewSession,
-  removeGrammarSession,
-  removeProofreaderSession
+  removeSession
 } from "../../actions/session";
 import { startListeningToConceptsFeedback } from '../../actions/conceptsFeedback'
 import { startListeningToConcepts } from '../../actions/concepts'
@@ -97,7 +96,7 @@ export class PlayGrammarContainer extends React.Component<PlayGrammarContainerPr
 
       const sessionID = getParameterByName('student', window.location.href)
       if (sessionID && !_.isEqual(nextProps.session, session) && !nextProps.session.pending) {
-        updateSessionOnFirebase(sessionID, nextProps.session)
+        updateSession(sessionID, nextProps.session)
       }
 
     }
@@ -149,11 +148,7 @@ export class PlayGrammarContainer extends React.Component<PlayGrammarContainerPr
     removeSession = () => {
       const sessionID = getParameterByName('student', window.location.href)
       const proofreaderSessionId = getParameterByName('proofreaderSessionId', window.location.href)
-      if (proofreaderSessionId) {
-        removeProofreaderSession(proofreaderSessionId)
-      } else if (sessionID) {
-        removeGrammarSession(sessionID)
-      }
+      removeSession(sessionID || proofreaderSessionId);
     }
 
     finishActivitySession = (sessionID: string, results: FormattedConceptResult[], score: number) => {
