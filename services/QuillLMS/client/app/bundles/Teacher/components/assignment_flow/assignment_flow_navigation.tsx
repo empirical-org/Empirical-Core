@@ -2,7 +2,7 @@ import * as React from 'react'
 import { Link } from 'react-router-dom'
 
 import parsedQueryParams from './parsedQueryParams'
-import { COLLEGE_BOARD_SLUG } from './assignmentFlowConstants'
+import { COLLEGE_BOARD_SLUG, PRE_AP_SLUG, AP_SLUG } from './assignmentFlowConstants'
 import LeavingModal from './leaving_modal'
 
 const quillLogoGreenSrc =  `${process.env.CDN_URL}/images/logos/quill-logo-green.svg`
@@ -21,8 +21,8 @@ const collegeBoardSlug = COLLEGE_BOARD_SLUG
 const createActivityPackSlug = 'create-activity-pack'
 const selectClassesSlug = 'select-classes'
 const featuredActivityPacksSlug = 'featured-activity-packs'
-const preApSlug = 'pre-ap'
-const apSlug = 'ap'
+const preApSlug = PRE_AP_SLUG
+const apSlug = AP_SLUG
 
 const slash = (index: number) => <span className="slash" key={index}>/</span>
 const learningProcess = () => <Link key="learning-process" to={`/assign/${learningProcessSlug}`}>Learning process</Link>
