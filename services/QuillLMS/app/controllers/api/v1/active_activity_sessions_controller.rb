@@ -7,7 +7,9 @@ class Api::V1::ActiveActivitySessionsController < Api::ApiController
 
   def update
     @activity_session = ActiveActivitySession.find_or_create_by(uid: params[:id])
-    @activity_session.update!({data: valid_params})
+    @activity_session.data ||= {}
+    @activity_session.data = @activity_session.data.merge(valid_params)
+    @activity_session.save!
     render json: @activity_session.as_json
   end
 
