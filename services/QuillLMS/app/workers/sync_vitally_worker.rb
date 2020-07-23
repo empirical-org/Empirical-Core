@@ -4,6 +4,8 @@ class SyncVitallyWorker
   USER_ROLES_TO_SYNC = ['teacher', 'admin', 'auditor']
 
   def perform
+    # Don't synchronize non-production data
+    return unless Rails.env.production?
     schools_to_sync.each_slice(100) do |school_batch|
       school_ids = school_batch.map { |school| school.id }
       SyncVitallyAccountsWorker.perform_async(school_ids)

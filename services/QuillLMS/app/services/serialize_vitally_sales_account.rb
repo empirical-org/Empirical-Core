@@ -7,7 +7,10 @@ class SerializeVitallySalesAccount
   def data
     {
       accountId: @school.id.to_s,
+      # Type is used by Vitally to determine which data type the payload contains in batches
       type: 'account',
+      # Vitally requires a unique messageId for dedupication purposes
+      messageId: SecureRandom::uuid,
       traits: {
         name: @school.name,
         city: @school.city,

@@ -9,7 +9,10 @@ class SerializeVitallySalesUser
     {
       accountId: @user.school.id.to_s,
       userId: @user.id.to_s,
-      method: 'contact',
+      # Type is used by Vitally to determine which data type the payload contains in batches
+      type: 'user',
+      # Vitally requires a unique messageId for dedupication purposes
+      messageId: SecureRandom::uuid,
       traits: {
         email: @user.email,
         name: @user.name,

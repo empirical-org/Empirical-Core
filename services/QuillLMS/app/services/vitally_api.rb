@@ -15,7 +15,7 @@ class VitallyApi
         Authorization: "Basic #{@api_key}",
         "Content-Type": "application/json"
       },
-      body: payload
+      body: payload.to_json
     )
   end
 end
