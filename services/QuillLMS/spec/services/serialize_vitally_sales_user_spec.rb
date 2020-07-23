@@ -40,7 +40,7 @@ describe 'SerializeVitallySalesUser' do
       frl: 13,
       teacher_link: "https://www.quill.org/cms/users/#{teacher.id}/sign_in",
       city: school.city,
-      state: school.state,
+      state: school.state
     )
   end
 
@@ -72,7 +72,7 @@ describe 'SerializeVitallySalesUser' do
     account_data = SerializeVitallySalesUser.new(teacher).account_data
 
     expect(account_data).to include(accountId: school.id.to_s,
-      type: 'account',
+      type: 'account'
     )
     expect(account_data[:traits][:basic_subscription]).to be_within(1.second)
       .of(Time.now)
@@ -98,7 +98,7 @@ describe 'SerializeVitallySalesUser' do
 
     expect(teacher_data[:traits]).to include(
       premium_status: 'SUPER DUPER SUB',
-      premium_expiry_date: subscription.expiration,
+      premium_expiry_date: subscription.expiration
     )
   end
 
@@ -112,7 +112,7 @@ describe 'SerializeVitallySalesUser' do
 
     expect(teacher_data[:traits]).to include(
       premium_status: 'NA',
-      premium_expiry_date: Date.yesterday,
+      premium_expiry_date: Date.yesterday
     )
   end
 
@@ -129,7 +129,7 @@ describe 'SerializeVitallySalesUser' do
     expect(teacher_data[:traits]).to include(
       number_of_students: 1,
       number_of_completed_activities: 0,
-      number_of_completed_activities_per_student: 0,
+      number_of_completed_activities_per_student: 0
     )
   end
 
@@ -144,12 +144,12 @@ describe 'SerializeVitallySalesUser' do
     create(:activity_session,
       classroom_unit: classroom_unit,
       user: student,
-      state: 'finished',
+      state: 'finished'
     )
     create(:activity_session,
       classroom_unit: classroom_unit,
       user: student,
-      state: 'started',
+      state: 'started'
     )
 
     teacher_data = SerializeVitallySalesUser.new(teacher).data
@@ -157,7 +157,7 @@ describe 'SerializeVitallySalesUser' do
     expect(teacher_data[:traits]).to include(
       number_of_students: 1,
       number_of_completed_activities: 1,
-      number_of_completed_activities_per_student: 1,
+      number_of_completed_activities_per_student: 1
     )
   end
 

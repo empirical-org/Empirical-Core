@@ -13,7 +13,7 @@ describe 'SerializeVitallySalesAccount' do
       free_lunches: 0,
       ppin: nil,
       nces_id: '111111111',
-      ulocal: '41',
+      ulocal: '41'
     )
   end
 
@@ -44,27 +44,27 @@ describe 'SerializeVitallySalesAccount' do
       paid_teacher_subscriptions: 0,
       active_students: 0,
       activities_finished: 0,
-      school_link: "https://www.quill.org/cms/schools/#{school.id}",
+      school_link: "https://www.quill.org/cms/schools/#{school.id}"
     )
   end
 
   it 'generates school premium status' do
     school_subscription = create(:subscription,
       account_type: 'SUPER SAVER PREMIUM',
-      expiration: Date.tomorrow,
+      expiration: Date.tomorrow
     )
     create(:school_subscription,
       subscription_id: school_subscription.id,
-      school_id: school.id,
+      school_id: school.id
     )
 
     school_data = SerializeVitallySalesAccount.new(school).data
 
     expect(school_data[:traits]).to include(
-      school_subscription: 'SUPER SAVER PREMIUM',
+      school_subscription: 'SUPER SAVER PREMIUM'
     )
     expect(school_data[:traits]).to include(
-      premium_expiry_date: Date.tomorrow,
+      premium_expiry_date: Date.tomorrow
     )
   end
 
@@ -86,7 +86,7 @@ describe 'SerializeVitallySalesAccount' do
       employee_count: 2,
       paid_teacher_subscriptions: 1,
       active_students: 0,
-      activities_finished: 0,
+      activities_finished: 0
     )
   end
 
@@ -114,7 +114,7 @@ describe 'SerializeVitallySalesAccount' do
 
     expect(school_data[:traits]).to include(
       active_students: 1,
-      activities_finished: 2,
+      activities_finished: 2
     )
   end
 end

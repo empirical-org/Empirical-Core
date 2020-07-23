@@ -12,7 +12,7 @@ class SerializeVitallySalesUser
       # Type is used by Vitally to determine which data type the payload contains in batches
       type: 'user',
       # Vitally requires a unique messageId for dedupication purposes
-      messageId: SecureRandom::uuid,
+      messageId: SecureRandom.uuid,
       traits: {
         email: @user.email,
         name: @user.name,
