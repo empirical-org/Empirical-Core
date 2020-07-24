@@ -23,7 +23,6 @@ import Lessons from '../lessons/lessons.jsx';
 import Lesson from '../lessons/lesson.jsx';
 import Questions from '../questions/questions.jsx';
 import Question from '../questions/question';
-import ChooseModelContainer from '../questions/chooseModelContainer.jsx';
 import TitleCards from '../titleCards/titleCards.tsx';
 import TitleCardForm from '../titleCards/titleCardForm.tsx';
 import ShowTitleCard from '../titleCards/showTitleCard.tsx';
