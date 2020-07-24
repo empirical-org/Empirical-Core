@@ -372,7 +372,6 @@ workflows:
       - connect_node_build
       - lms_node_build
       - marking_logic_node_build
-      - diagnostic_node_build
       - cms_rails_build
       - lessons_node_build
       - spellchecker_node_build
