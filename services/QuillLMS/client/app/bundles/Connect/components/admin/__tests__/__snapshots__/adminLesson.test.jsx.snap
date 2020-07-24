@@ -1,0 +1,9 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`adminLesson component should render with lessons sidebar and fill in blank container 1`] = `ReactWrapper {}`;
+
+exports[`adminLesson component should render with lessons sidebar and question container 1`] = `ReactWrapper {}`;
+
+exports[`adminLesson component should render with lessons sidebar and sentence fragments container 1`] = `ReactWrapper {}`;
+
+exports[`adminLesson component should render with lessons sidebar and title card container 1`] = `ReactWrapper {}`;

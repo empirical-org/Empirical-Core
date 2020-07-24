@@ -1,0 +1,15 @@
+.text-editor.card {
+  font-size: 22px;
+  margin-bottom: 1em;
+}
+
+.question-button-group {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 31px;
+
+  .button {
+    margin-right: 0;
+    margin-left: 5px;
+  }
+}

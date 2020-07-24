@@ -94,6 +94,9 @@ module.exports = {
     ],
     grammar: [
       './app/bundles/Grammar/clientRegistration'
+    ],
+    connect: [
+      './app/bundles/Connect/clientRegistration'
     ]
   },
   resolve: {
