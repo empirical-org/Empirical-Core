@@ -1,17 +1,5 @@
 import React from 'react';
-import questionActions from '../../actions/questions';
-import sentenceFragmentActions from '../../actions/sentenceFragments.ts';
-import Question from '../../libs/question';
-const jsDiff = require('diff');
-import ResponseList from './responseList.jsx';
 import _ from 'underscore';
-import { hashToCollection } from 'quill-component-library/dist/componentLibrary';
-import Textarea from 'react-textarea-autosize';
-import feedbackActions from '../../actions/concepts-feedback.js';
-
-const C = require('../../constants').default;
-
-const feedbackStrings = C.FEEDBACK_STRINGS;
 
 export default class extends React.Component {
   state = {
