@@ -179,4 +179,8 @@ const PreAp = ({ units, isPartOfAssignmentFlow, }: PreApContainerProps) => {
   )
 }
 
+PreAp.defaultProps = {
+  units: []
+}
+
 export default PreAp

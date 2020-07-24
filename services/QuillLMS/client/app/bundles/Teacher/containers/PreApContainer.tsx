@@ -33,7 +33,6 @@ export default class PreApContainer extends React.Component<PreApContainerProps,
   render() {
     const { units, } = this.state
     const { isPartOfAssignmentFlow, } = this.props
-    if (!units) return <span />
 
     return <PreAp isPartOfAssignmentFlow={isPartOfAssignmentFlow} units={units} />
   }
