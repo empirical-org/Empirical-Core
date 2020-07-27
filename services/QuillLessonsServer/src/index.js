@@ -364,7 +364,8 @@ r.connect(rethinkdbConfig, (err, connection) => {
         });
 
         client.on('setWatchTeacherState', (data) => {
-          newrelic.startWebTransaction('/websocket/setWatchTeacherState', function transactionHandler() {
+          newrelic.addCustomAttributes(data);
+          newrelic.startWebTransaction('websocket/setWatchTeacherState', function transactionHandler() {
             authorizeSession(data, authToken, client, () => {
               setWatchTeacherState({ ...adaptors, ...data });
             });
