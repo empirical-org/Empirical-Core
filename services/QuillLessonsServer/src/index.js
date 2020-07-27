@@ -13,9 +13,9 @@ import { requestHandler } from './config/server';
 const Sentry = require('@sentry/node');
 
 if(process.env.NODE_ENV === 'production') {
-  Sentry.init({ 
+  Sentry.init({
     dsn: process.env.LESSONS_SENTRY_DSN,
-    debug: false 
+    debug: false
   });
 }
 
@@ -364,8 +364,10 @@ r.connect(rethinkdbConfig, (err, connection) => {
         });
 
         client.on('setWatchTeacherState', (data) => {
-          authorizeSession(data, authToken, client, () => {
-            setWatchTeacherState({ ...adaptors, ...data });
+          newrelic.startWebTransaction('/websocket/setWatchTeacherState', function transactionHandler() {
+            authorizeSession(data, authToken, client, () => {
+              setWatchTeacherState({ ...adaptors, ...data });
+            });
           });
         });
 
