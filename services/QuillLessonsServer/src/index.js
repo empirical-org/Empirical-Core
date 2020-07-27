@@ -1,4 +1,5 @@
 import newrelic from 'newrelic';
+import nr from './config/newrelic'; // custom NR methods
 import dotenv from 'dotenv';
 import r from 'rethinkdb';
 import socketio from 'socket.io';
@@ -13,9 +14,9 @@ import { requestHandler } from './config/server';
 const Sentry = require('@sentry/node');
 
 if(process.env.NODE_ENV === 'production') {
-  Sentry.init({ 
+  Sentry.init({
     dsn: process.env.LESSONS_SENTRY_DSN,
-    debug: false 
+    debug: false
   });
 }
 
@@ -239,13 +240,19 @@ r.connect(rethinkdbConfig, (err, connection) => {
           }
         });
 
-        client.on('getAllEditionMetadataForLesson', (data) => {
-          getAllEditionMetadataForLesson({ ...adaptors, ...data });
+        const keyGetAllEditionMetadataForLesson = 'getAllEditionMetadataForLesson';
+        client.on(keyGetAllEditionMetadataForLesson, (data) => {
+          nr.track(keyGetAllEditionMetadataForLesson, () => {
+            getAllEditionMetadataForLesson({ ...adaptors, ...data });
+          });
         })
 
-        client.on('teacherConnected', (data) => {
-          authorizeRole(adminRoles, data, authToken, client, () => {
-            teacherConnected({ ...adaptors, ...data });
+        const keyTeacherConnected = 'teacherConnected';
+        client.on(keyTeacherConnected, (data) => {
+          nr.track(keyTeacherConnected, () => {
+            authorizeRole(adminRoles, data, authToken, client, () => {
+              teacherConnected({ ...adaptors, ...data });
+            });
           });
         });
 
@@ -345,15 +352,21 @@ r.connect(rethinkdbConfig, (err, connection) => {
           });
         });
 
-        client.on('setModel', (data) => {
-          authorizeSession(data, authToken, client, () => {
-            setModel({ ...adaptors, ...data });
+        const keySetModel = 'setModel';
+        client.on(keySetModel, (data) => {
+          nr.track(keySetModel, () => {
+            authorizeSession(data, authToken, client, () => {
+              setModel({ ...adaptors, ...data });
+            });
           });
         });
 
+
         client.on('setPrompt', (data) => {
-          authorizeSession(data, authToken, client, () => {
-            setPrompt({ ...adaptors, ...data });
+          nr.track('setPrompt', () => {
+            authorizeSession(data, authToken, client, () => {
+              setPrompt({ ...adaptors, ...data });
+            });
           });
         });
 
@@ -363,10 +376,13 @@ r.connect(rethinkdbConfig, (err, connection) => {
           });
         });
 
-        client.on('setWatchTeacherState', (data) => {
-          authorizeSession(data, authToken, client, () => {
-            setWatchTeacherState({ ...adaptors, ...data });
-          });
+        const keySetWatchTeacherState = 'setWatchTeacherState';
+        client.on(keySetWatchTeacherState, (data) => {
+          nr.track(keySetWatchTeacherState, () => {
+            authorizeSession(data, authToken, client, () => {
+              setWatchTeacherState({ ...adaptors, ...data });
+            });
+          })
         });
 
         client.on('removeWatchTeacherState', (data) => {

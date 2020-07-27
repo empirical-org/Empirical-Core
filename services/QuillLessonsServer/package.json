@@ -7,7 +7,7 @@
     "build": "babel src -d lib",
     "start": "npm run build && node lib/index.js",
     "serve": "node lib/index.js",
-    "start:dev": "./rethink_local.sh start; PORT=3200 RETHINKDB_HOST=localhost RETHINK_DB_PORT=28015 nodemon src/index.js --exec babel-node .babelrc; ./rethink_local.sh stop",
+    "start:dev": "./rethink_local.sh start; PORT=3200 RETHINKDB_HOST=localhost RETHINK_DB_PORT=28015 nodemon src/index.js --exec babel-node src/index.js; ./rethink_local.sh stop",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
@@ -16,6 +16,7 @@
     "@babel/cli": "^7.7.0",
     "@babel/core": "^7.7.0",
     "@babel/node": "^7.7.0",
+    "@babel/polyfill": "^7.7.0",
     "@babel/plugin-syntax-dynamic-import": "^7.2.0",
     "@babel/plugin-transform-runtime": "^7.6.2",
     "@babel/preset-env": "^7.7.1",
