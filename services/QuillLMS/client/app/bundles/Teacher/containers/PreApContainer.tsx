@@ -11,29 +11,24 @@ interface PreApContainerState {
   units: Array<any>
 }
 
-export default class PreApContainer extends React.Component<PreApContainerProps, PreApContainerState> {
-  constructor(props: PreApContainerProps) {
-    super(props)
+export const PreApContainer = ({ isPartOfAssignmentFlow, units }: PreApContainerProps) => {
 
-    this.state = { units: props.units, }
-  }
+  const [preApUnits, setPreApUnits] = React.useState<PreApContainerState>(units || []);
 
-  componentDidMount() {
-    const { units, } = this.state
+  React.useEffect(() => {
+    setUnits();
+  }, []);
 
-    if (!units) {
+  const setUnits = () => {
+    if (!preApUnits.length) {
       requestGet('/preap_units.json',
-       (data) => {
-         this.setState({ units: data.units, })
-       }
-     )
+        (data) => {
+          setPreApUnits(data.units);
+        }
+      )
     }
   }
-
-  render() {
-    const { units, } = this.state
-    const { isPartOfAssignmentFlow, } = this.props
-
-    return <PreAp isPartOfAssignmentFlow={isPartOfAssignmentFlow} units={units} />
-  }
+  return <PreAp isPartOfAssignmentFlow={isPartOfAssignmentFlow} units={preApUnits} />
 }
+
+export default PreApContainer
