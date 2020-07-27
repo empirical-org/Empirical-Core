@@ -415,7 +415,6 @@ class PagesController < ApplicationController
     @user_has_school = !!current_user&.school && ['home school', 'us higher ed', 'international', 'other', 'not listed'].exclude?(current_user&.school&.name)
     @user_belongs_to_school_that_has_paid = current_user&.school ? Subscription.school_or_user_has_ever_paid?(current_user&.school) : false
     @last_four = current_user&.last_four
-    @user_has_covid_19_subscription = current_user&.subscriptions&.any?(&:covid19?)
 
     @title = 'Premium'
   end

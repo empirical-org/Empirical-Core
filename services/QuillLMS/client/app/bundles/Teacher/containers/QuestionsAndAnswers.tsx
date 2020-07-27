@@ -4,6 +4,7 @@ import lessons from '../components/modules/questionsAndAnswers/lessons'
 import admin from '../components/modules/questionsAndAnswers/admin'
 import premium from '../components/modules/questionsAndAnswers/premium'
 import preap from '../components/modules/questionsAndAnswers/preap'
+import ap from '../components/modules/questionsAndAnswers/ap'
 
 export interface QuestionsAndAnswersProps {
   questionsAndAnswersFile: string;
@@ -31,6 +32,9 @@ export default class QuestionsAndAnswers extends React.Component<QuestionsAndAns
         break
       case 'preap':
         questionsAndAnswers = preap
+        break
+      case 'ap':
+        questionsAndAnswers = ap
         break
       default:
         questionsAndAnswers = []

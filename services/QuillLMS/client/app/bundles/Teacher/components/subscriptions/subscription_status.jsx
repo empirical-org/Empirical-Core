@@ -4,7 +4,7 @@ import pluralize from 'pluralize';
 
 const quillBasicCopy = (
   <span>
-    Quill Basic provides access to all of Quill&apos;s content. To access Quill Premium, you can purchase an individual teacher subscription or a school subscription. We are currently offering Quill Premium for free for the rest of the 2019/20 school year. Activate <a href="/subscriptions/activate_covid_subscription">here</a>.
+    Quill Basic provides access to all of Quill&apos;s content. To access Quill Premium, you can purchase an individual teacher subscription or a school subscription.
   </span>);
 
 const schoolPremiumCopy = (
