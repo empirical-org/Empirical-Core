@@ -1,5 +1,5 @@
 import newrelic from 'newrelic';
-import nr from './config/newrelic'; // custom NR methods
+// import nr from './config/newrelic'; // custom NR methods
 import dotenv from 'dotenv';
 import r from 'rethinkdb';
 import socketio from 'socket.io';
@@ -240,20 +240,20 @@ r.connect(rethinkdbConfig, (err, connection) => {
           }
         });
 
-        const keyGetAllEditionMetadataForLesson = 'getAllEditionMetadataForLesson';
+        // const keyGetAllEditionMetadataForLesson = 'getAllEditionMetadataForLesson';
         client.on(keyGetAllEditionMetadataForLesson, (data) => {
-          nr.track(keyGetAllEditionMetadataForLesson, () => {
+          // nr.track(keyGetAllEditionMetadataForLesson, () => {
             getAllEditionMetadataForLesson({ ...adaptors, ...data });
-          });
+          // });
         })
 
-        const keyTeacherConnected = 'teacherConnected';
+        // const keyTeacherConnected = 'teacherConnected';
         client.on(keyTeacherConnected, (data) => {
-          nr.track(keyTeacherConnected, () => {
+          // nr.track(keyTeacherConnected, () => {
             authorizeRole(adminRoles, data, authToken, client, () => {
               teacherConnected({ ...adaptors, ...data });
             });
-          });
+          // });
         });
 
         client.on('disconnect', () => {
@@ -354,20 +354,19 @@ r.connect(rethinkdbConfig, (err, connection) => {
 
         const keySetModel = 'setModel';
         client.on(keySetModel, (data) => {
-          nr.track(keySetModel, () => {
+          // nr.track(keySetModel, () => {
             authorizeSession(data, authToken, client, () => {
               setModel({ ...adaptors, ...data });
             });
-          });
+          // });
         });
 
-
         client.on('setPrompt', (data) => {
-          nr.track('setPrompt', () => {
+          // nr.track('setPrompt', () => {
             authorizeSession(data, authToken, client, () => {
               setPrompt({ ...adaptors, ...data });
             });
-          });
+          // })
         });
 
         client.on('toggleStudentFlag', (data) => {
@@ -378,11 +377,11 @@ r.connect(rethinkdbConfig, (err, connection) => {
 
         const keySetWatchTeacherState = 'setWatchTeacherState';
         client.on(keySetWatchTeacherState, (data) => {
-          nr.track(keySetWatchTeacherState, () => {
+          // nr.track(keySetWatchTeacherState, () => {
             authorizeSession(data, authToken, client, () => {
               setWatchTeacherState({ ...adaptors, ...data });
             });
-          })
+          // })
         });
 
         client.on('removeWatchTeacherState', (data) => {
