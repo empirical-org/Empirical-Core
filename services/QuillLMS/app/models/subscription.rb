@@ -26,7 +26,8 @@ class Subscription < ActiveRecord::Base
                          'School Paid',
                          'Teacher Paid',
                          'Purchase Missing School',
-                         'Premium Credit']
+                         'Premium Credit',
+                         CB_LIFETIME_SUBSCRIPTION_TYPE]
 
   OFFICIAL_FREE_TYPES = ['School NYC Free',
                          'School Research',
