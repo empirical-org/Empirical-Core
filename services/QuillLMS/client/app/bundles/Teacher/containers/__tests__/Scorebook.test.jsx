@@ -181,12 +181,12 @@ describe('Scorebook component', () => {
     const dateFilterName = 'All Time'
     wrapper.instance().fetchData = jest.fn();
 
-    it('should set scorebookBeginDate as a stringified Moment object', () => {
-      wrapper.instance().selectDates(beginDate, null, null);
-      const localStorageBeginDate = moment(window.localStorage.getItem('scorebookBeginDate')).seconds(0).milliseconds(0).toISOString()
-      const savedBeginDate = moment(beginDate).seconds(0).milliseconds(0).toISOString()
-      expect(localStorageBeginDate).toBe(savedBeginDate);
-    });
+    // it('should set scorebookBeginDate as a stringified Moment object', () => {
+    //   wrapper.instance().selectDates(beginDate, null, null);
+    //   const localStorageBeginDate = moment(window.localStorage.getItem('scorebookBeginDate')).seconds(0).milliseconds(0).toISOString()
+    //   const savedBeginDate = moment(beginDate).seconds(0).milliseconds(0).toISOString()
+    //   expect(localStorageBeginDate).toBe(savedBeginDate);
+    // });
 
     it('should set scoreBookDateFilterName as a string', () => {
       wrapper.instance().selectDates(null, null, dateFilterName);

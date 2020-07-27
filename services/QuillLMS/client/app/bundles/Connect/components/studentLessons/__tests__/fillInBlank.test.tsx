@@ -1,7 +1,7 @@
 import 'whatwg-fetch'
 import * as React from 'react';
 import { shallow } from 'enzyme';
-import { fillInBlankQuestionWithOneAttempt, conceptsFeedback } from './data'
+import { fillInBlankQuestionWithOneAttempt, conceptsFeedback } from '../../../test/studentLessonData'
 
 import PlayFillInBlankQuestion from '../fillInBlank';
 

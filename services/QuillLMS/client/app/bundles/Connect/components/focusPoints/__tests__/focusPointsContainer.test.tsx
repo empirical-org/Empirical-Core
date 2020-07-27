@@ -2,7 +2,7 @@ import * as React from 'react';
 import 'whatwg-fetch'
 import { BrowserRouter as Router } from 'react-router-dom';
 import { shallow, mount } from 'enzyme';
-import { genericQuestion } from '../../../../test/data/jest_data.js';
+import { genericQuestion } from '../../../test/data/jest_data.js';
 import { FocusPointsContainer } from '../focusPointsContainer.jsx';
 import { SortableList } from 'quill-component-library/dist/componentLibrary';
 

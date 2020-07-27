@@ -19,7 +19,7 @@ describe('adminLesson component', () => {
   it('should render with lessons sidebar and question container', () => {
     const wrapper = mount(
       <Provider store={store}>
-        <MemoryRouter initialEntries={[ '/admin/lesson-view/lessonID/questions/questionID' ]}>
+        <MemoryRouter initialEntries={[ '/admin/lesson-view/lessonID/questions/questionID' ]} keyLength={0}>
           <AdminLesson />
         </MemoryRouter>
       </Provider>
@@ -32,7 +32,7 @@ describe('adminLesson component', () => {
   it('should render with lessons sidebar and sentence fragments container', () => {
     const wrapper = mount(
       <Provider store={store}>
-        <MemoryRouter initialEntries={[ '/admin/lesson-view/lessonID/sentence-fragments/questionID' ]}>
+        <MemoryRouter initialEntries={[ '/admin/lesson-view/lessonID/sentence-fragments/questionID' ]} keyLength={0}>
           <AdminLesson />
         </MemoryRouter>
       </Provider>
@@ -45,7 +45,7 @@ describe('adminLesson component', () => {
   it('should render with lessons sidebar and fill in blank container', () => {
     const wrapper = mount(
       <Provider store={store}>
-        <MemoryRouter initialEntries={[ '/admin/lesson-view/lessonID/fill-in-the-blanks/questionID' ]}>
+        <MemoryRouter initialEntries={[ '/admin/lesson-view/lessonID/fill-in-the-blanks/questionID' ]} keyLength={0}>
           <AdminLesson />
         </MemoryRouter>
       </Provider>
@@ -58,7 +58,7 @@ describe('adminLesson component', () => {
   it('should render with lessons sidebar and title card container', () => {
     const wrapper = mount(
       <Provider store={store}>
-        <MemoryRouter initialEntries={[ '/admin/lesson-view/lessonID/title-cards/questionID' ]}>
+        <MemoryRouter initialEntries={[ '/admin/lesson-view/lessonID/title-cards/questionID' ]} keyLength={0}>
           <AdminLesson />
         </MemoryRouter>
       </Provider>

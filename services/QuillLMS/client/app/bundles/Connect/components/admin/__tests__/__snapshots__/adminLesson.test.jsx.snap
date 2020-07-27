@@ -1,9 +1,2076 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`adminLesson component should render with lessons sidebar and fill in blank container 1`] = `ReactWrapper {}`;
+exports[`adminLesson component should render with lessons sidebar and fill in blank container 1`] = `
+<Provider
+  store={
+    Object {
+      "dispatch": [Function],
+      "getState": [Function],
+      "replaceReducer": [Function],
+      "subscribe": [Function],
+      Symbol(observable): [Function],
+    }
+  }
+>
+  <MemoryRouter
+    initialEntries={
+      Array [
+        "/admin/lesson-view/lessonID/fill-in-the-blanks/questionID",
+      ]
+    }
+    keyLength={0}
+  >
+    <Router
+      history={
+        Object {
+          "action": "POP",
+          "block": [Function],
+          "canGo": [Function],
+          "createHref": [Function],
+          "entries": Array [
+            Object {
+              "hash": "",
+              "pathname": "/admin/lesson-view/lessonID/fill-in-the-blanks/questionID",
+              "search": "",
+              "state": undefined,
+            },
+          ],
+          "go": [Function],
+          "goBack": [Function],
+          "goForward": [Function],
+          "index": 0,
+          "length": 1,
+          "listen": [Function],
+          "location": Object {
+            "hash": "",
+            "pathname": "/admin/lesson-view/lessonID/fill-in-the-blanks/questionID",
+            "search": "",
+            "state": undefined,
+          },
+          "push": [Function],
+          "replace": [Function],
+        }
+      }
+    >
+      <withRouter(AdminLesson)>
+        <AdminLesson
+          history={
+            Object {
+              "action": "POP",
+              "block": [Function],
+              "canGo": [Function],
+              "createHref": [Function],
+              "entries": Array [
+                Object {
+                  "hash": "",
+                  "pathname": "/admin/lesson-view/lessonID/fill-in-the-blanks/questionID",
+                  "search": "",
+                  "state": undefined,
+                },
+              ],
+              "go": [Function],
+              "goBack": [Function],
+              "goForward": [Function],
+              "index": 0,
+              "length": 1,
+              "listen": [Function],
+              "location": Object {
+                "hash": "",
+                "pathname": "/admin/lesson-view/lessonID/fill-in-the-blanks/questionID",
+                "search": "",
+                "state": undefined,
+              },
+              "push": [Function],
+              "replace": [Function],
+            }
+          }
+          location={
+            Object {
+              "hash": "",
+              "pathname": "/admin/lesson-view/lessonID/fill-in-the-blanks/questionID",
+              "search": "",
+              "state": undefined,
+            }
+          }
+          match={
+            Object {
+              "isExact": false,
+              "params": Object {},
+              "path": "/",
+              "url": "/",
+            }
+          }
+        >
+          <div
+            style={
+              Object {
+                "display": "flex",
+                "width": "100%",
+              }
+            }
+          >
+            <Switch>
+              <Route
+                component={[Function]}
+                computedMatch={
+                  Object {
+                    "isExact": true,
+                    "params": Object {
+                      "lessonID": "lessonID",
+                      "questionID": "questionID",
+                    },
+                    "path": "/admin/lesson-view/:lessonID/fill-in-the-blanks/:questionID",
+                    "url": "/admin/lesson-view/lessonID/fill-in-the-blanks/questionID",
+                  }
+                }
+                location={
+                  Object {
+                    "hash": "",
+                    "pathname": "/admin/lesson-view/lessonID/fill-in-the-blanks/questionID",
+                    "search": "",
+                    "state": undefined,
+                  }
+                }
+                path="/admin/lesson-view/:lessonID/fill-in-the-blanks/:questionID"
+              >
+                <AdminLessonSidebar
+                  history={
+                    Object {
+                      "action": "POP",
+                      "block": [Function],
+                      "canGo": [Function],
+                      "createHref": [Function],
+                      "entries": Array [
+                        Object {
+                          "hash": "",
+                          "pathname": "/admin/lesson-view/lessonID/fill-in-the-blanks/questionID",
+                          "search": "",
+                          "state": undefined,
+                        },
+                      ],
+                      "go": [Function],
+                      "goBack": [Function],
+                      "goForward": [Function],
+                      "index": 0,
+                      "length": 1,
+                      "listen": [Function],
+                      "location": Object {
+                        "hash": "",
+                        "pathname": "/admin/lesson-view/lessonID/fill-in-the-blanks/questionID",
+                        "search": "",
+                        "state": undefined,
+                      },
+                      "push": [Function],
+                      "replace": [Function],
+                    }
+                  }
+                  location={
+                    Object {
+                      "hash": "",
+                      "pathname": "/admin/lesson-view/lessonID/fill-in-the-blanks/questionID",
+                      "search": "",
+                      "state": undefined,
+                    }
+                  }
+                  match={
+                    Object {
+                      "isExact": true,
+                      "params": Object {
+                        "lessonID": "lessonID",
+                        "questionID": "questionID",
+                      },
+                      "path": "/admin/lesson-view/:lessonID/fill-in-the-blanks/:questionID",
+                      "url": "/admin/lesson-view/lessonID/fill-in-the-blanks/questionID",
+                    }
+                  }
+                >
+                  <section
+                    className="section is-fullheight lesson-sidebar-section"
+                  >
+                    <aside
+                      className="menu lesson-sidebar"
+                    >
+                      <Connect(Lesson)
+                        isSidebar={true}
+                        location={
+                          Location {
+                            "assign": [Function],
+                            "hash": "",
+                            "host": "localhost",
+                            "hostname": "localhost",
+                            "href": "http://localhost/",
+                            "origin": "http://localhost",
+                            "pathname": "/",
+                            "port": "",
+                            "protocol": "http:",
+                            "reload": [Function],
+                            "replace": [Function],
+                            "search": "",
+                            "toString": [Function],
+                          }
+                        }
+                        match={
+                          Object {
+                            "isExact": true,
+                            "params": Object {
+                              "lessonID": "lessonID",
+                              "questionID": "questionID",
+                            },
+                            "path": "/admin/lesson-view/:lessonID/fill-in-the-blanks/:questionID",
+                            "url": "/admin/lesson-view/lessonID/fill-in-the-blanks/questionID",
+                          }
+                        }
+                      >
+                        <Lesson
+                          dispatch={[Function]}
+                          fillInBlank={
+                            Object {
+                              "data": Object {},
+                              "hasreceiveddata": false,
+                              "states": Object {},
+                              "submittingnew": false,
+                            }
+                          }
+                          isSidebar={true}
+                          lessons={
+                            Object {
+                              "data": Object {},
+                              "flag": "alpha",
+                              "hasreceiveddata": false,
+                              "states": Object {},
+                              "submittingnew": false,
+                            }
+                          }
+                          location={
+                            Location {
+                              "assign": [Function],
+                              "hash": "",
+                              "host": "localhost",
+                              "hostname": "localhost",
+                              "href": "http://localhost/",
+                              "origin": "http://localhost",
+                              "pathname": "/",
+                              "port": "",
+                              "protocol": "http:",
+                              "reload": [Function],
+                              "replace": [Function],
+                              "search": "",
+                              "toString": [Function],
+                            }
+                          }
+                          match={
+                            Object {
+                              "isExact": true,
+                              "params": Object {
+                                "lessonID": "lessonID",
+                                "questionID": "questionID",
+                              },
+                              "path": "/admin/lesson-view/:lessonID/fill-in-the-blanks/:questionID",
+                              "url": "/admin/lesson-view/lessonID/fill-in-the-blanks/questionID",
+                            }
+                          }
+                          questions={
+                            Object {
+                              "data": Object {},
+                              "hasreceiveddata": false,
+                              "states": Object {},
+                              "submittingnew": false,
+                            }
+                          }
+                          routing={
+                            Object {
+                              "locationBeforeTransitions": null,
+                            }
+                          }
+                          sentenceFragments={
+                            Object {
+                              "data": Object {},
+                              "hasreceiveddata": false,
+                              "states": Object {},
+                              "submittingnew": false,
+                            }
+                          }
+                          titleCards={
+                            Object {
+                              "data": Object {},
+                              "hasreceiveddata": false,
+                            }
+                          }
+                        >
+                          <p>
+                            Loading...
+                          </p>
+                        </Lesson>
+                      </Connect(Lesson)>
+                    </aside>
+                  </section>
+                </AdminLessonSidebar>
+              </Route>
+            </Switch>
+            <Switch>
+              <Route
+                component={[Function]}
+                computedMatch={
+                  Object {
+                    "isExact": true,
+                    "params": Object {
+                      "lessonID": "lessonID",
+                      "questionID": "questionID",
+                    },
+                    "path": "/admin/lesson-view/:lessonID/fill-in-the-blanks/:questionID",
+                    "url": "/admin/lesson-view/lessonID/fill-in-the-blanks/questionID",
+                  }
+                }
+                location={
+                  Object {
+                    "hash": "",
+                    "pathname": "/admin/lesson-view/lessonID/fill-in-the-blanks/questionID",
+                    "search": "",
+                    "state": undefined,
+                  }
+                }
+                path="/admin/lesson-view/:lessonID/fill-in-the-blanks/:questionID"
+              >
+                <withRouter(Connect(FillInBlankQuestion))
+                  history={
+                    Object {
+                      "action": "POP",
+                      "block": [Function],
+                      "canGo": [Function],
+                      "createHref": [Function],
+                      "entries": Array [
+                        Object {
+                          "hash": "",
+                          "pathname": "/admin/lesson-view/lessonID/fill-in-the-blanks/questionID",
+                          "search": "",
+                          "state": undefined,
+                        },
+                      ],
+                      "go": [Function],
+                      "goBack": [Function],
+                      "goForward": [Function],
+                      "index": 0,
+                      "length": 1,
+                      "listen": [Function],
+                      "location": Object {
+                        "hash": "",
+                        "pathname": "/admin/lesson-view/lessonID/fill-in-the-blanks/questionID",
+                        "search": "",
+                        "state": undefined,
+                      },
+                      "push": [Function],
+                      "replace": [Function],
+                    }
+                  }
+                  location={
+                    Object {
+                      "hash": "",
+                      "pathname": "/admin/lesson-view/lessonID/fill-in-the-blanks/questionID",
+                      "search": "",
+                      "state": undefined,
+                    }
+                  }
+                  match={
+                    Object {
+                      "isExact": true,
+                      "params": Object {
+                        "lessonID": "lessonID",
+                        "questionID": "questionID",
+                      },
+                      "path": "/admin/lesson-view/:lessonID/fill-in-the-blanks/:questionID",
+                      "url": "/admin/lesson-view/lessonID/fill-in-the-blanks/questionID",
+                    }
+                  }
+                >
+                  <Connect(FillInBlankQuestion)
+                    history={
+                      Object {
+                        "action": "POP",
+                        "block": [Function],
+                        "canGo": [Function],
+                        "createHref": [Function],
+                        "entries": Array [
+                          Object {
+                            "hash": "",
+                            "pathname": "/admin/lesson-view/lessonID/fill-in-the-blanks/questionID",
+                            "search": "",
+                            "state": undefined,
+                          },
+                        ],
+                        "go": [Function],
+                        "goBack": [Function],
+                        "goForward": [Function],
+                        "index": 0,
+                        "length": 1,
+                        "listen": [Function],
+                        "location": Object {
+                          "hash": "",
+                          "pathname": "/admin/lesson-view/lessonID/fill-in-the-blanks/questionID",
+                          "search": "",
+                          "state": undefined,
+                        },
+                        "push": [Function],
+                        "replace": [Function],
+                      }
+                    }
+                    location={
+                      Object {
+                        "hash": "",
+                        "pathname": "/admin/lesson-view/lessonID/fill-in-the-blanks/questionID",
+                        "search": "",
+                        "state": undefined,
+                      }
+                    }
+                    match={
+                      Object {
+                        "isExact": true,
+                        "params": Object {
+                          "lessonID": "lessonID",
+                          "questionID": "questionID",
+                        },
+                        "path": "/admin/lesson-view/:lessonID/fill-in-the-blanks/:questionID",
+                        "url": "/admin/lesson-view/lessonID/fill-in-the-blanks/questionID",
+                      }
+                    }
+                  >
+                    <FillInBlankQuestion
+                      dispatch={[Function]}
+                      fillInBlank={
+                        Object {
+                          "data": Object {},
+                          "hasreceiveddata": false,
+                          "states": Object {},
+                          "submittingnew": false,
+                        }
+                      }
+                      history={
+                        Object {
+                          "action": "POP",
+                          "block": [Function],
+                          "canGo": [Function],
+                          "createHref": [Function],
+                          "entries": Array [
+                            Object {
+                              "hash": "",
+                              "pathname": "/admin/lesson-view/lessonID/fill-in-the-blanks/questionID",
+                              "search": "",
+                              "state": undefined,
+                            },
+                          ],
+                          "go": [Function],
+                          "goBack": [Function],
+                          "goForward": [Function],
+                          "index": 0,
+                          "length": 1,
+                          "listen": [Function],
+                          "location": Object {
+                            "hash": "",
+                            "pathname": "/admin/lesson-view/lessonID/fill-in-the-blanks/questionID",
+                            "search": "",
+                            "state": undefined,
+                          },
+                          "push": [Function],
+                          "replace": [Function],
+                        }
+                      }
+                      location={
+                        Object {
+                          "hash": "",
+                          "pathname": "/admin/lesson-view/lessonID/fill-in-the-blanks/questionID",
+                          "search": "",
+                          "state": undefined,
+                        }
+                      }
+                      massEdit={
+                        Object {
+                          "numSelectedResponses": 0,
+                          "selectedResponses": Array [],
+                        }
+                      }
+                      match={
+                        Object {
+                          "isExact": true,
+                          "params": Object {
+                            "lessonID": "lessonID",
+                            "questionID": "questionID",
+                          },
+                          "path": "/admin/lesson-view/:lessonID/fill-in-the-blanks/:questionID",
+                          "url": "/admin/lesson-view/lessonID/fill-in-the-blanks/questionID",
+                        }
+                      }
+                    >
+                      <p>
+                        Loading...
+                      </p>
+                    </FillInBlankQuestion>
+                  </Connect(FillInBlankQuestion)>
+                </withRouter(Connect(FillInBlankQuestion))>
+              </Route>
+            </Switch>
+          </div>
+        </AdminLesson>
+      </withRouter(AdminLesson)>
+    </Router>
+  </MemoryRouter>
+</Provider>
+`;
 
-exports[`adminLesson component should render with lessons sidebar and question container 1`] = `ReactWrapper {}`;
+exports[`adminLesson component should render with lessons sidebar and question container 1`] = `
+<Provider
+  store={
+    Object {
+      "dispatch": [Function],
+      "getState": [Function],
+      "replaceReducer": [Function],
+      "subscribe": [Function],
+      Symbol(observable): [Function],
+    }
+  }
+>
+  <MemoryRouter
+    initialEntries={
+      Array [
+        "/admin/lesson-view/lessonID/questions/questionID",
+      ]
+    }
+    keyLength={0}
+  >
+    <Router
+      history={
+        Object {
+          "action": "POP",
+          "block": [Function],
+          "canGo": [Function],
+          "createHref": [Function],
+          "entries": Array [
+            Object {
+              "hash": "",
+              "pathname": "/admin/lesson-view/lessonID/questions/questionID",
+              "search": "",
+              "state": undefined,
+            },
+          ],
+          "go": [Function],
+          "goBack": [Function],
+          "goForward": [Function],
+          "index": 0,
+          "length": 1,
+          "listen": [Function],
+          "location": Object {
+            "hash": "",
+            "pathname": "/admin/lesson-view/lessonID/questions/questionID",
+            "search": "",
+            "state": undefined,
+          },
+          "push": [Function],
+          "replace": [Function],
+        }
+      }
+    >
+      <withRouter(AdminLesson)>
+        <AdminLesson
+          history={
+            Object {
+              "action": "POP",
+              "block": [Function],
+              "canGo": [Function],
+              "createHref": [Function],
+              "entries": Array [
+                Object {
+                  "hash": "",
+                  "pathname": "/admin/lesson-view/lessonID/questions/questionID",
+                  "search": "",
+                  "state": undefined,
+                },
+              ],
+              "go": [Function],
+              "goBack": [Function],
+              "goForward": [Function],
+              "index": 0,
+              "length": 1,
+              "listen": [Function],
+              "location": Object {
+                "hash": "",
+                "pathname": "/admin/lesson-view/lessonID/questions/questionID",
+                "search": "",
+                "state": undefined,
+              },
+              "push": [Function],
+              "replace": [Function],
+            }
+          }
+          location={
+            Object {
+              "hash": "",
+              "pathname": "/admin/lesson-view/lessonID/questions/questionID",
+              "search": "",
+              "state": undefined,
+            }
+          }
+          match={
+            Object {
+              "isExact": false,
+              "params": Object {},
+              "path": "/",
+              "url": "/",
+            }
+          }
+        >
+          <div
+            style={
+              Object {
+                "display": "flex",
+                "width": "100%",
+              }
+            }
+          >
+            <Switch>
+              <Route
+                component={[Function]}
+                computedMatch={
+                  Object {
+                    "isExact": true,
+                    "params": Object {
+                      "lessonID": "lessonID",
+                      "questionID": "questionID",
+                    },
+                    "path": "/admin/lesson-view/:lessonID/questions/:questionID",
+                    "url": "/admin/lesson-view/lessonID/questions/questionID",
+                  }
+                }
+                location={
+                  Object {
+                    "hash": "",
+                    "pathname": "/admin/lesson-view/lessonID/questions/questionID",
+                    "search": "",
+                    "state": undefined,
+                  }
+                }
+                path="/admin/lesson-view/:lessonID/questions/:questionID"
+              >
+                <AdminLessonSidebar
+                  history={
+                    Object {
+                      "action": "POP",
+                      "block": [Function],
+                      "canGo": [Function],
+                      "createHref": [Function],
+                      "entries": Array [
+                        Object {
+                          "hash": "",
+                          "pathname": "/admin/lesson-view/lessonID/questions/questionID",
+                          "search": "",
+                          "state": undefined,
+                        },
+                      ],
+                      "go": [Function],
+                      "goBack": [Function],
+                      "goForward": [Function],
+                      "index": 0,
+                      "length": 1,
+                      "listen": [Function],
+                      "location": Object {
+                        "hash": "",
+                        "pathname": "/admin/lesson-view/lessonID/questions/questionID",
+                        "search": "",
+                        "state": undefined,
+                      },
+                      "push": [Function],
+                      "replace": [Function],
+                    }
+                  }
+                  location={
+                    Object {
+                      "hash": "",
+                      "pathname": "/admin/lesson-view/lessonID/questions/questionID",
+                      "search": "",
+                      "state": undefined,
+                    }
+                  }
+                  match={
+                    Object {
+                      "isExact": true,
+                      "params": Object {
+                        "lessonID": "lessonID",
+                        "questionID": "questionID",
+                      },
+                      "path": "/admin/lesson-view/:lessonID/questions/:questionID",
+                      "url": "/admin/lesson-view/lessonID/questions/questionID",
+                    }
+                  }
+                >
+                  <section
+                    className="section is-fullheight lesson-sidebar-section"
+                  >
+                    <aside
+                      className="menu lesson-sidebar"
+                    >
+                      <Connect(Lesson)
+                        isSidebar={true}
+                        location={
+                          Location {
+                            "assign": [Function],
+                            "hash": "",
+                            "host": "localhost",
+                            "hostname": "localhost",
+                            "href": "http://localhost/",
+                            "origin": "http://localhost",
+                            "pathname": "/",
+                            "port": "",
+                            "protocol": "http:",
+                            "reload": [Function],
+                            "replace": [Function],
+                            "search": "",
+                            "toString": [Function],
+                          }
+                        }
+                        match={
+                          Object {
+                            "isExact": true,
+                            "params": Object {
+                              "lessonID": "lessonID",
+                              "questionID": "questionID",
+                            },
+                            "path": "/admin/lesson-view/:lessonID/questions/:questionID",
+                            "url": "/admin/lesson-view/lessonID/questions/questionID",
+                          }
+                        }
+                      >
+                        <Lesson
+                          dispatch={[Function]}
+                          fillInBlank={
+                            Object {
+                              "data": Object {},
+                              "hasreceiveddata": false,
+                              "states": Object {},
+                              "submittingnew": false,
+                            }
+                          }
+                          isSidebar={true}
+                          lessons={
+                            Object {
+                              "data": Object {},
+                              "flag": "alpha",
+                              "hasreceiveddata": false,
+                              "states": Object {},
+                              "submittingnew": false,
+                            }
+                          }
+                          location={
+                            Location {
+                              "assign": [Function],
+                              "hash": "",
+                              "host": "localhost",
+                              "hostname": "localhost",
+                              "href": "http://localhost/",
+                              "origin": "http://localhost",
+                              "pathname": "/",
+                              "port": "",
+                              "protocol": "http:",
+                              "reload": [Function],
+                              "replace": [Function],
+                              "search": "",
+                              "toString": [Function],
+                            }
+                          }
+                          match={
+                            Object {
+                              "isExact": true,
+                              "params": Object {
+                                "lessonID": "lessonID",
+                                "questionID": "questionID",
+                              },
+                              "path": "/admin/lesson-view/:lessonID/questions/:questionID",
+                              "url": "/admin/lesson-view/lessonID/questions/questionID",
+                            }
+                          }
+                          questions={
+                            Object {
+                              "data": Object {},
+                              "hasreceiveddata": false,
+                              "states": Object {},
+                              "submittingnew": false,
+                            }
+                          }
+                          routing={
+                            Object {
+                              "locationBeforeTransitions": null,
+                            }
+                          }
+                          sentenceFragments={
+                            Object {
+                              "data": Object {},
+                              "hasreceiveddata": false,
+                              "states": Object {},
+                              "submittingnew": false,
+                            }
+                          }
+                          titleCards={
+                            Object {
+                              "data": Object {},
+                              "hasreceiveddata": false,
+                            }
+                          }
+                        >
+                          <p>
+                            Loading...
+                          </p>
+                        </Lesson>
+                      </Connect(Lesson)>
+                    </aside>
+                  </section>
+                </AdminLessonSidebar>
+              </Route>
+            </Switch>
+            <Switch>
+              <Route
+                component={[Function]}
+                computedMatch={
+                  Object {
+                    "isExact": true,
+                    "params": Object {
+                      "lessonID": "lessonID",
+                      "questionID": "questionID",
+                    },
+                    "path": "/admin/lesson-view/:lessonID/questions/:questionID",
+                    "url": "/admin/lesson-view/lessonID/questions/questionID",
+                  }
+                }
+                location={
+                  Object {
+                    "hash": "",
+                    "pathname": "/admin/lesson-view/lessonID/questions/questionID",
+                    "search": "",
+                    "state": undefined,
+                  }
+                }
+                path="/admin/lesson-view/:lessonID/questions/:questionID"
+              >
+                <withRouter(Connect(Question))
+                  history={
+                    Object {
+                      "action": "POP",
+                      "block": [Function],
+                      "canGo": [Function],
+                      "createHref": [Function],
+                      "entries": Array [
+                        Object {
+                          "hash": "",
+                          "pathname": "/admin/lesson-view/lessonID/questions/questionID",
+                          "search": "",
+                          "state": undefined,
+                        },
+                      ],
+                      "go": [Function],
+                      "goBack": [Function],
+                      "goForward": [Function],
+                      "index": 0,
+                      "length": 1,
+                      "listen": [Function],
+                      "location": Object {
+                        "hash": "",
+                        "pathname": "/admin/lesson-view/lessonID/questions/questionID",
+                        "search": "",
+                        "state": undefined,
+                      },
+                      "push": [Function],
+                      "replace": [Function],
+                    }
+                  }
+                  location={
+                    Object {
+                      "hash": "",
+                      "pathname": "/admin/lesson-view/lessonID/questions/questionID",
+                      "search": "",
+                      "state": undefined,
+                    }
+                  }
+                  match={
+                    Object {
+                      "isExact": true,
+                      "params": Object {
+                        "lessonID": "lessonID",
+                        "questionID": "questionID",
+                      },
+                      "path": "/admin/lesson-view/:lessonID/questions/:questionID",
+                      "url": "/admin/lesson-view/lessonID/questions/questionID",
+                    }
+                  }
+                >
+                  <Connect(Question)
+                    history={
+                      Object {
+                        "action": "POP",
+                        "block": [Function],
+                        "canGo": [Function],
+                        "createHref": [Function],
+                        "entries": Array [
+                          Object {
+                            "hash": "",
+                            "pathname": "/admin/lesson-view/lessonID/questions/questionID",
+                            "search": "",
+                            "state": undefined,
+                          },
+                        ],
+                        "go": [Function],
+                        "goBack": [Function],
+                        "goForward": [Function],
+                        "index": 0,
+                        "length": 1,
+                        "listen": [Function],
+                        "location": Object {
+                          "hash": "",
+                          "pathname": "/admin/lesson-view/lessonID/questions/questionID",
+                          "search": "",
+                          "state": undefined,
+                        },
+                        "push": [Function],
+                        "replace": [Function],
+                      }
+                    }
+                    location={
+                      Object {
+                        "hash": "",
+                        "pathname": "/admin/lesson-view/lessonID/questions/questionID",
+                        "search": "",
+                        "state": undefined,
+                      }
+                    }
+                    match={
+                      Object {
+                        "isExact": true,
+                        "params": Object {
+                          "lessonID": "lessonID",
+                          "questionID": "questionID",
+                        },
+                        "path": "/admin/lesson-view/:lessonID/questions/:questionID",
+                        "url": "/admin/lesson-view/lessonID/questions/questionID",
+                      }
+                    }
+                  >
+                    <Question
+                      concepts={
+                        Object {
+                          "data": Object {},
+                          "hasreceiveddata": false,
+                          "states": Object {},
+                          "submittingnew": false,
+                        }
+                      }
+                      dispatch={[Function]}
+                      history={
+                        Object {
+                          "action": "POP",
+                          "block": [Function],
+                          "canGo": [Function],
+                          "createHref": [Function],
+                          "entries": Array [
+                            Object {
+                              "hash": "",
+                              "pathname": "/admin/lesson-view/lessonID/questions/questionID",
+                              "search": "",
+                              "state": undefined,
+                            },
+                          ],
+                          "go": [Function],
+                          "goBack": [Function],
+                          "goForward": [Function],
+                          "index": 0,
+                          "length": 1,
+                          "listen": [Function],
+                          "location": Object {
+                            "hash": "",
+                            "pathname": "/admin/lesson-view/lessonID/questions/questionID",
+                            "search": "",
+                            "state": undefined,
+                          },
+                          "push": [Function],
+                          "replace": [Function],
+                        }
+                      }
+                      itemLevels={
+                        Object {
+                          "data": Object {},
+                          "hasreceiveddata": false,
+                          "states": Object {},
+                          "submittingnew": false,
+                        }
+                      }
+                      location={
+                        Object {
+                          "hash": "",
+                          "pathname": "/admin/lesson-view/lessonID/questions/questionID",
+                          "search": "",
+                          "state": undefined,
+                        }
+                      }
+                      massEdit={
+                        Object {
+                          "numSelectedResponses": 0,
+                          "selectedResponses": Array [],
+                        }
+                      }
+                      match={
+                        Object {
+                          "isExact": true,
+                          "params": Object {
+                            "lessonID": "lessonID",
+                            "questionID": "questionID",
+                          },
+                          "path": "/admin/lesson-view/:lessonID/questions/:questionID",
+                          "url": "/admin/lesson-view/lessonID/questions/questionID",
+                        }
+                      }
+                      questions={
+                        Object {
+                          "data": Object {},
+                          "hasreceiveddata": false,
+                          "states": Object {},
+                          "submittingnew": false,
+                        }
+                      }
+                      routing={
+                        Object {
+                          "locationBeforeTransitions": null,
+                        }
+                      }
+                    >
+                      <p>
+                        Loading...
+                      </p>
+                    </Question>
+                  </Connect(Question)>
+                </withRouter(Connect(Question))>
+              </Route>
+            </Switch>
+          </div>
+        </AdminLesson>
+      </withRouter(AdminLesson)>
+    </Router>
+  </MemoryRouter>
+</Provider>
+`;
 
-exports[`adminLesson component should render with lessons sidebar and sentence fragments container 1`] = `ReactWrapper {}`;
+exports[`adminLesson component should render with lessons sidebar and sentence fragments container 1`] = `
+<Provider
+  store={
+    Object {
+      "dispatch": [Function],
+      "getState": [Function],
+      "replaceReducer": [Function],
+      "subscribe": [Function],
+      Symbol(observable): [Function],
+    }
+  }
+>
+  <MemoryRouter
+    initialEntries={
+      Array [
+        "/admin/lesson-view/lessonID/sentence-fragments/questionID",
+      ]
+    }
+    keyLength={0}
+  >
+    <Router
+      history={
+        Object {
+          "action": "POP",
+          "block": [Function],
+          "canGo": [Function],
+          "createHref": [Function],
+          "entries": Array [
+            Object {
+              "hash": "",
+              "pathname": "/admin/lesson-view/lessonID/sentence-fragments/questionID",
+              "search": "",
+              "state": undefined,
+            },
+          ],
+          "go": [Function],
+          "goBack": [Function],
+          "goForward": [Function],
+          "index": 0,
+          "length": 1,
+          "listen": [Function],
+          "location": Object {
+            "hash": "",
+            "pathname": "/admin/lesson-view/lessonID/sentence-fragments/questionID",
+            "search": "",
+            "state": undefined,
+          },
+          "push": [Function],
+          "replace": [Function],
+        }
+      }
+    >
+      <withRouter(AdminLesson)>
+        <AdminLesson
+          history={
+            Object {
+              "action": "POP",
+              "block": [Function],
+              "canGo": [Function],
+              "createHref": [Function],
+              "entries": Array [
+                Object {
+                  "hash": "",
+                  "pathname": "/admin/lesson-view/lessonID/sentence-fragments/questionID",
+                  "search": "",
+                  "state": undefined,
+                },
+              ],
+              "go": [Function],
+              "goBack": [Function],
+              "goForward": [Function],
+              "index": 0,
+              "length": 1,
+              "listen": [Function],
+              "location": Object {
+                "hash": "",
+                "pathname": "/admin/lesson-view/lessonID/sentence-fragments/questionID",
+                "search": "",
+                "state": undefined,
+              },
+              "push": [Function],
+              "replace": [Function],
+            }
+          }
+          location={
+            Object {
+              "hash": "",
+              "pathname": "/admin/lesson-view/lessonID/sentence-fragments/questionID",
+              "search": "",
+              "state": undefined,
+            }
+          }
+          match={
+            Object {
+              "isExact": false,
+              "params": Object {},
+              "path": "/",
+              "url": "/",
+            }
+          }
+        >
+          <div
+            style={
+              Object {
+                "display": "flex",
+                "width": "100%",
+              }
+            }
+          >
+            <Switch>
+              <Route
+                component={[Function]}
+                computedMatch={
+                  Object {
+                    "isExact": true,
+                    "params": Object {
+                      "lessonID": "lessonID",
+                      "questionID": "questionID",
+                    },
+                    "path": "/admin/lesson-view/:lessonID/sentence-fragments/:questionID",
+                    "url": "/admin/lesson-view/lessonID/sentence-fragments/questionID",
+                  }
+                }
+                location={
+                  Object {
+                    "hash": "",
+                    "pathname": "/admin/lesson-view/lessonID/sentence-fragments/questionID",
+                    "search": "",
+                    "state": undefined,
+                  }
+                }
+                path="/admin/lesson-view/:lessonID/sentence-fragments/:questionID"
+              >
+                <AdminLessonSidebar
+                  history={
+                    Object {
+                      "action": "POP",
+                      "block": [Function],
+                      "canGo": [Function],
+                      "createHref": [Function],
+                      "entries": Array [
+                        Object {
+                          "hash": "",
+                          "pathname": "/admin/lesson-view/lessonID/sentence-fragments/questionID",
+                          "search": "",
+                          "state": undefined,
+                        },
+                      ],
+                      "go": [Function],
+                      "goBack": [Function],
+                      "goForward": [Function],
+                      "index": 0,
+                      "length": 1,
+                      "listen": [Function],
+                      "location": Object {
+                        "hash": "",
+                        "pathname": "/admin/lesson-view/lessonID/sentence-fragments/questionID",
+                        "search": "",
+                        "state": undefined,
+                      },
+                      "push": [Function],
+                      "replace": [Function],
+                    }
+                  }
+                  location={
+                    Object {
+                      "hash": "",
+                      "pathname": "/admin/lesson-view/lessonID/sentence-fragments/questionID",
+                      "search": "",
+                      "state": undefined,
+                    }
+                  }
+                  match={
+                    Object {
+                      "isExact": true,
+                      "params": Object {
+                        "lessonID": "lessonID",
+                        "questionID": "questionID",
+                      },
+                      "path": "/admin/lesson-view/:lessonID/sentence-fragments/:questionID",
+                      "url": "/admin/lesson-view/lessonID/sentence-fragments/questionID",
+                    }
+                  }
+                >
+                  <section
+                    className="section is-fullheight lesson-sidebar-section"
+                  >
+                    <aside
+                      className="menu lesson-sidebar"
+                    >
+                      <Connect(Lesson)
+                        isSidebar={true}
+                        location={
+                          Location {
+                            "assign": [Function],
+                            "hash": "",
+                            "host": "localhost",
+                            "hostname": "localhost",
+                            "href": "http://localhost/",
+                            "origin": "http://localhost",
+                            "pathname": "/",
+                            "port": "",
+                            "protocol": "http:",
+                            "reload": [Function],
+                            "replace": [Function],
+                            "search": "",
+                            "toString": [Function],
+                          }
+                        }
+                        match={
+                          Object {
+                            "isExact": true,
+                            "params": Object {
+                              "lessonID": "lessonID",
+                              "questionID": "questionID",
+                            },
+                            "path": "/admin/lesson-view/:lessonID/sentence-fragments/:questionID",
+                            "url": "/admin/lesson-view/lessonID/sentence-fragments/questionID",
+                          }
+                        }
+                      >
+                        <Lesson
+                          dispatch={[Function]}
+                          fillInBlank={
+                            Object {
+                              "data": Object {},
+                              "hasreceiveddata": false,
+                              "states": Object {},
+                              "submittingnew": false,
+                            }
+                          }
+                          isSidebar={true}
+                          lessons={
+                            Object {
+                              "data": Object {},
+                              "flag": "alpha",
+                              "hasreceiveddata": false,
+                              "states": Object {},
+                              "submittingnew": false,
+                            }
+                          }
+                          location={
+                            Location {
+                              "assign": [Function],
+                              "hash": "",
+                              "host": "localhost",
+                              "hostname": "localhost",
+                              "href": "http://localhost/",
+                              "origin": "http://localhost",
+                              "pathname": "/",
+                              "port": "",
+                              "protocol": "http:",
+                              "reload": [Function],
+                              "replace": [Function],
+                              "search": "",
+                              "toString": [Function],
+                            }
+                          }
+                          match={
+                            Object {
+                              "isExact": true,
+                              "params": Object {
+                                "lessonID": "lessonID",
+                                "questionID": "questionID",
+                              },
+                              "path": "/admin/lesson-view/:lessonID/sentence-fragments/:questionID",
+                              "url": "/admin/lesson-view/lessonID/sentence-fragments/questionID",
+                            }
+                          }
+                          questions={
+                            Object {
+                              "data": Object {},
+                              "hasreceiveddata": false,
+                              "states": Object {},
+                              "submittingnew": false,
+                            }
+                          }
+                          routing={
+                            Object {
+                              "locationBeforeTransitions": null,
+                            }
+                          }
+                          sentenceFragments={
+                            Object {
+                              "data": Object {},
+                              "hasreceiveddata": false,
+                              "states": Object {},
+                              "submittingnew": false,
+                            }
+                          }
+                          titleCards={
+                            Object {
+                              "data": Object {},
+                              "hasreceiveddata": false,
+                            }
+                          }
+                        >
+                          <p>
+                            Loading...
+                          </p>
+                        </Lesson>
+                      </Connect(Lesson)>
+                    </aside>
+                  </section>
+                </AdminLessonSidebar>
+              </Route>
+            </Switch>
+            <Switch>
+              <Route
+                component={[Function]}
+                computedMatch={
+                  Object {
+                    "isExact": true,
+                    "params": Object {
+                      "lessonID": "lessonID",
+                      "questionID": "questionID",
+                    },
+                    "path": "/admin/lesson-view/:lessonID/sentence-fragments/:questionID",
+                    "url": "/admin/lesson-view/lessonID/sentence-fragments/questionID",
+                  }
+                }
+                location={
+                  Object {
+                    "hash": "",
+                    "pathname": "/admin/lesson-view/lessonID/sentence-fragments/questionID",
+                    "search": "",
+                    "state": undefined,
+                  }
+                }
+                path="/admin/lesson-view/:lessonID/sentence-fragments/:questionID"
+              >
+                <withRouter(Connect(SentenceFragment))
+                  history={
+                    Object {
+                      "action": "POP",
+                      "block": [Function],
+                      "canGo": [Function],
+                      "createHref": [Function],
+                      "entries": Array [
+                        Object {
+                          "hash": "",
+                          "pathname": "/admin/lesson-view/lessonID/sentence-fragments/questionID",
+                          "search": "",
+                          "state": undefined,
+                        },
+                      ],
+                      "go": [Function],
+                      "goBack": [Function],
+                      "goForward": [Function],
+                      "index": 0,
+                      "length": 1,
+                      "listen": [Function],
+                      "location": Object {
+                        "hash": "",
+                        "pathname": "/admin/lesson-view/lessonID/sentence-fragments/questionID",
+                        "search": "",
+                        "state": undefined,
+                      },
+                      "push": [Function],
+                      "replace": [Function],
+                    }
+                  }
+                  location={
+                    Object {
+                      "hash": "",
+                      "pathname": "/admin/lesson-view/lessonID/sentence-fragments/questionID",
+                      "search": "",
+                      "state": undefined,
+                    }
+                  }
+                  match={
+                    Object {
+                      "isExact": true,
+                      "params": Object {
+                        "lessonID": "lessonID",
+                        "questionID": "questionID",
+                      },
+                      "path": "/admin/lesson-view/:lessonID/sentence-fragments/:questionID",
+                      "url": "/admin/lesson-view/lessonID/sentence-fragments/questionID",
+                    }
+                  }
+                >
+                  <Connect(SentenceFragment)
+                    history={
+                      Object {
+                        "action": "POP",
+                        "block": [Function],
+                        "canGo": [Function],
+                        "createHref": [Function],
+                        "entries": Array [
+                          Object {
+                            "hash": "",
+                            "pathname": "/admin/lesson-view/lessonID/sentence-fragments/questionID",
+                            "search": "",
+                            "state": undefined,
+                          },
+                        ],
+                        "go": [Function],
+                        "goBack": [Function],
+                        "goForward": [Function],
+                        "index": 0,
+                        "length": 1,
+                        "listen": [Function],
+                        "location": Object {
+                          "hash": "",
+                          "pathname": "/admin/lesson-view/lessonID/sentence-fragments/questionID",
+                          "search": "",
+                          "state": undefined,
+                        },
+                        "push": [Function],
+                        "replace": [Function],
+                      }
+                    }
+                    location={
+                      Object {
+                        "hash": "",
+                        "pathname": "/admin/lesson-view/lessonID/sentence-fragments/questionID",
+                        "search": "",
+                        "state": undefined,
+                      }
+                    }
+                    match={
+                      Object {
+                        "isExact": true,
+                        "params": Object {
+                          "lessonID": "lessonID",
+                          "questionID": "questionID",
+                        },
+                        "path": "/admin/lesson-view/:lessonID/sentence-fragments/:questionID",
+                        "url": "/admin/lesson-view/lessonID/sentence-fragments/questionID",
+                      }
+                    }
+                  >
+                    <SentenceFragment
+                      concepts={
+                        Object {
+                          "data": Object {},
+                          "hasreceiveddata": false,
+                          "states": Object {},
+                          "submittingnew": false,
+                        }
+                      }
+                      dispatch={[Function]}
+                      history={
+                        Object {
+                          "action": "POP",
+                          "block": [Function],
+                          "canGo": [Function],
+                          "createHref": [Function],
+                          "entries": Array [
+                            Object {
+                              "hash": "",
+                              "pathname": "/admin/lesson-view/lessonID/sentence-fragments/questionID",
+                              "search": "",
+                              "state": undefined,
+                            },
+                          ],
+                          "go": [Function],
+                          "goBack": [Function],
+                          "goForward": [Function],
+                          "index": 0,
+                          "length": 1,
+                          "listen": [Function],
+                          "location": Object {
+                            "hash": "",
+                            "pathname": "/admin/lesson-view/lessonID/sentence-fragments/questionID",
+                            "search": "",
+                            "state": undefined,
+                          },
+                          "push": [Function],
+                          "replace": [Function],
+                        }
+                      }
+                      location={
+                        Object {
+                          "hash": "",
+                          "pathname": "/admin/lesson-view/lessonID/sentence-fragments/questionID",
+                          "search": "",
+                          "state": undefined,
+                        }
+                      }
+                      massEdit={
+                        Object {
+                          "numSelectedResponses": 0,
+                          "selectedResponses": Array [],
+                        }
+                      }
+                      match={
+                        Object {
+                          "isExact": true,
+                          "params": Object {
+                            "lessonID": "lessonID",
+                            "questionID": "questionID",
+                          },
+                          "path": "/admin/lesson-view/:lessonID/sentence-fragments/:questionID",
+                          "url": "/admin/lesson-view/lessonID/sentence-fragments/questionID",
+                        }
+                      }
+                      routing={
+                        Object {
+                          "locationBeforeTransitions": null,
+                        }
+                      }
+                      sentenceFragments={
+                        Object {
+                          "data": Object {},
+                          "hasreceiveddata": false,
+                          "states": Object {},
+                          "submittingnew": false,
+                        }
+                      }
+                    >
+                      <h1>
+                        Loading...
+                      </h1>
+                    </SentenceFragment>
+                  </Connect(SentenceFragment)>
+                </withRouter(Connect(SentenceFragment))>
+              </Route>
+            </Switch>
+          </div>
+        </AdminLesson>
+      </withRouter(AdminLesson)>
+    </Router>
+  </MemoryRouter>
+</Provider>
+`;
 
-exports[`adminLesson component should render with lessons sidebar and title card container 1`] = `ReactWrapper {}`;
+exports[`adminLesson component should render with lessons sidebar and title card container 1`] = `
+<Provider
+  store={
+    Object {
+      "dispatch": [Function],
+      "getState": [Function],
+      "replaceReducer": [Function],
+      "subscribe": [Function],
+      Symbol(observable): [Function],
+    }
+  }
+>
+  <MemoryRouter
+    initialEntries={
+      Array [
+        "/admin/lesson-view/lessonID/title-cards/questionID",
+      ]
+    }
+    keyLength={0}
+  >
+    <Router
+      history={
+        Object {
+          "action": "POP",
+          "block": [Function],
+          "canGo": [Function],
+          "createHref": [Function],
+          "entries": Array [
+            Object {
+              "hash": "",
+              "pathname": "/admin/lesson-view/lessonID/title-cards/questionID",
+              "search": "",
+              "state": undefined,
+            },
+          ],
+          "go": [Function],
+          "goBack": [Function],
+          "goForward": [Function],
+          "index": 0,
+          "length": 1,
+          "listen": [Function],
+          "location": Object {
+            "hash": "",
+            "pathname": "/admin/lesson-view/lessonID/title-cards/questionID",
+            "search": "",
+            "state": undefined,
+          },
+          "push": [Function],
+          "replace": [Function],
+        }
+      }
+    >
+      <withRouter(AdminLesson)>
+        <AdminLesson
+          history={
+            Object {
+              "action": "POP",
+              "block": [Function],
+              "canGo": [Function],
+              "createHref": [Function],
+              "entries": Array [
+                Object {
+                  "hash": "",
+                  "pathname": "/admin/lesson-view/lessonID/title-cards/questionID",
+                  "search": "",
+                  "state": undefined,
+                },
+              ],
+              "go": [Function],
+              "goBack": [Function],
+              "goForward": [Function],
+              "index": 0,
+              "length": 1,
+              "listen": [Function],
+              "location": Object {
+                "hash": "",
+                "pathname": "/admin/lesson-view/lessonID/title-cards/questionID",
+                "search": "",
+                "state": undefined,
+              },
+              "push": [Function],
+              "replace": [Function],
+            }
+          }
+          location={
+            Object {
+              "hash": "",
+              "pathname": "/admin/lesson-view/lessonID/title-cards/questionID",
+              "search": "",
+              "state": undefined,
+            }
+          }
+          match={
+            Object {
+              "isExact": false,
+              "params": Object {},
+              "path": "/",
+              "url": "/",
+            }
+          }
+        >
+          <div
+            style={
+              Object {
+                "display": "flex",
+                "width": "100%",
+              }
+            }
+          >
+            <Switch>
+              <Route
+                component={[Function]}
+                computedMatch={
+                  Object {
+                    "isExact": true,
+                    "params": Object {
+                      "lessonID": "lessonID",
+                      "titleCardID": "questionID",
+                    },
+                    "path": "/admin/lesson-view/:lessonID/title-cards/:titleCardID",
+                    "url": "/admin/lesson-view/lessonID/title-cards/questionID",
+                  }
+                }
+                location={
+                  Object {
+                    "hash": "",
+                    "pathname": "/admin/lesson-view/lessonID/title-cards/questionID",
+                    "search": "",
+                    "state": undefined,
+                  }
+                }
+                path="/admin/lesson-view/:lessonID/title-cards/:titleCardID"
+              >
+                <AdminLessonSidebar
+                  history={
+                    Object {
+                      "action": "POP",
+                      "block": [Function],
+                      "canGo": [Function],
+                      "createHref": [Function],
+                      "entries": Array [
+                        Object {
+                          "hash": "",
+                          "pathname": "/admin/lesson-view/lessonID/title-cards/questionID",
+                          "search": "",
+                          "state": undefined,
+                        },
+                      ],
+                      "go": [Function],
+                      "goBack": [Function],
+                      "goForward": [Function],
+                      "index": 0,
+                      "length": 1,
+                      "listen": [Function],
+                      "location": Object {
+                        "hash": "",
+                        "pathname": "/admin/lesson-view/lessonID/title-cards/questionID",
+                        "search": "",
+                        "state": undefined,
+                      },
+                      "push": [Function],
+                      "replace": [Function],
+                    }
+                  }
+                  location={
+                    Object {
+                      "hash": "",
+                      "pathname": "/admin/lesson-view/lessonID/title-cards/questionID",
+                      "search": "",
+                      "state": undefined,
+                    }
+                  }
+                  match={
+                    Object {
+                      "isExact": true,
+                      "params": Object {
+                        "lessonID": "lessonID",
+                        "titleCardID": "questionID",
+                      },
+                      "path": "/admin/lesson-view/:lessonID/title-cards/:titleCardID",
+                      "url": "/admin/lesson-view/lessonID/title-cards/questionID",
+                    }
+                  }
+                >
+                  <section
+                    className="section is-fullheight lesson-sidebar-section"
+                  >
+                    <aside
+                      className="menu lesson-sidebar"
+                    >
+                      <Connect(Lesson)
+                        isSidebar={true}
+                        location={
+                          Location {
+                            "assign": [Function],
+                            "hash": "",
+                            "host": "localhost",
+                            "hostname": "localhost",
+                            "href": "http://localhost/",
+                            "origin": "http://localhost",
+                            "pathname": "/",
+                            "port": "",
+                            "protocol": "http:",
+                            "reload": [Function],
+                            "replace": [Function],
+                            "search": "",
+                            "toString": [Function],
+                          }
+                        }
+                        match={
+                          Object {
+                            "isExact": true,
+                            "params": Object {
+                              "lessonID": "lessonID",
+                              "titleCardID": "questionID",
+                            },
+                            "path": "/admin/lesson-view/:lessonID/title-cards/:titleCardID",
+                            "url": "/admin/lesson-view/lessonID/title-cards/questionID",
+                          }
+                        }
+                      >
+                        <Lesson
+                          dispatch={[Function]}
+                          fillInBlank={
+                            Object {
+                              "data": Object {},
+                              "hasreceiveddata": false,
+                              "states": Object {},
+                              "submittingnew": false,
+                            }
+                          }
+                          isSidebar={true}
+                          lessons={
+                            Object {
+                              "data": Object {},
+                              "flag": "alpha",
+                              "hasreceiveddata": false,
+                              "states": Object {},
+                              "submittingnew": false,
+                            }
+                          }
+                          location={
+                            Location {
+                              "assign": [Function],
+                              "hash": "",
+                              "host": "localhost",
+                              "hostname": "localhost",
+                              "href": "http://localhost/",
+                              "origin": "http://localhost",
+                              "pathname": "/",
+                              "port": "",
+                              "protocol": "http:",
+                              "reload": [Function],
+                              "replace": [Function],
+                              "search": "",
+                              "toString": [Function],
+                            }
+                          }
+                          match={
+                            Object {
+                              "isExact": true,
+                              "params": Object {
+                                "lessonID": "lessonID",
+                                "titleCardID": "questionID",
+                              },
+                              "path": "/admin/lesson-view/:lessonID/title-cards/:titleCardID",
+                              "url": "/admin/lesson-view/lessonID/title-cards/questionID",
+                            }
+                          }
+                          questions={
+                            Object {
+                              "data": Object {},
+                              "hasreceiveddata": false,
+                              "states": Object {},
+                              "submittingnew": false,
+                            }
+                          }
+                          routing={
+                            Object {
+                              "locationBeforeTransitions": null,
+                            }
+                          }
+                          sentenceFragments={
+                            Object {
+                              "data": Object {},
+                              "hasreceiveddata": false,
+                              "states": Object {},
+                              "submittingnew": false,
+                            }
+                          }
+                          titleCards={
+                            Object {
+                              "data": Object {},
+                              "hasreceiveddata": false,
+                            }
+                          }
+                        >
+                          <p>
+                            Loading...
+                          </p>
+                        </Lesson>
+                      </Connect(Lesson)>
+                    </aside>
+                  </section>
+                </AdminLessonSidebar>
+              </Route>
+            </Switch>
+            <Switch>
+              <Route
+                component={[Function]}
+                computedMatch={
+                  Object {
+                    "isExact": true,
+                    "params": Object {
+                      "lessonID": "lessonID",
+                      "titleCardID": "questionID",
+                    },
+                    "path": "/admin/lesson-view/:lessonID/title-cards/:titleCardID",
+                    "url": "/admin/lesson-view/lessonID/title-cards/questionID",
+                  }
+                }
+                location={
+                  Object {
+                    "hash": "",
+                    "pathname": "/admin/lesson-view/lessonID/title-cards/questionID",
+                    "search": "",
+                    "state": undefined,
+                  }
+                }
+                path="/admin/lesson-view/:lessonID/title-cards/:titleCardID"
+              >
+                <Connect(ShowTitleCard)
+                  history={
+                    Object {
+                      "action": "POP",
+                      "block": [Function],
+                      "canGo": [Function],
+                      "createHref": [Function],
+                      "entries": Array [
+                        Object {
+                          "hash": "",
+                          "pathname": "/admin/lesson-view/lessonID/title-cards/questionID",
+                          "search": "",
+                          "state": undefined,
+                        },
+                      ],
+                      "go": [Function],
+                      "goBack": [Function],
+                      "goForward": [Function],
+                      "index": 0,
+                      "length": 1,
+                      "listen": [Function],
+                      "location": Object {
+                        "hash": "",
+                        "pathname": "/admin/lesson-view/lessonID/title-cards/questionID",
+                        "search": "",
+                        "state": undefined,
+                      },
+                      "push": [Function],
+                      "replace": [Function],
+                    }
+                  }
+                  location={
+                    Object {
+                      "hash": "",
+                      "pathname": "/admin/lesson-view/lessonID/title-cards/questionID",
+                      "search": "",
+                      "state": undefined,
+                    }
+                  }
+                  match={
+                    Object {
+                      "isExact": true,
+                      "params": Object {
+                        "lessonID": "lessonID",
+                        "titleCardID": "questionID",
+                      },
+                      "path": "/admin/lesson-view/:lessonID/title-cards/:titleCardID",
+                      "url": "/admin/lesson-view/lessonID/title-cards/questionID",
+                    }
+                  }
+                >
+                  <ShowTitleCard
+                    dispatch={[Function]}
+                    history={
+                      Object {
+                        "action": "POP",
+                        "block": [Function],
+                        "canGo": [Function],
+                        "createHref": [Function],
+                        "entries": Array [
+                          Object {
+                            "hash": "",
+                            "pathname": "/admin/lesson-view/lessonID/title-cards/questionID",
+                            "search": "",
+                            "state": undefined,
+                          },
+                        ],
+                        "go": [Function],
+                        "goBack": [Function],
+                        "goForward": [Function],
+                        "index": 0,
+                        "length": 1,
+                        "listen": [Function],
+                        "location": Object {
+                          "hash": "",
+                          "pathname": "/admin/lesson-view/lessonID/title-cards/questionID",
+                          "search": "",
+                          "state": undefined,
+                        },
+                        "push": [Function],
+                        "replace": [Function],
+                      }
+                    }
+                    location={
+                      Object {
+                        "hash": "",
+                        "pathname": "/admin/lesson-view/lessonID/title-cards/questionID",
+                        "search": "",
+                        "state": undefined,
+                      }
+                    }
+                    match={
+                      Object {
+                        "isExact": true,
+                        "params": Object {
+                          "lessonID": "lessonID",
+                          "titleCardID": "questionID",
+                        },
+                        "path": "/admin/lesson-view/:lessonID/title-cards/:titleCardID",
+                        "url": "/admin/lesson-view/lessonID/title-cards/questionID",
+                      }
+                    }
+                    routing={
+                      Object {
+                        "locationBeforeTransitions": null,
+                      }
+                    }
+                    titleCards={
+                      Object {
+                        "data": Object {},
+                        "hasreceiveddata": false,
+                      }
+                    }
+                  >
+                    <section
+                      className="section"
+                    >
+                      <div
+                        className="container"
+                      >
+                        <div
+                          style={
+                            Object {
+                              "alignItems": "center",
+                              "display": "flex",
+                              "justifyContent": "space-between",
+                            }
+                          }
+                        >
+                          <span />
+                          <Link
+                            to="edit"
+                          >
+                            <LinkAnchor
+                              href="/admin/lesson-view/lessonID/title-cards/edit"
+                              navigate={[Function]}
+                            >
+                              <a
+                                href="/admin/lesson-view/lessonID/title-cards/edit"
+                                onClick={[Function]}
+                              >
+                                <button
+                                  className="button is-primary"
+                                >
+                                  Edit Title Card
+                                </button>
+                              </a>
+                            </LinkAnchor>
+                          </Link>
+                        </div>
+                        <hr />
+                      </div>
+                    </section>
+                  </ShowTitleCard>
+                </Connect(ShowTitleCard)>
+              </Route>
+            </Switch>
+          </div>
+        </AdminLesson>
+      </withRouter(AdminLesson)>
+    </Router>
+  </MemoryRouter>
+</Provider>
+`;
