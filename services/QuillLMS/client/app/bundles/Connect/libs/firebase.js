@@ -1,4 +1,4 @@
-const prod = process.env.NODE_ENV === 'production';
+const prod = process.env.RAILS_ENV === 'production';
 
 import * as firebase from 'firebase/app';
 import 'firebase/auth';

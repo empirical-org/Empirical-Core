@@ -16,7 +16,7 @@ import {
 } from '../../actions/responses';
 import updateResponseResource from '../renderForQuestions/updateResponseResource.js';
 
-const icon = `${process.env.QUILL_CDN_URL}/images/icons/direction.svg`
+const icon = `${process.env.CDN_URL}/images/icons/direction.svg`
 
 class PlaySentenceFragment extends React.Component {
   constructor(props) {

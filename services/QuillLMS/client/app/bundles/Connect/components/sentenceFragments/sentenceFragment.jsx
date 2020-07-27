@@ -21,7 +21,7 @@ import ChooseModelContainer from './chooseModelContainer.jsx';
 import TestQuestionContainer from './testSentenceFragmentContainer';
 import MassEditContainer from '../questions/massEditContainer.jsx';
 
-const icon = `${process.env.QUILL_CDN_URL}/images/icons/direction.svg`
+const icon = `${process.env.CDN_URL}/images/icons/direction.svg`
 
 class SentenceFragment extends React.Component {
   constructor(props) {

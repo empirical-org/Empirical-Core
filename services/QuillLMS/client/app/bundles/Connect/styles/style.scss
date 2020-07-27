@@ -302,11 +302,14 @@ textarea.submission {
 
   .pagination {
     display: flex;
-    justify-content: flex-start;
 
     .pagination-extreme-button {
       margin: 10px;
       min-width: 50px;
+    }
+    .numbers-list {
+      display: flex;
+      overflow: auto;
     }
   }
 }

@@ -1,7 +1,7 @@
 import { requestDelete, requestGet, requestPost, requestPut } from './request';
 import { Lesson, Lessons, LessonQuestion } from '../interfaces/lessons';
 
-const lessonApiBaseUrl = `${process.env.EMPIRICAL_BASE_URL}/api/v1/lessons`;
+const lessonApiBaseUrl = `${process.env.DEFAULT_URL}/api/v1/lessons`;
 
 const TYPE_CONNECT_LESSON = 'connect_lesson'
 const TYPE_DIAGNOSTIC_LESSON = 'diagnostic_lesson'

@@ -461,10 +461,10 @@ class ResponseComponent extends React.Component {
         <div className="response-pagination-container">
           <nav className="pagination response-pagination">
             {prevButton}
-            {nextButton}
-            <ul>
+            <ul className="numbers-list">
               {numbersToRender}
             </ul>
+            {nextButton}
           </nav>
         </div>
       </div>

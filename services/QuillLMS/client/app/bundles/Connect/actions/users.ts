@@ -8,7 +8,7 @@ export function firebaseAuth() {
   return (dispatch) => {
       const data = new FormData();
       data.append( "json", JSON.stringify( { app: config.projectId } ) );
-      fetch(`${process.env.EMPIRICAL_BASE_URL}/api/v1/firebase_tokens/create_for_connect`, {
+      fetch(`${process.env.DEFAULT_URL}/api/v1/firebase_tokens/create_for_connect`, {
         method: "POST",
         mode: "cors",
         credentials: 'include',

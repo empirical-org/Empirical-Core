@@ -58,7 +58,7 @@ export class TurkActivity extends React.Component {
 
   createAnonActivitySession = (lessonID, results, score) => {
     request(
-      { url: `${process.env.EMPIRICAL_BASE_URL}/api/v1/activity_sessions/`,
+      { url: `${process.env.DEFAULT_URL}/api/v1/activity_sessions/`,
         method: 'POST',
         json:
         {
@@ -79,7 +79,7 @@ export class TurkActivity extends React.Component {
 
   finishActivitySession = (sessionID, results, score) => {
     request(
-      { url: `${process.env.EMPIRICAL_BASE_URL}/api/v1/activity_sessions/${sessionID}`,
+      { url: `${process.env.DEFAULT_URL}/api/v1/activity_sessions/${sessionID}`,
         method: 'PUT',
         json:
         {

@@ -85,7 +85,7 @@ export class Lesson extends React.Component {
 
   createAnonActivitySession = (lessonID, results, score) => {
     request(
-      { url: `${process.env.EMPIRICAL_BASE_URL}/api/v1/activity_sessions/`,
+      { url: `${process.env.DEFAULT_URL}/api/v1/activity_sessions/`,
         method: 'POST',
         json:
         {
@@ -98,7 +98,7 @@ export class Lesson extends React.Component {
       (err, httpResponse, body) => {
         if (httpResponse && httpResponse.statusCode === 200) {
           // to do, use Sentry to capture error
-          document.location.href = `${process.env.EMPIRICAL_BASE_URL}/activity_sessions/${body.activity_session.uid}`;
+          document.location.href = `${process.env.DEFAULT_URL}/activity_sessions/${body.activity_session.uid}`;
           this.setState({ saved: true, });
         }
       }
@@ -107,7 +107,7 @@ export class Lesson extends React.Component {
 
   finishActivitySession = (sessionID, results, score) => {
     request(
-      { url: `${process.env.EMPIRICAL_BASE_URL}/api/v1/activity_sessions/${sessionID}`,
+      { url: `${process.env.DEFAULT_URL}/api/v1/activity_sessions/${sessionID}`,
         method: 'PUT',
         json:
         {
@@ -120,7 +120,7 @@ export class Lesson extends React.Component {
         if (httpResponse && httpResponse.statusCode === 200) {
           // to do, use Sentry to capture error
           SessionActions.delete(sessionID);
-          document.location.href = `${process.env.EMPIRICAL_BASE_URL}/activity_sessions/${sessionID}`;
+          document.location.href = `${process.env.DEFAULT_URL}/activity_sessions/${sessionID}`;
           this.setState({ saved: true, });
         } else {
           this.setState({

@@ -16,7 +16,7 @@ import sentenceFragmentActions from '../../actions/sentenceFragments'
 import fillInBlankActions from '../../actions/fillInBlank'
 import titleCardActions from '../../actions/titleCards'
 
-const icon = `${process.env.QUILL_CDN_URL}/images/icons/direction.svg`
+const icon = `${process.env.CDN_URL}/images/icons/direction.svg`
 
 //fake commit for linting
 String.prototype.toKebab = function () {

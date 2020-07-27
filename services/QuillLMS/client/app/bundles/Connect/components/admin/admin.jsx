@@ -29,8 +29,8 @@ import FillInBlankQuestion from '../fillInBlank/fillInBlankQuestion.jsx';
 import SentenceFragments from '../sentenceFragments/sentenceFragments.jsx';
 import SentenceFragment from '../sentenceFragments/sentenceFragment.jsx';
 import TestSentenceFragmentContainer from '../sentenceFragments/testSentenceFragmentContainer.jsx';
-const usersEndpoint = `${process.env.EMPIRICAL_BASE_URL}/api/v1/users.json`;
-const newSessionEndpoint = `${process.env.EMPIRICAL_BASE_URL}/session/new`;
+const usersEndpoint = `${process.env.DEFAULT_URL}/api/v1/users.json`;
+const newSessionEndpoint = `${process.env.DEFAULT_URL}/session/new`;
 
 class adminContainer extends React.Component {
 
