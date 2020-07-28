@@ -94,6 +94,9 @@ module.exports = {
     ],
     grammar: [
       './app/bundles/Grammar/clientRegistration'
+    ],
+    lessons: [
+      './app/bundles/Lessons/clientRegistration'
     ]
   },
   resolve: {

@@ -1,29 +1,24 @@
 import Promise from 'promise-polyfill';
 import BackOff from './utils/backOff';
 import React from 'react';
-import * as ReactDOM from "react-dom";
 import createStore from './utils/configureStore';
 import { Provider } from 'react-redux';
 import { HashRouter, Route, Switch } from 'react-router-dom';
-import { syncHistoryWithStore, routerReducer } from 'react-router-redux';
-import createHashHistory from 'history/lib/createHashHistory';
 import Raven from 'raven-js';
-import quillNormalizer from './libs/quillNormalizer';
 import SocketProvider from './components/socketProvider';
 import Home from './components/home'
-import 'styles/style.scss';
 
 // To add to window
 if (!window.Promise) {
   window.Promise = Promise;
 }
 
-if (process.env.NODE_ENV === 'production') {
+if (process.env.RAILS_ENV === 'production') {
   Raven
   .config(
     'https://528794315c61463db7d5181ebc1d51b9@sentry.io/210579',
     {
-      environment: process.env.NODE_ENV,
+      environment: process.env.RAILS_ENV,
     }
   )
   .install();
@@ -46,7 +41,4 @@ const App = () => (
   </Provider>
 )
 
-ReactDOM.render(
-  <App />,
-  document.getElementById("root"),
-);
+export default App
