@@ -10,6 +10,7 @@ class ApplicationController < ActionController::Base
   PROOFREADER = 'proofreader'
   GRAMMAR = 'grammar'
   CONNECT = 'connect'
+  DIAGNOSTIC = 'diagnostic'
 
   #helper CMS::Helper
   helper SegmentioHelper

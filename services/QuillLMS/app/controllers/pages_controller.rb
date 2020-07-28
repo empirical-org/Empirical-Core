@@ -453,6 +453,10 @@ class PagesController < ApplicationController
   def connect
     @style_file = ApplicationController::CONNECT
   end
+  
+  def diagnostic
+    @style_file = ApplicationController::DIAGNOSTIC
+  end
 
   private
 
@@ -462,7 +466,7 @@ class PagesController < ApplicationController
       'home'
     when 'home_new', 'diagnostic_tool', 'connect_tool', 'grammar_tool', 'proofreader_tool', 'lessons_tool'
       'twenty_seventeen_home'
-    when ApplicationController::COMPREHENSION, ApplicationController::PROOFREADER, ApplicationController::GRAMMAR, ApplicationController::CONNECT
+    when ApplicationController::COMPREHENSION, ApplicationController::PROOFREADER, ApplicationController::GRAMMAR, ApplicationController::DIAGNOSTIC, ApplicationController::CONNECT
       'activity'
     end
   end
@@ -483,6 +487,8 @@ class PagesController < ApplicationController
       @js_file = ApplicationController::GRAMMAR
     when ApplicationController::CONNECT
       @js_file = ApplicationController::CONNECT
+    when ApplicationController::DIAGNOSTIC
+      @js_file = ApplicationController::DIAGNOSTIC
     end
   end
 

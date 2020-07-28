@@ -36,7 +36,7 @@ const minis = ({ history }) => [
       { key: 'What', text: 'Plural and possessive nouns, pronouns, verbs, adjectives, adverbs of manner, commas, prepositions, and capitalization', },
       { key: 'When', text: 'Your students are working on basic grammar concepts.', }
     ]}
-    buttonLink="https://diagnostic.quill.org/#/play/diagnostic/-LKX2sTTnPVhTOrWyUx9"
+    buttonLink="https://quill.org/diagnostic/#/play/diagnostic/-LKX2sTTnPVhTOrWyUx9"
     buttonText="Preview"
     header={STARTER_DIAGNOSTIC}
     imgAlt="page with a little writing"
@@ -48,7 +48,7 @@ const minis = ({ history }) => [
       { key: 'What', text: 'Compound sentences, complex sentences, conjunctive adverbs, pronouns, and commonly confused words', },
       { key: 'When', text: 'Your students have practiced the basics of grammar and are ready to develop their sentence construction skills.', }
     ]}
-    buttonLink="https://diagnostic.quill.org/#/play/diagnostic/-LKbzH_Er916zGjgHk5U"
+    buttonLink="https://quill.org/diagnostic/#/play/diagnostic/-LKbzH_Er916zGjgHk5U"
     buttonText="Preview"
     header={INTERMEDIATE_DIAGNOSTIC}
     imgAlt="page with a medium amount of writing"
@@ -60,7 +60,7 @@ const minis = ({ history }) => [
       { key: 'What', text: 'Compound-complex sentences, appositive phrases, relative clauses, participial phrases, and parallel structure', },
       { key: 'When', text: 'Your students are experienced with Quill, understand sentence combining, and are ready to develop multi-clause sentences.', }
     ]}
-    buttonLink="https://diagnostic.quill.org/#/play/diagnostic/-LVxlcVPdW5DvAh_xgnj"
+    buttonLink="https://quill.org/diagnostic/#/play/diagnostic/-LVxlcVPdW5DvAh_xgnj"
     buttonText="Preview"
     header={ADVANCED_DIAGNOSTIC}
     imgAlt="page with a large amount of writing"
@@ -72,7 +72,7 @@ const minis = ({ history }) => [
       { key: 'What', text: 'Simple verb conjugation, articles, subject-verb agreement, simple word order, singular and plural nouns, and adjective placement', },
       { key: 'When', text: 'Your students are beginning English language learners who are working on foundational grammar skills.', }
     ]}
-    buttonLink="https://diagnostic.quill.org/#/play/diagnostic/-LyFRZvbHAmooTTIIVE2"
+    buttonLink="https://quill.org/diagnostic/#/play/diagnostic/-LyFRZvbHAmooTTIIVE2"
     buttonText="Preview"
     header={ELL_STARTER_DIAGNOSTIC}
     imgAlt="page with less writing that says ELL in the corner"
@@ -84,7 +84,7 @@ const minis = ({ history }) => [
       { key: 'What', text: 'Subject-verb agreement, verb tense, adjectives, adverbs, articles, and prepositions', },
       { key: 'When', text: 'Your students are English language learners at the developing, expanding, or bridging stages of language proficiency.', }
     ]}
-    buttonLink="https://diagnostic.quill.org/#/play/diagnostic/ell"
+    buttonLink="https://quill.org/diagnostic/#/play/diagnostic/ell"
     buttonText="Preview"
     header={ELL_DIAGNOSTIC}
     imgAlt="page with writing that says ELL in the corner"
@@ -96,7 +96,7 @@ const minis = ({ history }) => [
       { key: 'What', text: 'Subject-verb agreement, pronouns, compound subjects, objects, and predicates, and compound and complex sentences', },
       { key: 'When', text: 'Your students are working on basic sentence patterns and the skills outlined in the Pre-AP® English High School Course Framework.', }
     ]}
-    buttonLink="https://diagnostic.quill.org/#/play/diagnostic/-M2nZy22Ey5g75LVsH25"
+    buttonLink="https://quill.org/diagnostic/#/play/diagnostic/-M2nZy22Ey5g75LVsH25"
     buttonText="Preview"
     header={PRE_AP_WRITINGS_SKILLS_1}
     imgAlt="page with writing that says Pre-AP on bottom"
@@ -108,7 +108,7 @@ const minis = ({ history }) => [
       { key: 'What', text: 'Conjunctive adverbs, relative clauses, appositive phrases, participial phrases, and parallel structure', },
       { key: 'When', text: 'Your students are working on basic sentence patterns and the skills outlined in the Pre-AP® English High School Course Framework.', }
     ]}
-    buttonLink="https://diagnostic.quill.org/#/play/diagnostic/-M2ngd3CX44IwmKr_PY7"
+    buttonLink="https://quill.org/diagnostic/#/play/diagnostic/-M2ngd3CX44IwmKr_PY7"
     buttonText="Preview"
     header={PRE_AP_WRITINGS_SKILLS_2}
     imgAlt="page with writing that says Pre-AP on bottom"
@@ -120,7 +120,7 @@ const minis = ({ history }) => [
       { key: 'What', text: 'Compound-complex sentences, appositive phrases, relative clauses, participial phrases, and parallel structure', },
       { key: 'When', text: 'Your students are developing their advanced sentence-level writing skills to prepare for writing in an AP® classroom.', }
     ]}
-    buttonLink="https://diagnostic.quill.org/#/play/diagnostic/-L_wPCxbrT6toCb1fnYR"
+    buttonLink="https://quill.org/diagnostic/#/play/diagnostic/-L_wPCxbrT6toCb1fnYR"
     buttonText="Preview"
     header={AP_WRITINGS_SKILLS}
     imgAlt="page with writing that says AP in corner"
