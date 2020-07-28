@@ -204,22 +204,6 @@ jobs:
           command: |
             cd services/QuillLessons
             npm run jest app/
-  diagnostic_node_build:
-    working_directory: ~/Empirical-Core
-    docker:
-      - image: circleci/node:8.11.3
-    steps:
-      - checkout
-      - run:
-          name: Install NPM dependencies
-          command: |
-            cd services/QuillDiagnostic
-            npm install
-      - run:
-          name: Run QuillDiagnostic Tests
-          command: |
-            cd services/QuillDiagnostic
-            FORCE_COLOR=true npm run test --colors
   spellchecker_node_build:
     working_directory: ~/Empirical-Core
     docker:
@@ -388,7 +372,6 @@ workflows:
       - connect_node_build
       - lms_node_build
       - marking_logic_node_build
-      - diagnostic_node_build
       - cms_rails_build
       - lessons_node_build
       - spellchecker_node_build

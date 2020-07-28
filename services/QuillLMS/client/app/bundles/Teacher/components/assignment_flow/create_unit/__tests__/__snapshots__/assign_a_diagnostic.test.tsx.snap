@@ -28,7 +28,7 @@ exports[`AssignADiagnostic component should render 1`] = `
             },
           ]
         }
-        buttonLink="https://diagnostic.quill.org/#/play/diagnostic/-LKX2sTTnPVhTOrWyUx9"
+        buttonLink="https://quill.org/diagnostic/#/play/diagnostic/-LKX2sTTnPVhTOrWyUx9"
         buttonText="Preview"
         header="Starter Diagnostic"
         imgAlt="page with a little writing"
@@ -48,7 +48,7 @@ exports[`AssignADiagnostic component should render 1`] = `
             },
           ]
         }
-        buttonLink="https://diagnostic.quill.org/#/play/diagnostic/-LKbzH_Er916zGjgHk5U"
+        buttonLink="https://quill.org/diagnostic/#/play/diagnostic/-LKbzH_Er916zGjgHk5U"
         buttonText="Preview"
         header="Intermediate Diagnostic"
         imgAlt="page with a medium amount of writing"
@@ -68,7 +68,7 @@ exports[`AssignADiagnostic component should render 1`] = `
             },
           ]
         }
-        buttonLink="https://diagnostic.quill.org/#/play/diagnostic/-LVxlcVPdW5DvAh_xgnj"
+        buttonLink="https://quill.org/diagnostic/#/play/diagnostic/-LVxlcVPdW5DvAh_xgnj"
         buttonText="Preview"
         header="Advanced Diagnostic"
         imgAlt="page with a large amount of writing"
@@ -88,7 +88,7 @@ exports[`AssignADiagnostic component should render 1`] = `
             },
           ]
         }
-        buttonLink="https://diagnostic.quill.org/#/play/diagnostic/-LyFRZvbHAmooTTIIVE2"
+        buttonLink="https://quill.org/diagnostic/#/play/diagnostic/-LyFRZvbHAmooTTIIVE2"
         buttonText="Preview"
         header="ELL Starter Diagnostic (Level 1 - Emerging)"
         imgAlt="page with less writing that says ELL in the corner"
@@ -108,7 +108,7 @@ exports[`AssignADiagnostic component should render 1`] = `
             },
           ]
         }
-        buttonLink="https://diagnostic.quill.org/#/play/diagnostic/ell"
+        buttonLink="https://quill.org/diagnostic/#/play/diagnostic/ell"
         buttonText="Preview"
         header="ELL Diagnostic (Level 2 - Expanding)"
         imgAlt="page with writing that says ELL in the corner"
@@ -128,7 +128,7 @@ exports[`AssignADiagnostic component should render 1`] = `
             },
           ]
         }
-        buttonLink="https://diagnostic.quill.org/#/play/diagnostic/-M2nZy22Ey5g75LVsH25"
+        buttonLink="https://quill.org/diagnostic/#/play/diagnostic/-M2nZy22Ey5g75LVsH25"
         buttonText="Preview"
         header="Pre-AP Writing Skills Survey 1"
         imgAlt="page with writing that says Pre-AP on bottom"
@@ -148,7 +148,7 @@ exports[`AssignADiagnostic component should render 1`] = `
             },
           ]
         }
-        buttonLink="https://diagnostic.quill.org/#/play/diagnostic/-M2ngd3CX44IwmKr_PY7"
+        buttonLink="https://quill.org/diagnostic/#/play/diagnostic/-M2ngd3CX44IwmKr_PY7"
         buttonText="Preview"
         header="Pre-AP Writing Skills Survey 2"
         imgAlt="page with writing that says Pre-AP on bottom"
@@ -168,7 +168,7 @@ exports[`AssignADiagnostic component should render 1`] = `
             },
           ]
         }
-        buttonLink="https://diagnostic.quill.org/#/play/diagnostic/-L_wPCxbrT6toCb1fnYR"
+        buttonLink="https://quill.org/diagnostic/#/play/diagnostic/-L_wPCxbrT6toCb1fnYR"
         buttonText="Preview"
         header="AP Writing Skills Survey"
         imgAlt="page with writing that says AP in corner"
