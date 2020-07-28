@@ -190,7 +190,7 @@ describe('Scorebook component', () => {
 
     it('should set scoreBookDateFilterName as a string', () => {
       wrapper.instance().selectDates(null, null, dateFilterName);
-      expect(window.localStorage.getItem('scorebookBeginDate')).toBe('null');
+      expect(window.localStorage.getItem('scorebookBeginDate')).toBe(null);
       expect(window.localStorage.getItem('scorebookDateFilterName')).toBe(dateFilterName);
     });
 
