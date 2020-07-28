@@ -95,6 +95,9 @@ module.exports = {
     ],
     lessons: [
       './app/bundles/Lessons/clientRegistration'
+    ],
+    diagnostic: [
+      './app/bundles/Diagnostic/clientRegistration'
     ]
   },
   resolve: {
