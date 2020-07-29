@@ -14,8 +14,11 @@ class Subscription < ActiveRecord::Base
   after_commit :check_if_purchaser_email_is_in_database
   after_initialize :set_null_start_date_to_today
 
+  CB_LIFETIME_DURATION = 365 * 50 # In days, this is approximately 50 years
+
   COVID_19_SUBSCRIPTION_TYPE = 'Quill Premium for School Closures'
   COVID_19_SCHOOL_SUBSCRIPTION_TYPE = 'Quill School Premium for School Closures'
+  CB_LIFETIME_SUBSCRIPTION_TYPE = 'College Board Educator Lifetime Premium'
 
   OFFICIAL_PAID_TYPES = ['School District Paid',
                          'School NYC Paid',
@@ -23,7 +26,8 @@ class Subscription < ActiveRecord::Base
                          'School Paid',
                          'Teacher Paid',
                          'Purchase Missing School',
-                         'Premium Credit']
+                         'Premium Credit',
+                         CB_LIFETIME_SUBSCRIPTION_TYPE]
 
   OFFICIAL_FREE_TYPES = ['School NYC Free',
                          'School Research',
@@ -51,7 +55,8 @@ class Subscription < ActiveRecord::Base
                             'Teacher Contributor Free',
                             'Teacher Sponsored Free',
                             'Teacher Trial',
-                            COVID_19_SUBSCRIPTION_TYPE]
+                            COVID_19_SUBSCRIPTION_TYPE,
+                            CB_LIFETIME_SUBSCRIPTION_TYPE]
 
   # TODO: ultimately these should be cleaned up so we just have OFFICIAL_TYPES but until then, we keep them here
   GRANDFATHERED_PAID_TYPES = ['paid', 'school', 'premium', 'school', 'School']
@@ -274,6 +279,10 @@ class Subscription < ActiveRecord::Base
     {expiration: expiration, start_date: start_date}
   end
 
+  def self.set_cb_lifetime_expiration_and_start_date
+    {expiration: Date.today + CB_LIFETIME_DURATION, start_date: Date.today}
+  end
+
   def report_to_new_relic(error)
     begin
       raise error
@@ -299,6 +308,8 @@ class Subscription < ActiveRecord::Base
       if attributes[:account_type]&.downcase == 'teacher trial'
         PremiumAnalyticsWorker.perform_async(school_or_user_id, attributes[:account_type])
         attributes = attributes.merge(Subscription.set_trial_expiration_and_start_date(school_or_user))
+      elsif attributes[:account_type] == CB_LIFETIME_SUBSCRIPTION_TYPE
+        attributes = attributes.merge(Subscription.set_cb_lifetime_expiration_and_start_date)
       else
         attributes = attributes.merge(Subscription.set_premium_expiration_and_start_date(school_or_user))
       end
