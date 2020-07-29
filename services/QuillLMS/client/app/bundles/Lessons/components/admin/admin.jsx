@@ -2,15 +2,6 @@ import * as React from 'react';
 import { Redirect, Route, Switch, withRouter, Link } from 'react-router-dom';
 import NavBar from '../navbar/navbar.jsx';
 import AdminClassroomLessonsContainer from '../classroomLessons/admin/container'
-import * as userActions from '../../actions/users';
-import conceptActions from '../../actions/concepts';
-import conceptsFeedbackActions from '../../actions/concepts-feedback';
-import questionActions from '../../actions/questions';
-import fillInBlankActions from '../../actions/fillInBlank';
-import diagnosticQuestionActions from '../../actions/diagnosticQuestions';
-import sentenceFragmentActions from '../../actions/sentenceFragments';
-import lessonActions from '../../actions/lessons';
-import levelActions from '../../actions/item-levels';
 
 const TabLink = ({ to, children, }) => (
   <li>
