@@ -455,6 +455,10 @@ class PagesController < ApplicationController
     @style_file = ApplicationController::GRAMMAR
   end
 
+  def diagnostic
+    @style_file = ApplicationController::DIAGNOSTIC
+  end
+
   private
 
   def determine_layout
@@ -463,7 +467,7 @@ class PagesController < ApplicationController
       'home'
     when 'home_new', 'diagnostic_tool', 'connect_tool', 'grammar_tool', 'proofreader_tool', 'lessons_tool'
       'twenty_seventeen_home'
-    when ApplicationController::COMPREHENSION, ApplicationController::PROOFREADER, ApplicationController::GRAMMAR
+    when ApplicationController::COMPREHENSION, ApplicationController::PROOFREADER, ApplicationController::GRAMMAR, ApplicationController::DIAGNOSTIC
       'activity'
     end
   end
@@ -482,6 +486,8 @@ class PagesController < ApplicationController
       @js_file = ApplicationController::PROOFREADER
     when ApplicationController::GRAMMAR
       @js_file = ApplicationController::GRAMMAR
+    when ApplicationController::DIAGNOSTIC
+      @js_file = ApplicationController::DIAGNOSTIC
     end
   end
 
