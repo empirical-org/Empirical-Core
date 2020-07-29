@@ -11,12 +11,12 @@ interface Config {
 export let config: Config;
 
 /**
- * `process.env.NODE_ENV` definition is driven from webpack
+ * `process.env.RAILS_ENV` definition is driven from webpack
  *
  * The whole `else` block will be removed in the emitted JavaScript
  *  for a production build
  */
-if (process.env.NODE_ENV === 'production') {
+if (process.env.RAILS_ENV === 'production') {
   config = {
     someItem: 'prod'
   }

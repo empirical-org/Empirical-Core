@@ -8,10 +8,10 @@
 @import "components/_class_lessons";
 @import "components/_question_health";
 @import "components/_customize";
-@import '../../node_modules/react-selectize/themes/index.css';
-@import '../../node_modules/react-select/dist/react-select.css';
-@import '../../node_modules/font-awesome/css/font-awesome.css';
-@import '../../node_modules/quill-component-library/dist/componentLibrary.css';
+@import '~react-selectize/themes/index.css';
+@import '~react-select/dist/react-select.css';
+@import '~font-awesome/css/font-awesome.css';
+@import '~quill-component-library/dist/componentLibrary.css';
 
 body {
   color: #3D3D3D

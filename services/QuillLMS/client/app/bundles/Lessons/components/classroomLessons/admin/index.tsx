@@ -63,9 +63,9 @@ class ClassLessonsIndex extends Component<any, any> {
           <span>{data[classroomLessonId].title}</span>
           <span>
             <span>{score}</span>
-            <a href={`/#/admin/classroom-lessons/${classroomLessonId}`}>Edit</a>
+            <a href={`/lessons/#/admin/classroom-lessons/${classroomLessonId}`}>Edit</a>
             |
-            <a href={`/#/admin/classroom-lessons/${classroomLessonId}/editions`}>User Editions</a>
+            <a href={`/lessons/#/admin/classroom-lessons/${classroomLessonId}/editions`}>User Editions</a>
           </span>
         </li>
       )

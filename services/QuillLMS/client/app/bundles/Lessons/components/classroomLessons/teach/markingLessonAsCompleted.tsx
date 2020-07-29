@@ -64,7 +64,7 @@ class MarkingLessonAsCompleted extends React.Component<any, MarkingLessonsAsComp
     if (classroomUnitId) {
       finishActivity(false, conceptResults, null, activityId, classroomUnitId,
         (response) => {
-          window.location.href = `${process.env.EMPIRICAL_BASE_URL}/teachers/classrooms/activity_planner/lessons`;
+          window.location.href = `${process.env.DEFAULT_URL}/teachers/classrooms/activity_planner/lessons`;
         }
       );
     }

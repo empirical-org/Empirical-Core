@@ -9,7 +9,7 @@ import {
   Feedback,
   SentenceFragments
 } from 'quill-component-library/dist/componentLibrary'
-const teacherPointingSrc = `${process.env.QUILL_CDN_URL}/images/icons/teacher-pointing.svg`
+const teacherPointingSrc = `${process.env.CDN_URL}/images/icons/teacher-pointing.svg`
 
 interface ModelQuestionProps {
   data: QuestionData,

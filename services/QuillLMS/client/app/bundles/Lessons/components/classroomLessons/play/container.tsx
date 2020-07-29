@@ -40,7 +40,7 @@ import { scriptTagStrip } from '../shared/scriptTagStrip';
 
 import { Spinner } from 'quill-component-library/dist/componentLibrary';
 
-const arrowSrc = `${process.env.QUILL_CDN_URL}/images/icons/chevron-arrow-filled.svg`
+const arrowSrc = `${process.env.CDN_URL}/images/icons/chevron-arrow-filled.svg`
 
 class PlayClassroomLessonContainer extends React.Component<any, any> {
   constructor(props) {

@@ -293,7 +293,7 @@ class ChooseEdition extends React.Component<any, any> {
     if (this.state.showSignupModal) {
       return (<SignupModal
         closeModal={this.hideSignupModal}
-        goToSignup={() => window.location.href = `${process.env.EMPIRICAL_BASE_URL}/account/new`}
+        goToSignup={() => window.location.href = `${process.env.DEFAULT_URL}/account/new`}
       />)
     }
   }

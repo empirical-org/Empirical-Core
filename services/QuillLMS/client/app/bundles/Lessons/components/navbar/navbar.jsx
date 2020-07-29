@@ -1,7 +1,6 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import { Link } from 'react-router'
-import { withRouter } from 'react-router-dom';
+import { withRouter, Link } from 'react-router-dom';
 import TeacherLessonsNavbar from './teacherNavbar'
 import CustomizeNavbar from './customizeNavbar'
 import LaunchEditionNavbar from './launchEditionNavbar'
