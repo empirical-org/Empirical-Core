@@ -8,6 +8,7 @@ import NewTools from './new_tools_mini.jsx';
 import PremiumPromo from './premium_promo.jsx';
 import LessonsList from './lessons_list.jsx';
 import DiagnosticMini from './diagnostic_mini.jsx';
+import CollegeBoardMini from './college_board_mini.tsx';
 
 export default class ClassOverview extends React.Component {
   constructor(props) {
@@ -55,12 +56,15 @@ export default class ClassOverview extends React.Component {
     return <DiagnosticMini />;
   };
 
+  collegeBoardMini = () => <CollegeBoardMini />;
+
   render() {
     return (
       <div className="row">
         {this.teacherGuide()}
         {this.diagnosticMini()}
         {this.lessonsList()}
+        {this.collegeBoardMini()}
         {this.hasPremium()}
         {this.overviewMinis()}
         <NotificationFeed notifications={this.props.notifications} />

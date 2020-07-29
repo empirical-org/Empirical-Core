@@ -52,6 +52,27 @@ exports[`LearningProcess component should render 1`] = `
         key="activity-type"
         selectCard={[Function]}
       />
+      <AssignmentCard
+        bodyArray={
+          Array [
+            Object {
+              "key": "What",
+              "text": "Find activities focused on key Pre-AP and AP writing skills, as well as in-content activities based on Pre-AP texts.",
+            },
+            Object {
+              "key": "When",
+              "text": "You're teaching AP or Pre-AP students, or you're interested in using AP or Pre-AP materials with your high school students.",
+            },
+          ]
+        }
+        header="Explore Pre-AP and AP activities"
+        imgAlt="graduation cap"
+        imgClassName="graduation-cap"
+        imgSrc="undefined/images/illustrations/graduation-cap.svg"
+        key="college-board"
+        selectCard={[Function]}
+        showNewTag={true}
+      />
     </div>
   </div>
 </div>
