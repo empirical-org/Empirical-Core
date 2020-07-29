@@ -1,6 +1,8 @@
 import * as React from 'react'
 import { Link } from 'react-router-dom'
 
+import parsedQueryParams from './parsedQueryParams'
+import { COLLEGE_BOARD_SLUG, PRE_AP_SLUG, AP_SLUG } from './assignmentFlowConstants'
 import LeavingModal from './leaving_modal'
 
 const quillLogoGreenSrc =  `${process.env.CDN_URL}/images/logos/quill-logo-green.svg`
@@ -15,23 +17,44 @@ interface AssignmentFlowNavigationProps {
 const learningProcessSlug = 'learning-process'
 const diagnosticSlug = 'diagnostic'
 const activityTypeSlug = 'activity-type'
+const collegeBoardSlug = COLLEGE_BOARD_SLUG
 const createActivityPackSlug = 'create-activity-pack'
 const selectClassesSlug = 'select-classes'
 const featuredActivityPacksSlug = 'featured-activity-packs'
+const preApSlug = PRE_AP_SLUG
+const apSlug = AP_SLUG
 
 const slash = (index: number) => <span className="slash" key={index}>/</span>
 const learningProcess = () => <Link key="learning-process" to={`/assign/${learningProcessSlug}`}>Learning process</Link>
 const diagnostic = () => <Link key="diagnostic" to={`/assign/${diagnosticSlug}`}>Diagnostic</Link>
 const activityType = () => <Link key="activity-type" to={`/assign/${activityTypeSlug}`}>Activity type</Link>
+const collegeBoard = () => <Link key="college-board" to={`/assign/${collegeBoardSlug}`}>College Board</Link>
 const createActivityPack = () => <Link key="custom-activity-pack" to={`/assign/${createActivityPackSlug}`}>Custom activity pack</Link>
 const selectClasses = () => <Link key="assign-" to={`/assign/${selectClassesSlug}`}>Assign</Link>
 const activityPack = () => <Link key="activity-pack" to={`/assign/${featuredActivityPacksSlug}`}>Activity pack</Link>
-const individualFeaturedActivityPack = (unitTemplateId, unitTemplateName) => <Link key="featured-activity-pack" to={`/assign/${featuredActivityPacksSlug}/${unitTemplateId}`}>{unitTemplateName}</Link>
+const preAp = () => <Link key="activity-pack" to={`/assign/${preApSlug}`}>Pre-AP</Link>
+const ap = () => <Link key="activity-pack" to={`/assign/${apSlug}`}>AP</Link>
+const individualFeaturedActivityPack = (unitTemplateId, unitTemplateName) => {
+  let link = `/assign/${featuredActivityPacksSlug}/${unitTemplateId}`
+  const collegeBoardActivityTypeSlug = parsedQueryParams()[collegeBoardSlug]
+  if (collegeBoardActivityTypeSlug) {
+    link+= `?${collegeBoardSlug}=${collegeBoardActivityTypeSlug}`
+  }
+  return <Link key="featured-activity-pack" to={link}>{unitTemplateName}</Link>
+}
+
+const collegeBoardSlugsToLinks = {
+  [preApSlug]: preAp(),
+  [apSlug]: ap()
+}
 
 const routeLinks = {
   [learningProcessSlug]: () => [slash(1), learningProcess()],
   [diagnosticSlug]: () => [slash(1), learningProcess(), slash(2), diagnostic()],
   [activityTypeSlug]: () => [slash(1), learningProcess(), slash(2), activityType()],
+  [preApSlug]: () => [slash(1), learningProcess(), slash(2), collegeBoard(), slash(3), preAp()],
+  [apSlug]: () => [slash(1), learningProcess(), slash(2), collegeBoard(), slash(3), ap()],
+  [collegeBoardSlug]: () => [slash(1), learningProcess(), slash(2), collegeBoard()],
   [createActivityPackSlug]: () => [slash(1), learningProcess(), slash(2), activityType(), slash(3), createActivityPack()],
   [selectClassesSlug]: (unitTemplateId, unitTemplateName, isFromDiagnosticPath) => {
     if (isFromDiagnosticPath) {
@@ -43,6 +66,11 @@ const routeLinks = {
         slash(3),
         selectClasses()
       ]
+    }
+
+    const collegeBoardActivityTypeSlug = parsedQueryParams()[collegeBoardSlug]
+    if (collegeBoardActivityTypeSlug) {
+      return [slash(1), learningProcess(), slash(2), collegeBoard(), slash(3), collegeBoardSlugsToLinks[collegeBoardActivityTypeSlug], slash(4), individualFeaturedActivityPack(unitTemplateId, unitTemplateName), slash(5), selectClasses()]
     }
 
     const base = [slash(1), learningProcess(), slash(2), activityType(), slash(3)]
@@ -59,6 +87,11 @@ const routeLinks = {
     return base.concat([createActivityPack(), slash(4), selectClasses()])
   },
   [featuredActivityPacksSlug]: (unitTemplateId, unitTemplateName) => {
+    const collegeBoardActivityTypeSlug = parsedQueryParams()[collegeBoardSlug]
+    if (collegeBoardActivityTypeSlug) {
+      return [slash(1), learningProcess(), slash(2), collegeBoard(), slash(3), collegeBoardSlugsToLinks[collegeBoardActivityTypeSlug], slash(4), individualFeaturedActivityPack(unitTemplateId, unitTemplateName)]
+    }
+
     const base = [slash(1), learningProcess(), slash(2), activityType(), slash(3), activityPack()]
     if (unitTemplateId && unitTemplateName) {
       return base.concat([slash(4), individualFeaturedActivityPack(unitTemplateId, unitTemplateName)])
@@ -71,6 +104,9 @@ const routeProgress = {
   [learningProcessSlug]: () => 'step-one',
   [diagnosticSlug]: () => 'step-two',
   [activityTypeSlug]: () => 'step-two',
+  [collegeBoardSlug]: () => 'step-two',
+  [preApSlug]: () => 'step-three',
+  [apSlug]: () => 'step-three',
   [createActivityPackSlug]: () => 'step-three',
   [selectClassesSlug]: () => 'step-five',
   [featuredActivityPacksSlug]: (unitTemplateId, unitTemplateName) => {
