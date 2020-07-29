@@ -179,31 +179,6 @@ jobs:
           command: |
             cd services/QuillConnect
             npm run jest
-  lessons_node_build:
-    working_directory: ~/Empirical-Core
-    docker:
-      - image: circleci/node:8.11.3
-    steps:
-      - checkout
-      - restore_cache:
-          keys:
-            - npm-cache-lessons-v2-{{ checksum "services/QuillLessons/package.json" }}-{{ checksum "services/QuillLessons/package-lock.json" }}
-            - npm-cache-lessons-v2-{{ checksum "services/QuillLessons/package.json" }}
-            - npm-cache-lessons-v2
-      - run:
-          name: Install NPM dependencies
-          command: |
-            cd services/QuillLessons
-            npm install
-      - save_cache:
-          key: npm-cache-lessons-v2-{{ checksum "services/QuillLessons/package.json" }}-{{ checksum "services/QuillLessons/package-lock.json" }}
-          paths:
-            - services/QuillLessons/node_modules
-      - run:
-          name: Run QuillLessons Tests
-          command: |
-            cd services/QuillLessons
-            npm run jest app/
   spellchecker_node_build:
     working_directory: ~/Empirical-Core
     docker:
@@ -373,7 +348,6 @@ workflows:
       - lms_node_build
       - marking_logic_node_build
       - cms_rails_build
-      - lessons_node_build
       - spellchecker_node_build
       - comprehension_rails_build
       - comprehension_python_build
