@@ -115,66 +115,6 @@ exports[`AssignADiagnostic component should render 1`] = `
         imgSrc="undefined/images/illustrations/diagnostics-ell.svg"
         selectCard={[Function]}
       />
-      <AssignmentCard
-        bodyArray={
-          Array [
-            Object {
-              "key": "What",
-              "text": "Subject-verb agreement, pronouns, compound subjects, objects, and predicates, and compound and complex sentences",
-            },
-            Object {
-              "key": "When",
-              "text": "Your students are working on basic sentence patterns and the skills outlined in the Pre-AP® English High School Course Framework.",
-            },
-          ]
-        }
-        buttonLink="https://quill.org/diagnostic/#/play/diagnostic/-M2nZy22Ey5g75LVsH25"
-        buttonText="Preview"
-        header="Pre-AP Writing Skills Survey 1"
-        imgAlt="page with writing that says Pre-AP on bottom"
-        imgSrc="undefined/images/college_board/diagnostics-preap.svg"
-        selectCard={[Function]}
-      />
-      <AssignmentCard
-        bodyArray={
-          Array [
-            Object {
-              "key": "What",
-              "text": "Conjunctive adverbs, relative clauses, appositive phrases, participial phrases, and parallel structure",
-            },
-            Object {
-              "key": "When",
-              "text": "Your students are working on basic sentence patterns and the skills outlined in the Pre-AP® English High School Course Framework.",
-            },
-          ]
-        }
-        buttonLink="https://quill.org/diagnostic/#/play/diagnostic/-M2ngd3CX44IwmKr_PY7"
-        buttonText="Preview"
-        header="Pre-AP Writing Skills Survey 2"
-        imgAlt="page with writing that says Pre-AP on bottom"
-        imgSrc="undefined/images/college_board/diagnostics-preap.svg"
-        selectCard={[Function]}
-      />
-      <AssignmentCard
-        bodyArray={
-          Array [
-            Object {
-              "key": "What",
-              "text": "Compound-complex sentences, appositive phrases, relative clauses, participial phrases, and parallel structure",
-            },
-            Object {
-              "key": "When",
-              "text": "Your students are developing their advanced sentence-level writing skills to prepare for writing in an AP® classroom.",
-            },
-          ]
-        }
-        buttonLink="https://quill.org/diagnostic/#/play/diagnostic/-L_wPCxbrT6toCb1fnYR"
-        buttonText="Preview"
-        header="AP Writing Skills Survey"
-        imgAlt="page with writing that says AP in corner"
-        imgSrc="undefined/images/college_board/diagnostics-ap.svg"
-        selectCard={[Function]}
-      />
     </div>
   </div>
 </div>
