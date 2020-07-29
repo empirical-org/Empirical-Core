@@ -12,7 +12,7 @@ import {
   ACTIVITY_IDS_ARRAY,
   CLASSROOMS,
   UNIT_ID,
-} from '../localStorageKeyConstants'
+} from '../assignmentFlowConstants'
 
 import ScrollToTop from '../../shared/scroll_to_top'
 import ViewAsStudentModal from '../../shared/view_as_student_modal'
