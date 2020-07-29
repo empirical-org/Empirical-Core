@@ -11,10 +11,7 @@ import StudentScores from '../../components/scorebook/student_scores';
 import ScorebookFilters from '../../components/scorebook/scorebook_filters';
 import ScoreLegend from '../../components/scorebook/score_legend';
 import AppLegend from '../../components/scorebook/app_legend.jsx';
-
-// import localStorageMock from '../../../../../__mocks__/localStorageMock.js';
 import requestMock from '../../../../../__mocks__/request.js';
-// window.localStorage = localStorageMock;
 jest.mock('request')
 
 const resolvedScores = new Map();
