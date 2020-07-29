@@ -16,21 +16,16 @@ interface NextSlideButtonProps {
 }
 
 class NextSlideButton extends React.Component<StateFromProps & NextSlideButtonProps, any> {
-  constructor(props) {
-    super(props);
 
+  classroomSessionId = () => {
+    const { match, } = this.props
     const classroomUnitId: ClassroomUnitId|null = getParameterByName('classroom_unit_id')
-    const activityUid = props.match.params.lessonID
-    this.state = {
-      classroomUnitId,
-      classroomSessionId: classroomUnitId ? classroomUnitId.concat(activityUid) : null
-    }
-
-    this.goToNextSlide = this.goToNextSlide.bind(this);
+    const { lessonID, } = match.params
+    return classroomUnitId.concat(lessonID)
   }
 
-  goToNextSlide() {
-    const classroomSessionId: ClassroomSessionId|null = this.state.classroomSessionId;
+  goToNextSlide = () => {
+    const classroomSessionId: ClassroomSessionId|null = this.classroomSessionId();
     const sessionData: ClassroomLessonSession = this.props.classroomSessions.data;
     const editionData: EditionQuestions = this.props.customize.editionQuestions;
     if (classroomSessionId) {

@@ -13,7 +13,7 @@
     background-color: white;
     border: #8e8e8e 2px solid;
     border-top: none;
-    margin-top: -2px;
+    margin-top: 0px;
     cursor: pointer;
     font-size: 16px;
     font-weight: 600;
@@ -23,6 +23,9 @@
   &.prompt-showing {
     margin-top: 24px;
     border-top: #8e8e8e solid 2px;
+    button {
+      margin-top: -2px;
+    }
   }
 }
 

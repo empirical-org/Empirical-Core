@@ -119,7 +119,7 @@ class AllUserEditions extends Component<any, any> {
     const directed = direction === 'dsc' ? sorted.reverse() : sorted;
     return _.map(directed, e => {
       const edition:CustomizeIntf.EditionMetadata|any = e
-      const link = `#/teach/class-lessons/${edition.lesson_id}/preview/${edition.key}`
+      const link = `/lessons/#/teach/class-lessons/${edition.lesson_id}/preview/${edition.key}`
       const date = edition.last_published_at ? `${new Date(edition.last_published_at)}` : 'Not Published'
       return (<tr key={edition.key}>
         <td>{edition.lessonName}</td>

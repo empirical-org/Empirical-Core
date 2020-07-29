@@ -57,14 +57,14 @@ class showScriptItem extends Component<any, any> {
     const {classroomLessonID, editionID, slideID, scriptItemID} = this.props.match.params;
     const script = this.currentSlide().data.teach.script;
     deleteScriptItem(editionID, slideID, scriptItemID, script)
-    window.location.href = `${window.location.origin}/#/admin/classroom-lessons/${classroomLessonID}/editions/${editionID}/slide/${slideID}`
+    window.location.href = `${window.location.origin}/lessons/#/admin/classroom-lessons/${classroomLessonID}/editions/${editionID}/slide/${slideID}`
   }
 
   render() {
     if (this.props.classroomLessons.hasreceiveddata && this.editionQuestions()) {
       const {editionID, classroomLessonID, slideID, scriptItemID} = this.props.match.params;
-      const editionLink = `${window.location.origin}/#/admin/classroom-lessons/${classroomLessonID}/editions/${editionID}`
-      const slideLink = `${window.location.origin}/#/admin/classroom-lessons/${classroomLessonID}/editions/${editionID}/slide/${slideID}`
+      const editionLink = `${window.location.origin}/lessons/#/admin/classroom-lessons/${classroomLessonID}/editions/${editionID}`
+      const slideLink = `${window.location.origin}/lessons/#/admin/classroom-lessons/${classroomLessonID}/editions/${editionID}/slide/${slideID}`
       return (
         <div className="admin-classroom-lessons-container">
           <h4 className="title is-4">Edition: <a href={editionLink}>{this.edition().name}</a></h4>

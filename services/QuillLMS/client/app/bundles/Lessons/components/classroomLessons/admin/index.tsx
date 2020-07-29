@@ -102,7 +102,7 @@ class ClassLessonsIndex extends Component<any, any> {
 
   renderLinkToAllEditions() {
     return (<div className="all-editions-link">
-      <a href="#/admin/classroom-lessons/editions">See All User-Created Lesson Editions</a>
+      <a href="/lessons/#/admin/classroom-lessons/editions">See All User-Created Lesson Editions</a>
     </div>)
   }
 
@@ -111,7 +111,7 @@ class ClassLessonsIndex extends Component<any, any> {
   }
 
   goToNewLesson(lessonUID) {
-    window.location.href = `${window.location.origin}/#/admin/classroom-lessons/${lessonUID}`
+    window.location.href = `${window.location.origin}/lessons/#/admin/classroom-lessons/${lessonUID}`
   }
 
   changeNewLessonName(e) {

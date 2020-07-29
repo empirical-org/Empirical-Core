@@ -68,11 +68,11 @@ class ShowEditionSlide extends Component<any, any> {
     const {classroomLessonID, editionID, slideID} = this.props.match.params;
     const slides = this.editionQuestions()
     deleteEditionSlide(editionID, slideID, slides)
-    window.location.href = `${window.location.origin}/#/admin/classroom-lessons/${classroomLessonID}/editions/${editionID}`
+    window.location.href = `${window.location.origin}/lessons/#/admin/classroom-lessons/${classroomLessonID}/editions/${editionID}`
   }
 
   goToNewScriptItem(scriptItemID) {
-    window.location.href = `${window.location.origin}/#/admin/classroom-lessons/${this.props.match.params.classroomLessonID}/editions/${this.props.match.params.editionID}/slide/${this.props.match.params.slideID}/scriptItem/${scriptItemID}`
+    window.location.href = `${window.location.origin}/lessons/#/admin/classroom-lessons/${this.props.match.params.classroomLessonID}/editions/${this.props.match.params.editionID}/slide/${this.props.match.params.slideID}/scriptItem/${scriptItemID}`
   }
 
   addScriptItem() {
@@ -116,7 +116,7 @@ class ShowEditionSlide extends Component<any, any> {
       const Component = getComponent(this.currentSlide().type)
       return (
         <div className="admin-classroom-lessons-container">
-          <h4 className="title is-4">Edition: <a href={`${window.location.origin}/#/admin/classroom-lessons/${this.props.match.params.classroomLessonID}/editions/${this.props.match.params.editionID}`}>
+          <h4 className="title is-4">Edition: <a href={`${window.location.origin}/lessons/#/admin/classroom-lessons/${this.props.match.params.classroomLessonID}/editions/${this.props.match.params.editionID}`}>
             {this.edition().name}
           </a></h4>
           <h5 className="title is-5">Slide: {this.currentSlide().data.teach.title}</h5>

@@ -57,7 +57,7 @@ class ShowAdminEdition extends Component<any, any> {
   goToNewSlide = (slideID) => {
     const { match, } = this.props
     const { params, } = match
-    window.location.href = `${window.location.origin}/#/admin/classroom-lessons/${params.classroomLessonID}/editions/${params.editionID}/slide/${slideID}`
+    window.location.href = `${window.location.origin}/lessons/#/admin/classroom-lessons/${params.classroomLessonID}/editions/${params.editionID}/slide/${slideID}`
   }
 
   handleAddSlideClick = () => {
@@ -73,7 +73,7 @@ class ShowAdminEdition extends Component<any, any> {
 
     const confirmation = window.confirm('Are you sure you want to delete this edition?')
     if (confirmation) {
-      dispatch(deleteEdition(params.editionID, () => window.location.href = `${window.location.origin}/#/admin/classroom-lessons/${params.classroomLessonID}`))
+      dispatch(deleteEdition(params.editionID, () => window.location.href = `${window.location.origin}/lessons/#/admin/classroom-lessons/${params.classroomLessonID}`))
     }
   }
 
@@ -131,7 +131,7 @@ class ShowAdminEdition extends Component<any, any> {
         <span className="slide-type">{getComponentDisplayName(questions[key].type)}</span>
         <span className="slide-title">{questions[key].data.teach.title}</span>
         {deleteSlideButton}
-        <span className="slide-edit"><a href={`/#/admin/classroom-lessons/${params.classroomLessonID}/editions/${editionId}/slide/${key}`}>Edit Slide</a></span>
+        <span className="slide-edit"><a href={`/lessons/#/admin/classroom-lessons/${params.classroomLessonID}/editions/${editionId}/slide/${key}`}>Edit Slide</a></span>
       </div>
     )
   }
@@ -164,7 +164,7 @@ class ShowAdminEdition extends Component<any, any> {
       const questions = this.editionQuestions()
       const editionId = params.editionID
       /* eslint-disable react/jsx-no-target-blank */
-      const editionHeader = <h4 className="title is-4">Edition: {this.edition().name} <a href={`/#/teach/class-lessons/${params.classroomLessonID}/preview/${params.editionID}`} target="_blank">Preview</a> </h4>
+      const editionHeader = <h4 className="title is-4">Edition: {this.edition().name} <a href={`/lessons/#/teach/class-lessons/${params.classroomLessonID}/preview/${params.editionID}`} target="_blank">Preview</a> </h4>
       /* eslint-enable react/jsx-no-target-blank */
       return (
         <div className="admin-classroom-lessons-container">

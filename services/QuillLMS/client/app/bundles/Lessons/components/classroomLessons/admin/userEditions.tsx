@@ -108,7 +108,7 @@ class UserEditions extends Component<any, any> {
     const directed = this.state.direction === 'dsc' ? sorted.reverse() : sorted;
     return _.map(directed, e => {
       const edition:CustomizeIntF.EditionMetadata|any = e
-      const link = `#/teach/class-lessons/${edition.lesson_id}/preview/${edition.key}`
+      const link = `/lessons/#/teach/class-lessons/${edition.lesson_id}/preview/${edition.key}`
       const date = edition.last_published_at ? `${new Date(edition.last_published_at)}` : 'Not Published'
       return (<tr key={edition.key}>
         <td>{edition.user_id}</td>
@@ -132,7 +132,7 @@ class UserEditions extends Component<any, any> {
       return (
         <div className="admin-classroom-lessons-container">
           <div className="lesson-header">
-            <h4 className="title is-4"><a href={`/#/admin/classroom-lessons/${classroomLessonID}`}>{this.classroomLesson().title}</a> User Editions</h4>
+            <h4 className="title is-4"><a href={`/lessons/#/admin/classroom-lessons/${classroomLessonID}`}>{this.classroomLesson().title}</a> User Editions</h4>
           </div>
           {this.renderEditionTable()}
           {this.renderMessage()}

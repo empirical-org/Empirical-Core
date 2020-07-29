@@ -66,7 +66,7 @@ class ShowClassroomLesson extends Component<any, any> {
     const confirmation = window.confirm('Are you sure you want to delete this lesson?')
     if (confirmation) {
       deleteLesson(this.props.match.params.classroomLessonID)
-      window.location.href = `${window.location.origin}/#/admin/classroom-lessons/`
+      window.location.href = `${window.location.origin}/lessons/#/admin/classroom-lessons/`
     }
   }
 
@@ -159,7 +159,7 @@ class ShowClassroomLesson extends Component<any, any> {
           {this.renderAddEdition()}
           {this.renderEditionsList()}
           <br />
-          <a className='button is-info' href={`/#/admin/classroom-lessons/${classroomLessonID}/editions`} style={{fontSize: 16}}>User Editions</a>
+          <a className='button is-info' href={`/lessons/#/admin/classroom-lessons/${classroomLessonID}/editions`} style={{fontSize: 16}}>User Editions</a>
         </div>
       )
     } else {
