@@ -1,5 +1,6 @@
 class PagesController < ApplicationController
   include HTTParty
+  include PagesHelper
   before_filter :determine_js_file, :determine_flag
   layout :determine_layout
 
@@ -432,6 +433,10 @@ class PagesController < ApplicationController
   end
 
   def referrals_toc
+  end
+
+  def preap_units
+    render json: { units: preap_content }
   end
 
   def backpack
