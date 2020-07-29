@@ -8,6 +8,7 @@
       display: flex;
       flex-direction: row;
       justify-content: space-between;
+      align-items: center;
       padding: 20px 0px 40px 0px;
       .header-left {
         display: flex;
@@ -16,7 +17,7 @@
         .logo-container {
           display: flex;
           flex-direction: row;
-          margin: 20px 0px 40px 0px;
+          margin: 0px 0px 40px 0px;
           .divider {
             width: 2px;
             height: 46px;
