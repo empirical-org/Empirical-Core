@@ -277,7 +277,8 @@
       "/test_data/"
     ],
     "testPathIgnorePatterns": [
-      "test_data.js"
+      "test_data.js",
+      "data.ts"
     ],
     "setupFiles": [
       "<rootDir>/setupTests.ts",
