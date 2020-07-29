@@ -48,9 +48,7 @@ class SerializeVitallySalesAccount
       .joins(user: :school, classroom: :activity_sessions)
         .where('schools.id = ?', @school.id)
         .where('activity_sessions.state = ?', 'finished')
-        .group('activity_sessions.user_id')
-        .count
-        .length
+        .count("DISTINCT('activity_sessions.user_id')")
   end
 
   private def activities_finished
