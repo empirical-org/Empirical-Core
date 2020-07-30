@@ -93,6 +93,9 @@ module.exports = {
     grammar: [
       './app/bundles/Grammar/clientRegistration'
     ],
+    connect: [
+      './app/bundles/Connect/clientRegistration'
+    ],
     diagnostic: [
       './app/bundles/Diagnostic/clientRegistration'
     ]
