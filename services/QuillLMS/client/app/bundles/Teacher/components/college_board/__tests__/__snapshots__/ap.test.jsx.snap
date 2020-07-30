@@ -920,13 +920,13 @@ exports[`Ap component should render when it is not part of the assignment flow 1
                   </a>
                   , you can quickly see which activities your students have completed, along with color-coded icons indicating their proficiency with each activity. Quill has several other reports as well. 
                   <a
-                    href="http://s3.amazonaws.com/quill-image-uploads/uploads/files/Quill_Reports_Cheat_Sheet_Updated04_08_20.pdf"
+                    href="https://s3.amazonaws.com/quill-image-uploads/uploads/files/Quill_Reports_Cheat_Sheet_Updated04_08_20.pdf"
                   >
                     This Cheat Sheet
                   </a>
                    shows you which report to go to for particular information, and 
                   <a
-                    href="http://s3.amazonaws.com/quill-image-uploads/uploads/files/Getting_Started_-_Student_Data_Reports__Basic_.mp4"
+                    href="https://s3.amazonaws.com/quill-image-uploads/uploads/files/Getting_Started_-_Student_Data_Reports__Basic_.mp4"
                   >
                     this video
                   </a>
@@ -2214,13 +2214,13 @@ exports[`Ap component should render when it is part of the assignment flow 1`] =
                   </a>
                   , you can quickly see which activities your students have completed, along with color-coded icons indicating their proficiency with each activity. Quill has several other reports as well. 
                   <a
-                    href="http://s3.amazonaws.com/quill-image-uploads/uploads/files/Quill_Reports_Cheat_Sheet_Updated04_08_20.pdf"
+                    href="https://s3.amazonaws.com/quill-image-uploads/uploads/files/Quill_Reports_Cheat_Sheet_Updated04_08_20.pdf"
                   >
                     This Cheat Sheet
                   </a>
                    shows you which report to go to for particular information, and 
                   <a
-                    href="http://s3.amazonaws.com/quill-image-uploads/uploads/files/Getting_Started_-_Student_Data_Reports__Basic_.mp4"
+                    href="https://s3.amazonaws.com/quill-image-uploads/uploads/files/Getting_Started_-_Student_Data_Reports__Basic_.mp4"
                   >
                     this video
                   </a>
