@@ -157,28 +157,6 @@ jobs:
           command: |
             cd services/QuillCMS
             bundle exec rake spec
-  connect_node_build:
-    working_directory: ~/Empirical-Core
-    docker:
-      - image: circleci/node:7.7.4
-    steps:
-      - checkout
-      - restore_cache:
-          key: npm-cache-connect-v2-{{ checksum "services/QuillConnect/package-lock.json" }}
-      - run:
-          name: Install NPM dependencies
-          command: |
-            cd services/QuillConnect
-            npm install
-      - save_cache:
-          key: npm-cache-connect-v2-{{ checksum "services/QuillConnect/package-lock.json" }}
-          paths:
-            - services/QuillConnect/node_modules
-      - run:
-          name: Run QuillConnect Tests
-          command: |
-            cd services/QuillConnect
-            npm run jest
   spellchecker_node_build:
     working_directory: ~/Empirical-Core
     docker:
@@ -344,7 +322,6 @@ workflows:
   build-test:
     jobs:
       - lms_rails_build
-      - connect_node_build
       - lms_node_build
       - marking_logic_node_build
       - cms_rails_build

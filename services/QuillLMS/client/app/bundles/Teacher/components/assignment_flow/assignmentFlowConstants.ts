@@ -1,0 +1,10 @@
+export const COLLEGE_BOARD_SLUG = 'college-board'
+export const PRE_AP_SLUG = 'pre-ap'
+export const AP_SLUG = 'ap'
+
+export const UNIT_TEMPLATE_NAME = 'unitTemplateName'
+export const UNIT_TEMPLATE_ID = 'unitTemplateId'
+export const UNIT_NAME = 'unitName'
+export const ACTIVITY_IDS_ARRAY = 'activityIdsArray'
+export const CLASSROOMS = 'classrooms'
+export const UNIT_ID = 'unitId'

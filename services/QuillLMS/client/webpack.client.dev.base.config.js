@@ -98,6 +98,9 @@ module.exports = {
     lessons: [
       './app/bundles/Lessons/clientRegistration'
     ],
+    connect: [
+      './app/bundles/Connect/clientRegistration'
+    ],
     diagnostic: [
       './app/bundles/Diagnostic/clientRegistration'
     ]
