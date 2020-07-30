@@ -216,7 +216,7 @@ class Subscription < ActiveRecord::Base
 
   def self.update_todays_expired_recurring_subscriptions
     expired_today_or_previously_and_recurring.each do |s|
-      s.update_if_charge_succeeds
+      s.update_if_charge_succeeds unless s.users.empty?
     end
   end
 
