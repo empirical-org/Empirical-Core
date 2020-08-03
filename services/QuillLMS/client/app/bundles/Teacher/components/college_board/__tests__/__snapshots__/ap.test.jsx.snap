@@ -1138,7 +1138,7 @@ exports[`Ap component should render when it is not part of the assignment flow 1
                   >
                     If you do not want to create an account, you or your students can complete the Survey 
                     <a
-                      href="https://diagnostic.quill.org/#/play/diagnostic/-L_wPCxbrT6toCb1fnYR?anonymous=true"
+                      href="https://quill.org/diagnostic/#/play/diagnostic/-L_wPCxbrT6toCb1fnYR?anonymous=true"
                     >
                       here
                     </a>
@@ -2432,7 +2432,7 @@ exports[`Ap component should render when it is part of the assignment flow 1`] =
                   >
                     If you do not want to create an account, you or your students can complete the Survey 
                     <a
-                      href="https://diagnostic.quill.org/#/play/diagnostic/-L_wPCxbrT6toCb1fnYR?anonymous=true"
+                      href="https://quill.org/diagnostic/#/play/diagnostic/-L_wPCxbrT6toCb1fnYR?anonymous=true"
                     >
                       here
                     </a>
