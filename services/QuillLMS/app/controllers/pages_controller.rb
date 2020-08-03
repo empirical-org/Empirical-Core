@@ -455,6 +455,14 @@ class PagesController < ApplicationController
     @style_file = ApplicationController::GRAMMAR
   end
 
+  def lessons
+    @style_file = ApplicationController::LESSONS
+  end
+
+  def connect
+    @style_file = ApplicationController::CONNECT
+  end
+  
   def diagnostic
     @style_file = ApplicationController::DIAGNOSTIC
   end
@@ -467,7 +475,7 @@ class PagesController < ApplicationController
       'home'
     when 'home_new', 'diagnostic_tool', 'connect_tool', 'grammar_tool', 'proofreader_tool', 'lessons_tool'
       'twenty_seventeen_home'
-    when ApplicationController::COMPREHENSION, ApplicationController::PROOFREADER, ApplicationController::GRAMMAR, ApplicationController::DIAGNOSTIC
+    when ApplicationController::COMPREHENSION, ApplicationController::PROOFREADER, ApplicationController::GRAMMAR, ApplicationController::LESSONS, ApplicationController::DIAGNOSTIC, ApplicationController::CONNECT
       'activity'
     end
   end
@@ -486,6 +494,10 @@ class PagesController < ApplicationController
       @js_file = ApplicationController::PROOFREADER
     when ApplicationController::GRAMMAR
       @js_file = ApplicationController::GRAMMAR
+    when ApplicationController::LESSONS
+      @js_file = ApplicationController::LESSONS
+    when ApplicationController::CONNECT
+      @js_file = ApplicationController::CONNECT
     when ApplicationController::DIAGNOSTIC
       @js_file = ApplicationController::DIAGNOSTIC
     end
