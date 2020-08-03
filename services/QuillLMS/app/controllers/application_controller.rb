@@ -11,6 +11,7 @@ class ApplicationController < ActionController::Base
   GRAMMAR = 'grammar'
   CONNECT = 'connect'
   DIAGNOSTIC = 'diagnostic'
+  LESSONS = 'lessons'
 
   #helper CMS::Helper
   helper SegmentioHelper
