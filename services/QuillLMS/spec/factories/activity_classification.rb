@@ -26,8 +26,8 @@ FactoryBot.define do
       app_name 'diagnostic'
       uid 'vrG0Fh3VobdALnbs9x-xdA'
       order_number 0
-      form_url 'https://connect.quill.org/#/play/diagnostic/'
-      module_url 'https://connect.quill.org/#/play/diagnostic/'
+      form_url 'https://www.quill.org/diagnostic/#/play/diagnostic/'
+      module_url 'https://www.quill.org/diagnostic/#/play/diagnostic/'
       scored false
     end
 
@@ -38,8 +38,8 @@ FactoryBot.define do
       app_name 'grammar'
       uid 'IACa8Egt7CvVYgtHPtEn2w'
       order_number 4
-      form_url 'https://grammar.quill.org/play/pf'
-      module_url 'https://grammar.quill.org/play/pf'
+      form_url 'https://www.quill.org/proofreader/#/play/pf'
+      module_url 'https://www.quill.org/proofreader/#/play/pf'
     end
 
     factory :grammar do
@@ -49,8 +49,8 @@ FactoryBot.define do
       app_name 'grammar'
       uid 's2u3tVuguhfUjOQxDP-7RA'
       order_number 3
-      form_url 'https://grammar.quill.org/play/sw'
-      module_url 'https://grammar.quill.org/play/sw'
+      form_url 'https://quill.org/grammar/#/play/sw'
+      module_url 'https://quill.org/grammar/#/play/sw'
     end
 
     factory :connect do
@@ -60,8 +60,8 @@ FactoryBot.define do
       app_name 'connect'
       uid '_o5-YkUO5wfTVAo9j0BweQ'
       order_number 2
-      form_url 'https://connect.quill.org/#/play/lesson/'
-      module_url 'https://connect.quill.org/#/play/lesson/'
+      form_url 'https://quill.org/connect/#/play/lesson/'
+      module_url 'https://quill.org/connect/#/play/lesson/'
     end
 
     factory :lesson_classification do
@@ -71,8 +71,8 @@ FactoryBot.define do
       app_name 'Lessons'
       uid '97_Rf602yUjT9oE_ztZpIA'
       order_number 1
-      form_url 'https://connect.quill.org/#/'
-      module_url 'https://connect.quill.org/#/play/class-lessons/'
+      form_url 'https://quill.org/lessons/#/'
+      module_url 'https://quill.org/lessons/#/play/class-lessons/'
       instructor_mode true
       locked_by_default true
       scored false
