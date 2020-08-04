@@ -39,11 +39,11 @@ const ap = () => [
         <p className="preap-sub-header">AP Writing Practice - <a href="https://www.quill.org/activities/packs/144">Participial Phrases</a></p>
         <p className="preap-q-and-a-text">Students practice constructing sentences with -ing and -ed participial phrases at the beginning, middle, or end.</p>
         <p className="preap-sub-header">AP Writing Practice - <a href="https://www.quill.org/activities/packs/192">Parallel Structure</a></p>
-        <p className="preap-q-and-a-text">Students practice constructing sentences in parallel structure with correlative conjunctions like either/or, neither/nor, and both/and, and with subordinating conjunctions like although, because, and when. Students also practice constructing sentences with parallel clauses.</p> 
+        <p className="preap-q-and-a-text">Students practice constructing sentences in parallel structure with correlative conjunctions like either/or, neither/nor, and both/and, and with subordinating conjunctions like although, because, and when. Students also practice constructing sentences with parallel clauses.</p>
         <p className="preap-sub-header">AP Writing Practice - <a href="https://www.quill.org/activities/packs/141">Compound-Complex Sentences</a></p>
-        <p className="preap-q-and-a-text">Students practice constructing compound sentences with and, or, but, and so. Students also practice constructing complex sentences with subordinating conjunctions such as even though, after, while, and because. Finally, students practice constructing compound-complex sentences with coordinating and subordinating conjunctions. Students also practice identifying time order, opposition, and cause/effect relationships.</p> 
+        <p className="preap-q-and-a-text">Students practice constructing compound sentences with and, or, but, and so. Students also practice constructing complex sentences with subordinating conjunctions such as even though, after, while, and because. Finally, students practice constructing compound-complex sentences with coordinating and subordinating conjunctions. Students also practice identifying time order, opposition, and cause/effect relationships.</p>
         <p className="preap-sub-header">AP Writing Practice - <a href="https://www.quill.org/activities/packs/142">Advanced Combining</a></p>
-        <p className="preap-q-and-a-text">Students apply their knowledge of multiple sentence structures to combine the sentences in the strongest way possible. Students practice constructing compound and complex sentences, using modifying phrases and clauses, and combining predicates.</p> 
+        <p className="preap-q-and-a-text">Students apply their knowledge of multiple sentence structures to combine the sentences in the strongest way possible. Students practice constructing compound and complex sentences, using modifying phrases and clauses, and combining predicates.</p>
       </div>
     )
   },
@@ -95,7 +95,7 @@ const ap = () => [
     answer: (
       <div>
         <p className="preap-q-and-a-text">It is recommended that you and your students create free accounts on Quill.org. Creating an account will give you access to the Survey and its recommended practice. Creating an account also allows you to track your students’ progress and view data reports. You can create an account by visiting the <a href="https://www.quill.org/account/new">Quill sign-up page</a>.</p>
-        <p className="preap-q-and-a-text">If you do not want to create an account, you or your students can complete the Survey <a href="https://diagnostic.quill.org/#/play/diagnostic/-L_wPCxbrT6toCb1fnYR?anonymous=true">here</a>. However, please note that if you do not create an account, your students’ performance on the Survey will not be saved or shared with you, and you will not have access to the recommended skills practice. You will also not be able to track student progress or view data reports.</p>
+        <p className="preap-q-and-a-text">If you do not want to create an account, you or your students can complete the Survey <a href="https://quill.org/diagnostic/#/play/diagnostic/-L_wPCxbrT6toCb1fnYR?anonymous=true">here</a>. However, please note that if you do not create an account, your students’ performance on the Survey will not be saved or shared with you, and you will not have access to the recommended skills practice. You will also not be able to track student progress or view data reports.</p>
       </div>
     )
   },
