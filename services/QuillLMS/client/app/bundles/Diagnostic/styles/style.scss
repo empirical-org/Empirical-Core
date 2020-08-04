@@ -20,6 +20,10 @@ body {
   color: #3D3D3D
 }
 
+#main-content {
+  outline: none;
+}
+
 .button-group {
   .button {
     margin-right: 5px;
@@ -377,8 +381,7 @@ textarea.submission {
       min-height: calc(100vh - 64px);
     }
     &.minus-nav-and-footer {
-      height: calc(100vh - 64px - 81px);
-      min-height: min-content;
+      min-height: calc(100vh - 64px - 81px);
       flex: 1 1 auto;
     }
     .hero-body {
@@ -440,8 +443,8 @@ textarea.submission {
 }
 
 .admin-menu {
-  min-width: 220; 
-  border-right: '1px solid #e3e3e3'; 
+  min-width: 220;
+  border-right: '1px solid #e3e3e3';
   padding: 30px 15px 15px 0px;
 }
 
