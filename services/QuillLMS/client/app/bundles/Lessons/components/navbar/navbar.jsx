@@ -59,7 +59,7 @@ class Navbar extends React.Component {
     } else {
       return (
         <div className="nav-right nav-menu" style={this.navStyles()}>
-          <a className="nav-item" href="http://www.connect.quill.org/dwqa-questions/">FAQ</a>
+          <a className="nav-item" href="http://www.quill.org/connect/dwqa-questions/">FAQ</a>
           <Link activeClassName="is-active" className="nav-item" onClick={this.reset} to={'/play'}>Demo</Link>
           <Link activeClassName="is-active" className="nav-item" onClick={this.reset} to={'/results'}>Results</Link>
           <Link activeClassName="is-active" className="nav-item" onClick={this.reset} to={'/lessons'}>Activities</Link>
@@ -79,7 +79,7 @@ class Navbar extends React.Component {
         <header className="nav" style={{height: '65px'}}>
           <div className="container">
             <div className="nav-left">
-              <a className="nav-item" href="http://www.connect.quill.org">
+              <a className="nav-item" href="http://www.quill.org/connect">
                 <img
                   alt=""
                   src="http://45.55.217.62/wp-content/uploads/2016/04/quill_connect_logo2.png"
