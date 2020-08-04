@@ -65,7 +65,7 @@ export default class TutorialIndex extends React.Component {
   }
 
   nextButton() {
-    const lessonsUrl = process.env.QUILL_LESSONS_URL || 'https://lessons.quill.org';
+    const lessonsUrl = process.env.QUILL_LESSONS_URL || 'https://quill.org/lessons';
     if (this.state.slideNumber !== this.state.slides.length) {
       return <button className="text-white bg-quillgreen next-button" onClick={() => this.goToSlide(this.state.slideNumber + 1)}>Next</button>;
     } else if (getParameterByName('url')) {

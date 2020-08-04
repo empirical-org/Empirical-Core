@@ -48,4 +48,4 @@ You will also need the QuillLMS to run to generate the JWT needed to authenticat
 ```
 $ foreman start -f Procfile.static
 ```
-Navigate your browser to `http://localhost:8080/#/admin` to confirm things are working.
+Navigate your browser to `http://localhost:3000/lessons/#/admin` to confirm things are working.
