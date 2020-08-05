@@ -316,18 +316,22 @@
   font-size: 24px;
   margin-right: 10px;
   width: 40px;
+  height: 40px;
   text-align: center;
-  box-shadow: rgba(0, 0, 0, 0.24) 0px 2px 2px 0px, rgba(0, 0, 0, 0.12) 0px 0px 2px 0px;
-  border-style: solid;
-  border-width: 1px;
-  border-image-source: linear-gradient(rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.1) 5%, rgba(255, 255, 255, 0) 20%, rgba(255, 255, 255, 0));
-  border-image-slice: 1;
-  &.error {
-    border-width: 0px;
-    box-shadow: 0 2px 4px 0 rgba(10, 10, 10, 0.2), 0 -1px 1px 0 rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 4px 0 rgba(10, 10, 10, 0.2), 0 -1px 1px 0 rgba(0, 0, 0, 0.1);
+  box-sizing: border-box;
+  border: none;
+  &.error:not(:focus) {
+    box-shadow: none;
+    border-radius: 4px;
+    border: solid 2px #8e8e8e;
     border-bottom: 3px solid #b17410;
-    border-image-source: none;
-    padding-top: 4px;
+    padding-top: 2px;
+  }
+  &:focus {
+    outline: none;
+    border: solid 2px #06806b;
+    border-radius: 4px;
   }
 }
 
