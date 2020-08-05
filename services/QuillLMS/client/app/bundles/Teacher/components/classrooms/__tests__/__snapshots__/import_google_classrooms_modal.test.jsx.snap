@@ -1878,7 +1878,6 @@ exports[`ImportGoogleClassroomsModal component #handleClickImportClasses should 
           </button>
           <button
             className="quill-button contained primary medium"
-            id="import-button"
             onClick={[Function]}
             type="button"
           >
@@ -2575,7 +2574,6 @@ exports[`ImportGoogleClassroomsModal component initial load should render 1`] = 
           </button>
           <button
             className="quill-button contained primary medium disabled"
-            id="import-button"
             onClick={[Function]}
             type="button"
           >
