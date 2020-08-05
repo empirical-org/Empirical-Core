@@ -22,6 +22,7 @@ interface ImportGoogleClassroomsModalState {
   classrooms: Array<any>;
   postAssignments: boolean;
   waiting: boolean;
+  timesSubmitted: number;
 }
 
 const headers = [
@@ -52,40 +53,33 @@ export default class ImportGoogleClassroomsModal extends React.Component<ImportG
     this.state = {
       classrooms: props.classrooms,
       postAssignments: !!props.user.post_google_classroom_assignments,
-      waiting: false
+      waiting: false,
+      timesSubmitted: 0
     }
-
-    this.importClasses = this.importClasses.bind(this)
-    this.togglePostAssignments = this.togglePostAssignments.bind(this)
-    this.handleGradeChange = this.handleGradeChange.bind(this)
-    this.toggleRowCheck = this.toggleRowCheck.bind(this)
-    this.checkAllRows = this.checkAllRows.bind(this)
-    this.uncheckAllRows = this.uncheckAllRows.bind(this)
   }
 
   footerButtonClass() {
     const { classrooms } = this.state
     let buttonClass = 'quill-button contained primary medium';
     const noClassroomsChecked = classrooms.every(classroom => !classroom.checked)
-    const anyClassroomsCheckedWithNoGrade = classrooms.find(classroom => classroom.checked && !classroom.grade)
-    if (noClassroomsChecked || anyClassroomsCheckedWithNoGrade) {
+    if (noClassroomsChecked) {
       buttonClass += ' disabled';
     }
     return buttonClass;
   }
 
-  togglePostAssignments() {
-    this.setState({ postAssignments: !this.state.postAssignments })
+  handleClickPostAssignmentsCheckbox = () => {
+    this.setState(prevState => ({ postAssignments: !prevState.postAssignments }))
   }
 
-  toggleRowCheck(id) {
+  toggleRowCheck = (id) => {
     const { classrooms } = this.state
     const classroom = classrooms.find(classroom => classroom.id === id)
     classroom.checked = !classroom.checked
     this.setState({ classrooms })
   }
 
-  checkAllRows() {
+  checkAllRows = () => {
     const { classrooms } = this.state
     const newClassrooms = classrooms.map(classroom => {
       classroom.checked = true
@@ -94,7 +88,7 @@ export default class ImportGoogleClassroomsModal extends React.Component<ImportG
     this.setState({ classrooms: newClassrooms })
   }
 
-  uncheckAllRows() {
+  uncheckAllRows = () => {
     const { classrooms } = this.state
     const newClassrooms = classrooms.map(classroom => {
       classroom.checked = false
@@ -103,7 +97,7 @@ export default class ImportGoogleClassroomsModal extends React.Component<ImportG
     this.setState({ classrooms: newClassrooms })
   }
 
-  handleGradeChange(classroomId, grade) {
+  handleGradeChange = (classroomId, grade) => {
     const { classrooms } = this.state
     const classroom = classrooms.find(classroom => classroom.id === classroomId)
     classroom.grade = grade.value
@@ -113,10 +107,9 @@ export default class ImportGoogleClassroomsModal extends React.Component<ImportG
   renderCheckbox() {
     const { postAssignments } = this.state
     if (postAssignments) {
-      return <div className="quill-checkbox selected" onClick={this.togglePostAssignments}><img alt="check" src={smallWhiteCheckSrc} /></div>
-    } else {
-      return <div className="quill-checkbox unselected" onClick={this.togglePostAssignments} />
+      return <button className="quill-checkbox selected" onClick={this.handleClickPostAssignmentsCheckbox} type="button"><img alt="check" src={smallWhiteCheckSrc} /></button>
     }
+    return <button aria-label="Unselected checkbox" className="quill-checkbox unselected" onClick={this.handleClickPostAssignmentsCheckbox} type="button" />
   }
 
   initializePusherForGoogleStudentImport(id) {
@@ -133,8 +126,20 @@ export default class ImportGoogleClassroomsModal extends React.Component<ImportG
     });
   }
 
-  importClasses() {
+  handleClickImportClasses = () => {
     const { classrooms, postAssignments, } = this.state
+    const classroomsCheckedWithNoGrade = classrooms.filter(classroom => classroom.checked && !classroom.grade)
+
+    if (classroomsCheckedWithNoGrade.length) {
+      const newClassrooms = classrooms.map(c => {
+        if (classroomsCheckedWithNoGrade.find(noGradeClassroom => noGradeClassroom.id === c.id)) {
+          c.error = 'Select a grade for your class'
+        }
+        return c
+      })
+      this.setState(prevState => ({ classrooms: newClassrooms, timesSubmitted: prevState.timesSubmitted + 1, }))
+      return
+    }
 
     this.setState({ waiting: true })
     const selectedClassrooms = classrooms.filter(classroom => classroom.checked)
@@ -155,49 +160,52 @@ export default class ImportGoogleClassroomsModal extends React.Component<ImportG
   }
 
   renderModalContent() {
-    if (this.state.classrooms.length) {
-      const { classrooms, } = this.state
+    const { classrooms, timesSubmitted,} = this.state
 
-      const rows = classrooms.map(classroom => {
-        const { name, username, id, creationTime, studentCount, checked, grade } = classroom
-        const year = moment(creationTime).format('YYYY')
-        const gradeOption = GradeOptions.find(go => go.value === grade)
-        const gradeSelector = (<DropdownInput
-          className="grade"
-          handleChange={(g) => this.handleGradeChange(id, g)}
-          label="Select a grade"
-          options={GradeOptions}
-          value={gradeOption}
-        />)
-        return {
-          name,
-          id,
-          username,
-          checked,
-          year,
-          grade: checked ? gradeSelector : null,
-          students: studentCount
-        }
-      })
+    if (!classrooms.length) { return }
 
-      return (<DataTable
-        checkAllRows={this.checkAllRows}
-        checkRow={this.toggleRowCheck}
-        headers={headers}
-        rows={rows}
-        showCheckboxes={true}
-        uncheckAllRows={this.uncheckAllRows}
-        uncheckRow={this.toggleRowCheck}
+    const rows = classrooms.map(classroom => {
+      const { name, username, id, creationTime, studentCount, checked, grade, error } = classroom
+      const year = moment(creationTime).format('YYYY')
+      const gradeOption = GradeOptions.find(go => go.value === grade)
+      const gradeSelector = (<DropdownInput
+        className="grade"
+        error={error}
+        handleChange={(g) => this.handleGradeChange(id, g)}
+        label="Select a grade"
+        options={GradeOptions}
+        timesSubmitted={timesSubmitted}
+        value={gradeOption}
       />)
-    }
+      return {
+        name,
+        id,
+        username,
+        checked,
+        year,
+        className: error ? 'error' : '',
+        grade: checked ? gradeSelector : null,
+        students: studentCount
+      }
+    })
+
+    return (<DataTable
+      checkAllRows={this.checkAllRows}
+      checkRow={this.toggleRowCheck}
+      headers={headers}
+      rows={rows}
+      showCheckboxes={true}
+      uncheckAllRows={this.uncheckAllRows}
+      uncheckRow={this.toggleRowCheck}
+    />)
   }
 
   renderImportButton() {
     const { waiting } = this.state
     if (waiting) {
-      return <button className={this.footerButtonClass()}><ButtonLoadingIndicator /></button>
+      return <button aria-label="Loading" className={this.footerButtonClass()} type="button"><ButtonLoadingIndicator /></button>
     } else {
-      return <button className={this.footerButtonClass()} onClick={this.importClasses}>Import classes</button>
+      return <button className={this.footerButtonClass()} onClick={this.handleClickImportClasses} type="button">Import classes</button>
     }
   }
 
@@ -221,7 +229,7 @@ export default class ImportGoogleClassroomsModal extends React.Component<ImportG
             <span>Post assignments as announcements in Google Classroom</span>
           </div>
           <div className="buttons">
-            <button className="quill-button outlined secondary medium" onClick={close}>Cancel</button>
+            <button className="quill-button outlined secondary medium" onClick={close} type="button">Cancel</button>
             {this.renderImportButton()}
           </div>
         </div>

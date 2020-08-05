@@ -738,6 +738,10 @@
     .data-table-headers {
       z-index: 7;
     }
+    .data-table-row.error.checked {
+      padding-bottom: 48px;
+      height: 94px;
+    }
     .show-overflow {
       overflow: visible;
     }

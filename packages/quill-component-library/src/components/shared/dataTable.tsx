@@ -257,7 +257,7 @@ export class DataTable extends React.Component<DataTableProps, DataTableState> {
 
   renderRow(row) {
     const { headers, } = this.props
-    const rowClassName = `data-table-row ${row.checked ? 'checked' : ''}`
+    const rowClassName = `data-table-row ${row.checked ? 'checked' : ''} ${row.className}`
     const rowSections = headers.map(header => this.renderRowSection(row, header))
     return <div className={rowClassName} key={String(row.id)}>{this.renderRowCheckbox(row)}{rowSections}{this.renderRowRemoveIcon(row)}{this.renderActions(row)}</div>
   }
