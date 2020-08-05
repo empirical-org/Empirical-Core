@@ -170,7 +170,7 @@ export default class ImportGoogleClassroomsModal extends React.Component<ImportG
       const gradeOption = GradeOptions.find(go => go.value === grade)
       const gradeSelector = (<DropdownInput
         className="grade"
-        error={error}
+        error={error && !grade ? error : null}
         handleChange={(g) => this.handleGradeChange(id, g)}
         label="Select a grade"
         options={GradeOptions}
@@ -183,7 +183,7 @@ export default class ImportGoogleClassroomsModal extends React.Component<ImportG
         username,
         checked,
         year,
-        className: error ? 'error' : '',
+        className: error && !grade ? 'error' : '',
         grade: checked ? gradeSelector : null,
         students: studentCount
       }
