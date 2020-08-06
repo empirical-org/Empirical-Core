@@ -13,7 +13,7 @@ case $1 in
       echo "You can not make a production deploy from a branch other than 'production'.  Don't forget to make sure you have the latest code pulled."
       exit 1
     fi
-    S3_DEPLOY_BUCKET=s3://aws-website-quill-connect
+    S3_DEPLOY_BUCKET=s3://aws-website-quillconnect-6sy4b
     ;;
   staging)
     S3_DEPLOY_BUCKET=s3://aws-website-quill-connect-staging
