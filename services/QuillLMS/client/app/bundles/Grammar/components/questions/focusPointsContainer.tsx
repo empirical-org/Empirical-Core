@@ -85,7 +85,7 @@ export class FocusPointsContainer extends React.Component {
               {this.renderConceptResults(fp.conceptResults, fp.key)}
             </div>
             <footer className="card-footer">
-              <a className="card-footer-item" href={`/#/admin/questions/${this.props.match.params.questionID}/focus-points/${fp.key}/edit`}>Edit</a>
+              <a className="card-footer-item" href={`/grammar/#/admin/questions/${this.props.match.params.questionID}/focus-points/${fp.key}/edit`}>Edit</a>
               <a className="card-footer-item" onClick={() => this.deleteFocusPoint(fp.key)}>Delete</a>
             </footer>
           </div>
@@ -127,7 +127,7 @@ export class FocusPointsContainer extends React.Component {
       <div>
         <div className="has-top-margin">
           <h1 className="title is-3" style={{ display: 'inline-block', }}>Focus Points</h1>
-          <a className="button is-outlined is-primary" href={`/#/admin/questions/${this.props.match.params.questionID}/focus-points/new`} style={{ float: 'right', }}>Add Focus Point</a>
+          <a className="button is-outlined is-primary" href={`/grammar/#/admin/questions/${this.props.match.params.questionID}/focus-points/new`} style={{ float: 'right', }}>Add Focus Point</a>
           {this.renderfPButton()}
         </div>
         {this.renderFocusPointsList()}
