@@ -20,43 +20,56 @@ exports[`Classroom component not selected should render as a closed card 1`] = `
       <div
         className="classroom-data"
       >
-        <span>
+        <span
+          className="item"
+        >
           2
            
           students
         </span>
         <span
-          className="bullet"
+          className="bullet item"
         >
           •
         </span>
-        <span>
+        <span
+          className="item"
+        >
           2
            
           co-teachers
         </span>
         <span
-          className="bullet"
+          className="bullet item"
         >
           •
-        </span>
-        <span>
-          Class code: demo-2851865
         </span>
         <span
-          className="bullet"
+          className="item"
+        >
+          <p>
+            Class code: 
+            demo-2851865
+          </p>
+        </span>
+        <span
+          className="bullet item"
         >
           •
         </span>
-        <span>
+        <span
+          className="item"
+        >
           9th grade
         </span>
         <span
-          className="bullet"
+          className="bullet item"
         >
           •
         </span>
-        <span>
+        <span
+          className="item"
+        >
           Created 
           Invalid date
         </span>
@@ -90,43 +103,56 @@ exports[`Classroom component selected should render as an open card 1`] = `
       <div
         className="classroom-data"
       >
-        <span>
+        <span
+          className="item"
+        >
           2
            
           students
         </span>
         <span
-          className="bullet"
+          className="bullet item"
         >
           •
         </span>
-        <span>
+        <span
+          className="item"
+        >
           2
            
           co-teachers
         </span>
         <span
-          className="bullet"
+          className="bullet item"
         >
           •
-        </span>
-        <span>
-          Class code: demo-2851865
         </span>
         <span
-          className="bullet"
+          className="item"
+        >
+          <p>
+            Class code: 
+            demo-2851865
+          </p>
+        </span>
+        <span
+          className="bullet item"
         >
           •
         </span>
-        <span>
+        <span
+          className="item"
+        >
           9th grade
         </span>
         <span
-          className="bullet"
+          className="bullet item"
         >
           •
         </span>
-        <span>
+        <span
+          className="item"
+        >
           Created 
           Invalid date
         </span>
