@@ -66,7 +66,7 @@ class ELLSentenceCombining extends React.Component {
     const { instructions } = question;
     const textKey = translationMap[question.key];
     let text = instructions ? instructions : translations.english[textKey];
-    if(!language) {
+    if(!language || language == ENGLISH) {
       return <p dangerouslySetInnerHTML={{ __html: text, }} />;
     } else if (language && diagnosticID === 'ell') {
       const textClass = rightToLeftLanguages.includes(language) ? 'right-to-left' : '';
