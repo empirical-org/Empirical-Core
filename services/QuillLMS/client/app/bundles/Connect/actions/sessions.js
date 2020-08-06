@@ -1,14 +1,10 @@
 import { applyFeatureToPercentage } from '../libs/apply-feature';
 
-import rootRef from '../libs/firebase';
-import { v4rootRef } from '../libs/firebase';
 import { SessionApi } from '../libs/sessions_api';
 import _ from 'lodash';
 
 const C = require('../constants').default;
 
-const sessionsRef = rootRef.child('savedSessions');
-const v4sessionsRef = v4rootRef.child('connectSessions');
 let allQuestions = {};
 let questionsInitialized = {};
 
@@ -17,21 +13,6 @@ export default {
     // First attempt to get the new normalized session object for this ID
     SessionApi.get(sessionID).then((session) => {
       handleSessionSnapshot(denormalizeSession(session), cb)
-    }).catch((error) => {
-      v4sessionsRef.child(sessionID).once('value', (snapshot) => {
-        if (snapshot.exists()) {
-          const v4session = denormalizeSession(snapshot.val());
-          handleSessionSnapshot(v4session, cb);
-        } else {
-          // If we can't find a new style session, look for an old one
-          sessionsRef.child(sessionID).once('value', (snapshot) => {
-            if (snapshot.exists()) {
-              const v2session = snapshot.val();
-              handleSessionSnapshot(v2session, cb);
-            }
-          });
-        }
-      });
     })
   },
 
@@ -47,8 +28,6 @@ export default {
   },
 
   delete(sessionID) {
-    sessionsRef.child(sessionID).remove();
-    v4sessionsRef.child(sessionID).remove();
     SessionApi.remove(sessionID);
   },
 
