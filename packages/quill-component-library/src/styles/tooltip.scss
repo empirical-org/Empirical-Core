@@ -11,8 +11,11 @@
 }
 
 .quill-tooltip-wrapper {
-  width: 600px;
+  width: 300px;
   position: absolute;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
   left: 50%;
   transform: translateX(-50%);
 }
@@ -31,6 +34,6 @@
   transition: opacity .5s;
   max-width: 100%;
   position: absolute;
-  top: 32px;
+  top: 0px;
   bottom: 0px;
 }
