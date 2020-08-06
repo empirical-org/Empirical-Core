@@ -10,21 +10,27 @@
   transition: opacity 0s;
 }
 
-.quill-tooltip {
+.quill-tooltip-wrapper {
+  width: 600px;
   position: absolute;
-  height: 32px;
-  border-radius: 4px;
-  background-color: #757575;
-  bottom: -48px;
-  font-size: 12px;
-  font-weight: 600;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  color: white;
-  padding: 0px 16px;
   left: 50%;
   transform: translateX(-50%);
+}
+
+.quill-tooltip {
+  height: min-content;
+  border-radius: 4px;
+  background-color: #757575;
+  font-size: 12px;
+  font-weight: 600;
+  display: inline-block;
+  color: white;
+  padding: 8px 16px;
   opacity: 1;
+  white-space: normal;
   transition: opacity .5s;
+  max-width: 100%;
+  position: absolute;
+  top: 32px;
+  bottom: 0px;
 }

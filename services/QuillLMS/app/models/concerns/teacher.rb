@@ -188,7 +188,15 @@ module Teacher
     if cache
       return cache
     end
-    classrooms = ActiveRecord::Base.connection.execute("SELECT classrooms.name AS name, classrooms.id AS id, classrooms.code AS code, COUNT(DISTINCT sc.id) as student_count  FROM classrooms
+    classrooms = ActiveRecord::Base.connection.execute("
+      SELECT
+        classrooms.name AS name,
+        classrooms.id AS id,
+        classrooms.code AS code,
+        COUNT(DISTINCT sc.id) as student_count,
+        classrooms.google_classroom_id AS google_classroom_id,
+        classrooms.clever_id AS clever_id
+      FROM classrooms
 			LEFT JOIN students_classrooms AS sc ON sc.classroom_id = classrooms.id
       LEFT JOIN classrooms_teachers ON classrooms_teachers.classroom_id = classrooms.id
 			WHERE classrooms.visible = true AND classrooms_teachers.user_id = #{id}
