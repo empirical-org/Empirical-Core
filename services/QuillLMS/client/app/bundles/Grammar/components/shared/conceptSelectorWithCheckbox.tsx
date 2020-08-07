@@ -20,6 +20,7 @@ class ConceptSelectorWithCheckbox extends React.Component {
 
   currentConcept = () => {
     const { concepts, currentConceptUID } = this.props
+    if (!concepts.data["0"]) { return }
     return concepts.data["0"].find(concept => concept.uid === currentConceptUID)
   }
 
