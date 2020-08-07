@@ -83,7 +83,7 @@ export default class Classroom extends React.Component<ClassroomProps, Classroom
       />)
     }
 
-    return <p>Class code: {code}</p>
+    return `Class code: ${code}`
   }
 
   renderGrade() {
