@@ -20,16 +20,6 @@ class IncorrectSequencesContainer extends React.Component {
     return this.getQuestion().incorrectSequences;
   }
 
-  submitSequenceForm = (data, sequence) => {
-    const { dispatch, match, } = this.props
-    delete data.conceptResults.null;
-    if (sequence) {
-      dispatch(questionActions.submitEditedIncorrectSequence(match.params.questionID, data, sequence));
-    } else {
-      dispatch(questionActions.submitNewIncorrectSequence(match.params.questionID, data));
-    }
-  }
-
   deleteSequence = (sequenceID: string) => {
     const { dispatch, match, } = this.props
     if (confirm('⚠️ Are you sure you want to delete this? 😱')) {

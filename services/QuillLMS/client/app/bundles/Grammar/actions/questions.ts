@@ -201,10 +201,11 @@ export const saveOptimalResponse = (qid: string, conceptUid: string, answer: {te
   }
 }
 
-export const submitNewIncorrectSequence = (qid: string, data: IncorrectSequence) => {
+export const submitNewIncorrectSequence = (qid: string, data: IncorrectSequence, callback?: Function) => {
   return (dispatch: Function) => {
     IncorrectSequenceApi.create(qid, data).then(() => {
       dispatch(getQuestion(qid))
+      callback ? callback() : null
     }).catch((error: string) => {
       alert(`Submission failed! ${error}`);
     })
