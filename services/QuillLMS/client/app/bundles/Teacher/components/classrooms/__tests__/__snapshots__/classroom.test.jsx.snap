@@ -47,10 +47,7 @@ exports[`Classroom component not selected should render as a closed card 1`] = `
         <span
           className="item"
         >
-          <p>
-            Class code: 
-            demo-2851865
-          </p>
+          Class code: demo-2851865
         </span>
         <span
           className="bullet item"
@@ -130,10 +127,7 @@ exports[`Classroom component selected should render as an open card 1`] = `
         <span
           className="item"
         >
-          <p>
-            Class code: 
-            demo-2851865
-          </p>
+          Class code: demo-2851865
         </span>
         <span
           className="bullet item"

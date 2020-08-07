@@ -364,7 +364,7 @@ exports[`ImportGoogleClassroomsModal component #handleClickImportClasses should 
               className="data-table-body"
             >
               <div
-                className="data-table-row checked "
+                className="data-table-row checked"
                 key="5038757116"
               >
                 <button
@@ -1547,7 +1547,7 @@ exports[`ImportGoogleClassroomsModal component #handleClickImportClasses should 
                 />
               </div>
               <div
-                className="data-table-row  "
+                className="data-table-row "
                 key="1986991936"
               >
                 <button
@@ -1607,7 +1607,7 @@ exports[`ImportGoogleClassroomsModal component #handleClickImportClasses should 
                 />
               </div>
               <div
-                className="data-table-row  "
+                className="data-table-row "
                 key="5145051365"
               >
                 <button
@@ -1667,7 +1667,7 @@ exports[`ImportGoogleClassroomsModal component #handleClickImportClasses should 
                 />
               </div>
               <div
-                className="data-table-row  "
+                className="data-table-row "
                 key="5144891078"
               >
                 <button
@@ -1727,7 +1727,7 @@ exports[`ImportGoogleClassroomsModal component #handleClickImportClasses should 
                 />
               </div>
               <div
-                className="data-table-row  "
+                className="data-table-row "
                 key="5144690989"
               >
                 <button
@@ -1787,7 +1787,7 @@ exports[`ImportGoogleClassroomsModal component #handleClickImportClasses should 
                 />
               </div>
               <div
-                className="data-table-row  "
+                className="data-table-row "
                 key="5145161709"
               >
                 <button
@@ -2183,7 +2183,7 @@ exports[`ImportGoogleClassroomsModal component initial load should render 1`] = 
               className="data-table-body"
             >
               <div
-                className="data-table-row  "
+                className="data-table-row "
                 key="5038757116"
               >
                 <button
@@ -2243,7 +2243,7 @@ exports[`ImportGoogleClassroomsModal component initial load should render 1`] = 
                 />
               </div>
               <div
-                className="data-table-row  "
+                className="data-table-row "
                 key="1986991936"
               >
                 <button
@@ -2303,7 +2303,7 @@ exports[`ImportGoogleClassroomsModal component initial load should render 1`] = 
                 />
               </div>
               <div
-                className="data-table-row  "
+                className="data-table-row "
                 key="5145051365"
               >
                 <button
@@ -2363,7 +2363,7 @@ exports[`ImportGoogleClassroomsModal component initial load should render 1`] = 
                 />
               </div>
               <div
-                className="data-table-row  "
+                className="data-table-row "
                 key="5144891078"
               >
                 <button
@@ -2423,7 +2423,7 @@ exports[`ImportGoogleClassroomsModal component initial load should render 1`] = 
                 />
               </div>
               <div
-                className="data-table-row  "
+                className="data-table-row "
                 key="5144690989"
               >
                 <button
@@ -2483,7 +2483,7 @@ exports[`ImportGoogleClassroomsModal component initial load should render 1`] = 
                 />
               </div>
               <div
-                className="data-table-row  "
+                className="data-table-row "
                 key="5145161709"
               >
                 <button
