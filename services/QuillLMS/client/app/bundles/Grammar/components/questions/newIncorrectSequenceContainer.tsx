@@ -12,9 +12,11 @@ class NewIncorrectSequencesContainer extends React.Component {
   }
 
   submitSequenceForm = (data) => {
+    const { dispatch, match, history, } = this.props
     delete data.conceptResults.null;
-    this.props.dispatch(questionActions.submitNewIncorrectSequence(this.props.match.params.questionID, data));
-    window.history.back();
+    const url = match.url.replace('/new', '')
+    const callback = () => history.push(url)
+    dispatch(questionActions.submitNewIncorrectSequence(match.params.questionID, data, callback))
   }
 
   render() {
