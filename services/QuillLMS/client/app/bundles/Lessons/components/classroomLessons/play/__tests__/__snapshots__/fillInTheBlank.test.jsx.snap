@@ -133,6 +133,7 @@ exports[`FillInTheBlank component projector view inactive renders 1`] = `
             <span>
               <input
                 aria-label="input0"
+                autoComplete="off"
                 className="disabled"
                 disabled={true}
                 id="input0"
@@ -241,6 +242,7 @@ exports[`FillInTheBlank component projector view inactive renders 1`] = `
           >
             <input
               aria-label="input0"
+              autoComplete="off"
               className="disabled"
               disabled={true}
               id="input0"
@@ -545,6 +547,7 @@ exports[`FillInTheBlank component projector view when an answer is being display
             <span>
               <input
                 aria-label="input0"
+                autoComplete="off"
                 className="disabled"
                 disabled={true}
                 id="input0"
@@ -653,6 +656,7 @@ exports[`FillInTheBlank component projector view when an answer is being display
           >
             <input
               aria-label="input0"
+              autoComplete="off"
               className="disabled"
               disabled={true}
               id="input0"
@@ -911,6 +915,7 @@ exports[`FillInTheBlank component student view inactive renders 1`] = `
             <span>
               <input
                 aria-label="input0"
+                autoComplete="off"
                 className=""
                 id="input0"
                 onChange={[Function]}
@@ -1018,6 +1023,7 @@ exports[`FillInTheBlank component student view inactive renders 1`] = `
           >
             <input
               aria-label="input0"
+              autoComplete="off"
               className=""
               id="input0"
               key="100"
@@ -1288,6 +1294,7 @@ exports[`FillInTheBlank component student view when an answer is being displayed
             <span>
               <input
                 aria-label="input0"
+                autoComplete="off"
                 className=""
                 id="input0"
                 onChange={[Function]}
@@ -1395,6 +1402,7 @@ exports[`FillInTheBlank component student view when an answer is being displayed
           >
             <input
               aria-label="input0"
+              autoComplete="off"
               className=""
               id="input0"
               key="100"
@@ -1659,6 +1667,7 @@ exports[`FillInTheBlank component student view when the student has submitted an
             <span>
               <input
                 aria-label="input0"
+                autoComplete="off"
                 className=""
                 id="input0"
                 onChange={[Function]}
@@ -1766,6 +1775,7 @@ exports[`FillInTheBlank component student view when the student has submitted an
           >
             <input
               aria-label="input0"
+              autoComplete="off"
               className=""
               id="input0"
               key="100"
