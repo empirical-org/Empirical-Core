@@ -1,0 +1,23 @@
+.nav.student-nav {
+  height: 64px;
+  background-color: #06806b;
+
+  .student-lessons {
+    height: 66px;
+    display: flex;
+    width: 100%;
+    position: relative;
+    align-items: center;
+    max-width: 1000px;
+    margin: auto;
+    justify-content: space-between;
+    .quill-logo {
+      height: 32px;
+    }
+    .counter {
+      font-size: 16px;
+      font-weight: 600;
+      color: $white;
+    }
+  }
+}

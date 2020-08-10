@@ -6,6 +6,12 @@ class ApplicationController < ActionController::Base
   GOOGLE_REDIRECT = :google_redirect
   POST_AUTH_REDIRECT = :post_auth_redirect
   GOOGLE_OR_CLEVER_JUST_SET = :google_or_clever_just_set
+  COMPREHENSION = 'comprehension'
+  PROOFREADER = 'proofreader'
+  GRAMMAR = 'grammar'
+  CONNECT = 'connect'
+  DIAGNOSTIC = 'diagnostic'
+  LESSONS = 'lessons'
 
   #helper CMS::Helper
   helper SegmentioHelper

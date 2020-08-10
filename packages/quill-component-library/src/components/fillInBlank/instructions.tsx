@@ -1,6 +1,6 @@
 import React from 'react';
 
-const questionIconSrc = `${process.env.QUILL_CDN_URL}/images/icons/direction.svg`
+const questionIconSrc = "https://assets.quill.org/images/icons/direction.svg"
 
 const Instructions = ({ html, }) => (
   <div className="feedback-row">

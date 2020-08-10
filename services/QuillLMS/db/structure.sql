@@ -2,8 +2,8 @@
 -- PostgreSQL database dump
 --
 
--- Dumped from database version 10.12
--- Dumped by pg_dump version 10.12
+-- Dumped from database version 10.10
+-- Dumped by pg_dump version 10.10
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -237,6 +237,39 @@ SET default_tablespace = '';
 SET default_with_oids = false;
 
 --
+-- Name: active_activity_sessions; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.active_activity_sessions (
+    id integer NOT NULL,
+    uid character varying,
+    data jsonb,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: active_activity_sessions_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.active_activity_sessions_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: active_activity_sessions_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.active_activity_sessions_id_seq OWNED BY public.active_activity_sessions.id;
+
+
+--
 -- Name: activities; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -245,7 +278,7 @@ CREATE TABLE public.activities (
     name character varying,
     description text,
     uid character varying NOT NULL,
-    data public.hstore,
+    data jsonb,
     activity_classification_id integer,
     topic_id integer,
     created_at timestamp without time zone,
@@ -722,7 +755,8 @@ CREATE TABLE public.blog_posts (
     center_images boolean,
     order_number integer,
     image_link character varying,
-    press_name character varying
+    press_name character varying,
+    featured_order_number integer
 );
 
 
@@ -1037,6 +1071,144 @@ CREATE SEQUENCE public.classrooms_teachers_id_seq
 --
 
 ALTER SEQUENCE public.classrooms_teachers_id_seq OWNED BY public.classrooms_teachers.id;
+
+
+--
+-- Name: comprehension_activities; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.comprehension_activities (
+    id integer NOT NULL,
+    title character varying(100),
+    parent_activity_id integer,
+    target_level smallint,
+    scored_level character varying(100),
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: comprehension_activities_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.comprehension_activities_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: comprehension_activities_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.comprehension_activities_id_seq OWNED BY public.comprehension_activities.id;
+
+
+--
+-- Name: comprehension_passages; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.comprehension_passages (
+    id integer NOT NULL,
+    activity_id integer,
+    text text,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: comprehension_passages_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.comprehension_passages_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: comprehension_passages_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.comprehension_passages_id_seq OWNED BY public.comprehension_passages.id;
+
+
+--
+-- Name: comprehension_prompts; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.comprehension_prompts (
+    id integer NOT NULL,
+    activity_id integer,
+    max_attempts smallint,
+    conjunction character varying(20),
+    text character varying,
+    max_attempts_feedback text,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: comprehension_prompts_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.comprehension_prompts_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: comprehension_prompts_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.comprehension_prompts_id_seq OWNED BY public.comprehension_prompts.id;
+
+
+--
+-- Name: comprehension_turking_rounds; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.comprehension_turking_rounds (
+    id integer NOT NULL,
+    activity_id integer,
+    uuid uuid,
+    expires_at timestamp without time zone,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: comprehension_turking_rounds_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.comprehension_turking_rounds_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: comprehension_turking_rounds_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.comprehension_turking_rounds_id_seq OWNED BY public.comprehension_turking_rounds.id;
 
 
 --
@@ -1495,40 +1667,6 @@ CREATE SEQUENCE public.ip_locations_id_seq
 --
 
 ALTER SEQUENCE public.ip_locations_id_seq OWNED BY public.ip_locations.id;
-
-
---
--- Name: lessons; Type: TABLE; Schema: public; Owner: -
---
-
-CREATE TABLE public.lessons (
-    id integer NOT NULL,
-    uid character varying,
-    data jsonb,
-    created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL,
-    lesson_type character varying NOT NULL
-);
-
-
---
--- Name: lessons_id_seq; Type: SEQUENCE; Schema: public; Owner: -
---
-
-CREATE SEQUENCE public.lessons_id_seq
-    AS integer
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
---
--- Name: lessons_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
---
-
-ALTER SEQUENCE public.lessons_id_seq OWNED BY public.lessons.id;
 
 
 --
@@ -2800,6 +2938,13 @@ ALTER SEQUENCE public.zipcode_infos_id_seq OWNED BY public.zipcode_infos.id;
 
 
 --
+-- Name: active_activity_sessions id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.active_activity_sessions ALTER COLUMN id SET DEFAULT nextval('public.active_activity_sessions_id_seq'::regclass);
+
+
+--
 -- Name: activities id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -2954,6 +3099,34 @@ ALTER TABLE ONLY public.classrooms_teachers ALTER COLUMN id SET DEFAULT nextval(
 
 
 --
+-- Name: comprehension_activities id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.comprehension_activities ALTER COLUMN id SET DEFAULT nextval('public.comprehension_activities_id_seq'::regclass);
+
+
+--
+-- Name: comprehension_passages id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.comprehension_passages ALTER COLUMN id SET DEFAULT nextval('public.comprehension_passages_id_seq'::regclass);
+
+
+--
+-- Name: comprehension_prompts id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.comprehension_prompts ALTER COLUMN id SET DEFAULT nextval('public.comprehension_prompts_id_seq'::regclass);
+
+
+--
+-- Name: comprehension_turking_rounds id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.comprehension_turking_rounds ALTER COLUMN id SET DEFAULT nextval('public.comprehension_turking_rounds_id_seq'::regclass);
+
+
+--
 -- Name: concept_feedbacks id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -3042,13 +3215,6 @@ ALTER TABLE ONLY public.invitations ALTER COLUMN id SET DEFAULT nextval('public.
 --
 
 ALTER TABLE ONLY public.ip_locations ALTER COLUMN id SET DEFAULT nextval('public.ip_locations_id_seq'::regclass);
-
-
---
--- Name: lessons id; Type: DEFAULT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.lessons ALTER COLUMN id SET DEFAULT nextval('public.lessons_id_seq'::regclass);
 
 
 --
@@ -3297,6 +3463,14 @@ ALTER TABLE ONLY public.zipcode_infos ALTER COLUMN id SET DEFAULT nextval('publi
 
 
 --
+-- Name: active_activity_sessions active_activity_sessions_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.active_activity_sessions
+    ADD CONSTRAINT active_activity_sessions_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: activities activities_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -3473,6 +3647,38 @@ ALTER TABLE ONLY public.classrooms_teachers
 
 
 --
+-- Name: comprehension_activities comprehension_activities_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.comprehension_activities
+    ADD CONSTRAINT comprehension_activities_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: comprehension_passages comprehension_passages_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.comprehension_passages
+    ADD CONSTRAINT comprehension_passages_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: comprehension_prompts comprehension_prompts_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.comprehension_prompts
+    ADD CONSTRAINT comprehension_prompts_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: comprehension_turking_rounds comprehension_turking_rounds_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.comprehension_turking_rounds
+    ADD CONSTRAINT comprehension_turking_rounds_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: concept_feedbacks concept_feedbacks_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -3574,14 +3780,6 @@ ALTER TABLE ONLY public.invitations
 
 ALTER TABLE ONLY public.ip_locations
     ADD CONSTRAINT ip_locations_pkey PRIMARY KEY (id);
-
-
---
--- Name: lessons lessons_pkey; Type: CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.lessons
-    ADD CONSTRAINT lessons_pkey PRIMARY KEY (id);
 
 
 --
@@ -3890,6 +4088,13 @@ CREATE INDEX email_idx ON public.users USING gin (email public.gin_trgm_ops);
 --
 
 CREATE INDEX index_act_category_acts_on_act_id_and_act_cat_id ON public.activity_category_activities USING btree (activity_id, activity_category_id);
+
+
+--
+-- Name: index_active_activity_sessions_on_uid; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_active_activity_sessions_on_uid ON public.active_activity_sessions USING btree (uid);
 
 
 --
@@ -4222,6 +4427,41 @@ CREATE INDEX index_classrooms_teachers_on_user_id ON public.classrooms_teachers 
 
 
 --
+-- Name: index_comprehension_activities_on_parent_activity_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_comprehension_activities_on_parent_activity_id ON public.comprehension_activities USING btree (parent_activity_id);
+
+
+--
+-- Name: index_comprehension_passages_on_activity_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_comprehension_passages_on_activity_id ON public.comprehension_passages USING btree (activity_id);
+
+
+--
+-- Name: index_comprehension_prompts_on_activity_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_comprehension_prompts_on_activity_id ON public.comprehension_prompts USING btree (activity_id);
+
+
+--
+-- Name: index_comprehension_turking_rounds_on_activity_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_comprehension_turking_rounds_on_activity_id ON public.comprehension_turking_rounds USING btree (activity_id);
+
+
+--
+-- Name: index_comprehension_turking_rounds_on_uuid; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_comprehension_turking_rounds_on_uuid ON public.comprehension_turking_rounds USING btree (uuid);
+
+
+--
 -- Name: index_concept_feedbacks_on_activity_type; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -4352,20 +4592,6 @@ CREATE INDEX index_ip_locations_on_user_id ON public.ip_locations USING btree (u
 --
 
 CREATE INDEX index_ip_locations_on_zip ON public.ip_locations USING btree (zip);
-
-
---
--- Name: index_lessons_on_lesson_type; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_lessons_on_lesson_type ON public.lessons USING btree (lesson_type);
-
-
---
--- Name: index_lessons_on_uid; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE UNIQUE INDEX index_lessons_on_uid ON public.lessons USING btree (uid);
 
 
 --
@@ -5545,11 +5771,7 @@ INSERT INTO schema_migrations (version) VALUES ('20170505195744');
 
 INSERT INTO schema_migrations (version) VALUES ('20170517152031');
 
-INSERT INTO schema_migrations (version) VALUES ('20170523175919');
-
 INSERT INTO schema_migrations (version) VALUES ('20170526220204');
-
-INSERT INTO schema_migrations (version) VALUES ('20170601140325');
 
 INSERT INTO schema_migrations (version) VALUES ('20170718160133');
 
@@ -5685,8 +5907,6 @@ INSERT INTO schema_migrations (version) VALUES ('20180207165525');
 
 INSERT INTO schema_migrations (version) VALUES ('20180209153502');
 
-INSERT INTO schema_migrations (version) VALUES ('20180214051916');
-
 INSERT INTO schema_migrations (version) VALUES ('20180220204422');
 
 INSERT INTO schema_migrations (version) VALUES ('20180221162940');
@@ -5781,8 +6001,6 @@ INSERT INTO schema_migrations (version) VALUES ('20180709192646');
 
 INSERT INTO schema_migrations (version) VALUES ('20180718195853');
 
-INSERT INTO schema_migrations (version) VALUES ('20180809210431');
-
 INSERT INTO schema_migrations (version) VALUES ('20180810181001');
 
 INSERT INTO schema_migrations (version) VALUES ('20180815174156');
@@ -5835,8 +6053,6 @@ INSERT INTO schema_migrations (version) VALUES ('20181030155356');
 
 INSERT INTO schema_migrations (version) VALUES ('20181105212102');
 
-INSERT INTO schema_migrations (version) VALUES ('20181126221244');
-
 INSERT INTO schema_migrations (version) VALUES ('20181203161708');
 
 INSERT INTO schema_migrations (version) VALUES ('20181214192858');
@@ -5887,9 +6103,30 @@ INSERT INTO schema_migrations (version) VALUES ('20200409151835');
 
 INSERT INTO schema_migrations (version) VALUES ('20200415170227');
 
-INSERT INTO schema_migrations (version) VALUES ('20200417172506');
-
 INSERT INTO schema_migrations (version) VALUES ('20200505171239');
 
 INSERT INTO schema_migrations (version) VALUES ('20200511203004');
 
+INSERT INTO schema_migrations (version) VALUES ('20200601153535');
+
+INSERT INTO schema_migrations (version) VALUES ('20200603171807');
+
+INSERT INTO schema_migrations (version) VALUES ('20200604165331');
+
+INSERT INTO schema_migrations (version) VALUES ('20200610144620');
+
+INSERT INTO schema_migrations (version) VALUES ('20200612165828');
+
+INSERT INTO schema_migrations (version) VALUES ('20200612165829');
+
+INSERT INTO schema_migrations (version) VALUES ('20200612165830');
+
+INSERT INTO schema_migrations (version) VALUES ('20200707144528');
+
+INSERT INTO schema_migrations (version) VALUES ('20200629191908');
+
+INSERT INTO schema_migrations (version) VALUES ('20200629191909');
+
+INSERT INTO schema_migrations (version) VALUES ('20200702140252');
+
+INSERT INTO schema_migrations (version) VALUES ('20200706135059');

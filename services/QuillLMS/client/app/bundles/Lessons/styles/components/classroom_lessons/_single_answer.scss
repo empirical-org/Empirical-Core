@@ -1,0 +1,11 @@
+.single-answer {
+  .sentence-fragments {
+    padding-top: 40px;
+  }
+  
+  @media (max-width: 400px) {
+    .sentence-fragments {
+      padding-top: 24px;
+    }
+  }
+}

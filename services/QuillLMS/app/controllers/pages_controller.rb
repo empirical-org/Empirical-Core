@@ -1,5 +1,6 @@
 class PagesController < ApplicationController
   include HTTParty
+  include PagesHelper
   before_filter :determine_js_file, :determine_flag
   layout :determine_layout
 
@@ -415,7 +416,6 @@ class PagesController < ApplicationController
     @user_has_school = !!current_user&.school && ['home school', 'us higher ed', 'international', 'other', 'not listed'].exclude?(current_user&.school&.name)
     @user_belongs_to_school_that_has_paid = current_user&.school ? Subscription.school_or_user_has_ever_paid?(current_user&.school) : false
     @last_four = current_user&.last_four
-    @user_has_covid_19_subscription = current_user&.subscriptions&.any?(&:covid19?)
 
     @title = 'Premium'
   end
@@ -435,8 +435,36 @@ class PagesController < ApplicationController
   def referrals_toc
   end
 
+  def preap_units
+    render json: { units: preap_content }
+  end
+
   def backpack
     @style_file = 'staff'
+  end
+
+  def comprehension
+    @style_file = ApplicationController::COMPREHENSION
+  end
+
+  def proofreader
+    @style_file = ApplicationController::PROOFREADER
+  end
+
+  def grammar
+    @style_file = ApplicationController::GRAMMAR
+  end
+
+  def lessons
+    @style_file = ApplicationController::LESSONS
+  end
+
+  def connect
+    @style_file = ApplicationController::CONNECT
+  end
+  
+  def diagnostic
+    @style_file = ApplicationController::DIAGNOSTIC
   end
 
   private
@@ -447,6 +475,8 @@ class PagesController < ApplicationController
       'home'
     when 'home_new', 'diagnostic_tool', 'connect_tool', 'grammar_tool', 'proofreader_tool', 'lessons_tool'
       'twenty_seventeen_home'
+    when ApplicationController::COMPREHENSION, ApplicationController::PROOFREADER, ApplicationController::GRAMMAR, ApplicationController::LESSONS, ApplicationController::DIAGNOSTIC, ApplicationController::CONNECT
+      'activity'
     end
   end
 
@@ -458,6 +488,18 @@ class PagesController < ApplicationController
       @js_file = 'tools'
     when 'backpack'
       @js_file = 'staff'
+    when ApplicationController::COMPREHENSION
+      @js_file = ApplicationController::COMPREHENSION
+    when ApplicationController::PROOFREADER
+      @js_file = ApplicationController::PROOFREADER
+    when ApplicationController::GRAMMAR
+      @js_file = ApplicationController::GRAMMAR
+    when ApplicationController::LESSONS
+      @js_file = ApplicationController::LESSONS
+    when ApplicationController::CONNECT
+      @js_file = ApplicationController::CONNECT
+    when ApplicationController::DIAGNOSTIC
+      @js_file = ApplicationController::DIAGNOSTIC
     end
   end
 

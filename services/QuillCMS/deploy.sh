@@ -4,7 +4,7 @@ app_name="QuillCMS"
 
 case $1 in
   prod)
-    EB_ENVIRONMENT_NAME=production
+    EB_ENVIRONMENT_NAME=production-ruby2-6
     ;;
   staging)
     EB_ENVIRONMENT_NAME=Quillcms-staging

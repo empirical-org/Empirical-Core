@@ -2,32 +2,8 @@
 
 exports[`Activities component should render Activities 1`] = `
 <div
-  className="activities-container"
+  className="loading-spinner-container"
 >
-  <DataTable
-    averageFontWidth={7}
-    className="activities-table"
-    defaultSortAttribute="title"
-    headers={
-      Array [
-        Object {
-          "attribute": "title",
-          "name": "Title",
-          "width": "900px",
-        },
-      ]
-    }
-    rows={
-      Array [
-        Object {
-          "title": <ForwardRef
-            to="/activities/undefined"
-          >
-            
-          </ForwardRef>,
-        },
-      ]
-    }
-  />
+  <Spinner />
 </div>
 `;

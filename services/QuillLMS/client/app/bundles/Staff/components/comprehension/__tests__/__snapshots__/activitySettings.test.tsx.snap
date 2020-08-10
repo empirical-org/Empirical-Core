@@ -2,72 +2,8 @@
 
 exports[`ActivitySettings component should render ActivitySettings 1`] = `
 <div
-  className="activity-settings-container"
+  className="loading-spinner-container"
 >
-  <DataTable
-    averageFontWidth={7}
-    className="activity-general-settings-table"
-    headers={
-      Array [
-        Object {
-          "attribute": "field",
-          "name": "",
-          "width": "200px",
-        },
-        Object {
-          "attribute": "value",
-          "name": "",
-          "width": "400px",
-        },
-      ]
-    }
-    rows={
-      Array [
-        Object {
-          "field": "Title",
-          "value": "",
-        },
-        Object {
-          "field": "Development Stage",
-          "value": <button
-            className="quill-button fun primary outlined"
-            id="edit-flag-button"
-            onClick={[Function]}
-            type="submit"
-          >
-            
-          </button>,
-        },
-        Object {
-          "field": "Passage Length",
-          "value": "1 words",
-        },
-        Object {
-          "field": "Because",
-          "value": "",
-        },
-        Object {
-          "field": "But",
-          "value": "",
-        },
-        Object {
-          "field": "So",
-          "value": "",
-        },
-      ]
-    }
-  />
-  <div
-    className="button-container"
-  >
-    <button
-      className="quill-button fun primary contained"
-      id="edit-activity-button"
-      onClick={[Function]}
-      type="submit"
-    >
-      Configure
-    </button>
-  </div>
+  <Spinner />
 </div>
 `;

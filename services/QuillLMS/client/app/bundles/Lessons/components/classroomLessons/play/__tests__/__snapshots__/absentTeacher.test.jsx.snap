@@ -1,0 +1,27 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`AbsentTeacher component renders 1`] = `
+<AbsentTeacher>
+  <div
+    className="absent-teacher-container full-page-modal-container"
+  >
+    <div
+      className="absent-teacher full-page-modal"
+    >
+      <img
+        alt="An illustration of a night sky with clouds, stars, and a moon"
+        src="undefined/images/illustrations/night-sky.svg"
+      />
+      <h1>
+        Your teacher has left this lesson.
+      </h1>
+      <a
+        className="quill-button focus-on-dark outlined secondary large"
+        href="undefined"
+      >
+        Exit lesson
+      </a>
+    </div>
+  </div>
+</AbsentTeacher>
+`;

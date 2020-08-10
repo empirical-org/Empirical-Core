@@ -4,7 +4,7 @@
 
 <% navbar_class_name = on_sign_up_or_log_in || current_user_is_student ? "non-standard-navbar navbar" : "navbar" %>
 
-<% if !in_assignment_flow? %>
+<% if show_site_navigation? %>
   <nav class="<%=navbar_class_name%>" role="navigation">
   	<div class="container">
   		<%= render partial: 'sub_header' %>

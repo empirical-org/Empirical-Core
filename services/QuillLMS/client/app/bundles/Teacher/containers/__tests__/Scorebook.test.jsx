@@ -11,10 +11,7 @@ import StudentScores from '../../components/scorebook/student_scores';
 import ScorebookFilters from '../../components/scorebook/scorebook_filters';
 import ScoreLegend from '../../components/scorebook/score_legend';
 import AppLegend from '../../components/scorebook/app_legend.jsx';
-
-import localStorageMock from '../../../../../__mocks__/localStorageMock.js';
 import requestMock from '../../../../../__mocks__/request.js';
-window.localStorage = localStorageMock;
 jest.mock('request')
 
 const resolvedScores = new Map();
@@ -183,15 +180,13 @@ describe('Scorebook component', () => {
 
     it('should set scorebookBeginDate as a stringified Moment object', () => {
       wrapper.instance().selectDates(beginDate, null, null);
-      const localStorageBeginDate = moment(window.localStorage.getItem('scorebookBeginDate')).seconds(0).milliseconds(0).toISOString()
-      const savedBeginDate = moment(beginDate).seconds(0).milliseconds(0).toISOString()
-      expect(localStorageBeginDate).toBe(savedBeginDate);
+      expect(localStorage.setItem).toHaveBeenCalledWith('scorebookBeginDate', beginDate);
     });
 
     it('should set scoreBookDateFilterName as a string', () => {
       wrapper.instance().selectDates(null, null, dateFilterName);
-      expect(window.localStorage.getItem('scorebookBeginDate')).toBe('null');
-      expect(window.localStorage.getItem('scorebookDateFilterName')).toBe(dateFilterName);
+      expect(localStorage.setItem).toHaveBeenCalledWith('scorebookBeginDate', null);
+      expect(localStorage.setItem).toHaveBeenCalledWith('scorebookDateFilterName', dateFilterName);
     });
 
     it('should set state and call fetchData on callback', () => {

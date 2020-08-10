@@ -46,7 +46,7 @@ const Activity: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ match }) 
       <Switch>
         <Redirect exact from='/activities/:activityId' to='/activities/:activityId/settings' />
         <Route component={ActivitySettings} path='/activities/:activityId/settings' />
-        <Route component={RuleSet} path='/activities/:activityId/rulesets/:regexId' />
+        <Route component={RuleSet} path='/activities/:activityId/rulesets/:ruleSetId' />
         <Route component={RuleSets} path='/activities/:activityId/rulesets' />
         <Route component={TurkSessions} path='/activities/:activityId/turk-sessions' />
       </Switch>

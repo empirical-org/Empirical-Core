@@ -1,0 +1,283 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ProjectedAnswers component when each student submits a single response renders on the projector screen 1`] = `
+<ProjectedAnswers
+  projector={true}
+  response={null}
+  selectedSubmissionOrder={
+    Array [
+      "student",
+    ]
+  }
+  selectedSubmissions={
+    Object {
+      "student": true,
+    }
+  }
+  submissions={
+    Object {
+      "student": Object {
+        "data": "We waited in line at the store. <strong>The</strong> line was very long!",
+        "timestamp": "2020-06-18T13:22:44.449Z",
+      },
+    }
+  }
+>
+  <div
+    className="display-mode"
+  >
+    <div>
+      <p
+        className="answer-header"
+      >
+        Class responses
+      </p>
+      <ol
+        className="class-answer-list"
+      >
+        <li
+          dangerouslySetInnerHTML={
+            Object {
+              "__html": "We waited in line at the store. <strong>The</strong> line was very long!",
+            }
+          }
+          key="0"
+        />
+      </ol>
+    </div>
+  </div>
+</ProjectedAnswers>
+`;
+
+exports[`ProjectedAnswers component when each student submits a single response renders on the student screen 1`] = `
+<ProjectedAnswers
+  response="We waited in line at the store. <strong>The</strong> line was very long!"
+  selectedSubmissionOrder={
+    Array [
+      "student",
+    ]
+  }
+  selectedSubmissions={
+    Object {
+      "student": true,
+    }
+  }
+  submissions={
+    Object {
+      "student": Object {
+        "data": "We waited in line at the store. <strong>The</strong> line was very long!",
+        "timestamp": "2020-06-18T13:22:44.449Z",
+      },
+    }
+  }
+>
+  <div
+    className="display-mode"
+  >
+    <div
+      className="your-answer-container"
+    >
+      <p
+        className="answer-header"
+      >
+        Your response
+      </p>
+      <p
+        className="your-answer"
+        dangerouslySetInnerHTML={
+          Object {
+            "__html": "We waited in line at the store. <strong>The</strong> line was very long!",
+          }
+        }
+        key="We waited in line at the store. <strong>The</strong> line was very long!"
+      />
+    </div>
+    <div>
+      <p
+        className="answer-header"
+      >
+        Class responses
+      </p>
+      <ol
+        className="class-answer-list"
+      >
+        <li
+          dangerouslySetInnerHTML={
+            Object {
+              "__html": "We waited in line at the store. <strong>The</strong> line was very long!",
+            }
+          }
+          key="0"
+        />
+      </ol>
+    </div>
+  </div>
+</ProjectedAnswers>
+`;
+
+exports[`ProjectedAnswers component when each student submits multiple responses renders on the projector screen 1`] = `
+<ProjectedAnswers
+  projector={true}
+  response={null}
+  selectedSubmissionOrder={
+    Array [
+      "student#0",
+      "student#2",
+    ]
+  }
+  selectedSubmissions={
+    Object {
+      "student#0": true,
+      "student#2": true,
+    }
+  }
+  submissions={
+    Object {
+      "student": Object {
+        "data": Object {
+          "0": "Skip",
+          "1": "Run",
+          "2": "Jump",
+        },
+        "timestamp": "2020-06-23T14:56:41.181Z",
+      },
+    }
+  }
+>
+  <div
+    className="display-mode"
+  >
+    <div>
+      <p
+        className="answer-header"
+      >
+        Class responses
+      </p>
+      <ol
+        className="class-answer-list"
+      >
+        <li
+          dangerouslySetInnerHTML={
+            Object {
+              "__html": "Skip",
+            }
+          }
+          key="0"
+        />
+        <li
+          dangerouslySetInnerHTML={
+            Object {
+              "__html": "Jump",
+            }
+          }
+          key="1"
+        />
+      </ol>
+    </div>
+  </div>
+</ProjectedAnswers>
+`;
+
+exports[`ProjectedAnswers component when each student submits multiple responses renders on the student screen 1`] = `
+<ProjectedAnswers
+  response={
+    Object {
+      "0": "Skip",
+      "1": "Run",
+      "2": "Jump",
+    }
+  }
+  selectedSubmissionOrder={
+    Array [
+      "student#0",
+      "student#2",
+    ]
+  }
+  selectedSubmissions={
+    Object {
+      "student#0": true,
+      "student#2": true,
+    }
+  }
+  submissions={
+    Object {
+      "student": Object {
+        "data": Object {
+          "0": "Skip",
+          "1": "Run",
+          "2": "Jump",
+        },
+        "timestamp": "2020-06-23T14:56:41.181Z",
+      },
+    }
+  }
+>
+  <div
+    className="display-mode"
+  >
+    <div
+      className="your-answer-container"
+    >
+      <p
+        className="answer-header"
+      >
+        Your response
+      </p>
+      <p
+        className="your-answer"
+        dangerouslySetInnerHTML={
+          Object {
+            "__html": "Skip",
+          }
+        }
+        key="Skip"
+      />
+      <p
+        className="your-answer"
+        dangerouslySetInnerHTML={
+          Object {
+            "__html": "Run",
+          }
+        }
+        key="Run"
+      />
+      <p
+        className="your-answer"
+        dangerouslySetInnerHTML={
+          Object {
+            "__html": "Jump",
+          }
+        }
+        key="Jump"
+      />
+    </div>
+    <div>
+      <p
+        className="answer-header"
+      >
+        Class responses
+      </p>
+      <ol
+        className="class-answer-list"
+      >
+        <li
+          dangerouslySetInnerHTML={
+            Object {
+              "__html": "Skip",
+            }
+          }
+          key="0"
+        />
+        <li
+          dangerouslySetInnerHTML={
+            Object {
+              "__html": "Jump",
+            }
+          }
+          key="1"
+        />
+      </ol>
+    </div>
+  </div>
+</ProjectedAnswers>
+`;

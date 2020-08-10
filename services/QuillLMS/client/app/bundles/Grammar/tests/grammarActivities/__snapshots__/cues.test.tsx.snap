@@ -1,0 +1,128 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Cues /> with an empty array of cues should render 1`] = `<span />`;
+
+exports[`<Cues /> with cues should render 1`] = `
+<div
+  className="cues"
+>
+  <Cue
+    cue="a"
+    key="0a"
+  />
+  <Cue
+    cue="b"
+    key="1b"
+  />
+  <Cue
+    cue="c"
+    key="2c"
+  />
+  <img
+    alt="Arrow Icon"
+    src="undefined/images/icons/pointing-arrow.svg"
+  />
+  <CueExplanation
+    text="choose one"
+  />
+</div>
+`;
+
+exports[`<Cues /> with cues with a cuesLabel that is an empty string should render 1`] = `
+<div
+  className="cues"
+>
+  <Cue
+    cue="a"
+    key="0a"
+  />
+  <Cue
+    cue="b"
+    key="1b"
+  />
+  <Cue
+    cue="c"
+    key="2c"
+  />
+  <img
+    alt="Arrow Icon"
+    src="undefined/images/icons/pointing-arrow.svg"
+  />
+  <CueExplanation
+    text="choose one"
+  />
+</div>
+`;
+
+exports[`<Cues /> with cues with a cuesLabel that is just a space should render 1`] = `
+<div
+  className="cues"
+>
+  <Cue
+    cue="a"
+    key="0a"
+  />
+  <Cue
+    cue="b"
+    key="1b"
+  />
+  <Cue
+    cue="c"
+    key="2c"
+  />
+</div>
+`;
+
+exports[`<Cues /> with cues with a custom cuesLabel should render 1`] = `
+<div
+  className="cues"
+>
+  <Cue
+    cue="a"
+    key="0a"
+  />
+  <Cue
+    cue="b"
+    key="1b"
+  />
+  <Cue
+    cue="c"
+    key="2c"
+  />
+  <img
+    alt="Arrow Icon"
+    src="undefined/images/icons/pointing-arrow.svg"
+  />
+  <CueExplanation
+    text="pick one"
+  />
+</div>
+`;
+
+exports[`<Cues /> with cues with no cuesLabel should render 1`] = `
+<div
+  className="cues"
+>
+  <Cue
+    cue="a"
+    key="0a"
+  />
+  <Cue
+    cue="b"
+    key="1b"
+  />
+  <Cue
+    cue="c"
+    key="2c"
+  />
+  <img
+    alt="Arrow Icon"
+    src="undefined/images/icons/pointing-arrow.svg"
+  />
+  <CueExplanation
+    text="choose one"
+  />
+</div>
+`;
+
+exports[`<Cues /> with no cues should render 1`] = `<span />`;

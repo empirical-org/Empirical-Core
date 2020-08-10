@@ -1,0 +1,34 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`PromptSection component renders with PROJECT mode set 1`] = `
+<PromptSection
+  mode="PROJECT"
+  promptElement={<div />}
+>
+  <div />
+  <div
+    className="display-answers-divider prompt-showing"
+  >
+    <div
+      className="display-answers-divider-content"
+    >
+      <button
+        className="focus-on-light"
+        onClick={[Function]}
+        type="button"
+      >
+        Hide
+      </button>
+    </div>
+  </div>
+</PromptSection>
+`;
+
+exports[`PromptSection component renders with no explicit mode set 1`] = `
+<PromptSection
+  mode={null}
+  promptElement={<div />}
+>
+  <div />
+</PromptSection>
+`;

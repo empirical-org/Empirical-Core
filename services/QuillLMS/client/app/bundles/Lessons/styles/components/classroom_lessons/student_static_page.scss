@@ -1,0 +1,42 @@
+.student-static-page-container {
+  display: flex;
+  font-size: 36px;
+  line-height: 1.17;
+  background-color: white;
+  height: calc(100vh - 50px);
+  text-align: left;
+  color: #000000;
+  margin-top: 40px;
+  .student-static-page {
+    width: 100%;
+    margin:0 auto;
+    strong {
+      color: #000;
+    }
+    blockquote {
+      border-radius: 4px;
+      background-color: #e5e5e5;
+      padding: 20px;
+      line-height: 1.17;
+      margin-bottom: 24px;
+    }
+    p {
+      margin-bottom: 24px;
+    }
+    ul {
+      list-style-type: disc;
+      margin-bottom: 24px;
+    }
+    code {
+      background-color: inherit;
+      color: inherit;
+      font-size: inherit;
+      display: block;
+      text-align: left;
+      font-weight: normal;
+      font-family: inherit;
+      padding: 0px;
+      line-height: inherit;
+    }
+  }
+}

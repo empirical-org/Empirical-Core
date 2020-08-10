@@ -1,0 +1,8 @@
+Description:
+    Generate tests for our models. Uses the syntax of rails scaffold generators.
+
+Example:
+    rails generate model_tests FakeModel name:string level:integer
+
+    This will create:
+        model tests

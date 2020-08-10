@@ -1,6 +1,6 @@
 class SubscriptionsController < ApplicationController
-  before_action :set_subscription, except: [:index, :create, :activate_covid_subscription]
-  before_action :require_user, only: [:index, :activate_covid_subscription]
+  before_action :set_subscription, except: [:index, :create]
+  before_action :require_user, only: [:index]
 
   def index
     set_index_variables
@@ -39,13 +39,6 @@ class SubscriptionsController < ApplicationController
   def destroy
     @subscription.destroy
     render json: @subscription
-  end
-
-  def activate_covid_subscription
-    if current_user.subscriptions.none?(&:covid19?)
-      Subscription.create_with_user_join(current_user.id, { account_type: Subscription::COVID_19_SUBSCRIPTION_TYPE })
-    end
-    redirect_to subscriptions_path
   end
 
   private

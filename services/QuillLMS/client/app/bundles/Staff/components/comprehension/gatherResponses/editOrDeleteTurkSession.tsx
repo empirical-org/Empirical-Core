@@ -1,55 +1,46 @@
 import * as React from "react";
+import { deleteTurkSession, editTurkSession } from '../../../utils/comprehension/turkAPIs';
 import "react-dates/initialize";
 import { SingleDatePicker } from 'react-dates';
 import * as moment from 'moment';
-import useSWR, { mutate } from 'swr'
+import { queryCache } from 'react-query';
+import { getCsrfToken } from "../../../helpers/comprehension";
 
-const EditTurkSession = ({ activityID, closeModal, originalSessionDate, turkSessionID }) => {
+const EditTurkSession = ({ activityId, closeModal, originalSessionDate, setMessage, turkSessionId }) => {
   const [turkSessionDate, setTurkSessionDate] = React.useState<object>(moment(originalSessionDate));
   const [focused, setFocusedState] = React.useState<boolean>(false);
-  const [error, setError] = React.useState<string>('');
-  const editOrDeleteTurkSessionsAPI = `https://comprehension-247816.appspot.com/api/turking/${turkSessionID}.json`;
+  const csrfToken = getCsrfToken();
 
   const handleDateChange = (date: {}) => { setTurkSessionDate(date) };
   
   const handleFocusChange = ({ focused }) => { setFocusedState(focused) };
 
   const handleEditTurkSession = async () => {
-    try {
-      await fetch(editOrDeleteTurkSessionsAPI, {
-        method: 'PUT',
-        body: JSON.stringify({
-          activity_id: activityID, 
-          expires_at: turkSessionDate 
-        }),
-        headers: {
-          "Accept": "application/JSON",
-          "Content-Type": "application/json"
-        },
-      });
-    } catch (error) {
-      setError(error);
-    }
-    // update turk sessions cache to display newly created turk session
-    mutate("turk-sessions");
-
-    setError('');
-    closeModal();
+    editTurkSession(activityId, turkSessionId, turkSessionDate, csrfToken).then((response) => {
+      const { error } = response;
+      if(error) {
+        setMessage(error);
+      } else {
+        setMessage('Turk session successfully edited!')
+      }
+      // update turk sessions cache to display edited turk session
+      queryCache.refetchQueries(`turk-sessions-${activityId}`);
+      closeModal();
+    });
   }
 
   const handleDeleteTurkSession = async () => {
-    try {
-      await fetch(editOrDeleteTurkSessionsAPI, {
-        method: 'DELETE'
-      });
-    } catch (error) {
-      setError(error);
-    }
-    // update turk sessions cache to reflect deleted turk session
-    mutate("turk-sessions");
-
-    setError('');
-    closeModal();
+    deleteTurkSession(turkSessionId, csrfToken).then((response) => {
+      const { error } = response;
+      if(error) {
+        setMessage(error);
+      } else {
+        setMessage('Turk session successfully deleted!')
+      }
+      // update turk sessions cache to reflect deleted turk session
+      queryCache.refetchQueries(`turk-sessions-${activityId}`);
+      closeModal();
+    });
   }
 
   const renderEditContent = () => {
@@ -68,7 +59,6 @@ const EditTurkSession = ({ activityID, closeModal, originalSessionDate, turkSess
           />
         </div>
         <div className="submit-button-container">
-          {error && <p className="edit-error-message">{error}</p>}
           <button className="quill-button fun primary contained" id="edit-turk-submit-button" onClick={handleEditTurkSession} type="submit">
             Submit
           </button>
@@ -82,7 +72,6 @@ const EditTurkSession = ({ activityID, closeModal, originalSessionDate, turkSess
       <React.Fragment>
         <p className="delete-message">Are you sure you want to delete this session?</p>
         <div className="submit-button-container">
-          {error && <p className="edit-error-message">{error}</p>}
           <button className="quill-button fun primary contained" id="delete-turk-submit-button" onClick={handleDeleteTurkSession} type="submit">
             Delete
           </button>

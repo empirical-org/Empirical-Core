@@ -1,0 +1,154 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`FollowUp component when followUpOption is NO_PRACTICE renders 1`] = `
+<WatchTeacher
+  followUpOption="No Follow Up Practice"
+  followUpUrl=""
+>
+  <div
+    className="follow-up-container full-page-modal-container"
+  >
+    <div
+      className="follow-up full-page-modal"
+    >
+      <img
+        alt="An illustration of a teacher pointing to a smart board"
+        src="undefined/images/illustrations/celebrating-activity-completion.svg"
+      />
+      <h1>
+        You have completed the lesson!
+      </h1>
+      <a
+        className="quill-button large outlined secondary focus-on-dark"
+        href="undefined"
+      >
+        Exit lesson
+      </a>
+    </div>
+  </div>
+</WatchTeacher>
+`;
+
+exports[`FollowUp component when followUpOption is PRACTICE_LATER renders 1`] = `
+<WatchTeacher
+  followUpOption="All Students Practice Later"
+  followUpUrl=""
+>
+  <div
+    className="follow-up-container full-page-modal-container"
+  >
+    <div
+      className="follow-up full-page-modal"
+    >
+      <img
+        alt="An illustration of a teacher pointing to a smart board"
+        src="undefined/images/illustrations/celebrating-activity-completion.svg"
+      />
+      <h1>
+        You have completed the lesson!
+      </h1>
+      <h2>
+        Your teacher has assigned some practice for later. You'll see it on your dashboard when you exit this lesson.
+      </h2>
+      <a
+        className="quill-button large outlined secondary focus-on-dark"
+        href="undefined"
+      >
+        Exit lesson
+      </a>
+    </div>
+  </div>
+</WatchTeacher>
+`;
+
+exports[`FollowUp component when followUpOption is PRACTICE_NOW renders 1`] = `
+<WatchTeacher
+  followUpOption="All Students Practice Now"
+  followUpUrl=""
+>
+  <div
+    className="follow-up-container full-page-modal-container"
+  >
+    <div
+      className="follow-up full-page-modal"
+    >
+      <img
+        alt="An illustration of a teacher pointing to a smart board"
+        src="undefined/images/illustrations/celebrating-activity-completion.svg"
+      />
+      <h1>
+        You have completed the lesson!
+      </h1>
+      <h2>
+        Now it's time to practice what you learned.
+      </h2>
+      <a
+        className="quill-button large outlined secondary focus-on-dark"
+        href=""
+      >
+        Begin
+      </a>
+    </div>
+  </div>
+</WatchTeacher>
+`;
+
+exports[`FollowUp component when followUpOption is SMALL_GROUP_AND_INDEPENDENT when student is flagged renders 1`] = `
+<WatchTeacher
+  followUpOption="Small Group Instruction and Independent Practice"
+  followUpUrl=""
+  isFlagged={true}
+>
+  <div
+    className="follow-up-container full-page-modal-container"
+  >
+    <div
+      className="follow-up full-page-modal"
+    >
+      <img
+        alt="An illustration of a teacher pointing to a smart board"
+        src="undefined/images/illustrations/celebrating-activity-completion.svg"
+      />
+      <h1>
+        You have completed the lesson!
+      </h1>
+      <h2>
+        Wait for instructions from your teacher.
+      </h2>
+    </div>
+  </div>
+</WatchTeacher>
+`;
+
+exports[`FollowUp component when followUpOption is SMALL_GROUP_AND_INDEPENDENT when student is not flagged renders 1`] = `
+<WatchTeacher
+  followUpOption="Small Group Instruction and Independent Practice"
+  followUpUrl=""
+  isFlagged={false}
+>
+  <div
+    className="follow-up-container full-page-modal-container"
+  >
+    <div
+      className="follow-up full-page-modal"
+    >
+      <img
+        alt="An illustration of a teacher pointing to a smart board"
+        src="undefined/images/illustrations/celebrating-activity-completion.svg"
+      />
+      <h1>
+        You have completed the lesson!
+      </h1>
+      <h2>
+        Now it's time to practice what you learned.
+      </h2>
+      <a
+        className="quill-button large outlined secondary focus-on-dark"
+        href=""
+      >
+        Begin
+      </a>
+    </div>
+  </div>
+</WatchTeacher>
+`;

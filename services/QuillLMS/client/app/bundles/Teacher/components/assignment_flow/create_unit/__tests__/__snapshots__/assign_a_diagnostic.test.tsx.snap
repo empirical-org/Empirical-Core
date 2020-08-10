@@ -20,7 +20,7 @@ exports[`AssignADiagnostic component should render 1`] = `
           Array [
             Object {
               "key": "What",
-              "text": "Plural and possessive nouns, pronouns, verbs, adjectives, adverbs of manners, commas, prepositions, and capitalization",
+              "text": "Plural and possessive nouns, pronouns, verbs, adjectives, adverbs of manner, commas, prepositions, and capitalization",
             },
             Object {
               "key": "When",
@@ -28,7 +28,7 @@ exports[`AssignADiagnostic component should render 1`] = `
             },
           ]
         }
-        buttonLink="https://diagnostic.quill.org/#/play/diagnostic/-LKX2sTTnPVhTOrWyUx9"
+        buttonLink="https://quill.org/diagnostic/#/play/diagnostic/-LKX2sTTnPVhTOrWyUx9"
         buttonText="Preview"
         header="Starter Diagnostic"
         imgAlt="page with a little writing"
@@ -48,7 +48,7 @@ exports[`AssignADiagnostic component should render 1`] = `
             },
           ]
         }
-        buttonLink="https://diagnostic.quill.org/#/play/diagnostic/-LKbzH_Er916zGjgHk5U"
+        buttonLink="https://quill.org/diagnostic/#/play/diagnostic/-LKbzH_Er916zGjgHk5U"
         buttonText="Preview"
         header="Intermediate Diagnostic"
         imgAlt="page with a medium amount of writing"
@@ -68,7 +68,7 @@ exports[`AssignADiagnostic component should render 1`] = `
             },
           ]
         }
-        buttonLink="https://diagnostic.quill.org/#/play/diagnostic/-LVxlcVPdW5DvAh_xgnj"
+        buttonLink="https://quill.org/diagnostic/#/play/diagnostic/-LVxlcVPdW5DvAh_xgnj"
         buttonText="Preview"
         header="Advanced Diagnostic"
         imgAlt="page with a large amount of writing"
@@ -80,17 +80,17 @@ exports[`AssignADiagnostic component should render 1`] = `
           Array [
             Object {
               "key": "What",
-              "text": "Simple verb conjugation, articles, subject verb agreement, simple word order, singular vs plural nouns, and adjective placement",
+              "text": "Simple verb conjugation, articles, subject-verb agreement, simple word order, singular and plural nouns, and adjective placement",
             },
             Object {
               "key": "When",
-              "text": "Built for beginning English Language Learners who are working on foundational grammar skills.",
+              "text": "Your students are beginning English language learners who are working on foundational grammar skills.",
             },
           ]
         }
-        buttonLink="https://diagnostic.quill.org/#/play/diagnostic/-LyFRZvbHAmooTTIIVE2"
+        buttonLink="https://quill.org/diagnostic/#/play/diagnostic/-LyFRZvbHAmooTTIIVE2"
         buttonText="Preview"
-        header="ELL Starter Diagnostic"
+        header="ELL Starter Diagnostic (Level 1 - Emerging)"
         imgAlt="page with less writing that says ELL in the corner"
         imgSrc="undefined/images/illustrations/diagnostics-ell-starter.svg"
         selectCard={[Function]}
@@ -104,13 +104,13 @@ exports[`AssignADiagnostic component should render 1`] = `
             },
             Object {
               "key": "When",
-              "text": "Built for English Language Learners at the developing, expanding or bridging stages of language proficiency (WIDA Levels 3-5).",
+              "text": "Your students are English language learners at the developing, expanding, or bridging stages of language proficiency.",
             },
           ]
         }
-        buttonLink="https://diagnostic.quill.org/#/play/diagnostic/ell"
+        buttonLink="https://quill.org/diagnostic/#/play/diagnostic/ell"
         buttonText="Preview"
-        header="ELL Diagnostic"
+        header="ELL Diagnostic (Level 2 - Expanding)"
         imgAlt="page with writing that says ELL in the corner"
         imgSrc="undefined/images/illustrations/diagnostics-ell.svg"
         selectCard={[Function]}

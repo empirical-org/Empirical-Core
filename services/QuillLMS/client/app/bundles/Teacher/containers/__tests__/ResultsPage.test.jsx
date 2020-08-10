@@ -50,7 +50,7 @@ describe('ResultsPage container', () => {
     });
 
     it('should render a back to dashboard button if session is not anonymous', () => {
-      expect(wrapperNotAnonymous.find('a.primary.contained').props().href).toBe('/classes');
+      expect(wrapperNotAnonymous.find('a.primary.contained').props().href).toBe('/');
       expect(wrapperNotAnonymous.find('a.primary.contained').text()).toMatch('Back to your dashboard');
     });
 

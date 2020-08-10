@@ -100,7 +100,7 @@ export default class CmsUserIndex extends React.Component {
   };
 
   search = (e) => {
-    e.preventDefault();
+    e ? e.preventDefault() : null;
     this.setState({loading: true})
     const link = `${process.env.DEFAULT_URL}/cms/users/search`
     const data = new FormData();

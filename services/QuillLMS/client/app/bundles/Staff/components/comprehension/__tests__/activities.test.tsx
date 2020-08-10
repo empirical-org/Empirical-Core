@@ -10,8 +10,4 @@ describe('Activities component', () => {
   it('should render Activities', () => {
     expect(container).toMatchSnapshot();
   });
-
-  it('should render a DataTable component', () => {
-    expect(container.find(DataTable).length).toEqual(1);
-  });
 });

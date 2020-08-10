@@ -1,0 +1,8 @@
+Description:
+    Generate tests for our API endpoints. Uses the syntax of rails scaffold generators.
+
+Example:
+    rails generate controller_tests FakeModel name:string level:integer
+
+    This will create:
+        controller tests

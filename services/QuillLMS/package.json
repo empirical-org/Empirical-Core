@@ -16,6 +16,7 @@
   "scripts": {
     "postinstall": "cd ./client && npm install",
     "gulp": "cd ./client && npm run gulp",
+    "test:mocha": "mocha --require ts-node/register ./client/app/bundles/**/**/*.spec.ts",
     "test": "npm run jest && npm run build:test && npm run lint && bundle exec rake spec",
     "lint": "cd client && npm run lint",
     "install-react-on-rails": "cd client && npm run install-react-on-rails",
@@ -26,8 +27,10 @@
     "build:client": "(cd client && npm run build:client --silent)",
     "build:server": "(cd client && npm run build:server --silent)",
     "build:dev:client": "(cd client && npm run build:dev:client --silent)",
+    "build:dev:client:prod-cms": "(cd client && npm run build:dev:client:prod-cms --silent)",
     "build:dev:server": "(cd client && npm run build:dev:server --silent)",
     "start:dev": "foreman start -f Procfile.static; npm run build:clean",
+    "start:prod-cms": "foreman start -f Procfile.prod_cms; npm run build:clean",
     "hot-assets": "(cd client && npm run hot-assets)",
     "jest": "./script/jest.sh",
     "jest:u": "cd client && npm run jest -- -u",
@@ -51,7 +54,7 @@
     "isomorphic-fetch": "^2.2.1",
     "istanbul-lib-instrument": "^1.10.2",
     "lazysizes": "^5.2.0-beta1",
-    "quill-component-library": "0.7.35",
+    "quill-component-library": "0.7.36",
     "react-csv": "^1.1.2",
     "react-dropdown": "^1.6.4",
     "react-radio-buttons": "^1.2.1",
@@ -61,11 +64,14 @@
     "unfetch": "^4.1.0"
   },
   "devDependencies": {
+    "@types/mocha": "^7.0.2",
     "faye-websocket": "^0.11.3",
     "memory-fs": "^0.4.1",
     "mime": "^2.4.4",
+    "mocha": "^7.1.1",
     "qs": "^6.9.0",
-    "redux-test-utils": "^0.2.2"
+    "redux-test-utils": "^0.2.2",
+    "ts-node": "^8.8.2"
   },
   "jest": {
     "roots": [

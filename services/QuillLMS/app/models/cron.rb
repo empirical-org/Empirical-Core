@@ -16,15 +16,17 @@ class Cron
     # pass yesterday's date for stats email queries and labels
     date = Time.now.getlocal('-05:00').yesterday
 
+    DailyStatsEmailJob.perform_async(date)
     QuillStaffAccountsChangedWorker.perform_async
     RenewExpiringRecurringSubscriptionsWorker.perform_async
+    ResetDemoAccountWorker.perform_async
     SyncSalesmachineWorker.perform_async
-    DailyStatsEmailJob.perform_async(date)
+    SyncVitallyWorker.perform_async
   end
 
   def self.run_saturday
-    UploadLeapReportWorker.perform_async(29087)
     SetImpactMetricsWorker.perform_async
+    UploadLeapReportWorker.perform_async(29087)
   end
 
   def self.now

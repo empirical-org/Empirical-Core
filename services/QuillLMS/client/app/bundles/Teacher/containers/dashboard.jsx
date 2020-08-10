@@ -2,7 +2,7 @@ import React from 'react';
 import { requestGet } from '../../../modules/request';
 import ClassOverview from '../components/dashboard/class_overview';
 import MyClasses from '../components/dashboard/my_classes';
-import MyResources from '../components/dashboard/my_resources';
+import TeacherCenter from '../components/dashboard/teacher_center.tsx';
 import DashboardFooter from '../components/dashboard/dashboard_footer';
 import ExploreActivitiesModal from '../components/dashboard/explore_activities_modal'
 
@@ -20,9 +20,7 @@ export default class Dashboard extends React.Component {
         { header: 'Difficult Concepts', results: null, }
       ],
     }
-  }
 
-  UNSAFE_componentWillMount() {
     this.ajax = {};
     this.ajax.classRoomRequest = requestGet('/teachers/classrooms/classroom_mini', (result) => {
       this.setState({ classrooms: result.classes, });
@@ -66,17 +64,18 @@ export default class Dashboard extends React.Component {
   }
 
   render() {
+    const { user, featuredBlogPosts, } = this.props
     return (
       <div id="dashboard">
         {this.renderExploreActivitiesModal()}
         <ClassOverview
           data={this.state.performanceQuery}
-          flag={JSON.parse(this.props.user).flag}
+          flag={JSON.parse(user).flag}
           notifications={this.state.notifications}
           premium={this.state.hasPremium}
         />
         {this.hasClasses()}
-        <MyResources data={this.state} />
+        <TeacherCenter featuredBlogPosts={featuredBlogPosts} />
         <DashboardFooter />
       </div>
     );

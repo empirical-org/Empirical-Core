@@ -1,3 +1,9 @@
+PATH
+  remote: engines/comprehension
+  specs:
+    comprehension (0.0.1)
+      rails (~> 4.2.11.1)
+
 GEM
   remote: https://rubygems.org/
   remote: https://gems.contribsys.com/
@@ -744,6 +750,7 @@ DEPENDENCIES
   codeclimate-test-reporter
   codecov
   coffee-rails
+  comprehension!
   configs
   cypress-on-rails (~> 1.0)
   database_cleaner
