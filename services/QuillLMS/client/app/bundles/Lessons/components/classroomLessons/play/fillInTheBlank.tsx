@@ -166,6 +166,7 @@ class FillInTheBlank extends React.Component<fillInTheBlankProps, fillInTheBlank
       <span key={`span${i}`}>
         <input
           aria-label={`input${i}`}
+          autoComplete="off"
           className={inputClass}
           disabled={disabled}
           id={`input${i}`}
