@@ -176,6 +176,7 @@ export class PlayFillInTheBlankQuestion extends React.Component<PlayFillInTheBla
       <span key={`span${i}`}>
         <input
           aria-label={`input${i}`}
+          autoComplete="off"
           className={className}
           id={`input${i}`}
           key={i + 100}
