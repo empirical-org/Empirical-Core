@@ -1,0 +1,47 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Navbar component renders 1`] = `
+<Navbar
+  classroomLesson={
+    Object {
+      "data": Object {
+        "questions": Array [
+          Object {},
+          Object {},
+          Object {},
+        ],
+      },
+    }
+  }
+  classroomSessions={
+    Object {
+      "data": Object {
+        "current_slide": "1",
+      },
+    }
+  }
+>
+  <header
+    className="nav student-nav"
+  >
+    <nav
+      className="student-lessons"
+    >
+      <button
+        className="focus-on-dark interactive-wrapper"
+        onClick={[Function]}
+        type="button"
+      >
+        <img
+          alt="Quill.org logo"
+          className="quill-logo"
+          src="undefined/images/logos/quill-logo-white.svg"
+        />
+      </button>
+      <p
+        className="counter"
+      />
+    </nav>
+  </header>
+</Navbar>
+`;

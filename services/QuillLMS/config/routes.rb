@@ -7,10 +7,6 @@ EmpiricalGrammar::Application.routes.draw do
     mount GraphiQL::Rails::Engine, at: "/graphiql", graphql_path: "/graphql"
   end
 
-  # temporary setup for AP landing pages
-  get '/AP' => redirect('activities/packs/193')
-  get '/ap' => redirect('activities/packs/193')
-
   post "/graphql", to: "graphql#execute"
 
   mount RailsAdmin::Engine => '/staff', as: 'rails_admin'
@@ -80,9 +76,6 @@ EmpiricalGrammar::Application.routes.draw do
   resources :subscriptions do
     member do
       get :purchaser_name
-    end
-    collection do
-      get :activate_covid_subscription
     end
   end
   resources :assessments
@@ -355,6 +348,7 @@ EmpiricalGrammar::Application.routes.draw do
   # API routes
   namespace :api do
     namespace :v1 do
+
       get 'activities/uids_and_flags' => 'activities#uids_and_flags'
       resources :activities,              except: [:index, :new, :edit]
       resources :activity_flags,          only: [:index]
@@ -413,6 +407,9 @@ EmpiricalGrammar::Application.routes.draw do
           put 'update_model_concept'
         end
       end
+      resources :active_activity_sessions, only: [:show, :update, :destroy]
+
+      mount Comprehension::Engine => "/comprehension", as: :comprehension
     end
 
     # Try to route any GET, DELETE, POST, PUT or PATCH to the proper controller.
@@ -486,6 +483,7 @@ EmpiricalGrammar::Application.routes.draw do
     resources :unit_templates, only: [:index, :create, :update, :destroy]
     resources :unit_template_categories, only: [:index, :create, :update, :destroy]
     put '/blog_posts/update_order_numbers', to: 'blog_posts#update_order_numbers'
+    put '/blog_posts/update_featured_order_numbers', to: 'blog_posts#update_featured_order_numbers'
     resources :blog_posts
     get '/blog_posts/:id/delete', to: 'blog_posts#destroy'
     get '/blog_posts/:id/unpublish', to: 'blog_posts#unpublish'
@@ -533,7 +531,7 @@ EmpiricalGrammar::Application.routes.draw do
     end
   end
 
-  other_pages = %w(beta ideas board press partners develop mission about faq tos privacy activities impact stats team premium teacher_resources media_kit play news home_new map firewall_info referrals_toc announcements backpack careers)
+  other_pages = %w(beta ideas board press partners develop mission about faq tos privacy activities impact stats team premium teacher_resources media_kit play news home_new map firewall_info referrals_toc announcements backpack careers comprehension proofreader grammar lessons diagnostic connect)
 
   all_pages = other_pages
   all_pages.each do |page|
@@ -642,7 +640,7 @@ EmpiricalGrammar::Application.routes.draw do
   # Uptime status
   resource :status, only: [] do
     collection do
-      get :index, :database, :database_follower, :redis_cache, :redis_queue, :firebase
+      get :index, :database, :database_write, :database_follower, :redis_cache, :redis_queue, :firebase
     end
   end
 
@@ -651,6 +649,12 @@ EmpiricalGrammar::Application.routes.draw do
   get 'student_demo' => 'students#student_demo'
   get 'student_demo_ap' => 'students#demo_ap'
   get 'admin_demo', to: 'teachers/progress_reports#admin_demo'
+  get 'preap' => 'pages#preap'
+  get 'pre-ap', to: redirect('/preap')
+  get 'pre-AP', to: redirect('/preap')
+  get 'preAP', to: redirect('/preap')
+  get 'ap' => 'pages#ap'
+  get 'AP', to: redirect('/ap')
 
   get '/404' => 'errors#error_404'
   get '/500' => 'errors#error_500'

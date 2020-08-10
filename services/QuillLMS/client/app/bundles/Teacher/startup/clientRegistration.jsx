@@ -33,6 +33,10 @@ import ResetPasswordApp from './ResetPasswordAppClient'
 import TeacherClassroomsApp from './TeacherClassroomsAppClient'
 import UnitTemplateCategoriesApp from './UnitTemplateCategoriesAppClient'
 import StudentNavbarItems from '../../Student/startup/StudentNavbarItemsAppClient'
+import ExpandableUnitSection from './ExpandableUnitClient'
+import QuestionsAndAnswersSection from './QuestionsAndAnswersClient';
+import PreAp from './PreApAppClient';
+import Ap from './ApAppClient';
 
 require('../../../assets/styles/home.scss');
 
@@ -69,5 +73,9 @@ ReactOnRails.register({ TeacherGuideApp,
   ForgotPasswordApp,
   TeacherClassroomsApp,
   UnitTemplateCategoriesApp,
-  StudentNavbarItems
+  StudentNavbarItems,
+  ExpandableUnitSection,
+  QuestionsAndAnswersSection,
+  PreAp,
+  Ap
 });

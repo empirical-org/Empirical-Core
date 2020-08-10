@@ -6,17 +6,24 @@ export interface ActivityRuleSetInterface {
   id?: number,
 	name: string,
   feedback: string,
+  priority: number,
   rules?: RegexRuleInterface[],
+  rules_attributes?: RegexRuleInterface[],
   prompts?: ActivityRuleSetPrompt[],
   prompt_ids?: number[]
 }
 
 export interface ActivityInterface {
   id?: string,
+  parent_activity_id?: string,
   title: string,
-  flag: string,
-  passages: PassagesInterface[],
-  prompts: PromptInterface[]
+  // flag: string,
+  scored_level: string,
+  target_level: number,
+  passages?: PassagesInterface[],
+  prompts?: PromptInterface[],
+  passage_attributes?: PassagesInterface[],
+  prompt_attributes?: PromptInterface[]
 }
 
 export interface PromptInterface {
@@ -39,7 +46,7 @@ export interface FlagInterface {
 }
 
 export interface ActivityRuleSetPrompt {
-  id: number,
+  id?: number,
   conjunction: string
 }
 

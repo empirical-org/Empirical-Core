@@ -87,18 +87,19 @@ jobs:
       - image: circleci/node:8.11.3
     steps:
       - checkout
+
       - restore_cache:
           keys:
-            - npm-cache-lms-v3-{{ checksum "services/QuillLMS/client/package.json" }}-{{ checksum "services/QuillLMS/client/package-lock.json" }}
-            - npm-cache-lms-v3-{{ checksum "services/QuillLMS/client/package.json" }}-
-            - npm-cache-lms-v3-
+            - npm-cache-lms-v5-{{ checksum "services/QuillLMS/client/package.json" }}-{{ checksum "services/QuillLMS/client/package-lock.json" }}
+            - npm-cache-lms-v5-{{ checksum "services/QuillLMS/client/package.json" }}-
+            - npm-cache-lms-v5-
       - run:
           name: Install NPM dependencies
           command: |
             cd services/QuillLMS/client
             npm install
       - save_cache:
-          key: npm-cache-lms-v3-{{ checksum "services/QuillLMS/client/package-lock.json" }}-{{ checksum "services/QuillLMS/client/package-lock.json" }}
+          key: npm-cache-lms-v5-{{ checksum "services/QuillLMS/client/package.json" }}-{{ checksum "services/QuillLMS/client/package-lock.json" }}
           paths:
             - services/QuillLMS/client/node_modules
       - run:
@@ -110,7 +111,7 @@ jobs:
   cms_rails_build:
     working_directory: ~/Empirical-Core
     docker:
-      - image: ruby:2.3.1
+      - image: ruby:2.6.6
         environment:
           PG_DB: quill_cms_test_db
           PG_USER: ubuntu
@@ -156,110 +157,6 @@ jobs:
           command: |
             cd services/QuillCMS
             bundle exec rake spec
-  connect_node_build:
-    working_directory: ~/Empirical-Core
-    docker:
-      - image: circleci/node:7.7.4
-    steps:
-      - checkout
-      - restore_cache:
-          key: npm-cache-connect-v2-{{ checksum "services/QuillConnect/package-lock.json" }}
-      - run:
-          name: Install NPM dependencies
-          command: |
-            cd services/QuillConnect
-            npm install
-      - save_cache:
-          key: npm-cache-connect-v2-{{ checksum "services/QuillConnect/package-lock.json" }}
-          paths:
-            - services/QuillConnect/node_modules
-      - run:
-          name: Run QuillConnect Tests
-          command: |
-            cd services/QuillConnect
-            npm run jest
-  lessons_node_build:
-    working_directory: ~/Empirical-Core
-    docker:
-      - image: circleci/node:8.11.3
-    steps:
-      - checkout
-      - restore_cache:
-          keys:
-            - npm-cache-lessons-v2-{{ checksum "services/QuillLessons/package.json" }}-{{ checksum "services/QuillLessons/package-lock.json" }}
-            - npm-cache-lessons-v2-{{ checksum "services/QuillLessons/package.json" }}
-            - npm-cache-lessons-v2
-      - run:
-          name: Install NPM dependencies
-          command: |
-            cd services/QuillLessons
-            npm install
-      - save_cache:
-          key: npm-cache-lessons-v2-{{ checksum "services/QuillLessons/package.json" }}-{{ checksum "services/QuillLessons/package-lock.json" }}
-          paths:
-            - services/QuillLessons/node_modules
-      - run:
-          name: Run QuillLessons Tests
-          command: |
-            cd services/QuillLessons
-            FORCE_COLOR=true npm run jest --colors --runInBand app/
-  grammar_node_build:
-    working_directory: ~/Empirical-Core
-    docker:
-      - image: circleci/node:8.11.2
-    steps:
-      - checkout
-      - restore_cache:
-          keys:
-            - npm-cache-grammar-v2-{{ checksum "services/QuillGrammar/package.json" }}-{{ checksum "services/QuillGrammar/package-lock.json" }}
-            - npm-cache-grammar-v2-{{ checksum "services/QuillGrammar/package.json" }}
-            - npm-cache-grammar-v2
-      - run:
-          name: Install NPM dependencies
-          command: |
-            cd services/QuillGrammar
-            npm install
-      - save_cache:
-          key: npm-cache-grammar-v2-{{ checksum "services/QuillGrammar/package.json" }}-{{ checksum "services/QuillGrammar/package-lock.json" }}
-          paths:
-            - services/QuillGrammar/node_modules
-      - run:
-          name: Run QuillGrammar Tests
-          command: |
-            cd services/QuillGrammar
-            FORCE_COLOR=true npm run test --colors
-  diagnostic_node_build:
-    working_directory: ~/Empirical-Core
-    docker:
-      - image: circleci/node:8.11.3
-    steps:
-      - checkout
-      - run:
-          name: Install NPM dependencies
-          command: |
-            cd services/QuillDiagnostic
-            npm install
-      - run:
-          name: Run QuillDiagnostic Tests
-          command: |
-            cd services/QuillDiagnostic
-            FORCE_COLOR=true npm run test --colors
-  proofreader_node_build:
-    working_directory: ~/Empirical-Core
-    docker:
-      - image: circleci/node:8.11.2
-    steps:
-      - checkout
-      - run:
-          name: Install NPM dependencies
-          command: |
-            cd services/QuillProofreader
-            npm install
-      - run:
-          name: Run QuillProofreader Tests
-          command: |
-            cd services/QuillProofreader
-            FORCE_COLOR=true npm run test --colors
   spellchecker_node_build:
     working_directory: ~/Empirical-Core
     docker:
@@ -425,14 +322,9 @@ workflows:
   build-test:
     jobs:
       - lms_rails_build
-      - connect_node_build
       - lms_node_build
       - marking_logic_node_build
-      - diagnostic_node_build
-      - grammar_node_build
       - cms_rails_build
-      - lessons_node_build
-      - proofreader_node_build
       - spellchecker_node_build
       - comprehension_rails_build
       - comprehension_python_build

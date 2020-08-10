@@ -410,7 +410,7 @@ exports[`ResultsPage container not anonymous should render 1`] = `
       </h1>
       <a
         className="quill-button primary contained large focus-on-light"
-        href="/classes"
+        href="/"
       >
         Back to your dashboard
       </a>

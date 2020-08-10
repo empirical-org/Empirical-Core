@@ -13,6 +13,13 @@
     width: 100%;
     border-top: 1px solid #cecece;
     font-weight: 700;
+    display: flex;
+    justify-content: space-between;
+    a {
+      color: $link-color;
+      font-size: 14px;
+      font-weight: normal;
+    }
   }
   @media (max-width: 1000px) {
     .dashboard-header {
@@ -356,6 +363,9 @@
     span {
       line-height: 29px;
     }
+  }
+  a.preview-card-link:not(:nth-child(3n)) {
+    margin-right: 40px;
   }
 }
 

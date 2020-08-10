@@ -1,0 +1,1576 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ListBlanks component projector view inactive renders 1`] = `
+<ListBlanks
+  data={
+    Object {
+      "play": Object {
+        "blankLabel": "",
+        "cues": Array [
+          "",
+        ],
+        "instructions": "",
+        "nBlanks": 3,
+        "prompt": "List three action words:",
+      },
+      "teach": Object {
+        "script": Array [
+          Object {
+            "data": Object {
+              "body": "<p><strong>Say:</strong> Every sentence must have at least one action word. Take one minute and think of three action words like <em>ate</em> or <em>dance</em>. Type one action word in each box and submit your response.</p>",
+              "heading": "Ask students to list 3 action words on their own.",
+            },
+            "type": "STEP-HTML",
+          },
+          Object {
+            "type": "T-REVIEW",
+          },
+          Object {
+            "data": Object {
+              "body": "<p><em>Ask a student to read the list of words out loud.</em></p>
+<p><strong>Say: </strong>Good work! Every sentence needs an action word like one of these words. Remember that words like <em>is</em> and <em>are</em> also count because they show that something <em>existed</em>. If an action word is missing, your sentence is incomplete.</p>",
+              "heading": "Select and display 4-5 correct student responses.",
+            },
+            "type": "STEP-HTML",
+          },
+          Object {
+            "data": Object {
+              "body": "<p>If your students are unfamiliar with linking verbs like <em>is, am, are, was,</em> and<em> were</em>, you may choose to spend additional time providing examples of these words in a sentence.</p>",
+              "heading": "Note:",
+            },
+            "type": "STEP-HTML-TIP",
+          },
+        ],
+        "title": "Individual Response",
+      },
+    }
+  }
+  mode={null}
+  projector={true}
+  selected_submission_order={null}
+  selected_submissions={null}
+  studentCount={1}
+  submissions={null}
+>
+  <div
+    className="list-blanks-container student-slide-wrapper"
+  >
+    <div
+      className="all-but-submitted-bar"
+    >
+      <ProjectorHeader
+        studentCount={1}
+        submissions={null}
+      >
+        <div
+          className="projector-header-section"
+        >
+          <div
+            className="students-type-tag tag"
+          >
+            <img
+              alt="Laptop Icon"
+              src="undefined/images/icons/laptop-glyph.svg"
+            />
+            <span>
+              Students type response
+            </span>
+          </div>
+          <p
+            className="answered-count"
+          >
+            0 of 1 have responded
+          </p>
+        </div>
+      </ProjectorHeader>
+      <PromptSection
+        mode={null}
+        promptElement={
+          <SentenceFragments
+            prompt="List three action words:"
+          />
+        }
+      >
+        <SentenceFragments
+          prompt="List three action words:"
+        >
+          <div
+            className="draft-js sentence-fragments prevent-selection"
+            dangerouslySetInnerHTML={
+              Object {
+                "__html": "List three action words:",
+              }
+            }
+          />
+        </SentenceFragments>
+      </PromptSection>
+      <div
+        className="list-blanks"
+      >
+        <div
+          className="list-component"
+          key="0"
+        >
+          <span
+            className="list-number"
+          >
+            1.
+          </span>
+          <RenderTextEditor
+            disabled={true}
+            editorIndex={0}
+            handleChange={[Function]}
+            placeholder="Type your response here"
+            value="Students type responses here"
+          >
+            <TextareaAutosize
+              autoCapitalize="off"
+              autoCorrect="off"
+              className="student text-editor card is-fullwidth disabled-editor"
+              disabled={true}
+              onChange={[Function]}
+              onHeightChange={[Function]}
+              onInput={[Function]}
+              onKeyDown={[Function]}
+              placeholder="Type your response here"
+              spellCheck={false}
+              useCacheForDOMMeasurements={false}
+              value="Students type responses here"
+            >
+              <textarea
+                autoCapitalize="off"
+                autoCorrect="off"
+                className="student text-editor card is-fullwidth disabled-editor"
+                disabled={true}
+                onChange={[Function]}
+                onInput={[Function]}
+                onKeyDown={[Function]}
+                placeholder="Type your response here"
+                spellCheck={false}
+                style={
+                  Object {
+                    "height": 0,
+                  }
+                }
+                value="Students type responses here"
+              />
+            </TextareaAutosize>
+          </RenderTextEditor>
+        </div>
+        <div
+          className="list-component"
+          key="1"
+        >
+          <span
+            className="list-number"
+          >
+            2.
+          </span>
+          <RenderTextEditor
+            disabled={true}
+            editorIndex={1}
+            handleChange={[Function]}
+            placeholder="Type your response here"
+            value="Students type responses here"
+          >
+            <TextareaAutosize
+              autoCapitalize="off"
+              autoCorrect="off"
+              className="student text-editor card is-fullwidth disabled-editor"
+              disabled={true}
+              onChange={[Function]}
+              onHeightChange={[Function]}
+              onInput={[Function]}
+              onKeyDown={[Function]}
+              placeholder="Type your response here"
+              spellCheck={false}
+              useCacheForDOMMeasurements={false}
+              value="Students type responses here"
+            >
+              <textarea
+                autoCapitalize="off"
+                autoCorrect="off"
+                className="student text-editor card is-fullwidth disabled-editor"
+                disabled={true}
+                onChange={[Function]}
+                onInput={[Function]}
+                onKeyDown={[Function]}
+                placeholder="Type your response here"
+                spellCheck={false}
+                style={
+                  Object {
+                    "height": 0,
+                  }
+                }
+                value="Students type responses here"
+              />
+            </TextareaAutosize>
+          </RenderTextEditor>
+        </div>
+        <div
+          className="list-component"
+          key="2"
+        >
+          <span
+            className="list-number"
+          >
+            3.
+          </span>
+          <RenderTextEditor
+            disabled={true}
+            editorIndex={2}
+            handleChange={[Function]}
+            placeholder="Type your response here"
+            value="Students type responses here"
+          >
+            <TextareaAutosize
+              autoCapitalize="off"
+              autoCorrect="off"
+              className="student text-editor card is-fullwidth disabled-editor"
+              disabled={true}
+              onChange={[Function]}
+              onHeightChange={[Function]}
+              onInput={[Function]}
+              onKeyDown={[Function]}
+              placeholder="Type your response here"
+              spellCheck={false}
+              useCacheForDOMMeasurements={false}
+              value="Students type responses here"
+            >
+              <textarea
+                autoCapitalize="off"
+                autoCorrect="off"
+                className="student text-editor card is-fullwidth disabled-editor"
+                disabled={true}
+                onChange={[Function]}
+                onInput={[Function]}
+                onKeyDown={[Function]}
+                placeholder="Type your response here"
+                spellCheck={false}
+                style={
+                  Object {
+                    "height": 0,
+                  }
+                }
+                value="Students type responses here"
+              />
+            </TextareaAutosize>
+          </RenderTextEditor>
+        </div>
+      </div>
+      <SubmitButton
+        disabled={true}
+        onClick={[Function]}
+      >
+        <div
+          className="question-button-group"
+        >
+          <button
+            className="quill-button primary contained large focus-on-light disabled"
+            disabled={true}
+            onClick={[Function]}
+            type="button"
+          >
+            Submit
+          </button>
+        </div>
+      </SubmitButton>
+    </div>
+  </div>
+</ListBlanks>
+`;
+
+exports[`ListBlanks component projector view when an answer is being displayed renders 1`] = `
+<ListBlanks
+  data={
+    Object {
+      "play": Object {
+        "blankLabel": "",
+        "cues": Array [
+          "",
+        ],
+        "instructions": "",
+        "nBlanks": 3,
+        "prompt": "List three action words:",
+      },
+      "teach": Object {
+        "script": Array [
+          Object {
+            "data": Object {
+              "body": "<p><strong>Say:</strong> Every sentence must have at least one action word. Take one minute and think of three action words like <em>ate</em> or <em>dance</em>. Type one action word in each box and submit your response.</p>",
+              "heading": "Ask students to list 3 action words on their own.",
+            },
+            "type": "STEP-HTML",
+          },
+          Object {
+            "type": "T-REVIEW",
+          },
+          Object {
+            "data": Object {
+              "body": "<p><em>Ask a student to read the list of words out loud.</em></p>
+<p><strong>Say: </strong>Good work! Every sentence needs an action word like one of these words. Remember that words like <em>is</em> and <em>are</em> also count because they show that something <em>existed</em>. If an action word is missing, your sentence is incomplete.</p>",
+              "heading": "Select and display 4-5 correct student responses.",
+            },
+            "type": "STEP-HTML",
+          },
+          Object {
+            "data": Object {
+              "body": "<p>If your students are unfamiliar with linking verbs like <em>is, am, are, was,</em> and<em> were</em>, you may choose to spend additional time providing examples of these words in a sentence.</p>",
+              "heading": "Note:",
+            },
+            "type": "STEP-HTML-TIP",
+          },
+        ],
+        "title": "Individual Response",
+      },
+    }
+  }
+  projector={true}
+  selected_submission_order={
+    Array [
+      "student#0",
+      "student#2",
+    ]
+  }
+  selected_submissions={
+    Object {
+      "student#0": true,
+      "student#2": true,
+    }
+  }
+  studentCount={1}
+  submissions={
+    Object {
+      "student": Object {
+        "data": Object {
+          "0": "Skip",
+          "1": "",
+          "2": "Jump",
+        },
+        "timestamp": "2020-06-23T14:56:41.181Z",
+      },
+    }
+  }
+>
+  <div
+    className="list-blanks-container student-slide-wrapper"
+  >
+    <div
+      className="all-but-submitted-bar"
+    >
+      <ProjectorHeader
+        studentCount={1}
+        submissions={
+          Object {
+            "student": Object {
+              "data": Object {
+                "0": "Skip",
+                "1": "",
+                "2": "Jump",
+              },
+              "timestamp": "2020-06-23T14:56:41.181Z",
+            },
+          }
+        }
+      >
+        <div
+          className="projector-header-section"
+        >
+          <div
+            className="students-type-tag tag"
+          >
+            <img
+              alt="Laptop Icon"
+              src="undefined/images/icons/laptop-glyph.svg"
+            />
+            <span>
+              Students type response
+            </span>
+          </div>
+          <p
+            className="answered-count"
+          >
+            1 of 1 have responded
+          </p>
+        </div>
+      </ProjectorHeader>
+      <PromptSection
+        promptElement={
+          <SentenceFragments
+            prompt="List three action words:"
+          />
+        }
+      >
+        <SentenceFragments
+          prompt="List three action words:"
+        >
+          <div
+            className="draft-js sentence-fragments prevent-selection"
+            dangerouslySetInnerHTML={
+              Object {
+                "__html": "List three action words:",
+              }
+            }
+          />
+        </SentenceFragments>
+      </PromptSection>
+      <div
+        className="list-blanks"
+      >
+        <div
+          className="list-component"
+          key="0"
+        >
+          <span
+            className="list-number"
+          >
+            1.
+          </span>
+          <RenderTextEditor
+            disabled={true}
+            editorIndex={0}
+            handleChange={[Function]}
+            placeholder="Type your response here"
+            value="Students type responses here"
+          >
+            <TextareaAutosize
+              autoCapitalize="off"
+              autoCorrect="off"
+              className="student text-editor card is-fullwidth disabled-editor"
+              disabled={true}
+              onChange={[Function]}
+              onHeightChange={[Function]}
+              onInput={[Function]}
+              onKeyDown={[Function]}
+              placeholder="Type your response here"
+              spellCheck={false}
+              useCacheForDOMMeasurements={false}
+              value="Students type responses here"
+            >
+              <textarea
+                autoCapitalize="off"
+                autoCorrect="off"
+                className="student text-editor card is-fullwidth disabled-editor"
+                disabled={true}
+                onChange={[Function]}
+                onInput={[Function]}
+                onKeyDown={[Function]}
+                placeholder="Type your response here"
+                spellCheck={false}
+                style={
+                  Object {
+                    "height": 0,
+                  }
+                }
+                value="Students type responses here"
+              />
+            </TextareaAutosize>
+          </RenderTextEditor>
+        </div>
+        <div
+          className="list-component"
+          key="1"
+        >
+          <span
+            className="list-number"
+          >
+            2.
+          </span>
+          <RenderTextEditor
+            disabled={true}
+            editorIndex={1}
+            handleChange={[Function]}
+            placeholder="Type your response here"
+            value="Students type responses here"
+          >
+            <TextareaAutosize
+              autoCapitalize="off"
+              autoCorrect="off"
+              className="student text-editor card is-fullwidth disabled-editor"
+              disabled={true}
+              onChange={[Function]}
+              onHeightChange={[Function]}
+              onInput={[Function]}
+              onKeyDown={[Function]}
+              placeholder="Type your response here"
+              spellCheck={false}
+              useCacheForDOMMeasurements={false}
+              value="Students type responses here"
+            >
+              <textarea
+                autoCapitalize="off"
+                autoCorrect="off"
+                className="student text-editor card is-fullwidth disabled-editor"
+                disabled={true}
+                onChange={[Function]}
+                onInput={[Function]}
+                onKeyDown={[Function]}
+                placeholder="Type your response here"
+                spellCheck={false}
+                style={
+                  Object {
+                    "height": 0,
+                  }
+                }
+                value="Students type responses here"
+              />
+            </TextareaAutosize>
+          </RenderTextEditor>
+        </div>
+        <div
+          className="list-component"
+          key="2"
+        >
+          <span
+            className="list-number"
+          >
+            3.
+          </span>
+          <RenderTextEditor
+            disabled={true}
+            editorIndex={2}
+            handleChange={[Function]}
+            placeholder="Type your response here"
+            value="Students type responses here"
+          >
+            <TextareaAutosize
+              autoCapitalize="off"
+              autoCorrect="off"
+              className="student text-editor card is-fullwidth disabled-editor"
+              disabled={true}
+              onChange={[Function]}
+              onHeightChange={[Function]}
+              onInput={[Function]}
+              onKeyDown={[Function]}
+              placeholder="Type your response here"
+              spellCheck={false}
+              useCacheForDOMMeasurements={false}
+              value="Students type responses here"
+            >
+              <textarea
+                autoCapitalize="off"
+                autoCorrect="off"
+                className="student text-editor card is-fullwidth disabled-editor"
+                disabled={true}
+                onChange={[Function]}
+                onInput={[Function]}
+                onKeyDown={[Function]}
+                placeholder="Type your response here"
+                spellCheck={false}
+                style={
+                  Object {
+                    "height": 0,
+                  }
+                }
+                value="Students type responses here"
+              />
+            </TextareaAutosize>
+          </RenderTextEditor>
+        </div>
+      </div>
+      <SubmitButton
+        disabled={true}
+        onClick={[Function]}
+      >
+        <div
+          className="question-button-group"
+        >
+          <button
+            className="quill-button primary contained large focus-on-light disabled"
+            disabled={true}
+            onClick={[Function]}
+            type="button"
+          >
+            Submit
+          </button>
+        </div>
+      </SubmitButton>
+    </div>
+  </div>
+</ListBlanks>
+`;
+
+exports[`ListBlanks component student view inactive renders 1`] = `
+<ListBlanks
+  data={
+    Object {
+      "play": Object {
+        "blankLabel": "",
+        "cues": Array [
+          "",
+        ],
+        "instructions": "",
+        "nBlanks": 3,
+        "prompt": "List three action words:",
+      },
+      "teach": Object {
+        "script": Array [
+          Object {
+            "data": Object {
+              "body": "<p><strong>Say:</strong> Every sentence must have at least one action word. Take one minute and think of three action words like <em>ate</em> or <em>dance</em>. Type one action word in each box and submit your response.</p>",
+              "heading": "Ask students to list 3 action words on their own.",
+            },
+            "type": "STEP-HTML",
+          },
+          Object {
+            "type": "T-REVIEW",
+          },
+          Object {
+            "data": Object {
+              "body": "<p><em>Ask a student to read the list of words out loud.</em></p>
+<p><strong>Say: </strong>Good work! Every sentence needs an action word like one of these words. Remember that words like <em>is</em> and <em>are</em> also count because they show that something <em>existed</em>. If an action word is missing, your sentence is incomplete.</p>",
+              "heading": "Select and display 4-5 correct student responses.",
+            },
+            "type": "STEP-HTML",
+          },
+          Object {
+            "data": Object {
+              "body": "<p>If your students are unfamiliar with linking verbs like <em>is, am, are, was,</em> and<em> were</em>, you may choose to spend additional time providing examples of these words in a sentence.</p>",
+              "heading": "Note:",
+            },
+            "type": "STEP-HTML-TIP",
+          },
+        ],
+        "title": "Individual Response",
+      },
+    }
+  }
+  mode={null}
+  selected_submission_order={null}
+  selected_submissions={null}
+  studentCount={1}
+  submissions={null}
+>
+  <div
+    className="list-blanks-container student-slide-wrapper"
+  >
+    <div
+      className="all-but-submitted-bar"
+    >
+      <PromptSection
+        mode={null}
+        promptElement={
+          <SentenceFragments
+            prompt="List three action words:"
+          />
+        }
+      >
+        <SentenceFragments
+          prompt="List three action words:"
+        >
+          <div
+            className="draft-js sentence-fragments prevent-selection"
+            dangerouslySetInnerHTML={
+              Object {
+                "__html": "List three action words:",
+              }
+            }
+          />
+        </SentenceFragments>
+      </PromptSection>
+      <div
+        className="list-blanks"
+      >
+        <div
+          className="list-component"
+          key="0"
+        >
+          <span
+            className="list-number"
+          >
+            1.
+          </span>
+          <RenderTextEditor
+            editorIndex={0}
+            handleChange={[Function]}
+            placeholder="Type your response here"
+          >
+            <TextareaAutosize
+              autoCapitalize="off"
+              autoCorrect="off"
+              className="student text-editor card is-fullwidth null"
+              onChange={[Function]}
+              onHeightChange={[Function]}
+              onInput={[Function]}
+              onKeyDown={[Function]}
+              placeholder="Type your response here"
+              spellCheck={false}
+              useCacheForDOMMeasurements={false}
+            >
+              <textarea
+                autoCapitalize="off"
+                autoCorrect="off"
+                className="student text-editor card is-fullwidth null"
+                onChange={[Function]}
+                onInput={[Function]}
+                onKeyDown={[Function]}
+                placeholder="Type your response here"
+                spellCheck={false}
+                style={
+                  Object {
+                    "height": 0,
+                  }
+                }
+              />
+            </TextareaAutosize>
+          </RenderTextEditor>
+        </div>
+        <div
+          className="list-component"
+          key="1"
+        >
+          <span
+            className="list-number"
+          >
+            2.
+          </span>
+          <RenderTextEditor
+            editorIndex={1}
+            handleChange={[Function]}
+            placeholder="Type your response here"
+          >
+            <TextareaAutosize
+              autoCapitalize="off"
+              autoCorrect="off"
+              className="student text-editor card is-fullwidth null"
+              onChange={[Function]}
+              onHeightChange={[Function]}
+              onInput={[Function]}
+              onKeyDown={[Function]}
+              placeholder="Type your response here"
+              spellCheck={false}
+              useCacheForDOMMeasurements={false}
+            >
+              <textarea
+                autoCapitalize="off"
+                autoCorrect="off"
+                className="student text-editor card is-fullwidth null"
+                onChange={[Function]}
+                onInput={[Function]}
+                onKeyDown={[Function]}
+                placeholder="Type your response here"
+                spellCheck={false}
+                style={
+                  Object {
+                    "height": 0,
+                  }
+                }
+              />
+            </TextareaAutosize>
+          </RenderTextEditor>
+        </div>
+        <div
+          className="list-component"
+          key="2"
+        >
+          <span
+            className="list-number"
+          >
+            3.
+          </span>
+          <RenderTextEditor
+            editorIndex={2}
+            handleChange={[Function]}
+            placeholder="Type your response here"
+          >
+            <TextareaAutosize
+              autoCapitalize="off"
+              autoCorrect="off"
+              className="student text-editor card is-fullwidth null"
+              onChange={[Function]}
+              onHeightChange={[Function]}
+              onInput={[Function]}
+              onKeyDown={[Function]}
+              placeholder="Type your response here"
+              spellCheck={false}
+              useCacheForDOMMeasurements={false}
+            >
+              <textarea
+                autoCapitalize="off"
+                autoCorrect="off"
+                className="student text-editor card is-fullwidth null"
+                onChange={[Function]}
+                onInput={[Function]}
+                onKeyDown={[Function]}
+                placeholder="Type your response here"
+                spellCheck={false}
+                style={
+                  Object {
+                    "height": 0,
+                  }
+                }
+              />
+            </TextareaAutosize>
+          </RenderTextEditor>
+        </div>
+      </div>
+      <SubmitButton
+        disabled={true}
+        onClick={[Function]}
+      >
+        <div
+          className="question-button-group"
+        >
+          <button
+            className="quill-button primary contained large focus-on-light disabled"
+            disabled={true}
+            onClick={[Function]}
+            type="button"
+          >
+            Submit
+          </button>
+        </div>
+      </SubmitButton>
+    </div>
+  </div>
+</ListBlanks>
+`;
+
+exports[`ListBlanks component student view when an answer is being displayed renders 1`] = `
+<ListBlanks
+  data={
+    Object {
+      "play": Object {
+        "blankLabel": "",
+        "cues": Array [
+          "",
+        ],
+        "instructions": "",
+        "nBlanks": 3,
+        "prompt": "List three action words:",
+      },
+      "teach": Object {
+        "script": Array [
+          Object {
+            "data": Object {
+              "body": "<p><strong>Say:</strong> Every sentence must have at least one action word. Take one minute and think of three action words like <em>ate</em> or <em>dance</em>. Type one action word in each box and submit your response.</p>",
+              "heading": "Ask students to list 3 action words on their own.",
+            },
+            "type": "STEP-HTML",
+          },
+          Object {
+            "type": "T-REVIEW",
+          },
+          Object {
+            "data": Object {
+              "body": "<p><em>Ask a student to read the list of words out loud.</em></p>
+<p><strong>Say: </strong>Good work! Every sentence needs an action word like one of these words. Remember that words like <em>is</em> and <em>are</em> also count because they show that something <em>existed</em>. If an action word is missing, your sentence is incomplete.</p>",
+              "heading": "Select and display 4-5 correct student responses.",
+            },
+            "type": "STEP-HTML",
+          },
+          Object {
+            "data": Object {
+              "body": "<p>If your students are unfamiliar with linking verbs like <em>is, am, are, was,</em> and<em> were</em>, you may choose to spend additional time providing examples of these words in a sentence.</p>",
+              "heading": "Note:",
+            },
+            "type": "STEP-HTML-TIP",
+          },
+        ],
+        "title": "Individual Response",
+      },
+    }
+  }
+  selected_submission_order={
+    Array [
+      "student#0",
+      "student#2",
+    ]
+  }
+  selected_submissions={
+    Object {
+      "student#0": true,
+      "student#2": true,
+    }
+  }
+  studentCount={1}
+  submissions={
+    Object {
+      "student": Object {
+        "data": Object {
+          "0": "Skip",
+          "1": "",
+          "2": "Jump",
+        },
+        "timestamp": "2020-06-23T14:56:41.181Z",
+      },
+    }
+  }
+>
+  <div
+    className="list-blanks-container student-slide-wrapper"
+  >
+    <div
+      className="all-but-submitted-bar"
+    >
+      <PromptSection
+        promptElement={
+          <SentenceFragments
+            prompt="List three action words:"
+          />
+        }
+      >
+        <SentenceFragments
+          prompt="List three action words:"
+        >
+          <div
+            className="draft-js sentence-fragments prevent-selection"
+            dangerouslySetInnerHTML={
+              Object {
+                "__html": "List three action words:",
+              }
+            }
+          />
+        </SentenceFragments>
+      </PromptSection>
+      <div
+        className="list-blanks"
+      >
+        <div
+          className="list-component"
+          key="0"
+        >
+          <span
+            className="list-number"
+          >
+            1.
+          </span>
+          <RenderTextEditor
+            editorIndex={0}
+            handleChange={[Function]}
+            placeholder="Type your response here"
+          >
+            <TextareaAutosize
+              autoCapitalize="off"
+              autoCorrect="off"
+              className="student text-editor card is-fullwidth null"
+              onChange={[Function]}
+              onHeightChange={[Function]}
+              onInput={[Function]}
+              onKeyDown={[Function]}
+              placeholder="Type your response here"
+              spellCheck={false}
+              useCacheForDOMMeasurements={false}
+            >
+              <textarea
+                autoCapitalize="off"
+                autoCorrect="off"
+                className="student text-editor card is-fullwidth null"
+                onChange={[Function]}
+                onInput={[Function]}
+                onKeyDown={[Function]}
+                placeholder="Type your response here"
+                spellCheck={false}
+                style={
+                  Object {
+                    "height": 0,
+                  }
+                }
+              />
+            </TextareaAutosize>
+          </RenderTextEditor>
+        </div>
+        <div
+          className="list-component"
+          key="1"
+        >
+          <span
+            className="list-number"
+          >
+            2.
+          </span>
+          <RenderTextEditor
+            editorIndex={1}
+            handleChange={[Function]}
+            placeholder="Type your response here"
+          >
+            <TextareaAutosize
+              autoCapitalize="off"
+              autoCorrect="off"
+              className="student text-editor card is-fullwidth null"
+              onChange={[Function]}
+              onHeightChange={[Function]}
+              onInput={[Function]}
+              onKeyDown={[Function]}
+              placeholder="Type your response here"
+              spellCheck={false}
+              useCacheForDOMMeasurements={false}
+            >
+              <textarea
+                autoCapitalize="off"
+                autoCorrect="off"
+                className="student text-editor card is-fullwidth null"
+                onChange={[Function]}
+                onInput={[Function]}
+                onKeyDown={[Function]}
+                placeholder="Type your response here"
+                spellCheck={false}
+                style={
+                  Object {
+                    "height": 0,
+                  }
+                }
+              />
+            </TextareaAutosize>
+          </RenderTextEditor>
+        </div>
+        <div
+          className="list-component"
+          key="2"
+        >
+          <span
+            className="list-number"
+          >
+            3.
+          </span>
+          <RenderTextEditor
+            editorIndex={2}
+            handleChange={[Function]}
+            placeholder="Type your response here"
+          >
+            <TextareaAutosize
+              autoCapitalize="off"
+              autoCorrect="off"
+              className="student text-editor card is-fullwidth null"
+              onChange={[Function]}
+              onHeightChange={[Function]}
+              onInput={[Function]}
+              onKeyDown={[Function]}
+              placeholder="Type your response here"
+              spellCheck={false}
+              useCacheForDOMMeasurements={false}
+            >
+              <textarea
+                autoCapitalize="off"
+                autoCorrect="off"
+                className="student text-editor card is-fullwidth null"
+                onChange={[Function]}
+                onInput={[Function]}
+                onKeyDown={[Function]}
+                placeholder="Type your response here"
+                spellCheck={false}
+                style={
+                  Object {
+                    "height": 0,
+                  }
+                }
+              />
+            </TextareaAutosize>
+          </RenderTextEditor>
+        </div>
+      </div>
+      <SubmitButton
+        disabled={true}
+        onClick={[Function]}
+      >
+        <div
+          className="question-button-group"
+        >
+          <button
+            className="quill-button primary contained large focus-on-light disabled"
+            disabled={true}
+            onClick={[Function]}
+            type="button"
+          >
+            Submit
+          </button>
+        </div>
+      </SubmitButton>
+    </div>
+  </div>
+</ListBlanks>
+`;
+
+exports[`ListBlanks component student view when the student has submitted an answer and the teacher is having them retry part of it renders 1`] = `
+<ListBlanks
+  data={
+    Object {
+      "play": Object {
+        "blankLabel": "",
+        "cues": Array [
+          "",
+        ],
+        "instructions": "",
+        "nBlanks": 3,
+        "prompt": "List three action words:",
+      },
+      "teach": Object {
+        "script": Array [
+          Object {
+            "data": Object {
+              "body": "<p><strong>Say:</strong> Every sentence must have at least one action word. Take one minute and think of three action words like <em>ate</em> or <em>dance</em>. Type one action word in each box and submit your response.</p>",
+              "heading": "Ask students to list 3 action words on their own.",
+            },
+            "type": "STEP-HTML",
+          },
+          Object {
+            "type": "T-REVIEW",
+          },
+          Object {
+            "data": Object {
+              "body": "<p><em>Ask a student to read the list of words out loud.</em></p>
+<p><strong>Say: </strong>Good work! Every sentence needs an action word like one of these words. Remember that words like <em>is</em> and <em>are</em> also count because they show that something <em>existed</em>. If an action word is missing, your sentence is incomplete.</p>",
+              "heading": "Select and display 4-5 correct student responses.",
+            },
+            "type": "STEP-HTML",
+          },
+          Object {
+            "data": Object {
+              "body": "<p>If your students are unfamiliar with linking verbs like <em>is, am, are, was,</em> and<em> were</em>, you may choose to spend additional time providing examples of these words in a sentence.</p>",
+              "heading": "Note:",
+            },
+            "type": "STEP-HTML-TIP",
+          },
+        ],
+        "title": "Individual Response",
+      },
+    }
+  }
+  mode={null}
+  selected_submission_order={null}
+  selected_submissions={null}
+  studentCount={1}
+  submissions={
+    Object {
+      "student": Object {
+        "data": Object {
+          "0": "Skip",
+          "1": "",
+          "2": "Jump",
+        },
+        "timestamp": "2020-06-23T14:56:41.181Z",
+      },
+    }
+  }
+>
+  <div
+    className="list-blanks-container student-slide-wrapper"
+  >
+    <div
+      className="all-but-submitted-bar"
+    >
+      <PromptSection
+        mode={null}
+        promptElement={
+          <SentenceFragments
+            prompt="List three action words:"
+          />
+        }
+      >
+        <SentenceFragments
+          prompt="List three action words:"
+        >
+          <div
+            className="draft-js sentence-fragments prevent-selection"
+            dangerouslySetInnerHTML={
+              Object {
+                "__html": "List three action words:",
+              }
+            }
+          />
+        </SentenceFragments>
+      </PromptSection>
+      <div
+        className="list-blanks"
+      >
+        <div
+          className="list-component"
+          key="0"
+        >
+          <span
+            className="list-number"
+          >
+            1.
+          </span>
+          <RenderTextEditor
+            editorIndex={0}
+            handleChange={[Function]}
+            placeholder="Type your response here"
+          >
+            <TextareaAutosize
+              autoCapitalize="off"
+              autoCorrect="off"
+              className="student text-editor card is-fullwidth null"
+              onChange={[Function]}
+              onHeightChange={[Function]}
+              onInput={[Function]}
+              onKeyDown={[Function]}
+              placeholder="Type your response here"
+              spellCheck={false}
+              useCacheForDOMMeasurements={false}
+            >
+              <textarea
+                autoCapitalize="off"
+                autoCorrect="off"
+                className="student text-editor card is-fullwidth null"
+                onChange={[Function]}
+                onInput={[Function]}
+                onKeyDown={[Function]}
+                placeholder="Type your response here"
+                spellCheck={false}
+                style={
+                  Object {
+                    "height": 0,
+                  }
+                }
+              />
+            </TextareaAutosize>
+          </RenderTextEditor>
+        </div>
+        <div
+          className="list-component"
+          key="1"
+        >
+          <span
+            className="list-number"
+          >
+            2.
+          </span>
+          <RenderTextEditor
+            editorIndex={1}
+            handleChange={[Function]}
+            placeholder="Type your response here"
+          >
+            <TextareaAutosize
+              autoCapitalize="off"
+              autoCorrect="off"
+              className="student text-editor card is-fullwidth null"
+              onChange={[Function]}
+              onHeightChange={[Function]}
+              onInput={[Function]}
+              onKeyDown={[Function]}
+              placeholder="Type your response here"
+              spellCheck={false}
+              useCacheForDOMMeasurements={false}
+            >
+              <textarea
+                autoCapitalize="off"
+                autoCorrect="off"
+                className="student text-editor card is-fullwidth null"
+                onChange={[Function]}
+                onInput={[Function]}
+                onKeyDown={[Function]}
+                placeholder="Type your response here"
+                spellCheck={false}
+                style={
+                  Object {
+                    "height": 0,
+                  }
+                }
+              />
+            </TextareaAutosize>
+          </RenderTextEditor>
+        </div>
+        <div
+          className="list-component"
+          key="2"
+        >
+          <span
+            className="list-number"
+          >
+            3.
+          </span>
+          <RenderTextEditor
+            editorIndex={2}
+            handleChange={[Function]}
+            placeholder="Type your response here"
+          >
+            <TextareaAutosize
+              autoCapitalize="off"
+              autoCorrect="off"
+              className="student text-editor card is-fullwidth null"
+              onChange={[Function]}
+              onHeightChange={[Function]}
+              onInput={[Function]}
+              onKeyDown={[Function]}
+              placeholder="Type your response here"
+              spellCheck={false}
+              useCacheForDOMMeasurements={false}
+            >
+              <textarea
+                autoCapitalize="off"
+                autoCorrect="off"
+                className="student text-editor card is-fullwidth null"
+                onChange={[Function]}
+                onInput={[Function]}
+                onKeyDown={[Function]}
+                placeholder="Type your response here"
+                spellCheck={false}
+                style={
+                  Object {
+                    "height": 0,
+                  }
+                }
+              />
+            </TextareaAutosize>
+          </RenderTextEditor>
+        </div>
+      </div>
+      <SubmitButton
+        disabled={true}
+        onClick={[Function]}
+      >
+        <div
+          className="question-button-group"
+        >
+          <button
+            className="quill-button primary contained large focus-on-light disabled"
+            disabled={true}
+            onClick={[Function]}
+            type="button"
+          >
+            Submit
+          </button>
+        </div>
+      </SubmitButton>
+    </div>
+  </div>
+</ListBlanks>
+`;
+
+exports[`ListBlanks component student view when the student has submitted an answer renders 1`] = `
+<ListBlanks
+  data={
+    Object {
+      "play": Object {
+        "blankLabel": "",
+        "cues": Array [
+          "",
+        ],
+        "instructions": "",
+        "nBlanks": 3,
+        "prompt": "List three action words:",
+      },
+      "teach": Object {
+        "script": Array [
+          Object {
+            "data": Object {
+              "body": "<p><strong>Say:</strong> Every sentence must have at least one action word. Take one minute and think of three action words like <em>ate</em> or <em>dance</em>. Type one action word in each box and submit your response.</p>",
+              "heading": "Ask students to list 3 action words on their own.",
+            },
+            "type": "STEP-HTML",
+          },
+          Object {
+            "type": "T-REVIEW",
+          },
+          Object {
+            "data": Object {
+              "body": "<p><em>Ask a student to read the list of words out loud.</em></p>
+<p><strong>Say: </strong>Good work! Every sentence needs an action word like one of these words. Remember that words like <em>is</em> and <em>are</em> also count because they show that something <em>existed</em>. If an action word is missing, your sentence is incomplete.</p>",
+              "heading": "Select and display 4-5 correct student responses.",
+            },
+            "type": "STEP-HTML",
+          },
+          Object {
+            "data": Object {
+              "body": "<p>If your students are unfamiliar with linking verbs like <em>is, am, are, was,</em> and<em> were</em>, you may choose to spend additional time providing examples of these words in a sentence.</p>",
+              "heading": "Note:",
+            },
+            "type": "STEP-HTML-TIP",
+          },
+        ],
+        "title": "Individual Response",
+      },
+    }
+  }
+  mode={null}
+  selected_submission_order={null}
+  selected_submissions={null}
+  studentCount={1}
+  submissions={
+    Object {
+      "student": Object {
+        "data": Object {
+          "0": "Skip",
+          "1": "Run",
+          "2": "Jump",
+        },
+        "timestamp": "2020-06-23T14:56:41.181Z",
+      },
+    }
+  }
+>
+  <div
+    className="list-blanks-container student-slide-wrapper"
+  >
+    <div
+      className="all-but-submitted-bar"
+    >
+      <PromptSection
+        mode={null}
+        promptElement={
+          <SentenceFragments
+            prompt="List three action words:"
+          />
+        }
+      >
+        <SentenceFragments
+          prompt="List three action words:"
+        >
+          <div
+            className="draft-js sentence-fragments prevent-selection"
+            dangerouslySetInnerHTML={
+              Object {
+                "__html": "List three action words:",
+              }
+            }
+          />
+        </SentenceFragments>
+      </PromptSection>
+      <div
+        className="list-blanks"
+      >
+        <div
+          className="list-component"
+          key="0"
+        >
+          <span
+            className="list-number"
+          >
+            1.
+          </span>
+          <RenderTextEditor
+            editorIndex={0}
+            handleChange={[Function]}
+            placeholder="Type your response here"
+          >
+            <TextareaAutosize
+              autoCapitalize="off"
+              autoCorrect="off"
+              className="student text-editor card is-fullwidth null"
+              onChange={[Function]}
+              onHeightChange={[Function]}
+              onInput={[Function]}
+              onKeyDown={[Function]}
+              placeholder="Type your response here"
+              spellCheck={false}
+              useCacheForDOMMeasurements={false}
+            >
+              <textarea
+                autoCapitalize="off"
+                autoCorrect="off"
+                className="student text-editor card is-fullwidth null"
+                onChange={[Function]}
+                onInput={[Function]}
+                onKeyDown={[Function]}
+                placeholder="Type your response here"
+                spellCheck={false}
+                style={
+                  Object {
+                    "height": 0,
+                  }
+                }
+              />
+            </TextareaAutosize>
+          </RenderTextEditor>
+        </div>
+        <div
+          className="list-component"
+          key="1"
+        >
+          <span
+            className="list-number"
+          >
+            2.
+          </span>
+          <RenderTextEditor
+            editorIndex={1}
+            handleChange={[Function]}
+            placeholder="Type your response here"
+          >
+            <TextareaAutosize
+              autoCapitalize="off"
+              autoCorrect="off"
+              className="student text-editor card is-fullwidth null"
+              onChange={[Function]}
+              onHeightChange={[Function]}
+              onInput={[Function]}
+              onKeyDown={[Function]}
+              placeholder="Type your response here"
+              spellCheck={false}
+              useCacheForDOMMeasurements={false}
+            >
+              <textarea
+                autoCapitalize="off"
+                autoCorrect="off"
+                className="student text-editor card is-fullwidth null"
+                onChange={[Function]}
+                onInput={[Function]}
+                onKeyDown={[Function]}
+                placeholder="Type your response here"
+                spellCheck={false}
+                style={
+                  Object {
+                    "height": 0,
+                  }
+                }
+              />
+            </TextareaAutosize>
+          </RenderTextEditor>
+        </div>
+        <div
+          className="list-component"
+          key="2"
+        >
+          <span
+            className="list-number"
+          >
+            3.
+          </span>
+          <RenderTextEditor
+            editorIndex={2}
+            handleChange={[Function]}
+            placeholder="Type your response here"
+          >
+            <TextareaAutosize
+              autoCapitalize="off"
+              autoCorrect="off"
+              className="student text-editor card is-fullwidth null"
+              onChange={[Function]}
+              onHeightChange={[Function]}
+              onInput={[Function]}
+              onKeyDown={[Function]}
+              placeholder="Type your response here"
+              spellCheck={false}
+              useCacheForDOMMeasurements={false}
+            >
+              <textarea
+                autoCapitalize="off"
+                autoCorrect="off"
+                className="student text-editor card is-fullwidth null"
+                onChange={[Function]}
+                onInput={[Function]}
+                onKeyDown={[Function]}
+                placeholder="Type your response here"
+                spellCheck={false}
+                style={
+                  Object {
+                    "height": 0,
+                  }
+                }
+              />
+            </TextareaAutosize>
+          </RenderTextEditor>
+        </div>
+      </div>
+      <SubmitButton
+        disabled={true}
+        onClick={[Function]}
+      >
+        <div
+          className="question-button-group"
+        >
+          <button
+            className="quill-button primary contained large focus-on-light disabled"
+            disabled={true}
+            onClick={[Function]}
+            type="button"
+          >
+            Submit
+          </button>
+        </div>
+      </SubmitButton>
+    </div>
+  </div>
+</ListBlanks>
+`;

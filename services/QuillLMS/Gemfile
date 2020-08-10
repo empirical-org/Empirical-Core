@@ -70,6 +70,9 @@ gem 'intercom', '~> 3.5.23'
 gem 'haversine'
 gem 'configs'
 
+# Engines
+gem 'comprehension', path: 'engines/comprehension'
+
 # WEBSOCKETS
 gem 'pusher'
 

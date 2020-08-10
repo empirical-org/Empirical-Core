@@ -1,11 +1,9 @@
 class Cms::BlogPostsController < Cms::CmsController
   before_action :set_blog_post, only: [:update, :destroy, :edit, :show, :unpublish]
-  before_action :authors, :topics, only: [:edit, :new]
+  before_action :authors, :topics, only: [:index, :edit, :new]
 
   def index
     @blog_posts_name_and_id = BlogPost.all.map{|bp| bp.attributes.merge({'rating' => bp.average_rating})}
-    @topics = BlogPost::TOPICS
-    @student_topics = BlogPost::STUDENT_TOPICS
     #cms/blog_posts/index.html.erb
   end
 
@@ -43,6 +41,11 @@ class Cms::BlogPostsController < Cms::CmsController
     render json: {}
   end
 
+  def update_featured_order_numbers
+    JSON.parse(params[:blog_posts]).each { |bp| BlogPost.find(bp['id']).update(featured_order_number: bp['featured_order_number'])}
+    render json: {}
+  end
+
   private
 
   def authors
@@ -65,7 +68,8 @@ class Cms::BlogPostsController < Cms::CmsController
                     :published_at,
                     :center_images,
                     :image_link,
-                    :press_name
+                    :press_name,
+                    :featured_order_number
                   )
   end
 
@@ -74,7 +78,7 @@ class Cms::BlogPostsController < Cms::CmsController
   end
 
   def topics
-    @topics = BlogPost::TEACHER_TOPICS
+    @topics = BlogPost::TOPICS
     @student_topics = BlogPost::STUDENT_TOPICS
   end
 end

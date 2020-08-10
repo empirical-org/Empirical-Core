@@ -1,0 +1,34 @@
+.fill-in-the-blank {
+  .prompt {
+    input {
+      border-radius: 4px;
+      border: solid 2px #8e8e8e;
+      height: 45px;
+      box-shadow: none;
+      width: 109px;
+      margin: 0px 5px;
+      font-size: 30px;
+      line-height: 1.53;
+      text-align: center;
+      color: #000;
+      &:focus {
+        outline: none;
+      }
+      &.disabled {
+        background-color: #e5e5e5;
+        border: none;
+      }
+      &.editing:not(.error) {
+        border: solid 2px #06806b;
+      }
+      &.error {
+        border-bottom: solid 4px #b17410;
+      }
+    }
+    .disabled-button {
+      background-color: #f4f4f4;
+      border: none;
+
+    }
+  }
+}

@@ -2,73 +2,52 @@ import * as React from "react";
 import { DataTable, Error, Modal, Spinner } from 'quill-component-library/dist/componentLibrary';
 import { RouteComponentProps } from 'react-router-dom';
 import { ActivityRouteProps, TurkSessionInterface } from '../../../interfaces/comprehensionInterfaces';
+import { createTurkSession, fetchTurkSessions } from '../../../utils/comprehension/turkAPIs';
 import EditOrDeleteTurkSession from './editOrDeleteTurkSession';
+import SubmissionModal from '../shared/submissionModal';
 import "react-dates/initialize";
 import { SingleDatePicker } from 'react-dates';
 import * as moment from 'moment';
-import useSWR, { mutate } from 'swr';
+import { queryCache, useQuery } from 'react-query';
+import { getCsrfToken } from "../../../helpers/comprehension";
 
 const TurkSessions: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ match }) => {
-  const [turkSessions, setTurkSessions] = React.useState<TurkSessionInterface[]>([]);
   const [newTurkSessionDate, setNewTurkSessionDate] = React.useState<any>(null);
   const [editTurkSessionId, setEditTurkSessionId] = React.useState<string>(null);
   const [editTurkSessionDate, setEditTurkSessionDate] = React.useState<string>(null);
-  const [loading, setLoading] = React.useState<boolean>(false);
   const [focused, setFocusedState] = React.useState<boolean>(false);
   const [showSubmissionModal, setShowSubmissionModal] = React.useState<boolean>(false);
   const [showEditOrDeleteTurkSessionModal, setShowEditOrDeleteTurkSessionModal] = React.useState<boolean>(false);
-  const [loadingError, setLoadingError] = React.useState<string>('');
   const [dateError, setDateError] = React.useState<string>('');
-  const [submissionError, setSubmissionError] = React.useState<string>('');
+  const [submissionMessage, setSubmissionMessage] = React.useState<string>('');
   const { params } = match;
   const { activityId } = params;
-  const turkSessionsAPI = 'https://comprehension-247816.appspot.com/api/turking.json';
 
-  const fetchData = async () => {
-    let turkSessions: TurkSessionInterface[];
-    try {
-      setLoading(true);
-      const response = await fetch(turkSessionsAPI);
-      turkSessions = await response.json();
-    } catch (error) {
-      setLoadingError(error);
-      setLoading(false);
-    }
-    setTurkSessions(turkSessions);
-    setLoading(false);
-  };
-
-  // cache turk sessions data for updates
-  useSWR("turk-sessions", fetchData);
-
-  React.useEffect(() => {
-    fetchData();
-  }, []);
+  // get turk session data 
+  const { data } = useQuery({
+    queryKey: [`turk-sessions-${activityId}`, activityId],
+    queryFn: fetchTurkSessions
+  });
 
   const handleGenerateNewTurkSession = async () => {
     if(!newTurkSessionDate) {
       setDateError('Please choose an expiration date.')
+    } else {
+      const csrfToken = getCsrfToken();
+      createTurkSession(activityId, newTurkSessionDate, csrfToken).then((response) => {
+        const { error } = response;
+        if(error) {
+          setSubmissionMessage(error);
+        } else {
+          setSubmissionMessage('Turk session successfully created!');
+        }
+        setNewTurkSessionDate(null);
+        setDateError('');
+        setShowSubmissionModal(true);
+        // update turk sessions cache to display newly created turk session
+        queryCache.refetchQueries(`turk-sessions-${activityId}`)
+      });
     }
-    const response = await fetch(turkSessionsAPI, {
-      method: 'POST',
-      body: JSON.stringify({
-        activity_id: activityId,
-        expires_at: newTurkSessionDate.toDate()
-      }),
-      headers: {
-        "Accept": "application/JSON",
-        "Content-Type": "application/json"
-      },
-    });
-    setNewTurkSessionDate(null);
-    setDateError('');
-    // not a 2xx status
-    if(Math.round(response.status / 100) !== 2) {
-      setSubmissionError('Turk session submission failed, please try again.');
-    }
-    setShowSubmissionModal(true);
-    // update turk sessions cache to display newly created turk session
-    mutate("turk-sessions");
   }
 
   const handleEditOrDeleteTurkSession = (e: React.SyntheticEvent) => {
@@ -78,18 +57,15 @@ const TurkSessions: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ match
     setEditTurkSessionDate(value);
     setDateError('');
     setShowEditOrDeleteTurkSessionModal(true);
+    toggleSubmissionModal();
+  }
+
+  const handleEditOrDeleteMessage = (message: string) => {
+    setSubmissionMessage(message);
   }
 
   const renderSubmissionModal = () => {
-    const message = submissionError ? submissionError : 'Submission successful!';
-    return(
-      <Modal>
-        <div className="close-button-container">
-          <button className="quill-button fun primary contained" id="submission-close-button" onClick={toggleSubmissionModal} type="submit">x</button>
-        </div>
-        <p className="submission-message">{message}</p>
-      </Modal>
-    );
+    return <SubmissionModal close={toggleSubmissionModal} message={submissionMessage} />;
   }
 
   const renderEditOrDeleteTurkSessionModal = () => {
@@ -99,16 +75,17 @@ const TurkSessions: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ match
           <button className="quill-button fun primary contained" id="turk-edit-close-button" onClick={toggleEditTurkSessionModal} type="submit">x</button>
         </div>
         <EditOrDeleteTurkSession 
-          activityID={activityId} 
-          closeModal={toggleEditTurkSessionModal} 
+          activityId={activityId} 
+          closeModal={toggleEditTurkSessionModal}
           originalSessionDate={editTurkSessionDate}
-          turkSessionID={editTurkSessionId} 
+          setMessage={handleEditOrDeleteMessage}
+          turkSessionId={editTurkSessionId} 
         />
       </Modal>
     );
   }
 
-  const turkSessionsRows = turkSessions.map((turkSession: TurkSessionInterface) => {
+  const turkSessionsRows = data && data.turkSessions && data.turkSessions.map((turkSession: TurkSessionInterface) => {
     const { activity_id, expires_at, id } = turkSession;
     const url = `https://comprehension-247816.appspot.com/#/turk/${activity_id}/${id}`;
     const link = <a href={url} rel="noopener noreferrer" target="_blank">{url}</a>;
@@ -134,6 +111,7 @@ const TurkSessions: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ match
       </button>
     );
     return {
+      id: `${activity_id}-${id}`,
       link,
       expiration: moment(expires_at).format('MMMM Do, YYYY'),
       edit: editButton,
@@ -145,11 +123,14 @@ const TurkSessions: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ match
   
   const handleFocusChange = ({ focused }) => { setFocusedState(focused) };
   
-  const toggleSubmissionModal = () => { setShowSubmissionModal(!showSubmissionModal) }
+  const toggleSubmissionModal = () => { 
+    setShowSubmissionModal(!showSubmissionModal);
+    setSubmissionMessage('');
+  }
 
   const toggleEditTurkSessionModal = () => {setShowEditOrDeleteTurkSessionModal(!showEditOrDeleteTurkSessionModal)  }
 
-  if(loading) {
+  if(!data) {
     return(
       <div className="loading-spinner-container">
         <Spinner />
@@ -157,10 +138,10 @@ const TurkSessions: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ match
     );
   }
 
-  if(loadingError) {
+  if(data && data.error) {
     return(
       <div className="error-container">
-        <Error error={`${loadingError}`} />
+        <Error error={`${data.error}`} />
       </div>
     );
   }
@@ -201,7 +182,7 @@ const TurkSessions: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ match
       <DataTable
         className="turk-sessions-table"
         headers={dataTableFields}
-        rows={turkSessionsRows}
+        rows={turkSessionsRows ? turkSessionsRows : []}
       />
     </div>
   );

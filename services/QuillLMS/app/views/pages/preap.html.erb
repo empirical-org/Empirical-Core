@@ -1,0 +1,7 @@
+<% @active_tab = 'Pre-AP Activities'
+  @title = 'Pre-AP® English Practice'
+  @units = preap_content
+%>
+<%= render partial: 'pages/shared/explore_curriculum_navbar', active_tab: @active_tab  %>
+
+<%= react_component('PreAp', props: { units: @units }) %>

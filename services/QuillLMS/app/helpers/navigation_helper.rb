@@ -52,6 +52,22 @@ module NavigationHelper
     current_uri&.match(%r{assign/.*}) != nil
   end
 
+  def playing_activity?
+    activity_actions = [
+        ApplicationController::COMPREHENSION,
+        ApplicationController::PROOFREADER,
+        ApplicationController::GRAMMAR,
+        ApplicationController::LESSONS,
+        ApplicationController::DIAGNOSTIC,
+        ApplicationController::CONNECT
+    ]
+    controller.class == PagesController && activity_actions.include?(action_name)
+  end
+
+  def show_site_navigation?
+    !in_assignment_flow?
+  end
+
   # NOTE: subnavs for other pages are handled on the front end with React.
   def should_render_subnav?
     home_page_should_be_active? || classes_page_should_be_active? || student_reports_page_should_be_active?

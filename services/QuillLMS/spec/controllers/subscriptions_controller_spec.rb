@@ -31,49 +31,6 @@ describe SubscriptionsController do
       end
     end
 
-    describe '#activate_covid_subscription' do
-      context 'when the user does not have any subscriptions' do
-        let!(:user_with_no_subscriptions) { create(:user) }
-
-        before do
-          allow(controller).to receive(:current_user) { user_with_no_subscriptions }
-        end
-
-        it 'should call the create with user join on the subscription model' do
-          expect(Subscription).to receive(:create_with_user_join).with(user_with_no_subscriptions.id, { account_type: Subscription::COVID_19_SUBSCRIPTION_TYPE})
-          get :activate_covid_subscription
-        end
-      end
-
-      context 'when the user has a subscription that is not covid 19' do
-        let!(:user_with_non_covid_subscription) { create(:user) }
-        let!(:non_covid_subscription ) { Subscription.create_with_user_join(user_with_non_covid_subscription.id, account_type: 'Teacher Paid') }
-
-        before do
-          allow(controller).to receive(:current_user) { user_with_non_covid_subscription }
-        end
-
-        it 'should call the create with user join on the subscription model' do
-          expect(Subscription).to receive(:create_with_user_join).with(user_with_non_covid_subscription.id, { account_type: Subscription::COVID_19_SUBSCRIPTION_TYPE})
-          get :activate_covid_subscription
-        end
-      end
-
-      context 'when the user has a subscription that is covid 19' do
-        let!(:user_with_covid_subscription) { create(:user) }
-        let!(:covid_subscription ) { Subscription.create_with_user_join(user_with_covid_subscription.id, account_type: Subscription::COVID_19_SUBSCRIPTION_TYPE) }
-
-        before do
-          allow(controller).to receive(:current_user) { user_with_covid_subscription }
-        end
-
-        it 'should call the create with user join on the subscription model' do
-          expect(Subscription).not_to receive(:create_with_user_join).with(user_with_covid_subscription.id, { account_type: Subscription::COVID_19_SUBSCRIPTION_TYPE})
-          get :activate_covid_subscription
-        end
-      end
-    end
-
     describe "#purchaser_name" do
       context 'when subscription is not associated with current user' do
         let(:another_user) { create(:user) }

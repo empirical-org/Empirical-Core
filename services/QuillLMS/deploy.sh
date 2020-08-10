@@ -5,22 +5,25 @@ app_name="QuillLMS"
 
 case $1 in
   prod)
-    DEPLOY_GIT_REMOTE=quill-lms-prod
+    DEPLOY_GIT_BRANCH=deploy-lms-prod
+    HEROKU_APP=empirical-grammar
     URL="https://www.quill.org/"
     NR_URL="https://rpm.newrelic.com/accounts/2639113/applications/548856875"
-    if [ ${current_branch} != "master" ]
+    if [ ${current_branch} != "production" ]
     then
-      echo "You can not make a production deploy from a branch other than 'master'.  Don't forget to make sure you have the latest code pulled."
+      echo "You can not make a production deploy from a branch other than 'production'.  Don't forget to make sure you have the latest code pulled."
       exit 1
     fi
     ;;
   staging)
-    DEPLOY_GIT_REMOTE=quill-lms-staging
+    DEPLOY_GIT_BRANCH=deploy-lms-staging
+    HEROKU_APP=empirical-grammar-staging
     URL="https://staging.quill.org/"
     NR_URL="https://rpm.newrelic.com/accounts/2639113/applications/551848140"
     ;;
   sprint)
-    DEPLOY_GIT_REMOTE=quill-lms-sprint
+    DEPLOY_GIT_BRANCH=deploy-lms-sprint
+    HEROKU_APP=quill-lms-sprint
     URL="https://sprint.quill.org/"
     NR_URL="https://rpm.newrelic.com/accounts/2639113/applications/551848140"
     ;;
@@ -32,22 +35,12 @@ esac
 read -r -p "Deploy branch '$current_branch' to '$1' environment? [y/N]" response
 if [[ "$response" =~ ^([y])$ ]]
 then
-    # test out different deploy pattern on sprint
-    if [[ $1 = "sprint" ]]
-    then
-        sh ../../scripts/post_slack_deploy.sh $app_name $1 $current_branch false
-        git push origin -f ${current_branch}:deploy-lms-sprint
-        open "https://dashboard.heroku.com/apps/quill-lms-sprint/activity"
-        echo "Deploy screen opened in your browser, you can monitor from there."
-    else
-        # Slack deploy start
-        sh ../../scripts/post_slack_deploy.sh $app_name $1 $current_branch false
-        git push -f ${DEPLOY_GIT_REMOTE} ${current_branch}:master -v
-        open $URL
-        open $NR_URL
-        # Slack deploy finish
-        sh ../../scripts/post_slack_deploy.sh $app_name $1 $current_branch true
-    fi
+    sh ../../scripts/post_slack_deploy.sh $app_name $1 $current_branch false
+    git push origin -f ${current_branch}:$DEPLOY_GIT_BRANCH
+    open "https://dashboard.heroku.com/apps/$HEROKU_APP/activity"
+    open $URL
+    open $NR_URL
+    echo "Deploy screen opened in your browser, you can monitor from there."
 else
     echo "Ok, we won't deploy. Have a good day!"
 fi

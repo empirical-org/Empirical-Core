@@ -1,0 +1,21 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`WatchTeacher component renders 1`] = `
+<WatchTeacher>
+  <div
+    className="watch-teacher-container full-page-modal-container"
+  >
+    <div
+      className="watch-teacher full-page-modal"
+    >
+      <img
+        alt="An illustration of a teacher pointing to a smart board"
+        src="undefined/images/illustrations/teacher-presenting-lessons.svg"
+      />
+      <h1>
+        Watch your teacher.
+      </h1>
+    </div>
+  </div>
+</WatchTeacher>
+`;

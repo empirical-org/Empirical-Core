@@ -26,43 +26,43 @@ exports[`Activity Form component should render Activities 1`] = `
       label="Title"
       value="Could Capybaras Create Chaos?"
     />
-    <DropdownInput
-      className="flag-input"
+    <Input
+      autoComplete="on"
+      className="scored-reading-level-input"
       handleChange={[Function]}
-      isSearchable={true}
-      label="Development Stage"
-      options={
-        Array [
-          Object {
-            "label": "alpha",
-            "value": "alpha",
-          },
-          Object {
-            "label": "beta",
-            "value": "beta",
-          },
-          Object {
-            "label": "production",
-            "value": "production",
-          },
-          Object {
-            "label": "archived",
-            "value": "archived",
-          },
-        ]
-      }
-      value={
-        Object {
-          "label": "beta",
-          "value": "beta",
-        }
-      }
+      label="Scored Reading Level"
+      value="7"
     />
+    <Input
+      autoComplete="on"
+      className="target-reading-level-input"
+      handleChange={[Function]}
+      label="Target Reading Level"
+      value="7"
+    />
+    <p
+      className="text-editor-label has-text"
+    >
+      Passage
+    </p>
     <TextEditor
       ContentState={[Function]}
       EditorState={[Function]}
       handleTextChange={[Function]}
       key="passage-description"
+      text="..."
+    />
+    <p
+      className="text-editor-label has-text"
+    >
+      Max Attemps Feedback
+    </p>
+    <TextEditor
+      ContentState={[Function]}
+      EditorState={[Function]}
+      handleTextChange={[Function]}
+      key="max-attempt-feedback"
+      text="WRONG!"
     />
     <Input
       autoComplete="on"

@@ -10,37 +10,53 @@ export default class QuestionAndAnswer extends React.Component {
   }
 
   answer() {
-    if (this.state.expanded) {
-      return <div className="answer">{this.props.qa.answer}</div>
+    const { expanded } = this.state;
+    const { qa } = this.props;
+    const { answer } = qa;
+    if (expanded) {
+      return <div className="answer">{answer}</div>
     }
   }
 
   expandOrCollapseButton() {
     const { questionsAndAnswersFile } = this.props
     const { expanded } = this.state
-    let buttonText = ''
+    const files = [ 'premium', 'preap', 'ap'];
+    let innerElement;
 
-    if (questionsAndAnswersFile == 'premium') {
+    if (files.includes(questionsAndAnswersFile)) {
       const imageLink = expanded ? 'collapse.svg' : 'expand.svg'
-      buttonText = <button className="expand-collapse-button" type="button"><img alt="expand-and-collapse" src={`${process.env.CDN_URL}/images/shared/${imageLink}`} /></button>
+      innerElement = <img alt="expand-and-collapse" src={`${process.env.CDN_URL}/images/shared/${imageLink}`} />
     } else {
-      buttonText = expanded ? 'Collapse' : 'Expand'
+      innerElement = expanded ? <p>Collapse</p> : <p>Expand</p>
     }
-    return <p className="expand-or-collapse" onClick={this.toggleExpansion}>{buttonText}</p>
+    return <button className="expand-collapse-button focus-on-light" onClick={this.handleToggleExpansion} onKeyPress={this.handleKeyPress} type="button">{innerElement}</button>
   }
 
-  toggleExpansion = () => {
-    this.setState({expanded: !this.state.expanded})
+  handleKeyPress = (e) => {
+    e.preventDefault();
+    const { key } = e;
+    if(key === 'Enter') {
+      this.handleToggleExpansion();
+    }
+  }
+
+  handleToggleExpansion = () => {
+    this.setState(prevState => ({ expanded: !prevState.expanded }));
   };
 
   render() {
+    const { qa } = this.props;
+    const { question } = qa;
     return (
       <div className="qa-section">
         <div className="qa">
-          <p className="question" onClick={this.toggleExpansion}>{this.props.qa.question}</p>
+          <button className="question" onClick={this.handleToggleExpansion} tabIndex={-1} type="button">{question}</button>
           {this.answer()}
         </div>
-        {this.expandOrCollapseButton()}
+        <div>
+          {this.expandOrCollapseButton()}
+        </div>
       </div>
     )
   }

@@ -1,0 +1,15 @@
+.landing-page-html, .landing-page-html-editor {
+
+  h3 {
+    font-size: 28px;
+    margin-bottom: 20px;
+  }
+
+  p {
+    font-size: 22px;
+
+    &:last-of-type {
+      margin-bottom: 2em;
+    }
+  }
+}

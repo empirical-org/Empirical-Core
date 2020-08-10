@@ -1,0 +1,44 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Static component renders 1`] = `
+<Static
+  data={
+    Object {
+      "play": Object {
+        "html": "<p>By the end of class today, you will be able to combine sentences by:&nbsp;</p>
+<blockquote>Using <strong>and</strong> to connect two people or things doing the same action.</blockquote>
+<blockquote>Changing the <strong>action word</strong> to match the number of people or things doing the action.</blockquote>",
+      },
+      "teach": Object {
+        "script": Array [
+          Object {
+            "data": Object {
+              "body": "<p><strong>Say:</strong> Take a minute to read today’s objective out loud to your partner.</p>
+<p><em>Wait for students to finish.</em></p>
+<p><strong>Say:</strong> &nbsp;Today, you’re going to learn one way to combine sentences so that your writing is clearer and less repetitive.</p>",
+              "heading": "Introduce the objective for the lesson. ",
+            },
+            "type": "STEP-HTML",
+          },
+        ],
+        "title": "Objectives",
+      },
+    }
+  }
+>
+  <div
+    className="student-static-page-container"
+  >
+    <div
+      className="student-static-page"
+      dangerouslySetInnerHTML={
+        Object {
+          "__html": "<p>By the end of class today, you will be able to combine sentences by:&nbsp;</p>
+<blockquote>Using <strong>and</strong> to connect two people or things doing the same action.</blockquote>
+<blockquote>Changing the <strong>action word</strong> to match the number of people or things doing the action.</blockquote>",
+        }
+      }
+    />
+  </div>
+</Static>
+`;

@@ -172,6 +172,9 @@ li.premium-tab > a:hover {
     margin-bottom: 30px;
     display: flex;
     justify-content: space-between;
+    @media (max-width: 990px) {
+      flex-direction: column;
+    }
   }
   .pricing-mini {
     font-size: 15px;
@@ -616,6 +619,9 @@ li.premium-tab > a:hover {
         font-size: 20px;
         font-weight: 600;
       }
+      .question:focus {
+        outline: none !important;
+      }
       .answer {
         color: black;
         font-size: 16px;
@@ -628,13 +634,10 @@ li.premium-tab > a:hover {
         height: 24px;
         width: 24px;
       }
-      p:hover {
-        cursor: pointer;
-      }
       button {
         border: none;
-        margin-top: 14px;
         background-color: white;
+        margin-top: 14px;
       }
       .expand-or-collapse {
         align-items: center;
@@ -656,6 +659,9 @@ li.premium-tab > a:hover {
       font-weight: 600;
       text-decoration: none;
       padding: 10px 0px;
+      &.hidden {
+        display: none;
+      }
     }
   }
   @media only screen and (max-width: 600px) {
@@ -699,20 +705,5 @@ li.premium-tab > a:hover {
     width: 300px;
     padding: 24px;
     height: auto;
-  }
-}
-
-body:not(.show-focus) button.expand-collapse-button:focus {
-  outline: none;
-  border: none;
-}
-
-body:not(.show-focus) [tabindex]:focus {
-  outline: none;
-}
-
-body.show-focus {
-  .expand-collapse-button:focus {
-    border: 2px solid #e0e0e0 !important;
   }
 }

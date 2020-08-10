@@ -1,0 +1,28 @@
+@import './question.scss';
+@import './spinner.scss';
+@import './passage.scss';
+@import './modal.scss';
+@import './edit.scss';
+@import './admin.scss';
+@import './headerStyling.scss';
+@import './welcomePage.scss';
+@import "~bulma/bulma.sass";
+@import "~quill-component-library/src/styles/styles.scss";
+@import '~antd/dist/antd.css';
+
+
+body, button, input, select, textarea, {
+  font-family: adelle-sans,Arial,sans-serif;
+}
+
+.ant-layout {
+  height: 100vw;
+  background-color: #ededed;
+}
+
+button {
+  cursor: pointer;
+  &:focus {
+    outline: none;
+  }
+}

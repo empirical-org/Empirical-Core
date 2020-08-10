@@ -16,5 +16,5 @@ CarrierWave.configure do |config|
   }
 
   config.fog_directory = ENV.fetch('FOG_UPLOADS_DIRECTORY', 'quill-image-uploads')
-  config.asset_host = ENV.fetch('ASSET_HOST', "http://s3.amazonaws.com/#{config.fog_directory}")
+  config.asset_host = ENV.fetch('ASSET_HOST', "https://s3.amazonaws.com/#{config.fog_directory}")
 end
