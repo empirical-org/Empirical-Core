@@ -76,6 +76,7 @@ Completa el espacio en blanco con una de estas palabras: a, an, the. Si no se ne
                 <span>
                   <input
                     aria-label="input0"
+                    autoComplete="off"
                     className="fill-in-blank-input"
                     id="input0"
                     onChange={[Function]}
@@ -154,6 +155,7 @@ Completa el espacio en blanco con una de estas palabras: a, an, the. Si no se ne
                 <span>
                   <input
                     aria-label="input1"
+                    autoComplete="off"
                     className="fill-in-blank-input"
                     id="input1"
                     onChange={[Function]}
@@ -242,6 +244,7 @@ Completa el espacio en blanco con una de estas palabras: a, an, the. Si no se ne
               >
                 <input
                   aria-label="input0"
+                  autoComplete="off"
                   className="fill-in-blank-input"
                   id="input0"
                   key="100"
@@ -326,6 +329,7 @@ Completa el espacio en blanco con una de estas palabras: a, an, the. Si no se ne
               >
                 <input
                   aria-label="input1"
+                  autoComplete="off"
                   className="fill-in-blank-input"
                   id="input1"
                   key="101"
