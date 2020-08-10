@@ -69,7 +69,6 @@ export class PlayFillInTheBlankQuestion extends React.Component<PlayFillInTheBla
   componentDidMount() {
     const { question, } = this.props
 
-    document.addEventListener('keydown', this.handleKeyDown, true)
     this.setQuestionValues(question)
   }
 
@@ -78,17 +77,6 @@ export class PlayFillInTheBlankQuestion extends React.Component<PlayFillInTheBla
     if (nextProps.question.prompt !== question.prompt) {
       this.setQuestionValues(nextProps.question)
     }
-  }
-
-  componentWillUnmount() {
-    document.removeEventListener('keydown', this.handleKeyDown, true)
-  }
-
-  handleKeyDown = (e: KeyboardEvent) => {
-    if (e.key !== 'Enter') { return }
-
-    e.preventDefault()
-    this.handleSubmitResponse()
   }
 
   setQuestionValues = (question: Question) => {
@@ -188,6 +176,7 @@ export class PlayFillInTheBlankQuestion extends React.Component<PlayFillInTheBla
       <span key={`span${i}`}>
         <input
           aria-label={`input${i}`}
+          autoComplete="off"
           className={className}
           id={`input${i}`}
           key={i + 100}
