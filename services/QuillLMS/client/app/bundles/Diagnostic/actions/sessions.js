@@ -1,25 +1,14 @@
-import rootRef from '../libs/firebase';
 import _ from 'lodash';
 
 import { SessionApi } from '../libs/sessions_api';
 
 const C = require('../constants').default;
 
-const sessionsRef = rootRef.child('savedSessions');
-
 export default {
   get(sessionID, callback) {
     SessionApi.get(sessionID).then((session) => {
       const processedSession = processSession(session)
       callback(processedSession)
-    }).catch((error) => {
-      sessionsRef.child(sessionID).once('value', (snapshot) => {
-        if (snapshot.exists()) {
-          const session = snapshot.val();
-          const processedSession = processSession(session)
-          callback(processedSession);
-        }
-      })
     })
   },
 
@@ -31,7 +20,7 @@ export default {
   },
 
   delete(sessionID) {
-    sessionsRef.child(sessionID).remove();
+    SessionApi.remove(sessionID)
   },
 
 };
