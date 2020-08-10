@@ -291,7 +291,6 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
               const unnecessaryEditType = determineUnnecessaryEditType(stringNormalizedOriginalText, stringNormalizedCurrentText)
               if (unnecessaryEditType === UNNECESSARY_SPACE) {
                 const wordsToPush = unnecessarySpaceSplitResponse(stringNormalizedOriginalText, stringNormalizedCurrentText)
-                debugger;
                 wordsToPush.forEach(w => words.push(w))
               } else {
                 words.push(`{+${stringNormalizedOriginalText}-${displayedCurrentText}|${unnecessaryEditType}}`)
