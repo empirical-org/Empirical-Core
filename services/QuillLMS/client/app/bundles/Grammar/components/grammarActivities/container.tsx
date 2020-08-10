@@ -28,7 +28,6 @@ import QuestionComponent from './question'
 import Intro from './intro'
 import TurkCodePage from './turkCodePage'
 import LoadingSpinner from '../shared/loading_spinner'
-import TeacherPreviewMenu from '../../../Teacher/shared/teacherPreviewMenu';
 
 interface PlayGrammarContainerState {
   showTurkCode: boolean;

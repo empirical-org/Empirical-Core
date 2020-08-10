@@ -3,12 +3,21 @@ import { Layout } from "antd";
 import { Header } from "./Header";
 import {renderRoutes} from "react-router-config";
 import { routes } from "../routes";
+import TeacherPreviewMenu from '../../Teacher/components/shared/teacherPreviewMenu';
 
-export default class PageLayout extends React.Component<any, { showFocusState: boolean }> {
+interface PageLayoutState {
+  showFocusState: boolean;
+  previewShowing: boolean;
+}
+
+export default class PageLayout extends React.Component<any, PageLayoutState> {
   constructor(props: any) {
     super(props)
 
-    this.state = { showFocusState: false }
+    this.state = { 
+      showFocusState: false,
+      previewShowing: true
+    }
   }
 
   componentDidMount() {
@@ -36,14 +45,21 @@ export default class PageLayout extends React.Component<any, { showFocusState: b
     element.scrollIntoView()
   }
 
+  handleTogglePreviewMenu = () => {
+    this.setState(prevState => ({ previewShowing: !prevState.previewShowing }));
+  }
+
   render() {
-    const { showFocusState, } = this.state
+    const { showFocusState, previewShowing } = this.state
     let className = "ant-layout "
     className = showFocusState ? '' : 'hide-focus-outline'
-    const header = window.location.href.includes('play') ? <Header /> : null
+    const header = window.location.href.includes('play') ? <Header onTogglePreview={this.handleTogglePreviewMenu} previewShowing={previewShowing} /> : null
     return (
       <Layout className={className}>
         <Layout>
+          {previewShowing && <Layout.Sider>
+            <TeacherPreviewMenu onTogglePreview={this.handleTogglePreviewMenu} showPreview={previewShowing} />
+          </Layout.Sider>}
           <Layout.Content>
             <button className="skip-main" onClick={this.handleSkipToMainContentClick} type="button">Skip to main content</button>
             {header}
