@@ -323,6 +323,8 @@ Lint/SuppressedException:
 Metrics/ModuleLength:
   Enabled: true
   Max: 448
+  Exclude:
+    - 'QuillLMS/app/models/concerns/teacher.rb'
 
 Style/AsciiComments:
   Enabled: true
