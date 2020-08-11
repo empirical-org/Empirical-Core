@@ -2099,7 +2099,7 @@ exports[`ViewAsStudentModal component without a defaultClassroomId should render
               className="data-table-body"
             >
               <div
-                className="data-table-row "
+                className="data-table-row  undefined"
                 key="5204398"
               >
                 <span
@@ -4446,7 +4446,7 @@ exports[`ViewAsStudentModal component without a defaultClassroomId should render
               className="data-table-body"
             >
               <div
-                className="data-table-row "
+                className="data-table-row  undefined"
                 key="5204397"
               >
                 <span
@@ -4494,7 +4494,7 @@ exports[`ViewAsStudentModal component without a defaultClassroomId should render
                 />
               </div>
               <div
-                className="data-table-row "
+                className="data-table-row  undefined"
                 key="5204396"
               >
                 <span
@@ -4542,7 +4542,7 @@ exports[`ViewAsStudentModal component without a defaultClassroomId should render
                 />
               </div>
               <div
-                className="data-table-row "
+                className="data-table-row  undefined"
                 key="5204394"
               >
                 <span
@@ -4590,7 +4590,7 @@ exports[`ViewAsStudentModal component without a defaultClassroomId should render
                 />
               </div>
               <div
-                className="data-table-row "
+                className="data-table-row  undefined"
                 key="5204393"
               >
                 <span
