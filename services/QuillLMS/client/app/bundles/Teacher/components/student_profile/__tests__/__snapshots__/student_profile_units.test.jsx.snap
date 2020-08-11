@@ -524,7 +524,7 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                 className="data-table-body"
               >
                 <div
-                  className="data-table-row  undefined"
+                  className="data-table-row  "
                   key="41"
                 >
                   <span
@@ -585,7 +585,7 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                   />
                 </div>
                 <div
-                  className="data-table-row  undefined"
+                  className="data-table-row  "
                   key="42"
                 >
                   <span
@@ -646,7 +646,7 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                   />
                 </div>
                 <div
-                  className="data-table-row  undefined"
+                  className="data-table-row  "
                   key="43"
                 >
                   <span
@@ -1178,7 +1178,7 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                 className="data-table-body"
               >
                 <div
-                  className="data-table-row  undefined"
+                  className="data-table-row  "
                   key="1"
                 >
                   <span
@@ -1242,7 +1242,7 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                   />
                 </div>
                 <div
-                  className="data-table-row  undefined"
+                  className="data-table-row  "
                   key="2"
                 >
                   <span
@@ -1306,7 +1306,7 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                   />
                 </div>
                 <div
-                  className="data-table-row  undefined"
+                  className="data-table-row  "
                   key="10"
                 >
                   <span
@@ -1370,7 +1370,7 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                   />
                 </div>
                 <div
-                  className="data-table-row  undefined"
+                  className="data-table-row  "
                   key="3"
                 >
                   <span
@@ -1434,7 +1434,7 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                   />
                 </div>
                 <div
-                  className="data-table-row  undefined"
+                  className="data-table-row  "
                   key="4"
                 >
                   <span
@@ -1498,7 +1498,7 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                   />
                 </div>
                 <div
-                  className="data-table-row  undefined"
+                  className="data-table-row  "
                   key="6"
                 >
                   <span
@@ -1562,7 +1562,7 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                   />
                 </div>
                 <div
-                  className="data-table-row  undefined"
+                  className="data-table-row  "
                   key="7"
                 >
                   <span
@@ -1626,7 +1626,7 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                   />
                 </div>
                 <div
-                  className="data-table-row  undefined"
+                  className="data-table-row  "
                   key="8"
                 >
                   <span
@@ -1878,7 +1878,7 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                 className="data-table-body"
               >
                 <div
-                  className="data-table-row  undefined"
+                  className="data-table-row  "
                   key="9"
                 >
                   <span
@@ -1963,7 +1963,7 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                   />
                 </div>
                 <div
-                  className="data-table-row  undefined"
+                  className="data-table-row  "
                   key="5"
                 >
                   <span
@@ -2581,7 +2581,7 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                 className="data-table-body"
               >
                 <div
-                  className="data-table-row  undefined"
+                  className="data-table-row  "
                   key="41"
                 >
                   <span
@@ -2642,7 +2642,7 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                   />
                 </div>
                 <div
-                  className="data-table-row  undefined"
+                  className="data-table-row  "
                   key="42"
                 >
                   <span
@@ -2703,7 +2703,7 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                   />
                 </div>
                 <div
-                  className="data-table-row  undefined"
+                  className="data-table-row  "
                   key="43"
                 >
                   <span
@@ -3235,7 +3235,7 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                 className="data-table-body"
               >
                 <div
-                  className="data-table-row  undefined"
+                  className="data-table-row  "
                   key="1"
                 >
                   <span
@@ -3299,7 +3299,7 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                   />
                 </div>
                 <div
-                  className="data-table-row  undefined"
+                  className="data-table-row  "
                   key="2"
                 >
                   <span
@@ -3363,7 +3363,7 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                   />
                 </div>
                 <div
-                  className="data-table-row  undefined"
+                  className="data-table-row  "
                   key="10"
                 >
                   <span
@@ -3427,7 +3427,7 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                   />
                 </div>
                 <div
-                  className="data-table-row  undefined"
+                  className="data-table-row  "
                   key="3"
                 >
                   <span
@@ -3491,7 +3491,7 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                   />
                 </div>
                 <div
-                  className="data-table-row  undefined"
+                  className="data-table-row  "
                   key="4"
                 >
                   <span
@@ -3555,7 +3555,7 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                   />
                 </div>
                 <div
-                  className="data-table-row  undefined"
+                  className="data-table-row  "
                   key="6"
                 >
                   <span
@@ -3619,7 +3619,7 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                   />
                 </div>
                 <div
-                  className="data-table-row  undefined"
+                  className="data-table-row  "
                   key="7"
                 >
                   <span
@@ -3683,7 +3683,7 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                   />
                 </div>
                 <div
-                  className="data-table-row  undefined"
+                  className="data-table-row  "
                   key="8"
                 >
                   <span
@@ -3935,7 +3935,7 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                 className="data-table-body"
               >
                 <div
-                  className="data-table-row  undefined"
+                  className="data-table-row  "
                   key="9"
                 >
                   <span
@@ -4020,7 +4020,7 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                   />
                 </div>
                 <div
-                  className="data-table-row  undefined"
+                  className="data-table-row  "
                   key="5"
                 >
                   <span
@@ -4767,7 +4767,7 @@ exports[`StudentProfileUnits component should render all activities and units if
                 className="data-table-body"
               >
                 <div
-                  className="data-table-row  undefined"
+                  className="data-table-row  "
                   key="40"
                 >
                   <span
@@ -4829,7 +4829,7 @@ exports[`StudentProfileUnits component should render all activities and units if
                   />
                 </div>
                 <div
-                  className="data-table-row  undefined"
+                  className="data-table-row  "
                   key="41"
                 >
                   <span
@@ -4890,7 +4890,7 @@ exports[`StudentProfileUnits component should render all activities and units if
                   />
                 </div>
                 <div
-                  className="data-table-row  undefined"
+                  className="data-table-row  "
                   key="42"
                 >
                   <span
@@ -4951,7 +4951,7 @@ exports[`StudentProfileUnits component should render all activities and units if
                   />
                 </div>
                 <div
-                  className="data-table-row  undefined"
+                  className="data-table-row  "
                   key="43"
                 >
                   <span
@@ -5483,7 +5483,7 @@ exports[`StudentProfileUnits component should render all activities and units if
                 className="data-table-body"
               >
                 <div
-                  className="data-table-row  undefined"
+                  className="data-table-row  "
                   key="1"
                 >
                   <span
@@ -5547,7 +5547,7 @@ exports[`StudentProfileUnits component should render all activities and units if
                   />
                 </div>
                 <div
-                  className="data-table-row  undefined"
+                  className="data-table-row  "
                   key="2"
                 >
                   <span
@@ -5611,7 +5611,7 @@ exports[`StudentProfileUnits component should render all activities and units if
                   />
                 </div>
                 <div
-                  className="data-table-row  undefined"
+                  className="data-table-row  "
                   key="10"
                 >
                   <span
@@ -5675,7 +5675,7 @@ exports[`StudentProfileUnits component should render all activities and units if
                   />
                 </div>
                 <div
-                  className="data-table-row  undefined"
+                  className="data-table-row  "
                   key="3"
                 >
                   <span
@@ -5739,7 +5739,7 @@ exports[`StudentProfileUnits component should render all activities and units if
                   />
                 </div>
                 <div
-                  className="data-table-row  undefined"
+                  className="data-table-row  "
                   key="4"
                 >
                   <span
@@ -5803,7 +5803,7 @@ exports[`StudentProfileUnits component should render all activities and units if
                   />
                 </div>
                 <div
-                  className="data-table-row  undefined"
+                  className="data-table-row  "
                   key="6"
                 >
                   <span
@@ -5867,7 +5867,7 @@ exports[`StudentProfileUnits component should render all activities and units if
                   />
                 </div>
                 <div
-                  className="data-table-row  undefined"
+                  className="data-table-row  "
                   key="7"
                 >
                   <span
@@ -5931,7 +5931,7 @@ exports[`StudentProfileUnits component should render all activities and units if
                   />
                 </div>
                 <div
-                  className="data-table-row  undefined"
+                  className="data-table-row  "
                   key="8"
                 >
                   <span
@@ -6183,7 +6183,7 @@ exports[`StudentProfileUnits component should render all activities and units if
                 className="data-table-body"
               >
                 <div
-                  className="data-table-row  undefined"
+                  className="data-table-row  "
                   key="9"
                 >
                   <span
@@ -6268,7 +6268,7 @@ exports[`StudentProfileUnits component should render all activities and units if
                   />
                 </div>
                 <div
-                  className="data-table-row  undefined"
+                  className="data-table-row  "
                   key="5"
                 >
                   <span
@@ -6988,7 +6988,7 @@ exports[`StudentProfileUnits component should render only completed activities i
                 className="data-table-body"
               >
                 <div
-                  className="data-table-row  undefined"
+                  className="data-table-row  "
                   key="9"
                 >
                   <span
@@ -7073,7 +7073,7 @@ exports[`StudentProfileUnits component should render only completed activities i
                   />
                 </div>
                 <div
-                  className="data-table-row  undefined"
+                  className="data-table-row  "
                   key="5"
                 >
                   <span
@@ -7820,7 +7820,7 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                 className="data-table-body"
               >
                 <div
-                  className="data-table-row  undefined"
+                  className="data-table-row  "
                   key="40"
                 >
                   <span
@@ -7882,7 +7882,7 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                   />
                 </div>
                 <div
-                  className="data-table-row  undefined"
+                  className="data-table-row  "
                   key="41"
                 >
                   <span
@@ -7943,7 +7943,7 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                   />
                 </div>
                 <div
-                  className="data-table-row  undefined"
+                  className="data-table-row  "
                   key="42"
                 >
                   <span
@@ -8004,7 +8004,7 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                   />
                 </div>
                 <div
-                  className="data-table-row  undefined"
+                  className="data-table-row  "
                   key="43"
                 >
                   <span
@@ -8492,7 +8492,7 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                 className="data-table-body"
               >
                 <div
-                  className="data-table-row  undefined"
+                  className="data-table-row  "
                   key="1"
                 >
                   <span
@@ -8556,7 +8556,7 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                   />
                 </div>
                 <div
-                  className="data-table-row  undefined"
+                  className="data-table-row  "
                   key="2"
                 >
                   <span
@@ -8620,7 +8620,7 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                   />
                 </div>
                 <div
-                  className="data-table-row  undefined"
+                  className="data-table-row  "
                   key="10"
                 >
                   <span
@@ -8684,7 +8684,7 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                   />
                 </div>
                 <div
-                  className="data-table-row  undefined"
+                  className="data-table-row  "
                   key="3"
                 >
                   <span
@@ -8748,7 +8748,7 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                   />
                 </div>
                 <div
-                  className="data-table-row  undefined"
+                  className="data-table-row  "
                   key="4"
                 >
                   <span
@@ -8812,7 +8812,7 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                   />
                 </div>
                 <div
-                  className="data-table-row  undefined"
+                  className="data-table-row  "
                   key="6"
                 >
                   <span
@@ -8876,7 +8876,7 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                   />
                 </div>
                 <div
-                  className="data-table-row  undefined"
+                  className="data-table-row  "
                   key="7"
                 >
                   <span
@@ -8940,7 +8940,7 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                   />
                 </div>
                 <div
-                  className="data-table-row  undefined"
+                  className="data-table-row  "
                   key="8"
                 >
                   <span
@@ -9666,7 +9666,7 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                 className="data-table-body"
               >
                 <div
-                  className="data-table-row  undefined"
+                  className="data-table-row  "
                   key="40"
                 >
                   <span
@@ -9728,7 +9728,7 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                   />
                 </div>
                 <div
-                  className="data-table-row  undefined"
+                  className="data-table-row  "
                   key="41"
                 >
                   <span
@@ -9789,7 +9789,7 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                   />
                 </div>
                 <div
-                  className="data-table-row  undefined"
+                  className="data-table-row  "
                   key="42"
                 >
                   <span
@@ -9850,7 +9850,7 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                   />
                 </div>
                 <div
-                  className="data-table-row  undefined"
+                  className="data-table-row  "
                   key="43"
                 >
                   <span
@@ -10382,7 +10382,7 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                 className="data-table-body"
               >
                 <div
-                  className="data-table-row  undefined"
+                  className="data-table-row  "
                   key="1"
                 >
                   <span
@@ -10446,7 +10446,7 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                   />
                 </div>
                 <div
-                  className="data-table-row  undefined"
+                  className="data-table-row  "
                   key="2"
                 >
                   <span
@@ -10510,7 +10510,7 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                   />
                 </div>
                 <div
-                  className="data-table-row  undefined"
+                  className="data-table-row  "
                   key="10"
                 >
                   <span
@@ -10574,7 +10574,7 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                   />
                 </div>
                 <div
-                  className="data-table-row  undefined"
+                  className="data-table-row  "
                   key="3"
                 >
                   <span
@@ -10638,7 +10638,7 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                   />
                 </div>
                 <div
-                  className="data-table-row  undefined"
+                  className="data-table-row  "
                   key="4"
                 >
                   <span
@@ -10702,7 +10702,7 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                   />
                 </div>
                 <div
-                  className="data-table-row  undefined"
+                  className="data-table-row  "
                   key="6"
                 >
                   <span
@@ -10766,7 +10766,7 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                   />
                 </div>
                 <div
-                  className="data-table-row  undefined"
+                  className="data-table-row  "
                   key="7"
                 >
                   <span
@@ -10830,7 +10830,7 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                   />
                 </div>
                 <div
-                  className="data-table-row  undefined"
+                  className="data-table-row  "
                   key="8"
                 >
                   <span
@@ -11082,7 +11082,7 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                 className="data-table-body"
               >
                 <div
-                  className="data-table-row  undefined"
+                  className="data-table-row  "
                   key="9"
                 >
                   <span
@@ -11167,7 +11167,7 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                   />
                 </div>
                 <div
-                  className="data-table-row  undefined"
+                  className="data-table-row  "
                   key="5"
                 >
                   <span
@@ -11914,7 +11914,7 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                 className="data-table-body"
               >
                 <div
-                  className="data-table-row  undefined"
+                  className="data-table-row  "
                   key="40"
                 >
                   <span
@@ -11976,7 +11976,7 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                   />
                 </div>
                 <div
-                  className="data-table-row  undefined"
+                  className="data-table-row  "
                   key="41"
                 >
                   <span
@@ -12037,7 +12037,7 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                   />
                 </div>
                 <div
-                  className="data-table-row  undefined"
+                  className="data-table-row  "
                   key="42"
                 >
                   <span
@@ -12098,7 +12098,7 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                   />
                 </div>
                 <div
-                  className="data-table-row  undefined"
+                  className="data-table-row  "
                   key="43"
                 >
                   <span
@@ -12630,7 +12630,7 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                 className="data-table-body"
               >
                 <div
-                  className="data-table-row  undefined"
+                  className="data-table-row  "
                   key="1"
                 >
                   <span
@@ -12694,7 +12694,7 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                   />
                 </div>
                 <div
-                  className="data-table-row  undefined"
+                  className="data-table-row  "
                   key="2"
                 >
                   <span
@@ -12758,7 +12758,7 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                   />
                 </div>
                 <div
-                  className="data-table-row  undefined"
+                  className="data-table-row  "
                   key="10"
                 >
                   <span
@@ -12822,7 +12822,7 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                   />
                 </div>
                 <div
-                  className="data-table-row  undefined"
+                  className="data-table-row  "
                   key="3"
                 >
                   <span
@@ -12886,7 +12886,7 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                   />
                 </div>
                 <div
-                  className="data-table-row  undefined"
+                  className="data-table-row  "
                   key="4"
                 >
                   <span
@@ -12950,7 +12950,7 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                   />
                 </div>
                 <div
-                  className="data-table-row  undefined"
+                  className="data-table-row  "
                   key="6"
                 >
                   <span
@@ -13014,7 +13014,7 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                   />
                 </div>
                 <div
-                  className="data-table-row  undefined"
+                  className="data-table-row  "
                   key="7"
                 >
                   <span
@@ -13078,7 +13078,7 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                   />
                 </div>
                 <div
-                  className="data-table-row  undefined"
+                  className="data-table-row  "
                   key="8"
                 >
                   <span
@@ -13330,7 +13330,7 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                 className="data-table-body"
               >
                 <div
-                  className="data-table-row  undefined"
+                  className="data-table-row  "
                   key="9"
                 >
                   <span
@@ -13415,7 +13415,7 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                   />
                 </div>
                 <div
-                  className="data-table-row  undefined"
+                  className="data-table-row  "
                   key="5"
                 >
                   <span
