@@ -1,8 +1,5 @@
-import rootRef from '../firebase';
 import { ActionTypes } from './actionTypes'
 import { QuestionApi, GRAMMAR_QUESTION_TYPE } from '../libs/questions_api'
-const sessionsRef = rootRef.child('sessions')
-const proofreaderSessionsRef = rootRef.child('proofreaderSessions')
 import { SessionApi } from '../libs/sessions_api'
 import * as responseActions from './responses'
 import { Question } from '../interfaces/questions'
@@ -24,11 +21,6 @@ export const setSessionReducerToSavedSession = (sessionID: string) => {
   return dispatch => {
     SessionApi.get(sessionID).then((session) => {
       dispatch(handleGrammarSession(session))
-    }).catch((error) => {
-      sessionsRef.child(sessionID).once('value', (snapshot) => {
-        const session = snapshot.val()
-        dispatch(handleGrammarSession(session))
-      })
     })
   }
 }
@@ -68,12 +60,6 @@ export const startListeningToFollowUpQuestionsForProofreaderSession = (proofread
     // All sessions are stored in the same table in the LMS, so we can use the same APIs to access them
     SessionApi.get(proofreaderSessionID).then((proofreaderSession) => {
       dispatch(handleProofreaderSession(proofreaderSession, getState()))
-    }).catch((error) => {
-      proofreaderSessionsRef.child(proofreaderSessionID).on('value', (snapshot) => {
-        const proofreaderSession = snapshot.val()
-        proofreaderSessionsRef.child(proofreaderSessionID).off()
-        dispatch(handleProofreaderSession(proofreaderSession, getState()))
-      })
     })
   }
 }
@@ -180,9 +166,6 @@ export const checkAnswer = (response: string, question: Question, responses: Res
 
 export const removeSession = (sessionId: string) => {
   SessionApi.remove(sessionId)
-  // Also clean up any old Firebase sessions we might have lying around
-  sessionsRef.child(sessionId).remove()
-  proofreaderSessionsRef.child(sessionId).remove()
 }
 
 export const goToNextQuestion = () => {

@@ -738,6 +738,39 @@
     .data-table-headers {
       z-index: 7;
     }
+    .data-table-row.error.checked {
+      padding-bottom: 48px;
+      height: 94px;
+      position: relative;
+      .unacknowledged {
+        margin-top: 62px;
+        z-index: 2;
+        .dropdown {
+          margin-bottom: 6px;
+        }
+        .dropdown__control {
+          padding-bottom: 36px;
+        }
+      }
+      .inactive {
+        .dropdown__control {
+          border-bottom: 2px solid #ff0000;
+        }
+      }
+      .error-text {
+        white-space: normal;
+      }
+    }
+    .data-table-row.error.checked::after {
+      background-color: white;
+      content: '';
+      position: absolute;
+      top: 47px;
+      left: 0px;
+      right: 0px;
+      height: 46px;
+      z-index: 0;
+    }
     .show-overflow {
       overflow: visible;
     }
