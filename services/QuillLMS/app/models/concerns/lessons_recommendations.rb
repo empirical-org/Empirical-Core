@@ -27,7 +27,7 @@ module LessonsRecommendations
       ).activity_recommendations.map do |lessons_rec|
         fail_count = 0
         @activity_sessions_with_counted_concepts.each do |activity_session|
-          lessons_rec[:requirements].each do |req|
+          lessons_rec[:requirements]&.each do |req|
             if req[:noIncorrect] && activity_session[:concept_scores][req[:concept_id]]["total"] > activity_session[:concept_scores][req[:concept_id]]["correct"]
               fail_count += 1
               break
