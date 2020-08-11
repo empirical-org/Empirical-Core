@@ -13,7 +13,7 @@ module GoogleIntegration::Classroom::Main
   private
 
   def self.parse_courses(user, client)
-    raw_course_response = GoogleIntegration::Classroom::Requesters::Courses.run(client)
+    raw_course_response = GoogleIntegration::Classroom::Requesters::Courses.run(client, user)
     course_response = JSON.parse(raw_course_response.body, symbolize_names: true)
     if course_response.dig(:error, :status) == 'UNAUTHENTICATED'
       'UNAUTHENTICATED'
