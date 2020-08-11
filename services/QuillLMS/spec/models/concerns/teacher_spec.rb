@@ -422,6 +422,8 @@ describe User, type: :model do
             name: classroom.name,
             id: classroom.id,
             code: classroom.code,
+            google_classroom_id: classroom.google_classroom_id,
+            clever_id: classroom.clever_id,
             student_count: classroom.students.length,
             activity_count: classroom.activity_sessions.where(is_final_score: true).length,
             has_coteacher: classroom.coteachers.any?,

@@ -8,7 +8,8 @@ import determineUnnecessaryEditType, {
   UNNECESSARY_CHANGE,
   unnecessarySpaceMatch,
   unnecessaryAdditionMatch,
-  unnecessaryDeletionMatch
+  unnecessaryDeletionMatch,
+  unnecessarySpaceSplitResponse,
 } from '../../helpers/determineUnnecessaryEditType'
 
 describe('#unnecessarySpaceMatch', () => {
@@ -59,3 +60,47 @@ describe('#unnecessaryDeletionMatch', () => {
     expect(unnecessaryDeletionMatch('string one', 'STRING ONE').matched).toBe(false)
   });
 });
+
+describe('#unnecessarySpaceSplitResponse', () => {
+  it('returns an array with the word and an UNNECESSARY_SPACE typed error if the space is in front of the word', () => {
+    const unnecessarySpaceSplitResponseResults = unnecessarySpaceSplitResponse('One', ' One')
+    const expectedArray = [`{+- |${UNNECESSARY_SPACE}}`, 'One']
+    expect(unnecessarySpaceSplitResponseResults).toEqual(expectedArray)
+  })
+
+  it('returns an array with the word and an UNNECESSARY_SPACE typed error if the space is after the word', () => {
+    const unnecessarySpaceSplitResponseResults = unnecessarySpaceSplitResponse('One', 'One ')
+    const expectedArray = ['One', `{+- |${UNNECESSARY_SPACE}}`]
+    expect(unnecessarySpaceSplitResponseResults).toEqual(expectedArray)
+  })
+
+  it('returns an array with both parts of the word and an UNNECESSARY_SPACE typed error if the space is in the middle of the word', () => {
+    const unnecessarySpaceSplitResponseResults = unnecessarySpaceSplitResponse('One', 'On e')
+    const expectedArray = ['On', `{+- |${UNNECESSARY_SPACE}}`, 'e']
+    expect(unnecessarySpaceSplitResponseResults).toEqual(expectedArray)
+  })
+
+  it('returns an array with the word and two UNNECESSARY_SPACE typed errors if there are two spaces before the word', () => {
+    const unnecessarySpaceSplitResponseResults = unnecessarySpaceSplitResponse('One', '  One')
+    const expectedArray = [`{+- |${UNNECESSARY_SPACE}}`, `{+- |${UNNECESSARY_SPACE}}`, 'One']
+    expect(unnecessarySpaceSplitResponseResults).toEqual(expectedArray)
+  })
+
+  it('returns an array with the word and two UNNECESSARY_SPACE typed errors if there are two spaces after the word', () => {
+    const unnecessarySpaceSplitResponseResults = unnecessarySpaceSplitResponse('One', 'One  ')
+    const expectedArray = ['One', `{+- |${UNNECESSARY_SPACE}}`, `{+- |${UNNECESSARY_SPACE}}`]
+    expect(unnecessarySpaceSplitResponseResults).toEqual(expectedArray)
+  })
+
+  it('returns an array with the three parts of the word and two UNNECESSARY_SPACE typed errors if there are two spaces in the middle of the word', () => {
+    const unnecessarySpaceSplitResponseResults = unnecessarySpaceSplitResponse('One', 'O n e')
+    const expectedArray = ['O', `{+- |${UNNECESSARY_SPACE}}`, 'n', `{+- |${UNNECESSARY_SPACE}}`, 'e']
+    expect(unnecessarySpaceSplitResponseResults).toEqual(expectedArray)
+  })
+
+  it('returns an array with both parts of the word and three UNNECESSARY_SPACE typed errors if there are spaces before, after, and in the middle of the word', () => {
+    const unnecessarySpaceSplitResponseResults = unnecessarySpaceSplitResponse('One', ' On e ')
+    const expectedArray = [`{+- |${UNNECESSARY_SPACE}}`, 'On', `{+- |${UNNECESSARY_SPACE}}`, 'e', `{+- |${UNNECESSARY_SPACE}}`,]
+    expect(unnecessarySpaceSplitResponseResults).toEqual(expectedArray)
+  })
+})

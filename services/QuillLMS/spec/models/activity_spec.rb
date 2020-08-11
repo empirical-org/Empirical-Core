@@ -312,6 +312,23 @@ describe Activity, type: :model, redis: true do
     end
   end
 
+  describe '#search_results' do
+    let!(:cache_activity) { create(:activity, :production) }
+
+    it 'when cache is empty the result is an empty object' do
+      $redis.redis.flushdb
+      search_results = Activity.search_results(nil)
+      expect(search_results).to eq({})
+    end
+
+    it 'when cache exists the result is the cached object' do
+      results = '{"something": "something" }'
+      $redis.set('default_activity_search', results)
+      search_results = Activity.search_results(nil)
+      expect(search_results).to eq(JSON.parse(results))
+    end
+  end
+
   describe '#add_question' do
     let(:activity) { create(:connect_activity) }
     let(:question) { create(:question)}
