@@ -13,7 +13,7 @@ class Api::V1::ProgressReportsController < Api::ApiController
   end
 
   def district_activity_scores
-    if current_user&.admin?
+    if current_user.admin?
       serialized_district_activity_scores_json = $redis.get("SERIALIZED_DISTRICT_ACTIVITY_SCORES_FOR_#{current_user.id}")
       if serialized_district_activity_scores_json
         serialized_district_activity_scores = JSON.parse(serialized_district_activity_scores_json)
@@ -28,7 +28,7 @@ class Api::V1::ProgressReportsController < Api::ApiController
   end
 
   def district_concept_reports
-    if current_user&.admin?
+    if current_user.admin?
       serialized_district_concept_reports_json = $redis.get("SERIALIZED_DISTRICT_CONCEPT_REPORTS_FOR_#{current_user.id}")
       if serialized_district_concept_reports_json
         serialized_district_concept_reports = JSON.parse(serialized_district_concept_reports_json)
@@ -43,7 +43,7 @@ class Api::V1::ProgressReportsController < Api::ApiController
   end
 
   def district_standards_reports
-    if current_user&.admin?
+    if current_user.admin?
       serialized_district_standards_reports_json = $redis.get("SERIALIZED_DISTRICT_STANDARDS_REPORTS_FOR_#{current_user.id}")
       if serialized_district_standards_reports_json
         serialized_district_standards_reports = JSON.parse(serialized_district_standards_reports_json)
