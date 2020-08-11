@@ -1,0 +1,29 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Tooltip component should render when it is not searchable 1`] = `
+<Tooltip
+  tooltipText="I am a tooltip"
+  tooltipTriggerText="I have a lot of text"
+>
+  <span
+    className="quill-tooltip-trigger"
+    onMouseEnter={[Function]}
+    onMouseLeave={[Function]}
+  >
+    <span
+      className="undefined"
+    >
+      I have a lot of text
+    </span>
+    <span
+      className="quill-tooltip-wrapper"
+    >
+      <span
+        className="quill-tooltip"
+      >
+        I am a tooltip
+      </span>
+    </span>
+  </span>
+</Tooltip>
+`;
