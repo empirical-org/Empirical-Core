@@ -7,6 +7,7 @@ export interface ComponentProps {
   data: any,
   diagnosticID: string,
   language: string,
+  isLastQuestion: boolean,
   handleContinueClick(): void,
   translate(input: string): any
 }
@@ -28,7 +29,7 @@ class TitleCard extends Component<ComponentProps, any> {
     const { title } = data;
     const header = `${title}^header`;
     const text = `${title}^text`;
-    
+
     if(diagnosticID === 'ell') {
       return <div className="landing-page-html" dangerouslySetInnerHTML={{ __html: this.getContentHTML(), }} />;
     } else {
@@ -49,13 +50,14 @@ class TitleCard extends Component<ComponentProps, any> {
   }
 
   render() {
-    const { handleContinueClick, translate} = this.props;
+    const { handleContinueClick, translate, isLastQuestion, } = this.props;
+    const buttonText = isLastQuestion ? translate('buttons^next') : translate('buttons^continue')
 
     return (
       <div className="landing-page">
         {this.renderContent()}
         <button className="quill-button focus-on-light large contained primary" onClick={handleContinueClick} type="button">
-          {translate('buttons^continue')}
+          {buttonText}
         </button>
       </div>
     );

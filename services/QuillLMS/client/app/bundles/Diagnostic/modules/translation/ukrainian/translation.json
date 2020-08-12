@@ -2,6 +2,7 @@
     "buttons": {
         "begin": "Begin / Почати",
         "continue": "Continue / Продовжити",
+        "next": "Next / Продовжити",
         "resume": "Continue / Продовжити",
         "submit": "Submit / Надіслати"
     },
