@@ -35,7 +35,8 @@ let mockProps = {
     playDiagnostic: {
         currentQuestion: null,
         questionSet: null,
-        answeredQuestions: []
+        answeredQuestions: [],
+        unansweredQuestions: []
     },
     questions: {
         hasreceiveddata: false
@@ -60,6 +61,7 @@ describe('StudentDiagnostic Container prop-dependent component rendering', () =>
             }
         ],
         answeredQuestions: [],
+        unansweredQuestions: [],
         currentQuestion: {
             type: 'SC',
             data: {
@@ -79,9 +81,10 @@ describe('StudentDiagnostic Container prop-dependent component rendering', () =>
             },
             questions: { hasreceiveddata: true },
             sentenceFragments: { hasreceiveddata: true },
-            playDiagnostic: { 
+            playDiagnostic: {
                 questionSet: null,
-                answeredQuestions: [] 
+                answeredQuestions: [],
+                unansweredQuestions: []
             }
         });
         expect(container.find(SmartSpinner).length).toEqual(1);

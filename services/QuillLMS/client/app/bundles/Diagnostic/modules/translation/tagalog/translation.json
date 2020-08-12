@@ -2,6 +2,7 @@
     "buttons": {
         "begin": "Begin / Simulan",
         "continue": "Continue / Ipagpatuloy",
+        "next": "Next / Ipagpatuloy",
         "resume": "Continue / Ipagpatuloy",
         "submit": "Submit / I-submit"
     },

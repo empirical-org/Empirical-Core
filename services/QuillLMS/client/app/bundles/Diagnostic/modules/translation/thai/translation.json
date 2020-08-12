@@ -2,6 +2,7 @@
     "buttons": {
         "begin": "Begin / เริ่ม",
         "continue": "Continue / ดำเนินการต่อ",
+        "next": "Next / ดำเนินการต่อ",
         "resume": "Continue / ดำเนินการต่อ",
         "submit": "Submit / ส่ง"
     },
