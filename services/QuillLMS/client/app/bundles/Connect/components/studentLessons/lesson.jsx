@@ -269,6 +269,8 @@ export class Lesson extends React.Component {
     const { data, hasreceiveddata, } = lessons
     const { params } = match
     const { lessonID, } = params;
+
+    const isLastQuestion = playLesson.unansweredQuestions.length === 0
     let component;
 
     if (!(sessionInitialized && hasreceiveddata && data && data[lessonID])) {
@@ -283,6 +285,7 @@ export class Lesson extends React.Component {
             conceptsFeedback={conceptsFeedback}
             currentKey={question.key}
             dispatch={dispatch}
+            isLastQuestion={isLastQuestion}
             key={question.key}
             markIdentify={this.markIdentify}
             marking="diagnostic"
@@ -296,6 +299,7 @@ export class Lesson extends React.Component {
           <PlayFillInTheBlankQuestion
             conceptsFeedback={conceptsFeedback}
             dispatch={dispatch}
+            isLastQuestion={isLastQuestion}
             key={question.key}
             nextQuestion={this.nextQuestion}
             prefill={this.getLesson().prefill}
@@ -308,6 +312,7 @@ export class Lesson extends React.Component {
           <PlayTitleCard
             data={question}
             handleContinueClick={this.nextQuestion}
+            isLastQuestion={isLastQuestion}
           />
         )
       } else {
@@ -316,6 +321,7 @@ export class Lesson extends React.Component {
             conceptsFeedback={conceptsFeedback}
             dispatch={dispatch}
             isAdmin={false}
+            isLastQuestion={isLastQuestion}
             key={question.key}
             nextQuestion={this.nextQuestion}
             prefill={this.getLesson().prefill}

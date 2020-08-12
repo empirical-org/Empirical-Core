@@ -315,11 +315,12 @@ export class PlayFillInTheBlankQuestion extends React.Component<any, any> {
   }
 
   renderButton = () => {
-    const { nextQuestion, question, } = this.props
+    const { nextQuestion, question, isLastQuestion, } = this.props
     const { responses, } = this.state
     if (this.showNextQuestionButton()) {
+      const buttonText = isLastQuestion ? 'Next' : 'Next question'
       return (
-        <button className="quill-button focus-on-light large primary contained" onClick={nextQuestion} type="button">Next</button>
+        <button className="quill-button focus-on-light large primary contained" onClick={nextQuestion} type="button">{buttonText}</button>
       );
     } else if (responses) {
       if (question && question.attempts ? question.attempts.length > 0 : false) {
