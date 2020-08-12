@@ -170,6 +170,8 @@ export class ELLStudentDiagnostic extends React.Component {
     const { params } = match;
     const { diagnosticID } = params;
 
+    const isLastQuestion = playDiagnostic.unansweredQuestions.length === 0
+
     let component
     if (playDiagnostic.currentQuestion.type === 'SC') {
       component = (<PlayDiagnosticQuestion
@@ -201,6 +203,7 @@ export class ELLStudentDiagnostic extends React.Component {
           diagnosticID={diagnosticID}
           dispatch={dispatch}
           handleContinueClick={this.nextQuestionWithoutSaving}
+          isLastQuestion={isLastQuestion}
           key={playDiagnostic.currentQuestion.data.key}
           language={this.language()}
           translate={t}

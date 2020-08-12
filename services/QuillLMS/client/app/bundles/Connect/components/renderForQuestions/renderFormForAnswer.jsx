@@ -92,12 +92,7 @@ export default class RenderFormForAnswer extends React.Component {
     } else if (nextQuestionButton) { // if you're going to next, it is the end state
       button = nextQuestionButton;
     } else {
-      let message;
-      if (question.attempts.length) {
-        message = 'Recheck work';
-      } else {
-        message = 'Check work';
-      }
+      const message = 'Get feedback'
       button = (
         <button
           className={`quill-button focus-on-light large primary contained ${toggleDisabled}`}

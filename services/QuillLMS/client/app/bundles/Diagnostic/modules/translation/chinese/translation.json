@@ -2,6 +2,7 @@
     "buttons": {
         "begin": "Begin / 开始",
         "continue": "Continue / 继续",
+        "next": "Next / 继续",
         "resume": "Resume / 继续",
         "submit": "Submit / 提交"
     },
