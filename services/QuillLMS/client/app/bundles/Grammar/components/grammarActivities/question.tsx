@@ -213,13 +213,15 @@ export class QuestionComponent extends React.Component<QuestionProps, QuestionSt
   }
 
   renderCheckAnswerButton(): JSX.Element | void {
+    const { unansweredQuestions, } = this.props
     const { questionStatus, responses, response, } = this.state
     if (!Object.keys(responses).length) { return }
 
     const buttonClassName = "quill-button primary contained large focus-on-light"
 
     if ([CORRECTLY_ANSWERED, FINAL_ATTEMPT].includes(questionStatus)) {
-      return <button className={buttonClassName} onClick={this.handleNextProblemClick} type="submit">Next question</button>
+      const buttonText = unansweredQuestions.length === 0 ? 'Next' : 'Next question'
+      return <button className={buttonClassName} onClick={this.handleNextProblemClick} type="submit">{buttonText}</button>
     }
 
     if (!response.length || this.previousResponses().includes(response)) {

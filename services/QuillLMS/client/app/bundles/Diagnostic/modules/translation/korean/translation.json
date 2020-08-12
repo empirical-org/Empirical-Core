@@ -2,6 +2,7 @@
     "buttons": {
         "begin": "Begin / 시작",
         "continue": "Continue / 계속",
+        "next": "Next / 계속",
         "resume": "Continue / 계속",
         "submit": "Submit / 제출"
     },

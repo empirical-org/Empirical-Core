@@ -30,6 +30,12 @@
     font-size: 30px;
     line-height: 1.27;
     color: #2f2f2f;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
   }
 
   .cues {
