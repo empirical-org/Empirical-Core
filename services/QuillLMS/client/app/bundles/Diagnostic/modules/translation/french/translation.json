@@ -2,6 +2,7 @@
     "buttons": {
         "begin": "Begin / Commencer",
         "continue": "Continue / Continuer",
+        "next": "Next / Continuer",
         "resume": "Resume / Continuer",
         "submit": "Submit / Envoyer"
     },

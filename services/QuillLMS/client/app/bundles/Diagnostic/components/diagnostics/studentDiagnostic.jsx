@@ -314,6 +314,8 @@ export class StudentDiagnostic extends React.Component {
     const questionType = playDiagnostic.currentQuestion ? playDiagnostic.currentQuestion.type : ''
     let component;
 
+    const isLastQuestion = playDiagnostic.unansweredQuestions.length === 0
+
     if (!playDiagnostic.questionSet) {
       return (
         <div>
@@ -360,6 +362,7 @@ export class StudentDiagnostic extends React.Component {
             data={playDiagnostic.currentQuestion.data}
             dispatch={dispatch}
             handleContinueClick={this.nextQuestionWithoutSaving}
+            isLastQuestion={isLastQuestion}
           />
         );
       }

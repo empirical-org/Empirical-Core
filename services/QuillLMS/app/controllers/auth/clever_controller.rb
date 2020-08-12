@@ -42,7 +42,7 @@ class Auth::CleverController < ApplicationController
         url = session[ApplicationController::POST_AUTH_REDIRECT]
         session.delete(ApplicationController::POST_AUTH_REDIRECT)
         return redirect_to url
-      elsif current_user.is_new_teacher_without_school?
+      elsif current_user&.is_new_teacher_without_school?
         # then the user does not have a school and needs one
         return redirect_to '/sign-up/add-k12'
       end

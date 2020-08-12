@@ -2,6 +2,7 @@
     "buttons": {
         "begin": "Begin / شروع",
         "continue": "Continue / جاری",
+        "next": "Next / جاری",
         "resume": "Continue / جاری",
         "submit": "Submit / ارسال"
     },
