@@ -129,7 +129,6 @@
     "react-textarea-autosize": "^4.3.2",
     "react-timezone": "^2.3.0",
     "react-tooltip": "^4.1.2",
-    "react-transition-group": "^2.9.0",
     "react-wakelock": "0.0.4",
     "react-wakelock-react16": "0.0.7",
     "redux": "^3.3.1",

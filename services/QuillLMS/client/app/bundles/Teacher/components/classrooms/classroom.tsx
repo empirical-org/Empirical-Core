@@ -71,14 +71,14 @@ export default class Classroom extends React.Component<ClassroomProps, Classroom
     const { code, google_classroom_id, clever_id, } = classroom
     if (google_classroom_id) {
       return (<Tooltip
-        tooltipText="Add students by syncing with Google Classroom. No class code needed!"
+        tooltipText={`Add students by syncing with Google Classroom. Experiencing sync issues? You can add students with the class code '${code}'`}
         tooltipTriggerText="Class code: N/A"
       />)
     }
 
     if (clever_id) {
       return (<Tooltip
-        tooltipText="Add students here by adding students to Clever. No class code needed!"
+        tooltipText={`Add students through Clever. Experiencing sync issues? You can add students with the class code '${code}'`}
         tooltipTriggerText="Class code: N/A"
       />)
     }
