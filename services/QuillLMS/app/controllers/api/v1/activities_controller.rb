@@ -5,7 +5,7 @@ class Api::V1::ActivitiesController < Api::ApiController
 
   # GET
   def show
-    render json: @activity, meta: {status: 'success', message: nil, errors: nil}
+    render json: {activity: @activity, meta: {status: 'success', message: nil, errors: nil} }
   end
 
   # PATCH, PUT
