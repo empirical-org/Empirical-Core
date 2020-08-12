@@ -17,7 +17,11 @@ html {
 }
 
 body {
-  color: #3D3D3D
+  color: #3D3D3D;
+  font-family: adelle-sans, "Arial", sans-serif;
+  -moz-font-feature-settings: "ss04";
+  -webkit-font-feature-settings: "ss04";
+  font-feature-settings: "ss04";
 }
 
 #main-content {
