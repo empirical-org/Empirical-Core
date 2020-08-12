@@ -43,14 +43,14 @@ export default class ClassMini extends React.Component {
     const { code, google_classroom_id, clever_id, } = classObj
     if (google_classroom_id) {
       return (<Tooltip
-        tooltipText="Add students by syncing with Google Classroom. No class code needed!"
+        tooltipText={`Add students by syncing with Google Classroom. Experiencing sync issues? You can add students with the class code '${code}'`}
         tooltipTriggerText="Class Code: N/A"
       />)
     }
 
     if (clever_id) {
       return (<Tooltip
-        tooltipText="Add students here by adding students to Clever. No class code needed!"
+        tooltipText={`Add students through Clever. Experiencing sync issues? You can add students with the class code '${code}'`}
         tooltipTriggerText="Class Code: N/A"
       />)
     }
