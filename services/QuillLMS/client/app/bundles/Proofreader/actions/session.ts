@@ -1,7 +1,5 @@
 import uuid4 from 'uuid';
-import rootRef from '../firebase';
 import { ActionTypes } from './actionTypes'
-const sessionsRef = rootRef.child('proofreaderSessions')
 import { ConceptResultObject, WordObject } from '../interfaces/proofreaderActivities'
 import { SessionApi } from '../lib/sessions_api'
 
@@ -29,11 +27,6 @@ export const setSessionReducerToSavedSession = (sessionID: string, initialLoad?:
   return (dispatch: Function) => {
     SessionApi.get(sessionID).then((session) => {
       handleSession(session)
-    }).catch((error) => {
-      sessionsRef.child(sessionID).once('value', (snapshot: any) => {
-        const session = snapshot.val()
-        handleSession(session)
-      })
     })
   }
 }
@@ -61,6 +54,5 @@ export const setPassage = (passage: Array<Array<WordObject>>) => {
 }
 
 export const removeSession = (sessionId: string) => {
-  sessionsRef.child(sessionId).remove()
   SessionApi.remove(sessionId)
 }

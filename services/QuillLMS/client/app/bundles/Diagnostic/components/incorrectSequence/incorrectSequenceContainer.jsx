@@ -116,7 +116,7 @@ class IncorrectSequencesContainer extends Component {
           {this.renderConceptResults(val.conceptResults, key)}
         </div>
         <footer className="card-footer">
-          <a className="card-footer-item" href={`/#/admin/${path}/${questionID}/incorrect-sequences/${key}/edit`}>Edit</a>
+          <a className="card-footer-item" href={`/diagnostic/#/admin/${path}/${questionID}/incorrect-sequences/${key}/edit`}>Edit</a>
           <a className="card-footer-item" onClick={() => this.deleteSequence(key)}>Delete</a>
         </footer>
       </div>
@@ -144,7 +144,7 @@ class IncorrectSequencesContainer extends Component {
       <div>
         <div className="has-top-margin">
           <h1 className="title is-3" style={{ display: 'inline-block', }}>Incorrect Sequences</h1>
-          <a className="button is-outlined is-primary" href={`/#/admin/${path}/${questionID}/incorrect-sequences/new`} style={{ float: 'right', }}>Add Incorrect Sequence</a>
+          <a className="button is-outlined is-primary" href={`/diagnostic/#/admin/${path}/${questionID}/incorrect-sequences/new`} style={{ float: 'right', }}>Add Incorrect Sequence</a>
         </div>
         {this.renderSequenceList()}
       </div>

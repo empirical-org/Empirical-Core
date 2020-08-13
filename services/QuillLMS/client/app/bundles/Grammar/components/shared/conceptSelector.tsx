@@ -44,6 +44,7 @@ class ConceptSelector extends React.Component<ConceptSelectorProps> {
   }
 
   currentConcept() {
+    if (!this.props.concepts.data[0]) { return }
     return this.props.concepts.data[0].find(c => c.uid === this.props.currentConceptUID)
   }
 
