@@ -152,7 +152,7 @@ export class DropdownInput extends React.Component<DropdownInputProps, DropdownI
   }
 
   handleErrorAcknowledgement = () => {
-    this.setState({ errorAcknowledged: true, active: true, }, () => this.input ? this.input.focus() : null)
+    this.setState({ errorAcknowledged: true, active: true, menuIsOpen: true, }, () => this.input ? this.input.focus() : null)
   }
 
   onKeyDown = (event) => {

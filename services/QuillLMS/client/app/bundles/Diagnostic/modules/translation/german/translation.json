@@ -1,0 +1,54 @@
+{
+    "buttons": {
+        "begin": "Begin / Anfangen",
+        "continue": "Continue / Weiter",
+        "next": "Next / Weiter",
+        "resume": "Continue / Weiter",
+        "submit": "Submit / Einreichen"
+    },
+    "intro": {
+        "header": "Quill Platzdeckchen-Methode (Placemat)",
+        "text": "Du stehst kurz davor, 22 Fragen über das Schreiben von Sätzen zu beantworten. Einige der Fragen könnten sich auf Dinge beziehen, die du noch nicht gelernt hast – das ist in Ordnung! Beantworte sie einfach, so gut du kannst. Vergiss nicht, die Anweisungen für jede Frage sorgfältig zu lesen! Sobald du fertig bist, wird Quill einen Lernplan für dich erstellen."
+    },
+    "ELL Starter Fill in the Blank": {
+        "header": "Fülle die Lücken aus",
+        "text": "Jeder Satz in diesem Abschnitt hat eine, zwei oder drei Lücken. Du kannst entweder jede Lücke mit einem der Wörter aus der Liste ausfüllen oder die Lücke leer lassen, falls kein Wort benötigt wird. Gib die Wörter, die du ausgewählt hast, in die Felder ein. Vergiss nicht, deine Rechtschreibung zu überprüfen! Lass uns loslegen!"
+    },
+    "ELL Starter Halfway": {
+        "header": "Du bist schon halbwegs fertig!",
+        "text": "Großartige Arbeit, mach weiter so!"
+    },
+    "ELL Starter Questions": {
+        "header": "Fragen",
+        "text": "In diesem Abschnitt wirst du Fragen schreiben. Denke daran, dass am Ende jeder Frage ein Fragezeichen (?) stehen muss. Du schaffst das schon!"
+    },
+    "ELL Starter Sentence Combining": {
+        "header": "Sätze kombinieren",
+        "text": "Du bist fast fertig! Es sind nur noch 3 Fragen übrig. In diesem Abschnitt wirst du mehrere Sätze zu einem einzigen Satz kombinieren. Dafür wirst du ein Verbindungswort erhalten. Denke daran, dass ein Satz nur einen Punkt hat. Du hast das hier im Griff!"
+    },
+    "End: You Did it!": {
+        "header": "Du hast es geschafft!",
+        "text": "Das war schon alles! Du hast gerade die Platzdeckchen-Methode von Quill beendet. Die Ergebnisse werden an deinen Lehrer geschickt und wir fangen mit der Erstellung deines Lernplans an."
+    },
+    "completedDiagnostic": {
+        "header": "Du hast die Platzdeckchen-Methode von Quill abgeschlossen.",
+        "text": "Deine Ergebnisse werden jetzt gespeichert. Sobald diese gespeichert sind, wirst du automatisch weitergeleitet."
+    },
+    "instructions": {
+        "Fill in the blank with one of the choices.": "Fülle die Lücken mit einer der möglichen Optionen aus.",
+        "Fill in each blank with one of the choices.": "Fülle jede Lücke mit einer der möglichen Optionen aus.",
+        "Fill in the blanks with one word each.": "Fülle die Lücken mit je einem Wort aus.",
+        "Fill in the blanks with one word each. You can leave one empty.": "Fülle die Lücken mit je einem Wort aus oder lasse sie leer.",
+        "Use the joining word to combine the sentences into one sentence.": "Benutze das Verbindungswort, um Sätze zu einem einzigen Satz zu verbinden."
+    },
+    "cues": {
+        "choose one": "choose one / wähle eins",
+        "choose three": "choose three / wähle drei",
+        "choose two or three" : "choose two or three / wähle zwei oder drei",
+        "joining word": "joining word / verbindungswort"
+    },
+    "feedback": {
+        "blank": "Verwende eine der untenstehenden Optionen oder lass sie leer.",
+        "no blank": "Verwende eine der untenstehenden Optionen."
+    }
+}

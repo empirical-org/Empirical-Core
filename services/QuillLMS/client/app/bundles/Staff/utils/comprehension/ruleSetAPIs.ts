@@ -1,19 +1,18 @@
 import { ActivityRuleSetInterface, RegexRuleInterface } from '../../interfaces/comprehensionInterfaces';
-import { handleApiError } from '../../helpers/comprehension'
+import { handleApiError, apiFetch } from '../../helpers/comprehension';
 
 export const fetchRuleSets = async (key: string, activityId: string) => {
-  let rulesets: ActivityRuleSetInterface[];
-  const response = await fetch(`https://comprehension-247816.appspot.com/api/activities/${activityId}/rulesets.json/`);
-  rulesets = await response.json();
+  const response = await apiFetch(`activities/${activityId}/rule_sets`);
+  const rulesets = await response.json();
   return { 
     error: handleApiError('Failed to fetch rule sets, please refresh the page.', response), 
-    rulesets 
+    rulesets: rulesets.rule_sets || rulesets 
   };
 }
 
 export const fetchRuleSet = async (key: string, activityId: string, ruleSetId: string) => {
   let ruleset: ActivityRuleSetInterface;
-  const response = await fetch(`https://comprehension-247816.appspot.com/api/activities/${activityId}/rulesets/${ruleSetId}.json/`);
+  const response = await apiFetch(`activities/${activityId}/rule_sets/${ruleSetId}`);
   ruleset = await response.json();
   return { 
     error: handleApiError('Failed to fetch rule set, please refresh the page.', response), 
@@ -21,15 +20,12 @@ export const fetchRuleSet = async (key: string, activityId: string, ruleSetId: s
   };
 }
 
-export const createRuleSet = async (activityId: string, ruleSet: ActivityRuleSetInterface) => {
-  const { rules } = ruleSet;
-  const response = await fetch(`https://comprehension-247816.appspot.com/api/activities/${activityId}/rulesets.json/`, {
+export const createRuleSet = async (activityId: string, ruleSet: { rule_set: ActivityRuleSetInterface }) => {
+  const { rule_set } = ruleSet;
+  const { rules } = rule_set;
+  const response = await apiFetch(`activities/${activityId}/rule_sets`, {
     method: 'POST',
-    body: JSON.stringify(ruleSet),
-    headers: {
-      "Accept": "application/JSON",
-      "Content-Type": "application/json"
-    },
+    body: JSON.stringify(ruleSet)
   });
   const newRuleSet = await response.json();
   return { 
@@ -39,68 +35,59 @@ export const createRuleSet = async (activityId: string, ruleSet: ActivityRuleSet
   };
 }
 
-export const updateRuleSet = async (activityId: string, ruleSetId: string, ruleSet: ActivityRuleSetInterface) => {
-  const { rules } = ruleSet;
-  const response = await fetch(`https://comprehension-247816.appspot.com/api/activities/${activityId}/rulesets/${ruleSetId}.json/`, {
+export const updateRuleSet = async (activityId: string, ruleSetId: string, ruleSet: { rule_set: ActivityRuleSetInterface }) => {
+  const { rule_set } = ruleSet;
+  const { rules_attributes } = rule_set;
+
+  const secondResponse = await apiFetch(`activities/${activityId}/rule_sets/${ruleSetId}`, {
     method: 'PUT',
-    body: JSON.stringify(ruleSet),
-    headers: {
-      "Accept": "application/JSON",
-      "Content-Type": "application/json"
-    },
+    body: JSON.stringify(ruleSet)
   });
-  const updatedRuleSet = await response.json();
+  const updatedRuleSet = await secondResponse.json();
+
   let mergedRules: object[];
   if(updatedRuleSet) {
     mergedRules = updatedRuleSet.rules;
-    rules.forEach(rule => {
+    rules_attributes.forEach(rule => {
       // add rules without IDs for rule creation
       !rule.id && mergedRules.push(rule);
     });
   }
   return { 
-    error: handleApiError('Failed to update rule set, please try again.', response), 
+    error: handleApiError('Failed to update rule set, please try again.', secondResponse), 
     rules: updatedRuleSet && mergedRules,
     ruleSetId: updatedRuleSet && updatedRuleSet.id
   };
 }
 
 export const deleteRuleSet = async (activityId: string, ruleSetId: string) => {
-  const response = await fetch(`https://comprehension-247816.appspot.com/api/activities/${activityId}/rulesets/${ruleSetId}.json`, {
+  const response = await apiFetch(`activities/${activityId}/rule_sets/${ruleSetId}`, {
     method: 'DELETE'
   });
   return { error: handleApiError('Failed to delete rule set, please try again.', response)};
 }
 
-export const createRule = async (activityId: string, rule: RegexRuleInterface, ruleSetId: string) => {
-  const response = await fetch(`https://comprehension-247816.appspot.com/api/activities/${activityId}/rulesets/${ruleSetId}/rules.json/`, {
+export const createRule = async (rule: RegexRuleInterface, ruleSetId: string) => {
+  const response = await apiFetch(`rule_sets/${ruleSetId}/rules`, {
     method: 'POST',
-    body: JSON.stringify(rule),
-    headers: {
-      "Accept": "application/JSON",
-      "Content-Type": "application/json"
-    },
+    body: JSON.stringify(rule)
   });
   return { error: handleApiError('Failed to create rule, please try again.', response) };
 }
 
-export const updateRule = async (activityId: string, rule: RegexRuleInterface, ruleSetId: string, ruleId: number) => {
-  const response = await fetch(`https://comprehension-247816.appspot.com/api/activities/${activityId}/rulesets/${ruleSetId}/rules/${ruleId}.json/`, {
+export const updateRule = async (rule: RegexRuleInterface, ruleSetId: string, ruleId: number) => {
+  const response = await apiFetch(`rule_sets/${ruleSetId}/rules/${ruleId}`, {
     method: 'PUT',
     body: JSON.stringify({
       regex_text: rule.regex_text,
       case_sensitive: rule.case_sensitive
-    }),
-    headers: {
-      "Accept": "application/JSON",
-      "Content-Type": "application/json"
-    },
+    })
   });
   return { error: handleApiError('Failed to update rule, please try again.', response) };
 }
 
-export const deleteRule = async (activityId: string, ruleSetId: string, ruleId: number) => {
-  const response = await fetch(`https://comprehension-247816.appspot.com/api/activities/${activityId}/rulesets/${ruleSetId}/rules/${ruleId}.json`, {
+export const deleteRule = async (ruleSetId: string, ruleId: number) => {
+  const response = await apiFetch(`rule_sets/${ruleSetId}/rules/${ruleId}`, {
     method: 'DELETE'
   });
   return { error: handleApiError('Failed to delete rule, please try again.', response) };

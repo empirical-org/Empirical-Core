@@ -17,6 +17,9 @@ const ComprehensionLanding = ({ location }: RouteComponentProps) => {
   const [showSubmissionModal, setShowSubmissionModal] = React.useState<boolean>(false);
   const [error, setError] = React.useState<string>('');
 
+  const csrfToken = getCsrfToken();
+  localStorage.setItem('csrfToken', csrfToken);
+
   const checkIndexActive = () => {
     if(!location) return false;
     return pathname === '/activities' && !showCreateActivityModal;
@@ -36,8 +39,7 @@ const ComprehensionLanding = ({ location }: RouteComponentProps) => {
   }
 
   const submitActivity = (activity: ActivityInterface) => {
-    const csrfToken = getCsrfToken();
-    createActivity(activity, csrfToken).then((response) => {
+    createActivity(activity).then((response) => {
       const { error } = response;
       if(error) setError(error);
       setShowCreateActivityModal(false);

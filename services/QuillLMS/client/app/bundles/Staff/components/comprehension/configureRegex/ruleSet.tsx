@@ -3,7 +3,7 @@ import { DataTable, Error, Modal, Spinner } from 'quill-component-library/dist/c
 import { buildErrorMessage, getPromptsIcons } from '../../../helpers/comprehension';
 import { BECAUSE, BUT, SO } from '../../../../../constants/comprehension';
 import { RegexRuleInterface } from '../../../interfaces/comprehensionInterfaces';
-import { deleteRuleSet, fetchRuleSet, updateRuleSet, createRule, updateRule, deleteRule } from '../../../utils/comprehension/ruleSetAPIs';
+import { deleteRuleSet, fetchRuleSet, fetchRuleSets, updateRuleSet, createRule, updateRule, deleteRule } from '../../../utils/comprehension/ruleSetAPIs';
 import { fetchActivity } from '../../../utils/comprehension/activityAPIs';
 import RuleSetForm from './ruleSetForm';
 import SubmissionModal from '../shared/submissionModal';
@@ -21,6 +21,12 @@ const RuleSet = ({ history, match }) => {
   const { data: activityData } = useQuery({
     queryKey: [`activity-${activityId}`, activityId],
     queryFn: fetchActivity
+  });
+
+  // get cached ruleSets data to pass ruleSets count to ruleSetForm 
+  const { data: ruleSetsData } = useQuery({
+    queryKey: [`ruleSets-${activityId}`, activityId],
+    queryFn: fetchRuleSets
   });
 
   // cache ruleSet data 
@@ -99,7 +105,7 @@ const RuleSet = ({ history, match }) => {
     rules.map((rule: RegexRuleInterface, i: number) => {
       const { id } = rule;
       if(id && rulesToDelete[id]) {
-        deleteRule(activityId, ruleSetId, id).then((response) => {
+        deleteRule(ruleSetId, id).then((response) => {
           const { error } = response;
           if(error) {
             let updatedErrors = errors;
@@ -110,7 +116,7 @@ const RuleSet = ({ history, match }) => {
           queryCache.refetchQueries(`ruleSet-${ruleSetId}`);
         });
       } else if(id && rulesToUpdate[id]) {
-        updateRule(activityId, rule, ruleSetId, id).then((response) => {
+        updateRule(rule, ruleSetId, id).then((response) => {
           const { error } = response;
           if(error) {
             let updatedErrors = errors;
@@ -121,7 +127,7 @@ const RuleSet = ({ history, match }) => {
           queryCache.refetchQueries(`ruleSet-${ruleSetId}`);
         });
       } else {
-        createRule(activityId, rule, ruleSetId).then((response) => {
+        createRule(rule, ruleSetId).then((response) => {
           const { error } = response;
           if(error) {
             let updatedErrors = errors;
@@ -163,7 +169,7 @@ const RuleSet = ({ history, match }) => {
       }
       toggleShowDeleteRuleSetModal();
 
-      if(errors) {
+      if(Object.keys(errors).length) {
         toggleSubmissionModal();
       } else {
         // update ruleSets cache to remove delete ruleSet
@@ -180,6 +186,7 @@ const RuleSet = ({ history, match }) => {
           activityData={activityData && activityData.activity}
           activityRuleSet={ruleSetData && ruleSetData.ruleset} 
           closeModal={toggleShowEditRuleSetModal} 
+          ruleSetsCount={ruleSetsData && ruleSetsData.rulesets.length}
           submitRuleSet={submitRuleSet} 
         />
       </Modal>

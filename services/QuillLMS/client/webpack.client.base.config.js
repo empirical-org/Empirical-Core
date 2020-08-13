@@ -10,7 +10,9 @@ const firebaseDatabaseUrl = process.env.FIREBASE_DATABASE_URL;
 const pusherKey = process.env.PUSHER_KEY;
 const defaultUrl = process.env.DEFAULT_URL;
 const cdnUrl = process.env.CDN_URL;
-const grammarUrl = process.env.QUILL_GRAMMAR_URL || 'http://localhost:7000/#';
+const grammarUrl = process.env.QUILL_GRAMMAR_URL || 'http://localhost:3000/grammar/#';
+const lessonsWebsocketsUrl = process.env.LESSONS_WEBSOCKETS_URL || 'http://localhost:3200';
+const quillCmsUrl = process.env.QUILL_CMS || 'http://localhost:3100';
 const { join, } = require('path');
 const webpackConfigLoader = require('react-on-rails/webpackConfigLoader');
 
@@ -27,7 +29,9 @@ const basePlugins = [
       PUSHER_KEY: JSON.stringify(pusherKey),
       DEFAULT_URL: JSON.stringify(defaultUrl),
       CDN_URL: JSON.stringify(cdnUrl),
-      QUILL_GRAMMAR_URL: JSON.stringify(grammarUrl)
+      QUILL_GRAMMAR_URL: JSON.stringify(grammarUrl),
+      LESSONS_WEBSOCKETS_URL: JSON.stringify(lessonsWebsocketsUrl),
+      QUILL_CMS: JSON.stringify(quillCmsUrl)
     },
     TRACE_TURBOLINKS: devBuild,
   }),
@@ -89,6 +93,18 @@ module.exports = {
     ],
     proofreader: [
       './app/bundles/Proofreader/clientRegistration'
+    ],
+    grammar: [
+      './app/bundles/Grammar/clientRegistration'
+    ],
+    lessons: [
+      './app/bundles/Lessons/clientRegistration'
+    ],
+    connect: [
+      './app/bundles/Connect/clientRegistration'
+    ],
+    diagnostic: [
+      './app/bundles/Diagnostic/clientRegistration'
     ]
   },
   resolve: {

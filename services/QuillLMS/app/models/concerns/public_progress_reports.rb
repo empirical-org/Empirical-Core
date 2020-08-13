@@ -248,7 +248,7 @@ module PublicProgressReports
       activity_sessions = ActivitySession.includes(concept_results: :concept)
                       .where(classroom_unit_id: classroom_unit.id, is_final_score: true, activity: activity_id)
       activity_sessions_counted = activity_sessions_with_counted_concepts(activity_sessions)
-      unique_students = activity_sessions.map {|activity_session| user = activity_session.user; {id: user.id, name: user.name}}
+      unique_students = activity_sessions.map {|activity_session| user = activity_session.user; {id: user&.id, name: user&.name || "Unknown Student"}}
                                          .sort_by {|stud| stud[:name].split()[1]}
 
       recommendations = RecommendationsQuery.new(diagnostic.id).activity_recommendations.map do |activity_pack_recommendation|

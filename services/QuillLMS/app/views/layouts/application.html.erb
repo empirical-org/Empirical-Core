@@ -21,8 +21,7 @@
       <%= content_tag(:div, "<p>#{value}</p><i class='fas fa-times-circle' aria-hidden='true'></i>".html_safe, {class: "flash #{key}", onClick: "$(this).slideUp(300)"}) %>
     <% end %>
     <%= render partial: 'application/preview_student_banner' %>
-    <%= render partial: 'application/remote_learning_banner' %>
-    <%= render partial: 'application/webinar_banner' %>
+    <%= render partial: 'application/back_to_school_banner' %>
     <% if ENV['UPGRADE'] && ENV['UPGRADE_END_TIME'] && Time.now < Time.parse(ENV['UPGRADE_END_TIME'])%>
       <%= render partial: 'application/upgraded_bar' %>
     <% else %>

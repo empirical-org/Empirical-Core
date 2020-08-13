@@ -1,0 +1,54 @@
+{
+    "buttons": {
+        "begin": "Begin / 시작",
+        "continue": "Continue / 계속",
+        "next": "Next / 계속",
+        "resume": "Continue / 계속",
+        "submit": "Submit / 제출"
+    },
+    "intro": {
+        "header": "Quill 배치 활동",
+        "text": "이제부터 문장 작성에 관한 22 가지 문항에 답해야 합니다. 어떤 질문은 아직 배운 내용이 아닐 수도 있습니다. 하지만, 괜찮습니다! 최선을 다해 답하면 됩니다. 각 문제마다 질문을 반드시 주의 깊게 읽어 주세요! 모든 문항을 완료하면, Quill이 여러분을 위한 학습 계획을 작성해 드립니다."
+    },
+    "ELL Starter Fill in the Blank": {
+        "header": "빈칸을 채우세요",
+        "text": "이 섹션에서, 각 문장에는 1개, 2개 또는 3개의 공백이 있습니다. 목록에서 한 단어를 선택하여 각 빈칸을 채우세요. 들어갈 단어가 없다면, 빈칸으로 남겨 놓아도 됩니다. 상자에 들어갈 단어를 선택하여 기입하세요. 철자를 반드시 확인하세요! 이제 시작하십시오!"
+    },
+    "ELL Starter Halfway": {
+        "header": "절반가량 완료했습니다!",
+        "text": "아주 잘하고 있습니다!"
+    },
+    "ELL Starter Questions": {
+        "header": "질문",
+        "text": "이 섹션에서는 의문문을 써 보겠습니다. 의문문에는 끝에 물음표(?)가 있다는 사실을 기억하십시오. 잘할 수 있습니다!"
+    },
+    "ELL Starter Sentence Combining": {
+        "header": "문장 결합",
+        "text": "거의 끝났습니다! 이제 3개의 문항만 남았습니다. 이 섹션에서는 여러 문장을 한 문장으로 결합하면 됩니다. 연결 단어는 주어집니다. 한 문장에는 마침표가 반드시 하나임을 기억하세요. 잘할 수 있습니다!"
+    },
+    "End: You Did it!": {
+        "header": "훌륭하게 잘했습니다!",
+        "text": "전부 끝났습니다! 드디어, Quill 배치 활동을 완료했습니다. 결과는 선생님께 알려드립니다. 이제 여러분의 학습 계획을 작성하겠습니다."
+    },
+    "completedDiagnostic": {
+        "header": "Quill 배치 활동을 완료했습니다",
+        "text": "결과가 저장되었습니다. 결과가 저장되면 자동으로 리디렉션 됩니다."
+    },
+    "instructions": {
+        "Fill in the blank with one of the choices.": "하나를 선택하여 빈칸을 채우세요.",
+        "Fill in each blank with one of the choices.": "하나를 선택하여 각 빈칸을 채우세요.",
+        "Fill in the blanks with one word each.": "한 단어씩 기입하여 빈칸을 채우세요.",
+        "Fill in the blanks with one word each. You can leave one empty.": "한 단어씩 기입하여 빈칸을 채우세요. 빈칸으로 남겨 두어도 좋습니다.",
+        "Use the joining word to combine the sentences into one sentence.": "연결 단어를 이용하여 여러 문장을 한 문장으로 결합하여 주세요."
+    },
+    "cues": {
+        "choose one": "choose one / 하나를 선택하세요",
+        "choose three": "choose three / 셋을 선택하세요",
+        "choose two or three" : "choose two or three / 둘이나 셋을 택하세요",
+        "joining word": "joining word / 단어 결합"
+    },
+    "feedback": {
+        "blank": "아래 옵션 중 하나를 사용하거나 빈칸을 비워 두세요.",
+        "no blank": "아래 옵션 중 하나를 사용하세요."
+    }
+}

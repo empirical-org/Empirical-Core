@@ -24,7 +24,7 @@ exports[`AssignmentCard component should render 1`] = `
     >
       <a
         className="quill-button fun outlined secondary"
-        href="https://diagnostic.quill.org/#/play/diagnostic/-LKX2sTTnPVhTOrWyUx9"
+        href="https://quill.org/diagnostic/#/play/diagnostic/-LKX2sTTnPVhTOrWyUx9"
         target="_blank"
       >
         Preview

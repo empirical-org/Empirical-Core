@@ -101,7 +101,8 @@ export const blankActivity = {
 
 export const blankRuleSet = {
 	name: '',
-	feedback: '',
+  feedback: '',
+  priority: null,
 	rules: [], 
   prompts: []
 }

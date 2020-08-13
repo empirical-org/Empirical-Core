@@ -7,10 +7,6 @@ EmpiricalGrammar::Application.routes.draw do
     mount GraphiQL::Rails::Engine, at: "/graphiql", graphql_path: "/graphql"
   end
 
-  # temporary setup for AP landing pages
-  get '/AP' => redirect('activities/packs/193')
-  get '/ap' => redirect('activities/packs/193')
-
   post "/graphql", to: "graphql#execute"
 
   mount RailsAdmin::Engine => '/staff', as: 'rails_admin'
@@ -80,9 +76,6 @@ EmpiricalGrammar::Application.routes.draw do
   resources :subscriptions do
     member do
       get :purchaser_name
-    end
-    collection do
-      get :activate_covid_subscription
     end
   end
   resources :assessments
@@ -538,7 +531,7 @@ EmpiricalGrammar::Application.routes.draw do
     end
   end
 
-  other_pages = %w(beta ideas board press partners develop mission about faq tos privacy activities impact stats team premium teacher_resources media_kit play news home_new map firewall_info referrals_toc announcements backpack careers comprehension proofreader)
+  other_pages = %w(beta ideas board press partners develop mission about faq tos privacy activities impact stats team premium teacher_resources media_kit play news home_new map firewall_info referrals_toc announcements backpack careers comprehension proofreader grammar lessons diagnostic connect)
 
   all_pages = other_pages
   all_pages.each do |page|
@@ -658,6 +651,10 @@ EmpiricalGrammar::Application.routes.draw do
   get 'admin_demo', to: 'teachers/progress_reports#admin_demo'
   get 'preap' => 'pages#preap'
   get 'pre-ap', to: redirect('/preap')
+  get 'pre-AP', to: redirect('/preap')
+  get 'preAP', to: redirect('/preap')
+  get 'ap' => 'pages#ap'
+  get 'AP', to: redirect('/ap')
 
   get '/404' => 'errors#error_404'
   get '/500' => 'errors#error_500'

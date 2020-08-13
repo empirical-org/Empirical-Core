@@ -1,0 +1,54 @@
+{
+    "buttons": {
+        "begin": "Begin / 开始",
+        "continue": "Continue / 继续",
+        "next": "Next / 继续",
+        "resume": "Resume / 继续",
+        "submit": "Submit / 提交"
+    },
+    "intro": {
+        "header": "Quill安置活动",
+        "text": "你将要回答22个关于编写句子的问题。有些问题可能与你还没学过的东西有关——没关系！尽你所能地回答他们。不要忘记仔细阅读每个问题的说明！在你完成后，Quill会为你制定一份学习计划。"
+    },
+    "ELL Starter Fill in the Blank": {
+        "header": "填空",
+        "text": "在本节中，每个句子会有一个、两个或三个空格。你要用列表中的其中一个词语填写每个空格，或者如果不需要词语，则将空格留空。请在框中输入你选择的词语。记得检查你的拼写！我们开始吧！"
+    },
+    "ELL Starter Halfway": {
+        "header": "你已经完成一半了！",
+        "text": "继续努力吧！"
+    },
+    "ELL Starter Questions": {
+        "header": "问题",
+        "text": "在本节中，由你来编写问题。请记住，问题的末尾带有问号（？）。你能做到的！"
+    },
+    "ELL Starter Sentence Combining": {
+        "header": "句子组合",
+        "text": "你即将大功告成！只剩三个问题了。在本节中，你要把几个句子组合成一个句子。会给你一个连接词来使用。请记住，一个句子只有一个句号。你肯定没问题的！"
+    },
+    "End: You Did it!": {
+        "header": "你完成了！",
+        "text": "就是这样！你刚刚完成了Quill安置活动。结果将发送给你的老师，我们将开始制定你的学习计划。"
+    },
+    "completedDiagnostic": {
+        "header": "你已经完成了Quill安置活动",
+        "text": "现在正在保存你的结果。保存后，你会被自动重定向。"
+    },
+    "instructions": {
+        "Fill in the blank with one of the choices.": "用其中一个选项填写空格。",
+        "Fill in each blank with one of the choices.": "用其中一个选项填写每个空格。",
+        "Fill in the blanks with one word each.": "每个空格填写一个词语。",
+        "Fill in the blanks with one word each. You can leave one empty.": "每个空格填写一个词语。你可以留下一处空白",
+        "Use the joining word to combine the sentences into one sentence.": "用连接词把几个句子组合成一个句子。"
+    },
+    "cues": {
+        "choose one": "choose one / 选择一个",
+        "choose three": "choose three / 选择三个",
+        "choose two or three" : "choose two or three / 选择两个或三个",
+        "joining word": "joining word / 连接词"
+    },
+    "feedback": {
+        "blank": "使用下面的其中一个选项，或者留空。",
+        "no blank": "使用下面的其中一个选项。"
+    }
+}

@@ -11,14 +11,14 @@ exports[`PremiumMini component should render 1`] = `
       className="premium-container "
     >
       <h4>
-        Activate free Quill Premium
+        Try Premium for Free
       </h4>
       <button
         className="btn btn-orange"
         onClick={[Function]}
         type="button"
       >
-        Get Premium Free until 7/31/2020
+        Get Premium Free for 30 days
       </button>
       <p
         className="credit-card"
@@ -26,10 +26,10 @@ exports[`PremiumMini component should render 1`] = `
         No credit card required.
       </p>
       <p>
-        Due to school closures, we're offering Quill Premium free for the rest of the school year.
+        Unlock your Premium trial to save time grading and gain actionable insights.
       </p>
       <a
-        href="/subscriptions/activate_covid_subscription"
+        href="https://support.quill.org/quill-premium"
         target="_blank"
       >
         Learn more about Premium

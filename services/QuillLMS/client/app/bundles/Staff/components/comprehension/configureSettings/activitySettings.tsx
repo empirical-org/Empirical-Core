@@ -1,14 +1,14 @@
 import * as React from "react";
 import { RouteComponentProps } from 'react-router-dom';
-import { DataTable, DropdownInput, Error, Modal, Spinner } from 'quill-component-library/dist/componentLibrary';
-import { ActivityInterface, ActivityRouteProps, FlagInterface, PromptInterface } from '../../../interfaces/comprehensionInterfaces';
+import { DataTable, Error, Modal, Spinner } from 'quill-component-library/dist/componentLibrary';
+import { ActivityInterface, ActivityRouteProps } from '../../../interfaces/comprehensionInterfaces';
 import { BECAUSE, BUT, SO } from '../../../../../constants/comprehension';
 import ActivityForm from './activityForm';
 import SubmissionModal from '../shared/submissionModal';
 // import { flagOptions } from '../../../../../constants/comprehension';
 import { fetchActivity, updateActivity } from '../../../utils/comprehension/activityAPIs';
 import { queryCache, useQuery } from 'react-query'
-import { promptsByConjunction, getCsrfToken } from "../../../helpers/comprehension";
+import { promptsByConjunction } from "../../../helpers/comprehension";
 
 const ActivitySettings: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ match }) => {
 
@@ -27,8 +27,7 @@ const ActivitySettings: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ m
   });
 
   const handleUpdateActivity = (activity: ActivityInterface) => {
-    const csrfToken = getCsrfToken();
-    updateActivity(activity, activityId, csrfToken).then((response) => {
+    updateActivity(activity, activityId).then((response) => {
       const { error } = response;
       error && setError(error);
       queryCache.refetchQueries(`activity-${activityId}`)

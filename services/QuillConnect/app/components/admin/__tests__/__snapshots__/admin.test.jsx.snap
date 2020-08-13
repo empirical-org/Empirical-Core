@@ -1,5 +1,0 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
-
-exports[`adminContainer component should render with lessons sidebar when url contains lesson-view 1`] = `ReactWrapper {}`;
-
-exports[`adminContainer component should render with main sidebar when url doesn not contain lesson-view 1`] = `ReactWrapper {}`;

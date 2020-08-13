@@ -29,21 +29,9 @@ export default class PremiumPricingGuide extends React.Component {
     );
   };
 
-  renderCovidBanner() {
-    if (Date.now() >= Date.parse('7/31/2020')) { return }
-
-    return (<div className="covid-premium-banner">
-      <p>We&#39;re supporting schools impacted by closures by providing free Quill Premium access through the end of the 2019-20 school year (July 31, 2020)</p>
-      <p>
-        <a href="/subscriptions/activate_covid_subscription">Activate teacher premium</a> - <a href="https://forms.gle/ePA3C866hfKkN6BRA">Request free access to School and District Premium</a>
-      </p>
-    </div>)
-  }
-
   render() {
     return (
       <div>
-        {this.renderCovidBanner()}
         <div className="container" id="premium-pricing-guide">
           <div className="overview text-center">
             <div className="header">

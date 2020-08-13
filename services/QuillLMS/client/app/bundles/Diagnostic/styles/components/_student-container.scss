@@ -1,0 +1,71 @@
+.student-wrapper {
+  width: 100%;
+  background-color: $background;
+}
+
+.student-container {
+  @extend .container;
+  max-width: 800px;
+}
+
+
+.test-question-container .student-container {
+  margin-left: 0;
+
+}
+
+.test-question-container .student-container-inner-diagnostic {
+  position: relative;
+}
+
+.test-question-container {
+  padding: 15px;
+  // border: 2px dashed $green;
+  background-color: whitesmoke;
+  display: block;
+  width: 830px;
+  box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+}
+
+.ell-footer {
+  background-color: #ffffff;
+  height: 81px;
+  padding: 20px;
+  width: 100%;
+  .student-container {
+    display: flex;
+    height: 100%;
+    align-items: center;
+  }
+}
+
+.ell-diagnostic-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.ell-language-selector {
+  width: 148px;
+  p {
+    display: flex;
+    align-items: center;
+  }
+  img {
+    height: 21px;
+    margin-right: 10px;
+  }
+  &.input-container {
+    min-height: min-content;
+    .dropdown {
+      margin-bottom: 0px;
+    }
+  }
+  .dropdown__menu {
+    top: auto;
+    bottom: 1%;
+    margin-bottom: -20px;
+    .dropdown__menu-list {
+      max-height: 90vh;
+    }
+  }
+}

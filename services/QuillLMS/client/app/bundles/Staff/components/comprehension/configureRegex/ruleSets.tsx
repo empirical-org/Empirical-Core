@@ -4,11 +4,11 @@ import { DataTable, Error, Modal, Spinner } from 'quill-component-library/dist/c
 import RuleSetForm from './ruleSetForm';
 import SubmissionModal from '../shared/submissionModal';
 import { buildErrorMessage, getPromptsIcons } from '../../../helpers/comprehension';
-import { ActivityRouteProps, ActivityRuleSetInterface, RegexRuleInterface } from '../../../interfaces/comprehensionInterfaces';
+import { ActivityRouteProps, RegexRuleInterface } from '../../../interfaces/comprehensionInterfaces';
 import { BECAUSE, BUT, SO, blankRuleSet } from '../../../../../constants/comprehension';
 import { fetchActivity } from '../../../utils/comprehension/activityAPIs';
 import { createRule, createRuleSet, fetchRuleSets } from '../../../utils/comprehension/ruleSetAPIs';
-import { queryCache, useQuery } from 'react-query'
+import { queryCache, useQuery } from 'react-query';
 
 const RuleSets: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ match }) => {
   const { params } = match;
@@ -45,7 +45,7 @@ const RuleSets: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ match }) 
 
   const handleRuleCreation = (rules: RegexRuleInterface[], ruleSetId: string) => {
     rules.map((rule: RegexRuleInterface, i: number) => {
-      createRule(activityId, rule, ruleSetId).then((response) => {
+      createRule(rule, ruleSetId).then((response) => {
         const { error } = response;
         if(error) {
           let updatedErrors = errors;
@@ -63,7 +63,7 @@ const RuleSets: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ match }) 
         let updatedErrors = errors;
         updatedErrors['ruleSetError'] = error;
         setErrors(updatedErrors);
-      } else if(rules.length && ruleSetId) {
+      } else if(rules && rules.length && ruleSetId) {
         handleRuleCreation(rules, ruleSetId);
       }
       // update ruleSets cache to display newly created ruleSet
@@ -89,6 +89,7 @@ const RuleSets: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ match }) 
           activityData={activityData && activityData.activity}
           activityRuleSet={blankRuleSet} 
           closeModal={toggleAddRuleSetModal} 
+          ruleSetsCount={ruleSetsData && ruleSetsData.rulesets.length}
           submitRuleSet={submitRuleSet} 
         />
       </Modal>
