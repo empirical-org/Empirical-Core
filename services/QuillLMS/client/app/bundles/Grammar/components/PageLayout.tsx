@@ -3,11 +3,14 @@ import { Layout } from "antd";
 import { Header } from "./Header";
 import {renderRoutes} from "react-router-config";
 import { routes } from "../routes";
+import getParameterByName from '../helpers/getParameterByName';
 import TeacherPreviewMenu from '../../Teacher/components/shared/teacherPreviewMenu';
+import ActivityPreview from './grammarActivities/activityPreview';
 
 interface PageLayoutState {
   showFocusState: boolean;
   previewShowing: boolean;
+  questionToPreview: object;
 }
 
 export default class PageLayout extends React.Component<any, PageLayoutState> {
@@ -16,7 +19,8 @@ export default class PageLayout extends React.Component<any, PageLayoutState> {
 
     this.state = { 
       showFocusState: false,
-      previewShowing: true
+      previewShowing: true,
+      questionToPreview: null
     }
   }
 
@@ -49,24 +53,63 @@ export default class PageLayout extends React.Component<any, PageLayoutState> {
     this.setState(prevState => ({ previewShowing: !prevState.previewShowing }));
   }
 
+  handleToggleQuestion = (question: object) => {
+    console.log('question in PageLayout', question)
+    this.setState({ questionToPreview: question });
+  }
+
   render() {
-    const { showFocusState, previewShowing } = this.state
-    let className = "ant-layout "
-    className = showFocusState ? '' : 'hide-focus-outline'
-    const header = window.location.href.includes('play') ? <Header onTogglePreview={this.handleTogglePreviewMenu} previewShowing={previewShowing} /> : null
-    return (
-      <Layout className={className}>
-        <Layout>
-          {previewShowing && <Layout.Sider>
-            <TeacherPreviewMenu onTogglePreview={this.handleTogglePreviewMenu} showPreview={previewShowing} />
-          </Layout.Sider>}
-          <Layout.Content>
-            <button className="skip-main" onClick={this.handleSkipToMainContentClick} type="button">Skip to main content</button>
-            {header}
-            <div id="main-content" tabIndex={-1}>{renderRoutes(routes)}</div>
-          </Layout.Content>
+    const { showFocusState, previewShowing, questionToPreview } = this.state;
+    const studentSession = getParameterByName('student', window.location.href);
+    const isPlaying = window.location.href.includes('play');
+    const showPreview = previewShowing && isPlaying && !studentSession;
+    let className = "ant-layout ";
+    className = showFocusState ? '' : 'hide-focus-outline';
+    let header;
+
+    if(isPlaying && !studentSession) {
+      header = <Header onTogglePreview={this.handleTogglePreviewMenu} previewShowing={previewShowing} />;
+    } else if(isPlaying) {
+      header = <Header />;
+    }
+
+    if(showPreview) {
+        return (
+          <Layout className={className}>
+            <Layout>
+              <Layout.Sider className="sider-container" width={360}>
+                <TeacherPreviewMenu
+                  onTogglePreview={this.handleTogglePreviewMenu}
+                  onToggleQuestion={this.handleToggleQuestion} 
+                  showPreview={previewShowing} 
+                />
+              </Layout.Sider>
+              <Layout.Content>
+              <button className="skip-main" onClick={this.handleSkipToMainContentClick} type="button">Skip to main content</button>
+                {header}
+                <div id="main-content" tabIndex={-1}>
+                  <ActivityPreview 
+                    onTogglePreview={this.handleTogglePreviewMenu}
+                    onToggleQuestion={this.handleToggleQuestion}
+                    showPreview={previewShowing} 
+                  />
+                </div>
+              </Layout.Content>
+            </Layout>
+          </Layout>
+        );
+    } else {
+      return (
+        <Layout className={className}>
+          <Layout>
+            <Layout.Content>
+              <button className="skip-main" onClick={this.handleSkipToMainContentClick} type="button">Skip to main content</button>
+              {header}
+              <div id="main-content" tabIndex={-1}>{renderRoutes(routes)}</div>
+            </Layout.Content>
+          </Layout>
         </Layout>
-      </Layout>
-    );
+      );
+    }
   }
 };

@@ -8,4 +8,25 @@
   .header-container {
 
   }
+  section {
+    ul {
+      .question-container {
+        display: flex;
+        background-color: white;
+        border: none;
+        padding: 5px 5px 5px 13px;
+        width: 95%;
+        margin: 0px 8px 0px 8px;
+        &.highlighted {
+          background-color: #e1f3f1
+        }
+        .question-number {
+          margin-right: 15px;
+        }
+        .question-text {
+          text-align: left;
+        }
+      }
+    }
+  }
 }

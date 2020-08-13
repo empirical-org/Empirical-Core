@@ -1,14 +1,70 @@
 import * as React from "react";
+import * as Redux from "redux";
+import {connect} from "react-redux";
+import stripHtml from "string-strip-html";
+import { getActivity } from "../../../Grammar/actions/grammarActivities";
+import getParameterByName from "../../../Grammar/helpers/getParameterByName";
 
 export interface TeacherPreviewMenuProps {
+  activity: { 
+    title: string,
+    questions: {
+      key: string;
+    }[]; 
+  };
+  dispatch: Function;
   onTogglePreview: () => void;
+  onToggleQuestion: (question: object) => void;
+  questions: object;
+  session: {
+    unansweredQuestions: {
+      prompt: string;
+      uid: string;
+    }[];
+    currentQuestion: {
+      prompt: string;
+      uid: string
+    }
+  };
   showPreview: boolean;
 }
  
-const TeacherPreviewMenu: React.SFC<TeacherPreviewMenuProps> = ({ onTogglePreview, showPreview }) => {
+const TeacherPreviewMenu = ({ activity, dispatch, onTogglePreview, onToggleQuestion, questions, showPreview }: TeacherPreviewMenuProps) => {
+
+  React.useEffect(() => {  
+    const activityUID = getParameterByName('uid', window.location.href);
+    if (activityUID) {
+      dispatch(getActivity(activityUID))
+    }
+  }, []);
 
   const handleToggleMenu = () => {
     onTogglePreview();
+  }
+
+  const handleQuestionUpdate = (e: React.SyntheticEvent) => {
+    const questionUID = e.currentTarget.id;
+    const question = questions[questionUID]
+    console.log('question', question);
+    onToggleQuestion(question);
+  }
+
+  const renderQuestions = () => {
+    if(activity && questions) {
+      return activity.questions.map((question, i) => {
+        // const highlightedStyle = currentQuestion.uid === question.uid ? 'highlighted' : '';
+        const { key } = question;
+        const highlightedStyle = '';
+        return(
+          <button className={`question-container ${highlightedStyle}`} onClick={handleQuestionUpdate} id={key}>
+            <p className="question-number">{`${i + 1}.  `}</p>
+            <p className="question-text">{stripHtml(questions[key].prompt)}</p>
+          </button>
+        );
+      })
+    } else {
+      return null;
+    }
   }
 
   const hiddenStyle = !showPreview ? 'hidden' : '';
@@ -25,7 +81,7 @@ const TeacherPreviewMenu: React.SFC<TeacherPreviewMenuProps> = ({ onTogglePrevie
       </section>
       <section>
         <h2>Activity</h2>
-        <p>Although, Since, When (Intermediate) Sem Venenatis Pharetra Justo Fermentum</p>
+        <p>{activity && activity.title}</p>
       </section>
       <section>
         <h2>Introduction</h2>
@@ -34,13 +90,24 @@ const TeacherPreviewMenu: React.SFC<TeacherPreviewMenuProps> = ({ onTogglePrevie
       <section>
         <h2>Questions</h2>
         <ul>
-          <li>test question 1</li>
-          <li>test question 2</li>
-          <li>test question 3</li>
+          {renderQuestions()}
         </ul>
       </section>
     </div>
   );
 }
- 
-export default TeacherPreviewMenu;
+
+const mapStateToProps = (state: any) => {
+  return {
+    activity: state.grammarActivities ? state.grammarActivities.currentActivity : null,
+    questions: state.questions.data
+  };
+};
+
+const mapDispatchToProps = (dispatch: Redux.Dispatch<any>) => {
+  return {
+      dispatch
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(TeacherPreviewMenu);

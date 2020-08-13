@@ -21,6 +21,10 @@ body, #app {
   min-height: 100%;
   background-color: #ededed;
   font-family: adelle-sans, "Arial", sans-serif;
+  .sider-container {
+    background-color: white;
+    width: 360px;
+  }
 }
 
 button.card-footer-item {
