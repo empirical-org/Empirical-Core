@@ -6,8 +6,5 @@ Sidekiq.configure_server do |config|
 end
 
 Sidekiq.configure_client do |config|
-  Rails.application.config.after_initialize do
-    UpdateElasticsearchWorker.perform_async
-  end
   config.redis = { url: sidekiq_url }
 end

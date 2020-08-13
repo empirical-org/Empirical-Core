@@ -142,6 +142,10 @@ class ResponsesController < ApplicationController
   def edit_many
     responses = Response.where(id: params[:ids])
     responses.update_all(params[:updated_attribute].permit!.to_h)
+    # update index
+    responses.each do |response|
+      response.update_index_in_elastic_search
+    end
   end
 
   def delete_many
