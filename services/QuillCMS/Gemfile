@@ -31,7 +31,7 @@ gem 'redis-rack-cache'
 
 # Use Sidekiq for background jobs
 source "https://gems.contribsys.com/" do
-  gem 'sidekiq-pro'
+  gem 'sidekiq-pro', '>= 5.0.0'
 end
 gem 'sinatra', require: false # Used for the web-based queue management interface
 
