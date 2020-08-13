@@ -444,26 +444,32 @@ class PagesController < ApplicationController
   end
 
   def comprehension
+    allow_iframe
     @style_file = ApplicationController::COMPREHENSION
   end
 
   def proofreader
+    allow_iframe
     @style_file = ApplicationController::PROOFREADER
   end
 
   def grammar
+    allow_iframe
     @style_file = ApplicationController::GRAMMAR
   end
 
   def lessons
+    allow_iframe
     @style_file = ApplicationController::LESSONS
   end
 
   def connect
+    allow_iframe
     @style_file = ApplicationController::CONNECT
   end
-  
+
   def diagnostic
+    allow_iframe
     @style_file = ApplicationController::DIAGNOSTIC
   end
 
@@ -524,5 +530,8 @@ class PagesController < ApplicationController
     return true if session.key?(SessionsController::CLEAR_ANALYTICS_SESSION_KEY)
   end
 
+  def allow_iframe
+    response.headers.delete "X-Frame-Options"
+  end
 
 end
