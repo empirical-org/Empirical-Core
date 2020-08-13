@@ -11,7 +11,7 @@ describe UpdateElasticsearchWorker do
       expect(UpdateIndividualResponseWorker).to receive(:perform_async).with(response1.id)
       expect(UpdateIndividualResponseWorker).to receive(:perform_async).with(response2.id)
       expect(UpdateIndividualResponseWorker).not_to receive(:perform_async).with(response3.id)
-      expect(UpdateElasticsearchWorker).to receive(:perform_at).with(Date.tomorrow.midnight)
+      expect(UpdateElasticsearchWorker).to receive(:perform_at).with(Time.zone.tomorrow.end_of_day - 1.minute)
       subject.perform
     end
   end
