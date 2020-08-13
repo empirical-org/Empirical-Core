@@ -58,7 +58,7 @@ module ApplicationHelper
   end
 
   def on_sign_up?
-    current_path = request.env['PATH_INFO']
+    current_path = request.env['PATH_INFO'] || ''
 
     current_path.include?('sign-up')
   end
