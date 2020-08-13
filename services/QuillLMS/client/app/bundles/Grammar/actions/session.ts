@@ -21,6 +21,12 @@ export const setSessionReducerToSavedSession = (sessionID: string) => {
   return dispatch => {
     SessionApi.get(sessionID).then((session) => {
       dispatch(handleGrammarSession(session))
+    }).catch((error) => {
+      if (error.status === 404) {
+        dispatch(handleGrammarSession(null))
+      } else {
+        throw error
+      }
     })
   }
 }
