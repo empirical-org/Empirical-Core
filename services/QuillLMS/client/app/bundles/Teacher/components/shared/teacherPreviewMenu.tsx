@@ -16,16 +16,6 @@ export interface TeacherPreviewMenuProps {
   onTogglePreview: () => void;
   onToggleQuestion: (question: object) => void;
   questions: object;
-  session: {
-    unansweredQuestions: {
-      prompt: string;
-      uid: string;
-    }[];
-    currentQuestion: {
-      prompt: string;
-      uid: string
-    }
-  };
   showPreview: boolean;
 }
  
@@ -45,7 +35,6 @@ const TeacherPreviewMenu = ({ activity, dispatch, onTogglePreview, onToggleQuest
   const handleQuestionUpdate = (e: React.SyntheticEvent) => {
     const questionUID = e.currentTarget.id;
     const question = questions[questionUID]
-    console.log('question', question);
     onToggleQuestion(question);
   }
 
@@ -56,7 +45,7 @@ const TeacherPreviewMenu = ({ activity, dispatch, onTogglePreview, onToggleQuest
         const { key } = question;
         const highlightedStyle = '';
         return(
-          <button className={`question-container ${highlightedStyle}`} onClick={handleQuestionUpdate} id={key}>
+          <button className={`question-container ${highlightedStyle}`} id={key} key={key} onClick={handleQuestionUpdate} type="button">
             <p className="question-number">{`${i + 1}.  `}</p>
             <p className="question-text">{stripHtml(questions[key].prompt)}</p>
           </button>

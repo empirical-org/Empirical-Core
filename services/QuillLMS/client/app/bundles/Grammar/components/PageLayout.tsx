@@ -5,7 +5,6 @@ import {renderRoutes} from "react-router-config";
 import { routes } from "../routes";
 import getParameterByName from '../helpers/getParameterByName';
 import TeacherPreviewMenu from '../../Teacher/components/shared/teacherPreviewMenu';
-import ActivityPreview from './grammarActivities/activityPreview';
 
 interface PageLayoutState {
   showFocusState: boolean;
@@ -54,7 +53,6 @@ export default class PageLayout extends React.Component<any, PageLayoutState> {
   }
 
   handleToggleQuestion = (question: object) => {
-    console.log('question in PageLayout', question)
     this.setState({ questionToPreview: question });
   }
 
@@ -72,32 +70,25 @@ export default class PageLayout extends React.Component<any, PageLayoutState> {
     } else if(isPlaying) {
       header = <Header />;
     }
-
     if(showPreview) {
-        return (
-          <Layout className={className}>
-            <Layout>
-              <Layout.Sider className="sider-container" width={360}>
-                <TeacherPreviewMenu
-                  onTogglePreview={this.handleTogglePreviewMenu}
-                  onToggleQuestion={this.handleToggleQuestion} 
-                  showPreview={previewShowing} 
-                />
-              </Layout.Sider>
-              <Layout.Content>
+      return(
+        <Layout className={className}>
+          <Layout>
+            <Layout.Sider className="sider-container" width={360}>
+              <TeacherPreviewMenu
+                onTogglePreview={this.handleTogglePreviewMenu}
+                onToggleQuestion={this.handleToggleQuestion} 
+                showPreview={previewShowing} 
+              />
+            </Layout.Sider>
+            <Layout.Content>
               <button className="skip-main" onClick={this.handleSkipToMainContentClick} type="button">Skip to main content</button>
-                {header}
-                <div id="main-content" tabIndex={-1}>
-                  <ActivityPreview 
-                    onTogglePreview={this.handleTogglePreviewMenu}
-                    onToggleQuestion={this.handleToggleQuestion}
-                    showPreview={previewShowing} 
-                  />
-                </div>
-              </Layout.Content>
-            </Layout>
+              {header}
+              <div id="main-content" tabIndex={-1}>{renderRoutes(routes, {previewMode: previewShowing, questionToPreview: questionToPreview})}</div>
+            </Layout.Content>
           </Layout>
-        );
+        </Layout>
+      );
     } else {
       return (
         <Layout className={className}>
@@ -105,7 +96,7 @@ export default class PageLayout extends React.Component<any, PageLayoutState> {
             <Layout.Content>
               <button className="skip-main" onClick={this.handleSkipToMainContentClick} type="button">Skip to main content</button>
               {header}
-              <div id="main-content" tabIndex={-1}>{renderRoutes(routes)}</div>
+              <div id="main-content" tabIndex={-1}>{renderRoutes(routes, {previewMode: previewShowing, questionToPreview: questionToPreview})}</div>
             </Layout.Content>
           </Layout>
         </Layout>

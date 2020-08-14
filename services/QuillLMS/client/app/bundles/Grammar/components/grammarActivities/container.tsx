@@ -41,6 +41,8 @@ interface PlayGrammarContainerProps {
   conceptsFeedback: ConceptsFeedbackState;
   session: SessionState;
   dispatch: Function;
+  previewMode: boolean;
+  questionToPreview: Question;
 }
 
 export class PlayGrammarContainer extends React.Component<PlayGrammarContainerProps, PlayGrammarContainerState> {
@@ -215,7 +217,7 @@ export class PlayGrammarContainer extends React.Component<PlayGrammarContainerPr
       const proofreaderSessionId = getParameterByName('proofreaderSessionId', window.location.href)
 
       const { showTurkCode, saving, } = this.state
-      const { grammarActivities, session, concepts, conceptsFeedback, } = this.props
+      const { grammarActivities, session, concepts, conceptsFeedback, previewMode, questionToPreview } = this.props
 
       if (showTurkCode) {
         return <TurkCodePage />
@@ -229,14 +231,20 @@ export class PlayGrammarContainer extends React.Component<PlayGrammarContainerPr
             checkAnswer={this.checkAnswer}
             concepts={concepts}
             conceptsFeedback={conceptsFeedback}
-            currentQuestion={session.currentQuestion}
+            currentQuestion={questionToPreview ? questionToPreview : session.currentQuestion}
             goToNextQuestion={this.goToNextQuestion}
             key={session.currentQuestion.key}
+            previewMode={previewMode}
+            questionToPreview={questionToPreview}
             unansweredQuestions={session.unansweredQuestions}
           />)
         }
         if (saving) { return <LoadingSpinner /> }
-        return <Intro activity={grammarActivities ? grammarActivities.currentActivity : null} session={session} startActivity={this.goToNextQuestion} />
+        if(previewMode) {
+          this.goToNextQuestion();
+        } else {
+          return <Intro activity={grammarActivities ? grammarActivities.currentActivity : null} session={session} startActivity={this.goToNextQuestion} />
+        }
       }
 
       if (session.error) {
