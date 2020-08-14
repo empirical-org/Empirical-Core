@@ -7,6 +7,11 @@ describe UpdateElasticsearchWorker do
     let(:response1) { create(:response, id: 1) }
     let(:response2) { create(:response) }
     let(:response3) { create(:response, created_at: Date.yesterday, updated_at: Date.yesterday)}
+
+    before(:all) do
+      Sidekiq::ScheduledSet.new.clear
+    end
+
     it 'should spawn UpdateIndividualResponseWorker for today responses and schedule self for next day' do
       Sidekiq::ScheduledSet.new.clear
       expect(UpdateIndividualResponseWorker).to receive(:perform_async).with(response1.id)
