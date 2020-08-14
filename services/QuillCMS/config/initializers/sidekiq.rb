@@ -8,6 +8,6 @@ end
 Sidekiq.configure_client do |config|
   config.redis = { url: sidekiq_url }
   Rails.application.config.after_initialize do
-    UpdateElasticsearchWorker.perform_at(Time.zone.now.end_of_day - 1.minute)
+    UpdateElasticsearchWorker.perform_at(Time.zone.now.end_of_day - 1.minute, Time.zone.now.end_of_day - 1.minute) unless UpdateElasticsearchWorker.new.scheduled?
   end
 end
