@@ -45,4 +45,17 @@
     display: flex;
     justify-content: flex-end;
   }
+
+  @media (min-width: 768px) {
+    width: 100%;
+  }
+  @media (min-width: 690) {
+    display: none;
+  }
+}
+
+.quill-tooltip:not(.visible) {
+  opacity: 0;
+  transition: opacity 0s;
+  height: 0px;
 }

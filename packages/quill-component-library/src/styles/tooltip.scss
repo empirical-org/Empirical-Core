@@ -8,6 +8,7 @@
 .quill-tooltip:not(.visible) {
   opacity: 0;
   transition: opacity 0s;
+  height: 0px;
 }
 
 .quill-tooltip-wrapper {
