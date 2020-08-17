@@ -25,6 +25,7 @@ interface QuestionProps {
   concepts: any;
   previewMode: boolean;
   questionToPreview: Question;
+  handleToggleQuestion: (question: Question) => void;
 }
 
 interface QuestionState {

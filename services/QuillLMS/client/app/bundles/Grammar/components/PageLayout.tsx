@@ -49,6 +49,10 @@ export default class PageLayout extends React.Component<any, PageLayoutState> {
   }
 
   handleTogglePreviewMenu = () => {
+    const { previewShowing } = this.state;
+    if(previewShowing) {
+      this.setState({ questionToPreview: null });
+    }
     this.setState(prevState => ({ previewShowing: !prevState.previewShowing }));
   }
 
@@ -84,7 +88,11 @@ export default class PageLayout extends React.Component<any, PageLayoutState> {
             <Layout.Content>
               <button className="skip-main" onClick={this.handleSkipToMainContentClick} type="button">Skip to main content</button>
               {header}
-              <div id="main-content" tabIndex={-1}>{renderRoutes(routes, {previewMode: previewShowing, questionToPreview: questionToPreview})}</div>
+              <div id="main-content" tabIndex={-1}>{renderRoutes(routes, {
+                handleToggleQuestion: this.handleToggleQuestion, 
+                previewMode: previewShowing, 
+                questionToPreview: questionToPreview
+              })}</div>
             </Layout.Content>
           </Layout>
         </Layout>
@@ -96,7 +104,7 @@ export default class PageLayout extends React.Component<any, PageLayoutState> {
             <Layout.Content>
               <button className="skip-main" onClick={this.handleSkipToMainContentClick} type="button">Skip to main content</button>
               {header}
-              <div id="main-content" tabIndex={-1}>{renderRoutes(routes, {previewMode: previewShowing, questionToPreview: questionToPreview})}</div>
+              <div id="main-content" tabIndex={-1}>{renderRoutes(routes, {previewMode: previewShowing})}</div>
             </Layout.Content>
           </Layout>
         </Layout>

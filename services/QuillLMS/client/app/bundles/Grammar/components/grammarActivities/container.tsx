@@ -43,6 +43,8 @@ interface PlayGrammarContainerProps {
   dispatch: Function;
   previewMode: boolean;
   questionToPreview: Question;
+  questions: Question[];
+  handleToggleQuestion: (question: Question) => void;
 }
 
 export class PlayGrammarContainer extends React.Component<PlayGrammarContainerProps, PlayGrammarContainerState> {
@@ -79,7 +81,8 @@ export class PlayGrammarContainer extends React.Component<PlayGrammarContainerPr
     }
 
     UNSAFE_componentWillReceiveProps(nextProps: PlayGrammarContainerProps) {
-      const { dispatch, session, } = this.props
+      const { previewMode, questions, questionToPreview } = nextProps;
+      const { dispatch, handleToggleQuestion, session, } = this.props
       if (nextProps.grammarActivities.hasreceiveddata && nextProps.grammarActivities.currentActivity && !nextProps.session.hasreceiveddata && !nextProps.session.pending && !nextProps.session.error) {
         const { questions, concepts, flag } = nextProps.grammarActivities.currentActivity
         if (questions && questions.length) {
@@ -99,6 +102,11 @@ export class PlayGrammarContainer extends React.Component<PlayGrammarContainerPr
       const sessionID = getParameterByName('student', window.location.href)
       if (sessionID && !_.isEqual(nextProps.session, session) && !nextProps.session.pending) {
         updateSession(sessionID, nextProps.session)
+      }
+      if(previewMode && questions && nextProps.session.currentQuestion && !questionToPreview) {
+        const uid = nextProps.session.currentQuestion.uid;
+        const question = questions[uid];
+        handleToggleQuestion(question);
       }
 
     }
@@ -217,7 +225,7 @@ export class PlayGrammarContainer extends React.Component<PlayGrammarContainerPr
       const proofreaderSessionId = getParameterByName('proofreaderSessionId', window.location.href)
 
       const { showTurkCode, saving, } = this.state
-      const { grammarActivities, session, concepts, conceptsFeedback, previewMode, questionToPreview } = this.props
+      const { grammarActivities, session, concepts, conceptsFeedback, previewMode, questionToPreview, handleToggleQuestion } = this.props
 
       if (showTurkCode) {
         return <TurkCodePage />
@@ -233,6 +241,7 @@ export class PlayGrammarContainer extends React.Component<PlayGrammarContainerPr
             conceptsFeedback={conceptsFeedback}
             currentQuestion={questionToPreview ? questionToPreview : session.currentQuestion}
             goToNextQuestion={this.goToNextQuestion}
+            handleToggleQuestion={handleToggleQuestion}
             key={session.currentQuestion.key}
             previewMode={previewMode}
             questionToPreview={questionToPreview}
@@ -262,7 +271,8 @@ const mapStateToProps = (state: any) => {
         grammarActivities: state.grammarActivities,
         session: state.session,
         conceptsFeedback: state.conceptsFeedback,
-        concepts: state.concepts
+        concepts: state.concepts,
+        questions: state.questions.data
     };
 };
 

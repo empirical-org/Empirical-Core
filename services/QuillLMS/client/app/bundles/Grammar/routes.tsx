@@ -8,7 +8,13 @@ import Admin from "./components/admin/admin";
 export const routes: RouteConfig[] = [
     {
       path: "/play/sw",
-      component: (props: any) => (<PlayGrammar questionToPreview={props.questionToPreview} previewMode={props.previewMode}/>)
+      component: (props: any) => (
+        <PlayGrammar 
+          handleToggleQuestion={props.handleToggleQuestion} 
+          previewMode={props.previewMode} 
+          questionToPreview={props.questionToPreview} 
+        />
+      )
     },
     {
       path: "/admin",
