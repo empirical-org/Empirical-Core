@@ -370,16 +370,11 @@
   }
 }
 
-.lessons-list {
-  @media (max-width: 700px) {
-    display: none;
-  }
-  height: 270px;
+.lessons-list, #recently-assigned-diagnostics-card {
+  height: 282px;
   margin-bottom: 40px;
   .inner-container {
-    padding: 0 20 8 20px;
     border: 1px solid #cecece;
-    max-width: 638px;
     height: 270px;
     margin: auto;
     background-color: #ffffff;
@@ -395,6 +390,16 @@
       font-size: 14px;
       color: #027360;
     }
+  }
+}
+
+.lessons-list {
+  @media (max-width: 700px) {
+    display: none;
+  }
+  .inner-container {
+    padding: 0 20 8 20px;
+    max-width: 638px;
   }
   .image-container {
     width: 36px;

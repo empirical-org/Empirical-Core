@@ -27,6 +27,7 @@ interface DataTableHeader {
   width: string;
   name: string;
   attribute: string;
+  noTooltip?: boolean;
   rowSectionClassName?: string;
   headerClassName?: string;
   isSortable?: boolean;

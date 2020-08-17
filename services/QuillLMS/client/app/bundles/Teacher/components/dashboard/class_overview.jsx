@@ -62,10 +62,10 @@ export default class ClassOverview extends React.Component {
     return (
       <div className="row">
         {this.teacherGuide()}
-        {this.diagnosticMini()}
-        {this.lessonsList()}
         {this.collegeBoardMini()}
+        {this.diagnosticMini()}
         {this.hasPremium()}
+        {this.lessonsList()}
         {this.overviewMinis()}
         <NotificationFeed notifications={this.props.notifications} />
       </div>

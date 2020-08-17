@@ -1,0 +1,36 @@
+#dashboard #recently-assigned-diagnostics-card {
+  border-bottom: none;
+
+  button {
+    height: initial; // in place to override the #dashboard button rule
+  }
+
+  .inner-container {
+    padding: 0px;
+  }
+
+  .header-container {
+    border-bottom: none;
+    padding: 0px 16px;
+  }
+
+  .data-table-headers {
+    padding: 0px;
+    margin-right: 8px;
+    margin-left: 16px;
+  }
+
+  .completed-row-section {
+    text-align: right !important;
+  }
+
+  .recommendations-header, .recommendations-row-section {
+    margin-right: 0px;
+  }
+
+  .recommendations-row-section {
+    text-align: right;
+    display: flex;
+    justify-content: flex-end;
+  }
+}

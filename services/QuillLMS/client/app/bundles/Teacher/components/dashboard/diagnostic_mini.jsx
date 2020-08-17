@@ -2,34 +2,57 @@ import React from 'react';
 import _ from 'underscore';
 import request from 'request';
 
-export default class DiagnosticMini extends React.Component {
-  constructor(props) {
-    super(props);
+import { DataTable } from 'quill-component-library/dist/componentLibrary'
 
-    this.state = {};
+import { requestGet } from '../../../../modules/request/index.js';
+
+
+interface Diagnostic {
+  classroom_name: string,
+  activity_name: string,
+  activity_id: number,
+  unit_id: number,
+  classroom_id: number,
+  completed_count: number,
+  assigned_count: number
+}
+
+interface DiagnosticMiniState {
+  loading: boolean;
+  diagnostics: Array<Diagnostic>;
+}
+
+const headers = [
+  {
+    name: 'Diagnostic',
+    attribute: 'diagnostic',
+    width: '180px'
+  },
+  {
+    name: 'Class',
+    attribute: 'class',
+    width: '180px'
+  },
+  {
+    name: 'Completed',
+    attribute: 'completed',
+    width: '61px',
+    rowSectionClassName: "completed-row-section"
+  },
+  {
+    name: 'Recommendations',
+    attribute: 'recommendations',
+    width: '104px',
+    noTooltip: true,
+    rowSectionClassName: "recommendations-row-section",
+    headerClassName: 'recommendations-header'
   }
+]
 
-  componentDidMount() {
-    this.getDiagnosticInfo();
-  }
-
-  getDiagnosticInfo() {
-    const that = this;
-    request.get({
-      url: `${process.env.DEFAULT_URL}/teachers/diagnostic_info_for_dashboard_mini`,
-    },
-    (e, r, response) => {
-      const parsedResponse = JSON.parse(response)
-      that.setState({
-        unitInfo: parsedResponse.unit_info,
-        numberOfFinishedDiagnostics: parsedResponse.number_of_finished_students,
-        status: parsedResponse.status
-      });
-    });
-  }
-
-  assignDiagnosticMini() {
-    return (<div className="mini_content diagnostic-mini assign-diagnostic">
+const assignDiagnosticMini = () => {
+  return (
+    <div className="mini_container results-overview-mini-container col-md-4 col-sm-5 text-center">
+      <div className="mini_content diagnostic-mini assign-diagnostic">
       <div className="gray-underline">
         <h3>Assign a Diagnostic</h3>
       </div>
@@ -37,55 +60,64 @@ export default class DiagnosticMini extends React.Component {
       <img alt="" src={`${process.env.CDN_URL}/images/shared/new_diagnostic.svg`} />
       <p>See which skills students need to work on and get recommended learning&nbsp;plans.</p>
       <a className="bg-quillgreen text-white" href={'/assign/diagnostic'}>Assign Diagnostic</a>
-    </div>);
-  }
-
-  assignRecommendationsMini() {
-    const { unitInfo, numberOfFinishedDiagnostics, } = this.state;
-
-    return (<div className="mini_content diagnostic-mini assign-recommendations">
-      <div className="gray-underline">
-        <h3>{numberOfFinishedDiagnostics} Completed Diagnostic{Number(numberOfFinishedDiagnostics) === 1 ? '' : 's'}</h3>
-      </div>
-      <img src={`${process.env.CDN_URL}/images/shared/diagnostics_completed.svg`} />
-      <p>View our recommendations for each&nbsp;student.</p>
-      <a className="bg-quillgreen text-white" href={`/teachers/progress_reports/diagnostic_reports#/u/${unitInfo.unit_id}/a/${unitInfo.activity_id}/c/${unitInfo.classroom_id}/recommendations`}>View Recommended Activities</a>
-    </div>);
-  }
-
-  awaitingStudentsMini() {
-    return (<div className="mini_content diagnostic-mini awaiting-students">
-      <div className="gray-underline">
-        <h3>Diagnostic Assigned</h3>
-      </div>
-
-      <img alt="" src={`${process.env.CDN_URL}/images/shared/new_diagnostic.svg`} />
-      <p>The diagnostic is waiting for students on their dashboards. Have students log in to complete it so you can assign their recommended&nbsp;activities.</p>
-    </div>);
-  }
-
-  renderDiagnosticMini() {
-    let miniContent;
-    switch (this.state.status) {
-      case 'recently completed':
-        miniContent = this.assignRecommendationsMini();
-        break;
-      case 'assigned':
-        miniContent = this.awaitingStudentsMini();
-        break;
-      case 'unassigned':
-        miniContent = this.assignDiagnosticMini();
-        break;
-      case 'completed':
-      default:
-        return <span />;
-    }
-    return (<div className="mini_container results-overview-mini-container col-md-4 col-sm-5 text-center">
-      {miniContent}
-    </div>);
-  }
-
-  render() {
-    return this.renderDiagnosticMini();
-  }
+    </div>
+  </div>);
 }
+
+const generateRows = (diagnostics) => {
+  return diagnostics.map(diagnostic => {
+    const {
+      classroom_name,
+      activity_name,
+      activity_id
+      unit_id
+      classroom_id
+      completed_count
+      assigned_count
+    } = diagnostic
+    const recommendationsHref = `/teachers/progress_reports/diagnostic_reports#/u/${unit_id}/a/${activity_id}/c/${classroom_id}/recommendations`
+    return {
+      class: classroom_name,
+      diagnostic: activity_name,
+      completed: `${completed_count} of ${assigned_count}`,
+      recommendations: <a className="quill-button fun primary outlined" href={recommendationsHref}>View</a>
+    }
+  })
+}
+
+const DiagnosticMini = () => {
+  const [loading, setLoading] = React.useState<DiagnosticMiniState>(true);
+  const [diagnostics, setDiagnostics] = React.useState<DiagnosticMiniState>([]);
+
+  React.useEffect(() => {
+    getDiagnostics();
+  }, []);
+
+  const getDiagnostics = () => {
+    requestGet('/teachers/diagnostic_info_for_dashboard_mini',
+      (data) => {
+        setDiagnostics(data.units);
+        setLoading(false)
+      }
+    )
+  }
+
+  if (loading) { return <span /> }
+  if (!loading && !diagnostics.length) { return assignDiagnosticMini() }
+
+  return <section className="mini_container results-overview-mini-container col-md-8 col-sm-10 text-center" id="recently-assigned-diagnostics-card">
+    <section className="inner-container">
+      <header className="header-container flex-row space-between vertically-centered">
+        <h3>Recently Assigned Diagnostics</h3>
+        <a href="/teachers/progress_reports/diagnostic_reports/#/diagnostics">View All {diagnostics.length > 1 ? diagnostics.length : ''} Diagnostic Reports</a>
+      </header>
+      <DataTable
+        headers={headers}
+        rows={generateRows(diagnostics)}
+      />
+    </section>
+  </section>);
+
+}
+
+export default DiagnosticMini
