@@ -18,7 +18,7 @@ class Api::V1::ActivitiesController < Api::ApiController
       @message = "Activity Update Failed"
     end
 
-    render json: @activity, meta: {status: @status, message: @message, errors: @activity.errors}
+    render json: @activity, meta: {status: @status, message: @message, errors: @activity.errors}, serializer: ActivitySerializer
 
   end
 
@@ -39,15 +39,16 @@ class Api::V1::ActivitiesController < Api::ApiController
 
     render json: activity,
       meta: {status: @status, message: @message, errors: activity.errors},
-      status: @response_status
+      status: @response_status,
+      serializer: ActivitySerializer
   end
 
   # DELETE
   def destroy
     if @activity.destroy!
-      render json: Activity.new, meta: {status: 'success', message: "Activity Destroy Successful", errors: nil}
+      render json: Activity.new, meta: {status: 'success', message: "Activity Destroy Successful", errors: nil}, serializer: ActivitySerializer
     else
-      render json: @activity, meta: {status: 'failed', message: "Activity Destroy Failed", errors: @activity.errors}
+      render json: @activity, meta: {status: 'failed', message: "Activity Destroy Failed", errors: @activity.errors}, serializer: ActivitySerializer
     end
 
   end
