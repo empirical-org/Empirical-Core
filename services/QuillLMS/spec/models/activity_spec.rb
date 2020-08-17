@@ -315,10 +315,11 @@ describe Activity, type: :model, redis: true do
   describe '#search_results' do
     let!(:cache_activity) { create(:activity, :production) }
 
-    it 'when cache is empty the result is an empty object' do
+    it 'when cache is empty the result is the value of the search results' do
       $redis.redis.flushdb
       search_results = Activity.search_results(nil)
-      expect(search_results).to eq({})
+      results = ActivitySearchWrapper.search_cache_data(nil)
+      expect(search_results).to eq(JSON.parse(results))
     end
 
     it 'when cache exists the result is the cached object' do
