@@ -125,7 +125,7 @@ class TeachersController < ApplicationController
         unit_id: r['unit_id'],
         classroom_id: r['classroom_id'],
         completed_count: r['completed_count'],
-        assigned_count: r['assigned_count']
+        assigned_count: r['assigned_count'] || 0
       }
     end
     render json: { units: units }

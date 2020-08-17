@@ -26,12 +26,12 @@ const headers = [
   {
     name: 'Diagnostic',
     attribute: 'diagnostic',
-    width: '180px'
+    width: '186px'
   },
   {
     name: 'Class',
     attribute: 'class',
-    width: '180px'
+    width: '186px'
   },
   {
     name: 'Completed',
@@ -53,15 +53,16 @@ const assignDiagnosticMini = () => {
   return (
     <div className="mini_container results-overview-mini-container col-md-4 col-sm-5 text-center">
       <div className="mini_content diagnostic-mini assign-diagnostic">
-      <div className="gray-underline">
-        <h3>Assign a Diagnostic</h3>
-      </div>
+        <div className="gray-underline">
+          <h3>Assign a Diagnostic</h3>
+        </div>
 
-      <img alt="" src={`${process.env.CDN_URL}/images/shared/new_diagnostic.svg`} />
-      <p>See which skills students need to work on and get recommended learning&nbsp;plans.</p>
-      <a className="bg-quillgreen text-white" href={'/assign/diagnostic'}>Assign Diagnostic</a>
+        <img alt="" src={`${process.env.CDN_URL}/images/shared/new_diagnostic.svg`} />
+        <p>See which skills students need to work on and get recommended learning&nbsp;plans.</p>
+        <a className="bg-quillgreen text-white" href='/assign/diagnostic'>Assign Diagnostic</a>
+      </div>
     </div>
-  </div>);
+  );
 }
 
 const generateRows = (diagnostics) => {
@@ -69,11 +70,11 @@ const generateRows = (diagnostics) => {
     const {
       classroom_name,
       activity_name,
-      activity_id
-      unit_id
-      classroom_id
-      completed_count
-      assigned_count
+      activity_id,
+      unit_id,
+      classroom_id,
+      completed_count,
+      assigned_count,
     } = diagnostic
     const recommendationsHref = `/teachers/progress_reports/diagnostic_reports#/u/${unit_id}/a/${activity_id}/c/${classroom_id}/recommendations`
     return {
@@ -105,7 +106,7 @@ const DiagnosticMini = () => {
   if (loading) { return <span /> }
   if (!loading && !diagnostics.length) { return assignDiagnosticMini() }
 
-  return <section className="mini_container results-overview-mini-container col-md-8 col-sm-10 text-center" id="recently-assigned-diagnostics-card">
+  return (<section className="mini_container results-overview-mini-container col-md-8 col-sm-10 text-center" id="recently-assigned-diagnostics-card">
     <section className="inner-container">
       <header className="header-container flex-row space-between vertically-centered">
         <h3>Recently Assigned Diagnostics</h3>
@@ -116,7 +117,7 @@ const DiagnosticMini = () => {
         rows={generateRows(diagnostics)}
       />
     </section>
-  </section>);
+  </section>)
 
 }
 
