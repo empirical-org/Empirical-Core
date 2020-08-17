@@ -78,6 +78,7 @@ const generateRows = (diagnostics) => {
     } = diagnostic
     const recommendationsHref = `/teachers/progress_reports/diagnostic_reports#/u/${unit_id}/a/${activity_id}/c/${classroom_id}/recommendations`
     return {
+      id: `${activity_id}-${classroom_id}-${unit_id}`,
       class: classroom_name,
       diagnostic: activity_name,
       completed: `${completed_count} of ${assigned_count}`,
