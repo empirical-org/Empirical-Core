@@ -6,9 +6,37 @@
     display: none;
   }
   .header-container {
-
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid #d1d1d1;
+    h1 {
+      font-weight: 600;
+    }
+  }
+  .preview-section {
+    margin: 24px 16px 0px 16px;
+    border-bottom: 1px solid #d1d1d1;
+    padding: 0px 0px 24px 0px;
+    h2 {
+      font-size: 14px;
+      font-weight: bold;
+    }
+    p {
+      padding-top: 6px;
+      font-size: 14px;
+    }
   }
   section {
+    padding: 24px 16px 0px 16px;
+    h2 {
+      font-size: 14px;
+      font-weight: bold;
+    }
+    p {
+      padding-top: 6px;
+      font-size: 14px;
+    }
     ul {
       .question-container {
         display: flex;
@@ -26,6 +54,9 @@
         .question-text {
           text-align: left;
         }
+      }
+      .question-container:focus {
+        outline-offset: 0px;
       }
     }
   }

@@ -9,7 +9,7 @@ import TeacherPreviewMenu from '../../Teacher/components/shared/teacherPreviewMe
 interface PageLayoutState {
   showFocusState: boolean;
   previewShowing: boolean;
-  questionToPreview: object;
+  questionToPreview: any;
 }
 
 export default class PageLayout extends React.Component<any, PageLayoutState> {
@@ -82,6 +82,7 @@ export default class PageLayout extends React.Component<any, PageLayoutState> {
               <TeacherPreviewMenu
                 onTogglePreview={this.handleTogglePreviewMenu}
                 onToggleQuestion={this.handleToggleQuestion} 
+                questionToPreview={questionToPreview}
                 showPreview={previewShowing} 
               />
             </Layout.Sider>

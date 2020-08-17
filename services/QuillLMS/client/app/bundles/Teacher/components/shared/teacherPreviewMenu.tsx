@@ -4,6 +4,7 @@ import {connect} from "react-redux";
 import stripHtml from "string-strip-html";
 import { getActivity } from "../../../Grammar/actions/grammarActivities";
 import getParameterByName from "../../../Grammar/helpers/getParameterByName";
+import { Question } from '../../../Grammar/interfaces/questions';
 
 export interface TeacherPreviewMenuProps {
   activity: { 
@@ -14,12 +15,21 @@ export interface TeacherPreviewMenuProps {
   };
   dispatch: Function;
   onTogglePreview: () => void;
-  onToggleQuestion: (question: object) => void;
-  questions: object;
+  onToggleQuestion: (question: Question) => void;
+  questions: Question[];
+  questionToPreview: { key: string };
   showPreview: boolean;
 }
  
-const TeacherPreviewMenu = ({ activity, dispatch, onTogglePreview, onToggleQuestion, questions, showPreview }: TeacherPreviewMenuProps) => {
+const TeacherPreviewMenu = ({ 
+  activity, 
+  dispatch, 
+  onTogglePreview, 
+  onToggleQuestion, 
+  questions, 
+  questionToPreview,
+  showPreview 
+}: TeacherPreviewMenuProps) => {
 
   React.useEffect(() => {  
     const activityUID = getParameterByName('uid', window.location.href);
@@ -40,12 +50,11 @@ const TeacherPreviewMenu = ({ activity, dispatch, onTogglePreview, onToggleQuest
 
   const renderQuestions = () => {
     if(activity && questions) {
-      return activity.questions.map((question, i) => {
-        // const highlightedStyle = currentQuestion.uid === question.uid ? 'highlighted' : '';
+      return activity.questions.map((question: any, i) => {
         const { key } = question;
-        const highlightedStyle = '';
+        const highlightedStyle = questionToPreview && questionToPreview.key === key ? 'highlighted' : '';
         return(
-          <button className={`question-container ${highlightedStyle}`} id={key} key={key} onClick={handleQuestionUpdate} type="button">
+          <button className={`question-container ${highlightedStyle} focus-on-light`} id={key} key={key} onClick={handleQuestionUpdate} type="button">
             <p className="question-number">{`${i + 1}.  `}</p>
             <p className="question-text">{stripHtml(questions[key].prompt)}</p>
           </button>
@@ -61,10 +70,11 @@ const TeacherPreviewMenu = ({ activity, dispatch, onTogglePreview, onToggleQuest
   return (
     <div className={`teacher-preview-menu-container ${hiddenStyle}`}>
       <div className="header-container">
+        <div/>
         <h1>Menu</h1>
-        <button onClick={handleToggleMenu} type="button">x</button>
+        <img onClick={handleToggleMenu} src={`${process.env.CDN_URL}/images/shared/close_x.svg`} />
       </div>
-      <section>
+      <section className="preview-section">
         <h2>Preview Mode</h2>
         <p>This menu only displays for teachers previewing an activity. Students will not be able to skip questions.</p>
       </section>
