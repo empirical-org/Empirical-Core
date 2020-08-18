@@ -3,6 +3,8 @@ import $ from 'jquery'
 
 import { DataTable } from 'quill-component-library/dist/componentLibrary'
 
+const expandSrc = `${process.env.CDN_URL}/images/icons/expand.svg`
+
 import { requestGet } from '../../../../../modules/request/index';
 
 import LoadingSpinner from '../../shared/loading_indicator.jsx'
@@ -32,6 +34,33 @@ interface DiagnosticActivityPacksState {
   diagnostics: Array<Diagnostic>;
 }
 
+const DiagnosticHeader = (diagnostic, open, closedDiagnosticCardIdsArray) => {
+  const clickDiagnosticHeader = () => {
+    const newClosedDiagnosticCardIds = open ? closedDiagnosticCardIdsArray.push(diagnostic.id) : closedDiagnosticCardIdsArray.filter(diagnostic.id)
+    window.localStorage.set('closedDiagnosticCardIds', newClosedDiagnosticCardIds.join(','))
+  }
+  return (<div className="diagnostic-card-header" onClick={clickDiagnosticHeader}>
+    <div className="diagnostic-info">
+      <h2 className="diagnostic-name">{diagnostic.name}</h2>
+      {this.renderDiagnosticData()}
+    </div>
+    <img className="expand-arrow" src={expandSrc} />
+  </div>)
+}
+
+
+const Diagnostic = ({ diagnostic }) => {
+  const closedDiagnosticCardIds = window.localStorage.getItem('closedDiagnosticCardIds')
+  const closedDiagnosticCardIdArray = closedDiagnosticCardIds ? closedDiagnosticCardIds.split(',') : []
+  const open = closedDiagnosticCardIdArray.includes(String(diagnostic.id))
+
+  return (<section className={`diagnostic ${open ? 'open' : 'closed'}`}>
+    {DiagnosticHeader(diagnostic, open, closedDiagnosticCardIdArray)}
+    {selected ? renderDiagnosticContent(diagnostic) : null}
+
+  </section>)
+}
+
 const DiagnosticActivityPacks = ({passedDiagnostics}) => {
   const [loading, setLoading] = React.useState<DiagnosticActivityPacksState>(!passedDiagnostics);
   const [diagnostics, setDiagnostics] = React.useState<DiagnosticActivityPacksState>(passedDiagnostics || []);
@@ -45,7 +74,7 @@ const DiagnosticActivityPacks = ({passedDiagnostics}) => {
   const getDiagnostics = () => {
     requestGet('/teachers/diagnostic_units',
       (data) => {
-        // setDiagnostics(data);
+        setDiagnostics(data);
         setLoading(false)
       }
     )
@@ -57,8 +86,8 @@ const DiagnosticActivityPacks = ({passedDiagnostics}) => {
   return (
     <div className="container manage-units">
       <div className="activity-analysis">
-        <h1>Diagnostic Analysis</h1>
-        <p>Open a diagnostic report to view student&#39; responses, the overall results on each question, and the individualized recommendations for each student.</p>
+        <h1>Diagnostic Reports</h1>
+        {renderDiagnostics(diagnostics)}
       </div>
     </div>
   )
