@@ -130,8 +130,8 @@ describe TeachersController, type: :controller do
               assigned_count: classroom.students.ids.length,
               completed_count: 0,
               classroom_name: classroom.name,
-              activity_name: diagnostic_activity_1.name,
-              activity_id: diagnostic_activity_1.id,
+              activity_name: diagnostic_activity_2.name,
+              activity_id: diagnostic_activity_2.id,
               unit_id: unit.id,
               classroom_id: classroom.id
             },
@@ -139,8 +139,8 @@ describe TeachersController, type: :controller do
               assigned_count: classroom.students.ids.length,
               completed_count: 0,
               classroom_name: classroom.name,
-              activity_name: diagnostic_activity_2.name,
-              activity_id: diagnostic_activity_2.id,
+              activity_name: diagnostic_activity_1.name,
+              activity_id: diagnostic_activity_1.id,
               unit_id: unit.id,
               classroom_id: classroom.id
             }
@@ -166,8 +166,8 @@ describe TeachersController, type: :controller do
               assigned_count: classroom.students.ids.length,
               completed_count: 1,
               classroom_name: classroom.name,
-              activity_name: diagnostic_activity_1.name,
-              activity_id: diagnostic_activity_1.id,
+              activity_name: diagnostic_activity_2.name,
+              activity_id: diagnostic_activity_2.id,
               unit_id: unit.id,
               classroom_id: classroom.id
             },
@@ -175,8 +175,8 @@ describe TeachersController, type: :controller do
               assigned_count: classroom.students.ids.length,
               completed_count: 1,
               classroom_name: classroom.name,
-              activity_name: diagnostic_activity_2.name,
-              activity_id: diagnostic_activity_2.id,
+              activity_name: diagnostic_activity_1.name,
+              activity_id: diagnostic_activity_1.id,
               unit_id: unit.id,
               classroom_id: classroom.id
             }
