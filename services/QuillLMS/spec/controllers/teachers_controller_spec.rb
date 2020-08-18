@@ -3,7 +3,7 @@ require 'rails_helper'
 describe TeachersController, type: :controller do
 
   context "with teacher" do
-    let(:teacher) { create(:teacher, :with_classrooms_students_and_activities) }
+    let!(:teacher) { create(:teacher, :with_classrooms_students_and_activities) }
     let!(:co_taught_classroom) {create(:classroom, :with_no_teacher)}
     let!(:co_taught_classrooms_teacher) {create(:classrooms_teacher, classroom: co_taught_classroom, user: teacher, role: 'coteacher')}
 
@@ -102,7 +102,92 @@ describe TeachersController, type: :controller do
         expect(response.body).not_to eq({classrooms: teacher.classrooms_i_teach_with_students}.to_json)
       end
     end
+
+    describe '#diagnostic_info_for_dashboard_mini' do
+      let!(:diagnostic) { create(:diagnostic) }
+      let!(:diagnostic_activity_1) { create(:diagnostic_activity) }
+      let!(:diagnostic_activity_2) { create(:diagnostic_activity) }
+
+      context 'the teacher has not assigned any diagnostics' do
+        it 'returns an empty array' do
+          get :diagnostic_info_for_dashboard_mini
+          expect(response.body).to eq({ units: [] }.to_json)
+        end
+      end
+
+      context 'the teacher has assigned some diagnostics but nobody has completed them' do
+        let!(:unit) { create(:unit) }
+        let!(:classroom) { create(:classroom_with_a_couple_students) }
+        let!(:classroom_teacher) { create(:classrooms_teacher, classroom: classroom, user: teacher) }
+        let!(:classroom_unit) { create(:classroom_unit, classroom: classroom, unit: unit, assigned_student_ids: classroom.students.ids)}
+        let!(:unit_activity_1) { create(:unit_activity, unit: unit, activity: diagnostic_activity_1)}
+        let!(:unit_activity_2) { create(:unit_activity, unit: unit, activity: diagnostic_activity_2)}
+
+        it 'returns a row for each diagnostic' do
+          get :diagnostic_info_for_dashboard_mini
+          expected_response = [
+            {
+              assigned_count: classroom.students.ids.length,
+              completed_count: 0,
+              classroom_name: classroom.name,
+              activity_name: diagnostic_activity_1.name,
+              activity_id: diagnostic_activity_1.id,
+              unit_id: unit.id,
+              classroom_id: classroom.id
+            },
+            {
+              assigned_count: classroom.students.ids.length,
+              completed_count: 0,
+              classroom_name: classroom.name,
+              activity_name: diagnostic_activity_2.name,
+              activity_id: diagnostic_activity_2.id,
+              unit_id: unit.id,
+              classroom_id: classroom.id
+            }
+          ]
+          expect(response.body).to eq({units: expected_response}.to_json)
+        end
+      end
+
+      context 'the teacher has assigned some diagnostics that have been completed' do
+        let!(:unit) { create(:unit) }
+        let!(:classroom) { create(:classroom_with_a_couple_students) }
+        let!(:classroom_teacher) { create(:classrooms_teacher, classroom: classroom, user: teacher) }
+        let!(:classroom_unit) { create(:classroom_unit, classroom: classroom, unit: unit, assigned_student_ids: classroom.students.ids)}
+        let!(:unit_activity_1) { create(:unit_activity, unit: unit, activity: diagnostic_activity_1)}
+        let!(:unit_activity_2) { create(:unit_activity, unit: unit, activity: diagnostic_activity_2)}
+        let!(:activity_session_1) { create(:activity_session, user: classroom.students[0], classroom_unit: classroom_unit, activity: unit_activity_1.activity)}
+        let!(:activity_session_2) { create(:activity_session, user: classroom.students[1], classroom_unit: classroom_unit, activity: unit_activity_2.activity)}
+
+        it 'returns a row for each diagnostic' do
+          get :diagnostic_info_for_dashboard_mini
+          expected_response = [
+            {
+              assigned_count: classroom.students.ids.length,
+              completed_count: 1,
+              classroom_name: classroom.name,
+              activity_name: diagnostic_activity_1.name,
+              activity_id: diagnostic_activity_1.id,
+              unit_id: unit.id,
+              classroom_id: classroom.id
+            },
+            {
+              assigned_count: classroom.students.ids.length,
+              completed_count: 1,
+              classroom_name: classroom.name,
+              activity_name: diagnostic_activity_2.name,
+              activity_id: diagnostic_activity_2.id,
+              unit_id: unit.id,
+              classroom_id: classroom.id
+            }
+          ]
+          expect(response.body).to eq({units: expected_response}.to_json)
+        end
+      end
+
+    end
   end
+
   context "without user" do
 
     before(:each) do
