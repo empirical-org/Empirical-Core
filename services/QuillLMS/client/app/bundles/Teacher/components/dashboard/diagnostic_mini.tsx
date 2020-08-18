@@ -1,11 +1,9 @@
-import React from 'react';
+import * as React from 'react';
 import _ from 'underscore';
-import request from 'request';
 
 import { DataTable } from 'quill-component-library/dist/componentLibrary'
 
 import { requestGet } from '../../../../modules/request/index.js';
-
 
 interface Diagnostic {
   classroom_name: string,
@@ -82,14 +80,14 @@ const generateRows = (diagnostics) => {
       class: classroom_name,
       diagnostic: activity_name,
       completed: `${completed_count} of ${assigned_count}`,
-      recommendations: <a className="quill-button fun primary outlined" href={recommendationsHref}>View</a>
+      recommendations: completed_count ? <a className="quill-button fun primary outlined" href={recommendationsHref}>View</a> : null
     }
   })
 }
 
-const DiagnosticMini = () => {
-  const [loading, setLoading] = React.useState<DiagnosticMiniState>(true);
-  const [diagnostics, setDiagnostics] = React.useState<DiagnosticMiniState>([]);
+const DiagnosticMini = ({passedDiagnostics}) => {
+  const [loading, setLoading] = React.useState<DiagnosticMiniState>(!passedDiagnostics);
+  const [diagnostics, setDiagnostics] = React.useState<DiagnosticMiniState>(passedDiagnostics || []);
 
   React.useEffect(() => {
     getDiagnostics();

@@ -119,13 +119,13 @@ class TeachersController < ApplicationController
     .joins("LEFT JOIN activity_sessions ON activity_sessions.activity_id = unit_activities.activity_id AND activity_sessions.classroom_unit_id = classroom_units.id AND activity_sessions.visible").group("classrooms.name, activities.name, activities.id, classroom_units.unit_id, classrooms.id, classroom_units.assigned_student_ids")
     units = records.map do |r|
       {
+        assigned_count: r['assigned_count'] || 0,
+        completed_count: r['completed_count'],
         classroom_name: r['classroom_name'],
         activity_name: r['activity_name'],
         activity_id: r['activity_id'],
         unit_id: r['unit_id'],
-        classroom_id: r['classroom_id'],
-        completed_count: r['completed_count'],
-        assigned_count: r['assigned_count'] || 0
+        classroom_id: r['classroom_id']
       }
     end
     render json: { units: units }

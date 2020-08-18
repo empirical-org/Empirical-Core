@@ -1,5 +1,6 @@
 #dashboard #recently-assigned-diagnostics-card {
   border-bottom: none;
+  min-width: 673px;
 
   button {
     height: initial; // in place to override the #dashboard button rule
@@ -46,10 +47,7 @@
     justify-content: flex-end;
   }
 
-  @media (min-width: 768px) {
-    width: 100%;
-  }
-  @media (min-width: 690) {
+  @media (max-width: 690) {
     display: none;
   }
 }

@@ -9,7 +9,7 @@ import OverviewMini from '../overview_mini';
 import TeacherGuide from '../../teacher_guide/teacher_guide';
 import PremiumPromo from '../premium_promo';
 import LessonsList from '../lessons_list.jsx';
-import DiagnosticMini from '../diagnostic_mini.jsx'
+import DiagnosticMini from '../diagnostic_mini.tsx'
 
 describe('ClassOverview component', () => {
   describe('overview minis', () => {
