@@ -163,7 +163,7 @@ export const checkAnswer = (response: string, question: Question, responses: Res
     const incorrectSequences = question.incorrectSequences ? hashToCollection(question.incorrectSequences) : [];
     const defaultConceptUID = question.modelConceptUID || question.concept_uid
     const responseObj = checkGrammarQuestion(questionUID, response, responses, focusPoints, incorrectSequences, defaultConceptUID)
-    responseObj.feedback = responseObj.feedback && responseObj.feedback !== '<br/>' ? responseObj.feedback : "Try again! Unfortunately, that answer is not correct."
+    responseObj.feedback = responseObj.feedback && responseObj.feedback !== '<br/>' ? responseObj.feedback : "<b>Try again!</b> Unfortunately, that answer is not correct."
     dispatch(responseActions.submitResponse(responseObj, null, isFirstAttempt))
     delete responseObj.parent_id
     dispatch(submitResponse(responseObj))
