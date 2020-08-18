@@ -18,6 +18,7 @@ export interface TeacherPreviewMenuProps {
   onToggleQuestion: (question: Question) => void;
   questions: Question[];
   questionToPreview: { key: string };
+  session: any;
   showPreview: boolean;
 }
  
@@ -28,8 +29,11 @@ const TeacherPreviewMenu = ({
   onToggleQuestion, 
   questions, 
   questionToPreview,
+  session,
   showPreview 
 }: TeacherPreviewMenuProps) => {
+
+  const [randomizedQuestions, setRandomizedQuestions] = React.useState<Question[]>();
 
   React.useEffect(() => {  
     const activityUID = getParameterByName('uid', window.location.href);
@@ -44,12 +48,17 @@ const TeacherPreviewMenu = ({
 
   const handleQuestionUpdate = (e: React.SyntheticEvent) => {
     const questionUID = e.currentTarget.id;
-    const question = questions[questionUID]
+    let question: Question;
+    if(randomizedQuestions) {
+      question = randomizedQuestions.filter(question => question.uid === questionUID)[0];
+    } else {
+      question = questions[questionUID]
+    }
     onToggleQuestion(question);
   }
 
   const renderQuestions = () => {
-    if(activity && questions) {
+    if(activity && activity.questions && questions) {
       return activity.questions.map((question: any, i) => {
         const { key } = question;
         const highlightedStyle = questionToPreview && questionToPreview.key === key ? 'highlighted' : '';
@@ -57,6 +66,21 @@ const TeacherPreviewMenu = ({
           <button className={`question-container ${highlightedStyle} focus-on-light`} id={key} key={key} onClick={handleQuestionUpdate} type="button">
             <p className="question-number">{`${i + 1}.  `}</p>
             <p className="question-text">{stripHtml(questions[key].prompt)}</p>
+          </button>
+        );
+      })
+    } else if(!randomizedQuestions && session.currentQuestion && session.unansweredQuestions) {
+      const activityQuestions = [session.currentQuestion, ...session.unansweredQuestions];
+      setRandomizedQuestions(activityQuestions);
+      onToggleQuestion(session.currentQuestion);
+    } else if(randomizedQuestions) {
+      return randomizedQuestions.map((question: any, i) => {
+        const { uid } = question;
+        const highlightedStyle = questionToPreview && questionToPreview.uid === uid ? 'highlighted' : '';
+        return(
+          <button className={`question-container ${highlightedStyle} focus-on-light`} id={uid} key={uid} onClick={handleQuestionUpdate} type="button">
+            <p className="question-number">{`${i + 1}.  `}</p>
+            <p className="question-text">{stripHtml(question.prompt)}</p>
           </button>
         );
       })
@@ -70,9 +94,9 @@ const TeacherPreviewMenu = ({
   return (
     <div className={`teacher-preview-menu-container ${hiddenStyle}`}>
       <div className="header-container">
-        <div/>
+        <div />
         <h1>Menu</h1>
-        <img onClick={handleToggleMenu} src={`${process.env.CDN_URL}/images/shared/close_x.svg`} />
+        <img onClick={handleToggleMenu} src={`${process.env.CDN_URL}/images/icons/close.svg`} />
       </div>
       <section className="preview-section">
         <h2>Preview Mode</h2>
@@ -99,7 +123,8 @@ const TeacherPreviewMenu = ({
 const mapStateToProps = (state: any) => {
   return {
     activity: state.grammarActivities ? state.grammarActivities.currentActivity : null,
-    questions: state.questions.data
+    questions: state.questions.data,
+    session: state.session
   };
 };
 

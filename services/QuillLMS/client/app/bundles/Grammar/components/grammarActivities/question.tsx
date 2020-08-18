@@ -35,7 +35,9 @@ interface QuestionState {
   submittedEmptyString: boolean;
   submittedForPreview: boolean;
   submittedSameResponseTwice: boolean;
-  responses: { [key: number]: Response }
+  responses: { [key: number]: Response };
+  randomizedQuestions: string[];
+  previewSubmissionCount: number;
 }
 
 export class QuestionComponent extends React.Component<QuestionProps, QuestionState> {
@@ -49,7 +51,9 @@ export class QuestionComponent extends React.Component<QuestionProps, QuestionSt
       submittedEmptyString: false,
       submittedForPreview: false,
       submittedSameResponseTwice: false,
-      responses: {}
+      responses: {},
+      randomizedQuestions: null,
+      previewSubmissionCount: 0
     }
   }
 
@@ -67,7 +71,7 @@ export class QuestionComponent extends React.Component<QuestionProps, QuestionSt
   }
 
   UNSAFE_componentWillReceiveProps(nextProps: QuestionProps) {
-    const { currentQuestion, } = this.props
+    const { currentQuestion, previewMode } = this.props
     if (nextProps.currentQuestion && nextProps.currentQuestion.attempts && nextProps.currentQuestion.attempts.length > 0) {
       this.setState({ questionStatus: this.getCurrentQuestionStatus(nextProps.currentQuestion) })
     }
@@ -78,8 +82,13 @@ export class QuestionComponent extends React.Component<QuestionProps, QuestionSt
           this.setState({ responses: data, });
         }
       );
+      if(previewMode) {
+        // previewQuestion has been switched, reset values
+        this.setState({ submittedForPreview: false, response: '', previewSubmissionCount: 0 });
+      }
     } else if(nextProps.currentQuestion.key && currentQuestion.key !== nextProps.currentQuestion.key) {
-      this.setState({ submittedForPreview: false, response: '' });
+      // previewQuestion has been switched, reset values
+      this.setState({ submittedForPreview: false, response: '', previewSubmissionCount: 0 });
       responseActions.getGradedResponsesWithCallback(
         nextProps.currentQuestion.key,
         (data: Response[]) => {
@@ -148,7 +157,7 @@ export class QuestionComponent extends React.Component<QuestionProps, QuestionSt
           this.setState({ submittedSameResponseTwice: true })
         } else {
           if(previewMode) {
-            this.setState({ submittedForPreview: true });
+            this.setState(prevState => ({ submittedForPreview: true, previewSubmissionCount: prevState.previewSubmissionCount + 1 }));
           }
           checkAnswer(trimmedResponse, question, responses, isFirstAttempt)
           this.setState({ submittedEmptyString: false, submittedSameResponseTwice: false })
@@ -252,14 +261,25 @@ export class QuestionComponent extends React.Component<QuestionProps, QuestionSt
   }
 
   renderTopSection(): JSX.Element {
-    const { answeredQuestions, unansweredQuestions, activity, previewMode } = this.props;
+    const { answeredQuestions, currentQuestion, unansweredQuestions, activity, previewMode } = this.props;
+    const { randomizedQuestions } = this.state;
     let answeredQuestionCount;
     let totalQuestionCount;
     const question = this.currentQuestion();
     if(previewMode) {
-      const questions = activity.questions.map(question => question.key);
-      answeredQuestionCount = questions.indexOf(question.uid ? question.uid : question.key) + 1;
-      totalQuestionCount = questions.length;
+      // standard activity questions
+      if(activity && activity.questions) {
+        const questions = activity.questions ? activity.questions.map(question => question.key) : [];
+        answeredQuestionCount = questions.indexOf(question.uid ? question.uid : question.key) + 1;
+        totalQuestionCount = questions.length;
+      } else if(!randomizedQuestions) {
+        const questions = [currentQuestion, ...unansweredQuestions].map(question => question.uid);
+        this.setState({ randomizedQuestions: questions });
+        // randomly selected activity questions
+      } else if(randomizedQuestions) {
+        answeredQuestionCount = randomizedQuestions.indexOf(question.uid ? question.uid : question.key) + 1;
+        totalQuestionCount = randomizedQuestions.length;
+      }
     } else {
       answeredQuestionCount = answeredQuestions.length + 1;
       totalQuestionCount = answeredQuestionCount + unansweredQuestions.length;
@@ -331,7 +351,7 @@ export class QuestionComponent extends React.Component<QuestionProps, QuestionSt
 
   renderFeedbackSection(): JSX.Element | undefined {
     const { previewMode } = this.props;
-    const { response, responses, submittedForPreview } = this.state
+    const { response, responses, submittedForPreview, previewSubmissionCount } = this.state
     const question = this.currentQuestion()
     const latestAttempt: Response | undefined = this.getLatestAttempt(question.attempts)
 
@@ -343,9 +363,12 @@ export class QuestionComponent extends React.Component<QuestionProps, QuestionSt
       const incorrectSequences = question.incorrectSequences ? hashToCollection(question.incorrectSequences) : [];
       const defaultConceptUID = question.modelConceptUID || question.concept_uid
       const responseObj = checkGrammarQuestion(questionUID, response, responses, focusPoints, incorrectSequences, defaultConceptUID);
-
       if (responseObj.optimal) {
         return <Feedback feedback={<p dangerouslySetInnerHTML={{ __html: responseObj.feedback }} />} feedbackType="correct-matched" />
+      }
+      if(previewSubmissionCount === ALLOWED_ATTEMPTS) {
+        const finalAttemptFeedback = `<b>Good try!</b> Compare your response to the strong response, and then go on to the next question.<br><br><b>Your response</b><br>${response}<br><br><b>A strong response</b><br>${this.correctResponse()}`
+        return <Feedback feedback={<p dangerouslySetInnerHTML={{ __html: finalAttemptFeedback }} />} feedbackType="incorrect-continue" />
       }
       return <Feedback feedback={<p dangerouslySetInnerHTML={{ __html: responseObj.feedback }} />} feedbackType="revise-matched" />
     }
@@ -358,7 +381,6 @@ export class QuestionComponent extends React.Component<QuestionProps, QuestionSt
       const finalAttemptFeedback = `<b>Good try!</b> Compare your response to the strong response, and then go on to the next question.<br><br><b>Your response</b><br>${response}<br><br><b>A strong response</b><br>${this.correctResponse()}`
       return <Feedback feedback={<p dangerouslySetInnerHTML={{ __html: finalAttemptFeedback }} />} feedbackType="incorrect-continue" />
     }
-
     return <Feedback feedback={<p dangerouslySetInnerHTML={{ __html: latestAttempt && latestAttempt.feedback ? latestAttempt.feedback : '' }} />} feedbackType="revise-matched" />
   }
 
