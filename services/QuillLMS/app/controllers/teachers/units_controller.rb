@@ -297,6 +297,7 @@ class Teachers::UnitsController < ApplicationController
     .joins("JOIN activities ON unit_activities.activity_id = activities.id")
     .joins("LEFT JOIN activity_sessions ON activity_sessions.activity_id = unit_activities.activity_id AND activity_sessions.classroom_unit_id = classroom_units.id AND activity_sessions.visible")
     .group("classrooms.name, activities.name, activities.id, classroom_units.unit_id, units.name, classrooms.id, classroom_units.assigned_student_ids, unit_activities.created_at, classroom_units.created_at")
+    .order("greatest(classroom_units.created_at, unit_activities.created_at) DESC")
     records.map do |r|
       {
         "assigned_count" => r['assigned_count'] || 0,
