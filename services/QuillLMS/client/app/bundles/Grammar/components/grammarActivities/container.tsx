@@ -225,14 +225,14 @@ export class PlayGrammarContainer extends React.Component<PlayGrammarContainerPr
       const proofreaderSessionId = getParameterByName('proofreaderSessionId', window.location.href)
 
       const { showTurkCode, saving, } = this.state
-      const { grammarActivities, session, concepts, conceptsFeedback, previewMode, questionToPreview, handleToggleQuestion } = this.props
+      const { grammarActivities, session, concepts, conceptsFeedback, previewMode, questionToPreview, questions, handleToggleQuestion } = this.props
 
       if (showTurkCode) {
         return <TurkCodePage />
       }
 
       if ((grammarActivities.hasreceiveddata || proofreaderSessionId) && session.hasreceiveddata) {
-        if (session.currentQuestion) {
+        if (session.currentQuestion && questions) {
           return (<QuestionComponent
             activity={grammarActivities ? grammarActivities.currentActivity : null}
             answeredQuestions={session.answeredQuestions}
@@ -244,6 +244,7 @@ export class PlayGrammarContainer extends React.Component<PlayGrammarContainerPr
             handleToggleQuestion={handleToggleQuestion}
             key={session.currentQuestion.key}
             previewMode={previewMode}
+            questions={questions}
             questionToPreview={questionToPreview}
             unansweredQuestions={session.unansweredQuestions}
           />)

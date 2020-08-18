@@ -61,7 +61,12 @@ const TeacherPreviewMenu = ({
     if(activity && activity.questions && questions) {
       return activity.questions.map((question: any, i) => {
         const { key } = question;
-        const highlightedStyle = questionToPreview && questionToPreview.key === key ? 'highlighted' : '';
+        let highlightedStyle;
+        if(questionToPreview && questionToPreview.key) {
+          highlightedStyle = questionToPreview.key === key ? 'highlighted' : '';
+        } else if(questionToPreview && questionToPreview.uid) {
+          highlightedStyle = questionToPreview.uid === key ? 'highlighted' : '';
+        }
         return(
           <button className={`question-container ${highlightedStyle} focus-on-light`} id={key} key={key} onClick={handleQuestionUpdate} type="button">
             <p className="question-number">{`${i + 1}.  `}</p>
@@ -76,7 +81,12 @@ const TeacherPreviewMenu = ({
     } else if(randomizedQuestions) {
       return randomizedQuestions.map((question: any, i) => {
         const { uid } = question;
-        const highlightedStyle = questionToPreview && questionToPreview.uid === uid ? 'highlighted' : '';
+        let highlightedStyle;
+        if(questionToPreview && questionToPreview.key) {
+          highlightedStyle = questionToPreview.key === uid ? 'highlighted' : '';
+        } else if(questionToPreview && questionToPreview.uid) {
+          highlightedStyle = questionToPreview.uid === uid ? 'highlighted' : '';
+        }
         return(
           <button className={`question-container ${highlightedStyle} focus-on-light`} id={uid} key={uid} onClick={handleQuestionUpdate} type="button">
             <p className="question-number">{`${i + 1}.  `}</p>
@@ -96,7 +106,9 @@ const TeacherPreviewMenu = ({
       <div className="header-container">
         <div />
         <h1>Menu</h1>
-        <img onClick={handleToggleMenu} src={`${process.env.CDN_URL}/images/icons/close.svg`} />
+        <button className="close-preview-button focus-on-light" onClick={handleToggleMenu} type="button">
+          <img alt="close-preview-button" src={`${process.env.CDN_URL}/images/icons/close.svg`} />
+        </button>
       </div>
       <section className="preview-section">
         <h2>Preview Mode</h2>
@@ -108,7 +120,7 @@ const TeacherPreviewMenu = ({
       </section>
       <section>
         <h2>Introduction</h2>
-        <p>joing words</p>
+        <p>{}</p>
       </section>
       <section>
         <h2>Questions</h2>
