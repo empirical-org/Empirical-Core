@@ -214,13 +214,7 @@ exports[`DiagnosticMini component should render when there are diagnostics 1`] =
         <h3>
           Recently Assigned Diagnostics
         </h3>
-        <a
-          href="/teachers/progress_reports/diagnostic_reports/#/diagnostics"
-        >
-          View All 
-          17
-           Diagnostic Reports
-        </a>
+        <span />
       </header>
       <DataTable
         averageFontWidth={7}
