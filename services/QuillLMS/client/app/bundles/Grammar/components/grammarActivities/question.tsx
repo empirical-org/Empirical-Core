@@ -293,7 +293,7 @@ export class QuestionComponent extends React.Component<QuestionProps, QuestionSt
 
   renderCheckAnswerButton(): JSX.Element | void {
     const { questionStatus, responses, response, previewQuestionCorrect, previewSubmissionCount, isLastPreviewQuestion } = this.state
-    const { previewMode } = this.props;
+    const { previewMode, unansweredQuestions } = this.props;
     if (!Object.keys(responses).length && !previewMode) { return }
 
     const buttonClassName = "quill-button primary contained large focus-on-light"
@@ -307,7 +307,8 @@ export class QuestionComponent extends React.Component<QuestionProps, QuestionSt
       return <button className={buttonClassName} onClick={this.handleCheckWorkClick} type="submit">Get feedback</button>
     } else {
       if ([CORRECTLY_ANSWERED, FINAL_ATTEMPT].includes(questionStatus)) {
-        return <button className={buttonClassName} onClick={this.handleNextProblemClick} type="submit">Next question</button>
+        const buttonText = unansweredQuestions.length === 0 ? 'Next' : 'Next question'
+        return <button className={buttonClassName} onClick={this.handleNextProblemClick} type="submit">{buttonText}</button>
       }
       if (!response.length || this.previousResponses().includes(response)) {
         return <button className={`${buttonClassName} disabled`} type="submit">Get feedback</button>

@@ -66,11 +66,13 @@ export class Tooltip extends React.Component<TooltipProps, {}> {
         >
           {tooltipTriggerText}
         </span>
-        <span
-          className="quill-tooltip"
-          ref={node => this.tooltip = node}
-        >
-          {tooltipText}
+        <span className="quill-tooltip-wrapper">
+          <span
+            className="quill-tooltip"
+            ref={node => this.tooltip = node}
+          >
+            {tooltipText}
+          </span>
         </span>
       </span>)
   }

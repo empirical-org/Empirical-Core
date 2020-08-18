@@ -248,7 +248,9 @@ export default class PlayLessonQuestion extends React.Component {
   }
 
   renderNextQuestionButton = () => {
-    return (<button className="quill-button focus-on-light primary contained large" onClick={this.handleNextQuestionClick} type="button">Next question</button>);
+    const { isLastQuestion, } = this.props
+    const buttonText = isLastQuestion ? 'Next' : 'Next question'
+    return (<button className="quill-button focus-on-light primary contained large" onClick={this.handleNextQuestionClick} type="button">{buttonText}</button>);
   }
 
   renderFinishedQuestionButton = () => {
