@@ -18,7 +18,6 @@ export default class DiagnosticActivityPacks extends React.Component {
 		$('.activity-analysis-tab').removeClass('active');
 
 		this.getDiagnosticUnits()
-		this.getDiagnosticStatus()
 	}
 
   getDiagnosticUnits() {
@@ -30,12 +29,12 @@ export default class DiagnosticActivityPacks extends React.Component {
   }
 
   displayUnits = (data) => {
-		this.setState({ units: this.parseUnits(data), loaded: true, });
+		this.setState({ units: this.parseActivities(data), loaded: true, });
 	}
 
-  parseUnits = (data) => {
-    const units = []
-    return []
+  parseActivities = (data) => {
+    debugger;
+    return data
   }
 
   stateBasedComponent() {
@@ -52,8 +51,6 @@ export default class DiagnosticActivityPacks extends React.Component {
       </div>
 		)
 	}
-
-  PARSE
 
   render() {
 		return (
