@@ -17,6 +17,7 @@ class EndState extends React.Component {
     diffObjects.forEach((diff) => {
       if (diff.added) {
         diff.value.forEach((word) => {
+          if (sanitizedQuestionArray.includes(word)) { return }
           const regex = new RegExp(`(^|[^(a-zA-Z>)])${word }($|[^(<a-zA-Z)])`, 'i');
           if (styledString.match(regex)) {
             styledString = styledString.replace(regex, `<span class="diffed-word">${styledString.match(regex)[0]}</span>`);
