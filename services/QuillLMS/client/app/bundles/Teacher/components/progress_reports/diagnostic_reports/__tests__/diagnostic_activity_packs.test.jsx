@@ -156,14 +156,6 @@ describe('DiagnosticActivityPacks component', () => {
     expect(wrapper.find(EmptyDiagnosticProgressReport)).toHaveLength(1)
   })
 
-  it('calls goToDiagnosticReport if loaded is true and units.length == 1', () => {
-    const wrapper = shallow(<DiagnosticActivityPacks />)
-    const mockGoToDiagnosticReport = jest.fn()
-    wrapper.instance().goToDiagnosticReport = mockGoToDiagnosticReport
-    wrapper.instance().displayUnits([units[0]]);
-    expect(mockGoToDiagnosticReport.mock.calls).toHaveLength(1)
-  })
-
   it('renders units if there is more than one unit', () => {
     const wrapper = shallow(<DiagnosticActivityPacks />)
     wrapper.setState({loaded: true, units})
