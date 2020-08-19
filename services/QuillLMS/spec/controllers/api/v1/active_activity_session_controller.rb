@@ -10,10 +10,10 @@ describe Api::V1::ActiveActivitySessionsController, type: :controller do
       expect(JSON.parse(response.body)).to eq(active_activity_session.data)
     end
 
-    it "should return a 404 if the requested activity session is not found" do
+    it "should return a null object if the requested activity session is not found" do
       get :show, id: 'doesnotexist'
-      expect(response.status).to eq(404)
-      expect(response.body).to include("The resource you were looking for does not exist")
+      expect(response.status).to eq(200)
+      expect(JSON.parse(response.body)).to eq(nil)
     end
   end
 
@@ -51,7 +51,7 @@ describe Api::V1::ActiveActivitySessionsController, type: :controller do
     it "should return a 404 if the requested activity session is not found" do
       delete :destroy, id: 'doesnotexist'
       expect(response.status).to eq(404)
-      expect(response.body).to include("The resource you were looking for does not exist")
+      expect(response.body).to include("No record found to destroy!")
     end
   end
 end

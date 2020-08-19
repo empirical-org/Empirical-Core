@@ -14,8 +14,13 @@ class Api::V1::ActiveActivitySessionsController < Api::ApiController
   end
 
   def destroy
-    @activity_session.destroy
-    render(plain: 'OK')
+    begin
+      @activity_session.destroy
+    rescue NoMethodError => e
+      render json: {error: "No record found to destroy!"}, status: 404
+    else
+      render(plain: 'OK')
+    end
   end
 
   private def valid_params
