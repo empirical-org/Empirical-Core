@@ -109,12 +109,14 @@ class Teachers::UnitsController < ApplicationController
 
   def diagnostic_units
     activities_with_calculated_data = diagnostic_assignments.map do |act|
-      act['last_assigned'] = act['individual_assignments'].sort_by { |a| a['assigned_date'] }[0]['assigned_date']
+      sorted_individual_assignments = act['individual_assignments'].sort_by { |a| a['assigned_date'] }
+      act['individual_assignments'] = sorted_individual_assignments
+      act['last_assigned'] = sorted_individual_assignments[-1]['assigned_date']
       all_class_ids = []
       total_assigned = 0
       total_completed = 0
       act['individual_assignments'].each do |assignment|
-        all_class_ids.push(assignment['class_id'])
+        all_class_ids.push(assignment['classroom_id'])
         total_assigned += assignment['assigned_count']
         total_completed += assignment['completed_count']
       end
@@ -291,9 +293,9 @@ class Teachers::UnitsController < ApplicationController
       greatest(unit_activities.created_at, classroom_units.created_at) AS assigned_date
     ")
     .joins("JOIN classrooms ON classrooms_teachers.classroom_id = classrooms.id AND classrooms.visible = TRUE AND classrooms_teachers.user_id = #{current_user.id}")
-    .joins("JOIN classroom_units ON classroom_units.classroom_id = classrooms.id")
-    .joins("JOIN units ON classroom_units.unit_id = units.id")
-    .joins("JOIN unit_activities ON unit_activities.unit_id = classroom_units.unit_id AND unit_activities.activity_id IN (#{diagnostic_activity_ids.join(',')})")
+    .joins("JOIN classroom_units ON classroom_units.classroom_id = classrooms.id AND classroom_units.visible")
+    .joins("JOIN units ON classroom_units.unit_id = units.id AND units.visible")
+    .joins("JOIN unit_activities ON unit_activities.unit_id = classroom_units.unit_id AND unit_activities.activity_id IN (#{diagnostic_activity_ids.join(',')}) AND unit_activities.visible")
     .joins("JOIN activities ON unit_activities.activity_id = activities.id")
     .joins("LEFT JOIN activity_sessions ON activity_sessions.activity_id = unit_activities.activity_id AND activity_sessions.classroom_unit_id = classroom_units.id AND activity_sessions.visible")
     .group("classrooms.name, activities.name, activities.id, classroom_units.unit_id, units.name, classrooms.id, classroom_units.assigned_student_ids, unit_activities.created_at, classroom_units.created_at")

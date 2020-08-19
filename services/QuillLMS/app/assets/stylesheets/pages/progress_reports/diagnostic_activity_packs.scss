@@ -1,0 +1,80 @@
+.diagnostic-activity-packs {
+  section {
+    border-bottom: none;
+  }
+
+  h1 {
+    margin-top: 40px;
+    font-size: 24px;
+    font-weight: bold;
+    line-height: 1.33;
+    margin-bottom: 32px;
+  }
+
+  .diagnostic {
+    border-radius: 6px;
+    border: solid 1px #e0e0e0;
+    background-color: #ffffff;
+    margin-bottom: 24px;
+    padding: 0px;
+    h2 {
+      font-size: 24px;
+      font-weight: bold;
+      line-height: 1.33;
+      margin-bottom: 4px;
+    }
+    .diagnostic-card-header {
+      height: 122px;
+      justify-content: space-between;
+      align-items: center;
+      display: flex;
+      flex-direction: row;
+      cursor: pointer;
+      text-align: left;
+      background-color: white;
+      width: 100%;
+      border: none;
+      border-radius: 6px;
+      padding: 32px;
+    }
+    .diagnostic-data {
+      margin-top: 4px;
+      a {
+        font-weight: 600;
+        color: #06806b;
+        width: 92px;
+      }
+      span.item {
+        color: #646464;
+      }
+      .item {
+        line-height: 1.57;
+        display: inline-block;
+        &.assigned-counts {
+          width: 263px;
+        }
+        &.completed-count {
+          width: 244px;
+        }
+      }
+    }
+    &.open {
+      .expand-arrow {
+        transform: rotate(180deg);
+      }
+    }
+  }
+  .individual-assignments {
+    padding: 16px 32px 0px;
+    border-top: 1px solid #e0e0e0;
+    .data-table {
+      overflow: visible;
+      .data-table-row {
+        height: 72px;
+      }
+      .recommendations-row-section, .recommendations-header {
+        margin-right: 0px;
+      }
+    }
+  }
+}
