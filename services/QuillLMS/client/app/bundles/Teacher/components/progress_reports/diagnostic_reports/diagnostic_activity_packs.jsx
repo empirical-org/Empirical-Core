@@ -118,9 +118,7 @@ export default class DiagnosticActivityPacks extends React.Component {
 		if (loaded) {
 			if (units.length === 0) {
 				return (<EmptyDiagnosticProgressReport status={diagnosticStatus} />);
-			} else if (units.length === 1 && units[0].classroomActivities.size === 1) {
-				this.goToDiagnosticReport()
-      } else {
+			} else {
 				return (
   <div className="activity-analysis">
     <h1>Diagnostic Analysis</h1>
