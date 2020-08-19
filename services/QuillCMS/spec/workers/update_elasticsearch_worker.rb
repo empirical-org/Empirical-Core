@@ -8,9 +8,9 @@ describe UpdateElasticsearchWorker do
 
   describe '#perform' do
     it 'should kick off jobs on responses' do
-      # expect(UpdateIndividualResponseWorker).to receive(:perform_async).with(response1.id)
-      # expect(UpdateIndividualResponseWorker).to receive(:perform).with(response2.id)
-      # expect(UpdateIndividualResponseWorker).not_to receive(:perform).with(response3.id)
+      expect(UpdateIndividualResponseWorker).to receive(:perform_async).with(response1.id)
+      expect(UpdateIndividualResponseWorker).to receive(:perform).with(response2.id)
+      expect(UpdateIndividualResponseWorker).not_to receive(:perform).with(response3.id)
       subject.perform(Time.now)
     end
   end
