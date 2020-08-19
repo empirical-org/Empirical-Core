@@ -108,7 +108,6 @@ export class PlayGrammarContainer extends React.Component<PlayGrammarContainerPr
         const question = questions[uid];
         handleToggleQuestion(question);
       }
-
     }
 
     saveToLMS = (questions: SessionState) => {

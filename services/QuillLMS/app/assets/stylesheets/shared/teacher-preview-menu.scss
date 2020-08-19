@@ -61,9 +61,13 @@
           margin-right: 15px;
         }
         .question-text {
+          overflow: hidden;
+          font-size: 14px;
           text-align: left;
-          text-overflow: ellipsis;
-          max-height: 100px;
+          text-overflow: ellipsis;  
+          display: -webkit-box;
+          -webkit-line-clamp: 3;
+          -webkit-box-orient: vertical;
         }
       }
       .question-container:focus {
@@ -71,6 +75,7 @@
       }
       .question-container:hover {
         cursor: pointer;
+        background-color: #f2f2f2;;
       }
     }
   }

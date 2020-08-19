@@ -2,12 +2,11 @@ import * as React from "react";
 import ContentEditable from 'react-contenteditable';
 import { Row } from "antd";
 import { checkGrammarQuestion, Response, ConceptResult } from 'quill-marking-logic'
-import { hashToCollection, ProgressBar, ConceptExplanation, Feedback, } from 'quill-component-library/dist/componentLibrary'
+import { hashToCollection, ProgressBar, ConceptExplanation, Feedback } from 'quill-component-library/dist/componentLibrary';
 import Cues from './cues'
 import { Question } from '../../interfaces/questions'
 import { GrammarActivity } from '../../interfaces/grammarActivities'
 import * as responseActions from '../../actions/responses'
-import activity from "../../../Staff/components/comprehension/activity";
 
 const ALLOWED_ATTEMPTS = 5
 const UNANSWERED = 'unanswered'
@@ -65,7 +64,7 @@ export class QuestionComponent extends React.Component<QuestionProps, QuestionSt
 
   componentDidMount() {
     const { currentQuestion, } = this.props;
-
+    // preview questions use key as the unique identifier 
     const uid = currentQuestion.uid ? currentQuestion.uid : currentQuestion.key;
 
     responseActions.getGradedResponsesWithCallback(
@@ -91,13 +90,8 @@ export class QuestionComponent extends React.Component<QuestionProps, QuestionSt
       );
       if(previewMode) {
         // previewQuestion has been switched, reset values
-        let questionKeys; 
-        if(nextProps.activity.questions) {
-          questionKeys = nextProps.activity.questions.map(question => question.key);
-        } else {
-          questionKeys = randomizedQuestions;
-        }
-        const index = questionKeys && questionKeys.indexOf(nextProps.currentQuestion.uid ? nextProps.currentQuestion.uid : nextProps.currentQuestion.key);
+        const questionKeys = this.getPreviewQuestionKeys(nextProps.activity);
+        const index = questionKeys && this.getPreviewQuestionIndex(nextProps.currentQuestion, questionKeys);
         if(questionKeys && index === questionKeys.length - 1) {
           this.setState({ submittedForPreview: false, response: '', previewSubmissionCount: 0, previewQuestionCorrect: false, isLastPreviewQuestion: true });
         } else {
@@ -106,13 +100,8 @@ export class QuestionComponent extends React.Component<QuestionProps, QuestionSt
       }
     } else if(nextProps.currentQuestion.key && currentQuestion.key !== nextProps.currentQuestion.key) {
       // previewQuestion has been switched, reset values
-      let questionKeys; 
-      if(nextProps.activity.questions) {
-        questionKeys = nextProps.activity.questions.map(question => question.key);
-      } else {
-        questionKeys = randomizedQuestions;
-      }
-      const index = questionKeys && questionKeys.indexOf(nextProps.currentQuestion.uid ? nextProps.currentQuestion.uid : nextProps.currentQuestion.key);
+      const questionKeys = this.getPreviewQuestionKeys(nextProps.activity);
+      const index = questionKeys && this.getPreviewQuestionIndex(nextProps.currentQuestion, questionKeys);
       if(questionKeys && index === questionKeys.length - 1) {
         this.setState({ submittedForPreview: false, response: '', previewSubmissionCount: 0, previewQuestionCorrect: false, isLastPreviewQuestion: true });
       } else {
@@ -125,6 +114,21 @@ export class QuestionComponent extends React.Component<QuestionProps, QuestionSt
         }
       );
     }
+  }
+
+  getPreviewQuestionKeys = (activity) => {
+    const { randomizedQuestions } = this.state;
+    let questionKeys; 
+    if(activity.questions) {
+      questionKeys = activity.questions.map(question => question.key);
+    } else {
+      questionKeys = randomizedQuestions;
+    }
+    return questionKeys;
+  }
+
+  getPreviewQuestionIndex = (question, questions) => {
+    return questions.indexOf(question.uid ? question.uid : question.key);
   }
 
   previousResponses = () => {
@@ -199,15 +203,9 @@ export class QuestionComponent extends React.Component<QuestionProps, QuestionSt
 
   handleNextProblemClick = () => {
     const { activity, goToNextQuestion, previewMode, handleToggleQuestion, currentQuestion, questions } = this.props;
-    const { randomizedQuestions } = this.state;
     if(previewMode) {
-      let questionKeys; 
-      if(activity.questions) {
-        questionKeys = activity.questions.map(question => question.key);
-      } else {
-        questionKeys = randomizedQuestions;
-      }
-      const index = questionKeys.indexOf(currentQuestion.uid ? currentQuestion.uid : currentQuestion.key) + 1;
+      const questionKeys = this.getPreviewQuestionKeys(activity);
+      const index = questionKeys && this.getPreviewQuestionIndex(currentQuestion, questionKeys) + 1;
       if(index === questionKeys.length - 1) {
         const question = questions[questionKeys[index]];
         this.setState({ previewQuestionCorrect: false, isLastPreviewQuestion: true });
@@ -327,7 +325,7 @@ export class QuestionComponent extends React.Component<QuestionProps, QuestionSt
       // standard activity questions
       if(activity && activity.questions) {
         const questions = activity.questions ? activity.questions.map(question => question.key) : [];
-        answeredQuestionCount = questions.indexOf(question.uid ? question.uid : question.key) + 1;
+        answeredQuestionCount = questions && this.getPreviewQuestionIndex(question, questions) + 1;
         totalQuestionCount = questions.length;
       } else if(!randomizedQuestions) {
         const questions = [currentQuestion, ...unansweredQuestions].map(question => question.uid);
@@ -422,6 +420,8 @@ export class QuestionComponent extends React.Component<QuestionProps, QuestionSt
       const responseObj = checkGrammarQuestion(questionUID, response, responses, focusPoints, incorrectSequences, defaultConceptUID);
       if (responseObj.optimal && !previewQuestionCorrect) {
         this.setState({ previewQuestionCorrect: true });
+      }
+      if(responseObj.optimal && previewQuestionCorrect) {
         return <Feedback feedback={<p dangerouslySetInnerHTML={{ __html: responseObj.feedback }} />} feedbackType="correct-matched" />
       }
       if(previewSubmissionCount === ALLOWED_ATTEMPTS) {

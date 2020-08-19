@@ -12,12 +12,16 @@ export interface TeacherPreviewMenuProps {
     questions: {
       key: string;
     }[]; 
+    description?: string;
   };
   dispatch: Function;
   onTogglePreview: () => void;
   onToggleQuestion: (question: Question) => void;
   questions: Question[];
-  questionToPreview: { key: string };
+  questionToPreview: { 
+    key?: string, 
+    uid?: string 
+  };
   session: any;
   showPreview: boolean;
 }
@@ -61,14 +65,9 @@ const TeacherPreviewMenu = ({
     if(activity && activity.questions && questions) {
       return activity.questions.map((question: any, i) => {
         const { key } = question;
-        let highlightedStyle;
-        if(questionToPreview && questionToPreview.key) {
-          highlightedStyle = questionToPreview.key === key ? 'highlighted' : '';
-        } else if(questionToPreview && questionToPreview.uid) {
-          highlightedStyle = questionToPreview.uid === key ? 'highlighted' : '';
-        }
+        const style = getStyling(key);
         return(
-          <button className={`question-container ${highlightedStyle} focus-on-light`} id={key} key={key} onClick={handleQuestionUpdate} type="button">
+          <button className={`question-container ${style} focus-on-light`} id={key} key={key} onClick={handleQuestionUpdate} type="button">
             <p className="question-number">{`${i + 1}.  `}</p>
             <p className="question-text">{stripHtml(questions[key].prompt)}</p>
           </button>
@@ -81,14 +80,9 @@ const TeacherPreviewMenu = ({
     } else if(randomizedQuestions) {
       return randomizedQuestions.map((question: any, i) => {
         const { uid } = question;
-        let highlightedStyle;
-        if(questionToPreview && questionToPreview.key) {
-          highlightedStyle = questionToPreview.key === uid ? 'highlighted' : '';
-        } else if(questionToPreview && questionToPreview.uid) {
-          highlightedStyle = questionToPreview.uid === uid ? 'highlighted' : '';
-        }
+        const style = getStyling(uid);
         return(
-          <button className={`question-container ${highlightedStyle} focus-on-light`} id={uid} key={uid} onClick={handleQuestionUpdate} type="button">
+          <button className={`question-container ${style} focus-on-light`} id={uid} key={uid} onClick={handleQuestionUpdate} type="button">
             <p className="question-number">{`${i + 1}.  `}</p>
             <p className="question-text">{stripHtml(question.prompt)}</p>
           </button>
@@ -96,6 +90,27 @@ const TeacherPreviewMenu = ({
       })
     } else {
       return null;
+    }
+  }
+
+  const getStyling = (uidOrKey: string) => {
+    let style;
+    if(questionToPreview && questionToPreview.key) {
+      style = questionToPreview.key === uidOrKey ? 'highlighted' : '';
+    } else if(questionToPreview && questionToPreview.uid) {
+      style = questionToPreview.uid === uidOrKey ? 'highlighted' : '';
+    }
+    return style;
+  }
+
+  const renderTitleSection = () => {
+    if(activity) {
+      return(
+        <section>
+          <h2>Activity</h2>
+          <p>{activity.title}</p>
+        </section>
+      );
     }
   }
 
@@ -114,14 +129,7 @@ const TeacherPreviewMenu = ({
         <h2>Preview Mode</h2>
         <p>This menu only displays for teachers previewing an activity. Students will not be able to skip questions.</p>
       </section>
-      <section>
-        <h2>Activity</h2>
-        <p>{activity && activity.title}</p>
-      </section>
-      <section>
-        <h2>Introduction</h2>
-        <p>{}</p>
-      </section>
+      {renderTitleSection()}
       <section>
         <h2>Questions</h2>
         <ul>

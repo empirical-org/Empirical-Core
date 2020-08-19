@@ -68,17 +68,22 @@ export default class PageLayout extends React.Component<any, PageLayoutState> {
     let className = "ant-layout ";
     className = showFocusState ? '' : 'hide-focus-outline';
     let header;
-
     if(isPlaying && !studentSession) {
       header = <Header onTogglePreview={this.handleTogglePreviewMenu} previewShowing={previewShowing} />;
     } else if(isPlaying) {
       header = <Header />;
     }
+
     if(showPreview) {
       return(
         <Layout className={className}>
           <Layout>
-            <Layout.Sider className="sider-container" width={360}>
+            <Layout.Sider 
+              breakpoint="md"
+              className="sider-container" 
+              collapsedWidth="0"
+              width={360}
+            >
               <TeacherPreviewMenu
                 onTogglePreview={this.handleTogglePreviewMenu}
                 onToggleQuestion={this.handleToggleQuestion} 
