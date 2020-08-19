@@ -23,6 +23,6 @@ class Api::V1::ActiveActivitySessionsController < Api::ApiController
   end
 
   private def activity_session_by_uid
-    @activity_session = ActiveActivitySession.find_by!(uid: params[:id])
+    @activity_session = ActiveActivitySession.find_by(uid: params[:id])
   end
 end
