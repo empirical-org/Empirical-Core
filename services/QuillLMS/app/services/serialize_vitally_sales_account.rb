@@ -13,6 +13,7 @@ class SerializeVitallySalesAccount
       messageId: SecureRandom.uuid,
       traits: {
         name: @school.name,
+        address: @school.street,
         city: @school.city,
         state: @school.state,
         zipcode: @school.zipcode,
@@ -30,6 +31,7 @@ class SerializeVitallySalesAccount
         activities_finished: activities_finished,
         activities_per_student: activities_per_student,
         school_link: school_link,
+        created_at: @school.created_at,
         premium_expiry_date: subscription_expiration_date,
       }
     }
