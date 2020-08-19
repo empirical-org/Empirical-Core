@@ -44,11 +44,11 @@ class SerializeVitallySalesAccount
   end
 
   private def active_students
-    @active_students ||= ClassroomsTeacher
-      .joins(user: :school, classroom: :activity_sessions)
-        .where('schools.id = ?', @school.id)
-        .where('activity_sessions.state = ?', 'finished')
-        .count("DISTINCT('activity_sessions.user_id')")
+    @active_students ||= ActivitySession.select(:user_id).distinct
+      .joins(classroom_unit: {classroom: {teachers: :school}})
+      .where(state: 'finished')
+      .where('schools.id = ?', @school.id)
+      .count
   end
 
   private def activities_finished
