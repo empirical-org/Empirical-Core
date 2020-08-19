@@ -55,13 +55,13 @@ export class Tooltip extends React.Component<TooltipProps, {}> {
     return (
       <span
         className="quill-tooltip-trigger"
-        onMouseEnter={this.showTooltip}
-        onMouseLeave={this.startTimer}
         ref={node => this.tooltipTrigger = node}
         style={tooltipTriggerStyle}
       >
         <span
           className={`${tooltipTriggerTextClass}`}
+          onMouseEnter={this.showTooltip}
+          onMouseLeave={this.startTimer}
           style={tooltipTriggerTextStyle}
         >
           {tooltipTriggerText}
