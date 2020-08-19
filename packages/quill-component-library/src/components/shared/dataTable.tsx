@@ -27,6 +27,7 @@ interface DataTableHeader {
   width: string;
   name: string;
   attribute: string;
+  noTooltip?: boolean;
   rowSectionClassName?: string;
   headerClassName?: string;
   isSortable?: boolean;
@@ -237,8 +238,10 @@ export class DataTable extends React.Component<DataTableProps, DataTableState> {
     const sectionText = row[header.attribute]
     const headerWidthNumber = Number(header.width.slice(0, -2))
     const dataTableRowSectionClassName = `data-table-row-section ${header.rowSectionClassName}`
+    const key = `${header.attribute}-${row.id || sectionText}`
     if (!header.noTooltip && (String(sectionText).length * averageFontWidth) >= headerWidthNumber) {
       return (<Tooltip
+        key={key}
         tooltipText={sectionText}
         tooltipTriggerStyle={style}
         tooltipTriggerText={sectionText}
@@ -248,6 +251,7 @@ export class DataTable extends React.Component<DataTableProps, DataTableState> {
     } else {
       return (<span
         className={dataTableRowSectionClassName}
+        key={key}
         style={style as any}
       >
         {sectionText}

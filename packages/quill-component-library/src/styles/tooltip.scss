@@ -8,6 +8,7 @@
 .quill-tooltip:not(.visible) {
   opacity: 0;
   transition: opacity 0s;
+  height: 0px;
 }
 
 .quill-tooltip-wrapper {
@@ -18,6 +19,7 @@
   justify-content: center;
   left: 50%;
   transform: translateX(-50%);
+  z-index: 2;
 }
 
 .quill-tooltip {
