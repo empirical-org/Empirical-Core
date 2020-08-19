@@ -23,8 +23,9 @@
   }
   .mini-content {
     background: white;
-padding: 2%;
-border: solid 1px #cecece;
+    padding: 2%;
+    padding-top: 3%;
+    border: solid 1px #cecece;
     h3 {
       font-size: 16px;
       padding-top: 5px;
@@ -71,7 +72,7 @@ border: solid 1px #cecece;
 
 @media (min-width: 770px) {
   #getting-started-mini  .mini-content {
-    max-height: 270px;
+    max-height: 282px;
     margin-bottom: 0;
     margin-left: 3px;
     margin-right: 3px;
