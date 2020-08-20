@@ -11,7 +11,7 @@ export default {
       callback(processedSession)
     }).catch((error) => {
       if (error.status === 404) {
-        const processedSession = processSession({})
+        const processedSession = processSession(null)
         callback(processedSession)
       } else {
         throw error
