@@ -13,6 +13,12 @@ export default {
     // First attempt to get the new normalized session object for this ID
     SessionApi.get(sessionID).then((session) => {
       handleSessionSnapshot(denormalizeSession(session), cb)
+    }).catch((error) => {
+      if (error.status === 404) {
+        dispatch(handleSessionSnapshot({}), cb)
+      } else {
+        throw error
+      }
     })
   },
 

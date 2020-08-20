@@ -14,13 +14,8 @@ class Api::V1::ActiveActivitySessionsController < Api::ApiController
   end
 
   def destroy
-    begin
-      @activity_session.destroy
-    rescue NoMethodError => e
-      render json: {error: "No record found to destroy!"}, status: 404
-    else
-      render(plain: 'OK')
-    end
+    @activity_session.destroy
+    render(plain: 'OK')
   end
 
   private def valid_params
@@ -28,6 +23,6 @@ class Api::V1::ActiveActivitySessionsController < Api::ApiController
   end
 
   private def activity_session_by_uid
-    @activity_session = ActiveActivitySession.find_by(uid: params[:id])
+    @activity_session = ActiveActivitySession.find_by!(uid: params[:id])
   end
 end
