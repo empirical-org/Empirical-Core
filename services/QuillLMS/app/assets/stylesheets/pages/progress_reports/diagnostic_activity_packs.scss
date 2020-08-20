@@ -67,14 +67,15 @@
   .individual-assignments {
     padding: 16px 32px 0px;
     border-top: 1px solid #e0e0e0;
-    overflow-x: scroll;
     .data-table {
-      overflow: visible;
       .data-table-row {
         height: 72px;
       }
       .recommendations-row-section, .recommendations-header {
         margin-right: 0px;
+      }
+      @media (min-width: 1000px) {
+        overflow: visible;
       }
     }
   }
