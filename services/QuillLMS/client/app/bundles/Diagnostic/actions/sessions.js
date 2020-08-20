@@ -40,7 +40,9 @@ function processSession(session) {
       session.currentQuestion.data.attempts = [];
     }
   }
-  session.unansweredQuestions = session.unansweredQuestions || [];
+  if (session.unansweredQuestions) {
+    session.unansweredQuestions = session.unansweredQuestions || [];
+  }
   return session
 }
 

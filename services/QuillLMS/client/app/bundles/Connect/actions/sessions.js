@@ -128,7 +128,9 @@ function handleSessionSnapshot(session, callback) {
       session.currentQuestion.data.attempts = session.currentQuestion.data.attempts || [];
     }
   }
-  session.unansweredQuestions ? true : session.unansweredQuestions = [];
+  if (session.unansweredQuestions) {
+    session.unansweredQuestions ? true : session.unansweredQuestions = [];
+  }
   callback(session);
 }
 
