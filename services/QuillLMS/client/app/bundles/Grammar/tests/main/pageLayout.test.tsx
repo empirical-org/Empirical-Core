@@ -1,5 +1,5 @@
 import * as React from "react";
-import {shallow} from "enzyme";
+import { shallow } from "enzyme";
 import { PageLayout } from "../../components/PageLayout";
 
 describe("<PageLayout />", () => {
@@ -16,7 +16,7 @@ describe("<PageLayout />", () => {
     window.location = location;
   });
 
-  const component = shallow(<PageLayout/>);
+  const component = shallow(<PageLayout />);
 
     it("should render", () => {
       expect(component).toMatchSnapshot();

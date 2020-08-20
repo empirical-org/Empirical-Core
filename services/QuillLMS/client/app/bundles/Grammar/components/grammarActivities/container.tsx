@@ -92,10 +92,10 @@ export class PlayGrammarContainer extends React.Component<PlayGrammarContainerPr
         }
       }
 
-      if (nextProps.session.hasreceiveddata && !nextProps.session.currentQuestion && nextProps.session.unansweredQuestions.length === 0 && nextProps.session.answeredQuestions.length > 0) {
+      if (!previewMode && nextProps.session.hasreceiveddata && !nextProps.session.currentQuestion && nextProps.session.unansweredQuestions.length === 0 && nextProps.session.answeredQuestions.length > 0) {
         this.saveToLMS(nextProps.session)
         // handles case where proofreader has no follow-up questions
-      } else if (nextProps.session.hasreceiveddata && !nextProps.session.currentQuestion && nextProps.session.unansweredQuestions.length === 0 && nextProps.session.proofreaderSession) {
+      } else if (!previewMode && nextProps.session.hasreceiveddata && !nextProps.session.currentQuestion && nextProps.session.unansweredQuestions.length === 0 && nextProps.session.proofreaderSession) {
         this.saveToLMS(nextProps.session)
       }
 

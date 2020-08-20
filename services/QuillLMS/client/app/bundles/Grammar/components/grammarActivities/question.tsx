@@ -361,11 +361,15 @@ export class QuestionComponent extends React.Component<QuestionProps, QuestionSt
   }
 
   renderTextareaSection = () => {
-    const { questionStatus, response } = this.state
+    const { questionStatus, response, previewSubmissionCount } = this.state
     const question = this.currentQuestion()
     const latestAttempt: Response | undefined = this.getLatestAttempt(question.attempts)
 
-    if ((question.attempts && question.attempts.length === ALLOWED_ATTEMPTS) && (latestAttempt && !latestAttempt.optimal)) { return }
+    if ((question.attempts && question.attempts.length === ALLOWED_ATTEMPTS) && (latestAttempt && !latestAttempt.optimal)) { 
+      return 
+    } else if(previewSubmissionCount === ALLOWED_ATTEMPTS) {
+      return
+    }
     const disabled = [CORRECTLY_ANSWERED, FINAL_ATTEMPT].includes(questionStatus) ? 'disabled' : null
     return (<Row align="middle" justify="start" type="flex">
       <ContentEditable
