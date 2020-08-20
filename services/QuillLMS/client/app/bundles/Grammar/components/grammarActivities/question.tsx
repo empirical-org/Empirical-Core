@@ -77,7 +77,6 @@ export class QuestionComponent extends React.Component<QuestionProps, QuestionSt
 
   UNSAFE_componentWillReceiveProps(nextProps: QuestionProps) {
     const { currentQuestion, previewMode } = this.props;
-    const { randomizedQuestions } = this.state;
     if (nextProps.currentQuestion && nextProps.currentQuestion.attempts && nextProps.currentQuestion.attempts.length > 0) {
       this.setState({ questionStatus: this.getCurrentQuestionStatus(nextProps.currentQuestion) })
     }
@@ -251,10 +250,13 @@ export class QuestionComponent extends React.Component<QuestionProps, QuestionSt
   }
 
   handleKeyDown = (e: any) => {
+    const { previewSubmissionCount, previewQuestionCorrect } = this.state;
     if (e.keyCode == 13 && e.shiftKey == false) {
       e.preventDefault();
       const { questionStatus } = this.state
-      if (questionStatus === UNANSWERED || questionStatus === INCORRECTLY_ANSWERED) {
+      if(previewSubmissionCount === ALLOWED_ATTEMPTS || previewQuestionCorrect) {
+        this.handleNextProblemClick();
+      } else if (questionStatus === UNANSWERED || questionStatus === INCORRECTLY_ANSWERED) {
         this.handleCheckWorkClick()
       } else {
         this.handleNextProblemClick()

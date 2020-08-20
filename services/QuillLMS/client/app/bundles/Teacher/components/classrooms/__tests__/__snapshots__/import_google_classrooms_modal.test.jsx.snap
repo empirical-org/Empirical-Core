@@ -364,7 +364,7 @@ exports[`ImportGoogleClassroomsModal component #handleClickImportClasses should 
               className="data-table-body"
             >
               <div
-                className="data-table-row checked "
+                className="data-table-row checked"
                 key="5038757116"
               >
                 <button
@@ -379,7 +379,6 @@ exports[`ImportGoogleClassroomsModal component #handleClickImportClasses should 
                 </button>
                 <span
                   className="data-table-row-section undefined"
-                  key="name-5038757116"
                   style={
                     Object {
                       "minWidth": "510px",
@@ -392,7 +391,6 @@ exports[`ImportGoogleClassroomsModal component #handleClickImportClasses should 
                 </span>
                 <span
                   className="data-table-row-section show-overflow"
-                  key="grade-5038757116"
                   style={
                     Object {
                       "minWidth": "110px",
@@ -1522,7 +1520,6 @@ exports[`ImportGoogleClassroomsModal component #handleClickImportClasses should 
                 </span>
                 <span
                   className="data-table-row-section undefined"
-                  key="year-5038757116"
                   style={
                     Object {
                       "minWidth": "32px",
@@ -1535,7 +1532,6 @@ exports[`ImportGoogleClassroomsModal component #handleClickImportClasses should 
                 </span>
                 <span
                   className="data-table-row-section undefined"
-                  key="students-5038757116"
                   style={
                     Object {
                       "minWidth": "51px",
@@ -1551,7 +1547,7 @@ exports[`ImportGoogleClassroomsModal component #handleClickImportClasses should 
                 />
               </div>
               <div
-                className="data-table-row  "
+                className="data-table-row "
                 key="1986991936"
               >
                 <button
@@ -1562,7 +1558,6 @@ exports[`ImportGoogleClassroomsModal component #handleClickImportClasses should 
                 />
                 <span
                   className="data-table-row-section undefined"
-                  key="name-1986991936"
                   style={
                     Object {
                       "minWidth": "510px",
@@ -1575,7 +1570,6 @@ exports[`ImportGoogleClassroomsModal component #handleClickImportClasses should 
                 </span>
                 <span
                   className="data-table-row-section show-overflow"
-                  key="grade-1986991936"
                   style={
                     Object {
                       "minWidth": "110px",
@@ -1586,7 +1580,6 @@ exports[`ImportGoogleClassroomsModal component #handleClickImportClasses should 
                 />
                 <span
                   className="data-table-row-section undefined"
-                  key="year-1986991936"
                   style={
                     Object {
                       "minWidth": "32px",
@@ -1599,7 +1592,6 @@ exports[`ImportGoogleClassroomsModal component #handleClickImportClasses should 
                 </span>
                 <span
                   className="data-table-row-section undefined"
-                  key="students-1986991936"
                   style={
                     Object {
                       "minWidth": "51px",
@@ -1615,7 +1607,7 @@ exports[`ImportGoogleClassroomsModal component #handleClickImportClasses should 
                 />
               </div>
               <div
-                className="data-table-row  "
+                className="data-table-row "
                 key="5145051365"
               >
                 <button
@@ -1626,7 +1618,6 @@ exports[`ImportGoogleClassroomsModal component #handleClickImportClasses should 
                 />
                 <span
                   className="data-table-row-section undefined"
-                  key="name-5145051365"
                   style={
                     Object {
                       "minWidth": "510px",
@@ -1639,7 +1630,6 @@ exports[`ImportGoogleClassroomsModal component #handleClickImportClasses should 
                 </span>
                 <span
                   className="data-table-row-section show-overflow"
-                  key="grade-5145051365"
                   style={
                     Object {
                       "minWidth": "110px",
@@ -1650,7 +1640,6 @@ exports[`ImportGoogleClassroomsModal component #handleClickImportClasses should 
                 />
                 <span
                   className="data-table-row-section undefined"
-                  key="year-5145051365"
                   style={
                     Object {
                       "minWidth": "32px",
@@ -1663,7 +1652,6 @@ exports[`ImportGoogleClassroomsModal component #handleClickImportClasses should 
                 </span>
                 <span
                   className="data-table-row-section undefined"
-                  key="students-5145051365"
                   style={
                     Object {
                       "minWidth": "51px",
@@ -1679,7 +1667,7 @@ exports[`ImportGoogleClassroomsModal component #handleClickImportClasses should 
                 />
               </div>
               <div
-                className="data-table-row  "
+                className="data-table-row "
                 key="5144891078"
               >
                 <button
@@ -1690,7 +1678,6 @@ exports[`ImportGoogleClassroomsModal component #handleClickImportClasses should 
                 />
                 <span
                   className="data-table-row-section undefined"
-                  key="name-5144891078"
                   style={
                     Object {
                       "minWidth": "510px",
@@ -1703,7 +1690,6 @@ exports[`ImportGoogleClassroomsModal component #handleClickImportClasses should 
                 </span>
                 <span
                   className="data-table-row-section show-overflow"
-                  key="grade-5144891078"
                   style={
                     Object {
                       "minWidth": "110px",
@@ -1714,7 +1700,6 @@ exports[`ImportGoogleClassroomsModal component #handleClickImportClasses should 
                 />
                 <span
                   className="data-table-row-section undefined"
-                  key="year-5144891078"
                   style={
                     Object {
                       "minWidth": "32px",
@@ -1727,7 +1712,6 @@ exports[`ImportGoogleClassroomsModal component #handleClickImportClasses should 
                 </span>
                 <span
                   className="data-table-row-section undefined"
-                  key="students-5144891078"
                   style={
                     Object {
                       "minWidth": "51px",
@@ -1743,7 +1727,7 @@ exports[`ImportGoogleClassroomsModal component #handleClickImportClasses should 
                 />
               </div>
               <div
-                className="data-table-row  "
+                className="data-table-row "
                 key="5144690989"
               >
                 <button
@@ -1754,7 +1738,6 @@ exports[`ImportGoogleClassroomsModal component #handleClickImportClasses should 
                 />
                 <span
                   className="data-table-row-section undefined"
-                  key="name-5144690989"
                   style={
                     Object {
                       "minWidth": "510px",
@@ -1767,7 +1750,6 @@ exports[`ImportGoogleClassroomsModal component #handleClickImportClasses should 
                 </span>
                 <span
                   className="data-table-row-section show-overflow"
-                  key="grade-5144690989"
                   style={
                     Object {
                       "minWidth": "110px",
@@ -1778,7 +1760,6 @@ exports[`ImportGoogleClassroomsModal component #handleClickImportClasses should 
                 />
                 <span
                   className="data-table-row-section undefined"
-                  key="year-5144690989"
                   style={
                     Object {
                       "minWidth": "32px",
@@ -1791,7 +1772,6 @@ exports[`ImportGoogleClassroomsModal component #handleClickImportClasses should 
                 </span>
                 <span
                   className="data-table-row-section undefined"
-                  key="students-5144690989"
                   style={
                     Object {
                       "minWidth": "51px",
@@ -1807,7 +1787,7 @@ exports[`ImportGoogleClassroomsModal component #handleClickImportClasses should 
                 />
               </div>
               <div
-                className="data-table-row  "
+                className="data-table-row "
                 key="5145161709"
               >
                 <button
@@ -1818,7 +1798,6 @@ exports[`ImportGoogleClassroomsModal component #handleClickImportClasses should 
                 />
                 <span
                   className="data-table-row-section undefined"
-                  key="name-5145161709"
                   style={
                     Object {
                       "minWidth": "510px",
@@ -1831,7 +1810,6 @@ exports[`ImportGoogleClassroomsModal component #handleClickImportClasses should 
                 </span>
                 <span
                   className="data-table-row-section show-overflow"
-                  key="grade-5145161709"
                   style={
                     Object {
                       "minWidth": "110px",
@@ -1842,7 +1820,6 @@ exports[`ImportGoogleClassroomsModal component #handleClickImportClasses should 
                 />
                 <span
                   className="data-table-row-section undefined"
-                  key="year-5145161709"
                   style={
                     Object {
                       "minWidth": "32px",
@@ -1855,7 +1832,6 @@ exports[`ImportGoogleClassroomsModal component #handleClickImportClasses should 
                 </span>
                 <span
                   className="data-table-row-section undefined"
-                  key="students-5145161709"
                   style={
                     Object {
                       "minWidth": "51px",
@@ -2207,7 +2183,7 @@ exports[`ImportGoogleClassroomsModal component initial load should render 1`] = 
               className="data-table-body"
             >
               <div
-                className="data-table-row  "
+                className="data-table-row "
                 key="5038757116"
               >
                 <button
@@ -2218,7 +2194,6 @@ exports[`ImportGoogleClassroomsModal component initial load should render 1`] = 
                 />
                 <span
                   className="data-table-row-section undefined"
-                  key="name-5038757116"
                   style={
                     Object {
                       "minWidth": "510px",
@@ -2231,7 +2206,6 @@ exports[`ImportGoogleClassroomsModal component initial load should render 1`] = 
                 </span>
                 <span
                   className="data-table-row-section show-overflow"
-                  key="grade-5038757116"
                   style={
                     Object {
                       "minWidth": "110px",
@@ -2242,7 +2216,6 @@ exports[`ImportGoogleClassroomsModal component initial load should render 1`] = 
                 />
                 <span
                   className="data-table-row-section undefined"
-                  key="year-5038757116"
                   style={
                     Object {
                       "minWidth": "32px",
@@ -2255,7 +2228,6 @@ exports[`ImportGoogleClassroomsModal component initial load should render 1`] = 
                 </span>
                 <span
                   className="data-table-row-section undefined"
-                  key="students-5038757116"
                   style={
                     Object {
                       "minWidth": "51px",
@@ -2271,7 +2243,7 @@ exports[`ImportGoogleClassroomsModal component initial load should render 1`] = 
                 />
               </div>
               <div
-                className="data-table-row  "
+                className="data-table-row "
                 key="1986991936"
               >
                 <button
@@ -2282,7 +2254,6 @@ exports[`ImportGoogleClassroomsModal component initial load should render 1`] = 
                 />
                 <span
                   className="data-table-row-section undefined"
-                  key="name-1986991936"
                   style={
                     Object {
                       "minWidth": "510px",
@@ -2295,7 +2266,6 @@ exports[`ImportGoogleClassroomsModal component initial load should render 1`] = 
                 </span>
                 <span
                   className="data-table-row-section show-overflow"
-                  key="grade-1986991936"
                   style={
                     Object {
                       "minWidth": "110px",
@@ -2306,7 +2276,6 @@ exports[`ImportGoogleClassroomsModal component initial load should render 1`] = 
                 />
                 <span
                   className="data-table-row-section undefined"
-                  key="year-1986991936"
                   style={
                     Object {
                       "minWidth": "32px",
@@ -2319,7 +2288,6 @@ exports[`ImportGoogleClassroomsModal component initial load should render 1`] = 
                 </span>
                 <span
                   className="data-table-row-section undefined"
-                  key="students-1986991936"
                   style={
                     Object {
                       "minWidth": "51px",
@@ -2335,7 +2303,7 @@ exports[`ImportGoogleClassroomsModal component initial load should render 1`] = 
                 />
               </div>
               <div
-                className="data-table-row  "
+                className="data-table-row "
                 key="5145051365"
               >
                 <button
@@ -2346,7 +2314,6 @@ exports[`ImportGoogleClassroomsModal component initial load should render 1`] = 
                 />
                 <span
                   className="data-table-row-section undefined"
-                  key="name-5145051365"
                   style={
                     Object {
                       "minWidth": "510px",
@@ -2359,7 +2326,6 @@ exports[`ImportGoogleClassroomsModal component initial load should render 1`] = 
                 </span>
                 <span
                   className="data-table-row-section show-overflow"
-                  key="grade-5145051365"
                   style={
                     Object {
                       "minWidth": "110px",
@@ -2370,7 +2336,6 @@ exports[`ImportGoogleClassroomsModal component initial load should render 1`] = 
                 />
                 <span
                   className="data-table-row-section undefined"
-                  key="year-5145051365"
                   style={
                     Object {
                       "minWidth": "32px",
@@ -2383,7 +2348,6 @@ exports[`ImportGoogleClassroomsModal component initial load should render 1`] = 
                 </span>
                 <span
                   className="data-table-row-section undefined"
-                  key="students-5145051365"
                   style={
                     Object {
                       "minWidth": "51px",
@@ -2399,7 +2363,7 @@ exports[`ImportGoogleClassroomsModal component initial load should render 1`] = 
                 />
               </div>
               <div
-                className="data-table-row  "
+                className="data-table-row "
                 key="5144891078"
               >
                 <button
@@ -2410,7 +2374,6 @@ exports[`ImportGoogleClassroomsModal component initial load should render 1`] = 
                 />
                 <span
                   className="data-table-row-section undefined"
-                  key="name-5144891078"
                   style={
                     Object {
                       "minWidth": "510px",
@@ -2423,7 +2386,6 @@ exports[`ImportGoogleClassroomsModal component initial load should render 1`] = 
                 </span>
                 <span
                   className="data-table-row-section show-overflow"
-                  key="grade-5144891078"
                   style={
                     Object {
                       "minWidth": "110px",
@@ -2434,7 +2396,6 @@ exports[`ImportGoogleClassroomsModal component initial load should render 1`] = 
                 />
                 <span
                   className="data-table-row-section undefined"
-                  key="year-5144891078"
                   style={
                     Object {
                       "minWidth": "32px",
@@ -2447,7 +2408,6 @@ exports[`ImportGoogleClassroomsModal component initial load should render 1`] = 
                 </span>
                 <span
                   className="data-table-row-section undefined"
-                  key="students-5144891078"
                   style={
                     Object {
                       "minWidth": "51px",
@@ -2463,7 +2423,7 @@ exports[`ImportGoogleClassroomsModal component initial load should render 1`] = 
                 />
               </div>
               <div
-                className="data-table-row  "
+                className="data-table-row "
                 key="5144690989"
               >
                 <button
@@ -2474,7 +2434,6 @@ exports[`ImportGoogleClassroomsModal component initial load should render 1`] = 
                 />
                 <span
                   className="data-table-row-section undefined"
-                  key="name-5144690989"
                   style={
                     Object {
                       "minWidth": "510px",
@@ -2487,7 +2446,6 @@ exports[`ImportGoogleClassroomsModal component initial load should render 1`] = 
                 </span>
                 <span
                   className="data-table-row-section show-overflow"
-                  key="grade-5144690989"
                   style={
                     Object {
                       "minWidth": "110px",
@@ -2498,7 +2456,6 @@ exports[`ImportGoogleClassroomsModal component initial load should render 1`] = 
                 />
                 <span
                   className="data-table-row-section undefined"
-                  key="year-5144690989"
                   style={
                     Object {
                       "minWidth": "32px",
@@ -2511,7 +2468,6 @@ exports[`ImportGoogleClassroomsModal component initial load should render 1`] = 
                 </span>
                 <span
                   className="data-table-row-section undefined"
-                  key="students-5144690989"
                   style={
                     Object {
                       "minWidth": "51px",
@@ -2527,7 +2483,7 @@ exports[`ImportGoogleClassroomsModal component initial load should render 1`] = 
                 />
               </div>
               <div
-                className="data-table-row  "
+                className="data-table-row "
                 key="5145161709"
               >
                 <button
@@ -2538,7 +2494,6 @@ exports[`ImportGoogleClassroomsModal component initial load should render 1`] = 
                 />
                 <span
                   className="data-table-row-section undefined"
-                  key="name-5145161709"
                   style={
                     Object {
                       "minWidth": "510px",
@@ -2551,7 +2506,6 @@ exports[`ImportGoogleClassroomsModal component initial load should render 1`] = 
                 </span>
                 <span
                   className="data-table-row-section show-overflow"
-                  key="grade-5145161709"
                   style={
                     Object {
                       "minWidth": "110px",
@@ -2562,7 +2516,6 @@ exports[`ImportGoogleClassroomsModal component initial load should render 1`] = 
                 />
                 <span
                   className="data-table-row-section undefined"
-                  key="year-5145161709"
                   style={
                     Object {
                       "minWidth": "32px",
@@ -2575,7 +2528,6 @@ exports[`ImportGoogleClassroomsModal component initial load should render 1`] = 
                 </span>
                 <span
                   className="data-table-row-section undefined"
-                  key="students-5145161709"
                   style={
                     Object {
                       "minWidth": "51px",

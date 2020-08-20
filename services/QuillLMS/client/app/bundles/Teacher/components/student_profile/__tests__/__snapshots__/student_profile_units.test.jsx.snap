@@ -524,12 +524,11 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                 className="data-table-body"
               >
                 <div
-                  className="data-table-row  "
+                  className="data-table-row "
                   key="41"
                 >
                   <span
                     className="data-table-row-section name-section"
-                    key="name-41"
                     style={
                       Object {
                         "minWidth": "633px",
@@ -542,7 +541,6 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                   </span>
                   <span
                     className="data-table-row-section tool-icon-section"
-                    key="tool-41"
                     style={
                       Object {
                         "minWidth": "24px",
@@ -558,7 +556,6 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                   </span>
                   <span
                     className="data-table-row-section due-date-section"
-                    key="dueDate-41"
                     style={
                       Object {
                         "minWidth": "85px",
@@ -569,7 +566,6 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                   />
                   <span
                     className="data-table-row-section action-button-section"
-                    key="actionButton-41"
                     style={
                       Object {
                         "minWidth": "88px",
@@ -589,12 +585,11 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                   />
                 </div>
                 <div
-                  className="data-table-row  "
+                  className="data-table-row "
                   key="42"
                 >
                   <span
                     className="data-table-row-section name-section"
-                    key="name-42"
                     style={
                       Object {
                         "minWidth": "633px",
@@ -607,7 +602,6 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                   </span>
                   <span
                     className="data-table-row-section tool-icon-section"
-                    key="tool-42"
                     style={
                       Object {
                         "minWidth": "24px",
@@ -623,7 +617,6 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                   </span>
                   <span
                     className="data-table-row-section due-date-section"
-                    key="dueDate-42"
                     style={
                       Object {
                         "minWidth": "85px",
@@ -634,7 +627,6 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                   />
                   <span
                     className="data-table-row-section action-button-section"
-                    key="actionButton-42"
                     style={
                       Object {
                         "minWidth": "88px",
@@ -654,12 +646,11 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                   />
                 </div>
                 <div
-                  className="data-table-row  "
+                  className="data-table-row "
                   key="43"
                 >
                   <span
                     className="data-table-row-section name-section"
-                    key="name-43"
                     style={
                       Object {
                         "minWidth": "633px",
@@ -672,7 +663,6 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                   </span>
                   <span
                     className="data-table-row-section tool-icon-section"
-                    key="tool-43"
                     style={
                       Object {
                         "minWidth": "24px",
@@ -688,7 +678,6 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                   </span>
                   <span
                     className="data-table-row-section due-date-section"
-                    key="dueDate-43"
                     style={
                       Object {
                         "minWidth": "85px",
@@ -699,7 +688,6 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                   />
                   <span
                     className="data-table-row-section action-button-section"
-                    key="actionButton-43"
                     style={
                       Object {
                         "minWidth": "88px",
@@ -1190,12 +1178,11 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                 className="data-table-body"
               >
                 <div
-                  className="data-table-row  "
+                  className="data-table-row "
                   key="1"
                 >
                   <span
                     className="data-table-row-section name-section"
-                    key="name-1"
                     style={
                       Object {
                         "minWidth": "633px",
@@ -1208,7 +1195,6 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                   </span>
                   <span
                     className="data-table-row-section tool-icon-section"
-                    key="tool-1"
                     style={
                       Object {
                         "minWidth": "24px",
@@ -1224,7 +1210,6 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                   </span>
                   <span
                     className="data-table-row-section due-date-section"
-                    key="dueDate-1"
                     style={
                       Object {
                         "minWidth": "85px",
@@ -1237,7 +1222,6 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                   </span>
                   <span
                     className="data-table-row-section action-button-section"
-                    key="actionButton-1"
                     style={
                       Object {
                         "minWidth": "88px",
@@ -1258,12 +1242,11 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                   />
                 </div>
                 <div
-                  className="data-table-row  "
+                  className="data-table-row "
                   key="2"
                 >
                   <span
                     className="data-table-row-section name-section"
-                    key="name-2"
                     style={
                       Object {
                         "minWidth": "633px",
@@ -1276,7 +1259,6 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                   </span>
                   <span
                     className="data-table-row-section tool-icon-section"
-                    key="tool-2"
                     style={
                       Object {
                         "minWidth": "24px",
@@ -1292,7 +1274,6 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                   </span>
                   <span
                     className="data-table-row-section due-date-section"
-                    key="dueDate-2"
                     style={
                       Object {
                         "minWidth": "85px",
@@ -1305,7 +1286,6 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                   </span>
                   <span
                     className="data-table-row-section action-button-section"
-                    key="actionButton-2"
                     style={
                       Object {
                         "minWidth": "88px",
@@ -1326,12 +1306,11 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                   />
                 </div>
                 <div
-                  className="data-table-row  "
+                  className="data-table-row "
                   key="10"
                 >
                   <span
                     className="data-table-row-section name-section"
-                    key="name-10"
                     style={
                       Object {
                         "minWidth": "633px",
@@ -1344,7 +1323,6 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                   </span>
                   <span
                     className="data-table-row-section tool-icon-section"
-                    key="tool-10"
                     style={
                       Object {
                         "minWidth": "24px",
@@ -1360,7 +1338,6 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                   </span>
                   <span
                     className="data-table-row-section due-date-section"
-                    key="dueDate-10"
                     style={
                       Object {
                         "minWidth": "85px",
@@ -1373,7 +1350,6 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                   </span>
                   <span
                     className="data-table-row-section action-button-section"
-                    key="actionButton-10"
                     style={
                       Object {
                         "minWidth": "88px",
@@ -1394,12 +1370,11 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                   />
                 </div>
                 <div
-                  className="data-table-row  "
+                  className="data-table-row "
                   key="3"
                 >
                   <span
                     className="data-table-row-section name-section"
-                    key="name-3"
                     style={
                       Object {
                         "minWidth": "633px",
@@ -1412,7 +1387,6 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                   </span>
                   <span
                     className="data-table-row-section tool-icon-section"
-                    key="tool-3"
                     style={
                       Object {
                         "minWidth": "24px",
@@ -1428,7 +1402,6 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                   </span>
                   <span
                     className="data-table-row-section due-date-section"
-                    key="dueDate-3"
                     style={
                       Object {
                         "minWidth": "85px",
@@ -1441,7 +1414,6 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                   </span>
                   <span
                     className="data-table-row-section action-button-section"
-                    key="actionButton-3"
                     style={
                       Object {
                         "minWidth": "88px",
@@ -1462,12 +1434,11 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                   />
                 </div>
                 <div
-                  className="data-table-row  "
+                  className="data-table-row "
                   key="4"
                 >
                   <span
                     className="data-table-row-section name-section"
-                    key="name-4"
                     style={
                       Object {
                         "minWidth": "633px",
@@ -1480,7 +1451,6 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                   </span>
                   <span
                     className="data-table-row-section tool-icon-section"
-                    key="tool-4"
                     style={
                       Object {
                         "minWidth": "24px",
@@ -1496,7 +1466,6 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                   </span>
                   <span
                     className="data-table-row-section due-date-section"
-                    key="dueDate-4"
                     style={
                       Object {
                         "minWidth": "85px",
@@ -1509,7 +1478,6 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                   </span>
                   <span
                     className="data-table-row-section action-button-section"
-                    key="actionButton-4"
                     style={
                       Object {
                         "minWidth": "88px",
@@ -1530,12 +1498,11 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                   />
                 </div>
                 <div
-                  className="data-table-row  "
+                  className="data-table-row "
                   key="6"
                 >
                   <span
                     className="data-table-row-section name-section"
-                    key="name-6"
                     style={
                       Object {
                         "minWidth": "633px",
@@ -1548,7 +1515,6 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                   </span>
                   <span
                     className="data-table-row-section tool-icon-section"
-                    key="tool-6"
                     style={
                       Object {
                         "minWidth": "24px",
@@ -1564,7 +1530,6 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                   </span>
                   <span
                     className="data-table-row-section due-date-section"
-                    key="dueDate-6"
                     style={
                       Object {
                         "minWidth": "85px",
@@ -1577,7 +1542,6 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                   </span>
                   <span
                     className="data-table-row-section action-button-section"
-                    key="actionButton-6"
                     style={
                       Object {
                         "minWidth": "88px",
@@ -1598,12 +1562,11 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                   />
                 </div>
                 <div
-                  className="data-table-row  "
+                  className="data-table-row "
                   key="7"
                 >
                   <span
                     className="data-table-row-section name-section"
-                    key="name-7"
                     style={
                       Object {
                         "minWidth": "633px",
@@ -1616,7 +1579,6 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                   </span>
                   <span
                     className="data-table-row-section tool-icon-section"
-                    key="tool-7"
                     style={
                       Object {
                         "minWidth": "24px",
@@ -1632,7 +1594,6 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                   </span>
                   <span
                     className="data-table-row-section due-date-section"
-                    key="dueDate-7"
                     style={
                       Object {
                         "minWidth": "85px",
@@ -1645,7 +1606,6 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                   </span>
                   <span
                     className="data-table-row-section action-button-section"
-                    key="actionButton-7"
                     style={
                       Object {
                         "minWidth": "88px",
@@ -1666,12 +1626,11 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                   />
                 </div>
                 <div
-                  className="data-table-row  "
+                  className="data-table-row "
                   key="8"
                 >
                   <span
                     className="data-table-row-section name-section"
-                    key="name-8"
                     style={
                       Object {
                         "minWidth": "633px",
@@ -1684,7 +1643,6 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                   </span>
                   <span
                     className="data-table-row-section tool-icon-section"
-                    key="tool-8"
                     style={
                       Object {
                         "minWidth": "24px",
@@ -1700,7 +1658,6 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                   </span>
                   <span
                     className="data-table-row-section due-date-section"
-                    key="dueDate-8"
                     style={
                       Object {
                         "minWidth": "85px",
@@ -1713,7 +1670,6 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                   </span>
                   <span
                     className="data-table-row-section action-button-section"
-                    key="actionButton-8"
                     style={
                       Object {
                         "minWidth": "88px",
@@ -1922,12 +1878,11 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                 className="data-table-body"
               >
                 <div
-                  className="data-table-row  "
+                  className="data-table-row "
                   key="9"
                 >
                   <span
                     className="data-table-row-section name-section"
-                    key="name-9"
                     style={
                       Object {
                         "minWidth": "465px",
@@ -1940,7 +1895,6 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                   </span>
                   <span
                     className="data-table-row-section score-section"
-                    key="score-9"
                     style={
                       Object {
                         "minWidth": "144px",
@@ -1962,7 +1916,6 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                   </span>
                   <span
                     className="data-table-row-section tool-icon-section"
-                    key="tool-9"
                     style={
                       Object {
                         "minWidth": "24px",
@@ -1978,7 +1931,6 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                   </span>
                   <span
                     className="data-table-row-section completed-due-date-section"
-                    key="dueDate-9"
                     style={
                       Object {
                         "minWidth": "85px",
@@ -1991,7 +1943,6 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                   </span>
                   <span
                     className="data-table-row-section action-button-section"
-                    key="actionButton-9"
                     style={
                       Object {
                         "minWidth": "88px",
@@ -2012,12 +1963,11 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                   />
                 </div>
                 <div
-                  className="data-table-row  "
+                  className="data-table-row "
                   key="5"
                 >
                   <span
                     className="data-table-row-section name-section"
-                    key="name-5"
                     style={
                       Object {
                         "minWidth": "465px",
@@ -2030,7 +1980,6 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                   </span>
                   <span
                     className="data-table-row-section score-section"
-                    key="score-5"
                     style={
                       Object {
                         "minWidth": "144px",
@@ -2052,7 +2001,6 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                   </span>
                   <span
                     className="data-table-row-section tool-icon-section"
-                    key="tool-5"
                     style={
                       Object {
                         "minWidth": "24px",
@@ -2068,7 +2016,6 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                   </span>
                   <span
                     className="data-table-row-section completed-due-date-section"
-                    key="dueDate-5"
                     style={
                       Object {
                         "minWidth": "85px",
@@ -2081,7 +2028,6 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                   </span>
                   <span
                     className="data-table-row-section action-button-section"
-                    key="actionButton-5"
                     style={
                       Object {
                         "minWidth": "88px",
@@ -2635,12 +2581,11 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                 className="data-table-body"
               >
                 <div
-                  className="data-table-row  "
+                  className="data-table-row "
                   key="41"
                 >
                   <span
                     className="data-table-row-section name-section"
-                    key="name-41"
                     style={
                       Object {
                         "minWidth": "633px",
@@ -2653,7 +2598,6 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                   </span>
                   <span
                     className="data-table-row-section tool-icon-section"
-                    key="tool-41"
                     style={
                       Object {
                         "minWidth": "24px",
@@ -2669,7 +2613,6 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                   </span>
                   <span
                     className="data-table-row-section due-date-section"
-                    key="dueDate-41"
                     style={
                       Object {
                         "minWidth": "85px",
@@ -2680,7 +2623,6 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                   />
                   <span
                     className="data-table-row-section action-button-section"
-                    key="actionButton-41"
                     style={
                       Object {
                         "minWidth": "88px",
@@ -2700,12 +2642,11 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                   />
                 </div>
                 <div
-                  className="data-table-row  "
+                  className="data-table-row "
                   key="42"
                 >
                   <span
                     className="data-table-row-section name-section"
-                    key="name-42"
                     style={
                       Object {
                         "minWidth": "633px",
@@ -2718,7 +2659,6 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                   </span>
                   <span
                     className="data-table-row-section tool-icon-section"
-                    key="tool-42"
                     style={
                       Object {
                         "minWidth": "24px",
@@ -2734,7 +2674,6 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                   </span>
                   <span
                     className="data-table-row-section due-date-section"
-                    key="dueDate-42"
                     style={
                       Object {
                         "minWidth": "85px",
@@ -2745,7 +2684,6 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                   />
                   <span
                     className="data-table-row-section action-button-section"
-                    key="actionButton-42"
                     style={
                       Object {
                         "minWidth": "88px",
@@ -2765,12 +2703,11 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                   />
                 </div>
                 <div
-                  className="data-table-row  "
+                  className="data-table-row "
                   key="43"
                 >
                   <span
                     className="data-table-row-section name-section"
-                    key="name-43"
                     style={
                       Object {
                         "minWidth": "633px",
@@ -2783,7 +2720,6 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                   </span>
                   <span
                     className="data-table-row-section tool-icon-section"
-                    key="tool-43"
                     style={
                       Object {
                         "minWidth": "24px",
@@ -2799,7 +2735,6 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                   </span>
                   <span
                     className="data-table-row-section due-date-section"
-                    key="dueDate-43"
                     style={
                       Object {
                         "minWidth": "85px",
@@ -2810,7 +2745,6 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                   />
                   <span
                     className="data-table-row-section action-button-section"
-                    key="actionButton-43"
                     style={
                       Object {
                         "minWidth": "88px",
@@ -3301,12 +3235,11 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                 className="data-table-body"
               >
                 <div
-                  className="data-table-row  "
+                  className="data-table-row "
                   key="1"
                 >
                   <span
                     className="data-table-row-section name-section"
-                    key="name-1"
                     style={
                       Object {
                         "minWidth": "633px",
@@ -3319,7 +3252,6 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                   </span>
                   <span
                     className="data-table-row-section tool-icon-section"
-                    key="tool-1"
                     style={
                       Object {
                         "minWidth": "24px",
@@ -3335,7 +3267,6 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                   </span>
                   <span
                     className="data-table-row-section due-date-section"
-                    key="dueDate-1"
                     style={
                       Object {
                         "minWidth": "85px",
@@ -3348,7 +3279,6 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                   </span>
                   <span
                     className="data-table-row-section action-button-section"
-                    key="actionButton-1"
                     style={
                       Object {
                         "minWidth": "88px",
@@ -3369,12 +3299,11 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                   />
                 </div>
                 <div
-                  className="data-table-row  "
+                  className="data-table-row "
                   key="2"
                 >
                   <span
                     className="data-table-row-section name-section"
-                    key="name-2"
                     style={
                       Object {
                         "minWidth": "633px",
@@ -3387,7 +3316,6 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                   </span>
                   <span
                     className="data-table-row-section tool-icon-section"
-                    key="tool-2"
                     style={
                       Object {
                         "minWidth": "24px",
@@ -3403,7 +3331,6 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                   </span>
                   <span
                     className="data-table-row-section due-date-section"
-                    key="dueDate-2"
                     style={
                       Object {
                         "minWidth": "85px",
@@ -3416,7 +3343,6 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                   </span>
                   <span
                     className="data-table-row-section action-button-section"
-                    key="actionButton-2"
                     style={
                       Object {
                         "minWidth": "88px",
@@ -3437,12 +3363,11 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                   />
                 </div>
                 <div
-                  className="data-table-row  "
+                  className="data-table-row "
                   key="10"
                 >
                   <span
                     className="data-table-row-section name-section"
-                    key="name-10"
                     style={
                       Object {
                         "minWidth": "633px",
@@ -3455,7 +3380,6 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                   </span>
                   <span
                     className="data-table-row-section tool-icon-section"
-                    key="tool-10"
                     style={
                       Object {
                         "minWidth": "24px",
@@ -3471,7 +3395,6 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                   </span>
                   <span
                     className="data-table-row-section due-date-section"
-                    key="dueDate-10"
                     style={
                       Object {
                         "minWidth": "85px",
@@ -3484,7 +3407,6 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                   </span>
                   <span
                     className="data-table-row-section action-button-section"
-                    key="actionButton-10"
                     style={
                       Object {
                         "minWidth": "88px",
@@ -3505,12 +3427,11 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                   />
                 </div>
                 <div
-                  className="data-table-row  "
+                  className="data-table-row "
                   key="3"
                 >
                   <span
                     className="data-table-row-section name-section"
-                    key="name-3"
                     style={
                       Object {
                         "minWidth": "633px",
@@ -3523,7 +3444,6 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                   </span>
                   <span
                     className="data-table-row-section tool-icon-section"
-                    key="tool-3"
                     style={
                       Object {
                         "minWidth": "24px",
@@ -3539,7 +3459,6 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                   </span>
                   <span
                     className="data-table-row-section due-date-section"
-                    key="dueDate-3"
                     style={
                       Object {
                         "minWidth": "85px",
@@ -3552,7 +3471,6 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                   </span>
                   <span
                     className="data-table-row-section action-button-section"
-                    key="actionButton-3"
                     style={
                       Object {
                         "minWidth": "88px",
@@ -3573,12 +3491,11 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                   />
                 </div>
                 <div
-                  className="data-table-row  "
+                  className="data-table-row "
                   key="4"
                 >
                   <span
                     className="data-table-row-section name-section"
-                    key="name-4"
                     style={
                       Object {
                         "minWidth": "633px",
@@ -3591,7 +3508,6 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                   </span>
                   <span
                     className="data-table-row-section tool-icon-section"
-                    key="tool-4"
                     style={
                       Object {
                         "minWidth": "24px",
@@ -3607,7 +3523,6 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                   </span>
                   <span
                     className="data-table-row-section due-date-section"
-                    key="dueDate-4"
                     style={
                       Object {
                         "minWidth": "85px",
@@ -3620,7 +3535,6 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                   </span>
                   <span
                     className="data-table-row-section action-button-section"
-                    key="actionButton-4"
                     style={
                       Object {
                         "minWidth": "88px",
@@ -3641,12 +3555,11 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                   />
                 </div>
                 <div
-                  className="data-table-row  "
+                  className="data-table-row "
                   key="6"
                 >
                   <span
                     className="data-table-row-section name-section"
-                    key="name-6"
                     style={
                       Object {
                         "minWidth": "633px",
@@ -3659,7 +3572,6 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                   </span>
                   <span
                     className="data-table-row-section tool-icon-section"
-                    key="tool-6"
                     style={
                       Object {
                         "minWidth": "24px",
@@ -3675,7 +3587,6 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                   </span>
                   <span
                     className="data-table-row-section due-date-section"
-                    key="dueDate-6"
                     style={
                       Object {
                         "minWidth": "85px",
@@ -3688,7 +3599,6 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                   </span>
                   <span
                     className="data-table-row-section action-button-section"
-                    key="actionButton-6"
                     style={
                       Object {
                         "minWidth": "88px",
@@ -3709,12 +3619,11 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                   />
                 </div>
                 <div
-                  className="data-table-row  "
+                  className="data-table-row "
                   key="7"
                 >
                   <span
                     className="data-table-row-section name-section"
-                    key="name-7"
                     style={
                       Object {
                         "minWidth": "633px",
@@ -3727,7 +3636,6 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                   </span>
                   <span
                     className="data-table-row-section tool-icon-section"
-                    key="tool-7"
                     style={
                       Object {
                         "minWidth": "24px",
@@ -3743,7 +3651,6 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                   </span>
                   <span
                     className="data-table-row-section due-date-section"
-                    key="dueDate-7"
                     style={
                       Object {
                         "minWidth": "85px",
@@ -3756,7 +3663,6 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                   </span>
                   <span
                     className="data-table-row-section action-button-section"
-                    key="actionButton-7"
                     style={
                       Object {
                         "minWidth": "88px",
@@ -3777,12 +3683,11 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                   />
                 </div>
                 <div
-                  className="data-table-row  "
+                  className="data-table-row "
                   key="8"
                 >
                   <span
                     className="data-table-row-section name-section"
-                    key="name-8"
                     style={
                       Object {
                         "minWidth": "633px",
@@ -3795,7 +3700,6 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                   </span>
                   <span
                     className="data-table-row-section tool-icon-section"
-                    key="tool-8"
                     style={
                       Object {
                         "minWidth": "24px",
@@ -3811,7 +3715,6 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                   </span>
                   <span
                     className="data-table-row-section due-date-section"
-                    key="dueDate-8"
                     style={
                       Object {
                         "minWidth": "85px",
@@ -3824,7 +3727,6 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                   </span>
                   <span
                     className="data-table-row-section action-button-section"
-                    key="actionButton-8"
                     style={
                       Object {
                         "minWidth": "88px",
@@ -4033,12 +3935,11 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                 className="data-table-body"
               >
                 <div
-                  className="data-table-row  "
+                  className="data-table-row "
                   key="9"
                 >
                   <span
                     className="data-table-row-section name-section"
-                    key="name-9"
                     style={
                       Object {
                         "minWidth": "465px",
@@ -4051,7 +3952,6 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                   </span>
                   <span
                     className="data-table-row-section score-section"
-                    key="score-9"
                     style={
                       Object {
                         "minWidth": "144px",
@@ -4073,7 +3973,6 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                   </span>
                   <span
                     className="data-table-row-section tool-icon-section"
-                    key="tool-9"
                     style={
                       Object {
                         "minWidth": "24px",
@@ -4089,7 +3988,6 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                   </span>
                   <span
                     className="data-table-row-section completed-due-date-section"
-                    key="dueDate-9"
                     style={
                       Object {
                         "minWidth": "85px",
@@ -4102,7 +4000,6 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                   </span>
                   <span
                     className="data-table-row-section action-button-section"
-                    key="actionButton-9"
                     style={
                       Object {
                         "minWidth": "88px",
@@ -4123,12 +4020,11 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                   />
                 </div>
                 <div
-                  className="data-table-row  "
+                  className="data-table-row "
                   key="5"
                 >
                   <span
                     className="data-table-row-section name-section"
-                    key="name-5"
                     style={
                       Object {
                         "minWidth": "465px",
@@ -4141,7 +4037,6 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                   </span>
                   <span
                     className="data-table-row-section score-section"
-                    key="score-5"
                     style={
                       Object {
                         "minWidth": "144px",
@@ -4163,7 +4058,6 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                   </span>
                   <span
                     className="data-table-row-section tool-icon-section"
-                    key="tool-5"
                     style={
                       Object {
                         "minWidth": "24px",
@@ -4179,7 +4073,6 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                   </span>
                   <span
                     className="data-table-row-section completed-due-date-section"
-                    key="dueDate-5"
                     style={
                       Object {
                         "minWidth": "85px",
@@ -4192,7 +4085,6 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                   </span>
                   <span
                     className="data-table-row-section action-button-section"
-                    key="actionButton-5"
                     style={
                       Object {
                         "minWidth": "88px",
@@ -4875,12 +4767,11 @@ exports[`StudentProfileUnits component should render all activities and units if
                 className="data-table-body"
               >
                 <div
-                  className="data-table-row  "
+                  className="data-table-row "
                   key="40"
                 >
                   <span
                     className="data-table-row-section name-section"
-                    key="name-40"
                     style={
                       Object {
                         "minWidth": "633px",
@@ -4893,7 +4784,6 @@ exports[`StudentProfileUnits component should render all activities and units if
                   </span>
                   <span
                     className="data-table-row-section tool-icon-section"
-                    key="tool-40"
                     style={
                       Object {
                         "minWidth": "24px",
@@ -4909,7 +4799,6 @@ exports[`StudentProfileUnits component should render all activities and units if
                   </span>
                   <span
                     className="data-table-row-section due-date-section"
-                    key="dueDate-40"
                     style={
                       Object {
                         "minWidth": "85px",
@@ -4920,7 +4809,6 @@ exports[`StudentProfileUnits component should render all activities and units if
                   />
                   <span
                     className="data-table-row-section action-button-section"
-                    key="actionButton-40"
                     style={
                       Object {
                         "minWidth": "88px",
@@ -4941,12 +4829,11 @@ exports[`StudentProfileUnits component should render all activities and units if
                   />
                 </div>
                 <div
-                  className="data-table-row  "
+                  className="data-table-row "
                   key="41"
                 >
                   <span
                     className="data-table-row-section name-section"
-                    key="name-41"
                     style={
                       Object {
                         "minWidth": "633px",
@@ -4959,7 +4846,6 @@ exports[`StudentProfileUnits component should render all activities and units if
                   </span>
                   <span
                     className="data-table-row-section tool-icon-section"
-                    key="tool-41"
                     style={
                       Object {
                         "minWidth": "24px",
@@ -4975,7 +4861,6 @@ exports[`StudentProfileUnits component should render all activities and units if
                   </span>
                   <span
                     className="data-table-row-section due-date-section"
-                    key="dueDate-41"
                     style={
                       Object {
                         "minWidth": "85px",
@@ -4986,7 +4871,6 @@ exports[`StudentProfileUnits component should render all activities and units if
                   />
                   <span
                     className="data-table-row-section action-button-section"
-                    key="actionButton-41"
                     style={
                       Object {
                         "minWidth": "88px",
@@ -5006,12 +4890,11 @@ exports[`StudentProfileUnits component should render all activities and units if
                   />
                 </div>
                 <div
-                  className="data-table-row  "
+                  className="data-table-row "
                   key="42"
                 >
                   <span
                     className="data-table-row-section name-section"
-                    key="name-42"
                     style={
                       Object {
                         "minWidth": "633px",
@@ -5024,7 +4907,6 @@ exports[`StudentProfileUnits component should render all activities and units if
                   </span>
                   <span
                     className="data-table-row-section tool-icon-section"
-                    key="tool-42"
                     style={
                       Object {
                         "minWidth": "24px",
@@ -5040,7 +4922,6 @@ exports[`StudentProfileUnits component should render all activities and units if
                   </span>
                   <span
                     className="data-table-row-section due-date-section"
-                    key="dueDate-42"
                     style={
                       Object {
                         "minWidth": "85px",
@@ -5051,7 +4932,6 @@ exports[`StudentProfileUnits component should render all activities and units if
                   />
                   <span
                     className="data-table-row-section action-button-section"
-                    key="actionButton-42"
                     style={
                       Object {
                         "minWidth": "88px",
@@ -5071,12 +4951,11 @@ exports[`StudentProfileUnits component should render all activities and units if
                   />
                 </div>
                 <div
-                  className="data-table-row  "
+                  className="data-table-row "
                   key="43"
                 >
                   <span
                     className="data-table-row-section name-section"
-                    key="name-43"
                     style={
                       Object {
                         "minWidth": "633px",
@@ -5089,7 +4968,6 @@ exports[`StudentProfileUnits component should render all activities and units if
                   </span>
                   <span
                     className="data-table-row-section tool-icon-section"
-                    key="tool-43"
                     style={
                       Object {
                         "minWidth": "24px",
@@ -5105,7 +4983,6 @@ exports[`StudentProfileUnits component should render all activities and units if
                   </span>
                   <span
                     className="data-table-row-section due-date-section"
-                    key="dueDate-43"
                     style={
                       Object {
                         "minWidth": "85px",
@@ -5116,7 +4993,6 @@ exports[`StudentProfileUnits component should render all activities and units if
                   />
                   <span
                     className="data-table-row-section action-button-section"
-                    key="actionButton-43"
                     style={
                       Object {
                         "minWidth": "88px",
@@ -5607,12 +5483,11 @@ exports[`StudentProfileUnits component should render all activities and units if
                 className="data-table-body"
               >
                 <div
-                  className="data-table-row  "
+                  className="data-table-row "
                   key="1"
                 >
                   <span
                     className="data-table-row-section name-section"
-                    key="name-1"
                     style={
                       Object {
                         "minWidth": "633px",
@@ -5625,7 +5500,6 @@ exports[`StudentProfileUnits component should render all activities and units if
                   </span>
                   <span
                     className="data-table-row-section tool-icon-section"
-                    key="tool-1"
                     style={
                       Object {
                         "minWidth": "24px",
@@ -5641,7 +5515,6 @@ exports[`StudentProfileUnits component should render all activities and units if
                   </span>
                   <span
                     className="data-table-row-section due-date-section"
-                    key="dueDate-1"
                     style={
                       Object {
                         "minWidth": "85px",
@@ -5654,7 +5527,6 @@ exports[`StudentProfileUnits component should render all activities and units if
                   </span>
                   <span
                     className="data-table-row-section action-button-section"
-                    key="actionButton-1"
                     style={
                       Object {
                         "minWidth": "88px",
@@ -5675,12 +5547,11 @@ exports[`StudentProfileUnits component should render all activities and units if
                   />
                 </div>
                 <div
-                  className="data-table-row  "
+                  className="data-table-row "
                   key="2"
                 >
                   <span
                     className="data-table-row-section name-section"
-                    key="name-2"
                     style={
                       Object {
                         "minWidth": "633px",
@@ -5693,7 +5564,6 @@ exports[`StudentProfileUnits component should render all activities and units if
                   </span>
                   <span
                     className="data-table-row-section tool-icon-section"
-                    key="tool-2"
                     style={
                       Object {
                         "minWidth": "24px",
@@ -5709,7 +5579,6 @@ exports[`StudentProfileUnits component should render all activities and units if
                   </span>
                   <span
                     className="data-table-row-section due-date-section"
-                    key="dueDate-2"
                     style={
                       Object {
                         "minWidth": "85px",
@@ -5722,7 +5591,6 @@ exports[`StudentProfileUnits component should render all activities and units if
                   </span>
                   <span
                     className="data-table-row-section action-button-section"
-                    key="actionButton-2"
                     style={
                       Object {
                         "minWidth": "88px",
@@ -5743,12 +5611,11 @@ exports[`StudentProfileUnits component should render all activities and units if
                   />
                 </div>
                 <div
-                  className="data-table-row  "
+                  className="data-table-row "
                   key="10"
                 >
                   <span
                     className="data-table-row-section name-section"
-                    key="name-10"
                     style={
                       Object {
                         "minWidth": "633px",
@@ -5761,7 +5628,6 @@ exports[`StudentProfileUnits component should render all activities and units if
                   </span>
                   <span
                     className="data-table-row-section tool-icon-section"
-                    key="tool-10"
                     style={
                       Object {
                         "minWidth": "24px",
@@ -5777,7 +5643,6 @@ exports[`StudentProfileUnits component should render all activities and units if
                   </span>
                   <span
                     className="data-table-row-section due-date-section"
-                    key="dueDate-10"
                     style={
                       Object {
                         "minWidth": "85px",
@@ -5790,7 +5655,6 @@ exports[`StudentProfileUnits component should render all activities and units if
                   </span>
                   <span
                     className="data-table-row-section action-button-section"
-                    key="actionButton-10"
                     style={
                       Object {
                         "minWidth": "88px",
@@ -5811,12 +5675,11 @@ exports[`StudentProfileUnits component should render all activities and units if
                   />
                 </div>
                 <div
-                  className="data-table-row  "
+                  className="data-table-row "
                   key="3"
                 >
                   <span
                     className="data-table-row-section name-section"
-                    key="name-3"
                     style={
                       Object {
                         "minWidth": "633px",
@@ -5829,7 +5692,6 @@ exports[`StudentProfileUnits component should render all activities and units if
                   </span>
                   <span
                     className="data-table-row-section tool-icon-section"
-                    key="tool-3"
                     style={
                       Object {
                         "minWidth": "24px",
@@ -5845,7 +5707,6 @@ exports[`StudentProfileUnits component should render all activities and units if
                   </span>
                   <span
                     className="data-table-row-section due-date-section"
-                    key="dueDate-3"
                     style={
                       Object {
                         "minWidth": "85px",
@@ -5858,7 +5719,6 @@ exports[`StudentProfileUnits component should render all activities and units if
                   </span>
                   <span
                     className="data-table-row-section action-button-section"
-                    key="actionButton-3"
                     style={
                       Object {
                         "minWidth": "88px",
@@ -5879,12 +5739,11 @@ exports[`StudentProfileUnits component should render all activities and units if
                   />
                 </div>
                 <div
-                  className="data-table-row  "
+                  className="data-table-row "
                   key="4"
                 >
                   <span
                     className="data-table-row-section name-section"
-                    key="name-4"
                     style={
                       Object {
                         "minWidth": "633px",
@@ -5897,7 +5756,6 @@ exports[`StudentProfileUnits component should render all activities and units if
                   </span>
                   <span
                     className="data-table-row-section tool-icon-section"
-                    key="tool-4"
                     style={
                       Object {
                         "minWidth": "24px",
@@ -5913,7 +5771,6 @@ exports[`StudentProfileUnits component should render all activities and units if
                   </span>
                   <span
                     className="data-table-row-section due-date-section"
-                    key="dueDate-4"
                     style={
                       Object {
                         "minWidth": "85px",
@@ -5926,7 +5783,6 @@ exports[`StudentProfileUnits component should render all activities and units if
                   </span>
                   <span
                     className="data-table-row-section action-button-section"
-                    key="actionButton-4"
                     style={
                       Object {
                         "minWidth": "88px",
@@ -5947,12 +5803,11 @@ exports[`StudentProfileUnits component should render all activities and units if
                   />
                 </div>
                 <div
-                  className="data-table-row  "
+                  className="data-table-row "
                   key="6"
                 >
                   <span
                     className="data-table-row-section name-section"
-                    key="name-6"
                     style={
                       Object {
                         "minWidth": "633px",
@@ -5965,7 +5820,6 @@ exports[`StudentProfileUnits component should render all activities and units if
                   </span>
                   <span
                     className="data-table-row-section tool-icon-section"
-                    key="tool-6"
                     style={
                       Object {
                         "minWidth": "24px",
@@ -5981,7 +5835,6 @@ exports[`StudentProfileUnits component should render all activities and units if
                   </span>
                   <span
                     className="data-table-row-section due-date-section"
-                    key="dueDate-6"
                     style={
                       Object {
                         "minWidth": "85px",
@@ -5994,7 +5847,6 @@ exports[`StudentProfileUnits component should render all activities and units if
                   </span>
                   <span
                     className="data-table-row-section action-button-section"
-                    key="actionButton-6"
                     style={
                       Object {
                         "minWidth": "88px",
@@ -6015,12 +5867,11 @@ exports[`StudentProfileUnits component should render all activities and units if
                   />
                 </div>
                 <div
-                  className="data-table-row  "
+                  className="data-table-row "
                   key="7"
                 >
                   <span
                     className="data-table-row-section name-section"
-                    key="name-7"
                     style={
                       Object {
                         "minWidth": "633px",
@@ -6033,7 +5884,6 @@ exports[`StudentProfileUnits component should render all activities and units if
                   </span>
                   <span
                     className="data-table-row-section tool-icon-section"
-                    key="tool-7"
                     style={
                       Object {
                         "minWidth": "24px",
@@ -6049,7 +5899,6 @@ exports[`StudentProfileUnits component should render all activities and units if
                   </span>
                   <span
                     className="data-table-row-section due-date-section"
-                    key="dueDate-7"
                     style={
                       Object {
                         "minWidth": "85px",
@@ -6062,7 +5911,6 @@ exports[`StudentProfileUnits component should render all activities and units if
                   </span>
                   <span
                     className="data-table-row-section action-button-section"
-                    key="actionButton-7"
                     style={
                       Object {
                         "minWidth": "88px",
@@ -6083,12 +5931,11 @@ exports[`StudentProfileUnits component should render all activities and units if
                   />
                 </div>
                 <div
-                  className="data-table-row  "
+                  className="data-table-row "
                   key="8"
                 >
                   <span
                     className="data-table-row-section name-section"
-                    key="name-8"
                     style={
                       Object {
                         "minWidth": "633px",
@@ -6101,7 +5948,6 @@ exports[`StudentProfileUnits component should render all activities and units if
                   </span>
                   <span
                     className="data-table-row-section tool-icon-section"
-                    key="tool-8"
                     style={
                       Object {
                         "minWidth": "24px",
@@ -6117,7 +5963,6 @@ exports[`StudentProfileUnits component should render all activities and units if
                   </span>
                   <span
                     className="data-table-row-section due-date-section"
-                    key="dueDate-8"
                     style={
                       Object {
                         "minWidth": "85px",
@@ -6130,7 +5975,6 @@ exports[`StudentProfileUnits component should render all activities and units if
                   </span>
                   <span
                     className="data-table-row-section action-button-section"
-                    key="actionButton-8"
                     style={
                       Object {
                         "minWidth": "88px",
@@ -6339,12 +6183,11 @@ exports[`StudentProfileUnits component should render all activities and units if
                 className="data-table-body"
               >
                 <div
-                  className="data-table-row  "
+                  className="data-table-row "
                   key="9"
                 >
                   <span
                     className="data-table-row-section name-section"
-                    key="name-9"
                     style={
                       Object {
                         "minWidth": "465px",
@@ -6357,7 +6200,6 @@ exports[`StudentProfileUnits component should render all activities and units if
                   </span>
                   <span
                     className="data-table-row-section score-section"
-                    key="score-9"
                     style={
                       Object {
                         "minWidth": "144px",
@@ -6379,7 +6221,6 @@ exports[`StudentProfileUnits component should render all activities and units if
                   </span>
                   <span
                     className="data-table-row-section tool-icon-section"
-                    key="tool-9"
                     style={
                       Object {
                         "minWidth": "24px",
@@ -6395,7 +6236,6 @@ exports[`StudentProfileUnits component should render all activities and units if
                   </span>
                   <span
                     className="data-table-row-section completed-due-date-section"
-                    key="dueDate-9"
                     style={
                       Object {
                         "minWidth": "85px",
@@ -6408,7 +6248,6 @@ exports[`StudentProfileUnits component should render all activities and units if
                   </span>
                   <span
                     className="data-table-row-section action-button-section"
-                    key="actionButton-9"
                     style={
                       Object {
                         "minWidth": "88px",
@@ -6429,12 +6268,11 @@ exports[`StudentProfileUnits component should render all activities and units if
                   />
                 </div>
                 <div
-                  className="data-table-row  "
+                  className="data-table-row "
                   key="5"
                 >
                   <span
                     className="data-table-row-section name-section"
-                    key="name-5"
                     style={
                       Object {
                         "minWidth": "465px",
@@ -6447,7 +6285,6 @@ exports[`StudentProfileUnits component should render all activities and units if
                   </span>
                   <span
                     className="data-table-row-section score-section"
-                    key="score-5"
                     style={
                       Object {
                         "minWidth": "144px",
@@ -6469,7 +6306,6 @@ exports[`StudentProfileUnits component should render all activities and units if
                   </span>
                   <span
                     className="data-table-row-section tool-icon-section"
-                    key="tool-5"
                     style={
                       Object {
                         "minWidth": "24px",
@@ -6485,7 +6321,6 @@ exports[`StudentProfileUnits component should render all activities and units if
                   </span>
                   <span
                     className="data-table-row-section completed-due-date-section"
-                    key="dueDate-5"
                     style={
                       Object {
                         "minWidth": "85px",
@@ -6498,7 +6333,6 @@ exports[`StudentProfileUnits component should render all activities and units if
                   </span>
                   <span
                     className="data-table-row-section action-button-section"
-                    key="actionButton-5"
                     style={
                       Object {
                         "minWidth": "88px",
@@ -7154,12 +6988,11 @@ exports[`StudentProfileUnits component should render only completed activities i
                 className="data-table-body"
               >
                 <div
-                  className="data-table-row  "
+                  className="data-table-row "
                   key="9"
                 >
                   <span
                     className="data-table-row-section name-section"
-                    key="name-9"
                     style={
                       Object {
                         "minWidth": "465px",
@@ -7172,7 +7005,6 @@ exports[`StudentProfileUnits component should render only completed activities i
                   </span>
                   <span
                     className="data-table-row-section score-section"
-                    key="score-9"
                     style={
                       Object {
                         "minWidth": "144px",
@@ -7194,7 +7026,6 @@ exports[`StudentProfileUnits component should render only completed activities i
                   </span>
                   <span
                     className="data-table-row-section tool-icon-section"
-                    key="tool-9"
                     style={
                       Object {
                         "minWidth": "24px",
@@ -7210,7 +7041,6 @@ exports[`StudentProfileUnits component should render only completed activities i
                   </span>
                   <span
                     className="data-table-row-section completed-due-date-section"
-                    key="dueDate-9"
                     style={
                       Object {
                         "minWidth": "85px",
@@ -7223,7 +7053,6 @@ exports[`StudentProfileUnits component should render only completed activities i
                   </span>
                   <span
                     className="data-table-row-section action-button-section"
-                    key="actionButton-9"
                     style={
                       Object {
                         "minWidth": "88px",
@@ -7244,12 +7073,11 @@ exports[`StudentProfileUnits component should render only completed activities i
                   />
                 </div>
                 <div
-                  className="data-table-row  "
+                  className="data-table-row "
                   key="5"
                 >
                   <span
                     className="data-table-row-section name-section"
-                    key="name-5"
                     style={
                       Object {
                         "minWidth": "465px",
@@ -7262,7 +7090,6 @@ exports[`StudentProfileUnits component should render only completed activities i
                   </span>
                   <span
                     className="data-table-row-section score-section"
-                    key="score-5"
                     style={
                       Object {
                         "minWidth": "144px",
@@ -7284,7 +7111,6 @@ exports[`StudentProfileUnits component should render only completed activities i
                   </span>
                   <span
                     className="data-table-row-section tool-icon-section"
-                    key="tool-5"
                     style={
                       Object {
                         "minWidth": "24px",
@@ -7300,7 +7126,6 @@ exports[`StudentProfileUnits component should render only completed activities i
                   </span>
                   <span
                     className="data-table-row-section completed-due-date-section"
-                    key="dueDate-5"
                     style={
                       Object {
                         "minWidth": "85px",
@@ -7313,7 +7138,6 @@ exports[`StudentProfileUnits component should render only completed activities i
                   </span>
                   <span
                     className="data-table-row-section action-button-section"
-                    key="actionButton-5"
                     style={
                       Object {
                         "minWidth": "88px",
@@ -7996,12 +7820,11 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                 className="data-table-body"
               >
                 <div
-                  className="data-table-row  "
+                  className="data-table-row "
                   key="40"
                 >
                   <span
                     className="data-table-row-section name-section"
-                    key="name-40"
                     style={
                       Object {
                         "minWidth": "633px",
@@ -8014,7 +7837,6 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                   </span>
                   <span
                     className="data-table-row-section tool-icon-section"
-                    key="tool-40"
                     style={
                       Object {
                         "minWidth": "24px",
@@ -8030,7 +7852,6 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                   </span>
                   <span
                     className="data-table-row-section due-date-section"
-                    key="dueDate-40"
                     style={
                       Object {
                         "minWidth": "85px",
@@ -8041,7 +7862,6 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                   />
                   <span
                     className="data-table-row-section action-button-section"
-                    key="actionButton-40"
                     style={
                       Object {
                         "minWidth": "88px",
@@ -8062,12 +7882,11 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                   />
                 </div>
                 <div
-                  className="data-table-row  "
+                  className="data-table-row "
                   key="41"
                 >
                   <span
                     className="data-table-row-section name-section"
-                    key="name-41"
                     style={
                       Object {
                         "minWidth": "633px",
@@ -8080,7 +7899,6 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                   </span>
                   <span
                     className="data-table-row-section tool-icon-section"
-                    key="tool-41"
                     style={
                       Object {
                         "minWidth": "24px",
@@ -8096,7 +7914,6 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                   </span>
                   <span
                     className="data-table-row-section due-date-section"
-                    key="dueDate-41"
                     style={
                       Object {
                         "minWidth": "85px",
@@ -8107,7 +7924,6 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                   />
                   <span
                     className="data-table-row-section action-button-section"
-                    key="actionButton-41"
                     style={
                       Object {
                         "minWidth": "88px",
@@ -8127,12 +7943,11 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                   />
                 </div>
                 <div
-                  className="data-table-row  "
+                  className="data-table-row "
                   key="42"
                 >
                   <span
                     className="data-table-row-section name-section"
-                    key="name-42"
                     style={
                       Object {
                         "minWidth": "633px",
@@ -8145,7 +7960,6 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                   </span>
                   <span
                     className="data-table-row-section tool-icon-section"
-                    key="tool-42"
                     style={
                       Object {
                         "minWidth": "24px",
@@ -8161,7 +7975,6 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                   </span>
                   <span
                     className="data-table-row-section due-date-section"
-                    key="dueDate-42"
                     style={
                       Object {
                         "minWidth": "85px",
@@ -8172,7 +7985,6 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                   />
                   <span
                     className="data-table-row-section action-button-section"
-                    key="actionButton-42"
                     style={
                       Object {
                         "minWidth": "88px",
@@ -8192,12 +8004,11 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                   />
                 </div>
                 <div
-                  className="data-table-row  "
+                  className="data-table-row "
                   key="43"
                 >
                   <span
                     className="data-table-row-section name-section"
-                    key="name-43"
                     style={
                       Object {
                         "minWidth": "633px",
@@ -8210,7 +8021,6 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                   </span>
                   <span
                     className="data-table-row-section tool-icon-section"
-                    key="tool-43"
                     style={
                       Object {
                         "minWidth": "24px",
@@ -8226,7 +8036,6 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                   </span>
                   <span
                     className="data-table-row-section due-date-section"
-                    key="dueDate-43"
                     style={
                       Object {
                         "minWidth": "85px",
@@ -8237,7 +8046,6 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                   />
                   <span
                     className="data-table-row-section action-button-section"
-                    key="actionButton-43"
                     style={
                       Object {
                         "minWidth": "88px",
@@ -8684,12 +8492,11 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                 className="data-table-body"
               >
                 <div
-                  className="data-table-row  "
+                  className="data-table-row "
                   key="1"
                 >
                   <span
                     className="data-table-row-section name-section"
-                    key="name-1"
                     style={
                       Object {
                         "minWidth": "633px",
@@ -8702,7 +8509,6 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                   </span>
                   <span
                     className="data-table-row-section tool-icon-section"
-                    key="tool-1"
                     style={
                       Object {
                         "minWidth": "24px",
@@ -8718,7 +8524,6 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                   </span>
                   <span
                     className="data-table-row-section due-date-section"
-                    key="dueDate-1"
                     style={
                       Object {
                         "minWidth": "85px",
@@ -8731,7 +8536,6 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                   </span>
                   <span
                     className="data-table-row-section action-button-section"
-                    key="actionButton-1"
                     style={
                       Object {
                         "minWidth": "88px",
@@ -8752,12 +8556,11 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                   />
                 </div>
                 <div
-                  className="data-table-row  "
+                  className="data-table-row "
                   key="2"
                 >
                   <span
                     className="data-table-row-section name-section"
-                    key="name-2"
                     style={
                       Object {
                         "minWidth": "633px",
@@ -8770,7 +8573,6 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                   </span>
                   <span
                     className="data-table-row-section tool-icon-section"
-                    key="tool-2"
                     style={
                       Object {
                         "minWidth": "24px",
@@ -8786,7 +8588,6 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                   </span>
                   <span
                     className="data-table-row-section due-date-section"
-                    key="dueDate-2"
                     style={
                       Object {
                         "minWidth": "85px",
@@ -8799,7 +8600,6 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                   </span>
                   <span
                     className="data-table-row-section action-button-section"
-                    key="actionButton-2"
                     style={
                       Object {
                         "minWidth": "88px",
@@ -8820,12 +8620,11 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                   />
                 </div>
                 <div
-                  className="data-table-row  "
+                  className="data-table-row "
                   key="10"
                 >
                   <span
                     className="data-table-row-section name-section"
-                    key="name-10"
                     style={
                       Object {
                         "minWidth": "633px",
@@ -8838,7 +8637,6 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                   </span>
                   <span
                     className="data-table-row-section tool-icon-section"
-                    key="tool-10"
                     style={
                       Object {
                         "minWidth": "24px",
@@ -8854,7 +8652,6 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                   </span>
                   <span
                     className="data-table-row-section due-date-section"
-                    key="dueDate-10"
                     style={
                       Object {
                         "minWidth": "85px",
@@ -8867,7 +8664,6 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                   </span>
                   <span
                     className="data-table-row-section action-button-section"
-                    key="actionButton-10"
                     style={
                       Object {
                         "minWidth": "88px",
@@ -8888,12 +8684,11 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                   />
                 </div>
                 <div
-                  className="data-table-row  "
+                  className="data-table-row "
                   key="3"
                 >
                   <span
                     className="data-table-row-section name-section"
-                    key="name-3"
                     style={
                       Object {
                         "minWidth": "633px",
@@ -8906,7 +8701,6 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                   </span>
                   <span
                     className="data-table-row-section tool-icon-section"
-                    key="tool-3"
                     style={
                       Object {
                         "minWidth": "24px",
@@ -8922,7 +8716,6 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                   </span>
                   <span
                     className="data-table-row-section due-date-section"
-                    key="dueDate-3"
                     style={
                       Object {
                         "minWidth": "85px",
@@ -8935,7 +8728,6 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                   </span>
                   <span
                     className="data-table-row-section action-button-section"
-                    key="actionButton-3"
                     style={
                       Object {
                         "minWidth": "88px",
@@ -8956,12 +8748,11 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                   />
                 </div>
                 <div
-                  className="data-table-row  "
+                  className="data-table-row "
                   key="4"
                 >
                   <span
                     className="data-table-row-section name-section"
-                    key="name-4"
                     style={
                       Object {
                         "minWidth": "633px",
@@ -8974,7 +8765,6 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                   </span>
                   <span
                     className="data-table-row-section tool-icon-section"
-                    key="tool-4"
                     style={
                       Object {
                         "minWidth": "24px",
@@ -8990,7 +8780,6 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                   </span>
                   <span
                     className="data-table-row-section due-date-section"
-                    key="dueDate-4"
                     style={
                       Object {
                         "minWidth": "85px",
@@ -9003,7 +8792,6 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                   </span>
                   <span
                     className="data-table-row-section action-button-section"
-                    key="actionButton-4"
                     style={
                       Object {
                         "minWidth": "88px",
@@ -9024,12 +8812,11 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                   />
                 </div>
                 <div
-                  className="data-table-row  "
+                  className="data-table-row "
                   key="6"
                 >
                   <span
                     className="data-table-row-section name-section"
-                    key="name-6"
                     style={
                       Object {
                         "minWidth": "633px",
@@ -9042,7 +8829,6 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                   </span>
                   <span
                     className="data-table-row-section tool-icon-section"
-                    key="tool-6"
                     style={
                       Object {
                         "minWidth": "24px",
@@ -9058,7 +8844,6 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                   </span>
                   <span
                     className="data-table-row-section due-date-section"
-                    key="dueDate-6"
                     style={
                       Object {
                         "minWidth": "85px",
@@ -9071,7 +8856,6 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                   </span>
                   <span
                     className="data-table-row-section action-button-section"
-                    key="actionButton-6"
                     style={
                       Object {
                         "minWidth": "88px",
@@ -9092,12 +8876,11 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                   />
                 </div>
                 <div
-                  className="data-table-row  "
+                  className="data-table-row "
                   key="7"
                 >
                   <span
                     className="data-table-row-section name-section"
-                    key="name-7"
                     style={
                       Object {
                         "minWidth": "633px",
@@ -9110,7 +8893,6 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                   </span>
                   <span
                     className="data-table-row-section tool-icon-section"
-                    key="tool-7"
                     style={
                       Object {
                         "minWidth": "24px",
@@ -9126,7 +8908,6 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                   </span>
                   <span
                     className="data-table-row-section due-date-section"
-                    key="dueDate-7"
                     style={
                       Object {
                         "minWidth": "85px",
@@ -9139,7 +8920,6 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                   </span>
                   <span
                     className="data-table-row-section action-button-section"
-                    key="actionButton-7"
                     style={
                       Object {
                         "minWidth": "88px",
@@ -9160,12 +8940,11 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                   />
                 </div>
                 <div
-                  className="data-table-row  "
+                  className="data-table-row "
                   key="8"
                 >
                   <span
                     className="data-table-row-section name-section"
-                    key="name-8"
                     style={
                       Object {
                         "minWidth": "633px",
@@ -9178,7 +8957,6 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                   </span>
                   <span
                     className="data-table-row-section tool-icon-section"
-                    key="tool-8"
                     style={
                       Object {
                         "minWidth": "24px",
@@ -9194,7 +8972,6 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                   </span>
                   <span
                     className="data-table-row-section due-date-section"
-                    key="dueDate-8"
                     style={
                       Object {
                         "minWidth": "85px",
@@ -9207,7 +8984,6 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                   </span>
                   <span
                     className="data-table-row-section action-button-section"
-                    key="actionButton-8"
                     style={
                       Object {
                         "minWidth": "88px",
@@ -9890,12 +9666,11 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                 className="data-table-body"
               >
                 <div
-                  className="data-table-row  "
+                  className="data-table-row "
                   key="40"
                 >
                   <span
                     className="data-table-row-section name-section"
-                    key="name-40"
                     style={
                       Object {
                         "minWidth": "633px",
@@ -9908,7 +9683,6 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                   </span>
                   <span
                     className="data-table-row-section tool-icon-section"
-                    key="tool-40"
                     style={
                       Object {
                         "minWidth": "24px",
@@ -9924,7 +9698,6 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                   </span>
                   <span
                     className="data-table-row-section due-date-section"
-                    key="dueDate-40"
                     style={
                       Object {
                         "minWidth": "85px",
@@ -9935,7 +9708,6 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                   />
                   <span
                     className="data-table-row-section action-button-section"
-                    key="actionButton-40"
                     style={
                       Object {
                         "minWidth": "88px",
@@ -9956,12 +9728,11 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                   />
                 </div>
                 <div
-                  className="data-table-row  "
+                  className="data-table-row "
                   key="41"
                 >
                   <span
                     className="data-table-row-section name-section"
-                    key="name-41"
                     style={
                       Object {
                         "minWidth": "633px",
@@ -9974,7 +9745,6 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                   </span>
                   <span
                     className="data-table-row-section tool-icon-section"
-                    key="tool-41"
                     style={
                       Object {
                         "minWidth": "24px",
@@ -9990,7 +9760,6 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                   </span>
                   <span
                     className="data-table-row-section due-date-section"
-                    key="dueDate-41"
                     style={
                       Object {
                         "minWidth": "85px",
@@ -10001,7 +9770,6 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                   />
                   <span
                     className="data-table-row-section action-button-section"
-                    key="actionButton-41"
                     style={
                       Object {
                         "minWidth": "88px",
@@ -10021,12 +9789,11 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                   />
                 </div>
                 <div
-                  className="data-table-row  "
+                  className="data-table-row "
                   key="42"
                 >
                   <span
                     className="data-table-row-section name-section"
-                    key="name-42"
                     style={
                       Object {
                         "minWidth": "633px",
@@ -10039,7 +9806,6 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                   </span>
                   <span
                     className="data-table-row-section tool-icon-section"
-                    key="tool-42"
                     style={
                       Object {
                         "minWidth": "24px",
@@ -10055,7 +9821,6 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                   </span>
                   <span
                     className="data-table-row-section due-date-section"
-                    key="dueDate-42"
                     style={
                       Object {
                         "minWidth": "85px",
@@ -10066,7 +9831,6 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                   />
                   <span
                     className="data-table-row-section action-button-section"
-                    key="actionButton-42"
                     style={
                       Object {
                         "minWidth": "88px",
@@ -10086,12 +9850,11 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                   />
                 </div>
                 <div
-                  className="data-table-row  "
+                  className="data-table-row "
                   key="43"
                 >
                   <span
                     className="data-table-row-section name-section"
-                    key="name-43"
                     style={
                       Object {
                         "minWidth": "633px",
@@ -10104,7 +9867,6 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                   </span>
                   <span
                     className="data-table-row-section tool-icon-section"
-                    key="tool-43"
                     style={
                       Object {
                         "minWidth": "24px",
@@ -10120,7 +9882,6 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                   </span>
                   <span
                     className="data-table-row-section due-date-section"
-                    key="dueDate-43"
                     style={
                       Object {
                         "minWidth": "85px",
@@ -10131,7 +9892,6 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                   />
                   <span
                     className="data-table-row-section action-button-section"
-                    key="actionButton-43"
                     style={
                       Object {
                         "minWidth": "88px",
@@ -10622,12 +10382,11 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                 className="data-table-body"
               >
                 <div
-                  className="data-table-row  "
+                  className="data-table-row "
                   key="1"
                 >
                   <span
                     className="data-table-row-section name-section"
-                    key="name-1"
                     style={
                       Object {
                         "minWidth": "633px",
@@ -10640,7 +10399,6 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                   </span>
                   <span
                     className="data-table-row-section tool-icon-section"
-                    key="tool-1"
                     style={
                       Object {
                         "minWidth": "24px",
@@ -10656,7 +10414,6 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                   </span>
                   <span
                     className="data-table-row-section due-date-section"
-                    key="dueDate-1"
                     style={
                       Object {
                         "minWidth": "85px",
@@ -10669,7 +10426,6 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                   </span>
                   <span
                     className="data-table-row-section action-button-section"
-                    key="actionButton-1"
                     style={
                       Object {
                         "minWidth": "88px",
@@ -10690,12 +10446,11 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                   />
                 </div>
                 <div
-                  className="data-table-row  "
+                  className="data-table-row "
                   key="2"
                 >
                   <span
                     className="data-table-row-section name-section"
-                    key="name-2"
                     style={
                       Object {
                         "minWidth": "633px",
@@ -10708,7 +10463,6 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                   </span>
                   <span
                     className="data-table-row-section tool-icon-section"
-                    key="tool-2"
                     style={
                       Object {
                         "minWidth": "24px",
@@ -10724,7 +10478,6 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                   </span>
                   <span
                     className="data-table-row-section due-date-section"
-                    key="dueDate-2"
                     style={
                       Object {
                         "minWidth": "85px",
@@ -10737,7 +10490,6 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                   </span>
                   <span
                     className="data-table-row-section action-button-section"
-                    key="actionButton-2"
                     style={
                       Object {
                         "minWidth": "88px",
@@ -10758,12 +10510,11 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                   />
                 </div>
                 <div
-                  className="data-table-row  "
+                  className="data-table-row "
                   key="10"
                 >
                   <span
                     className="data-table-row-section name-section"
-                    key="name-10"
                     style={
                       Object {
                         "minWidth": "633px",
@@ -10776,7 +10527,6 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                   </span>
                   <span
                     className="data-table-row-section tool-icon-section"
-                    key="tool-10"
                     style={
                       Object {
                         "minWidth": "24px",
@@ -10792,7 +10542,6 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                   </span>
                   <span
                     className="data-table-row-section due-date-section"
-                    key="dueDate-10"
                     style={
                       Object {
                         "minWidth": "85px",
@@ -10805,7 +10554,6 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                   </span>
                   <span
                     className="data-table-row-section action-button-section"
-                    key="actionButton-10"
                     style={
                       Object {
                         "minWidth": "88px",
@@ -10826,12 +10574,11 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                   />
                 </div>
                 <div
-                  className="data-table-row  "
+                  className="data-table-row "
                   key="3"
                 >
                   <span
                     className="data-table-row-section name-section"
-                    key="name-3"
                     style={
                       Object {
                         "minWidth": "633px",
@@ -10844,7 +10591,6 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                   </span>
                   <span
                     className="data-table-row-section tool-icon-section"
-                    key="tool-3"
                     style={
                       Object {
                         "minWidth": "24px",
@@ -10860,7 +10606,6 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                   </span>
                   <span
                     className="data-table-row-section due-date-section"
-                    key="dueDate-3"
                     style={
                       Object {
                         "minWidth": "85px",
@@ -10873,7 +10618,6 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                   </span>
                   <span
                     className="data-table-row-section action-button-section"
-                    key="actionButton-3"
                     style={
                       Object {
                         "minWidth": "88px",
@@ -10894,12 +10638,11 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                   />
                 </div>
                 <div
-                  className="data-table-row  "
+                  className="data-table-row "
                   key="4"
                 >
                   <span
                     className="data-table-row-section name-section"
-                    key="name-4"
                     style={
                       Object {
                         "minWidth": "633px",
@@ -10912,7 +10655,6 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                   </span>
                   <span
                     className="data-table-row-section tool-icon-section"
-                    key="tool-4"
                     style={
                       Object {
                         "minWidth": "24px",
@@ -10928,7 +10670,6 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                   </span>
                   <span
                     className="data-table-row-section due-date-section"
-                    key="dueDate-4"
                     style={
                       Object {
                         "minWidth": "85px",
@@ -10941,7 +10682,6 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                   </span>
                   <span
                     className="data-table-row-section action-button-section"
-                    key="actionButton-4"
                     style={
                       Object {
                         "minWidth": "88px",
@@ -10962,12 +10702,11 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                   />
                 </div>
                 <div
-                  className="data-table-row  "
+                  className="data-table-row "
                   key="6"
                 >
                   <span
                     className="data-table-row-section name-section"
-                    key="name-6"
                     style={
                       Object {
                         "minWidth": "633px",
@@ -10980,7 +10719,6 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                   </span>
                   <span
                     className="data-table-row-section tool-icon-section"
-                    key="tool-6"
                     style={
                       Object {
                         "minWidth": "24px",
@@ -10996,7 +10734,6 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                   </span>
                   <span
                     className="data-table-row-section due-date-section"
-                    key="dueDate-6"
                     style={
                       Object {
                         "minWidth": "85px",
@@ -11009,7 +10746,6 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                   </span>
                   <span
                     className="data-table-row-section action-button-section"
-                    key="actionButton-6"
                     style={
                       Object {
                         "minWidth": "88px",
@@ -11030,12 +10766,11 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                   />
                 </div>
                 <div
-                  className="data-table-row  "
+                  className="data-table-row "
                   key="7"
                 >
                   <span
                     className="data-table-row-section name-section"
-                    key="name-7"
                     style={
                       Object {
                         "minWidth": "633px",
@@ -11048,7 +10783,6 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                   </span>
                   <span
                     className="data-table-row-section tool-icon-section"
-                    key="tool-7"
                     style={
                       Object {
                         "minWidth": "24px",
@@ -11064,7 +10798,6 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                   </span>
                   <span
                     className="data-table-row-section due-date-section"
-                    key="dueDate-7"
                     style={
                       Object {
                         "minWidth": "85px",
@@ -11077,7 +10810,6 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                   </span>
                   <span
                     className="data-table-row-section action-button-section"
-                    key="actionButton-7"
                     style={
                       Object {
                         "minWidth": "88px",
@@ -11098,12 +10830,11 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                   />
                 </div>
                 <div
-                  className="data-table-row  "
+                  className="data-table-row "
                   key="8"
                 >
                   <span
                     className="data-table-row-section name-section"
-                    key="name-8"
                     style={
                       Object {
                         "minWidth": "633px",
@@ -11116,7 +10847,6 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                   </span>
                   <span
                     className="data-table-row-section tool-icon-section"
-                    key="tool-8"
                     style={
                       Object {
                         "minWidth": "24px",
@@ -11132,7 +10862,6 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                   </span>
                   <span
                     className="data-table-row-section due-date-section"
-                    key="dueDate-8"
                     style={
                       Object {
                         "minWidth": "85px",
@@ -11145,7 +10874,6 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                   </span>
                   <span
                     className="data-table-row-section action-button-section"
-                    key="actionButton-8"
                     style={
                       Object {
                         "minWidth": "88px",
@@ -11354,12 +11082,11 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                 className="data-table-body"
               >
                 <div
-                  className="data-table-row  "
+                  className="data-table-row "
                   key="9"
                 >
                   <span
                     className="data-table-row-section name-section"
-                    key="name-9"
                     style={
                       Object {
                         "minWidth": "465px",
@@ -11372,7 +11099,6 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                   </span>
                   <span
                     className="data-table-row-section score-section"
-                    key="score-9"
                     style={
                       Object {
                         "minWidth": "144px",
@@ -11394,7 +11120,6 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                   </span>
                   <span
                     className="data-table-row-section tool-icon-section"
-                    key="tool-9"
                     style={
                       Object {
                         "minWidth": "24px",
@@ -11410,7 +11135,6 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                   </span>
                   <span
                     className="data-table-row-section completed-due-date-section"
-                    key="dueDate-9"
                     style={
                       Object {
                         "minWidth": "85px",
@@ -11423,7 +11147,6 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                   </span>
                   <span
                     className="data-table-row-section action-button-section"
-                    key="actionButton-9"
                     style={
                       Object {
                         "minWidth": "88px",
@@ -11444,12 +11167,11 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                   />
                 </div>
                 <div
-                  className="data-table-row  "
+                  className="data-table-row "
                   key="5"
                 >
                   <span
                     className="data-table-row-section name-section"
-                    key="name-5"
                     style={
                       Object {
                         "minWidth": "465px",
@@ -11462,7 +11184,6 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                   </span>
                   <span
                     className="data-table-row-section score-section"
-                    key="score-5"
                     style={
                       Object {
                         "minWidth": "144px",
@@ -11484,7 +11205,6 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                   </span>
                   <span
                     className="data-table-row-section tool-icon-section"
-                    key="tool-5"
                     style={
                       Object {
                         "minWidth": "24px",
@@ -11500,7 +11220,6 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                   </span>
                   <span
                     className="data-table-row-section completed-due-date-section"
-                    key="dueDate-5"
                     style={
                       Object {
                         "minWidth": "85px",
@@ -11513,7 +11232,6 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                   </span>
                   <span
                     className="data-table-row-section action-button-section"
-                    key="actionButton-5"
                     style={
                       Object {
                         "minWidth": "88px",
@@ -12196,12 +11914,11 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                 className="data-table-body"
               >
                 <div
-                  className="data-table-row  "
+                  className="data-table-row "
                   key="40"
                 >
                   <span
                     className="data-table-row-section name-section"
-                    key="name-40"
                     style={
                       Object {
                         "minWidth": "633px",
@@ -12214,7 +11931,6 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                   </span>
                   <span
                     className="data-table-row-section tool-icon-section"
-                    key="tool-40"
                     style={
                       Object {
                         "minWidth": "24px",
@@ -12230,7 +11946,6 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                   </span>
                   <span
                     className="data-table-row-section due-date-section"
-                    key="dueDate-40"
                     style={
                       Object {
                         "minWidth": "85px",
@@ -12241,7 +11956,6 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                   />
                   <span
                     className="data-table-row-section action-button-section"
-                    key="actionButton-40"
                     style={
                       Object {
                         "minWidth": "88px",
@@ -12262,12 +11976,11 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                   />
                 </div>
                 <div
-                  className="data-table-row  "
+                  className="data-table-row "
                   key="41"
                 >
                   <span
                     className="data-table-row-section name-section"
-                    key="name-41"
                     style={
                       Object {
                         "minWidth": "633px",
@@ -12280,7 +11993,6 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                   </span>
                   <span
                     className="data-table-row-section tool-icon-section"
-                    key="tool-41"
                     style={
                       Object {
                         "minWidth": "24px",
@@ -12296,7 +12008,6 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                   </span>
                   <span
                     className="data-table-row-section due-date-section"
-                    key="dueDate-41"
                     style={
                       Object {
                         "minWidth": "85px",
@@ -12307,7 +12018,6 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                   />
                   <span
                     className="data-table-row-section action-button-section"
-                    key="actionButton-41"
                     style={
                       Object {
                         "minWidth": "88px",
@@ -12327,12 +12037,11 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                   />
                 </div>
                 <div
-                  className="data-table-row  "
+                  className="data-table-row "
                   key="42"
                 >
                   <span
                     className="data-table-row-section name-section"
-                    key="name-42"
                     style={
                       Object {
                         "minWidth": "633px",
@@ -12345,7 +12054,6 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                   </span>
                   <span
                     className="data-table-row-section tool-icon-section"
-                    key="tool-42"
                     style={
                       Object {
                         "minWidth": "24px",
@@ -12361,7 +12069,6 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                   </span>
                   <span
                     className="data-table-row-section due-date-section"
-                    key="dueDate-42"
                     style={
                       Object {
                         "minWidth": "85px",
@@ -12372,7 +12079,6 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                   />
                   <span
                     className="data-table-row-section action-button-section"
-                    key="actionButton-42"
                     style={
                       Object {
                         "minWidth": "88px",
@@ -12392,12 +12098,11 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                   />
                 </div>
                 <div
-                  className="data-table-row  "
+                  className="data-table-row "
                   key="43"
                 >
                   <span
                     className="data-table-row-section name-section"
-                    key="name-43"
                     style={
                       Object {
                         "minWidth": "633px",
@@ -12410,7 +12115,6 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                   </span>
                   <span
                     className="data-table-row-section tool-icon-section"
-                    key="tool-43"
                     style={
                       Object {
                         "minWidth": "24px",
@@ -12426,7 +12130,6 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                   </span>
                   <span
                     className="data-table-row-section due-date-section"
-                    key="dueDate-43"
                     style={
                       Object {
                         "minWidth": "85px",
@@ -12437,7 +12140,6 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                   />
                   <span
                     className="data-table-row-section action-button-section"
-                    key="actionButton-43"
                     style={
                       Object {
                         "minWidth": "88px",
@@ -12928,12 +12630,11 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                 className="data-table-body"
               >
                 <div
-                  className="data-table-row  "
+                  className="data-table-row "
                   key="1"
                 >
                   <span
                     className="data-table-row-section name-section"
-                    key="name-1"
                     style={
                       Object {
                         "minWidth": "633px",
@@ -12946,7 +12647,6 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                   </span>
                   <span
                     className="data-table-row-section tool-icon-section"
-                    key="tool-1"
                     style={
                       Object {
                         "minWidth": "24px",
@@ -12962,7 +12662,6 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                   </span>
                   <span
                     className="data-table-row-section due-date-section"
-                    key="dueDate-1"
                     style={
                       Object {
                         "minWidth": "85px",
@@ -12975,7 +12674,6 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                   </span>
                   <span
                     className="data-table-row-section action-button-section"
-                    key="actionButton-1"
                     style={
                       Object {
                         "minWidth": "88px",
@@ -12996,12 +12694,11 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                   />
                 </div>
                 <div
-                  className="data-table-row  "
+                  className="data-table-row "
                   key="2"
                 >
                   <span
                     className="data-table-row-section name-section"
-                    key="name-2"
                     style={
                       Object {
                         "minWidth": "633px",
@@ -13014,7 +12711,6 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                   </span>
                   <span
                     className="data-table-row-section tool-icon-section"
-                    key="tool-2"
                     style={
                       Object {
                         "minWidth": "24px",
@@ -13030,7 +12726,6 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                   </span>
                   <span
                     className="data-table-row-section due-date-section"
-                    key="dueDate-2"
                     style={
                       Object {
                         "minWidth": "85px",
@@ -13043,7 +12738,6 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                   </span>
                   <span
                     className="data-table-row-section action-button-section"
-                    key="actionButton-2"
                     style={
                       Object {
                         "minWidth": "88px",
@@ -13064,12 +12758,11 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                   />
                 </div>
                 <div
-                  className="data-table-row  "
+                  className="data-table-row "
                   key="10"
                 >
                   <span
                     className="data-table-row-section name-section"
-                    key="name-10"
                     style={
                       Object {
                         "minWidth": "633px",
@@ -13082,7 +12775,6 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                   </span>
                   <span
                     className="data-table-row-section tool-icon-section"
-                    key="tool-10"
                     style={
                       Object {
                         "minWidth": "24px",
@@ -13098,7 +12790,6 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                   </span>
                   <span
                     className="data-table-row-section due-date-section"
-                    key="dueDate-10"
                     style={
                       Object {
                         "minWidth": "85px",
@@ -13111,7 +12802,6 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                   </span>
                   <span
                     className="data-table-row-section action-button-section"
-                    key="actionButton-10"
                     style={
                       Object {
                         "minWidth": "88px",
@@ -13132,12 +12822,11 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                   />
                 </div>
                 <div
-                  className="data-table-row  "
+                  className="data-table-row "
                   key="3"
                 >
                   <span
                     className="data-table-row-section name-section"
-                    key="name-3"
                     style={
                       Object {
                         "minWidth": "633px",
@@ -13150,7 +12839,6 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                   </span>
                   <span
                     className="data-table-row-section tool-icon-section"
-                    key="tool-3"
                     style={
                       Object {
                         "minWidth": "24px",
@@ -13166,7 +12854,6 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                   </span>
                   <span
                     className="data-table-row-section due-date-section"
-                    key="dueDate-3"
                     style={
                       Object {
                         "minWidth": "85px",
@@ -13179,7 +12866,6 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                   </span>
                   <span
                     className="data-table-row-section action-button-section"
-                    key="actionButton-3"
                     style={
                       Object {
                         "minWidth": "88px",
@@ -13200,12 +12886,11 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                   />
                 </div>
                 <div
-                  className="data-table-row  "
+                  className="data-table-row "
                   key="4"
                 >
                   <span
                     className="data-table-row-section name-section"
-                    key="name-4"
                     style={
                       Object {
                         "minWidth": "633px",
@@ -13218,7 +12903,6 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                   </span>
                   <span
                     className="data-table-row-section tool-icon-section"
-                    key="tool-4"
                     style={
                       Object {
                         "minWidth": "24px",
@@ -13234,7 +12918,6 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                   </span>
                   <span
                     className="data-table-row-section due-date-section"
-                    key="dueDate-4"
                     style={
                       Object {
                         "minWidth": "85px",
@@ -13247,7 +12930,6 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                   </span>
                   <span
                     className="data-table-row-section action-button-section"
-                    key="actionButton-4"
                     style={
                       Object {
                         "minWidth": "88px",
@@ -13268,12 +12950,11 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                   />
                 </div>
                 <div
-                  className="data-table-row  "
+                  className="data-table-row "
                   key="6"
                 >
                   <span
                     className="data-table-row-section name-section"
-                    key="name-6"
                     style={
                       Object {
                         "minWidth": "633px",
@@ -13286,7 +12967,6 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                   </span>
                   <span
                     className="data-table-row-section tool-icon-section"
-                    key="tool-6"
                     style={
                       Object {
                         "minWidth": "24px",
@@ -13302,7 +12982,6 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                   </span>
                   <span
                     className="data-table-row-section due-date-section"
-                    key="dueDate-6"
                     style={
                       Object {
                         "minWidth": "85px",
@@ -13315,7 +12994,6 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                   </span>
                   <span
                     className="data-table-row-section action-button-section"
-                    key="actionButton-6"
                     style={
                       Object {
                         "minWidth": "88px",
@@ -13336,12 +13014,11 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                   />
                 </div>
                 <div
-                  className="data-table-row  "
+                  className="data-table-row "
                   key="7"
                 >
                   <span
                     className="data-table-row-section name-section"
-                    key="name-7"
                     style={
                       Object {
                         "minWidth": "633px",
@@ -13354,7 +13031,6 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                   </span>
                   <span
                     className="data-table-row-section tool-icon-section"
-                    key="tool-7"
                     style={
                       Object {
                         "minWidth": "24px",
@@ -13370,7 +13046,6 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                   </span>
                   <span
                     className="data-table-row-section due-date-section"
-                    key="dueDate-7"
                     style={
                       Object {
                         "minWidth": "85px",
@@ -13383,7 +13058,6 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                   </span>
                   <span
                     className="data-table-row-section action-button-section"
-                    key="actionButton-7"
                     style={
                       Object {
                         "minWidth": "88px",
@@ -13404,12 +13078,11 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                   />
                 </div>
                 <div
-                  className="data-table-row  "
+                  className="data-table-row "
                   key="8"
                 >
                   <span
                     className="data-table-row-section name-section"
-                    key="name-8"
                     style={
                       Object {
                         "minWidth": "633px",
@@ -13422,7 +13095,6 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                   </span>
                   <span
                     className="data-table-row-section tool-icon-section"
-                    key="tool-8"
                     style={
                       Object {
                         "minWidth": "24px",
@@ -13438,7 +13110,6 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                   </span>
                   <span
                     className="data-table-row-section due-date-section"
-                    key="dueDate-8"
                     style={
                       Object {
                         "minWidth": "85px",
@@ -13451,7 +13122,6 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                   </span>
                   <span
                     className="data-table-row-section action-button-section"
-                    key="actionButton-8"
                     style={
                       Object {
                         "minWidth": "88px",
@@ -13660,12 +13330,11 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                 className="data-table-body"
               >
                 <div
-                  className="data-table-row  "
+                  className="data-table-row "
                   key="9"
                 >
                   <span
                     className="data-table-row-section name-section"
-                    key="name-9"
                     style={
                       Object {
                         "minWidth": "465px",
@@ -13678,7 +13347,6 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                   </span>
                   <span
                     className="data-table-row-section score-section"
-                    key="score-9"
                     style={
                       Object {
                         "minWidth": "144px",
@@ -13700,7 +13368,6 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                   </span>
                   <span
                     className="data-table-row-section tool-icon-section"
-                    key="tool-9"
                     style={
                       Object {
                         "minWidth": "24px",
@@ -13716,7 +13383,6 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                   </span>
                   <span
                     className="data-table-row-section completed-due-date-section"
-                    key="dueDate-9"
                     style={
                       Object {
                         "minWidth": "85px",
@@ -13729,7 +13395,6 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                   </span>
                   <span
                     className="data-table-row-section action-button-section"
-                    key="actionButton-9"
                     style={
                       Object {
                         "minWidth": "88px",
@@ -13750,12 +13415,11 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                   />
                 </div>
                 <div
-                  className="data-table-row  "
+                  className="data-table-row "
                   key="5"
                 >
                   <span
                     className="data-table-row-section name-section"
-                    key="name-5"
                     style={
                       Object {
                         "minWidth": "465px",
@@ -13768,7 +13432,6 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                   </span>
                   <span
                     className="data-table-row-section score-section"
-                    key="score-5"
                     style={
                       Object {
                         "minWidth": "144px",
@@ -13790,7 +13453,6 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                   </span>
                   <span
                     className="data-table-row-section tool-icon-section"
-                    key="tool-5"
                     style={
                       Object {
                         "minWidth": "24px",
@@ -13806,7 +13468,6 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                   </span>
                   <span
                     className="data-table-row-section completed-due-date-section"
-                    key="dueDate-5"
                     style={
                       Object {
                         "minWidth": "85px",
@@ -13819,7 +13480,6 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                   </span>
                   <span
                     className="data-table-row-section action-button-section"
-                    key="actionButton-5"
                     style={
                       Object {
                         "minWidth": "88px",

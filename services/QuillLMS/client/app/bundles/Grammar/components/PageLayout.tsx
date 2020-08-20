@@ -12,7 +12,7 @@ interface PageLayoutState {
   questionToPreview: any;
 }
 
-export default class PageLayout extends React.Component<any, PageLayoutState> {
+export class PageLayout extends React.Component<any, PageLayoutState> {
   constructor(props: any) {
     super(props)
 
@@ -118,3 +118,5 @@ export default class PageLayout extends React.Component<any, PageLayoutState> {
     }
   }
 };
+
+export default PageLayout;

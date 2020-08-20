@@ -442,12 +442,11 @@ exports[`DiagnosticMini component should render when there are diagnostics 1`] =
             className="data-table-body"
           >
             <div
-              className="data-table-row  "
+              className="data-table-row "
               key="447-484134-826269"
             >
               <span
                 className="data-table-row-section undefined"
-                key="diagnostic-447-484134-826269"
                 style={
                   Object {
                     "minWidth": "186px",
@@ -459,7 +458,6 @@ exports[`DiagnosticMini component should render when there are diagnostics 1`] =
                 ELL Diagnostic
               </span>
               <Tooltip
-                key="class-447-484134-826269"
                 tooltipText="Quill Classroom Extremely Long So Long SUper Duper"
                 tooltipTriggerStyle={
                   Object {
@@ -480,6 +478,8 @@ exports[`DiagnosticMini component should render when there are diagnostics 1`] =
               >
                 <span
                   className="quill-tooltip-trigger"
+                  onMouseEnter={[Function]}
+                  onMouseLeave={[Function]}
                   style={
                     Object {
                       "minWidth": "186px",
@@ -490,8 +490,6 @@ exports[`DiagnosticMini component should render when there are diagnostics 1`] =
                 >
                   <span
                     className="data-table-row-section undefined"
-                    onMouseEnter={[Function]}
-                    onMouseLeave={[Function]}
                     style={
                       Object {
                         "minWidth": "186px",
@@ -503,19 +501,14 @@ exports[`DiagnosticMini component should render when there are diagnostics 1`] =
                     Quill Classroom Extremely Long So Long SUper Duper
                   </span>
                   <span
-                    className="quill-tooltip-wrapper"
+                    className="quill-tooltip"
                   >
-                    <span
-                      className="quill-tooltip"
-                    >
-                      Quill Classroom Extremely Long So Long SUper Duper
-                    </span>
+                    Quill Classroom Extremely Long So Long SUper Duper
                   </span>
                 </span>
               </Tooltip>
               <span
                 className="data-table-row-section completed-row-section"
-                key="completed-447-484134-826269"
                 style={
                   Object {
                     "minWidth": "61px",
@@ -528,7 +521,6 @@ exports[`DiagnosticMini component should render when there are diagnostics 1`] =
               </span>
               <span
                 className="data-table-row-section recommendations-row-section"
-                key="recommendations-447-484134-826269"
                 style={
                   Object {
                     "minWidth": "104px",
@@ -542,12 +534,11 @@ exports[`DiagnosticMini component should render when there are diagnostics 1`] =
               />
             </div>
             <div
-              className="data-table-row  "
+              className="data-table-row "
               key="447-484135-826269"
             >
               <span
                 className="data-table-row-section undefined"
-                key="diagnostic-447-484135-826269"
                 style={
                   Object {
                     "minWidth": "186px",
@@ -560,7 +551,6 @@ exports[`DiagnosticMini component should render when there are diagnostics 1`] =
               </span>
               <span
                 className="data-table-row-section undefined"
-                key="class-447-484135-826269"
                 style={
                   Object {
                     "minWidth": "186px",
@@ -573,7 +563,6 @@ exports[`DiagnosticMini component should render when there are diagnostics 1`] =
               </span>
               <span
                 className="data-table-row-section completed-row-section"
-                key="completed-447-484135-826269"
                 style={
                   Object {
                     "minWidth": "61px",
@@ -586,7 +575,6 @@ exports[`DiagnosticMini component should render when there are diagnostics 1`] =
               </span>
               <span
                 className="data-table-row-section recommendations-row-section"
-                key="recommendations-447-484135-826269"
                 style={
                   Object {
                     "minWidth": "104px",
@@ -600,12 +588,11 @@ exports[`DiagnosticMini component should render when there are diagnostics 1`] =
               />
             </div>
             <div
-              className="data-table-row  "
+              className="data-table-row "
               key="849-484134-826268"
             >
               <span
                 className="data-table-row-section undefined"
-                key="diagnostic-849-484134-826268"
                 style={
                   Object {
                     "minWidth": "186px",
@@ -617,7 +604,6 @@ exports[`DiagnosticMini component should render when there are diagnostics 1`] =
                 Starter Diagnostic
               </span>
               <Tooltip
-                key="class-849-484134-826268"
                 tooltipText="Quill Classroom Extremely Long So Long SUper Duper"
                 tooltipTriggerStyle={
                   Object {
@@ -638,6 +624,8 @@ exports[`DiagnosticMini component should render when there are diagnostics 1`] =
               >
                 <span
                   className="quill-tooltip-trigger"
+                  onMouseEnter={[Function]}
+                  onMouseLeave={[Function]}
                   style={
                     Object {
                       "minWidth": "186px",
@@ -648,8 +636,6 @@ exports[`DiagnosticMini component should render when there are diagnostics 1`] =
                 >
                   <span
                     className="data-table-row-section undefined"
-                    onMouseEnter={[Function]}
-                    onMouseLeave={[Function]}
                     style={
                       Object {
                         "minWidth": "186px",
@@ -661,19 +647,14 @@ exports[`DiagnosticMini component should render when there are diagnostics 1`] =
                     Quill Classroom Extremely Long So Long SUper Duper
                   </span>
                   <span
-                    className="quill-tooltip-wrapper"
+                    className="quill-tooltip"
                   >
-                    <span
-                      className="quill-tooltip"
-                    >
-                      Quill Classroom Extremely Long So Long SUper Duper
-                    </span>
+                    Quill Classroom Extremely Long So Long SUper Duper
                   </span>
                 </span>
               </Tooltip>
               <span
                 className="data-table-row-section completed-row-section"
-                key="completed-849-484134-826268"
                 style={
                   Object {
                     "minWidth": "61px",
@@ -686,7 +667,6 @@ exports[`DiagnosticMini component should render when there are diagnostics 1`] =
               </span>
               <span
                 className="data-table-row-section recommendations-row-section"
-                key="recommendations-849-484134-826268"
                 style={
                   Object {
                     "minWidth": "104px",
@@ -707,12 +687,11 @@ exports[`DiagnosticMini component should render when there are diagnostics 1`] =
               />
             </div>
             <div
-              className="data-table-row  "
+              className="data-table-row "
               key="849-484134-826269"
             >
               <span
                 className="data-table-row-section undefined"
-                key="diagnostic-849-484134-826269"
                 style={
                   Object {
                     "minWidth": "186px",
@@ -724,7 +703,6 @@ exports[`DiagnosticMini component should render when there are diagnostics 1`] =
                 Starter Diagnostic
               </span>
               <Tooltip
-                key="class-849-484134-826269"
                 tooltipText="Quill Classroom Extremely Long So Long SUper Duper"
                 tooltipTriggerStyle={
                   Object {
@@ -745,6 +723,8 @@ exports[`DiagnosticMini component should render when there are diagnostics 1`] =
               >
                 <span
                   className="quill-tooltip-trigger"
+                  onMouseEnter={[Function]}
+                  onMouseLeave={[Function]}
                   style={
                     Object {
                       "minWidth": "186px",
@@ -755,8 +735,6 @@ exports[`DiagnosticMini component should render when there are diagnostics 1`] =
                 >
                   <span
                     className="data-table-row-section undefined"
-                    onMouseEnter={[Function]}
-                    onMouseLeave={[Function]}
                     style={
                       Object {
                         "minWidth": "186px",
@@ -768,19 +746,14 @@ exports[`DiagnosticMini component should render when there are diagnostics 1`] =
                     Quill Classroom Extremely Long So Long SUper Duper
                   </span>
                   <span
-                    className="quill-tooltip-wrapper"
+                    className="quill-tooltip"
                   >
-                    <span
-                      className="quill-tooltip"
-                    >
-                      Quill Classroom Extremely Long So Long SUper Duper
-                    </span>
+                    Quill Classroom Extremely Long So Long SUper Duper
                   </span>
                 </span>
               </Tooltip>
               <span
                 className="data-table-row-section completed-row-section"
-                key="completed-849-484134-826269"
                 style={
                   Object {
                     "minWidth": "61px",
@@ -793,7 +766,6 @@ exports[`DiagnosticMini component should render when there are diagnostics 1`] =
               </span>
               <span
                 className="data-table-row-section recommendations-row-section"
-                key="recommendations-849-484134-826269"
                 style={
                   Object {
                     "minWidth": "104px",
@@ -807,12 +779,11 @@ exports[`DiagnosticMini component should render when there are diagnostics 1`] =
               />
             </div>
             <div
-              className="data-table-row  "
+              className="data-table-row "
               key="849-484135-826269"
             >
               <span
                 className="data-table-row-section undefined"
-                key="diagnostic-849-484135-826269"
                 style={
                   Object {
                     "minWidth": "186px",
@@ -825,7 +796,6 @@ exports[`DiagnosticMini component should render when there are diagnostics 1`] =
               </span>
               <span
                 className="data-table-row-section undefined"
-                key="class-849-484135-826269"
                 style={
                   Object {
                     "minWidth": "186px",
@@ -838,7 +808,6 @@ exports[`DiagnosticMini component should render when there are diagnostics 1`] =
               </span>
               <span
                 className="data-table-row-section completed-row-section"
-                key="completed-849-484135-826269"
                 style={
                   Object {
                     "minWidth": "61px",
@@ -851,7 +820,6 @@ exports[`DiagnosticMini component should render when there are diagnostics 1`] =
               </span>
               <span
                 className="data-table-row-section recommendations-row-section"
-                key="recommendations-849-484135-826269"
                 style={
                   Object {
                     "minWidth": "104px",
@@ -865,12 +833,11 @@ exports[`DiagnosticMini component should render when there are diagnostics 1`] =
               />
             </div>
             <div
-              className="data-table-row  "
+              className="data-table-row "
               key="850-484134-826269"
             >
               <span
                 className="data-table-row-section undefined"
-                key="diagnostic-850-484134-826269"
                 style={
                   Object {
                     "minWidth": "186px",
@@ -882,7 +849,6 @@ exports[`DiagnosticMini component should render when there are diagnostics 1`] =
                 Intermediate Diagnostic
               </span>
               <Tooltip
-                key="class-850-484134-826269"
                 tooltipText="Quill Classroom Extremely Long So Long SUper Duper"
                 tooltipTriggerStyle={
                   Object {
@@ -903,6 +869,8 @@ exports[`DiagnosticMini component should render when there are diagnostics 1`] =
               >
                 <span
                   className="quill-tooltip-trigger"
+                  onMouseEnter={[Function]}
+                  onMouseLeave={[Function]}
                   style={
                     Object {
                       "minWidth": "186px",
@@ -913,8 +881,6 @@ exports[`DiagnosticMini component should render when there are diagnostics 1`] =
                 >
                   <span
                     className="data-table-row-section undefined"
-                    onMouseEnter={[Function]}
-                    onMouseLeave={[Function]}
                     style={
                       Object {
                         "minWidth": "186px",
@@ -926,19 +892,14 @@ exports[`DiagnosticMini component should render when there are diagnostics 1`] =
                     Quill Classroom Extremely Long So Long SUper Duper
                   </span>
                   <span
-                    className="quill-tooltip-wrapper"
+                    className="quill-tooltip"
                   >
-                    <span
-                      className="quill-tooltip"
-                    >
-                      Quill Classroom Extremely Long So Long SUper Duper
-                    </span>
+                    Quill Classroom Extremely Long So Long SUper Duper
                   </span>
                 </span>
               </Tooltip>
               <span
                 className="data-table-row-section completed-row-section"
-                key="completed-850-484134-826269"
                 style={
                   Object {
                     "minWidth": "61px",
@@ -951,7 +912,6 @@ exports[`DiagnosticMini component should render when there are diagnostics 1`] =
               </span>
               <span
                 className="data-table-row-section recommendations-row-section"
-                key="recommendations-850-484134-826269"
                 style={
                   Object {
                     "minWidth": "104px",
@@ -965,12 +925,11 @@ exports[`DiagnosticMini component should render when there are diagnostics 1`] =
               />
             </div>
             <div
-              className="data-table-row  "
+              className="data-table-row "
               key="850-484135-826269"
             >
               <span
                 className="data-table-row-section undefined"
-                key="diagnostic-850-484135-826269"
                 style={
                   Object {
                     "minWidth": "186px",
@@ -983,7 +942,6 @@ exports[`DiagnosticMini component should render when there are diagnostics 1`] =
               </span>
               <span
                 className="data-table-row-section undefined"
-                key="class-850-484135-826269"
                 style={
                   Object {
                     "minWidth": "186px",
@@ -996,7 +954,6 @@ exports[`DiagnosticMini component should render when there are diagnostics 1`] =
               </span>
               <span
                 className="data-table-row-section completed-row-section"
-                key="completed-850-484135-826269"
                 style={
                   Object {
                     "minWidth": "61px",
@@ -1009,7 +966,6 @@ exports[`DiagnosticMini component should render when there are diagnostics 1`] =
               </span>
               <span
                 className="data-table-row-section recommendations-row-section"
-                key="recommendations-850-484135-826269"
                 style={
                   Object {
                     "minWidth": "104px",
@@ -1023,12 +979,11 @@ exports[`DiagnosticMini component should render when there are diagnostics 1`] =
               />
             </div>
             <div
-              className="data-table-row  "
+              className="data-table-row "
               key="888-484134-826269"
             >
               <span
                 className="data-table-row-section undefined"
-                key="diagnostic-888-484134-826269"
                 style={
                   Object {
                     "minWidth": "186px",
@@ -1040,7 +995,6 @@ exports[`DiagnosticMini component should render when there are diagnostics 1`] =
                 Advanced Diagnostic
               </span>
               <Tooltip
-                key="class-888-484134-826269"
                 tooltipText="Quill Classroom Extremely Long So Long SUper Duper"
                 tooltipTriggerStyle={
                   Object {
@@ -1061,6 +1015,8 @@ exports[`DiagnosticMini component should render when there are diagnostics 1`] =
               >
                 <span
                   className="quill-tooltip-trigger"
+                  onMouseEnter={[Function]}
+                  onMouseLeave={[Function]}
                   style={
                     Object {
                       "minWidth": "186px",
@@ -1071,8 +1027,6 @@ exports[`DiagnosticMini component should render when there are diagnostics 1`] =
                 >
                   <span
                     className="data-table-row-section undefined"
-                    onMouseEnter={[Function]}
-                    onMouseLeave={[Function]}
                     style={
                       Object {
                         "minWidth": "186px",
@@ -1084,19 +1038,14 @@ exports[`DiagnosticMini component should render when there are diagnostics 1`] =
                     Quill Classroom Extremely Long So Long SUper Duper
                   </span>
                   <span
-                    className="quill-tooltip-wrapper"
+                    className="quill-tooltip"
                   >
-                    <span
-                      className="quill-tooltip"
-                    >
-                      Quill Classroom Extremely Long So Long SUper Duper
-                    </span>
+                    Quill Classroom Extremely Long So Long SUper Duper
                   </span>
                 </span>
               </Tooltip>
               <span
                 className="data-table-row-section completed-row-section"
-                key="completed-888-484134-826269"
                 style={
                   Object {
                     "minWidth": "61px",
@@ -1109,7 +1058,6 @@ exports[`DiagnosticMini component should render when there are diagnostics 1`] =
               </span>
               <span
                 className="data-table-row-section recommendations-row-section"
-                key="recommendations-888-484134-826269"
                 style={
                   Object {
                     "minWidth": "104px",
@@ -1123,12 +1071,11 @@ exports[`DiagnosticMini component should render when there are diagnostics 1`] =
               />
             </div>
             <div
-              className="data-table-row  "
+              className="data-table-row "
               key="888-484135-826269"
             >
               <span
                 className="data-table-row-section undefined"
-                key="diagnostic-888-484135-826269"
                 style={
                   Object {
                     "minWidth": "186px",
@@ -1141,7 +1088,6 @@ exports[`DiagnosticMini component should render when there are diagnostics 1`] =
               </span>
               <span
                 className="data-table-row-section undefined"
-                key="class-888-484135-826269"
                 style={
                   Object {
                     "minWidth": "186px",
@@ -1154,7 +1100,6 @@ exports[`DiagnosticMini component should render when there are diagnostics 1`] =
               </span>
               <span
                 className="data-table-row-section completed-row-section"
-                key="completed-888-484135-826269"
                 style={
                   Object {
                     "minWidth": "61px",
@@ -1167,7 +1112,6 @@ exports[`DiagnosticMini component should render when there are diagnostics 1`] =
               </span>
               <span
                 className="data-table-row-section recommendations-row-section"
-                key="recommendations-888-484135-826269"
                 style={
                   Object {
                     "minWidth": "104px",
@@ -1181,12 +1125,11 @@ exports[`DiagnosticMini component should render when there are diagnostics 1`] =
               />
             </div>
             <div
-              className="data-table-row  "
+              className="data-table-row "
               key="992-484134-826269"
             >
               <span
                 className="data-table-row-section undefined"
-                key="diagnostic-992-484134-826269"
                 style={
                   Object {
                     "minWidth": "186px",
@@ -1198,7 +1141,6 @@ exports[`DiagnosticMini component should render when there are diagnostics 1`] =
                 AP® Writing Skills Survey
               </span>
               <Tooltip
-                key="class-992-484134-826269"
                 tooltipText="Quill Classroom Extremely Long So Long SUper Duper"
                 tooltipTriggerStyle={
                   Object {
@@ -1219,6 +1161,8 @@ exports[`DiagnosticMini component should render when there are diagnostics 1`] =
               >
                 <span
                   className="quill-tooltip-trigger"
+                  onMouseEnter={[Function]}
+                  onMouseLeave={[Function]}
                   style={
                     Object {
                       "minWidth": "186px",
@@ -1229,8 +1173,6 @@ exports[`DiagnosticMini component should render when there are diagnostics 1`] =
                 >
                   <span
                     className="data-table-row-section undefined"
-                    onMouseEnter={[Function]}
-                    onMouseLeave={[Function]}
                     style={
                       Object {
                         "minWidth": "186px",
@@ -1242,19 +1184,14 @@ exports[`DiagnosticMini component should render when there are diagnostics 1`] =
                     Quill Classroom Extremely Long So Long SUper Duper
                   </span>
                   <span
-                    className="quill-tooltip-wrapper"
+                    className="quill-tooltip"
                   >
-                    <span
-                      className="quill-tooltip"
-                    >
-                      Quill Classroom Extremely Long So Long SUper Duper
-                    </span>
+                    Quill Classroom Extremely Long So Long SUper Duper
                   </span>
                 </span>
               </Tooltip>
               <span
                 className="data-table-row-section completed-row-section"
-                key="completed-992-484134-826269"
                 style={
                   Object {
                     "minWidth": "61px",
@@ -1267,7 +1204,6 @@ exports[`DiagnosticMini component should render when there are diagnostics 1`] =
               </span>
               <span
                 className="data-table-row-section recommendations-row-section"
-                key="recommendations-992-484134-826269"
                 style={
                   Object {
                     "minWidth": "104px",
@@ -1281,12 +1217,11 @@ exports[`DiagnosticMini component should render when there are diagnostics 1`] =
               />
             </div>
             <div
-              className="data-table-row  "
+              className="data-table-row "
               key="992-484135-826269"
             >
               <span
                 className="data-table-row-section undefined"
-                key="diagnostic-992-484135-826269"
                 style={
                   Object {
                     "minWidth": "186px",
@@ -1299,7 +1234,6 @@ exports[`DiagnosticMini component should render when there are diagnostics 1`] =
               </span>
               <span
                 className="data-table-row-section undefined"
-                key="class-992-484135-826269"
                 style={
                   Object {
                     "minWidth": "186px",
@@ -1312,7 +1246,6 @@ exports[`DiagnosticMini component should render when there are diagnostics 1`] =
               </span>
               <span
                 className="data-table-row-section completed-row-section"
-                key="completed-992-484135-826269"
                 style={
                   Object {
                     "minWidth": "61px",
@@ -1325,7 +1258,6 @@ exports[`DiagnosticMini component should render when there are diagnostics 1`] =
               </span>
               <span
                 className="data-table-row-section recommendations-row-section"
-                key="recommendations-992-484135-826269"
                 style={
                   Object {
                     "minWidth": "104px",
@@ -1339,12 +1271,11 @@ exports[`DiagnosticMini component should render when there are diagnostics 1`] =
               />
             </div>
             <div
-              className="data-table-row  "
+              className="data-table-row "
               key="1161-484134-826269"
             >
               <span
                 className="data-table-row-section undefined"
-                key="diagnostic-1161-484134-826269"
                 style={
                   Object {
                     "minWidth": "186px",
@@ -1356,7 +1287,6 @@ exports[`DiagnosticMini component should render when there are diagnostics 1`] =
                 ELL Starter Diagnostic
               </span>
               <Tooltip
-                key="class-1161-484134-826269"
                 tooltipText="Quill Classroom Extremely Long So Long SUper Duper"
                 tooltipTriggerStyle={
                   Object {
@@ -1377,6 +1307,8 @@ exports[`DiagnosticMini component should render when there are diagnostics 1`] =
               >
                 <span
                   className="quill-tooltip-trigger"
+                  onMouseEnter={[Function]}
+                  onMouseLeave={[Function]}
                   style={
                     Object {
                       "minWidth": "186px",
@@ -1387,8 +1319,6 @@ exports[`DiagnosticMini component should render when there are diagnostics 1`] =
                 >
                   <span
                     className="data-table-row-section undefined"
-                    onMouseEnter={[Function]}
-                    onMouseLeave={[Function]}
                     style={
                       Object {
                         "minWidth": "186px",
@@ -1400,19 +1330,14 @@ exports[`DiagnosticMini component should render when there are diagnostics 1`] =
                     Quill Classroom Extremely Long So Long SUper Duper
                   </span>
                   <span
-                    className="quill-tooltip-wrapper"
+                    className="quill-tooltip"
                   >
-                    <span
-                      className="quill-tooltip"
-                    >
-                      Quill Classroom Extremely Long So Long SUper Duper
-                    </span>
+                    Quill Classroom Extremely Long So Long SUper Duper
                   </span>
                 </span>
               </Tooltip>
               <span
                 className="data-table-row-section completed-row-section"
-                key="completed-1161-484134-826269"
                 style={
                   Object {
                     "minWidth": "61px",
@@ -1425,7 +1350,6 @@ exports[`DiagnosticMini component should render when there are diagnostics 1`] =
               </span>
               <span
                 className="data-table-row-section recommendations-row-section"
-                key="recommendations-1161-484134-826269"
                 style={
                   Object {
                     "minWidth": "104px",
@@ -1439,12 +1363,11 @@ exports[`DiagnosticMini component should render when there are diagnostics 1`] =
               />
             </div>
             <div
-              className="data-table-row  "
+              className="data-table-row "
               key="1161-484135-826269"
             >
               <span
                 className="data-table-row-section undefined"
-                key="diagnostic-1161-484135-826269"
                 style={
                   Object {
                     "minWidth": "186px",
@@ -1457,7 +1380,6 @@ exports[`DiagnosticMini component should render when there are diagnostics 1`] =
               </span>
               <span
                 className="data-table-row-section undefined"
-                key="class-1161-484135-826269"
                 style={
                   Object {
                     "minWidth": "186px",
@@ -1470,7 +1392,6 @@ exports[`DiagnosticMini component should render when there are diagnostics 1`] =
               </span>
               <span
                 className="data-table-row-section completed-row-section"
-                key="completed-1161-484135-826269"
                 style={
                   Object {
                     "minWidth": "61px",
@@ -1483,7 +1404,6 @@ exports[`DiagnosticMini component should render when there are diagnostics 1`] =
               </span>
               <span
                 className="data-table-row-section recommendations-row-section"
-                key="recommendations-1161-484135-826269"
                 style={
                   Object {
                     "minWidth": "104px",
@@ -1497,11 +1417,10 @@ exports[`DiagnosticMini component should render when there are diagnostics 1`] =
               />
             </div>
             <div
-              className="data-table-row  "
+              className="data-table-row "
               key="1229-484134-826269"
             >
               <Tooltip
-                key="diagnostic-1229-484134-826269"
                 tooltipText="Pre-AP® Writing Skills Survey 1: Basics of Sentence Patterns"
                 tooltipTriggerStyle={
                   Object {
@@ -1522,6 +1441,8 @@ exports[`DiagnosticMini component should render when there are diagnostics 1`] =
               >
                 <span
                   className="quill-tooltip-trigger"
+                  onMouseEnter={[Function]}
+                  onMouseLeave={[Function]}
                   style={
                     Object {
                       "minWidth": "186px",
@@ -1532,8 +1453,6 @@ exports[`DiagnosticMini component should render when there are diagnostics 1`] =
                 >
                   <span
                     className="data-table-row-section undefined"
-                    onMouseEnter={[Function]}
-                    onMouseLeave={[Function]}
                     style={
                       Object {
                         "minWidth": "186px",
@@ -1545,18 +1464,13 @@ exports[`DiagnosticMini component should render when there are diagnostics 1`] =
                     Pre-AP® Writing Skills Survey 1: Basics of Sentence Patterns
                   </span>
                   <span
-                    className="quill-tooltip-wrapper"
+                    className="quill-tooltip"
                   >
-                    <span
-                      className="quill-tooltip"
-                    >
-                      Pre-AP® Writing Skills Survey 1: Basics of Sentence Patterns
-                    </span>
+                    Pre-AP® Writing Skills Survey 1: Basics of Sentence Patterns
                   </span>
                 </span>
               </Tooltip>
               <Tooltip
-                key="class-1229-484134-826269"
                 tooltipText="Quill Classroom Extremely Long So Long SUper Duper"
                 tooltipTriggerStyle={
                   Object {
@@ -1577,6 +1491,8 @@ exports[`DiagnosticMini component should render when there are diagnostics 1`] =
               >
                 <span
                   className="quill-tooltip-trigger"
+                  onMouseEnter={[Function]}
+                  onMouseLeave={[Function]}
                   style={
                     Object {
                       "minWidth": "186px",
@@ -1587,8 +1503,6 @@ exports[`DiagnosticMini component should render when there are diagnostics 1`] =
                 >
                   <span
                     className="data-table-row-section undefined"
-                    onMouseEnter={[Function]}
-                    onMouseLeave={[Function]}
                     style={
                       Object {
                         "minWidth": "186px",
@@ -1600,19 +1514,14 @@ exports[`DiagnosticMini component should render when there are diagnostics 1`] =
                     Quill Classroom Extremely Long So Long SUper Duper
                   </span>
                   <span
-                    className="quill-tooltip-wrapper"
+                    className="quill-tooltip"
                   >
-                    <span
-                      className="quill-tooltip"
-                    >
-                      Quill Classroom Extremely Long So Long SUper Duper
-                    </span>
+                    Quill Classroom Extremely Long So Long SUper Duper
                   </span>
                 </span>
               </Tooltip>
               <span
                 className="data-table-row-section completed-row-section"
-                key="completed-1229-484134-826269"
                 style={
                   Object {
                     "minWidth": "61px",
@@ -1625,7 +1534,6 @@ exports[`DiagnosticMini component should render when there are diagnostics 1`] =
               </span>
               <span
                 className="data-table-row-section recommendations-row-section"
-                key="recommendations-1229-484134-826269"
                 style={
                   Object {
                     "minWidth": "104px",
@@ -1639,11 +1547,10 @@ exports[`DiagnosticMini component should render when there are diagnostics 1`] =
               />
             </div>
             <div
-              className="data-table-row  "
+              className="data-table-row "
               key="1229-484135-826269"
             >
               <Tooltip
-                key="diagnostic-1229-484135-826269"
                 tooltipText="Pre-AP® Writing Skills Survey 1: Basics of Sentence Patterns"
                 tooltipTriggerStyle={
                   Object {
@@ -1664,6 +1571,8 @@ exports[`DiagnosticMini component should render when there are diagnostics 1`] =
               >
                 <span
                   className="quill-tooltip-trigger"
+                  onMouseEnter={[Function]}
+                  onMouseLeave={[Function]}
                   style={
                     Object {
                       "minWidth": "186px",
@@ -1674,8 +1583,6 @@ exports[`DiagnosticMini component should render when there are diagnostics 1`] =
                 >
                   <span
                     className="data-table-row-section undefined"
-                    onMouseEnter={[Function]}
-                    onMouseLeave={[Function]}
                     style={
                       Object {
                         "minWidth": "186px",
@@ -1687,19 +1594,14 @@ exports[`DiagnosticMini component should render when there are diagnostics 1`] =
                     Pre-AP® Writing Skills Survey 1: Basics of Sentence Patterns
                   </span>
                   <span
-                    className="quill-tooltip-wrapper"
+                    className="quill-tooltip"
                   >
-                    <span
-                      className="quill-tooltip"
-                    >
-                      Pre-AP® Writing Skills Survey 1: Basics of Sentence Patterns
-                    </span>
+                    Pre-AP® Writing Skills Survey 1: Basics of Sentence Patterns
                   </span>
                 </span>
               </Tooltip>
               <span
                 className="data-table-row-section undefined"
-                key="class-1229-484135-826269"
                 style={
                   Object {
                     "minWidth": "186px",
@@ -1712,7 +1614,6 @@ exports[`DiagnosticMini component should render when there are diagnostics 1`] =
               </span>
               <span
                 className="data-table-row-section completed-row-section"
-                key="completed-1229-484135-826269"
                 style={
                   Object {
                     "minWidth": "61px",
@@ -1725,7 +1626,6 @@ exports[`DiagnosticMini component should render when there are diagnostics 1`] =
               </span>
               <span
                 className="data-table-row-section recommendations-row-section"
-                key="recommendations-1229-484135-826269"
                 style={
                   Object {
                     "minWidth": "104px",
@@ -1739,11 +1639,10 @@ exports[`DiagnosticMini component should render when there are diagnostics 1`] =
               />
             </div>
             <div
-              className="data-table-row  "
+              className="data-table-row "
               key="1230-484134-826269"
             >
               <Tooltip
-                key="diagnostic-1230-484134-826269"
                 tooltipText="Pre-AP® Writing Skills Survey 2: Tools for Sentence Expansion"
                 tooltipTriggerStyle={
                   Object {
@@ -1764,6 +1663,8 @@ exports[`DiagnosticMini component should render when there are diagnostics 1`] =
               >
                 <span
                   className="quill-tooltip-trigger"
+                  onMouseEnter={[Function]}
+                  onMouseLeave={[Function]}
                   style={
                     Object {
                       "minWidth": "186px",
@@ -1774,8 +1675,6 @@ exports[`DiagnosticMini component should render when there are diagnostics 1`] =
                 >
                   <span
                     className="data-table-row-section undefined"
-                    onMouseEnter={[Function]}
-                    onMouseLeave={[Function]}
                     style={
                       Object {
                         "minWidth": "186px",
@@ -1787,18 +1686,13 @@ exports[`DiagnosticMini component should render when there are diagnostics 1`] =
                     Pre-AP® Writing Skills Survey 2: Tools for Sentence Expansion
                   </span>
                   <span
-                    className="quill-tooltip-wrapper"
+                    className="quill-tooltip"
                   >
-                    <span
-                      className="quill-tooltip"
-                    >
-                      Pre-AP® Writing Skills Survey 2: Tools for Sentence Expansion
-                    </span>
+                    Pre-AP® Writing Skills Survey 2: Tools for Sentence Expansion
                   </span>
                 </span>
               </Tooltip>
               <Tooltip
-                key="class-1230-484134-826269"
                 tooltipText="Quill Classroom Extremely Long So Long SUper Duper"
                 tooltipTriggerStyle={
                   Object {
@@ -1819,6 +1713,8 @@ exports[`DiagnosticMini component should render when there are diagnostics 1`] =
               >
                 <span
                   className="quill-tooltip-trigger"
+                  onMouseEnter={[Function]}
+                  onMouseLeave={[Function]}
                   style={
                     Object {
                       "minWidth": "186px",
@@ -1829,8 +1725,6 @@ exports[`DiagnosticMini component should render when there are diagnostics 1`] =
                 >
                   <span
                     className="data-table-row-section undefined"
-                    onMouseEnter={[Function]}
-                    onMouseLeave={[Function]}
                     style={
                       Object {
                         "minWidth": "186px",
@@ -1842,19 +1736,14 @@ exports[`DiagnosticMini component should render when there are diagnostics 1`] =
                     Quill Classroom Extremely Long So Long SUper Duper
                   </span>
                   <span
-                    className="quill-tooltip-wrapper"
+                    className="quill-tooltip"
                   >
-                    <span
-                      className="quill-tooltip"
-                    >
-                      Quill Classroom Extremely Long So Long SUper Duper
-                    </span>
+                    Quill Classroom Extremely Long So Long SUper Duper
                   </span>
                 </span>
               </Tooltip>
               <span
                 className="data-table-row-section completed-row-section"
-                key="completed-1230-484134-826269"
                 style={
                   Object {
                     "minWidth": "61px",
@@ -1867,7 +1756,6 @@ exports[`DiagnosticMini component should render when there are diagnostics 1`] =
               </span>
               <span
                 className="data-table-row-section recommendations-row-section"
-                key="recommendations-1230-484134-826269"
                 style={
                   Object {
                     "minWidth": "104px",
@@ -1881,11 +1769,10 @@ exports[`DiagnosticMini component should render when there are diagnostics 1`] =
               />
             </div>
             <div
-              className="data-table-row  "
+              className="data-table-row "
               key="1230-484135-826269"
             >
               <Tooltip
-                key="diagnostic-1230-484135-826269"
                 tooltipText="Pre-AP® Writing Skills Survey 2: Tools for Sentence Expansion"
                 tooltipTriggerStyle={
                   Object {
@@ -1906,6 +1793,8 @@ exports[`DiagnosticMini component should render when there are diagnostics 1`] =
               >
                 <span
                   className="quill-tooltip-trigger"
+                  onMouseEnter={[Function]}
+                  onMouseLeave={[Function]}
                   style={
                     Object {
                       "minWidth": "186px",
@@ -1916,8 +1805,6 @@ exports[`DiagnosticMini component should render when there are diagnostics 1`] =
                 >
                   <span
                     className="data-table-row-section undefined"
-                    onMouseEnter={[Function]}
-                    onMouseLeave={[Function]}
                     style={
                       Object {
                         "minWidth": "186px",
@@ -1929,19 +1816,14 @@ exports[`DiagnosticMini component should render when there are diagnostics 1`] =
                     Pre-AP® Writing Skills Survey 2: Tools for Sentence Expansion
                   </span>
                   <span
-                    className="quill-tooltip-wrapper"
+                    className="quill-tooltip"
                   >
-                    <span
-                      className="quill-tooltip"
-                    >
-                      Pre-AP® Writing Skills Survey 2: Tools for Sentence Expansion
-                    </span>
+                    Pre-AP® Writing Skills Survey 2: Tools for Sentence Expansion
                   </span>
                 </span>
               </Tooltip>
               <span
                 className="data-table-row-section undefined"
-                key="class-1230-484135-826269"
                 style={
                   Object {
                     "minWidth": "186px",
@@ -1954,7 +1836,6 @@ exports[`DiagnosticMini component should render when there are diagnostics 1`] =
               </span>
               <span
                 className="data-table-row-section completed-row-section"
-                key="completed-1230-484135-826269"
                 style={
                   Object {
                     "minWidth": "61px",
@@ -1967,7 +1848,6 @@ exports[`DiagnosticMini component should render when there are diagnostics 1`] =
               </span>
               <span
                 className="data-table-row-section recommendations-row-section"
-                key="recommendations-1230-484135-826269"
                 style={
                   Object {
                     "minWidth": "104px",
