@@ -9,6 +9,13 @@ export default {
     SessionApi.get(sessionID).then((session) => {
       const processedSession = processSession(session)
       callback(processedSession)
+    }).catch((error) => {
+      if (error.status === 404) {
+        const processedSession = processSession({})
+        callback(processedSession)
+      } else {
+        throw error
+      }
     })
   },
 

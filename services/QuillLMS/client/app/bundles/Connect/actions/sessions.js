@@ -15,7 +15,7 @@ export default {
       handleSessionSnapshot(denormalizeSession(session), cb)
     }).catch((error) => {
       if (error.status === 404) {
-        dispatch(handleSessionSnapshot({}), cb)
+        handleSessionSnapshot({}, cb)
       } else {
         throw error
       }
