@@ -1,0 +1,40 @@
+.reports-header {
+  background-color: white;
+  border-bottom: 1px solid #e0e0e0;
+  .name-and-classroom-dropdown {
+    padding-top: 32px;
+    height: 72px;
+    display: flex;
+    justify-content: space-between;
+    h1 {
+      font-size: 24px;
+      font-weight: bold;
+      line-height: 1.33;
+    }
+    .dropdown-container {
+      width: 300px;
+      min-height: 32px;
+      .dropdown__single-value {
+        overflow: hidden;
+        height: 18px;
+      }
+      .dropdown__menu {
+        margin-top: 0px;
+      }
+    }
+  }
+  nav {
+    button {
+      background-color: white;
+      padding: 14px 16px;
+      font-weight: 600;
+      color: #5c5c5c;
+      margin-bottom: -1px;
+      &.active {
+        border-bottom: 2px solid #06806b;
+        font-weight: bold;
+        color: #06806b;
+      }
+    }
+  }
+}

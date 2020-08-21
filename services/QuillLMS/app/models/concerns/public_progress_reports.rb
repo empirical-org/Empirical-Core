@@ -68,7 +68,7 @@ module PublicProgressReports
       questions_arr
     end
 
-    def classrooms_with_students_that_completed_activity(unit_id, activity_id)
+    def classrooms_with_students_for_report(unit_id, activity_id)
       h = {}
       unit = Unit.find_by(id: unit_id)
       if unit
@@ -81,7 +81,7 @@ module PublicProgressReports
           cuas = ClassroomUnitActivityState.find_by(unit_activity: unit_activity, classroom_unit: cu)
           classroom = cu.classroom.attributes
           activity_sessions = cu.activity_sessions.completed
-          if activity_sessions.present? || cuas&.completed
+          if activity_sessions.present? || cuas&.completed || Activity.diagnostic_activity_ids.include?(activity_id)
             class_id = classroom['id']
             h[class_id] ||= classroom
             h[class_id][:classroom_unit_id] = cu.id
