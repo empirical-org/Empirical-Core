@@ -93,7 +93,7 @@ class TeachersController < ApplicationController
 
   def update_current_user
     if current_user.update(teacher_params)
-      render json: current_user
+      render json: current_user, serializer: UserSerializer
     else
       render json: {errors: current_user.errors}, status: 400
     end
