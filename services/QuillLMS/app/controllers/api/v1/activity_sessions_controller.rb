@@ -7,7 +7,7 @@ class Api::V1::ActivitySessionsController < Api::ApiController
 
   # GET
   def show
-    render json: @activity_session, meta: {status: 'success', message: nil, errors: nil}
+    render json: @activity_session, meta: {status: 'success', message: nil, errors: nil}, serializer: ActivitySessionSerializer
   end
 
   # PATCH, PUT
@@ -19,7 +19,7 @@ class Api::V1::ActivitySessionsController < Api::ApiController
         status: :failed,
         message: "Activity Session Already Completed",
         errors: "This activity session has already been completed."
-      }, status: :unprocessable_entity
+      }, status: :unprocessable_entity, serializer: ActivitySessionSerializer
     elsif @activity_session.update(activity_session_params.except(:id, :concept_results))
       NotifyOfCompletedActivity.new(@activity_session).call if @activity_session.classroom_unit_id
 
@@ -31,13 +31,13 @@ class Api::V1::ActivitySessionsController < Api::ApiController
         status: :success,
         message: "Activity Session Updated",
         errors: [] # FIXME: this is dumb
-      }
+      }, serializer: ActivitySessionSerializer
     else
       render json: @activity_session, meta: {
         status: :failed,
         message: "Activity Session Update Failed",
         errors: @activity_session.errors
-      }, status: :unprocessable_entity
+      }, status: :unprocessable_entity, serializer: ActivitySessionSerializer
     end
   end
 
@@ -62,17 +62,19 @@ class Api::V1::ActivitySessionsController < Api::ApiController
       @status = :failed
       @message = "Activity Session Create Failed"
     end
-    render json: @activity_session, meta: {status: @status, message: @message, errors: @activity_session.errors}
+    render json: @activity_session, meta: {status: @status, message: @message, errors: @activity_session.errors}, serializer: ActivitySessionSerializer
   end
 
   # DELETE
   def destroy
     if @activity_session.destroy!
       render json: ActivitySession.new, meta:
-        {status: 'success', message: "Activity Session Destroy Successful", errors: nil}
+        {status: 'success', message: "Activity Session Destroy Successful", errors: nil},
+        serializer: ActivitySessionSerializer
     else
       render json: @activity_session, meta:
-        {status: 'failed', message: "Activity Session Destroy Failed", errors: @activity_session.errors}
+        {status: 'failed', message: "Activity Session Destroy Failed", errors: @activity_session.errors},
+        serializer: ActivitySessionSerializer
     end
   end
 
