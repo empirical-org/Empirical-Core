@@ -45,7 +45,7 @@ class StudentsController < ApplicationController
 
   def update_account
     if current_user.update_attributes(student_params.slice(:email, :name, :username))
-      render json: current_user
+      render json: current_user, serializer: UserSerializer
     else
       render json: {errors: current_user.errors.messages}, status: 422
     end
@@ -64,7 +64,7 @@ class StudentsController < ApplicationController
       errors['current_password'] = 'Wrong password. Try again or click Forgot password to reset it.'
     end
     return render json: {errors: errors}, status: 422 if errors.any?
-    render json: current_user
+    render json: current_user, serializer: UserSerializer
   end
 
   def join_classroom
