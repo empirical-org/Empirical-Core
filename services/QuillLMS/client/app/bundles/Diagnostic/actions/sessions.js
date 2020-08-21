@@ -33,14 +33,14 @@ export default {
 };
 
 function processSession(session) {
-  if (session.currentQuestion) {
-    if (session.currentQuestion.question) {
-      session.currentQuestion.question.attempts = [];
-    } else {
-      session.currentQuestion.data.attempts = [];
+  if (session != null) {
+    if (session.currentQuestion) {
+      if (session.currentQuestion.question) {
+        session.currentQuestion.question.attempts = [];
+      } else {
+        session.currentQuestion.data.attempts = [];
+      }
     }
-  }
-  if (session.unansweredQuestions) {
     session.unansweredQuestions = session.unansweredQuestions || [];
   }
   return session
