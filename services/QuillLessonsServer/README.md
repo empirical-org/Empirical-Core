@@ -20,10 +20,9 @@
   - `pip install rethinkdb`
   - rerun `./bootstrap.sh`
 - Configure Local LMS to Launch Local Lessons
-  1. Using either the QuillLMS Rails Console, or a direct database connection, you need to update the values in the ActivityClassification records (SQL dtable name "activity_classification"). For the row corresponding to Lessons (name = "Quill Lessons") or `ActivityClassification.find(6)` in the Rails console, update `form_url` to `http://localhost:8090/#/` and `module_url` to `http://localhost:8090/#/play/class-lessons/`.
+  1. Using either the QuillLMS Rails Console, or a direct database connection, you need to update the values in the ActivityClassification records (SQL dtable name "activity_classification"). For the row corresponding to Lessons (name = "Quill Lessons") or `ActivityClassification.find(6)` in the Rails console, update `form_url` to `http://localhost:3000/lessons/#/` and `module_url` to `http://localhost:3000/lessons/#/play/class-lessons/`.
 
 ### Running Lessons locally
 
 1. You will need the QuillLMS running to generate the JWT needed to authenticate connections to the QuillLessonsServer. In a new terminal window, navigate to ../QuillLMS and execute `npm run start:dev`.
 1. In a new terminal window, start the Quill Lessons server by executing `npm run start:dev`.  This will spin up your local RethinkDB server, and then connect your local QuillLessons server to it.  Note that using ctrl-c to stop the server will also stop your local RethinkDB instance.
-1. Once the two base servers are running, make sure that your local lessons client is also up.  In yet another terminal window, navigate to ../QuillLessons and execute `npm run start:dev`.

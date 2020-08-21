@@ -25,11 +25,20 @@ describe Api::V1::ActiveActivitySessionsController, type: :controller do
       expect(active_activity_session.data).to eq(data)
     end
 
-    it "should return a 404 if the requested activity session is not found" do
+    it "should create a new session if the requested activity session is not found" do
       data = {"foo" => "bar"}
       put :update, id: 'doesnotexist', active_activity_session: data
       expect(response.status).to eq(200)
       expect(response.body).to eq(data.to_json)
+      expect(ActiveActivitySession.find_by(uid: 'doesnotexist')).to be
+    end
+
+    it "should retain the values in keys not updated in the payload" do
+      old_data = active_activity_session.data
+      new_data = {"newkey" => "newvalue"}
+      put :update, id: active_activity_session.uid, active_activity_session: new_data
+      active_activity_session.reload
+      expect(active_activity_session.data.keys).to eq(old_data.keys + new_data.keys)
     end
   end
 

@@ -1,0 +1,26 @@
+<% if !current_user || current_user.teacher? %>
+  <div class="banner" id="back-to-school-banner">
+    <div class="content-container">
+      <img alt="Video player with play symbol" class="banner-icon" src=<%= "#{ENV['CDN_URL']}/images/icons/live-stream.svg" %>>
+      <p>We’re offering five different Back to School Webinars to help you maximize your writing instruction with Quill. <a href="https://www.quill.org/teacher-center/back-to-school-premium-webinar-series">Learn more and register here. </a></p>
+      <img alt="White X" id="close-banner" src=<%= "#{ENV['CDN_URL']}/images/icons/close-white.svg" %>>
+    </div>
+  </div>
+
+  <script>
+    window.addEventListener('load', function(e) {
+      if (document.cookie.indexOf('back_to_school_banner_closed=1') === -1) {
+        document.getElementById('back-to-school-banner').style.display = 'block';
+      }
+    });
+
+    document.getElementById('close-banner').addEventListener('click', function(e) {
+        e.preventDefault();
+        document.getElementById('back-to-school-banner').style.display = 'none';
+        let date = new Date();
+        date.setTime(date.getTime()+(24*60*60*1000));
+        document.cookie = `back_to_school_banner_closed=1; expires=${date.toGMTString()}`;
+    }, false);
+
+  </script>
+<% end %>

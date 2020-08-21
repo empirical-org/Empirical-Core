@@ -1,0 +1,54 @@
+{
+    "buttons": {
+        "begin": "Begin / Simulan",
+        "continue": "Continue / Ipagpatuloy",
+        "next": "Next / Ipagpatuloy",
+        "resume": "Continue / Ipagpatuloy",
+        "submit": "Submit / I-submit"
+    },
+    "intro": {
+        "header": "Placement Activity ng Quill",
+        "text": "May sasagutin ka ngayon na 22 tanong sa pagsusulat ng pangungusap. Ang ilan sa mga tanong ay maaaring tungkol sa mga bagay na hindi mo pa alam—pero okay lang iyon! Sagutan lang ang mga iyon sa abot ng kaya mo. Huwag kalimutang basahin ang mga tagubilin para sa bawat tanong! Kapag tapos ka na, gagawa ang Quill ng isang learning plan para lang sa iyo."
+    },
+    "ELL Starter Fill in the Blank": {
+        "header": "Punan ang mga Patlang",
+        "text": "Sa bahaging ito, ang bawat pangungusap ay may isa, dalawa, o tatlong patlang. Pupunan mo ang bawat patlang ng isang salita mula sa listahan, o iiwan itong blangko kung walang salita na kailangan. I-type sa mga kahon ang mga salitang napili mo. Tandaan, i-check ang spelling! Simulan na natin!"
+    },
+    "ELL Starter Halfway": {
+        "header": "Halos nasa kalahati ka na!",
+        "text": "Ituloy mo lang, magaling!"
+    },
+    "ELL Starter Questions": {
+        "header": "Mga Tanong",
+        "text": "Sa bahaging ito, magsusulat ka ng mga tanong. Tandaaan na ang mga tanong ay may tandang pananong (?) sa dulo. Kaya mo iyan!"
+    },
+    "ELL Starter Sentence Combining": {
+        "header": "Pagsamahin ang Pangungusap",
+        "text": "Halos tapos ka na! May 3 tanong na lang. Sa bahaging ito, pagsasamahin mo ang mga pangungusap at gagawing isang pangungusap. Bibigyan ka ng salitang gagamitin mo para pagsamahin ang mga iyon. Tandaan na ang isang pangungusap ay may isang tuldok lang. Madali lang iyan!"
+    },
+    "End: You Did it!": {
+        "header": "Nagawa mo!",
+        "text": "Tapos na! Natapos mo na ang Placement Activity ng Quill. Ang mga resulta ay ipadadala sa iyong guro, at sisimulan namin ang pagggawa ng iyong learning plan."
+    },
+    "completedDiagnostic": {
+        "header": "Natapos mo na ang Placement Activity ng Quill",
+        "text": "Isini-save na ngayon ang iyong mga resulta. Awtomatiko kang ire-redirect kapag na save na ang mga ito."
+    },
+    "instructions": {
+        "Fill in the blank with one of the choices.": "Punan ang patlang ng isa sa mga pagpipilian.",
+        "Fill in each blank with one of the choices.": "Punan ang bawat patlang ng isa sa mga pagpipilian.",
+        "Fill in the blanks with one word each.": "Punan ang mga patlang ng tig-isang salita.",
+        "Fill in the blanks with one word each. You can leave one empty.": "Punan ang mga patlang ng tig-isang salita. Maaari mo ring iwang blanko ang isa.",
+        "Use the joining word to combine the sentences into one sentence.": "Gamitin ang salita para pagsamahin ang mga pangungusap at gawing isang pangungusap."
+    },
+    "cues": {
+        "choose one": "choose one / pumili ng isa",
+        "choose three": "choose three / pumili ng tatlo",
+        "choose two or three" : "choose two or three / pumili ng dalawa o tatlo",
+        "joining word": "joining word / salita para pagsamahin"
+    },
+    "feedback": {
+        "blank": "Gamitin ang isa sa mga opsyon sa ibaba o iwang blanko.",
+        "no blank": "Gamitin ang isa sa mga opsyon sa ibaba."
+    }
+}

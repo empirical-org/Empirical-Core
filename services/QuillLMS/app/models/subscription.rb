@@ -14,10 +14,11 @@ class Subscription < ActiveRecord::Base
   after_commit :check_if_purchaser_email_is_in_database
   after_initialize :set_null_start_date_to_today
 
-  COVID_19_EXPIRATION = Date.parse('2020-07-31')
+  CB_LIFETIME_DURATION = 365 * 50 # In days, this is approximately 50 years
 
   COVID_19_SUBSCRIPTION_TYPE = 'Quill Premium for School Closures'
   COVID_19_SCHOOL_SUBSCRIPTION_TYPE = 'Quill School Premium for School Closures'
+  CB_LIFETIME_SUBSCRIPTION_TYPE = 'College Board Educator Lifetime Premium'
 
   OFFICIAL_PAID_TYPES = ['School District Paid',
                          'School NYC Paid',
@@ -25,7 +26,8 @@ class Subscription < ActiveRecord::Base
                          'School Paid',
                          'Teacher Paid',
                          'Purchase Missing School',
-                         'Premium Credit']
+                         'Premium Credit',
+                         CB_LIFETIME_SUBSCRIPTION_TYPE]
 
   OFFICIAL_FREE_TYPES = ['School NYC Free',
                          'School Research',
@@ -53,7 +55,8 @@ class Subscription < ActiveRecord::Base
                             'Teacher Contributor Free',
                             'Teacher Sponsored Free',
                             'Teacher Trial',
-                            COVID_19_SUBSCRIPTION_TYPE]
+                            COVID_19_SUBSCRIPTION_TYPE,
+                            CB_LIFETIME_SUBSCRIPTION_TYPE]
 
   # TODO: ultimately these should be cleaned up so we just have OFFICIAL_TYPES but until then, we keep them here
   GRANDFATHERED_PAID_TYPES = ['paid', 'school', 'premium', 'school', 'School']
@@ -213,7 +216,7 @@ class Subscription < ActiveRecord::Base
 
   def self.update_todays_expired_recurring_subscriptions
     expired_today_or_previously_and_recurring.each do |s|
-      s.update_if_charge_succeeds
+      s.update_if_charge_succeeds unless s.users.empty?
     end
   end
 
@@ -223,10 +226,6 @@ class Subscription < ActiveRecord::Base
     exp_month = Date.today.month < 8 ? 7 : 12
     {expiration: Date::strptime("31-#{exp_month}-#{Date.today.year+1}","%d-%m-%Y"),
     start_date: Date.today}
-  end
-
-  def covid19?
-    account_type == COVID_19_SUBSCRIPTION_TYPE
   end
 
   protected
@@ -280,8 +279,8 @@ class Subscription < ActiveRecord::Base
     {expiration: expiration, start_date: start_date}
   end
 
-  def self.set_covid_expiration_and_start_date
-    {expiration: COVID_19_EXPIRATION, start_date: Date.today}
+  def self.set_cb_lifetime_expiration_and_start_date
+    {expiration: Date.today + CB_LIFETIME_DURATION, start_date: Date.today}
   end
 
   def report_to_new_relic(error)
@@ -309,9 +308,8 @@ class Subscription < ActiveRecord::Base
       if attributes[:account_type]&.downcase == 'teacher trial'
         PremiumAnalyticsWorker.perform_async(school_or_user_id, attributes[:account_type])
         attributes = attributes.merge(Subscription.set_trial_expiration_and_start_date(school_or_user))
-      elsif [COVID_19_SUBSCRIPTION_TYPE, COVID_19_SCHOOL_SUBSCRIPTION_TYPE].include?(attributes[:account_type])
-        attributes = attributes.merge(Subscription.set_covid_expiration_and_start_date)
-        extend_current_subscription_for_covid_19(school_or_user)
+      elsif attributes[:account_type] == CB_LIFETIME_SUBSCRIPTION_TYPE
+        attributes = attributes.merge(Subscription.set_cb_lifetime_expiration_and_start_date)
       else
         attributes = attributes.merge(Subscription.set_premium_expiration_and_start_date(school_or_user))
       end
@@ -324,15 +322,6 @@ class Subscription < ActiveRecord::Base
       "#{type}Subscription".constantize.create(h)
     end
     subscription
-  end
-
-
-  def self.extend_current_subscription_for_covid_19(user)
-    existing_sub = user.subscription
-    if existing_sub&.expiration && existing_sub.expiration > Date.today
-      time_to_add = [COVID_19_EXPIRATION - Date.today, 0].max
-      existing_sub.update(expiration: existing_sub.expiration + time_to_add)
-    end
   end
 
 end

@@ -65,3 +65,26 @@ export function unnecessaryDeletionMatch(originalText: string, editedText: strin
 function removeSpaces(str: string) {
   return str.replace(/\s+/g, '')
 }
+
+export function unnecessarySpaceSplitResponse(originalText: string, editedText: string): string[] {
+  const words = []
+  let currentWord = ''
+  // have to set index manually rather than using the built in one in `forEach` because sometimes we want to increase it by more than one
+  let index = 0
+  editedText.split('').forEach((letter, iteration) => {
+    if (letter === originalText[index]) {
+      currentWord+= letter
+      index+=1
+      // if we are on the last iteration, we should push in the current word
+      iteration === editedText.length - 1 ? words.push(currentWord) : null
+      return
+    }
+
+    if (currentWord.length) {
+      words.push(currentWord)
+      currentWord = ''
+    }
+    words.push(`{+- |${UNNECESSARY_SPACE}}`)
+  })
+  return words
+}

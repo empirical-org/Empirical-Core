@@ -20,7 +20,7 @@ export default class EditInput extends React.Component<EditInputProps, {}> {
     if (underlined ) {
       className += ' underlined'
     }
-    if (currentText !== originalText) {
+    if (currentText.trim() !== originalText) {
       className += ' bolded'
     }
     const key = `${paragraphIndex}-${wordIndex}-${numberOfResets}`
