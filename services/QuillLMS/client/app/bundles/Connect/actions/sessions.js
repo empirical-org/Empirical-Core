@@ -13,6 +13,12 @@ export default {
     // First attempt to get the new normalized session object for this ID
     SessionApi.get(sessionID).then((session) => {
       handleSessionSnapshot(denormalizeSession(session), cb)
+    }).catch((error) => {
+      if (error.status === 404) {
+        handleSessionSnapshot(null, cb)
+      } else {
+        throw error
+      }
     })
   },
 
@@ -115,14 +121,16 @@ function normalizeQuestion(question) {
 }
 
 function handleSessionSnapshot(session, callback) {
-  if (session.currentQuestion) {
-    if (session.currentQuestion.question) {
-      session.currentQuestion.question.attempts = session.currentQuestion.question.attempts || [];
-    } else {
-      session.currentQuestion.data.attempts = session.currentQuestion.data.attempts || [];
+  if (session != null) {
+    if (session.currentQuestion) {
+      if (session.currentQuestion.question) {
+        session.currentQuestion.question.attempts = session.currentQuestion.question.attempts || [];
+      } else {
+        session.currentQuestion.data.attempts = session.currentQuestion.data.attempts || [];
+      }
     }
+    session.unansweredQuestions ? true : session.unansweredQuestions = [];
   }
-  session.unansweredQuestions ? true : session.unansweredQuestions = [];
   callback(session);
 }
 
