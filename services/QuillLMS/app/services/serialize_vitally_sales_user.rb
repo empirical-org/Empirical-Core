@@ -34,6 +34,8 @@ class SerializeVitallySalesUser
         edit_teacher_link: edit_teacher_link,
         city: city,
         state: state,
+        zipcode: zipcode,
+        district: district,
       }.merge(account_data_params)
     }
   end
@@ -133,5 +135,13 @@ class SerializeVitallySalesUser
 
   private def state
     @user.school.state if @user.school.present?
+  end
+
+  private def zipcode
+    @user.school.zipcode if @user.school.present?
+  end
+
+  private def district
+    @user.school.leanm if @user.school.present?
   end
 end
