@@ -18,7 +18,6 @@ class ApplicationController < ActionController::Base
 
   # FIXME: disabled till it's clear what this does
   # before_action :setup_visitor
-  before_action :should_load_intercom
   before_action :set_raven_context
   before_action :confirm_valid_session
   # before_action :stick_to_leader_db
@@ -92,15 +91,6 @@ class ApplicationController < ActionController::Base
 
   def default_params
     [:utf8, :authenticity_token, :commit]
-  end
-
-  def should_load_intercom
-    current_path = request.env['PATH_INFO']
-    user_is_logged_in_teacher = current_user && current_user.role == 'teacher'
-    user_is_not_a_staff_member = session[:staff_id].nil?
-    user_is_not_a_demo_account = current_user && /hello\+(.)*@quill.org/.match(current_user.email).nil?
-    not_on_sign_up = !current_path.include?('sign-up')
-    @should_load_intercom = user_is_logged_in_teacher && user_is_not_a_staff_member && user_is_not_a_demo_account && not_on_sign_up
   end
 
   def route_redirects_to_my_account?(route)
