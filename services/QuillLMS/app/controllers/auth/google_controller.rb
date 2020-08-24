@@ -60,7 +60,6 @@ class Auth::GoogleController < ApplicationController
       flash.keep(:error)
       redirect_to(new_session_path, status: :see_other)
     end
-    logger.info("Successfully set user to #{@user}")
   end
 
   def save_student_from_google_signup
