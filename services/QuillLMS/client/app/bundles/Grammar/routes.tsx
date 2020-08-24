@@ -13,6 +13,8 @@ export const routes: RouteConfig[] = [
           handleToggleQuestion={props.handleToggleQuestion} 
           previewMode={props.previewMode} 
           questionToPreview={props.questionToPreview} 
+          randomizedQuestions={props.randomizedQuestions}
+          switchedBackToPreview={props.switchedBackToPreview}
         />
       )
     },

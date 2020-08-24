@@ -27,6 +27,8 @@ interface QuestionProps {
   questionToPreview: Question;
   questions: Question[];
   handleToggleQuestion: (question: Question) => void;
+  switchedBackToPreview: boolean;
+  randomizedQuestions: any[];
 }
 
 interface QuestionState {
@@ -41,6 +43,7 @@ interface QuestionState {
   previewSubmissionCount: number;
   previewQuestionCorrect: boolean;
   isLastPreviewQuestion: boolean;
+  switchedToPreview: boolean;
 }
 
 export class QuestionComponent extends React.Component<QuestionProps, QuestionState> {
@@ -55,10 +58,11 @@ export class QuestionComponent extends React.Component<QuestionProps, QuestionSt
       submittedForPreview: false,
       submittedSameResponseTwice: false,
       responses: {},
-      randomizedQuestions: null,
+      randomizedQuestions: props.randomizedQuestions,
       previewSubmissionCount: 0,
       previewQuestionCorrect: false,
-      isLastPreviewQuestion: false
+      isLastPreviewQuestion: false,
+      switchedToPreview: props.switchedBackToPreview
     }
   }
 
@@ -77,7 +81,7 @@ export class QuestionComponent extends React.Component<QuestionProps, QuestionSt
 
   UNSAFE_componentWillReceiveProps(nextProps: QuestionProps) {
     const { currentQuestion, previewMode } = this.props;
-    if (nextProps.currentQuestion && nextProps.currentQuestion.attempts && nextProps.currentQuestion.attempts.length > 0) {
+    if (nextProps.currentQuestion && nextProps.currentQuestion.attempts && nextProps.currentQuestion.attempts.length > 0 && !previewMode) {
       this.setState({ questionStatus: this.getCurrentQuestionStatus(nextProps.currentQuestion) })
     }
     if (nextProps.currentQuestion.uid && currentQuestion.uid !== nextProps.currentQuestion.uid) {
@@ -89,7 +93,7 @@ export class QuestionComponent extends React.Component<QuestionProps, QuestionSt
       );
       if(previewMode) {
         // previewQuestion has been switched, reset values
-        const questionKeys = this.getPreviewQuestionKeys(nextProps.activity);
+        const questionKeys = this.getPreviewQuestionKeys();
         const index = questionKeys && this.getPreviewQuestionIndex(nextProps.currentQuestion, questionKeys);
         if(questionKeys && index === questionKeys.length - 1) {
           this.setState({ submittedForPreview: false, response: '', previewSubmissionCount: 0, previewQuestionCorrect: false, isLastPreviewQuestion: true });
@@ -99,7 +103,7 @@ export class QuestionComponent extends React.Component<QuestionProps, QuestionSt
       }
     } else if(nextProps.currentQuestion.key && currentQuestion.key !== nextProps.currentQuestion.key) {
       // previewQuestion has been switched, reset values
-      const questionKeys = this.getPreviewQuestionKeys(nextProps.activity);
+      const questionKeys = this.getPreviewQuestionKeys();
       const index = questionKeys && this.getPreviewQuestionIndex(nextProps.currentQuestion, questionKeys);
       if(questionKeys && index === questionKeys.length - 1) {
         this.setState({ submittedForPreview: false, response: '', previewSubmissionCount: 0, previewQuestionCorrect: false, isLastPreviewQuestion: true });
@@ -115,13 +119,13 @@ export class QuestionComponent extends React.Component<QuestionProps, QuestionSt
     }
   }
 
-  getPreviewQuestionKeys = (activity) => {
-    const { randomizedQuestions } = this.state;
+  getPreviewQuestionKeys = () => {
+    const { activity, randomizedQuestions } = this.props;
     let questionKeys; 
     if(activity.questions) {
       questionKeys = activity.questions.map(question => question.key);
     } else {
-      questionKeys = randomizedQuestions;
+      questionKeys = randomizedQuestions.map(question => question.uid);
     }
     return questionKeys;
   }
@@ -136,7 +140,8 @@ export class QuestionComponent extends React.Component<QuestionProps, QuestionSt
   }
 
   getCurrentQuestionStatus(currentQuestion) {
-    if (currentQuestion.attempts && currentQuestion.attempts.length) {
+    const { previewMode } = this.props;
+    if (currentQuestion.attempts && currentQuestion.attempts.length && !previewMode) {
       if (currentQuestion.attempts.length === ALLOWED_ATTEMPTS && currentQuestion.attempts[currentQuestion.attempts.length - 1]) {
         if (currentQuestion.attempts[currentQuestion.attempts.length - 1].optimal) {
           return CORRECTLY_ANSWERED
@@ -201,17 +206,21 @@ export class QuestionComponent extends React.Component<QuestionProps, QuestionSt
   }
 
   handleNextProblemClick = () => {
-    const { activity, goToNextQuestion, previewMode, handleToggleQuestion, currentQuestion, questions } = this.props;
+    const { goToNextQuestion, previewMode, handleToggleQuestion, currentQuestion, questions } = this.props;
     if(previewMode) {
-      const questionKeys = this.getPreviewQuestionKeys(activity);
+      const questionKeys = this.getPreviewQuestionKeys();
       const index = questionKeys && this.getPreviewQuestionIndex(currentQuestion, questionKeys) + 1;
       if(index === questionKeys.length - 1) {
-        const question = questions[questionKeys[index]];
-        this.setState({ previewQuestionCorrect: false, isLastPreviewQuestion: true });
+        const key = questionKeys[index];
+        const question = questions[key];
+        question.key = key;
+        this.setState({ previewQuestionCorrect: false, isLastPreviewQuestion: true, submittedForPreview: false, previewSubmissionCount: 0, response: '', switchedToPreview: false });
         handleToggleQuestion(question);
       } else {
-        const question = questions[questionKeys[index]];
-        this.setState({ previewQuestionCorrect: false });
+        const key = questionKeys[index === 0 ? 1 : index];
+        const question = questions[key];
+        question.key = key;
+        this.setState({ previewQuestionCorrect: false, submittedForPreview: false, previewSubmissionCount: 0, response: '', switchedToPreview: false });
         handleToggleQuestion(question);
       }
     } else {
@@ -240,8 +249,15 @@ export class QuestionComponent extends React.Component<QuestionProps, QuestionSt
   }
 
   getLatestAttempt(attempts: Response[] = []): Response | undefined {
+    const { switchedToPreview } = this.state;
     const lastIndex = attempts.length - 1;
-    return attempts[lastIndex];
+
+    // handle edge case for when teacher goes from preview to regular activity, plays a question and switches back to preview
+    if(switchedToPreview) {
+      return null;
+    } else {
+      return attempts[lastIndex];
+    }
   }
 
   getConcept = () => {
@@ -318,8 +334,8 @@ export class QuestionComponent extends React.Component<QuestionProps, QuestionSt
   }
 
   renderTopSection(): JSX.Element {
-    const { answeredQuestions, currentQuestion, unansweredQuestions, activity, previewMode } = this.props;
-    const { randomizedQuestions } = this.state;
+    const { answeredQuestions, unansweredQuestions, activity, previewMode, randomizedQuestions } = this.props;
+    // const { randomizedQuestions } = this.state;
     let answeredQuestionCount;
     let totalQuestionCount;
     const question = this.currentQuestion();
@@ -327,15 +343,14 @@ export class QuestionComponent extends React.Component<QuestionProps, QuestionSt
       // standard activity questions
       if(activity && activity.questions) {
         const questions = activity.questions ? activity.questions.map(question => question.key) : [];
-        answeredQuestionCount = questions && this.getPreviewQuestionIndex(question, questions) + 1;
+        const index = questions && this.getPreviewQuestionIndex(question, questions) + 1;
+        answeredQuestionCount = index === -1 ? 1 : index + 1;
         totalQuestionCount = questions.length;
-      } else if(!randomizedQuestions) {
-        const questions = [currentQuestion, ...unansweredQuestions].map(question => question.uid);
-        this.setState({ randomizedQuestions: questions });
-        // randomly selected activity questions
       } else if(randomizedQuestions) {
-        answeredQuestionCount = randomizedQuestions.indexOf(question.uid ? question.uid : question.key) + 1;
-        totalQuestionCount = randomizedQuestions.length;
+        const questions = this.getPreviewQuestionKeys();
+        const index = questions.indexOf(question.uid ? question.uid : question.key);
+        answeredQuestionCount = index === -1 ? 1 : index + 1;
+        totalQuestionCount = questions.length;
       }
     } else {
       answeredQuestionCount = answeredQuestions.length + 1;
@@ -361,16 +376,24 @@ export class QuestionComponent extends React.Component<QuestionProps, QuestionSt
   }
 
   renderTextareaSection = () => {
-    const { questionStatus, response, previewSubmissionCount } = this.state
+    const { questionStatus, response, previewSubmissionCount, previewQuestionCorrect } = this.state;
+    const { previewMode } = this.props;
     const question = this.currentQuestion()
     const latestAttempt: Response | undefined = this.getLatestAttempt(question.attempts)
-
+    const maxPreviewQuestionAttempts = previewSubmissionCount === ALLOWED_ATTEMPTS;
     if ((question.attempts && question.attempts.length === ALLOWED_ATTEMPTS) && (latestAttempt && !latestAttempt.optimal)) { 
       return 
     } else if(previewSubmissionCount === ALLOWED_ATTEMPTS) {
       return
     }
-    const disabled = [CORRECTLY_ANSWERED, FINAL_ATTEMPT].includes(questionStatus) ? 'disabled' : null
+
+    let disabled;
+    if([CORRECTLY_ANSWERED, FINAL_ATTEMPT].includes(questionStatus) && !previewMode) {
+      disabled = 'disabled';
+    } else if(maxPreviewQuestionAttempts || previewQuestionCorrect) {
+      disabled = 'disabled';
+    }
+
     return (<Row align="middle" justify="start" type="flex">
       <ContentEditable
         className={`input-field ${disabled}`}
