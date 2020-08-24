@@ -66,8 +66,7 @@ export default class ClassReport extends React.Component {
   handleFetchSuccess = (responseData) => {
     this.setState({
       students: responseData.students,
-      startedNames: this.sortByLastName(responseData.started_names),
-      unstartedNames: this.sortByLastName(responseData.unstarted_names),
+      notCompletedNames: this.sortByLastName(responseData.not_completed_names),
       missedNames: this.sortByLastName(responseData.missed_names)
     });
   }
@@ -100,17 +99,15 @@ export default class ClassReport extends React.Component {
   }
 
   startedAndUnstartedStudents() {
-    const { showInProgressAndUnstartedStudents, startedNames, unstartedNames, missedNames, } = this.state
+    const { showInProgressAndUnstartedStudents, notCompletedNames, missedNames, } = this.state
     if (!showInProgressAndUnstartedStudents) { return }
 
-    const startedRows = _.map(startedNames, name => <tr className='in-progress-row' key={name}><td>{name}</td><td colSpan='3'>In Progress</td></tr>)
-    const unstartedRows = _.map(unstartedNames, name => <tr className='unstarted-row' key={name}><td>{name}</td><td colSpan='3'>Not Started</td></tr>)
+    const notCompletedRows = _.map(notCompletedNames, name => <tr className='unstarted-row' key={name}><td>{name}</td><td colSpan='3'>Not Completed</td></tr>)
     const missedRows = _.map(missedNames, name => <MissedLessonRow name={name} />)
     return (
       <table className='student-report-box sortable-table'>
         <tbody>
-          {startedRows}
-          {unstartedRows}
+          {notCompletedRows}
           {missedRows}
         </tbody>
       </table>

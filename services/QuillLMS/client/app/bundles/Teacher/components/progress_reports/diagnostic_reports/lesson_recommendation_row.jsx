@@ -17,12 +17,15 @@ export default class LessonsRecommendationRow extends React.Component {
 
   statusSpecificComponent() {
     const { status, recommendation, } = this.props
+    const className = "focus-on-light quill-button medium primary contained"
     if (status === 'loading') {
       return (<LoadingIndicator />);
     } else if (recommendation.previously_assigned || status === 'assigned') {
-      return <span className="assigned-lesson-pack vertically-centered centered"><i className="fas fa-check-circle" />Pack Assigned</span>;
+      return <span className={`${className} disabled`}><i className="fas fa-check-circle" />Pack Assigned</span>;
+    } else if (recommendation.percentage_needing_instruction === null) {
+      return (<button className={`${className} disabled`}>Assign Pack</button>);
     }
-    return (<a className="assign q-button bg-quillgreen text-white" onClick={this.handleAssignPackClick}>Assign Pack</a>);
+    return (<button className={className} onClick={this.handleAssignPackClick}>Assign Pack</button>);
   }
 
   renderExpandedSection() {
@@ -50,6 +53,7 @@ export default class LessonsRecommendationRow extends React.Component {
     if (expandState === 'expanded') {
       expandedSection = this.renderExpandedSection();
     }
+    const percentageNeedingInstructionCopy = recommendation.percentage_needing_instruction === null ? 'Diagnostic results needed' : `${recommendation.percentage_needing_instruction}% of students need instruction`
     return (
       <div className={`${expandState} ${recommendationState} lesson-recommendation-row`}>
         <div className="top-row flex-row vertically-centered space-between ">
@@ -59,9 +63,9 @@ export default class LessonsRecommendationRow extends React.Component {
             </h3>
             <span onClick={this.handleExpandOrCollapseClick}>{expanded ? 'COLLAPSE' : 'EXPAND'}</span>
           </div>
-          <div className="right-side flex-row vertically-centered space-between ">
+          <div className="right-side flex-row vertically-centered flex-end ">
             <span>
-              {`${recommendation.percentage_needing_instruction}% of students need instruction`}
+              {percentageNeedingInstructionCopy}
             </span>
             {this.statusSpecificComponent()}
           </div>

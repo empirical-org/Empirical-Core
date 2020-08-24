@@ -14,7 +14,7 @@ const recommendationsButton = ({ isDiagnostic, buttonGroupCallback, }) => {
 
 const studentsButton = ({ buttonGroupCallback, }) => {
   const identifier = 'students'
-  const className = window.location.href.includes(identifier) && 'active'
+  const className = (window.location.href.includes(identifier) || window.location.href.includes('student_report')) && 'active'
   const handleClick = () => buttonGroupCallback(identifier)
   return <button className={className} onClick={handleClick} type="button">Student reports</button>
 }
@@ -26,7 +26,7 @@ const questionsButton = ({ buttonGroupCallback, }) => {
   return <button className={className} onClick={handleClick} type="button">Questions reports</button>
 }
 
-const Navbar = ({ params, selectedActivity, classrooms, buttonGroupCallback, }) => {
+const Navbar = ({ params, selectedActivity, classrooms, buttonGroupCallback, dropdownCallback, }) => {
   const [isDiagnostic, setIsDiagnostic] = React.useState<boolean>(false);
 
   React.useEffect(() => {
@@ -53,8 +53,9 @@ const Navbar = ({ params, selectedActivity, classrooms, buttonGroupCallback, }) 
 
   const classroomOptions = classrooms.map(classroom => ({ value: classroom.id, label: classroom.name, }))
 
-  const onDropdownChange = (val) => {
-    debugger;
+  const onDropdownChange = (classroomOption) => {
+    const selectedClassroom = classrooms.find(c => c.id === classroomOption.value)
+    dropdownCallback(selectedClassroom)
   }
 
   return (<header className="reports-header">
