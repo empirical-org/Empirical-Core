@@ -334,7 +334,7 @@ Sentences flow easily when all the actions in a list have the same ending. This 
           type="flex"
         >
           <ContentEditable
-            className="input-field null"
+            className="input-field undefined"
             data-gramm={false}
             disabled={false}
             html=""
@@ -344,7 +344,7 @@ Sentences flow easily when all the actions in a list have the same ending. This 
             spellCheck={false}
           >
             <div
-              className="input-field null"
+              className="input-field undefined"
               contentEditable={true}
               dangerouslySetInnerHTML={
                 Object {
