@@ -16,6 +16,7 @@
     padding: 20px 16px 20px 20px;
     h1 {
       font-weight: 600;
+      color: black;
     }
     .close-preview-button {
       border: none;
@@ -33,10 +34,12 @@
     h2 {
       font-size: 14px;
       font-weight: bold;
+      color: black;
     }
     p {
       padding-top: 4px;
       font-size: 14px;
+      color: #2f2f2f;
     }
   }
   section {
@@ -57,11 +60,13 @@
       .question-container {
         display: flex;
         background-color: white;
+        color: #2f2f2f;
         border: none;
         padding: 5px 5px 5px 13px;
         border-radius: 4px;
         width: 95%;
         width: 344px;
+        font-family: adelle-sans !important;
         &.highlighted {
           background-color: #e1f3f1;
           font-weight: 600;
@@ -86,7 +91,7 @@
         }
       }
       .question-container:focus {
-        outline-offset: 0px;
+        outline-offset: -2px;
       }
       .question-container:hover {
         cursor: pointer;
@@ -94,6 +99,11 @@
       }
     }
   }
+}
+
+.sider-container {
+  border-right: 1px solid #d1d1d1;
+  background-color: white;
 }
 
 .ant-layout-sider-zero-width-trigger {

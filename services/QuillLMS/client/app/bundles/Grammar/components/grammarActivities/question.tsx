@@ -343,7 +343,7 @@ export class QuestionComponent extends React.Component<QuestionProps, QuestionSt
       // standard activity questions
       if(activity && activity.questions) {
         const questions = activity.questions ? activity.questions.map(question => question.key) : [];
-        const index = questions && this.getPreviewQuestionIndex(question, questions) + 1;
+        const index = questions && this.getPreviewQuestionIndex(question, questions);
         answeredQuestionCount = index === -1 ? 1 : index + 1;
         totalQuestionCount = questions.length;
       } else if(randomizedQuestions) {
