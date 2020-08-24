@@ -21,7 +21,7 @@ export default class LessonsRecommendationRow extends React.Component {
     if (status === 'loading') {
       return (<LoadingIndicator />);
     } else if (recommendation.previously_assigned || status === 'assigned') {
-      return <span className={`${className} disabled`}><i className="fas fa-check-circle" />Pack Assigned</span>;
+      return <span className={`${className} disabled`}>Pack Assigned</span>;
     } else if (recommendation.percentage_needing_instruction === null) {
       return (<button className={`${className} disabled`}>Assign Pack</button>);
     }
