@@ -27,7 +27,7 @@ const questionsButton = ({ buttonGroupCallback, }) => {
 }
 
 const Navbar = ({ params, selectedActivity, classrooms, buttonGroupCallback, dropdownCallback, }) => {
-  const [isDiagnostic, setIsDiagnostic] = React.useState<boolean>(false);
+  const [isDiagnostic, setIsDiagnostic] = React.useState(false);
 
   React.useEffect(() => {
     getDiagnosticActivityIds();
