@@ -1,0 +1,4503 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`DiagnosticActivityPacks component should render when it is loading 1`] = `
+<DiagnosticActivityPacks>
+  <_default>
+    <div
+      className="spinner-container"
+    >
+      <img
+        className="spinner"
+        src="/images/loader_still.svg"
+      />
+    </div>
+  </_default>
+</DiagnosticActivityPacks>
+`;
+
+exports[`DiagnosticActivityPacks component should render when there are diagnostic activities 1`] = `
+<DiagnosticActivityPacks
+  passedDiagnostics={
+    Array [
+      Object {
+        "classes_count": 2,
+        "id": 849,
+        "individual_assignments": Array [
+          Object {
+            "activity_id": 849,
+            "activity_name": "Starter Diagnostic",
+            "assigned_count": 5,
+            "assigned_date": "2020-08-17T14:26:07.185Z",
+            "classroom_id": 484134,
+            "classroom_name": "Quill Classroom Extremely Long So Long SUper Duper",
+            "completed_count": 5,
+            "unit_id": 826268,
+            "unit_name": "Quill Activity Pack",
+          },
+          Object {
+            "activity_id": 849,
+            "activity_name": "Starter Diagnostic",
+            "assigned_count": 0,
+            "assigned_date": "2020-08-19T16:48:48.094Z",
+            "classroom_id": 484135,
+            "classroom_name": "A New Class",
+            "completed_count": 0,
+            "unit_id": 826270,
+            "unit_name": "Starter Diagnostic",
+          },
+          Object {
+            "activity_id": 849,
+            "activity_name": "Starter Diagnostic",
+            "assigned_count": 5,
+            "assigned_date": "2020-08-19T16:48:48.160Z",
+            "classroom_id": 484134,
+            "classroom_name": "Quill Classroom Extremely Long So Long SUper Duper",
+            "completed_count": 0,
+            "unit_id": 826270,
+            "unit_name": "Starter Diagnostic",
+          },
+        ],
+        "last_assigned": "2020-08-19T16:48:48.160Z",
+        "name": "Starter Diagnostic",
+        "total_assigned": 10,
+        "total_completed": 5,
+      },
+      Object {
+        "classes_count": 2,
+        "id": 850,
+        "individual_assignments": Array [
+          Object {
+            "activity_id": 850,
+            "activity_name": "Intermediate Diagnostic",
+            "assigned_count": 0,
+            "assigned_date": "2020-08-17T17:23:21.451Z",
+            "classroom_id": 484135,
+            "classroom_name": "A New Class",
+            "completed_count": 0,
+            "unit_id": 826269,
+            "unit_name": "Every Diagnostic",
+          },
+          Object {
+            "activity_id": 850,
+            "activity_name": "Intermediate Diagnostic",
+            "assigned_count": 5,
+            "assigned_date": "2020-08-17T17:23:21.471Z",
+            "classroom_id": 484134,
+            "classroom_name": "Quill Classroom Extremely Long So Long SUper Duper",
+            "completed_count": 0,
+            "unit_id": 826269,
+            "unit_name": "Every Diagnostic",
+          },
+        ],
+        "last_assigned": "2020-08-17T17:23:21.471Z",
+        "name": "Intermediate Diagnostic",
+        "total_assigned": 5,
+        "total_completed": 0,
+      },
+      Object {
+        "classes_count": 2,
+        "id": 992,
+        "individual_assignments": Array [
+          Object {
+            "activity_id": 992,
+            "activity_name": "AP® Writing Skills Survey",
+            "assigned_count": 0,
+            "assigned_date": "2020-08-17T17:23:21.451Z",
+            "classroom_id": 484135,
+            "classroom_name": "A New Class",
+            "completed_count": 0,
+            "unit_id": 826269,
+            "unit_name": "Every Diagnostic",
+          },
+          Object {
+            "activity_id": 992,
+            "activity_name": "AP® Writing Skills Survey",
+            "assigned_count": 5,
+            "assigned_date": "2020-08-17T17:23:21.471Z",
+            "classroom_id": 484134,
+            "classroom_name": "Quill Classroom Extremely Long So Long SUper Duper",
+            "completed_count": 0,
+            "unit_id": 826269,
+            "unit_name": "Every Diagnostic",
+          },
+        ],
+        "last_assigned": "2020-08-17T17:23:21.471Z",
+        "name": "AP® Writing Skills Survey",
+        "total_assigned": 5,
+        "total_completed": 0,
+      },
+      Object {
+        "classes_count": 2,
+        "id": 447,
+        "individual_assignments": Array [
+          Object {
+            "activity_id": 447,
+            "activity_name": "ELL Diagnostic",
+            "assigned_count": 0,
+            "assigned_date": "2020-08-17T17:23:21.451Z",
+            "classroom_id": 484135,
+            "classroom_name": "A New Class",
+            "completed_count": 0,
+            "unit_id": 826269,
+            "unit_name": "Every Diagnostic",
+          },
+          Object {
+            "activity_id": 447,
+            "activity_name": "ELL Diagnostic",
+            "assigned_count": 5,
+            "assigned_date": "2020-08-17T17:23:21.471Z",
+            "classroom_id": 484134,
+            "classroom_name": "Quill Classroom Extremely Long So Long SUper Duper",
+            "completed_count": 0,
+            "unit_id": 826269,
+            "unit_name": "Every Diagnostic",
+          },
+        ],
+        "last_assigned": "2020-08-17T17:23:21.471Z",
+        "name": "ELL Diagnostic",
+        "total_assigned": 5,
+        "total_completed": 0,
+      },
+      Object {
+        "classes_count": 2,
+        "id": 1230,
+        "individual_assignments": Array [
+          Object {
+            "activity_id": 1230,
+            "activity_name": "Pre-AP® Writing Skills Survey 2: Tools for Sentence Expansion",
+            "assigned_count": 0,
+            "assigned_date": "2020-08-17T17:23:21.451Z",
+            "classroom_id": 484135,
+            "classroom_name": "A New Class",
+            "completed_count": 0,
+            "unit_id": 826269,
+            "unit_name": "Every Diagnostic",
+          },
+          Object {
+            "activity_id": 1230,
+            "activity_name": "Pre-AP® Writing Skills Survey 2: Tools for Sentence Expansion",
+            "assigned_count": 5,
+            "assigned_date": "2020-08-17T17:23:21.471Z",
+            "classroom_id": 484134,
+            "classroom_name": "Quill Classroom Extremely Long So Long SUper Duper",
+            "completed_count": 0,
+            "unit_id": 826269,
+            "unit_name": "Every Diagnostic",
+          },
+        ],
+        "last_assigned": "2020-08-17T17:23:21.471Z",
+        "name": "Pre-AP® Writing Skills Survey 2: Tools for Sentence Expansion",
+        "total_assigned": 5,
+        "total_completed": 0,
+      },
+      Object {
+        "classes_count": 2,
+        "id": 888,
+        "individual_assignments": Array [
+          Object {
+            "activity_id": 888,
+            "activity_name": "Advanced Diagnostic",
+            "assigned_count": 0,
+            "assigned_date": "2020-08-17T17:23:21.451Z",
+            "classroom_id": 484135,
+            "classroom_name": "A New Class",
+            "completed_count": 0,
+            "unit_id": 826269,
+            "unit_name": "Every Diagnostic",
+          },
+          Object {
+            "activity_id": 888,
+            "activity_name": "Advanced Diagnostic",
+            "assigned_count": 5,
+            "assigned_date": "2020-08-17T17:23:21.471Z",
+            "classroom_id": 484134,
+            "classroom_name": "Quill Classroom Extremely Long So Long SUper Duper",
+            "completed_count": 0,
+            "unit_id": 826269,
+            "unit_name": "Every Diagnostic",
+          },
+        ],
+        "last_assigned": "2020-08-17T17:23:21.471Z",
+        "name": "Advanced Diagnostic",
+        "total_assigned": 5,
+        "total_completed": 0,
+      },
+      Object {
+        "classes_count": 2,
+        "id": 1229,
+        "individual_assignments": Array [
+          Object {
+            "activity_id": 1229,
+            "activity_name": "Pre-AP® Writing Skills Survey 1: Basics of Sentence Patterns",
+            "assigned_count": 0,
+            "assigned_date": "2020-08-17T17:23:21.451Z",
+            "classroom_id": 484135,
+            "classroom_name": "A New Class",
+            "completed_count": 0,
+            "unit_id": 826269,
+            "unit_name": "Every Diagnostic",
+          },
+          Object {
+            "activity_id": 1229,
+            "activity_name": "Pre-AP® Writing Skills Survey 1: Basics of Sentence Patterns",
+            "assigned_count": 5,
+            "assigned_date": "2020-08-17T17:23:21.471Z",
+            "classroom_id": 484134,
+            "classroom_name": "Quill Classroom Extremely Long So Long SUper Duper",
+            "completed_count": 0,
+            "unit_id": 826269,
+            "unit_name": "Every Diagnostic",
+          },
+        ],
+        "last_assigned": "2020-08-17T17:23:21.471Z",
+        "name": "Pre-AP® Writing Skills Survey 1: Basics of Sentence Patterns",
+        "total_assigned": 5,
+        "total_completed": 0,
+      },
+      Object {
+        "classes_count": 2,
+        "id": 1161,
+        "individual_assignments": Array [
+          Object {
+            "activity_id": 1161,
+            "activity_name": "ELL Starter Diagnostic",
+            "assigned_count": 0,
+            "assigned_date": "2020-08-17T17:23:21.451Z",
+            "classroom_id": 484135,
+            "classroom_name": "A New Class",
+            "completed_count": 0,
+            "unit_id": 826269,
+            "unit_name": "Every Diagnostic",
+          },
+          Object {
+            "activity_id": 1161,
+            "activity_name": "ELL Starter Diagnostic",
+            "assigned_count": 5,
+            "assigned_date": "2020-08-17T17:23:21.471Z",
+            "classroom_id": 484134,
+            "classroom_name": "Quill Classroom Extremely Long So Long SUper Duper",
+            "completed_count": 0,
+            "unit_id": 826269,
+            "unit_name": "Every Diagnostic",
+          },
+        ],
+        "last_assigned": "2020-08-17T17:23:21.471Z",
+        "name": "ELL Starter Diagnostic",
+        "total_assigned": 5,
+        "total_completed": 0,
+      },
+    ]
+  }
+>
+  <div
+    className="container diagnostic-activity-packs"
+  >
+    <h1>
+      Diagnostic Reports
+    </h1>
+    <Diagnostic
+      diagnostic={
+        Object {
+          "classes_count": 2,
+          "id": 849,
+          "individual_assignments": Array [
+            Object {
+              "activity_id": 849,
+              "activity_name": "Starter Diagnostic",
+              "assigned_count": 5,
+              "assigned_date": "2020-08-17T14:26:07.185Z",
+              "classroom_id": 484134,
+              "classroom_name": "Quill Classroom Extremely Long So Long SUper Duper",
+              "completed_count": 5,
+              "unit_id": 826268,
+              "unit_name": "Quill Activity Pack",
+            },
+            Object {
+              "activity_id": 849,
+              "activity_name": "Starter Diagnostic",
+              "assigned_count": 0,
+              "assigned_date": "2020-08-19T16:48:48.094Z",
+              "classroom_id": 484135,
+              "classroom_name": "A New Class",
+              "completed_count": 0,
+              "unit_id": 826270,
+              "unit_name": "Starter Diagnostic",
+            },
+            Object {
+              "activity_id": 849,
+              "activity_name": "Starter Diagnostic",
+              "assigned_count": 5,
+              "assigned_date": "2020-08-19T16:48:48.160Z",
+              "classroom_id": 484134,
+              "classroom_name": "Quill Classroom Extremely Long So Long SUper Duper",
+              "completed_count": 0,
+              "unit_id": 826270,
+              "unit_name": "Starter Diagnostic",
+            },
+          ],
+          "last_assigned": "2020-08-19T16:48:48.160Z",
+          "name": "Starter Diagnostic",
+          "total_assigned": 10,
+          "total_completed": 5,
+        }
+      }
+      key="849"
+    >
+      <section
+        className="diagnostic open"
+      >
+        <DiagnosticHeader
+          diagnostic={
+            Object {
+              "classes_count": 2,
+              "id": 849,
+              "individual_assignments": Array [
+                Object {
+                  "activity_id": 849,
+                  "activity_name": "Starter Diagnostic",
+                  "assigned_count": 5,
+                  "assigned_date": "2020-08-17T14:26:07.185Z",
+                  "classroom_id": 484134,
+                  "classroom_name": "Quill Classroom Extremely Long So Long SUper Duper",
+                  "completed_count": 5,
+                  "unit_id": 826268,
+                  "unit_name": "Quill Activity Pack",
+                },
+                Object {
+                  "activity_id": 849,
+                  "activity_name": "Starter Diagnostic",
+                  "assigned_count": 0,
+                  "assigned_date": "2020-08-19T16:48:48.094Z",
+                  "classroom_id": 484135,
+                  "classroom_name": "A New Class",
+                  "completed_count": 0,
+                  "unit_id": 826270,
+                  "unit_name": "Starter Diagnostic",
+                },
+                Object {
+                  "activity_id": 849,
+                  "activity_name": "Starter Diagnostic",
+                  "assigned_count": 5,
+                  "assigned_date": "2020-08-19T16:48:48.160Z",
+                  "classroom_id": 484134,
+                  "classroom_name": "Quill Classroom Extremely Long So Long SUper Duper",
+                  "completed_count": 0,
+                  "unit_id": 826270,
+                  "unit_name": "Starter Diagnostic",
+                },
+              ],
+              "last_assigned": "2020-08-19T16:48:48.160Z",
+              "name": "Starter Diagnostic",
+              "total_assigned": 10,
+              "total_completed": 5,
+            }
+          }
+          handleClickDiagnosticHeader={[Function]}
+        >
+          <button
+            className="diagnostic-card-header"
+            onClick={[Function]}
+            type="button"
+          >
+            <section
+              className="diagnostic-info"
+            >
+              <h2
+                className="diagnostic-name"
+              >
+                Starter Diagnostic
+              </h2>
+              <div
+                className="diagnostic-data"
+              >
+                <a
+                  className="item"
+                  href="/activity_sessions/anonymous?activity_id=849"
+                  rel="noopener noreferrer"
+                  target="_blank"
+                >
+                  Preview
+                </a>
+                <span
+                  className="item assigned-counts"
+                >
+                  Assigned: 
+                  2
+                   class
+                  es
+                  , 
+                  10
+                   student
+                  s
+                </span>
+                <span
+                  className="item completed-count"
+                >
+                  Students completed: 
+                  5
+                   of 
+                  10
+                </span>
+                <span
+                  className="item"
+                >
+                  Last assigned: 
+                  Aug 19, 2020
+                </span>
+              </div>
+            </section>
+            <img
+              alt="arrow"
+              className="expand-arrow"
+              src="undefined/images/icons/expand.svg"
+            />
+          </button>
+        </DiagnosticHeader>
+        <DiagnosticContent
+          diagnostic={
+            Object {
+              "classes_count": 2,
+              "id": 849,
+              "individual_assignments": Array [
+                Object {
+                  "activity_id": 849,
+                  "activity_name": "Starter Diagnostic",
+                  "assigned_count": 5,
+                  "assigned_date": "2020-08-17T14:26:07.185Z",
+                  "classroom_id": 484134,
+                  "classroom_name": "Quill Classroom Extremely Long So Long SUper Duper",
+                  "completed_count": 5,
+                  "unit_id": 826268,
+                  "unit_name": "Quill Activity Pack",
+                },
+                Object {
+                  "activity_id": 849,
+                  "activity_name": "Starter Diagnostic",
+                  "assigned_count": 0,
+                  "assigned_date": "2020-08-19T16:48:48.094Z",
+                  "classroom_id": 484135,
+                  "classroom_name": "A New Class",
+                  "completed_count": 0,
+                  "unit_id": 826270,
+                  "unit_name": "Starter Diagnostic",
+                },
+                Object {
+                  "activity_id": 849,
+                  "activity_name": "Starter Diagnostic",
+                  "assigned_count": 5,
+                  "assigned_date": "2020-08-19T16:48:48.160Z",
+                  "classroom_id": 484134,
+                  "classroom_name": "Quill Classroom Extremely Long So Long SUper Duper",
+                  "completed_count": 0,
+                  "unit_id": 826270,
+                  "unit_name": "Starter Diagnostic",
+                },
+              ],
+              "last_assigned": "2020-08-19T16:48:48.160Z",
+              "name": "Starter Diagnostic",
+              "total_assigned": 10,
+              "total_completed": 5,
+            }
+          }
+        >
+          <section
+            className="individual-assignments"
+          >
+            <DataTable
+              averageFontWidth={7}
+              headers={
+                Array [
+                  Object {
+                    "attribute": "assignedDate",
+                    "name": "Assigned date",
+                    "width": "100px",
+                  },
+                  Object {
+                    "attribute": "class",
+                    "name": "Class",
+                    "width": "215px",
+                  },
+                  Object {
+                    "attribute": "unitName",
+                    "name": "Activity pack",
+                    "width": "215px",
+                  },
+                  Object {
+                    "attribute": "completed",
+                    "name": "Completed",
+                    "width": "76px",
+                  },
+                  Object {
+                    "attribute": "recommendations",
+                    "headerClassName": "recommendations-header",
+                    "name": "Recommendations report",
+                    "rowSectionClassName": "recommendations-row-section",
+                    "width": "141px",
+                  },
+                ]
+              }
+              rows={
+                Array [
+                  Object {
+                    "assignedDate": "Aug 17, 2020",
+                    "class": "Quill Classroom Extremely Long So Long SUper Duper",
+                    "completed": "5 of 5",
+                    "id": "849-484134-826268",
+                    "recommendations": <a
+                      className="quill-button small secondary outlined"
+                      href="/teachers/progress_reports/diagnostic_reports#/u/826268/a/849/c/484134/recommendations"
+                    >
+                      View
+                    </a>,
+                    "unitName": "Quill Activity Pack",
+                  },
+                  Object {
+                    "assignedDate": "Aug 19, 2020",
+                    "class": "A New Class",
+                    "completed": "0 of 0",
+                    "id": "849-484135-826270",
+                    "recommendations": null,
+                    "unitName": "Starter Diagnostic",
+                  },
+                  Object {
+                    "assignedDate": "Aug 19, 2020",
+                    "class": "Quill Classroom Extremely Long So Long SUper Duper",
+                    "completed": "0 of 5",
+                    "id": "849-484134-826270",
+                    "recommendations": null,
+                    "unitName": "Starter Diagnostic",
+                  },
+                ]
+              }
+            >
+              <div
+                className="data-table undefined"
+              >
+                <div
+                  className="data-table-headers"
+                >
+                  <button
+                    className="data-table-header undefined"
+                    style={
+                      Object {
+                        "minWidth": "100px",
+                        "textAlign": "left",
+                        "width": "100px",
+                      }
+                    }
+                    tabIndex={-1}
+                    type="button"
+                  >
+                    Assigned date
+                  </button>
+                  <button
+                    className="data-table-header undefined"
+                    style={
+                      Object {
+                        "minWidth": "215px",
+                        "textAlign": "left",
+                        "width": "215px",
+                      }
+                    }
+                    tabIndex={-1}
+                    type="button"
+                  >
+                    Class
+                  </button>
+                  <button
+                    className="data-table-header undefined"
+                    style={
+                      Object {
+                        "minWidth": "215px",
+                        "textAlign": "left",
+                        "width": "215px",
+                      }
+                    }
+                    tabIndex={-1}
+                    type="button"
+                  >
+                    Activity pack
+                  </button>
+                  <button
+                    className="data-table-header undefined"
+                    style={
+                      Object {
+                        "minWidth": "76px",
+                        "textAlign": "left",
+                        "width": "76px",
+                      }
+                    }
+                    tabIndex={-1}
+                    type="button"
+                  >
+                    Completed
+                  </button>
+                  <button
+                    className="data-table-header recommendations-header"
+                    style={
+                      Object {
+                        "minWidth": "141px",
+                        "textAlign": "left",
+                        "width": "141px",
+                      }
+                    }
+                    tabIndex={-1}
+                    type="button"
+                  >
+                    Recommendations report
+                  </button>
+                </div>
+                <div
+                  className="data-table-body"
+                >
+                  <div
+                    className="data-table-row  "
+                    key="849-484134-826268"
+                  >
+                    <span
+                      className="data-table-row-section undefined"
+                      key="assignedDate-849-484134-826268"
+                      style={
+                        Object {
+                          "minWidth": "100px",
+                          "textAlign": "left",
+                          "width": "100px",
+                        }
+                      }
+                    >
+                      Aug 17, 2020
+                    </span>
+                    <Tooltip
+                      key="class-849-484134-826268"
+                      tooltipText="Quill Classroom Extremely Long So Long SUper Duper"
+                      tooltipTriggerStyle={
+                        Object {
+                          "minWidth": "215px",
+                          "textAlign": "left",
+                          "width": "215px",
+                        }
+                      }
+                      tooltipTriggerText="Quill Classroom Extremely Long So Long SUper Duper"
+                      tooltipTriggerTextClass="data-table-row-section undefined"
+                      tooltipTriggerTextStyle={
+                        Object {
+                          "minWidth": "215px",
+                          "textAlign": "left",
+                          "width": "215px",
+                        }
+                      }
+                    >
+                      <span
+                        className="quill-tooltip-trigger"
+                        style={
+                          Object {
+                            "minWidth": "215px",
+                            "textAlign": "left",
+                            "width": "215px",
+                          }
+                        }
+                      >
+                        <span
+                          className="data-table-row-section undefined"
+                          onMouseEnter={[Function]}
+                          onMouseLeave={[Function]}
+                          style={
+                            Object {
+                              "minWidth": "215px",
+                              "textAlign": "left",
+                              "width": "215px",
+                            }
+                          }
+                        >
+                          Quill Classroom Extremely Long So Long SUper Duper
+                        </span>
+                        <span
+                          className="quill-tooltip-wrapper"
+                        >
+                          <span
+                            className="quill-tooltip"
+                          >
+                            Quill Classroom Extremely Long So Long SUper Duper
+                          </span>
+                        </span>
+                      </span>
+                    </Tooltip>
+                    <span
+                      className="data-table-row-section undefined"
+                      key="unitName-849-484134-826268"
+                      style={
+                        Object {
+                          "minWidth": "215px",
+                          "textAlign": "left",
+                          "width": "215px",
+                        }
+                      }
+                    >
+                      Quill Activity Pack
+                    </span>
+                    <span
+                      className="data-table-row-section undefined"
+                      key="completed-849-484134-826268"
+                      style={
+                        Object {
+                          "minWidth": "76px",
+                          "textAlign": "left",
+                          "width": "76px",
+                        }
+                      }
+                    >
+                      5 of 5
+                    </span>
+                    <span
+                      className="data-table-row-section recommendations-row-section"
+                      key="recommendations-849-484134-826268"
+                      style={
+                        Object {
+                          "minWidth": "141px",
+                          "textAlign": "left",
+                          "width": "141px",
+                        }
+                      }
+                    >
+                      <a
+                        className="quill-button small secondary outlined"
+                        href="/teachers/progress_reports/diagnostic_reports#/u/826268/a/849/c/484134/recommendations"
+                      >
+                        View
+                      </a>
+                    </span>
+                    <span
+                      className="removable data-table-row-section"
+                    />
+                  </div>
+                  <div
+                    className="data-table-row  "
+                    key="849-484135-826270"
+                  >
+                    <span
+                      className="data-table-row-section undefined"
+                      key="assignedDate-849-484135-826270"
+                      style={
+                        Object {
+                          "minWidth": "100px",
+                          "textAlign": "left",
+                          "width": "100px",
+                        }
+                      }
+                    >
+                      Aug 19, 2020
+                    </span>
+                    <span
+                      className="data-table-row-section undefined"
+                      key="class-849-484135-826270"
+                      style={
+                        Object {
+                          "minWidth": "215px",
+                          "textAlign": "left",
+                          "width": "215px",
+                        }
+                      }
+                    >
+                      A New Class
+                    </span>
+                    <span
+                      className="data-table-row-section undefined"
+                      key="unitName-849-484135-826270"
+                      style={
+                        Object {
+                          "minWidth": "215px",
+                          "textAlign": "left",
+                          "width": "215px",
+                        }
+                      }
+                    >
+                      Starter Diagnostic
+                    </span>
+                    <span
+                      className="data-table-row-section undefined"
+                      key="completed-849-484135-826270"
+                      style={
+                        Object {
+                          "minWidth": "76px",
+                          "textAlign": "left",
+                          "width": "76px",
+                        }
+                      }
+                    >
+                      0 of 0
+                    </span>
+                    <span
+                      className="data-table-row-section recommendations-row-section"
+                      key="recommendations-849-484135-826270"
+                      style={
+                        Object {
+                          "minWidth": "141px",
+                          "textAlign": "left",
+                          "width": "141px",
+                        }
+                      }
+                    />
+                    <span
+                      className="removable data-table-row-section"
+                    />
+                  </div>
+                  <div
+                    className="data-table-row  "
+                    key="849-484134-826270"
+                  >
+                    <span
+                      className="data-table-row-section undefined"
+                      key="assignedDate-849-484134-826270"
+                      style={
+                        Object {
+                          "minWidth": "100px",
+                          "textAlign": "left",
+                          "width": "100px",
+                        }
+                      }
+                    >
+                      Aug 19, 2020
+                    </span>
+                    <Tooltip
+                      key="class-849-484134-826270"
+                      tooltipText="Quill Classroom Extremely Long So Long SUper Duper"
+                      tooltipTriggerStyle={
+                        Object {
+                          "minWidth": "215px",
+                          "textAlign": "left",
+                          "width": "215px",
+                        }
+                      }
+                      tooltipTriggerText="Quill Classroom Extremely Long So Long SUper Duper"
+                      tooltipTriggerTextClass="data-table-row-section undefined"
+                      tooltipTriggerTextStyle={
+                        Object {
+                          "minWidth": "215px",
+                          "textAlign": "left",
+                          "width": "215px",
+                        }
+                      }
+                    >
+                      <span
+                        className="quill-tooltip-trigger"
+                        style={
+                          Object {
+                            "minWidth": "215px",
+                            "textAlign": "left",
+                            "width": "215px",
+                          }
+                        }
+                      >
+                        <span
+                          className="data-table-row-section undefined"
+                          onMouseEnter={[Function]}
+                          onMouseLeave={[Function]}
+                          style={
+                            Object {
+                              "minWidth": "215px",
+                              "textAlign": "left",
+                              "width": "215px",
+                            }
+                          }
+                        >
+                          Quill Classroom Extremely Long So Long SUper Duper
+                        </span>
+                        <span
+                          className="quill-tooltip-wrapper"
+                        >
+                          <span
+                            className="quill-tooltip"
+                          >
+                            Quill Classroom Extremely Long So Long SUper Duper
+                          </span>
+                        </span>
+                      </span>
+                    </Tooltip>
+                    <span
+                      className="data-table-row-section undefined"
+                      key="unitName-849-484134-826270"
+                      style={
+                        Object {
+                          "minWidth": "215px",
+                          "textAlign": "left",
+                          "width": "215px",
+                        }
+                      }
+                    >
+                      Starter Diagnostic
+                    </span>
+                    <span
+                      className="data-table-row-section undefined"
+                      key="completed-849-484134-826270"
+                      style={
+                        Object {
+                          "minWidth": "76px",
+                          "textAlign": "left",
+                          "width": "76px",
+                        }
+                      }
+                    >
+                      0 of 5
+                    </span>
+                    <span
+                      className="data-table-row-section recommendations-row-section"
+                      key="recommendations-849-484134-826270"
+                      style={
+                        Object {
+                          "minWidth": "141px",
+                          "textAlign": "left",
+                          "width": "141px",
+                        }
+                      }
+                    />
+                    <span
+                      className="removable data-table-row-section"
+                    />
+                  </div>
+                </div>
+              </div>
+            </DataTable>
+          </section>
+        </DiagnosticContent>
+      </section>
+    </Diagnostic>
+    <Diagnostic
+      diagnostic={
+        Object {
+          "classes_count": 2,
+          "id": 850,
+          "individual_assignments": Array [
+            Object {
+              "activity_id": 850,
+              "activity_name": "Intermediate Diagnostic",
+              "assigned_count": 0,
+              "assigned_date": "2020-08-17T17:23:21.451Z",
+              "classroom_id": 484135,
+              "classroom_name": "A New Class",
+              "completed_count": 0,
+              "unit_id": 826269,
+              "unit_name": "Every Diagnostic",
+            },
+            Object {
+              "activity_id": 850,
+              "activity_name": "Intermediate Diagnostic",
+              "assigned_count": 5,
+              "assigned_date": "2020-08-17T17:23:21.471Z",
+              "classroom_id": 484134,
+              "classroom_name": "Quill Classroom Extremely Long So Long SUper Duper",
+              "completed_count": 0,
+              "unit_id": 826269,
+              "unit_name": "Every Diagnostic",
+            },
+          ],
+          "last_assigned": "2020-08-17T17:23:21.471Z",
+          "name": "Intermediate Diagnostic",
+          "total_assigned": 5,
+          "total_completed": 0,
+        }
+      }
+      key="850"
+    >
+      <section
+        className="diagnostic open"
+      >
+        <DiagnosticHeader
+          diagnostic={
+            Object {
+              "classes_count": 2,
+              "id": 850,
+              "individual_assignments": Array [
+                Object {
+                  "activity_id": 850,
+                  "activity_name": "Intermediate Diagnostic",
+                  "assigned_count": 0,
+                  "assigned_date": "2020-08-17T17:23:21.451Z",
+                  "classroom_id": 484135,
+                  "classroom_name": "A New Class",
+                  "completed_count": 0,
+                  "unit_id": 826269,
+                  "unit_name": "Every Diagnostic",
+                },
+                Object {
+                  "activity_id": 850,
+                  "activity_name": "Intermediate Diagnostic",
+                  "assigned_count": 5,
+                  "assigned_date": "2020-08-17T17:23:21.471Z",
+                  "classroom_id": 484134,
+                  "classroom_name": "Quill Classroom Extremely Long So Long SUper Duper",
+                  "completed_count": 0,
+                  "unit_id": 826269,
+                  "unit_name": "Every Diagnostic",
+                },
+              ],
+              "last_assigned": "2020-08-17T17:23:21.471Z",
+              "name": "Intermediate Diagnostic",
+              "total_assigned": 5,
+              "total_completed": 0,
+            }
+          }
+          handleClickDiagnosticHeader={[Function]}
+        >
+          <button
+            className="diagnostic-card-header"
+            onClick={[Function]}
+            type="button"
+          >
+            <section
+              className="diagnostic-info"
+            >
+              <h2
+                className="diagnostic-name"
+              >
+                Intermediate Diagnostic
+              </h2>
+              <div
+                className="diagnostic-data"
+              >
+                <a
+                  className="item"
+                  href="/activity_sessions/anonymous?activity_id=850"
+                  rel="noopener noreferrer"
+                  target="_blank"
+                >
+                  Preview
+                </a>
+                <span
+                  className="item assigned-counts"
+                >
+                  Assigned: 
+                  2
+                   class
+                  es
+                  , 
+                  5
+                   student
+                  s
+                </span>
+                <span
+                  className="item completed-count"
+                >
+                  Students completed: 
+                  0
+                   of 
+                  5
+                </span>
+                <span
+                  className="item"
+                >
+                  Last assigned: 
+                  Aug 17, 2020
+                </span>
+              </div>
+            </section>
+            <img
+              alt="arrow"
+              className="expand-arrow"
+              src="undefined/images/icons/expand.svg"
+            />
+          </button>
+        </DiagnosticHeader>
+        <DiagnosticContent
+          diagnostic={
+            Object {
+              "classes_count": 2,
+              "id": 850,
+              "individual_assignments": Array [
+                Object {
+                  "activity_id": 850,
+                  "activity_name": "Intermediate Diagnostic",
+                  "assigned_count": 0,
+                  "assigned_date": "2020-08-17T17:23:21.451Z",
+                  "classroom_id": 484135,
+                  "classroom_name": "A New Class",
+                  "completed_count": 0,
+                  "unit_id": 826269,
+                  "unit_name": "Every Diagnostic",
+                },
+                Object {
+                  "activity_id": 850,
+                  "activity_name": "Intermediate Diagnostic",
+                  "assigned_count": 5,
+                  "assigned_date": "2020-08-17T17:23:21.471Z",
+                  "classroom_id": 484134,
+                  "classroom_name": "Quill Classroom Extremely Long So Long SUper Duper",
+                  "completed_count": 0,
+                  "unit_id": 826269,
+                  "unit_name": "Every Diagnostic",
+                },
+              ],
+              "last_assigned": "2020-08-17T17:23:21.471Z",
+              "name": "Intermediate Diagnostic",
+              "total_assigned": 5,
+              "total_completed": 0,
+            }
+          }
+        >
+          <section
+            className="individual-assignments"
+          >
+            <DataTable
+              averageFontWidth={7}
+              headers={
+                Array [
+                  Object {
+                    "attribute": "assignedDate",
+                    "name": "Assigned date",
+                    "width": "100px",
+                  },
+                  Object {
+                    "attribute": "class",
+                    "name": "Class",
+                    "width": "215px",
+                  },
+                  Object {
+                    "attribute": "unitName",
+                    "name": "Activity pack",
+                    "width": "215px",
+                  },
+                  Object {
+                    "attribute": "completed",
+                    "name": "Completed",
+                    "width": "76px",
+                  },
+                  Object {
+                    "attribute": "recommendations",
+                    "headerClassName": "recommendations-header",
+                    "name": "Recommendations report",
+                    "rowSectionClassName": "recommendations-row-section",
+                    "width": "141px",
+                  },
+                ]
+              }
+              rows={
+                Array [
+                  Object {
+                    "assignedDate": "Aug 17, 2020",
+                    "class": "A New Class",
+                    "completed": "0 of 0",
+                    "id": "850-484135-826269",
+                    "recommendations": null,
+                    "unitName": "Every Diagnostic",
+                  },
+                  Object {
+                    "assignedDate": "Aug 17, 2020",
+                    "class": "Quill Classroom Extremely Long So Long SUper Duper",
+                    "completed": "0 of 5",
+                    "id": "850-484134-826269",
+                    "recommendations": null,
+                    "unitName": "Every Diagnostic",
+                  },
+                ]
+              }
+            >
+              <div
+                className="data-table undefined"
+              >
+                <div
+                  className="data-table-headers"
+                >
+                  <button
+                    className="data-table-header undefined"
+                    style={
+                      Object {
+                        "minWidth": "100px",
+                        "textAlign": "left",
+                        "width": "100px",
+                      }
+                    }
+                    tabIndex={-1}
+                    type="button"
+                  >
+                    Assigned date
+                  </button>
+                  <button
+                    className="data-table-header undefined"
+                    style={
+                      Object {
+                        "minWidth": "215px",
+                        "textAlign": "left",
+                        "width": "215px",
+                      }
+                    }
+                    tabIndex={-1}
+                    type="button"
+                  >
+                    Class
+                  </button>
+                  <button
+                    className="data-table-header undefined"
+                    style={
+                      Object {
+                        "minWidth": "215px",
+                        "textAlign": "left",
+                        "width": "215px",
+                      }
+                    }
+                    tabIndex={-1}
+                    type="button"
+                  >
+                    Activity pack
+                  </button>
+                  <button
+                    className="data-table-header undefined"
+                    style={
+                      Object {
+                        "minWidth": "76px",
+                        "textAlign": "left",
+                        "width": "76px",
+                      }
+                    }
+                    tabIndex={-1}
+                    type="button"
+                  >
+                    Completed
+                  </button>
+                  <button
+                    className="data-table-header recommendations-header"
+                    style={
+                      Object {
+                        "minWidth": "141px",
+                        "textAlign": "right",
+                        "width": "141px",
+                      }
+                    }
+                    tabIndex={-1}
+                    type="button"
+                  >
+                    Recommendations report
+                  </button>
+                </div>
+                <div
+                  className="data-table-body"
+                >
+                  <div
+                    className="data-table-row  "
+                    key="850-484135-826269"
+                  >
+                    <span
+                      className="data-table-row-section undefined"
+                      key="assignedDate-850-484135-826269"
+                      style={
+                        Object {
+                          "minWidth": "100px",
+                          "textAlign": "left",
+                          "width": "100px",
+                        }
+                      }
+                    >
+                      Aug 17, 2020
+                    </span>
+                    <span
+                      className="data-table-row-section undefined"
+                      key="class-850-484135-826269"
+                      style={
+                        Object {
+                          "minWidth": "215px",
+                          "textAlign": "left",
+                          "width": "215px",
+                        }
+                      }
+                    >
+                      A New Class
+                    </span>
+                    <span
+                      className="data-table-row-section undefined"
+                      key="unitName-850-484135-826269"
+                      style={
+                        Object {
+                          "minWidth": "215px",
+                          "textAlign": "left",
+                          "width": "215px",
+                        }
+                      }
+                    >
+                      Every Diagnostic
+                    </span>
+                    <span
+                      className="data-table-row-section undefined"
+                      key="completed-850-484135-826269"
+                      style={
+                        Object {
+                          "minWidth": "76px",
+                          "textAlign": "left",
+                          "width": "76px",
+                        }
+                      }
+                    >
+                      0 of 0
+                    </span>
+                    <span
+                      className="data-table-row-section recommendations-row-section"
+                      key="recommendations-850-484135-826269"
+                      style={
+                        Object {
+                          "minWidth": "141px",
+                          "textAlign": "right",
+                          "width": "141px",
+                        }
+                      }
+                    />
+                    <span
+                      className="removable data-table-row-section"
+                    />
+                  </div>
+                  <div
+                    className="data-table-row  "
+                    key="850-484134-826269"
+                  >
+                    <span
+                      className="data-table-row-section undefined"
+                      key="assignedDate-850-484134-826269"
+                      style={
+                        Object {
+                          "minWidth": "100px",
+                          "textAlign": "left",
+                          "width": "100px",
+                        }
+                      }
+                    >
+                      Aug 17, 2020
+                    </span>
+                    <Tooltip
+                      key="class-850-484134-826269"
+                      tooltipText="Quill Classroom Extremely Long So Long SUper Duper"
+                      tooltipTriggerStyle={
+                        Object {
+                          "minWidth": "215px",
+                          "textAlign": "left",
+                          "width": "215px",
+                        }
+                      }
+                      tooltipTriggerText="Quill Classroom Extremely Long So Long SUper Duper"
+                      tooltipTriggerTextClass="data-table-row-section undefined"
+                      tooltipTriggerTextStyle={
+                        Object {
+                          "minWidth": "215px",
+                          "textAlign": "left",
+                          "width": "215px",
+                        }
+                      }
+                    >
+                      <span
+                        className="quill-tooltip-trigger"
+                        style={
+                          Object {
+                            "minWidth": "215px",
+                            "textAlign": "left",
+                            "width": "215px",
+                          }
+                        }
+                      >
+                        <span
+                          className="data-table-row-section undefined"
+                          onMouseEnter={[Function]}
+                          onMouseLeave={[Function]}
+                          style={
+                            Object {
+                              "minWidth": "215px",
+                              "textAlign": "left",
+                              "width": "215px",
+                            }
+                          }
+                        >
+                          Quill Classroom Extremely Long So Long SUper Duper
+                        </span>
+                        <span
+                          className="quill-tooltip-wrapper"
+                        >
+                          <span
+                            className="quill-tooltip"
+                          >
+                            Quill Classroom Extremely Long So Long SUper Duper
+                          </span>
+                        </span>
+                      </span>
+                    </Tooltip>
+                    <span
+                      className="data-table-row-section undefined"
+                      key="unitName-850-484134-826269"
+                      style={
+                        Object {
+                          "minWidth": "215px",
+                          "textAlign": "left",
+                          "width": "215px",
+                        }
+                      }
+                    >
+                      Every Diagnostic
+                    </span>
+                    <span
+                      className="data-table-row-section undefined"
+                      key="completed-850-484134-826269"
+                      style={
+                        Object {
+                          "minWidth": "76px",
+                          "textAlign": "left",
+                          "width": "76px",
+                        }
+                      }
+                    >
+                      0 of 5
+                    </span>
+                    <span
+                      className="data-table-row-section recommendations-row-section"
+                      key="recommendations-850-484134-826269"
+                      style={
+                        Object {
+                          "minWidth": "141px",
+                          "textAlign": "right",
+                          "width": "141px",
+                        }
+                      }
+                    />
+                    <span
+                      className="removable data-table-row-section"
+                    />
+                  </div>
+                </div>
+              </div>
+            </DataTable>
+          </section>
+        </DiagnosticContent>
+      </section>
+    </Diagnostic>
+    <Diagnostic
+      diagnostic={
+        Object {
+          "classes_count": 2,
+          "id": 992,
+          "individual_assignments": Array [
+            Object {
+              "activity_id": 992,
+              "activity_name": "AP® Writing Skills Survey",
+              "assigned_count": 0,
+              "assigned_date": "2020-08-17T17:23:21.451Z",
+              "classroom_id": 484135,
+              "classroom_name": "A New Class",
+              "completed_count": 0,
+              "unit_id": 826269,
+              "unit_name": "Every Diagnostic",
+            },
+            Object {
+              "activity_id": 992,
+              "activity_name": "AP® Writing Skills Survey",
+              "assigned_count": 5,
+              "assigned_date": "2020-08-17T17:23:21.471Z",
+              "classroom_id": 484134,
+              "classroom_name": "Quill Classroom Extremely Long So Long SUper Duper",
+              "completed_count": 0,
+              "unit_id": 826269,
+              "unit_name": "Every Diagnostic",
+            },
+          ],
+          "last_assigned": "2020-08-17T17:23:21.471Z",
+          "name": "AP® Writing Skills Survey",
+          "total_assigned": 5,
+          "total_completed": 0,
+        }
+      }
+      key="992"
+    >
+      <section
+        className="diagnostic open"
+      >
+        <DiagnosticHeader
+          diagnostic={
+            Object {
+              "classes_count": 2,
+              "id": 992,
+              "individual_assignments": Array [
+                Object {
+                  "activity_id": 992,
+                  "activity_name": "AP® Writing Skills Survey",
+                  "assigned_count": 0,
+                  "assigned_date": "2020-08-17T17:23:21.451Z",
+                  "classroom_id": 484135,
+                  "classroom_name": "A New Class",
+                  "completed_count": 0,
+                  "unit_id": 826269,
+                  "unit_name": "Every Diagnostic",
+                },
+                Object {
+                  "activity_id": 992,
+                  "activity_name": "AP® Writing Skills Survey",
+                  "assigned_count": 5,
+                  "assigned_date": "2020-08-17T17:23:21.471Z",
+                  "classroom_id": 484134,
+                  "classroom_name": "Quill Classroom Extremely Long So Long SUper Duper",
+                  "completed_count": 0,
+                  "unit_id": 826269,
+                  "unit_name": "Every Diagnostic",
+                },
+              ],
+              "last_assigned": "2020-08-17T17:23:21.471Z",
+              "name": "AP® Writing Skills Survey",
+              "total_assigned": 5,
+              "total_completed": 0,
+            }
+          }
+          handleClickDiagnosticHeader={[Function]}
+        >
+          <button
+            className="diagnostic-card-header"
+            onClick={[Function]}
+            type="button"
+          >
+            <section
+              className="diagnostic-info"
+            >
+              <h2
+                className="diagnostic-name"
+              >
+                AP® Writing Skills Survey
+              </h2>
+              <div
+                className="diagnostic-data"
+              >
+                <a
+                  className="item"
+                  href="/activity_sessions/anonymous?activity_id=992"
+                  rel="noopener noreferrer"
+                  target="_blank"
+                >
+                  Preview
+                </a>
+                <span
+                  className="item assigned-counts"
+                >
+                  Assigned: 
+                  2
+                   class
+                  es
+                  , 
+                  5
+                   student
+                  s
+                </span>
+                <span
+                  className="item completed-count"
+                >
+                  Students completed: 
+                  0
+                   of 
+                  5
+                </span>
+                <span
+                  className="item"
+                >
+                  Last assigned: 
+                  Aug 17, 2020
+                </span>
+              </div>
+            </section>
+            <img
+              alt="arrow"
+              className="expand-arrow"
+              src="undefined/images/icons/expand.svg"
+            />
+          </button>
+        </DiagnosticHeader>
+        <DiagnosticContent
+          diagnostic={
+            Object {
+              "classes_count": 2,
+              "id": 992,
+              "individual_assignments": Array [
+                Object {
+                  "activity_id": 992,
+                  "activity_name": "AP® Writing Skills Survey",
+                  "assigned_count": 0,
+                  "assigned_date": "2020-08-17T17:23:21.451Z",
+                  "classroom_id": 484135,
+                  "classroom_name": "A New Class",
+                  "completed_count": 0,
+                  "unit_id": 826269,
+                  "unit_name": "Every Diagnostic",
+                },
+                Object {
+                  "activity_id": 992,
+                  "activity_name": "AP® Writing Skills Survey",
+                  "assigned_count": 5,
+                  "assigned_date": "2020-08-17T17:23:21.471Z",
+                  "classroom_id": 484134,
+                  "classroom_name": "Quill Classroom Extremely Long So Long SUper Duper",
+                  "completed_count": 0,
+                  "unit_id": 826269,
+                  "unit_name": "Every Diagnostic",
+                },
+              ],
+              "last_assigned": "2020-08-17T17:23:21.471Z",
+              "name": "AP® Writing Skills Survey",
+              "total_assigned": 5,
+              "total_completed": 0,
+            }
+          }
+        >
+          <section
+            className="individual-assignments"
+          >
+            <DataTable
+              averageFontWidth={7}
+              headers={
+                Array [
+                  Object {
+                    "attribute": "assignedDate",
+                    "name": "Assigned date",
+                    "width": "100px",
+                  },
+                  Object {
+                    "attribute": "class",
+                    "name": "Class",
+                    "width": "215px",
+                  },
+                  Object {
+                    "attribute": "unitName",
+                    "name": "Activity pack",
+                    "width": "215px",
+                  },
+                  Object {
+                    "attribute": "completed",
+                    "name": "Completed",
+                    "width": "76px",
+                  },
+                  Object {
+                    "attribute": "recommendations",
+                    "headerClassName": "recommendations-header",
+                    "name": "Recommendations report",
+                    "rowSectionClassName": "recommendations-row-section",
+                    "width": "141px",
+                  },
+                ]
+              }
+              rows={
+                Array [
+                  Object {
+                    "assignedDate": "Aug 17, 2020",
+                    "class": "A New Class",
+                    "completed": "0 of 0",
+                    "id": "992-484135-826269",
+                    "recommendations": null,
+                    "unitName": "Every Diagnostic",
+                  },
+                  Object {
+                    "assignedDate": "Aug 17, 2020",
+                    "class": "Quill Classroom Extremely Long So Long SUper Duper",
+                    "completed": "0 of 5",
+                    "id": "992-484134-826269",
+                    "recommendations": null,
+                    "unitName": "Every Diagnostic",
+                  },
+                ]
+              }
+            >
+              <div
+                className="data-table undefined"
+              >
+                <div
+                  className="data-table-headers"
+                >
+                  <button
+                    className="data-table-header undefined"
+                    style={
+                      Object {
+                        "minWidth": "100px",
+                        "textAlign": "left",
+                        "width": "100px",
+                      }
+                    }
+                    tabIndex={-1}
+                    type="button"
+                  >
+                    Assigned date
+                  </button>
+                  <button
+                    className="data-table-header undefined"
+                    style={
+                      Object {
+                        "minWidth": "215px",
+                        "textAlign": "left",
+                        "width": "215px",
+                      }
+                    }
+                    tabIndex={-1}
+                    type="button"
+                  >
+                    Class
+                  </button>
+                  <button
+                    className="data-table-header undefined"
+                    style={
+                      Object {
+                        "minWidth": "215px",
+                        "textAlign": "left",
+                        "width": "215px",
+                      }
+                    }
+                    tabIndex={-1}
+                    type="button"
+                  >
+                    Activity pack
+                  </button>
+                  <button
+                    className="data-table-header undefined"
+                    style={
+                      Object {
+                        "minWidth": "76px",
+                        "textAlign": "left",
+                        "width": "76px",
+                      }
+                    }
+                    tabIndex={-1}
+                    type="button"
+                  >
+                    Completed
+                  </button>
+                  <button
+                    className="data-table-header recommendations-header"
+                    style={
+                      Object {
+                        "minWidth": "141px",
+                        "textAlign": "right",
+                        "width": "141px",
+                      }
+                    }
+                    tabIndex={-1}
+                    type="button"
+                  >
+                    Recommendations report
+                  </button>
+                </div>
+                <div
+                  className="data-table-body"
+                >
+                  <div
+                    className="data-table-row  "
+                    key="992-484135-826269"
+                  >
+                    <span
+                      className="data-table-row-section undefined"
+                      key="assignedDate-992-484135-826269"
+                      style={
+                        Object {
+                          "minWidth": "100px",
+                          "textAlign": "left",
+                          "width": "100px",
+                        }
+                      }
+                    >
+                      Aug 17, 2020
+                    </span>
+                    <span
+                      className="data-table-row-section undefined"
+                      key="class-992-484135-826269"
+                      style={
+                        Object {
+                          "minWidth": "215px",
+                          "textAlign": "left",
+                          "width": "215px",
+                        }
+                      }
+                    >
+                      A New Class
+                    </span>
+                    <span
+                      className="data-table-row-section undefined"
+                      key="unitName-992-484135-826269"
+                      style={
+                        Object {
+                          "minWidth": "215px",
+                          "textAlign": "left",
+                          "width": "215px",
+                        }
+                      }
+                    >
+                      Every Diagnostic
+                    </span>
+                    <span
+                      className="data-table-row-section undefined"
+                      key="completed-992-484135-826269"
+                      style={
+                        Object {
+                          "minWidth": "76px",
+                          "textAlign": "left",
+                          "width": "76px",
+                        }
+                      }
+                    >
+                      0 of 0
+                    </span>
+                    <span
+                      className="data-table-row-section recommendations-row-section"
+                      key="recommendations-992-484135-826269"
+                      style={
+                        Object {
+                          "minWidth": "141px",
+                          "textAlign": "right",
+                          "width": "141px",
+                        }
+                      }
+                    />
+                    <span
+                      className="removable data-table-row-section"
+                    />
+                  </div>
+                  <div
+                    className="data-table-row  "
+                    key="992-484134-826269"
+                  >
+                    <span
+                      className="data-table-row-section undefined"
+                      key="assignedDate-992-484134-826269"
+                      style={
+                        Object {
+                          "minWidth": "100px",
+                          "textAlign": "left",
+                          "width": "100px",
+                        }
+                      }
+                    >
+                      Aug 17, 2020
+                    </span>
+                    <Tooltip
+                      key="class-992-484134-826269"
+                      tooltipText="Quill Classroom Extremely Long So Long SUper Duper"
+                      tooltipTriggerStyle={
+                        Object {
+                          "minWidth": "215px",
+                          "textAlign": "left",
+                          "width": "215px",
+                        }
+                      }
+                      tooltipTriggerText="Quill Classroom Extremely Long So Long SUper Duper"
+                      tooltipTriggerTextClass="data-table-row-section undefined"
+                      tooltipTriggerTextStyle={
+                        Object {
+                          "minWidth": "215px",
+                          "textAlign": "left",
+                          "width": "215px",
+                        }
+                      }
+                    >
+                      <span
+                        className="quill-tooltip-trigger"
+                        style={
+                          Object {
+                            "minWidth": "215px",
+                            "textAlign": "left",
+                            "width": "215px",
+                          }
+                        }
+                      >
+                        <span
+                          className="data-table-row-section undefined"
+                          onMouseEnter={[Function]}
+                          onMouseLeave={[Function]}
+                          style={
+                            Object {
+                              "minWidth": "215px",
+                              "textAlign": "left",
+                              "width": "215px",
+                            }
+                          }
+                        >
+                          Quill Classroom Extremely Long So Long SUper Duper
+                        </span>
+                        <span
+                          className="quill-tooltip-wrapper"
+                        >
+                          <span
+                            className="quill-tooltip"
+                          >
+                            Quill Classroom Extremely Long So Long SUper Duper
+                          </span>
+                        </span>
+                      </span>
+                    </Tooltip>
+                    <span
+                      className="data-table-row-section undefined"
+                      key="unitName-992-484134-826269"
+                      style={
+                        Object {
+                          "minWidth": "215px",
+                          "textAlign": "left",
+                          "width": "215px",
+                        }
+                      }
+                    >
+                      Every Diagnostic
+                    </span>
+                    <span
+                      className="data-table-row-section undefined"
+                      key="completed-992-484134-826269"
+                      style={
+                        Object {
+                          "minWidth": "76px",
+                          "textAlign": "left",
+                          "width": "76px",
+                        }
+                      }
+                    >
+                      0 of 5
+                    </span>
+                    <span
+                      className="data-table-row-section recommendations-row-section"
+                      key="recommendations-992-484134-826269"
+                      style={
+                        Object {
+                          "minWidth": "141px",
+                          "textAlign": "right",
+                          "width": "141px",
+                        }
+                      }
+                    />
+                    <span
+                      className="removable data-table-row-section"
+                    />
+                  </div>
+                </div>
+              </div>
+            </DataTable>
+          </section>
+        </DiagnosticContent>
+      </section>
+    </Diagnostic>
+    <Diagnostic
+      diagnostic={
+        Object {
+          "classes_count": 2,
+          "id": 447,
+          "individual_assignments": Array [
+            Object {
+              "activity_id": 447,
+              "activity_name": "ELL Diagnostic",
+              "assigned_count": 0,
+              "assigned_date": "2020-08-17T17:23:21.451Z",
+              "classroom_id": 484135,
+              "classroom_name": "A New Class",
+              "completed_count": 0,
+              "unit_id": 826269,
+              "unit_name": "Every Diagnostic",
+            },
+            Object {
+              "activity_id": 447,
+              "activity_name": "ELL Diagnostic",
+              "assigned_count": 5,
+              "assigned_date": "2020-08-17T17:23:21.471Z",
+              "classroom_id": 484134,
+              "classroom_name": "Quill Classroom Extremely Long So Long SUper Duper",
+              "completed_count": 0,
+              "unit_id": 826269,
+              "unit_name": "Every Diagnostic",
+            },
+          ],
+          "last_assigned": "2020-08-17T17:23:21.471Z",
+          "name": "ELL Diagnostic",
+          "total_assigned": 5,
+          "total_completed": 0,
+        }
+      }
+      key="447"
+    >
+      <section
+        className="diagnostic open"
+      >
+        <DiagnosticHeader
+          diagnostic={
+            Object {
+              "classes_count": 2,
+              "id": 447,
+              "individual_assignments": Array [
+                Object {
+                  "activity_id": 447,
+                  "activity_name": "ELL Diagnostic",
+                  "assigned_count": 0,
+                  "assigned_date": "2020-08-17T17:23:21.451Z",
+                  "classroom_id": 484135,
+                  "classroom_name": "A New Class",
+                  "completed_count": 0,
+                  "unit_id": 826269,
+                  "unit_name": "Every Diagnostic",
+                },
+                Object {
+                  "activity_id": 447,
+                  "activity_name": "ELL Diagnostic",
+                  "assigned_count": 5,
+                  "assigned_date": "2020-08-17T17:23:21.471Z",
+                  "classroom_id": 484134,
+                  "classroom_name": "Quill Classroom Extremely Long So Long SUper Duper",
+                  "completed_count": 0,
+                  "unit_id": 826269,
+                  "unit_name": "Every Diagnostic",
+                },
+              ],
+              "last_assigned": "2020-08-17T17:23:21.471Z",
+              "name": "ELL Diagnostic",
+              "total_assigned": 5,
+              "total_completed": 0,
+            }
+          }
+          handleClickDiagnosticHeader={[Function]}
+        >
+          <button
+            className="diagnostic-card-header"
+            onClick={[Function]}
+            type="button"
+          >
+            <section
+              className="diagnostic-info"
+            >
+              <h2
+                className="diagnostic-name"
+              >
+                ELL Diagnostic
+              </h2>
+              <div
+                className="diagnostic-data"
+              >
+                <a
+                  className="item"
+                  href="/activity_sessions/anonymous?activity_id=447"
+                  rel="noopener noreferrer"
+                  target="_blank"
+                >
+                  Preview
+                </a>
+                <span
+                  className="item assigned-counts"
+                >
+                  Assigned: 
+                  2
+                   class
+                  es
+                  , 
+                  5
+                   student
+                  s
+                </span>
+                <span
+                  className="item completed-count"
+                >
+                  Students completed: 
+                  0
+                   of 
+                  5
+                </span>
+                <span
+                  className="item"
+                >
+                  Last assigned: 
+                  Aug 17, 2020
+                </span>
+              </div>
+            </section>
+            <img
+              alt="arrow"
+              className="expand-arrow"
+              src="undefined/images/icons/expand.svg"
+            />
+          </button>
+        </DiagnosticHeader>
+        <DiagnosticContent
+          diagnostic={
+            Object {
+              "classes_count": 2,
+              "id": 447,
+              "individual_assignments": Array [
+                Object {
+                  "activity_id": 447,
+                  "activity_name": "ELL Diagnostic",
+                  "assigned_count": 0,
+                  "assigned_date": "2020-08-17T17:23:21.451Z",
+                  "classroom_id": 484135,
+                  "classroom_name": "A New Class",
+                  "completed_count": 0,
+                  "unit_id": 826269,
+                  "unit_name": "Every Diagnostic",
+                },
+                Object {
+                  "activity_id": 447,
+                  "activity_name": "ELL Diagnostic",
+                  "assigned_count": 5,
+                  "assigned_date": "2020-08-17T17:23:21.471Z",
+                  "classroom_id": 484134,
+                  "classroom_name": "Quill Classroom Extremely Long So Long SUper Duper",
+                  "completed_count": 0,
+                  "unit_id": 826269,
+                  "unit_name": "Every Diagnostic",
+                },
+              ],
+              "last_assigned": "2020-08-17T17:23:21.471Z",
+              "name": "ELL Diagnostic",
+              "total_assigned": 5,
+              "total_completed": 0,
+            }
+          }
+        >
+          <section
+            className="individual-assignments"
+          >
+            <DataTable
+              averageFontWidth={7}
+              headers={
+                Array [
+                  Object {
+                    "attribute": "assignedDate",
+                    "name": "Assigned date",
+                    "width": "100px",
+                  },
+                  Object {
+                    "attribute": "class",
+                    "name": "Class",
+                    "width": "215px",
+                  },
+                  Object {
+                    "attribute": "unitName",
+                    "name": "Activity pack",
+                    "width": "215px",
+                  },
+                  Object {
+                    "attribute": "completed",
+                    "name": "Completed",
+                    "width": "76px",
+                  },
+                  Object {
+                    "attribute": "recommendations",
+                    "headerClassName": "recommendations-header",
+                    "name": "Recommendations report",
+                    "rowSectionClassName": "recommendations-row-section",
+                    "width": "141px",
+                  },
+                ]
+              }
+              rows={
+                Array [
+                  Object {
+                    "assignedDate": "Aug 17, 2020",
+                    "class": "A New Class",
+                    "completed": "0 of 0",
+                    "id": "447-484135-826269",
+                    "recommendations": null,
+                    "unitName": "Every Diagnostic",
+                  },
+                  Object {
+                    "assignedDate": "Aug 17, 2020",
+                    "class": "Quill Classroom Extremely Long So Long SUper Duper",
+                    "completed": "0 of 5",
+                    "id": "447-484134-826269",
+                    "recommendations": null,
+                    "unitName": "Every Diagnostic",
+                  },
+                ]
+              }
+            >
+              <div
+                className="data-table undefined"
+              >
+                <div
+                  className="data-table-headers"
+                >
+                  <button
+                    className="data-table-header undefined"
+                    style={
+                      Object {
+                        "minWidth": "100px",
+                        "textAlign": "left",
+                        "width": "100px",
+                      }
+                    }
+                    tabIndex={-1}
+                    type="button"
+                  >
+                    Assigned date
+                  </button>
+                  <button
+                    className="data-table-header undefined"
+                    style={
+                      Object {
+                        "minWidth": "215px",
+                        "textAlign": "left",
+                        "width": "215px",
+                      }
+                    }
+                    tabIndex={-1}
+                    type="button"
+                  >
+                    Class
+                  </button>
+                  <button
+                    className="data-table-header undefined"
+                    style={
+                      Object {
+                        "minWidth": "215px",
+                        "textAlign": "left",
+                        "width": "215px",
+                      }
+                    }
+                    tabIndex={-1}
+                    type="button"
+                  >
+                    Activity pack
+                  </button>
+                  <button
+                    className="data-table-header undefined"
+                    style={
+                      Object {
+                        "minWidth": "76px",
+                        "textAlign": "left",
+                        "width": "76px",
+                      }
+                    }
+                    tabIndex={-1}
+                    type="button"
+                  >
+                    Completed
+                  </button>
+                  <button
+                    className="data-table-header recommendations-header"
+                    style={
+                      Object {
+                        "minWidth": "141px",
+                        "textAlign": "right",
+                        "width": "141px",
+                      }
+                    }
+                    tabIndex={-1}
+                    type="button"
+                  >
+                    Recommendations report
+                  </button>
+                </div>
+                <div
+                  className="data-table-body"
+                >
+                  <div
+                    className="data-table-row  "
+                    key="447-484135-826269"
+                  >
+                    <span
+                      className="data-table-row-section undefined"
+                      key="assignedDate-447-484135-826269"
+                      style={
+                        Object {
+                          "minWidth": "100px",
+                          "textAlign": "left",
+                          "width": "100px",
+                        }
+                      }
+                    >
+                      Aug 17, 2020
+                    </span>
+                    <span
+                      className="data-table-row-section undefined"
+                      key="class-447-484135-826269"
+                      style={
+                        Object {
+                          "minWidth": "215px",
+                          "textAlign": "left",
+                          "width": "215px",
+                        }
+                      }
+                    >
+                      A New Class
+                    </span>
+                    <span
+                      className="data-table-row-section undefined"
+                      key="unitName-447-484135-826269"
+                      style={
+                        Object {
+                          "minWidth": "215px",
+                          "textAlign": "left",
+                          "width": "215px",
+                        }
+                      }
+                    >
+                      Every Diagnostic
+                    </span>
+                    <span
+                      className="data-table-row-section undefined"
+                      key="completed-447-484135-826269"
+                      style={
+                        Object {
+                          "minWidth": "76px",
+                          "textAlign": "left",
+                          "width": "76px",
+                        }
+                      }
+                    >
+                      0 of 0
+                    </span>
+                    <span
+                      className="data-table-row-section recommendations-row-section"
+                      key="recommendations-447-484135-826269"
+                      style={
+                        Object {
+                          "minWidth": "141px",
+                          "textAlign": "right",
+                          "width": "141px",
+                        }
+                      }
+                    />
+                    <span
+                      className="removable data-table-row-section"
+                    />
+                  </div>
+                  <div
+                    className="data-table-row  "
+                    key="447-484134-826269"
+                  >
+                    <span
+                      className="data-table-row-section undefined"
+                      key="assignedDate-447-484134-826269"
+                      style={
+                        Object {
+                          "minWidth": "100px",
+                          "textAlign": "left",
+                          "width": "100px",
+                        }
+                      }
+                    >
+                      Aug 17, 2020
+                    </span>
+                    <Tooltip
+                      key="class-447-484134-826269"
+                      tooltipText="Quill Classroom Extremely Long So Long SUper Duper"
+                      tooltipTriggerStyle={
+                        Object {
+                          "minWidth": "215px",
+                          "textAlign": "left",
+                          "width": "215px",
+                        }
+                      }
+                      tooltipTriggerText="Quill Classroom Extremely Long So Long SUper Duper"
+                      tooltipTriggerTextClass="data-table-row-section undefined"
+                      tooltipTriggerTextStyle={
+                        Object {
+                          "minWidth": "215px",
+                          "textAlign": "left",
+                          "width": "215px",
+                        }
+                      }
+                    >
+                      <span
+                        className="quill-tooltip-trigger"
+                        style={
+                          Object {
+                            "minWidth": "215px",
+                            "textAlign": "left",
+                            "width": "215px",
+                          }
+                        }
+                      >
+                        <span
+                          className="data-table-row-section undefined"
+                          onMouseEnter={[Function]}
+                          onMouseLeave={[Function]}
+                          style={
+                            Object {
+                              "minWidth": "215px",
+                              "textAlign": "left",
+                              "width": "215px",
+                            }
+                          }
+                        >
+                          Quill Classroom Extremely Long So Long SUper Duper
+                        </span>
+                        <span
+                          className="quill-tooltip-wrapper"
+                        >
+                          <span
+                            className="quill-tooltip"
+                          >
+                            Quill Classroom Extremely Long So Long SUper Duper
+                          </span>
+                        </span>
+                      </span>
+                    </Tooltip>
+                    <span
+                      className="data-table-row-section undefined"
+                      key="unitName-447-484134-826269"
+                      style={
+                        Object {
+                          "minWidth": "215px",
+                          "textAlign": "left",
+                          "width": "215px",
+                        }
+                      }
+                    >
+                      Every Diagnostic
+                    </span>
+                    <span
+                      className="data-table-row-section undefined"
+                      key="completed-447-484134-826269"
+                      style={
+                        Object {
+                          "minWidth": "76px",
+                          "textAlign": "left",
+                          "width": "76px",
+                        }
+                      }
+                    >
+                      0 of 5
+                    </span>
+                    <span
+                      className="data-table-row-section recommendations-row-section"
+                      key="recommendations-447-484134-826269"
+                      style={
+                        Object {
+                          "minWidth": "141px",
+                          "textAlign": "right",
+                          "width": "141px",
+                        }
+                      }
+                    />
+                    <span
+                      className="removable data-table-row-section"
+                    />
+                  </div>
+                </div>
+              </div>
+            </DataTable>
+          </section>
+        </DiagnosticContent>
+      </section>
+    </Diagnostic>
+    <Diagnostic
+      diagnostic={
+        Object {
+          "classes_count": 2,
+          "id": 1230,
+          "individual_assignments": Array [
+            Object {
+              "activity_id": 1230,
+              "activity_name": "Pre-AP® Writing Skills Survey 2: Tools for Sentence Expansion",
+              "assigned_count": 0,
+              "assigned_date": "2020-08-17T17:23:21.451Z",
+              "classroom_id": 484135,
+              "classroom_name": "A New Class",
+              "completed_count": 0,
+              "unit_id": 826269,
+              "unit_name": "Every Diagnostic",
+            },
+            Object {
+              "activity_id": 1230,
+              "activity_name": "Pre-AP® Writing Skills Survey 2: Tools for Sentence Expansion",
+              "assigned_count": 5,
+              "assigned_date": "2020-08-17T17:23:21.471Z",
+              "classroom_id": 484134,
+              "classroom_name": "Quill Classroom Extremely Long So Long SUper Duper",
+              "completed_count": 0,
+              "unit_id": 826269,
+              "unit_name": "Every Diagnostic",
+            },
+          ],
+          "last_assigned": "2020-08-17T17:23:21.471Z",
+          "name": "Pre-AP® Writing Skills Survey 2: Tools for Sentence Expansion",
+          "total_assigned": 5,
+          "total_completed": 0,
+        }
+      }
+      key="1230"
+    >
+      <section
+        className="diagnostic open"
+      >
+        <DiagnosticHeader
+          diagnostic={
+            Object {
+              "classes_count": 2,
+              "id": 1230,
+              "individual_assignments": Array [
+                Object {
+                  "activity_id": 1230,
+                  "activity_name": "Pre-AP® Writing Skills Survey 2: Tools for Sentence Expansion",
+                  "assigned_count": 0,
+                  "assigned_date": "2020-08-17T17:23:21.451Z",
+                  "classroom_id": 484135,
+                  "classroom_name": "A New Class",
+                  "completed_count": 0,
+                  "unit_id": 826269,
+                  "unit_name": "Every Diagnostic",
+                },
+                Object {
+                  "activity_id": 1230,
+                  "activity_name": "Pre-AP® Writing Skills Survey 2: Tools for Sentence Expansion",
+                  "assigned_count": 5,
+                  "assigned_date": "2020-08-17T17:23:21.471Z",
+                  "classroom_id": 484134,
+                  "classroom_name": "Quill Classroom Extremely Long So Long SUper Duper",
+                  "completed_count": 0,
+                  "unit_id": 826269,
+                  "unit_name": "Every Diagnostic",
+                },
+              ],
+              "last_assigned": "2020-08-17T17:23:21.471Z",
+              "name": "Pre-AP® Writing Skills Survey 2: Tools for Sentence Expansion",
+              "total_assigned": 5,
+              "total_completed": 0,
+            }
+          }
+          handleClickDiagnosticHeader={[Function]}
+        >
+          <button
+            className="diagnostic-card-header"
+            onClick={[Function]}
+            type="button"
+          >
+            <section
+              className="diagnostic-info"
+            >
+              <h2
+                className="diagnostic-name"
+              >
+                Pre-AP® Writing Skills Survey 2: Tools for Sentence Expansion
+              </h2>
+              <div
+                className="diagnostic-data"
+              >
+                <a
+                  className="item"
+                  href="/activity_sessions/anonymous?activity_id=1230"
+                  rel="noopener noreferrer"
+                  target="_blank"
+                >
+                  Preview
+                </a>
+                <span
+                  className="item assigned-counts"
+                >
+                  Assigned: 
+                  2
+                   class
+                  es
+                  , 
+                  5
+                   student
+                  s
+                </span>
+                <span
+                  className="item completed-count"
+                >
+                  Students completed: 
+                  0
+                   of 
+                  5
+                </span>
+                <span
+                  className="item"
+                >
+                  Last assigned: 
+                  Aug 17, 2020
+                </span>
+              </div>
+            </section>
+            <img
+              alt="arrow"
+              className="expand-arrow"
+              src="undefined/images/icons/expand.svg"
+            />
+          </button>
+        </DiagnosticHeader>
+        <DiagnosticContent
+          diagnostic={
+            Object {
+              "classes_count": 2,
+              "id": 1230,
+              "individual_assignments": Array [
+                Object {
+                  "activity_id": 1230,
+                  "activity_name": "Pre-AP® Writing Skills Survey 2: Tools for Sentence Expansion",
+                  "assigned_count": 0,
+                  "assigned_date": "2020-08-17T17:23:21.451Z",
+                  "classroom_id": 484135,
+                  "classroom_name": "A New Class",
+                  "completed_count": 0,
+                  "unit_id": 826269,
+                  "unit_name": "Every Diagnostic",
+                },
+                Object {
+                  "activity_id": 1230,
+                  "activity_name": "Pre-AP® Writing Skills Survey 2: Tools for Sentence Expansion",
+                  "assigned_count": 5,
+                  "assigned_date": "2020-08-17T17:23:21.471Z",
+                  "classroom_id": 484134,
+                  "classroom_name": "Quill Classroom Extremely Long So Long SUper Duper",
+                  "completed_count": 0,
+                  "unit_id": 826269,
+                  "unit_name": "Every Diagnostic",
+                },
+              ],
+              "last_assigned": "2020-08-17T17:23:21.471Z",
+              "name": "Pre-AP® Writing Skills Survey 2: Tools for Sentence Expansion",
+              "total_assigned": 5,
+              "total_completed": 0,
+            }
+          }
+        >
+          <section
+            className="individual-assignments"
+          >
+            <DataTable
+              averageFontWidth={7}
+              headers={
+                Array [
+                  Object {
+                    "attribute": "assignedDate",
+                    "name": "Assigned date",
+                    "width": "100px",
+                  },
+                  Object {
+                    "attribute": "class",
+                    "name": "Class",
+                    "width": "215px",
+                  },
+                  Object {
+                    "attribute": "unitName",
+                    "name": "Activity pack",
+                    "width": "215px",
+                  },
+                  Object {
+                    "attribute": "completed",
+                    "name": "Completed",
+                    "width": "76px",
+                  },
+                  Object {
+                    "attribute": "recommendations",
+                    "headerClassName": "recommendations-header",
+                    "name": "Recommendations report",
+                    "rowSectionClassName": "recommendations-row-section",
+                    "width": "141px",
+                  },
+                ]
+              }
+              rows={
+                Array [
+                  Object {
+                    "assignedDate": "Aug 17, 2020",
+                    "class": "A New Class",
+                    "completed": "0 of 0",
+                    "id": "1230-484135-826269",
+                    "recommendations": null,
+                    "unitName": "Every Diagnostic",
+                  },
+                  Object {
+                    "assignedDate": "Aug 17, 2020",
+                    "class": "Quill Classroom Extremely Long So Long SUper Duper",
+                    "completed": "0 of 5",
+                    "id": "1230-484134-826269",
+                    "recommendations": null,
+                    "unitName": "Every Diagnostic",
+                  },
+                ]
+              }
+            >
+              <div
+                className="data-table undefined"
+              >
+                <div
+                  className="data-table-headers"
+                >
+                  <button
+                    className="data-table-header undefined"
+                    style={
+                      Object {
+                        "minWidth": "100px",
+                        "textAlign": "left",
+                        "width": "100px",
+                      }
+                    }
+                    tabIndex={-1}
+                    type="button"
+                  >
+                    Assigned date
+                  </button>
+                  <button
+                    className="data-table-header undefined"
+                    style={
+                      Object {
+                        "minWidth": "215px",
+                        "textAlign": "left",
+                        "width": "215px",
+                      }
+                    }
+                    tabIndex={-1}
+                    type="button"
+                  >
+                    Class
+                  </button>
+                  <button
+                    className="data-table-header undefined"
+                    style={
+                      Object {
+                        "minWidth": "215px",
+                        "textAlign": "left",
+                        "width": "215px",
+                      }
+                    }
+                    tabIndex={-1}
+                    type="button"
+                  >
+                    Activity pack
+                  </button>
+                  <button
+                    className="data-table-header undefined"
+                    style={
+                      Object {
+                        "minWidth": "76px",
+                        "textAlign": "left",
+                        "width": "76px",
+                      }
+                    }
+                    tabIndex={-1}
+                    type="button"
+                  >
+                    Completed
+                  </button>
+                  <button
+                    className="data-table-header recommendations-header"
+                    style={
+                      Object {
+                        "minWidth": "141px",
+                        "textAlign": "right",
+                        "width": "141px",
+                      }
+                    }
+                    tabIndex={-1}
+                    type="button"
+                  >
+                    Recommendations report
+                  </button>
+                </div>
+                <div
+                  className="data-table-body"
+                >
+                  <div
+                    className="data-table-row  "
+                    key="1230-484135-826269"
+                  >
+                    <span
+                      className="data-table-row-section undefined"
+                      key="assignedDate-1230-484135-826269"
+                      style={
+                        Object {
+                          "minWidth": "100px",
+                          "textAlign": "left",
+                          "width": "100px",
+                        }
+                      }
+                    >
+                      Aug 17, 2020
+                    </span>
+                    <span
+                      className="data-table-row-section undefined"
+                      key="class-1230-484135-826269"
+                      style={
+                        Object {
+                          "minWidth": "215px",
+                          "textAlign": "left",
+                          "width": "215px",
+                        }
+                      }
+                    >
+                      A New Class
+                    </span>
+                    <span
+                      className="data-table-row-section undefined"
+                      key="unitName-1230-484135-826269"
+                      style={
+                        Object {
+                          "minWidth": "215px",
+                          "textAlign": "left",
+                          "width": "215px",
+                        }
+                      }
+                    >
+                      Every Diagnostic
+                    </span>
+                    <span
+                      className="data-table-row-section undefined"
+                      key="completed-1230-484135-826269"
+                      style={
+                        Object {
+                          "minWidth": "76px",
+                          "textAlign": "left",
+                          "width": "76px",
+                        }
+                      }
+                    >
+                      0 of 0
+                    </span>
+                    <span
+                      className="data-table-row-section recommendations-row-section"
+                      key="recommendations-1230-484135-826269"
+                      style={
+                        Object {
+                          "minWidth": "141px",
+                          "textAlign": "right",
+                          "width": "141px",
+                        }
+                      }
+                    />
+                    <span
+                      className="removable data-table-row-section"
+                    />
+                  </div>
+                  <div
+                    className="data-table-row  "
+                    key="1230-484134-826269"
+                  >
+                    <span
+                      className="data-table-row-section undefined"
+                      key="assignedDate-1230-484134-826269"
+                      style={
+                        Object {
+                          "minWidth": "100px",
+                          "textAlign": "left",
+                          "width": "100px",
+                        }
+                      }
+                    >
+                      Aug 17, 2020
+                    </span>
+                    <Tooltip
+                      key="class-1230-484134-826269"
+                      tooltipText="Quill Classroom Extremely Long So Long SUper Duper"
+                      tooltipTriggerStyle={
+                        Object {
+                          "minWidth": "215px",
+                          "textAlign": "left",
+                          "width": "215px",
+                        }
+                      }
+                      tooltipTriggerText="Quill Classroom Extremely Long So Long SUper Duper"
+                      tooltipTriggerTextClass="data-table-row-section undefined"
+                      tooltipTriggerTextStyle={
+                        Object {
+                          "minWidth": "215px",
+                          "textAlign": "left",
+                          "width": "215px",
+                        }
+                      }
+                    >
+                      <span
+                        className="quill-tooltip-trigger"
+                        style={
+                          Object {
+                            "minWidth": "215px",
+                            "textAlign": "left",
+                            "width": "215px",
+                          }
+                        }
+                      >
+                        <span
+                          className="data-table-row-section undefined"
+                          onMouseEnter={[Function]}
+                          onMouseLeave={[Function]}
+                          style={
+                            Object {
+                              "minWidth": "215px",
+                              "textAlign": "left",
+                              "width": "215px",
+                            }
+                          }
+                        >
+                          Quill Classroom Extremely Long So Long SUper Duper
+                        </span>
+                        <span
+                          className="quill-tooltip-wrapper"
+                        >
+                          <span
+                            className="quill-tooltip"
+                          >
+                            Quill Classroom Extremely Long So Long SUper Duper
+                          </span>
+                        </span>
+                      </span>
+                    </Tooltip>
+                    <span
+                      className="data-table-row-section undefined"
+                      key="unitName-1230-484134-826269"
+                      style={
+                        Object {
+                          "minWidth": "215px",
+                          "textAlign": "left",
+                          "width": "215px",
+                        }
+                      }
+                    >
+                      Every Diagnostic
+                    </span>
+                    <span
+                      className="data-table-row-section undefined"
+                      key="completed-1230-484134-826269"
+                      style={
+                        Object {
+                          "minWidth": "76px",
+                          "textAlign": "left",
+                          "width": "76px",
+                        }
+                      }
+                    >
+                      0 of 5
+                    </span>
+                    <span
+                      className="data-table-row-section recommendations-row-section"
+                      key="recommendations-1230-484134-826269"
+                      style={
+                        Object {
+                          "minWidth": "141px",
+                          "textAlign": "right",
+                          "width": "141px",
+                        }
+                      }
+                    />
+                    <span
+                      className="removable data-table-row-section"
+                    />
+                  </div>
+                </div>
+              </div>
+            </DataTable>
+          </section>
+        </DiagnosticContent>
+      </section>
+    </Diagnostic>
+    <Diagnostic
+      diagnostic={
+        Object {
+          "classes_count": 2,
+          "id": 888,
+          "individual_assignments": Array [
+            Object {
+              "activity_id": 888,
+              "activity_name": "Advanced Diagnostic",
+              "assigned_count": 0,
+              "assigned_date": "2020-08-17T17:23:21.451Z",
+              "classroom_id": 484135,
+              "classroom_name": "A New Class",
+              "completed_count": 0,
+              "unit_id": 826269,
+              "unit_name": "Every Diagnostic",
+            },
+            Object {
+              "activity_id": 888,
+              "activity_name": "Advanced Diagnostic",
+              "assigned_count": 5,
+              "assigned_date": "2020-08-17T17:23:21.471Z",
+              "classroom_id": 484134,
+              "classroom_name": "Quill Classroom Extremely Long So Long SUper Duper",
+              "completed_count": 0,
+              "unit_id": 826269,
+              "unit_name": "Every Diagnostic",
+            },
+          ],
+          "last_assigned": "2020-08-17T17:23:21.471Z",
+          "name": "Advanced Diagnostic",
+          "total_assigned": 5,
+          "total_completed": 0,
+        }
+      }
+      key="888"
+    >
+      <section
+        className="diagnostic open"
+      >
+        <DiagnosticHeader
+          diagnostic={
+            Object {
+              "classes_count": 2,
+              "id": 888,
+              "individual_assignments": Array [
+                Object {
+                  "activity_id": 888,
+                  "activity_name": "Advanced Diagnostic",
+                  "assigned_count": 0,
+                  "assigned_date": "2020-08-17T17:23:21.451Z",
+                  "classroom_id": 484135,
+                  "classroom_name": "A New Class",
+                  "completed_count": 0,
+                  "unit_id": 826269,
+                  "unit_name": "Every Diagnostic",
+                },
+                Object {
+                  "activity_id": 888,
+                  "activity_name": "Advanced Diagnostic",
+                  "assigned_count": 5,
+                  "assigned_date": "2020-08-17T17:23:21.471Z",
+                  "classroom_id": 484134,
+                  "classroom_name": "Quill Classroom Extremely Long So Long SUper Duper",
+                  "completed_count": 0,
+                  "unit_id": 826269,
+                  "unit_name": "Every Diagnostic",
+                },
+              ],
+              "last_assigned": "2020-08-17T17:23:21.471Z",
+              "name": "Advanced Diagnostic",
+              "total_assigned": 5,
+              "total_completed": 0,
+            }
+          }
+          handleClickDiagnosticHeader={[Function]}
+        >
+          <button
+            className="diagnostic-card-header"
+            onClick={[Function]}
+            type="button"
+          >
+            <section
+              className="diagnostic-info"
+            >
+              <h2
+                className="diagnostic-name"
+              >
+                Advanced Diagnostic
+              </h2>
+              <div
+                className="diagnostic-data"
+              >
+                <a
+                  className="item"
+                  href="/activity_sessions/anonymous?activity_id=888"
+                  rel="noopener noreferrer"
+                  target="_blank"
+                >
+                  Preview
+                </a>
+                <span
+                  className="item assigned-counts"
+                >
+                  Assigned: 
+                  2
+                   class
+                  es
+                  , 
+                  5
+                   student
+                  s
+                </span>
+                <span
+                  className="item completed-count"
+                >
+                  Students completed: 
+                  0
+                   of 
+                  5
+                </span>
+                <span
+                  className="item"
+                >
+                  Last assigned: 
+                  Aug 17, 2020
+                </span>
+              </div>
+            </section>
+            <img
+              alt="arrow"
+              className="expand-arrow"
+              src="undefined/images/icons/expand.svg"
+            />
+          </button>
+        </DiagnosticHeader>
+        <DiagnosticContent
+          diagnostic={
+            Object {
+              "classes_count": 2,
+              "id": 888,
+              "individual_assignments": Array [
+                Object {
+                  "activity_id": 888,
+                  "activity_name": "Advanced Diagnostic",
+                  "assigned_count": 0,
+                  "assigned_date": "2020-08-17T17:23:21.451Z",
+                  "classroom_id": 484135,
+                  "classroom_name": "A New Class",
+                  "completed_count": 0,
+                  "unit_id": 826269,
+                  "unit_name": "Every Diagnostic",
+                },
+                Object {
+                  "activity_id": 888,
+                  "activity_name": "Advanced Diagnostic",
+                  "assigned_count": 5,
+                  "assigned_date": "2020-08-17T17:23:21.471Z",
+                  "classroom_id": 484134,
+                  "classroom_name": "Quill Classroom Extremely Long So Long SUper Duper",
+                  "completed_count": 0,
+                  "unit_id": 826269,
+                  "unit_name": "Every Diagnostic",
+                },
+              ],
+              "last_assigned": "2020-08-17T17:23:21.471Z",
+              "name": "Advanced Diagnostic",
+              "total_assigned": 5,
+              "total_completed": 0,
+            }
+          }
+        >
+          <section
+            className="individual-assignments"
+          >
+            <DataTable
+              averageFontWidth={7}
+              headers={
+                Array [
+                  Object {
+                    "attribute": "assignedDate",
+                    "name": "Assigned date",
+                    "width": "100px",
+                  },
+                  Object {
+                    "attribute": "class",
+                    "name": "Class",
+                    "width": "215px",
+                  },
+                  Object {
+                    "attribute": "unitName",
+                    "name": "Activity pack",
+                    "width": "215px",
+                  },
+                  Object {
+                    "attribute": "completed",
+                    "name": "Completed",
+                    "width": "76px",
+                  },
+                  Object {
+                    "attribute": "recommendations",
+                    "headerClassName": "recommendations-header",
+                    "name": "Recommendations report",
+                    "rowSectionClassName": "recommendations-row-section",
+                    "width": "141px",
+                  },
+                ]
+              }
+              rows={
+                Array [
+                  Object {
+                    "assignedDate": "Aug 17, 2020",
+                    "class": "A New Class",
+                    "completed": "0 of 0",
+                    "id": "888-484135-826269",
+                    "recommendations": null,
+                    "unitName": "Every Diagnostic",
+                  },
+                  Object {
+                    "assignedDate": "Aug 17, 2020",
+                    "class": "Quill Classroom Extremely Long So Long SUper Duper",
+                    "completed": "0 of 5",
+                    "id": "888-484134-826269",
+                    "recommendations": null,
+                    "unitName": "Every Diagnostic",
+                  },
+                ]
+              }
+            >
+              <div
+                className="data-table undefined"
+              >
+                <div
+                  className="data-table-headers"
+                >
+                  <button
+                    className="data-table-header undefined"
+                    style={
+                      Object {
+                        "minWidth": "100px",
+                        "textAlign": "left",
+                        "width": "100px",
+                      }
+                    }
+                    tabIndex={-1}
+                    type="button"
+                  >
+                    Assigned date
+                  </button>
+                  <button
+                    className="data-table-header undefined"
+                    style={
+                      Object {
+                        "minWidth": "215px",
+                        "textAlign": "left",
+                        "width": "215px",
+                      }
+                    }
+                    tabIndex={-1}
+                    type="button"
+                  >
+                    Class
+                  </button>
+                  <button
+                    className="data-table-header undefined"
+                    style={
+                      Object {
+                        "minWidth": "215px",
+                        "textAlign": "left",
+                        "width": "215px",
+                      }
+                    }
+                    tabIndex={-1}
+                    type="button"
+                  >
+                    Activity pack
+                  </button>
+                  <button
+                    className="data-table-header undefined"
+                    style={
+                      Object {
+                        "minWidth": "76px",
+                        "textAlign": "left",
+                        "width": "76px",
+                      }
+                    }
+                    tabIndex={-1}
+                    type="button"
+                  >
+                    Completed
+                  </button>
+                  <button
+                    className="data-table-header recommendations-header"
+                    style={
+                      Object {
+                        "minWidth": "141px",
+                        "textAlign": "right",
+                        "width": "141px",
+                      }
+                    }
+                    tabIndex={-1}
+                    type="button"
+                  >
+                    Recommendations report
+                  </button>
+                </div>
+                <div
+                  className="data-table-body"
+                >
+                  <div
+                    className="data-table-row  "
+                    key="888-484135-826269"
+                  >
+                    <span
+                      className="data-table-row-section undefined"
+                      key="assignedDate-888-484135-826269"
+                      style={
+                        Object {
+                          "minWidth": "100px",
+                          "textAlign": "left",
+                          "width": "100px",
+                        }
+                      }
+                    >
+                      Aug 17, 2020
+                    </span>
+                    <span
+                      className="data-table-row-section undefined"
+                      key="class-888-484135-826269"
+                      style={
+                        Object {
+                          "minWidth": "215px",
+                          "textAlign": "left",
+                          "width": "215px",
+                        }
+                      }
+                    >
+                      A New Class
+                    </span>
+                    <span
+                      className="data-table-row-section undefined"
+                      key="unitName-888-484135-826269"
+                      style={
+                        Object {
+                          "minWidth": "215px",
+                          "textAlign": "left",
+                          "width": "215px",
+                        }
+                      }
+                    >
+                      Every Diagnostic
+                    </span>
+                    <span
+                      className="data-table-row-section undefined"
+                      key="completed-888-484135-826269"
+                      style={
+                        Object {
+                          "minWidth": "76px",
+                          "textAlign": "left",
+                          "width": "76px",
+                        }
+                      }
+                    >
+                      0 of 0
+                    </span>
+                    <span
+                      className="data-table-row-section recommendations-row-section"
+                      key="recommendations-888-484135-826269"
+                      style={
+                        Object {
+                          "minWidth": "141px",
+                          "textAlign": "right",
+                          "width": "141px",
+                        }
+                      }
+                    />
+                    <span
+                      className="removable data-table-row-section"
+                    />
+                  </div>
+                  <div
+                    className="data-table-row  "
+                    key="888-484134-826269"
+                  >
+                    <span
+                      className="data-table-row-section undefined"
+                      key="assignedDate-888-484134-826269"
+                      style={
+                        Object {
+                          "minWidth": "100px",
+                          "textAlign": "left",
+                          "width": "100px",
+                        }
+                      }
+                    >
+                      Aug 17, 2020
+                    </span>
+                    <Tooltip
+                      key="class-888-484134-826269"
+                      tooltipText="Quill Classroom Extremely Long So Long SUper Duper"
+                      tooltipTriggerStyle={
+                        Object {
+                          "minWidth": "215px",
+                          "textAlign": "left",
+                          "width": "215px",
+                        }
+                      }
+                      tooltipTriggerText="Quill Classroom Extremely Long So Long SUper Duper"
+                      tooltipTriggerTextClass="data-table-row-section undefined"
+                      tooltipTriggerTextStyle={
+                        Object {
+                          "minWidth": "215px",
+                          "textAlign": "left",
+                          "width": "215px",
+                        }
+                      }
+                    >
+                      <span
+                        className="quill-tooltip-trigger"
+                        style={
+                          Object {
+                            "minWidth": "215px",
+                            "textAlign": "left",
+                            "width": "215px",
+                          }
+                        }
+                      >
+                        <span
+                          className="data-table-row-section undefined"
+                          onMouseEnter={[Function]}
+                          onMouseLeave={[Function]}
+                          style={
+                            Object {
+                              "minWidth": "215px",
+                              "textAlign": "left",
+                              "width": "215px",
+                            }
+                          }
+                        >
+                          Quill Classroom Extremely Long So Long SUper Duper
+                        </span>
+                        <span
+                          className="quill-tooltip-wrapper"
+                        >
+                          <span
+                            className="quill-tooltip"
+                          >
+                            Quill Classroom Extremely Long So Long SUper Duper
+                          </span>
+                        </span>
+                      </span>
+                    </Tooltip>
+                    <span
+                      className="data-table-row-section undefined"
+                      key="unitName-888-484134-826269"
+                      style={
+                        Object {
+                          "minWidth": "215px",
+                          "textAlign": "left",
+                          "width": "215px",
+                        }
+                      }
+                    >
+                      Every Diagnostic
+                    </span>
+                    <span
+                      className="data-table-row-section undefined"
+                      key="completed-888-484134-826269"
+                      style={
+                        Object {
+                          "minWidth": "76px",
+                          "textAlign": "left",
+                          "width": "76px",
+                        }
+                      }
+                    >
+                      0 of 5
+                    </span>
+                    <span
+                      className="data-table-row-section recommendations-row-section"
+                      key="recommendations-888-484134-826269"
+                      style={
+                        Object {
+                          "minWidth": "141px",
+                          "textAlign": "right",
+                          "width": "141px",
+                        }
+                      }
+                    />
+                    <span
+                      className="removable data-table-row-section"
+                    />
+                  </div>
+                </div>
+              </div>
+            </DataTable>
+          </section>
+        </DiagnosticContent>
+      </section>
+    </Diagnostic>
+    <Diagnostic
+      diagnostic={
+        Object {
+          "classes_count": 2,
+          "id": 1229,
+          "individual_assignments": Array [
+            Object {
+              "activity_id": 1229,
+              "activity_name": "Pre-AP® Writing Skills Survey 1: Basics of Sentence Patterns",
+              "assigned_count": 0,
+              "assigned_date": "2020-08-17T17:23:21.451Z",
+              "classroom_id": 484135,
+              "classroom_name": "A New Class",
+              "completed_count": 0,
+              "unit_id": 826269,
+              "unit_name": "Every Diagnostic",
+            },
+            Object {
+              "activity_id": 1229,
+              "activity_name": "Pre-AP® Writing Skills Survey 1: Basics of Sentence Patterns",
+              "assigned_count": 5,
+              "assigned_date": "2020-08-17T17:23:21.471Z",
+              "classroom_id": 484134,
+              "classroom_name": "Quill Classroom Extremely Long So Long SUper Duper",
+              "completed_count": 0,
+              "unit_id": 826269,
+              "unit_name": "Every Diagnostic",
+            },
+          ],
+          "last_assigned": "2020-08-17T17:23:21.471Z",
+          "name": "Pre-AP® Writing Skills Survey 1: Basics of Sentence Patterns",
+          "total_assigned": 5,
+          "total_completed": 0,
+        }
+      }
+      key="1229"
+    >
+      <section
+        className="diagnostic open"
+      >
+        <DiagnosticHeader
+          diagnostic={
+            Object {
+              "classes_count": 2,
+              "id": 1229,
+              "individual_assignments": Array [
+                Object {
+                  "activity_id": 1229,
+                  "activity_name": "Pre-AP® Writing Skills Survey 1: Basics of Sentence Patterns",
+                  "assigned_count": 0,
+                  "assigned_date": "2020-08-17T17:23:21.451Z",
+                  "classroom_id": 484135,
+                  "classroom_name": "A New Class",
+                  "completed_count": 0,
+                  "unit_id": 826269,
+                  "unit_name": "Every Diagnostic",
+                },
+                Object {
+                  "activity_id": 1229,
+                  "activity_name": "Pre-AP® Writing Skills Survey 1: Basics of Sentence Patterns",
+                  "assigned_count": 5,
+                  "assigned_date": "2020-08-17T17:23:21.471Z",
+                  "classroom_id": 484134,
+                  "classroom_name": "Quill Classroom Extremely Long So Long SUper Duper",
+                  "completed_count": 0,
+                  "unit_id": 826269,
+                  "unit_name": "Every Diagnostic",
+                },
+              ],
+              "last_assigned": "2020-08-17T17:23:21.471Z",
+              "name": "Pre-AP® Writing Skills Survey 1: Basics of Sentence Patterns",
+              "total_assigned": 5,
+              "total_completed": 0,
+            }
+          }
+          handleClickDiagnosticHeader={[Function]}
+        >
+          <button
+            className="diagnostic-card-header"
+            onClick={[Function]}
+            type="button"
+          >
+            <section
+              className="diagnostic-info"
+            >
+              <h2
+                className="diagnostic-name"
+              >
+                Pre-AP® Writing Skills Survey 1: Basics of Sentence Patterns
+              </h2>
+              <div
+                className="diagnostic-data"
+              >
+                <a
+                  className="item"
+                  href="/activity_sessions/anonymous?activity_id=1229"
+                  rel="noopener noreferrer"
+                  target="_blank"
+                >
+                  Preview
+                </a>
+                <span
+                  className="item assigned-counts"
+                >
+                  Assigned: 
+                  2
+                   class
+                  es
+                  , 
+                  5
+                   student
+                  s
+                </span>
+                <span
+                  className="item completed-count"
+                >
+                  Students completed: 
+                  0
+                   of 
+                  5
+                </span>
+                <span
+                  className="item"
+                >
+                  Last assigned: 
+                  Aug 17, 2020
+                </span>
+              </div>
+            </section>
+            <img
+              alt="arrow"
+              className="expand-arrow"
+              src="undefined/images/icons/expand.svg"
+            />
+          </button>
+        </DiagnosticHeader>
+        <DiagnosticContent
+          diagnostic={
+            Object {
+              "classes_count": 2,
+              "id": 1229,
+              "individual_assignments": Array [
+                Object {
+                  "activity_id": 1229,
+                  "activity_name": "Pre-AP® Writing Skills Survey 1: Basics of Sentence Patterns",
+                  "assigned_count": 0,
+                  "assigned_date": "2020-08-17T17:23:21.451Z",
+                  "classroom_id": 484135,
+                  "classroom_name": "A New Class",
+                  "completed_count": 0,
+                  "unit_id": 826269,
+                  "unit_name": "Every Diagnostic",
+                },
+                Object {
+                  "activity_id": 1229,
+                  "activity_name": "Pre-AP® Writing Skills Survey 1: Basics of Sentence Patterns",
+                  "assigned_count": 5,
+                  "assigned_date": "2020-08-17T17:23:21.471Z",
+                  "classroom_id": 484134,
+                  "classroom_name": "Quill Classroom Extremely Long So Long SUper Duper",
+                  "completed_count": 0,
+                  "unit_id": 826269,
+                  "unit_name": "Every Diagnostic",
+                },
+              ],
+              "last_assigned": "2020-08-17T17:23:21.471Z",
+              "name": "Pre-AP® Writing Skills Survey 1: Basics of Sentence Patterns",
+              "total_assigned": 5,
+              "total_completed": 0,
+            }
+          }
+        >
+          <section
+            className="individual-assignments"
+          >
+            <DataTable
+              averageFontWidth={7}
+              headers={
+                Array [
+                  Object {
+                    "attribute": "assignedDate",
+                    "name": "Assigned date",
+                    "width": "100px",
+                  },
+                  Object {
+                    "attribute": "class",
+                    "name": "Class",
+                    "width": "215px",
+                  },
+                  Object {
+                    "attribute": "unitName",
+                    "name": "Activity pack",
+                    "width": "215px",
+                  },
+                  Object {
+                    "attribute": "completed",
+                    "name": "Completed",
+                    "width": "76px",
+                  },
+                  Object {
+                    "attribute": "recommendations",
+                    "headerClassName": "recommendations-header",
+                    "name": "Recommendations report",
+                    "rowSectionClassName": "recommendations-row-section",
+                    "width": "141px",
+                  },
+                ]
+              }
+              rows={
+                Array [
+                  Object {
+                    "assignedDate": "Aug 17, 2020",
+                    "class": "A New Class",
+                    "completed": "0 of 0",
+                    "id": "1229-484135-826269",
+                    "recommendations": null,
+                    "unitName": "Every Diagnostic",
+                  },
+                  Object {
+                    "assignedDate": "Aug 17, 2020",
+                    "class": "Quill Classroom Extremely Long So Long SUper Duper",
+                    "completed": "0 of 5",
+                    "id": "1229-484134-826269",
+                    "recommendations": null,
+                    "unitName": "Every Diagnostic",
+                  },
+                ]
+              }
+            >
+              <div
+                className="data-table undefined"
+              >
+                <div
+                  className="data-table-headers"
+                >
+                  <button
+                    className="data-table-header undefined"
+                    style={
+                      Object {
+                        "minWidth": "100px",
+                        "textAlign": "left",
+                        "width": "100px",
+                      }
+                    }
+                    tabIndex={-1}
+                    type="button"
+                  >
+                    Assigned date
+                  </button>
+                  <button
+                    className="data-table-header undefined"
+                    style={
+                      Object {
+                        "minWidth": "215px",
+                        "textAlign": "left",
+                        "width": "215px",
+                      }
+                    }
+                    tabIndex={-1}
+                    type="button"
+                  >
+                    Class
+                  </button>
+                  <button
+                    className="data-table-header undefined"
+                    style={
+                      Object {
+                        "minWidth": "215px",
+                        "textAlign": "left",
+                        "width": "215px",
+                      }
+                    }
+                    tabIndex={-1}
+                    type="button"
+                  >
+                    Activity pack
+                  </button>
+                  <button
+                    className="data-table-header undefined"
+                    style={
+                      Object {
+                        "minWidth": "76px",
+                        "textAlign": "left",
+                        "width": "76px",
+                      }
+                    }
+                    tabIndex={-1}
+                    type="button"
+                  >
+                    Completed
+                  </button>
+                  <button
+                    className="data-table-header recommendations-header"
+                    style={
+                      Object {
+                        "minWidth": "141px",
+                        "textAlign": "right",
+                        "width": "141px",
+                      }
+                    }
+                    tabIndex={-1}
+                    type="button"
+                  >
+                    Recommendations report
+                  </button>
+                </div>
+                <div
+                  className="data-table-body"
+                >
+                  <div
+                    className="data-table-row  "
+                    key="1229-484135-826269"
+                  >
+                    <span
+                      className="data-table-row-section undefined"
+                      key="assignedDate-1229-484135-826269"
+                      style={
+                        Object {
+                          "minWidth": "100px",
+                          "textAlign": "left",
+                          "width": "100px",
+                        }
+                      }
+                    >
+                      Aug 17, 2020
+                    </span>
+                    <span
+                      className="data-table-row-section undefined"
+                      key="class-1229-484135-826269"
+                      style={
+                        Object {
+                          "minWidth": "215px",
+                          "textAlign": "left",
+                          "width": "215px",
+                        }
+                      }
+                    >
+                      A New Class
+                    </span>
+                    <span
+                      className="data-table-row-section undefined"
+                      key="unitName-1229-484135-826269"
+                      style={
+                        Object {
+                          "minWidth": "215px",
+                          "textAlign": "left",
+                          "width": "215px",
+                        }
+                      }
+                    >
+                      Every Diagnostic
+                    </span>
+                    <span
+                      className="data-table-row-section undefined"
+                      key="completed-1229-484135-826269"
+                      style={
+                        Object {
+                          "minWidth": "76px",
+                          "textAlign": "left",
+                          "width": "76px",
+                        }
+                      }
+                    >
+                      0 of 0
+                    </span>
+                    <span
+                      className="data-table-row-section recommendations-row-section"
+                      key="recommendations-1229-484135-826269"
+                      style={
+                        Object {
+                          "minWidth": "141px",
+                          "textAlign": "right",
+                          "width": "141px",
+                        }
+                      }
+                    />
+                    <span
+                      className="removable data-table-row-section"
+                    />
+                  </div>
+                  <div
+                    className="data-table-row  "
+                    key="1229-484134-826269"
+                  >
+                    <span
+                      className="data-table-row-section undefined"
+                      key="assignedDate-1229-484134-826269"
+                      style={
+                        Object {
+                          "minWidth": "100px",
+                          "textAlign": "left",
+                          "width": "100px",
+                        }
+                      }
+                    >
+                      Aug 17, 2020
+                    </span>
+                    <Tooltip
+                      key="class-1229-484134-826269"
+                      tooltipText="Quill Classroom Extremely Long So Long SUper Duper"
+                      tooltipTriggerStyle={
+                        Object {
+                          "minWidth": "215px",
+                          "textAlign": "left",
+                          "width": "215px",
+                        }
+                      }
+                      tooltipTriggerText="Quill Classroom Extremely Long So Long SUper Duper"
+                      tooltipTriggerTextClass="data-table-row-section undefined"
+                      tooltipTriggerTextStyle={
+                        Object {
+                          "minWidth": "215px",
+                          "textAlign": "left",
+                          "width": "215px",
+                        }
+                      }
+                    >
+                      <span
+                        className="quill-tooltip-trigger"
+                        style={
+                          Object {
+                            "minWidth": "215px",
+                            "textAlign": "left",
+                            "width": "215px",
+                          }
+                        }
+                      >
+                        <span
+                          className="data-table-row-section undefined"
+                          onMouseEnter={[Function]}
+                          onMouseLeave={[Function]}
+                          style={
+                            Object {
+                              "minWidth": "215px",
+                              "textAlign": "left",
+                              "width": "215px",
+                            }
+                          }
+                        >
+                          Quill Classroom Extremely Long So Long SUper Duper
+                        </span>
+                        <span
+                          className="quill-tooltip-wrapper"
+                        >
+                          <span
+                            className="quill-tooltip"
+                          >
+                            Quill Classroom Extremely Long So Long SUper Duper
+                          </span>
+                        </span>
+                      </span>
+                    </Tooltip>
+                    <span
+                      className="data-table-row-section undefined"
+                      key="unitName-1229-484134-826269"
+                      style={
+                        Object {
+                          "minWidth": "215px",
+                          "textAlign": "left",
+                          "width": "215px",
+                        }
+                      }
+                    >
+                      Every Diagnostic
+                    </span>
+                    <span
+                      className="data-table-row-section undefined"
+                      key="completed-1229-484134-826269"
+                      style={
+                        Object {
+                          "minWidth": "76px",
+                          "textAlign": "left",
+                          "width": "76px",
+                        }
+                      }
+                    >
+                      0 of 5
+                    </span>
+                    <span
+                      className="data-table-row-section recommendations-row-section"
+                      key="recommendations-1229-484134-826269"
+                      style={
+                        Object {
+                          "minWidth": "141px",
+                          "textAlign": "right",
+                          "width": "141px",
+                        }
+                      }
+                    />
+                    <span
+                      className="removable data-table-row-section"
+                    />
+                  </div>
+                </div>
+              </div>
+            </DataTable>
+          </section>
+        </DiagnosticContent>
+      </section>
+    </Diagnostic>
+    <Diagnostic
+      diagnostic={
+        Object {
+          "classes_count": 2,
+          "id": 1161,
+          "individual_assignments": Array [
+            Object {
+              "activity_id": 1161,
+              "activity_name": "ELL Starter Diagnostic",
+              "assigned_count": 0,
+              "assigned_date": "2020-08-17T17:23:21.451Z",
+              "classroom_id": 484135,
+              "classroom_name": "A New Class",
+              "completed_count": 0,
+              "unit_id": 826269,
+              "unit_name": "Every Diagnostic",
+            },
+            Object {
+              "activity_id": 1161,
+              "activity_name": "ELL Starter Diagnostic",
+              "assigned_count": 5,
+              "assigned_date": "2020-08-17T17:23:21.471Z",
+              "classroom_id": 484134,
+              "classroom_name": "Quill Classroom Extremely Long So Long SUper Duper",
+              "completed_count": 0,
+              "unit_id": 826269,
+              "unit_name": "Every Diagnostic",
+            },
+          ],
+          "last_assigned": "2020-08-17T17:23:21.471Z",
+          "name": "ELL Starter Diagnostic",
+          "total_assigned": 5,
+          "total_completed": 0,
+        }
+      }
+      key="1161"
+    >
+      <section
+        className="diagnostic open"
+      >
+        <DiagnosticHeader
+          diagnostic={
+            Object {
+              "classes_count": 2,
+              "id": 1161,
+              "individual_assignments": Array [
+                Object {
+                  "activity_id": 1161,
+                  "activity_name": "ELL Starter Diagnostic",
+                  "assigned_count": 0,
+                  "assigned_date": "2020-08-17T17:23:21.451Z",
+                  "classroom_id": 484135,
+                  "classroom_name": "A New Class",
+                  "completed_count": 0,
+                  "unit_id": 826269,
+                  "unit_name": "Every Diagnostic",
+                },
+                Object {
+                  "activity_id": 1161,
+                  "activity_name": "ELL Starter Diagnostic",
+                  "assigned_count": 5,
+                  "assigned_date": "2020-08-17T17:23:21.471Z",
+                  "classroom_id": 484134,
+                  "classroom_name": "Quill Classroom Extremely Long So Long SUper Duper",
+                  "completed_count": 0,
+                  "unit_id": 826269,
+                  "unit_name": "Every Diagnostic",
+                },
+              ],
+              "last_assigned": "2020-08-17T17:23:21.471Z",
+              "name": "ELL Starter Diagnostic",
+              "total_assigned": 5,
+              "total_completed": 0,
+            }
+          }
+          handleClickDiagnosticHeader={[Function]}
+        >
+          <button
+            className="diagnostic-card-header"
+            onClick={[Function]}
+            type="button"
+          >
+            <section
+              className="diagnostic-info"
+            >
+              <h2
+                className="diagnostic-name"
+              >
+                ELL Starter Diagnostic
+              </h2>
+              <div
+                className="diagnostic-data"
+              >
+                <a
+                  className="item"
+                  href="/activity_sessions/anonymous?activity_id=1161"
+                  rel="noopener noreferrer"
+                  target="_blank"
+                >
+                  Preview
+                </a>
+                <span
+                  className="item assigned-counts"
+                >
+                  Assigned: 
+                  2
+                   class
+                  es
+                  , 
+                  5
+                   student
+                  s
+                </span>
+                <span
+                  className="item completed-count"
+                >
+                  Students completed: 
+                  0
+                   of 
+                  5
+                </span>
+                <span
+                  className="item"
+                >
+                  Last assigned: 
+                  Aug 17, 2020
+                </span>
+              </div>
+            </section>
+            <img
+              alt="arrow"
+              className="expand-arrow"
+              src="undefined/images/icons/expand.svg"
+            />
+          </button>
+        </DiagnosticHeader>
+        <DiagnosticContent
+          diagnostic={
+            Object {
+              "classes_count": 2,
+              "id": 1161,
+              "individual_assignments": Array [
+                Object {
+                  "activity_id": 1161,
+                  "activity_name": "ELL Starter Diagnostic",
+                  "assigned_count": 0,
+                  "assigned_date": "2020-08-17T17:23:21.451Z",
+                  "classroom_id": 484135,
+                  "classroom_name": "A New Class",
+                  "completed_count": 0,
+                  "unit_id": 826269,
+                  "unit_name": "Every Diagnostic",
+                },
+                Object {
+                  "activity_id": 1161,
+                  "activity_name": "ELL Starter Diagnostic",
+                  "assigned_count": 5,
+                  "assigned_date": "2020-08-17T17:23:21.471Z",
+                  "classroom_id": 484134,
+                  "classroom_name": "Quill Classroom Extremely Long So Long SUper Duper",
+                  "completed_count": 0,
+                  "unit_id": 826269,
+                  "unit_name": "Every Diagnostic",
+                },
+              ],
+              "last_assigned": "2020-08-17T17:23:21.471Z",
+              "name": "ELL Starter Diagnostic",
+              "total_assigned": 5,
+              "total_completed": 0,
+            }
+          }
+        >
+          <section
+            className="individual-assignments"
+          >
+            <DataTable
+              averageFontWidth={7}
+              headers={
+                Array [
+                  Object {
+                    "attribute": "assignedDate",
+                    "name": "Assigned date",
+                    "width": "100px",
+                  },
+                  Object {
+                    "attribute": "class",
+                    "name": "Class",
+                    "width": "215px",
+                  },
+                  Object {
+                    "attribute": "unitName",
+                    "name": "Activity pack",
+                    "width": "215px",
+                  },
+                  Object {
+                    "attribute": "completed",
+                    "name": "Completed",
+                    "width": "76px",
+                  },
+                  Object {
+                    "attribute": "recommendations",
+                    "headerClassName": "recommendations-header",
+                    "name": "Recommendations report",
+                    "rowSectionClassName": "recommendations-row-section",
+                    "width": "141px",
+                  },
+                ]
+              }
+              rows={
+                Array [
+                  Object {
+                    "assignedDate": "Aug 17, 2020",
+                    "class": "A New Class",
+                    "completed": "0 of 0",
+                    "id": "1161-484135-826269",
+                    "recommendations": null,
+                    "unitName": "Every Diagnostic",
+                  },
+                  Object {
+                    "assignedDate": "Aug 17, 2020",
+                    "class": "Quill Classroom Extremely Long So Long SUper Duper",
+                    "completed": "0 of 5",
+                    "id": "1161-484134-826269",
+                    "recommendations": null,
+                    "unitName": "Every Diagnostic",
+                  },
+                ]
+              }
+            >
+              <div
+                className="data-table undefined"
+              >
+                <div
+                  className="data-table-headers"
+                >
+                  <button
+                    className="data-table-header undefined"
+                    style={
+                      Object {
+                        "minWidth": "100px",
+                        "textAlign": "left",
+                        "width": "100px",
+                      }
+                    }
+                    tabIndex={-1}
+                    type="button"
+                  >
+                    Assigned date
+                  </button>
+                  <button
+                    className="data-table-header undefined"
+                    style={
+                      Object {
+                        "minWidth": "215px",
+                        "textAlign": "left",
+                        "width": "215px",
+                      }
+                    }
+                    tabIndex={-1}
+                    type="button"
+                  >
+                    Class
+                  </button>
+                  <button
+                    className="data-table-header undefined"
+                    style={
+                      Object {
+                        "minWidth": "215px",
+                        "textAlign": "left",
+                        "width": "215px",
+                      }
+                    }
+                    tabIndex={-1}
+                    type="button"
+                  >
+                    Activity pack
+                  </button>
+                  <button
+                    className="data-table-header undefined"
+                    style={
+                      Object {
+                        "minWidth": "76px",
+                        "textAlign": "left",
+                        "width": "76px",
+                      }
+                    }
+                    tabIndex={-1}
+                    type="button"
+                  >
+                    Completed
+                  </button>
+                  <button
+                    className="data-table-header recommendations-header"
+                    style={
+                      Object {
+                        "minWidth": "141px",
+                        "textAlign": "right",
+                        "width": "141px",
+                      }
+                    }
+                    tabIndex={-1}
+                    type="button"
+                  >
+                    Recommendations report
+                  </button>
+                </div>
+                <div
+                  className="data-table-body"
+                >
+                  <div
+                    className="data-table-row  "
+                    key="1161-484135-826269"
+                  >
+                    <span
+                      className="data-table-row-section undefined"
+                      key="assignedDate-1161-484135-826269"
+                      style={
+                        Object {
+                          "minWidth": "100px",
+                          "textAlign": "left",
+                          "width": "100px",
+                        }
+                      }
+                    >
+                      Aug 17, 2020
+                    </span>
+                    <span
+                      className="data-table-row-section undefined"
+                      key="class-1161-484135-826269"
+                      style={
+                        Object {
+                          "minWidth": "215px",
+                          "textAlign": "left",
+                          "width": "215px",
+                        }
+                      }
+                    >
+                      A New Class
+                    </span>
+                    <span
+                      className="data-table-row-section undefined"
+                      key="unitName-1161-484135-826269"
+                      style={
+                        Object {
+                          "minWidth": "215px",
+                          "textAlign": "left",
+                          "width": "215px",
+                        }
+                      }
+                    >
+                      Every Diagnostic
+                    </span>
+                    <span
+                      className="data-table-row-section undefined"
+                      key="completed-1161-484135-826269"
+                      style={
+                        Object {
+                          "minWidth": "76px",
+                          "textAlign": "left",
+                          "width": "76px",
+                        }
+                      }
+                    >
+                      0 of 0
+                    </span>
+                    <span
+                      className="data-table-row-section recommendations-row-section"
+                      key="recommendations-1161-484135-826269"
+                      style={
+                        Object {
+                          "minWidth": "141px",
+                          "textAlign": "right",
+                          "width": "141px",
+                        }
+                      }
+                    />
+                    <span
+                      className="removable data-table-row-section"
+                    />
+                  </div>
+                  <div
+                    className="data-table-row  "
+                    key="1161-484134-826269"
+                  >
+                    <span
+                      className="data-table-row-section undefined"
+                      key="assignedDate-1161-484134-826269"
+                      style={
+                        Object {
+                          "minWidth": "100px",
+                          "textAlign": "left",
+                          "width": "100px",
+                        }
+                      }
+                    >
+                      Aug 17, 2020
+                    </span>
+                    <Tooltip
+                      key="class-1161-484134-826269"
+                      tooltipText="Quill Classroom Extremely Long So Long SUper Duper"
+                      tooltipTriggerStyle={
+                        Object {
+                          "minWidth": "215px",
+                          "textAlign": "left",
+                          "width": "215px",
+                        }
+                      }
+                      tooltipTriggerText="Quill Classroom Extremely Long So Long SUper Duper"
+                      tooltipTriggerTextClass="data-table-row-section undefined"
+                      tooltipTriggerTextStyle={
+                        Object {
+                          "minWidth": "215px",
+                          "textAlign": "left",
+                          "width": "215px",
+                        }
+                      }
+                    >
+                      <span
+                        className="quill-tooltip-trigger"
+                        style={
+                          Object {
+                            "minWidth": "215px",
+                            "textAlign": "left",
+                            "width": "215px",
+                          }
+                        }
+                      >
+                        <span
+                          className="data-table-row-section undefined"
+                          onMouseEnter={[Function]}
+                          onMouseLeave={[Function]}
+                          style={
+                            Object {
+                              "minWidth": "215px",
+                              "textAlign": "left",
+                              "width": "215px",
+                            }
+                          }
+                        >
+                          Quill Classroom Extremely Long So Long SUper Duper
+                        </span>
+                        <span
+                          className="quill-tooltip-wrapper"
+                        >
+                          <span
+                            className="quill-tooltip"
+                          >
+                            Quill Classroom Extremely Long So Long SUper Duper
+                          </span>
+                        </span>
+                      </span>
+                    </Tooltip>
+                    <span
+                      className="data-table-row-section undefined"
+                      key="unitName-1161-484134-826269"
+                      style={
+                        Object {
+                          "minWidth": "215px",
+                          "textAlign": "left",
+                          "width": "215px",
+                        }
+                      }
+                    >
+                      Every Diagnostic
+                    </span>
+                    <span
+                      className="data-table-row-section undefined"
+                      key="completed-1161-484134-826269"
+                      style={
+                        Object {
+                          "minWidth": "76px",
+                          "textAlign": "left",
+                          "width": "76px",
+                        }
+                      }
+                    >
+                      0 of 5
+                    </span>
+                    <span
+                      className="data-table-row-section recommendations-row-section"
+                      key="recommendations-1161-484134-826269"
+                      style={
+                        Object {
+                          "minWidth": "141px",
+                          "textAlign": "right",
+                          "width": "141px",
+                        }
+                      }
+                    />
+                    <span
+                      className="removable data-table-row-section"
+                    />
+                  </div>
+                </div>
+              </div>
+            </DataTable>
+          </section>
+        </DiagnosticContent>
+      </section>
+    </Diagnostic>
+  </div>
+</DiagnosticActivityPacks>
+`;
+
+exports[`DiagnosticActivityPacks component should render when there are no diagnostic activities 1`] = `
+<DiagnosticActivityPacks
+  passedDiagnostics={Array []}
+>
+  <EmptyDiagnosticProgressReport>
+    <section
+      className="diagnostic-reports-empty-state container"
+    >
+      <h1>
+        Diagnostic Reports
+      </h1>
+      <img
+        alt="Illustration showing a monochromatic document with a magnifying glass inspecting the document"
+        src="undefined/images/illustrations/diagnostic-monochromatic.svg"
+      />
+      <h2>
+        Start by assigning a diagnostic
+      </h2>
+      <p>
+        Nothing to see here yet! Once you assign a diagnostic your students’ reports will show up here.
+      </p>
+      <a
+        className="quill-button medium primary contained"
+        href="/assign/diagnostic"
+      >
+        Assign a diagnostic
+      </a>
+      <a
+        href="/tools/diagnostic"
+      >
+        Learn more about Quill Diagnostic
+      </a>
+    </section>
+  </EmptyDiagnosticProgressReport>
+</DiagnosticActivityPacks>
+`;

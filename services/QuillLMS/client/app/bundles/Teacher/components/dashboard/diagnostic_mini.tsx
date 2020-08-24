@@ -105,14 +105,11 @@ const DiagnosticMini = ({passedDiagnostics}) => {
   if (loading) { return <span /> }
   if (!loading && !diagnostics.length) { return assignDiagnosticMini() }
 
-  // @TODO - just make the actual link once the diagnostic reports page shows all diagnostics
-  const viewAllLink = <span /> || <a href="/teachers/progress_reports/diagnostic_reports/#/diagnostics">View All {diagnostics.length > 1 ? diagnostics.length : ''} Diagnostic Reports</a>
-
   return (<section className="mini_container results-overview-mini-container col-md-8 col-sm-10 text-center" id="recently-assigned-diagnostics-card">
     <section className="inner-container">
       <header className="header-container flex-row space-between vertically-centered">
         <h3>Recently Assigned Diagnostics</h3>
-        {viewAllLink}
+        <a href="/teachers/progress_reports/diagnostic_reports/#/diagnostics">View All {diagnostics.length > 1 ? diagnostics.length : ''} Diagnostic Reports</a>
       </header>
       <DataTable
         headers={headers}

@@ -17,7 +17,7 @@ const styles = {
     display: 'flex',
     justifyContent: 'space-between',
     alignItems: 'center',
-    maxWidth: '240px',
+    maxWidth: '242px',
   },
   lessonEndRow:{
     display: 'flex',
