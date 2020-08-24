@@ -9,6 +9,13 @@ export default {
     SessionApi.get(sessionID).then((session) => {
       const processedSession = processSession(session)
       callback(processedSession)
+    }).catch((error) => {
+      if (error.status === 404) {
+        const processedSession = processSession(null)
+        callback(processedSession)
+      } else {
+        throw error
+      }
     })
   },
 
@@ -26,14 +33,16 @@ export default {
 };
 
 function processSession(session) {
-  if (session.currentQuestion) {
-    if (session.currentQuestion.question) {
-      session.currentQuestion.question.attempts = [];
-    } else {
-      session.currentQuestion.data.attempts = [];
+  if (session != null) {
+    if (session.currentQuestion) {
+      if (session.currentQuestion.question) {
+        session.currentQuestion.question.attempts = [];
+      } else {
+        session.currentQuestion.data.attempts = [];
+      }
     }
+    session.unansweredQuestions = session.unansweredQuestions || [];
   }
-  session.unansweredQuestions = session.unansweredQuestions || [];
   return session
 }
 

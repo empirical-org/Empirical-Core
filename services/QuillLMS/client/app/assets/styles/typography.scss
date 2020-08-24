@@ -1,5 +1,8 @@
 body {
   font-family: $family-sans-serif;
+  -moz-font-feature-settings: "ss04";
+  -webkit-font-feature-settings: "ss04";
+  font-feature-settings: "ss04";
 }
 
 .monospace {

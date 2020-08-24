@@ -16,15 +16,14 @@ import fillInBlankActions from './actions/fillInBlank';
 import sentenceFragmentActions from './actions/sentenceFragments';
 import lessonActions from './actions/lessons';
 import titleCardActions from './actions/titleCards.ts';
-//import * as Sentry from '@sentry/browser';
+import * as Sentry from '@sentry/browser';
 import quillNormalizer from './libs/quillNormalizer';
 import Home from './components/home.tsx';
 
-// TO-DO: re-enable Sentry errors for QuillConnect when errors have been reduced
 
-// if (process.env.NODE_ENV === 'production') {
-//   Sentry.init({ dsn: 'https://528794315c61463db7d5181ebc1d51b9@o95148.ingest.sentry.io/210579' })
-// }
+if (process.env.NODE_ENV === 'production') {
+  Sentry.init({ dsn: 'https://528794315c61463db7d5181ebc1d51b9@o95148.ingest.sentry.io/210579' })
+}
 
 BackOff();
 const store = createStore();

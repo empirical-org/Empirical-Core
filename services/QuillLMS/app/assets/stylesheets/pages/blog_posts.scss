@@ -320,12 +320,13 @@ a.all-blog-posts-back-button {
     header {
       font-size: 14px;
       padding-top: 20px;
+      max-width: 750px;
 
       h1 {
         font-size: 30px;
         font-weight: 700;
         margin-bottom: 20px;
-        line-height: 2;
+        line-height: 39px;
       }
 
       img {
@@ -347,9 +348,9 @@ a.all-blog-posts-back-button {
     }
 
     main {
-      max-width: 750px;
       line-height: 1.75;
       margin-top: 40px;
+      max-width: 750px;
 
       h1, h2, h3, p, ul, ol, img, blockquote {
         margin: 32px 0;
