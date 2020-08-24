@@ -7,12 +7,14 @@
         integrations: {
           all: true
           <%#= We're using @should_load_intercom as a proxy for Salesmachine
+               and our new sales platform Vitally, which will replace it
                since the conditions are basically the same (teachers only).
                If we shouldn't load Intercom, then we shouldn't send any
-               events to Salesmachine, either. %>
+               events to Salesmachine or Vitally, either. %>
           <% unless @should_load_intercom %>
           , Intercom: false
           , Salesmachine: false
+          , Vitally: false
           <% end %>
         }
       }
