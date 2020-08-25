@@ -13,6 +13,7 @@ class SerializeVitallySalesAccount
       messageId: SecureRandom.uuid,
       traits: {
         name: @school.name,
+        address: @school.street,
         city: @school.city,
         state: @school.state,
         zipcode: @school.zipcode,
@@ -30,6 +31,7 @@ class SerializeVitallySalesAccount
         activities_finished: activities_finished,
         activities_per_student: activities_per_student,
         school_link: school_link,
+        created_at: @school.created_at,
         premium_expiry_date: subscription_expiration_date,
       }
     }
@@ -44,11 +46,11 @@ class SerializeVitallySalesAccount
   end
 
   private def active_students
-    @active_students ||= ClassroomsTeacher
-      .joins(user: :school, classroom: :activity_sessions)
-        .where('schools.id = ?', @school.id)
-        .where('activity_sessions.state = ?', 'finished')
-        .count("DISTINCT('activity_sessions.user_id')")
+    @active_students ||= ActivitySession.select(:user_id).distinct
+      .joins(classroom_unit: {classroom: {teachers: :school}})
+      .where(state: 'finished')
+      .where('schools.id = ?', @school.id)
+      .count
   end
 
   private def activities_finished
