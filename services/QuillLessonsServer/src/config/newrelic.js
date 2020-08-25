@@ -1,8 +1,8 @@
-// import newrelic from 'newrelic';
+import newrelic from 'newrelic';
 
 // // shorter wrapper around the startWebTransaction function
-// export function track(key, callback) {
-//   newrelic.startWebTransaction(key, function transactionHandler() {
-//     callback();
-//   });
-// }
+export function nrTrack(key, data, callback) {
+  newrelic.startWebTransaction('socket/' + key, function transactionHandler() {
+    data ? callback(data) : callback;
+  });
+}
