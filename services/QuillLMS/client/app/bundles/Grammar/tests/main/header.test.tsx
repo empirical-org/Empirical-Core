@@ -4,7 +4,7 @@ import { Header } from "../../components/Header";
 
 describe("<Header />", () => {
 
-  const component = shallow(<Header onTogglePreview={jest.fn()} previewShowing={true} />);
+  const component = shallow(<Header isTeacher={true} onTogglePreview={jest.fn()} previewShowing={true} />);
 
     it("should render", () => {
       expect(component).toMatchSnapshot();
