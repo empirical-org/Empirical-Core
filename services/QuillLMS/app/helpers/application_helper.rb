@@ -49,6 +49,24 @@ module ApplicationHelper
     "#{number}#{ending}"
   end
 
+  def demo_account?
+    current_user && /hello\+(.)*@quill.org/.match(current_user.email)
+  end
+
+  def staff_member?
+    current_user && session[:staff_id].present?
+  end
+
+  def on_sign_up?
+    current_path = request.env['PATH_INFO'] || ''
+
+    current_path.include?('sign-up')
+  end
+
+  def load_intercom?
+    current_user&.teacher? && !staff_member? && !demo_account? && !on_sign_up?
+  end
+
   def activity_student_report_path(activity_session)
     unit_id      = activity_session&.unit&.id
     activity_id  = activity_session&.activity_id
