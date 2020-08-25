@@ -227,7 +227,7 @@ $lightgray: #cecece;
     }
   }
 
-  .unstarted-row, .in-progress-row {
+  .not-completed-row, .in-progress-row {
     td:first-of-type {
       text-decoration: none;
     }
@@ -259,7 +259,7 @@ $lightgray: #cecece;
     background-color: #FEF0D2;
   }
 }
-.unstarted-row {
+.not-completed-row {
   background: #f7f5f5;
 }
 .in-progress-row {

@@ -2,7 +2,7 @@
 
 exports[`ClassReport component matches the snapshot 1`] = `
 <tr
-  className="unstarted-row"
+  className="not-completed-row"
   key="Emilia Friedberg"
 >
   <td>

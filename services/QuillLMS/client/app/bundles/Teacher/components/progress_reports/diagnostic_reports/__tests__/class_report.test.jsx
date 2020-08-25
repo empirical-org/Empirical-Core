@@ -125,39 +125,27 @@ describe('ClassReport component', () => {
         { name: 'Example Student', score: '75' },
         { name: 'Example Student', score: '33' },
       ];
-      const startedNames = ['Example A', 'Example B', 'Example C'];
-      const unstartedNames = ['Example A', 'Example B', 'Example C'];
+      const notCompletedNames = ['Example A', 'Example B', 'Example C'];
       const missedNames = ['Example A, Example B, Example C'];
       wrapper.find(ProgressReport).props().onFetchSuccess({
         students: students,
-        started_names: startedNames,
-        unstarted_names: unstartedNames,
+        not_completed_names: notCompletedNames,
         missed_names: missedNames
       });
       expect(wrapper.state().students).toEqual(students);
-      expect(wrapper.state().startedNames).toEqual(startedNames);
-      expect(wrapper.state().unstartedNames).toEqual(unstartedNames);
+      expect(wrapper.state().notCompletedNames).toEqual(notCompletedNames);
       expect(wrapper.state().missedNames).toEqual(missedNames);
     });
   });
 
-  it('startedRows render if there are started students and showInProgressAndUnstartedStudents is true', () => {
-    wrapper.setState({ startedNames: ['Example A', 'Example B', 'Example C'], showInProgressAndUnstartedStudents: true })
-    expect(wrapper.find('.in-progress-row').length).toBe(3);
+  it('notCompletedNames render if there are started students and showInProgressAndUnstartedStudents is true', () => {
+    wrapper.setState({ notCompletedNames: ['Example A', 'Example B', 'Example C'], showInProgressAndUnstartedStudents: true })
+    expect(wrapper.find('.not-completed-row').length).toBe(3);
   });
 
-  it('startedRows not to render if there are started students and showInProgressAndUnstartedStudents is false', () => {
-    wrapper.setState({ startedNames: ['Example A', 'Example B', 'Example C'], showInProgressAndUnstartedStudents: false  })
-    expect(wrapper.find('.in-progress-row').length).toBe(0);
+  it('notCompletedNames not to render if there are started students and showInProgressAndUnstartedStudents is false', () => {
+    wrapper.setState({ notCompletedNames: ['Example A', 'Example B', 'Example C'], showInProgressAndUnstartedStudents: false  })
+    expect(wrapper.find('.not-completed-row').length).toBe(0);
   });
 
-  it('unstartedRows render if there are unstarted students and showInProgressAndUnstartedStudents is true', () => {
-    wrapper.setState({ unstartedNames: ['Example A', 'Example B', 'Example C'], showInProgressAndUnstartedStudents: true  })
-    expect(wrapper.find('.unstarted-row').length).toBe(3);
-  });
-
-  it('unstartedRows not to render if there are unstarted students and showInProgressAndUnstartedStudents is false', () => {
-    wrapper.setState({ unstartedNames: ['Example A', 'Example B', 'Example C'], showInProgressAndUnstartedStudents: false  })
-    expect(wrapper.find('.unstarted-row').length).toBe(0);
-  });
 });

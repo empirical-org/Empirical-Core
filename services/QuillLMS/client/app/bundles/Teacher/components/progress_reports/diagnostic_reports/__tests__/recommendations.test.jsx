@@ -24,15 +24,41 @@ describe('Recommendations Component', () => {
     expect(wrapper.find(LoadingSpinner)).toHaveLength(1)
   })
 
-  it('renders as many RecommendationsTableCells as the number of students x number of activities', () => {
+  describe('if none of the students have completed the activity', () => {
+    const studentsWhoDidNotCompleteDiagnostic = students.map(s => {
+      const newS = {...s}
+      newS.completed = false
+      return newS
+    })
+    const wrapper = shallow(
+      <RecommendationsComponent
+        params={routeParams}
+        routeParams={routeParams}
+      />)
+    wrapper.setState({recommendations, students: studentsWhoDidNotCompleteDiagnostic, selections: recommendations, loading: false})
+
+    it('renders', () => {
+      expect(wrapper).toMatchSnapshot()
+    })
+  })
+
+  describe('if all of the students have completed the activity', () => {
     const wrapper = shallow(
       <RecommendationsComponent
         params={routeParams}
         routeParams={routeParams}
       />)
     wrapper.setState({recommendations, students, selections: recommendations, loading: false})
-    const numberOfRecommendationsTableCells = recommendations.length * students.length
-    expect(wrapper.find(RecommendationsTableCell)).toHaveLength(numberOfRecommendationsTableCells)
+
+    it('renders', () => {
+      expect(wrapper).toMatchSnapshot()
+    })
+
+    it('renders as many RecommendationsTableCells as the number of students x number of activities', () => {
+      const numberOfRecommendationsTableCells = recommendations.length * students.length
+      expect(wrapper.find(RecommendationsTableCell)).toHaveLength(numberOfRecommendationsTableCells)
+    })
+
   })
 
   describe('assignButton text', () => {
@@ -44,15 +70,15 @@ describe('Recommendations Component', () => {
       wrapper.setState({recommendations, students, selections: recommendations, loading: false})
       it('is Assigning... if this.state.assigning', () => {
         wrapper.setState({assigning: true})
-        expect(wrapper.find('.recommendations-assign-button').first().text()).toBe('Assigning...')
+        expect(wrapper.find('.quill-button.contained').first().text()).toBe('Assigning...')
       })
       it('is Assigned if this.state.assigned', () => {
         wrapper.setState({assigning: false, assigned: true})
-        expect(wrapper.find('.recommendations-assign-button').first().text()).toBe('Assigned')
+        expect(wrapper.find('.quill-button.contained').first().text()).toBe('Assigned')
       })
       it('is Assign Activity Packs otherwise', () => {
         wrapper.setState({assigning: false, assigned: false})
-        expect(wrapper.find('.recommendations-assign-button').first().text()).toBe('Assign Activity Packs')
+        expect(wrapper.find('.quill-button.contained').first().text()).toBe('Assign Activity Packs')
       })
   })
 
