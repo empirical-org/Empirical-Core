@@ -139,7 +139,6 @@ export default class ClassReport extends React.Component {
           />
           {this.startedAndUnstartedStudents()}
         </div>
-        <div className="feedback-note">We would love to hear about your experience with our diagnostics. Please share your feedback by filling out this <a href="https://docs.google.com/forms/d/1iPmKjOO1KhvgF1tbj--kUVml40FSf-CTbRxcuYHij5Q/edit?usp=sharing" rel="noopener noreferrer" target="_blank">short feedback form</a>.</div>
       </div>
     );
   }

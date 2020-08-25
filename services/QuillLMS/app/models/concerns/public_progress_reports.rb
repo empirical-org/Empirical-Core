@@ -243,7 +243,7 @@ module PublicProgressReports
                       .where(classroom_unit_id: classroom_unit.id, is_final_score: true, activity: activity_id)
       activity_sessions_counted = activity_sessions_with_counted_concepts(activity_sessions)
       students = classroom.students.map do |s|
-        completed = !!activity_sessions.find { |session| session.user_id == s&.id }
+        completed = activity_sessions.any? { |session| session.user_id == s&.id }
         {id: s&.id, name: s&.name || "Unknown Student", completed: completed }
       end
       sorted_students = students.sort_by {|stud| stud[:name].split()[1]}
