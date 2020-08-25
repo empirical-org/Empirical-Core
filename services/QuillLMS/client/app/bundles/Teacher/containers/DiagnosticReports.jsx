@@ -1,9 +1,9 @@
 import React from 'react'
 import { HashRouter, Route } from 'react-router-dom'
-import Index from '../components/progress_reports/diagnostic_reports/index.jsx'
-import ActivityPacks from '../components/progress_reports/diagnostic_reports/activity_packs.jsx'
-import DiagnosticActivityPacks from '../components/progress_reports/diagnostic_reports/diagnostic_activity_packs.jsx'
-import NotCompleted from '../components/progress_reports/diagnostic_reports/not_completed.jsx'
+import Index from '../components/progress_reports/diagnostic_reports/index'
+import ActivityPacks from '../components/progress_reports/diagnostic_reports/activity_packs'
+import DiagnosticActivityPacks from '../components/progress_reports/diagnostic_reports/diagnostic_activity_packs'
+import NotCompleted from '../components/progress_reports/diagnostic_reports/not_completed'
 
 const DiagnosticReports = () => {
     return (
