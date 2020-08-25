@@ -108,8 +108,24 @@ class Teachers::UnitsController < ApplicationController
   end
 
   def diagnostic_units
-    units_with_diagnostics = units(params['report']).select { |a| a['activity_classification_id'] == '4' }
-    render json: units_with_diagnostics.to_json
+    activities_with_calculated_data = diagnostic_assignments.map do |act|
+      sorted_individual_assignments = act['individual_assignments'].sort_by { |a| a['assigned_date'] }
+      act['individual_assignments'] = sorted_individual_assignments
+      act['last_assigned'] = sorted_individual_assignments[-1]['assigned_date']
+      all_class_ids = []
+      total_assigned = 0
+      total_completed = 0
+      act['individual_assignments'].each do |assignment|
+        all_class_ids.push(assignment['classroom_id'])
+        total_assigned += assignment['assigned_count']
+        total_completed += assignment['completed_count']
+      end
+      act['classes_count'] = all_class_ids.uniq.count
+      act['total_assigned'] = total_assigned
+      act['total_completed'] = total_completed
+      act
+    end
+    render json: activities_with_calculated_data.to_json
   end
 
   # Get all Units containing lessons, and only retrieve the classroom activities for lessons.
@@ -261,6 +277,60 @@ class Teachers::UnitsController < ApplicationController
     else
       []
     end
+  end
+
+  def diagnostic_unit_records
+    diagnostic_activity_ids = ActivityClassification.find_by_key('diagnostic').activity_ids
+    records = ClassroomsTeacher.select("
+      classrooms.name AS classroom_name,
+      activities.name AS activity_name,
+      activities.id AS activity_id,
+      classroom_units.unit_id AS unit_id,
+      units.name AS unit_name,
+      classrooms.id AS classroom_id,
+      activity_sessions.count AS completed_count,
+      array_length(classroom_units.assigned_student_ids, 1) AS assigned_count,
+      greatest(unit_activities.created_at, classroom_units.created_at) AS assigned_date
+    ")
+    .joins("JOIN classrooms ON classrooms_teachers.classroom_id = classrooms.id AND classrooms.visible = TRUE AND classrooms_teachers.user_id = #{current_user.id}")
+    .joins("JOIN classroom_units ON classroom_units.classroom_id = classrooms.id AND classroom_units.visible")
+    .joins("JOIN units ON classroom_units.unit_id = units.id AND units.visible")
+    .joins("JOIN unit_activities ON unit_activities.unit_id = classroom_units.unit_id AND unit_activities.activity_id IN (#{diagnostic_activity_ids.join(',')}) AND unit_activities.visible")
+    .joins("JOIN activities ON unit_activities.activity_id = activities.id")
+    .joins("LEFT JOIN activity_sessions ON activity_sessions.activity_id = unit_activities.activity_id AND activity_sessions.classroom_unit_id = classroom_units.id AND activity_sessions.visible")
+    .group("classrooms.name, activities.name, activities.id, classroom_units.unit_id, units.name, classrooms.id, classroom_units.assigned_student_ids, unit_activities.created_at, classroom_units.created_at")
+    .order("greatest(classroom_units.created_at, unit_activities.created_at) DESC")
+    records.map do |r|
+      {
+        "assigned_count" => r['assigned_count'] || 0,
+        "completed_count" => r['completed_count'],
+        "classroom_name" => r['classroom_name'],
+        "activity_name" => r['activity_name'],
+        "activity_id" => r['activity_id'],
+        "unit_id" => r['unit_id'],
+        "unit_name" => r['unit_name'],
+        "classroom_id" => r['classroom_id'],
+        "assigned_date" => r['assigned_date']
+      }
+    end
+  end
+
+  def diagnostic_assignments
+    assignments = []
+    diagnostic_unit_records.each do |r|
+      index_of_extant_activity = assignments.find_index { |a| a['id'] == r['activity_id'] }
+      if index_of_extant_activity
+        assignments[index_of_extant_activity]['individual_assignments'].push(r)
+        next
+      end
+      activity = {
+        "name" => r['activity_name'],
+        "id" => r["activity_id"],
+        "individual_assignments" => [r]
+      }
+      assignments.push(activity)
+    end
+    assignments
   end
 
 end
