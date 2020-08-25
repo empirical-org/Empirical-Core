@@ -307,35 +307,47 @@ export class QuestionComponent extends React.Component<QuestionProps, QuestionSt
     }
   }
 
+  getCheckAnswerForPreview = (buttonClassName: string) => {
+    const { previewQuestionCorrect, previewSubmissionCount, isLastPreviewQuestion } = this.state;
+    // correctly answered or max attempts reached
+    if((previewQuestionCorrect || previewSubmissionCount === ALLOWED_ATTEMPTS) && !isLastPreviewQuestion) {
+      return <button className={buttonClassName} onClick={this.handleNextProblemClick} type="submit">Next question</button>
+    } else if((previewSubmissionCount === ALLOWED_ATTEMPTS || previewQuestionCorrect) && isLastPreviewQuestion) {
+      // correctly answered or max attempts reached on last question
+      return <button className={`${buttonClassName} disabled`} type="submit">Get feedback</button>
+    }
+    return <button className={buttonClassName} onClick={this.handleCheckWorkClick} type="submit">Get feedback</button>
+  }
+
+  getCheckAnswerForStandardPlay = (buttonClassName: string) => {
+    const { questionStatus, response } = this.state
+    const { unansweredQuestions } = this.props;
+    if ([CORRECTLY_ANSWERED, FINAL_ATTEMPT].includes(questionStatus)) {
+      const buttonText = unansweredQuestions.length === 0 ? 'Next' : 'Next question'
+      return <button className={buttonClassName} onClick={this.handleNextProblemClick} type="submit">{buttonText}</button>
+    }
+    if (!response.length || this.previousResponses().includes(response)) {
+      return <button className={`${buttonClassName} disabled`} type="submit">Get feedback</button>
+    }
+    return <button className={buttonClassName} onClick={this.handleCheckWorkClick} type="submit">Get feedback</button>
+  }
+
   renderCheckAnswerButton(): JSX.Element | void {
-    const { questionStatus, responses, response, previewQuestionCorrect, previewSubmissionCount, isLastPreviewQuestion } = this.state
-    const { previewMode, unansweredQuestions } = this.props;
+    const { responses } = this.state
+    const { previewMode } = this.props;
     if (!Object.keys(responses).length && !previewMode) { return }
 
     const buttonClassName = "quill-button primary contained large focus-on-light"
 
     if(previewMode) {
-      if((previewQuestionCorrect || previewSubmissionCount === ALLOWED_ATTEMPTS) && !isLastPreviewQuestion) {
-        return <button className={buttonClassName} onClick={this.handleNextProblemClick} type="submit">Next question</button>
-      } else if((previewSubmissionCount === ALLOWED_ATTEMPTS || previewQuestionCorrect) && isLastPreviewQuestion) {
-        return <button className={`${buttonClassName} disabled`} type="submit">Get feedback</button>
-      }
-      return <button className={buttonClassName} onClick={this.handleCheckWorkClick} type="submit">Get feedback</button>
+      return this.getCheckAnswerForPreview(buttonClassName);
     } else {
-      if ([CORRECTLY_ANSWERED, FINAL_ATTEMPT].includes(questionStatus)) {
-        const buttonText = unansweredQuestions.length === 0 ? 'Next' : 'Next question'
-        return <button className={buttonClassName} onClick={this.handleNextProblemClick} type="submit">{buttonText}</button>
-      }
-      if (!response.length || this.previousResponses().includes(response)) {
-        return <button className={`${buttonClassName} disabled`} type="submit">Get feedback</button>
-      }
-      return <button className={buttonClassName} onClick={this.handleCheckWorkClick} type="submit">Get feedback</button>
+      return this.getCheckAnswerForStandardPlay(buttonClassName);
     }
   }
 
-  renderTopSection(): JSX.Element {
+  getQuestionCounts = (): object => {
     const { answeredQuestions, unansweredQuestions, activity, previewMode, randomizedQuestions } = this.props;
-    // const { randomizedQuestions } = this.state;
     let answeredQuestionCount;
     let totalQuestionCount;
     const question = this.currentQuestion();
@@ -356,13 +368,22 @@ export class QuestionComponent extends React.Component<QuestionProps, QuestionSt
       answeredQuestionCount = answeredQuestions.length + 1;
       totalQuestionCount = answeredQuestionCount + unansweredQuestions.length;
     }
-    const meterWidth = answeredQuestionCount / totalQuestionCount * 100
+    return {
+      answeredQuestionCount,
+      totalQuestionCount
+    };
+  }
+
+  renderTopSection(): JSX.Element {
+    const { activity } = this.props;
+    const counts = this.getQuestionCounts();
+    const meterWidth = counts['answeredQuestionCount'] / counts['totalQuestionCount'] * 100
     return (<div className="top-section">
       <ProgressBar
-        answeredQuestionCount={answeredQuestionCount}
+        answeredQuestionCount={counts['answeredQuestionCount']}
         label="questions"
         percent={meterWidth}
-        questionCount={totalQuestionCount}
+        questionCount={counts['totalQuestionCount']}
       />
       <Row
         align="middle"
@@ -381,17 +402,13 @@ export class QuestionComponent extends React.Component<QuestionProps, QuestionSt
     const question = this.currentQuestion()
     const latestAttempt: Response | undefined = this.getLatestAttempt(question.attempts)
     const maxPreviewQuestionAttempts = previewSubmissionCount === ALLOWED_ATTEMPTS;
-    if ((question.attempts && question.attempts.length === ALLOWED_ATTEMPTS) && (latestAttempt && !latestAttempt.optimal)) { 
-      return 
-    } else if(previewSubmissionCount === ALLOWED_ATTEMPTS) {
-      return
-    }
+    const nonOptimal = (question.attempts && question.attempts.length === ALLOWED_ATTEMPTS) && (latestAttempt && !latestAttempt.optimal);
+    const noMoreSubmissionsForStudentSession = [CORRECTLY_ANSWERED, FINAL_ATTEMPT].includes(questionStatus) && !previewMode;
+    const noMoreSubmissionsForPreviewSession = maxPreviewQuestionAttempts || previewQuestionCorrect;
+    const disabled = noMoreSubmissionsForStudentSession && noMoreSubmissionsForPreviewSession ? 'disabled' : '';
 
-    let disabled;
-    if([CORRECTLY_ANSWERED, FINAL_ATTEMPT].includes(questionStatus) && !previewMode) {
-      disabled = 'disabled';
-    } else if(maxPreviewQuestionAttempts || previewQuestionCorrect) {
-      disabled = 'disabled';
+    if(nonOptimal || maxPreviewQuestionAttempts) {
+      return 
     }
 
     return (<Row align="middle" justify="start" type="flex">
@@ -433,6 +450,25 @@ export class QuestionComponent extends React.Component<QuestionProps, QuestionSt
     </div>)
   }
 
+  renderPreviewFeedbackSection({ question, response, responses, previewQuestionCorrect, previewSubmissionCount }): JSX.Element | undefined {
+    const questionUID: string = question.key
+    const focusPoints = question.focusPoints ? hashToCollection(question.focusPoints).sort((a: { order: number }, b: { order: number }) => a.order - b.order) : [];
+    const incorrectSequences = question.incorrectSequences ? hashToCollection(question.incorrectSequences) : [];
+    const defaultConceptUID = question.modelConceptUID || question.concept_uid
+    const responseObj = checkGrammarQuestion(questionUID, response, responses, focusPoints, incorrectSequences, defaultConceptUID);
+    if (responseObj.optimal && !previewQuestionCorrect) {
+      this.setState({ previewQuestionCorrect: true });
+    }
+    if(responseObj.optimal && previewQuestionCorrect) {
+      return <Feedback feedback={<p dangerouslySetInnerHTML={{ __html: responseObj.feedback }} />} feedbackType="correct-matched" />
+    }
+    if(previewSubmissionCount === ALLOWED_ATTEMPTS) {
+      const finalAttemptFeedback = `<b>Good try!</b> Compare your response to the strong response, and then go on to the next question.<br><br><b>Your response</b><br>${response}<br><br><b>A strong response</b><br>${this.correctResponse()}`
+      return <Feedback feedback={<p dangerouslySetInnerHTML={{ __html: finalAttemptFeedback }} />} feedbackType="incorrect-continue" />
+    }
+    return <Feedback feedback={<p dangerouslySetInnerHTML={{ __html: responseObj.feedback }} />} feedbackType="revise-matched" />
+  }
+
   renderFeedbackSection(): JSX.Element | undefined {
     const { previewMode } = this.props;
     const { response, responses, submittedForPreview, previewSubmissionCount, previewQuestionCorrect } = this.state
@@ -442,22 +478,7 @@ export class QuestionComponent extends React.Component<QuestionProps, QuestionSt
     if (!latestAttempt && !submittedForPreview) { return <Feedback feedback={<p dangerouslySetInnerHTML={{ __html: this.currentQuestion().instructions }} />} feedbackType="instructions" />}
 
     if(previewMode) {
-      const questionUID: string = question.key
-      const focusPoints = question.focusPoints ? hashToCollection(question.focusPoints).sort((a, b) => a.order - b.order) : [];
-      const incorrectSequences = question.incorrectSequences ? hashToCollection(question.incorrectSequences) : [];
-      const defaultConceptUID = question.modelConceptUID || question.concept_uid
-      const responseObj = checkGrammarQuestion(questionUID, response, responses, focusPoints, incorrectSequences, defaultConceptUID);
-      if (responseObj.optimal && !previewQuestionCorrect) {
-        this.setState({ previewQuestionCorrect: true });
-      }
-      if(responseObj.optimal && previewQuestionCorrect) {
-        return <Feedback feedback={<p dangerouslySetInnerHTML={{ __html: responseObj.feedback }} />} feedbackType="correct-matched" />
-      }
-      if(previewSubmissionCount === ALLOWED_ATTEMPTS) {
-        const finalAttemptFeedback = `<b>Good try!</b> Compare your response to the strong response, and then go on to the next question.<br><br><b>Your response</b><br>${response}<br><br><b>A strong response</b><br>${this.correctResponse()}`
-        return <Feedback feedback={<p dangerouslySetInnerHTML={{ __html: finalAttemptFeedback }} />} feedbackType="incorrect-continue" />
-      }
-      return <Feedback feedback={<p dangerouslySetInnerHTML={{ __html: responseObj.feedback }} />} feedbackType="revise-matched" />
+      return this.renderPreviewFeedbackSection({ question, response, responses, previewQuestionCorrect, previewSubmissionCount });
     }
 
     if (latestAttempt && latestAttempt.optimal) {

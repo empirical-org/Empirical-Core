@@ -15,14 +15,13 @@ interface Activity {
 }
 
 const renderTitleSection = (activity: Activity) => {
-  if(activity) {
-    return(
-      <section>
-        <h2>Activity</h2>
-        <p>{activity.title}</p>
-      </section>
-    );
-  }
+  if (!activity) { return }
+  return(
+    <section>
+      <h2>Activity</h2>
+      <p>{activity.title}</p>
+    </section>
+  );
 }
 
 const getStyling = (questionToPreview, uidOrKey: string, i: number) => {
@@ -30,6 +29,7 @@ const getStyling = (questionToPreview, uidOrKey: string, i: number) => {
   if(questionToPreview) {
     key = questionToPreview.key ? questionToPreview.key : questionToPreview.uid;
   }
+  // if first question has no key from initial render, apply highlight
   return key === uidOrKey || (i === 0 && !key) ? 'highlighted' : '';
 }
 
@@ -40,13 +40,10 @@ const getIndentation = (i: number) => {
 const renderQuestions = ({ 
   activity, 
   handleQuestionUpdate, 
-  onUpdateRandomizedQuestions, 
-  onToggleQuestion,
   questions, 
   questionToPreview,
   randomizedQuestions, 
-  session, 
-  setRandomizedQuestions, 
+  session
 }) => {
   if(!activity && !randomizedQuestions && !session.currentQuestion && !session.unansweredQuestions) {
     return null;
@@ -62,11 +59,6 @@ const renderQuestions = ({
         </button>
       );
     })
-  } else if(!randomizedQuestions && session.currentQuestion && session.unansweredQuestions) {
-    const activityQuestions = [session.currentQuestion, ...session.unansweredQuestions];
-    setRandomizedQuestions(activityQuestions);
-    onUpdateRandomizedQuestions(activityQuestions);
-    onToggleQuestion(session.currentQuestion);
   } else if(randomizedQuestions) {
     return randomizedQuestions.map((question: any, i: number) => {
       const { uid } = question;
@@ -116,7 +108,13 @@ const TeacherPreviewMenu = ({
     if (activityUID) {
       dispatch(getActivity(activityUID))
     }
-  }, []);
+    if(!randomizedQuestions && session.currentQuestion && session.unansweredQuestions) {
+      const activityQuestions = [session.currentQuestion, ...session.unansweredQuestions];
+      setRandomizedQuestions(activityQuestions);
+      onUpdateRandomizedQuestions(activityQuestions);
+      onToggleQuestion(session.currentQuestion);
+    }
+  }, [session]);
 
   const handleToggleMenu = () => {
     onTogglePreview();
@@ -139,7 +137,6 @@ const TeacherPreviewMenu = ({
   return (
     <aside className={`teacher-preview-menu-container ${hiddenStyle}`}>
       <section className="header-container">
-        <div />
         <h1>Menu</h1>
         <button className="close-preview-button focus-on-light" onClick={handleToggleMenu} type="button">
           <img alt="close-preview-button" src={`${process.env.CDN_URL}/images/icons/close.svg`} />
@@ -155,14 +152,11 @@ const TeacherPreviewMenu = ({
         <ul>
           {renderQuestions({  
             activity, 
-            handleQuestionUpdate, 
-            onUpdateRandomizedQuestions, 
-            onToggleQuestion,
+            handleQuestionUpdate,
             questions, 
             questionToPreview,
             randomizedQuestions, 
-            session, 
-            setRandomizedQuestions
+            session
           })}
         </ul>
       </section>

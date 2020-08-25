@@ -16,11 +16,13 @@ interface PageLayoutState {
 
 export class PageLayout extends React.Component<any, PageLayoutState> {
   constructor(props: any) {
-    super(props)
+    super(props);
+
+    const studentSession = getParameterByName('student', window.location.href);
 
     this.state = { 
       showFocusState: false,
-      previewShowing: false,
+      previewShowing: !studentSession,
       questionToPreview: null,
       switchedBackToPreview: false,
       randomizedQuestions: null
@@ -29,19 +31,10 @@ export class PageLayout extends React.Component<any, PageLayoutState> {
 
   componentDidMount() {
     document.addEventListener('keydown', this.handleKeyDown);
-    this.handleMenuShowState();
-
   }
 
   componentWillUnmount() {
     document.removeEventListener('keydown', this.handleKeyDown)
-  }
-
-  handleMenuShowState = () => {
-    const studentSession = getParameterByName('student', window.location.href);
-    if(!studentSession) {
-      this.setState({ previewShowing: true });
-    }
   }
 
   handleKeyDown = (e: any) => {
@@ -90,7 +83,7 @@ export class PageLayout extends React.Component<any, PageLayoutState> {
     className = showFocusState ? '' : 'hide-focus-outline';
     let header;
     if(isPlaying && !studentSession) {
-      header = <Header onTogglePreview={this.handleTogglePreviewMenu} previewShowing={previewShowing} />;
+      header = <Header isTeacher={!studentSession} onTogglePreview={this.handleTogglePreviewMenu} previewShowing={previewShowing} />;
     } else if(isPlaying) {
       header = <Header />;
     }
@@ -127,19 +120,18 @@ export class PageLayout extends React.Component<any, PageLayoutState> {
           </Layout>
         </Layout>
       );
-    } else {
-      return (
-        <Layout className={className}>
-          <Layout>
-            <Layout.Content>
-              <button className="skip-main" onClick={this.handleSkipToMainContentClick} type="button">Skip to main content</button>
-              {header}
-              <div id="main-content" tabIndex={-1}>{renderRoutes(routes, {previewMode: previewShowing})}</div>
-            </Layout.Content>
-          </Layout>
-        </Layout>
-      );
     }
+    return (
+      <Layout className={className}>
+        <Layout>
+          <Layout.Content>
+            <button className="skip-main" onClick={this.handleSkipToMainContentClick} type="button">Skip to main content</button>
+            {header}
+            <div id="main-content" tabIndex={-1}>{renderRoutes(routes, {previewMode: previewShowing})}</div>
+          </Layout.Content>
+        </Layout>
+      </Layout>
+    );
   }
 };
 
