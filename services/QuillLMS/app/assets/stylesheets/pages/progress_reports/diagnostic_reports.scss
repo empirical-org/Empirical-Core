@@ -28,6 +28,12 @@
 .individual-activity-reports {
     margin: 0 auto;
     padding-bottom: 91px;
+    .css-10nd86i {
+      position: static;
+    }
+    .dropdown__menu {
+      top: 0;
+    }
 }
 
 /* should be moved into select-item-dropdown file*/
@@ -590,7 +596,7 @@ $lightgray: #cecece;
         line-height: 1.15;
       }
       .not-completed-cell {
-        max-width: 802px;
+        max-width: 810px;
         width: 100%;
         border: solid 1px #cecece;
         border-left: none;
