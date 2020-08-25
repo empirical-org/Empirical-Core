@@ -556,7 +556,12 @@ exports[`DiagnosticActivityPacks component should render when there are diagnost
                     "class": "A New Class",
                     "completed": "0 of 0",
                     "id": "849-484135-826270",
-                    "recommendations": null,
+                    "recommendations": <a
+                      className="quill-button small secondary outlined"
+                      href="/teachers/progress_reports/diagnostic_reports#/u/826270/a/849/c/484135/recommendations"
+                    >
+                      View
+                    </a>,
                     "unitName": "Starter Diagnostic",
                   },
                   Object {
@@ -564,7 +569,12 @@ exports[`DiagnosticActivityPacks component should render when there are diagnost
                     "class": "Quill Classroom Extremely Long So Long SUper Duper",
                     "completed": "0 of 5",
                     "id": "849-484134-826270",
-                    "recommendations": null,
+                    "recommendations": <a
+                      className="quill-button small secondary outlined"
+                      href="/teachers/progress_reports/diagnostic_reports#/u/826270/a/849/c/484134/recommendations"
+                    >
+                      View
+                    </a>,
                     "unitName": "Starter Diagnostic",
                   },
                 ]
@@ -836,7 +846,14 @@ exports[`DiagnosticActivityPacks component should render when there are diagnost
                           "width": "141px",
                         }
                       }
-                    />
+                    >
+                      <a
+                        className="quill-button small secondary outlined"
+                        href="/teachers/progress_reports/diagnostic_reports#/u/826270/a/849/c/484135/recommendations"
+                      >
+                        View
+                      </a>
+                    </span>
                     <span
                       className="removable data-table-row-section"
                     />
@@ -949,7 +966,14 @@ exports[`DiagnosticActivityPacks component should render when there are diagnost
                           "width": "141px",
                         }
                       }
-                    />
+                    >
+                      <a
+                        className="quill-button small secondary outlined"
+                        href="/teachers/progress_reports/diagnostic_reports#/u/826270/a/849/c/484134/recommendations"
+                      >
+                        View
+                      </a>
+                    </span>
                     <span
                       className="removable data-table-row-section"
                     />
@@ -1176,7 +1200,12 @@ exports[`DiagnosticActivityPacks component should render when there are diagnost
                     "class": "A New Class",
                     "completed": "0 of 0",
                     "id": "850-484135-826269",
-                    "recommendations": null,
+                    "recommendations": <a
+                      className="quill-button small secondary outlined"
+                      href="/teachers/progress_reports/diagnostic_reports#/u/826269/a/850/c/484135/recommendations"
+                    >
+                      View
+                    </a>,
                     "unitName": "Every Diagnostic",
                   },
                   Object {
@@ -1184,7 +1213,12 @@ exports[`DiagnosticActivityPacks component should render when there are diagnost
                     "class": "Quill Classroom Extremely Long So Long SUper Duper",
                     "completed": "0 of 5",
                     "id": "850-484134-826269",
-                    "recommendations": null,
+                    "recommendations": <a
+                      className="quill-button small secondary outlined"
+                      href="/teachers/progress_reports/diagnostic_reports#/u/826269/a/850/c/484134/recommendations"
+                    >
+                      View
+                    </a>,
                     "unitName": "Every Diagnostic",
                   },
                 ]
@@ -1257,7 +1291,7 @@ exports[`DiagnosticActivityPacks component should render when there are diagnost
                     style={
                       Object {
                         "minWidth": "141px",
-                        "textAlign": "right",
+                        "textAlign": "left",
                         "width": "141px",
                       }
                     }
@@ -1332,11 +1366,18 @@ exports[`DiagnosticActivityPacks component should render when there are diagnost
                       style={
                         Object {
                           "minWidth": "141px",
-                          "textAlign": "right",
+                          "textAlign": "left",
                           "width": "141px",
                         }
                       }
-                    />
+                    >
+                      <a
+                        className="quill-button small secondary outlined"
+                        href="/teachers/progress_reports/diagnostic_reports#/u/826269/a/850/c/484135/recommendations"
+                      >
+                        View
+                      </a>
+                    </span>
                     <span
                       className="removable data-table-row-section"
                     />
@@ -1445,11 +1486,18 @@ exports[`DiagnosticActivityPacks component should render when there are diagnost
                       style={
                         Object {
                           "minWidth": "141px",
-                          "textAlign": "right",
+                          "textAlign": "left",
                           "width": "141px",
                         }
                       }
-                    />
+                    >
+                      <a
+                        className="quill-button small secondary outlined"
+                        href="/teachers/progress_reports/diagnostic_reports#/u/826269/a/850/c/484134/recommendations"
+                      >
+                        View
+                      </a>
+                    </span>
                     <span
                       className="removable data-table-row-section"
                     />
@@ -1676,7 +1724,12 @@ exports[`DiagnosticActivityPacks component should render when there are diagnost
                     "class": "A New Class",
                     "completed": "0 of 0",
                     "id": "992-484135-826269",
-                    "recommendations": null,
+                    "recommendations": <a
+                      className="quill-button small secondary outlined"
+                      href="/teachers/progress_reports/diagnostic_reports#/u/826269/a/992/c/484135/recommendations"
+                    >
+                      View
+                    </a>,
                     "unitName": "Every Diagnostic",
                   },
                   Object {
@@ -1684,7 +1737,12 @@ exports[`DiagnosticActivityPacks component should render when there are diagnost
                     "class": "Quill Classroom Extremely Long So Long SUper Duper",
                     "completed": "0 of 5",
                     "id": "992-484134-826269",
-                    "recommendations": null,
+                    "recommendations": <a
+                      className="quill-button small secondary outlined"
+                      href="/teachers/progress_reports/diagnostic_reports#/u/826269/a/992/c/484134/recommendations"
+                    >
+                      View
+                    </a>,
                     "unitName": "Every Diagnostic",
                   },
                 ]
@@ -1757,7 +1815,7 @@ exports[`DiagnosticActivityPacks component should render when there are diagnost
                     style={
                       Object {
                         "minWidth": "141px",
-                        "textAlign": "right",
+                        "textAlign": "left",
                         "width": "141px",
                       }
                     }
@@ -1832,11 +1890,18 @@ exports[`DiagnosticActivityPacks component should render when there are diagnost
                       style={
                         Object {
                           "minWidth": "141px",
-                          "textAlign": "right",
+                          "textAlign": "left",
                           "width": "141px",
                         }
                       }
-                    />
+                    >
+                      <a
+                        className="quill-button small secondary outlined"
+                        href="/teachers/progress_reports/diagnostic_reports#/u/826269/a/992/c/484135/recommendations"
+                      >
+                        View
+                      </a>
+                    </span>
                     <span
                       className="removable data-table-row-section"
                     />
@@ -1945,11 +2010,18 @@ exports[`DiagnosticActivityPacks component should render when there are diagnost
                       style={
                         Object {
                           "minWidth": "141px",
-                          "textAlign": "right",
+                          "textAlign": "left",
                           "width": "141px",
                         }
                       }
-                    />
+                    >
+                      <a
+                        className="quill-button small secondary outlined"
+                        href="/teachers/progress_reports/diagnostic_reports#/u/826269/a/992/c/484134/recommendations"
+                      >
+                        View
+                      </a>
+                    </span>
                     <span
                       className="removable data-table-row-section"
                     />
@@ -2176,7 +2248,12 @@ exports[`DiagnosticActivityPacks component should render when there are diagnost
                     "class": "A New Class",
                     "completed": "0 of 0",
                     "id": "447-484135-826269",
-                    "recommendations": null,
+                    "recommendations": <a
+                      className="quill-button small secondary outlined"
+                      href="/teachers/progress_reports/diagnostic_reports#/u/826269/a/447/c/484135/recommendations"
+                    >
+                      View
+                    </a>,
                     "unitName": "Every Diagnostic",
                   },
                   Object {
@@ -2184,7 +2261,12 @@ exports[`DiagnosticActivityPacks component should render when there are diagnost
                     "class": "Quill Classroom Extremely Long So Long SUper Duper",
                     "completed": "0 of 5",
                     "id": "447-484134-826269",
-                    "recommendations": null,
+                    "recommendations": <a
+                      className="quill-button small secondary outlined"
+                      href="/teachers/progress_reports/diagnostic_reports#/u/826269/a/447/c/484134/recommendations"
+                    >
+                      View
+                    </a>,
                     "unitName": "Every Diagnostic",
                   },
                 ]
@@ -2257,7 +2339,7 @@ exports[`DiagnosticActivityPacks component should render when there are diagnost
                     style={
                       Object {
                         "minWidth": "141px",
-                        "textAlign": "right",
+                        "textAlign": "left",
                         "width": "141px",
                       }
                     }
@@ -2332,11 +2414,18 @@ exports[`DiagnosticActivityPacks component should render when there are diagnost
                       style={
                         Object {
                           "minWidth": "141px",
-                          "textAlign": "right",
+                          "textAlign": "left",
                           "width": "141px",
                         }
                       }
-                    />
+                    >
+                      <a
+                        className="quill-button small secondary outlined"
+                        href="/teachers/progress_reports/diagnostic_reports#/u/826269/a/447/c/484135/recommendations"
+                      >
+                        View
+                      </a>
+                    </span>
                     <span
                       className="removable data-table-row-section"
                     />
@@ -2445,11 +2534,18 @@ exports[`DiagnosticActivityPacks component should render when there are diagnost
                       style={
                         Object {
                           "minWidth": "141px",
-                          "textAlign": "right",
+                          "textAlign": "left",
                           "width": "141px",
                         }
                       }
-                    />
+                    >
+                      <a
+                        className="quill-button small secondary outlined"
+                        href="/teachers/progress_reports/diagnostic_reports#/u/826269/a/447/c/484134/recommendations"
+                      >
+                        View
+                      </a>
+                    </span>
                     <span
                       className="removable data-table-row-section"
                     />
@@ -2676,7 +2772,12 @@ exports[`DiagnosticActivityPacks component should render when there are diagnost
                     "class": "A New Class",
                     "completed": "0 of 0",
                     "id": "1230-484135-826269",
-                    "recommendations": null,
+                    "recommendations": <a
+                      className="quill-button small secondary outlined"
+                      href="/teachers/progress_reports/diagnostic_reports#/u/826269/a/1230/c/484135/recommendations"
+                    >
+                      View
+                    </a>,
                     "unitName": "Every Diagnostic",
                   },
                   Object {
@@ -2684,7 +2785,12 @@ exports[`DiagnosticActivityPacks component should render when there are diagnost
                     "class": "Quill Classroom Extremely Long So Long SUper Duper",
                     "completed": "0 of 5",
                     "id": "1230-484134-826269",
-                    "recommendations": null,
+                    "recommendations": <a
+                      className="quill-button small secondary outlined"
+                      href="/teachers/progress_reports/diagnostic_reports#/u/826269/a/1230/c/484134/recommendations"
+                    >
+                      View
+                    </a>,
                     "unitName": "Every Diagnostic",
                   },
                 ]
@@ -2757,7 +2863,7 @@ exports[`DiagnosticActivityPacks component should render when there are diagnost
                     style={
                       Object {
                         "minWidth": "141px",
-                        "textAlign": "right",
+                        "textAlign": "left",
                         "width": "141px",
                       }
                     }
@@ -2832,11 +2938,18 @@ exports[`DiagnosticActivityPacks component should render when there are diagnost
                       style={
                         Object {
                           "minWidth": "141px",
-                          "textAlign": "right",
+                          "textAlign": "left",
                           "width": "141px",
                         }
                       }
-                    />
+                    >
+                      <a
+                        className="quill-button small secondary outlined"
+                        href="/teachers/progress_reports/diagnostic_reports#/u/826269/a/1230/c/484135/recommendations"
+                      >
+                        View
+                      </a>
+                    </span>
                     <span
                       className="removable data-table-row-section"
                     />
@@ -2945,11 +3058,18 @@ exports[`DiagnosticActivityPacks component should render when there are diagnost
                       style={
                         Object {
                           "minWidth": "141px",
-                          "textAlign": "right",
+                          "textAlign": "left",
                           "width": "141px",
                         }
                       }
-                    />
+                    >
+                      <a
+                        className="quill-button small secondary outlined"
+                        href="/teachers/progress_reports/diagnostic_reports#/u/826269/a/1230/c/484134/recommendations"
+                      >
+                        View
+                      </a>
+                    </span>
                     <span
                       className="removable data-table-row-section"
                     />
@@ -3176,7 +3296,12 @@ exports[`DiagnosticActivityPacks component should render when there are diagnost
                     "class": "A New Class",
                     "completed": "0 of 0",
                     "id": "888-484135-826269",
-                    "recommendations": null,
+                    "recommendations": <a
+                      className="quill-button small secondary outlined"
+                      href="/teachers/progress_reports/diagnostic_reports#/u/826269/a/888/c/484135/recommendations"
+                    >
+                      View
+                    </a>,
                     "unitName": "Every Diagnostic",
                   },
                   Object {
@@ -3184,7 +3309,12 @@ exports[`DiagnosticActivityPacks component should render when there are diagnost
                     "class": "Quill Classroom Extremely Long So Long SUper Duper",
                     "completed": "0 of 5",
                     "id": "888-484134-826269",
-                    "recommendations": null,
+                    "recommendations": <a
+                      className="quill-button small secondary outlined"
+                      href="/teachers/progress_reports/diagnostic_reports#/u/826269/a/888/c/484134/recommendations"
+                    >
+                      View
+                    </a>,
                     "unitName": "Every Diagnostic",
                   },
                 ]
@@ -3257,7 +3387,7 @@ exports[`DiagnosticActivityPacks component should render when there are diagnost
                     style={
                       Object {
                         "minWidth": "141px",
-                        "textAlign": "right",
+                        "textAlign": "left",
                         "width": "141px",
                       }
                     }
@@ -3332,11 +3462,18 @@ exports[`DiagnosticActivityPacks component should render when there are diagnost
                       style={
                         Object {
                           "minWidth": "141px",
-                          "textAlign": "right",
+                          "textAlign": "left",
                           "width": "141px",
                         }
                       }
-                    />
+                    >
+                      <a
+                        className="quill-button small secondary outlined"
+                        href="/teachers/progress_reports/diagnostic_reports#/u/826269/a/888/c/484135/recommendations"
+                      >
+                        View
+                      </a>
+                    </span>
                     <span
                       className="removable data-table-row-section"
                     />
@@ -3445,11 +3582,18 @@ exports[`DiagnosticActivityPacks component should render when there are diagnost
                       style={
                         Object {
                           "minWidth": "141px",
-                          "textAlign": "right",
+                          "textAlign": "left",
                           "width": "141px",
                         }
                       }
-                    />
+                    >
+                      <a
+                        className="quill-button small secondary outlined"
+                        href="/teachers/progress_reports/diagnostic_reports#/u/826269/a/888/c/484134/recommendations"
+                      >
+                        View
+                      </a>
+                    </span>
                     <span
                       className="removable data-table-row-section"
                     />
@@ -3676,7 +3820,12 @@ exports[`DiagnosticActivityPacks component should render when there are diagnost
                     "class": "A New Class",
                     "completed": "0 of 0",
                     "id": "1229-484135-826269",
-                    "recommendations": null,
+                    "recommendations": <a
+                      className="quill-button small secondary outlined"
+                      href="/teachers/progress_reports/diagnostic_reports#/u/826269/a/1229/c/484135/recommendations"
+                    >
+                      View
+                    </a>,
                     "unitName": "Every Diagnostic",
                   },
                   Object {
@@ -3684,7 +3833,12 @@ exports[`DiagnosticActivityPacks component should render when there are diagnost
                     "class": "Quill Classroom Extremely Long So Long SUper Duper",
                     "completed": "0 of 5",
                     "id": "1229-484134-826269",
-                    "recommendations": null,
+                    "recommendations": <a
+                      className="quill-button small secondary outlined"
+                      href="/teachers/progress_reports/diagnostic_reports#/u/826269/a/1229/c/484134/recommendations"
+                    >
+                      View
+                    </a>,
                     "unitName": "Every Diagnostic",
                   },
                 ]
@@ -3757,7 +3911,7 @@ exports[`DiagnosticActivityPacks component should render when there are diagnost
                     style={
                       Object {
                         "minWidth": "141px",
-                        "textAlign": "right",
+                        "textAlign": "left",
                         "width": "141px",
                       }
                     }
@@ -3832,11 +3986,18 @@ exports[`DiagnosticActivityPacks component should render when there are diagnost
                       style={
                         Object {
                           "minWidth": "141px",
-                          "textAlign": "right",
+                          "textAlign": "left",
                           "width": "141px",
                         }
                       }
-                    />
+                    >
+                      <a
+                        className="quill-button small secondary outlined"
+                        href="/teachers/progress_reports/diagnostic_reports#/u/826269/a/1229/c/484135/recommendations"
+                      >
+                        View
+                      </a>
+                    </span>
                     <span
                       className="removable data-table-row-section"
                     />
@@ -3945,11 +4106,18 @@ exports[`DiagnosticActivityPacks component should render when there are diagnost
                       style={
                         Object {
                           "minWidth": "141px",
-                          "textAlign": "right",
+                          "textAlign": "left",
                           "width": "141px",
                         }
                       }
-                    />
+                    >
+                      <a
+                        className="quill-button small secondary outlined"
+                        href="/teachers/progress_reports/diagnostic_reports#/u/826269/a/1229/c/484134/recommendations"
+                      >
+                        View
+                      </a>
+                    </span>
                     <span
                       className="removable data-table-row-section"
                     />
@@ -4176,7 +4344,12 @@ exports[`DiagnosticActivityPacks component should render when there are diagnost
                     "class": "A New Class",
                     "completed": "0 of 0",
                     "id": "1161-484135-826269",
-                    "recommendations": null,
+                    "recommendations": <a
+                      className="quill-button small secondary outlined"
+                      href="/teachers/progress_reports/diagnostic_reports#/u/826269/a/1161/c/484135/recommendations"
+                    >
+                      View
+                    </a>,
                     "unitName": "Every Diagnostic",
                   },
                   Object {
@@ -4184,7 +4357,12 @@ exports[`DiagnosticActivityPacks component should render when there are diagnost
                     "class": "Quill Classroom Extremely Long So Long SUper Duper",
                     "completed": "0 of 5",
                     "id": "1161-484134-826269",
-                    "recommendations": null,
+                    "recommendations": <a
+                      className="quill-button small secondary outlined"
+                      href="/teachers/progress_reports/diagnostic_reports#/u/826269/a/1161/c/484134/recommendations"
+                    >
+                      View
+                    </a>,
                     "unitName": "Every Diagnostic",
                   },
                 ]
@@ -4257,7 +4435,7 @@ exports[`DiagnosticActivityPacks component should render when there are diagnost
                     style={
                       Object {
                         "minWidth": "141px",
-                        "textAlign": "right",
+                        "textAlign": "left",
                         "width": "141px",
                       }
                     }
@@ -4332,11 +4510,18 @@ exports[`DiagnosticActivityPacks component should render when there are diagnost
                       style={
                         Object {
                           "minWidth": "141px",
-                          "textAlign": "right",
+                          "textAlign": "left",
                           "width": "141px",
                         }
                       }
-                    />
+                    >
+                      <a
+                        className="quill-button small secondary outlined"
+                        href="/teachers/progress_reports/diagnostic_reports#/u/826269/a/1161/c/484135/recommendations"
+                      >
+                        View
+                      </a>
+                    </span>
                     <span
                       className="removable data-table-row-section"
                     />
@@ -4445,11 +4630,18 @@ exports[`DiagnosticActivityPacks component should render when there are diagnost
                       style={
                         Object {
                           "minWidth": "141px",
-                          "textAlign": "right",
+                          "textAlign": "left",
                           "width": "141px",
                         }
                       }
-                    />
+                    >
+                      <a
+                        className="quill-button small secondary outlined"
+                        href="/teachers/progress_reports/diagnostic_reports#/u/826269/a/1161/c/484134/recommendations"
+                      >
+                        View
+                      </a>
+                    </span>
                     <span
                       className="removable data-table-row-section"
                     />
