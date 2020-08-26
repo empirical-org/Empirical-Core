@@ -11,7 +11,17 @@ export const routes: RouteConfig[] = [
   },
   {
     path: "/play/lesson/:lessonID",
-    component: () => (<Lesson />)
+    component: (props: any) => {
+      const { handleToggleQuestion, previewMode,  questionToPreview, switchedBackToPreview } = props;
+      return(
+        <Lesson 
+          onHandleToggleQuestion={handleToggleQuestion} 
+          previewMode={previewMode} 
+          questionToPreview={questionToPreview} 
+          switchedBackToPreview={switchedBackToPreview}
+        />
+      );
+    }
   },
   {
     path: "/play/turk/:lessonID",
