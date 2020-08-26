@@ -19,10 +19,11 @@ export class PageLayout extends React.Component<any, PageLayoutState> {
     super(props);
 
     const studentSession = getParameterByName('student', window.location.href);
+    const proofreaderSessionId = getParameterByName('proofreaderSessionId', window.location.href);
 
     this.state = { 
       showFocusState: false,
-      previewShowing: !studentSession,
+      previewShowing: !studentSession && !proofreaderSessionId,
       questionToPreview: null,
       switchedBackToPreview: false,
       randomizedQuestions: null
@@ -77,13 +78,14 @@ export class PageLayout extends React.Component<any, PageLayoutState> {
   render() {
     const { showFocusState, previewShowing, questionToPreview, switchedBackToPreview, randomizedQuestions } = this.state;
     const studentSession = getParameterByName('student', window.location.href);
+    const proofreaderSessionId = getParameterByName('proofreaderSessionId', window.location.href);
     const isPlaying = window.location.href.includes('play');
     const showPreview = previewShowing && isPlaying;
     let className = "ant-layout ";
     className = showFocusState ? '' : 'hide-focus-outline';
     let header;
     if(isPlaying && !studentSession) {
-      header = <Header isTeacher={!studentSession} onTogglePreview={this.handleTogglePreviewMenu} previewShowing={previewShowing} />;
+      header = <Header isTeacher={!studentSession && !proofreaderSessionId} onTogglePreview={this.handleTogglePreviewMenu} previewShowing={previewShowing} />;
     } else if(isPlaying) {
       header = <Header />;
     }
