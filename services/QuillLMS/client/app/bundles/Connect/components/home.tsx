@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { renderRoutes } from "react-router-config";
 import { routes } from "../routes";
-import { NavBar } from './navbar/studentNavbar';
+import { NavBar } from './navbar/studentNavbar.tsx';
 import { Layout } from "antd";
 import { getParameterByName } from '../libs/getParameterByName';
 import TeacherPreviewMenu from '../../Teacher/components/shared/teacherPreviewMenu';
@@ -12,12 +12,15 @@ interface PageLayoutState {
   questionToPreview: any;
   switchedBackToPreview: boolean;
 }
-export default class Home extends React.Component<any, any> {
+export default class Home extends React.Component<any, PageLayoutState> {
   constructor(props) {
-    super(props)
+    super(props);
+    
+    const studentSession = getParameterByName('student', window.location.href);
+
     this.state = { 
       showFocusState: false,
-      previewShowing: false,
+      previewShowing: !studentSession,
       questionToPreview: null,
       switchedBackToPreview: false
     }

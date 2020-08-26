@@ -2,13 +2,13 @@ import * as React from "react";
 import { Layout, Row } from "antd";
 const quillLogoSrc = `${process.env.CDN_URL}/images/logos/quill-logo-white.svg`;
 
-interface HeaderProps {
+interface NavBarProps {
   isTeacher?: boolean; 
   previewShowing?: boolean;
   onTogglePreview?: () => void;
 }
 
-export const NavBar: React.SFC<HeaderProps> = ({ isTeacher, previewShowing, onTogglePreview }) => {
+export const NavBar: React.SFC<NavBarProps> = ({ isTeacher, previewShowing, onTogglePreview }) => {
     const handleTogglePreview = () => {
       onTogglePreview();
     }
@@ -22,4 +22,3 @@ export const NavBar: React.SFC<HeaderProps> = ({ isTeacher, previewShowing, onTo
       </Layout.Header>
     );
 };
-

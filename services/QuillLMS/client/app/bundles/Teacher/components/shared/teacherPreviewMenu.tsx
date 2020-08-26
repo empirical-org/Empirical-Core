@@ -45,7 +45,7 @@ const renderQuestions = ({
   randomizedQuestions, 
   session
 }) => {
-  if(!activity && !randomizedQuestions && !session.currentQuestion && !session.unansweredQuestions) {
+  if(!activity && !randomizedQuestions && !session) {
     return null;
   } else if(activity && activity.questions && questions) {
     return activity.questions.map((question: any, i: number) => {
