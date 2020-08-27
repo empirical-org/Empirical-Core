@@ -11,7 +11,7 @@
     padding-top: 36px;
     padding-bottom: 16px;
     width: 100%;
-    border-top: 1px solid #cecece;
+    border-top: 1px solid #E0E0E0;
     font-weight: 700;
     display: flex;
     justify-content: space-between;
@@ -148,7 +148,8 @@
     width: 300px;
     height: 282px;
     overflow-y: scroll;
-    border: 1px solid #cecece;
+    border: 1px solid #e0e0e0;
+    border-radius: 4px;
     background-color: #ffffff;
     margin-bottom: 40px;
 
@@ -375,7 +376,8 @@
   margin-bottom: 40px;
   padding-top: 0px;
   .inner-container {
-    border: 1px solid #cecece;
+    border: 1px solid #e0e0e0;
+    border-radius: 4px;
     height: 282px;
     margin: auto;
     background-color: #ffffff;

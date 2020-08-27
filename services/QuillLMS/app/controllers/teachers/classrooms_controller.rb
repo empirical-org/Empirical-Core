@@ -80,6 +80,15 @@ class Teachers::ClassroomsController < ApplicationController
     redirect_to teachers_classrooms_path
   end
 
+  def bulk_archive
+    Classroom.where(id: params[:ids]).each do |classroom|
+      classroom.visible = false
+      # we want to skip validations here because otherwise they can prevent archiving the classroom, when the classroom was created before the validation was added
+      classroom.save(validate: false)
+    end
+    render json: {}
+  end
+
   def hide
     classroom = Classroom.find(params[:id])
     classroom.visible = false

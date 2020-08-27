@@ -147,6 +147,7 @@ EmpiricalGrammar::Application.routes.draw do
   get 'teachers/classrooms_i_own_with_students' => 'teachers#classrooms_i_own_with_students'
   get 'teachers/classrooms_i_teach_with_lessons' => 'teachers#classrooms_i_teach_with_lessons'
   post 'teachers/classrooms/:class_id/unhide', controller: 'teachers/classrooms', action: 'unhide'
+  post 'teachers/classrooms/bulk_archive', controller: 'teachers/classrooms', action: 'bulk_archive'
   get 'teachers/classrooms/:id/student_logins', only: [:pdf], controller: 'teachers/classrooms', action: 'generate_login_pdf', as: :generate_login_pdf, defaults: { format: 'pdf' }
 
   namespace :teachers do
