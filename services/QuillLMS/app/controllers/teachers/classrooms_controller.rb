@@ -82,6 +82,7 @@ class Teachers::ClassroomsController < ApplicationController
 
   def bulk_archive
     Classroom.where(id: params[:ids]).each do |classroom|
+      next if classroom.owner != current_user
       classroom.visible = false
       # we want to skip validations here because otherwise they can prevent archiving the classroom, when the classroom was created before the validation was added
       classroom.save(validate: false)

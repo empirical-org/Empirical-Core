@@ -351,7 +351,12 @@ export default class ActiveClassrooms extends React.Component<ActiveClassroomsPr
   }
 
   render() {
+    const { user, } = this.props
     const { classrooms, } = this.state
+    const ownedClassrooms = classrooms.filter(c => {
+      const classroomOwner = c.teachers.find(t => t.classroom_relation === 'owner')
+      return classroomOwner && classroomOwner.id === user.id
+    })
     return (<div className="active-classrooms classrooms-page">
       {this.renderCreateAClassModal()}
       {this.renderRenameClassModal()}
@@ -370,7 +375,7 @@ export default class ActiveClassrooms extends React.Component<ActiveClassroomsPr
           <button className="quill-button medium primary contained create-a-class-button" onClick={() => this.openModal(createAClassModal)}>Create a class</button>
         </div>
       </div>
-      <BulkArchiveClassesBanner classes={classrooms} onSuccess={this.onSuccess} />
+      <BulkArchiveClassesBanner classes={ownedClassrooms} onSuccess={this.onSuccess} />
       {this.renderPageContent()}
     </div>)
   }
