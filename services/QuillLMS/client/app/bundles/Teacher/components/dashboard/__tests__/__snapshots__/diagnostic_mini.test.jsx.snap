@@ -259,14 +259,24 @@ exports[`DiagnosticMini component should render when there are diagnostics 1`] =
               "completed": "0 of 5",
               "diagnostic": "ELL Diagnostic",
               "id": "447-484134-826269",
-              "recommendations": null,
+              "recommendations": <a
+                className="quill-button fun primary outlined"
+                href="/teachers/progress_reports/diagnostic_reports#/u/826269/a/447/c/484134/recommendations"
+              >
+                View
+              </a>,
             },
             Object {
               "class": "A New Class",
               "completed": "0 of 0",
               "diagnostic": "ELL Diagnostic",
               "id": "447-484135-826269",
-              "recommendations": null,
+              "recommendations": <a
+                className="quill-button fun primary outlined"
+                href="/teachers/progress_reports/diagnostic_reports#/u/826269/a/447/c/484135/recommendations"
+              >
+                View
+              </a>,
             },
             Object {
               "class": "Quill Classroom Extremely Long So Long SUper Duper",
@@ -285,98 +295,168 @@ exports[`DiagnosticMini component should render when there are diagnostics 1`] =
               "completed": "0 of 5",
               "diagnostic": "Starter Diagnostic",
               "id": "849-484134-826269",
-              "recommendations": null,
+              "recommendations": <a
+                className="quill-button fun primary outlined"
+                href="/teachers/progress_reports/diagnostic_reports#/u/826269/a/849/c/484134/recommendations"
+              >
+                View
+              </a>,
             },
             Object {
               "class": "A New Class",
               "completed": "0 of 0",
               "diagnostic": "Starter Diagnostic",
               "id": "849-484135-826269",
-              "recommendations": null,
+              "recommendations": <a
+                className="quill-button fun primary outlined"
+                href="/teachers/progress_reports/diagnostic_reports#/u/826269/a/849/c/484135/recommendations"
+              >
+                View
+              </a>,
             },
             Object {
               "class": "Quill Classroom Extremely Long So Long SUper Duper",
               "completed": "0 of 5",
               "diagnostic": "Intermediate Diagnostic",
               "id": "850-484134-826269",
-              "recommendations": null,
+              "recommendations": <a
+                className="quill-button fun primary outlined"
+                href="/teachers/progress_reports/diagnostic_reports#/u/826269/a/850/c/484134/recommendations"
+              >
+                View
+              </a>,
             },
             Object {
               "class": "A New Class",
               "completed": "0 of 0",
               "diagnostic": "Intermediate Diagnostic",
               "id": "850-484135-826269",
-              "recommendations": null,
+              "recommendations": <a
+                className="quill-button fun primary outlined"
+                href="/teachers/progress_reports/diagnostic_reports#/u/826269/a/850/c/484135/recommendations"
+              >
+                View
+              </a>,
             },
             Object {
               "class": "Quill Classroom Extremely Long So Long SUper Duper",
               "completed": "0 of 5",
               "diagnostic": "Advanced Diagnostic",
               "id": "888-484134-826269",
-              "recommendations": null,
+              "recommendations": <a
+                className="quill-button fun primary outlined"
+                href="/teachers/progress_reports/diagnostic_reports#/u/826269/a/888/c/484134/recommendations"
+              >
+                View
+              </a>,
             },
             Object {
               "class": "A New Class",
               "completed": "0 of 0",
               "diagnostic": "Advanced Diagnostic",
               "id": "888-484135-826269",
-              "recommendations": null,
+              "recommendations": <a
+                className="quill-button fun primary outlined"
+                href="/teachers/progress_reports/diagnostic_reports#/u/826269/a/888/c/484135/recommendations"
+              >
+                View
+              </a>,
             },
             Object {
               "class": "Quill Classroom Extremely Long So Long SUper Duper",
               "completed": "0 of 5",
               "diagnostic": "AP® Writing Skills Survey",
               "id": "992-484134-826269",
-              "recommendations": null,
+              "recommendations": <a
+                className="quill-button fun primary outlined"
+                href="/teachers/progress_reports/diagnostic_reports#/u/826269/a/992/c/484134/recommendations"
+              >
+                View
+              </a>,
             },
             Object {
               "class": "A New Class",
               "completed": "0 of 0",
               "diagnostic": "AP® Writing Skills Survey",
               "id": "992-484135-826269",
-              "recommendations": null,
+              "recommendations": <a
+                className="quill-button fun primary outlined"
+                href="/teachers/progress_reports/diagnostic_reports#/u/826269/a/992/c/484135/recommendations"
+              >
+                View
+              </a>,
             },
             Object {
               "class": "Quill Classroom Extremely Long So Long SUper Duper",
               "completed": "0 of 5",
               "diagnostic": "ELL Starter Diagnostic",
               "id": "1161-484134-826269",
-              "recommendations": null,
+              "recommendations": <a
+                className="quill-button fun primary outlined"
+                href="/teachers/progress_reports/diagnostic_reports#/u/826269/a/1161/c/484134/recommendations"
+              >
+                View
+              </a>,
             },
             Object {
               "class": "A New Class",
               "completed": "0 of 0",
               "diagnostic": "ELL Starter Diagnostic",
               "id": "1161-484135-826269",
-              "recommendations": null,
+              "recommendations": <a
+                className="quill-button fun primary outlined"
+                href="/teachers/progress_reports/diagnostic_reports#/u/826269/a/1161/c/484135/recommendations"
+              >
+                View
+              </a>,
             },
             Object {
               "class": "Quill Classroom Extremely Long So Long SUper Duper",
               "completed": "0 of 5",
               "diagnostic": "Pre-AP® Writing Skills Survey 1: Basics of Sentence Patterns",
               "id": "1229-484134-826269",
-              "recommendations": null,
+              "recommendations": <a
+                className="quill-button fun primary outlined"
+                href="/teachers/progress_reports/diagnostic_reports#/u/826269/a/1229/c/484134/recommendations"
+              >
+                View
+              </a>,
             },
             Object {
               "class": "A New Class",
               "completed": "0 of 0",
               "diagnostic": "Pre-AP® Writing Skills Survey 1: Basics of Sentence Patterns",
               "id": "1229-484135-826269",
-              "recommendations": null,
+              "recommendations": <a
+                className="quill-button fun primary outlined"
+                href="/teachers/progress_reports/diagnostic_reports#/u/826269/a/1229/c/484135/recommendations"
+              >
+                View
+              </a>,
             },
             Object {
               "class": "Quill Classroom Extremely Long So Long SUper Duper",
               "completed": "0 of 5",
               "diagnostic": "Pre-AP® Writing Skills Survey 2: Tools for Sentence Expansion",
               "id": "1230-484134-826269",
-              "recommendations": null,
+              "recommendations": <a
+                className="quill-button fun primary outlined"
+                href="/teachers/progress_reports/diagnostic_reports#/u/826269/a/1230/c/484134/recommendations"
+              >
+                View
+              </a>,
             },
             Object {
               "class": "A New Class",
               "completed": "0 of 0",
               "diagnostic": "Pre-AP® Writing Skills Survey 2: Tools for Sentence Expansion",
               "id": "1230-484135-826269",
-              "recommendations": null,
+              "recommendations": <a
+                className="quill-button fun primary outlined"
+                href="/teachers/progress_reports/diagnostic_reports#/u/826269/a/1230/c/484135/recommendations"
+              >
+                View
+              </a>,
             },
           ]
         }
@@ -542,7 +622,14 @@ exports[`DiagnosticMini component should render when there are diagnostics 1`] =
                     "width": "104px",
                   }
                 }
-              />
+              >
+                <a
+                  className="quill-button fun primary outlined"
+                  href="/teachers/progress_reports/diagnostic_reports#/u/826269/a/447/c/484134/recommendations"
+                >
+                  View
+                </a>
+              </span>
               <span
                 className="removable data-table-row-section"
               />
@@ -600,7 +687,14 @@ exports[`DiagnosticMini component should render when there are diagnostics 1`] =
                     "width": "104px",
                   }
                 }
-              />
+              >
+                <a
+                  className="quill-button fun primary outlined"
+                  href="/teachers/progress_reports/diagnostic_reports#/u/826269/a/447/c/484135/recommendations"
+                >
+                  View
+                </a>
+              </span>
               <span
                 className="removable data-table-row-section"
               />
@@ -807,7 +901,14 @@ exports[`DiagnosticMini component should render when there are diagnostics 1`] =
                     "width": "104px",
                   }
                 }
-              />
+              >
+                <a
+                  className="quill-button fun primary outlined"
+                  href="/teachers/progress_reports/diagnostic_reports#/u/826269/a/849/c/484134/recommendations"
+                >
+                  View
+                </a>
+              </span>
               <span
                 className="removable data-table-row-section"
               />
@@ -865,7 +966,14 @@ exports[`DiagnosticMini component should render when there are diagnostics 1`] =
                     "width": "104px",
                   }
                 }
-              />
+              >
+                <a
+                  className="quill-button fun primary outlined"
+                  href="/teachers/progress_reports/diagnostic_reports#/u/826269/a/849/c/484135/recommendations"
+                >
+                  View
+                </a>
+              </span>
               <span
                 className="removable data-table-row-section"
               />
@@ -965,7 +1073,14 @@ exports[`DiagnosticMini component should render when there are diagnostics 1`] =
                     "width": "104px",
                   }
                 }
-              />
+              >
+                <a
+                  className="quill-button fun primary outlined"
+                  href="/teachers/progress_reports/diagnostic_reports#/u/826269/a/850/c/484134/recommendations"
+                >
+                  View
+                </a>
+              </span>
               <span
                 className="removable data-table-row-section"
               />
@@ -1023,7 +1138,14 @@ exports[`DiagnosticMini component should render when there are diagnostics 1`] =
                     "width": "104px",
                   }
                 }
-              />
+              >
+                <a
+                  className="quill-button fun primary outlined"
+                  href="/teachers/progress_reports/diagnostic_reports#/u/826269/a/850/c/484135/recommendations"
+                >
+                  View
+                </a>
+              </span>
               <span
                 className="removable data-table-row-section"
               />
@@ -1123,7 +1245,14 @@ exports[`DiagnosticMini component should render when there are diagnostics 1`] =
                     "width": "104px",
                   }
                 }
-              />
+              >
+                <a
+                  className="quill-button fun primary outlined"
+                  href="/teachers/progress_reports/diagnostic_reports#/u/826269/a/888/c/484134/recommendations"
+                >
+                  View
+                </a>
+              </span>
               <span
                 className="removable data-table-row-section"
               />
@@ -1181,7 +1310,14 @@ exports[`DiagnosticMini component should render when there are diagnostics 1`] =
                     "width": "104px",
                   }
                 }
-              />
+              >
+                <a
+                  className="quill-button fun primary outlined"
+                  href="/teachers/progress_reports/diagnostic_reports#/u/826269/a/888/c/484135/recommendations"
+                >
+                  View
+                </a>
+              </span>
               <span
                 className="removable data-table-row-section"
               />
@@ -1281,7 +1417,14 @@ exports[`DiagnosticMini component should render when there are diagnostics 1`] =
                     "width": "104px",
                   }
                 }
-              />
+              >
+                <a
+                  className="quill-button fun primary outlined"
+                  href="/teachers/progress_reports/diagnostic_reports#/u/826269/a/992/c/484134/recommendations"
+                >
+                  View
+                </a>
+              </span>
               <span
                 className="removable data-table-row-section"
               />
@@ -1339,7 +1482,14 @@ exports[`DiagnosticMini component should render when there are diagnostics 1`] =
                     "width": "104px",
                   }
                 }
-              />
+              >
+                <a
+                  className="quill-button fun primary outlined"
+                  href="/teachers/progress_reports/diagnostic_reports#/u/826269/a/992/c/484135/recommendations"
+                >
+                  View
+                </a>
+              </span>
               <span
                 className="removable data-table-row-section"
               />
@@ -1439,7 +1589,14 @@ exports[`DiagnosticMini component should render when there are diagnostics 1`] =
                     "width": "104px",
                   }
                 }
-              />
+              >
+                <a
+                  className="quill-button fun primary outlined"
+                  href="/teachers/progress_reports/diagnostic_reports#/u/826269/a/1161/c/484134/recommendations"
+                >
+                  View
+                </a>
+              </span>
               <span
                 className="removable data-table-row-section"
               />
@@ -1497,7 +1654,14 @@ exports[`DiagnosticMini component should render when there are diagnostics 1`] =
                     "width": "104px",
                   }
                 }
-              />
+              >
+                <a
+                  className="quill-button fun primary outlined"
+                  href="/teachers/progress_reports/diagnostic_reports#/u/826269/a/1161/c/484135/recommendations"
+                >
+                  View
+                </a>
+              </span>
               <span
                 className="removable data-table-row-section"
               />
@@ -1639,7 +1803,14 @@ exports[`DiagnosticMini component should render when there are diagnostics 1`] =
                     "width": "104px",
                   }
                 }
-              />
+              >
+                <a
+                  className="quill-button fun primary outlined"
+                  href="/teachers/progress_reports/diagnostic_reports#/u/826269/a/1229/c/484134/recommendations"
+                >
+                  View
+                </a>
+              </span>
               <span
                 className="removable data-table-row-section"
               />
@@ -1739,7 +1910,14 @@ exports[`DiagnosticMini component should render when there are diagnostics 1`] =
                     "width": "104px",
                   }
                 }
-              />
+              >
+                <a
+                  className="quill-button fun primary outlined"
+                  href="/teachers/progress_reports/diagnostic_reports#/u/826269/a/1229/c/484135/recommendations"
+                >
+                  View
+                </a>
+              </span>
               <span
                 className="removable data-table-row-section"
               />
@@ -1881,7 +2059,14 @@ exports[`DiagnosticMini component should render when there are diagnostics 1`] =
                     "width": "104px",
                   }
                 }
-              />
+              >
+                <a
+                  className="quill-button fun primary outlined"
+                  href="/teachers/progress_reports/diagnostic_reports#/u/826269/a/1230/c/484134/recommendations"
+                >
+                  View
+                </a>
+              </span>
               <span
                 className="removable data-table-row-section"
               />
@@ -1981,7 +2166,14 @@ exports[`DiagnosticMini component should render when there are diagnostics 1`] =
                     "width": "104px",
                   }
                 }
-              />
+              >
+                <a
+                  className="quill-button fun primary outlined"
+                  href="/teachers/progress_reports/diagnostic_reports#/u/826269/a/1230/c/484135/recommendations"
+                >
+                  View
+                </a>
+              </span>
               <span
                 className="removable data-table-row-section"
               />
