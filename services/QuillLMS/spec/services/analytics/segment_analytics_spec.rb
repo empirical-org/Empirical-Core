@@ -38,13 +38,14 @@ describe 'SegmentAnalytics' do
     let(:teacher) { create(:teacher) }
     let(:student) { create(:student) }
 
-    it 'never sends events to Intercom but not Salesmachine, even if the user is a teacher' do
+    it 'never sends events to Intercom but not Salesmachine or Vitally, even if the user is a teacher' do
       analytics.track(teacher, {})
       expect(identify_calls.size).to eq(0)
       expect(track_calls.size).to eq(1)
       expect(track_calls[0][:integrations]).to eq({
         all: true,
         Salesmachine: false,
+        Vitally: false,
         Intercom: true
       })
     end
@@ -56,6 +57,7 @@ describe 'SegmentAnalytics' do
       expect(track_calls[0][:integrations]).to eq({
         all: true,
         Salesmachine: false,
+        Vitally: false,
         Intercom: false
       })
     end
