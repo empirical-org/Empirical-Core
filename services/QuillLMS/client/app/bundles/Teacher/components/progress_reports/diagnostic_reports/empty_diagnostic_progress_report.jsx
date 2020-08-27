@@ -1,44 +1,16 @@
-'use strict'
+import * as React from 'react'
+const diagnosticSrc = `${process.env.CDN_URL}/images/illustrations/diagnostic-monochromatic.svg`
 
- import React from 'react'
+const EmptyDiagnosticProgressReport = () => (
+  <section className="diagnostic-reports-empty-state container">
+    <h1>Diagnostic Reports</h1>
+    <img alt="Illustration showing a monochromatic document with a magnifying glass inspecting the document" src={diagnosticSrc} />
+    <h2>Start by assigning a diagnostic</h2>
+    <p>Nothing to see here yet! Once you assign a diagnostic your students’ reports will show up here.</p>
+    <a className="quill-button medium primary contained" href="/assign/diagnostic">Assign a diagnostic</a>
+    <a href="/tools/diagnostic">Learn more about Quill Diagnostic</a>
+  </section>
+)
 
- export default class extends React.Component {
-   render() {
-     let linkOne, linkTwo, buttonTextOne, buttonTextTwo, content, image
-     if (this.props.status === 'assigned') {
-       linkOne = '/tools/diagnostic'
-       linkTwo = '/teachers/classrooms/activity_planner'
-       buttonTextOne = 'Learn More About Diagnostic Reports'
-       buttonTextTwo = 'My Activity Packs'
-       content = (<div>
-         <p><i className="fas fa-check-circle" />You have successfully assigned a diagnostic to your students.</p>
-         <p>Once a student completes the activity, you can return to this page to see your reports. In the meantime, you can learn more about Diagnostic Reports.</p>
-       </div>)
-       image = <img src="/images/pages/diagnostic_reports/diagnostic_colored.svg" />
-     } else if (this.props.status === 'unassigned') {
-       linkOne = '/assign/diagnostic'
-       linkTwo = '/tools/diagnostic'
-       buttonTextOne = 'Assign Entry Diagnostic'
-       buttonTextTwo = 'Learn More'
-       content = (<div>
-         <p>Hi! This is where your students' diagnostic reports are stored, but it's empty at the moment since you have not yet assigned a diagnostic.</p>
-         <p>Let's assign your first diagnostic.</p>
-       </div>)
-       image = <img src="/images/pages/diagnostic_reports/diagnostic_gray.svg" />
-     }
- 		return (
-   <div className="container" style={{ margin: '44px' }}>
-     <div className="row diagnostic-empty-state">
-       <div className="col-xs-7">
-         <h1>Quill Diagnostic Reports</h1>
-         {content}
-         <button className="button-green create-unit featured-button" onClick={() => {window.location = linkOne}}>{buttonTextOne}</button>
-         <button className="create-unit featured-button" onClick={() => {window.location = linkTwo}}>{buttonTextTwo}</button>
-       </div>
-       <div className="col-xs-4">
-         {image}
-       </div>
-     </div>
-   </div>
-    )}
- }
+
+export default EmptyDiagnosticProgressReport
