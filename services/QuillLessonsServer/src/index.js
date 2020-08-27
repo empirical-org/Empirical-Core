@@ -9,13 +9,14 @@ import http from 'http';
 import path from 'path';
 import rethinkdbConfig from './config/rethinkdb';
 import { requestHandler } from './config/server';
+import { nrTrack } from './config/newrelic';
 
 const Sentry = require('@sentry/node');
 
 if(process.env.NODE_ENV === 'production') {
-  Sentry.init({ 
+  Sentry.init({
     dsn: process.env.LESSONS_SENTRY_DSN,
-    debug: false 
+    debug: false
   });
 }
 
@@ -240,306 +241,414 @@ r.connect(rethinkdbConfig, (err, connection) => {
         });
 
         client.on('getAllEditionMetadataForLesson', (data) => {
-          getAllEditionMetadataForLesson({ ...adaptors, ...data });
+          nrTrack('getAllEditionMetadataForLesson', data, () => {
+            getAllEditionMetadataForLesson({ ...adaptors, ...data });
+          });
         })
 
         client.on('teacherConnected', (data) => {
-          authorizeRole(adminRoles, data, authToken, client, () => {
-            teacherConnected({ ...adaptors, ...data });
+          nrTrack('teacherConnected', data, () => {
+            authorizeRole(adminRoles, data, authToken, client, () => {
+              teacherConnected({ ...adaptors, ...data });
+            });
           });
         });
 
         client.on('disconnect', () => {
-          disconnect({ ...adaptors });
+          nrTrack('disconnect', null, () => {
+            disconnect({ ...adaptors });
+          });
         });
 
         client.on('subscribeToClassroomLessonSession', (data) => {
-          authorizeSession(data, authToken, client, () => {
-            subscribeToClassroomLessonSession({ ...adaptors, ...data });
+          nrTrack('subscribeToClassroomLessonSession', data, () => {
+            authorizeSession(data, authToken, client, () => {
+              subscribeToClassroomLessonSession({ ...adaptors, ...data });
+            });
           });
         });
 
         client.on('createPreviewSession', (data) => {
-          createPreviewSession({ ...adaptors, ...data });
+          nrTrack('createPreviewSession', data, () => {
+            createPreviewSession({ ...adaptors, ...data });
+          });
         });
 
         client.on('updateClassroomLessonSession', (data) => {
-          authorizeRole(adminRoles, data, authToken, client, () => {
-            updateClassroomLessonSession({ ...adaptors, ...data });
+          nrTrack('updateClassroomLessonSession', data, () => {
+            authorizeRole(adminRoles, data, authToken, client, () => {
+              updateClassroomLessonSession({ ...adaptors, ...data });
+            });
           });
         });
 
         client.on('createOrUpdateClassroomLessonSession', (data) => {
-          authorizeSession(data, authToken, client, () => {
-            createOrUpdateClassroomLessonSession({ ...adaptors, ...data });
+          nrTrack('createOrUpdateClassroomLessonSession', data, () => {
+            authorizeSession(data, authToken, client, () => {
+              createOrUpdateClassroomLessonSession({ ...adaptors, ...data });
+            });
           });
         });
 
         client.on('setSlideStartTime', (data) => {
-          authorizeSession(data, authToken, client, () => {
-            setSlideStartTime({ ...adaptors, ...data });
+          nrTrack('setSlideStartTime', data, () => {
+            authorizeSession(data, authToken, client, () => {
+              setSlideStartTime({ ...adaptors, ...data });
+            });
           });
         });
 
         client.on('registerPresence', (data) => {
-          registerPresence({ ...adaptors, ...data });
+          nrTrack('registerPresence', data, () => {
+            registerPresence({ ...adaptors, ...data });
+          });
         });
 
         client.on('addStudent', (data) => {
-          authorizeSession(data, authToken, client, () => {
-            addStudent({ ...adaptors, ...data });
+          nrTrack('addStudent', data, () => {
+            authorizeSession(data, authToken, client, () => {
+              addStudent({ ...adaptors, ...data });
+            });
           });
         });
 
         client.on('saveStudentSubmission', (data) => {
-          authorizeSession(data, authToken, client, () => {
-            saveStudentSubmission({ ...adaptors, ...data });
+          nrTrack('saveStudentSubmission', data, () => {
+            authorizeSession(data, authToken, client, () => {
+              saveStudentSubmission({ ...adaptors, ...data });
+            });
           });
         });
 
         client.on('removeStudentSubmission', (data) => {
-          authorizeSession(data, authToken, client, () => {
-            removeStudentSubmission({ ...adaptors, ...data });
+          nrTrack('removeStudentSubmission', data, () => {
+            authorizeSession(data, authToken, client, () => {
+              removeStudentSubmission({ ...adaptors, ...data });
+            });
           });
         });
 
         client.on('removeMode', (data) => {
-          authorizeSession(data, authToken, client, () => {
-            removeMode({ ...adaptors, ...data });
+          nrTrack('removeMode', data, () => {
+            authorizeSession(data, authToken, client, () => {
+              removeMode({ ...adaptors, ...data });
+            });
           });
         });
 
         client.on('clearAllSelectedSubmissions', (data) => {
-          authorizeSession(data, authToken, client, () => {
-            clearAllSelectedSubmissions({ ...adaptors, ...data });
+          nrTrack('clearAllSelectedSubmissions', data, () => {
+            authorizeSession(data, authToken, client, () => {
+              clearAllSelectedSubmissions({ ...adaptors, ...data });
+            });
           });
         });
 
         client.on('clearAllSubmissions', (data) => {
-          authorizeSession(data, authToken, client, () => {
-            clearAllSubmissions({ ...adaptors, ...data });
+          nrTrack('clearAllSubmissions', data, () => {
+            authorizeSession(data, authToken, client, () => {
+              clearAllSubmissions({ ...adaptors, ...data });
+            });
           });
         });
 
         client.on('saveSelectedStudentSubmission', (data) => {
-          authorizeSession(data, authToken, client, () => {
-            saveSelectedStudentSubmission({ ...adaptors, ...data });
+          nrTrack('saveSelectedStudentSubmission', data, () => {
+            authorizeSession(data, authToken, client, () => {
+              saveSelectedStudentSubmission({ ...adaptors, ...data });
+            });
           });
         });
 
         client.on('updateStudentSubmissionOrder', (data) => {
-          authorizeSession(data, authToken, client, () => {
-            updateStudentSubmissionOrder({ ...adaptors, ...data });
+          nrTrack('updateStudentSubmissionOrder', data, () => {
+            authorizeSession(data, authToken, client, () => {
+              updateStudentSubmissionOrder({ ...adaptors, ...data });
+            });
           });
         });
 
         client.on('removeSelectedStudentSubmission', (data) => {
-          authorizeSession(data, authToken, client, () => {
-            removeSelectedStudentSubmission({ ...adaptors, ...data });
+          nrTrack('removeSelectedStudentSubmission', data, () => {
+            authorizeSession(data, authToken, client, () => {
+              removeSelectedStudentSubmission({ ...adaptors, ...data });
+            });
           });
         });
 
         client.on('setMode', (data) => {
-          authorizeSession(data, authToken, client, () => {
-            setMode({ ...adaptors, ...data });
+          nrTrack('setMode', data, () => {
+            authorizeSession(data, authToken, client, () => {
+              setMode({ ...adaptors, ...data });
+            });
           });
         });
 
         client.on('setModel', (data) => {
-          authorizeSession(data, authToken, client, () => {
-            setModel({ ...adaptors, ...data });
+          nrTrack('setModel', data, () => {
+            authorizeSession(data, authToken, client, () => {
+              setModel({ ...adaptors, ...data });
+            });
           });
         });
 
         client.on('setPrompt', (data) => {
-          authorizeSession(data, authToken, client, () => {
-            setPrompt({ ...adaptors, ...data });
+          nrTrack('setPrompt', data, () => {
+            authorizeSession(data, authToken, client, () => {
+              setPrompt({ ...adaptors, ...data });
+            });
           });
         });
 
         client.on('toggleStudentFlag', (data) => {
-          authorizeSession(data, authToken, client, () => {
-            toggleStudentFlag({ ...adaptors, ...data });
+          nrTrack('toggleStudentFlag', data, () => {
+            authorizeSession(data, authToken, client, () => {
+              toggleStudentFlag({ ...adaptors, ...data });
+            });
           });
         });
 
         client.on('setWatchTeacherState', (data) => {
-          authorizeSession(data, authToken, client, () => {
-            setWatchTeacherState({ ...adaptors, ...data });
+          nrTrack('setWatchTeacherState', data, () => {
+            authorizeSession(data, authToken, client, () => {
+              setWatchTeacherState({ ...adaptors, ...data });
+            });
           });
         });
 
         client.on('removeWatchTeacherState', (data) => {
-          authorizeSession(data, authToken, client, () => {
-            removeWatchTeacherState({ ...adaptors, ...data });
+          nrTrack('removeWatchTeacherState', data, () => {
+            authorizeSession(data, authToken, client, () => {
+              removeWatchTeacherState({ ...adaptors, ...data });
+            });
           });
         });
 
         client.on('addStudents', (data) => {
-          authorizeSession(data, authToken, client, () => {
-            addStudents({ ...adaptors, ...data });
+          nrTrack('addStudents', data, () => {
+            authorizeSession(data, authToken, client, () => {
+              addStudents({ ...adaptors, ...data });
+            });
           });
         });
 
         client.on('redirectAssignedStudents', (data) => {
-          authorizeSession(data, authToken, client, () => {
-            redirectAssignedStudents({ ...adaptors, ...data });
+          nrTrack('redirectAssignedStudents', data, () => {
+            authorizeSession(data, authToken, client, () => {
+              redirectAssignedStudents({ ...adaptors, ...data });
+            });
           });
         });
 
         client.on('setClassroomName', (data) => {
-          authorizeSession(data, authToken, client, () => {
-            setClassroomName({ ...adaptors, ...data });
+          nrTrack('setClassroomName', data, () => {
+            authorizeSession(data, authToken, client, () => {
+              setClassroomName({ ...adaptors, ...data });
+            });
           });
         });
 
         client.on('setTeacherName', (data) => {
-          authorizeSession(data, authToken, client, () => {
-            setTeacherName({ ...adaptors, ...data });
+          nrTrack('setTeacherName', data, () => {
+            authorizeSession(data, authToken, client, () => {
+              setTeacherName({ ...adaptors, ...data });
+            });
           });
         });
 
         client.on('addFollowUpName', (data) => {
-          authorizeSession(data, authToken, client, () => {
-            addFollowUpName({ ...adaptors, ...data });
+          nrTrack('addFollowUpName', data, () => {
+            authorizeSession(data, authToken, client, () => {
+              addFollowUpName({ ...adaptors, ...data });
+            });
           });
         });
 
         client.on('addSupportingInfo', (data) => {
-          authorizeSession(data, authToken, client, () => {
-            addSupportingInfo({ ...adaptors, ...data });
+          nrTrack('addSupportingInfo', data, () => {
+            authorizeSession(data, authToken, client, () => {
+              addSupportingInfo({ ...adaptors, ...data });
+            });
           });
         });
 
         client.on('subscribeToClassroomLesson', (data) => {
-          subscribeToClassroomLesson({ ...adaptors, ...data })
+          nrTrack('subscribeToClassroomLesson', data, () => {
+            subscribeToClassroomLesson({ ...adaptors, ...data })
+          });
         })
 
         client.on('getAllClassroomLessons', () => {
-          getAllClassroomLessons({ ...adaptors })
+          nrTrack('getAllClassroomLessons', null, () => {
+            getAllClassroomLessons({ ...adaptors })
+          });
         })
 
         client.on('createOrUpdateClassroomLesson', (data) => {
-          authorizeRole(adminRoles, data, authToken, client, () => {
-            createOrUpdateClassroomLesson({ ...adaptors, ...data });
+          nrTrack('createOrUpdateClassroomLesson', data, () => {
+            authorizeRole(adminRoles, data, authToken, client, () => {
+              createOrUpdateClassroomLesson({ ...adaptors, ...data });
+            });
           });
         });
 
         client.on('deleteClassroomLesson', (data) => {
-          authorizeRole(adminRoles, data, authToken, client, () => {
-            deleteClassroomLesson({ ...adaptors, ...data });
+          nrTrack('deleteClassroomLesson', data, () => {
+            authorizeRole(adminRoles, data, authToken, client, () => {
+              deleteClassroomLesson({ ...adaptors, ...data });
+            });
           });
         });
 
         client.on('getAllClassroomLessonReviews', () => {
-          getAllClassroomLessonReviews({ ...adaptors });
+          nrTrack('getAllClassroomLessonReviews', null, () => {
+            getAllClassroomLessonReviews({ ...adaptors });
+          });
         });
 
         client.on('createOrUpdateReview', (data) => {
-          authorizeRole(adminRoles, data, authToken, client, () => {
-            createOrUpdateReview({ ...adaptors, ...data });
+          nrTrack('createOrUpdateReview', data, () => {
+            authorizeRole(adminRoles, data, authToken, client, () => {
+              createOrUpdateReview({ ...adaptors, ...data });
+            });
           });
         });
 
         client.on('getAllEditionMetadata', () => {
-          getAllEditionMetadata({ ...adaptors });
+          nrTrack('getAllEditionMetadata', null, () => {
+            getAllEditionMetadata({ ...adaptors });
+          });
         })
 
         client.on('getAllEditionMetadataForLesson', (data) => {
-          getAllEditionMetadataForLesson({ ...adaptors, ...data });
+          nrTrack('getAllEditionMetadataForLesson', data, () => {
+            getAllEditionMetadataForLesson({ ...adaptors, ...data });
+          });
         })
 
         client.on('getEditionQuestions', (data) => {
-          getEditionQuestions({ ...adaptors, ...data });
+          nrTrack('getEditionQuestions', data, () => {
+            getEditionQuestions({ ...adaptors, ...data });
+          });
         })
 
         client.on('updateEditionMetadata', (data) => {
-          authorizeRole(adminRoles, data, authToken, client, () => {
-            updateEditionMetadata({ ...adaptors, ...data });
+          nrTrack('updateEditionMetadata', data, () => {
+            authorizeRole(adminRoles, data, authToken, client, () => {
+              updateEditionMetadata({ ...adaptors, ...data });
+            });
           });
         });
 
         client.on('setEditionId', (data) => {
-          authorizeSession(data, authToken, client, () => {
-            setEditionId({ ...adaptors, ...data });
+          nrTrack('setEditionId', data, () => {
+            authorizeSession(data, authToken, client, () => {
+              setEditionId({ ...adaptors, ...data });
+            });
           });
         });
 
         client.on('deleteEdition', (data) => {
-          authorizeRole(adminRoles, data, authToken, client, () => {
-            deleteEdition({ ...adaptors, ...data });
+          nrTrack('deleteEdition', data, () => {
+            authorizeRole(adminRoles, data, authToken, client, () => {
+              deleteEdition({ ...adaptors, ...data });
+            });
           });
         });
 
         client.on('updateEditionSlides', (data) => {
-          authorizeRole(adminRoles, data, authToken, client, () => {
-            updateEditionSlides({ ...adaptors, ...data });
+          nrTrack('updateEditionSlides', data, () => {
+            authorizeRole(adminRoles, data, authToken, client, () => {
+              updateEditionSlides({ ...adaptors, ...data });
+            });
           });
         })
 
         client.on('updateSlideScriptItems', (data) => {
-          authorizeRole(adminRoles, data, authToken, client, () => {
-            updateSlideScriptItems({ ...adaptors, ...data });
+          nrTrack('updateSlideScriptItems', data, () => {
+            authorizeRole(adminRoles, data, authToken, client, () => {
+              updateSlideScriptItems({ ...adaptors, ...data });
+            });
           });
         });
 
         client.on('saveEditionSlide', (data) => {
-          authorizeRole(adminRoles, data, authToken, client, () => {
-            saveEditionSlide({ ...adaptors, ...data });
+          nrTrack('saveEditionSlide', data, () => {
+            authorizeRole(adminRoles, data, authToken, client, () => {
+              saveEditionSlide({ ...adaptors, ...data });
+            });
           });
         });
 
         client.on('saveEditionScriptItem', (data) => {
-          authorizeRole(adminRoles, data, authToken, client, () => {
-            saveEditionScriptItem({ ...adaptors, ...data });
+          nrTrack('saveEditionScriptItem', data, () => {
+            authorizeRole(adminRoles, data, authToken, client, () => {
+              saveEditionScriptItem({ ...adaptors, ...data });
+            });
           });
         });
 
         client.on('deleteScriptItem', (data) => {
-          authorizeRole(adminRoles, data, authToken, client, () => {
-            deleteScriptItem({ ...adaptors, ...data });
+          nrTrack('deleteScriptItem', data, () => {
+            authorizeRole(adminRoles, data, authToken, client, () => {
+              deleteScriptItem({ ...adaptors, ...data });
+            });
           });
         });
 
         client.on('addScriptItem', (data) => {
-          authorizeRole(adminRoles, data, authToken, client, () => {
-            addScriptItem({ ...adaptors, ...data });
+          nrTrack('addScriptItem', data, () => {
+            authorizeRole(adminRoles, data, authToken, client, () => {
+              addScriptItem({ ...adaptors, ...data });
+            });
           });
         });
 
         client.on('deleteEditionSlide', (data) => {
-          authorizeRole(adminRoles, data, authToken, client, () => {
-            deleteEditionSlide({ ...adaptors, ...data });
+          nrTrack('deleteEditionSlide', data, () => {
+            authorizeRole(adminRoles, data, authToken, client, () => {
+              deleteEditionSlide({ ...adaptors, ...data });
+            });
           });
         });
 
         client.on('addSlide', (data) => {
-          authorizeRole(adminRoles, data, authToken, client, () => {
-            addSlide({ ...adaptors, ...data });
+          nrTrack('addSlide', data, () => {
+            authorizeRole(adminRoles, data, authToken, client, () => {
+              addSlide({ ...adaptors, ...data });
+            });
           });
         });
 
         client.on('setTeacherModels', (data) => {
-          authorizeSession(data, authToken, client, () => {
-            setTeacherModels({ ...adaptors, ...data });
+          nrTrack('setTeacherModels', data, () => {
+            authorizeSession(data, authToken, client, () => {
+              setTeacherModels({ ...adaptors, ...data });
+            });
           });
         });
 
         client.on('createNewEdition', (data) => {
-          authorizeRole(adminRoles, data, authToken, client, () => {
-            createNewEdition({ ...adaptors, ...data });
+          nrTrack('createNewEdition', data, () => {
+            authorizeRole(adminRoles, data, authToken, client, () => {
+              createNewEdition({ ...adaptors, ...data });
+            });
           });
         });
 
         client.on('publishEdition', (data) => {
-          authorizeRole(adminRoles, data, authToken, client, () => {
-            publishEdition({ ...adaptors, ...data });
+          nrTrack('publishEdition', data, () => {
+            authorizeRole(adminRoles, data, authToken, client, () => {
+              publishEdition({ ...adaptors, ...data });
+            });
           });
         });
 
         client.on('archiveEdition', (data) => {
-          authorizeRole(adminRoles, data, authToken, client, () => {
-            archiveEdition({ ...adaptors, ...data });
+          nrTrack('archiveEdition', data, () => {
+            authorizeRole(adminRoles, data, authToken, client, () => {
+              archiveEdition({ ...adaptors, ...data });
+            });
           });
         });
         client.on('error', err => {
