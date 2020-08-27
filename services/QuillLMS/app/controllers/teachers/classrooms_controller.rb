@@ -26,7 +26,7 @@ class Teachers::ClassroomsController < ApplicationController
 
   def classrooms_i_teach
     @classrooms = current_user.classrooms_i_teach
-    render json: @classrooms.sort_by { |c| c[:update_at] }
+    render json: @classrooms.sort_by { |c| c[:update_at] }, each_serializer: ClassroomSerializer
   end
 
   def regenerate_code
@@ -86,7 +86,7 @@ class Teachers::ClassroomsController < ApplicationController
     classroom.save(validate: false)
     respond_to do |format|
       format.html{redirect_to teachers_classrooms_path}
-      format.json{render json: classroom}
+      format.json{render json: classroom, serializer: ClassroomSerializer}
     end
   end
 
@@ -95,7 +95,7 @@ class Teachers::ClassroomsController < ApplicationController
     # kicks an active record error (because it is out of the default scope), and returns a 404
     classroom = Classroom.unscoped.find(params[:class_id])
     classroom.update(visible: true)
-    render json: classroom
+    render json: classroom, serializer: ClassroomSerializer
   end
 
   def units

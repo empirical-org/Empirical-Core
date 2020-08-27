@@ -55,6 +55,11 @@ class Auth::GoogleController < ApplicationController
       end
     end
     @user = GoogleIntegration::User.new(@profile).update_or_initialize
+    if @user.new_record? && session[:role].blank?
+      flash[:error] = "The google account #{@profile.email} is not associated with any Quill accounts yet. <a href='/account/new'>Sign up</a> to create a Quill account with this Google account."
+      flash.keep(:error)
+      redirect_to(new_session_path, status: :see_other)
+    end
   end
 
   def save_student_from_google_signup
