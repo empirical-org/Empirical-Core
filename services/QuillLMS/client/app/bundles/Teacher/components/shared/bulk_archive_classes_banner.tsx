@@ -1,4 +1,4 @@
-import React from 'react'
+import * as React from 'react'
 
 import BulkArchiveClassesModal from './bulk_archive_classes_modal'
 
@@ -8,9 +8,9 @@ const JULY = 6
 const AUGUST = 7
 const SEPTEMBER = 8
 
-const BulkArchiveClassesBanner = ({ classes, onSuccess, }) => {
-  const today = new Date()
-  const localStorageKey = `${today.getYear()}BulkArchiveBannerClosed`
+const BulkArchiveClassesBanner = ({ classes, onSuccess, userId, }) => {
+  const today = new Date(Date.now()) // equivalent to just new Date(), but much easier to stub for tests
+  const localStorageKey = `${today.getYear()}BulkArchiveBannerClosedForUser${userId}`
 
   const [previouslyClosedBanner, setPreviouslyClosedBanner] = React.useState(window.localStorage.getItem(localStorageKey))
   const [modalIsOpen, setModalIsOpen] = React.useState(false)

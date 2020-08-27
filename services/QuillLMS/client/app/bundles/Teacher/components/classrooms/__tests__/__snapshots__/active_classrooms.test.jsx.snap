@@ -279,6 +279,7 @@ exports[`ActiveClassrooms component with classrooms should render with classroom
       ]
     }
     onSuccess={[Function]}
+    userId={2851865}
   />
   <div
     className="active-classes"
@@ -1595,6 +1596,7 @@ exports[`ActiveClassrooms component with no classrooms or coteacher invitations 
   <BulkArchiveClassesBanner
     classes={Array []}
     onSuccess={[Function]}
+    userId={2851865}
   />
   <div
     className="no-active-classes"

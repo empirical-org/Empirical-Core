@@ -12,7 +12,7 @@ const MyClasses = ({ classList, user, onSuccess, }) => {
   return (
     <div className='dashboard-section-container'>
       <h3 className='dashboard-header'>My Classes</h3>
-      <BulkArchiveClassesBanner classes={ownedClasses} onSuccess={onSuccess} />
+      <BulkArchiveClassesBanner classes={ownedClasses} onSuccess={onSuccess} userId={user.id} />
       <div className='row'>
         {minis}
         <AddOrSyncClassroomsMini user={user} />

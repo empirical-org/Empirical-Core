@@ -26,6 +26,10 @@ import CoteacherInvitation from '../coteacher_invitation'
 
 import { classroomProps, userProps, coteacherInvitations } from './test_data/test_data'
 
+jest.spyOn(global.Date, 'now').mockImplementation(() =>
+  new Date('2019-08-14T11:01:58.135Z').valueOf()
+);
+
 describe('ActiveClassrooms component', () => {
 
   describe('with no classrooms or coteacher invitations ', () => {

@@ -375,7 +375,7 @@ export default class ActiveClassrooms extends React.Component<ActiveClassroomsPr
           <button className="quill-button medium primary contained create-a-class-button" onClick={() => this.openModal(createAClassModal)}>Create a class</button>
         </div>
       </div>
-      <BulkArchiveClassesBanner classes={ownedClassrooms} onSuccess={this.onSuccess} />
+      <BulkArchiveClassesBanner classes={ownedClassrooms} onSuccess={this.onSuccess} userId={user.id} />
       {this.renderPageContent()}
     </div>)
   }
