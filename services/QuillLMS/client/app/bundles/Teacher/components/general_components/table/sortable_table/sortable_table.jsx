@@ -2,13 +2,8 @@ import React from 'react'
 import _ from 'underscore'
 import SortableTh from './sortable_th.jsx'
 import SortableTr from './sortable_tr.jsx'
-import ReactCSSTransitionGroup from 'react-addons-css-transition-group'
 
 export default class SortableTable extends React.Component {
-  shouldTransition = () => {
-    return !!this.props.shouldTransition
-  };
-
   loading = () => {
     if (this.props.loading === true) {
       return true;
@@ -53,35 +48,17 @@ export default class SortableTable extends React.Component {
   };
 
   render() {
-    if (this.loading()) {
-      return this.loadingView();
-    } else {
-      var tbody;
-      if (this.shouldTransition()) {
-        tbody = (
-          <ReactCSSTransitionGroup
-            component='tbody'
-            transitionEnterTimeout={2000}
-            transitionLeaveTimeout={2000}
-            transitionName={this.props.transitionName}
-          >
-            {this.rows()}
-          </ReactCSSTransitionGroup>
-        );
-      } else {
-        tbody = <tbody>{this.rows()}</tbody>
-      }
+    if (this.loading()) { return this.loadingView() }
 
-      return (
-        <table className={'table sortable-table ' + this.props.onNonPremiumStudentPage}>
-          <thead>
-            <tr>
-              {this.columns()}
-            </tr>
-          </thead>
-          {tbody}
-        </table>
-      );
-    }
+    return (
+      <table className={'table sortable-table ' + this.props.onNonPremiumStudentPage}>
+        <thead>
+          <tr>
+            {this.columns()}
+          </tr>
+        </thead>
+        <tbody>{this.rows()}</tbody>
+      </table>
+    );
   }
 }

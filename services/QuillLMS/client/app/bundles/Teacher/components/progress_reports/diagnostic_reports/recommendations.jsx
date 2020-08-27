@@ -1,4 +1,5 @@
 import React from 'react';
+import { Snackbar, defaultSnackbarTimeout, } from 'quill-component-library/dist/componentLibrary'
 import LoadingSpinner from '../../shared/loading_indicator.jsx';
 import _ from 'underscore';
 import { requestGet, requestPost } from '../../../../../modules/request';
@@ -20,6 +21,7 @@ export default class Recommendations extends React.Component {
       students: [],
       assigning: false,
       assigned: false,
+      snackbarVisible: false
     }
   }
 
@@ -76,13 +78,13 @@ export default class Recommendations extends React.Component {
         return {
           activity_pack_id: recommendation.activity_pack_id,
           name: recommendation.name,
-          students: recommendation.students,
+          students: [...recommendation.students],
         };
       });
     }
     const newLessonsRecommendations = lessonsRecommendations.map((recommendation) => {
       if (previouslyAssignedLessonsRecommendations.includes(recommendation.activity_pack_id)) {
-        return Object.assign({}, recommendation, { status: 'assigned', });
+        return Object.assign({}, recommendation, { status: 'assigned', previously_assigned: true, });
       } else {
         return recommendation;
       }
@@ -90,7 +92,7 @@ export default class Recommendations extends React.Component {
     if (assigned) {
       this.setState({ selections: newSelections, assigned, assigning: false, }, this.setAssignedToFalseAfterFiveSeconds);
     } else {
-      this.setState({ selections: newSelections, newLessonsRecommendations, });
+      this.setState({ selections: newSelections, lessonsRecommendations: newLessonsRecommendations, });
     }
   }
 
@@ -154,6 +156,12 @@ export default class Recommendations extends React.Component {
     this.setState({selections: newSelections})
   }
 
+  triggerSnackbar = (snackbarText) => {
+    this.setState({snackbarVisible: true, snackbarText, }, () => {
+      setTimeout(() => this.setState({ snackbarVisible: false, }), defaultSnackbarTimeout)
+    })
+  }
+
   initializePusher(unitTemplateId) {
     if (process.env.RAILS_ENV === 'development') {
       Pusher.logToConsole = true;
@@ -166,10 +174,11 @@ export default class Recommendations extends React.Component {
       channel.bind(`${unitTemplateId}-lesson-assigned`, (data) => {
         const newObj = Object.assign({}, that.state);
         newObj.lessonsRecommendations.find(rec => rec.activity_pack_id === unitTemplateId).status = 'assigned';
-        that.setState(newObj);
+        that.setState(newObj, () => that.triggerSnackbar('Activity pack assigned'));
       });
     } else {
       channel.bind('personalized-recommendations-assigned', (data) => {
+        this.triggerSnackbar('Activity packs assigned')
         that.getPreviouslyAssignedRecommendationData(params.classroomId, params.activityId, true);
       });
     }
@@ -247,22 +256,33 @@ export default class Recommendations extends React.Component {
   }
 
   renderAssignButton() {
-    const { assigning, assigned, } = this.state
+    const { assigning, assigned, selections, previouslyAssignedRecommendations, } = this.state
+    const className = "focus-on-light quill-button medium primary contained"
     if (assigning) {
       return (
-        <div className="recommendations-assign-button">
+        <div className={className}>
           <span>Assigning...</span>
         </div>
       );
     } else if (assigned) {
       return (
-        <div className="recommendations-assign-button">
+        <div className={className}>
           <span>Assigned</span>
         </div>
       );
     }
+
+    const thereAreSelectionsThatHaveYetToBeAssigned = selections && selections.find(sel => {
+      if (!sel.students.length) { return false }
+      const matchingPreviouslyAssignedRecommendation = previouslyAssignedRecommendations.find(r => r.activity_pack_id === sel.activity_pack_id)
+      if (!matchingPreviouslyAssignedRecommendation) { return true }
+      return sel.students.find(s => !matchingPreviouslyAssignedRecommendation.students.includes(s))
+    })
+
+    const disabled = thereAreSelectionsThatHaveYetToBeAssigned ? '' : 'disabled'
+
     return (
-      <button className="quill-button focus-on-light    recommendations-assign-button" onClick={this.handleAssignClick} type="submit">
+      <button className={`${className} ${disabled}`} onClick={!disabled && this.handleAssignClick} type="submit">
         <span>Assign Activity Packs</span>
       </button>
     );
@@ -325,7 +345,7 @@ export default class Recommendations extends React.Component {
             className="independent-practice-logo"
             src="https://assets.quill.org/images/icons/independent-lesson-blue.svg"
           />
-          Independent Activity Recommendations
+          <span>Independent Activity Recommendations</span>
         </h3>
         {this.renderExplanation()}
         <div>
@@ -367,15 +387,22 @@ export default class Recommendations extends React.Component {
   renderTableRow(student) {
     const { params, } = this.props
     const { activityId, classroomId, unitId } = params
-    /* eslint-disable react/jsx-no-target-blank */
-    const studentReportLink = <a href={`/teachers/progress_reports/diagnostic_reports#/u/${unitId}/a/${activityId}/c/${classroomId}/student_report/${student.id}`} target="_blank"><span>{student.name}</span> <i className="fas fa-icon fa-external-link" /></a>
-    /* eslint-enable react/jsx-no-target-blank */
-    return (
-      <div className="recommendations-table-row" key={student.id}>
-        <div className="recommendations-table-row-name">{studentReportLink}</div>
-        {this.renderActivityPackRowItems(student)}
-      </div>
-    );
+    if (student.completed) {
+      /* eslint-disable react/jsx-no-target-blank */
+      const studentReportLink = <a href={`/teachers/progress_reports/diagnostic_reports#/u/${unitId}/a/${activityId}/c/${classroomId}/student_report/${student.id}`} target="_blank"><span>{student.name}</span> <i className="fas fa-icon fa-external-link" /></a>
+      /* eslint-enable react/jsx-no-target-blank */
+      return (
+        <div className="recommendations-table-row" key={student.id}>
+          <div className="recommendations-table-row-name">{studentReportLink}</div>
+          {this.renderActivityPackRowItems(student)}
+        </div>
+      );
+    }
+
+    return (<div className="recommendations-table-row not-completed-row" key={student.id}>
+      <div className="recommendations-table-row-name">{student.name}</div>
+      <div className="not-completed-cell">Not Completed</div>
+    </div>)
   }
 
   renderTableRows() {
@@ -404,7 +431,7 @@ export default class Recommendations extends React.Component {
   }
 
   render() {
-    const { loading, } = this.state
+    const { loading, snackbarVisible, snackbarText, } = this.state
 
     if (loading) {
       return <LoadingSpinner />;
@@ -412,6 +439,7 @@ export default class Recommendations extends React.Component {
 
     return (
       <div>
+        <Snackbar text={snackbarText} visible={snackbarVisible} />
         {this.renderRecommendations()}
       </div>
     );

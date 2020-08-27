@@ -1,0 +1,5315 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Recommendations Component if all of the students have completed the activity renders 1`] = `
+<div>
+  <Snackbar
+    visible={false}
+  />
+  <div
+    className="recommendations-container"
+  >
+    <div
+      className="independent-practice-container"
+    >
+      <h3
+        className="independent-practice-header"
+        id="recommendations-scroll-to"
+      >
+        <img
+          alt="independent practice logo"
+          className="independent-practice-logo"
+          src="https://assets.quill.org/images/icons/independent-lesson-blue.svg"
+        />
+        <span>
+          Independent Activity Recommendations
+        </span>
+      </h3>
+      <div
+        className="recommendations-explanation-container"
+      >
+        <p
+          className="recommendations-explanation"
+        >
+          Based on the results of the diagnostic, we created a personalized learning plan for each student.
+          <br />
+          Customize your learning plan by selecting the activity packs you would like to assign.
+        </p>
+      </div>
+      <div>
+        <div
+          className="recommendations-top-bar"
+        >
+          <div
+            className="recommendations-key"
+          >
+            <div
+              className="recommendations-key-icon"
+            />
+            <span
+              className="recommended-activity-pack-text"
+            >
+              <p>
+                Recommended Activity Packs
+              </p>
+              <button
+                className="quill-button focus-on-light uncheck-recommendations"
+                onClick={[Function]}
+                type="reset"
+              >
+                <img
+                  alt="uncheck-all-logo"
+                  src="https://assets.quill.org/images/icons/uncheckall-diagnostic.svg"
+                />
+                <span>
+                  Uncheck All
+                </span>
+              </button>
+            </span>
+            <div
+              className="assigned-recommendations-key-icon"
+            >
+              <i
+                className="fas fa-check-circle"
+              />
+            </div>
+            <span
+              className="assigned-activity-pack-text"
+            >
+              <p>
+                Assigned Activity Packs
+              </p>
+              <p>
+                Assigned activities will not be assigned again.
+              </p>
+            </span>
+          </div>
+          <button
+            className="focus-on-light quill-button medium primary contained "
+            onClick={[Function]}
+            type="submit"
+          >
+            <span>
+              Assign Activity Packs
+            </span>
+          </button>
+        </div>
+        <div
+          className="recommendations-table-header"
+        >
+          <div
+            className="recommendations-table-header-name"
+          >
+            Name
+          </div>
+          <div
+            className="recommendations-table-header-item"
+            key="24"
+          >
+            <p>
+              Compound Subjects, Objects, and Predicates
+            </p>
+            <a
+              className="focus-on-light view-pack-link"
+              href="/activities/packs/24"
+              target="_blank"
+            >
+              View Pack
+            </a>
+          </div>
+          <div
+            className="recommendations-table-header-item"
+            key="23"
+          >
+            <p>
+              Adjectives
+            </p>
+            <a
+              className="focus-on-light view-pack-link"
+              href="/activities/packs/23"
+              target="_blank"
+            >
+              View Pack
+            </a>
+          </div>
+          <div
+            className="recommendations-table-header-item"
+            key="25"
+          >
+            <p>
+              Adverbs of Manner
+            </p>
+            <a
+              className="focus-on-light view-pack-link"
+              href="/activities/packs/25"
+              target="_blank"
+            >
+              View Pack
+            </a>
+          </div>
+          <div
+            className="recommendations-table-header-item"
+            key="22"
+          >
+            <p>
+              Compound Sentences
+            </p>
+            <a
+              className="focus-on-light view-pack-link"
+              href="/activities/packs/22"
+              target="_blank"
+            >
+              View Pack
+            </a>
+          </div>
+          <div
+            className="recommendations-table-header-item"
+            key="21"
+          >
+            <p>
+              Complex Sentences
+            </p>
+            <a
+              className="focus-on-light view-pack-link"
+              href="/activities/packs/21"
+              target="_blank"
+            >
+              View Pack
+            </a>
+          </div>
+          <div
+            className="recommendations-table-header-item"
+            key="27"
+          >
+            <p>
+              Appositives and Modifying Phrases
+            </p>
+            <a
+              className="focus-on-light view-pack-link"
+              href="/activities/packs/27"
+              target="_blank"
+            >
+              View Pack
+            </a>
+          </div>
+          <div
+            className="recommendations-table-header-item"
+            key="29"
+          >
+            <p>
+              Parallel Structure
+            </p>
+            <a
+              className="focus-on-light view-pack-link"
+              href="/activities/packs/29"
+              target="_blank"
+            >
+              View Pack
+            </a>
+          </div>
+        </div>
+        <div
+          className="recommendations-table-row-wrapper"
+        >
+          <div
+            className="recommendations-table-row"
+            key="1"
+          >
+            <div
+              className="recommendations-table-row-name"
+            >
+              <a
+                href="/teachers/progress_reports/diagnostic_reports#/u/1/a/413/c/1/student_report/1"
+                target="_blank"
+              >
+                <span>
+                  Yasmine Long
+                </span>
+                 
+                <i
+                  className="fas fa-icon fa-external-link"
+                />
+              </a>
+            </div>
+            <RecommendationsTableCell
+              checkboxOnClick={[Function]}
+              index={0}
+              key="24"
+              previouslyAssigned=""
+              recommendation={
+                Object {
+                  "activity_pack_id": 24,
+                  "name": "Compound Subjects, Objects, and Predicates",
+                  "students": Array [
+                    2,
+                    3,
+                    4,
+                    7,
+                    9,
+                    15,
+                    19,
+                  ],
+                }
+              }
+              recommended=""
+              selected=""
+              student={
+                Object {
+                  "completed": true,
+                  "id": 1,
+                  "name": "Yasmine Long",
+                }
+              }
+            />
+            <RecommendationsTableCell
+              checkboxOnClick={[Function]}
+              index={1}
+              key="23"
+              previouslyAssigned=""
+              recommendation={
+                Object {
+                  "activity_pack_id": 23,
+                  "name": "Adjectives",
+                  "students": Array [],
+                }
+              }
+              recommended=""
+              selected=""
+              student={
+                Object {
+                  "completed": true,
+                  "id": 1,
+                  "name": "Yasmine Long",
+                }
+              }
+            />
+            <RecommendationsTableCell
+              checkboxOnClick={[Function]}
+              index={2}
+              key="25"
+              previouslyAssigned=""
+              recommendation={
+                Object {
+                  "activity_pack_id": 25,
+                  "name": "Adverbs of Manner",
+                  "students": Array [
+                    3,
+                    12,
+                    13,
+                  ],
+                }
+              }
+              recommended=""
+              selected=""
+              student={
+                Object {
+                  "completed": true,
+                  "id": 1,
+                  "name": "Yasmine Long",
+                }
+              }
+            />
+            <RecommendationsTableCell
+              checkboxOnClick={[Function]}
+              index={3}
+              key="22"
+              previouslyAssigned=""
+              recommendation={
+                Object {
+                  "activity_pack_id": 22,
+                  "name": "Compound Sentences",
+                  "students": Array [
+                    1,
+                    3,
+                    4,
+                    5,
+                    6,
+                    7,
+                    13,
+                    14,
+                    15,
+                    16,
+                  ],
+                }
+              }
+              recommended=" recommended "
+              selected=" selected "
+              student={
+                Object {
+                  "completed": true,
+                  "id": 1,
+                  "name": "Yasmine Long",
+                }
+              }
+            />
+            <RecommendationsTableCell
+              checkboxOnClick={[Function]}
+              index={4}
+              key="21"
+              previouslyAssigned=""
+              recommendation={
+                Object {
+                  "activity_pack_id": 21,
+                  "name": "Complex Sentences",
+                  "students": Array [
+                    2,
+                    7,
+                    8,
+                    9,
+                    13,
+                    18,
+                    19,
+                  ],
+                }
+              }
+              recommended=""
+              selected=""
+              student={
+                Object {
+                  "completed": true,
+                  "id": 1,
+                  "name": "Yasmine Long",
+                }
+              }
+            />
+            <RecommendationsTableCell
+              checkboxOnClick={[Function]}
+              index={5}
+              key="27"
+              previouslyAssigned=""
+              recommendation={
+                Object {
+                  "activity_pack_id": 27,
+                  "name": "Appositives and Modifying Phrases",
+                  "students": Array [
+                    1,
+                    2,
+                    3,
+                    4,
+                    5,
+                    6,
+                    7,
+                    8,
+                    9,
+                    11,
+                    12,
+                    14,
+                    15,
+                    16,
+                    19,
+                    20,
+                  ],
+                }
+              }
+              recommended=" recommended "
+              selected=" selected "
+              student={
+                Object {
+                  "completed": true,
+                  "id": 1,
+                  "name": "Yasmine Long",
+                }
+              }
+            />
+            <RecommendationsTableCell
+              checkboxOnClick={[Function]}
+              index={6}
+              key="29"
+              previouslyAssigned=""
+              recommendation={
+                Object {
+                  "activity_pack_id": 29,
+                  "name": "Parallel Structure",
+                  "students": Array [
+                    1,
+                    6,
+                    8,
+                    17,
+                    19,
+                  ],
+                }
+              }
+              recommended=" recommended "
+              selected=" selected "
+              student={
+                Object {
+                  "completed": true,
+                  "id": 1,
+                  "name": "Yasmine Long",
+                }
+              }
+            />
+          </div>
+          <div
+            className="recommendations-table-row"
+            key="2"
+          >
+            <div
+              className="recommendations-table-row-name"
+            >
+              <a
+                href="/teachers/progress_reports/diagnostic_reports#/u/1/a/413/c/1/student_report/2"
+                target="_blank"
+              >
+                <span>
+                  Tomika Norvell
+                </span>
+                 
+                <i
+                  className="fas fa-icon fa-external-link"
+                />
+              </a>
+            </div>
+            <RecommendationsTableCell
+              checkboxOnClick={[Function]}
+              index={0}
+              key="24"
+              previouslyAssigned=""
+              recommendation={
+                Object {
+                  "activity_pack_id": 24,
+                  "name": "Compound Subjects, Objects, and Predicates",
+                  "students": Array [
+                    2,
+                    3,
+                    4,
+                    7,
+                    9,
+                    15,
+                    19,
+                  ],
+                }
+              }
+              recommended=" recommended "
+              selected=" selected "
+              student={
+                Object {
+                  "completed": true,
+                  "id": 2,
+                  "name": "Tomika Norvell",
+                }
+              }
+            />
+            <RecommendationsTableCell
+              checkboxOnClick={[Function]}
+              index={1}
+              key="23"
+              previouslyAssigned=""
+              recommendation={
+                Object {
+                  "activity_pack_id": 23,
+                  "name": "Adjectives",
+                  "students": Array [],
+                }
+              }
+              recommended=""
+              selected=""
+              student={
+                Object {
+                  "completed": true,
+                  "id": 2,
+                  "name": "Tomika Norvell",
+                }
+              }
+            />
+            <RecommendationsTableCell
+              checkboxOnClick={[Function]}
+              index={2}
+              key="25"
+              previouslyAssigned=""
+              recommendation={
+                Object {
+                  "activity_pack_id": 25,
+                  "name": "Adverbs of Manner",
+                  "students": Array [
+                    3,
+                    12,
+                    13,
+                  ],
+                }
+              }
+              recommended=""
+              selected=""
+              student={
+                Object {
+                  "completed": true,
+                  "id": 2,
+                  "name": "Tomika Norvell",
+                }
+              }
+            />
+            <RecommendationsTableCell
+              checkboxOnClick={[Function]}
+              index={3}
+              key="22"
+              previouslyAssigned=""
+              recommendation={
+                Object {
+                  "activity_pack_id": 22,
+                  "name": "Compound Sentences",
+                  "students": Array [
+                    1,
+                    3,
+                    4,
+                    5,
+                    6,
+                    7,
+                    13,
+                    14,
+                    15,
+                    16,
+                  ],
+                }
+              }
+              recommended=""
+              selected=""
+              student={
+                Object {
+                  "completed": true,
+                  "id": 2,
+                  "name": "Tomika Norvell",
+                }
+              }
+            />
+            <RecommendationsTableCell
+              checkboxOnClick={[Function]}
+              index={4}
+              key="21"
+              previouslyAssigned=""
+              recommendation={
+                Object {
+                  "activity_pack_id": 21,
+                  "name": "Complex Sentences",
+                  "students": Array [
+                    2,
+                    7,
+                    8,
+                    9,
+                    13,
+                    18,
+                    19,
+                  ],
+                }
+              }
+              recommended=" recommended "
+              selected=" selected "
+              student={
+                Object {
+                  "completed": true,
+                  "id": 2,
+                  "name": "Tomika Norvell",
+                }
+              }
+            />
+            <RecommendationsTableCell
+              checkboxOnClick={[Function]}
+              index={5}
+              key="27"
+              previouslyAssigned=""
+              recommendation={
+                Object {
+                  "activity_pack_id": 27,
+                  "name": "Appositives and Modifying Phrases",
+                  "students": Array [
+                    1,
+                    2,
+                    3,
+                    4,
+                    5,
+                    6,
+                    7,
+                    8,
+                    9,
+                    11,
+                    12,
+                    14,
+                    15,
+                    16,
+                    19,
+                    20,
+                  ],
+                }
+              }
+              recommended=" recommended "
+              selected=" selected "
+              student={
+                Object {
+                  "completed": true,
+                  "id": 2,
+                  "name": "Tomika Norvell",
+                }
+              }
+            />
+            <RecommendationsTableCell
+              checkboxOnClick={[Function]}
+              index={6}
+              key="29"
+              previouslyAssigned=""
+              recommendation={
+                Object {
+                  "activity_pack_id": 29,
+                  "name": "Parallel Structure",
+                  "students": Array [
+                    1,
+                    6,
+                    8,
+                    17,
+                    19,
+                  ],
+                }
+              }
+              recommended=""
+              selected=""
+              student={
+                Object {
+                  "completed": true,
+                  "id": 2,
+                  "name": "Tomika Norvell",
+                }
+              }
+            />
+          </div>
+          <div
+            className="recommendations-table-row"
+            key="3"
+          >
+            <div
+              className="recommendations-table-row-name"
+            >
+              <a
+                href="/teachers/progress_reports/diagnostic_reports#/u/1/a/413/c/1/student_report/3"
+                target="_blank"
+              >
+                <span>
+                  Enedina Sweat
+                </span>
+                 
+                <i
+                  className="fas fa-icon fa-external-link"
+                />
+              </a>
+            </div>
+            <RecommendationsTableCell
+              checkboxOnClick={[Function]}
+              index={0}
+              key="24"
+              previouslyAssigned=""
+              recommendation={
+                Object {
+                  "activity_pack_id": 24,
+                  "name": "Compound Subjects, Objects, and Predicates",
+                  "students": Array [
+                    2,
+                    3,
+                    4,
+                    7,
+                    9,
+                    15,
+                    19,
+                  ],
+                }
+              }
+              recommended=" recommended "
+              selected=" selected "
+              student={
+                Object {
+                  "completed": true,
+                  "id": 3,
+                  "name": "Enedina Sweat",
+                }
+              }
+            />
+            <RecommendationsTableCell
+              checkboxOnClick={[Function]}
+              index={1}
+              key="23"
+              previouslyAssigned=""
+              recommendation={
+                Object {
+                  "activity_pack_id": 23,
+                  "name": "Adjectives",
+                  "students": Array [],
+                }
+              }
+              recommended=""
+              selected=""
+              student={
+                Object {
+                  "completed": true,
+                  "id": 3,
+                  "name": "Enedina Sweat",
+                }
+              }
+            />
+            <RecommendationsTableCell
+              checkboxOnClick={[Function]}
+              index={2}
+              key="25"
+              previouslyAssigned=""
+              recommendation={
+                Object {
+                  "activity_pack_id": 25,
+                  "name": "Adverbs of Manner",
+                  "students": Array [
+                    3,
+                    12,
+                    13,
+                  ],
+                }
+              }
+              recommended=" recommended "
+              selected=" selected "
+              student={
+                Object {
+                  "completed": true,
+                  "id": 3,
+                  "name": "Enedina Sweat",
+                }
+              }
+            />
+            <RecommendationsTableCell
+              checkboxOnClick={[Function]}
+              index={3}
+              key="22"
+              previouslyAssigned=""
+              recommendation={
+                Object {
+                  "activity_pack_id": 22,
+                  "name": "Compound Sentences",
+                  "students": Array [
+                    1,
+                    3,
+                    4,
+                    5,
+                    6,
+                    7,
+                    13,
+                    14,
+                    15,
+                    16,
+                  ],
+                }
+              }
+              recommended=" recommended "
+              selected=" selected "
+              student={
+                Object {
+                  "completed": true,
+                  "id": 3,
+                  "name": "Enedina Sweat",
+                }
+              }
+            />
+            <RecommendationsTableCell
+              checkboxOnClick={[Function]}
+              index={4}
+              key="21"
+              previouslyAssigned=""
+              recommendation={
+                Object {
+                  "activity_pack_id": 21,
+                  "name": "Complex Sentences",
+                  "students": Array [
+                    2,
+                    7,
+                    8,
+                    9,
+                    13,
+                    18,
+                    19,
+                  ],
+                }
+              }
+              recommended=""
+              selected=""
+              student={
+                Object {
+                  "completed": true,
+                  "id": 3,
+                  "name": "Enedina Sweat",
+                }
+              }
+            />
+            <RecommendationsTableCell
+              checkboxOnClick={[Function]}
+              index={5}
+              key="27"
+              previouslyAssigned=""
+              recommendation={
+                Object {
+                  "activity_pack_id": 27,
+                  "name": "Appositives and Modifying Phrases",
+                  "students": Array [
+                    1,
+                    2,
+                    3,
+                    4,
+                    5,
+                    6,
+                    7,
+                    8,
+                    9,
+                    11,
+                    12,
+                    14,
+                    15,
+                    16,
+                    19,
+                    20,
+                  ],
+                }
+              }
+              recommended=" recommended "
+              selected=" selected "
+              student={
+                Object {
+                  "completed": true,
+                  "id": 3,
+                  "name": "Enedina Sweat",
+                }
+              }
+            />
+            <RecommendationsTableCell
+              checkboxOnClick={[Function]}
+              index={6}
+              key="29"
+              previouslyAssigned=""
+              recommendation={
+                Object {
+                  "activity_pack_id": 29,
+                  "name": "Parallel Structure",
+                  "students": Array [
+                    1,
+                    6,
+                    8,
+                    17,
+                    19,
+                  ],
+                }
+              }
+              recommended=""
+              selected=""
+              student={
+                Object {
+                  "completed": true,
+                  "id": 3,
+                  "name": "Enedina Sweat",
+                }
+              }
+            />
+          </div>
+          <div
+            className="recommendations-table-row"
+            key="4"
+          >
+            <div
+              className="recommendations-table-row-name"
+            >
+              <a
+                href="/teachers/progress_reports/diagnostic_reports#/u/1/a/413/c/1/student_report/4"
+                target="_blank"
+              >
+                <span>
+                  Aubrey Despres
+                </span>
+                 
+                <i
+                  className="fas fa-icon fa-external-link"
+                />
+              </a>
+            </div>
+            <RecommendationsTableCell
+              checkboxOnClick={[Function]}
+              index={0}
+              key="24"
+              previouslyAssigned=""
+              recommendation={
+                Object {
+                  "activity_pack_id": 24,
+                  "name": "Compound Subjects, Objects, and Predicates",
+                  "students": Array [
+                    2,
+                    3,
+                    4,
+                    7,
+                    9,
+                    15,
+                    19,
+                  ],
+                }
+              }
+              recommended=" recommended "
+              selected=" selected "
+              student={
+                Object {
+                  "completed": true,
+                  "id": 4,
+                  "name": "Aubrey Despres",
+                }
+              }
+            />
+            <RecommendationsTableCell
+              checkboxOnClick={[Function]}
+              index={1}
+              key="23"
+              previouslyAssigned=""
+              recommendation={
+                Object {
+                  "activity_pack_id": 23,
+                  "name": "Adjectives",
+                  "students": Array [],
+                }
+              }
+              recommended=""
+              selected=""
+              student={
+                Object {
+                  "completed": true,
+                  "id": 4,
+                  "name": "Aubrey Despres",
+                }
+              }
+            />
+            <RecommendationsTableCell
+              checkboxOnClick={[Function]}
+              index={2}
+              key="25"
+              previouslyAssigned=""
+              recommendation={
+                Object {
+                  "activity_pack_id": 25,
+                  "name": "Adverbs of Manner",
+                  "students": Array [
+                    3,
+                    12,
+                    13,
+                  ],
+                }
+              }
+              recommended=""
+              selected=""
+              student={
+                Object {
+                  "completed": true,
+                  "id": 4,
+                  "name": "Aubrey Despres",
+                }
+              }
+            />
+            <RecommendationsTableCell
+              checkboxOnClick={[Function]}
+              index={3}
+              key="22"
+              previouslyAssigned=""
+              recommendation={
+                Object {
+                  "activity_pack_id": 22,
+                  "name": "Compound Sentences",
+                  "students": Array [
+                    1,
+                    3,
+                    4,
+                    5,
+                    6,
+                    7,
+                    13,
+                    14,
+                    15,
+                    16,
+                  ],
+                }
+              }
+              recommended=" recommended "
+              selected=" selected "
+              student={
+                Object {
+                  "completed": true,
+                  "id": 4,
+                  "name": "Aubrey Despres",
+                }
+              }
+            />
+            <RecommendationsTableCell
+              checkboxOnClick={[Function]}
+              index={4}
+              key="21"
+              previouslyAssigned=""
+              recommendation={
+                Object {
+                  "activity_pack_id": 21,
+                  "name": "Complex Sentences",
+                  "students": Array [
+                    2,
+                    7,
+                    8,
+                    9,
+                    13,
+                    18,
+                    19,
+                  ],
+                }
+              }
+              recommended=""
+              selected=""
+              student={
+                Object {
+                  "completed": true,
+                  "id": 4,
+                  "name": "Aubrey Despres",
+                }
+              }
+            />
+            <RecommendationsTableCell
+              checkboxOnClick={[Function]}
+              index={5}
+              key="27"
+              previouslyAssigned=""
+              recommendation={
+                Object {
+                  "activity_pack_id": 27,
+                  "name": "Appositives and Modifying Phrases",
+                  "students": Array [
+                    1,
+                    2,
+                    3,
+                    4,
+                    5,
+                    6,
+                    7,
+                    8,
+                    9,
+                    11,
+                    12,
+                    14,
+                    15,
+                    16,
+                    19,
+                    20,
+                  ],
+                }
+              }
+              recommended=" recommended "
+              selected=" selected "
+              student={
+                Object {
+                  "completed": true,
+                  "id": 4,
+                  "name": "Aubrey Despres",
+                }
+              }
+            />
+            <RecommendationsTableCell
+              checkboxOnClick={[Function]}
+              index={6}
+              key="29"
+              previouslyAssigned=""
+              recommendation={
+                Object {
+                  "activity_pack_id": 29,
+                  "name": "Parallel Structure",
+                  "students": Array [
+                    1,
+                    6,
+                    8,
+                    17,
+                    19,
+                  ],
+                }
+              }
+              recommended=""
+              selected=""
+              student={
+                Object {
+                  "completed": true,
+                  "id": 4,
+                  "name": "Aubrey Despres",
+                }
+              }
+            />
+          </div>
+          <div
+            className="recommendations-table-row"
+            key="5"
+          >
+            <div
+              className="recommendations-table-row-name"
+            >
+              <a
+                href="/teachers/progress_reports/diagnostic_reports#/u/1/a/413/c/1/student_report/5"
+                target="_blank"
+              >
+                <span>
+                  Archie Comerford
+                </span>
+                 
+                <i
+                  className="fas fa-icon fa-external-link"
+                />
+              </a>
+            </div>
+            <RecommendationsTableCell
+              checkboxOnClick={[Function]}
+              index={0}
+              key="24"
+              previouslyAssigned=""
+              recommendation={
+                Object {
+                  "activity_pack_id": 24,
+                  "name": "Compound Subjects, Objects, and Predicates",
+                  "students": Array [
+                    2,
+                    3,
+                    4,
+                    7,
+                    9,
+                    15,
+                    19,
+                  ],
+                }
+              }
+              recommended=""
+              selected=""
+              student={
+                Object {
+                  "completed": true,
+                  "id": 5,
+                  "name": "Archie Comerford",
+                }
+              }
+            />
+            <RecommendationsTableCell
+              checkboxOnClick={[Function]}
+              index={1}
+              key="23"
+              previouslyAssigned=""
+              recommendation={
+                Object {
+                  "activity_pack_id": 23,
+                  "name": "Adjectives",
+                  "students": Array [],
+                }
+              }
+              recommended=""
+              selected=""
+              student={
+                Object {
+                  "completed": true,
+                  "id": 5,
+                  "name": "Archie Comerford",
+                }
+              }
+            />
+            <RecommendationsTableCell
+              checkboxOnClick={[Function]}
+              index={2}
+              key="25"
+              previouslyAssigned=""
+              recommendation={
+                Object {
+                  "activity_pack_id": 25,
+                  "name": "Adverbs of Manner",
+                  "students": Array [
+                    3,
+                    12,
+                    13,
+                  ],
+                }
+              }
+              recommended=""
+              selected=""
+              student={
+                Object {
+                  "completed": true,
+                  "id": 5,
+                  "name": "Archie Comerford",
+                }
+              }
+            />
+            <RecommendationsTableCell
+              checkboxOnClick={[Function]}
+              index={3}
+              key="22"
+              previouslyAssigned=""
+              recommendation={
+                Object {
+                  "activity_pack_id": 22,
+                  "name": "Compound Sentences",
+                  "students": Array [
+                    1,
+                    3,
+                    4,
+                    5,
+                    6,
+                    7,
+                    13,
+                    14,
+                    15,
+                    16,
+                  ],
+                }
+              }
+              recommended=" recommended "
+              selected=" selected "
+              student={
+                Object {
+                  "completed": true,
+                  "id": 5,
+                  "name": "Archie Comerford",
+                }
+              }
+            />
+            <RecommendationsTableCell
+              checkboxOnClick={[Function]}
+              index={4}
+              key="21"
+              previouslyAssigned=""
+              recommendation={
+                Object {
+                  "activity_pack_id": 21,
+                  "name": "Complex Sentences",
+                  "students": Array [
+                    2,
+                    7,
+                    8,
+                    9,
+                    13,
+                    18,
+                    19,
+                  ],
+                }
+              }
+              recommended=""
+              selected=""
+              student={
+                Object {
+                  "completed": true,
+                  "id": 5,
+                  "name": "Archie Comerford",
+                }
+              }
+            />
+            <RecommendationsTableCell
+              checkboxOnClick={[Function]}
+              index={5}
+              key="27"
+              previouslyAssigned=""
+              recommendation={
+                Object {
+                  "activity_pack_id": 27,
+                  "name": "Appositives and Modifying Phrases",
+                  "students": Array [
+                    1,
+                    2,
+                    3,
+                    4,
+                    5,
+                    6,
+                    7,
+                    8,
+                    9,
+                    11,
+                    12,
+                    14,
+                    15,
+                    16,
+                    19,
+                    20,
+                  ],
+                }
+              }
+              recommended=" recommended "
+              selected=" selected "
+              student={
+                Object {
+                  "completed": true,
+                  "id": 5,
+                  "name": "Archie Comerford",
+                }
+              }
+            />
+            <RecommendationsTableCell
+              checkboxOnClick={[Function]}
+              index={6}
+              key="29"
+              previouslyAssigned=""
+              recommendation={
+                Object {
+                  "activity_pack_id": 29,
+                  "name": "Parallel Structure",
+                  "students": Array [
+                    1,
+                    6,
+                    8,
+                    17,
+                    19,
+                  ],
+                }
+              }
+              recommended=""
+              selected=""
+              student={
+                Object {
+                  "completed": true,
+                  "id": 5,
+                  "name": "Archie Comerford",
+                }
+              }
+            />
+          </div>
+          <div
+            className="recommendations-table-row"
+            key="6"
+          >
+            <div
+              className="recommendations-table-row-name"
+            >
+              <a
+                href="/teachers/progress_reports/diagnostic_reports#/u/1/a/413/c/1/student_report/6"
+                target="_blank"
+              >
+                <span>
+                  Janise Sneller
+                </span>
+                 
+                <i
+                  className="fas fa-icon fa-external-link"
+                />
+              </a>
+            </div>
+            <RecommendationsTableCell
+              checkboxOnClick={[Function]}
+              index={0}
+              key="24"
+              previouslyAssigned=""
+              recommendation={
+                Object {
+                  "activity_pack_id": 24,
+                  "name": "Compound Subjects, Objects, and Predicates",
+                  "students": Array [
+                    2,
+                    3,
+                    4,
+                    7,
+                    9,
+                    15,
+                    19,
+                  ],
+                }
+              }
+              recommended=""
+              selected=""
+              student={
+                Object {
+                  "completed": true,
+                  "id": 6,
+                  "name": "Janise Sneller",
+                }
+              }
+            />
+            <RecommendationsTableCell
+              checkboxOnClick={[Function]}
+              index={1}
+              key="23"
+              previouslyAssigned=""
+              recommendation={
+                Object {
+                  "activity_pack_id": 23,
+                  "name": "Adjectives",
+                  "students": Array [],
+                }
+              }
+              recommended=""
+              selected=""
+              student={
+                Object {
+                  "completed": true,
+                  "id": 6,
+                  "name": "Janise Sneller",
+                }
+              }
+            />
+            <RecommendationsTableCell
+              checkboxOnClick={[Function]}
+              index={2}
+              key="25"
+              previouslyAssigned=""
+              recommendation={
+                Object {
+                  "activity_pack_id": 25,
+                  "name": "Adverbs of Manner",
+                  "students": Array [
+                    3,
+                    12,
+                    13,
+                  ],
+                }
+              }
+              recommended=""
+              selected=""
+              student={
+                Object {
+                  "completed": true,
+                  "id": 6,
+                  "name": "Janise Sneller",
+                }
+              }
+            />
+            <RecommendationsTableCell
+              checkboxOnClick={[Function]}
+              index={3}
+              key="22"
+              previouslyAssigned=""
+              recommendation={
+                Object {
+                  "activity_pack_id": 22,
+                  "name": "Compound Sentences",
+                  "students": Array [
+                    1,
+                    3,
+                    4,
+                    5,
+                    6,
+                    7,
+                    13,
+                    14,
+                    15,
+                    16,
+                  ],
+                }
+              }
+              recommended=" recommended "
+              selected=" selected "
+              student={
+                Object {
+                  "completed": true,
+                  "id": 6,
+                  "name": "Janise Sneller",
+                }
+              }
+            />
+            <RecommendationsTableCell
+              checkboxOnClick={[Function]}
+              index={4}
+              key="21"
+              previouslyAssigned=""
+              recommendation={
+                Object {
+                  "activity_pack_id": 21,
+                  "name": "Complex Sentences",
+                  "students": Array [
+                    2,
+                    7,
+                    8,
+                    9,
+                    13,
+                    18,
+                    19,
+                  ],
+                }
+              }
+              recommended=""
+              selected=""
+              student={
+                Object {
+                  "completed": true,
+                  "id": 6,
+                  "name": "Janise Sneller",
+                }
+              }
+            />
+            <RecommendationsTableCell
+              checkboxOnClick={[Function]}
+              index={5}
+              key="27"
+              previouslyAssigned=""
+              recommendation={
+                Object {
+                  "activity_pack_id": 27,
+                  "name": "Appositives and Modifying Phrases",
+                  "students": Array [
+                    1,
+                    2,
+                    3,
+                    4,
+                    5,
+                    6,
+                    7,
+                    8,
+                    9,
+                    11,
+                    12,
+                    14,
+                    15,
+                    16,
+                    19,
+                    20,
+                  ],
+                }
+              }
+              recommended=" recommended "
+              selected=" selected "
+              student={
+                Object {
+                  "completed": true,
+                  "id": 6,
+                  "name": "Janise Sneller",
+                }
+              }
+            />
+            <RecommendationsTableCell
+              checkboxOnClick={[Function]}
+              index={6}
+              key="29"
+              previouslyAssigned=""
+              recommendation={
+                Object {
+                  "activity_pack_id": 29,
+                  "name": "Parallel Structure",
+                  "students": Array [
+                    1,
+                    6,
+                    8,
+                    17,
+                    19,
+                  ],
+                }
+              }
+              recommended=" recommended "
+              selected=" selected "
+              student={
+                Object {
+                  "completed": true,
+                  "id": 6,
+                  "name": "Janise Sneller",
+                }
+              }
+            />
+          </div>
+          <div
+            className="recommendations-table-row"
+            key="7"
+          >
+            <div
+              className="recommendations-table-row-name"
+            >
+              <a
+                href="/teachers/progress_reports/diagnostic_reports#/u/1/a/413/c/1/student_report/7"
+                target="_blank"
+              >
+                <span>
+                  Lyle Corle
+                </span>
+                 
+                <i
+                  className="fas fa-icon fa-external-link"
+                />
+              </a>
+            </div>
+            <RecommendationsTableCell
+              checkboxOnClick={[Function]}
+              index={0}
+              key="24"
+              previouslyAssigned=""
+              recommendation={
+                Object {
+                  "activity_pack_id": 24,
+                  "name": "Compound Subjects, Objects, and Predicates",
+                  "students": Array [
+                    2,
+                    3,
+                    4,
+                    7,
+                    9,
+                    15,
+                    19,
+                  ],
+                }
+              }
+              recommended=" recommended "
+              selected=" selected "
+              student={
+                Object {
+                  "completed": true,
+                  "id": 7,
+                  "name": "Lyle Corle",
+                }
+              }
+            />
+            <RecommendationsTableCell
+              checkboxOnClick={[Function]}
+              index={1}
+              key="23"
+              previouslyAssigned=""
+              recommendation={
+                Object {
+                  "activity_pack_id": 23,
+                  "name": "Adjectives",
+                  "students": Array [],
+                }
+              }
+              recommended=""
+              selected=""
+              student={
+                Object {
+                  "completed": true,
+                  "id": 7,
+                  "name": "Lyle Corle",
+                }
+              }
+            />
+            <RecommendationsTableCell
+              checkboxOnClick={[Function]}
+              index={2}
+              key="25"
+              previouslyAssigned=""
+              recommendation={
+                Object {
+                  "activity_pack_id": 25,
+                  "name": "Adverbs of Manner",
+                  "students": Array [
+                    3,
+                    12,
+                    13,
+                  ],
+                }
+              }
+              recommended=""
+              selected=""
+              student={
+                Object {
+                  "completed": true,
+                  "id": 7,
+                  "name": "Lyle Corle",
+                }
+              }
+            />
+            <RecommendationsTableCell
+              checkboxOnClick={[Function]}
+              index={3}
+              key="22"
+              previouslyAssigned=""
+              recommendation={
+                Object {
+                  "activity_pack_id": 22,
+                  "name": "Compound Sentences",
+                  "students": Array [
+                    1,
+                    3,
+                    4,
+                    5,
+                    6,
+                    7,
+                    13,
+                    14,
+                    15,
+                    16,
+                  ],
+                }
+              }
+              recommended=" recommended "
+              selected=" selected "
+              student={
+                Object {
+                  "completed": true,
+                  "id": 7,
+                  "name": "Lyle Corle",
+                }
+              }
+            />
+            <RecommendationsTableCell
+              checkboxOnClick={[Function]}
+              index={4}
+              key="21"
+              previouslyAssigned=""
+              recommendation={
+                Object {
+                  "activity_pack_id": 21,
+                  "name": "Complex Sentences",
+                  "students": Array [
+                    2,
+                    7,
+                    8,
+                    9,
+                    13,
+                    18,
+                    19,
+                  ],
+                }
+              }
+              recommended=" recommended "
+              selected=" selected "
+              student={
+                Object {
+                  "completed": true,
+                  "id": 7,
+                  "name": "Lyle Corle",
+                }
+              }
+            />
+            <RecommendationsTableCell
+              checkboxOnClick={[Function]}
+              index={5}
+              key="27"
+              previouslyAssigned=""
+              recommendation={
+                Object {
+                  "activity_pack_id": 27,
+                  "name": "Appositives and Modifying Phrases",
+                  "students": Array [
+                    1,
+                    2,
+                    3,
+                    4,
+                    5,
+                    6,
+                    7,
+                    8,
+                    9,
+                    11,
+                    12,
+                    14,
+                    15,
+                    16,
+                    19,
+                    20,
+                  ],
+                }
+              }
+              recommended=" recommended "
+              selected=" selected "
+              student={
+                Object {
+                  "completed": true,
+                  "id": 7,
+                  "name": "Lyle Corle",
+                }
+              }
+            />
+            <RecommendationsTableCell
+              checkboxOnClick={[Function]}
+              index={6}
+              key="29"
+              previouslyAssigned=""
+              recommendation={
+                Object {
+                  "activity_pack_id": 29,
+                  "name": "Parallel Structure",
+                  "students": Array [
+                    1,
+                    6,
+                    8,
+                    17,
+                    19,
+                  ],
+                }
+              }
+              recommended=""
+              selected=""
+              student={
+                Object {
+                  "completed": true,
+                  "id": 7,
+                  "name": "Lyle Corle",
+                }
+              }
+            />
+          </div>
+          <div
+            className="recommendations-table-row"
+            key="8"
+          >
+            <div
+              className="recommendations-table-row-name"
+            >
+              <a
+                href="/teachers/progress_reports/diagnostic_reports#/u/1/a/413/c/1/student_report/8"
+                target="_blank"
+              >
+                <span>
+                  Sheree Cosgrove
+                </span>
+                 
+                <i
+                  className="fas fa-icon fa-external-link"
+                />
+              </a>
+            </div>
+            <RecommendationsTableCell
+              checkboxOnClick={[Function]}
+              index={0}
+              key="24"
+              previouslyAssigned=""
+              recommendation={
+                Object {
+                  "activity_pack_id": 24,
+                  "name": "Compound Subjects, Objects, and Predicates",
+                  "students": Array [
+                    2,
+                    3,
+                    4,
+                    7,
+                    9,
+                    15,
+                    19,
+                  ],
+                }
+              }
+              recommended=""
+              selected=""
+              student={
+                Object {
+                  "completed": true,
+                  "id": 8,
+                  "name": "Sheree Cosgrove",
+                }
+              }
+            />
+            <RecommendationsTableCell
+              checkboxOnClick={[Function]}
+              index={1}
+              key="23"
+              previouslyAssigned=""
+              recommendation={
+                Object {
+                  "activity_pack_id": 23,
+                  "name": "Adjectives",
+                  "students": Array [],
+                }
+              }
+              recommended=""
+              selected=""
+              student={
+                Object {
+                  "completed": true,
+                  "id": 8,
+                  "name": "Sheree Cosgrove",
+                }
+              }
+            />
+            <RecommendationsTableCell
+              checkboxOnClick={[Function]}
+              index={2}
+              key="25"
+              previouslyAssigned=""
+              recommendation={
+                Object {
+                  "activity_pack_id": 25,
+                  "name": "Adverbs of Manner",
+                  "students": Array [
+                    3,
+                    12,
+                    13,
+                  ],
+                }
+              }
+              recommended=""
+              selected=""
+              student={
+                Object {
+                  "completed": true,
+                  "id": 8,
+                  "name": "Sheree Cosgrove",
+                }
+              }
+            />
+            <RecommendationsTableCell
+              checkboxOnClick={[Function]}
+              index={3}
+              key="22"
+              previouslyAssigned=""
+              recommendation={
+                Object {
+                  "activity_pack_id": 22,
+                  "name": "Compound Sentences",
+                  "students": Array [
+                    1,
+                    3,
+                    4,
+                    5,
+                    6,
+                    7,
+                    13,
+                    14,
+                    15,
+                    16,
+                  ],
+                }
+              }
+              recommended=""
+              selected=""
+              student={
+                Object {
+                  "completed": true,
+                  "id": 8,
+                  "name": "Sheree Cosgrove",
+                }
+              }
+            />
+            <RecommendationsTableCell
+              checkboxOnClick={[Function]}
+              index={4}
+              key="21"
+              previouslyAssigned=""
+              recommendation={
+                Object {
+                  "activity_pack_id": 21,
+                  "name": "Complex Sentences",
+                  "students": Array [
+                    2,
+                    7,
+                    8,
+                    9,
+                    13,
+                    18,
+                    19,
+                  ],
+                }
+              }
+              recommended=" recommended "
+              selected=" selected "
+              student={
+                Object {
+                  "completed": true,
+                  "id": 8,
+                  "name": "Sheree Cosgrove",
+                }
+              }
+            />
+            <RecommendationsTableCell
+              checkboxOnClick={[Function]}
+              index={5}
+              key="27"
+              previouslyAssigned=""
+              recommendation={
+                Object {
+                  "activity_pack_id": 27,
+                  "name": "Appositives and Modifying Phrases",
+                  "students": Array [
+                    1,
+                    2,
+                    3,
+                    4,
+                    5,
+                    6,
+                    7,
+                    8,
+                    9,
+                    11,
+                    12,
+                    14,
+                    15,
+                    16,
+                    19,
+                    20,
+                  ],
+                }
+              }
+              recommended=" recommended "
+              selected=" selected "
+              student={
+                Object {
+                  "completed": true,
+                  "id": 8,
+                  "name": "Sheree Cosgrove",
+                }
+              }
+            />
+            <RecommendationsTableCell
+              checkboxOnClick={[Function]}
+              index={6}
+              key="29"
+              previouslyAssigned=""
+              recommendation={
+                Object {
+                  "activity_pack_id": 29,
+                  "name": "Parallel Structure",
+                  "students": Array [
+                    1,
+                    6,
+                    8,
+                    17,
+                    19,
+                  ],
+                }
+              }
+              recommended=" recommended "
+              selected=" selected "
+              student={
+                Object {
+                  "completed": true,
+                  "id": 8,
+                  "name": "Sheree Cosgrove",
+                }
+              }
+            />
+          </div>
+          <div
+            className="recommendations-table-row"
+            key="9"
+          >
+            <div
+              className="recommendations-table-row-name"
+            >
+              <a
+                href="/teachers/progress_reports/diagnostic_reports#/u/1/a/413/c/1/student_report/9"
+                target="_blank"
+              >
+                <span>
+                  Chad Almy
+                </span>
+                 
+                <i
+                  className="fas fa-icon fa-external-link"
+                />
+              </a>
+            </div>
+            <RecommendationsTableCell
+              checkboxOnClick={[Function]}
+              index={0}
+              key="24"
+              previouslyAssigned=""
+              recommendation={
+                Object {
+                  "activity_pack_id": 24,
+                  "name": "Compound Subjects, Objects, and Predicates",
+                  "students": Array [
+                    2,
+                    3,
+                    4,
+                    7,
+                    9,
+                    15,
+                    19,
+                  ],
+                }
+              }
+              recommended=" recommended "
+              selected=" selected "
+              student={
+                Object {
+                  "completed": true,
+                  "id": 9,
+                  "name": "Chad Almy",
+                }
+              }
+            />
+            <RecommendationsTableCell
+              checkboxOnClick={[Function]}
+              index={1}
+              key="23"
+              previouslyAssigned=""
+              recommendation={
+                Object {
+                  "activity_pack_id": 23,
+                  "name": "Adjectives",
+                  "students": Array [],
+                }
+              }
+              recommended=""
+              selected=""
+              student={
+                Object {
+                  "completed": true,
+                  "id": 9,
+                  "name": "Chad Almy",
+                }
+              }
+            />
+            <RecommendationsTableCell
+              checkboxOnClick={[Function]}
+              index={2}
+              key="25"
+              previouslyAssigned=""
+              recommendation={
+                Object {
+                  "activity_pack_id": 25,
+                  "name": "Adverbs of Manner",
+                  "students": Array [
+                    3,
+                    12,
+                    13,
+                  ],
+                }
+              }
+              recommended=""
+              selected=""
+              student={
+                Object {
+                  "completed": true,
+                  "id": 9,
+                  "name": "Chad Almy",
+                }
+              }
+            />
+            <RecommendationsTableCell
+              checkboxOnClick={[Function]}
+              index={3}
+              key="22"
+              previouslyAssigned=""
+              recommendation={
+                Object {
+                  "activity_pack_id": 22,
+                  "name": "Compound Sentences",
+                  "students": Array [
+                    1,
+                    3,
+                    4,
+                    5,
+                    6,
+                    7,
+                    13,
+                    14,
+                    15,
+                    16,
+                  ],
+                }
+              }
+              recommended=""
+              selected=""
+              student={
+                Object {
+                  "completed": true,
+                  "id": 9,
+                  "name": "Chad Almy",
+                }
+              }
+            />
+            <RecommendationsTableCell
+              checkboxOnClick={[Function]}
+              index={4}
+              key="21"
+              previouslyAssigned=""
+              recommendation={
+                Object {
+                  "activity_pack_id": 21,
+                  "name": "Complex Sentences",
+                  "students": Array [
+                    2,
+                    7,
+                    8,
+                    9,
+                    13,
+                    18,
+                    19,
+                  ],
+                }
+              }
+              recommended=" recommended "
+              selected=" selected "
+              student={
+                Object {
+                  "completed": true,
+                  "id": 9,
+                  "name": "Chad Almy",
+                }
+              }
+            />
+            <RecommendationsTableCell
+              checkboxOnClick={[Function]}
+              index={5}
+              key="27"
+              previouslyAssigned=""
+              recommendation={
+                Object {
+                  "activity_pack_id": 27,
+                  "name": "Appositives and Modifying Phrases",
+                  "students": Array [
+                    1,
+                    2,
+                    3,
+                    4,
+                    5,
+                    6,
+                    7,
+                    8,
+                    9,
+                    11,
+                    12,
+                    14,
+                    15,
+                    16,
+                    19,
+                    20,
+                  ],
+                }
+              }
+              recommended=" recommended "
+              selected=" selected "
+              student={
+                Object {
+                  "completed": true,
+                  "id": 9,
+                  "name": "Chad Almy",
+                }
+              }
+            />
+            <RecommendationsTableCell
+              checkboxOnClick={[Function]}
+              index={6}
+              key="29"
+              previouslyAssigned=""
+              recommendation={
+                Object {
+                  "activity_pack_id": 29,
+                  "name": "Parallel Structure",
+                  "students": Array [
+                    1,
+                    6,
+                    8,
+                    17,
+                    19,
+                  ],
+                }
+              }
+              recommended=""
+              selected=""
+              student={
+                Object {
+                  "completed": true,
+                  "id": 9,
+                  "name": "Chad Almy",
+                }
+              }
+            />
+          </div>
+          <div
+            className="recommendations-table-row"
+            key="10"
+          >
+            <div
+              className="recommendations-table-row-name"
+            >
+              <a
+                href="/teachers/progress_reports/diagnostic_reports#/u/1/a/413/c/1/student_report/10"
+                target="_blank"
+              >
+                <span>
+                  Quincy Brekke
+                </span>
+                 
+                <i
+                  className="fas fa-icon fa-external-link"
+                />
+              </a>
+            </div>
+            <RecommendationsTableCell
+              checkboxOnClick={[Function]}
+              index={0}
+              key="24"
+              previouslyAssigned=""
+              recommendation={
+                Object {
+                  "activity_pack_id": 24,
+                  "name": "Compound Subjects, Objects, and Predicates",
+                  "students": Array [
+                    2,
+                    3,
+                    4,
+                    7,
+                    9,
+                    15,
+                    19,
+                  ],
+                }
+              }
+              recommended=""
+              selected=""
+              student={
+                Object {
+                  "completed": true,
+                  "id": 10,
+                  "name": "Quincy Brekke",
+                }
+              }
+            />
+            <RecommendationsTableCell
+              checkboxOnClick={[Function]}
+              index={1}
+              key="23"
+              previouslyAssigned=""
+              recommendation={
+                Object {
+                  "activity_pack_id": 23,
+                  "name": "Adjectives",
+                  "students": Array [],
+                }
+              }
+              recommended=""
+              selected=""
+              student={
+                Object {
+                  "completed": true,
+                  "id": 10,
+                  "name": "Quincy Brekke",
+                }
+              }
+            />
+            <RecommendationsTableCell
+              checkboxOnClick={[Function]}
+              index={2}
+              key="25"
+              previouslyAssigned=""
+              recommendation={
+                Object {
+                  "activity_pack_id": 25,
+                  "name": "Adverbs of Manner",
+                  "students": Array [
+                    3,
+                    12,
+                    13,
+                  ],
+                }
+              }
+              recommended=""
+              selected=""
+              student={
+                Object {
+                  "completed": true,
+                  "id": 10,
+                  "name": "Quincy Brekke",
+                }
+              }
+            />
+            <RecommendationsTableCell
+              checkboxOnClick={[Function]}
+              index={3}
+              key="22"
+              previouslyAssigned=""
+              recommendation={
+                Object {
+                  "activity_pack_id": 22,
+                  "name": "Compound Sentences",
+                  "students": Array [
+                    1,
+                    3,
+                    4,
+                    5,
+                    6,
+                    7,
+                    13,
+                    14,
+                    15,
+                    16,
+                  ],
+                }
+              }
+              recommended=""
+              selected=""
+              student={
+                Object {
+                  "completed": true,
+                  "id": 10,
+                  "name": "Quincy Brekke",
+                }
+              }
+            />
+            <RecommendationsTableCell
+              checkboxOnClick={[Function]}
+              index={4}
+              key="21"
+              previouslyAssigned=""
+              recommendation={
+                Object {
+                  "activity_pack_id": 21,
+                  "name": "Complex Sentences",
+                  "students": Array [
+                    2,
+                    7,
+                    8,
+                    9,
+                    13,
+                    18,
+                    19,
+                  ],
+                }
+              }
+              recommended=""
+              selected=""
+              student={
+                Object {
+                  "completed": true,
+                  "id": 10,
+                  "name": "Quincy Brekke",
+                }
+              }
+            />
+            <RecommendationsTableCell
+              checkboxOnClick={[Function]}
+              index={5}
+              key="27"
+              previouslyAssigned=""
+              recommendation={
+                Object {
+                  "activity_pack_id": 27,
+                  "name": "Appositives and Modifying Phrases",
+                  "students": Array [
+                    1,
+                    2,
+                    3,
+                    4,
+                    5,
+                    6,
+                    7,
+                    8,
+                    9,
+                    11,
+                    12,
+                    14,
+                    15,
+                    16,
+                    19,
+                    20,
+                  ],
+                }
+              }
+              recommended=""
+              selected=""
+              student={
+                Object {
+                  "completed": true,
+                  "id": 10,
+                  "name": "Quincy Brekke",
+                }
+              }
+            />
+            <RecommendationsTableCell
+              checkboxOnClick={[Function]}
+              index={6}
+              key="29"
+              previouslyAssigned=""
+              recommendation={
+                Object {
+                  "activity_pack_id": 29,
+                  "name": "Parallel Structure",
+                  "students": Array [
+                    1,
+                    6,
+                    8,
+                    17,
+                    19,
+                  ],
+                }
+              }
+              recommended=""
+              selected=""
+              student={
+                Object {
+                  "completed": true,
+                  "id": 10,
+                  "name": "Quincy Brekke",
+                }
+              }
+            />
+          </div>
+          <div
+            className="recommendations-table-row"
+            key="11"
+          >
+            <div
+              className="recommendations-table-row-name"
+            >
+              <a
+                href="/teachers/progress_reports/diagnostic_reports#/u/1/a/413/c/1/student_report/11"
+                target="_blank"
+              >
+                <span>
+                  Angelic Post
+                </span>
+                 
+                <i
+                  className="fas fa-icon fa-external-link"
+                />
+              </a>
+            </div>
+            <RecommendationsTableCell
+              checkboxOnClick={[Function]}
+              index={0}
+              key="24"
+              previouslyAssigned=""
+              recommendation={
+                Object {
+                  "activity_pack_id": 24,
+                  "name": "Compound Subjects, Objects, and Predicates",
+                  "students": Array [
+                    2,
+                    3,
+                    4,
+                    7,
+                    9,
+                    15,
+                    19,
+                  ],
+                }
+              }
+              recommended=""
+              selected=""
+              student={
+                Object {
+                  "completed": true,
+                  "id": 11,
+                  "name": "Angelic Post",
+                }
+              }
+            />
+            <RecommendationsTableCell
+              checkboxOnClick={[Function]}
+              index={1}
+              key="23"
+              previouslyAssigned=""
+              recommendation={
+                Object {
+                  "activity_pack_id": 23,
+                  "name": "Adjectives",
+                  "students": Array [],
+                }
+              }
+              recommended=""
+              selected=""
+              student={
+                Object {
+                  "completed": true,
+                  "id": 11,
+                  "name": "Angelic Post",
+                }
+              }
+            />
+            <RecommendationsTableCell
+              checkboxOnClick={[Function]}
+              index={2}
+              key="25"
+              previouslyAssigned=""
+              recommendation={
+                Object {
+                  "activity_pack_id": 25,
+                  "name": "Adverbs of Manner",
+                  "students": Array [
+                    3,
+                    12,
+                    13,
+                  ],
+                }
+              }
+              recommended=""
+              selected=""
+              student={
+                Object {
+                  "completed": true,
+                  "id": 11,
+                  "name": "Angelic Post",
+                }
+              }
+            />
+            <RecommendationsTableCell
+              checkboxOnClick={[Function]}
+              index={3}
+              key="22"
+              previouslyAssigned=""
+              recommendation={
+                Object {
+                  "activity_pack_id": 22,
+                  "name": "Compound Sentences",
+                  "students": Array [
+                    1,
+                    3,
+                    4,
+                    5,
+                    6,
+                    7,
+                    13,
+                    14,
+                    15,
+                    16,
+                  ],
+                }
+              }
+              recommended=""
+              selected=""
+              student={
+                Object {
+                  "completed": true,
+                  "id": 11,
+                  "name": "Angelic Post",
+                }
+              }
+            />
+            <RecommendationsTableCell
+              checkboxOnClick={[Function]}
+              index={4}
+              key="21"
+              previouslyAssigned=""
+              recommendation={
+                Object {
+                  "activity_pack_id": 21,
+                  "name": "Complex Sentences",
+                  "students": Array [
+                    2,
+                    7,
+                    8,
+                    9,
+                    13,
+                    18,
+                    19,
+                  ],
+                }
+              }
+              recommended=""
+              selected=""
+              student={
+                Object {
+                  "completed": true,
+                  "id": 11,
+                  "name": "Angelic Post",
+                }
+              }
+            />
+            <RecommendationsTableCell
+              checkboxOnClick={[Function]}
+              index={5}
+              key="27"
+              previouslyAssigned=""
+              recommendation={
+                Object {
+                  "activity_pack_id": 27,
+                  "name": "Appositives and Modifying Phrases",
+                  "students": Array [
+                    1,
+                    2,
+                    3,
+                    4,
+                    5,
+                    6,
+                    7,
+                    8,
+                    9,
+                    11,
+                    12,
+                    14,
+                    15,
+                    16,
+                    19,
+                    20,
+                  ],
+                }
+              }
+              recommended=" recommended "
+              selected=" selected "
+              student={
+                Object {
+                  "completed": true,
+                  "id": 11,
+                  "name": "Angelic Post",
+                }
+              }
+            />
+            <RecommendationsTableCell
+              checkboxOnClick={[Function]}
+              index={6}
+              key="29"
+              previouslyAssigned=""
+              recommendation={
+                Object {
+                  "activity_pack_id": 29,
+                  "name": "Parallel Structure",
+                  "students": Array [
+                    1,
+                    6,
+                    8,
+                    17,
+                    19,
+                  ],
+                }
+              }
+              recommended=""
+              selected=""
+              student={
+                Object {
+                  "completed": true,
+                  "id": 11,
+                  "name": "Angelic Post",
+                }
+              }
+            />
+          </div>
+          <div
+            className="recommendations-table-row"
+            key="12"
+          >
+            <div
+              className="recommendations-table-row-name"
+            >
+              <a
+                href="/teachers/progress_reports/diagnostic_reports#/u/1/a/413/c/1/student_report/12"
+                target="_blank"
+              >
+                <span>
+                  Marvella Wilhite
+                </span>
+                 
+                <i
+                  className="fas fa-icon fa-external-link"
+                />
+              </a>
+            </div>
+            <RecommendationsTableCell
+              checkboxOnClick={[Function]}
+              index={0}
+              key="24"
+              previouslyAssigned=""
+              recommendation={
+                Object {
+                  "activity_pack_id": 24,
+                  "name": "Compound Subjects, Objects, and Predicates",
+                  "students": Array [
+                    2,
+                    3,
+                    4,
+                    7,
+                    9,
+                    15,
+                    19,
+                  ],
+                }
+              }
+              recommended=""
+              selected=""
+              student={
+                Object {
+                  "completed": true,
+                  "id": 12,
+                  "name": "Marvella Wilhite",
+                }
+              }
+            />
+            <RecommendationsTableCell
+              checkboxOnClick={[Function]}
+              index={1}
+              key="23"
+              previouslyAssigned=""
+              recommendation={
+                Object {
+                  "activity_pack_id": 23,
+                  "name": "Adjectives",
+                  "students": Array [],
+                }
+              }
+              recommended=""
+              selected=""
+              student={
+                Object {
+                  "completed": true,
+                  "id": 12,
+                  "name": "Marvella Wilhite",
+                }
+              }
+            />
+            <RecommendationsTableCell
+              checkboxOnClick={[Function]}
+              index={2}
+              key="25"
+              previouslyAssigned=""
+              recommendation={
+                Object {
+                  "activity_pack_id": 25,
+                  "name": "Adverbs of Manner",
+                  "students": Array [
+                    3,
+                    12,
+                    13,
+                  ],
+                }
+              }
+              recommended=" recommended "
+              selected=" selected "
+              student={
+                Object {
+                  "completed": true,
+                  "id": 12,
+                  "name": "Marvella Wilhite",
+                }
+              }
+            />
+            <RecommendationsTableCell
+              checkboxOnClick={[Function]}
+              index={3}
+              key="22"
+              previouslyAssigned=""
+              recommendation={
+                Object {
+                  "activity_pack_id": 22,
+                  "name": "Compound Sentences",
+                  "students": Array [
+                    1,
+                    3,
+                    4,
+                    5,
+                    6,
+                    7,
+                    13,
+                    14,
+                    15,
+                    16,
+                  ],
+                }
+              }
+              recommended=""
+              selected=""
+              student={
+                Object {
+                  "completed": true,
+                  "id": 12,
+                  "name": "Marvella Wilhite",
+                }
+              }
+            />
+            <RecommendationsTableCell
+              checkboxOnClick={[Function]}
+              index={4}
+              key="21"
+              previouslyAssigned=""
+              recommendation={
+                Object {
+                  "activity_pack_id": 21,
+                  "name": "Complex Sentences",
+                  "students": Array [
+                    2,
+                    7,
+                    8,
+                    9,
+                    13,
+                    18,
+                    19,
+                  ],
+                }
+              }
+              recommended=""
+              selected=""
+              student={
+                Object {
+                  "completed": true,
+                  "id": 12,
+                  "name": "Marvella Wilhite",
+                }
+              }
+            />
+            <RecommendationsTableCell
+              checkboxOnClick={[Function]}
+              index={5}
+              key="27"
+              previouslyAssigned=""
+              recommendation={
+                Object {
+                  "activity_pack_id": 27,
+                  "name": "Appositives and Modifying Phrases",
+                  "students": Array [
+                    1,
+                    2,
+                    3,
+                    4,
+                    5,
+                    6,
+                    7,
+                    8,
+                    9,
+                    11,
+                    12,
+                    14,
+                    15,
+                    16,
+                    19,
+                    20,
+                  ],
+                }
+              }
+              recommended=" recommended "
+              selected=" selected "
+              student={
+                Object {
+                  "completed": true,
+                  "id": 12,
+                  "name": "Marvella Wilhite",
+                }
+              }
+            />
+            <RecommendationsTableCell
+              checkboxOnClick={[Function]}
+              index={6}
+              key="29"
+              previouslyAssigned=""
+              recommendation={
+                Object {
+                  "activity_pack_id": 29,
+                  "name": "Parallel Structure",
+                  "students": Array [
+                    1,
+                    6,
+                    8,
+                    17,
+                    19,
+                  ],
+                }
+              }
+              recommended=""
+              selected=""
+              student={
+                Object {
+                  "completed": true,
+                  "id": 12,
+                  "name": "Marvella Wilhite",
+                }
+              }
+            />
+          </div>
+          <div
+            className="recommendations-table-row"
+            key="13"
+          >
+            <div
+              className="recommendations-table-row-name"
+            >
+              <a
+                href="/teachers/progress_reports/diagnostic_reports#/u/1/a/413/c/1/student_report/13"
+                target="_blank"
+              >
+                <span>
+                  Albertine Dotson
+                </span>
+                 
+                <i
+                  className="fas fa-icon fa-external-link"
+                />
+              </a>
+            </div>
+            <RecommendationsTableCell
+              checkboxOnClick={[Function]}
+              index={0}
+              key="24"
+              previouslyAssigned=""
+              recommendation={
+                Object {
+                  "activity_pack_id": 24,
+                  "name": "Compound Subjects, Objects, and Predicates",
+                  "students": Array [
+                    2,
+                    3,
+                    4,
+                    7,
+                    9,
+                    15,
+                    19,
+                  ],
+                }
+              }
+              recommended=""
+              selected=""
+              student={
+                Object {
+                  "completed": true,
+                  "id": 13,
+                  "name": "Albertine Dotson",
+                }
+              }
+            />
+            <RecommendationsTableCell
+              checkboxOnClick={[Function]}
+              index={1}
+              key="23"
+              previouslyAssigned=""
+              recommendation={
+                Object {
+                  "activity_pack_id": 23,
+                  "name": "Adjectives",
+                  "students": Array [],
+                }
+              }
+              recommended=""
+              selected=""
+              student={
+                Object {
+                  "completed": true,
+                  "id": 13,
+                  "name": "Albertine Dotson",
+                }
+              }
+            />
+            <RecommendationsTableCell
+              checkboxOnClick={[Function]}
+              index={2}
+              key="25"
+              previouslyAssigned=""
+              recommendation={
+                Object {
+                  "activity_pack_id": 25,
+                  "name": "Adverbs of Manner",
+                  "students": Array [
+                    3,
+                    12,
+                    13,
+                  ],
+                }
+              }
+              recommended=" recommended "
+              selected=" selected "
+              student={
+                Object {
+                  "completed": true,
+                  "id": 13,
+                  "name": "Albertine Dotson",
+                }
+              }
+            />
+            <RecommendationsTableCell
+              checkboxOnClick={[Function]}
+              index={3}
+              key="22"
+              previouslyAssigned=""
+              recommendation={
+                Object {
+                  "activity_pack_id": 22,
+                  "name": "Compound Sentences",
+                  "students": Array [
+                    1,
+                    3,
+                    4,
+                    5,
+                    6,
+                    7,
+                    13,
+                    14,
+                    15,
+                    16,
+                  ],
+                }
+              }
+              recommended=" recommended "
+              selected=" selected "
+              student={
+                Object {
+                  "completed": true,
+                  "id": 13,
+                  "name": "Albertine Dotson",
+                }
+              }
+            />
+            <RecommendationsTableCell
+              checkboxOnClick={[Function]}
+              index={4}
+              key="21"
+              previouslyAssigned=""
+              recommendation={
+                Object {
+                  "activity_pack_id": 21,
+                  "name": "Complex Sentences",
+                  "students": Array [
+                    2,
+                    7,
+                    8,
+                    9,
+                    13,
+                    18,
+                    19,
+                  ],
+                }
+              }
+              recommended=" recommended "
+              selected=" selected "
+              student={
+                Object {
+                  "completed": true,
+                  "id": 13,
+                  "name": "Albertine Dotson",
+                }
+              }
+            />
+            <RecommendationsTableCell
+              checkboxOnClick={[Function]}
+              index={5}
+              key="27"
+              previouslyAssigned=""
+              recommendation={
+                Object {
+                  "activity_pack_id": 27,
+                  "name": "Appositives and Modifying Phrases",
+                  "students": Array [
+                    1,
+                    2,
+                    3,
+                    4,
+                    5,
+                    6,
+                    7,
+                    8,
+                    9,
+                    11,
+                    12,
+                    14,
+                    15,
+                    16,
+                    19,
+                    20,
+                  ],
+                }
+              }
+              recommended=""
+              selected=""
+              student={
+                Object {
+                  "completed": true,
+                  "id": 13,
+                  "name": "Albertine Dotson",
+                }
+              }
+            />
+            <RecommendationsTableCell
+              checkboxOnClick={[Function]}
+              index={6}
+              key="29"
+              previouslyAssigned=""
+              recommendation={
+                Object {
+                  "activity_pack_id": 29,
+                  "name": "Parallel Structure",
+                  "students": Array [
+                    1,
+                    6,
+                    8,
+                    17,
+                    19,
+                  ],
+                }
+              }
+              recommended=""
+              selected=""
+              student={
+                Object {
+                  "completed": true,
+                  "id": 13,
+                  "name": "Albertine Dotson",
+                }
+              }
+            />
+          </div>
+          <div
+            className="recommendations-table-row"
+            key="14"
+          >
+            <div
+              className="recommendations-table-row-name"
+            >
+              <a
+                href="/teachers/progress_reports/diagnostic_reports#/u/1/a/413/c/1/student_report/14"
+                target="_blank"
+              >
+                <span>
+                  Essie Vicario
+                </span>
+                 
+                <i
+                  className="fas fa-icon fa-external-link"
+                />
+              </a>
+            </div>
+            <RecommendationsTableCell
+              checkboxOnClick={[Function]}
+              index={0}
+              key="24"
+              previouslyAssigned=""
+              recommendation={
+                Object {
+                  "activity_pack_id": 24,
+                  "name": "Compound Subjects, Objects, and Predicates",
+                  "students": Array [
+                    2,
+                    3,
+                    4,
+                    7,
+                    9,
+                    15,
+                    19,
+                  ],
+                }
+              }
+              recommended=""
+              selected=""
+              student={
+                Object {
+                  "completed": true,
+                  "id": 14,
+                  "name": "Essie Vicario",
+                }
+              }
+            />
+            <RecommendationsTableCell
+              checkboxOnClick={[Function]}
+              index={1}
+              key="23"
+              previouslyAssigned=""
+              recommendation={
+                Object {
+                  "activity_pack_id": 23,
+                  "name": "Adjectives",
+                  "students": Array [],
+                }
+              }
+              recommended=""
+              selected=""
+              student={
+                Object {
+                  "completed": true,
+                  "id": 14,
+                  "name": "Essie Vicario",
+                }
+              }
+            />
+            <RecommendationsTableCell
+              checkboxOnClick={[Function]}
+              index={2}
+              key="25"
+              previouslyAssigned=""
+              recommendation={
+                Object {
+                  "activity_pack_id": 25,
+                  "name": "Adverbs of Manner",
+                  "students": Array [
+                    3,
+                    12,
+                    13,
+                  ],
+                }
+              }
+              recommended=""
+              selected=""
+              student={
+                Object {
+                  "completed": true,
+                  "id": 14,
+                  "name": "Essie Vicario",
+                }
+              }
+            />
+            <RecommendationsTableCell
+              checkboxOnClick={[Function]}
+              index={3}
+              key="22"
+              previouslyAssigned=""
+              recommendation={
+                Object {
+                  "activity_pack_id": 22,
+                  "name": "Compound Sentences",
+                  "students": Array [
+                    1,
+                    3,
+                    4,
+                    5,
+                    6,
+                    7,
+                    13,
+                    14,
+                    15,
+                    16,
+                  ],
+                }
+              }
+              recommended=" recommended "
+              selected=" selected "
+              student={
+                Object {
+                  "completed": true,
+                  "id": 14,
+                  "name": "Essie Vicario",
+                }
+              }
+            />
+            <RecommendationsTableCell
+              checkboxOnClick={[Function]}
+              index={4}
+              key="21"
+              previouslyAssigned=""
+              recommendation={
+                Object {
+                  "activity_pack_id": 21,
+                  "name": "Complex Sentences",
+                  "students": Array [
+                    2,
+                    7,
+                    8,
+                    9,
+                    13,
+                    18,
+                    19,
+                  ],
+                }
+              }
+              recommended=""
+              selected=""
+              student={
+                Object {
+                  "completed": true,
+                  "id": 14,
+                  "name": "Essie Vicario",
+                }
+              }
+            />
+            <RecommendationsTableCell
+              checkboxOnClick={[Function]}
+              index={5}
+              key="27"
+              previouslyAssigned=""
+              recommendation={
+                Object {
+                  "activity_pack_id": 27,
+                  "name": "Appositives and Modifying Phrases",
+                  "students": Array [
+                    1,
+                    2,
+                    3,
+                    4,
+                    5,
+                    6,
+                    7,
+                    8,
+                    9,
+                    11,
+                    12,
+                    14,
+                    15,
+                    16,
+                    19,
+                    20,
+                  ],
+                }
+              }
+              recommended=" recommended "
+              selected=" selected "
+              student={
+                Object {
+                  "completed": true,
+                  "id": 14,
+                  "name": "Essie Vicario",
+                }
+              }
+            />
+            <RecommendationsTableCell
+              checkboxOnClick={[Function]}
+              index={6}
+              key="29"
+              previouslyAssigned=""
+              recommendation={
+                Object {
+                  "activity_pack_id": 29,
+                  "name": "Parallel Structure",
+                  "students": Array [
+                    1,
+                    6,
+                    8,
+                    17,
+                    19,
+                  ],
+                }
+              }
+              recommended=""
+              selected=""
+              student={
+                Object {
+                  "completed": true,
+                  "id": 14,
+                  "name": "Essie Vicario",
+                }
+              }
+            />
+          </div>
+          <div
+            className="recommendations-table-row"
+            key="15"
+          >
+            <div
+              className="recommendations-table-row-name"
+            >
+              <a
+                href="/teachers/progress_reports/diagnostic_reports#/u/1/a/413/c/1/student_report/15"
+                target="_blank"
+              >
+                <span>
+                  Cornell Donmoyer
+                </span>
+                 
+                <i
+                  className="fas fa-icon fa-external-link"
+                />
+              </a>
+            </div>
+            <RecommendationsTableCell
+              checkboxOnClick={[Function]}
+              index={0}
+              key="24"
+              previouslyAssigned=""
+              recommendation={
+                Object {
+                  "activity_pack_id": 24,
+                  "name": "Compound Subjects, Objects, and Predicates",
+                  "students": Array [
+                    2,
+                    3,
+                    4,
+                    7,
+                    9,
+                    15,
+                    19,
+                  ],
+                }
+              }
+              recommended=" recommended "
+              selected=" selected "
+              student={
+                Object {
+                  "completed": true,
+                  "id": 15,
+                  "name": "Cornell Donmoyer",
+                }
+              }
+            />
+            <RecommendationsTableCell
+              checkboxOnClick={[Function]}
+              index={1}
+              key="23"
+              previouslyAssigned=""
+              recommendation={
+                Object {
+                  "activity_pack_id": 23,
+                  "name": "Adjectives",
+                  "students": Array [],
+                }
+              }
+              recommended=""
+              selected=""
+              student={
+                Object {
+                  "completed": true,
+                  "id": 15,
+                  "name": "Cornell Donmoyer",
+                }
+              }
+            />
+            <RecommendationsTableCell
+              checkboxOnClick={[Function]}
+              index={2}
+              key="25"
+              previouslyAssigned=""
+              recommendation={
+                Object {
+                  "activity_pack_id": 25,
+                  "name": "Adverbs of Manner",
+                  "students": Array [
+                    3,
+                    12,
+                    13,
+                  ],
+                }
+              }
+              recommended=""
+              selected=""
+              student={
+                Object {
+                  "completed": true,
+                  "id": 15,
+                  "name": "Cornell Donmoyer",
+                }
+              }
+            />
+            <RecommendationsTableCell
+              checkboxOnClick={[Function]}
+              index={3}
+              key="22"
+              previouslyAssigned=""
+              recommendation={
+                Object {
+                  "activity_pack_id": 22,
+                  "name": "Compound Sentences",
+                  "students": Array [
+                    1,
+                    3,
+                    4,
+                    5,
+                    6,
+                    7,
+                    13,
+                    14,
+                    15,
+                    16,
+                  ],
+                }
+              }
+              recommended=" recommended "
+              selected=" selected "
+              student={
+                Object {
+                  "completed": true,
+                  "id": 15,
+                  "name": "Cornell Donmoyer",
+                }
+              }
+            />
+            <RecommendationsTableCell
+              checkboxOnClick={[Function]}
+              index={4}
+              key="21"
+              previouslyAssigned=""
+              recommendation={
+                Object {
+                  "activity_pack_id": 21,
+                  "name": "Complex Sentences",
+                  "students": Array [
+                    2,
+                    7,
+                    8,
+                    9,
+                    13,
+                    18,
+                    19,
+                  ],
+                }
+              }
+              recommended=""
+              selected=""
+              student={
+                Object {
+                  "completed": true,
+                  "id": 15,
+                  "name": "Cornell Donmoyer",
+                }
+              }
+            />
+            <RecommendationsTableCell
+              checkboxOnClick={[Function]}
+              index={5}
+              key="27"
+              previouslyAssigned=""
+              recommendation={
+                Object {
+                  "activity_pack_id": 27,
+                  "name": "Appositives and Modifying Phrases",
+                  "students": Array [
+                    1,
+                    2,
+                    3,
+                    4,
+                    5,
+                    6,
+                    7,
+                    8,
+                    9,
+                    11,
+                    12,
+                    14,
+                    15,
+                    16,
+                    19,
+                    20,
+                  ],
+                }
+              }
+              recommended=" recommended "
+              selected=" selected "
+              student={
+                Object {
+                  "completed": true,
+                  "id": 15,
+                  "name": "Cornell Donmoyer",
+                }
+              }
+            />
+            <RecommendationsTableCell
+              checkboxOnClick={[Function]}
+              index={6}
+              key="29"
+              previouslyAssigned=""
+              recommendation={
+                Object {
+                  "activity_pack_id": 29,
+                  "name": "Parallel Structure",
+                  "students": Array [
+                    1,
+                    6,
+                    8,
+                    17,
+                    19,
+                  ],
+                }
+              }
+              recommended=""
+              selected=""
+              student={
+                Object {
+                  "completed": true,
+                  "id": 15,
+                  "name": "Cornell Donmoyer",
+                }
+              }
+            />
+          </div>
+          <div
+            className="recommendations-table-row"
+            key="16"
+          >
+            <div
+              className="recommendations-table-row-name"
+            >
+              <a
+                href="/teachers/progress_reports/diagnostic_reports#/u/1/a/413/c/1/student_report/16"
+                target="_blank"
+              >
+                <span>
+                  Danna Mayhan
+                </span>
+                 
+                <i
+                  className="fas fa-icon fa-external-link"
+                />
+              </a>
+            </div>
+            <RecommendationsTableCell
+              checkboxOnClick={[Function]}
+              index={0}
+              key="24"
+              previouslyAssigned=""
+              recommendation={
+                Object {
+                  "activity_pack_id": 24,
+                  "name": "Compound Subjects, Objects, and Predicates",
+                  "students": Array [
+                    2,
+                    3,
+                    4,
+                    7,
+                    9,
+                    15,
+                    19,
+                  ],
+                }
+              }
+              recommended=""
+              selected=""
+              student={
+                Object {
+                  "completed": true,
+                  "id": 16,
+                  "name": "Danna Mayhan",
+                }
+              }
+            />
+            <RecommendationsTableCell
+              checkboxOnClick={[Function]}
+              index={1}
+              key="23"
+              previouslyAssigned=""
+              recommendation={
+                Object {
+                  "activity_pack_id": 23,
+                  "name": "Adjectives",
+                  "students": Array [],
+                }
+              }
+              recommended=""
+              selected=""
+              student={
+                Object {
+                  "completed": true,
+                  "id": 16,
+                  "name": "Danna Mayhan",
+                }
+              }
+            />
+            <RecommendationsTableCell
+              checkboxOnClick={[Function]}
+              index={2}
+              key="25"
+              previouslyAssigned=""
+              recommendation={
+                Object {
+                  "activity_pack_id": 25,
+                  "name": "Adverbs of Manner",
+                  "students": Array [
+                    3,
+                    12,
+                    13,
+                  ],
+                }
+              }
+              recommended=""
+              selected=""
+              student={
+                Object {
+                  "completed": true,
+                  "id": 16,
+                  "name": "Danna Mayhan",
+                }
+              }
+            />
+            <RecommendationsTableCell
+              checkboxOnClick={[Function]}
+              index={3}
+              key="22"
+              previouslyAssigned=""
+              recommendation={
+                Object {
+                  "activity_pack_id": 22,
+                  "name": "Compound Sentences",
+                  "students": Array [
+                    1,
+                    3,
+                    4,
+                    5,
+                    6,
+                    7,
+                    13,
+                    14,
+                    15,
+                    16,
+                  ],
+                }
+              }
+              recommended=" recommended "
+              selected=" selected "
+              student={
+                Object {
+                  "completed": true,
+                  "id": 16,
+                  "name": "Danna Mayhan",
+                }
+              }
+            />
+            <RecommendationsTableCell
+              checkboxOnClick={[Function]}
+              index={4}
+              key="21"
+              previouslyAssigned=""
+              recommendation={
+                Object {
+                  "activity_pack_id": 21,
+                  "name": "Complex Sentences",
+                  "students": Array [
+                    2,
+                    7,
+                    8,
+                    9,
+                    13,
+                    18,
+                    19,
+                  ],
+                }
+              }
+              recommended=""
+              selected=""
+              student={
+                Object {
+                  "completed": true,
+                  "id": 16,
+                  "name": "Danna Mayhan",
+                }
+              }
+            />
+            <RecommendationsTableCell
+              checkboxOnClick={[Function]}
+              index={5}
+              key="27"
+              previouslyAssigned=""
+              recommendation={
+                Object {
+                  "activity_pack_id": 27,
+                  "name": "Appositives and Modifying Phrases",
+                  "students": Array [
+                    1,
+                    2,
+                    3,
+                    4,
+                    5,
+                    6,
+                    7,
+                    8,
+                    9,
+                    11,
+                    12,
+                    14,
+                    15,
+                    16,
+                    19,
+                    20,
+                  ],
+                }
+              }
+              recommended=" recommended "
+              selected=" selected "
+              student={
+                Object {
+                  "completed": true,
+                  "id": 16,
+                  "name": "Danna Mayhan",
+                }
+              }
+            />
+            <RecommendationsTableCell
+              checkboxOnClick={[Function]}
+              index={6}
+              key="29"
+              previouslyAssigned=""
+              recommendation={
+                Object {
+                  "activity_pack_id": 29,
+                  "name": "Parallel Structure",
+                  "students": Array [
+                    1,
+                    6,
+                    8,
+                    17,
+                    19,
+                  ],
+                }
+              }
+              recommended=""
+              selected=""
+              student={
+                Object {
+                  "completed": true,
+                  "id": 16,
+                  "name": "Danna Mayhan",
+                }
+              }
+            />
+          </div>
+          <div
+            className="recommendations-table-row"
+            key="17"
+          >
+            <div
+              className="recommendations-table-row-name"
+            >
+              <a
+                href="/teachers/progress_reports/diagnostic_reports#/u/1/a/413/c/1/student_report/17"
+                target="_blank"
+              >
+                <span>
+                  Tashina Malec
+                </span>
+                 
+                <i
+                  className="fas fa-icon fa-external-link"
+                />
+              </a>
+            </div>
+            <RecommendationsTableCell
+              checkboxOnClick={[Function]}
+              index={0}
+              key="24"
+              previouslyAssigned=""
+              recommendation={
+                Object {
+                  "activity_pack_id": 24,
+                  "name": "Compound Subjects, Objects, and Predicates",
+                  "students": Array [
+                    2,
+                    3,
+                    4,
+                    7,
+                    9,
+                    15,
+                    19,
+                  ],
+                }
+              }
+              recommended=""
+              selected=""
+              student={
+                Object {
+                  "completed": true,
+                  "id": 17,
+                  "name": "Tashina Malec",
+                }
+              }
+            />
+            <RecommendationsTableCell
+              checkboxOnClick={[Function]}
+              index={1}
+              key="23"
+              previouslyAssigned=""
+              recommendation={
+                Object {
+                  "activity_pack_id": 23,
+                  "name": "Adjectives",
+                  "students": Array [],
+                }
+              }
+              recommended=""
+              selected=""
+              student={
+                Object {
+                  "completed": true,
+                  "id": 17,
+                  "name": "Tashina Malec",
+                }
+              }
+            />
+            <RecommendationsTableCell
+              checkboxOnClick={[Function]}
+              index={2}
+              key="25"
+              previouslyAssigned=""
+              recommendation={
+                Object {
+                  "activity_pack_id": 25,
+                  "name": "Adverbs of Manner",
+                  "students": Array [
+                    3,
+                    12,
+                    13,
+                  ],
+                }
+              }
+              recommended=""
+              selected=""
+              student={
+                Object {
+                  "completed": true,
+                  "id": 17,
+                  "name": "Tashina Malec",
+                }
+              }
+            />
+            <RecommendationsTableCell
+              checkboxOnClick={[Function]}
+              index={3}
+              key="22"
+              previouslyAssigned=""
+              recommendation={
+                Object {
+                  "activity_pack_id": 22,
+                  "name": "Compound Sentences",
+                  "students": Array [
+                    1,
+                    3,
+                    4,
+                    5,
+                    6,
+                    7,
+                    13,
+                    14,
+                    15,
+                    16,
+                  ],
+                }
+              }
+              recommended=""
+              selected=""
+              student={
+                Object {
+                  "completed": true,
+                  "id": 17,
+                  "name": "Tashina Malec",
+                }
+              }
+            />
+            <RecommendationsTableCell
+              checkboxOnClick={[Function]}
+              index={4}
+              key="21"
+              previouslyAssigned=""
+              recommendation={
+                Object {
+                  "activity_pack_id": 21,
+                  "name": "Complex Sentences",
+                  "students": Array [
+                    2,
+                    7,
+                    8,
+                    9,
+                    13,
+                    18,
+                    19,
+                  ],
+                }
+              }
+              recommended=""
+              selected=""
+              student={
+                Object {
+                  "completed": true,
+                  "id": 17,
+                  "name": "Tashina Malec",
+                }
+              }
+            />
+            <RecommendationsTableCell
+              checkboxOnClick={[Function]}
+              index={5}
+              key="27"
+              previouslyAssigned=""
+              recommendation={
+                Object {
+                  "activity_pack_id": 27,
+                  "name": "Appositives and Modifying Phrases",
+                  "students": Array [
+                    1,
+                    2,
+                    3,
+                    4,
+                    5,
+                    6,
+                    7,
+                    8,
+                    9,
+                    11,
+                    12,
+                    14,
+                    15,
+                    16,
+                    19,
+                    20,
+                  ],
+                }
+              }
+              recommended=""
+              selected=""
+              student={
+                Object {
+                  "completed": true,
+                  "id": 17,
+                  "name": "Tashina Malec",
+                }
+              }
+            />
+            <RecommendationsTableCell
+              checkboxOnClick={[Function]}
+              index={6}
+              key="29"
+              previouslyAssigned=""
+              recommendation={
+                Object {
+                  "activity_pack_id": 29,
+                  "name": "Parallel Structure",
+                  "students": Array [
+                    1,
+                    6,
+                    8,
+                    17,
+                    19,
+                  ],
+                }
+              }
+              recommended=" recommended "
+              selected=" selected "
+              student={
+                Object {
+                  "completed": true,
+                  "id": 17,
+                  "name": "Tashina Malec",
+                }
+              }
+            />
+          </div>
+          <div
+            className="recommendations-table-row"
+            key="18"
+          >
+            <div
+              className="recommendations-table-row-name"
+            >
+              <a
+                href="/teachers/progress_reports/diagnostic_reports#/u/1/a/413/c/1/student_report/18"
+                target="_blank"
+              >
+                <span>
+                  Jenae Gigliotti
+                </span>
+                 
+                <i
+                  className="fas fa-icon fa-external-link"
+                />
+              </a>
+            </div>
+            <RecommendationsTableCell
+              checkboxOnClick={[Function]}
+              index={0}
+              key="24"
+              previouslyAssigned=""
+              recommendation={
+                Object {
+                  "activity_pack_id": 24,
+                  "name": "Compound Subjects, Objects, and Predicates",
+                  "students": Array [
+                    2,
+                    3,
+                    4,
+                    7,
+                    9,
+                    15,
+                    19,
+                  ],
+                }
+              }
+              recommended=""
+              selected=""
+              student={
+                Object {
+                  "completed": true,
+                  "id": 18,
+                  "name": "Jenae Gigliotti",
+                }
+              }
+            />
+            <RecommendationsTableCell
+              checkboxOnClick={[Function]}
+              index={1}
+              key="23"
+              previouslyAssigned=""
+              recommendation={
+                Object {
+                  "activity_pack_id": 23,
+                  "name": "Adjectives",
+                  "students": Array [],
+                }
+              }
+              recommended=""
+              selected=""
+              student={
+                Object {
+                  "completed": true,
+                  "id": 18,
+                  "name": "Jenae Gigliotti",
+                }
+              }
+            />
+            <RecommendationsTableCell
+              checkboxOnClick={[Function]}
+              index={2}
+              key="25"
+              previouslyAssigned=""
+              recommendation={
+                Object {
+                  "activity_pack_id": 25,
+                  "name": "Adverbs of Manner",
+                  "students": Array [
+                    3,
+                    12,
+                    13,
+                  ],
+                }
+              }
+              recommended=""
+              selected=""
+              student={
+                Object {
+                  "completed": true,
+                  "id": 18,
+                  "name": "Jenae Gigliotti",
+                }
+              }
+            />
+            <RecommendationsTableCell
+              checkboxOnClick={[Function]}
+              index={3}
+              key="22"
+              previouslyAssigned=""
+              recommendation={
+                Object {
+                  "activity_pack_id": 22,
+                  "name": "Compound Sentences",
+                  "students": Array [
+                    1,
+                    3,
+                    4,
+                    5,
+                    6,
+                    7,
+                    13,
+                    14,
+                    15,
+                    16,
+                  ],
+                }
+              }
+              recommended=""
+              selected=""
+              student={
+                Object {
+                  "completed": true,
+                  "id": 18,
+                  "name": "Jenae Gigliotti",
+                }
+              }
+            />
+            <RecommendationsTableCell
+              checkboxOnClick={[Function]}
+              index={4}
+              key="21"
+              previouslyAssigned=""
+              recommendation={
+                Object {
+                  "activity_pack_id": 21,
+                  "name": "Complex Sentences",
+                  "students": Array [
+                    2,
+                    7,
+                    8,
+                    9,
+                    13,
+                    18,
+                    19,
+                  ],
+                }
+              }
+              recommended=" recommended "
+              selected=" selected "
+              student={
+                Object {
+                  "completed": true,
+                  "id": 18,
+                  "name": "Jenae Gigliotti",
+                }
+              }
+            />
+            <RecommendationsTableCell
+              checkboxOnClick={[Function]}
+              index={5}
+              key="27"
+              previouslyAssigned=""
+              recommendation={
+                Object {
+                  "activity_pack_id": 27,
+                  "name": "Appositives and Modifying Phrases",
+                  "students": Array [
+                    1,
+                    2,
+                    3,
+                    4,
+                    5,
+                    6,
+                    7,
+                    8,
+                    9,
+                    11,
+                    12,
+                    14,
+                    15,
+                    16,
+                    19,
+                    20,
+                  ],
+                }
+              }
+              recommended=""
+              selected=""
+              student={
+                Object {
+                  "completed": true,
+                  "id": 18,
+                  "name": "Jenae Gigliotti",
+                }
+              }
+            />
+            <RecommendationsTableCell
+              checkboxOnClick={[Function]}
+              index={6}
+              key="29"
+              previouslyAssigned=""
+              recommendation={
+                Object {
+                  "activity_pack_id": 29,
+                  "name": "Parallel Structure",
+                  "students": Array [
+                    1,
+                    6,
+                    8,
+                    17,
+                    19,
+                  ],
+                }
+              }
+              recommended=""
+              selected=""
+              student={
+                Object {
+                  "completed": true,
+                  "id": 18,
+                  "name": "Jenae Gigliotti",
+                }
+              }
+            />
+          </div>
+          <div
+            className="recommendations-table-row"
+            key="19"
+          >
+            <div
+              className="recommendations-table-row-name"
+            >
+              <a
+                href="/teachers/progress_reports/diagnostic_reports#/u/1/a/413/c/1/student_report/19"
+                target="_blank"
+              >
+                <span>
+                  Rod Henrichs
+                </span>
+                 
+                <i
+                  className="fas fa-icon fa-external-link"
+                />
+              </a>
+            </div>
+            <RecommendationsTableCell
+              checkboxOnClick={[Function]}
+              index={0}
+              key="24"
+              previouslyAssigned=""
+              recommendation={
+                Object {
+                  "activity_pack_id": 24,
+                  "name": "Compound Subjects, Objects, and Predicates",
+                  "students": Array [
+                    2,
+                    3,
+                    4,
+                    7,
+                    9,
+                    15,
+                    19,
+                  ],
+                }
+              }
+              recommended=" recommended "
+              selected=" selected "
+              student={
+                Object {
+                  "completed": true,
+                  "id": 19,
+                  "name": "Rod Henrichs",
+                }
+              }
+            />
+            <RecommendationsTableCell
+              checkboxOnClick={[Function]}
+              index={1}
+              key="23"
+              previouslyAssigned=""
+              recommendation={
+                Object {
+                  "activity_pack_id": 23,
+                  "name": "Adjectives",
+                  "students": Array [],
+                }
+              }
+              recommended=""
+              selected=""
+              student={
+                Object {
+                  "completed": true,
+                  "id": 19,
+                  "name": "Rod Henrichs",
+                }
+              }
+            />
+            <RecommendationsTableCell
+              checkboxOnClick={[Function]}
+              index={2}
+              key="25"
+              previouslyAssigned=""
+              recommendation={
+                Object {
+                  "activity_pack_id": 25,
+                  "name": "Adverbs of Manner",
+                  "students": Array [
+                    3,
+                    12,
+                    13,
+                  ],
+                }
+              }
+              recommended=""
+              selected=""
+              student={
+                Object {
+                  "completed": true,
+                  "id": 19,
+                  "name": "Rod Henrichs",
+                }
+              }
+            />
+            <RecommendationsTableCell
+              checkboxOnClick={[Function]}
+              index={3}
+              key="22"
+              previouslyAssigned=""
+              recommendation={
+                Object {
+                  "activity_pack_id": 22,
+                  "name": "Compound Sentences",
+                  "students": Array [
+                    1,
+                    3,
+                    4,
+                    5,
+                    6,
+                    7,
+                    13,
+                    14,
+                    15,
+                    16,
+                  ],
+                }
+              }
+              recommended=""
+              selected=""
+              student={
+                Object {
+                  "completed": true,
+                  "id": 19,
+                  "name": "Rod Henrichs",
+                }
+              }
+            />
+            <RecommendationsTableCell
+              checkboxOnClick={[Function]}
+              index={4}
+              key="21"
+              previouslyAssigned=""
+              recommendation={
+                Object {
+                  "activity_pack_id": 21,
+                  "name": "Complex Sentences",
+                  "students": Array [
+                    2,
+                    7,
+                    8,
+                    9,
+                    13,
+                    18,
+                    19,
+                  ],
+                }
+              }
+              recommended=" recommended "
+              selected=" selected "
+              student={
+                Object {
+                  "completed": true,
+                  "id": 19,
+                  "name": "Rod Henrichs",
+                }
+              }
+            />
+            <RecommendationsTableCell
+              checkboxOnClick={[Function]}
+              index={5}
+              key="27"
+              previouslyAssigned=""
+              recommendation={
+                Object {
+                  "activity_pack_id": 27,
+                  "name": "Appositives and Modifying Phrases",
+                  "students": Array [
+                    1,
+                    2,
+                    3,
+                    4,
+                    5,
+                    6,
+                    7,
+                    8,
+                    9,
+                    11,
+                    12,
+                    14,
+                    15,
+                    16,
+                    19,
+                    20,
+                  ],
+                }
+              }
+              recommended=" recommended "
+              selected=" selected "
+              student={
+                Object {
+                  "completed": true,
+                  "id": 19,
+                  "name": "Rod Henrichs",
+                }
+              }
+            />
+            <RecommendationsTableCell
+              checkboxOnClick={[Function]}
+              index={6}
+              key="29"
+              previouslyAssigned=""
+              recommendation={
+                Object {
+                  "activity_pack_id": 29,
+                  "name": "Parallel Structure",
+                  "students": Array [
+                    1,
+                    6,
+                    8,
+                    17,
+                    19,
+                  ],
+                }
+              }
+              recommended=" recommended "
+              selected=" selected "
+              student={
+                Object {
+                  "completed": true,
+                  "id": 19,
+                  "name": "Rod Henrichs",
+                }
+              }
+            />
+          </div>
+          <div
+            className="recommendations-table-row"
+            key="20"
+          >
+            <div
+              className="recommendations-table-row-name"
+            >
+              <a
+                href="/teachers/progress_reports/diagnostic_reports#/u/1/a/413/c/1/student_report/20"
+                target="_blank"
+              >
+                <span>
+                  Daniella Flemons
+                </span>
+                 
+                <i
+                  className="fas fa-icon fa-external-link"
+                />
+              </a>
+            </div>
+            <RecommendationsTableCell
+              checkboxOnClick={[Function]}
+              index={0}
+              key="24"
+              previouslyAssigned=""
+              recommendation={
+                Object {
+                  "activity_pack_id": 24,
+                  "name": "Compound Subjects, Objects, and Predicates",
+                  "students": Array [
+                    2,
+                    3,
+                    4,
+                    7,
+                    9,
+                    15,
+                    19,
+                  ],
+                }
+              }
+              recommended=""
+              selected=""
+              student={
+                Object {
+                  "completed": true,
+                  "id": 20,
+                  "name": "Daniella Flemons",
+                }
+              }
+            />
+            <RecommendationsTableCell
+              checkboxOnClick={[Function]}
+              index={1}
+              key="23"
+              previouslyAssigned=""
+              recommendation={
+                Object {
+                  "activity_pack_id": 23,
+                  "name": "Adjectives",
+                  "students": Array [],
+                }
+              }
+              recommended=""
+              selected=""
+              student={
+                Object {
+                  "completed": true,
+                  "id": 20,
+                  "name": "Daniella Flemons",
+                }
+              }
+            />
+            <RecommendationsTableCell
+              checkboxOnClick={[Function]}
+              index={2}
+              key="25"
+              previouslyAssigned=""
+              recommendation={
+                Object {
+                  "activity_pack_id": 25,
+                  "name": "Adverbs of Manner",
+                  "students": Array [
+                    3,
+                    12,
+                    13,
+                  ],
+                }
+              }
+              recommended=""
+              selected=""
+              student={
+                Object {
+                  "completed": true,
+                  "id": 20,
+                  "name": "Daniella Flemons",
+                }
+              }
+            />
+            <RecommendationsTableCell
+              checkboxOnClick={[Function]}
+              index={3}
+              key="22"
+              previouslyAssigned=""
+              recommendation={
+                Object {
+                  "activity_pack_id": 22,
+                  "name": "Compound Sentences",
+                  "students": Array [
+                    1,
+                    3,
+                    4,
+                    5,
+                    6,
+                    7,
+                    13,
+                    14,
+                    15,
+                    16,
+                  ],
+                }
+              }
+              recommended=""
+              selected=""
+              student={
+                Object {
+                  "completed": true,
+                  "id": 20,
+                  "name": "Daniella Flemons",
+                }
+              }
+            />
+            <RecommendationsTableCell
+              checkboxOnClick={[Function]}
+              index={4}
+              key="21"
+              previouslyAssigned=""
+              recommendation={
+                Object {
+                  "activity_pack_id": 21,
+                  "name": "Complex Sentences",
+                  "students": Array [
+                    2,
+                    7,
+                    8,
+                    9,
+                    13,
+                    18,
+                    19,
+                  ],
+                }
+              }
+              recommended=""
+              selected=""
+              student={
+                Object {
+                  "completed": true,
+                  "id": 20,
+                  "name": "Daniella Flemons",
+                }
+              }
+            />
+            <RecommendationsTableCell
+              checkboxOnClick={[Function]}
+              index={5}
+              key="27"
+              previouslyAssigned=""
+              recommendation={
+                Object {
+                  "activity_pack_id": 27,
+                  "name": "Appositives and Modifying Phrases",
+                  "students": Array [
+                    1,
+                    2,
+                    3,
+                    4,
+                    5,
+                    6,
+                    7,
+                    8,
+                    9,
+                    11,
+                    12,
+                    14,
+                    15,
+                    16,
+                    19,
+                    20,
+                  ],
+                }
+              }
+              recommended=" recommended "
+              selected=" selected "
+              student={
+                Object {
+                  "completed": true,
+                  "id": 20,
+                  "name": "Daniella Flemons",
+                }
+              }
+            />
+            <RecommendationsTableCell
+              checkboxOnClick={[Function]}
+              index={6}
+              key="29"
+              previouslyAssigned=""
+              recommendation={
+                Object {
+                  "activity_pack_id": 29,
+                  "name": "Parallel Structure",
+                  "students": Array [
+                    1,
+                    6,
+                    8,
+                    17,
+                    19,
+                  ],
+                }
+              }
+              recommended=""
+              selected=""
+              student={
+                Object {
+                  "completed": true,
+                  "id": 20,
+                  "name": "Daniella Flemons",
+                }
+              }
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Recommendations Component if none of the students have completed the activity renders 1`] = `
+<div>
+  <Snackbar
+    visible={false}
+  />
+  <div
+    className="recommendations-container"
+  >
+    <div
+      className="independent-practice-container"
+    >
+      <h3
+        className="independent-practice-header"
+        id="recommendations-scroll-to"
+      >
+        <img
+          alt="independent practice logo"
+          className="independent-practice-logo"
+          src="https://assets.quill.org/images/icons/independent-lesson-blue.svg"
+        />
+        <span>
+          Independent Activity Recommendations
+        </span>
+      </h3>
+      <div
+        className="recommendations-explanation-container"
+      >
+        <p
+          className="recommendations-explanation"
+        >
+          Based on the results of the diagnostic, we created a personalized learning plan for each student.
+          <br />
+          Customize your learning plan by selecting the activity packs you would like to assign.
+        </p>
+      </div>
+      <div>
+        <div
+          className="recommendations-top-bar"
+        >
+          <div
+            className="recommendations-key"
+          >
+            <div
+              className="recommendations-key-icon"
+            />
+            <span
+              className="recommended-activity-pack-text"
+            >
+              <p>
+                Recommended Activity Packs
+              </p>
+              <button
+                className="quill-button focus-on-light uncheck-recommendations"
+                onClick={[Function]}
+                type="reset"
+              >
+                <img
+                  alt="uncheck-all-logo"
+                  src="https://assets.quill.org/images/icons/uncheckall-diagnostic.svg"
+                />
+                <span>
+                  Uncheck All
+                </span>
+              </button>
+            </span>
+            <div
+              className="assigned-recommendations-key-icon"
+            >
+              <i
+                className="fas fa-check-circle"
+              />
+            </div>
+            <span
+              className="assigned-activity-pack-text"
+            >
+              <p>
+                Assigned Activity Packs
+              </p>
+              <p>
+                Assigned activities will not be assigned again.
+              </p>
+            </span>
+          </div>
+          <button
+            className="focus-on-light quill-button medium primary contained "
+            onClick={[Function]}
+            type="submit"
+          >
+            <span>
+              Assign Activity Packs
+            </span>
+          </button>
+        </div>
+        <div
+          className="recommendations-table-header"
+        >
+          <div
+            className="recommendations-table-header-name"
+          >
+            Name
+          </div>
+          <div
+            className="recommendations-table-header-item"
+            key="24"
+          >
+            <p>
+              Compound Subjects, Objects, and Predicates
+            </p>
+            <a
+              className="focus-on-light view-pack-link"
+              href="/activities/packs/24"
+              target="_blank"
+            >
+              View Pack
+            </a>
+          </div>
+          <div
+            className="recommendations-table-header-item"
+            key="23"
+          >
+            <p>
+              Adjectives
+            </p>
+            <a
+              className="focus-on-light view-pack-link"
+              href="/activities/packs/23"
+              target="_blank"
+            >
+              View Pack
+            </a>
+          </div>
+          <div
+            className="recommendations-table-header-item"
+            key="25"
+          >
+            <p>
+              Adverbs of Manner
+            </p>
+            <a
+              className="focus-on-light view-pack-link"
+              href="/activities/packs/25"
+              target="_blank"
+            >
+              View Pack
+            </a>
+          </div>
+          <div
+            className="recommendations-table-header-item"
+            key="22"
+          >
+            <p>
+              Compound Sentences
+            </p>
+            <a
+              className="focus-on-light view-pack-link"
+              href="/activities/packs/22"
+              target="_blank"
+            >
+              View Pack
+            </a>
+          </div>
+          <div
+            className="recommendations-table-header-item"
+            key="21"
+          >
+            <p>
+              Complex Sentences
+            </p>
+            <a
+              className="focus-on-light view-pack-link"
+              href="/activities/packs/21"
+              target="_blank"
+            >
+              View Pack
+            </a>
+          </div>
+          <div
+            className="recommendations-table-header-item"
+            key="27"
+          >
+            <p>
+              Appositives and Modifying Phrases
+            </p>
+            <a
+              className="focus-on-light view-pack-link"
+              href="/activities/packs/27"
+              target="_blank"
+            >
+              View Pack
+            </a>
+          </div>
+          <div
+            className="recommendations-table-header-item"
+            key="29"
+          >
+            <p>
+              Parallel Structure
+            </p>
+            <a
+              className="focus-on-light view-pack-link"
+              href="/activities/packs/29"
+              target="_blank"
+            >
+              View Pack
+            </a>
+          </div>
+        </div>
+        <div
+          className="recommendations-table-row-wrapper"
+        >
+          <div
+            className="recommendations-table-row not-completed-row"
+            key="1"
+          >
+            <div
+              className="recommendations-table-row-name"
+            >
+              Yasmine Long
+            </div>
+            <div
+              className="not-completed-cell"
+            >
+              Not Completed
+            </div>
+          </div>
+          <div
+            className="recommendations-table-row not-completed-row"
+            key="2"
+          >
+            <div
+              className="recommendations-table-row-name"
+            >
+              Tomika Norvell
+            </div>
+            <div
+              className="not-completed-cell"
+            >
+              Not Completed
+            </div>
+          </div>
+          <div
+            className="recommendations-table-row not-completed-row"
+            key="3"
+          >
+            <div
+              className="recommendations-table-row-name"
+            >
+              Enedina Sweat
+            </div>
+            <div
+              className="not-completed-cell"
+            >
+              Not Completed
+            </div>
+          </div>
+          <div
+            className="recommendations-table-row not-completed-row"
+            key="4"
+          >
+            <div
+              className="recommendations-table-row-name"
+            >
+              Aubrey Despres
+            </div>
+            <div
+              className="not-completed-cell"
+            >
+              Not Completed
+            </div>
+          </div>
+          <div
+            className="recommendations-table-row not-completed-row"
+            key="5"
+          >
+            <div
+              className="recommendations-table-row-name"
+            >
+              Archie Comerford
+            </div>
+            <div
+              className="not-completed-cell"
+            >
+              Not Completed
+            </div>
+          </div>
+          <div
+            className="recommendations-table-row not-completed-row"
+            key="6"
+          >
+            <div
+              className="recommendations-table-row-name"
+            >
+              Janise Sneller
+            </div>
+            <div
+              className="not-completed-cell"
+            >
+              Not Completed
+            </div>
+          </div>
+          <div
+            className="recommendations-table-row not-completed-row"
+            key="7"
+          >
+            <div
+              className="recommendations-table-row-name"
+            >
+              Lyle Corle
+            </div>
+            <div
+              className="not-completed-cell"
+            >
+              Not Completed
+            </div>
+          </div>
+          <div
+            className="recommendations-table-row not-completed-row"
+            key="8"
+          >
+            <div
+              className="recommendations-table-row-name"
+            >
+              Sheree Cosgrove
+            </div>
+            <div
+              className="not-completed-cell"
+            >
+              Not Completed
+            </div>
+          </div>
+          <div
+            className="recommendations-table-row not-completed-row"
+            key="9"
+          >
+            <div
+              className="recommendations-table-row-name"
+            >
+              Chad Almy
+            </div>
+            <div
+              className="not-completed-cell"
+            >
+              Not Completed
+            </div>
+          </div>
+          <div
+            className="recommendations-table-row not-completed-row"
+            key="10"
+          >
+            <div
+              className="recommendations-table-row-name"
+            >
+              Quincy Brekke
+            </div>
+            <div
+              className="not-completed-cell"
+            >
+              Not Completed
+            </div>
+          </div>
+          <div
+            className="recommendations-table-row not-completed-row"
+            key="11"
+          >
+            <div
+              className="recommendations-table-row-name"
+            >
+              Angelic Post
+            </div>
+            <div
+              className="not-completed-cell"
+            >
+              Not Completed
+            </div>
+          </div>
+          <div
+            className="recommendations-table-row not-completed-row"
+            key="12"
+          >
+            <div
+              className="recommendations-table-row-name"
+            >
+              Marvella Wilhite
+            </div>
+            <div
+              className="not-completed-cell"
+            >
+              Not Completed
+            </div>
+          </div>
+          <div
+            className="recommendations-table-row not-completed-row"
+            key="13"
+          >
+            <div
+              className="recommendations-table-row-name"
+            >
+              Albertine Dotson
+            </div>
+            <div
+              className="not-completed-cell"
+            >
+              Not Completed
+            </div>
+          </div>
+          <div
+            className="recommendations-table-row not-completed-row"
+            key="14"
+          >
+            <div
+              className="recommendations-table-row-name"
+            >
+              Essie Vicario
+            </div>
+            <div
+              className="not-completed-cell"
+            >
+              Not Completed
+            </div>
+          </div>
+          <div
+            className="recommendations-table-row not-completed-row"
+            key="15"
+          >
+            <div
+              className="recommendations-table-row-name"
+            >
+              Cornell Donmoyer
+            </div>
+            <div
+              className="not-completed-cell"
+            >
+              Not Completed
+            </div>
+          </div>
+          <div
+            className="recommendations-table-row not-completed-row"
+            key="16"
+          >
+            <div
+              className="recommendations-table-row-name"
+            >
+              Danna Mayhan
+            </div>
+            <div
+              className="not-completed-cell"
+            >
+              Not Completed
+            </div>
+          </div>
+          <div
+            className="recommendations-table-row not-completed-row"
+            key="17"
+          >
+            <div
+              className="recommendations-table-row-name"
+            >
+              Tashina Malec
+            </div>
+            <div
+              className="not-completed-cell"
+            >
+              Not Completed
+            </div>
+          </div>
+          <div
+            className="recommendations-table-row not-completed-row"
+            key="18"
+          >
+            <div
+              className="recommendations-table-row-name"
+            >
+              Jenae Gigliotti
+            </div>
+            <div
+              className="not-completed-cell"
+            >
+              Not Completed
+            </div>
+          </div>
+          <div
+            className="recommendations-table-row not-completed-row"
+            key="19"
+          >
+            <div
+              className="recommendations-table-row-name"
+            >
+              Rod Henrichs
+            </div>
+            <div
+              className="not-completed-cell"
+            >
+              Not Completed
+            </div>
+          </div>
+          <div
+            className="recommendations-table-row not-completed-row"
+            key="20"
+          >
+            <div
+              className="recommendations-table-row-name"
+            >
+              Daniella Flemons
+            </div>
+            <div
+              className="not-completed-cell"
+            >
+              Not Completed
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
