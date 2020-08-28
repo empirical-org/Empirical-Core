@@ -11,7 +11,8 @@ RSpec.describe Cron do
 
     it "should kick off job if the hour is 3AM" do
       allow(Time).to receive(:now).and_return(Time.zone.now.beginning_of_day + 3.hour)
-      expect(UpdateElasticsearchWorker).to receive(:perform_async).with(Time.zone.now.beginning_of_day + 3.hour)
+      expect(UpdateElasticsearchWorker).to receive(:perform_async).with(Time.zone.now.yesterday.beginning_of_day, Time.zone.now.yesterday.end_of_day)
+      expect(UpdateElasticsearchWorker).to receive(:perform_async).with(Time.zone.now.beginning_of_day, Time.zone.now.beginning_of_day + 3.hour)
       Cron.run
     end
   end
