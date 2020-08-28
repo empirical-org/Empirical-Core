@@ -1,5 +1,6 @@
 class AmplifyReportActivityWorker
   include Sidekiq::Worker
+  sidekiq_options queue: SidekiqQueue::LOW
 
   def perform(amplify_session_id, activity_name, description, score, activity_url, results_url)
     payload = generate_payload(amplify_session_id, activity_name, description, score, activity_url, results_url)
