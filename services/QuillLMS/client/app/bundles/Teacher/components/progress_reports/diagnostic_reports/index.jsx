@@ -113,11 +113,10 @@ class DiagnosticReports extends React.Component {
   changeStudent = (student) => {
 		const { history } = this.props
 		const { value } = student
-		const { id } = value
-		this.setState({selectedStudentId: id })
+		this.setState({selectedStudentId: value })
 		const p = this.parseParams(this.props.location.pathname);
 		const { activityId, classroomId, unitId } = p
-		history.push(`/u/${unitId}/a/${activityId}/c/${classroomId}/student_report/${id}`)
+		history.push(`/u/${unitId}/a/${activityId}/c/${classroomId}/student_report/${value}`)
 	};
 
   findClassroomById = (id) => {
@@ -152,13 +151,11 @@ class DiagnosticReports extends React.Component {
       params={params}
       selectedActivity={this.state.selectedActivity}
       selectedStudentId={params.studentId}
-      showStudentDropdown={this.showStudentDropdown()}
-      studentDropdownCallback={this.changeStudent}
       students={this.state.students}
     />
     {this.props.children}
     <Switch>
-      <Route component={routerProps => <StudentReport params={params} {...routerProps} />} path='/u/:unitId/a/:activityId/c/:classroomId/student_report/:studentId' />
+      <Route component={routerProps => <StudentReport params={params} studentDropdownCallback={this.changeStudent} {...routerProps} />} path='/u/:unitId/a/:activityId/c/:classroomId/student_report/:studentId' />
       <Route component={routerProps => <Recommendations params={params} {...routerProps} />} path='/u/:unitId/a/:activityId/c/:classroomId/recommendations' />
       <Route component={routerProps => <QuestionReport params={params} {...routerProps} />} path='/u/:unitId/a/:activityId/c/:classroomId/questions' />
       <Route component={routerProps => <ClassReport params={params} {...routerProps} />} path='/u/:unitId/a/:activityId/c/:classroomId/students' />

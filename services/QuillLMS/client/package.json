@@ -224,7 +224,7 @@
     "build:production:server": "NODE_ENV=production webpack --config webpack.server.rails.build.config.js",
     "build:client": "webpack --config webpack.client.rails.build.config.js",
     "build:dev:client:prod-cms": "RAILS_ENV=development QUILL_CMS=https://cms.quill.org webpack -w --config webpack.client.dev.rails.build.config.js",
-    "build:dev:client": "RAILS_ENV=development webpack -w --config webpack.client.dev.rails.build.config.js",
+    "build:dev:client": "RAILS_ENV=development  node --max-old-space-size=8192 node_modules/webpack/bin/webpack.js -w --config webpack.client.dev.rails.build.config.js ",
     "build:dev:server": "webpack -w --config webpack.server.rails.build.config.js",
     "build:server": "webpack --config webpack.server.rails.build.config.js",
     "hot-assets": "NODE_ENV=development babel-node server-rails-hot.js",

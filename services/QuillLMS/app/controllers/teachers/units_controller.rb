@@ -297,7 +297,7 @@ class Teachers::UnitsController < ApplicationController
     .joins("JOIN units ON classroom_units.unit_id = units.id AND units.visible")
     .joins("JOIN unit_activities ON unit_activities.unit_id = classroom_units.unit_id AND unit_activities.activity_id IN (#{diagnostic_activity_ids.join(',')}) AND unit_activities.visible")
     .joins("JOIN activities ON unit_activities.activity_id = activities.id")
-    .joins("LEFT JOIN activity_sessions ON activity_sessions.activity_id = unit_activities.activity_id AND activity_sessions.classroom_unit_id = classroom_units.id AND activity_sessions.visible")
+    .joins("LEFT JOIN activity_sessions ON activity_sessions.activity_id = unit_activities.activity_id AND activity_sessions.classroom_unit_id = classroom_units.id AND activity_sessions.visible AND activity_sessions.is_final_score")
     .group("classrooms.name, activities.name, activities.id, classroom_units.unit_id, units.name, classrooms.id, classroom_units.assigned_student_ids, unit_activities.created_at, classroom_units.created_at")
     .order("greatest(classroom_units.created_at, unit_activities.created_at) DESC")
     records.map do |r|

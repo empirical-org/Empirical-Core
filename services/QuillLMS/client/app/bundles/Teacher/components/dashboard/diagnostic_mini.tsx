@@ -80,7 +80,7 @@ const generateRows = (diagnostics) => {
       class: classroom_name,
       diagnostic: activity_name,
       completed: `${completed_count} of ${assigned_count}`,
-      recommendations: completed_count ? <a className="quill-button fun primary outlined" href={recommendationsHref}>View</a> : null
+      recommendations: <a className="quill-button fun primary outlined" href={recommendationsHref}>View</a>
     }
   })
 }

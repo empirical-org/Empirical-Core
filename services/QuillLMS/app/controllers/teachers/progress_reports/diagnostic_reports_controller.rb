@@ -19,8 +19,8 @@ class Teachers::ProgressReports::DiagnosticReportsController < Teachers::Progres
     end
 
     def classrooms_with_students
-        classrooms = classrooms_with_students_that_completed_activity(params[:unit_id], params[:activity_id])
-        render json: classrooms.to_json
+      classrooms = classrooms_with_students_for_report(params[:unit_id], params[:activity_id])
+      render json: classrooms.to_json
     end
 
     def recommendations_for_classroom
