@@ -56,24 +56,39 @@ class ResponseComponent extends React.Component {
   }
 
   componentDidMount() {
-    this.searchResponses();
-    this.getHealth();
-    this.getGradeBreakdown();
-    this.props.dispatch(questionActions.initializeSubscription(this.props.questionID));
+    this.getNecessaryData()
   }
 
   componentDidUpdate(prevProps) {
-    if (!_.isEqual(this.props.filters.formattedFilterData, prevProps.filters.formattedFilterData)) {
+    const { filters, states, questionID, dispatch, } = this.props
+    if (!_.isEqual(filters.formattedFilterData, prevProps.filters.formattedFilterData)) {
       this.searchResponses();
-    } else if (this.props.states[this.props.questionID] === C.SHOULD_RELOAD_RESPONSES && prevProps.states[prevProps.questionID] !== C.SHOULD_RELOAD_RESPONSES) {
-      this.props.dispatch(questionActions.clearQuestionState(this.props.questionID));
+    } else if (states[questionID] === C.SHOULD_RELOAD_RESPONSES && prevProps.states[prevProps.questionID] !== C.SHOULD_RELOAD_RESPONSES) {
+      dispatch(questionActions.clearQuestionState(questionID));
       this.searchResponses();
+    } else if (prevProps.questionID !== questionID) {
+      this.getNecessaryData()
+      this.unsubscribeToQuestion(prevProps.questionID);
     }
   }
 
   componentWillUnmount() {
-    this.props.dispatch(questionActions.removeSubscription(this.props.questionID));
+    const { questionID } = this.props
+    this.unsubscribeToQuestion(questionID)
     this.clearResponses();
+  }
+
+  getNecessaryData = () => {
+    const { questionID, dispatch, } = this.props
+    this.searchResponses();
+    this.getHealth();
+    this.getGradeBreakdown();
+    dispatch(questionActions.initializeSubscription(questionID));
+  }
+
+  unsubscribeToQuestion = (questionID) => {
+    const { dispatch, } = this.props
+    dispatch(questionActions.removeSubscription(questionID));
   }
 
   getBoundsForCurrentPage = length => {

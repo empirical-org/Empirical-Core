@@ -67,7 +67,7 @@ const DiagnosticContent = ({ diagnostic, }: { diagnostic: Diagnostic }) => {
         class: classroom_name,
         unitName: unit_name,
         completed: `${completed_count} of ${assigned_count}`,
-        recommendations: completed_count ? <a className="quill-button small secondary outlined" href={recommendationsHref}>View</a> : null
+        recommendations: <a className="quill-button small secondary outlined" href={recommendationsHref}>View</a>
       }
     })
 

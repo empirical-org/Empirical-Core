@@ -48,7 +48,7 @@ export default class MissedLessonRow extends React.Component {
   }
 
   render() {
-    return (<tr className='unstarted-row' key={this.props.name}>
+    return (<tr className='not-completed-row' key={this.props.name}>
       <td>{this.props.name}</td>
       <td colSpan='3' onMouseEnter={this.showTooltip} onMouseLeave={this.hideTooltip} style={{position: 'relative'}}>
         Missed Lesson
