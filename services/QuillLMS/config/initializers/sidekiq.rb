@@ -10,3 +10,9 @@ end
 #    chain.add(StickToLeaderDbSidekiqMiddleware)
 #  end
 #end
+
+module SidekiqQueue
+  CRITICAL = 'critical'
+  DEFAULT = 'default'
+  LOW = 'low'
+end
