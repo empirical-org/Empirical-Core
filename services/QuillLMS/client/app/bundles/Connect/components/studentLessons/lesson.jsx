@@ -31,7 +31,8 @@ export class Lesson extends React.Component {
 
     this.state = {
       hasOrIsGettingResponses: false,
-      sessionInitialized: false
+      sessionInitialized: false,
+      introSkipped: false
     }
   }
 
@@ -52,8 +53,8 @@ export class Lesson extends React.Component {
   }
 
   componentDidUpdate() {
-    const { sessionInitialized, } = this.state
-    const { questions, fillInBlank, sentenceFragments, titleCards, } = this.props
+    const { sessionInitialized, introSkipped } = this.state
+    const { questions, fillInBlank, sentenceFragments, titleCards, previewMode } = this.props
     // At mount time the component may still be waiting on questions
     // to be retrieved, so we need to do checks on component update
     if (questions.hasreceiveddata &&
@@ -71,6 +72,10 @@ export class Lesson extends React.Component {
       // we check if the value has been initalized, and if not we do so now
       if (!sessionInitialized) {
         this.saveSessionIdToState();
+      }
+      if(previewMode && !introSkipped) {
+        this.setState({ introSkipped: true });
+        this.startActivity();
       }
     }
   }
@@ -157,8 +162,7 @@ export class Lesson extends React.Component {
     const filteredQuestions = data[lessonID].questions.filter((ques) => {
       const question = this.props[ques.questionType].data[ques.key] // eslint-disable-line react/destructuring-assignment
       return question && permittedFlag(data[lessonID].flag, question.flag)
-    }
-    );
+    });
     // this is a quickfix for missing questions -- if we leave this in here
     // long term, we should return an array through a forloop to
     // cut the time from 2N to N
@@ -215,7 +219,7 @@ export class Lesson extends React.Component {
   }
 
   saveToLMS = () => {
-    const { playLesson, match } = this.props
+    const { playLesson, match, previewMode } = this.props
     const { params } = match
     const { sessionID, } = this.state
     const { lessonID, } = params;
@@ -223,7 +227,7 @@ export class Lesson extends React.Component {
     const relevantAnsweredQuestions = playLesson.answeredQuestions.filter(q => q.questionType !== 'TL')
     const results = getConceptResultsForAllQuestions(relevantAnsweredQuestions);
     const score = calculateScoreForLesson(relevantAnsweredQuestions);
-    if (sessionID) {
+    if (sessionID && !previewMode) {
       this.finishActivitySession(sessionID, results, score);
     } else {
       this.createAnonActivitySession(lessonID, results, score);

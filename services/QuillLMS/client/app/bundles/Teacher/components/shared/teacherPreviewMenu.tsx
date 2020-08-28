@@ -7,11 +7,31 @@ import getParameterByName from "../../../Grammar/helpers/getParameterByName";
 import { Question } from '../../../Grammar/interfaces/questions';
 
 interface Activity {
-  title: string,
+  title?: string,
+  name?: string,
   questions: {
     key: string;
   }[]; 
   description?: string;
+}
+
+const returnActivity = (state: any) => {
+  const { grammarActivities, lessons } = state;
+  if(grammarActivities) {
+    return grammarActivities.currentActivity;
+  } else if(lessons && lessons.data) {
+    const uid = Object.keys(lessons.data)[0];
+    return lessons.data[uid]
+  }
+  return null;
+}
+
+const returnQuestions = (questions: any) => {
+  const { data } = questions;
+  if(Object.keys(data).length === 0) {
+    return null;
+  }
+  return data;
 }
 
 const renderTitleSection = (activity: Activity) => {
@@ -19,7 +39,7 @@ const renderTitleSection = (activity: Activity) => {
   return(
     <section>
       <h2>Activity</h2>
-      <p>{activity.title}</p>
+      <p>{activity.title || activity.name}</p>
     </section>
   );
 }
@@ -90,7 +110,7 @@ export interface TeacherPreviewMenuProps {
 }
  
 const TeacherPreviewMenu = ({ 
-  activity, 
+  activity,
   dispatch, 
   onTogglePreview, 
   onToggleQuestion, 
@@ -166,15 +186,15 @@ const TeacherPreviewMenu = ({
 
 const mapStateToProps = (state: any) => {
   return {
-    activity: state.grammarActivities ? state.grammarActivities.currentActivity : null,
-    questions: state.questions.data,
+    activity: returnActivity(state),
+    questions: returnQuestions(state.questions),
     session: state.session
   };
 };
 
 const mapDispatchToProps = (dispatch: Redux.Dispatch<any>) => {
   return {
-      dispatch
+    dispatch
   };
 };
 
