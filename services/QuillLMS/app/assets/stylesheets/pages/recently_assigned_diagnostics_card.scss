@@ -30,11 +30,12 @@
   .data-table-body {
     height: 189px;
     overflow: scroll;
-    margin-left: -150px;
-  }
-
-  .data-table-row {
-    margin-left: 150px;
+    .quill-tooltip-wrapper {
+      width: 210px;
+    }
+    .quill-tooltip:not(.visible) {
+      top: -8px;
+    }
   }
 
   .completed-row-section {
