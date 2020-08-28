@@ -1,3 +1,3 @@
 web: bundle exec puma -C ./config/puma.rb
-worker: bundle exec sidekiq -q default -q critical
+worker: bundle exec sidekiq -q critical -q default
 reportworker: bundle exec sidekiq -q low
