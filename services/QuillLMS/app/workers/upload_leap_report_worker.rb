@@ -1,5 +1,6 @@
 class UploadLeapReportWorker
   include Sidekiq::Worker
+  sidekiq_options queue: SidekiqQueue::LOW
 
   LEAP_S3_BUCKET = 'quill-leap'
   AWS_ACCESS_KEY_ID = ENV['AWS_UPLOADS_ACCESS_KEY_ID']
