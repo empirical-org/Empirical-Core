@@ -1,6 +1,5 @@
 import React from 'react'
 import ProgressReport from '../progress_report.jsx'
-import ScoreColor from '../../modules/score_color.js'
 
 export default class QuestionReport extends React.Component {
   constructor(props) {
@@ -18,7 +17,7 @@ export default class QuestionReport extends React.Component {
         field: 'score',
         sortByField: 'score',
         customCell: function(row) {
-          return row['score'] + '%';
+          return row['score'] === null ? 'Not Completed' : row['score'] + '%';
         }
       },
       {
@@ -58,10 +57,6 @@ export default class QuestionReport extends React.Component {
     this.setState({
       students: responseData.students
     });
-  };
-
-  colorByScore = (grade) => {
-    return ScoreColor(grade)
   };
 
   render() {
