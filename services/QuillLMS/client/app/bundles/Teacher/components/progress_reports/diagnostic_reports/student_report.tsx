@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { DropdownInput } from 'quill-component-library/dist/componentLibrary'
 import LoadingSpinner from '../../shared/loading_indicator.jsx'
 import StudentReportBox from './student_report_box'
 import ConnectStudentReportBox from './connect_student_report_box.jsx'
@@ -56,24 +57,27 @@ export class StudentReport extends React.Component<RouteComponentProps, StudentR
   }
 
   render() {
-    const { loading, students } = this.state;
-    if (loading) {
-      return <LoadingSpinner />
-    } else {
-      const student = this.selectedStudent(students);
-      const { name, score } = student;
-      return (
-        <div className='individual-student-activity-view'>
+    const { studentDropdownCallback, } = this.props
+    const { loading, students, } = this.state;
+    if (loading) { return <LoadingSpinner /> }
+    const student = this.selectedStudent(students);
+    const { name, score, id } = student;
+    const options = students.map(s => ({ value: s.id, label: s.name, }))
+    const value = options.find(s => id === s.value)
+    return (
+      <div className='individual-student-activity-view'>
+        <header className="activity-view-header-container">
           <h3 className='activity-view-header'>{name}  <strong className='activity-view-score'>{score}%</strong></h3>
-          {this.studentBoxes(students)}
-          <div className='how-we-grade'>
-            <p className="title title-not-started pull-right">
-              <a href="https://support.quill.org/activities-implementation/how-does-grading-work" rel='noreferrer noopener' target="_blank" >How We Grade <i className="fas fa-long-arrow-alt-right" /></a>
-            </p>
-          </div>
+          <DropdownInput handleChange={studentDropdownCallback} options={options} value={value} />
+        </header>
+        {this.studentBoxes(students)}
+        <div className='how-we-grade'>
+          <p className="title title-not-started pull-right">
+            <a href="https://support.quill.org/activities-implementation/how-does-grading-work" rel='noreferrer noopener' target="_blank" >How We Grade <i className="fas fa-long-arrow-alt-right" /></a>
+          </p>
         </div>
-      );
-    }
+      </div>
+    );
   }
 }
 
