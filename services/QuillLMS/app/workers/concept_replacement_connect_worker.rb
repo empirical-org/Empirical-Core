@@ -1,6 +1,6 @@
 class ConceptReplacementConnectWorker
   include Sidekiq::Worker
-  sidekiq_options queue: 'low'
+  sidekiq_options queue: SidekiqQueue::LOW
 
   def perform(original_concept_uid, new_concept_uid)
     replace_questions_in_connect('questions', original_concept_uid, new_concept_uid)

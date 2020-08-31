@@ -694,6 +694,7 @@
 }
 
 .import-google-classrooms-modal-header,
+.bulk-archive-classes-modal-header,
 .invite-coteachers-modal-header {
   padding: 32px 32px 0px;
   .title {
@@ -704,6 +705,7 @@
 }
 
 .import-google-classrooms-modal-footer,
+.bulk-archive-classes-modal-footer,
 .invite-coteachers-modal-footer {
   position: fixed !important;
   bottom: 0;
@@ -721,11 +723,11 @@
   }
 }
 
-.import-google-classrooms-modal {
+.import-google-classrooms-modal, .bulk-archive-classes-modal {
   width: 950px;
   position: fixed !important;
   overflow: hidden;
-  .import-google-classrooms-modal-footer {
+  .import-google-classrooms-modal-footer, .bulk-archive-classes-modal-footer {
     justify-content: space-between;
     .buttons {
       display: flex;
@@ -1013,5 +1015,46 @@
     display: flex;
     justify-content: flex-end;
     border-top: 1px solid #e0e0e0;
+  }
+}
+
+.bulk-archive-classes-modal {
+  .bulk-archive-classes-modal-header {
+    p {
+      font-size: 14px;
+      line-height: 1.57;
+      color: #646464;
+      margin-top: 24px;
+      max-width: 496px;
+      margin-bottom: 16px;
+    }
+    a {
+      line-height: normal;
+      color: #027360;
+    }
+  }
+  .bulk-archive-classes-modal-body {
+    .quill-checkbox {
+      width: 16px !important;
+      height: 16px !important;
+    }
+    .data-table {
+      .data-table-header {
+        height: 16px !important;
+        font-weight: 600 !important;
+      }
+      .students-header, .students-row-section {
+        margin-right: 0px;
+      }
+    }
+  }
+  .bulk-archive-classes-modal-footer {
+    justify-content: flex-end;
+    .quill-button {
+      width: min-content !important;
+    }
+    .secondary {
+      font-weight: 600 !important;
+    }
   }
 }

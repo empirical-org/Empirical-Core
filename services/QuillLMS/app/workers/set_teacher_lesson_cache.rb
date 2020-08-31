@@ -1,6 +1,6 @@
 class SetTeacherLessonCache
   include Sidekiq::Worker
-  sidekiq_options queue: 'critical'
+  sidekiq_options queue: SidekiqQueue::CRITICAL
 
   def perform(teacher_id)
     @user = User.find_by(id: teacher_id)
