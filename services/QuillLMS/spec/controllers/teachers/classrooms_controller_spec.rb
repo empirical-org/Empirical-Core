@@ -226,6 +226,26 @@ describe Teachers::ClassroomsController, type: :controller do
     end
   end
 
+  describe '#bulk_archive' do
+    let!(:teacher) { create(:teacher) }
+    let!(:owned_classroom_1) { create(:classroom, :with_no_teacher) }
+    let!(:owned_classroom_2) { create(:classroom, :with_no_teacher) }
+    let!(:unowned_classroom) { create(:classroom) }
+    let!(:classrooms_teacher_1) { create(:classrooms_teacher, classroom: owned_classroom_1, user: teacher, role: 'owner')}
+    let!(:classrooms_teacher_2) { create(:classrooms_teacher, classroom: owned_classroom_2, user: teacher, role: 'owner')}
+
+    before do
+      allow(controller).to receive(:current_user) { teacher }
+    end
+
+    it 'should hide the classrooms that are owned by the teacher and not hide the one that is not' do
+      put :bulk_archive, ids: [owned_classroom_1.id, owned_classroom_2.id, unowned_classroom.id]
+      expect(owned_classroom_1.reload.visible).to eq false
+      expect(owned_classroom_2.reload.visible).to eq false
+      expect(unowned_classroom.reload.visible).to eq true
+    end
+  end
+
   describe '#unhide' do
     let!(:classroom) { create(:classroom) }
     let(:teacher) { classroom.owner }
