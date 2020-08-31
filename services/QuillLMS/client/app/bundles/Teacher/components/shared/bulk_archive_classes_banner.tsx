@@ -15,7 +15,7 @@ const BulkArchiveClassesBanner = ({ classes, onSuccess, userId, }) => {
   const [previouslyClosedBanner, setPreviouslyClosedBanner] = React.useState(window.localStorage.getItem(localStorageKey))
   const [modalIsOpen, setModalIsOpen] = React.useState(false)
 
-  if (previouslyClosedBanner) { return null}
+  if (previouslyClosedBanner) { return null }
 
   if (![JULY, AUGUST, SEPTEMBER].includes(today.getMonth())) { return null }
 
