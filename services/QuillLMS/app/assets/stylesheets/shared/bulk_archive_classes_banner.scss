@@ -1,0 +1,36 @@
+#dashboard {
+  .bulk-archive-classes-banner {
+    margin-bottom: 32px;
+  }
+}
+
+.active-classrooms {
+  .bulk-archive-classes-banner {
+    margin-top: -16px;
+    margin-bottom: 24px;
+  }
+}
+
+.bulk-archive-classes-banner {
+  border-radius: 4px;
+  border: solid 1px #e0e0e0;
+  background-color: white;
+  padding: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 16px;
+  line-height: normal;
+  span {
+    display: flex;
+  }
+  .pass-through-button {
+    background-color: transparent;
+    width: min-content !important;
+    margin-left: 24px;
+  }
+  .quill-button {
+    font-weight: 600 !important;
+    width: min-content !important;
+  }
+}

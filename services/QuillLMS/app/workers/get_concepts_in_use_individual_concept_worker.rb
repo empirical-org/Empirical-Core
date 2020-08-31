@@ -1,6 +1,6 @@
 class GetConceptsInUseIndividualConceptWorker
   include Sidekiq::Worker
-  sidekiq_options queue: 'low'
+  sidekiq_options queue: SidekiqQueue::LOW
 
   def perform(id)
     @sc_questions = JSON.parse($redis.get('SC_QUESTIONS'))

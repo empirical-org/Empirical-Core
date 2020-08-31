@@ -1,6 +1,6 @@
 class InvitationEmailWorker
   include Sidekiq::Worker
-  sidekiq_options queue: 'critical'
+  sidekiq_options queue: SidekiqQueue::CRITICAL
 
 
   def perform(invitation_id)

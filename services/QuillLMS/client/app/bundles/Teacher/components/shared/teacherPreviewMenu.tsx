@@ -28,7 +28,7 @@ const returnActivity = (state: any) => {
 
 const returnQuestions = (questions: any) => {
   const { data } = questions;
-  if(Object.keys(data).length === 0) {
+  if(data && Object.keys(data).length === 0) {
     return null;
   }
   return data;
@@ -97,10 +97,10 @@ const renderQuestions = ({
 export interface TeacherPreviewMenuProps {
   activity: Activity;
   dispatch: Function;
-  onTogglePreview: () => void;
-  onToggleQuestion: (question: Question) => void;
+  onTogglePreview?: () => void;
+  onToggleQuestion?: (question: Question) => void;
   questions: Question[];
-  questionToPreview: { 
+  questionToPreview?: { 
     key?: string, 
     uid?: string 
   };
@@ -128,7 +128,7 @@ const TeacherPreviewMenu = ({
     if (activityUID) {
       dispatch(getActivity(activityUID))
     }
-    if(!randomizedQuestions && onUpdateRandomizedQuestions && session.currentQuestion && session.unansweredQuestions) {
+    if(!randomizedQuestions && session) {
       const activityQuestions = [session.currentQuestion, ...session.unansweredQuestions];
       setRandomizedQuestions(activityQuestions);
       onUpdateRandomizedQuestions(activityQuestions);

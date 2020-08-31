@@ -14,6 +14,7 @@ import GoogleClassroomsEmptyModal from './google_classrooms_empty_modal'
 import Classroom from './classroom'
 import CoteacherInvitation from './coteacher_invitation'
 import ButtonLoadingIndicator from '../shared/button_loading_indicator'
+import BulkArchiveClassesBanner from '../shared/bulk_archive_classes_banner'
 
 import { requestGet } from '../../../../modules/request/index.js';
 
@@ -350,6 +351,12 @@ export default class ActiveClassrooms extends React.Component<ActiveClassroomsPr
   }
 
   render() {
+    const { user, } = this.props
+    const { classrooms, } = this.state
+    const ownedClassrooms = classrooms.filter(c => {
+      const classroomOwner = c.teachers.find(t => t.classroom_relation === 'owner')
+      return classroomOwner && classroomOwner.id === user.id
+    })
     return (<div className="active-classrooms classrooms-page">
       {this.renderCreateAClassModal()}
       {this.renderRenameClassModal()}
@@ -368,6 +375,7 @@ export default class ActiveClassrooms extends React.Component<ActiveClassroomsPr
           <button className="quill-button medium primary contained create-a-class-button" onClick={() => this.openModal(createAClassModal)}>Create a class</button>
         </div>
       </div>
+      <BulkArchiveClassesBanner classes={ownedClassrooms} onSuccess={this.onSuccess} userId={user.id} />
       {this.renderPageContent()}
     </div>)
   }
