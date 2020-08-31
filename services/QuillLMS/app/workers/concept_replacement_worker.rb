@@ -1,6 +1,6 @@
 class ConceptReplacementWorker
   include Sidekiq::Worker
-  sidekiq_options queue: 'low'
+  sidekiq_options queue: SidekiqQueue::LOW
 
   def perform(original_concept_id, new_concept_id)
     original_concept = Concept.find(original_concept_id)
