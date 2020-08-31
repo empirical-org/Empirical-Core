@@ -1,4 +1,6 @@
 import React from 'react';
+import { Snackbar, defaultSnackbarTimeout } from 'quill-component-library/dist/componentLibrary'
+
 import { requestGet } from '../../../modules/request';
 import ClassOverview from '../components/dashboard/class_overview';
 import MyClasses from '../components/dashboard/my_classes';
@@ -21,6 +23,19 @@ export default class Dashboard extends React.Component {
       ],
     }
 
+    this.getNecessaryData()
+  }
+
+  componentWillUnmount() {
+    const ajaxCalls = this.ajax;
+    for (const key in ajaxCalls) {
+      if (ajaxCalls.hasOwnProperty(key)) {
+        ajaxCalls[key].abort();
+      }
+    }
+  }
+
+  getNecessaryData = () => {
     this.ajax = {};
     this.ajax.classRoomRequest = requestGet('/teachers/classrooms/classroom_mini', (result) => {
       this.setState({ classrooms: result.classes, });
@@ -36,14 +51,16 @@ export default class Dashboard extends React.Component {
     })
   }
 
-  componentWillUnmount() {
-    const ajaxCalls = this.ajax;
-    for (const key in ajaxCalls) {
-      if (ajaxCalls.hasOwnProperty(key)) {
-        ajaxCalls[key].abort();
-      }
-    }
+  onSuccess = (snackbarCopy) => {
+    this.getNecessaryData()
+    this.showSnackbar(snackbarCopy)
   }
+
+  showSnackbar = snackbarCopy => {
+    this.setState({ showSnackbar: true, snackbarCopy }, () => {
+      setTimeout(() => this.setState({ showSnackbar: false, }), defaultSnackbarTimeout)
+    })
+  };
 
   closeExploreActivitiesModal = () => {
     this.setState({ showExploreActivitiesModal: false, })
@@ -51,7 +68,7 @@ export default class Dashboard extends React.Component {
 
   hasClasses() {
     if (this.state.classrooms) {
-      return (<MyClasses classList={this.state.classrooms} user={JSON.parse(this.props.user)} />);
+      return (<MyClasses classList={this.state.classrooms} onSuccess={this.onSuccess} user={JSON.parse(this.props.user)} />);
     }
   }
 
@@ -64,9 +81,11 @@ export default class Dashboard extends React.Component {
   }
 
   render() {
+    const { snackbarCopy, showSnackbar, } = this.state
     const { user, featuredBlogPosts, } = this.props
     return (
       <div id="dashboard">
+        <Snackbar text={snackbarCopy} visible={showSnackbar} />
         {this.renderExploreActivitiesModal()}
         <ClassOverview
           data={this.state.performanceQuery}
