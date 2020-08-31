@@ -401,7 +401,7 @@ export default class Recommendations extends React.Component {
 
     return (<div className="recommendations-table-row not-completed-row" key={student.id}>
       <div className="recommendations-table-row-name">{student.name}</div>
-      <div className="not-completed-cell">Not Completed</div>
+      <div className="not-completed-cell">Diagnostic not completed</div>
     </div>)
   }
 

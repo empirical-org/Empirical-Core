@@ -1,6 +1,6 @@
 class GenerateConceptsInUseArrayWorker
   include Sidekiq::Worker
-  sidekiq_options queue: 'low'
+  sidekiq_options queue: SidekiqQueue::LOW
 
   def perform
     concepts_in_use = []
