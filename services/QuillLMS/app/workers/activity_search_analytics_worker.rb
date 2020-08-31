@@ -1,5 +1,6 @@
 class ActivitySearchAnalyticsWorker
   include Sidekiq::Worker
+  sidekiq_options queue: SidekiqQueue::LOW
 
   def perform(user_id, search_query)
     analytics = SegmentAnalytics.new

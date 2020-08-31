@@ -1,5 +1,6 @@
 class CsvExportWorker
   include Sidekiq::Worker
+  sidekiq_options queue: SidekiqQueue::CRITICAL
 
   def perform(csv_export_id, current_user_id)
     csv_export = CsvExport.find(csv_export_id)
