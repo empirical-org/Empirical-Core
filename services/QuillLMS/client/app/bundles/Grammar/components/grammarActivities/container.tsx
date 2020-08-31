@@ -236,7 +236,6 @@ export class PlayGrammarContainer extends React.Component<PlayGrammarContainerPr
 
     render(): JSX.Element {
       const proofreaderSessionId = getParameterByName('proofreaderSessionId', window.location.href)
-      
       const { showTurkCode, saving, } = this.state
       const { grammarActivities, session, concepts, conceptsFeedback, previewMode, questionToPreview, questions, handleToggleQuestion, switchedBackToPreview, randomizedQuestions } = this.props
 

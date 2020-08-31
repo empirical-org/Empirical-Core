@@ -77,16 +77,16 @@ const renderQuestions = ({
 export interface TeacherPreviewMenuProps {
   activity: Activity;
   dispatch: Function;
-  onTogglePreview: () => void;
-  onToggleQuestion: (question: Question) => void;
+  onTogglePreview?: () => void;
+  onToggleQuestion?: (question: Question) => void;
   questions: Question[];
-  questionToPreview: { 
+  questionToPreview?: { 
     key?: string, 
     uid?: string 
   };
   session: any;
   showPreview: boolean;
-  onUpdateRandomizedQuestions: (questions: any[]) => void
+  onUpdateRandomizedQuestions?: (questions: any[]) => void
 }
  
 const TeacherPreviewMenu = ({ 

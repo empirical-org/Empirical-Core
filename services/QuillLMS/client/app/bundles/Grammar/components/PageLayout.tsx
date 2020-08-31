@@ -75,8 +75,25 @@ export class PageLayout extends React.Component<any, PageLayoutState> {
     this.setState({ randomizedQuestions: questions });
   }
 
+  renderContent = (header: JSX.Element) => {
+    const { previewShowing, questionToPreview, switchedBackToPreview, randomizedQuestions } = this.state;
+    return(
+      <Layout.Content>
+        <button className="skip-main" onClick={this.handleSkipToMainContentClick} type="button">Skip to main content</button>
+        {header}
+        <div id="main-content" tabIndex={-1}>{renderRoutes(routes, {
+          switchedBackToPreview: switchedBackToPreview,
+          handleToggleQuestion: this.handleToggleQuestion, 
+          previewMode: previewShowing, 
+          questionToPreview: questionToPreview,
+          randomizedQuestions: randomizedQuestions
+        })}</div>
+      </Layout.Content>
+    );
+  }
+
   render() {
-    const { showFocusState, previewShowing, questionToPreview, switchedBackToPreview, randomizedQuestions } = this.state;
+    const { showFocusState, previewShowing, questionToPreview } = this.state;
     const studentSession = getParameterByName('student', window.location.href);
     const proofreaderSessionId = getParameterByName('proofreaderSessionId', window.location.href);
     const isPlaying = window.location.href.includes('play');
@@ -108,17 +125,7 @@ export class PageLayout extends React.Component<any, PageLayoutState> {
                 showPreview={previewShowing}
               />
             </Layout.Sider>
-            <Layout.Content>
-              <button className="skip-main" onClick={this.handleSkipToMainContentClick} type="button">Skip to main content</button>
-              {header}
-              <div id="main-content" tabIndex={-1}>{renderRoutes(routes, {
-                switchedBackToPreview: switchedBackToPreview,
-                handleToggleQuestion: this.handleToggleQuestion, 
-                previewMode: previewShowing, 
-                questionToPreview: questionToPreview,
-                randomizedQuestions: randomizedQuestions
-              })}</div>
-            </Layout.Content>
+            {this.renderContent(header)}
           </Layout>
         </Layout>
       );
@@ -126,11 +133,7 @@ export class PageLayout extends React.Component<any, PageLayoutState> {
     return (
       <Layout className={className}>
         <Layout>
-          <Layout.Content>
-            <button className="skip-main" onClick={this.handleSkipToMainContentClick} type="button">Skip to main content</button>
-            {header}
-            <div id="main-content" tabIndex={-1}>{renderRoutes(routes, {previewMode: previewShowing})}</div>
-          </Layout.Content>
+          {this.renderContent(header)}
         </Layout>
       </Layout>
     );
