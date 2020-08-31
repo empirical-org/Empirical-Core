@@ -195,7 +195,9 @@ module Teacher
         classrooms.code AS code,
         COUNT(DISTINCT sc.id) as student_count,
         classrooms.google_classroom_id AS google_classroom_id,
-        classrooms.clever_id AS clever_id
+        classrooms.clever_id AS clever_id,
+        classrooms.created_at AS created_at,
+        classrooms.grade AS grade
       FROM classrooms
 			LEFT JOIN students_classrooms AS sc ON sc.classroom_id = classrooms.id
       LEFT JOIN classrooms_teachers ON classrooms_teachers.classroom_id = classrooms.id
