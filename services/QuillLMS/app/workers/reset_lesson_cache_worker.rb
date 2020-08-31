@@ -1,6 +1,6 @@
 class ResetLessonCacheWorker
   include Sidekiq::Worker
-  sidekiq_options queue: 'critical'
+  sidekiq_options queue: SidekiqQueue::CRITICAL
 
   def perform(id)
     $redis.del("user_id:#{id}_lessons_array")
