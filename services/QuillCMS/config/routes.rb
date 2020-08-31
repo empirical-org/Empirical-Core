@@ -38,6 +38,6 @@ Rails.application.routes.draw do
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 
   # cron controller runs a job in the last hour of the day
-  post 'cron' => 'cron#run'
+  post 'cron' => 'cron#new'
 
 end
