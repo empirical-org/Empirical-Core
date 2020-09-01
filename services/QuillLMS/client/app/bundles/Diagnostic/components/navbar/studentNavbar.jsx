@@ -59,7 +59,7 @@ const renderLinks = ({ playDiagnostic, dispatch, }) => {
   </div>)
 };
 
-const StudentNavbar = ({ playDiagnostic, dispatch, }) => (
+export const StudentNavbar = ({ playDiagnostic, dispatch, }) => (
   <header className='nav student-nav'>
     <div className="container">
       <div className="student-nav-section">
@@ -77,7 +77,6 @@ const StudentNavbar = ({ playDiagnostic, dispatch, }) => (
 
 function select(state) {
   return {
-    routing: state.routing,
     playDiagnostic: state.playDiagnostic
   };
 }
