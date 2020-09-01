@@ -7,7 +7,7 @@ end
 
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '6.0.1'
+gem 'rails', '~> 5.2.4.3'
 # Use Postgres for our database
 gem 'pg'
 # Use Puma as the app server
@@ -37,6 +37,9 @@ gem 'sinatra', require: false # Used for the web-based queue management interfac
 
 # Use Rack CORS for handling Cross-Origin Resource Sharing (CORS), making cross-origin AJAX possible
 gem 'rack-cors', :require => 'rack/cors'
+
+# For serializing js responses
+gem 'active_model_serializers', '~> 0.10.0'
 
 # Memcached Support
 gem 'dalli'
