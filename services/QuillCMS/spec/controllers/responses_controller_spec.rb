@@ -25,7 +25,6 @@ RSpec.describe ResponsesController, type: :controller do
 
     before do
       allow_any_instance_of(Response).to receive(:create_index_in_elastic_search)
-      allow_any_instance_of(Response).to receive(:update_index_in_elastic_search)
     end
 
     it 'should enqueue CreateOrIncrementResponseWorker' do
