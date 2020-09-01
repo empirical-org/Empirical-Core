@@ -248,22 +248,36 @@ export class Lesson extends React.Component {
     dispatch(action);
   }
 
+  getPreviewQuestionCount = () => {
+    const { playLesson, questionToPreview } = this.props;
+    const { questionSet } = playLesson;
+    if(!questionToPreview) {
+      return 1;
+    } else {
+      const { key } = questionToPreview;
+      const questionKeys = questionSet.map(questionObject => questionObject.question.key);
+      return questionKeys.indexOf(key) + 1;
+    }
+  }
+
+  
+
   renderProgressBar = () => {
-    const { playLesson, } = this.props
+    const { playLesson, previewMode, questionToPreview } = this.props
     if (!playLesson.currentQuestion) { return }
 
     const calculatedAnsweredQuestionCount = answeredQuestionCount(playLesson)
-
     const currentQuestionIsTitleCard = playLesson.currentQuestion.type === 'TL'
     const currentQuestionIsNotFirstQuestion = calculatedAnsweredQuestionCount !== 0
-
     const displayedAnsweredQuestionCount = currentQuestionIsTitleCard && currentQuestionIsNotFirstQuestion ? calculatedAnsweredQuestionCount + 1 : calculatedAnsweredQuestionCount
+    const answeredCount = previewMode ? this.getPreviewQuestionCount() : displayedAnsweredQuestionCount;
+    const totalCount = previewMode ? playLesson.questionSet.length : questionCount(playLesson);
 
     return (<ProgressBar
-      answeredQuestionCount={displayedAnsweredQuestionCount}
+      answeredQuestionCount={answeredCount}
       label='questions'
-      percent={getProgressPercent(playLesson)}
-      questionCount={questionCount(playLesson)}
+      percent={getProgressPercent({ playLesson, previewMode, questionToPreview })}
+      questionCount={totalCount}
     />)
   }
 

@@ -1,6 +1,6 @@
 import * as React from "react";
 import * as Redux from "redux";
-import {connect} from "react-redux";
+import { connect } from "react-redux";
 import stripHtml from "string-strip-html";
 import { getActivity } from "../../../Grammar/actions/grammarActivities";
 import getParameterByName from "../../../Grammar/helpers/getParameterByName";
@@ -34,6 +34,14 @@ const returnQuestions = (questions: any) => {
   return data;
 }
 
+const returnTitleCards = (titleCards: any) => {
+  const { data } = titleCards;
+  if(data && Object.keys(data).length === 0) {
+    return null;
+  }
+  return data;
+}
+
 const renderTitleSection = (activity: Activity) => {
   if (!activity) { return }
   return(
@@ -57,25 +65,46 @@ const getIndentation = (i: number) => {
   return i < 9 ? 'indented' : '';
 }
 
+const getQuestionObject = ({questions, titleCards, key}) => {
+  let questionObject;
+  if(questions[key]) {
+    questionObject = questions[key]
+  } else if(titleCards && titleCards[key]) {
+    questionObject = titleCards[key]
+  } else {
+    return {
+      prompt: '',
+      title: ''
+    }
+  }
+  return questionObject;
+}
+
 const renderQuestions = ({ 
   activity, 
   handleQuestionUpdate, 
   questions, 
   questionToPreview,
   randomizedQuestions, 
-  session
+  session,
+  titleCards
 }) => {
   if(!activity && !randomizedQuestions && !session) {
     return null;
   } else if(activity && activity.questions && questions) {
     return activity.questions.map((question: any, i: number) => {
       const { key } = question;
+      const questionObject = getQuestionObject({ questions, titleCards, key });
+      const questionText = questionObject.prompt || questionObject.title
       const style = getStyling(questionToPreview, key, i);
       const indentation = getIndentation(i);
+      if(!questionObject) {
+        return null;
+      }
       return(
         <button className={`question-container ${style} focus-on-light`} id={key} key={key} onClick={handleQuestionUpdate} type="button">
           <p className={`question-number ${indentation}`}>{`${i + 1}.  `}</p>
-          <p className="question-text">{stripHtml(questions[key].prompt)}</p>
+          <p className="question-text">{stripHtml(questionText)}</p>
         </button>
       );
     })
@@ -99,6 +128,7 @@ export interface TeacherPreviewMenuProps {
   dispatch: Function;
   onTogglePreview?: () => void;
   onToggleQuestion?: (question: Question) => void;
+  onUpdateRandomizedQuestions?: (questions: any[]) => void
   questions: Question[];
   questionToPreview?: { 
     key?: string, 
@@ -106,7 +136,7 @@ export interface TeacherPreviewMenuProps {
   };
   session: any;
   showPreview: boolean;
-  onUpdateRandomizedQuestions?: (questions: any[]) => void
+  titleCards: any;
 }
  
 const TeacherPreviewMenu = ({ 
@@ -114,11 +144,12 @@ const TeacherPreviewMenu = ({
   dispatch, 
   onTogglePreview, 
   onToggleQuestion, 
+  onUpdateRandomizedQuestions,
   questions, 
   questionToPreview,
   session,
   showPreview,
-  onUpdateRandomizedQuestions
+  titleCards
 }: TeacherPreviewMenuProps) => {
 
   const [randomizedQuestions, setRandomizedQuestions] = React.useState<Question[]>();
@@ -128,7 +159,7 @@ const TeacherPreviewMenu = ({
     if (activityUID) {
       dispatch(getActivity(activityUID))
     }
-    if(!randomizedQuestions && session) {
+    if(!randomizedQuestions && session && session.hasreceiveddata && session.currentQuestion) {
       const activityQuestions = [session.currentQuestion, ...session.unansweredQuestions];
       setRandomizedQuestions(activityQuestions);
       onUpdateRandomizedQuestions(activityQuestions);
@@ -146,7 +177,7 @@ const TeacherPreviewMenu = ({
     if(randomizedQuestions) {
       question = randomizedQuestions.filter(question => question.uid === questionUID)[0];
     } else {
-      question = questions[questionUID];
+      question = questions[questionUID] || titleCards[questionUID];
       question.key = questionUID;
     }
     onToggleQuestion(question);
@@ -176,7 +207,8 @@ const TeacherPreviewMenu = ({
             questions, 
             questionToPreview,
             randomizedQuestions, 
-            session
+            session,
+            titleCards
           })}
         </ul>
       </section>
@@ -185,10 +217,12 @@ const TeacherPreviewMenu = ({
 }
 
 const mapStateToProps = (state: any) => {
+  const { questions, session, titleCards } = state;
   return {
     activity: returnActivity(state),
-    questions: returnQuestions(state.questions),
-    session: state.session
+    questions: questions ? returnQuestions(questions) : null,
+    session: session,
+    titleCards: titleCards ? returnTitleCards(titleCards) : null
   };
 };
 
