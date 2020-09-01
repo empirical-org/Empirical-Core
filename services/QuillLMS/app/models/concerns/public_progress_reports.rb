@@ -243,10 +243,12 @@ module PublicProgressReports
                       .where(classroom_unit_id: classroom_unit.id, is_final_score: true, activity: activity_id)
       activity_sessions_counted = activity_sessions_with_counted_concepts(activity_sessions)
       students = classroom.students.map do |s|
+        next unless classroom_unit.assigned_student_ids.include?(s&.id)
         completed = activity_sessions.any? { |session| session.user_id == s&.id }
         {id: s&.id, name: s&.name || "Unknown Student", completed: completed }
       end
-      sorted_students = students.sort_by {|stud| stud[:name].split()[1]}
+
+      sorted_students = students.compact.sort_by {|stud| stud[:name].split()[1]}
 
       recommendations = RecommendationsQuery.new(diagnostic.id).activity_recommendations.map do |activity_pack_recommendation|
         students = []
