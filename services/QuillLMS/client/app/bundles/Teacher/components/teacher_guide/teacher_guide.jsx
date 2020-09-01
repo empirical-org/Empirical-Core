@@ -53,7 +53,7 @@ export default class TeacherGuide extends React.Component {
   introCopy() {
     return (
       <div className='summary intro-copy'>
-        <h2>Complete these quests and become a Quill guru!</h2>
+        <h2>Teacher guide</h2>
         <p>Quill is very simple on the surface. Find activities and assign them to your students. But underneath, there are all kinds of power features that help you create custom activity packs, view in-depth reports, and assign activities faster. Let’s take a look!</p>
       </div>
     )
