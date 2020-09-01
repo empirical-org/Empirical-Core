@@ -1,9 +1,8 @@
 import * as React from "react";
 import ContentEditable from 'react-contenteditable';
 import { Row } from "antd";
-import { Response, ConceptResult } from 'quill-marking-logic'
-import { hashToCollection, ProgressBar, ConceptExplanation, Feedback, } from 'quill-component-library/dist/componentLibrary'
-
+import { checkGrammarQuestion, Response, ConceptResult } from 'quill-marking-logic'
+import { hashToCollection, ProgressBar, ConceptExplanation, Feedback } from 'quill-component-library/dist/componentLibrary';
 import Cues from './cues'
 import { Question } from '../../interfaces/questions'
 import { GrammarActivity } from '../../interfaces/grammarActivities'
@@ -24,15 +23,27 @@ interface QuestionProps {
   checkAnswer: Function;
   conceptsFeedback: any;
   concepts: any;
+  previewMode: boolean;
+  questionToPreview: Question;
+  questions: Question[];
+  handleToggleQuestion: (question: Question) => void;
+  switchedBackToPreview: boolean;
+  randomizedQuestions: any[];
 }
 
 interface QuestionState {
   showExample: boolean;
   response: string;
   questionStatus: string;
-  submittedEmptyString: boolean
-  submittedSameResponseTwice: boolean
-  responses: { [key: number]: Response }
+  submittedEmptyString: boolean;
+  submittedForPreview: boolean;
+  submittedSameResponseTwice: boolean;
+  responses: { [key: number]: Response };
+  randomizedQuestions: string[];
+  previewSubmissionCount: number;
+  previewQuestionCorrect: boolean;
+  isLastPreviewQuestion: boolean;
+  switchedToPreview: boolean;
 }
 
 export class QuestionComponent extends React.Component<QuestionProps, QuestionState> {
@@ -44,16 +55,24 @@ export class QuestionComponent extends React.Component<QuestionProps, QuestionSt
       response: '',
       questionStatus: this.getCurrentQuestionStatus(props.currentQuestion),
       submittedEmptyString: false,
+      submittedForPreview: false,
       submittedSameResponseTwice: false,
-      responses: {}
+      responses: {},
+      randomizedQuestions: props.randomizedQuestions,
+      previewSubmissionCount: 0,
+      previewQuestionCorrect: false,
+      isLastPreviewQuestion: false,
+      switchedToPreview: props.switchedBackToPreview
     }
   }
 
   componentDidMount() {
-    const { currentQuestion, } = this.props
+    const { currentQuestion, } = this.props;
+    // preview questions use key as the unique identifier 
+    const uid = currentQuestion.uid ? currentQuestion.uid : currentQuestion.key;
 
     responseActions.getGradedResponsesWithCallback(
-      currentQuestion.uid,
+      uid,
       (data) => {
         this.setState({ responses: data, });
       }
@@ -61,18 +80,58 @@ export class QuestionComponent extends React.Component<QuestionProps, QuestionSt
   }
 
   UNSAFE_componentWillReceiveProps(nextProps: QuestionProps) {
-    const { currentQuestion, } = this.props
-    if (nextProps.currentQuestion && nextProps.currentQuestion.attempts && nextProps.currentQuestion.attempts.length > 0) {
+    const { currentQuestion, previewMode } = this.props;
+    if (nextProps.currentQuestion && nextProps.currentQuestion.attempts && nextProps.currentQuestion.attempts.length > 0 && !previewMode) {
       this.setState({ questionStatus: this.getCurrentQuestionStatus(nextProps.currentQuestion) })
     }
-    if (currentQuestion.uid !== nextProps.currentQuestion.uid) {
+    if (nextProps.currentQuestion.uid && currentQuestion.uid !== nextProps.currentQuestion.uid) {
       responseActions.getGradedResponsesWithCallback(
         nextProps.currentQuestion.uid,
         (data: Response[]) => {
           this.setState({ responses: data, });
         }
       );
+      if(previewMode) {
+        // previewQuestion has been switched, reset values
+        const questionKeys = this.getPreviewQuestionKeys();
+        const index = questionKeys && this.getPreviewQuestionIndex(nextProps.currentQuestion, questionKeys);
+        if(questionKeys && index === questionKeys.length - 1) {
+          this.setState({ submittedForPreview: false, response: '', previewSubmissionCount: 0, previewQuestionCorrect: false, isLastPreviewQuestion: true });
+        } else {
+          this.setState({ submittedForPreview: false, response: '', previewSubmissionCount: 0, previewQuestionCorrect: false, isLastPreviewQuestion: false });
+        }
+      }
+    } else if(nextProps.currentQuestion.key && currentQuestion.key !== nextProps.currentQuestion.key) {
+      // previewQuestion has been switched, reset values
+      const questionKeys = this.getPreviewQuestionKeys();
+      const index = questionKeys && this.getPreviewQuestionIndex(nextProps.currentQuestion, questionKeys);
+      if(questionKeys && index === questionKeys.length - 1) {
+        this.setState({ submittedForPreview: false, response: '', previewSubmissionCount: 0, previewQuestionCorrect: false, isLastPreviewQuestion: true });
+      } else {
+        this.setState({ submittedForPreview: false, response: '', previewSubmissionCount: 0, previewQuestionCorrect: false, isLastPreviewQuestion: false });
+      }
+      responseActions.getGradedResponsesWithCallback(
+        nextProps.currentQuestion.key,
+        (data: Response[]) => {
+          this.setState({ responses: data, });
+        }
+      );
     }
+  }
+
+  getPreviewQuestionKeys = () => {
+    const { activity, randomizedQuestions } = this.props;
+    let questionKeys; 
+    if(activity.questions) {
+      questionKeys = activity.questions.map(question => question.key);
+    } else {
+      questionKeys = randomizedQuestions.map(question => question.uid);
+    }
+    return questionKeys;
+  }
+
+  getPreviewQuestionIndex = (question, questions) => {
+    return questions.indexOf(question.uid ? question.uid : question.key);
   }
 
   previousResponses = () => {
@@ -81,7 +140,8 @@ export class QuestionComponent extends React.Component<QuestionProps, QuestionSt
   }
 
   getCurrentQuestionStatus(currentQuestion) {
-    if (currentQuestion.attempts && currentQuestion.attempts.length) {
+    const { previewMode } = this.props;
+    if (currentQuestion.attempts && currentQuestion.attempts.length && !previewMode) {
       if (currentQuestion.attempts.length === ALLOWED_ATTEMPTS && currentQuestion.attempts[currentQuestion.attempts.length - 1]) {
         if (currentQuestion.attempts[currentQuestion.attempts.length - 1].optimal) {
           return CORRECTLY_ANSWERED
@@ -101,8 +161,8 @@ export class QuestionComponent extends React.Component<QuestionProps, QuestionSt
   }
 
   currentQuestion = () => {
-    const { currentQuestion, } = this.props
-    return currentQuestion
+    const { currentQuestion, questionToPreview } = this.props
+    return questionToPreview ? questionToPreview : currentQuestion;
   }
 
   correctResponse = () => {
@@ -123,7 +183,7 @@ export class QuestionComponent extends React.Component<QuestionProps, QuestionSt
   }
 
   handleCheckWorkClick = () => {
-    const { checkAnswer, } = this.props
+    const { checkAnswer, previewMode } = this.props
     const { response, responses } = this.state
     const question = this.currentQuestion()
     const isFirstAttempt = !question.attempts || question.attempts.length === 0
@@ -133,6 +193,9 @@ export class QuestionComponent extends React.Component<QuestionProps, QuestionSt
         if (!isFirstAttempt && response === question.attempts[0].text) {
           this.setState({ submittedSameResponseTwice: true })
         } else {
+          if(previewMode) {
+            this.setState(prevState => ({ submittedForPreview: true, previewSubmissionCount: prevState.previewSubmissionCount + 1 }));
+          }
           checkAnswer(trimmedResponse, question, responses, isFirstAttempt)
           this.setState({ submittedEmptyString: false, submittedSameResponseTwice: false })
         }
@@ -143,14 +206,36 @@ export class QuestionComponent extends React.Component<QuestionProps, QuestionSt
   }
 
   handleNextProblemClick = () => {
-    const { goToNextQuestion, } = this.props
-    goToNextQuestion()
-    this.setState({ response: '', questionStatus: UNANSWERED, responses: {} })
+    const { goToNextQuestion, previewMode, handleToggleQuestion, currentQuestion, questions } = this.props;
+    if(previewMode) {
+      const questionKeys = this.getPreviewQuestionKeys();
+      const index = questionKeys && this.getPreviewQuestionIndex(currentQuestion, questionKeys) + 1;
+      if(index === questionKeys.length - 1) {
+        const key = questionKeys[index];
+        const question = questions[key];
+        question.key = key;
+        this.setState({ previewQuestionCorrect: false, isLastPreviewQuestion: true, submittedForPreview: false, previewSubmissionCount: 0, response: '', switchedToPreview: false });
+        handleToggleQuestion(question);
+      } else {
+        const key = questionKeys[index === 0 ? 1 : index];
+        const question = questions[key];
+        question.key = key;
+        this.setState({ previewQuestionCorrect: false, submittedForPreview: false, previewSubmissionCount: 0, response: '', switchedToPreview: false });
+        handleToggleQuestion(question);
+      }
+    } else {
+      goToNextQuestion()
+      this.setState({ response: '', questionStatus: UNANSWERED, responses: {} })
+    }
   }
 
   handleExampleButtonClick = () => this.setState(prevState => ({ showExample: !prevState.showExample }))
 
   handleResponseChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    const { submittedForPreview } = this.state;
+    if(submittedForPreview) {
+      this.setState({ submittedForPreview: false });
+    }
     this.setState({ response: e.target.value })
   }
 
@@ -164,8 +249,15 @@ export class QuestionComponent extends React.Component<QuestionProps, QuestionSt
   }
 
   getLatestAttempt(attempts: Response[] = []): Response | undefined {
+    const { switchedToPreview } = this.state;
     const lastIndex = attempts.length - 1;
-    return attempts[lastIndex];
+
+    // handle edge case for when teacher goes from preview to regular activity, plays a question and switches back to preview
+    if(switchedToPreview) {
+      return null;
+    } else {
+      return attempts[lastIndex];
+    }
   }
 
   getConcept = () => {
@@ -174,10 +266,13 @@ export class QuestionComponent extends React.Component<QuestionProps, QuestionSt
   }
 
   handleKeyDown = (e: any) => {
+    const { previewSubmissionCount, previewQuestionCorrect } = this.state;
     if (e.keyCode == 13 && e.shiftKey == false) {
       e.preventDefault();
       const { questionStatus } = this.state
-      if (questionStatus === UNANSWERED || questionStatus === INCORRECTLY_ANSWERED) {
+      if(previewSubmissionCount === ALLOWED_ATTEMPTS || previewQuestionCorrect) {
+        this.handleNextProblemClick();
+      } else if (questionStatus === UNANSWERED || questionStatus === INCORRECTLY_ANSWERED) {
         this.handleCheckWorkClick()
       } else {
         this.handleNextProblemClick()
@@ -212,36 +307,83 @@ export class QuestionComponent extends React.Component<QuestionProps, QuestionSt
     }
   }
 
-  renderCheckAnswerButton(): JSX.Element | void {
-    const { unansweredQuestions, } = this.props
-    const { questionStatus, responses, response, } = this.state
-    if (!Object.keys(responses).length) { return }
+  getCheckAnswerForPreview = (buttonClassName: string) => {
+    const { previewQuestionCorrect, previewSubmissionCount, isLastPreviewQuestion } = this.state;
+    // correctly answered or max attempts reached
+    if((previewQuestionCorrect || previewSubmissionCount === ALLOWED_ATTEMPTS) && !isLastPreviewQuestion) {
+      return <button className={buttonClassName} onClick={this.handleNextProblemClick} type="submit">Next question</button>
+    } else if((previewSubmissionCount === ALLOWED_ATTEMPTS || previewQuestionCorrect) && isLastPreviewQuestion) {
+      // correctly answered or max attempts reached on last question
+      return <button className={`${buttonClassName} disabled`} type="submit">Get feedback</button>
+    }
+    return <button className={buttonClassName} onClick={this.handleCheckWorkClick} type="submit">Get feedback</button>
+  }
 
-    const buttonClassName = "quill-button primary contained large focus-on-light"
-
+  getCheckAnswerForStandardPlay = (buttonClassName: string) => {
+    const { questionStatus, response } = this.state
+    const { unansweredQuestions } = this.props;
     if ([CORRECTLY_ANSWERED, FINAL_ATTEMPT].includes(questionStatus)) {
       const buttonText = unansweredQuestions.length === 0 ? 'Next' : 'Next question'
       return <button className={buttonClassName} onClick={this.handleNextProblemClick} type="submit">{buttonText}</button>
     }
-
     if (!response.length || this.previousResponses().includes(response)) {
       return <button className={`${buttonClassName} disabled`} type="submit">Get feedback</button>
     }
-
     return <button className={buttonClassName} onClick={this.handleCheckWorkClick} type="submit">Get feedback</button>
   }
 
+  renderCheckAnswerButton(): JSX.Element | void {
+    const { responses } = this.state
+    const { previewMode } = this.props;
+    if (!Object.keys(responses).length && !previewMode) { return }
+
+    const buttonClassName = "quill-button primary contained large focus-on-light"
+
+    if(previewMode) {
+      return this.getCheckAnswerForPreview(buttonClassName);
+    } else {
+      return this.getCheckAnswerForStandardPlay(buttonClassName);
+    }
+  }
+
+  getQuestionCounts = (): object => {
+    const { answeredQuestions, unansweredQuestions, activity, previewMode, randomizedQuestions } = this.props;
+    let answeredQuestionCount;
+    let totalQuestionCount;
+    const question = this.currentQuestion();
+    if(previewMode) {
+      // standard activity questions
+      if(activity && activity.questions) {
+        const questions = activity.questions ? activity.questions.map(question => question.key) : [];
+        const index = questions && this.getPreviewQuestionIndex(question, questions);
+        answeredQuestionCount = index === -1 ? 1 : index + 1;
+        totalQuestionCount = questions.length;
+      } else if(randomizedQuestions) {
+        const questions = this.getPreviewQuestionKeys();
+        const index = questions.indexOf(question.uid ? question.uid : question.key);
+        answeredQuestionCount = index === -1 ? 1 : index + 1;
+        totalQuestionCount = questions.length;
+      }
+    } else {
+      answeredQuestionCount = answeredQuestions.length + 1;
+      totalQuestionCount = answeredQuestionCount + unansweredQuestions.length;
+    }
+    return {
+      answeredQuestionCount,
+      totalQuestionCount
+    };
+  }
+
   renderTopSection(): JSX.Element {
-    const { answeredQuestions, unansweredQuestions, activity, } = this.props
-    const answeredQuestionCount = answeredQuestions.length + 1;
-    const totalQuestionCount = answeredQuestionCount + unansweredQuestions.length;
-    const meterWidth = answeredQuestionCount / totalQuestionCount * 100
+    const { activity } = this.props;
+    const counts = this.getQuestionCounts();
+    const meterWidth = counts['answeredQuestionCount'] / counts['totalQuestionCount'] * 100
     return (<div className="top-section">
       <ProgressBar
-        answeredQuestionCount={answeredQuestionCount}
+        answeredQuestionCount={counts['answeredQuestionCount']}
         label="questions"
         percent={meterWidth}
-        questionCount={totalQuestionCount}
+        questionCount={counts['totalQuestionCount']}
       />
       <Row
         align="middle"
@@ -255,12 +397,20 @@ export class QuestionComponent extends React.Component<QuestionProps, QuestionSt
   }
 
   renderTextareaSection = () => {
-    const { questionStatus, response } = this.state
+    const { questionStatus, response, previewSubmissionCount, previewQuestionCorrect } = this.state;
+    const { previewMode } = this.props;
     const question = this.currentQuestion()
     const latestAttempt: Response | undefined = this.getLatestAttempt(question.attempts)
+    const maxPreviewQuestionAttempts = previewSubmissionCount === ALLOWED_ATTEMPTS;
+    const nonOptimal = (question.attempts && question.attempts.length === ALLOWED_ATTEMPTS) && (latestAttempt && !latestAttempt.optimal);
+    const noMoreSubmissionsForStudentSession = [CORRECTLY_ANSWERED, FINAL_ATTEMPT].includes(questionStatus) && !previewMode;
+    const noMoreSubmissionsForPreviewSession = maxPreviewQuestionAttempts || previewQuestionCorrect;
+    const disabled = noMoreSubmissionsForStudentSession && noMoreSubmissionsForPreviewSession ? 'disabled' : '';
 
-    if ((question.attempts && question.attempts.length === ALLOWED_ATTEMPTS) && (latestAttempt && !latestAttempt.optimal)) { return }
-    const disabled = [CORRECTLY_ANSWERED, FINAL_ATTEMPT].includes(questionStatus) ? 'disabled' : null
+    if(nonOptimal || maxPreviewQuestionAttempts) {
+      return 
+    }
+
     return (<Row align="middle" justify="start" type="flex">
       <ContentEditable
         className={`input-field ${disabled}`}
@@ -300,23 +450,46 @@ export class QuestionComponent extends React.Component<QuestionProps, QuestionSt
     </div>)
   }
 
-  renderFeedbackSection(): JSX.Element | undefined {
-    const { response, } = this.state
-    const question = this.currentQuestion()
-    const latestAttempt: Response | undefined = this.getLatestAttempt(question.attempts)
-
-    if (!latestAttempt) { return <Feedback feedback={<p dangerouslySetInnerHTML={{ __html: this.currentQuestion().instructions }} />} feedbackType="instructions" />}
-
-    if (latestAttempt.optimal) {
-      return <Feedback feedback={<p dangerouslySetInnerHTML={{ __html: latestAttempt.feedback }} />} feedbackType="correct-matched" />
+  renderPreviewFeedbackSection({ question, response, responses, previewQuestionCorrect, previewSubmissionCount }): JSX.Element | undefined {
+    const questionUID: string = question.key
+    const focusPoints = question.focusPoints ? hashToCollection(question.focusPoints).sort((a: { order: number }, b: { order: number }) => a.order - b.order) : [];
+    const incorrectSequences = question.incorrectSequences ? hashToCollection(question.incorrectSequences) : [];
+    const defaultConceptUID = question.modelConceptUID || question.concept_uid
+    const responseObj = checkGrammarQuestion(questionUID, response, responses, focusPoints, incorrectSequences, defaultConceptUID);
+    if (responseObj.optimal && !previewQuestionCorrect) {
+      this.setState({ previewQuestionCorrect: true });
     }
-
-    if (question.attempts.length === ALLOWED_ATTEMPTS) {
+    if(responseObj.optimal && previewQuestionCorrect) {
+      return <Feedback feedback={<p dangerouslySetInnerHTML={{ __html: responseObj.feedback }} />} feedbackType="correct-matched" />
+    }
+    if(previewSubmissionCount === ALLOWED_ATTEMPTS) {
       const finalAttemptFeedback = `<b>Good try!</b> Compare your response to the strong response, and then go on to the next question.<br><br><b>Your response</b><br>${response}<br><br><b>A strong response</b><br>${this.correctResponse()}`
       return <Feedback feedback={<p dangerouslySetInnerHTML={{ __html: finalAttemptFeedback }} />} feedbackType="incorrect-continue" />
     }
+    return <Feedback feedback={<p dangerouslySetInnerHTML={{ __html: responseObj.feedback }} />} feedbackType="revise-matched" />
+  }
 
-    return <Feedback feedback={<p dangerouslySetInnerHTML={{ __html: latestAttempt.feedback }} />} feedbackType="revise-matched" />
+  renderFeedbackSection(): JSX.Element | undefined {
+    const { previewMode } = this.props;
+    const { response, responses, submittedForPreview, previewSubmissionCount, previewQuestionCorrect } = this.state
+    const question = this.currentQuestion()
+    const latestAttempt: Response | undefined = this.getLatestAttempt(question.attempts)
+
+    if (!latestAttempt && !submittedForPreview) { return <Feedback feedback={<p dangerouslySetInnerHTML={{ __html: this.currentQuestion().instructions }} />} feedbackType="instructions" />}
+
+    if(previewMode) {
+      return this.renderPreviewFeedbackSection({ question, response, responses, previewQuestionCorrect, previewSubmissionCount });
+    }
+
+    if (latestAttempt && latestAttempt.optimal) {
+      return <Feedback feedback={<p dangerouslySetInnerHTML={{ __html: latestAttempt.feedback }} />} feedbackType="correct-matched" />
+    }
+
+    if (question.attempts && question.attempts.length === ALLOWED_ATTEMPTS) {
+      const finalAttemptFeedback = `<b>Good try!</b> Compare your response to the strong response, and then go on to the next question.<br><br><b>Your response</b><br>${response}<br><br><b>A strong response</b><br>${this.correctResponse()}`
+      return <Feedback feedback={<p dangerouslySetInnerHTML={{ __html: finalAttemptFeedback }} />} feedbackType="incorrect-continue" />
+    }
+    return <Feedback feedback={<p dangerouslySetInnerHTML={{ __html: latestAttempt && latestAttempt.feedback ? latestAttempt.feedback : '' }} />} feedbackType="revise-matched" />
   }
 
   renderConceptExplanation = (): JSX.Element | void => {

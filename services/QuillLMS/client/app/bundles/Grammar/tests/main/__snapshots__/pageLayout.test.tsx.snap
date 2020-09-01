@@ -1,0 +1,41 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<PageLayout /> should render 1`] = `
+<Layout
+  className="hide-focus-outline"
+>
+  <Layout>
+    <Content>
+      <button
+        className="skip-main"
+        onClick={[Function]}
+        type="button"
+      >
+        Skip to main content
+      </button>
+      <div
+        id="main-content"
+        tabIndex={-1}
+      >
+        <Switch>
+          <Route
+            key="0"
+            path="/play/sw"
+            render={[Function]}
+          />
+          <Route
+            key="1"
+            path="/admin"
+            render={[Function]}
+          />
+          <Route
+            key="2"
+            path="/turk"
+            render={[Function]}
+          />
+        </Switch>
+      </div>
+    </Content>
+  </Layout>
+</Layout>
+`;
