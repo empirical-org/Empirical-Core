@@ -31,9 +31,7 @@ class StatusesController < ApplicationController
   end
 
   def sidekiq_queue_length
-    render json: {
-      enqueued: Sidekiq::Stats.new.enqueued
-    }
+    render json: Sidekiq::Stats.new.queues
   end
 
   # TODO: Get an actual condition that only raises when Firebase is inaccessible.
