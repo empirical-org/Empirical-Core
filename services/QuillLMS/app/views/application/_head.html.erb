@@ -33,8 +33,8 @@
     <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track' => true %>
   <% end %>
   <%= render partial: 'application/head_embed_codes' %>
-  <%= javascript_pack_tag('vendor') %>
-  <%= javascript_pack_tag(@js_file || 'app') %>
+  <%= javascript_pack_tag('vendor', 'crossorigin': 'anonymous') %>
+  <%= javascript_pack_tag((@js_file || 'app'), 'crossorigin': 'anonymous') %>
   <%= csrf_meta_tags %>
   <meta id='current-user-testing-flag' property="flag" content=<%= current_user&.testing_flag%> />
   <meta id='current-user-id' property="id" content=<%= current_user&.id%> />
