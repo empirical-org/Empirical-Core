@@ -13,7 +13,7 @@ const handleSaveAndExitClick = () => {
   window.location.assign(`${process.env.DEFAULT_URL}/profile`);
 }
 
-const languageOptions = ({ diagnosticID, dispatch, }) => {
+const LanguageOptions = ({ diagnosticID, dispatch, }) => {
   // once we remove the original ELL Diagnostic, we can move to have only have the second versions
   let langs = diagnosticID === 'ell' ? languages : languagesV2;
   let langData = diagnosticID === 'ell' ? languageData : languageDataV2;
@@ -35,7 +35,7 @@ const languageOptions = ({ diagnosticID, dispatch, }) => {
   })
 }
 
-const renderLinks = ({ playDiagnostic, dispatch, }) => {
+const Links = ({ playDiagnostic, dispatch, }) => {
   const { languageMenuOpen, diagnosticID, } = playDiagnostic
   const handleClickClose = () => dispatch(closeLanguageMenu())
 
@@ -54,7 +54,7 @@ const renderLinks = ({ playDiagnostic, dispatch, }) => {
     </button>
     <div className="mobile-student-language-menu">
       <h2>Choose a directions language</h2>
-      {languageOptions({ dispatch, diagnosticID, })}
+      <LanguageOptions diagnosticID={diagnosticID} dispatch={dispatch} />
     </div>
   </div>)
 };
@@ -70,7 +70,7 @@ export const StudentNavbar = ({ playDiagnostic, dispatch, }) => (
           />
         </a>
       </div>
-      {renderLinks({playDiagnostic, dispatch, })}
+      <Links dispatch={dispatch} playDiagnostic={playDiagnostic} />
     </div>
   </header>
 );
