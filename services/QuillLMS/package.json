@@ -7,8 +7,7 @@
   },
   "license": "AGPL-3.0",
   "engines": {
-    "node": "12.4.0",
-    "npm": "6.9.0"
+    "node": "12.x"
   },
   "cacheDirectories": [
     "client/node_modules"
