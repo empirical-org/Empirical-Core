@@ -31,67 +31,9 @@
     border: 0;
   }
 
-  .close-language-menu {
-    display: flex;
-    align-items: center;
-    img {
-      margin-right: 4px;
-    }
-  }
-
   @media (max-width: 850px) {
     .container {
-      padding: 0px 16px;
-    }
-  }
-}
-
-.mobile-student-language-menu {
-  position: absolute;
-  min-height: 1000vh;
-  top: 64px;
-  background-color: #fff;
-  z-index: 100;
-  overflow-y: hidden;
-  width: 100vw;
-  left: 50%;
-  right: 50%;
-  margin-left: -50vw;
-  margin-right: -50vw;
-  padding: 24px 0px;
-  display: flex;
-  flex-direction: column;
-  h2 {
-    font-size: 16px;
-    font-weight: 600;
-    line-height: normal;
-    color: #7f7f7f;
-    margin-left: 16px;
-    margin-bottom: 8px;
-  }
-  .language-button {
-    background-color: transparent;
-    border: none;
-    display: flex;
-    padding: 0px 16px;
-    height: 48px;
-    align-items: center;
-    img {
-      height: 20px;
-      margin-right: 8px;
-    }
-    span {
-      font-size: 16px;
-      font-weight: normal;
-      font-stretch: normal;
-      font-style: normal;
-      line-height: 1;
-      letter-spacing: normal;
-      margin: 0px;
-    }
-    &:hover, &:focus, &:active {
-      background-color: #f2f2f2;
-      outline: none;
+      padding: 0 4% 0 4%;
     }
   }
 }
