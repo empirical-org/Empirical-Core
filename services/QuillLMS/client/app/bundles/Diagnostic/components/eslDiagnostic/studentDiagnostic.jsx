@@ -13,7 +13,9 @@ import {
   submitResponse,
   updateCurrentQuestion,
   resumePreviousDiagnosticSession,
-  updateLanguage
+  updateLanguage,
+  setDiagnosticID,
+  openLanguageMenu
 } from '../../actions/diagnostics.js';
 import _ from 'underscore';
 import SessionActions from '../../actions/sessions.js';
@@ -46,12 +48,14 @@ export class ELLStudentDiagnostic extends React.Component {
       sessionID: this.getSessionId(),
       hasOrIsGettingResponses: false,
     }
+
   }
 
-  UNSAFE_componentWillMount() {
-    const { dispatch, } = this.props
+  componentDidMount() {
+    const { dispatch, match, } = this.props
     const { sessionID, } = this.state
     dispatch(clearData());
+    dispatch(setDiagnosticID({ diagnosticID: match.params.diagnosticID, }))
     if (sessionID) {
       SessionActions.get(sessionID, (data) => {
         this.setState({ session: data, });
@@ -227,7 +231,7 @@ export class ELLStudentDiagnostic extends React.Component {
   }
 
   startActivity = () => {
-    const { dispatch, } = this.props
+    const { dispatch, params, } = this.props
 
     const data = this.getFetchedData()
     const action = loadData(data);
@@ -304,6 +308,12 @@ export class ELLStudentDiagnostic extends React.Component {
     dispatch(updateLanguage(language));
   }
 
+  onClickOpenMobileLanguageMenu = () => {
+    const { dispatch, } = this.props
+    dispatch(openLanguageMenu())
+    window.scrollTo(0, 0)
+  }
+
   language = () => {
     const { playDiagnostic, } = this.props
 
@@ -326,6 +336,7 @@ export class ELLStudentDiagnostic extends React.Component {
 
     return (<Footer
       diagnosticID={diagnosticID}
+      handleClickOpenMobileLanguageMenu={this.onClickOpenMobileLanguageMenu}
       language={this.language()}
       updateLanguage={this.updateLanguage}
     />)
