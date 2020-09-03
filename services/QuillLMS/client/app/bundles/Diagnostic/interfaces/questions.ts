@@ -51,7 +51,6 @@ export interface Question {
   incorrectSequences?: IncorrectSequenceCollection;
   instructions?: string;
   modelConceptUID?: string;
-  prefilledText?: string;
   prompt?: string;
 }
 
