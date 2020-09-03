@@ -14,7 +14,6 @@ interface Question {
   focusPoints: FocusPoints,
   incorrectSequences: Array<IncorrectSequence>,
   instructions: string,
-  prefilledText: string,
   prompt: string,
   key?: string,
   wordCountChange?:object,
