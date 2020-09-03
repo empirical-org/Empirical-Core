@@ -15,7 +15,7 @@ export default class extends React.Component {
     instructions: this.props.question.instructions ? this.props.question.instructions : "",
     flag: this.props.question.flag ? this.props.question.flag : "alpha",
     cuesLabel: this.props.question.cuesLabel ? this.props.question.cuesLabel : '',
-    prefilledText: this.props.question.prefilledText ? this.props.question.prefilledText : ''
+    optimalResponseText: ''
   };
 
   submit = () => {
@@ -25,7 +25,6 @@ export default class extends React.Component {
       focusPoints: this.props.question.focusPoints,
       incorrectSequences: this.props.question.incorrectSequences,
       modelConceptUID: this.props.question.modelConceptUID,
-      prefilledText: this.state.prefilledText,
       prompt: this.state.prompt,
       cues: this.refs.cues.value.split(','),
       instructions: this.state.instructions,
@@ -33,7 +32,7 @@ export default class extends React.Component {
       cuesLabel: this.state.cuesLabel
     }
     if (this.props.new) {
-      const optimalResponseObj = {text: this.state.prefilledText.trim(), optimal: true, count: 0, feedback: "That's a strong sentence!"}
+      const optimalResponseObj = {text: this.state.optimalResponseText.trim(), optimal: true, count: 0, feedback: "That's a strong sentence!"}
       this.props.submit(questionObj, optimalResponseObj)
     } else {
       questionObj.conceptID = this.state.concept
@@ -41,8 +40,8 @@ export default class extends React.Component {
     }
   };
 
-  handlePrefilledText = (e) => {
-    this.setState({ prefilledText: e.target.value });
+  handleOptimalResponseText = (e) => {
+    this.setState({ optimalResponseText: e.target.value });
   };
 
   handlePromptChange = (e) => {
@@ -72,7 +71,7 @@ export default class extends React.Component {
       return (<div>
         <label className="label">Optimal Response</label>
         <p className="control">
-          <input className="input" onChange={this.handlePrefilledText} type="text" />
+          <input className="input" onChange={this.handleOptimalResponseText} type="text" />
         </p>
       </div>)
     }
@@ -94,20 +93,7 @@ export default class extends React.Component {
     this.setState({ cuesLabel: e.target.value, });
   };
 
-  renderPreFillSection = () => {
-    const { question } = this.props
-    return (
-      <div>
-        <label className="label" htmlFor="prefilledText" >Prefilled Text (place 5 underscores where you want the user to fill in _____)</label>
-        <p className="control">
-          <input className="input" defaultValue={question.prefilledText} id="prefilledText" onChange={this.handlePrefilledText} type="text" />
-        </p>
-      </div>
-    );
-  }
-
   render() {
-    const preFillSection = this.props.new ? <span /> : this.renderPreFillSection()
     if(this.props.new || this.props.concepts.hasreceiveddata) {
       return (
         <div className="box">
@@ -132,7 +118,6 @@ export default class extends React.Component {
             <input className="input" defaultValue={this.props.question.cues} ref="cues" type="text" />
           </p>
           {this.renderOptimalResponse()}
-          {preFillSection}
 
           <FlagDropdown flag={this.state.flag} handleFlagChange={this.handleFlagChange} isLessons={false} />
           {this.renderConceptSelector()}

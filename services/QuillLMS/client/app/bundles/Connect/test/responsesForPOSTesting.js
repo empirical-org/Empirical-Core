@@ -4,7 +4,6 @@ export function getPOSTestingData() {
     "conceptID" : "-KDyYS9mUiR-U-ZUj5oS",
     "cues" : [ "" ],
     "itemLevel" : "Level 0",
-    "prefilledText" : "",
     "prompt" : "<p>Bill swept the floor. (while) &nbsp;Andy painted the walls.</p>",
     "responses" : {
       "-KEI4xU0aS76obGWGeVm" : {

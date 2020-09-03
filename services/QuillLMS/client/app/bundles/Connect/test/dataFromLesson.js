@@ -16,7 +16,6 @@ export default [
       },
       instructions: 'Combine the sentences into one sentence. Use the joining word.',
       itemLevel: '',
-      prefilledText: 'As soon as a coconut is mature, it is brown.',
       prompt: '<p>A coconut is mature.&nbsp;</p>\n<p>It is brown.</p>',
       key: '-KQS0lZJ8RqWddG8qTeN',
       attempts: [
@@ -87,7 +86,6 @@ export default [
       },
       instructions: 'Combine the sentences into one sentence. Use the joining word.',
       itemLevel: '',
-      prefilledText: 'Until a coconut ripens, it is filled with water.',
       prompt: '<p>A coconut ripens. &nbsp;</p>\n<p>It is filled with water.</p>',
       key: '-KQS0vv8HESue3PrD8UV',
       attempts: [
@@ -135,7 +133,6 @@ export default [
       },
       instructions: 'Combine the sentences into one sentence. Use the joining word.',
       itemLevel: '',
-      prefilledText: 'As soon as the weather is warm, coconut palms grow.',
       prompt: '<p>The weather is warm.</p>\n<p>Coconut palms grow.</p>',
       key: '-KQS0ZUV9IZiMiPmuZdB',
       attempts: [

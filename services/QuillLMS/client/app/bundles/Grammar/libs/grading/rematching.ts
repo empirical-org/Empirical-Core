@@ -14,7 +14,6 @@ interface Question {
   incorrectSequences: IncorrectSequence[],
   instructions: string,
   itemLevel: string,
-  prefilledText: string,
   prompt: string,
   key?: string,
   wordCountChange?: object,
