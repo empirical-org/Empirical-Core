@@ -82,7 +82,6 @@ exports[`The focusPointsContainer should render 1`] = `
                   "text": "home",
                 },
               },
-              "prefilledText": "Anne Lindbergh could stay home, or she could fly around the world with her husband. ",
               "prompt": "<p>Anne Lindbergh could stay home.&nbsp;</p>
 <p>She could fly around the world with her husband.</p>",
             },

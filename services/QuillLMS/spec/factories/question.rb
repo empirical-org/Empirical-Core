@@ -111,7 +111,6 @@ FactoryBot.define do
     'instructions' => '',
     'itemLevel' => '',
     'modelConceptUID' => 'Jl4ByYtUfo4VhIKpMt23yA',
-    'prefilledText' => 'Earth and the moon are smaller than the sun.',
     'prompt' => '<p>The moon is smaller than the sun.</p><p>Earth is smaller than the sun.</p>'
   }
   factory :question do

@@ -52,14 +52,6 @@ class PlayDiagnosticQuestion extends React.Component {
     return false;
   }
 
-  getInitialValue = () => {
-    const { prefill, } = this.props
-
-    if (prefill) {
-      return this.getQuestion().prefilledText;
-    }
-  }
-
   getResponses = () => {
     const { responses, } = this.state
 
@@ -227,7 +219,6 @@ class PlayDiagnosticQuestion extends React.Component {
           <ReactTransition transitionAppear transitionAppearTimeout={500} transitionEnterTimeout={500} transitionLeaveTimeout={500} transitionName='text-editor'>
             <TextEditor
               className='textarea is-question is-disabled'
-              defaultValue={this.getInitialValue()}
               disabled={this.readyForNext()}
               getResponse={this.getResponse2}
               hasError={error}
