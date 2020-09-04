@@ -92,6 +92,6 @@ class SerializeVitallySalesAccount
   private def last_active
     School.joins(users: {classrooms_i_teach: :activity_sessions})
           .where(id: @school.id)
-          .maximum(:completed_at)
+          .maximum('activity_sessions.completed_at')
   end
 end
