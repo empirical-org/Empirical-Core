@@ -80,7 +80,7 @@ class Response < ApplicationRecord
   def clear_responses_route_cache
     return if optimal.nil?
 
-    Rails.cache.delete(Response.questions_cache_key(question_uid))
+    Rails.cache.delete(::Response.questions_cache_key(question_uid))
   end
 
   def self.questions_cache_key(question_uid)
