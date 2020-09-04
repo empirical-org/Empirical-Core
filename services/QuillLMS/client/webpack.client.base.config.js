@@ -155,8 +155,16 @@ module.exports = {
         test: require.resolve('jquery'),
         loader: 'expose-loader',
         options: {
-          exposes: ['$', 'jQuery'],
-          override: true
+          exposes: [
+            {
+              globalName: '$',
+              override: true
+            },
+            {
+              globalName: 'jQuery',
+              override: true
+            },
+          ],
         },
       }
     ],
