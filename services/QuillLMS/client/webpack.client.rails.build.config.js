@@ -86,26 +86,7 @@ module.exports = merge(config, {
           'css-loader',
           'sass-loader'
         ],
-      },
-      // {
-      //   test: require.resolve('react'),
-      //   use: {
-      //     loader: 'imports-loader',
-      //     options: {
-      //       shim: 'es5-shim/es5-shim',
-      //       sham: 'es5-shim/es5-sham',
-      //     }
-      //   }
-      // },
-      // {
-      //   test: require.resolve('jquery-ujs'),
-      //   use: {
-      //     loader: 'imports-loader',
-      //     options: {
-      //       jQuery: 'jquery',
-      //     }
-      //   }
-      // }
+      }
     ],
   },
 
