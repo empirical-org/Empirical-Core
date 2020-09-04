@@ -156,14 +156,23 @@ module.exports = {
           transpileOnly: true,
           experimentalWatchApi: true,
         },
+      },
+      {
+        test: require.resolve('jquery'),
+        loader: 'expose-loader',
+        options: {
+          exposes: [
+            {
+              globalName: '$',
+              override: true
+            },
+            {
+              globalName: 'jQuery',
+              override: true
+            },
+          ],
+        },
       }
-      // {
-      //   test: require.resolve('jquery'),
-      //   loader: 'expose-loader',
-      //   options: {
-      //     exposes: ['$', 'jQuery'],
-      //   },
-      // }
     ],
   },
   node: {

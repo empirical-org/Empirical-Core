@@ -150,14 +150,15 @@ module.exports = {
           path.resolve(__dirname, "app/test_data"),
           path.resolve(__dirname, "app/assets")
         ],
+      },
+      {
+        test: require.resolve('jquery'),
+        loader: 'expose-loader',
+        options: {
+          exposes: ['$', 'jQuery'],
+          override: true
+        },
       }
-      // {
-      //   test: require.resolve('jquery'),
-      //   loader: 'expose-loader',
-      //   options: {
-      //     exposes: ['$', 'jQuery'],
-      //   },
-      // }
     ],
   },
   node: {
