@@ -101,7 +101,7 @@ describe 'SerializeVitallySalesAccount' do
       classroom_unit: classroom_unit,
       state: 'finished'
     )
-    create(:activity_session,
+    last_activity_session = create(:activity_session,
       user: active_student,
       classroom_unit: classroom_unit,
       state: 'finished'
@@ -114,7 +114,8 @@ describe 'SerializeVitallySalesAccount' do
 
     expect(school_data[:traits]).to include(
       active_students: 1,
-      activities_finished: 2
+      activities_finished: 2,
+      last_active: last_activity_session.completed_at
     )
   end
 end
