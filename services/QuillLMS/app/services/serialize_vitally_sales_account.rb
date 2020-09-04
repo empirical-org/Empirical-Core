@@ -33,6 +33,7 @@ class SerializeVitallySalesAccount
         school_link: school_link,
         created_at: @school.created_at,
         premium_expiry_date: subscription_expiration_date,
+        last_active: last_active
       }
     }
   end
@@ -86,5 +87,12 @@ class SerializeVitallySalesAccount
 
   private def subscription_expiration_date
     @school&.subscription&.expiration || 'NA'
+  end
+
+  private def last_active
+    @school.users.maximum(:last_sign_in)
+    School.joins(users: {classrooms_i_teach: :activity_sessions})
+          .where(id: @school.id)
+          .maximum(:completed_at)
   end
 end
