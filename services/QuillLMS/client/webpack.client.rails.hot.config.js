@@ -58,16 +58,16 @@ module.exports = merge(config, {
             },
           }
         ],
-      },
-      {
-        test: require.resolve('jquery-ujs'),
-        use: {
-          loader: 'imports-loader',
-          options: {
-            jQuery: 'jquery',
-          },
-        },
       }
+      // {
+      //   test: require.resolve('jquery-ujs'),
+      //   use: {
+      //     loader: 'imports-loader',
+      //     options: {
+      //       jQuery: 'jquery',
+      //     },
+      //   },
+      // }
     ],
 
   },
