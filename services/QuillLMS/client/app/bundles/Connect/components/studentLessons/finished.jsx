@@ -1,6 +1,5 @@
 import React from 'react';
 import rootRef from '../../libs/firebase';
-const sessionsRef = rootRef.child('sessions');
 import { Spinner } from 'quill-component-library/dist/componentLibrary';
 
 export default class extends React.Component {
@@ -9,14 +8,6 @@ export default class extends React.Component {
   };
 
   componentDidMount() {
-    const values = {
-      name: this.props.name || 'Anonymous',
-      lessonID: this.props.lessonID,
-      questions: this.props.data.answeredQuestions,
-    };
-    const sessionRef = sessionsRef.push(values, (error) => {
-      this.setState({ sessionKey: sessionRef.key, });
-    });
     this.props.saveToLMS();
   }
 
