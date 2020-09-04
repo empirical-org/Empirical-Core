@@ -122,7 +122,7 @@ export class QuestionComponent extends React.Component<QuestionProps, QuestionSt
   getPreviewQuestionKeys = () => {
     const { activity, randomizedQuestions } = this.props;
     let questionKeys; 
-    if(activity.questions) {
+    if(activity.questions && activity.questions.length) {
       questionKeys = activity.questions.map(question => question.key);
     } else {
       questionKeys = randomizedQuestions.map(question => question.uid);
@@ -353,7 +353,8 @@ export class QuestionComponent extends React.Component<QuestionProps, QuestionSt
     const question = this.currentQuestion();
     if(previewMode) {
       // standard activity questions
-      if(activity && activity.questions) {
+      // some Grammar activities return an empty array for the questions property so we check it's length
+      if(activity && activity.questions && activity.questions.length) {
         const questions = activity.questions ? activity.questions.map(question => question.key) : [];
         const index = questions && this.getPreviewQuestionIndex(question, questions);
         answeredQuestionCount = index === -1 ? 1 : index + 1;
