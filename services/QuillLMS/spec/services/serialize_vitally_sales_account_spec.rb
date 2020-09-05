@@ -114,8 +114,8 @@ describe 'SerializeVitallySalesAccount' do
 
     expect(school_data[:traits]).to include(
       active_students: 1,
-      activities_finished: 2,
-      last_active: last_activity_session.completed_at
+      activities_finished: 2
     )
+    expect(school_data[:traits][:last_active]).to be_within(0.000001.second).of(last_activity_session.completed_at)
   end
 end
