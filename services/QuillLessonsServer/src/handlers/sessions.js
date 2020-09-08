@@ -41,17 +41,25 @@ export function createOrUpdateClassroomLessonSession({
   r.table('classroom_lesson_sessions')
   .get(classroomSessionId)
   .run(connection)
-  .then((session) => {
-    teacherIdObject ? session.teacher_ids = teacherIdObject.teacher_ids : undefined;
-    session.current_slide = session && session.current_slide ? session.current_slide : 0;
-    session.startTime = session && session.startTime ? session.startTime : new Date();
-    session.id = session && session.id ? session.id : classroomSessionId;
+  .then((foundSession) => {
+    const session = _setSessionDefaults(foundSession, classroomSessionId, teacherIdObject);
 
     r.table('classroom_lesson_sessions')
     .insert(session, { conflict: 'update' })
     .run(connection)
   });
 };
+
+// private function, exported for tests
+export function _setSessionDefaults(oldSession, sessionId, teacherObject) {
+    let session = oldSession || {};
+    session.teacher_ids = teacherObject ? teacherObject.teacher_ids : undefined;
+    session.current_slide = session.current_slide || 0;
+    session.startTime = session.startTime || new Date();
+    session.id = session.id || sessionId;
+
+   return session;
+}
 
 export function setSlideStartTime({
   classroomSessionId,
