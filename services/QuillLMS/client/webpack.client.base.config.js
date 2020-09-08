@@ -109,6 +109,7 @@ module.exports = {
       react: path.resolve('./node_modules/react'),
       'react-dom': path.resolve('./node_modules/react-dom'),
     },
+    symlinks: false,
   },
   plugins: basePlugins,
   module: {

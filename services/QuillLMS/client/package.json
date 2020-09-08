@@ -162,7 +162,7 @@
     "jscs:fix": "jscs --verbose -x . --silent",
     "test": "npm run build:test && rspec",
     "build:test": "RAILS_ENV=test webpack --config webpack.client.dev.rails.build.config.js && npm run build:server",
-    "build:production:client": "NODE_ENV=production node --max-old-space-size=8192 node_modules/webpack/bin/webpack.js --config webpack.client.rails.build.config.js --optimize-minimize --display verbose --display-cached",
+    "build:production:client": "NODE_ENV=production node --max-old-space-size=8192 node_modules/webpack/bin/webpack.js --config webpack.client.rails.build.config.js --display verbose --display-cached",
     "build:production:server": "NODE_ENV=production webpack --config webpack.server.rails.build.config.js",
     "build:client": "webpack --config webpack.client.rails.build.config.js",
     "build:dev:client:prod-cms": "RAILS_ENV=development QUILL_CMS=https://cms.quill.org node --max-old-space-size=8192 node_modules/webpack/bin/webpack.js -w --config webpack.client.dev.rails.build.config.js",

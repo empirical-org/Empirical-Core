@@ -38,7 +38,10 @@ module.exports = merge(config, {
       name: false
     },
     minimizer: [
-      new TerserPlugin(),
+      new TerserPlugin({
+        parallel: true,
+        cache: true
+      }),
     ],
   },
 
@@ -71,6 +74,6 @@ module.exports = merge(config, {
       // both options are optional
       filename: '[name]-bundle-[hash].css',
       chunkFilename: '[id].css',
-    }),
+    })
   ],
 });
