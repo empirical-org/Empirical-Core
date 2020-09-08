@@ -107,7 +107,7 @@ module.exports = {
     alias: {
       lib: path.join(process.cwd(), 'app', 'lib'),
       react: path.resolve('./node_modules/react'),
-      'react-dom': path.resolve('./node_modules/react-dom'),
+      'react-dom': path.resolve('./node_modules/react-dom')
     },
     symlinks: false,
   },
