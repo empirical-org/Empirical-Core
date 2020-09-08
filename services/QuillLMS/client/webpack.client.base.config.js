@@ -127,6 +127,7 @@ module.exports = {
       {
         test: /\.tsx?$/,
         use: [
+          'cache-loader',
           { loader: 'ts-loader', options: { transpileOnly: true } }
         ],
         include: [
@@ -139,7 +140,7 @@ module.exports = {
       },
       {
         test: /\.jsx?$/,
-        loader: 'babel-loader',
+        use: ['cache-loader', 'babel-loader'],
         include: [
           path.resolve(__dirname, "app")
         ],
