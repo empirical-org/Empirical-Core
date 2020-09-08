@@ -24,13 +24,6 @@ if (devBuild) {
 
 module.exports = merge(config, {
 
-  entry: {
-    vendor: [
-      // Configures extractStyles to be true if NODE_ENV is production
-      'bootstrap-loader'
-    ],
-  },
-
   mode: devBuild ? 'development' : 'production',
 
   output: {
@@ -41,7 +34,9 @@ module.exports = merge(config, {
   },
 
   optimization: {
-    splitChunks: false,
+    splitChunks: {
+      name: true
+    },
     removeAvailableModules: false,
     removeEmptyChunks: false,
     minimize: false,

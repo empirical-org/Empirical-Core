@@ -25,13 +25,6 @@ if (devBuild) {
 
 module.exports = merge(config, {
 
-  entry: {
-    vendor: [
-      // Configures extractStyles to be true if NODE_ENV is production
-      'bootstrap-loader'
-    ],
-  },
-
   mode: devBuild ? 'development' : 'production',
 
   output: {
@@ -42,25 +35,7 @@ module.exports = merge(config, {
 
   optimization: {
     splitChunks: {
-      chunks: 'async',
-      minSize: 30000,
-      maxSize: 0,
-      minChunks: Infinity,
-      maxAsyncRequests: 5,
-      maxInitialRequests: 3,
-      automaticNameDelimiter: '~',
-      name: true,
-      cacheGroups: {
-        vendors: {
-          test: /[\\/]node_modules[\\/]/,
-          priority: -10
-        },
-        default: {
-          minChunks: Infinity,
-          priority: -20,
-          reuseExistingChunk: true
-        }
-      }
+      name: false
     },
     minimizer: [
       new TerserPlugin(),

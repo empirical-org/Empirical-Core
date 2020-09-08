@@ -124,7 +124,6 @@
   },
   "devDependencies": {
     "@types/jest": "^22.2.0",
-    "awesome-typescript-loader": "^5.2.1",
     "babel-jest": "^24.8.0",
     "compression-webpack-plugin": "^5.0.2",
     "enzyme": "^3.11.0",

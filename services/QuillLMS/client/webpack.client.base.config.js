@@ -52,12 +52,6 @@ module.exports = {
   mode,
   context: __dirname,
   entry: {
-    vendor: [
-      'babel-polyfill',
-      'es5-shim/es5-shim',
-      'es5-shim/es5-sham',
-      'jquery'
-    ],
     app: [
       './app/bundles/Teacher/startup/clientRegistration'
     ],
@@ -131,7 +125,9 @@ module.exports = {
       },
       {
         test: /\.tsx?$/,
-        loader: 'awesome-typescript-loader?errorsAsWarnings=true',
+        use: [
+          { loader: 'ts-loader', options: { transpileOnly: true } }
+        ],
         include: [
           path.resolve(__dirname, "app")
         ],
