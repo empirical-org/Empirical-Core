@@ -41,13 +41,6 @@ class ELLSentenceCombining extends React.Component {
     );
   }
 
-  getInitialValue = () => {
-    const { prefill, } = this.props
-    if (prefill) {
-      return this.getQuestion().prefilledText;
-    }
-  }
-
   removePrefilledUnderscores = () => {
     this.setState(prevState => ({ value: prevState.response.replace(/_/g, '') }))
   }
@@ -286,7 +279,6 @@ class ELLSentenceCombining extends React.Component {
           <ReactTransition transitionAppear transitionAppearTimeout={500} transitionEnterTimeout={500} transitionLeaveTimeout={500} transitionName='text-editor'>
             <TextEditor
               className='textarea is-question is-disabled'
-              defaultValue={this.getInitialValue()}
               disabled={this.readyForNext()}
               getResponse={this.getResponse2}
               hasError={error}
