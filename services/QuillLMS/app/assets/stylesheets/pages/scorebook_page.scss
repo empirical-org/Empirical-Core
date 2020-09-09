@@ -36,8 +36,9 @@
       text-align: left;
 			cursor: pointer;
     }
-    .icon:focus {
-      outline-offset: -2px;
+    .icon:focus, .icon:hover {
+      outline-offset: 6px;
+      text-decoration: none;
     }
 		.title {
 			color: #717171;

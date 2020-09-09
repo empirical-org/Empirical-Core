@@ -1,49 +1,45 @@
 "use strict";
-import React from 'react'
-
-const handleClick = (e: React.MouseEvent<HTMLInputElement>) => {
-  window.location.href = e.currentTarget.value;
-}
+import * as React from 'react'
 
 export const AppLegend = () => {
   return(
     <div className="icons-wrapper icon-legend app-legend">
       <div className="icons">
-        <button className="icon focus-on-light" onClick={handleClick} type="button" value="/tools/diagnostic">
+        <a className="icon focus-on-light" href={`${process.env.DEFAULT_URL}/tools/diagnostic`} rel="noopener noreferrer" target="_blank">
           <div className="icon-wrapper icon-diagnostic-embossed" />
           <div className="icons-description-wrapper">
             <p className="title">Quill Diagnostic</p>
             <p className="description">Identify Learning Gaps</p>
           </div>
-        </button>
-        <button className="icon focus-on-light" onClick={handleClick} type="button" value="/tools/lessons">
+        </a>
+        <a className="icon focus-on-light" href={`${process.env.DEFAULT_URL}/tools/lessons`} rel="noopener noreferrer" target="_blank">
           <div className="icon-wrapper icon-lessons-embossed" />
           <div className="icons-description-wrapper">
             <p className="title">Quill Lessons</p>
             <p className="description">Shared Group Lessons</p>
           </div>
-        </button>
-        <button className="icon focus-on-light" onClick={handleClick} type="button" value="/tools/connect">
+        </a>
+        <a className="icon focus-on-light" href={`${process.env.DEFAULT_URL}/tools/connect`} rel="noopener noreferrer" target="_blank">
           <div className="icon-wrapper icon-connect-embossed" />
           <div className="icons-description-wrapper">
             <p className="title">Quill Connect</p>
             <p className="description">Combine Sentences</p>
           </div>
-        </button>
-        <button className="icon focus-on-light" onClick={handleClick} type="button" value="/tools/proofreader">
+        </a>
+        <a className="icon focus-on-light" href={`${process.env.DEFAULT_URL}/tools/proofreader`} rel="noopener noreferrer" target="_blank">
           <div className="icon-wrapper icon-flag-embossed" />
           <div className="icons-description-wrapper">
             <p className="title">Quill Proofreader</p>
             <p className="description">Fix Errors In Passages</p>
           </div>
-        </button>
-        <button className="icon focus-on-light" onClick={handleClick} type="button" value="/tools/grammar">
+        </a>
+        <a className="icon focus-on-light" href={`${process.env.DEFAULT_URL}/tools/grammar`} rel="noopener noreferrer" target="_blank">
           <div className="icon-wrapper icon-puzzle-embossed" />
           <div className="icons-description-wrapper">
             <p className="title">Quill Grammar</p>
             <p className="description">Practice Mechanics</p>
           </div>
-        </button>
+        </a>
       </div>
     </div>
   );
