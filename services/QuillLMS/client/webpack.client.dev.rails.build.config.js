@@ -35,7 +35,7 @@ module.exports = merge(config, {
 
   optimization: {
     splitChunks: {
-      name: true
+      name: false
     },
     removeAvailableModules: false,
     removeEmptyChunks: false,
