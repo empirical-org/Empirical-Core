@@ -53,7 +53,11 @@ export function createOrUpdateClassroomLessonSession({
 // private function, exported for tests
 export function _setSessionDefaults(oldSession, sessionId, teacherObject) {
     let session = oldSession || {};
-    session.teacher_ids = teacherObject ? teacherObject.teacher_ids : undefined;
+
+    if (teacherObject &&  teacherObject.teacher_ids) {
+      session.teacher_ids = teacherObject.teacher_ids;
+    }
+
     session.current_slide = session.current_slide || 0;
     session.startTime = session.startTime || new Date();
     session.id = session.id || sessionId;
