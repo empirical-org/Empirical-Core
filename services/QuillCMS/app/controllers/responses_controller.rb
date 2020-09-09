@@ -7,7 +7,7 @@ class ResponsesController < ApplicationController
 
   RESPONSE_LIMIT = 100
   MULTIPLE_CHOICE_LIMIT = 2
-  CACHE_EXPIRY = 15.minutes.to_i
+  CACHE_EXPIRY = 60.minutes.to_i
 
   before_action :set_response, only: [:show, :update, :destroy]
 
@@ -47,9 +47,6 @@ class ResponsesController < ApplicationController
     new_vals = transformed_new_vals(response_params)
     updated_response = @response.update(new_vals)
     if updated_response
-      if !@response.optimal.nil?
-        Rails.cache.delete("questions/#{@response.question_uid}/responses")
-      end
       render json: @response
     else
       render json: @response.errors, status: :unprocessable_entity
@@ -63,9 +60,13 @@ class ResponsesController < ApplicationController
 
   # GET /questions/:question_uid/responses
   def responses_for_question
-    @responses = Rails.cache.fetch("questions/#{params[:question_uid]}/responses", :expires_in => CACHE_EXPIRY) do
-      Response.where(question_uid: params[:question_uid]).where.not(optimal: nil).where(parent_id: nil).to_a
+    ids = Rails.cache.fetch(Response.questions_cache_key(params[:question_uid]), expires_in: CACHE_EXPIRY) do
+      #NB, the result of this query is too large to store as objects in Memcached for some questions, so storing the ids then fetching them in a query.
+      # We might consider removing this caching entirely since the gains are less.
+      # As of 9/3/2020 The question with the most responses for this query has 6997 responses.
+      Response.where(question_uid: params[:question_uid], parent_id: nil).where.not(optimal: nil).pluck(:id)
     end
+    @responses = Response.where(id: ids).to_a
     render json: @responses
   end
 
@@ -75,8 +76,12 @@ class ResponsesController < ApplicationController
   end
 
   def multiple_choice_options
-    multiple_choice_options = Rails.cache.fetch("questions/#{params[:question_uid]}/multiple_choice_options", :expires_in => CACHE_EXPIRY) do
-      optimal_responses = Response.where(question_uid: params[:question_uid], optimal: true).order('count DESC').limit(MULTIPLE_CHOICE_LIMIT).to_a
+    multiple_choice_options = Rails.cache.fetch(Response.multiple_choice_cache_key(params[:question_uid]), expires_in: CACHE_EXPIRY) do
+      # NB, This is much faster to do the sort and limit in Ruby than Postgres
+      # The DB picks a terrible query plan for some reason
+      # 45seconds in the DB vs. 0.25 seconds in Ruby
+      optimal_responses = Response.where(question_uid: params[:question_uid], optimal: true).sort_by {|r| -r.count}.first(MULTIPLE_CHOICE_LIMIT)
+      # This, almost identical query does not have the same query issues
       sub_optimal_responses = Response.where(question_uid: params[:question_uid], optimal: [false, nil]).order('count DESC').limit(MULTIPLE_CHOICE_LIMIT).to_a
       optimal_responses.concat(sub_optimal_responses)
     end
