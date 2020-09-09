@@ -51,7 +51,6 @@ module.exports = merge(config, {
         use: [
           MiniCssExtractPlugin.loader,
           'css-loader',
-          'sass-loader'
         ],
       },
       {

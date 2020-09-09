@@ -123,7 +123,9 @@ module.exports = {
       },
       {
         test: /\.tsx?$/,
-        loader: 'ts-loader',
+        use: [
+          { loader: 'ts-loader' }
+        ],
         include: [
           path.resolve(__dirname, "app")
         ],
@@ -131,14 +133,10 @@ module.exports = {
           path.resolve(__dirname, "app/test_data"),
           path.resolve(__dirname, "app/assets")
         ],
-        options: {
-          transpileOnly: true,
-          experimentalWatchApi: true,
-        },
       },
       {
         test: /\.jsx?$/,
-        loader: 'ts-loader',
+        use: 'babel-loader',
         include: [
           path.resolve(__dirname, "app")
         ],
@@ -146,10 +144,6 @@ module.exports = {
           path.resolve(__dirname, "app/test_data"),
           path.resolve(__dirname, "app/assets")
         ],
-        options: {
-          transpileOnly: true,
-          experimentalWatchApi: true,
-        },
       },
       {
         test: require.resolve('jquery'),
