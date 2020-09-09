@@ -1,5 +1,4 @@
 import React from 'react';
-import handleFocus from './handleFocus.js';
 import TextEditor from './renderTextEditor.jsx';
 import { Modal } from 'quill-component-library/dist/componentLibrary';
 import _ from 'underscore';
@@ -32,6 +31,7 @@ export default class RenderFormForAnswer extends React.Component {
               height="569"
               mozallowfullscreen="true"
               src={assetURL}
+              title="hint"
               webkitallowfullscreen="true"
               width="960"
             />

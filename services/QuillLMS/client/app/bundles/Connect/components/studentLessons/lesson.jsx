@@ -88,6 +88,15 @@ export class Lesson extends React.Component {
     return data[lessonID];
   }
 
+  getQuestion = () => {
+    const { playLesson, questionToPreview } = this.props;
+    const { question } = playLesson.currentQuestion;
+    if(questionToPreview) {
+      return questionToPreview;
+    }
+    return question;
+  }
+
   createAnonActivitySession = (lessonID, results, score) => {
     request(
       { url: `${process.env.DEFAULT_URL}/api/v1/activity_sessions/`,
@@ -283,7 +292,7 @@ export class Lesson extends React.Component {
 
   render() {
     const { sessionInitialized, error, sessionID, saved, session, } = this.state
-    const { conceptsFeedback, playLesson, dispatch, lessons, match } = this.props
+    const { conceptsFeedback, playLesson, dispatch, lessons, match, previewMode } = this.props
     const { data, hasreceiveddata, } = lessons
     const { params } = match
     const { lessonID, } = params;
@@ -296,7 +305,8 @@ export class Lesson extends React.Component {
     }
 
     if (playLesson.currentQuestion) {
-      const { type, question, } = playLesson.currentQuestion;
+      const { type } = playLesson.currentQuestion;
+      const question = this.getQuestion();
       if (type === 'SF') {
         component = (
           <PlaySentenceFragment
@@ -308,6 +318,7 @@ export class Lesson extends React.Component {
             markIdentify={this.markIdentify}
             marking="diagnostic"
             nextQuestion={this.nextQuestion}
+            previewMode={previewMode}
             question={question}
             updateAttempts={this.submitResponse}
           />
@@ -321,6 +332,7 @@ export class Lesson extends React.Component {
             key={question.key}
             nextQuestion={this.nextQuestion}
             prefill={this.getLesson().prefill}
+            previewMode={previewMode}
             question={question}
             submitResponse={this.submitResponse}
           />
@@ -331,6 +343,7 @@ export class Lesson extends React.Component {
             data={question}
             handleContinueClick={this.nextQuestion}
             isLastQuestion={isLastQuestion}
+            previewMode={previewMode}
           />
         )
       } else {
@@ -343,6 +356,7 @@ export class Lesson extends React.Component {
             key={question.key}
             nextQuestion={this.nextQuestion}
             prefill={this.getLesson().prefill}
+            previewMode={previewMode}
             question={question}
           />
         );
@@ -354,6 +368,7 @@ export class Lesson extends React.Component {
           error={error}
           lessonID={params.lessonID}
           name={sessionID}
+          previewMode={previewMode}
           saved={saved}
           saveToLMS={this.saveToLMS}
         />

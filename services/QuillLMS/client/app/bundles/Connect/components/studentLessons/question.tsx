@@ -34,7 +34,7 @@ export default class PlayLessonQuestion extends React.Component {
 
     const { question, } = props
     let response = ''
-    const numberOfAttempts = question.attempts.length
+    const numberOfAttempts = question.attempts ? question.attempts.length : null;
     if (numberOfAttempts) {
       const lastSubmitted = question.attempts[numberOfAttempts - 1]
       response =  lastSubmitted.response.text
@@ -45,6 +45,8 @@ export default class PlayLessonQuestion extends React.Component {
       response,
       finished: false,
       multipleChoice: false,
+      previewAttempt: null,
+      previewAttemptSubmitted: false
     }
   }
 
@@ -66,16 +68,20 @@ export default class PlayLessonQuestion extends React.Component {
 
   shouldComponentUpdate(nextProps, nextState) {
     const { question, } = this.props
-    const { response, finished, multipleChoice, responses, } = this.state
+    const { response, finished, multipleChoice, responses, previewAttemptSubmitted } = this.state
     if (question !== nextProps.question) {
       return true;
     } else if (response !== nextState.response) {
+      // reset previewAttemptSubmitted for renderFeedback check for previewMode
+      this.setState({ previewAttemptSubmitted: false });
       return true;
     } else if (finished !== nextState.finished) {
       return true;
     } else if (multipleChoice !== nextState.multipleChoice) {
       return true;
     } else if (responses !== nextState.responses) {
+      return true;
+    } else if(previewAttemptSubmitted !== nextState.previewAttemptSubmitted) {
       return true;
     }
     return false;
@@ -134,7 +140,8 @@ export default class PlayLessonQuestion extends React.Component {
   }
 
   renderFeedback = (override) => {
-    const { question, } = this.props
+    const { question, previewMode } = this.props;
+    const { previewAttempt, previewAttemptSubmitted, response } = this.state;
     let sentence;
     if (override) {
       sentence = override;
@@ -144,22 +151,37 @@ export default class PlayLessonQuestion extends React.Component {
       sentence = 'Keep writing! Revise your sentence by changing the order of the ideas.';
     }
     return (<RenderFeedback
+      checkPreviewAnswer={this.checkPreviewAnswer}
       getQuestion={this.getQuestion}
       listCuesAsString={this.listCuesAsString}
       override={!!override}
+      previewAttempt={previewAttempt}
+      previewAttemptSubmitted={previewAttemptSubmitted}
+      previewMode={previewMode}
       question={question}
       renderFeedbackStatements={this.renderFeedbackStatements}
+      response={response}
       responses={this.getResponses()}
       sentence={sentence}
+      teacher
     />);
   }
 
-  getErrorsForAttempt(attempt) {
-    return _.pick(attempt, ...C.ERROR_TYPES);
+  getQuestionAttempt = (attempt) => {
+    const { previewAttempt } = this.state;
+    const { previewMode } = this.props;
+    const questionAttempt = previewMode && previewAttempt ? previewAttempt : attempt;
+    return questionAttempt;
   }
 
-  renderFeedbackStatements(attempt) {
-    return <RenderQuestionFeedback attempt={attempt} getErrorsForAttempt={this.getErrorsForAttempt} getQuestion={this.getQuestion} />;
+  getErrorsForAttempt = (attempt) => {
+    const questionAttempt = this.getQuestionAttempt(attempt);
+    return _.pick(questionAttempt, ...C.ERROR_TYPES);
+  }
+
+  renderFeedbackStatements = (attempt) => {
+    const questionAttempt = this.getQuestionAttempt(attempt);
+    return <RenderQuestionFeedback attempt={questionAttempt} getErrorsForAttempt={this.getErrorsForAttempt} getQuestion={this.getQuestion} />;
   }
 
   renderCues = () => {
@@ -171,7 +193,7 @@ export default class PlayLessonQuestion extends React.Component {
 
   updateResponseResource(response) {
     const { dispatch, } = this.props
-    updateResponseResource(response, this.getQuestion().key, this.getQuestion().attempts, dispatch);
+    updateResponseResource(response, this.getQuestion().key, [], dispatch);
   }
 
   submitPathway(response) {
@@ -186,13 +208,17 @@ export default class PlayLessonQuestion extends React.Component {
   }
 
   checkAnswer = (e) => {
+    const { previewMode } = this.props;
     const { editing, response, } = this.state
     if (editing && this.getResponses() && Object.keys(this.getResponses()).length) {
       this.removePrefilledUnderscores();
       const submittedResponse = getResponse(this.getQuestion(), response, this.getResponses());
       this.updateResponseResource(submittedResponse);
       this.submitResponse(submittedResponse);
-      this.setState({ editing: false, });
+      this.setState({ editing: false, answerSubmitted: true });
+      if(previewMode) {
+        this.setState({ previewAttempt: submittedResponse, previewAttemptSubmitted: true });
+      }
     }
   }
 
@@ -330,14 +356,16 @@ export default class PlayLessonQuestion extends React.Component {
   }
 
   render() {
-    const { question, isAdmin, } = this.props
-    const { response, finished, multipleChoice, multipleChoiceCorrect, multipleChoiceResponseOptions, } = this.state
+    const { question, isAdmin, previewMode } = this.props
+    const { response, finished, multipleChoice, multipleChoiceCorrect, multipleChoiceResponseOptions, previewAttempt, previewAttemptSubmitted } = this.state
     const questionID = question.key;
+
     if (question) {
       const sharedProps = {
         value: response,
-        question: question,
-        isAdmin: isAdmin,
+        question,
+        isAdmin,
+        response,
         responses: this.getResponses(),
         getResponse: this.getResponse2,
         feedback: this.renderFeedback(),
@@ -348,6 +376,9 @@ export default class PlayLessonQuestion extends React.Component {
         sentenceFragments: this.renderSentenceFragments(),
         cues: this.renderCues(),
         className: 'fubar',
+        previewAttempt, 
+        previewAttemptSubmitted, 
+        previewMode
       };
       let component;
       if (finished) {
@@ -368,7 +399,7 @@ export default class PlayLessonQuestion extends React.Component {
             prompt={this.renderSentenceFragments()}
           />
         );
-      } else if (question.attempts.length > 4) {
+      } else if (question.attempts && question.attempts.length > 4) {
         if (this.answeredCorrectly()) {
           component = (
             <AnswerForm
@@ -387,7 +418,7 @@ export default class PlayLessonQuestion extends React.Component {
             />
             );
         }
-      } else if (question.attempts.length > 0) {
+      } else if (question.attempts && question.attempts.length > 0) {
         if (this.readyForNext()) {
           component = (
             <AnswerForm
@@ -403,7 +434,7 @@ export default class PlayLessonQuestion extends React.Component {
               checkAnswer={this.checkAnswer}
               conceptExplanation={this.renderConceptExplanation}
               handleChange={this.onChange}
-              spellCheck={(question.attempts.length > 3)}
+              spellCheck={(question.attempts && question.attempts.length > 3)}
               toggleDisabled={this.toggleDisabled()}
             />
           );

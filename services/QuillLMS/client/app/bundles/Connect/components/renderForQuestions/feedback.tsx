@@ -1,15 +1,27 @@
 import * as React from 'react';
 import getAnswerState from './answerState';
 import { Feedback } from 'quill-component-library/dist/componentLibrary';
+import getResponse from './checkAnswer';
 
 class FeedbackComponent extends React.Component<any, any> {
   constructor(props){
     super(props)
+    this.state = {
+      someState: null
+    }
   }
 
   getFeedbackType(data?): string {
+    const { previewAttempt, previewAttemptSubmitted, previewMode, response, responses, question} = this.props;
     if (data) {
-      const latestAttempt = getLatestAttempt(data.question.attempts);
+      let latestAttempt
+      if(previewMode && previewAttempt) {
+        latestAttempt = previewAttempt;
+      } else if(previewMode && !previewAttempt && previewAttemptSubmitted && responses && Object.keys(responses).length) {
+        latestAttempt = getResponse(question, response, responses);
+      } else {
+        latestAttempt = getLatestAttempt(data.question.attempts);
+      }
       if (latestAttempt) {
         if (data.override) {
           return "override"
@@ -37,7 +49,15 @@ class FeedbackComponent extends React.Component<any, any> {
   }
 
   getFeedbackCopy(data): string {
-    const latestAttempt = getLatestAttempt(data.question.attempts);
+    const { previewAttempt, previewAttemptSubmitted, previewMode, response, responses, question} = this.props;
+    let latestAttempt
+    if(previewMode && previewAttempt) {
+      latestAttempt = previewAttempt;
+    } else if(previewMode && !previewAttempt && previewAttemptSubmitted && responses && Object.keys(responses).length) {
+      latestAttempt = getResponse(question, response, responses);
+    } else {
+      latestAttempt = getLatestAttempt(data.question.attempts);
+    }
     let returnVal;
     switch (this.getFeedbackType(data)) {
       case "revise-unmatched":
@@ -75,7 +95,7 @@ class FeedbackComponent extends React.Component<any, any> {
 
   render() {
     const { question, } = this.props
-    const key:number = question ? question.attempts.length : 0;
+    const key:number = question && question.attempts ? question.attempts.length : 0;
     if (question) {
       return (
         <Feedback
