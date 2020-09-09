@@ -22,7 +22,6 @@
 
     <script defer src=<%= ENV['FONT_AWESOME_KIT_LINK'] %> crossorigin="anonymous" integrity="sha384-p7JrABPXxZLpj1XoHTzkPyVs8ekVssRFXc4B7XU6Z1c8XVDA7sVPem/lQ9UouxqE"></script>
     <%= render partial: 'typekit' unless Rails.env.test? %>
-    <%= javascript_pack_tag('vendor') %>
     <%= javascript_pack_tag(@js_file || 'home') %>
     <%= stylesheet_pack_tag('home') %>
     <%= csrf_meta_tags %>
