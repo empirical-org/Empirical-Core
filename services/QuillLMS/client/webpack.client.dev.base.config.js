@@ -50,12 +50,6 @@ module.exports = {
   mode,
   context: __dirname,
   entry: {
-    vendor: [
-      'babel-polyfill',
-      'es5-shim/es5-shim',
-      'es5-shim/es5-sham',
-      'jquery'
-    ],
     app: [
       './app/bundles/Teacher/startup/clientRegistration'
     ],

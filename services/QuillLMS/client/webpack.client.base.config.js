@@ -52,12 +52,6 @@ module.exports = {
   mode,
   context: __dirname,
   entry: {
-    vendor: [
-      'babel-polyfill',
-      'es5-shim/es5-shim',
-      'es5-shim/es5-sham',
-      'jquery'
-    ],
     app: [
       './app/bundles/Teacher/startup/clientRegistration'
     ],
@@ -113,8 +107,9 @@ module.exports = {
     alias: {
       lib: path.join(process.cwd(), 'app', 'lib'),
       react: path.resolve('./node_modules/react'),
-      'react-dom': path.resolve('./node_modules/react-dom'),
+      'react-dom': path.resolve('./node_modules/react-dom')
     },
+    symlinks: false,
   },
   plugins: basePlugins,
   module: {
@@ -131,7 +126,9 @@ module.exports = {
       },
       {
         test: /\.tsx?$/,
-        loader: 'awesome-typescript-loader?errorsAsWarnings=true',
+        use: [
+          { loader: 'ts-loader', options: { transpileOnly: true } }
+        ],
         include: [
           path.resolve(__dirname, "app")
         ],
@@ -142,7 +139,7 @@ module.exports = {
       },
       {
         test: /\.jsx?$/,
-        loader: 'babel-loader',
+        use: 'babel-loader',
         include: [
           path.resolve(__dirname, "app")
         ],
