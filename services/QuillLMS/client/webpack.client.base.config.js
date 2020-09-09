@@ -22,17 +22,15 @@ const mode = devBuild ? 'development' : 'production';
 
 const basePlugins = [
   new webpack.DefinePlugin({
-    'process.env': {
-      RAILS_ENV: JSON.stringify(railsEnv),
-      FIREBASE_API_KEY: JSON.stringify(firebaseApiKey),
-      FIREBASE_DATABASE_URL: JSON.stringify(firebaseDatabaseUrl),
-      PUSHER_KEY: JSON.stringify(pusherKey),
-      DEFAULT_URL: JSON.stringify(defaultUrl),
-      CDN_URL: JSON.stringify(cdnUrl),
-      QUILL_GRAMMAR_URL: JSON.stringify(grammarUrl),
-      LESSONS_WEBSOCKETS_URL: JSON.stringify(lessonsWebsocketsUrl),
-      QUILL_CMS: JSON.stringify(quillCmsUrl)
-    },
+    'process.env.RAILS_ENV': JSON.stringify(railsEnv),
+    'process.env.FIREBASE_API_KEY': JSON.stringify(firebaseApiKey),
+    'process.env.FIREBASE_DATABASE_URL': JSON.stringify(firebaseDatabaseUrl),
+    'process.env.PUSHER_KEY': JSON.stringify(pusherKey),
+    'process.env.DEFAULT_URL': JSON.stringify(defaultUrl),
+    'process.env.CDN_URL': JSON.stringify(cdnUrl),
+    'process.env.QUILL_GRAMMAR_URL': JSON.stringify(grammarUrl),
+    'process.env.LESSONS_WEBSOCKETS_URL': JSON.stringify(lessonsWebsocketsUrl),
+    'process.env.QUILL_CMS': JSON.stringify(quillCmsUrl),
     TRACE_TURBOLINKS: devBuild,
   }),
   new webpack.LoaderOptionsPlugin({
@@ -54,13 +52,6 @@ module.exports = {
   mode,
   context: __dirname,
   entry: {
-    vendor: [
-      'babel-polyfill',
-      'es5-shim/es5-shim',
-      'es5-shim/es5-sham',
-      'jquery-ujs',
-      'jquery'
-    ],
     app: [
       './app/bundles/Teacher/startup/clientRegistration'
     ],
@@ -116,8 +107,9 @@ module.exports = {
     alias: {
       lib: path.join(process.cwd(), 'app', 'lib'),
       react: path.resolve('./node_modules/react'),
-      'react-dom': path.resolve('./node_modules/react-dom'),
+      'react-dom': path.resolve('./node_modules/react-dom')
     },
+    symlinks: false,
   },
   plugins: basePlugins,
   module: {
@@ -134,7 +126,9 @@ module.exports = {
       },
       {
         test: /\.tsx?$/,
-        loader: 'awesome-typescript-loader?errorsAsWarnings=true',
+        use: [
+          { loader: 'ts-loader', options: { transpileOnly: true } }
+        ],
         include: [
           path.resolve(__dirname, "app")
         ],
@@ -145,7 +139,7 @@ module.exports = {
       },
       {
         test: /\.jsx?$/,
-        loader: 'babel-loader',
+        use: 'babel-loader',
         include: [
           path.resolve(__dirname, "app")
         ],
@@ -156,16 +150,19 @@ module.exports = {
       },
       {
         test: require.resolve('jquery'),
-        use: [
-          {
-            loader: 'expose-loader',
-            query: 'jQuery',
-          },
-          {
-            loader: 'expose-loader',
-            query: '$',
-          }
-        ],
+        loader: 'expose-loader',
+        options: {
+          exposes: [
+            {
+              globalName: '$',
+              override: true
+            },
+            {
+              globalName: 'jQuery',
+              override: true
+            },
+          ],
+        },
       }
     ],
   },
