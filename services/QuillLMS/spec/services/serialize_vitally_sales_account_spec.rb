@@ -43,6 +43,12 @@ describe 'SerializeVitallySalesAccount' do
       employee_count: 0,
       paid_teacher_subscriptions: 0,
       active_students: 0,
+      active_students_this_year: 0,
+      total_students: 0,
+      total_students_this_year: 0,
+      activities_finished_this_year: 0,
+      activities_per_student: 0,
+      activities_per_student_this_year: 0,
       activities_finished: 0,
       school_link: "https://www.quill.org/cms/schools/#{school.id}"
     )
@@ -91,15 +97,27 @@ describe 'SerializeVitallySalesAccount' do
   end
 
   it 'generates student data' do
-    active_student = create(:user, role: 'student')
+    active_student = create(:user, role: 'student', last_sign_in: Date.today)
+    active_old_student = create(:user, role: 'student', last_sign_in: Date.today - 2.year)
+    inactive_student = create(:user, role: 'student', last_sign_in: Date.today - 2.year)
     teacher = create(:user, role: 'teacher')
     classroom = create(:classroom)
     classroom_unit = create(:classroom_unit, classroom: classroom)
+    old_classroom_unit = create(:classroom_unit, classroom: classroom)
     create(:classrooms_teacher, user: teacher, classroom: classroom)
+    create(:students_classrooms, student: active_student, classroom: classroom)
+    create(:students_classrooms, student: inactive_student, classroom: classroom)
+    create(:students_classrooms, student: active_old_student, classroom: classroom)
     create(:activity_session,
       user: active_student,
       classroom_unit: classroom_unit,
       state: 'finished'
+    )
+    create(:activity_session,
+      user: active_old_student,
+      classroom_unit: old_classroom_unit,
+      state: 'finished',
+      updated_at: Time.now - 2.year,
     )
     last_activity_session = create(:activity_session,
       user: active_student,
@@ -107,14 +125,21 @@ describe 'SerializeVitallySalesAccount' do
       state: 'finished'
     )
     school.users << active_student
+    school.users << inactive_student
     school.users << teacher
     school.users << create(:user, role: 'student')
 
     school_data = SerializeVitallySalesAccount.new(school).data
 
     expect(school_data[:traits]).to include(
-      active_students: 1,
-      activities_finished: 2
+      active_students: 2,
+      active_students_this_year: 1,
+      total_students: 3,
+      total_students_this_year: 1,
+      activities_finished: 3,
+      activities_finished_this_year: 2,
+      activities_per_student: 1.5,
+      activities_per_student_this_year: 2.0
     )
     expect(school_data[:traits][:last_active]).to be_within(0.000001.second).of(last_activity_session.completed_at)
   end
