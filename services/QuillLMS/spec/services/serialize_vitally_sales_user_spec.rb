@@ -185,7 +185,6 @@ describe 'SerializeVitallySalesUser' do
       completed_activities: 2,
       completed_activities_per_student: 1,
       completed_activities_this_year: 1,
-      completed_activities_per_student: 1,
       completed_activities_per_student_this_year: 1
     )
   end

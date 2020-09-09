@@ -117,7 +117,7 @@ describe 'SerializeVitallySalesAccount' do
       user: active_old_student,
       classroom_unit: old_classroom_unit,
       state: 'finished',
-      updated_at: Time.now - 2.year,
+      updated_at: Time.now - 2.year
     )
     last_activity_session = create(:activity_session,
       user: active_student,
