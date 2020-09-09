@@ -47,7 +47,8 @@ const renderQuestions = ({
 }) => {
   if(!activity && !randomizedQuestions && !session.currentQuestion && !session.unansweredQuestions) {
     return null;
-  } else if(activity && activity.questions && questions) {
+  // some Grammar activities return an empty array for the questions property so we check it's length
+  } else if(activity && activity.questions && activity.questions.length && questions) {
     return activity.questions.map((question: any, i: number) => {
       const { key } = question;
       const style = getStyling(questionToPreview, key, i);
