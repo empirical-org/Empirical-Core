@@ -27,6 +27,11 @@
     %>
     <% if current_user %>
       analytics.identify(<%= raw(generate_segment_identify_arguments(current_user, load_intercom?)) %>);
+      <% if current_user.school %>
+        analytics.group("<%= raw(current_user.school.id) %>", {
+          name: "<%= raw(current_user.school.name) %>"
+        })
+      <% end %>
     <% elsif @logging_user_out %>
       analytics.reset()
     <% end %>
