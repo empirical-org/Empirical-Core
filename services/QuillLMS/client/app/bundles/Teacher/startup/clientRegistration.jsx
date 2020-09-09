@@ -37,6 +37,7 @@ import ExpandableUnitSection from './ExpandableUnitClient'
 import QuestionsAndAnswersSection from './QuestionsAndAnswersClient';
 import PreAp from './PreApAppClient';
 import Ap from './ApAppClient';
+import LoginFormApp from './LoginFormAppClient'
 
 require('../../../assets/styles/home.scss');
 
@@ -77,5 +78,6 @@ ReactOnRails.register({ TeacherGuideApp,
   ExpandableUnitSection,
   QuestionsAndAnswersSection,
   PreAp,
-  Ap
+  Ap,
+  LoginFormApp
 });

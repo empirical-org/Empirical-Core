@@ -64,9 +64,6 @@ module.exports = {
     session: [
       './app/bundles/Session/startup/clientRegistration'
     ],
-    login: [
-      './app/bundles/Login/startup/clientRegistration'
-    ],
     firewall_test: [
       './app/bundles/Firewall_test/firewall_test.js'
     ],

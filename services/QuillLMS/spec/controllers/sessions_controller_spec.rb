@@ -196,7 +196,6 @@ describe SessionsController, type: :controller do
       session[:role] = "something"
       session[ApplicationController::POST_AUTH_REDIRECT] = "something else"
       get :new, redirect: root_path
-      expect(assigns(:js_file)).to eq "login"
       expect(session[:role]).to eq nil
       expect(session[ApplicationController::POST_AUTH_REDIRECT]).to eq root_path
     end
