@@ -4,7 +4,6 @@
 // Run like this:
 // cd client && yarn run build:client
 // Note that Foreman (Procfile.dev) has also been configured to take care of this.
-const HardSourceWebpackPlugin = require('hard-source-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const TerserPlugin = require('terser-webpack-plugin');
 const { merge } = require('webpack-merge');
@@ -15,10 +14,6 @@ const webpackConfigLoader = require('react-on-rails/webpackConfigLoader');
 const configPath = resolve('..', 'config');
 const { output } = webpackConfigLoader(configPath);
 const devBuild = process.env.RAILS_ENV === 'development';
-
-const SpeedMeasurePlugin = require("speed-measure-webpack-plugin");
-
-const smp = new SpeedMeasurePlugin();
 
 if (devBuild) {
   console.log('Webpack dev build for Rails'); // eslint-disable-line no-console
@@ -77,7 +72,6 @@ module.exports = merge(config, {
       // both options are optional
       filename: '[name]-bundle-[hash].css',
       chunkFilename: '[id].css',
-    }),
-    new HardSourceWebpackPlugin()
+    })
   ],
 })
