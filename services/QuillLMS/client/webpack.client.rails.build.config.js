@@ -14,7 +14,6 @@ const webpackConfigLoader = require('react-on-rails/webpackConfigLoader');
 
 const configPath = resolve('..', 'config');
 const { output } = webpackConfigLoader(configPath);
-
 const devBuild = process.env.RAILS_ENV === 'development';
 
 const SpeedMeasurePlugin = require("speed-measure-webpack-plugin");
