@@ -41,7 +41,7 @@ export default class PremiumPricingMinisRow extends React.Component {
   };
 
   renderPremiumConfirmationModal() {
-    const { showPremiumConfirmationModal, } = this.state
+    const { showPremiumConfirmationModal, subscriptionStatus, } = this.state
     if (!showPremiumConfirmationModal) { return }
     return (<PremiumConfirmationModal
       hideModal={this.hidePremiumConfirmationModal}

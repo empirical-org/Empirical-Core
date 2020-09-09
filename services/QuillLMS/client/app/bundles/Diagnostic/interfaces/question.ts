@@ -8,6 +8,5 @@ export interface Question {
     flag?: string,
     instructions: string,
     key: string,
-    prefilledText: string,
     prompt: string
 }
