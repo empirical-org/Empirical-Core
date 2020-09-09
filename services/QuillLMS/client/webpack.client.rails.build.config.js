@@ -5,14 +5,15 @@
 // cd client && yarn run build:client
 // Note that Foreman (Procfile.dev) has also been configured to take care of this.
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const TerserPlugin = require('terser-webpack-plugin');
-const { merge } = require('webpack-merge');
+const merge = require('webpack-merge');
 const config = require('./webpack.client.base.config');
 const { resolve } = require('path');
 const webpackConfigLoader = require('react-on-rails/webpackConfigLoader');
+const TerserPlugin = require('terser-webpack-plugin');
 
 const configPath = resolve('..', 'config');
 const { output } = webpackConfigLoader(configPath);
+
 const devBuild = process.env.RAILS_ENV === 'development';
 
 if (devBuild) {
@@ -24,6 +25,13 @@ if (devBuild) {
 
 module.exports = merge(config, {
 
+  entry: {
+    vendor: [
+      // Configures extractStyles to be true if NODE_ENV is production
+      'bootstrap-loader'
+    ],
+  },
+
   mode: devBuild ? 'development' : 'production',
 
   output: {
@@ -34,13 +42,28 @@ module.exports = merge(config, {
 
   optimization: {
     splitChunks: {
-      name: false
+      chunks: 'async',
+      minSize: 30000,
+      maxSize: 0,
+      minChunks: Infinity,
+      maxAsyncRequests: 5,
+      maxInitialRequests: 3,
+      automaticNameDelimiter: '~',
+      name: true,
+      cacheGroups: {
+        vendors: {
+          test: /[\\/]node_modules[\\/]/,
+          priority: -10
+        },
+        default: {
+          minChunks: Infinity,
+          priority: -20,
+          reuseExistingChunk: true
+        }
+      }
     },
     minimizer: [
-      new TerserPlugin({
-        parallel: true,
-        cache: true
-      }),
+      new TerserPlugin(),
     ],
   },
 
@@ -52,7 +75,8 @@ module.exports = merge(config, {
         test: /\.css$/,
         use: [
           MiniCssExtractPlugin.loader,
-          'css-loader'
+          'css-loader',
+          'sass-loader'
         ],
       },
       {
@@ -62,6 +86,25 @@ module.exports = merge(config, {
           'css-loader',
           'sass-loader'
         ],
+      },
+      {
+        test: require.resolve('react'),
+        use: {
+          loader: 'imports-loader',
+          options: {
+            shim: 'es5-shim/es5-shim',
+            sham: 'es5-shim/es5-sham',
+          }
+        }
+      },
+      {
+        test: require.resolve('jquery-ujs'),
+        use: {
+          loader: 'imports-loader',
+          options: {
+            jQuery: 'jquery',
+          }
+        }
       }
     ],
   },
@@ -72,6 +115,6 @@ module.exports = merge(config, {
       // both options are optional
       filename: '[name]-bundle-[hash].css',
       chunkFilename: '[id].css',
-    })
+    }),
   ],
-})
+});
