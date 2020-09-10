@@ -124,7 +124,7 @@ module.exports = {
       {
         test: /\.tsx?$/,
         use: [
-          { loader: 'ts-loader', options: { transpileOnly: !devBuild } }
+          { loader: 'ts-loader', options: { transpileOnly: true } }
         ],
         include: [
           path.resolve(__dirname, "app")
