@@ -395,7 +395,7 @@ EmpiricalGrammar::Application.routes.draw do
         end
       end
       resources :shared_cache, only: [:show, :update, :destroy]
-      resources :concept_feedback, except: [:destroy]
+      resources :concept_feedback
       resources :questions, except: [:destroy] do
         resources :focus_points do
           put :update_all, on: :collection
