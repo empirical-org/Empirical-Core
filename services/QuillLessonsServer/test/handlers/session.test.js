@@ -21,7 +21,7 @@ describe('createOrUpdateClassroomLessonSession', () => {
 
     expect(session).toHaveProperty('id', '123');
     expect(session).toHaveProperty('current_slide', 0);
-    expect(session).toHaveProperty('teacher_ids', undefined);
+    expect(session).not.toHaveProperty('teacher_ids');
     expect(session).toHaveProperty('startTime');
   });
 
