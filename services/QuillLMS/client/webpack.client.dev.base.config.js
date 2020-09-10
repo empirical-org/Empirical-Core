@@ -21,17 +21,15 @@ const mode = devBuild ? 'development' : 'production';
 
 const basePlugins = [
   new webpack.DefinePlugin({
-    'process.env': {
-      RAILS_ENV: JSON.stringify(railsEnv),
-      FIREBASE_API_KEY: JSON.stringify(firebaseApiKey),
-      FIREBASE_DATABASE_URL: JSON.stringify(firebaseDatabaseUrl),
-      PUSHER_KEY: JSON.stringify(pusherKey),
-      DEFAULT_URL: JSON.stringify(defaultUrl),
-      CDN_URL: JSON.stringify(cdnUrl),
-      QUILL_GRAMMAR_URL: JSON.stringify(grammarUrl),
-      LESSONS_WEBSOCKETS_URL: JSON.stringify(lessonsWebsocketsUrl),
-      QUILL_CMS: JSON.stringify(quillCmsUrl)
-    },
+    'process.env.RAILS_ENV': JSON.stringify(railsEnv),
+    'process.env.FIREBASE_API_KEY': JSON.stringify(firebaseApiKey),
+    'process.env.FIREBASE_DATABASE_URL': JSON.stringify(firebaseDatabaseUrl),
+    'process.env.PUSHER_KEY': JSON.stringify(pusherKey),
+    'process.env.DEFAULT_URL': JSON.stringify(defaultUrl),
+    'process.env.CDN_URL': JSON.stringify(cdnUrl),
+    'process.env.QUILL_GRAMMAR_URL': JSON.stringify(grammarUrl),
+    'process.env.LESSONS_WEBSOCKETS_URL': JSON.stringify(lessonsWebsocketsUrl),
+    'process.env.QUILL_CMS': JSON.stringify(quillCmsUrl),
     TRACE_TURBOLINKS: devBuild,
   }),
   new webpack.LoaderOptionsPlugin({
@@ -52,13 +50,6 @@ module.exports = {
   mode,
   context: __dirname,
   entry: {
-    vendor: [
-      'babel-polyfill',
-      'es5-shim/es5-shim',
-      'es5-shim/es5-sham',
-      'jquery-ujs',
-      'jquery'
-    ],
     app: [
       './app/bundles/Teacher/startup/clientRegistration'
     ],
@@ -132,7 +123,9 @@ module.exports = {
       },
       {
         test: /\.tsx?$/,
-        loader: 'ts-loader',
+        use: [
+          { loader: 'ts-loader', options: { transpileOnly: true } }
+        ],
         include: [
           path.resolve(__dirname, "app")
         ],
@@ -140,14 +133,10 @@ module.exports = {
           path.resolve(__dirname, "app/test_data"),
           path.resolve(__dirname, "app/assets")
         ],
-        options: {
-          transpileOnly: true,
-          experimentalWatchApi: true,
-        },
       },
       {
         test: /\.jsx?$/,
-        loader: 'ts-loader',
+        use: 'babel-loader',
         include: [
           path.resolve(__dirname, "app")
         ],
@@ -155,23 +144,22 @@ module.exports = {
           path.resolve(__dirname, "app/test_data"),
           path.resolve(__dirname, "app/assets")
         ],
-        options: {
-          transpileOnly: true,
-          experimentalWatchApi: true,
-        },
       },
       {
         test: require.resolve('jquery'),
-        use: [
-          {
-            loader: 'expose-loader',
-            query: 'jQuery',
-          },
-          {
-            loader: 'expose-loader',
-            query: '$',
-          }
-        ],
+        loader: 'expose-loader',
+        options: {
+          exposes: [
+            {
+              globalName: '$',
+              override: true
+            },
+            {
+              globalName: 'jQuery',
+              override: true
+            },
+          ],
+        },
       }
     ],
   },
