@@ -1,5 +1,6 @@
 class FindDistrictStandardsReportsWorker
   include Sidekiq::Worker
+  sidekiq_options queue: SidekiqQueue::CRITICAL
 
   def perform(admin_id)
     if admin_id
