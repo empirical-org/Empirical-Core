@@ -17,8 +17,8 @@ class ConceptFeedback extends React.Component {
   deleteConceptsFeedback = () => {
     const { dispatch, match } = this.props
     const { params } = match
-    const { feedbackID } = params
-    dispatch(actions.deleteConceptsFeedback(feedbackID))
+    const { conceptFeedbackID } = params
+    dispatch(actions.deleteConceptsFeedback(conceptFeedbackID))
   }
 
   submitNewFeedback = (feedbackID, data) => {
@@ -54,7 +54,7 @@ class ConceptFeedback extends React.Component {
           <div className="admin-container" key={conceptFeedbackID}>
             <ConceptExplanation {...data[conceptFeedbackID]} />
             <p className="control">
-              <button className="button is-info" onClick={this.toggleEdit}>Edit Feedback</button> <button className="button is-danger" onClick={this.deleteConceptsFeedback}>Delete Concept</button>
+              <button className="button is-info" onClick={this.toggleEdit}>Edit Feedback</button> <button className="button is-danger" onClick={this.deleteConceptsFeedback}>Delete Concept Feedback</button>
             </p>
           </div>
         )
