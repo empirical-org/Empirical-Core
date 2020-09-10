@@ -1,3 +1,4 @@
+import $ from 'jquery';
 import ClientRegistration from './startup/clientRegistration';
 
 import 'lazysizes';
