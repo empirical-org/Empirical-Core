@@ -292,7 +292,7 @@ export class Lesson extends React.Component {
 
   render() {
     const { sessionInitialized, error, sessionID, saved, session, } = this.state
-    const { conceptsFeedback, playLesson, dispatch, lessons, match, previewMode } = this.props
+    const { conceptsFeedback, playLesson, dispatch, lessons, match, previewMode, onHandleToggleQuestion, questionToPreview } = this.props
     const { data, hasreceiveddata, } = lessons
     const { params } = match
     const { lessonID, } = params;
@@ -355,9 +355,11 @@ export class Lesson extends React.Component {
             isLastQuestion={isLastQuestion}
             key={question.key}
             nextQuestion={this.nextQuestion}
+            onHandleToggleQuestion={onHandleToggleQuestion}
             prefill={this.getLesson().prefill}
             previewMode={previewMode}
             question={question}
+            questionToPreview={questionToPreview}
           />
         );
       }

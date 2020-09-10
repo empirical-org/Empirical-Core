@@ -23,12 +23,40 @@ import {
   getMultipleChoiceResponseOptionsWithCallback,
   getGradedResponsesWithCallback
 } from '../../actions/responses.js';
-import EditCaretPositioning from '../../libs/EditCaretPositioning'
+import EditCaretPositioning from '../../libs/EditCaretPositioning';
 
 const RenderSentenceFragments = SentenceFragments
 const C = require('../../constants').default;
 
-export default class PlayLessonQuestion extends React.Component {
+interface PlayLessonQuestionProps {
+  conceptsFeedback: any;
+  dispatch: () => void;
+  isAdmin: boolean;
+  isLastQuestion: boolean;
+  nextQuestion: () => void;
+  onHandleToggleQuestion: (question: any) => void;
+  prefill: any;
+  previewMode: boolean;
+  question: any;
+  questionToPreview: any;
+  key: any;
+}
+
+interface PlayLessonQuestionState {
+  editing: boolean;
+  response: string;
+  responses?: object[];
+  finished: boolean;
+  multipleChoice: boolean;
+  multipleChoiceCorrect?: boolean;
+  multipleChoiceResponseOptions?: object[];
+  previewAttempt: object;
+  previewAttemptSubmitted: boolean;
+  previewSubmissionCount: number;
+  sessionKey?: string;
+}
+
+export default class PlayLessonQuestion extends React.Component<PlayLessonQuestionProps,PlayLessonQuestionState> {
   constructor(props) {
     super(props)
 
@@ -46,12 +74,13 @@ export default class PlayLessonQuestion extends React.Component {
       finished: false,
       multipleChoice: false,
       previewAttempt: null,
-      previewAttemptSubmitted: false
+      previewAttemptSubmitted: false,
+      previewSubmissionCount: 0
     }
   }
 
   componentDidMount() {
-    const { question, } = this.props
+    const question = this.getQuestion();
     getGradedResponsesWithCallback(
       question.key,
       (data) => {
@@ -68,7 +97,7 @@ export default class PlayLessonQuestion extends React.Component {
 
   shouldComponentUpdate(nextProps, nextState) {
     const { question, } = this.props
-    const { response, finished, multipleChoice, responses, previewAttemptSubmitted } = this.state
+    const { response, finished, multipleChoice, responses, previewAttempt, previewAttemptSubmitted, previewSubmissionCount } = this.state
     if (question !== nextProps.question) {
       return true;
     } else if (response !== nextState.response) {
@@ -81,7 +110,11 @@ export default class PlayLessonQuestion extends React.Component {
       return true;
     } else if (responses !== nextState.responses) {
       return true;
+    } else if(previewAttempt !== nextState.previewAttempt) {
+      return true;
     } else if(previewAttemptSubmitted !== nextState.previewAttemptSubmitted) {
+      return true;
+    } else if(previewSubmissionCount !== nextState.previewSubmissionCount) {
       return true;
     }
     return false;
@@ -100,7 +133,10 @@ export default class PlayLessonQuestion extends React.Component {
   }
 
   getQuestion = () => {
-    const { question, } = this.props
+    const { question, previewMode, questionToPreview } = this.props;
+    if(previewMode && questionToPreview) {
+      return questionToPreview;
+    }
     return question
   }
 
@@ -151,7 +187,6 @@ export default class PlayLessonQuestion extends React.Component {
       sentence = 'Keep writing! Revise your sentence by changing the order of the ideas.';
     }
     return (<RenderFeedback
-      checkPreviewAnswer={this.checkPreviewAnswer}
       getQuestion={this.getQuestion}
       listCuesAsString={this.listCuesAsString}
       override={!!override}
@@ -201,8 +236,7 @@ export default class PlayLessonQuestion extends React.Component {
   }
 
   answeredCorrectly = () => {
-    const question = this.getQuestion();
-    const latestAttempt = getLatestAttempt(question.attempts);
+    const latestAttempt = this.handleGetLatestAttempt();
     const errorsForAttempt = _.keys(this.getErrorsForAttempt(latestAttempt)).length > 0;
     return (latestAttempt && latestAttempt.response && !errorsForAttempt && latestAttempt.response.optimal);
   }
@@ -215,9 +249,13 @@ export default class PlayLessonQuestion extends React.Component {
       const submittedResponse = getResponse(this.getQuestion(), response, this.getResponses());
       this.updateResponseResource(submittedResponse);
       this.submitResponse(submittedResponse);
-      this.setState({ editing: false, answerSubmitted: true });
+      this.setState({ editing: false });
       if(previewMode) {
-        this.setState({ previewAttempt: submittedResponse, previewAttemptSubmitted: true });
+        this.setState(prevState => ({ 
+          previewAttempt: submittedResponse, 
+          previewAttemptSubmitted: true, 
+          previewSubmissionCount: prevState.previewSubmissionCount + 1 
+        }));
       }
     }
   }
@@ -302,8 +340,8 @@ export default class PlayLessonQuestion extends React.Component {
   }
 
   renderConceptExplanation = () => {
-    const { question, conceptsFeedback, } = this.props
-    const latestAttempt:{response: Response}|undefined = getLatestAttempt(question.attempts);
+    const { conceptsFeedback, } = this.props
+    const latestAttempt:{response: any}|undefined = this.handleGetLatestAttempt();
 
     // we do not want to show concept feedback if a response is optimal
     if (!latestAttempt || !latestAttempt.response || latestAttempt.response.optimal) { return }
@@ -355,9 +393,21 @@ export default class PlayLessonQuestion extends React.Component {
     this.setState({ multipleChoiceCorrect: true, }, this.finishQuestion());
   }
 
+  handleGetLatestAttempt = () => {
+    const { previewAttempt, previewMode } = this.props;
+    const question = this.getQuestion();
+    let latestAttempt
+    if(previewMode && previewAttempt) {
+      latestAttempt = previewAttempt;
+    } else {
+      latestAttempt = getLatestAttempt(question.attempts);
+    }
+    return latestAttempt;
+  }
+
   render() {
     const { question, isAdmin, previewMode } = this.props
-    const { response, finished, multipleChoice, multipleChoiceCorrect, multipleChoiceResponseOptions, previewAttempt, previewAttemptSubmitted } = this.state
+    const { response, finished, multipleChoice, multipleChoiceCorrect, multipleChoiceResponseOptions, previewAttempt, previewAttemptSubmitted, previewSubmissionCount } = this.state
     const questionID = question.key;
 
     if (question) {
@@ -399,7 +449,7 @@ export default class PlayLessonQuestion extends React.Component {
             prompt={this.renderSentenceFragments()}
           />
         );
-      } else if (question.attempts && question.attempts.length > 4) {
+      } else if ((question.attempts && question.attempts.length > 4) || (previewSubmissionCount > 4)) {
         if (this.answeredCorrectly()) {
           component = (
             <AnswerForm
