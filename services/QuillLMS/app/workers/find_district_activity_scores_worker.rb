@@ -1,5 +1,6 @@
 class FindDistrictActivityScoresWorker
   include Sidekiq::Worker
+  sidekiq_options queue: SidekiqQueue::CRITICAL
 
   def perform(admin_id)
     serialized_district_activity_scores_cache_life = 60*60*25
