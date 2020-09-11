@@ -44,6 +44,7 @@ interface QuestionState {
   previewQuestionCorrect: boolean;
   isLastPreviewQuestion: boolean;
   switchedToPreview: boolean;
+  previewAttempt: any;
 }
 
 export class QuestionComponent extends React.Component<QuestionProps, QuestionState> {
@@ -62,7 +63,8 @@ export class QuestionComponent extends React.Component<QuestionProps, QuestionSt
       previewSubmissionCount: 0,
       previewQuestionCorrect: false,
       isLastPreviewQuestion: false,
-      switchedToPreview: props.switchedBackToPreview
+      switchedToPreview: props.switchedBackToPreview,
+      previewAttempt: null
     }
   }
 
@@ -194,7 +196,8 @@ export class QuestionComponent extends React.Component<QuestionProps, QuestionSt
           this.setState({ submittedSameResponseTwice: true })
         } else {
           if(previewMode) {
-            this.setState(prevState => ({ submittedForPreview: true, previewSubmissionCount: prevState.previewSubmissionCount + 1 }));
+            const responseObj = this.getPreviewAttempt({ question, response, responses });
+            this.setState(prevState => ({ submittedForPreview: true, previewSubmissionCount: prevState.previewSubmissionCount + 1, previewAttempt: responseObj }));
           }
           checkAnswer(trimmedResponse, question, responses, isFirstAttempt)
           this.setState({ submittedEmptyString: false, submittedSameResponseTwice: false })
@@ -451,12 +454,18 @@ export class QuestionComponent extends React.Component<QuestionProps, QuestionSt
     </div>)
   }
 
-  renderPreviewFeedbackSection({ question, response, responses, previewQuestionCorrect, previewSubmissionCount }): JSX.Element | undefined {
+  getPreviewAttempt = ({ question, response, responses }) => {
     const questionUID: string = question.key
     const focusPoints = question.focusPoints ? hashToCollection(question.focusPoints).sort((a: { order: number }, b: { order: number }) => a.order - b.order) : [];
     const incorrectSequences = question.incorrectSequences ? hashToCollection(question.incorrectSequences) : [];
     const defaultConceptUID = question.modelConceptUID || question.concept_uid
     const responseObj = checkGrammarQuestion(questionUID, response, responses, focusPoints, incorrectSequences, defaultConceptUID);
+    return responseObj;
+  }
+
+  renderPreviewFeedbackSection({ question, response, responses, previewQuestionCorrect, previewSubmissionCount }): JSX.Element | undefined {
+    const { previewAttempt } = this.state;
+    const responseObj = previewAttempt ? previewAttempt : this.getPreviewAttempt({ question, response, responses });
     if (responseObj.optimal && !previewQuestionCorrect) {
       this.setState({ previewQuestionCorrect: true });
     }
@@ -472,11 +481,11 @@ export class QuestionComponent extends React.Component<QuestionProps, QuestionSt
 
   renderFeedbackSection(): JSX.Element | undefined {
     const { previewMode } = this.props;
-    const { response, responses, submittedForPreview, previewSubmissionCount, previewQuestionCorrect } = this.state
+    const { response, responses, previewSubmissionCount, previewQuestionCorrect } = this.state
     const question = this.currentQuestion()
     const latestAttempt: Response | undefined = this.getLatestAttempt(question.attempts)
 
-    if (!latestAttempt && !submittedForPreview) { return <Feedback feedback={<p dangerouslySetInnerHTML={{ __html: this.currentQuestion().instructions }} />} feedbackType="instructions" />}
+    if (!latestAttempt && !previewSubmissionCount) { return <Feedback feedback={<p dangerouslySetInnerHTML={{ __html: this.currentQuestion().instructions }} />} feedbackType="instructions" />}
 
     if(previewMode) {
       return this.renderPreviewFeedbackSection({ question, response, responses, previewQuestionCorrect, previewSubmissionCount });
