@@ -532,7 +532,42 @@ EmpiricalGrammar::Application.routes.draw do
     end
   end
 
-  other_pages = %w(beta ideas board press partners develop mission about faq tos privacy activities impact stats team premium teacher_resources media_kit play news home_new map firewall_info referrals_toc announcements backpack careers comprehension proofreader grammar lessons diagnostic connect)
+  other_pages = %w(
+    beta
+    ideas
+    board
+    press
+    partners
+    develop
+    mission
+    about
+    faq
+    tos
+    privacy
+    activities
+    impact
+    stats
+    team
+    premium
+    teacher_resources
+    media_kit
+    play
+    news
+    home_new
+    map
+    firewall_info
+    referrals_toc
+    announcements
+    backpack
+    careers
+    comprehension
+    proofreader
+    grammar
+    lessons
+    diagnostic
+    connect
+    preap_units
+  )
 
   all_pages = other_pages
   all_pages.each do |page|

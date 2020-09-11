@@ -1067,6 +1067,16 @@ $tool-grey: #f8f9f9;
     display: flex;
     justify-content: space-between;
     border-bottom: solid 1px #5bbefe;
+    .expand-collapse-button {
+      background-color: #58aef6;
+      border: none;
+      margin-top: 2em;
+      p {
+        font-size: 16px;
+        font-weight: 600;
+        margin: 0;
+      }
+    }
     &:last-of-type {
       border-bottom: none;
     }
@@ -1079,10 +1089,22 @@ $tool-grey: #f8f9f9;
     font-size: 24px;
     font-weight: 600;
     margin: 1em 0;
+    background-color: #58aef6;
+    border: none;
+    text-align: left;
+  }
+  .question:focus {
+    outline: none !important;
   }
   .answer {
     font-size: 20px;
     color: white;
+    p {
+      a {
+        color: white;
+        text-decoration: underline;
+      }
+    }
   }
   .expand-or-collapse {
     font-size: 16px;
