@@ -7,9 +7,11 @@ exports[`AppLegend component should render 1`] = `
   <div
     className="icons"
   >
-    <div
-      className="icon"
-      onClick={[Function]}
+    <a
+      className="icon focus-on-light"
+      href="undefined/tools/diagnostic"
+      rel="noopener noreferrer"
+      target="_blank"
     >
       <div
         className="icon-wrapper icon-diagnostic-embossed"
@@ -28,10 +30,12 @@ exports[`AppLegend component should render 1`] = `
           Identify Learning Gaps
         </p>
       </div>
-    </div>
-    <div
-      className="icon"
-      onClick={[Function]}
+    </a>
+    <a
+      className="icon focus-on-light"
+      href="undefined/tools/lessons"
+      rel="noopener noreferrer"
+      target="_blank"
     >
       <div
         className="icon-wrapper icon-lessons-embossed"
@@ -50,10 +54,12 @@ exports[`AppLegend component should render 1`] = `
           Shared Group Lessons
         </p>
       </div>
-    </div>
-    <div
-      className="icon"
-      onClick={[Function]}
+    </a>
+    <a
+      className="icon focus-on-light"
+      href="undefined/tools/connect"
+      rel="noopener noreferrer"
+      target="_blank"
     >
       <div
         className="icon-wrapper icon-connect-embossed"
@@ -72,10 +78,12 @@ exports[`AppLegend component should render 1`] = `
           Combine Sentences
         </p>
       </div>
-    </div>
-    <div
-      className="icon"
-      onClick={[Function]}
+    </a>
+    <a
+      className="icon focus-on-light"
+      href="undefined/tools/proofreader"
+      rel="noopener noreferrer"
+      target="_blank"
     >
       <div
         className="icon-wrapper icon-flag-embossed"
@@ -91,13 +99,15 @@ exports[`AppLegend component should render 1`] = `
         <p
           className="description"
         >
-          Practice Mechanics
+          Fix Errors In Passages
         </p>
       </div>
-    </div>
-    <div
-      className="icon"
-      onClick={[Function]}
+    </a>
+    <a
+      className="icon focus-on-light"
+      href="undefined/tools/grammar"
+      rel="noopener noreferrer"
+      target="_blank"
     >
       <div
         className="icon-wrapper icon-puzzle-embossed"
@@ -113,10 +123,10 @@ exports[`AppLegend component should render 1`] = `
         <p
           className="description"
         >
-          Fix Errors In Passages
+          Practice Mechanics
         </p>
       </div>
-    </div>
+    </a>
   </div>
 </div>
 `;
