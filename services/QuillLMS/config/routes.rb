@@ -500,7 +500,7 @@ EmpiricalGrammar::Application.routes.draw do
       member do
         get :show_json
         put :sign_in
-        get :clear_data
+        put :clear_data
         get :sign_in
         get :edit_subscription
         get :new_subscription
