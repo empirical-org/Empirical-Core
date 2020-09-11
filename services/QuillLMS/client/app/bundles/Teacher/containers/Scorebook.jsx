@@ -9,7 +9,7 @@ import StudentScores from '../components/scorebook/student_scores';
 import LoadingIndicator from '../components/shared/loading_indicator';
 import ScorebookFilters from '../components/scorebook/scorebook_filters';
 import ScoreLegend from '../components/scorebook/score_legend';
-import AppLegend from '../components/scorebook/app_legend.jsx';
+import { AppLegend } from '../components/scorebook/app_legend.tsx';
 import EmptyProgressReport from '../components/shared/EmptyProgressReport';
 import moment from 'moment';
 
