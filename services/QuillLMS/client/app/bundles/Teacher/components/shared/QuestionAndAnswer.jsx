@@ -22,6 +22,7 @@ export default class QuestionAndAnswer extends React.Component {
     const { questionsAndAnswersFile } = this.props
     const { expanded } = this.state
     const files = [ 'premium', 'preap', 'ap'];
+    const buttonClass = questionsAndAnswersFile === 'lessons' ? 'focus-on-dark' : 'focus-on-light';
     let innerElement;
 
     if (files.includes(questionsAndAnswersFile)) {
@@ -30,7 +31,7 @@ export default class QuestionAndAnswer extends React.Component {
     } else {
       innerElement = expanded ? <p>Collapse</p> : <p>Expand</p>
     }
-    return <button className="expand-collapse-button focus-on-light" onClick={this.handleToggleExpansion} onKeyPress={this.handleKeyPress} type="button">{innerElement}</button>
+    return <button className={`expand-collapse-button ${buttonClass}`} onClick={this.handleToggleExpansion} onKeyPress={this.handleKeyPress} type="button">{innerElement}</button>
   }
 
   handleKeyPress = (e) => {

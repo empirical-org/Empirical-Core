@@ -10,7 +10,7 @@ import LoadingIndicator from '../../components/shared/loading_indicator';
 import StudentScores from '../../components/scorebook/student_scores';
 import ScorebookFilters from '../../components/scorebook/scorebook_filters';
 import ScoreLegend from '../../components/scorebook/score_legend';
-import AppLegend from '../../components/scorebook/app_legend.jsx';
+import { AppLegend } from '../../components/scorebook/app_legend.tsx';
 import requestMock from '../../../../../__mocks__/request.js';
 jest.mock('request')
 
