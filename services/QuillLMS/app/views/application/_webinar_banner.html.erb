@@ -14,15 +14,15 @@
 <% is_wednesday = current_time_on_east_coast.wednesday? %>
 <% is_thursday = current_time_on_east_coast.thursday? %>
 
-<% still_doing_webinars = current_time_on_east_coast < Date.parse("10-02-2020") %>
+<% still_doing_webinars = current_time_on_east_coast < Date.parse("20201002") %>
 
 <% if (still_doing_webinars && (!current_user || current_user.teacher?)) %>
   <% if (is_monday && (between_nine_and_ten || between_twelve_and_one)) %>
     <div class="banner" id="webinar-banner">
       <div class="content-container">
         <img alt="Video player with play symbol" class="banner-icon" src=<%= "#{ENV['CDN_URL']}/images/icons/live-stream.svg" %>>
-        <p><strong>Quill Q&A</strong> is live now! <a href="https://zoom.us/s/99398545099">Click here to join.</a></p>
-        <img alt="White X" id="close-banner" src=<%= "#{ENV['CDN_URL']}/images/icons/close-white.svg" %>>
+        <p><strong>Quill Q&A</strong> is live now! <a href="https://zoom.us/s/99398545099" target="_blank">Click here to join.</a></p>
+        <img alt="White X" id="close-webinar-banner" src=<%= "#{ENV['CDN_URL']}/images/icons/close-white.svg" %>>
       </div>
     </div>
   <% end %>
@@ -31,8 +31,8 @@
     <div class="banner" id="webinar-banner">
       <div class="content-container">
         <img alt="Video player with play symbol" class="banner-icon" src=<%= "#{ENV['CDN_URL']}/images/icons/live-stream.svg" %>>
-        <p><strong>Quill Webinar 101: Getting Started</strong> is live now! <a href="https://zoom.us/webinar/register/WN_sMpk6SCfSdu5Pb5Pg_E31A">Click here to register and join.</a></p>
-        <img alt="White X" id="close-banner" src=<%= "#{ENV['CDN_URL']}/images/icons/close-white.svg" %>>
+        <p><strong>Quill Webinar 101: Getting Started</strong> is live now! <a href="https://zoom.us/webinar/register/WN_sMpk6SCfSdu5Pb5Pg_E31A" target="_blank">Click here to register and join.</a></p>
+        <img alt="White X" id="close-webinar-banner" src=<%= "#{ENV['CDN_URL']}/images/icons/close-white.svg" %>>
       </div>
     </div>
   <% end %>
@@ -41,8 +41,8 @@
     <div class="banner" id="webinar-banner">
       <div class="content-container">
         <img alt="Video player with play symbol" class="banner-icon" src=<%= "#{ENV['CDN_URL']}/images/icons/live-stream.svg" %>>
-        <p><strong>Quill Webinar 201: Diving into Data</strong> is live now! <a href="https://zoom.us/webinar/register/WN_dxzwK3whQFyDYDZaNIRT1g">Click here to register and join.</a></p>
-        <img alt="White X" id="close-banner" src=<%= "#{ENV['CDN_URL']}/images/icons/close-white.svg" %>>
+        <p><strong>Quill Webinar 201: Diving into Data</strong> is live now! <a href="https://zoom.us/webinar/register/WN_dxzwK3whQFyDYDZaNIRT1g" target="_blank">Click here to register and join.</a></p>
+        <img alt="White X" id="close-webinar-banner" src=<%= "#{ENV['CDN_URL']}/images/icons/close-white.svg" %>>
       </div>
     </div>
   <% end %>
@@ -51,8 +51,8 @@
     <div class="banner" id="webinar-banner">
       <div class="content-container">
         <img alt="Video player with play symbol" class="banner-icon" src=<%= "#{ENV['CDN_URL']}/images/icons/live-stream.svg" %>>
-        <p><strong>Getting Started with Quill in Pre-AP® English 1 and 2</strong> is live now! <a href="https://zoom.us/webinar/register/WN_8150mDv7QWOBIERPfiTroQ">Click here to register and join.</a></p>
-        <img alt="White X" id="close-banner" src=<%= "#{ENV['CDN_URL']}/images/icons/close-white.svg" %>>
+        <p><strong>Getting Started with Quill in Pre-AP® English 1 and 2</strong> is live now! <a href="https://zoom.us/webinar/register/WN_8150mDv7QWOBIERPfiTroQ" target="_blank">Click here to register and join.</a></p>
+        <img alt="White X" id="close-webinar-banner" src=<%= "#{ENV['CDN_URL']}/images/icons/close-white.svg" %>>
       </div>
     </div>
   <% end %>
@@ -61,8 +61,8 @@
     <div class="banner" id="webinar-banner">
       <div class="content-container">
         <img alt="Video player with play symbol" class="banner-icon" src=<%= "#{ENV['CDN_URL']}/images/icons/live-stream.svg" %>>
-        <p><strong>Quill Webinar 301: Embedding into Instruction</strong> is live now! <a href="https://zoom.us/webinar/register/WN_7_ueCwCjT-CKHzBv0cBbaA">Click here to register and join.</a></p>
-        <img alt="White X" id="close-banner" src=<%= "#{ENV['CDN_URL']}/images/icons/close-white.svg" %>>
+        <p><strong>Quill Webinar 301: Embedding into Instruction</strong> is live now! <a href="https://zoom.us/webinar/register/WN_7_ueCwCjT-CKHzBv0cBbaA" target="_blank">Click here to register and join.</a></p>
+        <img alt="White X" id="close-webinar-banner" src=<%= "#{ENV['CDN_URL']}/images/icons/close-white.svg" %>>
       </div>
     </div>
   <% end %>
@@ -71,8 +71,8 @@
     <div class="banner" id="webinar-banner">
       <div class="content-container">
         <img alt="Video player with play symbol" class="banner-icon" src=<%= "#{ENV['CDN_URL']}/images/icons/live-stream.svg" %>>
-        <p><strong>Quill Q&A</strong> is live now! <a href="https://zoom.us/s/99398545099">Click here to join.</a></p>
-        <img alt="White X" id="close-banner" src=<%= "#{ENV['CDN_URL']}/images/icons/close-white.svg" %>>
+        <p><strong>Quill Q&A</strong> is live now! <a href="https://zoom.us/s/99398545099" target="_blank">Click here to join.</a></p>
+        <img alt="White X" id="close-webinar-banner" src=<%= "#{ENV['CDN_URL']}/images/icons/close-white.svg" %>>
       </div>
     </div>
   <% end %>
@@ -81,8 +81,8 @@
     <div class="banner" id="webinar-banner">
       <div class="content-container">
         <img alt="Video player with play symbol" class="banner-icon" src=<%= "#{ENV['CDN_URL']}/images/icons/live-stream.svg" %>>
-        <p><strong>Getting Started with Quill in AP®</strong> is live now! <a href="https://zoom.us/webinar/register/WN_IB6S4LOYRC61ohgXxWAJfA">Click here to join.</a></p>
-        <img alt="White X" id="close-banner" src=<%= "#{ENV['CDN_URL']}/images/icons/close-white.svg" %>>
+        <p><strong>Getting Started with Quill in AP®</strong> is live now! <a href="https://zoom.us/webinar/register/WN_IB6S4LOYRC61ohgXxWAJfA" target="_blank">Click here to join.</a></p>
+        <img alt="White X" id="close-webinar-banner" src=<%= "#{ENV['CDN_URL']}/images/icons/close-white.svg" %>>
       </div>
     </div>
   <% end %>
@@ -95,7 +95,7 @@
       }
     });
 
-    document.getElementById('close-banner').addEventListener('click', function(e) {
+    document.getElementById('close-webinar-banner').addEventListener('click', function(e) {
         e.preventDefault();
         document.getElementById('webinar-banner').style.display = 'none';
         let date = new Date();
