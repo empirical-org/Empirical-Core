@@ -52,51 +52,67 @@ module.exports = {
   mode,
   context: __dirname,
   entry: {
-    app: [
-      './app/bundles/Teacher/startup/clientRegistration'
-    ],
-    home: [
-      './app/bundles/Home/home'
-    ],
-    student: [
-      './app/bundles/Student/startup/clientRegistration'
-    ],
-    session: [
-      './app/bundles/Session/startup/clientRegistration'
-    ],
-    login: [
-      './app/bundles/Login/startup/clientRegistration'
-    ],
-    firewall_test: [
-      './app/bundles/Firewall_test/firewall_test.js'
-    ],
-    public: [
-      './app/bundles/Public/public.js'
-    ],
-    tools: [
-      './app/bundles/Tools/startup/clientRegistration.js'
-    ],
-    staff: [
-      './app/bundles/Staff/startup/clientRegistration.js'
-    ],
-    comprehension: [
-      './app/bundles/Comprehension/clientRegistration'
-    ],
-    proofreader: [
-      './app/bundles/Proofreader/clientRegistration'
-    ],
-    grammar: [
-      './app/bundles/Grammar/clientRegistration'
-    ],
-    lessons: [
-      './app/bundles/Lessons/clientRegistration'
-    ],
-    connect: [
-      './app/bundles/Connect/clientRegistration'
-    ],
-    diagnostic: [
-      './app/bundles/Diagnostic/clientRegistration'
-    ]
+    shared: './app/bundles/Shared/clientRegistration',
+    app: {
+      import: './app/bundles/Teacher/startup/clientRegistration',
+      dependOn: 'shared'
+    },
+    home: {
+      import: './app/bundles/Home/home',
+      dependOn: 'shared'
+    },
+    student: {
+      import: './app/bundles/Student/startup/clientRegistration',
+      dependOn: 'shared'
+    },
+    session: {
+      import: './app/bundles/Session/startup/clientRegistration',
+      dependOn: 'shared'
+    },
+    login: {
+      import: './app/bundles/Login/startup/clientRegistration',
+      dependOn: 'shared'
+    },
+    firewall_test: {
+      import: './app/bundles/Firewall_test/firewall_test.js',
+      dependOn: 'shared'
+    },
+    public: {
+      import: './app/bundles/Public/public.js',
+      dependOn: 'shared'
+    },
+    tools: {
+      import: './app/bundles/Tools/startup/clientRegistration.js',
+      dependOn: 'shared'
+    },
+    staff: {
+      import: './app/bundles/Staff/startup/clientRegistration.js',
+      dependOn: 'shared'
+    },
+    comprehension: {
+      import: './app/bundles/Comprehension/clientRegistration',
+      dependOn: 'shared'
+    },
+    proofreader: {
+      import: './app/bundles/Proofreader/clientRegistration',
+      dependOn: 'shared'
+    },
+    grammar: {
+      import: './app/bundles/Grammar/clientRegistration',
+      dependOn: 'shared'
+    },
+    lessons: {
+      import: './app/bundles/Lessons/clientRegistration',
+      dependOn: 'shared'
+    },
+    connect: {
+      import: './app/bundles/Connect/clientRegistration',
+      dependOn: 'shared'
+    },
+    diagnostic: {
+      import: './app/bundles/Diagnostic/clientRegistration',
+      dependOn: 'shared'
+    }
   },
   resolve: {
     extensions: ['.ts', '.tsx', '.js', '.jsx'],
