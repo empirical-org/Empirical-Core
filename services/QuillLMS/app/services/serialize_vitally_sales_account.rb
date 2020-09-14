@@ -5,6 +5,11 @@ class SerializeVitallySalesAccount
   end
 
   def data
+    current_time = Time.zone.now
+    active_students = active_students_query(@school).count
+    active_students_this_year = active_students_query(@school).where("activity_sessions.updated_at > ?", School.school_year_start(current_time)).count
+    activities_finished = activities_finished_query(@school).count
+    activities_finished_this_year = activities_finished_query(@school).where("activity_sessions.updated_at > ?", School.school_year_start(current_time)).count
     {
       accountId: @school.id.to_s,
       # Type is used by Vitally to determine which data type the payload contains in batches
@@ -28,13 +33,13 @@ class SerializeVitallySalesAccount
         employee_count: employee_count,
         paid_teacher_subscriptions: paid_teacher_subscriptions,
         total_students: total_students,
-        total_students_this_year: total_students(true),
+        total_students_this_year: total_students(true, current_time),
         active_students: active_students,
-        active_students_this_year: active_students(true),
+        active_students_this_year: active_students_this_year,
         activities_finished: activities_finished,
-        activities_finished_this_year: activities_finished(true),
-        activities_per_student: activities_per_student,
-        activities_per_student_this_year: activities_per_student(true),
+        activities_finished_this_year: activities_finished_this_year,
+        activities_per_student: activities_per_student(active_students, activities_finished),
+        activities_per_student_this_year: activities_per_student(active_students_this_year, activities_finished_this_year),
         school_link: school_link,
         created_at: @school.created_at,
         premium_expiry_date: subscription_expiration_date,
@@ -43,41 +48,33 @@ class SerializeVitallySalesAccount
     }
   end
 
-  private def activities_per_student(this_year_only=false)
-    if active_students(this_year_only) > 0
-      (activities_finished(this_year_only).to_f / active_students(this_year_only)).round(2)
+  private def activities_per_student(active_students, activities_finished)
+    if active_students > 0
+      (activities_finished.to_f / active_students).round(2)
     else
       0
     end
   end
 
-  private def total_students(this_year_only=false)
+  private def total_students(this_year_only=false, current_time=nil)
     if this_year_only
-      @school.students.where(last_sign_in: year_start..Date.today).count
+      @school.students.where(last_sign_in: School.school_year_start(current_time)..current_time).count
     else
       @school.students.count
     end
   end
 
-  private def active_students(this_year_only=false)
-    @active_students = begin
-      ActivitySession.select(:user_id).distinct
-        .joins(classroom_unit: {classroom: {teachers: :school}})
-        .where(state: 'finished')
-        .where(updated_at(this_year_only))
-        .where('schools.id = ?', @school.id)
-        .count
-    end
+  private def active_students_query(school)
+    ActivitySession.select(:user_id).distinct
+          .joins(classroom_unit: {classroom: {teachers: :school}})
+          .where(state: 'finished')
+          .where('schools.id = ?', school.id)
   end
 
-  private def activities_finished(this_year_only=false)
-    @activities_finished = begin
-      ClassroomsTeacher.joins(user: :school, classroom: :activity_sessions)
-        .where('schools.id = ?', @school.id)
-        .where('activity_sessions.state = ?', 'finished')
-        .where(updated_at(this_year_only))
-        .count
-    end
+  private def activities_finished_query(school)
+    ClassroomsTeacher.joins(user: :school, classroom: :activity_sessions)
+      .where('schools.id = ?', @school.id)
+      .where('activity_sessions.state = ?', 'finished')
   end
 
   private def school_subscription
@@ -111,15 +108,5 @@ class SerializeVitallySalesAccount
     School.joins(users: {classrooms_i_teach: :activity_sessions})
           .where(id: @school.id)
           .maximum('activity_sessions.completed_at')
-  end
-
-  private def year_start
-    year = Time.now.year
-    year -= 1 if Time.now.strftime("%m/%d") < Date.parse("07-31").strftime("%m/%d")
-    Date.parse("#{year}-08-01")
-  end
-
-  private def updated_at(this_year_only)
-    "activity_sessions.updated_at >= '#{year_start}'" if this_year_only
   end
 end
