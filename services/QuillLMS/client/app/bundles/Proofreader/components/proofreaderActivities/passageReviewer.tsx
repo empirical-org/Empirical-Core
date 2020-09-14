@@ -78,9 +78,9 @@ export default class PassageReviewer extends React.Component<PassageReviewerProp
         if (typeof parts[i] === "string" && parts[i][0] === '+') {
           const plusMatch = parts[i].match(/\+([^-]+)-/m)
           const plus = plusMatch ? plusMatch[1] : ''
-          const conceptUIDMatch = parts[i].match(/\|([^-]+)/m)
+          const conceptUIDMatch = parts[i].match(/\|(.+)/m)
           const conceptUID = conceptUIDMatch ? conceptUIDMatch[1] : ''
-          const negativeMatch = parts[i].match(/\-([^-]+)\|/m)
+          const negativeMatch = parts[i].match(/\-(.+)\|/m)
           const negative = negativeMatch ? negativeMatch[1] : null
           const concept = concepts.find(c => c.uid === conceptUID)
           const indexToPass = index
