@@ -463,32 +463,31 @@ export class QuestionComponent extends React.Component<QuestionProps, QuestionSt
     return responseObj;
   }
 
-  renderPreviewFeedbackSection({ question, response, responses, previewQuestionCorrect, previewSubmissionCount }): JSX.Element | undefined {
+  renderPreviewFeedbackSection({ response, previewQuestionCorrect, previewSubmissionCount }): JSX.Element | undefined {
     const { previewAttempt } = this.state;
-    const responseObj = previewAttempt ? previewAttempt : this.getPreviewAttempt({ question, response, responses });
-    if (responseObj.optimal && !previewQuestionCorrect) {
+    if (previewAttempt.optimal && !previewQuestionCorrect) {
       this.setState({ previewQuestionCorrect: true });
     }
-    if(responseObj.optimal && previewQuestionCorrect) {
-      return <Feedback feedback={<p dangerouslySetInnerHTML={{ __html: responseObj.feedback }} />} feedbackType="correct-matched" />
+    if(previewAttempt.optimal && previewQuestionCorrect) {
+      return <Feedback feedback={<p dangerouslySetInnerHTML={{ __html: previewAttempt.feedback }} />} feedbackType="correct-matched" />
     }
     if(previewSubmissionCount === ALLOWED_ATTEMPTS) {
       const finalAttemptFeedback = `<b>Good try!</b> Compare your response to the strong response, and then go on to the next question.<br><br><b>Your response</b><br>${response}<br><br><b>A strong response</b><br>${this.correctResponse()}`
       return <Feedback feedback={<p dangerouslySetInnerHTML={{ __html: finalAttemptFeedback }} />} feedbackType="incorrect-continue" />
     }
-    return <Feedback feedback={<p dangerouslySetInnerHTML={{ __html: responseObj.feedback }} />} feedbackType="revise-matched" />
+    return <Feedback feedback={<p dangerouslySetInnerHTML={{ __html: previewAttempt.feedback }} />} feedbackType="revise-matched" />
   }
 
   renderFeedbackSection(): JSX.Element | undefined {
     const { previewMode } = this.props;
-    const { response, responses, previewSubmissionCount, previewQuestionCorrect } = this.state
+    const { response, previewSubmissionCount, previewQuestionCorrect } = this.state
     const question = this.currentQuestion()
     const latestAttempt: Response | undefined = this.getLatestAttempt(question.attempts)
 
     if (!latestAttempt && !previewSubmissionCount) { return <Feedback feedback={<p dangerouslySetInnerHTML={{ __html: this.currentQuestion().instructions }} />} feedbackType="instructions" />}
 
     if(previewMode) {
-      return this.renderPreviewFeedbackSection({ question, response, responses, previewQuestionCorrect, previewSubmissionCount });
+      return this.renderPreviewFeedbackSection({ response, previewQuestionCorrect, previewSubmissionCount });
     }
 
     if (latestAttempt && latestAttempt.optimal) {
