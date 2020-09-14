@@ -1,5 +1,3 @@
-import './styles/styles.scss'
-
 export {
   QuestionList,
   LinkListItem,

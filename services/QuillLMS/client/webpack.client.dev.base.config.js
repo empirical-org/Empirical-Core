@@ -50,6 +50,9 @@ module.exports = {
   mode,
   context: __dirname,
   entry: {
+    shared: [
+      './app/bundles/Shared/clientRegistration'
+    ],
     app: [
       './app/bundles/Teacher/startup/clientRegistration'
     ],
