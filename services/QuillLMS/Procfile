@@ -1,3 +1,5 @@
 web: bundle exec puma -C ./config/puma.rb
-worker: RAILS_MAX_THREADS=8 bundle exec sidekiq -q critical -q default
-reportworker: RAILS_MAX_THREADS=6 bundle exec sidekiq -q critical -q default -q low
+# Note, using MALLOC_ARENA_MAX=2 based on this article:
+# https://www.mikeperham.com/2018/04/25/taming-rails-memory-bloat/
+worker: MALLOC_ARENA_MAX=2 RAILS_MAX_THREADS=4 bundle exec sidekiq -q critical -q default
+reportworker: MALLOC_ARENA_MAX=2 RAILS_MAX_THREADS=4 bundle exec sidekiq -q critical -q default -q low
