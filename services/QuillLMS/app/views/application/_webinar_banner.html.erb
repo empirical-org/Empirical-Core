@@ -27,7 +27,7 @@
     </div>
   <% end %>
 
-  <% if (is_monday && (between_eleven_and_twelve || between_four_and_five)) %>
+  <% if (is_monday && between_eleven_and_twelve) %>
     <div class="banner" id="webinar-banner">
       <div class="content-container">
         <img alt="Video player with play symbol" class="banner-icon" src=<%= "#{ENV['CDN_URL']}/images/icons/live-stream.svg" %>>
@@ -37,11 +37,31 @@
     </div>
   <% end %>
 
-  <% if (is_tuesday && (between_eleven_and_twelve || between_four_and_five)) %>
+  <% if (is_monday && between_four_and_five) %>
+    <div class="banner" id="webinar-banner">
+      <div class="content-container">
+        <img alt="Video player with play symbol" class="banner-icon" src=<%= "#{ENV['CDN_URL']}/images/icons/live-stream.svg" %>>
+        <p><strong>Quill Webinar 101: Getting Started</strong> is live now! <a href="https://zoom.us/webinar/register/WN_Y68x8wS0RY-x1o-N2mtzqQ" target="_blank">Click here to register and join.</a></p>
+        <img alt="White X" id="close-webinar-banner" src=<%= "#{ENV['CDN_URL']}/images/icons/close-white.svg" %>>
+      </div>
+    </div>
+  <% end %>
+
+  <% if (is_tuesday && between_eleven_and_twelve) %>
     <div class="banner" id="webinar-banner">
       <div class="content-container">
         <img alt="Video player with play symbol" class="banner-icon" src=<%= "#{ENV['CDN_URL']}/images/icons/live-stream.svg" %>>
         <p><strong>Quill Webinar 201: Diving into Data</strong> is live now! <a href="https://zoom.us/webinar/register/WN_dxzwK3whQFyDYDZaNIRT1g" target="_blank">Click here to register and join.</a></p>
+        <img alt="White X" id="close-webinar-banner" src=<%= "#{ENV['CDN_URL']}/images/icons/close-white.svg" %>>
+      </div>
+    </div>
+  <% end %>
+
+  <% if (is_tuesday && between_four_and_five) %>
+    <div class="banner" id="webinar-banner">
+      <div class="content-container">
+        <img alt="Video player with play symbol" class="banner-icon" src=<%= "#{ENV['CDN_URL']}/images/icons/live-stream.svg" %>>
+        <p><strong>Quill Webinar 201: Diving into Data</strong> is live now! <a href="https://zoom.us/webinar/register/WN_zHHpqoO9Q96O_MpYUUihRg" target="_blank">Click here to register and join.</a></p>
         <img alt="White X" id="close-webinar-banner" src=<%= "#{ENV['CDN_URL']}/images/icons/close-white.svg" %>>
       </div>
     </div>
@@ -57,11 +77,21 @@
     </div>
   <% end %>
 
-  <% if (is_wednesday && (between_eleven_and_twelve || between_four_and_five)) %>
+  <% if (is_wednesday && between_eleven_and_twelve) %>
     <div class="banner" id="webinar-banner">
       <div class="content-container">
         <img alt="Video player with play symbol" class="banner-icon" src=<%= "#{ENV['CDN_URL']}/images/icons/live-stream.svg" %>>
         <p><strong>Quill Webinar 301: Embedding into Instruction</strong> is live now! <a href="https://zoom.us/webinar/register/WN_7_ueCwCjT-CKHzBv0cBbaA" target="_blank">Click here to register and join.</a></p>
+        <img alt="White X" id="close-webinar-banner" src=<%= "#{ENV['CDN_URL']}/images/icons/close-white.svg" %>>
+      </div>
+    </div>
+  <% end %>
+
+  <% if (is_wednesday && between_four_and_five) %>
+    <div class="banner" id="webinar-banner">
+      <div class="content-container">
+        <img alt="Video player with play symbol" class="banner-icon" src=<%= "#{ENV['CDN_URL']}/images/icons/live-stream.svg" %>>
+        <p><strong>Quill Webinar 301: Embedding into Instruction</strong> is live now! <a href="https://zoom.us/webinar/register/WN_Bx8cKOKBS-y_ap9wzvduvA" target="_blank">Click here to register and join.</a></p>
         <img alt="White X" id="close-webinar-banner" src=<%= "#{ENV['CDN_URL']}/images/icons/close-white.svg" %>>
       </div>
     </div>
