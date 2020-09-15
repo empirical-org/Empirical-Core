@@ -6,10 +6,11 @@ class SerializeVitallySalesAccount
 
   def data
     current_time = Time.zone.now
+    school_year_start = School.school_year_start(current_time)
     active_students = active_students_query(@school).count
-    active_students_this_year = active_students_query(@school).where("activity_sessions.updated_at > ?", School.school_year_start(current_time)).count
+    active_students_this_year = active_students_query(@school).where("activity_sessions.updated_at > ?", school_year_start).count
     activities_finished = activities_finished_query(@school).count
-    activities_finished_this_year = activities_finished_query(@school).where("activity_sessions.updated_at > ?", School.school_year_start(current_time)).count
+    activities_finished_this_year = activities_finished_query(@school).where("activity_sessions.updated_at > ?", school_year_start).count
     {
       accountId: @school.id.to_s,
       # Type is used by Vitally to determine which data type the payload contains in batches
@@ -32,8 +33,8 @@ class SerializeVitallySalesAccount
         school_type: @school.ulocal_to_school_type,
         employee_count: employee_count,
         paid_teacher_subscriptions: paid_teacher_subscriptions,
-        total_students: total_students,
-        total_students_this_year: total_students(true, current_time),
+        total_students: @school.students.count,
+        total_students_this_year: @school.students.where(last_sign_in: school_year_start..current_time).count,
         active_students: active_students,
         active_students_this_year: active_students_this_year,
         activities_finished: activities_finished,
@@ -53,14 +54,6 @@ class SerializeVitallySalesAccount
       (activities_finished.to_f / active_students).round(2)
     else
       0
-    end
-  end
-
-  private def total_students(this_year_only=false, current_time=nil)
-    if this_year_only
-      @school.students.where(last_sign_in: School.school_year_start(current_time)..current_time).count
-    else
-      @school.students.count
     end
   end
 

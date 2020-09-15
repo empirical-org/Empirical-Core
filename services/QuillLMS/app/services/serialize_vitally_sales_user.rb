@@ -7,10 +7,11 @@ class SerializeVitallySalesUser
 
   def data
     current_time = Time.zone.now
+    school_year_start = School.school_year_start(current_time)
     active_students = active_students_query(@user).count
-    active_students_this_year = active_students_query(@user).where("activity_sessions.updated_at > ?", School.school_year_start(current_time)).count
+    active_students_this_year = active_students_query(@user).where("activity_sessions.updated_at > ?", school_year_start).count
     activities_finished = activities_finished_query(@user).count
-    activities_finished_this_year = activities_finished_query(@user).where("activity_sessions.updated_at > ?", School.school_year_start(current_time)).count
+    activities_finished_this_year = activities_finished_query(@user).where("activity_sessions.updated_at > ?", school_year_start).count
     {
       accountId: @user.school.id.to_s,
       userId: @user.id.to_s,
@@ -31,8 +32,8 @@ class SerializeVitallySalesUser
         school_point_of_contact: @user.school_poc?,
         premium_status: premium_status,
         premium_expiry_date: subscription_expiration_date,
-        total_students: total_students,
-        total_students_this_year: total_students(true, current_time),
+        total_students: @user.students.count,
+        total_students_this_year: total_students_this_year(school_year_start),
         active_students: active_students,
         active_students_this_year: active_students_this_year,
         completed_activities: activities_finished,
@@ -96,13 +97,9 @@ class SerializeVitallySalesUser
     end
   end
 
-  private def total_students(this_year_only=false, current_time=nil)
-    if this_year_only
-      classrooms = @user.classrooms_i_teach.select { |c| School.school_year_start(current_time) <= c.created_at }
-      classrooms.reduce(0) { |sum, c| sum + c.students.count}
-    else
-      @user.students.count
-    end
+  private def total_students_this_year(school_year_start)
+    classrooms = @user.classrooms_i_teach.select { |c| school_year_start <= c.created_at }
+    classrooms.sum { |c| c.students.count}
   end
 
   private def active_students_query(user)
