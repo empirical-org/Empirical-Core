@@ -176,9 +176,8 @@ class ConceptBox extends React.Component<ConceptBoxProps, ConceptBoxState> {
     }
   }
 
-  changeExplanation = (e) => {
+  changeExplanation = (explanation) => {
     const { concept, } = this.state
-    const explanation = e.target.value
     if (explanation !== concept.explanation) {
       const newConcept = Object.assign({}, concept, { explanation })
       this.setState({ concept: newConcept })
