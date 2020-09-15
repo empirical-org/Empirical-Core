@@ -6,7 +6,6 @@ export {
 
 export {
   Instructions,
-  WarningDialogue,
   Prompt
 } from './components/fillInBlank/index'
 
