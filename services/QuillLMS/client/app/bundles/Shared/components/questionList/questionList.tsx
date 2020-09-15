@@ -1,5 +1,5 @@
 import React from 'react';
-import { LinkListItem } from './linkListItem.jsx'
+import { LinkListItem } from './linkListItem'
 
 // interface QuestionListProps {
 //   showOnlyArchived: boolean;

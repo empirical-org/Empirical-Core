@@ -1,6 +1,6 @@
 import React from 'react';
 const { sortable } = require('react-sortable');
-import { ListItem } from './listItem.jsx'
+import { ListItem } from './listItem'
 
 const SortableListItem = sortable(ListItem);
 
