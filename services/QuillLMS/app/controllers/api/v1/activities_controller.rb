@@ -1,7 +1,7 @@
 class Api::V1::ActivitiesController < Api::ApiController
 
   before_action :doorkeeper_authorize!, only: [:create, :update, :destroy]
-  before_action :find_activity, except: [:index, :create, :uids_and_flags]
+  before_action :find_activity, except: [:index, :create, :uids_and_flags, :published_edition]
 
   # GET
   def show
@@ -88,6 +88,7 @@ class Api::V1::ActivitiesController < Api::ApiController
 
   def find_activity
     @activity = Activity.find_by_uid(params[:id]) || Activity.find_by_id(params[:id])
+    raise ActiveRecord::RecordNotFound unless @activity
   end
 
   def activity_params

@@ -62,7 +62,7 @@ export default class Edit extends React.Component<EditProps, {mounting: boolean,
     if (!(concept && concept.explanation)) { return <span /> }
     return (<div className="explanation">
       <p className="label">Explanation</p>
-      <p>{concept.explanation}</p>
+      <p dangerouslySetInnerHTML={{ __html: concept.explanation }} />
     </div>)
   }
 

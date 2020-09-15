@@ -244,6 +244,7 @@ export class PlayGrammarContainer extends React.Component<PlayGrammarContainerPr
       }
 
       if ((grammarActivities.hasreceiveddata || proofreaderSessionId) && session.hasreceiveddata) {
+        
         if (session.currentQuestion) {
           return (<QuestionComponent
             activity={grammarActivities ? grammarActivities.currentActivity : null}
