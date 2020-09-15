@@ -32,8 +32,14 @@
 	.app-legend {
 		padding-top: 25px;
 		.icon {
+      background-color: #f7f5f5;
+      text-align: left;
 			cursor: pointer;
-		}
+    }
+    .icon:focus, .icon:hover {
+      outline-offset: 6px;
+      text-decoration: none;
+    }
 		.title {
 			color: #717171;
 			margin-bottom: 6px;

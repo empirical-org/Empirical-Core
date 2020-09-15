@@ -1,5 +1,6 @@
 class FindAdminUsersWorker
   include Sidekiq::Worker
+  sidekiq_options queue: SidekiqQueue::CRITICAL
 
   def perform(admin_id)
     user = User.find_by_id(admin_id)

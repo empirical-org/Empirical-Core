@@ -54,9 +54,7 @@ export default class CreateUnit extends React.Component {
     const { classrooms, stage, } = this.state
     this.getProhibitedUnitNames();
 
-    if (!classrooms || !classrooms.length) {
-      this.fetchClassrooms()
-    }
+    this.fetchClassrooms()
 
     if (stage === 1 && this.unitTemplateId()) {
       window.localStorage.removeItem(UNIT_TEMPLATE_ID)
