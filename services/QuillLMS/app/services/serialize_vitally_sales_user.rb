@@ -9,9 +9,9 @@ class SerializeVitallySalesUser
     current_time = Time.zone.now
     school_year_start = School.school_year_start(current_time)
     active_students = active_students_query(@user).count
-    active_students_this_year = active_students_query(@user).where("activity_sessions.updated_at > ?", school_year_start).count
+    active_students_this_year = active_students_query(@user).where("activity_sessions.updated_at >= ?", school_year_start).count
     activities_finished = activities_finished_query(@user).count
-    activities_finished_this_year = activities_finished_query(@user).where("activity_sessions.updated_at > ?", school_year_start).count
+    activities_finished_this_year = activities_finished_query(@user).where("activity_sessions.updated_at >= ?", school_year_start).count
     {
       accountId: @user.school.id.to_s,
       userId: @user.id.to_s,
