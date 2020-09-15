@@ -98,8 +98,7 @@ class SegmentAnalytics
     integrations = {
      all: true,
      Intercom: should_send_data,
-     Salesmachine: false,
-     Vitally: false
+     Salesmachine: false
     }
     integrations
   end
