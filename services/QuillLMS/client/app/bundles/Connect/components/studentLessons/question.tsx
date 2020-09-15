@@ -95,7 +95,7 @@ export default class PlayLessonQuestion extends React.Component<PlayLessonQuesti
     );
   }
 
-  shouldComponentUpdate(nextProps, nextState) {
+  shouldComponentUpdate(nextProps: PlayLessonQuestionProps, nextState: PlayLessonQuestionState) {
     const { question, } = this.props
     const { response, finished, multipleChoice, responses, previewAttempt, previewAttemptSubmitted, previewSubmissionCount } = this.state
     if (question !== nextProps.question) {
@@ -170,12 +170,12 @@ export default class PlayLessonQuestion extends React.Component<PlayLessonQuesti
     return <RenderSentenceFragments prompt={this.getQuestion().prompt} />;
   }
 
-  listCuesAsString = (cues) => {
+  listCuesAsString = (cues: string[]) => {
     const newCues = cues.slice(0);
     return `${newCues.splice(0, newCues.length - 1).join(', ')} or ${newCues.pop()}.`;
   }
 
-  renderFeedback = (override) => {
+  renderFeedback = (override: string) => {
     const { question, previewMode } = this.props;
     const { previewAttempt, previewAttemptSubmitted, response } = this.state;
     let sentence;
@@ -202,19 +202,19 @@ export default class PlayLessonQuestion extends React.Component<PlayLessonQuesti
     />);
   }
 
-  getQuestionAttempt = (attempt) => {
+  getQuestionAttempt = (attempt: object) => {
     const { previewAttempt } = this.state;
     const { previewMode } = this.props;
     const questionAttempt = previewMode && previewAttempt ? previewAttempt : attempt;
     return questionAttempt;
   }
 
-  getErrorsForAttempt = (attempt) => {
+  getErrorsForAttempt = (attempt: object) => {
     const questionAttempt = this.getQuestionAttempt(attempt);
     return _.pick(questionAttempt, ...C.ERROR_TYPES);
   }
 
-  renderFeedbackStatements = (attempt) => {
+  renderFeedbackStatements = (attempt: object) => {
     const questionAttempt = this.getQuestionAttempt(attempt);
     return <RenderQuestionFeedback attempt={questionAttempt} getErrorsForAttempt={this.getErrorsForAttempt} getQuestion={this.getQuestion} />;
   }
@@ -281,14 +281,12 @@ export default class PlayLessonQuestion extends React.Component<PlayLessonQuesti
   }
 
   readyForNext = () => {
-    const { question, } = this.props
-    if (question.attempts.length > 0) {
-      const latestAttempt = getLatestAttempt(question.attempts);
+    const { question, previewMode } = this.props
+    if ((question.attempts && question.attempts.length > 0) || previewMode) {
+      const latestAttempt = this.handleGetLatestAttempt();
       if (latestAttempt && latestAttempt.response) {
         const errors = _.keys(this.getErrorsForAttempt(latestAttempt));
-        if (latestAttempt.response.optimal && errors.length === 0) {
-          return true;
-        }
+        return latestAttempt.response.optimal && errors.length === 0;
       }
     }
     return false;
@@ -394,7 +392,8 @@ export default class PlayLessonQuestion extends React.Component<PlayLessonQuesti
   }
 
   handleGetLatestAttempt = () => {
-    const { previewAttempt, previewMode } = this.props;
+    const { previewAttempt } = this.state;
+    const { previewMode } = this.props;
     const question = this.getQuestion();
     let latestAttempt
     if(previewMode && previewAttempt) {
@@ -468,7 +467,7 @@ export default class PlayLessonQuestion extends React.Component<PlayLessonQuesti
             />
             );
         }
-      } else if (question.attempts && question.attempts.length > 0) {
+      } else if ((question.attempts && question.attempts.length > 0) || previewMode) {
         if (this.readyForNext()) {
           component = (
             <AnswerForm

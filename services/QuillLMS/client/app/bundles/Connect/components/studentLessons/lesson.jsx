@@ -32,7 +32,8 @@ export class Lesson extends React.Component {
     this.state = {
       hasOrIsGettingResponses: false,
       sessionInitialized: false,
-      introSkipped: false
+      introSkipped: false,
+      isLastQuestion: props.playLesson.unansweredQuestions.length === 0
     }
   }
 
@@ -89,9 +90,9 @@ export class Lesson extends React.Component {
   }
 
   getQuestion = () => {
-    const { playLesson, questionToPreview } = this.props;
+    const { playLesson, questionToPreview, previewMode } = this.props;
     const { question } = playLesson.currentQuestion;
-    if(questionToPreview) {
+    if(previewMode && questionToPreview) {
       return questionToPreview;
     }
     return question;
@@ -158,9 +159,24 @@ export class Lesson extends React.Component {
   }
 
   nextQuestion = () => {
-    const { dispatch, } = this.props
-    const next = nextQuestion();
-    return dispatch(next);
+    const { dispatch, playLesson, previewMode, onHandleToggleQuestion } = this.props;
+    const { questionSet } = playLesson;
+
+    if(previewMode) {
+      const question = this.getQuestion();
+      const filteredQuestionsSet = questionSet.map(questionObject => questionObject.question);
+      const questionKeys = filteredQuestionsSet.map(question => question.key);
+      const nextQuestionIndex = questionKeys.indexOf(question.key) + 1;
+      const nextPreviewQuestion = filteredQuestionsSet[nextQuestionIndex];
+      if(nextPreviewQuestion) {
+        onHandleToggleQuestion(nextPreviewQuestion)
+      } else {
+        this.setState({ isLastQuestion: true });
+      }
+    } else {
+      const next = nextQuestion();
+      return dispatch(next);
+    }
   }
 
   questionsForLesson = () => {
@@ -262,11 +278,10 @@ export class Lesson extends React.Component {
     const { questionSet } = playLesson;
     if(!questionToPreview) {
       return 1;
-    } else {
-      const { key } = questionToPreview;
-      const questionKeys = questionSet.map(questionObject => questionObject.question.key);
-      return questionKeys.indexOf(key) + 1;
     }
+    const { key } = questionToPreview;
+    const questionKeys = questionSet.map(questionObject => questionObject.question.key);
+    return questionKeys.indexOf(key) + 1;
   }
 
   
@@ -291,13 +306,11 @@ export class Lesson extends React.Component {
   }
 
   render() {
-    const { sessionInitialized, error, sessionID, saved, session, } = this.state
+    const { sessionInitialized, error, sessionID, saved, session, isLastQuestion } = this.state
     const { conceptsFeedback, playLesson, dispatch, lessons, match, previewMode, onHandleToggleQuestion, questionToPreview } = this.props
     const { data, hasreceiveddata, } = lessons
     const { params } = match
     const { lessonID, } = params;
-
-    const isLastQuestion = playLesson.unansweredQuestions.length === 0
     let component;
 
     if (!(sessionInitialized && hasreceiveddata && data && data[lessonID])) {
