@@ -18,6 +18,11 @@ describe Api::V1::ActivitiesController, type: :controller do
       expect(response.status).to eq(200)
     end
 
+    it 'responds with 404 if activity does not exist' do
+      get :show, format: :json, id: 'doesnotexist'
+      expect(response.status).to eq(404)
+    end
+
     # it "should have an object at it's root" do
     #   expect(@parsed_body.keys).to include('status')
     # end
