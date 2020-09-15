@@ -8,7 +8,7 @@ export {
 
 export {
   QuestionBar
-} from './questionbar'
+} from './questionBar'
 
 export {
   ResponseSortFields
