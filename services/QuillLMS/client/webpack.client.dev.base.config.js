@@ -51,7 +51,7 @@ module.exports = {
   context: __dirname,
   entry: {
     shared: [
-      './app/bundles/Shared/clientRegistration'
+      './app/bundles/Shared/styles/styles.scss'
     ],
     app: [
       './app/bundles/Teacher/startup/clientRegistration'
