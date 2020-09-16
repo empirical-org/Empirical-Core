@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import filterActions from '../../actions/filters';
 import _ from 'underscore';
 import {
-  hashToCollection,
   ResponseSortFields,
   ResponseToggleFields,
   QuestionBar
@@ -23,6 +22,7 @@ import {
 import massEdit from '../../actions/massEdit';
 import request from 'request';
 import { submitResponseEdit } from '../../actions/responses';
+import { hashToCollection, } from '../../../Shared/index'
 
 const C = require('../../constants').default;
 
