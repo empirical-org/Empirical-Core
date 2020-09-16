@@ -108,11 +108,6 @@ jobs:
             cd services/QuillLMS/client
             TESTFILES=$(circleci tests glob "app/**/*.test.*" | circleci tests split)
             node --expose-gc ./node_modules/.bin/jest $TESTFILES --maxWorkers=2 --logHeapUsage
-      - run:
-          name: Run Mocha tests
-          command: |
-            cd services/QuillLMS
-            npm run test:mocha
   cms_rails_build:
     working_directory: ~/Empirical-Core
     docker:
