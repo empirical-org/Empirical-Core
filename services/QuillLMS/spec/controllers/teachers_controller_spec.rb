@@ -221,5 +221,15 @@ describe TeachersController, type: :controller do
         response.should redirect_to '/session/new'
       end
     end
+
+    describe '#diagnostic_info_for_dashboard_mini' do
+
+      it 'should respond' do
+
+        get :diagnostic_info_for_dashboard_mini
+
+        expect(response.status).to eq(200)
+      end
+    end
   end
 end
