@@ -34,9 +34,14 @@ describe 'SerializeVitallySalesUser' do
       admin: false,
       premium_status: 'NA',
       premium_expiry_date: 'NA',
-      number_of_students: 0,
-      number_of_completed_activities: 0,
-      number_of_completed_activities_per_student: 0,
+      total_students: 0,
+      total_students_this_year: 0,
+      active_students: 0,
+      active_students_this_year: 0,
+      completed_activities: 0,
+      completed_activities_this_year: 0,
+      completed_activities_per_student: 0,
+      completed_activities_per_student_this_year: 0,
       frl: 13,
       teacher_link: "https://www.quill.org/cms/users/#{teacher.id}/sign_in",
       city: school.city,
@@ -120,16 +125,23 @@ describe 'SerializeVitallySalesUser' do
     school = create(:school)
     teacher = create(:user, role: 'teacher', school: school)
     classroom = create(:classroom)
+    old_classroom = create(:classroom, created_at: Time.now - 1.year)
     student = create(:user, role: 'student')
+    old_student = create(:user, role: 'student')
     create(:classrooms_teacher, user: teacher, classroom: classroom)
+    create(:classrooms_teacher, user: teacher, classroom: old_classroom)
     create(:students_classrooms, student: student, classroom: classroom)
+    create(:students_classrooms, student: old_student, classroom: old_classroom)
 
     teacher_data = SerializeVitallySalesUser.new(teacher).data
 
     expect(teacher_data[:traits]).to include(
-      number_of_students: 1,
-      number_of_completed_activities: 0,
-      number_of_completed_activities_per_student: 0
+      total_students: 2,
+      total_students_this_year: 1,
+      completed_activities: 0,
+      completed_activities_this_year: 0,
+      completed_activities_per_student: 0,
+      completed_activities_per_student_this_year: 0
     )
   end
 
@@ -137,14 +149,26 @@ describe 'SerializeVitallySalesUser' do
     school = create(:school)
     teacher = create(:user, role: 'teacher', school: school)
     classroom = create(:classroom)
+    old_classroom = create(:classroom, created_at: Time.now - 1.year)
     classroom_unit = create(:classroom_unit, classroom: classroom)
+    old_classroom_unit = create(:classroom_unit, classroom: old_classroom)
     student = create(:user, role: 'student')
+    old_student = create(:user, role: 'student')
     create(:classrooms_teacher, user: teacher, classroom: classroom)
+    create(:classrooms_teacher, user: teacher, classroom: old_classroom)
     create(:students_classrooms, student: student, classroom: classroom)
+    create(:students_classrooms, student: old_student, classroom: old_classroom)
     create(:activity_session,
       classroom_unit: classroom_unit,
       user: student,
       state: 'finished'
+    )
+    create(:activity_session,
+      classroom_unit: old_classroom_unit,
+      user: old_student,
+      state: 'finished',
+      created_at: Time.now - 1.year,
+      updated_at: Time.now - 1.year
     )
     create(:activity_session,
       classroom_unit: classroom_unit,
@@ -155,9 +179,13 @@ describe 'SerializeVitallySalesUser' do
     teacher_data = SerializeVitallySalesUser.new(teacher).data
 
     expect(teacher_data[:traits]).to include(
-      number_of_students: 1,
-      number_of_completed_activities: 1,
-      number_of_completed_activities_per_student: 1
+      total_students: 2,
+      active_students: 2,
+      active_students_this_year: 1,
+      completed_activities: 2,
+      completed_activities_per_student: 1,
+      completed_activities_this_year: 1,
+      completed_activities_per_student_this_year: 1
     )
   end
 
