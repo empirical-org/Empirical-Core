@@ -5,7 +5,6 @@ import sentenceFragmentActions from '../../actions/sentenceFragments';
 import {
   Modal,
   TextEditor,
-  hashToCollection
 } from 'quill-component-library/dist/componentLibrary';
 import { EditorState, ContentState } from 'draft-js'
 import ResponseList from './responseList.jsx';
@@ -17,6 +16,7 @@ import {
   submitResponseEdit,
   getGradedResponsesWithCallback,
 } from '../../actions/responses';
+import { hashToCollection, } from '../../../Shared/index'
 
 const jsDiff = require('diff');
 const C = require('../../constants').default;

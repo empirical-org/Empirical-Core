@@ -4,7 +4,6 @@ import generateFeedbackString from './generateFeedbackString.js';
 import {
   incrementResponseCount,
   submitResponse,
-  findResponseByText
 } from '../../actions/responses.js';
 
 const getLatestAttempt = function (attempts = []) {
