@@ -2,7 +2,7 @@ require 'rails_helper'
 
 describe 'Associators:StudentsToClassrooms' do
 
-  let!(:teacher) {create(:teacher) }
+  let(:teacher) {create(:teacher) }
   let!(:student) {create(:student)}
   let!(:classroom) {create(:classroom, teacher_id: teacher.id) }
 
@@ -17,7 +17,7 @@ describe 'Associators:StudentsToClassrooms' do
   describe "when the classroom or teacher has a problem" do
 
     it "will not add a students classroom if the classroom does not exist" do
-      classroom.destroy
+      classroom.destroy!
       old_sc_count = StudentsClassrooms.count
       Associators::StudentsToClassrooms.run(student, classroom)
       expect(StudentsClassrooms.count).to eq(old_sc_count)
@@ -31,7 +31,7 @@ describe 'Associators:StudentsToClassrooms' do
     end
 
     it "will not add a students classroom if the the classroom teacher does not exist" do
-      teacher.destroy
+      classroom.owner.destroy
       old_sc_count = StudentsClassrooms.count
       Associators::StudentsToClassrooms.run(student, classroom)
       expect(StudentsClassrooms.count).to eq(old_sc_count)
