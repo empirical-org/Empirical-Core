@@ -2,7 +2,7 @@ require 'rails_helper'
 
 describe 'Associators:StudentsToClassrooms' do
 
-  let(:teacher) {create(:teacher) }
+  let!(:teacher) {create(:teacher) }
   let!(:student) {create(:student)}
   let!(:classroom) {create(:classroom, teacher_id: teacher.id) }
 
