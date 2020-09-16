@@ -73,6 +73,10 @@ class School < ActiveRecord::Base
     User.joins(student_in_classroom: {teachers: :school}).where(schools: {id: id}).uniq
   end
 
+  def self.school_year_start(time)
+    time.month >= 8 ? time.beginning_of_year + 7.months : time.beginning_of_year - 5.months
+  end
+
   private def generate_leap_csv_row(student, teacher, classroom, activity_session)
     [
       student.id,
