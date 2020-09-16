@@ -42,6 +42,22 @@ const returnTitleCards = (titleCards: any) => {
   return data;
 }
 
+const returnSentenceFragments = (sentenceFragments: any) => {
+  const { data } = sentenceFragments;
+  if(data && Object.keys(data).length === 0) {
+    return null;
+  }
+  return data;
+}
+
+const returnFillInBlank = (fillInBlank: any) => {
+  const { data } = fillInBlank;
+  if(data && Object.keys(data).length === 0) {
+    return null;
+  }
+  return data;
+}
+
 const renderTitleSection = (activity: Activity) => {
   if (!activity) { return }
   return(
@@ -65,12 +81,18 @@ const getIndentation = (i: number) => {
   return i < 9 ? 'indented' : '';
 }
 
-const getQuestionObject = ({questions, titleCards, key}) => {
+const getQuestionObject = ({questions, titleCards, sentenceFragments, fillInBlank, key}) => {
   let questionObject;
   if(questions[key]) {
-    questionObject = questions[key]
+    questionObject = questions[key];
   } else if(titleCards && titleCards[key]) {
-    questionObject = titleCards[key]
+    questionObject = titleCards[key];
+  } else if(sentenceFragments && sentenceFragments[key]) {
+    questionObject = sentenceFragments[key];
+    questionObject.type = 'SF';
+  } else if(fillInBlank && fillInBlank[key]) {
+    questionObject = fillInBlank[key];
+    questionObject.type = 'FB';
   } else {
     return {
       prompt: '',
@@ -82,10 +104,12 @@ const getQuestionObject = ({questions, titleCards, key}) => {
 
 const renderQuestions = ({ 
   activity, 
+  fillInBlank,
   handleQuestionUpdate, 
   questions, 
   questionToPreview,
   randomizedQuestions, 
+  sentenceFragments,
   session,
   titleCards
 }) => {
@@ -94,7 +118,7 @@ const renderQuestions = ({
   } else if(activity && activity.questions && questions) {
     return activity.questions.map((question: any, i: number) => {
       const { key } = question;
-      const questionObject = getQuestionObject({ questions, titleCards, key });
+      const questionObject = getQuestionObject({ questions, titleCards, sentenceFragments, fillInBlank, key });
       const questionText = questionObject.prompt || questionObject.title
       const style = getStyling(questionToPreview, key, i);
       const indentation = getIndentation(i);
@@ -126,6 +150,7 @@ const renderQuestions = ({
 export interface TeacherPreviewMenuProps {
   activity: Activity;
   dispatch: Function;
+  fillInBlank: any[];
   onTogglePreview?: () => void;
   onToggleQuestion?: (question: Question) => void;
   onUpdateRandomizedQuestions?: (questions: any[]) => void
@@ -134,6 +159,7 @@ export interface TeacherPreviewMenuProps {
     key?: string, 
     uid?: string 
   };
+  sentenceFragments: any[];
   session: any;
   showPreview: boolean;
   titleCards: any;
@@ -141,12 +167,14 @@ export interface TeacherPreviewMenuProps {
  
 const TeacherPreviewMenu = ({ 
   activity,
-  dispatch, 
+  dispatch,
+  fillInBlank,
   onTogglePreview, 
   onToggleQuestion, 
   onUpdateRandomizedQuestions,
   questions, 
   questionToPreview,
+  sentenceFragments,
   session,
   showPreview,
   titleCards
@@ -177,7 +205,7 @@ const TeacherPreviewMenu = ({
     if(randomizedQuestions) {
       question = randomizedQuestions.filter(question => question.uid === questionUID)[0];
     } else {
-      question = questions[questionUID] || titleCards[questionUID];
+      question = questions[questionUID] || titleCards[questionUID] || sentenceFragments[questionUID] || fillInBlank[questionUID];
       question.key = questionUID;
     }
     onToggleQuestion(question);
@@ -202,11 +230,13 @@ const TeacherPreviewMenu = ({
         <h2>Questions</h2>
         <ul>
           {renderQuestions({  
-            activity, 
+            activity,
+            fillInBlank,
             handleQuestionUpdate,
             questions, 
             questionToPreview,
             randomizedQuestions, 
+            sentenceFragments,
             session,
             titleCards
           })}
@@ -217,12 +247,14 @@ const TeacherPreviewMenu = ({
 }
 
 const mapStateToProps = (state: any) => {
-  const { questions, session, titleCards } = state;
+  const { questions, session, titleCards, sentenceFragments, fillInBlank } = state;
   return {
     activity: returnActivity(state),
+    fillInBlank: fillInBlank ? returnFillInBlank(fillInBlank) : null,
     questions: questions ? returnQuestions(questions) : null,
+    sentenceFragments: sentenceFragments ? returnSentenceFragments(sentenceFragments) : null,
     session: session,
-    titleCards: titleCards ? returnTitleCards(titleCards) : null
+    titleCards: titleCards ? returnTitleCards(titleCards) : null,
   };
 };
 

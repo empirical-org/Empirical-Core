@@ -320,7 +320,7 @@ export class Lesson extends React.Component {
     if (playLesson.currentQuestion) {
       const { type } = playLesson.currentQuestion;
       const question = this.getQuestion();
-      if (type === 'SF') {
+      if (type === 'SF' || (previewMode && question.type === 'SF')) {
         component = (
           <PlaySentenceFragment
             conceptsFeedback={conceptsFeedback}
@@ -331,12 +331,14 @@ export class Lesson extends React.Component {
             markIdentify={this.markIdentify}
             marking="diagnostic"
             nextQuestion={this.nextQuestion}
+            onHandleToggleQuestion={onHandleToggleQuestion}
             previewMode={previewMode}
             question={question}
+            questionToPreview={questionToPreview}
             updateAttempts={this.submitResponse}
           />
         );
-      } else if (type === 'FB') {
+      } else if (type === 'FB' || (previewMode && question.type === 'FB')) {
         component = (
           <PlayFillInTheBlankQuestion
             conceptsFeedback={conceptsFeedback}
@@ -344,9 +346,11 @@ export class Lesson extends React.Component {
             isLastQuestion={isLastQuestion}
             key={question.key}
             nextQuestion={this.nextQuestion}
+            onHandleToggleQuestion={onHandleToggleQuestion}
             prefill={this.getLesson().prefill}
             previewMode={previewMode}
             question={question}
+            questionToPreview={questionToPreview}
             submitResponse={this.submitResponse}
           />
         );
@@ -356,6 +360,7 @@ export class Lesson extends React.Component {
             data={question}
             handleContinueClick={this.nextQuestion}
             isLastQuestion={isLastQuestion}
+            onHandleToggleQuestion={onHandleToggleQuestion}
             previewMode={previewMode}
           />
         )
