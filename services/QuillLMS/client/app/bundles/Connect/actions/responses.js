@@ -1,7 +1,6 @@
 /* eslint-env browser*/
 import _ from 'underscore';
 import moment from 'moment';
-import { hashToCollection } from 'quill-component-library/dist/componentLibrary';
 import request from 'request';
 
 import pathwaysActions from './pathways';
@@ -376,13 +375,6 @@ export function getGradedResponsesWithoutCallback(questionID) {
       });
       return bodyToObj;
     }
-  });
-}
-
-export function findResponseByText(text, questionUID, cb) {
-  responsesRef.orderByChild('text').equalTo(text).once('value', (snapshot) => {
-    const response = _.findWhere(hashToCollection(snapshot.val()), { questionUID, });
-    cb(response);
   });
 }
 

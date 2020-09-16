@@ -6,9 +6,9 @@ import {
   hashToCollection,
   SentenceFragments,
   ConceptExplanation,
-  MultipleChoice
 } from 'quill-component-library/dist/componentLibrary';
 
+import { MultipleChoice } from '../../../Shared/index'
 import { submitResponse } from '../../actions.js';
 import Question from '../../libs/question';
 import RenderQuestionFeedback from '../renderForQuestions/feedbackStatements.jsx';
