@@ -72,7 +72,6 @@ export const sentenceCombiningQuestionWithOneAttempt = {
   itemLevel: "",
   key: "-KQS5RYZWcdF8H_X9enc",
   modelConceptUID: "Q8FfGSv4Z9L2r1CYOfvO9A",
-  prefilledText: "Because squid wash up on shore, scientists can study them.",
   prompt: "<p>Squid wash up on shore. &nbsp;</p>\n<p>Scientists can study them.</p>"
 }
 

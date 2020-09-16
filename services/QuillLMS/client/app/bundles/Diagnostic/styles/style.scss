@@ -10,7 +10,6 @@
 @import '~react-selectize/themes/index.css';
 @import '~react-select/dist/react-select.css';
 @import '~font-awesome/css/font-awesome.css';
-@import "~quill-component-library/src/styles/styles.scss";
 
 html {
   overscroll-behavior: none;
@@ -387,6 +386,9 @@ textarea.submission {
     &.minus-nav-and-footer {
       min-height: calc(100vh - 64px - 81px);
       flex: 1 1 auto;
+      @media (max-width: 895px) {
+        min-height: calc(100vh - 64px - 56px);
+      }
     }
     .hero-body {
       align-items: center;

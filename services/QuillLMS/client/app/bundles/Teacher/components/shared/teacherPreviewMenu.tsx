@@ -115,7 +115,8 @@ const renderQuestions = ({
 }) => {
   if(!activity && !randomizedQuestions && !session) {
     return null;
-  } else if(activity && activity.questions && questions) {
+  // some Grammar activities return an empty array for the questions property so we check it's length
+  } else if(activity && activity.questions && activity.questions.length && questions) {
     return activity.questions.map((question: any, i: number) => {
       const { key } = question;
       const questionObject = getQuestionObject({ questions, titleCards, sentenceFragments, fillInBlank, key });

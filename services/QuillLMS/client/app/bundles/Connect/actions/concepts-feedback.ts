@@ -36,6 +36,7 @@ const actions = {
       ConceptFeedbackApi.remove(cid).then(() => {
         dispatch({ type: C.FINISH_CONCEPTS_FEEDBACK_EDIT, cid, });
         dispatch({ type: C.DISPLAY_MESSAGE, message: 'ConceptsFeedback successfully deleted!', });
+        dispatch(actions.loadConceptsFeedback())
       }).catch((error) => {
         dispatch({ type: C.FINISH_CONCEPTS_FEEDBACK_EDIT, cid, });
         dispatch({ type: C.DISPLAY_ERROR, error: `Deletion failed! ${error}`, });

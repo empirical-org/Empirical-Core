@@ -6,6 +6,12 @@ class SerializeVitallySalesUser
   end
 
   def data
+    current_time = Time.zone.now
+    school_year_start = School.school_year_start(current_time)
+    active_students = active_students_query(@user).count
+    active_students_this_year = active_students_query(@user).where("activity_sessions.updated_at >= ?", school_year_start).count
+    activities_finished = activities_finished_query(@user).count
+    activities_finished_this_year = activities_finished_query(@user).where("activity_sessions.updated_at >= ?", school_year_start).count
     {
       accountId: @user.school.id.to_s,
       userId: @user.id.to_s,
@@ -26,9 +32,14 @@ class SerializeVitallySalesUser
         school_point_of_contact: @user.school_poc?,
         premium_status: premium_status,
         premium_expiry_date: subscription_expiration_date,
-        number_of_students: number_of_students,
-        number_of_completed_activities: number_of_completed_activities,
-        number_of_completed_activities_per_student: activities_per_student,
+        total_students: @user.students.count,
+        total_students_this_year: total_students_this_year(school_year_start),
+        active_students: active_students,
+        active_students_this_year: active_students_this_year,
+        completed_activities: activities_finished,
+        completed_activities_this_year: activities_finished_this_year,
+        completed_activities_per_student: activities_per_student(active_students, activities_finished),
+        completed_activities_per_student_this_year: activities_per_student(active_students_this_year, activities_finished_this_year),
         frl: free_lunches,
         teacher_link: teacher_link,
         edit_teacher_link: edit_teacher_link,
@@ -78,25 +89,30 @@ class SerializeVitallySalesUser
     end
   end
 
-  private def activities_per_student
-    if number_of_students > 0
-      (number_of_completed_activities.to_f / number_of_students).round(2)
+  private def activities_per_student(active_students, activities_finished)
+    if active_students > 0
+      (activities_finished.to_f / active_students).round(2)
     else
       0
     end
   end
 
-  private def number_of_students
-    @user.students.count
+  private def total_students_this_year(school_year_start)
+    classrooms = @user.classrooms_i_teach.select { |c| school_year_start <= c.created_at }
+    classrooms.sum { |c| c.students.count}
   end
 
-  private def number_of_completed_activities
-    @number_of_completed_activities ||= begin
-      ClassroomsTeacher.joins(classroom: :activity_sessions)
-        .where(user: @user)
-        .where('activity_sessions.state = ?', 'finished')
-        .count
-    end
+  private def active_students_query(user)
+    ActivitySession.select(:user_id).distinct
+      .joins(classroom_unit: {classroom: [:teachers]})
+      .where(state: 'finished')
+      .where('classrooms_teachers.user_id = ?', user.id)
+  end
+
+  private def activities_finished_query(user)
+    ClassroomsTeacher.joins(classroom: :activity_sessions)
+      .where(user: user)
+      .where('activity_sessions.state = ?', 'finished')
   end
 
   private def premium_status
@@ -144,4 +160,5 @@ class SerializeVitallySalesUser
   private def district
     @user.school.leanm if @user.school.present?
   end
+
 end

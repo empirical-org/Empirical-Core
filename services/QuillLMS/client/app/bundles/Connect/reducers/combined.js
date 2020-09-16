@@ -19,7 +19,6 @@ import pathways from './pathways';
 import playLesson from './questionReducer';
 import question from './questionReducerV2';
 import questions from './questions';
-import questionSelect from './questionSelect';
 import responses from './responsesReducer';
 import sentenceFragments from './sentenceFragments';
 import sessions from './sessions';
@@ -46,7 +45,6 @@ const combinedReducers = combineReducers({
   playLesson,
   question,
   questions,
-  questionSelect,
   responses,
   routing: routerReducer,
   sentenceFragments,

@@ -159,6 +159,11 @@ module PagesHelper
             img: 'team-thomas-robertson@2x.png'
           },
           {
+            name: 'Peter Sharkey',
+            title: 'Senior Product Manager',
+            img: 'team-peter-sharkey@2x.png'
+          },
+          {
             name: 'Emma Volk',
             title: 'Lead Curriculum Developer',
             img: 'team-emma-volk@2x.png'

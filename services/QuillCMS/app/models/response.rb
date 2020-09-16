@@ -78,7 +78,17 @@ class Response < ApplicationRecord
   end
 
   def clear_responses_route_cache
-    Rails.cache.delete("questions/#{question_uid}/responses")
+    return if optimal.nil?
+
+    Rails.cache.delete(::Response.questions_cache_key(question_uid))
+  end
+
+  def self.questions_cache_key(question_uid)
+    "#{question_uid}_response_ids_v1"
+  end
+
+  def self.multiple_choice_cache_key(question_uid)
+    "#{question_uid}_multiple_choice_v1"
   end
 
   def self.find_by_id_or_uid(string)
