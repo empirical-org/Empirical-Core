@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 
 class ResponseSortFields extends React.Component<any, any> {
   constructor(props: any) {

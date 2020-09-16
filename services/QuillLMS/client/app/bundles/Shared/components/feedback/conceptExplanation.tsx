@@ -1,4 +1,4 @@
-import React from 'react'
+import * as React from 'react'
 
 function getClassName(description, leftBox, rightBox) {
   if (description && leftBox && rightBox) {

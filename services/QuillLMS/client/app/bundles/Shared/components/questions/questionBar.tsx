@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 
 const QuestionBar = (props: any) => (
   <div style={{ height: 10, marginBottom: 15, }}>

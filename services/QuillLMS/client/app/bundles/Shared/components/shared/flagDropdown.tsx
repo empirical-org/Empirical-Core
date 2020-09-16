@@ -1,4 +1,4 @@
-import React from 'react'
+import * as React from 'react'
 
 const FlagDropdown = (props) => {
   const label = props.isLessons ? undefined : (<label className="label">Flag</label>)

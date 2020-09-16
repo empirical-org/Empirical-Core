@@ -1,8 +1,8 @@
-import React from 'react';
+import * as React from 'react';
 import Editor from 'draft-js-plugins-editor'
 import { convertFromHTML, convertToHTML } from 'draft-convert'
 import createRichButtonsPlugin from 'draft-js-richbuttons-plugin'
-import Immutable from 'immutable'
+import * as Immutable from 'immutable'
 
 const richButtonsPlugin = createRichButtonsPlugin();
 const {
