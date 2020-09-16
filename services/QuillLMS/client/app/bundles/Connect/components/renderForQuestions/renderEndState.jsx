@@ -1,11 +1,12 @@
 import React from 'react';
 import _ from 'underscore';
 import {
-  hashToCollection,
   Feedback
 } from 'quill-component-library/dist/componentLibrary';
 import { connect } from 'react-redux';
 const jsDiff = require('diff');
+
+import { hashToCollection, } from '../../../Shared/index'
 
 class EndState extends React.Component {
   findDiffs(answer) {
