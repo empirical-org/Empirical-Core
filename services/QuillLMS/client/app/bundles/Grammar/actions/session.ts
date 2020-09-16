@@ -23,7 +23,7 @@ export const setSessionReducerToSavedSession = (sessionID: string) => {
       dispatch(handleGrammarSession(session))
     }).catch((error) => {
       if (error.status === 404) {
-        dispatch(handleGrammarSession(null))
+        dispatch(startNewSession())
       } else {
         throw error
       }

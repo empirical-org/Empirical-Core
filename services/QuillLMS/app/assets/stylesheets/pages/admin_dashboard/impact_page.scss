@@ -46,7 +46,7 @@
       .bar {
         height: 10px;
       }
-      &.eighteen-nineteen {
+      &.nineteen-twenty {
         h2 {
           margin-left: 32px;
           line-height: 1;
@@ -60,19 +60,22 @@
           align-items: center;
         }
       }
+      &.eighteen-nineteen .bar {
+        width: 273.9px;
+      }
       &.seventeen-eighteen .bar {
-        width: 233.4px;
+        width: 154px;
       }
       &.sixteen-seventeen .bar {
-        width: 114.7px;
+        width: 75.7px;
       }
       &.fifteen-sixteen .bar {
-        width: 31.5px;
+        width: 20.8px;
       }
       &.fourteen-fifteen .bar {
-        width: 14.2px;
+        width: 9.4px;
       }
-      &:not(.eighteen-nineteen) {
+      &:not(.nineteen-twenty) {
         p {
           color: #646464;
           margin-bottom: 4px;
