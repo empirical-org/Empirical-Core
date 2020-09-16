@@ -17,7 +17,7 @@ describe 'Associators:StudentsToClassrooms' do
   describe "when the classroom or teacher has a problem" do
 
     it "will not add a students classroom if the classroom does not exist" do
-      classroom.destroy!
+      classroom.destroy
       old_sc_count = StudentsClassrooms.count
       Associators::StudentsToClassrooms.run(student, classroom)
       expect(StudentsClassrooms.count).to eq(old_sc_count)
