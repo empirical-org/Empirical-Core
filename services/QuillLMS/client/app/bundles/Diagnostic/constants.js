@@ -150,11 +150,6 @@ export default {
   ADD_RESPONSES_TO_MASS_EDIT_ARRAY: 'ADD_RESPONSES_TO_MASS_EDIT_ARRAY',
   REMOVE_RESPONSES_FROM_MASS_EDIT_ARRAY: 'REMOVE_RESPONSES_FROM_MASS_EDIT_ARRAY',
 
-  // qUESTION SELECT ACTIONS:
-  QUESTION_SELECT_ADD_QUESTION: 'QUESTION_SELECT_ADD_QUESTION',
-  QUESTION_SELECT_MODIFY_QUESTION: 'QUESTION_SELECT_MODIFY_QUESTION',
-  QUESTION_SELECT_UPDATE_TITLE: 'QUESTION_SELECT_UPDATE_TITLE',
-
   FEEDBACK_STRINGS: {
     punctuationError: 'There may be an error. How could you update the punctuation?',
     punctuationAndCaseError: 'There may be an error. How could you update the punctuation and capitalization?',
