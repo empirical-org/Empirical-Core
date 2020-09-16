@@ -17,7 +17,6 @@ import RenderFeedback from '../renderForQuestions/feedback';
 import getResponse from '../renderForQuestions/checkAnswer';
 import submitQuestionResponse from '../renderForQuestions/submitResponse.js';
 import updateResponseResource from '../renderForQuestions/updateResponseResource.js';
-import submitPathway from '../renderForQuestions/submitPathway.js';
 import AnswerForm from '../renderForQuestions/renderFormForAnswer.jsx';
 import {
   getMultipleChoiceResponseOptionsWithCallback,
@@ -172,10 +171,6 @@ export default class PlayLessonQuestion extends React.Component {
   updateResponseResource(response) {
     const { dispatch, } = this.props
     updateResponseResource(response, this.getQuestion().key, this.getQuestion().attempts, dispatch);
-  }
-
-  submitPathway(response) {
-    submitPathway(response, this.props);
   }
 
   answeredCorrectly = () => {
