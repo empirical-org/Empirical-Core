@@ -22,6 +22,7 @@
     <% end %>
     <%= render partial: 'application/preview_student_banner' %>
     <%= render partial: 'application/back_to_school_banner' %>
+    <%= render partial: 'application/webinar_banner' %>
     <% if ENV['UPGRADE'] && ENV['UPGRADE_END_TIME'] && Time.now < Time.parse(ENV['UPGRADE_END_TIME'])%>
       <%= render partial: 'application/upgraded_bar' %>
     <% else %>
