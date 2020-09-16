@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 
 const CarouselAnimation = ({ children, }) => (

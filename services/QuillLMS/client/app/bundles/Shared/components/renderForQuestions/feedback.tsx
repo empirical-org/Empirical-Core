@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 const icon = "https://assets.quill.org/images/icons/direction.svg"
 const revise = "https://assets.quill.org/images/icons/revise.svg"
 const multiple = "https://assets.quill.org/images/icons/multiple-choice.svg"

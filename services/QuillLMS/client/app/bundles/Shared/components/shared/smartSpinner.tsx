@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 
 const spinner = 'https://assets.quill.org/images/icons/loader_still.svg';
 
