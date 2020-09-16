@@ -3,12 +3,11 @@ import * as React from 'react';
 import * as _ from 'underscore';
 import {Response} from 'quill-marking-logic'
 import {
-  hashToCollection,
   SentenceFragments,
   ConceptExplanation,
 } from 'quill-component-library/dist/componentLibrary';
 
-import { MultipleChoice } from '../../../Shared/index'
+import { MultipleChoice, hashToCollection, } from '../../../Shared/index'
 import { submitResponse } from '../../actions.js';
 import Question from '../../libs/question';
 import RenderQuestionFeedback from '../renderForQuestions/feedbackStatements.jsx';
