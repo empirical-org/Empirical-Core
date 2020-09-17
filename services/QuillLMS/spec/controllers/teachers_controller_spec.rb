@@ -228,7 +228,7 @@ describe TeachersController, type: :controller do
 
         get :diagnostic_info_for_dashboard_mini
 
-        expect(response.status).to eq(200)
+        response.should redirect_to '/session/new'
       end
     end
   end
