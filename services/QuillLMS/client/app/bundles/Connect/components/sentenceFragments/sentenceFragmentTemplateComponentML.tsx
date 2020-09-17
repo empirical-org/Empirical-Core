@@ -113,8 +113,7 @@ class PlaySentenceFragment extends React.Component<PlaySentenceFragmentProps, Pl
     const { question, previewMode } = this.props;
     const latestAttempt = this.getLatestAttempt();
     const maxAttempts = (question.attempts && question.attempts.length > 4) || (previewMode && previewSubmissionCount > 4);
-    const readyForNext = maxAttempts || (latestAttempt && latestAttempt.response.optimal);
-    return readyForNext;
+    return maxAttempts || (latestAttempt && latestAttempt.response.optimal);
   }
 
   getLatestAttempt = ():{response:Response}|undefined => {
@@ -233,40 +232,41 @@ class PlaySentenceFragment extends React.Component<PlaySentenceFragmentProps, Pl
     return negCRs.length > 0 ? negCRs[0] : undefined;
   }
 
-  //TODO: refactor renderConceptExplanation function
+  handleConceptExplanation = () => {
+    if(this.showNextQuestionButton()) {
+      return;
+    }
+    const latestAttempt:{response: Response}|undefined  = this.getLatestAttempt();
+    const nonOptimalResponse = latestAttempt && latestAttempt.response && !latestAttempt.response.optimal;
+    if (nonOptimalResponse) {
+      return this.renderConceptExplanation(latestAttempt);
+    }
+  }
 
-  renderConceptExplanation = () => {
-    const { conceptsFeedback, } = this.props
-    if (!this.showNextQuestionButton()) {
-      const latestAttempt:{response: Response}|undefined  = this.getLatestAttempt();
-      if (latestAttempt && latestAttempt.response && !latestAttempt.response.optimal) {
-        if (latestAttempt.response.conceptResults) {
-            const conceptID = this.getNegativeConceptResultForResponse(latestAttempt.response.conceptResults);
-            if (conceptID) {
-              const data = conceptsFeedback.data[conceptID.conceptUID];
-              if (data) {
-                return <ConceptExplanation {...data} />;
-              }
-            }
-        } else if (latestAttempt.response.concept_results) {
-          const conceptID = this.getNegativeConceptResultForResponse(latestAttempt.response.concept_results);
-          if (conceptID) {
-            const data = conceptsFeedback.data[conceptID.conceptUID];
-            if (data) {
-              return <ConceptExplanation {...data} />;
-            }
-          }
-        } else if (this.getQuestion() && this.getQuestion().modelConceptUID) {
-          const dataF = conceptsFeedback.data[this.getQuestion().modelConceptUID];
-          if (dataF) {
-            return <ConceptExplanation {...dataF} />;
-          }
-        } else if (this.getQuestion().conceptID) {
-          const data = conceptsFeedback.data[this.getQuestion().conceptID];
-          if (data) {
-            return <ConceptExplanation {...data} />;
-          }
-        }
+  renderConceptExplanation = (latestAttempt) => {
+    const { conceptsFeedback, } = this.props;
+    const question = this.getQuestion();
+    if (latestAttempt.response.conceptResults) {
+      const conceptID = this.getNegativeConceptResultForResponse(latestAttempt.response.conceptResults);
+      const data = conceptID ? conceptsFeedback.data[conceptID.conceptUID] : null;
+      if (data) {
+        return <ConceptExplanation {...data} />;
+      }
+    } else if (latestAttempt.response.concept_results) {
+      const conceptID = this.getNegativeConceptResultForResponse(latestAttempt.response.concept_results);
+      const data = conceptID ? conceptsFeedback.data[conceptID.conceptUID] : null;
+      if (data) {
+        return <ConceptExplanation {...data} />;
+      }
+    } else if (question && question.modelConceptUID) {
+      const dataF = conceptsFeedback.data[question.modelConceptUID];
+      if (dataF) {
+        return <ConceptExplanation {...dataF} />;
+      }
+    } else if (question.conceptID) {
+      const data = conceptsFeedback.data[question.conceptID];
+      if (data) {
+        return <ConceptExplanation {...data} />;
       }
     }
   }
@@ -324,7 +324,6 @@ class PlaySentenceFragment extends React.Component<PlaySentenceFragmentProps, Pl
     } else {
       instructions = 'If it is a complete sentence, press submit. If it is an incomplete sentence, make it complete.';
     }
-    // dangerously set some html in here
     return (
       <div className="container">
         <Feedback
@@ -348,7 +347,7 @@ class PlaySentenceFragment extends React.Component<PlaySentenceFragmentProps, Pl
         <div className="question-button-group">
           {this.renderButton()}
         </div>
-        {this.renderConceptExplanation()}
+        {this.handleConceptExplanation()}
       </div>
     );
   }

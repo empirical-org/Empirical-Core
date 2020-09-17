@@ -282,14 +282,15 @@ export default class PlayLessonQuestion extends React.Component<PlayLessonQuesti
 
   readyForNext = () => {
     const { question, previewMode } = this.props
-    if ((question.attempts && question.attempts.length > 0) || previewMode) {
-      const latestAttempt = this.handleGetLatestAttempt();
-      if (latestAttempt && latestAttempt.response) {
-        const errors = _.keys(this.getErrorsForAttempt(latestAttempt));
-        return latestAttempt.response.optimal && errors.length === 0;
-      }
+    const hasAttemptsOrIsPreview = (question.attempts && question.attempts.length > 0) || previewMode;
+    if(!hasAttemptsOrIsPreview) {
+      return false;
     }
-    return false;
+    const latestAttempt = this.handleGetLatestAttempt();
+    if (latestAttempt && latestAttempt.response) {
+      const errors = _.keys(this.getErrorsForAttempt(latestAttempt));
+      return latestAttempt.response.optimal && errors.length === 0;
+    }
   }
 
   getProgressPercent = () => {
