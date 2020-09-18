@@ -206,7 +206,7 @@ const TeacherPreviewMenu = ({
     if(randomizedQuestions) {
       question = randomizedQuestions.filter(question => question.uid === questionUID)[0];
     } else {
-      question = questions[questionUID] || titleCards[questionUID] || sentenceFragments[questionUID] || fillInBlank[questionUID];
+      question = questions && questions[questionUID] || titleCards && titleCards[questionUID] || sentenceFragments && sentenceFragments[questionUID] || fillInBlank && fillInBlank[questionUID];
       question.key = questionUID;
     }
     onToggleQuestion(question);
