@@ -16,6 +16,7 @@ import FeedbackContainer from '../renderForQuestions/feedback'
 import RenderQuestionFeedback from '../renderForQuestions/feedbackStatements.jsx';
 import { Attempt } from '../renderForQuestions/answerState.js';
 import { stringNormalize } from 'quill-string-normalizer';
+import { FillInBlankQuestion } from '../../interfaces/questions';
 
 const styles = {
   container: {
@@ -31,26 +32,54 @@ const styles = {
   },
 };
 
-export class PlayFillInTheBlankQuestion extends React.Component<any, any> {
+interface PlayFillInTheBlankQuestionProps {
+  conceptsFeedback: any
+  dispatch: () => void;
+  isLastQuestion: boolean;
+  language?: string;
+  nextQuestion: () => void;
+  onHandleToggleQuestion: (question: FillInBlankQuestion) => void;
+  prefill: any;
+  previewMode: boolean;
+  question: FillInBlankQuestion;
+  questionToPreview: FillInBlankQuestion;
+  setResponse: (response: Response) => void;
+  submitResponse?: (response: any) => void;
+  key: string;
+}
+
+interface PlayFillInTheBlankQuestionState {
+  previewAttempt: any;
+  previewAttemptSubmitted: boolean;
+  previewSentenceOrFragmentSelected: boolean;
+  previewSubmissionCount: number;
+}
+
+export class PlayFillInTheBlankQuestion extends React.Component<PlayFillInTheBlankQuestionProps, any> {
   constructor(props) {
     super(props);
 
-    this.state = {}
-  }
-
-  componentDidMount() {
-    const { question, } = this.props
-    this.setQuestionValues(question)
-  }
-
-  UNSAFE_componentWillReceiveProps(nextProps) {
-    const { question, } = this.props
-    if (nextProps.question.prompt !== question.prompt) {
-      this.setQuestionValues(nextProps.question)
+    this.state = {
+      previewAttempt: null,
+      previewAttemptSubmitted: false,
+      previewSubmissionCount: 0,
+      previewSentenceOrFragmentSelected: false
     }
   }
 
-  setQuestionValues = (question) => {
+  componentDidMount() {
+    const question = this.getQuestion();
+    this.setQuestionValues(question)
+  }
+
+  componentDidUpdate(prevProps: PlayFillInTheBlankQuestionProps) {
+    const question = this.getQuestion();
+    if (prevProps.question.prompt !== question.prompt) {
+      this.setQuestionValues(question)
+    }
+  }
+
+  setQuestionValues = (question: FillInBlankQuestion) => {
     const q = question;
     const splitPrompt = q.prompt.split('___');
     this.setState({
@@ -62,7 +91,7 @@ export class PlayFillInTheBlankQuestion extends React.Component<any, any> {
     }, () => this.getGradedResponsesWithCallback(question));
   }
 
-  getGradedResponsesWithCallback = (question) => {
+  getGradedResponsesWithCallback = (question: FillInBlankQuestion) => {
     getGradedResponsesWithCallback(
       question.key,
       (data) => {
@@ -72,12 +101,15 @@ export class PlayFillInTheBlankQuestion extends React.Component<any, any> {
   }
 
   getQuestion = () => {
-    const { question, } = this.props;
-    return question;
+    const { question, previewMode, questionToPreview } = this.props;
+    if(previewMode && questionToPreview) {
+      return questionToPreview;
+    }
+    return question
   }
 
   getInstructionText = () => {
-    const { question, } = this.props
+    const question = this.getQuestion();
     let instructions: JSX.Element|string = 'Fill in the blanks with the word or phrase that best fits the sentence.';
     const latestAttempt = this.getLatestAttempt();
     if (latestAttempt && latestAttempt.response && latestAttempt.response.feedback) {
@@ -90,8 +122,8 @@ export class PlayFillInTheBlankQuestion extends React.Component<any, any> {
     return instructions
   }
 
-  generateInputs(promptArray) {
-    let inputs:Array<string> = [];
+  generateInputs(promptArray: string[]) {
+    let inputs: string[] = [];
     const latestAttempt = this.getLatestAttempt();
     if (latestAttempt) {
       const text = latestAttempt.response.text
@@ -103,7 +135,7 @@ export class PlayFillInTheBlankQuestion extends React.Component<any, any> {
     return inputs;
   }
 
-  handleChange = (i, e) => {
+  handleChange = (i: number, e: React.ChangeEvent<HTMLInputElement>) => {
     const { inputVals, } = this.state
     const existing = [...inputVals];
     existing[i] = e.target.value;
@@ -112,19 +144,19 @@ export class PlayFillInTheBlankQuestion extends React.Component<any, any> {
     });
   }
 
-  getChangeHandler = (index) => {
+  getChangeHandler = (index: number) => {
     return (e) => {
       this.handleChange(index, e);
     };
   }
 
-  getBlurHandler = (index) => {
+  getBlurHandler = (index: number) => {
     return () => {
       this.validateInput(index);
     };
   }
 
-  renderText(text, i): JSX.Element[] {
+  renderText(text: string, i: number): JSX.Element[] {
     let style = {};
     if (text.length > 0) {
       style = styles.text;
@@ -137,7 +169,7 @@ export class PlayFillInTheBlankQuestion extends React.Component<any, any> {
     return spanArray;
   }
 
-  validateInput = (i) => {
+  validateInput = (i: number) => {
     const { inputErrors, inputVals, blankAllowed, cues, } = this.state
     const newErrors = new Set(inputErrors);
     const inputVal = inputVals[i] || '';
@@ -159,7 +191,7 @@ export class PlayFillInTheBlankQuestion extends React.Component<any, any> {
     }
   }
 
-  renderInput = (i) => {
+  renderInput = (i: number) => {
     const { inputErrors, cues, inputVals, } = this.state
     let className = 'fill-in-blank-input'
     if (inputErrors.has(i)) {
@@ -185,18 +217,19 @@ export class PlayFillInTheBlankQuestion extends React.Component<any, any> {
     );
   }
 
-  getNegativeConceptResultsForResponse(conceptResults) {
+  getNegativeConceptResultsForResponse(conceptResults: object[]) {
     return hashToCollection(conceptResults).filter(cr => !cr.correct);
   }
 
-  getNegativeConceptResultForResponse(conceptResults) {
+  getNegativeConceptResultForResponse(conceptResults: object[]) {
     const negCRs = this.getNegativeConceptResultsForResponse(conceptResults);
     return negCRs.length > 0 ? negCRs[0] : undefined;
   }
 
   renderConceptExplanation = () => {
     const { conceptsFeedback, } = this.props
-    const latestAttempt:Attempt|undefined = this.getLatestAttempt();
+    // TODO: update Response interface in quill-marking-logic
+    const latestAttempt: Attempt|undefined = this.getLatestAttempt();
     if (latestAttempt && latestAttempt.response && !latestAttempt.response.optimal ) {
       if (latestAttempt.response.conceptResults) {
           const conceptID = this.getNegativeConceptResultForResponse(latestAttempt.response.conceptResults);
@@ -253,7 +286,8 @@ export class PlayFillInTheBlankQuestion extends React.Component<any, any> {
   }
 
   handleSubmitClick = () => {
-    const { question, submitResponse, } = this.props;
+    const { submitResponse, previewMode } = this.props;
+    const question = this.getQuestion();
     const { caseInsensitive, conceptID, key } = question;
     const { inputErrors, blankAllowed, inputVals, responses, } = this.state;
     if (!inputErrors.size) {
@@ -268,12 +302,19 @@ export class PlayFillInTheBlankQuestion extends React.Component<any, any> {
       const defaultConceptUID = conceptID;
       const responsesArray = hashToCollection(responses);
       const response = {response: checkFillInTheBlankQuestion(questionUID, zippedAnswer, responsesArray, caseInsensitive, defaultConceptUID)};
+      if(previewMode) {
+        this.setState(prevState => ({ 
+          previewAttempt: response, 
+          previewAttemptSubmitted: true, 
+          previewSubmissionCount: prevState.previewSubmissionCount + 1 
+        }));
+      }
       this.updateResponseResource(response);
       submitResponse(response);
     }
   }
 
-  setResponse(response) {
+  setResponse(response: Response) {
     const { setResponse, } = this.props
     if (setResponse) {
       setResponse(response)
@@ -281,8 +322,9 @@ export class PlayFillInTheBlankQuestion extends React.Component<any, any> {
   }
 
   updateResponseResource(response) {
-    const { dispatch, } = this.props
-    updateResponseResource(response, this.getQuestion().key, this.getQuestion().attempts, dispatch);
+    const { dispatch, previewMode } = this.props
+    const attempts = previewMode ? [this.getLatestAttempt()] : this.getQuestion().attempts;
+    updateResponseResource(response, this.getQuestion().key, attempts, dispatch);
   }
 
   renderMedia = () => {
@@ -303,27 +345,41 @@ export class PlayFillInTheBlankQuestion extends React.Component<any, any> {
     return text;
   }
 
-  getLatestAttempt(): Attempt | undefined {
-    const { question, } = this.props
+  getLatestAttempt = ():{response:Response}|undefined => {
+    const { previewAttempt } = this.state;
+    const { question } = this.props;
+    if(previewAttempt) {
+      return previewAttempt;
+    }
     return _.last(question.attempts || []);
   }
 
   showNextQuestionButton = () => {
-    const { question, } = this.props;
+    const { previewSubmissionCount } = this.state;
+    const { question, previewMode } = this.props;
     const latestAttempt = this.getLatestAttempt();
-    return (question.attempts && question.attempts.length > 4) || (latestAttempt && latestAttempt.response.optimal);
+    const maxAttemptsReached = (question.attempts && question.attempts.length > 4) ||(previewMode && previewSubmissionCount > 4);
+    const optimalResponse = latestAttempt && latestAttempt.response.optimal;
+    return maxAttemptsReached || optimalResponse;
   }
 
   renderButton = () => {
-    const { nextQuestion, question, isLastQuestion, } = this.props
-    const { responses, } = this.state
+    const { nextQuestion, isLastQuestion, previewMode } = this.props
+    const question = this.getQuestion();
+    const { responses, previewSubmissionCount } = this.state
+    let showRecheckWorkButton;
+    if(previewMode) {
+      showRecheckWorkButton = previewSubmissionCount > 0;
+    } else {
+      showRecheckWorkButton = question && question.attempts ? question.attempts.length > 0 : false
+    }
     if (this.showNextQuestionButton()) {
       const buttonText = isLastQuestion ? 'Next' : 'Next question'
       return (
         <button className="quill-button focus-on-light large primary contained" onClick={nextQuestion} type="button">{buttonText}</button>
       );
     } else if (responses) {
-      if (question && question.attempts ? question.attempts.length > 0 : false) {
+      if (showRecheckWorkButton) {
         return <button className="quill-button focus-on-light large primary contained" onClick={this.handleSubmitClick} type="button">Recheck work</button>;
       } else {
         return <button className="quill-button focus-on-light large primary contained" onClick={this.handleSubmitClick} type="button">Submit</button>;
@@ -333,13 +389,14 @@ export class PlayFillInTheBlankQuestion extends React.Component<any, any> {
     }
   }
 
-  renderFeedbackStatements(attempt) {
+  renderFeedbackStatements(attempt: Attempt) {
     return <RenderQuestionFeedback attempt={attempt} getQuestion={this.getQuestion} />;
   }
 
   renderFeedback = () => {
-    const { question, } = this.props
-    const { responses, inputErrors, } = this.state
+    const question = this.getQuestion();
+    const { previewMode } = this.props;
+    const { responses, inputErrors, previewAttempt, previewAttemptSubmitted} = this.state
 
     if (inputErrors && inputErrors.size) {
       const blankFeedback = question.blankAllowed ? ' or leave it blank' : ''
@@ -353,6 +410,9 @@ export class PlayFillInTheBlankQuestion extends React.Component<any, any> {
 
     return (<FeedbackContainer
       getQuestion={this.getQuestion}
+      previewAttempt={previewAttempt}
+      previewAttemptSubmitted={previewAttemptSubmitted}
+      previewMode={previewMode}
       question={question}
       renderFeedbackStatements={this.renderFeedbackStatements}
       responses={responses}

@@ -14,6 +14,7 @@ import {
 import updateResponseResource from '../renderForQuestions/updateResponseResource.js';
 import POSMatcher from '../../libs/sentenceFragment';
 import { SentenceFragmentQuestion } from '../../interfaces/questions';
+import { Attempt } from '../renderForQuestions/answerState.js';
 const icon = `${process.env.CDN_URL}/images/icons/direction.svg`
 
 interface PlaySentenceFragmentProps {
@@ -41,7 +42,7 @@ interface PlaySentenceFragmentState {
 }
 
 class PlaySentenceFragment extends React.Component<PlaySentenceFragmentProps, PlaySentenceFragmentState> {
-  constructor(props) {
+  constructor(props: PlaySentenceFragmentProps) {
     super(props)
 
     const { question } = props
@@ -305,7 +306,7 @@ class PlaySentenceFragment extends React.Component<PlaySentenceFragmentProps, Pl
     }
   }
 
-  renderFeedbackStatements(attempt) {
+  renderFeedbackStatements(attempt: Attempt) {
     return <RenderQuestionFeedback attempt={attempt} getQuestion={this.getQuestion} />;
   }
 

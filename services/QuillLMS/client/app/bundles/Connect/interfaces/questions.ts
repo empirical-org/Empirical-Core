@@ -48,6 +48,23 @@ export interface SentenceFragmentQuestion {
   concept_uid?: string;
 }
 
+export interface FillInBlankQuestion {
+  attempts?: ResponseAttempt[];
+  blankAllowed: boolean;
+  caseInsensitive?: boolean;
+  conceptID: string;
+  cues: string[];
+  cuesLabel: string;
+  flag: string;
+  instructions: string;
+  itemLevel: string;
+  key: string;
+  mediaAlt?: string;
+  mediaURL?: string;
+  modelConceptUID?: string;
+  prompt: string;
+}
+
 export interface Answer {
   text: string;
 }

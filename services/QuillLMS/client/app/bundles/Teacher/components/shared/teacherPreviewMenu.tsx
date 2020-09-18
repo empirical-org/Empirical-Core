@@ -83,7 +83,7 @@ const getIndentation = (i: number) => {
 
 const getQuestionObject = ({questions, titleCards, sentenceFragments, fillInBlank, key}) => {
   let questionObject;
-  if(questions[key]) {
+  if(questions && questions[key]) {
     questionObject = questions[key];
   } else if(titleCards && titleCards[key]) {
     questionObject = titleCards[key];
@@ -116,7 +116,7 @@ const renderQuestions = ({
   if(!activity && !randomizedQuestions && !session) {
     return null;
   // some Grammar activities return an empty array for the questions property so we check it's length
-  } else if(activity && activity.questions && activity.questions.length && questions) {
+  } else if(activity && activity.questions && activity.questions.length) {
     return activity.questions.map((question: any, i: number) => {
       const { key } = question;
       const questionObject = getQuestionObject({ questions, titleCards, sentenceFragments, fillInBlank, key });

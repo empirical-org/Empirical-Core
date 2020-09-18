@@ -24,6 +24,7 @@ import {
   getGradedResponsesWithCallback
 } from '../../actions/responses.js';
 import EditCaretPositioning from '../../libs/EditCaretPositioning';
+import { Attempt } from '../renderForQuestions/answerState.js';
 
 const RenderSentenceFragments = SentenceFragments
 const C = require('../../constants').default;
@@ -175,7 +176,7 @@ export default class PlayLessonQuestion extends React.Component<PlayLessonQuesti
     return `${newCues.splice(0, newCues.length - 1).join(', ')} or ${newCues.pop()}.`;
   }
 
-  renderFeedback = (override: string) => {
+  renderFeedback = (override?: string) => {
     const { question, previewMode } = this.props;
     const { previewAttempt, previewAttemptSubmitted, response } = this.state;
     let sentence;
@@ -202,19 +203,19 @@ export default class PlayLessonQuestion extends React.Component<PlayLessonQuesti
     />);
   }
 
-  getQuestionAttempt = (attempt: object) => {
+  getQuestionAttempt = (attempt: Attempt) => {
     const { previewAttempt } = this.state;
     const { previewMode } = this.props;
     const questionAttempt = previewMode && previewAttempt ? previewAttempt : attempt;
     return questionAttempt;
   }
 
-  getErrorsForAttempt = (attempt: object) => {
+  getErrorsForAttempt = (attempt: Attempt) => {
     const questionAttempt = this.getQuestionAttempt(attempt);
     return _.pick(questionAttempt, ...C.ERROR_TYPES);
   }
 
-  renderFeedbackStatements = (attempt: object) => {
+  renderFeedbackStatements = (attempt: Attempt) => {
     const questionAttempt = this.getQuestionAttempt(attempt);
     return <RenderQuestionFeedback attempt={questionAttempt} getErrorsForAttempt={this.getErrorsForAttempt} getQuestion={this.getQuestion} />;
   }
@@ -241,7 +242,7 @@ export default class PlayLessonQuestion extends React.Component<PlayLessonQuesti
     return (latestAttempt && latestAttempt.response && !errorsForAttempt && latestAttempt.response.optimal);
   }
 
-  checkAnswer = (e) => {
+  checkAnswer = (e: React.SyntheticEvent) => {
     const { previewMode } = this.props;
     const { editing, response, } = this.state
     if (editing && this.getResponses() && Object.keys(this.getResponses()).length) {
@@ -272,7 +273,7 @@ export default class PlayLessonQuestion extends React.Component<PlayLessonQuesti
     return 'disabled';
   }
 
-  onChange = (e, element) => {
+  onChange = (e: string, element: React.ReactElement) => {
     const { response, } = this.state
     if (e !== response) {
       const caretPosition = EditCaretPositioning.saveSelection(element)
@@ -389,7 +390,9 @@ export default class PlayLessonQuestion extends React.Component<PlayLessonQuesti
   }
 
   multipleChoiceFinishQuestion = () => {
-    this.setState({ multipleChoiceCorrect: true, }, this.finishQuestion());
+    this.setState({ multipleChoiceCorrect: true, }, () => {
+      this.finishQuestion();
+    });
   }
 
   handleGetLatestAttempt = () => {

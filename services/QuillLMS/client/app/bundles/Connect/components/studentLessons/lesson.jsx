@@ -320,7 +320,7 @@ export class Lesson extends React.Component {
     if (playLesson.currentQuestion) {
       const { type } = playLesson.currentQuestion;
       const question = this.getQuestion();
-      if (type === 'SF' || (previewMode && question.type === 'SF')) {
+      if ((!previewMode && type === 'SF') || (previewMode && question.type === 'SF')) {
         component = (
           <PlaySentenceFragment
             conceptsFeedback={conceptsFeedback}
@@ -338,7 +338,7 @@ export class Lesson extends React.Component {
             updateAttempts={this.submitResponse}
           />
         );
-      } else if (type === 'FB' || (previewMode && question.type === 'FB')) {
+      } else if ((!previewMode && type === 'FB') || (previewMode && question.type === 'FB')) {
         component = (
           <PlayFillInTheBlankQuestion
             conceptsFeedback={conceptsFeedback}
@@ -354,7 +354,7 @@ export class Lesson extends React.Component {
             submitResponse={this.submitResponse}
           />
         );
-      } else if (type === 'TL'){
+      } else if ((!previewMode && type === 'TL') || (previewMode && question.type === 'TL')){
         component = (
           <PlayTitleCard
             data={question}
