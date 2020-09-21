@@ -15,27 +15,27 @@
       </thead>
       <tbody>
         <% @teacher_data.each do |teacher| %>
-          
+
           <tr>
             <td><%= teacher['teacher_name'] || 'N/A' %></td>
             <td><%= teacher['flags']&.include?('auditor') ? 'Auditor' : 'Teacher' %></td>
             <td><%= teacher['title'] || 'N/A' %></td>
             <td><%= teacher['flags']&.include?('purchaser') ? 'Purchaser' : '' %></td>
             <td><%= teacher['flags']&.include?('school_point_of_contact') ? 'School\'s Point of Contact' : '' %></td>
-            <% %w(title number_classrooms number_students number_activities_completed last_active subscription).each do |attribute| %>
+            <% %w(number_classrooms number_students number_activities_completed last_active subscription).each do |attribute| %>
               <td><%= teacher[attribute] || 'N/A' %></td>
             <% end %>
             <td>
               <% unless teacher['admin_id'].blank? %>
-                <%= link_to 'Remove Admin', cms_user_remove_admin_path(user_id: teacher['user_id'], school_id: params[:id]), method: :put %>
+                <%= button_to 'Remove Admin', cms_user_remove_admin_path(user_id: teacher['user_id'], school_id: params[:id]), method: :put %>
               <% else %>
-                <%= link_to 'Make Admin', cms_user_make_admin_path(user_id: teacher['user_id'], school_id: params[:id]), method: :put %>
+                <%= button_to 'Make Admin', cms_user_make_admin_path(user_id: teacher['user_id'], school_id: params[:id]), method: :put %>
               <% end %>
             </td>
             <td>
               <%= link_to 'edit', edit_cms_user_path(teacher['user_id']) %>
             </td>
-            <td><%= link_to 'Sign In', sign_in_cms_user_path(teacher['user_id']), method: :put %></td>
+            <td><%= link_to 'Sign In', sign_in_cms_user_path(teacher['user_id']) %></td>
           </tr>
         <% end %>
       </tbody>
@@ -81,7 +81,7 @@
             <tr>
               <td><%= admin[:name] %></td>
               <td><%= admin[:email] %></td>
-              <td><%= link_to 'Remove Admin', cms_user_remove_admin_path(user_id: admin[:user_id], school_id: admin[:school_id]), data: { confirm: 'Are you sure?' }, method: :put %></td>
+              <td><%= button_to 'Remove Admin', cms_user_remove_admin_path(user_id: admin[:user_id], school_id: admin[:school_id]), data: { confirm: 'Are you sure?' }, method: :put %></td>
             </tr>
           <% end %>
         </tbody>
