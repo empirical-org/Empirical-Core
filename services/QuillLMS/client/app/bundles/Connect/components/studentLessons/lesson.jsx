@@ -6,10 +6,10 @@ import PlaySentenceFragment from './sentenceFragment.jsx';
 import PlayFillInTheBlankQuestion from './fillInBlank.tsx'
 import {
   PlayTitleCard,
-  Register,
   Spinner,
   ProgressBar
-} from 'quill-component-library/dist/componentLibrary'
+} from 'quill-component-library/dist/componentLibrary';
+import { Register } from '../../../Shared/components/studentLessons/register'
 import { clearData, loadData, nextQuestion, submitResponse, updateCurrentQuestion, resumePreviousSession } from '../../actions.js';
 import SessionActions from '../../actions/sessions.js';
 import _ from 'underscore';
@@ -41,6 +41,8 @@ export class Lesson extends React.Component {
     const { dispatch, } = this.props
     dispatch(clearData());
   }
+
+  //TODO: refactor into componentDidUpdate
 
   UNSAFE_componentWillReceiveProps(nextProps) {
     const { playLesson, } = this.props
@@ -76,7 +78,7 @@ export class Lesson extends React.Component {
       }
       if(previewMode && !introSkipped) {
         this.setState({ introSkipped: true });
-        this.startActivity();
+        // this.startActivity();
       }
     }
   }
@@ -354,14 +356,12 @@ export class Lesson extends React.Component {
             submitResponse={this.submitResponse}
           />
         );
-      } else if ((!previewMode && type === 'TL') || (previewMode && question.type === 'TL')){
+      } else if ((!previewMode && type === 'TL') || (previewMode && question.title)){
         component = (
           <PlayTitleCard
             data={question}
             handleContinueClick={this.nextQuestion}
             isLastQuestion={isLastQuestion}
-            onHandleToggleQuestion={onHandleToggleQuestion}
-            previewMode={previewMode}
           />
         )
       } else {
@@ -395,7 +395,13 @@ export class Lesson extends React.Component {
       );
     } else {
       component = (
-        <Register lesson={this.getLesson()} resumeActivity={this.resumeSession} session={session} startActivity={this.startActivity} />
+        <Register 
+          lesson={this.getLesson()} 
+          previewMode={previewMode} 
+          resumeActivity={this.resumeSession} 
+          session={session} 
+          startActivity={this.startActivity} 
+        />
       );
     }
 

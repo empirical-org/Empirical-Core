@@ -2,17 +2,22 @@ import * as React from "react";
 import * as Redux from "redux";
 import { connect } from "react-redux";
 import stripHtml from "string-strip-html";
+import $ from 'jquery';
 import { getActivity } from "../../../Grammar/actions/grammarActivities";
 import getParameterByName from "../../../Grammar/helpers/getParameterByName";
 import { Question } from '../../../Grammar/interfaces/questions';
 
 interface Activity {
-  title?: string,
-  name?: string,
-  questions: {
+  title?: string;
+  name?: string;
+  questions?: {
     key: string;
   }[]; 
   description?: string;
+  landingPageHtml?: string;
+  questionType?: string;
+  flag?: string;
+  modelConceptUID?: string;
 }
 
 const returnActivity = (state: any) => {
@@ -26,32 +31,8 @@ const returnActivity = (state: any) => {
   return null;
 }
 
-const returnQuestions = (questions: any) => {
-  const { data } = questions;
-  if(data && Object.keys(data).length === 0) {
-    return null;
-  }
-  return data;
-}
-
-const returnTitleCards = (titleCards: any) => {
-  const { data } = titleCards;
-  if(data && Object.keys(data).length === 0) {
-    return null;
-  }
-  return data;
-}
-
-const returnSentenceFragments = (sentenceFragments: any) => {
-  const { data } = sentenceFragments;
-  if(data && Object.keys(data).length === 0) {
-    return null;
-  }
-  return data;
-}
-
-const returnFillInBlank = (fillInBlank: any) => {
-  const { data } = fillInBlank;
+const returnActivityData = (activityData: { data: object }) => {
+  const { data } = activityData;
   if(data && Object.keys(data).length === 0) {
     return null;
   }
@@ -68,10 +49,27 @@ const renderTitleSection = (activity: Activity) => {
   );
 }
 
-const getStyling = (questionToPreview, uidOrKey: string, i: number) => {
+const renderIntroductionSection = (activity: Activity, playLesson: any) => {
+  if(!activity) { return }
+  if(activity && !activity.landingPageHtml) { return }
+  const introductionText = $(activity.landingPageHtml).filter('h3').text();
+  const style = playLesson && !playLesson.questionSet ? 'highlighted' : '';
+  return(
+    <section>
+      <h2>Introduction</h2>
+      <p className={style}>{introductionText}</p>
+    </section>
+  );
+}
+
+const getStyling = (questionToPreview, uidOrKey, i, playLesson) => {
   let key: string;
   if(questionToPreview) {
     key = questionToPreview.key ? questionToPreview.key : questionToPreview.uid;
+  }
+  // don't apply highlight if activity has not started
+  if(playLesson && !playLesson.questionSet) {
+    return '';
   }
   // if first question has no key from initial render, apply highlight
   return key === uidOrKey || (i === 0 && !key) ? 'highlighted' : '';
@@ -81,7 +79,7 @@ const getIndentation = (i: number) => {
   return i < 9 ? 'indented' : '';
 }
 
-const getQuestionObject = ({questions, titleCards, sentenceFragments, fillInBlank, key}) => {
+const getQuestionObject = ({ questions, titleCards, sentenceFragments, fillInBlank, key }) => {
   let questionObject;
   if(questions && questions[key]) {
     questionObject = questions[key];
@@ -105,7 +103,8 @@ const getQuestionObject = ({questions, titleCards, sentenceFragments, fillInBlan
 const renderQuestions = ({ 
   activity, 
   fillInBlank,
-  handleQuestionUpdate, 
+  handleQuestionUpdate,
+  playLesson, 
   questions, 
   questionToPreview,
   randomizedQuestions, 
@@ -121,7 +120,7 @@ const renderQuestions = ({
       const { key } = question;
       const questionObject = getQuestionObject({ questions, titleCards, sentenceFragments, fillInBlank, key });
       const questionText = questionObject.prompt || questionObject.title
-      const style = getStyling(questionToPreview, key, i);
+      const style = getStyling(questionToPreview, key, i, playLesson);
       const indentation = getIndentation(i);
       if(!questionObject) {
         return null;
@@ -136,7 +135,7 @@ const renderQuestions = ({
   } else if(randomizedQuestions) {
     return randomizedQuestions.map((question: any, i: number) => {
       const { uid } = question;
-      const style = getStyling(questionToPreview, uid, i);
+      const style = getStyling(questionToPreview, uid, i, playLesson);
       const indentation = getIndentation(i);
       return(
         <button className={`question-container ${style} focus-on-light`} id={uid} key={uid} onClick={handleQuestionUpdate} type="button">
@@ -154,7 +153,8 @@ export interface TeacherPreviewMenuProps {
   fillInBlank: any[];
   onTogglePreview?: () => void;
   onToggleQuestion?: (question: Question) => void;
-  onUpdateRandomizedQuestions?: (questions: any[]) => void
+  onUpdateRandomizedQuestions?: (questions: any[]) => void;
+  playLesson: any;
   questions: Question[];
   questionToPreview?: { 
     key?: string, 
@@ -173,6 +173,7 @@ const TeacherPreviewMenu = ({
   onTogglePreview, 
   onToggleQuestion, 
   onUpdateRandomizedQuestions,
+  playLesson,
   questions, 
   questionToPreview,
   sentenceFragments,
@@ -227,6 +228,7 @@ const TeacherPreviewMenu = ({
         <p>This menu only displays for teachers previewing an activity. Students will not be able to skip questions.</p>
       </section>
       {renderTitleSection(activity)}
+      {renderIntroductionSection(activity, playLesson)}
       <section>
         <h2>Questions</h2>
         <ul>
@@ -234,6 +236,7 @@ const TeacherPreviewMenu = ({
             activity,
             fillInBlank,
             handleQuestionUpdate,
+            playLesson,
             questions, 
             questionToPreview,
             randomizedQuestions, 
@@ -248,14 +251,15 @@ const TeacherPreviewMenu = ({
 }
 
 const mapStateToProps = (state: any) => {
-  const { questions, session, titleCards, sentenceFragments, fillInBlank } = state;
+  const { questions, session, titleCards, sentenceFragments, fillInBlank, playLesson } = state;
   return {
     activity: returnActivity(state),
-    fillInBlank: fillInBlank ? returnFillInBlank(fillInBlank) : null,
-    questions: questions ? returnQuestions(questions) : null,
-    sentenceFragments: sentenceFragments ? returnSentenceFragments(sentenceFragments) : null,
+    fillInBlank: fillInBlank ? returnActivityData(fillInBlank) : null,
+    playLesson: playLesson,
+    questions: questions ? returnActivityData(questions) : null,
+    sentenceFragments: sentenceFragments ? returnActivityData(sentenceFragments) : null,
     session: session,
-    titleCards: titleCards ? returnTitleCards(titleCards) : null,
+    titleCards: titleCards ? returnActivityData(titleCards) : null,
   };
 };
 

@@ -150,12 +150,6 @@ export class PlayFillInTheBlankQuestion extends React.Component<PlayFillInTheBla
     };
   }
 
-  getBlurHandler = (index: number) => {
-    return () => {
-      this.validateInput(index);
-    };
-  }
-
   renderText(text: string, i: number): JSX.Element[] {
     let style = {};
     if (text.length > 0) {
@@ -203,11 +197,11 @@ export class PlayFillInTheBlankQuestion extends React.Component<PlayFillInTheBla
     return (
       <span key={`span${i}`}>
         <input
+          aria-label="text input"
           autoComplete="off"
           className={className}
           id={`input${i}`}
           key={i + 100}
-          onBlur={this.getBlurHandler(i)}
           onChange={this.getChangeHandler(i)}
           style={styling}
           type="text"

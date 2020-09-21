@@ -1,0 +1,103 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`TeacherPreviewMenu component should match snapshot 1`] = `
+<Provider
+  store={
+    Object {
+      "dispatch": [Function],
+      "getState": [Function],
+      "replaceReducer": [Function],
+      "subscribe": [Function],
+      Symbol(observable): [Function],
+    }
+  }
+>
+  <Connect(TeacherPreviewMenu)
+    activity={
+      Object {
+        "questions": Array [
+          Object {
+            "key": "abc",
+          },
+          Object {
+            "key": "def",
+          },
+          Object {
+            "key": "ghi",
+          },
+        ],
+      }
+    }
+    questions={
+      Object {
+        "abc": Object {
+          "prompt": "123",
+          "title": "abc",
+        },
+        "def": Object {
+          "prompt": "456",
+          "title": "def",
+        },
+        "ghi": Object {
+          "prompt": "789",
+          "title": "ghi",
+        },
+      }
+    }
+    showPreview={true}
+  >
+    <TeacherPreviewMenu
+      dispatch={[Function]}
+      fillInBlank={null}
+      playLesson={
+        Object {
+          "answeredQuestions": Array [],
+          "unansweredQuestions": Array [],
+        }
+      }
+      questions={null}
+      sentenceFragments={null}
+      showPreview={true}
+      titleCards={null}
+    >
+      <aside
+        className="teacher-preview-menu-container "
+      >
+        <section
+          className="header-container"
+        >
+          <h1>
+            Menu
+          </h1>
+          <button
+            className="close-preview-button focus-on-light"
+            onClick={[Function]}
+            type="button"
+          >
+            <img
+              alt="close-preview-button"
+              src="undefined/images/icons/close.svg"
+            />
+          </button>
+        </section>
+        <section
+          className="preview-section"
+        >
+          <h2>
+            Preview Mode
+          </h2>
+          <p>
+            This menu only displays for teachers previewing an activity. Students will not be able to skip questions.
+          </p>
+        </section>
+        <section>
+          <h2>
+            Questions
+          </h2>
+          <ul />
+        </section>
+      </aside>
+    </TeacherPreviewMenu>
+  </Connect(TeacherPreviewMenu)>
+</Provider>
+`;
