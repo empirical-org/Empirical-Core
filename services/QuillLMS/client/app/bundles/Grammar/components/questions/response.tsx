@@ -21,61 +21,11 @@ import * as jsDiff from 'diff'
 import { ActionTypes } from '../../actions/actionTypes';
 
 
-export default class Response extends React.Component<any, any> {
-  constructor(props: any) {
+export default class extends React.Component {
+  constructor(props) {
     super(props)
 
-    this.state = this.initialState()
-
-    this.initialState = this.initialState.bind(this)
-    this.deleteResponse = this.deleteResponse.bind(this)
-    this.editResponse = this.editResponse.bind(this)
-    this.cancelResponseEdit = this.cancelResponseEdit.bind(this)
-    this.viewFromResponses = this.viewFromResponses.bind(this)
-    this.cancelFromResponseView = this.cancelFromResponseView.bind(this)
-    this.viewToResponses = this.viewToResponses.bind(this)
-    this.cancelToResponseView = this.cancelToResponseView.bind(this)
-    this.updateResponse = this.updateResponse.bind(this)
-    this.unmatchResponse = this.unmatchResponse.bind(this)
-    this.getErrorsForAttempt = this.getErrorsForAttempt.bind(this)
-    this.rematchResponse = this.rematchResponse.bind(this)
-    this.applyDiff = this.applyDiff.bind(this)
-    this.handleFeedbackChange = this.handleFeedbackChange.bind(this)
-    this.deleteConceptResult = this.deleteConceptResult.bind(this)
-    this.addResponseToMassEditArray = this.addResponseToMassEditArray.bind(this)
-    this.removeResponseFromMassEditArray = this.removeResponseFromMassEditArray.bind(this)
-    this.clearResponsesFromMassEditArray = this.clearResponsesFromMassEditArray.bind(this)
-    this.onMassSelectCheckboxToggle = this.onMassSelectCheckboxToggle.bind(this)
-    this.toggleCheckboxCorrect = this.toggleCheckboxCorrect.bind(this)
-    this.handleConceptChange = this.handleConceptChange.bind(this)
-    this.getParentResponse = this.getParentResponse.bind(this)
-    this.renderConceptResults = this.renderConceptResults.bind(this)
-    this.renderResponseContent = this.renderResponseContent.bind(this)
-    this.renderResponseFooter = this.renderResponseFooter.bind(this)
-    this.renderResponseHeader = this.renderResponseHeader.bind(this)
-    this.cardClasses = this.cardClasses.bind(this)
-    this.headerClasses = this.headerClasses.bind(this)
-    this.renderChildResponses = this.renderChildResponses.bind(this)
-    this.renderToResponsePathways = this.renderToResponsePathways.bind(this)
-    this.renderFromResponsePathways = this.renderFromResponsePathways.bind(this)
-  }
-
-  UNSAFE_componentWillReceiveProps(nextProps: any) {
-    if (!_.isEqual(nextProps.response, this.props.response)) {
-      let conceptResults = {}
-      if (nextProps.response.concept_results) {
-        if (typeof nextProps.response.concept_results === 'string') {
-          conceptResults = JSON.parse(nextProps.response.concept_results)
-        } else {
-          conceptResults = nextProps.response.concept_results
-        }
-      }
-      this.setState({conceptResults})
-    }
-  }
-
-  initialState() {
-    const response = this.props.response
+    const response = props.response
     const actions = questionActions
     let conceptResults = {}
     if (response.concept_results) {
@@ -85,7 +35,7 @@ export default class Response extends React.Component<any, any> {
         conceptResults = response.concept_results
       }
     }
-    return {
+    this.state = {
       feedback: response.feedback || '',
       selectedBoilerplate: '',
       selectedBoilerplateCategory: response.selectedBoilerplateCategory || '',
@@ -100,52 +50,82 @@ export default class Response extends React.Component<any, any> {
     };
   }
 
-  deleteResponse(rid: string) {
-    if (window.confirm('Are you sure?')) {
-      this.props.dispatch(deleteResponse(this.props.questionID, rid));
-      this.props.dispatch(massEdit.removeResponseFromMassEditArray(rid));
+  UNSAFE_componentWillReceiveProps(nextProps) {
+    const { response } = nextProps;
+    if (!_.isEqual(response, this.props.response)) {
+      let conceptResults = {}
+      if (nextProps.response.concept_results) {
+        if (typeof nextProps.response.concept_results === 'string') {
+          conceptResults = JSON.parse(nextProps.response.concept_results)
+        } else {
+          conceptResults = nextProps.response.concept_results
+        }
+      }
+      this.setState({conceptResults})
     }
   }
 
-  editResponse(rid: string) {
-    this.props.dispatch(this.state.actions.startResponseEdit(this.props.questionID, rid));
+  deleteResponse = (rid: string) => {
+    const { dispatch, questionID } = this.props
+    if (window.confirm('Are you sure?')) {
+      dispatch(deleteResponse(questionID, rid));
+      dispatch(massEdit.removeResponseFromMassEditArray(rid));
+    }
   }
 
-  cancelResponseEdit(rid: string) {
-    this.setState(this.initialState())
-    this.props.dispatch(this.state.actions.cancelResponseEdit(this.props.questionID, rid));
+  editResponse = (rid: string) => {
+    const { dispatch, questionID } = this.props
+    const { actions } = this.state
+    dispatch(actions.startResponseEdit(questionID, rid));
   }
 
-  viewFromResponses(rid: string) {
-    this.props.dispatch(this.state.actions.startFromResponseView(this.props.questionID, rid));
+  cancelResponseEdit = (rid: string) => {
+    const { dispatch, questionID } = this.props
+    const { actions } = this.state
+    dispatch(actions.cancelResponseEdit(questionID, rid));
   }
 
-  cancelFromResponseView(rid: string) {
-    this.props.dispatch(this.state.actions.cancelFromResponseView(this.props.questionID, rid));
+  viewFromResponses = (rid: string) => {
+    const { dispatch, questionID } = this.props
+    const { actions } = this.state
+    dispatch(actions.startFromResponseView(questionID, rid));
   }
 
-  viewToResponses(rid: string) {
-    this.props.dispatch(this.state.actions.startToResponseView(this.props.questionID, rid));
+  cancelFromResponseView = (rid: string) => {
+    const { dispatch, questionID } = this.props
+    const { actions } = this.state
+    dispatch(actions.cancelFromResponseView(questionID, rid));
   }
 
-  cancelToResponseView(rid: string) {
-    this.props.dispatch(this.state.actions.cancelToResponseView(this.props.questionID, rid));
+  viewToResponses = (rid: string) => {
+    const { dispatch, questionID } = this.props
+    const { actions } = this.state
+    dispatch(actions.startToResponseView(this.props.questionID, rid));
   }
 
-  updateResponse(rid: string) {
+  cancelToResponseView = (rid: string) => {
+    const { dispatch, questionID } = this.props
+    const { actions } = this.state
+    dispatch(actions.cancelToResponseView(questionID, rid));
+  }
+
+  updateResponse = (rid: string) => {
+    const { dispatch, questionID } = this.props
+    const { conceptResults, feedback } = this.state
     const newResp = {
       weak: false,
-      feedback: this.state.feedback !== '<br/>' ? this.state.feedback : '',
+      feedback: feedback !== '<br/>' ? feedback : '',
       optimal: this.refs.newResponseOptimal.checked,
       author: null,
       parent_id: null,
-      concept_results: Object.keys(this.state.conceptResults) && Object.keys(this.state.conceptResults).length ? this.state.conceptResults : null
+      concept_results: Object.keys(conceptResults) && Object.keys(conceptResults).length ? this.state.conceptResults : null
     };
-    this.props.dispatch(submitResponseEdit(rid, newResp, this.props.questionID));
+    this.props.dispatch(submitResponseEdit(rid, newResp, questionID));
   }
 
-  unmatchResponse(rid: string) {
-    const { modelConceptUID, concept_uid } = this.props.question
+  unmatchResponse = (rid: string) => {
+    const { dispatch, question, questionID } = this.props;
+    const { modelConceptUID, conceptID, } = question
     const defaultConceptUID = modelConceptUID || concept_uid
     const newResp = {
       weak: false,
@@ -155,18 +135,19 @@ export default class Response extends React.Component<any, any> {
       parent_id: null,
       concept_results: {[defaultConceptUID]: false}
     }
-    this.props.dispatch(submitResponseEdit(rid, newResp, this.props.questionID));
+    dispatch(submitResponseEdit(rid, newResp, questionID));
   }
 
-  getErrorsForAttempt(attempt) {
+  getErrorsForAttempt = (attempt) => {
     return _.pick(attempt, ...ActionTypes.ERROR_TYPES);
   }
 
-  rematchResponse(rid: string) {
-    this.props.getMatchingResponse(rid);
+  rematchResponse = (rid: string) => {
+    const { getMatchingResponse } = this.props
+    getMatchingResponse(rid);
   }
 
-  applyDiff(answer = '', response = '') {
+  applyDiff = (answer = '', response = '') => {
     const diff = jsDiff.diffWords(response, answer);
     const spans = diff.map((part) => {
       const fontWeight = part.added ? 'bold' : 'normal';
@@ -180,7 +161,7 @@ export default class Response extends React.Component<any, any> {
     return spans;
   }
 
-  handleFeedbackChange(e) {
+  handleFeedbackChange = (e) => {
     if (e === 'Select specific boilerplate feedback') {
       this.setState({ feedback: '', });
     } else {
@@ -188,80 +169,93 @@ export default class Response extends React.Component<any, any> {
     }
   }
 
-  deleteConceptResult(crid) {
+  deleteConceptResult = (crid) => {
+    const { conceptResults } = this.state
     if (confirm('Are you sure?')) {
-      const conceptResults = Object.assign({}, this.state.conceptResults || {});
+      const conceptResults = Object.assign({}, conceptResults || {});
       delete conceptResults[crid];
       this.setState({conceptResults})
     }
   }
 
-  addResponseToMassEditArray(responseKey) {
-    this.props.dispatch(massEdit.addResponseToMassEditArray(responseKey));
+  addResponseToMassEditArray = (responseKey) => {
+    const { dispatch } = this.props;
+    dispatch(massEdit.addResponseToMassEditArray(responseKey));
   }
 
-  removeResponseFromMassEditArray(responseKey) {
-    this.props.dispatch(massEdit.removeResponseFromMassEditArray(responseKey));
+  removeResponseFromMassEditArray = (responseKey) => {
+    const { dispatch } = this.props;
+    dispatch(massEdit.removeResponseFromMassEditArray(responseKey));
   }
 
-  clearResponsesFromMassEditArray() {
-    this.props.dispatch(massEdit.clearResponsesFromMassEditArray());
+  clearResponsesFromMassEditArray = () => {
+    const { dispatch } = this.props;
+    dispatch(massEdit.clearResponsesFromMassEditArray());
   }
 
-  onMassSelectCheckboxToggle(responseKey) {
-    if (this.props.massEdit.selectedResponses.includes(responseKey)) {
+  onMassSelectCheckboxToggle = (responseKey) => {
+    const { massEdit } = this.props;
+    if (massEdit.selectedResponses.includes(responseKey)) {
       this.removeResponseFromMassEditArray(responseKey);
     } else {
       this.addResponseToMassEditArray(responseKey);
     }
   }
 
-  toggleCheckboxCorrect(key) {
+  toggleCheckboxCorrect = (key) => {
     const data = this.state;
     data.conceptResults[key] = !data.conceptResults[key]
     this.setState(data);
   }
 
-  handleConceptChange(e) {
-    const concepts = this.state.conceptResults;
+  handleConceptChange = (e) => {
+    const { conceptResults } = this.state;
+    const { response } = this.props;
+    const { optimal } = response;
+    const concepts = conceptResults;
     if (Object.keys(concepts).length === 0 || !concepts.hasOwnProperty(e.value)) {
-      concepts[e.value] = this.props.response.optimal;
+      concepts[e.value] = optimal;
       this.setState({conceptResults: concepts});
     }
   }
 
-  getParentResponse(parentId) {
+  getParentResponse = (parentId) => {
+    const { questionID } = this.props
     const callback = (responses) => {
       this.setState({
         parent: _.filter(responses, (resp) => resp.id === parentId)[0]
       })
     }
-    return getGradedResponsesWithCallback(this.props.questionID, callback);
+    return getGradedResponsesWithCallback(questionID, callback);
   }
 
-  renderConceptResults(mode) {
+  renderConceptResults = (mode) => {
+    const { conceptResults } = this.state
+    const { concepts, response } = this.props
     return (<ConceptResults
-      conceptResults={this.state.conceptResults}
-      concepts={this.props.concepts}
+      conceptResults={conceptResults}
+      concepts={concepts}
       deleteConceptResult={this.deleteConceptResult}
       handleConceptChange={this.handleConceptChange}
-      key={Object.keys(this.state.conceptResults).length}
+      key={Object.keys(conceptResults).length}
       mode={mode}
-      response={this.props.response}
+      response={response}
       toggleCheckboxCorrect={this.toggleCheckboxCorrect}
     />)
   }
 
-  renderResponseContent(isEditing, response) {
+  renderResponseContent = (isEditing, response) => {
     let content;
     let parentDetails;
     let childDetails;
     let pathwayDetails;
-    if (!this.props.expanded) {
+    const { expanded } = this.props
+    const { selectedBoilerplate, feedback } = this.state
+    if (!expanded) {
       return;
     }
     if (response.parentID || response.parent_id) {
-      const parent = this.state.parent;
+      const { parent } = this.state
       if (!parent) {
         this.getParentResponse(response.parentID || response.parent_id)
         parentDetails = [
@@ -288,11 +282,11 @@ export default class Response extends React.Component<any, any> {
           {parentDetails}
           <label className="label">Feedback</label>
           <TextEditor
-            boilerplate={this.state.selectedBoilerplate}
+            boilerplate={selectedBoilerplate}
             ContentState={ContentState}
             EditorState={EditorState}
             handleTextChange={this.handleFeedbackChange}
-            text={this.state.feedback || ''}
+            text={feedback || ''}
           />
 
           <br />
@@ -332,8 +326,9 @@ export default class Response extends React.Component<any, any> {
     );
   }
 
-  renderResponseFooter(isEditing, response) {
-    if (!this.props.readOnly || !this.props.expanded) {
+  renderResponseFooter = (isEditing, response) => {
+    const { readOnly, expanded, response } = this.props
+    if (!readOnly || !expanded) {
       return;
     }
     let buttons;
@@ -350,7 +345,7 @@ export default class Response extends React.Component<any, any> {
         (<a className="card-footer-item" key="delete" onClick={this.deleteResponse.bind(null, response.key)} >Delete</a>)
       ];
     }
-    if (this.props.response.statusCode > 1) {
+    if (response.statusCode > 1) {
       buttons = buttons.concat([(<a className="card-footer-item" key="rematch" onClick={this.rematchResponse.bind(null, response.key)} >Rematch</a>)]);
     }
     return (
@@ -361,7 +356,8 @@ export default class Response extends React.Component<any, any> {
     );
   }
 
-  renderResponseHeader(response) {
+  renderResponseHeader = (response) => {
+    const { massEdit, expand } = this.props
     let bgColor;
     let icon;
     const headerCSSClassNames = ['human-optimal-response', 'human-sub-optimal-response', 'algorithm-optimal-response', 'algorithm-sub-optimal-response', 'not-found-response'];
@@ -372,11 +368,11 @@ export default class Response extends React.Component<any, any> {
     const authorStyle = { marginLeft: '10px', };
     const showTag = response.author && (response.statusCode === 2 || response.statusCode === 3)
     const author = showTag ? <span className="tag is-dark" style={authorStyle}>{response.author}</span> : undefined;
-    const checked = this.props.massEdit.selectedResponses.includes(response.id) ? 'checked' : '';
+    const checked = massEdit.selectedResponses.includes(response.id) ? 'checked' : '';
     return (
       <div className={bgColor} style={{ display: 'flex', alignItems: 'center', }}>
         <input checked={checked} onChange={() => this.onMassSelectCheckboxToggle(response.id)} style={{ marginLeft: '15px', }} type="checkbox" />
-        <header className={`card-content ${this.headerClasses()}`} onClick={() => this.props.expand(response.key)} style={{ flexGrow: '1', }}>
+        <header className={`card-content ${this.headerClasses()}`} onClick={() => expand(response.key)} style={{ flexGrow: '1', }}>
           <div className="content">
             <div className="media">
               <div className="media-content">
@@ -400,65 +396,70 @@ export default class Response extends React.Component<any, any> {
   }
 
   cardClasses() {
-    if (this.props.expanded) {
+    const { expanded } = this.props
+    if (expanded) {
       return 'has-bottom-margin has-top-margin';
     }
   }
 
-  headerClasses() {
-    if (!this.props.expanded) {
+  headerClasses = () => {
+    const { expanded } = this.props
+    if (!expanded) {
       return 'unexpanded';
     }
     return 'expanded';
   }
 
-  renderChildResponses(isViewingChildResponses, key) {
+  renderChildResponses = (isViewingChildResponses, key) => {
+    const { ascending, dispatch, expand, allExpanded, getChildResponses, getResponse, questionID, states } = this.props
     if (isViewingChildResponses) {
       return (
         <Modal close={this.cancelChildResponseView.bind(null, key)}>
           <ResponseList
             admin={false}
-            ascending={this.props.ascending}
-            dispatch={this.props.dispatch}
-            expand={this.props.expand}
-            expanded={this.props.allExpanded}
-            getChildResponses={this.props.getChildResponses}
-            getResponse={this.props.getResponse}
-            questionID={this.props.questionID}
-            responses={this.props.getChildResponses(key)}
+            ascending={ascending}
+            dispatch={dispatch}
+            expand={expand}
+            expanded={allExpanded}
+            getChildResponses={getChildResponses}
+            getResponse={getResponse}
+            questionID={questionID}
+            responses={getChildResponses(key)}
             showPathways={false}
-            states={this.props.states}
+            states={states}
           />
         </Modal>
       );
     }
   }
 
-  renderToResponsePathways(isViewingToResponses, key) {
+  renderToResponsePathways = (isViewingToResponses, key) => {
+    const { ascending, dispatch, expand, allExpanded, getChildResponses, getResponse, questionID, toPathways, response, states } = this.props
     if (isViewingToResponses) {
       return (
         <Modal close={this.cancelToResponseView.bind(null, key)}>
           <ResponseList
             admin={false}
-            ascending={this.props.ascending}
-            dispatch={this.props.dispatch}
-            expand={this.props.expand}
-            expanded={this.props.allExpanded}
-            getChildResponses={this.props.getChildResponses}
-            getResponse={this.props.getResponse}
-            questionID={this.props.questionID}
-            responses={this.props.toPathways(this.props.response.key)}
+            ascending={ascending}
+            dispatch={dispatch}
+            expand={expand}
+            expanded={allExpanded}
+            getChildResponses={getChildResponses}
+            getResponse={getResponse}
+            questionID={questionID}
+            responses={toPathways(response.key)}
             showPathways={false}
-            states={this.props.states}
+            states={states}
           />
         </Modal>
       );
     }
   }
 
-  renderFromResponsePathways(isViewingFromResponses, key) {
+  renderFromResponsePathways= (isViewingFromResponses, key) => {
+    const { response, printPathways, ascending, dispatch, expand, allExpanded, getChildResponses, getResponse, questionID, states } = this.props
     if (isViewingFromResponses) {
-      const pathways = this.props.printPathways(this.props.response.key);
+      const pathways = printPathways(response.key);
       let initialCount;
       const resps = _.reject(hashToCollection(pathways), fromer => fromer.initial === true);
       if (_.find(pathways, { initial: true, })) {
@@ -472,16 +473,16 @@ export default class Response extends React.Component<any, any> {
           <br />
           <ResponseList
             admin={false}
-            ascending={this.props.ascending}
-            dispatch={this.props.dispatch}
-            expand={this.props.expand}
-            expanded={this.props.allExpanded}
-            getChildResponses={this.props.getChildResponses}
-            getResponse={this.props.getResponse}
-            questionID={this.props.questionID}
+            ascending={ascending}
+            dispatch={dispatch}
+            expand={expand}
+            expanded={allExpanded}
+            getChildResponses={getChildResponses}
+            getResponse={getResponse}
+            questionID={questionID}
             responses={resps}
             showPathways={false}
-            states={this.props.states}
+            states={states}
           />
         </Modal>
       );
