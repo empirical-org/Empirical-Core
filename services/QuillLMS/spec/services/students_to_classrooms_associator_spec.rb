@@ -31,7 +31,7 @@ describe 'Associators:StudentsToClassrooms' do
     end
 
     it "will not add a students classroom if the the classroom teacher does not exist" do
-      teacher.destroy
+      classroom.owner.destroy
       old_sc_count = StudentsClassrooms.count
       Associators::StudentsToClassrooms.run(student, classroom)
       expect(StudentsClassrooms.count).to eq(old_sc_count)
