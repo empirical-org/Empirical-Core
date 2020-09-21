@@ -52,6 +52,9 @@ module.exports = {
   mode,
   context: __dirname,
   entry: {
+    shared: [
+      './app/bundles/Shared/styles/styles.scss'
+    ],
     app: [
       './app/bundles/Teacher/startup/clientRegistration'
     ],
@@ -80,7 +83,7 @@ module.exports = {
       './app/bundles/Staff/startup/clientRegistration.js'
     ],
     comprehension: [
-      './app/bundles/Comprehension/clientRegistration'
+      './app/bundles/Comprehension/clientRegistration.js'
     ],
     proofreader: [
       './app/bundles/Proofreader/clientRegistration'
