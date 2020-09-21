@@ -229,6 +229,7 @@ describe TeachersController, type: :controller do
         get :diagnostic_info_for_dashboard_mini
 
         expect(response.status).to eq(200)
+        expect(response.body).to eq({ units: [] }.to_json)
       end
     end
   end

@@ -110,7 +110,9 @@ class TeachersController < ApplicationController
   end
 
   def diagnostic_info_for_dashboard_mini
-    begin
+    if !current_user
+      units = []
+    else
       diagnostic_activity_ids = ActivityClassification.find_by_key('diagnostic').activity_ids
       records = ClassroomsTeacher.select("classrooms.name AS classroom_name, activities.name AS activity_name, activities.id AS activity_id, classroom_units.unit_id AS unit_id, classrooms.id AS classroom_id, activity_sessions.count AS completed_count, array_length(classroom_units.assigned_student_ids, 1) AS assigned_count")
       .joins("JOIN classrooms ON classrooms_teachers.classroom_id = classrooms.id AND classrooms.visible = TRUE AND classrooms_teachers.user_id = #{current_user.id}")
@@ -131,8 +133,6 @@ class TeachersController < ApplicationController
           classroom_id: r['classroom_id']
         }
       end
-    rescue
-      units = {}
     end
     render json: { units: units }
   end
