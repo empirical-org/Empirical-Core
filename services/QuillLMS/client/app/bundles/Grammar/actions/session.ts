@@ -7,7 +7,7 @@ import { SessionState } from '../reducers/sessionReducer'
 import { checkGrammarQuestion, Response } from 'quill-marking-logic'
 import { shuffle } from '../helpers/shuffle';
 import { permittedFlag } from '../helpers/flagArray'
-import { hashToCollection } from '../../../Shared/index'
+import { hashToCollection } from '../../Shared/index'
 import _ from 'lodash';
 
 export const updateSession = (sessionID: string, session: SessionState) => {
