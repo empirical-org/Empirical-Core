@@ -1,13 +1,13 @@
 import * as React from 'react'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
-import { hashToCollection } from 'quill-component-library/dist/componentLibrary'
 import { QuestionList } from '../shared/questionList';
+import { hashToCollection } from '../../../Shared/index'
 
 export interface ComponentProps {
   titleCards: any
   routing: any
-  routeParams: any 
+  routeParams: any
   dispatch(any): void
 }
 
