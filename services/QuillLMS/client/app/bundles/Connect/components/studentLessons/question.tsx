@@ -206,8 +206,7 @@ export default class PlayLessonQuestion extends React.Component<PlayLessonQuesti
   getQuestionAttempt = (attempt: Attempt) => {
     const { previewAttempt } = this.state;
     const { previewMode } = this.props;
-    const questionAttempt = previewMode && previewAttempt ? previewAttempt : attempt;
-    return questionAttempt;
+    return previewMode && previewAttempt ? previewAttempt : attempt;
   }
 
   getErrorsForAttempt = (attempt: Attempt) => {
@@ -229,7 +228,7 @@ export default class PlayLessonQuestion extends React.Component<PlayLessonQuesti
 
   updateResponseResource(response) {
     const { dispatch, } = this.props
-    updateResponseResource(response, this.getQuestion().key, [], dispatch);
+    updateResponseResource(response, this.getQuestion().key, this.getQuestion().attempts, dispatch);
   }
 
   submitPathway(response) {
@@ -434,6 +433,8 @@ export default class PlayLessonQuestion extends React.Component<PlayLessonQuesti
         previewMode
       };
       let component;
+      const maxAttemptsSubmitted = (question.attempts && question.attempts.length > 4) || (previewSubmissionCount > 4);
+      const someAttemptsSubmitted = (question.attempts && question.attempts.length > 0) || previewMode;
       if (finished) {
         component = (
           <AnswerForm
@@ -452,7 +453,7 @@ export default class PlayLessonQuestion extends React.Component<PlayLessonQuesti
             prompt={this.renderSentenceFragments()}
           />
         );
-      } else if ((question.attempts && question.attempts.length > 4) || (previewSubmissionCount > 4)) {
+      } else if (maxAttemptsSubmitted) {
         if (this.answeredCorrectly()) {
           component = (
             <AnswerForm
@@ -471,7 +472,7 @@ export default class PlayLessonQuestion extends React.Component<PlayLessonQuesti
             />
             );
         }
-      } else if ((question.attempts && question.attempts.length > 0) || previewMode) {
+      } else if (someAttemptsSubmitted) {
         if (this.readyForNext()) {
           component = (
             <AnswerForm

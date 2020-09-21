@@ -6,9 +6,6 @@ import getResponse from './checkAnswer';
 class FeedbackComponent extends React.Component<any, any> {
   constructor(props){
     super(props)
-    this.state = {
-      someState: null
-    }
   }
 
   getFeedbackType(data?): string {
