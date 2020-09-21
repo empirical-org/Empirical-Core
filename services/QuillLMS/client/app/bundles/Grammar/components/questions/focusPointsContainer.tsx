@@ -3,9 +3,7 @@ import { connect } from 'react-redux';
 import * as _ from 'underscore';
 import * as questionActions from '../../actions/questions';
 import SortableList from '../shared/sortableList'
-import {
-  hashToCollection,
-} from '../../helpers/hashToCollection';
+import { hashToCollection } from '../../../Shared/index'
 
 export class FocusPointsContainer extends React.Component {
   constructor(props) {
