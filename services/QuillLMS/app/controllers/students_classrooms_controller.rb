@@ -5,20 +5,18 @@ class StudentsClassroomsController < ApplicationController
     if current_user
       @user = current_user
       classcode = params[:classcode].downcase.gsub(/\s+/, "")
-      begin
-        classroom = Classroom.where(code: classcode).first
-        Associators::StudentsToClassrooms.run(@user, classroom)
-        JoinClassroomWorker.perform_async(@user.id)
-      rescue NoMethodError => e
+      classroom = Classroom.where(code: classcode).first
+      if classroom.blank?
         if Classroom.unscoped.where(code: classcode).first.nil?
           InvalidClasscodeWorker.perform_async(@user.id, params[:classcode], classcode)
-          render status: 404, json: {error: "No such classcode"}, text: "No such classcode"
+          return render status: 404, json: {error: "No such classcode"}, text: "No such classcode"
         else
-          render status: 400, json: {error: "Class is archived"}, text: "Class is archived"
+          return render status: 400, json: {error: "Class is archived"}, text: "Class is archived"
         end
-      else
-        render json: classroom.attributes
       end
+      Associators::StudentsToClassrooms.run(@user, classroom)
+      JoinClassroomWorker.perform_async(@user.id)
+      render json: classroom.attributes
     else
       render status: 403, json: {error: "Student not logged in."}, text: "Student not logged in."
     end
