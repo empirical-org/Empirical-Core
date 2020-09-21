@@ -1,5 +1,5 @@
-import * as React from 'react';
-import * as _ from 'underscore';
+import React from 'react';
+import _ from 'underscore';
 import * as questionActions from '../../actions/questions';
 import {
   Modal,
@@ -125,7 +125,7 @@ export default class extends React.Component {
 
   unmatchResponse = (rid: string) => {
     const { dispatch, question, questionID } = this.props;
-    const { modelConceptUID, conceptID, } = question
+    const { modelConceptUID, concept_uid, } = question
     const defaultConceptUID = modelConceptUID || concept_uid
     const newResp = {
       weak: false,
