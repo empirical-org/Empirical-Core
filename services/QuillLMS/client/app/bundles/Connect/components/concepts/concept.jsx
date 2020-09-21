@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom'
 import actions from '../../actions/concepts'
 import questionActions from '../../actions/questions'
 import _ from 'underscore'
-import { hashToCollection } from 'quill-component-library/dist/componentLibrary'
+import { hashToCollection } from '../../../Shared/index'
 
 class Concept extends React.Component {
   state = {

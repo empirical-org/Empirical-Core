@@ -17,8 +17,6 @@ import ConceptsFeedback from '../feedback/concepts-feedback.jsx';
 import ConceptFeedback from '../feedback/concept-feedback.jsx';
 import Concepts from '../concepts/concepts.jsx';
 import Concept from '../concepts/concept.jsx';
-import Diagnostics from '../diagnostics/diagnostics.jsx';
-import NewDiagnostic from '../diagnostics/new.jsx';
 import Lessons from '../lessons/lessons.jsx';
 import Lesson from '../lessons/lesson.jsx';
 import Questions from '../questions/questions.jsx';
@@ -126,8 +124,6 @@ class Admin extends React.Component {
           <Route component={Concept} path='/admin/concepts/:conceptID' />
           <Route component={Concepts} path='/admin/concepts' />
           <Route component={CloneConnectQuestions} path='/admin/clone_questions' />
-          <Route component={NewDiagnostic} path='/admin/diagnostics/new' />
-          <Route component={Diagnostics} path='/admin/diagnostics' />
           <Route component={Lesson} path='/admin/lessons/:lessonID' />
           <Route component={Lessons} path='/admin/lessons' />
           <Route component={Question} path='/admin/questions/:questionID' />
@@ -163,4 +159,3 @@ function mergeProps(stateProps, dispatchProps, ownProps) {
 }
 
 export default withRouter(connect(select, dispatch => ({dispatch}), mergeProps)(Admin));
-

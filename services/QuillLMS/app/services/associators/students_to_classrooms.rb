@@ -2,8 +2,8 @@ module Associators::StudentsToClassrooms
 
   def self.run(student, classroom)
     @@classroom = classroom
-    @@classroom.update(updated_at: Time.now)
     if legit_classroom && legit_teacher && (student&.role == 'student')
+      @@classroom.update(updated_at: Time.now)
       sc = StudentsClassrooms.unscoped.find_or_initialize_by(student_id: student.id, classroom_id: classroom[:id])
       if sc.new_record?
         sc.visible = true
@@ -33,7 +33,7 @@ module Associators::StudentsToClassrooms
   end
 
   def self.legit_teacher
-    @@classroom&.owner
+    @@classroom&.owner&.id
   end
 
 end
