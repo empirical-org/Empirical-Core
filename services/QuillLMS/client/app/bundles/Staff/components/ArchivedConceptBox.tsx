@@ -3,11 +3,12 @@ import { Query, Mutation } from "react-apollo";
 import gql from "graphql-tag";
 import moment from 'moment'
 import _ from 'underscore';
-import { Input, DropdownInput } from 'quill-component-library/dist/componentLibrary'
+import { DropdownInput } from 'quill-component-library/dist/componentLibrary'
 
 import { Concept } from '../interfaces/interfaces'
 import ConceptChangeLogs from './ConceptChangeLogs'
 import ChangeLogModal from './ChangeLogModal'
+import { Input, } from '../../Shared/index'
 
 
 function levelTwoConceptsQuery(){
