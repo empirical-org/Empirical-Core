@@ -2,7 +2,6 @@ import React from 'react';
 import { connect } from 'react-redux';
 import {
   CarouselAnimation,
-  hashToCollection,
   SmartSpinner,
   PlayTitleCard,
   ProgressBar
@@ -22,6 +21,7 @@ import {
   answeredQuestionCount,
   getProgressPercent
 } from '../../libs/calculateProgress'
+import { hashToCollection } from '../../../Shared/index'
 
 const request = require('request');
 

@@ -1,8 +1,8 @@
 import React, {Component} from 'react'
 import { connect } from 'react-redux';
 import _ from 'lodash'
-import { hashToCollection } from 'quill-component-library/dist/componentLibrary'
 import * as CustomizeIntF from '../../../interfaces/customize'
+import { hashToCollection, } from '../../../../Shared/index'
 
 class UserEditions extends Component<any, any> {
   constructor(props){
