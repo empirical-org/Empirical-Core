@@ -30,7 +30,9 @@ describe Api::V1::ActiveActivitySessionsController, type: :controller do
       put :update, id: 'doesnotexist', active_activity_session: data
       expect(response.status).to eq(200)
       expect(response.body).to eq(data.to_json)
-      expect(ActiveActivitySession.find_by(uid: 'doesnotexist')).to be
+      new_activity_session = ActiveActivitySession.find_by(uid: 'doesnotexist')
+      expect(new_activity_session).to be
+      expect(new_activity_session.data).to eq(data)
     end
 
     it "should retain the values in keys not updated in the payload" do
