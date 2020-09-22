@@ -299,6 +299,15 @@ export default class PlayLessonQuestion extends React.Component<PlayLessonQuesti
     return question.attempts.length / 3 * 100;
   }
 
+  getDisabledStatus = () => {
+    const { previewMode, isLastQuestion } = this.props;
+    const { previewSubmissionCount, previewAttempt } = this.state;
+    if(previewMode && isLastQuestion && (previewSubmissionCount === 5 || previewAttempt.optimal)) {
+      return true;
+    }
+    return false;
+  }
+
   finish = () => {
     this.setState({ finished: true, });
   }
@@ -313,7 +322,9 @@ export default class PlayLessonQuestion extends React.Component<PlayLessonQuesti
   renderNextQuestionButton = () => {
     const { isLastQuestion, } = this.props
     const buttonText = isLastQuestion ? 'Next' : 'Next question'
-    return (<button className="quill-button focus-on-light primary contained large" onClick={this.handleNextQuestionClick} type="button">{buttonText}</button>);
+    const disabledStatus = this.getDisabledStatus();
+    const disabledStyle = disabledStatus ? 'disabled' : '';
+    return (<button className={`quill-button focus-on-light primary contained large ${disabledStyle}`} disabled={disabledStatus} onClick={this.handleNextQuestionClick} type="button">{buttonText}</button>);
   }
 
   renderFinishedQuestionButton = () => {

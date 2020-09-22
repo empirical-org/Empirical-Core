@@ -38,7 +38,11 @@ export class Lesson extends React.Component {
   }
 
   componentDidMount() {
-    const { dispatch, } = this.props
+    const { dispatch, previewMode } = this.props;
+    const { isLastQuestion } = this.state;
+    if(previewMode && isLastQuestion) {
+      this.setIsLastQuestion();
+    }
     dispatch(clearData());
   }
 
@@ -56,8 +60,8 @@ export class Lesson extends React.Component {
   }
 
   componentDidUpdate() {
-    const { sessionInitialized, introSkipped } = this.state
-    const { questions, fillInBlank, sentenceFragments, titleCards, previewMode } = this.props
+    const { sessionInitialized, introSkipped, isLastQuestion } = this.state
+    const { questions, fillInBlank, sentenceFragments, titleCards, previewMode, questionToPreview, playLesson } = this.props
     // At mount time the component may still be waiting on questions
     // to be retrieved, so we need to do checks on component update
     if (questions.hasreceiveddata &&
@@ -80,7 +84,28 @@ export class Lesson extends React.Component {
         this.setState({ introSkipped: true });
         // this.startActivity();
       }
+      // user has toggled to last question
+      if(previewMode && questionToPreview && playLesson && !isLastQuestion && !this.getNextPreviewQuestion(questionToPreview)) {
+        this.setIsLastQuestion();
+      }
+      // user has toggled to another question from last question
+      if(previewMode && questionToPreview && playLesson && isLastQuestion && this.getNextPreviewQuestion(questionToPreview)) {
+        this.setIsLastQuestion();
+      }
     }
+  }
+
+  setIsLastQuestion = () => {
+    this.setState(prevState => ({ isLastQuestion: !prevState.isLastQuestion }));
+  }
+
+  getNextPreviewQuestion = (question) => {
+    const { playLesson } = this.props;
+    const { questionSet } = playLesson;
+    const filteredQuestionsSet = questionSet.map(questionObject => questionObject.question);
+    const questionKeys = filteredQuestionsSet.map(question => question.key);
+    const nextQuestionIndex = questionKeys.indexOf(question.key) + 1;
+    return filteredQuestionsSet[nextQuestionIndex];
   }
 
   getLesson = () => {
@@ -161,19 +186,14 @@ export class Lesson extends React.Component {
   }
 
   nextQuestion = () => {
-    const { dispatch, playLesson, previewMode, onHandleToggleQuestion } = this.props;
-    const { questionSet } = playLesson;
-
+    const { dispatch, previewMode, onHandleToggleQuestion } = this.props;
     if(previewMode) {
       const question = this.getQuestion();
-      const filteredQuestionsSet = questionSet.map(questionObject => questionObject.question);
-      const questionKeys = filteredQuestionsSet.map(question => question.key);
-      const nextQuestionIndex = questionKeys.indexOf(question.key) + 1;
-      const nextPreviewQuestion = filteredQuestionsSet[nextQuestionIndex];
+      const nextPreviewQuestion = this.getNextPreviewQuestion(question);
       if(nextPreviewQuestion) {
         onHandleToggleQuestion(nextPreviewQuestion)
       } else {
-        this.setState({ isLastQuestion: true });
+        this.setIsLastQuestion();
       }
     } else {
       const next = nextQuestion();

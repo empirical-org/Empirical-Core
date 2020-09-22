@@ -57,7 +57,7 @@ const renderIntroductionSection = (activity: Activity, playLesson: any) => {
   return(
     <section>
       <h2>Introduction</h2>
-      <p className={style}>{introductionText}</p>
+      <p className={`introduction-text ${style}`}>{introductionText}</p>
     </section>
   );
 }
@@ -102,6 +102,7 @@ const getQuestionObject = ({ questions, titleCards, sentenceFragments, fillInBla
 
 const renderQuestions = ({ 
   activity, 
+  disabled,
   fillInBlank,
   handleQuestionUpdate,
   playLesson, 
@@ -120,13 +121,14 @@ const renderQuestions = ({
       const { key } = question;
       const questionObject = getQuestionObject({ questions, titleCards, sentenceFragments, fillInBlank, key });
       const questionText = questionObject.prompt || questionObject.title
-      const style = getStyling(questionToPreview, key, i, playLesson);
+      const highlightedStyle = getStyling(questionToPreview, key, i, playLesson);
       const indentation = getIndentation(i);
+      const disabledStyle = disabled ? 'disabled' : '';
       if(!questionObject) {
         return null;
       }
       return(
-        <button className={`question-container ${style} focus-on-light`} id={key} key={key} onClick={handleQuestionUpdate} type="button">
+        <button className={`question-container ${highlightedStyle} ${disabledStyle} focus-on-light`} disabled={disabled} id={key} key={key} onClick={handleQuestionUpdate} type="button">
           <p className={`question-number ${indentation}`}>{`${i + 1}.  `}</p>
           <p className="question-text">{stripHtml(questionText)}</p>
         </button>
@@ -135,10 +137,11 @@ const renderQuestions = ({
   } else if(randomizedQuestions) {
     return randomizedQuestions.map((question: any, i: number) => {
       const { uid } = question;
-      const style = getStyling(questionToPreview, uid, i, playLesson);
+      const highlightedStyle = getStyling(questionToPreview, uid, i, playLesson);
       const indentation = getIndentation(i);
+      const disabledStyle = disabled ? 'disabled' : '';
       return(
-        <button className={`question-container ${style} focus-on-light`} id={uid} key={uid} onClick={handleQuestionUpdate} type="button">
+        <button className={`question-container ${highlightedStyle} ${disabledStyle} focus-on-light`} disabled={disabled} id={uid} key={uid} onClick={handleQuestionUpdate} type="button">
           <p className={`question-number ${indentation}`}>{`${i + 1}.  `}</p>
           <p className="question-text">{stripHtml(question.prompt)}</p>
         </button>
@@ -214,6 +217,7 @@ const TeacherPreviewMenu = ({
   }
 
   const hiddenStyle = !showPreview ? 'hidden' : '';
+  const disabled = playLesson && !playLesson.questionSet;
 
   return (
     <aside className={`teacher-preview-menu-container ${hiddenStyle}`}>
@@ -234,6 +238,7 @@ const TeacherPreviewMenu = ({
         <ul>
           {renderQuestions({  
             activity,
+            disabled,
             fillInBlank,
             handleQuestionUpdate,
             playLesson,

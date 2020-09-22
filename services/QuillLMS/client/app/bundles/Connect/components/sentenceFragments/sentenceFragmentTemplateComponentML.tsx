@@ -28,6 +28,7 @@ interface PlaySentenceFragmentProps {
   currentKey: string;
   conceptsFeedback: any;
   nextQuestion: () => void;
+  isLastQuestion: boolean;
 }
 
 interface PlaySentenceFragmentState {
@@ -286,7 +287,7 @@ class PlaySentenceFragment extends React.Component<PlaySentenceFragmentProps, Pl
 
   renderButton = () => {
     const { responses, previewSubmissionCount } = this.state
-    const { nextQuestion, question, previewMode } = this.props;
+    const { nextQuestion, question, previewMode, isLastQuestion } = this.props;
     let showRecheckWorkButton;
     if(previewMode) {
       showRecheckWorkButton = previewSubmissionCount > 0;
@@ -294,7 +295,8 @@ class PlaySentenceFragment extends React.Component<PlaySentenceFragmentProps, Pl
       showRecheckWorkButton = question && question.attempts ? question.attempts.length > 0 : false
     }
     if (this.showNextQuestionButton()) {
-      return <button className="quill-button focus-on-light large primary contained" onClick={nextQuestion} type="button">Next</button>;
+      const disabledStyle = previewMode && isLastQuestion ? 'disabled' : '';
+      return <button className={`quill-button focus-on-light large primary contained ${disabledStyle}`} onClick={nextQuestion} type="button">Next</button>;
     } else if (responses) {
       if (showRecheckWorkButton) {
         return <button className="quill-button focus-on-light large primary contained" onClick={this.handleResponseSubmission} type="button">Recheck work</button>;

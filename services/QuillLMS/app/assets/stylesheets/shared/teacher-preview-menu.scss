@@ -53,11 +53,14 @@
     p {
       padding-top: 4px;
       font-size: 14px;
+    }
+    .introduction-text {
+      padding: 8px;
+      margin: 0px -8px 0px -8px;
+      font-size: 14px;
       &.highlighted {
         background-color: #e1f3f1;;
         font-weight: 600;
-        margin: 0px -8px 0px -8px;
-        padding: 8px;
         border-radius: 4px;
       }
     }
@@ -79,6 +82,10 @@
         &.highlighted {
           background-color: #e1f3f1;
           font-weight: 600;
+        }
+        &.disabled:hover {
+          background-color: white;
+          cursor: unset;
         }
         .question-number {
           margin-right: 8px;

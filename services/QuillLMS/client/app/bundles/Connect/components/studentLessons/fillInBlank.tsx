@@ -368,9 +368,10 @@ export class PlayFillInTheBlankQuestion extends React.Component<PlayFillInTheBla
       showRecheckWorkButton = question && question.attempts ? question.attempts.length > 0 : false
     }
     if (this.showNextQuestionButton()) {
-      const buttonText = isLastQuestion ? 'Next' : 'Next question'
+      const buttonText = isLastQuestion ? 'Next' : 'Next question';
+      const disabledStyle = previewMode && isLastQuestion ? 'disabled' : '';
       return (
-        <button className="quill-button focus-on-light large primary contained" onClick={nextQuestion} type="button">{buttonText}</button>
+        <button className={`quill-button focus-on-light large primary contained ${disabledStyle}`} onClick={nextQuestion} type="button">{buttonText}</button>
       );
     } else if (responses) {
       if (showRecheckWorkButton) {
