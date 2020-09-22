@@ -4,9 +4,11 @@ describe UnitTemplatePseudoSerializer do
   let(:diagnostic) { create(:diagnostic_activity) }
   let(:lesson) { create(:lesson_activity) }
   let(:grammar) { create(:grammar_activity) }
+  let(:archived_activity) { create(:activity, flags: ['archived']) }
   let(:unit_template) { create(:unit_template, unit_template_category_id: 0, activities: [grammar] ) }
   let(:unit_template_with_diagnostic) { create(:unit_template, activities: [diagnostic] ) }
   let(:unit_template_with_lesson) { create(:unit_template, activities: [lesson] ) }
+  let(:unit_template_with_archived_activity) { create(:unit_template, activities: [archived_activity])}
 
   it('will have nil values for the unit template category attributes if there is no unit template category') do
     serialized_ut = UnitTemplatePseudoSerializer.new(unit_template)
@@ -35,5 +37,10 @@ describe UnitTemplatePseudoSerializer do
     # Note that the "activity" factory puts new activities in two categories by default
     serialized_ut = UnitTemplatePseudoSerializer.new(unit_template)
     expect(serialized_ut.activities.length).to eq 1
+  end
+
+  it('will not include archived activities') do
+    serialized_ut = UnitTemplatePseudoSerializer.new(unit_template_with_archived_activity)
+    expect(serialized_ut.activities.length).to eq 0
   end
 end
