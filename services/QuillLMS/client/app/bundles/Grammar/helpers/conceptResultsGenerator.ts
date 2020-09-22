@@ -1,7 +1,7 @@
 import { ConceptResult } from 'quill-marking-logic'
-import { hashToCollection } from 'quill-component-library/dist/componentLibrary';
 import * as _ from 'lodash'
 import { Question, FormattedConceptResult, ResponseAttempt } from '../interfaces/questions'
+import { hashToCollection } from '../../Shared/index'
 
 const scoresForNAttempts: { [key:number]: number} = {
   1: 1,

@@ -1,4 +1,3 @@
-import { hashToCollection } from 'quill-component-library/dist/componentLibrary';
 import _ from 'underscore';
 import { getConceptResultsForAttempt } from './sharedConceptResultsFunctions';
 
