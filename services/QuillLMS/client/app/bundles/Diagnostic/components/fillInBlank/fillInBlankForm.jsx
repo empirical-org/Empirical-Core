@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { EditorState, ContentState } from 'draft-js'
 import { connect } from 'react-redux';
-import { TextEditor,
-  hashToCollection,
+import {
+  TextEditor,
   FlagDropdown
 } from 'quill-component-library/dist/componentLibrary';
 import ConceptSelector from '../shared/conceptSelector.jsx';
@@ -65,7 +65,7 @@ class FillInBlankForm extends Component {
   toggleQuestionCaseInsensitive = () => {
     this.setState(prevState => ({caseInsensitive: !prevState.caseInsensitive}));
   };
-  
+
   submit = () => {
     const { action } = this.props;
     const { blankAllowed, caseInsensitive, conceptID, cues, cuesLabel, flag, instructions, newQuestionOptimalResponse, prompt } = this.state;

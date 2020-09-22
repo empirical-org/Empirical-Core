@@ -1,7 +1,7 @@
 declare function require(name:string);
-import { hashToCollection } from 'quill-component-library/dist/componentLibrary';
 import * as _ from 'underscore'
 import { checkDiagnosticQuestion } from 'quill-marking-logic'
+import { hashToCollection } from '../../../Shared/index'
 
 export default function checkAnswer(question, response, responses, mode='default') {
   const defaultConceptUID = question.modelConceptUID || question.conceptID

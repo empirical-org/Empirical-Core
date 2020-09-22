@@ -2,11 +2,12 @@ import * as React from "react";
 import ContentEditable from 'react-contenteditable';
 import { Row } from "antd";
 import { checkGrammarQuestion, Response, ConceptResult } from 'quill-marking-logic'
-import { hashToCollection, ProgressBar, ConceptExplanation, Feedback } from 'quill-component-library/dist/componentLibrary';
+import { ProgressBar, ConceptExplanation, Feedback } from 'quill-component-library/dist/componentLibrary';
 import Cues from './cues'
 import { Question } from '../../interfaces/questions'
 import { GrammarActivity } from '../../interfaces/grammarActivities'
 import * as responseActions from '../../actions/responses'
+import { hashToCollection } from '../../../Shared/index'
 
 const ALLOWED_ATTEMPTS = 5
 const UNANSWERED = 'unanswered'
@@ -70,7 +71,7 @@ export class QuestionComponent extends React.Component<QuestionProps, QuestionSt
 
   componentDidMount() {
     const { currentQuestion, } = this.props;
-    // preview questions use key as the unique identifier 
+    // preview questions use key as the unique identifier
     const uid = currentQuestion.uid ? currentQuestion.uid : currentQuestion.key;
 
     responseActions.getGradedResponsesWithCallback(
@@ -123,7 +124,7 @@ export class QuestionComponent extends React.Component<QuestionProps, QuestionSt
 
   getPreviewQuestionKeys = () => {
     const { activity, randomizedQuestions } = this.props;
-    let questionKeys; 
+    let questionKeys;
     if(activity.questions && activity.questions.length) {
       questionKeys = activity.questions.map(question => question.key);
     } else {
@@ -412,7 +413,7 @@ export class QuestionComponent extends React.Component<QuestionProps, QuestionSt
     const disabled = noMoreSubmissionsForStudentSession && noMoreSubmissionsForPreviewSession ? 'disabled' : '';
 
     if(nonOptimal || maxPreviewQuestionAttempts) {
-      return 
+      return
     }
 
     return (<Row align="middle" justify="start" type="flex">

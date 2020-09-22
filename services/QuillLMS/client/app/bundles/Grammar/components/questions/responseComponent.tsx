@@ -6,7 +6,6 @@ import {
   ResponseSortFields,
   ResponseToggleFields,
   QuestionBar,
-  hashToCollection
 } from 'quill-component-library/dist/componentLibrary';
 import ResponseList from './responseList';
 import * as questionActions from '../../actions/questions';
@@ -23,6 +22,7 @@ import request from 'request';
 import {
   submitResponseEdit,
 } from '../../actions/responses';
+import { hashToCollection } from '../../../Shared/index'
 
 import { ActionTypes } from '../../actions/actionTypes';
 
