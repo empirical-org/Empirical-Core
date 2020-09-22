@@ -3,7 +3,6 @@ import * as _ from 'underscore';
 import { checkFillInTheBlankQuestion } from 'quill-marking-logic'
 import { getGradedResponsesWithCallback } from '../../actions/responses.js';
 import {
-  hashToCollection,
   Prompt,
   Feedback
 } from 'quill-component-library/dist/componentLibrary';
@@ -16,6 +15,7 @@ import translationMap from '../../libs/translations/ellQuestionMapper.js';
 import { stringNormalize } from 'quill-string-normalizer';
 import { ENGLISH, rightToLeftLanguages } from '../../modules/translation/languagePageInfo';
 import Question from '../../interfaces/Question.ts';
+import { hashToCollection } from '../../../Shared/index'
 
 interface PlayFillInTheBlankQuestionProps {
   currentKey: string,

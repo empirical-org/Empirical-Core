@@ -2,13 +2,14 @@ import React from 'react'
 import { connect } from 'react-redux'
 import {
   TextEditor,
-  hashToCollection
 } from 'quill-component-library/dist/componentLibrary';
 import { EditorState, ContentState } from 'draft-js'
 import {
   submitNewTitleCard,
   submitTitleCardEdit
 } from '../../actions/titleCards.ts'
+import { hashToCollection } from '../../../Shared/index'
+
 import _ from 'lodash'
 
 interface TitleCardFormState {
@@ -20,7 +21,7 @@ export interface TitleCardFormProps {
   titleCards: any
   routing: any
   match: any
-  dispatch(any): void 
+  dispatch(any): void
 }
 
 
