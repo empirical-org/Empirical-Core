@@ -11,6 +11,7 @@ interface PageLayoutState {
   previewShowing: boolean;
   questionToPreview: any;
   switchedBackToPreview: boolean;
+  skippedToQuestionFromIntro: boolean;
 }
 export default class Home extends React.Component<any, PageLayoutState> {
   constructor(props) {
@@ -22,26 +23,32 @@ export default class Home extends React.Component<any, PageLayoutState> {
       showFocusState: false,
       previewShowing: !studentSession,
       questionToPreview: null,
-      switchedBackToPreview: false
+      switchedBackToPreview: false,
+      skippedToQuestionFromIntro: false
     }
   }
+
   componentDidMount() {
     document.addEventListener('keydown', this.handleKeyDown)
   }
+
   componentWillUnmount() {
     document.removeEventListener('keydown', this.handleKeyDown)
   }
+
   handleKeyDown = (e: any) => {
     if (e.key !== 'Tab') { return }
     const { showFocusState, } = this.state
     if (showFocusState) { return }
     this.setState({ showFocusState: true })
   }
+
   handleSkipToMainContentClick = () => {
     const element = document.getElementById("main-content")
     element && element.focus()
     element && element.scrollIntoView()
   }
+
   handleTogglePreviewMenu = () => {
     const { previewShowing } = this.state;
     if(previewShowing) {
@@ -53,11 +60,17 @@ export default class Home extends React.Component<any, PageLayoutState> {
       previewShowing: !prevState.previewShowing,
     }));
   }
+
   handleToggleQuestion = (question: object) => {
     this.setState({ questionToPreview: question });
   }
+
+  handleSkipToQuestionFromIntro = () => {
+    this.setState({ skippedToQuestionFromIntro: true });
+  }
+
   render() {
-    const { showFocusState, previewShowing, questionToPreview, switchedBackToPreview } = this.state;
+    const { showFocusState, previewShowing, questionToPreview, switchedBackToPreview, skippedToQuestionFromIntro } = this.state;
     const studentSession = getParameterByName('student', window.location.href);
     const isPlaying = window.location.href.includes('play');
     const showPreview = previewShowing && isPlaying;
@@ -80,6 +93,7 @@ export default class Home extends React.Component<any, PageLayoutState> {
               width={360}
             >
               <TeacherPreviewMenu
+                onHandleSkipToQuestionFromIntro={this.handleSkipToQuestionFromIntro}
                 onTogglePreview={this.handleTogglePreviewMenu}
                 onToggleQuestion={this.handleToggleQuestion}  
                 questionToPreview={questionToPreview}
@@ -93,7 +107,8 @@ export default class Home extends React.Component<any, PageLayoutState> {
                 switchedBackToPreview: switchedBackToPreview,
                 handleToggleQuestion: this.handleToggleQuestion, 
                 previewMode: previewShowing, 
-                questionToPreview: questionToPreview
+                questionToPreview: questionToPreview,
+                skippedToQuestionFromIntro: skippedToQuestionFromIntro
               })}</div>
             </Layout.Content>
           </Layout>

@@ -25,6 +25,8 @@ import {
 
 const request = require('request');
 
+//TODO: convert to TSX and add interface definitions
+
 export class Lesson extends React.Component {
   constructor(props) {
     super(props)
@@ -61,7 +63,7 @@ export class Lesson extends React.Component {
 
   componentDidUpdate() {
     const { sessionInitialized, introSkipped, isLastQuestion } = this.state
-    const { questions, fillInBlank, sentenceFragments, titleCards, previewMode, questionToPreview, playLesson } = this.props
+    const { questions, fillInBlank, sentenceFragments, titleCards, previewMode, questionToPreview, playLesson, skippedToQuestionFromIntro } = this.props
     // At mount time the component may still be waiting on questions
     // to be retrieved, so we need to do checks on component update
     if (questions.hasreceiveddata &&
@@ -80,16 +82,16 @@ export class Lesson extends React.Component {
       if (!sessionInitialized) {
         this.saveSessionIdToState();
       }
-      if(previewMode && !introSkipped) {
+      if(previewMode && !introSkipped && skippedToQuestionFromIntro) {      
         this.setState({ introSkipped: true });
-        // this.startActivity();
+        this.startActivity();
       }
       // user has toggled to last question
-      if(previewMode && questionToPreview && playLesson && !isLastQuestion && !this.getNextPreviewQuestion(questionToPreview)) {
+      if(previewMode && questionToPreview && playLesson && playLesson.questionSet && !isLastQuestion && !this.getNextPreviewQuestion(questionToPreview)) {
         this.setIsLastQuestion();
       }
       // user has toggled to another question from last question
-      if(previewMode && questionToPreview && playLesson && isLastQuestion && this.getNextPreviewQuestion(questionToPreview)) {
+      if(previewMode && questionToPreview && playLesson && playLesson.questionSet && isLastQuestion && this.getNextPreviewQuestion(questionToPreview)) {
         this.setIsLastQuestion();
       }
     }

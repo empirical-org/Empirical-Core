@@ -102,7 +102,6 @@ const getQuestionObject = ({ questions, titleCards, sentenceFragments, fillInBla
 
 const renderQuestions = ({ 
   activity, 
-  disabled,
   fillInBlank,
   handleQuestionUpdate,
   playLesson, 
@@ -123,12 +122,11 @@ const renderQuestions = ({
       const questionText = questionObject.prompt || questionObject.title
       const highlightedStyle = getStyling(questionToPreview, key, i, playLesson);
       const indentation = getIndentation(i);
-      const disabledStyle = disabled ? 'disabled' : '';
       if(!questionObject) {
         return null;
       }
       return(
-        <button className={`question-container ${highlightedStyle} ${disabledStyle} focus-on-light`} disabled={disabled} id={key} key={key} onClick={handleQuestionUpdate} type="button">
+        <button className={`question-container ${highlightedStyle} focus-on-light`} id={key} key={key} onClick={handleQuestionUpdate} type="button">
           <p className={`question-number ${indentation}`}>{`${i + 1}.  `}</p>
           <p className="question-text">{stripHtml(questionText)}</p>
         </button>
@@ -139,9 +137,8 @@ const renderQuestions = ({
       const { uid } = question;
       const highlightedStyle = getStyling(questionToPreview, uid, i, playLesson);
       const indentation = getIndentation(i);
-      const disabledStyle = disabled ? 'disabled' : '';
       return(
-        <button className={`question-container ${highlightedStyle} ${disabledStyle} focus-on-light`} disabled={disabled} id={uid} key={uid} onClick={handleQuestionUpdate} type="button">
+        <button className={`question-container ${highlightedStyle} focus-on-light`} id={uid} key={uid} onClick={handleQuestionUpdate} type="button">
           <p className={`question-number ${indentation}`}>{`${i + 1}.  `}</p>
           <p className="question-text">{stripHtml(question.prompt)}</p>
         </button>
@@ -154,6 +151,7 @@ export interface TeacherPreviewMenuProps {
   activity: Activity;
   dispatch: Function;
   fillInBlank: any[];
+  onHandleSkipToQuestionFromIntro: () => void;
   onTogglePreview?: () => void;
   onToggleQuestion?: (question: Question) => void;
   onUpdateRandomizedQuestions?: (questions: any[]) => void;
@@ -173,6 +171,7 @@ const TeacherPreviewMenu = ({
   activity,
   dispatch,
   fillInBlank,
+  onHandleSkipToQuestionFromIntro,
   onTogglePreview, 
   onToggleQuestion, 
   onUpdateRandomizedQuestions,
@@ -213,6 +212,9 @@ const TeacherPreviewMenu = ({
       question = questions && questions[questionUID] || titleCards && titleCards[questionUID] || sentenceFragments && sentenceFragments[questionUID] || fillInBlank && fillInBlank[questionUID];
       question.key = questionUID;
     }
+    if(playLesson && !playLesson.questionSet) {
+      onHandleSkipToQuestionFromIntro();
+    }
     onToggleQuestion(question);
   }
 
@@ -238,7 +240,6 @@ const TeacherPreviewMenu = ({
         <ul>
           {renderQuestions({  
             activity,
-            disabled,
             fillInBlank,
             handleQuestionUpdate,
             playLesson,
