@@ -6,11 +6,11 @@ const qml = require('quill-marking-logic')
 const checkFillInTheBlankQuestion = qml.checkFillInTheBlankQuestion
 import { getGradedResponsesWithCallback } from '../../actions/responses.js';
 import {
-  hashToCollection,
   Prompt,
   Feedback
  } from 'quill-component-library/dist/componentLibrary';
 import Cues from '../renderForQuestions/cues.jsx';
+import { hashToCollection, } from '../../../Shared/index'
 import { stringNormalize } from 'quill-string-normalizer'
 
 const styles = {
