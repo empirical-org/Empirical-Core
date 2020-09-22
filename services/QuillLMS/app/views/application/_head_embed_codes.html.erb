@@ -50,8 +50,10 @@
       // calls.  This means that we need to track pageviews for Vitally with explicit
       // calls to `analytics.track()`.  But we only need to send this data to Vitally.
       analytics.track(`Vitally Pageview`, {}, {
-        All: false,
-        'Vitally': true
+        integrations: {
+          All: false,
+          Vitally: true
+        }
       });
     <% else %>
       // In case a teacher was signed in on this computer and set the Intercom
