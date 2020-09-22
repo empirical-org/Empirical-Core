@@ -14,6 +14,6 @@ class StudentJoinedClassroomWorker
         context: {:ip => student&.ip_address },
         integrations: { intercom: 'false' }
       })
-    analytics.track(teacher, SegmentIo::BackgroundEvents::TEACHERS_STUDENT_ACCOUNT_CREATION)
+    analytics.track(teacher, SegmentIo::BackgroundEvents::TEACHERS_STUDENT_ACCOUNT_CREATION) if teacher
   end
 end

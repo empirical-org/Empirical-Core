@@ -1,10 +1,11 @@
-import { hashToCollection } from 'quill-component-library/dist/componentLibrary';
 import _ from 'underscore';
 import generateFeedbackString from './generateFeedbackString.js';
 import {
   incrementResponseCount,
   submitResponse,
 } from '../../actions/responses.js';
+import { hashToCollection } from '../../../Shared/index';
+
 
 const getLatestAttempt = function (attempts = []) {
   const lastIndex = attempts.length - 1;

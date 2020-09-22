@@ -1,10 +1,10 @@
 import * as request from 'request-promise'
 import * as _ from 'underscore';
-import { hashToCollection } from 'quill-component-library/dist/componentLibrary';
 
 // const qml = require('quill-marking-logic')
 import { checkGrammarQuestion, ConceptResult } from 'quill-marking-logic'
 import objectWithSnakeKeysFromCamel from '../objectWithSnakeKeysFromCamel';
+import { hashToCollection } from '../../../Shared/index'
 
 interface Question {
   conceptID: string,

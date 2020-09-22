@@ -1,7 +1,7 @@
 declare function require(name:string);
 const request = require('request-promise');
 import * as _ from 'underscore';
-import { hashToCollection } from 'quill-component-library/dist/componentLibrary';
+import { hashToCollection } from '../../../Shared/index'
 
 // const qml = require('quill-marking-logic')
 import { checkDiagnosticSentenceFragment, checkDiagnosticQuestion, checkFillInTheBlankQuestion, ConceptResult } from 'quill-marking-logic'

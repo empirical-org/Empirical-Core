@@ -109,7 +109,7 @@ export class PlayGrammarContainer extends React.Component<PlayGrammarContainerPr
 
       const sessionID = getParameterByName('student', window.location.href)
       // eslint-disable-next-line react/destructuring-assignment
-      if (sessionID && !_.isEqual(session, this.props.session) && !session.pending) {
+      if (sessionID && !_.isEqual(session, this.props.session) && !session.pending && session.hasreceiveddata) {
         updateSession(sessionID, session)
       }
       if(previewMode && questions && session.currentQuestion && !questionToPreview) {

@@ -2,7 +2,6 @@ import * as React from 'react';
 import { connect } from 'react-redux';
 import QuestionSelector from 'react-select-search';
 import {
-  hashToCollection,
   SortableList,
   TextEditor
 } from 'quill-component-library/dist/componentLibrary';
@@ -16,6 +15,7 @@ import { Lesson } from '../../interfaces/lesson';
 import { QuestionsReducerState } from '../../reducers/questions';
 import { SentenceFragmentsReducerState } from '../../reducers/sentenceFragments';
 import { TitleCardsReducerState } from '../../reducers/titleCards';
+import { hashToCollection } from '../../../Shared/index'
 
 export interface LessonFormProps {
   concepts: ConceptsReducerState,

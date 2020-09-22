@@ -1,4 +1,3 @@
-import { hashToCollection } from 'quill-component-library/dist/componentLibrary'
 import * as _ from 'lodash'
 
 import { ActionTypes } from './actionTypes'
@@ -6,7 +5,7 @@ import { DashboardConceptRow, DashboardActivity, DashboardQuestionRow } from '..
 import { GrammarActivity } from '../interfaces/grammarActivities'
 import { Concept } from '../interfaces/concepts'
 import { SharedCacheApi } from '../libs/shared_cache_api'
-
+import { hashToCollection } from '../../Shared/index'
 
 export const SHARED_CACHE_KEY = 'GRAMMAR_QUESTIONS_AND_CONCEPTS_MAP'
 

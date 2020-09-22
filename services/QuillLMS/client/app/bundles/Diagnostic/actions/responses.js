@@ -2,7 +2,6 @@
 import _ from 'underscore';
 import pathwaysActions from './pathways';
 import rootRef from '../libs/firebase';
-import { hashToCollection } from 'quill-component-library/dist/componentLibrary';
 import request from 'request';
 import objectWithSnakeKeysFromCamel from '../libs/objectWithSnakeKeysFromCamel';
 
@@ -352,13 +351,6 @@ export function getGradedResponsesWithoutCallback(questionID) {
       });
       return bodyToObj;
     }
-  });
-}
-
-export function findResponseByText(text, questionUID, cb) {
-  responsesRef.orderByChild('text').equalTo(text).once('value', (snapshot) => {
-    const response = _.findWhere(hashToCollection(snapshot.val()), { questionUID, });
-    cb(response);
   });
 }
 
