@@ -22,4 +22,17 @@ describe StudentJoinedClassroomWorker, type: :worker do
     expect(analyzer).to receive(:track).with(teacher, SegmentIo::BackgroundEvents::TEACHERS_STUDENT_ACCOUNT_CREATION)
     worker.perform(teacher.id, student.id)
   end
+
+  it 'in cases where no teacher is sent, it does not track teacher' do
+    expect(analyzer).to receive(:track_with_attributes).with(
+      student,
+      SegmentIo::BackgroundEvents::STUDENT_ACCOUNT_CREATION,
+      {
+        context: {:ip => student.ip_address },
+        integrations: { intercom: 'false' }
+      }
+    )
+    expect(analyzer).not_to receive(:track).with(teacher, SegmentIo::BackgroundEvents::TEACHERS_STUDENT_ACCOUNT_CREATION)
+    worker.perform(nil, student.id)
+  end
 end
