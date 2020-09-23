@@ -6,7 +6,7 @@ class Api::V1::ActiveActivitySessionsController < Api::ApiController
   end
 
   def update
-    retried ||= false
+    retried = false
     begin
       @activity_session = ActiveActivitySession.find_or_initialize_by(uid: params[:id])
       @activity_session.data ||= {}
