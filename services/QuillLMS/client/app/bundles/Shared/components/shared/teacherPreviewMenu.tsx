@@ -2,7 +2,6 @@ import * as React from "react";
 import * as Redux from "redux";
 import { connect } from "react-redux";
 import stripHtml from "string-strip-html";
-import $ from 'jquery';
 import { getActivity } from "../../../Grammar/actions/grammarActivities";
 import getParameterByName from "../../../Grammar/helpers/getParameterByName";
 import { Question } from '../../../Grammar/interfaces/questions';
@@ -51,8 +50,12 @@ const renderTitleSection = (activity: Activity) => {
 
 const renderIntroductionSection = (activity: Activity, playLesson: any) => {
   if(!activity) { return }
-  if(activity && !activity.landingPageHtml) { return }
-  const introductionText = $(activity.landingPageHtml).filter('h3').text();
+  const isEmptyIntroduction = activity.landingPageHtml && !stripHtml(activity.landingPageHtml);
+  if(activity && (!activity.landingPageHtml || isEmptyIntroduction)) { return }
+
+  const introductionHTML = new DOMParser().parseFromString(activity.landingPageHtml, 'text/html');
+  // we strip HTML because some activites have h3 introduction text wrapped in <strong> tags 
+  const introductionText = stripHtml(introductionHTML.getElementsByTagName('h3')[0].innerHTML);
   const style = playLesson && !playLesson.questionSet ? 'highlighted' : '';
   return(
     <section>
@@ -147,7 +150,7 @@ const renderQuestions = ({
   }
 }
 
-export interface TeacherPreviewMenuProps {
+interface TeacherPreviewMenuProps {
   activity: Activity;
   dispatch: Function;
   fillInBlank: any[];
@@ -167,7 +170,7 @@ export interface TeacherPreviewMenuProps {
   titleCards: any;
 }
  
-const TeacherPreviewMenu = ({ 
+const TeacherPreviewMenuComponent = ({ 
   activity,
   dispatch,
   fillInBlank,
@@ -219,7 +222,6 @@ const TeacherPreviewMenu = ({
   }
 
   const hiddenStyle = !showPreview ? 'hidden' : '';
-  const disabled = playLesson && !playLesson.questionSet;
 
   return (
     <aside className={`teacher-preview-menu-container ${hiddenStyle}`}>
@@ -275,4 +277,4 @@ const mapDispatchToProps = (dispatch: Redux.Dispatch<any>) => {
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(TeacherPreviewMenu);
+export const TeacherPreviewMenu = connect(mapStateToProps, mapDispatchToProps)(TeacherPreviewMenuComponent);

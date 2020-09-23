@@ -9,7 +9,7 @@ import {
   Spinner,
   ProgressBar
 } from 'quill-component-library/dist/componentLibrary';
-import { Register } from '../../../Shared/components/studentLessons/register'
+import { Register } from '../../../Shared/index';
 import { clearData, loadData, nextQuestion, submitResponse, updateCurrentQuestion, resumePreviousSession } from '../../actions.js';
 import SessionActions from '../../actions/sessions.js';
 import _ from 'underscore';
@@ -40,11 +40,7 @@ export class Lesson extends React.Component {
   }
 
   componentDidMount() {
-    const { dispatch, previewMode } = this.props;
-    const { isLastQuestion } = this.state;
-    if(previewMode && isLastQuestion) {
-      this.setIsLastQuestion();
-    }
+    const { dispatch } = this.props;
     dispatch(clearData());
   }
 

@@ -178,7 +178,7 @@ export default class PlayLessonQuestion extends React.Component<PlayLessonQuesti
 
   renderFeedback = (override?: string) => {
     const { question, previewMode } = this.props;
-    const { previewAttempt, previewAttemptSubmitted, response } = this.state;
+    const { previewAttempt } = this.state;
     let sentence;
     if (override) {
       sentence = override;
@@ -192,14 +192,11 @@ export default class PlayLessonQuestion extends React.Component<PlayLessonQuesti
       listCuesAsString={this.listCuesAsString}
       override={!!override}
       previewAttempt={previewAttempt}
-      previewAttemptSubmitted={previewAttemptSubmitted}
       previewMode={previewMode}
       question={question}
       renderFeedbackStatements={this.renderFeedbackStatements}
-      response={response}
       responses={this.getResponses()}
       sentence={sentence}
-      teacher
     />);
   }
 
@@ -302,10 +299,7 @@ export default class PlayLessonQuestion extends React.Component<PlayLessonQuesti
   getDisabledStatus = () => {
     const { previewMode, isLastQuestion } = this.props;
     const { previewSubmissionCount, previewAttempt } = this.state;
-    if(previewMode && isLastQuestion && (previewSubmissionCount === 5 || previewAttempt.optimal)) {
-      return true;
-    }
-    return false;
+    return previewMode && isLastQuestion && (previewSubmissionCount === 5 || previewAttempt.optimal);
   }
 
   finish = () => {
@@ -351,7 +345,8 @@ export default class PlayLessonQuestion extends React.Component<PlayLessonQuesti
 
   renderConceptExplanation = () => {
     const { conceptsFeedback, } = this.props
-    const latestAttempt:{response: any}|undefined = this.handleGetLatestAttempt();
+    //TODO: update Response interface in quill-marking-logic to fix Boolean/boolean type checking 
+    const latestAttempt:{response: Response}|undefined = this.handleGetLatestAttempt();
 
     // we do not want to show concept feedback if a response is optimal
     if (!latestAttempt || !latestAttempt.response || latestAttempt.response.optimal) { return }

@@ -4,7 +4,7 @@ import { routes } from "../routes";
 import { NavBar } from './navbar/studentNavbar.tsx';
 import { Layout } from "antd";
 import { getParameterByName } from '../libs/getParameterByName';
-import TeacherPreviewMenu from '../../Teacher/components/shared/teacherPreviewMenu';
+import { TeacherPreviewMenu } from '../../Shared/index';
 
 interface PageLayoutState {
   showFocusState: boolean;
@@ -17,11 +17,11 @@ export default class Home extends React.Component<any, PageLayoutState> {
   constructor(props) {
     super(props);
     
-    const studentSession = getParameterByName('student', window.location.href);
+    const studentOrTurkSession = getParameterByName('student', window.location.href) || window.location.href.includes('turk');
 
     this.state = { 
       showFocusState: false,
-      previewShowing: !studentSession,
+      previewShowing: !studentOrTurkSession,
       questionToPreview: null,
       switchedBackToPreview: false,
       skippedToQuestionFromIntro: false
@@ -72,16 +72,18 @@ export default class Home extends React.Component<any, PageLayoutState> {
   render() {
     const { showFocusState, previewShowing, questionToPreview, switchedBackToPreview, skippedToQuestionFromIntro } = this.state;
     const studentSession = getParameterByName('student', window.location.href);
+    const turkSession = window.location.href.includes('turk');
     const isPlaying = window.location.href.includes('play');
-    const showPreview = previewShowing && isPlaying;
+    const studentOrTurk = studentSession || turkSession
+    const showPreview = previewShowing && isPlaying && !studentOrTurk;
     const className = showFocusState ? '' : 'hide-focus-outline'
-    const studentOrTurk = window.location.href.includes('play') || window.location.href.includes('turk')
     let header;
-    if(studentOrTurk && !studentSession) {
+    if(!studentOrTurk && isPlaying) {
       header = <NavBar isTeacher={!studentSession} onTogglePreview={this.handleTogglePreviewMenu} previewShowing={previewShowing} />;
-    } else if(studentOrTurk) {
+    } else if (studentOrTurk && isPlaying) {
       header = <NavBar />;
     }
+    
     if(showPreview) {
       return(
         <Layout className={className}>

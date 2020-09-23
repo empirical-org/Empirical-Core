@@ -1,7 +1,6 @@
 import * as React from 'react';
 import getAnswerState from './answerState';
 import { Feedback } from 'quill-component-library/dist/componentLibrary';
-import getResponse from './checkAnswer';
 
 class FeedbackComponent extends React.Component<any, any> {
   constructor(props){
@@ -9,13 +8,11 @@ class FeedbackComponent extends React.Component<any, any> {
   }
 
   getFeedbackType(data?): string {
-    const { previewAttempt, previewAttemptSubmitted, previewMode, response, responses, question} = this.props;
+    const { previewAttempt, previewMode } = this.props;
     if (data) {
       let latestAttempt
       if(previewMode && previewAttempt) {
         latestAttempt = previewAttempt;
-      } else if(previewMode && !previewAttempt && previewAttemptSubmitted && responses && Object.keys(responses).length) {
-        latestAttempt = getResponse(question, response, responses);
       } else {
         latestAttempt = getLatestAttempt(data.question.attempts);
       }
@@ -46,12 +43,10 @@ class FeedbackComponent extends React.Component<any, any> {
   }
 
   getFeedbackCopy(data): string {
-    const { previewAttempt, previewAttemptSubmitted, previewMode, response, responses, question} = this.props;
+    const { previewAttempt, previewMode } = this.props;
     let latestAttempt
     if(previewMode && previewAttempt) {
       latestAttempt = previewAttempt;
-    } else if(previewMode && !previewAttempt && previewAttemptSubmitted && responses && Object.keys(responses).length) {
-      latestAttempt = getResponse(question, response, responses);
     } else {
       latestAttempt = getLatestAttempt(data.question.attempts);
     }
