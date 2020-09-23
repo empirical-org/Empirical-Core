@@ -55,8 +55,13 @@ module PagesHelper
   def team_info
     [
       {
-        team: 'Leadership team',
+        team: 'Management team',
         members: [
+          {
+            name: 'Christina Collins',
+            title: 'Managing Director of Partnerships',
+            img: 'team-christina-collins@2x.png'
+          },
           {
             name: 'Daniel Drabik',
             title: 'Chief Technology Officer',
@@ -66,6 +71,11 @@ module PagesHelper
             name: 'Peter Gault',
             title: 'Executive Director, Cofounder',
             img: 'team-peter-gault@2x.png'
+          },
+          {
+            name: 'Hannah Monk',
+            title: 'Curriculum Director',
+            img: 'team-hannah-monk@2x.png'
           }
         ]
       },
@@ -92,11 +102,6 @@ module PagesHelper
             name: 'Tom Calabrese',
             title: 'Product Designer',
             img: 'team-tom-calabrese@2x.png'
-          },
-          {
-            name: 'Christina Collins',
-            title: 'Managing Director of Partnerships',
-            img: 'team-christina-collins@2x.png'
           },
           {
             name: 'Rachel Dantzler',
@@ -132,11 +137,6 @@ module PagesHelper
             name: 'Maddy Maher',
             title: 'Partnerships Specialist',
             img: 'team-maddy-maher@2x.png'
-          },
-          {
-            name: 'Hannah Monk',
-            title: 'Curriculum Director',
-            img: 'team-hannah-monk@2x.png'
           },
           {
             name: 'Lindsey Murphy',
