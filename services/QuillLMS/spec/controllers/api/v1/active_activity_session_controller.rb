@@ -30,7 +30,9 @@ describe Api::V1::ActiveActivitySessionsController, type: :controller do
       put :update, id: 'doesnotexist', active_activity_session: data
       expect(response.status).to eq(200)
       expect(response.body).to eq(data.to_json)
-      expect(ActiveActivitySession.find_by(uid: 'doesnotexist')).to be
+      new_activity_session = ActiveActivitySession.find_by(uid: 'doesnotexist')
+      expect(new_activity_session).to be
+      expect(new_activity_session.data).to eq(data)
     end
 
     it "should retain the values in keys not updated in the payload" do
@@ -39,6 +41,24 @@ describe Api::V1::ActiveActivitySessionsController, type: :controller do
       put :update, id: active_activity_session.uid, active_activity_session: new_data
       active_activity_session.reload
       expect(active_activity_session.data.keys).to eq(old_data.keys + new_data.keys)
+    end
+
+    it "should not raise an ActiveRecord::RecordNotUnique error if that is raised during the first save attempt but not raised on retry" do
+      call_count = 0
+      allow_any_instance_of(ActiveActivitySession).to receive(:save!) do
+        call_count += 1
+        raise(ActiveRecord::RecordNotUnique, 'Error') if call_count == 1
+        true
+      end
+      put :update, id: active_activity_session.uid, active_activity_session: active_activity_session.data
+    end
+
+    it "should raise an ActiveRecord::RecordNotUnique error if that is raised both during save and on retry" do
+      err = ActiveRecord::RecordNotUnique.new('Error')
+      allow_any_instance_of(ActiveActivitySession).to receive(:save!).and_raise(err)
+      expect do
+        put :update, id: active_activity_session.uid, active_activity_session: active_activity_session.data
+      end.to raise_error(err)
     end
   end
 
