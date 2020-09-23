@@ -12,7 +12,7 @@ exports[`TeacherPreviewMenu component should match snapshot 1`] = `
     }
   }
 >
-  <Connect(TeacherPreviewMenu)
+  <Connect(TeacherPreviewMenuComponent)
     activity={
       Object {
         "questions": Array [
@@ -46,7 +46,7 @@ exports[`TeacherPreviewMenu component should match snapshot 1`] = `
     }
     showPreview={true}
   >
-    <TeacherPreviewMenu
+    <TeacherPreviewMenuComponent
       dispatch={[Function]}
       fillInBlank={null}
       playLesson={
@@ -97,7 +97,7 @@ exports[`TeacherPreviewMenu component should match snapshot 1`] = `
           <ul />
         </section>
       </aside>
-    </TeacherPreviewMenu>
-  </Connect(TeacherPreviewMenu)>
+    </TeacherPreviewMenuComponent>
+  </Connect(TeacherPreviewMenuComponent)>
 </Provider>
 `;
