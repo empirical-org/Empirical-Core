@@ -34,14 +34,10 @@ class Questions extends React.Component {
     this.createNew = this.createNew.bind(this)
     this.submitNewQuestion = this.submitNewQuestion.bind(this)
     this.updateRematchedResponse = this.updateRematchedResponse.bind(this)
-    this.mapConceptsToList = this.mapConceptsToList.bind(this)
-    this.responsesWithStatusForQuestion = this.responsesWithStatusForQuestion.bind(this)
-    this.rematchAllResponses = this.rematchAllResponses.bind(this)
     this.rematchResponse = this.rematchResponse.bind(this)
     this.renderModal = this.renderModal.bind(this)
     this.handleSearchChange = this.handleSearchChange.bind(this)
     this.toggleShowArchived = this.toggleShowArchived.bind(this)
-    this.renderSearchBox = this.renderSearchBox.bind(this)
   }
 
   UNSAFE_componentWillReceiveProps(nextProps) {
@@ -75,27 +71,6 @@ class Questions extends React.Component {
   generateFeedbackString(attempt) {
     const errors = this.getErrorsForAttempt(attempt);
     return errors;
-  }
-  // functions for rematching all Responses
-  mapConceptsToList() {
-    const concepts = hashToCollection(this.props.concepts.data['0']);
-    const questions = hashToCollection(this.props.questions.data);
-    const conceptsWithQuestions = concepts.map(concept => _.where(questions, { conceptID: concept.uid, }));
-    return _.flatten(conceptsWithQuestions);
-  }
-
-  responsesWithStatusForQuestion(questionUID) {
-    const responses = this.props.responses.data[questionUID];
-    return hashToCollection(respWithStatus(responses));
-  }
-
-  rematchAllResponses(question) {
-    const responsesWithStat = this.responsesWithStatusForQuestion(question.key);
-    const weak = _.filter(responsesWithStat, resp => resp.statusCode > 1);
-    weak.forEach((resp, index) => {
-      const percentage = index / weak.length * 100;
-      this.rematchResponse(question, resp, responsesWithStat);
-    });
   }
 
   rematchResponse(question, response, responses) {
@@ -188,24 +163,6 @@ class Questions extends React.Component {
     });
   }
 
-  renderSearchBox() {
-    return null
-    // const options = hashToCollection(this.props.questions.data);
-    // if (options.length > 0) {
-    //   const formatted = options.map((opt) => {
-    //     let name;
-    //     if (opt.prompt) {
-    //       name = opt.prompt.replace(/(<([^>]+)>)/ig, '').replace(/&nbsp;/ig, '');
-    //     } else {
-    //       name = 'No name';
-    //     }
-    //     return { name, value: opt.key || 'key', };
-    //   });
-    //   const searchBox = (<QuestionSelector options={formatted} placeholder="Search for a question" onChange={this.handleSearchChange} />);
-    //   return searchBox;
-    // }
-  }
-
   render() {
     const { questions, concepts, } = this.props;
     if (questions.hasreceiveddata && concepts.hasreceiveddata) {
@@ -213,7 +170,6 @@ class Questions extends React.Component {
         <section className="section">
           <div className="container">
             { this.renderModal() }
-            { this.renderSearchBox() }
             <br />
             <ArchivedButton lessons={false} showOnlyArchived={this.state.showOnlyArchived} toggleShowArchived={this.toggleShowArchived} />
             <br />

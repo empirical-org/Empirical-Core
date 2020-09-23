@@ -5,10 +5,10 @@ import { EditorState, ContentState } from 'draft-js'
 import TextEditor from '../shared/textEditor'
 import ConceptSelector from '../shared/conceptSelector'
 import SortableList from '../shared/sortableList'
-import { hashToCollection } from '../../helpers/hashToCollection'
 import { GrammarActivity, Concepts, Concept } from '../../interfaces/grammarActivities'
 import { Question } from '../../interfaces/questions'
 import { ConceptReducerState } from '../../reducers/conceptsReducer'
+import { hashToCollection } from '../../../Shared/index'
 
 interface LessonFormState {
   title: string;

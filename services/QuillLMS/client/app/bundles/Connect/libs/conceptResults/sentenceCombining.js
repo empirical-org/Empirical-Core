@@ -1,5 +1,5 @@
-import { hashToCollection } from 'quill-component-library/dist/componentLibrary';
 import { formattedCues } from '../formattedCues';
+import { hashToCollection, } from '../../../Shared/index'
 
 export function getConceptResultsForSentenceCombining(question) {
   const prompt = question.prompt.replace(/(<([^>]+)>)/ig, '').replace(/&nbsp;/ig, '');

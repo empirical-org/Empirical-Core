@@ -3,12 +3,11 @@ import * as React from 'react';
 import * as _ from 'underscore';
 import {Response} from 'quill-marking-logic'
 import {
-  hashToCollection,
   SentenceFragments,
   ConceptExplanation,
 } from 'quill-component-library/dist/componentLibrary';
 
-import { MultipleChoice } from '../../../Shared/index'
+import { MultipleChoice, hashToCollection, } from '../../../Shared/index'
 import { submitResponse } from '../../actions.js';
 import Question from '../../libs/question';
 import RenderQuestionFeedback from '../renderForQuestions/feedbackStatements.jsx';
@@ -17,7 +16,6 @@ import RenderFeedback from '../renderForQuestions/feedback';
 import getResponse from '../renderForQuestions/checkAnswer';
 import submitQuestionResponse from '../renderForQuestions/submitResponse.js';
 import updateResponseResource from '../renderForQuestions/updateResponseResource.js';
-import submitPathway from '../renderForQuestions/submitPathway.js';
 import AnswerForm from '../renderForQuestions/renderFormForAnswer.jsx';
 import {
   getMultipleChoiceResponseOptionsWithCallback,
@@ -226,10 +224,6 @@ export default class PlayLessonQuestion extends React.Component<PlayLessonQuesti
   updateResponseResource(response) {
     const { dispatch, } = this.props
     updateResponseResource(response, this.getQuestion().key, this.getQuestion().attempts, dispatch);
-  }
-
-  submitPathway(response) {
-    submitPathway(response, this.props);
   }
 
   answeredCorrectly = () => {

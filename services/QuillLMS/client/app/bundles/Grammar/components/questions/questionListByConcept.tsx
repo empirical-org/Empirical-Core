@@ -1,13 +1,11 @@
 import * as React from 'react'
 import _ from 'lodash'
 import LinkListItem from '../shared/linkListItem'
-import {
-  hashToCollection
-} from 'quill-component-library/dist/componentLibrary';
 import { Concept } from '../../interfaces/concepts'
 import { ConceptReducerState } from '../../reducers/conceptsReducer'
 import { QuestionsReducerState } from '../../reducers/questionsReducer'
 import { Question } from '../../interfaces/questions'
+import { hashToCollection } from '../../../Shared/index'
 
 interface QuestionListByConceptProps {
   concepts: ConceptReducerState;

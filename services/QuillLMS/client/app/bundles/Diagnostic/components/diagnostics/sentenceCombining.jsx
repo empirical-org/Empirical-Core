@@ -11,7 +11,6 @@ import { Feedback, SentenceFragments } from 'quill-component-library/dist/compon
 import getResponse from '../renderForQuestions/checkAnswer';
 import { submitQuestionResponse } from '../renderForQuestions/submitResponse.js';
 import updateResponseResource from '../renderForQuestions/updateResponseResource.js';
-import submitPathway from '../renderForQuestions/submitPathway.js';
 import TextEditor from '../renderForQuestions/renderTextEditor.jsx';
 import { Error } from 'quill-component-library/dist/componentLibrary';
 
@@ -106,10 +105,6 @@ class PlayDiagnosticQuestion extends React.Component {
   updateResponseResource = (response) => {
     const { dispatch, } = this.props
     updateResponseResource(response, this.getQuestion().key, this.getQuestion().attempts, dispatch);
-  }
-
-  submitPathway = (response) => {
-    submitPathway(response, this.props);
   }
 
   setResponse = (response) => {

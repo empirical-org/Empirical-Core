@@ -1,11 +1,9 @@
 import * as React from 'react'
-import {
-  hashToCollection,
-  FlagDropdown
-} from 'quill-component-library/dist/componentLibrary';
+import { FlagDropdown, } from 'quill-component-library/dist/componentLibrary';
 import TextEditor from '../shared/textEditor'
 import { EditorState, ContentState } from 'draft-js'
 import ConceptSelector from '../shared/conceptSelector'
+import { hashToCollection } from '../../../Shared/index'
 
 export default class QuestionForm extends React.Component {
   constructor(props) {
