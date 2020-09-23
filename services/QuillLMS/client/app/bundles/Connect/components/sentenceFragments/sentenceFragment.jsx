@@ -1,7 +1,6 @@
 import React from 'react';
 import { NavLink, Route, Switch, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { Modal, UploadOptimalResponses } from 'quill-component-library/dist/componentLibrary';
 import EditForm from './sentenceFragmentForm.jsx';
 import ResponseComponent from '../questions/responseComponent.jsx';
 import fragmentActions from '../../actions/sentenceFragments';
@@ -20,6 +19,7 @@ import ResponseComponentWrapper from '../questions/responseRouteWrapper.jsx';
 import ChooseModelContainer from './chooseModelContainer.jsx';
 import TestQuestionContainer from './testSentenceFragmentContainer';
 import MassEditContainer from '../questions/massEditContainer.jsx';
+import { Modal, UploadOptimalResponses, } from '../../../Shared/index'
 
 const icon = `${process.env.CDN_URL}/images/icons/direction.svg`
 
