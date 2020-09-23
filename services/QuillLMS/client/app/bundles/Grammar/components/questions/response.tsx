@@ -26,7 +26,7 @@ interface ResponseState {
   selectedBoilerplateCategory: string,
   selectedConcept: string,
   actions: {},
-  parent: null,
+  parent: {},
   newConceptResult: {
     conceptUID: string,
     correct: boolean,
