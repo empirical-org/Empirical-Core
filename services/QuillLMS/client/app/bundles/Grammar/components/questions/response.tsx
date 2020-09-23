@@ -20,8 +20,47 @@ import {
 import * as jsDiff from 'diff'
 import { ActionTypes } from '../../actions/actionTypes';
 
+interface ResponseState {
+  feedback: string,
+  selectedBoilerplate: string,
+  selectedBoilerplateCategory: string,
+  selectedConcept: string,
+  actions: {},
+  parent: null,
+  newConceptResult: {
+    conceptUID: string,
+    correct: boolean,
+  },
+  conceptResults: {},
+}
 
-export default class extends React.Component {
+interface ResponseProps {
+  admin: boolean,
+  allExpanded: boolean,
+  ascending: boolean,
+  concepts: {},
+  dispatch: () => void,
+  expand: boolean,
+  expanded: boolean,
+  getChildResponses: Function,
+  getResponse: Function,
+  getMatchingResponse: Function,
+  questionID: string,
+  response: Response,
+  question: {},
+  massEdit: {
+    numSelectedResponse: number,
+    selectedResponses: any[],
+  },
+  readOnly: boolean,
+  state: string,
+  printPathways: Function,
+  toPathways: Function,
+  states: {}
+}
+
+
+export default class extends React.Component<ResponseProps, ResponseState> {
   constructor(props) {
     super(props)
 
@@ -52,7 +91,7 @@ export default class extends React.Component {
 
   UNSAFE_componentWillReceiveProps(nextProps) {
     const { response } = nextProps;
-    if (!_.isEqual(response, this.props.response)) {
+    if (!_.isEqual(response, response)) {
       let conceptResults = {}
       if (nextProps.response.concept_results) {
         if (typeof nextProps.response.concept_results === 'string') {
@@ -100,7 +139,7 @@ export default class extends React.Component {
   viewToResponses = (rid: string) => {
     const { dispatch, questionID } = this.props
     const { actions } = this.state
-    dispatch(actions.startToResponseView(this.props.questionID, rid));
+    dispatch(actions.startToResponseView(questionID, rid));
   }
 
   cancelToResponseView = (rid: string) => {
@@ -118,9 +157,9 @@ export default class extends React.Component {
       optimal: this.refs.newResponseOptimal.checked,
       author: null,
       parent_id: null,
-      concept_results: Object.keys(conceptResults) && Object.keys(conceptResults).length ? this.state.conceptResults : null
+      concept_results: Object.keys(conceptResults) && Object.keys(conceptResults).length ? conceptResults : null
     };
-    this.props.dispatch(submitResponseEdit(rid, newResp, questionID));
+    dispatch(submitResponseEdit(rid, newResp, questionID));
   }
 
   unmatchResponse = (rid: string) => {
