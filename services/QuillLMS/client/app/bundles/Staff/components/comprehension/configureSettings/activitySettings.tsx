@@ -1,6 +1,6 @@
 import * as React from "react";
 import { RouteComponentProps } from 'react-router-dom';
-import { DataTable, Error, Modal, Spinner } from 'quill-component-library/dist/componentLibrary';
+
 import { ActivityInterface, ActivityRouteProps } from '../../../interfaces/comprehensionInterfaces';
 import { BECAUSE, BUT, SO } from '../../../../../constants/comprehension';
 import ActivityForm from './activityForm';
@@ -9,6 +9,7 @@ import SubmissionModal from '../shared/submissionModal';
 import { fetchActivity, updateActivity } from '../../../utils/comprehension/activityAPIs';
 import { queryCache, useQuery } from 'react-query'
 import { promptsByConjunction } from "../../../helpers/comprehension";
+import { DataTable, Error, Modal, Spinner } from '../../../../Shared/index';
 
 const ActivitySettings: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ match }) => {
 
@@ -125,9 +126,9 @@ const ActivitySettings: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ m
       const soText = formattedPrompts && formattedPrompts[SO] ? formattedPrompts[SO].text : null;
 
       const fields = [
-        { 
+        {
           label: 'Title',
-          value: title 
+          value: title
         },
         // {
         //   label: 'Development Stage',
@@ -187,7 +188,7 @@ const ActivitySettings: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ m
 
   // The header labels felt redundant so passing empty strings and hiding header display
   const dataTableFields = [
-    { name: "", attribute:"field", width: "200px" }, 
+    { name: "", attribute:"field", width: "200px" },
     { name: "", attribute:"value", width: "400px" }
   ];
 
