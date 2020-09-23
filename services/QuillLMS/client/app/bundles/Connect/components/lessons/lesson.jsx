@@ -14,7 +14,7 @@ import questionActions from '../../actions/questions'
 import sentenceFragmentActions from '../../actions/sentenceFragments'
 import fillInBlankActions from '../../actions/fillInBlank'
 import titleCardActions from '../../actions/titleCards'
-import { FlagDropdown, Modal } from '../Shared/index';
+import { FlagDropdown, Modal } from '../../../Shared/index';
 
 const icon = `${process.env.CDN_URL}/images/icons/direction.svg`
 
