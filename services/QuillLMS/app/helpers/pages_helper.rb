@@ -90,7 +90,7 @@ module PagesHelper
           },
           {
             name: 'Tom Calabrese',
-            title: 'Product Designer',
+            title: 'Lead Product Designer',
             img: 'team-tom-calabrese@2x.png'
           },
           {

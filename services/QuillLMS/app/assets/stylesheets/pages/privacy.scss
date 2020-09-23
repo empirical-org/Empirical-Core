@@ -1,0 +1,71 @@
+.privacy-page {
+  padding: 64px 0px;
+  width: 656px;
+
+  .privacy-header {
+    text-align: center;
+    margin-bottom: 15px;
+  }
+
+  .privacy-paragraph {
+    opacity: 0.9;
+    line-height: 1.5;
+    font-size: 16px;
+    padding: 28px 0px;
+  }
+
+  .intro {
+    text-align: center;
+    padding-bottom: 64px;
+    padding-top: 0px;
+  }
+
+  .first-paragraph {
+    margin-top: 50px;
+  }
+
+  h1 {
+    font-size: 30px;
+    font-weight: bold;
+    line-height: 1.5;
+    margin-bottom: 8px;
+  }
+
+  h2 {
+    font-size: 24px;
+    font-weight: bold;
+    line-height: 1.5;
+    margin-bottom: 8px;
+  }
+
+  h3 {
+    font-size: 16px;
+    font-weight: bold;
+    line-height: 1.5;
+    margin-bottom: 6px;
+  }
+
+  h4 {
+    font-size: 16px;
+    font-weight: bold;
+    line-height: 1.5;
+    margin-bottom: 8px;
+  }
+
+  li {
+    padding: 6px 0px;
+  }
+
+  p {
+    font-size: 16px;
+  }
+
+  hr {
+    margin: 0 auto;
+  }
+
+  @media screen and (max-width: 700px) {
+    padding: 48px 16px;
+    width: auto;
+  }
+}
