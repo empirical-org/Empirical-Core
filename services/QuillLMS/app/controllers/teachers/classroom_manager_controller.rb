@@ -160,7 +160,7 @@ class Teachers::ClassroomManagerController < ApplicationController
 
   def retrieve_google_classrooms
     serialized_google_classrooms = $redis.get("#{SERIALIZED_GOOGLE_CLASSROOMS_FOR_}#{current_user.id}")
-    if serialized_google_classrooms	    render json: { id: current_user.id, quill_retrieval_processing: true }
+    if serialized_google_classrooms
       render json: JSON.parse(serialized_google_classrooms)
     else
       RetrieveGoogleClassroomsWorker.perform_async(current_user.id)
