@@ -3,15 +3,15 @@ import { connect } from 'react-redux';
 import * as actions from '../../actions/questions';
 import _ from 'underscore';
 import { Link } from 'react-router';
-import {
-  Modal,
-  ArchivedButton
-} from 'quill-component-library/dist/componentLibrary';
 import QuestionListByConcept from './questionListByConcept'
 import checkAnswer from '../../libs/checkAnswer';
 import { push } from 'react-router-redux';
 import respWithStatus from '../../libs/responseTools.ts';
 import { submitResponseEdit, deleteResponse } from '../../actions/responses';
+import {
+  Modal,
+  ArchivedButton
+} from '../../../Shared/index';
 
 function sleep(milliseconds) {
   const start = new Date().getTime();

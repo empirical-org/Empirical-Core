@@ -1,11 +1,11 @@
 import React from 'react';
 import request from 'request';
 import { SegmentAnalytics, Events } from '../../../../../modules/analytics';
-import { Input } from 'quill-component-library/dist/componentLibrary'
 
 import PasswordInfo from './password_info.jsx';
 import AssignActivityPackBanner from '../assignActivityPackBanner'
 import getAuthToken from '../../modules/get_auth_token';
+import { Input, } from '../../../../Shared/index'
 
 class LoginFormApp extends React.Component {
   constructor(props) {

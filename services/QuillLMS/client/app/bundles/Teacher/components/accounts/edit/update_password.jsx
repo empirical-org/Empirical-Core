@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Input, } from 'quill-component-library/dist/componentLibrary'
+import { Input, } from '../../../../Shared/index'
 
 export default class UpdatePassword extends Component {
   state = {
@@ -37,7 +37,7 @@ export default class UpdatePassword extends Component {
     const { showButtonSection, } = this.state
     const { active, activateSection, isBeingPreviewed, } = this.props;
     if (isBeingPreviewed || active || showButtonSection ) { return }
-    
+
     this.setState({ showButtonSection: true, });
     activateSection();
   }

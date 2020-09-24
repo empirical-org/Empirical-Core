@@ -1,7 +1,8 @@
 import * as React from 'react';
 import * as _ from 'underscore';
+import * as jsDiff from 'diff'
+
 import * as questionActions from '../../actions/questions';
-import { Modal, } from 'quill-component-library/dist/componentLibrary';
 import TextEditor from '../shared/textEditor'
 import { EditorState, ContentState } from 'draft-js'
 import ResponseList from './responseList';
@@ -13,11 +14,11 @@ import {
   submitResponseEdit,
   getGradedResponsesWithCallback,
 } from '../../actions/responses';
-import { hashToCollection } from '../../../Shared/index'
-
-import * as jsDiff from 'diff'
 import { ActionTypes } from '../../actions/actionTypes';
-
+import {
+  hashToCollection,
+  Modal,
+} from '../../../Shared/index'
 
 export default class Response extends React.Component<any, any> {
   constructor(props: any) {
