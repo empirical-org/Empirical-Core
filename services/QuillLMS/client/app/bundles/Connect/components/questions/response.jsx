@@ -2,10 +2,6 @@ import React from 'react';
 import _ from 'underscore';
 import questionActions from '../../actions/questions';
 import sentenceFragmentActions from '../../actions/sentenceFragments';
-import {
-  Modal,
-  TextEditor,
-} from 'quill-component-library/dist/componentLibrary';
 import { EditorState, ContentState } from 'draft-js'
 import ResponseList from './responseList.jsx';
 import getBoilerplateFeedback from './boilerplateFeedback.jsx';
@@ -16,7 +12,11 @@ import {
   submitResponseEdit,
   getGradedResponsesWithCallback,
 } from '../../actions/responses';
-import { hashToCollection, } from '../../../Shared/index'
+import {
+  hashToCollection,
+  Modal,
+  TextEditor,
+} from '../../../Shared/index'
 
 const jsDiff = require('diff');
 const C = require('../../constants').default;

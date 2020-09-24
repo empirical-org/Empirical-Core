@@ -4,7 +4,6 @@ import { Link } from 'react-router-dom';
 import _ from 'underscore';
 import lessonActions from '../../actions/lessons';
 import { permittedFlag } from '../../libs/flagArray'
-import { FlagDropdown, Modal } from 'quill-component-library/dist/componentLibrary';
 import C from '../../constants.js';
 import EditLessonForm from './lessonForm.jsx';
 import QuestionForm from '../questions/questionForm'
@@ -15,6 +14,7 @@ import questionActions from '../../actions/questions'
 import sentenceFragmentActions from '../../actions/sentenceFragments'
 import fillInBlankActions from '../../actions/fillInBlank'
 import titleCardActions from '../../actions/titleCards'
+import { FlagDropdown, Modal } from '../../../Shared/index';
 
 const icon = `${process.env.CDN_URL}/images/icons/direction.svg`
 
