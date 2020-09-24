@@ -1,7 +1,8 @@
 import * as React from 'react'
-import { DataTable, Input } from 'quill-component-library/dist/componentLibrary'
+import { DataTable } from 'quill-component-library/dist/componentLibrary'
 
 import ButtonLoadingIndicator from '../shared/button_loading_indicator'
+import { Input, } from '../../../Shared/index'
 
 import { requestPost } from '../../../../modules/request/index.js';
 

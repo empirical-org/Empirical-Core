@@ -1,7 +1,8 @@
 import * as React from 'react'
-import { Input, DropdownInput } from 'quill-component-library/dist/componentLibrary'
+import { DropdownInput } from 'quill-component-library/dist/componentLibrary'
 
 import GradeOptions from './grade_options'
+import { Input, } from '../../../Shared/index'
 import { requestGet, requestPost } from '../../../../modules/request/index.js';
 
 interface CreateAClassFormProps {
