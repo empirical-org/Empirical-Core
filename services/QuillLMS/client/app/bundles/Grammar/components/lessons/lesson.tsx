@@ -2,7 +2,6 @@ import * as React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import * as lessonActions from '../../actions/grammarActivities';
-import { Modal } from 'quill-component-library/dist/componentLibrary';
 import EditLessonForm from './lessonForm';
 import { ActionTypes } from '../../actions/actionTypes'
 import { Question, Questions } from '../../interfaces/questions'
@@ -11,7 +10,10 @@ import { ConceptReducerState } from '../../reducers/conceptsReducer'
 import { GrammarActivity } from '../../interfaces/grammarActivities'
 import { Match } from '../../interfaces/match'
 import { permittedFlag } from '../../helpers/flagArray'
-import { hashToCollection } from '../../../Shared/index'
+import {
+  hashToCollection,
+  Modal,
+} from '../../../Shared/index'
 
 String.prototype.toKebab = function() {
   return this.replace(/([A-Z])/g, char => `-${char.toLowerCase()}`);

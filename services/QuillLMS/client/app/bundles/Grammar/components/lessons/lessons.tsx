@@ -2,14 +2,14 @@ import * as React from 'react';
 import { connect } from 'react-redux';
 import * as actions from '../../actions/grammarActivities';
 import _ from 'underscore';
-import {
-  Modal,
-  FlagDropdown
-} from 'quill-component-library/dist/componentLibrary';
 import LinkListItem from '../shared/linkListItem'
 import EditLessonForm from './lessonForm';
 import { GrammarActivityState } from '../../reducers/grammarActivitiesReducer'
 import { GrammarActivity } from '../../interfaces/grammarActivities'
+import {
+  Modal,
+  FlagDropdown
+} from '../../../Shared/index';
 
 interface LessonsProps {
   dispatch: Function;

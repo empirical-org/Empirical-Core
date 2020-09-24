@@ -1,6 +1,7 @@
 import * as React from "react";
 import { NavLink, Redirect, Route, RouteComponentProps, Switch, withRouter } from 'react-router-dom';
-import { Modal } from 'quill-component-library/dist/componentLibrary';
+import { queryCache } from 'react-query';
+
 import { ActivityInterface } from '../../interfaces/comprehensionInterfaces';
 import { blankActivity } from '../../../../constants/comprehension';
 import ActivityForm from './configureSettings/activityForm';
@@ -9,7 +10,7 @@ import Activity from './activity';
 import SubmissionModal from './shared/submissionModal';
 import { createActivity } from '../../utils/comprehension/activityAPIs';
 import { getCsrfToken } from "../../helpers/comprehension";
-import { queryCache } from 'react-query';
+import { Modal } from '../../../Shared/index';
 
 const ComprehensionLanding = ({ location }: RouteComponentProps) => {
   const { pathname } = location
