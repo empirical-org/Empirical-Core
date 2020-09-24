@@ -5,7 +5,7 @@ class Register extends React.Component<any, any> {
     super(props)
 
     this.state = {
-      showIntro: false,
+      showIntro: !!props.previewMode,
       hasSentenceFragment: this.hasSentenceFragment(),
     }
   }

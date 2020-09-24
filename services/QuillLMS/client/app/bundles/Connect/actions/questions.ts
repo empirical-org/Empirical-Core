@@ -153,6 +153,8 @@ function deleteFocusPoint(qid, fpid) {
   };
 }
 
+//TODO: fix error handling for updateFlag-- causes many alert messages to flash despite successful update
+
 function updateFlag(qid, flag) {
   return dispatch => {
     QuestionApi.updateFlag(qid, flag).then(() => {

@@ -1,5 +1,7 @@
 import { Response, ConceptResult } from 'quill-marking-logic'
 
+// TODO: add/remove/update all interfaces to accurately reflect full data shape
+
 export type ResponseAttempt = Response & { conceptResults: { [key: string]: ConceptResult } }
 
 export interface Questions {
@@ -21,6 +23,46 @@ export interface Question {
   flag?: string;
   cues?: Array<string>;
   cuesLabel?: string;
+}
+
+export interface SentenceFragmentQuestion {
+  attempts?: ResponseAttempt[];
+  conceptID: string;
+  flag: string;
+  instructions: string;
+  isFragment: boolean;
+  key: string;
+  modelConceptUID: string;
+  needsIdentification: boolean;
+  optimalResponseText: string;
+  prompt: string;
+  type: string;
+  wordCountChange: {
+    max: number; 
+    min: number; 
+  }
+  identified?: boolean;
+  ignoreCaseAndPunc?: boolean; 
+  incorrectSequences?: any; 
+  focusPoints?: any; 
+  concept_uid?: string;
+}
+
+export interface FillInBlankQuestion {
+  attempts?: ResponseAttempt[];
+  blankAllowed: boolean;
+  caseInsensitive?: boolean;
+  conceptID: string;
+  cues: string[];
+  cuesLabel: string;
+  flag: string;
+  instructions: string;
+  itemLevel: string;
+  key: string;
+  mediaAlt?: string;
+  mediaURL?: string;
+  modelConceptUID?: string;
+  prompt: string;
 }
 
 export interface Answer {

@@ -10,6 +10,8 @@
 @import '~react-selectize/themes/index.css';
 @import '~react-select/dist/react-select.css';
 @import '~font-awesome/css/font-awesome.css';
+@import '~antd/dist/antd.css';
+@import '../../../../../app/assets/stylesheets/shared/teacher-preview-menu.scss';
 
 body {
   color: #3D3D3D;
@@ -523,4 +525,19 @@ textarea.submission {
   padding-left: 0;
   overflow-y: scroll;
   height: 100vh;
+}
+
+.ant-layout {
+  height: min-content;
+  min-height: 100%;
+  background-color: #ededed;
+  font-family: adelle-sans, "Arial", sans-serif;
+  -moz-font-feature-settings: "ss04";
+  -webkit-font-feature-settings: "ss04";
+  font-feature-settings: "ss04";
+}
+
+.sider-container {
+  background-color: white;
+  width: 360px;
 }
