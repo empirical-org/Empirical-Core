@@ -29,6 +29,6 @@ describe("<PageLayout />", () => {
     it("should render a TeacherPreviewMenu", () => {
       component.setState({ previewShowing: true });
       component.update();
-      expect(component.find('Connect(TeacherPreviewMenu)').length).toEqual(1);
+      expect(component.find('Connect(TeacherPreviewMenuComponent)').length).toEqual(1);
     });
 });

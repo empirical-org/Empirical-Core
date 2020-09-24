@@ -2,7 +2,7 @@ class RetrieveGoogleClassroomsWorker
   include Sidekiq::Worker
   sidekiq_options queue: SidekiqQueue::CRITICAL
 
-  SERIALIZED_GOOGLE_CLASSROOMS_CACHE_LIFE = 60*60
+  SERIALIZED_GOOGLE_CLASSROOMS_CACHE_LIFE = 60
 
   def perform(user_id)
     return unless user_id
