@@ -10,10 +10,23 @@ const unansweredQuestionCount = (playLesson) => {
 
 export const answeredQuestionCount = (playLesson) => questionCount(playLesson) - unansweredQuestionCount(playLesson)
 
-export const getProgressPercent = (playLesson) => {
+const getPreviewProgressPercent = (questionSet, questionToPreview) => {
+  const questionKeys = questionSet.map(questionObject => questionObject.question.key);
+  if(!questionToPreview) {
+    return (1 / questionSet.length) * 100;
+  } else {
+    const { key } = questionToPreview;
+    return ((questionKeys.indexOf(key) + 1) / questionSet.length) * 100;
+  }
+}
+
+export const getProgressPercent = ({ playLesson, previewMode, questionToPreview }) => {
   let percent;
-  if (playLesson && playLesson.unansweredQuestions && playLesson.questionSet) {
+  if (!previewMode && playLesson && playLesson.unansweredQuestions && playLesson.questionSet) {
     percent = ((answeredQuestionCount(playLesson)) / questionCount(playLesson)) * 100
+  } else if(previewMode && playLesson.questionSet) {
+    const { questionSet } = playLesson;
+    percent = getPreviewProgressPercent(questionSet, questionToPreview)
   } else {
     percent = 0;
   }
