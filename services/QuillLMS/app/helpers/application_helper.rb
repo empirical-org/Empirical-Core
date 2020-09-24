@@ -64,6 +64,20 @@ module ApplicationHelper
   end
 
   def load_intercom?
+    puts "loading intercom..."
+    puts current_user&.teacher?
+    puts "staff member is"
+    puts !staff_member?
+    if staff_member?
+      puts session[:staff_id]
+    end
+    puts "demo account"
+    puts !demo_account?
+    puts "sign up"
+    puts !on_sign_up?
+    if on_sign_up?
+      puts current_path
+    end
     current_user&.teacher? && !staff_member? && !demo_account? && !on_sign_up?
   end
 
