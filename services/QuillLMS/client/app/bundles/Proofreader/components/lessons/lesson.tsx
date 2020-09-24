@@ -2,7 +2,6 @@ import * as React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import * as lessonActions from '../../actions/proofreaderActivities';
-import { Modal, hashToCollection } from 'quill-component-library/dist/componentLibrary';
 import ProofreaderActivityContainer from '../proofreaderActivities/container'
 import EditLessonForm from './lessonForm';
 import { ActionTypes } from '../../actions/actionTypes'
@@ -11,6 +10,10 @@ import { ProofreaderActivityState } from '../../reducers/proofreaderActivitiesRe
 import { ConceptReducerState } from '../../reducers/conceptsReducer'
 import { ProofreaderActivity } from '../../interfaces/proofreaderActivities'
 import { Match } from '../../interfaces/match'
+import {
+  hashToCollection,
+  Modal,
+} from '../../../Shared/index'
 
 String.prototype.toKebab = function() {
   return this.replace(/([A-Z])/g, char => `-${char.toLowerCase()}`);

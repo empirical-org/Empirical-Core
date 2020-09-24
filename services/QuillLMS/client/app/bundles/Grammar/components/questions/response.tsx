@@ -1,10 +1,7 @@
 import * as React from 'react';
-import _ from 'underscore';
+import * as _ from 'underscore';
+import * as jsDiff from 'diff'
 import * as questionActions from '../../actions/questions';
-import {
-  Modal,
-  hashToCollection
-} from 'quill-component-library/dist/componentLibrary';
 import TextEditor from '../shared/textEditor'
 import { EditorState, ContentState } from 'draft-js'
 import ResponseList from './responseList';
@@ -16,9 +13,11 @@ import {
   submitResponseEdit,
   getGradedResponsesWithCallback,
 } from '../../actions/responses';
-
-import * as jsDiff from 'diff'
 import { ActionTypes } from '../../actions/actionTypes';
+import {
+  hashToCollection,
+  Modal,
+} from '../../../Shared/index'
 
 interface ResponseState {
   feedback: string,

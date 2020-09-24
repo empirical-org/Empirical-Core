@@ -1,13 +1,13 @@
 import * as React from "react";
-import { Input, TextEditor } from 'quill-component-library/dist/componentLibrary';
+import { TextEditor } from 'quill-component-library/dist/componentLibrary';
 import { EditorState, ContentState } from 'draft-js'
 // import { flagOptions } from '../../../../../constants/comprehension'
 import { validateForm, buildActivity, buildBlankPrompt, promptsByConjunction } from '../../../helpers/comprehension';
-import { 
-  BECAUSE, 
-  BUT, 
-  SO, 
-  activityFormKeys, 
+import {
+  BECAUSE,
+  BUT,
+  SO,
+  activityFormKeys,
   TITLE,
   SCORED_READING_LEVEL,
   TARGET_READING_LEVEL,
@@ -15,9 +15,10 @@ import {
   PASSAGE,
   BECAUSE_STEM,
   BUT_STEM,
-  SO_STEM 
+  SO_STEM
 } from '../../../../../constants/comprehension';
 import { ActivityInterface, PromptInterface, PassagesInterface } from '../../../interfaces/comprehensionInterfaces';
+import { Input, } from '../../../../Shared/index'
 
 // TODO: add form inputs for course, target reading level and reading level score
 
@@ -62,7 +63,7 @@ const ActivityForm = ({ activity, closeModal, submitActivity }: ActivityFormProp
 
   const handleSetActivityTargetReadingLevel = (e: InputEvent) => { setActivityTargetReadingLevel(e.target.value) };
 
-  const handleSetActivityPassages = (text: string) => { 
+  const handleSetActivityPassages = (text: string) => {
     const updatedPassages = [...activityPassages];
     updatedPassages[0].text = text;
     setActivityPassages(updatedPassages)
@@ -71,19 +72,19 @@ const ActivityForm = ({ activity, closeModal, submitActivity }: ActivityFormProp
   const handleSetActivityBecausePrompt = (e: InputEvent) => {
     const updatedBecausePrompt = {...activityBecausePrompt};
     updatedBecausePrompt.text = e.target.value;
-    setActivityBecausePrompt(updatedBecausePrompt) 
+    setActivityBecausePrompt(updatedBecausePrompt)
   };
 
-  const handleSetActivityButPrompt = (e: InputEvent) => { 
+  const handleSetActivityButPrompt = (e: InputEvent) => {
     const updatedButPrompt = {...activityButPrompt};
     updatedButPrompt.text = e.target.value;
-    setActivityButPrompt(updatedButPrompt)  
+    setActivityButPrompt(updatedButPrompt)
   };
 
-  const handleSetActivitySoPrompt = (e: InputEvent) => { 
+  const handleSetActivitySoPrompt = (e: InputEvent) => {
     const updatedSoPrompt = {...activitySoPrompt};
     updatedSoPrompt.text = e.target.value;
-    setActivitySoPrompt(updatedSoPrompt)  
+    setActivitySoPrompt(updatedSoPrompt)
   };
 
   const handleSubmitActivity = () => {
@@ -103,9 +104,9 @@ const ActivityForm = ({ activity, closeModal, submitActivity }: ActivityFormProp
       activityScoredReadingLevel,
       activityTargetReadingLevel,
       activityMaxFeedback,
-      activityPassages[0].text, 
-      activityBecausePrompt.text, 
-      activityButPrompt.text, 
+      activityPassages[0].text,
+      activityBecausePrompt.text,
+      activityButPrompt.text,
       activitySoPrompt.text
     ];
     const validationErrors = validateForm(activityFormKeys, state);
@@ -115,7 +116,7 @@ const ActivityForm = ({ activity, closeModal, submitActivity }: ActivityFormProp
       submitActivity(activityObject);
     }
   }
-  
+
   const errorsPresent = !!Object.keys(errors).length;
   const passageLabelStyle = activityPassages[0].text.length  && activityPassages[0].text !== '<br/>' ? 'has-text' : '';
   const maxAttemptStyle = activityMaxFeedback.length && activityMaxFeedback !== '<br/>' ? 'has-text' : '';
@@ -191,7 +192,7 @@ const ActivityForm = ({ activity, closeModal, submitActivity }: ActivityFormProp
           className="so-input"
           error={errors[SO_STEM]}
           handleChange={handleSetActivitySoPrompt}
-          label="So Stem" 
+          label="So Stem"
           value={activitySoPrompt.text}
         />
         <div className="submit-button-container">

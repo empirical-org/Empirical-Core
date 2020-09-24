@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { shallow } from 'enzyme';
-import { Input } from 'quill-component-library/dist/componentLibrary';
+import { Input } from '../../../../Shared/index';
 import RegexSection from '../configureRegex/regexSection';
 jest.mock('string-strip-html', () => ({
   default: jest.fn()
@@ -8,26 +8,26 @@ jest.mock('string-strip-html', () => ({
 
 const mockRegexRules = {
   'regex-rule-0': {
-    id: 1, 
-    regex_text: 'it contain(s)? methane gas', 
+    id: 1,
+    regex_text: 'it contain(s)? methane gas',
     case_sensitive: false
   },
   'regex-rule-1': {
-    id: 2, 
-    regex_text: 'another reg(ex) line', 
+    id: 2,
+    regex_text: 'another reg(ex) line',
     case_sensitive: true
   },
   'regex-rule-2': {
-    id: 3, 
-    regex_text: 'some m?ore reg(ex', 
+    id: 3,
+    regex_text: 'some m?ore reg(ex',
     case_sensitive: false
   }
 }
 const mockProps = {
-  errors: {}, 
-  handleAddRegexInput: jest.fn(), 
-  handleDeleteRegexRule: jest.fn(), 
-  handleSetRegexRule: jest.fn(), 
+  errors: {},
+  handleAddRegexInput: jest.fn(),
+  handleDeleteRegexRule: jest.fn(),
+  handleSetRegexRule: jest.fn(),
   regexRules: mockRegexRules
 };
 

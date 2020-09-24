@@ -9,7 +9,6 @@ import RenderQuestionCues from '../renderForQuestions/cues.jsx';
 import { Feedback, SentenceFragments } from 'quill-component-library/dist/componentLibrary';
 import getResponse from '../renderForQuestions/checkAnswer';
 import updateResponseResource from '../renderForQuestions/updateResponseResource.js';
-import submitPathway from '../renderForQuestions/submitPathway.js';
 import TextEditor from '../renderForQuestions/renderTextEditor.jsx';
 import { Response } from 'quill-component-library/dist/componentLibrary';
 
@@ -108,10 +107,6 @@ class PlayDiagnosticQuestion extends React.Component {
     const { dispatch, } = this.props
 
     updateResponseResource(response, this.getQuestion().key, this.getQuestion().attempts, dispatch);
-  }
-
-  submitPathway(response) {
-    submitPathway(response, this.props);
   }
 
   setResponse(response) {

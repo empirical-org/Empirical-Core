@@ -2,11 +2,12 @@ import * as React from "react";
 import ContentEditable from 'react-contenteditable';
 import { Row } from "antd";
 import { checkGrammarQuestion, Response, ConceptResult } from 'quill-marking-logic'
-import { hashToCollection, ProgressBar, ConceptExplanation, Feedback } from 'quill-component-library/dist/componentLibrary';
+import { ProgressBar, ConceptExplanation, Feedback } from 'quill-component-library/dist/componentLibrary';
 import Cues from './cues'
 import { Question } from '../../interfaces/questions'
 import { GrammarActivity } from '../../interfaces/grammarActivities'
 import * as responseActions from '../../actions/responses'
+import { hashToCollection } from '../../../Shared/index'
 
 const ALLOWED_ATTEMPTS = 5
 const UNANSWERED = 'unanswered'
@@ -70,7 +71,7 @@ export class QuestionComponent extends React.Component<QuestionProps, QuestionSt
 
   componentDidMount() {
     const { currentQuestion, } = this.props;
-    // preview questions use key as the unique identifier 
+    // preview questions use key as the unique identifier
     const uid = currentQuestion.uid ? currentQuestion.uid : currentQuestion.key;
 
     responseActions.getGradedResponsesWithCallback(
@@ -80,6 +81,8 @@ export class QuestionComponent extends React.Component<QuestionProps, QuestionSt
       }
     );
   }
+
+  //TODO: refactor into componentDidUpdate
 
   UNSAFE_componentWillReceiveProps(nextProps: QuestionProps) {
     const { currentQuestion, previewMode } = this.props;
@@ -123,7 +126,7 @@ export class QuestionComponent extends React.Component<QuestionProps, QuestionSt
 
   getPreviewQuestionKeys = () => {
     const { activity, randomizedQuestions } = this.props;
-    let questionKeys; 
+    let questionKeys;
     if(activity.questions && activity.questions.length) {
       questionKeys = activity.questions.map(question => question.key);
     } else {
@@ -196,7 +199,7 @@ export class QuestionComponent extends React.Component<QuestionProps, QuestionSt
           this.setState({ submittedSameResponseTwice: true })
         } else {
           if(previewMode) {
-            const responseObj = this.getPreviewAttempt({ question, response, responses });
+            const responseObj = this.getPreviewAttempt({ question, trimmedResponse, responses });
             this.setState(prevState => ({ submittedForPreview: true, previewSubmissionCount: prevState.previewSubmissionCount + 1, previewAttempt: responseObj }));
           }
           checkAnswer(trimmedResponse, question, responses, isFirstAttempt)
@@ -412,7 +415,7 @@ export class QuestionComponent extends React.Component<QuestionProps, QuestionSt
     const disabled = noMoreSubmissionsForStudentSession && noMoreSubmissionsForPreviewSession ? 'disabled' : '';
 
     if(nonOptimal || maxPreviewQuestionAttempts) {
-      return 
+      return
     }
 
     return (<Row align="middle" justify="start" type="flex">
@@ -454,12 +457,12 @@ export class QuestionComponent extends React.Component<QuestionProps, QuestionSt
     </div>)
   }
 
-  getPreviewAttempt = ({ question, response, responses }) => {
+  getPreviewAttempt = ({ question, trimmedResponse, responses }) => {
     const questionUID: string = question.key
     const focusPoints = question.focusPoints ? hashToCollection(question.focusPoints).sort((a: { order: number }, b: { order: number }) => a.order - b.order) : [];
     const incorrectSequences = question.incorrectSequences ? hashToCollection(question.incorrectSequences) : [];
     const defaultConceptUID = question.modelConceptUID || question.concept_uid
-    const responseObj = checkGrammarQuestion(questionUID, response, responses, focusPoints, incorrectSequences, defaultConceptUID);
+    const responseObj = checkGrammarQuestion(questionUID, trimmedResponse, responses, focusPoints, incorrectSequences, defaultConceptUID);
     return responseObj;
   }
 

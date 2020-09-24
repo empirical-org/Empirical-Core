@@ -8,7 +8,6 @@ import updateResponseResource from '../renderForQuestions/updateResponseResource
 import Cues from '../renderForQuestions/cues.jsx';
 import {
   Prompt,
-  hashToCollection,
   ConceptExplanation,
   Feedback
 } from 'quill-component-library/dist/componentLibrary'
@@ -16,6 +15,7 @@ import FeedbackContainer from '../renderForQuestions/feedback'
 import RenderQuestionFeedback from '../renderForQuestions/feedbackStatements.jsx';
 import { Attempt } from '../renderForQuestions/answerState.js';
 import { stringNormalize } from 'quill-string-normalizer';
+import { hashToCollection, } from '../../../Shared/index'
 
 const styles = {
   container: {

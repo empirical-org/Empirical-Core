@@ -1,6 +1,6 @@
 import * as React from 'react'
-import { Input } from 'quill-component-library/dist/componentLibrary'
 import {CopyToClipboard} from 'react-copy-to-clipboard';
+import { Input, } from '../../../Shared/index'
 
 interface ClassCodeLinkProps {
   next: (event) => void;
