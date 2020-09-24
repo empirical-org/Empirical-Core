@@ -1,4 +1,5 @@
 import React from 'react'
+import Pusher from 'pusher-js';
 import { Snackbar, defaultSnackbarTimeout, DropdownInput } from 'quill-component-library/dist/componentLibrary'
 
 import CreateAClassInlineForm from './create_a_class_inline_form.tsx'
@@ -42,18 +43,36 @@ export default class AssignStudents extends React.Component {
     if (this.props.user && this.props.user.google_id) {
       this.setState({ googleClassroomsLoading: true}, () => {
         requestGet('/teachers/classrooms/retrieve_google_classrooms', (body) => {
-          const googleClassrooms = body.classrooms.filter(classroom => !classroom.alreadyImported)
-          const newStateObj = { googleClassrooms, googleClassroomsLoading: false, }
-          if (this.state.attemptedImportGoogleClassrooms) {
-            newStateObj.attemptedImportGoogleClassrooms = false
-            this.setState(newStateObj, this.clickImportGoogleClassrooms)
+          if (body.quill_retrieval_processing) {
+            this.initializePusherForGoogleClassrooms(body.id)
           } else {
-            this.setState(newStateObj)
+            const googleClassrooms = body.classrooms.filter(classroom => !classroom.alreadyImported)
+            const newStateObj = { googleClassrooms, googleClassroomsLoading: false, }
+            if (this.state.attemptedImportGoogleClassrooms) {
+              newStateObj.attemptedImportGoogleClassrooms = false
+              this.setState(newStateObj, this.clickImportGoogleClassrooms)
+            } else {
+              this.setState(newStateObj)
+            }
           }
         });
       })
     }
   };
+
+  initializePusherForGoogleClassrooms = (id) => {
+    if (process.env.RAILS_ENV === 'development') {
+      Pusher.logToConsole = true;
+    }
+    const pusher = new Pusher(process.env.PUSHER_KEY, { encrypted: true, });
+    const channelName = String(id)
+    const channel = pusher.subscribe(channelName);
+    const that = this;
+    channel.bind('google-classrooms-retrieved', () => {
+      that.getGoogleClassrooms()
+      pusher.unsubscribe(channelName)
+    });
+  }
 
   clickImportGoogleClassrooms = () => {
     const { googleClassrooms, googleClassroomsLoading, } = this.state

@@ -1,6 +1,4 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
-
 import SentenceFragmentTemplate from '../sentenceFragments/sentenceFragmentTemplateComponentML';
 
 class PlaySentenceFragment extends Component {
@@ -12,7 +10,6 @@ class PlaySentenceFragment extends Component {
     return (
       <SentenceFragmentTemplate
         {...this.props}
-        handleAttemptSubmission={() => {}}
       />
     );
   }

@@ -6,10 +6,10 @@ import PlaySentenceFragment from './sentenceFragment.jsx';
 import PlayFillInTheBlankQuestion from './fillInBlank.tsx'
 import {
   PlayTitleCard,
-  Register,
   Spinner,
   ProgressBar
-} from 'quill-component-library/dist/componentLibrary'
+} from 'quill-component-library/dist/componentLibrary';
+import { Register } from '../../../Shared/index';
 import { clearData, loadData, nextQuestion, submitResponse, updateCurrentQuestion, resumePreviousSession } from '../../actions.js';
 import SessionActions from '../../actions/sessions.js';
 import _ from 'underscore';
@@ -25,20 +25,26 @@ import {
 
 const request = require('request');
 
+//TODO: convert to TSX and add interface definitions
+
 export class Lesson extends React.Component {
   constructor(props) {
     super(props)
 
     this.state = {
       hasOrIsGettingResponses: false,
-      sessionInitialized: false
+      sessionInitialized: false,
+      introSkipped: false,
+      isLastQuestion: props.playLesson.unansweredQuestions.length === 0
     }
   }
 
   componentDidMount() {
-    const { dispatch, } = this.props
+    const { dispatch } = this.props;
     dispatch(clearData());
   }
+
+  //TODO: refactor into componentDidUpdate
 
   UNSAFE_componentWillReceiveProps(nextProps) {
     const { playLesson, } = this.props
@@ -52,8 +58,8 @@ export class Lesson extends React.Component {
   }
 
   componentDidUpdate() {
-    const { sessionInitialized, } = this.state
-    const { questions, fillInBlank, sentenceFragments, titleCards, } = this.props
+    const { sessionInitialized, introSkipped, isLastQuestion } = this.state
+    const { questions, fillInBlank, sentenceFragments, titleCards, previewMode, questionToPreview, playLesson, skippedToQuestionFromIntro } = this.props
     // At mount time the component may still be waiting on questions
     // to be retrieved, so we need to do checks on component update
     if (questions.hasreceiveddata &&
@@ -72,7 +78,32 @@ export class Lesson extends React.Component {
       if (!sessionInitialized) {
         this.saveSessionIdToState();
       }
+      if(previewMode && !introSkipped && skippedToQuestionFromIntro) {      
+        this.setState({ introSkipped: true });
+        this.startActivity();
+      }
+      // user has toggled to last question
+      if(previewMode && questionToPreview && playLesson && playLesson.questionSet && !isLastQuestion && !this.getNextPreviewQuestion(questionToPreview)) {
+        this.setIsLastQuestion();
+      }
+      // user has toggled to another question from last question
+      if(previewMode && questionToPreview && playLesson && playLesson.questionSet && isLastQuestion && this.getNextPreviewQuestion(questionToPreview)) {
+        this.setIsLastQuestion();
+      }
     }
+  }
+
+  setIsLastQuestion = () => {
+    this.setState(prevState => ({ isLastQuestion: !prevState.isLastQuestion }));
+  }
+
+  getNextPreviewQuestion = (question) => {
+    const { playLesson } = this.props;
+    const { questionSet } = playLesson;
+    const filteredQuestionsSet = questionSet.map(questionObject => questionObject.question);
+    const questionKeys = filteredQuestionsSet.map(question => question.key);
+    const nextQuestionIndex = questionKeys.indexOf(question.key) + 1;
+    return filteredQuestionsSet[nextQuestionIndex];
   }
 
   getLesson = () => {
@@ -81,6 +112,15 @@ export class Lesson extends React.Component {
     const { params } = match
     const { lessonID } = params
     return data[lessonID];
+  }
+
+  getQuestion = () => {
+    const { playLesson, questionToPreview, previewMode } = this.props;
+    const { question } = playLesson.currentQuestion;
+    if(previewMode && questionToPreview) {
+      return questionToPreview;
+    }
+    return question;
   }
 
   createAnonActivitySession = (lessonID, results, score) => {
@@ -144,9 +184,19 @@ export class Lesson extends React.Component {
   }
 
   nextQuestion = () => {
-    const { dispatch, } = this.props
-    const next = nextQuestion();
-    return dispatch(next);
+    const { dispatch, previewMode, onHandleToggleQuestion } = this.props;
+    if(previewMode) {
+      const question = this.getQuestion();
+      const nextPreviewQuestion = this.getNextPreviewQuestion(question);
+      if(nextPreviewQuestion) {
+        onHandleToggleQuestion(nextPreviewQuestion)
+      } else {
+        this.setIsLastQuestion();
+      }
+    } else {
+      const next = nextQuestion();
+      return dispatch(next);
+    }
   }
 
   questionsForLesson = () => {
@@ -157,8 +207,7 @@ export class Lesson extends React.Component {
     const filteredQuestions = data[lessonID].questions.filter((ques) => {
       const question = this.props[ques.questionType].data[ques.key] // eslint-disable-line react/destructuring-assignment
       return question && permittedFlag(data[lessonID].flag, question.flag)
-    }
-    );
+    });
     // this is a quickfix for missing questions -- if we leave this in here
     // long term, we should return an array through a forloop to
     // cut the time from 2N to N
@@ -215,7 +264,7 @@ export class Lesson extends React.Component {
   }
 
   saveToLMS = () => {
-    const { playLesson, match } = this.props
+    const { playLesson, match, previewMode } = this.props
     const { params } = match
     const { sessionID, } = this.state
     const { lessonID, } = params;
@@ -223,7 +272,7 @@ export class Lesson extends React.Component {
     const relevantAnsweredQuestions = playLesson.answeredQuestions.filter(q => q.questionType !== 'TL')
     const results = getConceptResultsForAllQuestions(relevantAnsweredQuestions);
     const score = calculateScoreForLesson(relevantAnsweredQuestions);
-    if (sessionID) {
+    if (sessionID && !previewMode) {
       this.finishActivitySession(sessionID, results, score);
     } else {
       this.createAnonActivitySession(lessonID, results, score);
@@ -244,33 +293,44 @@ export class Lesson extends React.Component {
     dispatch(action);
   }
 
+  getPreviewQuestionCount = () => {
+    const { playLesson, questionToPreview } = this.props;
+    const { questionSet } = playLesson;
+    if(!questionToPreview) {
+      return 1;
+    }
+    const { key } = questionToPreview;
+    const questionKeys = questionSet.map(questionObject => questionObject.question.key);
+    return questionKeys.indexOf(key) + 1;
+  }
+
+  
+
   renderProgressBar = () => {
-    const { playLesson, } = this.props
+    const { playLesson, previewMode, questionToPreview } = this.props
     if (!playLesson.currentQuestion) { return }
 
     const calculatedAnsweredQuestionCount = answeredQuestionCount(playLesson)
-
     const currentQuestionIsTitleCard = playLesson.currentQuestion.type === 'TL'
     const currentQuestionIsNotFirstQuestion = calculatedAnsweredQuestionCount !== 0
-
     const displayedAnsweredQuestionCount = currentQuestionIsTitleCard && currentQuestionIsNotFirstQuestion ? calculatedAnsweredQuestionCount + 1 : calculatedAnsweredQuestionCount
+    const answeredCount = previewMode ? this.getPreviewQuestionCount() : displayedAnsweredQuestionCount;
+    const totalCount = previewMode ? playLesson.questionSet.length : questionCount(playLesson);
 
     return (<ProgressBar
-      answeredQuestionCount={displayedAnsweredQuestionCount}
+      answeredQuestionCount={answeredCount}
       label='questions'
-      percent={getProgressPercent(playLesson)}
-      questionCount={questionCount(playLesson)}
+      percent={getProgressPercent({ playLesson, previewMode, questionToPreview })}
+      questionCount={totalCount}
     />)
   }
 
   render() {
-    const { sessionInitialized, error, sessionID, saved, session, } = this.state
-    const { conceptsFeedback, playLesson, dispatch, lessons, match } = this.props
+    const { sessionInitialized, error, sessionID, saved, session, isLastQuestion } = this.state
+    const { conceptsFeedback, playLesson, dispatch, lessons, match, previewMode, onHandleToggleQuestion, questionToPreview } = this.props
     const { data, hasreceiveddata, } = lessons
     const { params } = match
     const { lessonID, } = params;
-
-    const isLastQuestion = playLesson.unansweredQuestions.length === 0
     let component;
 
     if (!(sessionInitialized && hasreceiveddata && data && data[lessonID])) {
@@ -278,8 +338,9 @@ export class Lesson extends React.Component {
     }
 
     if (playLesson.currentQuestion) {
-      const { type, question, } = playLesson.currentQuestion;
-      if (type === 'SF') {
+      const { type } = playLesson.currentQuestion;
+      const question = this.getQuestion();
+      if ((!previewMode && type === 'SF') || (previewMode && question.type === 'SF')) {
         component = (
           <PlaySentenceFragment
             conceptsFeedback={conceptsFeedback}
@@ -290,11 +351,14 @@ export class Lesson extends React.Component {
             markIdentify={this.markIdentify}
             marking="diagnostic"
             nextQuestion={this.nextQuestion}
+            onHandleToggleQuestion={onHandleToggleQuestion}
+            previewMode={previewMode}
             question={question}
+            questionToPreview={questionToPreview}
             updateAttempts={this.submitResponse}
           />
         );
-      } else if (type === 'FB') {
+      } else if ((!previewMode && type === 'FB') || (previewMode && question.type === 'FB')) {
         component = (
           <PlayFillInTheBlankQuestion
             conceptsFeedback={conceptsFeedback}
@@ -302,12 +366,15 @@ export class Lesson extends React.Component {
             isLastQuestion={isLastQuestion}
             key={question.key}
             nextQuestion={this.nextQuestion}
+            onHandleToggleQuestion={onHandleToggleQuestion}
             prefill={this.getLesson().prefill}
+            previewMode={previewMode}
             question={question}
+            questionToPreview={questionToPreview}
             submitResponse={this.submitResponse}
           />
         );
-      } else if (type === 'TL'){
+      } else if ((!previewMode && type === 'TL') || (previewMode && question.title)){
         component = (
           <PlayTitleCard
             data={question}
@@ -324,8 +391,11 @@ export class Lesson extends React.Component {
             isLastQuestion={isLastQuestion}
             key={question.key}
             nextQuestion={this.nextQuestion}
+            onHandleToggleQuestion={onHandleToggleQuestion}
             prefill={this.getLesson().prefill}
+            previewMode={previewMode}
             question={question}
+            questionToPreview={questionToPreview}
           />
         );
       }
@@ -336,13 +406,20 @@ export class Lesson extends React.Component {
           error={error}
           lessonID={params.lessonID}
           name={sessionID}
+          previewMode={previewMode}
           saved={saved}
           saveToLMS={this.saveToLMS}
         />
       );
     } else {
       component = (
-        <Register lesson={this.getLesson()} resumeActivity={this.resumeSession} session={session} startActivity={this.startActivity} />
+        <Register 
+          lesson={this.getLesson()} 
+          previewMode={previewMode} 
+          resumeActivity={this.resumeSession} 
+          session={session} 
+          startActivity={this.startActivity} 
+        />
       );
     }
 
