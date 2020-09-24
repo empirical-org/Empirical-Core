@@ -1,5 +1,4 @@
 import React from 'react';
-import handleFocus from './handleFocus.js';
 import TextEditor from './renderTextEditor.jsx';
 import _ from 'underscore';
 import EndState from './renderEndState.jsx';
@@ -32,6 +31,7 @@ export default class RenderFormForAnswer extends React.Component {
               height="569"
               mozallowfullscreen="true"
               src={assetURL}
+              title="hint"
               webkitallowfullscreen="true"
               width="960"
             />

@@ -4,7 +4,7 @@ import { Header } from "./Header";
 import {renderRoutes} from "react-router-config";
 import { routes } from "../routes";
 import getParameterByName from '../helpers/getParameterByName';
-import TeacherPreviewMenu from '../../Teacher/components/shared/teacherPreviewMenu';
+import { TeacherPreviewMenu } from '../../Shared/index';
 
 interface PageLayoutState {
   showFocusState: boolean;
