@@ -1,10 +1,10 @@
 import React from 'react';
 import handleFocus from './handleFocus.js';
 import TextEditor from './renderTextEditor.jsx';
-import { Modal } from 'quill-component-library/dist/componentLibrary';
 import _ from 'underscore';
 import EndState from './renderEndState.jsx';
 import getAnswerState from './answerState';
+import { Modal } from '../../../Shared/index';
 
 const getLatestAttempt = (attempts = []) => {
   const lastIndex = attempts.length - 1;

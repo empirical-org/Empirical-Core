@@ -1,7 +1,6 @@
 import React from 'react';
 import _ from 'underscore';
 import { connect } from 'react-redux';
-import { Modal, UploadOptimalResponses } from 'quill-component-library/dist/componentLibrary';
 import { Route, Switch, withRouter, NavLink } from 'react-router-dom';
 import EditForm from './questionForm.jsx';
 import getBoilerplateFeedback from './boilerplateFeedback.jsx';
@@ -22,6 +21,7 @@ import ResponseComponentWrapper from './responseRouteWrapper.jsx';
 import MassEditContainer from './massEditContainer.jsx';
 import ChooseModelContainer from './chooseModelContainer.jsx';
 import TestQuestionContainer from './testQuestion';
+import { Modal, UploadOptimalResponses } from '../../../Shared/index';
 
 const icon = `${process.env.CDN_URL}/images/icons/direction.svg`
 

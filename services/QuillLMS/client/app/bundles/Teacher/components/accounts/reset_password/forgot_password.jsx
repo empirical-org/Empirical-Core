@@ -1,8 +1,8 @@
 import React from 'react'
 import request from 'request'
-import { Input } from 'quill-component-library/dist/componentLibrary'
 
 import getAuthToken from '../../modules/get_auth_token';
+import { Input, } from '../../../../Shared/index'
 
 const bulbSrc = `${process.env.CDN_URL}/images/onboarding/bulb.svg`
 
