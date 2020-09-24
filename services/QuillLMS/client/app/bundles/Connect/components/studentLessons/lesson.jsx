@@ -29,13 +29,15 @@ const request = require('request');
 
 export class Lesson extends React.Component {
   constructor(props) {
-    super(props)
+    super(props);
+
+    const isLastQuestion = props.playLesson.unansweredQuestions.length === 0 && props.playLesson.answeredQuestions.length > 0;
 
     this.state = {
       hasOrIsGettingResponses: false,
       sessionInitialized: false,
       introSkipped: false,
-      isLastQuestion: props.playLesson.unansweredQuestions.length === 0
+      isLastQuestion: isLastQuestion 
     }
   }
 
@@ -84,16 +86,16 @@ export class Lesson extends React.Component {
       }
       // user has toggled to last question
       if(previewMode && questionToPreview && playLesson && playLesson.questionSet && !isLastQuestion && !this.getNextPreviewQuestion(questionToPreview)) {
-        this.setIsLastQuestion();
+        this.toggleIsLastQuestion();
       }
       // user has toggled to another question from last question
       if(previewMode && questionToPreview && playLesson && playLesson.questionSet && isLastQuestion && this.getNextPreviewQuestion(questionToPreview)) {
-        this.setIsLastQuestion();
+        this.toggleIsLastQuestion();
       }
     }
   }
 
-  setIsLastQuestion = () => {
+  toggleIsLastQuestion = () => {
     this.setState(prevState => ({ isLastQuestion: !prevState.isLastQuestion }));
   }
 
@@ -191,7 +193,7 @@ export class Lesson extends React.Component {
       if(nextPreviewQuestion) {
         onHandleToggleQuestion(nextPreviewQuestion)
       } else {
-        this.setIsLastQuestion();
+        this.toggleIsLastQuestion();
       }
     } else {
       const next = nextQuestion();
