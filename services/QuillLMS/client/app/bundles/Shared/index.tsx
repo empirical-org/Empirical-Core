@@ -29,6 +29,7 @@ export {
   Snackbar,
   defaultSnackbarTimeout,
   Spinner,
+  TeacherPreviewMenu,
   TextEditor,
   TextArea,
   Tooltip,

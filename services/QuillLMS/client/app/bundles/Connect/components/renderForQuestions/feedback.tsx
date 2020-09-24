@@ -8,8 +8,14 @@ class FeedbackComponent extends React.Component<any, any> {
   }
 
   getFeedbackType(data?): string {
+    const { previewAttempt, previewMode } = this.props;
     if (data) {
-      const latestAttempt = getLatestAttempt(data.question.attempts);
+      let latestAttempt
+      if(previewMode && previewAttempt) {
+        latestAttempt = previewAttempt;
+      } else {
+        latestAttempt = getLatestAttempt(data.question.attempts);
+      }
       if (latestAttempt) {
         if (data.override) {
           return "override"
@@ -37,7 +43,13 @@ class FeedbackComponent extends React.Component<any, any> {
   }
 
   getFeedbackCopy(data): string {
-    const latestAttempt = getLatestAttempt(data.question.attempts);
+    const { previewAttempt, previewMode } = this.props;
+    let latestAttempt
+    if(previewMode && previewAttempt) {
+      latestAttempt = previewAttempt;
+    } else {
+      latestAttempt = getLatestAttempt(data.question.attempts);
+    }
     let returnVal;
     switch (this.getFeedbackType(data)) {
       case "revise-unmatched":
@@ -75,7 +87,7 @@ class FeedbackComponent extends React.Component<any, any> {
 
   render() {
     const { question, } = this.props
-    const key:number = question ? question.attempts.length : 0;
+    const key:number = question && question.attempts ? question.attempts.length : 0;
     if (question) {
       return (
         <Feedback

@@ -55,6 +55,10 @@ export {
   Spinner
 } from './spinner'
 
+export { 
+  TeacherPreviewMenu 
+} from './teacherPreviewMenu'
+
 export {
   TextEditor
 } from './textEditor'

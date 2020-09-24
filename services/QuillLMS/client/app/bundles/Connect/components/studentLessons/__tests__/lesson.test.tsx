@@ -1,9 +1,10 @@
 import * as React from 'react';
 import 'whatwg-fetch'
 import { shallow } from 'enzyme';
-import { clearData, loadData, resumePreviousSession, submitResponse, updateCurrentQuestion, nextQuestion } from '../../../actions.js';
+import { loadData, resumePreviousSession, submitResponse, updateCurrentQuestion, nextQuestion } from '../../../actions.js';
 import { Lesson } from '../lesson.jsx';
-import { PlayTitleCard, Register, Spinner, ProgressBar } from 'quill-component-library/dist/componentLibrary';
+import { PlayTitleCard, Spinner, ProgressBar } from 'quill-component-library/dist/componentLibrary';
+import { Register } from '../../../../Shared/index';
 import Finished from '../finished.jsx';
 import PlayLessonQuestion from '../question';
 import PlaySentenceFragment from '../sentenceFragment.jsx';
