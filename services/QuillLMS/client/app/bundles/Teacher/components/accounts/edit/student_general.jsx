@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Input } from 'quill-component-library/dist/componentLibrary';
+import { Input, } from '../../../../Shared/index'
 
 export default class StudentGeneralAccountInfo extends Component {
   constructor(props) {
