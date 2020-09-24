@@ -1,10 +1,10 @@
 import * as React from 'react'
 import { connect } from 'react-redux'
 import * as actions from '../../actions/conceptsFeedback'
-import { Modal } from 'quill-component-library/dist/componentLibrary'
 import LinkListItem from '../shared/linkListItem'
 import { ConceptsFeedbackState } from '../../reducers/conceptsFeedbackReducer'
 import { ConceptReducerState } from '../../reducers/conceptsReducer'
+import { Modal } from '../../../Shared/index'
 
 interface ConceptsFeedbackProps {
   dispatch: Function;

@@ -2,8 +2,8 @@ import React from 'react'
 import { connect } from 'react-redux'
 import actions from '../../actions/concepts-feedback'
 import _ from 'underscore'
-import { Modal } from 'quill-component-library/dist/componentLibrary'
 import { LinkListItem } from '../shared/linkListItem'
+import { Modal } from '../../../Shared/index'
 
 class ConceptsFeedback extends React.Component {
   createNew = () => {
