@@ -101,6 +101,7 @@ describe BlogPostsController, type: :controller do
 
   describe '#search' do
     let(:blog_posts) { create_list(:blog_post, 3) }
+    let(:in_the_news_post) { create(:blog_post, title: 'Press', topic: BlogPost::IN_THE_NEWS)}
 
     it 'should redirect back if no query is present' do
       request.env["HTTP_REFERER"] = 'https://example.org'
@@ -112,6 +113,12 @@ describe BlogPostsController, type: :controller do
       query = 'example query'
       get :search, query: query
       expect(assigns(:title)).to eq("Search: #{query}")
+    end
+
+    it 'should not return a blog post with the topic "In the news"' do
+      query = 'Press'
+      get :search, query: query
+      expect(assigns(:blog_posts)).to eq([])
     end
 
     xit 'should return posts that match the query' do

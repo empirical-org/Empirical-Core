@@ -3,6 +3,6 @@ web: bundle exec puma -C ./config/puma.rb
 # Note, using MALLOC_ARENA_MAX=2 based on this article:
 # https://github.com/mperham/sidekiq/wiki/Deployment#heroku
 
-worker: MALLOC_ARENA_MAX=2 RAILS_MAX_THREADS=4 bundle exec sidekiq -q critical -q default
+worker: MALLOC_ARENA_MAX=2 bundle exec sidekiq -q critical -q default
 
-reportworker: MALLOC_ARENA_MAX=2 RAILS_MAX_THREADS=4 bundle exec sidekiq -q critical -q default -q low
+reportworker: MALLOC_ARENA_MAX=2 bundle exec sidekiq -q critical -q default -q low

@@ -3,9 +3,9 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import _ from 'underscore';
 import lessonActions from '../../actions/lessons.ts';
-import { Modal } from 'quill-component-library/dist/componentLibrary';
 import C from '../../constants.js';
 import EditLessonForm from './lessonForm.tsx';
+import { Modal } from '../../../Shared/index'
 
 String.prototype.toKebab = function () {
   return this.replace(/([A-Z])/g, char => `-${char.toLowerCase()}`);

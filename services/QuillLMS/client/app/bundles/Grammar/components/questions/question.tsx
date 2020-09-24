@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import { withRouter, Link, Route, Switch } from 'react-router-dom'
 import _ from 'underscore';
 import { Response } from 'quill-marking-logic'
-import { Modal } from 'quill-component-library/dist/componentLibrary';
 
 import { ActionTypes } from '../../actions/actionTypes'
 import * as questionActions from '../../actions/questions';
@@ -26,6 +25,7 @@ import FocusPointsContainer from './focusPointsContainer'
 import Cues from '../grammarActivities/cues'
 import { Match } from '../../interfaces/match'
 import { QuestionsReducerState } from '../../reducers/questionsReducer'
+import { Modal } from '../../../Shared/index';
 
 interface AdminQuestionProps {
   dispatch: Function,

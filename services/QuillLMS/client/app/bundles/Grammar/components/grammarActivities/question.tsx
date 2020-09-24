@@ -82,6 +82,8 @@ export class QuestionComponent extends React.Component<QuestionProps, QuestionSt
     );
   }
 
+  //TODO: refactor into componentDidUpdate
+
   UNSAFE_componentWillReceiveProps(nextProps: QuestionProps) {
     const { currentQuestion, previewMode } = this.props;
     if (nextProps.currentQuestion && nextProps.currentQuestion.attempts && nextProps.currentQuestion.attempts.length > 0 && !previewMode) {
@@ -197,7 +199,7 @@ export class QuestionComponent extends React.Component<QuestionProps, QuestionSt
           this.setState({ submittedSameResponseTwice: true })
         } else {
           if(previewMode) {
-            const responseObj = this.getPreviewAttempt({ question, response, responses });
+            const responseObj = this.getPreviewAttempt({ question, trimmedResponse, responses });
             this.setState(prevState => ({ submittedForPreview: true, previewSubmissionCount: prevState.previewSubmissionCount + 1, previewAttempt: responseObj }));
           }
           checkAnswer(trimmedResponse, question, responses, isFirstAttempt)
@@ -455,12 +457,12 @@ export class QuestionComponent extends React.Component<QuestionProps, QuestionSt
     </div>)
   }
 
-  getPreviewAttempt = ({ question, response, responses }) => {
+  getPreviewAttempt = ({ question, trimmedResponse, responses }) => {
     const questionUID: string = question.key
     const focusPoints = question.focusPoints ? hashToCollection(question.focusPoints).sort((a: { order: number }, b: { order: number }) => a.order - b.order) : [];
     const incorrectSequences = question.incorrectSequences ? hashToCollection(question.incorrectSequences) : [];
     const defaultConceptUID = question.modelConceptUID || question.concept_uid
-    const responseObj = checkGrammarQuestion(questionUID, response, responses, focusPoints, incorrectSequences, defaultConceptUID);
+    const responseObj = checkGrammarQuestion(questionUID, trimmedResponse, responses, focusPoints, incorrectSequences, defaultConceptUID);
     return responseObj;
   }
 

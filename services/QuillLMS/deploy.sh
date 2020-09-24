@@ -37,6 +37,10 @@ if [[ "$response" =~ ^([y])$ ]]
 then
     sh ../../scripts/post_slack_deploy.sh $app_name $1 $current_branch false
     git push origin -f ${current_branch}:$DEPLOY_GIT_BRANCH
+    if [ $1 == 'prod' ]
+    then
+        sh ../../scripts/post_slack_deploy_description.sh $app_name
+    fi
     open "https://dashboard.heroku.com/apps/$HEROKU_APP/activity"
     open $URL
     open $NR_URL

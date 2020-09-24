@@ -47,7 +47,9 @@ class BlogPostsController < ApplicationController
     @blog_posts = ActiveRecord::Base.connection.execute("
       SELECT slug, preview_card_content
       FROM blog_posts
-      WHERE draft IS FALSE AND tsv @@ plainto_tsquery(#{ActiveRecord::Base.sanitize(@query)})
+      WHERE draft IS FALSE
+      AND topic != '#{BlogPost::IN_THE_NEWS}'
+      AND tsv @@ plainto_tsquery(#{ActiveRecord::Base.sanitize(@query)})
       ORDER BY ts_rank(tsv, plainto_tsquery(#{ActiveRecord::Base.sanitize(@query)}))
     ").to_a
     @title = "Search: #{@query}"
