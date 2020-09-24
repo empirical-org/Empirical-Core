@@ -16,11 +16,10 @@
 
 <% still_doing_webinars = current_time_on_east_coast < Date.parse("20201002") %>
 
-<% if !current_user || current_user.teacher? %>
-  <% if still_doing_webinars && ((is_monday && between_eleven_and_twelve) || (is_monday && between_four_and_five) ||
+<% if (still_doing_webinars && (!current_user || current_user.teacher?)  && ((is_monday && between_eleven_and_twelve) || (is_monday && between_four_and_five) ||
   (is_tuesday && between_eleven_and_twelve) || (is_tuesday && between_four_and_five) || (is_tuesday && between_one_and_two) ||
   (is_wednesday && between_eleven_and_twelve) || (is_wednesday && between_four_and_five) || (is_wednesday && (between_nine_and_ten || between_twelve_and_one)) ||
-  (is_thursday && (between_ten_and_eleven)) || (is_monday && (between_nine_and_ten || between_twelve_and_one))) %>
+  (is_thursday && (between_ten_and_eleven)) || (is_monday && (between_nine_and_ten || between_twelve_and_one)))) %>
 
   <div class="banner" id="webinar-banner">
     <div class="content-container">
@@ -88,5 +87,4 @@
     }, false);
 
   </script>
-<% end %>
 <% end %>
