@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Modal } from 'quill-component-library/dist/componentLibrary';
+import { Modal } from '../../../../Shared/index';
 
 const SubmissionModal = ({ close, message }) => {
   return(

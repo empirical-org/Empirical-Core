@@ -1,5 +1,6 @@
 import * as React from "react";
-import { DataTable, Error, Modal, Spinner } from 'quill-component-library/dist/componentLibrary';
+import { queryCache, useQuery } from 'react-query'
+
 import { buildErrorMessage, getPromptsIcons } from '../../../helpers/comprehension';
 import { BECAUSE, BUT, SO } from '../../../../../constants/comprehension';
 import { RegexRuleInterface } from '../../../interfaces/comprehensionInterfaces';
@@ -7,7 +8,7 @@ import { deleteRuleSet, fetchRuleSet, fetchRuleSets, updateRuleSet, createRule, 
 import { fetchActivity } from '../../../utils/comprehension/activityAPIs';
 import RuleSetForm from './ruleSetForm';
 import SubmissionModal from '../shared/submissionModal';
-import { queryCache, useQuery } from 'react-query'
+import { DataTable, Error, Modal, Spinner } from '../../../../Shared/index';
 
 const RuleSet = ({ history, match }) => {
   const { params } = match;
@@ -17,19 +18,19 @@ const RuleSet = ({ history, match }) => {
   const [showSubmissionModal, setShowSubmissionModal] = React.useState<boolean>(false);
   const [errors, setErrors] = React.useState<object>({});
 
-  // get cached activity data to pass to ruleSetForm 
+  // get cached activity data to pass to ruleSetForm
   const { data: activityData } = useQuery({
     queryKey: [`activity-${activityId}`, activityId],
     queryFn: fetchActivity
   });
 
-  // get cached ruleSets data to pass ruleSets count to ruleSetForm 
+  // get cached ruleSets data to pass ruleSets count to ruleSetForm
   const { data: ruleSetsData } = useQuery({
     queryKey: [`ruleSets-${activityId}`, activityId],
     queryFn: fetchRuleSets
   });
 
-  // cache ruleSet data 
+  // cache ruleSet data
   const { data: ruleSetData } = useQuery({
     queryKey: [`ruleSet-${ruleSetId}`, activityId, ruleSetId],
     queryFn: fetchRuleSet
@@ -66,9 +67,9 @@ const RuleSet = ({ history, match }) => {
       const promptsIcons = prompts && getPromptsIcons(prompts);
       const regexRules = rules && getRegexRules(rules);
       let fields = [
-        { 
+        {
           label: 'Name',
-          value: name 
+          value: name
         },
         {
           label: 'Feedback',
@@ -182,16 +183,16 @@ const RuleSet = ({ history, match }) => {
   const renderRuleSetForm = () => {
     return(
       <Modal>
-        <RuleSetForm 
+        <RuleSetForm
           activityData={activityData && activityData.activity}
-          activityRuleSet={ruleSetData && ruleSetData.ruleset} 
-          closeModal={toggleShowEditRuleSetModal} 
+          activityRuleSet={ruleSetData && ruleSetData.ruleset}
+          closeModal={toggleShowEditRuleSetModal}
           ruleSetsCount={ruleSetsData && ruleSetsData.rulesets.length}
-          submitRuleSet={submitRuleSet} 
+          submitRuleSet={submitRuleSet}
         />
       </Modal>
     );
-  } 
+  }
 
   const renderDeleteRuleSetModal = () => {
     return(
@@ -221,7 +222,7 @@ const RuleSet = ({ history, match }) => {
 
   // The header labels felt redundant so passing empty strings and hiding header display
   const dataTableFields = [
-    { name: "", attribute:"field", width: "180px" }, 
+    { name: "", attribute:"field", width: "180px" },
     { name: "", attribute:"value", width: "600px" }
   ];
 
