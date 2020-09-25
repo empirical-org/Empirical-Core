@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { DropdownInput } from 'quill-component-library/dist/componentLibrary';
+import { DropdownInput } from '../../../Shared/index';
 import useWindowSize from '../../hooks/useWindowSize'
 import { languages, languagesV2, languageData, languageDataV2 } from '../../modules/translation/languagePageInfo';
 
