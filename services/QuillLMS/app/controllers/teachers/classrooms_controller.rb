@@ -209,12 +209,12 @@ class Teachers::ClassroomsController < ApplicationController
   end
 
   def format_teachers_for_classroom(classroom)
-    classroom.classrooms_teachers.map do |ct|
-      teacher = ct.user.attributes
+    classroom.classrooms_teachers.compact.map do |ct|
+      teacher = ct.user&.attributes
       teacher[:classroom_relation] = ct.role
       teacher[:status] = 'Joined'
       teacher
-    end
+    end.compact
   end
 
   def create_students_params
