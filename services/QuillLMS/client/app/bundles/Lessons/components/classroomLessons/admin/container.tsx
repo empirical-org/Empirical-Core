@@ -2,6 +2,8 @@ import * as React from 'react';
 import { connect } from 'react-redux';
 import { Redirect, Route, Switch, withRouter, Link } from 'react-router-dom';
 
+import ClassroomLessonsIndex from './index'
+
 import AllUserEditions from './allUserEditions';
 import ShowClassroomLesson from './show';
 import ShowAdminEdition from './showAdminEdition';
@@ -17,7 +19,6 @@ import {
   listenForClassroomLessonReviews
 } from '../../../actions/classroomLesson';
 
-import ClassroomLessonsIndex from './index'
 
 class AdminClassLessonsContainer extends React.Component<any, any> {
   constructor(props) {

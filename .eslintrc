@@ -87,6 +87,6 @@
     "react/jsx-uses-vars": "error",
     "react/jsx-wrap-multilines": "error",
 
-    "import/order": ["error", {"groups": ["builtin", "external", "sibling", "parent", "index"], "newlines-between": "always"}]
+    "import/order": ["error", {"groups": ["builtin", "external", "index", "sibling", "parent"], "newlines-between": "always"}]
   }
 }
