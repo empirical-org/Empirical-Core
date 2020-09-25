@@ -2,7 +2,7 @@ import * as React from 'react'
 import $ from 'jquery'
 import * as moment from 'moment'
 
-import { DataTable } from 'quill-component-library/dist/componentLibrary'
+import { DataTable } from '../../../../Shared/index'
 
 import { Diagnostic, } from './diagnostic_activity_packs'
 
