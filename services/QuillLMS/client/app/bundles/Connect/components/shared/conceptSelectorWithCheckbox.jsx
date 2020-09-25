@@ -1,6 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux';
-import { ConceptExplanation } from 'quill-component-library/dist/componentLibrary';
+import { ConceptExplanation } from '../../../Shared/index';
 import ConceptSelector from './conceptSelector.jsx'
 
 class ConceptSelectorWithCheckbox extends React.Component {
