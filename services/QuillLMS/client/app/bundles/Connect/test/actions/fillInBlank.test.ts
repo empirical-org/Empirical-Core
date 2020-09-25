@@ -13,10 +13,8 @@ jest.mock('../../libs/lessons_api', () => ({
 }))
 
 import { mockDispatch as dispatch, } from '../__mocks__/dispatch'
-
 import { FILL_IN_BLANKS_TYPE } from '../../libs/questions_api'
 import { TYPE_CONNECT_LESSON } from '../../libs/lessons_api'
-
 import questionActions from '../../actions/fillInBlank'
 
 describe('Questions actions', () => {

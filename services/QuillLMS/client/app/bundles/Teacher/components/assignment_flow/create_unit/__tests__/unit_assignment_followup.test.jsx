@@ -2,7 +2,6 @@ import React from 'react'
 import { shallow } from 'enzyme'
 
 import UnitAssignmentFollowup from '../unit_assignment_followup'
-
 import { classroomProps, activities } from '../stage2/__tests__/test_data/test_data'
 
 

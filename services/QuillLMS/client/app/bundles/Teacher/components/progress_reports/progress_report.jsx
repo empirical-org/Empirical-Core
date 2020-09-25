@@ -1,18 +1,19 @@
 import React from 'react'
-
 import createReactClass from 'create-react-class';
+import stripHtml from "string-strip-html";
+import $ from 'jquery'
+
+import ExportCsv from './export_csv'
+import FaqLink from './faq_link.jsx'
+import ProgressReportFilters from './progress_report_filters.jsx'
 
 import TableFilterMixin from '../general_components/table/sortable_table/table_filter_mixin'
 import TableSortingMixin from '../general_components/table/sortable_table/table_sorting_mixin'
 import Pagination from '../assignment_flow/create_unit/activity_search/pagination/pagination'
-import ExportCsv from './export_csv'
 import LoadingIndicator from '../shared/loading_indicator'
 import SortableTable from '../general_components/table/sortable_table/sortable_table.jsx'
-import FaqLink from './faq_link.jsx'
-import ProgressReportFilters from './progress_report_filters.jsx'
 import getParameterByName from '../modules/get_parameter_by_name';
-import stripHtml from "string-strip-html";
-import $ from 'jquery'
+
 
 export default createReactClass({
   displayName: 'progress_report',

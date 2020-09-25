@@ -1,4 +1,5 @@
 import React from 'react'
+
 import ConceptSelector from './conceptSelector.jsx'
 
 class ConceptSelectorWithCheckbox extends React.Component {

@@ -1,10 +1,9 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import request from 'request'
+
 import allActivities from '../../../../../../../test_data/activity_search_and_select'
-
 import ActivitySearchAndSelect from '../activity_search_and_select'
-
 import requestMock from '../../../../../../../../__mocks__/request.js';
 jest.mock('request')
 

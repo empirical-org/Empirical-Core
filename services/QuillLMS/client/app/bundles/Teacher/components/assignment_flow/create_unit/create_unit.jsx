@@ -3,6 +3,7 @@ import React from 'react';
 import Stage1 from './select_activities_container';
 import Stage2 from './stage2/Stage2';
 import UnitAssignmentFollowup from './unit_assignment_followup.tsx';
+
 import AnalyticsWrapper from '../../shared/analytics_wrapper';
 import {
   CLASSROOMS,

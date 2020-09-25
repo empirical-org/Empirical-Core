@@ -1,12 +1,13 @@
 import * as React from 'react';
 import { shallow } from 'enzyme';
-import { StudentDiagnostic } from '../studentDiagnostic';
 import {
   CarouselAnimation,
   SmartSpinner,
   PlayTitleCard,
   ProgressBar
 } from 'quill-component-library/dist/componentLibrary';
+
+import { StudentDiagnostic } from '../studentDiagnostic';
 import { clearData, loadData, nextQuestion, nextQuestionWithoutSaving, submitResponse, updateCurrentQuestion, resumePreviousDiagnosticSession } from '../../../actions/diagnostics.js';
 import SessionActions from '../../../actions/sessions.js';
 import PlaySentenceFragment from '../sentenceFragment.jsx';

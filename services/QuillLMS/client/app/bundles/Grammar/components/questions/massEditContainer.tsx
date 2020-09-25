@@ -2,12 +2,14 @@ import * as React from 'react';
 import * as request from 'request';
 import { connect } from 'react-redux';
 import { Response } from 'quill-marking-logic'
-import * as massEdit from '../../actions/massEdit';
-import TextEditor from '../shared/textEditor';
 import { EditorState, ContentState } from 'draft-js'
+import _ from 'underscore';
+
 import getBoilerplateFeedback from './boilerplateFeedback';
 import ConceptResultList from './conceptResultList';
-import _ from 'underscore';
+
+import * as massEdit from '../../actions/massEdit';
+import TextEditor from '../shared/textEditor';
 import {
   submitMassEditFeedback,
   submitMassEditConceptResults,
@@ -16,7 +18,6 @@ import {
 import { Match } from '../../interfaces/match'
 import { DisplayReducerState } from '../../reducers/displayReducer'
 import { MassEditReducerState } from '../../reducers/massEditReducer'
-
 import { clearDisplayMessageAndError } from '../../actions/display';
 
 interface MassEditState {

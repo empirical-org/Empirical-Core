@@ -3,7 +3,6 @@ import { mount } from 'enzyme';
 import toJson from 'enzyme-to-json';
 
 import FollowUp from '../followUp';
-
 import {
   SMALL_GROUP_AND_INDEPENDENT,
   PRACTICE_NOW,

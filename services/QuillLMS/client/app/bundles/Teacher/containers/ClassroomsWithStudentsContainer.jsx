@@ -1,6 +1,7 @@
 import React from 'react';
 import Pusher from 'pusher-js';
 import { Snackbar, defaultSnackbarTimeout } from 'quill-component-library/dist/componentLibrary'
+import _ from 'underscore';
 
 import { requestGet } from '../../../modules/request';
 import CreateAClassModal from '../components/classrooms/create_a_class_modal.tsx'
@@ -10,7 +11,6 @@ import GoogleClassroomsEmptyModal from '../components/classrooms/google_classroo
 import ClassroomsWithStudents from '../components/classrooms_with_students/ClassroomsWithStudents.jsx';
 import LoadingIndicator from '../components/shared/loading_indicator.jsx';
 import ButtonLoadingIndicator from '../components/shared/button_loading_indicator'
-import _ from 'underscore';
 
 export const createAClassModal = 'createAClassModal'
 export const importGoogleClassroomsModal = 'importGoogleClassroomsModal'

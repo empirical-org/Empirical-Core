@@ -1,12 +1,12 @@
 import React from 'react';
 import request from 'request';
+import Pusher from 'pusher-js';
+
 import AdminsTeachers from '../components/admins_teachers.tsx';
 import PremiumFeatures from '../components/premium_features.tsx';
 import CreateNewAccounts from '../components/create_new_accounts.tsx';
 import LoadingSpinner from '../../Teacher/components/shared/loading_indicator';
 import QuestionsAndAnswers from '../../Teacher/containers/QuestionsAndAnswers.tsx';
-import Pusher from 'pusher-js';
-
 import getAuthToken from '../../Teacher/components/modules/get_auth_token';
 
 export default class AdminDashboard extends React.Component {

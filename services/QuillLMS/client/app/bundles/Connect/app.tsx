@@ -4,11 +4,13 @@ import Promise from 'promise-polyfill';
 if (!window.Promise) {
   window.Promise = Promise;
 }
-import BackOff from './utils/backOff';
 import * as React from 'react';
-import createStore from './utils/configureStore';
 import { Provider } from 'react-redux';
 import { HashRouter, Route, Switch } from 'react-router-dom';
+import * as Sentry from '@sentry/browser';
+
+import BackOff from './utils/backOff';
+import createStore from './utils/configureStore';
 import conceptActions from './actions/concepts';
 import conceptsFeedbackActions from './actions/concepts-feedback';
 import questionActions from './actions/questions';
@@ -16,7 +18,6 @@ import fillInBlankActions from './actions/fillInBlank';
 import sentenceFragmentActions from './actions/sentenceFragments';
 import lessonActions from './actions/lessons';
 import titleCardActions from './actions/titleCards.ts';
-import * as Sentry from '@sentry/browser';
 import quillNormalizer from './libs/quillNormalizer';
 import Home from './components/home.tsx';
 

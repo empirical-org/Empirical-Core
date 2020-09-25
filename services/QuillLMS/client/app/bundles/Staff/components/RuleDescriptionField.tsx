@@ -1,5 +1,6 @@
 import * as React from "react";
 import { EditorState, ContentState } from 'draft-js'
+
 import { TextEditor } from '../../Shared/index'
 
 export default class RuleDescriptionField extends React.Component<any, any> {

@@ -1,4 +1,5 @@
 import React from 'react';
+
 import ActivityIconWithTooltip from '../general_components/activity_icon_with_tooltip';
 import shouldCountForScoring from '../../../../modules/activity_classifications.js';
 

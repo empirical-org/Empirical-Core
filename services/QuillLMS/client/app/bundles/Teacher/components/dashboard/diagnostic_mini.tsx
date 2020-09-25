@@ -2,7 +2,6 @@ import * as React from 'react';
 import _ from 'underscore';
 
 import { DataTable } from '../../../Shared/index'
-
 import { requestGet } from '../../../../modules/request/index.js';
 
 interface Diagnostic {

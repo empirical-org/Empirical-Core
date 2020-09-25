@@ -1,19 +1,18 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 
+import { classroomWithStudents, userProps, classroomProps } from './test_data/test_data'
+
 import ClassroomTeacherSection, {
   inviteCoteachersModal,
   removeCoteacherModal,
   transferOwnershipModal
 } from '../classroom_teacher_section'
-
 import RemoveCoteacherModal from '../remove_coteacher_modal'
 import TransferOwnershipModal from '../transfer_ownership_modal'
 import InviteCoteachersModal from '../invite_coteachers_modal'
-
 import { DataTable } from '../../../../Shared/index'
 
-import { classroomWithStudents, userProps, classroomProps } from './test_data/test_data'
 
 describe('ClassroomTeacherSection component', () => {
 

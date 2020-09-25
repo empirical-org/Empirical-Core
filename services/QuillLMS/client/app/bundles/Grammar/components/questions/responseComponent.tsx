@@ -1,29 +1,30 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
-import * as filterActions from '../../actions/filters';
 import _ from 'underscore';
 import {
   ResponseSortFields,
   ResponseToggleFields,
   QuestionBar,
 } from 'quill-component-library/dist/componentLibrary';
+import request from 'request';
+
 import ResponseList from './responseList';
+import POSForResponsesList from './POSForResponsesList';
+import getBoilerplateFeedback from './boilerplateFeedback';
+
+import * as filterActions from '../../actions/filters';
 import * as questionActions from '../../actions/questions';
 import { getPartsOfSpeechTags } from '../../libs/partsOfSpeechTagging';
-import POSForResponsesList from './POSForResponsesList';
 import respWithStatus from '../../libs/responseTools';
 import {
   rematchAll,
   rematchOne
 } from '../../libs/grading/rematching.ts';
 import * as massEdit from '../../actions/massEdit';
-import getBoilerplateFeedback from './boilerplateFeedback';
-import request from 'request';
 import {
   submitResponseEdit,
 } from '../../actions/responses';
 import { hashToCollection } from '../../../Shared/index'
-
 import { ActionTypes } from '../../actions/actionTypes';
 
 const labels = ActionTypes.ERROR_AUTHORS;

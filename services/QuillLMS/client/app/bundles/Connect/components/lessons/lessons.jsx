@@ -1,9 +1,11 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import actions from '../../actions/lessons';
 import _ from 'underscore';
+
 import EditLessonForm from './lessonForm.jsx';
 import { ExpandLessonQuestions } from './expandLessonQuestions';
+
+import actions from '../../actions/lessons';
 import {
   Modal,
   ArchivedButton,

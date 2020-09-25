@@ -1,6 +1,7 @@
 import React from 'react'
-import SortableList from '../components/shared/sortableList'
 import request from 'request'
+
+import SortableList from '../components/shared/sortableList'
 import getAuthToken from '../components/modules/get_auth_token'
 
 export default class ActivityCategories extends React.Component {

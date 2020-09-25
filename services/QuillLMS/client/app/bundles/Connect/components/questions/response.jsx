@@ -1,10 +1,12 @@
 import React from 'react';
 import _ from 'underscore';
-import questionActions from '../../actions/questions';
-import sentenceFragmentActions from '../../actions/sentenceFragments';
 import { EditorState, ContentState } from 'draft-js'
+
 import ResponseList from './responseList.jsx';
 import getBoilerplateFeedback from './boilerplateFeedback.jsx';
+
+import sentenceFragmentActions from '../../actions/sentenceFragments';
+import questionActions from '../../actions/questions';
 import massEdit from '../../actions/massEdit';
 import ConceptSelectorWithCheckbox from '../shared/conceptSelectorWithCheckbox.jsx';
 import {
@@ -19,6 +21,7 @@ import {
 } from '../../../Shared/index'
 
 const jsDiff = require('diff');
+
 const C = require('../../constants').default;
 
 export default class extends React.Component {

@@ -1,10 +1,10 @@
 import * as _ from 'underscore';
-import {Response, PartialResponse, IncorrectSequence, FocusPoint, GradingObject} from '../../interfaces';
 import {correctSentenceFromSamples} from 'quill-spellchecker';
+
+import {Response, PartialResponse, IncorrectSequence, FocusPoint, GradingObject} from '../../interfaces';
 import {getOptimalResponses} from '../sharedResponseFunctions';
 import {conceptResultTemplate} from '../helpers/concept_result_template'
 import {removePunctuation} from '../helpers/remove_punctuation'
-
 import {exactMatch} from '../matchers/exact_match';
 import {focusPointChecker} from '../matchers/focus_point_match';
 import {incorrectSequenceChecker} from '../matchers/incorrect_sequence_match';

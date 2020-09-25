@@ -1,6 +1,7 @@
 import React from 'react';
 import request from 'request';
 import capitalize from 'underscore.string/capitalize';
+
 import EnterOrUpdateStripeCard from '../modules/stripe/enter_or_update_card.js';
 import getAuthToken from '../modules/get_auth_token';
 

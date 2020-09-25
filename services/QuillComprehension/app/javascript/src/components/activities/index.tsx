@@ -3,15 +3,17 @@ import {connect} from 'react-redux'
 import { Query } from "react-apollo";
 import gql from "graphql-tag";
 import * as R from 'ramda';
-import Article from './article';
-import Questions from './questions';
-import VocabularyWords from './vocabulary_words';
-import {markArticleAsRead, chooseQuestionSet, setFontSize} from '../../actions/activities';
-import {ActivitiesState} from '../../reducers/activities';
 import {
   Play,
   Pause
 } from 'react-feather';
+
+import Article from './article';
+import Questions from './questions';
+import VocabularyWords from './vocabulary_words';
+
+import {markArticleAsRead, chooseQuestionSet, setFontSize} from '../../actions/activities';
+import {ActivitiesState} from '../../reducers/activities';
 export interface AppProps extends PassedProps, DispatchFromProps, StateFromProps {
 }
 

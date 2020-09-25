@@ -4,6 +4,9 @@ import { connect } from 'react-redux';
 import _ from 'lodash'
 import WakeLock from 'react-wakelock-react16'
 
+import MainContentContainer from './mainContentContainer';
+import Sidebar from './sidebar';
+
 import NavBar from '../../navbar/navbar';
 import {
   startListeningToSessionForTeacher,
@@ -23,10 +26,8 @@ import {
   getEditionQuestions,
   clearEditionQuestions
 } from '../../../actions/customize'
-import MainContentContainer from './mainContentContainer';
 import CLStudentSingleAnswer from '../play/singleAnswer';
 import { getParameterByName } from '../../../libs/getParameterByName';
-import Sidebar from './sidebar';
 import ErrorPage from '../shared/errorPage';
 import {
   ClassroomLessonSessions,

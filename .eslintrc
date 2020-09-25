@@ -9,7 +9,8 @@
   "plugins": [
     "react",
     "@typescript-eslint/eslint-plugin",
-    "jsx-a11y"
+    "jsx-a11y",
+    "import"
   ],
   "parserOptions": {
     "sourceType": "module",
@@ -84,6 +85,8 @@
     "react/jsx-tag-spacing": "error",
     "react/jsx-uses-react": "error",
     "react/jsx-uses-vars": "error",
-    "react/jsx-wrap-multilines": "error"
+    "react/jsx-wrap-multilines": "error",
+
+    "import/order": ["error", {"groups": ["builtin", "external", "sibling", "parent", "index"], "newlines-between": "always"}]
   }
 }

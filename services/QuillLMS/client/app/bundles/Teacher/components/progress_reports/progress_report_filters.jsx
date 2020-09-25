@@ -1,6 +1,7 @@
 import React from 'react'
-import DropdownFilter from './dropdown_filter.jsx'
 import _ from 'underscore'
+
+import DropdownFilter from './dropdown_filter.jsx'
 
 export default class ProgressReportFilters extends React.Component {
   activeFilter = (selected, options) => {

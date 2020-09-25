@@ -4,6 +4,7 @@ import {
   Route,
   Link
 } from 'react-router-dom'
+
 import SelectUserType from './select_user_type';
 import SignUpTeacher from './sign_up_teacher';
 import SignUpStudent from './sign_up_student';

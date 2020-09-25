@@ -1,7 +1,8 @@
 import * as React from 'react';
-import TextEditor from '../renderForQuestions/renderTextEditor.jsx';
 import * as _ from 'underscore';
 import {checkSentenceFragment, Response } from 'quill-marking-logic'
+
+import TextEditor from '../renderForQuestions/renderTextEditor.jsx';
 import Feedback from '../renderForQuestions/feedback';
 import RenderQuestionFeedback from '../renderForQuestions/feedbackStatements.jsx';
 import {

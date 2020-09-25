@@ -1,5 +1,6 @@
-import { ActionTypes } from "../actions/actionTypes";
 import * as _ from 'lodash';
+
+import { ActionTypes } from "../actions/actionTypes";
 
 const visibleStatuses: {[key:string]: Boolean} = {
   'Human Optimal': true,

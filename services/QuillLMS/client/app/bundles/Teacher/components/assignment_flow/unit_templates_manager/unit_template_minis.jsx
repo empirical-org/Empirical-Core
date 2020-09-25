@@ -2,9 +2,10 @@ import React from 'react'
 import _ from 'underscore'
 import _l from 'lodash'
 import { Link } from 'react-router-dom'
-import { DropdownInput } from '../../../../Shared/index'
 
 import UnitTemplateMini from './unit_template_mini'
+
+import { DropdownInput } from '../../../../Shared/index'
 import AssignmentFlowNavigation from '../assignment_flow_navigation.tsx'
 
 export default class UnitTemplateMinis extends React.Component {

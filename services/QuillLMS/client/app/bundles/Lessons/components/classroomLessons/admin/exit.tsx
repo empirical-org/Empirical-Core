@@ -1,8 +1,11 @@
 import React, {Component} from 'react'
-import * as CLIntF from '../../../interfaces/classroomLessons';
 import _ from 'lodash'
-import Static from '../play/static'
+
 import SlideHTMLEditor from './slideHTMLEditor'
+
+import * as CLIntF from '../../../interfaces/classroomLessons';
+import Static from '../play/static'
+
 
 interface ExitProps {
   question: CLIntF.QuestionData,

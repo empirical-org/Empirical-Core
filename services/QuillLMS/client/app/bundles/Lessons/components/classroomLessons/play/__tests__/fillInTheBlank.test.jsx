@@ -2,8 +2,9 @@ import React from 'react';
 import { mount } from 'enzyme';
 import toJson from 'enzyme-to-json';
 
-import FillInTheBlank, { PROJECT } from '../fillInTheBlank';
 import { fillInTheBlankProps } from './data'
+
+import FillInTheBlank, { PROJECT } from '../fillInTheBlank';
 
 const submissions = {
   student:

@@ -1,5 +1,7 @@
 import { assert } from 'chai';
+
 import {spacingBeforePunctuationMatch, spacingBeforePunctuationChecker} from './spacing_before_punctuation_match'
+
 import {Response, PartialResponse} from '../../interfaces'
 import {conceptResultTemplate} from '../helpers/concept_result_template'
 

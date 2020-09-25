@@ -1,9 +1,11 @@
 import React, {Component} from 'react'
-import * as CLIntF from '../../../interfaces/classroomLessons';
 import _ from 'lodash'
+
 import PromptField from './slideComponents/promptField'
-import StudentModel from '../../classroomLessons/play/modelQuestion'
 import TitleField from './slideComponents/titleField'
+
+import StudentModel from '../../classroomLessons/play/modelQuestion'
+import * as CLIntF from '../../../interfaces/classroomLessons';
 
 interface CustomizeModelProps {
   question: CLIntF.QuestionData,

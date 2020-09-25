@@ -1,9 +1,11 @@
 import React from 'react';
 import createReactClass from 'create-react-class';
-import Scrollify from '../components/modules/scrollify';
 import $ from 'jquery';
 import request from 'request';
 import _ from 'underscore';
+import moment from 'moment';
+
+import Scrollify from '../components/modules/scrollify';
 import TableFilterMixin from '../components/general_components/table/sortable_table/table_filter_mixin.js';
 import StudentScores from '../components/scorebook/student_scores';
 import LoadingIndicator from '../components/shared/loading_indicator';
@@ -11,7 +13,7 @@ import ScorebookFilters from '../components/scorebook/scorebook_filters';
 import ScoreLegend from '../components/scorebook/score_legend';
 import { AppLegend } from '../components/scorebook/app_legend.tsx';
 import EmptyProgressReport from '../components/shared/EmptyProgressReport';
-import moment from 'moment';
+
 
 export default createReactClass({
   displayName: 'Scorebook',

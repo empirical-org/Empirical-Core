@@ -1,5 +1,6 @@
 import * as _ from 'underscore'
 import {stringNormalize} from 'quill-string-normalizer'
+
 import {checkForMissingWords} from '../requiredWords'
 import {getOptimalResponses, getTopOptimalResponse} from '../sharedResponseFunctions'
 import {Response, FeedbackObject, PartialResponse} from '../../interfaces'

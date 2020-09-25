@@ -1,7 +1,6 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import { withRouter } from 'react-router-dom';
-import {clearData, loadData, nextQuestion, nextQuestionWithoutSaving, submitResponse, updateCurrentQuestion} from '../../actions/diagnostics.js'
 import _ from 'underscore'
 import {
   CarouselAnimation,
@@ -9,11 +8,14 @@ import {
   PlayTitleCard,
   ProgressBar
 } from 'quill-component-library/dist/componentLibrary';
+
+import LandingPage from './landing.jsx'
+import FinishedDiagnostic from './finishedDiagnostic.jsx'
+
+import {clearData, loadData, nextQuestion, nextQuestionWithoutSaving, submitResponse, updateCurrentQuestion} from '../../actions/diagnostics.js'
 import PlaySentenceFragment from '../diagnostics/sentenceFragment.jsx'
 import PlayDiagnosticQuestion from '../diagnostics/sentenceCombining.jsx';
 import PlayFillInTheBlankQuestion from '../fillInBlank/playFillInTheBlankQuestion';
-import LandingPage from './landing.jsx'
-import FinishedDiagnostic from './finishedDiagnostic.jsx'
 import {getConceptResultsForAllQuestions} from '../../libs/conceptResults/diagnostic'
 import { getParameterByName } from '../../libs/getParameterByName';
 import {

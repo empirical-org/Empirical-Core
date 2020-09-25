@@ -1,9 +1,11 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
+
+import ResponseComponent from './responseComponent';
+
 import {
   listenToResponsesWithCallback
 } from '../../actions/responses';
-import ResponseComponent from './responseComponent';
 
 class ResponseComponentWrapper extends React.Component {
   constructor(props) {

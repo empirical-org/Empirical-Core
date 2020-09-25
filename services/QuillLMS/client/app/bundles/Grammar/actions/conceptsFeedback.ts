@@ -1,6 +1,8 @@
-import { ConceptFeedback } from '../interfaces/conceptsFeedback'
-import { ActionTypes } from './actionTypes'
 import { push } from 'react-router-redux';
+
+import { ActionTypes } from './actionTypes'
+
+import { ConceptFeedback } from '../interfaces/conceptsFeedback'
 import { ConceptFeedbackApi } from '../libs/concept_feedback_api';
 
 export const startListeningToConceptsFeedback = () => {

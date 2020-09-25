@@ -1,6 +1,8 @@
 import React from 'react';
+
 import Classroom from './classroom.jsx';
 import EditStudentsButton from './EditStudentsButton.jsx';
+
 import getParameterByName from '../modules/get_parameter_by_name.js';
 
 export default class ClassroomsWithStudents extends React.Component {

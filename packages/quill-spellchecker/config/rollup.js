@@ -1,5 +1,6 @@
 var fs = require('fs');
 var zlib = require('zlib');
+
 var rollup = require('rollup');
 var uglify = require('uglify-js');
 var commonjs = require('rollup-plugin-commonjs');
@@ -7,6 +8,7 @@ var nodeResolve = require('rollup-plugin-node-resolve');
 var typescript = require('rollup-plugin-typescript2');
 var json = require('rollup-plugin-json');
 var nodeGlobals = require('rollup-plugin-node-globals')
+
 var version = process.env.VERSION || require('../package.json').version;
 var banner =
     '/*!\n' +

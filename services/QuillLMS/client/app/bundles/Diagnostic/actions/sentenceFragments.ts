@@ -1,7 +1,10 @@
 const C = require('../constants').default;
-import { submitResponse } from './responses';
+
 import { push } from 'react-router-redux';
 import _ from 'lodash';
+
+import { submitResponse } from './responses';
+
 import { Question } from '../interfaces/questions'
 import {
   QuestionApi,

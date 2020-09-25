@@ -2,6 +2,7 @@ import * as React from 'react';
 import 'whatwg-fetch';
 import { shallow } from 'enzyme';
 import { createMemoryHistory, createLocation } from 'history';
+
 import ActivitySettings from '../configureSettings/activitySettings';
 
 const mockProps = {

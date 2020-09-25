@@ -1,10 +1,11 @@
 import * as React from "react";
 import { Mutation } from "react-apollo";
 import gql from "graphql-tag";
-import { DropdownInput } from '../../Shared/index'
 
-import { Concept } from '../interfaces/interfaces'
 import ChangeLogModal from './ChangeLogModal'
+
+import { DropdownInput } from '../../Shared/index'
+import { Concept } from '../interfaces/interfaces'
 
 const REPLACE_CONCEPT = gql`
   mutation replaceConcept($id: ID! $replacementId: ID!, $changeLogs: [ChangeLogInput!]!){

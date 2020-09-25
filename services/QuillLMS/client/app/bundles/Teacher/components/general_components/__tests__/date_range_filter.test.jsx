@@ -1,9 +1,9 @@
 import React from 'react';
 import { shallow, mount } from 'enzyme';
 import { DateRangePicker } from 'react-dates';
-import DateRangeFilterOption from '../date_range_filter_option'
 import moment from 'moment';
 
+import DateRangeFilterOption from '../date_range_filter_option'
 import DateRangeFilter from '../date_range_filter'
 
 describe('DateRangeFilter component', () => {

@@ -1,6 +1,7 @@
 import { Action } from "redux";
-import ActionTypes from '../constants';
 import _ from 'lodash';
+
+import ActionTypes from '../constants';
 import { Question } from '../interfaces/question';
 
 export interface QuestionsReducerState {

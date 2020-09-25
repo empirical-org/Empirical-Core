@@ -1,5 +1,6 @@
 import { ConceptResult } from 'quill-marking-logic'
 import * as _ from 'lodash'
+
 import { Question, FormattedConceptResult, ResponseAttempt } from '../interfaces/questions'
 import { hashToCollection } from '../../Shared/index'
 

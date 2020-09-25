@@ -1,7 +1,6 @@
 import * as React from 'react';
 import pluralize from 'pluralize'
 
-import PreviewCard from '../shared/preview_card.jsx';
 import {
   STUDENT,
   STUDENT_CENTER_SLUG,
@@ -12,6 +11,8 @@ import {
   WRITING_INSTRUCTION_RESEARCH,
   IN_THE_NEWS
 } from './blog_post_constants'
+
+import PreviewCard from '../shared/preview_card.jsx';
 
 export default class TopicSection extends React.Component {
   displayTitle() {

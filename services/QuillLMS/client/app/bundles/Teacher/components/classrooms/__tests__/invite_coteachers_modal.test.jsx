@@ -1,10 +1,11 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 
+import { classroomWithStudents, classroomProps } from './test_data/test_data'
+
 import InviteCoteacherModal from '../invite_coteachers_modal'
 import { Input, DataTable, } from '../../../../Shared/index'
 
-import { classroomWithStudents, classroomProps } from './test_data/test_data'
 
 describe('InviteCoteacherModal component', () => {
 

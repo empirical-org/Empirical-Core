@@ -1,10 +1,13 @@
 import * as _ from 'underscore'
-import {getOptimalResponses} from '../sharedResponseFunctions'
 import {stringNormalize} from 'quill-string-normalizer'
+
+import {removePunctuation} from './punctuation_and_case_insensitive_match'
+
+import {getOptimalResponses} from '../sharedResponseFunctions'
 import {Response, PartialResponse} from '../../interfaces'
 import {conceptResultTemplate} from '../helpers/concept_result_template'
 import {feedbackStrings} from '../constants/feedback_strings'
-import {removePunctuation} from './punctuation_and_case_insensitive_match'
+
 
 export function wordsOutOfOrderMatch (response:string, responses: Array<Response>): Response|undefined {
   return _.find(getOptimalResponses(responses), resp => {

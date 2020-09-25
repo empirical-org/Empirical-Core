@@ -2,7 +2,6 @@ import React from 'react';
 import { shallow } from 'enzyme';
 
 import AuthSignUp from '../auth_sign_up';
-
 import GoogleSignUp from '../google_sign_up'
 import CleverSignUp from '../clever_sign_up'
 

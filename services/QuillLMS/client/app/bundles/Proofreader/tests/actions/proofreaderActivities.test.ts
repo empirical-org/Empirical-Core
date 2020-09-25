@@ -4,7 +4,6 @@ jest.mock('../../lib/proofreader_activities_api', () => ({
 }))
 
 import { mockDispatch as dispatch, } from '../__mocks__/dispatch'
-
 import * as proofreaderActions from '../../actions/proofreaderActivities'
 
 describe('ProofreaderActivities actions', () => {

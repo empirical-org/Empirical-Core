@@ -1,17 +1,19 @@
 import React from 'react'
 import request from 'request'
 import {CSVDownload, CSVLink} from 'react-csv'
-import CSVDownloadForProgressReport from './csv_download_for_progress_report.jsx'
 import ReactTable from 'react-table'
-import 'react-table/react-table.css'
-import ItemDropdown from '../general_components/dropdown_selectors/item_dropdown'
-import LoadingSpinner from '../shared/loading_indicator.jsx'
+import _ from 'underscore'
 import moment from 'moment'
-import userIsPremium from '../modules/user_is_premium'
-import {sortByStandardLevel} from '../../../../modules/sortingMethods.js'
+
+import CSVDownloadForProgressReport from './csv_download_for_progress_report.jsx'
+import 'react-table/react-table.css'
 import EmptyStateForReport from './empty_state_for_report'
 
-import _ from 'underscore'
+import ItemDropdown from '../general_components/dropdown_selectors/item_dropdown'
+import LoadingSpinner from '../shared/loading_indicator.jsx'
+import userIsPremium from '../modules/user_is_premium'
+import {sortByStandardLevel} from '../../../../modules/sortingMethods.js'
+
 
 const showAllClassroomKey = 'All Classrooms'
 const showAllStudentsKey = 'All Students'

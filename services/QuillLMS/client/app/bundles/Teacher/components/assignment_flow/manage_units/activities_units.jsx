@@ -1,5 +1,6 @@
 import React from 'react';
 import _ from 'underscore';
+
 import Unit from './activities_unit';
 
 const ActivitiesUnits = props => {

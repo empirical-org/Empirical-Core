@@ -1,5 +1,6 @@
 import React from 'react';
 import { shallow } from 'enzyme';
+
 import { ChooseModel } from '../chooseModel.tsx';
 import ConceptSelector from '../../shared/conceptSelector.jsx';
 import { ConceptExplanation } from '../../../../Shared/index';

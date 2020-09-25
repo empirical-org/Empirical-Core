@@ -1,4 +1,5 @@
 import { assert } from 'chai';
+
 import {processSentence} from  './processSentence'
 
 describe('The processSentence function', () => {

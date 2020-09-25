@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+
 import ResponseComponent from './responseComponent.jsx';
 
 class ResponseComponentWrapper extends React.Component {

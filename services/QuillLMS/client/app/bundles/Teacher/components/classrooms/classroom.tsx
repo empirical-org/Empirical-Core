@@ -1,6 +1,5 @@
 import * as React from 'react'
 import * as moment from 'moment'
-
 import { Tooltip } from 'quill-component-library/dist/componentLibrary'
 
 import ClassroomStudentSection from './classroom_student_section'

@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import rootRef, { firebase } from '../../../libs/firebase';
 import _ from 'lodash'
+
+import rootRef, { firebase } from '../../../libs/firebase';
 import {
   addLesson
 } from '../../../actions/classroomLesson'

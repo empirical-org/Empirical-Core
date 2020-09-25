@@ -1,9 +1,10 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 
+import { classroomWithStudents, classroomProps } from './test_data/test_data'
+
 import MoveStudentsModal from '../move_students_modal'
 
-import { classroomWithStudents, classroomProps } from './test_data/test_data'
 
 describe('MoveStudentsModal component', () => {
   const studentIds = [classroomWithStudents.students[0].id, classroomWithStudents.students[1].id]

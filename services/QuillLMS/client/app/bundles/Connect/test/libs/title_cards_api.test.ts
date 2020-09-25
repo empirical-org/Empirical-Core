@@ -13,7 +13,6 @@ import {
   TitleCardApi,
   titleCardApiBaseUrl,
 } from '../../libs/title_cards_api'
-
 import {
   TitleCard,
 } from '../../interfaces/title_cards'

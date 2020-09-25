@@ -1,6 +1,5 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-
 import { ProgressBar } from 'quill-component-library/dist/componentLibrary';
 
 describe('ProgressBar component', () => {

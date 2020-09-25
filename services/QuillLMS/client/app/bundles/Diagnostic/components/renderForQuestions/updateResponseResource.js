@@ -1,5 +1,7 @@
 import _ from 'underscore';
+
 import generateFeedbackString from './generateFeedbackString.js';
+
 import {
   incrementResponseCount,
   submitResponse,

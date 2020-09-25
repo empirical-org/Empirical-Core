@@ -4,7 +4,6 @@ jest.mock('../../libs/grammar_activities_api', () => ({
 }))
 
 import { mockDispatch as dispatch, } from '../__mocks__/dispatch'
-
 import * as grammarActions from '../../actions/grammarActivities'
 
 describe('GrammarActivities actions', () => {

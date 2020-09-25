@@ -1,5 +1,6 @@
 import React from 'react'
 import { shallow } from 'enzyme'
+
 import EditStudentsButton from '../EditStudentsButton.jsx'
 import ButtonLoadingIndicator from '../../shared/button_loading_indicator'
 

@@ -1,9 +1,11 @@
 import React, {Component} from 'react'
-import * as CLIntF from '../../../interfaces/classroomLessons';
 import _ from 'lodash'
-import StudentMultistep from '../../classroomLessons/play/multistep'
+
 import TitleField from './slideComponents/titleField'
 import PromptField from './slideComponents/promptField'
+
+import StudentMultistep from '../../classroomLessons/play/multistep'
+import * as CLIntF from '../../../interfaces/classroomLessons';
 
 interface CustomizeMultistepProps {
   question: CLIntF.QuestionData,

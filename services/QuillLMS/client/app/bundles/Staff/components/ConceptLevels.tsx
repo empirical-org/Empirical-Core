@@ -1,5 +1,6 @@
 import * as React from "react";
 import _ from 'lodash'
+
 import ConceptColumn from './ConceptColumn'
 
 import { Concept } from '../interfaces/interfaces'

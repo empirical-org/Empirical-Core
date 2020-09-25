@@ -1,4 +1,5 @@
 import * as _ from 'underscore';
+
 import {Response} from '../interfaces'
 
 export function getOptimalResponses(responses: Array<Response>): Array<Response> {

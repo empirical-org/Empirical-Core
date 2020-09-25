@@ -1,7 +1,8 @@
 import { Action } from "redux";
+import * as _ from 'lodash'
+
 import { ActionTypes } from "../actions/actionTypes";
 import { GrammarActivity, GrammarActivities } from '../interfaces/grammarActivities'
-import * as _ from 'lodash'
 
 type GrammarActivityStateAction = Action & {cid: string, data: GrammarActivities|GrammarActivity}
 

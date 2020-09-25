@@ -1,5 +1,6 @@
 import React from 'react'
 import { HashRouter, Route } from 'react-router-dom'
+
 import Index from '../components/progress_reports/diagnostic_reports/index'
 import ActivityPacks from '../components/progress_reports/diagnostic_reports/activity_packs'
 import DiagnosticActivityPacks from '../components/progress_reports/diagnostic_reports/diagnostic_activity_packs'

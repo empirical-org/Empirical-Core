@@ -2,14 +2,16 @@
 // along with their result counts.
 import React from 'react'
 import request from 'request'
-import CSVDownloadForProgressReport from './csv_download_for_progress_report.jsx'
 import ReactTable from 'react-table'
+
+import CSVDownloadForProgressReport from './csv_download_for_progress_report.jsx'
 import 'react-table/react-table.css'
+import EmptyStateForReport from './empty_state_for_report'
+
 import {sortByLastName} from '../../../../modules/sortingMethods.js'
 import LoadingSpinner from '../shared/loading_indicator.jsx'
 import ItemDropdown from '../general_components/dropdown_selectors/item_dropdown'
 import userIsPremium from '../modules/user_is_premium'
-import EmptyStateForReport from './empty_state_for_report'
 
 const showAllClassroomKey = 'All Classrooms'
 

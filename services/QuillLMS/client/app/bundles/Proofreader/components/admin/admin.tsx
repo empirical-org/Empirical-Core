@@ -1,12 +1,14 @@
 import * as React from 'react';
 import { Route, Switch, withRouter, RouteComponentProps } from "react-router-dom";
 import { connect } from 'react-redux';
+
+import TabLink from './tabLink'
+
 import * as proofreaderActivitiesActions from '../../actions/proofreaderActivities'
 import * as conceptsActions from '../../actions/concepts'
 import Lessons from '../lessons/lessons'
 import Lesson from '../lessons/lesson'
 import Concepts from '../concepts/concepts'
-import TabLink from './tabLink'
 
 const usersEndpoint = `${process.env.DEFAULT_URL}/api/v1/users.json`;
 const newSessionEndpoint = `${process.env.DEFAULT_URL}/session/new`;

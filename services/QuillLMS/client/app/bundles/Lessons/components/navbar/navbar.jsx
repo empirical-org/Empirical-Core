@@ -1,10 +1,12 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import { withRouter, Link } from 'react-router-dom';
+
 import TeacherLessonsNavbar from './teacherNavbar'
 import CustomizeNavbar from './customizeNavbar'
 import LaunchEditionNavbar from './launchEditionNavbar'
 import CreateCustomizedEditionNavbar from './createCustomizedEditionNavbar'
+
 import {getParameterByName} from '../../libs/getParameterByName'
 
 class Navbar extends React.Component {

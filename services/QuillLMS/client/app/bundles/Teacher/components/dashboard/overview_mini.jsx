@@ -1,5 +1,6 @@
 import React from 'react';
 import _ from 'underscore';
+
 import LoadingIndicator from '../shared/loading_indicator';
 
 export default class extends React.Component {

@@ -1,5 +1,7 @@
 import { assert } from 'chai';
+
 import {rigidChangeObjectMatch, flexibleChangeObjectMatch, levenshteinChangeObjectMatch} from './change_object_match'
+
 import {Response} from '../../interfaces'
 
 describe('The rigidChangeObjectMatch function', () => {

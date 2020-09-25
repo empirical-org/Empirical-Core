@@ -1,5 +1,7 @@
 import { assert } from 'chai';
+
 import {checkDiagnosticQuestion} from './diagnostic_question'
+
 import {Response} from '../../interfaces'
 
 describe('The checking a diagnostic question', () => {

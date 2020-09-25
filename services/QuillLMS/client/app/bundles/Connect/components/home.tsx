@@ -1,8 +1,10 @@
 import * as React from 'react';
 import { renderRoutes } from "react-router-config";
-import { routes } from "../routes";
-import { NavBar } from './navbar/studentNavbar.tsx';
 import { Layout } from "antd";
+
+import { NavBar } from './navbar/studentNavbar.tsx';
+
+import { routes } from "../routes";
 import { getParameterByName } from '../libs/getParameterByName';
 import { TeacherPreviewMenu } from '../../Shared/index';
 

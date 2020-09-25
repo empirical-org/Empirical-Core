@@ -1,13 +1,14 @@
 import * as React from "react";
 import { RouteComponentProps } from 'react-router-dom';
+import { queryCache, useQuery } from 'react-query'
+
+import ActivityForm from './activityForm';
 
 import { ActivityInterface, ActivityRouteProps } from '../../../interfaces/comprehensionInterfaces';
 import { BECAUSE, BUT, SO } from '../../../../../constants/comprehension';
-import ActivityForm from './activityForm';
 import SubmissionModal from '../shared/submissionModal';
 // import { flagOptions } from '../../../../../constants/comprehension';
 import { fetchActivity, updateActivity } from '../../../utils/comprehension/activityAPIs';
-import { queryCache, useQuery } from 'react-query'
 import { promptsByConjunction } from "../../../helpers/comprehension";
 import { DataTable, Error, Modal, Spinner } from '../../../../Shared/index';
 

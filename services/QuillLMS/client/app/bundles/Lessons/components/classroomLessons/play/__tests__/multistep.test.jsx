@@ -2,8 +2,9 @@ import React from 'react';
 import { mount } from 'enzyme';
 import toJson from 'enzyme-to-json';
 
-import Multistep, { PROJECT } from '../multistep';
 import { multistepProps } from './data'
+
+import Multistep, { PROJECT } from '../multistep';
 
 const submissions = {
   student: {

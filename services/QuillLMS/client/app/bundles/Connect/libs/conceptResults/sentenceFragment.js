@@ -1,7 +1,8 @@
-import C from '../../constants';
 import _ from 'underscore';
 
 import { getConceptResultsForAttempt } from './sharedConceptResultsFunctions';
+
+import C from '../../constants';
 
 export function getIdentificationConceptResult(question) {
   const returnValue = {};

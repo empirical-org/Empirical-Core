@@ -4,9 +4,7 @@ jest.mock('../../libs/title_cards_api', () => ({
 }))
 
 import { mockDispatch as dispatch, } from '../__mocks__/dispatch'
-
 import { CONNECT_TITLE_CARD_TYPE } from '../../libs/title_cards_api'
-
 import * as titleCardActions from '../../actions/titleCards'
 
 describe('TitleCards actions', () => {

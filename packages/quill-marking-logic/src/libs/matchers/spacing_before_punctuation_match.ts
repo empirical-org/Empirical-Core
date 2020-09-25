@@ -1,4 +1,5 @@
 import * as _ from 'underscore'
+
 import {FeedbackObject, PartialResponse, Response} from '../../interfaces'
 import {spacingBeforePunctuation} from '../algorithms/spacingBeforePunctuation'
 import {conceptResultTemplate} from '../helpers/concept_result_template'

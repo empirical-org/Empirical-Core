@@ -1,4 +1,5 @@
 import * as React from 'react'
+
 import ConceptSelector from '../shared/conceptSelector'
 
 export default class EditGenerator extends React.Component {

@@ -1,13 +1,15 @@
 declare function require(name:string);
-import  C from '../constants';
 import _ from 'lodash'
+import uuid from 'uuid/v4';
+
+import {setEditionMetadata} from './customize'
+
+import  C from '../constants';
 import * as IntF from '../components/classroomLessons/interfaces';
 import * as CustomizeIntF from '../interfaces/customize'
-import {setEditionMetadata} from './customize'
 import lessonBoilerplate from '../components/classroomLessons/shared/classroomLessonBoilerplate'
 import lessonSlideBoilerplates from '../components/classroomLessons/shared/lessonSlideBoilerplates'
 import scriptItemBoilerplates from '../components/classroomLessons/shared/scriptItemBoilerplates'
-import uuid from 'uuid/v4';
 import socket from '../utils/socketStore'
 
 export function getClassLesson(classroomLessonUid: string) {

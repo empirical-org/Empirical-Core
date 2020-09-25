@@ -1,7 +1,9 @@
 'use strict'
 
 import React from 'react'
+
 import SelectedActivity from './selected_activity'
+
 import SortableList from '../../../../shared/sortableList'
 
 const SelectedActivities = props => {

@@ -1,4 +1,5 @@
 import React from 'react';
+
 import PleaseLoginModal from '../please_login_modal.jsx';
 import Stripe from '../../modules/stripe/charge.js';
 

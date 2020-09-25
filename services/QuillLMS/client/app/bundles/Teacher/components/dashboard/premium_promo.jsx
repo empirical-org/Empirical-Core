@@ -1,4 +1,5 @@
 import React from 'react';
+
 import Stripe from '../modules/stripe/charge.js';
 
 export default class PremiumPromo extends React.Component {

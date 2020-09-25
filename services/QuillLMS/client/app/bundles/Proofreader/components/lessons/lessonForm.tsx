@@ -1,11 +1,13 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
 import { EditorState, ContentState } from 'draft-js'
+
+import EditGenerator from './editGenerator'
+
 import ConceptSelector from '../shared/conceptSelector'
 import TextEditor from '../shared/textEditor'
 import { ProofreaderActivity, Concepts, Concept } from '../../interfaces/proofreaderActivities'
 import { ConceptReducerState } from '../../reducers/conceptsReducer'
-import EditGenerator from './editGenerator'
 
 interface LessonFormState {
   title: string;

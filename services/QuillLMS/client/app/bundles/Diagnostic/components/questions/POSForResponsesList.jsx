@@ -1,6 +1,7 @@
 import React from 'react'
-import Response from './response.jsx'
 import _ from 'underscore'
+
+import Response from './response.jsx'
 import keysForPOS from './POSIndex.jsx'
 import POSForResponse from './POSForResponse.jsx'
 

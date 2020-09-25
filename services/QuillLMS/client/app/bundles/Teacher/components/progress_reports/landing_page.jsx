@@ -1,4 +1,5 @@
 import React from 'react';
+
 import GenericMini from '../shared/generic_mini.jsx';
 
 export default class extends React.Component {

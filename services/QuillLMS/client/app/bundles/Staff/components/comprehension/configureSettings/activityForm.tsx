@@ -1,5 +1,6 @@
 import * as React from "react";
 import { EditorState, ContentState } from 'draft-js'
+
 // import { flagOptions } from '../../../../../constants/comprehension'
 import { validateForm, buildActivity, buildBlankPrompt, promptsByConjunction } from '../../../helpers/comprehension';
 import {

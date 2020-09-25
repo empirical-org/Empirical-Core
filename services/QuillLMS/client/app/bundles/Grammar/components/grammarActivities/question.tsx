@@ -2,7 +2,9 @@ import * as React from "react";
 import ContentEditable from 'react-contenteditable';
 import { Row } from "antd";
 import { checkGrammarQuestion, Response, ConceptResult } from 'quill-marking-logic'
+
 import Cues from './cues'
+
 import { Question } from '../../interfaces/questions'
 import { GrammarActivity } from '../../interfaces/grammarActivities'
 import * as responseActions from '../../actions/responses'

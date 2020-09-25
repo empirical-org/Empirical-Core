@@ -1,5 +1,6 @@
 import React from 'react';
 import moment from 'moment';
+
 import activityTypeFromClassificationId from '../../modules/activity_type_from_classification_id.js';
 
 export default class ActivityDetails extends React.Component {

@@ -1,4 +1,5 @@
 import React from 'react';
+
 import NavBar from './navbar/studentNavbar';
 
 export default class StudentRoot extends React.Component {

@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactDOMServer from 'react-dom/server';
+
 import AboutPremium from '../../../general_components/tooltip/about_premium.jsx';
 import ConceptResultStats from '../../../general_components/tooltip/concept_result_stats.jsx';
 import ActivityDetails from '../../../general_components/tooltip/activity_details.jsx';

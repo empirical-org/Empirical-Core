@@ -1,10 +1,10 @@
 import React from 'react';
 import { mount, } from 'enzyme';
 
-import StudentProfileUnits from '../student_profile_units';
-import StudentProfileUnit from '../student_profile_unit';
 import { activities } from './test_data'
 
+import StudentProfileUnits from '../student_profile_units';
+import StudentProfileUnit from '../student_profile_unit';
 import { ALL_ACTIVITIES, TO_DO_ACTIVITIES, COMPLETED_ACTIVITIES, } from '../../../../../constants/student_profile'
 
 describe('StudentProfileUnits component', () => {

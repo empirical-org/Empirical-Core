@@ -1,4 +1,3 @@
-import * as IntF from '../interfaces';
 import AdminLobby from './lobby';
 import AdminStatic from './static';
 import AdminModel from './model';
@@ -8,6 +7,8 @@ import AdminFillInTheList from './fillInTheList';
 import AdminExit from './exit';
 import AdminUnsupported from './unsupportedType';
 import AdminMultiStep from './multiStep';
+
+import * as IntF from '../interfaces';
 
 export function getComponent(type: string) {
   switch (type) {

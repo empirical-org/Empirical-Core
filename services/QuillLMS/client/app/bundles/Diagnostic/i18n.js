@@ -1,5 +1,6 @@
 import i18n from "i18next";
 import { reactI18nextModule } from "react-i18next";
+
 import translationAR from './modules/translation/arabic/translation.json';
 import translationCN from './modules/translation/chinese/translation.json';
 import translationDE from './modules/translation/german/translation.json';

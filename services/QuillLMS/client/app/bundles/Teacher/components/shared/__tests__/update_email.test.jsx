@@ -1,5 +1,6 @@
 import React from 'react'
 import { shallow } from 'enzyme'
+
 import UpdateEmail from '../update_email.jsx'
 
 const email = 'hal@spaceodyssey.org'

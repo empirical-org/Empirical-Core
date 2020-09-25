@@ -1,9 +1,11 @@
 import * as React from "react";
 import { NavLink, Redirect, Route, RouteComponentProps, Switch, withRouter } from 'react-router-dom';
+
 import ActivitySettings from './configureSettings/activitySettings';
 import RuleSets from './configureRegex/ruleSets';
 import RuleSet from './configureRegex/ruleSet';
 import TurkSessions from './gatherResponses/turkSessions';
+
 import { ActivityRouteProps } from '../../interfaces/comprehensionInterfaces';
 
 const Activity: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ match }) => {

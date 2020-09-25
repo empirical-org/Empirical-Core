@@ -1,8 +1,9 @@
 import _ from 'lodash';
 import React from 'react';
-import ScorebookTooltip from '../modules/componentGenerators/tooltip_title/scorebook_tooltip_title';
 import $ from 'jquery';
 import request from 'request';
+
+import ScorebookTooltip from '../modules/componentGenerators/tooltip_title/scorebook_tooltip_title';
 import gradeColor from '../modules/grade_color.js';
 import activityFromClassificationId from '../modules/activity_from_classification_id.js';
 

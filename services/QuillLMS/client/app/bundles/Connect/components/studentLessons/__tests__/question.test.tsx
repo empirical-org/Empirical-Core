@@ -1,6 +1,7 @@
 import * as React from 'react';
 import 'whatwg-fetch'
 import { shallow } from 'enzyme';
+
 import { sentenceCombiningQuestionWithOneAttempt, conceptsFeedback } from '../../../test/studentLessonData'
 import {
   getMultipleChoiceResponseOptionsWithCallback,

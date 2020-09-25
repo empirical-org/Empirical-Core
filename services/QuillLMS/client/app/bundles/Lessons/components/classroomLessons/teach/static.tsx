@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+
 import ScriptComponent from '../shared/scriptComponent';
 import {
   ClassroomLessonSession

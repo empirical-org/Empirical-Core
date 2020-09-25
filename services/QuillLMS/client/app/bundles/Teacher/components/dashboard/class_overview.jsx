@@ -1,14 +1,16 @@
 import React from 'react';
 import _ from 'underscore';
+
 import NotificationFeed from './notifications/container';
 import OverviewMini from './overview_mini';
 import PremiumMini from './premium_mini';
-import TeacherGuide from '../teacher_guide/teacher_guide';
 import NewTools from './new_tools_mini.jsx';
 import PremiumPromo from './premium_promo.jsx';
 import LessonsList from './lessons_list.jsx';
 import DiagnosticMini from './diagnostic_mini.tsx';
 import CollegeBoardMini from './college_board_mini.tsx';
+
+import TeacherGuide from '../teacher_guide/teacher_guide';
 
 export default class ClassOverview extends React.Component {
   constructor(props) {

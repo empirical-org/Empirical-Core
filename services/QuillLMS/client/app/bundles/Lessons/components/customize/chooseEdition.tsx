@@ -3,10 +3,12 @@ import { connect } from 'react-redux';
 import * as _ from 'lodash';
 import { Spinner } from 'quill-component-library/dist/componentLibrary'
 
+import EditionNamingModal from './editionNamingModal';
+import EditionRow from './editionRow';
+
 import {
   getClassLesson
 } from '../../actions/classroomLesson'
-
 import {
   createNewEdition,
   saveEditionName,
@@ -23,8 +25,6 @@ import {
   ClassroomSessionId,
   ClassroomUnitId
 } from '../classroomLessons/interfaces'
-import EditionNamingModal from './editionNamingModal';
-import EditionRow from './editionRow';
 import SignupModal from '../classroomLessons/teach/signupModal';
 import CustomizeNavbar from '../navbar/customizeNavbar'
 import { getParameterByName } from '../../libs/getParameterByName';

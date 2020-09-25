@@ -6,7 +6,6 @@ jest.mock('../../libs/lessons_api', () => ({
 }))
 
 import { mockDispatch as dispatch, } from '../__mocks__/dispatch'
-
 import lessonActions from '../../actions/lessons'
 
 describe('Lessons actions', () => {

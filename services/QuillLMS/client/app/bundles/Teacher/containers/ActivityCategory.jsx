@@ -1,5 +1,6 @@
 import React from 'react'
 import request from 'request'
+
 import getAuthToken from '../components/modules/get_auth_token'
 import ActivitySearchAndSelect from '../components/assignment_flow/create_unit/activity_search/activity_search_and_select'
 

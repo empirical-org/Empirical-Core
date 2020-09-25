@@ -1,5 +1,6 @@
 import * as React from "react";
 import Select from 'react-select';
+
 import { Concept } from '../interfaces/interfaces'
 
 interface ConceptColumnProps {

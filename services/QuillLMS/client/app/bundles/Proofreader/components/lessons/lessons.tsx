@@ -1,10 +1,11 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
-import * as actions from '../../actions/proofreaderActivities';
 import _ from 'underscore';
 
-import LinkListItem from '../shared/linkListItem'
 import EditLessonForm from './lessonForm';
+
+import * as actions from '../../actions/proofreaderActivities';
+import LinkListItem from '../shared/linkListItem'
 import { ProofreaderActivityState } from '../../reducers/proofreaderActivitiesReducer'
 import { ProofreaderActivity } from '../../interfaces/proofreaderActivities'
 import {

@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { shallow } from 'enzyme';
+
 import EditOrDeleteTurkSession from '../gatherResponses/editOrDeleteTurkSession';
 import 'whatwg-fetch';
 

@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+
 import SentenceFragmentTemplate from '../sentenceFragments/sentenceFragmentTemplateComponentML';
 
 class PlaySentenceFragment extends Component {

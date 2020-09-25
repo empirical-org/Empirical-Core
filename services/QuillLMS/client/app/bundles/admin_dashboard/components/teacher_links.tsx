@@ -1,4 +1,5 @@
 import * as React from 'react';
+
 import TeacherLink from './teacher_link';
 
 const TeacherLinks = ({ links, isValid }) => {

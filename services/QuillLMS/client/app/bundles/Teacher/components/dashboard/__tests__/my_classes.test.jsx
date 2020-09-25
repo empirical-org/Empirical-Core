@@ -2,7 +2,6 @@ import React from 'react';
 import { shallow } from 'enzyme';
 
 import MyClasses from '../my_classes';
-
 import ClassMini from '../class_mini'
 import AddOrSyncClassroomsMini from '../add_or_sync_classrooms_mini'
 

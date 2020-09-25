@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { EditorState, ContentState } from 'draft-js'
+
 import ConceptSelector from '../shared/conceptSelector.jsx';
 import C from '../../constants.js'
 import { TextEditor, FlagDropdown } from '../../../Shared/index';

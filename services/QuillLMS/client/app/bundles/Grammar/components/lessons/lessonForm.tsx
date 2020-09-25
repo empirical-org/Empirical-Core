@@ -2,6 +2,7 @@ import * as React from 'react';
 import QuestionSelector from 'react-select-search';
 import { connect } from 'react-redux';
 import { EditorState, ContentState } from 'draft-js'
+
 import TextEditor from '../shared/textEditor'
 import ConceptSelector from '../shared/conceptSelector'
 import SortableList from '../shared/sortableList'

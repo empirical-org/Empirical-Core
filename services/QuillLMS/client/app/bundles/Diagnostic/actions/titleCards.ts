@@ -1,5 +1,6 @@
 import _ from 'lodash';
 import { push } from 'react-router-redux';
+
 import { TitleCardApi, DIAGNOSTIC_TITLE_CARD_TYPE } from '../libs/title_cards_api'
 
 const C = require('../constants').default;

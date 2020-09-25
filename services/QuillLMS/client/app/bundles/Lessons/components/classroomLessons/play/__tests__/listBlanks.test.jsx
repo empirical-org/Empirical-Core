@@ -2,8 +2,9 @@ import React from 'react';
 import { mount } from 'enzyme';
 import toJson from 'enzyme-to-json';
 
-import ListBlanks, { PROJECT } from '../listBlanks';
 import { listBlanksProps } from './data'
+
+import ListBlanks, { PROJECT } from '../listBlanks';
 
 const submissions = {
   student: {

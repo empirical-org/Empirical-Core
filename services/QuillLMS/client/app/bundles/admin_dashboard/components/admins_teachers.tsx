@@ -1,6 +1,7 @@
 import * as React from 'react';
-import TeacherLinks from './teacher_links';
 import ReactTable from 'react-table';
+
+import TeacherLinks from './teacher_links';
 
 interface AdminsTeachersProps {
   data: Array<Object>;

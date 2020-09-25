@@ -1,13 +1,14 @@
 import * as React from 'react'
 import moment from 'moment'
 
-import { DropdownInput, DataTable } from '../../../Shared/index'
 
 import EditStudentAccountModal from './edit_student_account_modal'
 import ResetStudentPasswordModal from './reset_student_password_modal'
 import MergeStudentAccountsModal from './merge_student_accounts_modal'
 import MoveStudentsModal from './move_students_modal'
 import RemoveStudentsModal from './remove_students_modal'
+
+import { DropdownInput, DataTable } from '../../../Shared/index'
 import ViewAsStudentModal from '../shared/view_as_student_modal'
 
 const emptyDeskSrc = `${process.env.CDN_URL}/images/illustrations/empty-desks.svg`

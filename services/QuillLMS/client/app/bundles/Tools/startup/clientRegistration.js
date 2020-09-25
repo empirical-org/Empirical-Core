@@ -1,4 +1,5 @@
 import ReactOnRails from 'react-on-rails';
+
 import LessonsQuestionsAndAnswersApp from './LessonsQuestionsAndAnswersAppClient.jsx'
 import 'lazysizes';
 // import a plugin

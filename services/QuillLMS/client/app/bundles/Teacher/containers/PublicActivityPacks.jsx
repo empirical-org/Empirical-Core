@@ -1,8 +1,9 @@
 import React from 'react'
 import $ from 'jquery';
-import { requestGet } from '../../../modules/request';
 import _ from 'underscore'
 import _l from 'lodash'
+
+import { requestGet } from '../../../modules/request';
 import ManageUnits from '../components/assignment_flow/manage_units/manage_units'
 import UnitTemplatesManager from '../components/assignment_flow/unit_templates_manager/unit_templates_manager'
 import fnl from '../components/modules/fnl'

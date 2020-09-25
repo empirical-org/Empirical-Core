@@ -1,4 +1,5 @@
 import request from 'request';
+
 import getAuthToken from './get_auth_token';
 
 function put(path: string, payload: object, onSuccess: Function, onError: Function): void {

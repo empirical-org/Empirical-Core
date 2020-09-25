@@ -1,6 +1,5 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-
 import { Error } from 'quill-component-library/dist/componentLibrary';
 
 describe('Error component', () => {

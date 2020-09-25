@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { shallow } from 'enzyme';
+
 import { Input } from '../../../../Shared/index';
 import RegexSection from '../configureRegex/regexSection';
 jest.mock('string-strip-html', () => ({

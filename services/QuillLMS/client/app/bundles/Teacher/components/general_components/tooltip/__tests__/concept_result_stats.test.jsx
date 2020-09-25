@@ -2,7 +2,6 @@ import React from 'react';
 import { shallow } from 'enzyme';
 
 import ConceptResultStats from '../concept_result_stats';
-
 import ConceptResultStat from '../concept_result_stat.jsx'
 
 describe('ConceptResultStats component', () => {

@@ -1,7 +1,9 @@
 import * as React from "react";
+import stripHtml from "string-strip-html";
+
 import { promptStems, DEFAULT_MAX_ATTEMPTS, BECAUSE, MINIMUM_READING_LEVEL, MAXIMUM_READING_LEVEL, TARGET_READING_LEVEL, SCORED_READING_LEVEL } from '../../../constants/comprehension';
 import { ActivityRuleSetPrompt, PromptInterface } from '../interfaces/comprehensionInterfaces'
-import stripHtml from "string-strip-html";
+
 const quillCheckmark = 'https://assets.quill.org/images/icons/check-circle-small.svg';
 const baseUrl = `${process.env.DEFAULT_URL}/api/v1/comprehension/`;;
 const fetchDefaults = require("fetch-defaults");

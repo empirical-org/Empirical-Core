@@ -5,21 +5,21 @@ import {
   SentenceFragments,
 } from 'quill-component-library/dist/componentLibrary'
 
-import {
-QuestionData,
-} from '../../../interfaces/classroomLessons'
-import {
-ClassroomLessonSession,
-SelectedSubmissionsForQuestion,
-QuestionSubmissionsList
-} from '../interfaces'
-import TextEditor from '../../renderForQuestions/renderTextEditor';
 import SubmitButton from './submitButton'
 import ProjectorHeader from './projectorHeader'
 import ProjectedAnswers from './projectedAnswers'
 import PromptSection from './promptSection'
 import { PROJECT } from './constants'
 
+import TextEditor from '../../renderForQuestions/renderTextEditor';
+import {
+ClassroomLessonSession,
+SelectedSubmissionsForQuestion,
+QuestionSubmissionsList
+} from '../interfaces'
+import {
+QuestionData,
+} from '../../../interfaces/classroomLessons'
 import { getParameterByName } from '../../../libs/getParameterByName';
 
 interface MultistepProps {

@@ -1,5 +1,6 @@
 import * as _ from 'underscore';
 import * as Levenshtein_ from 'levenshtein';
+
 const Levenshtein: any = (<any>Levenshtein_).default || Levenshtein_;
 import {Response, PartialResponse} from '../interfaces'
 

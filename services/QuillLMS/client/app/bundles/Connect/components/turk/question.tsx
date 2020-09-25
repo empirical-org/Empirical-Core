@@ -1,16 +1,18 @@
 import React from 'react';
 import _ from 'underscore';
 import ReactTransition from 'react-addons-css-transition-group';
+import { Feedback, SentenceFragments } from 'quill-component-library/dist/componentLibrary';
+import { Response } from 'quill-component-library/dist/componentLibrary';
+
 import {
   getGradedResponsesWithCallback
 } from '../../actions/responses.js';
 import RenderQuestionFeedback from '../renderForQuestions/feedbackStatements.jsx';
 import RenderQuestionCues from '../renderForQuestions/cues.jsx';
-import { Feedback, SentenceFragments } from 'quill-component-library/dist/componentLibrary';
 import getResponse from '../renderForQuestions/checkAnswer';
 import updateResponseResource from '../renderForQuestions/updateResponseResource.js';
 import TextEditor from '../renderForQuestions/renderTextEditor.jsx';
-import { Response } from 'quill-component-library/dist/componentLibrary';
+
 
 const C = require('../../constants').default;
 

@@ -2,7 +2,6 @@ const request = require('request-promise').defaults({ family: 4 });
 const _ = require('lodash');
 const u = require('underscore');
 const Sequelize = require('sequelize');
-
 const { checkSentenceCombining, checkSentenceFragment, checkDiagnosticQuestion, checkFillInTheBlankQuestion, checkDiagnosticSentenceFragment, checkGrammarQuestion, ConceptResult } = require('quill-marking-logic')
 const CMS_URL = 'https://cms.quill.org'
 const FIREBASE_NAME = 'quillconnect'

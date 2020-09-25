@@ -4,6 +4,7 @@ import { AffectedResponse, isValidRegex } from 'quill-component-library/dist/com
 import { focusPointMatchHelper, incorrectSequenceMatchHelper } from "quill-marking-logic"
 
 import Response from './response.jsx'
+
 import massEdit from '../../actions/massEdit';
 
 export default class ResponseList extends React.Component {

@@ -1,11 +1,13 @@
 import React from 'react';
 import { Snackbar, defaultSnackbarTimeout, } from 'quill-component-library/dist/componentLibrary'
-import LoadingSpinner from '../../shared/loading_indicator.jsx';
 import _ from 'underscore';
-import { requestGet, requestPost } from '../../../../../modules/request';
 import Pusher from 'pusher-js';
+
 import RecommendationsTableCell from './recommendations_table_cell';
 import LessonsRecommendations from './lessons_recommendations';
+
+import { requestGet, requestPost } from '../../../../../modules/request';
+import LoadingSpinner from '../../shared/loading_indicator.jsx';
 
 export default class Recommendations extends React.Component {
   constructor(props) {

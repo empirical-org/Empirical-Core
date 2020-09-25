@@ -1,4 +1,5 @@
 import * as React from 'react'
+
 import { UNIT_TEMPLATE_NAME, } from '../assignment_flow/assignmentFlowConstants'
 
 const AssignActivityPackBanner = ({ login, }) => {

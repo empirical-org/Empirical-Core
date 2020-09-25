@@ -1,10 +1,12 @@
 import * as request from 'request'
 import Pusher from 'pusher-js';
 import { push } from 'react-router-redux';
-import { ActionTypes } from './actionTypes'
-import { Questions, Question, FocusPoint, IncorrectSequence } from '../interfaces/questions'
-import * as responseActions from './responses'
 import { Response, ConceptResult } from 'quill-marking-logic'
+
+import { ActionTypes } from './actionTypes'
+import * as responseActions from './responses'
+
+import { Questions, Question, FocusPoint, IncorrectSequence } from '../interfaces/questions'
 import {
   FocusPointApi,
   IncorrectSequenceApi,

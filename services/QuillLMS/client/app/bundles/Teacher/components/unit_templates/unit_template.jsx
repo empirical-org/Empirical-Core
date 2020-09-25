@@ -1,5 +1,8 @@
 import React from 'react';
 import createReactClass from 'create-react-class';
+import $ from 'jquery';
+import _ from 'underscore';
+
 import CheckBoxes from '../general_components/check_boxes/check_boxes.jsx';
 import DropdownSelector from '../general_components/dropdown_selectors/dropdown_selector.jsx';
 import ActivitySearchAndSelect from '../assignment_flow/create_unit/activity_search/activity_search_and_select.jsx';
@@ -9,8 +12,6 @@ import TextInputGenerator from '../modules/componentGenerators/text_input_genera
 import IndicatorGenerator from '../modules/indicator_generator.jsx';
 import OptionLoader from '../modules/option_loader.jsx';
 import MarkdownParser from '../shared/markdown_parser.jsx';
-import $ from 'jquery';
-import _ from 'underscore';
 
 export default createReactClass({
   displayName: 'unit_template',

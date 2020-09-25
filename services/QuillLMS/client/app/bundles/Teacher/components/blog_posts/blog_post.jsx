@@ -1,8 +1,9 @@
 import * as React from 'react';
 import request from 'request';
 
-import PreviewCard from '../shared/preview_card.jsx';
 import BlogPostContent from './blog_post_content'
+
+import PreviewCard from '../shared/preview_card.jsx';
 
 const RATING_MESSAGES = {
   instructions: 'Was this article helpful?',

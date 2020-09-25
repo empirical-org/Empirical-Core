@@ -1,7 +1,7 @@
 import React from 'react';
 import { mount } from 'enzyme';
-import { DropdownInput } from '../../../../Shared/index'
 
+import { DropdownInput } from '../../../../Shared/index'
 import ViewAsStudentModal from '../view_as_student_modal';
 
 const classrooms = [

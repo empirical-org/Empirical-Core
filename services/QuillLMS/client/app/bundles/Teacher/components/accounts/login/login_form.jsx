@@ -1,8 +1,9 @@
 import React from 'react';
 import request from 'request';
-import { SegmentAnalytics, Events } from '../../../../../modules/analytics';
 
 import PasswordInfo from './password_info.jsx';
+
+import { SegmentAnalytics, Events } from '../../../../../modules/analytics';
 import AssignActivityPackBanner from '../assignActivityPackBanner'
 import getAuthToken from '../../modules/get_auth_token';
 import { Input, } from '../../../../Shared/index'

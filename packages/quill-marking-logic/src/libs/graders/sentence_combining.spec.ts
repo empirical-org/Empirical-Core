@@ -1,5 +1,7 @@
 import { assert } from 'chai';
+
 import {checkSentenceCombining} from './sentence_combining'
+
 import {Response} from '../../interfaces'
 
 describe('The checking a sentence combining question', () => {

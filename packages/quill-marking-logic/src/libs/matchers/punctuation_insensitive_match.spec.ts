@@ -1,6 +1,8 @@
 import * as _ from 'underscore'
 import { assert } from 'chai';
+
 import {punctuationInsensitiveMatch, punctuationInsensitiveChecker} from './punctuation_insensitive_match'
+
 import {Response, PartialResponse} from '../../interfaces'
 import {feedbackStrings} from '../constants/feedback_strings'
 import {conceptResultTemplate} from '../helpers/concept_result_template'

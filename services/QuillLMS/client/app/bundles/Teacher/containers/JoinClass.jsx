@@ -1,6 +1,6 @@
 import React from 'react'
-import { SegmentAnalytics, Events } from '../../../modules/analytics';
 
+import { SegmentAnalytics, Events } from '../../../modules/analytics';
 import getAuthToken from '../components/modules/get_auth_token'
 import LoadingIndicator from '../components/shared/loading_indicator'
 import { Input, } from '../../Shared/index'

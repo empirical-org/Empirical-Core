@@ -1,10 +1,11 @@
 import React from 'react';
 import { mount } from 'enzyme';
 
+import { googleClassrooms, userProps } from './test_data/test_data'
+
 import ImportGoogleClassroomsModal from '../import_google_classrooms_modal'
 import { DataTable } from '../../../../Shared/index'
 
-import { googleClassrooms, userProps } from './test_data/test_data'
 
 describe('ImportGoogleClassroomsModal component', () => {
 

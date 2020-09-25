@@ -1,6 +1,16 @@
 var path = require('path'),
 webpack = require('webpack');
 
+
+
+
+
+
+
+
+
+
+
 module.exports = {
 entry: './example/main.ts',
 target: 'node',

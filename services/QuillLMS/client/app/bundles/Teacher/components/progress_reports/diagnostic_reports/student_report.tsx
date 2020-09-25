@@ -1,9 +1,11 @@
 import * as React from 'react';
-import LoadingSpinner from '../../shared/loading_indicator.jsx'
-import StudentReportBox from './student_report_box'
-import ConnectStudentReportBox from './connect_student_report_box.jsx'
 import _ from 'underscore'
 import { RouteComponentProps } from 'react-router-dom';
+
+import StudentReportBox from './student_report_box'
+import ConnectStudentReportBox from './connect_student_report_box.jsx'
+
+import LoadingSpinner from '../../shared/loading_indicator.jsx'
 import Student from '../../../../interfaces/student';
 import QuestionData from '../../../../interfaces/questionData';
 import { DropdownInput } from '../../../../Shared/index'

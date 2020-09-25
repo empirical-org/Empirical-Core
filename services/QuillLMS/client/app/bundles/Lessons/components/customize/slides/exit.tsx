@@ -1,9 +1,11 @@
 import React, {Component} from 'react'
-import * as CLIntF from '../../../interfaces/classroomLessons';
 import _ from 'lodash'
-import Static from '../../classroomLessons/play/static'
+
 import PromptField from './slideComponents/promptField'
 import TitleField from './slideComponents/titleField'
+
+import Static from '../../classroomLessons/play/static'
+import * as CLIntF from '../../../interfaces/classroomLessons';
 
 interface ExitProps {
   question: CLIntF.QuestionData,

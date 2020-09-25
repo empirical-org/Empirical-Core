@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { shallow } from 'enzyme';
+
 import ActivityForm from '../configureSettings/activityForm';
 import { Input, TextEditor, } from '../../../../Shared/index'
 jest.mock('string-strip-html', () => ({

@@ -1,4 +1,5 @@
 import React from 'react';
+
 import { requestPost } from '../../../../modules/request/index.js';
 
 export default class PremiumMini extends React.Component {

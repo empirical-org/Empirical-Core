@@ -1,9 +1,9 @@
 import * as React from 'react';
 import { Table } from 'antd';
 import { firstBy } from "thenby";
+import moment from 'moment';
 
 import { Concept } from '../containers/ConceptsIndex';
-import moment from 'moment';
 
 interface ConceptsTableProps {
   concepts: Array<Concept>

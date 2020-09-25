@@ -1,9 +1,11 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
-import * as actions from '../../actions/grammarActivities';
 import _ from 'underscore';
-import LinkListItem from '../shared/linkListItem'
+
 import EditLessonForm from './lessonForm';
+
+import * as actions from '../../actions/grammarActivities';
+import LinkListItem from '../shared/linkListItem'
 import { GrammarActivityState } from '../../reducers/grammarActivitiesReducer'
 import { GrammarActivity } from '../../interfaces/grammarActivities'
 import {

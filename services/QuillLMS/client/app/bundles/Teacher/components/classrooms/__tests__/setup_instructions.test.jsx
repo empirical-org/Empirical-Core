@@ -1,9 +1,10 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 
+import { classroomWithStudents, classroomWithoutStudents } from './test_data/test_data'
+
 import SetupInstructions from '../setup_instructions'
 
-import { classroomWithStudents, classroomWithoutStudents } from './test_data/test_data'
 
 describe('SetupInstructions component', () => {
 

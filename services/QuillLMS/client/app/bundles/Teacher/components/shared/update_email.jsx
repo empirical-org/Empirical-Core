@@ -1,6 +1,7 @@
 import React from 'react'
-import emailValidator from '../modules/email_validator'
 import $ from 'jquery'
+
+import emailValidator from '../modules/email_validator'
 
 export default class extends React.Component{
   constructor(props){

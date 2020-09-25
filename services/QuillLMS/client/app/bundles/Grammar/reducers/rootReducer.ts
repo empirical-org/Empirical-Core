@@ -1,5 +1,5 @@
 import { combineReducers } from "redux";
-import { IState } from "../store/configStore";
+
 // import { todos } from "./todosReducer";
 import grammarActivities from './grammarActivitiesReducer'
 import session from './sessionReducer'
@@ -12,6 +12,8 @@ import filters from './filtersReducer'
 import conceptsFeedback from './conceptsFeedbackReducer'
 import generatedIncorrectSequences from './generatedIncorrectSequencesReducer'
 import questionAndConceptMap from './questionAndConceptMapReducer'
+
+import { IState } from "../store/configStore";
 
 export const initState: IState = {
     grammarActivities: {},

@@ -2,9 +2,10 @@ import * as React from "react";
 import { Query } from "react-apollo";
 import gql from "graphql-tag";
 
-import client from '../../../modules/apollo';
 import ConceptBox from "./ConceptBox";
 import ArchivedConceptBox from "./ArchivedConceptBox";
+
+import client from '../../../modules/apollo';
 import { Concept } from '../interfaces/interfaces'
 
 function conceptQuery(id){

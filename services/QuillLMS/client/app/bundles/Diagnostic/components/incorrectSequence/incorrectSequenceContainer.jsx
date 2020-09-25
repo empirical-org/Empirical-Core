@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import _ from 'underscore';
+import { SortableList } from 'quill-component-library/dist/componentLibrary';
+
 import questionActions from '../../actions/questions';
 import sentenceFragmentActions from '../../actions/sentenceFragments.ts';
-import { SortableList } from 'quill-component-library/dist/componentLibrary';
 
 class IncorrectSequencesContainer extends Component {
   constructor(props) {

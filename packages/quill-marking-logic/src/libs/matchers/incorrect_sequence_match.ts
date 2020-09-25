@@ -1,7 +1,8 @@
 import * as _ from 'underscore'
+import {stringNormalize} from 'quill-string-normalizer'
+
 import {getTopOptimalResponse} from '../sharedResponseFunctions'
 import {Response, IncorrectSequence, PartialResponse} from '../../interfaces'
-import {stringNormalize} from 'quill-string-normalizer'
 import {conceptResultTemplate} from '../helpers/concept_result_template'
 
 export function incorrectSequenceMatchHelper(responseString:string, incorrectSequenceParticle:string, caseInsensitive:boolean):boolean {

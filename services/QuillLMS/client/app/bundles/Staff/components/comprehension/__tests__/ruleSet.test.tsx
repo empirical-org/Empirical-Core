@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { shallow } from 'enzyme';
 import { createMemoryHistory, createLocation } from 'history';
+
 import RuleSet from '../configureRegex/ruleSet';
 import 'whatwg-fetch';
 

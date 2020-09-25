@@ -1,13 +1,13 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 
+import { classroomWithStudents, classroomWithoutStudents, userProps, classroomProps } from './test_data/test_data'
+
 import ClassroomStudentSection from '../classroom_student_section'
 import EditStudentAccountModal from '../edit_student_account_modal'
 import ResetStudentPasswordModal from '../reset_student_password_modal'
-
 import { DropdownInput, DataTable } from '../../../../Shared/index'
 
-import { classroomWithStudents, classroomWithoutStudents, userProps, classroomProps } from './test_data/test_data'
 
 describe('ClassroomStudentSection component', () => {
 

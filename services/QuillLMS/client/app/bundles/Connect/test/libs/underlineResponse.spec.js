@@ -1,5 +1,6 @@
 import expect, {createSpy, spyOn, isSpy} from 'expect';
 import {diffWords} from 'diff'
+
 import {
 	getChangeObjects,
 	getChangeObjectsWithoutRemoved,

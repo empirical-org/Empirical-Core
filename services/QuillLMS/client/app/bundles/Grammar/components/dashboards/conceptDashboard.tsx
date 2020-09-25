@@ -2,7 +2,9 @@ import * as React from 'react';
 import * as Redux from "redux";
 import ReactTable from 'react-table';
 import { connect } from 'react-redux';
+
 import DashboardFilters from './dashboardFilters'
+
 import LoadingSpinner from '../shared/loading_spinner'
 import * as QuestionAndConceptMapActions from '../../actions/questionAndConceptMap'
 import { QuestionAndConceptMapReducerState } from '../../reducers/questionAndConceptMapReducer'

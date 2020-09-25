@@ -1,6 +1,7 @@
 import * as React from 'react';
-import getAnswerState from './answerState';
 import { Feedback } from 'quill-component-library/dist/componentLibrary';
+
+import getAnswerState from './answerState';
 
 class FeedbackComponent extends React.Component<any, any> {
   constructor(props) {

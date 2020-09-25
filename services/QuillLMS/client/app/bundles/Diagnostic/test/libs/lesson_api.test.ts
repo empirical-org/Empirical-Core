@@ -15,7 +15,6 @@ import {
   LessonApi,
   lessonApiBaseUrl,
 } from '../../libs/lessons_api'
-
 import {
   Lesson,
 } from '../../interfaces/lesson'

@@ -1,7 +1,9 @@
 import R from 'ramda'
+
 import activityReducer, {
   initialState
 } from './activities';
+
 import { completeQuestion, updateSubmission, markArticleAsRead, chooseQuestionSet, setFontSize } from '../actions/activities';
 
 test('returns the correct initial state if provided no actions', () => {

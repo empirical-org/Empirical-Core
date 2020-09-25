@@ -2,7 +2,6 @@ import React from 'react';
 import { shallow } from 'enzyme';
 
 import PublicActivityPacks from '../PublicActivityPacks.jsx';
-
 import UnitTemplatesManager from '../../components/assignment_flow/unit_templates_manager/unit_templates_manager'
 
 describe('PublicActivityPacks container', () => {

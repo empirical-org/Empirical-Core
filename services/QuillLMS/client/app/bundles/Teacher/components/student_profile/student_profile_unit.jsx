@@ -1,9 +1,7 @@
 import * as React from 'react'
-
 import moment from 'moment'
 
 import { DataTable } from '../../../Shared/index'
-
 import activityLaunchLink from '../modules/generate_activity_launch_link.js';
 
 const diagnosticSrc = `${process.env.CDN_URL}/images/icons/tool-diagnostic-gray.svg`

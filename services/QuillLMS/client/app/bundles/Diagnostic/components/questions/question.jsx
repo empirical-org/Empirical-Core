@@ -2,8 +2,14 @@ import React from 'react';
 import _ from 'underscore';
 import { connect } from 'react-redux';
 import { Route, Switch, withRouter, NavLink } from 'react-router-dom';
+
 import EditForm from './questionForm.jsx';
 import getBoilerplateFeedback from './boilerplateFeedback.jsx';
+import ResponseComponentWrapper from './responseRouteWrapper.jsx';
+import MassEditContainer from './massEditContainer.jsx';
+import ChooseModelContainer from './chooseModelContainer.jsx';
+import TestQuestionContainer from './testQuestion';
+
 import Cues from '../renderForQuestions/cues.tsx';
 import questionActions from '../../actions/questions';
 import {
@@ -17,10 +23,6 @@ import NewFocusPointsContainer from '../focusPoints/newFocusPointsContainer.jsx'
 import IncorrectSequenceContainer from '../incorrectSequence/incorrectSequenceContainer.jsx';
 import EditIncorrectSequenceContainer from '../incorrectSequence/editIncorrectSequenceContainer.jsx';
 import NewIncorrectSequenceContainer from '../incorrectSequence/newIncorrectSequenceContainer.jsx';
-import ResponseComponentWrapper from './responseRouteWrapper.jsx';
-import MassEditContainer from './massEditContainer.jsx';
-import ChooseModelContainer from './chooseModelContainer.jsx';
-import TestQuestionContainer from './testQuestion';
 import { Modal, UploadOptimalResponses } from '../../../Shared/index';
 
 const icon = `${process.env.CDN_URL}/images/icons/direction.svg`

@@ -1,4 +1,5 @@
 import React from 'react'
+
 import { Input, } from '../../../../Shared/index'
 
 const smallWhiteCheckSrc = `${process.env.CDN_URL}/images/shared/check-small-white.svg`

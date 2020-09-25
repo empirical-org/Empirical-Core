@@ -1,6 +1,8 @@
-import {responses} from '../../../test/data/batswings'
 import { assert } from 'chai';
+
 import {checkFillInTheBlankQuestion} from './fill_in_the_blank';
+
+import {responses} from '../../../test/data/batswings'
 import {Response} from '../../interfaces';
 import { feedbackStrings } from '../constants/feedback_strings';
 

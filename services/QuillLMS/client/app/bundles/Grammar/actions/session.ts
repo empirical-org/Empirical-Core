@@ -1,14 +1,17 @@
+import { checkGrammarQuestion, Response } from 'quill-marking-logic'
+import _ from 'lodash';
+
 import { ActionTypes } from './actionTypes'
+import * as responseActions from './responses'
+
 import { QuestionApi, GRAMMAR_QUESTION_TYPE } from '../libs/questions_api'
 import { SessionApi } from '../libs/sessions_api'
-import * as responseActions from './responses'
 import { Question } from '../interfaces/questions'
 import { SessionState } from '../reducers/sessionReducer'
-import { checkGrammarQuestion, Response } from 'quill-marking-logic'
 import { shuffle } from '../helpers/shuffle';
 import { permittedFlag } from '../helpers/flagArray'
 import { hashToCollection } from '../../Shared/index'
-import _ from 'lodash';
+
 
 export const updateSession = (sessionID: string, session: SessionState) => {
   const cleanedSession = _.pickBy(session)

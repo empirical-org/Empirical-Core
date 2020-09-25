@@ -1,4 +1,5 @@
 import * as React from 'react';
+
 import CurrentSlide from './currentSlide';
 import NextSlideButton from './nextSlideButton';
 

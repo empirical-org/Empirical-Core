@@ -1,9 +1,13 @@
 const C = require('../constants').default;
+
 import rootRef from '../libs/firebase';
+
 let	diagnosticQuestionsRef = rootRef.child('diagnosticQuestions'),
   moment = require('moment');
+
 import _ from 'lodash';
 import { push } from 'react-router-redux';
+
 import pathwaysActions from './pathways';
 import { submitResponse } from './responses';
 

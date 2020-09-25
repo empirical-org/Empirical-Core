@@ -1,5 +1,6 @@
 import React from 'react'
 import _ from 'underscore'
+
 import ActivitySearchResult from './activity_search_result'
 
 const ActivitySearchResults = (

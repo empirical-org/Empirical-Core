@@ -16,9 +16,7 @@ import {
   FocusPointApi,
   IncorrectSequenceApi
 } from '../../libs/questions_api'
-
 import { ApiConstants } from '../../utils/api';
-
 import {
   Question,
   FocusPoint,

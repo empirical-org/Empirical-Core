@@ -1,4 +1,5 @@
 import { assert } from 'chai';
+
 import {edits} from './edits';
 
 describe('The edits function', () => {

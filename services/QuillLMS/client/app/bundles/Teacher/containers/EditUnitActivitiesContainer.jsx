@@ -1,6 +1,7 @@
 import React from 'react'
-import UnitStage1 from '../components/assignment_flow/create_unit/select_activities_container.jsx'
 import request from 'request'
+
+import UnitStage1 from '../components/assignment_flow/create_unit/select_activities_container.jsx'
 import getAuthToken from '../components/modules/get_auth_token';
 
 export default class extends React.Component {

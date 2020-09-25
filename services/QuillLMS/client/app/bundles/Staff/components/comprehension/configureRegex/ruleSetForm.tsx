@@ -1,9 +1,11 @@
 import * as React from "react";
 import { EditorState, ContentState } from 'draft-js'
+
+import RegexSection from './regexSection';
+
 import { validateForm } from '../../../helpers/comprehension';
 import { BECAUSE, BUT, SO } from '../../../../../constants/comprehension';
 import { ActivityInterface, ActivityRuleSetInterface, PromptInterface, RegexRuleInterface } from '../../../interfaces/comprehensionInterfaces';
-import RegexSection from './regexSection';
 import { Input, TextEditor, } from '../../../../Shared/index'
 
 interface RuleSetFormProps {

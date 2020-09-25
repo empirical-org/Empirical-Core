@@ -1,5 +1,6 @@
 import React from 'react'
 import _ from 'lodash'
+
 import ScrollToTop from '../components/shared/scroll_to_top'
 import ResultsIcon from '../components/activities/results_page/results_icon.jsx'
 import activityLaunchLink from '../components/modules/generate_activity_launch_link'

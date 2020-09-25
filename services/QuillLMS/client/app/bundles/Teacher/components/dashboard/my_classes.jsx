@@ -3,6 +3,7 @@ import * as moment from 'moment'
 
 import ClassMini from './class_mini.jsx'
 import AddOrSyncClassroomsMini from './add_or_sync_classrooms_mini.jsx'
+
 import BulkArchiveClassesBanner from '../shared/bulk_archive_classes_banner'
 
 const MyClasses = ({ classList, user, onSuccess, }) => {

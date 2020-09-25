@@ -1,8 +1,9 @@
 import React from 'react'
 import {CSVDownload, CSVLink} from 'react-csv'
-import userIsPremium from '../modules/user_is_premium'
 import _ from 'underscore'
 import _l from 'lodash'
+
+import userIsPremium from '../modules/user_is_premium'
 
 export default class extends React.Component {
   constructor(props) {

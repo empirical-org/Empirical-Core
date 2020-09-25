@@ -1,9 +1,11 @@
 import React from 'react';
 import { ApolloProvider } from "react-apollo";
-import client from '../../../../../modules/apollo';
 import { Query } from "react-apollo";
 import gql from "graphql-tag";
+
 import NotificationsCard from './notification_feed';
+
+import client from '../../../../../modules/apollo';
 
 export interface Notification {
   id: number

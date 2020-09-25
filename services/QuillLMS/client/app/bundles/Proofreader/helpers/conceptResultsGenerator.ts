@@ -1,4 +1,5 @@
 import { ConceptResult } from 'quill-marking-logic'
+
 import { Question, FormattedConceptResult, ConceptResultMetadata } from '../interfaces/questions'
 
 export function getConceptResultsForQuestion(question: Question): FormattedConceptResult[]|undefined {

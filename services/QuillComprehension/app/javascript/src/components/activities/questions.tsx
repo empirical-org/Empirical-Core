@@ -2,10 +2,12 @@ import * as React from 'react';
 import {connect} from 'react-redux'
 import gql from "graphql-tag";
 import { Mutation } from "react-apollo";
+import * as R from 'ramda'
+
 import QuestionCard from './question';
+
 import {updateSubmission, completeQuestion} from '../../actions/activities'
 import {ActivitiesState} from '../../reducers/activities'
-import * as R from 'ramda'
 
 const SUBMIT_RESPONSE = gql`
   mutation submitResponse($text: String!, $question_id: ID!)  {

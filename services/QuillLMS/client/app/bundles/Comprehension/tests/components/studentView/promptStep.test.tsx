@@ -2,12 +2,13 @@ import * as React from 'react'
 import { mount } from 'enzyme';
 import toJson from 'enzyme-to-json';
 
+import { activityOne, optimalSubmittedResponse, suboptimalSubmittedResponse, } from './data'
+
 import PromptStep from '../../../components/studentView/promptStep'
 import EditorContainer from '../../../components/studentView/editorContainer'
 import { TOO_LONG_FEEDBACK, TOO_SHORT_FEEDBACK, MULTIPLE_SENTENCES_FEEDBACK, PROFANITY_FEEDBACK } from '../../../modules/prefilters'
 
 
-import { activityOne, optimalSubmittedResponse, suboptimalSubmittedResponse, } from './data'
 
 const prompt = activityOne.prompts[0]
 

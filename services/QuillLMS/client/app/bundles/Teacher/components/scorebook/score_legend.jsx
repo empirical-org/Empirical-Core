@@ -1,5 +1,6 @@
 'use strict';
 import React from 'react'
+
 import {proficiencyCutoffsAsPercentage} from '../../../../modules/proficiency_cutoffs.js'
 
 export default class extends React.Component {

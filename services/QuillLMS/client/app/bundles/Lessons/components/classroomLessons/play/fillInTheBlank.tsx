@@ -10,11 +10,12 @@ import ProjectorHeader from './projectorHeader'
 import ProjectedAnswers from './projectedAnswers'
 import PromptSection from './promptSection'
 import SubmitButton from './submitButton'
+import { PROJECT } from './constants'
+
 import promptSplitter from '../shared/promptSplitter'
 import htmlStrip from '../shared/htmlStrip'
 import Cues from '../../renderForQuestions/cues';
 import { QuestionData } from '../../../interfaces/classroomLessons'
-import { PROJECT } from './constants'
 import { getParameterByName } from '../../../libs/getParameterByName';
 import {
   QuestionSubmissionsList,

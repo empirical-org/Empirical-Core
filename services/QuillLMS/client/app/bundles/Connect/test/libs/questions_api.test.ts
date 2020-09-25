@@ -17,7 +17,6 @@ import {
   IncorrectSequenceApi,
   questionApiBaseUrl,
 } from '../../libs/questions_api'
-
 import {
   Question,
   FocusPoint,

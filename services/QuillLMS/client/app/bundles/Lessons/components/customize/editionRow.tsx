@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
+
 const MakeCopy = 'https://assets.quill.org/images/icons/make-copy-edition-icon.svg'
 const EditEdition = 'https://assets.quill.org/images/icons/edit-edition-icon.svg'
 const DeleteEdition = 'https://assets.quill.org/images/icons/delete-edition-icon.svg'

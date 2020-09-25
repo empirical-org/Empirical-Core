@@ -1,6 +1,7 @@
 'use strict'
 
 import React from 'react'
+
 import AddClassSection from './add_class_section.jsx'
 
 export default class extends React.Component {

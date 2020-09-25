@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import fillInBlankActions from '../../actions/fillInBlank';
+
 import FillInBlankForm from './fillInBlankForm.jsx';
+
+import fillInBlankActions from '../../actions/fillInBlank';
 
 class NewFillInBlank extends Component {
   submitNewQuestion = (data, newQuestionOptimalResponse) => {

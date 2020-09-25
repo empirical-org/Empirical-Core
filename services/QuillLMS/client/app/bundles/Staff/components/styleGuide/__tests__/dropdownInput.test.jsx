@@ -1,5 +1,4 @@
 import * as React from 'react';
-
 import { shallow } from 'enzyme';
 
 import { DropdownInput } from '../../../../Shared/index'

@@ -1,4 +1,5 @@
 import { combineReducers } from 'redux'
+
 ​import activities from './activities';
 
 const combinedReducer = combineReducers({

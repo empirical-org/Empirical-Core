@@ -4,7 +4,6 @@ jest.mock('../../libs/concept_feedback_api', () => ({
 }))
 
 import { mockDispatch as dispatch, } from '../__mocks__/dispatch'
-
 import conceptFeedbackActions from '../../actions/concepts-feedback'
 
 describe('ConceptFeedback actions', () => {

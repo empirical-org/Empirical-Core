@@ -2,10 +2,9 @@ import * as React from 'react'
 import * as moment from 'moment'
 import Pusher from 'pusher-js';
 
-import { DropdownInput, DataTable } from '../../../Shared/index'
-
 import GradeOptions from './grade_options'
 
+import { DropdownInput, DataTable } from '../../../Shared/index'
 import ButtonLoadingIndicator from '../shared/button_loading_indicator'
 import { requestPost, requestPut, requestGet } from '../../../../modules/request/index.js';
 

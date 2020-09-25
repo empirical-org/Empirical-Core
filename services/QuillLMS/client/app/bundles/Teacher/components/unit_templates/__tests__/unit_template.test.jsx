@@ -3,7 +3,6 @@ import { shallow, mount } from 'enzyme';
 import _ from 'underscore'
 
 import UnitTemplate from '../unit_template';
-
 import MarkdownParser from '../../shared/markdown_parser.jsx'
 
 describe('UnitTemplate component', () => {

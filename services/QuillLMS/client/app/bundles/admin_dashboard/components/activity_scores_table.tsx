@@ -1,9 +1,11 @@
 import * as React from 'react';
 import ReactTable from 'react-table';
-import EmptyStateForReport from '../../Teacher/components/progress_reports/empty_state_for_report';
 import * as moment from 'moment';
+
+import EmptyStateForReport from '../../Teacher/components/progress_reports/empty_state_for_report';
 import 'react-table/react-table.css';
 import { sortByLastName, sortFromSQLTimeStamp } from '../../../modules/sortingMethods';
+
 import { Link } from 'react-router-dom';
 
 interface ActivityScoresTableProps {

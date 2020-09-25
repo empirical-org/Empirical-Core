@@ -1,8 +1,9 @@
 import 'whatwg-fetch'
+import { v2mockSession, v4mockSession, mockSentenceCompletionQuestions } from './sessions.data';
+
 import SessionActions, { denormalizeSession,
                          normalizeSession,
                          allQuestions } from '../../actions/sessions';
-import { v2mockSession, v4mockSession, mockSentenceCompletionQuestions } from './sessions.data';
 
 // Populate our question cache to use in denormalization
 SessionActions.populateQuestions("SC", mockSentenceCompletionQuestions);

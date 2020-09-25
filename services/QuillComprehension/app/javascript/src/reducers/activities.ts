@@ -1,5 +1,6 @@
-import { ActivitiesAction, UPDATE_SUBMISSION, COMPLETE_QUESTION, READ_ARTICLE, CHOOSE_QUESTION_SET, SET_FONT_SIZE } from "../actions/activities";
 import * as R from 'ramda';
+
+import { ActivitiesAction, UPDATE_SUBMISSION, COMPLETE_QUESTION, READ_ARTICLE, CHOOSE_QUESTION_SET, SET_FONT_SIZE } from "../actions/activities";
 
 export interface Submissions {
   [key:number]: string

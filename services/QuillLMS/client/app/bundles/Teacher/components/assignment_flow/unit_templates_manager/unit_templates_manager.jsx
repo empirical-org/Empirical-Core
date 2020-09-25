@@ -2,7 +2,9 @@ import React from 'react'
 import _l from 'lodash'
 import _ from 'underscore'
 import qs from 'qs'
+
 import UnitTemplateMinis from './unit_template_minis'
+
 import ScrollToTop from '../../shared/scroll_to_top'
 import fnl from '../../modules/fnl'
 import updaterGenerator from '../../modules/updater'

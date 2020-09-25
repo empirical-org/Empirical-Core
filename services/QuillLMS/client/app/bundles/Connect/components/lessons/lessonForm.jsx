@@ -2,8 +2,9 @@ import React from 'react';
 import { connect } from 'react-redux';
 import QuestionSelector from 'react-select-search';
 import { EditorState, ContentState } from 'draft-js'
-import ChooseModelContainer from './chooseModelContainer.jsx'
 import _ from 'underscore';
+
+import ChooseModelContainer from './chooseModelContainer.jsx'
 
 import {
   hashToCollection,

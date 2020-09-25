@@ -1,9 +1,8 @@
 import React from 'react';
 import { shallow } from 'enzyme';
+import $ from 'jquery'
 
 import StudentProfile from '../StudentProfile.jsx';
-
-import $ from 'jquery'
 import StudentProfileUnits from '../../components/student_profile/student_profile_units.jsx'
 
 jest.mock('jquery', () => {

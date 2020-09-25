@@ -1,4 +1,5 @@
 import { requestDelete, requestGet, requestPost, requestPut } from './request';
+
 import { ProofreaderActivity, ProofreaderActivities } from '../interfaces/proofreaderActivities';
 
 const PROOFREADER_PASSAGE_TYPE = 'proofreader_passage'

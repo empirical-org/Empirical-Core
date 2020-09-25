@@ -1,6 +1,8 @@
 import { assert } from 'chai';
-import { correct } from '../src/main';
+
 import { Dictionary } from './dictionary';
+
+import { correct } from '../src/main';
 
 describe('The correct function', () => {
 

@@ -1,9 +1,10 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 
+import { coteacherInvitations } from './test_data/test_data'
+
 import CoteacherInvitation from '../coteacher_invitation'
 
-import { coteacherInvitations } from './test_data/test_data'
 
 describe('CoteacherInvitation component', () => {
 

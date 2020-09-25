@@ -2,8 +2,9 @@ import React from 'react';
 import 'whatwg-fetch'
 import { mount } from 'enzyme';
 import { MemoryRouter } from 'react-router';
-import AdminLesson from "../adminLesson"
 import { Provider } from 'react-redux'
+
+import AdminLesson from "../adminLesson"
 import createStore from '../../../utils/configureStore';
 import AdminLessonSidebar from '../adminLessonSidebar';
 import Question from '../../questions/question'

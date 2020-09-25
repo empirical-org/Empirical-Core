@@ -1,12 +1,10 @@
 import React, {Component} from 'react'
 import _ from 'lodash'
-
 import { connect } from 'react-redux';
 import { SortableList } from 'quill-component-library/dist/componentLibrary';
 
 import EditEditionDetails from './editEditionDetails'
 import DeleteSlideButton from './deleteSlideButton'
-
 import {
   getComponentDisplayName,
   slideTypeKeys
@@ -19,8 +17,6 @@ import {
   updateEditionDetails,
   deleteEditionSlide
 } from '../../../actions/classroomLesson'
-
-
 import { getEditionQuestions } from '../../../actions/customize'
 
 class ShowAdminEdition extends Component<any, any> {

@@ -1,5 +1,7 @@
 import {assert} from 'chai';
+
 import {focusPointMatch, focusPointChecker} from './focus_point_match';
+
 import {Response, FocusPoint} from '../../interfaces'
 import {conceptResultTemplate} from '../helpers/concept_result_template'
 import {getTopOptimalResponse} from '../sharedResponseFunctions'

@@ -4,6 +4,7 @@ import { connect } from "react-redux";
 
 import PromptStep from './promptStep'
 import StepLink from './stepLink'
+
 import LoadingSpinner from '../shared/loadingSpinner'
 import { getActivity } from "../../actions/activities";
 import { TrackAnalyticsEvent } from "../../actions/analytics";

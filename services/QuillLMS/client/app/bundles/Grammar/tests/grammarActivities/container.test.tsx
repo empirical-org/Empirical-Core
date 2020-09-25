@@ -1,7 +1,9 @@
 import * as React from "react";
 import {shallow} from "enzyme";
-import { PlayGrammarContainer } from "../../components/grammarActivities/container";
+
 import { grammarActivities, session, conceptsFeedback } from './data'
+
+import { PlayGrammarContainer } from "../../components/grammarActivities/container";
 
 process.env.DEFAULT_URL = 'https://staging.quill.org'
 process.env.QUILL_CMS = 'https://cms.quill.org'

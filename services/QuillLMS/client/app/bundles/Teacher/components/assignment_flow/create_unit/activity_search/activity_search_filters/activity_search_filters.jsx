@@ -1,6 +1,8 @@
 import React from 'react';
-import ActivitySearchFilter from './activity_search_filter';
 import _ from 'underscore';
+
+import ActivitySearchFilter from './activity_search_filter';
+
 import SearchActivitiesInput from '../search_activities_input';
 
 const ActivitySearchFilters = (props) => {

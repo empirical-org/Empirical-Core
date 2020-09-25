@@ -2,12 +2,12 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 import _ from 'underscore';
-import questionActions from '../../actions/questions';
-import sentenceFragmentActions from '../../actions/sentenceFragments';
 import {
   SortableList
 } from 'quill-component-library/dist/componentLibrary';
 
+import questionActions from '../../actions/questions';
+import sentenceFragmentActions from '../../actions/sentenceFragments';
 import { hashToCollection, } from '../../../Shared/index'
 
 export class FocusPointsContainer extends Component {

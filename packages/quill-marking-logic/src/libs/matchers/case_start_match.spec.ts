@@ -1,5 +1,7 @@
 import { assert } from 'chai';
+
 import {caseStartMatch, caseStartChecker} from './case_start_match'
+
 import {Response} from '../../interfaces'
 import {feedbackStrings} from '../constants/feedback_strings'
 import {conceptResultTemplate} from '../helpers/concept_result_template'

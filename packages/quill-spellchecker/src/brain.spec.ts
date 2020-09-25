@@ -1,4 +1,5 @@
 import { assert } from 'chai';
+
 import {correctSentenceFromSamples} from './brain';
 
 describe('It should work for connect', () => {

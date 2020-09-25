@@ -1,6 +1,5 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-
 import { CueExplanation } from 'quill-component-library/dist/componentLibrary';
 
 describe('CueExplanation component', () => {

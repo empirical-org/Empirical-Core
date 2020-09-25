@@ -1,10 +1,11 @@
+import r from 'rethinkdb';
+
 import {
   _setSessionDefaults,
   createOrUpdateClassroomLessonSession,
 } from '../../src/handlers/sessions';
 
 // import for mocking
-import r from 'rethinkdb';
 
 describe('createOrUpdateClassroomLessonSession', () => {
   // This test only throws warnings on error

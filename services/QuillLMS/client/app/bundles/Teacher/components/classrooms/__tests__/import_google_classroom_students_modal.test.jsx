@@ -1,9 +1,10 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 
+import { classroomWithStudents } from './test_data/test_data'
+
 import ImportGoogleClassroomStudentsModal from '../import_google_classroom_students_modal'
 
-import { classroomWithStudents } from './test_data/test_data'
 
 describe('ImportGoogleClassroomStudentsModal component', () => {
 

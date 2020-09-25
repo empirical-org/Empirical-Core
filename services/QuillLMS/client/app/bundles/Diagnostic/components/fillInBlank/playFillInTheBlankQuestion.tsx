@@ -1,18 +1,19 @@
 import * as React from 'react';
 import * as _ from 'underscore';
 import { checkFillInTheBlankQuestion } from 'quill-marking-logic'
-import { getGradedResponsesWithCallback } from '../../actions/responses.js';
 import {
   Prompt,
   Feedback
 } from 'quill-component-library/dist/componentLibrary';
+import { stringNormalize } from 'quill-string-normalizer';
+
+import { getGradedResponsesWithCallback } from '../../actions/responses.js';
 import { submitResponse, } from '../../actions/diagnostics.js';
 import { submitQuestionResponse } from '../renderForQuestions/submitResponse.js';
 import updateResponseResource from '../renderForQuestions/updateResponseResource.js';
 import Cues from '../renderForQuestions/cues.tsx';
 import translations from '../../libs/translations/index.js';
 import translationMap from '../../libs/translations/ellQuestionMapper.js';
-import { stringNormalize } from 'quill-string-normalizer';
 import { ENGLISH, rightToLeftLanguages } from '../../modules/translation/languagePageInfo';
 import Question from '../../interfaces/Question.ts';
 import { hashToCollection } from '../../../Shared/index'

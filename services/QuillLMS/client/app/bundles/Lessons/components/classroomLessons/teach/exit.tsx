@@ -1,8 +1,10 @@
 import * as React from 'react';
+
 import FlaggedStudents from './flaggedStudents'
 import AssignmentOptions from './assignmentOptions'
 import AssignButton from './assignButton'
 import AssignedSection from './assignedSection'
+
 import ScriptComponent from '../shared/scriptComponent'
 import { getParameterByName } from '../../../libs/getParameterByName';
 

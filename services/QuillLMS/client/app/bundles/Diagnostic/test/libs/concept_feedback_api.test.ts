@@ -16,7 +16,6 @@ import {
   conceptFeedbackApiBaseUrl,
   CONNECT_TYPE
 } from '../../libs/concept_feedback_api'
-
 import {
   ConceptFeedback,
 } from '../../interfaces/concept_feedback'

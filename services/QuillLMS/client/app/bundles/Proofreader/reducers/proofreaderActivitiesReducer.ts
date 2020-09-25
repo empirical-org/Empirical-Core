@@ -1,4 +1,5 @@
 import { Action } from "redux";
+
 import { ActionTypes } from "../actions/actionTypes";
 import { ProofreaderActivity, ProofreaderActivities } from '../interfaces/proofreaderActivities'
 

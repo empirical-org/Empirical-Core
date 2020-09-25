@@ -1,6 +1,7 @@
 'use strict'
 
 import _ from 'underscore'
+
 import FileProcessor from './file_processor'
 import Normalizer from './normalizer'
 

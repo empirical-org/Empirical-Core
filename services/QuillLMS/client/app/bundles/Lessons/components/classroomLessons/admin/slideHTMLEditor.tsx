@@ -1,6 +1,7 @@
 declare function require(name:string);
 
 import * as React from 'react';
+
 const { EditorState, ContentState, convertToRaw } = require('draft-js')
 const Editor = require('draft-js-plugins-editor').default
 const {convertFromHTML, convertToHTML} = require('draft-convert')

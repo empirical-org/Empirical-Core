@@ -1,5 +1,6 @@
-const webpack = require('webpack');
 const path = require('path');
+
+const webpack = require('webpack');
 const ManifestPlugin = require('webpack-manifest-plugin');
 
 const devBuild = process.env.RAILS_ENV === 'development';
@@ -13,6 +14,7 @@ const grammarUrl = process.env.QUILL_GRAMMAR_URL || 'http://localhost:3000/gramm
 const lessonsWebsocketsUrl = process.env.LESSONS_WEBSOCKETS_URL || 'http://localhost:3200';
 const quillCmsUrl = process.env.QUILL_CMS || 'http://localhost:3100';
 const { join, } = require('path');
+
 const webpackConfigLoader = require('react-on-rails/webpackConfigLoader');
 
 const configPath = join(__dirname, '..', 'config');

@@ -1,12 +1,15 @@
 import * as React from 'react';
 import _ from 'underscore';
-import LoadingIndicator from '../../../shared/loading_indicator';
-import ScrollToTop from '../../../shared/scroll_to_top';
+import { RouteComponentProps } from 'react-router-dom';
+
 import UnitTemplateProfileDescription from './unit_template_profile_description';
 import UnitTemplateProfileAssignButton from './unit_template_profile_assign_button';
 import UnitTemplateProfileShareButtons from './unit_template_profile_share_buttons';
 import UnitTemplateProfileStandards from './unit_template_profile_standards';
 import UnitTemplateProfileActivityTable from './unit_template_profile_activity_table';
+
+import ScrollToTop from '../../../shared/scroll_to_top';
+import LoadingIndicator from '../../../shared/loading_indicator';
 import AssignmentFlowNavigation from '../../assignment_flow_navigation.tsx'
 import {
   UNIT_TEMPLATE_NAME,
@@ -16,11 +19,10 @@ import {
   COLLEGE_BOARD_SLUG
 } from '../../assignmentFlowConstants.ts'
 import parsedQueryParams from '../../parsedQueryParams.ts'
-
 import { requestGet } from '../../../../../../modules/request/index.js';
 import Activity from '../../../../../../interfaces/activity';
 import UnitTemplateProfileInterface from '../../../../../../interfaces/unitTemplateProfileInterface';
-import { RouteComponentProps } from 'react-router-dom';
+
 
 interface UnitTemplateProfileState {
   data: UnitTemplateProfile,

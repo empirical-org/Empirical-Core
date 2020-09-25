@@ -1,4 +1,5 @@
 import React from 'react';
+
 import UnitTemplateCategories from '../containers/UnitTemplateCategories.jsx';
 
 const UnitTemplateCategoriesAppClient = (props) => (

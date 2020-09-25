@@ -1,15 +1,16 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
 import _ from 'underscore';
-import { submitResponse, } from '../../actions/diagnostics.js';
 import ReactTransition from 'react-addons-css-transition-group';
-import { getGradedResponsesWithCallback } from '../../actions/responses.js';
-import RenderQuestionFeedback from '../renderForQuestions/feedbackStatements.jsx';
-import RenderQuestionCues from '../renderForQuestions/cues.tsx';
 import {
   SentenceFragments,
   Feedback
 } from 'quill-component-library/dist/componentLibrary';
+
+import { submitResponse, } from '../../actions/diagnostics.js';
+import { getGradedResponsesWithCallback } from '../../actions/responses.js';
+import RenderQuestionFeedback from '../renderForQuestions/feedbackStatements.jsx';
+import RenderQuestionCues from '../renderForQuestions/cues.tsx';
 import RenderFeedback from '../renderForQuestions/feedback';
 import getResponse from '../renderForQuestions/checkAnswer';
 import { submitQuestionResponse } from '../renderForQuestions/submitResponse.js';

@@ -1,8 +1,11 @@
 import React, {Component} from 'react'
-import * as CLIntF from '../../../interfaces/classroomLessons';
 import _ from 'lodash'
-import StudentLobby from '../play/lobby'
+
 import MultipleTextEditor from './slideHTMLEditor'
+
+import * as CLIntF from '../../../interfaces/classroomLessons';
+import StudentLobby from '../play/lobby'
+
 
 interface AdminLobbyProps {
   question: CLIntF.QuestionData,

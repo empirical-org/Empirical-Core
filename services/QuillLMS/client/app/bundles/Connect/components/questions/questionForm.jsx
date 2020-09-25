@@ -1,10 +1,11 @@
 import React from 'react'
+import { EditorState, ContentState } from 'draft-js'
+import _ from 'lodash'
+
 import {
   TextEditor,
   FlagDropdown
 } from '../../../Shared/index';
-import { EditorState, ContentState } from 'draft-js'
-import _ from 'lodash'
 import ConceptSelector from '../shared/conceptSelector.jsx'
 import C from '../../constants.js'
 

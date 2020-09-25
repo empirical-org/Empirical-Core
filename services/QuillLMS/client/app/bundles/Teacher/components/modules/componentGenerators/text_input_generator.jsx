@@ -1,6 +1,7 @@
 
 import React from 'react'
 import _ from 'lodash'
+
 import TextInput from '../../general_components/text_input'
 
 export default function (component, update, options) {

@@ -1,7 +1,8 @@
 import * as React from 'react';
 import { shallow } from 'enzyme';
-import { DiagnosticRouter } from '../diagnosticRouter.tsx';
 import { SmartSpinner } from 'quill-component-library/dist/componentLibrary';
+
+import { DiagnosticRouter } from '../diagnosticRouter.tsx';
 
 let mockProps = {
     children: null,

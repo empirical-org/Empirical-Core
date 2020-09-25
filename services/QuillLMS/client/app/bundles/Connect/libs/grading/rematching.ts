@@ -1,12 +1,14 @@
 declare function require(name:string);
-const request = require('request-promise');
 // import AWS from 'aws-sdk'
 import * as _ from 'underscore';
+import { checkSentenceCombining, checkSentenceFragment, checkDiagnosticQuestion, checkFillInTheBlankQuestion, ConceptResult } from 'quill-marking-logic'
+
 import { hashToCollection, } from '../../../Shared/index'
 
 // const qml = require('quill-marking-logic')
-import { checkSentenceCombining, checkSentenceFragment, checkDiagnosticQuestion, checkFillInTheBlankQuestion, ConceptResult } from 'quill-marking-logic'
 import objectWithSnakeKeysFromCamel from '../objectWithSnakeKeysFromCamel';
+
+const request = require('request-promise');
 
 // AWS.config.update({ region:'us-east-1', accessKeyId: 'akid', secretAccessKey: 'secret' });
 

@@ -1,6 +1,8 @@
 import React from 'react'
 import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom';
+
 import AssignActivitiesContainer from './AssignActivitiesContainer.jsx'
+
 import UnitTemplateAssigned from '../components/assignment_flow/unit_template_assigned'
 import UnitTemplatesManager from '../components/assignment_flow/unit_templates_manager/unit_templates_manager'
 import UnitTemplateProfile from '../components/assignment_flow/unit_templates_manager/unit_template_profile/unit_template_profile.tsx'

@@ -1,12 +1,13 @@
 import * as React from "react";
 import { Query } from "react-apollo";
 import gql from "graphql-tag";
+import Fuse from 'fuse.js'
+
 import ConceptsTable from "../components/ConceptsTable";
 import ConceptLevels from "../components/ConceptLevels";
 import ConceptSearch from "../components/ConceptsSearch";
 import ConceptManagerNav from "../components/ConceptManagerNav";
 import ConceptBoxContainer from "../components/ConceptBoxContainer";
-import Fuse from 'fuse.js'
 const conceptsIndexQuery:string = `
   {
     concepts {

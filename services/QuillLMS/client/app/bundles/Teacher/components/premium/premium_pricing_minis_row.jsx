@@ -1,7 +1,9 @@
 import React from 'react';
+
 import BasicPricingMini from './premium_minis/basic_pricing_mini.jsx';
 import TeacherPricingMini from './premium_minis/teacher_pricing_mini.jsx';
 import SchoolPricingMini from './premium_minis/school_pricing_mini.jsx';
+
 import PremiumConfirmationModal from '../subscriptions/premium_confirmation_modal';
 import PurchaseModal from '../../containers/PurchaseModal';
 

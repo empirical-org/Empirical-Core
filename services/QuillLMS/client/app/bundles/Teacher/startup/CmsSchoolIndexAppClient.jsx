@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactTable from 'react-table';
+
 import 'react-table/react-table.css';
 import getAuthToken from '../components/modules/get_auth_token';
 import LoadingIndicator from '../components/shared/loading_indicator'

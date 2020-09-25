@@ -2,6 +2,7 @@ import * as React from 'react'
 import { connect } from 'react-redux'
 // import Select from 'react-select-search'
 import Select from 'react-select';
+
 import { Concept } from '../../interfaces/concepts'
 import { ConceptReducerState } from '../../reducers/conceptsReducer'
 import { ConceptsFeedbackState } from '../../reducers/conceptsFeedbackReducer'

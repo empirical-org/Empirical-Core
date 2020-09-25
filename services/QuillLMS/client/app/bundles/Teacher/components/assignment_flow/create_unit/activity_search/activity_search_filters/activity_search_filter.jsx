@@ -2,6 +2,7 @@ import React from 'react';
 import _ from 'lodash';
 
 import FilterButton from './filter_button.jsx';
+
 import getParameterByName from '../../../../modules/get_parameter_by_name';
 import { DropdownInput } from '../../../../../../Shared/index'
 

@@ -1,7 +1,9 @@
 declare function require(name:string);
-import C from '../constants';
 import * as request from 'request';
 import _ from 'lodash';
+import uuid from 'uuid/v4';
+
+import C from '../constants';
 import {
   ClassroomLessonSessions,
   ClassroomLessonSession,
@@ -16,7 +18,6 @@ import {
  ClassroomLesson
 } from '../interfaces/classroomLessons';
 import * as CustomizeIntf from '../interfaces/customize';
-import uuid from 'uuid/v4';
 import socket from '../utils/socketStore';
 
 export function startListeningToSession(classroomSessionId: ClassroomSessionId) {

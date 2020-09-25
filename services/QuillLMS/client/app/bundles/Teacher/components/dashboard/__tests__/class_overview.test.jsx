@@ -4,7 +4,6 @@ import React from 'react';
 import { shallow } from 'enzyme';
 
 import ClassOverview from '../class_overview';
-
 import OverviewMini from '../overview_mini';
 import TeacherGuide from '../../teacher_guide/teacher_guide';
 import PremiumPromo from '../premium_promo';

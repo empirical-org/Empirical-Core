@@ -1,5 +1,7 @@
 import { assert } from 'chai';
+
 import {spacingAfterCommaMatch, spacingAfterCommaChecker} from './spacing_after_comma_match'
+
 import {Response, PartialResponse} from '../../interfaces'
 import {conceptResultTemplate} from '../helpers/concept_result_template'
 

@@ -4,9 +4,11 @@ import {
   Feedback
 } from 'quill-component-library/dist/componentLibrary';
 import { connect } from 'react-redux';
-const jsDiff = require('diff');
 
 import { hashToCollection, } from '../../../Shared/index'
+
+const jsDiff = require('diff');
+
 
 class EndState extends React.Component {
   findDiffs(answer) {

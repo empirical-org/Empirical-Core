@@ -1,10 +1,12 @@
 import React, {Component} from 'react'
-import * as CLIntF from '../../../interfaces/classroomLessons';
 import _ from 'lodash'
+
 import PromptField from './slideComponents/promptField'
-import StudentSingleAnswer from '../../classroomLessons/play/singleAnswer'
 import TitleField from './slideComponents/titleField'
 import CuesField from './slideComponents/cuesField'
+
+import StudentSingleAnswer from '../../classroomLessons/play/singleAnswer'
+import * as CLIntF from '../../../interfaces/classroomLessons';
 
 interface SingleAnswerProps {
   question: CLIntF.QuestionData,

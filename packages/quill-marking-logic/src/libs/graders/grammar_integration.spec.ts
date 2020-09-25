@@ -1,5 +1,7 @@
 import { assert } from 'chai';
+
 import {checkGrammarQuestion} from './grammar'
+
 // import {checkGrammarQuestion} from '../../../dist/lib'
 import {Response} from '../../interfaces'
 

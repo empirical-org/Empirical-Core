@@ -1,8 +1,10 @@
 import React from 'react';
 import request from 'request';
 import _ from 'lodash';
-import SubscriptionStatus from '../components/subscriptions/subscription_status';
+
 import PurchaseModal from './PurchaseModal';
+
+import SubscriptionStatus from '../components/subscriptions/subscription_status';
 import AvailableCredits from '../components/subscriptions/available_credits';
 import CurrentSubscription from '../components/subscriptions/current_subscription';
 import SubscriptionHistory from '../components/subscriptions/subscription_history';

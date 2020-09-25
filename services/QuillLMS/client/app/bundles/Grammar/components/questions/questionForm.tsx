@@ -1,7 +1,8 @@
 import * as React from 'react'
 import { FlagDropdown, } from 'quill-component-library/dist/componentLibrary';
-import TextEditor from '../shared/textEditor'
 import { EditorState, ContentState } from 'draft-js'
+
+import TextEditor from '../shared/textEditor'
 import ConceptSelector from '../shared/conceptSelector'
 import { hashToCollection } from '../../../Shared/index'
 

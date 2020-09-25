@@ -1,5 +1,6 @@
 import React from 'react';
 import _ from 'underscore';
+
 import ActivitySearchSort from './activity_search_sort';
 
 const ActivitySearchSorts = props => {

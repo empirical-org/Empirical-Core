@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { shallow } from 'enzyme';
+
 import RuleSetForm from '../configureRegex/ruleSetForm';
 import RegexSection from '../configureRegex/regexSection';
 import { Input, TextEditor, } from '../../../../Shared/index'

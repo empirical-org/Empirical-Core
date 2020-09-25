@@ -2,7 +2,6 @@ import * as React from 'react';
 import _ from 'underscore';
 
 import TopicSection from './topic_section.jsx';
-import PreviewCard from '../shared/preview_card.jsx';
 import HeaderSection from './header_section'
 import {
   STUDENT,
@@ -19,6 +18,8 @@ import {
   SUPPORT,
   WEBINARS,
 } from './blog_post_constants'
+
+import PreviewCard from '../shared/preview_card.jsx';
 
 export default class BlogPostIndex extends React.Component {
   constructor(props) {

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { EditorState, ContentState } from 'draft-js'
 import { connect } from 'react-redux';
+
 import {
   TextEditor,
   FlagDropdown

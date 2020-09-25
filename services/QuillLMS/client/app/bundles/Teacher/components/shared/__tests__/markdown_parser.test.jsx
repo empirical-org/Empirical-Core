@@ -1,9 +1,9 @@
 import React from 'react';
 import { shallow } from 'enzyme';
+import ReactMarkdown from 'react-markdown'
 
 import MarkdownParser from '../markdown_parser';
 
-import ReactMarkdown from 'react-markdown'
 
 describe('MarkdownParser component', () => {
 

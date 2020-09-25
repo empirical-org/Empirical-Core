@@ -1,5 +1,6 @@
 import * as React from 'react'
 import {CopyToClipboard} from 'react-copy-to-clipboard';
+
 import { Input, } from '../../../Shared/index'
 
 interface ClassCodeLinkProps {

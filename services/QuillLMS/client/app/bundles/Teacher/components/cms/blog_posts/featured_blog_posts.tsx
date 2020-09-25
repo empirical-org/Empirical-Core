@@ -1,4 +1,5 @@
 import React from 'react';
+
 import SortableList from '../../shared/sortableList'
 
 const featuredBlogPost = (blogPost, handleClickStar) => {

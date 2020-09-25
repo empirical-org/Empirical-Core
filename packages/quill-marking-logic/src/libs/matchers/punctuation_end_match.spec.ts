@@ -1,5 +1,7 @@
 import { assert } from 'chai';
+
 import {punctuationEndMatch} from './punctuation_end_match'
+
 import {Response} from '../../interfaces'
 
 describe('The punctuationEndMatch function', () => {

@@ -1,6 +1,8 @@
 import * as React from 'react'
-import { hashToCollection } from '../../libs/hashToCollection'
+
 import { LinkListItem } from './linkListItem'
+
+import { hashToCollection } from '../../libs/hashToCollection'
 
 class QuestionListByConcept extends React.Component<any, any> {
   constructor(props) {

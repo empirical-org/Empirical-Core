@@ -1,7 +1,8 @@
 import * as React from 'react'
 
-import AssignmentFlowNavigation from '../assignment_flow_navigation'
 import AssignmentCard from './assignment_card'
+
+import AssignmentFlowNavigation from '../assignment_flow_navigation'
 import ScrollToTop from '../../shared/scroll_to_top'
 
 const packsWholeSrc = `${process.env.CDN_URL}/images/illustrations/packs-whole.svg`

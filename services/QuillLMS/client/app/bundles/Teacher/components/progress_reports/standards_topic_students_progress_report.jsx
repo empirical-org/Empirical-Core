@@ -2,8 +2,10 @@
 // along with their result counts.
 import React from 'react'
 import request from 'request'
-import CSVDownloadForProgressReport from './csv_download_for_progress_report.jsx'
 import ReactTable from 'react-table'
+
+import CSVDownloadForProgressReport from './csv_download_for_progress_report.jsx'
+
 import 'react-table/react-table.css'
 import {sortByLastName} from '../../../../modules/sortingMethods.js'
 import LoadingSpinner from '../shared/loading_indicator.jsx'

@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux';
-import { SubmitActions } from '../actions';
 import { routerReducer } from 'react-router-redux';
+
 import classroomLesson from './classroomLesson';
 import classroomLessons from './classroomLessons'; // this is the admin one
 import classroomLessonsReviews from './classroomLessonsReviews'
@@ -25,6 +25,8 @@ import sessions from './sessions';
 import titleCards from './titleCards';
 import diagnosticLessons from './diagnosticLessons';
 import playTurk from './turk';
+
+import { SubmitActions } from '../actions';
 
 const combinedReducers = combineReducers({
   classroomLesson,

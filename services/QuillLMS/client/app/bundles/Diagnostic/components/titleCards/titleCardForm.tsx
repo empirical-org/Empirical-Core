@@ -1,6 +1,8 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { EditorState, ContentState } from 'draft-js'
+import _ from 'lodash'
+
 import {
   submitNewTitleCard,
   submitTitleCardEdit
@@ -10,7 +12,6 @@ import {
   TextEditor
 } from '../../../Shared/index'
 
-import _ from 'lodash'
 
 interface TitleCardFormState {
   title: string,

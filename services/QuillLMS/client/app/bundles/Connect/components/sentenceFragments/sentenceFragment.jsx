@@ -1,7 +1,11 @@
 import React from 'react';
 import { NavLink, Route, Switch, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
+
 import EditForm from './sentenceFragmentForm.jsx';
+import ChooseModelContainer from './chooseModelContainer.jsx';
+import TestQuestionContainer from './testSentenceFragmentContainer';
+
 import ResponseComponent from '../questions/responseComponent.jsx';
 import fragmentActions from '../../actions/sentenceFragments';
 import {
@@ -16,8 +20,6 @@ import IncorrectSequenceContainer from '../incorrectSequence/incorrectSequenceCo
 import EditIncorrectSequenceContainer from '../incorrectSequence/editIncorrectSequenceContainer.jsx';
 import NewIncorrectSequenceContainer from '../incorrectSequence/newIncorrectSequenceContainer.jsx';
 import ResponseComponentWrapper from '../questions/responseRouteWrapper.jsx';
-import ChooseModelContainer from './chooseModelContainer.jsx';
-import TestQuestionContainer from './testSentenceFragmentContainer';
 import MassEditContainer from '../questions/massEditContainer.jsx';
 import { Modal, UploadOptimalResponses, } from '../../../Shared/index'
 

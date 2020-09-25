@@ -1,6 +1,7 @@
 'use strict'
 
  import _ from 'underscore'
+
  import setter from './setter'
 
  export default function (component) {

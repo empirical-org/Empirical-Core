@@ -1,6 +1,10 @@
 import * as React from 'react';
 import { Route, Switch, withRouter, RouteComponentProps } from "react-router-dom";
 import { connect } from 'react-redux';
+import request from 'request';
+
+import TabLink from './tabLink'
+
 import * as grammarActivitiesActions from '../../actions/grammarActivities'
 import * as questionsActions from '../../actions/questions'
 import * as conceptsActions from '../../actions/concepts'
@@ -16,9 +20,7 @@ import ConceptsFeedback from '../conceptsFeedback/conceptsFeedback'
 import ConceptFeedback from '../conceptsFeedback/conceptFeedback'
 import QuestionDashboard from '../dashboards/questionDashboard'
 import ConceptDashboard from '../dashboards/conceptDashboard'
-import TabLink from './tabLink'
 
-import request from 'request';
 
 const usersEndpoint = `${process.env.DEFAULT_URL}/api/v1/users.json`;
 const newSessionEndpoint = `${process.env.DEFAULT_URL}/session/new`;

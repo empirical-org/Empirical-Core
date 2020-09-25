@@ -1,10 +1,11 @@
 import Promise from 'promise-polyfill';
-import BackOff from './utils/backOff';
 import React from 'react';
-import createStore from './utils/configureStore';
 import { Provider } from 'react-redux';
 import { HashRouter, Route, Switch } from 'react-router-dom';
 import Raven from 'raven-js';
+
+import createStore from './utils/configureStore';
+import BackOff from './utils/backOff';
 import SocketProvider from './components/socketProvider';
 import Home from './components/home'
 

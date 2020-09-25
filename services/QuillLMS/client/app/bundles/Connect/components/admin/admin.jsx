@@ -1,6 +1,9 @@
 import React from 'react';
 import { Redirect, Route, Switch, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
+
+import AdminLesson from './adminLesson.jsx'
+
 import * as userActions from '../../actions/users';
 import conceptActions from '../../actions/concepts';
 import conceptsFeedbackActions from '../../actions/concepts-feedback';
@@ -10,7 +13,6 @@ import sentenceFragmentActions from '../../actions/sentenceFragments';
 import diagnosticLessonActions from '../../actions/diagnosticLessons'
 import titleCardActions from '../../actions/titleCards.ts';
 import AdminMainSidebar from '../../components/admin/adminMainSidebar.jsx'
-import AdminLesson from './adminLesson.jsx'
 import ConceptsFeedback from '../feedback/concepts-feedback.jsx';
 import ConceptFeedback from '../feedback/concept-feedback.jsx';
 import Concepts from '../concepts/concepts.jsx';

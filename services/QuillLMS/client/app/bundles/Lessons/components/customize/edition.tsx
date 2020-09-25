@@ -1,19 +1,19 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
-import { getComponent } from './helpers'
 import _ from 'lodash'
+
+import { getComponent } from './helpers'
 import Slide from './slide'
 import CustomizeEditionHeader from './customizeEditionHeader'
 import NameAndSampleQuestionModal from './nameAndSampleQuestionModal'
-import CustomizeNavbar from '../navbar/customizeNavbar'
 import SuccessModal from './successModal'
+
+import CustomizeNavbar from '../navbar/customizeNavbar'
 import { getParameterByName } from '../../libs/getParameterByName'
 import { Question } from '../classroomLessons/interfaces'
-
 import {
   getClassLesson
 } from '../../actions/classroomLesson'
-
 import {
   getCurrentUserAndCoteachersFromLMS,
   getEditionMetadata,
@@ -27,20 +27,17 @@ import {
   setWorkingEditionMetadata,
   setWorkingEditionQuestions,
 } from '../../actions/customize'
-
 import {
   setEditionId,
   setTeacherModels,
   startListeningToSession,
 } from '../../actions/classroomSessions'
-
 import {
   getStoredEditionMetadata,
   getIncompleteQuestions,
   getStoredEditionQuestions,
   getStoredOriginalEditionQuestions,
 } from '../../reducers/combined'
-
 import {
   ClassroomSessionId,
   ClassroomUnitId

@@ -1,9 +1,10 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
 import { BrowserRouter, Route, withRouter } from 'react-router-dom';
+import { SmartSpinner } from 'quill-component-library/dist/componentLibrary';
+
 import StudentDiagnostic from '../diagnostics/studentDiagnostic';
 import ELLStudentDiagnostic from '../eslDiagnostic/studentDiagnostic';
-import { SmartSpinner } from 'quill-component-library/dist/componentLibrary';
 import { Location } from '../../interfaces/location';
 import { PlayDiagnostic } from '../../interfaces/playDiagnostic';
 import { RouteInterace } from '../../interfaces/routeInterfaces';

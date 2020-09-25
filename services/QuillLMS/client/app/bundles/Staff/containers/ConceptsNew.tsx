@@ -1,6 +1,7 @@
 import * as React from "react";
 import { Query } from "react-apollo";
 import gql from "graphql-tag";
+
 import ConceptManagerNav from "../components/ConceptManagerNav";
 import ConceptBoxContainer from "../components/ConceptBoxContainer"
 import CreateConceptBox from "../components/CreateConceptBox"

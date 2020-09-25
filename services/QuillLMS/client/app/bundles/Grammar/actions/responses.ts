@@ -1,11 +1,12 @@
 /* eslint-env browser*/
 import _ from 'underscore';
 import * as request from 'request';
-import objectWithSnakeKeysFromCamel from '../libs/objectWithSnakeKeysFromCamel';
 import { Response, ConceptResult } from 'quill-marking-logic'
+import * as moment from 'moment'
 
 import { ActionTypes } from './actionTypes'
-import * as moment from 'moment'
+
+import objectWithSnakeKeysFromCamel from '../libs/objectWithSnakeKeysFromCamel';
 
 export function deleteStatus(questionId: string) {
   return { type: ActionTypes.DELETE_RESPONSE_STATUS, data: { questionId, }, };

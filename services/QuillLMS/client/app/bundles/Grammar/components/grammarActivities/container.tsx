@@ -4,6 +4,12 @@ import {connect} from "react-redux";
 import * as request from 'request';
 import * as _ from 'lodash';
 import { Response } from 'quill-marking-logic'
+import { previewImage } from "antd/lib/upload/utils";
+
+import QuestionComponent from './question'
+import Intro from './intro'
+import TurkCodePage from './turkCodePage'
+
 import getParameterByName from '../../helpers/getParameterByName';
 import { getActivity } from "../../actions/grammarActivities";
 import {
@@ -25,11 +31,8 @@ import { SessionState } from '../../reducers/sessionReducer'
 import { GrammarActivityState } from '../../reducers/grammarActivitiesReducer'
 import { ConceptsFeedbackState } from '../../reducers/conceptsFeedbackReducer'
 import { Question, FormattedConceptResult } from '../../interfaces/questions'
-import QuestionComponent from './question'
-import Intro from './intro'
-import TurkCodePage from './turkCodePage'
 import LoadingSpinner from '../shared/loading_spinner'
-import { previewImage } from "antd/lib/upload/utils";
+
 
 interface PlayGrammarContainerState {
   showTurkCode: boolean;

@@ -3,9 +3,10 @@ import _ from 'underscore';
 import request from 'request'
 import Pluralize from 'pluralize';
 
-import getAuthToken from '../../modules/get_auth_token'
 import ClassroomActivity from './classroom_activity';
 import AddClassroomActivityRow from './add_classroom_activity_row.jsx';
+
+import getAuthToken from '../../modules/get_auth_token'
 
 export default class Unit extends React.Component {
   constructor(props) {

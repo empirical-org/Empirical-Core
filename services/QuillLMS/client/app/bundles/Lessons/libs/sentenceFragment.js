@@ -1,11 +1,13 @@
 import _ from 'underscore';
+
 import * as qpos from './partsOfSpeechTagging';
-import validEndingPunctuation from '../libs/validEndingPunctuation.js';
-import constants from '../constants';
 import { checkForMissingWords } from './requiredWords';
 import {
   spacingBeforePunctuation
 } from './algorithms/spacingBeforePunctuation';
+
+import validEndingPunctuation from '../libs/validEndingPunctuation.js';
+import constants from '../constants';
 
 const conceptResultTemplate = (conceptUID, correct = false) => ({
   conceptUID,

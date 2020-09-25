@@ -4,7 +4,19 @@ import {
   CarouselAnimation,
   ProgressBar
 } from 'quill-component-library/dist/componentLibrary';
+import _ from 'underscore';
+import { withNamespaces } from 'react-i18next';
 
+import PlaySentenceFragment from './sentenceFragment.jsx';
+import PlayDiagnosticQuestion from './sentenceCombining.jsx';
+import LandingPage from './landingPage.jsx';
+import LanguagePage from './languagePage.jsx';
+import PlayTitleCard from './titleCard.tsx'
+import FinishedDiagnostic from './finishedDiagnostic.jsx';
+import Footer from './footer'
+
+import PlayFillInTheBlankQuestion from '../fillInBlank/playFillInTheBlankQuestion'
+import SessionActions from '../../actions/sessions.js';
 import {
   clearData,
   loadData,
@@ -17,16 +29,6 @@ import {
   setDiagnosticID,
   openLanguageMenu
 } from '../../actions/diagnostics.js';
-import _ from 'underscore';
-import SessionActions from '../../actions/sessions.js';
-import PlaySentenceFragment from './sentenceFragment.jsx';
-import PlayDiagnosticQuestion from './sentenceCombining.jsx';
-import PlayFillInTheBlankQuestion from '../fillInBlank/playFillInTheBlankQuestion'
-import LandingPage from './landingPage.jsx';
-import LanguagePage from './languagePage.jsx';
-import PlayTitleCard from './titleCard.tsx'
-import FinishedDiagnostic from './finishedDiagnostic.jsx';
-import Footer from './footer'
 import { getConceptResultsForAllQuestions } from '../../libs/conceptResults/diagnostic';
 import {
   questionCount,
@@ -34,7 +36,6 @@ import {
   getProgressPercent
 } from '../../libs/calculateProgress'
 import { getParameterByName } from '../../libs/getParameterByName';
-import { withNamespaces } from 'react-i18next';
 import i18n from '../../i18n';
 
 const request = require('request');

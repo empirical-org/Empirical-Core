@@ -6,9 +6,10 @@ import { sortByLastName, sortByDisplayed, sortByTime, sortByFlag, sortByAnswer }
 import ReviewStudentRow from './reviewStudentRow'
 import MultipleTextEditor from './multipleTextEditor'
 import StepHtml from './stepHtml'
-import Cues from '../../renderForQuestions/cues';
 import { findDifferences } from './findDifferences'
 import { textEditorInputNotEmpty, textEditorInputClean } from './textEditorClean'
+
+import Cues from '../../renderForQuestions/cues';
 import {
   ClassroomLessonSessions,
   ClassroomLessonSession,

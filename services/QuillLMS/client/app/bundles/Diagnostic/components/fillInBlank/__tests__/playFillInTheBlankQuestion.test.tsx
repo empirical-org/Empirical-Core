@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { mount } from 'enzyme';
+
 import { PlayFillInTheBlankQuestion } from '../playFillInTheBlankQuestion';
 import { fillInBlankQuestionBlankAllowed, fillInBlankQuestionBlankNotAllowed } from '../../../test/data/test_data.js';
 

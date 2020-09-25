@@ -1,14 +1,19 @@
 import React from 'react'
 import request from 'request'
 import {CSVDownload, CSVLink} from 'react-csv'
-import CSVDownloadForProgressReport from './csv_download_for_progress_report.jsx'
 import ReactTable from 'react-table'
+import _ from 'underscore'
+
+import CSVDownloadForProgressReport from './csv_download_for_progress_report.jsx'
+
 import 'react-table/react-table.css'
 import LoadingSpinner from '../shared/loading_indicator.jsx'
+
 import moment from 'moment'
+
 import userIsPremium from '../modules/user_is_premium'
 import {sortByStandardLevel} from '../../../../modules/sortingMethods.js'
-import _ from 'underscore'
+
 
 export default class extends React.Component {
   constructor() {

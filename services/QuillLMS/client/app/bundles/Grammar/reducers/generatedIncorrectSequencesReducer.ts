@@ -1,6 +1,7 @@
 import _ from 'lodash';
-import { ActionTypes } from "../actions/actionTypes";
 import { Action } from "redux";
+
+import { ActionTypes } from "../actions/actionTypes";
 
 export interface GeneratedIncorrectSequencesReducerState {
   generatedIncorrectSequences: {

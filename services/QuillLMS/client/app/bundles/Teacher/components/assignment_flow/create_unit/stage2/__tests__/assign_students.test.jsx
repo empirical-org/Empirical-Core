@@ -1,6 +1,8 @@
 import React from 'react'
 import { shallow } from 'enzyme'
 
+import { classroomProps, user } from './test_data/test_data'
+
 import AssignStudents, {
   createAClassForm,
   importGoogleClassroomsModal,
@@ -14,7 +16,6 @@ import GoogleClassroomEmailModal from '../../../../classrooms/google_classroom_e
 import GoogleClassroomsEmptyModal from '../../../../classrooms/google_classrooms_empty_modal.tsx'
 
 
-import { classroomProps, user } from './test_data/test_data'
 
 describe('Assign students component', () => {
 

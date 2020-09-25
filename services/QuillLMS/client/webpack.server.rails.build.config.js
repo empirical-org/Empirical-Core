@@ -1,8 +1,9 @@
 // Common webpack configuration for server bundle
 
-const webpack = require('webpack');
 const path = require('path');
 const { resolve, } = require('path');
+
+const webpack = require('webpack');
 
 const devBuild = process.env.RAILS_ENV === 'development';
 const nodeEnv = devBuild ? 'development' : 'production';

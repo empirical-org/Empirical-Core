@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
-import * as CLIntF from '../../../interfaces/classroomLessons';
 import _ from 'lodash'
+
+import * as CLIntF from '../../../interfaces/classroomLessons';
 import MultipleTextEditor from '../shared/multipleTextEditor'
 import StudentSingleAnswer from '../play/singleAnswer'
 

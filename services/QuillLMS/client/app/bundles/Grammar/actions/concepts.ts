@@ -2,6 +2,7 @@ import * as request from 'request';
 import _ from 'underscore';
 
 import { ActionTypes } from './actionTypes'
+
 import { Concept } from '../interfaces/concepts'
 
 const conceptsEndpoint = `${process.env.DEFAULT_URL}/api/v1/concepts.json`;

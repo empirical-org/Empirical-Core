@@ -1,6 +1,6 @@
 import _ from 'underscore';
 import fuzzy from 'fuzzyset.js';
-import constants from '../constants';
+
 import { checkForMissingWords } from './requiredWords';
 import {
   checkChangeObjectMatch
@@ -13,6 +13,8 @@ import {
 } from './algorithms/joiningWords';
 import { getOptimalResponses, getTopOptimalResponse } from './sharedResponseFunctions';
 import quillNormalize from './quillNormalizer'
+
+import constants from '../constants';
 
 const jsDiff = require('diff');
 

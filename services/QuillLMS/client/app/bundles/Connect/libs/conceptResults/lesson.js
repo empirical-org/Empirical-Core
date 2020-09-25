@@ -1,17 +1,16 @@
+import _ from 'underscore'
+
 import {
   getConceptResultsForSentenceCombining
 } from './sentenceCombiningLessonQuestion';
-
 import {
   getAllSentenceFragmentConceptResults,
   calculateCorrectnessOfSentence
 } from './sentenceFragment.js';
-
 import {
   getConceptResultsForFillInTheBlanks
 } from './fillInTheBlanks'
 
-import _ from 'underscore'
 
 const scoresForNAttempts = {
   1: 1,

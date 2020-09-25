@@ -1,5 +1,7 @@
 import {assert} from 'chai';
+
 import {incorrectSequenceMatch, incorrectSequenceChecker} from './incorrect_sequence_match';
+
 import {Response, IncorrectSequence} from '../../interfaces'
 import {getTopOptimalResponse} from '../sharedResponseFunctions'
 

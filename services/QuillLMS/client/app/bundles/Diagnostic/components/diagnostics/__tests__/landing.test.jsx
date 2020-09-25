@@ -1,8 +1,8 @@
 import React from 'react';
 import { mount } from 'enzyme';
+import { ResumeOrBeginButton } from 'quill-component-library/dist/componentLibrary';
 
 import Landing from '../landing';
-import { ResumeOrBeginButton } from 'quill-component-library/dist/componentLibrary';
 
 describe('Landing component', () => {
 

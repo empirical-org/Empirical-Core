@@ -1,9 +1,11 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
+
+import EditLessonForm from './lessonForm';
+
 import * as lessonActions from '../../actions/proofreaderActivities';
 import ProofreaderActivityContainer from '../proofreaderActivities/container'
-import EditLessonForm from './lessonForm';
 import { ActionTypes } from '../../actions/actionTypes'
 import { Question, Questions } from '../../interfaces/questions'
 import { ProofreaderActivityState } from '../../reducers/proofreaderActivitiesReducer'

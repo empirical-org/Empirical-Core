@@ -1,6 +1,7 @@
 import React from 'react';
-import ComprehensionLanding from '../components/comprehension/ComprehensionLanding';
 import { HashRouter, Route,  } from 'react-router-dom'
+
+import ComprehensionLanding from '../components/comprehension/ComprehensionLanding';
 
 const ComprehensionIndex = () => (
   <HashRouter>

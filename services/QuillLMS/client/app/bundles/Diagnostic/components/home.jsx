@@ -1,9 +1,11 @@
 import React from 'react';
-import StudentNavBar from './navbar/studentNavbar';
 import { Layout } from "antd";
 import { renderRoutes } from "react-router-config";
-import { routes } from "../routes";
 import { Spinner } from 'quill-component-library/dist/componentLibrary'
+
+import StudentNavBar from './navbar/studentNavbar';
+
+import { routes } from "../routes";
 
 export default class Home extends React.Component {
   constructor(props) {

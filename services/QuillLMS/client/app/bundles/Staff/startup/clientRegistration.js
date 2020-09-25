@@ -6,6 +6,7 @@ import 'antd/dist/antd.css';
 import '../styles/styles.scss';
 import ConceptsIndex from './ConceptsIndex.tsx';
 import ComprehensionIndex from './ComprehensionIndex.tsx';
+
 import BackpackIndex from '../containers/BackpackIndex.tsx'
 
 ReactOnRails.register({ ConceptsIndex, BackpackIndex, ComprehensionIndex });

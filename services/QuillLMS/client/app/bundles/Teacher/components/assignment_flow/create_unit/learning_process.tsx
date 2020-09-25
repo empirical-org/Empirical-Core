@@ -1,7 +1,8 @@
 import * as React from 'react'
 
-import AssignmentFlowNavigation from '../assignment_flow_navigation'
 import AssignmentCard from './assignment_card'
+
+import AssignmentFlowNavigation from '../assignment_flow_navigation'
 
 const allDiagnosticsSrc = `${process.env.CDN_URL}/images/illustrations/diagnostics-all.svg`
 const librarySrc = `${process.env.CDN_URL}/images/illustrations/library.svg`

@@ -1,4 +1,5 @@
 import React from 'react'
+
 import Modal from '../modals'
 
 export interface VocabularyWord {

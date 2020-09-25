@@ -1,7 +1,7 @@
 import * as React from "react";
 import {mount} from "enzyme";
 import ContentEditable from 'react-contenteditable';
-import { QuestionComponent } from "../../components/grammarActivities/question";
+
 import {
   currentActivity,
   session,
@@ -12,6 +12,8 @@ import {
   conceptsFeedback,
   responses
 } from './data'
+
+import { QuestionComponent } from "../../components/grammarActivities/question";
 
 Object.defineProperty(window, 'matchMedia', {
   writable: true,

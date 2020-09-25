@@ -1,6 +1,8 @@
 import React from 'react';
-import ActivityClassification from '../components/activity_classifications/activity_classification.jsx'
+
 import Cms from './Cms.jsx'
+
+import ActivityClassification from '../components/activity_classifications/activity_classification.jsx'
 
 export default class ActivityClassifications extends React.Component {
   constructor(props) {

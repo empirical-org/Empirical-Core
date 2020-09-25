@@ -1,4 +1,5 @@
 import * as React from "react";
+
 import { Modal } from '../../../../Shared/index';
 
 const SubmissionModal = ({ close, message }) => {

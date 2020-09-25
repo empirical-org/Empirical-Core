@@ -1,6 +1,8 @@
 import React from 'react'
+
 import PercentageGraph from './percentage_graph'
 import CheckboxSection from './checkbox_sections'
+
 import LoadingIndicator from '../shared/loading_indicator'
 
 export default class GettingStartedMini extends React.Component {

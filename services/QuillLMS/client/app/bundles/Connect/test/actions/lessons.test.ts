@@ -1,6 +1,7 @@
 import 'whatwg-fetch'
-import { mockLessonApi, } from '../__mocks__/lesson_api'
 import configureStore from 'redux-mock-store';
+
+import { mockLessonApi, } from '../__mocks__/lesson_api'
 const MOCK_LESSON_TYPE = 'TYPE'
 jest.mock('../../libs/lessons_api', () => ({
   LessonApi: mockLessonApi,
@@ -8,7 +9,6 @@ jest.mock('../../libs/lessons_api', () => ({
 }))
 
 import { mockDispatch as dispatch, } from '../__mocks__/dispatch'
-
 import lessonActions from '../../actions/lessons'
 
 describe('Lessons actions', () => {

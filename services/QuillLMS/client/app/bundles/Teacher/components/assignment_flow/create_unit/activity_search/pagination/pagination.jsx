@@ -1,5 +1,6 @@
 import React from 'react';
 import _ from 'underscore';
+
 import PageNumber from './page_number';
 
 export default class Pagination extends React.Component {

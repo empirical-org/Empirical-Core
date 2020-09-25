@@ -1,4 +1,5 @@
 import * as expect from 'expect'
+
 import determineUnnecessaryEditType, {
   UNNECESSARY_SPACE,
   MULTIPLE_UNNECESSARY_DELETION,

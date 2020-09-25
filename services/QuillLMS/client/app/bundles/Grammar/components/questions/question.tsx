@@ -4,11 +4,6 @@ import { withRouter, Link, Route, Switch } from 'react-router-dom'
 import _ from 'underscore';
 import { Response } from 'quill-marking-logic'
 
-import { ActionTypes } from '../../actions/actionTypes'
-import * as questionActions from '../../actions/questions';
-import {
-  submitResponse
-} from '../../actions/responses';
 import EditForm from './questionForm';
 import getBoilerplateFeedback from './boilerplateFeedback';
 const icon = `${process.env.CDN_URL}/images/icons/question_icon.svg`
@@ -22,6 +17,12 @@ import IncorrectSequenceContainer from './incorrectSequenceContainer'
 import EditFocusPointsContainer from './editFocusPointsContainer'
 import NewFocusPointsContainer from './newFocusPointsContainer'
 import FocusPointsContainer from './focusPointsContainer'
+
+import {
+  submitResponse
+} from '../../actions/responses';
+import * as questionActions from '../../actions/questions';
+import { ActionTypes } from '../../actions/actionTypes'
 import Cues from '../grammarActivities/cues'
 import { Match } from '../../interfaces/match'
 import { QuestionsReducerState } from '../../reducers/questionsReducer'

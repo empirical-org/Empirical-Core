@@ -1,8 +1,9 @@
 import React from 'react'
 import { shallow } from 'enzyme'
 
-import ClassroomCard from '../classroom_card.tsx'
 import { classroom, students } from './test_data/test_data'
+
+import ClassroomCard from '../classroom_card.tsx'
 import { DropdownInput } from '../../../../../../Shared/index'
 
 describe('Classroom card component', () => {

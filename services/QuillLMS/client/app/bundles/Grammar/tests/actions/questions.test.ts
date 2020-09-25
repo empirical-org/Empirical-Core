@@ -8,11 +8,9 @@ jest.mock('../../libs/questions_api', () => ({
 }))
 
 import { mockDispatch as dispatch, } from '../__mocks__/dispatch'
-
 import {
   GRAMMAR_QUESTION_TYPE
 } from '../../libs/questions_api'
-
 import {
   startListeningToQuestions,
   getQuestion,

@@ -2,7 +2,9 @@
 
 import React from 'react'
 import request from 'request'
+
 import UnitTemplateProfileShareButtons from './unit_templates_manager/unit_template_profile/unit_template_profile_share_buttons'
+
 import LoadingIndicator from '../shared/loading_indicator'
 
 export default class UnitTemplateAssigned extends React.Component {

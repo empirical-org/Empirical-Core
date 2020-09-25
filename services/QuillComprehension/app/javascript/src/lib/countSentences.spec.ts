@@ -1,4 +1,5 @@
 import nlp from 'compromise';
+
 import {countSentences} from './countSentences';
 
 test('It can correctly count sentences', () => {

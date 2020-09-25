@@ -1,6 +1,7 @@
 import * as _ from 'underscore'
-import {getTopOptimalResponse} from '../sharedResponseFunctions'
 import {stringNormalize} from 'quill-string-normalizer'
+
+import {getTopOptimalResponse} from '../sharedResponseFunctions'
 import {Response, FocusPoint, PartialResponse} from '../../interfaces'
 import {conceptResultTemplate} from '../helpers/concept_result_template'
 

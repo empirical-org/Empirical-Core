@@ -1,5 +1,16 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
+import { Spinner } from 'quill-component-library/dist/componentLibrary';
+
+import CLLobby from './lobby';
+import CLStatic from './static';
+import CLSingleAnswer from './singleAnswer';
+import CLExit from './exit';
+import PreviewModal from './previewModal'
+import TimeoutModal from './timeoutModal'
+import CongratulationsModal from './congratulationsModal'
+import SignupModal from './signupModal'
+
 import {
   saveSelectedStudentSubmission,
   removeSelectedStudentSubmission,
@@ -18,22 +29,12 @@ import {
   hideSignupModal,
   finishActivity
 } from '../../../actions/classroomSessions';
-import { Spinner } from 'quill-component-library/dist/componentLibrary';
-import CLLobby from './lobby';
-import CLStatic from './static';
-import CLSingleAnswer from './singleAnswer';
-import CLExit from './exit';
-import PreviewModal from './previewModal'
-import TimeoutModal from './timeoutModal'
-import CongratulationsModal from './congratulationsModal'
-import SignupModal from './signupModal'
 import {
   SMALL_GROUP_AND_INDEPENDENT,
   PRACTICE_NOW,
   PRACTICE_LATER,
   NO_PRACTICE
 } from '../../constants'
-
 import { getParameterByName } from '../../../libs/getParameterByName';
 import {
   SelectedSubmissions,

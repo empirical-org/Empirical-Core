@@ -1,4 +1,5 @@
 import _ from 'underscore';
+
 import {Response, PartialResponse} from '../../interfaces';
 import {getPartsOfSpeechTags} from '../algorithms/partsOfSpeech';
 

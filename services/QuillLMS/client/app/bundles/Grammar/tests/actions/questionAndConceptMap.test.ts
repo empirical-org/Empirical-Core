@@ -4,7 +4,6 @@ jest.mock('../../libs/shared_cache_api', () => ({
 }))
 
 import { mockDispatch as dispatch, } from '../__mocks__/dispatch'
-
 import {
   startListeningToQuestionAndConceptMapData,
   updateData,

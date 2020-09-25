@@ -1,7 +1,9 @@
 import React from 'react';
 import request from 'request'
+
 import LoadingIndicator from './loading_indicator.jsx';
 import SchoolOption from './school_option'
+
 import { Input, } from '../../../Shared/index'
 
 const mapSearchSrc = `${process.env.CDN_URL}/images/onboarding/map-search.svg`

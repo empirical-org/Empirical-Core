@@ -1,4 +1,5 @@
 import SIB from './scriptItemBoilerplates'
+
 import * as CLIntF from '../../../interfaces/classroomLessons'
 
 const lessonSlideTypes: CLIntF.Questions = {

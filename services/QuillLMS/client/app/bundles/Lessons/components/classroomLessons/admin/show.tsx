@@ -1,17 +1,19 @@
 import React, {Component} from 'react'
 import { connect } from 'react-redux';
 import _ from 'lodash'
+import { SortableList } from 'quill-component-library/dist/componentLibrary';
+
 import {
   getComponentDisplayName,
   slideTypeKeys
 } from './helpers'
+import EditLessonDetails from './editLessonDetails'
+
 import {
   deleteLesson,
   updateClassroomLessonDetails
 } from '../../../actions/classroomLesson'
 import { createNewAdminEdition } from '../../../actions/customize'
-import EditLessonDetails from './editLessonDetails'
-import { SortableList } from 'quill-component-library/dist/componentLibrary';
 
 class ShowClassroomLesson extends Component<any, any> {
   constructor(props){

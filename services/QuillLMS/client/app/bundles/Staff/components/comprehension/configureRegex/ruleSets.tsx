@@ -3,6 +3,7 @@ import { Link, RouteComponentProps } from 'react-router-dom'
 import { queryCache, useQuery } from 'react-query';
 
 import RuleSetForm from './ruleSetForm';
+
 import SubmissionModal from '../shared/submissionModal';
 import { buildErrorMessage, getPromptsIcons } from '../../../helpers/comprehension';
 import { ActivityRouteProps, RegexRuleInterface } from '../../../interfaces/comprehensionInterfaces';

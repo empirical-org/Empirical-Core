@@ -2,9 +2,10 @@ import React from 'react';
 import request from 'request'
 import _ from 'underscore';
 import { EditorState, ContentState } from 'draft-js'
-import { TextEditor, isValidRegex } from '../../../Shared/index';
 
 import ConceptSelectorWithCheckbox from './conceptSelectorWithCheckbox.jsx';
+
+import { TextEditor, isValidRegex } from '../../../Shared/index';
 import ResponseComponent from '../questions/responseComponent'
 
 export default class extends React.Component {

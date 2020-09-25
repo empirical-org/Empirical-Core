@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
+
 import PlayQuestion from '../grammarActivities/question';
 import { setSessionReducer, goToNextQuestion, checkAnswer } from '../../actions/session';
 

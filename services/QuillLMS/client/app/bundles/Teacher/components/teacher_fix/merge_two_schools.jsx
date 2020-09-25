@@ -1,5 +1,6 @@
 import React from 'react';
 import request from 'request';
+
 import getAuthToken from '../modules/get_auth_token';
 
 class MergeTwoSchools extends React.Component {

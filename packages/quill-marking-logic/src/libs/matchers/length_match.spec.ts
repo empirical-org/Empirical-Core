@@ -1,5 +1,7 @@
 import { assert } from 'chai';
+
 import {lengthMatch, lengthChecker} from './length_match'
+
 import {Response} from '../../interfaces'
 import {feedbackStrings} from '../constants/feedback_strings'
 import {conceptResultTemplate} from '../helpers/concept_result_template'

@@ -5,7 +5,6 @@ import _ from 'underscore'
 import RecommendationsComponent from '../recommendations.jsx'
 import RecommendationsTableCell from '../recommendations_table_cell'
 import LoadingSpinner from '../../../shared/loading_indicator.jsx'
-
 import {recommendationsObject} from '../../../../../../test_data/recommendations_activities'
 import {students} from '../../../../../../test_data/students'
 

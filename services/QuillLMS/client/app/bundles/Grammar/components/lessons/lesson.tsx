@@ -1,8 +1,10 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import * as lessonActions from '../../actions/grammarActivities';
+
 import EditLessonForm from './lessonForm';
+
+import * as lessonActions from '../../actions/grammarActivities';
 import { ActionTypes } from '../../actions/actionTypes'
 import { Question, Questions } from '../../interfaces/questions'
 import { GrammarActivityState } from '../../reducers/grammarActivitiesReducer'

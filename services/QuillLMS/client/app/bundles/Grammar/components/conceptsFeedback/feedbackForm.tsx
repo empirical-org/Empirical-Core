@@ -1,7 +1,8 @@
 import * as React from 'react'
+import { EditorState, ContentState } from 'draft-js'
+
 import { ConceptExplanation } from '../../../Shared/index'
 import TextEditor from '../shared/textEditor'
-import { EditorState, ContentState } from 'draft-js'
 
 interface FeedbackFormProps {
   submitNewFeedback: Function;

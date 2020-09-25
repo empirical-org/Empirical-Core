@@ -6,6 +6,7 @@ import { EditorState, ContentState } from 'draft-js'
 
 import ConceptSelectorWithCheckbox from './conceptSelectorWithCheckbox';
 import TextEditor from './textEditor';
+
 import ResponseComponent from '../questions/responseComponent'
 
 export default class IncorrectSequencesInputAndConceptSelectorForm extends React.Component {

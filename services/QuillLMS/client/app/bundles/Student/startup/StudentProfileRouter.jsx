@@ -1,5 +1,6 @@
 import React from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
+
 import StudentProfile from './StudentProfileAppClient';
 import JoinClass from './JoinClassAppClient';
 import Study from './Study/index';

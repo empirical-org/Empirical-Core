@@ -1,11 +1,12 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import actions from '../../actions/questions';
 import _ from 'underscore';
-import { QuestionListByConcept } from '../shared/questionListByConcept'
-import Question from '../../libs/question';
 import QuestionSelector from 'react-select-search';
 import { push } from 'react-router-redux';
+
+import actions from '../../actions/questions';
+import { QuestionListByConcept } from '../shared/questionListByConcept'
+import Question from '../../libs/question';
 import respWithStatus from '../../libs/responseTools.js';
 import { submitResponseEdit, setUpdatedResponse, deleteResponse } from '../../actions/responses';
 import {

@@ -1,6 +1,6 @@
 import { Action } from "redux";
-import { ActionTypes } from "../actions/actionTypes";
 
+import { ActionTypes } from "../actions/actionTypes";
 import { Activity } from '../interfaces/activities'
 
 export interface ActivitiesReducerState {

@@ -1,4 +1,5 @@
 import * as React from 'react';
+
 import { countSentences } from '../../lib/countSentences';
 
 export interface Question {

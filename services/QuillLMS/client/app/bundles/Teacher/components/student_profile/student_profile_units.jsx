@@ -1,9 +1,11 @@
 import React from 'react';
 import _ from 'underscore';
+
 import StudentProfileUnit from './student_profile_unit.jsx';
 import PinnedActivityModal from './pinned_activity_modal'
 import PreviewActivityModal from './preview_activity_modal'
 import PinnedActivityBar from './pinned_activity_bar'
+
 import LoadingIndicator from '../shared/loading_indicator'
 import activityLaunchLink from '../modules/generate_activity_launch_link.js';
 import { ALL_ACTIVITIES, TO_DO_ACTIVITIES, COMPLETED_ACTIVITIES, } from '../../../../constants/student_profile'

@@ -1,4 +1,5 @@
 import * as React from 'react'
+
 const Pie = require('react-simple-pie-chart')
 
 class PieChart extends React.Component<any, any> {

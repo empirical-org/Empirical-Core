@@ -1,7 +1,9 @@
 import * as React from 'react'
-import * as CLIntF from '../../../interfaces/classroomLessons';
 import * as _ from 'lodash'
+
 import MultipleTextEditor from './slideHTMLEditor'
+
+import * as CLIntF from '../../../interfaces/classroomLessons';
 import StudentStatic from '../play/static'
 
 interface AdminStaticProps {

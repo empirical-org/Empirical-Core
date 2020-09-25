@@ -1,8 +1,10 @@
 import React from 'react'
+
+import CmsNestedResource from './nestedResource.jsx'
+
 import TextInputGenerator from '../../modules/componentGenerators/text_input_generator.jsx'
 import Server from '../../modules/server/server.jsx';
 import NestedResource from '../../modules/nested_resource.jsx'
-import CmsNestedResource from './nestedResource.jsx'
 export default class Resource extends React.Component {
   constructor(props, context) {
     super(props, context);

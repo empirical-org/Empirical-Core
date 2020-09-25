@@ -1,5 +1,6 @@
 import React from 'react'
 import { Input } from 'antd'
+
 import { ChangeLog } from '../interfaces/interfaces'
 
 const Search = Input.Search;

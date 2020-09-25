@@ -1,5 +1,6 @@
 import React from 'react';
 import { mount } from 'enzyme';
+
 import LandingPage from '../landingPage';
 
 // TODO: add mocking of translate to simulate translation in tests

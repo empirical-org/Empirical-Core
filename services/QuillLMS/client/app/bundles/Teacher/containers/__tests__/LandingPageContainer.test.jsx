@@ -1,9 +1,8 @@
 import React from 'react';
 import { shallow } from 'enzyme';
+import $ from 'jquery'
 
 import LandingPageContainer from '../LandingPageContainer.jsx';
-
-import $ from 'jquery'
 import LandingPage from '../../components/progress_reports/landing_page.jsx'
 import LoadingIndicator from '../../components/shared/loading_indicator.jsx'
 

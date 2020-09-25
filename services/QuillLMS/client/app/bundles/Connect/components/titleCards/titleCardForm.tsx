@@ -1,9 +1,11 @@
 import * as React from 'react'
 import { connect } from 'react-redux'
-import { TextEditor, } from '../../../Shared/index';
 import { EditorState, ContentState } from 'draft-js'
-import titleCardActions from '../../actions/titleCards'
 import _ from 'lodash'
+
+import { TextEditor, } from '../../../Shared/index';
+import titleCardActions from '../../actions/titleCards'
+
 
 interface TitleCardFormState {
   title: string,

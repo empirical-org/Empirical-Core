@@ -1,9 +1,10 @@
 import React from 'react'
+import _ from 'underscore'
+
 import Server from '../modules/server/server.jsx'
 import Fnl from '../modules/fnl.jsx'
 import TextInputGenerator from '../modules/componentGenerators/text_input_generator.jsx'
 import IndicatorGenerator from '../modules/indicator_generator.jsx'
-import _ from 'underscore'
 
 export default class ActivityClassification extends React.Component {
   constructor(props) {

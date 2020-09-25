@@ -1,7 +1,8 @@
 import * as React from 'react';
 import { renderRoutes } from "react-router-config";
-import { routes } from "../routes";
 import { Layout } from "antd";
+
+import { routes } from "../routes";
 
 export default class Home extends React.Component<any, any> {
   constructor(props) {

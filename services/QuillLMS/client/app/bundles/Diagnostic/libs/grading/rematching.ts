@@ -1,11 +1,13 @@
 declare function require(name:string);
-const request = require('request-promise');
 import * as _ from 'underscore';
+import { checkDiagnosticSentenceFragment, checkDiagnosticQuestion, checkFillInTheBlankQuestion, ConceptResult } from 'quill-marking-logic'
+
 import { hashToCollection } from '../../../Shared/index'
 
 // const qml = require('quill-marking-logic')
-import { checkDiagnosticSentenceFragment, checkDiagnosticQuestion, checkFillInTheBlankQuestion, ConceptResult } from 'quill-marking-logic'
 import objectWithSnakeKeysFromCamel from '../objectWithSnakeKeysFromCamel.js';
+
+const request = require('request-promise');
 
 interface Question {
   conceptID: string,

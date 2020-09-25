@@ -2,8 +2,10 @@ import * as React from 'react';
 import { connect } from 'react-redux';
 import QuestionSelector from 'react-select-search';
 import { EditorState, ContentState } from 'draft-js'
+
 import ChooseModel from './chooseModel';
 import { DeleteButton, NameInput } from './lessonFormComponents.tsx';
+
 import { ConceptsReducerState } from '../../reducers/concepts';
 import { ConceptsFeedbackReducerState } from '../../reducers/conceptsFeedback';
 import { FillInBlankReducerState } from '../../reducers/fillInBlank';

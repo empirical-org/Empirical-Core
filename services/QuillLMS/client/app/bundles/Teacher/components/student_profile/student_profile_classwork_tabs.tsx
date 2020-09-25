@@ -1,4 +1,5 @@
 import * as React from 'react'
+
 import { ALL_ACTIVITIES, TO_DO_ACTIVITIES, COMPLETED_ACTIVITIES, } from '../../../../constants/student_profile'
 
 const BREAKPOINT = 682

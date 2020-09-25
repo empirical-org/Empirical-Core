@@ -1,4 +1,5 @@
 import React from 'react'
+
 import { SegmentAnalytics, Events } from '../../../../../modules/analytics';
 
 export default class AgreementsAndLinkToLogin extends React.Component {

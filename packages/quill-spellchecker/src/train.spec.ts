@@ -1,4 +1,5 @@
 import { assert } from 'chai';
+
 import {train} from './train';
 
 describe('The train function', () => {

@@ -1,9 +1,11 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import actions from '../../actions/lessons.ts';
 import _ from 'underscore';
-import { LinkListItem } from '../shared/linkListItem';
+
 import EditLessonForm from './lessonForm.tsx';
+
+import actions from '../../actions/lessons.ts';
+import { LinkListItem } from '../shared/linkListItem';
 import {
   Modal,
   ArchivedButton,

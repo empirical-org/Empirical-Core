@@ -9,13 +9,15 @@ import {
   PlayTitleCard,
   ProgressBar
 } from 'quill-component-library/dist/componentLibrary';
-import { clearData, loadData, nextQuestion, submitResponse, updateCurrentQuestion } from '../../actions/turk.js';
+
 import diagnosticQuestions from './diagnosticQuestions.jsx';
 import PlaySentenceFragment from './sentenceFragment.jsx';
 import PlayFillInTheBlankQuestion from './fillInBlank.tsx';
 import PlayTurkQuestion from './question.tsx';
 import LandingPage from './landing.jsx';
 import FinishedDiagnostic from './finishedDiagnostic.jsx';
+
+import { clearData, loadData, nextQuestion, submitResponse, updateCurrentQuestion } from '../../actions/turk.js';
 import { getConceptResultsForAllQuestions } from '../../libs/conceptResults/diagnostic'
 import {
   questionCount,

@@ -1,14 +1,15 @@
 import _ from 'underscore';
 import fuzzy from 'fuzzyset.js';
-import constants from '../constants';
 import { diffWords } from 'diff';
+
 import {
   checkChangeObjectMatch
 } from './algorithms/changeObjects';
 import { getOptimalResponses, getSubOptimalResponses, getTopOptimalResponse } from './sharedResponseFunctions';
-
 import { sortByLevenshteinAndOptimal } from './responseTools.js';
 import quillNormalize from './quillNormalizer'
+
+import constants from '../constants';
 
 const jsDiff = require('diff');
 

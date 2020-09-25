@@ -10,6 +10,7 @@ import ActivitySearchSorts from './activity_search_sort/activity_search_sorts';
 import ActivitySearchResults from './activity_search_results/activity_search_results';
 import Pagination from './pagination/pagination';
 import SelectedActivities from './selected_activities/selected_activities';
+
 import LoadingIndicator from '../../../shared/loading_indicator.jsx';
 import getParameterByName from '../../../modules/get_parameter_by_name';
 

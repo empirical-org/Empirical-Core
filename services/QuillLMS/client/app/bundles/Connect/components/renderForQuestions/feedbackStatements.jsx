@@ -1,5 +1,6 @@
 import React from 'react';
 import _ from 'underscore';
+
 const C = require('../../constants').default;
 
 export default class extends React.Component {

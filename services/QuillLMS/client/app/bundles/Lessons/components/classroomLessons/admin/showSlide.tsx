@@ -1,17 +1,19 @@
 import React, {Component} from 'react'
 import { connect } from 'react-redux';
+
 import {
   getComponentDisplayName,
   getComponent,
   getClassroomLesson,
   scriptItemTypeKeys
 } from './helpers'
+import Script from './script'
+
 import {
   addScriptItem
 } from '../../../actions/classroomLesson'
 import * as IntF from '../interfaces';
 import * as CustomizeIntF from '../../../interfaces/customize'
-import Script from './script'
 import {
   saveEditionSlide,
   deleteEditionSlide,

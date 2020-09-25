@@ -1,11 +1,11 @@
 import * as React from 'react'
 import * as $ from 'jquery'
 
-import { requestGet } from '../../../../../modules/request/index';
-
-import LoadingSpinner from '../../shared/loading_indicator.jsx'
 import EmptyDiagnosticProgressReport from './empty_diagnostic_progress_report.jsx'
 import Diagnostic from './diagnostic'
+
+import { requestGet } from '../../../../../modules/request/index';
+import LoadingSpinner from '../../shared/loading_indicator.jsx'
 
 interface Assignment {
   classroom_name: string,

@@ -2,9 +2,9 @@ import * as React from 'react'
 
 import EditorContainer from './editorContainer'
 import Feedback from './feedback'
+
 import EditCaretPositioning from '../../helpers/EditCaretPositioning'
 import ButtonLoadingSpinner from '../shared/buttonLoadingSpinner'
-
 import preFilters from '../../modules/prefilters'
 
 interface PromptStepProps {

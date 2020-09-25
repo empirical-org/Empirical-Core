@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link, NavLink, Route, Switch, withRouter } from 'react-router-dom';
-import Cues from '../renderForQuestions/cues.jsx';
+
 import EditFillInBlank from './editFillInBlank.jsx';
 import TestFillInBlankQuestionContainer from './testFillInBlankQuestionContainer.jsx';
+
+import Cues from '../renderForQuestions/cues.jsx';
 import ResponseComponentWrapper from '../questions/responseRouteWrapper.jsx';
 import MassEditContainer from '../questions/massEditContainer.jsx';
 

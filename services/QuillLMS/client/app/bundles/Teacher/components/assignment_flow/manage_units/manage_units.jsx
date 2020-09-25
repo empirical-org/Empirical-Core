@@ -1,13 +1,15 @@
 import React from 'react';
 import request from 'request';
+import _ from 'underscore';
+
 import Units from './activities_units';
 import ManageUnitsHeader from './manageUnitsHeader.jsx';
 import EmptyAssignedUnits from './EmptyAssignedUnits.jsx';
+
 import LoadingIndicator from '../../shared/loading_indicator';
 import ItemDropdown from '../../general_components/dropdown_selectors/item_dropdown';
 import getParameterByName from '../../modules/get_parameter_by_name';
 import getAuthToken from '../../modules/get_auth_token';
-import _ from 'underscore';
 
 const allClassroomKey = 'All Classrooms';
 

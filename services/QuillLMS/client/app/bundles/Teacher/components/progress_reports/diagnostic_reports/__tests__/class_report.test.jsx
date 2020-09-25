@@ -2,7 +2,6 @@ import React from 'react';
 import { shallow } from 'enzyme';
 
 import ClassReport from '../class_report.jsx';
-
 import ProgressReport from '../../progress_report.jsx'
 import OverviewBoxes from '../overview_boxes.jsx'
 

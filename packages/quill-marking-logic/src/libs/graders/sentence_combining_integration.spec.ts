@@ -1,12 +1,15 @@
 const questionPrompt: string = "Bats have wings. They can fly."
-import {responses, focusPoints, incorrectSequences} from '../../../test/data/batswings'
 import { assert } from 'chai';
+import { match } from 'react-router';
+
 import {checkSentenceCombining} from './sentence_combining';
+
+import {responses, focusPoints, incorrectSequences} from '../../../test/data/batswings'
 import {Response} from '../../interfaces';
 import { feedbackStrings, spellingFeedbackStrings } from '../constants/feedback_strings';
 import {spacingBeforePunctuation} from '../algorithms/spacingBeforePunctuation'
 import { conceptResultTemplate } from '../helpers/concept_result_template';
-import { match } from 'react-router';
+
 
 describe('The checking a sentence combining question', () => {
 

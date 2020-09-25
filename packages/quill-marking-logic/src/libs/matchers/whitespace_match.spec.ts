@@ -1,5 +1,7 @@
 import { assert } from 'chai';
+
 import {whitespaceMatch, whitespaceChecker} from './whitespace_match'
+
 import {Response, PartialResponse} from '../../interfaces'
 import {conceptResultTemplate} from '../helpers/concept_result_template'
 import {feedbackStrings} from '../constants/feedback_strings'

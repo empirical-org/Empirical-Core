@@ -1,18 +1,19 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import TextEditor from '../renderForQuestions/renderTextEditor.jsx';
 import _ from 'underscore';
 import ReactTransition from 'react-addons-css-transition-group';
+import {
+  Feedback
+} from 'quill-component-library/dist/componentLibrary';
+
+import TextEditor from '../renderForQuestions/renderTextEditor.jsx';
 import POSMatcher from '../../libs/sentenceFragment.js';
 import {
   getGradedResponsesWithCallback
 } from '../../actions/responses.js';
 const icon = `${process.env.CDN_URL}/images/icons/direction.svg`
 import updateResponseResource from '../renderForQuestions/updateResponseResource.js';
-import {
-  Feedback
-} from 'quill-component-library/dist/componentLibrary';
 import translations from '../../libs/translations/index.js';
 import translationMap from '../../libs/translations/ellQuestionMapper.js';
 import { ENGLISH, rightToLeftLanguages } from '../../modules/translation/languagePageInfo';

@@ -2,10 +2,12 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import _ from 'underscore';
+
+import EditLessonForm from './lessonForm.jsx';
+
 import lessonActions from '../../actions/lessons';
 import { permittedFlag } from '../../libs/flagArray'
 import C from '../../constants.js';
-import EditLessonForm from './lessonForm.jsx';
 import QuestionForm from '../questions/questionForm'
 import SentenceFragmentForm from '../sentenceFragments/sentenceFragmentForm'
 import FillInBlankForm from '../fillInBlank/fillInBlankForm'

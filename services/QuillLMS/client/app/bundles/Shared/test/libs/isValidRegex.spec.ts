@@ -1,4 +1,5 @@
 import * as expect from 'expect'
+
 import { isValidRegex } from '../../libs/isValidRegex'
 
 describe('#isValidRegex', () => {

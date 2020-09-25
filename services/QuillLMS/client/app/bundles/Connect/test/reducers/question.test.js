@@ -1,6 +1,7 @@
+import expect from 'expect';
+
 import questionReducer from '../../reducers/questionReducer';
 import actions, {nextQuestion} from '../../actions';
-import expect from 'expect';
 import testQuestions from '../../utils/testQuestions.js';
 
 describe("the question reducer", () => {

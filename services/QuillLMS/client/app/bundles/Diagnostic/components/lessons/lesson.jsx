@@ -2,9 +2,11 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import _ from 'underscore';
+
+import EditLessonForm from './lessonForm.tsx';
+
 import lessonActions from '../../actions/lessons.ts';
 import C from '../../constants.js';
-import EditLessonForm from './lessonForm.tsx';
 import { Modal } from '../../../Shared/index'
 
 String.prototype.toKebab = function () {

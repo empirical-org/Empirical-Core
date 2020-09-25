@@ -2,9 +2,10 @@ import * as React from 'react'
 import $ from 'jquery'
 import * as moment from 'moment'
 
+import { Diagnostic, } from './diagnostic_activity_packs'
+
 import { DataTable } from '../../../../Shared/index'
 
-import { Diagnostic, } from './diagnostic_activity_packs'
 
 const expandSrc = `${process.env.CDN_URL}/images/icons/expand.svg`
 

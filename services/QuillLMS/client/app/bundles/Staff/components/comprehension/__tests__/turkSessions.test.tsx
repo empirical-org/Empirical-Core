@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { shallow } from 'enzyme';
 import { createMemoryHistory, createLocation } from 'history';
+
 import TurkSessions from '../gatherResponses/turkSessions';
 import 'whatwg-fetch';
 

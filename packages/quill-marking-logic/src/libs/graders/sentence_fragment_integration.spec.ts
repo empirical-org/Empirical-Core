@@ -1,6 +1,8 @@
-import { responses, incorrectSequences, focusPoints } from '../../../test/data/batswings'
 import { assert } from 'chai';
+
 import {checkSentenceFragment} from './sentence_fragment'
+
+import { responses, incorrectSequences, focusPoints } from '../../../test/data/batswings'
 import {Response} from '../../interfaces';
 import { feedbackStrings } from '../constants/feedback_strings';
 import {spacingBeforePunctuation} from '../algorithms/spacingBeforePunctuation'

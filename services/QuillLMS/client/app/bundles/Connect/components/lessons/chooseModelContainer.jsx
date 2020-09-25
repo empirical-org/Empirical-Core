@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import _ from 'underscore';
+
 import ConceptSelector from '../shared/conceptSelector.jsx';
 import { ConceptExplanation } from '../../../Shared/index';
 

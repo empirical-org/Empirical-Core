@@ -1,10 +1,10 @@
 import 'whatwg-fetch'
 import React from 'react';
 import { Provider } from 'react-redux'
-import createStore from '../../../utils/configureStore';
 import { shallow } from 'enzyme';
 import toJson from 'enzyme-to-json';
 
+import createStore from '../../../utils/configureStore';
 import Lesson from '../lessons'
 
 describe('Lesson component', () => {

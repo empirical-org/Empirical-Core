@@ -1,12 +1,15 @@
 import React from 'react'
-import C from '../../constants'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
+import _ from 'underscore'
+
+import FeedbackForm from './feedbackForm.jsx'
+
+import C from '../../constants'
 import actions from '../../actions/concepts-feedback'
 import feedbackActions from '../../actions/concepts-feedback'
-import _ from 'underscore'
 import { ConceptExplanation } from '../../../Shared/index'
-import FeedbackForm from './feedbackForm.jsx'
+
 
 class ConceptFeedback extends React.Component {
   deleteConceptsFeedback = () => {

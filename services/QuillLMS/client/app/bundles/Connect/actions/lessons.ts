@@ -1,11 +1,14 @@
 const C = require('../constants').default;
+
 import { pickBy } from 'lodash';
-import { LessonApi, TYPE_CONNECT_LESSON } from '../libs/lessons_api';
 import { push } from 'react-router-redux';
+
 import questionActions from './questions'
 import fillInBlankActions from './fillInBlank';
 import sentenceFragmentActions from './sentenceFragments';
 import titleCardActions from './titleCards.ts';
+
+import { LessonApi, TYPE_CONNECT_LESSON } from '../libs/lessons_api';
 
 	// called when the app starts. this means we immediately download all quotes, and
 	// then receive all quotes again as soon as anyone changes anything.

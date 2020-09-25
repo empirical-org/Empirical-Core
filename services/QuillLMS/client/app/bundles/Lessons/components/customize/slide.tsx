@@ -1,7 +1,9 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
-import { getComponent } from './helpers'
 import _ from 'lodash'
+
+import { getComponent } from './helpers'
+
 import ScriptComponent from '../classroomLessons/shared/scriptComponent'
 
 export default class Slide extends React.Component<any, any> {

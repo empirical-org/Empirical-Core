@@ -2,10 +2,11 @@ import * as React from "react";
 import { Mutation } from "react-apollo";
 import gql from "graphql-tag";
 
-import { Concept } from '../interfaces/interfaces'
 import RuleDescriptionField from './RuleDescriptionField'
 import ExplanationField from './ExplanationField'
 import ChangeLogModal from './ChangeLogModal'
+
+import { Concept } from '../interfaces/interfaces'
 import { Input, DropdownInput, } from '../../Shared/index'
 
 const CREATE_CONCEPT = gql`

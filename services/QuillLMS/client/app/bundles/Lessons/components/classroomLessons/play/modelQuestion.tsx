@@ -1,14 +1,15 @@
 declare function require(name:string);
 import * as React from 'react';
+import {
+  Feedback,
+  SentenceFragments
+} from 'quill-component-library/dist/componentLibrary'
+
 import Cues from '../../renderForQuestions/cues';
 import {
   QuestionData
 } from '../../../interfaces/classroomLessons';
 import { textEditorInputNotEmpty } from '../shared/textEditorClean'
-import {
-  Feedback,
-  SentenceFragments
-} from 'quill-component-library/dist/componentLibrary'
 const teacherPointingSrc = `${process.env.CDN_URL}/images/icons/teacher-pointing.svg`
 
 interface ModelQuestionProps {

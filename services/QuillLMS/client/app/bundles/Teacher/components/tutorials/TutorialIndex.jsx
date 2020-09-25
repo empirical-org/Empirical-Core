@@ -1,8 +1,10 @@
 import React from 'react';
-import LessonsSlides from './LessonsSlides';
-import getParameterByName from '../modules/get_parameter_by_name';
 import request from 'request';
 import $ from 'jquery';
+
+import LessonsSlides from './LessonsSlides';
+
+import getParameterByName from '../modules/get_parameter_by_name';
 
 export default class TutorialIndex extends React.Component {
   constructor(props) {

@@ -3,11 +3,12 @@ import { Query, Mutation } from "react-apollo";
 import gql from "graphql-tag";
 import _ from 'lodash'
 
-import { Concept } from '../interfaces/interfaces'
 import RuleDescriptionField from './RuleDescriptionField'
 import ExplanationField from './ExplanationField'
 import ConceptChangeLogs from './ConceptChangeLogs'
 import ChangeLogModal from './ChangeLogModal'
+
+import { Concept } from '../interfaces/interfaces'
 import { Input, DropdownInput, } from '../../Shared/index'
 
 function levelTwoConceptsQuery(){

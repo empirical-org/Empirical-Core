@@ -1,6 +1,7 @@
 'use strict';
 import $ from 'jquery'
 import React from 'react'
+
 import { SegmentAnalytics, Events } from '../../../../../modules/analytics';
 
 export default class CleverSignUp extends React.Component {

@@ -1,4 +1,5 @@
 import * as _ from 'underscore';
+
 import {FeedbackObject} from '../../interfaces'
 
 const subStrings = [

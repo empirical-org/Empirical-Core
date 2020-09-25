@@ -16,7 +16,6 @@ import {
   PROOFREADER_PASSAGE_TYPE,
   lessonApiBaseUrl,
 } from '../../lib/proofreader_activities_api'
-
 import {
   ProofreaderActivity
 } from '../../interfaces/proofreaderActivities'

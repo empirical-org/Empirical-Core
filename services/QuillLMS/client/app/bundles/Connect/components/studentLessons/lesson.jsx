@@ -1,20 +1,22 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-import PlayLessonQuestion from './question';
-import PlaySentenceFragment from './sentenceFragment.jsx';
-import PlayFillInTheBlankQuestion from './fillInBlank.tsx'
 import {
   PlayTitleCard,
   Spinner,
   ProgressBar
 } from 'quill-component-library/dist/componentLibrary';
+import _ from 'underscore';
+
+import PlayLessonQuestion from './question';
+import PlaySentenceFragment from './sentenceFragment.jsx';
+import PlayFillInTheBlankQuestion from './fillInBlank.tsx'
+import Finished from './finished.jsx';
+
 import { Register } from '../../../Shared/index';
 import { clearData, loadData, nextQuestion, submitResponse, updateCurrentQuestion, resumePreviousSession } from '../../actions.js';
 import SessionActions from '../../actions/sessions.js';
-import _ from 'underscore';
 import { getConceptResultsForAllQuestions, calculateScoreForLesson } from '../../libs/conceptResults/lesson';
-import Finished from './finished.jsx';
 import { getParameterByName } from '../../libs/getParameterByName';
 import { permittedFlag } from '../../libs/flagArray'
 import {

@@ -1,5 +1,7 @@
 import * as React from 'react';
+
 import AssignmentCard from './assignment_card';
+
 import AssignmentFlowNavigation from '../assignment_flow_navigation'
 import ScrollToTop from '../../shared/scroll_to_top'
 

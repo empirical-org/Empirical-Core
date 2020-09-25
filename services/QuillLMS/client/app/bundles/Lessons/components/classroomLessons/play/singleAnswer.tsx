@@ -1,19 +1,20 @@
 declare function require(name:string);
 import * as React from 'react';
-import Cues from '../../renderForQuestions/cues';
-import FeedbackRow from './feedbackRow'
 import {
   Feedback,
   SentenceFragments
 } from 'quill-component-library/dist/componentLibrary'
 
-import TextEditor from '../../renderForQuestions/renderTextEditor';
-import { getParameterByName } from '../../../libs/getParameterByName';
+import FeedbackRow from './feedbackRow'
 import ProjectorHeader from './projectorHeader'
 import ProjectedAnswers from './projectedAnswers'
 import PromptSection from './promptSection'
 import SubmitButton from './submitButton'
 import { PROJECT } from './constants'
+
+import { getParameterByName } from '../../../libs/getParameterByName';
+import TextEditor from '../../renderForQuestions/renderTextEditor';
+import Cues from '../../renderForQuestions/cues';
 import {
   QuestionSubmissionsList,
   SelectedSubmissionsForQuestion,

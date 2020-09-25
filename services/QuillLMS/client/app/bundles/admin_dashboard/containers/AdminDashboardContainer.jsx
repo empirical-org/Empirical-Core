@@ -1,10 +1,12 @@
 import React from 'react';
 import { Switch, Route } from 'react-router-dom';
-import SubnavTabs from '../components/subnav_tabs.tsx';
+
 import AdminDashboard from './AdminDashboard';
 import DistrictActivityScoresProgressReport from './DistrictActivityScores';
 import DistrictConceptReportsProgressReport from './DistrictConceptReports';
 import DistrictStandardsReportsProgressReport from './DistrictStandardsReports';
+
+import SubnavTabs from '../components/subnav_tabs.tsx';
 import ActivityScoresStudentOverview from '../components/activity_scores_student_overview.tsx';
 
 

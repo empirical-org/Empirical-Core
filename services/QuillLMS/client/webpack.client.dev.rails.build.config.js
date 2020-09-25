@@ -4,11 +4,13 @@
 // Run like this:
 // cd client && yarn run build:client
 // Note that Foreman (Procfile.dev) has also been configured to take care of this.
+const { resolve } = require('path');
+
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const { merge } = require('webpack-merge');
-const config = require('./webpack.client.dev.base.config');
-const { resolve } = require('path');
 const webpackConfigLoader = require('react-on-rails/webpackConfigLoader');
+
+const config = require('./webpack.client.dev.base.config');
 
 const configPath = resolve('..', 'config');
 const { output } = webpackConfigLoader(configPath);

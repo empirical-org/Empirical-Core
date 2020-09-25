@@ -1,7 +1,8 @@
 import React from 'react';
 
-import AssignmentFlowNavigation from '../assignment_flow_navigation.tsx'
 import ActivitySearchAndSelect from './activity_search/activity_search_and_select';
+
+import AssignmentFlowNavigation from '../assignment_flow_navigation.tsx'
 import AssigningIndicator from '../../shared/button_loading_indicator';
 
 export default class SelectActivitiesContainer extends React.Component {

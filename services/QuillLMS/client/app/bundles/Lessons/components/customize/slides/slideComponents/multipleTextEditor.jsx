@@ -3,6 +3,7 @@ import { EditorState, ContentState, convertToRaw } from 'draft-js';
 import Editor from 'draft-js-plugins-editor';
 import DraftPasteProcessor from 'draft-js/lib/DraftPasteProcessor';
 import createRichButtonsPlugin from 'draft-js-richbuttons-plugin';
+
 const {convertFromHTML, convertToHTML} = require('draft-convert')
 
 class MultipleTextEditor extends React.Component {

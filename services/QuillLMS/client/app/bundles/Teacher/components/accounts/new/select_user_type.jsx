@@ -1,9 +1,9 @@
 import * as React from 'react'
 import request from 'request'
-import { SegmentAnalytics, Events } from '../../../../../modules/analytics';
-import getAuthToken from '../../../components/modules/get_auth_token'
 import { Card } from 'quill-component-library/dist/componentLibrary'
 
+import { SegmentAnalytics, Events } from '../../../../../modules/analytics';
+import getAuthToken from '../../../components/modules/get_auth_token'
 import AssignActivityPackBanner from '../assignActivityPackBanner'
 
 const studentPencilImg = `${process.env.CDN_URL}/images/onboarding/student-pencil.svg`

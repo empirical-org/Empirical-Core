@@ -1,12 +1,14 @@
-import newrelic from 'newrelic';
-import dotenv from 'dotenv';
-import r from 'rethinkdb';
-import socketio from 'socket.io';
-import redis from 'socket.io-redis';
 import fs from 'fs';
-import jwt from 'jsonwebtoken';
 import http from 'http';
 import path from 'path';
+
+import jwt from 'jsonwebtoken';
+import redis from 'socket.io-redis';
+import socketio from 'socket.io';
+import r from 'rethinkdb';
+import dotenv from 'dotenv';
+import newrelic from 'newrelic';
+
 import rethinkdbConfig from './config/rethinkdb';
 import { requestHandler } from './config/server';
 import { nrTrack } from './config/newrelic';
@@ -69,19 +71,16 @@ import {
   addSupportingInfo,
   setEditionId,
 } from './handlers/sessions';
-
 import {
   getAllClassroomLessonReviews,
   createOrUpdateReview,
 } from './handlers/reviews';
-
 import {
   subscribeToClassroomLesson,
   getAllClassroomLessons,
   createOrUpdateClassroomLesson,
   deleteClassroomLesson,
 } from './handlers/lessons';
-
 import {
   setTeacherModels,
   getAllEditionMetadata,
@@ -102,7 +101,6 @@ import {
   publishEdition,
   archiveEdition,
 } from './handlers/editions';
-
 import {
   authorizeSession,
   authorizeRole,

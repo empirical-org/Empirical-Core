@@ -1,6 +1,8 @@
 import * as _ from 'underscore'
 import { assert } from 'chai';
+
 import {caseInsensitiveMatch, caseInsensitiveChecker} from './case_insensitive_match'
+
 import {Response} from '../../interfaces'
 import {feedbackStrings} from '../constants/feedback_strings'
 import {conceptResultTemplate} from '../helpers/concept_result_template'

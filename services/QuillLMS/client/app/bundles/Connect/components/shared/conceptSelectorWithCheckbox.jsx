@@ -1,7 +1,9 @@
 import React from 'react'
 import { connect } from 'react-redux';
-import { ConceptExplanation } from '../../../Shared/index';
+
 import ConceptSelector from './conceptSelector.jsx'
+
+import { ConceptExplanation } from '../../../Shared/index';
 
 class ConceptSelectorWithCheckbox extends React.Component {
 

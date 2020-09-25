@@ -8,9 +8,7 @@ jest.mock('../../libs/questions_api', () => ({
 }))
 
 import { mockDispatch as dispatch, } from '../__mocks__/dispatch'
-
 import { SENTENCE_COMBINING_TYPE } from '../../libs/questions_api'
-
 import questionActions from '../../actions/questions'
 
 describe('Questions actions', () => {

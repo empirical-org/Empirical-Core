@@ -1,7 +1,8 @@
 import React from 'react'
-import { requestGet, requestPost } from '../../../modules/request';
 import _ from 'underscore'
 import _l from 'lodash'
+
+import { requestGet, requestPost } from '../../../modules/request';
 import UnitTemplatesAssigned from '../components/assignment_flow/unit_template_assigned'
 import CreateUnit from '../components/assignment_flow/create_unit/create_unit'
 import ManageUnits from '../components/assignment_flow/manage_units/manage_units'

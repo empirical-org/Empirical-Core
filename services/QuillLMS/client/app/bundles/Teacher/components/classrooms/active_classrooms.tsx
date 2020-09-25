@@ -13,9 +13,9 @@ import GoogleClassroomEmailModal from './google_classroom_email_modal'
 import GoogleClassroomsEmptyModal from './google_classrooms_empty_modal'
 import Classroom from './classroom'
 import CoteacherInvitation from './coteacher_invitation'
+
 import ButtonLoadingIndicator from '../shared/button_loading_indicator'
 import BulkArchiveClassesBanner from '../shared/bulk_archive_classes_banner'
-
 import { requestGet } from '../../../../modules/request/index.js';
 
 const emptyClassSrc = `${process.env.CDN_URL}/images/illustrations/empty-class.svg`

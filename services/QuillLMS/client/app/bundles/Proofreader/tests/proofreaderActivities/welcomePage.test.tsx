@@ -1,5 +1,6 @@
 import * as React from "react";
 import { shallow } from "enzyme";
+
 import WelcomePage from "../../components/proofreaderActivities/welcomePage";
 
 describe("<WelcomePage />", () => {

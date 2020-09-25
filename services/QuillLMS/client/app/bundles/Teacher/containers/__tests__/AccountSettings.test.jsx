@@ -2,7 +2,6 @@ import React from 'react';
 import { shallow } from 'enzyme';
 
 import StudentAccount from '../StudentAccount.jsx';
-
 import StudentGeneralAccountInfo from '../../components/accounts/edit/student_general.jsx';
 import StudentPasswordAccountInfo from '../../components/accounts/edit/update_password.jsx';
 

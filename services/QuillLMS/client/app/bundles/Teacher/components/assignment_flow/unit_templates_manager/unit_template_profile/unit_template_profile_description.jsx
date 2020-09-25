@@ -1,6 +1,7 @@
 'use strict'
 
 import React from 'react'
+
 import MarkdownParser from '../../../shared/markdown_parser.jsx'
 
 const UnitTemplateProfileDescription = (

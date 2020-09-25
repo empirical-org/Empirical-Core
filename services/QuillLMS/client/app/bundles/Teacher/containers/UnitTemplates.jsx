@@ -1,6 +1,8 @@
 import React from 'react'
-import UnitTemplate from '../components/unit_templates/unit_template.jsx'
+
 import Cms from './Cms.jsx'
+
+import UnitTemplate from '../components/unit_templates/unit_template.jsx'
 
 
 export default class extends React.Component {

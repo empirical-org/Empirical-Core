@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+
 import translations from '../../libs/translations/index.js';
 import { commonText } from '../../modules/translation/commonText';
 import { ENGLISH, rightToLeftLanguages } from '../../modules/translation/languagePageInfo';

@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactTable from 'react-table';
 import moment from 'moment';
+
 import 'react-table/react-table.css';
 import EmptyStateForReport from '../../Teacher/components/progress_reports/empty_state_for_report';
 

@@ -1,6 +1,8 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 
+import { classroomProps, userProps, coteacherInvitations } from './test_data/test_data'
+
 import ActiveClassrooms, {
   createAClassModal,
   renameClassModal,
@@ -24,7 +26,6 @@ import GoogleClassroomEmailModal from '../google_classroom_email_modal'
 import GoogleClassroomsEmptyModal from '../google_classrooms_empty_modal'
 import CoteacherInvitation from '../coteacher_invitation'
 
-import { classroomProps, userProps, coteacherInvitations } from './test_data/test_data'
 
 jest.spyOn(global.Date, 'now').mockImplementation(() =>
   new Date('2019-08-14T11:01:58.135Z').valueOf()

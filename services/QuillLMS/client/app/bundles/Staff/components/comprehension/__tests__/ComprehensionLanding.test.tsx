@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { shallow } from 'enzyme';
 import { MemoryRouter } from 'react-router-dom';
+
 import ComprehensionLanding from '../ComprehensionLanding';
 
 describe('ComprehensionLanding component', () => {

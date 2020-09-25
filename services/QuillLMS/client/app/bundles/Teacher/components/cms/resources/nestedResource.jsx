@@ -1,5 +1,7 @@
 import React from 'react'
+
 import NewNestedResource from './newNestedResource.jsx'
+
 import CmsIndexTable from '../cms_index_table/cms_index_table.jsx'
 
 export default class NestedResource extends React.Component {

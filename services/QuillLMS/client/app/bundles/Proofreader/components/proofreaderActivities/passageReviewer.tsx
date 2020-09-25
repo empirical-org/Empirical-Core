@@ -1,8 +1,8 @@
 import * as React from 'react';
 
-import { Concept } from '../../interfaces/concepts'
 import Edit from './edit'
 
+import { Concept } from '../../interfaces/concepts'
 import {
   UNNECESSARY_SPACE,
   MULTIPLE_UNNECESSARY_DELETION,

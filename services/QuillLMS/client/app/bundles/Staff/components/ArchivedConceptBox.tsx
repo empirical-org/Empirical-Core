@@ -4,9 +4,10 @@ import gql from "graphql-tag";
 import moment from 'moment'
 import _ from 'underscore';
 
-import { Concept } from '../interfaces/interfaces'
 import ConceptChangeLogs from './ConceptChangeLogs'
 import ChangeLogModal from './ChangeLogModal'
+
+import { Concept } from '../interfaces/interfaces'
 import { Input, DropdownInput, } from '../../Shared/index'
 
 

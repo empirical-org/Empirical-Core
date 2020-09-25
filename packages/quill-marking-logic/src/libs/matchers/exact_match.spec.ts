@@ -1,4 +1,5 @@
 import { assert } from 'chai';
+
 import {exactMatch} from './exact_match'
 
 describe('The exactMatch function', () => {

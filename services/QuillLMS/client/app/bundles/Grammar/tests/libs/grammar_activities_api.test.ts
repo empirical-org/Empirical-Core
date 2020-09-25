@@ -16,7 +16,6 @@ import {
   TYPE_GRAMMAR_ACTIVITY,
   grammarActivityApiBaseUrl,
 } from '../../libs/grammar_activities_api'
-
 import {
   GrammarActivity
 } from '../../interfaces/grammarActivities'

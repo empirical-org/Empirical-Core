@@ -1,5 +1,6 @@
 import * as React from 'react'
 import _ from 'lodash'
+
 import LinkListItem from '../shared/linkListItem'
 import { Concept } from '../../interfaces/concepts'
 import { ConceptReducerState } from '../../reducers/conceptsReducer'

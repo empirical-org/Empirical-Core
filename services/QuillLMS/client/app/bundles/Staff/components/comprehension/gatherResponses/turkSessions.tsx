@@ -5,9 +5,10 @@ import { SingleDatePicker } from 'react-dates';
 import * as moment from 'moment';
 import { queryCache, useQuery } from 'react-query';
 
+import EditOrDeleteTurkSession from './editOrDeleteTurkSession';
+
 import { ActivityRouteProps, TurkSessionInterface } from '../../../interfaces/comprehensionInterfaces';
 import { createTurkSession, fetchTurkSessions } from '../../../utils/comprehension/turkAPIs';
-import EditOrDeleteTurkSession from './editOrDeleteTurkSession';
 import SubmissionModal from '../shared/submissionModal';
 import { getCsrfToken } from "../../../helpers/comprehension";
 import { DataTable, Error, Modal, Spinner } from '../../../../Shared/index';

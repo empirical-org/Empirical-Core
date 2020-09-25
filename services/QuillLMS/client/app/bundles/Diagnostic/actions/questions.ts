@@ -2,7 +2,6 @@ const C = require('../constants').default;
 
 import { requestDelete, requestGet, requestPost, requestPut } from '../utils/request';
 
-const moment = require('moment');
 
 import Pusher from 'pusher-js';
 // Put 'pusher' on global window for TypeScript validation
@@ -14,8 +13,10 @@ import request from 'request';
 import _ from 'underscore';
 import _l from 'lodash';
 import { push } from 'react-router-redux';
+
 import pathwaysActions from './pathways';
 import { submitResponse } from './responses';
+
 import { Questions, Question, FocusPoint, IncorrectSequence } from '../interfaces/questions'
 import {
   QuestionApi,
@@ -23,6 +24,8 @@ import {
   IncorrectSequenceApi,
   SENTENCE_COMBINING_TYPE
 } from '../libs/questions_api'
+
+const moment = require('moment');
 
 function loadQuestions() {
   return (dispatch, getState) => {

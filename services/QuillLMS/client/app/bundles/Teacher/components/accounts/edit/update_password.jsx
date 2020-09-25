@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+
 import { Input, } from '../../../../Shared/index'
 
 export default class UpdatePassword extends Component {

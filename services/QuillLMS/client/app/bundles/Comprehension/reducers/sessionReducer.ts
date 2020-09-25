@@ -1,7 +1,7 @@
 import { Action } from "redux";
 import { v4 as uuid4 } from "uuid";
-import { ActionTypes } from "../actions/actionTypes";
 
+import { ActionTypes } from "../actions/actionTypes";
 import { FeedbackObject } from '../interfaces/feedback'
 
 export interface SessionReducerState {

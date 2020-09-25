@@ -1,6 +1,8 @@
 import * as React from 'react'
-import ScoreColor from '../../modules/score_color.js'
+
 import ConceptResultTableRow from './concept_result_table_row.tsx'
+
+import ScoreColor from '../../modules/score_color.js'
 import Concept from '../../../../interfaces/concept.ts';
 import QuestionData from '../../../../interfaces/questionData.ts';
 

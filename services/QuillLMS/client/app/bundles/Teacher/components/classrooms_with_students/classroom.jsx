@@ -1,6 +1,7 @@
 import React from 'react'
-import Student from './student'
 import _ from 'underscore'
+
+import Student from './student'
 
 export default class Classroom extends React.Component {
   state = { open: false }

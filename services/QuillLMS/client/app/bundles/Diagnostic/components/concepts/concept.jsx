@@ -1,9 +1,10 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
+import _ from 'underscore'
+
 import actions from '../../actions/concepts'
 import questionActions from '../../actions/questions'
-import _ from 'underscore'
 import { hashToCollection } from '../../../Shared/index'
 import QuestionForm from '../questions/questionForm'
 

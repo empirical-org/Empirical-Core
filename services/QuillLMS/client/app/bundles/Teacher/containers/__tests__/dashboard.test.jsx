@@ -3,7 +3,6 @@ import React from 'react';
 import { shallow } from 'enzyme';
 
 import Dashboard from '../dashboard.jsx';
-
 import ClassOverview from '../../components/dashboard/class_overview'
 import MyClasses from '../../components/dashboard/my_classes'
 import TeacherCenter from '../../components/dashboard/teacher_center'

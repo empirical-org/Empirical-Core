@@ -1,7 +1,8 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import actions from '../../actions/concepts'
 import _ from 'underscore'
+
+import actions from '../../actions/concepts'
 import { LinkListItem } from '../shared/linkListItem';
 
 class Concepts extends React.Component {

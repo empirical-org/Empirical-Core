@@ -2,7 +2,6 @@ import React from 'react';
 import { shallow } from 'enzyme';
 
 import AdminsEditor from '../AdminsEditor.jsx';
-
 import Cms from '../Cms.jsx'
 
 describe('AdminsEditor container', () => {

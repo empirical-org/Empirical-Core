@@ -1,6 +1,7 @@
 import React from 'react';
-import ConceptSelector from '../shared/conceptSelector.jsx';
 import { FlagDropdown } from 'quill-component-library/dist/componentLibrary';
+
+import ConceptSelector from '../shared/conceptSelector.jsx';
 import C from '../../constants.js'
 
 class sentenceFragmentForm extends React.Component {

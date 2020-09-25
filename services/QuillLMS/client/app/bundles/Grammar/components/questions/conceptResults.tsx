@@ -1,4 +1,5 @@
 import * as React from 'react'
+
 import ConceptSelectorWithCheckbox from '../shared/conceptSelectorWithCheckbox';
 
 export default class ConceptResults extends React.Component<any, any> {

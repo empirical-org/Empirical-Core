@@ -1,6 +1,7 @@
 import * as React from "react";
 import * as Redux from "redux";
 import { connect } from "react-redux";
+
 import { TrackAnalyticsEvent } from '../actions/analytics';
 import { Events } from '../modules/analytics';
 import '../styles/headerStyling.scss'

@@ -1,4 +1,5 @@
 import React from 'react';
+
 import Lesson from '../lessons/lesson.jsx';
 
 const AdminLessonSidebar = ({ match }) => {

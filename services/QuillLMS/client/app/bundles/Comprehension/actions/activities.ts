@@ -2,6 +2,7 @@ import * as request from 'request';
 
 import { ActionTypes } from './actionTypes'
 import { TrackAnalyticsEvent } from './analytics'
+
 import { Events } from '../modules/analytics'
 
 export const getActivity = (sessionID: string, activityUID: string) => {

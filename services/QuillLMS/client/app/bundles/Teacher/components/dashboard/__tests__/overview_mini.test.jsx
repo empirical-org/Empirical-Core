@@ -2,7 +2,6 @@ import React from 'react';
 import { shallow } from 'enzyme';
 
 import OverviewMini from '../overview_mini';
-
 import LoadingIndicator from '../../shared/loading_indicator';
 
 describe('OverviewMini component', () => {

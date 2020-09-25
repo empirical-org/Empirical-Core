@@ -2,9 +2,10 @@ import React from 'react';
 import { SingleDatePicker } from 'react-dates'
 import _ from 'lodash';
 import request from 'request';
+import moment from 'moment';
+
 import ItemDropdown from '../components/general_components/dropdown_selectors/item_dropdown.jsx';
 import getAuthToken from '../components/modules/get_auth_token';
-import moment from 'moment';
 
 export default class EditOrCreateSubscription extends React.Component {
   constructor(props) {

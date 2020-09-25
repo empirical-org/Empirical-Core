@@ -1,4 +1,5 @@
 import expect from 'expect';
+
 import data from '../jsonFromDiagnostic';
 import {
   getConceptResultsForSentenceCombining

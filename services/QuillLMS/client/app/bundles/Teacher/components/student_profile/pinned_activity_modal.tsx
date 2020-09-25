@@ -1,4 +1,5 @@
 import * as React from 'react'
+
 import activityLaunchLink from '../modules/generate_activity_launch_link.js';
 
 interface PinnedActivityModalProps {

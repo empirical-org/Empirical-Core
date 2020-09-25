@@ -1,4 +1,5 @@
 import { requestDelete, requestGet, requestPost, requestPut } from './request';
+
 import { ConceptFeedback, ConceptFeedbackCollection } from '../interfaces/concept_feedback';
 
 const CONNECT_TYPE = 'connect'

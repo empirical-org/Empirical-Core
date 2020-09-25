@@ -1,9 +1,11 @@
 import * as _ from 'underscore';
+
 // import {
 //   getPartsOfSpeechWordsWithTags
 // } from './partsOfSpeechTagging';
-import {Response, FeedbackObject} from '../interfaces/index'
 import {stringNormalize} from 'quill-string-normalizer'
+
+import {Response, FeedbackObject} from '../interfaces/index'
 
 const posTranslations = {
   JJ: 'Adjective',

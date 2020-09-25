@@ -1,5 +1,6 @@
 import React from 'react';
 import { Spinner } from 'quill-component-library/dist/componentLibrary';
+
 import translations from '../../libs/translations/index.js';
 import { ENGLISH, rightToLeftLanguages } from '../../modules/translation/languagePageInfo';
 

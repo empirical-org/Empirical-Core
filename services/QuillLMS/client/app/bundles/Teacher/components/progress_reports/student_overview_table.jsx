@@ -1,6 +1,7 @@
 import React from 'react'
 import _ from 'underscore'
 import moment from 'moment'
+
 import gradeColor from '../modules/grade_color.js'
 import notLessonsOrDiagnostic from '../../../../modules/activity_classifications.js'
 import userIsPremium from '../modules/user_is_premium'

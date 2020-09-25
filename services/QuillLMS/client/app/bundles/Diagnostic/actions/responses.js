@@ -1,11 +1,14 @@
 /* eslint-env browser*/
 import _ from 'underscore';
-import pathwaysActions from './pathways';
-import rootRef from '../libs/firebase';
 import request from 'request';
+
+import pathwaysActions from './pathways';
+
+import rootRef from '../libs/firebase';
 import objectWithSnakeKeysFromCamel from '../libs/objectWithSnakeKeysFromCamel';
 
 const C = require('../constants').default;
+
 const moment = require('moment');
 
 const responsesRef = rootRef.child('responses');

@@ -1,9 +1,10 @@
 import * as React from 'react';
 import { MemoryRouter } from 'react-router'
 import { shallow, mount } from 'enzyme';
+import { SortableList } from 'quill-component-library/dist/componentLibrary';
+
 import { genericQuestion } from '../../../test/data/test_data.js';
 import { FocusPointsContainer } from '../focusPointsContainer.jsx';
-import { SortableList } from 'quill-component-library/dist/componentLibrary';
 
 function setup() {
   const params = { questionID: 100, };

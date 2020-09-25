@@ -2,9 +2,10 @@ import React from 'react';
 import moment from 'moment';
 import { SingleDatePicker } from 'react-dates'
 import Pluralize from 'pluralize';
-import ApplyToAll from './apply_to_all'
-import activityFromClassificationId from '../../modules/activity_from_classification_id.js';
 
+import ApplyToAll from './apply_to_all'
+
+import activityFromClassificationId from '../../modules/activity_from_classification_id.js';
 import PreviewOrLaunchModal from '../../shared/preview_or_launch_modal';
 
 const styles = {

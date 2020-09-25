@@ -1,10 +1,8 @@
 import * as React from 'react'
-
 import { Card, Snackbar, defaultSnackbarTimeout } from 'quill-component-library/dist/componentLibrary'
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 
 import AssignmentFlowNavigation from '../assignment_flow_navigation'
-
 import {
   UNIT_TEMPLATE_NAME,
   UNIT_TEMPLATE_ID,
@@ -13,7 +11,6 @@ import {
   CLASSROOMS,
   UNIT_ID,
 } from '../assignmentFlowConstants'
-
 import ScrollToTop from '../../shared/scroll_to_top'
 import ViewAsStudentModal from '../../shared/view_as_student_modal'
 import { Input, } from '../../../../Shared/index'

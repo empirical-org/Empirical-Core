@@ -1,7 +1,8 @@
 import React from 'react';
+import moment from 'moment';
+
 import DropdownFilter from '../progress_reports/dropdown_filter.jsx';
 import DateRangeFilter from '../general_components/date_range_filter.jsx';
-import moment from 'moment';
 
 const ScorebookFilters = (
   {

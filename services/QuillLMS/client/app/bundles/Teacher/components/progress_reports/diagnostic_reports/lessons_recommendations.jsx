@@ -1,6 +1,8 @@
 import React from 'react';
-import LoadingIndicator from '../../shared/loading_indicator.jsx';
+
 import LessonRecommendationRow from './lesson_recommendation_row';
+
+import LoadingIndicator from '../../shared/loading_indicator.jsx';
 
 export default class LessonsRecommendations extends React.Component {
   constructor(props) {

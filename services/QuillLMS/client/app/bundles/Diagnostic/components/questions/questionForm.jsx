@@ -1,6 +1,7 @@
 import React from 'react'
 import { EditorState, ContentState } from 'draft-js'
 import _ from 'lodash'
+
 import ConceptSelector from '../shared/conceptSelector.jsx'
 import {
   hashToCollection,

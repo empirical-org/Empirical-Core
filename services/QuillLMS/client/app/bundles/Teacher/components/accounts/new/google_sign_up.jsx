@@ -1,4 +1,5 @@
 import React from 'react';
+
 import { SegmentAnalytics, Events } from '../../../../../modules/analytics';
 
 const handleClickSignUpWithGoogle = (e) => SegmentAnalytics.track(Events.SUBMIT_SIGN_UP, {provider: Events.providers.GOOGLE})

@@ -1,7 +1,8 @@
 import React from 'react';
-import DropdownFilterOption from './dropdown_filter_option.jsx';
 import _ from 'underscore';
 import $ from 'jquery';
+
+import DropdownFilterOption from './dropdown_filter_option.jsx';
 
 export default class DropdownFilter extends React.Component {
   getFilterOptions = () => {

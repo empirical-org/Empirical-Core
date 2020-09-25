@@ -1,4 +1,5 @@
 import * as _ from 'underscore'
+
 import {getTopOptimalResponse} from '../sharedResponseFunctions'
 import {Response, PartialResponse} from '../../interfaces'
 import {feedbackStrings} from '../constants/feedback_strings'

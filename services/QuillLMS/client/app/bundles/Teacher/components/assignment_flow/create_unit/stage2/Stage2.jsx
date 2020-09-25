@@ -1,9 +1,10 @@
 import React from 'react';
 
-import ButtonLoadingIndicator from '../../../shared/button_loading_indicator';
 import NameTheUnit from './name_the_unit';
 import ReviewActivities from './review_activities'
 import AssignStudents from './assign_students'
+
+import ButtonLoadingIndicator from '../../../shared/button_loading_indicator';
 import AssignmentFlowNavigation from '../../assignment_flow_navigation.tsx'
 import ScrollToTop from '../../../shared/scroll_to_top'
 

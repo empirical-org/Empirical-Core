@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { shallow } from 'enzyme';
+
 import AssignADiagnostic from '../create_unit/assign_a_diagnostic';
 import AssignmentCard from '../create_unit/assignment_card';
 

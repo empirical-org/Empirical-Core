@@ -1,17 +1,18 @@
 import React, {Component} from 'react'
 import { connect } from 'react-redux';
 import _ from 'lodash';
+
+import EditScriptItem from './editScriptItem';
+
 import {
   saveEditionScriptItem,
   deleteScriptItem
 } from '../../../actions/classroomLesson'
 import { getEditionQuestions } from '../../../actions/customize'
-
 import * as IntF from '../interfaces';
 import * as CLIntF from '../../../interfaces/classroomLessons';
 import * as CustomizeIntF from '../../../interfaces/customize';
 
-import EditScriptItem from './editScriptItem';
 
 class showScriptItem extends Component<any, any> {
   constructor(props){

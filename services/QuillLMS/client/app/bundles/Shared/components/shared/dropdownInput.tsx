@@ -1,5 +1,6 @@
 import * as React from 'react';
 import Select from 'react-select';
+
 import { HTMLDropdownOption } from './htmlDropdownOption'
 import { HTMLDropdownSingleValue } from './htmlDropdownSingleValue'
 import { CheckableDropdownOption } from './checkableDropdownOption'

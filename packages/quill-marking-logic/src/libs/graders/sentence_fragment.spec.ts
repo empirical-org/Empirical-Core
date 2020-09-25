@@ -1,5 +1,7 @@
 import { assert } from 'chai';
+
 import {checkSentenceFragment} from './sentence_fragment'
+
 import {Response} from '../../interfaces'
 
 describe('The checking a sentence fragment', () => {

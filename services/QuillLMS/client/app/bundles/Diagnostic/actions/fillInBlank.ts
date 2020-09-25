@@ -1,12 +1,15 @@
 const C = require('../constants').default;
+
 import rootRef from '../libs/firebase';
+
 const	fillInBlankQuestionsRef = rootRef.child('diagnostic_fillInBlankQuestions');
 const	responsesRef = rootRef.child('responses');
-const moment = require('moment');
 import _ from 'lodash';
 import { push } from 'react-router-redux';
+
 import pathwaysActions from './pathways';
 import { submitResponse } from './responses';
+
 import { Questions, Question, FocusPoint, IncorrectSequence } from '../interfaces/questions'
 import {
   QuestionApi,
@@ -14,6 +17,8 @@ import {
   IncorrectSequenceApi,
   FILL_IN_BLANKS_TYPE
 } from '../libs/questions_api'
+
+const moment = require('moment');
 
 function startListeningToQuestions() {
   return loadQuestions();
