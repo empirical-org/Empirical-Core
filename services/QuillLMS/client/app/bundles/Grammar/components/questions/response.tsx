@@ -38,20 +38,15 @@ interface ResponseProps {
   allExpanded: boolean,
   ascending: boolean,
   concepts: {},
-  dispatch: (Function) => void,
+  dispatch: () => void,
   expand: boolean,
   expanded: boolean,
   getChildResponses: Function,
   getResponse: Function,
   getMatchingResponse: Function,
   questionID: string,
-  response: {
-    optimal: boolean,
-  },
-  question: {
-    modelConceptUID: string,
-    concept_uid: string,
-  },
+  response: Response,
+  question: {},
   massEdit: {
     numSelectedResponse: number,
     selectedResponses: any[],
