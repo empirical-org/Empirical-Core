@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 import _ from 'underscore';
 import questionActions from '../../actions/questions';
 import sentenceFragmentActions from '../../actions/sentenceFragments';
