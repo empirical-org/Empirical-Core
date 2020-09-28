@@ -88,7 +88,7 @@ exports[`AssignADiagnostic component should render 1`] = `
             },
           ]
         }
-        buttonLink="/activity_sessions/anonymous?activity_id=447"
+        buttonLink="/activity_sessions/anonymous?activity_id=1161"
         buttonText="Preview"
         header="ELL Starter Diagnostic (Level 1 - Emerging)"
         imgAlt="page with less writing that says ELL in the corner"
@@ -108,7 +108,7 @@ exports[`AssignADiagnostic component should render 1`] = `
             },
           ]
         }
-        buttonLink="/activity_sessions/anonymous?activity_id=1161"
+        buttonLink="/activity_sessions/anonymous?activity_id=447"
         buttonText="Preview"
         header="ELL Diagnostic (Level 2 - Expanding)"
         imgAlt="page with writing that says ELL in the corner"
