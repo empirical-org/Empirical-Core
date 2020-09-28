@@ -5664,6 +5664,14 @@ ALTER TABLE ONLY public.activities
 
 
 --
+-- Name: standards fk_rails_943eaa914c; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.standards
+    ADD CONSTRAINT fk_rails_943eaa914c FOREIGN KEY (standard_grade_id) REFERENCES public.standard_grades(id);
+
+
+--
 -- Name: classroom_units fk_rails_a3c514fc6d; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -5717,6 +5725,14 @@ ALTER TABLE ONLY public.unit_activities
 
 ALTER TABLE ONLY public.classroom_unit_activity_states
     ADD CONSTRAINT fk_rails_bab346c597 FOREIGN KEY (unit_activity_id) REFERENCES public.unit_activities(id);
+
+
+--
+-- Name: standards fk_rails_c84477fd6e; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.standards
+    ADD CONSTRAINT fk_rails_c84477fd6e FOREIGN KEY (standard_category_id) REFERENCES public.standard_categories(id);
 
 
 --
