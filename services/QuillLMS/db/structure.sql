@@ -2,8 +2,8 @@
 -- PostgreSQL database dump
 --
 
--- Dumped from database version 10.10
--- Dumped by pg_dump version 10.10
+-- Dumped from database version 10.13
+-- Dumped by pg_dump version 10.13
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -286,7 +286,8 @@ CREATE TABLE public.activities (
     flags character varying[] DEFAULT '{}'::character varying[] NOT NULL,
     repeatable boolean DEFAULT true,
     follow_up_activity_id integer,
-    supporting_info character varying
+    supporting_info character varying,
+    standard_id integer
 );
 
 
@@ -1175,6 +1176,107 @@ CREATE SEQUENCE public.comprehension_prompts_id_seq
 --
 
 ALTER SEQUENCE public.comprehension_prompts_id_seq OWNED BY public.comprehension_prompts.id;
+
+
+--
+-- Name: comprehension_prompts_rule_sets; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.comprehension_prompts_rule_sets (
+    id integer NOT NULL,
+    prompt_id integer,
+    rule_set_id integer
+);
+
+
+--
+-- Name: comprehension_prompts_rule_sets_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.comprehension_prompts_rule_sets_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: comprehension_prompts_rule_sets_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.comprehension_prompts_rule_sets_id_seq OWNED BY public.comprehension_prompts_rule_sets.id;
+
+
+--
+-- Name: comprehension_rule_sets; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.comprehension_rule_sets (
+    id integer NOT NULL,
+    activity_id integer,
+    prompt_id integer,
+    name character varying,
+    feedback character varying,
+    priority integer,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: comprehension_rule_sets_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.comprehension_rule_sets_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: comprehension_rule_sets_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.comprehension_rule_sets_id_seq OWNED BY public.comprehension_rule_sets.id;
+
+
+--
+-- Name: comprehension_rules; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.comprehension_rules (
+    id integer NOT NULL,
+    rule_set_id integer,
+    regex_text character varying,
+    case_sensitive boolean,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: comprehension_rules_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.comprehension_rules_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: comprehension_rules_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.comprehension_rules_id_seq OWNED BY public.comprehension_rules.id;
 
 
 --
@@ -2390,6 +2492,111 @@ ALTER SEQUENCE public.sections_id_seq OWNED BY public.sections.id;
 
 
 --
+-- Name: standard_categories; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.standard_categories (
+    id integer NOT NULL,
+    name character varying,
+    uid character varying,
+    visible boolean DEFAULT true,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: standard_categories_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.standard_categories_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: standard_categories_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.standard_categories_id_seq OWNED BY public.standard_categories.id;
+
+
+--
+-- Name: standard_grades; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.standard_grades (
+    id integer NOT NULL,
+    name character varying,
+    uid character varying,
+    "position" integer,
+    visible boolean DEFAULT true,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: standard_grades_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.standard_grades_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: standard_grades_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.standard_grades_id_seq OWNED BY public.standard_grades.id;
+
+
+--
+-- Name: standards; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.standards (
+    id integer NOT NULL,
+    name character varying,
+    uid character varying,
+    standard_grade_id integer,
+    standard_category_id integer,
+    visible boolean DEFAULT true,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: standards_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.standards_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: standards_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.standards_id_seq OWNED BY public.standards.id;
+
+
+--
 -- Name: students_classrooms; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -3120,6 +3327,27 @@ ALTER TABLE ONLY public.comprehension_prompts ALTER COLUMN id SET DEFAULT nextva
 
 
 --
+-- Name: comprehension_prompts_rule_sets id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.comprehension_prompts_rule_sets ALTER COLUMN id SET DEFAULT nextval('public.comprehension_prompts_rule_sets_id_seq'::regclass);
+
+
+--
+-- Name: comprehension_rule_sets id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.comprehension_rule_sets ALTER COLUMN id SET DEFAULT nextval('public.comprehension_rule_sets_id_seq'::regclass);
+
+
+--
+-- Name: comprehension_rules id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.comprehension_rules ALTER COLUMN id SET DEFAULT nextval('public.comprehension_rules_id_seq'::regclass);
+
+
+--
 -- Name: comprehension_turking_rounds id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -3355,6 +3583,27 @@ ALTER TABLE ONLY public.schools_users ALTER COLUMN id SET DEFAULT nextval('publi
 --
 
 ALTER TABLE ONLY public.sections ALTER COLUMN id SET DEFAULT nextval('public.sections_id_seq'::regclass);
+
+
+--
+-- Name: standard_categories id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.standard_categories ALTER COLUMN id SET DEFAULT nextval('public.standard_categories_id_seq'::regclass);
+
+
+--
+-- Name: standard_grades id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.standard_grades ALTER COLUMN id SET DEFAULT nextval('public.standard_grades_id_seq'::regclass);
+
+
+--
+-- Name: standards id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.standards ALTER COLUMN id SET DEFAULT nextval('public.standards_id_seq'::regclass);
 
 
 --
@@ -3671,6 +3920,30 @@ ALTER TABLE ONLY public.comprehension_prompts
 
 
 --
+-- Name: comprehension_prompts_rule_sets comprehension_prompts_rule_sets_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.comprehension_prompts_rule_sets
+    ADD CONSTRAINT comprehension_prompts_rule_sets_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: comprehension_rule_sets comprehension_rule_sets_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.comprehension_rule_sets
+    ADD CONSTRAINT comprehension_rule_sets_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: comprehension_rules comprehension_rules_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.comprehension_rules
+    ADD CONSTRAINT comprehension_rules_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: comprehension_turking_rounds comprehension_turking_rounds_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -3940,6 +4213,30 @@ ALTER TABLE ONLY public.schools_users
 
 ALTER TABLE ONLY public.sections
     ADD CONSTRAINT sections_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: standard_categories standard_categories_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.standard_categories
+    ADD CONSTRAINT standard_categories_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: standard_grades standard_grades_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.standard_grades
+    ADD CONSTRAINT standard_grades_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: standards standards_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.standards
+    ADD CONSTRAINT standards_pkey PRIMARY KEY (id);
 
 
 --
@@ -4445,6 +4742,41 @@ CREATE INDEX index_comprehension_passages_on_activity_id ON public.comprehension
 --
 
 CREATE INDEX index_comprehension_prompts_on_activity_id ON public.comprehension_prompts USING btree (activity_id);
+
+
+--
+-- Name: index_comprehension_prompts_rule_sets_on_prompt_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_comprehension_prompts_rule_sets_on_prompt_id ON public.comprehension_prompts_rule_sets USING btree (prompt_id);
+
+
+--
+-- Name: index_comprehension_prompts_rule_sets_on_rule_set_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_comprehension_prompts_rule_sets_on_rule_set_id ON public.comprehension_prompts_rule_sets USING btree (rule_set_id);
+
+
+--
+-- Name: index_comprehension_rule_sets_on_activity_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_comprehension_rule_sets_on_activity_id ON public.comprehension_rule_sets USING btree (activity_id);
+
+
+--
+-- Name: index_comprehension_rule_sets_on_prompt_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_comprehension_rule_sets_on_prompt_id ON public.comprehension_rule_sets USING btree (prompt_id);
+
+
+--
+-- Name: index_comprehension_rules_on_rule_set_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_comprehension_rules_on_rule_set_id ON public.comprehension_rules USING btree (rule_set_id);
 
 
 --
@@ -5324,6 +5656,14 @@ ALTER TABLE ONLY public.recommendations
 
 
 --
+-- Name: activities fk_rails_8b159cf902; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.activities
+    ADD CONSTRAINT fk_rails_8b159cf902 FOREIGN KEY (standard_id) REFERENCES public.standards(id);
+
+
+--
 -- Name: classroom_units fk_rails_a3c514fc6d; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -6121,8 +6461,6 @@ INSERT INTO schema_migrations (version) VALUES ('20200612165829');
 
 INSERT INTO schema_migrations (version) VALUES ('20200612165830');
 
-INSERT INTO schema_migrations (version) VALUES ('20200707144528');
-
 INSERT INTO schema_migrations (version) VALUES ('20200629191908');
 
 INSERT INTO schema_migrations (version) VALUES ('20200629191909');
@@ -6130,3 +6468,14 @@ INSERT INTO schema_migrations (version) VALUES ('20200629191909');
 INSERT INTO schema_migrations (version) VALUES ('20200702140252');
 
 INSERT INTO schema_migrations (version) VALUES ('20200706135059');
+
+INSERT INTO schema_migrations (version) VALUES ('20200707144528');
+
+INSERT INTO schema_migrations (version) VALUES ('20200928193105');
+
+INSERT INTO schema_migrations (version) VALUES ('20200928193310');
+
+INSERT INTO schema_migrations (version) VALUES ('20200928193551');
+
+INSERT INTO schema_migrations (version) VALUES ('20200928193744');
+
