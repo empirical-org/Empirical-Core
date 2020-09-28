@@ -4,7 +4,7 @@ import * as _ from 'lodash'
 import {
   Feedback,
   SentenceFragments,
-} from 'quill-component-library/dist/componentLibrary'
+} from '../../../../Shared/index'
 
 import {
 QuestionData,

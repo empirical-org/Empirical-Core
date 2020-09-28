@@ -3,7 +3,7 @@ import * as React from 'react'
 import * as _ from 'underscore'
 import {
   Feedback
-} from 'quill-component-library/dist/componentLibrary'
+} from '../../../../Shared/index'
 import { stringNormalize } from 'quill-string-normalizer';
 
 import ProjectorHeader from './projectorHeader'
