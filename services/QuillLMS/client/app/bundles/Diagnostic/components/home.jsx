@@ -5,7 +5,7 @@ import { Layout } from "antd";
 import { renderRoutes } from "react-router-config";
 import { routes } from "../routes";
 import { getParameterByName } from '../libs/getParameterByName';
-import { TeacherPreviewMenu } from './shared/teacherPreviewMenu';
+import { TeacherPreviewMenu } from '../../Shared/components/shared/teacherPreviewMenu';
 
 export default class Home extends React.Component {
   constructor(props) {
@@ -13,7 +13,7 @@ export default class Home extends React.Component {
 
     const studentOrTurkSession = getParameterByName('student', window.location.href) || window.location.href.includes('turk');
 
-    this.state = { 
+    this.state = {
       showFocusState: false,
       previewShowing: !studentOrTurkSession,
       questionToPreview: null,
@@ -52,7 +52,7 @@ export default class Home extends React.Component {
     } else {
       this.setState({ switchedBackToPreview: true });
     }
-    this.setState(prevState => ({ 
+    this.setState(prevState => ({
       previewShowing: !prevState.previewShowing,
     }));
   }
@@ -72,9 +72,9 @@ export default class Home extends React.Component {
     return(
       <Layout className={className}>
         <Layout>
-          {showPreview && <Layout.Sider 
+          {showPreview && <Layout.Sider
             breakpoint="md"
-            className="sider-container" 
+            className="sider-container"
             collapsedWidth="0"
             style={{ height: '100vh', overflow: 'scroll' }}
             width={360}
@@ -82,7 +82,7 @@ export default class Home extends React.Component {
             <TeacherPreviewMenu
               onHandleSkipToQuestionFromIntro={this.handleSkipToQuestionFromIntro}
               onTogglePreview={this.handleTogglePreviewMenu}
-              onToggleQuestion={this.handleToggleQuestion}  
+              onToggleQuestion={this.handleToggleQuestion}
               questionToPreview={questionToPreview}
               showPreview={previewShowing}
             />
