@@ -1,7 +1,8 @@
 import * as React from 'react';
 import { shallow } from 'enzyme';
-import { DropdownInput, Input, TextEditor } from 'quill-component-library/dist/componentLibrary';
+import { DropdownInput, TextEditor } from 'quill-component-library/dist/componentLibrary';
 import ActivityForm from '../configureSettings/activityForm';
+import { Input, } from '../../../../Shared/index'
 jest.mock('string-strip-html', () => ({
   default: jest.fn()
 }));
@@ -15,8 +16,8 @@ const mockActivity = {
   target_level: 7,
   passages: [{text: '...'}],
   prompts: [
-    { conjunction: 'because', text: '1', max_attempts: 5, max_attempts_feedback: 'WRONG!' }, 
-    { conjunction: 'but', text: '2', max_attempts: 5, max_attempts_feedback: 'WRONG!' }, 
+    { conjunction: 'because', text: '1', max_attempts: 5, max_attempts_feedback: 'WRONG!' },
+    { conjunction: 'but', text: '2', max_attempts: 5, max_attempts_feedback: 'WRONG!' },
     { conjunction: 'so', text: '3', max_attempts: 5, max_attempts_feedback: 'WRONG!' }
   ]
 }

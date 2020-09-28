@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Input } from 'quill-component-library/dist/componentLibrary';
+import { Input } from '../../../../Shared/index';
 
 interface RegexSectionProps {
   errors: {},
@@ -36,10 +36,10 @@ const RegexSection = ({ errors, handleAddRegexInput, handleDeleteRegexRule, hand
               />
             </div>
           </div>
-          <button 
-            className="quill-button fun primary outlined delete-regex-button" 
-            id="remove-regex-button" 
-            onClick={handleDeleteRegexRule} 
+          <button
+            className="quill-button fun primary outlined delete-regex-button"
+            id="remove-regex-button"
+            onClick={handleDeleteRegexRule}
             type="button"
             value={ruleKey}
           >
@@ -52,10 +52,10 @@ const RegexSection = ({ errors, handleAddRegexInput, handleDeleteRegexRule, hand
   return(
     <div className="regex-rules-container">
       {renderRegexRules()}
-      <button 
-        className="quill-button fun primary outlined add-regex-button" 
+      <button
+        className="quill-button fun primary outlined add-regex-button"
         id="add-regex-button"
-        onClick={handleAddRegexInput} 
+        onClick={handleAddRegexInput}
         type="button"
       >
         Add Regex Rule +
