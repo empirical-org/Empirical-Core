@@ -21,7 +21,7 @@ class StudentsController < ApplicationController
   end
 
   def student_demo
-    @user = User.find_by_email 'maya_angelou_demo@quill.org'
+    @user = User.find_by_email 'angie_thomas_demo@quill.org'
     if @user.nil?
       Demo::ReportDemoDestroyer.destroy_demo(nil)
       Demo::ReportDemoCreator.create_demo(nil)
