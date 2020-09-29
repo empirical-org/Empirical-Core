@@ -1,9 +1,8 @@
 import * as React from 'react';
 import { shallow } from 'enzyme';
-import { TextEditor } from 'quill-component-library/dist/componentLibrary';
 import RuleSetForm from '../configureRegex/ruleSetForm';
 import RegexSection from '../configureRegex/regexSection';
-import { Input, } from '../../../../Shared/index'
+import { Input, TextEditor, } from '../../../../Shared/index'
 
 jest.mock('string-strip-html', () => ({
   default: jest.fn()
