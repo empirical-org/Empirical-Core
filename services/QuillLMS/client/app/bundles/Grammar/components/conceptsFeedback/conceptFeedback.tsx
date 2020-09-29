@@ -3,7 +3,7 @@ import { ActionTypes } from '../../actions/actionTypes'
 import { connect } from 'react-redux'
 import * as actions from '../../actions/conceptsFeedback'
 import FeedbackForm from './feedbackForm'
-import { ConceptExplanation } from 'quill-component-library/dist/componentLibrary';
+import { ConceptExplanation } from '../../../Shared/index';
 import { ConceptFeedback } from '../../interfaces/conceptsFeedback'
 import { Match } from '../../interfaces/match'
 import { Concept } from '../../interfaces/concepts'

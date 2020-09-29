@@ -1,6 +1,6 @@
 import * as React from 'react'
 
-import { DropdownInput, Tooltip } from 'quill-component-library/dist/componentLibrary'
+import { DropdownInput } from '../../../../../Shared/index'
 
 const smallWhiteCheckSrc = `${process.env.CDN_URL}/images/shared/check-small-white.svg`
 

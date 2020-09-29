@@ -7,12 +7,11 @@ import {
 } from '../../actions/responses.js';
 import RenderQuestionFeedback from '../renderForQuestions/feedbackStatements.jsx';
 import RenderQuestionCues from '../renderForQuestions/cues.tsx';
-import { Feedback, SentenceFragments } from 'quill-component-library/dist/componentLibrary';
+import { Feedback, SentenceFragments, Error, } from '../../../Shared/index';
 import getResponse from '../renderForQuestions/checkAnswer';
 import { submitQuestionResponse } from '../renderForQuestions/submitResponse.js';
 import updateResponseResource from '../renderForQuestions/updateResponseResource.js';
 import TextEditor from '../renderForQuestions/renderTextEditor.jsx';
-import { Error } from 'quill-component-library/dist/componentLibrary';
 
 const C = require('../../constants').default;
 
