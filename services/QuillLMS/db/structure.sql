@@ -2526,10 +2526,10 @@ ALTER SEQUENCE public.standard_categories_id_seq OWNED BY public.standard_catego
 
 
 --
--- Name: standard_grades; Type: TABLE; Schema: public; Owner: -
+-- Name: standard_levels; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE public.standard_grades (
+CREATE TABLE public.standard_levels (
     id integer NOT NULL,
     name character varying,
     uid character varying,
@@ -2541,10 +2541,10 @@ CREATE TABLE public.standard_grades (
 
 
 --
--- Name: standard_grades_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+-- Name: standard_levels_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE public.standard_grades_id_seq
+CREATE SEQUENCE public.standard_levels_id_seq
     AS integer
     START WITH 1
     INCREMENT BY 1
@@ -2554,10 +2554,10 @@ CREATE SEQUENCE public.standard_grades_id_seq
 
 
 --
--- Name: standard_grades_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+-- Name: standard_levels_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE public.standard_grades_id_seq OWNED BY public.standard_grades.id;
+ALTER SEQUENCE public.standard_levels_id_seq OWNED BY public.standard_levels.id;
 
 
 --
@@ -2568,7 +2568,7 @@ CREATE TABLE public.standards (
     id integer NOT NULL,
     name character varying,
     uid character varying,
-    standard_grade_id integer,
+    standard_level_id integer,
     standard_category_id integer,
     visible boolean DEFAULT true,
     created_at timestamp without time zone NOT NULL,
@@ -3593,10 +3593,10 @@ ALTER TABLE ONLY public.standard_categories ALTER COLUMN id SET DEFAULT nextval(
 
 
 --
--- Name: standard_grades id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: standard_levels id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.standard_grades ALTER COLUMN id SET DEFAULT nextval('public.standard_grades_id_seq'::regclass);
+ALTER TABLE ONLY public.standard_levels ALTER COLUMN id SET DEFAULT nextval('public.standard_levels_id_seq'::regclass);
 
 
 --
@@ -4224,11 +4224,11 @@ ALTER TABLE ONLY public.standard_categories
 
 
 --
--- Name: standard_grades standard_grades_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: standard_levels standard_levels_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.standard_grades
-    ADD CONSTRAINT standard_grades_pkey PRIMARY KEY (id);
+ALTER TABLE ONLY public.standard_levels
+    ADD CONSTRAINT standard_levels_pkey PRIMARY KEY (id);
 
 
 --
@@ -5656,19 +5656,19 @@ ALTER TABLE ONLY public.recommendations
 
 
 --
+-- Name: standards fk_rails_7c2e427970; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.standards
+    ADD CONSTRAINT fk_rails_7c2e427970 FOREIGN KEY (standard_level_id) REFERENCES public.standard_levels(id);
+
+
+--
 -- Name: activities fk_rails_8b159cf902; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.activities
     ADD CONSTRAINT fk_rails_8b159cf902 FOREIGN KEY (standard_id) REFERENCES public.standards(id);
-
-
---
--- Name: standards fk_rails_943eaa914c; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.standards
-    ADD CONSTRAINT fk_rails_943eaa914c FOREIGN KEY (standard_grade_id) REFERENCES public.standard_grades(id);
 
 
 --

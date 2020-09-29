@@ -1,6 +1,6 @@
-class CreateStandardGrade < ActiveRecord::Migration
+class CreateStandardLevel < ActiveRecord::Migration
   def change
-    create_table :standard_grades do |t|
+    create_table :standard_levels do |t|
       t.string :name
       t.string :uid
       t.integer :position

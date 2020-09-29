@@ -1,4 +1,4 @@
-class StandardGrade < ActiveRecord::Base
+class StandardLevel < ActiveRecord::Base
   include Uid
   include RankedModel
 
