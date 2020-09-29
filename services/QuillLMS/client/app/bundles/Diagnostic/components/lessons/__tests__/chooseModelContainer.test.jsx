@@ -2,11 +2,11 @@ import React from 'react';
 import { shallow } from 'enzyme';
 import { ChooseModel } from '../chooseModel.tsx';
 import ConceptSelector from '../../shared/conceptSelector.jsx';
-import { ConceptExplanation } from 'quill-component-library/dist/componentLibrary';
+import { ConceptExplanation } from '../../../../Shared/index';
 
 describe('ChooseModel component', () => {
     const mockProps = {
-        children: [<div key="1" />], 
+        children: [<div key="1" />],
         conceptsFeedback: {
             data: {
                 test123: {
@@ -15,8 +15,8 @@ describe('ChooseModel component', () => {
                     rightBox: 'right'
                 }
             }
-        }, 
-        modelConceptUID: 'test123', 
+        },
+        modelConceptUID: 'test123',
         updateModelConcept: jest.fn()
     };
     const component = shallow(<ChooseModel {...mockProps} />);
