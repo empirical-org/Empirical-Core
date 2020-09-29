@@ -7,8 +7,8 @@ import {
 import { textEditorInputNotEmpty } from '../shared/textEditorClean'
 import {
   Feedback,
-  SentenceFragments
-} from 'quill-component-library/dist/componentLibrary'
+  SentenceFragments,
+} from '../../../../Shared/index'
 const teacherPointingSrc = `${process.env.CDN_URL}/images/icons/teacher-pointing.svg`
 
 interface ModelQuestionProps {

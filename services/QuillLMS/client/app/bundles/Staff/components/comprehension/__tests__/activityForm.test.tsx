@@ -1,8 +1,7 @@
 import * as React from 'react';
 import { shallow } from 'enzyme';
-import { DropdownInput, TextEditor } from 'quill-component-library/dist/componentLibrary';
 import ActivityForm from '../configureSettings/activityForm';
-import { Input, } from '../../../../Shared/index'
+import { Input, TextEditor, } from '../../../../Shared/index'
 jest.mock('string-strip-html', () => ({
   default: jest.fn()
 }));

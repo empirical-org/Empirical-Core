@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
 import ConceptSelector from '../shared/conceptSelector';
-import { ConceptExplanation } from 'quill-component-library/dist/componentLibrary';
+import { ConceptExplanation } from '../../../Shared/index';
 import * as questionActions from '../../actions/questions';
 import { GrammarActivityState } from '../../reducers/grammarActivitiesReducer'
 import { QuestionsReducerState } from '../../reducers/questionsReducer'

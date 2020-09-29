@@ -1,9 +1,9 @@
 import React from 'react'
 import { shallow } from 'enzyme'
-import { DropdownInput } from 'quill-component-library/dist/componentLibrary'
 
 import ClassroomCard from '../classroom_card.tsx'
 import { classroom, students } from './test_data/test_data'
+import { DropdownInput } from '../../../../../../Shared/index'
 
 describe('Classroom card component', () => {
 

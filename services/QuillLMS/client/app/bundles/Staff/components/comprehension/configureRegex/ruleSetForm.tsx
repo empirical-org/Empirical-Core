@@ -1,11 +1,10 @@
 import * as React from "react";
-import { TextEditor } from 'quill-component-library/dist/componentLibrary';
 import { EditorState, ContentState } from 'draft-js'
 import { validateForm } from '../../../helpers/comprehension';
 import { BECAUSE, BUT, SO } from '../../../../../constants/comprehension';
 import { ActivityInterface, ActivityRuleSetInterface, PromptInterface, RegexRuleInterface } from '../../../interfaces/comprehensionInterfaces';
 import RegexSection from './regexSection';
-import { Input, } from '../../../../Shared/index'
+import { Input, TextEditor, } from '../../../../Shared/index'
 
 interface RuleSetFormProps {
   activityData: ActivityInterface,

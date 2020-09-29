@@ -1,7 +1,7 @@
 import * as React from 'react';
 import _ from 'underscore';
 import ConceptSelector from '../shared/conceptSelector.jsx';
-import { ConceptExplanation } from 'quill-component-library/dist/componentLibrary';
+import { ConceptExplanation } from '../../../Shared/index';
 
 export interface ChooseModelProps {
   children?: any,

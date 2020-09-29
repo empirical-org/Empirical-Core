@@ -1,11 +1,8 @@
 import React from 'react';
-import {
-  DropdownInput
-} from 'quill-component-library/dist/componentLibrary'
 
 import SchoolSelector from '../../shared/school_selector'
 import timezones from '../../../../../modules/timezones'
-import { Input, } from '../../../../Shared/index'
+import { Input, DropdownInput, } from '../../../../Shared/index'
 
 const timeZoneOptions = timezones.map((tz) => {
   const newTz = tz

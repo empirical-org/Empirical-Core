@@ -1,6 +1,6 @@
 import * as React from 'react'
 
-import { DataTable } from 'quill-component-library/dist/componentLibrary'
+import { DataTable } from '../../../Shared/index'
 
 import RemoveCoteacherModal from './remove_coteacher_modal'
 import TransferOwnershipModal from './transfer_ownership_modal'

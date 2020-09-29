@@ -1,5 +1,5 @@
 import React from 'react';
-import { DropdownInput } from 'quill-component-library/dist/componentLibrary'
+import { DropdownInput } from '../../../../Shared/index'
 
 export default class ItemDropdown extends React.Component {
   constructor(props) {
@@ -21,7 +21,7 @@ export default class ItemDropdown extends React.Component {
 
   items = () => {
     const { items } = this.props;
-    return items.map(item => { 
+    return items.map(item => {
       return this.formatItem(item);
     });
   };

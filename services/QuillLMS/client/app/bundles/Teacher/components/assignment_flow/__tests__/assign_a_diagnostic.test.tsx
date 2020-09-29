@@ -10,6 +10,6 @@ describe('AssignADiagnostic component', () => {
     expect(component).toMatchSnapshot();
   });
   it('should render 8 AssignmentCard components', ()=> {
-    expect(component.find(AssignmentCard)).toHaveLength(5);
+    expect(component.find(AssignmentCard)).toHaveLength(8);
   })
 });
