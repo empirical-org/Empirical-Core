@@ -5,41 +5,41 @@ class ProgressReports::Standards::NewStudent
   end
 
   def results(filters)
-    topic_id = filters ? filters["topic_id"] : nil
+    standard_id = filters ? filters["standard_id"] : nil
     classroom_id = filters ? filters["classroom_id"] : nil
     results = ::User.with(best_activity_sessions:
-     ("SELECT activity_sessions.*, activities.topic_id FROM activity_sessions
+     ("SELECT activity_sessions.*, activities.standard_id FROM activity_sessions
           JOIN classroom_units ON activity_sessions.classroom_unit_id = classroom_units.id
           JOIN activities ON activity_sessions.activity_id = activities.id
           JOIN classrooms ON classroom_units.classroom_id = classrooms.id
           JOIN classrooms_teachers ON classrooms.id = classrooms_teachers.classroom_id AND classrooms_teachers.user_id = #{@teacher.id}
           WHERE activity_sessions.is_final_score
-          #{topic_conditional(topic_id)}
+          #{standard_conditional(standard_id)}
           #{classroom_conditional(classroom_id)}
           AND activity_sessions.visible
-          AND classroom_units.visible")).with(best_per_topic_user: ProgressReports::Standards::Student.best_per_topic_user).select(<<-SQL
+          AND classroom_units.visible")).with(best_per_standard_user: ProgressReports::Standards::Student.best_per_standard_user).select(<<-SQL
         users.id,
         users.name,
         #{User.sorting_name_sql},
         AVG(best_activity_sessions.percentage) as average_score,
-        COUNT(DISTINCT(best_activity_sessions.topic_id)) as total_standard_count,
+        COUNT(DISTINCT(best_activity_sessions.standard_id)) as total_standard_count,
         COUNT(DISTINCT(best_activity_sessions.activity_id)) as total_activity_count,
-        COALESCE(AVG(proficient_count.topic_count), 0)::integer as proficient_standard_count,
-        COALESCE(AVG(not_proficient_count.topic_count), 0)::integer as not_proficient_standard_count
+        COALESCE(AVG(proficient_count.standard_count), 0)::integer as proficient_standard_count,
+        COALESCE(AVG(not_proficient_count.standard_count), 0)::integer as not_proficient_standard_count
           SQL
     ).joins('JOIN best_activity_sessions ON users.id = best_activity_sessions.user_id')
       .joins("
       LEFT JOIN (
-          select COUNT(DISTINCT(topic_id)) as topic_count, user_id
-           from best_per_topic_user
-           where avg_score_in_topic >= #{@proficiency_cutoff}
+          select COUNT(DISTINCT(standard_id)) as standard_count, user_id
+           from best_per_standard_user
+           where avg_score_in_standard >= #{@proficiency_cutoff}
            group by user_id
         ) as proficient_count ON proficient_count.user_id = users.id"
       ).joins(<<-JOINS
       LEFT JOIN (
-          select COUNT(DISTINCT(topic_id)) as topic_count, user_id
-           from best_per_topic_user
-           where avg_score_in_topic < #{@proficiency_cutoff}
+          select COUNT(DISTINCT(standard_id)) as standard_count, user_id
+           from best_per_standard_user
+           where avg_score_in_standard < #{@proficiency_cutoff}
            group by user_id
         ) as not_proficient_count ON not_proficient_count.user_id = users.id
       JOINS
@@ -50,17 +50,17 @@ class ProgressReports::Standards::NewStudent
   end
 
   # Helper method used as CTE in other queries. Do not attempt to use this by itself
-  def self.best_per_topic_user
+  def self.best_per_standard_user
     <<-BEST
-      select topic_id, user_id, AVG(percentage) as avg_score_in_topic
+      select standard_id, user_id, AVG(percentage) as avg_score_in_standard
       from best_activity_sessions
-      group by topic_id, user_id
+      group by standard_id, user_id
     BEST
   end
 
-  def topic_conditional(topic_id)
-    if topic_id
-      "AND activities.topic_id = #{topic_id}"
+  def standard_conditional(standard_id)
+    if standard_id
+      "AND activities.standard_id = #{standard_id}"
     end
   end
 

@@ -1,36 +1,36 @@
 require 'rails_helper'
 
-describe TopicSerializer, type: :serializer do
-  let(:topic)      { create(:topic) }
-  let(:serializer) { TopicSerializer.new(topic) }
+describe StandardSerializer, type: :serializer do
+  let(:standard)      { create(:standard) }
+  let(:serializer) { StandardSerializer.new(standard) }
 
   describe '#to_json output' do
     let(:json)   { serializer.to_json }
     let(:parsed) { JSON.parse(json) }
 
-    topic_key = 'topic'
+    standard_key = 'standard'
 
-    it "includes '#{topic_key}' key" do
-      expect(parsed.keys).to include(topic_key)
+    it "includes '#{standard_key}' key" do
+      expect(parsed.keys).to include(standard_key)
     end
 
-    describe "'#{topic_key}' object" do
-      let(:parsed_topic) { parsed[topic_key] }
+    describe "'#{standard_key}' object" do
+      let(:parsed_standard) { parsed[standard_key] }
 
-      section_key = 'section'
+      standard_level_key = 'standard_level'
 
       it 'has the correct keys' do
-        expect(parsed_topic.keys)
+        expect(parsed_standard.keys)
           .to match_array %w(id
                              created_at
                              name) +
-                            [section_key] +
-                          %w(topic_category
+                            [standard_level_key] +
+                          %w(standard_category
                              updated_at)
       end
 
-      it "includes a '#{section_key}' Hash" do
-        expect(parsed_topic[section_key]).to be_a(Hash)
+      it "includes a '#{standard_level_key}' Hash" do
+        expect(parsed_standard[standard_level_key]).to be_a(Hash)
       end
     end
   end

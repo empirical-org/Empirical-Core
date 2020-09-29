@@ -237,7 +237,7 @@ Layout/MultilineOperationIndentation:
     - 'QuillLMS/config/puma.rb'
     - 'QuillLMS/spec/controllers/api/v1/classroom_units_controller_spec.rb'
     - 'QuillLMS/spec/serializers/lesson_planner/unit_serializer_spec.rb'
-    - 'QuillLMS/spec/serializers/topic_serializer_spec.rb'
+    - 'QuillLMS/spec/serializers/standard_serializer_spec.rb'
     - 'QuillLMS/spec/services/notify_of_completed_activity_spec.rb'
 
 # Offense count: 120
@@ -296,7 +296,7 @@ Layout/SpaceBeforeBlockBraces:
 # Cop supports --auto-correct.
 Layout/SpaceBeforeComma:
   Exclude:
-    - 'QuillLMS/lib/tasks/topic_category.rake'
+    - 'QuillLMS/lib/tasks/standard_category.rake'
     - 'QuillLMS/spec/controllers/teachers/unit_templates_controller_spec.rb'
     - 'QuillLMS/spec/models/classroom_unit_activity_state_spec.rb'
     - 'QuillLMS/spec/models/unit_activity_spec.rb'

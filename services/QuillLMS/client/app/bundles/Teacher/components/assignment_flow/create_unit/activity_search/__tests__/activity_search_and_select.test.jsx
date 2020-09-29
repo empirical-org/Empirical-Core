@@ -32,7 +32,7 @@ const commaUsageThirdGradeFilters = [
     ],
     "selected": 7
   }, {
-    "field": "section",
+    "field": "standard_level",
     "alias": "Filter by Standard",
     "options": [
       {
@@ -103,11 +103,11 @@ let diagnosticActivity = () => [
     },
     "activity_category_name": "Diagnostics",
     "activity_category_id": 30,
-    "section": {
+    "standard_level": {
       "id": 35,
       "name": "Diagnostic"
     },
-    "section_name": "Diagnostic"
+    "standard_level_name": "Diagnostic"
   }
 ]
 
@@ -146,7 +146,7 @@ describe('ActivitySearchAndSelect component', () => {
         "alias": "Filter By Category",
         selected: null
       }, {
-        field: "section",
+        field: "standard_level",
         "alias": "Filter by Standard",
         selected: null
       }, {
@@ -266,7 +266,7 @@ describe('ActivitySearchAndSelect component', () => {
             "key": "diagnostic"
           }
         ],
-        "section": [
+        "standard_level": [
           {
             "id": "showAllId",
             "name": "All levels"

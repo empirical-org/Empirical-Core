@@ -4,9 +4,9 @@ class CsvExport < ActiveRecord::Base
   EXPORT_TYPE_OPTIONS = %w(activity_sessions
                            standards_classrooms
                            standards_classroom_students
-                           standards_classroom_topics
-                           standards_student_topics
-                           standards_topic_students)
+                           standards_classroom_standards
+                           standards_student_standards
+                           standards_standard_students)
 
   belongs_to :teacher, class_name: 'User'
 
@@ -57,12 +57,12 @@ class CsvExport < ActiveRecord::Base
         CsvExporter::Standards::Classroom.new
       when :standards_classroom_students
         CsvExporter::Standards::ClassroomStudent.new
-      when :standards_classroom_topics
-        CsvExporter::Standards::ClassroomTopic.new
-      when :standards_topic_students
-        CsvExporter::Standards::TopicStudent.new
-      when :standards_student_topics
-        CsvExporter::Standards::StudentTopic.new
+      when :standards_classroom_standards
+        CsvExporter::Standards::ClassroomStandard.new
+      when :standards_standard_students
+        CsvExporter::Standards::StandardStudent.new
+      when :standards_student_standards
+        CsvExporter::Standards::StudentStandard.new
       else
         raise "Export type named #{export_type} could not be found!"
       end

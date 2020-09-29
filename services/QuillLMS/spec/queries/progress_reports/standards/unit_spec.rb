@@ -3,8 +3,8 @@ require 'rails_helper'
 describe ProgressReports::Standards::Unit do
 
   describe "getting units for the progress report" do
-    include_context 'Section Progress Report'
-    let(:section_ids) { [sections[0].id, sections[1].id] }
+    include_context 'StandardLevel Progress Report'
+    let(:standard_level_ids) { [standard_levels[0].id, standard_levels[1].id] }
     let(:filters) { {} }
     let(:teacher) {classrooms.first.owner}
     before do
@@ -17,11 +17,11 @@ describe ProgressReports::Standards::Unit do
       expect(subject.size).to eq(units.size)
     end
 
-    context 'sections' do
-      let(:filters) { {section_id: section_ids} }
+    context 'standard_levels' do
+      let(:filters) { {standard_level_id: standard_level_ids} }
 
-      it 'can retrieve units based on sections' do
-        expect(subject.size).to eq(2) # 1 unit created for each section
+      it 'can retrieve units based on standard_levels' do
+        expect(subject.size).to eq(2) # 1 unit created for each standard_level
       end
     end
 
