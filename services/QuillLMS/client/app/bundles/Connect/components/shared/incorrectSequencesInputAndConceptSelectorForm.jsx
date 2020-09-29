@@ -1,7 +1,7 @@
 import React from 'react';
 import _ from 'underscore';
 import ConceptSelectorWithCheckbox from './conceptSelectorWithCheckbox.jsx';
-import { TextEditor, isValidRegex } from 'quill-component-library/dist/componentLibrary';
+import { TextEditor, isValidRegex } from '../../../Shared/index';
 import { EditorState, ContentState } from 'draft-js'
 import ResponseComponent from '../questions/responseComponent'
 import request from 'request'

@@ -1,6 +1,6 @@
 import * as React from 'react'
 
-import { DropdownInput, DataTable } from 'quill-component-library/dist/componentLibrary'
+import { DataTable, DropdownInput, } from '../../../Shared/index'
 
 interface ViewAsStudentModalProps {
   classrooms: Array<any>;

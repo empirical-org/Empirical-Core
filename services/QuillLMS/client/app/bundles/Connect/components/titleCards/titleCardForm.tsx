@@ -1,8 +1,6 @@
 import * as React from 'react'
 import { connect } from 'react-redux'
-import {
-  TextEditor,
-} from 'quill-component-library/dist/componentLibrary';
+import { TextEditor, } from '../../../Shared/index';
 import { EditorState, ContentState } from 'draft-js'
 import titleCardActions from '../../actions/titleCards'
 import _ from 'lodash'

@@ -4,7 +4,7 @@ import moment from 'moment';
 import "react-dates/initialize";
 
 import { SingleDatePicker } from 'react-dates'
-import { DataTable } from 'quill-component-library/dist/componentLibrary'
+import { DataTable } from '../../../../../Shared/index'
 
 const tableHeaders = [
   {

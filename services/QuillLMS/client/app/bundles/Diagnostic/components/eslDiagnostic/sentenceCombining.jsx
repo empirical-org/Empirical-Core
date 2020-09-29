@@ -6,10 +6,7 @@ import ReactTransition from 'react-addons-css-transition-group';
 import { getGradedResponsesWithCallback } from '../../actions/responses.js';
 import RenderQuestionFeedback from '../renderForQuestions/feedbackStatements.jsx';
 import RenderQuestionCues from '../renderForQuestions/cues.tsx';
-import {
-  SentenceFragments,
-  Feedback
-} from 'quill-component-library/dist/componentLibrary';
+import { Feedback, SentenceFragments, } from '../../../Shared/index';
 import RenderFeedback from '../renderForQuestions/feedback';
 import getResponse from '../renderForQuestions/checkAnswer';
 import { submitQuestionResponse } from '../renderForQuestions/submitResponse.js';

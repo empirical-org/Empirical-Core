@@ -2,12 +2,11 @@ import * as React from 'react';
 import { shallow } from 'enzyme';
 import { createMemoryHistory, createLocation } from 'history';
 import TurkSessions from '../gatherResponses/turkSessions';
-import { DataTable } from 'quill-component-library/dist/componentLibrary';
 import 'whatwg-fetch';
 
 describe('TurkSessions component', () => {
   const mockProps = {
-    match: { 
+    match: {
       params: { activityId: '1' },
       isExact: true,
       path: '',

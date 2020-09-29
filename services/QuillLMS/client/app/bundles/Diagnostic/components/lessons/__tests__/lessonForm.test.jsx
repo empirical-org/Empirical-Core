@@ -4,7 +4,7 @@ import { LessonForm } from '../lessonForm';
 import {
   SortableList,
   TextEditor
-} from 'quill-component-library/dist/componentLibrary';
+} from '../../../../Shared/index';
 import { EditorState, ContentState } from 'draft-js'
 import ChooseModel from '../chooseModel.tsx'
 import _ from 'underscore';
@@ -41,32 +41,32 @@ describe('LessonForm component', () => {
     };
     const mockProps = {
         currentValues: {
-            flag: 'beta', 
-            isELL: true, 
-            landingPageHtml: '<p>Test content</p>', 
-            modelConceptUID: 'QsC1lua0t41_J2em_c7kUA', 
+            flag: 'beta',
+            isELL: true,
+            landingPageHtml: '<p>Test content</p>',
+            modelConceptUID: 'QsC1lua0t41_J2em_c7kUA',
             name: 'Awesome Diagnostic',
             questions: mockQuestions
         },
         lesson: {
-            flag: 'beta', 
-            isELL: true, 
-            landingPageHtml: '<p>Test content</p>', 
-            modelConceptUID: 'QsC1lua0t41_J2em_c7kUA', 
+            flag: 'beta',
+            isELL: true,
+            landingPageHtml: '<p>Test content</p>',
+            modelConceptUID: 'QsC1lua0t41_J2em_c7kUA',
             name: 'Awesome Diagnostic',
             questions: mockQuestions
         },
         submit: jest.fn(),
         questions: {
-            hasreceiveddata: true, 
-            submittingnew: false, 
-            states: {}, 
+            hasreceiveddata: true,
+            submittingnew: false,
+            states: {},
             data: mockQuestionData
         },
         concepts: {
-            hasreceiveddata: true, 
-            submittingnew: false, 
-            states: {}, 
+            hasreceiveddata: true,
+            submittingnew: false,
+            states: {},
             data: {
                 0: [{
                         id: 589,
@@ -80,25 +80,25 @@ describe('LessonForm component', () => {
             }
         },
         sentenceFragments: {
-            hasreceiveddata: true, 
-            submittingnew: false, 
-            states: {}, 
+            hasreceiveddata: true,
+            submittingnew: false,
+            states: {},
             data: mockQuestionData
         },
         conceptsFeedback: {
-            hasreceiveddata: true, 
-            submittingnew: false, 
-            states: {}, 
+            hasreceiveddata: true,
+            submittingnew: false,
+            states: {},
             data: mockQuestionData
         },
         fillInBlank: {
-            hasreceiveddata: true, 
-            submittingnew: false, 
-            states: {}, 
+            hasreceiveddata: true,
+            submittingnew: false,
+            states: {},
             data: mockQuestionData
         },
         titleCards: {
-            hasreceiveddata: true, 
+            hasreceiveddata: true,
             data: {}
         },
         dispatch: jest.fn()

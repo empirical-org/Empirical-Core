@@ -2,9 +2,9 @@ import * as React from 'react'
 import {
   TextEditor,
   ConceptExplanation
-} from 'quill-component-library/dist/componentLibrary'
+} from '../../../Shared/index'
 import { EditorState, ContentState } from 'draft-js'
-export default class extends React.Component {
+export default class FeedbackForm extends React.Component {
   constructor(props) {
     super(props)
 

@@ -1,9 +1,8 @@
 import * as React from 'react';
+import 'whatwg-fetch';
 import { shallow } from 'enzyme';
 import { createMemoryHistory, createLocation } from 'history';
 import ActivitySettings from '../configureSettings/activitySettings';
-import { DataTable } from 'quill-component-library/dist/componentLibrary';
-import 'whatwg-fetch';
 
 const mockProps = {
   match: {
@@ -18,9 +17,9 @@ const mockProps = {
   location: createLocation('')
 }
 const fields = [
-  'Title', 
-  'Development Stage', 
-  'Passage Length', 
+  'Title',
+  'Development Stage',
+  'Passage Length',
   'Because',
   'But',
   'So'

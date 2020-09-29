@@ -11,7 +11,7 @@ import RemoveCoteacherModal from '../remove_coteacher_modal'
 import TransferOwnershipModal from '../transfer_ownership_modal'
 import InviteCoteachersModal from '../invite_coteachers_modal'
 
-import { DataTable } from 'quill-component-library/dist/componentLibrary'
+import { DataTable } from '../../../../Shared/index'
 
 import { classroomWithStudents, userProps, classroomProps } from './test_data/test_data'
 
