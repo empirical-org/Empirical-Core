@@ -1,5 +1,4 @@
 import * as React from "react";
-import { TextEditor } from 'quill-component-library/dist/componentLibrary';
 import { EditorState, ContentState } from 'draft-js'
 // import { flagOptions } from '../../../../../constants/comprehension'
 import { validateForm, buildActivity, buildBlankPrompt, promptsByConjunction } from '../../../helpers/comprehension';
@@ -18,7 +17,7 @@ import {
   SO_STEM
 } from '../../../../../constants/comprehension';
 import { ActivityInterface, PromptInterface, PassagesInterface } from '../../../interfaces/comprehensionInterfaces';
-import { Input, } from '../../../../Shared/index'
+import { Input, TextEditor, } from '../../../../Shared/index'
 
 // TODO: add form inputs for course, target reading level and reading level score
 

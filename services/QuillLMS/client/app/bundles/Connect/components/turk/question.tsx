@@ -6,7 +6,7 @@ import {
 } from '../../actions/responses.js';
 import RenderQuestionFeedback from '../renderForQuestions/feedbackStatements.jsx';
 import RenderQuestionCues from '../renderForQuestions/cues.jsx';
-import { Feedback, SentenceFragments } from 'quill-component-library/dist/componentLibrary';
+import { Feedback, SentenceFragments } from '../../../Shared/index';
 import getResponse from '../renderForQuestions/checkAnswer';
 import updateResponseResource from '../renderForQuestions/updateResponseResource.js';
 import TextEditor from '../renderForQuestions/renderTextEditor.jsx';

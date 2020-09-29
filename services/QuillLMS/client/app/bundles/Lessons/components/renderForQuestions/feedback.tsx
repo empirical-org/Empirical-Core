@@ -7,7 +7,7 @@ const multiple = 'https://assets.quill.org/images/icons/multiple_choice_icon.svg
 const success = 'https://assets.quill.org/images/icons/check-mark.svg';
 import getAnswerState from './answerState';
 import { Response } from 'quill-marking-logic';
-import { Feedback } from 'quill-component-library/dist/componentLibrary';
+import { Feedback, } from '../../../Shared/index'
 
 class FeedbackComponent extends React.Component<any, any> {
   constructor(props){

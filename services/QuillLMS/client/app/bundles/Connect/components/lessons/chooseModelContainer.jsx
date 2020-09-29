@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import _ from 'underscore';
 import ConceptSelector from '../shared/conceptSelector.jsx';
-import { ConceptExplanation } from 'quill-component-library/dist/componentLibrary';
+import { ConceptExplanation } from '../../../Shared/index';
 
 class ChooseModelContainer extends Component {
   removeModelConcept = () => {

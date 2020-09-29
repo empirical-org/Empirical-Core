@@ -1,7 +1,7 @@
 import * as React from 'react'
 import moment from 'moment'
 
-import { DropdownInput, DataTable } from 'quill-component-library/dist/componentLibrary'
+import { DropdownInput, DataTable } from '../../../Shared/index'
 
 import EditStudentAccountModal from './edit_student_account_modal'
 import ResetStudentPasswordModal from './reset_student_password_modal'

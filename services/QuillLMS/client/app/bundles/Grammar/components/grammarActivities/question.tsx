@@ -2,12 +2,16 @@ import * as React from "react";
 import ContentEditable from 'react-contenteditable';
 import { Row } from "antd";
 import { checkGrammarQuestion, Response, ConceptResult } from 'quill-marking-logic'
-import { ProgressBar, ConceptExplanation, Feedback } from 'quill-component-library/dist/componentLibrary';
 import Cues from './cues'
 import { Question } from '../../interfaces/questions'
 import { GrammarActivity } from '../../interfaces/grammarActivities'
 import * as responseActions from '../../actions/responses'
-import { hashToCollection } from '../../../Shared/index'
+import {
+  hashToCollection,
+  ProgressBar,
+  ConceptExplanation,
+  Feedback
+} from '../../../Shared/index'
 
 const ALLOWED_ATTEMPTS = 5
 const UNANSWERED = 'unanswered'

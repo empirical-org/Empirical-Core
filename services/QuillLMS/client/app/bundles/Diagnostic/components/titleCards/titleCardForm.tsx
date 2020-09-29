@@ -1,14 +1,14 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import {
-  TextEditor,
-} from 'quill-component-library/dist/componentLibrary';
 import { EditorState, ContentState } from 'draft-js'
 import {
   submitNewTitleCard,
   submitTitleCardEdit
 } from '../../actions/titleCards.ts'
-import { hashToCollection } from '../../../Shared/index'
+import {
+  hashToCollection,
+  TextEditor
+} from '../../../Shared/index'
 
 import _ from 'lodash'
 

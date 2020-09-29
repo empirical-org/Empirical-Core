@@ -1,7 +1,7 @@
 import * as React from 'react'
 import * as moment from 'moment'
 
-import { DataTable } from 'quill-component-library/dist/componentLibrary'
+import { DataTable } from '../../../Shared/index'
 
 import GradeOptions from '../classrooms/grade_options'
 import { requestPost } from '../../../../modules/request/index.js';
@@ -46,7 +46,7 @@ const ModalContent = ({ classes, selectedClassroomIds, setSelectedClassroomIds, 
     }
   }
   const rows = classes.sort((a, b) => a.created_at - b.created_at).map(classroom => {
-    const { name, id, created_at, student_count, grade, error } = classroom
+    const { name, id, created_at, student_count, grade, error, students } = classroom
     const gradeOption = GradeOptions.find(g => [grade, Number(grade)].includes(g.value))
     return {
       name,
@@ -54,7 +54,7 @@ const ModalContent = ({ classes, selectedClassroomIds, setSelectedClassroomIds, 
       checked: selectedClassroomIds.includes(id),
       grade: gradeOption ? gradeOption.label : 'Other',
       created: moment(created_at).format('MMM D, YYYY'),
-      students: student_count
+      students: student_count || students.length
     }
   })
 

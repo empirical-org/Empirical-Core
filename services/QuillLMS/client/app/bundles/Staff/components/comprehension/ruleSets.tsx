@@ -1,6 +1,6 @@
 import * as React from "react";
 import { Link } from 'react-router-dom'
-import { DataTable, Error, Spinner } from 'quill-component-library/dist/componentLibrary';
+import { DataTable, Error, Spinner } from '../../../Shared/index';
 import { promptStems } from '../../../../constants/comprehension'
 const quillCheckmark = `https://assets.quill.org/images/icons/check-circle-small.svg`;
 // const quillCheckmark = `${process.env.QUILL_CDN_URL}/images/icons/check-circle-small.svg`;
@@ -13,7 +13,7 @@ const RuleSets = (props) => {
   const [ruleSets, setRuleSets] = React.useState([]);
   const [loading, setLoading] = React.useState(false);
   const [error, setError] = React.useState(null);
-  
+
   const fetchData = async () => {
     try {
       setLoading(true);
@@ -75,7 +75,7 @@ const RuleSets = (props) => {
   }
 
   const dataTableFields = [
-    { name: "Description", attribute:"description", width: "400px" }, 
+    { name: "Description", attribute:"description", width: "400px" },
     { name: "Because", attribute:"because_prompt", width: "100px" },
     { name: "But", attribute:"but_prompt", width: "100px" },
     { name: "So", attribute:"so_prompt", width: "100px" },

@@ -1,8 +1,6 @@
 import React from 'react';
 import _ from 'underscore';
-import {
-  Feedback
-} from 'quill-component-library/dist/componentLibrary';
+import { Feedback } from '../../../Shared/index';
 import { connect } from 'react-redux';
 const jsDiff = require('diff');
 

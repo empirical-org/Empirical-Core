@@ -1,9 +1,9 @@
 import React from 'react';
 import _ from 'lodash';
-import { DropdownInput } from 'quill-component-library/dist/componentLibrary'
 
 import FilterButton from './filter_button.jsx';
 import getParameterByName from '../../../../modules/get_parameter_by_name';
+import { DropdownInput } from '../../../../../../Shared/index'
 
 export default class ActivitySearchFilter extends React.Component {
   constructor(props) {
