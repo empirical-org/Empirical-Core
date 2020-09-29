@@ -1,7 +1,7 @@
 import React from 'react';
-import { DropdownInput } from 'quill-component-library/dist/componentLibrary';
 import $ from 'jquery';
 
+import { DropdownInput } from '../../../../Shared/index';
 import { requestGet } from '../../../../../modules/request/index';
 
 const recommendationsButton = ({ isDiagnostic, buttonGroupCallback, }) => {

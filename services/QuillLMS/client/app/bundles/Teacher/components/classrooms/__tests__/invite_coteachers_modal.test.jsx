@@ -1,10 +1,8 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 
-import { DataTable } from 'quill-component-library/dist/componentLibrary'
-
 import InviteCoteacherModal from '../invite_coteachers_modal'
-import { Input, } from '../../../../Shared/index'
+import { Input, DataTable, } from '../../../../Shared/index'
 
 import { classroomWithStudents, classroomProps } from './test_data/test_data'
 

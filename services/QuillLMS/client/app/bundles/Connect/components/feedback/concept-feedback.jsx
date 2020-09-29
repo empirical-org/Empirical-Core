@@ -5,7 +5,7 @@ import actions from '../../actions/concepts-feedback'
 import feedbackActions from '../../actions/concepts-feedback'
 import _ from 'underscore'
 import FeedbackForm from './feedbackForm.jsx'
-import { ConceptExplanation } from 'quill-component-library/dist/componentLibrary';
+import { ConceptExplanation } from '../../../Shared/index';
 
 class ConceptFeedback extends React.Component {
 

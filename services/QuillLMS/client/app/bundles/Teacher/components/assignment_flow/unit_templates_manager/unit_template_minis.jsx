@@ -2,7 +2,7 @@ import React from 'react'
 import _ from 'underscore'
 import _l from 'lodash'
 import { Link } from 'react-router-dom'
-import { DropdownInput } from 'quill-component-library/dist/componentLibrary'
+import { DropdownInput } from '../../../../Shared/index'
 
 import UnitTemplateMini from './unit_template_mini'
 import AssignmentFlowNavigation from '../assignment_flow_navigation.tsx'

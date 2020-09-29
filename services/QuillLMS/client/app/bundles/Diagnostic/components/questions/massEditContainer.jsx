@@ -2,7 +2,7 @@ import React from 'react';
 import request from 'request';
 import { connect } from 'react-redux';
 import massEdit from '../../actions/massEdit';
-import { TextEditor } from 'quill-component-library/dist/componentLibrary';
+import { TextEditor } from '../../../Shared/index';
 import { EditorState, ContentState } from 'draft-js'
 import getBoilerplateFeedback from './boilerplateFeedback.jsx';
 import ConceptResultList from './conceptResultList.jsx';
@@ -166,7 +166,7 @@ class MassEditContainer extends React.Component {
   renderMassEditForm() {
     const { massEdit } = this.props;
     const { selectedResponses } = massEdit;
-    const { massEditFeedback, massEditSummaryListButtonText, massEditSummaryListDisplay, selectedMassEditBoilerplate, selectedMassEditBoilerplateCategory } = this.state; 
+    const { massEditFeedback, massEditSummaryListButtonText, massEditSummaryListDisplay, selectedMassEditBoilerplate, selectedMassEditBoilerplateCategory } = this.state;
     return (
       <div>
         <div className="card is-fullwidth has-bottom-margin has-top-margin">

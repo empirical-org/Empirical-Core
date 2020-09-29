@@ -2,7 +2,7 @@ import React from 'react'
 import {
   TextEditor,
   FlagDropdown
-} from 'quill-component-library/dist/componentLibrary';
+} from '../../../Shared/index';
 import { EditorState, ContentState } from 'draft-js'
 import _ from 'lodash'
 import ConceptSelector from '../shared/conceptSelector.jsx'

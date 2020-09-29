@@ -1,8 +1,9 @@
 import React from 'react'
-import { TextEditor, ConceptExplanation } from 'quill-component-library/dist/componentLibrary'
 import { EditorState, ContentState } from 'draft-js'
 
-export default class extends React.Component {
+import { TextEditor, ConceptExplanation } from '../../../Shared/index'
+
+export default class FeedbackForm extends React.Component {
 
   state = {
     description: this.props.description,

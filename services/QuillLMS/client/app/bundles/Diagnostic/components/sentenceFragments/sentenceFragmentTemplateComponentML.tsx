@@ -7,7 +7,6 @@ import * as ReactTransition from 'react-addons-css-transition-group';
 import {checkSentenceFragment, Response } from 'quill-marking-logic'
 import Feedback from '../renderForQuestions/feedback';
 import RenderQuestionFeedback from '../renderForQuestions/feedbackStatements.jsx';
-import { ConceptExplanation, } from 'quill-component-library/dist/componentLibrary';
 import {
   submitResponse,
   incrementResponseCount,
@@ -15,7 +14,10 @@ import {
   getGradedResponsesWithCallback
 } from '../../actions/responses';
 import updateResponseResource from '../renderForQuestions/updateResponseResource.js';
-import { hashToCollection } from '../../../Shared/index'
+import {
+  hashToCollection,
+  ConceptExplanation,
+} from '../../../Shared/index'
 
 const icon = `${process.env.CDN_URL}/images/icons/direction.svg`
 

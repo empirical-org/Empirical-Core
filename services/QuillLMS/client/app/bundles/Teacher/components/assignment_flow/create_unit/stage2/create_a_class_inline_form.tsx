@@ -1,8 +1,7 @@
 import * as React from 'react'
-import { DropdownInput } from 'quill-component-library/dist/componentLibrary'
 
 import GradeOptions from '../../../classrooms/grade_options'
-import { Input, } from '../../../../../Shared/index'
+import { Input, DropdownInput, } from '../../../../../Shared/index'
 import { requestGet, requestPost } from '../../../../../../modules/request/index.js';
 
 const informationSrc = `${process.env.CDN_URL}/images/icons/information.svg`

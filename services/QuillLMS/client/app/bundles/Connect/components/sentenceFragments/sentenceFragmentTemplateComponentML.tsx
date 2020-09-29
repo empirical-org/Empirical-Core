@@ -4,7 +4,6 @@ import * as _ from 'underscore';
 import {checkSentenceFragment, Response } from 'quill-marking-logic'
 import Feedback from '../renderForQuestions/feedback';
 import RenderQuestionFeedback from '../renderForQuestions/feedbackStatements.jsx';
-import { ConceptExplanation } from 'quill-component-library/dist/componentLibrary';
 import {
   getGradedResponsesWithCallback
 } from '../../actions/responses';
@@ -12,7 +11,7 @@ import updateResponseResource from '../renderForQuestions/updateResponseResource
 import POSMatcher from '../../libs/sentenceFragment';
 import { SentenceFragmentQuestion } from '../../interfaces/questions';
 import { Attempt } from '../renderForQuestions/answerState.js';
-import { hashToCollection, } from '../../../Shared/index'
+import { hashToCollection, ConceptExplanation, } from '../../../Shared/index'
 
 const icon = `${process.env.CDN_URL}/images/icons/direction.svg`
 
@@ -181,10 +180,10 @@ class PlaySentenceFragment extends React.Component<PlaySentenceFragmentProps, Pl
       if(previewMode) {
         const responseMatcher = new POSMatcher(fields);
         const submittedResponse = responseMatcher.checkMatch(response);
-        this.setState(prevState => ({ 
-          previewAttempt: submittedResponse, 
-          previewAttemptSubmitted: true, 
-          previewSubmissionCount: prevState.previewSubmissionCount + 1 
+        this.setState(prevState => ({
+          previewAttempt: submittedResponse,
+          previewAttemptSubmitted: true,
+          previewSubmissionCount: prevState.previewSubmissionCount + 1
         }));
       }
       const matched = {response: resp}
