@@ -57,46 +57,46 @@ module Demo::ReportDemoCreator
     students = []
     student_values = [
       {
-        name: "William Shakespeare",
-        username: "william.shakespeare.#{classroom.id}@demo-teacher",
+        name: "Ken Liu",
+        username: "ken.liu.#{classroom.id}@demo-teacher",
         role: "student",
         password: 'password',
         password_confirmation: 'password',
       },
       {
-        name: "Harper Lee",
-        username: "harper.lee.#{classroom.id}@demo-teacher",
+        name: "Jason Reynolds",
+        username: "jason.reynolds.#{classroom.id}@demo-teacher",
         role: "student",
         password: 'password',
         password_confirmation: 'password',
       },
       {
-        name: "Charles Dickens",
-        username: "charles.dickens.#{classroom.id}@demo-teacher",
+        name: "Nic Stone",
+        username: "nic.stone.#{classroom.id}@demo-teacher",
         role: "student",
         password: 'password',
         password_confirmation: 'password',
       },
       {
-        name: "James Joyce",
-        username: "james.joyce.#{classroom.id}@demo-teacher",
+        name: "Tahereh Mafi",
+        username: "tahereh.mafi.#{classroom.id}@demo-teacher",
         role: "student",
         password: 'password',
         password_confirmation: 'password',
       },
       {
-        name: "Maya Angelou",
-        username: "maya.angelou.#{classroom.id}@demo-teacher",
+        name: "Angie Thomas",
+        username: "angie.thomas.#{classroom.id}@demo-teacher",
         role: "student",
-        email: 'maya_angelou_demo@quill.org',
+        email: 'angie_thomas_demo@quill.org',
         password: 'password',
         password_confirmation: 'password'
       }
     ]
-    # In case the old one didn't get deleted, delete Maya Angelou so that we
+    # In case the old one didn't get deleted, delete Angie Thomas so that we
     # won't raise a validation error.
-    # This is important as we have /student set to go to the Maya Angelou email
-    User.where(email: 'maya_angelou_demo@quill.org').each(&:destroy)
+    # This is important as we have /student set to go to the Angie Thomas email
+    User.where(email: 'angie_thomas_demo@quill.org').each(&:destroy)
     student_values.each do |values|
       student = User.create(values)
       StudentsClassrooms.create({student_id: student.id, classroom_id: classroom.id})
