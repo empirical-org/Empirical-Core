@@ -28,7 +28,7 @@ exports[`AssignADiagnostic component should render 1`] = `
             },
           ]
         }
-        buttonLink="https://quill.org/diagnostic/#/play/diagnostic/-LKX2sTTnPVhTOrWyUx9"
+        buttonLink="/activity_sessions/anonymous?activity_id=849"
         buttonText="Preview"
         header="Starter Diagnostic"
         imgAlt="page with a little writing"
@@ -48,7 +48,7 @@ exports[`AssignADiagnostic component should render 1`] = `
             },
           ]
         }
-        buttonLink="https://quill.org/diagnostic/#/play/diagnostic/-LKbzH_Er916zGjgHk5U"
+        buttonLink="/activity_sessions/anonymous?activity_id=850"
         buttonText="Preview"
         header="Intermediate Diagnostic"
         imgAlt="page with a medium amount of writing"
@@ -68,7 +68,7 @@ exports[`AssignADiagnostic component should render 1`] = `
             },
           ]
         }
-        buttonLink="https://quill.org/diagnostic/#/play/diagnostic/-LVxlcVPdW5DvAh_xgnj"
+        buttonLink="/activity_sessions/anonymous?activity_id=888"
         buttonText="Preview"
         header="Advanced Diagnostic"
         imgAlt="page with a large amount of writing"
@@ -88,7 +88,7 @@ exports[`AssignADiagnostic component should render 1`] = `
             },
           ]
         }
-        buttonLink="https://quill.org/diagnostic/#/play/diagnostic/-LyFRZvbHAmooTTIIVE2"
+        buttonLink="/activity_sessions/anonymous?activity_id=1161"
         buttonText="Preview"
         header="ELL Starter Diagnostic (Level 1 - Emerging)"
         imgAlt="page with less writing that says ELL in the corner"
@@ -108,11 +108,71 @@ exports[`AssignADiagnostic component should render 1`] = `
             },
           ]
         }
-        buttonLink="https://quill.org/diagnostic/#/play/diagnostic/ell"
+        buttonLink="/activity_sessions/anonymous?activity_id=447"
         buttonText="Preview"
         header="ELL Diagnostic (Level 2 - Expanding)"
         imgAlt="page with writing that says ELL in the corner"
         imgSrc="undefined/images/illustrations/diagnostics-ell.svg"
+        selectCard={[Function]}
+      />
+      <AssignmentCard
+        bodyArray={
+          Array [
+            Object {
+              "key": "What",
+              "text": "Compound-complex sentences, appositive phrases, relative clauses, participial phrases, and parallel structure",
+            },
+            Object {
+              "key": "When",
+              "text": "Your students are developing their advanced sentence-level writing skills to prepare for writing in an AP® classroom.",
+            },
+          ]
+        }
+        buttonLink="/activity_sessions/anonymous?activity_id=992"
+        buttonText="Preview"
+        header="AP Writing Skills Survey"
+        imgAlt="page with writing that says AP in corner"
+        imgSrc="undefined/images/college_board/diagnostics-ap.svg"
+        selectCard={[Function]}
+      />
+      <AssignmentCard
+        bodyArray={
+          Array [
+            Object {
+              "key": "What",
+              "text": "Subject-verb agreement, pronouns, compound subjects, objects, and predicates, and compound and complex sentences",
+            },
+            Object {
+              "key": "When",
+              "text": "Your students are working on basic sentence patterns and the skills outlined in the Pre-AP® English High School Course Framework.",
+            },
+          ]
+        }
+        buttonLink="/activity_sessions/anonymous?activity_id=1229"
+        buttonText="Preview"
+        header="Pre-AP Writing Skills Survey 1"
+        imgAlt="page with writing that says Pre-AP on bottom"
+        imgSrc="undefined/images/college_board/diagnostics-preap.svg"
+        selectCard={[Function]}
+      />
+      <AssignmentCard
+        bodyArray={
+          Array [
+            Object {
+              "key": "What",
+              "text": "Conjunctive adverbs, relative clauses, appositive phrases, participial phrases, and parallel structure",
+            },
+            Object {
+              "key": "When",
+              "text": "Your students are working on basic sentence patterns and the skills outlined in the Pre-AP® English High School Course Framework.",
+            },
+          ]
+        }
+        buttonLink="/activity_sessions/anonymous?activity_id=1230"
+        buttonText="Preview"
+        header="Pre-AP Writing Skills Survey 2"
+        imgAlt="page with writing that says Pre-AP on bottom"
+        imgSrc="undefined/images/college_board/diagnostics-preap.svg"
         selectCard={[Function]}
       />
     </div>
