@@ -20,13 +20,7 @@ describe StandardSerializer, type: :serializer do
       standard_level_key = 'standard_level'
 
       it 'has the correct keys' do
-        expect(parsed_standard.keys)
-          .to match_array %w(id
-                             created_at
-                             name) +
-                            [standard_level_key] +
-                          %w(standard_category
-                             updated_at)
+        expect(parsed_standard.keys).to match_array %w(id created_at name) + [standard_level_key] + %w(standard_category updated_at)
       end
 
       it "includes a '#{standard_level_key}' Hash" do
