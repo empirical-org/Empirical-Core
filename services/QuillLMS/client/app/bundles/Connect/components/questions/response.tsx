@@ -21,7 +21,7 @@ import {
 const jsDiff = require('diff');
 const C = require('../../constants').default;
 
-interface Response {
+interface ResponseObj {
   author: string,
   child_count: number,
   concept: string,
@@ -51,7 +51,7 @@ interface ResponseState {
   selectedBoilerplateCategory: string,
   selectedConcept: string,
   actions: object,
-  parent: Response,
+  parent: ResponseObj,
   newConceptResult: {
     conceptUID: string,
     correct: boolean,
@@ -76,7 +76,7 @@ interface ResponseProps {
   getResponse: (responseID: string) => {},
   getMatchingResponse: (rid) => void,
   questionID: string,
-  response: Response,
+  response: ResponseObj,
   question: {
     modelConceptUID: string,
     conceptID: string,
@@ -93,7 +93,7 @@ interface ResponseProps {
   states: {}
 }
 
-export default class extends React.Component<ResponseProps, ResponseState> {
+export default class Response extends React.Component<ResponseProps, ResponseState> {
 
   constructor(props) {
     super(props)
@@ -114,7 +114,7 @@ export default class extends React.Component<ResponseProps, ResponseState> {
         conceptResults = concept_results
       }
     }
-    this.setState({
+    this.state = {
       feedback: feedback || '',
       selectedBoilerplate: '',
       selectedBoilerplateCategory: selectedBoilerplateCategory || '',
@@ -126,7 +126,7 @@ export default class extends React.Component<ResponseProps, ResponseState> {
         correct: true,
       },
       conceptResults
-    })
+    }
   }
 
   UNSAFE_componentWillReceiveProps(nextProps) {
