@@ -3,7 +3,7 @@ import _ from 'underscore'
 import { AffectedResponse, isValidRegex } from 'quill-component-library/dist/componentLibrary'
 import { focusPointMatchHelper, incorrectSequenceMatchHelper } from "quill-marking-logic"
 
-import Response from './response.jsx'
+import Response from './response'
 import massEdit from '../../actions/massEdit';
 
 export default class ResponseList extends React.Component {
