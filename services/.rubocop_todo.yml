@@ -75,7 +75,7 @@ Layout/BlockEndNewline:
     - 'QuillLMS/spec/support/shared/concept_progress_report.rb'
     - 'QuillLMS/spec/support/shared/profile/profile.rb'
     - 'QuillLMS/spec/support/shared/student_concept_progress_report.rb'
-    - 'QuillLMS/spec/support/shared/topic_progress_report.rb'
+    - 'QuillLMS/spec/support/shared/standard_progress_report.rb'
 
 # Offense count: 69
 # Cop supports --auto-correct.
@@ -202,7 +202,7 @@ Layout/MultilineBlockLayout:
     - 'QuillLMS/spec/support/shared/concept_progress_report.rb'
     - 'QuillLMS/spec/support/shared/profile/profile.rb'
     - 'QuillLMS/spec/support/shared/student_concept_progress_report.rb'
-    - 'QuillLMS/spec/support/shared/topic_progress_report.rb'
+    - 'QuillLMS/spec/support/shared/standard_progress_report.rb'
     - 'QuillLMS/spec/workers/lesson_plan_email_worker_spec.rb'
 
 # Offense count: 128
