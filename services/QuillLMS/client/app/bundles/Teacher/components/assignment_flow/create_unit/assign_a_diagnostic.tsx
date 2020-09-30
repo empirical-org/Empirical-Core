@@ -90,7 +90,7 @@ const minis = ({ history }) => [
   />),
   (<AssignmentCard
     bodyArray={[
-      { key: 'What', text: 'Subject-verb agreement, verb tense, adjectives, adverbs, articles, and prepositions', },
+      { key: 'What', text: 'Subject-verb agreement, verb tense, adjectives, adverbs, articles, prepositions, compound and complex sentences, and capitalization', },
       { key: 'When', text: 'Your students are English language learners at the developing, expanding, or bridging stages of language proficiency.', }
     ]}
     buttonLink={`/activity_sessions/anonymous?activity_id=${ELL_DIAGNOSTIC_ACTIVITY_ID}`}
