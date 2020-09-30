@@ -1,15 +1,15 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import QuestionSelector from 'react-select-search';
-import {
-  SortableList,
-  TextEditor
-} from 'quill-component-library/dist/componentLibrary';
 import { EditorState, ContentState } from 'draft-js'
 import ChooseModelContainer from './chooseModelContainer.jsx'
 import _ from 'underscore';
 
-import { hashToCollection, } from '../../../Shared/index'
+import {
+  hashToCollection,
+  SortableList,
+  TextEditor
+} from '../../../Shared/index'
 
 class LessonForm extends React.Component {
   constructor(props) {

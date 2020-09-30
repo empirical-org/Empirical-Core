@@ -2,7 +2,7 @@ import * as React from 'react'
 
 import moment from 'moment'
 
-import { DataTable } from 'quill-component-library/dist/componentLibrary'
+import { DataTable } from '../../../Shared/index'
 
 import activityLaunchLink from '../modules/generate_activity_launch_link.js';
 

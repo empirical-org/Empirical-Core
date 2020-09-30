@@ -4,8 +4,8 @@ import Cues from '../../renderForQuestions/cues';
 import FeedbackRow from './feedbackRow'
 import {
   Feedback,
-  SentenceFragments
-} from 'quill-component-library/dist/componentLibrary'
+  SentenceFragments,
+} from '../../../../Shared/index'
 
 import TextEditor from '../../renderForQuestions/renderTextEditor';
 import { getParameterByName } from '../../../libs/getParameterByName';

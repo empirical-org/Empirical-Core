@@ -1,7 +1,7 @@
 import * as React from "react";
 import { Mutation } from "react-apollo";
 import gql from "graphql-tag";
-import { DropdownInput } from 'quill-component-library/dist/componentLibrary'
+import { DropdownInput } from '../../Shared/index'
 
 import { Concept } from '../interfaces/interfaces'
 import ChangeLogModal from './ChangeLogModal'

@@ -1,7 +1,6 @@
 import * as React from 'react';
 import { shallow } from 'enzyme';
 import { createMemoryHistory, createLocation } from 'history';
-import { DataTable } from 'quill-component-library/dist/componentLibrary';
 import RuleSet from '../configureRegex/ruleSet';
 import 'whatwg-fetch';
 

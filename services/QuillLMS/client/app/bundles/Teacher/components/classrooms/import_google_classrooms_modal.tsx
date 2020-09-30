@@ -2,7 +2,7 @@ import * as React from 'react'
 import * as moment from 'moment'
 import Pusher from 'pusher-js';
 
-import { DropdownInput, DataTable } from 'quill-component-library/dist/componentLibrary'
+import { DropdownInput, DataTable } from '../../../Shared/index'
 
 import GradeOptions from './grade_options'
 

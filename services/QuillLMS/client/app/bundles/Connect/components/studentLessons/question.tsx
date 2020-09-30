@@ -2,12 +2,13 @@ declare function require(name:string);
 import * as React from 'react';
 import * as _ from 'underscore';
 import {Response} from 'quill-marking-logic'
+
 import {
   SentenceFragments,
   ConceptExplanation,
-} from 'quill-component-library/dist/componentLibrary';
-
-import { MultipleChoice, hashToCollection, } from '../../../Shared/index'
+  MultipleChoice,
+  hashToCollection,
+} from '../../../Shared/index'
 import { submitResponse } from '../../actions.js';
 import Question from '../../libs/question';
 import RenderQuestionFeedback from '../renderForQuestions/feedbackStatements.jsx';
@@ -242,10 +243,10 @@ export default class PlayLessonQuestion extends React.Component<PlayLessonQuesti
       this.submitResponse(submittedResponse);
       this.setState({ editing: false });
       if(previewMode) {
-        this.setState(prevState => ({ 
-          previewAttempt: submittedResponse, 
-          previewAttemptSubmitted: true, 
-          previewSubmissionCount: prevState.previewSubmissionCount + 1 
+        this.setState(prevState => ({
+          previewAttempt: submittedResponse,
+          previewAttemptSubmitted: true,
+          previewSubmissionCount: prevState.previewSubmissionCount + 1
         }));
       }
     }
@@ -339,7 +340,7 @@ export default class PlayLessonQuestion extends React.Component<PlayLessonQuesti
 
   renderConceptExplanation = () => {
     const { conceptsFeedback, } = this.props
-    //TODO: update Response interface in quill-marking-logic to fix Boolean/boolean type checking 
+    //TODO: update Response interface in quill-marking-logic to fix Boolean/boolean type checking
     const latestAttempt:{response: Response}|undefined = this.handleGetLatestAttempt();
 
     // we do not want to show concept feedback if a response is optimal
@@ -428,8 +429,8 @@ export default class PlayLessonQuestion extends React.Component<PlayLessonQuesti
         sentenceFragments: this.renderSentenceFragments(),
         cues: this.renderCues(),
         className: 'fubar',
-        previewAttempt, 
-        previewAttemptSubmitted, 
+        previewAttempt,
+        previewAttemptSubmitted,
         previewMode
       };
       let component;

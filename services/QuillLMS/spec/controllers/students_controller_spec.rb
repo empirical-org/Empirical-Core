@@ -35,17 +35,17 @@ describe StudentsController do
   end
 
   describe '#student_demo' do
-    context 'when maya angelou exists' do
-      let!(:maya) { create(:user, email: 'maya_angelou_demo@quill.org') }
+    context 'when Angie Thomas exists' do
+      let!(:angie) { create(:user, email: 'angie_thomas_demo@quill.org') }
 
-      it 'should sign in maya and redirect to profile' do
+      it 'should sign in angie and redirect to profile' do
         get :student_demo
-        expect(session[:user_id]).to eq maya.id
+        expect(session[:user_id]).to eq angie.id
         expect(response).to redirect_to '/classes'
       end
     end
 
-    context 'when maya angelou does not exist' do
+    context 'when angie thomas does not exist' do
       it 'should destroy recreate the demo and redirect to student demo' do
         expect(Demo::ReportDemoDestroyer).to receive(:destroy_demo).with(nil)
         expect(Demo::ReportDemoCreator).to receive(:create_demo).with(nil)

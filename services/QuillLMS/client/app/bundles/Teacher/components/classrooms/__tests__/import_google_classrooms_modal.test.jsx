@@ -2,7 +2,7 @@ import React from 'react';
 import { mount } from 'enzyme';
 
 import ImportGoogleClassroomsModal from '../import_google_classrooms_modal'
-import { DataTable } from 'quill-component-library/dist/componentLibrary'
+import { DataTable } from '../../../../Shared/index'
 
 import { googleClassrooms, userProps } from './test_data/test_data'
 

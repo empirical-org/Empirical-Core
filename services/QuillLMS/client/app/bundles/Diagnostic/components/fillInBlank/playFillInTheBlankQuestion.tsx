@@ -15,7 +15,11 @@ import translationMap from '../../libs/translations/ellQuestionMapper.js';
 import { stringNormalize } from 'quill-string-normalizer';
 import { ENGLISH, rightToLeftLanguages } from '../../modules/translation/languagePageInfo';
 import Question from '../../interfaces/Question.ts';
-import { hashToCollection } from '../../../Shared/index'
+import {
+  hashToCollection,
+  Prompt,
+  Feedback,
+} from '../../../Shared/index'
 
 interface PlayFillInTheBlankQuestionProps {
   currentKey: string,

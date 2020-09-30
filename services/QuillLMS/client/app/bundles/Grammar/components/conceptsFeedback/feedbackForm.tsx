@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { ConceptExplanation } from 'quill-component-library/dist/componentLibrary'
+import { ConceptExplanation } from '../../../Shared/index'
 import TextEditor from '../shared/textEditor'
 import { EditorState, ContentState } from 'draft-js'
 

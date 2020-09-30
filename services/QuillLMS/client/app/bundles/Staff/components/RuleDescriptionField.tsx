@@ -1,6 +1,6 @@
 import * as React from "react";
 import { EditorState, ContentState } from 'draft-js'
-import { TextEditor } from 'quill-component-library/dist/componentLibrary'
+import { TextEditor } from '../../Shared/index'
 
 export default class RuleDescriptionField extends React.Component<any, any> {
   constructor(props) {
