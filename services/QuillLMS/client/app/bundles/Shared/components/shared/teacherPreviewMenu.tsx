@@ -11,7 +11,7 @@ interface Activity {
   name?: string;
   questions?: {
     key: string;
-  }[]; 
+  }[];
   description?: string;
   landingPageHtml?: string;
   questionType?: string;
@@ -54,8 +54,13 @@ const renderIntroductionSection = (activity: Activity, playLesson: any) => {
   if(activity && (!activity.landingPageHtml || isEmptyIntroduction)) { return }
 
   const introductionHTML = new DOMParser().parseFromString(activity.landingPageHtml, 'text/html');
-  // we strip HTML because some activites have h3 introduction text wrapped in <strong> tags 
-  const introductionText = stripHtml(introductionHTML.getElementsByTagName('h3')[0].innerHTML);
+  // we strip HTML because some activites have h3 introduction text wrapped in <strong> tags
+  const htmlElement = introductionHTML.getElementsByTagName('h3')[0];
+  const introductionText = htmlElement && htmlElement.innerHTML ? stripHtml(htmlElement.innerHTML) : null;
+  // in some cases, landing pages do not have h3 headers so we early return to prevent the page from crashing
+  if(!introductionText) {
+    return;
+  }
   const style = playLesson && !playLesson.questionSet ? 'highlighted' : '';
   return(
     <section>
@@ -103,14 +108,14 @@ const getQuestionObject = ({ questions, titleCards, sentenceFragments, fillInBla
   return questionObject;
 }
 
-const renderQuestions = ({ 
-  activity, 
+const renderQuestions = ({
+  activity,
   fillInBlank,
   handleQuestionUpdate,
-  playLesson, 
-  questions, 
+  playLesson,
+  questions,
   questionToPreview,
-  randomizedQuestions, 
+  randomizedQuestions,
   sentenceFragments,
   session,
   titleCards
@@ -160,26 +165,26 @@ interface TeacherPreviewMenuProps {
   onUpdateRandomizedQuestions?: (questions: any[]) => void;
   playLesson: any;
   questions: Question[];
-  questionToPreview?: { 
-    key?: string, 
-    uid?: string 
+  questionToPreview?: {
+    key?: string,
+    uid?: string
   };
   sentenceFragments: any[];
   session: any;
   showPreview: boolean;
   titleCards: any;
 }
- 
-const TeacherPreviewMenuComponent = ({ 
+
+const TeacherPreviewMenuComponent = ({
   activity,
   dispatch,
   fillInBlank,
   onHandleSkipToQuestionFromIntro,
-  onTogglePreview, 
-  onToggleQuestion, 
+  onTogglePreview,
+  onToggleQuestion,
   onUpdateRandomizedQuestions,
   playLesson,
-  questions, 
+  questions,
   questionToPreview,
   sentenceFragments,
   session,
@@ -189,7 +194,7 @@ const TeacherPreviewMenuComponent = ({
 
   const [randomizedQuestions, setRandomizedQuestions] = React.useState<Question[]>();
 
-  React.useEffect(() => {  
+  React.useEffect(() => {
     const activityUID = getParameterByName('uid', window.location.href);
     if (activityUID) {
       dispatch(getActivity(activityUID))
@@ -240,14 +245,14 @@ const TeacherPreviewMenuComponent = ({
       <section>
         <h2>Questions</h2>
         <ul>
-          {renderQuestions({  
+          {renderQuestions({
             activity,
             fillInBlank,
             handleQuestionUpdate,
             playLesson,
-            questions, 
+            questions,
             questionToPreview,
-            randomizedQuestions, 
+            randomizedQuestions,
             sentenceFragments,
             session,
             titleCards
