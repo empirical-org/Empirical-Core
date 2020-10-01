@@ -39,7 +39,7 @@ Rails.application.configure do
 
   config.middleware.insert_before 0, Rack::Cors do
     allow do
-      origins 'quill.org', %r{https://(.)*.quill.org}, /localhost:.*/, /127.0.0.1:.*/
+      origins 'quill.org', 'www.quill.org', %r{https://(.)*.quill.org}, /localhost:.*/, /127.0.0.1:.*/
 
       resource '*',
         headers: :any,
