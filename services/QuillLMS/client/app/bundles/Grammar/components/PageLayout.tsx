@@ -1,7 +1,9 @@
 import * as React from "react";
 import { Layout } from "antd";
-import { Header } from "./Header";
 import {renderRoutes} from "react-router-config";
+
+import { Header } from "./Header";
+
 import { routes } from "../routes";
 import getParameterByName from '../helpers/getParameterByName';
 import { TeacherPreviewMenu } from '../../Shared/index';
@@ -12,6 +14,7 @@ interface PageLayoutState {
   questionToPreview: any;
   switchedBackToPreview: boolean;
   randomizedQuestions: any[];
+  skippedToQuestionFromIntro: boolean;
 }
 
 export class PageLayout extends React.Component<any, PageLayoutState> {
@@ -21,12 +24,13 @@ export class PageLayout extends React.Component<any, PageLayoutState> {
     const studentSession = getParameterByName('student', window.location.href);
     const proofreaderSessionId = getParameterByName('proofreaderSessionId', window.location.href);
 
-    this.state = { 
+    this.state = {
       showFocusState: false,
       previewShowing: !studentSession && !proofreaderSessionId,
       questionToPreview: null,
       switchedBackToPreview: false,
-      randomizedQuestions: null
+      randomizedQuestions: null,
+      skippedToQuestionFromIntro: false
     }
   }
 
@@ -62,7 +66,7 @@ export class PageLayout extends React.Component<any, PageLayoutState> {
     } else {
       this.setState({ switchedBackToPreview: true });
     }
-    this.setState(prevState => ({ 
+    this.setState(prevState => ({
       previewShowing: !prevState.previewShowing,
     }));
   }
@@ -75,18 +79,23 @@ export class PageLayout extends React.Component<any, PageLayoutState> {
     this.setState({ randomizedQuestions: questions });
   }
 
+  handleSkipToQuestionFromIntro = () => {
+    this.setState({ skippedToQuestionFromIntro: true });
+  }
+
   renderContent = (header: JSX.Element) => {
-    const { previewShowing, questionToPreview, switchedBackToPreview, randomizedQuestions } = this.state;
+    const { previewShowing, questionToPreview, switchedBackToPreview, randomizedQuestions, skippedToQuestionFromIntro } = this.state;
     return(
       <Layout.Content>
         <button className="skip-main" onClick={this.handleSkipToMainContentClick} type="button">Skip to main content</button>
         {header}
         <div id="main-content" tabIndex={-1}>{renderRoutes(routes, {
           switchedBackToPreview: switchedBackToPreview,
-          handleToggleQuestion: this.handleToggleQuestion, 
-          previewMode: previewShowing, 
+          handleToggleQuestion: this.handleToggleQuestion,
+          previewMode: previewShowing,
           questionToPreview: questionToPreview,
-          randomizedQuestions: randomizedQuestions
+          randomizedQuestions: randomizedQuestions,
+          skippedToQuestionFromIntro: skippedToQuestionFromIntro
         })}</div>
       </Layout.Content>
     );
@@ -111,16 +120,17 @@ export class PageLayout extends React.Component<any, PageLayoutState> {
       return(
         <Layout className={className}>
           <Layout>
-            <Layout.Sider 
+            <Layout.Sider
               breakpoint="md"
-              className="sider-container" 
+              className="sider-container"
               collapsedWidth="0"
               width={360}
             >
               <TeacherPreviewMenu
+                onHandleSkipToQuestionFromIntro={this.handleSkipToQuestionFromIntro}
                 onTogglePreview={this.handleTogglePreviewMenu}
-                onToggleQuestion={this.handleToggleQuestion} 
-                onUpdateRandomizedQuestions={this.handleUpdateRandomizedQuestions} 
+                onToggleQuestion={this.handleToggleQuestion}
+                onUpdateRandomizedQuestions={this.handleUpdateRandomizedQuestions}
                 questionToPreview={questionToPreview}
                 showPreview={previewShowing}
               />
