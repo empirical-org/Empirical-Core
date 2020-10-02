@@ -5,6 +5,7 @@ import stripHtml from "string-strip-html";
 import { getActivity } from "../../../Grammar/actions/grammarActivities";
 import getParameterByName from "../../../Grammar/helpers/getParameterByName";
 import { Question } from '../../../Grammar/interfaces/questions';
+import { setCurrentQuestion } from '../../../Diagnostic/actions/diagnostics.js';
 
 interface Activity {
   title?: string;
@@ -18,6 +19,9 @@ interface Activity {
   flag?: string;
   modelConceptUID?: string;
 }
+
+const isConnectActivity = window.location.href.includes('connect');
+const isDiagnosticActivity = window.location.href.includes('diagnostic');
 
 const returnActivity = (state: any) => {
   const { grammarActivities, lessons } = state;
@@ -39,8 +43,6 @@ const returnActivityData = (activityData: { data: object }) => {
 }
 
 const returnLessonData = (playDiagnostic: any, playLesson: any) => {
-  const isConnectActivity = window.location.href.includes('connect');
-  const isDiagnosticActivity = window.location.href.includes('diagnostic');
   if(isConnectActivity) {
     return playLesson;
   } else if(isDiagnosticActivity) {
@@ -79,7 +81,10 @@ const renderIntroductionSection = (activity: Activity, lesson: any) => {
 
 const getStyling = ({ questionToPreview, uidOrKey, i, lesson }) => {
   let key: string;
-  if(questionToPreview) {
+  if(isDiagnosticActivity && lesson && lesson.currentQuestion) {
+    const { data } = lesson.currentQuestion;
+    key = data.key;
+  } else if(questionToPreview) {
     key = questionToPreview.key ? questionToPreview.key : questionToPreview.uid;
   }
   // don't apply highlight if activity has not started
@@ -98,8 +103,10 @@ const getQuestionObject = ({ questions, titleCards, sentenceFragments, fillInBla
   let questionObject;
   if(questions && questions[key]) {
     questionObject = questions[key];
+    questionObject.type = 'SC';
   } else if(titleCards && titleCards[key]) {
     questionObject = titleCards[key];
+    questionObject.type = 'TL';
   } else if(sentenceFragments && sentenceFragments[key]) {
     questionObject = sentenceFragments[key];
     questionObject.type = 'SF';
@@ -232,6 +239,8 @@ const TeacherPreviewMenuComponent = ({
     if(lesson && !lesson.currentQuestion) {
       onHandleSkipToQuestionFromIntro();
     }
+    const action = setCurrentQuestion(question);
+    dispatch(action);
     onToggleQuestion(question);
   }
 

@@ -1,4 +1,5 @@
 import { SubmitActions } from '../actions/diagnostics.js';
+import { getCurrentQuestion, getQuestionsWithAttempts, getFilteredQuestions } from '../libs/previewHelperFunctions';
  // / make this playLessonsReducer.
 const initialState = {
   answeredQuestions: [],
@@ -22,6 +23,26 @@ function question(state = initialState, action) {
         changes.unansweredQuestions = state.unansweredQuestions.slice(1);
       }
       return Object.assign({}, state, changes);
+    case SubmitActions.SET_CURRENT_QUESTION:
+      const { answeredQuestions, unansweredQuestions, questionSet } = state;
+
+      const currentQuestionIndex = questionSet.findIndex(question => action.data.key === question.data.key);
+      const currentQuestion = getCurrentQuestion({ action, answeredQuestions, unansweredQuestions, questionSet })
+
+      const answeredQuestionsWithAttempts = getQuestionsWithAttempts(answeredQuestions);
+      const unansweredQuestionsWithAttempts = getQuestionsWithAttempts(unansweredQuestions);
+
+      const answeredSlice = questionSet.slice(0, currentQuestionIndex);
+      const unansweredSlice = questionSet.slice(currentQuestionIndex + 1);
+
+      const newAnsweredQuestions = getFilteredQuestions({ questionsSlice: answeredSlice, answeredQuestionsWithAttempts, unansweredQuestionsWithAttempts });
+      const newUnansweredQuestions = getFilteredQuestions({ questionsSlice: unansweredSlice, answeredQuestionsWithAttempts, unansweredQuestionsWithAttempts });
+
+      state.answeredQuestions = newAnsweredQuestions;
+      state.unansweredQuestions = newUnansweredQuestions;
+      state.currentQuestion = currentQuestion;
+
+      return Object.assign({}, state, action.data);
     case SubmitActions.NEXT_DIAGNOSTIC_QUESTION_WITHOUT_SAVING:
       changes.currentQuestion = state.unansweredQuestions[0];
       if (changes.currentQuestion) {

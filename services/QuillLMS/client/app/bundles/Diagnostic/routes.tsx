@@ -11,7 +11,18 @@ export const routes: RouteConfig[] = [
   },
   {
     path: "/play/diagnostic/:diagnosticID",
-    component: () => (<DiagnosticRouter />)
+    component: (props: any) => {
+      const { handleToggleQuestion, previewMode, questionToPreview, switchedBackToPreview, skippedToQuestionFromIntro } = props;
+      return(
+        <DiagnosticRouter
+          onHandleToggleQuestion={handleToggleQuestion}
+          previewMode={previewMode}
+          questionToPreview={questionToPreview}
+          skippedToQuestionFromIntro={skippedToQuestionFromIntro}
+          switchedBackToPreview={switchedBackToPreview}
+        />
+      );
+    }
   },
   {
     path: "/turk/:diagnosticID",

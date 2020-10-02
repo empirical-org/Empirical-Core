@@ -311,7 +311,6 @@ export class StudentDiagnostic extends React.Component {
   render() {
     const { playDiagnostic, dispatch } = this.props
     const { error, saved, } = this.state
-    const questionType = playDiagnostic.currentQuestion ? playDiagnostic.currentQuestion.type : ''
     let component;
 
     const isLastQuestion = playDiagnostic.unansweredQuestions.length === 0
@@ -329,37 +328,40 @@ export class StudentDiagnostic extends React.Component {
     }
 
     if (playDiagnostic.currentQuestion) {
+      const questionType = playDiagnostic.currentQuestion.type || '';
+      const question = playDiagnostic.currentQuestion.data;
+      const key = playDiagnostic.currentQuestion.data.key;
       if (questionType === 'SC') {
         component = (<PlayDiagnosticQuestion
           dispatch={dispatch}
-          key={playDiagnostic.currentQuestion.data.key}
+          key={key}
           marking="diagnostic"
           nextQuestion={this.nextQuestion}
-          question={playDiagnostic.currentQuestion.data}
+          question={question}
         />);
       } else if (questionType === 'SF') {
         component = (<PlaySentenceFragment
-          currentKey={playDiagnostic.currentQuestion.data.key}
+          currentKey={key}
           dispatch={dispatch}
-          key={playDiagnostic.currentQuestion.data.key}
+          key={key}
           markIdentify={this.markIdentify}
           nextQuestion={this.nextQuestion}
-          question={playDiagnostic.currentQuestion.data}
+          question={question}
           updateAttempts={this.submitResponse}
         />);
       } else if (questionType === 'FB') {
         component = (<PlayFillInTheBlankQuestion
-          currentKey={playDiagnostic.currentQuestion.data.key}
+          currentKey={key}
           dispatch={dispatch}
-          key={playDiagnostic.currentQuestion.data.key}
+          key={key}
           nextQuestion={this.nextQuestion}
-          question={playDiagnostic.currentQuestion.data}
+          question={question}
         />)
       } else if (questionType === 'TL') {
         component = (
           <PlayTitleCard
-            currentKey={playDiagnostic.currentQuestion.data.key}
-            data={playDiagnostic.currentQuestion.data}
+            currentKey={key}
+            data={question}
             dispatch={dispatch}
             handleContinueClick={this.nextQuestionWithoutSaving}
             isLastQuestion={isLastQuestion}

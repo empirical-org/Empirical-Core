@@ -17,7 +17,8 @@ export default class Home extends React.Component {
       showFocusState: false,
       previewShowing: !studentOrTurkSession,
       questionToPreview: null,
-      switchedBackToPreview: false
+      switchedBackToPreview: false,
+      skippedToQuestionFromIntro: false
     }
   }
 
@@ -61,14 +62,19 @@ export default class Home extends React.Component {
     this.setState({ questionToPreview: question });
   }
 
+  handleSkipToQuestionFromIntro = () => {
+    this.setState({ skippedToQuestionFromIntro: true });
+  }
+
   render() {
-    const { showFocusState, previewShowing, questionToPreview, switchedBackToPreview } = this.state;
+    const { showFocusState, previewShowing, questionToPreview, switchedBackToPreview, skippedToQuestionFromIntro } = this.state;
     let className = "ant-layout "
     className = showFocusState ? '' : 'hide-focus-outline'
     const isPlaying = window.location.href.includes('play');
     const studentSession = getParameterByName('student', window.location.href);
     const showPreview = previewShowing && isPlaying;
     const studentOrTurk = studentSession || window.location.href.includes('turk');
+    const previewMode = isPlaying && !studentOrTurk;
     return(
       <Layout className={className}>
         <Layout>
@@ -76,7 +82,7 @@ export default class Home extends React.Component {
             breakpoint="md"
             className="sider-container"
             collapsedWidth="0"
-            style={{ height: '100vh', overflow: 'scroll' }}
+            style={{ height: '100vh', overflowY: 'auto' }}
             width={360}
           >
             <TeacherPreviewMenu
@@ -87,11 +93,17 @@ export default class Home extends React.Component {
               showPreview={previewShowing}
             />
           </Layout.Sider>}
-          <Layout.Content style={{ height: '100vh', overflow: 'scroll' }}>
+          <Layout.Content style={{ height: '100vh', overflow: 'auto' }}>
             {isPlaying && studentOrTurk && <button className="skip-main" onClick={this.handleSkipToMainContentClick} type="button">Skip to main content</button>}
             {isPlaying && studentOrTurk && <StudentNavBar />}
             {isPlaying && !studentOrTurk && <TeacherNavbar onTogglePreview={this.handleTogglePreviewMenu} previewShowing={previewShowing} />}
-            <div id="main-content" tabIndex={-1}>{renderRoutes(routes)}</div>
+            <div id="main-content" tabIndex={-1}>{renderRoutes(routes, {
+              switchedBackToPreview: switchedBackToPreview,
+              handleToggleQuestion: this.handleToggleQuestion,
+              previewMode: previewMode,
+              questionToPreview: questionToPreview,
+              skippedToQuestionFromIntro: skippedToQuestionFromIntro
+            })}</div>
           </Layout.Content>
         </Layout>
       </Layout>

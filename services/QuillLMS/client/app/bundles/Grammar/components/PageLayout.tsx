@@ -21,7 +21,7 @@ export class PageLayout extends React.Component<any, PageLayoutState> {
     const studentSession = getParameterByName('student', window.location.href);
     const proofreaderSessionId = getParameterByName('proofreaderSessionId', window.location.href);
 
-    this.state = { 
+    this.state = {
       showFocusState: false,
       previewShowing: !studentSession && !proofreaderSessionId,
       questionToPreview: null,
@@ -62,7 +62,7 @@ export class PageLayout extends React.Component<any, PageLayoutState> {
     } else {
       this.setState({ switchedBackToPreview: true });
     }
-    this.setState(prevState => ({ 
+    this.setState(prevState => ({
       previewShowing: !prevState.previewShowing,
     }));
   }
@@ -78,13 +78,13 @@ export class PageLayout extends React.Component<any, PageLayoutState> {
   renderContent = (header: JSX.Element) => {
     const { previewShowing, questionToPreview, switchedBackToPreview, randomizedQuestions } = this.state;
     return(
-      <Layout.Content>
+      <Layout.Content style={{ height: '100vh', overflow: 'auto' }}>
         <button className="skip-main" onClick={this.handleSkipToMainContentClick} type="button">Skip to main content</button>
         {header}
         <div id="main-content" tabIndex={-1}>{renderRoutes(routes, {
           switchedBackToPreview: switchedBackToPreview,
-          handleToggleQuestion: this.handleToggleQuestion, 
-          previewMode: previewShowing, 
+          handleToggleQuestion: this.handleToggleQuestion,
+          previewMode: previewShowing,
           questionToPreview: questionToPreview,
           randomizedQuestions: randomizedQuestions
         })}</div>
@@ -111,16 +111,17 @@ export class PageLayout extends React.Component<any, PageLayoutState> {
       return(
         <Layout className={className}>
           <Layout>
-            <Layout.Sider 
+            <Layout.Sider
               breakpoint="md"
-              className="sider-container" 
+              className="sider-container"
               collapsedWidth="0"
+              style={{ height: '100vh', overflow: 'auto' }}
               width={360}
             >
               <TeacherPreviewMenu
                 onTogglePreview={this.handleTogglePreviewMenu}
-                onToggleQuestion={this.handleToggleQuestion} 
-                onUpdateRandomizedQuestions={this.handleUpdateRandomizedQuestions} 
+                onToggleQuestion={this.handleToggleQuestion}
+                onUpdateRandomizedQuestions={this.handleUpdateRandomizedQuestions}
                 questionToPreview={questionToPreview}
                 showPreview={previewShowing}
               />
