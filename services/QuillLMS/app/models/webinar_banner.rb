@@ -2,7 +2,6 @@ class WebinarBanner
   attr_reader :time
 
   ONE_OFFS = {
-    '10-2-16' => ["Quill's Spotlight on Exploring the Activity Library", "https://quill-org.zoom.us/webinar/register/WN_uzoWu3HuQCa2ZpyQ0j4C5g"],
     '10-7-11' => ["Quill's Spotlight on Exploring the Activity Library", "https://quill-org.zoom.us/webinar/register/WN_uzoWu3HuQCa2ZpyQ0j4C5g"],
     '10-7-16' => ["Quill's Spotlight on Exploring the Activity Library", "https://quill-org.zoom.us/webinar/register/WN_ptLJPr_ZQTilmzklfDVrjA"],
     '10-14-11' => ["Quill's Spotlight on Ways to Use Quill with Google Classroom", "https://quill-org.zoom.us/webinar/register/WN_DhZRpHV7Q4K413v4SzcK1A"],
@@ -54,9 +53,6 @@ class WebinarBanner
       key = "#{day_of_week}-#{time.hour}"
       RECURRING[key]
     elsif day_of_week == 3
-      key = "#{time.month}-#{time.day}-#{time.hour}"
-      ONE_OFFS[key]
-    elsif day_of_week == 5
       key = "#{time.month}-#{time.day}-#{time.hour}"
       ONE_OFFS[key]
     end
