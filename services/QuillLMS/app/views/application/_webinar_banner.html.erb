@@ -1,5 +1,7 @@
 <% current_time_on_east_coast = Time.now.in_time_zone('America/New_York') %>
 <% current_hour = current_time_on_east_coast.hour %>
+<% current_month = current_time_on_east_coast.month %>
+<% current_day = current_time_on_east_coast.day %>
 
 <% between_nine_and_ten = current_hour == 9 %>
 <% between_ten_and_eleven = current_hour == 10 %>
@@ -14,61 +16,133 @@
 <% is_wednesday = current_time_on_east_coast.wednesday? %>
 <% is_thursday = current_time_on_east_coast.thursday? %>
 
-<% still_doing_webinars = current_time_on_east_coast < Date.parse("20201002") %>
+<% still_doing_webinars = current_time_on_east_coast < Date.parse("20201217") %>
 
-<% if (still_doing_webinars && (!current_user || current_user.teacher?)  && ((is_monday && between_eleven_and_twelve) || (is_monday && between_four_and_five) ||
-  (is_tuesday && between_eleven_and_twelve) || (is_tuesday && between_four_and_five) || (is_tuesday && between_one_and_two) ||
-  (is_wednesday && between_eleven_and_twelve) || (is_wednesday && between_four_and_five) || (is_wednesday && (between_nine_and_ten || between_twelve_and_one)) ||
-  (is_thursday && (between_ten_and_eleven)) || (is_monday && (between_nine_and_ten || between_twelve_and_one)))) %>
+<% banner_link = nil %>
+<% banner_title = nil %>
 
+<% if (still_doing_webinars && (!current_user || current_user.teacher?))  %>
+
+  <% if (is_monday && between_eleven_and_twelve) %>
+    <% banner_link = "https://quill-org.zoom.us/webinar/register/WN_OmB4MXOgTkWh_jeTFXUTnw" %>
+    <% banner_title = "Quill 101"%>
+  <% end %>
+
+  <% if (is_monday && between_four_and_five) %>
+    <% banner_link = "https://quill-org.zoom.us/webinar/register/WN_a4Z1_Zs6RSGUWwr_t0V18Q" %>
+    <% banner_title = "Quill 101"%>
+  <% end %>
+
+  <% if (is_tuesday && between_eleven_and_twelve) %>
+    <% banner_link = "https://quill-org.zoom.us/webinar/register/WN_UuoWsG_8Q5Cpbh9Bqqi24g" %>
+    <% banner_title = "Quill in Pre-AP® and AP®: Spotlight on Data and Instruction"%>
+  <% end %>
+
+  <% if (is_tuesday && between_four_and_five) %>
+    <% banner_link = "https://quill-org.zoom.us/webinar/register/WN_UuoWsG_8Q5Cpbh9Bqqi24g" %>
+    <% banner_title = "Quill in Pre-AP® and AP®: Spotlight on Data and Instruction"%>
+  <% end %>
+
+  <% if (current_month == 10 && current_day == 7 && between_eleven_and_twelve) %>
+    <% banner_link = "https://quill-org.zoom.us/webinar/register/WN_uzoWu3HuQCa2ZpyQ0j4C5g" %>
+    <% banner_title = "Quill's Spotlight on Exploring the Activity Library"%>
+  <% end %>
+
+  <% if (current_month == 10 && current_day == 7 && between_four_and_five) %>
+    <% banner_link = "https://quill-org.zoom.us/webinar/register/WN_ptLJPr_ZQTilmzklfDVrjA" %>
+    <% banner_title = "Quill's Spotlight on Exploring the Activity Library"%>
+  <% end %>
+
+  <% if (current_month == 10 && current_day == 14 && between_eleven_and_twelve) %>
+    <% banner_link = "https://quill-org.zoom.us/webinar/register/WN_DhZRpHV7Q4K413v4SzcK1A" %>
+    <% banner_title = "Quill's Spotlight on Ways to Use Quill with Google Classroom"%>
+  <% end %>
+
+  <% if (current_month == 10 && current_day == 14 && between_four_and_five) %>
+    <% banner_link = "https://quill-org.zoom.us/webinar/register/WN_DHVXyOXzS3mytUCqK_UbIA" %>
+    <% banner_title = "Quill's Spotlight on Ways to Use Quill with Google Classroom"%>
+  <% end %>
+
+  <% if (current_month == 10 && current_day == 21 && between_eleven_and_twelve) %>
+    <% banner_link = "https://quill-org.zoom.us/webinar/register/WN_UiN_HtS7TwmYQObgOVCOGw" %>
+    <% banner_title = "Quill's Spotlight on Keeping Your Remote Classroom on Track"%>
+  <% end %>
+
+  <% if (current_month == 10 && current_day == 21 && between_four_and_five) %>
+    <% banner_link = "https://quill-org.zoom.us/webinar/register/WN_DHVXyOXzS3mytUCqK_UbIA" %>
+    <% banner_title = "Quill's Spotlight on Keeping Your Remote Classroom on Track"%>
+  <% end %>
+
+  <% if (current_month == 10 && current_day == 28 && between_eleven_and_twelve) %>
+    <% banner_link = "https://quill-org.zoom.us/webinar/register/WN_4RGmnNfiSSSqO-EB13ecbw" %>
+    <% banner_title = "Quill's Spotlight on Using Quill to Support Students with IEPs"%>
+  <% end %>
+
+  <% if (current_month == 10 && current_day == 28 && between_four_and_five) %>
+    <% banner_link = "https://quill-org.zoom.us/webinar/register/WN_YgimZ7j2TTCGW7HiniJAwg" %>
+    <% banner_title = "Quill's Spotlight on Using Quill to Support Students with IEPs"%>
+  <% end %>
+
+  <% if (current_month == 11 && current_day == 4 && between_eleven_and_twelve) %>
+    <% banner_link = "https://quill-org.zoom.us/webinar/register/WN_8Dq0_YxNRa23-qWZT4qDaQ" %>
+    <% banner_title = "Quill's Spotlight on Data and Instruction"%>
+  <% end %>
+
+  <% if (current_month == 11 && current_day == 4 && between_four_and_five) %>
+    <% banner_link = "https://quill-org.zoom.us/webinar/register/WN_d_oq8DgBQjGpeHzXXzM1AA" %>
+    <% banner_title = "Quill's Spotlight on Data and Instruction"%>
+  <% end %>
+
+  <% if (current_month == 11 && current_day == 18 && between_eleven_and_twelve) %>
+    <% banner_link = "https://quill-org.zoom.us/webinar/register/WN_fggbcB53QcGSjVgqCvCkDQ" %>
+    <% banner_title = "Quill's Spotlight on Equitable Grading using Quill"%>
+  <% end %>
+
+  <% if (current_month == 11 && current_day == 18 && between_four_and_five) %>
+    <% banner_link = "https://quill-org.zoom.us/webinar/register/WN_BNF3nVnyRVqrKQ9udZis-w" %>
+    <% banner_title = "Quill's Spotlight on Equitable Grading using Quill"%>
+  <% end %>
+
+  <% if (current_month == 12 && current_day == 2 && between_eleven_and_twelve) %>
+    <% banner_link = "https://quill-org.zoom.us/webinar/register/WN_xewDiLaYSEGM3jljnyYKAg" %>
+    <% banner_title = "Quill's Spotlight on Using Quill to Support English Language Learners"%>
+  <% end %>
+
+  <% if (current_month == 12 && current_day == 2 && between_four_and_five) %>
+    <% banner_link = "https://quill-org.zoom.us/webinar/register/WN_R3h0pKEHTVqiLlNwdFHF4g" %>
+    <% banner_title = "Quill's Spotlight on Using Quill to Support English Language Learners"%>
+  <% end %>
+
+  <% if (current_month == 12 && current_day == 9 && between_eleven_and_twelve) %>
+    <% banner_link = "https://quill-org.zoom.us/webinar/register/WN_i4r1iasTS2WqH38mVmabaA" %>
+    <% banner_title = "Quill's Spotlight on Sentence Fluency at the Lesson Level"%>
+  <% end %>
+
+  <% if (current_month == 12 && current_day == 9 && between_four_and_five) %>
+    <% banner_link = "https://quill-org.zoom.us/webinar/register/WN_M0eiXLFaSEq-GQOAzj0kSA" %>
+    <% banner_title = "Quill's Spotlight on Sentence Fluency at the Lesson Level"%>
+  <% end %>
+
+  <% if (current_month == 12 && current_day == 16 && between_eleven_and_twelve) %>
+    <% banner_link = "https://quill-org.zoom.us/webinar/register/WN_1WBmjTBeSTmq_f3Kikkaaw" %>
+    <% banner_title = "Quill's Spotlight on Encouraging & Empowering Your Writers"%>
+  <% end %>
+
+  <% if (current_month == 12 && current_day == 16 && between_four_and_five) %>
+    <% banner_link = "https://quill-org.zoom.us/webinar/register/WN_yB6Lltm3QH2h4AnobnCdLw" %>
+    <% banner_title = "Quill's Spotlight on Encouraging & Empowering Your Writers"%>
+  <% end %>
+<%end%>
+
+
+<% if banner_link && banner_title %>
   <div class="banner" id="webinar-banner">
     <div class="content-container">
       <img alt="Video player with play symbol" class="banner-icon" src=<%= "#{ENV['CDN_URL']}/images/icons/live-stream.svg" %>>
-
-      <% if (is_monday && (between_nine_and_ten || between_twelve_and_one)) %>
-        <p><strong>Quill Q&A</strong> is live now! <a href="https://zoom.us/s/99398545099" rel="noopener noreferrer" target="_blank">Click here to join.</a></p>
-      <% end %>
-
-      <% if (is_monday && between_eleven_and_twelve) %>
-        <p><strong>Quill Webinar 101: Getting Started</strong> is live now! <a href="https://zoom.us/webinar/register/WN_sMpk6SCfSdu5Pb5Pg_E31A" rel="noopener noreferrer" target="_blank">Click here to register and join.</a></p>
-      <% end %>
-
-      <% if (is_monday && between_four_and_five) %>
-        <p><strong>Quill Webinar 101: Getting Started</strong> is live now! <a href="https://zoom.us/webinar/register/WN_Y68x8wS0RY-x1o-N2mtzqQ" rel="noopener noreferrer" target="_blank">Click here to register and join.</a></p>
-      <% end %>
-
-      <% if (is_tuesday && between_eleven_and_twelve) %>
-        <p><strong>Quill Webinar 201: Diving into Data</strong> is live now! <a href="https://zoom.us/webinar/register/WN_dxzwK3whQFyDYDZaNIRT1g" rel="noopener noreferrer" target="_blank">Click here to register and join.</a></p>
-      <% end %>
-
-      <% if (is_tuesday && between_four_and_five) %>
-        <p><strong>Quill Webinar 201: Diving into Data</strong> is live now! <a href="https://zoom.us/webinar/register/WN_zHHpqoO9Q96O_MpYUUihRg" rel="noopener noreferrer" target="_blank">Click here to register and join.</a></p>
-      <% end %>
-
-      <% if (is_tuesday && between_one_and_two) %>
-        <p><strong>Getting Started with Quill in Pre-AP® English 1 and 2</strong> is live now! <a href="https://zoom.us/webinar/register/WN_8150mDv7QWOBIERPfiTroQ" rel="noopener noreferrer" target="_blank">Click here to register and join.</a></p>
-      <% end %>
-
-      <% if (is_wednesday && between_eleven_and_twelve) %>
-        <p><strong>Quill Webinar 301: Embedding into Instruction</strong> is live now! <a href="https://zoom.us/webinar/register/WN_7_ueCwCjT-CKHzBv0cBbaA" rel="noopener noreferrer" target="_blank">Click here to register and join.</a></p>
-      <% end %>
-
-      <% if (is_wednesday && between_four_and_five) %>
-        <p><strong>Quill Webinar 301: Embedding into Instruction</strong> is live now! <a href="https://zoom.us/webinar/register/WN_Bx8cKOKBS-y_ap9wzvduvA" rel="noopener noreferrer" target="_blank">Click here to register and join.</a></p>
-      <% end %>
-
-      <% if (is_wednesday && (between_nine_and_ten || between_twelve_and_one)) %>
-        <p><strong>Quill Q&A</strong> is live now! <a href="https://zoom.us/s/99398545099" rel="noopener noreferrer" target="_blank">Click here to join.</a></p>
-      <% end %>
-
-      <% if (is_thursday && (between_ten_and_eleven)) %>
-        <p><strong>Getting Started with Quill in AP®</strong> is live now! <a href="https://zoom.us/webinar/register/WN_IB6S4LOYRC61ohgXxWAJfA" rel="noopener noreferrer" target="_blank">Click here to join.</a></p>
-      <% end %>
-
+      <%= render partial: "banner_text", locals: {link: banner_link, title: banner_title} %>
       <img alt="White X" id="close-webinar-banner" src=<%= "#{ENV['CDN_URL']}/images/icons/close-white.svg" %>>
     </div>
   </div>
-
 
   <script>
     window.addEventListener('load', function(e) {
