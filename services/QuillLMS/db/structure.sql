@@ -2,8 +2,8 @@
 -- PostgreSQL database dump
 --
 
--- Dumped from database version 10.10
--- Dumped by pg_dump version 10.10
+-- Dumped from database version 10.13
+-- Dumped by pg_dump version 10.13
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -131,7 +131,7 @@ CREATE FUNCTION public.timespent_question(act_sess integer, question character v
           item timestamp;
         BEGIN
           SELECT created_at INTO as_created_at FROM activity_sessions WHERE id = act_sess;
-          
+
           -- backward compatibility block
           IF as_created_at IS NULL OR as_created_at < timestamp '2013-08-25 00:00:00.000000' THEN
             SELECT SUM(
@@ -146,11 +146,11 @@ CREATE FUNCTION public.timespent_question(act_sess integer, question character v
                       'epoch' FROM (activity_sessions.completed_at - activity_sessions.started_at)
                     )
                 END) INTO time_spent FROM activity_sessions WHERE id = act_sess AND state='finished';
-                
+
                 RETURN COALESCE(time_spent,0);
           END IF;
-          
-          
+
+
           first_item := NULL;
           last_item := NULL;
           max_item := NULL;
@@ -174,11 +174,11 @@ CREATE FUNCTION public.timespent_question(act_sess integer, question character v
 
             END IF;
           END LOOP;
-          
+
           IF max_item IS NOT NULL AND first_item IS NOT NULL THEN
             time_spent := time_spent + EXTRACT( EPOCH FROM max_item - first_item );
           END IF;
-          
+
           RETURN time_spent;
         END;
       $$;
@@ -193,7 +193,7 @@ CREATE FUNCTION public.timespent_student(student integer) RETURNS bigint
     AS $$
         SELECT COALESCE(SUM(time_spent),0) FROM (
           SELECT id,timespent_activity_session(id) AS time_spent FROM activity_sessions
-          WHERE activity_sessions.user_id = student 
+          WHERE activity_sessions.user_id = student
           GROUP BY id) as as_ids;
 
       $$;
@@ -286,7 +286,8 @@ CREATE TABLE public.activities (
     flags character varying[] DEFAULT '{}'::character varying[] NOT NULL,
     repeatable boolean DEFAULT true,
     follow_up_activity_id integer,
-    supporting_info character varying
+    supporting_info character varying,
+    standard_id integer
 );
 
 
@@ -1175,6 +1176,107 @@ CREATE SEQUENCE public.comprehension_prompts_id_seq
 --
 
 ALTER SEQUENCE public.comprehension_prompts_id_seq OWNED BY public.comprehension_prompts.id;
+
+
+--
+-- Name: comprehension_prompts_rule_sets; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.comprehension_prompts_rule_sets (
+    id integer NOT NULL,
+    prompt_id integer,
+    rule_set_id integer
+);
+
+
+--
+-- Name: comprehension_prompts_rule_sets_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.comprehension_prompts_rule_sets_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: comprehension_prompts_rule_sets_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.comprehension_prompts_rule_sets_id_seq OWNED BY public.comprehension_prompts_rule_sets.id;
+
+
+--
+-- Name: comprehension_rule_sets; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.comprehension_rule_sets (
+    id integer NOT NULL,
+    activity_id integer,
+    prompt_id integer,
+    name character varying,
+    feedback character varying,
+    priority integer,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: comprehension_rule_sets_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.comprehension_rule_sets_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: comprehension_rule_sets_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.comprehension_rule_sets_id_seq OWNED BY public.comprehension_rule_sets.id;
+
+
+--
+-- Name: comprehension_rules; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.comprehension_rules (
+    id integer NOT NULL,
+    rule_set_id integer,
+    regex_text character varying,
+    case_sensitive boolean,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: comprehension_rules_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.comprehension_rules_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: comprehension_rules_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.comprehension_rules_id_seq OWNED BY public.comprehension_rules.id;
 
 
 --
@@ -2390,6 +2492,111 @@ ALTER SEQUENCE public.sections_id_seq OWNED BY public.sections.id;
 
 
 --
+-- Name: standard_categories; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.standard_categories (
+    id integer NOT NULL,
+    name character varying,
+    uid character varying,
+    visible boolean DEFAULT true,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: standard_categories_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.standard_categories_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: standard_categories_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.standard_categories_id_seq OWNED BY public.standard_categories.id;
+
+
+--
+-- Name: standard_levels; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.standard_levels (
+    id integer NOT NULL,
+    name character varying,
+    uid character varying,
+    "position" integer,
+    visible boolean DEFAULT true,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: standard_levels_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.standard_levels_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: standard_levels_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.standard_levels_id_seq OWNED BY public.standard_levels.id;
+
+
+--
+-- Name: standards; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.standards (
+    id integer NOT NULL,
+    name character varying,
+    uid character varying,
+    standard_level_id integer,
+    standard_category_id integer,
+    visible boolean DEFAULT true,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: standards_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.standards_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: standards_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.standards_id_seq OWNED BY public.standards.id;
+
+
+--
 -- Name: students_classrooms; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -3120,6 +3327,27 @@ ALTER TABLE ONLY public.comprehension_prompts ALTER COLUMN id SET DEFAULT nextva
 
 
 --
+-- Name: comprehension_prompts_rule_sets id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.comprehension_prompts_rule_sets ALTER COLUMN id SET DEFAULT nextval('public.comprehension_prompts_rule_sets_id_seq'::regclass);
+
+
+--
+-- Name: comprehension_rule_sets id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.comprehension_rule_sets ALTER COLUMN id SET DEFAULT nextval('public.comprehension_rule_sets_id_seq'::regclass);
+
+
+--
+-- Name: comprehension_rules id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.comprehension_rules ALTER COLUMN id SET DEFAULT nextval('public.comprehension_rules_id_seq'::regclass);
+
+
+--
 -- Name: comprehension_turking_rounds id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -3355,6 +3583,27 @@ ALTER TABLE ONLY public.schools_users ALTER COLUMN id SET DEFAULT nextval('publi
 --
 
 ALTER TABLE ONLY public.sections ALTER COLUMN id SET DEFAULT nextval('public.sections_id_seq'::regclass);
+
+
+--
+-- Name: standard_categories id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.standard_categories ALTER COLUMN id SET DEFAULT nextval('public.standard_categories_id_seq'::regclass);
+
+
+--
+-- Name: standard_levels id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.standard_levels ALTER COLUMN id SET DEFAULT nextval('public.standard_levels_id_seq'::regclass);
+
+
+--
+-- Name: standards id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.standards ALTER COLUMN id SET DEFAULT nextval('public.standards_id_seq'::regclass);
 
 
 --
@@ -3671,6 +3920,30 @@ ALTER TABLE ONLY public.comprehension_prompts
 
 
 --
+-- Name: comprehension_prompts_rule_sets comprehension_prompts_rule_sets_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.comprehension_prompts_rule_sets
+    ADD CONSTRAINT comprehension_prompts_rule_sets_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: comprehension_rule_sets comprehension_rule_sets_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.comprehension_rule_sets
+    ADD CONSTRAINT comprehension_rule_sets_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: comprehension_rules comprehension_rules_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.comprehension_rules
+    ADD CONSTRAINT comprehension_rules_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: comprehension_turking_rounds comprehension_turking_rounds_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -3940,6 +4213,30 @@ ALTER TABLE ONLY public.schools_users
 
 ALTER TABLE ONLY public.sections
     ADD CONSTRAINT sections_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: standard_categories standard_categories_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.standard_categories
+    ADD CONSTRAINT standard_categories_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: standard_levels standard_levels_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.standard_levels
+    ADD CONSTRAINT standard_levels_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: standards standards_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.standards
+    ADD CONSTRAINT standards_pkey PRIMARY KEY (id);
 
 
 --
@@ -4445,6 +4742,41 @@ CREATE INDEX index_comprehension_passages_on_activity_id ON public.comprehension
 --
 
 CREATE INDEX index_comprehension_prompts_on_activity_id ON public.comprehension_prompts USING btree (activity_id);
+
+
+--
+-- Name: index_comprehension_prompts_rule_sets_on_prompt_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_comprehension_prompts_rule_sets_on_prompt_id ON public.comprehension_prompts_rule_sets USING btree (prompt_id);
+
+
+--
+-- Name: index_comprehension_prompts_rule_sets_on_rule_set_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_comprehension_prompts_rule_sets_on_rule_set_id ON public.comprehension_prompts_rule_sets USING btree (rule_set_id);
+
+
+--
+-- Name: index_comprehension_rule_sets_on_activity_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_comprehension_rule_sets_on_activity_id ON public.comprehension_rule_sets USING btree (activity_id);
+
+
+--
+-- Name: index_comprehension_rule_sets_on_prompt_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_comprehension_rule_sets_on_prompt_id ON public.comprehension_rule_sets USING btree (prompt_id);
+
+
+--
+-- Name: index_comprehension_rules_on_rule_set_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_comprehension_rules_on_rule_set_id ON public.comprehension_rules USING btree (rule_set_id);
 
 
 --
@@ -5324,6 +5656,22 @@ ALTER TABLE ONLY public.recommendations
 
 
 --
+-- Name: standards fk_rails_7c2e427970; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.standards
+    ADD CONSTRAINT fk_rails_7c2e427970 FOREIGN KEY (standard_level_id) REFERENCES public.standard_levels(id);
+
+
+--
+-- Name: activities fk_rails_8b159cf902; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.activities
+    ADD CONSTRAINT fk_rails_8b159cf902 FOREIGN KEY (standard_id) REFERENCES public.standards(id);
+
+
+--
 -- Name: classroom_units fk_rails_a3c514fc6d; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -5377,6 +5725,14 @@ ALTER TABLE ONLY public.unit_activities
 
 ALTER TABLE ONLY public.classroom_unit_activity_states
     ADD CONSTRAINT fk_rails_bab346c597 FOREIGN KEY (unit_activity_id) REFERENCES public.unit_activities(id);
+
+
+--
+-- Name: standards fk_rails_c84477fd6e; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.standards
+    ADD CONSTRAINT fk_rails_c84477fd6e FOREIGN KEY (standard_category_id) REFERENCES public.standard_categories(id);
 
 
 --
@@ -6121,8 +6477,6 @@ INSERT INTO schema_migrations (version) VALUES ('20200612165829');
 
 INSERT INTO schema_migrations (version) VALUES ('20200612165830');
 
-INSERT INTO schema_migrations (version) VALUES ('20200707144528');
-
 INSERT INTO schema_migrations (version) VALUES ('20200629191908');
 
 INSERT INTO schema_migrations (version) VALUES ('20200629191909');
@@ -6130,3 +6484,13 @@ INSERT INTO schema_migrations (version) VALUES ('20200629191909');
 INSERT INTO schema_migrations (version) VALUES ('20200702140252');
 
 INSERT INTO schema_migrations (version) VALUES ('20200706135059');
+
+INSERT INTO schema_migrations (version) VALUES ('20200707144528');
+
+INSERT INTO schema_migrations (version) VALUES ('20200928193105');
+
+INSERT INTO schema_migrations (version) VALUES ('20200928193310');
+
+INSERT INTO schema_migrations (version) VALUES ('20200928193551');
+
+INSERT INTO schema_migrations (version) VALUES ('20200928193744');
