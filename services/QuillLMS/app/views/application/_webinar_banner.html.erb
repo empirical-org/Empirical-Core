@@ -21,6 +21,7 @@
 <% banner_link = nil %>
 <% banner_title = nil %>
 
+
 <% if (still_doing_webinars && (!current_user || current_user.teacher?))  %>
 
   <% if (is_monday && between_eleven_and_twelve) %>
@@ -134,12 +135,13 @@
   <% end %>
 <%end%>
 
-
-<% if banner_link && banner_title %>
+<% banner = Banner.new(time) %>
+<% if banner.show? %>
   <div class="banner" id="webinar-banner">
     <div class="content-container">
       <img alt="Video player with play symbol" class="banner-icon" src=<%= "#{ENV['CDN_URL']}/images/icons/live-stream.svg" %>>
-      <%= render partial: "banner_text", locals: {link: banner_link, title: banner_title} %>
+
+      <%= render partial: "banner_text", locals: {link: banner.link, title: banner.title} %>
       <img alt="White X" id="close-webinar-banner" src=<%= "#{ENV['CDN_URL']}/images/icons/close-white.svg" %>>
     </div>
   </div>
