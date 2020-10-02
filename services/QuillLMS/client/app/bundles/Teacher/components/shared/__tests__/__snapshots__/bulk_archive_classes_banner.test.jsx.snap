@@ -84,7 +84,6 @@ exports[`BulkArchiveClassesBanner when it is July-September should render null w
       },
     ]
   }
-  onSuccess={[Function]}
   userId={1}
 />
 `;
@@ -173,7 +172,6 @@ exports[`BulkArchiveClassesBanner when it is July-September should render null w
       },
     ]
   }
-  onSuccess={[Function]}
   userId={1}
 />
 `;
@@ -262,9 +260,38 @@ exports[`BulkArchiveClassesBanner when it is July-September should render when n
       },
     ]
   }
-  onSuccess={[Function]}
   userId={1}
-/>
+>
+  <section
+    className="bulk-archive-classes-banner"
+  >
+    <span>
+      <strong>
+        Start of a new school year?
+      </strong>
+       Quickly archive last year’s classes.
+    </span>
+    <span>
+      <button
+        className="quill-button medium outlined secondary"
+        onClick={[Function]}
+        type="button"
+      >
+        Archive classes
+      </button>
+      <button
+        className="pass-through-button"
+        onClick={[Function]}
+        type="button"
+      >
+        <img
+          alt="X icon"
+          src="undefined/images/icons/close.svg"
+        />
+      </button>
+    </span>
+  </section>
+</BulkArchiveClassesBanner>
 `;
 
 exports[`BulkArchiveClassesBanner when it is July-September should render when none of the above conditions are met and the Archive Classes button is clicked 1`] = `
@@ -351,7 +378,6 @@ exports[`BulkArchiveClassesBanner when it is July-September should render when n
       },
     ]
   }
-  onSuccess={[Function]}
   userId={1}
 >
   <BulkArchiveClassesModal
@@ -438,7 +464,6 @@ exports[`BulkArchiveClassesBanner when it is July-September should render when n
       ]
     }
     onCloseModal={[Function]}
-    onSuccess={[Function]}
   >
     <div
       className="modal-container bulk-archive-classes-modal-container"
@@ -1255,7 +1280,6 @@ exports[`BulkArchiveClassesBanner when it is not July-September should render nu
       },
     ]
   }
-  onSuccess={[Function]}
   userId={1}
 />
 `;
