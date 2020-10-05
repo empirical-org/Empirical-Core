@@ -51,32 +51,6 @@ const Sliders = () => {
         </div>
       </div>
     </div>)
-
-//   return (<div id="sliders">
-//     <h2 className="style-guide-h2">Sliders</h2>
-//     <div className="element-container">
-//       <pre>
-//         {
-// `<div className="sliders-container">
-// <TwoThumbSlider
-//   tooltipText="I am a tooltip!"
-//   tooltipTriggerText="Hover here"
-// />
-// </div>`
-//         }
-//       </pre>
-//       <div className="sliders-container">
-//         <TwoThumbSlider
-//           lowerValue={lowerValue}
-//           upperValue={upperValue}
-//           minValue={1}
-//           maxValue={4}
-//           step={1}
-//           handleChange={onChange}
-//         />
-//       </div>
-//     </div>
-//   </div>)
 }
 
 export default Sliders
