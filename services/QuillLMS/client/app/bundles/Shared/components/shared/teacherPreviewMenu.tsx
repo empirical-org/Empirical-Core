@@ -49,7 +49,7 @@ const renderTitleSection = (activity: Activity) => {
   );
 }
 
-const renderIntroductionSection = (activity: Activity, session: any) => {
+const renderIntroductionSection = (activity: Activity, playLesson: any, session: any) => {
   if(!activity) { return }
   const isEmptyIntroduction = activity.landingPageHtml && !stripHtml(activity.landingPageHtml);
   if(activity && (!activity.landingPageHtml || isEmptyIntroduction)) { return }
@@ -62,7 +62,8 @@ const renderIntroductionSection = (activity: Activity, session: any) => {
   if(!introductionText) {
     return;
   }
-  const style = session && !session.currentQuestion ? 'highlighted' : '';
+  // highlight introduction session if activity not started, we use session for Grammar and playLesson for Connect
+  const style = ((session && !session.currentQuestion) || (playLesson && !playLesson.questionSet)) ? 'highlighted' : '';
   return(
     <section>
       <h2>Introduction</h2>
@@ -71,13 +72,13 @@ const renderIntroductionSection = (activity: Activity, session: any) => {
   );
 }
 
-const getStyling = (questionToPreview: Question, uidOrKey: string, i: number, session: any) => {
+const getStyling = ({ questionToPreview, uidOrKey, i, session, playLesson }) => {
   let key: string;
   if(questionToPreview) {
     key = questionToPreview.key ? questionToPreview.key : questionToPreview.uid;
   }
   // don't apply highlight if activity has not started
-  if(session && !session.currentQuestion) {
+  if((session && !session.currentQuestion) || (playLesson && !playLesson.questionSet)) {
     return '';
   }
   // if first question has no key from initial render, apply highlight
@@ -113,6 +114,7 @@ const renderQuestions = ({
   activity,
   fillInBlank,
   handleQuestionUpdate,
+  playLesson,
   questions,
   questionToPreview,
   randomizedQuestions,
@@ -128,7 +130,7 @@ const renderQuestions = ({
       const { key } = question;
       const questionObject = getQuestionObject({ questions, titleCards, sentenceFragments, fillInBlank, key });
       const questionText = questionObject.prompt || questionObject.title
-      const highlightedStyle = getStyling(questionToPreview, key, i, session);
+      const highlightedStyle = getStyling({ questionToPreview, uidOrKey: key, i, session, playLesson });
       const indentation = getIndentation(i);
       if(!questionObject) {
         return null;
@@ -143,7 +145,7 @@ const renderQuestions = ({
   } else if(randomizedQuestions) {
     return randomizedQuestions.map((question: any, i: number) => {
       const { uid } = question;
-      const highlightedStyle = getStyling(questionToPreview, uid, i, session);
+      const highlightedStyle = getStyling({ questionToPreview, uidOrKey: uid, i, session, playLesson });
       const indentation = getIndentation(i);
       return(
         <button className={`question-container ${highlightedStyle} focus-on-light`} id={uid} key={uid} onClick={handleQuestionUpdate} type="button">
@@ -163,6 +165,7 @@ interface TeacherPreviewMenuProps {
   onTogglePreview?: () => void;
   onToggleQuestion?: (question: Question) => void;
   onUpdateRandomizedQuestions?: (questions: any[]) => void;
+  playLesson: any;
   questions: Question[];
   questionToPreview?: {
     key?: string,
@@ -182,6 +185,7 @@ const TeacherPreviewMenuComponent = ({
   onTogglePreview,
   onToggleQuestion,
   onUpdateRandomizedQuestions,
+  playLesson,
   questions,
   questionToPreview,
   sentenceFragments,
@@ -220,7 +224,8 @@ const TeacherPreviewMenuComponent = ({
       question = questions && questions[questionUID] || titleCards && titleCards[questionUID] || sentenceFragments && sentenceFragments[questionUID] || fillInBlank && fillInBlank[questionUID];
       question.key = questionUID;
     }
-    if(session && !session.currentQuestion) {
+    // again we use session for Grammar and playLesson for Connect
+    if((session && !session.currentQuestion) || (playLesson && !playLesson.questionSet)) {
       onHandleSkipToQuestionFromIntro();
     }
     onToggleQuestion(question);
@@ -241,7 +246,7 @@ const TeacherPreviewMenuComponent = ({
         <p>This menu only displays for teachers previewing an activity. Students will not be able to skip questions.</p>
       </section>
       {renderTitleSection(activity)}
-      {renderIntroductionSection(activity, session)}
+      {renderIntroductionSection(activity, playLesson, session)}
       <section>
         <h2>Questions</h2>
         <ul>
@@ -249,6 +254,7 @@ const TeacherPreviewMenuComponent = ({
             activity,
             fillInBlank,
             handleQuestionUpdate,
+            playLesson,
             questions,
             questionToPreview,
             randomizedQuestions,
@@ -263,10 +269,11 @@ const TeacherPreviewMenuComponent = ({
 }
 
 const mapStateToProps = (state: any) => {
-  const { questions, session, titleCards, sentenceFragments, fillInBlank } = state;
+  const { questions, session, titleCards, sentenceFragments, fillInBlank, playLesson } = state;
   return {
     activity: returnActivity(state),
     fillInBlank: fillInBlank ? returnActivityData(fillInBlank) : null,
+    playLesson: playLesson,
     questions: questions ? returnActivityData(questions) : null,
     sentenceFragments: sentenceFragments ? returnActivityData(sentenceFragments) : null,
     session: session,
