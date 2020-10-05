@@ -267,15 +267,12 @@ describe('StudentDiagnostic Container functions', () => {
         expect(response.length).toEqual(mockProps.lessons.data.testID.questions.length);
     });
     it("startActivity calls dispatch() prop function passing nextQuestion as an argument", () => {
-        const argument = nextQuestion();
-        container.instance().startActivity();
-        expect(mockProps.dispatch).toHaveBeenCalledWith(argument);
-    });
-    it("handleSpinnerMount calls dispatch() prop function passing loadData(data) as an argument", () => {
         const questionsForLesson = jest.spyOn(container.instance(), 'questionsForLesson');
-        const argument = loadData(questionsForLesson());
-        container.instance().handleSpinnerMount();
-        expect(mockProps.dispatch).toHaveBeenCalledWith(argument);
+        const argument1 = loadData(questionsForLesson());
+        const argument2 = nextQuestion();
+        container.instance().startActivity();
+        expect(mockProps.dispatch).toHaveBeenCalledWith(argument1);
+        expect(mockProps.dispatch).toHaveBeenCalledWith(argument2);
     });
     it("nextQuestion calls dispatch() prop function passing nextQuestion as an argument", () => {
         const argument = nextQuestion();
