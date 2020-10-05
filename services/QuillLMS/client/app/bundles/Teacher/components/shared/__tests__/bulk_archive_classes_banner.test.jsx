@@ -120,11 +120,5 @@ describe('BulkArchiveClassesBanner', () => {
     it('should render when none of the above conditions are met', () => {
       expect(wrapper).toMatchSnapshot()
     })
-
-    it('should render when none of the above conditions are met and the Archive Classes button is clicked', () => {
-      wrapper.find('.quill-button').simulate('click')
-      expect(wrapper).toMatchSnapshot()
-      expect(wrapper.find(BulkArchiveClassesModal)).toHaveLength(1)
-    })
   })
 })
