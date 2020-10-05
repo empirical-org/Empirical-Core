@@ -1,90 +1,33 @@
 <% current_time_on_east_coast = Time.now.in_time_zone('America/New_York') %>
-<% current_hour = current_time_on_east_coast.hour %>
+<% still_doing_webinars = current_time_on_east_coast < Date.parse("20201217") %>
 
-<% between_nine_and_ten = current_hour == 9 %>
-<% between_ten_and_eleven = current_hour == 10 %>
-<% between_eleven_and_twelve = current_hour == 11 %>
-<% between_twelve_and_one = current_hour == 12 %>
-<% between_one_and_two = current_hour == 13 %>
-<% between_two_and_three = current_hour == 14 %>
-<% between_four_and_five = current_hour == 16 %>
-
-<% is_monday = current_time_on_east_coast.monday? %>
-<% is_tuesday = current_time_on_east_coast.tuesday? %>
-<% is_wednesday = current_time_on_east_coast.wednesday? %>
-<% is_thursday = current_time_on_east_coast.thursday? %>
-
-<% still_doing_webinars = current_time_on_east_coast < Date.parse("20201002") %>
-
-<% if (still_doing_webinars && (!current_user || current_user.teacher?)  && ((is_monday && between_eleven_and_twelve) || (is_monday && between_four_and_five) ||
-  (is_tuesday && between_eleven_and_twelve) || (is_tuesday && between_four_and_five) || (is_tuesday && between_one_and_two) ||
-  (is_wednesday && between_eleven_and_twelve) || (is_wednesday && between_four_and_five) || (is_wednesday && (between_nine_and_ten || between_twelve_and_one)) ||
-  (is_thursday && (between_ten_and_eleven)) || (is_monday && (between_nine_and_ten || between_twelve_and_one)))) %>
-
-  <div class="banner" id="webinar-banner">
-    <div class="content-container">
-      <img alt="Video player with play symbol" class="banner-icon" src=<%= "#{ENV['CDN_URL']}/images/icons/live-stream.svg" %>>
-
-      <% if (is_monday && (between_nine_and_ten || between_twelve_and_one)) %>
-        <p><strong>Quill Q&A</strong> is live now! <a href="https://zoom.us/s/99398545099" rel="noopener noreferrer" target="_blank">Click here to join.</a></p>
-      <% end %>
-
-      <% if (is_monday && between_eleven_and_twelve) %>
-        <p><strong>Quill Webinar 101: Getting Started</strong> is live now! <a href="https://zoom.us/webinar/register/WN_sMpk6SCfSdu5Pb5Pg_E31A" rel="noopener noreferrer" target="_blank">Click here to register and join.</a></p>
-      <% end %>
-
-      <% if (is_monday && between_four_and_five) %>
-        <p><strong>Quill Webinar 101: Getting Started</strong> is live now! <a href="https://zoom.us/webinar/register/WN_Y68x8wS0RY-x1o-N2mtzqQ" rel="noopener noreferrer" target="_blank">Click here to register and join.</a></p>
-      <% end %>
-
-      <% if (is_tuesday && between_eleven_and_twelve) %>
-        <p><strong>Quill Webinar 201: Diving into Data</strong> is live now! <a href="https://zoom.us/webinar/register/WN_dxzwK3whQFyDYDZaNIRT1g" rel="noopener noreferrer" target="_blank">Click here to register and join.</a></p>
-      <% end %>
-
-      <% if (is_tuesday && between_four_and_five) %>
-        <p><strong>Quill Webinar 201: Diving into Data</strong> is live now! <a href="https://zoom.us/webinar/register/WN_zHHpqoO9Q96O_MpYUUihRg" rel="noopener noreferrer" target="_blank">Click here to register and join.</a></p>
-      <% end %>
-
-      <% if (is_tuesday && between_one_and_two) %>
-        <p><strong>Getting Started with Quill in Pre-AP® English 1 and 2</strong> is live now! <a href="https://zoom.us/webinar/register/WN_8150mDv7QWOBIERPfiTroQ" rel="noopener noreferrer" target="_blank">Click here to register and join.</a></p>
-      <% end %>
-
-      <% if (is_wednesday && between_eleven_and_twelve) %>
-        <p><strong>Quill Webinar 301: Embedding into Instruction</strong> is live now! <a href="https://zoom.us/webinar/register/WN_7_ueCwCjT-CKHzBv0cBbaA" rel="noopener noreferrer" target="_blank">Click here to register and join.</a></p>
-      <% end %>
-
-      <% if (is_wednesday && between_four_and_five) %>
-        <p><strong>Quill Webinar 301: Embedding into Instruction</strong> is live now! <a href="https://zoom.us/webinar/register/WN_Bx8cKOKBS-y_ap9wzvduvA" rel="noopener noreferrer" target="_blank">Click here to register and join.</a></p>
-      <% end %>
-
-      <% if (is_wednesday && (between_nine_and_ten || between_twelve_and_one)) %>
-        <p><strong>Quill Q&A</strong> is live now! <a href="https://zoom.us/s/99398545099" rel="noopener noreferrer" target="_blank">Click here to join.</a></p>
-      <% end %>
-
-      <% if (is_thursday && (between_ten_and_eleven)) %>
-        <p><strong>Getting Started with Quill in AP®</strong> is live now! <a href="https://zoom.us/webinar/register/WN_IB6S4LOYRC61ohgXxWAJfA" rel="noopener noreferrer" target="_blank">Click here to join.</a></p>
-      <% end %>
-
-      <img alt="White X" id="close-webinar-banner" src=<%= "#{ENV['CDN_URL']}/images/icons/close-white.svg" %>>
+<% if (still_doing_webinars && (!current_user || current_user.teacher?)) %>
+  <% banner = WebinarBanner.new(current_time_on_east_coast) %>
+  <% if banner.show? %>
+    <div class="banner" id="webinar-banner">
+      <div class="content-container">
+        <img alt="Video player with play symbol" class="banner-icon" src=<%= "#{ENV['CDN_URL']}/images/icons/live-stream.svg" %>>
+        <p><a href=<%= banner.link %> rel="noopener noreferrer" target="_blank"><strong><%=banner.title%></strong> is live now! Register and join.</a></p>
+        <img alt="White X" id="close-webinar-banner" src=<%= "#{ENV['CDN_URL']}/images/icons/close-white.svg" %>>
+      </div>
     </div>
-  </div>
 
+    <script>
+      window.addEventListener('load', function(e) {
+        if (document.cookie.indexOf('webinar_banner_closed=1') === -1) {
+          document.getElementById('webinar-banner').style.display = 'block';
+        }
+      });
 
-  <script>
-    window.addEventListener('load', function(e) {
-      if (document.cookie.indexOf('webinar_banner_closed=1') === -1) {
-        document.getElementById('webinar-banner').style.display = 'block';
-      }
-    });
+      document.getElementById('close-webinar-banner').addEventListener('click', function(e) {
+          e.preventDefault();
+          document.getElementById('webinar-banner').style.display = 'none';
+          let date = new Date();
+          // set the cookie to expire at the start of the next hour so we can show the next webinar
+          date.setHours(date.getHours() + 1,0,0);
+          document.cookie = `webinar_banner_closed=1; expires=${date.toGMTString()}`;
+      }, false);
 
-    document.getElementById('close-webinar-banner').addEventListener('click', function(e) {
-        e.preventDefault();
-        document.getElementById('webinar-banner').style.display = 'none';
-        let date = new Date();
-        // set the cookie to expire at the start of the next hour so we can show the next webinar
-        date.setHours(date.getHours() + 1,0,0);
-        document.cookie = `webinar_banner_closed=1; expires=${date.toGMTString()}`;
-    }, false);
-
-  </script>
+    </script>
+  <% end %>
 <% end %>
