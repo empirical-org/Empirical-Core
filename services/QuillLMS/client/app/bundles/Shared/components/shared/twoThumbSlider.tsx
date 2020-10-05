@@ -7,38 +7,28 @@ interface TwoThumbSliderProps {
   minValue: number,
   maxValue: number,
   step: number,
-  handleChange: (event: any) => void,
-  onMouseDown: (event: any) => void,
-  onTouchStart: (event: any) => void
+  handleChange: (values: number[]) => void,
+  markLabels?: string[]|number[]
 }
 
-const Track = ({ props, children, }) => {
-  const { onMouseDown, style, ref, onTouchStart, values, minValue, maxValue, } = props
+const Track = ({ props, children, values, minValue, maxValue, }) => {
+  const { style, ref, } = props
+  const background = getTrackBackground({
+    values,
+    colors: ['#dbdbdb', '#06806b', '#dbdbdb'],
+    min: minValue,
+    max: maxValue
+  })
+
   return (
     <div
-      onMouseDown={onMouseDown}
-      onTouchStart={onTouchStart}
-      style={{
-        ...style,
-        height: '36px',
-        display: 'flex',
-        width: '100%'
-      }}
+      className="track-container"
+      style={style}
     >
       <div
+        className="track"
         ref={ref}
-        style={{
-          height: '5px',
-          width: '100%',
-          borderRadius: '4px',
-          background: getTrackBackground({
-            values: values,
-            colors: ['#ccc', '#548BF4', '#ccc'],
-            min: minValue,
-            max: maxValue
-          }),
-          alignSelf: 'center'
-        }}
+        style={{ background, }}
       >
         {children}
       </div>
@@ -46,36 +36,30 @@ const Track = ({ props, children, }) => {
   )
 }
 
-export const Thumb = ({ props, isDragged, }) => (
-  <div
-    {...props}
-    style={{
-      ...props.style,
-      height: '42px',
-      width: '42px',
-      borderRadius: '4px',
-      backgroundColor: '#FFF',
-      display: 'flex',
-      justifyContent: 'center',
-      alignItems: 'center',
-      boxShadow: '0px 2px 6px #AAA'
-    }}
-  >
+const Thumb = ({ props, }) => {
+  const { style, } = props
+  return (
     <div
-      style={{
-        height: '16px',
-        width: '5px',
-        backgroundColor: isDragged ? '#548BF4' : '#CCC'
-      }}
+      {...props}
+      className="thumb"
+      style={style}
     />
-  </div>
-)
+  )
+}
 
-const TwoThumbSlider = (props: TwoThumbSliderProps) => {
-  const { lowerValue, upperValue, minValue, maxValue, step, handleChange, } = props
+const Mark = ({ props, index, markLabels, }) => {
+  let className = 'mark'
+  className += index === 0 ? ' first-mark' : ''
+  className += markLabels && index === markLabels.length ? ' last-mark' : ''
+  return <div {...props} className={className}>{markLabels && markLabels[index]}</div>
+}
+
+export const TwoThumbSlider = (props: TwoThumbSliderProps) => {
+  const { lowerValue, upperValue, minValue, maxValue, step, handleChange, markLabels, } = props
   const values = [lowerValue, upperValue]
   return (
     <div
+      className="two-thumb-slider-container"
       style={{
         display: 'flex',
         justifyContent: 'center',
@@ -86,8 +70,9 @@ const TwoThumbSlider = (props: TwoThumbSliderProps) => {
         max={maxValue}
         min={minValue}
         onChange={handleChange}
-        renderThumb={({ props, isDragged }) => <Thumb isDragged={isDragged} props={props} />}
-        renderTrack={({ props, children, }) => <Track props={props}>{children}</Track>}
+        renderMark={({ props, index, }) => <Mark index={index} markLabels={markLabels} props={props} />}
+        renderThumb={({ props, isDragged }) => <Thumb props={props} />}
+        renderTrack={({ props, children, }) => <Track maxValue={maxValue} minValue={minValue} props={props} values={values}>{children}</Track>}
         step={step}
         values={values}
       />
