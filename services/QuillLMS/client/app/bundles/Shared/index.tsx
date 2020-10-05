@@ -33,6 +33,7 @@ export {
   TextEditor,
   TextArea,
   Tooltip,
+  TwoThumbSlider,
   UploadOptimalResponses
 } from './components/shared/index'
 
