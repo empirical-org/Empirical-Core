@@ -26,7 +26,7 @@ describe('rethinkDBHost', () => {
   });
 
   // this isn't completely deterministic, but highly likely to be
-  it("should spread the randomness around", () => {
+  it("should, by random spread, use each host at least once if there are 3 hosts and 50 servers", () => {
     const values = "one two three"
     const fiftyRandom = Array.from({length: 50}, (v,i) => rethinkDBHost(values))
 
