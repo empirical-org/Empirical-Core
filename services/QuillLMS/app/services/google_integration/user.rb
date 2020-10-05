@@ -32,10 +32,11 @@ class GoogleIntegration::User
         post_google_classroom_assignments: user.new_record? ? true : user.post_google_classroom_assignments,
         auth_credential_attributes: auth_credential_attributes,
       }
+
       params[:name]      = data.name      if data.name.present?
       params[:email]     = data.email     if data.email.present?
       params[:google_id] = data.google_id if data.google_id.present?
-      params[:role]      = data.role      if data.role.present?
+      params[:role]      = data.role      if data.role.present? && user.new_record?
       params[:clever_id] = nil
 
       params
