@@ -14,7 +14,7 @@ export default class ActivitySearchResult extends React.Component {
     ? (<td className="activity_name">
       <a
         className="activity_link"
-        data-tip={`<h1>${this.props.data.name}</h1><p>Tool: ${this.props.data.activity_classification.alias}</p><p>${this.props.data.section.name}</p><p>${this.props.data.topic_name}</p><p>${this.props.data.description}</p>`}
+        data-tip={`<h1>${this.props.data.name}</h1><p>Tool: ${this.props.data.activity_classification.alias}</p><p>${this.props.data.standard_level.name}</p><p>${this.props.data.standard_name}</p><p>${this.props.data.description}</p>`}
         href={this.props.data.anonymous_path}
         target="_new"
       >

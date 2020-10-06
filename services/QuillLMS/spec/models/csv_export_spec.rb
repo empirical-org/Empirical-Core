@@ -51,22 +51,22 @@ describe CsvExport, type: :model do
       it_behaves_like "CSV Export Type"
     end
 
-    context 'standards: topics by classroom' do
+    context 'standards: standards by classroom' do
       let(:filters) { { classroom_id: classroom_one.id } }
-      let(:export_type) { 'standards_classroom_topics' }
+      let(:export_type) { 'standards_classroom_standards' }
       it_behaves_like "CSV Export Type"
     end
 
-    context 'standards: topics by student' do
+    context 'standards: standards by student' do
       let(:filters) { { student_id: student_in_classroom_one.id } }
-      let(:export_type) { 'standards_student_topics' }
+      let(:export_type) { 'standards_student_standards' }
       it_behaves_like "CSV Export Type"
     end
 
-    context 'standards: students by topic' do
-      let!(:topic) { create(:topic)}
-      let(:filters) { { topic_id: topic.id } }
-      let(:export_type) { 'standards_topic_students' }
+    context 'standards: students by standard' do
+      let!(:standard) { create(:standard)}
+      let(:filters) { { standard_id: standard.id } }
+      let(:export_type) { 'standards_standard_students' }
       it_behaves_like "CSV Export Type"
     end
   end

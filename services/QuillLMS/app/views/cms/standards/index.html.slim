@@ -1,0 +1,25 @@
+.container
+  article.simple-rounded-box.chapter-levels-page
+    = form_for [:cms, Standard.new] do |f|
+      table.table
+        thead
+          th.name-column Name
+          th.position-column StandardLevel
+          th.position-column Standard Category
+          th.actions-column
+
+        - @standards.each do |standard|
+          tr
+            td= standard.name
+            td= standard.standard_level.name
+            td= standard.standard_category.present? ? standard.standard_category.name : 'NULL'
+            td.actions-column
+              = link_to 'Edit', [:edit, :cms, standard]
+              span &nbsp;
+              - if standard.activities.empty?
+                = link_to 'Delete', [:cms, standard], confirm: 'Are you sure?', method: :delete, remote: true, class: 'js-delete-link'
+
+        td= f.text_field :name
+        td.standard-level-select= f.select :standard_level_id, StandardLevel.all.map{|t| [t.name, t.id]}
+        td.standard-categories-select= f.select :standard_category_id, StandardCategory.all.map{|t| [t.name, t.id]}
+        td.actions-column= f.submit 'Create', class: 'btn btn-primary btn-small'

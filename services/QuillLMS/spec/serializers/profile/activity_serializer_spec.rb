@@ -10,8 +10,8 @@ describe Profile::ActivitySerializer, type: :serializer do
         description
         repeatable
         classification
-        section
-        topic
+        standard_level
+        standard
       }
     end
   end

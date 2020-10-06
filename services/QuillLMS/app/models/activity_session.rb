@@ -122,12 +122,12 @@ class ActivitySession < ActiveRecord::Base
       query = query.joins(:classroom_unit).where("classroom_units.unit_id = ?", filters[:unit_id])
     end
 
-    if filters[:section_id].present?
-      query = query.joins(activity: :topic).where('topics.section_id IN (?)', filters[:section_id])
+    if filters[:standard_level_id].present?
+      query = query.joins(activity: :standard).where('standards.standard_level_id IN (?)', filters[:standard_level_id])
     end
 
-    if filters[:topic_id].present?
-      query = query.joins(:activity).where('activities.topic_id IN (?)', filters[:topic_id])
+    if filters[:standard_id].present?
+      query = query.joins(:activity).where('activities.standard_id IN (?)', filters[:standard_id])
     end
 
     query
@@ -478,7 +478,7 @@ class ActivitySession < ActiveRecord::Base
     when 'percentage'
       "activity_sessions.percentage #{order}"
     when 'standard'
-      "topics.name #{order}"
+      "standards.name #{order}"
     end
   end
 

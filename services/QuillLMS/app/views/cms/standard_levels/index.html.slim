@@ -1,0 +1,18 @@
+.container
+  article.simple-rounded-box.chapter-levels-page
+    = form_for [:cms, StandardLevel.new] do |f|
+      table.table
+        thead
+          th.name-column Name
+          th.position-column Position
+          th.actions-column
+
+        - @standard_levels.order(position: :asc).each do |chapter_level|
+          tr
+            td= chapter_level.name
+            td= chapter_level.position
+            td.actions-column= link_to 'Delete', [:cms, chapter_level], confirm: 'Are you sure?', method: :delete, remote: true, class: 'js-delete-link'
+
+        td= f.text_field :name
+        td.position-select= f.select :position, 1.upto(StandardLevel.count + 1).to_a
+        td.actions-column= f.submit 'Create', class: 'btn btn-primary btn-small'

@@ -12,7 +12,7 @@ class Classroom < ActiveRecord::Base
   has_many :unit_activities, through: :units
   has_many :activities, through: :unit_activities
   has_many :activity_sessions, through: :classroom_units
-  has_many :sections, through: :activities
+  has_many :standard_levels, through: :activities
   has_many :coteacher_classroom_invitations
 
   has_many :students_classrooms, foreign_key: 'classroom_id', dependent: :destroy, class_name: "StudentsClassrooms"
@@ -45,9 +45,9 @@ class Classroom < ActiveRecord::Base
     units.select('units.id AS value, units.name').distinct.order('units.name').as_json(except: :id)
   end
 
-  def unique_topic_count
-    if unique_topic_count_array.any?
-      val = unique_topic_count_array.first.topic_count
+  def unique_standard_count
+    if unique_standard_count_array.any?
+      val = unique_standard_count_array.first.standard_count
     else
       val = nil
     end
@@ -62,11 +62,11 @@ class Classroom < ActiveRecord::Base
     classrooms_teachers.includes(:user).where(role: 'coteacher').map(&:teacher)
   end
 
-  def unique_topic_count_array
+  def unique_standard_count_array
     filters = {}
     best_activity_sessions = ProgressReports::Standards::ActivitySession.new(owner).results(filters)
     ActivitySession.from_cte('best_activity_sessions', best_activity_sessions)
-      .select("COUNT(DISTINCT(activities.topic_id)) as topic_count")
+      .select("COUNT(DISTINCT(activities.standard_id)) as standard_count")
       .joins('JOIN activities ON activities.id = best_activity_sessions.activity_id')
       .joins('JOIN classroom_units ON classroom_units.id = best_activity_sessions.classroom_unit_id')
       .where('classroom_units.classroom_id = ?', id)
