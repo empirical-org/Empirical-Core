@@ -14,12 +14,12 @@ Activity categories comprise broad categories of activities, spanning activity c
 
 This is the secondary and tertiary level of organization used in the default order for the Activity Search.
 
-### Topics, Sections, and Topic Categories
-Topics correlate roughly to Common Core standards. Each activity has a topic, to which it is joined through the topic_id on the activity table. These are used to sort activities on the Common Core Standards report. They are commonly referred to as 'Standards' on the front end.
+### Standards, Standard Levels, and Standard Categories
+Standards correlate roughly to Common Core standards. Each activity has a standard, to which it is joined through the standard_id on the activity table. These are used to sort activities on the Common Core Standards report. They are commonly referred to as 'Standards' on the front end.
 
-Each topic has a section, which roughly correlates to the Common Core Grade Level standards. Topics are joined with sections through the section_id attribute on the topic table. Sections are commonly referred to as Standard Levels on the front end. They appear as a column on the Activity Search, although are not used in the default sorting order.
+Each standard has a standard level, which roughly correlates to the Common Core Grade Level standards. Standards are joined with standard levels through the standard_level_id attribute on the standard table. They appear as a column on the Activity Search, although are not used in the default sorting order.
 
-Topics also have topic categories, which are rough groupings of activities which overlap in some, but not all, places with Activity Categories. They are joined by the topic_category_id attribute on the topics table. These are no longer used to sort activities.
+Standards also have standard categories, which are rough groupings of activities which overlap in some, but not all, places with Activity Categories. They are joined by the standard_category_id attribute on the standards table. These are no longer used to sort activities.
 
 ## Organized Within
 ### Units

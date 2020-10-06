@@ -63,7 +63,7 @@ class Cms::ActivitiesController < Cms::CmsController
                                      :uid,
                                      :data,
                                      :activity_classification_id,
-                                     :topic_id,
+                                     :standard_id,
                                      :flag,
                                      :flags,
                                      :repeatable,

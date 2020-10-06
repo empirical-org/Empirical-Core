@@ -165,13 +165,13 @@ describe PagesController do
   end
 
   describe '#activities' do
-    let!(:section) { create(:section) }
+    let!(:standard_level) { create(:standard_level) }
 
-    it 'should set the body class, section and topics' do
+    it 'should set the body class, standard_level and standards' do
       get :activities
       expect(assigns(:body_class)).to eq 'full-width-page white-page'
-      expect(assigns(:section)).to eq section
-      expect(assigns(:topics)).to eq section.topics.map{ |topic| [topic, topic.activities.production] }.select{ |group| group.second.any? }
+      expect(assigns(:standard_level)).to eq standard_level
+      expect(assigns(:standards)).to eq standard_level.standards.map{ |standard| [standard, standard.activities.production] }.select{ |group| group.second.any? }
     end
   end
 

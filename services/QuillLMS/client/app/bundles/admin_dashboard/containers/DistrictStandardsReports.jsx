@@ -53,7 +53,7 @@ function formatDataForCSV(data) {
     'Activities'
   ];
   const csvRow = row => [
-    row.section_name,
+    row.standard_level_name,
     row.name,
     row.total_student_count,
     row.proficient_count,

@@ -725,12 +725,12 @@ export const activities = [
     },
     activity_category_name: "Diagnostics",
     activity_category_id: 30,
-    section: {
+    standard_level: {
       id: 35,
       name: "Diagnostic"
     },
-    section_name: "Diagnostic",
-    topic_name: "Diagnostic",
+    standard_level_name: "Diagnostic",
+    standard_name: "Diagnostic",
     selected: true
   }, {
     name: "Lesson 1: Using In, At, and On to Show Time",
@@ -751,12 +751,12 @@ export const activities = [
     },
     activity_category_name: "Prepositions",
     activity_category_id: 9,
-    section: {
+    standard_level: {
       id: 7,
       name: "1st Grade CCSS"
     },
-    section_name: "1st Grade CCSS",
-    topic_name: "1.1i. Frequently Occurring Prepositions",
+    standard_level_name: "1st Grade CCSS",
+    standard_name: "1.1i. Frequently Occurring Prepositions",
     selected: true
   }
 ]

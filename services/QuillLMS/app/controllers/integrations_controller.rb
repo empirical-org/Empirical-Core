@@ -14,8 +14,8 @@ class IntegrationsController < ApplicationController
     @body_class = 'full-width-page white-page'
     @js_file = 'public'
     @active_tab = 'Explore All Activities'
-    @section = params[:section_id].present? ? Section.find(params[:section_id]) : Section.first
-    @topics = @section.topics.map{ |topic| [topic, topic.activities.production] }.select{ |group| group.second.any? }
+    @standard_level = params[:standard_level_id].present? ? StandardLevel.find(params[:standard_level_id]) : StandardLevel.first
+    @standards = @standard_level.standards.map{ |standard| [standard, standard.activities.production] }.select{ |group| group.second.any? }
     render :template => 'integrations/amplify'
   end
 

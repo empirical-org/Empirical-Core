@@ -7,7 +7,7 @@ class ProgressReports::Standards::ActivitySession
     # for some reason indicating the root namespace is necessary in this first assignment
     query = ::ActivitySession.select(<<-SELECT
       activity_sessions.*,
-      activities.topic_id as topic_id
+      activities.standard_id as standard_id
     SELECT
     ).completed
       .with_best_scores

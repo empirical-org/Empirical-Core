@@ -8,7 +8,7 @@ namespace :test do
       description: "Write 10 sentences using the conjunctions and, or.",
       data: {"rule_position"=>"---\n- - '423'\n  - '1'\n"},
       activity_classification_id: 2,
-      topic_id: 14
+      standard_id: 14
     }
 
     a2_data = {
@@ -17,7 +17,7 @@ namespace :test do
       description: "Proofread a passage to ensure that commas are plac...",
       data: {"body"=>"--- \"Alex woke up at seven o’clock as always. {+However,-However|173} when he looked\n  out his window, he could barely see anything.\\r\\n\"\n", "instructions"=>"--- This story has three introductory words. However, they do not have a comma placed\n  after them.<br><br> To make changes, click on a word and add a comma to the end\n  of it.\n...\n"},
       activity_classification_id: 1,
-      topic_id: 47
+      standard_id: 47
     }
 
 
@@ -27,7 +27,7 @@ namespace :test do
         description: "Write 10 sentences using the conjunctions so or be...",
         data: {"rule_position"=>"---\n- - '423'\n  - '1'\n"},
         activity_classification_id: 2,
-        topic_id: 14
+        standard_id: 14
     }
 
     a_datas = [a1_data, a2_data, a3_data]

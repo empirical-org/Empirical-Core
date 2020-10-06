@@ -30,9 +30,9 @@ describe CsvExporter::ActivitySession do
         student_one_session.completed_at.to_formatted_s(:quill_default),
         student_one_session.activity.name,
         student_one_session.percentage_as_decimal,
-        student_one_session.activity.topic.section.name,
-        student_one_session.activity.topic.name,
-        # Concept (Topic Category(?)) -
+        student_one_session.activity.standard.standard_level.name,
+        student_one_session.activity.standard.name,
+        # Concept (Standard Category(?)) -
         student_one_session.activity.classification.name
       ]
     }

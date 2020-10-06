@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 describe ProgressReports::ActivitySession do
-  include_context 'Topic Progress Report'
+  include_context 'Standard Progress Report'
 
   subject { ProgressReports::ActivitySession.new(teacher).results(filters).to_a }
 
@@ -39,14 +39,14 @@ describe ProgressReports::ActivitySession do
     context 'by completion date' do
       let(:filters) { {sort: {field: 'completed_at', direction: 'desc'} } }
       it 'retrieves results in the appropriate order' do
-        expect(subject.first.completed_at).to be_within(1.second).of fred_first_grade_topic_session.completed_at
+        expect(subject.first.completed_at).to be_within(1.second).of fred_first_grade_standard_session.completed_at
       end
     end
 
     context 'by activity name' do
       let(:filters) { {sort: {field: 'activity_name', direction: 'asc'} } }
       it 'retrieves results in the appropriate order' do
-        expect(subject.first.activity.name).to eq(activity_for_first_grade_topic.name)
+        expect(subject.first.activity.name).to eq(activity_for_first_grade_standard.name)
       end
     end
 
@@ -60,7 +60,7 @@ describe ProgressReports::ActivitySession do
     context 'by standard' do
       let(:filters) { {sort: {field: 'standard', direction: 'asc'} } }
       it 'retrieves results in the appropriate order' do
-        expect(subject.first.activity.topic.name).to eq(first_grade_topic.name)
+        expect(subject.first.activity.standard.name).to eq(first_grade_standard.name)
       end
     end
   end
