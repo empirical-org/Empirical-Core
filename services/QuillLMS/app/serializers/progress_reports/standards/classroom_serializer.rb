@@ -7,17 +7,17 @@ class ProgressReports::Standards::ClassroomSerializer  < ActiveModel::Serializer
              :not_proficient_student_count,
              :total_standard_count,
              :students_href,
-             :topics_href
+             :standards_href
 
   def total_standard_count
-    object.unique_topic_count
+    object.unique_standard_count
   end
 
   def students_href
     teachers_progress_reports_standards_classroom_students_path(object.id)
   end
 
-  def topics_href
-    teachers_progress_reports_standards_classroom_topics_path(object.id)
+  def standards_href
+    teachers_progress_reports_standards_classroom_standards_path(object.id)
   end
 end

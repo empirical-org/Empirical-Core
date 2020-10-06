@@ -1,0 +1,6 @@
+.container
+  .cms-form
+    = form_for [:cms, @standard_category] do |f|
+      = f.label :name
+      = f.text_field :name
+      = f.submit :save

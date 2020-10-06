@@ -77,6 +77,13 @@
   .extra-big-element:last-of-type {
     padding-bottom: 30px;
   }
+
+  .sliders-container {
+    margin-top: 20px;
+    .two-thumb-slider-container {
+      width: 160px;
+    }
+  }
 }
 
 .menu {

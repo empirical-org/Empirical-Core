@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 describe ProgressReports::Standards::ActivitySession do
-  include_context 'Topic Progress Report'
+  include_context 'Standard Progress Report'
   let(:filters) { {} }
   subject { ProgressReports::Standards::ActivitySession.new(teacher).results(filters)}
 

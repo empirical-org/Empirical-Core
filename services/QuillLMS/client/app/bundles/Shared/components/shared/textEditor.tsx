@@ -4,14 +4,6 @@ import { convertFromHTML, convertToHTML } from 'draft-convert'
 import createRichButtonsPlugin from 'draft-js-richbuttons-plugin'
 import * as Immutable from 'immutable'
 
-const richButtonsPlugin = createRichButtonsPlugin();
-const {
-  // inline buttons
-  ItalicButton, BoldButton, UnderlineButton,
-  // block buttons
-  BlockquoteButton, ULButton, H3Button
-} = richButtonsPlugin;
-
 // interface TextEditorProps {
 //   text: string;
 //   boilerplate: string;
@@ -35,7 +27,8 @@ class TextEditor extends React.Component <any, any> {
     super(props)
 
     this.state = {
-      text: this.props.EditorState.createWithContent(convertFromHTML(this.props.text || ''))
+      text: this.props.EditorState.createWithContent(convertFromHTML(this.props.text || '')),
+      richButtonsPlugin: createRichButtonsPlugin()
     }
 
     this.handleTextChange = this.handleTextChange.bind(this)
@@ -58,6 +51,13 @@ class TextEditor extends React.Component <any, any> {
   }
 
   render() {
+    const { richButtonsPlugin, } = this.state
+    const {
+      // inline buttons
+      ItalicButton, BoldButton, UnderlineButton,
+      // block buttons
+      BlockquoteButton, ULButton, H3Button
+    } = richButtonsPlugin;
 
     return (
       <div className="card is-fullwidth">

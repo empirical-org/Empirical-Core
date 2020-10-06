@@ -2,9 +2,9 @@ require 'rails_helper'
 
 describe ProgressReports::Standards::Classroom do
   describe "getting classrooms for the progress report" do
-    let(:section_ids) { [sections[0].id, sections[1].id] }
+    let(:standard_level_ids) { [standard_levels[0].id, standard_levels[1].id] }
     let(:filters) { {} }
-    include_context 'Section Progress Report'
+    include_context 'StandardLevel Progress Report'
     let(:teacher) {classrooms.first.owner}
 
     before do
@@ -36,18 +36,18 @@ describe ProgressReports::Standards::Classroom do
       expect(subject.size).to eq(classrooms.size)
     end
 
-    context 'sections' do
-      let(:filters) { {section_id: section_ids} }
+    context 'standard_levels' do
+      let(:filters) { {standard_level_id: standard_level_ids} }
 
-      it 'can retrieve sections based on sections' do
-        expect(subject.size).to eq(2) # 1 user created for each section
+      it 'can retrieve standard_levels based on standard_levels' do
+        expect(subject.size).to eq(2) # 1 user created for each standard_level
       end
     end
 
     context 'classrooms' do
       let(:filters) { {classroom_id: classrooms.first.id} }
 
-      it 'can retrieve sections based on classroom_id' do
+      it 'can retrieve standard_levels based on classroom_id' do
         expect(subject.size).to eq(1)
       end
     end
@@ -56,14 +56,14 @@ describe ProgressReports::Standards::Classroom do
       let(:filters) { {classroom_id: ""} }
 
       it 'does not filter by classroom' do
-        expect(subject.size).to eq(sections.size)
+        expect(subject.size).to eq(standard_levels.size)
       end
     end
 
     context 'units' do
       let(:filters) { {unit_id: units.first.id} }
 
-      it 'can retrieve sections based on unit_id' do
+      it 'can retrieve standard_levels based on unit_id' do
         expect(subject.size).to eq(1)
       end
     end
@@ -72,22 +72,22 @@ describe ProgressReports::Standards::Classroom do
       let(:filters) { {unit_id: ""} }
 
       it 'does not filter by units' do
-        expect(subject.size).to eq(sections.size)
+        expect(subject.size).to eq(standard_levels.size)
       end
     end
 
-    context 'a set of topics' do
-      let(:filters) { {section_id: section_ids, topic_id: topics.map {|t| t.id} } }
+    context 'a set of standards' do
+      let(:filters) { {standard_level_id: standard_level_ids, standard_id: standards.map {|t| t.id} } }
 
-      it 'can retrieve sections based on a set of topics' do
+      it 'can retrieve standard_levels based on a set of standards' do
         expect(subject.size).to eq(2)
       end
     end
 
-    context 'a single topic' do
-      let(:filters) { {section_id: section_ids, topic_id: topics.first.id } }
+    context 'a single standard' do
+      let(:filters) { {standard_level_id: standard_level_ids, standard_id: standards.first.id } }
 
-      it 'can retrieve sections based on a single topic' do
+      it 'can retrieve standard_levels based on a single standard' do
         expect(subject.size).to eq(1)
       end
     end
@@ -95,7 +95,7 @@ describe ProgressReports::Standards::Classroom do
     context 'students' do
       let(:filters) { {student_id: students.first.id} }
 
-      it 'can retrieve sections based on a student' do
+      it 'can retrieve standard_levels based on a student' do
         expect(subject.size).to eq(1)
       end
     end
@@ -104,7 +104,7 @@ describe ProgressReports::Standards::Classroom do
       let(:filters) { {student_id: ""} }
 
       it 'does not filter by students' do
-        expect(subject.size).to eq(sections.size)
+        expect(subject.size).to eq(standard_levels.size)
       end
     end
   end

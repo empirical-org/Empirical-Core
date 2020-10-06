@@ -55,8 +55,8 @@ export {
   Spinner
 } from './spinner'
 
-export { 
-  TeacherPreviewMenu 
+export {
+  TeacherPreviewMenu
 } from './teacherPreviewMenu'
 
 export {
@@ -70,6 +70,10 @@ export {
 export {
   Tooltip
 } from './tooltip'
+
+export {
+  TwoThumbSlider
+} from './twoThumbSlider'
 
 export {
   UploadOptimalResponses

@@ -45,19 +45,19 @@ describe('ProofreaderPassageApi calls', () => {
         description: 'test',
         title: 'test',
         passage: 'test',
-        standard: { 
+        standard: {
           name: 'test',
           uid: 'test',
         },
-        standardLevel: { 
+        standardLevel: {
           name: 'test',
           uid: 'test',
         },
-        topicCategory: {
+        standardCategory: {
           name: 'test',
           uid: 'test',
         },
-        underlineErrorsInProofreader: true, 
+        underlineErrorsInProofreader: true,
         flag: 'alpha',
       }
       const url = `${lessonApiBaseUrl}.json?lesson_type=${PROOFREADER_PASSAGE_TYPE}`
@@ -73,19 +73,19 @@ describe('ProofreaderPassageApi calls', () => {
         description: 'test',
         title: 'test',
         passage: 'test',
-        standard: { 
+        standard: {
           name: 'test',
           uid: 'test',
         },
-        standardLevel: { 
+        standardLevel: {
           name: 'test',
           uid: 'test',
         },
-        topicCategory: {
+        standardCategory: {
           name: 'test',
           uid: 'test',
         },
-        underlineErrorsInProofreader: true, 
+        underlineErrorsInProofreader: true,
         flag: 'alpha',
       }
       const url = `${lessonApiBaseUrl}/${MOCK_ID}.json`

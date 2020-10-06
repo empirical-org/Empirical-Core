@@ -9,8 +9,8 @@ describe ProgressReports::ActivitySessionSerializer, type: :serializer do
     )
   end
   let(:classroom) { create(:classroom) }
-  let(:topic) { create(:topic) }
-  let(:activity) { create(:activity, topic: topic) }
+  let(:standard) { create(:standard) }
+  let(:activity) { create(:activity, standard: standard) }
   let(:started_at) { Time.zone.local(2015, 1, 1, 12, 15, 0) }
   let(:completed_at) { Time.zone.local(2015, 1, 1, 13, 0, 0) }
   let(:serializer) do
@@ -46,7 +46,7 @@ describe ProgressReports::ActivitySessionSerializer, type: :serializer do
       expect(parsed_session['display_completed_at']).to eq('01/01/2015')
       expect(parsed_session['display_score']).to eq('25%')
       expect(parsed_session['standard'])
-        .to eq(activity_session.activity.topic.try(:name_prefix))
+        .to eq(activity_session.activity.standard.try(:name_prefix))
     end
 
     context 'when the activity session is missing relevant info' do
@@ -57,7 +57,7 @@ describe ProgressReports::ActivitySessionSerializer, type: :serializer do
           state: 'unstarted'
         )
       end
-      let(:topic) { nil }
+      let(:standard) { nil }
 
       it 'still works' do
         expect(parsed_session['display_completed_at']).to eq(nil)

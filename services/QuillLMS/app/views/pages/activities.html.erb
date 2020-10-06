@@ -11,22 +11,22 @@
   <div class="dropdown-container">
     <div>
       <div class="button select-mixin select-gray button-select button-select-wrapper" type='button' data-toggle='dropdown'>
-        <%= @section.name %>
+        <%= @standard_level.name %>
         <i class="fas fa-caret-down"></i>
       </div>
       <ul class="dropdown-menu" role='menu'>
-        <% Section.all.sort_by(&:position).each do |section| %>
-          <li><%= link_to section.name, url_for(section_id: section.id) %></li>
+        <% StandardLevel.all.sort_by(&:position).each do |standard_level| %>
+          <li><%= link_to standard_level.name, url_for(standard_level_id: standard_level.id) %></li>
         <% end %>
       </ul>
     </div>
   </div>
 
 
-  <% @topics.each do |topic, activities| %>
-    <div class="topic">
+  <% @standards.each do |standard, activities| %>
+    <div class="standard">
       <div>
-        <h4><%=topic.name%></h4>
+        <h4><%=standard.name%></h4>
       </div>
 
         <% activities.order('activities.name ASC').each do |activity| %>

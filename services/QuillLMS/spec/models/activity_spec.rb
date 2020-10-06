@@ -3,8 +3,8 @@ require 'rails_helper'
 describe Activity, type: :model, redis: true do
   it { should have_and_belong_to_many(:unit_templates) }
   it { should belong_to(:classification).class_name("ActivityClassification") }
-  it { should belong_to(:topic) }
-  it { should have_one(:section).through(:topic) }
+  it { should belong_to(:standard) }
+  it { should have_one(:standard_level).through(:standard) }
   it do
     should belong_to(:follow_up_activity).class_name("Activity")
       .with_foreign_key("follow_up_activity_id")
@@ -267,13 +267,13 @@ describe Activity, type: :model, redis: true do
     end
   end
 
-  describe '#topic_uid =' do
+  describe '#standard_uid =' do
     let(:activity) { create(:activity) }
-    let(:topic) { create(:topic) }
+    let(:standard) { create(:standard) }
 
-    it 'should set the topic_uid' do
-      activity.topic_uid = topic.uid
-      expect(activity.topic_id).to eq(topic.id)
+    it 'should set the standard_uid' do
+      activity.standard_uid = standard.uid
+      expect(activity.standard_id).to eq(standard.id)
     end
   end
 
