@@ -1,6 +1,7 @@
 import * as React from 'react';
 import _ from 'underscore';
-import { submitResponse, clearResponses } from '../../actions/diagnostics.js';
+import { submitResponse } from '../../actions/diagnostics.js';
+import { getLatestAttempt } from '../../libs/sharedQuestionFunctions';
 import ReactTransition from 'react-addons-css-transition-group';
 import {
   getGradedResponsesWithCallback
@@ -12,7 +13,6 @@ import getResponse from '../renderForQuestions/checkAnswer';
 import { submitQuestionResponse } from '../renderForQuestions/submitResponse.js';
 import updateResponseResource from '../renderForQuestions/updateResponseResource.js';
 import TextEditor from '../renderForQuestions/renderTextEditor.jsx';
-import { Error } from 'quill-component-library/dist/componentLibrary';
 
 const C = require('../../constants').default;
 
@@ -185,19 +185,8 @@ class PlayDiagnosticQuestion extends React.Component {
   }
 
   renderError = () => {
-    const { previewMode, question } = this.props;
     const { error, } = this.state;
-
-    const latestAttempt = getLatestAttempt(question.attempts);
-    let errorToDisplay = error;
-
-    if(previewMode && latestAttempt && latestAttempt.response.feedback !== '<br/>') {
-      return this.renderFeedbackStatements(latestAttempt)
-    }
-    if(previewMode && latestAttempt && latestAttempt.response.feedback === '<br/>') {
-      errorToDisplay = 'Your answer is too short. Please read the directions carefully and try again.';
-    }
-    if (!errorToDisplay) { return }
+    if (!error) { return }
 
     return (<div className="error-container">
       <Feedback
@@ -211,9 +200,9 @@ class PlayDiagnosticQuestion extends React.Component {
     const { responses } = this.state;
     const { previewMode, question } = this.props;
     const latestAttempt = getLatestAttempt(question.attempts);
-    let button = <button className="quill-button focus-on-light large primary contained disabled" type="button">Submit</button>;
-    if((previewMode && latestAttempt && latestAttempt.response && latestAttempt.response.feedback) || !responses) {
-      return button;
+
+    if((previewMode && latestAttempt) || !responses) {
+      return <button className="quill-button focus-on-light large primary contained disabled" type="button">Submit</button>;
     }
     return <button className="quill-button focus-on-light large primary contained" onClick={this.handleSubmitResponse} type="button">Submit</button>;
   }
@@ -229,24 +218,27 @@ class PlayDiagnosticQuestion extends React.Component {
   }
 
   render = () => {
-    const { question, } = this.props
-    const { responses, error, response, } = this.state
+    const { question, previewMode } = this.props
+    const { error } = this.state
     const questionID = question.key;
     const button = this.getButton();
     const displayedResponse = this.getResponse();
+    const latestAttempt = getLatestAttempt(question.attempts);
+    // we only want to show instructions on the first attempt during preview mode
+    const showInstructions = previewMode ? !latestAttempt : true;
     if (question) {
       const instructions = (question.instructions && question.instructions !== '') ? question.instructions : 'Combine the sentences into one sentence.';
       return (
         <div className="student-container-inner-diagnostic">
           {this.renderSentenceFragments()}
           {this.renderCues()}
-          <div className="feedback-row">
+          {showInstructions && <div className="feedback-row">
             <Feedback
               feedback={(<p>{instructions}</p>)}
               feedbackType="default"
               key={questionID}
             />
-          </div>
+          </div>}
           <ReactTransition transitionAppear transitionAppearTimeout={500} transitionEnterTimeout={500} transitionLeaveTimeout={500} transitionName='text-editor'>
             <TextEditor
               className='textarea is-question is-disabled'
@@ -270,10 +262,5 @@ class PlayDiagnosticQuestion extends React.Component {
 
   }
 }
-
-const getLatestAttempt = function (attempts = []) {
-  const lastIndex = attempts.length - 1;
-  return attempts[lastIndex];
-};
 
 export default PlayDiagnosticQuestion;
