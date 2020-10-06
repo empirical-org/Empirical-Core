@@ -8,7 +8,7 @@ module Teachers
     end
 
     def path
-      teachers_progress_reports_standards_classroom_student_topics_path(
+      teachers_progress_reports_standards_classroom_student_standards_path(
         classroom_id: @classroom.id,
         student_id: @student.id
       )

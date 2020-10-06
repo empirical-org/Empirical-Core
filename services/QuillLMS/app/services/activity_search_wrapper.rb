@@ -4,9 +4,9 @@ class ActivitySearchWrapper
   def initialize(flag=nil, user_id=nil)
     @activities = nil
     @activity_classifications = []
-    @topics = []
+    @standards = []
     @activity_categories = []
-    @sections = []
+    @standard_levels = []
     @flag = flag
     @user_id = user_id
   end
@@ -24,7 +24,7 @@ class ActivitySearchWrapper
       activities: @activities,
       activity_classifications: @activity_classifications,
       activity_categories: @activity_categories,
-      sections: @sections,
+      standard_levels: @standard_levels,
     }
   end
 
@@ -39,7 +39,7 @@ class ActivitySearchWrapper
 
   def custom_search_results
     activity_search
-    activity_categories_classifications_topics_and_section
+    activity_categories_classifications_standards_and_standard_level
     formatted_search_results
   end
 
@@ -62,24 +62,24 @@ class ActivitySearchWrapper
         activity_category: {id: a['activity_category_id'].to_i, name: a['activity_category_name']},
         activity_category_name: a['activity_category_name'],
         activity_category_id: a['activity_category_id'].to_i,
-        section: {id: a['section_id'].to_i, name: a['section_name']},
-        section_name: a['section_name'],
-        topic_name: a['topic_name']
+        standard_level: {id: a['standard_level_id'].to_i, name: a['standard_level_name']},
+        standard_level_name: a['standard_level_name'],
+        standard_name: a['standard_name']
       }
     end
   end
 
-  def activity_categories_classifications_topics_and_section
-    section_ids = []
+  def activity_categories_classifications_standards_and_standard_level
+    standard_level_ids = []
     activity_classification_ids = []
     @activities.each do |a|
-      section_ids << a['section_id']
+      standard_level_ids << a['standard_level_id']
       activity_classification_ids << a['classification_id'].to_i
     end
     @activity_classification_ids = activity_classification_ids.uniq
     @activity_classifications = activity_classifications
     @activity_categories = ActivityCategory.all
-    @sections = Section.where(id: section_ids.uniq)
+    @standard_levels = StandardLevel.where(id: standard_level_ids.uniq)
   end
 
   def activity_classifications

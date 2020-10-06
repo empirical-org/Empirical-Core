@@ -4,13 +4,13 @@ import _ from 'underscore';
 export default class UnitTemplateProfileStandards extends React.Component {
   getStandards = () => {
     return _.chain(this.props.data.activities)
-            .map(_.property('topic'))
+            .map(_.property('standard'))
             .uniq(_.property('name'))
             .value();
   };
 
   getConcepts = () => {
-    return _.uniq(_.map(this.getStandards(), standard => standard.topic_category.name));
+    return _.uniq(_.map(this.getStandards(), standard => standard.standard_category.name));
   };
 
   renderStandards = (standards) => {

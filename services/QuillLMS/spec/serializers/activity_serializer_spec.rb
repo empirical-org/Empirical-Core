@@ -13,7 +13,7 @@ describe ActivitySerializer, type: :serializer do
          flags
          id
          name
-         topic
+         standard
          uid
          updated_at
          activity_category

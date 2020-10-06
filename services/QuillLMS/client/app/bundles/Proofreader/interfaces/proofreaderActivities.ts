@@ -8,7 +8,7 @@ export interface ProofreaderActivity {
   passage: string;
   standard: Standard;
   standardLevel: StandardLevel;
-  topicCategory: TopicCategory;
+  standardCategory: StandardCategory;
   underlineErrorsInProofreader: boolean;
   flag?: string;
 }
@@ -23,7 +23,7 @@ export interface StandardLevel {
   uid: string;
 }
 
-export interface TopicCategory {
+export interface StandardCategory {
   name: string;
   uid: string;
 }

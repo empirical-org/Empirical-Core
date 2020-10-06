@@ -112,7 +112,7 @@ class PagesController < ApplicationController
           },
           {
             question: "Which grammar concepts are covered by Quill?",
-            answer: "<p>Quill activities cover more than 300 grammar concepts such as Complex Sentences, Capitalization, Fragments, Compound Sentences, Adjectives, Prepositions and more. You can view a list of our most popular activity packs <a href='https://www.quill.org/activities/packs'>here</a> and you can view a list of the standards that we cover <a href='https://www.quill.org/activities/section/7'>here</a>.</p>"
+            answer: "<p>Quill activities cover more than 300 grammar concepts such as Complex Sentences, Capitalization, Fragments, Compound Sentences, Adjectives, Prepositions and more. You can view a list of our most popular activity packs <a href='https://www.quill.org/activities/packs'>here</a> and you can view a list of the standards that we cover <a href='https://www.quill.org/activities/standard_level/7'>here</a>.</p>"
           },
           {
             question: "How much does Quill cost?",
@@ -404,8 +404,8 @@ class PagesController < ApplicationController
 
   def activities
     @body_class = 'full-width-page white-page'
-    @section = params[:section_id].present? ? Section.find(params[:section_id]) : Section.first
-    @topics = @section.topics.map{ |topic| [topic, topic.activities.production] }.select{ |group| group.second.any? }
+    @standard_level = params[:standard_level_id].present? ? StandardLevel.find(params[:standard_level_id]) : StandardLevel.first
+    @standards = @standard_level.standards.map{ |standard| [standard, standard.activities.production] }.select{ |group| group.second.any? }
   end
 
   # for link to premium within 'about' (discover) pages

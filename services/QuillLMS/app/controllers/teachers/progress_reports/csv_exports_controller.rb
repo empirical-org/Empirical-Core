@@ -26,7 +26,7 @@ class Teachers::ProgressReports::CsvExportsController < Teachers::ProgressReport
       :classroom_id,
       :student_id,
       :unit_id,
-      :topic_id,
+      :standard_id,
       sort: [:field, :direction]
 ])
   end

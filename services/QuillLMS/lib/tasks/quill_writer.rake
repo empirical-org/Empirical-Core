@@ -12,19 +12,19 @@ namespace :quillwriter do
 
     # taxonomy
     # CAUTION: Creating a section fails if the db has 0 workbooks.
-    section = Section.where(name: 'Quill Writer Activities').first_or_create!
-    topic = Topic.where(name: 'Quill Writer Topics', section_id: section.id).first_or_create!
+    section = StandardLevel.where(name: 'Quill Writer Activities').first_or_create!
+    standard = Standard.where(name: 'Quill Writer Standards', section_id: section.id).first_or_create!
 
-    # topic info
+    # standard info
     puts "\n\n---- TAXONOMY ----\n"
-    ap TopicSerializer.new(topic).as_json
+    ap StandardSerializer.new(standard).as_json
 
 
     # activities
     data = JSON.parse(File.open(Rails.root.join('db/writer-stories.json')).read)
 
     # remove all activies before
-    topic.activities.delete_all
+    standard.activities.delete_all
 
     puts "\n---- ACTIVITIES -----\n\n"
 
@@ -32,7 +32,7 @@ namespace :quillwriter do
 
       payload = {wordList: act['wordList'].to_json, prompt: act['prompt'].to_json}
 
-      a = topic.activities.create!(name: act['name'], description: act['description'], data: payload, classification: ac)
+      a = standard.activities.create!(name: act['name'], description: act['description'], data: payload, classification: ac)
 
       ap a.as_json
     end

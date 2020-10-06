@@ -8,9 +8,9 @@ const StandardsReportsTable = ({ data, }) => {
   const columns = [
     {
       Header: 'Standard Level',
-      accessor: 'section_name',
+      accessor: 'standard_level_name',
       resizable: false,
-      Cell: row => row.original.section_name,
+      Cell: row => row.original.standard_level_name,
     }, {
       Header: 'Standard Name',
       accessor: 'name',
@@ -45,7 +45,7 @@ const StandardsReportsTable = ({ data, }) => {
         showPageSizeOptions={false}
         showPagination
         showPaginationBottom
-        showPaginationTop={false}  
+        showPaginationTop={false}
       />
     </div>);
   }
