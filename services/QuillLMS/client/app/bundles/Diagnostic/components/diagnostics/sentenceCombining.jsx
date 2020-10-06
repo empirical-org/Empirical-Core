@@ -148,10 +148,12 @@ class PlayDiagnosticQuestion extends React.Component {
   }
 
   readyForNext = () => {
-    const { question, } = this.props
+    const { question, previewMode } = this.props
     if (question.attempts.length > 0) {
       const latestAttempt = getLatestAttempt(question.attempts);
-      if (latestAttempt.found) {
+      if (previewMode && latestAttempt) {
+        return true;
+      } else if (latestAttempt.found) {
         const errors = _.keys(this.getErrorsForAttempt(latestAttempt));
         if (latestAttempt.response.optimal && errors.length === 0) {
           return true;
@@ -183,22 +185,55 @@ class PlayDiagnosticQuestion extends React.Component {
   }
 
   renderError = () => {
-    const { error, } = this.state
-    if (!error) { return }
+    const { previewMode, question } = this.props;
+    const { error, } = this.state;
+
+    const latestAttempt = getLatestAttempt(question.attempts);
+    let errorToDisplay = error;
+
+    if(previewMode && latestAttempt && latestAttempt.response.feedback !== '<br/>') {
+      return this.renderFeedbackStatements(latestAttempt)
+    }
+    if(previewMode && latestAttempt && latestAttempt.response.feedback === '<br/>') {
+      errorToDisplay = 'Your answer is too short. Please read the directions carefully and try again.';
+    }
+    if (!errorToDisplay) { return }
 
     return (<div className="error-container">
       <Feedback
-        feedback={<p>{error}</p>}
+        feedback={<p>{errorToDisplay}</p>}
         feedbackType="revise-unmatched"
       />
     </div>)
+  }
+
+  getButton = () => {
+    const { responses } = this.state;
+    const { previewMode, question } = this.props;
+    const latestAttempt = getLatestAttempt(question.attempts);
+    let button = <button className="quill-button focus-on-light large primary contained disabled" type="button">Submit</button>;
+    if((previewMode && latestAttempt && latestAttempt.response && latestAttempt.response.feedback) || !responses) {
+      return button;
+    }
+    return <button className="quill-button focus-on-light large primary contained" onClick={this.handleSubmitResponse} type="button">Submit</button>;
+  }
+
+  getResponse = () => {
+    const { previewMode, question } = this.props;
+    const { response } = this.state;
+    const latestAttempt = getLatestAttempt(question.attempts);
+    if(previewMode && latestAttempt && latestAttempt.response && latestAttempt.response.text) {
+      return latestAttempt.response.text;
+    }
+    return response;
   }
 
   render = () => {
     const { question, } = this.props
     const { responses, error, response, } = this.state
     const questionID = question.key;
-    const button = responses ? <button className="quill-button focus-on-light large primary contained" onClick={this.handleSubmitResponse} type="button">Submit</button> : <button className="quill-button focus-on-light large primary contained disabled" type="button">Submit</button>;
+    const button = this.getButton();
+    const displayedResponse = this.getResponse();
     if (question) {
       const instructions = (question.instructions && question.instructions !== '') ? question.instructions : 'Combine the sentences into one sentence.';
       return (
@@ -221,7 +256,7 @@ class PlayDiagnosticQuestion extends React.Component {
               onChange={this.handleChange}
               onSubmitResponse={this.handleSubmitResponse}
               placeholder="Type your answer here."
-              value={response}
+              value={displayedResponse}
             />
             {this.renderError()}
             <div className="question-button-group button-group">

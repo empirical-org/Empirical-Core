@@ -1,16 +1,19 @@
 import { Question } from '../interfaces/question';
 
-export const getCurrentQuestion = ({ action, answeredQuestions, unansweredQuestions, questionSet }) => {
+export const getCurrentQuestion = ({ action, answeredQuestions, questionSet, unansweredQuestions }) => {
+  const { data } = action;
+  const { key } = data;
   let currentQuestion;
+
   // check answeredQuestions
-  currentQuestion = answeredQuestions.filter((question: { data: Question }) => action.data.key === question.data.key)[0];
+  currentQuestion = answeredQuestions.filter((question: { data: Question }) => key === question.data.key)[0];
   // check unansweredQuestions
   if(!currentQuestion) {
-    currentQuestion = unansweredQuestions.filter((question: { data: Question }) => action.data.key === question.data.key)[0];
+    currentQuestion = unansweredQuestions.filter((question: { data: Question }) => key === question.data.key)[0];
   }
   // check questionSet, is title card
   if(!currentQuestion) {
-    currentQuestion = questionSet.filter((question: { data: Question }) => action.data.key === question.data.key)[0];
+    currentQuestion = questionSet.filter((question: { data: Question }) => key === question.data.key)[0];
   }
   return currentQuestion;
 }

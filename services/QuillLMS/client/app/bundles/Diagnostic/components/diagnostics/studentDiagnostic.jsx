@@ -176,6 +176,9 @@ export class StudentDiagnostic extends React.Component {
 
   startActivity = () => {
     const { dispatch, } = this.props
+    const data = this.questionsForLesson()
+    const action = loadData(data);
+    dispatch(action);
     const next = nextQuestion();
     dispatch(next);
   }
@@ -309,7 +312,7 @@ export class StudentDiagnostic extends React.Component {
   }
 
   render() {
-    const { playDiagnostic, dispatch } = this.props
+    const { playDiagnostic, dispatch, previewMode } = this.props
     const { error, saved, } = this.state
     let component;
 
@@ -337,6 +340,7 @@ export class StudentDiagnostic extends React.Component {
           key={key}
           marking="diagnostic"
           nextQuestion={this.nextQuestion}
+          previewMode={previewMode}
           question={question}
         />);
       } else if (questionType === 'SF') {
@@ -346,6 +350,7 @@ export class StudentDiagnostic extends React.Component {
           key={key}
           markIdentify={this.markIdentify}
           nextQuestion={this.nextQuestion}
+          previewMode={previewMode}
           question={question}
           updateAttempts={this.submitResponse}
         />);
@@ -355,6 +360,7 @@ export class StudentDiagnostic extends React.Component {
           dispatch={dispatch}
           key={key}
           nextQuestion={this.nextQuestion}
+          previewMode={previewMode}
           question={question}
         />)
       } else if (questionType === 'TL') {

@@ -24,14 +24,24 @@ function question(state = initialState, action) {
       }
       return Object.assign({}, state, changes);
     case SubmitActions.SET_CURRENT_QUESTION:
-      const { answeredQuestions, unansweredQuestions, questionSet } = state;
+      const { currentQuestion, questionSet, unansweredQuestions } = state;
+      let answeredQuestions = state.answeredQuestions;
 
-      const currentQuestionIndex = questionSet.findIndex(question => action.data.key === question.data.key);
-      const currentQuestion = getCurrentQuestion({ action, answeredQuestions, unansweredQuestions, questionSet })
+      if (currentQuestion) {
+        answeredQuestions = answeredQuestions.concat([currentQuestion]);
+      }
 
       const answeredQuestionsWithAttempts = getQuestionsWithAttempts(answeredQuestions);
       const unansweredQuestionsWithAttempts = getQuestionsWithAttempts(unansweredQuestions);
 
+      const newCurrentQuestion = getCurrentQuestion({
+        action,
+        answeredQuestions,
+        questionSet,
+        unansweredQuestions
+      });
+
+      const currentQuestionIndex = questionSet.findIndex(question => action.data.key === question.data.key);
       const answeredSlice = questionSet.slice(0, currentQuestionIndex);
       const unansweredSlice = questionSet.slice(currentQuestionIndex + 1);
 
@@ -40,7 +50,7 @@ function question(state = initialState, action) {
 
       state.answeredQuestions = newAnsweredQuestions;
       state.unansweredQuestions = newUnansweredQuestions;
-      state.currentQuestion = currentQuestion;
+      state.currentQuestion = newCurrentQuestion;
 
       return Object.assign({}, state, action.data);
     case SubmitActions.NEXT_DIAGNOSTIC_QUESTION_WITHOUT_SAVING:
