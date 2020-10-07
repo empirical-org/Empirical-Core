@@ -1,0 +1,100 @@
+.custom-activity-pack-page {
+  background-color: white;
+  min-height: 100vh;
+  display: flex;
+  h1, h2 {
+    font-size: 16px;
+  }
+
+  section {
+    padding: 0px;
+  }
+  .filter-column {
+    max-width: 312px;
+    width: 100%;
+    border-right: #e0e0e0 1px solid;
+    position: sticky;
+    top: 70;
+    height: 100vh;
+    padding: 16px;
+    .filter-section {
+      padding-top: 24px;
+      h2 {
+        padding-left: 24px;
+      }
+      &.filtered-results {
+        margin-bottom: 8px;
+
+        h2 {
+          margin-bottom: 13px;
+        }
+        p {
+          padding-left: 24px;
+          line-height: 1.57;
+          color: #646464;
+        }
+      }
+    }
+  }
+  .main-content-container {
+    flex: 1;
+    header {
+      height: 88px;
+      display: flex;
+      justify-content: center;
+      border-bottom: 1px solid #e0e0e0;
+      position: sticky;
+      top: 70px;
+      z-index: 1;
+      .header-content {
+        max-width: 1184px;
+        display: flex;
+        width: 100%;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0px 32px;
+        background-color: white;
+      }
+    }
+    .activity-table-container {
+      max-width: 1184px;
+      padding: 0px 32px;
+      margin: auto;
+    }
+    .pagination-section {
+      margin-top: 48px;
+      .pagination-button {
+        width: 36px;
+        height: 36px;
+        border-radius: 4px;
+        border: solid 1px #e0e0e0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: white;
+        margin: 0px 4px;
+      }
+      .right-arrow {
+        img {
+          transform: rotate(270deg)
+        }
+      }
+      .left-arrow {
+        img {
+          transform: rotate(90deg)
+        }
+      }
+      p {
+        text-align: center;
+        font-size: 14px;
+        line-height: 1.57;
+        color: #646464;
+      }
+      .pagination-row {
+        margin-bottom: 24px;
+        display: flex;
+        justify-content: center;
+      }
+    }
+  }
+}
