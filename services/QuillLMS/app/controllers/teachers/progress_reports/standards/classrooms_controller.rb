@@ -8,7 +8,7 @@ class Teachers::ProgressReports::Standards::ClassroomsController < Teachers::Pro
       format.json do
         classroom_id = params[:classroom_id]
         student_id = nil
-        data = ::ProgressReports::Standards::AllClassroomsTopic.new(current_user).results(classroom_id, student_id)
+        data = ::ProgressReports::Standards::AllClassroomsStandard.new(current_user).results(classroom_id, student_id)
         render json: {
           data: data,
           teacher: UserWithEmailSerializer.new(current_user).as_json(root: false),

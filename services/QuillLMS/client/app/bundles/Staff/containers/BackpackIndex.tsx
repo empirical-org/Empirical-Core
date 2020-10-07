@@ -6,6 +6,7 @@ import TextFields from '../components/styleGuide/textFields'
 import Snackbars from '../components/styleGuide/snackbars'
 import Tooltips from '../components/styleGuide/tooltips'
 import DataTables from '../components/styleGuide/dataTables'
+import Sliders from '../components/styleGuide/sliders'
 
 export default class BackpackIndex extends React.Component {
   renderLink(href, text) {
@@ -33,6 +34,7 @@ export default class BackpackIndex extends React.Component {
           {this.renderLink('#snackbars', 'Snackbars')}
           {this.renderLink('#tooltips', 'Tooltips')}
           {this.renderLink('#data-tables', 'Data Tables')}
+          {this.renderLink('#sliders', 'Sliders')}
         </ul>
       </aside>
       <div className="style-guide">
@@ -46,6 +48,7 @@ export default class BackpackIndex extends React.Component {
         <Snackbars />
         <Tooltips />
         <DataTables />
+        <Sliders />
       </div>
     </div>)
   }

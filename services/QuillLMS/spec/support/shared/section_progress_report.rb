@@ -1,9 +1,9 @@
-shared_context 'Section Progress Report' do
-  let(:sections) { [] }
+shared_context 'StandardLevel Progress Report' do
+  let(:standard_levels) { [] }
   let(:units) { [] }
   let(:classrooms) { [] }
   let(:students) { [] }
-  let(:topics) { [] }
+  let(:standards) { [] }
   before do
     ActivitySession.destroy_all
     3.times do |i|
@@ -11,13 +11,13 @@ shared_context 'Section Progress Report' do
       students << student
       classroom = create(:classroom, students: [student])
       classrooms << classroom
-      section = create(:section, name: "Progress Report Section #{i}")
-      sections << section
+      standard_level = create(:standard_level, name: "Progress Report Section #{i}")
+      standard_levels << standard_level
       unit = create(:unit)
       units << unit
-      topic = create(:topic, section: section)
-      topics << topic
-      activity = create(:activity, topic: topic)
+      standard = create(:standard, standard_level: standard_level)
+      standards << standard
+      activity = create(:activity, standard: standard)
       classroom_unit = create(:classroom_unit,
                                               classroom: classroom,
                                               unit: unit)

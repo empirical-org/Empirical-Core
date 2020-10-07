@@ -86,11 +86,12 @@ const classes = [
 ]
 
 describe('BulkArchiveClassesBanner', () => {
-  const wrapper = mount(<BulkArchiveClassesBanner classes={classes} onSuccess={() => {}} userId={1} />)
   describe ('when it is not July-September', () => {
     jest.spyOn(global.Date, 'now').mockImplementation(() =>
       new Date('2019-01-14T11:01:58.135Z').valueOf()
     );
+    const wrapper = mount(<BulkArchiveClassesBanner classes={classes} onSuccess={() => {}} userId={1} />)
+
     it('should render null when it is not July-September', () => {
       expect(wrapper).toMatchSnapshot()
     })
@@ -100,6 +101,8 @@ describe('BulkArchiveClassesBanner', () => {
     jest.spyOn(global.Date, 'now').mockImplementation(() =>
       new Date('2019-08-14T11:01:58.135Z').valueOf()
     );
+    const wrapper = mount(<BulkArchiveClassesBanner classes={classes} onSuccess={() => {}} userId={1} />)
+
     it('should render null when the teacher has already closed it for this school year', () => {
       window.localStorage.setItem(`119BulkArchiveBannerClosedForUser1`, 'true')
       const wrapperWithClosedBanner = mount(<BulkArchiveClassesBanner classes={classes} onSuccess={() => {}} userId={1} />)

@@ -1,0 +1,26 @@
+<% if !current_user || current_user.teacher? %>
+  <div class="banner" id="static-banner">
+    <div class="content-container">
+      <img alt="Video player with play symbol" class="banner-icon" src=<%= "#{ENV['CDN_URL']}/images/icons/live-stream.svg" %>>
+      <p><a href="https://www.quill.org/teacher-center/webinars" rel="noopener noreferrer" target="_blank"><b>Quill’s Spotlight Series is here!</b> We’re offering a series of brand new webinars to help you maximize your instruction with Quill. Learn more and register.</a></p>
+      <img alt="White X" id="close-banner" src=<%= "#{ENV['CDN_URL']}/images/icons/close-white.svg" %>>
+    </div>
+  </div>
+
+  <script>
+    window.addEventListener('load', function(e) {
+      if (document.cookie.indexOf('static_banner_closed=1') === -1) {
+        document.getElementById('static-banner').style.display = 'block';
+      }
+    });
+
+    document.getElementById('close-banner').addEventListener('click', function(e) {
+        e.preventDefault();
+        document.getElementById('static-banner').style.display = 'none';
+        let date = new Date();
+        date.setTime(date.getTime()+(24*60*60*1000));
+        document.cookie = `static_banner_closed=1; expires=${date.toGMTString()}`;
+    }, false);
+
+  </script>
+<% end %>

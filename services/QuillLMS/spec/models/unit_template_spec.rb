@@ -65,13 +65,13 @@ describe UnitTemplate, redis: true, type: :model do
           id: activity.id.to_s,
           name: activity.name,
           description: activity.description,
-          section_name: activity.section.name,
-          topic: {
-            id: activity.topic.id.to_s,
-            name: activity.topic.name,
-            topic_category: {
-              id: activity.topic.topic_category.id.to_s,
-              name: activity.topic.topic_category.name
+          standard_level_name: activity.standard_level.name,
+          standard: {
+            id: activity.standard.id.to_s,
+            name: activity.standard.name,
+            standard_category: {
+              id: activity.standard.standard_category.id.to_s,
+              name: activity.standard.standard_category.name
             }
           },
           classification: {key: activity.classification.key, id: activity.classification.id.to_s, name: activity.classification.name }

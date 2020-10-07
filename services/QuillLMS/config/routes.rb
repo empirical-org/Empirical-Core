@@ -249,11 +249,11 @@ EmpiricalGrammar::Application.routes.draw do
       namespace :standards do
         resources :classrooms, only: [:index] do
           resources :students, controller: "classroom_students", only: [:index] do
-            resources :topics, controller: "student_topics", only: [:index]
+            resources :standards, controller: "student_standards", only: [:index]
           end
 
-          resources :topics, controller: "classroom_topics", only: [:index] do
-            resources :students, controller: "topic_students", only: [:index]
+          resources :standards, controller: "classroom_standards", only: [:index] do
+            resources :students, controller: "standard_students", only: [:index]
           end
         end
       end
@@ -355,9 +355,9 @@ EmpiricalGrammar::Application.routes.draw do
       resources :activity_flags,          only: [:index]
       resources :activity_sessions,       except: [:index, :new, :edit]
       resources :lessons_tokens,          only: [:create]
-      resources :sections,                only: [:index]
-      resources :topics,                  only: [:index]
-      resources :topic_categories,        only: [:index]
+      resources :standard_levels,                only: [:index]
+      resources :standards,                  only: [:index]
+      resources :standard_categories,        only: [:index]
       resources :concepts,                only: [:index, :create]
       resources :users,                   only: [:index]
       resources :classroom_units,         only: [] do
@@ -475,10 +475,10 @@ EmpiricalGrammar::Application.routes.draw do
     get '/concepts/concepts_in_use', to: 'concepts#concepts_in_use', only: [:csv], defaults: { format: 'csv' }
     resources :concepts
     resources :comprehension, only: [:index]
-    resources :sections
-    resources :topics
+    resources :standard_levels
+    resources :standards
     resources :subscriptions
-    resources :topic_categories
+    resources :standard_categories
     resources :authors, only: [:index, :create, :edit, :update, :new]
     put '/unit_templates/update_order_numbers', to: 'unit_templates#update_order_numbers'
     resources :unit_templates, only: [:index, :create, :update, :destroy]
@@ -619,7 +619,8 @@ EmpiricalGrammar::Application.routes.draw do
   post 'teacher_fix/merge_two_classrooms' => 'teacher_fix#merge_two_classrooms'
   post 'teacher_fix/delete_last_activity_session' => 'teacher_fix#delete_last_activity_session'
 
-  get 'activities/section/:section_id' => 'pages#activities', as: "activities_section"
+  get 'activities/section/:section_id', to: redirect('activities/standard_level/%{section_id}')
+  get 'activities/standard_level/:standard_level_id' => 'pages#activities', as: "activities_section"
   get 'activities/packs' => 'teachers/unit_templates#index'
   get 'activities/packs/diagnostic', to: redirect('/tools/diagnostic')
   get 'activities/packs/:id' => 'teachers/unit_templates#index'
@@ -655,7 +656,8 @@ EmpiricalGrammar::Application.routes.draw do
   # Integration routes (which should look pretty, and thus need some specifying)
   get 'amplify' => 'integrations#amplify'
   get 'amplify/all' => 'integrations#amplify_all'
-  get 'amplify/section/:section_id' => 'integrations#amplify_all', as: "amplify_browse_section"
+  get 'amplify/section/:section_id', to: redirect('amplify/standard_level/%{section_id}')
+  get 'amplify/standard_level/:standard_level_id' => 'integrations#amplify_all', as: "amplify_browse_section"
 
 
   # Count route to get quantities
