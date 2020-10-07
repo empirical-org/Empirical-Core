@@ -5,7 +5,7 @@ import {
   SmartSpinner,
   PlayTitleCard,
   ProgressBar
-} from 'quill-component-library/dist/componentLibrary';
+} from '../../../Shared/index';
 import { clearData, loadData, nextQuestion, nextQuestionWithoutSaving, submitResponse, updateName, updateCurrentQuestion, resumePreviousDiagnosticSession } from '../../actions/diagnostics.js';
 import _ from 'underscore';
 import SessionActions from '../../actions/sessions.js';
@@ -337,6 +337,7 @@ export class StudentDiagnostic extends React.Component {
       if (questionType === 'SC') {
         component = (<PlayDiagnosticQuestion
           dispatch={dispatch}
+          isLastQuestion={isLastQuestion}
           key={key}
           marking="diagnostic"
           nextQuestion={this.nextQuestion}
@@ -347,6 +348,7 @@ export class StudentDiagnostic extends React.Component {
         component = (<PlaySentenceFragment
           currentKey={key}
           dispatch={dispatch}
+          isLastQuestion={isLastQuestion}
           key={key}
           markIdentify={this.markIdentify}
           nextQuestion={this.nextQuestion}
@@ -358,6 +360,7 @@ export class StudentDiagnostic extends React.Component {
         component = (<PlayFillInTheBlankQuestion
           currentKey={key}
           dispatch={dispatch}
+          isLastQuestion={isLastQuestion}
           key={key}
           nextQuestion={this.nextQuestion}
           previewMode={previewMode}
@@ -371,6 +374,7 @@ export class StudentDiagnostic extends React.Component {
             dispatch={dispatch}
             handleContinueClick={this.nextQuestionWithoutSaving}
             isLastQuestion={isLastQuestion}
+            previewMode={previewMode}
           />
         );
       }

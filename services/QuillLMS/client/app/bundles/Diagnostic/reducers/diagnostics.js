@@ -1,5 +1,5 @@
 import { SubmitActions } from '../actions/diagnostics.js';
-import { getCurrentQuestion, getQuestionsWithAttempts, getFilteredQuestions } from '../libs/previewHelperFunctions';
+import { getCurrentQuestion, getQuestionsWithAttempts, getFilteredQuestions } from '../libs/previewHelperFunctions.tsx';
  // / make this playLessonsReducer.
 const initialState = {
   answeredQuestions: [],

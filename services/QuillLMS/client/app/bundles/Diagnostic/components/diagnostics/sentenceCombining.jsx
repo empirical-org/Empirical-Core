@@ -2,6 +2,7 @@ import * as React from 'react';
 import _ from 'underscore';
 import { submitResponse } from '../../actions/diagnostics.js';
 import { getLatestAttempt } from '../../libs/sharedQuestionFunctions';
+import { renderPreviewFeedback, getDisplayedText } from '../../libs/previewHelperFunctions';
 import ReactTransition from 'react-addons-css-transition-group';
 import {
   getGradedResponsesWithCallback
@@ -23,7 +24,6 @@ class PlayDiagnosticQuestion extends React.Component {
     this.state = {
       editing: false,
       response: '',
-      readyForNext: false,
     }
   }
 
@@ -173,7 +173,9 @@ class PlayDiagnosticQuestion extends React.Component {
   }
 
   handleNextClick = () => {
-    const { nextQuestion, } = this.props
+    const { nextQuestion, previewMode, isLastQuestion } = this.props;
+    // we don't submit the last question if in previewMode
+    if(previewMode && isLastQuestion) { return }
     nextQuestion();
   }
 
@@ -190,7 +192,7 @@ class PlayDiagnosticQuestion extends React.Component {
 
     return (<div className="error-container">
       <Feedback
-        feedback={<p>{errorToDisplay}</p>}
+        feedback={<p>{error}</p>}
         feedbackType="revise-unmatched"
       />
     </div>)
@@ -207,7 +209,7 @@ class PlayDiagnosticQuestion extends React.Component {
     return <button className="quill-button focus-on-light large primary contained" onClick={this.handleSubmitResponse} type="button">Submit</button>;
   }
 
-  getResponse = () => {
+  getDisplayedResponse = () => {
     const { previewMode, question } = this.props;
     const { response } = this.state;
     const latestAttempt = getLatestAttempt(question.attempts);
@@ -217,28 +219,38 @@ class PlayDiagnosticQuestion extends React.Component {
     return response;
   }
 
+  renderFeedback = () => {
+    const { previewMode, question } = this.props;
+    const { key } = question;
+    const latestAttempt = getLatestAttempt(question.attempts);
+    const instructions = (question.instructions && question.instructions !== '') ? question.instructions : 'Combine the sentences into one sentence.';
+
+    if(previewMode && latestAttempt && latestAttempt.response) {
+      return renderPreviewFeedback(latestAttempt);
+    }
+    return(
+      <Feedback
+        feedback={(<p>{instructions}</p>)}
+        feedbackType="default"
+        key={key}
+      />
+    );
+  }
+
   render = () => {
     const { question, previewMode } = this.props
-    const { error } = this.state
-    const questionID = question.key;
+    const { error, response } = this.state
     const button = this.getButton();
-    const displayedResponse = this.getResponse();
-    const latestAttempt = getLatestAttempt(question.attempts);
-    // we only want to show instructions on the first attempt during preview mode
-    const showInstructions = previewMode ? !latestAttempt : true;
+    const displayedText = getDisplayedText({ previewMode, question, response });
+
     if (question) {
-      const instructions = (question.instructions && question.instructions !== '') ? question.instructions : 'Combine the sentences into one sentence.';
       return (
         <div className="student-container-inner-diagnostic">
           {this.renderSentenceFragments()}
           {this.renderCues()}
-          {showInstructions && <div className="feedback-row">
-            <Feedback
-              feedback={(<p>{instructions}</p>)}
-              feedbackType="default"
-              key={questionID}
-            />
-          </div>}
+          <div className="feedback-row">
+            {this.renderFeedback()}
+          </div>
           <ReactTransition transitionAppear transitionAppearTimeout={500} transitionEnterTimeout={500} transitionLeaveTimeout={500} transitionName='text-editor'>
             <TextEditor
               className='textarea is-question is-disabled'
@@ -248,7 +260,7 @@ class PlayDiagnosticQuestion extends React.Component {
               onChange={this.handleChange}
               onSubmitResponse={this.handleSubmitResponse}
               placeholder="Type your answer here."
-              value={displayedResponse}
+              value={displayedText}
             />
             {this.renderError()}
             <div className="question-button-group button-group">

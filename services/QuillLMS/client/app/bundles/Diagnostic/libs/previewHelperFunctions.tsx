@@ -1,4 +1,8 @@
+import * as React from 'react';
+import stripHtml from "string-strip-html";
+import { getLatestAttempt } from './sharedQuestionFunctions';
 import { Question } from '../interfaces/question';
+import { Feedback } from '../../Shared/index';
 
 export const getCurrentQuestion = ({ action, answeredQuestions, questionSet, unansweredQuestions }) => {
   const { data } = action;
@@ -20,6 +24,7 @@ export const getCurrentQuestion = ({ action, answeredQuestions, questionSet, una
 
 export const getQuestionsWithAttempts = (questions: { data: Question }[]) => {
   const questionsWithAttempts = {}
+
   questions.forEach(question => {
     const { data } = question;
     const { attempts, key } = data;
@@ -27,6 +32,7 @@ export const getQuestionsWithAttempts = (questions: { data: Question }[]) => {
       questionsWithAttempts[key] = question;
     }
   });
+
   return questionsWithAttempts;
 }
 
@@ -37,8 +43,9 @@ export const getFilteredQuestions = ({ questionsSlice, answeredQuestionsWithAtte
   return questionsSlice.map((question: { data: Question }) => {
     const { data } = question;
     const { key } = data;
-    const answeredQuestionWithAttempts = answeredQuestionsWithAttempts[key]
-    const unansweredQuestionWithAttempts = unansweredQuestionsWithAttempts[key]
+    const answeredQuestionWithAttempts = answeredQuestionsWithAttempts[key];
+    const unansweredQuestionWithAttempts = unansweredQuestionsWithAttempts[key];
+
     if(answeredQuestionWithAttempts) {
       return answeredQuestionWithAttempts;
     } else if(unansweredQuestionWithAttempts) {
@@ -47,4 +54,27 @@ export const getFilteredQuestions = ({ questionsSlice, answeredQuestionsWithAtte
       return question;
     }
   });
+}
+
+export const getDisplayedText = ({ previewMode, question, response }) => {
+  const latestAttempt = getLatestAttempt(question.attempts);
+
+  if(previewMode && latestAttempt && latestAttempt.response && latestAttempt.response.text) {
+    return latestAttempt.response.text
+  }
+  return response;
+}
+
+export const renderPreviewFeedback = (latestAttempt) => {
+  const { response } = latestAttempt;
+  const { feedback, optimal } = response;
+  const strippedFeedback = feedback ? stripHtml(feedback) : '';
+
+  if(optimal && strippedFeedback !== '') {
+    return <Feedback feedback={strippedFeedback} feedbackType="correct-matched" />
+  } else if(!optimal && strippedFeedback !== '') {
+    return <Feedback feedback={strippedFeedback} feedbackType="revise-matched" />
+  }
+  // we don't want to show the directions if the question has already been answered in previewMode
+  return null;
 }

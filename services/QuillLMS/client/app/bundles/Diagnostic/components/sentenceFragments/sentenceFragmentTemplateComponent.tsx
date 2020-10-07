@@ -1,6 +1,8 @@
 declare function require(name:string);
 import * as React from 'react';
 import { connect } from 'react-redux';
+import { getLatestAttempt } from '../../libs/sharedQuestionFunctions';
+import { renderPreviewFeedback, getDisplayedText } from '../../libs/previewHelperFunctions';
 import TextEditor from '../renderForQuestions/renderTextEditor.jsx';
 import * as _ from 'underscore';
 import {checkDiagnosticSentenceFragment, Response } from 'quill-marking-logic'
@@ -13,7 +15,7 @@ import Feedback from '../renderForQuestions/feedback';
 import RenderQuestionFeedback from '../renderForQuestions/feedbackStatements.jsx';
 import { hashToCollection } from '../../../Shared/index'
 
-class PlaySentenceFragment extends React.Component {
+class PlaySentenceFragment extends React.Component<any, any> {
   constructor(props) {
     super(props)
 
@@ -55,20 +57,14 @@ class PlaySentenceFragment extends React.Component {
   }
 
   showNextQuestionButton = () => {
-    const { question, } = this.props;
-    const latestAttempt = this.getLatestAttempt();
-    const readyForNext =
-      question.attempts.length > 4 || (latestAttempt && latestAttempt.response.optimal);
+    const { question, previewMode } = this.props;
+    const latestAttempt = getLatestAttempt(question.attempts);
+    const readyForNext = (previewMode && latestAttempt) || question.attempts.length > 4 || (latestAttempt && latestAttempt.response.optimal);
     if (readyForNext) {
       return true;
     } else {
       return false;
     }
-  }
-
-  getLatestAttempt = () => {
-    const { question, } = this.props
-    return _.last(question.attempts || []);
   }
 
   getQuestion = () => {
@@ -209,14 +205,18 @@ class PlaySentenceFragment extends React.Component {
   }
 
   renderButton = () => {
-    const { nextQuestion, question, } = this.props
+    const { nextQuestion, question, isLastQuestion, previewMode } = this.props
     const { responses, editing} = this.state
     if (this.showNextQuestionButton()) {
+      const disabled = isLastQuestion && previewMode;
+      const disabledStyle = disabled ? 'disabled' : '';
       return (
-        <button className="quill-button focus-on-light large primary contained" onClick={nextQuestion} type="button">Next</button>
+        <button className={`quill-button focus-on-light large primary contained ${disabledStyle}`} disabled={disabled} onClick={nextQuestion} type="button">Next</button>
       );
     } else if (responses) {
-      if (question.attempts.length > 0) {
+      if(previewMode && question.attempts.length > 0) {
+        return <button className="quill-button focus-on-light large primary contained disabled" type="button">Submit</button>;
+      } else if (!previewMode && question.attempts.length) {
         const buttonClass = editing ? "quill-button focus-on-light large primary contained" : "quill-button focus-on-light large primary contained disabled" ;
         return <button className={buttonClass} onClick={this.handleSubmitResponse} type="button">Recheck work</button>;
       } else {
@@ -231,12 +231,25 @@ class PlaySentenceFragment extends React.Component {
     return <RenderQuestionFeedback attempt={attempt} getErrorsForAttempt={this.getErrorsForAttempt} getQuestion={this.getQuestion} />;
   }
 
+  getDisplayedResponse = () => {
+    const { previewMode, question } = this.props;
+    const { response } = this.state;
+    const latestAttempt = getLatestAttempt(question.attempts);
+    if(previewMode && latestAttempt && latestAttempt.response && latestAttempt.response.text) {
+      return latestAttempt.response.text;
+    }
+    return response;
+  }
+
   renderPlaySentenceFragmentMode = () => {
-    const { question, } = this.props
-    const { response, } = this.state
+    const { response } = this.state;
+    const { question, previewMode } = this.props
     let instructions;
-    const latestAttempt = this.getLatestAttempt();
-    if (latestAttempt) {
+    const displayedText = getDisplayedText({ previewMode, question, response });
+    const latestAttempt = getLatestAttempt(question.attempts);
+    if(previewMode && latestAttempt) {
+      renderPreviewFeedback(latestAttempt);
+    } else if (latestAttempt) {
       const component = <span dangerouslySetInnerHTML={{__html: latestAttempt.response.feedback}} />
       instructions = latestAttempt.response.feedback ? component :
       'Revise your work. A complete sentence must have an action word and a person or thing doing the action.';
@@ -248,19 +261,19 @@ class PlaySentenceFragment extends React.Component {
     // dangerously set some html in here
     return (
       <div className="container">
-        <Feedback
+        {instructions && <Feedback
           getQuestion={this.getQuestion}
           question={question}
           renderFeedbackStatements={this.renderFeedbackStatements}
           responses={this.getResponses()}
           sentence={instructions}
-        />
+        />}
         <TextEditor
           disabled={this.showNextQuestionButton()}
           onChange={this.handleChange}
           onSubmitResponse={this.handleSubmitResponse}
           placeholder="Type your answer here."
-          value={response}
+          value={displayedText}
         />
         <div className="question-button-group">
           {this.renderButton()}
@@ -294,11 +307,6 @@ class PlaySentenceFragment extends React.Component {
     }
   }
 }
-
-function getLatestAttempt(attempts:Array<{response: Response}> = []):{response: Response}|undefined {
-  const lastIndex = attempts.length - 1;
-  return attempts[lastIndex];
-};
 
 function select(state) {
   return {
