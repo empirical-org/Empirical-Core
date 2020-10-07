@@ -3,6 +3,7 @@ import * as React from 'react';
 interface IntroProps {
   startActivity: () => void;
   activity: any;
+  previewMode: boolean;
   session: any;
 }
 
@@ -16,6 +17,13 @@ export default class Intro extends React.Component<IntroProps, IntroState> {
 
     this.state = {
       showLandingPage: false,
+    }
+  }
+
+  componentDidMount() {
+    const { previewMode } = this.props;
+    if(previewMode) {
+      this.handleNextClick();
     }
   }
 
