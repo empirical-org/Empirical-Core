@@ -11,16 +11,16 @@ class ProgressReports::Standards::StudentSerializer < ActiveModel::Serializer
              :not_proficient_standard_count,
              :total_activity_count,
              :average_score,
-             :student_topics_href,
+             :student_standards_href,
              :mastery_status
 
   def average_score
     object.average_score.round(2)
   end
 
-  def student_topics_href
+  def student_standards_href
     return '' unless classroom_id.present?
-    teachers_progress_reports_standards_classroom_student_topics_path(
+    teachers_progress_reports_standards_classroom_student_standards_path(
       student_id: object.id,
       classroom_id: classroom_id)
   end

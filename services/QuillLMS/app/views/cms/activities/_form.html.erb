@@ -20,8 +20,8 @@
       <%= f.label :repeatable %>
       <%= f.check_box :repeatable %>
       <br>
-      <%= f.label :topic_category %>
-      <%= f.collection_select :topic_id, Topic.all, :id, :name %>
+      <%= f.label :standard_category %>
+      <%= f.collection_select :standard_id, Standard.all, :id, :name %>
       <br>
       <%= f.label :supporting_info %>
       <%= f.text_field :supporting_info %>

@@ -99,7 +99,7 @@ class Api::V1::ActivitiesController < Api::ApiController
     params.except(:id).permit(:name,
                               :description,
                               :activity_classification_uid,
-                              :topic_uid,
+                              :standard_uid,
                               :flags,
                               :uid)
                       .merge(data: @data)

@@ -11,7 +11,7 @@ describe Classroom, type: :model do
   it { should have_many(:activities).through(:unit_activities) }
   it { should have_many(:activity_sessions).through(:classroom_units) }
   #check if the code is correct as assign activities model does not exist
-  #it { should have_many(:sections).through(:assign) }
+  #it { should have_many(:standard_levels).through(:assign) }
   it { should have_many(:coteacher_classroom_invitations) }
   it { should have_many(:students_classrooms).with_foreign_key('classroom_id').dependent(:destroy).class_name("StudentsClassrooms") }
   it { should have_many(:students).through(:students_classrooms).source(:student).with_foreign_key('classroom_id').inverse_of(:classrooms).class_name("User") }
@@ -84,32 +84,32 @@ describe Classroom, type: :model do
     end
   end
 
-  describe '#unique_topic_count' do
+  describe '#unique_standard_count' do
     let(:classroom) { create(:classroom) }
-    let(:activity_session) { double(:activity_session, topic_count: 10) }
+    let(:activity_session) { double(:activity_session, standard_count: 10) }
 
-    context 'when unique topic count array exists' do
+    context 'when unique standard count array exists' do
       before do
-        allow(classroom).to receive(:unique_topic_count_array).and_return([activity_session])
+        allow(classroom).to receive(:unique_standard_count_array).and_return([activity_session])
       end
 
-      it 'should return the topic count for the first memeber of the array' do
-        expect(classroom.unique_topic_count).to eq(10)
+      it 'should return the standard count for the first memeber of the array' do
+        expect(classroom.unique_standard_count).to eq(10)
       end
     end
 
-    context 'when unique topic count array does not exist' do
+    context 'when unique standard count array does not exist' do
       before do
-        allow(classroom).to receive(:unique_topic_count_array).and_return([])
+        allow(classroom).to receive(:unique_standard_count_array).and_return([])
       end
 
-      it 'should return the topic count for the first memeber of the array' do
-        expect(classroom.unique_topic_count).to eq(nil)
+      it 'should return the standard count for the first memeber of the array' do
+        expect(classroom.unique_standard_count).to eq(nil)
       end
     end
   end
 
-  describe '#unique_topic_count_array' do
+  describe '#unique_standard_count_array' do
     let(:classroom) { create(:classroom) }
 
     before do
@@ -118,7 +118,7 @@ describe Classroom, type: :model do
 
     it 'should create a activity session progress report' do
       expect(ProgressReports::Standards::ActivitySession).to receive(:new).with(classroom.owner)
-      classroom.unique_topic_count_array
+      classroom.unique_standard_count_array
     end
   end
 

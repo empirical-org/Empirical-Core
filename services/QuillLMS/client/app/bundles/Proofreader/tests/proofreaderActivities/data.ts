@@ -15,7 +15,7 @@ export const currentActivity: ProofreaderActivity = {
     uid: "8g1_400wzXuijt4NB9uqtw"
   },
   title: "Coney Island",
-  topicCategory: {
+  standardCategory: {
     name: "Summative Assessments",
     uid: "XSx6hcLxlSf1WKaJFWgsNA"
   },

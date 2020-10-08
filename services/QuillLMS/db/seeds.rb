@@ -57,26 +57,26 @@ ActiveRecord::Base.connection.execute(File.read(dir_path + 'unit_template_catego
 # Import activities unit templates
 ActiveRecord::Base.connection.execute(File.read(dir_path + 'activities_unit_templates.sql'))
 
-# Import topics
-ActiveRecord::Base.connection.execute(File.read(dir_path + 'topics.sql'))
+# Import standards
+ActiveRecord::Base.connection.execute(File.read(dir_path + 'standards.sql'))
 
-# Import activities topic categories
-ActiveRecord::Base.connection.execute(File.read(dir_path + 'topic_categories.sql'))
+# Import activities standard categories
+ActiveRecord::Base.connection.execute(File.read(dir_path + 'standard_categories.sql'))
 
-# Generate sections
-create(:grade_1_section)
-create(:grade_2_section)
-create(:grade_3_section)
-create(:grade_4_section)
-create(:grade_5_section)
-create(:grade_6_section)
-create(:grade_7_section)
-create(:grade_8_section)
-create(:grade_9_section)
-create(:grade_10_section)
-create(:grade_11_section)
-create(:grade_12_section)
-create(:university_section)
+# Generate standard_levels
+create(:grade_1_standard_level)
+create(:grade_2_standard_level)
+create(:grade_3_standard_level)
+create(:grade_4_standard_level)
+create(:grade_5_standard_level)
+create(:grade_6_standard_level)
+create(:grade_7_standard_level)
+create(:grade_8_standard_level)
+create(:grade_9_standard_level)
+create(:grade_10_standard_level)
+create(:grade_11_standard_level)
+create(:grade_12_standard_level)
+create(:university_standard_level)
 
 # Generate a known teacher with a few classes and students, as well as a known student in those classes
 teacher = create(:teacher, username: 'teacher', password: 'password')

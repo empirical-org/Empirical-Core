@@ -20,7 +20,7 @@ exports[`ActivitySearchAndSelect component should render 1`] = `
         },
         Object {
           "alias": "Filter by level",
-          "field": "section",
+          "field": "standard_level",
           "options": Array [],
           "selected": null,
         },

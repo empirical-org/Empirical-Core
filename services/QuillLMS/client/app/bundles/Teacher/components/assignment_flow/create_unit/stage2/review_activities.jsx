@@ -69,7 +69,7 @@ export default class ReviewActivities extends React.Component {
       const {
         name,
         activity_classification,
-        section,
+        standard_level,
         activity_category,
         description,
         id,
@@ -95,12 +95,12 @@ export default class ReviewActivities extends React.Component {
       const toolTooltipId = `${id}-tool`
       const nameTooltipId = `${id}-name`
       const iconClassName = 'tooltip-trigger ' + activity_classification ? `icon-${activity_classification.id}-green-no-border` : ''
-      const toolIcon = (<div className="activate-tooltip" data-for={toolTooltipId} data-tip={`<h1>${name}</h1><p>Tool: ${activity_classification.alias}</p><p>${section.name}</p><p>${description}</p>`}>
+      const toolIcon = (<div className="activate-tooltip" data-for={toolTooltipId} data-tip={`<h1>${name}</h1><p>Tool: ${activity_classification.alias}</p><p>${standard_level.name}</p><p>${description}</p>`}>
         <ReactTooltip className="react-tooltip-custom" effect="solid" html id={toolTooltipId} multiline type="light" />
         <span className={iconClassName} />
       </div>)
       const activityName = (<div>
-        <div className="activate-tooltip" data-for={nameTooltipId} data-tip={`<h1>${name}</h1><p>Tool: ${activity_classification.alias}</p><p>${section.name}</p><p>${description}</p>`}>
+        <div className="activate-tooltip" data-for={nameTooltipId} data-tip={`<h1>${name}</h1><p>Tool: ${activity_classification.alias}</p><p>${standard_level.name}</p><p>${description}</p>`}>
           <ReactTooltip className="react-tooltip-custom" effect="solid" html id={nameTooltipId} multiline type="light" />
           <a className="tooltip-trigger activity-name" href={anonymous_path} rel='noreferrer noopener' target="_blank">{name}</a>
         </div>
