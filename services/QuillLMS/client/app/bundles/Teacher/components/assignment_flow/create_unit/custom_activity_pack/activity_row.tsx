@@ -141,7 +141,7 @@ const ActivityRow = ({ activity, isSelected, toggleActivitySelection, }: Activit
     <div className="first-line">
       <div className="name-and-checkbox-wrapper">
         <ActivityRowCheckbox activity={activity} isSelected={isSelected} toggleActivitySelection={toggleActivitySelection} />
-        <h2 onMouseEnter={toggleShowTooltip} onMouseLeave={toggleShowTooltip}>{name}</h2>
+        <button className="interactive-wrapper" onMouseEnter={toggleShowTooltip} onMouseLeave={toggleShowTooltip} tabIndex={-1} type="button"><h2>{name}</h2></button>
       </div>
       <div className="buttons-wrapper">
         {previewButton}

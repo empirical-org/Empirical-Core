@@ -60,6 +60,75 @@
       max-width: 1184px;
       padding: 0px 32px;
       margin: auto;
+      .search-and-sort {
+        height: 103px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border-bottom: 1px solid #e0e0e0 !important;
+        .sort-wrapper {
+          position: relative;
+          .sort-dropdown-label {
+            color: #7c7c7c;
+            span {
+              color: #000;
+            }
+            .is-open {
+              transform: rotate(180deg)
+            }
+          }
+          .sort-dropdown {
+            position: absolute;
+            display: flex;
+            flex-direction: column;
+            width: 263px;
+            border-radius: 4px;
+            box-shadow: 0 3px 5px -1px rgba(0, 0, 0, 0.2), 0 1px 18px 0 rgba(0, 0, 0, 0.12), 0 6px 10px 0 rgba(0, 0, 0, 0.14);
+            z-index: 2;
+            right: 0;
+            background-color: #fff;
+            top: 24px;
+            padding: 8px 0px;
+            button {
+              background-color: transparent;
+              padding: 16px;
+              font-size: 16px;
+              line-height: 1;
+              text-align: left;
+              &:hover, &:focus {
+                background-color: #e8f7f3;
+              }
+            }
+          }
+        }
+        .search-wrapper {
+          position: relative;
+          max-width: 536px;
+          width: 100%;
+          .search-icon {
+            position: absolute;
+            top: 12px;
+            left: 12px;
+          }
+          .close-icon {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+          }
+          input {
+            width: 100%;
+            border-radius: 24px;
+            border: solid 1px #e0e0e0;
+            height: 48px;
+            padding: 0px 44px;
+            font-size: 16px;
+            color: #000;
+            &::placeholder, &:placeholder {
+              color: #757575;
+            }
+          }
+        }
+      }
     }
     .pagination-section {
       margin-top: 48px;

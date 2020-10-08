@@ -1,45 +1,20 @@
 import * as React from 'react';
 
 import { Activity } from './interfaces'
-import ActivityRow from './activity_row'
+import { calculateNumberOfPages } from './sharedFunctions'
+import ActivityTableContainer from './activity_table_container'
 
 import { requestGet } from '../../../../../../modules/request/index'
-
-const expandSrc = `${process.env.CDN_URL}/images/shared/expand.svg`
-
-const RESULTS_PER_PAGE = 20
-
-const lowerBound = (currentPage: number): number => (currentPage - 1) * RESULTS_PER_PAGE;
-const upperBound = (currentPage: number): number => currentPage * RESULTS_PER_PAGE;
+import useDebounce from '../../../../hooks/useDebounce'
 
 interface AssignButtonProps {
   selectedActivities: Activity[],
   handleClickContinue: (event: any) => void
 }
 
-interface PaginationProps {
-  activities: Activity[],
-  currentPage: number,
-  setCurrentPage: (currentPage: number) => void
-}
-
-interface ActivityTableContainerProps {
-  filteredActivities: Activity[],
-  selectedActivities: Activity[],
-  toggleActivitySelection: (activity: Activity) => void,
-  currentPage: number,
-  setCurrentPage: (currentPage: number) => void
-}
-
 interface FilterColumnProps {
   activities: Activity[],
   filteredActivities: Activity[]
-}
-
-interface PageButtonProps {
-  currentPage: number,
-  buttonNumber: number,
-  setCurrentPage: (pageNumber: number) => void
 }
 
 interface CustomActivityPackProps {
@@ -57,81 +32,6 @@ const AssignButton = ({ selectedActivities, handleClickContinue, }: AssignButton
     action = null
   }
   return <button className={buttonClass} onClick={action} type="button">Assign</button>
-}
-
-const PageButton = ({ currentPage, buttonNumber, setCurrentPage, }: PageButtonProps) => {
-  let className = 'pagination-button focus-on-light'
-  className += currentPage === buttonNumber ? ' active' : ''
-
-  function handleClick() { setCurrentPage(buttonNumber) }
-
-  return <button className={className} onClick={handleClick} type="button">{buttonNumber}</button>
-}
-
-const Pagination = ({ activities, currentPage, setCurrentPage, }: PaginationProps) => {
-  const numberOfPages = Math.ceil(activities.length / RESULTS_PER_PAGE)
-  if (numberOfPages < 2) { return <span /> }
-
-  function handleLeftArrowClick() { setCurrentPage(currentPage - 1) }
-  function handleRightArrowClick() { setCurrentPage(currentPage + 1) }
-
-  const leftArrow = currentPage > 1 ? <button className="pagination-button focus-on-light left-arrow" onClick={handleLeftArrowClick} type="button"><img alt="Arrow pointing left" src={expandSrc} /></button> : null
-  const rightArrow = currentPage < numberOfPages ? <button className="pagination-button focus-on-light right-arrow" onClick={handleRightArrowClick} type="button"><img alt="Arrow pointing right" src={expandSrc} /></button> : null
-
-  const pageButtons = []
-  let lastWasEllipses = false
-  for (let i = 1; i <= numberOfPages; i++) {
-    const pageButton = <PageButton buttonNumber={i} currentPage={currentPage} setCurrentPage={setCurrentPage} />
-    const thereAreFewerThanEightPages = numberOfPages < 8
-    const firstOrLastPage = [1, numberOfPages].includes(i)
-    const currentPageIsOneOfTheFirstFivePages = currentPage < 5 && i < 6
-    const currentPageIsOneOfTheLastFivePages = currentPage > numberOfPages - 4 && i > numberOfPages - 5
-    const adjacentToCurrentPage = [currentPage - 1, currentPage, currentPage + 1].includes(i)
-    if (thereAreFewerThanEightPages || firstOrLastPage || adjacentToCurrentPage || currentPageIsOneOfTheFirstFivePages || currentPageIsOneOfTheLastFivePages) {
-      pageButtons.push(pageButton)
-      lastWasEllipses = false
-    } else if (!lastWasEllipses) {
-      pageButtons.push(<div className="pagination-button ellipses-button">...</div>)
-      lastWasEllipses = true
-    }
-  }
-
-  const paginationRow = (<div className="pagination-row">
-    {leftArrow}
-    {pageButtons}
-    {rightArrow}
-  </div>)
-
-  const lowestDisplayedNumber = lowerBound(currentPage) + 1
-  const highestDisplayedNumber = upperBound(currentPage) > activities.length ? activities.length : upperBound(currentPage)
-
-  return (<section className="pagination-section">
-    {paginationRow}
-    <p>{lowestDisplayedNumber}-{highestDisplayedNumber} of {activities.length}</p>
-  </section>)
-}
-
-const ActivityTableContainer = ({
-  filteredActivities,
-  selectedActivities,
-  toggleActivitySelection,
-  currentPage,
-  setCurrentPage,
-}: ActivityTableContainerProps) => {
-  const [sort, setSort] = React.useState(null)
-
-  const sortedActivities = filteredActivities
-  const currentPageActivities = sortedActivities.slice(lowerBound(currentPage), upperBound(currentPage));
-
-  const activityRows = currentPageActivities.map(act => {
-    const isSelected = selectedActivities.some(s => s.id === act.id)
-    return <ActivityRow activity={act} isSelected={isSelected} key={act.id} toggleActivitySelection={toggleActivitySelection} />
-  })
-
-  return (<section className="activity-table-container">
-    {activityRows}
-    <Pagination activities={filteredActivities} currentPage={currentPage} setCurrentPage={setCurrentPage} />
-  </section>)
 }
 
 const FilterColumn = ({ activities, filteredActivities, }: FilterColumnProps) => {
@@ -157,12 +57,17 @@ const CustomActivityPack = ({
   const [loading, setLoading] = React.useState(!passedActivities);
   // const [numberOfPages, setNumberOfPages] = React.useState(calculateNumberOfPages(activities));
   const [currentPage, setCurrentPage] = React.useState(1);
+  const [search, setSearch] = React.useState('')
+
+  const debouncedSearch = useDebounce(search, 500);
 
   React.useEffect(() => {
     getActivities();
   }, []);
 
-  const getActivities = () => {
+  React.useEffect(filterActivities, [debouncedSearch])
+
+  function getActivities() {
     requestGet('/activities/search',
       (data) => {
         setActivities(data.activities);
@@ -173,6 +78,21 @@ const CustomActivityPack = ({
     )
   }
 
+  function handleSearch(searchTerm) {
+    setSearch(searchTerm)
+  }
+
+  function filterActivities() {
+    if (!activities.length) { return }
+
+    const newFilteredActivities = activities.filter((a) => {
+      const stringActivity = Object.values(a).join(' ').toLowerCase();
+      return stringActivity.includes(search.toLowerCase());
+    })
+    const newNumberOfPages = calculateNumberOfPages(newFilteredActivities)
+    if (currentPage > newNumberOfPages && currentPage !== 1) { setCurrentPage(newNumberOfPages) }
+    setFilteredActivities(newFilteredActivities)
+  }
 
   return (<div className="custom-activity-pack-page">
     <FilterColumn activities={activities} filteredActivities={filteredActivities} />
@@ -186,6 +106,8 @@ const CustomActivityPack = ({
       <ActivityTableContainer
         currentPage={currentPage}
         filteredActivities={filteredActivities}
+        handleSearch={handleSearch}
+        search={search}
         selectedActivities={selectedActivities}
         setCurrentPage={setCurrentPage}
         toggleActivitySelection={toggleActivitySelection}
