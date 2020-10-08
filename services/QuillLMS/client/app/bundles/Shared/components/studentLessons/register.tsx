@@ -5,8 +5,15 @@ class Register extends React.Component<any, any> {
     super(props)
 
     this.state = {
-      showIntro: !!props.previewMode,
+      showIntro: false,
       hasSentenceFragment: this.hasSentenceFragment(),
+    }
+  }
+
+  componentDidMount() {
+    const { previewMode } = this.props;
+    if(previewMode) {
+      this.startActivity();
     }
   }
 
