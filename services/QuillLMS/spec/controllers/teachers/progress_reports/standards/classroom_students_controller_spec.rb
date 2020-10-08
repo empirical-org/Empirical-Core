@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 describe Teachers::ProgressReports::Standards::ClassroomStudentsController, type: :controller do
-  include_context 'Topic Progress Report'
+  include_context 'Standard Progress Report'
 
   it_behaves_like 'Progress Report' do
     let(:default_filters) { {classroom_id: full_classroom.id }}

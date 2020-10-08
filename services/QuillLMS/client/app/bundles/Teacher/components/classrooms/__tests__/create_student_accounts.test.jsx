@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { shallow, mount } from 'enzyme';
 
-import { DataTable } from 'quill-component-library/dist/componentLibrary'
+import { DataTable } from '../../../../Shared/index'
 
 const classroom = { id: 1, code: 'happy-day', name: 'Classroom'}
 

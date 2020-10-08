@@ -25,8 +25,8 @@ module CsvExporter
         json_hash[:display_completed_at],
         json_hash[:activity_name],
         json_hash[:percentage],
-        record.activity.try(:section).try(:name),
-        record.activity.try(:topic).try(:name),
+        record.activity.try(:standard_level).try(:name),
+        record.activity.try(:standard).try(:name),
         json_hash[:activity_classification_name]
       ]
     end

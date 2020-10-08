@@ -165,21 +165,21 @@ describe ActivitySession, type: :model, redis: true do
       end
     end
 
-    context 'section_id' do
-      let(:section) { create(:section) }
-      let(:classroom_unit1) { create(:classroom_unit, section: section) }
+    context 'standard_level_id' do
+      let(:standard_level) { create(:standard_level) }
+      let(:classroom_unit1) { create(:classroom_unit, standard_level: standard_level) }
 
-      it 'should return the given query with the given section_id' do
-        expect(ActivitySession.with_filters(ClassroomUnit, {section_id: section.id}))
+      it 'should return the given query with the given standard_level_id' do
+        expect(ActivitySession.with_filters(ClassroomUnit, {standard_level_id: standard_level.id}))
       end
     end
 
-    context 'topic_id' do
-      let(:topic) { create(:topic) }
-      let(:classroom_unit1) { create(:classroom_unit, topic: topic) }
+    context 'standard_id' do
+      let(:standard) { create(:standard) }
+      let(:classroom_unit1) { create(:classroom_unit, standard: standard) }
 
-      it 'should return the given query with the given topic_id' do
-        expect(ActivitySession.with_filters(ClassroomUnit, {topic_id: topic.id}))
+      it 'should return the given query with the given standard_id' do
+        expect(ActivitySession.with_filters(ClassroomUnit, {standard_id: standard.id}))
       end
     end
   end
@@ -487,7 +487,7 @@ end
       expect(ActivitySession.search_sort_sql({field: 'completed_at', direction: "desc"})).to eq("activity_sessions.completed_at desc")
       expect(ActivitySession.search_sort_sql({field: 'activity_name', direction: "anything"})).to eq("activities.name asc")
       expect(ActivitySession.search_sort_sql({field: 'percentage', direction: "anything"})).to eq("activity_sessions.percentage asc")
-      expect(ActivitySession.search_sort_sql({field: 'standard', direction: "anything"})).to eq("topics.name asc")
+      expect(ActivitySession.search_sort_sql({field: 'standard', direction: "anything"})).to eq("standards.name asc")
       expect(ActivitySession.search_sort_sql({field: ''})).to eq("#{last_name} asc, users.name asc")
       expect(ActivitySession.search_sort_sql({})).to eq("#{last_name} asc, users.name asc")
     end

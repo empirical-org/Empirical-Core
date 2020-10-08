@@ -1,9 +1,8 @@
 import * as React from 'react'
 
-import { DropdownInput } from 'quill-component-library/dist/componentLibrary'
-
 import GradeOptions from './grade_options'
 import { requestPut } from '../../../../modules/request/index.js';
+import { DropdownInput } from '../../../Shared/index'
 
 interface ChangeGradeModalProps {
   close: () => void;

@@ -6,17 +6,17 @@ const checkFillInTheBlankQuestion = qml.checkFillInTheBlankQuestion
 import { getGradedResponsesWithCallback } from '../../actions/responses.js';
 import updateResponseResource from '../renderForQuestions/updateResponseResource.js';
 import Cues from '../renderForQuestions/cues.jsx';
-import {
-  Prompt,
-  ConceptExplanation,
-  Feedback
-} from 'quill-component-library/dist/componentLibrary'
 import FeedbackContainer from '../renderForQuestions/feedback'
 import RenderQuestionFeedback from '../renderForQuestions/feedbackStatements.jsx';
 import { Attempt } from '../renderForQuestions/answerState.js';
 import { stringNormalize } from 'quill-string-normalizer';
 import { FillInBlankQuestion } from '../../interfaces/questions';
-import { hashToCollection, } from '../../../Shared/index'
+import {
+  hashToCollection,
+  Prompt,
+  ConceptExplanation,
+  Feedback
+} from '../../../Shared/index'
 
 const styles = {
   container: {
@@ -297,10 +297,10 @@ export class PlayFillInTheBlankQuestion extends React.Component<PlayFillInTheBla
       const responsesArray = hashToCollection(responses);
       const response = {response: checkFillInTheBlankQuestion(questionUID, zippedAnswer, responsesArray, caseInsensitive, defaultConceptUID)};
       if(previewMode) {
-        this.setState(prevState => ({ 
-          previewAttempt: response, 
-          previewAttemptSubmitted: true, 
-          previewSubmissionCount: prevState.previewSubmissionCount + 1 
+        this.setState(prevState => ({
+          previewAttempt: response,
+          previewAttemptSubmitted: true,
+          previewSubmissionCount: prevState.previewSubmissionCount + 1
         }));
       }
       this.updateResponseResource(response);

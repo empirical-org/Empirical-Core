@@ -10,13 +10,13 @@ describe 'ScorebookQuery' do
 
   let!(:teacher1) {create(:teacher) }
 
-  let!(:section) {create(:section)}
-  let!(:topic_category) {create(:topic_category)}
-  let!(:topic) {create(:topic, topic_category: topic_category, section: section)}
+  let!(:standard_level) {create(:standard_level)}
+  let!(:standard_category) {create(:standard_category)}
+  let!(:standard) {create(:standard, standard_category: standard_category, standard_level: standard_level)}
   let!(:activity_classification) {create :activity_classification}
 
-  let!(:activity1) {create(:activity, topic: topic, classification: activity_classification)}
-  let!(:activity2) {create(:activity, topic: topic, classification: activity_classification)}
+  let!(:activity1) {create(:activity, standard: standard, classification: activity_classification)}
+  let!(:activity2) {create(:activity, standard: standard, classification: activity_classification)}
 
   let!(:unit) {create(:unit)}
 

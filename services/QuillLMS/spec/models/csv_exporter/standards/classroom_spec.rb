@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 describe CsvExporter::Standards::Classroom do
-  include_context 'Topic Progress Report'
+  include_context 'Standard Progress Report'
   # it_behaves_like 'CSV Exporter' do
   #   let(:expected_header_row) {
   #     ['Page Title', 'Class Name', 'Students', 'Proficient Students', 'Not Yet Proficient Students', 'Standards']
@@ -20,7 +20,7 @@ describe CsvExporter::Standards::Classroom do
   #       visible_students.size,
   #       proficient_students.size,
   #       not_proficient_students.size,
-  #       visible_topics.size
+  #       visible_standards.size
   #     ]
   #   }
   #

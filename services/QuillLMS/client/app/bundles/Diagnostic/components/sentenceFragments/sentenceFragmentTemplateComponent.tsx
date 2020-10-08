@@ -6,14 +6,16 @@ import { renderPreviewFeedback, getDisplayedText } from '../../libs/previewHelpe
 import TextEditor from '../renderForQuestions/renderTextEditor.jsx';
 import * as _ from 'underscore';
 import {checkDiagnosticSentenceFragment, Response } from 'quill-marking-logic'
-import { ConceptExplanation, } from 'quill-component-library/dist/componentLibrary';
 import {
   getGradedResponsesWithCallback
 } from '../../actions/responses';
 import updateResponseResource from '../renderForQuestions/updateResponseResource.js';
 import Feedback from '../renderForQuestions/feedback';
 import RenderQuestionFeedback from '../renderForQuestions/feedbackStatements.jsx';
-import { hashToCollection } from '../../../Shared/index'
+import {
+  hashToCollection,
+  ConceptExplanation,
+} from '../../../Shared/index'
 
 class PlaySentenceFragment extends React.Component<any, any> {
   constructor(props) {

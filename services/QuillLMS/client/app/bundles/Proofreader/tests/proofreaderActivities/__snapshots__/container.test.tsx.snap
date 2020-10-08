@@ -16,15 +16,15 @@ Over the years, Coney Island has expanded to have a few parks with rides. There 
           "name": "CCSS Grade 7 Summative Assessments",
           "uid": "pM3sNYWnNnWdR5YKu7lAHw",
         },
+        "standardCategory": Object {
+          "name": "Summative Assessments",
+          "uid": "XSx6hcLxlSf1WKaJFWgsNA",
+        },
         "standardLevel": Object {
           "name": "7th Grade CCSS",
           "uid": "8g1_400wzXuijt4NB9uqtw",
         },
         "title": "Coney Island",
-        "topicCategory": Object {
-          "name": "Summative Assessments",
-          "uid": "XSx6hcLxlSf1WKaJFWgsNA",
-        },
         "underlineErrorsInProofreader": false,
       },
       "data": Object {
@@ -38,15 +38,15 @@ Over the years, Coney Island has expanded to have a few parks with rides. There 
             "name": "CCSS Grade 7 Summative Assessments",
             "uid": "pM3sNYWnNnWdR5YKu7lAHw",
           },
+          "standardCategory": Object {
+            "name": "Summative Assessments",
+            "uid": "XSx6hcLxlSf1WKaJFWgsNA",
+          },
           "standardLevel": Object {
             "name": "7th Grade CCSS",
             "uid": "8g1_400wzXuijt4NB9uqtw",
           },
           "title": "Coney Island",
-          "topicCategory": Object {
-            "name": "Summative Assessments",
-            "uid": "XSx6hcLxlSf1WKaJFWgsNA",
-          },
           "underlineErrorsInProofreader": false,
         },
       },

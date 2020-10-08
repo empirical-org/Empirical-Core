@@ -6,9 +6,9 @@ class Activity < ActiveRecord::Base
 
   has_and_belongs_to_many :unit_templates
   belongs_to :classification, class_name: 'ActivityClassification', foreign_key: 'activity_classification_id'
-  belongs_to :topic
+  belongs_to :standard
 
-  has_one :section, through: :topic
+  has_one :standard_level, through: :standard
 
   belongs_to :follow_up_activity, class_name: "Activity", foreign_key: "follow_up_activity_id"
 
@@ -57,8 +57,8 @@ class Activity < ActiveRecord::Base
     end
   end
 
-  def topic_uid= uid
-    self.topic_id = Topic.find_by_uid(uid).id
+  def standard_uid= uid
+    self.standard_id = Standard.find_by_uid(uid).id
   end
 
   def activity_classification_uid= uid

@@ -12,7 +12,7 @@ import DistrictStandardsReports from '../DistrictStandardsReports.jsx';
 describe('DistrictStandardsReports', () => {
   it('renders report for all students', () => {
     const classroom = {
-      section_name: '1st Grade CCSS',
+      standard_level_name: '1st Grade CCSS',
       name: '1.1b Use Common, Proper, and Posessive Nouns',
       total_student_count: 60,
       total_activity_count: 2,
@@ -36,7 +36,7 @@ describe('DistrictStandardsReports', () => {
 
   it('formats csv data', () => {
     const classroom = {
-      section_name: "Mrs. Bonker's 2nd Grade",
+      standard_level_name: "Mrs. Bonker's 2nd Grade",
       name: '1.1b How to tell a cactus from a cow',
       total_student_count: 60,
       total_activity_count: 2,

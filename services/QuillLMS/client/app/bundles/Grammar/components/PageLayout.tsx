@@ -1,7 +1,9 @@
 import * as React from "react";
 import { Layout } from "antd";
-import { Header } from "./Header";
 import {renderRoutes} from "react-router-config";
+
+import { Header } from "./Header";
+
 import { routes } from "../routes";
 import getParameterByName from '../helpers/getParameterByName';
 import { TeacherPreviewMenu } from '../../Shared/index';
@@ -12,6 +14,7 @@ interface PageLayoutState {
   questionToPreview: any;
   switchedBackToPreview: boolean;
   randomizedQuestions: any[];
+  skippedToQuestionFromIntro: boolean;
 }
 
 export class PageLayout extends React.Component<any, PageLayoutState> {
@@ -26,7 +29,8 @@ export class PageLayout extends React.Component<any, PageLayoutState> {
       previewShowing: !studentSession && !proofreaderSessionId,
       questionToPreview: null,
       switchedBackToPreview: false,
-      randomizedQuestions: null
+      randomizedQuestions: null,
+      skippedToQuestionFromIntro: false
     }
   }
 
@@ -58,7 +62,7 @@ export class PageLayout extends React.Component<any, PageLayoutState> {
   handleTogglePreviewMenu = () => {
     const { previewShowing } = this.state;
     if(previewShowing) {
-      this.setState({ questionToPreview: null, switchedBackToPreview: false });
+      this.setState({ switchedBackToPreview: false });
     } else {
       this.setState({ switchedBackToPreview: true });
     }
@@ -75,8 +79,12 @@ export class PageLayout extends React.Component<any, PageLayoutState> {
     this.setState({ randomizedQuestions: questions });
   }
 
-  renderContent = (header: JSX.Element) => {
-    const { previewShowing, questionToPreview, switchedBackToPreview, randomizedQuestions } = this.state;
+  handleSkipToQuestionFromIntro = () => {
+    this.setState({ skippedToQuestionFromIntro: true });
+  }
+
+  renderContent = (header: JSX.Element, previewMode: boolean) => {
+    const { questionToPreview, switchedBackToPreview, randomizedQuestions, skippedToQuestionFromIntro } = this.state;
     return(
       <Layout.Content style={{ height: '100vh', overflow: 'auto' }}>
         <button className="skip-main" onClick={this.handleSkipToMainContentClick} type="button">Skip to main content</button>
@@ -84,9 +92,10 @@ export class PageLayout extends React.Component<any, PageLayoutState> {
         <div id="main-content" tabIndex={-1}>{renderRoutes(routes, {
           switchedBackToPreview: switchedBackToPreview,
           handleToggleQuestion: this.handleToggleQuestion,
-          previewMode: previewShowing,
+          previewMode: previewMode,
           questionToPreview: questionToPreview,
-          randomizedQuestions: randomizedQuestions
+          randomizedQuestions: randomizedQuestions,
+          skippedToQuestionFromIntro: skippedToQuestionFromIntro
         })}</div>
       </Layout.Content>
     );
@@ -95,46 +104,39 @@ export class PageLayout extends React.Component<any, PageLayoutState> {
   render() {
     const { showFocusState, previewShowing, questionToPreview } = this.state;
     const studentSession = getParameterByName('student', window.location.href);
-    const proofreaderSessionId = getParameterByName('proofreaderSessionId', window.location.href);
+    const proofreaderSession = getParameterByName('proofreaderSessionId', window.location.href);
+    const turkSession = window.location.href.includes('turk')
+    const studentOrTurkOrProofreader = studentSession || turkSession || proofreaderSession;
     const isPlaying = window.location.href.includes('play');
-    const showPreview = previewShowing && isPlaying;
+    const showPreview = previewShowing && isPlaying && !studentOrTurkOrProofreader;
+    const previewMode = isPlaying && !studentOrTurkOrProofreader;
     let className = "ant-layout ";
     className = showFocusState ? '' : 'hide-focus-outline';
     let header;
     if(isPlaying && !studentSession) {
-      header = <Header isTeacher={!studentSession && !proofreaderSessionId} onTogglePreview={this.handleTogglePreviewMenu} previewShowing={previewShowing} />;
+      header = <Header isTeacher={!studentOrTurkOrProofreader} onTogglePreview={this.handleTogglePreviewMenu} previewShowing={previewShowing} />;
     } else if(isPlaying) {
       header = <Header />;
     }
-
-    if(showPreview) {
-      return(
-        <Layout className={className}>
-          <Layout>
-            <Layout.Sider
-              breakpoint="md"
-              className="sider-container"
-              collapsedWidth="0"
-              style={{ height: '100vh', overflow: 'auto' }}
-              width={360}
-            >
-              <TeacherPreviewMenu
-                onTogglePreview={this.handleTogglePreviewMenu}
-                onToggleQuestion={this.handleToggleQuestion}
-                onUpdateRandomizedQuestions={this.handleUpdateRandomizedQuestions}
-                questionToPreview={questionToPreview}
-                showPreview={previewShowing}
-              />
-            </Layout.Sider>
-            {this.renderContent(header)}
-          </Layout>
-        </Layout>
-      );
-    }
-    return (
+    return(
       <Layout className={className}>
         <Layout>
-          {this.renderContent(header)}
+          {showPreview && <Layout.Sider
+            breakpoint="md"
+            className="sider-container"
+            collapsedWidth="0"
+            width={360}
+          >
+            <TeacherPreviewMenu
+              onHandleSkipToQuestionFromIntro={this.handleSkipToQuestionFromIntro}
+              onTogglePreview={this.handleTogglePreviewMenu}
+              onToggleQuestion={this.handleToggleQuestion}
+              onUpdateRandomizedQuestions={this.handleUpdateRandomizedQuestions}
+              questionToPreview={questionToPreview}
+              showPreview={previewShowing}
+            />
+          </Layout.Sider>}
+          {this.renderContent(header, previewMode)}
         </Layout>
       </Layout>
     );

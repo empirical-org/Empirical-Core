@@ -303,11 +303,14 @@ export class StudentDiagnostic extends React.Component {
 
     const displayedAnsweredQuestionCount = currentQuestionIsTitleCard && currentQuestionIsNotFirstQuestion ? calculatedAnsweredQuestionCount + 1 : calculatedAnsweredQuestionCount
 
+    const progressPercent = getProgressPercent(playDiagnostic);
+    const totalQuestionCount = questionCount(playDiagnostic);
+
     return (<ProgressBar
-      answeredQuestionCount={displayedAnsweredQuestionCount}
+      answeredQuestionCount={displayedAnsweredQuestionCount > totalQuestionCount ? totalQuestionCount : displayedAnsweredQuestionCount}
       label='questions'
-      percent={getProgressPercent(playDiagnostic)}
-      questionCount={questionCount(playDiagnostic)}
+      percent={progressPercent}
+      questionCount={totalQuestionCount}
     />)
   }
 

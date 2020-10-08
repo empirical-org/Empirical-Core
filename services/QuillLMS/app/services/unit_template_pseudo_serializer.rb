@@ -1,5 +1,5 @@
 class UnitTemplatePseudoSerializer
-  # attributes :id, :name, :time, :grades, :order_number, :number_of_standards, :activity_info, :author, :unit_template_category, :activities, :topics
+  # attributes :id, :name, :time, :grades, :order_number, :number_of_standards, :activity_info, :author, :unit_template_category, :activities, :standards
 
   def initialize(unit_template, flag=nil)
     @unit_template = unit_template
@@ -24,11 +24,11 @@ class UnitTemplatePseudoSerializer
   end
 
   def number_of_standards
-    section_ids = []
+    standard_level_ids = []
     @unit_template.activities.each do |act|
-      section_ids << act.topic.section_id
+      standard_level_ids << act.standard.standard_level_id
     end
-    section_ids.uniq.count
+    standard_level_ids.uniq.count
   end
 
   def unit_template_category
@@ -57,15 +57,15 @@ class UnitTemplatePseudoSerializer
         activity_classifications.key,
         activity_classifications.id AS activity_classification_id,
         activity_classifications.name AS activity_classification_name,
-        topics.id AS topic_id,
-        topics.name AS topic_name,
-        sections.name AS section_name,
-        topic_categories.id AS topic_category_id,
-        topic_categories.name AS topic_category_name
+        standards.id AS standard_id,
+        standards.name AS standard_name,
+        standard_levels.name AS standard_level_name,
+        standard_categories.id AS standard_category_id,
+        standard_categories.name AS standard_category_name
       FROM activities
-      INNER JOIN topics ON topics.id = activities.topic_id
-      INNER JOIN sections ON topics.section_id = sections.id
-      INNER JOIN topic_categories ON topics.topic_category_id = topic_categories.id
+      INNER JOIN standards ON standards.id = activities.standard_id
+      INNER JOIN standard_levels ON standards.standard_level_id = standard_levels.id
+      INNER JOIN standard_categories ON standards.standard_category_id = standard_categories.id
       INNER JOIN activities_unit_templates ON activities.id = activities_unit_templates.activity_id
       INNER JOIN activity_classifications ON activities.activity_classification_id = activity_classifications.id
       INNER JOIN activity_category_activities ON activities.id = activity_category_activities.activity_id
@@ -78,13 +78,13 @@ class UnitTemplatePseudoSerializer
         id: act['id'],
         name: act['name'],
         description: act['description'],
-        section_name: act['section_name'],
-        topic: {
-          id: act['topic_id'],
-          name: act['topic_name'],
-          topic_category: {
-            id: act['topic_category_id'],
-            name: act['topic_category_name']
+        standard_level_name: act['standard_level_name'],
+        standard: {
+          id: act['standard_id'],
+          name: act['standard_name'],
+          standard_category: {
+            id: act['standard_category_id'],
+            name: act['standard_category_name']
           }
         },
         classification: {key: act['key'], id: act['activity_classification_id'], name: act['activity_classification_name']}
