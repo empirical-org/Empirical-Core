@@ -40,7 +40,7 @@ export default {
 
     Object.keys(questions).forEach((uid) => {
       allQuestions[uid] = {
-        question: Object.assign(questions[uid], {key: uid}),
+        data: Object.assign(questions[uid], {key: uid}),
         type: questionType,
       }
     })
@@ -65,7 +65,7 @@ function processSession(session) {
 function denormalizeSession(session) {
   // If the session is already in a denormalized form (it has question keys that
   // contain objects instead of just an ID string, just return the session as-is
-  if (typeof session.questionSet[0].question == "object") return session
+  if (typeof session.questionSet[0].data == "object") return session
   // If someone has answered no questions, this key will be missing
   if (session.answeredQuestions) {
     session.answeredQuestions.forEach((value, index, answeredQuestions) => {
@@ -97,40 +97,43 @@ function denormalizeQuestion(question) {
   // We need to make sure that the 'question' part of the
   // question object is a clean copy so that we can modify
   // it without changing the cached question object
-  const denormalizedQuestion = JSON.parse(JSON.stringify(allQuestions[questionUid].question))
+  const denormalizedQuestion = JSON.parse(JSON.stringify(allQuestions[questionUid]))
   const questionType = allQuestions[questionUid].type;
   if (question.attempts) {
-    denormalizedQuestion.attempts = question.attempts;
+    denormalizedQuestion.data.attempts = question.attempts;
   }
-  return {
-    question: denormalizedQuestion,
-    type: questionType,
-  }
+  return denormalizedQuestion
 }
 
 function normalizeSession(session) {
   // Deep copy so that we return a clean object
   let sessionCopy = JSON.parse(JSON.stringify(session));
-  sessionCopy.questionSet = sessionCopy.questionSet.map(normalizeQuestion);
+  sessionCopy.questionSet = sessionCopy.questionSet.map((q) => {
+    return normalizeQuestion(q, false)
+  });
   // If someone has answered all the questions, key will be missing
   if (sessionCopy.unansweredQuestions) {
-    sessionCopy.unansweredQuestions = sessionCopy.unansweredQuestions.map(normalizeQuestion);
+    sessionCopy.unansweredQuestions = sessionCopy.unansweredQuestions.map((q) => {
+      return normalizeQuestion(q, false)
+    });
   }
   if (sessionCopy.currentQuestion) {
-    sessionCopy.currentQuestion = normalizeQuestion(sessionCopy.currentQuestion);
+    sessionCopy.currentQuestion = normalizeQuestion(sessionCopy.currentQuestion, true);
   }
   // If someone has not answered any questions, this key will be missing
   if (sessionCopy.answeredQuestions) {
-    sessionCopy.answeredQuestions = sessionCopy.answeredQuestions.map(normalizeQuestion);
+    sessionCopy.answeredQuestions = sessionCopy.answeredQuestions.map((q) => {
+      return normalizeQuestion(q, true)
+    })
   }
   return sessionCopy
 }
 
-function normalizeQuestion(question) {
-  if (!question.question.attempts) return question.question.key;
+function normalizeQuestion(question, includeAttempts) {
+  if (!includeAttempts) return question.data.key;
   return {
-    question: question.question.key,
-    attempts: question.question.attempts,
+    question: question.data.key,
+    attempts: question.data.attempts,
   }
 }
 

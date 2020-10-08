@@ -1,7 +1,7 @@
 const denormalizedSession = {
   "questionSet":[
     {
-      "question":{
+      "data":{
         "key":"-KdCg3xpEyLVWWjWADa9",
         "cues":[
           "on",
@@ -11,9 +11,6 @@ const denormalizedSession = {
         ],
         "flag":"production",
         "prompt":"We arrived ___ school before the bell rang.",
-        "attempts":[
-          
-        ],
         "conceptID":"LPMBB_M5hooC263qXFc_Yg",
         "cuesLabel":"choose one",
         "blankAllowed":false,
@@ -23,7 +20,7 @@ const denormalizedSession = {
       "type":"FB"
     },
     {
-      "question":{
+      "data":{
         "key":"-KfD6DGRaPhBflVzswJx",
         "cues":[
           "on",
@@ -33,9 +30,6 @@ const denormalizedSession = {
         ],
         "flag":"production",
         "prompt":"New Year’s Day is a holiday ___ January.",
-        "attempts":[
-          
-        ],
         "conceptID":"lD5FBHF-FEPpsFG0SXlcfQ",
         "cuesLabel":"choose one",
         "blankAllowed":false,
@@ -45,7 +39,7 @@ const denormalizedSession = {
       "type":"FB"
     },
     {
-      "question":{
+      "data":{
         "key":"-LKSzt34hIYCd6q7qfrT",
         "cues":[
           "theirs",
@@ -57,9 +51,6 @@ const denormalizedSession = {
         ],
         "flag":"production",
         "prompt":"The snacks belong to my brother’s friends. The snacks are ___.",
-        "attempts":[
-          
-        ],
         "conceptID":"rmEM8FefHInj_EHfdGb-mQ",
         "cuesLabel":"choose one",
         "blankAllowed":false,
@@ -69,7 +60,7 @@ const denormalizedSession = {
       "type":"FB"
     },
     {
-      "question":{
+      "data":{
         "key":"-LKSzZVtaKDm2WuA9Wj8",
         "cues":[
           "theirs",
@@ -81,9 +72,6 @@ const denormalizedSession = {
         ],
         "flag":"production",
         "prompt":"The book belongs to you and your sister. The book is ___.",
-        "attempts":[
-          
-        ],
         "conceptID":"rmEM8FefHInj_EHfdGb-mQ",
         "cuesLabel":"choose one",
         "blankAllowed":false,
@@ -93,7 +81,7 @@ const denormalizedSession = {
       "type":"FB"
     },
     {
-      "question":{
+      "data":{
         "key":"-LKSwvKftmuSOIa-gp8W",
         "cues":[
           "they",
@@ -106,9 +94,6 @@ const denormalizedSession = {
         ],
         "flag":"production",
         "prompt":"I like Laura and James, so I invited ___ over after school.",
-        "attempts":[
-          
-        ],
         "conceptID":"YATBRKnhclPuz3962a17Og",
         "cuesLabel":"choose one",
         "blankAllowed":false,
@@ -118,7 +103,7 @@ const denormalizedSession = {
       "type":"FB"
     },
     {
-      "question":{
+      "data":{
         "key":"-LKT0cJcWANIOLWdxGDA",
         "cues":[
           "doesn't",
@@ -126,9 +111,6 @@ const denormalizedSession = {
         ],
         "flag":"production",
         "prompt":"He ___ like to wake up early.",
-        "attempts":[
-          
-        ],
         "conceptID":"Tlhrx6Igxn6cR_SD1U5efA",
         "cuesLabel":"action words",
         "blankAllowed":false,
@@ -138,7 +120,7 @@ const denormalizedSession = {
       "type":"FB"
     },
     {
-      "question":{
+      "data":{
         "key":"-LKT1ZUK5kLrCk1rL41r",
         "cues":[
           "passes",
@@ -146,9 +128,6 @@ const denormalizedSession = {
         ],
         "flag":"alpha",
         "prompt":"The players on the field ___ the ball.",
-        "attempts":[
-          
-        ],
         "conceptID":"Tlhrx6Igxn6cR_SD1U5efA",
         "cuesLabel":"action words",
         "blankAllowed":false,
@@ -158,7 +137,7 @@ const denormalizedSession = {
       "type":"FB"
     },
     {
-      "question":{
+      "data":{
         "key":"-LKWlY_fa3JXEFzQO3I8",
         "cues":[
           "are",
@@ -166,9 +145,6 @@ const denormalizedSession = {
         ],
         "flag":"production",
         "prompt":"The streets of Tokyo ___ bright.",
-        "attempts":[
-          
-        ],
         "conceptID":"Tlhrx6Igxn6cR_SD1U5efA",
         "cuesLabel":"action words",
         "blankAllowed":false,
@@ -178,16 +154,13 @@ const denormalizedSession = {
       "type":"FB"
     },
     {
-      "question":{
+      "data":{
         "key":"-LL5_sFaXWgYV0923A5h",
         "cues":[
           ""
         ],
         "flag":"production",
         "prompt":"<p>Ricardo <strong>bought</strong> a new car tomorrow.</p>",
-        "attempts":[
-          
-        ],
         "conceptID":"RPNqOZuka_n8RESKbBF8OQ",
         "cuesLabel":"",
         "itemLevel":"",
@@ -235,16 +208,13 @@ const denormalizedSession = {
       "type":"SC"
     },
     {
-      "question":{
+      "data":{
         "key":"-LL5_rYu2Dgth8RUbilQ",
         "cues":[
           ""
         ],
         "flag":"production",
         "prompt":"<p>Mariana <strong>eats</strong> salad for lunch yesterday.</p>",
-        "attempts":[
-          
-        ],
         "conceptID":"TE-ElKaRWWumTrmVE4-m6g",
         "cuesLabel":"",
         "itemLevel":"",
@@ -292,16 +262,13 @@ const denormalizedSession = {
       "type":"SC"
     },
     {
-      "question":{
+      "data":{
         "key":"-LL06ObXOMvlS5G_Kvml",
         "cues":[
           ""
         ],
         "flag":"production",
         "prompt":"<p>The pack of <strong>wolf</strong> howled at the moon.</p>",
-        "attempts":[
-          
-        ],
         "conceptID":"jfT_DIDPPchihdlkMRNyuA",
         "cuesLabel":"make this word plural",
         "itemLevel":"",
@@ -350,16 +317,13 @@ const denormalizedSession = {
       "type":"SC"
     },
     {
-      "question":{
+      "data":{
         "key":"-LL06m51gFsyaIb8z806",
         "cues":[
           ""
         ],
         "flag":"production",
         "prompt":"<p>I visited three different <strong>city</strong>.</p>",
-        "attempts":[
-          
-        ],
         "conceptID":"jfT_DIDPPchihdlkMRNyuA",
         "cuesLabel":"make this word plural",
         "itemLevel":"",
@@ -395,16 +359,13 @@ const denormalizedSession = {
       "type":"SC"
     },
     {
-      "question":{
+      "data":{
         "key":"-LQabYK1kSh4Dp5ZMtjB",
         "cues":[
           ""
         ],
         "flag":"production",
         "prompt":"<p>the president visited jackson high school to honor the national teacher of the year.</p>",
-        "attempts":[
-          
-        ],
         "conceptID":"66upe3S5uvqxuHoHOt4PcQ",
         "cuesLabel":"",
         "itemLevel":"",
@@ -439,16 +400,13 @@ const denormalizedSession = {
       "type":"SC"
     },
     {
-      "question":{
+      "data":{
         "key":"-LKSnaXiE2G7CccbkbEu",
         "cues":[
           ""
         ],
         "flag":"production",
         "prompt":"<p>every summer, my dad teaches a science class about sea turtles in the atlantic ocean.</p>",
-        "attempts":[
-          
-        ],
         "conceptID":"66upe3S5uvqxuHoHOt4PcQ",
         "itemLevel":"",
         "instructions":"Rewrite the sentence with the correct capitalization.",
@@ -482,16 +440,13 @@ const denormalizedSession = {
       "type":"SC"
     },
     {
-      "question":{
+      "data":{
         "key":"-LKStUOiTFAuve_pUNNl",
         "cues":[
           ""
         ],
         "flag":"production",
         "prompt":"<p>The <strong>athlete</strong> goal is to win <strong>medal</strong> at all of her <strong>competition</strong> this season.</p>",
-        "attempts":[
-          
-        ],
         "conceptID":"juG67j5ILKeg8ZX0Dh2m7A",
         "cuesLabel":"",
         "itemLevel":"",
@@ -539,16 +494,13 @@ const denormalizedSession = {
       "type":"SC"
     },
     {
-      "question":{
+      "data":{
         "key":"-LKSuWT89unu5gJ2WRip",
         "cues":[
           ""
         ],
         "flag":"production",
         "prompt":"<p>The <strong>family</strong> big house was built a hundred <strong>year</strong> ago.</p>",
-        "attempts":[
-          
-        ],
         "conceptID":"juG67j5ILKeg8ZX0Dh2m7A",
         "cuesLabel":"",
         "itemLevel":"",
@@ -601,7 +553,7 @@ const denormalizedSession = {
       "type":"SC"
     },
     {
-      "question":{
+      "data":{
         "key":"-LL-z3Is5RTRvWyNZR6W",
         "cues":[
           "easier",
@@ -611,9 +563,6 @@ const denormalizedSession = {
         ],
         "flag":"production",
         "prompt":"Traveling is ___ with a guide than without one.",
-        "attempts":[
-          
-        ],
         "conceptID":"w8VxA2FWlU4FQegvjhsCUg",
         "cuesLabel":"choose one",
         "blankAllowed":false,
@@ -623,7 +572,7 @@ const denormalizedSession = {
       "type":"FB"
     },
     {
-      "question":{
+      "data":{
         "key":"-LKWu6ki2OHKFMAVZIko",
         "cues":[
           "brighter",
@@ -633,9 +582,6 @@ const denormalizedSession = {
         ],
         "flag":"production",
         "prompt":"Stars look ___ in the country than in the city.",
-        "attempts":[
-          
-        ],
         "conceptID":"w8VxA2FWlU4FQegvjhsCUg",
         "cuesLabel":"choose one",
         "blankAllowed":false,
@@ -645,16 +591,13 @@ const denormalizedSession = {
       "type":"FB"
     },
     {
-      "question":{
+      "data":{
         "key":"-LRgwPr67L8zPIU5CfpS",
         "cues":[
           ""
         ],
         "flag":"production",
         "prompt":"<p>I moved here in May 2018 and started school on Monday August 20 2018.</p>",
-        "attempts":[
-          
-        ],
         "conceptID":"bUga6lISzL9xYjXcApmoYw",
         "cuesLabel":"",
         "itemLevel":"",
@@ -738,16 +681,13 @@ const denormalizedSession = {
       "type":"SC"
     },
     {
-      "question":{
+      "data":{
         "key":"-LL0A_vTMfbfq00MRXjq",
         "cues":[
           ""
         ],
         "flag":"production",
         "prompt":"<p>The ocean is deep. &nbsp;</p>\n<p>It is dark. &nbsp;</p>\n<p>It is mysterious.</p>",
-        "attempts":[
-          
-        ],
         "conceptID":"p2gW7LPaj8xd6xpfPrvOqQ",
         "itemLevel":"",
         "focusPoints":{
@@ -795,16 +735,13 @@ const denormalizedSession = {
       "type":"SC"
     },
     {
-      "question":{
+      "data":{
         "key":"-LKX3Kput_ae17nDodqp",
         "cues":[
           ""
         ],
         "flag":"production",
         "prompt":"<p>Scorpions thrive in the desert. </p><p>The desert is dry. </p>",
-        "attempts":[
-          
-        ],
         "conceptID":"o1yvrCpaYu0r-jqogv7PBw",
         "cuesLabel":"",
         "focusPoints":{
@@ -886,16 +823,13 @@ const denormalizedSession = {
       "type":"SC"
     },
     {
-      "question":{
+      "data":{
         "key":"-LL5ho_8jppZoOmjaubo",
         "cues":[
           ""
         ],
         "flag":"alpha",
         "prompt":"<p>A tree fell and blocked traffic.</p><p>It fell onto the road.</p>",
-        "attempts":[
-          
-        ],
         "conceptID":"LfBI4QYX_T5zbZAd-x_g_w",
         "cuesLabel":"",
         "itemLevel":"",
@@ -943,16 +877,13 @@ const denormalizedSession = {
       "type":"SC"
     },
     {
-      "question":{
+      "data":{
         "key":"-LL03FB3y06qdXC7cEI_",
         "cues":[
           ""
         ],
         "flag":"production",
         "prompt":"<p>Rico writes a letter and mails it.&nbsp;</p>\n<p>He writes quickly.</p>",
-        "attempts":[
-          
-        ],
         "conceptID":"GZ04vHSTxWUTzhWMGfwcUQ",
         "itemLevel":"",
         "focusPoints":{
@@ -999,16 +930,13 @@ const denormalizedSession = {
       "type":"SC"
     },
     {
-      "question":{
+      "data":{
         "key":"-LKWyxEPkvcrETG1dVN3",
         "cues":[
           ""
         ],
         "flag":"production",
         "prompt":"<p>The stream floods during rainstorms. <br/>The stream is muddy. <br/>The stream floods easily.</p>",
-        "attempts":[
-          
-        ],
         "conceptID":"4wQ6Y5gMxIPPz4zxyBbJ3g",
         "itemLevel":"",
         "focusPoints":{
@@ -1123,16 +1051,13 @@ const denormalizedSession = {
       "type":"SC"
     },
     {
-      "question":{
+      "data":{
         "key":"-LKX1YDGP_nJ70U6_y-A",
         "cues":[
           ""
         ],
         "flag":"alpha",
         "prompt":"<p>He is going on vacation.<br/>He is going to a beach.<br/>The beach is beautiful.<br/>The beach is in San Diego.</p>",
-        "attempts":[
-          
-        ],
         "conceptID":"Nr6JagF_t8pZzVxtVkYO3w",
         "cuesLabel":"",
         "itemLevel":"",
@@ -1185,16 +1110,13 @@ const denormalizedSession = {
     }
   ],
   "currentQuestion":{
-    "question":{
+    "data":{
       "key":"-LKStUOiTFAuve_pUNNl",
       "cues":[
         ""
       ],
       "flag":"production",
       "prompt":"<p>The <strong>athlete</strong> goal is to win <strong>medal</strong> at all of her <strong>competition</strong> this season.</p>",
-      "attempts":[
-        
-      ],
       "conceptID":"juG67j5ILKeg8ZX0Dh2m7A",
       "cuesLabel":"",
       "itemLevel":"",
@@ -1237,13 +1159,14 @@ const denormalizedSession = {
           },
           "caseInsensitive":true
         }
-      ]
+      ],
+      attempts: []
     },
     "type":"SC"
   },
   "answeredQuestions":[
     {
-      "question":{
+      "data":{
         "key":"-KdCg3xpEyLVWWjWADa9",
         "cues":[
           "on",
@@ -1289,7 +1212,7 @@ const denormalizedSession = {
       "type":"FB"
     },
     {
-      "question":{
+      "data":{
         "key":"-KfD6DGRaPhBflVzswJx",
         "cues":[
           "on",
@@ -1334,7 +1257,7 @@ const denormalizedSession = {
       "type":"FB"
     },
     {
-      "question":{
+      "data":{
         "key":"-LKSzt34hIYCd6q7qfrT",
         "cues":[
           "theirs",
@@ -1382,7 +1305,7 @@ const denormalizedSession = {
       "type":"FB"
     },
     {
-      "question":{
+      "data":{
         "key":"-LKSzZVtaKDm2WuA9Wj8",
         "cues":[
           "theirs",
@@ -1430,7 +1353,7 @@ const denormalizedSession = {
       "type":"FB"
     },
     {
-      "question":{
+      "data":{
         "key":"-LKSwvKftmuSOIa-gp8W",
         "cues":[
           "they",
@@ -1479,7 +1402,7 @@ const denormalizedSession = {
       "type":"FB"
     },
     {
-      "question":{
+      "data":{
         "key":"-LKT0cJcWANIOLWdxGDA",
         "cues":[
           "doesn't",
@@ -1523,7 +1446,7 @@ const denormalizedSession = {
       "type":"FB"
     },
     {
-      "question":{
+      "data":{
         "key":"-LKT1ZUK5kLrCk1rL41r",
         "cues":[
           "passes",
@@ -1571,7 +1494,7 @@ const denormalizedSession = {
       "type":"FB"
     },
     {
-      "question":{
+      "data":{
         "key":"-LKWlY_fa3JXEFzQO3I8",
         "cues":[
           "are",
@@ -1615,7 +1538,7 @@ const denormalizedSession = {
       "type":"FB"
     },
     {
-      "question":{
+      "data":{
         "key":"-LL5_sFaXWgYV0923A5h",
         "cues":[
           ""
@@ -1696,7 +1619,7 @@ const denormalizedSession = {
       "type":"SC"
     },
     {
-      "question":{
+      "data":{
         "key":"-LL5_rYu2Dgth8RUbilQ",
         "cues":[
           ""
@@ -1777,7 +1700,7 @@ const denormalizedSession = {
       "type":"SC"
     },
     {
-      "question":{
+      "data":{
         "key":"-LL06ObXOMvlS5G_Kvml",
         "cues":[
           ""
@@ -1859,7 +1782,7 @@ const denormalizedSession = {
       "type":"SC"
     },
     {
-      "question":{
+      "data":{
         "key":"-LL06m51gFsyaIb8z806",
         "cues":[
           ""
@@ -1920,7 +1843,7 @@ const denormalizedSession = {
       "type":"SC"
     },
     {
-      "question":{
+      "data":{
         "key":"-LQabYK1kSh4Dp5ZMtjB",
         "cues":[
           ""
@@ -1980,7 +1903,7 @@ const denormalizedSession = {
       "type":"SC"
     },
     {
-      "question":{
+      "data":{
         "key":"-LKSnaXiE2G7CccbkbEu",
         "cues":[
           ""
@@ -2041,16 +1964,13 @@ const denormalizedSession = {
   ],
   "unansweredQuestions":[
     {
-      "question":{
+      "data":{
         "key":"-LKSuWT89unu5gJ2WRip",
         "cues":[
           ""
         ],
         "flag":"production",
         "prompt":"<p>The <strong>family</strong> big house was built a hundred <strong>year</strong> ago.</p>",
-        "attempts":[
-          
-        ],
         "conceptID":"juG67j5ILKeg8ZX0Dh2m7A",
         "cuesLabel":"",
         "itemLevel":"",
@@ -2103,7 +2023,7 @@ const denormalizedSession = {
       "type":"SC"
     },
     {
-      "question":{
+      "data":{
         "key":"-LL-z3Is5RTRvWyNZR6W",
         "cues":[
           "easier",
@@ -2113,9 +2033,6 @@ const denormalizedSession = {
         ],
         "flag":"production",
         "prompt":"Traveling is ___ with a guide than without one.",
-        "attempts":[
-          
-        ],
         "conceptID":"w8VxA2FWlU4FQegvjhsCUg",
         "cuesLabel":"choose one",
         "blankAllowed":false,
@@ -2125,7 +2042,7 @@ const denormalizedSession = {
       "type":"FB"
     },
     {
-      "question":{
+      "data":{
         "key":"-LKWu6ki2OHKFMAVZIko",
         "cues":[
           "brighter",
@@ -2135,9 +2052,6 @@ const denormalizedSession = {
         ],
         "flag":"production",
         "prompt":"Stars look ___ in the country than in the city.",
-        "attempts":[
-          
-        ],
         "conceptID":"w8VxA2FWlU4FQegvjhsCUg",
         "cuesLabel":"choose one",
         "blankAllowed":false,
@@ -2147,16 +2061,13 @@ const denormalizedSession = {
       "type":"FB"
     },
     {
-      "question":{
+      "data":{
         "key":"-LRgwPr67L8zPIU5CfpS",
         "cues":[
           ""
         ],
         "flag":"production",
         "prompt":"<p>I moved here in May 2018 and started school on Monday August 20 2018.</p>",
-        "attempts":[
-          
-        ],
         "conceptID":"bUga6lISzL9xYjXcApmoYw",
         "cuesLabel":"",
         "itemLevel":"",
@@ -2240,16 +2151,13 @@ const denormalizedSession = {
       "type":"SC"
     },
     {
-      "question":{
+      "data":{
         "key":"-LL0A_vTMfbfq00MRXjq",
         "cues":[
           ""
         ],
         "flag":"production",
         "prompt":"<p>The ocean is deep. &nbsp;</p>\n<p>It is dark. &nbsp;</p>\n<p>It is mysterious.</p>",
-        "attempts":[
-          
-        ],
         "conceptID":"p2gW7LPaj8xd6xpfPrvOqQ",
         "itemLevel":"",
         "focusPoints":{
@@ -2297,16 +2205,13 @@ const denormalizedSession = {
       "type":"SC"
     },
     {
-      "question":{
+      "data":{
         "key":"-LKX3Kput_ae17nDodqp",
         "cues":[
           ""
         ],
         "flag":"production",
         "prompt":"<p>Scorpions thrive in the desert. </p><p>The desert is dry. </p>",
-        "attempts":[
-          
-        ],
         "conceptID":"o1yvrCpaYu0r-jqogv7PBw",
         "cuesLabel":"",
         "focusPoints":{
@@ -2388,16 +2293,13 @@ const denormalizedSession = {
       "type":"SC"
     },
     {
-      "question":{
+      "data":{
         "key":"-LL5ho_8jppZoOmjaubo",
         "cues":[
           ""
         ],
         "flag":"alpha",
         "prompt":"<p>A tree fell and blocked traffic.</p><p>It fell onto the road.</p>",
-        "attempts":[
-          
-        ],
         "conceptID":"LfBI4QYX_T5zbZAd-x_g_w",
         "cuesLabel":"",
         "itemLevel":"",
@@ -2445,16 +2347,13 @@ const denormalizedSession = {
       "type":"SC"
     },
     {
-      "question":{
+      "data":{
         "key":"-LL03FB3y06qdXC7cEI_",
         "cues":[
           ""
         ],
         "flag":"production",
         "prompt":"<p>Rico writes a letter and mails it.&nbsp;</p>\n<p>He writes quickly.</p>",
-        "attempts":[
-          
-        ],
         "conceptID":"GZ04vHSTxWUTzhWMGfwcUQ",
         "itemLevel":"",
         "focusPoints":{
@@ -2501,16 +2400,13 @@ const denormalizedSession = {
       "type":"SC"
     },
     {
-      "question":{
+      "data":{
         "key":"-LKWyxEPkvcrETG1dVN3",
         "cues":[
           ""
         ],
         "flag":"production",
         "prompt":"<p>The stream floods during rainstorms. <br/>The stream is muddy. <br/>The stream floods easily.</p>",
-        "attempts":[
-          
-        ],
         "conceptID":"4wQ6Y5gMxIPPz4zxyBbJ3g",
         "itemLevel":"",
         "focusPoints":{
@@ -2625,16 +2521,13 @@ const denormalizedSession = {
       "type":"SC"
     },
     {
-      "question":{
+      "data":{
         "key":"-LKX1YDGP_nJ70U6_y-A",
         "cues":[
           ""
         ],
         "flag":"alpha",
         "prompt":"<p>He is going on vacation.<br/>He is going to a beach.<br/>The beach is beautiful.<br/>The beach is in San Diego.</p>",
-        "attempts":[
-          
-        ],
         "conceptID":"Nr6JagF_t8pZzVxtVkYO3w",
         "cuesLabel":"",
         "itemLevel":"",
@@ -3070,114 +2963,44 @@ const normalizedSession = {
     "question": "-LKStUOiTFAuve_pUNNl",
     "attempts": []
   },
-  "questionSet":[{
-      "question": "-KdCg3xpEyLVWWjWADa9",
-      "attempts": [],
-    }, {
-      "question": "-KfD6DGRaPhBflVzswJx",
-      "attempts": [],
-    }, {
-      "question": "-LKSzt34hIYCd6q7qfrT",
-      "attempts": [],
-    }, {
-      "question": "-LKSzZVtaKDm2WuA9Wj8",
-      "attempts": [],
-    }, {
-      "question": "-LKSwvKftmuSOIa-gp8W",
-      "attempts": [],
-    }, {
-      "question": "-LKT0cJcWANIOLWdxGDA",
-      "attempts": [],
-    }, {
-      "question": "-LKT1ZUK5kLrCk1rL41r",
-      "attempts": [],
-    }, {
-      "question": "-LKWlY_fa3JXEFzQO3I8",
-      "attempts": [],
-    }, {
-      "question": "-LL5_sFaXWgYV0923A5h",
-      "attempts": [],
-    }, {
-      "question": "-LL5_rYu2Dgth8RUbilQ",
-      "attempts": [],
-    }, {
-      "question": "-LL06ObXOMvlS5G_Kvml",
-      "attempts": [],
-    }, {
-      "question": "-LL06m51gFsyaIb8z806",
-      "attempts": [],
-    }, {
-      "question": "-LQabYK1kSh4Dp5ZMtjB",
-      "attempts": [],
-    }, {
-      "question": "-LKSnaXiE2G7CccbkbEu",
-      "attempts": [],
-    }, {
-      "question": "-LKStUOiTFAuve_pUNNl",
-      "attempts": [],
-    }, {
-      "question": "-LKSuWT89unu5gJ2WRip",
-      "attempts": [],
-    }, {
-      "question": "-LL-z3Is5RTRvWyNZR6W",
-      "attempts": [],
-    }, {
-      "question": "-LKWu6ki2OHKFMAVZIko",
-      "attempts": [],
-    }, {
-      "question": "-LRgwPr67L8zPIU5CfpS",
-      "attempts": [],
-    }, {
-      "question": "-LL0A_vTMfbfq00MRXjq",
-      "attempts": [],
-    }, {
-      "question": "-LKX3Kput_ae17nDodqp",
-      "attempts": [],
-    }, {
-      "question": "-LL5ho_8jppZoOmjaubo",
-      "attempts": [],
-    }, {
-      "question": "-LL03FB3y06qdXC7cEI_",
-      "attempts": [],
-    }, {
-      "question": "-LKWyxEPkvcrETG1dVN3",
-      "attempts": [],
-    }, {
-      "question": "-LKX1YDGP_nJ70U6_y-A",
-      "attempts": []
-    }
+  "questionSet":[
+    "-KdCg3xpEyLVWWjWADa9",
+    "-KfD6DGRaPhBflVzswJx",
+    "-LKSzt34hIYCd6q7qfrT",
+    "-LKSzZVtaKDm2WuA9Wj8",
+    "-LKSwvKftmuSOIa-gp8W",
+    "-LKT0cJcWANIOLWdxGDA",
+    "-LKT1ZUK5kLrCk1rL41r",
+    "-LKWlY_fa3JXEFzQO3I8",
+    "-LL5_sFaXWgYV0923A5h",
+    "-LL5_rYu2Dgth8RUbilQ",
+    "-LL06ObXOMvlS5G_Kvml",
+    "-LL06m51gFsyaIb8z806",
+    "-LQabYK1kSh4Dp5ZMtjB",
+    "-LKSnaXiE2G7CccbkbEu",
+    "-LKStUOiTFAuve_pUNNl",
+    "-LKSuWT89unu5gJ2WRip",
+    "-LL-z3Is5RTRvWyNZR6W",
+    "-LKWu6ki2OHKFMAVZIko",
+    "-LRgwPr67L8zPIU5CfpS",
+    "-LL0A_vTMfbfq00MRXjq",
+    "-LKX3Kput_ae17nDodqp",
+    "-LL5ho_8jppZoOmjaubo",
+    "-LL03FB3y06qdXC7cEI_",
+    "-LKWyxEPkvcrETG1dVN3",
+    "-LKX1YDGP_nJ70U6_y-A"
   ],
-  "unansweredQuestions":[{
-      "question": "-LKSuWT89unu5gJ2WRip",
-      "attempts": []
-    }, {
-      "question": "-LL-z3Is5RTRvWyNZR6W",
-      "attempts": []
-    }, {
-      "question": "-LKWu6ki2OHKFMAVZIko",
-      "attempts": []
-    }, {
-      "question": "-LRgwPr67L8zPIU5CfpS",
-      "attempts": []
-    }, {
-      "question": "-LL0A_vTMfbfq00MRXjq",
-      "attempts": []
-    }, {
-      "question": "-LKX3Kput_ae17nDodqp",
-      "attempts": []
-    }, {
-      "question": "-LL5ho_8jppZoOmjaubo",
-      "attempts": []
-    }, {
-      "question": "-LL03FB3y06qdXC7cEI_",
-      "attempts": []
-    }, {
-      "question": "-LKWyxEPkvcrETG1dVN3",
-      "attempts": []
-    }, {
-      "question": "-LKX1YDGP_nJ70U6_y-A",
-      "attempts": []
-    }
+  "unansweredQuestions":[
+    "-LKSuWT89unu5gJ2WRip",
+    "-LL-z3Is5RTRvWyNZR6W",
+    "-LKWu6ki2OHKFMAVZIko",
+    "-LRgwPr67L8zPIU5CfpS",
+    "-LL0A_vTMfbfq00MRXjq",
+    "-LKX3Kput_ae17nDodqp",
+    "-LL5ho_8jppZoOmjaubo",
+    "-LL03FB3y06qdXC7cEI_",
+    "-LKWyxEPkvcrETG1dVN3",
+    "-LKX1YDGP_nJ70U6_y-A"
   ]
 }
 
@@ -3197,9 +3020,6 @@ const mockFBQuestions = {
     "instructions":"Fill in the blank with one of the words.\n",
     "caseInsensitive":true,
     "key":"-KdCg3xpEyLVWWjWADa9",
-    "attempts":[
-      
-    ]
   },
   "-KfD6DGRaPhBflVzswJx":{
     "cues":[
@@ -3216,9 +3036,6 @@ const mockFBQuestions = {
     "instructions":"Fill in the blank with one of the words.\n",
     "caseInsensitive":true,
     "key":"-KfD6DGRaPhBflVzswJx",
-    "attempts":[
-      
-    ]
   },
   "-LKSzt34hIYCd6q7qfrT":{
     "cues":[
@@ -3237,9 +3054,6 @@ const mockFBQuestions = {
     "instructions":"Fill in the blank with the word that matches the first sentence.",
     "caseInsensitive":true,
     "key":"-LKSzt34hIYCd6q7qfrT",
-    "attempts":[
-      
-    ]
   },
   "-LKSzZVtaKDm2WuA9Wj8":{
     "cues":[
@@ -3258,9 +3072,6 @@ const mockFBQuestions = {
     "instructions":"Fill in the blank with the word that matches the first sentence.",
     "caseInsensitive":true,
     "key":"-LKSzZVtaKDm2WuA9Wj8",
-    "attempts":[
-      
-    ]
   },
   "-LKSwvKftmuSOIa-gp8W":{
     "cues":[
@@ -3280,9 +3091,6 @@ const mockFBQuestions = {
     "instructions":"Fill in the blank with the word that matches the rest of the sentence.",
     "caseInsensitive":true,
     "key":"-LKSwvKftmuSOIa-gp8W",
-    "attempts":[
-      
-    ]
   },
   "-LKT0cJcWANIOLWdxGDA":{
     "cues":[
@@ -3297,9 +3105,6 @@ const mockFBQuestions = {
     "instructions":"Fill in the blank with the action word that matches the rest of the sentence.",
     "caseInsensitive":true,
     "key":"-LKT0cJcWANIOLWdxGDA",
-    "attempts":[
-      
-    ]
   },
   "-LKT1ZUK5kLrCk1rL41r":{
     "cues":[
@@ -3314,9 +3119,6 @@ const mockFBQuestions = {
     "instructions":"Fill in the blank with the action word that matches the rest of the sentence.",
     "caseInsensitive":true,
     "key":"-LKT1ZUK5kLrCk1rL41r",
-    "attempts":[
-      
-    ]
   },
   "-LKWlY_fa3JXEFzQO3I8":{
     "cues":[
@@ -3331,9 +3133,6 @@ const mockFBQuestions = {
     "instructions":"Fill in the blank with the action word that matches the rest of the sentence.",
     "caseInsensitive":true,
     "key":"-LKWlY_fa3JXEFzQO3I8",
-    "attempts":[
-      
-    ]
   },
   "-LL-z3Is5RTRvWyNZR6W":{
     "cues":[
@@ -3350,9 +3149,6 @@ const mockFBQuestions = {
     "instructions":"Fill in the blank with the correct word or words.",
     "caseInsensitive":true,
     "key":"-LL-z3Is5RTRvWyNZR6W",
-    "attempts":[
-      
-    ]
   },
   "-LKWu6ki2OHKFMAVZIko":{
     "cues":[
@@ -3369,9 +3165,6 @@ const mockFBQuestions = {
     "instructions":"Fill in the blank with the correct word or words.",
     "caseInsensitive":true,
     "key":"-LKWu6ki2OHKFMAVZIko",
-    "attempts":[
-      
-    ]
   }
 }
 
@@ -3426,9 +3219,6 @@ const mockSCQuestions = {
       }
     ],
     "key":"-LL5_sFaXWgYV0923A5h",
-    "attempts":[
-      
-    ]
   },
   "-LL5_rYu2Dgth8RUbilQ":{
     "cues":[
@@ -3480,9 +3270,6 @@ const mockSCQuestions = {
       }
     ],
     "key":"-LL5_rYu2Dgth8RUbilQ",
-    "attempts":[
-      
-    ]
   },
   "-LL06ObXOMvlS5G_Kvml":{
     "cues":[
@@ -3535,9 +3322,6 @@ const mockSCQuestions = {
       }
     },
     "key":"-LL06ObXOMvlS5G_Kvml",
-    "attempts":[
-      
-    ]
   },
   "-LL06m51gFsyaIb8z806":{
     "cues":[
@@ -3577,9 +3361,6 @@ const mockSCQuestions = {
       }
     },
     "key":"-LL06m51gFsyaIb8z806",
-    "attempts":[
-      
-    ]
   },
   "-LQabYK1kSh4Dp5ZMtjB":{
     "cues":[
@@ -3618,9 +3399,6 @@ const mockSCQuestions = {
       }
     },
     "key":"-LQabYK1kSh4Dp5ZMtjB",
-    "attempts":[
-      
-    ]
   },
   "-LKSnaXiE2G7CccbkbEu":{
     "cues":[
@@ -3658,9 +3436,6 @@ const mockSCQuestions = {
       }
     },
     "key":"-LKSnaXiE2G7CccbkbEu",
-    "attempts":[
-      
-    ]
   },
   "-LKStUOiTFAuve_pUNNl":{
     "cues":[
@@ -3712,9 +3487,6 @@ const mockSCQuestions = {
       }
     ],
     "key":"-LKStUOiTFAuve_pUNNl",
-    "attempts":[
-      
-    ]
   },
   "-LKSuWT89unu5gJ2WRip":{
     "cues":[
@@ -3771,9 +3543,6 @@ const mockSCQuestions = {
       }
     },
     "key":"-LKSuWT89unu5gJ2WRip",
-    "attempts":[
-      
-    ]
   },
   "-LRgwPr67L8zPIU5CfpS":{
     "cues":[
@@ -3861,9 +3630,6 @@ const mockSCQuestions = {
       }
     ],
     "key":"-LRgwPr67L8zPIU5CfpS",
-    "attempts":[
-      
-    ]
   },
   "-LL0A_vTMfbfq00MRXjq":{
     "cues":[
@@ -3915,9 +3681,6 @@ const mockSCQuestions = {
       }
     ],
     "key":"-LL0A_vTMfbfq00MRXjq",
-    "attempts":[
-      
-    ]
   },
   "-LKX3Kput_ae17nDodqp":{
     "cues":[
@@ -4003,9 +3766,6 @@ const mockSCQuestions = {
       }
     ],
     "key":"-LKX3Kput_ae17nDodqp",
-    "attempts":[
-      
-    ]
   },
   "-LL5ho_8jppZoOmjaubo":{
     "cues":[
@@ -4057,9 +3817,6 @@ const mockSCQuestions = {
       }
     ],
     "key":"-LL5ho_8jppZoOmjaubo",
-    "attempts":[
-      
-    ]
   },
   "-LL03FB3y06qdXC7cEI_":{
     "cues":[
@@ -4110,9 +3867,6 @@ const mockSCQuestions = {
       }
     ],
     "key":"-LL03FB3y06qdXC7cEI_",
-    "attempts":[
-      
-    ]
   },
   "-LKWyxEPkvcrETG1dVN3":{
     "cues":[
@@ -4231,9 +3985,6 @@ const mockSCQuestions = {
       }
     ],
     "key":"-LKWyxEPkvcrETG1dVN3",
-    "attempts":[
-      
-    ]
   },
   "-LKX1YDGP_nJ70U6_y-A":{
     "cues":[
@@ -4289,9 +4040,6 @@ const mockSCQuestions = {
       }
     ],
     "key":"-LKX1YDGP_nJ70U6_y-A",
-    "attempts":[
-      
-    ]
   }
 }
 

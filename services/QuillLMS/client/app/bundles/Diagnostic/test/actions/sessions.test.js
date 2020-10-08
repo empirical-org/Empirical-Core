@@ -29,7 +29,7 @@ describe("dernormalize session", () => {
   })
 
   it("should move any 'attempts' keys to the question object", () => {
-    expect(denormalizedSession.answeredQuestions[0].question.attempts).toBeDefined();
+    expect(denormalizedSession.answeredQuestions[0].data.attempts).toBeDefined();
   })
 
   it("should return the passed-in session when passed an already-denormalized session", () => {
@@ -75,8 +75,8 @@ describe("populate questions", () => {
   })
 
   it("should place the question data inside a question sub-key", () => {
-    expect(allQuestions['scKey'].question).toEqual(mockSCQuestions['scKey']);
-    expect(allQuestions['fbKey'].question).toEqual(mockFBQuestions['fbKey']);
+    expect(allQuestions['scKey'].data).toEqual(mockSCQuestions['scKey']);
+    expect(allQuestions['fbKey'].data).toEqual(mockFBQuestions['fbKey']);
   })
 
   it("should not populate multiple times without specifically forcing it", () => {
