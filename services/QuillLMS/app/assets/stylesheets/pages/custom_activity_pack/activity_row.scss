@@ -4,6 +4,7 @@
     flex-direction: column;
     padding: 16px;
     border-bottom: 1px solid #e0e0e0 !important;
+    position: relative;
     .first-line, .second-line {
       display: flex;
       justify-content: space-between;
@@ -46,7 +47,7 @@
         align-items: center;
       }
     }
-    .second-line, .third-line {
+    .second-line, .third-line, .tooltip-line {
       img {
         margin-right: 2px;
       }
@@ -56,10 +57,12 @@
       }
     }
     .third-line {
-      display: flex;
       padding-left: 32px;
-      align-items: flex-start;
       margin-top: 16px;
+    }
+    .third-line, .tooltip-line {
+      display: flex;
+      align-items: flex-start;
       img {
         margin-top: 3px;
       }
@@ -75,5 +78,20 @@
         display: none;
       }
     }
+    &.expanded {
+      .activity-row-tooltip {
+        display: none;
+      }
+    }
+  }
+  .activity-row-tooltip {
+    max-width: 634px;
+    border-radius: 6px;
+    box-shadow: 0 1px 8px 0 rgba(0, 0, 0, 0.2), 0 3px 3px -2px rgba(0, 0, 0, 0.12), 0 3px 4px 0 rgba(0, 0, 0, 0.14);
+    position: absolute;
+    background-color: #fff;
+    z-index: 1;
+    padding: 16px;
+    top: 80px;
   }
 }

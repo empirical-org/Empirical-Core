@@ -109,10 +109,23 @@ const ActivityRowExpandedSection = ({ activity, isExpanded}: { activity: Activit
   </div>)
 }
 
+const ActivityRowTooltip = ({ activity, showTooltip}: { activity: Activity, showTooltip: boolean }) => {
+  if (!showTooltip) { return <span />}
+
+  return (<div className="activity-row-tooltip">
+    <div className="tooltip-line">
+      <img alt="Information icon" src={informationSrc} />
+      <span>{activity.description}</span>
+    </div>
+  </div>)
+}
+
 const ActivityRow = ({ activity, isSelected, toggleActivitySelection, }: ActivityRowProps) => {
   const [isExpanded, setIsExpanded] = React.useState(false)
+  const [showTooltip, setShowTooltip] = React.useState(false)
 
   function toggleIsExpanded() { setIsExpanded(!isExpanded) }
+  function toggleShowTooltip() { setShowTooltip(!showTooltip)}
 
   const expandImgAltText = `Arrow pointing ${isExpanded ? 'up' : 'down'}`
 
@@ -124,10 +137,11 @@ const ActivityRow = ({ activity, isSelected, toggleActivitySelection, }: Activit
   const expandClassName = isExpanded ? 'expanded' : 'not-expanded'
 
   return (<section className={`activity-row ${expandClassName}`}>
+    <ActivityRowTooltip activity={activity} showTooltip={showTooltip} />
     <div className="first-line">
       <div className="name-and-checkbox-wrapper">
         <ActivityRowCheckbox activity={activity} isSelected={isSelected} toggleActivitySelection={toggleActivitySelection} />
-        <h2>{name}</h2>
+        <h2 onMouseEnter={toggleShowTooltip} onMouseLeave={toggleShowTooltip}>{name}</h2>
       </div>
       <div className="buttons-wrapper">
         {previewButton}
