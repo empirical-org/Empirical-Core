@@ -186,7 +186,7 @@ const SearchAndSort = ({ handleSearch, search, setSort, sort, }) => {
   function handleClickClear() { handleSearch('') }
   function handleInputChange(e) { handleSearch(e.target.value) }
 
-  const clearButton = !!search.length && <button className="interactive-wrapper close-icon" onClick={handleClickClear} type="button"><img alt="Clear icon" src={closeIconSrc} /></button>
+  const clearButton = !!search.length && <button className="interactive-wrapper close-icon focus-on-light" onClick={handleClickClear} type="button"><img alt="Clear icon" src={closeIconSrc} /></button>
   return (<section className="search-and-sort">
     <div className="search-wrapper">
       <img alt="Magnifying glass" className="search-icon" src={searchIconSrc} />
