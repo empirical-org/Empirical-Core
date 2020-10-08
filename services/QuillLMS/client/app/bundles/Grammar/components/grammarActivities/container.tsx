@@ -3,7 +3,12 @@ import * as Redux from "redux";
 import {connect} from "react-redux";
 import * as request from 'request';
 import * as _ from 'lodash';
-import { Response } from 'quill-marking-logic'
+import { Response } from 'quill-marking-logic';
+
+import QuestionComponent from './question'
+import Intro from './intro'
+import TurkCodePage from './turkCodePage'
+
 import getParameterByName from '../../helpers/getParameterByName';
 import { getActivity } from "../../actions/grammarActivities";
 import {
@@ -25,11 +30,7 @@ import { SessionState } from '../../reducers/sessionReducer'
 import { GrammarActivityState } from '../../reducers/grammarActivitiesReducer'
 import { ConceptsFeedbackState } from '../../reducers/conceptsFeedbackReducer'
 import { Question, FormattedConceptResult } from '../../interfaces/questions'
-import QuestionComponent from './question'
-import Intro from './intro'
-import TurkCodePage from './turkCodePage'
 import LoadingSpinner from '../shared/loading_spinner'
-import { previewImage } from "antd/lib/upload/utils";
 
 interface PlayGrammarContainerState {
   showTurkCode: boolean;
@@ -48,6 +49,7 @@ interface PlayGrammarContainerProps {
   questionToPreview: Question;
   questions: Question[];
   handleToggleQuestion: (question: Question) => void;
+  skippedToQuestionFromIntro: boolean;
   switchedBackToPreview: boolean;
   randomizedQuestions: any[];
 }
@@ -87,8 +89,10 @@ export class PlayGrammarContainer extends React.Component<PlayGrammarContainerPr
       }
     }
 
+    //TODO: refactor into componentDidUpdate
+
     UNSAFE_componentWillReceiveProps(nextProps: PlayGrammarContainerProps) {
-      const { previewMode, questions, questionToPreview, grammarActivities, session } = nextProps;
+      const { previewMode, questions, questionToPreview, grammarActivities, session, skippedToQuestionFromIntro } = nextProps;
       const { dispatch, handleToggleQuestion } = this.props;
       const { introSkipped } = this.state;
       if (grammarActivities.hasreceiveddata && grammarActivities.currentActivity && !session.hasreceiveddata && !session.pending && !session.error) {
@@ -117,7 +121,7 @@ export class PlayGrammarContainer extends React.Component<PlayGrammarContainerPr
         const question = questions[uid];
         handleToggleQuestion(question);
       }
-      if(previewMode && !introSkipped && grammarActivities.hasreceiveddata && session.hasreceiveddata) {
+      if(previewMode && !introSkipped && skippedToQuestionFromIntro) {
         this.setState({ introSkipped: true });
         this.goToNextQuestion();
       }
@@ -237,14 +241,13 @@ export class PlayGrammarContainer extends React.Component<PlayGrammarContainerPr
     render(): JSX.Element {
       const proofreaderSessionId = getParameterByName('proofreaderSessionId', window.location.href)
       const { showTurkCode, saving, } = this.state
-      const { grammarActivities, session, concepts, conceptsFeedback, previewMode, questionToPreview, questions, handleToggleQuestion, switchedBackToPreview, randomizedQuestions } = this.props
-
+      const { grammarActivities, session, concepts, conceptsFeedback, previewMode, questionToPreview, questions, handleToggleQuestion, switchedBackToPreview, randomizedQuestions, skippedToQuestionFromIntro } = this.props
       if (showTurkCode) {
         return <TurkCodePage />
       }
 
       if ((grammarActivities.hasreceiveddata || proofreaderSessionId) && session.hasreceiveddata) {
-        
+
         if (session.currentQuestion) {
           return (<QuestionComponent
             activity={grammarActivities ? grammarActivities.currentActivity : null}
@@ -264,9 +267,7 @@ export class PlayGrammarContainer extends React.Component<PlayGrammarContainerPr
           />)
         }
         if (saving) { return <LoadingSpinner /> }
-        if(!previewMode) {
-          return <Intro activity={grammarActivities ? grammarActivities.currentActivity : null} session={session} startActivity={this.goToNextQuestion} />
-        }
+        return <Intro activity={grammarActivities ? grammarActivities.currentActivity : null} previewMode={previewMode} session={session} startActivity={this.goToNextQuestion} />
       }
 
       if (session.error) {
