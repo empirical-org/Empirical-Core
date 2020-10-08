@@ -73,6 +73,20 @@
         align-items: center;
         background-color: white;
         margin: 0px 4px;
+        font-weight: 600;
+        line-height: 1.57;
+        color: #646464;
+        &.ellipses-button {
+          padding-bottom: 6px;
+          line-height: 1;
+        }
+        &.active {
+          border-radius: 4px;
+          background-color: #06806b;
+          border: none;
+          color: #fff;
+          font-weight: bold;
+        }
       }
       .right-arrow {
         img {

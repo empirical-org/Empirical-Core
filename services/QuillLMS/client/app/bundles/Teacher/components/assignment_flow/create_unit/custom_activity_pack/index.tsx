@@ -36,6 +36,12 @@ interface FilterColumnProps {
   filteredActivities: Activity[]
 }
 
+interface PageButtonProps {
+  currentPage: number,
+  buttonNumber: number,
+  setCurrentPage: (pageNumber: number) => void
+}
+
 interface CustomActivityPackProps {
   passedActivities?: Activity[],
   clickContinue: (event: any) => void,
@@ -53,6 +59,15 @@ const AssignButton = ({ selectedActivities, handleClickContinue, }: AssignButton
   return <button className={buttonClass} onClick={action} type="button">Assign</button>
 }
 
+const PageButton = ({ currentPage, buttonNumber, setCurrentPage, }: PageButtonProps) => {
+  let className = 'pagination-button focus-on-light'
+  className += currentPage === buttonNumber ? ' active' : ''
+
+  function handleClick() { setCurrentPage(buttonNumber) }
+
+  return <button className={className} onClick={handleClick} type="button">{buttonNumber}</button>
+}
+
 const Pagination = ({ activities, currentPage, setCurrentPage, }: PaginationProps) => {
   const numberOfPages = Math.ceil(activities.length / RESULTS_PER_PAGE)
   if (numberOfPages < 2) { return <span /> }
@@ -60,11 +75,30 @@ const Pagination = ({ activities, currentPage, setCurrentPage, }: PaginationProp
   function handleLeftArrowClick() { setCurrentPage(currentPage - 1) }
   function handleRightArrowClick() { setCurrentPage(currentPage + 1) }
 
-  const leftArrow = currentPage > 1 ? <button className="pagination-button left-arrow" onClick={handleLeftArrowClick} type="button"><img alt="Arrow pointing left" src={expandSrc} /></button> : null
-  const rightArrow = currentPage < numberOfPages ? <button className="pagination-button right-arrow" onClick={handleRightArrowClick} type="button"><img alt="Arrow pointing right" src={expandSrc} /></button> : null
+  const leftArrow = currentPage > 1 ? <button className="pagination-button focus-on-light left-arrow" onClick={handleLeftArrowClick} type="button"><img alt="Arrow pointing left" src={expandSrc} /></button> : null
+  const rightArrow = currentPage < numberOfPages ? <button className="pagination-button focus-on-light right-arrow" onClick={handleRightArrowClick} type="button"><img alt="Arrow pointing right" src={expandSrc} /></button> : null
+
+  const pageButtons = []
+  let lastWasEllipses = false
+  for (let i = 1; i <= numberOfPages; i++) {
+    const pageButton = <PageButton buttonNumber={i} currentPage={currentPage} setCurrentPage={setCurrentPage} />
+    const thereAreFewerThanEightPages = numberOfPages < 8
+    const firstOrLastPage = [1, numberOfPages].includes(i)
+    const currentPageIsOneOfTheFirstFivePages = currentPage < 5 && i < 6
+    const currentPageIsOneOfTheLastFivePages = currentPage > numberOfPages - 4 && i > numberOfPages - 5
+    const adjacentToCurrentPage = [currentPage - 1, currentPage, currentPage + 1].includes(i)
+    if (thereAreFewerThanEightPages || firstOrLastPage || adjacentToCurrentPage || currentPageIsOneOfTheFirstFivePages || currentPageIsOneOfTheLastFivePages) {
+      pageButtons.push(pageButton)
+      lastWasEllipses = false
+    } else if (!lastWasEllipses) {
+      pageButtons.push(<div className="pagination-button ellipses-button">...</div>)
+      lastWasEllipses = true
+    }
+  }
 
   const paginationRow = (<div className="pagination-row">
     {leftArrow}
+    {pageButtons}
     {rightArrow}
   </div>)
 

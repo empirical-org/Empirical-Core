@@ -8,6 +8,11 @@ const conceptSrc = `${process.env.CDN_URL}/images/icons/description-concept.svg`
 const ccssSrc = `${process.env.CDN_URL}/images/icons/description-ccss.svg`
 const informationSrc = `${process.env.CDN_URL}/images/icons/description-information.svg`
 const previewSrc = `${process.env.CDN_URL}/images/icons/preview.svg`
+const connectSrc = `${process.env.CDN_URL}/images/icons/description-connect.svg`
+const diagnosticSrc = `${process.env.CDN_URL}/images/icons/description-diagnostic.svg`
+const lessonsSrc = `${process.env.CDN_URL}/images/icons/description-lessons.svg`
+const proofreaderSrc = `${process.env.CDN_URL}/images/icons/description-proofreader.svg`
+const grammarSrc = `${process.env.CDN_URL}/images/icons/description-grammar.svg`
 
 interface ActivityRowCheckboxProps {
   activity: Activity,
@@ -23,25 +28,31 @@ interface ActivityRowProps {
 
 const imageTagForClassification = (classificationKey: string): JSX.Element => {
   let imgAlt = ""
+  let imgSrc
   switch(classificationKey) {
     case 'connect':
       imgAlt = "Target representing Quill Connect"
+      imgSrc = connectSrc
       break
     case 'diagnostic':
       imgAlt = "Magnifying glass representing Quill Diagnostic"
+      imgSrc = diagnosticSrc
       break
     case 'grammar':
       imgAlt = "Puzzle piece representing Quill Grammar"
+      imgSrc = grammarSrc
       break
     case 'lessons':
       imgAlt = "Apple representing Quill Lessons"
+      imgSrc = lessonsSrc
       break
     case 'proofreader':
       imgAlt = "Flag representing Quill Proofreader"
+      imgSrc = proofreaderSrc
       break
   }
 
-  return <img alt={imgAlt} src={`${process.env.CDN_URL}/images/icons/description-${classificationKey}.svg`} />
+  return <img alt={imgAlt} src={imgSrc} />
 }
 
 const ActivityRowCheckbox = ({ activity, isSelected, toggleActivitySelection, }: ActivityRowCheckboxProps) => {
