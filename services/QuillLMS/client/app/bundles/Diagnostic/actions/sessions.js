@@ -108,29 +108,26 @@ function denormalizeQuestion(question) {
 function normalizeSession(session) {
   // Deep copy so that we return a clean object
   let sessionCopy = JSON.parse(JSON.stringify(session));
-  sessionCopy.questionSet = sessionCopy.questionSet.map((q) => {
-    return normalizeQuestion(q, false)
-  });
+  sessionCopy.questionSet = sessionCopy.questionSet.map(normalizeQuestion)
   // If someone has answered all the questions, key will be missing
   if (sessionCopy.unansweredQuestions) {
-    sessionCopy.unansweredQuestions = sessionCopy.unansweredQuestions.map((q) => {
-      return normalizeQuestion(q, false)
-    });
+    sessionCopy.unansweredQuestions = sessionCopy.unansweredQuestions.map(normalizeQuestion)
   }
   if (sessionCopy.currentQuestion) {
-    sessionCopy.currentQuestion = normalizeQuestion(sessionCopy.currentQuestion, true);
+    sessionCopy.currentQuestion = normalizeQuestionWithAttempts(sessionCopy.currentQuestion);
   }
   // If someone has not answered any questions, this key will be missing
   if (sessionCopy.answeredQuestions) {
-    sessionCopy.answeredQuestions = sessionCopy.answeredQuestions.map((q) => {
-      return normalizeQuestion(q, true)
-    })
+    sessionCopy.answeredQuestions = sessionCopy.answeredQuestions.map(normalizeQuestionWithAttempts)
   }
   return sessionCopy
 }
 
-function normalizeQuestion(question, includeAttempts) {
-  if (!includeAttempts) return question.data.key;
+function normalizeQuestion(question) {
+  return question.data.key;
+}
+
+function normalizeQuestionWithAttempts(question) {
   return {
     question: question.data.key,
     attempts: question.data.attempts,
