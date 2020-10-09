@@ -3,6 +3,7 @@ import { submitResponse } from './responses';
 import { push } from 'react-router-redux';
 import _ from 'lodash';
 import { Question } from '../interfaces/questions'
+import sessionActions from './sessions';
 import {
   QuestionApi,
   FocusPointApi,
@@ -42,6 +43,7 @@ function loadSpecifiedSentenceFragments(uids) {
       results.forEach((result, index) => {
         questionData[uids[index]] = result;
       });
+      sessionActions.populateQuestions("SF", questionData, true)
       dispatch({ type: C.RECEIVE_SENTENCE_FRAGMENTS_DATA, data: questionData, });
     });
   }
