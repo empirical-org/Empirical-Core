@@ -1,6 +1,8 @@
 import React from 'react';
 import request from 'request';
+
 import Units from './manage_units/units';
+
 import LoadingIndicator from '../shared/loading_indicator';
 import ItemDropdown from '../general_components/dropdown_selectors/item_dropdown';
 
@@ -46,21 +48,9 @@ export default class ClassroomLessons extends React.Component {
   }
 
   getLessonsWithEditions = () => {
-    const { classrooms, } = this.state
-    const teacherId = classrooms[0].teacher_id
-    request.get(`${process.env.FIREBASE_DATABASE_URL}/v2/lessons_editions.json`, (error, httpStatus, body) => {
-      const editions = JSON.parse(body)
-      const lessonUidsWithEditions = []
-      if (editions) {
-        Object.keys(editions).forEach(e => {
-          const edition = editions[e]
-          if (edition.user_id === teacherId && lessonUidsWithEditions.indexOf(edition.lesson_id) === -1) {
-            lessonUidsWithEditions.push(edition.lesson_id)
-          }
-        })
-      }
-      this.setState({lessonUidsWithEditions: lessonUidsWithEditions, loaded: true})
-    })
+    // TODO: Figure out if we should be pulling this data from RethinkDB instead
+    // Use 'git blame' on this file to see the commit where this TODO was added to see what the code originally looked like
+    this.setState({lessonUidsWithEditions: [], loaded: true})
   }
 
   generateNewCaUnit(u) {
@@ -206,7 +196,7 @@ export default class ClassroomLessons extends React.Component {
           {learnMoreLink}
         </div>
       </div>
-      <img src={`${process.env.CDN_URL}/images/illustrations/empty_state_illustration_lessons.svg`} />
+      <img alt="cartoon of a teacher gesturing at a projector screen showing Quill Lessons content" src={`${process.env.CDN_URL}/images/illustrations/empty_state_illustration_lessons.svg`} />
     </div>);
   }
 
