@@ -4,8 +4,9 @@ import { Activity } from './interfaces'
 import { calculateNumberOfPages } from './sharedFunctions'
 import ActivityTableContainer from './activity_table_container'
 
-import { requestGet } from '../../../../../../modules/request/index'
 import useDebounce from '../../../../hooks/useDebounce'
+import { requestGet } from '../../../../../../modules/request/index'
+import { Spinner, } from '../../../../../Shared/index'
 
 interface AssignButtonProps {
   selectedActivities: Activity[],
@@ -14,7 +15,9 @@ interface AssignButtonProps {
 
 interface FilterColumnProps {
   activities: Activity[],
-  filteredActivities: Activity[]
+  filteredActivities: Activity[],
+  calculateNumberOfFilters: () => number,
+  resetAllFilters: () => void
 }
 
 interface CustomActivityPackProps {
@@ -34,11 +37,17 @@ const AssignButton = ({ selectedActivities, handleClickContinue, }: AssignButton
   return <button className={buttonClass} onClick={action} type="button">Assign</button>
 }
 
-const FilterColumn = ({ activities, filteredActivities, }: FilterColumnProps) => {
+const FilterColumn = ({ activities, filteredActivities, calculateNumberOfFilters, resetAllFilters, }: FilterColumnProps) => {
+  const numberOfFilters = calculateNumberOfFilters()
+  const clearAllButton = numberOfFilters ? <button className="interactive-wrapper clear-filter" onClick={resetAllFilters} type="button">Clear all filters</button> : <span />
+  const filterCount = numberOfFilters ? `${numberOfFilters} filter${numberOfFilters === 1 ? '' : 's'} • ` : ''
   return (<section className="filter-column">
     <section className="filter-section filtered-results">
-      <h2>Filtered results</h2>
-      <p>{filteredActivities.length} of {activities.length}</p>
+      <div className="name-and-clear-all-wrapper">
+        <h2>Filtered results</h2>
+        {clearAllButton}
+      </div>
+      <p>{filterCount}{filteredActivities.length} of {activities.length}</p>
     </section>
     <section className="filter-section">
       <h2>Activities</h2>
@@ -58,6 +67,7 @@ const CustomActivityPack = ({
   // const [numberOfPages, setNumberOfPages] = React.useState(calculateNumberOfPages(activities));
   const [currentPage, setCurrentPage] = React.useState(1);
   const [search, setSearch] = React.useState('')
+  const [lastFilter, setLastFilter] = React.useState(null)
 
   const debouncedSearch = useDebounce(search, 500);
 
@@ -66,6 +76,12 @@ const CustomActivityPack = ({
   }, []);
 
   React.useEffect(filterActivities, [debouncedSearch])
+
+  function calculateNumberOfFilters() {
+    let number = 0
+    number += search.length ? 1 : 0
+    return number
+  }
 
   function getActivities() {
     requestGet('/activities/search',
@@ -79,7 +95,13 @@ const CustomActivityPack = ({
   }
 
   function handleSearch(searchTerm) {
+    setLastFilter({ function: setSearch, argument: '' })
     setSearch(searchTerm)
+  }
+
+  function resetAllFilters() {
+    setLastFilter(null)
+    setSearch('')
   }
 
   function filterActivities() {
@@ -94,8 +116,22 @@ const CustomActivityPack = ({
     setFilteredActivities(newFilteredActivities)
   }
 
+  function undoLastFilter() {
+    lastFilter.function(lastFilter.argument)
+    setLastFilter(null)
+  }
+
+  if (loading) {
+    return <div className="custom-activity-pack-page loading"><Spinner /></div>
+  }
+
   return (<div className="custom-activity-pack-page">
-    <FilterColumn activities={activities} filteredActivities={filteredActivities} />
+    <FilterColumn
+      activities={activities}
+      calculateNumberOfFilters={calculateNumberOfFilters}
+      filteredActivities={filteredActivities}
+      resetAllFilters={resetAllFilters}
+    />
     <section className="main-content-container">
       <header>
         <div className="header-content">
@@ -107,10 +143,12 @@ const CustomActivityPack = ({
         currentPage={currentPage}
         filteredActivities={filteredActivities}
         handleSearch={handleSearch}
+        resetAllFilters={resetAllFilters}
         search={search}
         selectedActivities={selectedActivities}
         setCurrentPage={setCurrentPage}
         toggleActivitySelection={toggleActivitySelection}
+        undoLastFilter={undoLastFilter}
       />
     </section>
   </div>)

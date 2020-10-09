@@ -18,6 +18,7 @@ const CONCEPT = 'concept'
 const searchIconSrc = `${process.env.CDN_URL}/images/icons/search.svg`
 const closeIconSrc = `${process.env.CDN_URL}/images/icons/close.svg`
 const dropdownIconSrc = `${process.env.CDN_URL}/images/icons/dropdown.svg`
+const emptySearchSrc = `${process.env.CDN_URL}/images/illustrations/search-empty.svg`
 
 interface ActivityTableContainerProps {
   filteredActivities: Activity[],
@@ -26,7 +27,9 @@ interface ActivityTableContainerProps {
   currentPage: number,
   setCurrentPage: (currentPage: number) => void,
   search: string,
-  handleSearch: (event: any) => void
+  handleSearch: (event: any) => void,
+  undoLastFilter: (event: any) => void,
+  resetAllFilters: (event: any) => void
 }
 
 const getNumberFromString = (string) => {
@@ -202,6 +205,18 @@ const SearchAndSort = ({ handleSearch, search, setSort, sort, }) => {
   </section>)
 }
 
+const EmptyState = ({ undoLastFilter, resetAllFilters, }) => {
+  return (<div className="empty-state">
+    <img alt="Illustration of a magnifying glass over an empty document" src={emptySearchSrc} />
+    <h3>No results</h3>
+    <p>Undo your last filter to see activities. Or clear all filters.</p>
+    <div className="empty-state-button-wrapper">
+      <button className="focus-on-light quill-button medium outlined secondary" onClick={resetAllFilters} type="button">Clear all filters</button>
+      <button className="focus-on-light quill-button medium contained primary" onClick={undoLastFilter} type="button">Undo</button>
+    </div>
+  </div>)
+}
+
 const ActivityTableContainer = ({
   filteredActivities,
   selectedActivities,
@@ -209,7 +224,9 @@ const ActivityTableContainer = ({
   currentPage,
   setCurrentPage,
   search,
-  handleSearch
+  handleSearch,
+  undoLastFilter,
+  resetAllFilters
 }: ActivityTableContainerProps) => {
   const [sort, setSort] = React.useState(DEFAULT)
 
@@ -221,9 +238,11 @@ const ActivityTableContainer = ({
     return <ActivityRow activity={act} isSelected={isSelected} key={act.id} toggleActivitySelection={toggleActivitySelection} />
   })
 
+  const activityRowsOrEmptyState = activityRows.length ? activityRows : <EmptyState resetAllFilters={resetAllFilters} undoLastFilter={undoLastFilter} />
+
   return (<section className="activity-table-container">
     <SearchAndSort handleSearch={handleSearch} search={search} setSort={setSort} sort={sort} />
-    {activityRows}
+    {activityRowsOrEmptyState}
     <Pagination activities={filteredActivities} currentPage={currentPage} setCurrentPage={setCurrentPage} />
   </section>)
 }

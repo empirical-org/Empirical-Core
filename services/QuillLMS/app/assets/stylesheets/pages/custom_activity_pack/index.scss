@@ -2,6 +2,9 @@
   background-color: white;
   min-height: 100vh;
   display: flex;
+  &.loading {
+    justify-content: center;
+  }
   h1, h2 {
     font-size: 16px;
   }
@@ -22,11 +25,18 @@
       h2 {
         padding-left: 24px;
       }
+      .clear-filter {
+        font-weight: 600;
+        line-height: normal;
+        color: #06806b;
+      }
       &.filtered-results {
         margin-bottom: 8px;
-
-        h2 {
+        .name-and-clear-all-wrapper {
+          display: flex;
           margin-bottom: 13px;
+          justify-content: space-between;
+          align-items: center;
         }
         p {
           padding-left: 24px;
