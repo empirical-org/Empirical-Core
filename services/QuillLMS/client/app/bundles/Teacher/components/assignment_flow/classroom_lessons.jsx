@@ -49,6 +49,7 @@ export default class ClassroomLessons extends React.Component {
 
   getLessonsWithEditions = () => {
     // TODO: Figure out if we should be pulling this data from RethinkDB instead
+    // Use 'git blame' on this file to see the commit where this TODO was added to see what the code originally looked like
     this.setState({lessonUidsWithEditions: [], loaded: true})
   }
 
