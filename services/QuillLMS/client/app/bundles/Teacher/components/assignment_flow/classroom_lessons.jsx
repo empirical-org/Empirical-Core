@@ -48,26 +48,7 @@ export default class ClassroomLessons extends React.Component {
   }
 
   getLessonsWithEditions = () => {
-    // Somehow this code got missed when we refactored Lessons to pull from RethinkDB instead of Firebase
-    // The referenced Firebase data does not exist, so this always currently sets [] as its value, so
-    // we'll just do that explicitly for now
     // TODO: Figure out if we should be pulling this data from RethinkDB instead
-
-    //const { classrooms, } = this.state
-    //const teacherId = classrooms[0].teacher_id
-    //request.get(`${process.env.FIREBASE_DATABASE_URL}/v2/lessons_editions.json`, (error, httpStatus, body) => {
-    //  const editions = JSON.parse(body)
-    //  const lessonUidsWithEditions = []
-    //  if (editions) {
-    //    Object.keys(editions).forEach(e => {
-    //      const edition = editions[e]
-    //      if (edition.user_id === teacherId && lessonUidsWithEditions.indexOf(edition.lesson_id) === -1) {
-    //        lessonUidsWithEditions.push(edition.lesson_id)
-    //      }
-    //    })
-    //  }
-    //  this.setState({lessonUidsWithEditions: lessonUidsWithEditions, loaded: true})
-    //})
     this.setState({lessonUidsWithEditions: [], loaded: true})
   }
 
