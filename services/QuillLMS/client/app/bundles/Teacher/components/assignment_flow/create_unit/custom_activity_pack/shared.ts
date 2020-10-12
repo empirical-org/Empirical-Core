@@ -22,3 +22,20 @@ export const activityClassificationGroupings = [
     keys: ['diagnostic']
   }
 ]
+
+export const ACTIVITY_CLASSIFICATION_FILTERS = 'activityClassificationFilters'
+
+function filterBySearch(search: string, activity: Activity) {
+  const stringActivity = Object.values(activity).join(' ').toLowerCase();
+  return stringActivity.includes(search.toLowerCase())
+}
+
+function filterByActivityClassification(activityClassificationFilters: string[], activity: Activity) {
+  if (!activityClassificationFilters.length) { return true }
+  return activityClassificationFilters.includes(activity.activity_classification.key)
+}
+
+export const filters = {
+  search: filterBySearch,
+  [ACTIVITY_CLASSIFICATION_FILTERS]: filterByActivityClassification
+}

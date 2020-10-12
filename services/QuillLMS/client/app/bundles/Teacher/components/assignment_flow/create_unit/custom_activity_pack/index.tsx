@@ -1,7 +1,7 @@
 import * as React from 'react';
 
 import { Activity } from './interfaces'
-import { calculateNumberOfPages, activityClassificationGroupings } from './shared'
+import { calculateNumberOfPages, activityClassificationGroupings, filters, ACTIVITY_CLASSIFICATION_FILTERS } from './shared'
 import ActivityTableContainer from './activity_table_container'
 import FilterColumn from './filter_column'
 
@@ -54,7 +54,7 @@ const CustomActivityPack = ({
     getActivities();
   }, []);
 
-  React.useEffect(filterActivities, [debouncedSearch, debouncedActivityClassificationFilters])
+  React.useEffect(updateFilteredActivities, [debouncedSearch, debouncedActivityClassificationFilters])
 
   function calculateNumberOfFilters() {
     let number = 0
@@ -97,20 +97,22 @@ const CustomActivityPack = ({
     setActivityClassificationFilters([])
   }
 
-  function filterActivities() {
+  function filterActivities(ignoredKey=null) {
+    return activities.filter(activity => Object.keys(filters).every(k => {
+      if (k === ignoredKey) { return true }
+      return filters[k](eval(k), activity)
+    }))
+  }
+
+  function updateFilteredActivities() {
     if (!activities.length) { return }
 
-    const newFilteredActivities = activities.filter((a) => {
-      if (activityClassificationFilters.length && !activityClassificationFilters.includes(a.activity_classification.key)) {
-        return false
-      }
-      const stringActivity = Object.values(a).join(' ').toLowerCase();
-      return stringActivity.includes(search.toLowerCase());
-    })
+    const newFilteredActivities = filterActivities()
     const newNumberOfPages = calculateNumberOfPages(newFilteredActivities)
     if (currentPage > newNumberOfPages && currentPage !== 1) { setCurrentPage(newNumberOfPages) }
     setFilteredActivities(newFilteredActivities)
-    window.scrollTo(0, 0)
+    const scrollContainer = document.getElementsByClassName('main-content-container')[0]
+    scrollContainer.scrollTo(0, 0)
   }
 
   function undoLastFilter() {
@@ -130,6 +132,7 @@ const CustomActivityPack = ({
       activities={activities}
       activityClassificationFilters={activityClassificationFilters}
       calculateNumberOfFilters={calculateNumberOfFilters}
+      filterActivities={filterActivities}
       filteredActivities={filteredActivities}
       handleActivityClassificationFilterChange={handleActivityClassificationFilterChange}
       resetAllFilters={resetAllFilters}

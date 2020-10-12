@@ -9,10 +9,11 @@ interface FilterColumnProps {
   calculateNumberOfFilters: () => number,
   resetAllFilters: () => void,
   activityClassificationFilters: string[],
-  handleActivityClassificationFilterChange: (activityClassificationFilters: string[]) => void
+  handleActivityClassificationFilterChange: (activityClassificationFilters: string[]) => void,
+  filterActivities: (ignoredKey?: string) => Activity[]
 }
 
-const FilterColumn = ({ activities, filteredActivities, calculateNumberOfFilters, resetAllFilters, activityClassificationFilters, handleActivityClassificationFilterChange, }: FilterColumnProps) => {
+const FilterColumn = ({ activities, filteredActivities, filterActivities, calculateNumberOfFilters, resetAllFilters, activityClassificationFilters, handleActivityClassificationFilterChange, }: FilterColumnProps) => {
   const numberOfFilters = calculateNumberOfFilters()
   const clearAllButton = numberOfFilters ? <button className="interactive-wrapper clear-filter" onClick={resetAllFilters} type="button">Clear all filters</button> : <span />
   const filterCount = numberOfFilters ? `${numberOfFilters} filter${numberOfFilters === 1 ? '' : 's'} • ` : ''
@@ -27,7 +28,7 @@ const FilterColumn = ({ activities, filteredActivities, calculateNumberOfFilters
     <ActivityClassificationFilters
       activities={activities}
       activityClassificationFilters={activityClassificationFilters}
-      filteredActivities={filteredActivities}
+      filterActivities={filterActivities}
       handleActivityClassificationFilterChange={handleActivityClassificationFilterChange}
     />
   </section>)

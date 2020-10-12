@@ -1,7 +1,7 @@
 import * as React from 'react';
 
 import { Activity, ActivityClassification } from './interfaces'
-import { activityClassificationGroupings } from './shared'
+import { activityClassificationGroupings, ACTIVITY_CLASSIFICATION_FILTERS } from './shared'
 
 const dropdownIconSrc = `${process.env.CDN_URL}/images/icons/dropdown.svg`
 const indeterminateSrc = `${process.env.CDN_URL}/images/icons/indeterminate.svg`
@@ -12,51 +12,53 @@ interface Grouping {
   group: string
 }
 
-interface IndividualActivityClassificationFilterRow {
+interface IndividualActivityClassificationFilterRowProps {
   activityClassificationFilters: string[],
-  key: string,
+  activityClassificationKey: string,
   handleActivityClassificationFilterChange: (activityClassificationFilters: string[]) => void,
   uniqueActivityClassifications: ActivityClassification[],
-  filteredActivities: Activity[]
+  filterActivities: (ignoredKey?: string) => Activity[]
 }
 
-interface ActivityClassificationToggle {
-  filteredActivities: Activity[],
+interface ActivityClassificationToggleProps {
+  filterActivities: (ignoredKey?: string) => Activity[]
   grouping: Grouping,
   uniqueActivityClassifications: ActivityClassification[],
   activityClassificationFilters: string[],
   handleActivityClassificationFilterChange: (activityClassificationFilters: string[]) => void,
 }
 
-interface ActivityClassificationFilters {
+interface ActivityClassificationFiltersProps {
   activities: Activity[],
-  filteredActivities: Activity[],
+  filterActivities: (ignoredKey?: string) => Activity[]
   activityClassificationFilters: string[],
   handleActivityClassificationFilterChange: (activityClassificationFilters: string[]) => void,
 }
 
-const IndividualActivityClassificationFilterRow = ({ activityClassificationFilters, key, handleActivityClassificationFilterChange, uniqueActivityClassifications, filteredActivities, }: IndividualActivityClassificationFilterRow) => {
+const IndividualActivityClassificationFilterRow = ({ activityClassificationFilters, activityClassificationKey, handleActivityClassificationFilterChange, uniqueActivityClassifications, filterActivities, }: IndividualActivityClassificationFilterRowProps) => {
   function checkIndividualFilter() {
-    const newActivityClassificationFilters = Array.from(new Set(activityClassificationFilters.concat([key])))
+    const newActivityClassificationFilters = Array.from(new Set(activityClassificationFilters.concat([activityClassificationKey])))
     handleActivityClassificationFilterChange(newActivityClassificationFilters)
   }
 
   function uncheckIndividualFilter() {
-    const newActivityClassificationFilters = activityClassificationFilters.filter(k => k !== key)
+    const newActivityClassificationFilters = activityClassificationFilters.filter(k => k !== activityClassificationKey)
     handleActivityClassificationFilterChange(newActivityClassificationFilters)
   }
 
-  const activityClassification = uniqueActivityClassifications.find(ac => ac.key === key)
-  const activityCount = filteredActivities.filter(act => key === act.activity_classification.key).length
+  const activityClassification = uniqueActivityClassifications.find(ac => ac.key === activityClassificationKey)
+  const activityCount = filterActivities(ACTIVITY_CLASSIFICATION_FILTERS).filter(act => activityClassificationKey === act.activity_classification.key).length
   let checkbox = <button aria-label={`Check ${activityClassification.alias}`} className="quill-checkbox unselected" onClick={checkIndividualFilter} type="button" />
 
-  if (activityClassificationFilters.includes(key)) {
+  if (activityCount === 0) {
+    checkbox = <button aria-label={`Check ${activityClassification.alias}`} className="quill-checkbox disabled" type="button" />
+  } else if (activityClassificationFilters.includes(activityClassificationKey)) {
     checkbox = (<button aria-label={`Uncheck ${activityClassification.alias}`} className="quill-checkbox selected" onClick={uncheckIndividualFilter} type="button">
       <img alt="Checked checkbox" src={smallWhiteCheckSrc} />
     </button>)
   }
 
-  return (<div className="individual-row filter-row" key={key}>
+  return (<div className="individual-row filter-row" key={activityClassificationKey}>
     <div>
       {checkbox}
       <div className="alias-and-description">
@@ -68,7 +70,7 @@ const IndividualActivityClassificationFilterRow = ({ activityClassificationFilte
   </div>)
 }
 
-const ActivityClassificationToggle = ({filteredActivities, grouping, uniqueActivityClassifications, activityClassificationFilters, handleActivityClassificationFilterChange, }) => {
+const ActivityClassificationToggle = ({filterActivities, grouping, uniqueActivityClassifications, activityClassificationFilters, handleActivityClassificationFilterChange, }: ActivityClassificationToggleProps) => {
   const [isOpen, setIsOpen] = React.useState(false)
 
   function toggleIsOpen() { setIsOpen(!isOpen) }
@@ -86,9 +88,11 @@ const ActivityClassificationToggle = ({filteredActivities, grouping, uniqueActiv
   const toggleArrow = <button aria-label="Toggle menu" className="interactive-wrapper focus-on-light toggle-button" onClick={toggleIsOpen} type="button"><img alt="" className={isOpen ? 'is-open' : 'is-closed'} src={dropdownIconSrc} /></button>
   let topLevelCheckbox = <button aria-label="Check all nested filters" className="quill-checkbox unselected" onClick={checkAllFilters} type="button" />
 
-  const topLevelActivityCount = filteredActivities.filter(act => grouping.keys.includes(act.activity_classification.key)).length
+  const topLevelActivityCount = filterActivities(ACTIVITY_CLASSIFICATION_FILTERS).filter(act => grouping.keys.includes(act.activity_classification.key)).length
 
-  if (grouping.keys.every(key => activityClassificationFilters.includes(key))) {
+  if (topLevelActivityCount === 0) {
+    topLevelCheckbox = <div className="quill-checkbox disabled" />
+  } else if (grouping.keys.every(key => activityClassificationFilters.includes(key))) {
     topLevelCheckbox = (<button aria-label="Uncheck all nested filters" className="quill-checkbox selected" onClick={uncheckAllFilters} type="button">
       <img alt="Checked checkbox" src={smallWhiteCheckSrc} />
     </button>)
@@ -103,7 +107,8 @@ const ActivityClassificationToggle = ({filteredActivities, grouping, uniqueActiv
     individualFilters = grouping.keys.map((key: string) =>
       (<IndividualActivityClassificationFilterRow
         activityClassificationFilters={activityClassificationFilters}
-        filteredActivities={filteredActivities}
+        activityClassificationKey={key}
+        filterActivities={filterActivities}
         handleActivityClassificationFilterChange={handleActivityClassificationFilterChange}
         key={key}
         uniqueActivityClassifications={uniqueActivityClassifications}
@@ -124,7 +129,7 @@ const ActivityClassificationToggle = ({filteredActivities, grouping, uniqueActiv
   </section>)
 }
 
-const ActivityClassificationFilters = ({ activities, filteredActivities, activityClassificationFilters, handleActivityClassificationFilterChange, }: ActivityClassificationFilters) => {
+const ActivityClassificationFilters = ({ activities, filterActivities, activityClassificationFilters, handleActivityClassificationFilterChange, }: ActivityClassificationFiltersProps) => {
   const allActivityClassifications = activities.map(a => a.activity_classification)
   const uniqueActivityClassificationIds = Array.from(new Set(allActivityClassifications.map(a => a.id)))
   const uniqueActivityClassifications = uniqueActivityClassificationIds.map(id => allActivityClassifications.find(ac => ac.id === id))
@@ -134,7 +139,7 @@ const ActivityClassificationFilters = ({ activities, filteredActivities, activit
   const activityClassificationToggles = activityClassificationGroupings.map(grouping =>
     (<ActivityClassificationToggle
       activityClassificationFilters={activityClassificationFilters}
-      filteredActivities={filteredActivities}
+      filterActivities={filterActivities}
       grouping={grouping}
       handleActivityClassificationFilterChange={handleActivityClassificationFilterChange}
       key={grouping.group}
