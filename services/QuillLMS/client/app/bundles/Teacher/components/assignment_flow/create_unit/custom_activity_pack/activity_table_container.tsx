@@ -1,7 +1,7 @@
 import * as React from 'react';
 
 import { Activity } from './interfaces'
-import { lowerBound, upperBound, } from './sharedFunctions'
+import { lowerBound, upperBound, } from './shared'
 import ActivityRow from './activity_row'
 import Pagination from './pagination'
 
