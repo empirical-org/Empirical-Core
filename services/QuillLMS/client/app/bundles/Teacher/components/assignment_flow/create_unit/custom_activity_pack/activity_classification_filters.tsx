@@ -48,12 +48,12 @@ const IndividualActivityClassificationFilterRow = ({ activityClassificationFilte
 
   const activityClassification = uniqueActivityClassifications.find(ac => ac.key === activityClassificationKey)
   const activityCount = filterActivities(ACTIVITY_CLASSIFICATION_FILTERS).filter(act => activityClassificationKey === act.activity_classification.key).length
-  let checkbox = <button aria-label={`Check ${activityClassification.alias}`} className="quill-checkbox unselected" onClick={checkIndividualFilter} type="button" />
+  let checkbox = <button aria-label={`Check ${activityClassification.alias}`} className="focus-on-light quill-checkbox unselected" onClick={checkIndividualFilter} type="button" />
 
   if (activityCount === 0) {
-    checkbox = <button aria-label={`Check ${activityClassification.alias}`} className="quill-checkbox disabled" type="button" />
+    checkbox = <div aria-label={`Check ${activityClassification.alias}`} className="focus-on-light quill-checkbox disabled" />
   } else if (activityClassificationFilters.includes(activityClassificationKey)) {
-    checkbox = (<button aria-label={`Uncheck ${activityClassification.alias}`} className="quill-checkbox selected" onClick={uncheckIndividualFilter} type="button">
+    checkbox = (<button aria-label={`Uncheck ${activityClassification.alias}`} className="focus-on-light quill-checkbox selected" onClick={uncheckIndividualFilter} type="button">
       <img alt="Checked checkbox" src={smallWhiteCheckSrc} />
     </button>)
   }
@@ -85,19 +85,19 @@ const ActivityClassificationToggle = ({filterActivities, grouping, uniqueActivit
     handleActivityClassificationFilterChange(newActivityClassificationFilters)
   }
 
-  const toggleArrow = <button aria-label="Toggle menu" className="interactive-wrapper focus-on-light toggle-button" onClick={toggleIsOpen} type="button"><img alt="" className={isOpen ? 'is-open' : 'is-closed'} src={dropdownIconSrc} /></button>
-  let topLevelCheckbox = <button aria-label="Check all nested filters" className="quill-checkbox unselected" onClick={checkAllFilters} type="button" />
+  const toggleArrow = <button aria-label="Toggle menu" className="interactive-wrapper focus-on-light filter-toggle-button" onClick={toggleIsOpen} type="button"><img alt="" className={isOpen ? 'is-open' : 'is-closed'} src={dropdownIconSrc} /></button>
+  let topLevelCheckbox = <button aria-label="Check all nested filters" className="focus-on-light quill-checkbox unselected" onClick={checkAllFilters} type="button" />
 
   const topLevelActivityCount = filterActivities(ACTIVITY_CLASSIFICATION_FILTERS).filter(act => grouping.keys.includes(act.activity_classification.key)).length
 
   if (topLevelActivityCount === 0) {
-    topLevelCheckbox = <div className="quill-checkbox disabled" />
+    topLevelCheckbox = <div className="focus-on-light quill-checkbox disabled" />
   } else if (grouping.keys.every(key => activityClassificationFilters.includes(key))) {
-    topLevelCheckbox = (<button aria-label="Uncheck all nested filters" className="quill-checkbox selected" onClick={uncheckAllFilters} type="button">
+    topLevelCheckbox = (<button aria-label="Uncheck all nested filters" className="focus-on-light quill-checkbox selected" onClick={uncheckAllFilters} type="button">
       <img alt="Checked checkbox" src={smallWhiteCheckSrc} />
     </button>)
   } else if (grouping.keys.some(key => activityClassificationFilters.includes(key))) {
-    topLevelCheckbox = (<button aria-label="Uncheck all nested filters" className="quill-checkbox selected" onClick={uncheckAllFilters} type="button">
+    topLevelCheckbox = (<button aria-label="Uncheck all nested filters" className="focus-on-light quill-checkbox selected" onClick={uncheckAllFilters} type="button">
       <img alt="Indeterminate checkbox" src={indeterminateSrc} />
     </button>)
   }
@@ -146,7 +146,7 @@ const ActivityClassificationFilters = ({ activities, filterActivities, activityC
       uniqueActivityClassifications={uniqueActivityClassifications}
     />)
   )
-  const clearButton = activityClassificationFilters.length ? <button className="interactive-wrapper clear-filter" onClick={clearAllActivityClassificationFilters} type="button">Clear</button> : <span />
+  const clearButton = activityClassificationFilters.length ? <button className="interactive-wrapper clear-filter focus-on-light" onClick={clearAllActivityClassificationFilters} type="button">Clear</button> : <span />
   return (<section className="filter-section">
     <div className="name-and-clear-wrapper">
       <h2>Activities</h2>

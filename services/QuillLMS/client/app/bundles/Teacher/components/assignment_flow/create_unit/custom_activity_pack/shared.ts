@@ -23,6 +23,13 @@ export const activityClassificationGroupings = [
   }
 ]
 
+export const getNumberFromString = (string) => {
+  const numberMatch = string.match(/\d+/g)
+  if (numberMatch) { return Number(numberMatch[0]) }
+
+  return null
+}
+
 export const ACTIVITY_CLASSIFICATION_FILTERS = 'activityClassificationFilters'
 
 function filterBySearch(search: string, activity: Activity) {
@@ -35,7 +42,14 @@ function filterByActivityClassification(activityClassificationFilters: string[],
   return activityClassificationFilters.includes(activity.activity_classification.key)
 }
 
+function filterByGradeLevel(gradeLevelFilters: number[], activity: Activity) {
+  if (!gradeLevelFilters.length) { return true }
+  const numberFromStandardLevel = getNumberFromString(activity.standard_level_name)
+  return gradeLevelFilters.includes(numberFromStandardLevel)
+}
+
 export const filters = {
   search: filterBySearch,
-  [ACTIVITY_CLASSIFICATION_FILTERS]: filterByActivityClassification
+  [ACTIVITY_CLASSIFICATION_FILTERS]: filterByActivityClassification,
+  gradeLevelFilters: filterByGradeLevel
 }

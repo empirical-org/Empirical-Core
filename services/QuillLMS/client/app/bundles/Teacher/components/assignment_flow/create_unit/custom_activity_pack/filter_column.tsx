@@ -2,6 +2,7 @@ import * as React from 'react';
 
 import { Activity } from './interfaces'
 import ActivityClassificationFilters from './activity_classification_filters'
+import GradeLevelFilters from './grade_level_filters'
 
 interface FilterColumnProps {
   activities: Activity[],
@@ -13,9 +14,9 @@ interface FilterColumnProps {
   filterActivities: (ignoredKey?: string) => Activity[]
 }
 
-const FilterColumn = ({ activities, filteredActivities, filterActivities, calculateNumberOfFilters, resetAllFilters, activityClassificationFilters, handleActivityClassificationFilterChange, }: FilterColumnProps) => {
+const FilterColumn = ({ activities, filteredActivities, filterActivities, calculateNumberOfFilters, resetAllFilters, activityClassificationFilters, handleActivityClassificationFilterChange, handleGradeLevelFilterChange, gradeLevelFilters, }: FilterColumnProps) => {
   const numberOfFilters = calculateNumberOfFilters()
-  const clearAllButton = numberOfFilters ? <button className="interactive-wrapper clear-filter" onClick={resetAllFilters} type="button">Clear all filters</button> : <span />
+  const clearAllButton = numberOfFilters ? <button className="interactive-wrapper clear-filter focus-on-light" onClick={resetAllFilters} type="button">Clear all filters</button> : <span />
   const filterCount = numberOfFilters ? `${numberOfFilters} filter${numberOfFilters === 1 ? '' : 's'} • ` : ''
   return (<section className="filter-column">
     <section className="filter-section filtered-results">
@@ -30,6 +31,10 @@ const FilterColumn = ({ activities, filteredActivities, filterActivities, calcul
       activityClassificationFilters={activityClassificationFilters}
       filterActivities={filterActivities}
       handleActivityClassificationFilterChange={handleActivityClassificationFilterChange}
+    />
+    <GradeLevelFilters
+      gradeLevelFilters={gradeLevelFilters}
+      handleGradeLevelFilterChange={handleGradeLevelFilterChange}
     />
   </section>)
 }

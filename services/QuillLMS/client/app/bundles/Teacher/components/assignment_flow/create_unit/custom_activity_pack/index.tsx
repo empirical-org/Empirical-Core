@@ -46,19 +46,22 @@ const CustomActivityPack = ({
   const [search, setSearch] = React.useState('')
   const [filterHistory, setFilterHistory] = React.useState([])
   const [activityClassificationFilters, setActivityClassificationFilters] = React.useState([])
+  const [gradeLevelFilters, setGradeLevelFilters] = React.useState([])
 
   const debouncedSearch = useDebounce(search, DEBOUNCE_LENGTH);
   const debouncedActivityClassificationFilters = useDebounce(activityClassificationFilters, DEBOUNCE_LENGTH);
+  const debouncedGradeLevelFilters = useDebounce(gradeLevelFilters, DEBOUNCE_LENGTH);
 
   React.useEffect(() => {
     getActivities();
   }, []);
 
-  React.useEffect(updateFilteredActivities, [debouncedSearch, debouncedActivityClassificationFilters])
+  React.useEffect(updateFilteredActivities, [debouncedSearch, debouncedActivityClassificationFilters, debouncedGradeLevelFilters])
 
   function calculateNumberOfFilters() {
     let number = 0
     number += search.length ? 1 : 0
+    number += gradeLevelFilters.length ? 1 : 0
 
     activityClassificationGroupings.forEach((g) => {
       if (g.keys.every(key => activityClassificationFilters.includes(key))) {
@@ -91,10 +94,16 @@ const CustomActivityPack = ({
     setActivityClassificationFilters(activityClassificationFilters)
   }
 
+  function handleGradeLevelFilterChange(gradeLevelFilters: string[]) {
+    setFilterHistory(prevFilterHistory => prevFilterHistory.concat([{ function: setGradeLevelFilters, argument: gradeLevelFilters }]))
+    setGradeLevelFilters(gradeLevelFilters)
+  }
+
   function resetAllFilters() {
     setFilterHistory([])
     setSearch('')
     setActivityClassificationFilters([])
+    setGradeLevelFilters([])
   }
 
   function filterActivities(ignoredKey=null) {
@@ -134,7 +143,9 @@ const CustomActivityPack = ({
       calculateNumberOfFilters={calculateNumberOfFilters}
       filterActivities={filterActivities}
       filteredActivities={filteredActivities}
+      gradeLevelFilters={gradeLevelFilters}
       handleActivityClassificationFilterChange={handleActivityClassificationFilterChange}
+      handleGradeLevelFilterChange={handleGradeLevelFilterChange}
       resetAllFilters={resetAllFilters}
     />
     <section className="main-content-container">

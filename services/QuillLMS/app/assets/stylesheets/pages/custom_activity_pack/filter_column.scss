@@ -31,6 +31,21 @@
         line-height: 1.57;
         color: #646464;
       }
+      .slider-wrapper {
+        padding-left: 24px;
+        margin-top: 18px;
+        label {
+          font-size: 12px;
+          font-weight: 600;
+          margin-bottom: 16px;
+          line-height: 1;
+          color: #06806b;
+        }
+        .two-thumb-slider-container {
+          width: 248px;
+          padding-left: 8px;
+        }
+      }
     }
     .toggle-section {
       margin-top: 16px;
@@ -50,7 +65,7 @@
           display: flex;
           align-items: center;
         }
-        .toggle-button {
+        .filter-toggle-button {
           margin-right: 8px;
           .is-closed {
             transform: rotate(270deg);

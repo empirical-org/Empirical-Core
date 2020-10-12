@@ -1,7 +1,7 @@
 import * as React from 'react';
 
 import { Activity } from './interfaces'
-import { lowerBound, upperBound, } from './shared'
+import { lowerBound, upperBound, getNumberFromString, } from './shared'
 import ActivityRow from './activity_row'
 import Pagination from './pagination'
 
@@ -30,13 +30,6 @@ interface ActivityTableContainerProps {
   handleSearch: (event: any) => void,
   undoLastFilter: (event: any) => void,
   resetAllFilters: (event: any) => void
-}
-
-const getNumberFromString = (string) => {
-  const numberMatch = string.match(/\d+/g)
-  if (numberMatch) { return Number(numberMatch[0]) }
-
-  return null
 }
 
 const conceptSort = (activities) => activities.sort((a, b) => {
