@@ -245,7 +245,7 @@ const TeacherPreviewMenuComponent = ({
       question.key = questionUID;
     }
     // again we use session for Grammar and playLesson for Connect
-    if((session && !session.currentQuestion) || (lesson && !lesson.questionSet)) {
+    if(!questionToPreview) {
       onHandleSkipToQuestionFromIntro();
     }
     const action = setCurrentQuestion(question);

@@ -1,19 +1,22 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import _ from 'underscore';
+
+import FinishedDiagnostic from './finishedDiagnostic.jsx';
+import LandingPage from './landing.jsx';
+import PlaySentenceFragment from './sentenceFragment.jsx';
+import PlayDiagnosticQuestion from './sentenceCombining.jsx';
+
+import PlayFillInTheBlankQuestion from '../fillInBlank/playFillInTheBlankQuestion';
 import {
   CarouselAnimation,
   SmartSpinner,
   PlayTitleCard,
-  ProgressBar
+  ProgressBar,
+  hashToCollection
 } from '../../../Shared/index';
-import { clearData, loadData, nextQuestion, nextQuestionWithoutSaving, submitResponse, updateName, updateCurrentQuestion, resumePreviousDiagnosticSession } from '../../actions/diagnostics.js';
-import _ from 'underscore';
 import SessionActions from '../../actions/sessions.js';
-import PlaySentenceFragment from './sentenceFragment.jsx';
-import PlayDiagnosticQuestion from './sentenceCombining.jsx';
-import PlayFillInTheBlankQuestion from '../fillInBlank/playFillInTheBlankQuestion';
-import LandingPage from './landing.jsx';
-import FinishedDiagnostic from './finishedDiagnostic.jsx';
+import { clearData, loadData, nextQuestion, nextQuestionWithoutSaving, submitResponse, updateCurrentQuestion, resumePreviousDiagnosticSession, setCurrentQuestion } from '../../actions/diagnostics.js';
 import { getConceptResultsForAllQuestions } from '../../libs/conceptResults/diagnostic';
 import { getParameterByName } from '../../libs/getParameterByName';
 import {
@@ -21,7 +24,6 @@ import {
   answeredQuestionCount,
   getProgressPercent
 } from '../../libs/calculateProgress'
-import { hashToCollection } from '../../../Shared/index'
 
 const request = require('request');
 
@@ -51,6 +53,13 @@ export class StudentDiagnostic extends React.Component {
     const { playDiagnostic, } = this.props
     if (nextProps.playDiagnostic.answeredQuestions.length !== playDiagnostic.answeredQuestions.length) {
       this.saveSessionData(nextProps.playDiagnostic);
+    }
+  }
+
+  componentDidUpdate(prevProps) {
+    const { skippedToQuestionFromIntro, previewMode } = this.props;
+    if(previewMode && skippedToQuestionFromIntro !== prevProps.skippedToQuestionFromIntro) {
+      this.startActivity();
     }
   }
 
@@ -175,12 +184,20 @@ export class StudentDiagnostic extends React.Component {
   }
 
   startActivity = () => {
-    const { dispatch, } = this.props
+    const { dispatch, previewMode, skippedToQuestionFromIntro, questionToPreview, } = this.props
+
     const data = this.questionsForLesson()
     const action = loadData(data);
     dispatch(action);
-    const next = nextQuestion();
-    dispatch(next);
+
+    // when user skips to question from the landing page, we set the current question here in this one instance
+    if(previewMode && skippedToQuestionFromIntro && questionToPreview) {
+      const action = setCurrentQuestion(questionToPreview);
+      dispatch(action);
+    } else {
+      const next = nextQuestion();
+      dispatch(next);
+    }
   }
 
   handleSpinnerMount = () => {
@@ -192,10 +209,17 @@ export class StudentDiagnostic extends React.Component {
   }
 
   nextQuestion = () => {
-    const { dispatch, } = this.props
-
-    const next = nextQuestion();
-    dispatch(next);
+    const { dispatch, playDiagnostic, previewMode } = this.props;
+    const { unansweredQuestions } = playDiagnostic;
+    // we set the current question here; otherwise, the attempts will be reset if the next question has already been answered
+    if(previewMode) {
+      const question = unansweredQuestions[0].data;
+      const action = setCurrentQuestion(question);
+      dispatch(action);
+    } else {
+      const next = nextQuestion();
+      dispatch(next);
+    }
   }
 
   nextQuestionWithoutSaving = () => {
