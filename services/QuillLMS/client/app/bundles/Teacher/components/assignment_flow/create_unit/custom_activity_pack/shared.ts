@@ -32,6 +32,8 @@ export const getNumberFromString = (string) => {
 
 export const ACTIVITY_CLASSIFICATION_FILTERS = 'activityClassificationFilters'
 
+export const ACTIVITY_CATEGORY_FILTERS = 'activityCategoryFilters'
+
 function filterBySearch(search: string, activity: Activity) {
   const stringActivity = Object.values(activity).join(' ').toLowerCase();
   return stringActivity.includes(search.toLowerCase())
@@ -40,6 +42,11 @@ function filterBySearch(search: string, activity: Activity) {
 function filterByActivityClassification(activityClassificationFilters: string[], activity: Activity) {
   if (!activityClassificationFilters.length) { return true }
   return activityClassificationFilters.includes(activity.activity_classification.key)
+}
+
+function filterByActivityCategory(activityCategoryFilters: number[], activity: Activity) {
+  if (!activityCategoryFilters.length) { return true }
+  return activityCategoryFilters.includes(activity.activity_category.id)
 }
 
 function filterByGradeLevel(gradeLevelFilters: number[], activity: Activity) {
@@ -51,5 +58,6 @@ function filterByGradeLevel(gradeLevelFilters: number[], activity: Activity) {
 export const filters = {
   search: filterBySearch,
   [ACTIVITY_CLASSIFICATION_FILTERS]: filterByActivityClassification,
-  gradeLevelFilters: filterByGradeLevel
+  gradeLevelFilters: filterByGradeLevel,
+  [ACTIVITY_CATEGORY_FILTERS]: filterByActivityCategory
 }

@@ -21,7 +21,7 @@ export interface ActivityClassification {
   id: number
 }
 
-interface ActivityCategory {
+export interface ActivityCategory {
   id: number,
   name: string
 }

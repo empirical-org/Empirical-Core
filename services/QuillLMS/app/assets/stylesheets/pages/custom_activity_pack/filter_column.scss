@@ -7,7 +7,7 @@
     top: 70;
     height: calc(100vh - 70px);
     overflow: scroll;
-    padding: 16px;
+    padding: 16px 16px 40px;
     .filter-section {
       padding-top: 24px;
       margin-bottom: 8px;
@@ -44,22 +44,45 @@
         .two-thumb-slider-container {
           width: 248px;
           padding-left: 8px;
+          padding-bottom: 20px;
         }
+      }
+      &.activity-category-filter-section {
+        .individual-row, .toggle-show-all-button {
+          margin-left: 24px;
+        }
+        .toggle-show-all-button {
+          margin-top: 16px;
+          font-weight: 600;
+          color: #06806b;
+        }
+      }
+    }
+    .filter-row {
+      display: flex;
+      justify-content: space-between;
+      .quill-checkbox {
+        margin-right: 8px;
+      }
+      span {
+        line-height: normal;
+        color: #646464;
+        max-width: 183px;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        white-space: nowrap;
+      }
+    }
+    .individual-row {
+      display: flex;
+      flex-direction: row;
+      margin-top: 16px;
+      div {
+        display: flex;
       }
     }
     .toggle-section {
       margin-top: 16px;
-      .filter-row {
-        display: flex;
-        justify-content: space-between;
-        .quill-checkbox {
-          margin-right: 8px;
-        }
-        span {
-          line-height: normal;
-          color: #646464;
-        }
-      }
       .top-level {
         div {
           display: flex;
@@ -73,16 +96,7 @@
         }
       }
       .individual-row {
-        display: flex;
-        flex-direction: row;
         margin-left: 48px;
-        margin-top: 16px;
-        .quill-checkbox {
-          margin-right: 8px;
-        }
-        div {
-          display: flex;
-        }
         .alias-and-description {
           flex-direction: column;
           .description {

@@ -2,6 +2,7 @@ import * as React from 'react';
 
 import { Activity } from './interfaces'
 import ActivityClassificationFilters from './activity_classification_filters'
+import ActivityCategoryFilters from './activity_category_filters'
 import GradeLevelFilters from './grade_level_filters'
 
 interface FilterColumnProps {
@@ -11,10 +12,14 @@ interface FilterColumnProps {
   resetAllFilters: () => void,
   activityClassificationFilters: string[],
   handleActivityClassificationFilterChange: (activityClassificationFilters: string[]) => void,
+  gradeLevelFilters: number[],
+  handleGradeLevelFilterChange: (gradeLevelFilters: number[]) => void,
+  activityCategoryFilters: number[],
+  handleActivityCategoryFilterChange: (activityCategoryFilters: number[]) => void,
   filterActivities: (ignoredKey?: string) => Activity[]
 }
 
-const FilterColumn = ({ activities, filteredActivities, filterActivities, calculateNumberOfFilters, resetAllFilters, activityClassificationFilters, handleActivityClassificationFilterChange, handleGradeLevelFilterChange, gradeLevelFilters, }: FilterColumnProps) => {
+const FilterColumn = ({ activities, filteredActivities, filterActivities, calculateNumberOfFilters, resetAllFilters, activityClassificationFilters, handleActivityClassificationFilterChange, handleGradeLevelFilterChange, gradeLevelFilters, handleActivityCategoryFilterChange, activityCategoryFilters, }: FilterColumnProps) => {
   const numberOfFilters = calculateNumberOfFilters()
   const clearAllButton = numberOfFilters ? <button className="interactive-wrapper clear-filter focus-on-light" onClick={resetAllFilters} type="button">Clear all filters</button> : <span />
   const filterCount = numberOfFilters ? `${numberOfFilters} filter${numberOfFilters === 1 ? '' : 's'} • ` : ''
@@ -35,6 +40,12 @@ const FilterColumn = ({ activities, filteredActivities, filterActivities, calcul
     <GradeLevelFilters
       gradeLevelFilters={gradeLevelFilters}
       handleGradeLevelFilterChange={handleGradeLevelFilterChange}
+    />
+    <ActivityCategoryFilters
+      activities={activities}
+      activityCategoryFilters={activityCategoryFilters}
+      filterActivities={filterActivities}
+      handleActivityCategoryFilterChange={handleActivityCategoryFilterChange}
     />
   </section>)
 }

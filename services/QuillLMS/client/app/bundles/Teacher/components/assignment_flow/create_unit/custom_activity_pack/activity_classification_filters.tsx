@@ -17,11 +17,11 @@ interface IndividualActivityClassificationFilterRowProps {
   activityClassificationKey: string,
   handleActivityClassificationFilterChange: (activityClassificationFilters: string[]) => void,
   uniqueActivityClassifications: ActivityClassification[],
-  filterActivities: (ignoredKey?: string) => Activity[]
+  filteredActivities: Activity[],
 }
 
 interface ActivityClassificationToggleProps {
-  filterActivities: (ignoredKey?: string) => Activity[]
+  filteredActivities: Activity[],
   grouping: Grouping,
   uniqueActivityClassifications: ActivityClassification[],
   activityClassificationFilters: string[],
@@ -35,7 +35,7 @@ interface ActivityClassificationFiltersProps {
   handleActivityClassificationFilterChange: (activityClassificationFilters: string[]) => void,
 }
 
-const IndividualActivityClassificationFilterRow = ({ activityClassificationFilters, activityClassificationKey, handleActivityClassificationFilterChange, uniqueActivityClassifications, filterActivities, }: IndividualActivityClassificationFilterRowProps) => {
+const IndividualActivityClassificationFilterRow = ({ activityClassificationFilters, activityClassificationKey, handleActivityClassificationFilterChange, uniqueActivityClassifications, filteredActivities, }: IndividualActivityClassificationFilterRowProps) => {
   function checkIndividualFilter() {
     const newActivityClassificationFilters = Array.from(new Set(activityClassificationFilters.concat([activityClassificationKey])))
     handleActivityClassificationFilterChange(newActivityClassificationFilters)
@@ -47,7 +47,7 @@ const IndividualActivityClassificationFilterRow = ({ activityClassificationFilte
   }
 
   const activityClassification = uniqueActivityClassifications.find(ac => ac.key === activityClassificationKey)
-  const activityCount = filterActivities(ACTIVITY_CLASSIFICATION_FILTERS).filter(act => activityClassificationKey === act.activity_classification.key).length
+  const activityCount = filteredActivities.filter(act => activityClassificationKey === act.activity_classification.key).length
   let checkbox = <button aria-label={`Check ${activityClassification.alias}`} className="focus-on-light quill-checkbox unselected" onClick={checkIndividualFilter} type="button" />
 
   if (activityCount === 0) {
@@ -70,7 +70,7 @@ const IndividualActivityClassificationFilterRow = ({ activityClassificationFilte
   </div>)
 }
 
-const ActivityClassificationToggle = ({filterActivities, grouping, uniqueActivityClassifications, activityClassificationFilters, handleActivityClassificationFilterChange, }: ActivityClassificationToggleProps) => {
+const ActivityClassificationToggle = ({filteredActivities, grouping, uniqueActivityClassifications, activityClassificationFilters, handleActivityClassificationFilterChange, }: ActivityClassificationToggleProps) => {
   const [isOpen, setIsOpen] = React.useState(false)
 
   function toggleIsOpen() { setIsOpen(!isOpen) }
@@ -88,7 +88,7 @@ const ActivityClassificationToggle = ({filterActivities, grouping, uniqueActivit
   const toggleArrow = <button aria-label="Toggle menu" className="interactive-wrapper focus-on-light filter-toggle-button" onClick={toggleIsOpen} type="button"><img alt="" className={isOpen ? 'is-open' : 'is-closed'} src={dropdownIconSrc} /></button>
   let topLevelCheckbox = <button aria-label="Check all nested filters" className="focus-on-light quill-checkbox unselected" onClick={checkAllFilters} type="button" />
 
-  const topLevelActivityCount = filterActivities(ACTIVITY_CLASSIFICATION_FILTERS).filter(act => grouping.keys.includes(act.activity_classification.key)).length
+  const topLevelActivityCount = filteredActivities.filter(act => grouping.keys.includes(act.activity_classification.key)).length
 
   if (topLevelActivityCount === 0) {
     topLevelCheckbox = <div className="focus-on-light quill-checkbox disabled" />
@@ -108,7 +108,7 @@ const ActivityClassificationToggle = ({filterActivities, grouping, uniqueActivit
       (<IndividualActivityClassificationFilterRow
         activityClassificationFilters={activityClassificationFilters}
         activityClassificationKey={key}
-        filterActivities={filterActivities}
+        filteredActivities={filteredActivities}
         handleActivityClassificationFilterChange={handleActivityClassificationFilterChange}
         key={key}
         uniqueActivityClassifications={uniqueActivityClassifications}
@@ -136,10 +136,12 @@ const ActivityClassificationFilters = ({ activities, filterActivities, activityC
 
   function clearAllActivityClassificationFilters() { handleActivityClassificationFilterChange([]) }
 
+  const filteredActivities = filterActivities(ACTIVITY_CLASSIFICATION_FILTERS)
+
   const activityClassificationToggles = activityClassificationGroupings.map(grouping =>
     (<ActivityClassificationToggle
       activityClassificationFilters={activityClassificationFilters}
-      filterActivities={filterActivities}
+      filteredActivities={filteredActivities}
       grouping={grouping}
       handleActivityClassificationFilterChange={handleActivityClassificationFilterChange}
       key={grouping.group}

@@ -47,21 +47,24 @@ const CustomActivityPack = ({
   const [filterHistory, setFilterHistory] = React.useState([])
   const [activityClassificationFilters, setActivityClassificationFilters] = React.useState([])
   const [gradeLevelFilters, setGradeLevelFilters] = React.useState([])
+  const [activityCategoryFilters, setActivityCategoryFilters] = React.useState([])
 
   const debouncedSearch = useDebounce(search, DEBOUNCE_LENGTH);
   const debouncedActivityClassificationFilters = useDebounce(activityClassificationFilters, DEBOUNCE_LENGTH);
   const debouncedGradeLevelFilters = useDebounce(gradeLevelFilters, DEBOUNCE_LENGTH);
+  const debouncedActivityCategoryFilters = useDebounce(activityCategoryFilters, DEBOUNCE_LENGTH);
 
   React.useEffect(() => {
     getActivities();
   }, []);
 
-  React.useEffect(updateFilteredActivities, [debouncedSearch, debouncedActivityClassificationFilters, debouncedGradeLevelFilters])
+  React.useEffect(updateFilteredActivities, [debouncedSearch, debouncedActivityClassificationFilters, debouncedGradeLevelFilters, debouncedActivityCategoryFilters])
 
   function calculateNumberOfFilters() {
     let number = 0
     number += search.length ? 1 : 0
     number += gradeLevelFilters.length ? 1 : 0
+    number += activityCategoryFilters.length
 
     activityClassificationGroupings.forEach((g) => {
       if (g.keys.every(key => activityClassificationFilters.includes(key))) {
@@ -99,11 +102,17 @@ const CustomActivityPack = ({
     setGradeLevelFilters(gradeLevelFilters)
   }
 
+  function handleActivityCategoryFilterChange(activityCategoryFilters: string[]) {
+    setFilterHistory(prevFilterHistory => prevFilterHistory.concat([{ function: setActivityCategoryFilters, argument: activityCategoryFilters }]))
+    setActivityCategoryFilters(activityCategoryFilters)
+  }
+
   function resetAllFilters() {
     setFilterHistory([])
     setSearch('')
     setActivityClassificationFilters([])
     setGradeLevelFilters([])
+    setActivityCategoryFilters([])
   }
 
   function filterActivities(ignoredKey=null) {
@@ -139,11 +148,13 @@ const CustomActivityPack = ({
   return (<div className="custom-activity-pack-page">
     <FilterColumn
       activities={activities}
+      activityCategoryFilters={activityCategoryFilters}
       activityClassificationFilters={activityClassificationFilters}
       calculateNumberOfFilters={calculateNumberOfFilters}
       filterActivities={filterActivities}
       filteredActivities={filteredActivities}
       gradeLevelFilters={gradeLevelFilters}
+      handleActivityCategoryFilterChange={handleActivityCategoryFilterChange}
       handleActivityClassificationFilterChange={handleActivityClassificationFilterChange}
       handleGradeLevelFilterChange={handleGradeLevelFilterChange}
       resetAllFilters={resetAllFilters}
