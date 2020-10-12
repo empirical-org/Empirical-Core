@@ -1,8 +1,10 @@
 import * as React from "react";
 import ContentEditable from 'react-contenteditable';
 import { Row } from "antd";
-import { checkGrammarQuestion, Response, ConceptResult } from 'quill-marking-logic'
+import { checkGrammarQuestion, Response, ConceptResult } from 'quill-marking-logic';
+
 import Cues from './cues'
+
 import { Question } from '../../interfaces/questions'
 import { GrammarActivity } from '../../interfaces/grammarActivities'
 import * as responseActions from '../../actions/responses'
@@ -90,7 +92,7 @@ export class QuestionComponent extends React.Component<QuestionProps, QuestionSt
 
   UNSAFE_componentWillReceiveProps(nextProps: QuestionProps) {
     const { currentQuestion, previewMode } = this.props;
-    if (nextProps.currentQuestion && nextProps.currentQuestion.attempts && nextProps.currentQuestion.attempts.length > 0 && !previewMode) {
+    if (nextProps.currentQuestion && nextProps.currentQuestion.attempts && nextProps.currentQuestion.attempts.length > 0) {
       this.setState({ questionStatus: this.getCurrentQuestionStatus(nextProps.currentQuestion) })
     }
     if (nextProps.currentQuestion.uid && currentQuestion.uid !== nextProps.currentQuestion.uid) {

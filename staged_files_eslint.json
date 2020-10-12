@@ -27,6 +27,6 @@
     "react/jsx-key": "error",
     "react/jsx-no-bind": ["error", { "ignoreRefs": true }],
     "react/jsx-curly-brace-presence": "error",
-    "import/order": ["error", {"groups": ["builtin", "external", "index", "sibling", "parent"], "newlines-between": "always"}]"
+    "import/order": ["error", {"groups": ["builtin", "external", "index", "sibling", "parent"], "newlines-between": "always"}]
   }
 }
