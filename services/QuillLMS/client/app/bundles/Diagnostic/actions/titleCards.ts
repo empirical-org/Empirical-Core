@@ -1,6 +1,7 @@
 import _ from 'lodash';
 import { push } from 'react-router-redux';
 import { TitleCardApi, DIAGNOSTIC_TITLE_CARD_TYPE } from '../libs/title_cards_api'
+import sessionActions from './sessions';
 
 const C = require('../constants').default;
 
@@ -32,6 +33,7 @@ function loadSpecifiedTitleCards(uids) {
       results.forEach((result) => {
         questionData[result.uid] = result;
       });
+      sessionActions.populateQuestions("TC", questionData, true)
       dispatch({ type: C.RECEIVE_TITLE_CARDS_DATA, data: questionData, });
     });
   }
