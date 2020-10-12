@@ -1,7 +1,7 @@
 import * as React from 'react';
 
 import { Activity } from './interfaces'
-import ActivityClassificationFilters from './shared'
+import ActivityClassificationFilters from './activity_classification_filters'
 
 interface FilterColumnProps {
   activities: Activity[],

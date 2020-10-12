@@ -9,6 +9,8 @@ import useDebounce from '../../../../hooks/useDebounce'
 import { requestGet } from '../../../../../../modules/request/index'
 import { Spinner, } from '../../../../../Shared/index'
 
+const DEBOUNCE_LENGTH = 500
+
 interface AssignButtonProps {
   selectedActivities: Activity[],
   handleClickContinue: (event: any) => void
@@ -45,8 +47,8 @@ const CustomActivityPack = ({
   const [filterHistory, setFilterHistory] = React.useState([])
   const [activityClassificationFilters, setActivityClassificationFilters] = React.useState([])
 
-  const debouncedSearch = useDebounce(search, 500);
-  const debouncedActivityClassificationFilters = useDebounce(activityClassificationFilters, 500);
+  const debouncedSearch = useDebounce(search, DEBOUNCE_LENGTH);
+  const debouncedActivityClassificationFilters = useDebounce(activityClassificationFilters, DEBOUNCE_LENGTH);
 
   React.useEffect(() => {
     getActivities();
