@@ -1,5 +1,7 @@
 import uuid4 from 'uuid';
+
 import { ActionTypes } from './actionTypes'
+
 import { ConceptResultObject, WordObject } from '../interfaces/proofreaderActivities'
 import { SessionApi } from '../lib/sessions_api'
 
@@ -26,12 +28,12 @@ export const updateConceptResultsOnFirebase = (sessionID: string|null, activityU
 export const setSessionReducerToSavedSession = (sessionID: string, initialLoad?: boolean) => {
   return (dispatch: Function) => {
     SessionApi.get(sessionID).then((session) => {
-      handleSession(session)
+      handleSession(session, initialLoad, sessionID, dispatch)
     })
   }
 }
 
-const handleSession = (session) => {
+const handleSession = (session, initialLoad, sessionID, dispatch) => {
   if (session && !session.error) {
     if (session.conceptResults && initialLoad) {
       window.location.href = `${process.env.QUILL_GRAMMAR_URL}/play/sw?proofreaderSessionId=${sessionID}`
