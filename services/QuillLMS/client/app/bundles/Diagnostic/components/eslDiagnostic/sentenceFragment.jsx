@@ -1,9 +1,9 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
-import TextEditor from '../renderForQuestions/renderTextEditor.jsx';
 import _ from 'underscore';
 import ReactTransition from 'react-addons-css-transition-group';
+
+import TextEditor from '../renderForQuestions/renderTextEditor.jsx';
 import POSMatcher from '../../libs/sentenceFragment.js';
 import {
   getGradedResponsesWithCallback
@@ -12,6 +12,8 @@ const icon = `${process.env.CDN_URL}/images/icons/direction.svg`
 import updateResponseResource from '../renderForQuestions/updateResponseResource.js';
 import translations from '../../libs/translations/index.js';
 import translationMap from '../../libs/translations/ellQuestionMapper.js';
+import { renderPreviewFeedback, getDisplayedText } from '../../libs/previewHelperFunctions';
+import { getLatestAttempt } from '../../libs/sharedQuestionFunctions';
 import { ENGLISH, rightToLeftLanguages } from '../../modules/translation/languagePageInfo';
 import { hashToCollection, Feedback, } from '../../../Shared/index'
 
@@ -171,23 +173,37 @@ class PlaySentenceFragment extends React.Component {
     return text;
   }
 
-  renderPlaySentenceFragmentMode(fragment) {
-    const { responses, response, } = this.state
-    // HARDCODED
-    let button
-    if (responses) {
-      button = <button className="quill-button focus-on-light large primary contained" onClick={this.handleResponseSubmission} type="button">{this.getSubmitButtonText()}</button>;
-    } else {
-      button = <button className="quill-button focus-on-light large primary contained disabled" type="button">{this.getSubmitButtonText()}</button>;
-    }
-
-    if (!this.choosingSentenceOrFragment()) {
-      const component = (
+  renderFeedback = () => {
+    const { question, previewMode } = this.props
+    const instructions = this.getInstructionText();
+    const latestAttempt = getLatestAttempt(question.attempts);
+    if(previewMode && latestAttempt) {
+      renderPreviewFeedback(latestAttempt);
+    } else if(instructions) {
+      return(
         <Feedback
           feedback={this.getInstructionText()}
           feedbackType="instructions"
         />
       );
+    }
+  }
+
+  renderPlaySentenceFragmentMode(fragment) {
+    const { previewMode, question } = this.props;
+    const { responses, response, } = this.state
+    const displayedText = getDisplayedText({ previewMode, question, response });
+    const latestAttempt = getLatestAttempt(question.attempts);
+    // HARDCODED
+    let button
+    if(!responses || (previewMode && latestAttempt)) {
+      button = <button className="quill-button focus-on-light large primary contained disabled" type="button">{this.getSubmitButtonText()}</button>;
+    } else {
+      button = <button className="quill-button focus-on-light large primary contained" onClick={this.handleResponseSubmission} type="button">{this.getSubmitButtonText()}</button>;
+    }
+
+    if (!this.choosingSentenceOrFragment()) {
+      const component = this.renderFeedback();
 
       return (
         <div className="container">
@@ -203,7 +219,7 @@ class PlaySentenceFragment extends React.Component {
               onChange={this.handleChange}
               onSubmitResponse={this.handleResponseSubmission}
               placeholder="Type your answer here."
-              value={response}
+              value={displayedText}
             />
             <div className="question-button-group">
               {button}

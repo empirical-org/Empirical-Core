@@ -1,11 +1,12 @@
 declare function require(name:string);
 import * as React from 'react';
 import { connect } from 'react-redux';
+import {checkDiagnosticSentenceFragment, Response } from 'quill-marking-logic'
+import * as _ from 'underscore';
+
 import { getLatestAttempt } from '../../libs/sharedQuestionFunctions';
 import { renderPreviewFeedback, getDisplayedText } from '../../libs/previewHelperFunctions';
 import TextEditor from '../renderForQuestions/renderTextEditor.jsx';
-import * as _ from 'underscore';
-import {checkDiagnosticSentenceFragment, Response } from 'quill-marking-logic'
 import {
   getGradedResponsesWithCallback
 } from '../../actions/responses';
@@ -243,6 +244,34 @@ class PlaySentenceFragment extends React.Component<any, any> {
     return response;
   }
 
+  renderFeedback = () => {
+    const { question, previewMode } = this.props
+    let instructions;
+    const latestAttempt = getLatestAttempt(question.attempts);
+    if(previewMode && latestAttempt) {
+      renderPreviewFeedback(latestAttempt);
+    } else if (latestAttempt) {
+      const component = <span dangerouslySetInnerHTML={{__html: latestAttempt.response.feedback}} />
+      instructions = latestAttempt.response.feedback ? component :
+      'Revise your work. A complete sentence must have an action word and a person or thing doing the action.';
+    } else if (question.instructions && question.instructions !== '') {
+      instructions = question.instructions;
+    } else {
+      instructions = 'If it is a complete sentence, press submit. If it is an incomplete sentence, make it complete.';
+    }
+    if(instructions) {
+      return(
+        <Feedback
+          getQuestion={this.getQuestion}
+          question={question}
+          renderFeedbackStatements={this.renderFeedbackStatements}
+          responses={this.getResponses()}
+          sentence={instructions}
+        />
+      );
+    }
+  }
+
   renderPlaySentenceFragmentMode = () => {
     const { response } = this.state;
     const { question, previewMode } = this.props
@@ -263,13 +292,7 @@ class PlaySentenceFragment extends React.Component<any, any> {
     // dangerously set some html in here
     return (
       <div className="container">
-        {instructions && <Feedback
-          getQuestion={this.getQuestion}
-          question={question}
-          renderFeedbackStatements={this.renderFeedbackStatements}
-          responses={this.getResponses()}
-          sentence={instructions}
-        />}
+        {this.renderFeedback()}
         <TextEditor
           disabled={this.showNextQuestionButton()}
           onChange={this.handleChange}
