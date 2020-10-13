@@ -24,7 +24,7 @@
       .expand-button {
         transform: rotate(180deg);
       }
-      .preview-link {
+      .preview-link, .remove-button {
         display: flex;
         margin-right: 24px;
         align-items: center;
@@ -71,7 +71,7 @@
         max-width: 584px;
       }
     }
-    &:hover {
+    &.not-selected:hover {
       background-color: #f2f2f2;
     }
     &.not-expanded:not(:hover) {
@@ -83,6 +83,9 @@
       .activity-row-tooltip {
         display: none;
       }
+    }
+    &.selected {
+      background-color: #e8f7f3;
     }
   }
   .activity-row-tooltip {

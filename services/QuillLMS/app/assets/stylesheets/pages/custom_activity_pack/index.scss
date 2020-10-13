@@ -17,21 +17,48 @@
     overflow: scroll;
     padding-bottom: 40px;
     header {
-      height: 88px;
+      height: min-content;
       display: flex;
       justify-content: center;
       border-bottom: 1px solid #e0e0e0;
       position: sticky;
       top: 0px;
       z-index: 1;
+      background-color: white;
+      flex-direction: column;
       .header-content {
+        height: 88px;
         max-width: 1184px;
         display: flex;
         width: 100%;
         align-items: center;
         justify-content: space-between;
         padding: 0px 32px;
-        background-color: white;
+        div {
+          display: flex;
+          align-items: center;
+          .quill-button {
+            margin-left: 26px;
+          }
+        }
+      }
+      &.has-selected-activities {
+        background-color: #e8f7f3;
+        .sortable-list {
+          border-top: 1px solid #e0e0e0;
+          .sortable-activity-row {
+            display: flex;
+            .reorder-icon {
+              margin: 0px 16px 0px 8px;
+            }
+            .activity-row {
+              flex: 1;
+              .second-line {
+                padding-left: 0px;
+              }
+            }
+          }
+        }
       }
     }
     .activity-table-container {

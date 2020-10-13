@@ -8,6 +8,7 @@ const conceptSrc = `${process.env.CDN_URL}/images/icons/description-concept.svg`
 const ccssSrc = `${process.env.CDN_URL}/images/icons/description-ccss.svg`
 const informationSrc = `${process.env.CDN_URL}/images/icons/description-information.svg`
 const previewSrc = `${process.env.CDN_URL}/images/icons/preview.svg`
+const removeSrc = `${process.env.CDN_URL}/images/icons/remove-in-circle.svg`
 const connectSrc = `${process.env.CDN_URL}/images/icons/description-connect.svg`
 const diagnosticSrc = `${process.env.CDN_URL}/images/icons/description-diagnostic.svg`
 const lessonsSrc = `${process.env.CDN_URL}/images/icons/description-lessons.svg`
@@ -23,7 +24,9 @@ interface ActivityRowCheckboxProps {
 interface ActivityRowProps {
   activity: Activity,
   isSelected: boolean,
-  toggleActivitySelection: (activity: Activity, isSelected: boolean) => void
+  toggleActivitySelection: (activity: Activity, isSelected: boolean) => void,
+  showCheckbox?: boolean,
+  showRemoveButton?: boolean
 }
 
 const imageTagForClassification = (classificationKey: string): JSX.Element => {
@@ -120,7 +123,7 @@ const ActivityRowTooltip = ({ activity, showTooltip}: { activity: Activity, show
   </div>)
 }
 
-const ActivityRow = ({ activity, isSelected, toggleActivitySelection, }: ActivityRowProps) => {
+const ActivityRow = ({ activity, isSelected, toggleActivitySelection, showCheckbox, showRemoveButton }: ActivityRowProps) => {
   const [isExpanded, setIsExpanded] = React.useState(false)
   const [showTooltip, setShowTooltip] = React.useState(false)
 
@@ -133,18 +136,21 @@ const ActivityRow = ({ activity, isSelected, toggleActivitySelection, }: Activit
 
   const previewButton = <a className="interactive-wrapper focus-on-light preview-link" href={anonymous_path} rel="noopener noreferrer" target="_blank"><img alt="Preview eye icon" src={previewSrc} />Preview</a>
   const expandButton = <button className="interactive-wrapper focus-on-light expand-button" onClick={toggleIsExpanded} type="button"><img alt={expandImgAltText} src={expandSrc} /></button>
+  const removeButton = <button className="interactive-wrapper focus-on-light remove-button" onClick={toggleIsExpanded} type="button"><img alt="Remove icon" src={removeSrc} />Remove</button>
+  const removeOrPreviewButton = showRemoveButton ? removeButton : previewButton
 
   const expandClassName = isExpanded ? 'expanded' : 'not-expanded'
+  const isSelectedClassName = isSelected ? 'selected' : 'not-selected'
 
-  return (<section className={`activity-row ${expandClassName}`}>
+  return (<section className={`activity-row ${expandClassName} ${isSelectedClassName}`}>
     <ActivityRowTooltip activity={activity} showTooltip={showTooltip} />
     <div className="first-line">
       <div className="name-and-checkbox-wrapper">
-        <ActivityRowCheckbox activity={activity} isSelected={isSelected} toggleActivitySelection={toggleActivitySelection} />
+        {showCheckbox && <ActivityRowCheckbox activity={activity} isSelected={isSelected} toggleActivitySelection={toggleActivitySelection} />}
         <button className="interactive-wrapper" onMouseEnter={toggleShowTooltip} onMouseLeave={toggleShowTooltip} tabIndex={-1} type="button"><h2>{name}</h2></button>
       </div>
       <div className="buttons-wrapper">
-        {previewButton}
+        {removeOrPreviewButton}
         {expandButton}
       </div>
     </div>
@@ -161,6 +167,10 @@ const ActivityRow = ({ activity, isSelected, toggleActivitySelection, }: Activit
     </div>
     <ActivityRowExpandedSection activity={activity} isExpanded={isExpanded} />
   </section>)
+}
+
+ActivityRow.defaultProps = {
+  showCheckbox: true
 }
 
 export default ActivityRow

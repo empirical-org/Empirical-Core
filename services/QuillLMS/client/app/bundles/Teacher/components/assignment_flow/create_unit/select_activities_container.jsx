@@ -56,6 +56,7 @@ export default class SelectActivitiesContainer extends React.Component {
           errorMessage={this.props.errorMessage}
           passedActivities={this.props.activities}
           selectedActivities={this.props.selectedActivities}
+          setSelectedActivities={this.props.setSelectedActivities}
           toggleActivitySelection={this.props.toggleActivitySelection}
           unitName={this.props.unitName}
         />
