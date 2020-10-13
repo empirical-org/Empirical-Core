@@ -23,12 +23,16 @@ interface Activity {
 
 const isConnectActivity = window.location.href.includes('connect');
 const isDiagnosticActivity = window.location.href.includes('diagnostic');
+const isGrammarActivity = window.location.href.includes('grammar');
 
 const returnActivity = (state: any) => {
   const { grammarActivities, lessons } = state;
-  if(grammarActivities) {
+  if(isGrammarActivity) {
     return grammarActivities.currentActivity;
-  } else if(lessons && lessons.data) {
+  } else if(isDiagnosticActivity && lessons && lessons.data) {
+    const uid = window.location.href.split('/').slice(-1)[0];
+    return lessons.data[uid]
+  } else if(isConnectActivity && lessons && lessons.data) {
     const uid = Object.keys(lessons.data)[0];
     return lessons.data[uid]
   }
@@ -108,7 +112,7 @@ const getIndentation = (i: number) => {
 
 const getQuestionObject = ({ questions, titleCards, sentenceFragments, fillInBlank, key }) => {
   let questionObject;
-  if(questions && questions[key]) {
+  if(questions && questions[key] && questions[key].prompt) {
     questionObject = questions[key];
     questionObject.type = 'SC';
   } else if(titleCards && titleCards[key]) {
@@ -147,7 +151,6 @@ const renderQuestions = ({
   } else if(activity && activity.questions && activity.questions.length) {
     return activity.questions.map((question: any, i: number) => {
       const { key } = question;
-      const uidOrKey = key;
       const questionObject = getQuestionObject({ questions, titleCards, sentenceFragments, fillInBlank, key });
       const questionText = questionObject.prompt || questionObject.title
       const highlightedStyle = getStyling({ questionToPreview, uidOrKey: key, i, session, lesson });
@@ -217,6 +220,7 @@ const TeacherPreviewMenuComponent = ({
   const [randomizedQuestions, setRandomizedQuestions] = React.useState<Question[]>();
 
   React.useEffect(() => {
+    // we need to fetch grammar activities here
     const activityUID = getParameterByName('uid', window.location.href);
     if (activityUID) {
       dispatch(getActivity(activityUID))
