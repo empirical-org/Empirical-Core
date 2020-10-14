@@ -12,10 +12,16 @@ export const getCurrentQuestion = ({ action, answeredQuestions, questionSet, una
   let currentQuestion;
 
   // check answeredQuestions
-  currentQuestion = answeredQuestions.filter((question: { data: Question }) => key === question.data.key)[0];
+  currentQuestion = answeredQuestions.filter((question: { data: Question }) => {
+    // some ELL SC questions get an -esp appended to the key
+    return key === question.data.key || key === `${question.data.key}-esp`;
+  })[0];
+
   // check unansweredQuestions
   if(!currentQuestion) {
-    currentQuestion = unansweredQuestions.filter((question: { data: Question }) => key === question.data.key)[0];
+    currentQuestion = unansweredQuestions.filter((question: { data: Question }) => {
+      return key === question.data.key || key === `${question.data.key}-esp`;
+    })[0];
   }
   // check questionSet, is title card
   if(!currentQuestion) {
@@ -45,8 +51,10 @@ export const getFilteredQuestions = ({ questionsSlice, answeredQuestionsWithAtte
   return questionsSlice.map((question: { data: Question }) => {
     const { data } = question;
     const { key } = data;
-    const answeredQuestionWithAttempts = answeredQuestionsWithAttempts[key];
-    const unansweredQuestionWithAttempts = unansweredQuestionsWithAttempts[key];
+    // some ELL SC questions get an -esp appended to the key
+    const slicedKey = key.slice(0, -4);
+    const answeredQuestionWithAttempts = answeredQuestionsWithAttempts[key] || answeredQuestionsWithAttempts[slicedKey];
+    const unansweredQuestionWithAttempts = unansweredQuestionsWithAttempts[key] || unansweredQuestionsWithAttempts[slicedKey];
 
     if(answeredQuestionWithAttempts) {
       return answeredQuestionWithAttempts;

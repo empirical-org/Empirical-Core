@@ -91,6 +91,8 @@ const renderIntroductionSection = (activity: Activity, lesson: any, session: any
 }
 
 const getStyling = ({ questionToPreview, uidOrKey, i, session, lesson }) => {
+  // some ELL SC questions get an -esp appended to the key
+  const slicedUidOrKey = uidOrKey.slice(0, -4);
   let key: string;
   if(isDiagnosticActivity && lesson && lesson.currentQuestion) {
     const { data } = lesson.currentQuestion;
@@ -103,7 +105,7 @@ const getStyling = ({ questionToPreview, uidOrKey, i, session, lesson }) => {
     return '';
   }
   // if first question has no key from initial render, apply highlight
-  return key === uidOrKey || (i === 0 && !key) ? 'highlighted' : '';
+  return key === uidOrKey || key === slicedUidOrKey || (i === 0 && !key) ? 'highlighted' : '';
 }
 
 const getIndentation = (i: number) => {

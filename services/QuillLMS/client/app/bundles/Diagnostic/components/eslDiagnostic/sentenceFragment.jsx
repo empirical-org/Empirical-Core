@@ -18,6 +18,7 @@ import { ENGLISH, rightToLeftLanguages } from '../../modules/translation/languag
 import { hashToCollection, Feedback, } from '../../../Shared/index'
 
 const key = ''; // enables this component to be used by both play/sentence-fragments and play/diagnostic
+const availableLanguages = ['arabic', 'spanish', 'french', 'mandarin', 'hindi', 'vietnamese'];
 
 class PlaySentenceFragment extends React.Component {
   constructor(props) {
@@ -39,20 +40,29 @@ class PlaySentenceFragment extends React.Component {
   }
 
   getInstructionText = () => {
-    const { language, } = this.props
+    const { language, question } = this.props;
+    const { instructions } = question;
     const textKey = translationMap[this.getQuestion().key];
     let text = translations.english[textKey];
-    if (language && language !== ENGLISH) {
+    if (language !== ENGLISH  && availableLanguages.includes(language)) {
       const textClass = rightToLeftLanguages.includes(language) ? 'right-to-left' : '';
-      text += `<br/><br/><span class="${textClass}">${translations[language][textKey]}</span>`;
+      const additionalText = translations[language][textKey] ? translations[language][textKey] : '';
+      if(additionalText) {
+        text += `<br/><br/><span class="${textClass}">${additionalText}</span>`;
+      }
     }
-    return (<p dangerouslySetInnerHTML={{ __html: text, }} />);
+    text = !text && instructions ? instructions : text;
+    if(text) {
+      return (<p dangerouslySetInnerHTML={{ __html: text, }} />);
+    } else {
+      return null;
+    }
   }
 
   getChoiceHTML = () => {
-    const { language, } = this.props
+    const { language, } = this.props;
     let text = translations.english['sentence-fragment-complete-vs-incomplete-button-choice-instructions'];
-    if (language !== ENGLISH) {
+    if (language !== ENGLISH && availableLanguages.includes(language)) {
       text += `<br/><br/>${translations[language]['sentence-fragment-complete-vs-incomplete-button-choice-instructions']}`;
     }
     return text;
@@ -97,11 +107,13 @@ class PlaySentenceFragment extends React.Component {
   }
 
   getSentenceOrFragmentButtons = () => {
-    // HARDCODED
+    const { language } = this.props;
+    const completeText = language !== ENGLISH && availableLanguages.includes(language) ? `Complete / ${translations[language]['sentence fragment complete button']}` : 'Complete';
+    const incompleteText = language !== ENGLISH && availableLanguages.includes(language) ? `Incomplete / ${translations[language]['sentence fragment incomplete button']}` : 'Incomplete';
     return (
       <div className="sf-button-group">
-        <button className="button sf-button focus-on-light" onClick={this.handleClickCompleteSentence} type="button" value="Sentence">Complete / Completa la oración</button>
-        <button className="button sf-button focus-on-light" onClick={this.handleClickIncompleteSentence} type="button" value="Fragment">Incomplete / Oración incompleta</button>
+        <button className="button sf-button focus-on-light" onClick={this.handleClickCompleteSentence} type="button" value="Sentence">{completeText}</button>
+        <button className="button sf-button focus-on-light" onClick={this.handleClickIncompleteSentence} type="button" value="Fragment">{incompleteText}</button>
       </div>
     );
   }
@@ -167,7 +179,7 @@ class PlaySentenceFragment extends React.Component {
   getSubmitButtonText = () => {
     const { language, } = this.props
     let text = translations.english['submit button text'];
-    if (language && language !== ENGLISH) {
+    if (language !== ENGLISH && availableLanguages.includes(language)) {
       text += ` / ${translations[language]['submit button text']}`;
     }
     return text;
@@ -186,6 +198,8 @@ class PlaySentenceFragment extends React.Component {
           feedbackType="instructions"
         />
       );
+    } else {
+      return null;
     }
   }
 

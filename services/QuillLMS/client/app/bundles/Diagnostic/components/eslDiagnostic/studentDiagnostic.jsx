@@ -68,10 +68,13 @@ export class ELLStudentDiagnostic extends React.Component {
     dispatch(action);
   }
 
-  UNSAFE_componentWillReceiveProps(nextProps) {
-    const { playDiagnostic, } = this.props
-    if (nextProps.playDiagnostic.answeredQuestions.length !== playDiagnostic.answeredQuestions.length) {
-      this.saveSessionData(nextProps.playDiagnostic);
+  componentDidUpdate(prevProps) {
+    const { previewMode, skippedToQuestionFromIntro, questionToPreview, playDiagnostic } = this.props;
+    if(prevProps.skippedToQuestionFromIntro !== skippedToQuestionFromIntro && previewMode && questionToPreview) {
+      this.startActivity();
+    }
+    if (prevProps.playDiagnostic.answeredQuestions.length !== playDiagnostic.answeredQuestions.length) {
+      this.saveSessionData(playDiagnostic);
     }
   }
 
@@ -186,6 +189,7 @@ export class ELLStudentDiagnostic extends React.Component {
       component = (<PlayDiagnosticQuestion
         diagnosticID={diagnosticID}
         dispatch={dispatch}
+        isLastQuestion={isLastQuestion}
         key={playDiagnostic.currentQuestion.data.key}
         language={this.language()}
         marking="diagnostic"
@@ -272,10 +276,17 @@ export class ELLStudentDiagnostic extends React.Component {
   }
 
   nextQuestionWithoutSaving = () => {
-    const { dispatch, } = this.props
-
-    const next = nextQuestionWithoutSaving();
-    dispatch(next);
+    const { dispatch, playDiagnostic, previewMode } = this.props;
+    const { unansweredQuestions } = playDiagnostic;
+    // we set the current question here; otherwise, the attempts will be reset if the next question has already been answered
+    if(previewMode) {
+      const question = unansweredQuestions[0].data;
+      const action = setCurrentQuestion(question);
+      dispatch(action);
+    } else {
+      const next = nextQuestionWithoutSaving();
+      dispatch(next);
+    }
   }
 
   getLesson = () => {

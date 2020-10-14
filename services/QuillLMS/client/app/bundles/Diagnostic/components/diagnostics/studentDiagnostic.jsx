@@ -223,9 +223,17 @@ export class StudentDiagnostic extends React.Component {
   }
 
   nextQuestionWithoutSaving = () => {
-    const { dispatch, } = this.props
-    const next = nextQuestionWithoutSaving();
-    dispatch(next);
+    const { dispatch, playDiagnostic, previewMode } = this.props;
+    const { unansweredQuestions } = playDiagnostic;
+    // same case as above; questions that follow title cards will have their attempts reset without this
+    if(previewMode) {
+      const question = unansweredQuestions[0].data;
+      const action = setCurrentQuestion(question);
+      dispatch(action);
+    } else {
+      const next = nextQuestionWithoutSaving();
+      dispatch(next);
+    }
   }
 
   getLesson = () => {
