@@ -798,8 +798,23 @@ end
       expect(returned_activity_session).to eq(started_activity_session)
     end
 
+    it "returns a started activity session if it exists, even if there are also finished sessions" do
+      started_activity_session = create(:activity_session, :started, user: student, activity: activity, classroom_unit: classroom_unit)
+      finished_activity_sessions = create_list(:activity_session, 10, state: 'finished', user: student, activity: activity, classroom_unit: classroom_unit)
+      returned_activity_session = ActivitySession.find_or_create_started_activity_session(student.id, classroom_unit.id, activity.id)
+      expect(returned_activity_session).to eq(started_activity_session)
+    end
+
     it "finds an unstarted activity session if it exists, updates it to started, and returns it" do
       unstarted_activity_session = create(:activity_session, :unstarted, user: student, activity: activity, classroom_unit: classroom_unit)
+      returned_activity_session = ActivitySession.find_or_create_started_activity_session(student.id, classroom_unit.id, activity.id)
+      expect(returned_activity_session).to eq(unstarted_activity_session)
+      expect(returned_activity_session.state).to eq('started')
+    end
+
+    it "finds an unstarted activity session if it exists, updates it to started, and returns it, even if there are also finished sessions" do
+      unstarted_activity_session = create(:activity_session, :unstarted, user: student, activity: activity, classroom_unit: classroom_unit)
+      finished_activity_sessions = create_list(:activity_session, 10, state: 'finished', user: student, activity: activity, classroom_unit: classroom_unit)
       returned_activity_session = ActivitySession.find_or_create_started_activity_session(student.id, classroom_unit.id, activity.id)
       expect(returned_activity_session).to eq(unstarted_activity_session)
       expect(returned_activity_session.state).to eq('started')
