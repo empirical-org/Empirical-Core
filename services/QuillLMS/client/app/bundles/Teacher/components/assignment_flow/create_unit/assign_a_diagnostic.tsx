@@ -1,5 +1,7 @@
 import * as React from 'react';
+
 import AssignmentCard from './assignment_card';
+
 import AssignmentFlowNavigation from '../assignment_flow_navigation'
 import { UNIT_TEMPLATE_NAME, UNIT_TEMPLATE_ID, ACTIVITY_IDS_ARRAY, UNIT_NAME, } from '../assignmentFlowConstants'
 import ScrollToTop from '../../shared/scroll_to_top'
@@ -15,8 +17,8 @@ const apWritingSkillsSrc = `${process.env.CDN_URL}/images/college_board/diagnost
 const STARTER_DIAGNOSTIC = 'Starter Diagnostic'
 const INTERMEDIATE_DIAGNOSTIC = 'Intermediate Diagnostic'
 const ADVANCED_DIAGNOSTIC = 'Advanced Diagnostic'
-const ELL_DIAGNOSTIC = 'ELL Diagnostic (Level 2 - Expanding)'
-const ELL_STARTER_DIAGNOSTIC = 'ELL Starter Diagnostic (Level 1 - Emerging)'
+const ELL_DIAGNOSTIC = 'ELL Diagnostic 2: Developing and Expanding'
+const ELL_STARTER_DIAGNOSTIC = 'ELL Diagnostic 1: Entering and Emerging'
 const PRE_AP_WRITINGS_SKILLS_1 = 'Pre-AP Writing Skills Survey 1'
 const PRE_AP_WRITINGS_SKILLS_2 = 'Pre-AP Writing Skills Survey 2'
 const AP_WRITINGS_SKILLS = 'AP Writing Skills Survey'
