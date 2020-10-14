@@ -68,8 +68,8 @@ class UnitTemplatePseudoSerializer
       INNER JOIN standard_categories ON standards.standard_category_id = standard_categories.id
       INNER JOIN activities_unit_templates ON activities.id = activities_unit_templates.activity_id
       INNER JOIN activity_classifications ON activities.activity_classification_id = activity_classifications.id
-      INNER JOIN activity_category_activities ON activities.id = activity_category_activities.activity_id
-      INNER JOIN activity_categories ON activity_categories.id = activity_category_activities.activity_category_id
+      LEFT JOIN activity_category_activities ON activities.id = activity_category_activities.activity_id
+      LEFT JOIN activity_categories ON activity_categories.id = activity_category_activities.activity_category_id
       WHERE activities_unit_templates.unit_template_id = #{@unit_template.id}
       AND NOT 'archived' = ANY(activities.flags)
       ORDER BY activities_unit_templates.order_number, activity_categories.order_number, activity_category_activities.order_number").to_a

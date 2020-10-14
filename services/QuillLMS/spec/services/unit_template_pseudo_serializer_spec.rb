@@ -43,4 +43,10 @@ describe UnitTemplatePseudoSerializer do
     serialized_ut = UnitTemplatePseudoSerializer.new(unit_template_with_archived_activity)
     expect(serialized_ut.activities.length).to eq 0
   end
+
+  it('will have an activity even if that activity has no activity categories') do
+    unit_template.activities.each { |a| ActivityCategoryActivity.where(activity_id: a.id).destroy_all }
+    serialized_ut = UnitTemplatePseudoSerializer.new(unit_template)
+    expect(serialized_ut.activities.length).to eq 1
+  end
 end
