@@ -90,7 +90,7 @@ exports[`AssignADiagnostic component should render AssignADiagnostic 1`] = `
         }
         buttonLink="/activity_sessions/anonymous?activity_id=1161"
         buttonText="Preview"
-        header="ELL Starter Diagnostic (Level 1 - Emerging)"
+        header="ELL Diagnostic 1: Entering and Emerging"
         imgAlt="page with less writing that says ELL in the corner"
         imgSrc="undefined/images/illustrations/diagnostics-ell-starter.svg"
         selectCard={[Function]}
@@ -110,7 +110,7 @@ exports[`AssignADiagnostic component should render AssignADiagnostic 1`] = `
         }
         buttonLink="/activity_sessions/anonymous?activity_id=447"
         buttonText="Preview"
-        header="ELL Diagnostic (Level 2 - Expanding)"
+        header="ELL Diagnostic 2: Developing and Expanding"
         imgAlt="page with writing that says ELL in the corner"
         imgSrc="undefined/images/illustrations/diagnostics-ell.svg"
         selectCard={[Function]}
