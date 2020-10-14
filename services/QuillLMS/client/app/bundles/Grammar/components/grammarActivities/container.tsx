@@ -247,6 +247,7 @@ export class PlayGrammarContainer extends React.Component<PlayGrammarContainerPr
       }
 
       if ((grammarActivities.hasreceiveddata || proofreaderSessionId) && session.hasreceiveddata) {
+        document.title = `Quill.org | ${grammarActivities.currentActivity.title}`
 
         if (session.currentQuestion) {
           return (<QuestionComponent

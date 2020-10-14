@@ -339,6 +339,8 @@ export class Lesson extends React.Component {
       return (<div className="student-container student-container-diagnostic"><Spinner /></div>);
     }
 
+    document.title = `Quill.org | ${data[lessonID].name}`
+
     if (playLesson.currentQuestion) {
       const { type } = playLesson.currentQuestion;
       const question = this.getQuestion();

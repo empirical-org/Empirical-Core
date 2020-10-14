@@ -8,8 +8,17 @@ import { sentences } from 'sbd'
 
 const directionSrc = `${process.env.CDN_URL}/images/icons/direction.svg`
 
-import getParameterByName from '../../helpers/getParameterByName';
-import EditCaretPositioning from '../../helpers/EditCaretPositioning'
+import PassageReviewer from './passageReviewer'
+import EarlySubmitModal from './earlySubmitModal'
+import Paragraph from './paragraph'
+import ResetModal from './resetModal'
+import ReviewModal from './reviewModal'
+import FollowupModal from './followupModal'
+import ProgressBar from './progressBar'
+import WelcomePage from './welcomePage'
+import formatInitialPassage from './formatInitialPassage'
+
+import LoadingSpinner from '../shared/loading_spinner'
 import { getActivity } from "../../actions/proofreaderActivities";
 import { startListeningToConcepts } from "../../actions/concepts";
 import {
@@ -20,20 +29,12 @@ import {
   setPassage
 } from "../../actions/session";
 import determineUnnecessaryEditType, { unnecessarySpaceSplitResponse, UNNECESSARY_SPACE, } from '../../helpers/determineUnnecessaryEditType'
-
 import { SessionState } from '../../reducers/sessionReducer'
 import { ProofreaderActivityState } from '../../reducers/proofreaderActivitiesReducer'
 import { ConceptResultObject, WordObject } from '../../interfaces/proofreaderActivities'
-import PassageReviewer from './passageReviewer'
-import EarlySubmitModal from './earlySubmitModal'
-import Paragraph from './paragraph'
-import ResetModal from './resetModal'
-import ReviewModal from './reviewModal'
-import FollowupModal from './followupModal'
-import ProgressBar from './progressBar'
-import WelcomePage from './welcomePage'
-import formatInitialPassage from './formatInitialPassage'
-import LoadingSpinner from '../shared/loading_spinner'
+import EditCaretPositioning from '../../helpers/EditCaretPositioning'
+import getParameterByName from '../../helpers/getParameterByName';
+
 
 interface PlayProofreaderContainerProps {
   proofreaderActivities: ProofreaderActivityState;
@@ -500,6 +501,8 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
       if (session.error) { return <div>{session.error}</div> }
 
       if (!currentActivity) { return <LoadingSpinner />}
+
+      document.title = `Quill.org | ${currentActivity.title}`
 
       const className = currentActivity.underlineErrorsInProofreader ? 'underline-errors' : ''
       const necessaryEditsLength = necessaryEdits ? necessaryEdits.length : 1
