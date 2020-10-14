@@ -2241,7 +2241,7 @@ exports[`PreAp component should render when it is not part of the assignment flo
                     className="preap-block"
                   >
                     <p>
-                      Christina Collins
+                      Christina Collins-Berry
                     </p>
                     <p>
                       Managing Director of Partnerships
@@ -4565,7 +4565,7 @@ exports[`PreAp component should render when it is part of the assignment flow 1`
                     className="preap-block"
                   >
                     <p>
-                      Christina Collins
+                      Christina Collins-Berry
                     </p>
                     <p>
                       Managing Director of Partnerships
@@ -5429,7 +5429,7 @@ exports[`PreAp component should render with no units 1`] = `
                     className="preap-block"
                   >
                     <p>
-                      Christina Collins
+                      Christina Collins-Berry
                     </p>
                     <p>
                       Managing Director of Partnerships

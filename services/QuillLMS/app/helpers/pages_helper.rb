@@ -58,7 +58,7 @@ module PagesHelper
         team: 'Management team',
         members: [
           {
-            name: 'Christina Collins',
+            name: 'Christina Collins-Berry',
             title: 'Managing Director of Partnerships',
             img: 'team-christina-collins@2x.png'
           },

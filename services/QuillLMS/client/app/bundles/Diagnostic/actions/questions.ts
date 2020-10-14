@@ -16,6 +16,7 @@ import _l from 'lodash';
 import { push } from 'react-router-redux';
 import pathwaysActions from './pathways';
 import { submitResponse } from './responses';
+import sessionActions from './sessions';
 import { Questions, Question, FocusPoint, IncorrectSequence } from '../interfaces/questions'
 import {
   QuestionApi,
@@ -58,6 +59,7 @@ function loadSpecifiedQuestions(uids) {
       results.forEach((result, index) => {
         questionData[uids[index]] = result;
       });
+      sessionActions.populateQuestions("SC", questionData, true)
       dispatch({ type: C.RECEIVE_QUESTIONS_DATA, data: questionData, });
     }).catch((error) => {
       throw error;
