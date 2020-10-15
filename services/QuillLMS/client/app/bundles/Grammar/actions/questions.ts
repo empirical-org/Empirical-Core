@@ -5,7 +5,7 @@ import { ActionTypes } from './actionTypes'
 import { Questions, Question, FocusPoint, IncorrectSequence } from '../interfaces/questions'
 import * as responseActions from './responses'
 import { Response, ConceptResult } from 'quill-marking-logic'
-import { populateQuestions } from './session.ts'
+import { populateQuestions, setSessionReducerToSavedSession } from './session.ts'
 import {
   FocusPointApi,
   IncorrectSequenceApi,
@@ -13,11 +13,15 @@ import {
   GRAMMAR_QUESTION_TYPE
 } from '../libs/questions_api'
 
-export const startListeningToQuestions = () => {
+export const startListeningToQuestions = (sessionID) => {
   return (dispatch: Function) => {
     QuestionApi.getAll(GRAMMAR_QUESTION_TYPE).then((questions: Questions) => {
       if (questions) {
-        populateQuestions(questions)
+        console.log(sessionID)
+        if (sessionID) {
+          populateQuestions(questions)
+          dispatch(setSessionReducerToSavedSession(sessionID))
+        }
         dispatch({ type: ActionTypes.RECEIVE_QUESTIONS_DATA, data: questions, });
       } else {
         dispatch({ type: ActionTypes.NO_QUESTIONS_FOUND })
