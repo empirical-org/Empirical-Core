@@ -83,6 +83,9 @@
           background-color: #e1f3f1;
           font-weight: 600;
         }
+        &.inverted-indent {
+          padding: 10px 5px 10px 10px;
+        }
         .question-number {
           margin-right: 8px;
           &.indented {

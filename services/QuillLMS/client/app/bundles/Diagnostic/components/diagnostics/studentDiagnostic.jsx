@@ -16,7 +16,7 @@ import {
   hashToCollection
 } from '../../../Shared/index';
 import SessionActions from '../../actions/sessions.js';
-import { clearData, loadData, nextQuestion, nextQuestionWithoutSaving, submitResponse, updateCurrentQuestion, resumePreviousDiagnosticSession, setCurrentQuestion } from '../../actions/diagnostics.js';
+import { clearData, loadData, nextQuestion, nextQuestionWithoutSaving, submitResponse, updateCurrentQuestion, resumePreviousDiagnosticSession, setCurrentQuestion, setDiagnosticID } from '../../actions/diagnostics.js';
 import { getConceptResultsForAllQuestions } from '../../libs/conceptResults/diagnostic';
 import { getParameterByName } from '../../libs/getParameterByName';
 import {
@@ -26,6 +26,10 @@ import {
 } from '../../libs/calculateProgress'
 
 const request = require('request');
+
+// TODO: triage issue with missing title cards. Currently, we have to dipatch data from this.questionsForLesson() to the loadData action in
+// three different places to ensure that preview mode always works: componentDidMount, onSpinnerMount & startActivity. Without these three calls,
+// sometimes the spinner will hang at 50% or the user will be unable to click title card questions.
 
 export class StudentDiagnostic extends React.Component {
   constructor(props) {
@@ -38,28 +42,30 @@ export class StudentDiagnostic extends React.Component {
     }
   }
 
-  UNSAFE_componentWillMount = () => {
-    const { dispatch, } = this.props
-    const { sessionID, } = this.state
+  componentDidMount() {
+    const { sessionID } = this.state;
+    const { dispatch, match } = this.props;
+    const { params } = match;
+    const { diagnosticID } = params;
     dispatch(clearData());
+    dispatch(setDiagnosticID({ diagnosticID }))
     if (sessionID) {
       SessionActions.get(sessionID, (data) => {
         this.setState({ session: data, });
       });
     }
-  }
-
-  UNSAFE_componentWillReceiveProps(nextProps) {
-    const { playDiagnostic, } = this.props
-    if (nextProps.playDiagnostic.answeredQuestions.length !== playDiagnostic.answeredQuestions.length) {
-      this.saveSessionData(nextProps.playDiagnostic);
-    }
+    const data = this.questionsForLesson()
+    const action = loadData(data);
+    dispatch(action);
   }
 
   componentDidUpdate(prevProps) {
-    const { skippedToQuestionFromIntro, previewMode } = this.props;
+    const { skippedToQuestionFromIntro, previewMode, playDiagnostic } = this.props;
     if(previewMode && skippedToQuestionFromIntro !== prevProps.skippedToQuestionFromIntro) {
       this.startActivity();
+    }
+    if (prevProps.playDiagnostic.answeredQuestions.length !== playDiagnostic.answeredQuestions.length) {
+      this.saveSessionData(playDiagnostic);
     }
   }
 

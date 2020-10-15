@@ -26,15 +26,17 @@ const isDiagnosticActivity = window.location.href.includes('diagnostic');
 const isGrammarActivity = window.location.href.includes('grammar');
 
 const returnActivity = (state: any) => {
-  const { grammarActivities, lessons } = state;
+  const { grammarActivities, lessons, playDiagnostic } = state;
   if(isGrammarActivity) {
     return grammarActivities.currentActivity;
-  } else if(isDiagnosticActivity && lessons && lessons.data) {
-    const uid = window.location.href.split('/').slice(-1)[0];
-    return lessons.data[uid]
+  } else if(isDiagnosticActivity && playDiagnostic && playDiagnostic.diagnosticID && lessons && lessons.data) {
+    const { data } = lessons;
+    const { diagnosticID } = playDiagnostic;
+    return data[diagnosticID]
   } else if(isConnectActivity && lessons && lessons.data) {
+    const { data } = lessons;
     const uid = Object.keys(lessons.data)[0];
-    return lessons.data[uid]
+    return data[uid]
   }
   return null;
 }
@@ -151,18 +153,22 @@ const renderQuestions = ({
     return null;
   // some Grammar activities return an empty array for the questions property so we check it's length
   } else if(activity && activity.questions && activity.questions.length) {
+    const questionsWithoutTitleCards = activity.questions.filter(question => question.questionType !== 'titleCards');
     return activity.questions.map((question: any, i: number) => {
       const { key } = question;
+      const index = questionsWithoutTitleCards.indexOf(question);
+      const questionNumber = index !== -1 ? `${index + 1}.  ` : '';
       const questionObject = getQuestionObject({ questions, titleCards, sentenceFragments, fillInBlank, key });
       const questionText = questionObject.prompt || questionObject.title
       const highlightedStyle = getStyling({ questionToPreview, uidOrKey: key, i, session, lesson });
-      const indentation = getIndentation(i);
+      const indentationStyle = getIndentation(i);
+      const titleCardStyle = !questionNumber ? 'inverted-indent' :'';
       if(!questionObject) {
         return null;
       }
       return(
-        <button className={`question-container ${highlightedStyle} focus-on-light`} id={key} key={key} onClick={handleQuestionUpdate} type="button">
-          <p className={`question-number ${indentation}`}>{`${i + 1}.  `}</p>
+        <button className={`question-container ${highlightedStyle} ${titleCardStyle} focus-on-light`} id={key} key={key} onClick={handleQuestionUpdate} type="button">
+          {questionNumber && <p className={`question-number ${indentationStyle}`}>{questionNumber}</p>}
           <p className="question-text">{stripHtml(questionText)}</p>
         </button>
       );
@@ -171,10 +177,10 @@ const renderQuestions = ({
     return randomizedQuestions.map((question: any, i: number) => {
       const { uid } = question;
       const highlightedStyle = getStyling({ questionToPreview, uidOrKey: uid, i, session, lesson });
-      const indentation = getIndentation(i);
+      const indentationStyle = getIndentation(i);
       return(
         <button className={`question-container ${highlightedStyle} focus-on-light`} id={uid} key={uid} onClick={handleQuestionUpdate} type="button">
-          <p className={`question-number ${indentation}`}>{`${i + 1}.  `}</p>
+          <p className={`question-number ${indentationStyle}`}>{`${i + 1}.  `}</p>
           <p className="question-text">{stripHtml(question.prompt)}</p>
         </button>
       );

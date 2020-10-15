@@ -252,7 +252,9 @@ export class ELLStudentDiagnostic extends React.Component {
     dispatch(action);
     // when user skips to question from the landing page, we set the current question here in this one instance and default lanugage to English
     if(previewMode && skippedToQuestionFromIntro && questionToPreview) {
-      this.updateLanguage(ENGLISH);
+      if(!this.language()) {
+        this.updateLanguage(ENGLISH);
+      }
       const action = setCurrentQuestion(questionToPreview);
       dispatch(action);
     } else {

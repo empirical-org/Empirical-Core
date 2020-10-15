@@ -47,14 +47,10 @@ exports[`TeacherPreviewMenu component should match snapshot 1`] = `
     showPreview={true}
   >
     <TeacherPreviewMenuComponent
+      activity={null}
       dispatch={[Function]}
       fillInBlank={null}
-      playLesson={
-        Object {
-          "answeredQuestions": Array [],
-          "unansweredQuestions": Array [],
-        }
-      }
+      lesson={null}
       questions={null}
       sentenceFragments={null}
       showPreview={true}
