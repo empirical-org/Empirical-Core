@@ -5,6 +5,7 @@ import { ActionTypes } from './actionTypes'
 import { Questions, Question, FocusPoint, IncorrectSequence } from '../interfaces/questions'
 import * as responseActions from './responses'
 import { Response, ConceptResult } from 'quill-marking-logic'
+import { populateQuestions } from './session.ts'
 import {
   FocusPointApi,
   IncorrectSequenceApi,
@@ -16,6 +17,7 @@ export const startListeningToQuestions = () => {
   return (dispatch: Function) => {
     QuestionApi.getAll(GRAMMAR_QUESTION_TYPE).then((questions: Questions) => {
       if (questions) {
+        populateQuestions(questions)
         dispatch({ type: ActionTypes.RECEIVE_QUESTIONS_DATA, data: questions, });
       } else {
         dispatch({ type: ActionTypes.NO_QUESTIONS_FOUND })
