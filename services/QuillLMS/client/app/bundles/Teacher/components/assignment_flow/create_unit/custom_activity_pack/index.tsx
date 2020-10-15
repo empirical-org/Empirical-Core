@@ -63,13 +63,14 @@ const Header = ({ handleClickContinue, selectedActivities, setSelectedActivities
   let selectedActivitySection
 
   if (showActivities) {
-    const selectedActivityRows = selectedActivities.map(a => {
-      return (<section className="sortable-activity-row" key={a.id}>
+    const selectedActivityRows = selectedActivities.map((a, i) => {
+      const className = `selected-activity-row ${i === selectedActivities.length - 1 && 'is-last'}`
+      return (<section className={className} key={a.id}>
         <img alt="Reorder icon" className="reorder-icon" src={reorderSrc} />
         <ActivityRow activity={a} isSelected={true} showCheckbox={false} showRemoveButton={true} />
       </section>)
     })
-    selectedActivitySection = <SortableList data={selectedActivityRows} sortCallback={sortCallback} />
+    selectedActivitySection = <SortableList data={selectedActivityRows} helperClass="sortable-selected-activity-row" lockAxis="y" sortCallback={sortCallback} />
   }
 
   return (<header className={className}>

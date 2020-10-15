@@ -46,18 +46,6 @@
         background-color: #e8f7f3;
         .sortable-list {
           border-top: 1px solid #e0e0e0;
-          .sortable-activity-row {
-            display: flex;
-            .reorder-icon {
-              margin: 0px 16px 0px 8px;
-            }
-            .activity-row {
-              flex: 1;
-              .second-line {
-                padding-left: 0px;
-              }
-            }
-          }
         }
       }
     }
@@ -66,7 +54,7 @@
       padding: 0px 32px;
       margin: auto;
       .search-and-sort {
-        height: 103px;
+        min-height: 104px;
         display: flex;
         justify-content: space-between;
         align-items: center;

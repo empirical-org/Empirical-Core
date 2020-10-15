@@ -96,7 +96,7 @@ const ActivityRowStandardLevel = ({ standardLevelName, }: { standardLevelName?: 
   if (standardLevelName) {
     return (<span className={className}>
       <img alt="Common Core State Standards icon" src={ccssSrc} />
-      <span>CCSS: {standardLevelName}</span>
+      <span>{standardLevelName}</span>
     </span>)
   }
 

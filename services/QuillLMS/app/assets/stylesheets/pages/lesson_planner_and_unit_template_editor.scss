@@ -421,7 +421,7 @@
     }
   }
 
-  section {
+  section:not(.activity-row) {
     border-bottom: none;
     &.name-the-unit {
       border-bottom: solid 1px #c0c0c0;

@@ -1,10 +1,13 @@
-.custom-activity-pack-page {
+.custom-activity-pack-page, .sortable-selected-activity-row {
   .activity-row {
     display: flex;
     flex-direction: column;
     padding: 16px;
-    border-bottom: 1px solid #e0e0e0 !important;
+    border-bottom: 1px solid #e0e0e0;
     position: relative;
+    h2 {
+      font-size: 16px;
+    }
     .first-line, .second-line {
       display: flex;
       justify-content: space-between;
@@ -97,5 +100,34 @@
     z-index: 1;
     padding: 16px;
     top: 80px;
+  }
+  .selected-activity-row {
+    display: flex;
+    .reorder-icon {
+      margin: 0px 16px 0px 8px;
+    }
+    .activity-row {
+      flex: 1;
+      .second-line {
+        padding-left: 0px;
+      }
+    }
+    &.is-last {
+      .activity-row {
+        border-bottom: none;
+      }
+    }
+  }
+}
+
+.sortable-selected-activity-row {
+  z-index: 1;
+  .selected-activity-row {
+    background-color: #e8f7f3;
+    padding: 0px;
+    border: 1px solid #e0e0e0;
+  }
+  .activity-row {
+    border: none;
   }
 }
