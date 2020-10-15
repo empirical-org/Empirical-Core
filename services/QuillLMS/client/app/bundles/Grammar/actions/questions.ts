@@ -17,7 +17,6 @@ export const startListeningToQuestions = (sessionID) => {
   return (dispatch: Function) => {
     QuestionApi.getAll(GRAMMAR_QUESTION_TYPE).then((questions: Questions) => {
       if (questions) {
-        console.log(sessionID)
         if (sessionID) {
           populateQuestions(questions)
           dispatch(setSessionReducerToSavedSession(sessionID))

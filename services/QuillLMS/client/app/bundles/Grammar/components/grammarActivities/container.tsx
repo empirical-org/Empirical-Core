@@ -73,10 +73,8 @@ export class PlayGrammarContainer extends React.Component<PlayGrammarContainerPr
       const proofreaderSessionId = getParameterByName('proofreaderSessionId', window.location.href)
 
       if (sessionID && !previewMode) {
-        console.log('listen to questions and load session')
         dispatch(startListeningToQuestions(sessionID));
       } else {
-        console.log('listen to questions with no session')
         dispatch(startListeningToQuestions());
         dispatch(startNewSession())
       }
