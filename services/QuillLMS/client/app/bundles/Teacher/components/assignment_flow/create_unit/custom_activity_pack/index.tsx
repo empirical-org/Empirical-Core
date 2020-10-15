@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { SortableHandle, } from 'react-sortable-hoc';
 
 import { Activity } from './interfaces'
 import { calculateNumberOfPages, activityClassificationGroupings, filters, ACTIVITY_CLASSIFICATION_FILTERS } from './shared'
@@ -65,12 +66,13 @@ const Header = ({ handleClickContinue, selectedActivities, setSelectedActivities
   if (showActivities) {
     const selectedActivityRows = selectedActivities.map((a, i) => {
       const className = `selected-activity-row ${i === selectedActivities.length - 1 && 'is-last'}`
+      const DragHandle = SortableHandle(() => <img alt="Reorder icon" className="reorder-icon focus-on-light" src={reorderSrc} tabIndex={0} />);
       return (<section className={className} key={a.id}>
-        <img alt="Reorder icon" className="reorder-icon" src={reorderSrc} />
+        <DragHandle />
         <ActivityRow activity={a} isSelected={true} showCheckbox={false} showRemoveButton={true} />
       </section>)
     })
-    selectedActivitySection = <SortableList data={selectedActivityRows} helperClass="sortable-selected-activity-row" lockAxis="y" sortCallback={sortCallback} />
+    selectedActivitySection = <SortableList data={selectedActivityRows} helperClass="sortable-selected-activity-row" sortCallback={sortCallback} useDragHandle={true} />
   }
 
   return (<header className={className}>

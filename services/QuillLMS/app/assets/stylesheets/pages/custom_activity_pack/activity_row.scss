@@ -103,8 +103,13 @@
   }
   .selected-activity-row {
     display: flex;
+    align-items: center;
+    cursor: default;
     .reorder-icon {
       margin: 0px 16px 0px 8px;
+      cursor: grab;
+      height: 24px;
+      width: 24px;
     }
     .activity-row {
       flex: 1;
