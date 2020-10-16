@@ -25,13 +25,10 @@ describe('rethinkdbConfig', () => {
     expect(config.authKey).toEqual('1234');
     expect(config.ssl).toHaveProperty('ca');
   });
-
 });
 
 describe('rethinkDBHost', () => {
-
   it("should work as expected", () => {
-
     // no hosts
     expect(rethinkDBHost(undefined)).toEqual(null);
 
@@ -65,11 +62,9 @@ describe('rethinkDBHost', () => {
     expect(fiftyRandom.includes('two')).toBeTruthy();
     expect(fiftyRandom.includes('three')).toBeTruthy();
   });
-
 });
 
 describe('splitStringOnLast', () => {
-
   it("should split", () => {
     // no occurences
     expect(splitStringOnLast("http//url.com1234", ":")).toEqual(['http//url.com1234', null]);
