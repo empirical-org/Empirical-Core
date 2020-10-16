@@ -34,7 +34,6 @@ class ActivitySearch
       LEFT JOIN standard_levels ON standards.standard_level_id = standard_levels.id
       LEFT JOIN activity_category_activities ON activities.id = activity_category_activities.activity_id
       LEFT JOIN activity_categories ON activity_category_activities.activity_category_id = activity_categories.id
-      WHERE standard_levels.id IS NOT NULL
       AND activities.flags && ARRAY[#{flags}]::varchar[]
       ORDER BY activity_classifications.order_number asc, activity_categories.order_number asc, activity_category_activities.order_number asc").to_a
   end
