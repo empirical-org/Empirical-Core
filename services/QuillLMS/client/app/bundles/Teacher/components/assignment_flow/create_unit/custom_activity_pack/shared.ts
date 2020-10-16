@@ -61,3 +61,64 @@ export const filters = {
   gradeLevelFilters: filterByGradeLevel,
   [ACTIVITY_CATEGORY_FILTERS]: filterByActivityCategory
 }
+
+const conceptSort = (activities) => activities.sort((a, b) => {
+  if (!a.activity_category_name) { return 1 }
+  if (!b.activity_category_name) { return -1 }
+  return a.activity_category_name.localeCompare(b.activity_category_name)
+})
+
+const ccssAscendingSort = (activities) => activities.sort((a, b) => {
+  const numberMatchA = getNumberFromString(a.standard_level_name)
+  const numberMatchB = getNumberFromString(b.standard_level_name)
+
+  if (!numberMatchA) { return 1 }
+  if (!numberMatchB) { return -1 }
+
+  return numberMatchA - numberMatchB
+})
+
+const ccssDescendingSort = (activities) => activities.sort((a, b) => {
+  const numberMatchA = getNumberFromString(a.standard_level_name)
+  const numberMatchB = getNumberFromString(b.standard_level_name)
+
+  if (!numberMatchA) { return 1 }
+  if (!numberMatchB) { return -1 }
+
+  return numberMatchB - numberMatchA
+})
+
+export const DEFAULT = 'default'
+const CCSS_ASCENDING = 'ccss-asc'
+const CCSS_DESCENDING = 'ccss-desc'
+const CONCEPT = 'concept'
+
+export const sortFunctions = {
+  [DEFAULT]: (activities) => activities,
+  [CCSS_ASCENDING]: ccssAscendingSort,
+  [CCSS_DESCENDING]: ccssDescendingSort,
+  [CONCEPT]: conceptSort
+}
+
+export const sortOptions = [
+  {
+    label: 'Default',
+    key: DEFAULT,
+    value: DEFAULT
+  },
+  {
+    label: 'CCSS Grade Level (Low to High)',
+    key: CCSS_ASCENDING,
+    value: CCSS_ASCENDING
+  },
+  {
+    label: 'CCSS Grade Level (High to Low)',
+    key: CCSS_DESCENDING,
+    value: CCSS_DESCENDING
+  },
+  {
+    label: 'Concept',
+    key: CONCEPT,
+    value: CONCEPT
+  }
+]

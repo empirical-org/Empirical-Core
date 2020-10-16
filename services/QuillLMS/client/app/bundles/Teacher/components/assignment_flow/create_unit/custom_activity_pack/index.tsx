@@ -1,7 +1,7 @@
 import * as React from 'react';
 
 import { Activity } from './interfaces'
-import { calculateNumberOfPages, activityClassificationGroupings, filters } from './shared'
+import { calculateNumberOfPages, activityClassificationGroupings, filters, DEFAULT } from './shared'
 import ActivityTableContainer from './activity_table_container'
 import FilterColumn from './filter_column'
 import Header from './header'
@@ -84,6 +84,7 @@ const CustomActivityPack = ({
   const [activityCategoryFilters, setActivityCategoryFilters] = React.useState([])
   const [showMobileFilterMenu, setShowMobileFilterMenu] = React.useState(false)
   const [showMobileSortMenu, setShowMobileSortMenu] = React.useState(false)
+  const [sort, setSort] = React.useState(DEFAULT)
 
   const debouncedSearch = useDebounce(search, DEBOUNCE_LENGTH);
   const debouncedActivityClassificationFilters = useDebounce(activityClassificationFilters, DEBOUNCE_LENGTH);
@@ -211,6 +212,8 @@ const CustomActivityPack = ({
         setCurrentPage={setCurrentPage}
         setShowMobileFilterMenu={setShowMobileFilterMenu}
         setShowMobileSortMenu={setShowMobileSortMenu}
+        setSort={setSort}
+        sort={sort}
         toggleActivitySelection={toggleActivitySelection}
         undoLastFilter={undoLastFilter}
       />
