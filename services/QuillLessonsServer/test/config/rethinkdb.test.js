@@ -1,8 +1,14 @@
-import {rethinkDBHost} from '../../src/config/rethinkdb';
+import {
+    rethinkDBHost,
+    splitStringOnLast
+} from '../../src/config/rethinkdb';
 
 describe('rethinkDBHost', () => {
 
   it("should work as expected", () => {
+
+    // no hosts
+    expect(rethinkDBHost(undefined)).toEqual(null);
 
     // only one host
     expect(rethinkDBHost("one")).toEqual('one');
@@ -35,4 +41,16 @@ describe('rethinkDBHost', () => {
     expect(fiftyRandom.includes('three')).toBeTruthy();
   });
 
+});
+
+describe('splitStringOnLast', () => {
+
+  it("should split", () => {
+    // no occurences
+    expect(splitStringOnLast("http//url.com1234", ":")).toEqual(['http//url.com1234', null]);
+    // one occurence
+    expect(splitStringOnLast("url.com:1234", ":")).toEqual(['url.com', '1234']);
+    // multiple occurrences
+    expect(splitStringOnLast("http://url.com:1234", ":")).toEqual(['http://url.com', '1234']);
+  });
 });
