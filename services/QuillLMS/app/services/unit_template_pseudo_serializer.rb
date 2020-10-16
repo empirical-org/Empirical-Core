@@ -26,7 +26,7 @@ class UnitTemplatePseudoSerializer
   def number_of_standards
     standard_level_ids = []
     @unit_template.activities.each do |act|
-      standard_level_ids << act.standard.standard_level_id
+      standard_level_ids << act.standard.standard_level_id if act&.standard&.standard_level_id
     end
     standard_level_ids.uniq.count
   end
