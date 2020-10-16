@@ -1,7 +1,9 @@
 import * as React from 'react';
 import * as _ from 'underscore';
 // TODO: updated Response interface in quill-marking-logic
-import { checkFillInTheBlankQuestion } from 'quill-marking-logic'
+import { checkFillInTheBlankQuestion } from 'quill-marking-logic';
+import { stringNormalize } from 'quill-string-normalizer';
+
 import { getGradedResponsesWithCallback } from '../../actions/responses.js';
 import { getLatestAttempt } from '../../libs/sharedQuestionFunctions';
 import { renderPreviewFeedback } from '../../libs/previewHelperFunctions';
@@ -11,7 +13,6 @@ import updateResponseResource from '../renderForQuestions/updateResponseResource
 import Cues from '../renderForQuestions/cues.tsx';
 import translations from '../../libs/translations/index.js';
 import translationMap from '../../libs/translations/ellQuestionMapper.js';
-import { stringNormalize } from 'quill-string-normalizer';
 import { ENGLISH, rightToLeftLanguages } from '../../modules/translation/languagePageInfo';
 import Question from '../../interfaces/Question.ts';
 import { hashToCollection, Prompt, Feedback } from '../../../Shared/index'
@@ -333,7 +334,6 @@ export class PlayFillInTheBlankQuestion extends React.Component<PlayFillInTheBla
     const { inputErrors, } = this.state
     const errorsPresent = _.size(inputErrors) !== 0;
     const latestAttempt = getLatestAttempt(question.attempts);
-    // we only want to show instructions on the first attempt during preview mode
     if (errorsPresent) {
       let feedback: any;
       const blankFeedback = question.blankAllowed ? ' or leave it blank' : ''

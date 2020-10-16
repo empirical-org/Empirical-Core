@@ -234,16 +234,6 @@ class PlaySentenceFragment extends React.Component<any, any> {
     return <RenderQuestionFeedback attempt={attempt} getErrorsForAttempt={this.getErrorsForAttempt} getQuestion={this.getQuestion} />;
   }
 
-  getDisplayedResponse = () => {
-    const { previewMode, question } = this.props;
-    const { response } = this.state;
-    const latestAttempt = getLatestAttempt(question.attempts);
-    if(previewMode && latestAttempt && latestAttempt.response && latestAttempt.response.text) {
-      return latestAttempt.response.text;
-    }
-    return response;
-  }
-
   renderFeedback = () => {
     const { question, previewMode } = this.props
     let instructions;

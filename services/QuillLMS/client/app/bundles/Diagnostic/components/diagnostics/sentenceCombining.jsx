@@ -210,16 +210,6 @@ class PlayDiagnosticQuestion extends React.Component {
     return <button className="quill-button focus-on-light large primary contained" onClick={this.handleSubmitResponse} type="button">Submit</button>;
   }
 
-  getDisplayedResponse = () => {
-    const { previewMode, question } = this.props;
-    const { response } = this.state;
-    const latestAttempt = getLatestAttempt(question.attempts);
-    if(previewMode && latestAttempt && latestAttempt.response && latestAttempt.response.text) {
-      return latestAttempt.response.text;
-    }
-    return response;
-  }
-
   renderFeedback = () => {
     const { previewMode, question } = this.props;
     const { key } = question;
