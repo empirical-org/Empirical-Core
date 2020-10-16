@@ -8,12 +8,12 @@ class StandardLevel < ActiveRecord::Base
 
   validates :name, presence: true
 
-  before_save :archive_standards
+  before_save :archive_or_unarchive_standards
 
-  def archive_standards
-    if self.visible_changed? && !self.visible
+  def archive_or_unarchive_standards
+    if self.visible_changed?
       self.standards.each do |standard|
-        standard.visible = false
+        standard.visible = self.visible
         standard.save!
       end
     end
