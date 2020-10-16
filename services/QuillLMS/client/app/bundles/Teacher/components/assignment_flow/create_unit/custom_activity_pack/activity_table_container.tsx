@@ -18,6 +18,8 @@ const CONCEPT = 'concept'
 const searchIconSrc = `${process.env.CDN_URL}/images/icons/search.svg`
 const closeIconSrc = `${process.env.CDN_URL}/images/icons/close.svg`
 const dropdownIconSrc = `${process.env.CDN_URL}/images/icons/dropdown.svg`
+const filterIconSrc = `${process.env.CDN_URL}/images/icons/icons-filter.svg`
+const sortIconSrc = `${process.env.CDN_URL}/images/icons/icons-sort.svg`
 const emptySearchSrc = `${process.env.CDN_URL}/images/illustrations/search-empty.svg`
 
 interface ActivityTableContainerProps {
@@ -178,15 +180,17 @@ const SortDropdown = ({ setSort, sort, }) => {
   </div>)
 }
 
-const FilterAndSort = ({ openMobileFilterMenu, openMobileSortMenu, }) => {
+const FilterAndSort = ({ setShowMobileFilterMenu, setShowMobileSortMenu, }) => {
+  function openMobileFilterMenu() { setShowMobileFilterMenu(true) }
+  function openMobileSortMenu() { setShowMobileSortMenu(true) }
   return (<section className="filter-and-sort">
     <button className="interactive-wrapper focus-on-light" onClick={openMobileFilterMenu} type="button">
-      <img />
+      <img alt="Filter icon" src={filterIconSrc} />
       Filters
     </button>
     <span className="divider" />
     <button className="interactive-wrapper focus-on-light" onClick={openMobileSortMenu} type="button">
-      <img />
+      <img alt="Sort icon" src={sortIconSrc} />
       Sort by
     </button>
   </section>)
@@ -234,8 +238,8 @@ const ActivityTableContainer = ({
   handleSearch,
   undoLastFilter,
   resetAllFilters,
-  openMobileFilterMenu,
-  openMobileSortMenu
+  setShowMobileFilterMenu,
+  setShowMobileSortMenu
 }: ActivityTableContainerProps) => {
   const [sort, setSort] = React.useState(DEFAULT)
 
@@ -251,7 +255,7 @@ const ActivityTableContainer = ({
 
   return (<section className="activity-table-container">
     <SearchAndSort handleSearch={handleSearch} search={search} setSort={setSort} sort={sort} />
-    <FilterAndSort openMobileFilterMenu={openMobileFilterMenu} openMobileSortMenu={openMobileSortMenu} />
+    <FilterAndSort setShowMobileFilterMenu={setShowMobileFilterMenu} setShowMobileSortMenu={setShowMobileSortMenu} />
     {activityRowsOrEmptyState}
     <Pagination activities={filteredActivities} currentPage={currentPage} setCurrentPage={setCurrentPage} />
   </section>)

@@ -132,6 +132,20 @@
         display: flex;
         border-bottom: 1px solid #e0e0e0;
         justify-content: center;
+        align-items: center;
+        margin-bottom: 24px;
+        .divider {
+          border-left: 1px solid #e0e0e0;
+          height: 24px;
+          margin: 0px 41px;
+        }
+        img {
+          margin-right: 8px;
+        }
+        .interactive-wrapper {
+          display: flex;
+          align-items: center;
+        }
       }
     }
     .pagination-section {

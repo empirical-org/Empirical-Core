@@ -10,6 +10,8 @@ import useDebounce from '../../../../hooks/useDebounce'
 import { requestGet } from '../../../../../../modules/request/index'
 import { Spinner, } from '../../../../../Shared/index'
 
+const closeIconSrc = `${process.env.CDN_URL}/images/icons/close.svg`
+
 const DEBOUNCE_LENGTH = 500
 
 interface CustomActivityPackProps {
@@ -18,6 +20,50 @@ interface CustomActivityPackProps {
   selectedActivities: Activity[],
   setSelectedActivities: (selectedActivities: Activity[]) => void,
   toggleActivitySelection: (activity: Activity) => void,
+}
+
+const MobileFilterMenu = ({
+  activities,
+  activityCategoryFilters,
+  activityClassificationFilters,
+  calculateNumberOfFilters,
+  filterActivities,
+  filteredActivities,
+  gradeLevelFilters,
+  handleActivityCategoryFilterChange,
+  handleActivityClassificationFilterChange,
+  handleGradeLevelFilterChange,
+  resetAllFilters,
+  showMobileFilterMenu,
+  setShowMobileFilterMenu
+}) => {
+  if (!showMobileFilterMenu) { return <span /> }
+
+  function closeMobileFilterMenu() { setShowMobileFilterMenu(false) }
+  return (<section className="mobile-filter-menu">
+    <div className="top-section">
+      <button className="interactive-wrapper focus-on-light" onClick={closeMobileFilterMenu} type="button">
+        <img alt="Close icon" src={closeIconSrc} />
+        Close
+      </button>
+    </div>
+    <FilterColumn
+      activities={activities}
+      activityCategoryFilters={activityCategoryFilters}
+      activityClassificationFilters={activityClassificationFilters}
+      calculateNumberOfFilters={calculateNumberOfFilters}
+      filterActivities={filterActivities}
+      filteredActivities={filteredActivities}
+      gradeLevelFilters={gradeLevelFilters}
+      handleActivityCategoryFilterChange={handleActivityCategoryFilterChange}
+      handleActivityClassificationFilterChange={handleActivityClassificationFilterChange}
+      handleGradeLevelFilterChange={handleGradeLevelFilterChange}
+      resetAllFilters={resetAllFilters}
+    />
+    <button className="quill-button primary contained medium focus-on-light" onClick={closeMobileFilterMenu} type="button">
+      Apply
+    </button>
+  </section>)
 }
 
 const CustomActivityPack = ({
@@ -36,6 +82,8 @@ const CustomActivityPack = ({
   const [activityClassificationFilters, setActivityClassificationFilters] = React.useState([])
   const [gradeLevelFilters, setGradeLevelFilters] = React.useState([])
   const [activityCategoryFilters, setActivityCategoryFilters] = React.useState([])
+  const [showMobileFilterMenu, setShowMobileFilterMenu] = React.useState(false)
+  const [showMobileSortMenu, setShowMobileSortMenu] = React.useState(false)
 
   const debouncedSearch = useDebounce(search, DEBOUNCE_LENGTH);
   const debouncedActivityClassificationFilters = useDebounce(activityClassificationFilters, DEBOUNCE_LENGTH);
@@ -129,24 +177,28 @@ const CustomActivityPack = ({
     setFilterHistory(newFilterHistory)
   }
 
+
   if (loading) {
     return <div className="custom-activity-pack-page loading"><Spinner /></div>
   }
 
+  const filterColumnProps = {
+    activities,
+    activityCategoryFilters,
+    activityClassificationFilters,
+    calculateNumberOfFilters,
+    filterActivities,
+    filteredActivities,
+    gradeLevelFilters,
+    handleActivityCategoryFilterChange,
+    handleActivityClassificationFilterChange,
+    handleGradeLevelFilterChange,
+    resetAllFilters,
+  }
+
   return (<div className="custom-activity-pack-page">
-    <FilterColumn
-      activities={activities}
-      activityCategoryFilters={activityCategoryFilters}
-      activityClassificationFilters={activityClassificationFilters}
-      calculateNumberOfFilters={calculateNumberOfFilters}
-      filterActivities={filterActivities}
-      filteredActivities={filteredActivities}
-      gradeLevelFilters={gradeLevelFilters}
-      handleActivityCategoryFilterChange={handleActivityCategoryFilterChange}
-      handleActivityClassificationFilterChange={handleActivityClassificationFilterChange}
-      handleGradeLevelFilterChange={handleGradeLevelFilterChange}
-      resetAllFilters={resetAllFilters}
-    />
+    <MobileFilterMenu {...filterColumnProps} setShowMobileFilterMenu={setShowMobileFilterMenu} showMobileFilterMenu={showMobileFilterMenu} />
+    <FilterColumn {...filterColumnProps} />
     <section className="main-content-container">
       <Header handleClickContinue={clickContinue} selectedActivities={selectedActivities} setSelectedActivities={setSelectedActivities} toggleActivitySelection={toggleActivitySelection} />
       <ActivityTableContainer
@@ -157,6 +209,8 @@ const CustomActivityPack = ({
         search={search}
         selectedActivities={selectedActivities}
         setCurrentPage={setCurrentPage}
+        setShowMobileFilterMenu={setShowMobileFilterMenu}
+        setShowMobileSortMenu={setShowMobileSortMenu}
         toggleActivitySelection={toggleActivitySelection}
         undoLastFilter={undoLastFilter}
       />

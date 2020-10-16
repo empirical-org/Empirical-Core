@@ -124,7 +124,7 @@ const ActivityRowTooltip = ({ activity, showTooltip}: { activity: Activity, show
   </div>)
 }
 
-const ActivityRow = ({ activity, isSelected, toggleActivitySelection, showCheckbox, showRemoveButton }: ActivityRowProps) => {
+const ActivityRow = ({ activity, isSelected, toggleActivitySelection, showCheckbox, showRemoveButton, isFirst, }: ActivityRowProps) => {
   const [isExpanded, setIsExpanded] = React.useState(false)
   const [showTooltip, setShowTooltip] = React.useState(false)
 
@@ -143,10 +143,11 @@ const ActivityRow = ({ activity, isSelected, toggleActivitySelection, showCheckb
 
   const expandClassName = isExpanded ? 'expanded' : 'not-expanded'
   const isSelectedClassName = isSelected ? 'selected' : 'not-selected'
+  const isFirstClassName = isFirst ? 'is-first' : ''
 
   const mobileOnly = showRemoveButton ? <div className="mobile-only">{removeButton}</div> : null
 
-  return (<section className={`activity-row ${expandClassName} ${isSelectedClassName}`}>
+  return (<section className={`activity-row ${expandClassName} ${isSelectedClassName} ${isFirstClassName}`}>
     <ActivityRowTooltip activity={activity} showTooltip={showTooltip} />
     <div className="first-line">
       <div className="name-and-checkbox-wrapper">

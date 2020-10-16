@@ -421,7 +421,7 @@
     }
   }
 
-  section:not(.activity-row):not(.selected-activity-row) {
+  section:not(.activity-row):not(.selected-activity-row):not(.filter-and-sort) {
     border-bottom: none;
     &.name-the-unit {
       border-bottom: solid 1px #c0c0c0;

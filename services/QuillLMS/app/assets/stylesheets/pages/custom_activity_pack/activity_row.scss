@@ -109,6 +109,9 @@
           margin-bottom: 5px;
         }
       }
+      &.is-first {
+        border-top: 1px solid #e0e0e0;
+      }
     }
     .mobile-only {
       margin-top: 16px;
