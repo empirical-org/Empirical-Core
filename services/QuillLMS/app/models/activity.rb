@@ -19,6 +19,8 @@ class Activity < ActiveRecord::Base
   has_many :recommendations, dependent: :destroy
   has_many :activity_category_activities, dependent: :destroy
   has_many :activity_categories, through: :activity_category_activities
+  has_many :content_partner_activities, dependent: :destroy
+  has_many :content_partners, :through => :content_partner_activities
   before_create :flag_as_beta, unless: :flags?
   after_commit :clear_activity_search_cache
 
