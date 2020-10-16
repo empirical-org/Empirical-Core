@@ -1,7 +1,7 @@
 import fs from 'fs'
 import path from 'path'
 
-export function rethinkdbConfig(hosts, server, authKey, publicKey, useSSL) {
+export const rethinkdbConfig = (hosts, server, authKey, publicKey, useSSL) => {
   const db = 'quill_lessons';
   const hostWithPort = rethinkDBHost(hosts, server);
   const [host, port] = splitStringOnLast(hostWithPort, ':');
@@ -20,7 +20,7 @@ export function rethinkdbConfig(hosts, server, authKey, publicKey, useSSL) {
 // For multiple proxies, set RETHINKDB_HOSTS to "url1:port url2:port url3:port"
 // Pins each dyno to a proxy based on DYNO number, e.g. 'web.1', 'web.2'
 // compatible with single host setup, see specs for examples
-export function rethinkDBHost(envHosts, envServer) {
+export const rethinkDBHost = (envHosts, envServer) => {
   if (envHosts === undefined) return null;
 
   const hosts = envHosts.split(' ').filter(s => s);
@@ -36,7 +36,7 @@ export function rethinkDBHost(envHosts, envServer) {
   return hosts[serverID % hosts.length]
 };
 
-export function splitStringOnLast(string, char) {
+export const splitStringOnLast = (string, char) => {
   const index = string.lastIndexOf(char);
 
   // if char not found, return an array with full string and null
