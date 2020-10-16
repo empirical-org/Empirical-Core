@@ -1,7 +1,32 @@
 import {
+    rethinkdbConfig,
     rethinkDBHost,
     splitStringOnLast
 } from '../../src/config/rethinkdb';
+
+describe('rethinkdbConfig', () => {
+
+  it("should work for null configs", () => {
+    const config = rethinkdbConfig('url.com:4321');
+
+    expect(config.host).toEqual('url.com');
+    expect(config.port).toEqual('4321');
+    expect(config.db).toEqual('quill_lessons');
+    expect(config.authKey).toBeUndefined();
+    expect(config.ssl).toBeUndefined();
+  });
+
+  it("should work for base configs", () => {
+    const config = rethinkdbConfig('url.com:4321', 'web.2', '1234', '5678', 'true');
+
+    expect(config.host).toEqual('url.com');
+    expect(config.port).toEqual('4321');
+    expect(config.db).toEqual('quill_lessons');
+    expect(config.authKey).toEqual('1234');
+    expect(config.ssl).toHaveProperty('ca');
+  });
+
+});
 
 describe('rethinkDBHost', () => {
 

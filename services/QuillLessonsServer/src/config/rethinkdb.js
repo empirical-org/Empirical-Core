@@ -1,31 +1,20 @@
-import dotenv from 'dotenv'
 import fs from 'fs'
 import path from 'path'
 
-dotenv.config()
-
-const rethinkdbConfig = (() => {
-
-  const hostWithPort = rethinkDBHost(process.env.RETHINKDB_HOSTS, process.env.DYNO);
+export function rethinkdbConfig(hosts, server, authKey, publicKey, useSSL) {
+  const db = 'quill_lessons';
+  const hostWithPort = rethinkDBHost(hosts, server);
   const [host, port] = splitStringOnLast(hostWithPort, ':');
+  const ssl = (useSSL === 'true') ? { ca: Buffer.from(publicKey, 'utf8') } : undefined;
 
-  let config = {
+  return {
     host,
     port,
-    db:   'quill_lessons'
+    db,
+    authKey,
+    ssl,
   }
-
-  if (process.env.RETHINKDB_AUTH_KEY) {
-    config['authKey'] = process.env.RETHINKDB_AUTH_KEY
-  }
-
-  if (process.env.RETHINKDB_USE_SSL === 'true') {
-    const caCert  = Buffer.from(process.env.RETHINKDB_PUBLIC_KEY, 'utf8');
-    config['ssl'] = { ca: caCert }
-  }
-
-  return config
-})()
+}
 
 // bare bones load balancer so we can use multiple proxies for RethinkDB
 // For multiple proxies, set RETHINKDB_HOSTS to "url1:port url2:port url3:port"
