@@ -24,6 +24,7 @@ interface ActivityRowCheckboxProps {
 interface ActivityRowProps {
   activity: Activity,
   isSelected: boolean,
+  isFirst: boolean,
   toggleActivitySelection: (activity: Activity, isSelected: boolean) => void,
   showCheckbox?: boolean,
   showRemoveButton?: boolean
@@ -129,6 +130,7 @@ const ActivityRow = ({ activity, isSelected, toggleActivitySelection, showCheckb
 
   function toggleIsExpanded() { setIsExpanded(!isExpanded) }
   function toggleShowTooltip() { setShowTooltip(!showTooltip)}
+  function removeActivity() { toggleActivitySelection(activity, isSelected) }
 
   const expandImgAltText = `Arrow pointing ${isExpanded ? 'up' : 'down'}`
 
@@ -136,11 +138,13 @@ const ActivityRow = ({ activity, isSelected, toggleActivitySelection, showCheckb
 
   const previewButton = <a className="interactive-wrapper focus-on-light preview-link" href={anonymous_path} rel="noopener noreferrer" target="_blank"><img alt="Preview eye icon" src={previewSrc} />Preview</a>
   const expandButton = <button className="interactive-wrapper focus-on-light expand-button" onClick={toggleIsExpanded} type="button"><img alt={expandImgAltText} src={expandSrc} /></button>
-  const removeButton = <button className="interactive-wrapper focus-on-light remove-button" onClick={toggleIsExpanded} type="button"><img alt="Remove icon" src={removeSrc} />Remove</button>
+  const removeButton = <button className="interactive-wrapper focus-on-light remove-button" onClick={removeActivity} type="button"><img alt="Remove icon" src={removeSrc} />Remove</button>
   const removeOrPreviewButton = showRemoveButton ? removeButton : previewButton
 
   const expandClassName = isExpanded ? 'expanded' : 'not-expanded'
   const isSelectedClassName = isSelected ? 'selected' : 'not-selected'
+
+  const mobileOnly = showRemoveButton ? <div className="mobile-only">{removeButton}</div> : null
 
   return (<section className={`activity-row ${expandClassName} ${isSelectedClassName}`}>
     <ActivityRowTooltip activity={activity} showTooltip={showTooltip} />
@@ -166,6 +170,7 @@ const ActivityRow = ({ activity, isSelected, toggleActivitySelection, showCheckb
       </div>
     </div>
     <ActivityRowExpandedSection activity={activity} isExpanded={isExpanded} />
+    {mobileOnly}
   </section>)
 }
 

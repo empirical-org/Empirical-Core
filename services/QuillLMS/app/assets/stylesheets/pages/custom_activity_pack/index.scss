@@ -7,6 +7,8 @@
   }
   h1, h2 {
     font-size: 16px;
+    text-align: left;
+    line-height: normal;
   }
   section {
     padding: 0px;
@@ -44,6 +46,9 @@
       }
       &.has-selected-activities {
         background-color: #e8f7f3;
+        .number-of-activities {
+          margin-left: 4px;
+        }
         .sortable-list {
           border-top: 1px solid #e0e0e0;
         }
@@ -122,6 +127,12 @@
           }
         }
       }
+      .filter-and-sort {
+        height: 56px;
+        display: flex;
+        border-bottom: 1px solid #e0e0e0;
+        justify-content: center;
+      }
     }
     .pagination-section {
       margin-top: 48px;
@@ -170,6 +181,40 @@
         margin-bottom: 24px;
         display: flex;
         justify-content: center;
+      }
+    }
+  }
+
+  @media (min-width: 1501px) {
+    .filter-and-sort {
+      display: none;
+    }
+    .number-of-activities {
+      display: none;
+    }
+  }
+
+  @media (max-width: 1500px) {
+    .main-content-container {
+      header {
+        .header-content {
+          height: 76px;
+          padding: 0px 16px;
+        }
+        &.has-selected-activities {
+          h1 {
+            display: none;
+          }
+          .header-content div .quill-button {
+            margin-left: 0px;
+          }
+        }
+      }
+      .activity-table-container {
+        padding: 0px;
+        .search-and-sort {
+          display: none;
+        }
       }
     }
   }

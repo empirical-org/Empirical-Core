@@ -178,6 +178,20 @@ const SortDropdown = ({ setSort, sort, }) => {
   </div>)
 }
 
+const FilterAndSort = ({ openMobileFilterMenu, openMobileSortMenu, }) => {
+  return (<section className="filter-and-sort">
+    <button className="interactive-wrapper focus-on-light" onClick={openMobileFilterMenu} type="button">
+      <img />
+      Filters
+    </button>
+    <span className="divider" />
+    <button className="interactive-wrapper focus-on-light" onClick={openMobileSortMenu} type="button">
+      <img />
+      Sort by
+    </button>
+  </section>)
+}
+
 const SearchAndSort = ({ handleSearch, search, setSort, sort, }) => {
   function handleClickClear() { handleSearch('') }
   function handleInputChange(e) { handleSearch(e.target.value) }
@@ -219,22 +233,25 @@ const ActivityTableContainer = ({
   search,
   handleSearch,
   undoLastFilter,
-  resetAllFilters
+  resetAllFilters,
+  openMobileFilterMenu,
+  openMobileSortMenu
 }: ActivityTableContainerProps) => {
   const [sort, setSort] = React.useState(DEFAULT)
 
   const sortedActivities = sort ? sortFunctions[sort]([...filteredActivities]) : filteredActivities
   const currentPageActivities = sortedActivities.slice(lowerBound(currentPage), upperBound(currentPage));
 
-  const activityRows = currentPageActivities.map(act => {
+  const activityRows = currentPageActivities.map((act, i) => {
     const isSelected = selectedActivities.some(s => s.id === act.id)
-    return <ActivityRow activity={act} isSelected={isSelected} key={act.id} toggleActivitySelection={toggleActivitySelection} />
+    return <ActivityRow activity={act} isFirst={i === 0} isSelected={isSelected} key={act.id} toggleActivitySelection={toggleActivitySelection} />
   })
 
   const activityRowsOrEmptyState = activityRows.length ? activityRows : <EmptyState resetAllFilters={resetAllFilters} undoLastFilter={undoLastFilter} />
 
   return (<section className="activity-table-container">
     <SearchAndSort handleSearch={handleSearch} search={search} setSort={setSort} sort={sort} />
+    <FilterAndSort openMobileFilterMenu={openMobileFilterMenu} openMobileSortMenu={openMobileSortMenu} />
     {activityRowsOrEmptyState}
     <Pagination activities={filteredActivities} currentPage={currentPage} setCurrentPage={setCurrentPage} />
   </section>)
