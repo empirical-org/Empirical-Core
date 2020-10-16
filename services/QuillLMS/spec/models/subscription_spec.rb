@@ -392,6 +392,11 @@ describe Subscription, type: :model do
           expect(recurring_subscription_expiring_today_1).not_to receive(:renew_subscription)
           recurring_subscription_expiring_today_1.update_if_charge_succeeds
         end
+
+        it "sets recurring to false" do
+          recurring_subscription_expiring_today_1.update_if_charge_succeeds
+          expect(recurring_subscription_expiring_today_1.recurring).to eq(false)
+        end
       end
     end
 

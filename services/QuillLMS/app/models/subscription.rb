@@ -190,6 +190,9 @@ class Subscription < ActiveRecord::Base
     charge = charge_user
     if charge[:status] == 'succeeded'
       renew_subscription
+    else
+      self.recurring = false
+      save!
     end
   end
 
