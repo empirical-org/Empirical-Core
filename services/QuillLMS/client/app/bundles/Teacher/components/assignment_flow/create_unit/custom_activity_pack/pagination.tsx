@@ -17,6 +17,9 @@ interface PageButtonProps {
   setCurrentPage: (pageNumber: number) => void
 }
 
+const ON_MOBILE = window.innerWidth < 1151
+const SHOW_ALL_PAGES_MAX = ON_MOBILE ? 5 : 8
+
 const PageButton = ({ currentPage, buttonNumber, setCurrentPage, }: PageButtonProps) => {
   let className = 'pagination-button focus-on-light'
   className += currentPage === buttonNumber ? ' active' : ''
@@ -40,12 +43,12 @@ const Pagination = ({ activities, currentPage, setCurrentPage, }: PaginationProp
   let lastWasEllipses = false
   for (let i = 1; i <= numberOfPages; i++) {
     const pageButton = <PageButton buttonNumber={i} currentPage={currentPage} setCurrentPage={setCurrentPage} />
-    const thereAreFewerThanEightPages = numberOfPages < 8
+    const showAllPages = numberOfPages < SHOW_ALL_PAGES_MAX
     const firstOrLastPage = [1, numberOfPages].includes(i)
-    const currentPageIsOneOfTheFirstFivePages = currentPage < 5 && i < 6
-    const currentPageIsOneOfTheLastFivePages = currentPage > numberOfPages - 4 && i > numberOfPages - 5
+    const currentPageIsOneOfTheFirstFivePages = ON_MOBILE ? false : currentPage < 5 && i < 6
+    const currentPageIsOneOfTheLastFivePages = ON_MOBILE ? false : currentPage > numberOfPages - 4 && i > numberOfPages - 5
     const adjacentToCurrentPage = [currentPage - 1, currentPage, currentPage + 1].includes(i)
-    if (thereAreFewerThanEightPages || firstOrLastPage || adjacentToCurrentPage || currentPageIsOneOfTheFirstFivePages || currentPageIsOneOfTheLastFivePages) {
+    if (showAllPages || firstOrLastPage || adjacentToCurrentPage || currentPageIsOneOfTheFirstFivePages || currentPageIsOneOfTheLastFivePages) {
       pageButtons.push(pageButton)
       lastWasEllipses = false
     } else if (!lastWasEllipses) {
