@@ -63,9 +63,9 @@ class UnitTemplatePseudoSerializer
         standard_categories.id AS standard_category_id,
         standard_categories.name AS standard_category_name
       FROM activities
-      INNER JOIN standards ON standards.id = activities.standard_id
-      INNER JOIN standard_levels ON standards.standard_level_id = standard_levels.id
-      INNER JOIN standard_categories ON standards.standard_category_id = standard_categories.id
+      LEFT JOIN standards ON standards.id = activities.standard_id
+      LEFT JOIN standard_levels ON standards.standard_level_id = standard_levels.id
+      LEFT JOIN standard_categories ON standards.standard_category_id = standard_categories.id
       INNER JOIN activities_unit_templates ON activities.id = activities_unit_templates.activity_id
       INNER JOIN activity_classifications ON activities.activity_classification_id = activity_classifications.id
       INNER JOIN activity_category_activities ON activities.id = activity_category_activities.activity_id
