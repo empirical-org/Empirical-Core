@@ -1,16 +1,16 @@
 import * as React from 'react';
 
 import { Activity } from './interfaces'
-import { calculateNumberOfPages, activityClassificationGroupings, filters, DEFAULT, sortOptions } from './shared'
+import { calculateNumberOfPages, activityClassificationGroupings, filters, DEFAULT } from './shared'
 import ActivityTableContainer from './activity_table_container'
 import FilterColumn from './filter_column'
 import Header from './header'
+import MobileFilterMenu from './mobile_filter_menu'
+import MobileSortMenu from './mobile_sort_menu'
 
 import useDebounce from '../../../../hooks/useDebounce'
 import { requestGet } from '../../../../../../modules/request/index'
 import { Spinner, } from '../../../../../Shared/index'
-
-const closeIconSrc = `${process.env.CDN_URL}/images/icons/close.svg`
 
 const DEBOUNCE_LENGTH = 500
 
@@ -20,79 +20,6 @@ interface CustomActivityPackProps {
   selectedActivities: Activity[],
   setSelectedActivities: (selectedActivities: Activity[]) => void,
   toggleActivitySelection: (activity: Activity) => void,
-}
-
-const MobileSortMenu = ({
-  showMobileSortMenu,
-  setShowMobileSortMenu,
-  setSort
-}) => {
-  if (!showMobileSortMenu) { return <span /> }
-  function closeMobileSortMenu() { setShowMobileSortMenu(false) }
-
-  function handleClickSortOption(e) {
-    setSort(e.target.value)
-    closeMobileSortMenu()
-  }
-
-  const options = sortOptions.map(opt => <button id={opt.key} key={opt.key} onClick={handleClickSortOption} type="button" value={opt.value}>{opt.label}</button>)
-
-  return (<section className="mobile-sort-menu">
-    <div className="top-section">
-      <button className="interactive-wrapper focus-on-light" onClick={closeMobileSortMenu} type="button">
-        <img alt="Close icon" src={closeIconSrc} />
-        Close
-      </button>
-    </div>
-    <div className="sort-options">
-      <h2>Sort by</h2>
-      {options}
-    </div>
-  </section>)
-}
-
-const MobileFilterMenu = ({
-  activities,
-  activityCategoryFilters,
-  activityClassificationFilters,
-  calculateNumberOfFilters,
-  filterActivities,
-  filteredActivities,
-  gradeLevelFilters,
-  handleActivityCategoryFilterChange,
-  handleActivityClassificationFilterChange,
-  handleGradeLevelFilterChange,
-  resetAllFilters,
-  showMobileFilterMenu,
-  setShowMobileFilterMenu
-}) => {
-  if (!showMobileFilterMenu) { return <span /> }
-
-  function closeMobileFilterMenu() { setShowMobileFilterMenu(false) }
-  return (<section className="mobile-filter-menu">
-    <div className="top-section">
-      <button className="interactive-wrapper focus-on-light" onClick={closeMobileFilterMenu} type="button">
-        <img alt="Close icon" src={closeIconSrc} />
-        Close
-      </button>
-    </div>
-    <FilterColumn
-      activities={activities}
-      activityCategoryFilters={activityCategoryFilters}
-      activityClassificationFilters={activityClassificationFilters}
-      calculateNumberOfFilters={calculateNumberOfFilters}
-      filterActivities={filterActivities}
-      filteredActivities={filteredActivities}
-      gradeLevelFilters={gradeLevelFilters}
-      handleActivityCategoryFilterChange={handleActivityCategoryFilterChange}
-      handleActivityClassificationFilterChange={handleActivityClassificationFilterChange}
-      handleGradeLevelFilterChange={handleGradeLevelFilterChange}
-      resetAllFilters={resetAllFilters}
-    />
-    <button className="quill-button primary contained medium focus-on-light" onClick={closeMobileFilterMenu} type="button">
-      Apply
-    </button>
-  </section>)
 }
 
 const CustomActivityPack = ({

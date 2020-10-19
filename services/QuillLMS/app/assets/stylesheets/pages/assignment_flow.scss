@@ -13,6 +13,7 @@
     justify-content: space-between;
     margin: auto;
     padding: 0px 16px;
+    overflow: hidden;
     &::before, &::after {
       content: none;
     }
@@ -28,6 +29,9 @@
       .slash {
         color: #cfcfcd;
         margin: 0px 5px;
+      }
+      a {
+        white-space: nowrap;
       }
       a:hover {
         text-decoration: none;

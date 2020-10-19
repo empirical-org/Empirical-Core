@@ -117,59 +117,5 @@
     .filter-column {
       display: none;
     }
-    .mobile-filter-menu {
-      .filter-column {
-        display: inherit;
-        .filter-section.filtered-results {
-          padding-top: 16px;
-        }
-      }
-      .quill-button {
-        margin: 0px 16px 24px;
-        float: right;
-      }
-    }
-    .mobile-sort-menu {
-      h2 {
-        font-weight: 600;
-        color: #7f7f7f;
-        padding: 24px 16px 8px;
-      }
-      .sort-options {
-        button {
-          background-color: white;
-          width: 100%;
-          font-size: 16px;
-          color: #000;
-          line-height: 1;
-          text-align: left;
-          padding: 16px;
-        }
-      }
-    }
-    .mobile-filter-menu, .mobile-sort-menu {
-      position: absolute;
-      top: 0;
-      z-index: 2;
-      background-color: white;
-      width: 100vw;
-      height: calc(100vh + 70px);
-      .top-section {
-        height: 64px;
-        padding: 0px 16px;
-        display: flex;
-        border-bottom: 1px solid #e0e0e0;
-        justify-content: flex-end;
-        .interactive-wrapper {
-          font-size: 16px;
-          font-weight: 600;
-          display: flex;
-          align-items: center;
-          img {
-            margin-right: 4px;
-          }
-        }
-      }
-    }
   }
 }
