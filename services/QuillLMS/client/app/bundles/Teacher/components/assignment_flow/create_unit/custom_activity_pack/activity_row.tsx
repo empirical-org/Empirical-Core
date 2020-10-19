@@ -27,7 +27,8 @@ interface ActivityRowProps {
   isFirst: boolean,
   toggleActivitySelection: (activity: Activity, isSelected: boolean) => void,
   showCheckbox?: boolean,
-  showRemoveButton?: boolean
+  showRemoveButton?: boolean,
+  setShowSnackbar?: (show: boolean) => void
 }
 
 const imageTagForClassification = (classificationKey: string): JSX.Element => {
@@ -124,13 +125,17 @@ const ActivityRowTooltip = ({ activity, showTooltip}: { activity: Activity, show
   </div>)
 }
 
-const ActivityRow = ({ activity, isSelected, toggleActivitySelection, showCheckbox, showRemoveButton, isFirst, }: ActivityRowProps) => {
+const ActivityRow = ({ activity, isSelected, toggleActivitySelection, showCheckbox, showRemoveButton, isFirst, setShowSnackbar}: ActivityRowProps) => {
   const [isExpanded, setIsExpanded] = React.useState(false)
   const [showTooltip, setShowTooltip] = React.useState(false)
 
   function toggleIsExpanded() { setIsExpanded(!isExpanded) }
   function toggleShowTooltip() { setShowTooltip(!showTooltip)}
-  function removeActivity() { toggleActivitySelection(activity, isSelected) }
+  function removeActivity() {
+    toggleActivitySelection(activity, isSelected)
+    setShowSnackbar && setShowSnackbar(true)
+  }
+
 
   const expandImgAltText = `Arrow pointing ${isExpanded ? 'up' : 'down'}`
 

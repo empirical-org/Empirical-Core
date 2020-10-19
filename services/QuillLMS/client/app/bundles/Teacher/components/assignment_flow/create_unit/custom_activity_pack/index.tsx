@@ -80,24 +80,24 @@ const CustomActivityPack = ({
     )
   }
 
-  function handleSearch(searchTerm: string) {
-    setFilterHistory(prevFilterHistory => prevFilterHistory.concat([{ function: setSearch, argument: searchTerm }]))
-    setSearch(searchTerm)
+  function handleSearch(newSearchTerm: string) {
+    setFilterHistory(prevFilterHistory => prevFilterHistory.concat([{ function: setSearch, argument: search }]))
+    setSearch(newSearchTerm)
   }
 
-  function handleActivityClassificationFilterChange(activityClassificationFilters: string[]) {
+  function handleActivityClassificationFilterChange(newActivityClassificationFilters: string[]) {
     setFilterHistory(prevFilterHistory => prevFilterHistory.concat([{ function: setActivityClassificationFilters, argument: activityClassificationFilters }]))
-    setActivityClassificationFilters(activityClassificationFilters)
+    setActivityClassificationFilters(newActivityClassificationFilters)
   }
 
-  function handleGradeLevelFilterChange(gradeLevelFilters: number[]) {
+  function handleGradeLevelFilterChange(newGradeLevelFilters: number[]) {
     setFilterHistory(prevFilterHistory => prevFilterHistory.concat([{ function: setGradeLevelFilters, argument: gradeLevelFilters }]))
-    setGradeLevelFilters(gradeLevelFilters)
+    setGradeLevelFilters(newGradeLevelFilters)
   }
 
-  function handleActivityCategoryFilterChange(activityCategoryFilters: number[]) {
+  function handleActivityCategoryFilterChange(newActivityCategoryFilters: number[]) {
     setFilterHistory(prevFilterHistory => prevFilterHistory.concat([{ function: setActivityCategoryFilters, argument: activityCategoryFilters }]))
-    setActivityCategoryFilters(activityCategoryFilters)
+    setActivityCategoryFilters(newActivityCategoryFilters)
   }
 
   function resetAllFilters() {
@@ -127,10 +127,10 @@ const CustomActivityPack = ({
   }
 
   function undoLastFilter() {
-    const secondToLastIndex = filterHistory.length - 2
-    const lastItem = filterHistory[secondToLastIndex]
+    const lastIndex = filterHistory.length - 1
+    const lastItem = filterHistory[lastIndex]
     lastItem.function(lastItem.argument)
-    const newFilterHistory = filterHistory.splice(0, secondToLastIndex)
+    const newFilterHistory = filterHistory.splice(0, lastIndex)
     setFilterHistory(newFilterHistory)
   }
 

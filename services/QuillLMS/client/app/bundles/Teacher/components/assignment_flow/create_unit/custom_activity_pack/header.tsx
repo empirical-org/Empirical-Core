@@ -5,6 +5,7 @@ import { Activity } from './interfaces'
 import ActivityRow from './activity_row'
 
 import SortableList from '../../../shared/sortableList'
+import { Snackbar, defaultSnackbarTimeout } from '../../../../../Shared/index'
 
 const reorderSrc = `${process.env.CDN_URL}/images/icons/reorder.svg`
 
@@ -32,9 +33,21 @@ const AssignButton = ({ selectedActivities, handleClickContinue, }: AssignButton
 
 const Header = ({ handleClickContinue, selectedActivities, setSelectedActivities, toggleActivitySelection, }: HeaderProps) => {
   const [showActivities, setShowActivities] = React.useState(false)
+  const [showSnackbar, setShowSnackbar] = React.useState(false)
+
+  React.useEffect(() => {
+    if (showSnackbar) {
+      setTimeout(() => setShowSnackbar(false), defaultSnackbarTimeout)
+    }
+  }, [showSnackbar])
+
+  React.useEffect(() => {
+    if (!selectedActivities.length && showActivities) {
+      setShowActivities(false)
+    }
+  }, [selectedActivities])
 
   function toggleShowActivities() { setShowActivities(!showActivities)}
-
 
   function sortCallback(sortInfo) {
     const newOrder = sortInfo.map(item => item.key);
@@ -63,13 +76,15 @@ const Header = ({ handleClickContinue, selectedActivities, setSelectedActivities
       const DragHandle = SortableHandle(() => <img alt="Reorder icon" className="reorder-icon focus-on-light" src={reorderSrc} tabIndex={0} />);
       return (<section className={className} key={a.id}>
         <DragHandle />
-        <ActivityRow activity={a} isSelected={true} showCheckbox={false} showRemoveButton={true} toggleActivitySelection={toggleActivitySelection} />
+        <ActivityRow activity={a} isSelected={true} setShowSnackbar={setShowSnackbar} showCheckbox={false} showRemoveButton={true} toggleActivitySelection={toggleActivitySelection} />
       </section>)
     })
     selectedActivitySection = <SortableList data={selectedActivityRows} helperClass="sortable-selected-activity-row" sortCallback={sortCallback} useDragHandle={true} />
   }
 
+
   return (<header className={className}>
+    <Snackbar text="Activity removed" visible={showSnackbar} />
     <div className="header-content">
       {headerContent}
       <AssignButton handleClickContinue={handleClickContinue} selectedActivities={selectedActivities} />

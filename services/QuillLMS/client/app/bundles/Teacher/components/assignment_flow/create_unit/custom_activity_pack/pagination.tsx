@@ -68,7 +68,7 @@ const Pagination = ({ activities, currentPage, setCurrentPage, }: PaginationProp
 
   return (<section className="pagination-section">
     {paginationRow}
-    <p>{lowestDisplayedNumber}-{highestDisplayedNumber} of {activities.length}</p>
+    <p>{lowestDisplayedNumber}-{highestDisplayedNumber} of {activities.length} activities</p>
   </section>)
 }
 

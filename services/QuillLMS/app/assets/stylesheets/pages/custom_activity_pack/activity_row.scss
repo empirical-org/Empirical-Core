@@ -16,16 +16,13 @@
       margin-bottom: 13px;
       .name-and-checkbox-wrapper {
         display: flex;
-        align-items: flex-start;
+        align-items: center;
         .quill-checkbox {
           margin-right: 16px;
         }
       }
       .buttons-wrapper {
         display: flex;
-      }
-      .expand-button {
-        transform: rotate(180deg);
       }
       .preview-link, .remove-button {
         display: flex;
@@ -77,6 +74,11 @@
     &.not-selected:hover {
       background-color: #f2f2f2;
     }
+    &.not-expanded {
+      .expand-button img {
+        transform: rotate(180deg);
+      }
+    }
     &.not-expanded:not(:hover) {
       .preview-link {
         display: none;
@@ -92,7 +94,7 @@
     }
     @media (min-width: 1051px) {
       .mobile-only {
-        display: false;
+        display: none;
       }
     }
     @media (max-width: 1050px) {
@@ -139,6 +141,7 @@
     }
     .activity-row {
       flex: 1;
+      border-bottom: none;
       .second-line, .third-line {
         padding-left: 0px;
       }
