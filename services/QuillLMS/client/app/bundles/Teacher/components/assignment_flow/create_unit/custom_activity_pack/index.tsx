@@ -1,7 +1,7 @@
 import * as React from 'react';
 
 import { Activity } from './interfaces'
-import { calculateNumberOfPages, activityClassificationGroupings, filters, DEFAULT } from './shared'
+import { calculateNumberOfPages, activityClassificationGroupings, filters, DEFAULT, sortOptions } from './shared'
 import ActivityTableContainer from './activity_table_container'
 import FilterColumn from './filter_column'
 import Header from './header'
@@ -20,6 +20,35 @@ interface CustomActivityPackProps {
   selectedActivities: Activity[],
   setSelectedActivities: (selectedActivities: Activity[]) => void,
   toggleActivitySelection: (activity: Activity) => void,
+}
+
+const MobileSortMenu = ({
+  showMobileSortMenu,
+  setShowMobileSortMenu,
+  setSort
+}) => {
+  if (!showMobileSortMenu) { return <span /> }
+  function closeMobileSortMenu() { setShowMobileSortMenu(false) }
+
+  function handleClickSortOption(e) {
+    setSort(e.target.value)
+    closeMobileSortMenu()
+  }
+
+  const options = sortOptions.map(opt => <button id={opt.key} key={opt.key} onClick={handleClickSortOption} type="button" value={opt.value}>{opt.label}</button>)
+
+  return (<section className="mobile-sort-menu">
+    <div className="top-section">
+      <button className="interactive-wrapper focus-on-light" onClick={closeMobileSortMenu} type="button">
+        <img alt="Close icon" src={closeIconSrc} />
+        Close
+      </button>
+    </div>
+    <div className="sort-options">
+      <h2>Sort by</h2>
+      {options}
+    </div>
+  </section>)
 }
 
 const MobileFilterMenu = ({
@@ -199,6 +228,7 @@ const CustomActivityPack = ({
 
   return (<div className="custom-activity-pack-page">
     <MobileFilterMenu {...filterColumnProps} setShowMobileFilterMenu={setShowMobileFilterMenu} showMobileFilterMenu={showMobileFilterMenu} />
+    <MobileSortMenu setShowMobileSortMenu={setShowMobileSortMenu} setSort={setSort} showMobileSortMenu={showMobileSortMenu} />
     <FilterColumn {...filterColumnProps} />
     <section className="main-content-container">
       <Header handleClickContinue={clickContinue} selectedActivities={selectedActivities} setSelectedActivities={setSelectedActivities} toggleActivitySelection={toggleActivitySelection} />

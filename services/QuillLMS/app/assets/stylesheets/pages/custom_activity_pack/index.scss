@@ -199,8 +199,8 @@
     }
   }
 
-  @media (min-width: 1501px) {
-    .filter-and-sort {
+  @media (min-width: 1051px) {
+    .main-content-container .activity-table-container .filter-and-sort {
       display: none;
     }
     .number-of-activities {
@@ -208,7 +208,7 @@
     }
   }
 
-  @media (max-width: 1500px) {
+  @media (max-width: 1050px) {
     .main-content-container {
       header {
         .header-content {

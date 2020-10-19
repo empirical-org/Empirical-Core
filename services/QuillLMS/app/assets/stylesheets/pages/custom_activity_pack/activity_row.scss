@@ -90,12 +90,12 @@
     &.selected {
       background-color: #e8f7f3;
     }
-    @media (min-width: 1501px) {
+    @media (min-width: 1051px) {
       .mobile-only {
         display: false;
       }
     }
-    @media (max-width: 1500px) {
+    @media (max-width: 1050px) {
       margin: 0px 16px;
       .first-line, .second-line {
         .buttons-wrapper, .topic, .readability-and-standard-level-wrapper {
