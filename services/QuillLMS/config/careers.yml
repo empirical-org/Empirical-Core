@@ -7,3 +7,7 @@ default:
     - category: 'Product'
       title: 'Senior Software Engineer'
       angelco_url: '587292-senior-software-engineer-rails-react-python'
+
+    - category: 'Operations'
+      title: 'Chief of Staff'
+      angelco_url: '1020317-quill-org-chief-of-staff-nonprofit-educational-technology'
