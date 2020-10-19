@@ -192,7 +192,7 @@ class Subscription < ActiveRecord::Base
       renew_subscription
     elsif expiration <= 7.days.ago
       self.recurring = false
-      save!
+      save(validate: false)
     end
   end
 
