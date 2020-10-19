@@ -407,25 +407,28 @@ class ActivitySession < ActiveRecord::Base
 
   def self.find_or_create_started_activity_session(student_id, classroom_unit_id, activity_id)
     activity = Activity.find_by_id_or_uid(activity_id)
-    activity_session = ActivitySession.find_by(
+    activity_sessions = ActivitySession.where(
       classroom_unit_id: classroom_unit_id,
       user_id: student_id,
       activity: activity
     )
-    if activity_session && activity_session.state == 'started'
-      activity_session
-    elsif activity_session && activity_session.state == 'unstarted'
-      activity_session.update(state: 'started')
-      activity_session
-    else
-      ActivitySession.create(
-        classroom_unit_id: classroom_unit_id,
-        user_id: student_id,
-        activity: activity,
-        state: 'started',
-        started_at: Time.now
-      )
+
+    started_session = activity_sessions.find { |as| as.state == 'started' }
+    return started_session if started_session
+
+    unstarted_session = activity_sessions.find { |as| as.state == 'unstarted' }
+    if unstarted_session
+      unstarted_session.update(state: 'started')
+      return unstarted_session
     end
+
+    ActivitySession.create(
+      classroom_unit_id: classroom_unit_id,
+      user_id: student_id,
+      activity: activity,
+      state: 'started',
+      started_at: Time.now
+    )
   end
 
   def minutes_to_complete

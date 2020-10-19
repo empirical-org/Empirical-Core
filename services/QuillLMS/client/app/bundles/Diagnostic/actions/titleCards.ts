@@ -33,7 +33,7 @@ function loadSpecifiedTitleCards(uids) {
       results.forEach((result) => {
         questionData[result.uid] = result;
       });
-      sessionActions.populateQuestions("TC", questionData, true)
+      sessionActions.populateQuestions("TL", questionData, true)
       dispatch({ type: C.RECEIVE_TITLE_CARDS_DATA, data: questionData, });
     });
   }
