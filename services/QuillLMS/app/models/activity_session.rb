@@ -366,10 +366,12 @@ class ActivitySession < ActiveRecord::Base
     end
 
     follow_up_activity = Activity.find_by(id: activity.follow_up_activity_id)
-    unit_activity = UnitActivity.find_or_create_by(
+    unit_activity = UnitActivity.unscoped.find_or_create_by(
       activity: follow_up_activity,
       unit_id: classroom_unit.unit_id
     )
+
+    unit_activity.update(visible: true)
 
     state = ClassroomUnitActivityState.find_or_create_by(
       unit_activity: unit_activity,
