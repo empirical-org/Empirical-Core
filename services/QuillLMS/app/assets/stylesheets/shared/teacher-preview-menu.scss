@@ -83,6 +83,9 @@
           background-color: #e1f3f1;
           font-weight: 600;
         }
+        &.inverted-indent {
+          padding: 10px 5px 10px 10px;
+        }
         .question-number {
           margin-right: 8px;
           &.indented {
@@ -93,7 +96,7 @@
           overflow: hidden;
           font-size: 14px;
           text-align: left;
-          text-overflow: ellipsis;  
+          text-overflow: ellipsis;
           display: -webkit-box;
           -webkit-line-clamp: 3;
           -webkit-box-orient: vertical;
@@ -123,5 +126,5 @@
   color: #04806a;
   span {
     margin-top: 15px;
-  } 
+  }
 }

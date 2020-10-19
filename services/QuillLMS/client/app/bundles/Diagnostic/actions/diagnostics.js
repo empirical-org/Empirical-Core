@@ -15,6 +15,7 @@ export const UPDATE_DIAGNOSTIC_LANGUAGE = 'UPDATE_DIAGNOSTIC_LANGUAGE';
 export const CLOSE_DIAGNOSTIC_LANGUAGE_MENU = 'CLOSE_DIAGNOSTIC_LANGUAGE_MENU';
 export const OPEN_DIAGNOSTIC_LANGUAGE_MENU = 'OPEN_DIAGNOSTIC_LANGUAGE_MENU';
 export const SET_DIAGNOSTIC_ID = 'SET_DIAGNOSTIC_ID'
+export const SET_CURRENT_QUESTION = 'SET_CURRENT_QUESTION'
 
 export const SubmitActions = {
   SUBMIT_DIAGNOSTIC_RESPONSE,
@@ -33,7 +34,8 @@ export const SubmitActions = {
   UPDATE_DIAGNOSTIC_LANGUAGE,
   CLOSE_DIAGNOSTIC_LANGUAGE_MENU,
   OPEN_DIAGNOSTIC_LANGUAGE_MENU,
-  SET_DIAGNOSTIC_ID
+  SET_DIAGNOSTIC_ID,
+  SET_CURRENT_QUESTION
 };
 
 /*
@@ -106,4 +108,8 @@ export function openLanguageMenu() {
 
 export function setDiagnosticID(data) {
   return { type: SET_DIAGNOSTIC_ID, data };
+}
+
+export function setCurrentQuestion(data) {
+  return { type: SET_CURRENT_QUESTION, data };
 }
