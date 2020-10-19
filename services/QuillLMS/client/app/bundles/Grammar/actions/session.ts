@@ -10,7 +10,7 @@ import { permittedFlag } from '../helpers/flagArray'
 import { hashToCollection } from '../../Shared/index'
 import _ from 'lodash';
 
-export let allQuestions = {};
+export const allQuestions = {};
 let questionsInitialized = false;
 
 export const populateQuestions = (questions: object, forceRefresh: boolean) => {
