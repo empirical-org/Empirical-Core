@@ -6,14 +6,16 @@ import {
   PlayTitleCard,
   ProgressBar
 } from 'quill-component-library/dist/componentLibrary';
-import { clearData, loadData, nextQuestion, nextQuestionWithoutSaving, submitResponse, updateName, updateCurrentQuestion, resumePreviousDiagnosticSession } from '../../actions/diagnostics.js';
 import _ from 'underscore';
-import SessionActions from '../../actions/sessions.js';
+
 import PlaySentenceFragment from './sentenceFragment.jsx';
 import PlayDiagnosticQuestion from './sentenceCombining.jsx';
-import PlayFillInTheBlankQuestion from '../fillInBlank/playFillInTheBlankQuestion';
 import LandingPage from './landing.jsx';
 import FinishedDiagnostic from './finishedDiagnostic.jsx';
+
+import PlayFillInTheBlankQuestion from '../fillInBlank/playFillInTheBlankQuestion';
+import { clearData, loadData, nextQuestion, nextQuestionWithoutSaving, submitResponse, updateName, updateCurrentQuestion, resumePreviousDiagnosticSession } from '../../actions/diagnostics.js';
+import SessionActions from '../../actions/sessions.js';
 import { getConceptResultsForAllQuestions } from '../../libs/conceptResults/diagnostic';
 import { getParameterByName } from '../../libs/getParameterByName';
 import {
@@ -315,12 +317,18 @@ export class StudentDiagnostic extends React.Component {
   }
 
   render() {
-    const { playDiagnostic, dispatch } = this.props
+    const { playDiagnostic, dispatch, lessons } = this.props
     const { error, saved, } = this.state
+    const { params } = match
+    const { diagnosticID } = params
     const questionType = playDiagnostic.currentQuestion ? playDiagnostic.currentQuestion.type : ''
     let component;
 
     const isLastQuestion = playDiagnostic.unansweredQuestions.length === 0
+
+    if (lessons.hasreceiveddata) {
+      document.title = `Quill.org | ${lessons[diagnosticID].name}`
+    }
 
     if (!playDiagnostic.questionSet) {
       return (
