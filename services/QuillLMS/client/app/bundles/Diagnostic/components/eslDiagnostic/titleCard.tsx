@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+
 import translations from '../../libs/translations/index.js';
 import { commonText } from '../../modules/translation/commonText';
 import { ENGLISH, rightToLeftLanguages } from '../../modules/translation/languagePageInfo';
@@ -9,6 +10,7 @@ export interface ComponentProps {
   language: string,
   isLastQuestion: boolean,
   handleContinueClick(): void,
+  previewMode: boolean,
   translate(input: string): any
 }
 
@@ -17,7 +19,7 @@ class TitleCard extends Component<ComponentProps, any> {
   getContentHTML = () => {
     const { data, language, } = this.props;
     let html = data.content ? data.content : translations.english[data.key];
-    if (language !== ENGLISH) {
+    if (language && language !== ENGLISH) {
       const textClass = rightToLeftLanguages.includes(language) ? 'right-to-left arabic-title-div' : '';
       html += `<br/><div class="${textClass}">${translations[language][data.key]}</div>`;
     }
@@ -40,7 +42,7 @@ class TitleCard extends Component<ComponentProps, any> {
             <h1>{commonText[title].header}</h1>
             <p>{commonText[title].text}</p>
           </div>
-          {language !== ENGLISH && <div className={`landing-page-html ${textClass}`}>
+          {language && language !== ENGLISH && <div className={`landing-page-html ${textClass}`}>
             <h1>{translate(header)}</h1>
             <p>{translate(text)}</p>
           </div>}
@@ -50,13 +52,14 @@ class TitleCard extends Component<ComponentProps, any> {
   }
 
   render() {
-    const { handleContinueClick, translate, isLastQuestion, } = this.props;
-    const buttonText = isLastQuestion ? translate('buttons^next') : translate('buttons^continue')
+    const { handleContinueClick, translate, isLastQuestion, previewMode } = this.props;
+    const buttonText = isLastQuestion ? translate('buttons^next') : translate('buttons^continue');
+    const disabled = previewMode && isLastQuestion ? 'disabled' : '';
 
     return (
       <div className="landing-page">
         {this.renderContent()}
-        <button className="quill-button focus-on-light large contained primary" onClick={handleContinueClick} type="button">
+        <button className={`quill-button focus-on-light large contained primary ${disabled}`} onClick={handleContinueClick} type="button">
           {buttonText}
         </button>
       </div>
