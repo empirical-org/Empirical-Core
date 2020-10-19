@@ -10,8 +10,21 @@ import { permittedFlag } from '../helpers/flagArray'
 import { hashToCollection } from '../../Shared/index'
 import _ from 'lodash';
 
+export const allQuestions = {};
+let questionsInitialized = false;
+
+export const populateQuestions = (questions: object, forceRefresh: boolean) => {
+  if (questionsInitialized && !forceRefresh) return;
+  Object.keys(questions).forEach((uid) => {
+    questions[uid].uid = uid
+    allQuestions[uid] = questions[uid]
+  })
+  questionsInitialized = true;
+}
+
 export const updateSession = (sessionID: string, session: SessionState) => {
-  const cleanedSession = _.pickBy(session)
+  const normalizedSession = normalizeSession(session)
+  const cleanedSession = _.pickBy(normalizedSession)
   if (!cleanedSession.error) {
     SessionApi.update(sessionID, cleanedSession)
   }
@@ -20,7 +33,8 @@ export const updateSession = (sessionID: string, session: SessionState) => {
 export const setSessionReducerToSavedSession = (sessionID: string) => {
   return dispatch => {
     SessionApi.get(sessionID).then((session) => {
-      dispatch(handleGrammarSession(session))
+      const denormalizedSession = denormalizeSession(session)
+      dispatch(handleGrammarSession(denormalizedSession))
     }).catch((error) => {
       if (error.status === 404) {
         dispatch(startNewSession())
@@ -28,6 +42,86 @@ export const setSessionReducerToSavedSession = (sessionID: string) => {
         throw error
       }
     })
+  }
+}
+
+export const denormalizeSession = (session: object): object => {
+  // Normalized unanswered questions, if present, are just strings containing keys,
+  // if there's a non-string value, then this session must be denormalized already
+  const unansweredCheck = (
+    session.unansweredQuestions.length &&
+    typeof session.unansweredQuestions[0] == "object"
+  )
+  // Normalized answered questions have only two keys: "question" and "attempts".
+  // The presence of the standard "uid" key means that the session is denormalized 
+  const answeredCheck = (
+    session.answeredQuestions.length &&
+    session.answeredQuestions[0].uid
+  )
+  // If the session is already in a denormalized form (determined by checking if
+  // either answered or unanswered questions, one of which is guaranteed to be
+  // present, is denormalized) then just return it as-is
+  if (unansweredCheck || answeredCheck) return session
+  // If someone has answered no questions, this key will be missing
+  if (session.answeredQuestions) {
+    session.answeredQuestions.forEach((value, index, answeredQuestions) => {
+      answeredQuestions[index] = denormalizeQuestion(value);
+    });
+  }
+  // If all questions are answered, we won't have this key
+  if (session.unansweredQuestions) {
+    session.unansweredQuestions.forEach((value, index, unansweredQuestions) => {
+      unansweredQuestions[index] = denormalizeQuestion(value);
+    });
+  }
+  if (session.currentQuestion) {
+    session.currentQuestion = denormalizeQuestion(session.currentQuestion);
+  }
+  return session
+}
+
+const denormalizeQuestion = (question: string | object): object => {
+  // Questions stored on the session object have a different shape
+  // if they have any attempt data attached to them
+  // It appears that they also have this shape if the object has ever
+  // had attempt data on it.  This is only happens with currentQuestion,
+  // but we should account for it
+  const questionUid = (question.attempts || question.question) ? question.question : question;
+  // We need to make sure that the 'question' part of the
+  // question object is a clean copy so that we can modify
+  // it without changing the cached question object
+  const denormalizedQuestion = JSON.parse(JSON.stringify(allQuestions[questionUid]))
+  if (question.attempts) {
+    denormalizedQuestion.attempts = question.attempts;
+  }
+  return denormalizedQuestion
+}
+
+export const normalizeSession = (session: object): object => {
+  // Deep copy so that we return a clean object
+  let sessionCopy = JSON.parse(JSON.stringify(session));
+  // If someone has answered all the questions, key will be missing
+  if (sessionCopy.unansweredQuestions) {
+    sessionCopy.unansweredQuestions = sessionCopy.unansweredQuestions.map(normalizeQuestion)
+  }
+  if (sessionCopy.currentQuestion) {
+    sessionCopy.currentQuestion = normalizeQuestionWithAttempts(sessionCopy.currentQuestion);
+  }
+  // If someone has not answered any questions, this key will be missing
+  if (sessionCopy.answeredQuestions) {
+    sessionCopy.answeredQuestions = sessionCopy.answeredQuestions.map(normalizeQuestionWithAttempts)
+  }
+  return sessionCopy
+}
+
+const normalizeQuestion = (question: object): string => {
+  return question.uid;
+}
+
+const normalizeQuestionWithAttempts = (question: object): object => {
+  return {
+    question: question.uid,
+    attempts: question.attempts,
   }
 }
 
