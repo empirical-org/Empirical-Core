@@ -392,6 +392,18 @@ describe Subscription, type: :model do
           expect(recurring_subscription_expiring_today_1).not_to receive(:renew_subscription)
           recurring_subscription_expiring_today_1.update_if_charge_succeeds
         end
+
+        it "sets recurring to false if expiration is more than 7 days old" do
+          recurring_subscription_expiring_today_1.expiration = 10.days.ago
+          recurring_subscription_expiring_today_1.update_if_charge_succeeds
+          expect(recurring_subscription_expiring_today_1.recurring).to eq(false)
+        end
+
+        it "does not set recurring to false if expiration is less than 7 days old" do
+          recurring_subscription_expiring_today_1.expiration = 3.days.ago
+          recurring_subscription_expiring_today_1.update_if_charge_succeeds
+          expect(recurring_subscription_expiring_today_1.recurring).to eq(true)
+        end
       end
     end
 

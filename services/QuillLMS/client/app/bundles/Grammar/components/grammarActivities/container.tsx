@@ -17,7 +17,6 @@ import {
   getQuestions,
   goToNextQuestion,
   checkAnswer,
-  setSessionReducerToSavedSession,
   startListeningToFollowUpQuestionsForProofreaderSession,
   startNewSession,
   removeSession
@@ -69,14 +68,14 @@ export class PlayGrammarContainer extends React.Component<PlayGrammarContainerPr
       const { dispatch, previewMode } = props
       dispatch(startListeningToConceptsFeedback());
       dispatch(startListeningToConcepts());
-      dispatch(startListeningToQuestions());
       const activityUID = getParameterByName('uid', window.location.href)
       const sessionID = getParameterByName('student', window.location.href)
       const proofreaderSessionId = getParameterByName('proofreaderSessionId', window.location.href)
 
       if (sessionID && !previewMode) {
-        dispatch(setSessionReducerToSavedSession(sessionID))
+        dispatch(startListeningToQuestions(sessionID));
       } else {
+        dispatch(startListeningToQuestions());
         dispatch(startNewSession())
       }
 
