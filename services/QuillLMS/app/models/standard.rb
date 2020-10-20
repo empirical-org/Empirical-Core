@@ -4,6 +4,8 @@ class Standard < ActiveRecord::Base
   belongs_to :standard_level
   belongs_to :standard_category
 
+  has_many :activities
+
   default_scope -> { order(:name) }
 
   validates :standard_level, presence: true
