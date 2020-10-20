@@ -19,7 +19,7 @@
         document.getElementById('static-banner').style.display = 'none';
         let date = new Date();
         date.setTime(date.getTime()+(24*60*60*1000));
-        document.cookie = `static_banner_closed=1; expires=${date.toGMTString()}`;
+        document.cookie = `static_banner_closed=1; expires=${date.toGMTString()}; path=/`;
     }, false);
 
   </script>

@@ -1,4 +1,5 @@
 import React from 'react';
+
 import { ENGLISH, languages, languagesV2, languageData, languageDataV2 } from '../../modules/translation/languagePageInfo';
 import { TrackAnalyticsEvent} from '../../actions/analytics'
 import { Events } from '../../modules/analytics'
@@ -7,11 +8,14 @@ export class LanguagePage extends React.Component {
 
   handleClickLanguage = (e) => {
     const language = e.currentTarget.value;
-    const { diagnosticID, dispatch, setLanguage, } = this.props;
+    const { diagnosticID, dispatch, setLanguage, previewMode, begin } = this.props;
     if(language !== ENGLISH && diagnosticID !== 'ell') {
       dispatch(TrackAnalyticsEvent(Events.DIAGNOSTIC_LANGUAGE_SELECTED, { language }));
     }
     setLanguage(language);
+    if(previewMode) {
+      begin();
+    }
   }
 
   render() {

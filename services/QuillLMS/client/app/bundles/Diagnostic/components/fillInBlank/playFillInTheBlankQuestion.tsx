@@ -1,25 +1,21 @@
 import * as React from 'react';
 import * as _ from 'underscore';
-import { checkFillInTheBlankQuestion } from 'quill-marking-logic'
+// TODO: updated Response interface in quill-marking-logic
+import { checkFillInTheBlankQuestion } from 'quill-marking-logic';
+import { stringNormalize } from 'quill-string-normalizer';
+
 import { getGradedResponsesWithCallback } from '../../actions/responses.js';
-import {
-  Prompt,
-  Feedback
-} from 'quill-component-library/dist/componentLibrary';
+import { getLatestAttempt } from '../../libs/sharedQuestionFunctions';
+import { renderPreviewFeedback } from '../../libs/previewHelperFunctions';
 import { submitResponse, } from '../../actions/diagnostics.js';
 import { submitQuestionResponse } from '../renderForQuestions/submitResponse.js';
 import updateResponseResource from '../renderForQuestions/updateResponseResource.js';
 import Cues from '../renderForQuestions/cues.tsx';
 import translations from '../../libs/translations/index.js';
 import translationMap from '../../libs/translations/ellQuestionMapper.js';
-import { stringNormalize } from 'quill-string-normalizer';
 import { ENGLISH, rightToLeftLanguages } from '../../modules/translation/languagePageInfo';
 import Question from '../../interfaces/Question.ts';
-import {
-  hashToCollection,
-  Prompt,
-  Feedback,
-} from '../../../Shared/index'
+import { hashToCollection, Prompt, Feedback } from '../../../Shared/index'
 
 interface PlayFillInTheBlankQuestionProps {
   currentKey: string,
@@ -27,6 +23,7 @@ interface PlayFillInTheBlankQuestionProps {
   dispatch(action: any): any,
   language: string,
   nextQuestion(): any,
+  previewMode: boolean,
   question: Question,
   setResponse(response: any): any,
   translate(key: any, opts?: any): any
@@ -167,8 +164,24 @@ export class PlayFillInTheBlankQuestion extends React.Component<PlayFillInTheBla
     return spanArray;
   }
 
+  getInputProperties = (i: number) => {
+    const { inputVals } = this.state;
+    const { previewMode, question } = this.props;
+    const latestAttempt = getLatestAttempt(question.attempts);
+    if(previewMode && latestAttempt && latestAttempt.response && latestAttempt.response.inputs) {
+      return {
+        value: latestAttempt.response.inputs[i],
+        disabled: true
+      }
+    }
+    return {
+      value: inputVals[i],
+      disabled: false
+    }
+  }
+
   renderInput = (i: number) => {
-    const { inputErrors, cues, inputVals, } = this.state
+    const { inputErrors, cues } = this.state
     let className = 'fill-in-blank-input'
     if (inputErrors[i]) {
       className += ' error'
@@ -176,18 +189,20 @@ export class PlayFillInTheBlankQuestion extends React.Component<PlayFillInTheBla
     const longestCue = cues && cues.length ? cues.sort((a: { length: number }, b: { length: number }) => b.length - a.length)[0] : null
     const width = longestCue ? (longestCue.length * 15) + 10 : 50
     const styling = { width: `${width}px` }
+    const inputProperties = this.getInputProperties(i);
     return (
       <span key={`span${i}`}>
         <input
           aria-label={`input${i}`}
           autoComplete="off"
           className={className}
+          disabled={inputProperties['disabled']}
           id={`input${i}`}
           key={i + 100}
           onChange={this.getChangeHandler(i)}
           style={styling}
           type="text"
-          value={inputVals[i]}
+          value={inputProperties['value']}
         />
       </span>
     );
@@ -244,8 +259,8 @@ export class PlayFillInTheBlankQuestion extends React.Component<PlayFillInTheBla
 
   handleSubmitResponse = () => {
     this.validateAllInputs().then(() => {
-      const { inputErrors, responses, } = this.state;
-      const { question, nextQuestion, } = this.props;
+      const { inputErrors, inputVals, responses, } = this.state;
+      const { question, nextQuestion, previewMode, isLastQuestion } = this.props;
       const { caseInsensitive, conceptID, key } = question;
       const isDiagnosticFIB = true;
       const noErrors = _.size(inputErrors) === 0;
@@ -255,9 +270,15 @@ export class PlayFillInTheBlankQuestion extends React.Component<PlayFillInTheBla
         const defaultConceptUID = conceptID;
         const responsesArray = hashToCollection(responses);
         const response = { response: checkFillInTheBlankQuestion(questionUID, zippedAnswer, responsesArray, caseInsensitive, defaultConceptUID, isDiagnosticFIB) }
+        // we send the inputVals during previewMode to prefill questions that have been played
+        if(previewMode) {
+          response.response.inputs = inputVals;
+        }
         this.setResponse(response);
         this.updateResponseResource(response);
         this.submitResponse(response);
+        // we don't submit the last question if in previewMode
+        if(previewMode && isLastQuestion) { return }
         nextQuestion();
       }
     })
@@ -309,9 +330,10 @@ export class PlayFillInTheBlankQuestion extends React.Component<PlayFillInTheBla
   }
 
   renderFeedback = () => {
-    const { diagnosticID, language, question, translate } = this.props
+    const { diagnosticID, language, question, translate, previewMode } = this.props
     const { inputErrors, } = this.state
     const errorsPresent = _.size(inputErrors) !== 0;
+    const latestAttempt = getLatestAttempt(question.attempts);
     if (errorsPresent) {
       let feedback: any;
       const blankFeedback = question.blankAllowed ? ' or leave it blank' : ''
@@ -334,20 +356,23 @@ export class PlayFillInTheBlankQuestion extends React.Component<PlayFillInTheBla
         feedbackType="revise-unmatched"
       />)
     }
-
-    return <Feedback feedback={this.getInstructionText()} feedbackType="instructions" />
+    if(previewMode && latestAttempt && latestAttempt.response) {
+      return renderPreviewFeedback(latestAttempt);
+    } else {
+      return <Feedback feedback={this.getInstructionText()} feedbackType="instructions" />
+    }
   }
 
   renderButton = () => {
     const { responses } = this.state;
-    const { language, translate } = this.props;
+    const { language, translate, previewMode, question } = this.props;
     const buttonText = language ? translate('buttons^submit') : 'Submit';
+    const latestAttempt = getLatestAttempt(question.attempts);
 
-    if(responses) {
-      return <button className="quill-button focus-on-light large primary contained" onClick={this.handleSubmitResponse} type="button">{buttonText}</button>
-    } else {
+    if((previewMode && latestAttempt) || !responses) {
       return <button className="quill-button focus-on-light large primary contained disabled" type="button">{buttonText}</button>;
     }
+    return <button className="quill-button focus-on-light large primary contained" onClick={this.handleSubmitResponse} type="button">{buttonText}</button>
   }
 
   render() {
