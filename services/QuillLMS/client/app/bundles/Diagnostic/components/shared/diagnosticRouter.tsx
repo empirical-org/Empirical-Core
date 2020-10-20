@@ -28,8 +28,11 @@ interface DiagnosticRouterProps {
       diagnosticID: string
     }
   },
+  onHandleToggleQuestion: (question: object) => void,
   playDiagnostic: PlayDiagnostic,
+  previewMode: boolean,
   questions: QuestionsReducerState,
+  questionToPreview: object,
   route: RouteInterace,
   routeParams: {
     diagnosticID: string
@@ -40,6 +43,8 @@ interface DiagnosticRouterProps {
     data: any
   },
   sentenceFragments: SentenceFragmentsReducerState,
+  skippedToQuestionFromIntro: boolean,
+  switchedBackToPreview: boolean,
   titleCards: TitleCardsReducerState,
 }
 
@@ -49,21 +54,21 @@ export const DiagnosticRouter: React.SFC<DiagnosticRouterProps> = (props: Diagno
   const { diagnosticID } = params;
   const { data } = lessons;
   if(fillInBlank.hasreceiveddata && lessons.hasreceiveddata && questions.hasreceiveddata && sentenceFragments.hasreceiveddata) {
-    if(data[diagnosticID].isELL) {
+    if(data[diagnosticID] && data[diagnosticID].isELL) {
       return(
         <div>
           <ELLStudentDiagnostic {...props} />
           <BrowserRouter>
-            <Route component={ELLStudentDiagnostic} path={`/play/diagnostic/:diagnosticID`} />
+            <Route component={ELLStudentDiagnostic} path='/play/diagnostic/:diagnosticID' />
           </BrowserRouter>
         </div>
       )
-    } else {
+    } else if(data[diagnosticID] && !data[diagnosticID].isELL) {
       return(
         <div>
           <StudentDiagnostic {...props} />
           <BrowserRouter>
-            <Route component={StudentDiagnostic} path={`/play/diagnostic/:diagnosticID`} />
+            <Route component={StudentDiagnostic} path='/play/diagnostic/:diagnosticID' />
           </BrowserRouter>
         </div>
       )
