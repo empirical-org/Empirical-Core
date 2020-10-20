@@ -25,7 +25,7 @@ class ProgressReports::DistrictStandardsReports
         SELECT activity_sessions.*, activities.standard_id FROM activity_sessions
           JOIN classroom_units ON activity_sessions.classroom_unit_id = classroom_units.id
           JOIN activities ON activity_sessions.activity_id = activities.id
-          JOIN standards ON standards.id = activities.standard_id
+          LEFT JOIN standards ON standards.id = activities.standard_id
           JOIN classrooms_teachers on classrooms_teachers.classroom_id = classroom_units.classroom_id
           WHERE activity_sessions.is_final_score
           AND classrooms_teachers.user_id in (#{user_ids})
