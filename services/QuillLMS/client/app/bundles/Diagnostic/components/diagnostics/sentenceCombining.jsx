@@ -1,13 +1,16 @@
 import * as React from 'react';
 import _ from 'underscore';
-import { submitResponse, clearResponses } from '../../actions/diagnostics.js';
 import ReactTransition from 'react-addons-css-transition-group';
+
+import { submitResponse } from '../../actions/diagnostics.js';
+import { getLatestAttempt } from '../../libs/sharedQuestionFunctions';
+import { renderPreviewFeedback, getDisplayedText } from '../../libs/previewHelperFunctions';
 import {
   getGradedResponsesWithCallback
 } from '../../actions/responses.js';
 import RenderQuestionFeedback from '../renderForQuestions/feedbackStatements.jsx';
 import RenderQuestionCues from '../renderForQuestions/cues.tsx';
-import { Feedback, SentenceFragments, Error, } from '../../../Shared/index';
+import { Feedback, SentenceFragments } from '../../../Shared/index';
 import getResponse from '../renderForQuestions/checkAnswer';
 import { submitQuestionResponse } from '../renderForQuestions/submitResponse.js';
 import updateResponseResource from '../renderForQuestions/updateResponseResource.js';
@@ -22,7 +25,6 @@ class PlayDiagnosticQuestion extends React.Component {
     this.state = {
       editing: false,
       response: '',
-      readyForNext: false,
     }
   }
 
@@ -147,10 +149,12 @@ class PlayDiagnosticQuestion extends React.Component {
   }
 
   readyForNext = () => {
-    const { question, } = this.props
+    const { question, previewMode } = this.props
     if (question.attempts.length > 0) {
       const latestAttempt = getLatestAttempt(question.attempts);
-      if (latestAttempt.found) {
+      if (previewMode && latestAttempt) {
+        return true;
+      } else if (latestAttempt.found) {
         const errors = _.keys(this.getErrorsForAttempt(latestAttempt));
         if (latestAttempt.response.optimal && errors.length === 0) {
           return true;
@@ -170,7 +174,9 @@ class PlayDiagnosticQuestion extends React.Component {
   }
 
   handleNextClick = () => {
-    const { nextQuestion, } = this.props
+    const { nextQuestion, previewMode, isLastQuestion } = this.props;
+    // we don't submit the last question if in previewMode
+    if(previewMode && isLastQuestion) { return }
     nextQuestion();
   }
 
@@ -182,7 +188,7 @@ class PlayDiagnosticQuestion extends React.Component {
   }
 
   renderError = () => {
-    const { error, } = this.state
+    const { error, } = this.state;
     if (!error) { return }
 
     return (<div className="error-container">
@@ -193,23 +199,48 @@ class PlayDiagnosticQuestion extends React.Component {
     </div>)
   }
 
+  getButton = () => {
+    const { responses } = this.state;
+    const { previewMode, question } = this.props;
+    const latestAttempt = getLatestAttempt(question.attempts);
+
+    if((previewMode && latestAttempt) || !responses) {
+      return <button className="quill-button focus-on-light large primary contained disabled" type="button">Submit</button>;
+    }
+    return <button className="quill-button focus-on-light large primary contained" onClick={this.handleSubmitResponse} type="button">Submit</button>;
+  }
+
+  renderFeedback = () => {
+    const { previewMode, question } = this.props;
+    const { key } = question;
+    const latestAttempt = getLatestAttempt(question.attempts);
+    const instructions = (question.instructions && question.instructions !== '') ? question.instructions : 'Combine the sentences into one sentence.';
+
+    if(previewMode && latestAttempt && latestAttempt.response) {
+      return renderPreviewFeedback(latestAttempt);
+    }
+    return(
+      <Feedback
+        feedback={(<p>{instructions}</p>)}
+        feedbackType="default"
+        key={key}
+      />
+    );
+  }
+
   render = () => {
-    const { question, } = this.props
-    const { responses, error, response, } = this.state
-    const questionID = question.key;
-    const button = responses ? <button className="quill-button focus-on-light large primary contained" onClick={this.handleSubmitResponse} type="button">Submit</button> : <button className="quill-button focus-on-light large primary contained disabled" type="button">Submit</button>;
+    const { question, previewMode } = this.props
+    const { error, response } = this.state
+    const button = this.getButton();
+    const displayedText = getDisplayedText({ previewMode, question, response });
+
     if (question) {
-      const instructions = (question.instructions && question.instructions !== '') ? question.instructions : 'Combine the sentences into one sentence.';
       return (
         <div className="student-container-inner-diagnostic">
           {this.renderSentenceFragments()}
           {this.renderCues()}
           <div className="feedback-row">
-            <Feedback
-              feedback={(<p>{instructions}</p>)}
-              feedbackType="default"
-              key={questionID}
-            />
+            {this.renderFeedback()}
           </div>
           <ReactTransition transitionAppear transitionAppearTimeout={500} transitionEnterTimeout={500} transitionLeaveTimeout={500} transitionName='text-editor'>
             <TextEditor
@@ -220,7 +251,7 @@ class PlayDiagnosticQuestion extends React.Component {
               onChange={this.handleChange}
               onSubmitResponse={this.handleSubmitResponse}
               placeholder="Type your answer here."
-              value={response}
+              value={displayedText}
             />
             {this.renderError()}
             <div className="question-button-group button-group">
@@ -234,10 +265,5 @@ class PlayDiagnosticQuestion extends React.Component {
 
   }
 }
-
-const getLatestAttempt = function (attempts = []) {
-  const lastIndex = attempts.length - 1;
-  return attempts[lastIndex];
-};
 
 export default PlayDiagnosticQuestion;

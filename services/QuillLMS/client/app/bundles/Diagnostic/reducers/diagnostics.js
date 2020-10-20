@@ -1,4 +1,5 @@
 import { SubmitActions } from '../actions/diagnostics.js';
+import { getCurrentQuestion, getQuestionsWithAttempts, getFilteredQuestions } from '../libs/previewHelperFunctions.tsx';
  // / make this playLessonsReducer.
 const initialState = {
   answeredQuestions: [],
@@ -22,6 +23,36 @@ function question(state = initialState, action) {
         changes.unansweredQuestions = state.unansweredQuestions.slice(1);
       }
       return Object.assign({}, state, changes);
+    case SubmitActions.SET_CURRENT_QUESTION:
+      const { currentQuestion, questionSet, unansweredQuestions } = state;
+      let answeredQuestions = state.answeredQuestions;
+
+      if (currentQuestion) {
+        answeredQuestions = answeredQuestions.concat([currentQuestion]);
+      }
+
+      const answeredQuestionsWithAttempts = getQuestionsWithAttempts(answeredQuestions);
+      const unansweredQuestionsWithAttempts = getQuestionsWithAttempts(unansweredQuestions);
+
+      const newCurrentQuestion = getCurrentQuestion({
+        action,
+        answeredQuestions,
+        questionSet,
+        unansweredQuestions
+      });
+
+      const currentQuestionIndex = questionSet.findIndex(question => action.data.key === question.data.key);
+      const answeredSlice = questionSet.slice(0, currentQuestionIndex);
+      const unansweredSlice = questionSet.slice(currentQuestionIndex + 1);
+
+      const newAnsweredQuestions = getFilteredQuestions({ questionsSlice: answeredSlice, answeredQuestionsWithAttempts, unansweredQuestionsWithAttempts });
+      const newUnansweredQuestions = getFilteredQuestions({ questionsSlice: unansweredSlice, answeredQuestionsWithAttempts, unansweredQuestionsWithAttempts });
+
+      state.answeredQuestions = newAnsweredQuestions;
+      state.unansweredQuestions = newUnansweredQuestions;
+      state.currentQuestion = newCurrentQuestion;
+
+      return Object.assign({}, state, action.data);
     case SubmitActions.NEXT_DIAGNOSTIC_QUESTION_WITHOUT_SAVING:
       changes.currentQuestion = state.unansweredQuestions[0];
       if (changes.currentQuestion) {

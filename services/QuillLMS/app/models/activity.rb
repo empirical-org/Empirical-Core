@@ -19,6 +19,8 @@ class Activity < ActiveRecord::Base
   has_many :recommendations, dependent: :destroy
   has_many :activity_category_activities, dependent: :destroy
   has_many :activity_categories, through: :activity_category_activities
+  has_many :content_partner_activities, dependent: :destroy
+  has_many :content_partners, :through => :content_partner_activities
   before_create :flag_as_beta, unless: :flags?
   after_commit :clear_activity_search_cache
 
@@ -158,6 +160,30 @@ class Activity < ActiveRecord::Base
     save
   end
 
+  def grade_level
+    raw_score = RawScore.find(raw_score_id)
+    case raw_score.name
+    when "1200-1300", "1300-1400", "1400-1500"
+      "10th-12th"
+    when "900-1000", "1000-1100", "1100-1200"
+      "8th-9th"
+    when "500-600"
+      if is_proofreader?
+        "4th-5th"
+      else
+        "6th-7th"
+      end
+    when "600-700", "700-800", "800-900"
+      "6th-7th"
+    when "300-400", "400-500"
+      "4th-5th"
+    when "BR100-0", "0-100", "100-200", "200-300"
+      "2nd-3rd"
+    else
+      ""
+    end
+  end
+
   private
 
   def data_must_be_hash
@@ -218,5 +244,9 @@ class Activity < ActiveRecord::Base
       return false
     end
     return true
+  end
+
+  def is_proofreader?
+    classification.key == ActivityClassification::PROOFREADER_KEY
   end
 end

@@ -16,6 +16,7 @@ describe Activity, type: :model, redis: true do
   it { should have_many(:recommendations).dependent(:destroy) }
   it { should have_many(:activity_category_activities).dependent(:destroy) }
   it { should have_many(:activity_categories).through(:activity_category_activities) }
+  it { should have_many(:content_partners).through(:content_partner_activities) }
 
   it { is_expected.to callback(:flag_as_beta).before(:create).unless(:flags?) }
   it do
@@ -361,6 +362,23 @@ describe Activity, type: :model, redis: true do
       proofreader_activity = create(:proofreader_activity, data: data)
       proofreader_activity.add_question(question_obj)
       expect(proofreader_activity.errors[:activity]).to include("You can't add questions to this type of activity.")
+    end
+  end
+
+  describe '#grade_level' do
+
+    it 'should return the corresponding grade level' do
+      raw_score = create(:raw_score, :eight_hundred_to_nine_hundred)
+      activity = create(:activity, raw_score_id: raw_score.id)
+      expect(activity.grade_level).to eq('6th-7th')
+    end
+
+    it 'should behave differently based on activity classification' do
+      raw_score = create(:raw_score, :five_hundred_to_six_hundred)
+      connect_activity = create(:connect_activity, raw_score_id: raw_score.id)
+      proofreader_activity = create(:proofreader_activity, raw_score_id: raw_score.id)
+      expect(proofreader_activity.grade_level).to eq('4th-5th')
+      expect(connect_activity.grade_level).to eq('6th-7th')
     end
   end
 end

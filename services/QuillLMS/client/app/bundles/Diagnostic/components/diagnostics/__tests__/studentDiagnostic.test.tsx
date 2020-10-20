@@ -1,13 +1,14 @@
 import * as React from 'react';
 import { shallow } from 'enzyme';
+
 import { StudentDiagnostic } from '../studentDiagnostic';
 import {
   CarouselAnimation,
   SmartSpinner,
   PlayTitleCard,
   ProgressBar
-} from 'quill-component-library/dist/componentLibrary';
-import { clearData, loadData, nextQuestion, nextQuestionWithoutSaving, submitResponse, updateCurrentQuestion, resumePreviousDiagnosticSession } from '../../../actions/diagnostics.js';
+} from '../../../../Shared/index';
+import { clearData, loadData, nextQuestion, nextQuestionWithoutSaving, submitResponse, updateCurrentQuestion, resumePreviousDiagnosticSession, setCurrentQuestion } from '../../../actions/diagnostics.js';
 import SessionActions from '../../../actions/sessions.js';
 import PlaySentenceFragment from '../sentenceFragment.jsx';
 import PlayDiagnosticQuestion from '../sentenceCombining.jsx';
@@ -30,17 +31,26 @@ SessionActions.update = jest.fn();
 let mockProps = {
     dispatch: jest.fn(),
     lessons: {
-        hasreceiveddata: false
+        hasreceiveddata: true,
+        data: {
+            testID: {
+                landingPageHtml: 'test-html',
+                questions: []
+            },
+        }
     },
     playDiagnostic: {
         currentQuestion: null,
+        diagnosticID: 'testID',
         questionSet: null,
         answeredQuestions: [],
         unansweredQuestions: []
     },
-    questions: {
-        hasreceiveddata: false
-    },
+    previewMode: false,
+    questions: { hasreceiveddata: true },
+    questionToPreview: {},
+    sentenceFragments: { hasreceiveddata: true },
+    skippedToQuestionFromIntro: false,
     match: {
         params: {
             diagnosticID: 'testID',
@@ -70,23 +80,6 @@ describe('StudentDiagnostic Container prop-dependent component rendering', () =>
         }
     };
     it("renders a SmartSpinner with 50% load message if playDiagnostic.questionSet props has not been received", () => {
-        container.setProps({
-            lessons: {
-                hasreceiveddata: true,
-                data: {
-                    testID: {
-                        landingPageHtml: 'test-html'
-                    }
-                }
-            },
-            questions: { hasreceiveddata: true },
-            sentenceFragments: { hasreceiveddata: true },
-            playDiagnostic: {
-                questionSet: null,
-                answeredQuestions: [],
-                unansweredQuestions: []
-            }
-        });
         expect(container.find(SmartSpinner).length).toEqual(1);
         expect(container.find(SmartSpinner).props().message).toEqual('Loading Your Lesson 50%');
     });
@@ -142,13 +135,16 @@ describe('StudentDiagnostic Container functions', () => {
                     { key: "test4", questionType: "titleCards" },
                 ],
                 name: 'Test Lesson'
+            },
+            researchDiagnostic: {
+                questions: []
             }
         }
     };
     mockProps.playDiagnostic = {
         questionSet: [],
         answeredQuestions: [],
-        unansweredQuestions: [{}],
+        unansweredQuestions: [{ data: {} }],
         currentQuestion: {
             type: 'SC',
             data: {
@@ -266,7 +262,7 @@ describe('StudentDiagnostic Container functions', () => {
         const response = container.instance().questionsForDiagnostic();
         expect(response.length).toEqual(mockProps.lessons.data.testID.questions.length);
     });
-    it("startActivity calls dispatch() prop function passing nextQuestion as an argument", () => {
+    it("startActivity calls dispatch() prop function passing nextQuestion as an argument if not in previewMode", () => {
         const questionsForLesson = jest.spyOn(container.instance(), 'questionsForLesson');
         const argument1 = loadData(questionsForLesson());
         const argument2 = nextQuestion();
@@ -274,15 +270,36 @@ describe('StudentDiagnostic Container functions', () => {
         expect(mockProps.dispatch).toHaveBeenCalledWith(argument1);
         expect(mockProps.dispatch).toHaveBeenCalledWith(argument2);
     });
-    it("nextQuestion calls dispatch() prop function passing nextQuestion as an argument", () => {
-        const argument = nextQuestion();
+    it("startActivity calls dispatch() prop function passing setCurrentQuestion as an argument if in previewMode and intro skipped", () => {
+        mockProps.previewMode = true;
+        mockProps.questionToPreview = { key: "test1", questionType: "questions" };
+        mockProps.skippedToQuestionFromIntro = true;
+        container = shallow(<StudentDiagnostic {...mockProps} />);
+        const argument = setCurrentQuestion(mockProps.questionToPreview);
+        container.instance().startActivity();
+        expect(mockProps.dispatch).toHaveBeenLastCalledWith(argument);
+    });
+    it("nextQuestion calls dispatch() prop function passing setCurrentQuestion as an argument while in previewMode", () => {
+        const argument = setCurrentQuestion(mockProps.playDiagnostic.unansweredQuestions[0].data);
         container.instance().nextQuestion();
-        expect(mockProps.dispatch).toHaveBeenCalledWith(argument);
+        expect(mockProps.dispatch).toHaveBeenLastCalledWith(argument);
     });
     it("nextQuestionWithoutSaving calls dispatch() prop function passing nextQuestionWithoutSaving as an argument", () => {
+        const argument = setCurrentQuestion(mockProps.playDiagnostic.unansweredQuestions[0].data);
+        container.instance().nextQuestionWithoutSaving();
+        expect(mockProps.dispatch).toHaveBeenLastCalledWith(argument);
+    });
+    it("nextQuestion calls dispatch() prop function passing nextQuestion as an argument while not in previewMode", () => {
+        mockProps.previewMode = false;
+        container = shallow(<StudentDiagnostic {...mockProps} />);
+        const argument = nextQuestion();
+        container.instance().nextQuestion();
+        expect(mockProps.dispatch).toHaveBeenLastCalledWith(argument);
+    });
+    it("nextQuestionWithoutSaving calls dispatch() prop function passing nextQuestionWithoutSaving as an argument while not in previewMode", () => {
         const argument = nextQuestionWithoutSaving();
         container.instance().nextQuestionWithoutSaving();
-        expect(mockProps.dispatch).toHaveBeenCalledWith(argument);
+        expect(mockProps.dispatch).toHaveBeenLastCalledWith(argument);
     });
     it("getLesson returns lesson at lessons.data prop at key of [params.diagnosticID] prop ", () => {
         const response = container.instance().getLesson();

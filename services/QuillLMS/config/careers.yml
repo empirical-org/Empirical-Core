@@ -2,8 +2,12 @@ default:
   open_positions:
     - category: 'Product'
       title: 'Software Engineer'
-      angelco_url: '581557-software-engineer-rails-react-python'
+      url: 'https://angel.co/company/quill-org/jobs/581557-software-engineer-rails-react-python'
 
     - category: 'Product'
       title: 'Senior Software Engineer'
-      angelco_url: '587292-senior-software-engineer-rails-react-python'
+      url: 'https://angel.co/company/quill-org/jobs/587292-senior-software-engineer-rails-react-python'
+
+    - category: 'Operations'
+      title: 'Chief of Staff'
+      url: 'https://www.linkedin.com/jobs/view/2188732565/'
