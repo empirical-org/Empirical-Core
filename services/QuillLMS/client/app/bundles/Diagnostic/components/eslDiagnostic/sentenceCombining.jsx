@@ -1,20 +1,23 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
 import _ from 'underscore';
-import { submitResponse, } from '../../actions/diagnostics.js';
 import ReactTransition from 'react-addons-css-transition-group';
-import { getGradedResponsesWithCallback } from '../../actions/responses.js';
-import RenderQuestionFeedback from '../renderForQuestions/feedbackStatements.jsx';
-import RenderQuestionCues from '../renderForQuestions/cues.tsx';
-import { Feedback, SentenceFragments, } from '../../../Shared/index';
+
 import RenderFeedback from '../renderForQuestions/feedback';
 import getResponse from '../renderForQuestions/checkAnswer';
 import { submitQuestionResponse } from '../renderForQuestions/submitResponse.js';
 import updateResponseResource from '../renderForQuestions/updateResponseResource.js';
 import TextEditor from '../renderForQuestions/renderTextEditor.jsx';
+import RenderQuestionFeedback from '../renderForQuestions/feedbackStatements.jsx';
+import RenderQuestionCues from '../renderForQuestions/cues.tsx';
+import { renderPreviewFeedback, getDisplayedText } from '../../libs/previewHelperFunctions';
+import { getLatestAttempt } from '../../libs/sharedQuestionFunctions';
+import { submitResponse, } from '../../actions/diagnostics.js';
+import { getGradedResponsesWithCallback } from '../../actions/responses.js';
 import translations from '../../libs/translations/index.js';
 import translationMap from '../../libs/translations/ellQuestionMapper.js';
 import { ENGLISH, rightToLeftLanguages } from '../../modules/translation/languagePageInfo';
+import { Feedback, SentenceFragments, } from '../../../Shared/index';
 
 const C = require('../../constants').default;
 
@@ -171,10 +174,12 @@ class ELLSentenceCombining extends React.Component {
   }
 
   readyForNext = () => {
-    const { question, } = this.props
+    const { question, previewMode } = this.props
     if (question.attempts.length > 0) {
       const latestAttempt = getLatestAttempt(question.attempts);
-      if (latestAttempt.found) {
+      if (previewMode && latestAttempt) {
+        return true;
+      } else if (latestAttempt.found) {
         const errors = _.keys(this.getErrorsForAttempt(latestAttempt));
         if (latestAttempt.response.optimal && errors.length === 0) {
           return true;
@@ -194,8 +199,10 @@ class ELLSentenceCombining extends React.Component {
   }
 
   handleNextQuestionClick = () => {
-    const { nextQuestion, } = this.props
+    const { nextQuestion, previewMode, isLastQuestion } = this.props
     this.setState({ response: '', });
+    // we don't submit the last question if in previewMode
+    if(previewMode && isLastQuestion) { return }
     nextQuestion();
     this.setState({ response: '', });
   }
@@ -239,24 +246,44 @@ class ELLSentenceCombining extends React.Component {
   }
 
   renderButton = () => {
-    const { language, question, translate } = this.props
     const { responses } = this.state;
+    const { previewMode, language, question, translate } = this.props;
+    const latestAttempt = getLatestAttempt(question.attempts);
     const buttonText = language ? translate('buttons^submit') : 'Submit';
-    if (responses && Object.keys(responses).length) {
-      if (question.attempts.length > 0) {
-        return <button className="quill-button focus-on-light large primary contained" onClick={this.handleNextQuestionClick} type="button">{buttonText}</button>;
-      } else {
-        return <button className="quill-button focus-on-light large primary contained" onClick={this.handleSubmitResponse} type="button">{buttonText}</button>;
-      }
+
+    if((previewMode && latestAttempt) || !responses) {
+      return <button className="quill-button focus-on-light large primary contained disabled" type="button">Submit</button>;
+    }
+    if (question.attempts && question.attempts.length > 0) {
+      return <button className="quill-button focus-on-light large primary contained" onClick={this.handleNextQuestionClick} type="button">{buttonText}</button>;
     } else {
-      return <button className="quill-button focus-on-light large primary contained disabled" type="button">{buttonText}</button>;
+      return <button className="quill-button focus-on-light large primary contained" onClick={this.handleSubmitResponse} type="button">{buttonText}</button>;
     }
   }
 
+  renderFeedback = () => {
+    const { previewMode, question } = this.props;
+    const { key } = question;
+    const latestAttempt = getLatestAttempt(question.attempts);
+    const instructions = (question.instructions && question.instructions !== '') ? question.instructions : 'Combine the sentences into one sentence.';
+
+    if(previewMode && latestAttempt && latestAttempt.response) {
+      return renderPreviewFeedback(latestAttempt);
+    }
+    return(
+      <Feedback
+        feedback={(<p>{instructions}</p>)}
+        feedbackType="default"
+        key={key}
+      />
+    );
+  }
+
   render = () => {
-    const { question } = this.props
+    const { question, previewMode } = this.props
     const { error, response } = this.state
     const fullPageInstructions = { maxWidth: 800, width: '100%', }
+    const displayedText = getDisplayedText({ previewMode, question, response });
 
     if (question) {
       return (
@@ -265,10 +292,7 @@ class ELLSentenceCombining extends React.Component {
             <div style={fullPageInstructions}>
               {this.renderSentenceFragments()}
               {this.renderCues()}
-              <Feedback
-                feedback={this.getInstructionText()}
-                feedbackType="instructions"
-              />
+              {this.renderFeedback()}
             </div>
             {this.renderMedia()}
           </div>
@@ -282,7 +306,7 @@ class ELLSentenceCombining extends React.Component {
               onChange={this.handleChange}
               onSubmitResponse={this.handleSubmitResponse}
               placeholder="Type your answer here."
-              value={response}
+              value={displayedText}
             />
             {this.renderError()}
             <div className="question-button-group button-group">
@@ -295,11 +319,6 @@ class ELLSentenceCombining extends React.Component {
     return (<p>Loading...</p>);
   }
 }
-
-const getLatestAttempt = (attempts = []) => {
-  const lastIndex = attempts.length - 1;
-  return attempts[lastIndex];
-};
 
 function select(state) {
   return {

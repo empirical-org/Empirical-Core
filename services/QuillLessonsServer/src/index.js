@@ -219,7 +219,15 @@ function verifyToken(token) {
   return { isValid: isValid, data: tokenData };
 }
 
-r.connect(rethinkdbConfig, (err, connection) => {
+const dbConfig = rethinkdbConfig(
+  process.env.RETHINKDB_HOSTS,
+  process.env.DYNO,
+  process.env.RETHINKDB_AUTH_KEY,
+  process.env.RETHINKDB_PUBLIC_KEY,
+  process.env.RETHINKDB_USE_SSL
+);
+
+r.connect(dbConfig, (err, connection) => {
   if (err) {
     newrelic.noticeError(err);
     captureSentryError(err);
