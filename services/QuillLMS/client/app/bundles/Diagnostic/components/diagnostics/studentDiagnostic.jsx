@@ -317,7 +317,7 @@ export class StudentDiagnostic extends React.Component {
   }
 
   render() {
-    const { playDiagnostic, dispatch, lessons } = this.props
+    const { playDiagnostic, dispatch, lessons, match } = this.props
     const { error, saved, } = this.state
     const { params } = match
     const { diagnosticID } = params
@@ -327,7 +327,7 @@ export class StudentDiagnostic extends React.Component {
     const isLastQuestion = playDiagnostic.unansweredQuestions.length === 0
 
     if (lessons.hasreceiveddata) {
-      document.title = `Quill.org | ${lessons[diagnosticID].name}`
+      document.title = `Quill.org | ${lessons.data[diagnosticID].name}`
     }
 
     if (!playDiagnostic.questionSet) {

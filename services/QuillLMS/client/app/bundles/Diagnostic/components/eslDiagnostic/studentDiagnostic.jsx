@@ -374,7 +374,7 @@ export class ELLStudentDiagnostic extends React.Component {
     let component;
     const minusHowMuch = this.language() ? 'minus-nav-and-footer' : 'minus-nav'
     if (lessons.hasreceiveddata) {
-      document.title = `Quill.org | ${lessons[diagnosticID].name}`
+      document.title = `Quill.org | ${lessons.data[diagnosticID].name}`
     }
     if (playDiagnostic.currentQuestion) {
       component = this.renderQuestionComponent();
