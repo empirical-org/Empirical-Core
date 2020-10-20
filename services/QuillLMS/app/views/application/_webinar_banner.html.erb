@@ -25,7 +25,7 @@
           let date = new Date();
           // set the cookie to expire at the start of the next hour so we can show the next webinar
           date.setHours(date.getHours() + 1,0,0);
-          document.cookie = `webinar_banner_closed=1; expires=${date.toGMTString()}`;
+          document.cookie = `webinar_banner_closed=1; expires=${date.toGMTString()}; path=/`;
       }, false);
 
     </script>
