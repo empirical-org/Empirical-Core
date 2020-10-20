@@ -10,8 +10,7 @@ module LessonsCache
       "activity_name" => activity.name,
       "unit_id" => classroom_unit.unit_id,
       "completed" => ActivitySession.has_a_completed_session?(activity.id, classroom_unit.id) || cua.completed,
-      "visible" => cua.unit_activity.visible
-    }
+      "visible" => cua.unit_activity.visible}
   end
 
   def update_lessons_cache(cua)
