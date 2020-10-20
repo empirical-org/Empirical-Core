@@ -6,6 +6,7 @@ import stripHtml from "string-strip-html";
 import { getActivity } from "../../../Grammar/actions/grammarActivities";
 import getParameterByName from "../../../Grammar/helpers/getParameterByName";
 import { Question } from '../../../Grammar/interfaces/questions';
+import { setCurrentQuestion } from '../../../Diagnostic/actions/diagnostics.js';
 
 interface Activity {
   title?: string;
@@ -20,13 +21,22 @@ interface Activity {
   modelConceptUID?: string;
 }
 
+const isConnectActivity = window.location.href.includes('connect');
+const isDiagnosticActivity = window.location.href.includes('diagnostic');
+const isGrammarActivity = window.location.href.includes('grammar');
+
 const returnActivity = (state: any) => {
-  const { grammarActivities, lessons } = state;
-  if(grammarActivities) {
+  const { grammarActivities, lessons, playDiagnostic } = state;
+  if(isGrammarActivity) {
     return grammarActivities.currentActivity;
-  } else if(lessons && lessons.data) {
+  } else if(isDiagnosticActivity && playDiagnostic && playDiagnostic.diagnosticID && lessons && lessons.data) {
+    const { data } = lessons;
+    const { diagnosticID } = playDiagnostic;
+    return data[diagnosticID]
+  } else if(isConnectActivity && lessons && lessons.data) {
+    const { data } = lessons;
     const uid = Object.keys(lessons.data)[0];
-    return lessons.data[uid]
+    return data[uid]
   }
   return null;
 }
@@ -39,6 +49,16 @@ const returnActivityData = (activityData: { data: object }) => {
   return data;
 }
 
+const returnLessonData = (playDiagnostic: any, playLesson: any) => {
+  if(isConnectActivity) {
+    return playLesson;
+  } else if(isDiagnosticActivity) {
+    return playDiagnostic;
+  } else {
+    return null;
+  }
+}
+
 const renderTitleSection = (activity: Activity) => {
   if (!activity) { return }
   return(
@@ -49,7 +69,7 @@ const renderTitleSection = (activity: Activity) => {
   );
 }
 
-const renderIntroductionSection = (activity: Activity, playLesson: any, session: any) => {
+const renderIntroductionSection = (activity: Activity, lesson: any, session: any) => {
   if(!activity) { return }
   const isEmptyIntroduction = activity.landingPageHtml && !stripHtml(activity.landingPageHtml);
   if(activity && (!activity.landingPageHtml || isEmptyIntroduction)) { return }
@@ -63,7 +83,7 @@ const renderIntroductionSection = (activity: Activity, playLesson: any, session:
     return;
   }
   // highlight introduction session if activity not started, we use session for Grammar and playLesson for Connect
-  const style = ((session && !session.currentQuestion) || (playLesson && !playLesson.questionSet)) ? 'highlighted' : '';
+  const style = ((session && !session.currentQuestion) || (lesson && !lesson.currentQuestion)) ? 'highlighted' : '';
   return(
     <section>
       <h2>Introduction</h2>
@@ -72,17 +92,22 @@ const renderIntroductionSection = (activity: Activity, playLesson: any, session:
   );
 }
 
-const getStyling = ({ questionToPreview, uidOrKey, i, session, playLesson }) => {
+const getStyling = ({ questionToPreview, uidOrKey, i, session, lesson }) => {
+  // some ELL SC questions get an -esp appended to the key
+  const slicedUidOrKey = uidOrKey.slice(0, -4);
   let key: string;
-  if(questionToPreview) {
+  if(isDiagnosticActivity && lesson && lesson.currentQuestion) {
+    const { data } = lesson.currentQuestion;
+    key = data.key;
+  } else if(questionToPreview) {
     key = questionToPreview.key ? questionToPreview.key : questionToPreview.uid;
   }
   // don't apply highlight if activity has not started
-  if((session && !session.currentQuestion) || (playLesson && !playLesson.questionSet)) {
+  if((session && !session.currentQuestion) || (lesson && !lesson.currentQuestion)) {
     return '';
   }
   // if first question has no key from initial render, apply highlight
-  return key === uidOrKey || (i === 0 && !key) ? 'highlighted' : '';
+  return key === uidOrKey || key === slicedUidOrKey || (i === 0 && !key) ? 'highlighted' : '';
 }
 
 const getIndentation = (i: number) => {
@@ -91,10 +116,12 @@ const getIndentation = (i: number) => {
 
 const getQuestionObject = ({ questions, titleCards, sentenceFragments, fillInBlank, key }) => {
   let questionObject;
-  if(questions && questions[key]) {
+  if(questions && questions[key] && questions[key].prompt) {
     questionObject = questions[key];
+    questionObject.type = 'SC';
   } else if(titleCards && titleCards[key]) {
     questionObject = titleCards[key];
+    questionObject.type = 'TL';
   } else if(sentenceFragments && sentenceFragments[key]) {
     questionObject = sentenceFragments[key];
     questionObject.type = 'SF';
@@ -114,7 +141,7 @@ const renderQuestions = ({
   activity,
   fillInBlank,
   handleQuestionUpdate,
-  playLesson,
+  lesson,
   questions,
   questionToPreview,
   randomizedQuestions,
@@ -126,18 +153,22 @@ const renderQuestions = ({
     return null;
   // some Grammar activities return an empty array for the questions property so we check it's length
   } else if(activity && activity.questions && activity.questions.length) {
+    const questionsWithoutTitleCards = activity.questions.filter(question => question.questionType !== 'titleCards');
     return activity.questions.map((question: any, i: number) => {
       const { key } = question;
+      const index = questionsWithoutTitleCards.indexOf(question);
+      const questionNumber = index !== -1 ? `${index + 1}.  ` : '';
       const questionObject = getQuestionObject({ questions, titleCards, sentenceFragments, fillInBlank, key });
       const questionText = questionObject.prompt || questionObject.title
-      const highlightedStyle = getStyling({ questionToPreview, uidOrKey: key, i, session, playLesson });
-      const indentation = getIndentation(i);
+      const highlightedStyle = getStyling({ questionToPreview, uidOrKey: key, i, session, lesson });
+      const indentationStyle = getIndentation(i);
+      const titleCardStyle = !questionNumber ? 'inverted-indent' :'';
       if(!questionObject) {
         return null;
       }
       return(
-        <button className={`question-container ${highlightedStyle} focus-on-light`} id={key} key={key} onClick={handleQuestionUpdate} type="button">
-          <p className={`question-number ${indentation}`}>{`${i + 1}.  `}</p>
+        <button className={`question-container ${highlightedStyle} ${titleCardStyle} focus-on-light`} id={key} key={key} onClick={handleQuestionUpdate} type="button">
+          {questionNumber && <p className={`question-number ${indentationStyle}`}>{questionNumber}</p>}
           <p className="question-text">{stripHtml(questionText)}</p>
         </button>
       );
@@ -145,11 +176,11 @@ const renderQuestions = ({
   } else if(randomizedQuestions) {
     return randomizedQuestions.map((question: any, i: number) => {
       const { uid } = question;
-      const highlightedStyle = getStyling({ questionToPreview, uidOrKey: uid, i, session, playLesson });
-      const indentation = getIndentation(i);
+      const highlightedStyle = getStyling({ questionToPreview, uidOrKey: uid, i, session, lesson });
+      const indentationStyle = getIndentation(i);
       return(
         <button className={`question-container ${highlightedStyle} focus-on-light`} id={uid} key={uid} onClick={handleQuestionUpdate} type="button">
-          <p className={`question-number ${indentation}`}>{`${i + 1}.  `}</p>
+          <p className={`question-number ${indentationStyle}`}>{`${i + 1}.  `}</p>
           <p className="question-text">{stripHtml(question.prompt)}</p>
         </button>
       );
@@ -165,7 +196,7 @@ interface TeacherPreviewMenuProps {
   onTogglePreview?: () => void;
   onToggleQuestion?: (question: Question) => void;
   onUpdateRandomizedQuestions?: (questions: any[]) => void;
-  playLesson: any;
+  lesson: any;
   questions: Question[];
   questionToPreview?: {
     key?: string,
@@ -185,7 +216,7 @@ const TeacherPreviewMenuComponent = ({
   onTogglePreview,
   onToggleQuestion,
   onUpdateRandomizedQuestions,
-  playLesson,
+  lesson,
   questions,
   questionToPreview,
   sentenceFragments,
@@ -197,6 +228,7 @@ const TeacherPreviewMenuComponent = ({
   const [randomizedQuestions, setRandomizedQuestions] = React.useState<Question[]>();
 
   React.useEffect(() => {
+    // we need to fetch grammar activities here
     const activityUID = getParameterByName('uid', window.location.href);
     if (activityUID) {
       dispatch(getActivity(activityUID))
@@ -225,9 +257,11 @@ const TeacherPreviewMenuComponent = ({
       question.key = questionUID;
     }
     // again we use session for Grammar and playLesson for Connect
-    if((session && !session.currentQuestion) || (playLesson && !playLesson.questionSet)) {
+    if(!questionToPreview) {
       onHandleSkipToQuestionFromIntro();
     }
+    const action = setCurrentQuestion(question);
+    dispatch(action);
     onToggleQuestion(question);
   }
 
@@ -246,7 +280,7 @@ const TeacherPreviewMenuComponent = ({
         <p>This menu only displays for teachers previewing an activity. Students will not be able to skip questions.</p>
       </section>
       {renderTitleSection(activity)}
-      {renderIntroductionSection(activity, playLesson, session)}
+      {renderIntroductionSection(activity, lesson, session)}
       <section>
         <h2>Questions</h2>
         <ul>
@@ -254,7 +288,7 @@ const TeacherPreviewMenuComponent = ({
             activity,
             fillInBlank,
             handleQuestionUpdate,
-            playLesson,
+            lesson,
             questions,
             questionToPreview,
             randomizedQuestions,
@@ -269,11 +303,11 @@ const TeacherPreviewMenuComponent = ({
 }
 
 const mapStateToProps = (state: any) => {
-  const { questions, session, titleCards, sentenceFragments, fillInBlank, playLesson } = state;
+  const { questions, session, titleCards, sentenceFragments, fillInBlank, playLesson, playDiagnostic } = state;
   return {
     activity: returnActivity(state),
     fillInBlank: fillInBlank ? returnActivityData(fillInBlank) : null,
-    playLesson: playLesson,
+    lesson: returnLessonData(playDiagnostic, playLesson),
     questions: questions ? returnActivityData(questions) : null,
     sentenceFragments: sentenceFragments ? returnActivityData(sentenceFragments) : null,
     session: session,

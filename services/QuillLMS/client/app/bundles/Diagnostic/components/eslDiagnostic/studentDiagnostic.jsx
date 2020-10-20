@@ -1,9 +1,5 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import {
-  CarouselAnimation,
-  ProgressBar
-} from 'quill-component-library/dist/componentLibrary';
 import _ from 'underscore';
 import { withNamespaces } from 'react-i18next';
 
@@ -15,7 +11,10 @@ import PlayTitleCard from './titleCard.tsx'
 import FinishedDiagnostic from './finishedDiagnostic.jsx';
 import Footer from './footer'
 
-import PlayFillInTheBlankQuestion from '../fillInBlank/playFillInTheBlankQuestion'
+import {
+  CarouselAnimation,
+  ProgressBar
+} from '../../../Shared/index';
 import {
   clearData,
   loadData,
@@ -26,9 +25,11 @@ import {
   resumePreviousDiagnosticSession,
   updateLanguage,
   setDiagnosticID,
-  openLanguageMenu
+  openLanguageMenu,
+  setCurrentQuestion
 } from '../../actions/diagnostics.js';
 import SessionActions from '../../actions/sessions.js';
+import PlayFillInTheBlankQuestion from '../fillInBlank/playFillInTheBlankQuestion'
 import { getConceptResultsForAllQuestions } from '../../libs/conceptResults/diagnostic';
 import {
   questionCount,
@@ -37,6 +38,7 @@ import {
 } from '../../libs/calculateProgress'
 import { getParameterByName } from '../../libs/getParameterByName';
 import i18n from '../../i18n';
+import { ENGLISH } from '../../modules/translation/languagePageInfo';
 
 const request = require('request');
 
@@ -49,7 +51,6 @@ export class ELLStudentDiagnostic extends React.Component {
       sessionID: this.getSessionId(),
       hasOrIsGettingResponses: false,
     }
-
   }
 
   componentDidMount() {
@@ -62,12 +63,18 @@ export class ELLStudentDiagnostic extends React.Component {
         this.setState({ session: data, });
       });
     }
+    const data = this.getFetchedData()
+    const action = loadData(data);
+    dispatch(action);
   }
 
-  UNSAFE_componentWillReceiveProps(nextProps) {
-    const { playDiagnostic, } = this.props
-    if (nextProps.playDiagnostic.answeredQuestions.length !== playDiagnostic.answeredQuestions.length) {
-      this.saveSessionData(nextProps.playDiagnostic);
+  componentDidUpdate(prevProps) {
+    const { previewMode, skippedToQuestionFromIntro, questionToPreview, playDiagnostic } = this.props;
+    if(prevProps.skippedToQuestionFromIntro !== skippedToQuestionFromIntro && previewMode && questionToPreview) {
+      this.startActivity();
+    }
+    if (prevProps.playDiagnostic.answeredQuestions.length !== playDiagnostic.answeredQuestions.length) {
+      this.saveSessionData(playDiagnostic);
     }
   }
 
@@ -171,7 +178,7 @@ export class ELLStudentDiagnostic extends React.Component {
   }
 
   renderQuestionComponent = () => {
-    const { playDiagnostic, dispatch, match, t } = this.props
+    const { playDiagnostic, dispatch, match, t, previewMode } = this.props
     const { params } = match;
     const { diagnosticID } = params;
 
@@ -182,10 +189,12 @@ export class ELLStudentDiagnostic extends React.Component {
       component = (<PlayDiagnosticQuestion
         diagnosticID={diagnosticID}
         dispatch={dispatch}
+        isLastQuestion={isLastQuestion}
         key={playDiagnostic.currentQuestion.data.key}
         language={this.language()}
         marking="diagnostic"
         nextQuestion={this.nextQuestion}
+        previewMode={previewMode}
         question={playDiagnostic.currentQuestion.data}
         translate={t}
       />);
@@ -193,10 +202,12 @@ export class ELLStudentDiagnostic extends React.Component {
       component = (<PlaySentenceFragment
         currentKey={playDiagnostic.currentQuestion.data.key}
         dispatch={dispatch}
+        isLastQuestion={isLastQuestion}
         key={playDiagnostic.currentQuestion.data.key}
         language={this.language()}
         markIdentify={this.markIdentify}
         nextQuestion={this.nextQuestion}
+        previewMode={previewMode}
         question={playDiagnostic.currentQuestion.data}
         updateAttempts={this.submitResponse}
       />);
@@ -211,6 +222,7 @@ export class ELLStudentDiagnostic extends React.Component {
           isLastQuestion={isLastQuestion}
           key={playDiagnostic.currentQuestion.data.key}
           language={this.language()}
+          previewMode={previewMode}
           translate={t}
         />
       );
@@ -223,6 +235,7 @@ export class ELLStudentDiagnostic extends React.Component {
           key={playDiagnostic.currentQuestion.data.key}
           language={this.language()}
           nextQuestion={this.nextQuestion}
+          previewMode={previewMode}
           question={playDiagnostic.currentQuestion.data}
           translate={t}
         />
@@ -232,27 +245,50 @@ export class ELLStudentDiagnostic extends React.Component {
   }
 
   startActivity = () => {
-    const { dispatch, params, } = this.props
+    const { dispatch, previewMode, skippedToQuestionFromIntro, questionToPreview } = this.props
 
     const data = this.getFetchedData()
     const action = loadData(data);
     dispatch(action);
-    const next = nextQuestion();
-    dispatch(next);
+    // when user skips to question from the landing page, we set the current question here in this one instance and default lanugage to English
+    if(previewMode && skippedToQuestionFromIntro && questionToPreview) {
+      if(!this.language()) {
+        this.updateLanguage(ENGLISH);
+      }
+      const action = setCurrentQuestion(questionToPreview);
+      dispatch(action);
+    } else {
+      const next = nextQuestion();
+      dispatch(next);
+    }
   }
 
   nextQuestion = () => {
-    const { dispatch, } = this.props
-
-    const next = nextQuestion();
-    dispatch(next);
+    const { dispatch, playDiagnostic, previewMode } = this.props;
+    const { unansweredQuestions } = playDiagnostic;
+    // we set the current question here; otherwise, the attempts will be reset if the next question has already been answered
+    if(previewMode) {
+      const question = unansweredQuestions[0].data;
+      const action = setCurrentQuestion(question);
+      dispatch(action);
+    } else {
+      const next = nextQuestion();
+      dispatch(next);
+    }
   }
 
   nextQuestionWithoutSaving = () => {
-    const { dispatch, } = this.props
-
-    const next = nextQuestionWithoutSaving();
-    dispatch(next);
+    const { dispatch, playDiagnostic, previewMode } = this.props;
+    const { unansweredQuestions } = playDiagnostic;
+    // we set the current question here; otherwise, the attempts will be reset if the next question has already been answered
+    if(previewMode) {
+      const question = unansweredQuestions[0].data;
+      const action = setCurrentQuestion(question);
+      dispatch(action);
+    } else {
+      const next = nextQuestionWithoutSaving();
+      dispatch(next);
+    }
   }
 
   getLesson = () => {
@@ -367,15 +403,17 @@ export class ELLStudentDiagnostic extends React.Component {
 
   render() {
     const { error, saved, } = this.state
-    const { dispatch, match, playDiagnostic, t, lessons, } = this.props;
+    const { dispatch, match, playDiagnostic, t, previewMode, lessons, } = this.props;
     const { params } = match;
     const { diagnosticID } = params;
 
     let component;
     const minusHowMuch = this.language() ? 'minus-nav-and-footer' : 'minus-nav'
+
     if (lessons.hasreceiveddata) {
       document.title = `Quill.org | ${lessons.data[diagnosticID].name}`
     }
+
     if (playDiagnostic.currentQuestion) {
       component = this.renderQuestionComponent();
     } else if (playDiagnostic.answeredQuestions.length > 0 && playDiagnostic.unansweredQuestions.length === 0) {
@@ -386,7 +424,7 @@ export class ELLStudentDiagnostic extends React.Component {
         saveToLMS={this.saveToLMS}
         translate={t}
       />);
-    } else if (playDiagnostic.language) {
+    } else if (playDiagnostic.language && !previewMode) {
       component = (<LandingPage
         begin={this.startActivity}
         landingPageHtml={this.landingPageHtml()}
@@ -398,8 +436,10 @@ export class ELLStudentDiagnostic extends React.Component {
       />);
     } else {
       component = (<LanguagePage
+        begin={this.startActivity}
         diagnosticID={diagnosticID}
         dispatch={dispatch}
+        previewMode={previewMode}
         setLanguage={this.updateLanguage}
       />);
     }

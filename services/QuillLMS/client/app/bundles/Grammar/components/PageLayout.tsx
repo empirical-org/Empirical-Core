@@ -86,7 +86,7 @@ export class PageLayout extends React.Component<any, PageLayoutState> {
   renderContent = (header: JSX.Element, previewMode: boolean) => {
     const { questionToPreview, switchedBackToPreview, randomizedQuestions, skippedToQuestionFromIntro } = this.state;
     return(
-      <Layout.Content>
+      <Layout.Content style={{ height: '100vh', overflow: 'auto' }}>
         <button className="skip-main" onClick={this.handleSkipToMainContentClick} type="button">Skip to main content</button>
         {header}
         <div id="main-content" tabIndex={-1}>{renderRoutes(routes, {
