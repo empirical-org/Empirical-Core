@@ -102,12 +102,15 @@ describe Teachers::ClassroomUnitsController, type: :controller do
 
     describe '#lessons_units_and_activities' do
       before do
-        $redis.set("user_id:#{teacher.id}_lessons_array", [{ activity_id: 10, activity_name: "some name", completed: false }].to_json)
+        $redis.set("user_id:#{teacher.id}_lessons_array", [
+          { activity_id: 10, activity_name: "some name", completed: false, visible: true },
+          { activity_id: 11, activity_name: "bater papo", completed: false, visible: false }
+        ].to_json)
       end
 
       it 'should return the activity id in the cache' do
         get :lessons_units_and_activities
-        expect(response.body).to eq({data: [{ activity_id: 10, name: "some name", completed: false }]}.to_json)
+        expect(response.body).to eq({data: [{ activity_id: 10, name: "some name", completed: false, visible: true }]}.to_json)
       end
     end
   end
