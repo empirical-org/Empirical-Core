@@ -1,5 +1,6 @@
 import * as React from "react";
-import { EditorState, ContentState } from 'draft-js'
+import { EditorState, ContentState } from 'draft-js';
+
 // import { flagOptions } from '../../../../../constants/comprehension'
 import { validateForm, buildActivity, buildBlankPrompt, promptsByConjunction } from '../../../helpers/comprehension';
 import {
@@ -10,6 +11,7 @@ import {
   TITLE,
   SCORED_READING_LEVEL,
   TARGET_READING_LEVEL,
+  PARENT_ACTIVITY_ID,
   MAX_ATTEMPTS_FEEDBACK,
   PASSAGE,
   BECAUSE_STEM,
@@ -34,6 +36,7 @@ const ActivityForm = ({ activity, closeModal, submitActivity }: ActivityFormProp
   // const formattedFlag = flag ? { label: flag, value: flag } : flagOptions[0];
   const formattedScoredLevel = scored_level || '';
   const formattedTargetLevel = target_level ? target_level.toString() : '';
+  const formattedParentActivityId = parent_activity_id ? parent_activity_id.toString() : '';
   const formattedPassage = passages && passages.length ? passages : [{ text: ''}];
   const formattedMaxFeedback = prompts && prompts[0] && prompts[0].max_attempts_feedback ? prompts[0].max_attempts_feedback : '';
   const formattedPrompts = promptsByConjunction(prompts);
@@ -45,6 +48,7 @@ const ActivityForm = ({ activity, closeModal, submitActivity }: ActivityFormProp
   // const [activityFlag, setActivityFlag] = React.useState<FlagInterface>(formattedFlag);
   const [activityScoredReadingLevel, setActivityScoredReadingLevel] = React.useState<string>(formattedScoredLevel);
   const [activityTargetReadingLevel, setActivityTargetReadingLevel] = React.useState<string>(formattedTargetLevel);
+  const [activityParentActivityId, setActivityParentActivityId] = React.useState<string>(formattedParentActivityId);
   const [activityPassages, setActivityPassages] = React.useState<PassagesInterface[]>(formattedPassage);
   const [activityMaxFeedback, setActivityMaxFeedback] = React.useState<string>(formattedMaxFeedback)
   const [activityBecausePrompt, setActivityBecausePrompt] = React.useState<PromptInterface>(becausePrompt);
@@ -61,6 +65,8 @@ const ActivityForm = ({ activity, closeModal, submitActivity }: ActivityFormProp
   const handleSetActivityScoredReadingLevel = (e: InputEvent) => { setActivityScoredReadingLevel(e.target.value) };
 
   const handleSetActivityTargetReadingLevel = (e: InputEvent) => { setActivityTargetReadingLevel(e.target.value) };
+
+  const handleSetActivityParentActivityId = (e: InputEvent) => { setActivityParentActivityId(e.target.value) };
 
   const handleSetActivityPassages = (text: string) => {
     const updatedPassages = [...activityPassages];
@@ -91,17 +97,18 @@ const ActivityForm = ({ activity, closeModal, submitActivity }: ActivityFormProp
       activityTitle,
       activityScoredReadingLevel,
       activityTargetReadingLevel,
+      activityParentActivityId,
       activityPassages,
       activityMaxFeedback,
       activityBecausePrompt,
       activityButPrompt,
-      activitySoPrompt,
-      parent_activity_id,
+      activitySoPrompt
     });
     const state = [
       activityTitle,
       activityScoredReadingLevel,
       activityTargetReadingLevel,
+      activityParentActivityId,
       activityMaxFeedback,
       activityPassages[0].text,
       activityBecausePrompt.text,
@@ -154,6 +161,13 @@ const ActivityForm = ({ activity, closeModal, submitActivity }: ActivityFormProp
           handleChange={handleSetActivityTargetReadingLevel}
           label="Target Reading Level"
           value={activityTargetReadingLevel}
+        />
+        <Input
+          className="parent-activity-id-input"
+          error={errors[PARENT_ACTIVITY_ID]}
+          handleChange={handleSetActivityParentActivityId}
+          label="Parent Activity ID"
+          value={activityParentActivityId}
         />
         <p className={`text-editor-label ${passageLabelStyle}`}>Passage</p>
         <TextEditor
