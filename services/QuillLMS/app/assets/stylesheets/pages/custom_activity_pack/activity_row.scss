@@ -74,7 +74,7 @@
     &.not-selected:hover {
       background-color: #f2f2f2;
     }
-    &.not-expanded {
+    &.expanded {
       .expand-button img {
         transform: rotate(180deg);
       }

@@ -136,7 +136,6 @@ const ActivityRow = ({ activity, isSelected, toggleActivitySelection, showCheckb
     setShowSnackbar && setShowSnackbar(true)
   }
 
-
   const expandImgAltText = `Arrow pointing ${isExpanded ? 'up' : 'down'}`
 
   const { activity_classification, name, activity_category_name, standard_level_name, anonymous_path, } = activity

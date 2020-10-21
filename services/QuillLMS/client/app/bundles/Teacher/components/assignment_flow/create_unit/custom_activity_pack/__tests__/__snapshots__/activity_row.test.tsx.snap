@@ -1,0 +1,1011 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ActivityRow component with showCheckbox false and showRemoveButton true is not selected should render 1`] = `
+<ActivityRow
+  activity={
+    Object {
+      "activity_category": Object {
+        "id": 4,
+        "name": "Verbs",
+      },
+      "activity_category_id": 4,
+      "activity_category_name": "Verbs",
+      "activity_classification": Object {
+        "alias": "Quill Lessons",
+        "description": "Lead Group Lessons",
+        "id": 6,
+        "key": "lessons",
+      },
+      "anonymous_path": "/activity_sessions/anonymous?activity_id=738",
+      "description": "Students learn to use the past progressive form in this teacher-led lesson.",
+      "flags": "{production}",
+      "id": 738,
+      "name": "Lesson 2: Past Progressive Tense",
+      "standard_level": Object {
+        "id": 10,
+        "name": "4th Grade CCSS",
+      },
+      "standard_level_name": "4th Grade CCSS",
+      "standard_name": "4",
+      "uid": "-L7AoYnq5vwWkKJsar_O",
+    }
+  }
+  isFirst={false}
+  isSelected={false}
+  setShowSnackbar={[Function]}
+  showCheckbox={false}
+  showRemoveButton={true}
+  toggleActivitySelection={[Function]}
+>
+  <section
+    className="activity-row not-expanded not-selected "
+  >
+    <ActivityRowTooltip
+      activity={
+        Object {
+          "activity_category": Object {
+            "id": 4,
+            "name": "Verbs",
+          },
+          "activity_category_id": 4,
+          "activity_category_name": "Verbs",
+          "activity_classification": Object {
+            "alias": "Quill Lessons",
+            "description": "Lead Group Lessons",
+            "id": 6,
+            "key": "lessons",
+          },
+          "anonymous_path": "/activity_sessions/anonymous?activity_id=738",
+          "description": "Students learn to use the past progressive form in this teacher-led lesson.",
+          "flags": "{production}",
+          "id": 738,
+          "name": "Lesson 2: Past Progressive Tense",
+          "standard_level": Object {
+            "id": 10,
+            "name": "4th Grade CCSS",
+          },
+          "standard_level_name": "4th Grade CCSS",
+          "standard_name": "4",
+          "uid": "-L7AoYnq5vwWkKJsar_O",
+        }
+      }
+      showTooltip={false}
+    >
+      <span />
+    </ActivityRowTooltip>
+    <div
+      className="first-line"
+    >
+      <div
+        className="name-and-checkbox-wrapper"
+      >
+        <button
+          className="interactive-wrapper"
+          onMouseEnter={[Function]}
+          onMouseLeave={[Function]}
+          tabIndex={-1}
+          type="button"
+        >
+          <h2>
+            Lesson 2: Past Progressive Tense
+          </h2>
+        </button>
+      </div>
+      <div
+        className="buttons-wrapper"
+      >
+        <button
+          className="interactive-wrapper focus-on-light remove-button"
+          onClick={[Function]}
+          type="button"
+        >
+          <img
+            alt="Remove icon"
+            src="undefined/images/icons/remove-in-circle.svg"
+          />
+          Remove
+        </button>
+        <button
+          className="interactive-wrapper focus-on-light expand-button"
+          onClick={[Function]}
+          type="button"
+        >
+          <img
+            alt="Arrow pointing down"
+            src="undefined/images/shared/expand.svg"
+          />
+        </button>
+      </div>
+    </div>
+    <div
+      className="second-line"
+    >
+      <div
+        className="classification-concept-topic-wrapper"
+      >
+        <ActivityRowClassification
+          classification={
+            Object {
+              "alias": "Quill Lessons",
+              "description": "Lead Group Lessons",
+              "id": 6,
+              "key": "lessons",
+            }
+          }
+        >
+          <span
+            className="second-line-section classification"
+          >
+            <img
+              alt="Apple representing Quill Lessons"
+              src="undefined/images/icons/description-lessons.svg"
+            />
+            <span>
+              Quill Lessons
+            </span>
+          </span>
+        </ActivityRowClassification>
+        <ActivityRowConcept
+          conceptName="Verbs"
+        >
+          <span
+            className="second-line-section concept"
+          >
+            <img
+              alt="Pencil writing icon"
+              src="undefined/images/icons/description-concept.svg"
+            />
+            <span>
+              Verbs
+            </span>
+          </span>
+        </ActivityRowConcept>
+        <span
+          className="second-line-section topic"
+        />
+      </div>
+      <div
+        className="readability-and-standard-level-wrapper"
+      >
+        <span
+          className="second-line-section readability"
+        />
+        <ActivityRowStandardLevel
+          standardLevelName="4th Grade CCSS"
+        >
+          <span
+            className="second-line-section standard-level"
+          >
+            <img
+              alt="Common Core State Standards icon"
+              src="undefined/images/icons/description-ccss.svg"
+            />
+            <span>
+              4th Grade CCSS
+            </span>
+          </span>
+        </ActivityRowStandardLevel>
+      </div>
+    </div>
+    <ActivityRowExpandedSection
+      activity={
+        Object {
+          "activity_category": Object {
+            "id": 4,
+            "name": "Verbs",
+          },
+          "activity_category_id": 4,
+          "activity_category_name": "Verbs",
+          "activity_classification": Object {
+            "alias": "Quill Lessons",
+            "description": "Lead Group Lessons",
+            "id": 6,
+            "key": "lessons",
+          },
+          "anonymous_path": "/activity_sessions/anonymous?activity_id=738",
+          "description": "Students learn to use the past progressive form in this teacher-led lesson.",
+          "flags": "{production}",
+          "id": 738,
+          "name": "Lesson 2: Past Progressive Tense",
+          "standard_level": Object {
+            "id": 10,
+            "name": "4th Grade CCSS",
+          },
+          "standard_level_name": "4th Grade CCSS",
+          "standard_name": "4",
+          "uid": "-L7AoYnq5vwWkKJsar_O",
+        }
+      }
+      isExpanded={false}
+    >
+      <span />
+    </ActivityRowExpandedSection>
+    <div
+      className="mobile-only"
+    >
+      <button
+        className="interactive-wrapper focus-on-light remove-button"
+        onClick={[Function]}
+        type="button"
+      >
+        <img
+          alt="Remove icon"
+          src="undefined/images/icons/remove-in-circle.svg"
+        />
+        Remove
+      </button>
+    </div>
+  </section>
+</ActivityRow>
+`;
+
+exports[`ActivityRow component with showCheckbox false and showRemoveButton true is selected should render 1`] = `
+<ActivityRow
+  activity={
+    Object {
+      "activity_category": Object {
+        "id": 4,
+        "name": "Verbs",
+      },
+      "activity_category_id": 4,
+      "activity_category_name": "Verbs",
+      "activity_classification": Object {
+        "alias": "Quill Lessons",
+        "description": "Lead Group Lessons",
+        "id": 6,
+        "key": "lessons",
+      },
+      "anonymous_path": "/activity_sessions/anonymous?activity_id=738",
+      "description": "Students learn to use the past progressive form in this teacher-led lesson.",
+      "flags": "{production}",
+      "id": 738,
+      "name": "Lesson 2: Past Progressive Tense",
+      "standard_level": Object {
+        "id": 10,
+        "name": "4th Grade CCSS",
+      },
+      "standard_level_name": "4th Grade CCSS",
+      "standard_name": "4",
+      "uid": "-L7AoYnq5vwWkKJsar_O",
+    }
+  }
+  isFirst={false}
+  isSelected={true}
+  setShowSnackbar={[Function]}
+  showCheckbox={false}
+  showRemoveButton={true}
+  toggleActivitySelection={[Function]}
+>
+  <section
+    className="activity-row not-expanded selected "
+  >
+    <ActivityRowTooltip
+      activity={
+        Object {
+          "activity_category": Object {
+            "id": 4,
+            "name": "Verbs",
+          },
+          "activity_category_id": 4,
+          "activity_category_name": "Verbs",
+          "activity_classification": Object {
+            "alias": "Quill Lessons",
+            "description": "Lead Group Lessons",
+            "id": 6,
+            "key": "lessons",
+          },
+          "anonymous_path": "/activity_sessions/anonymous?activity_id=738",
+          "description": "Students learn to use the past progressive form in this teacher-led lesson.",
+          "flags": "{production}",
+          "id": 738,
+          "name": "Lesson 2: Past Progressive Tense",
+          "standard_level": Object {
+            "id": 10,
+            "name": "4th Grade CCSS",
+          },
+          "standard_level_name": "4th Grade CCSS",
+          "standard_name": "4",
+          "uid": "-L7AoYnq5vwWkKJsar_O",
+        }
+      }
+      showTooltip={false}
+    >
+      <span />
+    </ActivityRowTooltip>
+    <div
+      className="first-line"
+    >
+      <div
+        className="name-and-checkbox-wrapper"
+      >
+        <button
+          className="interactive-wrapper"
+          onMouseEnter={[Function]}
+          onMouseLeave={[Function]}
+          tabIndex={-1}
+          type="button"
+        >
+          <h2>
+            Lesson 2: Past Progressive Tense
+          </h2>
+        </button>
+      </div>
+      <div
+        className="buttons-wrapper"
+      >
+        <button
+          className="interactive-wrapper focus-on-light remove-button"
+          onClick={[Function]}
+          type="button"
+        >
+          <img
+            alt="Remove icon"
+            src="undefined/images/icons/remove-in-circle.svg"
+          />
+          Remove
+        </button>
+        <button
+          className="interactive-wrapper focus-on-light expand-button"
+          onClick={[Function]}
+          type="button"
+        >
+          <img
+            alt="Arrow pointing down"
+            src="undefined/images/shared/expand.svg"
+          />
+        </button>
+      </div>
+    </div>
+    <div
+      className="second-line"
+    >
+      <div
+        className="classification-concept-topic-wrapper"
+      >
+        <ActivityRowClassification
+          classification={
+            Object {
+              "alias": "Quill Lessons",
+              "description": "Lead Group Lessons",
+              "id": 6,
+              "key": "lessons",
+            }
+          }
+        >
+          <span
+            className="second-line-section classification"
+          >
+            <img
+              alt="Apple representing Quill Lessons"
+              src="undefined/images/icons/description-lessons.svg"
+            />
+            <span>
+              Quill Lessons
+            </span>
+          </span>
+        </ActivityRowClassification>
+        <ActivityRowConcept
+          conceptName="Verbs"
+        >
+          <span
+            className="second-line-section concept"
+          >
+            <img
+              alt="Pencil writing icon"
+              src="undefined/images/icons/description-concept.svg"
+            />
+            <span>
+              Verbs
+            </span>
+          </span>
+        </ActivityRowConcept>
+        <span
+          className="second-line-section topic"
+        />
+      </div>
+      <div
+        className="readability-and-standard-level-wrapper"
+      >
+        <span
+          className="second-line-section readability"
+        />
+        <ActivityRowStandardLevel
+          standardLevelName="4th Grade CCSS"
+        >
+          <span
+            className="second-line-section standard-level"
+          >
+            <img
+              alt="Common Core State Standards icon"
+              src="undefined/images/icons/description-ccss.svg"
+            />
+            <span>
+              4th Grade CCSS
+            </span>
+          </span>
+        </ActivityRowStandardLevel>
+      </div>
+    </div>
+    <ActivityRowExpandedSection
+      activity={
+        Object {
+          "activity_category": Object {
+            "id": 4,
+            "name": "Verbs",
+          },
+          "activity_category_id": 4,
+          "activity_category_name": "Verbs",
+          "activity_classification": Object {
+            "alias": "Quill Lessons",
+            "description": "Lead Group Lessons",
+            "id": 6,
+            "key": "lessons",
+          },
+          "anonymous_path": "/activity_sessions/anonymous?activity_id=738",
+          "description": "Students learn to use the past progressive form in this teacher-led lesson.",
+          "flags": "{production}",
+          "id": 738,
+          "name": "Lesson 2: Past Progressive Tense",
+          "standard_level": Object {
+            "id": 10,
+            "name": "4th Grade CCSS",
+          },
+          "standard_level_name": "4th Grade CCSS",
+          "standard_name": "4",
+          "uid": "-L7AoYnq5vwWkKJsar_O",
+        }
+      }
+      isExpanded={false}
+    >
+      <span />
+    </ActivityRowExpandedSection>
+    <div
+      className="mobile-only"
+    >
+      <button
+        className="interactive-wrapper focus-on-light remove-button"
+        onClick={[Function]}
+        type="button"
+      >
+        <img
+          alt="Remove icon"
+          src="undefined/images/icons/remove-in-circle.svg"
+        />
+        Remove
+      </button>
+    </div>
+  </section>
+</ActivityRow>
+`;
+
+exports[`ActivityRow component with showCheckbox true and showRemoveButton false is not selected should render 1`] = `
+<ActivityRow
+  activity={
+    Object {
+      "activity_category": Object {
+        "id": 4,
+        "name": "Verbs",
+      },
+      "activity_category_id": 4,
+      "activity_category_name": "Verbs",
+      "activity_classification": Object {
+        "alias": "Quill Lessons",
+        "description": "Lead Group Lessons",
+        "id": 6,
+        "key": "lessons",
+      },
+      "anonymous_path": "/activity_sessions/anonymous?activity_id=738",
+      "description": "Students learn to use the past progressive form in this teacher-led lesson.",
+      "flags": "{production}",
+      "id": 738,
+      "name": "Lesson 2: Past Progressive Tense",
+      "standard_level": Object {
+        "id": 10,
+        "name": "4th Grade CCSS",
+      },
+      "standard_level_name": "4th Grade CCSS",
+      "standard_name": "4",
+      "uid": "-L7AoYnq5vwWkKJsar_O",
+    }
+  }
+  isFirst={false}
+  isSelected={false}
+  setShowSnackbar={[Function]}
+  showCheckbox={true}
+  showRemoveButton={false}
+  toggleActivitySelection={[Function]}
+>
+  <section
+    className="activity-row not-expanded not-selected "
+  >
+    <ActivityRowTooltip
+      activity={
+        Object {
+          "activity_category": Object {
+            "id": 4,
+            "name": "Verbs",
+          },
+          "activity_category_id": 4,
+          "activity_category_name": "Verbs",
+          "activity_classification": Object {
+            "alias": "Quill Lessons",
+            "description": "Lead Group Lessons",
+            "id": 6,
+            "key": "lessons",
+          },
+          "anonymous_path": "/activity_sessions/anonymous?activity_id=738",
+          "description": "Students learn to use the past progressive form in this teacher-led lesson.",
+          "flags": "{production}",
+          "id": 738,
+          "name": "Lesson 2: Past Progressive Tense",
+          "standard_level": Object {
+            "id": 10,
+            "name": "4th Grade CCSS",
+          },
+          "standard_level_name": "4th Grade CCSS",
+          "standard_name": "4",
+          "uid": "-L7AoYnq5vwWkKJsar_O",
+        }
+      }
+      showTooltip={false}
+    >
+      <span />
+    </ActivityRowTooltip>
+    <div
+      className="first-line"
+    >
+      <div
+        className="name-and-checkbox-wrapper"
+      >
+        <ActivityRowCheckbox
+          activity={
+            Object {
+              "activity_category": Object {
+                "id": 4,
+                "name": "Verbs",
+              },
+              "activity_category_id": 4,
+              "activity_category_name": "Verbs",
+              "activity_classification": Object {
+                "alias": "Quill Lessons",
+                "description": "Lead Group Lessons",
+                "id": 6,
+                "key": "lessons",
+              },
+              "anonymous_path": "/activity_sessions/anonymous?activity_id=738",
+              "description": "Students learn to use the past progressive form in this teacher-led lesson.",
+              "flags": "{production}",
+              "id": 738,
+              "name": "Lesson 2: Past Progressive Tense",
+              "standard_level": Object {
+                "id": 10,
+                "name": "4th Grade CCSS",
+              },
+              "standard_level_name": "4th Grade CCSS",
+              "standard_name": "4",
+              "uid": "-L7AoYnq5vwWkKJsar_O",
+            }
+          }
+          isSelected={false}
+          toggleActivitySelection={[Function]}
+        >
+          <button
+            aria-label="unchecked checkbox"
+            className="quill-checkbox focus-on-light unselected"
+            onClick={[Function]}
+            type="button"
+          />
+        </ActivityRowCheckbox>
+        <button
+          className="interactive-wrapper"
+          onMouseEnter={[Function]}
+          onMouseLeave={[Function]}
+          tabIndex={-1}
+          type="button"
+        >
+          <h2>
+            Lesson 2: Past Progressive Tense
+          </h2>
+        </button>
+      </div>
+      <div
+        className="buttons-wrapper"
+      >
+        <a
+          className="interactive-wrapper focus-on-light preview-link"
+          href="/activity_sessions/anonymous?activity_id=738"
+          rel="noopener noreferrer"
+          target="_blank"
+        >
+          <img
+            alt="Preview eye icon"
+            src="undefined/images/icons/preview.svg"
+          />
+          Preview
+        </a>
+        <button
+          className="interactive-wrapper focus-on-light expand-button"
+          onClick={[Function]}
+          type="button"
+        >
+          <img
+            alt="Arrow pointing down"
+            src="undefined/images/shared/expand.svg"
+          />
+        </button>
+      </div>
+    </div>
+    <div
+      className="second-line"
+    >
+      <div
+        className="classification-concept-topic-wrapper"
+      >
+        <ActivityRowClassification
+          classification={
+            Object {
+              "alias": "Quill Lessons",
+              "description": "Lead Group Lessons",
+              "id": 6,
+              "key": "lessons",
+            }
+          }
+        >
+          <span
+            className="second-line-section classification"
+          >
+            <img
+              alt="Apple representing Quill Lessons"
+              src="undefined/images/icons/description-lessons.svg"
+            />
+            <span>
+              Quill Lessons
+            </span>
+          </span>
+        </ActivityRowClassification>
+        <ActivityRowConcept
+          conceptName="Verbs"
+        >
+          <span
+            className="second-line-section concept"
+          >
+            <img
+              alt="Pencil writing icon"
+              src="undefined/images/icons/description-concept.svg"
+            />
+            <span>
+              Verbs
+            </span>
+          </span>
+        </ActivityRowConcept>
+        <span
+          className="second-line-section topic"
+        />
+      </div>
+      <div
+        className="readability-and-standard-level-wrapper"
+      >
+        <span
+          className="second-line-section readability"
+        />
+        <ActivityRowStandardLevel
+          standardLevelName="4th Grade CCSS"
+        >
+          <span
+            className="second-line-section standard-level"
+          >
+            <img
+              alt="Common Core State Standards icon"
+              src="undefined/images/icons/description-ccss.svg"
+            />
+            <span>
+              4th Grade CCSS
+            </span>
+          </span>
+        </ActivityRowStandardLevel>
+      </div>
+    </div>
+    <ActivityRowExpandedSection
+      activity={
+        Object {
+          "activity_category": Object {
+            "id": 4,
+            "name": "Verbs",
+          },
+          "activity_category_id": 4,
+          "activity_category_name": "Verbs",
+          "activity_classification": Object {
+            "alias": "Quill Lessons",
+            "description": "Lead Group Lessons",
+            "id": 6,
+            "key": "lessons",
+          },
+          "anonymous_path": "/activity_sessions/anonymous?activity_id=738",
+          "description": "Students learn to use the past progressive form in this teacher-led lesson.",
+          "flags": "{production}",
+          "id": 738,
+          "name": "Lesson 2: Past Progressive Tense",
+          "standard_level": Object {
+            "id": 10,
+            "name": "4th Grade CCSS",
+          },
+          "standard_level_name": "4th Grade CCSS",
+          "standard_name": "4",
+          "uid": "-L7AoYnq5vwWkKJsar_O",
+        }
+      }
+      isExpanded={false}
+    >
+      <span />
+    </ActivityRowExpandedSection>
+  </section>
+</ActivityRow>
+`;
+
+exports[`ActivityRow component with showCheckbox true and showRemoveButton false is selected should render 1`] = `
+<ActivityRow
+  activity={
+    Object {
+      "activity_category": Object {
+        "id": 4,
+        "name": "Verbs",
+      },
+      "activity_category_id": 4,
+      "activity_category_name": "Verbs",
+      "activity_classification": Object {
+        "alias": "Quill Lessons",
+        "description": "Lead Group Lessons",
+        "id": 6,
+        "key": "lessons",
+      },
+      "anonymous_path": "/activity_sessions/anonymous?activity_id=738",
+      "description": "Students learn to use the past progressive form in this teacher-led lesson.",
+      "flags": "{production}",
+      "id": 738,
+      "name": "Lesson 2: Past Progressive Tense",
+      "standard_level": Object {
+        "id": 10,
+        "name": "4th Grade CCSS",
+      },
+      "standard_level_name": "4th Grade CCSS",
+      "standard_name": "4",
+      "uid": "-L7AoYnq5vwWkKJsar_O",
+    }
+  }
+  isFirst={false}
+  isSelected={true}
+  setShowSnackbar={[Function]}
+  showCheckbox={true}
+  showRemoveButton={false}
+  toggleActivitySelection={[Function]}
+>
+  <section
+    className="activity-row not-expanded selected "
+  >
+    <ActivityRowTooltip
+      activity={
+        Object {
+          "activity_category": Object {
+            "id": 4,
+            "name": "Verbs",
+          },
+          "activity_category_id": 4,
+          "activity_category_name": "Verbs",
+          "activity_classification": Object {
+            "alias": "Quill Lessons",
+            "description": "Lead Group Lessons",
+            "id": 6,
+            "key": "lessons",
+          },
+          "anonymous_path": "/activity_sessions/anonymous?activity_id=738",
+          "description": "Students learn to use the past progressive form in this teacher-led lesson.",
+          "flags": "{production}",
+          "id": 738,
+          "name": "Lesson 2: Past Progressive Tense",
+          "standard_level": Object {
+            "id": 10,
+            "name": "4th Grade CCSS",
+          },
+          "standard_level_name": "4th Grade CCSS",
+          "standard_name": "4",
+          "uid": "-L7AoYnq5vwWkKJsar_O",
+        }
+      }
+      showTooltip={false}
+    >
+      <span />
+    </ActivityRowTooltip>
+    <div
+      className="first-line"
+    >
+      <div
+        className="name-and-checkbox-wrapper"
+      >
+        <ActivityRowCheckbox
+          activity={
+            Object {
+              "activity_category": Object {
+                "id": 4,
+                "name": "Verbs",
+              },
+              "activity_category_id": 4,
+              "activity_category_name": "Verbs",
+              "activity_classification": Object {
+                "alias": "Quill Lessons",
+                "description": "Lead Group Lessons",
+                "id": 6,
+                "key": "lessons",
+              },
+              "anonymous_path": "/activity_sessions/anonymous?activity_id=738",
+              "description": "Students learn to use the past progressive form in this teacher-led lesson.",
+              "flags": "{production}",
+              "id": 738,
+              "name": "Lesson 2: Past Progressive Tense",
+              "standard_level": Object {
+                "id": 10,
+                "name": "4th Grade CCSS",
+              },
+              "standard_level_name": "4th Grade CCSS",
+              "standard_name": "4",
+              "uid": "-L7AoYnq5vwWkKJsar_O",
+            }
+          }
+          isSelected={true}
+          toggleActivitySelection={[Function]}
+        >
+          <button
+            className="quill-checkbox focus-on-light selected"
+            onClick={[Function]}
+            type="button"
+          >
+            <img
+              alt="check"
+              src="undefined/images/shared/check-small-white.svg"
+            />
+          </button>
+        </ActivityRowCheckbox>
+        <button
+          className="interactive-wrapper"
+          onMouseEnter={[Function]}
+          onMouseLeave={[Function]}
+          tabIndex={-1}
+          type="button"
+        >
+          <h2>
+            Lesson 2: Past Progressive Tense
+          </h2>
+        </button>
+      </div>
+      <div
+        className="buttons-wrapper"
+      >
+        <a
+          className="interactive-wrapper focus-on-light preview-link"
+          href="/activity_sessions/anonymous?activity_id=738"
+          rel="noopener noreferrer"
+          target="_blank"
+        >
+          <img
+            alt="Preview eye icon"
+            src="undefined/images/icons/preview.svg"
+          />
+          Preview
+        </a>
+        <button
+          className="interactive-wrapper focus-on-light expand-button"
+          onClick={[Function]}
+          type="button"
+        >
+          <img
+            alt="Arrow pointing down"
+            src="undefined/images/shared/expand.svg"
+          />
+        </button>
+      </div>
+    </div>
+    <div
+      className="second-line"
+    >
+      <div
+        className="classification-concept-topic-wrapper"
+      >
+        <ActivityRowClassification
+          classification={
+            Object {
+              "alias": "Quill Lessons",
+              "description": "Lead Group Lessons",
+              "id": 6,
+              "key": "lessons",
+            }
+          }
+        >
+          <span
+            className="second-line-section classification"
+          >
+            <img
+              alt="Apple representing Quill Lessons"
+              src="undefined/images/icons/description-lessons.svg"
+            />
+            <span>
+              Quill Lessons
+            </span>
+          </span>
+        </ActivityRowClassification>
+        <ActivityRowConcept
+          conceptName="Verbs"
+        >
+          <span
+            className="second-line-section concept"
+          >
+            <img
+              alt="Pencil writing icon"
+              src="undefined/images/icons/description-concept.svg"
+            />
+            <span>
+              Verbs
+            </span>
+          </span>
+        </ActivityRowConcept>
+        <span
+          className="second-line-section topic"
+        />
+      </div>
+      <div
+        className="readability-and-standard-level-wrapper"
+      >
+        <span
+          className="second-line-section readability"
+        />
+        <ActivityRowStandardLevel
+          standardLevelName="4th Grade CCSS"
+        >
+          <span
+            className="second-line-section standard-level"
+          >
+            <img
+              alt="Common Core State Standards icon"
+              src="undefined/images/icons/description-ccss.svg"
+            />
+            <span>
+              4th Grade CCSS
+            </span>
+          </span>
+        </ActivityRowStandardLevel>
+      </div>
+    </div>
+    <ActivityRowExpandedSection
+      activity={
+        Object {
+          "activity_category": Object {
+            "id": 4,
+            "name": "Verbs",
+          },
+          "activity_category_id": 4,
+          "activity_category_name": "Verbs",
+          "activity_classification": Object {
+            "alias": "Quill Lessons",
+            "description": "Lead Group Lessons",
+            "id": 6,
+            "key": "lessons",
+          },
+          "anonymous_path": "/activity_sessions/anonymous?activity_id=738",
+          "description": "Students learn to use the past progressive form in this teacher-led lesson.",
+          "flags": "{production}",
+          "id": 738,
+          "name": "Lesson 2: Past Progressive Tense",
+          "standard_level": Object {
+            "id": 10,
+            "name": "4th Grade CCSS",
+          },
+          "standard_level_name": "4th Grade CCSS",
+          "standard_name": "4",
+          "uid": "-L7AoYnq5vwWkKJsar_O",
+        }
+      }
+      isExpanded={false}
+    >
+      <span />
+    </ActivityRowExpandedSection>
+  </section>
+</ActivityRow>
+`;

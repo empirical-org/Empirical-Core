@@ -1,6 +1,7 @@
 import * as React from 'react'
 import { mount } from 'enzyme';
 
+import { activities } from './data'
 import CustomActivityPack from '../index'
 
 describe('CustomActivityPack Index component', () => {
@@ -8,7 +9,7 @@ describe('CustomActivityPack Index component', () => {
   it('should render', () => {
     const wrapper = mount(<CustomActivityPack
       clickContinue={() => {}}
-      passedActivities={[]}
+      passedActivities={activities}
       selectedActivities={[]}
       setSelectedActivities={() => {}}
       toggleActivitySelection={() => {}}

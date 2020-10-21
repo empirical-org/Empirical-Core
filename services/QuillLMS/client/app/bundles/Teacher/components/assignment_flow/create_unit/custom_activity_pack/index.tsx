@@ -123,7 +123,7 @@ const CustomActivityPack = ({
     if (currentPage > newNumberOfPages && currentPage !== 1) { setCurrentPage(newNumberOfPages) }
     setFilteredActivities(newFilteredActivities)
     const scrollContainer = document.getElementsByClassName('main-content-container')[0]
-    scrollContainer.scrollTo(0, 0)
+    scrollContainer && scrollContainer.scrollTo(0, 0)
   }
 
   function undoLastFilter() {
