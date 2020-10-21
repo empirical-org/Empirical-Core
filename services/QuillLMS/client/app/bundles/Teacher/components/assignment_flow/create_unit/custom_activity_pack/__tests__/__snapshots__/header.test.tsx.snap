@@ -1,0 +1,629 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Header component with no selected activities should render 1`] = `
+<Header
+  handleClickContinue={[Function]}
+  selectedActivities={Array []}
+  setSelectedActivities={[Function]}
+  toggleActivitySelection={[Function]}
+>
+  <header
+    className=""
+  >
+    <Component
+      text="Activity removed"
+      visible={false}
+    >
+      <div
+        className="quill-snackbar "
+      >
+        Activity removed
+      </div>
+    </Component>
+    <div
+      className="header-content"
+    >
+      <h1>
+        Choose activities
+      </h1>
+      <AssignButton
+        handleClickContinue={[Function]}
+        selectedActivities={Array []}
+      >
+        <button
+          className="quill-button contained primary medium focus-on-light disabled"
+          onClick={null}
+          type="button"
+        >
+          Assign
+        </button>
+      </AssignButton>
+    </div>
+  </header>
+</Header>
+`;
+
+exports[`Header component with some selected activities should render 1`] = `
+<Header
+  handleClickContinue={[Function]}
+  selectedActivities={
+    Array [
+      Object {
+        "activity_category": Object {
+          "id": 4,
+          "name": "Verbs",
+        },
+        "activity_category_id": 4,
+        "activity_category_name": "Verbs",
+        "activity_classification": Object {
+          "alias": "Quill Lessons",
+          "description": "Lead Group Lessons",
+          "id": 6,
+          "key": "lessons",
+        },
+        "anonymous_path": "/activity_sessions/anonymous?activity_id=864",
+        "description": "Students will review common subject-verb agreement errors in this teacher-led lesson.",
+        "flags": "{production}",
+        "id": 864,
+        "name": "Subject-Verb Agreement Review",
+        "standard_level": Object {
+          "id": 37,
+          "name": "Post Secondary",
+        },
+        "standard_level_name": "Post Secondary",
+        "standard_name": "97",
+        "uid": "e25f4140-780a-454f-9f3e-8a98f4380641",
+      },
+      Object {
+        "activity_category": Object {
+          "id": 5,
+          "name": "Contractions",
+        },
+        "activity_category_id": 5,
+        "activity_category_name": "Contractions",
+        "activity_classification": Object {
+          "alias": "Quill Lessons",
+          "description": "Lead Group Lessons",
+          "id": 6,
+          "key": "lessons",
+        },
+        "anonymous_path": "/activity_sessions/anonymous?activity_id=828",
+        "description": "Students will learn to form contractions and possessives in this teacher-led lesson.",
+        "flags": "{production}",
+        "id": 828,
+        "name": "Apostrophes",
+        "standard_level": Object {
+          "id": 37,
+          "name": "Post Secondary",
+        },
+        "standard_level_name": "Post Secondary",
+        "standard_name": "97",
+        "uid": "2ed5cae6-78c4-4b40-a51d-6bb084809442",
+      },
+      Object {
+        "activity_category": Object {
+          "id": 8,
+          "name": "Commonly Confused Words",
+        },
+        "activity_category_id": 8,
+        "activity_category_name": "Commonly Confused Words",
+        "activity_classification": Object {
+          "alias": "Quill Lessons",
+          "description": "Lead Group Lessons",
+          "id": 6,
+          "key": "lessons",
+        },
+        "anonymous_path": "/activity_sessions/anonymous?activity_id=834",
+        "description": "Students will practice using commonly confused pairs of words, such as it's/its, you/you're, and who's/whose in this teacher-led lesson.",
+        "flags": "{production}",
+        "id": 834,
+        "name": "Pronoun Homophones",
+        "standard_level": Object {
+          "id": 37,
+          "name": "Post Secondary",
+        },
+        "standard_level_name": "Post Secondary",
+        "standard_name": "97",
+        "uid": "aaaec448-d8c3-4055-b0cc-be1f074f60ea",
+      },
+      Object {
+        "activity_category": Object {
+          "id": 9,
+          "name": "Prepositions",
+        },
+        "activity_category_id": 9,
+        "activity_category_name": "Prepositions",
+        "activity_classification": Object {
+          "alias": "Quill Lessons",
+          "description": "Lead Group Lessons",
+          "id": 6,
+          "key": "lessons",
+        },
+        "anonymous_path": "/activity_sessions/anonymous?activity_id=654",
+        "description": "",
+        "flags": "{production}",
+        "id": 654,
+        "name": "Lesson 1: Using In, At, and On to Show Time",
+        "standard_level": Object {
+          "id": 7,
+          "name": "1st Grade CCSS",
+        },
+        "standard_level_name": "1st Grade CCSS",
+        "standard_name": "6",
+        "uid": "-L4aNTH96hQrrTgVla7L",
+      },
+      Object {
+        "activity_category": Object {
+          "id": 9,
+          "name": "Prepositions",
+        },
+        "activity_category_id": 9,
+        "activity_category_name": "Prepositions",
+        "activity_classification": Object {
+          "alias": "Quill Lessons",
+          "description": "Lead Group Lessons",
+          "id": 6,
+          "key": "lessons",
+        },
+        "anonymous_path": "/activity_sessions/anonymous?activity_id=655",
+        "description": "",
+        "flags": "{production}",
+        "id": 655,
+        "name": "Lesson 2: Using In, At, and On to Show Location",
+        "standard_level": Object {
+          "id": 7,
+          "name": "1st Grade CCSS",
+        },
+        "standard_level_name": "1st Grade CCSS",
+        "standard_name": "6",
+        "uid": "-L4b9oKxZQS3TCKNQz6b",
+      },
+      Object {
+        "activity_category": Object {
+          "id": 11,
+          "name": "Adverbs",
+        },
+        "activity_category_id": 11,
+        "activity_category_name": "Adverbs",
+        "activity_classification": Object {
+          "alias": "Quill Lessons",
+          "description": "Lead Group Lessons",
+          "id": 6,
+          "key": "lessons",
+        },
+        "anonymous_path": "/activity_sessions/anonymous?activity_id=565",
+        "description": "Students learn to identify adverbs of manner, add them to simple sentences, and combine sentences using adverbs of manner. This is the first of two lessons in the adverbs lesson pack.",
+        "flags": "{production}",
+        "id": 565,
+        "name": "Lesson 1: Adverbs ",
+        "standard_level": Object {
+          "id": 8,
+          "name": "2nd Grade CCSS",
+        },
+        "standard_level_name": "2nd Grade CCSS",
+        "standard_name": "21",
+        "uid": "-KsKmzdhUYHYCB6EDKz_",
+      },
+      Object {
+        "activity_category": Object {
+          "id": 11,
+          "name": "Adverbs",
+        },
+        "activity_category_id": 11,
+        "activity_category_name": "Adverbs",
+        "activity_classification": Object {
+          "alias": "Quill Lessons",
+          "description": "Lead Group Lessons",
+          "id": 6,
+          "key": "lessons",
+        },
+        "anonymous_path": "/activity_sessions/anonymous?activity_id=574",
+        "description": "Students apply what they have learned in adverbs lesson 1 by writing a paragraph that correctly includes four adverbs of manner. This is the final lesson in the adverbs lesson pack.",
+        "flags": "{production}",
+        "id": 574,
+        "name": "Lesson 2: Adverbs Review",
+        "standard_level": Object {
+          "id": 8,
+          "name": "2nd Grade CCSS",
+        },
+        "standard_level_name": "2nd Grade CCSS",
+        "standard_name": "21",
+        "uid": "-KsLDWMFAOjXZxlo5ssQ",
+      },
+      Object {
+        "activity_category": Object {
+          "id": 10,
+          "name": "Adjectives",
+        },
+        "activity_category_id": 10,
+        "activity_category_name": "Adjectives",
+        "activity_classification": Object {
+          "alias": "Quill Lessons",
+          "description": "Lead Group Lessons",
+          "id": 6,
+          "key": "lessons",
+        },
+        "anonymous_path": "/activity_sessions/anonymous?activity_id=564",
+        "description": "Students learn to identify adjectives and add them to simple sentences. This is the first of two lessons in the adjectives lesson pack.",
+        "flags": "{production}",
+        "id": 564,
+        "name": "Lesson 1: Single Adjectives",
+        "standard_level": Object {
+          "id": 8,
+          "name": "2nd Grade CCSS",
+        },
+        "standard_level_name": "2nd Grade CCSS",
+        "standard_name": "21",
+        "uid": "-KsKZJx5VHnamM-5acKL",
+      },
+      Object {
+        "activity_category": Object {
+          "id": 10,
+          "name": "Adjectives",
+        },
+        "activity_category_id": 10,
+        "activity_category_name": "Adjectives",
+        "activity_classification": Object {
+          "alias": "Quill Lessons",
+          "description": "Lead Group Lessons",
+          "id": 6,
+          "key": "lessons",
+        },
+        "anonymous_path": "/activity_sessions/anonymous?activity_id=573",
+        "description": "Students apply what they have learned in adjective lesson 1 by combining sentences using adjectives. This is the final lesson in the adjectives lesson pack.",
+        "flags": "{production}",
+        "id": 573,
+        "name": "Lesson 2: Single Adjectives Review ",
+        "standard_level": Object {
+          "id": 8,
+          "name": "2nd Grade CCSS",
+        },
+        "standard_level_name": "2nd Grade CCSS",
+        "standard_name": "21",
+        "uid": "-KsLCJWvsJpZG3RAj-jE",
+      },
+      Object {
+        "activity_category": Object {
+          "id": 10,
+          "name": "Adjectives",
+        },
+        "activity_category_id": 10,
+        "activity_category_name": "Adjectives",
+        "activity_classification": Object {
+          "alias": "Quill Lessons",
+          "description": "Lead Group Lessons",
+          "id": 6,
+          "key": "lessons",
+        },
+        "anonymous_path": "/activity_sessions/anonymous?activity_id=647",
+        "description": "",
+        "flags": "{production}",
+        "id": 647,
+        "name": "Advanced Combining: Adjectives, Adverbs, and Prepositional Phrases",
+        "standard_level": Object {
+          "id": 9,
+          "name": "3rd Grade CCSS",
+        },
+        "standard_level_name": "3rd Grade CCSS",
+        "standard_name": "88",
+        "uid": "-L2vRgUHsbvXLkVeCtao",
+      },
+    ]
+  }
+  setSelectedActivities={[Function]}
+  toggleActivitySelection={[Function]}
+>
+  <header
+    className="has-selected-activities"
+  >
+    <Component
+      text="Activity removed"
+      visible={false}
+    >
+      <div
+        className="quill-snackbar "
+      >
+        Activity removed
+      </div>
+    </Component>
+    <div
+      className="header-content"
+    >
+      <div>
+        <h1>
+          10 activities selected
+        </h1>
+        <button
+          className="focus-on-light quill-button medium secondary outlined"
+          onClick={[Function]}
+          type="button"
+        >
+          View
+          <span
+            className="number-of-activities"
+          >
+            (
+            10
+            )
+          </span>
+        </button>
+      </div>
+      <AssignButton
+        handleClickContinue={[Function]}
+        selectedActivities={
+          Array [
+            Object {
+              "activity_category": Object {
+                "id": 4,
+                "name": "Verbs",
+              },
+              "activity_category_id": 4,
+              "activity_category_name": "Verbs",
+              "activity_classification": Object {
+                "alias": "Quill Lessons",
+                "description": "Lead Group Lessons",
+                "id": 6,
+                "key": "lessons",
+              },
+              "anonymous_path": "/activity_sessions/anonymous?activity_id=864",
+              "description": "Students will review common subject-verb agreement errors in this teacher-led lesson.",
+              "flags": "{production}",
+              "id": 864,
+              "name": "Subject-Verb Agreement Review",
+              "standard_level": Object {
+                "id": 37,
+                "name": "Post Secondary",
+              },
+              "standard_level_name": "Post Secondary",
+              "standard_name": "97",
+              "uid": "e25f4140-780a-454f-9f3e-8a98f4380641",
+            },
+            Object {
+              "activity_category": Object {
+                "id": 5,
+                "name": "Contractions",
+              },
+              "activity_category_id": 5,
+              "activity_category_name": "Contractions",
+              "activity_classification": Object {
+                "alias": "Quill Lessons",
+                "description": "Lead Group Lessons",
+                "id": 6,
+                "key": "lessons",
+              },
+              "anonymous_path": "/activity_sessions/anonymous?activity_id=828",
+              "description": "Students will learn to form contractions and possessives in this teacher-led lesson.",
+              "flags": "{production}",
+              "id": 828,
+              "name": "Apostrophes",
+              "standard_level": Object {
+                "id": 37,
+                "name": "Post Secondary",
+              },
+              "standard_level_name": "Post Secondary",
+              "standard_name": "97",
+              "uid": "2ed5cae6-78c4-4b40-a51d-6bb084809442",
+            },
+            Object {
+              "activity_category": Object {
+                "id": 8,
+                "name": "Commonly Confused Words",
+              },
+              "activity_category_id": 8,
+              "activity_category_name": "Commonly Confused Words",
+              "activity_classification": Object {
+                "alias": "Quill Lessons",
+                "description": "Lead Group Lessons",
+                "id": 6,
+                "key": "lessons",
+              },
+              "anonymous_path": "/activity_sessions/anonymous?activity_id=834",
+              "description": "Students will practice using commonly confused pairs of words, such as it's/its, you/you're, and who's/whose in this teacher-led lesson.",
+              "flags": "{production}",
+              "id": 834,
+              "name": "Pronoun Homophones",
+              "standard_level": Object {
+                "id": 37,
+                "name": "Post Secondary",
+              },
+              "standard_level_name": "Post Secondary",
+              "standard_name": "97",
+              "uid": "aaaec448-d8c3-4055-b0cc-be1f074f60ea",
+            },
+            Object {
+              "activity_category": Object {
+                "id": 9,
+                "name": "Prepositions",
+              },
+              "activity_category_id": 9,
+              "activity_category_name": "Prepositions",
+              "activity_classification": Object {
+                "alias": "Quill Lessons",
+                "description": "Lead Group Lessons",
+                "id": 6,
+                "key": "lessons",
+              },
+              "anonymous_path": "/activity_sessions/anonymous?activity_id=654",
+              "description": "",
+              "flags": "{production}",
+              "id": 654,
+              "name": "Lesson 1: Using In, At, and On to Show Time",
+              "standard_level": Object {
+                "id": 7,
+                "name": "1st Grade CCSS",
+              },
+              "standard_level_name": "1st Grade CCSS",
+              "standard_name": "6",
+              "uid": "-L4aNTH96hQrrTgVla7L",
+            },
+            Object {
+              "activity_category": Object {
+                "id": 9,
+                "name": "Prepositions",
+              },
+              "activity_category_id": 9,
+              "activity_category_name": "Prepositions",
+              "activity_classification": Object {
+                "alias": "Quill Lessons",
+                "description": "Lead Group Lessons",
+                "id": 6,
+                "key": "lessons",
+              },
+              "anonymous_path": "/activity_sessions/anonymous?activity_id=655",
+              "description": "",
+              "flags": "{production}",
+              "id": 655,
+              "name": "Lesson 2: Using In, At, and On to Show Location",
+              "standard_level": Object {
+                "id": 7,
+                "name": "1st Grade CCSS",
+              },
+              "standard_level_name": "1st Grade CCSS",
+              "standard_name": "6",
+              "uid": "-L4b9oKxZQS3TCKNQz6b",
+            },
+            Object {
+              "activity_category": Object {
+                "id": 11,
+                "name": "Adverbs",
+              },
+              "activity_category_id": 11,
+              "activity_category_name": "Adverbs",
+              "activity_classification": Object {
+                "alias": "Quill Lessons",
+                "description": "Lead Group Lessons",
+                "id": 6,
+                "key": "lessons",
+              },
+              "anonymous_path": "/activity_sessions/anonymous?activity_id=565",
+              "description": "Students learn to identify adverbs of manner, add them to simple sentences, and combine sentences using adverbs of manner. This is the first of two lessons in the adverbs lesson pack.",
+              "flags": "{production}",
+              "id": 565,
+              "name": "Lesson 1: Adverbs ",
+              "standard_level": Object {
+                "id": 8,
+                "name": "2nd Grade CCSS",
+              },
+              "standard_level_name": "2nd Grade CCSS",
+              "standard_name": "21",
+              "uid": "-KsKmzdhUYHYCB6EDKz_",
+            },
+            Object {
+              "activity_category": Object {
+                "id": 11,
+                "name": "Adverbs",
+              },
+              "activity_category_id": 11,
+              "activity_category_name": "Adverbs",
+              "activity_classification": Object {
+                "alias": "Quill Lessons",
+                "description": "Lead Group Lessons",
+                "id": 6,
+                "key": "lessons",
+              },
+              "anonymous_path": "/activity_sessions/anonymous?activity_id=574",
+              "description": "Students apply what they have learned in adverbs lesson 1 by writing a paragraph that correctly includes four adverbs of manner. This is the final lesson in the adverbs lesson pack.",
+              "flags": "{production}",
+              "id": 574,
+              "name": "Lesson 2: Adverbs Review",
+              "standard_level": Object {
+                "id": 8,
+                "name": "2nd Grade CCSS",
+              },
+              "standard_level_name": "2nd Grade CCSS",
+              "standard_name": "21",
+              "uid": "-KsLDWMFAOjXZxlo5ssQ",
+            },
+            Object {
+              "activity_category": Object {
+                "id": 10,
+                "name": "Adjectives",
+              },
+              "activity_category_id": 10,
+              "activity_category_name": "Adjectives",
+              "activity_classification": Object {
+                "alias": "Quill Lessons",
+                "description": "Lead Group Lessons",
+                "id": 6,
+                "key": "lessons",
+              },
+              "anonymous_path": "/activity_sessions/anonymous?activity_id=564",
+              "description": "Students learn to identify adjectives and add them to simple sentences. This is the first of two lessons in the adjectives lesson pack.",
+              "flags": "{production}",
+              "id": 564,
+              "name": "Lesson 1: Single Adjectives",
+              "standard_level": Object {
+                "id": 8,
+                "name": "2nd Grade CCSS",
+              },
+              "standard_level_name": "2nd Grade CCSS",
+              "standard_name": "21",
+              "uid": "-KsKZJx5VHnamM-5acKL",
+            },
+            Object {
+              "activity_category": Object {
+                "id": 10,
+                "name": "Adjectives",
+              },
+              "activity_category_id": 10,
+              "activity_category_name": "Adjectives",
+              "activity_classification": Object {
+                "alias": "Quill Lessons",
+                "description": "Lead Group Lessons",
+                "id": 6,
+                "key": "lessons",
+              },
+              "anonymous_path": "/activity_sessions/anonymous?activity_id=573",
+              "description": "Students apply what they have learned in adjective lesson 1 by combining sentences using adjectives. This is the final lesson in the adjectives lesson pack.",
+              "flags": "{production}",
+              "id": 573,
+              "name": "Lesson 2: Single Adjectives Review ",
+              "standard_level": Object {
+                "id": 8,
+                "name": "2nd Grade CCSS",
+              },
+              "standard_level_name": "2nd Grade CCSS",
+              "standard_name": "21",
+              "uid": "-KsLCJWvsJpZG3RAj-jE",
+            },
+            Object {
+              "activity_category": Object {
+                "id": 10,
+                "name": "Adjectives",
+              },
+              "activity_category_id": 10,
+              "activity_category_name": "Adjectives",
+              "activity_classification": Object {
+                "alias": "Quill Lessons",
+                "description": "Lead Group Lessons",
+                "id": 6,
+                "key": "lessons",
+              },
+              "anonymous_path": "/activity_sessions/anonymous?activity_id=647",
+              "description": "",
+              "flags": "{production}",
+              "id": 647,
+              "name": "Advanced Combining: Adjectives, Adverbs, and Prepositional Phrases",
+              "standard_level": Object {
+                "id": 9,
+                "name": "3rd Grade CCSS",
+              },
+              "standard_level_name": "3rd Grade CCSS",
+              "standard_name": "88",
+              "uid": "-L2vRgUHsbvXLkVeCtao",
+            },
+          ]
+        }
+      >
+        <button
+          className="quill-button contained primary medium focus-on-light"
+          onClick={[Function]}
+          type="button"
+        >
+          Assign
+        </button>
+      </AssignButton>
+    </div>
+  </header>
+</Header>
+`;
