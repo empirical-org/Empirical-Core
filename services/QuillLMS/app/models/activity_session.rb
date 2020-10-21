@@ -357,7 +357,7 @@ class ActivitySession < ActiveRecord::Base
     end.flatten
   end
 
-  def self.assign_follow_up_lesson(classroom_unit_id, activity_uid, locked = true)
+  def self.assign_follow_up_lesson(classroom_unit_id, activity_uid)
     activity = Activity.find_by_id_or_uid(activity_uid)
     classroom_unit = ClassroomUnit.find(classroom_unit_id)
 
@@ -366,39 +366,20 @@ class ActivitySession < ActiveRecord::Base
     end
 
     follow_up_activity = Activity.find_by(id: activity.follow_up_activity_id)
-    unit_activity = UnitActivity.find_by(
+    unit_activity = UnitActivity.unscoped.find_or_create_by(
       activity: follow_up_activity,
       unit_id: classroom_unit.unit_id
     )
-    state = ClassroomUnitActivityState.find_by(
+
+    unit_activity.update(visible: true)
+
+    state = ClassroomUnitActivityState.find_or_create_by(
       unit_activity: unit_activity,
       classroom_unit: classroom_unit,
     )
 
-    if state.present?
-      state.update(locked: false)
-      return unit_activity
-    end
-
-    begin
-      ActiveRecord::Base.transaction do
-        follow_up_unit_activity = UnitActivity.create!(
-          activity_id: activity.follow_up_activity_id,
-          unit_id: classroom_unit.unit_id,
-          visible: true
-        )
-
-        ClassroomUnitActivityState.create!(
-          locked: locked,
-          unit_activity: follow_up_unit_activity,
-          classroom_unit: classroom_unit
-        )
-
-        return follow_up_unit_activity
-      end
-    rescue StandardError => e
-      false
-    end
+    state.update(locked: false)
+    unit_activity
   end
 
   def self.generate_activity_url(classroom_unit_id, activity_id)
