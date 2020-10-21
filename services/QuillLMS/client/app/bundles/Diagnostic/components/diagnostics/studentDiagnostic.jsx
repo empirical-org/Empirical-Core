@@ -361,7 +361,7 @@ export class StudentDiagnostic extends React.Component {
   }
 
   render() {
-    const { playDiagnostic, dispatch, previewMode, } = this.props
+    const { playDiagnostic, dispatch, previewMode } = this.props
     const { error, saved, } = this.state
     let component;
 
