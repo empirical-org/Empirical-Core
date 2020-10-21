@@ -69,7 +69,14 @@ export class ELLStudentDiagnostic extends React.Component {
   }
 
   componentDidUpdate(prevProps) {
-    const { previewMode, skippedToQuestionFromIntro, questionToPreview, playDiagnostic } = this.props;
+    const { previewMode, skippedToQuestionFromIntro, questionToPreview, playDiagnostic, lessons, match } = this.props;
+    const { data, hasreceiveddata } = lessons;
+    const { params } = match;
+    const { diagnosticID } = params;
+
+    if (prevProps.lessons != lessons && hasreceiveddata) {
+      document.title = `Quill.org | ${data[diagnosticID].name}`
+    }
     if(prevProps.skippedToQuestionFromIntro !== skippedToQuestionFromIntro && previewMode && questionToPreview) {
       this.startActivity();
     }
@@ -403,16 +410,12 @@ export class ELLStudentDiagnostic extends React.Component {
 
   render() {
     const { error, saved, } = this.state
-    const { dispatch, match, playDiagnostic, t, previewMode, lessons } = this.props;
+    const { dispatch, match, playDiagnostic, t, previewMode, } = this.props;
     const { params } = match;
     const { diagnosticID } = params;
 
     let component;
     const minusHowMuch = this.language() ? 'minus-nav-and-footer' : 'minus-nav'
-
-    if (lessons.hasreceiveddata) {
-      document.title = `Quill.org | ${lessons.data[diagnosticID].name}`
-    }
 
     if (playDiagnostic.currentQuestion) {
       component = this.renderQuestionComponent();

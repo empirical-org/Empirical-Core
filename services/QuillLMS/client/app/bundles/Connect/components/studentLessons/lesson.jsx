@@ -61,9 +61,16 @@ export class Lesson extends React.Component {
     }
   }
 
-  componentDidUpdate() {
+  componentDidUpdate(prevProps) {
     const { sessionInitialized, introSkipped, isLastQuestion } = this.state
-    const { questions, fillInBlank, sentenceFragments, titleCards, previewMode, questionToPreview, playLesson, skippedToQuestionFromIntro } = this.props
+    const { questions, fillInBlank, sentenceFragments, titleCards, previewMode, questionToPreview, playLesson, skippedToQuestionFromIntro, match, lessons } = this.props
+    const { data, hasreceiveddata } = lessons
+    const { params } = match
+    const { lessonID, } = params;
+
+    if (prevProps.lessons != lessons && hasreceiveddata) {
+      document.title = `Quill.org | ${data[lessonID].name}`
+    }
     // At mount time the component may still be waiting on questions
     // to be retrieved, so we need to do checks on component update
     if (questions.hasreceiveddata &&
@@ -338,8 +345,6 @@ export class Lesson extends React.Component {
     if (!(sessionInitialized && hasreceiveddata && data && data[lessonID])) {
       return (<div className="student-container student-container-diagnostic"><Spinner /></div>);
     }
-
-    document.title = `Quill.org | ${data[lessonID].name}`
 
     if (playLesson.currentQuestion) {
       const { type } = playLesson.currentQuestion;

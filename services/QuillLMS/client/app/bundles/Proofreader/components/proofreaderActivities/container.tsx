@@ -147,6 +147,15 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
       }
     }
 
+    componentDidUpdate(prevProps) {
+      const { proofreaderActivities } = this.props
+      const { currentActivity } = proofreaderActivities
+
+      if (prevProps.proofreaderActivities != proofreaderActivities) {
+        document.title = `Quill.org | ${currentActivity.title}`
+      }
+    }
+
     componentWillUnmount() {
       if (this.interval) {
         clearInterval(this.interval)
@@ -501,8 +510,6 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
       if (session.error) { return <div>{session.error}</div> }
 
       if (!currentActivity) { return <LoadingSpinner />}
-
-      document.title = `Quill.org | ${currentActivity.title}`
 
       const className = currentActivity.underlineErrorsInProofreader ? 'underline-errors' : ''
       const necessaryEditsLength = necessaryEdits ? necessaryEdits.length : 1

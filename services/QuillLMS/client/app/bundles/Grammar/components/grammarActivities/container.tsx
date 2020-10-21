@@ -126,6 +126,13 @@ export class PlayGrammarContainer extends React.Component<PlayGrammarContainerPr
       }
     }
 
+    componentDidUpdate(prevProps) {
+      const { grammarActivities } = this.props
+      if (prevProps.grammarActivities != grammarActivities) {
+        document.title = `Quill.org | ${grammarActivities.currentActivity.title}`
+      }
+    }
+
     saveToLMS = (questions: SessionState) => {
       const { session, previewMode } = this.props
       const { answeredQuestions } = questions
@@ -246,7 +253,6 @@ export class PlayGrammarContainer extends React.Component<PlayGrammarContainerPr
       }
 
       if ((grammarActivities.hasreceiveddata || proofreaderSessionId) && session.hasreceiveddata) {
-        document.title = `Quill.org | ${grammarActivities.currentActivity.title}`
 
         if (session.currentQuestion) {
           return (<QuestionComponent
