@@ -11,8 +11,8 @@ describe('ActivityClassificationFilters component', () => {
   it('should render when there are no activity classification filters', () => {
     const wrapper = mount(<ActivityClassificationFilters
       activities={activities}
-      filterActivities={filterActivities}
       activityClassificationFilters={[]}
+      filterActivities={filterActivities}
       handleActivityClassificationFilterChange={() => {}}
     />)
     expect(wrapper).toMatchSnapshot();
@@ -21,8 +21,8 @@ describe('ActivityClassificationFilters component', () => {
   it('should render when there are some activity classification filters', () => {
     const wrapper = mount(<ActivityClassificationFilters
       activities={activities}
-      filterActivities={filterActivities}
       activityClassificationFilters={['diagnostic', 'connect']}
+      filterActivities={filterActivities}
       handleActivityClassificationFilterChange={() => {}}
     />)
     expect(wrapper).toMatchSnapshot();
