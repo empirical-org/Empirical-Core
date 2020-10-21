@@ -47,7 +47,7 @@ describe ActivitySession, type: :model, redis: true do
       end
     end
 
-    context 'when classroom activity does not exist' do
+    context 'when neither unit activity nor classroom activity unit state exist' do
       let(:unit) { create(:unit) }
       let(:classroom_unit) { create(:classroom_unit, unit: unit) }
       let(:follow_up_activity) { create(:activity) }
@@ -59,7 +59,7 @@ describe ActivitySession, type: :model, redis: true do
         )
       end
 
-      it 'should create the unit_activity' do
+      it 'should create the unit_activity and the classroom unit activity state' do
         unit_activity = ActivitySession.assign_follow_up_lesson(
           classroom_unit.id,
           activity.id,
@@ -67,7 +67,54 @@ describe ActivitySession, type: :model, redis: true do
         expect(unit_activity.activity_id).to eq(follow_up_activity.id)
         expect(unit_activity.unit_id).to eq(unit.id)
         expect(unit_activity.visible).to eq(true)
-        expect(unit_activity.classroom_unit_activity_states.first.locked).to eq(true)
+        expect(unit_activity.classroom_unit_activity_states.first).to be
+      end
+    end
+
+    context 'when unit activity exists but classroom unit activity state does not' do
+      let(:unit) { create(:unit) }
+      let(:classroom_unit) { create(:classroom_unit, unit: unit) }
+      let(:follow_up_activity) { create(:activity) }
+      let(:activity) { create(:activity, follow_up_activity: follow_up_activity) }
+      let!(:unit_activity) { create(:unit_activity, unit: unit, activity: follow_up_activity)}
+      let!(:activity_session) do
+        create(:activity_session,
+          activity: activity,
+          classroom_unit: classroom_unit
+        )
+      end
+
+      it 'should return the unit_activity and create a classroom activity unit state' do
+        follow_up_unit_activity = ActivitySession.assign_follow_up_lesson(
+          classroom_unit.id,
+          activity.id,
+        )
+        expect(follow_up_unit_activity.id).to eq(unit_activity.id)
+        expect(unit_activity.classroom_unit_activity_states.first).to be
+      end
+    end
+
+    context 'when unit activity exists but is archived and classroom unit activity state does not exist' do
+      let(:unit) { create(:unit) }
+      let(:classroom_unit) { create(:classroom_unit, unit: unit) }
+      let(:follow_up_activity) { create(:activity) }
+      let(:activity) { create(:activity, follow_up_activity: follow_up_activity) }
+      let!(:unit_activity) { create(:unit_activity, unit: unit, activity: follow_up_activity, visible: false)}
+      let!(:activity_session) do
+        create(:activity_session,
+          activity: activity,
+          classroom_unit: classroom_unit
+        )
+      end
+
+      it 'should return the unit_activity, make it visible, and create a classroom activity unit state' do
+        follow_up_unit_activity = ActivitySession.assign_follow_up_lesson(
+          classroom_unit.id,
+          activity.id,
+        )
+        expect(follow_up_unit_activity.id).to eq(unit_activity.id)
+        expect(follow_up_unit_activity.visible).to eq(true)
+        expect(unit_activity.classroom_unit_activity_states.first).to be
       end
     end
   end
