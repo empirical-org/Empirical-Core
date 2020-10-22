@@ -3,7 +3,7 @@ source 'https://rubygems.org'
 ruby '2.6.6'
 
 # CORE DEPS
-gem 'rails', '=4.2.11.1'
+gem 'rails', '=4.2.11.3'
 gem 'puma', '~> 3.12'
 
 # EARLY TO APPLY TO OTHER GEMS
