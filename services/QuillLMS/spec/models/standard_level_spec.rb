@@ -22,4 +22,16 @@ describe StandardLevel, type: :model do
 
 		end
 	end
+
+	describe 'callbacks' do
+
+		context 'when a standardLevel is archived' do
+			it 'should archive all associated standards' do
+				standard = create(:standard, standard_level: standard_level)
+				standard_level.visible = false
+				standard_level.save
+				expect(standard.reload.visible).to eq(false)
+			end
+		end
+	end
 end

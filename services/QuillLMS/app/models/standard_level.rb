@@ -14,7 +14,7 @@ class StandardLevel < ActiveRecord::Base
     if self.visible_changed?
       self.standards.each do |standard|
         standard.visible = self.visible
-        standard.save!
+        standard.save
       end
     end
   end
