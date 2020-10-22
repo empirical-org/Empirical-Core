@@ -12,7 +12,7 @@ module Comprehension
       PLAGIARISM = "plagiarism",
       RULES_BASED = "rules-based",
       SEMANTIC = "semantic",
-      SPELLING = "spelling",
+      SPELLING = "spelling"
     ]
  
     belongs_to :activity_session, class_name: Comprehension.activity_session_class,
