@@ -83,6 +83,19 @@ module Comprehension
           get :show, id: 99999
         end
       end
+
+      should "attach include prompt model if attached" do
+        prompt = create(:comprehension_prompt)
+        @feedback_history.prompt = prompt
+        @feedback_history.save
+
+        get :show, id: @feedback_history.id
+        
+        parsed_response = JSON.parse(response.body)
+        
+        assert_equal 200, response.code.to_i
+        assert_equal prompt.as_json, parsed_response['prompt']
+      end
     end
 
     context "update" do
