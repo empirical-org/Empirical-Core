@@ -28,9 +28,11 @@ module Comprehension
       should validate_presence_of(:feedback_type)
       should validate_inclusion_of(:feedback_type).in_array(FeedbackHistory::FEEDBACK_TYPES)
 
-      should validate_presence_of(:optimal)
+      should allow_value(true).for(:optimal)
+      should allow_value(false).for(:optimal)
 
-      should validate_presence_of(:used)
+      should allow_value(true).for(:used)
+      should allow_value(false).for(:used)
 
       should validate_presence_of(:time)
     end
