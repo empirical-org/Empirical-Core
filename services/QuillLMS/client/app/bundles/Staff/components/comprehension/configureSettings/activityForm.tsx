@@ -21,8 +21,6 @@ import {
 import { ActivityInterface, PromptInterface, PassagesInterface } from '../../../interfaces/comprehensionInterfaces';
 import { Input, TextEditor, } from '../../../../Shared/index'
 
-// TODO: add form inputs for course, target reading level and reading level score
-
 interface ActivityFormProps {
   activity: ActivityInterface,
   closeModal: (event: React.MouseEvent) => void,
@@ -56,43 +54,43 @@ const ActivityForm = ({ activity, closeModal, submitActivity }: ActivityFormProp
   const [activitySoPrompt, setActivitySoPrompt] = React.useState<PromptInterface>(soPrompt);
   const [errors, setErrors] = React.useState<{}>({});
 
-  const handleSetActivityTitle = (e: InputEvent) => { setActivityTitle(e.target.value) };
+  function handleSetActivityTitle(e: InputEvent){ setActivityTitle(e.target.value) };
 
   // const handleSetActivityFlag = (flag: FlagInterface) => { setActivityFlag(flag) };
 
-  const handleSetActivityMaxFeedback = (text: string) => { setActivityMaxFeedback(text) };
+  function handleSetActivityMaxFeedback(text: string){ setActivityMaxFeedback(text) };
 
-  const handleSetActivityScoredReadingLevel = (e: InputEvent) => { setActivityScoredReadingLevel(e.target.value) };
+  function handleSetActivityScoredReadingLevel(e: InputEvent){ setActivityScoredReadingLevel(e.target.value) };
 
-  const handleSetActivityTargetReadingLevel = (e: InputEvent) => { setActivityTargetReadingLevel(e.target.value) };
+  function handleSetActivityTargetReadingLevel(e: InputEvent){ setActivityTargetReadingLevel(e.target.value) };
 
-  const handleSetActivityParentActivityId = (e: InputEvent) => { setActivityParentActivityId(e.target.value) };
+  function handleSetActivityParentActivityId(e: InputEvent){ setActivityParentActivityId(e.target.value) };
 
-  const handleSetActivityPassages = (text: string) => {
+  function handleSetActivityPassages(text: string){
     const updatedPassages = [...activityPassages];
     updatedPassages[0].text = text;
     setActivityPassages(updatedPassages)
    };
 
-  const handleSetActivityBecausePrompt = (e: InputEvent) => {
+  function handleSetActivityBecausePrompt(e: InputEvent){
     const updatedBecausePrompt = {...activityBecausePrompt};
     updatedBecausePrompt.text = e.target.value;
     setActivityBecausePrompt(updatedBecausePrompt)
   };
 
-  const handleSetActivityButPrompt = (e: InputEvent) => {
+  function handleSetActivityButPrompt(e: InputEvent){
     const updatedButPrompt = {...activityButPrompt};
     updatedButPrompt.text = e.target.value;
     setActivityButPrompt(updatedButPrompt)
   };
 
-  const handleSetActivitySoPrompt = (e: InputEvent) => {
+  function handleSetActivitySoPrompt(e: InputEvent){
     const updatedSoPrompt = {...activitySoPrompt};
     updatedSoPrompt.text = e.target.value;
     setActivitySoPrompt(updatedSoPrompt)
   };
 
-  const handleSubmitActivity = () => {
+  function handleSubmitActivity(){
     const activityObject = buildActivity({
       activityTitle,
       activityScoredReadingLevel,
