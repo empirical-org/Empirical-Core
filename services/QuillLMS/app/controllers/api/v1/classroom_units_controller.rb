@@ -62,8 +62,7 @@ class Api::V1::ClassroomUnitsController < Api::ApiController
       if params[:follow_up].present?
         ActivitySession.assign_follow_up_lesson(
           params[:classroom_unit_id],
-          params[:activity_id],
-          false
+          params[:activity_id]
         )
       else
         false
