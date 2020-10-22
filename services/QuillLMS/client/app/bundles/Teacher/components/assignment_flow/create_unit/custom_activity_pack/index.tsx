@@ -38,6 +38,7 @@ const CustomActivityPack = ({
   const [activityClassificationFilters, setActivityClassificationFilters] = React.useState([])
   const [gradeLevelFilters, setGradeLevelFilters] = React.useState([])
   const [activityCategoryFilters, setActivityCategoryFilters] = React.useState([])
+  const [contentPartnerFilters, setContentPartnerFilters] = React.useState([])
   const [showMobileFilterMenu, setShowMobileFilterMenu] = React.useState(false)
   const [showMobileSortMenu, setShowMobileSortMenu] = React.useState(false)
   const [sort, setSort] = React.useState(DEFAULT)
@@ -46,18 +47,20 @@ const CustomActivityPack = ({
   const debouncedActivityClassificationFilters = useDebounce(activityClassificationFilters, DEBOUNCE_LENGTH);
   const debouncedGradeLevelFilters = useDebounce(gradeLevelFilters, DEBOUNCE_LENGTH);
   const debouncedActivityCategoryFilters = useDebounce(activityCategoryFilters, DEBOUNCE_LENGTH);
+  const debouncedContentPartnerFilters = useDebounce(contentPartnerFilters, DEBOUNCE_LENGTH);
 
   React.useEffect(() => {
     getActivities();
   }, []);
 
-  React.useEffect(updateFilteredActivities, [debouncedSearch, debouncedActivityClassificationFilters, debouncedGradeLevelFilters, debouncedActivityCategoryFilters])
+  React.useEffect(updateFilteredActivities, [debouncedSearch, debouncedActivityClassificationFilters, debouncedGradeLevelFilters, debouncedActivityCategoryFilters, debouncedContentPartnerFilters])
 
   function calculateNumberOfFilters() {
     let number = 0
     number += search.length ? 1 : 0
     number += gradeLevelFilters.length ? 1 : 0
     number += activityCategoryFilters.length
+    number += contentPartnerFilters.length
 
     activityClassificationGroupings.forEach((g) => {
       if (g.keys.every(key => activityClassificationFilters.includes(key))) {
@@ -100,12 +103,18 @@ const CustomActivityPack = ({
     setActivityCategoryFilters(newActivityCategoryFilters)
   }
 
+  function handleContentPartnerFilterChange(newContentPartnerFilters: number[]) {
+    setFilterHistory(prevFilterHistory => prevFilterHistory.concat([{ function: setContentPartnerFilters, argument: contentPartnerFilters }]))
+    setContentPartnerFilters(newContentPartnerFilters)
+  }
+
   function resetAllFilters() {
     setFilterHistory([])
     setSearch('')
     setActivityClassificationFilters([])
     setGradeLevelFilters([])
     setActivityCategoryFilters([])
+    setContentPartnerFilters([])
   }
 
   function filterActivities(ignoredKey=null) {
@@ -144,11 +153,13 @@ const CustomActivityPack = ({
     activityCategoryFilters,
     activityClassificationFilters,
     calculateNumberOfFilters,
+    contentPartnerFilters,
     filterActivities,
     filteredActivities,
     gradeLevelFilters,
     handleActivityCategoryFilterChange,
     handleActivityClassificationFilterChange,
+    handleContentPartnerFilterChange,
     handleGradeLevelFilterChange,
     resetAllFilters,
   }

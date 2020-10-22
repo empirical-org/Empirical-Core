@@ -29,7 +29,8 @@ class ActivitySearch
         activity_categories.order_number,
         activity_category_activities.order_number,
         content_partners.name AS content_partner_name,
-        content_partners.description AS content_partner_description
+        content_partners.description AS content_partner_description,
+        content_partners.id AS content_partner_id
       FROM activities
       LEFT JOIN activity_classifications ON activities.activity_classification_id = activity_classifications.id
       LEFT JOIN standards ON activities.standard_id = standards.id

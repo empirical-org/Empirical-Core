@@ -34,6 +34,8 @@ export const ACTIVITY_CLASSIFICATION_FILTERS = 'activityClassificationFilters'
 
 export const ACTIVITY_CATEGORY_FILTERS = 'activityCategoryFilters'
 
+export const CONTENT_PARTNER_FILTERS = 'contentPartnerFilters'
+
 function filterBySearch(search: string, activity: Activity) {
   const stringActivity = Object.values(activity).join(' ').toLowerCase();
   return stringActivity.includes(search.toLowerCase())
@@ -55,11 +57,17 @@ function filterByGradeLevel(gradeLevelFilters: number[], activity: Activity) {
   return gradeLevelFilters.includes(numberFromStandardLevel)
 }
 
+function filterByContentPartners(contentPartnerFilters: number[], activity: Activity) {
+  if (!contentPartnerFilters.length) { return true }
+  return contentPartnerFilters.some(id => activity.content_partners.some(cp => cp.id === id))
+}
+
 export const filters = {
   search: filterBySearch,
   [ACTIVITY_CLASSIFICATION_FILTERS]: filterByActivityClassification,
   gradeLevelFilters: filterByGradeLevel,
-  [ACTIVITY_CATEGORY_FILTERS]: filterByActivityCategory
+  [ACTIVITY_CATEGORY_FILTERS]: filterByActivityCategory,
+  [CONTENT_PARTNER_FILTERS]: filterByContentPartners
 }
 
 const conceptSort = (activities) => activities.sort((a, b) => {

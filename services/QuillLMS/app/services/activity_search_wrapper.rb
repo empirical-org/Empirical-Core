@@ -51,7 +51,7 @@ class ActivitySearchWrapper
     unique_activities_array = []
     @activities.each do |a|
       activity_id = a['activity_id'].to_i
-      content_partners = a['content_partner_name'] ? [{ name: a['content_partner_name'], description: a['content_partner_description']}] : []
+      content_partners = a['content_partner_name'] ? [{ name: a['content_partner_name'], description: a['content_partner_description'], id: a['content_partner_id']}] : []
       existing_record = unique_activities_array.find { |act| act[:id] == activity_id }
       # if there is an existing record, it is possible that that's because the activity has more than one content partner
       if existing_record
