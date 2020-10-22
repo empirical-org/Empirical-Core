@@ -278,7 +278,8 @@ class Cms::SchoolsController < Cms::CmsController
       'School State' => :state,
       'School ZIP' => :zipcode,
       'District Name' => :leanm,
-      'FRP Lunch' => :free_lunches
+      'FRP Lunch' => :free_lunches,
+      'NCES ID' => :nces_id
     }
   end
 

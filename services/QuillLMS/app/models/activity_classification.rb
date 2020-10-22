@@ -8,6 +8,7 @@ class ActivityClassification < ActiveRecord::Base
   validates :key, presence: true
 
   DIAGNOSTIC_KEY = 'diagnostic'
+  PROOFREADER_KEY = 'passage'
   LESSONS_KEY = 'lessons'
 
   def self.diagnostic
