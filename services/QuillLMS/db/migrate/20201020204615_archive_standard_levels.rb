@@ -10,8 +10,7 @@ class ArchiveStandardLevels < ActiveRecord::Migration
         standard_level.save!
         standard_level.standards.each do |s|
           s.activities.each do |a|
-            a.standard = nil
-            a.save!
+            a.update(standard: nil)
           end
         end
       rescue => e

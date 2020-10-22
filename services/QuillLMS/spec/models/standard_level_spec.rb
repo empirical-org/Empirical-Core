@@ -28,8 +28,7 @@ describe StandardLevel, type: :model do
 		context 'when a standardLevel is archived' do
 			it 'should archive all associated standards' do
 				standard = create(:standard, standard_level: standard_level)
-				standard_level.visible = false
-				standard_level.save
+				standard_level.update(visible: false)
 				expect(standard.reload.visible).to eq(false)
 			end
 		end
