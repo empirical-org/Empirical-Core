@@ -91,9 +91,9 @@ const joinParagraph = (paragraph: Array<any>) => {
   return joinWords(normalizedWords)
 }
 
-const joinWords = (wordArray) => {
+const joinWords = (wordArray: string[]) => {
   let paragraphString = ''
-  wordArray.forEach((word, i) => {
+  wordArray.forEach((word: string, i: number) => {
     paragraphString += word
 
     const nextWord = wordArray[i + 1]
@@ -103,7 +103,7 @@ const joinWords = (wordArray) => {
 
     if (nextWordIsAnEdit) {
       const negativeMatch = nextWord.match(negativeMatchRegex)
-      if (negativeMatch[1] && negativeMatch[1].match(startsWithPunctuationRegex)) { return }
+      if (negativeMatch && negativeMatch[1].match(startsWithPunctuationRegex)) { return }
     } else if (nextWord.match(startsWithPunctuationRegex)) {
       return
     }
