@@ -7,6 +7,7 @@ const expandSrc = `${process.env.CDN_URL}/images/shared/expand.svg`
 const conceptSrc = `${process.env.CDN_URL}/images/icons/description-concept.svg`
 const ccssSrc = `${process.env.CDN_URL}/images/icons/description-ccss.svg`
 const informationSrc = `${process.env.CDN_URL}/images/icons/description-information.svg`
+const copyrightSrc = `${process.env.CDN_URL}/images/icons/description-copyright.svg`
 const previewSrc = `${process.env.CDN_URL}/images/icons/preview.svg`
 const removeSrc = `${process.env.CDN_URL}/images/icons/remove-in-circle.svg`
 const connectSrc = `${process.env.CDN_URL}/images/icons/description-connect.svg`
@@ -108,20 +109,42 @@ const ActivityRowStandardLevel = ({ standardLevelName, }: { standardLevelName?: 
 const ActivityRowExpandedSection = ({ activity, isExpanded}: { activity: Activity, isExpanded: boolean }) => {
   if (!isExpanded) { return <span />}
 
-  return (<div className="third-line">
+  const descriptionLine = activity.description && (<div className="expanded-line">
     <img alt="Information icon" src={informationSrc} />
     <span>{activity.description}</span>
   </div>)
+
+  const contentPartnerLines = activity.content_partners && activity.content_partners.map(cp => (
+    <div className="expanded-line" key={cp.id}>
+      <img alt="Copyright icon" src={copyrightSrc} />
+      <span>{cp.description}</span>
+    </div>)
+  )
+
+  return (<React.Fragment>
+    {descriptionLine}
+    {contentPartnerLines}
+  </React.Fragment>)
 }
 
 const ActivityRowTooltip = ({ activity, showTooltip}: { activity: Activity, showTooltip: boolean }) => {
   if (!showTooltip) { return <span />}
 
+  const descriptionLine = activity.description && (<div className="tooltip-line">
+    <img alt="Information icon" src={informationSrc} />
+    <span>{activity.description}</span>
+  </div>)
+
+  const contentPartnerLines = activity.content_partners && activity.content_partners.map(cp => (
+    <div className="tooltip-line" key={cp.id}>
+      <img alt="Copyright icon" src={copyrightSrc} />
+      <span>{cp.description}</span>
+    </div>)
+  )
+
   return (<div className="activity-row-tooltip">
-    <div className="tooltip-line">
-      <img alt="Information icon" src={informationSrc} />
-      <span>{activity.description}</span>
-    </div>
+    {descriptionLine}
+    {contentPartnerLines}
   </div>)
 }
 

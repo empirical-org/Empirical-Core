@@ -54,7 +54,7 @@ const ContentPartnerFilterRow = ({ contentPartnerFilters, contentPartner, handle
 const ContentPartnerFilters = ({ activities, filterActivities, contentPartnerFilters, handleContentPartnerFilterChange, }: ContentPartnerFiltersProps) => {
   function clearAllContentPartnerFilters() { handleContentPartnerFilterChange([]) }
 
-  const allContentPartners = activities.map(a => a.content_partners).flat()
+  const allContentPartners = activities.map(a => a.content_partners).flat().filter(Boolean)
   const uniqueContentPartnerIds = Array.from(new Set(allContentPartners.map(a => a.id)))
   const uniqueContentPartners = uniqueContentPartnerIds.map(id => allContentPartners.find(ac => ac.id === id)).filter(ac => ac.name && ac.id)
   const sortedContentPartners = uniqueContentPartners.sort((ac1, ac2) => ac1.name.localeCompare(ac2.name))

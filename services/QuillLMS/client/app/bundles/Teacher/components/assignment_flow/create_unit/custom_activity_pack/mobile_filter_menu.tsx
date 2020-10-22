@@ -18,7 +18,9 @@ interface MobileFilterMenuProps {
   handleActivityCategoryFilterChange: (activityCategoryFilters: number[]) => void,
   filterActivities: (ignoredKey?: string) => Activity[],
   setShowMobileFilterMenu: (show: boolean) => void,
-  showMobileFilterMenu: boolean
+  showMobileFilterMenu: boolean,
+  contentPartnerFilters: number[],
+  handleContentPartnerFilterChange: (contentPartnerFilters: number[]) => void,
 }
 
 const MobileFilterMenu = ({
@@ -26,6 +28,8 @@ const MobileFilterMenu = ({
   activityCategoryFilters,
   activityClassificationFilters,
   calculateNumberOfFilters,
+  contentPartnerFilters,
+  handleContentPartnerFilterChange,
   filterActivities,
   filteredActivities,
   gradeLevelFilters,
@@ -51,11 +55,13 @@ const MobileFilterMenu = ({
       activityCategoryFilters={activityCategoryFilters}
       activityClassificationFilters={activityClassificationFilters}
       calculateNumberOfFilters={calculateNumberOfFilters}
+      contentPartnerFilters={contentPartnerFilters}
       filterActivities={filterActivities}
       filteredActivities={filteredActivities}
       gradeLevelFilters={gradeLevelFilters}
       handleActivityCategoryFilterChange={handleActivityCategoryFilterChange}
       handleActivityClassificationFilterChange={handleActivityClassificationFilterChange}
+      handleContentPartnerFilterChange={handleContentPartnerFilterChange}
       handleGradeLevelFilterChange={handleGradeLevelFilterChange}
       resetAllFilters={resetAllFilters}
     />
