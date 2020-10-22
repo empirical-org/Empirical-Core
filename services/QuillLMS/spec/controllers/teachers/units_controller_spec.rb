@@ -127,6 +127,15 @@ describe Teachers::UnitsController, type: :controller do
     end
   end
 
+  describe '#hide' do
+    it 'should hide the unit; kick off ArchiveUnitsClassroomUnitsWorker and ResetLessonCacheWorker' do
+      expect(ArchiveUnitsClassroomUnitsWorker).to receive(:perform_async).with(unit.id)
+      expect(ResetLessonCacheWorker).to receive_message_chain(:new, :perform).with(no_args).with(teacher.id)
+      put :hide, id: unit.id
+      expect(unit.reload.visible).to eq false
+    end
+  end
+
   describe '#index' do
     it 'should return json in the appropriate format' do
       response = get :index, report: false
