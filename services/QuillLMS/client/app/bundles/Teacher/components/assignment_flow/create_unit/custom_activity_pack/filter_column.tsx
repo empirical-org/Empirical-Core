@@ -43,10 +43,10 @@ const FilterColumn = ({
   return (<section className="filter-column">
     <section className="filter-section filtered-results">
       <div className="name-and-clear-wrapper">
-        <h2>Filtered results</h2>
+        <h2>Filtered Results</h2>
         {clearAllButton}
       </div>
-      <p>{filterCount}{filteredActivities.length} of {activities.length}</p>
+      <p>{filterCount}{filteredActivities.length} of {activities.length} activities</p>
     </section>
     <ActivityClassificationFilters
       activities={activities}
