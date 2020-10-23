@@ -1,17 +1,19 @@
 class Topic < ActiveRecord::Base
-  include Uid
+  validates :name, presence: true
+  validates :visible, presence: true
+  validates_inclusion_of :level, :in => 0..3
 
-  belongs_to :section
-  belongs_to :topic_category
+  has_many :activity_topics, dependent: :destroy
+  has_many :activities, through: :activity_topics
 
-  has_many :activities, dependent: :destroy
+  before_save :validate_parent_by_level
 
-  default_scope -> { order(:name) }
-
-  validates :section, presence: true
-  validates :name, presence: true, uniqueness: true
-
-  def name_prefix
-    name.split(' ').first
+  def validate_parent_by_level
+    # level 2s must have level 3 parent. all other levels must not have parent.
+    if parent_id.present?
+      return level == 2 && Topic.find(parent_id)&.level == 3
+    else
+      return level != 2
+    end
   end
 end
