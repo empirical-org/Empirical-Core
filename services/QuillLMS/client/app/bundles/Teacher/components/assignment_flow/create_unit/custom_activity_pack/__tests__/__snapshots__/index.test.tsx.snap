@@ -6613,7 +6613,7 @@ Previous activities in the Ancient Rome unit.
             className="name-and-clear-wrapper"
           >
             <h2>
-              Filtered results
+              Filtered Results
             </h2>
             <span />
           </div>
@@ -6621,6 +6621,7 @@ Previous activities in the Ancient Rome unit.
             50
              of 
             50
+             activities
           </p>
         </section>
         <ActivityClassificationFilters
