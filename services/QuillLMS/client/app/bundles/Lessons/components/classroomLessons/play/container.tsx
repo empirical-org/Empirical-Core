@@ -81,6 +81,14 @@ class PlayClassroomLessonContainer extends React.Component<any, any> {
     this.setInitialData(this.props)
   }
 
+  componentDidUpdate(prevProps) {
+    const { classroomLesson } = this.props
+    const { hasreceiveddata } = classroomLesson
+    if (classroomLesson.hasreceiveddata !=prevProps.hasreceiveddata && hasreceiveddata) {
+      document.title = `Quill.org | ${classroomLesson.data.title}`
+    }
+  }
+
   UNSAFE_componentWillReceiveProps(nextProps, nextState) {
     this.setInitialData(nextProps)
   }

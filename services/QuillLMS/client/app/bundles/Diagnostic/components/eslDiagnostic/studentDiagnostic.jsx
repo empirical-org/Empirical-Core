@@ -58,9 +58,9 @@ export class ELLStudentDiagnostic extends React.Component {
     const { sessionID, } = this.state
     const { params } = match;
     const { diagnosticID } = params;
-    if (lessons.hasreceiveddata) {
-      document.title = `Quill.org | ${lessons.data[diagnosticID].name}`
-    }
+
+    document.title = `Quill.org | ${lessons.data[diagnosticID].name}`
+
     dispatch(clearData());
     dispatch(setDiagnosticID({ diagnosticID: match.params.diagnosticID, }))
     if (sessionID) {

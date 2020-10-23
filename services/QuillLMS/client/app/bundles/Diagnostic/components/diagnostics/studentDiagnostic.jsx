@@ -47,9 +47,9 @@ export class StudentDiagnostic extends React.Component {
     const { dispatch, match, lessons } = this.props;
     const { params } = match;
     const { diagnosticID } = params;
-    if (lessons.hasreceiveddata) {
-      document.title = `Quill.org | ${lessons.data[diagnosticID].name}`
-    }
+
+    document.title = `Quill.org | ${lessons.data[diagnosticID].name}`
+
     dispatch(clearData());
     dispatch(setDiagnosticID({ diagnosticID }))
     if (sessionID) {
