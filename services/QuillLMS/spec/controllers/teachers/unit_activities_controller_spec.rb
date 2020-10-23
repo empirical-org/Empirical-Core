@@ -19,8 +19,8 @@ describe Teachers::UnitActivitiesController, type: :controller do
     let!(:activity_session) { create(:activity_session, classroom_unit: classroom_unit) }
     let!(:activity_session1) { create(:activity_session, classroom_unit: classroom_unit) }
 
-    it 'should hide the activity and kick off the set Teacher Lessons Cache' do
-      expect(SetTeacherLessonCache).to receive(:perform_async).with(teacher.id)
+    it 'should hide the unit and kick off ResetLessonCacheWorker' do
+      expect(ResetLessonCacheWorker).to receive_message_chain(:new, :perform).with(no_args).with(teacher.id)
       put :hide, id: unit_activity.id
       expect(unit_activity.reload.visible).to eq false
     end

@@ -2,6 +2,8 @@ import * as React from 'react'
 import * as _ from 'lodash'
 
 import EditInput from './editInput'
+import { startsWithPunctuationRegex } from './sharedRegexes'
+
 import { WordObject } from '../../interfaces/proofreaderActivities'
 
 interface ParagraphProps {
@@ -33,14 +35,16 @@ export default class Paragraph extends React.Component<ParagraphProps, {}> {
     if (!underlineErrors) {
       className += ' no-underline'
     }
-    const inputs = words.map((word: WordObject) => (
-      <EditInput
+    const inputs = words.map((word: WordObject, i: number) => {
+      const isFollowedByPunctuation = words[i + 1] && words[i + 1]['originalText'].match(startsWithPunctuationRegex)
+      return (<EditInput
         key={word.wordIndex}
         {...word}
+        isFollowedByPunctuation={!!isFollowedByPunctuation}
         numberOfResets={numberOfResets}
         onWordChange={this.handleWordChange}
       />
-    ))
+    )})
     return <div className={className}>{inputs}</div>
   }
 
