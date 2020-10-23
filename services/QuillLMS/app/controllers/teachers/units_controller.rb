@@ -139,6 +139,7 @@ class Teachers::UnitsController < ApplicationController
     unit = Unit.find(params[:id])
     unit.update(visible: false)
     ArchiveUnitsClassroomUnitsWorker.perform_async(unit.id)
+    ResetLessonCacheWorker.new.perform(current_user.id)
     render json: {}
   end
 

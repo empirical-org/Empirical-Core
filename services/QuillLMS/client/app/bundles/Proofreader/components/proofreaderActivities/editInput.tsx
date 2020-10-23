@@ -3,7 +3,7 @@ import ContentEditable from 'react-contenteditable';
 
 import { WordObject } from '../../interfaces/proofreaderActivities'
 
-type EditInputProps = WordObject & { onWordChange: Function, numberOfResets: number }
+type EditInputProps = WordObject & { onWordChange: Function, numberOfResets: number, isFollowedByPunctuation: boolean }
 
 export default class EditInput extends React.Component<EditInputProps, {}> {
   handleWordChange = (e: any) => {
@@ -15,10 +15,13 @@ export default class EditInput extends React.Component<EditInputProps, {}> {
   setEditInputRef = node => this.editInput = node
 
   render() {
-    const { currentText, originalText, underlined, wordIndex, paragraphIndex, numberOfResets, } = this.props
+    const { currentText, originalText, underlined, wordIndex, paragraphIndex, numberOfResets, isFollowedByPunctuation, } = this.props
     let className = 'edit-input'
     if (underlined ) {
       className += ' underlined'
+    }
+    if (isFollowedByPunctuation) {
+      className += ' no-right-margin'
     }
     if (currentText.trim() !== originalText) {
       className += ' bolded'

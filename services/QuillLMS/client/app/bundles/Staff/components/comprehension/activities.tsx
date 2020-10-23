@@ -1,9 +1,9 @@
 import * as React from "react";
-import { Link } from 'react-router-dom'
-import { useQuery } from 'react-query'
+import { Link } from 'react-router-dom';
+import { useQuery } from 'react-query';
+
 import { ActivityInterface } from '../../interfaces/comprehensionInterfaces';
 import { fetchActivities } from '../../utils/comprehension/activityAPIs';
-
 import { DataTable, Error, Spinner } from '../../../Shared/index';
 
 const Activities = () => {
