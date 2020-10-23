@@ -1,7 +1,9 @@
 import * as React from "react";
+import stripHtml from "string-strip-html";
+
 import { promptStems, DEFAULT_MAX_ATTEMPTS, BECAUSE, MINIMUM_READING_LEVEL, MAXIMUM_READING_LEVEL, TARGET_READING_LEVEL, SCORED_READING_LEVEL } from '../../../constants/comprehension';
 import { ActivityRuleSetPrompt, PromptInterface } from '../interfaces/comprehensionInterfaces'
-import stripHtml from "string-strip-html";
+
 const quillCheckmark = 'https://assets.quill.org/images/icons/check-circle-small.svg';
 const baseUrl = `${process.env.DEFAULT_URL}/api/v1/comprehension/`;;
 const fetchDefaults = require("fetch-defaults");
@@ -40,12 +42,12 @@ export const buildActivity = ({
   activityTitle,
   activityScoredReadingLevel,
   activityTargetReadingLevel,
+  activityParentActivityId,
   activityPassages,
   activityMaxFeedback,
   activityBecausePrompt,
   activityButPrompt,
-  activitySoPrompt,
-  parent_activity_id,
+  activitySoPrompt
 }) => {
   // const { label } = activityFlag;
   const prompts = [activityBecausePrompt, activityButPrompt, activitySoPrompt].map(prompt => {
@@ -55,14 +57,14 @@ export const buildActivity = ({
   return {
     activity: {
       title: activityTitle,
-      parent_activity_id,
+      parent_activity_id: parseInt(activityParentActivityId),
       // flag: label,
       scored_level: activityScoredReadingLevel,
       target_level: parseInt(activityTargetReadingLevel),
       passages_attributes: activityPassages,
       prompts_attributes: [
-        formatPrompt(prompts[0]), 
-        formatPrompt(prompts[1]), 
+        formatPrompt(prompts[0]),
+        formatPrompt(prompts[1]),
         formatPrompt(prompts[2])
       ]
     }
