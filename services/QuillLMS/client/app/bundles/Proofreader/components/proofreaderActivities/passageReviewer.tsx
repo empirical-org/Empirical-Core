@@ -1,8 +1,9 @@
 import * as React from 'react';
 
-import { Concept } from '../../interfaces/concepts'
 import Edit from './edit'
+import { isAnEditRegex, negativeMatchRegex } from './sharedRegexes'
 
+import { Concept } from '../../interfaces/concepts'
 import {
   UNNECESSARY_SPACE,
   MULTIPLE_UNNECESSARY_DELETION,
@@ -29,7 +30,7 @@ export default class PassageReviewer extends React.Component<PassageReviewerProp
   constructor(props: PassageReviewerProps) {
     super(props)
 
-    const matches = props.text ? props.text.match(/{\+([^-]+)-([^|]*)\|([^}]*)}/g) : []
+    const matches = props.text ? props.text.match(isAnEditRegex) : []
     const numberOfEdits = matches ? matches.length : 0
 
     this.state = {
@@ -80,7 +81,7 @@ export default class PassageReviewer extends React.Component<PassageReviewerProp
           const plus = plusMatch ? plusMatch[1] : ''
           const conceptUIDMatch = parts[i].match(/\|(.+)/m)
           const conceptUID = conceptUIDMatch ? conceptUIDMatch[1] : ''
-          const negativeMatch = parts[i].match(/\-(.+)\|/m)
+          const negativeMatch = parts[i].match(negativeMatchRegex)
           const negative = negativeMatch ? negativeMatch[1] : null
           const concept = concepts.find(c => c.uid === conceptUID)
           const indexToPass = index

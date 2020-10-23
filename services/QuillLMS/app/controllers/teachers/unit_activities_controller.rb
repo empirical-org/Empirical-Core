@@ -16,7 +16,7 @@ class Teachers::UnitActivitiesController < ApplicationController
     @unit_activities.update_all(visible: false)
     @unit_activity&.unit&.hide_if_no_visible_unit_activities
     @activity_sessions.update_all(visible: false)
-    SetTeacherLessonCache.perform_async(current_user.id)
+    ResetLessonCacheWorker.new.perform(current_user.id)
     render json: {}
   end
 

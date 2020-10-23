@@ -40,6 +40,13 @@ exports[`Activity Form component should render Activities 1`] = `
       label="Target Reading Level"
       value="7"
     />
+    <Input
+      autoComplete="on"
+      className="parent-activity-id-input"
+      handleChange={[Function]}
+      label="Parent Activity ID"
+      value="17"
+    />
     <p
       className="text-editor-label has-text"
     >

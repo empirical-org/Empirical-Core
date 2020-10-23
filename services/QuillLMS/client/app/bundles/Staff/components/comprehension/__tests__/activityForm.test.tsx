@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { shallow } from 'enzyme';
+
 import ActivityForm from '../configureSettings/activityForm';
 import { Input, TextEditor, } from '../../../../Shared/index'
 jest.mock('string-strip-html', () => ({
@@ -13,6 +14,7 @@ const mockActivity = {
   title: 'Could Capybaras Create Chaos?',
   scored_level: '7',
   target_level: 7,
+  parent_activity_id: '17',
   passages: [{text: '...'}],
   prompts: [
     { conjunction: 'because', text: '1', max_attempts: 5, max_attempts_feedback: 'WRONG!' },
@@ -36,7 +38,7 @@ describe('Activity Form component', () => {
   it('should render a DropdownInput, Input, or TextEditor component for each field', () => {
     // Input: Title, Scored Reading Level, Target Reading Level, But Stem, Because Stem, So Stem (6)
     // TextEditor: Passage, Max Feedback (2)
-    expect(container.find(Input).length).toEqual(6);
+    expect(container.find(Input).length).toEqual(7);
     expect(container.find(TextEditor).length).toEqual(2);
   });
   it('clicking the "x" button or "close" button should call closeModal prop', () => {
