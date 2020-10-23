@@ -149,9 +149,9 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
 
     componentDidUpdate(prevProps) {
       const { proofreaderActivities } = this.props
-      const { currentActivity } = proofreaderActivities
+      const { currentActivity, hasreceiveddata } = proofreaderActivities
 
-      if (prevProps.proofreaderActivities != proofreaderActivities) {
+      if (prevProps.proofreaderActivities.hasreceiveddata != hasreceiveddata && hasreceiveddata) {
         document.title = `Quill.org | ${currentActivity.title}`
       }
     }

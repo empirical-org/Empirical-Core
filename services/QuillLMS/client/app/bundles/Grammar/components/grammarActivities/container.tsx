@@ -128,7 +128,8 @@ export class PlayGrammarContainer extends React.Component<PlayGrammarContainerPr
 
     componentDidUpdate(prevProps) {
       const { grammarActivities } = this.props
-      if (prevProps.grammarActivities != grammarActivities && grammarActivities.hasreceiveddata) {
+      const { hasreceiveddata } = grammarActivities
+      if (prevProps.grammarActivities.hasreceiveddata != hasreceiveddata && hasreceiveddata) {
         document.title = `Quill.org | ${grammarActivities.currentActivity.title}`
       }
     }

@@ -68,7 +68,7 @@ export class Lesson extends React.Component {
     const { params } = match
     const { lessonID, } = params;
 
-    if (prevProps.lessons != lessons && hasreceiveddata) {
+    if (prevProps.lessons.hasreceiveddata != hasreceiveddata && hasreceiveddata) {
       document.title = `Quill.org | ${data[lessonID].name}`
     }
     // At mount time the component may still be waiting on questions
