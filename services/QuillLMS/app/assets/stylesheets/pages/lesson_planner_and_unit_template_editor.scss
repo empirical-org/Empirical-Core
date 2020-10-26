@@ -421,7 +421,7 @@
     }
   }
 
-  section {
+  section:not(.activity-row):not(.selected-activity-row):not(.filter-and-sort) {
     border-bottom: none;
     &.name-the-unit {
       border-bottom: solid 1px #c0c0c0;
@@ -434,7 +434,7 @@
     align-items: center;
     position: relative;
     width: 100%;
-    padding-bottom: 30px;
+    background-color: white;
     .visible-error-message {
       color: red;
       i, svg {
