@@ -45,7 +45,7 @@ const imageTagForClassification = (classificationKey: string): JSX.Element => {
       imgAlt = "Magnifying glass representing Quill Diagnostic"
       imgSrc = diagnosticSrc
       break
-    case 'grammar':
+    case 'sentence':
       imgAlt = "Puzzle piece representing Quill Grammar"
       imgSrc = grammarSrc
       break
@@ -53,7 +53,7 @@ const imageTagForClassification = (classificationKey: string): JSX.Element => {
       imgAlt = "Apple representing Quill Lessons"
       imgSrc = lessonsSrc
       break
-    case 'proofreader':
+    case 'passage':
       imgAlt = "Flag representing Quill Proofreader"
       imgSrc = proofreaderSrc
       break
@@ -89,6 +89,18 @@ const ActivityRowConcept = ({ conceptName, }: { conceptName?: string }) => {
     return (<span className={className}>
       <img alt="Pencil writing icon" src={conceptSrc} />
       <span>{conceptName}</span>
+    </span>)
+  }
+
+  return <span className={className} />
+}
+
+const ActivityRowReadabilityGradeLevel = ({ readabilityGradeLevel, }: { readabilityGradeLevel?: string }) => {
+  const className = "second-line-section readability-level"
+  if (readabilityGradeLevel) {
+    return (<span className={className}>
+      <img alt="Book icon" src={readabilitySrc} />
+      <span>Readability: Grades {readabilityGradeLevel}</span>
     </span>)
   }
 
@@ -162,7 +174,7 @@ const ActivityRow = ({ activity, isSelected, toggleActivitySelection, showCheckb
 
   const expandImgAltText = `Arrow pointing ${isExpanded ? 'up' : 'down'}`
 
-  const { activity_classification, name, activity_category_name, standard_level_name, anonymous_path, } = activity
+  const { activity_classification, name, activity_category_name, standard_level_name, anonymous_path, readability_grade_level, } = activity
 
   const previewButton = <a className="interactive-wrapper focus-on-light preview-link" href={anonymous_path} rel="noopener noreferrer" target="_blank"><img alt="Preview eye icon" src={previewSrc} />Preview</a>
   const expandButton = <button className="interactive-wrapper focus-on-light expand-button" onClick={toggleIsExpanded} type="button"><img alt={expandImgAltText} src={expandSrc} /></button>
@@ -194,7 +206,7 @@ const ActivityRow = ({ activity, isSelected, toggleActivitySelection, showCheckb
         <span className="second-line-section topic" />
       </div>
       <div className="readability-and-standard-level-wrapper">
-        <span className="second-line-section readability" />
+        <ActivityRowReadabilityGradeLevel readabilityGradeLevel={readability_grade_level} />
         <ActivityRowStandardLevel standardLevelName={standard_level_name} />
       </div>
     </div>

@@ -42,10 +42,17 @@
         display: flex;
         flex-direction: row;
       }
+      .classification-concept-topic-wrapper {
+        .second-line-section {
+          margin-right: 16px;
+        }
+      }
       .second-line-section {
-        margin-right: 16px;
         display: flex;
         align-items: center;
+      }
+      .standard-level {
+        margin-left: 16px;
       }
     }
     .second-line, .expanded-line, .tooltip-line {
