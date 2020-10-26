@@ -8,7 +8,8 @@ interface TwoThumbSliderProps {
   maxValue: number,
   step: number,
   handleChange: (values: number[]) => void,
-  markLabels?: string[]|number[]
+  markLabels?: string[]|number[],
+  id?: string
 }
 
 const Track = ({ props, children, values, minValue, maxValue, }) => {
@@ -55,11 +56,12 @@ const Mark = ({ props, index, markLabels, }) => {
 }
 
 export const TwoThumbSlider = (props: TwoThumbSliderProps) => {
-  const { lowerValue, upperValue, minValue, maxValue, step, handleChange, markLabels, } = props
+  const { lowerValue, upperValue, minValue, maxValue, step, handleChange, markLabels, id, } = props
   const values = [lowerValue, upperValue]
   return (
     <div
       className="two-thumb-slider-container"
+      id={id}
       style={{
         display: 'flex',
         justifyContent: 'center',

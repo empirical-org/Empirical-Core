@@ -255,6 +255,7 @@ export default class CreateUnit extends React.Component {
       determineIfInputProvidedAndValid={this.determineIfInputProvidedAndValid}
       errorMessage={this.determineStage1ErrorMessage()}
       selectedActivities={this.getSelectedActivities()}
+      setSelectedActivities={this.setSelectedActivities}
       toggleActivitySelection={this.toggleActivitySelection}
       updateUnitName={this.updateUnitName}
     />);
@@ -320,6 +321,10 @@ export default class CreateUnit extends React.Component {
     } else {
       newActivityArray.splice(indexOfActivity, 1);
     }
+    this.setSelectedActivities(newActivityArray)
+  }
+
+  setSelectedActivities = (newActivityArray) => {
     const newActivityArrayIds = newActivityArray.map(a => a.id).join(',')
     this.setState({ selectedActivities: newActivityArray, }, () => {
       window.localStorage.setItem(ACTIVITY_IDS_ARRAY,  newActivityArrayIds)
