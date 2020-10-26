@@ -18,7 +18,7 @@ class FeedbackHistory < ActiveRecord::Base
   belongs_to :prompt, polymorphic: true
   belongs_to :concept, foreign_key: :concept_uid, primary_key: :uid
 
-  validates :concept_uid, length: {is: CONCEPT_UID_LENGTH}
+  validates :concept_uid, allow_blank: true, length: {is: CONCEPT_UID_LENGTH}
   validates :attempt, presence: true,
     numericality: {
       only_integer: true,
@@ -28,9 +28,9 @@ class FeedbackHistory < ActiveRecord::Base
   validates :entry, presence: true, length: {in: MIN_ENTRY_LENGTH..MAX_ENTRY_LENGTH}
   validates :feedback_text, length: {in: MIN_FEEDBACK_LENGTH..MAX_FEEDBACK_LENGTH}
   validates :feedback_type, presence: true, inclusion: {in: FEEDBACK_TYPES}
-  validates :optimal, presence: true, inclusion: { in: [true, false] }
+  validates :optimal, inclusion: { in: [true, false] }
   validates :time, presence: true
-  validates :used, presence: true, inclusion: { in: [true, false] }
+  validates :used, inclusion: { in: [true, false] }
   
   def serializable_hash(options = nil)
     options ||= {}
