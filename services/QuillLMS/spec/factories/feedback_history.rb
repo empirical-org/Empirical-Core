@@ -1,7 +1,6 @@
 FactoryBot.define do
   factory :feedback_history, class: 'FeedbackHistory' do
     activity_session_uid { SecureRandom.uuid }
-    association :prompt, factory: :comprehension_prompt
     concept_uid { SecureRandom.uuid.slice(0, 22) }
     attempt { 1 }
     entry { "This is what the student submitted." }
