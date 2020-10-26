@@ -85,6 +85,14 @@ class PlayClassroomLessonContainer extends React.Component<any, any> {
     this.setInitialData(nextProps)
   }
 
+  componentDidUpdate(prevProps) {
+    const { classroomLesson } = this.props
+    const { hasreceiveddata } = classroomLesson
+    if (classroomLesson.hasreceiveddata != prevProps.hasreceiveddata && hasreceiveddata) {
+      document.title = `Quill.org | ${classroomLesson.data.title}`
+    }
+  }
+
   componentWillUnmount() {
     document.getElementsByTagName("html")[0].style.backgroundColor = "whitesmoke";
     document.removeEventListener("keydown", this.handleKeyDown.bind(this));

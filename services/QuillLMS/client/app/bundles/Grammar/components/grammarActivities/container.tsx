@@ -126,6 +126,14 @@ export class PlayGrammarContainer extends React.Component<PlayGrammarContainerPr
       }
     }
 
+    componentDidUpdate(prevProps) {
+      const { grammarActivities } = this.props
+      const { hasreceiveddata } = grammarActivities
+      if (prevProps.grammarActivities.hasreceiveddata != hasreceiveddata && hasreceiveddata) {
+        document.title = `Quill.org | ${grammarActivities.currentActivity.title}`
+      }
+    }
+
     saveToLMS = (questions: SessionState) => {
       const { session, previewMode } = this.props
       const { answeredQuestions } = questions
