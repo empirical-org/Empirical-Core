@@ -14,7 +14,7 @@ const SortableList = SortableContainer(({items}) => {
   );
 });
 
-export default function SortableComponent({ sortCallback, data, helperClass, axis, }) {
+export default function SortableComponent({ sortCallback, data, helperClass, axis, useDragHandle, }) {
   function onSortEnd({oldIndex, newIndex}) {
     const newArray = arrayMove(data, oldIndex, newIndex)
     return sortCallback(newArray)
@@ -22,5 +22,5 @@ export default function SortableComponent({ sortCallback, data, helperClass, axi
 
   function onSortMove() {}
 
-  return <SortableList axis={axis || 'y'} distance={2} helperClass={helperClass} items={data} onSortEnd={onSortEnd} onSortMove={onSortMove} />;
+  return <SortableList axis={axis || 'y'} distance={2} helperClass={helperClass} items={data} onSortEnd={onSortEnd} onSortMove={onSortMove} useDragHandle={useDragHandle} />;
 }

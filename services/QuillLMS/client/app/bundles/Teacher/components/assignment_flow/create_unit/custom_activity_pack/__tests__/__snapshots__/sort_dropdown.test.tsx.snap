@@ -1,0 +1,36 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SortDropdown component should render 1`] = `
+<SortDropdown
+  setSort={[Function]}
+  sort="default"
+>
+  <div
+    className="sort-wrapper"
+  >
+    <button
+      className="sort-dropdown-label interactive-wrapper focus-on-light"
+      onClick={[Function]}
+      type="button"
+    >
+      Sort by: 
+      <span>
+        Default
+      </span>
+       
+      <img
+        alt=""
+        className="dropdown-icon false"
+        src="undefined/images/icons/dropdown.svg"
+      />
+    </button>
+    <SortDropdownOptions
+      dropdownIsOpen={false}
+      setDropdownIsOpen={[Function]}
+      setSort={[Function]}
+    >
+      <span />
+    </SortDropdownOptions>
+  </div>
+</SortDropdown>
+`;

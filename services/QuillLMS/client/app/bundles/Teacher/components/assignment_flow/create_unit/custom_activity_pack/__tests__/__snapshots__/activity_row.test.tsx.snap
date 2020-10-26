@@ -1,0 +1,1109 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ActivityRow component with showCheckbox false and showRemoveButton true is not selected should render 1`] = `
+<ActivityRow
+  activity={
+    Object {
+      "activity_category": Object {
+        "id": 20,
+        "name": "History: Maya, Aztec, Inca",
+      },
+      "activity_category_id": 20,
+      "activity_category_name": "History: Maya, Aztec, Inca",
+      "activity_classification": Object {
+        "alias": "Quill Connect",
+        "description": "Combine Sentences",
+        "id": 5,
+        "key": "connect",
+      },
+      "anonymous_path": "/activity_sessions/anonymous?activity_id=627",
+      "content_partners": Array [
+        Object {
+          "description": "Core Knowledge is a free and open-source curriculum. Quill provides activities aligned with their language arts, social studies, and science books.",
+          "id": "1",
+          "name": "Core Knowledge",
+        },
+      ],
+      "description": "Combine sentences to create 6 sentences about Hernan Cortes. This is an advanced, un-cued sentence combining activity.",
+      "flags": "{production}",
+      "id": 627,
+      "name": "Hernan Cortes",
+      "standard_level": Object {
+        "id": 13,
+        "name": "7th Grade CCSS",
+      },
+      "standard_level_name": "7th Grade CCSS",
+      "standard_name": "87",
+      "uid": "-KqcjgL00W0ro-Wr4Bts",
+    }
+  }
+  isFirst={false}
+  isSelected={false}
+  setShowSnackbar={[Function]}
+  showCheckbox={false}
+  showRemoveButton={true}
+  toggleActivitySelection={[Function]}
+>
+  <section
+    className="activity-row not-expanded not-selected "
+  >
+    <ActivityRowTooltip
+      activity={
+        Object {
+          "activity_category": Object {
+            "id": 20,
+            "name": "History: Maya, Aztec, Inca",
+          },
+          "activity_category_id": 20,
+          "activity_category_name": "History: Maya, Aztec, Inca",
+          "activity_classification": Object {
+            "alias": "Quill Connect",
+            "description": "Combine Sentences",
+            "id": 5,
+            "key": "connect",
+          },
+          "anonymous_path": "/activity_sessions/anonymous?activity_id=627",
+          "content_partners": Array [
+            Object {
+              "description": "Core Knowledge is a free and open-source curriculum. Quill provides activities aligned with their language arts, social studies, and science books.",
+              "id": "1",
+              "name": "Core Knowledge",
+            },
+          ],
+          "description": "Combine sentences to create 6 sentences about Hernan Cortes. This is an advanced, un-cued sentence combining activity.",
+          "flags": "{production}",
+          "id": 627,
+          "name": "Hernan Cortes",
+          "standard_level": Object {
+            "id": 13,
+            "name": "7th Grade CCSS",
+          },
+          "standard_level_name": "7th Grade CCSS",
+          "standard_name": "87",
+          "uid": "-KqcjgL00W0ro-Wr4Bts",
+        }
+      }
+      showTooltip={false}
+    >
+      <span />
+    </ActivityRowTooltip>
+    <div
+      className="first-line"
+    >
+      <div
+        className="name-and-checkbox-wrapper"
+      >
+        <button
+          className="interactive-wrapper"
+          onMouseEnter={[Function]}
+          onMouseLeave={[Function]}
+          tabIndex={-1}
+          type="button"
+        >
+          <h2>
+            Hernan Cortes
+          </h2>
+        </button>
+      </div>
+      <div
+        className="buttons-wrapper"
+      >
+        <button
+          className="interactive-wrapper focus-on-light remove-button"
+          onClick={[Function]}
+          type="button"
+        >
+          <img
+            alt="Remove icon"
+            src="undefined/images/icons/remove-in-circle.svg"
+          />
+          Remove
+        </button>
+        <button
+          className="interactive-wrapper focus-on-light expand-button"
+          onClick={[Function]}
+          type="button"
+        >
+          <img
+            alt="Arrow pointing down"
+            src="undefined/images/shared/expand.svg"
+          />
+        </button>
+      </div>
+    </div>
+    <div
+      className="second-line"
+    >
+      <div
+        className="classification-concept-topic-wrapper"
+      >
+        <ActivityRowClassification
+          classification={
+            Object {
+              "alias": "Quill Connect",
+              "description": "Combine Sentences",
+              "id": 5,
+              "key": "connect",
+            }
+          }
+        >
+          <span
+            className="second-line-section classification"
+          >
+            <img
+              alt="Target representing Quill Connect"
+              src="undefined/images/icons/description-connect.svg"
+            />
+            <span>
+              Quill Connect
+            </span>
+          </span>
+        </ActivityRowClassification>
+        <ActivityRowConcept
+          conceptName="History: Maya, Aztec, Inca"
+        >
+          <span
+            className="second-line-section concept"
+          >
+            <img
+              alt="Pencil writing icon"
+              src="undefined/images/icons/description-concept.svg"
+            />
+            <span>
+              History: Maya, Aztec, Inca
+            </span>
+          </span>
+        </ActivityRowConcept>
+        <span
+          className="second-line-section topic"
+        />
+      </div>
+      <div
+        className="readability-and-standard-level-wrapper"
+      >
+        <span
+          className="second-line-section readability"
+        />
+        <ActivityRowStandardLevel
+          standardLevelName="7th Grade CCSS"
+        >
+          <span
+            className="second-line-section standard-level"
+          >
+            <img
+              alt="Common Core State Standards icon"
+              src="undefined/images/icons/description-ccss.svg"
+            />
+            <span>
+              7th Grade CCSS
+            </span>
+          </span>
+        </ActivityRowStandardLevel>
+      </div>
+    </div>
+    <ActivityRowExpandedSection
+      activity={
+        Object {
+          "activity_category": Object {
+            "id": 20,
+            "name": "History: Maya, Aztec, Inca",
+          },
+          "activity_category_id": 20,
+          "activity_category_name": "History: Maya, Aztec, Inca",
+          "activity_classification": Object {
+            "alias": "Quill Connect",
+            "description": "Combine Sentences",
+            "id": 5,
+            "key": "connect",
+          },
+          "anonymous_path": "/activity_sessions/anonymous?activity_id=627",
+          "content_partners": Array [
+            Object {
+              "description": "Core Knowledge is a free and open-source curriculum. Quill provides activities aligned with their language arts, social studies, and science books.",
+              "id": "1",
+              "name": "Core Knowledge",
+            },
+          ],
+          "description": "Combine sentences to create 6 sentences about Hernan Cortes. This is an advanced, un-cued sentence combining activity.",
+          "flags": "{production}",
+          "id": 627,
+          "name": "Hernan Cortes",
+          "standard_level": Object {
+            "id": 13,
+            "name": "7th Grade CCSS",
+          },
+          "standard_level_name": "7th Grade CCSS",
+          "standard_name": "87",
+          "uid": "-KqcjgL00W0ro-Wr4Bts",
+        }
+      }
+      isExpanded={false}
+    >
+      <span />
+    </ActivityRowExpandedSection>
+    <div
+      className="mobile-only"
+    >
+      <button
+        className="interactive-wrapper focus-on-light remove-button"
+        onClick={[Function]}
+        type="button"
+      >
+        <img
+          alt="Remove icon"
+          src="undefined/images/icons/remove-in-circle.svg"
+        />
+        Remove
+      </button>
+    </div>
+  </section>
+</ActivityRow>
+`;
+
+exports[`ActivityRow component with showCheckbox false and showRemoveButton true is selected should render 1`] = `
+<ActivityRow
+  activity={
+    Object {
+      "activity_category": Object {
+        "id": 20,
+        "name": "History: Maya, Aztec, Inca",
+      },
+      "activity_category_id": 20,
+      "activity_category_name": "History: Maya, Aztec, Inca",
+      "activity_classification": Object {
+        "alias": "Quill Connect",
+        "description": "Combine Sentences",
+        "id": 5,
+        "key": "connect",
+      },
+      "anonymous_path": "/activity_sessions/anonymous?activity_id=627",
+      "content_partners": Array [
+        Object {
+          "description": "Core Knowledge is a free and open-source curriculum. Quill provides activities aligned with their language arts, social studies, and science books.",
+          "id": "1",
+          "name": "Core Knowledge",
+        },
+      ],
+      "description": "Combine sentences to create 6 sentences about Hernan Cortes. This is an advanced, un-cued sentence combining activity.",
+      "flags": "{production}",
+      "id": 627,
+      "name": "Hernan Cortes",
+      "standard_level": Object {
+        "id": 13,
+        "name": "7th Grade CCSS",
+      },
+      "standard_level_name": "7th Grade CCSS",
+      "standard_name": "87",
+      "uid": "-KqcjgL00W0ro-Wr4Bts",
+    }
+  }
+  isFirst={false}
+  isSelected={true}
+  setShowSnackbar={[Function]}
+  showCheckbox={false}
+  showRemoveButton={true}
+  toggleActivitySelection={[Function]}
+>
+  <section
+    className="activity-row not-expanded selected "
+  >
+    <ActivityRowTooltip
+      activity={
+        Object {
+          "activity_category": Object {
+            "id": 20,
+            "name": "History: Maya, Aztec, Inca",
+          },
+          "activity_category_id": 20,
+          "activity_category_name": "History: Maya, Aztec, Inca",
+          "activity_classification": Object {
+            "alias": "Quill Connect",
+            "description": "Combine Sentences",
+            "id": 5,
+            "key": "connect",
+          },
+          "anonymous_path": "/activity_sessions/anonymous?activity_id=627",
+          "content_partners": Array [
+            Object {
+              "description": "Core Knowledge is a free and open-source curriculum. Quill provides activities aligned with their language arts, social studies, and science books.",
+              "id": "1",
+              "name": "Core Knowledge",
+            },
+          ],
+          "description": "Combine sentences to create 6 sentences about Hernan Cortes. This is an advanced, un-cued sentence combining activity.",
+          "flags": "{production}",
+          "id": 627,
+          "name": "Hernan Cortes",
+          "standard_level": Object {
+            "id": 13,
+            "name": "7th Grade CCSS",
+          },
+          "standard_level_name": "7th Grade CCSS",
+          "standard_name": "87",
+          "uid": "-KqcjgL00W0ro-Wr4Bts",
+        }
+      }
+      showTooltip={false}
+    >
+      <span />
+    </ActivityRowTooltip>
+    <div
+      className="first-line"
+    >
+      <div
+        className="name-and-checkbox-wrapper"
+      >
+        <button
+          className="interactive-wrapper"
+          onMouseEnter={[Function]}
+          onMouseLeave={[Function]}
+          tabIndex={-1}
+          type="button"
+        >
+          <h2>
+            Hernan Cortes
+          </h2>
+        </button>
+      </div>
+      <div
+        className="buttons-wrapper"
+      >
+        <button
+          className="interactive-wrapper focus-on-light remove-button"
+          onClick={[Function]}
+          type="button"
+        >
+          <img
+            alt="Remove icon"
+            src="undefined/images/icons/remove-in-circle.svg"
+          />
+          Remove
+        </button>
+        <button
+          className="interactive-wrapper focus-on-light expand-button"
+          onClick={[Function]}
+          type="button"
+        >
+          <img
+            alt="Arrow pointing down"
+            src="undefined/images/shared/expand.svg"
+          />
+        </button>
+      </div>
+    </div>
+    <div
+      className="second-line"
+    >
+      <div
+        className="classification-concept-topic-wrapper"
+      >
+        <ActivityRowClassification
+          classification={
+            Object {
+              "alias": "Quill Connect",
+              "description": "Combine Sentences",
+              "id": 5,
+              "key": "connect",
+            }
+          }
+        >
+          <span
+            className="second-line-section classification"
+          >
+            <img
+              alt="Target representing Quill Connect"
+              src="undefined/images/icons/description-connect.svg"
+            />
+            <span>
+              Quill Connect
+            </span>
+          </span>
+        </ActivityRowClassification>
+        <ActivityRowConcept
+          conceptName="History: Maya, Aztec, Inca"
+        >
+          <span
+            className="second-line-section concept"
+          >
+            <img
+              alt="Pencil writing icon"
+              src="undefined/images/icons/description-concept.svg"
+            />
+            <span>
+              History: Maya, Aztec, Inca
+            </span>
+          </span>
+        </ActivityRowConcept>
+        <span
+          className="second-line-section topic"
+        />
+      </div>
+      <div
+        className="readability-and-standard-level-wrapper"
+      >
+        <span
+          className="second-line-section readability"
+        />
+        <ActivityRowStandardLevel
+          standardLevelName="7th Grade CCSS"
+        >
+          <span
+            className="second-line-section standard-level"
+          >
+            <img
+              alt="Common Core State Standards icon"
+              src="undefined/images/icons/description-ccss.svg"
+            />
+            <span>
+              7th Grade CCSS
+            </span>
+          </span>
+        </ActivityRowStandardLevel>
+      </div>
+    </div>
+    <ActivityRowExpandedSection
+      activity={
+        Object {
+          "activity_category": Object {
+            "id": 20,
+            "name": "History: Maya, Aztec, Inca",
+          },
+          "activity_category_id": 20,
+          "activity_category_name": "History: Maya, Aztec, Inca",
+          "activity_classification": Object {
+            "alias": "Quill Connect",
+            "description": "Combine Sentences",
+            "id": 5,
+            "key": "connect",
+          },
+          "anonymous_path": "/activity_sessions/anonymous?activity_id=627",
+          "content_partners": Array [
+            Object {
+              "description": "Core Knowledge is a free and open-source curriculum. Quill provides activities aligned with their language arts, social studies, and science books.",
+              "id": "1",
+              "name": "Core Knowledge",
+            },
+          ],
+          "description": "Combine sentences to create 6 sentences about Hernan Cortes. This is an advanced, un-cued sentence combining activity.",
+          "flags": "{production}",
+          "id": 627,
+          "name": "Hernan Cortes",
+          "standard_level": Object {
+            "id": 13,
+            "name": "7th Grade CCSS",
+          },
+          "standard_level_name": "7th Grade CCSS",
+          "standard_name": "87",
+          "uid": "-KqcjgL00W0ro-Wr4Bts",
+        }
+      }
+      isExpanded={false}
+    >
+      <span />
+    </ActivityRowExpandedSection>
+    <div
+      className="mobile-only"
+    >
+      <button
+        className="interactive-wrapper focus-on-light remove-button"
+        onClick={[Function]}
+        type="button"
+      >
+        <img
+          alt="Remove icon"
+          src="undefined/images/icons/remove-in-circle.svg"
+        />
+        Remove
+      </button>
+    </div>
+  </section>
+</ActivityRow>
+`;
+
+exports[`ActivityRow component with showCheckbox true and showRemoveButton false is not selected should render 1`] = `
+<ActivityRow
+  activity={
+    Object {
+      "activity_category": Object {
+        "id": 20,
+        "name": "History: Maya, Aztec, Inca",
+      },
+      "activity_category_id": 20,
+      "activity_category_name": "History: Maya, Aztec, Inca",
+      "activity_classification": Object {
+        "alias": "Quill Connect",
+        "description": "Combine Sentences",
+        "id": 5,
+        "key": "connect",
+      },
+      "anonymous_path": "/activity_sessions/anonymous?activity_id=627",
+      "content_partners": Array [
+        Object {
+          "description": "Core Knowledge is a free and open-source curriculum. Quill provides activities aligned with their language arts, social studies, and science books.",
+          "id": "1",
+          "name": "Core Knowledge",
+        },
+      ],
+      "description": "Combine sentences to create 6 sentences about Hernan Cortes. This is an advanced, un-cued sentence combining activity.",
+      "flags": "{production}",
+      "id": 627,
+      "name": "Hernan Cortes",
+      "standard_level": Object {
+        "id": 13,
+        "name": "7th Grade CCSS",
+      },
+      "standard_level_name": "7th Grade CCSS",
+      "standard_name": "87",
+      "uid": "-KqcjgL00W0ro-Wr4Bts",
+    }
+  }
+  isFirst={false}
+  isSelected={false}
+  setShowSnackbar={[Function]}
+  showCheckbox={true}
+  showRemoveButton={false}
+  toggleActivitySelection={[Function]}
+>
+  <section
+    className="activity-row not-expanded not-selected "
+  >
+    <ActivityRowTooltip
+      activity={
+        Object {
+          "activity_category": Object {
+            "id": 20,
+            "name": "History: Maya, Aztec, Inca",
+          },
+          "activity_category_id": 20,
+          "activity_category_name": "History: Maya, Aztec, Inca",
+          "activity_classification": Object {
+            "alias": "Quill Connect",
+            "description": "Combine Sentences",
+            "id": 5,
+            "key": "connect",
+          },
+          "anonymous_path": "/activity_sessions/anonymous?activity_id=627",
+          "content_partners": Array [
+            Object {
+              "description": "Core Knowledge is a free and open-source curriculum. Quill provides activities aligned with their language arts, social studies, and science books.",
+              "id": "1",
+              "name": "Core Knowledge",
+            },
+          ],
+          "description": "Combine sentences to create 6 sentences about Hernan Cortes. This is an advanced, un-cued sentence combining activity.",
+          "flags": "{production}",
+          "id": 627,
+          "name": "Hernan Cortes",
+          "standard_level": Object {
+            "id": 13,
+            "name": "7th Grade CCSS",
+          },
+          "standard_level_name": "7th Grade CCSS",
+          "standard_name": "87",
+          "uid": "-KqcjgL00W0ro-Wr4Bts",
+        }
+      }
+      showTooltip={false}
+    >
+      <span />
+    </ActivityRowTooltip>
+    <div
+      className="first-line"
+    >
+      <div
+        className="name-and-checkbox-wrapper"
+      >
+        <ActivityRowCheckbox
+          activity={
+            Object {
+              "activity_category": Object {
+                "id": 20,
+                "name": "History: Maya, Aztec, Inca",
+              },
+              "activity_category_id": 20,
+              "activity_category_name": "History: Maya, Aztec, Inca",
+              "activity_classification": Object {
+                "alias": "Quill Connect",
+                "description": "Combine Sentences",
+                "id": 5,
+                "key": "connect",
+              },
+              "anonymous_path": "/activity_sessions/anonymous?activity_id=627",
+              "content_partners": Array [
+                Object {
+                  "description": "Core Knowledge is a free and open-source curriculum. Quill provides activities aligned with their language arts, social studies, and science books.",
+                  "id": "1",
+                  "name": "Core Knowledge",
+                },
+              ],
+              "description": "Combine sentences to create 6 sentences about Hernan Cortes. This is an advanced, un-cued sentence combining activity.",
+              "flags": "{production}",
+              "id": 627,
+              "name": "Hernan Cortes",
+              "standard_level": Object {
+                "id": 13,
+                "name": "7th Grade CCSS",
+              },
+              "standard_level_name": "7th Grade CCSS",
+              "standard_name": "87",
+              "uid": "-KqcjgL00W0ro-Wr4Bts",
+            }
+          }
+          isSelected={false}
+          toggleActivitySelection={[Function]}
+        >
+          <button
+            aria-label="unchecked checkbox"
+            className="quill-checkbox focus-on-light unselected"
+            onClick={[Function]}
+            type="button"
+          />
+        </ActivityRowCheckbox>
+        <button
+          className="interactive-wrapper"
+          onMouseEnter={[Function]}
+          onMouseLeave={[Function]}
+          tabIndex={-1}
+          type="button"
+        >
+          <h2>
+            Hernan Cortes
+          </h2>
+        </button>
+      </div>
+      <div
+        className="buttons-wrapper"
+      >
+        <a
+          className="interactive-wrapper focus-on-light preview-link"
+          href="/activity_sessions/anonymous?activity_id=627"
+          rel="noopener noreferrer"
+          target="_blank"
+        >
+          <img
+            alt="Preview eye icon"
+            src="undefined/images/icons/preview.svg"
+          />
+          Preview
+        </a>
+        <button
+          className="interactive-wrapper focus-on-light expand-button"
+          onClick={[Function]}
+          type="button"
+        >
+          <img
+            alt="Arrow pointing down"
+            src="undefined/images/shared/expand.svg"
+          />
+        </button>
+      </div>
+    </div>
+    <div
+      className="second-line"
+    >
+      <div
+        className="classification-concept-topic-wrapper"
+      >
+        <ActivityRowClassification
+          classification={
+            Object {
+              "alias": "Quill Connect",
+              "description": "Combine Sentences",
+              "id": 5,
+              "key": "connect",
+            }
+          }
+        >
+          <span
+            className="second-line-section classification"
+          >
+            <img
+              alt="Target representing Quill Connect"
+              src="undefined/images/icons/description-connect.svg"
+            />
+            <span>
+              Quill Connect
+            </span>
+          </span>
+        </ActivityRowClassification>
+        <ActivityRowConcept
+          conceptName="History: Maya, Aztec, Inca"
+        >
+          <span
+            className="second-line-section concept"
+          >
+            <img
+              alt="Pencil writing icon"
+              src="undefined/images/icons/description-concept.svg"
+            />
+            <span>
+              History: Maya, Aztec, Inca
+            </span>
+          </span>
+        </ActivityRowConcept>
+        <span
+          className="second-line-section topic"
+        />
+      </div>
+      <div
+        className="readability-and-standard-level-wrapper"
+      >
+        <span
+          className="second-line-section readability"
+        />
+        <ActivityRowStandardLevel
+          standardLevelName="7th Grade CCSS"
+        >
+          <span
+            className="second-line-section standard-level"
+          >
+            <img
+              alt="Common Core State Standards icon"
+              src="undefined/images/icons/description-ccss.svg"
+            />
+            <span>
+              7th Grade CCSS
+            </span>
+          </span>
+        </ActivityRowStandardLevel>
+      </div>
+    </div>
+    <ActivityRowExpandedSection
+      activity={
+        Object {
+          "activity_category": Object {
+            "id": 20,
+            "name": "History: Maya, Aztec, Inca",
+          },
+          "activity_category_id": 20,
+          "activity_category_name": "History: Maya, Aztec, Inca",
+          "activity_classification": Object {
+            "alias": "Quill Connect",
+            "description": "Combine Sentences",
+            "id": 5,
+            "key": "connect",
+          },
+          "anonymous_path": "/activity_sessions/anonymous?activity_id=627",
+          "content_partners": Array [
+            Object {
+              "description": "Core Knowledge is a free and open-source curriculum. Quill provides activities aligned with their language arts, social studies, and science books.",
+              "id": "1",
+              "name": "Core Knowledge",
+            },
+          ],
+          "description": "Combine sentences to create 6 sentences about Hernan Cortes. This is an advanced, un-cued sentence combining activity.",
+          "flags": "{production}",
+          "id": 627,
+          "name": "Hernan Cortes",
+          "standard_level": Object {
+            "id": 13,
+            "name": "7th Grade CCSS",
+          },
+          "standard_level_name": "7th Grade CCSS",
+          "standard_name": "87",
+          "uid": "-KqcjgL00W0ro-Wr4Bts",
+        }
+      }
+      isExpanded={false}
+    >
+      <span />
+    </ActivityRowExpandedSection>
+  </section>
+</ActivityRow>
+`;
+
+exports[`ActivityRow component with showCheckbox true and showRemoveButton false is selected should render 1`] = `
+<ActivityRow
+  activity={
+    Object {
+      "activity_category": Object {
+        "id": 20,
+        "name": "History: Maya, Aztec, Inca",
+      },
+      "activity_category_id": 20,
+      "activity_category_name": "History: Maya, Aztec, Inca",
+      "activity_classification": Object {
+        "alias": "Quill Connect",
+        "description": "Combine Sentences",
+        "id": 5,
+        "key": "connect",
+      },
+      "anonymous_path": "/activity_sessions/anonymous?activity_id=627",
+      "content_partners": Array [
+        Object {
+          "description": "Core Knowledge is a free and open-source curriculum. Quill provides activities aligned with their language arts, social studies, and science books.",
+          "id": "1",
+          "name": "Core Knowledge",
+        },
+      ],
+      "description": "Combine sentences to create 6 sentences about Hernan Cortes. This is an advanced, un-cued sentence combining activity.",
+      "flags": "{production}",
+      "id": 627,
+      "name": "Hernan Cortes",
+      "standard_level": Object {
+        "id": 13,
+        "name": "7th Grade CCSS",
+      },
+      "standard_level_name": "7th Grade CCSS",
+      "standard_name": "87",
+      "uid": "-KqcjgL00W0ro-Wr4Bts",
+    }
+  }
+  isFirst={false}
+  isSelected={true}
+  setShowSnackbar={[Function]}
+  showCheckbox={true}
+  showRemoveButton={false}
+  toggleActivitySelection={[Function]}
+>
+  <section
+    className="activity-row not-expanded selected "
+  >
+    <ActivityRowTooltip
+      activity={
+        Object {
+          "activity_category": Object {
+            "id": 20,
+            "name": "History: Maya, Aztec, Inca",
+          },
+          "activity_category_id": 20,
+          "activity_category_name": "History: Maya, Aztec, Inca",
+          "activity_classification": Object {
+            "alias": "Quill Connect",
+            "description": "Combine Sentences",
+            "id": 5,
+            "key": "connect",
+          },
+          "anonymous_path": "/activity_sessions/anonymous?activity_id=627",
+          "content_partners": Array [
+            Object {
+              "description": "Core Knowledge is a free and open-source curriculum. Quill provides activities aligned with their language arts, social studies, and science books.",
+              "id": "1",
+              "name": "Core Knowledge",
+            },
+          ],
+          "description": "Combine sentences to create 6 sentences about Hernan Cortes. This is an advanced, un-cued sentence combining activity.",
+          "flags": "{production}",
+          "id": 627,
+          "name": "Hernan Cortes",
+          "standard_level": Object {
+            "id": 13,
+            "name": "7th Grade CCSS",
+          },
+          "standard_level_name": "7th Grade CCSS",
+          "standard_name": "87",
+          "uid": "-KqcjgL00W0ro-Wr4Bts",
+        }
+      }
+      showTooltip={false}
+    >
+      <span />
+    </ActivityRowTooltip>
+    <div
+      className="first-line"
+    >
+      <div
+        className="name-and-checkbox-wrapper"
+      >
+        <ActivityRowCheckbox
+          activity={
+            Object {
+              "activity_category": Object {
+                "id": 20,
+                "name": "History: Maya, Aztec, Inca",
+              },
+              "activity_category_id": 20,
+              "activity_category_name": "History: Maya, Aztec, Inca",
+              "activity_classification": Object {
+                "alias": "Quill Connect",
+                "description": "Combine Sentences",
+                "id": 5,
+                "key": "connect",
+              },
+              "anonymous_path": "/activity_sessions/anonymous?activity_id=627",
+              "content_partners": Array [
+                Object {
+                  "description": "Core Knowledge is a free and open-source curriculum. Quill provides activities aligned with their language arts, social studies, and science books.",
+                  "id": "1",
+                  "name": "Core Knowledge",
+                },
+              ],
+              "description": "Combine sentences to create 6 sentences about Hernan Cortes. This is an advanced, un-cued sentence combining activity.",
+              "flags": "{production}",
+              "id": 627,
+              "name": "Hernan Cortes",
+              "standard_level": Object {
+                "id": 13,
+                "name": "7th Grade CCSS",
+              },
+              "standard_level_name": "7th Grade CCSS",
+              "standard_name": "87",
+              "uid": "-KqcjgL00W0ro-Wr4Bts",
+            }
+          }
+          isSelected={true}
+          toggleActivitySelection={[Function]}
+        >
+          <button
+            className="quill-checkbox focus-on-light selected"
+            onClick={[Function]}
+            type="button"
+          >
+            <img
+              alt="check"
+              src="undefined/images/shared/check-small-white.svg"
+            />
+          </button>
+        </ActivityRowCheckbox>
+        <button
+          className="interactive-wrapper"
+          onMouseEnter={[Function]}
+          onMouseLeave={[Function]}
+          tabIndex={-1}
+          type="button"
+        >
+          <h2>
+            Hernan Cortes
+          </h2>
+        </button>
+      </div>
+      <div
+        className="buttons-wrapper"
+      >
+        <a
+          className="interactive-wrapper focus-on-light preview-link"
+          href="/activity_sessions/anonymous?activity_id=627"
+          rel="noopener noreferrer"
+          target="_blank"
+        >
+          <img
+            alt="Preview eye icon"
+            src="undefined/images/icons/preview.svg"
+          />
+          Preview
+        </a>
+        <button
+          className="interactive-wrapper focus-on-light expand-button"
+          onClick={[Function]}
+          type="button"
+        >
+          <img
+            alt="Arrow pointing down"
+            src="undefined/images/shared/expand.svg"
+          />
+        </button>
+      </div>
+    </div>
+    <div
+      className="second-line"
+    >
+      <div
+        className="classification-concept-topic-wrapper"
+      >
+        <ActivityRowClassification
+          classification={
+            Object {
+              "alias": "Quill Connect",
+              "description": "Combine Sentences",
+              "id": 5,
+              "key": "connect",
+            }
+          }
+        >
+          <span
+            className="second-line-section classification"
+          >
+            <img
+              alt="Target representing Quill Connect"
+              src="undefined/images/icons/description-connect.svg"
+            />
+            <span>
+              Quill Connect
+            </span>
+          </span>
+        </ActivityRowClassification>
+        <ActivityRowConcept
+          conceptName="History: Maya, Aztec, Inca"
+        >
+          <span
+            className="second-line-section concept"
+          >
+            <img
+              alt="Pencil writing icon"
+              src="undefined/images/icons/description-concept.svg"
+            />
+            <span>
+              History: Maya, Aztec, Inca
+            </span>
+          </span>
+        </ActivityRowConcept>
+        <span
+          className="second-line-section topic"
+        />
+      </div>
+      <div
+        className="readability-and-standard-level-wrapper"
+      >
+        <span
+          className="second-line-section readability"
+        />
+        <ActivityRowStandardLevel
+          standardLevelName="7th Grade CCSS"
+        >
+          <span
+            className="second-line-section standard-level"
+          >
+            <img
+              alt="Common Core State Standards icon"
+              src="undefined/images/icons/description-ccss.svg"
+            />
+            <span>
+              7th Grade CCSS
+            </span>
+          </span>
+        </ActivityRowStandardLevel>
+      </div>
+    </div>
+    <ActivityRowExpandedSection
+      activity={
+        Object {
+          "activity_category": Object {
+            "id": 20,
+            "name": "History: Maya, Aztec, Inca",
+          },
+          "activity_category_id": 20,
+          "activity_category_name": "History: Maya, Aztec, Inca",
+          "activity_classification": Object {
+            "alias": "Quill Connect",
+            "description": "Combine Sentences",
+            "id": 5,
+            "key": "connect",
+          },
+          "anonymous_path": "/activity_sessions/anonymous?activity_id=627",
+          "content_partners": Array [
+            Object {
+              "description": "Core Knowledge is a free and open-source curriculum. Quill provides activities aligned with their language arts, social studies, and science books.",
+              "id": "1",
+              "name": "Core Knowledge",
+            },
+          ],
+          "description": "Combine sentences to create 6 sentences about Hernan Cortes. This is an advanced, un-cued sentence combining activity.",
+          "flags": "{production}",
+          "id": 627,
+          "name": "Hernan Cortes",
+          "standard_level": Object {
+            "id": 13,
+            "name": "7th Grade CCSS",
+          },
+          "standard_level_name": "7th Grade CCSS",
+          "standard_name": "87",
+          "uid": "-KqcjgL00W0ro-Wr4Bts",
+        }
+      }
+      isExpanded={false}
+    >
+      <span />
+    </ActivityRowExpandedSection>
+  </section>
+</ActivityRow>
+`;
