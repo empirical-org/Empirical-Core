@@ -38,8 +38,7 @@ describe Api::V1::FeedbackHistoriesController, type: :controller do
       post :create, feedback_history: { attempt: 1, optimal: false, used: true, time: DateTime.now,
                                         entry: 'This is the entry provided by the student',
                                         feedback_text: 'This is the feedback provided by the algorithm',
-                                        feedback_type: 'semantic', metadata: {foo: 'bar'}
-                                      }
+                                        feedback_type: 'semantic', metadata: {foo: 'bar'} }
 
       parsed_response = JSON.parse(response.body)
 
