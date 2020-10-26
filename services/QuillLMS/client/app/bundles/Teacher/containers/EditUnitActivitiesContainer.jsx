@@ -41,19 +41,15 @@ export default class extends React.Component {
 
   render() {
     return (
-      <div>
-        <div className='container lesson_planner_main edit-assigned-activities-container'>
-          <UnitStage1
-            editing={Boolean(true)}
-            errorMessage={this.state.errors}
-            hideNameTheUnit={Boolean(true)}
-            selectedActivities={this.state.selectedActivities}
-            toggleActivitySelection={this.toggleActivitySelection}
-            unitName={this.props.match.params.unitName}
-            updateActivities={this.updateActivities}
-          />
-        </div>
-      </div>
+      <UnitStage1
+        editing={Boolean(true)}
+        errorMessage={this.state.errors}
+        hideNameTheUnit={Boolean(true)}
+        selectedActivities={this.state.selectedActivities}
+        toggleActivitySelection={this.toggleActivitySelection}
+        unitName={this.props.match.params.unitName}
+        updateActivities={this.updateActivities}
+      />
       )
   }
 }
