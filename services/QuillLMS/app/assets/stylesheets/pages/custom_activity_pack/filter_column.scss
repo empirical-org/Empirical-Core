@@ -1,0 +1,127 @@
+.custom-activity-pack-page {
+  .filter-column {
+    padding: 10px 16px 32px;
+    .filter-section {
+      padding-top: 24px;
+      margin-bottom: 8px;
+      h2 {
+        padding-left: 24px;
+      }
+      .clear-filter {
+        font-weight: 600;
+        line-height: normal;
+        color: #06806b;
+      }
+      .name-and-clear-wrapper {
+        display: flex;
+        margin-bottom: 13px;
+        justify-content: space-between;
+        align-items: center;
+        height: 18px;
+      }
+      p {
+        padding-left: 24px;
+        line-height: 1.57;
+        color: #646464;
+      }
+      .slider-wrapper {
+        padding-left: 24px;
+        margin-top: 18px;
+        label {
+          font-size: 12px;
+          font-weight: 600;
+          margin-bottom: 16px;
+          line-height: 1;
+          color: #06806b;
+        }
+        .two-thumb-slider-container {
+          width: 248px;
+          padding-left: 8px;
+          padding-bottom: 20px;
+        }
+      }
+      &.content-partner-filter-section, &.activity-category-filter-section {
+        .individual-row {
+          margin-left: 24px;
+        }
+      }
+      &.activity-category-filter-section {
+        .individual-row, .toggle-show-all-button {
+          margin-left: 24px;
+        }
+        .toggle-show-all-button {
+          margin-top: 16px;
+          font-weight: 600;
+          color: #06806b;
+        }
+      }
+    }
+    .filter-row {
+      display: flex;
+      justify-content: space-between;
+      .quill-checkbox {
+        margin-right: 8px;
+      }
+      span {
+        line-height: normal;
+        color: #646464;
+        max-width: 183px;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        white-space: nowrap;
+      }
+    }
+    .individual-row {
+      display: flex;
+      flex-direction: row;
+      margin-top: 16px;
+      div {
+        display: flex;
+      }
+    }
+    .toggle-section {
+      margin-top: 16px;
+      .top-level {
+        div {
+          display: flex;
+          align-items: center;
+        }
+        .filter-toggle-button {
+          margin-right: 8px;
+          .is-closed {
+            transform: rotate(270deg);
+          }
+        }
+      }
+      .individual-row {
+        margin-left: 48px;
+        .alias-and-description {
+          flex-direction: column;
+          .description {
+            font-size: 12px;
+            line-height: 1;
+            overflow: visible;
+            color: #5c5c5c;
+            margin-top: 8px;
+          }
+        }
+      }
+    }
+  }
+  @media (min-width: 1051px) {
+    .filter-column {
+      max-width: 312px;
+      width: 100%;
+      border-right: #e0e0e0 1px solid;
+      position: sticky;
+      top: 70;
+      height: calc(100vh - 70px);
+      overflow: scroll;
+    }
+  }
+  @media (max-width: 1050px) {
+    .filter-column {
+      display: none;
+    }
+  }
+}

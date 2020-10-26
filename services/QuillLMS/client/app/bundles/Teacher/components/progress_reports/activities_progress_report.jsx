@@ -115,7 +115,7 @@ export default createReactClass({
         Header: 'Standard',
         accessor: 'standard',
         resizeable: false,
-        Cell: props => props.value.split(' ')[0],
+        Cell: props => props.value ? props.value.split(' ')[0] : '',
         maxWidth: 90
       },
       {
