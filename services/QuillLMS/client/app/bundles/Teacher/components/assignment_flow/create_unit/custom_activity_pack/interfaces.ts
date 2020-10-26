@@ -11,7 +11,8 @@ export interface Activity {
   activity_category_id: number,
   standard_level: StandardLevel,
   standard_level_id: number,
-  standard_level_name: string
+  standard_level_name: string,
+  content_partners: ContentPartner[]
 }
 
 export interface ActivityClassification {
@@ -29,4 +30,10 @@ export interface ActivityCategory {
 interface StandardLevel {
   id: number,
   name: string
+}
+
+export interface ContentPartner {
+  id: number,
+  name: string,
+  description: string
 }

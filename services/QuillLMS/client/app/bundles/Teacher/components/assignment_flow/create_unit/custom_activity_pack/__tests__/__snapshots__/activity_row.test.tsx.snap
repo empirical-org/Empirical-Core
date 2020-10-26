@@ -5,29 +5,36 @@ exports[`ActivityRow component with showCheckbox false and showRemoveButton true
   activity={
     Object {
       "activity_category": Object {
-        "id": 4,
-        "name": "Verbs",
+        "id": 20,
+        "name": "History: Maya, Aztec, Inca",
       },
-      "activity_category_id": 4,
-      "activity_category_name": "Verbs",
+      "activity_category_id": 20,
+      "activity_category_name": "History: Maya, Aztec, Inca",
       "activity_classification": Object {
-        "alias": "Quill Lessons",
-        "description": "Lead Group Lessons",
-        "id": 6,
-        "key": "lessons",
+        "alias": "Quill Connect",
+        "description": "Combine Sentences",
+        "id": 5,
+        "key": "connect",
       },
-      "anonymous_path": "/activity_sessions/anonymous?activity_id=738",
-      "description": "Students learn to use the past progressive form in this teacher-led lesson.",
+      "anonymous_path": "/activity_sessions/anonymous?activity_id=627",
+      "content_partners": Array [
+        Object {
+          "description": "Core Knowledge is a free and open-source curriculum. Quill provides activities aligned with their language arts, social studies, and science books.",
+          "id": "1",
+          "name": "Core Knowledge",
+        },
+      ],
+      "description": "Combine sentences to create 6 sentences about Hernan Cortes. This is an advanced, un-cued sentence combining activity.",
       "flags": "{production}",
-      "id": 738,
-      "name": "Lesson 2: Past Progressive Tense",
+      "id": 627,
+      "name": "Hernan Cortes",
       "standard_level": Object {
-        "id": 10,
-        "name": "4th Grade CCSS",
+        "id": 13,
+        "name": "7th Grade CCSS",
       },
-      "standard_level_name": "4th Grade CCSS",
-      "standard_name": "4",
-      "uid": "-L7AoYnq5vwWkKJsar_O",
+      "standard_level_name": "7th Grade CCSS",
+      "standard_name": "87",
+      "uid": "-KqcjgL00W0ro-Wr4Bts",
     }
   }
   isFirst={false}
@@ -44,29 +51,36 @@ exports[`ActivityRow component with showCheckbox false and showRemoveButton true
       activity={
         Object {
           "activity_category": Object {
-            "id": 4,
-            "name": "Verbs",
+            "id": 20,
+            "name": "History: Maya, Aztec, Inca",
           },
-          "activity_category_id": 4,
-          "activity_category_name": "Verbs",
+          "activity_category_id": 20,
+          "activity_category_name": "History: Maya, Aztec, Inca",
           "activity_classification": Object {
-            "alias": "Quill Lessons",
-            "description": "Lead Group Lessons",
-            "id": 6,
-            "key": "lessons",
+            "alias": "Quill Connect",
+            "description": "Combine Sentences",
+            "id": 5,
+            "key": "connect",
           },
-          "anonymous_path": "/activity_sessions/anonymous?activity_id=738",
-          "description": "Students learn to use the past progressive form in this teacher-led lesson.",
+          "anonymous_path": "/activity_sessions/anonymous?activity_id=627",
+          "content_partners": Array [
+            Object {
+              "description": "Core Knowledge is a free and open-source curriculum. Quill provides activities aligned with their language arts, social studies, and science books.",
+              "id": "1",
+              "name": "Core Knowledge",
+            },
+          ],
+          "description": "Combine sentences to create 6 sentences about Hernan Cortes. This is an advanced, un-cued sentence combining activity.",
           "flags": "{production}",
-          "id": 738,
-          "name": "Lesson 2: Past Progressive Tense",
+          "id": 627,
+          "name": "Hernan Cortes",
           "standard_level": Object {
-            "id": 10,
-            "name": "4th Grade CCSS",
+            "id": 13,
+            "name": "7th Grade CCSS",
           },
-          "standard_level_name": "4th Grade CCSS",
-          "standard_name": "4",
-          "uid": "-L7AoYnq5vwWkKJsar_O",
+          "standard_level_name": "7th Grade CCSS",
+          "standard_name": "87",
+          "uid": "-KqcjgL00W0ro-Wr4Bts",
         }
       }
       showTooltip={false}
@@ -87,7 +101,7 @@ exports[`ActivityRow component with showCheckbox false and showRemoveButton true
           type="button"
         >
           <h2>
-            Lesson 2: Past Progressive Tense
+            Hernan Cortes
           </h2>
         </button>
       </div>
@@ -126,10 +140,10 @@ exports[`ActivityRow component with showCheckbox false and showRemoveButton true
         <ActivityRowClassification
           classification={
             Object {
-              "alias": "Quill Lessons",
-              "description": "Lead Group Lessons",
-              "id": 6,
-              "key": "lessons",
+              "alias": "Quill Connect",
+              "description": "Combine Sentences",
+              "id": 5,
+              "key": "connect",
             }
           }
         >
@@ -137,16 +151,16 @@ exports[`ActivityRow component with showCheckbox false and showRemoveButton true
             className="second-line-section classification"
           >
             <img
-              alt="Apple representing Quill Lessons"
-              src="undefined/images/icons/description-lessons.svg"
+              alt="Target representing Quill Connect"
+              src="undefined/images/icons/description-connect.svg"
             />
             <span>
-              Quill Lessons
+              Quill Connect
             </span>
           </span>
         </ActivityRowClassification>
         <ActivityRowConcept
-          conceptName="Verbs"
+          conceptName="History: Maya, Aztec, Inca"
         >
           <span
             className="second-line-section concept"
@@ -156,7 +170,7 @@ exports[`ActivityRow component with showCheckbox false and showRemoveButton true
               src="undefined/images/icons/description-concept.svg"
             />
             <span>
-              Verbs
+              History: Maya, Aztec, Inca
             </span>
           </span>
         </ActivityRowConcept>
@@ -171,7 +185,7 @@ exports[`ActivityRow component with showCheckbox false and showRemoveButton true
           className="second-line-section readability"
         />
         <ActivityRowStandardLevel
-          standardLevelName="4th Grade CCSS"
+          standardLevelName="7th Grade CCSS"
         >
           <span
             className="second-line-section standard-level"
@@ -181,7 +195,7 @@ exports[`ActivityRow component with showCheckbox false and showRemoveButton true
               src="undefined/images/icons/description-ccss.svg"
             />
             <span>
-              4th Grade CCSS
+              7th Grade CCSS
             </span>
           </span>
         </ActivityRowStandardLevel>
@@ -191,29 +205,36 @@ exports[`ActivityRow component with showCheckbox false and showRemoveButton true
       activity={
         Object {
           "activity_category": Object {
-            "id": 4,
-            "name": "Verbs",
+            "id": 20,
+            "name": "History: Maya, Aztec, Inca",
           },
-          "activity_category_id": 4,
-          "activity_category_name": "Verbs",
+          "activity_category_id": 20,
+          "activity_category_name": "History: Maya, Aztec, Inca",
           "activity_classification": Object {
-            "alias": "Quill Lessons",
-            "description": "Lead Group Lessons",
-            "id": 6,
-            "key": "lessons",
+            "alias": "Quill Connect",
+            "description": "Combine Sentences",
+            "id": 5,
+            "key": "connect",
           },
-          "anonymous_path": "/activity_sessions/anonymous?activity_id=738",
-          "description": "Students learn to use the past progressive form in this teacher-led lesson.",
+          "anonymous_path": "/activity_sessions/anonymous?activity_id=627",
+          "content_partners": Array [
+            Object {
+              "description": "Core Knowledge is a free and open-source curriculum. Quill provides activities aligned with their language arts, social studies, and science books.",
+              "id": "1",
+              "name": "Core Knowledge",
+            },
+          ],
+          "description": "Combine sentences to create 6 sentences about Hernan Cortes. This is an advanced, un-cued sentence combining activity.",
           "flags": "{production}",
-          "id": 738,
-          "name": "Lesson 2: Past Progressive Tense",
+          "id": 627,
+          "name": "Hernan Cortes",
           "standard_level": Object {
-            "id": 10,
-            "name": "4th Grade CCSS",
+            "id": 13,
+            "name": "7th Grade CCSS",
           },
-          "standard_level_name": "4th Grade CCSS",
-          "standard_name": "4",
-          "uid": "-L7AoYnq5vwWkKJsar_O",
+          "standard_level_name": "7th Grade CCSS",
+          "standard_name": "87",
+          "uid": "-KqcjgL00W0ro-Wr4Bts",
         }
       }
       isExpanded={false}
@@ -244,29 +265,36 @@ exports[`ActivityRow component with showCheckbox false and showRemoveButton true
   activity={
     Object {
       "activity_category": Object {
-        "id": 4,
-        "name": "Verbs",
+        "id": 20,
+        "name": "History: Maya, Aztec, Inca",
       },
-      "activity_category_id": 4,
-      "activity_category_name": "Verbs",
+      "activity_category_id": 20,
+      "activity_category_name": "History: Maya, Aztec, Inca",
       "activity_classification": Object {
-        "alias": "Quill Lessons",
-        "description": "Lead Group Lessons",
-        "id": 6,
-        "key": "lessons",
+        "alias": "Quill Connect",
+        "description": "Combine Sentences",
+        "id": 5,
+        "key": "connect",
       },
-      "anonymous_path": "/activity_sessions/anonymous?activity_id=738",
-      "description": "Students learn to use the past progressive form in this teacher-led lesson.",
+      "anonymous_path": "/activity_sessions/anonymous?activity_id=627",
+      "content_partners": Array [
+        Object {
+          "description": "Core Knowledge is a free and open-source curriculum. Quill provides activities aligned with their language arts, social studies, and science books.",
+          "id": "1",
+          "name": "Core Knowledge",
+        },
+      ],
+      "description": "Combine sentences to create 6 sentences about Hernan Cortes. This is an advanced, un-cued sentence combining activity.",
       "flags": "{production}",
-      "id": 738,
-      "name": "Lesson 2: Past Progressive Tense",
+      "id": 627,
+      "name": "Hernan Cortes",
       "standard_level": Object {
-        "id": 10,
-        "name": "4th Grade CCSS",
+        "id": 13,
+        "name": "7th Grade CCSS",
       },
-      "standard_level_name": "4th Grade CCSS",
-      "standard_name": "4",
-      "uid": "-L7AoYnq5vwWkKJsar_O",
+      "standard_level_name": "7th Grade CCSS",
+      "standard_name": "87",
+      "uid": "-KqcjgL00W0ro-Wr4Bts",
     }
   }
   isFirst={false}
@@ -283,29 +311,36 @@ exports[`ActivityRow component with showCheckbox false and showRemoveButton true
       activity={
         Object {
           "activity_category": Object {
-            "id": 4,
-            "name": "Verbs",
+            "id": 20,
+            "name": "History: Maya, Aztec, Inca",
           },
-          "activity_category_id": 4,
-          "activity_category_name": "Verbs",
+          "activity_category_id": 20,
+          "activity_category_name": "History: Maya, Aztec, Inca",
           "activity_classification": Object {
-            "alias": "Quill Lessons",
-            "description": "Lead Group Lessons",
-            "id": 6,
-            "key": "lessons",
+            "alias": "Quill Connect",
+            "description": "Combine Sentences",
+            "id": 5,
+            "key": "connect",
           },
-          "anonymous_path": "/activity_sessions/anonymous?activity_id=738",
-          "description": "Students learn to use the past progressive form in this teacher-led lesson.",
+          "anonymous_path": "/activity_sessions/anonymous?activity_id=627",
+          "content_partners": Array [
+            Object {
+              "description": "Core Knowledge is a free and open-source curriculum. Quill provides activities aligned with their language arts, social studies, and science books.",
+              "id": "1",
+              "name": "Core Knowledge",
+            },
+          ],
+          "description": "Combine sentences to create 6 sentences about Hernan Cortes. This is an advanced, un-cued sentence combining activity.",
           "flags": "{production}",
-          "id": 738,
-          "name": "Lesson 2: Past Progressive Tense",
+          "id": 627,
+          "name": "Hernan Cortes",
           "standard_level": Object {
-            "id": 10,
-            "name": "4th Grade CCSS",
+            "id": 13,
+            "name": "7th Grade CCSS",
           },
-          "standard_level_name": "4th Grade CCSS",
-          "standard_name": "4",
-          "uid": "-L7AoYnq5vwWkKJsar_O",
+          "standard_level_name": "7th Grade CCSS",
+          "standard_name": "87",
+          "uid": "-KqcjgL00W0ro-Wr4Bts",
         }
       }
       showTooltip={false}
@@ -326,7 +361,7 @@ exports[`ActivityRow component with showCheckbox false and showRemoveButton true
           type="button"
         >
           <h2>
-            Lesson 2: Past Progressive Tense
+            Hernan Cortes
           </h2>
         </button>
       </div>
@@ -365,10 +400,10 @@ exports[`ActivityRow component with showCheckbox false and showRemoveButton true
         <ActivityRowClassification
           classification={
             Object {
-              "alias": "Quill Lessons",
-              "description": "Lead Group Lessons",
-              "id": 6,
-              "key": "lessons",
+              "alias": "Quill Connect",
+              "description": "Combine Sentences",
+              "id": 5,
+              "key": "connect",
             }
           }
         >
@@ -376,16 +411,16 @@ exports[`ActivityRow component with showCheckbox false and showRemoveButton true
             className="second-line-section classification"
           >
             <img
-              alt="Apple representing Quill Lessons"
-              src="undefined/images/icons/description-lessons.svg"
+              alt="Target representing Quill Connect"
+              src="undefined/images/icons/description-connect.svg"
             />
             <span>
-              Quill Lessons
+              Quill Connect
             </span>
           </span>
         </ActivityRowClassification>
         <ActivityRowConcept
-          conceptName="Verbs"
+          conceptName="History: Maya, Aztec, Inca"
         >
           <span
             className="second-line-section concept"
@@ -395,7 +430,7 @@ exports[`ActivityRow component with showCheckbox false and showRemoveButton true
               src="undefined/images/icons/description-concept.svg"
             />
             <span>
-              Verbs
+              History: Maya, Aztec, Inca
             </span>
           </span>
         </ActivityRowConcept>
@@ -410,7 +445,7 @@ exports[`ActivityRow component with showCheckbox false and showRemoveButton true
           className="second-line-section readability"
         />
         <ActivityRowStandardLevel
-          standardLevelName="4th Grade CCSS"
+          standardLevelName="7th Grade CCSS"
         >
           <span
             className="second-line-section standard-level"
@@ -420,7 +455,7 @@ exports[`ActivityRow component with showCheckbox false and showRemoveButton true
               src="undefined/images/icons/description-ccss.svg"
             />
             <span>
-              4th Grade CCSS
+              7th Grade CCSS
             </span>
           </span>
         </ActivityRowStandardLevel>
@@ -430,29 +465,36 @@ exports[`ActivityRow component with showCheckbox false and showRemoveButton true
       activity={
         Object {
           "activity_category": Object {
-            "id": 4,
-            "name": "Verbs",
+            "id": 20,
+            "name": "History: Maya, Aztec, Inca",
           },
-          "activity_category_id": 4,
-          "activity_category_name": "Verbs",
+          "activity_category_id": 20,
+          "activity_category_name": "History: Maya, Aztec, Inca",
           "activity_classification": Object {
-            "alias": "Quill Lessons",
-            "description": "Lead Group Lessons",
-            "id": 6,
-            "key": "lessons",
+            "alias": "Quill Connect",
+            "description": "Combine Sentences",
+            "id": 5,
+            "key": "connect",
           },
-          "anonymous_path": "/activity_sessions/anonymous?activity_id=738",
-          "description": "Students learn to use the past progressive form in this teacher-led lesson.",
+          "anonymous_path": "/activity_sessions/anonymous?activity_id=627",
+          "content_partners": Array [
+            Object {
+              "description": "Core Knowledge is a free and open-source curriculum. Quill provides activities aligned with their language arts, social studies, and science books.",
+              "id": "1",
+              "name": "Core Knowledge",
+            },
+          ],
+          "description": "Combine sentences to create 6 sentences about Hernan Cortes. This is an advanced, un-cued sentence combining activity.",
           "flags": "{production}",
-          "id": 738,
-          "name": "Lesson 2: Past Progressive Tense",
+          "id": 627,
+          "name": "Hernan Cortes",
           "standard_level": Object {
-            "id": 10,
-            "name": "4th Grade CCSS",
+            "id": 13,
+            "name": "7th Grade CCSS",
           },
-          "standard_level_name": "4th Grade CCSS",
-          "standard_name": "4",
-          "uid": "-L7AoYnq5vwWkKJsar_O",
+          "standard_level_name": "7th Grade CCSS",
+          "standard_name": "87",
+          "uid": "-KqcjgL00W0ro-Wr4Bts",
         }
       }
       isExpanded={false}
@@ -483,29 +525,36 @@ exports[`ActivityRow component with showCheckbox true and showRemoveButton false
   activity={
     Object {
       "activity_category": Object {
-        "id": 4,
-        "name": "Verbs",
+        "id": 20,
+        "name": "History: Maya, Aztec, Inca",
       },
-      "activity_category_id": 4,
-      "activity_category_name": "Verbs",
+      "activity_category_id": 20,
+      "activity_category_name": "History: Maya, Aztec, Inca",
       "activity_classification": Object {
-        "alias": "Quill Lessons",
-        "description": "Lead Group Lessons",
-        "id": 6,
-        "key": "lessons",
+        "alias": "Quill Connect",
+        "description": "Combine Sentences",
+        "id": 5,
+        "key": "connect",
       },
-      "anonymous_path": "/activity_sessions/anonymous?activity_id=738",
-      "description": "Students learn to use the past progressive form in this teacher-led lesson.",
+      "anonymous_path": "/activity_sessions/anonymous?activity_id=627",
+      "content_partners": Array [
+        Object {
+          "description": "Core Knowledge is a free and open-source curriculum. Quill provides activities aligned with their language arts, social studies, and science books.",
+          "id": "1",
+          "name": "Core Knowledge",
+        },
+      ],
+      "description": "Combine sentences to create 6 sentences about Hernan Cortes. This is an advanced, un-cued sentence combining activity.",
       "flags": "{production}",
-      "id": 738,
-      "name": "Lesson 2: Past Progressive Tense",
+      "id": 627,
+      "name": "Hernan Cortes",
       "standard_level": Object {
-        "id": 10,
-        "name": "4th Grade CCSS",
+        "id": 13,
+        "name": "7th Grade CCSS",
       },
-      "standard_level_name": "4th Grade CCSS",
-      "standard_name": "4",
-      "uid": "-L7AoYnq5vwWkKJsar_O",
+      "standard_level_name": "7th Grade CCSS",
+      "standard_name": "87",
+      "uid": "-KqcjgL00W0ro-Wr4Bts",
     }
   }
   isFirst={false}
@@ -522,29 +571,36 @@ exports[`ActivityRow component with showCheckbox true and showRemoveButton false
       activity={
         Object {
           "activity_category": Object {
-            "id": 4,
-            "name": "Verbs",
+            "id": 20,
+            "name": "History: Maya, Aztec, Inca",
           },
-          "activity_category_id": 4,
-          "activity_category_name": "Verbs",
+          "activity_category_id": 20,
+          "activity_category_name": "History: Maya, Aztec, Inca",
           "activity_classification": Object {
-            "alias": "Quill Lessons",
-            "description": "Lead Group Lessons",
-            "id": 6,
-            "key": "lessons",
+            "alias": "Quill Connect",
+            "description": "Combine Sentences",
+            "id": 5,
+            "key": "connect",
           },
-          "anonymous_path": "/activity_sessions/anonymous?activity_id=738",
-          "description": "Students learn to use the past progressive form in this teacher-led lesson.",
+          "anonymous_path": "/activity_sessions/anonymous?activity_id=627",
+          "content_partners": Array [
+            Object {
+              "description": "Core Knowledge is a free and open-source curriculum. Quill provides activities aligned with their language arts, social studies, and science books.",
+              "id": "1",
+              "name": "Core Knowledge",
+            },
+          ],
+          "description": "Combine sentences to create 6 sentences about Hernan Cortes. This is an advanced, un-cued sentence combining activity.",
           "flags": "{production}",
-          "id": 738,
-          "name": "Lesson 2: Past Progressive Tense",
+          "id": 627,
+          "name": "Hernan Cortes",
           "standard_level": Object {
-            "id": 10,
-            "name": "4th Grade CCSS",
+            "id": 13,
+            "name": "7th Grade CCSS",
           },
-          "standard_level_name": "4th Grade CCSS",
-          "standard_name": "4",
-          "uid": "-L7AoYnq5vwWkKJsar_O",
+          "standard_level_name": "7th Grade CCSS",
+          "standard_name": "87",
+          "uid": "-KqcjgL00W0ro-Wr4Bts",
         }
       }
       showTooltip={false}
@@ -561,29 +617,36 @@ exports[`ActivityRow component with showCheckbox true and showRemoveButton false
           activity={
             Object {
               "activity_category": Object {
-                "id": 4,
-                "name": "Verbs",
+                "id": 20,
+                "name": "History: Maya, Aztec, Inca",
               },
-              "activity_category_id": 4,
-              "activity_category_name": "Verbs",
+              "activity_category_id": 20,
+              "activity_category_name": "History: Maya, Aztec, Inca",
               "activity_classification": Object {
-                "alias": "Quill Lessons",
-                "description": "Lead Group Lessons",
-                "id": 6,
-                "key": "lessons",
+                "alias": "Quill Connect",
+                "description": "Combine Sentences",
+                "id": 5,
+                "key": "connect",
               },
-              "anonymous_path": "/activity_sessions/anonymous?activity_id=738",
-              "description": "Students learn to use the past progressive form in this teacher-led lesson.",
+              "anonymous_path": "/activity_sessions/anonymous?activity_id=627",
+              "content_partners": Array [
+                Object {
+                  "description": "Core Knowledge is a free and open-source curriculum. Quill provides activities aligned with their language arts, social studies, and science books.",
+                  "id": "1",
+                  "name": "Core Knowledge",
+                },
+              ],
+              "description": "Combine sentences to create 6 sentences about Hernan Cortes. This is an advanced, un-cued sentence combining activity.",
               "flags": "{production}",
-              "id": 738,
-              "name": "Lesson 2: Past Progressive Tense",
+              "id": 627,
+              "name": "Hernan Cortes",
               "standard_level": Object {
-                "id": 10,
-                "name": "4th Grade CCSS",
+                "id": 13,
+                "name": "7th Grade CCSS",
               },
-              "standard_level_name": "4th Grade CCSS",
-              "standard_name": "4",
-              "uid": "-L7AoYnq5vwWkKJsar_O",
+              "standard_level_name": "7th Grade CCSS",
+              "standard_name": "87",
+              "uid": "-KqcjgL00W0ro-Wr4Bts",
             }
           }
           isSelected={false}
@@ -604,7 +667,7 @@ exports[`ActivityRow component with showCheckbox true and showRemoveButton false
           type="button"
         >
           <h2>
-            Lesson 2: Past Progressive Tense
+            Hernan Cortes
           </h2>
         </button>
       </div>
@@ -613,7 +676,7 @@ exports[`ActivityRow component with showCheckbox true and showRemoveButton false
       >
         <a
           className="interactive-wrapper focus-on-light preview-link"
-          href="/activity_sessions/anonymous?activity_id=738"
+          href="/activity_sessions/anonymous?activity_id=627"
           rel="noopener noreferrer"
           target="_blank"
         >
@@ -644,10 +707,10 @@ exports[`ActivityRow component with showCheckbox true and showRemoveButton false
         <ActivityRowClassification
           classification={
             Object {
-              "alias": "Quill Lessons",
-              "description": "Lead Group Lessons",
-              "id": 6,
-              "key": "lessons",
+              "alias": "Quill Connect",
+              "description": "Combine Sentences",
+              "id": 5,
+              "key": "connect",
             }
           }
         >
@@ -655,16 +718,16 @@ exports[`ActivityRow component with showCheckbox true and showRemoveButton false
             className="second-line-section classification"
           >
             <img
-              alt="Apple representing Quill Lessons"
-              src="undefined/images/icons/description-lessons.svg"
+              alt="Target representing Quill Connect"
+              src="undefined/images/icons/description-connect.svg"
             />
             <span>
-              Quill Lessons
+              Quill Connect
             </span>
           </span>
         </ActivityRowClassification>
         <ActivityRowConcept
-          conceptName="Verbs"
+          conceptName="History: Maya, Aztec, Inca"
         >
           <span
             className="second-line-section concept"
@@ -674,7 +737,7 @@ exports[`ActivityRow component with showCheckbox true and showRemoveButton false
               src="undefined/images/icons/description-concept.svg"
             />
             <span>
-              Verbs
+              History: Maya, Aztec, Inca
             </span>
           </span>
         </ActivityRowConcept>
@@ -689,7 +752,7 @@ exports[`ActivityRow component with showCheckbox true and showRemoveButton false
           className="second-line-section readability"
         />
         <ActivityRowStandardLevel
-          standardLevelName="4th Grade CCSS"
+          standardLevelName="7th Grade CCSS"
         >
           <span
             className="second-line-section standard-level"
@@ -699,7 +762,7 @@ exports[`ActivityRow component with showCheckbox true and showRemoveButton false
               src="undefined/images/icons/description-ccss.svg"
             />
             <span>
-              4th Grade CCSS
+              7th Grade CCSS
             </span>
           </span>
         </ActivityRowStandardLevel>
@@ -709,29 +772,36 @@ exports[`ActivityRow component with showCheckbox true and showRemoveButton false
       activity={
         Object {
           "activity_category": Object {
-            "id": 4,
-            "name": "Verbs",
+            "id": 20,
+            "name": "History: Maya, Aztec, Inca",
           },
-          "activity_category_id": 4,
-          "activity_category_name": "Verbs",
+          "activity_category_id": 20,
+          "activity_category_name": "History: Maya, Aztec, Inca",
           "activity_classification": Object {
-            "alias": "Quill Lessons",
-            "description": "Lead Group Lessons",
-            "id": 6,
-            "key": "lessons",
+            "alias": "Quill Connect",
+            "description": "Combine Sentences",
+            "id": 5,
+            "key": "connect",
           },
-          "anonymous_path": "/activity_sessions/anonymous?activity_id=738",
-          "description": "Students learn to use the past progressive form in this teacher-led lesson.",
+          "anonymous_path": "/activity_sessions/anonymous?activity_id=627",
+          "content_partners": Array [
+            Object {
+              "description": "Core Knowledge is a free and open-source curriculum. Quill provides activities aligned with their language arts, social studies, and science books.",
+              "id": "1",
+              "name": "Core Knowledge",
+            },
+          ],
+          "description": "Combine sentences to create 6 sentences about Hernan Cortes. This is an advanced, un-cued sentence combining activity.",
           "flags": "{production}",
-          "id": 738,
-          "name": "Lesson 2: Past Progressive Tense",
+          "id": 627,
+          "name": "Hernan Cortes",
           "standard_level": Object {
-            "id": 10,
-            "name": "4th Grade CCSS",
+            "id": 13,
+            "name": "7th Grade CCSS",
           },
-          "standard_level_name": "4th Grade CCSS",
-          "standard_name": "4",
-          "uid": "-L7AoYnq5vwWkKJsar_O",
+          "standard_level_name": "7th Grade CCSS",
+          "standard_name": "87",
+          "uid": "-KqcjgL00W0ro-Wr4Bts",
         }
       }
       isExpanded={false}
@@ -747,29 +817,36 @@ exports[`ActivityRow component with showCheckbox true and showRemoveButton false
   activity={
     Object {
       "activity_category": Object {
-        "id": 4,
-        "name": "Verbs",
+        "id": 20,
+        "name": "History: Maya, Aztec, Inca",
       },
-      "activity_category_id": 4,
-      "activity_category_name": "Verbs",
+      "activity_category_id": 20,
+      "activity_category_name": "History: Maya, Aztec, Inca",
       "activity_classification": Object {
-        "alias": "Quill Lessons",
-        "description": "Lead Group Lessons",
-        "id": 6,
-        "key": "lessons",
+        "alias": "Quill Connect",
+        "description": "Combine Sentences",
+        "id": 5,
+        "key": "connect",
       },
-      "anonymous_path": "/activity_sessions/anonymous?activity_id=738",
-      "description": "Students learn to use the past progressive form in this teacher-led lesson.",
+      "anonymous_path": "/activity_sessions/anonymous?activity_id=627",
+      "content_partners": Array [
+        Object {
+          "description": "Core Knowledge is a free and open-source curriculum. Quill provides activities aligned with their language arts, social studies, and science books.",
+          "id": "1",
+          "name": "Core Knowledge",
+        },
+      ],
+      "description": "Combine sentences to create 6 sentences about Hernan Cortes. This is an advanced, un-cued sentence combining activity.",
       "flags": "{production}",
-      "id": 738,
-      "name": "Lesson 2: Past Progressive Tense",
+      "id": 627,
+      "name": "Hernan Cortes",
       "standard_level": Object {
-        "id": 10,
-        "name": "4th Grade CCSS",
+        "id": 13,
+        "name": "7th Grade CCSS",
       },
-      "standard_level_name": "4th Grade CCSS",
-      "standard_name": "4",
-      "uid": "-L7AoYnq5vwWkKJsar_O",
+      "standard_level_name": "7th Grade CCSS",
+      "standard_name": "87",
+      "uid": "-KqcjgL00W0ro-Wr4Bts",
     }
   }
   isFirst={false}
@@ -786,29 +863,36 @@ exports[`ActivityRow component with showCheckbox true and showRemoveButton false
       activity={
         Object {
           "activity_category": Object {
-            "id": 4,
-            "name": "Verbs",
+            "id": 20,
+            "name": "History: Maya, Aztec, Inca",
           },
-          "activity_category_id": 4,
-          "activity_category_name": "Verbs",
+          "activity_category_id": 20,
+          "activity_category_name": "History: Maya, Aztec, Inca",
           "activity_classification": Object {
-            "alias": "Quill Lessons",
-            "description": "Lead Group Lessons",
-            "id": 6,
-            "key": "lessons",
+            "alias": "Quill Connect",
+            "description": "Combine Sentences",
+            "id": 5,
+            "key": "connect",
           },
-          "anonymous_path": "/activity_sessions/anonymous?activity_id=738",
-          "description": "Students learn to use the past progressive form in this teacher-led lesson.",
+          "anonymous_path": "/activity_sessions/anonymous?activity_id=627",
+          "content_partners": Array [
+            Object {
+              "description": "Core Knowledge is a free and open-source curriculum. Quill provides activities aligned with their language arts, social studies, and science books.",
+              "id": "1",
+              "name": "Core Knowledge",
+            },
+          ],
+          "description": "Combine sentences to create 6 sentences about Hernan Cortes. This is an advanced, un-cued sentence combining activity.",
           "flags": "{production}",
-          "id": 738,
-          "name": "Lesson 2: Past Progressive Tense",
+          "id": 627,
+          "name": "Hernan Cortes",
           "standard_level": Object {
-            "id": 10,
-            "name": "4th Grade CCSS",
+            "id": 13,
+            "name": "7th Grade CCSS",
           },
-          "standard_level_name": "4th Grade CCSS",
-          "standard_name": "4",
-          "uid": "-L7AoYnq5vwWkKJsar_O",
+          "standard_level_name": "7th Grade CCSS",
+          "standard_name": "87",
+          "uid": "-KqcjgL00W0ro-Wr4Bts",
         }
       }
       showTooltip={false}
@@ -825,29 +909,36 @@ exports[`ActivityRow component with showCheckbox true and showRemoveButton false
           activity={
             Object {
               "activity_category": Object {
-                "id": 4,
-                "name": "Verbs",
+                "id": 20,
+                "name": "History: Maya, Aztec, Inca",
               },
-              "activity_category_id": 4,
-              "activity_category_name": "Verbs",
+              "activity_category_id": 20,
+              "activity_category_name": "History: Maya, Aztec, Inca",
               "activity_classification": Object {
-                "alias": "Quill Lessons",
-                "description": "Lead Group Lessons",
-                "id": 6,
-                "key": "lessons",
+                "alias": "Quill Connect",
+                "description": "Combine Sentences",
+                "id": 5,
+                "key": "connect",
               },
-              "anonymous_path": "/activity_sessions/anonymous?activity_id=738",
-              "description": "Students learn to use the past progressive form in this teacher-led lesson.",
+              "anonymous_path": "/activity_sessions/anonymous?activity_id=627",
+              "content_partners": Array [
+                Object {
+                  "description": "Core Knowledge is a free and open-source curriculum. Quill provides activities aligned with their language arts, social studies, and science books.",
+                  "id": "1",
+                  "name": "Core Knowledge",
+                },
+              ],
+              "description": "Combine sentences to create 6 sentences about Hernan Cortes. This is an advanced, un-cued sentence combining activity.",
               "flags": "{production}",
-              "id": 738,
-              "name": "Lesson 2: Past Progressive Tense",
+              "id": 627,
+              "name": "Hernan Cortes",
               "standard_level": Object {
-                "id": 10,
-                "name": "4th Grade CCSS",
+                "id": 13,
+                "name": "7th Grade CCSS",
               },
-              "standard_level_name": "4th Grade CCSS",
-              "standard_name": "4",
-              "uid": "-L7AoYnq5vwWkKJsar_O",
+              "standard_level_name": "7th Grade CCSS",
+              "standard_name": "87",
+              "uid": "-KqcjgL00W0ro-Wr4Bts",
             }
           }
           isSelected={true}
@@ -872,7 +963,7 @@ exports[`ActivityRow component with showCheckbox true and showRemoveButton false
           type="button"
         >
           <h2>
-            Lesson 2: Past Progressive Tense
+            Hernan Cortes
           </h2>
         </button>
       </div>
@@ -881,7 +972,7 @@ exports[`ActivityRow component with showCheckbox true and showRemoveButton false
       >
         <a
           className="interactive-wrapper focus-on-light preview-link"
-          href="/activity_sessions/anonymous?activity_id=738"
+          href="/activity_sessions/anonymous?activity_id=627"
           rel="noopener noreferrer"
           target="_blank"
         >
@@ -912,10 +1003,10 @@ exports[`ActivityRow component with showCheckbox true and showRemoveButton false
         <ActivityRowClassification
           classification={
             Object {
-              "alias": "Quill Lessons",
-              "description": "Lead Group Lessons",
-              "id": 6,
-              "key": "lessons",
+              "alias": "Quill Connect",
+              "description": "Combine Sentences",
+              "id": 5,
+              "key": "connect",
             }
           }
         >
@@ -923,16 +1014,16 @@ exports[`ActivityRow component with showCheckbox true and showRemoveButton false
             className="second-line-section classification"
           >
             <img
-              alt="Apple representing Quill Lessons"
-              src="undefined/images/icons/description-lessons.svg"
+              alt="Target representing Quill Connect"
+              src="undefined/images/icons/description-connect.svg"
             />
             <span>
-              Quill Lessons
+              Quill Connect
             </span>
           </span>
         </ActivityRowClassification>
         <ActivityRowConcept
-          conceptName="Verbs"
+          conceptName="History: Maya, Aztec, Inca"
         >
           <span
             className="second-line-section concept"
@@ -942,7 +1033,7 @@ exports[`ActivityRow component with showCheckbox true and showRemoveButton false
               src="undefined/images/icons/description-concept.svg"
             />
             <span>
-              Verbs
+              History: Maya, Aztec, Inca
             </span>
           </span>
         </ActivityRowConcept>
@@ -957,7 +1048,7 @@ exports[`ActivityRow component with showCheckbox true and showRemoveButton false
           className="second-line-section readability"
         />
         <ActivityRowStandardLevel
-          standardLevelName="4th Grade CCSS"
+          standardLevelName="7th Grade CCSS"
         >
           <span
             className="second-line-section standard-level"
@@ -967,7 +1058,7 @@ exports[`ActivityRow component with showCheckbox true and showRemoveButton false
               src="undefined/images/icons/description-ccss.svg"
             />
             <span>
-              4th Grade CCSS
+              7th Grade CCSS
             </span>
           </span>
         </ActivityRowStandardLevel>
@@ -977,29 +1068,36 @@ exports[`ActivityRow component with showCheckbox true and showRemoveButton false
       activity={
         Object {
           "activity_category": Object {
-            "id": 4,
-            "name": "Verbs",
+            "id": 20,
+            "name": "History: Maya, Aztec, Inca",
           },
-          "activity_category_id": 4,
-          "activity_category_name": "Verbs",
+          "activity_category_id": 20,
+          "activity_category_name": "History: Maya, Aztec, Inca",
           "activity_classification": Object {
-            "alias": "Quill Lessons",
-            "description": "Lead Group Lessons",
-            "id": 6,
-            "key": "lessons",
+            "alias": "Quill Connect",
+            "description": "Combine Sentences",
+            "id": 5,
+            "key": "connect",
           },
-          "anonymous_path": "/activity_sessions/anonymous?activity_id=738",
-          "description": "Students learn to use the past progressive form in this teacher-led lesson.",
+          "anonymous_path": "/activity_sessions/anonymous?activity_id=627",
+          "content_partners": Array [
+            Object {
+              "description": "Core Knowledge is a free and open-source curriculum. Quill provides activities aligned with their language arts, social studies, and science books.",
+              "id": "1",
+              "name": "Core Knowledge",
+            },
+          ],
+          "description": "Combine sentences to create 6 sentences about Hernan Cortes. This is an advanced, un-cued sentence combining activity.",
           "flags": "{production}",
-          "id": 738,
-          "name": "Lesson 2: Past Progressive Tense",
+          "id": 627,
+          "name": "Hernan Cortes",
           "standard_level": Object {
-            "id": 10,
-            "name": "4th Grade CCSS",
+            "id": 13,
+            "name": "7th Grade CCSS",
           },
-          "standard_level_name": "4th Grade CCSS",
-          "standard_name": "4",
-          "uid": "-L7AoYnq5vwWkKJsar_O",
+          "standard_level_name": "7th Grade CCSS",
+          "standard_name": "87",
+          "uid": "-KqcjgL00W0ro-Wr4Bts",
         }
       }
       isExpanded={false}

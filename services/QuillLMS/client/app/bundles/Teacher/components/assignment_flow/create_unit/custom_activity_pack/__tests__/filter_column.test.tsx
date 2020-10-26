@@ -17,6 +17,8 @@ describe('FilterColumn component', () => {
     handleGradeLevelFilterChange: () => {},
     activityCategoryFilters: [],
     handleActivityCategoryFilterChange: () => {},
+    contentPartnerFilters: [],
+    handleContentPartnerFilterChange: () => {},
     filterActivities: (ignoredKey?: string) => activities
   }
 

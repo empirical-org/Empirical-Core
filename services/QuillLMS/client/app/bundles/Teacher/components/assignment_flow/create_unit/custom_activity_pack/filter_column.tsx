@@ -4,6 +4,7 @@ import { Activity } from './interfaces'
 import ActivityClassificationFilters from './activity_classification_filters'
 import ActivityCategoryFilters from './activity_category_filters'
 import GradeLevelFilters from './grade_level_filters'
+import ContentPartnerFilters from './content_partner_filters'
 
 interface FilterColumnProps {
   activities: Activity[],
@@ -16,10 +17,26 @@ interface FilterColumnProps {
   handleGradeLevelFilterChange: (gradeLevelFilters: number[]) => void,
   activityCategoryFilters: number[],
   handleActivityCategoryFilterChange: (activityCategoryFilters: number[]) => void,
-  filterActivities: (ignoredKey?: string) => Activity[]
+  filterActivities: (ignoredKey?: string) => Activity[],
+  contentPartnerFilters: number[],
+  handleContentPartnerFilterChange: (contentPartnerFilters: number[]) => void,
 }
 
-const FilterColumn = ({ activities, filteredActivities, filterActivities, calculateNumberOfFilters, resetAllFilters, activityClassificationFilters, handleActivityClassificationFilterChange, handleGradeLevelFilterChange, gradeLevelFilters, handleActivityCategoryFilterChange, activityCategoryFilters, }: FilterColumnProps) => {
+const FilterColumn = ({
+  activities,
+  filteredActivities,
+  filterActivities,
+  calculateNumberOfFilters,
+  resetAllFilters,
+  activityClassificationFilters,
+  handleActivityClassificationFilterChange,
+  handleGradeLevelFilterChange,
+  gradeLevelFilters,
+  handleActivityCategoryFilterChange,
+  activityCategoryFilters,
+  contentPartnerFilters,
+  handleContentPartnerFilterChange
+}: FilterColumnProps) => {
   const numberOfFilters = calculateNumberOfFilters()
   const clearAllButton = numberOfFilters ? <button className="interactive-wrapper clear-filter focus-on-light" onClick={resetAllFilters} type="button">Clear all filters</button> : <span />
   const filterCount = numberOfFilters ? `${numberOfFilters} filter${numberOfFilters === 1 ? '' : 's'} • ` : ''
@@ -46,6 +63,12 @@ const FilterColumn = ({ activities, filteredActivities, filterActivities, calcul
       activityCategoryFilters={activityCategoryFilters}
       filterActivities={filterActivities}
       handleActivityCategoryFilterChange={handleActivityCategoryFilterChange}
+    />
+    <ContentPartnerFilters
+      activities={activities}
+      contentPartnerFilters={contentPartnerFilters}
+      filterActivities={filterActivities}
+      handleContentPartnerFilterChange={handleContentPartnerFilterChange}
     />
   </section>)
 }

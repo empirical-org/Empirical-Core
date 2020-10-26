@@ -18,6 +18,8 @@ describe('MobileFilterMenu component', () => {
     activityCategoryFilters: [],
     handleActivityCategoryFilterChange: () => {},
     filterActivities: (ignoredKey?: string) => activities,
+    contentPartnerFilters: [],
+    handleContentPartnerFilterChange: () => {},
     setShowMobileFilterMenu: (show: boolean) => {},
     showMobileFilterMenu: false
   }

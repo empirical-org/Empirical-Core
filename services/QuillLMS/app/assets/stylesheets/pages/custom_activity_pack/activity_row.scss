@@ -48,7 +48,7 @@
         align-items: center;
       }
     }
-    .second-line, .third-line, .tooltip-line {
+    .second-line, .expanded-line, .tooltip-line {
       img {
         margin-right: 2px;
       }
@@ -57,11 +57,14 @@
         color: #646464;
       }
     }
-    .third-line {
+    .tooltip-line:not(:first-of-type) {
+      margin-top: 16px;
+    }
+    .expanded-line {
       padding-left: 32px;
       margin-top: 16px;
     }
-    .third-line, .tooltip-line {
+    .expanded-line, .tooltip-line {
       display: flex;
       align-items: flex-start;
       img {
@@ -142,7 +145,7 @@
     .activity-row {
       flex: 1;
       border-bottom: none;
-      .second-line, .third-line {
+      .second-line, .expanded-line {
         padding-left: 0px;
       }
     }
