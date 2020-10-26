@@ -8,6 +8,7 @@ import (
 	"io/ioutil"
 	"fmt"
 	"sync"
+	"time"
 	"net/http/httputil"
 )
 
@@ -178,10 +179,25 @@ type InternalAPIResponse struct {
 	APIResponse APIResponse
 }
 
-type HistoryAPIRequest struct {
+FeedbackHistory struct {
 	Entry string `json:"entry"`
 	Prompt_id int `json:"prompt_id"`
-	Session_id string `json:"session_id"`
+	Activity_session_id string `json:"activity_session_id"`
 	Attempt int `json:"attempt"`
+	Time time.Time `json:"time"`
 	Feedback APIResponse `json:"feedback"`
+
+
+        :concept_uid,
+        :feedback_text,
+        :feedback_type,
+        :optimal,
+        :used,
+        :time,
+        :metadata
+	}
+}
+
+type HistoryAPIRequest struct {
+	Feedback_history FeedbackHistory `json:"feedback_history"`
 }
