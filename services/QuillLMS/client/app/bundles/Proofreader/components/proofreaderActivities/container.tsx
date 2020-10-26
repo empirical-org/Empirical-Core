@@ -19,6 +19,7 @@ import ProgressBar from './progressBar'
 import WelcomePage from './welcomePage'
 import formatInitialPassage from './formatInitialPassage'
 
+
 import getParameterByName from '../../helpers/getParameterByName';
 import EditCaretPositioning from '../../helpers/EditCaretPositioning'
 import { getActivity } from "../../actions/proofreaderActivities";
@@ -171,6 +172,15 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
 
       if (activityUIDToUse) {
         dispatch(getActivity(activityUIDToUse))
+      }
+    }
+
+    componentDidUpdate(prevProps) {
+      const { proofreaderActivities } = this.props
+      const { currentActivity, hasreceiveddata } = proofreaderActivities
+
+      if (prevProps.proofreaderActivities.hasreceiveddata != hasreceiveddata && hasreceiveddata) {
+        document.title = `Quill.org | ${currentActivity.title}`
       }
     }
 

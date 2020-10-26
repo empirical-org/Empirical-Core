@@ -54,8 +54,13 @@ export class ELLStudentDiagnostic extends React.Component {
   }
 
   componentDidMount() {
-    const { dispatch, match, } = this.props
+    const { dispatch, match, lessons } = this.props
     const { sessionID, } = this.state
+    const { params } = match;
+    const { diagnosticID } = params;
+
+    document.title = `Quill.org | ${lessons.data[diagnosticID].name}`
+
     dispatch(clearData());
     dispatch(setDiagnosticID({ diagnosticID: match.params.diagnosticID, }))
     if (sessionID) {
@@ -69,7 +74,8 @@ export class ELLStudentDiagnostic extends React.Component {
   }
 
   componentDidUpdate(prevProps) {
-    const { previewMode, skippedToQuestionFromIntro, questionToPreview, playDiagnostic } = this.props;
+    const { previewMode, skippedToQuestionFromIntro, questionToPreview, playDiagnostic, } = this.props;
+
     if(prevProps.skippedToQuestionFromIntro !== skippedToQuestionFromIntro && previewMode && questionToPreview) {
       this.startActivity();
     }
