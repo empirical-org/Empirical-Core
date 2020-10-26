@@ -24,6 +24,8 @@ export const activityClassificationGroupings = [
 ]
 
 export const getNumberFromString = (string) => {
+  if (!string) { return null }
+  
   const numberMatch = string.match(/\d+/g)
   if (numberMatch) { return Number(numberMatch[0]) }
 
