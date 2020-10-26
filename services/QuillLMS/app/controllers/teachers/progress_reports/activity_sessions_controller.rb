@@ -83,7 +83,7 @@ class Teachers::ProgressReports::ActivitySessionsController < Teachers::Progress
         ON activities.id = activity_sessions.activity_id
       JOIN activity_classifications
         ON activity_classifications.id = activities.activity_classification_id
-      JOIN standards
+      LEFT JOIN standards
         ON standards.id = activities.standard_id
       WHERE classrooms_teachers.user_id = #{current_user.id}
       ORDER BY #{sort_field} #{sort_direction}

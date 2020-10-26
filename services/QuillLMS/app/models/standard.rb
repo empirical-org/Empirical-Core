@@ -4,7 +4,7 @@ class Standard < ActiveRecord::Base
   belongs_to :standard_level
   belongs_to :standard_category
 
-  has_many :activities, dependent: :destroy
+  has_many :activities
 
   default_scope -> { order(:name) }
 

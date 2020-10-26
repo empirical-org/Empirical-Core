@@ -89,7 +89,7 @@ class School < ActiveRecord::Base
       activity_session.percentage,
       activity_session.completed_at,
       activity_session.activity.name,
-      activity_session.activity.standard.standard_category.name,
+      activity_session.activity&.standard&.standard_category&.name,
       activity_session.minutes_to_complete
     ]
   end
