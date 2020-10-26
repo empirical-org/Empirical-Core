@@ -39,8 +39,7 @@ class ActivitySearch
       LEFT JOIN activity_categories ON activity_category_activities.activity_category_id = activity_categories.id
       LEFT JOIN content_partner_activities ON content_partner_activities.activity_id = activities.id
       LEFT JOIN content_partners ON content_partners.id = content_partner_activities.content_partner_id
-      WHERE standard_levels.id IS NOT NULL
-      AND activities.flags && ARRAY[#{flags}]::varchar[]
+      WHERE activities.flags && ARRAY[#{flags}]::varchar[]
       ORDER BY activity_classifications.order_number asc, activity_categories.order_number asc, activity_category_activities.order_number asc").to_a
   end
 end
