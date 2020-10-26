@@ -1,9 +1,9 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`GradeLevelFilters component should render 1`] = `
-<GradeLevelFilters
-  gradeLevelFilters={Array []}
-  handleGradeLevelFilterChange={[Function]}
+exports[`ccssGradeLevelFilters component should render 1`] = `
+<ccssGradeLevelFilters
+  ccssGradeLevelFilters={Array []}
+  handleCCSSGradeLevelFilterChange={[Function]}
 >
   <section
     className="filter-section"
@@ -22,7 +22,7 @@ exports[`GradeLevelFilters component should render 1`] = `
       <label
         htmlFor="grade-level-slider"
       >
-        Standard: 
+        Standard:
         1
         -
         11
@@ -894,5 +894,5 @@ exports[`GradeLevelFilters component should render 1`] = `
       </Component>
     </div>
   </section>
-</GradeLevelFilters>
+</ccssGradeLevelFilters>
 `;

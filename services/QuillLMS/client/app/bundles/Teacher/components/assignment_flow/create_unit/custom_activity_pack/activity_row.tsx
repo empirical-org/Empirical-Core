@@ -6,6 +6,7 @@ const smallWhiteCheckSrc = `${process.env.CDN_URL}/images/shared/check-small-whi
 const expandSrc = `${process.env.CDN_URL}/images/shared/expand.svg`
 const conceptSrc = `${process.env.CDN_URL}/images/icons/description-concept.svg`
 const ccssSrc = `${process.env.CDN_URL}/images/icons/description-ccss.svg`
+const readabilitySrc = `${process.env.CDN_URL}/images/icons/description-readability.svg`
 const informationSrc = `${process.env.CDN_URL}/images/icons/description-information.svg`
 const copyrightSrc = `${process.env.CDN_URL}/images/icons/description-copyright.svg`
 const previewSrc = `${process.env.CDN_URL}/images/icons/preview.svg`

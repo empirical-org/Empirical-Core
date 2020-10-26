@@ -12,8 +12,8 @@ interface MobileFilterMenuProps {
   resetAllFilters: () => void,
   activityClassificationFilters: string[],
   handleActivityClassificationFilterChange: (activityClassificationFilters: string[]) => void,
-  gradeLevelFilters: number[],
-  handleGradeLevelFilterChange: (gradeLevelFilters: number[]) => void,
+  ccssGradeLevelFilters: number[],
+  handleCCSSGradeLevelFilterChange: (ccssGradeLevelFilters: number[]) => void,
   activityCategoryFilters: number[],
   handleActivityCategoryFilterChange: (activityCategoryFilters: number[]) => void,
   filterActivities: (ignoredKey?: string) => Activity[],
@@ -32,10 +32,10 @@ const MobileFilterMenu = ({
   handleContentPartnerFilterChange,
   filterActivities,
   filteredActivities,
-  gradeLevelFilters,
+  ccssGradeLevelFilters,
   handleActivityCategoryFilterChange,
   handleActivityClassificationFilterChange,
-  handleGradeLevelFilterChange,
+  handleCCSSGradeLevelFilterChange,
   resetAllFilters,
   showMobileFilterMenu,
   setShowMobileFilterMenu
@@ -56,13 +56,13 @@ const MobileFilterMenu = ({
       activityClassificationFilters={activityClassificationFilters}
       calculateNumberOfFilters={calculateNumberOfFilters}
       contentPartnerFilters={contentPartnerFilters}
+      ccssGradeLevelFilters={ccssGradeLevelFilters}
       filterActivities={filterActivities}
       filteredActivities={filteredActivities}
-      gradeLevelFilters={gradeLevelFilters}
       handleActivityCategoryFilterChange={handleActivityCategoryFilterChange}
       handleActivityClassificationFilterChange={handleActivityClassificationFilterChange}
+      handleCCSSGradeLevelFilterChange={handleCCSSGradeLevelFilterChange}
       handleContentPartnerFilterChange={handleContentPartnerFilterChange}
-      handleGradeLevelFilterChange={handleGradeLevelFilterChange}
       resetAllFilters={resetAllFilters}
     />
     <button className="quill-button primary contained medium focus-on-light" onClick={closeMobileFilterMenu} type="button">

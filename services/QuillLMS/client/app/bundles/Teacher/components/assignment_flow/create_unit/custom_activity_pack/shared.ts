@@ -51,10 +51,10 @@ function filterByActivityCategory(activityCategoryFilters: number[], activity: A
   return activityCategoryFilters.includes(activity.activity_category.id)
 }
 
-function filterByGradeLevel(gradeLevelFilters: number[], activity: Activity) {
-  if (!gradeLevelFilters.length) { return true }
+function filterByCCSSGradeLevel(ccssGradeLevelFilters: number[], activity: Activity) {
+  if (!ccssGradeLevelFilters.length) { return true }
   const numberFromStandardLevel = getNumberFromString(activity.standard_level_name)
-  return gradeLevelFilters.includes(numberFromStandardLevel)
+  return ccssGradeLevelFilters.includes(numberFromStandardLevel)
 }
 
 function filterByContentPartners(contentPartnerFilters: number[], activity: Activity) {
@@ -65,7 +65,7 @@ function filterByContentPartners(contentPartnerFilters: number[], activity: Acti
 export const filters = {
   search: filterBySearch,
   [ACTIVITY_CLASSIFICATION_FILTERS]: filterByActivityClassification,
-  gradeLevelFilters: filterByGradeLevel,
+  ccssGradeLevelFilters: filterByCCSSGradeLevel,
   [ACTIVITY_CATEGORY_FILTERS]: filterByActivityCategory,
   [CONTENT_PARTNER_FILTERS]: filterByContentPartners
 }

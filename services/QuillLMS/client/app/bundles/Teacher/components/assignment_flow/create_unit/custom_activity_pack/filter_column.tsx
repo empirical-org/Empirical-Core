@@ -3,7 +3,7 @@ import * as React from 'react';
 import { Activity } from './interfaces'
 import ActivityClassificationFilters from './activity_classification_filters'
 import ActivityCategoryFilters from './activity_category_filters'
-import GradeLevelFilters from './grade_level_filters'
+import CCSSGradeLevelFilters from './ccss_grade_level_filters'
 import ContentPartnerFilters from './content_partner_filters'
 
 interface FilterColumnProps {
@@ -13,8 +13,8 @@ interface FilterColumnProps {
   resetAllFilters: () => void,
   activityClassificationFilters: string[],
   handleActivityClassificationFilterChange: (activityClassificationFilters: string[]) => void,
-  gradeLevelFilters: number[],
-  handleGradeLevelFilterChange: (gradeLevelFilters: number[]) => void,
+  ccssGradeLevelFilters: number[],
+  handleCCSSGradeLevelFilterChange: (ccssGradeLevelFilters: number[]) => void,
   activityCategoryFilters: number[],
   handleActivityCategoryFilterChange: (activityCategoryFilters: number[]) => void,
   filterActivities: (ignoredKey?: string) => Activity[],
@@ -30,8 +30,8 @@ const FilterColumn = ({
   resetAllFilters,
   activityClassificationFilters,
   handleActivityClassificationFilterChange,
-  handleGradeLevelFilterChange,
-  gradeLevelFilters,
+  handleCCSSGradeLevelFilterChange,
+  ccssGradeLevelFilters,
   handleActivityCategoryFilterChange,
   activityCategoryFilters,
   contentPartnerFilters,
@@ -54,9 +54,9 @@ const FilterColumn = ({
       filterActivities={filterActivities}
       handleActivityClassificationFilterChange={handleActivityClassificationFilterChange}
     />
-    <GradeLevelFilters
-      gradeLevelFilters={gradeLevelFilters}
-      handleGradeLevelFilterChange={handleGradeLevelFilterChange}
+    <CCSSGradeLevelFilters
+      ccssGradeLevelFilters={ccssGradeLevelFilters}
+      handleCCSSGradeLevelFilterChange={handleCCSSGradeLevelFilterChange}
     />
     <ActivityCategoryFilters
       activities={activities}
