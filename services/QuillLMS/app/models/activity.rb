@@ -21,7 +21,7 @@ class Activity < ActiveRecord::Base
   has_many :activity_categories, through: :activity_category_activities
   has_many :content_partner_activities, dependent: :destroy
   has_many :content_partners, :through => :content_partner_activities
-  has_many :teacher_saved_activities
+  has_many :teacher_saved_activities, dependent: :destroy
   has_many :teachers, through: :teacher_saved_activities, foreign_key: 'teacher_id'
   before_create :flag_as_beta, unless: :flags?
   after_commit :clear_activity_search_cache
