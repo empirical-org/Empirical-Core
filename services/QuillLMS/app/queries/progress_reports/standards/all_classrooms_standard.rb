@@ -9,7 +9,7 @@ class ProgressReports::Standards::AllClassroomsStandard
      (SELECT activity_sessions.*, activities.standard_id FROM activity_sessions
           JOIN classroom_units ON activity_sessions.classroom_unit_id = classroom_units.id
           JOIN activities ON activity_sessions.activity_id = activities.id
-          JOIN standards ON standards.id = activities.standard_id
+          LEFT JOIN standards ON standards.id = activities.standard_id
           #{classroom_joins(classroom_id)}
           WHERE activity_sessions.is_final_score
           #{student_condition(student_id)}
