@@ -156,7 +156,7 @@ const ActivityRowTooltip = ({ activity, showTooltip}: { activity: Activity, show
     <span>{activity.description}</span>
   </div>)
 
-  const readabilityLine = activity.readability_grade_level && (<div className="expanded-line">
+  const readabilityLine = activity.readability_grade_level && (<div className="tooltip-line">
     <img alt="Book icon" src={readabilitySrc} />
     <span>{readabilityCopy}</span>
   </div>)
