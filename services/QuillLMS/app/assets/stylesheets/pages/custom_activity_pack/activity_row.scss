@@ -143,6 +143,9 @@
     display: flex;
     align-items: center;
     cursor: default;
+    max-width: 1184px;
+    padding: 0px 32px;
+    margin: auto;
     .reorder-icon {
       margin: 0px 16px 0px 8px;
       cursor: grab;
@@ -157,6 +160,7 @@
       }
     }
     &.is-last {
+      border-bottom: none;
       .activity-row {
         border-bottom: none;
       }
@@ -165,15 +169,13 @@
       align-items: flex-start;
       margin: 0px 16px;
       border-bottom: 1px solid #e0e0e0;
+      padding: 0px;
       .activity-row {
         margin: 0px;
         border-bottom: none;
       }
       .reorder-icon {
         margin: 16px 8px 0px 16px;
-      }
-      &.is-last {
-        border-bottom: none;
       }
     }
   }

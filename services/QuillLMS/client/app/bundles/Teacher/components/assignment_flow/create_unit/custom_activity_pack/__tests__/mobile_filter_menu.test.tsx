@@ -15,6 +15,8 @@ describe('MobileFilterMenu component', () => {
     handleActivityClassificationFilterChange: () => {},
     ccssGradeLevelFilters: [],
     handleCCSSGradeLevelFilterChange: () => {},
+    readabilityGradeLevelFilters: [],
+    handleReadabilityGradeLevelFilterChange: () => {},
     activityCategoryFilters: [],
     handleActivityCategoryFilterChange: () => {},
     filterActivities: (ignoredKey?: string) => activities,

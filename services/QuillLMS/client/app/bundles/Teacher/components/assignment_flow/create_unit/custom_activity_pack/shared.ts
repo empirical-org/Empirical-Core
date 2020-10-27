@@ -59,6 +59,13 @@ function filterByCCSSGradeLevel(ccssGradeLevelFilters: number[], activity: Activ
   return ccssGradeLevelFilters.includes(numberFromStandardLevel)
 }
 
+function filterByReadabilityGradeLevel(readabilityGradeLevelFilters: string[], activity: Activity) {
+  if (!readabilityGradeLevelFilters.length) { return true }
+
+  const firstNumberFromReadabilityGradeLevel = getNumberFromString(activity.readability_grade_level)
+  return readabilityGradeLevelFilters.map(r => getNumberFromString(r)).includes(firstNumberFromReadabilityGradeLevel)
+}
+
 function filterByContentPartners(contentPartnerFilters: number[], activity: Activity) {
   if (!contentPartnerFilters.length) { return true }
   return contentPartnerFilters.some(id => activity.content_partners.some(cp => cp.id === id))
@@ -68,6 +75,7 @@ export const filters = {
   search: filterBySearch,
   [ACTIVITY_CLASSIFICATION_FILTERS]: filterByActivityClassification,
   ccssGradeLevelFilters: filterByCCSSGradeLevel,
+  readabilityGradeLevelFilters: filterByReadabilityGradeLevel,
   [ACTIVITY_CATEGORY_FILTERS]: filterByActivityCategory,
   [CONTENT_PARTNER_FILTERS]: filterByContentPartners
 }

@@ -15,6 +15,8 @@ describe('FilterColumn component', () => {
     handleActivityClassificationFilterChange: () => {},
     ccssGradeLevelFilters: [],
     handleCCSSGradeLevelFilterChange: () => {},
+    readabilityGradeLevelFilters: [],
+    handleReadabilityGradeLevelFilterChange: () => {},
     activityCategoryFilters: [],
     handleActivityCategoryFilterChange: () => {},
     contentPartnerFilters: [],

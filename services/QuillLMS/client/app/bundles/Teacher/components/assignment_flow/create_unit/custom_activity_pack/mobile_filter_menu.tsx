@@ -21,6 +21,8 @@ interface MobileFilterMenuProps {
   showMobileFilterMenu: boolean,
   contentPartnerFilters: number[],
   handleContentPartnerFilterChange: (contentPartnerFilters: number[]) => void,
+  readabilityGradeLevelFilters: string[],
+  handleReadabilityGradeLevelFilterChange: (readabilityGradeLevelFilters: string[]) => void,
 }
 
 const MobileFilterMenu = ({
@@ -33,9 +35,11 @@ const MobileFilterMenu = ({
   filterActivities,
   filteredActivities,
   ccssGradeLevelFilters,
+  readabilityGradeLevelFilters,
   handleActivityCategoryFilterChange,
   handleActivityClassificationFilterChange,
   handleCCSSGradeLevelFilterChange,
+  handleReadabilityGradeLevelFilterChange,
   resetAllFilters,
   showMobileFilterMenu,
   setShowMobileFilterMenu
@@ -55,14 +59,16 @@ const MobileFilterMenu = ({
       activityCategoryFilters={activityCategoryFilters}
       activityClassificationFilters={activityClassificationFilters}
       calculateNumberOfFilters={calculateNumberOfFilters}
-      contentPartnerFilters={contentPartnerFilters}
       ccssGradeLevelFilters={ccssGradeLevelFilters}
+      contentPartnerFilters={contentPartnerFilters}
       filterActivities={filterActivities}
       filteredActivities={filteredActivities}
       handleActivityCategoryFilterChange={handleActivityCategoryFilterChange}
       handleActivityClassificationFilterChange={handleActivityClassificationFilterChange}
       handleCCSSGradeLevelFilterChange={handleCCSSGradeLevelFilterChange}
       handleContentPartnerFilterChange={handleContentPartnerFilterChange}
+      handleReadabilityGradeLevelFilterChange={handleReadabilityGradeLevelFilterChange}
+      readabilityGradeLevelFilters={readabilityGradeLevelFilters}
       resetAllFilters={resetAllFilters}
     />
     <button className="quill-button primary contained medium focus-on-light" onClick={closeMobileFilterMenu} type="button">
