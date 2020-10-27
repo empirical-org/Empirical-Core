@@ -1,6 +1,9 @@
 require 'rails_helper'
 describe Teachers::ProgressReports::DiagnosticReportsController, type: :controller do
 include_context "Unit Assignments Variables"
+  let(:activity) { create(:diagnostic_activity) }
+  let(:unit) {create(:unit)}
+  let(:classroom) {create(:classroom)}
 
   before do
     session[:user_id] = teacher.id
@@ -17,6 +20,28 @@ include_context "Unit Assignments Variables"
         get :report_from_classroom_unit_activity_and_user, ({classroom_unit_id: classroom_unit.id, user_id: student.id, activity_id: activity.id})
         expect(response).to redirect_to("/teachers/progress_reports/diagnostic_reports#/u/#{unit.id}/a/#{activity.id}/c/#{classroom.id}/student_report/#{student.id}")
       end
+    end
+  end
+
+  context 'lesson_recommendations_for_classroom' do
+    before do
+      # stub complicated query that returns activities
+      LessonRecommendationsQuery.any_instance.stub(:activity_recommendations).and_return([activity])
+      @classroom_unit = create(:classroom_unit, classroom: classroom, unit: unit)
+    end
+
+    it 'should not error with no activity_sessions' do
+      create(:activity_session, classroom_unit: classroom_unit, activity: activity, is_final_score: false)
+      get :lesson_recommendations_for_classroom, ({activity_id: activity.id, unit_id: unit.id, classroom_id: classroom.id})
+
+      expect(response).to be_success
+    end
+
+    it 'should not error with activity_sessions' do
+      create(:activity_session, classroom_unit: @classroom_unit, activity: activity, is_final_score: false)
+      get :lesson_recommendations_for_classroom, ({activity_id: activity.id, unit_id: unit.id, classroom_id: classroom.id})
+
+      expect(response).to be_success
     end
   end
 
