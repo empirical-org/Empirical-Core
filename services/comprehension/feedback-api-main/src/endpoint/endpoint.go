@@ -19,7 +19,7 @@ const (
 	regex_rules_api = "https://comprehension-247816.appspot.com/feedback/rules/first_pass"
 	spell_check_local = "https://us-central1-comprehension-247816.cloudfunctions.net/spell-check-cloud-function"
 	spell_check_bing = "https://us-central1-comprehension-247816.cloudfunctions.net/bing-API-spell-check"
-	feedback_history_url = "https://comprehension-247816.appspot.com/feedback/history"
+	feedback_history_url = "https://www.quill.org/api/v1/feedback_histories.json"
 	automl_index = 1
 )
 
@@ -80,7 +80,7 @@ func Endpoint(responseWriter http.ResponseWriter, request *http.Request) {
 
 	// TODO make this a purely async task instead of coroutine that waits to finish
 	wg.Add(1)
-	go recordFeedback(request_body, returnable_result)
+	go recordFeedback(request_body, returnable_result, true)
 
 	responseWriter.Header().Set("Access-Control-Allow-Origin", "*")
 	responseWriter.Header().Set("Content-Type", "application/json")
@@ -125,7 +125,7 @@ func getAPIResponse(url string, priority int, json_params [] byte, c chan Intern
 	c <- InternalAPIResponse{Priority: priority, APIResponse: result}
 }
 
-func recordFeedback(incoming_params [] byte, feedback APIResponse) {
+func recordFeedback(incoming_params [] byte, feedback APIResponse, used bool) {
 	var request_object APIRequest
 
 	// TODO convert the 'feedback' bytes and combine with incoming_params bytes
@@ -135,11 +135,23 @@ func recordFeedback(incoming_params [] byte, feedback APIResponse) {
 	}
 
 	history := HistoryAPIRequest{
-		Entry: request_object.Entry,
-		Prompt_id: request_object.Prompt_id,
-		Session_id: request_object.Session_id,
-		Attempt: request_object.Attempt,
-		Feedback: feedback,
+		Feedback_history: FeedbackHistory{
+			Activity_session_uid: request_object.Session_id,
+			Prompt_id: request_object.Prompt_id,
+			Concept_uid: feedback.Concept_uid,
+			Attempt: request_object.Attempt,
+			Entry: request_object.Entry,
+			Feedback_text: feedback.Feedback,
+			Feedback_type: feedback.Feedback_type,
+			Optimal: feedback.Optimal,
+			Used: used,
+			Time: time.Now(),
+			Metadata: FeedbackHistoryMetadata{
+				Highlight: feedback.Highlight,
+				Labels: feedback.Labels,
+				Response_id: feedback.Response_id,
+			},
+		},
 	}
 
 	history_json, _ := json.Marshal(history)
@@ -158,6 +170,7 @@ type APIRequest struct {
 }
 
 type APIResponse struct {
+	Concept_uid string `json:"concept_uid"`
 	Feedback string `json:"feedback"`
 	Feedback_type string `json:"feedback_type"`
 	Optimal bool `json:"optimal"`
@@ -179,23 +192,24 @@ type InternalAPIResponse struct {
 	APIResponse APIResponse
 }
 
-FeedbackHistory struct {
-	Entry string `json:"entry"`
+type FeedbackHistoryMetadata struct {
+	Highlight []Highlight `json:"highlight"`
+	Labels string `json:"labels,omitempty"`
+	Response_id string `json:"response_id"`
+}
+
+type FeedbackHistory struct {
+	Activity_session_uid string `json:"activity_session_uid"`
 	Prompt_id int `json:"prompt_id"`
-	Activity_session_id string `json:"activity_session_id"`
+	Concept_uid string `json:"concept_uid"`
 	Attempt int `json:"attempt"`
+	Entry string `json:"entry"`
+	Feedback_text string `json:"feedback_text"`
+	Feedback_type string `json:"feedback_type"`
+	Optimal bool `json:"optimal"`
+	Used bool `json:"used"`
 	Time time.Time `json:"time"`
-	Feedback APIResponse `json:"feedback"`
-
-
-        :concept_uid,
-        :feedback_text,
-        :feedback_type,
-        :optimal,
-        :used,
-        :time,
-        :metadata
-	}
+	Metadata FeedbackHistoryMetadata `json:"metadata"`
 }
 
 type HistoryAPIRequest struct {
