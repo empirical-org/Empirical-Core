@@ -101,7 +101,7 @@ const CustomActivityPack = ({
     setCCSSGradeLevelFilters(newCCSSGradeLevelFilters)
   }
 
-  function handleReadabilityGradeLevelFilterChange(newReadabilityGradeLevelFilters: string[]) {
+  function handleReadabilityGradeLevelFilterChange(newReadabilityGradeLevelFilters: number[]) {
     setFilterHistory(prevFilterHistory => prevFilterHistory.concat([{ function: setReadabilityGradeLevelFilters, argument: readabilityGradeLevelFilters }]))
     setReadabilityGradeLevelFilters(newReadabilityGradeLevelFilters)
   }

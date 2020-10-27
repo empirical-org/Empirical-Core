@@ -1,18 +1,12 @@
 import * as React from 'react';
 
+import { arrayFromNumbers, } from './shared'
+
 import { TwoThumbSlider, } from '../../../../../Shared/index'
 
 interface CCSSGradeLevelFiltersProps {
   ccssGradeLevelFilters: number[],
   handleCCSSGradeLevelFilterChange: (ccssGradeLevelFilters: number[]) => void,
-}
-
-function arrayFromNumbers(lowerValue: number, upperValue: number) {
-  const array = []
-  for (let i = lowerValue; i <= upperValue; i++) {
-    array.push(i)
-  }
-  return array
 }
 
 const MIN_LEVEL = 1

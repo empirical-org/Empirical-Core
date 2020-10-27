@@ -38,6 +38,14 @@ export const ACTIVITY_CATEGORY_FILTERS = 'activityCategoryFilters'
 
 export const CONTENT_PARTNER_FILTERS = 'contentPartnerFilters'
 
+export function arrayFromNumbers(lowerValue: number, upperValue: number) {
+  const array = []
+  for (let i = lowerValue; i <= upperValue; i++) {
+    array.push(i)
+  }
+  return array
+}
+
 function filterBySearch(search: string, activity: Activity) {
   const stringActivity = Object.values(activity).join(' ').toLowerCase();
   return stringActivity.includes(search.toLowerCase())
@@ -59,11 +67,13 @@ function filterByCCSSGradeLevel(ccssGradeLevelFilters: number[], activity: Activ
   return ccssGradeLevelFilters.includes(numberFromStandardLevel)
 }
 
-function filterByReadabilityGradeLevel(readabilityGradeLevelFilters: string[], activity: Activity) {
+const READABILITY_GRADE_LEVEL_OPTIONS = ['2nd-3rd', '4th-5th', '6th-7th', '8th-9th', '10th-12th']
+
+function filterByReadabilityGradeLevel(readabilityGradeLevelFilters: number[], activity: Activity) {
   if (!readabilityGradeLevelFilters.length) { return true }
 
-  const firstNumberFromReadabilityGradeLevel = getNumberFromString(activity.readability_grade_level)
-  return readabilityGradeLevelFilters.map(r => getNumberFromString(r)).includes(firstNumberFromReadabilityGradeLevel)
+  const indexOfOption = READABILITY_GRADE_LEVEL_OPTIONS.findIndex(opt => opt === activity.readability_grade_level)
+  return readabilityGradeLevelFilters.includes(indexOfOption)
 }
 
 function filterByContentPartners(contentPartnerFilters: number[], activity: Activity) {

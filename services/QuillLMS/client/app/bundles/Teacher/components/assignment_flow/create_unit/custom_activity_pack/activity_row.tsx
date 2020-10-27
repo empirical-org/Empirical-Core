@@ -116,7 +116,7 @@ const ActivityRowStandardLevel = ({ standardLevelName, }: { standardLevelName?: 
     </span>)
   }
 
-  return <span className={className} />
+  return <span />
 }
 
 const ActivityRowExpandedSection = ({ activity, isExpanded}: { activity: Activity, isExpanded: boolean }) => {

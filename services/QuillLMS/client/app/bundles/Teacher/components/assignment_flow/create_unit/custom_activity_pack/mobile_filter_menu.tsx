@@ -21,8 +21,8 @@ interface MobileFilterMenuProps {
   showMobileFilterMenu: boolean,
   contentPartnerFilters: number[],
   handleContentPartnerFilterChange: (contentPartnerFilters: number[]) => void,
-  readabilityGradeLevelFilters: string[],
-  handleReadabilityGradeLevelFilterChange: (readabilityGradeLevelFilters: string[]) => void,
+  readabilityGradeLevelFilters: number[],
+  handleReadabilityGradeLevelFilterChange: (readabilityGradeLevelFilters: number[]) => void,
 }
 
 const MobileFilterMenu = ({
