@@ -25,7 +25,8 @@ const ReadabilityGradeLevelFilters = ({ readabilityGradeLevelFilters, handleRead
   const clearButton = readabilityGradeLevelFilters.length ? <button className="interactive-wrapper clear-filter focus-on-light" onClick={clearAllReadabilityGradeLevelFilters} type="button">Clear</button> : <span />
 
   const lowerValue = readabilityGradeLevelFilters[0] || MIN_LEVEL
-  const upperValue = readabilityGradeLevelFilters[readabilityGradeLevelFilters.length - 1] || MAX_LEVEL
+  const upperFilter = readabilityGradeLevelFilters[readabilityGradeLevelFilters.length - 1]
+  const upperValue = upperFilter || upperFilter === 0 ? upperFilter : MAX_LEVEL
   const lowestGrade = READABILITY_GRADE_LEVEL_LABELS[lowerValue].split('-')[0]
   const highestGrade = READABILITY_GRADE_LEVEL_LABELS[upperValue].split('-')[1]
 
