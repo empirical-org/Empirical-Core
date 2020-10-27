@@ -26,13 +26,13 @@ describe StudentsController do
     end
   end
 
-
   describe '#join_classroom' do
     let(:student) { create(:student) }
 
     before do
       allow(controller).to receive(:current_user) { student }
     end
+
     it 'should redirect for an invalid class_code' do
       get :join_classroom, classcode: 'nonsense_doesnt_exist'
 
