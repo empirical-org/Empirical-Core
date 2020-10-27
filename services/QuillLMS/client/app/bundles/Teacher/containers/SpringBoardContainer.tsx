@@ -2,12 +2,12 @@ import * as React from 'react';
 
 import SpringBoard from '../components/college_board/spring_board';
 
-interface SpringBoardContainerProps {
+interface SpringBoardProps {
   isPartOfAssignmentFlow?: boolean;
 }
 
-export const SpringBoardContainer = ({ isPartOfAssignmentFlow }: SpringBoardContainerProps) => {
+export const SpringBoardContainer = ({ isPartOfAssignmentFlow }: SpringBoardProps) => {
   return <SpringBoard isPartOfAssignmentFlow={isPartOfAssignmentFlow} />
 }
 
-export default SpringBoardContainer
+export default SpringBoardContainer;

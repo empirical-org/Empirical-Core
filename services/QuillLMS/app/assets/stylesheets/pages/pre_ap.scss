@@ -152,6 +152,14 @@
           display: flex;
           align-items: baseline;
           justify-content: space-between;
+          .activity-header-left-container {
+            display: flex;
+            align-items: center;
+            .springboard-sub-header {
+              padding-bottom: 0px;
+              margin-right: 16px;
+            }
+          }
           .activity-header {
             font-size: 16px;
             font-weight: bold;
@@ -159,6 +167,17 @@
             padding-bottom: 8px;
             margin-left: 24px;
             text-decoration: none;
+          }
+          .ap-english-tag {
+            border-radius: 6px;
+            border: solid 1px #e2c447;
+            background-color: #fdf1be;
+            font-size: 16px;
+            font-weight: 600;
+            color: black;
+            text-align: center;
+            padding: 3px 16px 3px 16px;
+            margin: 0px 3px 0px 3px;
           }
           .view-button {
             margin: 12px 26px 0px 0px;
@@ -304,12 +323,12 @@
   }
   #q-and-a {
     .q-and-a-inner-wrapper {
-      border-bottom: 1px solid #e0e0e0;;
       .qa-section {
         .qa {
           .question {
             text-align: left;
             padding-left: 0;
+            margin: 16px 0px 16px 0px;
           }
           .question:focus {
             outline: none !important;
@@ -349,7 +368,11 @@
         }
         .expand-collapse-button {
           background-color: white;
+          margin-top: 16px;
         }
+      }
+      .qa-section:last-of-type {
+        border-bottom: 1px solid #e0e0e0;
       }
     }
   }
@@ -421,6 +444,9 @@
           }
           .ap-english-tag:nth-of-type(2) {
             margin: 0px 0px 16px 0px;
+          }
+          #ell-header {
+            margin-top: 16px;
           }
         }
         .activity-container {

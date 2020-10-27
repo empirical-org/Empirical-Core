@@ -1,7 +1,6 @@
 export const COLLEGE_BOARD_SLUG = 'college-board'
 export const PRE_AP_SLUG = 'pre-ap'
 export const AP_SLUG = 'ap'
-export const SPRING_BOARD = 'spring-board'
 
 export const UNIT_TEMPLATE_NAME = 'unitTemplateName'
 export const UNIT_TEMPLATE_ID = 'unitTemplateId'
