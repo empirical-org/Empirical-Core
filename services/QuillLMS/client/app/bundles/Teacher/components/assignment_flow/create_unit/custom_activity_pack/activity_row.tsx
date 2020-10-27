@@ -17,6 +17,8 @@ const lessonsSrc = `${process.env.CDN_URL}/images/icons/description-lessons.svg`
 const proofreaderSrc = `${process.env.CDN_URL}/images/icons/description-proofreader.svg`
 const grammarSrc = `${process.env.CDN_URL}/images/icons/description-grammar.svg`
 
+const readabilityCopy = "Since Quill activities focus on building writing skills, using a text with a lower readability level is sometimes beneficial as it enables students to practice the writing skill."
+
 interface ActivityRowCheckboxProps {
   activity: Activity,
   isSelected: boolean,
@@ -127,6 +129,11 @@ const ActivityRowExpandedSection = ({ activity, isExpanded}: { activity: Activit
     <span>{activity.description}</span>
   </div>)
 
+  const readabilityLine = activity.readability_grade_level && (<div className="expanded-line">
+    <img alt="Book icon" src={readabilitySrc} />
+    <span>{readabilityCopy}</span>
+  </div>)
+
   const contentPartnerLines = activity.content_partners && activity.content_partners.map(cp => (
     <div className="expanded-line" key={cp.id}>
       <img alt="Copyright icon" src={copyrightSrc} />
@@ -136,6 +143,7 @@ const ActivityRowExpandedSection = ({ activity, isExpanded}: { activity: Activit
 
   return (<React.Fragment>
     {descriptionLine}
+    {readabilityLine}
     {contentPartnerLines}
   </React.Fragment>)
 }
@@ -148,6 +156,11 @@ const ActivityRowTooltip = ({ activity, showTooltip}: { activity: Activity, show
     <span>{activity.description}</span>
   </div>)
 
+  const readabilityLine = activity.readability_grade_level && (<div className="expanded-line">
+    <img alt="Book icon" src={readabilitySrc} />
+    <span>{readabilityCopy}</span>
+  </div>)
+
   const contentPartnerLines = activity.content_partners && activity.content_partners.map(cp => (
     <div className="tooltip-line" key={cp.id}>
       <img alt="Copyright icon" src={copyrightSrc} />
@@ -157,6 +170,7 @@ const ActivityRowTooltip = ({ activity, showTooltip}: { activity: Activity, show
 
   return (<div className="activity-row-tooltip">
     {descriptionLine}
+    {readabilityLine}
     {contentPartnerLines}
   </div>)
 }
