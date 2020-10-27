@@ -384,7 +384,7 @@ describe Activity, type: :model, redis: true do
     end
 
     it 'should return nil if there is no raw_score_id' do
-      activity = create(:activity, raw_score_id)
+      activity = create(:activity)
       expect(activity.readability_grade_level).to eq(nil)
     end
   end
