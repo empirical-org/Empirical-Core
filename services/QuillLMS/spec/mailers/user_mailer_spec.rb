@@ -138,7 +138,6 @@ describe UserMailer, type: :mailer do
     let(:date) { Time.now.getlocal('-05:00').yesterday.to_s}
     let(:user) { build(:user) }
 
-
     before do
       mock_nps_data = ({
         'nps': 100,
