@@ -41,7 +41,7 @@ jobs:
           name: NPM install, should be short-cutted if cache is present
           command: |
             cd services/QuillLMS
-            npm install -g 8.11.3 && npm run build:test
+            npm install && npm run build:test
       - save_cache:
           key: bundle-cache-lms-v2-{{ checksum "services/QuillLMS/Gemfile.lock" }}
           paths:
