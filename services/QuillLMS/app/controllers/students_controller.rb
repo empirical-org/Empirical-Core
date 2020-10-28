@@ -69,13 +69,13 @@ class StudentsController < ApplicationController
 
   def join_classroom
     if current_user
-      if current_user.role === 'student'
+      if current_user.student?
         classcode = params[:classcode].downcase
         begin
-          classroom = Classroom.find_by(code: classcode)
+          classroom = Classroom.find_by!(code: classcode)
           Associators::StudentsToClassrooms.run(current_user, classroom)
           JoinClassroomWorker.perform_async(current_user.id)
-        rescue NoMethodError => e
+        rescue ActiveRecord::RecordNotFound => e
           if Classroom.unscoped.find_by(code: classcode).nil?
             InvalidClasscodeWorker.perform_async(current_user.id, params[:classcode], classcode)
             flash[:error] = "Oops! There is no class with the code #{classcode}. Ask your teacher for help."
