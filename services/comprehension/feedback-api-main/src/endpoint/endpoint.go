@@ -81,6 +81,7 @@ func Endpoint(responseWriter http.ResponseWriter, request *http.Request) {
 	// TODO make this a purely async task instead of coroutine that waits to finish
 	wg.Add(1)
 	go recordFeedback(request_body, returnable_result, true)
+	go batchRecordFeedback(request_body, results)
 
 	responseWriter.Header().Set("Access-Control-Allow-Origin", "*")
 	responseWriter.Header().Set("Content-Type", "application/json")
@@ -123,6 +124,20 @@ func getAPIResponse(url string, priority int, json_params [] byte, c chan Intern
 	}
 
 	c <- InternalAPIResponse{Priority: priority, APIResponse: result}
+}
+
+func batchRecordFeedback(incoming_params []byte, feedbacks []APIResponse) {
+	for i := 0; i < len(feedbacks); i++ {
+		result, has_key := feedbacks[i]
+		if !has_key {
+			return 0, false
+		}
+
+		if !result.Optimal {
+			return i, true
+		}
+	}
+
 }
 
 func recordFeedback(incoming_params [] byte, feedback APIResponse, used bool) {
@@ -214,4 +229,8 @@ type FeedbackHistory struct {
 
 type HistoryAPIRequest struct {
 	Feedback_history FeedbackHistory `json:"feedback_history"`
+}
+
+type BatchHistoryAPIRequest struct {
+	Feedback_histories []FeedbackHistory `json:"feedback_histories"`
 }
