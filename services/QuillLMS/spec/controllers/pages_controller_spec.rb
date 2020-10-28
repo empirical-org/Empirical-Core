@@ -219,11 +219,9 @@ describe PagesController do
   end
 
   describe 'careers page' do
-    render_views # needed if you want to confirm the view renders without an error
-
-    subject { get :careers }
     it 'should load page' do
-      expect(subject).to render_template(:careers)
+      get :careers
+      expect(response).to be_success
     end
   end
 

@@ -17,11 +17,6 @@ jobs:
           POSTGRES_PASSWORD: ""
     steps:
       - checkout
-      - run:
-          name: Install node
-          command: |
-            curl -sSL "https://nodejs.org/download/release/v8.11.3/node-v8.11.3-linux-x64.tar.xz" | sudo tar --strip-components=2 -xJ -C /usr/local/bin/ node-v8.11.3-linux-x64
-            curl https://www.npmjs.com/install.sh | sudo bash
       # - restore_cache:
       #     keys:
       #       - bundle-cache-lms-v2-{{ checksum "services/QuillLMS/Gemfile.lock" }}
@@ -42,11 +37,11 @@ jobs:
             # BUNDLE_GEMS__CONTRIBSYS__COM defined in https://circleci.com/gh/empirical-org/Empirical-Core/edit#env-vars
             bundle config --local gems.contribsys.com ${BUNDLE_GEMS__CONTRIBSYS__COM}
             bundle check || bundle install --path vendor/bundle
-      - run:
-          name: NPM install, should be short-cutted if cache is present
-          command: |
-            cd services/QuillLMS
-            npm install && npm run build:test
+      # - run:
+      #     name: NPM install, should be short-cutted if cache is present
+      #     command: |
+      #       cd services/QuillLMS
+      #       npm install && npm run build:test
       - save_cache:
           key: bundle-cache-lms-v2-{{ checksum "services/QuillLMS/Gemfile.lock" }}
           paths:
