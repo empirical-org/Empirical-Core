@@ -3,7 +3,7 @@ import { mount } from 'enzyme';
 
 import SpringBoard from '../spring_board';
 
-describe('Ap component', () => {
+describe('SpringBoard component', () => {
 
   it('should render when it is part of the assignment flow', () => {
     expect(mount(<SpringBoard isPartOfAssignmentFlow={true} />)).toMatchSnapshot();
