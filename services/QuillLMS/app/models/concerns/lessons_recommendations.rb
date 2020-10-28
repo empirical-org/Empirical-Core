@@ -3,7 +3,7 @@ include PublicProgressReports
 module LessonsRecommendations
     extend ActiveSupport::Concern
 
-    def get_recommended_lessons unit_id, classroom_id, activity_id
+    def get_recommended_lessons(unit_id, classroom_id, activity_id)
       @activity_id = activity_id
       @classroom_unit = ClassroomUnit.find_by(classroom_id: classroom_id, unit_id: unit_id)
       @activity_sessions_with_counted_concepts = act_sesh_with_counted_concepts
@@ -53,16 +53,9 @@ module LessonsRecommendations
     end
 
     def percentage_needing_instruction(fail_count)
-      begin
-        @total_count ||= @activity_sessions.length
-        ((fail_count.to_f/@total_count)*100).round
-      rescue FloatDomainError => e
-        NewRelic::Agent.add_custom_attributes({
-          classroom_id: @classroom_unit.classroom_id,
-          activity_id: @activity_id
-        })
-        NewRelic::Agent.notice_error(e)
-      end
-    end
+      @total_count ||= @activity_sessions.length
+      return 0 if @total_count == 0
 
+      ((fail_count.to_f/@total_count)*100).round
+    end
 end
