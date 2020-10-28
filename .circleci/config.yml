@@ -17,10 +17,10 @@ jobs:
           POSTGRES_PASSWORD: ""
     steps:
       - checkout
-      # - restore_cache:
-      #     keys:
-      #       - bundle-cache-lms-v2-{{ checksum "services/QuillLMS/Gemfile.lock" }}
-      #       - bundle-cache-lms-v2
+      - restore_cache:
+          keys:
+            - bundle-cache-lms-v2-{{ checksum "services/QuillLMS/Gemfile.lock" }}
+            - bundle-cache-lms-v2
       # - restore_cache:
       #     keys:
       #       - npm-cache-lms-v3-{{ checksum "services/QuillLMS/package.json" }}
