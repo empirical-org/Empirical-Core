@@ -60,7 +60,7 @@ jobs:
             bundle exec rspec -- ${TESTFILES}
   lms_node_build:
     working_directory: ~/Empirical-Core
-    parallelism: 2
+    parallelism: 3
     docker:
       - image: circleci/node:8.11.3
     steps:
