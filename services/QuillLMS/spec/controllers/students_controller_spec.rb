@@ -37,6 +37,7 @@ describe StudentsController do
       get :join_classroom, classcode: 'nonsense_doesnt_exist'
 
       expect(response).to redirect_to '/classes'
+      expect(flash[:error]).to match("Oops! There is no class with the code nonsense_doesnt_exist. Ask your teacher for help.")
     end
 
     it 'should redirect for a valid class_code' do
