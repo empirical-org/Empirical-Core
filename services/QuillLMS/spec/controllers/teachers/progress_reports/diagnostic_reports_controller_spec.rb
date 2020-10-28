@@ -37,7 +37,7 @@ include_context "Unit Assignments Variables"
     end
 
     it 'should not error with activity_sessions' do
-      create(:activity_session, classroom_unit: @classroom_unit, activity: activity, is_final_score: false)
+      create(:activity_session, classroom_unit: @classroom_unit, activity: activity)
       get :lesson_recommendations_for_classroom, ({activity_id: activity.id, unit_id: unit.id, classroom_id: classroom.id})
 
       expect(response).to be_success
