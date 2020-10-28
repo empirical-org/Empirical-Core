@@ -1,6 +1,9 @@
 require 'rails_helper'
 
-describe UserMailer do
+describe UserMailer, type: :mailer do
+  before do
+    allow_any_instance_of(ActionView::Helpers::AssetTagHelper).to receive(:stylesheet_link_tag)
+  end
 
   describe 'welcome_email' do
     let(:user) { build(:user) }
