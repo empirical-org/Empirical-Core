@@ -17,9 +17,9 @@ const generateLink = ({ unitTemplateId, isCollegeBoard, isAp }) => {
 
 const SpringBoard = ({ isPartOfAssignmentFlow }: SpringBoardProps) => {
 
-  return (<div className="pre-ap-container">
+  return (<div className="college-board-container">
     <div className="section-wrapper">
-      <div className="container pre-ap-header-container">
+      <div className="container college-board-header-container">
         <div className="header-left">
           <div className="logo-container">
             <img alt="College Board logo" src="https://assets.quill.org/images/college_board/college-board-logo.svg" />
@@ -36,7 +36,7 @@ const SpringBoard = ({ isPartOfAssignmentFlow }: SpringBoardProps) => {
       </div>
     </div>
     <div className="white-section-wrapper">
-      <div className="container pre-ap-activities-section">
+      <div className="container college-board-activities-section">
         <div className="header">
           <img alt="Illustration of a pencil drawing a line" src="https://assets.quill.org/images/college_board/sentence-writing-pencil.svg" />
           <div className="text-container">
@@ -51,7 +51,7 @@ const SpringBoard = ({ isPartOfAssignmentFlow }: SpringBoardProps) => {
           <div className="activity-header-container">
             <div className="activity-header-left-container">
               <p className="activity-header springboard-sub-header" id="writing-skills-survey-1">SpringBoard Writing Skills Survey</p>
-              <div className="ap-english-tag">For SpringBoard 6-8</div>
+              <div className="college-board-activity-tag">For SpringBoard 6-8</div>
             </div>
             <a className="quill-button medium primary outlined view-button focus-on-light" href={generateLink({unitTemplateId: 253, isCollegeBoard: false, isAp: false})} rel="noopener noreferrer" target={isPartOfAssignmentFlow ? '' : "_blank"}>View</a>
           </div>
@@ -65,7 +65,7 @@ const SpringBoard = ({ isPartOfAssignmentFlow }: SpringBoardProps) => {
           <div className="activity-header-container">
             <div className="activity-header-left-container">
               <p className="activity-header springboard-sub-header" id="writing-skills-survey-1">Pre-AP Writing Skills Survey 1: Basic of Sentence Patterns</p>
-              <div className="ap-english-tag">For SpringBoard 9-10</div>
+              <div className="college-board-activity-tag">For SpringBoard 9-10</div>
             </div>
             <a className="quill-button medium primary outlined view-button focus-on-light" href={generateLink({unitTemplateId: 194, isCollegeBoard: true, isAp: false})} rel="noopener noreferrer" target={isPartOfAssignmentFlow ? '' : "_blank"}>View</a>
           </div>
@@ -79,7 +79,7 @@ const SpringBoard = ({ isPartOfAssignmentFlow }: SpringBoardProps) => {
           <div className="activity-header-container">
             <div className="activity-header-left-container">
               <p className="activity-header springboard-sub-header" id="writing-skills-survey-2">Pre-AP Writing Skills Survey 2: Tools for Sentence Expansion</p>
-              <div className="ap-english-tag">For SpringBoard 9-10</div>
+              <div className="college-board-activity-tag">For SpringBoard 9-10</div>
             </div>
             <a className="quill-button medium primary outlined view-button focus-on-light" href={generateLink({unitTemplateId: 195, isCollegeBoard: true, isAp: false})} rel="noopener noreferrer" target={isPartOfAssignmentFlow ? '' : "_blank"}>View</a>
           </div>
@@ -92,8 +92,8 @@ const SpringBoard = ({ isPartOfAssignmentFlow }: SpringBoardProps) => {
         <div className="activity-container">
           <div className="activity-header-container">
             <div className="activity-header-left-container">
-              <a className="activity-header springboard-sub-header" id="writing-skills-survey">AP Writing Skills Survey</a>
-              <div className="ap-english-tag">For SpringBoard 11-12</div>
+              <p className="activity-header springboard-sub-header" id="writing-skills-survey">AP Writing Skills Survey</p>
+              <div className="college-board-activity-tag">For SpringBoard 11-12</div>
             </div>
             <a className="quill-button medium primary outlined view-button focus-on-light" href={generateLink({unitTemplateId: 193, isCollegeBoard: true, isAp: true})} rel="noopener noreferrer" target={isPartOfAssignmentFlow ? '' : "_blank"}>View</a>
           </div>
@@ -131,11 +131,11 @@ const SpringBoard = ({ isPartOfAssignmentFlow }: SpringBoardProps) => {
       </div>
     </div>
     <div className="white-section-wrapper">
-      <div className="container pre-ap-activities-section">
+      <div className="container college-board-activities-section">
         <div className="header">
           <img alt="Illustration of a pencil drawing a line" src="https://assets.quill.org/images/college_board/english-language-learners-globe.svg" />
           <div className="text-container">
-            <h2>Additional Supports for ELL Students</h2>
+            <h2>Additional Support for ELL Students</h2>
             <p>In addition to the above writing skills surveys, Quill.org also offers dedicated skills surveys for English Language Learners (ELLs). There are two separate skills surveys: one for students in WIDA&apos;s Entering and Emerging stages of language proficiency, and one for students in WIDA&apos;s Developing and Expanding stages.</p>
           </div>
         </div>
@@ -146,7 +146,7 @@ const SpringBoard = ({ isPartOfAssignmentFlow }: SpringBoardProps) => {
           <div className="activity-header-container">
             <div className="activity-header-left-container">
               <p className="activity-header springboard-sub-header" id="writing-skills-survey-1">ELL Skills Survey 1: Entering and Emerging</p>
-              <div className="ap-english-tag">For SpringBoard 6-12</div>
+              <div className="college-board-activity-tag">For SpringBoard 6-12</div>
             </div>
             <a className="quill-button medium primary outlined view-button focus-on-light" href={generateLink({unitTemplateId: 154, isCollegeBoard: false, isAp: false})} rel="noopener noreferrer" target={isPartOfAssignmentFlow ? '' : "_blank"}>View</a>
           </div>
@@ -160,7 +160,7 @@ const SpringBoard = ({ isPartOfAssignmentFlow }: SpringBoardProps) => {
           <div className="activity-header-container">
             <div className="activity-header-left-container">
               <p className="activity-header springboard-sub-header" id="writing-skills-survey-1">ELL Skills Survey 2: Developing and Expanding</p>
-              <div className="ap-english-tag">For SpringBoard 6-12</div>
+              <div className="college-board-activity-tag">For SpringBoard 6-12</div>
             </div>
             <a className="quill-button medium primary outlined view-button focus-on-light" href={generateLink({unitTemplateId: 34, isCollegeBoard: false, isAp: false})} rel="noopener noreferrer" target={isPartOfAssignmentFlow ? '' : "_blank"}>View</a>
           </div>

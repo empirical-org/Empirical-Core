@@ -1,10 +1,10 @@
-.pre-ap-container {
+.college-board-container {
   #info-blurbs-1-wrapper {
     border-bottom: 1px solid #e0e0e0;;
   }
   .section-wrapper {
     padding-top: 20px;
-    .pre-ap-header-container {
+    .college-board-header-container {
       display: flex;
       flex-direction: row;
       justify-content: space-between;
@@ -97,7 +97,7 @@
   }
   .white-section-wrapper {
     background-color: white;
-    .pre-ap-activities-section {
+    .college-board-activities-section {
       padding: 80px 0px 40px 0px;
       .header {
         display: flex;
@@ -112,7 +112,7 @@
             font-weight: bold;
             line-height: 1.5;
             color: black;
-            margin-bottom: 10px;
+            margin: 16px 0px 10px 0px;
           }
           p {
             font-size: 16px;
@@ -131,7 +131,7 @@
           color: black;
           margin-right: 10px;
         }
-        .ap-english-tag {
+        .college-board-activity-tag {
           border-radius: 6px;
           border: solid 1px #e2c447;
           background-color: #fdf1be;
@@ -168,7 +168,7 @@
             margin-left: 24px;
             text-decoration: none;
           }
-          .ap-english-tag {
+          .college-board-activity-tag {
             border-radius: 6px;
             border: solid 1px #e2c447;
             background-color: #fdf1be;
@@ -335,10 +335,10 @@
           }
           .answer {
             div {
-              .preap-sub-header {
+              .college-board-sub-header {
                 font-weight: 600;
               }
-              .preap-q-and-a-text {
+              .college-board-q-and-a-text {
                 padding-bottom: 20px;
                 a {
                   color: black;
@@ -347,7 +347,7 @@
                   font-weight: 600;
                 }
               }
-              .preap-q-and-a-text:last-child {
+              .college-board-q-and-a-text:last-child {
                 padding-bottom: 0px;
               }
               ul {
@@ -360,8 +360,11 @@
             }
             p {
               line-height: 1.5;
+              a {
+                color: black;
+              }
             }
-            .preap-block {
+            .college-board-block {
               padding: 15px 0px 15px 0px;
             }
           }
@@ -379,10 +382,10 @@
 }
 
 @media only screen and (max-width : 750px){
-  .pre-ap-container {
+  .college-board-container {
     .section-wrapper {
       padding: 16px;
-      .pre-ap-header-container {
+      .college-board-header-container {
         flex-direction: column;
         align-items: center;
         .header-left {
@@ -433,16 +436,16 @@
           flex-direction: column;
         }
       }
-      .pre-ap-activities-section {
+      .college-board-activities-section {
         .activities-subheader {
           display: flex;
           flex-direction: column;
           align-items: flex-start;
           padding: 0px;
-          .ap-english-tag:nth-of-type(1) {
+          .college-board-activity-tag:nth-of-type(1) {
             margin: 16px 0px 8px 0px;
           }
-          .ap-english-tag:nth-of-type(2) {
+          .college-board-activity-tag:nth-of-type(2) {
             margin: 0px 0px 16px 0px;
           }
           #ell-header {
@@ -521,7 +524,7 @@
           }
           .answer {
             div {
-              .preap-q-and-a-text {
+              .college-board-q-and-a-text {
                 padding-left: 6px !important;
               }
             }
