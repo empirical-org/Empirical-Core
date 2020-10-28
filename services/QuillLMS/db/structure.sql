@@ -2,8 +2,8 @@
 -- PostgreSQL database dump
 --
 
--- Dumped from database version 10.13
--- Dumped by pg_dump version 10.13
+-- Dumped from database version 10.12
+-- Dumped by pg_dump version 10.12
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -1668,6 +1668,49 @@ CREATE TABLE public.districts_users (
 
 
 --
+-- Name: feedback_histories; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.feedback_histories (
+    id integer NOT NULL,
+    activity_session_uid text,
+    prompt_id integer,
+    prompt_type character varying,
+    concept_uid text,
+    attempt integer NOT NULL,
+    entry text NOT NULL,
+    optimal boolean NOT NULL,
+    used boolean NOT NULL,
+    feedback_text text,
+    feedback_type text NOT NULL,
+    "time" timestamp without time zone NOT NULL,
+    metadata jsonb,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: feedback_histories_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.feedback_histories_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: feedback_histories_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.feedback_histories_id_seq OWNED BY public.feedback_histories.id;
+
+
+--
 -- Name: file_uploads; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -2805,6 +2848,39 @@ ALTER SEQUENCE public.subscriptions_id_seq OWNED BY public.subscriptions.id;
 
 
 --
+-- Name: teacher_saved_activities; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.teacher_saved_activities (
+    id integer NOT NULL,
+    teacher_id integer NOT NULL,
+    activity_id integer NOT NULL,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: teacher_saved_activities_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.teacher_saved_activities_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: teacher_saved_activities_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.teacher_saved_activities_id_seq OWNED BY public.teacher_saved_activities.id;
+
+
+--
 -- Name: third_party_user_ids; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -3524,6 +3600,13 @@ ALTER TABLE ONLY public.districts ALTER COLUMN id SET DEFAULT nextval('public.di
 
 
 --
+-- Name: feedback_histories id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.feedback_histories ALTER COLUMN id SET DEFAULT nextval('public.feedback_histories_id_seq'::regclass);
+
+
+--
 -- Name: file_uploads id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -3745,6 +3828,13 @@ ALTER TABLE ONLY public.subscription_types ALTER COLUMN id SET DEFAULT nextval('
 --
 
 ALTER TABLE ONLY public.subscriptions ALTER COLUMN id SET DEFAULT nextval('public.subscriptions_id_seq'::regclass);
+
+
+--
+-- Name: teacher_saved_activities id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.teacher_saved_activities ALTER COLUMN id SET DEFAULT nextval('public.teacher_saved_activities_id_seq'::regclass);
 
 
 --
@@ -4152,6 +4242,14 @@ ALTER TABLE ONLY public.districts
 
 
 --
+-- Name: feedback_histories feedback_histories_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.feedback_histories
+    ADD CONSTRAINT feedback_histories_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: file_uploads file_uploads_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -4405,6 +4503,14 @@ ALTER TABLE ONLY public.subscription_types
 
 ALTER TABLE ONLY public.subscriptions
     ADD CONSTRAINT subscriptions_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: teacher_saved_activities teacher_saved_activities_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.teacher_saved_activities
+    ADD CONSTRAINT teacher_saved_activities_pkey PRIMARY KEY (id);
 
 
 --
@@ -5040,6 +5146,27 @@ CREATE INDEX index_districts_users_on_district_id_and_user_id ON public.district
 --
 
 CREATE INDEX index_districts_users_on_user_id ON public.districts_users USING btree (user_id);
+
+
+--
+-- Name: index_feedback_histories_on_activity_session_uid; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_feedback_histories_on_activity_session_uid ON public.feedback_histories USING btree (activity_session_uid);
+
+
+--
+-- Name: index_feedback_histories_on_concept_uid; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_feedback_histories_on_concept_uid ON public.feedback_histories USING btree (concept_uid);
+
+
+--
+-- Name: index_feedback_histories_on_prompt_type_and_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_feedback_histories_on_prompt_type_and_id ON public.feedback_histories USING btree (prompt_type, prompt_id);
 
 
 --
@@ -5736,6 +5863,14 @@ CREATE TRIGGER tsvectorupdate BEFORE INSERT OR UPDATE ON public.blog_posts FOR E
 
 
 --
+-- Name: teacher_saved_activities fk_rails_08453fa16b; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.teacher_saved_activities
+    ADD CONSTRAINT fk_rails_08453fa16b FOREIGN KEY (teacher_id) REFERENCES public.users(id);
+
+
+--
 -- Name: units fk_rails_0b3b28b65f; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -5893,6 +6028,14 @@ ALTER TABLE ONLY public.standards
 
 ALTER TABLE ONLY public.concept_results
     ADD CONSTRAINT fk_rails_cebe4a6023 FOREIGN KEY (activity_classification_id) REFERENCES public.activity_classifications(id);
+
+
+--
+-- Name: teacher_saved_activities fk_rails_d0477bd187; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.teacher_saved_activities
+    ADD CONSTRAINT fk_rails_d0477bd187 FOREIGN KEY (activity_id) REFERENCES public.activities(id);
 
 
 --
@@ -6672,4 +6815,10 @@ INSERT INTO schema_migrations (version) VALUES ('20201016142046');
 INSERT INTO schema_migrations (version) VALUES ('20201019142543');
 
 INSERT INTO schema_migrations (version) VALUES ('20201019142759');
+
+INSERT INTO schema_migrations (version) VALUES ('20201019183425');
+
+INSERT INTO schema_migrations (version) VALUES ('20201020200935');
+
+INSERT INTO schema_migrations (version) VALUES ('20201026185613');
 
