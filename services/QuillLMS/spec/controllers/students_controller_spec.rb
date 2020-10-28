@@ -41,7 +41,7 @@ describe StudentsController do
 
     it 'should redirect for a valid class_code' do
       classroom = create(:classroom, code: 'existing_code')
-      get :join_classroom, classcode: 'existing_code'
+      get :join_classroom, classcode: classroom.code
 
       expect(response).to redirect_to "/classrooms/#{classroom.id}?joined=success"
     end
