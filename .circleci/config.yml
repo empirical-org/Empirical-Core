@@ -4,7 +4,7 @@ jobs:
     working_directory: ~/Empirical-Core
     parallelism: 4
     docker:
-      - image: circleci/ruby:2.6.6-node
+      - image: circleci/ruby:2.6.6
         environment:
           PG_DB: quill_test_db
           PG_USER: ubuntu
@@ -18,19 +18,19 @@ jobs:
           POSTGRES_PASSWORD: ""
     steps:
       - checkout
-      - restore_cache:
-          keys:
-            - bundle-cache-lms-v2-{{ checksum "services/QuillLMS/Gemfile.lock" }}
-            - bundle-cache-lms-v2
-      - restore_cache:
-          keys:
-            - npm-cache-lms-v3-{{ checksum "services/QuillLMS/package.json" }}
-            - npm-cache-lms-v3-
-      - restore_cache:
-          keys:
-            - npm-cache-lms-client-v6{{ checksum "services/QuillLMS/client/package.json" }}-{{ checksum "services/QuillLMS/client/package-lock.json" }}
-            - npm-cache-lms-client-v6{{ checksum "services/QuillLMS/client/package.json" }}-
-            - npm-cache-lms-client-v6
+      # - restore_cache:
+      #     keys:
+      #       - bundle-cache-lms-v2-{{ checksum "services/QuillLMS/Gemfile.lock" }}
+      #       - bundle-cache-lms-v2
+      # - restore_cache:
+      #     keys:
+      #       - npm-cache-lms-v3-{{ checksum "services/QuillLMS/package.json" }}
+      #       - npm-cache-lms-v3-
+      # - restore_cache:
+      #     keys:
+      #       - npm-cache-lms-client-v6{{ checksum "services/QuillLMS/client/package.json" }}-{{ checksum "services/QuillLMS/client/package-lock.json" }}
+      #       - npm-cache-lms-client-v6{{ checksum "services/QuillLMS/client/package.json" }}-
+      #       - npm-cache-lms-client-v6
       - run:
           name: Bundle Install if cache isn't present.
           command: |
@@ -47,14 +47,14 @@ jobs:
           key: bundle-cache-lms-v2-{{ checksum "services/QuillLMS/Gemfile.lock" }}
           paths:
             - services/QuillLMS/vendor/bundle
-      - save_cache:
-          key: npm-cache-lms-v3-{{ checksum "services/QuillLMS/package.json" }}
-          paths:
-            - services/QuillLMS/node_modules
-      - save_cache:
-          key: npm-cache-lms-client-v6-{{ checksum "services/QuillLMS/client/package-lock.json" }}-{{ checksum "services/QuillLMS/client/package-lock.json" }}
-          paths:
-            - services/QuillLMS/client/node_modules
+      # - save_cache:
+      #     key: npm-cache-lms-v3-{{ checksum "services/QuillLMS/package.json" }}
+      #     paths:
+      #       - services/QuillLMS/node_modules
+      # - save_cache:
+      #     key: npm-cache-lms-client-v6-{{ checksum "services/QuillLMS/client/package-lock.json" }}-{{ checksum "services/QuillLMS/client/package-lock.json" }}
+      #     paths:
+      #       - services/QuillLMS/client/node_modules
       - run:
           name: Install postgres dependencies
           command: |
