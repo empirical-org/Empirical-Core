@@ -20,7 +20,7 @@ jobs:
       - run:
           name: Install node
           command: |
-            curl -sSL "https://nodejs.org/download/release/v8.11.3/node-v8.11.3-linux-x64.tar.xz" | sudo tar --strip-components=2 -xJ -C /usr/local/bin/ node-v8.11.3-linux-x64    /bin/node
+            curl -sSL "https://nodejs.org/download/release/v8.11.3/node-v8.11.3-linux-x64.tar.xz" | sudo tar --strip-components=2 -xJ -C /usr/local/bin/ node-v8.11.3-linux-x64
             curl https://www.npmjs.com/install.sh | sudo bash
       # - restore_cache:
       #     keys:
