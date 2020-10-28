@@ -34,7 +34,7 @@ class User < ActiveRecord::Base
   has_many :schools_admins, class_name: 'SchoolsAdmins'
   has_many :administered_schools, through: :schools_admins, source: :school, foreign_key: :user_id
   has_many :classrooms_teachers
-  has_many :teacher_saved_activities, foreign_key: 'teacher_id'
+  has_many :teacher_saved_activities, dependent: :destroy, foreign_key: 'teacher_id'
   has_many :activities, through: :teacher_saved_activities
   has_many :classrooms_i_teach, through: :classrooms_teachers, source: :classroom
   has_many :students_i_teach, through: :classrooms_i_teach, source: :students
