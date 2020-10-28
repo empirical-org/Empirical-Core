@@ -10,6 +10,7 @@ jobs:
           PG_USER: ubuntu
           RAILS_ENV: test
           RACK_ENV: test
+      - image: circleci/node:8.11.3
       - image: postgres:10.5-alpine
         environment:
           POSTGRES_USER: ubuntu
