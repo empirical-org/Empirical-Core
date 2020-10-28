@@ -23,13 +23,13 @@ jobs:
             - bundle-cache-lms-v2
       - restore_cache:
           keys:
-            - npm-cache-lms-v2-{{ checksum "services/QuillLMS/package.json" }}
-            - npm-cache-lms-v2-
+            - npm-cache-lms-v3-{{ checksum "services/QuillLMS/package.json" }}
+            - npm-cache-lms-v3-
       - restore_cache:
           keys:
-            - npm-cache-lms-v4-{{ checksum "services/QuillLMS/client/package.json" }}-{{ checksum "services/QuillLMS/client/package-lock.json" }}
-            - npm-cache-lms-v4-{{ checksum "services/QuillLMS/client/package.json" }}-
-            - npm-cache-lms-v4-
+            - npm-cache-lms-client-v6{{ checksum "services/QuillLMS/client/package.json" }}-{{ checksum "services/QuillLMS/client/package-lock.json" }}
+            - npm-cache-lms-client-v6{{ checksum "services/QuillLMS/client/package.json" }}-
+            - npm-cache-lms-client-v6
       - run:
           name: Bundle Install if cache isn't present.
           command: |
@@ -47,11 +47,11 @@ jobs:
           paths:
             - services/QuillLMS/vendor/bundle
       - save_cache:
-          key: npm-cache-lms-v2-{{ checksum "services/QuillLMS/package.json" }}
+          key: npm-cache-lms-v3-{{ checksum "services/QuillLMS/package.json" }}
           paths:
             - services/QuillLMS/node_modules
       - save_cache:
-          key: npm-cache-lms-v4-{{ checksum "services/QuillLMS/client/package-lock.json" }}-{{ checksum "services/QuillLMS/client/package-lock.json" }}
+          key: npm-cache-lms-client-v6-{{ checksum "services/QuillLMS/client/package-lock.json" }}-{{ checksum "services/QuillLMS/client/package-lock.json" }}
           paths:
             - services/QuillLMS/client/node_modules
       - run:
@@ -90,16 +90,16 @@ jobs:
 
       - restore_cache:
           keys:
-            - npm-cache-lms-v5-{{ checksum "services/QuillLMS/client/package.json" }}-{{ checksum "services/QuillLMS/client/package-lock.json" }}
-            - npm-cache-lms-v5-{{ checksum "services/QuillLMS/client/package.json" }}-
-            - npm-cache-lms-v5-
+            - npm-cache-lms-client-v6-{{ checksum "services/QuillLMS/client/package.json" }}-{{ checksum "services/QuillLMS/client/package-lock.json" }}
+            - npm-cache-lms-client-v6-{{ checksum "services/QuillLMS/client/package.json" }}-
+            - npm-cache-lms-client-v6-
       - run:
           name: Install NPM dependencies
           command: |
             cd services/QuillLMS/client
             npm install
       - save_cache:
-          key: npm-cache-lms-v5-{{ checksum "services/QuillLMS/client/package.json" }}-{{ checksum "services/QuillLMS/client/package-lock.json" }}
+          key: npm-cache-lms-client-v6-{{ checksum "services/QuillLMS/client/package.json" }}-{{ checksum "services/QuillLMS/client/package-lock.json" }}
           paths:
             - services/QuillLMS/client/node_modules
       - run:
