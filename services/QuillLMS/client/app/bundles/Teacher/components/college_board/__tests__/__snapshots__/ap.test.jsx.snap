@@ -96,12 +96,12 @@ exports[`Ap component should render when it is not part of the assignment flow 1
           <div
             className="activity-header-container"
           >
-            <a
+            <p
               className="activity-header"
               id="writing-skills-survey"
             >
               AP Writing Skills Survey
-            </a>
+            </p>
             <a
               className="quill-button medium primary outlined view-button focus-on-light"
               href="/activities/packs/193"
@@ -232,6 +232,7 @@ exports[`Ap component should render when it is not part of the assignment flow 1
           className="quote-container"
         >
           <img
+            alt="Large left quote"
             id="first-quote"
             src="https://assets.quill.org/images/college_board/exaggerated-quote-left.svg"
           />
@@ -246,6 +247,7 @@ exports[`Ap component should render when it is not part of the assignment flow 1
             </p>
           </div>
           <img
+            alt="Large right quote"
             id="second-quote"
             src="https://assets.quill.org/images/college_board/exaggerated-quote-right.svg"
           />
@@ -1390,12 +1392,12 @@ exports[`Ap component should render when it is part of the assignment flow 1`] =
           <div
             className="activity-header-container"
           >
-            <a
+            <p
               className="activity-header"
               id="writing-skills-survey"
             >
               AP Writing Skills Survey
-            </a>
+            </p>
             <a
               className="quill-button medium primary outlined view-button focus-on-light"
               href="/assign/featured-activity-packs/193?college-board=ap"
@@ -1526,6 +1528,7 @@ exports[`Ap component should render when it is part of the assignment flow 1`] =
           className="quote-container"
         >
           <img
+            alt="Large left quote"
             id="first-quote"
             src="https://assets.quill.org/images/college_board/exaggerated-quote-left.svg"
           />
@@ -1540,6 +1543,7 @@ exports[`Ap component should render when it is part of the assignment flow 1`] =
             </p>
           </div>
           <img
+            alt="Large right quote"
             id="second-quote"
             src="https://assets.quill.org/images/college_board/exaggerated-quote-right.svg"
           />

@@ -1863,6 +1863,7 @@ exports[`PreAp component should render when it is not part of the assignment flo
           className="quote-container"
         >
           <img
+            alt="Large left quote"
             id="first-quote"
             src="https://assets.quill.org/images/college_board/exaggerated-quote-left.svg"
           />
@@ -1877,6 +1878,7 @@ exports[`PreAp component should render when it is not part of the assignment flo
             </p>
           </div>
           <img
+            alt="Large right quote"
             id="second-quote"
             src="https://assets.quill.org/images/college_board/exaggerated-quote-right.svg"
           />
@@ -4187,6 +4189,7 @@ exports[`PreAp component should render when it is part of the assignment flow 1`
           className="quote-container"
         >
           <img
+            alt="Large left quote"
             id="first-quote"
             src="https://assets.quill.org/images/college_board/exaggerated-quote-left.svg"
           />
@@ -4201,6 +4204,7 @@ exports[`PreAp component should render when it is part of the assignment flow 1`
             </p>
           </div>
           <img
+            alt="Large right quote"
             id="second-quote"
             src="https://assets.quill.org/images/college_board/exaggerated-quote-right.svg"
           />
@@ -5051,6 +5055,7 @@ exports[`PreAp component should render with no units 1`] = `
           className="quote-container"
         >
           <img
+            alt="Large left quote"
             id="first-quote"
             src="https://assets.quill.org/images/college_board/exaggerated-quote-left.svg"
           />
@@ -5065,6 +5070,7 @@ exports[`PreAp component should render with no units 1`] = `
             </p>
           </div>
           <img
+            alt="Large right quote"
             id="second-quote"
             src="https://assets.quill.org/images/college_board/exaggerated-quote-right.svg"
           />
