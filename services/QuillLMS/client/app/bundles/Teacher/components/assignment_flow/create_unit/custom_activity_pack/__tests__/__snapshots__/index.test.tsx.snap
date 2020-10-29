@@ -3054,6 +3054,7 @@ Previous activities in the Ancient Rome unit.
       activityCategoryFilters={Array []}
       activityClassificationFilters={Array []}
       calculateNumberOfFilters={[Function]}
+      ccssGradeLevelFilters={Array []}
       contentPartnerFilters={Array []}
       filterActivities={[Function]}
       filteredActivities={
@@ -4576,11 +4577,12 @@ Previous activities in the Ancient Rome unit.
           },
         ]
       }
-      gradeLevelFilters={Array []}
       handleActivityCategoryFilterChange={[Function]}
       handleActivityClassificationFilterChange={[Function]}
+      handleCCSSGradeLevelFilterChange={[Function]}
       handleContentPartnerFilterChange={[Function]}
-      handleGradeLevelFilterChange={[Function]}
+      handleReadabilityGradeLevelFilterChange={[Function]}
+      readabilityGradeLevelFilters={Array []}
       resetAllFilters={[Function]}
       setShowMobileFilterMenu={[Function]}
       showMobileFilterMenu={false}
@@ -6118,6 +6120,7 @@ Previous activities in the Ancient Rome unit.
       activityCategoryFilters={Array []}
       activityClassificationFilters={Array []}
       calculateNumberOfFilters={[Function]}
+      ccssGradeLevelFilters={Array []}
       contentPartnerFilters={Array []}
       filterActivities={[Function]}
       filteredActivities={
@@ -7640,11 +7643,12 @@ Previous activities in the Ancient Rome unit.
           },
         ]
       }
-      gradeLevelFilters={Array []}
       handleActivityCategoryFilterChange={[Function]}
       handleActivityClassificationFilterChange={[Function]}
+      handleCCSSGradeLevelFilterChange={[Function]}
       handleContentPartnerFilterChange={[Function]}
-      handleGradeLevelFilterChange={[Function]}
+      handleReadabilityGradeLevelFilterChange={[Function]}
+      readabilityGradeLevelFilters={Array []}
       resetAllFilters={[Function]}
     >
       <section
@@ -13966,9 +13970,531 @@ Previous activities in the Ancient Rome unit.
             </ActivityClassificationToggle>
           </section>
         </ActivityClassificationFilters>
-        <GradeLevelFilters
-          gradeLevelFilters={Array []}
-          handleGradeLevelFilterChange={[Function]}
+        <ReadabilityGradeLevelFilters
+          handleReadabilityGradeLevelFilterChange={[Function]}
+          readabilityGradeLevelFilters={Array []}
+        >
+          <section
+            className="filter-section"
+          >
+            <div
+              className="name-and-clear-wrapper"
+            >
+              <h2>
+                Readability Grade Level
+              </h2>
+              <span />
+            </div>
+            <div
+              className="slider-wrapper"
+            >
+              <label
+                htmlFor="readability-grade-level-slider"
+              >
+                Readability: 
+                2
+                -
+                12
+                 Grade Level
+              </label>
+              <Component
+                handleChange={[Function]}
+                id="readability-grade-level-slider"
+                lowerValue={0}
+                markLabels={
+                  Array [
+                    "2-3",
+                    "4-5",
+                    "6-7",
+                    "8-9",
+                    "10-12",
+                  ]
+                }
+                maxValue={4}
+                minValue={0}
+                step={1}
+                upperValue={4}
+              >
+                <div
+                  className="two-thumb-slider-container"
+                  id="readability-grade-level-slider"
+                  style={
+                    Object {
+                      "display": "flex",
+                      "flexWrap": "wrap",
+                      "justifyContent": "center",
+                    }
+                  }
+                >
+                  <Range
+                    allowOverlap={false}
+                    direction="to right"
+                    disabled={false}
+                    draggableTrack={false}
+                    max={4}
+                    min={0}
+                    onChange={[Function]}
+                    renderMark={[Function]}
+                    renderThumb={[Function]}
+                    renderTrack={[Function]}
+                    rtl={false}
+                    step={1}
+                    values={
+                      Array [
+                        0,
+                        4,
+                      ]
+                    }
+                  >
+                    <Track
+                      maxValue={4}
+                      minValue={0}
+                      props={
+                        Object {
+                          "onMouseDown": [Function],
+                          "onTouchStart": [Function],
+                          "ref": Object {
+                            "current": <div
+                              class="track"
+                            >
+                              <div
+                                class="mark first-mark"
+                                style="position: absolute;"
+                              >
+                                2-3
+                              </div>
+                              <div
+                                class="mark"
+                                style="position: absolute;"
+                              >
+                                4-5
+                              </div>
+                              <div
+                                class="mark"
+                                style="position: absolute;"
+                              >
+                                6-7
+                              </div>
+                              <div
+                                class="mark"
+                                style="position: absolute;"
+                              >
+                                8-9
+                              </div>
+                              <div
+                                class="mark last-mark"
+                                style="position: absolute;"
+                              >
+                                10-12
+                              </div>
+                              <div
+                                aria-valuemax="4"
+                                aria-valuemin="0"
+                                aria-valuenow="0"
+                                class="thumb"
+                                draggable="false"
+                                role="slider"
+                                style="position: absolute; z-index: 0; cursor: grab; user-select: none; transform: translate(NaNpx, NaNpx);"
+                                tabindex="0"
+                              />
+                              <div
+                                aria-valuemax="4"
+                                aria-valuemin="0"
+                                aria-valuenow="4"
+                                class="thumb"
+                                draggable="false"
+                                role="slider"
+                                style="position: absolute; z-index: 1; cursor: grab; user-select: none; transform: translate(NaNpx, NaNpx);"
+                                tabindex="0"
+                              />
+                            </div>,
+                          },
+                          "style": Object {
+                            "cursor": "inherit",
+                            "transform": "scale(1)",
+                          },
+                        }
+                      }
+                      values={
+                        Array [
+                          0,
+                          4,
+                        ]
+                      }
+                    >
+                      <div
+                        className="track-container"
+                        style={
+                          Object {
+                            "cursor": "inherit",
+                            "transform": "scale(1)",
+                          }
+                        }
+                      >
+                        <div
+                          className="track"
+                          style={
+                            Object {
+                              "background": "linear-gradient(to right, #dbdbdb 0%, #dbdbdb 0%, #06806b 0%, #06806b 100%, #dbdbdb 100%, #dbdbdb 100%)",
+                            }
+                          }
+                        >
+                          <Mark
+                            index={0}
+                            markLabels={
+                              Array [
+                                "2-3",
+                                "4-5",
+                                "6-7",
+                                "8-9",
+                                "10-12",
+                              ]
+                            }
+                            props={
+                              Object {
+                                "key": "mark0",
+                                "ref": Object {
+                                  "current": <div
+                                    class="mark first-mark"
+                                    style="position: absolute;"
+                                  >
+                                    2-3
+                                  </div>,
+                                },
+                                "style": Object {
+                                  "left": "NaNpx",
+                                  "marginTop": "NaNpx",
+                                  "position": "absolute",
+                                },
+                              }
+                            }
+                          >
+                            <div
+                              className="mark first-mark"
+                              key="mark0"
+                              style={
+                                Object {
+                                  "left": "NaNpx",
+                                  "marginTop": "NaNpx",
+                                  "position": "absolute",
+                                }
+                              }
+                            >
+                              2-3
+                            </div>
+                          </Mark>
+                          <Mark
+                            index={1}
+                            markLabels={
+                              Array [
+                                "2-3",
+                                "4-5",
+                                "6-7",
+                                "8-9",
+                                "10-12",
+                              ]
+                            }
+                            props={
+                              Object {
+                                "key": "mark1",
+                                "ref": Object {
+                                  "current": <div
+                                    class="mark"
+                                    style="position: absolute;"
+                                  >
+                                    4-5
+                                  </div>,
+                                },
+                                "style": Object {
+                                  "left": "NaNpx",
+                                  "marginTop": "NaNpx",
+                                  "position": "absolute",
+                                },
+                              }
+                            }
+                          >
+                            <div
+                              className="mark"
+                              key="mark1"
+                              style={
+                                Object {
+                                  "left": "NaNpx",
+                                  "marginTop": "NaNpx",
+                                  "position": "absolute",
+                                }
+                              }
+                            >
+                              4-5
+                            </div>
+                          </Mark>
+                          <Mark
+                            index={2}
+                            markLabels={
+                              Array [
+                                "2-3",
+                                "4-5",
+                                "6-7",
+                                "8-9",
+                                "10-12",
+                              ]
+                            }
+                            props={
+                              Object {
+                                "key": "mark2",
+                                "ref": Object {
+                                  "current": <div
+                                    class="mark"
+                                    style="position: absolute;"
+                                  >
+                                    6-7
+                                  </div>,
+                                },
+                                "style": Object {
+                                  "left": "NaNpx",
+                                  "marginTop": "NaNpx",
+                                  "position": "absolute",
+                                },
+                              }
+                            }
+                          >
+                            <div
+                              className="mark"
+                              key="mark2"
+                              style={
+                                Object {
+                                  "left": "NaNpx",
+                                  "marginTop": "NaNpx",
+                                  "position": "absolute",
+                                }
+                              }
+                            >
+                              6-7
+                            </div>
+                          </Mark>
+                          <Mark
+                            index={3}
+                            markLabels={
+                              Array [
+                                "2-3",
+                                "4-5",
+                                "6-7",
+                                "8-9",
+                                "10-12",
+                              ]
+                            }
+                            props={
+                              Object {
+                                "key": "mark3",
+                                "ref": Object {
+                                  "current": <div
+                                    class="mark"
+                                    style="position: absolute;"
+                                  >
+                                    8-9
+                                  </div>,
+                                },
+                                "style": Object {
+                                  "left": "NaNpx",
+                                  "marginTop": "NaNpx",
+                                  "position": "absolute",
+                                },
+                              }
+                            }
+                          >
+                            <div
+                              className="mark"
+                              key="mark3"
+                              style={
+                                Object {
+                                  "left": "NaNpx",
+                                  "marginTop": "NaNpx",
+                                  "position": "absolute",
+                                }
+                              }
+                            >
+                              8-9
+                            </div>
+                          </Mark>
+                          <Mark
+                            index={4}
+                            markLabels={
+                              Array [
+                                "2-3",
+                                "4-5",
+                                "6-7",
+                                "8-9",
+                                "10-12",
+                              ]
+                            }
+                            props={
+                              Object {
+                                "key": "mark4",
+                                "ref": Object {
+                                  "current": <div
+                                    class="mark last-mark"
+                                    style="position: absolute;"
+                                  >
+                                    10-12
+                                  </div>,
+                                },
+                                "style": Object {
+                                  "left": "NaNpx",
+                                  "marginTop": "NaNpx",
+                                  "position": "absolute",
+                                },
+                              }
+                            }
+                          >
+                            <div
+                              className="mark last-mark"
+                              key="mark4"
+                              style={
+                                Object {
+                                  "left": "NaNpx",
+                                  "marginTop": "NaNpx",
+                                  "position": "absolute",
+                                }
+                              }
+                            >
+                              10-12
+                            </div>
+                          </Mark>
+                          <Thumb
+                            props={
+                              Object {
+                                "aria-valuemax": 4,
+                                "aria-valuemin": 0,
+                                "aria-valuenow": 0,
+                                "draggable": false,
+                                "key": 0,
+                                "onKeyDown": [Function],
+                                "onKeyUp": [Function],
+                                "ref": Object {
+                                  "current": <div
+                                    aria-valuemax="4"
+                                    aria-valuemin="0"
+                                    aria-valuenow="0"
+                                    class="thumb"
+                                    draggable="false"
+                                    role="slider"
+                                    style="position: absolute; z-index: 0; cursor: grab; user-select: none; transform: translate(NaNpx, NaNpx);"
+                                    tabindex="0"
+                                  />,
+                                },
+                                "role": "slider",
+                                "style": Object {
+                                  "MozUserSelect": "none",
+                                  "WebkitUserSelect": "none",
+                                  "cursor": "grab",
+                                  "msUserSelect": "none",
+                                  "position": "absolute",
+                                  "touchAction": "none",
+                                  "userSelect": "none",
+                                  "zIndex": 0,
+                                },
+                                "tabIndex": 0,
+                              }
+                            }
+                          >
+                            <div
+                              aria-valuemax={4}
+                              aria-valuemin={0}
+                              aria-valuenow={0}
+                              className="thumb"
+                              draggable={false}
+                              key="0"
+                              onKeyDown={[Function]}
+                              onKeyUp={[Function]}
+                              role="slider"
+                              style={
+                                Object {
+                                  "MozUserSelect": "none",
+                                  "WebkitUserSelect": "none",
+                                  "cursor": "grab",
+                                  "msUserSelect": "none",
+                                  "position": "absolute",
+                                  "touchAction": "none",
+                                  "userSelect": "none",
+                                  "zIndex": 0,
+                                }
+                              }
+                              tabIndex={0}
+                            />
+                          </Thumb>
+                          <Thumb
+                            props={
+                              Object {
+                                "aria-valuemax": 4,
+                                "aria-valuemin": 0,
+                                "aria-valuenow": 4,
+                                "draggable": false,
+                                "key": 1,
+                                "onKeyDown": [Function],
+                                "onKeyUp": [Function],
+                                "ref": Object {
+                                  "current": <div
+                                    aria-valuemax="4"
+                                    aria-valuemin="0"
+                                    aria-valuenow="4"
+                                    class="thumb"
+                                    draggable="false"
+                                    role="slider"
+                                    style="position: absolute; z-index: 1; cursor: grab; user-select: none; transform: translate(NaNpx, NaNpx);"
+                                    tabindex="0"
+                                  />,
+                                },
+                                "role": "slider",
+                                "style": Object {
+                                  "MozUserSelect": "none",
+                                  "WebkitUserSelect": "none",
+                                  "cursor": "grab",
+                                  "msUserSelect": "none",
+                                  "position": "absolute",
+                                  "touchAction": "none",
+                                  "userSelect": "none",
+                                  "zIndex": 1,
+                                },
+                                "tabIndex": 0,
+                              }
+                            }
+                          >
+                            <div
+                              aria-valuemax={4}
+                              aria-valuemin={0}
+                              aria-valuenow={4}
+                              className="thumb"
+                              draggable={false}
+                              key="1"
+                              onKeyDown={[Function]}
+                              onKeyUp={[Function]}
+                              role="slider"
+                              style={
+                                Object {
+                                  "MozUserSelect": "none",
+                                  "WebkitUserSelect": "none",
+                                  "cursor": "grab",
+                                  "msUserSelect": "none",
+                                  "position": "absolute",
+                                  "touchAction": "none",
+                                  "userSelect": "none",
+                                  "zIndex": 1,
+                                }
+                              }
+                              tabIndex={0}
+                            />
+                          </Thumb>
+                        </div>
+                      </div>
+                    </Track>
+                  </Range>
+                </div>
+              </Component>
+            </div>
+          </section>
+        </ReadabilityGradeLevelFilters>
+        <CCSSGradeLevelFilters
+          ccssGradeLevelFilters={Array []}
+          handleCCSSGradeLevelFilterChange={[Function]}
         >
           <section
             className="filter-section"
@@ -13985,7 +14511,7 @@ Previous activities in the Ancient Rome unit.
               className="slider-wrapper"
             >
               <label
-                htmlFor="grade-level-slider"
+                htmlFor="ccss-grade-level-slider"
               >
                 Standard: 
                 1
@@ -13995,7 +14521,7 @@ Previous activities in the Ancient Rome unit.
               </label>
               <Component
                 handleChange={[Function]}
-                id="grade-level-slider"
+                id="ccss-grade-level-slider"
                 lowerValue={1}
                 markLabels={
                   Array [
@@ -14019,7 +14545,7 @@ Previous activities in the Ancient Rome unit.
               >
                 <div
                   className="two-thumb-slider-container"
-                  id="grade-level-slider"
+                  id="ccss-grade-level-slider"
                   style={
                     Object {
                       "display": "flex",
@@ -14120,7 +14646,7 @@ Previous activities in the Ancient Rome unit.
                                 10
                               </div>
                               <div
-                                class="mark"
+                                class="mark last-mark"
                                 style="position: absolute;"
                               >
                                 11
@@ -14699,7 +15225,7 @@ Previous activities in the Ancient Rome unit.
                                 "key": "mark10",
                                 "ref": Object {
                                   "current": <div
-                                    class="mark"
+                                    class="mark last-mark"
                                     style="position: absolute;"
                                   >
                                     11
@@ -14714,7 +15240,7 @@ Previous activities in the Ancient Rome unit.
                             }
                           >
                             <div
-                              className="mark"
+                              className="mark last-mark"
                               key="mark10"
                               style={
                                 Object {
@@ -14859,7 +15385,7 @@ Previous activities in the Ancient Rome unit.
               </Component>
             </div>
           </section>
-        </GradeLevelFilters>
+        </CCSSGradeLevelFilters>
         <ActivityCategoryFilters
           activities={
             Array [
@@ -29451,9 +29977,11 @@ Previous activities in the Ancient Rome unit.
                 <div
                   className="readability-and-standard-level-wrapper"
                 >
-                  <span
-                    className="second-line-section readability"
-                  />
+                  <ActivityRowReadabilityGradeLevel>
+                    <span
+                      className="second-line-section readability-level"
+                    />
+                  </ActivityRowReadabilityGradeLevel>
                   <ActivityRowStandardLevel
                     standardLevelName="7th Grade CCSS"
                   >
@@ -29739,9 +30267,11 @@ Previous activities in the Ancient Rome unit.
                 <div
                   className="readability-and-standard-level-wrapper"
                 >
-                  <span
-                    className="second-line-section readability"
-                  />
+                  <ActivityRowReadabilityGradeLevel>
+                    <span
+                      className="second-line-section readability-level"
+                    />
+                  </ActivityRowReadabilityGradeLevel>
                   <ActivityRowStandardLevel
                     standardLevelName="7th Grade CCSS"
                   >
@@ -30027,9 +30557,11 @@ Previous activities in the Ancient Rome unit.
                 <div
                   className="readability-and-standard-level-wrapper"
                 >
-                  <span
-                    className="second-line-section readability"
-                  />
+                  <ActivityRowReadabilityGradeLevel>
+                    <span
+                      className="second-line-section readability-level"
+                    />
+                  </ActivityRowReadabilityGradeLevel>
                   <ActivityRowStandardLevel
                     standardLevelName="7th Grade CCSS"
                   >
@@ -30315,9 +30847,11 @@ Previous activities in the Ancient Rome unit.
                 <div
                   className="readability-and-standard-level-wrapper"
                 >
-                  <span
-                    className="second-line-section readability"
-                  />
+                  <ActivityRowReadabilityGradeLevel>
+                    <span
+                      className="second-line-section readability-level"
+                    />
+                  </ActivityRowReadabilityGradeLevel>
                   <ActivityRowStandardLevel
                     standardLevelName="7th Grade CCSS"
                   >
@@ -30603,9 +31137,11 @@ Previous activities in the Ancient Rome unit.
                 <div
                   className="readability-and-standard-level-wrapper"
                 >
-                  <span
-                    className="second-line-section readability"
-                  />
+                  <ActivityRowReadabilityGradeLevel>
+                    <span
+                      className="second-line-section readability-level"
+                    />
+                  </ActivityRowReadabilityGradeLevel>
                   <ActivityRowStandardLevel
                     standardLevelName="7th Grade CCSS"
                   >
@@ -30891,9 +31427,11 @@ Previous activities in the Ancient Rome unit.
                 <div
                   className="readability-and-standard-level-wrapper"
                 >
-                  <span
-                    className="second-line-section readability"
-                  />
+                  <ActivityRowReadabilityGradeLevel>
+                    <span
+                      className="second-line-section readability-level"
+                    />
+                  </ActivityRowReadabilityGradeLevel>
                   <ActivityRowStandardLevel
                     standardLevelName="7th Grade CCSS"
                   >
@@ -31179,9 +31717,11 @@ Previous activities in the Ancient Rome unit.
                 <div
                   className="readability-and-standard-level-wrapper"
                 >
-                  <span
-                    className="second-line-section readability"
-                  />
+                  <ActivityRowReadabilityGradeLevel>
+                    <span
+                      className="second-line-section readability-level"
+                    />
+                  </ActivityRowReadabilityGradeLevel>
                   <ActivityRowStandardLevel
                     standardLevelName="7th Grade CCSS"
                   >
@@ -31467,9 +32007,11 @@ Previous activities in the Ancient Rome unit.
                 <div
                   className="readability-and-standard-level-wrapper"
                 >
-                  <span
-                    className="second-line-section readability"
-                  />
+                  <ActivityRowReadabilityGradeLevel>
+                    <span
+                      className="second-line-section readability-level"
+                    />
+                  </ActivityRowReadabilityGradeLevel>
                   <ActivityRowStandardLevel
                     standardLevelName="7th Grade CCSS"
                   >
@@ -31755,9 +32297,11 @@ Previous activities in the Ancient Rome unit.
                 <div
                   className="readability-and-standard-level-wrapper"
                 >
-                  <span
-                    className="second-line-section readability"
-                  />
+                  <ActivityRowReadabilityGradeLevel>
+                    <span
+                      className="second-line-section readability-level"
+                    />
+                  </ActivityRowReadabilityGradeLevel>
                   <ActivityRowStandardLevel
                     standardLevelName="7th Grade CCSS"
                   >
@@ -32043,9 +32587,11 @@ Previous activities in the Ancient Rome unit.
                 <div
                   className="readability-and-standard-level-wrapper"
                 >
-                  <span
-                    className="second-line-section readability"
-                  />
+                  <ActivityRowReadabilityGradeLevel>
+                    <span
+                      className="second-line-section readability-level"
+                    />
+                  </ActivityRowReadabilityGradeLevel>
                   <ActivityRowStandardLevel
                     standardLevelName="7th Grade CCSS"
                   >
@@ -32331,9 +32877,11 @@ Previous activities in the Ancient Rome unit.
                 <div
                   className="readability-and-standard-level-wrapper"
                 >
-                  <span
-                    className="second-line-section readability"
-                  />
+                  <ActivityRowReadabilityGradeLevel>
+                    <span
+                      className="second-line-section readability-level"
+                    />
+                  </ActivityRowReadabilityGradeLevel>
                   <ActivityRowStandardLevel
                     standardLevelName="7th Grade CCSS"
                   >
@@ -32619,9 +33167,11 @@ Previous activities in the Ancient Rome unit.
                 <div
                   className="readability-and-standard-level-wrapper"
                 >
-                  <span
-                    className="second-line-section readability"
-                  />
+                  <ActivityRowReadabilityGradeLevel>
+                    <span
+                      className="second-line-section readability-level"
+                    />
+                  </ActivityRowReadabilityGradeLevel>
                   <ActivityRowStandardLevel
                     standardLevelName="7th Grade CCSS"
                   >
@@ -32907,9 +33457,11 @@ Previous activities in the Ancient Rome unit.
                 <div
                   className="readability-and-standard-level-wrapper"
                 >
-                  <span
-                    className="second-line-section readability"
-                  />
+                  <ActivityRowReadabilityGradeLevel>
+                    <span
+                      className="second-line-section readability-level"
+                    />
+                  </ActivityRowReadabilityGradeLevel>
                   <ActivityRowStandardLevel
                     standardLevelName="7th Grade CCSS"
                   >
@@ -33195,9 +33747,11 @@ Previous activities in the Ancient Rome unit.
                 <div
                   className="readability-and-standard-level-wrapper"
                 >
-                  <span
-                    className="second-line-section readability"
-                  />
+                  <ActivityRowReadabilityGradeLevel>
+                    <span
+                      className="second-line-section readability-level"
+                    />
+                  </ActivityRowReadabilityGradeLevel>
                   <ActivityRowStandardLevel
                     standardLevelName="7th Grade CCSS"
                   >
@@ -33483,9 +34037,11 @@ Previous activities in the Ancient Rome unit.
                 <div
                   className="readability-and-standard-level-wrapper"
                 >
-                  <span
-                    className="second-line-section readability"
-                  />
+                  <ActivityRowReadabilityGradeLevel>
+                    <span
+                      className="second-line-section readability-level"
+                    />
+                  </ActivityRowReadabilityGradeLevel>
                   <ActivityRowStandardLevel
                     standardLevelName="7th Grade CCSS"
                   >
@@ -33771,9 +34327,11 @@ Previous activities in the Ancient Rome unit.
                 <div
                   className="readability-and-standard-level-wrapper"
                 >
-                  <span
-                    className="second-line-section readability"
-                  />
+                  <ActivityRowReadabilityGradeLevel>
+                    <span
+                      className="second-line-section readability-level"
+                    />
+                  </ActivityRowReadabilityGradeLevel>
                   <ActivityRowStandardLevel
                     standardLevelName="7th Grade CCSS"
                   >
@@ -34059,9 +34617,11 @@ Previous activities in the Ancient Rome unit.
                 <div
                   className="readability-and-standard-level-wrapper"
                 >
-                  <span
-                    className="second-line-section readability"
-                  />
+                  <ActivityRowReadabilityGradeLevel>
+                    <span
+                      className="second-line-section readability-level"
+                    />
+                  </ActivityRowReadabilityGradeLevel>
                   <ActivityRowStandardLevel
                     standardLevelName="7th Grade CCSS"
                   >
@@ -34347,9 +34907,11 @@ Previous activities in the Ancient Rome unit.
                 <div
                   className="readability-and-standard-level-wrapper"
                 >
-                  <span
-                    className="second-line-section readability"
-                  />
+                  <ActivityRowReadabilityGradeLevel>
+                    <span
+                      className="second-line-section readability-level"
+                    />
+                  </ActivityRowReadabilityGradeLevel>
                   <ActivityRowStandardLevel
                     standardLevelName="7th Grade CCSS"
                   >
@@ -34635,9 +35197,11 @@ Previous activities in the Ancient Rome unit.
                 <div
                   className="readability-and-standard-level-wrapper"
                 >
-                  <span
-                    className="second-line-section readability"
-                  />
+                  <ActivityRowReadabilityGradeLevel>
+                    <span
+                      className="second-line-section readability-level"
+                    />
+                  </ActivityRowReadabilityGradeLevel>
                   <ActivityRowStandardLevel
                     standardLevelName="7th Grade CCSS"
                   >
@@ -34923,9 +35487,11 @@ Previous activities in the Ancient Rome unit.
                 <div
                   className="readability-and-standard-level-wrapper"
                 >
-                  <span
-                    className="second-line-section readability"
-                  />
+                  <ActivityRowReadabilityGradeLevel>
+                    <span
+                      className="second-line-section readability-level"
+                    />
+                  </ActivityRowReadabilityGradeLevel>
                   <ActivityRowStandardLevel
                     standardLevelName="7th Grade CCSS"
                   >

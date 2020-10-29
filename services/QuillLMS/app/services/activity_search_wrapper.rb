@@ -60,6 +60,7 @@ class ActivitySearchWrapper
         unique_activities_array[index_of_existing_record][:content_partners] = content_partners
       else
         classification_id = a['classification_id'].to_i
+
         act = {
           name: a['activity_name'],
           description: a['activity_description'],
@@ -74,7 +75,8 @@ class ActivitySearchWrapper
           standard_level: {id: a['standard_level_id'].to_i, name: a['standard_level_name']},
           standard_level_name: a['standard_level_name'],
           standard_name: a['standard_name'],
-          content_partners: content_partners
+          content_partners: content_partners,
+          readability_grade_level: Activity.find(activity_id).readability_grade_level
         }
         unique_activities_array.push(act)
       end
