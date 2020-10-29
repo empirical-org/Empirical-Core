@@ -1129,12 +1129,16 @@ describe User, type: :model do
 
     it 'sends welcome given email' do
       user.email = 'present@exmaple.lan'
-      expect { user.send(:send_welcome_email) }.to change { ActionMailer::Base.deliveries.count }.by(1)
+      expect(UserMailer).to receive(:welcome_email).with(user).and_return(double('mailer', deliver_now!: true))
+
+      user.send(:send_welcome_email)
     end
 
     it 'does not send welcome without email' do
       user.email = nil
-      expect { user.send(:send_welcome_email) }.to_not change { ActionMailer::Base.deliveries.count }
+      expect(UserMailer).to_not receive(:welcome_email)
+
+      user.send(:send_welcome_email)
     end
   end
 

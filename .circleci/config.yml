@@ -4,7 +4,7 @@ jobs:
     working_directory: ~/Empirical-Core
     parallelism: 4
     docker:
-      - image: circleci/ruby:2.6.6-node
+      - image: circleci/ruby:2.6.6
         environment:
           PG_DB: quill_test_db
           PG_USER: ubuntu
@@ -21,15 +21,6 @@ jobs:
           keys:
             - bundle-cache-lms-v2-{{ checksum "services/QuillLMS/Gemfile.lock" }}
             - bundle-cache-lms-v2
-      - restore_cache:
-          keys:
-            - npm-cache-lms-v3-{{ checksum "services/QuillLMS/package.json" }}
-            - npm-cache-lms-v3-
-      - restore_cache:
-          keys:
-            - npm-cache-lms-client-v6{{ checksum "services/QuillLMS/client/package.json" }}-{{ checksum "services/QuillLMS/client/package-lock.json" }}
-            - npm-cache-lms-client-v6{{ checksum "services/QuillLMS/client/package.json" }}-
-            - npm-cache-lms-client-v6
       - run:
           name: Bundle Install if cache isn't present.
           command: |
@@ -37,23 +28,10 @@ jobs:
             # BUNDLE_GEMS__CONTRIBSYS__COM defined in https://circleci.com/gh/empirical-org/Empirical-Core/edit#env-vars
             bundle config --local gems.contribsys.com ${BUNDLE_GEMS__CONTRIBSYS__COM}
             bundle check || bundle install --path vendor/bundle
-      - run:
-          name: NPM install, should be short-cutted if cache is present
-          command: |
-            cd services/QuillLMS
-            npm install && npm run build:test
       - save_cache:
           key: bundle-cache-lms-v2-{{ checksum "services/QuillLMS/Gemfile.lock" }}
           paths:
             - services/QuillLMS/vendor/bundle
-      - save_cache:
-          key: npm-cache-lms-v3-{{ checksum "services/QuillLMS/package.json" }}
-          paths:
-            - services/QuillLMS/node_modules
-      - save_cache:
-          key: npm-cache-lms-client-v6-{{ checksum "services/QuillLMS/client/package-lock.json" }}-{{ checksum "services/QuillLMS/client/package-lock.json" }}
-          paths:
-            - services/QuillLMS/client/node_modules
       - run:
           name: Install postgres dependencies
           command: |
@@ -82,7 +60,7 @@ jobs:
             bundle exec rspec -- ${TESTFILES}
   lms_node_build:
     working_directory: ~/Empirical-Core
-    parallelism: 2
+    parallelism: 3
     docker:
       - image: circleci/node:8.11.3
     steps:
