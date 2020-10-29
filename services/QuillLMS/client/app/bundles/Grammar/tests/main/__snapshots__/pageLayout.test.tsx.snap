@@ -5,7 +5,14 @@ exports[`<PageLayout /> should render 1`] = `
   className="hide-focus-outline"
 >
   <Layout>
-    <Content>
+    <Content
+      style={
+        Object {
+          "height": "100vh",
+          "overflow": "auto",
+        }
+      }
+    >
       <button
         className="skip-main"
         onClick={[Function]}

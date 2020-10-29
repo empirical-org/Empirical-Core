@@ -22,12 +22,13 @@ class PlaySentenceFragment extends Component {
 
   handleAttemptSubmission = () => {
     const { submitted } = this.state;
-    const { nextQuestion } = this.props;
+    const { nextQuestion, isLastQuestion, previewMode } = this.props;
     if (submitted === false) {
-      this.setState(
-        { submitted: true, },
+      this.setState({ submitted: true, }, () => {
+        // we don't submit the last question if in previewMode
+        if(previewMode && isLastQuestion) { return }
         nextQuestion()
-      );
+      });
     }
   };
 

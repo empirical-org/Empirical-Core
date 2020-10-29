@@ -8,6 +8,18 @@ import { sentences } from 'sbd'
 
 const directionSrc = `${process.env.CDN_URL}/images/icons/direction.svg`
 
+import { startsWithPunctuationRegex, isAnEditRegex, negativeMatchRegex } from './sharedRegexes'
+import PassageReviewer from './passageReviewer'
+import EarlySubmitModal from './earlySubmitModal'
+import Paragraph from './paragraph'
+import ResetModal from './resetModal'
+import ReviewModal from './reviewModal'
+import FollowupModal from './followupModal'
+import ProgressBar from './progressBar'
+import WelcomePage from './welcomePage'
+import formatInitialPassage from './formatInitialPassage'
+
+
 import getParameterByName from '../../helpers/getParameterByName';
 import EditCaretPositioning from '../../helpers/EditCaretPositioning'
 import { getActivity } from "../../actions/proofreaderActivities";
@@ -20,19 +32,9 @@ import {
   setPassage
 } from "../../actions/session";
 import determineUnnecessaryEditType, { unnecessarySpaceSplitResponse, UNNECESSARY_SPACE, } from '../../helpers/determineUnnecessaryEditType'
-
 import { SessionState } from '../../reducers/sessionReducer'
 import { ProofreaderActivityState } from '../../reducers/proofreaderActivitiesReducer'
 import { ConceptResultObject, WordObject } from '../../interfaces/proofreaderActivities'
-import PassageReviewer from './passageReviewer'
-import EarlySubmitModal from './earlySubmitModal'
-import Paragraph from './paragraph'
-import ResetModal from './resetModal'
-import ReviewModal from './reviewModal'
-import FollowupModal from './followupModal'
-import ProgressBar from './progressBar'
-import WelcomePage from './welcomePage'
-import formatInitialPassage from './formatInitialPassage'
 import LoadingSpinner from '../shared/loading_spinner'
 
 interface PlayProofreaderContainerProps {
@@ -83,6 +85,33 @@ const findSentence = (paragraphSentences: string[], wordIndex: number, word: str
     }
   }
   return ''
+}
+
+const joinParagraph = (paragraph: Array<any>) => {
+  const normalizedWords = paragraph.map(w => stringNormalize(w.originalText))
+  return joinWords(normalizedWords)
+}
+
+const joinWords = (wordArray: string[]) => {
+  let paragraphString = ''
+  wordArray.forEach((word: string, i: number) => {
+    paragraphString += word
+
+    const nextWord = wordArray[i + 1]
+    if (!nextWord) { return }
+
+    const nextWordIsAnEdit = nextWord.match(isAnEditRegex)
+
+    if (nextWordIsAnEdit) {
+      const negativeMatch = nextWord.match(negativeMatchRegex)
+      if (negativeMatch && negativeMatch[1].match(startsWithPunctuationRegex)) { return }
+    } else if (nextWord.match(startsWithPunctuationRegex)) {
+      return
+    }
+
+    paragraphString += ' '
+  })
+  return paragraphString
 }
 
 export class PlayProofreaderContainer extends React.Component<PlayProofreaderContainerProps, PlayProofreaderContainerState> {
@@ -143,6 +172,15 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
 
       if (activityUIDToUse) {
         dispatch(getActivity(activityUIDToUse))
+      }
+    }
+
+    componentDidUpdate(prevProps) {
+      const { proofreaderActivities } = this.props
+      const { currentActivity, hasreceiveddata } = proofreaderActivities
+
+      if (prevProps.proofreaderActivities.hasreceiveddata != hasreceiveddata && hasreceiveddata) {
+        document.title = `Quill.org | ${currentActivity.title}`
       }
     }
 
@@ -246,7 +284,7 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
       if (passage && necessaryEdits) {
         let reviewablePassage = ''
         passage.forEach((paragraph: Array<any>) => {
-          const originalParagraphString = paragraph.map(w => stringNormalize(w.originalText)).join(' ')
+          const originalParagraphString = joinParagraph(paragraph)
           const paragraphSentences = sentences(originalParagraphString, {})
           const words:Array<string> = []
           paragraph.forEach((word: any) => {
@@ -299,7 +337,7 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
               words.push(stringNormalizedCurrentText)
             }
           })
-          reviewablePassage = reviewablePassage.concat('<p>').concat(words.filter(word => word.length).join(' ')).concat('</p>')
+          reviewablePassage = reviewablePassage.concat('<p>').concat(joinWords(words.filter(word => word.length))).concat('</p>')
         })
         return { reviewablePassage, numberOfCorrectChanges, conceptResultsObjects }
       } else {

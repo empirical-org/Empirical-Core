@@ -19,6 +19,8 @@ describe User, type: :model do
   it { should have_many(:schools_admins).class_name('SchoolsAdmins') }
   it { should have_many(:administered_schools).through(:schools_admins).source(:school).with_foreign_key('user_id') }
   it { should have_many(:classrooms_teachers) }
+  it { should have_many(:teacher_saved_activities).with_foreign_key('teacher_id') }
+  it { should have_many(:activities).through(:teacher_saved_activities)}
   it { should have_many(:classrooms_i_teach).through(:classrooms_teachers).source(:classroom) }
   it { should have_and_belong_to_many(:districts) }
   it { should have_one(:ip_location) }
@@ -1127,12 +1129,16 @@ describe User, type: :model do
 
     it 'sends welcome given email' do
       user.email = 'present@exmaple.lan'
-      expect { user.send(:send_welcome_email) }.to change { ActionMailer::Base.deliveries.count }.by(1)
+      expect(UserMailer).to receive(:welcome_email).with(user).and_return(double('mailer', deliver_now!: true))
+
+      user.send(:send_welcome_email)
     end
 
     it 'does not send welcome without email' do
       user.email = nil
-      expect { user.send(:send_welcome_email) }.to_not change { ActionMailer::Base.deliveries.count }
+      expect(UserMailer).to_not receive(:welcome_email)
+
+      user.send(:send_welcome_email)
     end
   end
 

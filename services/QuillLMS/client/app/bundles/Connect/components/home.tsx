@@ -16,10 +16,10 @@ interface PageLayoutState {
 export default class Home extends React.Component<any, PageLayoutState> {
   constructor(props) {
     super(props);
-    
+
     const studentOrTurkSession = getParameterByName('student', window.location.href) || window.location.href.includes('turk');
 
-    this.state = { 
+    this.state = {
       showFocusState: false,
       previewShowing: !studentOrTurkSession,
       questionToPreview: null,
@@ -56,7 +56,7 @@ export default class Home extends React.Component<any, PageLayoutState> {
     } else {
       this.setState({ switchedBackToPreview: true });
     }
-    this.setState(prevState => ({ 
+    this.setState(prevState => ({
       previewShowing: !prevState.previewShowing,
     }));
   }
@@ -83,31 +83,32 @@ export default class Home extends React.Component<any, PageLayoutState> {
       header = <NavBar isTeacher={!studentSession} onTogglePreview={this.handleTogglePreviewMenu} previewShowing={previewShowing} />;
     } else if (studentOrTurk && isPlaying) {
       header = <NavBar />;
-    }   
+    }
     return(
       <Layout className={className}>
         <Layout>
-          {showPreview && <Layout.Sider 
+          {showPreview && <Layout.Sider
             breakpoint="md"
-            className="sider-container" 
+            className="sider-container"
             collapsedWidth="0"
+            style={{ height: '100vh', overflowY: 'auto' }}
             width={360}
           >
             <TeacherPreviewMenu
               onHandleSkipToQuestionFromIntro={this.handleSkipToQuestionFromIntro}
               onTogglePreview={this.handleTogglePreviewMenu}
-              onToggleQuestion={this.handleToggleQuestion}  
+              onToggleQuestion={this.handleToggleQuestion}
               questionToPreview={questionToPreview}
               showPreview={previewShowing}
             />
           </Layout.Sider>}
-          <Layout.Content>
+          <Layout.Content style={{ height: '100vh', overflow: 'auto' }}>
             <button className="skip-main" onClick={this.handleSkipToMainContentClick} type="button">Skip to main content</button>
             {header}
             <div id="main-content" tabIndex={-1}>{renderRoutes(routes, {
               switchedBackToPreview: switchedBackToPreview,
-              handleToggleQuestion: this.handleToggleQuestion, 
-              previewMode: previewMode, 
+              handleToggleQuestion: this.handleToggleQuestion,
+              previewMode: previewMode,
               questionToPreview: questionToPreview,
               skippedToQuestionFromIntro: skippedToQuestionFromIntro
             })}</div>

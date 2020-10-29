@@ -48,25 +48,40 @@ class ActivitySearchWrapper
   end
 
   def formatted_search_results
-    @activities = @activities.map do |a|
+    unique_activities_array = []
+    @activities.each do |a|
       activity_id = a['activity_id'].to_i
-      classification_id = a['classification_id'].to_i
-      {
-        name: a['activity_name'],
-        description: a['activity_description'],
-        flags: a['activity_flag'],
-        id: activity_id,
-        uid: a['activity_uid'],
-        anonymous_path: Rails.application.routes.url_helpers.anonymous_activity_sessions_path(activity_id: activity_id),
-        activity_classification: classification_hash(classification_id),
-        activity_category: {id: a['activity_category_id'].to_i, name: a['activity_category_name']},
-        activity_category_name: a['activity_category_name'],
-        activity_category_id: a['activity_category_id'].to_i,
-        standard_level: {id: a['standard_level_id'].to_i, name: a['standard_level_name']},
-        standard_level_name: a['standard_level_name'],
-        standard_name: a['standard_name']
-      }
+      content_partners = a['content_partner_name'] ? [{ name: a['content_partner_name'], description: a['content_partner_description'], id: a['content_partner_id']}] : []
+      existing_record = unique_activities_array.find { |act| act[:id] == activity_id }
+      # if there is an existing record, it is possible that that's because the activity has more than one content partner
+      if existing_record
+        content_partners = existing_record[:content_partners].concat(content_partners).uniq
+        index_of_existing_record = unique_activities_array.find_index(existing_record)
+        unique_activities_array[index_of_existing_record][:content_partners] = content_partners
+      else
+        classification_id = a['classification_id'].to_i
+
+        act = {
+          name: a['activity_name'],
+          description: a['activity_description'],
+          flags: a['activity_flag'],
+          id: activity_id,
+          uid: a['activity_uid'],
+          anonymous_path: Rails.application.routes.url_helpers.anonymous_activity_sessions_path(activity_id: activity_id),
+          activity_classification: classification_hash(classification_id),
+          activity_category: {id: a['activity_category_id'].to_i, name: a['activity_category_name']},
+          activity_category_name: a['activity_category_name'],
+          activity_category_id: a['activity_category_id'].to_i,
+          standard_level: {id: a['standard_level_id'].to_i, name: a['standard_level_name']},
+          standard_level_name: a['standard_level_name'],
+          standard_name: a['standard_name'],
+          content_partners: content_partners,
+          readability_grade_level: Activity.find(activity_id).readability_grade_level
+        }
+        unique_activities_array.push(act)
+      end
     end
+    @activities = unique_activities_array
   end
 
   def activity_categories_classifications_standards_and_standard_level

@@ -1,19 +1,22 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import _ from 'underscore';
+
+import FinishedDiagnostic from './finishedDiagnostic.jsx';
+import LandingPage from './landing.jsx';
+import PlaySentenceFragment from './sentenceFragment.jsx';
+import PlayDiagnosticQuestion from './sentenceCombining.jsx';
+
+import PlayFillInTheBlankQuestion from '../fillInBlank/playFillInTheBlankQuestion';
 import {
   CarouselAnimation,
   SmartSpinner,
   PlayTitleCard,
-  ProgressBar
-} from 'quill-component-library/dist/componentLibrary';
-import { clearData, loadData, nextQuestion, nextQuestionWithoutSaving, submitResponse, updateName, updateCurrentQuestion, resumePreviousDiagnosticSession } from '../../actions/diagnostics.js';
-import _ from 'underscore';
+  ProgressBar,
+  hashToCollection
+} from '../../../Shared/index';
 import SessionActions from '../../actions/sessions.js';
-import PlaySentenceFragment from './sentenceFragment.jsx';
-import PlayDiagnosticQuestion from './sentenceCombining.jsx';
-import PlayFillInTheBlankQuestion from '../fillInBlank/playFillInTheBlankQuestion';
-import LandingPage from './landing.jsx';
-import FinishedDiagnostic from './finishedDiagnostic.jsx';
+import { clearData, loadData, nextQuestion, nextQuestionWithoutSaving, submitResponse, updateCurrentQuestion, resumePreviousDiagnosticSession, setCurrentQuestion, setDiagnosticID } from '../../actions/diagnostics.js';
 import { getConceptResultsForAllQuestions } from '../../libs/conceptResults/diagnostic';
 import { getParameterByName } from '../../libs/getParameterByName';
 import {
@@ -21,9 +24,12 @@ import {
   answeredQuestionCount,
   getProgressPercent
 } from '../../libs/calculateProgress'
-import { hashToCollection } from '../../../Shared/index'
 
 const request = require('request');
+
+// TODO: triage issue with missing title cards. Currently, we have to dipatch data from this.questionsForLesson() to the loadData action in
+// three different places to ensure that preview mode always works: componentDidMount, onSpinnerMount & startActivity. Without these three calls,
+// sometimes the spinner will hang at 50% or the user will be unable to click title card questions.
 
 export class StudentDiagnostic extends React.Component {
   constructor(props) {
@@ -36,21 +42,34 @@ export class StudentDiagnostic extends React.Component {
     }
   }
 
-  UNSAFE_componentWillMount = () => {
-    const { dispatch, } = this.props
-    const { sessionID, } = this.state
+  componentDidMount() {
+    const { sessionID } = this.state;
+    const { dispatch, match, lessons } = this.props;
+    const { params } = match;
+    const { diagnosticID } = params;
+
+    document.title = `Quill.org | ${lessons.data[diagnosticID].name}`
+
     dispatch(clearData());
+    dispatch(setDiagnosticID({ diagnosticID }))
     if (sessionID) {
       SessionActions.get(sessionID, (data) => {
         this.setState({ session: data, });
       });
     }
+    const data = this.questionsForLesson()
+    const action = loadData(data);
+    dispatch(action);
   }
 
-  UNSAFE_componentWillReceiveProps(nextProps) {
-    const { playDiagnostic, } = this.props
-    if (nextProps.playDiagnostic.answeredQuestions.length !== playDiagnostic.answeredQuestions.length) {
-      this.saveSessionData(nextProps.playDiagnostic);
+  componentDidUpdate(prevProps) {
+    const { skippedToQuestionFromIntro, previewMode, playDiagnostic } = this.props;
+
+    if(previewMode && skippedToQuestionFromIntro !== prevProps.skippedToQuestionFromIntro) {
+      this.startActivity();
+    }
+    if (prevProps.playDiagnostic.answeredQuestions.length !== playDiagnostic.answeredQuestions.length) {
+      this.saveSessionData(playDiagnostic);
     }
   }
 
@@ -175,12 +194,20 @@ export class StudentDiagnostic extends React.Component {
   }
 
   startActivity = () => {
-    const { dispatch, } = this.props
+    const { dispatch, previewMode, skippedToQuestionFromIntro, questionToPreview, } = this.props
+
     const data = this.questionsForLesson()
     const action = loadData(data);
     dispatch(action);
-    const next = nextQuestion();
-    dispatch(next);
+
+    // when user skips to question from the landing page, we set the current question here in this one instance
+    if(previewMode && skippedToQuestionFromIntro && questionToPreview) {
+      const action = setCurrentQuestion(questionToPreview);
+      dispatch(action);
+    } else {
+      const next = nextQuestion();
+      dispatch(next);
+    }
   }
 
   handleSpinnerMount = () => {
@@ -192,16 +219,31 @@ export class StudentDiagnostic extends React.Component {
   }
 
   nextQuestion = () => {
-    const { dispatch, } = this.props
-
-    const next = nextQuestion();
-    dispatch(next);
+    const { dispatch, playDiagnostic, previewMode } = this.props;
+    const { unansweredQuestions } = playDiagnostic;
+    // we set the current question here; otherwise, the attempts will be reset if the next question has already been answered
+    if(previewMode) {
+      const question = unansweredQuestions[0].data;
+      const action = setCurrentQuestion(question);
+      dispatch(action);
+    } else {
+      const next = nextQuestion();
+      dispatch(next);
+    }
   }
 
   nextQuestionWithoutSaving = () => {
-    const { dispatch, } = this.props
-    const next = nextQuestionWithoutSaving();
-    dispatch(next);
+    const { dispatch, playDiagnostic, previewMode } = this.props;
+    const { unansweredQuestions } = playDiagnostic;
+    // same case as above; questions that follow title cards will have their attempts reset without this
+    if(previewMode) {
+      const question = unansweredQuestions[0].data;
+      const action = setCurrentQuestion(question);
+      dispatch(action);
+    } else {
+      const next = nextQuestionWithoutSaving();
+      dispatch(next);
+    }
   }
 
   getLesson = () => {
@@ -315,9 +357,8 @@ export class StudentDiagnostic extends React.Component {
   }
 
   render() {
-    const { playDiagnostic, dispatch } = this.props
+    const { playDiagnostic, dispatch, previewMode } = this.props
     const { error, saved, } = this.state
-    const questionType = playDiagnostic.currentQuestion ? playDiagnostic.currentQuestion.type : ''
     let component;
 
     const isLastQuestion = playDiagnostic.unansweredQuestions.length === 0
@@ -335,40 +376,50 @@ export class StudentDiagnostic extends React.Component {
     }
 
     if (playDiagnostic.currentQuestion) {
+      const questionType = playDiagnostic.currentQuestion.type || '';
+      const question = playDiagnostic.currentQuestion.data;
+      const key = playDiagnostic.currentQuestion.data.key;
       if (questionType === 'SC') {
         component = (<PlayDiagnosticQuestion
           dispatch={dispatch}
-          key={playDiagnostic.currentQuestion.data.key}
+          isLastQuestion={isLastQuestion}
+          key={key}
           marking="diagnostic"
           nextQuestion={this.nextQuestion}
-          question={playDiagnostic.currentQuestion.data}
+          previewMode={previewMode}
+          question={question}
         />);
       } else if (questionType === 'SF') {
         component = (<PlaySentenceFragment
-          currentKey={playDiagnostic.currentQuestion.data.key}
+          currentKey={key}
           dispatch={dispatch}
-          key={playDiagnostic.currentQuestion.data.key}
+          isLastQuestion={isLastQuestion}
+          key={key}
           markIdentify={this.markIdentify}
           nextQuestion={this.nextQuestion}
-          question={playDiagnostic.currentQuestion.data}
+          previewMode={previewMode}
+          question={question}
           updateAttempts={this.submitResponse}
         />);
       } else if (questionType === 'FB') {
         component = (<PlayFillInTheBlankQuestion
-          currentKey={playDiagnostic.currentQuestion.data.key}
+          currentKey={key}
           dispatch={dispatch}
-          key={playDiagnostic.currentQuestion.data.key}
+          isLastQuestion={isLastQuestion}
+          key={key}
           nextQuestion={this.nextQuestion}
-          question={playDiagnostic.currentQuestion.data}
+          previewMode={previewMode}
+          question={question}
         />)
       } else if (questionType === 'TL') {
         component = (
           <PlayTitleCard
-            currentKey={playDiagnostic.currentQuestion.data.key}
-            data={playDiagnostic.currentQuestion.data}
+            currentKey={key}
+            data={question}
             dispatch={dispatch}
             handleContinueClick={this.nextQuestionWithoutSaving}
             isLastQuestion={isLastQuestion}
+            previewMode={previewMode}
           />
         );
       }

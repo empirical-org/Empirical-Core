@@ -1,0 +1,194 @@
+.custom-activity-pack-page, .sortable-selected-activity-row {
+  .activity-row {
+    display: flex;
+    flex-direction: column;
+    padding: 16px;
+    border-bottom: 1px solid #e0e0e0;
+    position: relative;
+    h2 {
+      font-size: 16px;
+    }
+    .first-line, .second-line {
+      display: flex;
+      justify-content: space-between;
+    }
+    .first-line {
+      margin-bottom: 13px;
+      .name-and-checkbox-wrapper {
+        display: flex;
+        align-items: center;
+        .quill-checkbox {
+          margin-right: 16px;
+        }
+      }
+      .buttons-wrapper {
+        display: flex;
+      }
+      .preview-link, .remove-button {
+        display: flex;
+        margin-right: 24px;
+        align-items: center;
+        img {
+          margin-right: 4px;
+        }
+        &:hover, &:focus {
+          text-decoration: none;
+        }
+      }
+    }
+    .second-line {
+      padding: 0px 32px;
+      .classification-concept-topic-wrapper, .readability-and-standard-level-wrapper {
+        display: flex;
+        flex-direction: row;
+      }
+      .classification-concept-topic-wrapper {
+        .second-line-section {
+          margin-right: 16px;
+        }
+      }
+      .second-line-section {
+        display: flex;
+      }
+      .standard-level {
+        margin-left: 16px;
+      }
+    }
+    .second-line, .expanded-line, .tooltip-line {
+      img {
+        margin-right: 2px;
+        margin-bottom: 1px;
+      }
+      span {
+        line-height: 1.57;
+        color: #646464;
+      }
+    }
+    .tooltip-line:not(:first-of-type) {
+      margin-top: 16px;
+    }
+    .expanded-line {
+      padding-left: 32px;
+      margin-top: 16px;
+    }
+    .expanded-line, .tooltip-line {
+      display: flex;
+      align-items: flex-start;
+      img {
+        margin-top: 3px;
+      }
+      span {
+        max-width: 584px;
+      }
+    }
+    &.not-selected:hover {
+      background-color: #f2f2f2;
+    }
+    &.expanded {
+      .expand-button img {
+        transform: rotate(180deg);
+      }
+    }
+    &.not-expanded:not(:hover) {
+      .preview-link {
+        display: none;
+      }
+    }
+    &.expanded {
+      .activity-row-tooltip {
+        display: none;
+      }
+    }
+    &.selected {
+      background-color: #e8f7f3;
+    }
+    @media (min-width: 1051px) {
+      .mobile-only {
+        display: none;
+      }
+    }
+    @media (max-width: 1050px) {
+      margin: 0px 16px;
+      .first-line, .second-line {
+        .buttons-wrapper, .topic, .readability-and-standard-level-wrapper {
+          display: none;
+        }
+      }
+      .second-line .classification-concept-topic-wrapper {
+        display: flex;
+        flex-direction: column;
+        .classification {
+          margin-bottom: 5px;
+        }
+      }
+      &.is-first {
+        border-top: 1px solid #e0e0e0;
+      }
+    }
+    .mobile-only {
+      margin-top: 16px;
+    }
+  }
+  .activity-row-tooltip {
+    max-width: 634px;
+    border-radius: 6px;
+    box-shadow: 0 1px 8px 0 rgba(0, 0, 0, 0.2), 0 3px 3px -2px rgba(0, 0, 0, 0.12), 0 3px 4px 0 rgba(0, 0, 0, 0.14);
+    position: absolute;
+    background-color: #fff;
+    z-index: 1;
+    padding: 16px;
+    top: 80px;
+  }
+  .selected-activity-row {
+    display: flex;
+    align-items: center;
+    cursor: default;
+    max-width: 1184px;
+    padding: 0px 32px;
+    margin: auto;
+    .reorder-icon {
+      margin: 0px 16px 0px 8px;
+      cursor: grab;
+      height: 24px;
+      width: 24px;
+    }
+    .activity-row {
+      flex: 1;
+      border-bottom: none;
+      .second-line, .expanded-line {
+        padding-left: 0px;
+      }
+    }
+    &.is-last {
+      border-bottom: none;
+      .activity-row {
+        border-bottom: none;
+      }
+    }
+    @media (max-width: 1050px) {
+      align-items: flex-start;
+      margin: 0px 16px;
+      border-bottom: 1px solid #e0e0e0;
+      padding: 0px;
+      .activity-row {
+        margin: 0px;
+        border-bottom: none;
+      }
+      .reorder-icon {
+        margin: 16px 8px 0px 16px;
+      }
+    }
+  }
+}
+
+.sortable-selected-activity-row {
+  z-index: 1;
+  .selected-activity-row {
+    background-color: #e8f7f3;
+    padding: 0px;
+    border: 1px solid #e0e0e0;
+  }
+  .activity-row {
+    border: none;
+  }
+}
