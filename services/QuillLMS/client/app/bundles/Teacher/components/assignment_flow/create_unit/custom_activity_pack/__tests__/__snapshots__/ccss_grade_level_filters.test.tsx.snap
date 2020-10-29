@@ -1,9 +1,9 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`GradeLevelFilters component should render 1`] = `
-<GradeLevelFilters
-  gradeLevelFilters={Array []}
-  handleGradeLevelFilterChange={[Function]}
+exports[`ccssGradeLevelFilters component should render 1`] = `
+<CCSSGradeLevelFilters
+  ccssGradeLevelFilters={Array []}
+  handleCCSSGradeLevelFilterChange={[Function]}
 >
   <section
     className="filter-section"
@@ -20,7 +20,7 @@ exports[`GradeLevelFilters component should render 1`] = `
       className="slider-wrapper"
     >
       <label
-        htmlFor="grade-level-slider"
+        htmlFor="ccss-grade-level-slider"
       >
         Standard: 
         1
@@ -30,7 +30,7 @@ exports[`GradeLevelFilters component should render 1`] = `
       </label>
       <Component
         handleChange={[Function]}
-        id="grade-level-slider"
+        id="ccss-grade-level-slider"
         lowerValue={1}
         markLabels={
           Array [
@@ -54,7 +54,7 @@ exports[`GradeLevelFilters component should render 1`] = `
       >
         <div
           className="two-thumb-slider-container"
-          id="grade-level-slider"
+          id="ccss-grade-level-slider"
           style={
             Object {
               "display": "flex",
@@ -155,7 +155,7 @@ exports[`GradeLevelFilters component should render 1`] = `
                         10
                       </div>
                       <div
-                        class="mark"
+                        class="mark last-mark"
                         style="position: absolute;"
                       >
                         11
@@ -734,7 +734,7 @@ exports[`GradeLevelFilters component should render 1`] = `
                         "key": "mark10",
                         "ref": Object {
                           "current": <div
-                            class="mark"
+                            class="mark last-mark"
                             style="position: absolute;"
                           >
                             11
@@ -749,7 +749,7 @@ exports[`GradeLevelFilters component should render 1`] = `
                     }
                   >
                     <div
-                      className="mark"
+                      className="mark last-mark"
                       key="mark10"
                       style={
                         Object {
@@ -894,5 +894,5 @@ exports[`GradeLevelFilters component should render 1`] = `
       </Component>
     </div>
   </section>
-</GradeLevelFilters>
+</CCSSGradeLevelFilters>
 `;

@@ -1,6 +1,9 @@
 require 'rails_helper'
 
-describe UserMailer do
+describe UserMailer, type: :mailer do
+  before do
+    allow_any_instance_of(ActionView::Helpers::AssetTagHelper).to receive(:stylesheet_link_tag)
+  end
 
   describe 'welcome_email' do
     let(:user) { build(:user) }
@@ -128,6 +131,28 @@ describe UserMailer do
       expect(mail.subject).to eq("#{user.name} has purchased School Premium for a missing school")
       expect(mail.to).to eq(["hello@quill.org", "emilia@quill.org"])
       expect(mail.from).to eq(['hello@quill.org'])
+    end
+  end
+
+  describe 'daily_stats_email' do
+    let(:date) { Time.now.getlocal('-05:00').yesterday.to_s}
+    let(:user) { build(:user) }
+
+    before do
+      mock_nps_data = ({
+        'nps': 100,
+        'respondents': [9, 0, 0]
+      }).as_json
+      allow_any_instance_of(UserMailer).to receive(:get_satismeter_nps_data).and_return(mock_nps_data)
+      allow_any_instance_of(UserMailer).to receive(:get_satismeter_comment_data).and_return([])
+      allow_any_instance_of(UserMailer).to receive(:get_intercom_data).and_return({})
+    end
+
+    it 'should set the subject, receiver and the sender' do
+      mail = UserMailer.daily_stats_email(date)
+
+      expect(mail.to).to eq(["team@quill.org"])
+      expect(mail.subject).to match("Quill Daily Analytics")
     end
   end
 end
