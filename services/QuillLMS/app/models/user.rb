@@ -25,7 +25,7 @@ class User < ActiveRecord::Base
   has_many :subscriptions, through: :user_subscriptions
   has_many :activity_sessions
   has_many :notifications, dependent: :delete_all
-  has_one :schools_users
+  has_one :schools_users, dependent: :destroy
   has_one :sales_contact
   has_one :school, through: :schools_users
   has_many :schools_i_coordinate, class_name: 'School', foreign_key: 'coordinator_id'
