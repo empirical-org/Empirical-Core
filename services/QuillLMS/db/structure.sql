@@ -500,6 +500,37 @@ ALTER SEQUENCE public.activity_sessions_id_seq OWNED BY public.activity_sessions
 
 
 --
+-- Name: activity_topics; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.activity_topics (
+    id integer NOT NULL,
+    activity_id integer NOT NULL,
+    topic_id integer NOT NULL
+);
+
+
+--
+-- Name: activity_topics_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.activity_topics_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: activity_topics_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.activity_topics_id_seq OWNED BY public.activity_topics.id;
+
+
+--
 -- Name: admin_accounts; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -2600,40 +2631,6 @@ ALTER SEQUENCE public.schools_users_id_seq OWNED BY public.schools_users.id;
 
 
 --
--- Name: sections; Type: TABLE; Schema: public; Owner: -
---
-
-CREATE TABLE public.sections (
-    id integer NOT NULL,
-    name character varying,
-    "position" integer,
-    created_at timestamp without time zone,
-    updated_at timestamp without time zone,
-    uid character varying
-);
-
-
---
--- Name: sections_id_seq; Type: SEQUENCE; Schema: public; Owner: -
---
-
-CREATE SEQUENCE public.sections_id_seq
-    AS integer
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
---
--- Name: sections_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
---
-
-ALTER SEQUENCE public.sections_id_seq OWNED BY public.sections.id;
-
-
---
 -- Name: standard_categories; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -2849,6 +2846,41 @@ ALTER SEQUENCE public.subscriptions_id_seq OWNED BY public.subscriptions.id;
 
 --
 -- Name: teacher_saved_activities; Type: TABLE; Schema: public; Owner: -
+
+--
+
+CREATE TABLE public.teacher_saved_activities (
+    id integer NOT NULL,
+    teacher_id integer NOT NULL,
+    activity_id integer NOT NULL,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: teacher_saved_activities_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.teacher_saved_activities_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: teacher_saved_activities_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.teacher_saved_activities_id_seq OWNED BY public.teacher_saved_activities.id;
+
+
+--
+-- Name: third_party_user_ids; Type: TABLE; Schema: public; Owner: -
+
 --
 
 CREATE TABLE public.teacher_saved_activities (
@@ -2950,50 +2982,15 @@ ALTER SEQUENCE public.title_cards_id_seq OWNED BY public.title_cards.id;
 
 
 --
--- Name: topic_categories; Type: TABLE; Schema: public; Owner: -
---
-
-CREATE TABLE public.topic_categories (
-    id integer NOT NULL,
-    name character varying,
-    created_at timestamp without time zone,
-    updated_at timestamp without time zone,
-    uid character varying
-);
-
-
---
--- Name: topic_categories_id_seq; Type: SEQUENCE; Schema: public; Owner: -
---
-
-CREATE SEQUENCE public.topic_categories_id_seq
-    AS integer
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
---
--- Name: topic_categories_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
---
-
-ALTER SEQUENCE public.topic_categories_id_seq OWNED BY public.topic_categories.id;
-
-
---
 -- Name: topics; Type: TABLE; Schema: public; Owner: -
 --
 
 CREATE TABLE public.topics (
     id integer NOT NULL,
-    name character varying,
-    section_id integer,
-    created_at timestamp without time zone,
-    updated_at timestamp without time zone,
-    topic_category_id integer,
-    uid character varying
+    name character varying NOT NULL,
+    level integer NOT NULL,
+    visible boolean DEFAULT true NOT NULL,
+    parent_id integer
 );
 
 
@@ -3366,6 +3363,13 @@ ALTER TABLE ONLY public.activity_classifications ALTER COLUMN id SET DEFAULT nex
 --
 
 ALTER TABLE ONLY public.activity_sessions ALTER COLUMN id SET DEFAULT nextval('public.activity_sessions_id_seq'::regclass);
+
+
+--
+-- Name: activity_topics id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.activity_topics ALTER COLUMN id SET DEFAULT nextval('public.activity_topics_id_seq'::regclass);
 
 
 --
@@ -3782,13 +3786,6 @@ ALTER TABLE ONLY public.schools_users ALTER COLUMN id SET DEFAULT nextval('publi
 
 
 --
--- Name: sections id; Type: DEFAULT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.sections ALTER COLUMN id SET DEFAULT nextval('public.sections_id_seq'::regclass);
-
-
---
 -- Name: standard_categories id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -3832,6 +3829,15 @@ ALTER TABLE ONLY public.subscriptions ALTER COLUMN id SET DEFAULT nextval('publi
 
 --
 -- Name: teacher_saved_activities id; Type: DEFAULT; Schema: public; Owner: -
+
+--
+
+ALTER TABLE ONLY public.teacher_saved_activities ALTER COLUMN id SET DEFAULT nextval('public.teacher_saved_activities_id_seq'::regclass);
+
+
+--
+-- Name: third_party_user_ids id; Type: DEFAULT; Schema: public; Owner: -
+
 --
 
 ALTER TABLE ONLY public.teacher_saved_activities ALTER COLUMN id SET DEFAULT nextval('public.teacher_saved_activities_id_seq'::regclass);
@@ -3849,13 +3855,6 @@ ALTER TABLE ONLY public.third_party_user_ids ALTER COLUMN id SET DEFAULT nextval
 --
 
 ALTER TABLE ONLY public.title_cards ALTER COLUMN id SET DEFAULT nextval('public.title_cards_id_seq'::regclass);
-
-
---
--- Name: topic_categories id; Type: DEFAULT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.topic_categories ALTER COLUMN id SET DEFAULT nextval('public.topic_categories_id_seq'::regclass);
 
 
 --
@@ -3975,6 +3974,14 @@ ALTER TABLE ONLY public.activity_classifications
 
 ALTER TABLE ONLY public.activity_sessions
     ADD CONSTRAINT activity_sessions_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: activity_topics activity_topics_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.activity_topics
+    ADD CONSTRAINT activity_topics_pkey PRIMARY KEY (id);
 
 
 --
@@ -4450,14 +4457,6 @@ ALTER TABLE ONLY public.schools_users
 
 
 --
--- Name: sections sections_pkey; Type: CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.sections
-    ADD CONSTRAINT sections_pkey PRIMARY KEY (id);
-
-
---
 -- Name: standard_categories standard_categories_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -4527,14 +4526,6 @@ ALTER TABLE ONLY public.third_party_user_ids
 
 ALTER TABLE ONLY public.title_cards
     ADD CONSTRAINT title_cards_pkey PRIMARY KEY (id);
-
-
---
--- Name: topic_categories topic_categories_pkey; Type: CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.topic_categories
-    ADD CONSTRAINT topic_categories_pkey PRIMARY KEY (id);
 
 
 --
@@ -4652,6 +4643,13 @@ CREATE INDEX index_activities_on_activity_classification_id ON public.activities
 
 
 --
+-- Name: index_activities_on_raw_score_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_activities_on_raw_score_id ON public.activities USING btree (raw_score_id);
+
+
+--
 -- Name: index_activities_on_topic_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -4733,6 +4731,20 @@ CREATE UNIQUE INDEX index_activity_sessions_on_uid ON public.activity_sessions U
 --
 
 CREATE INDEX index_activity_sessions_on_user_id ON public.activity_sessions USING btree (user_id);
+
+
+--
+-- Name: index_activity_topics_on_activity_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_activity_topics_on_activity_id ON public.activity_topics USING btree (activity_id);
+
+
+--
+-- Name: index_activity_topics_on_topic_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_activity_topics_on_topic_id ON public.activity_topics USING btree (topic_id);
 
 
 --
@@ -5083,6 +5095,20 @@ CREATE INDEX index_concept_results_on_concept_id ON public.concept_results USING
 --
 
 CREATE INDEX index_concept_results_on_question_type ON public.concept_results USING btree (question_type);
+
+
+--
+-- Name: index_content_partner_activities_on_activity_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_content_partner_activities_on_activity_id ON public.content_partner_activities USING btree (activity_id);
+
+
+--
+-- Name: index_content_partner_activities_on_content_partner_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_content_partner_activities_on_content_partner_id ON public.content_partner_activities USING btree (content_partner_id);
 
 
 --
@@ -5513,6 +5539,20 @@ CREATE INDEX index_subscriptions_on_start_date ON public.subscriptions USING btr
 
 
 --
+-- Name: index_teacher_saved_activities_on_activity_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_teacher_saved_activities_on_activity_id ON public.teacher_saved_activities USING btree (activity_id);
+
+
+--
+-- Name: index_teacher_saved_activities_on_teacher_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_teacher_saved_activities_on_teacher_id ON public.teacher_saved_activities USING btree (teacher_id);
+
+
+--
 -- Name: index_third_party_user_ids_on_user_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -5531,20 +5571,6 @@ CREATE INDEX index_title_cards_on_title_card_type ON public.title_cards USING bt
 --
 
 CREATE UNIQUE INDEX index_title_cards_on_uid ON public.title_cards USING btree (uid);
-
-
---
--- Name: index_topic_categories_on_name; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_topic_categories_on_name ON public.topic_categories USING btree (name);
-
-
---
--- Name: index_topics_on_topic_category_id; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_topics_on_topic_category_id ON public.topics USING btree (topic_category_id);
 
 
 --
@@ -5927,6 +5953,22 @@ ALTER TABLE ONLY public.unit_activities
 
 
 --
+-- Name: activity_topics fk_rails_4c47083518; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.activity_topics
+    ADD CONSTRAINT fk_rails_4c47083518 FOREIGN KEY (topic_id) REFERENCES public.topics(id);
+
+
+--
+-- Name: topics fk_rails_5f3c091f12; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.topics
+    ADD CONSTRAINT fk_rails_5f3c091f12 FOREIGN KEY (parent_id) REFERENCES public.topics(id);
+
+
+--
 -- Name: criteria fk_rails_63b994bcda; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -5956,6 +5998,14 @@ ALTER TABLE ONLY public.standards
 
 ALTER TABLE ONLY public.activities
     ADD CONSTRAINT fk_rails_8b159cf902 FOREIGN KEY (standard_id) REFERENCES public.standards(id);
+
+
+--
+-- Name: activity_topics fk_rails_8b344bb36c; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.activity_topics
+    ADD CONSTRAINT fk_rails_8b344bb36c FOREIGN KEY (activity_id) REFERENCES public.activities(id);
 
 
 --
@@ -6819,6 +6869,16 @@ INSERT INTO schema_migrations (version) VALUES ('20201019142759');
 INSERT INTO schema_migrations (version) VALUES ('20201019183425');
 
 INSERT INTO schema_migrations (version) VALUES ('20201020200935');
+
+INSERT INTO schema_migrations (version) VALUES ('20201020204615');
+
+INSERT INTO schema_migrations (version) VALUES ('20201023192128');
+
+INSERT INTO schema_migrations (version) VALUES ('20201023192229');
+
+INSERT INTO schema_migrations (version) VALUES ('20201023212528');
+
+INSERT INTO schema_migrations (version) VALUES ('20201026184657');
 
 INSERT INTO schema_migrations (version) VALUES ('20201026185613');
 

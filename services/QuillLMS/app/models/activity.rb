@@ -21,7 +21,7 @@ class Activity < ActiveRecord::Base
   has_many :activity_categories, through: :activity_category_activities
   has_many :content_partner_activities, dependent: :destroy
   has_many :content_partners, :through => :content_partner_activities
-  has_many :teacher_saved_activities
+  has_many :teacher_saved_activities, dependent: :destroy
   has_many :teachers, through: :teacher_saved_activities, foreign_key: 'teacher_id'
   has_many :activity_topics, dependent: :destroy
   has_many :topics, through: :activity_topics
@@ -164,7 +164,9 @@ class Activity < ActiveRecord::Base
     save
   end
 
-  def grade_level
+  def readability_grade_level
+    return nil unless raw_score_id
+    
     raw_score = RawScore.find(raw_score_id)
     case raw_score.name
     when "1200-1300", "1300-1400", "1400-1500"
