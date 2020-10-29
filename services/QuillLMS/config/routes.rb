@@ -354,6 +354,7 @@ EmpiricalGrammar::Application.routes.draw do
       resources :activities,              except: [:index, :new, :edit]
       resources :activity_flags,          only: [:index]
       resources :activity_sessions,       except: [:index, :new, :edit]
+      resources :feedback_histories,        only: [:index, :show, :create, :update, :destroy]
       resources :lessons_tokens,          only: [:create]
       resources :standard_levels,                only: [:index]
       resources :standards,                  only: [:index]
