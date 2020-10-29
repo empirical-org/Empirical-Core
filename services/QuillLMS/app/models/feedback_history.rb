@@ -18,6 +18,7 @@ class FeedbackHistory < ActiveRecord::Base
   belongs_to :prompt, polymorphic: true
   belongs_to :concept, foreign_key: :concept_uid, primary_key: :uid
 
+
   validates :concept_uid, allow_blank: true, length: {is: CONCEPT_UID_LENGTH}
   validates :attempt, presence: true,
     numericality: {
