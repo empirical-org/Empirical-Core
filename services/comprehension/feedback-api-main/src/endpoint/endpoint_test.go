@@ -7,6 +7,7 @@ import (
 	"testing"
 	"bytes"
 	"encoding/json"
+	"time"
 )
 
 func TestPublishMessage(t *testing.T) {
@@ -70,5 +71,74 @@ func TestAllOptimal(t *testing.T) {
 func TestAutoMLIndex(t *testing.T) {
 	if automl_api != urls[automl_index] {
 		t.Errorf("automl_index does not match automl_api")
+	}
+}
+
+func TestBuildBatchFeedbackHistories(t *testing.T) {
+	api_request := APIRequest{Prompt_text: "They cut funding because", Entry: "they needed to save money.", Prompt_id: 4, Session_id: "Asfasdf", Attempt: 2}
+
+	results := map[int]APIResponse{}
+	results[0] = APIResponse { Concept_uid: "test_concept", Feedback: "Feedback text: optimal", Feedback_type: "type1", Optimal: true, Labels: "test_label" }
+	results[2] = APIResponse { Concept_uid: "test_concept", Feedback: "Feedback text: non-optimal", Feedback_type: "type2", Optimal: false, Labels: "test_label" }
+	results[3] = APIResponse { Concept_uid: "test_concept", Feedback: "Feedback text: optimal", Feedback_type: "type3", Optimal: false, Labels: "test_label" }
+
+	now := time.Now()
+
+	payload, _ := buildBatchFeedbackHistories(api_request, results, now)
+
+	expected := BatchHistoriesAPIRequest {
+		Feedback_histories: []FeedbackHistory{
+			FeedbackHistory {
+				Activity_session_uid: api_request.Session_id,
+				Prompt_id: api_request.Prompt_id,
+				Concept_uid: results[0].Concept_uid,
+				Attempt: api_request.Attempt,
+				Entry: api_request.Entry,
+				Feedback_text: results[0].Feedback,
+				Feedback_type: results[0].Feedback_type,
+				Optimal: results[0].Optimal,
+				Used: false,
+				Time: now,
+				Metadata: FeedbackHistoryMetadata { Labels: results[0].Labels },
+			},
+			FeedbackHistory {
+				Activity_session_uid: api_request.Session_id,
+				Prompt_id: api_request.Prompt_id,
+				Concept_uid: results[2].Concept_uid,
+				Attempt: api_request.Attempt,
+				Entry: api_request.Entry,
+				Feedback_text: results[2].Feedback,
+				Feedback_type: results[2].Feedback_type,
+				Optimal: results[2].Optimal,
+				Used: true,
+				Time: now,
+				Metadata: FeedbackHistoryMetadata { Labels: results[2].Labels },
+			},
+			FeedbackHistory {
+				Activity_session_uid: api_request.Session_id,
+				Prompt_id: api_request.Prompt_id,
+				Concept_uid: results[3].Concept_uid,
+				Attempt: api_request.Attempt,
+				Entry: api_request.Entry,
+				Feedback_text: results[3].Feedback,
+				Feedback_type: results[3].Feedback_type,
+				Optimal: results[3].Optimal,
+				Used: false,
+				Time: now,
+				Metadata: FeedbackHistoryMetadata { Labels: results[3].Labels },
+			},
+		},
+	}
+
+	if len(payload.Feedback_histories) != len(expected.Feedback_histories){
+		t.Errorf("Batch Feedback History rolled up the wrong number of items.\nReceived: %d\nExpected: %d", len(payload.Feedback_histories), len(expected.Feedback_histories))
+	}
+
+	payload_json, _ := json.Marshal(payload)
+	payload_str := string(payload_json)
+	expected_json, _ := json.Marshal(expected)
+	expected_str := string(expected_json)
+	if payload_str != expected_str {
+		t.Errorf("Payload not properly formatted.\n\nReceived:\n%s\n\nExpected:\n%s", payload_str, expected_str)
 	}
 }

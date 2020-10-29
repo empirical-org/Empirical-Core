@@ -20,6 +20,7 @@ const (
 	spell_check_local = "https://us-central1-comprehension-247816.cloudfunctions.net/spell-check-cloud-function"
 	spell_check_bing = "https://us-central1-comprehension-247816.cloudfunctions.net/bing-API-spell-check"
 	feedback_history_url = "https://www.quill.org/api/v1/feedback_histories.json"
+	batch_feedback_history_url = "https://www.quill.org/api/v1/feedback_histories/batch.json"
 	automl_index = 1
 )
 
@@ -80,8 +81,14 @@ func Endpoint(responseWriter http.ResponseWriter, request *http.Request) {
 
 	// TODO make this a purely async task instead of coroutine that waits to finish
 	wg.Add(1)
-	go recordFeedback(request_body, returnable_result, true)
-	go batchRecordFeedback(request_body, results)
+
+	var request_object APIRequest
+	// TODO convert the 'feedback' bytes and combine with incoming_params bytes
+	// instead of transforming from bytes to object, combining, and then converting back to bytes
+	if err := json.NewDecoder(bytes.NewReader(request_body)).Decode(&request_object); err != nil {
+		return
+	}
+	go batchRecordFeedback(request_object, results)
 
 	responseWriter.Header().Set("Access-Control-Allow-Origin", "*")
 	responseWriter.Header().Set("Content-Type", "application/json")
@@ -126,31 +133,11 @@ func getAPIResponse(url string, priority int, json_params [] byte, c chan Intern
 	c <- InternalAPIResponse{Priority: priority, APIResponse: result}
 }
 
-func batchRecordFeedback(incoming_params []byte, feedbacks []APIResponse) {
-	for i := 0; i < len(feedbacks); i++ {
-		result, has_key := feedbacks[i]
-		if !has_key {
-			return 0, false
-		}
-
-		if !result.Optimal {
-			return i, true
-		}
-	}
-
-}
-
-func recordFeedback(incoming_params [] byte, feedback APIResponse, used bool) {
-	var request_object APIRequest
-
-	// TODO convert the 'feedback' bytes and combine with incoming_params bytes
-	// instead of transforming from bytes to object, combining, and then converting back to bytes
-	if err := json.NewDecoder(bytes.NewReader(incoming_params)).Decode(&request_object); err != nil {
-		return
-	}
-
-	history := HistoryAPIRequest{
-		Feedback_history: FeedbackHistory{
+func buildBatchFeedbackHistories(request_object APIRequest, feedbacks map[int]APIResponse, time_received time.Time) (BatchHistoriesAPIRequest, error) {
+	feedback_histories := []FeedbackHistory{}
+	used_set := false
+	for _, feedback := range feedbacks {
+		feedback_histories = append(feedback_histories, FeedbackHistory{
 			Activity_session_uid: request_object.Session_id,
 			Prompt_id: request_object.Prompt_id,
 			Concept_uid: feedback.Concept_uid,
@@ -159,21 +146,37 @@ func recordFeedback(incoming_params [] byte, feedback APIResponse, used bool) {
 			Feedback_text: feedback.Feedback,
 			Feedback_type: feedback.Feedback_type,
 			Optimal: feedback.Optimal,
-			Used: used,
-			Time: time.Now(),
+			Used: !feedback.Optimal && !used_set,
+			Time: time_received,
 			Metadata: FeedbackHistoryMetadata{
 				Highlight: feedback.Highlight,
 				Labels: feedback.Labels,
 				Response_id: feedback.Response_id,
 			},
-		},
+		})
+		if !used_set {
+			used_set = !feedback.Optimal
+		}
 	}
 
-	history_json, _ := json.Marshal(history)
+	return BatchHistoriesAPIRequest {
+		Feedback_histories: feedback_histories,
+	}, nil
+}
+
+func batchRecordFeedback(incoming_params APIRequest, feedbacks map[int]APIResponse) {
+	histories, err := buildBatchFeedbackHistories(incoming_params, feedbacks, time.Now())
+
+	if err != nil {
+		return
+	}
+
+	histories_json, _ := json.Marshal(histories)
 
 	// TODO For now, just swallow any errors from this, but we'd want to report errors.
-	http.Post(feedback_history_url, "application/json",  bytes.NewBuffer(history_json))
+	http.Post(batch_feedback_history_url, "application/json",  bytes.NewBuffer(histories_json))
 	wg.Done() // mark task as done in WaitGroup
+
 }
 
 type APIRequest struct {
@@ -231,6 +234,6 @@ type HistoryAPIRequest struct {
 	Feedback_history FeedbackHistory `json:"feedback_history"`
 }
 
-type BatchHistoryAPIRequest struct {
+type BatchHistoriesAPIRequest struct {
 	Feedback_histories []FeedbackHistory `json:"feedback_histories"`
 }
