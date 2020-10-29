@@ -38,6 +38,8 @@ export const ACTIVITY_CATEGORY_FILTERS = 'activityCategoryFilters'
 
 export const CONTENT_PARTNER_FILTERS = 'contentPartnerFilters'
 
+export const TOPIC_FILTERS = 'topicFilters'
+
 export function arrayFromNumbers(lowerValue: number, upperValue: number) {
   const array = []
   for (let i = lowerValue; i <= upperValue; i++) {
@@ -81,13 +83,19 @@ function filterByContentPartners(contentPartnerFilters: number[], activity: Acti
   return contentPartnerFilters.some(id => activity.content_partners.some(cp => cp.id === id))
 }
 
+function filterByTopic(topicFilters: number[], activity: Activity) {
+  if (!topicFilters.length) { return true }
+  return topicFilters.some(id => activity.topics.some(cp => cp.id === id))
+}
+
 export const filters = {
   search: filterBySearch,
   [ACTIVITY_CLASSIFICATION_FILTERS]: filterByActivityClassification,
   ccssGradeLevelFilters: filterByCCSSGradeLevel,
   readabilityGradeLevelFilters: filterByReadabilityGradeLevel,
   [ACTIVITY_CATEGORY_FILTERS]: filterByActivityCategory,
-  [CONTENT_PARTNER_FILTERS]: filterByContentPartners
+  [CONTENT_PARTNER_FILTERS]: filterByContentPartners,
+  [TOPIC_FILTERS]: filterByTopic
 }
 
 const conceptSort = (activities) => activities.sort((a, b) => {

@@ -103,8 +103,9 @@ const ActivityRowTopics = ({ topics, }: { topics?: Topic[] }) => {
   if (topics && topics.length) {
     const levelOneTopic = topics.find(t => Number(t.level) === 1)
     const levelZeroTopic = topics.find(t => Number(t.level) === 0)
-    let topicString = levelOneTopic ? `${levelOneTopic.name}: ` : ''
-    topicString += levelZeroTopic.name
+    let topicString = levelOneTopic ? levelOneTopic.name : ''
+    topicString += levelOneTopic && levelZeroTopic ? ': ' : ''
+    topicString += levelZeroTopic ? levelZeroTopic.name : ''
     return (<span className={className}>
       <img alt="Globe icon" src={topicSrc} />
       <span>{topicString}</span>
@@ -236,7 +237,6 @@ const ActivityRow = ({ activity, isSelected, toggleActivitySelection, showCheckb
         <ActivityRowClassification classification={activity_classification} />
         <ActivityRowConcept conceptName={activity_category_name} />
         <ActivityRowTopics topics={topics} />
-        <span className="second-line-section topic" />
       </div>
       <div className="readability-and-standard-level-wrapper">
         <ActivityRowReadabilityGradeLevel readabilityGradeLevel={readability_grade_level} />

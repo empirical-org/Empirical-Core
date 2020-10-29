@@ -6,6 +6,7 @@ import ActivityCategoryFilters from './activity_category_filters'
 import CCSSGradeLevelFilters from './ccss_grade_level_filters'
 import ReadabilityGradeLevelFilters from './readability_grade_level_filters'
 import ContentPartnerFilters from './content_partner_filters'
+import TopicFilters from './topic_filters'
 
 interface FilterColumnProps {
   activities: Activity[],
@@ -23,6 +24,8 @@ interface FilterColumnProps {
   handleContentPartnerFilterChange: (contentPartnerFilters: number[]) => void,
   readabilityGradeLevelFilters: number[],
   handleReadabilityGradeLevelFilterChange: (readabilityGradeLevelFilters: number[]) => void,
+  topicFilters: number[],
+  handleTopicFilterChange: (topicFilters: number[]) => void,
 }
 
 const FilterColumn = ({
@@ -40,7 +43,9 @@ const FilterColumn = ({
   contentPartnerFilters,
   handleContentPartnerFilterChange,
   readabilityGradeLevelFilters,
-  handleReadabilityGradeLevelFilterChange
+  handleReadabilityGradeLevelFilterChange,
+  topicFilters,
+  handleTopicFilterChange
 }: FilterColumnProps) => {
   const numberOfFilters = calculateNumberOfFilters()
   const clearAllButton = numberOfFilters ? <button className="interactive-wrapper clear-filter focus-on-light" onClick={resetAllFilters} type="button">Clear all filters</button> : <span />
@@ -72,6 +77,12 @@ const FilterColumn = ({
       activityCategoryFilters={activityCategoryFilters}
       filterActivities={filterActivities}
       handleActivityCategoryFilterChange={handleActivityCategoryFilterChange}
+    />
+    <TopicFilters
+      activities={activities}
+      filterActivities={filterActivities}
+      handleTopicFilterChange={handleTopicFilterChange}
+      topicFilters={topicFilters}
     />
     <ContentPartnerFilters
       activities={activities}
