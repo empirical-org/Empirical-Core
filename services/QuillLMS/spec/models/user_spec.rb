@@ -722,6 +722,9 @@ describe User, type: :model do
     it "destroys associated auth credentials if present" do
       expect(user.reload.auth_credential).to be nil
     end
+    it "destroys associated schools_users if present" do
+      expect(user.schools_users).to be nil
+    end
   end
 
   describe '#safe_role_assignment' do
