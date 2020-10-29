@@ -40,6 +40,11 @@
           padding-bottom: 20px;
         }
       }
+      #readability-grade-level-slider {
+        .last-mark {
+          left: 217px !important;
+        }
+      }
       &.content-partner-filter-section, &.activity-category-filter-section {
         .individual-row {
           margin-left: 24px;

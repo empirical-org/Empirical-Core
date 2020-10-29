@@ -50,6 +50,24 @@ exports[`MobileSortMenu component with showMobileSortMenu true should render 1`]
         Default
       </button>
       <button
+        id="readability-asc"
+        key="readability-asc"
+        onClick={[Function]}
+        type="button"
+        value="readability-asc"
+      >
+        Readability Level (Low to High)
+      </button>
+      <button
+        id="readability-desc"
+        key="readability-desc"
+        onClick={[Function]}
+        type="button"
+        value="readability-desc"
+      >
+        Readability Level (High to Low)
+      </button>
+      <button
         id="ccss-asc"
         key="ccss-asc"
         onClick={[Function]}
