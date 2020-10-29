@@ -2,8 +2,8 @@
 -- PostgreSQL database dump
 --
 
--- Dumped from database version 10.12
--- Dumped by pg_dump version 10.12
+-- Dumped from database version 10.13
+-- Dumped by pg_dump version 10.13
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -2881,39 +2881,6 @@ ALTER SEQUENCE public.teacher_saved_activities_id_seq OWNED BY public.teacher_sa
 -- Name: third_party_user_ids; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE public.teacher_saved_activities (
-    id integer NOT NULL,
-    teacher_id integer NOT NULL,
-    activity_id integer NOT NULL,
-    created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL
-);
-
-
---
--- Name: teacher_saved_activities_id_seq; Type: SEQUENCE; Schema: public; Owner: -
---
-
-CREATE SEQUENCE public.teacher_saved_activities_id_seq
-    AS integer
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
---
--- Name: teacher_saved_activities_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
---
-
-ALTER SEQUENCE public.teacher_saved_activities_id_seq OWNED BY public.teacher_saved_activities.id;
-
-
---
--- Name: third_party_user_ids; Type: TABLE; Schema: public; Owner: -
---
-
 CREATE TABLE public.third_party_user_ids (
     id integer NOT NULL,
     user_id integer,
@@ -3836,13 +3803,6 @@ ALTER TABLE ONLY public.teacher_saved_activities ALTER COLUMN id SET DEFAULT nex
 -- Name: third_party_user_ids id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.teacher_saved_activities ALTER COLUMN id SET DEFAULT nextval('public.teacher_saved_activities_id_seq'::regclass);
-
-
---
--- Name: third_party_user_ids id; Type: DEFAULT; Schema: public; Owner: -
---
-
 ALTER TABLE ONLY public.third_party_user_ids ALTER COLUMN id SET DEFAULT nextval('public.third_party_user_ids_id_seq'::regclass);
 
 
@@ -4639,6 +4599,13 @@ CREATE INDEX index_activities_on_activity_classification_id ON public.activities
 
 
 --
+-- Name: index_activities_on_raw_score_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_activities_on_raw_score_id ON public.activities USING btree (raw_score_id);
+
+
+--
 -- Name: index_activities_on_topic_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -5087,6 +5054,20 @@ CREATE INDEX index_concept_results_on_question_type ON public.concept_results US
 
 
 --
+-- Name: index_content_partner_activities_on_activity_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_content_partner_activities_on_activity_id ON public.content_partner_activities USING btree (activity_id);
+
+
+--
+-- Name: index_content_partner_activities_on_content_partner_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_content_partner_activities_on_content_partner_id ON public.content_partner_activities USING btree (content_partner_id);
+
+
+--
 -- Name: index_coteacher_classroom_invitations_on_classroom_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -5511,6 +5492,20 @@ CREATE INDEX index_subscriptions_on_recurring ON public.subscriptions USING btre
 --
 
 CREATE INDEX index_subscriptions_on_start_date ON public.subscriptions USING btree (start_date);
+
+
+--
+-- Name: index_teacher_saved_activities_on_activity_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_teacher_saved_activities_on_activity_id ON public.teacher_saved_activities USING btree (activity_id);
+
+
+--
+-- Name: index_teacher_saved_activities_on_teacher_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_teacher_saved_activities_on_teacher_id ON public.teacher_saved_activities USING btree (teacher_id);
 
 
 --
@@ -6830,6 +6825,16 @@ INSERT INTO schema_migrations (version) VALUES ('20201019142759');
 INSERT INTO schema_migrations (version) VALUES ('20201019183425');
 
 INSERT INTO schema_migrations (version) VALUES ('20201020200935');
+
+INSERT INTO schema_migrations (version) VALUES ('20201020204615');
+
+INSERT INTO schema_migrations (version) VALUES ('20201023192128');
+
+INSERT INTO schema_migrations (version) VALUES ('20201023192229');
+
+INSERT INTO schema_migrations (version) VALUES ('20201023212528');
+
+INSERT INTO schema_migrations (version) VALUES ('20201026184657');
 
 INSERT INTO schema_migrations (version) VALUES ('20201026185613');
 
