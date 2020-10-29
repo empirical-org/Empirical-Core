@@ -679,7 +679,7 @@ EmpiricalGrammar::Application.routes.draw do
   # Uptime status
   resource :status, only: [] do
     collection do
-      get :index, :database, :database_write, :database_follower, :redis_cache, :redis_queue, :firebase, :sidekiq_queue_length
+      get :index, :database, :database_write, :database_follower, :redis_cache, :redis_queue, :sidekiq_queue_length
     end
   end
 

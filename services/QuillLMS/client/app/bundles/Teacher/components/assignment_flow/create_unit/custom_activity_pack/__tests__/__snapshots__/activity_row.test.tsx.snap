@@ -181,9 +181,11 @@ exports[`ActivityRow component with showCheckbox false and showRemoveButton true
       <div
         className="readability-and-standard-level-wrapper"
       >
-        <span
-          className="second-line-section readability"
-        />
+        <ActivityRowReadabilityGradeLevel>
+          <span
+            className="second-line-section readability-level"
+          />
+        </ActivityRowReadabilityGradeLevel>
         <ActivityRowStandardLevel
           standardLevelName="7th Grade CCSS"
         >
@@ -441,9 +443,11 @@ exports[`ActivityRow component with showCheckbox false and showRemoveButton true
       <div
         className="readability-and-standard-level-wrapper"
       >
-        <span
-          className="second-line-section readability"
-        />
+        <ActivityRowReadabilityGradeLevel>
+          <span
+            className="second-line-section readability-level"
+          />
+        </ActivityRowReadabilityGradeLevel>
         <ActivityRowStandardLevel
           standardLevelName="7th Grade CCSS"
         >
@@ -748,9 +752,11 @@ exports[`ActivityRow component with showCheckbox true and showRemoveButton false
       <div
         className="readability-and-standard-level-wrapper"
       >
-        <span
-          className="second-line-section readability"
-        />
+        <ActivityRowReadabilityGradeLevel>
+          <span
+            className="second-line-section readability-level"
+          />
+        </ActivityRowReadabilityGradeLevel>
         <ActivityRowStandardLevel
           standardLevelName="7th Grade CCSS"
         >
@@ -1044,9 +1050,11 @@ exports[`ActivityRow component with showCheckbox true and showRemoveButton false
       <div
         className="readability-and-standard-level-wrapper"
       >
-        <span
-          className="second-line-section readability"
-        />
+        <ActivityRowReadabilityGradeLevel>
+          <span
+            className="second-line-section readability-level"
+          />
+        </ActivityRowReadabilityGradeLevel>
         <ActivityRowStandardLevel
           standardLevelName="7th Grade CCSS"
         >
