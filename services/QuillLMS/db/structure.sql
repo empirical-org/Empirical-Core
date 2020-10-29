@@ -2,8 +2,8 @@
 -- PostgreSQL database dump
 --
 
--- Dumped from database version 10.13
--- Dumped by pg_dump version 10.13
+-- Dumped from database version 10.12
+-- Dumped by pg_dump version 10.12
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -1699,6 +1699,49 @@ CREATE TABLE public.districts_users (
 
 
 --
+-- Name: feedback_histories; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.feedback_histories (
+    id integer NOT NULL,
+    activity_session_uid text,
+    prompt_id integer,
+    prompt_type character varying,
+    concept_uid text,
+    attempt integer NOT NULL,
+    entry text NOT NULL,
+    optimal boolean NOT NULL,
+    used boolean NOT NULL,
+    feedback_text text,
+    feedback_type text NOT NULL,
+    "time" timestamp without time zone NOT NULL,
+    metadata jsonb,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: feedback_histories_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.feedback_histories_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: feedback_histories_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.feedback_histories_id_seq OWNED BY public.feedback_histories.id;
+
+
+--
 -- Name: file_uploads; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -2838,6 +2881,39 @@ ALTER SEQUENCE public.teacher_saved_activities_id_seq OWNED BY public.teacher_sa
 -- Name: third_party_user_ids; Type: TABLE; Schema: public; Owner: -
 --
 
+CREATE TABLE public.teacher_saved_activities (
+    id integer NOT NULL,
+    teacher_id integer NOT NULL,
+    activity_id integer NOT NULL,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: teacher_saved_activities_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.teacher_saved_activities_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: teacher_saved_activities_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.teacher_saved_activities_id_seq OWNED BY public.teacher_saved_activities.id;
+
+
+--
+-- Name: third_party_user_ids; Type: TABLE; Schema: public; Owner: -
+--
+
 CREATE TABLE public.third_party_user_ids (
     id integer NOT NULL,
     user_id integer,
@@ -3526,6 +3602,13 @@ ALTER TABLE ONLY public.districts ALTER COLUMN id SET DEFAULT nextval('public.di
 
 
 --
+-- Name: feedback_histories id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.feedback_histories ALTER COLUMN id SET DEFAULT nextval('public.feedback_histories_id_seq'::regclass);
+
+
+--
 -- Name: file_uploads id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -3744,6 +3827,13 @@ ALTER TABLE ONLY public.subscriptions ALTER COLUMN id SET DEFAULT nextval('publi
 
 --
 -- Name: teacher_saved_activities id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.teacher_saved_activities ALTER COLUMN id SET DEFAULT nextval('public.teacher_saved_activities_id_seq'::regclass);
+
+
+--
+-- Name: third_party_user_ids id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.teacher_saved_activities ALTER COLUMN id SET DEFAULT nextval('public.teacher_saved_activities_id_seq'::regclass);
@@ -4152,6 +4242,14 @@ ALTER TABLE ONLY public.csv_exports
 
 ALTER TABLE ONLY public.districts
     ADD CONSTRAINT districts_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: feedback_histories feedback_histories_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.feedback_histories
+    ADD CONSTRAINT feedback_histories_pkey PRIMARY KEY (id);
 
 
 --
@@ -5049,6 +5147,27 @@ CREATE INDEX index_districts_users_on_district_id_and_user_id ON public.district
 --
 
 CREATE INDEX index_districts_users_on_user_id ON public.districts_users USING btree (user_id);
+
+
+--
+-- Name: index_feedback_histories_on_activity_session_uid; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_feedback_histories_on_activity_session_uid ON public.feedback_histories USING btree (activity_session_uid);
+
+
+--
+-- Name: index_feedback_histories_on_concept_uid; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_feedback_histories_on_concept_uid ON public.feedback_histories USING btree (concept_uid);
+
+
+--
+-- Name: index_feedback_histories_on_prompt_type_and_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_feedback_histories_on_prompt_type_and_id ON public.feedback_histories USING btree (prompt_type, prompt_id);
 
 
 --
@@ -6712,9 +6831,5 @@ INSERT INTO schema_migrations (version) VALUES ('20201019183425');
 
 INSERT INTO schema_migrations (version) VALUES ('20201020200935');
 
-INSERT INTO schema_migrations (version) VALUES ('20201020204615');
-
-INSERT INTO schema_migrations (version) VALUES ('20201023192128');
-
-INSERT INTO schema_migrations (version) VALUES ('20201023192229');
+INSERT INTO schema_migrations (version) VALUES ('20201026185613');
 

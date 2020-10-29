@@ -19,6 +19,8 @@ describe Activity, type: :model, redis: true do
   it { should have_many(:content_partners).through(:content_partner_activities) }
   it { should have_many(:teacher_saved_activities) }
   it { should have_many(:teachers).through(:teacher_saved_activities)}
+  it { should have_many(:activity_topics) }
+  it { should have_many(:topics).through(:activity_topics)}
 
   it { is_expected.to callback(:flag_as_beta).before(:create).unless(:flags?) }
   it do

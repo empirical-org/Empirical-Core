@@ -26,6 +26,28 @@ describe StudentsController do
     end
   end
 
+  describe '#join_classroom' do
+    let(:student) { create(:student) }
+
+    before do
+      allow(controller).to receive(:current_user) { student }
+    end
+
+    it 'should redirect for an invalid class_code' do
+      get :join_classroom, classcode: 'nonsense_doesnt_exist'
+
+      expect(response).to redirect_to '/classes'
+      expect(flash[:error]).to match("Oops! There is no class with the code nonsense_doesnt_exist. Ask your teacher for help.")
+    end
+
+    it 'should redirect for a valid class_code' do
+      classroom = create(:classroom, code: 'existing_code')
+      get :join_classroom, classcode: classroom.code
+
+      expect(response).to redirect_to "/classrooms/#{classroom.id}?joined=success"
+    end
+  end
+
   describe '#account_settings' do
     it 'should set the current user and js file' do
       get :account_settings
