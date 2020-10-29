@@ -118,13 +118,14 @@ class UserMailer < ActionMailer::Base
     @classrooms_created = Classroom.where(created_at: start_time..end_time).size
     @activities_assigned = UnitActivity.where(created_at: start_time..end_time).size
     # Sentences written is quantified by number of activities completed multiplied by 10 because
-    # there are an average of 10 sentences per activity.    
+    # there are an average of 10 sentences per activity.
     @sentences_written = ActivitySession.where(completed_at: start_time..end_time).size * 10
     @diagnostics_completed = ActivitySession.where(completed_at: start_time..end_time).where(activity_id: Activity.diagnostic_activity_ids).size
     @teacher_conversion_rate = number_to_percentage(conversion_rate, precision: 5)
     @support_tickets_resolved = get_intercom_data(start_time, end_time)
     @satismeter_nps_data = get_satismeter_nps_data(start_time, end_time)
     @satismeter_comment_data = get_satismeter_comment_data(start_time, end_time)
+
     mail to: "team@quill.org", subject: "Quill Daily Analytics - #{subject_date}"
   end
 

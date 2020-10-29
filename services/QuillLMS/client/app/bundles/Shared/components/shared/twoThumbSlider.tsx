@@ -51,7 +51,7 @@ const Thumb = ({ props, }) => {
 const Mark = ({ props, index, markLabels, }) => {
   let className = 'mark'
   className += index === 0 ? ' first-mark' : ''
-  className += markLabels && index === markLabels.length ? ' last-mark' : ''
+  className += markLabels && index === markLabels.length - 1 ? ' last-mark' : ''
   return <div {...props} className={className}>{markLabels && markLabels[index]}</div>
 }
 

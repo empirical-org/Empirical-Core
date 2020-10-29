@@ -164,7 +164,9 @@ class Activity < ActiveRecord::Base
     save
   end
 
-  def grade_level
+  def readability_grade_level
+    return nil unless raw_score_id
+    
     raw_score = RawScore.find(raw_score_id)
     case raw_score.name
     when "1200-1300", "1300-1400", "1400-1500"
