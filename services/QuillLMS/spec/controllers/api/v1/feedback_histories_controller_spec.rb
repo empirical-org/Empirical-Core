@@ -35,8 +35,8 @@ describe Api::V1::FeedbackHistoriesController, type: :controller do
 
   context "create" do
     it "should create a valid record and return it as json" do
-      post :create, feedback_history: { attempt: 1, optimal: false, used: true, time: DateTime.now,
-                                        entry: 'This is the entry provided by the student',
+      post :create, feedback_history: { activity_session_uid: '1', attempt: 1, optimal: false, used: true,
+                                        time: DateTime.now, entry: 'This is the entry provided by the student',
                                         feedback_text: 'This is the feedback provided by the algorithm',
                                         feedback_type: 'semantic', metadata: {foo: 'bar'} }
 
@@ -56,6 +56,45 @@ describe Api::V1::FeedbackHistoriesController, type: :controller do
       assert parsed_response['entry'].include?("can't be blank")
       assert_equal 0, Activity.count
     end
+  end
+
+  context "batch" do
+    it "should create valid records and return them as json" do
+      post :batch, feedback_histories: [{ activity_session_uid: '1', attempt: 1, optimal: false, used: true,
+                                          time: DateTime.now, entry: 'This is the entry provided by the student',
+                                          feedback_text: 'This is the feedback provided by the algorithm',
+                                          feedback_type: 'semantic', metadata: {foo: 'bar'} },
+                                        { activity_session_uid: '1', attempt: 1, optimal: false, used: true,
+                                          time: DateTime.now, entry: 'This is the entry provided by the student',
+                                          feedback_text: 'This is the feedback provided by the algorithm',
+                                          feedback_type: 'semantic', metadata: {foo: 'bar'} }]
+
+      parsed_response = JSON.parse(response.body)
+
+      assert_equal 201, response.code.to_i
+      assert_equal "This is the entry provided by the student", parsed_response['feedback_histories'][0]['entry']
+      assert_equal 2, parsed_response['feedback_histories'].length
+      assert_equal 2, FeedbackHistory.count
+    end
+
+    it "should not create any records if one is invalid record and return errors as json" do
+      post :batch, feedback_histories: [{ activity_session_uid: '1', attempt: 1, optimal: false, used: true,
+                                          time: DateTime.now, entry: 'This is the entry provided by the student',
+                                          feedback_text: 'This is the feedback provided by the algorithm',
+                                          feedback_type: 'semantic', metadata: {foo: 'bar'} },
+                                        { attempt: 1, optimal: false, used: true,
+                                          time: DateTime.now, entry: 'This is the entry provided by the student',
+                                          feedback_text: 'This is the feedback provided by the algorithm',
+                                          feedback_type: 'semantic', metadata: {foo: 'bar'} }]
+
+      parsed_response = JSON.parse(response.body)
+
+      assert_equal 422, response.code.to_i
+      assert_equal parsed_response['feedback_histories'][0], {}
+      assert parsed_response['feedback_histories'][1]['activity_session_uid'].include?("can't be blank")
+      assert_equal 0, Activity.count
+    end
+
   end
 
   context "show" do
