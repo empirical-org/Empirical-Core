@@ -18,7 +18,7 @@ class FeedbackHistory < ActiveRecord::Base
   belongs_to :prompt, polymorphic: true
   belongs_to :concept, foreign_key: :concept_uid, primary_key: :uid
 
-
+  validates :activity_session_uid, presence: true
   validates :concept_uid, allow_blank: true, length: {is: CONCEPT_UID_LENGTH}
   validates :attempt, presence: true,
     numericality: {
@@ -41,5 +41,18 @@ class FeedbackHistory < ActiveRecord::Base
              :feedback_text, :feedback_type, :time, :metadata],
       include: [:prompt]
     ))
+  end
+
+  def self.batch_create(param_array)
+    new_records = []
+    FeedbackHistory.transaction do
+      param_array.each do |params|
+        new_records.push(create(params))
+      end
+      if new_records.any? { |record| !record.valid? }
+        raise ActiveRecord::Rollback
+      end
+    end
+    new_records
   end
 end

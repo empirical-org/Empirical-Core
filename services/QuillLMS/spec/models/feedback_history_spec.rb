@@ -10,6 +10,7 @@ RSpec.describe FeedbackHistory, type: :model do
   end
 
   context 'validations' do
+    it { should validate_presence_of(:activity_session_uid) }
 
     it { should validate_presence_of(:attempt) }
     it do
@@ -61,6 +62,36 @@ RSpec.describe FeedbackHistory, type: :model do
 
       assert_equal json_hash['prompt'], @feedback_history.prompt.as_json
       assert_equal json_hash['prompt']['text'], @prompt.text
+    end
+  end
+
+  context 'batch_create' do
+    setup do
+      @valid_fh_params = {
+        activity_session_uid: SecureRandom.uuid,
+        attempt: 1,
+	entry: 'This is the student entry',
+	feedback_text: 'This is the feedback text',
+	feedback_type: 'semantic',
+	optimal: false,
+	time: Time.now,
+	used: true
+      }
+      @invalid_fh_params = {}
+    end
+
+    it 'should save and return if all creations are valid' do
+        assert_equal FeedbackHistory.count, 0
+	FeedbackHistory.batch_create([@valid_fh_params, @valid_fh_params, @valid_fh_params])
+	assert_equal FeedbackHistory.count, 3
+    end
+
+    it 'should fail to create any records if even one is valid' do
+        assert_equal FeedbackHistory.count, 0
+	results = FeedbackHistory.batch_create([@invalid_fh_params, @valid_fh_params])
+	assert_equal FeedbackHistory.count, 0
+        assert results[0].errors[:entry].include?("can't be blank")
+        assert results[1].valid?
     end
   end
 end
