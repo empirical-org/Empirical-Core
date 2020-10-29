@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { Activity, ActivityClassification, } from './interfaces'
+import { Activity, ActivityClassification, Topic, } from './interfaces'
 
 const smallWhiteCheckSrc = `${process.env.CDN_URL}/images/shared/check-small-white.svg`
 const expandSrc = `${process.env.CDN_URL}/images/shared/expand.svg`
@@ -9,6 +9,7 @@ const ccssSrc = `${process.env.CDN_URL}/images/icons/description-ccss.svg`
 const readabilitySrc = `${process.env.CDN_URL}/images/icons/description-readability.svg`
 const informationSrc = `${process.env.CDN_URL}/images/icons/description-information.svg`
 const copyrightSrc = `${process.env.CDN_URL}/images/icons/description-copyright.svg`
+const topicSrc = `${process.env.CDN_URL}/images/icons/icons-description-topic.svg`
 const previewSrc = `${process.env.CDN_URL}/images/icons/preview.svg`
 const removeSrc = `${process.env.CDN_URL}/images/icons/remove-in-circle.svg`
 const connectSrc = `${process.env.CDN_URL}/images/icons/description-connect.svg`
@@ -96,6 +97,23 @@ const ActivityRowConcept = ({ conceptName, }: { conceptName?: string }) => {
 
   return <span className={className} />
 }
+
+const ActivityRowTopics = ({ topics, }: { topics?: Topic[] }) => {
+  const className = "second-line-section topic"
+  if (topics && topics.length) {
+    const levelOneTopic = topics.find(t => Number(t.level) === 1)
+    const levelZeroTopic = topics.find(t => Number(t.level) === 0)
+    let topicString = levelOneTopic ? `${levelOneTopic.name}: ` : ''
+    topicString += levelZeroTopic.name
+    return (<span className={className}>
+      <img alt="Globe icon" src={topicSrc} />
+      <span>{topicString}</span>
+    </span>)
+  }
+
+  return <span className={className} />
+}
+
 
 const ActivityRowReadabilityGradeLevel = ({ readabilityGradeLevel, }: { readabilityGradeLevel?: string }) => {
   const className = "second-line-section readability-level"
@@ -188,7 +206,7 @@ const ActivityRow = ({ activity, isSelected, toggleActivitySelection, showCheckb
 
   const expandImgAltText = `Arrow pointing ${isExpanded ? 'up' : 'down'}`
 
-  const { activity_classification, name, activity_category_name, standard_level_name, anonymous_path, readability_grade_level, } = activity
+  const { activity_classification, name, activity_category_name, standard_level_name, anonymous_path, readability_grade_level, topics, } = activity
 
   const previewButton = <a className="interactive-wrapper focus-on-light preview-link" href={anonymous_path} rel="noopener noreferrer" target="_blank"><img alt="Preview eye icon" src={previewSrc} />Preview</a>
   const expandButton = <button className="interactive-wrapper focus-on-light expand-button" onClick={toggleIsExpanded} type="button"><img alt={expandImgAltText} src={expandSrc} /></button>
@@ -217,6 +235,7 @@ const ActivityRow = ({ activity, isSelected, toggleActivitySelection, showCheckb
       <div className="classification-concept-topic-wrapper">
         <ActivityRowClassification classification={activity_classification} />
         <ActivityRowConcept conceptName={activity_category_name} />
+        <ActivityRowTopics topics={topics} />
         <span className="second-line-section topic" />
       </div>
       <div className="readability-and-standard-level-wrapper">
