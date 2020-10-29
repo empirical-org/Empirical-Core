@@ -29,9 +29,11 @@ RSpec.describe FeedbackHistory, type: :model do
     it { should validate_presence_of(:feedback_type) }
     it { should validate_inclusion_of(:feedback_type).in_array(FeedbackHistory::FEEDBACK_TYPES) }
 
-    it { should validate_presence_of(:optimal) }
+    it { should allow_value(true).for(:optimal) }
+    it { should allow_value(false).for(:optimal) }
 
-    it { should validate_presence_of(:used) }
+    it { should allow_value(true).for(:used) }
+    it { should allow_value(false).for(:used) }
 
     it { should validate_presence_of(:time) }
   end

@@ -354,6 +354,7 @@ EmpiricalGrammar::Application.routes.draw do
       resources :activities,              except: [:index, :new, :edit]
       resources :activity_flags,          only: [:index]
       resources :activity_sessions,       except: [:index, :new, :edit]
+      resources :feedback_histories,        only: [:index, :show, :create, :update, :destroy]
       resources :lessons_tokens,          only: [:create]
       resources :standard_levels,                only: [:index]
       resources :standards,                  only: [:index]
@@ -678,7 +679,7 @@ EmpiricalGrammar::Application.routes.draw do
   # Uptime status
   resource :status, only: [] do
     collection do
-      get :index, :database, :database_write, :database_follower, :redis_cache, :redis_queue, :firebase, :sidekiq_queue_length
+      get :index, :database, :database_write, :database_follower, :redis_cache, :redis_queue, :sidekiq_queue_length
     end
   end
 
