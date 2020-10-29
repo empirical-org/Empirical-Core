@@ -1,14 +1,15 @@
 require 'rails_helper'
 
 describe ELLStarterDiagnosticEmailJob do
-  let(:mail) { described_class.new}
+  let(:job) { described_class.new}
 
   describe '#perform' do
     it 'should send ELL Starter Diagnostic information' do
-      ell_email = mail.perform("Eric", "eric@quill.org")
-      last_email = ActionMailer::Base.deliveries.last
-      expect(ell_email.to).to eq ["eric@quill.org"]
-      expect(ell_email).to eq last_email
+      name = "Eric"
+      email = "eric@quill.org"
+      expect(UserMailer).to receive(:ell_starter_diagnostic_info_email).with(name, email).and_return(double('mailer', deliver_now!: true))
+
+      job.perform(name, email)
     end
   end
 end
