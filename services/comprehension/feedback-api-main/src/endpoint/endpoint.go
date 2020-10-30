@@ -114,7 +114,7 @@ func processResults(results map[int]APIResponse, length int) (int, bool) {
 
 	all_correct := len(results) >= length
 
-	return automl_index, all_correct
+	return automl_index + 1, all_correct
 }
 
 func getAPIResponse(url string, priority int, json_params [] byte, c chan InternalAPIResponse) {
