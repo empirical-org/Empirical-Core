@@ -140,7 +140,7 @@ func getAPIResponse(url string, priority int, json_params [] byte, c chan Intern
 
 	if err := json.NewDecoder(response_json.Body).Decode(&result); err != nil {
 		// TODO might want to think about what this should be.
-		c <- InternalAPIResponse{Priority: priority, APIResponse: APIResponse{Feedback: "There was an JSON error", Feedback_type: err.Error(), Labels: url, Optimal: false}}
+		c <- InternalAPIResponse{Priority: priority, APIResponse: APIResponse{Feedback: "There was an JSON error" + err.Error(), Feedback_type: "API Error", Labels: url, Optimal: false}}
 		return
 	}
 
@@ -151,25 +151,27 @@ func buildBatchFeedbackHistories(request_object APIRequest, feedbacks map[int]AP
 	feedback_histories := []FeedbackHistory{}
 	used_set := false
 	for _, feedback := range feedbacks {
-		feedback_histories = append(feedback_histories, FeedbackHistory{
-			Activity_session_uid: request_object.Session_id,
-			Prompt_id: request_object.Prompt_id,
-			Concept_uid: feedback.Concept_uid,
-			Attempt: request_object.Attempt,
-			Entry: request_object.Entry,
-			Feedback_text: feedback.Feedback,
-			Feedback_type: feedback.Feedback_type,
-			Optimal: feedback.Optimal,
-			Used: !feedback.Optimal && !used_set,
-			Time: time_received,
-			Metadata: FeedbackHistoryMetadata{
-				Highlight: feedback.Highlight,
-				Labels: feedback.Labels,
-				Response_id: feedback.Response_id,
-			},
-		})
-		if !used_set {
-			used_set = !feedback.Optimal
+		if feedback.Feedback_type != "API Error" {
+			feedback_histories = append(feedback_histories, FeedbackHistory{
+				Activity_session_uid: request_object.Session_id,
+				Prompt_id: request_object.Prompt_id,
+				Concept_uid: feedback.Concept_uid,
+				Attempt: request_object.Attempt,
+				Entry: request_object.Entry,
+				Feedback_text: feedback.Feedback,
+				Feedback_type: feedback.Feedback_type,
+				Optimal: feedback.Optimal,
+				Used: !feedback.Optimal && !used_set,
+				Time: time_received,
+				Metadata: FeedbackHistoryMetadata{
+					Highlight: feedback.Highlight,
+					Labels: feedback.Labels,
+					Response_id: feedback.Response_id,
+				},
+			})
+			if !used_set {
+				used_set = !feedback.Optimal
+			}
 		}
 	}
 
