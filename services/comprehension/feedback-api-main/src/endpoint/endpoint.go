@@ -14,7 +14,7 @@ import (
 )
 
 const (
-	automl_api = "https://comprehension-247816.appspot.com/feedback/ml"
+	automl_api = "https://staging.quill.org/comprehension/ml_feedback.json"
 	grammar_check_api = "https://us-central1-comprehension-247816.cloudfunctions.net/topic-grammar-API"
 	plagiarism_api = "https://comprehension-247816.appspot.com/feedback/plagiarism"
 	regex_rules_api = "https://comprehension-247816.appspot.com/feedback/rules/first_pass"
@@ -118,7 +118,18 @@ func processResults(results map[int]APIResponse, length int) (int, bool) {
 }
 
 func getAPIResponse(url string, priority int, json_params [] byte, c chan InternalAPIResponse) {
-	response_json, err := http.Post(url, "application/json", bytes.NewReader(json_params))
+	// response_json, err := http.Post(url, "application/json", bytes.NewReader(json_params))
+
+	tr := &http.Transport{
+		TLSClientConfig: &tls.Config{InsecureSkipVerify: true},
+	}
+	client := &http.Client{Transport: tr}
+
+
+	// TODO For now, just swallow any errors from this, but we'd want to report errors.
+	// TODO: Replace "client" with "http" when we remove the segment above
+	log.Println("Posting to endpoint")
+	response_json, err := client.Post(url, "application/json",  bytes.NewReader(json_params))
 
 	if err != nil {
 		c <- InternalAPIResponse{Priority: priority, APIResponse: APIResponse{Feedback: "There was an error hitting the API", Optimal: false}}
