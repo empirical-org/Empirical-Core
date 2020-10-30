@@ -181,8 +181,9 @@ func batchRecordFeedback(incoming_params APIRequest, feedbacks map[int]APIRespon
 
 	// TODO For now, just swallow any errors from this, but we'd want to report errors.
 	log.Println("Posting to endpoint")
-	result = http.Post(batch_feedback_history_url, "application/json",  bytes.NewBuffer(histories_json))
+	result, err := http.Post(batch_feedback_history_url, "application/json",  bytes.NewBuffer(histories_json))
 	log.Println(result)
+	log.Println(err)
 	wg.Done() // mark task as done in WaitGroup
 
 }
