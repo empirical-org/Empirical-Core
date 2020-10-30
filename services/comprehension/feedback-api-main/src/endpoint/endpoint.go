@@ -87,6 +87,7 @@ func Endpoint(responseWriter http.ResponseWriter, request *http.Request) {
 	if err := json.NewDecoder(bytes.NewReader(request_body)).Decode(&request_object); err != nil {
 		return
 	}
+
 	go batchRecordFeedback(request_object, results)
 
 	responseWriter.Header().Set("Access-Control-Allow-Origin", "*")
@@ -167,7 +168,7 @@ func batchRecordFeedback(incoming_params APIRequest, feedbacks map[int]APIRespon
 	histories, err := buildBatchFeedbackHistories(incoming_params, feedbacks, time.Now())
 
 	if err != nil {
-		return
+		fmt.Println(err)
 	}
 
 	histories_json, _ := json.Marshal(histories)
