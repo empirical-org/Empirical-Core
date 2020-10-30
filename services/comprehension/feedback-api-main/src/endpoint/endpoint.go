@@ -6,7 +6,7 @@ import (
 	"net/http"
 	"encoding/json"
 	"io/ioutil"
-	"fmt"
+	"log"
 	"sync"
 	"time"
 	"net/http/httputil"
