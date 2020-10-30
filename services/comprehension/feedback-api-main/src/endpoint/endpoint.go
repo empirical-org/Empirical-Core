@@ -132,7 +132,7 @@ func getAPIResponse(url string, priority int, json_params [] byte, c chan Intern
 	response_json, err := client.Post(url, "application/json",  bytes.NewReader(json_params))
 
 	if err != nil {
-		c <- InternalAPIResponse{Priority: priority, APIResponse: APIResponse{Feedback: "There was an error hitting the API", Optimal: false}}
+		c <- InternalAPIResponse{Priority: priority, APIResponse: APIResponse{Feedback: "There was an error hitting the API", Feedback_type: "API Error", Optimal: false}}
 		return
 	}
 
@@ -140,7 +140,7 @@ func getAPIResponse(url string, priority int, json_params [] byte, c chan Intern
 
 	if err := json.NewDecoder(response_json.Body).Decode(&result); err != nil {
 		// TODO might want to think about what this should be.
-		//c <- InternalAPIResponse{Priority: priority, APIResponse: APIResponse{Feedback: "There was an JSON error" + err.Error(), Feedback_type: "API Error", Labels: url, Optimal: false}}
+		c <- InternalAPIResponse{Priority: priority, APIResponse: APIResponse{Feedback: "There was an JSON error" + err.Error(), Feedback_type: "API Error", Labels: url, Optimal: false}}
 		return
 	}
 
