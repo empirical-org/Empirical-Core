@@ -47,9 +47,9 @@ func Endpoint(responseWriter http.ResponseWriter, request *http.Request) {
 
 	requestDump, err := httputil.DumpRequest(request, true)
 	if err != nil {
-		fmt.Println(err)
+		log.Println(err)
 	}
-	fmt.Println(string(requestDump))
+	log.Println(string(requestDump))
 
 	request_body, err := ioutil.ReadAll(request.Body)
 	if err != nil {
@@ -88,8 +88,8 @@ func Endpoint(responseWriter http.ResponseWriter, request *http.Request) {
 		return
 	}
 
-	fmt.Println("Attempting to batch record Feedback History")
-	fmt.Println(results)
+	log.Println("Attempting to batch record Feedback History")
+	log.Println(results)
 	go batchRecordFeedback(request_object, results)
 
 	responseWriter.Header().Set("Access-Control-Allow-Origin", "*")
@@ -167,21 +167,21 @@ func buildBatchFeedbackHistories(request_object APIRequest, feedbacks map[int]AP
 }
 
 func batchRecordFeedback(incoming_params APIRequest, feedbacks map[int]APIResponse) {
-	fmt.Println("Constructing batch Feedback History payload")
+	log.Println("Constructing batch Feedback History payload")
 	histories, err := buildBatchFeedbackHistories(incoming_params, feedbacks, time.Now())
-	fmt.Println(histories)
-	fmt.Println(err)
+	log.Println(histories)
+	log.Println(err)
 
 	if err != nil {
-		fmt.Println(err)
+		log.Println(err)
 	}
 
-	fmt.Println("Marshalling histories into JSON")
+	log.Println("Marshalling histories into JSON")
 	histories_json, _ := json.Marshal(histories)
-	fmt.Println(histories_json)
+	log.Println(histories_json)
 
 	// TODO For now, just swallow any errors from this, but we'd want to report errors.
-	fmt.Println("Posting to endpoint")
+	log.Println("Posting to endpoint")
 	http.Post(batch_feedback_history_url, "application/json",  bytes.NewBuffer(histories_json))
 	wg.Done() // mark task as done in WaitGroup
 
