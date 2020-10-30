@@ -10,11 +10,11 @@ jest.mock('string-strip-html', () => ({
 const mockProps = {
   style: {},
   elements: [
-    <span children='<em>Ele</em>' key="1" style={{}} />,
-    <span children='<strong>gosta</strong>' key="2" style={{}} />,
-    <input />,
-    <span children='bater' key="3" style={{}} />,
-    <span children='<u>papo.</u>' key="4" style={{}} />,
+    <span key="1" style={{}}>{'<em>Ele</em>'}</span>,
+    <span key="2" style={{}}>{'<strong>gosta</strong>'}</span>,
+    <input aria-label="test-label" key="3" />,
+    <span key="4" style={{}}>bater</span>,
+    <span key="5" style={{}}>{'<u>papo.</u>'}</span>,
   ]
 }
 

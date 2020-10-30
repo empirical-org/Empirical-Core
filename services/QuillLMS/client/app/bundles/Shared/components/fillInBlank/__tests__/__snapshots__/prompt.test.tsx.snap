@@ -10,8 +10,11 @@ exports[`Prompt component should match snapshot 1`] = `
   <strong
     style={Object {}}
   />
-  <input />
+  <input
+    key="3"
+  />
   <span
+    key="4"
     style={Object {}}
   >
     bater
