@@ -182,7 +182,7 @@ func batchRecordFeedback(incoming_params APIRequest, feedbacks map[int]APIRespon
 
 	// TODO: Remove temporary SSL bypass to turn security back on
 	tr := &http.Transport{
-		TLSClientConfig: &tls.Config{InsecureSkipVerify: true}
+		TLSClientConfig: &tls.Config{InsecureSkipVerify: true},
 	}
 	client := &http.Client{Transport: tr}
 
