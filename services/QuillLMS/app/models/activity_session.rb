@@ -26,8 +26,9 @@ class ActivitySession < ActiveRecord::Base
   before_create :set_state
   before_save   :set_completed_at
   before_save   :set_activity_id
+  before_save   :set_comprehension_session_score
 
-  after_save    :determine_if_final_score, :update_milestones
+  after_save    :determine_if_final_score, :update_milestones, :update_comprehension_concepts
 
   after_commit :invalidate_activity_session_count_if_completed
 
@@ -208,6 +209,26 @@ class ActivitySession < ActiveRecord::Base
 
   def score
     (percentage*100).round
+  end
+
+  def set_comprehension_session_score
+    return true if state != 'finished' || !activity.is_comprehension?
+    max_attempts_per_prompt = FeedbackHistory.used.where(activity_session_uid: uid).group(:prompt_id).maximum(:attempt)
+    return if max_attempts_per_prompt.empty?
+
+    calculated_score = max_attempts_per_prompt.sum { |m| 1.25 - 0.25 * m[1] }
+    self.percentage = ((calculated_score / max_attempts_per_prompt.size) * 100).round / 100.0
+  end
+
+  def update_comprehension_concepts
+    return if percentage.nil? || state != 'finished'
+    if activity.is_comprehension?
+      histories = FeedbackHistory.used.where(activity_session_uid: uid)
+      concept_results_to_save = histories.map(&:concept_results_hash).reject { |n| n == {} }
+      puts concept_results_to_save
+      ConceptResult.bulk_insert(values: concept_results_to_save)
+    end
+    true
   end
 
   def start

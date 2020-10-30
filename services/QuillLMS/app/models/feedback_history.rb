@@ -31,7 +31,28 @@ class FeedbackHistory < ActiveRecord::Base
   validates :optimal, inclusion: { in: [true, false] }
   validates :time, presence: true
   validates :used, inclusion: { in: [true, false] }
-  
+
+  scope :used,  -> { where(used: true) }
+
+  def concept_results_hash
+    concept = Concept.find_by(uid: concept_uid)
+    if concept.present?
+      {
+        concept_uid: concept_uid,
+        activity_session_id: activity_session.id,
+        activity_classification_id: 7,
+        concept_id: concept.id,
+        metadata: {
+          correct: optimal ? 1: 0,
+          answer: entry,
+          feedback_type: feedback_type
+        }
+      }
+    else
+      {}
+    end
+  end
+
   def serializable_hash(options = nil)
     options ||= {}
 

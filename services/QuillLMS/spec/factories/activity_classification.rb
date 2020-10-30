@@ -78,5 +78,19 @@ FactoryBot.define do
       scored false
     end
 
+    factory :comprehension do
+      id 7
+      name 'Quill Comprehension'
+      key 'comprehension'
+      app_name 'conmprehension'
+      uid '_o5-YkUO5wfTAVo9j0BweQ'
+      order_number 6
+      form_url 'https://www.quill.org/comprehension/#/play'
+      module_url 'https://www.quill.org/comprehension/#/play/'
+      instructor_mode false
+      locked_by_default false
+      scored true
+    end
+
   end
 end

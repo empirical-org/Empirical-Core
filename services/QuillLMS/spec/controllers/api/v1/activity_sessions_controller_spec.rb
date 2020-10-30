@@ -111,6 +111,51 @@ describe Api::V1::ActivitySessionsController, type: :controller do
     end
   end
 
+  describe '#update_comprehension_session' do
+    let(:token) { double :acceptable? => true, resource_owner_id: user.id }
+    let(:user) { create(:student) }
+
+    before do
+      allow(controller).to receive(:doorkeeper_token) {token}
+      @activity_session = create(:activity_session, state: 'started', user: user, completed_at: nil)
+    end
+
+    it 'passes activity session and user to notifier service' do
+      service_instance = double(:service_instance)
+
+      expect(NotifyOfCompletedActivity).to receive(:new)
+        .with(@activity_session)
+        .and_return(service_instance)
+      expect(service_instance).to receive(:call)
+
+      post :update_comprehension_session, id: @activity_session.uid, state: 'finished'
+    end
+
+    context 'default behavior' do
+      include_context "calling the api"
+
+      before do
+        subject
+        @parsed_body = JSON.parse(response.body)
+      end
+
+      def subject
+        # FIXME: URL Parameter should be called uid, not id, because that is confusing
+        put :update_comprehension_session, id: @activity_session.uid
+      end
+
+      it 'responds with 200' do
+        expect(response.status).to eq(200)
+      end
+
+      it 'responds with the updated activity session' do
+        expect(@parsed_body['activity_session']['uid']).to eq(@activity_session.uid)
+      end
+
+    end
+
+  end
+
   describe '#show' do
     let!(:session) { create(:activity_session) }
 

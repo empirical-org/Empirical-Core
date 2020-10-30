@@ -10,6 +10,7 @@ class ActivityClassification < ActiveRecord::Base
   DIAGNOSTIC_KEY = 'diagnostic'
   PROOFREADER_KEY = 'passage'
   LESSONS_KEY = 'lessons'
+  COMPREHENSION_KEY = 'comprehension'
 
   def self.diagnostic
     find_by_key DIAGNOSTIC_KEY
