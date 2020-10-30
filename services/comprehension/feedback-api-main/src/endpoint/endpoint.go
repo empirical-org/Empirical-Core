@@ -3,6 +3,7 @@ package endpoint
 
 import (
 	"bytes"
+	"crypto/tls"
 	"net/http"
 	"encoding/json"
 	"io/ioutil"
@@ -179,9 +180,17 @@ func batchRecordFeedback(incoming_params APIRequest, feedbacks map[int]APIRespon
 	log.Println("Marshalling histories into JSON")
 	histories_json, _ := json.Marshal(histories)
 
+	// TODO: Remove temporary SSL bypass to turn security back on
+	tr := &http.Transport{
+		TLSClientConfig: &tls.Config{InsecureSkipVerify: true}
+	}
+	client := &http.Client{Transport: tr}
+
+
 	// TODO For now, just swallow any errors from this, but we'd want to report errors.
+	// TODO: Replace "client" with "http" when we remove the segment above
 	log.Println("Posting to endpoint")
-	result, err := http.Post(batch_feedback_history_url, "application/json",  bytes.NewBuffer(histories_json))
+	result, err := client.Post(batch_feedback_history_url, "application/json",  bytes.NewBuffer(histories_json))
 	log.Println(result)
 	log.Println(err)
 	log.Println("Triggering wg.Done()")
