@@ -178,11 +178,11 @@ func batchRecordFeedback(incoming_params APIRequest, feedbacks map[int]APIRespon
 
 	log.Println("Marshalling histories into JSON")
 	histories_json, _ := json.Marshal(histories)
-	log.Println(histories_json)
 
 	// TODO For now, just swallow any errors from this, but we'd want to report errors.
 	log.Println("Posting to endpoint")
-	http.Post(batch_feedback_history_url, "application/json",  bytes.NewBuffer(histories_json))
+	result = http.Post(batch_feedback_history_url, "application/json",  bytes.NewBuffer(histories_json))
+	log.Println(result)
 	wg.Done() // mark task as done in WaitGroup
 
 }
