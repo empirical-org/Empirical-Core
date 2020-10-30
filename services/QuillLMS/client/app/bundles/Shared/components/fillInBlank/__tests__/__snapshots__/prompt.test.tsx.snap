@@ -11,6 +11,7 @@ exports[`Prompt component should match snapshot 1`] = `
     style={Object {}}
   />
   <input
+    aria-label="test-label"
     key="3"
   />
   <span
