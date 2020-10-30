@@ -184,6 +184,7 @@ func batchRecordFeedback(incoming_params APIRequest, feedbacks map[int]APIRespon
 	result, err := http.Post(batch_feedback_history_url, "application/json",  bytes.NewBuffer(histories_json))
 	log.Println(result)
 	log.Println(err)
+	log.Println("Triggering wg.Done()")
 	wg.Done() // mark task as done in WaitGroup
 
 }
