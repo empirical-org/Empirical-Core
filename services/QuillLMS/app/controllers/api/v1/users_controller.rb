@@ -33,4 +33,12 @@ class Api::V1::UsersController < Api::ApiController
     end
   end
 
+  def current_user_role
+    if current_user
+      render json: {role: current_user.role}
+    else
+      render json: {role: nil}
+    end
+  end
+
 end

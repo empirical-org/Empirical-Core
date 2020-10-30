@@ -384,6 +384,7 @@ EmpiricalGrammar::Application.routes.draw do
       get 'classroom_activities/classroom_teacher_and_coteacher_ids' => 'classroom_units#classroom_teacher_and_coteacher_ids'
       get 'users/profile', to: 'users#profile'
       get 'users/current_user_and_coteachers', to: 'users#current_user_and_coteachers'
+      get 'users/current_user_role', to: 'users#current_user_role'
       post 'published_edition' => 'activities#published_edition'
       get 'progress_reports/activities_scores_by_classroom_data' => 'progress_reports#activities_scores_by_classroom_data'
       get 'progress_reports/district_activity_scores' => 'progress_reports#district_activity_scores'
