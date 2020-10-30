@@ -1,6 +1,9 @@
 import * as React from 'react';
 
 import { Activity, ActivityClassification, Topic, } from './interfaces'
+import { stringifyLowerLevelTopics, } from './shared'
+
+import { Tooltip } from '../../../../../Shared/index'
 
 const smallWhiteCheckSrc = `${process.env.CDN_URL}/images/shared/check-small-white.svg`
 const expandSrc = `${process.env.CDN_URL}/images/shared/expand.svg`
@@ -101,14 +104,14 @@ const ActivityRowConcept = ({ conceptName, }: { conceptName?: string }) => {
 const ActivityRowTopics = ({ topics, }: { topics?: Topic[] }) => {
   const className = "second-line-section topic"
   if (topics && topics.length) {
-    const levelOneTopic = topics.find(t => Number(t.level) === 1)
-    const levelZeroTopic = topics.find(t => Number(t.level) === 0)
-    let topicString = levelOneTopic ? levelOneTopic.name : ''
-    topicString += levelOneTopic && levelZeroTopic ? ': ' : ''
-    topicString += levelZeroTopic ? levelZeroTopic.name : ''
+    const topicString = stringifyLowerLevelTopics(topics)
+
     return (<span className={className}>
       <img alt="Globe icon" src={topicSrc} />
-      <span>{topicString}</span>
+      <Tooltip
+        tooltipText={topicString}
+        tooltipTriggerText={topicString}
+      />
     </span>)
   }
 

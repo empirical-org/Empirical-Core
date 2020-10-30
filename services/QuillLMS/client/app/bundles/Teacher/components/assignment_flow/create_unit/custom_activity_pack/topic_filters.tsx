@@ -1,7 +1,9 @@
 import * as React from 'react';
 
 import { Activity, Topic } from './interfaces'
-import { TOPIC_FILTERS } from './shared'
+import { TOPIC_FILTERS, AVERAGE_FONT_WIDTH, } from './shared'
+
+import { Tooltip } from '../../../../../Shared/index'
 
 const dropdownIconSrc = `${process.env.CDN_URL}/images/icons/dropdown.svg`
 const indeterminateSrc = `${process.env.CDN_URL}/images/icons/indeterminate.svg`
@@ -58,10 +60,12 @@ const IndividualTopicFilterRow = ({ topicFilters, topicKey, handleTopicFilterCha
     </button>)
   }
 
-  return (<div className="individual-row filter-row" key={topicKey}>
+  const topicNameElement = topic.name.length * AVERAGE_FONT_WIDTH >= 182 ? <Tooltip tooltipText={topic.name} tooltipTriggerText={topic.name} tooltipTriggerTextClass="tooltip-trigger-text" /> : <span>{topic.name}</span>
+
+  return (<div className="individual-row filter-row topic-row" key={topicKey}>
     <div>
       {checkbox}
-      <span>{topic.name}</span>
+      {topicNameElement}
     </div>
     <span>({activityCount})</span>
   </div>)
@@ -145,10 +149,10 @@ const TopicFilters = ({ activities, filterActivities, topicFilters, handleTopicF
 
   const filteredActivities = filterActivities(TOPIC_FILTERS)
 
-  const topicGroupings = uniqueLevelThreeTopics.map(levelThree => {
+  const topicGroupings = uniqueLevelThreeTopics.sort((a, b) => a.name.localeCompare(b.name)).map(levelThree => {
     return {
       group: levelThree.name,
-      levelTwoIds: uniqueLevelTwoTopics.filter(levelTwo => levelTwo.parent_id === levelThree.id).map(levelTwo => levelTwo.id)
+      levelTwoIds: uniqueLevelTwoTopics.filter(levelTwo => levelTwo.parent_id === levelThree.id).sort((a, b) => a.name.localeCompare(b.name)).map(levelTwo => levelTwo.id)
     }
   })
 

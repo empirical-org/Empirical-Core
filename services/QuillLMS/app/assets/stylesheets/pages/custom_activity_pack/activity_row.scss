@@ -43,21 +43,8 @@
         flex-direction: row;
       }
       .classification-concept-topic-wrapper {
-        overflow: hidden;
-        text-overflow: ellipsis;
         .second-line-section {
           margin-right: 16px;
-          &.topic {
-            text-overflow: ellipsis;
-            overflow: hidden;
-            white-space: nowrap;
-            span {
-              text-overflow: ellipsis;
-              overflow: hidden;
-              white-space: nowrap;
-              min-width: 0px;
-            }
-          }
         }
       }
       .second-line-section {
