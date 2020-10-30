@@ -4,7 +4,7 @@ class FeedbackHistory < ActiveRecord::Base
   MAX_ATTEMPT = 5
   MIN_ENTRY_LENGTH = 25
   MAX_ENTRY_LENGTH = 500
-  MIN_FEEDBACK_LENGTH = 25
+  MIN_FEEDBACK_LENGTH = 10
   MAX_FEEDBACK_LENGTH = 500
   FEEDBACK_TYPES = [
     GRAMMAR = "grammar",
