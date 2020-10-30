@@ -27,7 +27,7 @@ class Api::V1::FeedbackHistoriesController < Api::ApiController
   # POST /feedback_histories/batch.json
   def batch
     records = FeedbackHistory.batch_create(batch_feedback_history_params)
-    if records.all? { |r| r.valid? }
+    if records.length && records.all? { |r| r.valid? }
       render json: records, status: :created
     else
       render json: records.map { |r| r.errors }, status: :unprocessable_entity
@@ -89,6 +89,7 @@ class Api::V1::FeedbackHistoriesController < Api::ApiController
       :time,
       :metadata
     ])[:feedback_histories]
+    return [] if not p
     p.map do |feedback_history|
       # the `prompt` relationship is polymorphic, but at the moment,
       # there's only one model it can relate to, and this is it

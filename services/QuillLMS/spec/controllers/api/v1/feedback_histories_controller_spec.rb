@@ -47,6 +47,21 @@ describe Api::V1::FeedbackHistoriesController, type: :controller do
       assert_equal 1, FeedbackHistory.count
     end
 
+    it "should set prompt_type to Comprehension::Prompt if prompt_id is provided" do
+      activity = Comprehension::Activity.create(target_level: 1, title: 'Test Activity Title')
+      prompt = Comprehension::Prompt.create(activity: activity, text: 'Test prompt text', conjunction: 'but')
+      post :create, feedback_history: { activity_session_uid: '1', attempt: 1, optimal: false, used: true,
+                                        time: DateTime.now, entry: 'This is the entry provided by the student',
+                                        feedback_text: 'This is the feedback provided by the algorithm',
+                                        feedback_type: 'semantic', metadata: {foo: 'bar'}, prompt_id: prompt.id }
+
+      parsed_response = JSON.parse(response.body)
+
+      assert_equal 201, response.code.to_i
+      assert_equal 1, FeedbackHistory.count
+      assert_equal "Comprehension::Prompt", FeedbackHistory.find(parsed_response['id']).prompt_type
+    end
+
     it "should not create an invalid record and return errors as json" do
       post :create, feedback_history: { entry: nil }
 
@@ -75,6 +90,21 @@ describe Api::V1::FeedbackHistoriesController, type: :controller do
       assert_equal "This is the entry provided by the student", parsed_response['feedback_histories'][0]['entry']
       assert_equal 2, parsed_response['feedback_histories'].length
       assert_equal 2, FeedbackHistory.count
+    end
+
+    it "should set prompt_type to Comprehension::Prompt if prompt_id is provided" do
+      activity = Comprehension::Activity.create(target_level: 1, title: 'Test Activity Title')
+      prompt = Comprehension::Prompt.create(activity: activity, text: 'Test prompt text', conjunction: 'but')
+      post :batch, feedback_histories: [{ activity_session_uid: '1', attempt: 1, optimal: false, used: true,
+                                          time: DateTime.now, entry: 'This is the entry provided by the student',
+                                          feedback_text: 'This is the feedback provided by the algorithm',
+                                          feedback_type: 'semantic', metadata: {foo: 'bar'}, prompt_id: prompt.id }]
+
+      parsed_response = JSON.parse(response.body)
+
+      assert_equal 201, response.code.to_i
+      assert_equal 1, FeedbackHistory.count
+      assert_equal "Comprehension::Prompt", FeedbackHistory.find(parsed_response['feedback_histories'][0]['id']).prompt_type
     end
 
     it "should not create any records if one is invalid record and return errors as json" do
