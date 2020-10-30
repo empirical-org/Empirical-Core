@@ -22,6 +22,8 @@ describe('MobileFilterMenu component', () => {
     filterActivities: (ignoredKey?: string) => activities,
     contentPartnerFilters: [],
     handleContentPartnerFilterChange: () => {},
+    topicFilters: [],
+    handleTopicFilterChange: () => {},
     setShowMobileFilterMenu: (show: boolean) => {},
     showMobileFilterMenu: false
   }

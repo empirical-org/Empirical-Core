@@ -47,7 +47,7 @@ const IndividualTopicFilterRow = ({ topicFilters, topicKey, handleTopicFilterCha
   }
 
   const topic = uniqueLevelTwoTopics.find(t => t.id === topicKey)
-  const activityCount = filteredActivities.filter(act => act.topics.find(t => t.id === topicKey)).length
+  const activityCount = filteredActivities.filter(act => act.topics && act.topics.find(t => t.id === topicKey)).length
   let checkbox = <button aria-label={`Check ${topic.name}`} className="focus-on-light quill-checkbox unselected" onClick={checkIndividualFilter} type="button" />
 
   if (activityCount === 0) {
@@ -85,7 +85,7 @@ const TopicToggle = ({filteredActivities, grouping, uniqueLevelTwoTopics, topicF
   const toggleArrow = <button aria-label="Toggle menu" className="interactive-wrapper focus-on-light filter-toggle-button" onClick={toggleIsOpen} type="button"><img alt="" className={isOpen ? 'is-open' : 'is-closed'} src={dropdownIconSrc} /></button>
   let topLevelCheckbox = <button aria-label="Check all nested filters" className="focus-on-light quill-checkbox unselected" onClick={checkAllFilters} type="button" />
 
-  const topLevelActivityCount = filteredActivities.filter(act => act.topics.some(t => grouping.levelTwoIds.includes(t.id))).length
+  const topLevelActivityCount = filteredActivities.filter(act => act.topics && act.topics.some(t => grouping.levelTwoIds.includes(t.id))).length
 
   if (topLevelActivityCount === 0) {
     topLevelCheckbox = <div className="focus-on-light quill-checkbox disabled" />
@@ -130,8 +130,8 @@ const TopicFilters = ({ activities, filterActivities, topicFilters, handleTopicF
   let levelTwoTopics = []
   let levelThreeTopics = []
   activities.forEach(a => {
-    const levelTwoTopic = a.topics.filter(t => Number(t.level) === 2)
-    const levelThreeTopic = a.topics.filter(t => Number(t.level) === 3)
+    const levelTwoTopic = a.topics && a.topics.filter(t => Number(t.level) === 2)
+    const levelThreeTopic = a.topics && a.topics.filter(t => Number(t.level) === 3)
     levelTwoTopics = levelTwoTopics.concat(levelTwoTopic)
     levelThreeTopics = levelThreeTopics.concat(levelThreeTopic)
   })

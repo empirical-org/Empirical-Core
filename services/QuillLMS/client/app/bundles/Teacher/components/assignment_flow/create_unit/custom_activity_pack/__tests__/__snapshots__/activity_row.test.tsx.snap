@@ -28,12 +28,39 @@ exports[`ActivityRow component with showCheckbox false and showRemoveButton true
       "flags": "{production}",
       "id": 627,
       "name": "Hernan Cortes",
+      "readability_grade_level": "8th-9th",
       "standard_level": Object {
         "id": 13,
         "name": "7th Grade CCSS",
       },
       "standard_level_name": "7th Grade CCSS",
       "standard_name": "87",
+      "topics": Array [
+        Object {
+          "id": "16",
+          "level": "3",
+          "name": "History",
+          "parent_id": null,
+        },
+        Object {
+          "id": "93",
+          "level": "2",
+          "name": "World Historical Figures",
+          "parent_id": "16",
+        },
+        Object {
+          "id": "171",
+          "level": "0",
+          "name": "Hernan Cortes & the Aztec Empire",
+          "parent_id": null,
+        },
+        Object {
+          "id": "172",
+          "level": "1",
+          "name": "Maya, Aztec, & Inca Civilizations",
+          "parent_id": null,
+        },
+      ],
       "uid": "-KqcjgL00W0ro-Wr4Bts",
     }
   }
@@ -74,12 +101,39 @@ exports[`ActivityRow component with showCheckbox false and showRemoveButton true
           "flags": "{production}",
           "id": 627,
           "name": "Hernan Cortes",
+          "readability_grade_level": "8th-9th",
           "standard_level": Object {
             "id": 13,
             "name": "7th Grade CCSS",
           },
           "standard_level_name": "7th Grade CCSS",
           "standard_name": "87",
+          "topics": Array [
+            Object {
+              "id": "16",
+              "level": "3",
+              "name": "History",
+              "parent_id": null,
+            },
+            Object {
+              "id": "93",
+              "level": "2",
+              "name": "World Historical Figures",
+              "parent_id": "16",
+            },
+            Object {
+              "id": "171",
+              "level": "0",
+              "name": "Hernan Cortes & the Aztec Empire",
+              "parent_id": null,
+            },
+            Object {
+              "id": "172",
+              "level": "1",
+              "name": "Maya, Aztec, & Inca Civilizations",
+              "parent_id": null,
+            },
+          ],
           "uid": "-KqcjgL00W0ro-Wr4Bts",
         }
       }
@@ -174,17 +228,67 @@ exports[`ActivityRow component with showCheckbox false and showRemoveButton true
             </span>
           </span>
         </ActivityRowConcept>
-        <span
-          className="second-line-section topic"
-        />
+        <ActivityRowTopics
+          topics={
+            Array [
+              Object {
+                "id": "16",
+                "level": "3",
+                "name": "History",
+                "parent_id": null,
+              },
+              Object {
+                "id": "93",
+                "level": "2",
+                "name": "World Historical Figures",
+                "parent_id": "16",
+              },
+              Object {
+                "id": "171",
+                "level": "0",
+                "name": "Hernan Cortes & the Aztec Empire",
+                "parent_id": null,
+              },
+              Object {
+                "id": "172",
+                "level": "1",
+                "name": "Maya, Aztec, & Inca Civilizations",
+                "parent_id": null,
+              },
+            ]
+          }
+        >
+          <span
+            className="second-line-section topic"
+          >
+            <img
+              alt="Globe icon"
+              src="undefined/images/icons/icons-description-topic.svg"
+            />
+            <span>
+              Maya, Aztec, & Inca Civilizations: Hernan Cortes & the Aztec Empire
+            </span>
+          </span>
+        </ActivityRowTopics>
       </div>
       <div
         className="readability-and-standard-level-wrapper"
       >
-        <ActivityRowReadabilityGradeLevel>
+        <ActivityRowReadabilityGradeLevel
+          readabilityGradeLevel="8th-9th"
+        >
           <span
             className="second-line-section readability-level"
-          />
+          >
+            <img
+              alt="Book icon"
+              src="undefined/images/icons/description-readability.svg"
+            />
+            <span>
+              Readability: Grades 
+              8th-9th
+            </span>
+          </span>
         </ActivityRowReadabilityGradeLevel>
         <ActivityRowStandardLevel
           standardLevelName="7th Grade CCSS"
@@ -230,12 +334,39 @@ exports[`ActivityRow component with showCheckbox false and showRemoveButton true
           "flags": "{production}",
           "id": 627,
           "name": "Hernan Cortes",
+          "readability_grade_level": "8th-9th",
           "standard_level": Object {
             "id": 13,
             "name": "7th Grade CCSS",
           },
           "standard_level_name": "7th Grade CCSS",
           "standard_name": "87",
+          "topics": Array [
+            Object {
+              "id": "16",
+              "level": "3",
+              "name": "History",
+              "parent_id": null,
+            },
+            Object {
+              "id": "93",
+              "level": "2",
+              "name": "World Historical Figures",
+              "parent_id": "16",
+            },
+            Object {
+              "id": "171",
+              "level": "0",
+              "name": "Hernan Cortes & the Aztec Empire",
+              "parent_id": null,
+            },
+            Object {
+              "id": "172",
+              "level": "1",
+              "name": "Maya, Aztec, & Inca Civilizations",
+              "parent_id": null,
+            },
+          ],
           "uid": "-KqcjgL00W0ro-Wr4Bts",
         }
       }
@@ -290,12 +421,39 @@ exports[`ActivityRow component with showCheckbox false and showRemoveButton true
       "flags": "{production}",
       "id": 627,
       "name": "Hernan Cortes",
+      "readability_grade_level": "8th-9th",
       "standard_level": Object {
         "id": 13,
         "name": "7th Grade CCSS",
       },
       "standard_level_name": "7th Grade CCSS",
       "standard_name": "87",
+      "topics": Array [
+        Object {
+          "id": "16",
+          "level": "3",
+          "name": "History",
+          "parent_id": null,
+        },
+        Object {
+          "id": "93",
+          "level": "2",
+          "name": "World Historical Figures",
+          "parent_id": "16",
+        },
+        Object {
+          "id": "171",
+          "level": "0",
+          "name": "Hernan Cortes & the Aztec Empire",
+          "parent_id": null,
+        },
+        Object {
+          "id": "172",
+          "level": "1",
+          "name": "Maya, Aztec, & Inca Civilizations",
+          "parent_id": null,
+        },
+      ],
       "uid": "-KqcjgL00W0ro-Wr4Bts",
     }
   }
@@ -336,12 +494,39 @@ exports[`ActivityRow component with showCheckbox false and showRemoveButton true
           "flags": "{production}",
           "id": 627,
           "name": "Hernan Cortes",
+          "readability_grade_level": "8th-9th",
           "standard_level": Object {
             "id": 13,
             "name": "7th Grade CCSS",
           },
           "standard_level_name": "7th Grade CCSS",
           "standard_name": "87",
+          "topics": Array [
+            Object {
+              "id": "16",
+              "level": "3",
+              "name": "History",
+              "parent_id": null,
+            },
+            Object {
+              "id": "93",
+              "level": "2",
+              "name": "World Historical Figures",
+              "parent_id": "16",
+            },
+            Object {
+              "id": "171",
+              "level": "0",
+              "name": "Hernan Cortes & the Aztec Empire",
+              "parent_id": null,
+            },
+            Object {
+              "id": "172",
+              "level": "1",
+              "name": "Maya, Aztec, & Inca Civilizations",
+              "parent_id": null,
+            },
+          ],
           "uid": "-KqcjgL00W0ro-Wr4Bts",
         }
       }
@@ -436,17 +621,67 @@ exports[`ActivityRow component with showCheckbox false and showRemoveButton true
             </span>
           </span>
         </ActivityRowConcept>
-        <span
-          className="second-line-section topic"
-        />
+        <ActivityRowTopics
+          topics={
+            Array [
+              Object {
+                "id": "16",
+                "level": "3",
+                "name": "History",
+                "parent_id": null,
+              },
+              Object {
+                "id": "93",
+                "level": "2",
+                "name": "World Historical Figures",
+                "parent_id": "16",
+              },
+              Object {
+                "id": "171",
+                "level": "0",
+                "name": "Hernan Cortes & the Aztec Empire",
+                "parent_id": null,
+              },
+              Object {
+                "id": "172",
+                "level": "1",
+                "name": "Maya, Aztec, & Inca Civilizations",
+                "parent_id": null,
+              },
+            ]
+          }
+        >
+          <span
+            className="second-line-section topic"
+          >
+            <img
+              alt="Globe icon"
+              src="undefined/images/icons/icons-description-topic.svg"
+            />
+            <span>
+              Maya, Aztec, & Inca Civilizations: Hernan Cortes & the Aztec Empire
+            </span>
+          </span>
+        </ActivityRowTopics>
       </div>
       <div
         className="readability-and-standard-level-wrapper"
       >
-        <ActivityRowReadabilityGradeLevel>
+        <ActivityRowReadabilityGradeLevel
+          readabilityGradeLevel="8th-9th"
+        >
           <span
             className="second-line-section readability-level"
-          />
+          >
+            <img
+              alt="Book icon"
+              src="undefined/images/icons/description-readability.svg"
+            />
+            <span>
+              Readability: Grades 
+              8th-9th
+            </span>
+          </span>
         </ActivityRowReadabilityGradeLevel>
         <ActivityRowStandardLevel
           standardLevelName="7th Grade CCSS"
@@ -492,12 +727,39 @@ exports[`ActivityRow component with showCheckbox false and showRemoveButton true
           "flags": "{production}",
           "id": 627,
           "name": "Hernan Cortes",
+          "readability_grade_level": "8th-9th",
           "standard_level": Object {
             "id": 13,
             "name": "7th Grade CCSS",
           },
           "standard_level_name": "7th Grade CCSS",
           "standard_name": "87",
+          "topics": Array [
+            Object {
+              "id": "16",
+              "level": "3",
+              "name": "History",
+              "parent_id": null,
+            },
+            Object {
+              "id": "93",
+              "level": "2",
+              "name": "World Historical Figures",
+              "parent_id": "16",
+            },
+            Object {
+              "id": "171",
+              "level": "0",
+              "name": "Hernan Cortes & the Aztec Empire",
+              "parent_id": null,
+            },
+            Object {
+              "id": "172",
+              "level": "1",
+              "name": "Maya, Aztec, & Inca Civilizations",
+              "parent_id": null,
+            },
+          ],
           "uid": "-KqcjgL00W0ro-Wr4Bts",
         }
       }
@@ -552,12 +814,39 @@ exports[`ActivityRow component with showCheckbox true and showRemoveButton false
       "flags": "{production}",
       "id": 627,
       "name": "Hernan Cortes",
+      "readability_grade_level": "8th-9th",
       "standard_level": Object {
         "id": 13,
         "name": "7th Grade CCSS",
       },
       "standard_level_name": "7th Grade CCSS",
       "standard_name": "87",
+      "topics": Array [
+        Object {
+          "id": "16",
+          "level": "3",
+          "name": "History",
+          "parent_id": null,
+        },
+        Object {
+          "id": "93",
+          "level": "2",
+          "name": "World Historical Figures",
+          "parent_id": "16",
+        },
+        Object {
+          "id": "171",
+          "level": "0",
+          "name": "Hernan Cortes & the Aztec Empire",
+          "parent_id": null,
+        },
+        Object {
+          "id": "172",
+          "level": "1",
+          "name": "Maya, Aztec, & Inca Civilizations",
+          "parent_id": null,
+        },
+      ],
       "uid": "-KqcjgL00W0ro-Wr4Bts",
     }
   }
@@ -598,12 +887,39 @@ exports[`ActivityRow component with showCheckbox true and showRemoveButton false
           "flags": "{production}",
           "id": 627,
           "name": "Hernan Cortes",
+          "readability_grade_level": "8th-9th",
           "standard_level": Object {
             "id": 13,
             "name": "7th Grade CCSS",
           },
           "standard_level_name": "7th Grade CCSS",
           "standard_name": "87",
+          "topics": Array [
+            Object {
+              "id": "16",
+              "level": "3",
+              "name": "History",
+              "parent_id": null,
+            },
+            Object {
+              "id": "93",
+              "level": "2",
+              "name": "World Historical Figures",
+              "parent_id": "16",
+            },
+            Object {
+              "id": "171",
+              "level": "0",
+              "name": "Hernan Cortes & the Aztec Empire",
+              "parent_id": null,
+            },
+            Object {
+              "id": "172",
+              "level": "1",
+              "name": "Maya, Aztec, & Inca Civilizations",
+              "parent_id": null,
+            },
+          ],
           "uid": "-KqcjgL00W0ro-Wr4Bts",
         }
       }
@@ -644,12 +960,39 @@ exports[`ActivityRow component with showCheckbox true and showRemoveButton false
               "flags": "{production}",
               "id": 627,
               "name": "Hernan Cortes",
+              "readability_grade_level": "8th-9th",
               "standard_level": Object {
                 "id": 13,
                 "name": "7th Grade CCSS",
               },
               "standard_level_name": "7th Grade CCSS",
               "standard_name": "87",
+              "topics": Array [
+                Object {
+                  "id": "16",
+                  "level": "3",
+                  "name": "History",
+                  "parent_id": null,
+                },
+                Object {
+                  "id": "93",
+                  "level": "2",
+                  "name": "World Historical Figures",
+                  "parent_id": "16",
+                },
+                Object {
+                  "id": "171",
+                  "level": "0",
+                  "name": "Hernan Cortes & the Aztec Empire",
+                  "parent_id": null,
+                },
+                Object {
+                  "id": "172",
+                  "level": "1",
+                  "name": "Maya, Aztec, & Inca Civilizations",
+                  "parent_id": null,
+                },
+              ],
               "uid": "-KqcjgL00W0ro-Wr4Bts",
             }
           }
@@ -745,17 +1088,67 @@ exports[`ActivityRow component with showCheckbox true and showRemoveButton false
             </span>
           </span>
         </ActivityRowConcept>
-        <span
-          className="second-line-section topic"
-        />
+        <ActivityRowTopics
+          topics={
+            Array [
+              Object {
+                "id": "16",
+                "level": "3",
+                "name": "History",
+                "parent_id": null,
+              },
+              Object {
+                "id": "93",
+                "level": "2",
+                "name": "World Historical Figures",
+                "parent_id": "16",
+              },
+              Object {
+                "id": "171",
+                "level": "0",
+                "name": "Hernan Cortes & the Aztec Empire",
+                "parent_id": null,
+              },
+              Object {
+                "id": "172",
+                "level": "1",
+                "name": "Maya, Aztec, & Inca Civilizations",
+                "parent_id": null,
+              },
+            ]
+          }
+        >
+          <span
+            className="second-line-section topic"
+          >
+            <img
+              alt="Globe icon"
+              src="undefined/images/icons/icons-description-topic.svg"
+            />
+            <span>
+              Maya, Aztec, & Inca Civilizations: Hernan Cortes & the Aztec Empire
+            </span>
+          </span>
+        </ActivityRowTopics>
       </div>
       <div
         className="readability-and-standard-level-wrapper"
       >
-        <ActivityRowReadabilityGradeLevel>
+        <ActivityRowReadabilityGradeLevel
+          readabilityGradeLevel="8th-9th"
+        >
           <span
             className="second-line-section readability-level"
-          />
+          >
+            <img
+              alt="Book icon"
+              src="undefined/images/icons/description-readability.svg"
+            />
+            <span>
+              Readability: Grades 
+              8th-9th
+            </span>
+          </span>
         </ActivityRowReadabilityGradeLevel>
         <ActivityRowStandardLevel
           standardLevelName="7th Grade CCSS"
@@ -801,12 +1194,39 @@ exports[`ActivityRow component with showCheckbox true and showRemoveButton false
           "flags": "{production}",
           "id": 627,
           "name": "Hernan Cortes",
+          "readability_grade_level": "8th-9th",
           "standard_level": Object {
             "id": 13,
             "name": "7th Grade CCSS",
           },
           "standard_level_name": "7th Grade CCSS",
           "standard_name": "87",
+          "topics": Array [
+            Object {
+              "id": "16",
+              "level": "3",
+              "name": "History",
+              "parent_id": null,
+            },
+            Object {
+              "id": "93",
+              "level": "2",
+              "name": "World Historical Figures",
+              "parent_id": "16",
+            },
+            Object {
+              "id": "171",
+              "level": "0",
+              "name": "Hernan Cortes & the Aztec Empire",
+              "parent_id": null,
+            },
+            Object {
+              "id": "172",
+              "level": "1",
+              "name": "Maya, Aztec, & Inca Civilizations",
+              "parent_id": null,
+            },
+          ],
           "uid": "-KqcjgL00W0ro-Wr4Bts",
         }
       }
@@ -846,12 +1266,39 @@ exports[`ActivityRow component with showCheckbox true and showRemoveButton false
       "flags": "{production}",
       "id": 627,
       "name": "Hernan Cortes",
+      "readability_grade_level": "8th-9th",
       "standard_level": Object {
         "id": 13,
         "name": "7th Grade CCSS",
       },
       "standard_level_name": "7th Grade CCSS",
       "standard_name": "87",
+      "topics": Array [
+        Object {
+          "id": "16",
+          "level": "3",
+          "name": "History",
+          "parent_id": null,
+        },
+        Object {
+          "id": "93",
+          "level": "2",
+          "name": "World Historical Figures",
+          "parent_id": "16",
+        },
+        Object {
+          "id": "171",
+          "level": "0",
+          "name": "Hernan Cortes & the Aztec Empire",
+          "parent_id": null,
+        },
+        Object {
+          "id": "172",
+          "level": "1",
+          "name": "Maya, Aztec, & Inca Civilizations",
+          "parent_id": null,
+        },
+      ],
       "uid": "-KqcjgL00W0ro-Wr4Bts",
     }
   }
@@ -892,12 +1339,39 @@ exports[`ActivityRow component with showCheckbox true and showRemoveButton false
           "flags": "{production}",
           "id": 627,
           "name": "Hernan Cortes",
+          "readability_grade_level": "8th-9th",
           "standard_level": Object {
             "id": 13,
             "name": "7th Grade CCSS",
           },
           "standard_level_name": "7th Grade CCSS",
           "standard_name": "87",
+          "topics": Array [
+            Object {
+              "id": "16",
+              "level": "3",
+              "name": "History",
+              "parent_id": null,
+            },
+            Object {
+              "id": "93",
+              "level": "2",
+              "name": "World Historical Figures",
+              "parent_id": "16",
+            },
+            Object {
+              "id": "171",
+              "level": "0",
+              "name": "Hernan Cortes & the Aztec Empire",
+              "parent_id": null,
+            },
+            Object {
+              "id": "172",
+              "level": "1",
+              "name": "Maya, Aztec, & Inca Civilizations",
+              "parent_id": null,
+            },
+          ],
           "uid": "-KqcjgL00W0ro-Wr4Bts",
         }
       }
@@ -938,12 +1412,39 @@ exports[`ActivityRow component with showCheckbox true and showRemoveButton false
               "flags": "{production}",
               "id": 627,
               "name": "Hernan Cortes",
+              "readability_grade_level": "8th-9th",
               "standard_level": Object {
                 "id": 13,
                 "name": "7th Grade CCSS",
               },
               "standard_level_name": "7th Grade CCSS",
               "standard_name": "87",
+              "topics": Array [
+                Object {
+                  "id": "16",
+                  "level": "3",
+                  "name": "History",
+                  "parent_id": null,
+                },
+                Object {
+                  "id": "93",
+                  "level": "2",
+                  "name": "World Historical Figures",
+                  "parent_id": "16",
+                },
+                Object {
+                  "id": "171",
+                  "level": "0",
+                  "name": "Hernan Cortes & the Aztec Empire",
+                  "parent_id": null,
+                },
+                Object {
+                  "id": "172",
+                  "level": "1",
+                  "name": "Maya, Aztec, & Inca Civilizations",
+                  "parent_id": null,
+                },
+              ],
               "uid": "-KqcjgL00W0ro-Wr4Bts",
             }
           }
@@ -1043,17 +1544,67 @@ exports[`ActivityRow component with showCheckbox true and showRemoveButton false
             </span>
           </span>
         </ActivityRowConcept>
-        <span
-          className="second-line-section topic"
-        />
+        <ActivityRowTopics
+          topics={
+            Array [
+              Object {
+                "id": "16",
+                "level": "3",
+                "name": "History",
+                "parent_id": null,
+              },
+              Object {
+                "id": "93",
+                "level": "2",
+                "name": "World Historical Figures",
+                "parent_id": "16",
+              },
+              Object {
+                "id": "171",
+                "level": "0",
+                "name": "Hernan Cortes & the Aztec Empire",
+                "parent_id": null,
+              },
+              Object {
+                "id": "172",
+                "level": "1",
+                "name": "Maya, Aztec, & Inca Civilizations",
+                "parent_id": null,
+              },
+            ]
+          }
+        >
+          <span
+            className="second-line-section topic"
+          >
+            <img
+              alt="Globe icon"
+              src="undefined/images/icons/icons-description-topic.svg"
+            />
+            <span>
+              Maya, Aztec, & Inca Civilizations: Hernan Cortes & the Aztec Empire
+            </span>
+          </span>
+        </ActivityRowTopics>
       </div>
       <div
         className="readability-and-standard-level-wrapper"
       >
-        <ActivityRowReadabilityGradeLevel>
+        <ActivityRowReadabilityGradeLevel
+          readabilityGradeLevel="8th-9th"
+        >
           <span
             className="second-line-section readability-level"
-          />
+          >
+            <img
+              alt="Book icon"
+              src="undefined/images/icons/description-readability.svg"
+            />
+            <span>
+              Readability: Grades 
+              8th-9th
+            </span>
+          </span>
         </ActivityRowReadabilityGradeLevel>
         <ActivityRowStandardLevel
           standardLevelName="7th Grade CCSS"
@@ -1099,12 +1650,39 @@ exports[`ActivityRow component with showCheckbox true and showRemoveButton false
           "flags": "{production}",
           "id": 627,
           "name": "Hernan Cortes",
+          "readability_grade_level": "8th-9th",
           "standard_level": Object {
             "id": 13,
             "name": "7th Grade CCSS",
           },
           "standard_level_name": "7th Grade CCSS",
           "standard_name": "87",
+          "topics": Array [
+            Object {
+              "id": "16",
+              "level": "3",
+              "name": "History",
+              "parent_id": null,
+            },
+            Object {
+              "id": "93",
+              "level": "2",
+              "name": "World Historical Figures",
+              "parent_id": "16",
+            },
+            Object {
+              "id": "171",
+              "level": "0",
+              "name": "Hernan Cortes & the Aztec Empire",
+              "parent_id": null,
+            },
+            Object {
+              "id": "172",
+              "level": "1",
+              "name": "Maya, Aztec, & Inca Civilizations",
+              "parent_id": null,
+            },
+          ],
           "uid": "-KqcjgL00W0ro-Wr4Bts",
         }
       }
