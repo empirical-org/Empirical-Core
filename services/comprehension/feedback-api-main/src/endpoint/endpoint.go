@@ -103,12 +103,14 @@ func Endpoint(responseWriter http.ResponseWriter, request *http.Request) {
 func processResults(results map[int]APIResponse, length int) (int, bool) {
 	for i := 0; i < len(results); i++ {
 		result, has_key := results[i]
-		if !has_key {
-			return 0, false
-		}
+		if result.Feedback_type != "API Error" {
+			if !has_key {
+				return 0, false
+			}
 
-		if !result.Optimal {
-			return i, true
+			if !result.Optimal {
+				return i, true
+			}
 		}
 	}
 
