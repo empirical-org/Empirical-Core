@@ -58,7 +58,7 @@ class Api::V1::ActivitySessionsController < Api::ApiController
         render json: @activity_session, meta: {
           status: :success,
           message: "Activity Session Updated",
-          errors: [] # FIXME: this is dumb
+          errors: []
         }, serializer: ActivitySessionSerializer
       else
         render json: @activity_session, meta: {

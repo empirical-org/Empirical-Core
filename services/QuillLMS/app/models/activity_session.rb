@@ -211,7 +211,7 @@ class ActivitySession < ActiveRecord::Base
   end
 
   def set_score_from_feedback_history
-    return if state != 'finished' || !activity.is_comprehension?
+    return if state != 'finished' || !activity.feedback_history_classification?
     max_attempts_per_prompt = FeedbackHistory.used.where(activity_session_uid: uid).group(:prompt_id).maximum(:attempt)
     return if max_attempts_per_prompt.empty?
 
@@ -221,11 +221,15 @@ class ActivitySession < ActiveRecord::Base
 
   def update_concepts_from_feedback_history
     return if percentage.nil? || state != 'finished'
-    if activity.is_comprehension?
+    if activity.feedback_history_classification?
       histories = FeedbackHistory.used.where(activity_session_uid: uid)
       concept_results_to_save = histories.map(&:concept_results_hash).reject { |n| n == {} }
       ConceptResult.bulk_insert(values: concept_results_to_save)
     end
+  end
+
+  def feedback_history_classification?
+    return activity.is_comprehension?
   end
 
   def start
