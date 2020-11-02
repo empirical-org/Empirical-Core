@@ -89,7 +89,7 @@ class Api::V1::FeedbackHistoriesController < Api::ApiController
       :time,
       :metadata
     ])[:feedback_histories]
-    return [] if not p
+    return [] if !p
     p.map do |feedback_history|
       # the `prompt` relationship is polymorphic, but at the moment,
       # there's only one model it can relate to, and this is it
