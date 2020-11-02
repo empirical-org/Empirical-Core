@@ -54,7 +54,6 @@ class Api::V1::ActivitySessionsController < Api::ApiController
         NotifyOfCompletedActivity.new(@activity_session).call if @activity_session.classroom_unit_id
 
         @activity_session.update_concepts_from_feedback_history
-        @status = :success
         render json: @activity_session, meta: {
           status: :success,
           message: "Activity Session Updated",

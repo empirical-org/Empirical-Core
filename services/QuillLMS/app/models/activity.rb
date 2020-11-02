@@ -147,7 +147,7 @@ class Activity < ActiveRecord::Base
   end
 
   def feedback_history_classification?
-    return is_comprehension?
+    is_comprehension?
   end
 
   def self.search_results(flag)

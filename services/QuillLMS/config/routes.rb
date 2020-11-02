@@ -354,9 +354,7 @@ EmpiricalGrammar::Application.routes.draw do
       resources :activities,              except: [:index, :new, :edit]
       resources :activity_flags,          only: [:index]
       resources :activity_sessions,       except: [:index, :new, :edit] do
-        collection do
-          put 'update_with_feedback_history'
-        end
+        put :update_with_feedback_history, on: :collection
       end
       resources :feedback_histories,        only: [:index, :show, :create, :update, :destroy]
       resources :lessons_tokens,          only: [:create]
