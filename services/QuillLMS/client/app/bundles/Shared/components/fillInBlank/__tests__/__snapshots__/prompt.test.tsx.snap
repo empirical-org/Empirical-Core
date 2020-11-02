@@ -4,23 +4,24 @@ exports[`Prompt component should match snapshot 1`] = `
 <div
   style={Object {}}
 >
-  <em
-    style={Object {}}
-  />
-  <strong
+  <p
+    dangerouslySetInnerHTML={
+      Object {
+        "__html": "<em>Ele</em> <strong>gosta</strong>",
+      }
+    }
     style={Object {}}
   />
   <input
     aria-label="test-label"
     key="3"
   />
-  <span
-    key="4"
-    style={Object {}}
-  >
-    bater
-  </span>
-  <u
+  <p
+    dangerouslySetInnerHTML={
+      Object {
+        "__html": "bater <u>papo.</u>",
+      }
+    }
     style={Object {}}
   />
 </div>

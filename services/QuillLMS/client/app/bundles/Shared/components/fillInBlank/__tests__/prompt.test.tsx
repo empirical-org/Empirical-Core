@@ -24,13 +24,10 @@ describe('Prompt component', () => {
   it('should match snapshot', () => {
     expect(component).toMatchSnapshot();
   });
-  it('should render one <em> element', () => {
-    expect(component.find('em').length).toEqual(1);
+  it('should render one <em> element and one <strong> element in the same <p> tag', () => {
+    expect(component.find('p').first().props().dangerouslySetInnerHTML.__html).toEqual('<em>Ele</em> <strong>gosta</strong>')
   })
-  it('should render one <strong> element', () => {
-    expect(component.find('strong').length).toEqual(1);
-  })
-  it('should render one <u> element', () => {
-    expect(component.find('u').length).toEqual(1);
+  it('should render one <u> element in a <p> tag', () => {
+    expect(component.find('p').last().props().dangerouslySetInnerHTML.__html).toEqual('bater <u>papo.</u>')
   })
 })
