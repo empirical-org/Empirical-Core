@@ -44,7 +44,9 @@ interface ActivityRowProps {
   setShowSnackbar?: (show: boolean) => void
 }
 
-const calculateMaxAllowedLength = ({
+// the following method is a pretty hacky solution for helping to determine whether or not to show a truncated string and tooltip or the whole topic string in the <TopicSection />
+// we can't rely on pure CSS for this because the max width is so dependent on the presence and length of other elements in the row
+const calculateMaxAllowedLengthForTopicSection = ({
   activity_classification,
   activity_category_name,
   readability_grade_level,
@@ -271,7 +273,7 @@ const ActivityRow = ({ activity, isSelected, toggleActivitySelection, showCheckb
         <ActivityRowClassification classification={activity_classification} />
         <ActivityRowConcept conceptName={activity_category_name} />
         <ActivityRowTopics
-          maxAllowedLength={calculateMaxAllowedLength({ activity_classification, activity_category_name, readability_grade_level, standard_level_name})}
+          maxAllowedLength={calculateMaxAllowedLengthForTopicSection({ activity_classification, activity_category_name, readability_grade_level, standard_level_name})}
           topics={topics}
         />
       </div>
