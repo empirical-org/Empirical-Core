@@ -30,7 +30,7 @@ module Comprehension
     # PATCH/PUT /rule_sets/1.json
     def update
       if @rule_set.update(rule_set_params)
-        head :no_content
+        render json: @rule_set, status: :accepted
       else
         render json: @rule_set.errors, status: :unprocessable_entity
       end

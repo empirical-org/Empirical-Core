@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20201019200539) do
+ActiveRecord::Schema.define(version: 20200630161345) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -26,27 +26,6 @@ ActiveRecord::Schema.define(version: 20201019200539) do
   end
 
   add_index "comprehension_activities", ["parent_activity_id"], name: "index_comprehension_activities_on_parent_activity_id", using: :btree
-
-  create_table "comprehension_feedback_histories", force: :cascade do |t|
-    t.text     "activity_session_uid"
-    t.integer  "prompt_id"
-    t.string   "prompt_type"
-    t.text     "concept_uid"
-    t.integer  "attempt",              null: false
-    t.text     "entry",                null: false
-    t.boolean  "optimal",              null: false
-    t.boolean  "used",                 null: false
-    t.text     "feedback_text"
-    t.text     "feedback_type",        null: false
-    t.datetime "time",                 null: false
-    t.jsonb    "metadata"
-    t.datetime "created_at",           null: false
-    t.datetime "updated_at",           null: false
-  end
-
-  add_index "comprehension_feedback_histories", ["activity_session_uid"], name: "index_comprehension_feedback_histories_on_activity_session_uid", using: :btree
-  add_index "comprehension_feedback_histories", ["concept_uid"], name: "index_comprehension_feedback_histories_on_concept_uid", using: :btree
-  add_index "comprehension_feedback_histories", ["prompt_type", "prompt_id"], name: "index_comprehension_feedback_histories_on_prompt_type_and_id", using: :btree
 
   create_table "comprehension_passages", force: :cascade do |t|
     t.integer  "activity_id"
