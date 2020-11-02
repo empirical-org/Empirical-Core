@@ -36886,7 +36886,7 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
           }
         >
           <div
-            className="individual-row filter-row"
+            className="individual-row filter-row activity-category-row"
             key="23"
           >
             <div>
@@ -41356,7 +41356,7 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
           }
         >
           <div
-            className="individual-row filter-row"
+            className="individual-row filter-row activity-category-row"
             key="25"
           >
             <div>
@@ -45826,7 +45826,7 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
           }
         >
           <div
-            className="individual-row filter-row"
+            className="individual-row filter-row activity-category-row"
             key="24"
           >
             <div>
@@ -45836,9 +45836,32 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
                 onClick={[Function]}
                 type="button"
               />
-              <span>
-                History: Causes of the American Revolution
-              </span>
+              <Tooltip
+                tooltipText="History: Causes of the American Revolution"
+                tooltipTriggerText="History: Causes of the American Revolution"
+                tooltipTriggerTextClass="tooltip-trigger-text"
+              >
+                <span
+                  className="quill-tooltip-trigger"
+                >
+                  <span
+                    className="tooltip-trigger-text"
+                    onMouseEnter={[Function]}
+                    onMouseLeave={[Function]}
+                  >
+                    History: Causes of the American Revolution
+                  </span>
+                  <span
+                    className="quill-tooltip-wrapper"
+                  >
+                    <span
+                      className="quill-tooltip"
+                    >
+                      History: Causes of the American Revolution
+                    </span>
+                  </span>
+                </span>
+              </Tooltip>
             </div>
             <span>
               (
@@ -50296,7 +50319,7 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
           }
         >
           <div
-            className="individual-row filter-row"
+            className="individual-row filter-row activity-category-row"
             key="19"
           >
             <div>
@@ -54766,7 +54789,7 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
           }
         >
           <div
-            className="individual-row filter-row"
+            className="individual-row filter-row activity-category-row"
             key="20"
           >
             <div>
@@ -63601,17 +63624,14 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
           }
           grouping={
             Object {
-              "group": "History",
+              "group": "Culture",
               "levelTwoIds": Array [
-                "93",
-                "48",
-                "17",
-                "45",
+                "28",
               ],
             }
           }
           handleTopicFilterChange={[Function]}
-          key="History"
+          key="Culture"
           topicFilters={Array []}
           uniqueLevelTwoTopics={
             Array [
@@ -63692,12 +63712,12 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
                   type="button"
                 />
                 <span>
-                  History
+                  Culture
                 </span>
               </div>
               <span>
                 (
-                52
+                2
                 )
               </span>
             </div>
@@ -68100,14 +68120,17 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
           }
           grouping={
             Object {
-              "group": "Culture",
+              "group": "History",
               "levelTwoIds": Array [
-                "28",
+                "17",
+                "45",
+                "93",
+                "48",
               ],
             }
           }
           handleTopicFilterChange={[Function]}
-          key="Culture"
+          key="History"
           topicFilters={Array []}
           uniqueLevelTwoTopics={
             Array [
@@ -68188,12 +68211,12 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
                   type="button"
                 />
                 <span>
-                  Culture
+                  History
                 </span>
               </div>
               <span>
                 (
-                2
+                52
                 )
               </span>
             </div>

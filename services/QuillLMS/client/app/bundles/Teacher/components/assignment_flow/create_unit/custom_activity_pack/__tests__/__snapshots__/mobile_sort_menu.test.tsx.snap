@@ -94,6 +94,15 @@ exports[`MobileSortMenu component with showMobileSortMenu true should render 1`]
       >
         Concept
       </button>
+      <button
+        id="topic"
+        key="topic"
+        onClick={[Function]}
+        type="button"
+        value="topic"
+      >
+        Topic
+      </button>
     </div>
   </section>
 </MobileSortMenu>

@@ -8806,17 +8806,14 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
       }
       grouping={
         Object {
-          "group": "History",
+          "group": "Culture",
           "levelTwoIds": Array [
-            "93",
-            "48",
-            "17",
-            "45",
+            "28",
           ],
         }
       }
       handleTopicFilterChange={[Function]}
-      key="History"
+      key="Culture"
       topicFilters={Array []}
       uniqueLevelTwoTopics={
         Array [
@@ -8897,12 +8894,12 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
               type="button"
             />
             <span>
-              History
+              Culture
             </span>
           </div>
           <span>
             (
-            52
+            2
             )
           </span>
         </div>
@@ -13305,14 +13302,17 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
       }
       grouping={
         Object {
-          "group": "Culture",
+          "group": "History",
           "levelTwoIds": Array [
-            "28",
+            "17",
+            "45",
+            "93",
+            "48",
           ],
         }
       }
       handleTopicFilterChange={[Function]}
-      key="Culture"
+      key="History"
       topicFilters={Array []}
       uniqueLevelTwoTopics={
         Array [
@@ -13393,12 +13393,12 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
               type="button"
             />
             <span>
-              Culture
+              History
             </span>
           </div>
           <span>
             (
-            2
+            52
             )
           </span>
         </div>
@@ -26725,17 +26725,14 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
       }
       grouping={
         Object {
-          "group": "History",
+          "group": "Culture",
           "levelTwoIds": Array [
-            "93",
-            "48",
-            "17",
-            "45",
+            "28",
           ],
         }
       }
       handleTopicFilterChange={[Function]}
-      key="History"
+      key="Culture"
       topicFilters={
         Array [
           1,
@@ -26822,12 +26819,12 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
               type="button"
             />
             <span>
-              History
+              Culture
             </span>
           </div>
           <span>
             (
-            52
+            2
             )
           </span>
         </div>
@@ -31230,14 +31227,17 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
       }
       grouping={
         Object {
-          "group": "Culture",
+          "group": "History",
           "levelTwoIds": Array [
-            "28",
+            "17",
+            "45",
+            "93",
+            "48",
           ],
         }
       }
       handleTopicFilterChange={[Function]}
-      key="Culture"
+      key="History"
       topicFilters={
         Array [
           1,
@@ -31324,12 +31324,12 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
               type="button"
             />
             <span>
-              Culture
+              History
             </span>
           </div>
           <span>
             (
-            2
+            52
             )
           </span>
         </div>

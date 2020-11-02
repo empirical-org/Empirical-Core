@@ -4804,6 +4804,7 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
               </span>
             </ActivityRowConcept>
             <ActivityRowTopics
+              maxAllowedLength={0}
               topics={
                 Array [
                   Object {
@@ -4835,15 +4836,7 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
             >
               <span
                 className="second-line-section topic"
-              >
-                <img
-                  alt="Globe icon"
-                  src="undefined/images/icons/icons-description-topic.svg"
-                />
-                <span>
-                  Maya, Aztec, & Inca Civilizations: Hernan Cortes & the Aztec Empire
-                </span>
-              </span>
+              />
             </ActivityRowTopics>
           </div>
           <div
@@ -5252,6 +5245,7 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
               </span>
             </ActivityRowConcept>
             <ActivityRowTopics
+              maxAllowedLength={0}
               topics={
                 Array [
                   Object {
@@ -5283,15 +5277,7 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
             >
               <span
                 className="second-line-section topic"
-              >
-                <img
-                  alt="Globe icon"
-                  src="undefined/images/icons/icons-description-topic.svg"
-                />
-                <span>
-                  Maya, Aztec, & Inca Civilizations: Maya Civilization
-                </span>
-              </span>
+              />
             </ActivityRowTopics>
           </div>
           <div
@@ -5700,6 +5686,7 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
               </span>
             </ActivityRowConcept>
             <ActivityRowTopics
+              maxAllowedLength={0}
               topics={
                 Array [
                   Object {
@@ -5731,15 +5718,7 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
             >
               <span
                 className="second-line-section topic"
-              >
-                <img
-                  alt="Globe icon"
-                  src="undefined/images/icons/icons-description-topic.svg"
-                />
-                <span>
-                  Maya, Aztec, & Inca Civilizations: Tenochtitlán Origin Myth
-                </span>
-              </span>
+              />
             </ActivityRowTopics>
           </div>
           <div
@@ -6148,6 +6127,7 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
               </span>
             </ActivityRowConcept>
             <ActivityRowTopics
+              maxAllowedLength={0}
               topics={
                 Array [
                   Object {
@@ -6179,15 +6159,7 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
             >
               <span
                 className="second-line-section topic"
-              >
-                <img
-                  alt="Globe icon"
-                  src="undefined/images/icons/icons-description-topic.svg"
-                />
-                <span>
-                  Maya, Aztec, & Inca Civilizations: The Inca
-                </span>
-              </span>
+              />
             </ActivityRowTopics>
           </div>
           <div
@@ -6596,6 +6568,7 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
               </span>
             </ActivityRowConcept>
             <ActivityRowTopics
+              maxAllowedLength={0}
               topics={
                 Array [
                   Object {
@@ -6627,15 +6600,7 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
             >
               <span
                 className="second-line-section topic"
-              >
-                <img
-                  alt="Globe icon"
-                  src="undefined/images/icons/icons-description-topic.svg"
-                />
-                <span>
-                  Chinese Dynasties: Hui Zong's Defeat
-                </span>
-              </span>
+              />
             </ActivityRowTopics>
           </div>
           <div
@@ -7044,6 +7009,7 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
               </span>
             </ActivityRowConcept>
             <ActivityRowTopics
+              maxAllowedLength={0}
               topics={
                 Array [
                   Object {
@@ -7075,15 +7041,7 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
             >
               <span
                 className="second-line-section topic"
-              >
-                <img
-                  alt="Globe icon"
-                  src="undefined/images/icons/icons-description-topic.svg"
-                />
-                <span>
-                  Chinese Dynasties: Shihuangdi Unifies China
-                </span>
-              </span>
+              />
             </ActivityRowTopics>
           </div>
           <div
@@ -7492,6 +7450,7 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
               </span>
             </ActivityRowConcept>
             <ActivityRowTopics
+              maxAllowedLength={0}
               topics={
                 Array [
                   Object {
@@ -7523,15 +7482,7 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
             >
               <span
                 className="second-line-section topic"
-              >
-                <img
-                  alt="Globe icon"
-                  src="undefined/images/icons/icons-description-topic.svg"
-                />
-                <span>
-                  Chinese Dynasties: Tang Dynasty Inventions
-                </span>
-              </span>
+              />
             </ActivityRowTopics>
           </div>
           <div
@@ -7940,6 +7891,7 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
               </span>
             </ActivityRowConcept>
             <ActivityRowTopics
+              maxAllowedLength={0}
               topics={
                 Array [
                   Object {
@@ -7971,15 +7923,7 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
             >
               <span
                 className="second-line-section topic"
-              >
-                <img
-                  alt="Globe icon"
-                  src="undefined/images/icons/icons-description-topic.svg"
-                />
-                <span>
-                  Chinese Dynasties: The Mongol Invasion of China
-                </span>
-              </span>
+              />
             </ActivityRowTopics>
           </div>
           <div
@@ -8388,6 +8332,7 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
               </span>
             </ActivityRowConcept>
             <ActivityRowTopics
+              maxAllowedLength={0}
               topics={
                 Array [
                   Object {
@@ -8419,15 +8364,7 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
             >
               <span
                 className="second-line-section topic"
-              >
-                <img
-                  alt="Globe icon"
-                  src="undefined/images/icons/icons-description-topic.svg"
-                />
-                <span>
-                  The Age of Exploration: Marco Polo
-                </span>
-              </span>
+              />
             </ActivityRowTopics>
           </div>
           <div
@@ -8836,6 +8773,7 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
               </span>
             </ActivityRowConcept>
             <ActivityRowTopics
+              maxAllowedLength={0}
               topics={
                 Array [
                   Object {
@@ -8867,15 +8805,7 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
             >
               <span
                 className="second-line-section topic"
-              >
-                <img
-                  alt="Globe icon"
-                  src="undefined/images/icons/icons-description-topic.svg"
-                />
-                <span>
-                  The Age of Exploration: Hernando de Soto
-                </span>
-              </span>
+              />
             </ActivityRowTopics>
           </div>
           <div
@@ -9284,6 +9214,7 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
               </span>
             </ActivityRowConcept>
             <ActivityRowTopics
+              maxAllowedLength={0}
               topics={
                 Array [
                   Object {
@@ -9315,15 +9246,7 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
             >
               <span
                 className="second-line-section topic"
-              >
-                <img
-                  alt="Globe icon"
-                  src="undefined/images/icons/icons-description-topic.svg"
-                />
-                <span>
-                  The Age of Exploration: Magellan
-                </span>
-              </span>
+              />
             </ActivityRowTopics>
           </div>
           <div
@@ -9732,6 +9655,7 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
               </span>
             </ActivityRowConcept>
             <ActivityRowTopics
+              maxAllowedLength={0}
               topics={
                 Array [
                   Object {
@@ -9763,15 +9687,7 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
             >
               <span
                 className="second-line-section topic"
-              >
-                <img
-                  alt="Globe icon"
-                  src="undefined/images/icons/icons-description-topic.svg"
-                />
-                <span>
-                  The Age of Exploration: Jamestown Settlement
-                </span>
-              </span>
+              />
             </ActivityRowTopics>
           </div>
           <div
@@ -10180,6 +10096,7 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
               </span>
             </ActivityRowConcept>
             <ActivityRowTopics
+              maxAllowedLength={0}
               topics={
                 Array [
                   Object {
@@ -10211,15 +10128,7 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
             >
               <span
                 className="second-line-section topic"
-              >
-                <img
-                  alt="Globe icon"
-                  src="undefined/images/icons/icons-description-topic.svg"
-                />
-                <span>
-                  The Renaissance: Humanism
-                </span>
-              </span>
+              />
             </ActivityRowTopics>
           </div>
           <div
@@ -10628,6 +10537,7 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
               </span>
             </ActivityRowConcept>
             <ActivityRowTopics
+              maxAllowedLength={0}
               topics={
                 Array [
                   Object {
@@ -10659,15 +10569,7 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
             >
               <span
                 className="second-line-section topic"
-              >
-                <img
-                  alt="Globe icon"
-                  src="undefined/images/icons/icons-description-topic.svg"
-                />
-                <span>
-                  The Renaissance: The Renaissance in Italy
-                </span>
-              </span>
+              />
             </ActivityRowTopics>
           </div>
           <div
@@ -11076,6 +10978,7 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
               </span>
             </ActivityRowConcept>
             <ActivityRowTopics
+              maxAllowedLength={0}
               topics={
                 Array [
                   Object {
@@ -11107,15 +11010,7 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
             >
               <span
                 className="second-line-section topic"
-              >
-                <img
-                  alt="Globe icon"
-                  src="undefined/images/icons/icons-description-topic.svg"
-                />
-                <span>
-                  The Renaissance: The Medici Family
-                </span>
-              </span>
+              />
             </ActivityRowTopics>
           </div>
           <div
@@ -11524,6 +11419,7 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
               </span>
             </ActivityRowConcept>
             <ActivityRowTopics
+              maxAllowedLength={0}
               topics={
                 Array [
                   Object {
@@ -11555,15 +11451,7 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
             >
               <span
                 className="second-line-section topic"
-              >
-                <img
-                  alt="Globe icon"
-                  src="undefined/images/icons/icons-description-topic.svg"
-                />
-                <span>
-                  The Renaissance: The Northern Renaissance
-                </span>
-              </span>
+              />
             </ActivityRowTopics>
           </div>
           <div
@@ -11972,6 +11860,7 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
               </span>
             </ActivityRowConcept>
             <ActivityRowTopics
+              maxAllowedLength={0}
               topics={
                 Array [
                   Object {
@@ -12003,15 +11892,7 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
             >
               <span
                 className="second-line-section topic"
-              >
-                <img
-                  alt="Globe icon"
-                  src="undefined/images/icons/icons-description-topic.svg"
-                />
-                <span>
-                  The American Revolution: The Battles of Lexington & Concord
-                </span>
-              </span>
+              />
             </ActivityRowTopics>
           </div>
           <div
@@ -12420,6 +12301,7 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
               </span>
             </ActivityRowConcept>
             <ActivityRowTopics
+              maxAllowedLength={0}
               topics={
                 Array [
                   Object {
@@ -12451,15 +12333,7 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
             >
               <span
                 className="second-line-section topic"
-              >
-                <img
-                  alt="Globe icon"
-                  src="undefined/images/icons/icons-description-topic.svg"
-                />
-                <span>
-                  The American Revolution: The Battle at Yorktown
-                </span>
-              </span>
+              />
             </ActivityRowTopics>
           </div>
           <div
@@ -12868,6 +12742,7 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
               </span>
             </ActivityRowConcept>
             <ActivityRowTopics
+              maxAllowedLength={0}
               topics={
                 Array [
                   Object {
@@ -12899,15 +12774,7 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
             >
               <span
                 className="second-line-section topic"
-              >
-                <img
-                  alt="Globe icon"
-                  src="undefined/images/icons/icons-description-topic.svg"
-                />
-                <span>
-                  The American Revolution: The Battle of Bunker Hill
-                </span>
-              </span>
+              />
             </ActivityRowTopics>
           </div>
           <div
@@ -13316,6 +13183,7 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
               </span>
             </ActivityRowConcept>
             <ActivityRowTopics
+              maxAllowedLength={0}
               topics={
                 Array [
                   Object {
@@ -13347,15 +13215,7 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
             >
               <span
                 className="second-line-section topic"
-              >
-                <img
-                  alt="Globe icon"
-                  src="undefined/images/icons/icons-description-topic.svg"
-                />
-                <span>
-                  The American Revolution: The Battle of Saratoga
-                </span>
-              </span>
+              />
             </ActivityRowTopics>
           </div>
           <div

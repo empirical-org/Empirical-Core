@@ -8859,7 +8859,7 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
       }
     >
       <div
-        className="individual-row filter-row"
+        className="individual-row filter-row activity-category-row"
         key="23"
       >
         <div>
@@ -13329,7 +13329,7 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
       }
     >
       <div
-        className="individual-row filter-row"
+        className="individual-row filter-row activity-category-row"
         key="25"
       >
         <div>
@@ -17799,7 +17799,7 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
       }
     >
       <div
-        className="individual-row filter-row"
+        className="individual-row filter-row activity-category-row"
         key="24"
       >
         <div>
@@ -17809,9 +17809,32 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
             onClick={[Function]}
             type="button"
           />
-          <span>
-            History: Causes of the American Revolution
-          </span>
+          <Tooltip
+            tooltipText="History: Causes of the American Revolution"
+            tooltipTriggerText="History: Causes of the American Revolution"
+            tooltipTriggerTextClass="tooltip-trigger-text"
+          >
+            <span
+              className="quill-tooltip-trigger"
+            >
+              <span
+                className="tooltip-trigger-text"
+                onMouseEnter={[Function]}
+                onMouseLeave={[Function]}
+              >
+                History: Causes of the American Revolution
+              </span>
+              <span
+                className="quill-tooltip-wrapper"
+              >
+                <span
+                  className="quill-tooltip"
+                >
+                  History: Causes of the American Revolution
+                </span>
+              </span>
+            </span>
+          </Tooltip>
         </div>
         <span>
           (
@@ -22269,7 +22292,7 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
       }
     >
       <div
-        className="individual-row filter-row"
+        className="individual-row filter-row activity-category-row"
         key="19"
       >
         <div>
@@ -26739,7 +26762,7 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
       }
     >
       <div
-        className="individual-row filter-row"
+        className="individual-row filter-row activity-category-row"
         key="20"
       >
         <div>
@@ -35648,7 +35671,7 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
       }
     >
       <div
-        className="individual-row filter-row"
+        className="individual-row filter-row activity-category-row"
         key="23"
       >
         <div>
@@ -40124,7 +40147,7 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
       }
     >
       <div
-        className="individual-row filter-row"
+        className="individual-row filter-row activity-category-row"
         key="25"
       >
         <div>
@@ -44600,7 +44623,7 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
       }
     >
       <div
-        className="individual-row filter-row"
+        className="individual-row filter-row activity-category-row"
         key="24"
       >
         <div>
@@ -44610,9 +44633,32 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
             onClick={[Function]}
             type="button"
           />
-          <span>
-            History: Causes of the American Revolution
-          </span>
+          <Tooltip
+            tooltipText="History: Causes of the American Revolution"
+            tooltipTriggerText="History: Causes of the American Revolution"
+            tooltipTriggerTextClass="tooltip-trigger-text"
+          >
+            <span
+              className="quill-tooltip-trigger"
+            >
+              <span
+                className="tooltip-trigger-text"
+                onMouseEnter={[Function]}
+                onMouseLeave={[Function]}
+              >
+                History: Causes of the American Revolution
+              </span>
+              <span
+                className="quill-tooltip-wrapper"
+              >
+                <span
+                  className="quill-tooltip"
+                >
+                  History: Causes of the American Revolution
+                </span>
+              </span>
+            </span>
+          </Tooltip>
         </div>
         <span>
           (
@@ -49076,7 +49122,7 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
       }
     >
       <div
-        className="individual-row filter-row"
+        className="individual-row filter-row activity-category-row"
         key="19"
       >
         <div>
@@ -53552,7 +53598,7 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
       }
     >
       <div
-        className="individual-row filter-row"
+        className="individual-row filter-row activity-category-row"
         key="20"
       >
         <div>

@@ -229,6 +229,7 @@ exports[`ActivityRow component with showCheckbox false and showRemoveButton true
           </span>
         </ActivityRowConcept>
         <ActivityRowTopics
+          maxAllowedLength={0}
           topics={
             Array [
               Object {
@@ -260,15 +261,7 @@ exports[`ActivityRow component with showCheckbox false and showRemoveButton true
         >
           <span
             className="second-line-section topic"
-          >
-            <img
-              alt="Globe icon"
-              src="undefined/images/icons/icons-description-topic.svg"
-            />
-            <span>
-              Maya, Aztec, & Inca Civilizations: Hernan Cortes & the Aztec Empire
-            </span>
-          </span>
+          />
         </ActivityRowTopics>
       </div>
       <div
@@ -622,6 +615,7 @@ exports[`ActivityRow component with showCheckbox false and showRemoveButton true
           </span>
         </ActivityRowConcept>
         <ActivityRowTopics
+          maxAllowedLength={0}
           topics={
             Array [
               Object {
@@ -653,15 +647,7 @@ exports[`ActivityRow component with showCheckbox false and showRemoveButton true
         >
           <span
             className="second-line-section topic"
-          >
-            <img
-              alt="Globe icon"
-              src="undefined/images/icons/icons-description-topic.svg"
-            />
-            <span>
-              Maya, Aztec, & Inca Civilizations: Hernan Cortes & the Aztec Empire
-            </span>
-          </span>
+          />
         </ActivityRowTopics>
       </div>
       <div
@@ -1089,6 +1075,7 @@ exports[`ActivityRow component with showCheckbox true and showRemoveButton false
           </span>
         </ActivityRowConcept>
         <ActivityRowTopics
+          maxAllowedLength={0}
           topics={
             Array [
               Object {
@@ -1120,15 +1107,7 @@ exports[`ActivityRow component with showCheckbox true and showRemoveButton false
         >
           <span
             className="second-line-section topic"
-          >
-            <img
-              alt="Globe icon"
-              src="undefined/images/icons/icons-description-topic.svg"
-            />
-            <span>
-              Maya, Aztec, & Inca Civilizations: Hernan Cortes & the Aztec Empire
-            </span>
-          </span>
+          />
         </ActivityRowTopics>
       </div>
       <div
@@ -1545,6 +1524,7 @@ exports[`ActivityRow component with showCheckbox true and showRemoveButton false
           </span>
         </ActivityRowConcept>
         <ActivityRowTopics
+          maxAllowedLength={0}
           topics={
             Array [
               Object {
@@ -1576,15 +1556,7 @@ exports[`ActivityRow component with showCheckbox true and showRemoveButton false
         >
           <span
             className="second-line-section topic"
-          >
-            <img
-              alt="Globe icon"
-              src="undefined/images/icons/icons-description-topic.svg"
-            />
-            <span>
-              Maya, Aztec, & Inca Civilizations: Hernan Cortes & the Aztec Empire
-            </span>
-          </span>
+          />
         </ActivityRowTopics>
       </div>
       <div
