@@ -3,6 +3,7 @@ package endpoint
 
 import (
 	"bytes"
+	"crypto/tls"
 	"net/http"
 	"encoding/json"
 	"io/ioutil"
@@ -13,14 +14,14 @@ import (
 )
 
 const (
-	automl_api = "https://comprehension-247816.appspot.com/feedback/ml"
+	//automl_api = "https://comprehension-247816.appspot.com/feedback/ml"
+	automl_api = "https://staging.quill.org/comprehension/ml_feedback.json"
 	grammar_check_api = "https://us-central1-comprehension-247816.cloudfunctions.net/topic-grammar-API"
 	plagiarism_api = "https://comprehension-247816.appspot.com/feedback/plagiarism"
 	regex_rules_api = "https://comprehension-247816.appspot.com/feedback/rules/first_pass"
 	spell_check_local = "https://us-central1-comprehension-247816.cloudfunctions.net/spell-check-cloud-function"
 	spell_check_bing = "https://us-central1-comprehension-247816.cloudfunctions.net/bing-API-spell-check"
-	feedback_history_url = "https://www.quill.org/api/v1/feedback_histories.json"
-	batch_feedback_history_url = "https://www.quill.org/api/v1/feedback_histories/batch.json"
+	batch_feedback_history_url = "https://staging.quill.org/api/v1/feedback_histories/batch.json"
 	automl_index = 1
 )
 
@@ -59,7 +60,7 @@ func Endpoint(responseWriter http.ResponseWriter, request *http.Request) {
 		return
 	}
 
-	results := map[int]APIResponse{}
+	results := map[int]InternalAPIResponse{}
 
 	c := make(chan InternalAPIResponse)
 
@@ -70,11 +71,25 @@ func Endpoint(responseWriter http.ResponseWriter, request *http.Request) {
 	var returnable_result APIResponse
 
 	for response := range c {
-		results[response.Priority] = response.APIResponse
-		return_index, returnable := processResults(results, len(urls))
+		results[response.Priority] = response
+		return_index, finished := processResults(results, len(urls), response.Usable)
 
-		if returnable {
-			returnable_result = results[return_index]
+		if finished {
+			// If processResults reports that it's "finished", but the APIResponse at
+			// that index is not Usable, we'll need to return a default response of some
+			// sort
+			// This should really only happen when there's no Semantic Feedback available,
+			// even for success cases, which means that if everything is working correctly,
+			// this only comes up during the initial Turking process
+			if results[return_index].Usable {
+				returnable_result = results[return_index].APIResponse
+			} else {
+				returnable_result = APIResponse{
+					Feedback: "Thank you for your response.",
+					Feedback_type: "fallback",
+					Optimal: true,
+				}
+			}
 			break
 		}
 	}
@@ -88,6 +103,7 @@ func Endpoint(responseWriter http.ResponseWriter, request *http.Request) {
 	if err := json.NewDecoder(bytes.NewReader(request_body)).Decode(&request_object); err != nil {
 		return
 	}
+
 	go batchRecordFeedback(request_object, results)
 
 	responseWriter.Header().Set("Access-Control-Allow-Origin", "*")
@@ -97,15 +113,17 @@ func Endpoint(responseWriter http.ResponseWriter, request *http.Request) {
 	wg.Wait()
 }
 // returns a typle of results index and that should be returned.
-func processResults(results map[int]APIResponse, length int) (int, bool) {
-	for i := 0; i < len(results); i++ {
+func processResults(results map[int]InternalAPIResponse, length int, usable bool) (int, bool) {
+	if usable {
+		for i := 0; i < len(results); i++ {
 		result, has_key := results[i]
-		if !has_key {
-			return 0, false
-		}
+			if !has_key {
+				return 0, false
+			}
 
-		if !result.Optimal {
-			return i, true
+			if !result.APIResponse.Optimal {
+				return i, true
+			}
 		}
 	}
 
@@ -115,10 +133,20 @@ func processResults(results map[int]APIResponse, length int) (int, bool) {
 }
 
 func getAPIResponse(url string, priority int, json_params [] byte, c chan InternalAPIResponse) {
-	response_json, err := http.Post(url, "application/json", bytes.NewReader(json_params))
+	// response_json, err := http.Post(url, "application/json", bytes.NewReader(json_params))
+
+	tr := &http.Transport{
+		TLSClientConfig: &tls.Config{InsecureSkipVerify: true},
+	}
+	client := &http.Client{Transport: tr}
+
+
+	// TODO For now, just swallow any errors from this, but we'd want to report errors.
+	// TODO: Replace "client" with "http" when we remove the segment above
+	response_json, err := client.Post(url, "application/json",  bytes.NewReader(json_params))
 
 	if err != nil {
-		c <- InternalAPIResponse{Priority: priority, APIResponse: APIResponse{Feedback: "There was an error hitting the API", Optimal: false}}
+		c <- InternalAPIResponse{Priority: priority, Usable: false, APIResponse: APIResponse{Feedback: "There was an error hitting the API", Feedback_type: "API Error", Optimal: false}}
 		return
 	}
 
@@ -126,36 +154,38 @@ func getAPIResponse(url string, priority int, json_params [] byte, c chan Intern
 
 	if err := json.NewDecoder(response_json.Body).Decode(&result); err != nil {
 		// TODO might want to think about what this should be.
-		c <- InternalAPIResponse{Priority: priority, APIResponse: APIResponse{Feedback: "There was an JSON error", Feedback_type: err.Error(), Labels: url, Optimal: false}}
+		c <- InternalAPIResponse{Priority: priority, Usable: false, APIResponse: APIResponse{Feedback: "There was an JSON error" + err.Error(), Feedback_type: "API Error", Labels: url, Optimal: false}}
 		return
 	}
 
-	c <- InternalAPIResponse{Priority: priority, APIResponse: result}
+	c <- InternalAPIResponse{Priority: priority, Usable: true, APIResponse: result}
 }
 
-func buildBatchFeedbackHistories(request_object APIRequest, feedbacks map[int]APIResponse, time_received time.Time) (BatchHistoriesAPIRequest, error) {
+func buildBatchFeedbackHistories(request_object APIRequest, feedbacks map[int]InternalAPIResponse, time_received time.Time) (BatchHistoriesAPIRequest, error) {
 	feedback_histories := []FeedbackHistory{}
 	used_set := false
 	for _, feedback := range feedbacks {
-		feedback_histories = append(feedback_histories, FeedbackHistory{
-			Activity_session_uid: request_object.Session_id,
-			Prompt_id: request_object.Prompt_id,
-			Concept_uid: feedback.Concept_uid,
-			Attempt: request_object.Attempt,
-			Entry: request_object.Entry,
-			Feedback_text: feedback.Feedback,
-			Feedback_type: feedback.Feedback_type,
-			Optimal: feedback.Optimal,
-			Used: !feedback.Optimal && !used_set,
-			Time: time_received,
-			Metadata: FeedbackHistoryMetadata{
-				Highlight: feedback.Highlight,
-				Labels: feedback.Labels,
-				Response_id: feedback.Response_id,
-			},
-		})
-		if !used_set {
-			used_set = !feedback.Optimal
+		if feedback.APIResponse.Feedback_type != "API Error" {
+			feedback_histories = append(feedback_histories, FeedbackHistory{
+				Activity_session_uid: request_object.Session_id,
+				Prompt_id: request_object.Prompt_id,
+				Concept_uid: feedback.APIResponse.Concept_uid,
+				Attempt: request_object.Attempt,
+				Entry: request_object.Entry,
+				Feedback_text: feedback.APIResponse.Feedback,
+				Feedback_type: feedback.APIResponse.Feedback_type,
+				Optimal: feedback.APIResponse.Optimal,
+				Used: !feedback.APIResponse.Optimal && !used_set,
+				Time: time_received,
+				Metadata: FeedbackHistoryMetadata{
+					Highlight: feedback.APIResponse.Highlight,
+					Labels: feedback.APIResponse.Labels,
+					Response_id: feedback.APIResponse.Response_id,
+				},
+			})
+			if !used_set {
+				used_set = !feedback.APIResponse.Optimal
+			}
 		}
 	}
 
@@ -164,17 +194,25 @@ func buildBatchFeedbackHistories(request_object APIRequest, feedbacks map[int]AP
 	}, nil
 }
 
-func batchRecordFeedback(incoming_params APIRequest, feedbacks map[int]APIResponse) {
+func batchRecordFeedback(incoming_params APIRequest, feedbacks map[int]InternalAPIResponse) {
 	histories, err := buildBatchFeedbackHistories(incoming_params, feedbacks, time.Now())
 
 	if err != nil {
-		return
+		fmt.Println(err)
 	}
 
 	histories_json, _ := json.Marshal(histories)
 
+	// TODO: Remove temporary SSL bypass to turn security back on
+	tr := &http.Transport{
+		TLSClientConfig: &tls.Config{InsecureSkipVerify: true},
+	}
+	client := &http.Client{Transport: tr}
+
+
 	// TODO For now, just swallow any errors from this, but we'd want to report errors.
-	http.Post(batch_feedback_history_url, "application/json",  bytes.NewBuffer(histories_json))
+	// TODO: Replace "client" with "http" when we remove the segment above
+	client.Post(batch_feedback_history_url, "application/json",  bytes.NewBuffer(histories_json))
 	wg.Done() // mark task as done in WaitGroup
 
 }
@@ -208,6 +246,7 @@ type Highlight struct {
 type InternalAPIResponse struct {
 	Priority int
 	APIResponse APIResponse
+	Usable bool
 }
 
 type FeedbackHistoryMetadata struct {
@@ -228,10 +267,6 @@ type FeedbackHistory struct {
 	Used bool `json:"used"`
 	Time time.Time `json:"time"`
 	Metadata FeedbackHistoryMetadata `json:"metadata"`
-}
-
-type HistoryAPIRequest struct {
-	Feedback_history FeedbackHistory `json:"feedback_history"`
 }
 
 type BatchHistoriesAPIRequest struct {
