@@ -225,7 +225,6 @@ class ActivitySession < ActiveRecord::Base
     if activity.is_comprehension?
       histories = FeedbackHistory.used.where(activity_session_uid: uid)
       concept_results_to_save = histories.map(&:concept_results_hash).reject { |n| n == {} }
-      puts concept_results_to_save
       ConceptResult.bulk_insert(values: concept_results_to_save)
     end
     true
