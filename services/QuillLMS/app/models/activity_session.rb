@@ -228,10 +228,6 @@ class ActivitySession < ActiveRecord::Base
     end
   end
 
-  def feedback_history_classification?
-    return activity.is_comprehension?
-  end
-
   def start
     return if state != 'unstarted'
     self.started_at ||= Time.current

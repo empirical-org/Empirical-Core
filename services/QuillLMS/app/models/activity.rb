@@ -146,6 +146,10 @@ class Activity < ActiveRecord::Base
     classification.key == ActivityClassification::COMPREHENSION_KEY
   end
 
+  def feedback_history_classification?
+    return is_comprehension?
+  end
+
   def self.search_results(flag)
     substring = flag ? flag + "_" : ""
     activity_search_results = $redis.get("default_#{substring}activity_search")
@@ -170,7 +174,6 @@ class Activity < ActiveRecord::Base
 
   def readability_grade_level
     return nil unless raw_score_id
-
     raw_score = RawScore.find(raw_score_id)
     case raw_score.name
     when "1200-1300", "1300-1400", "1400-1500"
