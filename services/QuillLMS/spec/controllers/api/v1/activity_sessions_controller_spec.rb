@@ -111,7 +111,7 @@ describe Api::V1::ActivitySessionsController, type: :controller do
     end
   end
 
-  describe '#update_comprehension_session' do
+  describe '#update_with_feedback_history' do
     let(:token) { double :acceptable? => true, resource_owner_id: user.id }
     let(:user) { create(:student) }
 
@@ -128,7 +128,7 @@ describe Api::V1::ActivitySessionsController, type: :controller do
         .and_return(service_instance)
       expect(service_instance).to receive(:call)
 
-      post :update_comprehension_session, id: @activity_session.uid, state: 'finished'
+      post :update_with_feedback_history, id: @activity_session.uid, state: 'finished'
     end
 
     context 'default behavior' do
@@ -141,7 +141,7 @@ describe Api::V1::ActivitySessionsController, type: :controller do
 
       def subject
         # FIXME: URL Parameter should be called uid, not id, because that is confusing
-        put :update_comprehension_session, id: @activity_session.uid
+        put :update_with_feedback_history, id: @activity_session.uid
       end
 
       it 'responds with 200' do

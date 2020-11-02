@@ -1,7 +1,7 @@
 class Api::V1::ActivitySessionsController < Api::ApiController
 
   before_action :doorkeeper_authorize!, only: [:destroy]
-  before_action :find_activity_session, only: [:show, :update, :destroy]
+  before_action :find_activity_session, only: [:show, :update, :update_with_feedback_history, :destroy]
   before_action :strip_access_token_from_request
   before_action :transform_incoming_request, only: [:update, :create]
 
@@ -38,6 +38,35 @@ class Api::V1::ActivitySessionsController < Api::ApiController
         message: "Activity Session Update Failed",
         errors: @activity_session.errors
       }, status: :unprocessable_entity, serializer: ActivitySessionSerializer
+    end
+  end
+
+  def update_with_feedback_history
+    if @activity_session.completed_at
+      render json: @activity_session, meta: {
+        status: :failed,
+        message: "Activity Session Already Completed",
+        errors: "This activity session has already been completed."
+      }, status: :unprocessable_entity, serializer: ActivitySessionSerializer
+    else
+      @activity_session.set_score_from_feedback_history
+      if @activity_session.update(activity_session_params.except(:id, :concept_results))
+        NotifyOfCompletedActivity.new(@activity_session).call if @activity_session.classroom_unit_id
+
+        @activity_session.update_concepts_from_feedback_history
+        @status = :success
+        render json: @activity_session, meta: {
+          status: :success,
+          message: "Activity Session Updated",
+          errors: [] # FIXME: this is dumb
+        }, serializer: ActivitySessionSerializer
+      else
+        render json: @activity_session, meta: {
+          status: :failed,
+          message: "Activity Session Update Failed",
+          errors: @activity_session.errors
+        }, status: :unprocessable_entity, serializer: ActivitySessionSerializer
+      end
     end
   end
 
