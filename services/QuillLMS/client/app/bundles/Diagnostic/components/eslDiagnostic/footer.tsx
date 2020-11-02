@@ -1,6 +1,7 @@
 import * as React from 'react';
+
 import { DropdownInput } from '../../../Shared/index';
-import useWindowSize from '../../hooks/useWindowSize'
+import useWindowSize from '../../../Shared/hooks/useWindowSize'
 import { languages, languagesV2, languageData, languageDataV2 } from '../../modules/translation/languagePageInfo';
 
 interface FooterProps {

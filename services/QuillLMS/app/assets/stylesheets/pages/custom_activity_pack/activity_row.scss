@@ -50,6 +50,12 @@
       .second-line-section {
         display: flex;
         white-space: nowrap;
+        .quill-tooltip-wrapper {
+          width: 400px;
+          .quill-tooltip {
+            color: white;
+          }
+        }
       }
       .standard-level {
         margin-left: 16px;

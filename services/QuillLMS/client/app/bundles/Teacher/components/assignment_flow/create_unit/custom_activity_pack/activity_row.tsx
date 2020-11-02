@@ -1,9 +1,10 @@
 import * as React from 'react';
 
 import { Activity, ActivityClassification, Topic, } from './interfaces'
-import { stringifyLowerLevelTopics, } from './shared'
+import { stringifyLowerLevelTopics, AVERAGE_FONT_WIDTH, } from './shared'
 
 import { Tooltip } from '../../../../../Shared/index'
+import useWindowSize from '../../../../../Shared/hooks/useWindowSize'
 
 const smallWhiteCheckSrc = `${process.env.CDN_URL}/images/shared/check-small-white.svg`
 const expandSrc = `${process.env.CDN_URL}/images/shared/expand.svg`
@@ -21,6 +22,10 @@ const lessonsSrc = `${process.env.CDN_URL}/images/icons/description-lessons.svg`
 const proofreaderSrc = `${process.env.CDN_URL}/images/icons/description-proofreader.svg`
 const grammarSrc = `${process.env.CDN_URL}/images/icons/description-grammar.svg`
 
+const IMAGE_WIDTH = 18
+const MARGIN = 16
+const ELLIPSES_LENGTH = 3
+
 const readabilityCopy = "Since Quill activities focus on building writing skills, using a text with a lower readability level is sometimes beneficial as it enables students to practice the writing skill."
 
 interface ActivityRowCheckboxProps {
@@ -37,6 +42,24 @@ interface ActivityRowProps {
   showCheckbox?: boolean,
   showRemoveButton?: boolean,
   setShowSnackbar?: (show: boolean) => void
+}
+
+const calculateMaxAllowedLength = ({
+  activity_classification,
+  activity_category_name,
+  readability_grade_level,
+  standard_level_name
+}): number => {
+  let maxAllowedLength = 0
+  const container = document.getElementsByClassName('activity-table-container')[0]
+  if (container) {
+    maxAllowedLength = container.offsetWidth - 128 // 128 is the amount of padding in total that makes up the difference between the width of the container and the width of the second line
+    maxAllowedLength -= activity_classification.alias ? (activity_classification.alias.length * AVERAGE_FONT_WIDTH) + IMAGE_WIDTH + MARGIN : 0
+    maxAllowedLength -= activity_category_name ? (activity_category_name.length * AVERAGE_FONT_WIDTH) + IMAGE_WIDTH + MARGIN : 0
+    maxAllowedLength -= readability_grade_level ? (`Readability: Grades ${readability_grade_level}`.length * AVERAGE_FONT_WIDTH) + IMAGE_WIDTH : 0 // the readability section is the only section that does not have a margin
+    maxAllowedLength -= standard_level_name ? (standard_level_name.length * AVERAGE_FONT_WIDTH) + IMAGE_WIDTH + MARGIN : 0
+  }
+  return maxAllowedLength
 }
 
 const imageTagForClassification = (classificationKey: string): JSX.Element => {
@@ -101,17 +124,24 @@ const ActivityRowConcept = ({ conceptName, }: { conceptName?: string }) => {
   return <span className={className} />
 }
 
-const ActivityRowTopics = ({ topics, }: { topics?: Topic[] }) => {
+const ActivityRowTopics = ({ topics, maxAllowedLength, }: { topics?: Topic[], maxAllowedLength: number }) => {
   const className = "second-line-section topic"
-  if (topics && topics.length) {
+  if (topics && topics.length && maxAllowedLength >= (IMAGE_WIDTH + MARGIN + ELLIPSES_LENGTH)) {
     const topicString = stringifyLowerLevelTopics(topics)
+    let topicElement = <span>{topicString}</span>
+    const widthOfTopicSectionInPixels = (topicString.length * AVERAGE_FONT_WIDTH) + IMAGE_WIDTH + MARGIN
+    if (widthOfTopicSectionInPixels >= maxAllowedLength) {
+      const abbreviatedTopicStringLength = ((maxAllowedLength - IMAGE_WIDTH - MARGIN) / AVERAGE_FONT_WIDTH) - ELLIPSES_LENGTH
+      const abbreviatedTopicString = `${topicString.substring(0, abbreviatedTopicStringLength)}...`
+      topicElement = (<Tooltip
+        tooltipText={topicString}
+        tooltipTriggerText={abbreviatedTopicString}
+      />)
+    }
 
     return (<span className={className}>
       <img alt="Globe icon" src={topicSrc} />
-      <Tooltip
-        tooltipText={topicString}
-        tooltipTriggerText={topicString}
-      />
+      {topicElement}
     </span>)
   }
 
@@ -198,6 +228,7 @@ const ActivityRowTooltip = ({ activity, showTooltip}: { activity: Activity, show
 }
 
 const ActivityRow = ({ activity, isSelected, toggleActivitySelection, showCheckbox, showRemoveButton, isFirst, setShowSnackbar}: ActivityRowProps) => {
+  const size = useWindowSize();
   const [isExpanded, setIsExpanded] = React.useState(false)
   const [showTooltip, setShowTooltip] = React.useState(false)
 
@@ -239,7 +270,10 @@ const ActivityRow = ({ activity, isSelected, toggleActivitySelection, showCheckb
       <div className="classification-concept-topic-wrapper">
         <ActivityRowClassification classification={activity_classification} />
         <ActivityRowConcept conceptName={activity_category_name} />
-        <ActivityRowTopics topics={topics} />
+        <ActivityRowTopics
+          maxAllowedLength={calculateMaxAllowedLength({ activity_classification, activity_category_name, readability_grade_level, standard_level_name})}
+          topics={topics}
+        />
       </div>
       <div className="readability-and-standard-level-wrapper">
         <ActivityRowReadabilityGradeLevel readabilityGradeLevel={readability_grade_level} />

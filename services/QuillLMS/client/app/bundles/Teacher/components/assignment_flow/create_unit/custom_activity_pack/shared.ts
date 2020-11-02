@@ -115,11 +115,14 @@ const conceptSort = (activities) => activities.sort((a, b) => {
   return a.activity_category_name.localeCompare(b.activity_category_name)
 })
 
-const topicSort = (activities) => activities.sort((a, b) => {
-  if (!(a.topics && a.topics.length)) { return 1 }
-  if (!(b.topics && a.topics.length)) { return -1 }
-  return stringifyLowerLevelTopics(a.topics).localeCompare(stringifyLowerLevelTopics(b.topics))
-})
+const topicSort = (activities) => {
+  const sortedActivities = activities.sort((a, b) => {
+    if (!(a.topics && a.topics.length)) { return 1 }
+    if (!(b.topics && b.topics.length)) { return -1 }
+    return stringifyLowerLevelTopics(a.topics).localeCompare(stringifyLowerLevelTopics(b.topics))
+  })
+  return sortedActivities
+}
 
 const numberFromStringAscendingSort = (activities, attributeKey) => activities.sort((a, b) => {
   const numberMatchA = getNumberFromString(a[attributeKey])
