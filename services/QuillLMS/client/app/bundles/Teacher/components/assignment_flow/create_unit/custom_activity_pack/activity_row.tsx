@@ -6,6 +6,7 @@ const smallWhiteCheckSrc = `${process.env.CDN_URL}/images/shared/check-small-whi
 const expandSrc = `${process.env.CDN_URL}/images/shared/expand.svg`
 const conceptSrc = `${process.env.CDN_URL}/images/icons/description-concept.svg`
 const ccssSrc = `${process.env.CDN_URL}/images/icons/description-ccss.svg`
+const readabilitySrc = `${process.env.CDN_URL}/images/icons/description-readability.svg`
 const informationSrc = `${process.env.CDN_URL}/images/icons/description-information.svg`
 const copyrightSrc = `${process.env.CDN_URL}/images/icons/description-copyright.svg`
 const previewSrc = `${process.env.CDN_URL}/images/icons/preview.svg`
@@ -15,6 +16,8 @@ const diagnosticSrc = `${process.env.CDN_URL}/images/icons/description-diagnosti
 const lessonsSrc = `${process.env.CDN_URL}/images/icons/description-lessons.svg`
 const proofreaderSrc = `${process.env.CDN_URL}/images/icons/description-proofreader.svg`
 const grammarSrc = `${process.env.CDN_URL}/images/icons/description-grammar.svg`
+
+const readabilityCopy = "Since Quill activities focus on building writing skills, using a text with a lower readability level is sometimes beneficial as it enables students to practice the writing skill."
 
 interface ActivityRowCheckboxProps {
   activity: Activity,
@@ -44,7 +47,7 @@ const imageTagForClassification = (classificationKey: string): JSX.Element => {
       imgAlt = "Magnifying glass representing Quill Diagnostic"
       imgSrc = diagnosticSrc
       break
-    case 'grammar':
+    case 'sentence':
       imgAlt = "Puzzle piece representing Quill Grammar"
       imgSrc = grammarSrc
       break
@@ -52,7 +55,7 @@ const imageTagForClassification = (classificationKey: string): JSX.Element => {
       imgAlt = "Apple representing Quill Lessons"
       imgSrc = lessonsSrc
       break
-    case 'proofreader':
+    case 'passage':
       imgAlt = "Flag representing Quill Proofreader"
       imgSrc = proofreaderSrc
       break
@@ -94,6 +97,18 @@ const ActivityRowConcept = ({ conceptName, }: { conceptName?: string }) => {
   return <span className={className} />
 }
 
+const ActivityRowReadabilityGradeLevel = ({ readabilityGradeLevel, }: { readabilityGradeLevel?: string }) => {
+  const className = "second-line-section readability-level"
+  if (readabilityGradeLevel) {
+    return (<span className={className}>
+      <img alt="Book icon" src={readabilitySrc} />
+      <span>Readability: Grades {readabilityGradeLevel}</span>
+    </span>)
+  }
+
+  return <span className={className} />
+}
+
 const ActivityRowStandardLevel = ({ standardLevelName, }: { standardLevelName?: string }) => {
   const className = "second-line-section standard-level"
   if (standardLevelName) {
@@ -103,7 +118,7 @@ const ActivityRowStandardLevel = ({ standardLevelName, }: { standardLevelName?: 
     </span>)
   }
 
-  return <span className={className} />
+  return <span />
 }
 
 const ActivityRowExpandedSection = ({ activity, isExpanded}: { activity: Activity, isExpanded: boolean }) => {
@@ -112,6 +127,11 @@ const ActivityRowExpandedSection = ({ activity, isExpanded}: { activity: Activit
   const descriptionLine = activity.description && (<div className="expanded-line">
     <img alt="Information icon" src={informationSrc} />
     <span>{activity.description}</span>
+  </div>)
+
+  const readabilityLine = activity.readability_grade_level && (<div className="expanded-line">
+    <img alt="Book icon" src={readabilitySrc} />
+    <span>{readabilityCopy}</span>
   </div>)
 
   const contentPartnerLines = activity.content_partners && activity.content_partners.map(cp => (
@@ -123,6 +143,7 @@ const ActivityRowExpandedSection = ({ activity, isExpanded}: { activity: Activit
 
   return (<React.Fragment>
     {descriptionLine}
+    {readabilityLine}
     {contentPartnerLines}
   </React.Fragment>)
 }
@@ -135,6 +156,11 @@ const ActivityRowTooltip = ({ activity, showTooltip}: { activity: Activity, show
     <span>{activity.description}</span>
   </div>)
 
+  const readabilityLine = activity.readability_grade_level && (<div className="tooltip-line">
+    <img alt="Book icon" src={readabilitySrc} />
+    <span>{readabilityCopy}</span>
+  </div>)
+
   const contentPartnerLines = activity.content_partners && activity.content_partners.map(cp => (
     <div className="tooltip-line" key={cp.id}>
       <img alt="Copyright icon" src={copyrightSrc} />
@@ -144,6 +170,7 @@ const ActivityRowTooltip = ({ activity, showTooltip}: { activity: Activity, show
 
   return (<div className="activity-row-tooltip">
     {descriptionLine}
+    {readabilityLine}
     {contentPartnerLines}
   </div>)
 }
@@ -161,7 +188,7 @@ const ActivityRow = ({ activity, isSelected, toggleActivitySelection, showCheckb
 
   const expandImgAltText = `Arrow pointing ${isExpanded ? 'up' : 'down'}`
 
-  const { activity_classification, name, activity_category_name, standard_level_name, anonymous_path, } = activity
+  const { activity_classification, name, activity_category_name, standard_level_name, anonymous_path, readability_grade_level, } = activity
 
   const previewButton = <a className="interactive-wrapper focus-on-light preview-link" href={anonymous_path} rel="noopener noreferrer" target="_blank"><img alt="Preview eye icon" src={previewSrc} />Preview</a>
   const expandButton = <button className="interactive-wrapper focus-on-light expand-button" onClick={toggleIsExpanded} type="button"><img alt={expandImgAltText} src={expandSrc} /></button>
@@ -193,7 +220,7 @@ const ActivityRow = ({ activity, isSelected, toggleActivitySelection, showCheckb
         <span className="second-line-section topic" />
       </div>
       <div className="readability-and-standard-level-wrapper">
-        <span className="second-line-section readability" />
+        <ActivityRowReadabilityGradeLevel readabilityGradeLevel={readability_grade_level} />
         <ActivityRowStandardLevel standardLevelName={standard_level_name} />
       </div>
     </div>

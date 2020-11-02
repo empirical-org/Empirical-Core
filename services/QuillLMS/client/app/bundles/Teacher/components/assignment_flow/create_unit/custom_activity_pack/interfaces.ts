@@ -12,7 +12,8 @@ export interface Activity {
   standard_level: StandardLevel,
   standard_level_id: number,
   standard_level_name: string,
-  content_partners: ContentPartner[]
+  content_partners: ContentPartner[],
+  readability_grade_level?: string
 }
 
 export interface ActivityClassification {
