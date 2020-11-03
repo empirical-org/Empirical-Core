@@ -23,6 +23,8 @@ interface MobileFilterMenuProps {
   handleContentPartnerFilterChange: (contentPartnerFilters: number[]) => void,
   readabilityGradeLevelFilters: number[],
   handleReadabilityGradeLevelFilterChange: (readabilityGradeLevelFilters: number[]) => void,
+  topicFilters: number[],
+  handleTopicFilterChange: (topicFilters: number[]) => void,
 }
 
 const MobileFilterMenu = ({
@@ -40,6 +42,8 @@ const MobileFilterMenu = ({
   handleActivityClassificationFilterChange,
   handleCCSSGradeLevelFilterChange,
   handleReadabilityGradeLevelFilterChange,
+  topicFilters,
+  handleTopicFilterChange,
   resetAllFilters,
   showMobileFilterMenu,
   setShowMobileFilterMenu
@@ -68,8 +72,10 @@ const MobileFilterMenu = ({
       handleCCSSGradeLevelFilterChange={handleCCSSGradeLevelFilterChange}
       handleContentPartnerFilterChange={handleContentPartnerFilterChange}
       handleReadabilityGradeLevelFilterChange={handleReadabilityGradeLevelFilterChange}
+      handleTopicFilterChange={handleTopicFilterChange}
       readabilityGradeLevelFilters={readabilityGradeLevelFilters}
       resetAllFilters={resetAllFilters}
+      topicFilters={topicFilters}
     />
     <button className="quill-button primary contained medium focus-on-light" onClick={closeMobileFilterMenu} type="button">
       Apply
