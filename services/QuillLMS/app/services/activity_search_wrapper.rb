@@ -52,12 +52,15 @@ class ActivitySearchWrapper
     @activities.each do |a|
       activity_id = a['activity_id'].to_i
       content_partners = a['content_partner_name'] ? [{ name: a['content_partner_name'], description: a['content_partner_description'], id: a['content_partner_id']}] : []
+      topics = a['topic_name'] ? [{ name: a['topic_name'], level: a['topic_level'], id: a['topic_id'], parent_id: a['topic_parent_id']}] : []
       existing_record = unique_activities_array.find { |act| act[:id] == activity_id }
       # if there is an existing record, it is possible that that's because the activity has more than one content partner
       if existing_record
         content_partners = existing_record[:content_partners].concat(content_partners).uniq
+        topics = existing_record[:topics].concat(topics).uniq
         index_of_existing_record = unique_activities_array.find_index(existing_record)
         unique_activities_array[index_of_existing_record][:content_partners] = content_partners
+        unique_activities_array[index_of_existing_record][:topics] = topics
       else
         classification_id = a['classification_id'].to_i
 
@@ -76,6 +79,7 @@ class ActivitySearchWrapper
           standard_level_name: a['standard_level_name'],
           standard_name: a['standard_name'],
           content_partners: content_partners,
+          topics: topics,
           readability_grade_level: Activity.find(activity_id).readability_grade_level
         }
         unique_activities_array.push(act)

@@ -21,6 +21,8 @@ describe('FilterColumn component', () => {
     handleActivityCategoryFilterChange: () => {},
     contentPartnerFilters: [],
     handleContentPartnerFilterChange: () => {},
+    topicFilters: [],
+    handleTopicFilterChange: () => {},
     filterActivities: (ignoredKey?: string) => activities
   }
 
