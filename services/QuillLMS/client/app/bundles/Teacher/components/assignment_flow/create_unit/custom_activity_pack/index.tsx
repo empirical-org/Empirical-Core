@@ -9,8 +9,8 @@ import MobileFilterMenu from './mobile_filter_menu'
 import MobileSortMenu from './mobile_sort_menu'
 
 import useDebounce from '../../../../hooks/useDebounce'
-import { requestGet } from '../../../../../../modules/request/index'
-import { Spinner, } from '../../../../../Shared/index'
+import { requestGet, requestPost, requestDelete } from '../../../../../../modules/request/index'
+import { Spinner, Snackbar, defaultSnackbarTimeout } from '../../../../../Shared/index'
 
 const DEBOUNCE_LENGTH = 500
 
@@ -41,9 +41,13 @@ const CustomActivityPack = ({
   const [activityCategoryFilters, setActivityCategoryFilters] = React.useState([])
   const [contentPartnerFilters, setContentPartnerFilters] = React.useState([])
   const [topicFilters, setTopicFilters] = React.useState([])
+  const [savedActivityFilters, setSavedActivityFilters] = React.useState([])
   const [showMobileFilterMenu, setShowMobileFilterMenu] = React.useState(false)
   const [showMobileSortMenu, setShowMobileSortMenu] = React.useState(false)
   const [sort, setSort] = React.useState(DEFAULT)
+  const [savedActivityIds, setSavedActivityIds] = React.useState([])
+  const [showSnackbar, setShowSnackbar] = React.useState(false)
+  const [snackbarText, setSnackbarText] = React.useState('')
 
   const debouncedSearch = useDebounce(search, DEBOUNCE_LENGTH);
   const debouncedActivityClassificationFilters = useDebounce(activityClassificationFilters, DEBOUNCE_LENGTH);
@@ -52,12 +56,20 @@ const CustomActivityPack = ({
   const debouncedActivityCategoryFilters = useDebounce(activityCategoryFilters, DEBOUNCE_LENGTH);
   const debouncedContentPartnerFilters = useDebounce(contentPartnerFilters, DEBOUNCE_LENGTH);
   const debouncedTopicFilters = useDebounce(topicFilters, DEBOUNCE_LENGTH);
+  const debouncedSavedActivityFilters = useDebounce(savedActivityFilters, DEBOUNCE_LENGTH);
 
   React.useEffect(() => {
     getActivities();
+    getSavedActivities()
   }, []);
 
-  React.useEffect(updateFilteredActivities, [debouncedSearch, debouncedActivityClassificationFilters, debouncedCCSSGradeLevelFilters, debouncedActivityCategoryFilters, debouncedContentPartnerFilters, debouncedReadabilityGradeLevelFilters, debouncedTopicFilters])
+  React.useEffect(() => {
+    if (showSnackbar) {
+      setTimeout(() => setShowSnackbar(false), defaultSnackbarTimeout)
+    }
+  }, [showSnackbar])
+
+  React.useEffect(updateFilteredActivities, [debouncedSearch, debouncedActivityClassificationFilters, debouncedCCSSGradeLevelFilters, debouncedActivityCategoryFilters, debouncedContentPartnerFilters, debouncedReadabilityGradeLevelFilters, debouncedTopicFilters, debouncedSavedActivityFilters])
 
   function calculateNumberOfFilters() {
     let number = 0
@@ -67,6 +79,7 @@ const CustomActivityPack = ({
     number += activityCategoryFilters.length
     number += contentPartnerFilters.length
     number += topicFilters.length
+    number += savedActivityFilters.length ? 1 : 0
 
     activityClassificationGroupings.forEach((g) => {
       if (g.keys.every(key => activityClassificationFilters.includes(key))) {
@@ -85,6 +98,43 @@ const CustomActivityPack = ({
         setActivities(data.activities);
         setFilteredActivities(data.activities);
         setLoading(false)
+      }
+    )
+  }
+
+  function getSavedActivities(callback=null) {
+    requestGet('/teacher_saved_activities/saved_activity_ids_for_current_user',
+      (data) => {
+        setSavedActivityIds(data.activity_ids);
+        callback ? callback() : null
+      }
+    )
+  }
+
+  function saveActivity(activityId) {
+    requestPost(
+      '/teacher_saved_activities/create_by_activity_id_for_current_user',
+      { activity_id: activityId },
+      () => {
+        const callback = () => {
+          setSnackbarText('Activity saved')
+          setShowSnackbar(true)
+        }
+        getSavedActivities(callback)
+      }
+    )
+  }
+
+  function unsaveActivity(activityId) {
+    requestPost(
+      '/teacher_saved_activities/destroy_by_activity_id_for_current_user',
+      { activity_id: activityId },
+      () => {
+        const callback = () => {
+          setSnackbarText('Activity unsaved')
+          setShowSnackbar(true)
+        }
+        getSavedActivities(callback)
       }
     )
   }
@@ -124,6 +174,11 @@ const CustomActivityPack = ({
     setTopicFilters(newTopicFilters)
   }
 
+  function handleSavedActivityFilterChange() {
+    setFilterHistory(prevFilterHistory => prevFilterHistory.concat([{ function: setSavedActivityFilters, argument: savedActivityFilters }]))
+    setSavedActivityFilters(savedActivityFilters.length ? [] : savedActivityIds)
+  }
+
   function resetAllFilters() {
     setFilterHistory([])
     setSearch('')
@@ -133,6 +188,7 @@ const CustomActivityPack = ({
     setActivityCategoryFilters([])
     setContentPartnerFilters([])
     setTopicFilters([])
+    setSavedActivityFilters([])
   }
 
   function filterActivities(ignoredKey=null) {
@@ -161,7 +217,6 @@ const CustomActivityPack = ({
     setFilterHistory(newFilterHistory)
   }
 
-
   if (loading) {
     return <div className="custom-activity-pack-page loading"><Spinner /></div>
   }
@@ -183,10 +238,14 @@ const CustomActivityPack = ({
     readabilityGradeLevelFilters,
     handleReadabilityGradeLevelFilterChange,
     topicFilters,
-    handleTopicFilterChange
+    handleTopicFilterChange,
+    savedActivityFilters,
+    handleSavedActivityFilterChange,
+    savedActivityIds
   }
 
   return (<div className="custom-activity-pack-page">
+    <Snackbar text={snackbarText} visible={showSnackbar} />
     <MobileFilterMenu {...filterColumnProps} setShowMobileFilterMenu={setShowMobileFilterMenu} showMobileFilterMenu={showMobileFilterMenu} />
     <MobileSortMenu setShowMobileSortMenu={setShowMobileSortMenu} setSort={setSort} showMobileSortMenu={showMobileSortMenu} />
     <FilterColumn {...filterColumnProps} />
@@ -197,6 +256,8 @@ const CustomActivityPack = ({
         filteredActivities={filteredActivities}
         handleSearch={handleSearch}
         resetAllFilters={resetAllFilters}
+        saveActivity={saveActivity}
+        savedActivityIds={savedActivityIds}
         search={search}
         selectedActivities={selectedActivities}
         setCurrentPage={setCurrentPage}
@@ -206,6 +267,7 @@ const CustomActivityPack = ({
         sort={sort}
         toggleActivitySelection={toggleActivitySelection}
         undoLastFilter={undoLastFilter}
+        unsaveActivity={unsaveActivity}
       />
     </section>
   </div>)

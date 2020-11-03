@@ -126,6 +126,12 @@ EmpiricalGrammar::Application.routes.draw do
 
   resources :grades, only: [:index]
 
+  resources :teacher_saved_activities, only: [] do
+    get :saved_activity_ids_for_current_user, on: :collection
+    post :create_by_activity_id_for_current_user, on: :collection
+    delete :destroy_by_activity_id_for_current_user, on: :collection
+  end
+
   get 'grades/tooltip/classroom_unit_id/:classroom_unit_id/user_id/:user_id/activity_id/:activity_id/completed/:completed' => 'grades#tooltip'
 
   get :current_user_json, controller: 'teachers', action: 'current_user_json'

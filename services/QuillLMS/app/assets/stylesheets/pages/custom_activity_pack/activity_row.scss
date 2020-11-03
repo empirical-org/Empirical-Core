@@ -24,7 +24,7 @@
       .buttons-wrapper {
         display: flex;
       }
-      .preview-link, .remove-button {
+      .preview-link, .remove-button, .save-button, .saved-button {
         display: flex;
         margin-right: 24px;
         align-items: center;
@@ -98,6 +98,9 @@
     }
     &.not-expanded:not(:hover) {
       .preview-link {
+        display: none;
+      }
+      .save-button {
         display: none;
       }
     }
