@@ -13,6 +13,7 @@ export interface Activity {
   standard_level_id: number,
   standard_level_name: string,
   content_partners: ContentPartner[],
+  topics: Topic[],
   readability_grade_level?: string
 }
 
@@ -37,4 +38,11 @@ export interface ContentPartner {
   id: number,
   name: string,
   description: string
+}
+
+export interface Topic {
+  id: number,
+  name: string,
+  level: number,
+  parent_id?: number
 }

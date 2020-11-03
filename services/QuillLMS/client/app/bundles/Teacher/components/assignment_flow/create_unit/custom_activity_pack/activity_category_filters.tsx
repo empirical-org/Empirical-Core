@@ -1,7 +1,9 @@
 import * as React from 'react';
 
 import { Activity, ActivityCategory } from './interfaces'
-import { ACTIVITY_CATEGORY_FILTERS } from './shared'
+import { ACTIVITY_CATEGORY_FILTERS, AVERAGE_FONT_WIDTH, INDIVIDUAL_FILTER_MAX_WIDTH, } from './shared'
+
+import { Tooltip } from '../../../../../Shared/index'
 
 const smallWhiteCheckSrc = `${process.env.CDN_URL}/images/shared/check-small-white.svg`
 
@@ -42,10 +44,12 @@ const ActivityCategoryFilterRow = ({ activityCategoryFilters, activityCategory, 
     </button>)
   }
 
-  return (<div className="individual-row filter-row" key={activityCategory.id}>
+  const activityCategoryNameElement = activityCategory.name.length * AVERAGE_FONT_WIDTH >= 200 ? <Tooltip tooltipText={activityCategory.name} tooltipTriggerText={activityCategory.name} tooltipTriggerTextClass="tooltip-trigger-text" /> : <span>{activityCategory.name}</span>
+
+  return (<div className="individual-row filter-row activity-category-row" key={activityCategory.id}>
     <div>
       {checkbox}
-      <span>{activityCategory.name}</span>
+      {activityCategoryNameElement}
     </div>
     <span>({activityCount})</span>
   </div>)

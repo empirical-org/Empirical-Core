@@ -2,8 +2,8 @@
 -- PostgreSQL database dump
 --
 
--- Dumped from database version 10.13
--- Dumped by pg_dump version 10.13
+-- Dumped from database version 10.12
+-- Dumped by pg_dump version 10.12
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -2879,6 +2879,40 @@ ALTER SEQUENCE public.teacher_saved_activities_id_seq OWNED BY public.teacher_sa
 
 --
 -- Name: third_party_user_ids; Type: TABLE; Schema: public; Owner: -
+
+--
+
+CREATE TABLE public.teacher_saved_activities (
+    id integer NOT NULL,
+    teacher_id integer NOT NULL,
+    activity_id integer NOT NULL,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: teacher_saved_activities_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.teacher_saved_activities_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: teacher_saved_activities_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.teacher_saved_activities_id_seq OWNED BY public.teacher_saved_activities.id;
+
+
+--
+-- Name: third_party_user_ids; Type: TABLE; Schema: public; Owner: -
 --
 
 CREATE TABLE public.third_party_user_ids (
@@ -3794,6 +3828,14 @@ ALTER TABLE ONLY public.subscriptions ALTER COLUMN id SET DEFAULT nextval('publi
 
 --
 -- Name: teacher_saved_activities id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.teacher_saved_activities ALTER COLUMN id SET DEFAULT nextval('public.teacher_saved_activities_id_seq'::regclass);
+
+
+--
+-- Name: third_party_user_ids id; Type: DEFAULT; Schema: public; Owner: -
+
 --
 
 ALTER TABLE ONLY public.teacher_saved_activities ALTER COLUMN id SET DEFAULT nextval('public.teacher_saved_activities_id_seq'::regclass);

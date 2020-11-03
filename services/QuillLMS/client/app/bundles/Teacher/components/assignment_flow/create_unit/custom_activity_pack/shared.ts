@@ -2,6 +2,8 @@ import { Activity } from './interfaces'
 
 const RESULTS_PER_PAGE = 20
 
+export const AVERAGE_FONT_WIDTH = 7
+
 export const calculateNumberOfPages = (activities: Activity[]) => Math.ceil(activities.length / RESULTS_PER_PAGE)
 
 export const lowerBound = (currentPage: number): number => (currentPage - 1) * RESULTS_PER_PAGE;
@@ -37,6 +39,8 @@ export const ACTIVITY_CLASSIFICATION_FILTERS = 'activityClassificationFilters'
 export const ACTIVITY_CATEGORY_FILTERS = 'activityCategoryFilters'
 
 export const CONTENT_PARTNER_FILTERS = 'contentPartnerFilters'
+
+export const TOPIC_FILTERS = 'topicFilters'
 
 export function arrayFromNumbers(lowerValue: number, upperValue: number) {
   const array = []
@@ -81,13 +85,28 @@ function filterByContentPartners(contentPartnerFilters: number[], activity: Acti
   return contentPartnerFilters.some(id => activity.content_partners.some(cp => cp.id === id))
 }
 
+function filterByTopic(topicFilters: number[], activity: Activity) {
+  if (!topicFilters.length) { return true }
+  return topicFilters.some(id => activity.topics.some(cp => cp.id === id))
+}
+
 export const filters = {
   search: filterBySearch,
   [ACTIVITY_CLASSIFICATION_FILTERS]: filterByActivityClassification,
   ccssGradeLevelFilters: filterByCCSSGradeLevel,
   readabilityGradeLevelFilters: filterByReadabilityGradeLevel,
   [ACTIVITY_CATEGORY_FILTERS]: filterByActivityCategory,
-  [CONTENT_PARTNER_FILTERS]: filterByContentPartners
+  [CONTENT_PARTNER_FILTERS]: filterByContentPartners,
+  [TOPIC_FILTERS]: filterByTopic
+}
+
+export const stringifyLowerLevelTopics = (topics) => {
+  const levelOneTopic = topics.find(t => Number(t.level) === 1)
+  const levelZeroTopic = topics.find(t => Number(t.level) === 0)
+  let topicString = levelOneTopic ? levelOneTopic.name : ''
+  topicString += levelOneTopic && levelZeroTopic ? ': ' : ''
+  topicString += levelZeroTopic ? levelZeroTopic.name : ''
+  return topicString
 }
 
 const conceptSort = (activities) => activities.sort((a, b) => {
@@ -96,6 +115,14 @@ const conceptSort = (activities) => activities.sort((a, b) => {
   return a.activity_category_name.localeCompare(b.activity_category_name)
 })
 
+const topicSort = (activities) => {
+  const sortedActivities = activities.sort((a, b) => {
+    if (!(a.topics && a.topics.length)) { return 1 }
+    if (!(b.topics && b.topics.length)) { return -1 }
+    return stringifyLowerLevelTopics(a.topics).localeCompare(stringifyLowerLevelTopics(b.topics))
+  })
+  return sortedActivities
+}
 
 const numberFromStringAscendingSort = (activities, attributeKey) => activities.sort((a, b) => {
   const numberMatchA = getNumberFromString(a[attributeKey])
@@ -123,6 +150,7 @@ const CCSS_DESCENDING = 'ccss-desc'
 const READABILITY_ASCENDING = 'readability-asc'
 const READABILITY_DESCENDING = 'readability-desc'
 const CONCEPT = 'concept'
+const TOPIC = 'topic'
 
 export const sortFunctions = {
   [DEFAULT]: (activities) => activities,
@@ -130,7 +158,8 @@ export const sortFunctions = {
   [CCSS_DESCENDING]: (activities) => numberFromStringDescendingSort(activities, 'standard_level_name'),
   [READABILITY_ASCENDING]: (activities) => numberFromStringAscendingSort(activities, 'readability_grade_level'),
   [READABILITY_DESCENDING]: (activities) => numberFromStringDescendingSort(activities, 'readability_grade_level'),
-  [CONCEPT]: conceptSort
+  [CONCEPT]: conceptSort,
+  [TOPIC]: topicSort
 }
 
 export const sortOptions = [
@@ -163,5 +192,10 @@ export const sortOptions = [
     label: 'Concept',
     key: CONCEPT,
     value: CONCEPT
+  },
+  {
+    label: 'Topic',
+    key: TOPIC,
+    value: TOPIC
   }
 ]
