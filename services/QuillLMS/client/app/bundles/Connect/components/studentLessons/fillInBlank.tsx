@@ -1,15 +1,15 @@
 declare function require(name:string);
 import * as React from 'react';
 import * as  _ from 'underscore';
-const qml = require('quill-marking-logic')
 const checkFillInTheBlankQuestion = qml.checkFillInTheBlankQuestion
-import { getGradedResponsesWithCallback } from '../../actions/responses.js';
-import updateResponseResource from '../renderForQuestions/updateResponseResource.js';
+import { stringNormalize } from 'quill-string-normalizer';
+
 import Cues from '../renderForQuestions/cues.jsx';
 import FeedbackContainer from '../renderForQuestions/feedback'
 import RenderQuestionFeedback from '../renderForQuestions/feedbackStatements.jsx';
 import { Attempt } from '../renderForQuestions/answerState.js';
-import { stringNormalize } from 'quill-string-normalizer';
+import { getGradedResponsesWithCallback } from '../../actions/responses.js';
+import updateResponseResource from '../renderForQuestions/updateResponseResource.js';
 import { FillInBlankQuestion } from '../../interfaces/questions';
 import {
   hashToCollection,
@@ -17,6 +17,8 @@ import {
   ConceptExplanation,
   Feedback
 } from '../../../Shared/index'
+
+const qml = require('quill-marking-logic')
 
 const styles = {
   container: {
@@ -122,6 +124,12 @@ export class PlayFillInTheBlankQuestion extends React.Component<PlayFillInTheBla
     return instructions
   }
 
+  getBlurHandler = (index) => {
+    return () => {
+      this.validateInput(index);
+    };
+  }
+
   generateInputs(promptArray: string[]) {
     let inputs: string[] = [];
     const latestAttempt = this.getLatestAttempt();
@@ -202,6 +210,7 @@ export class PlayFillInTheBlankQuestion extends React.Component<PlayFillInTheBla
           className={className}
           id={`input${i}`}
           key={i + 100}
+          onBlur={this.getBlurHandler(i)}
           onChange={this.getChangeHandler(i)}
           style={styling}
           type="text"
