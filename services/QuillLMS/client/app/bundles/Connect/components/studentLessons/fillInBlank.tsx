@@ -1,7 +1,6 @@
 declare function require(name:string);
 import * as React from 'react';
 import * as  _ from 'underscore';
-const checkFillInTheBlankQuestion = qml.checkFillInTheBlankQuestion
 import { stringNormalize } from 'quill-string-normalizer';
 
 import Cues from '../renderForQuestions/cues.jsx';
@@ -19,6 +18,7 @@ import {
 } from '../../../Shared/index'
 
 const qml = require('quill-marking-logic')
+const checkFillInTheBlankQuestion = qml.checkFillInTheBlankQuestion
 
 const styles = {
   container: {
