@@ -73,12 +73,39 @@ exports[`Header component with some selected activities should render 1`] = `
         "flags": "{production}",
         "id": 619,
         "name": "Shihuangdi Unifies China",
+        "readability_grade_level": "8th-9th",
         "standard_level": Object {
           "id": 13,
           "name": "7th Grade CCSS",
         },
         "standard_level_name": "7th Grade CCSS",
         "standard_name": "87",
+        "topics": Array [
+          Object {
+            "id": "16",
+            "level": "3",
+            "name": "History",
+            "parent_id": null,
+          },
+          Object {
+            "id": "93",
+            "level": "2",
+            "name": "World Historical Figures",
+            "parent_id": "16",
+          },
+          Object {
+            "id": "185",
+            "level": "1",
+            "name": "Chinese Dynasties",
+            "parent_id": null,
+          },
+          Object {
+            "id": "283",
+            "level": "0",
+            "name": "Shihuangdi Unifies China",
+            "parent_id": null,
+          },
+        ],
         "uid": "-KqigC-G1kUp_pEeQJjl",
       },
       Object {
@@ -106,12 +133,39 @@ exports[`Header component with some selected activities should render 1`] = `
         "flags": "{production}",
         "id": 616,
         "name": "Tang Dynasty Inventions",
+        "readability_grade_level": "6th-7th",
         "standard_level": Object {
           "id": 13,
           "name": "7th Grade CCSS",
         },
         "standard_level_name": "7th Grade CCSS",
         "standard_name": "87",
+        "topics": Array [
+          Object {
+            "id": "16",
+            "level": "3",
+            "name": "History",
+            "parent_id": null,
+          },
+          Object {
+            "id": "48",
+            "level": "2",
+            "name": "World History",
+            "parent_id": "16",
+          },
+          Object {
+            "id": "185",
+            "level": "1",
+            "name": "Chinese Dynasties",
+            "parent_id": null,
+          },
+          Object {
+            "id": "313",
+            "level": "0",
+            "name": "Tang Dynasty Inventions",
+            "parent_id": null,
+          },
+        ],
         "uid": "-KqiiQTci2gs9zhx2tIA",
       },
       Object {
@@ -139,12 +193,39 @@ exports[`Header component with some selected activities should render 1`] = `
         "flags": "{production}",
         "id": 618,
         "name": "The Mongol Invasion of China",
+        "readability_grade_level": "8th-9th",
         "standard_level": Object {
           "id": 13,
           "name": "7th Grade CCSS",
         },
         "standard_level_name": "7th Grade CCSS",
         "standard_name": "87",
+        "topics": Array [
+          Object {
+            "id": "16",
+            "level": "3",
+            "name": "History",
+            "parent_id": null,
+          },
+          Object {
+            "id": "48",
+            "level": "2",
+            "name": "World History",
+            "parent_id": "16",
+          },
+          Object {
+            "id": "185",
+            "level": "1",
+            "name": "Chinese Dynasties",
+            "parent_id": null,
+          },
+          Object {
+            "id": "352",
+            "level": "0",
+            "name": "The Mongol Invasion of China",
+            "parent_id": null,
+          },
+        ],
         "uid": "-Kqisu7eUfGfGvjRvT2W",
       },
       Object {
@@ -172,12 +253,39 @@ exports[`Header component with some selected activities should render 1`] = `
         "flags": "{production}",
         "id": 608,
         "name": "The Travels of Marco Polo",
+        "readability_grade_level": "8th-9th",
         "standard_level": Object {
           "id": 13,
           "name": "7th Grade CCSS",
         },
         "standard_level_name": "7th Grade CCSS",
         "standard_name": "87",
+        "topics": Array [
+          Object {
+            "id": "16",
+            "level": "3",
+            "name": "History",
+            "parent_id": null,
+          },
+          Object {
+            "id": "93",
+            "level": "2",
+            "name": "World Historical Figures",
+            "parent_id": "16",
+          },
+          Object {
+            "id": "117",
+            "level": "1",
+            "name": "The Age of Exploration",
+            "parent_id": null,
+          },
+          Object {
+            "id": "368",
+            "level": "0",
+            "name": "Marco Polo",
+            "parent_id": null,
+          },
+        ],
         "uid": "-KqZ_8tESejeyBmj-_pO",
       },
       Object {
@@ -205,12 +313,39 @@ exports[`Header component with some selected activities should render 1`] = `
         "flags": "{production}",
         "id": 860,
         "name": "Hernando de Soto",
+        "readability_grade_level": "8th-9th",
         "standard_level": Object {
           "id": 13,
           "name": "7th Grade CCSS",
         },
         "standard_level_name": "7th Grade CCSS",
         "standard_name": "87",
+        "topics": Array [
+          Object {
+            "id": "16",
+            "level": "3",
+            "name": "History",
+            "parent_id": null,
+          },
+          Object {
+            "id": "17",
+            "level": "2",
+            "name": "U.S. Historical Figures",
+            "parent_id": "16",
+          },
+          Object {
+            "id": "117",
+            "level": "1",
+            "name": "The Age of Exploration",
+            "parent_id": null,
+          },
+          Object {
+            "id": "173",
+            "level": "0",
+            "name": "Hernando de Soto",
+            "parent_id": null,
+          },
+        ],
         "uid": "-KhO2hv2Wl8rVCHp1B1G",
       },
       Object {
@@ -238,12 +373,39 @@ exports[`Header component with some selected activities should render 1`] = `
         "flags": "{production}",
         "id": 605,
         "name": "Magellan",
+        "readability_grade_level": "8th-9th",
         "standard_level": Object {
           "id": 13,
           "name": "7th Grade CCSS",
         },
         "standard_level_name": "7th Grade CCSS",
         "standard_name": "87",
+        "topics": Array [
+          Object {
+            "id": "16",
+            "level": "3",
+            "name": "History",
+            "parent_id": null,
+          },
+          Object {
+            "id": "93",
+            "level": "2",
+            "name": "World Historical Figures",
+            "parent_id": "16",
+          },
+          Object {
+            "id": "116",
+            "level": "0",
+            "name": "Magellan",
+            "parent_id": null,
+          },
+          Object {
+            "id": "117",
+            "level": "1",
+            "name": "The Age of Exploration",
+            "parent_id": null,
+          },
+        ],
         "uid": "-KqZiV1bnPe48h6gyYss",
       },
       Object {
@@ -271,12 +433,39 @@ exports[`Header component with some selected activities should render 1`] = `
         "flags": "{production}",
         "id": 606,
         "name": "Jamestown",
+        "readability_grade_level": "8th-9th",
         "standard_level": Object {
           "id": 13,
           "name": "7th Grade CCSS",
         },
         "standard_level_name": "7th Grade CCSS",
         "standard_name": "87",
+        "topics": Array [
+          Object {
+            "id": "16",
+            "level": "3",
+            "name": "History",
+            "parent_id": null,
+          },
+          Object {
+            "id": "45",
+            "level": "2",
+            "name": "U.S. History",
+            "parent_id": "16",
+          },
+          Object {
+            "id": "117",
+            "level": "1",
+            "name": "The Age of Exploration",
+            "parent_id": null,
+          },
+          Object {
+            "id": "200",
+            "level": "0",
+            "name": "Jamestown Settlement",
+            "parent_id": null,
+          },
+        ],
         "uid": "-KqcJOzHDYUrioJ6fPlR",
       },
       Object {
@@ -304,12 +493,39 @@ exports[`Header component with some selected activities should render 1`] = `
         "flags": "{production}",
         "id": 642,
         "name": "Humanism",
+        "readability_grade_level": "8th-9th",
         "standard_level": Object {
           "id": 13,
           "name": "7th Grade CCSS",
         },
         "standard_level_name": "7th Grade CCSS",
         "standard_name": "87",
+        "topics": Array [
+          Object {
+            "id": "16",
+            "level": "3",
+            "name": "History",
+            "parent_id": null,
+          },
+          Object {
+            "id": "48",
+            "level": "2",
+            "name": "World History",
+            "parent_id": "16",
+          },
+          Object {
+            "id": "186",
+            "level": "0",
+            "name": "Humanism",
+            "parent_id": null,
+          },
+          Object {
+            "id": "187",
+            "level": "1",
+            "name": "The Renaissance",
+            "parent_id": null,
+          },
+        ],
         "uid": "-KqZldiOXNWbJNFvIRY-",
       },
       Object {
@@ -337,12 +553,39 @@ exports[`Header component with some selected activities should render 1`] = `
         "flags": "{production}",
         "id": 640,
         "name": "Renaissance Beginnings in Italy",
+        "readability_grade_level": "8th-9th",
         "standard_level": Object {
           "id": 13,
           "name": "7th Grade CCSS",
         },
         "standard_level_name": "7th Grade CCSS",
         "standard_name": "87",
+        "topics": Array [
+          Object {
+            "id": "16",
+            "level": "3",
+            "name": "History",
+            "parent_id": null,
+          },
+          Object {
+            "id": "48",
+            "level": "2",
+            "name": "World History",
+            "parent_id": "16",
+          },
+          Object {
+            "id": "187",
+            "level": "1",
+            "name": "The Renaissance",
+            "parent_id": null,
+          },
+          Object {
+            "id": "269",
+            "level": "0",
+            "name": "The Renaissance in Italy",
+            "parent_id": null,
+          },
+        ],
         "uid": "-KqZpAZ8UMhwZp_3ezqw",
       },
       Object {
@@ -370,12 +613,39 @@ exports[`Header component with some selected activities should render 1`] = `
         "flags": "{production}",
         "id": 641,
         "name": "The Medici Family",
+        "readability_grade_level": "8th-9th",
         "standard_level": Object {
           "id": 13,
           "name": "7th Grade CCSS",
         },
         "standard_level_name": "7th Grade CCSS",
         "standard_name": "87",
+        "topics": Array [
+          Object {
+            "id": "16",
+            "level": "3",
+            "name": "History",
+            "parent_id": null,
+          },
+          Object {
+            "id": "93",
+            "level": "2",
+            "name": "World Historical Figures",
+            "parent_id": "16",
+          },
+          Object {
+            "id": "187",
+            "level": "1",
+            "name": "The Renaissance",
+            "parent_id": null,
+          },
+          Object {
+            "id": "350",
+            "level": "0",
+            "name": "The Medici Family",
+            "parent_id": null,
+          },
+        ],
         "uid": "-KqZvArG8422vhwB7rIo",
       },
     ]
@@ -447,12 +717,39 @@ exports[`Header component with some selected activities should render 1`] = `
               "flags": "{production}",
               "id": 619,
               "name": "Shihuangdi Unifies China",
+              "readability_grade_level": "8th-9th",
               "standard_level": Object {
                 "id": 13,
                 "name": "7th Grade CCSS",
               },
               "standard_level_name": "7th Grade CCSS",
               "standard_name": "87",
+              "topics": Array [
+                Object {
+                  "id": "16",
+                  "level": "3",
+                  "name": "History",
+                  "parent_id": null,
+                },
+                Object {
+                  "id": "93",
+                  "level": "2",
+                  "name": "World Historical Figures",
+                  "parent_id": "16",
+                },
+                Object {
+                  "id": "185",
+                  "level": "1",
+                  "name": "Chinese Dynasties",
+                  "parent_id": null,
+                },
+                Object {
+                  "id": "283",
+                  "level": "0",
+                  "name": "Shihuangdi Unifies China",
+                  "parent_id": null,
+                },
+              ],
               "uid": "-KqigC-G1kUp_pEeQJjl",
             },
             Object {
@@ -480,12 +777,39 @@ exports[`Header component with some selected activities should render 1`] = `
               "flags": "{production}",
               "id": 616,
               "name": "Tang Dynasty Inventions",
+              "readability_grade_level": "6th-7th",
               "standard_level": Object {
                 "id": 13,
                 "name": "7th Grade CCSS",
               },
               "standard_level_name": "7th Grade CCSS",
               "standard_name": "87",
+              "topics": Array [
+                Object {
+                  "id": "16",
+                  "level": "3",
+                  "name": "History",
+                  "parent_id": null,
+                },
+                Object {
+                  "id": "48",
+                  "level": "2",
+                  "name": "World History",
+                  "parent_id": "16",
+                },
+                Object {
+                  "id": "185",
+                  "level": "1",
+                  "name": "Chinese Dynasties",
+                  "parent_id": null,
+                },
+                Object {
+                  "id": "313",
+                  "level": "0",
+                  "name": "Tang Dynasty Inventions",
+                  "parent_id": null,
+                },
+              ],
               "uid": "-KqiiQTci2gs9zhx2tIA",
             },
             Object {
@@ -513,12 +837,39 @@ exports[`Header component with some selected activities should render 1`] = `
               "flags": "{production}",
               "id": 618,
               "name": "The Mongol Invasion of China",
+              "readability_grade_level": "8th-9th",
               "standard_level": Object {
                 "id": 13,
                 "name": "7th Grade CCSS",
               },
               "standard_level_name": "7th Grade CCSS",
               "standard_name": "87",
+              "topics": Array [
+                Object {
+                  "id": "16",
+                  "level": "3",
+                  "name": "History",
+                  "parent_id": null,
+                },
+                Object {
+                  "id": "48",
+                  "level": "2",
+                  "name": "World History",
+                  "parent_id": "16",
+                },
+                Object {
+                  "id": "185",
+                  "level": "1",
+                  "name": "Chinese Dynasties",
+                  "parent_id": null,
+                },
+                Object {
+                  "id": "352",
+                  "level": "0",
+                  "name": "The Mongol Invasion of China",
+                  "parent_id": null,
+                },
+              ],
               "uid": "-Kqisu7eUfGfGvjRvT2W",
             },
             Object {
@@ -546,12 +897,39 @@ exports[`Header component with some selected activities should render 1`] = `
               "flags": "{production}",
               "id": 608,
               "name": "The Travels of Marco Polo",
+              "readability_grade_level": "8th-9th",
               "standard_level": Object {
                 "id": 13,
                 "name": "7th Grade CCSS",
               },
               "standard_level_name": "7th Grade CCSS",
               "standard_name": "87",
+              "topics": Array [
+                Object {
+                  "id": "16",
+                  "level": "3",
+                  "name": "History",
+                  "parent_id": null,
+                },
+                Object {
+                  "id": "93",
+                  "level": "2",
+                  "name": "World Historical Figures",
+                  "parent_id": "16",
+                },
+                Object {
+                  "id": "117",
+                  "level": "1",
+                  "name": "The Age of Exploration",
+                  "parent_id": null,
+                },
+                Object {
+                  "id": "368",
+                  "level": "0",
+                  "name": "Marco Polo",
+                  "parent_id": null,
+                },
+              ],
               "uid": "-KqZ_8tESejeyBmj-_pO",
             },
             Object {
@@ -579,12 +957,39 @@ exports[`Header component with some selected activities should render 1`] = `
               "flags": "{production}",
               "id": 860,
               "name": "Hernando de Soto",
+              "readability_grade_level": "8th-9th",
               "standard_level": Object {
                 "id": 13,
                 "name": "7th Grade CCSS",
               },
               "standard_level_name": "7th Grade CCSS",
               "standard_name": "87",
+              "topics": Array [
+                Object {
+                  "id": "16",
+                  "level": "3",
+                  "name": "History",
+                  "parent_id": null,
+                },
+                Object {
+                  "id": "17",
+                  "level": "2",
+                  "name": "U.S. Historical Figures",
+                  "parent_id": "16",
+                },
+                Object {
+                  "id": "117",
+                  "level": "1",
+                  "name": "The Age of Exploration",
+                  "parent_id": null,
+                },
+                Object {
+                  "id": "173",
+                  "level": "0",
+                  "name": "Hernando de Soto",
+                  "parent_id": null,
+                },
+              ],
               "uid": "-KhO2hv2Wl8rVCHp1B1G",
             },
             Object {
@@ -612,12 +1017,39 @@ exports[`Header component with some selected activities should render 1`] = `
               "flags": "{production}",
               "id": 605,
               "name": "Magellan",
+              "readability_grade_level": "8th-9th",
               "standard_level": Object {
                 "id": 13,
                 "name": "7th Grade CCSS",
               },
               "standard_level_name": "7th Grade CCSS",
               "standard_name": "87",
+              "topics": Array [
+                Object {
+                  "id": "16",
+                  "level": "3",
+                  "name": "History",
+                  "parent_id": null,
+                },
+                Object {
+                  "id": "93",
+                  "level": "2",
+                  "name": "World Historical Figures",
+                  "parent_id": "16",
+                },
+                Object {
+                  "id": "116",
+                  "level": "0",
+                  "name": "Magellan",
+                  "parent_id": null,
+                },
+                Object {
+                  "id": "117",
+                  "level": "1",
+                  "name": "The Age of Exploration",
+                  "parent_id": null,
+                },
+              ],
               "uid": "-KqZiV1bnPe48h6gyYss",
             },
             Object {
@@ -645,12 +1077,39 @@ exports[`Header component with some selected activities should render 1`] = `
               "flags": "{production}",
               "id": 606,
               "name": "Jamestown",
+              "readability_grade_level": "8th-9th",
               "standard_level": Object {
                 "id": 13,
                 "name": "7th Grade CCSS",
               },
               "standard_level_name": "7th Grade CCSS",
               "standard_name": "87",
+              "topics": Array [
+                Object {
+                  "id": "16",
+                  "level": "3",
+                  "name": "History",
+                  "parent_id": null,
+                },
+                Object {
+                  "id": "45",
+                  "level": "2",
+                  "name": "U.S. History",
+                  "parent_id": "16",
+                },
+                Object {
+                  "id": "117",
+                  "level": "1",
+                  "name": "The Age of Exploration",
+                  "parent_id": null,
+                },
+                Object {
+                  "id": "200",
+                  "level": "0",
+                  "name": "Jamestown Settlement",
+                  "parent_id": null,
+                },
+              ],
               "uid": "-KqcJOzHDYUrioJ6fPlR",
             },
             Object {
@@ -678,12 +1137,39 @@ exports[`Header component with some selected activities should render 1`] = `
               "flags": "{production}",
               "id": 642,
               "name": "Humanism",
+              "readability_grade_level": "8th-9th",
               "standard_level": Object {
                 "id": 13,
                 "name": "7th Grade CCSS",
               },
               "standard_level_name": "7th Grade CCSS",
               "standard_name": "87",
+              "topics": Array [
+                Object {
+                  "id": "16",
+                  "level": "3",
+                  "name": "History",
+                  "parent_id": null,
+                },
+                Object {
+                  "id": "48",
+                  "level": "2",
+                  "name": "World History",
+                  "parent_id": "16",
+                },
+                Object {
+                  "id": "186",
+                  "level": "0",
+                  "name": "Humanism",
+                  "parent_id": null,
+                },
+                Object {
+                  "id": "187",
+                  "level": "1",
+                  "name": "The Renaissance",
+                  "parent_id": null,
+                },
+              ],
               "uid": "-KqZldiOXNWbJNFvIRY-",
             },
             Object {
@@ -711,12 +1197,39 @@ exports[`Header component with some selected activities should render 1`] = `
               "flags": "{production}",
               "id": 640,
               "name": "Renaissance Beginnings in Italy",
+              "readability_grade_level": "8th-9th",
               "standard_level": Object {
                 "id": 13,
                 "name": "7th Grade CCSS",
               },
               "standard_level_name": "7th Grade CCSS",
               "standard_name": "87",
+              "topics": Array [
+                Object {
+                  "id": "16",
+                  "level": "3",
+                  "name": "History",
+                  "parent_id": null,
+                },
+                Object {
+                  "id": "48",
+                  "level": "2",
+                  "name": "World History",
+                  "parent_id": "16",
+                },
+                Object {
+                  "id": "187",
+                  "level": "1",
+                  "name": "The Renaissance",
+                  "parent_id": null,
+                },
+                Object {
+                  "id": "269",
+                  "level": "0",
+                  "name": "The Renaissance in Italy",
+                  "parent_id": null,
+                },
+              ],
               "uid": "-KqZpAZ8UMhwZp_3ezqw",
             },
             Object {
@@ -744,12 +1257,39 @@ exports[`Header component with some selected activities should render 1`] = `
               "flags": "{production}",
               "id": 641,
               "name": "The Medici Family",
+              "readability_grade_level": "8th-9th",
               "standard_level": Object {
                 "id": 13,
                 "name": "7th Grade CCSS",
               },
               "standard_level_name": "7th Grade CCSS",
               "standard_name": "87",
+              "topics": Array [
+                Object {
+                  "id": "16",
+                  "level": "3",
+                  "name": "History",
+                  "parent_id": null,
+                },
+                Object {
+                  "id": "93",
+                  "level": "2",
+                  "name": "World Historical Figures",
+                  "parent_id": "16",
+                },
+                Object {
+                  "id": "187",
+                  "level": "1",
+                  "name": "The Renaissance",
+                  "parent_id": null,
+                },
+                Object {
+                  "id": "350",
+                  "level": "0",
+                  "name": "The Medici Family",
+                  "parent_id": null,
+                },
+              ],
               "uid": "-KqZvArG8422vhwB7rIo",
             },
           ]
