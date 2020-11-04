@@ -53,6 +53,9 @@
         .sortable-list {
           border-top: 1px solid #e0e0e0;
         }
+        .save-button, .saved-button {
+          display: none;
+        }
       }
     }
     .activity-table-container {

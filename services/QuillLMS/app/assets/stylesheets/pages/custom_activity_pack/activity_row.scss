@@ -24,9 +24,14 @@
       .buttons-wrapper {
         display: flex;
       }
+      .preview-link, .remove-button {
+        margin-right: 24px;
+      }
+      .save-button, .saved-button {
+        margin-right: 32px;
+      }
       .preview-link, .remove-button, .save-button, .saved-button {
         display: flex;
-        margin-right: 24px;
         align-items: center;
         img {
           margin-right: 4px;
@@ -37,7 +42,7 @@
       }
     }
     .second-line {
-      padding: 0px 32px;
+      padding: 0px 56px 0px 32px;
       .classification-concept-topic-wrapper, .readability-and-standard-level-wrapper {
         display: flex;
         flex-direction: row;

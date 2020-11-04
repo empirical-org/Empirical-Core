@@ -60,7 +60,7 @@ const calculateMaxAllowedLengthForTopicSection = ({
   let maxAllowedLength = 0
   const container = document.getElementsByClassName('activity-table-container')[0]
   if (container) {
-    maxAllowedLength = container.offsetWidth - 128 // 128 is the amount of padding in total that makes up the difference between the width of the container and the width of the second line
+    maxAllowedLength = container.offsetWidth - 152 // 128 is the amount of padding in total that makes up the difference between the width of the container and the width of the second line
     maxAllowedLength -= activity_classification.alias ? (activity_classification.alias.length * AVERAGE_FONT_WIDTH) + IMAGE_WIDTH + MARGIN : 0
     maxAllowedLength -= activity_category_name ? (activity_category_name.length * AVERAGE_FONT_WIDTH) + IMAGE_WIDTH + MARGIN : 0
     maxAllowedLength -= readability_grade_level ? (`Readability: Grades ${readability_grade_level}`.length * AVERAGE_FONT_WIDTH) + IMAGE_WIDTH : 0 // the readability section is the only section that does not have a margin
