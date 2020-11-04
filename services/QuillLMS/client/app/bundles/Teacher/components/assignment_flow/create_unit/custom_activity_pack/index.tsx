@@ -126,7 +126,7 @@ const CustomActivityPack = ({
   }
 
   function unsaveActivity(activityId) {
-    requestPost(
+    requestDelete(
       '/teacher_saved_activities/destroy_by_activity_id_for_current_user',
       { activity_id: activityId },
       () => {
