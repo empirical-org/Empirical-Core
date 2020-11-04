@@ -11,7 +11,7 @@ const ap = () => [
   },
   {
     question: 'Who developed the AP Writing Skills Survey?',
-    answer: <p className="preap-q-and-a-text">Quill.org worked with the <a href="https://www.collegeboard.org/">College Board</a> to develop this Survey and the AP Writing Practice activity packs that will be recommended based on your students&apos; performance.</p>
+    answer: <p className="college-board-q-and-a-text">Quill.org worked with the <a href="https://www.collegeboard.org/">College Board</a> to develop this Survey and the AP Writing Practice activity packs that will be recommended based on your students&apos; performance.</p>
   },
   {
     question: 'Who is the Survey for?',
@@ -29,21 +29,21 @@ const ap = () => [
     question: 'What kind of activities will be recommended to my students after they take the AP Writing Skills Survey?',
     answer: (
       <div>
-        <p className="preap-q-and-a-text">Depending on their performance, students will be recommended some or all of the following AP Writing Practice packs. The packs provide practice through <a href="https://www.quill.org/tools/connect">Quill Connect</a>, <a href="https://www.quill.org/teacher-center/-3">Quill&apos;s sentence combining tool</a>. With the exception of the <a href="https://www.quill.org/activities/packs/142">AP Writing - Advanced Sentence Combining pack</a>, the activities in each pack are scaffolded to build in complexity. Here are descriptions of the packs:</p>
-        <p className="preap-sub-header">AP Writing Practice - <a href="https://www.quill.org/activities/packs/139">Complex Sentences</a></p>
-        <p className="preap-q-and-a-text">Students practice constructing complex sentences using subordinating conjunctions, such as even though, after, while, and because. Students also practice identifying time order, opposition, and cause/effect relationships.</p>
-        <p className="preap-sub-header">AP Writing Practice - <a href="https://www.quill.org/activities/packs/140">Relative Clauses</a></p>
-        <p className="preap-q-and-a-text">Students begin by using a provided relative pronoun, then progress to choosing between who, that, or which.</p>
-        <p className="preap-sub-header">AP Writing Practice - <a href="https://www.quill.org/activities/packs/143">Appositive Phrases</a></p>
-        <p className="preap-q-and-a-text">Students practice describing nouns using appositive phrases at the beginning, middle, and end of sentences.</p>
-        <p className="preap-sub-header">AP Writing Practice - <a href="https://www.quill.org/activities/packs/144">Participial Phrases</a></p>
-        <p className="preap-q-and-a-text">Students practice constructing sentences with -ing and -ed participial phrases at the beginning, middle, or end.</p>
-        <p className="preap-sub-header">AP Writing Practice - <a href="https://www.quill.org/activities/packs/192">Parallel Structure</a></p>
-        <p className="preap-q-and-a-text">Students practice constructing sentences in parallel structure with correlative conjunctions like either/or, neither/nor, and both/and, and with subordinating conjunctions like although, because, and when. Students also practice constructing sentences with parallel clauses.</p>
-        <p className="preap-sub-header">AP Writing Practice - <a href="https://www.quill.org/activities/packs/141">Compound-Complex Sentences</a></p>
-        <p className="preap-q-and-a-text">Students practice constructing compound sentences with and, or, but, and so. Students also practice constructing complex sentences with subordinating conjunctions such as even though, after, while, and because. Finally, students practice constructing compound-complex sentences with coordinating and subordinating conjunctions. Students also practice identifying time order, opposition, and cause/effect relationships.</p>
-        <p className="preap-sub-header">AP Writing Practice - <a href="https://www.quill.org/activities/packs/142">Advanced Combining</a></p>
-        <p className="preap-q-and-a-text">Students apply their knowledge of multiple sentence structures to combine the sentences in the strongest way possible. Students practice constructing compound and complex sentences, using modifying phrases and clauses, and combining predicates.</p>
+        <p className="college-board-q-and-a-text">Depending on their performance, students will be recommended some or all of the following AP Writing Practice packs. The packs provide practice through <a href="https://www.quill.org/tools/connect">Quill Connect</a>, <a href="https://www.quill.org/teacher-center/-3">Quill&apos;s sentence combining tool</a>. With the exception of the <a href="https://www.quill.org/activities/packs/142">AP Writing - Advanced Sentence Combining pack</a>, the activities in each pack are scaffolded to build in complexity. Here are descriptions of the packs:</p>
+        <p className="college-board-sub-header">AP Writing Practice - <a href="https://www.quill.org/activities/packs/139">Complex Sentences</a></p>
+        <p className="college-board-q-and-a-text">Students practice constructing complex sentences using subordinating conjunctions, such as even though, after, while, and because. Students also practice identifying time order, opposition, and cause/effect relationships.</p>
+        <p className="college-board-sub-header">AP Writing Practice - <a href="https://www.quill.org/activities/packs/140">Relative Clauses</a></p>
+        <p className="college-board-q-and-a-text">Students begin by using a provided relative pronoun, then progress to choosing between who, that, or which.</p>
+        <p className="college-board-sub-header">AP Writing Practice - <a href="https://www.quill.org/activities/packs/143">Appositive Phrases</a></p>
+        <p className="college-board-q-and-a-text">Students practice describing nouns using appositive phrases at the beginning, middle, and end of sentences.</p>
+        <p className="college-board-sub-header">AP Writing Practice - <a href="https://www.quill.org/activities/packs/144">Participial Phrases</a></p>
+        <p className="college-board-q-and-a-text">Students practice constructing sentences with -ing and -ed participial phrases at the beginning, middle, or end.</p>
+        <p className="college-board-sub-header">AP Writing Practice - <a href="https://www.quill.org/activities/packs/192">Parallel Structure</a></p>
+        <p className="college-board-q-and-a-text">Students practice constructing sentences in parallel structure with correlative conjunctions like either/or, neither/nor, and both/and, and with subordinating conjunctions like although, because, and when. Students also practice constructing sentences with parallel clauses.</p>
+        <p className="college-board-sub-header">AP Writing Practice - <a href="https://www.quill.org/activities/packs/141">Compound-Complex Sentences</a></p>
+        <p className="college-board-q-and-a-text">Students practice constructing compound sentences with and, or, but, and so. Students also practice constructing complex sentences with subordinating conjunctions such as even though, after, while, and because. Finally, students practice constructing compound-complex sentences with coordinating and subordinating conjunctions. Students also practice identifying time order, opposition, and cause/effect relationships.</p>
+        <p className="college-board-sub-header">AP Writing Practice - <a href="https://www.quill.org/activities/packs/142">Advanced Combining</a></p>
+        <p className="college-board-q-and-a-text">Students apply their knowledge of multiple sentence structures to combine the sentences in the strongest way possible. Students practice constructing compound and complex sentences, using modifying phrases and clauses, and combining predicates.</p>
       </div>
     )
   },
@@ -55,9 +55,9 @@ const ap = () => [
     question: 'How many activities are in each AP Writing Practice pack and how long will it take students to complete them?',
     answer: (
       <div>
-        <p className="preap-q-and-a-text">All of the above packs contain between 4 and 7 activities, each of which are designed to take between 10 and 15 minutes each.</p>
-        <p className="preap-q-and-a-text">The only exception is the <a href="https://www.quill.org/activities/packs/142">AP Writing - Advanced Combining pack</a>, which contains 15 activities. This pack contains more activities than the others as it was designed to serve as a large bank of activities for students who perform well on the Survey and don’t get a lot of recommendations. This way, you can still assign these students activities, which are quite challenging and will sustain them for a while. These are great for students who have had success with individual practice of strategies covered in the Survey, and would benefit from an opportunity to apply those strategies in combining activities without suggestions or direction.</p>
-        <p className="preap-q-and-a-text">Teacher Tip: When you select a recommended pack, you can <a href="https://support.quill.org/en/articles/1137376-can-i-remove-activities-or-assignments-from-my-activity-packs">remove any activities within it</a>. And once it&apos;s assigned, you can add activities to the pack as well.</p>
+        <p className="college-board-q-and-a-text">All of the above packs contain between 4 and 7 activities, each of which are designed to take between 10 and 15 minutes each.</p>
+        <p className="college-board-q-and-a-text">The only exception is the <a href="https://www.quill.org/activities/packs/142">AP Writing - Advanced Combining pack</a>, which contains 15 activities. This pack contains more activities than the others as it was designed to serve as a large bank of activities for students who perform well on the Survey and don’t get a lot of recommendations. This way, you can still assign these students activities, which are quite challenging and will sustain them for a while. These are great for students who have had success with individual practice of strategies covered in the Survey, and would benefit from an opportunity to apply those strategies in combining activities without suggestions or direction.</p>
+        <p className="college-board-q-and-a-text">Teacher Tip: When you select a recommended pack, you can <a href="https://support.quill.org/en/articles/1137376-can-i-remove-activities-or-assignments-from-my-activity-packs">remove any activities within it</a>. And once it&apos;s assigned, you can add activities to the pack as well.</p>
       </div>
     )
   },
@@ -65,8 +65,8 @@ const ap = () => [
     question: 'What grade-level or reading level are the AP Activity Packs designed for?',
     answer: (
       <div>
-        <p className="preap-q-and-a-text">The focus in most of these activities is to build the target skill of the pack (appositives, relative clauses, etc.), so the vocabulary and reading level are intentionally designed to be accessible by all students.</p>
-        <p className="preap-q-and-a-text">Teacher Tip: You can preview and play through any pack and its activities to get a sense of whether it&apos;s appropriate for your students.</p>
+        <p className="college-board-q-and-a-text">The focus in most of these activities is to build the target skill of the pack (appositives, relative clauses, etc.), so the vocabulary and reading level are intentionally designed to be accessible by all students.</p>
+        <p className="college-board-q-and-a-text">Teacher Tip: You can preview and play through any pack and its activities to get a sense of whether it&apos;s appropriate for your students.</p>
       </div>
     )
   },
@@ -94,8 +94,8 @@ const ap = () => [
     question: 'Do I need to create an account on Quill.org to assign the AP Writing Skills Survey?',
     answer: (
       <div>
-        <p className="preap-q-and-a-text">It is recommended that you and your students create free accounts on Quill.org. Creating an account will give you access to the Survey and its recommended practice. Creating an account also allows you to track your students’ progress and view data reports. You can create an account by visiting the <a href="https://www.quill.org/account/new">Quill sign-up page</a>.</p>
-        <p className="preap-q-and-a-text">If you do not want to create an account, you or your students can complete the Survey <a href="https://quill.org/diagnostic/#/play/diagnostic/-L_wPCxbrT6toCb1fnYR?anonymous=true">here</a>. However, please note that if you do not create an account, your students’ performance on the Survey will not be saved or shared with you, and you will not have access to the recommended skills practice. You will also not be able to track student progress or view data reports.</p>
+        <p className="college-board-q-and-a-text">It is recommended that you and your students create free accounts on Quill.org. Creating an account will give you access to the Survey and its recommended practice. Creating an account also allows you to track your students’ progress and view data reports. You can create an account by visiting the <a href="https://www.quill.org/account/new">Quill sign-up page</a>.</p>
+        <p className="college-board-q-and-a-text">If you do not want to create an account, you or your students can complete the Survey <a href="https://quill.org/diagnostic/#/play/diagnostic/-L_wPCxbrT6toCb1fnYR?anonymous=true">here</a>. However, please note that if you do not create an account, your students’ performance on the Survey will not be saved or shared with you, and you will not have access to the recommended skills practice. You will also not be able to track student progress or view data reports.</p>
       </div>
     )
   },
@@ -103,13 +103,13 @@ const ap = () => [
     question: 'What if I still have questions?',
     answer: (
       <div>
-        <p className="preap-q-and-a-text"><strong><a href="https://www.quill.org/teacher-center">Teacher Center:</a></strong> Browse additional resources and more information about how to use Quill.</p>
-        <p className="preap-q-and-a-text"><strong>Quill Support:</strong> Email <a href="mailto:support@quill.org">support@quill.org</a> (Be sure to mention that you’re an AP teacher!</p>
-        <p className="preap-q-and-a-text"><strong>Quill Support Chat:</strong> While you’re on Quill.org, you can use the chat bubble in the lower right side of your screen to connect with a member of the Quill support team. (Again, be sure to mention that you’re an AP teacher!)</p>
-        <p className="preap-q-and-a-text"><strong>Quill Instructional Coach:</strong> You can reach out directly to Sherry Lewkowicz, one of our Senior Instructional Coaches focused on Quill’s work with the College Board, at <a href="mailto:sherry@quill.org">sherry@quill.org</a> (Again, be sure to mention that you’re an AP teacher!)</p>
-        <p className="preap-q-and-a-text"><strong>Quill Phone Number:</strong> (510) 671-0222</p>
-        <p className="preap-q-and-a-text">We are always happy to help!</p>
-        <p className="preap-q-and-a-text">AP® is a registered trademark of the College Board.</p>
+        <p className="college-board-q-and-a-text"><strong><a href="https://www.quill.org/teacher-center">Teacher Center:</a></strong> Browse additional resources and more information about how to use Quill.</p>
+        <p className="college-board-q-and-a-text"><strong>Quill Support:</strong> Email <a href="mailto:support@quill.org">support@quill.org</a> (Be sure to mention that you’re an AP teacher!</p>
+        <p className="college-board-q-and-a-text"><strong>Quill Support Chat:</strong> While you’re on Quill.org, you can use the chat bubble in the lower right side of your screen to connect with a member of the Quill support team. (Again, be sure to mention that you’re an AP teacher!)</p>
+        <p className="college-board-q-and-a-text"><strong>Quill Instructional Coach:</strong> You can reach out directly to Sherry Lewkowicz, one of our Senior Instructional Coaches focused on Quill’s work with the College Board, at <a href="mailto:sherry@quill.org">sherry@quill.org</a> (Again, be sure to mention that you’re an AP teacher!)</p>
+        <p className="college-board-q-and-a-text"><strong>Quill Phone Number:</strong> (510) 671-0222</p>
+        <p className="college-board-q-and-a-text">We are always happy to help!</p>
+        <p className="college-board-q-and-a-text">AP® is a registered trademark of the College Board.</p>
       </div>
     )
   }

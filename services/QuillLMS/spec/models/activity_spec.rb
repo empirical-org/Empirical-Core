@@ -4,6 +4,7 @@ describe Activity, type: :model, redis: true do
   it { should have_and_belong_to_many(:unit_templates) }
   it { should belong_to(:classification).class_name("ActivityClassification") }
   it { should belong_to(:standard) }
+  it { should belong_to(:raw_score) }
   it { should have_one(:standard_level).through(:standard) }
   it do
     should belong_to(:follow_up_activity).class_name("Activity")
