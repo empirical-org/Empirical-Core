@@ -83,6 +83,7 @@ const MobileFilterMenu = ({
       readabilityGradeLevelFilters={readabilityGradeLevelFilters}
       resetAllFilters={resetAllFilters}
       savedActivityFilters={savedActivityFilters}
+      savedActivityIds={savedActivityIds}
       topicFilters={topicFilters}
     />
     <button className="quill-button primary contained medium focus-on-light" onClick={closeMobileFilterMenu} type="button">

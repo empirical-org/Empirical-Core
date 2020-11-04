@@ -11,7 +11,7 @@ class TeacherSavedActivitiesController < ApplicationController
   end
 
   def destroy_by_activity_id_for_current_user
-    TeacherSavedActivity.find_by(activity_id: params[:activity_id], teacher_id: current_user.id).destroy
+    TeacherSavedActivity.find_by(activity_id: params[:activity_id], teacher_id: current_user.id)&.destroy
     render json: {}, status: 200
   end
 
