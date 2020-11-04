@@ -1,4 +1,5 @@
 import * as React from 'react'
+
 import QuestionsAndAnswers from '../../containers/QuestionsAndAnswers'
 import { COLLEGE_BOARD_SLUG, AP_SLUG } from '../assignment_flow/assignmentFlowConstants'
 
@@ -15,9 +16,9 @@ const generateLink = (isPartOfAssignmentFlow, unitTemplateId) => {
 const Ap = ({ isPartOfAssignmentFlow, }: ApContainerProps) => {
   const getStartedButton = isPartOfAssignmentFlow ? null : <a className="quill-button large primary contained focus-on-light" href="https://www.quill.org/account/new" rel="noopener noreferrer" target="_blank">Get started</a>
 
-  return (<div className="pre-ap-container">
+  return (<div className="college-board-container">
     <div className="section-wrapper">
-      <div className="container pre-ap-header-container">
+      <div className="container college-board-header-container">
         <div className="header-left">
           <div className="logo-container">
             <img alt="College Board logo" src="https://assets.quill.org/images/college_board/college-board-logo.svg" />
@@ -34,7 +35,7 @@ const Ap = ({ isPartOfAssignmentFlow, }: ApContainerProps) => {
       </div>
     </div>
     <div className="white-section-wrapper">
-      <div className="container pre-ap-activities-section">
+      <div className="container college-board-activities-section">
         <div className="header">
           <img alt="Illustration of a pencil drawing a line" src="https://assets.quill.org/images/college_board/sentence-writing-pencil.svg" />
           <div className="text-container">
@@ -44,11 +45,11 @@ const Ap = ({ isPartOfAssignmentFlow, }: ApContainerProps) => {
         </div>
         <div className="activities-subheader">
           <h2>AP Writing Skills Surveys</h2>
-          <div className="ap-english-tag">For All AP students</div>
+          <div className="college-board-activity-tag">For All AP students</div>
         </div>
         <div className="activity-container">
           <div className="activity-header-container">
-            <a className="activity-header" id="writing-skills-survey">AP Writing Skills Survey</a>
+            <p className="activity-header" id="writing-skills-survey">AP Writing Skills Survey</p>
             <a className="quill-button medium primary outlined view-button focus-on-light" href={generateLink(isPartOfAssignmentFlow, 193)} rel="noopener noreferrer" target={isPartOfAssignmentFlow ? '' : "_blank"}>View</a>
           </div>
           <div className="activity-text-container">
@@ -65,7 +66,7 @@ const Ap = ({ isPartOfAssignmentFlow, }: ApContainerProps) => {
           <img alt="A recommended activity pack report showing four students being recommended a mixture of activities for relative clauses and participial phrases." src="https://assets.quill.org/images/college_board/ap-recommendations.svg" />
           <div className="text-container">
             <p className="info-blurb-header">Personalized Recommendations</p>
-            <p className="info-blurb-text">After students complete the AP Writing Skills Survey, you'll receive recommendations for each student based on their responses and tailored to their individual needs. Each student will be recommended up to 45 sentence combining activities, grouped by concept into seven packs, that provide meaningful, targeted practice. You can assign all the activities with one click, or you can pick and choose.</p>
+            <p className="info-blurb-text">After students complete the AP Writing Skills Survey, you&apos;ll receive recommendations for each student based on their responses and tailored to their individual needs. Each student will be recommended up to 45 sentence combining activities, grouped by concept into seven packs, that provide meaningful, targeted practice. You can assign all the activities with one click, or you can pick and choose.</p>
           </div>
         </div>
         <div className="info-blurb-container">
@@ -79,7 +80,7 @@ const Ap = ({ isPartOfAssignmentFlow, }: ApContainerProps) => {
           <img alt="A report showing that a student scored 79% on parallel structure, 98% on parallel structure with joining words, and 58% on advanced parallel structure." src="https://assets.quill.org/images/college_board/ap-reports.svg" />
           <div className="text-container">
             <p className="info-blurb-header">Data Reports</p>
-            <p className="info-blurb-text">You can monitor the progress of your students and continue to identify areas of need and areas of strength through multiple data reports. Use the analysis report to review your students' work sentence-by-sentence, or use the summary report to get a high-level sense of where your students could use some extra support.</p>
+            <p className="info-blurb-text">You can monitor the progress of your students and continue to identify areas of need and areas of strength through multiple data reports. Use the analysis report to review your students&apos; work sentence-by-sentence, or use the summary report to get a high-level sense of where your students could use some extra support.</p>
           </div>
         </div>
       </div>
@@ -91,12 +92,12 @@ const Ap = ({ isPartOfAssignmentFlow, }: ApContainerProps) => {
           <p className="cb-message-sub-header">Message from College Board</p>
         </div>
         <div className="quote-container">
-          <img id="first-quote" src="https://assets.quill.org/images/college_board/exaggerated-quote-left.svg" />
+          <img alt="Large left quote" id="first-quote" src="https://assets.quill.org/images/college_board/exaggerated-quote-left.svg" />
           <div className="inner-text-container">
             <p>Teaching writing is hard. Even harder can be attempting to pinpoint exactly when we learned how and why to write clearly. That’s why the College Board has worked with Quill.org to ensure that this new, free, comprehensive offering helps students practice targeted sentence construction skills in their writing. Sustained practice and exposure to targeted skills is important to improvement and comfort.</p>
             <p>Teaching writing may always be hard, but student practice in meaningful skills can make the learning that much clearer. Through this practice, students can begin to own the how and why of their writing.</p>
           </div>
-          <img id="second-quote" src="https://assets.quill.org/images/college_board/exaggerated-quote-right.svg" />
+          <img alt="Large right quote" id="second-quote" src="https://assets.quill.org/images/college_board/exaggerated-quote-right.svg" />
         </div>
       </div>
     </div>
