@@ -1,10 +1,10 @@
-.pre-ap-container {
+.college-board-container {
   #info-blurbs-1-wrapper {
     border-bottom: 1px solid #e0e0e0;;
   }
   .section-wrapper {
     padding-top: 20px;
-    .pre-ap-header-container {
+    .college-board-header-container {
       display: flex;
       flex-direction: row;
       justify-content: space-between;
@@ -97,7 +97,7 @@
   }
   .white-section-wrapper {
     background-color: white;
-    .pre-ap-activities-section {
+    .college-board-activities-section {
       padding: 80px 0px 40px 0px;
       .header {
         display: flex;
@@ -112,7 +112,7 @@
             font-weight: bold;
             line-height: 1.5;
             color: black;
-            margin-bottom: 10px;
+            margin: 16px 0px 10px 0px;
           }
           p {
             font-size: 16px;
@@ -131,7 +131,7 @@
           color: black;
           margin-right: 10px;
         }
-        .ap-english-tag {
+        .college-board-activity-tag {
           border-radius: 6px;
           border: solid 1px #e2c447;
           background-color: #fdf1be;
@@ -152,6 +152,14 @@
           display: flex;
           align-items: baseline;
           justify-content: space-between;
+          .activity-header-left-container {
+            display: flex;
+            align-items: center;
+            .springboard-sub-header {
+              padding-bottom: 0px;
+              margin-right: 16px;
+            }
+          }
           .activity-header {
             font-size: 16px;
             font-weight: bold;
@@ -159,6 +167,17 @@
             padding-bottom: 8px;
             margin-left: 24px;
             text-decoration: none;
+          }
+          .college-board-activity-tag {
+            border-radius: 6px;
+            border: solid 1px #e2c447;
+            background-color: #fdf1be;
+            font-size: 16px;
+            font-weight: 600;
+            color: black;
+            text-align: center;
+            padding: 3px 16px 3px 16px;
+            margin: 0px 3px 0px 3px;
           }
           .view-button {
             margin: 12px 26px 0px 0px;
@@ -304,22 +323,22 @@
   }
   #q-and-a {
     .q-and-a-inner-wrapper {
-      border-bottom: 1px solid #e0e0e0;;
       .qa-section {
         .qa {
           .question {
             text-align: left;
             padding-left: 0;
+            margin: 16px 0px 16px 0px;
           }
           .question:focus {
             outline: none !important;
           }
           .answer {
             div {
-              .preap-sub-header {
+              .college-board-sub-header {
                 font-weight: 600;
               }
-              .preap-q-and-a-text {
+              .college-board-q-and-a-text {
                 padding-bottom: 20px;
                 a {
                   color: black;
@@ -328,7 +347,7 @@
                   font-weight: 600;
                 }
               }
-              .preap-q-and-a-text:last-child {
+              .college-board-q-and-a-text:last-child {
                 padding-bottom: 0px;
               }
               ul {
@@ -341,25 +360,32 @@
             }
             p {
               line-height: 1.5;
+              a {
+                color: black;
+              }
             }
-            .preap-block {
+            .college-board-block {
               padding: 15px 0px 15px 0px;
             }
           }
         }
         .expand-collapse-button {
           background-color: white;
+          margin-top: 16px;
         }
+      }
+      .qa-section:last-of-type {
+        border-bottom: 1px solid #e0e0e0;
       }
     }
   }
 }
 
 @media only screen and (max-width : 750px){
-  .pre-ap-container {
+  .college-board-container {
     .section-wrapper {
       padding: 16px;
-      .pre-ap-header-container {
+      .college-board-header-container {
         flex-direction: column;
         align-items: center;
         .header-left {
@@ -410,17 +436,20 @@
           flex-direction: column;
         }
       }
-      .pre-ap-activities-section {
+      .college-board-activities-section {
         .activities-subheader {
           display: flex;
           flex-direction: column;
           align-items: flex-start;
           padding: 0px;
-          .ap-english-tag:nth-of-type(1) {
+          .college-board-activity-tag:nth-of-type(1) {
             margin: 16px 0px 8px 0px;
           }
-          .ap-english-tag:nth-of-type(2) {
+          .college-board-activity-tag:nth-of-type(2) {
             margin: 0px 0px 16px 0px;
+          }
+          #ell-header {
+            margin-top: 16px;
           }
         }
         .activity-container {
@@ -495,7 +524,7 @@
           }
           .answer {
             div {
-              .preap-q-and-a-text {
+              .college-board-q-and-a-text {
                 padding-left: 6px !important;
               }
             }

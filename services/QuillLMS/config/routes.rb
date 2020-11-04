@@ -694,6 +694,7 @@ EmpiricalGrammar::Application.routes.draw do
   get 'preAP', to: redirect('/preap')
   get 'ap' => 'pages#ap'
   get 'AP', to: redirect('/ap')
+  get 'springboard' => 'pages#springboard'
 
   get '/404' => 'errors#error_404'
   get '/500' => 'errors#error_500'

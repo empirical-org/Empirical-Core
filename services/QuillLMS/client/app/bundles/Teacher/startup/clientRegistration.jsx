@@ -1,6 +1,7 @@
 import 'lazysizes';
 import 'lazysizes/plugins/parent-fit/ls.parent-fit';
 import ReactOnRails from 'react-on-rails';
+
 import DashboardApp from './DashboardAppClient';
 import LessonPlannerApp from './LessonPlannerAppClient';
 import TeacherGuideApp from './TeacherGuideClient';
@@ -32,11 +33,13 @@ import ForgotPasswordApp from './ForgotPasswordAppClient'
 import ResetPasswordApp from './ResetPasswordAppClient'
 import TeacherClassroomsApp from './TeacherClassroomsAppClient'
 import UnitTemplateCategoriesApp from './UnitTemplateCategoriesAppClient'
-import StudentNavbarItems from '../../Student/startup/StudentNavbarItemsAppClient'
 import ExpandableUnitSection from './ExpandableUnitClient'
 import QuestionsAndAnswersSection from './QuestionsAndAnswersClient';
 import PreAp from './PreApAppClient';
 import Ap from './ApAppClient';
+import SpringBoard from './SpringBoardAppClient.tsx';
+
+import StudentNavbarItems from '../../Student/startup/StudentNavbarItemsAppClient'
 
 require('../../../assets/styles/home.scss');
 
@@ -77,5 +80,6 @@ ReactOnRails.register({ TeacherGuideApp,
   ExpandableUnitSection,
   QuestionsAndAnswersSection,
   PreAp,
-  Ap
+  Ap,
+  SpringBoard
 });

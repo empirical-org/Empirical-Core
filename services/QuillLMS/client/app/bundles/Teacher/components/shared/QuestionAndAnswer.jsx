@@ -21,7 +21,7 @@ export default class QuestionAndAnswer extends React.Component {
   expandOrCollapseButton() {
     const { questionsAndAnswersFile } = this.props
     const { expanded } = this.state
-    const files = [ 'premium', 'preap', 'ap'];
+    const files = [ 'premium', 'preap', 'ap', 'springboard'];
     const buttonClass = questionsAndAnswersFile === 'lessons' ? 'focus-on-dark' : 'focus-on-light';
     let innerElement;
 
