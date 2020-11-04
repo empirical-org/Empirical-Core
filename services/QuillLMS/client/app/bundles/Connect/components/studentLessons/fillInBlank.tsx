@@ -87,7 +87,7 @@ export class PlayFillInTheBlankQuestion extends React.Component<PlayFillInTheBla
     this.setState({
       splitPrompt,
       inputVals: this.generateInputs(splitPrompt),
-      inputErrors: new Set(),
+      inputErrors: {},
       cues: q.cues,
       blankAllowed: q.blankAllowed,
     }, () => this.getGradedResponsesWithCallback(question));
@@ -122,12 +122,6 @@ export class PlayFillInTheBlankQuestion extends React.Component<PlayFillInTheBla
       instructions = question.instructions;
     }
     return instructions
-  }
-
-  getBlurHandler = (index) => {
-    return () => {
-      this.validateInput(index);
-    };
   }
 
   generateInputs(promptArray: string[]) {
@@ -171,32 +165,35 @@ export class PlayFillInTheBlankQuestion extends React.Component<PlayFillInTheBla
     return spanArray;
   }
 
-  validateInput = (i: number) => {
+  validateAllInputs = () => {
     const { inputErrors, inputVals, blankAllowed, cues, } = this.state
-    const newErrors = new Set(inputErrors);
-    const inputVal = inputVals[i] || '';
-    const inputSufficient = blankAllowed ? true : inputVal;
-    const cueMatch = (inputVal && cues.some(c => stringNormalize(c).toLowerCase() === stringNormalize(inputVal).toLowerCase().trim())) || inputVal === ''
-    if (inputSufficient && cueMatch) {
-      newErrors.delete(i);
-    } else {
-      newErrors.add(i);
+    const newErrors = inputErrors;
+    for (let i = 0; i < inputVals.length; i++) {
+      const inputVal = inputVals[i] || '';
+      const inputSufficient = blankAllowed || inputVal;
+      const cueMatch = (inputVal && cues.some(c => stringNormalize(c).toLowerCase() === stringNormalize(inputVal).toLowerCase().trim())) || (inputVal === '' && blankAllowed);
+
+      if (inputSufficient && cueMatch) {
+        delete newErrors[i]
+      } else {
+        newErrors[i] = true;
+      }
     }
 
     // following condition will return false if no new errors
     if (newErrors.size) {
       const newInputVals = inputVals
-      newInputVals[i] = ''
       this.setState({ inputErrors: newErrors, inputVals: newInputVals })
     } else {
       this.setState({ inputErrors: newErrors });
     }
+    return Promise.resolve(true);
   }
 
   renderInput = (i: number) => {
     const { inputErrors, cues, inputVals, } = this.state
     let className = 'fill-in-blank-input'
-    if (inputErrors.has(i)) {
+    if (inputErrors[i]) {
       className += ' error'
     }
     const longestCue = cues && cues.length ? cues.sort((a, b) => b.length - a.length)[0] : null
@@ -210,7 +207,6 @@ export class PlayFillInTheBlankQuestion extends React.Component<PlayFillInTheBla
           className={className}
           id={`input${i}`}
           key={i + 100}
-          onBlur={this.getBlurHandler(i)}
           onChange={this.getChangeHandler(i)}
           style={styling}
           type="text"
@@ -289,32 +285,28 @@ export class PlayFillInTheBlankQuestion extends React.Component<PlayFillInTheBla
   }
 
   handleSubmitClick = () => {
-    const { submitResponse, previewMode } = this.props;
-    const question = this.getQuestion();
-    const { caseInsensitive, conceptID, key } = question;
-    const { inputErrors, blankAllowed, inputVals, responses, } = this.state;
-    if (!inputErrors.size) {
-      if (!blankAllowed) {
-        if (inputVals.length === 0) {
-          this.validateInput(0);
-          return;
+    this.validateAllInputs().then(() => {
+      const { submitResponse, previewMode } = this.props;
+      const question = this.getQuestion();
+      const { caseInsensitive, conceptID, key } = question;
+      const { inputErrors, responses, } = this.state;
+      if (inputErrors.size === 0) {
+        const zippedAnswer = this.zipInputsAndText();
+        const questionUID = key;
+        const defaultConceptUID = conceptID;
+        const responsesArray = hashToCollection(responses);
+        const response = {response: checkFillInTheBlankQuestion(questionUID, zippedAnswer, responsesArray, caseInsensitive, defaultConceptUID)};
+        if(previewMode) {
+          this.setState(prevState => ({
+            previewAttempt: response,
+            previewAttemptSubmitted: true,
+            previewSubmissionCount: prevState.previewSubmissionCount + 1
+          }));
         }
+        this.updateResponseResource(response);
+        submitResponse(response);
       }
-      const zippedAnswer = this.zipInputsAndText();
-      const questionUID = key;
-      const defaultConceptUID = conceptID;
-      const responsesArray = hashToCollection(responses);
-      const response = {response: checkFillInTheBlankQuestion(questionUID, zippedAnswer, responsesArray, caseInsensitive, defaultConceptUID)};
-      if(previewMode) {
-        this.setState(prevState => ({
-          previewAttempt: response,
-          previewAttemptSubmitted: true,
-          previewSubmissionCount: prevState.previewSubmissionCount + 1
-        }));
-      }
-      this.updateResponseResource(response);
-      submitResponse(response);
-    }
+    })
   }
 
   setResponse(response: Response) {
@@ -402,7 +394,7 @@ export class PlayFillInTheBlankQuestion extends React.Component<PlayFillInTheBla
     const { previewMode } = this.props;
     const { responses, inputErrors, previewAttempt, previewAttemptSubmitted} = this.state
 
-    if (inputErrors && inputErrors.size) {
+    if (inputErrors && inputErrors.size != 0) {
       const blankFeedback = question.blankAllowed ? ' or leave it blank' : ''
       const feedbackText = `Choose one of the options provided${blankFeedback}. Make sure it is spelled correctly.`
       const feedback = <p>{feedbackText}</p>
