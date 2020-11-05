@@ -181,7 +181,7 @@ export class PlayFillInTheBlankQuestion extends React.Component<PlayFillInTheBla
     }
 
     // following condition will return false if no new errors
-    if (newErrors.size) {
+    if (_.size(newErrors)) {
       const newInputVals = inputVals
       this.setState({ inputErrors: newErrors, inputVals: newInputVals })
     } else {
@@ -290,7 +290,8 @@ export class PlayFillInTheBlankQuestion extends React.Component<PlayFillInTheBla
       const question = this.getQuestion();
       const { caseInsensitive, conceptID, key } = question;
       const { inputErrors, responses, } = this.state;
-      if (inputErrors.size === 0) {
+      const noErrors = _.size(inputErrors) === 0;
+      if (noErrors && responses) {
         const zippedAnswer = this.zipInputsAndText();
         const questionUID = key;
         const defaultConceptUID = conceptID;
@@ -394,7 +395,7 @@ export class PlayFillInTheBlankQuestion extends React.Component<PlayFillInTheBla
     const { previewMode } = this.props;
     const { responses, inputErrors, previewAttempt, previewAttemptSubmitted} = this.state
 
-    if (inputErrors && inputErrors.size != 0) {
+    if (inputErrors && _.size(inputErrors) !== 0) {
       const blankFeedback = question.blankAllowed ? ' or leave it blank' : ''
       const feedbackText = `Choose one of the options provided${blankFeedback}. Make sure it is spelled correctly.`
       const feedback = <p>{feedbackText}</p>
