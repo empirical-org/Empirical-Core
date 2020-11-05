@@ -42,6 +42,7 @@ describe Cms::StandardLevelsController do
     it 'should destroy the given standard_level' do
       delete :destroy, id: standard_level.id
       expect{StandardLevel.find(standard_level.id)}.to raise_exception ActiveRecord::RecordNotFound
+      expect(response).to redirect_to cms_standard_levels_url
     end
   end
 end
