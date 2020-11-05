@@ -30,7 +30,11 @@ class ActivitySearch
         activity_category_activities.order_number,
         content_partners.name AS content_partner_name,
         content_partners.description AS content_partner_description,
-        content_partners.id AS content_partner_id
+        content_partners.id AS content_partner_id,
+        topics.id AS topic_id,
+        topics.name AS topic_name,
+        topics.parent_id AS topic_parent_id,
+        topics.level AS topic_level
       FROM activities
       LEFT JOIN activity_classifications ON activities.activity_classification_id = activity_classifications.id
       LEFT JOIN standards ON activities.standard_id = standards.id
@@ -39,6 +43,8 @@ class ActivitySearch
       LEFT JOIN activity_categories ON activity_category_activities.activity_category_id = activity_categories.id
       LEFT JOIN content_partner_activities ON content_partner_activities.activity_id = activities.id
       LEFT JOIN content_partners ON content_partners.id = content_partner_activities.content_partner_id
+      LEFT JOIN activity_topics ON activity_topics.activity_id = activities.id
+      LEFT JOIN topics ON activity_topics.topic_id = topics.id AND topics.visible
       WHERE activities.flags && ARRAY[#{flags}]::varchar[]
       ORDER BY activity_classifications.order_number asc, activity_categories.order_number asc, activity_category_activities.order_number asc").to_a
   end

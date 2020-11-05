@@ -19,7 +19,7 @@ class Cms::StandardsController < Cms::CmsController
     @standard = Standard.new(standard_params)
 
     if @standard.save
-      redirect_to cms_standards_url, notice: 'Chapter level was successfully created.'
+      redirect_to cms_standards_url, notice: 'Standard was successfully created.'
     else
       render action: 'new'
     end
@@ -27,7 +27,7 @@ class Cms::StandardsController < Cms::CmsController
 
   def update
     if @standard.update(standard_params)
-      redirect_to cms_standards_url, notice: 'Chapter level was successfully updated.'
+      redirect_to cms_standards_url, notice: 'Standard was successfully updated.'
     else
       render action: 'edit'
     end
@@ -35,7 +35,7 @@ class Cms::StandardsController < Cms::CmsController
 
   def destroy
     @standard.destroy
-    head :ok
+    redirect_to cms_standards_url, notice: 'Standard was successfully deleted.'
   end
 
   private
