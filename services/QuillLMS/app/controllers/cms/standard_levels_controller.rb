@@ -19,7 +19,7 @@ class Cms::StandardLevelsController < Cms::CmsController
     @standard_level = StandardLevel.new(standard_level_params)
 
     if @standard_level.save
-      redirect_to cms_standard_levels_url, notice: 'Chapter level was successfully created.'
+      redirect_to cms_standard_levels_url, notice: 'Standard level was successfully created.'
     else
       render action: 'new'
     end
@@ -27,7 +27,7 @@ class Cms::StandardLevelsController < Cms::CmsController
 
   def update
     if @standard_level.update(standard_level_params)
-      redirect_to cms_standard_levels_url, notice: 'Chapter level was successfully updated.'
+      redirect_to cms_standard_levels_url, notice: 'Standard level was successfully updated.'
     else
       render action: 'edit'
     end
@@ -35,7 +35,7 @@ class Cms::StandardLevelsController < Cms::CmsController
 
   def destroy
     @standard_level.destroy
-    head :ok
+    redirect_to cms_standard_levels_url, notice: 'Standard level was successfully destroyed.'
   end
 
   private
