@@ -55,6 +55,7 @@ describe Cms::StandardsController do
     it 'should destroy the given standard' do
       delete :destroy, id: standard.id
       expect{ Standard.find standard.id }.to raise_exception ActiveRecord::RecordNotFound
+      expect(response).to redirect_to cms_standards_url
     end
   end
 end
