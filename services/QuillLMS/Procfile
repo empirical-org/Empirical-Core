@@ -6,3 +6,5 @@ web: bundle exec puma -C ./config/puma.rb
 worker: MALLOC_ARENA_MAX=2 bundle exec sidekiq -q critical -q default
 
 reportworker: MALLOC_ARENA_MAX=2 bundle exec sidekiq -q critical -q default -q low
+
+googleworker: MALLOC_ARENA_MAX=2 bundle exec sidekiq -q google
