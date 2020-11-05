@@ -81,12 +81,12 @@ class Api::V1::ActivitySessionsController < Api::ApiController
     ConceptResult.bulk_insert(values: concept_results_to_save)
   end
 
-  def concept_results_hash(cr)
-    concept = Concept.find_by(uid: cr[:concept_uid])
+  def concept_results_hash(concept_result)
+    concept = Concept.find_by(uid: concept_result[:concept_uid])
     return {} if concept.blank?
 
-    cr[:activity_session_id] = @activity_session.id
-    cr[:concept_id] = concept.id
+    concept_result[:activity_session_id] = @activity_session.id
+    concept_result[:concept_id] = concept.id
   end
 
   def find_activity_session
