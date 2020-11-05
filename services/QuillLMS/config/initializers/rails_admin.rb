@@ -145,9 +145,12 @@ RailsAdmin.config do |config|
       exclude_fields :classroom_units, :classrooms, :unit_activities, :units
     end
     list do
+      field :id
       field :name do
         searchable true
       end
+      field :classification
+      field :flags
     end
   end
 

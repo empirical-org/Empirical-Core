@@ -106,7 +106,7 @@ exports[`StudentNavbar renders when the language menu is open 1`] = `
             <h2>
               Choose a directions language
             </h2>
-            <LanguageOptions>
+            <Component>
               <button
                 className="language-button"
                 key="english-button"
@@ -362,7 +362,7 @@ exports[`StudentNavbar renders when the language menu is open 1`] = `
                   درى
                 </span>
               </button>
-            </LanguageOptions>
+            </Component>
           </div>
         </div>
       </Links>
