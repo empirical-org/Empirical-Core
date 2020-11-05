@@ -109,51 +109,45 @@ describe Api::V1::ActivitySessionsController, type: :controller do
         expect(@activity_session.concept_results).to eq([])
       end
     end
-  end
 
-  describe '#update_with_feedback_history' do
-    let(:token) { double :acceptable? => true, resource_owner_id: user.id }
-    let(:user) { create(:student) }
-
-    before do
-      allow(controller).to receive(:doorkeeper_token) {token}
-      @activity_session = create(:activity_session, state: 'started', user: user, completed_at: nil)
-    end
-
-    it 'passes activity session and user to notifier service' do
-      service_instance = double(:service_instance)
-
-      expect(NotifyOfCompletedActivity).to receive(:new)
-        .with(@activity_session)
-        .and_return(service_instance)
-      expect(service_instance).to receive(:call)
-
-      post :update_with_feedback_history, id: @activity_session.uid, state: 'finished'
-    end
-
-    context 'default behavior' do
-      include_context "calling the api"
-
+    context 'when the activity session uses feedback history' do
       before do
+        @activity = create(:comprehension_activity)
+        @prompt = Comprehension::Prompt.create(text: 'Test test test text', activity: @activity, conjunction: "but")
+        @activity_session = create(:activity_session, activity: @activity, state: 'started', user: user, completed_at: nil)
+        @activity_session.concept_results.destroy_all
+        @concept = create(:concept)
+        @feedback_history = create(:feedback_history, concept_uid: @concept.uid, activity_session_uid: @activity_session.uid, prompt: @prompt)
         subject
         @parsed_body = JSON.parse(response.body)
       end
 
       def subject
         # FIXME: URL Parameter should be called uid, not id, because that is confusing
-        put :update_with_feedback_history, id: @activity_session.uid
+        put :update, id: @activity_session.uid, state: 'finished'
       end
 
       it 'responds with 200' do
         expect(response.status).to eq(200)
       end
 
-      it 'responds with the updated activity session' do
+      it 'responds with the updated activity session that has a set score' do
         expect(@parsed_body['activity_session']['uid']).to eq(@activity_session.uid)
+        expect(@parsed_body['activity_session']['percentage']).to eq(1.0)
+      end
+
+      it 'stores the concept results' do
+        @activity_session.reload
+        expect(@activity_session.concept_results.size).to eq(1)
+      end
+
+      it 'saves the arbitrary metadata for the results' do
+        @activity_session.reload
+        concept_hash = {"correct"=>1, "answer"=>@feedback_history.entry, "feedback_type"=>@feedback_history.feedback_type}
+        expect(@activity_session.concept_results.find{|x| x.metadata == concept_hash}).to be
       end
 
     end
-
   end
 
   describe '#show' do

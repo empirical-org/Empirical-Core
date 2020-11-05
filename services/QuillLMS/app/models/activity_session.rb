@@ -24,8 +24,7 @@ class ActivitySession < ActiveRecord::Base
   belongs_to :user
 
   before_create :set_state
-  before_save   :set_completed_at
-  before_save   :set_activity_id
+  before_save   :set_completed_at, :set_activity_id, :set_score_from_feedback_history
 
   after_save    :determine_if_final_score, :update_milestones
 
@@ -211,26 +210,18 @@ class ActivitySession < ActiveRecord::Base
   end
 
   def set_score_from_feedback_history
-    return if state != 'finished' || !activity.feedback_history_classification?
+    return if state != FINISHED_STATE || !activity.uses_feedback_history?
     max_attempts_per_prompt = FeedbackHistory.used.where(activity_session_uid: uid).group(:prompt_id).maximum(:attempt)
     return if max_attempts_per_prompt.empty?
 
     # the math here expresses the score chart translating number of attempts to score:
     # 1 attempt => 1
-    # 2 atteempts => 0.75
+    # 2 attempts => 0.75
     # 3 attempts => 0.5
     # 4 attempts => 0.25
     # 5 attempts => 0
     calculated_score = max_attempts_per_prompt.sum { |m| 1.25 - 0.25 * m[1] }
     self.percentage = ((calculated_score / max_attempts_per_prompt.size) * 100).round / 100.0
-  end
-
-  def update_concepts_from_feedback_history
-    return if percentage.nil? || state != 'finished' || !activity.feedback_history_classification?
-
-    histories = FeedbackHistory.used.where(activity_session_uid: uid)
-    concept_results_to_save = histories.map(&:concept_results_hash).reject(:empty?)
-    ConceptResult.bulk_insert(values: concept_results_to_save)
   end
 
   def start

@@ -14,6 +14,7 @@ describe ActivitySession, type: :model, redis: true do
   it { is_expected.to callback(:set_state).before(:create) }
   it { is_expected.to callback(:set_completed_at).before(:save) }
   it { is_expected.to callback(:set_activity_id).before(:save) }
+  it { is_expected.to callback(:set_score_from_feedback_history).before(:save) }
   it { is_expected.to callback(:determine_if_final_score).after(:save) }
   it { is_expected.to callback(:update_milestones).after(:save) }
   it { is_expected.to callback(:invalidate_activity_session_count_if_completed).after(:commit) }
@@ -928,7 +929,7 @@ end
     it 'should calculate score' do
       activity_session = create(:activity_session, state: 'finished', activity_id: @activity.id)
       feedback_history = create(:feedback_history, attempt: 4, prompt: @prompt, activity_session_uid: activity_session.uid)
-      activity_session.set_score_from_feedback_history
+      activity_session.save
       expect(activity_session.percentage).to eq(0.25)
     end
 
@@ -936,7 +937,7 @@ end
       activity_session = create(:activity_session, state: 'finished', activity_id: @activity.id)
       feedback_history = create(:feedback_history, attempt: 4, prompt: @prompt, activity_session_uid: activity_session.uid)
       feedback_history_max = create(:feedback_history, attempt: 5, prompt: @prompt, activity_session_uid: activity_session.uid)
-      activity_session.set_score_from_feedback_history
+      activity_session.save
       expect(activity_session.percentage).to eq(0)
     end
 
@@ -944,7 +945,7 @@ end
       activity_session = create(:activity_session, state: 'finished', activity_id: @activity.id)
       feedback_history_prompt_one = create(:feedback_history, attempt: 1, prompt: @prompt, activity_session_uid: activity_session.uid)
       feedback_history_prompt_two = create(:feedback_history, attempt: 3, prompt: @prompt_two, activity_session_uid: activity_session.uid)
-      activity_session.set_score_from_feedback_history
+      activity_session.save
       expect(activity_session.percentage).to eq(0.75)
     end
 
@@ -952,7 +953,7 @@ end
       activity_session = create(:activity_session, state: 'finished', activity_id: @activity.id)
       feedback_history = create(:feedback_history, attempt: 4, prompt: @prompt, activity_session_uid: activity_session.uid)
       feedback_history = create(:feedback_history, attempt: 1, prompt: @prompt, activity_session_uid: activity_session.uid, used: false)
-      activity_session.set_score_from_feedback_history
+      activity_session.save
       expect(activity_session.percentage).to eq(0.25)
     end
   end

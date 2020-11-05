@@ -142,11 +142,7 @@ class Activity < ActiveRecord::Base
     activity_classification_id == 6
   end
 
-  def is_comprehension?
-    classification.key == ActivityClassification::COMPREHENSION_KEY
-  end
-
-  def feedback_history_classification?
+  def uses_feedback_history?
     is_comprehension?
   end
 
@@ -261,5 +257,9 @@ class Activity < ActiveRecord::Base
 
   def is_proofreader?
     classification.key == ActivityClassification::PROOFREADER_KEY
+  end
+
+  def is_comprehension?
+    classification.key == ActivityClassification::COMPREHENSION_KEY
   end
 end
