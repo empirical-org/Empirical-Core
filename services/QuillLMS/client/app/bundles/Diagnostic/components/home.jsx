@@ -1,8 +1,10 @@
 import React from 'react';
-import StudentNavBar from './navbar/studentNavbar';
-import { TeacherNavbar } from './navbar/teacherNavbar';
 import { Layout } from "antd";
 import { renderRoutes } from "react-router-config";
+
+import StudentNavBar from './navbar/studentNavbar';
+import TeacherNavbar from './navbar/teacherNavbar';
+
 import { routes } from "../routes";
 import { getParameterByName } from '../libs/getParameterByName';
 import { TeacherPreviewMenu } from '../../Shared/components/shared/teacherPreviewMenu';
