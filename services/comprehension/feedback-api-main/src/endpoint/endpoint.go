@@ -14,8 +14,8 @@ import (
 )
 
 const (
-	automl_api = "https://comprehension-247816.appspot.com/feedback/ml"
-	//automl_api = "https://staging.quill.org/comprehension/ml_feedback.json"
+	//automl_api = "https://comprehension-247816.appspot.com/feedback/ml"
+	automl_api = "https://staging.quill.org/comprehension/ml_feedback.json"
 	grammar_check_api = "https://us-central1-comprehension-247816.cloudfunctions.net/topic-grammar-API"
 	plagiarism_api = "https://comprehension-247816.appspot.com/feedback/plagiarism"
 	regex_rules_api = "https://comprehension-247816.appspot.com/feedback/rules/first_pass"
