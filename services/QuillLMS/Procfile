@@ -8,5 +8,3 @@ worker: MALLOC_ARENA_MAX=2 bundle exec sidekiq -q critical -q default
 reportworker: MALLOC_ARENA_MAX=2 bundle exec sidekiq -q default -q low
 
 googleworker: MALLOC_ARENA_MAX=2 bundle exec sidekiq -q google
-
-defaultworker: MALLOC_ARENA_MAX=2 bundle exec sidekiq -q default -q low
