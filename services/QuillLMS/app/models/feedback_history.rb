@@ -1,5 +1,6 @@
 class FeedbackHistory < ActiveRecord::Base
   CONCEPT_UID_LENGTH = 22
+  DEFAULT_PROMPT_TYPE = "Comprehension::Prompt"
   MIN_ATTEMPT = 1
   MAX_ATTEMPT = 5
   MIN_ENTRY_LENGTH = 25
@@ -13,6 +14,8 @@ class FeedbackHistory < ActiveRecord::Base
     SEMANTIC = "semantic",
     SPELLING = "spelling"
   ]
+
+  before_validation :confirm_prompt_type, on: :create
 
   belongs_to :activity_session, foreign_key: :activity_session_uid, primary_key: :uid
   belongs_to :prompt, polymorphic: true
@@ -54,5 +57,9 @@ class FeedbackHistory < ActiveRecord::Base
       end
     end
     new_records
+  end
+
+  private def confirm_prompt_type
+    self.prompt_type = DEFAULT_PROMPT_TYPE if prompt_id && !prompt_type
   end
 end

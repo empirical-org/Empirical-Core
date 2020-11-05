@@ -56,7 +56,7 @@ class Api::V1::FeedbackHistoriesController < Api::ApiController
   end
 
   private def feedback_history_params
-    p = params.require(:feedback_history).permit(
+    params.require(:feedback_history).permit(
       :activity_session_uid,
       :prompt_id,
       :concept_uid,
@@ -69,14 +69,10 @@ class Api::V1::FeedbackHistoriesController < Api::ApiController
       :time,
       :metadata
     )
-    # the `prompt` relationship is polymorphic, but at the moment,
-    # there's only one model it can relate to, and this is it
-    p[:prompt_type] = "Comprehension::Prompt" if p[:prompt_id]
-    p
   end
 
   private def batch_feedback_history_params
-    p = params.permit(feedback_histories: [
+    params.permit(feedback_histories: [
       :activity_session_uid,
       :prompt_id,
       :concept_uid,
@@ -89,12 +85,5 @@ class Api::V1::FeedbackHistoriesController < Api::ApiController
       :time,
       :metadata
     ])[:feedback_histories]
-    return [] if !p
-    p.map do |feedback_history|
-      # the `prompt` relationship is polymorphic, but at the moment,
-      # there's only one model it can relate to, and this is it
-      feedback_history[:prompt_type] = "Comprehension::Prompt" if feedback_history[:prompt_id]
-      feedback_history
-    end
   end
 end

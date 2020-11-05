@@ -25,7 +25,7 @@ RSpec.describe FeedbackHistory, type: :model do
     it { should validate_presence_of(:entry) }
     it { should validate_length_of(:entry).is_at_least(25).is_at_most(500) }
 
-    it { should validate_length_of(:feedback_text).is_at_least(25).is_at_most(500) }
+    it { should validate_length_of(:feedback_text).is_at_least(10).is_at_most(500) }
 
     it { should validate_presence_of(:feedback_type) }
     it { should validate_inclusion_of(:feedback_type).in_array(FeedbackHistory::FEEDBACK_TYPES) }
@@ -92,6 +92,23 @@ RSpec.describe FeedbackHistory, type: :model do
 	assert_equal FeedbackHistory.count, 0
         assert results[0].errors[:entry].include?("can't be blank")
         assert results[1].valid?
+    end
+  end
+
+  context 'before_validation: ensure_prompt_type' do
+    it 'should set default prompt_type if prompt_id is set, but prompt_type is not' do
+      fh = FeedbackHistory.create(prompt_id: 1)
+      assert_equal fh.prompt_type, FeedbackHistory::DEFAULT_PROMPT_TYPE
+    end
+
+    it 'should not set prompt_type if there is no prompt_id' do
+      fh = FeedbackHistory.create()
+      refute fh.prompt_type
+    end
+
+    it 'should not set prompt_type if prompt_type is provided' do
+      fh = FeedbackHistory.create(prompt_id: 1, prompt_type: 'MadeUp')
+      assert_equal fh.prompt_type, 'MadeUp'
     end
   end
 end
