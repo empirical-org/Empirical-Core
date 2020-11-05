@@ -14,24 +14,21 @@ class Api::V1::ActivitySessionsController < Api::ApiController
   def update
     # FIXME: ignore id because it's related to inconsistency between
     # naming - id in app and uid here
-    meta = {
-      status: :success,
-      message: "Activity Session Updated",
-      errors: ""
-    }
+    meta = { message: "Activity Session Updated", errors: {} }
+
     if @activity_session.completed_at
-      meta.update(status: :failed,
-                  message: "Activity Session Already Completed",
-                  errors: "This activity session has already been completed.")
+      status = :unprocessable_entity
+      meta.update(message: "Activity Session Already Completed")
     elsif @activity_session.update(activity_session_params.except(:id, :concept_results))
+      status = :ok
       NotifyOfCompletedActivity.new(@activity_session).call if @activity_session.classroom_unit_id
       handle_concept_results
     else
-      meta.update(status: :failed,
-                  message: "Activity Session Update Failed",
-                  errors: @activity_session.errors)
+      status = :unprocessable_entity
+      meta.update(message: "Activity Session Update Failed", errors: @activity_session.errors)
     end
-    render json: @activity_session, meta: meta, serializer: ActivitySessionSerializer
+
+    render json: @activity_session, meta: meta, status: status, serializer: ActivitySessionSerializer
   end
   # POST
   def create

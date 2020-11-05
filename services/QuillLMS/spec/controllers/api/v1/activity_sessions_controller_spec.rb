@@ -170,6 +170,32 @@ describe Api::V1::ActivitySessionsController, type: :controller do
     end
   end
 
+  describe '#update' do
+    let(:token) { double :acceptable? => true, resource_owner_id: user.id }
+    let(:user) { create(:student) }
+
+    before do
+      allow(controller).to receive(:doorkeeper_token) {token}
+      @activity_session = create(:activity_session, state: 'finished', user: user, percentage: 1.0, completed_at: Time.now)
+    end
+
+    it 'returns a 422 error if activity session is already saved' do
+      put :update, id: @activity_session.uid
+      @parsed_body = JSON.parse(response.body)
+      expect(@parsed_body["meta"]["message"]).to eq("Activity Session Already Completed")
+    end
+
+    it 'returns a 422 error if activity session update method fails' do
+      # create a double
+      activity_session = create(:activity_session, state: 'started', user: user)
+      activity_session.stub(:update) { false }
+
+      put :update, id: activity_session.uid
+      @parsed_body = JSON.parse(response.body)
+      expect(@parsed_body["meta"]["message"]).to eq("Activity Session Already Completed")
+    end
+  end
+
   describe '#create' do
     let(:classroom_unit) { create(:classroom_unit) }
     let(:session) { create(:proofreader_activity_session, classroom_unit: classroom_unit) }
