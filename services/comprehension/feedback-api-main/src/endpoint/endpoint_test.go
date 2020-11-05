@@ -7,6 +7,7 @@ import (
 	"testing"
 	"bytes"
 	"encoding/json"
+	"reflect"
 	"time"
 )
 
@@ -77,7 +78,7 @@ func TestDefaultFeedbackFallback(t *testing.T) {
 func TestAllOptimal(t *testing.T) {
 	responseOptimal := InternalAPIResponse{
 		APIResponse: APIResponse{Optimal: true},
-		Usable: true,
+		Error: false,
 	}
 
 	results := map[int]InternalAPIResponse{}
@@ -98,6 +99,83 @@ func TestAllOptimal(t *testing.T) {
 func TestAutoMLIndex(t *testing.T) {
 	if automl_api != urls[automl_index] {
 		t.Errorf("automl_index does not match automl_api")
+	}
+}
+
+func TestIdentifyUsedFeedbackIndex(t *testing.T) {
+	usable_response := InternalAPIResponse { Error: false, APIResponse: APIResponse { Concept_uid: "test_concept", Feedback: "Feedback text: optimal", Feedback_type: "type1", Optimal: false, Labels: "test_label" } }
+	error_response := InternalAPIResponse { Error: true, APIResponse: APIResponse { Concept_uid: "test_concept", Feedback: "Feedback text: optimal", Feedback_type: "type1", Optimal: false, Labels: "test_label" } }
+	optimal_response := InternalAPIResponse { Error: false, APIResponse: APIResponse { Concept_uid: "test_concept", Feedback: "Feedback text: optimal", Feedback_type: "type1", Optimal: true, Labels: "test_label" } }
+
+	feedbacks := map[int]InternalAPIResponse{}
+
+	result := identifyUsedFeedbackIndex(feedbacks)
+	if result != -1 {
+		t.Errorf("Should have identified -1 for unfound used feedback, but got %d", result)
+	}
+
+	feedbacks[0] = error_response
+	feedbacks[1] = optimal_response
+	feedbacks[2] = usable_response
+
+	result = identifyUsedFeedbackIndex(feedbacks)
+	if result != 2 {
+		t.Errorf("Should have identified 2 for unfound used feedback, but got %d", result)
+	}
+}
+
+
+func TestBuildFeedbackHistory(t *testing.T) {
+	request_object := APIRequest {
+		Entry: "test entry",
+		Prompt_text: "test prompt_text",
+		Prompt_id: 1,
+		Session_id: "test session_id",
+		Attempt: 1,
+	}
+	feedback := InternalAPIResponse {
+		Error: false,
+		APIResponse: APIResponse {
+			Concept_uid: "test concept_uid",
+			Feedback: "test feedback",
+			Feedback_type: "test feedback_type",
+			Optimal: false,
+			Response_id: "test response_id",
+			Labels: "test labels",
+			Highlight: []Highlight {
+				Highlight {
+					Type: "passage",
+					Text: "test highlight",
+					Category: "test highlight category",
+					Character: 0,
+				},
+			},
+		},
+	}
+	used := true
+	time_received := time.Now()
+
+	result := buildFeedbackHistory(request_object, feedback, used, time_received)
+	expected := FeedbackHistory {
+		Activity_session_uid: request_object.Session_id,
+		Prompt_id: request_object.Prompt_id,
+		Concept_uid: feedback.APIResponse.Concept_uid,
+		Attempt: request_object.Attempt,
+		Entry: request_object.Entry,
+		Feedback_text: feedback.APIResponse.Feedback,
+		Feedback_type: feedback.APIResponse.Feedback_type,
+		Optimal: feedback.APIResponse.Optimal,
+		Used: used,
+		Time: time_received,
+		Metadata: FeedbackHistoryMetadata{
+			Highlight: feedback.APIResponse.Highlight,
+			Labels: feedback.APIResponse.Labels,
+			Response_id: feedback.APIResponse.Response_id,
+		},
+	}
+
+	if !reflect.DeepEqual(result, expected) {
+		t.Errorf("buildFeedbackHistory did not generate expected payload")
 	}
 }
 

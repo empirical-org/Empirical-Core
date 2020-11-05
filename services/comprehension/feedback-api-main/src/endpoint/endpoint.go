@@ -14,8 +14,8 @@ import (
 )
 
 const (
-	//automl_api = "https://comprehension-247816.appspot.com/feedback/ml"
-	automl_api = "https://staging.quill.org/comprehension/ml_feedback.json"
+	automl_api = "https://comprehension-247816.appspot.com/feedback/ml"
+	//automl_api = "https://staging.quill.org/comprehension/ml_feedback.json"
 	grammar_check_api = "https://us-central1-comprehension-247816.cloudfunctions.net/topic-grammar-API"
 	plagiarism_api = "https://comprehension-247816.appspot.com/feedback/plagiarism"
 	regex_rules_api = "https://comprehension-247816.appspot.com/feedback/rules/first_pass"
@@ -33,6 +33,13 @@ var urls = [...]string{
 	regex_rules_api,
 	grammar_check_api,
 	spell_check_bing,
+}
+
+// you can't use const for structs, so this is the closest thing we can get for this value
+var default_api_response = APIResponse{
+	Feedback: "Thank you for your response.",
+	Feedback_type: "fallback",
+	Optimal: true,
 }
 
 func Endpoint(responseWriter http.ResponseWriter, request *http.Request) {
@@ -72,23 +79,19 @@ func Endpoint(responseWriter http.ResponseWriter, request *http.Request) {
 
 	for response := range c {
 		results[response.Priority] = response
-		return_index, finished := processResults(results, len(urls), response.Usable)
+		return_index, finished := processResults(results, len(urls), response.Error)
 
 		if finished {
 			// If processResults reports that it's "finished", but the APIResponse at
-			// that index is not Usable, we'll need to return a default response of some
-			// sort
+			// that index is flagged as an Error, we'll need to return a default response of
+			// some sort
 			// This should really only happen when there's no Semantic Feedback available,
 			// even for success cases, which means that if everything is working correctly,
 			// this only comes up during the initial Turking process
-			if results[return_index].Usable {
+			if !results[return_index].Error {
 				returnable_result = results[return_index].APIResponse
 			} else {
-				returnable_result = APIResponse{
-					Feedback: "Thank you for your response.",
-					Feedback_type: "fallback",
-					Optimal: true,
-				}
+				returnable_result = default_api_response
 			}
 			break
 		}
@@ -146,7 +149,7 @@ func getAPIResponse(url string, priority int, json_params [] byte, c chan Intern
 	response_json, err := client.Post(url, "application/json",  bytes.NewReader(json_params))
 
 	if err != nil {
-		c <- InternalAPIResponse{Priority: priority, Usable: false, APIResponse: APIResponse{Feedback: "There was an error hitting the API", Feedback_type: "API Error", Optimal: false}}
+		c <- InternalAPIResponse{Priority: priority, Error: true, APIResponse: APIResponse{Feedback: "There was an error hitting the API", Feedback_type: "API Error", Optimal: false}}
 		return
 	}
 
@@ -154,38 +157,50 @@ func getAPIResponse(url string, priority int, json_params [] byte, c chan Intern
 
 	if err := json.NewDecoder(response_json.Body).Decode(&result); err != nil {
 		// TODO might want to think about what this should be.
-		c <- InternalAPIResponse{Priority: priority, Usable: false, APIResponse: APIResponse{Feedback: "There was an JSON error" + err.Error(), Feedback_type: "API Error", Labels: url, Optimal: false}}
+		c <- InternalAPIResponse{Priority: priority, Error: true, APIResponse: APIResponse{Feedback: "There was an JSON error" + err.Error(), Feedback_type: "API Error", Labels: url, Optimal: false}}
 		return
 	}
 
-	c <- InternalAPIResponse{Priority: priority, Usable: true, APIResponse: result}
+	c <- InternalAPIResponse{Priority: priority, Error: false, APIResponse: result}
+}
+
+func identifyUsedFeedbackIndex(feedbacks map[int]InternalAPIResponse) int {
+	for key, feedback := range feedbacks {
+		if !feedback.Error && !feedback.APIResponse.Optimal {
+			return key
+		}
+	}
+	// We use -1 as the return value if we couldn't find an index since
+	// it should correspond to no index
+	return -1
+}
+
+func buildFeedbackHistory(request_object APIRequest, feedback InternalAPIResponse, used bool, time_received time.Time) FeedbackHistory {
+	return FeedbackHistory{
+		Activity_session_uid: request_object.Session_id,
+		Prompt_id: request_object.Prompt_id,
+		Concept_uid: feedback.APIResponse.Concept_uid,
+		Attempt: request_object.Attempt,
+		Entry: request_object.Entry,
+		Feedback_text: feedback.APIResponse.Feedback,
+		Feedback_type: feedback.APIResponse.Feedback_type,
+		Optimal: feedback.APIResponse.Optimal,
+		Used: used,
+		Time: time_received,
+		Metadata: FeedbackHistoryMetadata{
+			Highlight: feedback.APIResponse.Highlight,
+			Labels: feedback.APIResponse.Labels,
+			Response_id: feedback.APIResponse.Response_id,
+		},
+	}
 }
 
 func buildBatchFeedbackHistories(request_object APIRequest, feedbacks map[int]InternalAPIResponse, time_received time.Time) (BatchHistoriesAPIRequest, error) {
 	feedback_histories := []FeedbackHistory{}
-	used_set := false
-	for _, feedback := range feedbacks {
-		if feedback.APIResponse.Feedback_type != "API Error" {
-			feedback_histories = append(feedback_histories, FeedbackHistory{
-				Activity_session_uid: request_object.Session_id,
-				Prompt_id: request_object.Prompt_id,
-				Concept_uid: feedback.APIResponse.Concept_uid,
-				Attempt: request_object.Attempt,
-				Entry: request_object.Entry,
-				Feedback_text: feedback.APIResponse.Feedback,
-				Feedback_type: feedback.APIResponse.Feedback_type,
-				Optimal: feedback.APIResponse.Optimal,
-				Used: !feedback.APIResponse.Optimal && !used_set,
-				Time: time_received,
-				Metadata: FeedbackHistoryMetadata{
-					Highlight: feedback.APIResponse.Highlight,
-					Labels: feedback.APIResponse.Labels,
-					Response_id: feedback.APIResponse.Response_id,
-				},
-			})
-			if !used_set {
-				used_set = !feedback.APIResponse.Optimal
-			}
+	used_key := identifyUsedFeedbackIndex(feedbacks)
+	for key, feedback := range feedbacks {
+		if !feedback.Error {
+			feedback_histories = append(feedback_histories, buildFeedbackHistory(request_object, feedback, used_key == key, time_received))
 		}
 	}
 
@@ -246,7 +261,7 @@ type Highlight struct {
 type InternalAPIResponse struct {
 	Priority int
 	APIResponse APIResponse
-	Usable bool
+	Error bool
 }
 
 type FeedbackHistoryMetadata struct {
