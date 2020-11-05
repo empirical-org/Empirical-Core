@@ -86,10 +86,10 @@ RSpec.describe FeedbackHistory, type: :model do
 	assert_equal FeedbackHistory.count, 3
     end
 
-    it 'should fail to create any records if even one is valid' do
+    it 'should save any valid records if, but not any valid ones' do
         assert_equal FeedbackHistory.count, 0
 	results = FeedbackHistory.batch_create([@invalid_fh_params, @valid_fh_params])
-	assert_equal FeedbackHistory.count, 0
+	assert_equal FeedbackHistory.count, 1
         assert results[0].errors[:entry].include?("can't be blank")
         assert results[1].valid?
     end

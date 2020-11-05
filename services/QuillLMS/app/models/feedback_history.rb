@@ -47,16 +47,7 @@ class FeedbackHistory < ActiveRecord::Base
   end
 
   def self.batch_create(param_array)
-    new_records = []
-    FeedbackHistory.transaction do
-      param_array.each do |params|
-        new_records.push(create(params))
-      end
-      if new_records.any? { |record| !record.valid? }
-        raise ActiveRecord::Rollback
-      end
-    end
-    new_records
+    param_array.map { |params| create(params) }
   end
 
   private def confirm_prompt_type
