@@ -28,9 +28,9 @@ class Api::V1::FeedbackHistoriesController < Api::ApiController
   def batch
     records = FeedbackHistory.batch_create(batch_feedback_history_params)
     if records.length && records.all? { |r| r.valid? }
-      render json: records, status: :created
+      head :created
     else
-      render json: records.map { |r| r.errors }, status: :unprocessable_entity
+      render json: {feedback_histories: records.map { |r| r.errors }}, status: :unprocessable_entity
     end
   end
 
