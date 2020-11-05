@@ -23,4 +23,6 @@ module SidekiqQueue
   # LOW: Jobs that might be long-running that we don't want to clog up the main workers
   # and that can be delayed.
   LOW = 'low'
+  # Google specific jobs to get around Google API issues
+  GOOGLE = 'google'
 end
