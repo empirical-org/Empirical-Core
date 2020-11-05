@@ -1,6 +1,10 @@
+# Setting the variables, statement_timeone based on this
+# https://github.com/ankane/the-ultimate-guide-to-ruby-timeouts#postgresql
 default: &default
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
   timeout: 5000
+  variables:
+    statement_timeout: <%= ENV["STATEMENT_TIMEOUT"] || "180s" %>
 
 development_env: &development_env
   database: quill_cms_development
