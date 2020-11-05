@@ -260,6 +260,6 @@ class Activity < ActiveRecord::Base
   end
 
   def is_comprehension?
-    classification.key == ActivityClassification::COMPREHENSION_KEY
+    classification&.key == ActivityClassification::COMPREHENSION_KEY
   end
 end

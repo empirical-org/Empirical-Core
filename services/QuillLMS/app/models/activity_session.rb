@@ -210,7 +210,7 @@ class ActivitySession < ActiveRecord::Base
   end
 
   def set_score_from_feedback_history
-    return if state != FINISHED_STATE || !activity.uses_feedback_history?
+    return if state != FINISHED_STATE || !activity&.uses_feedback_history?
     max_attempts_per_prompt = FeedbackHistory.used.where(activity_session_uid: uid).group(:prompt_id).maximum(:attempt)
     return if max_attempts_per_prompt.empty?
 
