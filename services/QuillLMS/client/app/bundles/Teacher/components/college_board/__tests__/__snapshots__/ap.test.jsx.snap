@@ -3,13 +3,13 @@
 exports[`Ap component should render when it is not part of the assignment flow 1`] = `
 <Ap>
   <div
-    className="pre-ap-container"
+    className="college-board-container"
   >
     <div
       className="section-wrapper"
     >
       <div
-        className="container pre-ap-header-container"
+        className="container college-board-header-container"
       >
         <div
           className="header-left"
@@ -58,7 +58,7 @@ exports[`Ap component should render when it is not part of the assignment flow 1
       className="white-section-wrapper"
     >
       <div
-        className="container pre-ap-activities-section"
+        className="container college-board-activities-section"
       >
         <div
           className="header"
@@ -85,7 +85,7 @@ exports[`Ap component should render when it is not part of the assignment flow 1
             AP Writing Skills Surveys
           </h2>
           <div
-            className="ap-english-tag"
+            className="college-board-activity-tag"
           >
             For All AP students
           </div>
@@ -96,12 +96,12 @@ exports[`Ap component should render when it is not part of the assignment flow 1
           <div
             className="activity-header-container"
           >
-            <a
+            <p
               className="activity-header"
               id="writing-skills-survey"
             >
               AP Writing Skills Survey
-            </a>
+            </p>
             <a
               className="quill-button medium primary outlined view-button focus-on-light"
               href="/activities/packs/193"
@@ -232,6 +232,7 @@ exports[`Ap component should render when it is not part of the assignment flow 1
           className="quote-container"
         >
           <img
+            alt="Large left quote"
             id="first-quote"
             src="https://assets.quill.org/images/college_board/exaggerated-quote-left.svg"
           />
@@ -246,6 +247,7 @@ exports[`Ap component should render when it is not part of the assignment flow 1
             </p>
           </div>
           <img
+            alt="Large right quote"
             id="second-quote"
             src="https://assets.quill.org/images/college_board/exaggerated-quote-right.svg"
           />
@@ -354,7 +356,7 @@ exports[`Ap component should render when it is not part of the assignment flow 1
             qa={
               Object {
                 "answer": <p
-                  className="preap-q-and-a-text"
+                  className="college-board-q-and-a-text"
                 >
                   Quill.org worked with the 
                   <a
@@ -543,7 +545,7 @@ exports[`Ap component should render when it is not part of the assignment flow 1
               Object {
                 "answer": <div>
                   <p
-                    className="preap-q-and-a-text"
+                    className="college-board-q-and-a-text"
                   >
                     Depending on their performance, students will be recommended some or all of the following AP Writing Practice packs. The packs provide practice through 
                     <a
@@ -566,7 +568,7 @@ exports[`Ap component should render when it is not part of the assignment flow 1
                     , the activities in each pack are scaffolded to build in complexity. Here are descriptions of the packs:
                   </p>
                   <p
-                    className="preap-sub-header"
+                    className="college-board-sub-header"
                   >
                     AP Writing Practice - 
                     <a
@@ -576,12 +578,12 @@ exports[`Ap component should render when it is not part of the assignment flow 1
                     </a>
                   </p>
                   <p
-                    className="preap-q-and-a-text"
+                    className="college-board-q-and-a-text"
                   >
                     Students practice constructing complex sentences using subordinating conjunctions, such as even though, after, while, and because. Students also practice identifying time order, opposition, and cause/effect relationships.
                   </p>
                   <p
-                    className="preap-sub-header"
+                    className="college-board-sub-header"
                   >
                     AP Writing Practice - 
                     <a
@@ -591,12 +593,12 @@ exports[`Ap component should render when it is not part of the assignment flow 1
                     </a>
                   </p>
                   <p
-                    className="preap-q-and-a-text"
+                    className="college-board-q-and-a-text"
                   >
                     Students begin by using a provided relative pronoun, then progress to choosing between who, that, or which.
                   </p>
                   <p
-                    className="preap-sub-header"
+                    className="college-board-sub-header"
                   >
                     AP Writing Practice - 
                     <a
@@ -606,12 +608,12 @@ exports[`Ap component should render when it is not part of the assignment flow 1
                     </a>
                   </p>
                   <p
-                    className="preap-q-and-a-text"
+                    className="college-board-q-and-a-text"
                   >
                     Students practice describing nouns using appositive phrases at the beginning, middle, and end of sentences.
                   </p>
                   <p
-                    className="preap-sub-header"
+                    className="college-board-sub-header"
                   >
                     AP Writing Practice - 
                     <a
@@ -621,12 +623,12 @@ exports[`Ap component should render when it is not part of the assignment flow 1
                     </a>
                   </p>
                   <p
-                    className="preap-q-and-a-text"
+                    className="college-board-q-and-a-text"
                   >
                     Students practice constructing sentences with -ing and -ed participial phrases at the beginning, middle, or end.
                   </p>
                   <p
-                    className="preap-sub-header"
+                    className="college-board-sub-header"
                   >
                     AP Writing Practice - 
                     <a
@@ -636,12 +638,12 @@ exports[`Ap component should render when it is not part of the assignment flow 1
                     </a>
                   </p>
                   <p
-                    className="preap-q-and-a-text"
+                    className="college-board-q-and-a-text"
                   >
                     Students practice constructing sentences in parallel structure with correlative conjunctions like either/or, neither/nor, and both/and, and with subordinating conjunctions like although, because, and when. Students also practice constructing sentences with parallel clauses.
                   </p>
                   <p
-                    className="preap-sub-header"
+                    className="college-board-sub-header"
                   >
                     AP Writing Practice - 
                     <a
@@ -651,12 +653,12 @@ exports[`Ap component should render when it is not part of the assignment flow 1
                     </a>
                   </p>
                   <p
-                    className="preap-q-and-a-text"
+                    className="college-board-q-and-a-text"
                   >
                     Students practice constructing compound sentences with and, or, but, and so. Students also practice constructing complex sentences with subordinating conjunctions such as even though, after, while, and because. Finally, students practice constructing compound-complex sentences with coordinating and subordinating conjunctions. Students also practice identifying time order, opposition, and cause/effect relationships.
                   </p>
                   <p
-                    className="preap-sub-header"
+                    className="college-board-sub-header"
                   >
                     AP Writing Practice - 
                     <a
@@ -666,7 +668,7 @@ exports[`Ap component should render when it is not part of the assignment flow 1
                     </a>
                   </p>
                   <p
-                    className="preap-q-and-a-text"
+                    className="college-board-q-and-a-text"
                   >
                     Students apply their knowledge of multiple sentence structures to combine the sentences in the strongest way possible. Students practice constructing compound and complex sentences, using modifying phrases and clauses, and combining predicates.
                   </p>
@@ -754,12 +756,12 @@ exports[`Ap component should render when it is not part of the assignment flow 1
               Object {
                 "answer": <div>
                   <p
-                    className="preap-q-and-a-text"
+                    className="college-board-q-and-a-text"
                   >
                     All of the above packs contain between 4 and 7 activities, each of which are designed to take between 10 and 15 minutes each.
                   </p>
                   <p
-                    className="preap-q-and-a-text"
+                    className="college-board-q-and-a-text"
                   >
                     The only exception is the 
                     <a
@@ -770,7 +772,7 @@ exports[`Ap component should render when it is not part of the assignment flow 1
                     , which contains 15 activities. This pack contains more activities than the others as it was designed to serve as a large bank of activities for students who perform well on the Survey and don’t get a lot of recommendations. This way, you can still assign these students activities, which are quite challenging and will sustain them for a while. These are great for students who have had success with individual practice of strategies covered in the Survey, and would benefit from an opportunity to apply those strategies in combining activities without suggestions or direction.
                   </p>
                   <p
-                    className="preap-q-and-a-text"
+                    className="college-board-q-and-a-text"
                   >
                     Teacher Tip: When you select a recommended pack, you can 
                     <a
@@ -822,12 +824,12 @@ exports[`Ap component should render when it is not part of the assignment flow 1
               Object {
                 "answer": <div>
                   <p
-                    className="preap-q-and-a-text"
+                    className="college-board-q-and-a-text"
                   >
                     The focus in most of these activities is to build the target skill of the pack (appositives, relative clauses, etc.), so the vocabulary and reading level are intentionally designed to be accessible by all students.
                   </p>
                   <p
-                    className="preap-q-and-a-text"
+                    className="college-board-q-and-a-text"
                   >
                     Teacher Tip: You can preview and play through any pack and its activities to get a sense of whether it's appropriate for your students.
                   </p>
@@ -1123,7 +1125,7 @@ exports[`Ap component should render when it is not part of the assignment flow 1
               Object {
                 "answer": <div>
                   <p
-                    className="preap-q-and-a-text"
+                    className="college-board-q-and-a-text"
                   >
                     It is recommended that you and your students create free accounts on Quill.org. Creating an account will give you access to the Survey and its recommended practice. Creating an account also allows you to track your students’ progress and view data reports. You can create an account by visiting the 
                     <a
@@ -1134,7 +1136,7 @@ exports[`Ap component should render when it is not part of the assignment flow 1
                     .
                   </p>
                   <p
-                    className="preap-q-and-a-text"
+                    className="college-board-q-and-a-text"
                   >
                     If you do not want to create an account, you or your students can complete the Survey 
                     <a
@@ -1186,7 +1188,7 @@ exports[`Ap component should render when it is not part of the assignment flow 1
               Object {
                 "answer": <div>
                   <p
-                    className="preap-q-and-a-text"
+                    className="college-board-q-and-a-text"
                   >
                     <strong>
                       <a
@@ -1198,7 +1200,7 @@ exports[`Ap component should render when it is not part of the assignment flow 1
                      Browse additional resources and more information about how to use Quill.
                   </p>
                   <p
-                    className="preap-q-and-a-text"
+                    className="college-board-q-and-a-text"
                   >
                     <strong>
                       Quill Support:
@@ -1212,7 +1214,7 @@ exports[`Ap component should render when it is not part of the assignment flow 1
                      (Be sure to mention that you’re an AP teacher!
                   </p>
                   <p
-                    className="preap-q-and-a-text"
+                    className="college-board-q-and-a-text"
                   >
                     <strong>
                       Quill Support Chat:
@@ -1220,7 +1222,7 @@ exports[`Ap component should render when it is not part of the assignment flow 1
                      While you’re on Quill.org, you can use the chat bubble in the lower right side of your screen to connect with a member of the Quill support team. (Again, be sure to mention that you’re an AP teacher!)
                   </p>
                   <p
-                    className="preap-q-and-a-text"
+                    className="college-board-q-and-a-text"
                   >
                     <strong>
                       Quill Instructional Coach:
@@ -1234,7 +1236,7 @@ exports[`Ap component should render when it is not part of the assignment flow 1
                      (Again, be sure to mention that you’re an AP teacher!)
                   </p>
                   <p
-                    className="preap-q-and-a-text"
+                    className="college-board-q-and-a-text"
                   >
                     <strong>
                       Quill Phone Number:
@@ -1242,12 +1244,12 @@ exports[`Ap component should render when it is not part of the assignment flow 1
                      (510) 671-0222
                   </p>
                   <p
-                    className="preap-q-and-a-text"
+                    className="college-board-q-and-a-text"
                   >
                     We are always happy to help!
                   </p>
                   <p
-                    className="preap-q-and-a-text"
+                    className="college-board-q-and-a-text"
                   >
                     AP® is a registered trademark of the College Board.
                   </p>
@@ -1305,13 +1307,13 @@ exports[`Ap component should render when it is part of the assignment flow 1`] =
   isPartOfAssignmentFlow={true}
 >
   <div
-    className="pre-ap-container"
+    className="college-board-container"
   >
     <div
       className="section-wrapper"
     >
       <div
-        className="container pre-ap-header-container"
+        className="container college-board-header-container"
       >
         <div
           className="header-left"
@@ -1352,7 +1354,7 @@ exports[`Ap component should render when it is part of the assignment flow 1`] =
       className="white-section-wrapper"
     >
       <div
-        className="container pre-ap-activities-section"
+        className="container college-board-activities-section"
       >
         <div
           className="header"
@@ -1379,7 +1381,7 @@ exports[`Ap component should render when it is part of the assignment flow 1`] =
             AP Writing Skills Surveys
           </h2>
           <div
-            className="ap-english-tag"
+            className="college-board-activity-tag"
           >
             For All AP students
           </div>
@@ -1390,12 +1392,12 @@ exports[`Ap component should render when it is part of the assignment flow 1`] =
           <div
             className="activity-header-container"
           >
-            <a
+            <p
               className="activity-header"
               id="writing-skills-survey"
             >
               AP Writing Skills Survey
-            </a>
+            </p>
             <a
               className="quill-button medium primary outlined view-button focus-on-light"
               href="/assign/featured-activity-packs/193?college-board=ap"
@@ -1526,6 +1528,7 @@ exports[`Ap component should render when it is part of the assignment flow 1`] =
           className="quote-container"
         >
           <img
+            alt="Large left quote"
             id="first-quote"
             src="https://assets.quill.org/images/college_board/exaggerated-quote-left.svg"
           />
@@ -1540,6 +1543,7 @@ exports[`Ap component should render when it is part of the assignment flow 1`] =
             </p>
           </div>
           <img
+            alt="Large right quote"
             id="second-quote"
             src="https://assets.quill.org/images/college_board/exaggerated-quote-right.svg"
           />
@@ -1648,7 +1652,7 @@ exports[`Ap component should render when it is part of the assignment flow 1`] =
             qa={
               Object {
                 "answer": <p
-                  className="preap-q-and-a-text"
+                  className="college-board-q-and-a-text"
                 >
                   Quill.org worked with the 
                   <a
@@ -1837,7 +1841,7 @@ exports[`Ap component should render when it is part of the assignment flow 1`] =
               Object {
                 "answer": <div>
                   <p
-                    className="preap-q-and-a-text"
+                    className="college-board-q-and-a-text"
                   >
                     Depending on their performance, students will be recommended some or all of the following AP Writing Practice packs. The packs provide practice through 
                     <a
@@ -1860,7 +1864,7 @@ exports[`Ap component should render when it is part of the assignment flow 1`] =
                     , the activities in each pack are scaffolded to build in complexity. Here are descriptions of the packs:
                   </p>
                   <p
-                    className="preap-sub-header"
+                    className="college-board-sub-header"
                   >
                     AP Writing Practice - 
                     <a
@@ -1870,12 +1874,12 @@ exports[`Ap component should render when it is part of the assignment flow 1`] =
                     </a>
                   </p>
                   <p
-                    className="preap-q-and-a-text"
+                    className="college-board-q-and-a-text"
                   >
                     Students practice constructing complex sentences using subordinating conjunctions, such as even though, after, while, and because. Students also practice identifying time order, opposition, and cause/effect relationships.
                   </p>
                   <p
-                    className="preap-sub-header"
+                    className="college-board-sub-header"
                   >
                     AP Writing Practice - 
                     <a
@@ -1885,12 +1889,12 @@ exports[`Ap component should render when it is part of the assignment flow 1`] =
                     </a>
                   </p>
                   <p
-                    className="preap-q-and-a-text"
+                    className="college-board-q-and-a-text"
                   >
                     Students begin by using a provided relative pronoun, then progress to choosing between who, that, or which.
                   </p>
                   <p
-                    className="preap-sub-header"
+                    className="college-board-sub-header"
                   >
                     AP Writing Practice - 
                     <a
@@ -1900,12 +1904,12 @@ exports[`Ap component should render when it is part of the assignment flow 1`] =
                     </a>
                   </p>
                   <p
-                    className="preap-q-and-a-text"
+                    className="college-board-q-and-a-text"
                   >
                     Students practice describing nouns using appositive phrases at the beginning, middle, and end of sentences.
                   </p>
                   <p
-                    className="preap-sub-header"
+                    className="college-board-sub-header"
                   >
                     AP Writing Practice - 
                     <a
@@ -1915,12 +1919,12 @@ exports[`Ap component should render when it is part of the assignment flow 1`] =
                     </a>
                   </p>
                   <p
-                    className="preap-q-and-a-text"
+                    className="college-board-q-and-a-text"
                   >
                     Students practice constructing sentences with -ing and -ed participial phrases at the beginning, middle, or end.
                   </p>
                   <p
-                    className="preap-sub-header"
+                    className="college-board-sub-header"
                   >
                     AP Writing Practice - 
                     <a
@@ -1930,12 +1934,12 @@ exports[`Ap component should render when it is part of the assignment flow 1`] =
                     </a>
                   </p>
                   <p
-                    className="preap-q-and-a-text"
+                    className="college-board-q-and-a-text"
                   >
                     Students practice constructing sentences in parallel structure with correlative conjunctions like either/or, neither/nor, and both/and, and with subordinating conjunctions like although, because, and when. Students also practice constructing sentences with parallel clauses.
                   </p>
                   <p
-                    className="preap-sub-header"
+                    className="college-board-sub-header"
                   >
                     AP Writing Practice - 
                     <a
@@ -1945,12 +1949,12 @@ exports[`Ap component should render when it is part of the assignment flow 1`] =
                     </a>
                   </p>
                   <p
-                    className="preap-q-and-a-text"
+                    className="college-board-q-and-a-text"
                   >
                     Students practice constructing compound sentences with and, or, but, and so. Students also practice constructing complex sentences with subordinating conjunctions such as even though, after, while, and because. Finally, students practice constructing compound-complex sentences with coordinating and subordinating conjunctions. Students also practice identifying time order, opposition, and cause/effect relationships.
                   </p>
                   <p
-                    className="preap-sub-header"
+                    className="college-board-sub-header"
                   >
                     AP Writing Practice - 
                     <a
@@ -1960,7 +1964,7 @@ exports[`Ap component should render when it is part of the assignment flow 1`] =
                     </a>
                   </p>
                   <p
-                    className="preap-q-and-a-text"
+                    className="college-board-q-and-a-text"
                   >
                     Students apply their knowledge of multiple sentence structures to combine the sentences in the strongest way possible. Students practice constructing compound and complex sentences, using modifying phrases and clauses, and combining predicates.
                   </p>
@@ -2048,12 +2052,12 @@ exports[`Ap component should render when it is part of the assignment flow 1`] =
               Object {
                 "answer": <div>
                   <p
-                    className="preap-q-and-a-text"
+                    className="college-board-q-and-a-text"
                   >
                     All of the above packs contain between 4 and 7 activities, each of which are designed to take between 10 and 15 minutes each.
                   </p>
                   <p
-                    className="preap-q-and-a-text"
+                    className="college-board-q-and-a-text"
                   >
                     The only exception is the 
                     <a
@@ -2064,7 +2068,7 @@ exports[`Ap component should render when it is part of the assignment flow 1`] =
                     , which contains 15 activities. This pack contains more activities than the others as it was designed to serve as a large bank of activities for students who perform well on the Survey and don’t get a lot of recommendations. This way, you can still assign these students activities, which are quite challenging and will sustain them for a while. These are great for students who have had success with individual practice of strategies covered in the Survey, and would benefit from an opportunity to apply those strategies in combining activities without suggestions or direction.
                   </p>
                   <p
-                    className="preap-q-and-a-text"
+                    className="college-board-q-and-a-text"
                   >
                     Teacher Tip: When you select a recommended pack, you can 
                     <a
@@ -2116,12 +2120,12 @@ exports[`Ap component should render when it is part of the assignment flow 1`] =
               Object {
                 "answer": <div>
                   <p
-                    className="preap-q-and-a-text"
+                    className="college-board-q-and-a-text"
                   >
                     The focus in most of these activities is to build the target skill of the pack (appositives, relative clauses, etc.), so the vocabulary and reading level are intentionally designed to be accessible by all students.
                   </p>
                   <p
-                    className="preap-q-and-a-text"
+                    className="college-board-q-and-a-text"
                   >
                     Teacher Tip: You can preview and play through any pack and its activities to get a sense of whether it's appropriate for your students.
                   </p>
@@ -2417,7 +2421,7 @@ exports[`Ap component should render when it is part of the assignment flow 1`] =
               Object {
                 "answer": <div>
                   <p
-                    className="preap-q-and-a-text"
+                    className="college-board-q-and-a-text"
                   >
                     It is recommended that you and your students create free accounts on Quill.org. Creating an account will give you access to the Survey and its recommended practice. Creating an account also allows you to track your students’ progress and view data reports. You can create an account by visiting the 
                     <a
@@ -2428,7 +2432,7 @@ exports[`Ap component should render when it is part of the assignment flow 1`] =
                     .
                   </p>
                   <p
-                    className="preap-q-and-a-text"
+                    className="college-board-q-and-a-text"
                   >
                     If you do not want to create an account, you or your students can complete the Survey 
                     <a
@@ -2480,7 +2484,7 @@ exports[`Ap component should render when it is part of the assignment flow 1`] =
               Object {
                 "answer": <div>
                   <p
-                    className="preap-q-and-a-text"
+                    className="college-board-q-and-a-text"
                   >
                     <strong>
                       <a
@@ -2492,7 +2496,7 @@ exports[`Ap component should render when it is part of the assignment flow 1`] =
                      Browse additional resources and more information about how to use Quill.
                   </p>
                   <p
-                    className="preap-q-and-a-text"
+                    className="college-board-q-and-a-text"
                   >
                     <strong>
                       Quill Support:
@@ -2506,7 +2510,7 @@ exports[`Ap component should render when it is part of the assignment flow 1`] =
                      (Be sure to mention that you’re an AP teacher!
                   </p>
                   <p
-                    className="preap-q-and-a-text"
+                    className="college-board-q-and-a-text"
                   >
                     <strong>
                       Quill Support Chat:
@@ -2514,7 +2518,7 @@ exports[`Ap component should render when it is part of the assignment flow 1`] =
                      While you’re on Quill.org, you can use the chat bubble in the lower right side of your screen to connect with a member of the Quill support team. (Again, be sure to mention that you’re an AP teacher!)
                   </p>
                   <p
-                    className="preap-q-and-a-text"
+                    className="college-board-q-and-a-text"
                   >
                     <strong>
                       Quill Instructional Coach:
@@ -2528,7 +2532,7 @@ exports[`Ap component should render when it is part of the assignment flow 1`] =
                      (Again, be sure to mention that you’re an AP teacher!)
                   </p>
                   <p
-                    className="preap-q-and-a-text"
+                    className="college-board-q-and-a-text"
                   >
                     <strong>
                       Quill Phone Number:
@@ -2536,12 +2540,12 @@ exports[`Ap component should render when it is part of the assignment flow 1`] =
                      (510) 671-0222
                   </p>
                   <p
-                    className="preap-q-and-a-text"
+                    className="college-board-q-and-a-text"
                   >
                     We are always happy to help!
                   </p>
                   <p
-                    className="preap-q-and-a-text"
+                    className="college-board-q-and-a-text"
                   >
                     AP® is a registered trademark of the College Board.
                   </p>

@@ -1,4 +1,5 @@
 import * as React from 'react'
+
 import ExpandableUnitSection from '../shared/expandableUnit'
 import QuestionsAndAnswers from '../../containers/QuestionsAndAnswers'
 import { COLLEGE_BOARD_SLUG, PRE_AP_SLUG } from '../assignment_flow/assignmentFlowConstants'
@@ -30,9 +31,9 @@ const PreAp = ({ units, isPartOfAssignmentFlow, }: PreApContainerProps) => {
 
   const getStartedButton = isPartOfAssignmentFlow ? null : <a className="quill-button large primary contained focus-on-light" href="https://www.quill.org/account/new" rel="noopener noreferrer" target="_blank">Get started</a>
 
-  return (<div className="pre-ap-container">
+  return (<div className="college-board-container">
     <div className="section-wrapper">
-      <div className="container pre-ap-header-container">
+      <div className="container college-board-header-container">
         <div className="header-left">
           <div className="logo-container">
             <img alt="College Board logo" src="https://assets.quill.org/images/college_board/college-board-logo.svg" />
@@ -49,7 +50,7 @@ const PreAp = ({ units, isPartOfAssignmentFlow, }: PreApContainerProps) => {
       </div>
     </div>
     <div className="white-section-wrapper">
-      <div className="container pre-ap-activities-section">
+      <div className="container college-board-activities-section">
         <div className="header">
           <img alt="Illustration of a pencil drawing a line" src="https://assets.quill.org/images/college_board/sentence-writing-pencil.svg" />
           <div className="text-container">
@@ -59,8 +60,8 @@ const PreAp = ({ units, isPartOfAssignmentFlow, }: PreApContainerProps) => {
         </div>
         <div className="activities-subheader">
           <h2>Pre-AP Writing Skills Surveys</h2>
-          <div className="ap-english-tag">For Pre-AP English 1</div>
-          <div className="ap-english-tag">For Pre-AP English 2</div>
+          <div className="college-board-activity-tag">For Pre-AP English 1</div>
+          <div className="college-board-activity-tag">For Pre-AP English 2</div>
         </div>
         <div className="activity-container">
           <div className="activity-header-container">
@@ -114,7 +115,7 @@ const PreAp = ({ units, isPartOfAssignmentFlow, }: PreApContainerProps) => {
       </div>
     </div>
     <div className="white-section-wrapper">
-      <div className="container pre-ap-activities-section">
+      <div className="container college-board-activities-section">
         <div className="header">
           <img alt="Illustration of a book opened" src="https://assets.quill.org/images/college_board/passage-book.svg" />
           <div className="text-container">
@@ -124,7 +125,7 @@ const PreAp = ({ units, isPartOfAssignmentFlow, }: PreApContainerProps) => {
         </div>
         <div className="activities-subheader">
           <h2>Passage-Aligned Activities</h2>
-          <div className="ap-english-tag">For Pre-AP English 1</div>
+          <div className="college-board-activity-tag">For Pre-AP English 1</div>
         </div>
         <div className="white-section-wrapper">
           <div className="units-container">
@@ -165,12 +166,12 @@ const PreAp = ({ units, isPartOfAssignmentFlow, }: PreApContainerProps) => {
           <p className="cb-message-sub-header">Message from College Board</p>
         </div>
         <div className="quote-container">
-          <img id="first-quote" src="https://assets.quill.org/images/college_board/exaggerated-quote-left.svg" />
+          <img alt="Large left quote" id="first-quote" src="https://assets.quill.org/images/college_board/exaggerated-quote-left.svg" />
           <div className="inner-text-container">
             <p>Teaching writing is hard. Even harder can be attempting to pinpoint exactly when we learned how and why to write clearly. That’s why the College Board has worked with Quill.org to ensure that this new, free, comprehensive offering helps students practice targeted sentence construction skills in their writing. Sustained practice and exposure to targeted skills is important to improvement and comfort.</p>
             <p>Teaching writing may always be hard, but student practice in meaningful skills can make the learning that much clearer. Through this practice, students can begin to own the how and why of their writing.</p>
           </div>
-          <img id="second-quote" src="https://assets.quill.org/images/college_board/exaggerated-quote-right.svg" />
+          <img alt="Large right quote" id="second-quote" src="https://assets.quill.org/images/college_board/exaggerated-quote-right.svg" />
         </div>
       </div>
     </div>

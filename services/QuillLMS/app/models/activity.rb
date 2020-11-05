@@ -7,6 +7,7 @@ class Activity < ActiveRecord::Base
   has_and_belongs_to_many :unit_templates
   belongs_to :classification, class_name: 'ActivityClassification', foreign_key: 'activity_classification_id'
   belongs_to :standard
+  belongs_to :raw_score
 
   has_one :standard_level, through: :standard
 
@@ -170,6 +171,7 @@ class Activity < ActiveRecord::Base
 
   def readability_grade_level
     return nil unless raw_score_id
+
     raw_score = RawScore.find(raw_score_id)
     case raw_score.name
     when "1200-1300", "1300-1400", "1400-1500"

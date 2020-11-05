@@ -2846,7 +2846,6 @@ ALTER SEQUENCE public.subscriptions_id_seq OWNED BY public.subscriptions.id;
 
 --
 -- Name: teacher_saved_activities; Type: TABLE; Schema: public; Owner: -
-
 --
 
 CREATE TABLE public.teacher_saved_activities (
@@ -3829,7 +3828,6 @@ ALTER TABLE ONLY public.subscriptions ALTER COLUMN id SET DEFAULT nextval('publi
 
 --
 -- Name: teacher_saved_activities id; Type: DEFAULT; Schema: public; Owner: -
-
 --
 
 ALTER TABLE ONLY public.teacher_saved_activities ALTER COLUMN id SET DEFAULT nextval('public.teacher_saved_activities_id_seq'::regclass);
