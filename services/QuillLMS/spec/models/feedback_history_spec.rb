@@ -41,17 +41,19 @@ RSpec.describe FeedbackHistory, type: :model do
   context 'concept results hash' do
     setup do
       @prompt = Comprehension::Prompt.create(text: 'Test test test text')
-      @feedback_history = create(:feedback_history, prompt: @prompt)
+      @activity_session = create(:activity_session)
+      @concept = create(:concept)
+      @feedback_history = create(:feedback_history, activity_session_uid: @activity_session.uid, concept: @concept, prompt: @prompt)
     end
 
     it 'should fill out hash with all fields' do
       concept_results_hash = @feedback_history.concept_results_hash
 
-      assert_equal concept_results_hash['concept_uid'], @feedback_history.concept_uid
-      assert_equal concept_results_hash['activity_session_id'], @feedback_history.activity_session.id
-      assert_equal concept_results_hash['activity_classificaion_id'], 7
-      assert_equal concept_results_hash['concept_id'], @feedback_history.concept.id
-      assert_equal concept_results_hash['metadata'], {correct: 1, answer: @feedback_history.entry, feedback_type: @feedback_history.feedback_type}
+      assert_equal concept_results_hash[:concept_uid], @feedback_history.concept_uid
+      assert_equal concept_results_hash[:activity_session_id], @feedback_history.activity_session.id
+      assert_equal concept_results_hash[:activity_classification_id], 7
+      assert_equal concept_results_hash[:concept_id], @feedback_history.concept.id
+      assert_equal concept_results_hash[:metadata], {correct: 1, answer: @feedback_history.entry, feedback_type: @feedback_history.feedback_type}
     end
   end
 
