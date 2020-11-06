@@ -34,12 +34,10 @@ class School < ActiveRecord::Base
     NOT_LISTED_SCHOOL_NAME => US_K12_SCHOOL_DISPLAY_NAME
   }
 
-  # currently active subscription
   def subscription
    subscriptions.where("expiration > ? AND start_date <= ?", Date.today, Date.today).order(expiration: :desc).limit(1).first
   end
 
-  # subscription with latest expiration date
   def present_and_future_subscriptions
     subscriptions.where("expiration > ? AND de_activated_date IS NULL", Date.today).order(expiration: :asc)
   end
