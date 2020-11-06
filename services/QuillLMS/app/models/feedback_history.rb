@@ -40,7 +40,7 @@ class FeedbackHistory < ActiveRecord::Base
     {
       concept_uid: concept_uid,
       activity_session_id: activity_session.id,
-      activity_classification_id: 7,
+      activity_classification_id: ActivityClassification.comprehension.id,
       concept_id: concept.id,
       metadata: {
         correct: optimal ? 1: 0,

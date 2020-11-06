@@ -16,4 +16,8 @@ class ActivityClassification < ActiveRecord::Base
     find_by_key DIAGNOSTIC_KEY
   end
 
+  def self.comprehension
+    find_by_key COMPREHENSION_KEY
+  end
+
 end

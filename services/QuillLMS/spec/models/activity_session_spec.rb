@@ -951,10 +951,10 @@ end
 
     it 'should ignore unused feedback histories' do
       activity_session = create(:activity_session, state: 'finished', activity_id: @activity.id)
-      feedback_history = create(:feedback_history, attempt: 4, prompt: @prompt, activity_session_uid: activity_session.uid)
-      feedback_history = create(:feedback_history, attempt: 1, prompt: @prompt, activity_session_uid: activity_session.uid, used: false)
+      feedback_history = create(:feedback_history, attempt: 2, prompt: @prompt, activity_session_uid: activity_session.uid)
+      feedback_history = create(:feedback_history, attempt: 4, prompt: @prompt, activity_session_uid: activity_session.uid, used: false)
       activity_session.save
-      expect(activity_session.percentage).to eq(0.25)
+      expect(activity_session.percentage).to eq(0.75)
     end
   end
 end
