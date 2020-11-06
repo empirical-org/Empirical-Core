@@ -107,6 +107,22 @@ describe 'SerializeVitallySalesUser' do
     )
   end
 
+  it 'presents premium status of the subscription with latest expiration date' do
+    subscription = create(:subscription, account_type: 'SUPER DUPER SUB')
+    school = create(:school)
+    next_subscription = create(:subscription, account_type: 'SUPER DUPER SUB', expiration: Date.tomorrow + 1.year, start_date: Date.tomorrow)
+    teacher = create(:user, role: 'teacher', school: school)
+    create(:user_subscription, subscription: subscription, user: teacher)
+    create(:user_subscription, subscription: next_subscription, user: teacher)
+
+    teacher_data = SerializeVitallySalesUser.new(teacher).data
+
+    expect(teacher_data[:traits]).to include(
+      premium_status: 'SUPER DUPER SUB',
+      premium_expiry_date: next_subscription.expiration,
+    )
+  end
+
   it 'presents expiration date but not premium status when subscription expired' do
     subscription = create(:subscription, account_type: 'SUPER DUPER SUB', expiration: Date.yesterday)
     school = create(:school)

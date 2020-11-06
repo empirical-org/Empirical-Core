@@ -27,6 +27,22 @@ describe School, type: :model do
     end
   end
 
+  describe('#present_and_future_subscriptions') do
+    let!(:subscription) { create(:subscription, expiration: Date.tomorrow) }
+    let!(:next_subscription) { create(:subscription, expiration: Date.tomorrow + 1.year, start_date: Date.tomorrow) }
+    let!(:school_subscription) {create(:school_subscription, school: bk_school, subscription: subscription)}
+    let!(:next_school_subscription) {create(:school_subscription, school: bk_school, subscription: next_subscription)}
+
+  it "returns all subscriptions even if they have not started yet" do
+    expect(bk_school.present_and_future_subscriptions.size).to eq(2)
+  end
+
+  it "returns in ascending order of expiration date" do
+    expect(bk_school.present_and_future_subscriptions.first).to eq(subscription)
+    expect(bk_school.present_and_future_subscriptions.last).to eq(next_subscription)
+  end
+end
+
 
   describe 'validations' do
     before do
