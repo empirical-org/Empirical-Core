@@ -212,28 +212,19 @@ Completa el espacio en blanco con una de estas palabras: a, an, the. Si no se ne
                 }
               }
             >
-              <span
-                key="0-0"
+              <p
+                dangerouslySetInnerHTML={
+                  Object {
+                    "__html": "I have ",
+                  }
+                }
                 style={
                   Object {
                     "marginRight": 5,
                   }
                 }
-              >
-                I
-              </span>
+              />
               <span
-                key="0-1"
-                style={
-                  Object {
-                    "marginRight": 5,
-                  }
-                }
-              >
-                have
-              </span>
-              <span
-                key="0-2"
                 style={
                   Object {
                     "marginRight": 5,
@@ -260,8 +251,12 @@ Completa el espacio en blanco con una de estas palabras: a, an, the. Si no se ne
                   value=""
                 />
               </span>
-              <span
-                key="1-0"
+              <p
+                dangerouslySetInnerHTML={
+                  Object {
+                    "__html": " friend named Marco who loves ",
+                  }
+                }
                 style={
                   Object {
                     "marginRight": 5,
@@ -269,57 +264,6 @@ Completa el espacio en blanco con una de estas palabras: a, an, the. Si no se ne
                 }
               />
               <span
-                key="1-1"
-                style={
-                  Object {
-                    "marginRight": 5,
-                  }
-                }
-              >
-                friend
-              </span>
-              <span
-                key="1-2"
-                style={
-                  Object {
-                    "marginRight": 5,
-                  }
-                }
-              >
-                named
-              </span>
-              <span
-                key="1-3"
-                style={
-                  Object {
-                    "marginRight": 5,
-                  }
-                }
-              >
-                Marco
-              </span>
-              <span
-                key="1-4"
-                style={
-                  Object {
-                    "marginRight": 5,
-                  }
-                }
-              >
-                who
-              </span>
-              <span
-                key="1-5"
-                style={
-                  Object {
-                    "marginRight": 5,
-                  }
-                }
-              >
-                loves
-              </span>
-              <span
-                key="1-6"
                 style={
                   Object {
                     "marginRight": 5,
@@ -346,24 +290,18 @@ Completa el espacio en blanco con una de estas palabras: a, an, the. Si no se ne
                   value=""
                 />
               </span>
-              <span
-                key="2-0"
+              <p
+                dangerouslySetInnerHTML={
+                  Object {
+                    "__html": " football.",
+                  }
+                }
                 style={
                   Object {
                     "marginRight": 5,
                   }
                 }
               />
-              <span
-                key="2-1"
-                style={
-                  Object {
-                    "marginRight": 5,
-                  }
-                }
-              >
-                football.
-              </span>
             </div>
           </Prompt>
           <Cues

@@ -23,6 +23,7 @@ module SidekiqQueue
   # LOW: Jobs that might be long-running that we don't want to clog up the main workers
   # and that can be delayed.
   LOW = 'low'
-  # Google specific jobs to get around Google API issues
-  GOOGLE = 'google'
+  # Critical Jobs that rely on outside APIs, e.g. Google Classroom APIs
+  # Giving them their own queue in case we need to isolate them during an API provider issue
+  CRITICAL_EXTERNAL = 'critical_external'
 end
