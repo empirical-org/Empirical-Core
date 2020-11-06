@@ -94,7 +94,8 @@ class SerializeVitallySalesAccount
   end
 
   private def subscription_expiration_date
-    @school&.subscription&.expiration || 'NA'
+    subscription = @school&.present_and_future_subscriptions.last
+    subscription&.expiration || 'NA'
   end
 
   private def last_active
