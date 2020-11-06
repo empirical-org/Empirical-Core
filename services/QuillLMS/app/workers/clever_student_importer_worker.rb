@@ -1,6 +1,6 @@
 class CleverStudentImporterWorker
   include Sidekiq::Worker
-  sidekiq_options queue: SidekiqQueue::CRITICAL
+  sidekiq_options queue: SidekiqQueue::CRITICAL_EXTERNAL
 
 
   def perform(classroom_ids, district_token)
