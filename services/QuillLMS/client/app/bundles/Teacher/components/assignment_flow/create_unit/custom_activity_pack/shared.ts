@@ -42,6 +42,8 @@ export const CONTENT_PARTNER_FILTERS = 'contentPartnerFilters'
 
 export const TOPIC_FILTERS = 'topicFilters'
 
+export const SAVED_ACTIVITY_FILTERS = 'savedActivityFilters'
+
 export function arrayFromNumbers(lowerValue: number, upperValue: number) {
   const array = []
   for (let i = lowerValue; i <= upperValue; i++) {
@@ -90,6 +92,11 @@ function filterByTopic(topicFilters: number[], activity: Activity) {
   return topicFilters.some(id => activity.topics.some(cp => cp.id === id))
 }
 
+function filterBySavedActivityIds(savedActivityFilters: number[], activity: Activity) {
+  if (!savedActivityFilters.length) { return true }
+  return savedActivityFilters.some(id => Number(activity.id) === Number(id))
+}
+
 export const filters = {
   search: filterBySearch,
   [ACTIVITY_CLASSIFICATION_FILTERS]: filterByActivityClassification,
@@ -97,7 +104,8 @@ export const filters = {
   readabilityGradeLevelFilters: filterByReadabilityGradeLevel,
   [ACTIVITY_CATEGORY_FILTERS]: filterByActivityCategory,
   [CONTENT_PARTNER_FILTERS]: filterByContentPartners,
-  [TOPIC_FILTERS]: filterByTopic
+  [TOPIC_FILTERS]: filterByTopic,
+  [SAVED_ACTIVITY_FILTERS]: filterBySavedActivityIds
 }
 
 export const stringifyLowerLevelTopics = (topics) => {
