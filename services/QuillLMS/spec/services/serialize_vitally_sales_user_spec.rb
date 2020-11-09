@@ -119,7 +119,7 @@ describe 'SerializeVitallySalesUser' do
 
     expect(teacher_data[:traits]).to include(
       premium_status: 'SUPER DUPER SUB',
-      premium_expiry_date: next_subscription.expiration,
+      premium_expiry_date: next_subscription.expiration
     )
   end
 

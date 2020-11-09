@@ -35,19 +35,19 @@ describe School, type: :model do
     let!(:expired_subscription) {create(:subscription, expiration: Date.yesterday, de_activated_date: Date.yesterday)}
     let!(:expired_school_subscription) {create(:school_subscription, school: bk_school, subscription: expired_subscription)}
 
-  it "returns all subscriptions even if they have not started yet" do
-    expect(bk_school.present_and_future_subscriptions.size).to eq(2)
-  end
+    it "returns all subscriptions even if they have not started yet" do
+      expect(bk_school.present_and_future_subscriptions.size).to eq(2)
+    end
 
-  it "returns in ascending order of expiration date" do
-    expect(bk_school.present_and_future_subscriptions.first).to eq(subscription)
-    expect(bk_school.present_and_future_subscriptions.last).to eq(next_subscription)
-  end
+    it "returns in ascending order of expiration date" do
+      expect(bk_school.present_and_future_subscriptions.first).to eq(subscription)
+      expect(bk_school.present_and_future_subscriptions.last).to eq(next_subscription)
+    end
 
-  it "does not return deactivated subscriptions" do
-    expect(bk_school.present_and_future_subscriptions).not_to include(expired_subscription)
+    it "does not return deactivated subscriptions" do
+      expect(bk_school.present_and_future_subscriptions).not_to include(expired_subscription)
+    end
   end
-end
 
 
   describe 'validations' do
