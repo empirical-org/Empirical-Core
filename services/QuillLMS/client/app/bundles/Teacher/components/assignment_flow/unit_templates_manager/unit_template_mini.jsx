@@ -20,7 +20,7 @@ export default class UnitTemplateMini extends React.Component {
     let link
     if (this.props.data.id == 'createYourOwn') {
       if (this.isSignedIn()) {
-        link = '/assign/create-activity-pack'
+        link = '/assign/activity-library'
       } else {
         link = '/account/new'
       }

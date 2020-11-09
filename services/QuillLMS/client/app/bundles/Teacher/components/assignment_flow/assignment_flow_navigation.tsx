@@ -18,7 +18,7 @@ const learningProcessSlug = 'learning-process'
 const diagnosticSlug = 'diagnostic'
 const activityTypeSlug = 'activity-type'
 const collegeBoardSlug = COLLEGE_BOARD_SLUG
-const createActivityPackSlug = 'create-activity-pack'
+const activityLibrarySlug = 'activity-library'
 const selectClassesSlug = 'select-classes'
 const featuredActivityPacksSlug = 'featured-activity-packs'
 const preApSlug = PRE_AP_SLUG
@@ -29,7 +29,7 @@ const learningProcess = () => <Link key="learning-process" to={`/assign/${learni
 const diagnostic = () => <Link key="diagnostic" to={`/assign/${diagnosticSlug}`}>Diagnostic</Link>
 const activityType = () => <Link key="activity-type" to={`/assign/${activityTypeSlug}`}>Activity type</Link>
 const collegeBoard = () => <Link key="college-board" to={`/assign/${collegeBoardSlug}`}>College Board</Link>
-const createActivityPack = () => <Link key="custom-activity-pack" to={`/assign/${createActivityPackSlug}`}>Custom activity pack</Link>
+const createActivityPack = () => <Link key="custom-activity-pack" to={`/assign/${activityLibrarySlug}`}>Activity library</Link>
 const selectClasses = () => <Link key="assign-" to={`/assign/${selectClassesSlug}`}>Assign</Link>
 const activityPack = () => <Link key="activity-pack" to={`/assign/${featuredActivityPacksSlug}`}>Activity pack</Link>
 const preAp = () => <Link key="activity-pack" to={`/assign/${preApSlug}`}>Pre-AP</Link>
@@ -55,7 +55,7 @@ const routeLinks = {
   [preApSlug]: () => [slash(1), learningProcess(), slash(2), collegeBoard(), slash(3), preAp()],
   [apSlug]: () => [slash(1), learningProcess(), slash(2), collegeBoard(), slash(3), ap()],
   [collegeBoardSlug]: () => [slash(1), learningProcess(), slash(2), collegeBoard()],
-  [createActivityPackSlug]: () => [slash(1), learningProcess(), slash(2), activityType(), slash(3), createActivityPack()],
+  [activityLibrarySlug]: () => [slash(1), learningProcess(), slash(2), activityType(), slash(3), createActivityPack()],
   [selectClassesSlug]: (unitTemplateId, unitTemplateName, isFromDiagnosticPath) => {
     if (isFromDiagnosticPath) {
       return [
@@ -107,7 +107,7 @@ const routeProgress = {
   [collegeBoardSlug]: () => 'step-two',
   [preApSlug]: () => 'step-three',
   [apSlug]: () => 'step-three',
-  [createActivityPackSlug]: () => 'step-three',
+  [activityLibrarySlug]: () => 'step-three',
   [selectClassesSlug]: () => 'step-five',
   [featuredActivityPacksSlug]: (unitTemplateId, unitTemplateName) => {
     if (unitTemplateId && unitTemplateName) {

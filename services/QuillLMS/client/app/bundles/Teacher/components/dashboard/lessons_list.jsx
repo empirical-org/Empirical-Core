@@ -118,7 +118,7 @@ export default class extends React.Component {
           <h3 >
             List of Assigned Quill Lessons
           </h3>
-          <a href="/assign/create-activity-pack?tool=lessons">View and Assign Quill Lessons </a>
+          <a href="/assign/activity-library?activityClassificationFilters[]=lessons">View and Assign Quill Lessons </a>
         </div>
         <div className="no-assigned-lessons">
           <img src={`${process.env.CDN_URL}/images/illustrations/empty_state_lessons_launch_card.svg`} />
