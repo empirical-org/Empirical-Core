@@ -68,6 +68,35 @@ describe 'SerializeSalesAccount' do
     )
   end
 
+  it 'fetches the subscription with latest expiration date' do
+    school_subscription = create(:subscription,
+      account_type: 'SUPER SAVER PREMIUM',
+      expiration: Date.tomorrow
+    )
+    next_school_subscription = create(:subscription,
+      account_type: 'SUPER SAVER PREMIUM',
+      expiration: Date.tomorrow + 1.year,
+      start_date: Date.tomorrow
+    )
+    create(:school_subscription,
+      subscription_id: school_subscription.id,
+      school_id: school.id
+    )
+    create(:school_subscription,
+      subscription_id: next_school_subscription.id,
+      school_id: school.id
+    )
+
+    school_data = SerializeSalesAccount.new(school.id).data
+
+    expect(school_data[:params]).to include(
+      school_subscription: next_school_subscription.account_type
+    )
+    expect(school_data[:params]).to include(
+      premium_expiry_date: next_school_subscription.expiration
+    )
+  end
+
   it 'generates teacher data' do
     teacher_subscription = create(:subscription,
       account_type: 'Teacher Paid'

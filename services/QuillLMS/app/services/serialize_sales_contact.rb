@@ -114,8 +114,9 @@ class SerializeSalesContact
   end
 
   def subscription
-    if teacher.subscription.present?
-      return teacher.subscription
+    subscription = teacher.present_and_future_subscriptions.last
+    if subscription.present?
+      return subscription
     end
   end
 

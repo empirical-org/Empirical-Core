@@ -88,6 +88,7 @@ class SerializeSalesAccount
   end
 
   def subscription_expiration_date
-    school&.subscription&.expiration || 'NA'
+    subscription = school&.present_and_future_subscriptions&.last
+    subscription&.expiration || 'NA'
   end
 end
