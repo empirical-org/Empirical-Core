@@ -644,7 +644,8 @@ EmpiricalGrammar::Application.routes.draw do
 
   get 'assign' => 'teachers/classroom_manager#assign', as: 'assign_path'
   get 'assign/assign-a-diagnostic' => redirect('/assign/diagnostic')
-  get 'assign/create-unit' => redirect('/assign/create-activity-pack')
+  get 'assign/create-unit' => redirect('/assign/activity-library')
+  get 'assign/create-activity-pack' => redirect('/assign/activity-library')
   get 'assign/:tab' => 'teachers/classroom_manager#assign'
   get 'assign/featured-activity-packs/category/:category' => 'teachers/classroom_manager#assign'
   get 'assign/featured-activity-packs/grade/:grade' => 'teachers/classroom_manager#assign'
