@@ -25,7 +25,10 @@ describe('MobileFilterMenu component', () => {
     topicFilters: [],
     handleTopicFilterChange: () => {},
     setShowMobileFilterMenu: (show: boolean) => {},
-    showMobileFilterMenu: false
+    showMobileFilterMenu: false,
+    handleSavedActivityFilterChange: () => {},
+    savedActivityFilters: [],
+    savedActivityIds: []
   }
 
   describe('with showMobileFilterMenu false', () => {

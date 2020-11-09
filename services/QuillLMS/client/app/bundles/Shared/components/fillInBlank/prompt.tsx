@@ -56,7 +56,7 @@ const getFormattedElementsArray = (elements: Element[]) => {
   });
 
   return formattedElements.map(element => {
-    if(element.text) {
+    if(element.text || element.text === '') {
       return <p dangerouslySetInnerHTML={{__html: element.text}} style={element.style} />
     }
     return element;
