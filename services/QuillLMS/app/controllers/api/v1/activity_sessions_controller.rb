@@ -82,11 +82,12 @@ class Api::V1::ActivitySessionsController < Api::ApiController
   end
 
   def concept_results_hash(concept_result)
-    concept = Concept.find_by(uid: concept_result[:concept_uid])
+    concept = Concept.find_by(uid: concept_result["concept_uid"])
     return {} if concept.blank?
 
     concept_result[:activity_session_id] = @activity_session.id
     concept_result[:concept_id] = concept.id
+    concept_result
   end
 
   def find_activity_session
