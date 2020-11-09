@@ -134,7 +134,7 @@ class SerializeVitallySalesUser
   end
 
   private def subscription
-    @user.subscription
+    @user.present_and_future_subscriptions.last
   end
 
   private def account_uid
