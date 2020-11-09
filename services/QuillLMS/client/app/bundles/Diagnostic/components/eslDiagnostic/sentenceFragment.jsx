@@ -18,7 +18,7 @@ import { ENGLISH, rightToLeftLanguages } from '../../modules/translation/languag
 import { hashToCollection, Feedback, } from '../../../Shared/index'
 
 const key = ''; // enables this component to be used by both play/sentence-fragments and play/diagnostic
-const availableLanguages = ['arabic', 'spanish', 'french', 'mandarin', 'hindi', 'vietnamese'];
+const availableLanguages = ['arabic', 'spanish', 'french', 'chinese', 'hindi', 'vietnamese'];
 
 class PlaySentenceFragment extends React.Component {
   constructor(props) {

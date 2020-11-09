@@ -348,7 +348,7 @@ class TeacherNavbar extends React.Component<any, any> {
     const { classroomSessions, } = this.props
     const { preview } = classroomSessions.data
     if (preview === true) {
-      const assignLink = `${process.env.DEFAULT_URL}/assign/create-activity-pack?tool=lessons`
+      const assignLink = `${process.env.DEFAULT_URL}/assign/activity-library?activityClassificationFilters[]=lessons`
       const studentLink = window.location.href.replace('teach', 'play').concat('&student=student')
       /* eslint-disable react/jsx-no-target-blank */
       return (<div className="lessons-teacher-preview-bar">

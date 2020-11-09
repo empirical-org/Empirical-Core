@@ -15,6 +15,8 @@ const informationSrc = `${process.env.CDN_URL}/images/icons/description-informat
 const copyrightSrc = `${process.env.CDN_URL}/images/icons/description-copyright.svg`
 const topicSrc = `${process.env.CDN_URL}/images/icons/icons-description-topic.svg`
 const previewSrc = `${process.env.CDN_URL}/images/icons/preview.svg`
+const bookmarkSrc = `${process.env.CDN_URL}/images/icons/icons-bookmark.svg`
+const outlinedBookmarkSrc = `${process.env.CDN_URL}/images/icons/icons-bookmark-outline.svg`
 const removeSrc = `${process.env.CDN_URL}/images/icons/remove-in-circle.svg`
 const connectSrc = `${process.env.CDN_URL}/images/icons/description-connect.svg`
 const diagnosticSrc = `${process.env.CDN_URL}/images/icons/description-diagnostic.svg`
@@ -41,7 +43,10 @@ interface ActivityRowProps {
   toggleActivitySelection: (activity: Activity, isSelected: boolean) => void,
   showCheckbox?: boolean,
   showRemoveButton?: boolean,
-  setShowSnackbar?: (show: boolean) => void
+  setShowSnackbar?: (show: boolean) => void,
+  saveActivity: (activityId: number) => void,
+  unsaveActivity: (activityId: number) => void,
+  savedActivityIds: number[]
 }
 
 // the following method is a pretty hacky solution for helping to determine whether or not to show a truncated string and tooltip or the whole topic string in the <TopicSection />
@@ -55,8 +60,8 @@ const calculateMaxAllowedLengthForTopicSection = ({
   let maxAllowedLength = 0
   const container = document.getElementsByClassName('activity-table-container')[0]
   if (container) {
-    maxAllowedLength = container.offsetWidth - 128 // 128 is the amount of padding in total that makes up the difference between the width of the container and the width of the second line
-    maxAllowedLength -= activity_classification.alias ? (activity_classification.alias.length * AVERAGE_FONT_WIDTH) + IMAGE_WIDTH + MARGIN : 0
+    maxAllowedLength = container.offsetWidth - 152 // 128 is the amount of padding in total that makes up the difference between the width of the container and the width of the second line
+    maxAllowedLength -= activity_classification && activity_classification.alias ? (activity_classification.alias.length * AVERAGE_FONT_WIDTH) + IMAGE_WIDTH + MARGIN : 0
     maxAllowedLength -= activity_category_name ? (activity_category_name.length * AVERAGE_FONT_WIDTH) + IMAGE_WIDTH + MARGIN : 0
     maxAllowedLength -= readability_grade_level ? (`Readability: Grades ${readability_grade_level}`.length * AVERAGE_FONT_WIDTH) + IMAGE_WIDTH : 0 // the readability section is the only section that does not have a margin
     maxAllowedLength -= standard_level_name ? (standard_level_name.length * AVERAGE_FONT_WIDTH) + IMAGE_WIDTH + MARGIN : 0
@@ -229,7 +234,7 @@ const ActivityRowTooltip = ({ activity, showTooltip}: { activity: Activity, show
   </div>)
 }
 
-const ActivityRow = ({ activity, isSelected, toggleActivitySelection, showCheckbox, showRemoveButton, isFirst, setShowSnackbar}: ActivityRowProps) => {
+const ActivityRow = ({ activity, isSelected, toggleActivitySelection, showCheckbox, showRemoveButton, isFirst, setShowSnackbar, saveActivity, unsaveActivity, savedActivityIds, }: ActivityRowProps) => {
   const size = useWindowSize();
   const [isExpanded, setIsExpanded] = React.useState(false)
   const [showTooltip, setShowTooltip] = React.useState(false)
@@ -241,14 +246,20 @@ const ActivityRow = ({ activity, isSelected, toggleActivitySelection, showCheckb
     setShowSnackbar && setShowSnackbar(true)
   }
 
+  const { activity_classification, name, activity_category_name, standard_level_name, anonymous_path, readability_grade_level, topics, id, } = activity
+
+  function handleClickSaveButton() { saveActivity(id) }
+  function handleClickSavedButton() { unsaveActivity(id) }
+
   const expandImgAltText = `Arrow pointing ${isExpanded ? 'up' : 'down'}`
 
-  const { activity_classification, name, activity_category_name, standard_level_name, anonymous_path, readability_grade_level, topics, } = activity
-
+  const saveButton = <button className="interactive-wrapper focus-on-light save-button" onClick={handleClickSaveButton} type="button"><img alt={expandImgAltText} src={outlinedBookmarkSrc} />Save</button>
+  const savedButton = <button className="interactive-wrapper focus-on-light saved-button" onClick={handleClickSavedButton} type="button"><img alt={expandImgAltText} src={bookmarkSrc} />Saved</button>
   const previewButton = <a className="interactive-wrapper focus-on-light preview-link" href={anonymous_path} rel="noopener noreferrer" target="_blank"><img alt="Preview eye icon" src={previewSrc} />Preview</a>
   const expandButton = <button className="interactive-wrapper focus-on-light expand-button" onClick={toggleIsExpanded} type="button"><img alt={expandImgAltText} src={expandSrc} /></button>
   const removeButton = <button className="interactive-wrapper focus-on-light remove-button" onClick={removeActivity} type="button"><img alt="Remove icon" src={removeSrc} />Remove</button>
   const removeOrPreviewButton = showRemoveButton ? removeButton : previewButton
+  const saveOrSavedButton = savedActivityIds && savedActivityIds.includes(id) ? savedButton : saveButton
 
   const expandClassName = isExpanded ? 'expanded' : 'not-expanded'
   const isSelectedClassName = isSelected ? 'selected' : 'not-selected'
@@ -265,6 +276,7 @@ const ActivityRow = ({ activity, isSelected, toggleActivitySelection, showCheckb
       </div>
       <div className="buttons-wrapper">
         {removeOrPreviewButton}
+        {saveOrSavedButton}
         {expandButton}
       </div>
     </div>

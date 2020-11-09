@@ -25,7 +25,10 @@ interface ActivityTableContainerProps {
   setShowMobileFilterMenu: (showMenu: boolean) => void,
   setShowMobileSortMenu: (showMenu: boolean) => void,
   sort: string,
-  setSort: (sort: string) => void
+  setSort: (sort: string) => void,
+  saveActivity: (activityId: number) => void,
+  unsaveActivity: (activityId: number) => void,
+  savedActivityIds: number[]
 }
 
 const FilterAndSort = ({ setShowMobileFilterMenu, setShowMobileSortMenu, }) => {
@@ -89,14 +92,26 @@ const ActivityTableContainer = ({
   setShowMobileFilterMenu,
   setShowMobileSortMenu,
   sort,
-  setSort
+  setSort,
+  saveActivity,
+  unsaveActivity,
+  savedActivityIds
 }: ActivityTableContainerProps) => {
   const sortedActivities = sort ? sortFunctions[sort]([...filteredActivities]) : filteredActivities
   const currentPageActivities = sortedActivities.slice(lowerBound(currentPage), upperBound(currentPage));
 
   const activityRows = currentPageActivities.map((act, i) => {
     const isSelected = selectedActivities.some(s => s.id === act.id)
-    return <ActivityRow activity={act} isFirst={i === 0} isSelected={isSelected} key={act.id} toggleActivitySelection={toggleActivitySelection} />
+    return (<ActivityRow
+      activity={act}
+      isFirst={i === 0}
+      isSelected={isSelected}
+      key={act.id}
+      saveActivity={saveActivity}
+      savedActivityIds={savedActivityIds}
+      toggleActivitySelection={toggleActivitySelection}
+      unsaveActivity={unsaveActivity}
+    />)
   })
 
   const activityRowsOrEmptyState = activityRows.length ? activityRows : <EmptyState resetAllFilters={resetAllFilters} undoLastFilter={undoLastFilter} />
