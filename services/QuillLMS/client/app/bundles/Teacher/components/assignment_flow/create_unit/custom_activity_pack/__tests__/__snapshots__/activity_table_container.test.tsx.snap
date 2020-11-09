@@ -4749,6 +4749,17 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
               Preview
             </a>
             <button
+              className="interactive-wrapper focus-on-light save-button"
+              onClick={[Function]}
+              type="button"
+            >
+              <img
+                alt="Arrow pointing down"
+                src="undefined/images/icons/icons-bookmark-outline.svg"
+              />
+              Save
+            </button>
+            <button
               className="interactive-wrapper focus-on-light expand-button"
               onClick={[Function]}
               type="button"
@@ -5189,6 +5200,17 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
               />
               Preview
             </a>
+            <button
+              className="interactive-wrapper focus-on-light save-button"
+              onClick={[Function]}
+              type="button"
+            >
+              <img
+                alt="Arrow pointing down"
+                src="undefined/images/icons/icons-bookmark-outline.svg"
+              />
+              Save
+            </button>
             <button
               className="interactive-wrapper focus-on-light expand-button"
               onClick={[Function]}
@@ -5631,6 +5653,17 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
               Preview
             </a>
             <button
+              className="interactive-wrapper focus-on-light save-button"
+              onClick={[Function]}
+              type="button"
+            >
+              <img
+                alt="Arrow pointing down"
+                src="undefined/images/icons/icons-bookmark-outline.svg"
+              />
+              Save
+            </button>
+            <button
               className="interactive-wrapper focus-on-light expand-button"
               onClick={[Function]}
               type="button"
@@ -6071,6 +6104,17 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
               />
               Preview
             </a>
+            <button
+              className="interactive-wrapper focus-on-light save-button"
+              onClick={[Function]}
+              type="button"
+            >
+              <img
+                alt="Arrow pointing down"
+                src="undefined/images/icons/icons-bookmark-outline.svg"
+              />
+              Save
+            </button>
             <button
               className="interactive-wrapper focus-on-light expand-button"
               onClick={[Function]}
@@ -6513,6 +6557,17 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
               Preview
             </a>
             <button
+              className="interactive-wrapper focus-on-light save-button"
+              onClick={[Function]}
+              type="button"
+            >
+              <img
+                alt="Arrow pointing down"
+                src="undefined/images/icons/icons-bookmark-outline.svg"
+              />
+              Save
+            </button>
+            <button
               className="interactive-wrapper focus-on-light expand-button"
               onClick={[Function]}
               type="button"
@@ -6953,6 +7008,17 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
               />
               Preview
             </a>
+            <button
+              className="interactive-wrapper focus-on-light save-button"
+              onClick={[Function]}
+              type="button"
+            >
+              <img
+                alt="Arrow pointing down"
+                src="undefined/images/icons/icons-bookmark-outline.svg"
+              />
+              Save
+            </button>
             <button
               className="interactive-wrapper focus-on-light expand-button"
               onClick={[Function]}
@@ -7395,6 +7461,17 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
               Preview
             </a>
             <button
+              className="interactive-wrapper focus-on-light save-button"
+              onClick={[Function]}
+              type="button"
+            >
+              <img
+                alt="Arrow pointing down"
+                src="undefined/images/icons/icons-bookmark-outline.svg"
+              />
+              Save
+            </button>
+            <button
               className="interactive-wrapper focus-on-light expand-button"
               onClick={[Function]}
               type="button"
@@ -7835,6 +7912,17 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
               />
               Preview
             </a>
+            <button
+              className="interactive-wrapper focus-on-light save-button"
+              onClick={[Function]}
+              type="button"
+            >
+              <img
+                alt="Arrow pointing down"
+                src="undefined/images/icons/icons-bookmark-outline.svg"
+              />
+              Save
+            </button>
             <button
               className="interactive-wrapper focus-on-light expand-button"
               onClick={[Function]}
@@ -8277,6 +8365,17 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
               Preview
             </a>
             <button
+              className="interactive-wrapper focus-on-light save-button"
+              onClick={[Function]}
+              type="button"
+            >
+              <img
+                alt="Arrow pointing down"
+                src="undefined/images/icons/icons-bookmark-outline.svg"
+              />
+              Save
+            </button>
+            <button
               className="interactive-wrapper focus-on-light expand-button"
               onClick={[Function]}
               type="button"
@@ -8717,6 +8816,17 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
               />
               Preview
             </a>
+            <button
+              className="interactive-wrapper focus-on-light save-button"
+              onClick={[Function]}
+              type="button"
+            >
+              <img
+                alt="Arrow pointing down"
+                src="undefined/images/icons/icons-bookmark-outline.svg"
+              />
+              Save
+            </button>
             <button
               className="interactive-wrapper focus-on-light expand-button"
               onClick={[Function]}
@@ -9159,6 +9269,17 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
               Preview
             </a>
             <button
+              className="interactive-wrapper focus-on-light save-button"
+              onClick={[Function]}
+              type="button"
+            >
+              <img
+                alt="Arrow pointing down"
+                src="undefined/images/icons/icons-bookmark-outline.svg"
+              />
+              Save
+            </button>
+            <button
               className="interactive-wrapper focus-on-light expand-button"
               onClick={[Function]}
               type="button"
@@ -9599,6 +9720,17 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
               />
               Preview
             </a>
+            <button
+              className="interactive-wrapper focus-on-light save-button"
+              onClick={[Function]}
+              type="button"
+            >
+              <img
+                alt="Arrow pointing down"
+                src="undefined/images/icons/icons-bookmark-outline.svg"
+              />
+              Save
+            </button>
             <button
               className="interactive-wrapper focus-on-light expand-button"
               onClick={[Function]}
@@ -10041,6 +10173,17 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
               Preview
             </a>
             <button
+              className="interactive-wrapper focus-on-light save-button"
+              onClick={[Function]}
+              type="button"
+            >
+              <img
+                alt="Arrow pointing down"
+                src="undefined/images/icons/icons-bookmark-outline.svg"
+              />
+              Save
+            </button>
+            <button
               className="interactive-wrapper focus-on-light expand-button"
               onClick={[Function]}
               type="button"
@@ -10481,6 +10624,17 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
               />
               Preview
             </a>
+            <button
+              className="interactive-wrapper focus-on-light save-button"
+              onClick={[Function]}
+              type="button"
+            >
+              <img
+                alt="Arrow pointing down"
+                src="undefined/images/icons/icons-bookmark-outline.svg"
+              />
+              Save
+            </button>
             <button
               className="interactive-wrapper focus-on-light expand-button"
               onClick={[Function]}
@@ -10923,6 +11077,17 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
               Preview
             </a>
             <button
+              className="interactive-wrapper focus-on-light save-button"
+              onClick={[Function]}
+              type="button"
+            >
+              <img
+                alt="Arrow pointing down"
+                src="undefined/images/icons/icons-bookmark-outline.svg"
+              />
+              Save
+            </button>
+            <button
               className="interactive-wrapper focus-on-light expand-button"
               onClick={[Function]}
               type="button"
@@ -11363,6 +11528,17 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
               />
               Preview
             </a>
+            <button
+              className="interactive-wrapper focus-on-light save-button"
+              onClick={[Function]}
+              type="button"
+            >
+              <img
+                alt="Arrow pointing down"
+                src="undefined/images/icons/icons-bookmark-outline.svg"
+              />
+              Save
+            </button>
             <button
               className="interactive-wrapper focus-on-light expand-button"
               onClick={[Function]}
@@ -11805,6 +11981,17 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
               Preview
             </a>
             <button
+              className="interactive-wrapper focus-on-light save-button"
+              onClick={[Function]}
+              type="button"
+            >
+              <img
+                alt="Arrow pointing down"
+                src="undefined/images/icons/icons-bookmark-outline.svg"
+              />
+              Save
+            </button>
+            <button
               className="interactive-wrapper focus-on-light expand-button"
               onClick={[Function]}
               type="button"
@@ -12245,6 +12432,17 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
               />
               Preview
             </a>
+            <button
+              className="interactive-wrapper focus-on-light save-button"
+              onClick={[Function]}
+              type="button"
+            >
+              <img
+                alt="Arrow pointing down"
+                src="undefined/images/icons/icons-bookmark-outline.svg"
+              />
+              Save
+            </button>
             <button
               className="interactive-wrapper focus-on-light expand-button"
               onClick={[Function]}
@@ -12687,6 +12885,17 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
               Preview
             </a>
             <button
+              className="interactive-wrapper focus-on-light save-button"
+              onClick={[Function]}
+              type="button"
+            >
+              <img
+                alt="Arrow pointing down"
+                src="undefined/images/icons/icons-bookmark-outline.svg"
+              />
+              Save
+            </button>
+            <button
               className="interactive-wrapper focus-on-light expand-button"
               onClick={[Function]}
               type="button"
@@ -13127,6 +13336,17 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
               />
               Preview
             </a>
+            <button
+              className="interactive-wrapper focus-on-light save-button"
+              onClick={[Function]}
+              type="button"
+            >
+              <img
+                alt="Arrow pointing down"
+                src="undefined/images/icons/icons-bookmark-outline.svg"
+              />
+              Save
+            </button>
             <button
               className="interactive-wrapper focus-on-light expand-button"
               onClick={[Function]}

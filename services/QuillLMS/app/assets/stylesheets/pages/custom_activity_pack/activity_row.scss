@@ -25,8 +25,13 @@
         display: flex;
       }
       .preview-link, .remove-button {
-        display: flex;
         margin-right: 24px;
+      }
+      .save-button, .saved-button {
+        margin-right: 32px;
+      }
+      .preview-link, .remove-button, .save-button, .saved-button {
+        display: flex;
         align-items: center;
         img {
           margin-right: 4px;
@@ -37,7 +42,7 @@
       }
     }
     .second-line {
-      padding: 0px 32px;
+      padding: 0px 56px 0px 32px;
       .classification-concept-topic-wrapper, .readability-and-standard-level-wrapper {
         display: flex;
         flex-direction: row;
@@ -98,6 +103,9 @@
     }
     &.not-expanded:not(:hover) {
       .preview-link {
+        display: none;
+      }
+      .save-button {
         display: none;
       }
     }

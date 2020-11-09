@@ -23,7 +23,10 @@ describe('FilterColumn component', () => {
     handleContentPartnerFilterChange: () => {},
     topicFilters: [],
     handleTopicFilterChange: () => {},
-    filterActivities: (ignoredKey?: string) => activities
+    filterActivities: (ignoredKey?: string) => activities,
+    handleSavedActivityFilterChange: () => {},
+    savedActivityFilters: [],
+    savedActivityIds: []
   }
 
   it('should render', () => {
