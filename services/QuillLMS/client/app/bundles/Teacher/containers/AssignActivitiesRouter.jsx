@@ -23,7 +23,7 @@ const AssignActivitiesRouter = props => (
       <Route component={routerProps => <AssignAp {...props} {...routerProps} />} path="/assign/ap" />
       <Route component={routerProps => <CollegeBoard {...props} {...routerProps} />} path="/assign/college-board" />
       <Route component={routerProps => <AssignADiagnostic {...props} {...routerProps} />} path="/assign/diagnostic" />
-      <Route component={routerProps => <CreateUnit {...props} {...routerProps} />} path="/assign/create-activity-pack" />
+      <Route component={routerProps => <CreateUnit {...props} {...routerProps} />} path="/assign/activity-library" />
       <Route component={routerProps => <CreateUnit {...props} {...routerProps} />} path="/assign/select-classes" />
       <Route component={routerProps => <CreateUnit {...props} {...routerProps} />} path="/assign/referral" />
       <Route component={routerProps => <CreateUnit {...props} {...routerProps} />} path="/assign/add-students" />

@@ -1,4 +1,5 @@
 import * as React from 'react';
+import queryString from 'query-string';
 
 import { Activity } from './interfaces'
 import { calculateNumberOfPages, activityClassificationGroupings, filters, DEFAULT } from './shared'
@@ -29,18 +30,20 @@ const CustomActivityPack = ({
   setSelectedActivities,
   toggleActivitySelection,
 }: CustomActivityPackProps) => {
+  const url = queryString.parseUrl(window.location.href, { arrayFormat: 'bracket', parseNumbers: true }).query;
+
   const [activities, setActivities] = React.useState(passedActivities || [])
   const [filteredActivities, setFilteredActivities] = React.useState(activities)
   const [loading, setLoading] = React.useState(!passedActivities);
   const [currentPage, setCurrentPage] = React.useState(1);
-  const [search, setSearch] = React.useState('')
+  const [search, setSearch] = React.useState(url.search || '')
   const [filterHistory, setFilterHistory] = React.useState([])
-  const [activityClassificationFilters, setActivityClassificationFilters] = React.useState([])
-  const [ccssGradeLevelFilters, setCCSSGradeLevelFilters] = React.useState([])
-  const [readabilityGradeLevelFilters, setReadabilityGradeLevelFilters] = React.useState([])
-  const [activityCategoryFilters, setActivityCategoryFilters] = React.useState([])
-  const [contentPartnerFilters, setContentPartnerFilters] = React.useState([])
-  const [topicFilters, setTopicFilters] = React.useState([])
+  const [activityClassificationFilters, setActivityClassificationFilters] = React.useState(url.activityClassificationFilters || [])
+  const [ccssGradeLevelFilters, setCCSSGradeLevelFilters] = React.useState(url.ccssGradeLevelFilters || [])
+  const [readabilityGradeLevelFilters, setReadabilityGradeLevelFilters] = React.useState(url.readabilityGradeLevelFilters || [])
+  const [activityCategoryFilters, setActivityCategoryFilters] = React.useState(url.activityCategoryFilters || [])
+  const [contentPartnerFilters, setContentPartnerFilters] = React.useState(url.contentPartnerFilters || [])
+  const [topicFilters, setTopicFilters] = React.useState(url.topicFilters || [])
   const [savedActivityFilters, setSavedActivityFilters] = React.useState([])
   const [showMobileFilterMenu, setShowMobileFilterMenu] = React.useState(false)
   const [showMobileSortMenu, setShowMobileSortMenu] = React.useState(false)
@@ -60,7 +63,7 @@ const CustomActivityPack = ({
 
   React.useEffect(() => {
     getActivities();
-    getSavedActivities()
+    getSavedActivities();
   }, []);
 
   React.useEffect(() => {
@@ -69,7 +72,19 @@ const CustomActivityPack = ({
     }
   }, [showSnackbar])
 
-  React.useEffect(updateFilteredActivities, [debouncedSearch, debouncedActivityClassificationFilters, debouncedCCSSGradeLevelFilters, debouncedActivityCategoryFilters, debouncedContentPartnerFilters, debouncedReadabilityGradeLevelFilters, debouncedTopicFilters, debouncedSavedActivityFilters])
+  React.useEffect(() => {
+    if (activities.length) {
+      updateFilteredActivities();
+      setLoading(false)
+    }
+  }, [activities])
+
+  React.useEffect(handleFilterChange, [debouncedSearch, debouncedActivityClassificationFilters, debouncedCCSSGradeLevelFilters, debouncedActivityCategoryFilters, debouncedContentPartnerFilters, debouncedReadabilityGradeLevelFilters, debouncedTopicFilters, debouncedSavedActivityFilters])
+
+  function handleFilterChange() {
+    updateQueryString()
+    updateFilteredActivities()
+  }
 
   function calculateNumberOfFilters() {
     let number = 0
@@ -96,8 +111,6 @@ const CustomActivityPack = ({
     requestGet('/activities/search',
       (data) => {
         setActivities(data.activities);
-        setFilteredActivities(data.activities);
-        setLoading(false)
       }
     )
   }
@@ -215,6 +228,18 @@ const CustomActivityPack = ({
     lastItem.function(lastItem.argument)
     const newFilterHistory = filterHistory.splice(0, lastIndex)
     setFilterHistory(newFilterHistory)
+  }
+
+  function updateQueryString() {
+    const queryHash = {}
+    Object.keys(filters).forEach(k => {
+      const actualValue = eval(k)
+      if (actualValue.length) {
+        queryHash[k] = eval(k)
+      }
+    })
+    const newUrl = queryString.stringifyUrl({ url: `${window.location.origin}${window.location.pathname}`, query: queryHash }, { arrayFormat: 'bracket' })
+    window.history.pushState({ path: newUrl }, '', newUrl)
   }
 
   if (loading) {
