@@ -1,0 +1,28 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Prompt component should match snapshot 1`] = `
+<div
+  style={Object {}}
+>
+  <p
+    dangerouslySetInnerHTML={
+      Object {
+        "__html": "<em>Ele</em> <strong>gosta</strong>",
+      }
+    }
+    style={Object {}}
+  />
+  <input
+    aria-label="test-label"
+    key="3"
+  />
+  <p
+    dangerouslySetInnerHTML={
+      Object {
+        "__html": "bater <u>papo.</u>",
+      }
+    }
+    style={Object {}}
+  />
+</div>
+`;

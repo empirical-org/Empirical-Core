@@ -8799,9 +8799,12 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
   handleCCSSGradeLevelFilterChange={[Function]}
   handleContentPartnerFilterChange={[Function]}
   handleReadabilityGradeLevelFilterChange={[Function]}
+  handleSavedActivityFilterChange={[Function]}
   handleTopicFilterChange={[Function]}
   readabilityGradeLevelFilters={Array []}
   resetAllFilters={[Function]}
+  savedActivityFilters={Array []}
+  savedActivityIds={Array []}
   setShowMobileFilterMenu={[Function]}
   showMobileFilterMenu={false}
   topicFilters={Array []}
@@ -17609,9 +17612,12 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
   handleCCSSGradeLevelFilterChange={[Function]}
   handleContentPartnerFilterChange={[Function]}
   handleReadabilityGradeLevelFilterChange={[Function]}
+  handleSavedActivityFilterChange={[Function]}
   handleTopicFilterChange={[Function]}
   readabilityGradeLevelFilters={Array []}
   resetAllFilters={[Function]}
+  savedActivityFilters={Array []}
+  savedActivityIds={Array []}
   setShowMobileFilterMenu={[Function]}
   showMobileFilterMenu={true}
   topicFilters={Array []}
@@ -26432,9 +26438,12 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
       handleCCSSGradeLevelFilterChange={[Function]}
       handleContentPartnerFilterChange={[Function]}
       handleReadabilityGradeLevelFilterChange={[Function]}
+      handleSavedActivityFilterChange={[Function]}
       handleTopicFilterChange={[Function]}
       readabilityGradeLevelFilters={Array []}
       resetAllFilters={[Function]}
+      savedActivityFilters={Array []}
+      savedActivityIds={Array []}
       topicFilters={Array []}
     >
       <section
@@ -30855,6 +30864,9 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
           activityClassificationFilters={Array []}
           filterActivities={[Function]}
           handleActivityClassificationFilterChange={[Function]}
+          handleSavedActivityFilterChange={[Function]}
+          savedActivityFilters={Array []}
+          savedActivityIds={Array []}
         >
           <section
             className="filter-section"
@@ -30867,6 +30879,31 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
               </h2>
               <span />
             </div>
+            <SavedRow
+              filterActivities={[Function]}
+              handleSavedActivityFilterChange={[Function]}
+              savedActivityFilters={Array []}
+              savedActivityIds={Array []}
+            >
+              <div
+                className="individual-row filter-row saved-row"
+              >
+                <div>
+                  <div
+                    aria-label="Check Saved"
+                    className="focus-on-light quill-checkbox disabled"
+                  />
+                  <span>
+                    Saved
+                  </span>
+                </div>
+                <span>
+                  (
+                  0
+                  )
+                </span>
+              </div>
+            </SavedRow>
             <ActivityClassificationToggle
               activityClassificationFilters={Array []}
               filteredActivities={

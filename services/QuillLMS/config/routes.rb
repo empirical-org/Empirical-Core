@@ -126,6 +126,12 @@ EmpiricalGrammar::Application.routes.draw do
 
   resources :grades, only: [:index]
 
+  resources :teacher_saved_activities, only: [] do
+    get :saved_activity_ids_for_current_user, on: :collection
+    post :create_by_activity_id_for_current_user, on: :collection
+    delete :destroy_by_activity_id_for_current_user, on: :collection
+  end
+
   get 'grades/tooltip/classroom_unit_id/:classroom_unit_id/user_id/:user_id/activity_id/:activity_id/completed/:completed' => 'grades#tooltip'
 
   get :current_user_json, controller: 'teachers', action: 'current_user_json'
@@ -640,7 +646,8 @@ EmpiricalGrammar::Application.routes.draw do
 
   get 'assign' => 'teachers/classroom_manager#assign', as: 'assign_path'
   get 'assign/assign-a-diagnostic' => redirect('/assign/diagnostic')
-  get 'assign/create-unit' => redirect('/assign/create-activity-pack')
+  get 'assign/create-unit' => redirect('/assign/activity-library')
+  get 'assign/create-activity-pack' => redirect('/assign/activity-library')
   get 'assign/:tab' => 'teachers/classroom_manager#assign'
   get 'assign/featured-activity-packs/category/:category' => 'teachers/classroom_manager#assign'
   get 'assign/featured-activity-packs/grade/:grade' => 'teachers/classroom_manager#assign'

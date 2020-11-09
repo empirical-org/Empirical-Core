@@ -42,7 +42,7 @@ const minis = (props) => [
     header="Create your own activity pack"
     imgAlt="sheets of paper overlaid"
     imgSrc={packsCustomSrc}
-    selectCard={() => selectCard(props.history, `/assign/create-activity-pack`)}
+    selectCard={() => selectCard(props.history, `/assign/activity-library`)}
   />)
 ]
 

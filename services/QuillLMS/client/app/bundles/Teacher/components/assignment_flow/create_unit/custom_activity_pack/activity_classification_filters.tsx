@@ -1,7 +1,7 @@
 import * as React from 'react';
 
 import { Activity, ActivityClassification } from './interfaces'
-import { activityClassificationGroupings, ACTIVITY_CLASSIFICATION_FILTERS } from './shared'
+import { activityClassificationGroupings, ACTIVITY_CLASSIFICATION_FILTERS, SAVED_ACTIVITY_FILTERS } from './shared'
 
 const dropdownIconSrc = `${process.env.CDN_URL}/images/icons/dropdown.svg`
 const indeterminateSrc = `${process.env.CDN_URL}/images/icons/indeterminate.svg`
@@ -26,6 +26,8 @@ interface ActivityClassificationToggleProps {
   uniqueActivityClassifications: ActivityClassification[],
   activityClassificationFilters: string[],
   handleActivityClassificationFilterChange: (activityClassificationFilters: string[]) => void,
+  savedActivityFilters: number[],
+  handleSavedActivityFilterChange: () => void,
 }
 
 interface ActivityClassificationFiltersProps {
@@ -33,6 +35,9 @@ interface ActivityClassificationFiltersProps {
   filterActivities: (ignoredKey?: string) => Activity[]
   activityClassificationFilters: string[],
   handleActivityClassificationFilterChange: (activityClassificationFilters: string[]) => void,
+  handleSavedActivityFilterChange: () => void,
+  savedActivityFilters: number[],
+  savedActivityIds: number[]
 }
 
 const IndividualActivityClassificationFilterRow = ({ activityClassificationFilters, activityClassificationKey, handleActivityClassificationFilterChange, uniqueActivityClassifications, filteredActivities, }: IndividualActivityClassificationFilterRowProps) => {
@@ -129,7 +134,38 @@ const ActivityClassificationToggle = ({filteredActivities, grouping, uniqueActiv
   </section>)
 }
 
-const ActivityClassificationFilters = ({ activities, filterActivities, activityClassificationFilters, handleActivityClassificationFilterChange, }: ActivityClassificationFiltersProps) => {
+const SavedRow = ({ savedActivityFilters, handleSavedActivityFilterChange, savedActivityIds, filterActivities, }) => {
+  const filteredActivities = filterActivities(SAVED_ACTIVITY_FILTERS)
+  const activityCount = filteredActivities.filter(act => savedActivityIds.includes(act.id)).length
+
+  let checkbox = <button aria-label="Check Saved" className="focus-on-light quill-checkbox unselected" onClick={handleSavedActivityFilterChange} type="button" />
+
+  if (activityCount === 0) {
+    checkbox = <div aria-label="Check Saved" className="focus-on-light quill-checkbox disabled" />
+  } else if (savedActivityFilters.length) {
+    checkbox = (<button aria-label="Uncheck Saved" className="focus-on-light quill-checkbox selected" onClick={handleSavedActivityFilterChange} type="button">
+      <img alt="Checked checkbox" src={smallWhiteCheckSrc} />
+    </button>)
+  }
+
+  return (<div className="individual-row filter-row saved-row">
+    <div>
+      {checkbox}
+      <span>Saved</span>
+    </div>
+    <span>({activityCount})</span>
+  </div>)
+}
+
+const ActivityClassificationFilters = ({
+  activities,
+  filterActivities,
+  activityClassificationFilters,
+  handleActivityClassificationFilterChange,
+  handleSavedActivityFilterChange,
+  savedActivityFilters,
+  savedActivityIds
+}: ActivityClassificationFiltersProps) => {
   const allActivityClassifications = activities.map(a => a.activity_classification)
   const uniqueActivityClassificationIds = Array.from(new Set(allActivityClassifications.map(a => a.id)))
   const uniqueActivityClassifications = uniqueActivityClassificationIds.map(id => allActivityClassifications.find(ac => ac.id === id))
@@ -154,6 +190,12 @@ const ActivityClassificationFilters = ({ activities, filterActivities, activityC
       <h2>Activities</h2>
       {clearButton}
     </div>
+    <SavedRow
+      filterActivities={filterActivities}
+      handleSavedActivityFilterChange={handleSavedActivityFilterChange}
+      savedActivityFilters={savedActivityFilters}
+      savedActivityIds={savedActivityIds}
+    />
     {activityClassificationToggles}
   </section>)
 }

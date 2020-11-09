@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Ap component should render when it is not part of the assignment flow 1`] = `
+exports[`SpringBoard component should render when it is not part of the assignment flow 1`] = `
 <SpringBoard>
   <div
     className="college-board-container"
@@ -955,7 +955,7 @@ exports[`Ap component should render when it is not part of the assignment flow 1
 </SpringBoard>
 `;
 
-exports[`Ap component should render when it is part of the assignment flow 1`] = `
+exports[`SpringBoard component should render when it is part of the assignment flow 1`] = `
 <SpringBoard
   isPartOfAssignmentFlow={true}
 >

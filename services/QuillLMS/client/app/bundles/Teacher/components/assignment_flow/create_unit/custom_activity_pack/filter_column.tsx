@@ -26,6 +26,9 @@ interface FilterColumnProps {
   handleReadabilityGradeLevelFilterChange: (readabilityGradeLevelFilters: number[]) => void,
   topicFilters: number[],
   handleTopicFilterChange: (topicFilters: number[]) => void,
+  savedActivityFilters: number[],
+  handleSavedActivityFilterChange: () => void,
+  savedActivityIds: number[]
 }
 
 const FilterColumn = ({
@@ -45,7 +48,10 @@ const FilterColumn = ({
   readabilityGradeLevelFilters,
   handleReadabilityGradeLevelFilterChange,
   topicFilters,
-  handleTopicFilterChange
+  handleTopicFilterChange,
+  savedActivityFilters,
+  handleSavedActivityFilterChange,
+  savedActivityIds
 }: FilterColumnProps) => {
   const numberOfFilters = calculateNumberOfFilters()
   const clearAllButton = numberOfFilters ? <button className="interactive-wrapper clear-filter focus-on-light" onClick={resetAllFilters} type="button">Clear all filters</button> : <span />
@@ -63,6 +69,9 @@ const FilterColumn = ({
       activityClassificationFilters={activityClassificationFilters}
       filterActivities={filterActivities}
       handleActivityClassificationFilterChange={handleActivityClassificationFilterChange}
+      handleSavedActivityFilterChange={handleSavedActivityFilterChange}
+      savedActivityFilters={savedActivityFilters}
+      savedActivityIds={savedActivityIds}
     />
     <ReadabilityGradeLevelFilters
       handleReadabilityGradeLevelFilterChange={handleReadabilityGradeLevelFilterChange}

@@ -500,10 +500,28 @@ textarea.submission {
     a {
       color: white;;
     }
+    button {
+      display: flex;
+      align-items: center;
+      background-color: #06806b;
+      color: white;
+      border: none;
+      img {
+        margin-right: 4px;
+        height: 32px;
+        max-height: 32px;
+      }
+    }
   }
 }
 
 .sider-container {
   background-color: white;
   width: 360px;
+}
+
+@media (max-width: 850px) {
+  .ant-layout-header {
+    padding: 0px 16px;
+  }
 }
