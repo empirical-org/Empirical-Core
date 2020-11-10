@@ -25,10 +25,10 @@ class Api::V1::ActivitySessionsController < Api::ApiController
     else
       status = :unprocessable_entity
       message = "Activity Session Update Failed"
-      errors = @activity_session.errors
+      @errors = @activity_session.errors
     end
 
-    render json: @activity_session, meta: {message: message, errors: errors || []}, status: status, serializer: ActivitySessionSerializer
+    render json: @activity_session, meta: {message: message, errors: @errors || []}, status: status, serializer: ActivitySessionSerializer
   end
   # POST
   def create
