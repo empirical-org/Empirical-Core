@@ -35,10 +35,7 @@ class SegmentAnalytics
     track(user, {
       user_id: teacher_id,
       event: SegmentIo::BackgroundEvents::ACTIVITY_ASSIGNMENT,
-      properties: {
-        activity_name: activity.name,
-        tool_name: activity.classification.name.split(' ')[1]
-      }
+      properties: activity_info_for_tracking(activity)
     })
   end
 
@@ -63,6 +60,13 @@ class SegmentAnalytics
         activity_pack_name: unit.name,
         activity_pack_type: activity_pack_type
       }
+    })
+  end
+
+  def track_activity_completion(user, activity)
+    track(user, {
+      event: SegmentIo::BackgroundEvents::ACTIVITY_COMPLETION,
+      properties: activity_info_for_tracking(activity)
     })
   end
 
@@ -144,5 +148,12 @@ class SegmentAnalytics
 
   def user_traits(user)
     SegmentAnalyticsUserSerializer.new(user).as_json(root: false)
+  end
+
+  def activity_info_for_tracking(activity)
+    {
+      activity_name: activity.name,
+      tool_name: activity.classification.name.split(' ')[1]
+    }
   end
 end

@@ -37,6 +37,20 @@ describe 'SegmentAnalytics' do
     end
   end
 
+  context 'tracking activity completion' do
+    let(:teacher) { create(:teacher) }
+    let(:activity) { create(:diagnostic_activity) }
+
+    it 'sends an event with information about the activity' do
+      analytics.track_activity_completion(teacher, activity)
+      expect(identify_calls.size).to eq(0)
+      expect(track_calls.size).to eq(1)
+      expect(track_calls[0][:event]).to eq(SegmentIo::BackgroundEvents::ACTIVITY_COMPLETION)
+      expect(track_calls[0][:properties][:activity_name]).to eq(activity.name)
+      expect(track_calls[0][:properties][:tool_name]).to eq('Diagnostic')
+    end
+  end
+
   context 'tracking activity pack assignment' do
     let(:teacher) { create(:teacher) }
 
