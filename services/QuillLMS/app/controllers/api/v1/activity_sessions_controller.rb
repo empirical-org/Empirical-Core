@@ -15,32 +15,21 @@ class Api::V1::ActivitySessionsController < Api::ApiController
     # FIXME: ignore id because it's related to inconsistency between
     # naming - id in app and uid here
     if @activity_session.completed_at
-      render json: @activity_session, meta: {
-        status: :failed,
-        message: "Activity Session Already Completed",
-        errors: "This activity session has already been completed."
-      }, status: :unprocessable_entity, serializer: ActivitySessionSerializer
+      status = :unprocessable_entity
+      message = "Activity Session Already Completed"
     elsif @activity_session.update(activity_session_params.except(:id, :concept_results))
+      status = :ok
+      message = "Activity Session Updated"
       NotifyOfCompletedActivity.new(@activity_session).call if @activity_session.classroom_unit_id
-
-      if @concept_results
-        handle_concept_results
-      end
-      @status = :success
-      render json: @activity_session, meta: {
-        status: :success,
-        message: "Activity Session Updated",
-        errors: [] # FIXME: this is dumb
-      }, serializer: ActivitySessionSerializer
+      handle_concept_results
     else
-      render json: @activity_session, meta: {
-        status: :failed,
-        message: "Activity Session Update Failed",
-        errors: @activity_session.errors
-      }, status: :unprocessable_entity, serializer: ActivitySessionSerializer
+      status = :unprocessable_entity
+      message = "Activity Session Update Failed"
+      @errors = @activity_session.errors
     end
-  end
 
+    render json: @activity_session, meta: {message: message, errors: @errors || []}, status: status, serializer: ActivitySessionSerializer
+  end
   # POST
   def create
 
@@ -81,17 +70,22 @@ class Api::V1::ActivitySessionsController < Api::ApiController
   private
 
   def handle_concept_results
-    valid_concept_uids_and_ids = Concept.where(uid: @concept_results.map{|cr| cr[:concept_uid]}).pluck(:uid, :id)
-    concept_results_to_save = []
-    @concept_results.each do |cr|
-      valid_info = valid_concept_uids_and_ids.find{|concept| concept.first == cr[:concept_uid]}
-      if valid_info
-        cr[:activity_session_id] = @activity_session.id
-        cr[:concept_id] = valid_info.last
-        concept_results_to_save.push(cr)
-      end
+    return if !@concept_results && !@activity_session.activity.uses_feedback_history?
+
+    if @concept_results
+      concept_results_to_save = @concept_results.map{ |c| concept_results_hash(c) }.reject(&:empty?)
+    elsif @activity_session.activity.uses_feedback_history?
+      histories = FeedbackHistory.used.where(activity_session_uid: @activity_session.uid)
+      concept_results_to_save = histories.map(&:concept_results_hash).reject(&:empty?)
     end
     ConceptResult.bulk_insert(values: concept_results_to_save)
+  end
+
+  def concept_results_hash(concept_result)
+    concept = Concept.find_by(uid: concept_result["concept_uid"])
+    return {} if concept.blank?
+
+    concept_result.merge(concept_id: concept.id, activity_session_id: @activity_session.id)
   end
 
   def find_activity_session
