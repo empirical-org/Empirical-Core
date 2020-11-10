@@ -26,7 +26,6 @@ const EventDefinitions = [
   {CLICK_SHOW_HIDE_PASSWORD: new Event('clickShowHidePassword', ['setState'])},
   {CLICK_SIGN_UP: new Event('clickSignUp', ['location'])},
   {CLICK_SKIP_SELECT_SCHOOL: new Event('clickSkipSelectSchool')},
-  {JOIN_CLASS: new Event('joinClass', ['mechanism'])},
   {SUBMIT_FORGOT_PASSWORD_EMAIL: new Event('submitForgotPasswordEmail')},
   {SUBMIT_LOG_IN: new Event('submitLogIn', ['provider'])},
   {SUBMIT_SAVE_NEW_PASSWORD: new Event('submitSaveNewPassword', ['source'])},
