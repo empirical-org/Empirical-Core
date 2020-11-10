@@ -38,6 +38,10 @@ class School < ActiveRecord::Base
    subscriptions.where("expiration > ? AND start_date <= ?", Date.today, Date.today).order(expiration: :desc).limit(1).first
   end
 
+  def present_and_future_subscriptions
+    subscriptions.where("expiration > ? AND de_activated_date IS NULL", Date.today).order(expiration: :asc)
+  end
+
   def ulocal_to_school_type
     data = {
       "11": "City, Large",
