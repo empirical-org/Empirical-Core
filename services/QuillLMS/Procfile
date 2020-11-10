@@ -7,9 +7,6 @@ worker: MALLOC_ARENA_MAX=2 bundle exec sidekiq -q critical -q critical_external 
 
 reportworker: MALLOC_ARENA_MAX=2 bundle exec sidekiq -q default -q low -q critical -q critical_external
 
-# TODO remove (need to leave on initial deploy to drain queue)
-googleworker: MALLOC_ARENA_MAX=2 bundle exec sidekiq -q google
-
 # Backup workers that we can use in case we need to isolate external jobs from the queue
 externalworker: MALLOC_ARENA_MAX=2 bundle exec sidekiq -q critical_external
 
