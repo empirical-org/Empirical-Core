@@ -24,7 +24,8 @@ class ActivitySession < ActiveRecord::Base
   belongs_to :user
 
   before_create :set_state
-  before_save   :set_completed_at, :set_activity_id, :set_score_from_feedback_history
+  before_save   :set_completed_at, :set_activity_id
+  before_save   :set_score_from_feedback_history, if: [:finished?, :uses_feedback_history?]
 
   after_save    :determine_if_final_score, :update_milestones
 
@@ -209,8 +210,11 @@ class ActivitySession < ActiveRecord::Base
     (percentage*100).round
   end
 
+  def uses_feedback_history?
+    activity&.uses_feedback_history?
+  end
+
   def set_score_from_feedback_history
-    return if state != FINISHED_STATE || !activity&.uses_feedback_history?
     max_attempts_per_prompt = FeedbackHistory.used.where(activity_session_uid: uid).group(:prompt_id).maximum(:attempt)
     return if max_attempts_per_prompt.empty?
 

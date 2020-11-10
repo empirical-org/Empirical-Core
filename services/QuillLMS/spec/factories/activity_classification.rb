@@ -82,7 +82,7 @@ FactoryBot.define do
       id 7
       name 'Quill Comprehension'
       key 'comprehension'
-      app_name 'conmprehension'
+      app_name 'comprehension'
       uid '_o5-YkUO5wfTAVo9j0BweQ'
       order_number 6
       form_url 'https://www.quill.org/comprehension/#/play'

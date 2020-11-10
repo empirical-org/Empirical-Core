@@ -14,21 +14,21 @@ class Api::V1::ActivitySessionsController < Api::ApiController
   def update
     # FIXME: ignore id because it's related to inconsistency between
     # naming - id in app and uid here
-    meta = { message: "Activity Session Updated", errors: {} }
-
     if @activity_session.completed_at
       status = :unprocessable_entity
-      meta.update(message: "Activity Session Already Completed")
+      message = "Activity Session Already Completed"
     elsif @activity_session.update(activity_session_params.except(:id, :concept_results))
       status = :ok
+      message = "Activity Session Updated"
       NotifyOfCompletedActivity.new(@activity_session).call if @activity_session.classroom_unit_id
       handle_concept_results
     else
       status = :unprocessable_entity
-      meta.update(message: "Activity Session Update Failed", errors: @activity_session.errors)
+      message = "Activity Session Update Failed"
+      errors = @activity_session.errors
     end
 
-    render json: @activity_session, meta: meta, status: status, serializer: ActivitySessionSerializer
+    render json: @activity_session, meta: {message: message, errors: errors || []}, status: status, serializer: ActivitySessionSerializer
   end
   # POST
   def create
@@ -73,7 +73,7 @@ class Api::V1::ActivitySessionsController < Api::ApiController
     return if !@concept_results && !@activity_session.activity.uses_feedback_history?
 
     if @concept_results
-      concept_results_to_save = @concept_results.map(&method(:concept_results_hash)).reject(&:empty?)
+      concept_results_to_save = @concept_results.map{ |c| concept_results_hash(c) }.reject(&:empty?)
     elsif @activity_session.activity.uses_feedback_history?
       histories = FeedbackHistory.used.where(activity_session_uid: @activity_session.uid)
       concept_results_to_save = histories.map(&:concept_results_hash).reject(&:empty?)
@@ -85,9 +85,7 @@ class Api::V1::ActivitySessionsController < Api::ApiController
     concept = Concept.find_by(uid: concept_result["concept_uid"])
     return {} if concept.blank?
 
-    concept_result[:activity_session_id] = @activity_session.id
-    concept_result[:concept_id] = concept.id
-    concept_result
+    concept_result.merge(concept_id: concept.id, activity_session_id: @activity_session.id)
   end
 
   def find_activity_session
