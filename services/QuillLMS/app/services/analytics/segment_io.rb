@@ -22,10 +22,11 @@ module SegmentIo
     TEACHERS_STUDENT_SIGNIN ||= "Teacher's student signed in"
     CLASSROOM_CREATION ||= 'Teacher created a classroom'
     ACTIVITY_COMPLETION ||= 'Student completed an activity'
+    ACTIVITY_PACK_ASSIGNMENT ||= 'Teacher assigned an activity pack'
     ACTIVITY_ASSIGNMENT ||= 'Teacher assigned an activity'
     USER_COMPLETED_MILESTONE ||= 'User Completed Milestone'
-    ASSIGN_FEATURED_ACTIVITY_PACK ||= 'Assign Featured Activity Pack'
-    BUILD_YOUR_OWN_ACTIVITY_PACK ||= 'Build Your Own Activity Pack'
+    # ASSIGN_FEATURED_ACTIVITY_PACK ||= 'Teacher assigned an activity'
+    # BUILD_YOUR_OWN_ACTIVITY_PACK ||= 'Teacher assigned an activity'
     ACCESS_PROGRESS_REPORT ||= 'Teacher opened progress report'
     ASSIGN_DIAGNOSTIC ||= 'Teacher assigned the diagnostic'
     ASSIGN_RECOMMENDATIONS ||= 'Teacher assigned the recommendations'

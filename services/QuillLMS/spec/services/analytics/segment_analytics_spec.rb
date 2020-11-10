@@ -26,10 +26,10 @@ describe 'SegmentAnalytics' do
     let(:teacher) { create(:teacher) }
 
     it 'sends an event' do
-      analytics.track_activity_assignment(teacher.id)
+      analytics.track_activity_pack_assignment(teacher.id)
       expect(identify_calls.size).to eq(0)
       expect(track_calls.size).to eq(1)
-      expect(track_calls[0][:event]).to eq(SegmentIo::BackgroundEvents::ACTIVITY_ASSIGNMENT)
+      expect(track_calls[0][:event]).to eq(SegmentIo::BackgroundEvents::ACTIVITY_PACK_ASSIGNMENT)
       expect(track_calls[0][:user_id]).to eq(teacher.id)
     end
   end

@@ -5,8 +5,7 @@ class CheckboxAnalyticsWorker
     user = User.find_by(id: user_id)
     analytics = SegmentAnalytics.new
     if report_to_segment?(name)
-      constanty_name = name.upcase.gsub(' ', '_')
-      analytics.track_event_from_string(constanty_name, user_id)
+      analytics.track_event_from_string(SegmentIo::BackgroundEvents::ACTIVITY_ASSIGNMENT, user_id)
     end
   end
 

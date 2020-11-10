@@ -9,7 +9,7 @@ describe AssignActivityWorker, type: :worker do
     worker.perform(teacher.id)
 
     expect(analytics.backend.track_calls.size).to eq(1)
-    expect(analytics.backend.track_calls[0][:event]).to eq(SegmentIo::BackgroundEvents::ACTIVITY_ASSIGNMENT)
+    expect(analytics.backend.track_calls[0][:event]).to eq(SegmentIo::BackgroundEvents::ACTIVITY_PACK_ASSIGNMENT)
     expect(analytics.backend.track_calls[0][:user_id]).to eq(teacher.id)
   end
 end
