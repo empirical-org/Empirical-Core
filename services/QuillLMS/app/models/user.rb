@@ -439,10 +439,6 @@ class User < ActiveRecord::Base
     end
   end
 
-  def send_welcome_email
-    UserMailer.welcome_email(self).deliver_now! if email.present? && !auditor?
-  end
-
   def send_account_created_email(temp_password, admin_name)
     UserMailer.account_created_email(self, temp_password, admin_name).deliver_now! if email.present?
   end

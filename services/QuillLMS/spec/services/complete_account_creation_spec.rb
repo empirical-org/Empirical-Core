@@ -2,14 +2,6 @@ require 'rails_helper'
 
 describe CompleteAccountCreation do
 
-  it 'triggers the welcome email worker when user is a teacher' do
-    user = create(:user, role: 'teacher')
-
-    expect(WelcomeEmailWorker).to receive(:perform_async).with(user.id)
-
-    CompleteAccountCreation.new(user, 'some_ip').call
-  end
-
   it 'triggers account creation when user is a teacher' do
     user = create(:user, role: 'teacher')
 
