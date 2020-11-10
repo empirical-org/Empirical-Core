@@ -28,12 +28,26 @@ class SegmentAnalytics
       })
   end
 
+  def track_activity_assignment(teacher_id, activity_id)
+    user = User.find(teacher_id)
+    activity = Activity.find(activity_id)
+
+    track(user, {
+      user_id: teacher_id,
+      event: SegmentIo::BackgroundEvents::ACTIVITY_ASSIGNMENT,
+      properties: {
+        activity_name: activity.name,
+        tool_name: activity.classification.name.split(' ')[1]
+      }
+    })
+  end
+
   def track_activity_pack_assignment(teacher_id, unit_id)
     user = User.find(teacher_id)
     unit = Unit.find(unit_id)
 
     if unit.unit_template_id
-      if unit.activities.all? { |a| Activity.diagnostic_activity_ids.includes(a.id) }
+      if unit.activities.all? { |a| Activity.diagnostic_activity_ids.include?(a.id) }
         activity_pack_type = 'Diagnostic'
       else
         activity_pack_type = 'Pre-made'

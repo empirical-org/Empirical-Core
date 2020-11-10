@@ -5,6 +5,7 @@ describe CheckboxAnalyticsWorker do
 
   describe '#perform' do
     let!(:user) { create(:user) }
+    let!(:activity) { create(:activity) }
     let(:analyzer) { double(:analyzer) }
 
     before do
@@ -12,8 +13,8 @@ describe CheckboxAnalyticsWorker do
     end
 
     it 'should track the event' do
-      expect(analyzer).to receive(:track_event_from_string).with("BUILD_YOUR_OWN_ACTIVITY_PACK", user.id)
-      subject.perform(user.id, "Build Your Own Activity Pack")
+      expect(analyzer).to receive(:track_activity_assignment).with(user.id, activity.id)
+      subject.perform(user.id, activity.id)
     end
   end
 end
