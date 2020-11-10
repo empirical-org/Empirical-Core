@@ -1,6 +1,5 @@
 import React from 'react';
 import request from 'request';
-import { SegmentAnalytics, Events } from '../../../../../modules/analytics';
 
 import PasswordInfo from './password_info.jsx';
 import AssignActivityPackBanner from '../assignActivityPackBanner'
@@ -43,12 +42,10 @@ class LoginFormApp extends React.Component {
 
   handleCleverClick = (e) => {
     const { cleverLink, } = this.props
-    SegmentAnalytics.track(Events.SUBMIT_LOG_IN, {provider: Events.providers.CLEVER})
     window.location.href = cleverLink
   }
 
   handleGoogleClick = (e) => {
-    SegmentAnalytics.track(Events.SUBMIT_LOG_IN, {provider: Events.providers.GOOGLE});
     this.fetchUser().then(userData => {
         var now = new Date().toISOString();
         if (userData.user === null || (userData.hasOwnProperty('role') && !userData.user.has_refresh_token) ||
@@ -75,14 +72,12 @@ class LoginFormApp extends React.Component {
   }
 
   handleSignUpClick = (e) => {
-    SegmentAnalytics.track(Events.CLICK_SIGN_UP, {location: 'doNotHaveAccount'})
     window.location.href = '/account/new'
   }
 
   handleSubmit = (e) => {
     const { timesSubmitted, email, password, } = this.state;
     e.preventDefault();
-    SegmentAnalytics.track(Events.SUBMIT_LOG_IN, {provider: Events.providers.EMAIL});
     request({
       url: `${process.env.DEFAULT_URL}/session/login_through_ajax`,
       method: 'POST',
@@ -119,11 +114,7 @@ class LoginFormApp extends React.Component {
   handleTogglePassClick = () => {
     this.setState(prevState => ({
       showPass: !prevState.showPass,
-    }), () => {
-      const { showPass, } = this.state
-      let setState = showPass ? 'showPassword' : 'hidePassword';
-      SegmentAnalytics.track(Events.CLICK_SHOW_HIDE_PASSWORD, {setState: setState});
-    });
+    }))
   }
 
   submitClass = () => {

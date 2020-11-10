@@ -50,20 +50,8 @@
 	  			<%= render 'navbar/quill_support', active_tab: active_tab  %>
 	   		<% end %>
   		<%- if current_user.nil? %>
-            <%= render layout: "tracked_link", locals: { href: "/session/new",
-                                                         classes: "text-white nav-element",
-                                                         event: SegmentIo::Events::CLICK_LOG_IN,
-                                                         properties: { location: "header" }
-                                                        } do %>
-                  Log In
-                <% end %>
-                <%= render layout: "tracked_link", locals: { href: "/account/new",
-                                                             classes: "sign-up-button text-white nav-element",
-                                                             event: SegmentIo::Events::CLICK_SIGN_UP,
-                                                             properties: { location: "header" }
-                                                            } do %>
-                  Sign Up
-                <% end %>
+				<a class="text-white" href="/session/new">Log In</a>
+				<a class="text-white" href="/account/new">Sign Up</a>
   		<%- elsif current_user.role == 'teacher' %>
   			<div class='navigation-vertical-rule hide-on-mobile nav-element'></div>
   			<div id="nav-user-dropdown" class="dropdown-closed hide-on-mobile nav-element <%= user_dropdown_class %>">
@@ -136,22 +124,10 @@
 		        <a href="/about" class="text-white">About Us</a>
 		      </li>
 		      <li>
-                        <%= render layout: "tracked_link", locals: { href: "/session/new",
-                                                                     classes: "text-white",
-                                                                     event: SegmentIo::Events::CLICK_LOG_IN,
-                                                                     properties: { location: "header" }
-                                                                    } do %>
-                          Log In
-                        <% end %>
+						<a class="text-white" href="/session/new">Log In</a>
 		      </li>
 		      <li>
-                        <%= render layout: "tracked_link", locals: { href: "/account/new",
-                                                                     classes: "text-white",
-                                                                     event: SegmentIo::Events::CLICK_SIGN_UP,
-                                                                     properties: { location: "header" }
-                                                                    } do %>
-                          Sign Up
-                        <% end %>
+						<a class="text-white" href="/account/new">Sign Up</a>
 		      </li>
 				<% else %>
 					<li>

@@ -14,7 +14,6 @@ module SegmentIo
   end
 
   module BackgroundEvents
-    CLICK_SIGN_UP ||= 'Click Sign Up'
     TEACHER_ACCOUNT_CREATION ||= 'Teacher created an account'
     TEACHER_SIGNED_UP_FOR_NEWSLETTER ||= 'Teacher signed up for newsletter'
     TEACHERS_STUDENT_ACCOUNT_CREATION ||= "Teacher's student account created"
@@ -43,8 +42,6 @@ module SegmentIo
 
   module Events
     # New events that may overlap with those defined in a front-end React module
-    CLICK_SIGN_UP = 'ClickSignUp'
-    CLICK_LOG_IN = 'ClickLogIn'
   end
 
 end
