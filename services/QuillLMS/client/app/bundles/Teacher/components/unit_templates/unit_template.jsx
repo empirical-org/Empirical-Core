@@ -2,7 +2,7 @@ import React from 'react';
 import createReactClass from 'create-react-class';
 import CheckBoxes from '../general_components/check_boxes/check_boxes.jsx';
 import DropdownSelector from '../general_components/dropdown_selectors/dropdown_selector.jsx';
-import ActivitySearchAndSelect from '../assignment_flow/create_unit/activity_search/activity_search_and_select.jsx';
+import CustomActivityPack from '../assignment_flow/create_unit/custom_activity_pack/index';
 import Server from '../modules/server/server.jsx';
 import Fnl from '../modules/fnl.jsx';
 import TextInputGenerator from '../modules/componentGenerators/text_input_generator.jsx';
@@ -163,11 +163,11 @@ export default createReactClass({
     return '';
   },
 
-  handleSort(sortInfo) {
+  handleNewSelectedActivities(newSelectedActivities) {
     const { model, } = this.state
-    const newOrder = sortInfo.map(item => item.key);
-    const newOrderedActivities = newOrder.map((key, i) => {
-      const activity = model.activities[key];
+    const selectedActivities = newSelectedActivities.map(item => item.id);
+    const newOrderedActivities = selectedActivities.map((key, i) => {
+      const activity = model.activities.find(a => a.id === key);
       activity.order_number = i;
       return activity;
     }).sort((act1, act2) => act1.order_number - act2.order_number)
@@ -221,12 +221,11 @@ export default createReactClass({
     />);
   },
 
-  getActivitySearchAndSelect() {
-    return (<ActivitySearchAndSelect
-      errorMessage={this.props.errorMessage}
+  getCustomActivityPack() {
+    return (<CustomActivityPack
+      clickContinue={this.save}
       selectedActivities={this.state.model.activities}
-      sortable={true}
-      sortCallback={this.handleSort}
+      setSelectedActivities={this.handleNewSelectedActivities}
       toggleActivitySelection={this.toggleActivitySelection}
     />);
   },
@@ -254,7 +253,7 @@ export default createReactClass({
         {this.getGradeCheckBoxes()}
         {this.getStatusFlag()}
         <span>
-          {this.getActivitySearchAndSelect()}
+          {this.getCustomActivityPack()}
           {this.getErrorMessageAndButton()}
         </span>
       </span>

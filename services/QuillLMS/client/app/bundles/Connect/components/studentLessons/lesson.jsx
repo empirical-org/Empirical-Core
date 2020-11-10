@@ -262,7 +262,8 @@ export class Lesson extends React.Component {
 
   saveSessionIdToState = () => {
     let sessionID = getParameterByName('student');
-    if (sessionID === 'null') {
+    const badSessionIds = ['null', 'nullhttps://connect.quill.org/', 'nullhttps:/connect.quill.org/']
+    if (badSessionIds.includes(sessionID)) {
       sessionID = undefined;
     }
     this.setState({ sessionID, sessionInitialized: true}, () => {

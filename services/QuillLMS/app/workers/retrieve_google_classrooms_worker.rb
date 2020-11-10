@@ -1,6 +1,6 @@
 class RetrieveGoogleClassroomsWorker
   include Sidekiq::Worker
-  sidekiq_options queue: SidekiqQueue::CRITICAL
+  sidekiq_options queue: SidekiqQueue::CRITICAL_EXTERNAL
 
   SERIALIZED_GOOGLE_CLASSROOMS_CACHE_LIFE = 60
 

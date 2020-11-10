@@ -14,13 +14,6 @@
 }
 
 #activity-planner {
-  .create-your-own-activity-pack-header {
-    font-size: 24px;
-    font-weight: bold;
-    line-height: 1.33;
-    margin-bottom: 40px;
-    text-align: center;
-  }
   .activity_category {
     width: 236px;
   }
@@ -39,72 +32,11 @@
   .standard_level {
     width: 183px;
   }
-  .drop-down-filters-and-search {
-    margin-bottom: 32px;
-  }
-  .clear-all-filters {
-    color: #027630;
-    font-size: 16px;
-    margin-top: 16px;
-    cursor: pointer;
-    line-height: 1;
-  }
-  .search-activities {
-    display: flex;
-    align-items: flex-end;
-    img {
-      margin-right: 8px;
-      margin-bottom: 6px;
-    }
-    .input-container {
-      width: 371px;
-      min-height: min-content;
-    }
-  }
   .activity-page-dropdown-wrapper {
     padding: 16px 32px;
     border-radius: 6px;
     border: solid 1px #e0e0e0;
     background-color: #fff;
-    .app-button-container {
-      display: flex;
-      .activity-type-section {
-        h3 {
-          font-size: 14px;
-          line-height: 1;
-          color: #7f7f7f;
-          margin-bottom: 8px;
-        }
-        .app-buttons {
-          display: flex;
-          .filter-button:focus {
-            outline: none;
-          }
-        }
-        &.diagnostic-section, &.whole-class-section {
-          margin-right: 16px;
-        }
-        &.independent-practice-section {
-          button:not(:last-of-type) {
-            border-right: 1px solid white;
-          }
-        }
-      }
-    }
-    .activity-filter-drop-downs {
-      align-items: flex-end;
-      .dropdown {
-        margin-bottom: 4px;
-      }
-      .activity_category {
-        margin-right: 32px;
-      }
-      .dropdown-container.active {
-        .dropdown {
-          margin-bottom: 40px;
-        }
-      }
-    }
   }
 }
 
@@ -129,9 +61,6 @@
       font-weight: bold;
       text-align: center;
       margin-bottom: 40px;
-    }
-    .section-header {
-      font-size: 18px;
     }
     .assignment-section {
       border-radius: 6px;
@@ -554,9 +483,6 @@
     text-overflow: ellipsis;
   }
 }
-.activity_link {
-  color: #027360;
-}
 .scorebook-icon-check {
   background-image: url("https://assets.quill.org/images/scorebook/icon-check.png");
   background-repeat: no-repeat;
@@ -652,7 +578,7 @@
     }
   }
 }
-#search_activities_input, #unit_name {
+#unit_name {
   margin-top: 20px;
 }
 
@@ -744,85 +670,5 @@
         margin: 0px 8px;
       }
     }
-  }
-}
-
-.activity-filter.button-row {
-  padding: 0;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  -ms-flex-wrap: wrap;
-      flex-wrap: wrap;
-  button {
-    background-color: #ffffff;
-    border-radius: 4px;
-    border: solid 1px #e0e0e0;
-    box-shadow: none !important;
-    box-sizing:border-box;
-    display: -ms-flexbox;
-    display: -webkit-box;
-    display: flex;
-    flex-direction: column;
-        -ms-flex-direction: column;
-    height: 98px;
-    padding: 16px;
-    width: 171px;
-    -webkit-box-orient: horizontal;
-    -webkit-box-direction: normal;
-
-    &.active, &:hover {
-      border: solid 2px #009a80 !important;
-      padding: 15px;
-    }
-    h4 {
-      text-align: left;
-      padding-top: 4px;
-      font-size: 14px;
-      font-weight: 600;
-      margin-bottom: 4px;
-      margin-top: 8px;
-      line-height: 1;
-    }
-    p {
-      font-size: 12px;
-      font-weight: normal;
-      font-style: normal;
-      font-stretch: normal;
-      line-height: 1.33;
-      letter-spacing: normal;
-      color: #7f7f7f;
-    }
-    &.connect {
-      border-radius: 4px 0px 0px 4px;
-    }
-    &.sentence {
-      border-radius: 0px;
-    }
-    &.passage {
-      border-radius: 0px 4px 4px 0px;
-    }
-  }
-
-  button:last-of-type {
-    margin-right: 0;
-  }
-  .clear-filters {
-    padding: 1em;
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
-    -webkit-box-align: center;
-        -ms-flex-align: center;
-            align-items: center;
-    img {
-      padding-right: 8px;
-      margin-bottom: 2px;
-    }
-  }
-}
-
-#custom-activity-pack-dropdown {
-  .dropdown__menu-list {
-    max-height: 70vh !important;
   }
 }

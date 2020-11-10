@@ -4,6 +4,14 @@ import { mount } from 'enzyme';
 import { activities } from './data'
 import CustomActivityPack from '../index'
 
+jest.mock('query-string', () => ({
+    default: {
+      parseUrl: jest.fn(() => ({ query: {} })),
+      stringifyUrl: jest.fn(() => '')
+    }
+  })
+)
+
 describe('CustomActivityPack Index component', () => {
 
   it('should render', () => {

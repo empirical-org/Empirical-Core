@@ -292,7 +292,7 @@ export default class LessonPlanner extends React.Component {
     // if (this.state.unitTemplatesManager.assignSuccess === true && (!tabParam || tabParam === ('featured-activity-packs' || 'explore-activity-packs'))) {
     // 	tabSpecificComponents = <UnitTemplatesAssigned data={this.state.unitTemplatesManager.lastActivityAssigned} actions={this.unitTemplatesAssignedActions()}/>;
     // } else
-    if ((tabParam === 'create-activity-pack' || (this.state.tab === 'createUnit' && !tabParam))) {
+    if ((tabParam === 'activity-library' || (this.state.tab === 'createUnit' && !tabParam))) {
       tabSpecificComponents = (<CreateUnit
         actions={{
           toggleStage: this.toggleStage,

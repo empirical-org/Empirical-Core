@@ -1,0 +1,102 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`TeacherNavbar renders when the language menu is not open 1`] = `
+<Header
+  className="header"
+>
+  <Row
+    align="middle"
+    gutter={0}
+    justify="space-between"
+    style={
+      Object {
+        "height": "100%",
+        "margin": "auto",
+        "maxWidth": "800px",
+      }
+    }
+    type="flex"
+  >
+    <a
+      className="focus-on-dark"
+    >
+      <img
+        alt="Quill logo"
+        src="undefined/images/logos/quill-logo-white.svg"
+      />
+    </a>
+    <a
+      className="focus-on-dark"
+    >
+      Save and exit
+    </a>
+  </Row>
+</Header>
+`;
+
+exports[`TeacherNavbar renders when the language menu is open 1`] = `
+<Header
+  className="header"
+>
+  <Row
+    align="middle"
+    gutter={0}
+    justify="space-between"
+    style={
+      Object {
+        "height": "100%",
+        "margin": "auto",
+        "maxWidth": "800px",
+      }
+    }
+    type="flex"
+  >
+    <a
+      className="focus-on-dark"
+    >
+      <img
+        alt="Quill logo"
+        src="undefined/images/logos/quill-logo-white.svg"
+      />
+    </a>
+    <button
+      className="focus-on-dark"
+      onClick={[Function]}
+      type="button"
+    >
+      <img
+        alt="Close icon"
+        src="undefined/images/icons/close-white.svg"
+      />
+      <span>
+        Close
+      </span>
+    </button>
+  </Row>
+  <Row
+    align="middle"
+    gutter={0}
+    justify="space-between"
+    style={
+      Object {
+        "height": "100%",
+        "margin": "auto",
+        "maxWidth": "800px",
+      }
+    }
+    type="flex"
+  >
+    <div
+      className="mobile-student-language-menu"
+    >
+      <h2>
+        Choose a directions language
+      </h2>
+      <Component
+        diagnosticID="bacana-banana"
+        dispatch={[Function]}
+      />
+    </div>
+  </Row>
+</Header>
+`;

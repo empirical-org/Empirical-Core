@@ -1,6 +1,6 @@
 class GoogleStudentImporterWorker
   include Sidekiq::Worker
-  sidekiq_options queue: SidekiqQueue::CRITICAL
+  sidekiq_options queue: SidekiqQueue::CRITICAL_EXTERNAL
 
   def perform(teacher_id, context = "none", selected_classroom_ids=nil)
     begin
