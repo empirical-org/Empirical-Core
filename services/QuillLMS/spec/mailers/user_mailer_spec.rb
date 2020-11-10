@@ -5,17 +5,6 @@ describe UserMailer, type: :mailer do
     allow_any_instance_of(ActionView::Helpers::AssetTagHelper).to receive(:stylesheet_link_tag)
   end
 
-  describe 'welcome_email' do
-    let(:user) { build(:user) }
-    let(:mail) { described_class.welcome_email(user) }
-
-    it 'should set the subject, receiver and the sender' do
-      expect(mail.subject).to eq('Welcome to Quill!')
-      expect(mail.to).to eq([user.email])
-      expect(mail.from).to eq(['hello@quill.org'])
-    end
-  end
-
   describe 'invitation_to_non_existing_user' do
     let(:invitation_hash) { { "inviter_name" => "test", "inviter_email" => "inviter@test.com", "invitee_email" => "invitee@test.com", classroom_names: ["classroom1"] } }
     let(:mail) { described_class.invitation_to_non_existing_user(invitation_hash) }
