@@ -6,7 +6,6 @@ class CompleteAccountCreation
   end
 
   def call
-    WelcomeEmailWorker.perform_async(user.id) if user.teacher?
     IpLocationWorker.perform_async(user.id, ip) unless user.student?
     AccountCreationWorker.perform_async(user.id)
     true

@@ -1124,24 +1124,6 @@ describe User, type: :model do
     end
   end
 
-  describe '#send_welcome_email' do
-    let(:user) { build(:user) }
-
-    it 'sends welcome given email' do
-      user.email = 'present@exmaple.lan'
-      expect(UserMailer).to receive(:welcome_email).with(user).and_return(double('mailer', deliver_now!: true))
-
-      user.send(:send_welcome_email)
-    end
-
-    it 'does not send welcome without email' do
-      user.email = nil
-      expect(UserMailer).to_not receive(:welcome_email)
-
-      user.send(:send_welcome_email)
-    end
-  end
-
   describe 'can behave as either a student or teacher' do
     context 'when behaves like student' do
       it_behaves_like 'student'
