@@ -1,0 +1,34 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Header /> should render 1`] = `
+<Header
+  className="header"
+>
+  <Row
+    align="middle"
+    justify="space-between"
+    style={
+      Object {
+        "height": "100%",
+        "margin": "auto",
+        "maxWidth": "800px",
+      }
+    }
+    type="flex"
+  >
+    <a
+      className="focus-on-dark"
+    >
+      <img
+        alt="Quill logo"
+        src="undefined/images/logos/quill-logo-white.svg"
+      />
+    </a>
+    <a
+      className="focus-on-dark"
+    >
+      Save and exit
+    </a>
+  </Row>
+</Header>
+`;

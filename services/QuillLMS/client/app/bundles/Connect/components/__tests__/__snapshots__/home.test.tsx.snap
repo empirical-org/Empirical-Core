@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`PageLayout Component should match snapshot 1`] = `
+exports[`Home Component should match snapshot 1`] = `
 <Layout
   className="hide-focus-outline"
 >
@@ -27,17 +27,17 @@ exports[`PageLayout Component should match snapshot 1`] = `
         <Switch>
           <Route
             key="0"
-            path="/play/sw"
-            render={[Function]}
-          />
-          <Route
-            key="1"
             path="/admin"
             render={[Function]}
           />
           <Route
+            key="1"
+            path="/play/lesson/:lessonID"
+            render={[Function]}
+          />
+          <Route
             key="2"
-            path="/turk"
+            path="/play/turk/:lessonID"
             render={[Function]}
           />
         </Switch>

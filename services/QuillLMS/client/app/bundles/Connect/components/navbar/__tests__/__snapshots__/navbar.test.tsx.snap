@@ -1,12 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`<Header /> should render 1`] = `
+exports[`NavBar Component should match snapshot 1`] = `
 <Header
   className="header"
 >
   <Row
     align="middle"
-    gutter={0}
     justify="space-between"
     style={
       Object {
