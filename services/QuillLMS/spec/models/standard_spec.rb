@@ -44,6 +44,15 @@ describe Standard, type: :model do
 		end
 	end
 
+	context "when it is destroyed" do
+
+		it "must nullify associated activity records" do
+			activity = create(:activity, standard_id: standard.id)
+			standard.destroy!
+			expect(activity.reload.standard_id).to be(nil)
+		end
+	end
+
 	context "retrieving standards for the progress report" do
     let(:filters) { {} }
 	  include_context 'Standard Progress Report'
