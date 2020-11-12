@@ -197,7 +197,6 @@ Sentences flow easily when all the actions in a list have the same ending. This 
       </ProgressBar>
       <Row
         align="middle"
-        gutter={0}
         justify="space-between"
         type="flex"
       >
@@ -214,7 +213,6 @@ Sentences flow easily when all the actions in a list have the same ending. This 
       <Row
         align="middle"
         className="example-container show"
-        gutter={0}
         justify="start"
         type="flex"
       >
@@ -239,7 +237,6 @@ Sentences flow easily when all the actions in a list have the same ending. This 
     >
       <Row
         align="middle"
-        gutter={0}
         justify="start"
         type="flex"
       >
@@ -260,7 +257,6 @@ Sentences flow easily when all the actions in a list have the same ending. This 
       </Row>
       <Row
         align="middle"
-        gutter={0}
         justify="start"
         type="flex"
       >
@@ -276,7 +272,6 @@ Sentences flow easily when all the actions in a list have the same ending. This 
       </Row>
       <Row
         align="middle"
-        gutter={0}
         justify="start"
         key="instructions"
         type="flex"
@@ -324,7 +319,6 @@ Sentences flow easily when all the actions in a list have the same ending. This 
       </Row>
       <Row
         align="middle"
-        gutter={0}
         justify="start"
         type="flex"
       >
@@ -366,7 +360,6 @@ Sentences flow easily when all the actions in a list have the same ending. This 
       </Row>
       <Row
         align="middle"
-        gutter={0}
         justify="end"
         type="flex"
       >
@@ -385,7 +378,6 @@ Sentences flow easily when all the actions in a list have the same ending. This 
       </Row>
       <Row
         align="middle"
-        gutter={0}
         justify="start"
         type="flex"
       >
