@@ -1,4 +1,4 @@
-<% unless Rails.env.test? || Rails.env.cypress? %>
+<% unless Rails.env.development? || Rails.env.test? || Rails.env.cypress? %>
   <!-- start Segment.io -->
   <script type="text/javascript">
 
@@ -25,8 +25,8 @@
       #   2) the user literally just logged out, and the controller let us know
       #   3) this is an anonymous user, in which case we don't do anything special at all
     %>
-    <% if current_user && !current_user.student? %>
-      analytics.identify(<%= raw(generate_segment_identify_arguments(current_user, load_intercom?)) %>);
+    <% if load_intercom? %>
+      analytics.identify(<%= raw(generate_segment_identify_arguments(current_user)) %>);
       <% if current_user.school %>
         analytics.group("<%= raw(current_user.school.id) %>", {
           name: "<%= raw(current_user.school.name) %>"

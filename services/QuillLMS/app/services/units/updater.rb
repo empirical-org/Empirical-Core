@@ -94,7 +94,7 @@ module Units::Updater
     if (hidden_ua_ids.any?) && (new_uas.none?)
       unit.hide_if_no_visible_unit_activities
     end
-    AssignActivityWorker.perform_async(current_user_id)
+    AssignActivityWorker.perform_async(current_user_id, unit_id)
   end
 
 end

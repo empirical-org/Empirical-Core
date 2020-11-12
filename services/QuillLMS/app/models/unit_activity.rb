@@ -15,7 +15,7 @@ class UnitActivity < ActiveRecord::Base
       owner = unit.user
       checkbox_name = checkbox_type
       if owner && unit.name
-        find_or_create_checkbox(checkbox_name, owner)
+        find_or_create_checkbox(checkbox_name, owner, activity_id)
       end
     end
   end

@@ -3,7 +3,6 @@ import request from 'request'
 import { Card } from 'quill-component-library/dist/componentLibrary'
 
 import AssignActivityPackBanner from '../assignActivityPackBanner'
-import { SegmentAnalytics, Events } from '../../../../../modules/analytics';
 import getAuthToken from '../../modules/get_auth_token';
 
 const homeSchoolSrc = `${process.env.CDN_URL}/images/onboarding/home-building.svg`
@@ -25,7 +24,6 @@ class SelectUSNonK12 extends React.Component {
   handleClickUSHigherEd = () => this.selectSchool('us higher ed')
 
   selectSchool(idOrType) {
-    SegmentAnalytics.track(Events.CLICK_CHOOSE_SCHOOL_TYPE, {schoolType: idOrType});
     request({
       url: `${process.env.DEFAULT_URL}/select_school`,
       json: {
