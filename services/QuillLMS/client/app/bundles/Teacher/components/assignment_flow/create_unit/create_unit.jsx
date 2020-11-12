@@ -3,7 +3,6 @@ import React from 'react';
 import Stage1 from './select_activities_container';
 import Stage2 from './stage2/Stage2';
 import UnitAssignmentFollowup from './unit_assignment_followup.tsx';
-import AnalyticsWrapper from '../../shared/analytics_wrapper';
 import {
   CLASSROOMS,
   UNIT_NAME,
@@ -116,8 +115,6 @@ export default class CreateUnit extends React.Component {
     this.setState({ stage, });
   }
 
-  analytics = () => new AnalyticsWrapper()
-
   areAnyStudentsSelected = () => {
     const classroomsWithSelectedStudents = this.getClassrooms().filter(c => {
       let includeClassroom;
@@ -140,7 +137,6 @@ export default class CreateUnit extends React.Component {
   }
 
   clickContinue = () => {
-    this.analytics().track('click Continue in lesson planner');
     this.props.history.push('/assign/select-classes')
     this.setStage(2);
     this.resetWindowPosition();

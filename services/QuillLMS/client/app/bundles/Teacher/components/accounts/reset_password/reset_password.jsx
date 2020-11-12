@@ -1,6 +1,5 @@
 import React from 'react'
 import request from 'request'
-import { SegmentAnalytics, Events } from '../../../../../modules/analytics';
 
 import getAuthToken from '../../modules/get_auth_token';
 import { Input, } from '../../../../Shared/index'
@@ -29,7 +28,6 @@ export default class ForgotPassword extends React.Component {
   handleSubmit = (e) => {
     const { timesSubmitted, password, passwordConfirmation, } = this.state
     e.preventDefault();
-    SegmentAnalytics.track(Events.SUBMIT_SAVE_NEW_PASSWORD, {source: 'passwordResetPage'});
     request({
       url: window.location.href,
       method: 'PUT',
