@@ -78,13 +78,6 @@ class SegmentAnalytics
     })
   end
 
-  def track_click_sign_up
-    track(nil, {
-      user_id: anonymous_uid,
-      event: SegmentIo::BackgroundEvents::CLICK_SIGN_UP
-    })
-  end
-
   def track_activity_search(user_id, search_query)
     user = User.find(user_id)
     track(user, {

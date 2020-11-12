@@ -4,7 +4,6 @@ class AccountsController < ApplicationController
   before_filter :set_user, only: [:create]
 
   def new
-    ClickSignUpWorker.perform_async
     if params[:redirect]
       session[:post_sign_up_redirect] = params[:redirect]
     end

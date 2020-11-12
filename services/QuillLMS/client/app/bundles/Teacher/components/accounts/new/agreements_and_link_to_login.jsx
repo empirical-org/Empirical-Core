@@ -1,5 +1,4 @@
 import React from 'react'
-import { SegmentAnalytics, Events } from '../../../../../modules/analytics';
 
 export default class AgreementsAndLinkToLogin extends React.Component {
 
@@ -10,7 +9,6 @@ export default class AgreementsAndLinkToLogin extends React.Component {
   }
 
   handleLogInClick = () => {
-    SegmentAnalytics.track(Events.CLICK_LOG_IN, {location: 'alreadyHaveAccount'})
     window.location.href = '/session/new'
   }
 
