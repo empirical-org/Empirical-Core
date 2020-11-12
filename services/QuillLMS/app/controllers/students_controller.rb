@@ -77,7 +77,6 @@ class StudentsController < ApplicationController
           JoinClassroomWorker.perform_async(current_user.id)
         rescue ActiveRecord::RecordNotFound => e
           if Classroom.unscoped.find_by(code: classcode).nil?
-            InvalidClasscodeWorker.perform_async(current_user.id, params[:classcode], classcode)
             flash[:error] = "Oops! There is no class with the code #{classcode}. Ask your teacher for help."
           else
             flash[:error] = "Oops! The class with the code #{classcode} is archived. Ask your teacher for help."

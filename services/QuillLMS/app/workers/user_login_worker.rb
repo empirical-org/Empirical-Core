@@ -20,14 +20,6 @@ class UserLoginWorker
             SegmentIo::BackgroundEvents::TEACHERS_STUDENT_SIGNIN,
           )
         end
-        analytics.track_with_attributes(
-          @user,
-          SegmentIo::BackgroundEvents::STUDENT_SIGNIN,
-          {
-            context: { :ip => @user.ip_address },
-            integrations: { all: true, Intercom: false }
-          }
-        )
       end
 
     end

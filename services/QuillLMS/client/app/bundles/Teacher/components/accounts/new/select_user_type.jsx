@@ -1,6 +1,5 @@
 import * as React from 'react'
 import request from 'request'
-import { SegmentAnalytics, Events } from '../../../../../modules/analytics';
 import getAuthToken from '../../../components/modules/get_auth_token'
 import { Card } from 'quill-component-library/dist/componentLibrary'
 
@@ -30,12 +29,10 @@ class SelectUserType extends React.Component {
   }
 
   handleClickStudent = () => {
-    SegmentAnalytics.track(Events.CLICK_CREATE_STUDENT_USER);
     this.setRoleOnSession('student');
   }
 
   handleClickTeacher = () => {
-    SegmentAnalytics.track(Events.CLICK_CREATE_TEACHER_USER);
     this.setRoleOnSession('teacher');
   }
 
@@ -46,7 +43,6 @@ class SelectUserType extends React.Component {
   }
 
   handleLogInClick = (e) => {
-    SegmentAnalytics.track(Events.CLICK_LOG_IN, {location: 'alreadyHaveAccount'})
     window.location.href = '/session/new'
   }
 

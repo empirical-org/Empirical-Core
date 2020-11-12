@@ -11,27 +11,9 @@
       Quill provides free writing and grammar activities
       for elementary, middle, and high school students.
     </p>
-    <%= render layout: "tracked_link", locals: { href: "/sign-up/student",
-                                                 classes: "q-button cta-button cta-home  bg-white",
-                                                 event: SegmentIo::Events::CLICK_SIGN_UP,
-                                                 properties: { location: "mainCTA", button: "student" }
-                                                } do %>
-      Student
-    <% end %>
-    <%= render layout: "tracked_link", locals: { href: "/sign-up/teacher",
-                                                 classes: "q-button cta-button cta-home bg-white",
-                                                 event: SegmentIo::Events::CLICK_SIGN_UP,
-                                                 properties: { location: "mainCTA", button: "teacher" }
-                                                } do %>
-      Teacher
-    <% end %>
-    <%= render layout: "tracked_link", locals: { href: "/sign-up/teacher",
-                                                 classes: "q-button cta-button cta-home  bg-white",
-                                                 event: SegmentIo::Events::CLICK_SIGN_UP,
-                                                 properties: { location: "mainCTA", button: "guardian" }
-                                                } do %>
-      Guardian
-    <% end %>
+    <a class="q-button cta-button cta-home  bg-white" href="/sign-up/student">Student</a>
+    <a class="q-button cta-button cta-home  bg-white" href="/sign-up/teacher">Teacher</a>
+    <a class="q-button cta-button cta-home  bg-white" href="/sign-up/teacher">Guardian</a>
   </div>
   <div class="q-hero-footer">
     <p class="text-white">
@@ -406,13 +388,7 @@ Quill Grammar has over 150 sentence writing activities to help your students. Ou
     </div>
   </a>
   <div class="press-cta">
-    <%= render layout: "tracked_link", locals: { href: "/account/new",
-                                                 classes: "get-started-link",
-                                                 event: SegmentIo::Events::CLICK_SIGN_UP,
-                                                 properties: { location: "finalCTA" }
-                                                } do %>
-    <button class="quill-button large primary contained">Get started</button>
-    <% end %>
+    <a class="get-started-link quill-button large primary contained" href="/account/new">Get Started</a>
   </div>
 </section>
 

@@ -4,7 +4,6 @@ exports[`GoogleSignUp component should render 1`] = `
 <a
   className="google-sign-up"
   href="/auth/google_oauth2?prompt=consent"
-  onClick={[Function]}
 >
   <img
     alt="Google icon"
