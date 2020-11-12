@@ -46,6 +46,7 @@ describe 'SegmentAnalytics' do
       expect(identify_calls.size).to eq(0)
       expect(track_calls.size).to eq(1)
       expect(track_calls[0][:event]).to eq(SegmentIo::BackgroundEvents::ACTIVITY_COMPLETION)
+      expect(track_calls[0][:user_id]).to eq(teacher.id)
       expect(track_calls[0][:properties][:activity_name]).to eq(activity.name)
       expect(track_calls[0][:properties][:tool_name]).to eq('Diagnostic')
     end
