@@ -6,6 +6,7 @@ exports[`NavBar Component should match snapshot 1`] = `
 >
   <Row
     align="middle"
+    gutter={0}
     justify="space-between"
     style={
       Object {

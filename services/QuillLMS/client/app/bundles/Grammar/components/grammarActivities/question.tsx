@@ -424,7 +424,7 @@ export class QuestionComponent extends React.Component<QuestionProps, QuestionSt
       return
     }
 
-    return (<Row align="middle" justify="start" type="flex">
+    return (<Row align="middle" gutter={0} justify="start" type="flex">
       <ContentEditable
         className={`input-field ${disabled}`}
         data-gramm={false}

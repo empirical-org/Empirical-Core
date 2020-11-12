@@ -319,6 +319,7 @@ Sentences flow easily when all the actions in a list have the same ending. This 
       </Row>
       <Row
         align="middle"
+        gutter={0}
         justify="start"
         type="flex"
       >
