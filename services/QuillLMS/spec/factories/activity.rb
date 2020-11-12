@@ -50,6 +50,11 @@ FactoryBot.define do
       end
     end
 
+    factory :comprehension_activity do
+      classification { ActivityClassification.find_by_key(attributes_for(:comprehension)[:key]) || create(:comprehension) }
+      activity_classification_id { ActivityClassification.find_by_key(attributes_for(:comprehension)[:key])&.id || create(:comprehension).id }
+    end
+
     trait :production do
       flags ['production']
     end
