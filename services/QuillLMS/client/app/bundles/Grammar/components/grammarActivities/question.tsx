@@ -309,7 +309,7 @@ export class QuestionComponent extends React.Component<QuestionProps, QuestionSt
         componentClasses += ' show'
       }
       return (
-        <Row align="middle" className={componentClasses} justify="start" type="flex">
+        <Row align="middle" className={componentClasses} gutter={0} justify="start" type="flex">
           <div className="example" dangerouslySetInnerHTML={{ __html: example.replace(/\n/g, "<br />") }} />
         </Row>
       );
@@ -400,6 +400,7 @@ export class QuestionComponent extends React.Component<QuestionProps, QuestionSt
       />
       <Row
         align="middle"
+        gutter={0}
         justify="space-between"
         type="flex"
       >
@@ -444,20 +445,20 @@ export class QuestionComponent extends React.Component<QuestionProps, QuestionSt
     const latestAttempt = this.getLatestAttempt(attempts)
     const feedbackKey = latestAttempt ? latestAttempt.text : 'instructions'
     return (<div className="question-section">
-      <Row align="middle" justify="start" type="flex">
+      <Row align="middle" gutter={0} justify="start" type="flex">
         <div className="prompt" dangerouslySetInnerHTML={{ __html: prompt }} />
       </Row>
-      <Row align="middle" justify="start" type="flex">
+      <Row align="middle" gutter={0} justify="start" type="flex">
         <Cues cues={cues} cuesLabel={cues_label} />
       </Row>
-      <Row align="middle" justify="start" key={feedbackKey} type="flex">
+      <Row align="middle" gutter={0} justify="start" key={feedbackKey} type="flex">
         {this.renderFeedbackSection()}
       </Row>
       {this.renderTextareaSection()}
-      <Row align="middle" justify="end" type="flex">
+      <Row align="middle" gutter={0} justify="end" type="flex">
         {this.renderCheckAnswerButton()}
       </Row>
-      <Row align="middle" justify="start" type="flex">
+      <Row align="middle" gutter={0} justify="start" type="flex">
         {this.renderConceptExplanation()}
       </Row>
     </div>)
