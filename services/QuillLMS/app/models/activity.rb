@@ -143,6 +143,10 @@ class Activity < ActiveRecord::Base
     activity_classification_id == 6
   end
 
+  def uses_feedback_history?
+    is_comprehension?
+  end
+
   def self.search_results(flag)
     substring = flag ? flag + "_" : ""
     activity_search_results = $redis.get("default_#{substring}activity_search")
@@ -255,5 +259,9 @@ class Activity < ActiveRecord::Base
 
   def is_proofreader?
     classification.key == ActivityClassification::PROOFREADER_KEY
+  end
+
+  def is_comprehension?
+    classification&.key == ActivityClassification::COMPREHENSION_KEY
   end
 end

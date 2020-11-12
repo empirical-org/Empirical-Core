@@ -38,6 +38,33 @@ RSpec.describe FeedbackHistory, type: :model do
     it { should validate_presence_of(:time) }
   end
 
+  context 'concept results hash' do
+    setup do
+      @prompt = Comprehension::Prompt.create(text: 'Test test test text')
+      @activity = create(:comprehension_activity)
+      @activity_session = create(:activity_session, activity_id: @activity.id)
+      @concept = create(:concept)
+      @feedback_history = create(:feedback_history, activity_session_uid: @activity_session.uid, concept: @concept, prompt: @prompt)
+    end
+
+    it 'should fill out hash with all fields' do
+      concept_results_hash = @feedback_history.concept_results_hash
+
+      assert_equal concept_results_hash[:concept_uid], @feedback_history.concept_uid
+      assert_equal concept_results_hash[:activity_session_id], @feedback_history.activity_session.id
+      assert_equal concept_results_hash[:activity_classification_id], 7
+      assert_equal concept_results_hash[:concept_id], @feedback_history.concept.id
+      assert_equal concept_results_hash[:metadata], {correct: 1, answer: @feedback_history.entry, feedback_type: @feedback_history.feedback_type}
+    end
+
+    it 'should return empty hash when there is no concept' do
+      feedback_history = create(:feedback_history, activity_session_uid: @activity_session.uid, concept: nil, prompt: @prompt)
+      concept_results_hash = feedback_history.concept_results_hash
+
+      assert_equal concept_results_hash, {}
+    end
+  end
+
   context 'serializable_hash' do
     setup do
       @prompt = Comprehension::Prompt.create(text: 'Test text')
