@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { shallow } from 'enzyme';
 
-import { NavBar } from '../NavBar';
+import { NavBar } from '../navbar';
 
 describe('NavBar Component', () => {
   const component = shallow(<NavBar />);
