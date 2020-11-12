@@ -24,7 +24,7 @@ class FinishActivityWorker
     end
 
     if activity_session.eligible_for_tracking?
-      analytics = Analyzer.new
+      analytics = SegmentAnalytics.new
       analytics.track_activity_completion(activity_session.classroom_owner, activity_session.activity)
     end
 

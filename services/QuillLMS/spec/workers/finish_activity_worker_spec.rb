@@ -9,7 +9,7 @@ describe FinishActivityWorker, type: :worker do
   let(:analyzer) { double(:analyzer) }
 
   before do
-    allow(Analyzer).to receive(:new) { analyzer }
+    allow(SegmentAnalytics).to receive(:new) { analyzer }
   end
 
   it 'sends a segment.io event' do
