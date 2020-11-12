@@ -130,6 +130,7 @@ class Activity < ActiveRecord::Base
   end
 
   def self.clear_activity_search_cache
+    binding.pry
     %w(private_ production_ beta_ alpha_).push('').each do |flag|
       $redis.del("default_#{flag}activity_search")
     end

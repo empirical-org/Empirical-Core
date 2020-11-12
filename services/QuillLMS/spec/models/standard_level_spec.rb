@@ -32,5 +32,12 @@ describe StandardLevel, type: :model do
 				expect(standard.reload.visible).to eq(false)
 			end
 		end
+
+		context 'when standardLevel is committed' do
+			it "should send clear_activity_search_cache after commit" do
+				expect(Activity).to receive(:clear_activity_search_cache)
+				standard_level.run_callbacks(:commit)
+			end
+		end
 	end
 end
