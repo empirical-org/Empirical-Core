@@ -9,22 +9,6 @@ describe AccountCreationWorker do
   end
 
   describe '#perform' do
-    context 'when user is a student' do
-      let!(:student) { create(:student) }
-
-      it 'should track student account creation' do
-        expect(analyzer).to receive(:track_with_attributes).with(
-          student,
-          SegmentIo::BackgroundEvents::STUDENT_ACCOUNT_CREATION,
-          {
-            context: {:ip => student.ip_address },
-            integrations: { intercom: 'false' }
-          }
-        )
-        subject.perform(student.id)
-      end
-    end
-
     context 'when user is a teacher' do
       context 'when send newsletter is false' do
         let!(:teacher) { create(:teacher, send_newsletter: false) }
@@ -32,7 +16,7 @@ describe AccountCreationWorker do
         it 'should track the account creation' do
           expect(analyzer).to receive(:track_chain).with(
               teacher,
-              [SegmentIo::BackgroundEvents::STUDENT_ACCOUNT_CREATION]
+              [SegmentIo::BackgroundEvents::TEACHER_ACCOUNT_CREATION]
           )
           subject.perform(teacher.id)
         end
@@ -45,7 +29,7 @@ describe AccountCreationWorker do
           expect(analyzer).to receive(:track_chain).with(
               teacher,
               [
-                SegmentIo::BackgroundEvents::STUDENT_ACCOUNT_CREATION,
+                SegmentIo::BackgroundEvents::TEACHER_ACCOUNT_CREATION,
                 SegmentIo::BackgroundEvents::TEACHER_SIGNED_UP_FOR_NEWSLETTER
               ]
           )

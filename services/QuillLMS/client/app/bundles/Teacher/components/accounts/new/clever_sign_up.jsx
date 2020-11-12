@@ -1,7 +1,6 @@
 'use strict';
 import $ from 'jquery'
 import React from 'react'
-import { SegmentAnalytics, Events } from '../../../../../modules/analytics';
 
 export default class CleverSignUp extends React.Component {
   constructor(props) {
@@ -36,7 +35,6 @@ export default class CleverSignUp extends React.Component {
   }
 
   handleClick = (e) => {
-    SegmentAnalytics.track(Events.SUBMIT_SIGN_UP, {provider: Events.providers.CLEVER})
     window.location.href = this.buildLink()
   }
 

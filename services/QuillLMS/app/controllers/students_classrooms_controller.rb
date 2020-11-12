@@ -8,7 +8,6 @@ class StudentsClassroomsController < ApplicationController
       classroom = Classroom.where(code: classcode).first
       if classroom.blank?
         if Classroom.unscoped.where(code: classcode).first.nil?
-          InvalidClasscodeWorker.perform_async(@user.id, params[:classcode], classcode)
           return render status: 404, json: {error: "No such classcode"}, text: "No such classcode"
         else
           return render status: 400, json: {error: "Class is archived"}, text: "Class is archived"
