@@ -1,5 +1,4 @@
 import React from 'react';
-import { SegmentAnalytics, Events } from '../../../../../modules/analytics';
 
 const GoogleSignUp = () => (
   <a
