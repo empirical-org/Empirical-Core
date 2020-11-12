@@ -28,11 +28,45 @@ class SegmentAnalytics
       })
   end
 
-  def track_activity_assignment(teacher_id)
+  def track_activity_assignment(teacher_id, activity_id)
     user = User.find(teacher_id)
+    activity = Activity.find(activity_id)
+
     track(user, {
       user_id: teacher_id,
-      event: SegmentIo::BackgroundEvents::ACTIVITY_ASSIGNMENT
+      event: SegmentIo::BackgroundEvents::ACTIVITY_ASSIGNMENT,
+      properties: activity_info_for_tracking(activity)
+    })
+  end
+
+  def track_activity_pack_assignment(teacher_id, unit_id)
+    user = User.find(teacher_id)
+    unit = Unit.find(unit_id)
+
+    if unit.unit_template_id
+      if unit.activities.all? { |a| Activity.diagnostic_activity_ids.include?(a.id) }
+        activity_pack_type = 'Diagnostic'
+      else
+        activity_pack_type = 'Pre-made'
+      end
+    else
+      activity_pack_type = 'Custom'
+    end
+
+    track(user, {
+      user_id: teacher_id,
+      event: SegmentIo::BackgroundEvents::ACTIVITY_PACK_ASSIGNMENT,
+      properties: {
+        activity_pack_name: unit.name,
+        activity_pack_type: activity_pack_type
+      }
+    })
+  end
+
+  def track_activity_completion(user, activity)
+    track(user, {
+      event: SegmentIo::BackgroundEvents::ACTIVITY_COMPLETION,
+      properties: activity_info_for_tracking(activity)
     })
   end
 
@@ -41,13 +75,6 @@ class SegmentAnalytics
     track(user, {
       user_id: classroom&.owner&.id,
       event: SegmentIo::BackgroundEvents::CLASSROOM_CREATION
-    })
-  end
-
-  def track_click_sign_up
-    track(nil, {
-      user_id: anonymous_uid,
-      event: SegmentIo::BackgroundEvents::CLICK_SIGN_UP
     })
   end
 
@@ -82,7 +109,7 @@ class SegmentAnalytics
 
 
   def identify(user)
-    if backend.present?
+    if backend.present? && !user&.student?
       backend.identify(identify_params(user))
     end
   end
@@ -114,5 +141,12 @@ class SegmentAnalytics
 
   def user_traits(user)
     SegmentAnalyticsUserSerializer.new(user).as_json(root: false)
+  end
+
+  def activity_info_for_tracking(activity)
+    {
+      activity_name: activity.name,
+      tool_name: activity.classification.name.split(' ')[1]
+    }
   end
 end
