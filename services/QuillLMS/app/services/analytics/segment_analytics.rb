@@ -65,6 +65,7 @@ class SegmentAnalytics
 
   def track_activity_completion(user, activity)
     track(user, {
+      user_id: user.id,
       event: SegmentIo::BackgroundEvents::ACTIVITY_COMPLETION,
       properties: activity_info_for_tracking(activity)
     })
