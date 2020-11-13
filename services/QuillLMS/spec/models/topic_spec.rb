@@ -10,6 +10,11 @@ describe Topic, type: :model do
 
   let!(:level_three_topic) { create(:topic, level: 3) }
 
+  it "should send callback after commit" do
+    expect(Activity).to receive(:clear_activity_search_cache)
+    level_three_topic.run_callbacks(:commit)
+  end
+
   describe 'saving a topic with parent id' do
     it 'should raise error if level is not 2' do
       level_one_topic = Topic.new(name: 'test', level: 1, parent_id: level_three_topic.id,visible: true)
