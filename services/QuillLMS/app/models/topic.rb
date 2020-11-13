@@ -6,6 +6,8 @@ class Topic < ActiveRecord::Base
   has_many :activity_topics, dependent: :destroy
   has_many :activities, through: :activity_topics
 
+  after_commit 'Activity.clear_activity_search_cache'
+
   before_save :validate_parent_by_level
 
   def validate_parent_by_level
