@@ -48,13 +48,14 @@
   font-size: 16px;
 }
 
-.concepts-index-tools {
+.cms-tabs {
   display: flex;
   align-items: center;
   margin-bottom: 1em;
   width: 100%;
   border-bottom: 1px solid #ebebeb;
-  p {
+  padding-left: 31px;
+  p, a {
     font-weight: 500;
     color: black;
     padding: 10px;
@@ -83,12 +84,12 @@
   top: 0;
 }
 
-.concept-manager-nav {
+.cms-manager-nav {
   width: 100%;
   border-bottom: 1px solid #ebebeb;
   background-color: #f8f8f8;
   height: 70px;
-  .concept-manager-links {
+  .cms-manager-links {
     width: 500px;
     display: -ms-flexbox;
     display: flex;
