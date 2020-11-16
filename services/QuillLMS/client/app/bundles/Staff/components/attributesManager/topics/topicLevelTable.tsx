@@ -5,7 +5,8 @@ import moment from 'moment';
 interface TopicLevelTableProps {
   topics: Array<Topic>,
   levelNumber: number,
-  selectTopic: Function
+  selectTopic: Function,
+  visible: boolean
 }
 
 interface TopicRow {
@@ -19,8 +20,8 @@ interface TopicRow {
   createdAt:number;
 }
 
-function columns(levelNumber, selectTopic) {
-  const sharedColumns = [
+function columns(levelNumber, selectTopic, visible) {
+  let sharedColumns = [
     {
       title: `Level ${levelNumber}`,
       dataIndex: 'name',
@@ -28,15 +29,21 @@ function columns(levelNumber, selectTopic) {
       key: 'name',
       render: (text, record:TopicRow) => (<div onClick={() => selectTopic(record)}>{text}</div>),
       sorter:  (a, b) => (a.name.localeCompare(b.name)),
-    },
-    {
-      title: 'Activities',
-      dataIndex: 'activity_count',
-      key: 'activities',
-      sorter:  (a, b) => (a.activity_count - b.activity_count),
     }
   ]
-  if (levelNumber === 0) {
+
+  if (visible) {
+    sharedColumns = sharedColumns.concat([
+      {
+        title: 'Activities',
+        dataIndex: 'activity_count',
+        key: 'activities',
+        sorter:  (a, b) => (a.activity_count - b.activity_count),
+      }
+    ])
+  }
+
+  if (visible && levelNumber === 0) {
     const createdAtColumn = {
       title: 'Created At',
       dataIndex: 'created_at',
@@ -44,19 +51,19 @@ function columns(levelNumber, selectTopic) {
       render: (text) => moment(text).format('M/D/YY'),
       sorter:  (a, b) => (a.created_at - b.created_at),
     }
-    return sharedColumns.concat([createdAtColumn])
+    sharedColumns = sharedColumns.concat([createdAtColumn])
   }
 
   return sharedColumns
 }
 
-const TopicLevelTable: React.SFC<TopicLevelTableProps> = ({ topics, selectTopic, levelNumber, }) => {
+const TopicLevelTable: React.SFC<TopicLevelTableProps> = ({ topics, selectTopic, levelNumber, visible }) => {
   const data = topics.filter(t => t.level === levelNumber);
   return (
     <Table
       bordered
       className="topics-table"
-      columns={columns(levelNumber, selectTopic)}
+      columns={columns(levelNumber, selectTopic, visible)}
       dataSource={data}
       pagination={false}
       size="middle"

@@ -534,6 +534,7 @@ EmpiricalGrammar::Application.routes.draw do
 
     resources :topics, only: [:index, :update]
     resources :attributes_manager, only: [:index]
+    get 'attributes_manager/topics/:tab' => 'attributes_manager#index'
     get 'attributes_manager/topics' => 'attributes_manager#index'
 
   end

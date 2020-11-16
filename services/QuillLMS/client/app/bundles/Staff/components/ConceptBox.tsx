@@ -126,7 +126,6 @@ class ConceptBox extends React.Component<ConceptBoxProps, ConceptBoxState> {
 
   save = (editConcept, changeLogs) => {
     const { concept } = this.state
-    debugger;
     editConcept({ variables: {
       id: concept.id,
       name: concept.name,

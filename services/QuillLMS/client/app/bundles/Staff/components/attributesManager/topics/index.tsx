@@ -1,7 +1,7 @@
 import * as React from 'react'
 import { Route, Switch, Link, } from 'react-router-dom';
 
-import LiveTopics from './liveTopics'
+import TopicColumns from './topicColumns'
 import TopicSearch from './topicSearch'
 
 import { Snackbar, defaultSnackbarTimeout } from '../../../../Shared/index'
@@ -10,8 +10,7 @@ import { requestGet, requestPut, } from '../../../../../modules/request/index'
 const ARCHIVED = 'archived'
 
 const Topics = ({ match, location, }) => {
-  const [liveTopics, setLiveTopics] = React.useState([])
-  const [archivedTopics, setArchivedTopics] = React.useState([])
+  const [topics, setTopics] = React.useState([])
   const [searchValue, setSearchValue] = React.useState('')
   const [showSnackbar, setShowSnackbar] = React.useState(false)
 
@@ -28,8 +27,7 @@ const Topics = ({ match, location, }) => {
   function getTopics() {
     requestGet('/cms/topics',
       (data) => {
-        setLiveTopics(data.live_topics);
-        setArchivedTopics(data.archived_topics);
+        setTopics(data.topics);
       }
     )
   }
@@ -39,6 +37,7 @@ const Topics = ({ match, location, }) => {
     requestPut(`/cms/topics/${topic.id}`, { topic, },
       (data) => {
         getTopics()
+        setShowSnackbar(true)
       }
     )
   }
@@ -47,6 +46,13 @@ const Topics = ({ match, location, }) => {
 
   if (location.pathname.includes(ARCHIVED)) {
     activeLink = ARCHIVED
+  }
+
+  const sharedTopicColumnProps = {
+    path: `${match.path}`,
+    saveTopicChanges,
+    searchValue,
+    topics,
   }
 
   return (
@@ -58,13 +64,23 @@ const Topics = ({ match, location, }) => {
         <Link className={activeLink === ARCHIVED ? 'active': ''} to={`${match.path}/archived`}>Archived</Link>
       </div>
       <Switch>
-        <Route component={() => (
-          <LiveTopics
-            liveTopics={liveTopics}
-            path={`${match.path}`}
-            saveTopicChanges={saveTopicChanges}
-            searchValue={searchValue}
-          />)}
+        <Route
+          component={() => (
+            <TopicColumns
+              {...sharedTopicColumnProps}
+              visible={false}
+            />
+          )}
+          path={`${match.path}/${ARCHIVED}`}
+        />
+        <Route
+          component={() => (
+            <TopicColumns
+              {...sharedTopicColumnProps}
+              visible={true}
+            />
+          )}
+          path={match.path}
         />
       </Switch>
     </div>
