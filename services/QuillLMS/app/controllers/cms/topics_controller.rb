@@ -19,6 +19,18 @@ class Cms::TopicsController < Cms::CmsController
     render json: { topics: topics }
   end
 
+  def create
+    topic = topic_params
+    topic[:change_logs_attributes] = topic[:change_logs_attributes].map do |cl|
+      cl[:user_id] = current_user.id
+      cl
+    end
+
+    new_topic = Topic.create!(topic)
+
+    render json: { topic: new_topic }
+  end
+
   def update
     topic = topic_params
     topic[:change_logs_attributes] = topic[:change_logs_attributes].map do |cl|
@@ -26,7 +38,7 @@ class Cms::TopicsController < Cms::CmsController
       cl
     end
 
-    updated_topic = Topic.find_by_id(params[:id]).update!(topic)
+    updated_topic = Topic.find_by_id(params[:id]).update(topic)
 
     render json: { topic: updated_topic }
   end
@@ -37,6 +49,7 @@ class Cms::TopicsController < Cms::CmsController
       :id,
       :visible,
       :parent_id,
+      :level,
       change_logs_attributes: [
         :action,
         :explanation,

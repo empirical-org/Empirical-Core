@@ -5,9 +5,10 @@ import TopicColumns from './topicColumns'
 import TopicSearch from './topicSearch'
 
 import { Snackbar, defaultSnackbarTimeout } from '../../../../Shared/index'
-import { requestGet, requestPut, } from '../../../../../modules/request/index'
+import { requestGet, requestPut, requestPost, } from '../../../../../modules/request/index'
 
 const ARCHIVED = 'archived'
+const NEW = 'new'
 
 const Topics = ({ match, location, }) => {
   const [topics, setTopics] = React.useState([])
@@ -33,8 +34,16 @@ const Topics = ({ match, location, }) => {
   }
 
   function saveTopicChanges(topic) {
-
     requestPut(`/cms/topics/${topic.id}`, { topic, },
+      (data) => {
+        getTopics()
+        setShowSnackbar(true)
+      }
+    )
+  }
+
+  function createNewTopic(topic) {
+    requestPost(`/cms/topics`, { topic, },
       (data) => {
         getTopics()
         setShowSnackbar(true)
@@ -46,6 +55,10 @@ const Topics = ({ match, location, }) => {
 
   if (location.pathname.includes(ARCHIVED)) {
     activeLink = ARCHIVED
+  }
+
+  if (location.pathname.includes(NEW)) {
+    activeLink = NEW
   }
 
   const sharedTopicColumnProps = {
@@ -61,9 +74,20 @@ const Topics = ({ match, location, }) => {
       <TopicSearch updateSearchValue={setSearchValue} />
       <div className="cms-tabs">
         <Link className={activeLink ? '': 'active'} to={`${match.path}`}>Live</Link>
-        <Link className={activeLink === ARCHIVED ? 'active': ''} to={`${match.path}/archived`}>Archived</Link>
+        <Link className={activeLink === NEW ? 'active': ''} to={`${match.path}/${NEW}`}>Add Topics</Link>
+        <Link className={activeLink === ARCHIVED ? 'active': ''} to={`${match.path}/${ARCHIVED}`}>Archived</Link>
       </div>
       <Switch>
+        <Route
+          component={() => (
+            <TopicColumns
+              {...sharedTopicColumnProps}
+              createNewTopic={createNewTopic}
+              visible={true}
+            />
+          )}
+          path={`${match.path}/${NEW}`}
+        />
         <Route
           component={() => (
             <TopicColumns

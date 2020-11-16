@@ -6,7 +6,7 @@ interface TopicLevelTableProps {
   topics: Array<Topic>,
   levelNumber: number,
   selectTopic: Function,
-  visible: boolean
+  showExtraColumns: boolean
 }
 
 interface TopicRow {
@@ -20,7 +20,7 @@ interface TopicRow {
   createdAt:number;
 }
 
-function columns(levelNumber, selectTopic, visible) {
+function columns(levelNumber, selectTopic, showExtraColumns) {
   let sharedColumns = [
     {
       title: `Level ${levelNumber}`,
@@ -32,7 +32,7 @@ function columns(levelNumber, selectTopic, visible) {
     }
   ]
 
-  if (visible) {
+  if (showExtraColumns) {
     sharedColumns = sharedColumns.concat([
       {
         title: 'Activities',
@@ -43,7 +43,7 @@ function columns(levelNumber, selectTopic, visible) {
     ])
   }
 
-  if (visible && levelNumber === 0) {
+  if (showExtraColumns && levelNumber === 0) {
     const createdAtColumn = {
       title: 'Created At',
       dataIndex: 'created_at',
@@ -57,13 +57,13 @@ function columns(levelNumber, selectTopic, visible) {
   return sharedColumns
 }
 
-const TopicLevelTable: React.SFC<TopicLevelTableProps> = ({ topics, selectTopic, levelNumber, visible }) => {
+const TopicLevelTable: React.SFC<TopicLevelTableProps> = ({ topics, selectTopic, levelNumber, showExtraColumns }) => {
   const data = topics.filter(t => t.level === levelNumber);
   return (
     <Table
       bordered
       className="topics-table"
-      columns={columns(levelNumber, selectTopic, visible)}
+      columns={columns(levelNumber, selectTopic, showExtraColumns)}
       dataSource={data}
       pagination={false}
       size="middle"

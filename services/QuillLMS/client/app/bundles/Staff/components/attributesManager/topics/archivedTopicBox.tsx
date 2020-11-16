@@ -3,6 +3,7 @@ import _ from 'lodash'
 import moment from 'moment'
 
 import { Topic } from './interfaces'
+
 import IndividualRecordChangeLogs from '../../shared/individualRecordChangeLogs'
 import ChangeLogModal from '../../shared/changeLogModal'
 import { Input, DropdownInput, } from '../../../../Shared/index'
@@ -16,7 +17,7 @@ interface ArchivedTopicBoxProps {
 
 const formatDateTime = (cl) => moment(cl.created_at).format('MMMM D, YYYY [at] LT')
 
-const TopicBox = ({ originalTopic, levelThreeTopics, saveTopicChanges, closeTopicBox, }) => {
+const TopicBox = ({ originalTopic, levelThreeTopics, saveTopicChanges, closeTopicBox, }: ArchivedTopicBoxProps) => {
   const [showChangeLogModal, setShowChangeLogModal] = React.useState(false)
   const [topic, setTopic] = React.useState(originalTopic)
   const [changeLogs, setChangeLogs] = React.useState([])
@@ -160,21 +161,19 @@ const TopicBox = ({ originalTopic, levelThreeTopics, saveTopicChanges, closeTopi
     />)
   }
 
-  return (<div className="record-box-container">
-    <div className="record-box">
-      {renderChangeLogModal()}
-      <span className="close-record-box" onClick={closeTopicBox}><i className="fas fa-times" /></span>
-      <form acceptCharset="UTF-8" onSubmit={handleSubmit} >
-        <div className="static">
-          <p>Level {topic.level}</p>
-          <h1>{topic.name}</h1>
-        </div>
-        <div className="fields">
-          {renderLevels()}
-          {renderSaveButton()}
-        </div>
-      </form>
-    </div>
+  return (<div className="record-box">
+    {renderChangeLogModal()}
+    <span className="close-record-box" onClick={closeTopicBox}><i className="fas fa-times" /></span>
+    <form acceptCharset="UTF-8" onSubmit={handleSubmit} >
+      <div className="static">
+        <p>Level {topic.level}</p>
+        <h1>{topic.name}</h1>
+      </div>
+      <div className="fields">
+        {renderLevels()}
+        {renderSaveButton()}
+      </div>
+    </form>
   </div>)
 }
 
