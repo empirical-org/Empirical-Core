@@ -1,7 +1,7 @@
 import * as React from "react";
 import {mount} from "enzyme";
 import ContentEditable from 'react-contenteditable';
-import { QuestionComponent } from "../../components/grammarActivities/question";
+import { QuestionComponent } from "../question";
 import {
   currentActivity,
   session,

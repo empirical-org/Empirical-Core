@@ -1,4 +1,4 @@
-import React from 'react'
+import * as React from 'react'
 import _ from 'lodash'
 import { LinkListItem } from './linkListItem'
 import { hashToCollection } from '../../../Shared/index'

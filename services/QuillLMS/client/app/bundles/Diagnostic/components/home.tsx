@@ -1,22 +1,15 @@
 import * as React from 'react';
+import { Layout } from "antd";
 import { renderRoutes } from "react-router-config";
 import { useQuery } from 'react-query';
-import { Layout } from "antd";
 
-import { NavBar } from './navbar/navbar';
+import StudentNavBar from './navbar/studentNavbar';
+import TeacherNavbar from './navbar/teacherNavbar';
 
 import { routes } from "../routes";
 import { getParameterByName } from '../libs/getParameterByName';
-import { TeacherPreviewMenu } from '../../Shared/index';
+import { TeacherPreviewMenu } from '../../Shared/components/shared/teacherPreviewMenu';
 import { fetchUserRole } from '../../Shared/utils/userAPIs';
-
-interface PageLayoutState {
-  showFocusState: boolean;
-  previewShowing: boolean;
-  questionToPreview: any;
-  switchedBackToPreview: boolean;
-  skippedToQuestionFromIntro: boolean;
-}
 
 export const Home = () => {
   const studentSession = getParameterByName('student', window.location.href);
@@ -69,12 +62,6 @@ export const Home = () => {
   let className = "ant-layout "
   className = showFocusState ? '' : 'hide-focus-outline'
   const showPreview = previewShowing && isTeacherOrAdmin && isPlaying;
-  let header;
-  if(isTeacherOrAdmin && isPlaying) {
-    header = <NavBar isTeacher={isTeacherOrAdmin} onTogglePreview={handleTogglePreviewMenu} previewShowing={previewShowing} />;
-  } else if (!isTeacherOrAdmin && isPlaying) {
-    header = <NavBar />;
-  }
   return(
     <Layout className={className}>
       <Layout>
@@ -94,8 +81,9 @@ export const Home = () => {
           />
         </Layout.Sider>}
         <Layout.Content style={{ height: '100vh', overflow: 'auto' }}>
-          <button className="skip-main" onClick={handleSkipToMainContentClick} type="button">Skip to main content</button>
-          {header}
+          {isPlaying && !isTeacherOrAdmin && <button className="skip-main" onClick={handleSkipToMainContentClick} type="button">Skip to main content</button>}
+          {isPlaying && !isTeacherOrAdmin && <StudentNavBar />}
+          {isPlaying && isTeacherOrAdmin && <TeacherNavbar onTogglePreview={handleTogglePreviewMenu} previewShowing={previewShowing} />}
           <div id="main-content" tabIndex={-1}>{renderRoutes(routes, {
             switchedBackToPreview: switchedBackToPreview,
             handleToggleQuestion: handleToggleQuestion,
