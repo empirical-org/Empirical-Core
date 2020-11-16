@@ -9,11 +9,11 @@ describe FinishActivityWorker, type: :worker do
   let(:analyzer) { double(:analyzer) }
 
   before do
-    allow(Analyzer).to receive(:new) { analyzer }
+    allow(SegmentAnalytics).to receive(:new) { analyzer }
   end
 
   it 'sends a segment.io event' do
-    expect(analyzer).to receive(:track).with(activity_session.classroom_owner, SegmentIo::BackgroundEvents::ACTIVITY_COMPLETION)
+    expect(analyzer).to receive(:track_activity_completion).with(activity_session.classroom_owner, activity_session.activity)
     worker.perform(activity_session.uid)
   end
 end

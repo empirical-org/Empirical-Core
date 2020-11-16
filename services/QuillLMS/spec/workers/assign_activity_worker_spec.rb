@@ -2,14 +2,16 @@ require 'rails_helper'
 
 describe AssignActivityWorker, type: :worker do
   let(:worker) { AssignActivityWorker.new }
-  let(:analytics) { SegmentAnalytics.new }
+  let(:analytics) { double(:analytics, identify: true, track: true) }
   let(:teacher) { create(:teacher) }
+  let(:unit) { create(:unit) }
+
+  before do
+    allow(SegmentAnalytics).to receive(:new) { analytics }
+  end
 
   it 'sends a segment.io event' do
-    worker.perform(teacher.id)
-
-    expect(analytics.backend.track_calls.size).to eq(1)
-    expect(analytics.backend.track_calls[0][:event]).to eq(SegmentIo::BackgroundEvents::ACTIVITY_ASSIGNMENT)
-    expect(analytics.backend.track_calls[0][:user_id]).to eq(teacher.id)
+    expect(analytics).to receive(:track_activity_pack_assignment).with(teacher.id, unit.id)
+    worker.perform(teacher.id, unit.id)
   end
 end

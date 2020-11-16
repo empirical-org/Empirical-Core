@@ -395,6 +395,7 @@ class User < ActiveRecord::Base
       if auth_credential.present?
         auth_credential.destroy!
       end
+      SchoolsUsers.where(user_id: id).destroy_all
     end
   end
 
