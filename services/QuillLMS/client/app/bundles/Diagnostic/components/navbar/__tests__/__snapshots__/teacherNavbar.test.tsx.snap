@@ -6,7 +6,6 @@ exports[`TeacherNavbar renders when the language menu is not open 1`] = `
 >
   <Row
     align="middle"
-    gutter={0}
     justify="space-between"
     style={
       Object {
@@ -40,7 +39,6 @@ exports[`TeacherNavbar renders when the language menu is open 1`] = `
 >
   <Row
     align="middle"
-    gutter={0}
     justify="space-between"
     style={
       Object {
@@ -75,7 +73,6 @@ exports[`TeacherNavbar renders when the language menu is open 1`] = `
   </Row>
   <Row
     align="middle"
-    gutter={0}
     justify="space-between"
     style={
       Object {
