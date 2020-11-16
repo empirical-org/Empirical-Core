@@ -1,98 +1,80 @@
 import * as React from "react";
 import { Layout } from "antd";
 import {renderRoutes} from "react-router-config";
+import { useQuery } from 'react-query';
 
 import { Header } from "./Header";
 
 import { routes } from "../routes";
+import { fetchUserRole } from '../../Shared/utils/userAPIs';
 import getParameterByName from '../helpers/getParameterByName';
 import { TeacherPreviewMenu } from '../../Shared/index';
 
-interface PageLayoutState {
-  showFocusState: boolean;
-  previewShowing: boolean;
-  questionToPreview: any;
-  switchedBackToPreview: boolean;
-  randomizedQuestions: any[];
-  skippedToQuestionFromIntro: boolean;
-}
-
-export class PageLayout extends React.Component<any, PageLayoutState> {
-  constructor(props: any) {
-    super(props);
+export const PageLayout = () => {
 
     const studentSession = getParameterByName('student', window.location.href);
-    const proofreaderSessionId = getParameterByName('proofreaderSessionId', window.location.href);
+    const proofreaderSession = getParameterByName('proofreaderSessionId', window.location.href);
+    const turkSession = window.location.href.includes('turk');
+    const studentOrTurkOrProofreader = studentSession || turkSession || proofreaderSession;
+    const isPlaying = window.location.href.includes('play');
+    const { data } = useQuery("user-role", fetchUserRole);
+    const isTeacherOrAdmin = data && data.role && data.role !== 'student';
 
-    this.state = {
-      showFocusState: false,
-      previewShowing: !studentSession && !proofreaderSessionId,
-      questionToPreview: null,
-      switchedBackToPreview: false,
-      randomizedQuestions: null,
-      skippedToQuestionFromIntro: false
-    }
-  }
+    const [showFocusState, setShowFocusState] = React.useState<boolean>(false);
+    const [previewShowing, setPreviewShowing] = React.useState<boolean>(!studentOrTurkOrProofreader);
+    const [questionToPreview, setQuestionToPreview] = React.useState<any>(null);
+    const [switchedBackToPreview, setSwitchedBackToPreview] = React.useState<boolean>(false);
+    const [randomizedQuestions, setRandomizedQuestions] = React.useState<any>(null);
+    const [skippedToQuestionFromIntro, setSkippedToQuestionFromIntro] = React.useState<boolean>(false);
 
-  componentDidMount() {
-    document.addEventListener('keydown', this.handleKeyDown);
-  }
 
-  componentWillUnmount() {
-    document.removeEventListener('keydown', this.handleKeyDown)
-  }
-
-  handleKeyDown = (e: any) => {
+  function handleKeyDown (e: any) {
     if (e.key !== 'Tab') { return }
-
-    const { showFocusState, } = this.state
-
     if (showFocusState) { return }
 
-    this.setState({ showFocusState: true })
+    setShowFocusState(true);
   }
 
-  handleSkipToMainContentClick = () => {
+  document.addEventListener('keydown', handleKeyDown);
+  document.removeEventListener('keydown', handleKeyDown);
+
+  function handleSkipToMainContentClick () {
     const element = document.getElementById("main-content")
     if (!element) { return }
     element.focus()
     element.scrollIntoView()
   }
 
-  handleTogglePreviewMenu = () => {
-    const { previewShowing } = this.state;
+  function handleTogglePreviewMenu () {
     if(previewShowing) {
-      this.setState({ switchedBackToPreview: false });
+      setSwitchedBackToPreview(false);
     } else {
-      this.setState({ switchedBackToPreview: true });
+      setSwitchedBackToPreview(true);
     }
-    this.setState(prevState => ({
-      previewShowing: !prevState.previewShowing,
-    }));
+    setPreviewShowing(!previewShowing);
   }
 
-  handleToggleQuestion = (question: object) => {
-    this.setState({ questionToPreview: question });
+  function handleToggleQuestion (question: object) {
+    setQuestionToPreview(question);
   }
 
-  handleUpdateRandomizedQuestions = (questions: any[]) => {
-    this.setState({ randomizedQuestions: questions });
+  function handleUpdateRandomizedQuestions (questions: any[]) {
+    setRandomizedQuestions(questions);
   }
 
-  handleSkipToQuestionFromIntro = () => {
-    this.setState({ skippedToQuestionFromIntro: true });
+  function handleSkipToQuestionFromIntro () {
+    setSkippedToQuestionFromIntro(true);
   }
 
-  renderContent = (header: JSX.Element, previewMode: boolean) => {
-    const { questionToPreview, switchedBackToPreview, randomizedQuestions, skippedToQuestionFromIntro } = this.state;
+  function renderContent (header: JSX.Element, showPreview: boolean) {
     return(
       <Layout.Content style={{ height: '100vh', overflow: 'auto' }}>
-        <button className="skip-main" onClick={this.handleSkipToMainContentClick} type="button">Skip to main content</button>
+        <button className="skip-main" onClick={handleSkipToMainContentClick} type="button">Skip to main content</button>
         {header}
         <div id="main-content" tabIndex={-1}>{renderRoutes(routes, {
           switchedBackToPreview: switchedBackToPreview,
-          handleToggleQuestion: this.handleToggleQuestion,
-          previewMode: previewMode,
+          handleToggleQuestion: handleToggleQuestion,
+          previewMode: showPreview,
           questionToPreview: questionToPreview,
           randomizedQuestions: randomizedQuestions,
           skippedToQuestionFromIntro: skippedToQuestionFromIntro
@@ -101,46 +83,39 @@ export class PageLayout extends React.Component<any, PageLayoutState> {
     );
   }
 
-  render() {
-    const { showFocusState, previewShowing, questionToPreview } = this.state;
-    const studentSession = getParameterByName('student', window.location.href);
-    const proofreaderSession = getParameterByName('proofreaderSessionId', window.location.href);
-    const turkSession = window.location.href.includes('turk')
-    const studentOrTurkOrProofreader = studentSession || turkSession || proofreaderSession;
-    const isPlaying = window.location.href.includes('play');
-    const showPreview = previewShowing && isPlaying && !studentOrTurkOrProofreader;
-    const previewMode = isPlaying && !studentOrTurkOrProofreader;
-    let className = "ant-layout ";
-    className = showFocusState ? '' : 'hide-focus-outline';
-    let header;
-    if(isPlaying && !studentSession) {
-      header = <Header isTeacher={!studentOrTurkOrProofreader} onTogglePreview={this.handleTogglePreviewMenu} previewShowing={previewShowing} />;
-    } else if(isPlaying) {
-      header = <Header />;
-    }
-    return(
-      <Layout className={className}>
-        <Layout>
-          {showPreview && <Layout.Sider
-            breakpoint="md"
-            className="sider-container"
-            collapsedWidth="0"
-            width={360}
-          >
-            <TeacherPreviewMenu
-              onHandleSkipToQuestionFromIntro={this.handleSkipToQuestionFromIntro}
-              onTogglePreview={this.handleTogglePreviewMenu}
-              onToggleQuestion={this.handleToggleQuestion}
-              onUpdateRandomizedQuestions={this.handleUpdateRandomizedQuestions}
-              questionToPreview={questionToPreview}
-              showPreview={previewShowing}
-            />
-          </Layout.Sider>}
-          {this.renderContent(header, previewMode)}
-        </Layout>
-      </Layout>
-    );
+  const showPreview = previewShowing && isTeacherOrAdmin && isPlaying;
+  let className = "ant-layout ";
+  className = showFocusState ? '' : 'hide-focus-outline';
+  let header;
+
+  if(isPlaying && isTeacherOrAdmin) {
+    header = <Header isTeacher={!studentOrTurkOrProofreader} onTogglePreview={handleTogglePreviewMenu} previewShowing={showPreview} />;
+  } else if(isPlaying) {
+    header = <Header />;
   }
-};
+
+  return(
+    <Layout className={className}>
+      <Layout>
+        {showPreview && <Layout.Sider
+          breakpoint="md"
+          className="sider-container"
+          collapsedWidth="0"
+          width={360}
+        >
+          <TeacherPreviewMenu
+            onHandleSkipToQuestionFromIntro={handleSkipToQuestionFromIntro}
+            onTogglePreview={handleTogglePreviewMenu}
+            onToggleQuestion={handleToggleQuestion}
+            onUpdateRandomizedQuestions={handleUpdateRandomizedQuestions}
+            questionToPreview={questionToPreview}
+            showPreview={previewShowing}
+          />
+        </Layout.Sider>}
+        {renderContent(header, showPreview)}
+      </Layout>
+    </Layout>
+  );
+}
 
 export default PageLayout;

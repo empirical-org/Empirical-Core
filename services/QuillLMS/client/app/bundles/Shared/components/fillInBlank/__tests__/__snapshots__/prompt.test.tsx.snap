@@ -4,7 +4,7 @@ exports[`Prompt component should match snapshot 1`] = `
 <div
   style={Object {}}
 >
-  <p
+  <span
     dangerouslySetInnerHTML={
       Object {
         "__html": "<em>Ele</em> <strong>gosta</strong>",
@@ -16,7 +16,7 @@ exports[`Prompt component should match snapshot 1`] = `
     aria-label="test-label"
     key="3"
   />
-  <p
+  <span
     dangerouslySetInnerHTML={
       Object {
         "__html": "bater <u>papo.</u>",

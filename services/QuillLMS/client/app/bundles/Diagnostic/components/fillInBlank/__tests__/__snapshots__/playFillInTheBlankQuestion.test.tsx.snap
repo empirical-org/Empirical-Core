@@ -212,7 +212,7 @@ Completa el espacio en blanco con una de estas palabras: a, an, the. Si no se ne
                 }
               }
             >
-              <p
+              <span
                 dangerouslySetInnerHTML={
                   Object {
                     "__html": "I have ",
@@ -251,7 +251,7 @@ Completa el espacio en blanco con una de estas palabras: a, an, the. Si no se ne
                   value=""
                 />
               </span>
-              <p
+              <span
                 dangerouslySetInnerHTML={
                   Object {
                     "__html": " friend named Marco who loves ",
@@ -290,7 +290,7 @@ Completa el espacio en blanco con una de estas palabras: a, an, the. Si no se ne
                   value=""
                 />
               </span>
-              <p
+              <span
                 dangerouslySetInnerHTML={
                   Object {
                     "__html": " football.",

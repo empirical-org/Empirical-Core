@@ -2,7 +2,7 @@ import * as React from "react";
 import {shallow} from "enzyme";
 import { Cue, CueExplanation, } from 'quill-component-library/dist/componentLibrary'
 
-import Cues from "../../components/grammarActivities/cues";
+import Cues from "../cues";
 
 describe("<Cues />", () => {
   describe('with no cues', () => {
