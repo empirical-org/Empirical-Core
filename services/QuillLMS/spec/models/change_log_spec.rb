@@ -10,6 +10,11 @@ describe ChangeLog, type: :model do
       expect(change_log.save).to be
     end
 
+    it "should save without a changed record id if the changed record type is a Topic and the action is Created" do
+      change_log.update(action: 'Created', changed_record_id: nil, changed_record_type: 'Topic')
+      expect(change_log.save).to be
+    end
+
     it "should not save if it is missing an action" do
       change_log.update(action: nil)
       expect(change_log.save).not_to be
