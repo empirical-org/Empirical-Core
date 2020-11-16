@@ -1,6 +1,7 @@
 class Cms::TopicsController < Cms::CmsController
 
   def index
+    change_logs = []
     topics = Topic.includes(:activities, change_logs: :user).all.map do |t|
       topic = t.attributes
       if t.level === 3
@@ -12,11 +13,13 @@ class Cms::TopicsController < Cms::CmsController
       topic[:change_logs] = t.change_logs.map do |cl|
         change_log = cl.attributes
         change_log[:user] = cl.user
+        change_log[:topic_name] = t.name
+        change_logs.push(change_log)
         change_log
       end
       topic
     end
-    render json: { topics: topics }
+    render json: { topics: topics, change_logs: change_logs }
   end
 
   def create
