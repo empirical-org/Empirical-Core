@@ -532,7 +532,7 @@ EmpiricalGrammar::Application.routes.draw do
 
     resources :announcements, only: [:index, :new, :create, :update, :edit]
 
-    resources :topics, only: [:index]
+    resources :topics, only: [:index, :update]
     resources :attributes_manager, only: [:index]
     get 'attributes_manager/topics' => 'attributes_manager#index'
 

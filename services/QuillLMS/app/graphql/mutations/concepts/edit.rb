@@ -29,7 +29,7 @@ class Mutations::Concepts::Edit < Mutations::BaseMutation
         {
           explanation: cl[:explanation],
           action: cl[:action],
-          changed_record_id: cl[:conceptID],
+          changed_record_id: cl[:recordID],
           changed_record_type: 'Concept',
           user_id: context[:current_user].id,
           previous_value: cl[:previousValue],

@@ -24,7 +24,7 @@ function columns(levelNumber, selectTopic) {
     {
       title: `Level ${levelNumber}`,
       dataIndex: 'name',
-      defaultSortOrder: 'descending',
+      defaultSortOrder: 'ascend',
       key: 'name',
       render: (text, record:TopicRow) => (<div onClick={() => selectTopic(record)}>{text}</div>),
       sorter:  (a, b) => (a.name.localeCompare(b.name)),
@@ -63,9 +63,5 @@ const TopicLevelTable: React.SFC<TopicLevelTableProps> = ({ topics, selectTopic,
     />
   );
 };
-
-TopicLevelTable.defaultProps = {
-  selectTopic: () => {}
-}
 
 export default TopicLevelTable;

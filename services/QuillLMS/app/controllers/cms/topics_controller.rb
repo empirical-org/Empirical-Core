@@ -1,7 +1,7 @@
 class Cms::TopicsController < Cms::CmsController
 
   def index
-    live_topics = Topic.where(visible: true).map do |t|
+    live_topics = Topic.includes(:activities, change_logs: :user).where(visible: true).map do |t|
       topic = t.attributes
       if t.level === 3
         child_topics = Topic.where(visible: true, parent_id: t.id)
@@ -9,10 +9,46 @@ class Cms::TopicsController < Cms::CmsController
       else
         topic[:activity_count] = t.activities.count
       end
+      topic[:change_logs] = t.change_logs.map do |cl|
+        change_log = cl.attributes
+        change_log[:user] = cl.user
+        change_log
+      end
       topic
     end
     archived_topics = Topic.where(visible: false).map { |t| t.attributes }
     render json: { live_topics: live_topics, archived_topics: archived_topics }
+  end
+
+  def update
+    topic = topic_params
+    topic[:change_logs_attributes] = topic[:change_logs_attributes].map do |cl|
+      cl[:user_id] = current_user.id
+      cl
+    end
+
+    updated_topic = Topic.find_by_id(params[:id]).update!(topic)
+
+    render json: { topic: updated_topic }
+  end
+
+  def topic_params
+    params.require(:topic).permit(
+      :name,
+      :id,
+      :visible,
+      :parent_id,
+      change_logs_attributes: [
+        :action,
+        :explanation,
+        :changed_attribute,
+        :previous_value,
+        :new_value,
+        :changed_record_id,
+        :changed_record_type,
+        :user_id
+      ]
+    )
   end
 
 end

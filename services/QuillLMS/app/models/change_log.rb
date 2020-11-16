@@ -10,9 +10,17 @@ class ChangeLog < ActiveRecord::Base
     'Created',
     'Replaced'
   ]
+  TOPIC_ACTIONS = [
+    'Renamed',
+    'Level 3 updated',
+    'Unarchived',
+    'Archived',
+    'Created'
+  ]
   CHANGED_RECORD_TYPES = [
     'Concept',
-    'User'
+    'User',
+    'Topic'
   ]
   USER_ACTIONS = {
     index: 'Visited User Directory',
@@ -26,7 +34,7 @@ class ChangeLog < ActiveRecord::Base
     'Visited User Directory',
     'Searched Users'
   ]
-  ALL_ACTIONS = USER_ACTIONS.values + CONCEPT_ACTIONS
+  ALL_ACTIONS = USER_ACTIONS.values + CONCEPT_ACTIONS + TOPIC_ACTIONS
 
   belongs_to :changed_record, polymorphic: true
   belongs_to :user
@@ -37,6 +45,6 @@ class ChangeLog < ActiveRecord::Base
   validates :changed_record_type, inclusion: CHANGED_RECORD_TYPES
 
   def applies_to_single_record?
-    changed_record_type == 'Concept' || !(GENERIC_USER_ACTIONS.include?(action))
+    ['Concept', 'Topic'].include?(changed_record_type) || !(GENERIC_USER_ACTIONS.include?(action))
   end
 end

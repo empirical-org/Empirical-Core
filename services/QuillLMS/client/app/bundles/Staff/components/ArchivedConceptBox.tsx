@@ -5,10 +5,11 @@ import moment from 'moment'
 import _ from 'underscore';
 
 import { Concept } from '../interfaces/interfaces'
-import ConceptChangeLogs from './ConceptChangeLogs'
-import ChangeLogModal from './ChangeLogModal'
+import IndividualRecordChangeLogs from './shared/individualRecordChangeLogs'
+import ChangeLogModal from './shared/changeLogModal'
 import { Input, DropdownInput, } from '../../Shared/index'
 
+const formatDateTime = (cl) => moment.unix(cl.createdAt).format('MMMM D, YYYY [at] LT')
 
 function levelTwoConceptsQuery(){
   return `
@@ -200,7 +201,7 @@ class ArchivedConceptBox extends React.Component<ArchivedConceptBoxProps, Archiv
       return (<ChangeLogModal
         cancel={this.closeChangeLogModal}
         changedFields={changedFields}
-        concept={concept}
+        record={concept}
         levelNumber={this.props.levelNumber}
         save={(changeLogs) => { this.save(editConcept, changeLogs)}}
       />)
@@ -219,7 +220,7 @@ class ArchivedConceptBox extends React.Component<ArchivedConceptBoxProps, Archiv
           const possibleConcepts = data.concepts;
           const options = possibleConcepts.map(c => {return { label: c.label, value: c.value, visible: c.visible, updatedAt: c.updatedAt, parent: c.parent }}).sort((a, b) => a.label.localeCompare(b.label))
           const value = options.find(opt => opt.value === concept.parent.id)
-          return (<div className="concept-input-container">
+          return (<div className="record-input-container">
             <DropdownInput
               error={errors.level1}
               handleChange={this.changeLevel1}
@@ -242,7 +243,7 @@ class ArchivedConceptBox extends React.Component<ArchivedConceptBoxProps, Archiv
           const possibleConcepts = data.concepts;
           const options = possibleConcepts.map(c => {return { label: c.label, value: c.value, visible: c.visible, updatedAt: c.updatedAt }}).sort((a, b) => a.label.localeCompare(b.label))
           const value = options.find(opt => opt.value === concept.parent.id)
-          return (<div className="concept-input-container">
+          return (<div className="record-input-container">
             <DropdownInput
               error={errors.level2}
               handleChange={this.changeLevel2}
@@ -263,7 +264,7 @@ class ArchivedConceptBox extends React.Component<ArchivedConceptBoxProps, Archiv
     const { concept, } = this.state
     if (this.props.levelNumber === 2) {
       return (<div>
-        <div className="concept-input-container">
+        <div className="record-input-container">
           <Input
             disabled={true}
             label='Level 2'
@@ -272,12 +273,12 @@ class ArchivedConceptBox extends React.Component<ArchivedConceptBoxProps, Archiv
           />
           {this.renderArchivedOrLive(concept)}
         </div>
-        <ConceptChangeLogs changeLogs={concept.changeLogs} />
+        <IndividualRecordChangeLogs changeLogs={concept.changeLogs} formatDateTime={formatDateTime} />
       </div>)
     } else if (this.props.levelNumber === 1) {
       return (<div>
         {this.renderDropdownInput()}
-        <div className="concept-input-container">
+        <div className="record-input-container">
           <Input
             disabled={true}
             label='Level 1'
@@ -286,11 +287,11 @@ class ArchivedConceptBox extends React.Component<ArchivedConceptBoxProps, Archiv
           />
           {this.renderArchivedOrLive(concept)}
         </div>
-        <ConceptChangeLogs changeLogs={concept.changeLogs} />
+        <IndividualRecordChangeLogs changeLogs={concept.changeLogs} />
       </div>)
     } else if (this.props.levelNumber === 0) {
       return (<div>
-        <div className="concept-input-container">
+        <div className="record-input-container">
           <Input
             disabled={true}
             label='Level 2'
@@ -300,7 +301,7 @@ class ArchivedConceptBox extends React.Component<ArchivedConceptBoxProps, Archiv
           {this.renderArchivedOrLive(concept.parent.parent)}
         </div>
         {this.renderDropdownInput()}
-        <div className="concept-input-container">
+        <div className="record-input-container">
           <Input
             disabled={true}
             label='Level 0'
@@ -309,7 +310,7 @@ class ArchivedConceptBox extends React.Component<ArchivedConceptBoxProps, Archiv
           />
           {this.renderArchivedOrLive(concept)}
         </div>
-        <ConceptChangeLogs changeLogs={concept.changeLogs} />
+        <IndividualRecordChangeLogs changeLogs={concept.changeLogs} />
       </div>)
     }
   }
@@ -348,9 +349,9 @@ class ArchivedConceptBox extends React.Component<ArchivedConceptBoxProps, Archiv
     return  (
       <Mutation mutation={EDIT_CONCEPT} onCompleted={this.props.finishEditingConcept}>
         {(editConcept, {}) => (
-          <div className="concept-box archived-concept-box">
+          <div className="record-box archived-record-box">
             {this.renderChangeLogModal(editConcept)}
-            <span className="close-concept-box" onClick={this.props.closeConceptBox}><i className="fas fa-times" /></span>
+            <span className="close-record-box" onClick={this.props.closeConceptBox}><i className="fas fa-times" /></span>
             <form acceptCharset="UTF-8" onSubmit={this.handleSubmit} >
               <div className="static">
                 <p>Level {this.props.levelNumber}</p>

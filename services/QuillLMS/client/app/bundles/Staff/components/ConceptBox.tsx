@@ -2,13 +2,16 @@ import * as React from "react";
 import { Query, Mutation } from "react-apollo";
 import gql from "graphql-tag";
 import _ from 'lodash'
+import moment from 'moment'
 
 import { Concept } from '../interfaces/interfaces'
 import RuleDescriptionField from './RuleDescriptionField'
 import ExplanationField from './ExplanationField'
-import ConceptChangeLogs from './ConceptChangeLogs'
-import ChangeLogModal from './ChangeLogModal'
+import IndividualRecordChangeLogs from './shared/individualRecordChangeLogs'
+import ChangeLogModal from './shared/changeLogModal'
 import { Input, DropdownInput, } from '../../Shared/index'
+
+const formatDateTime = (cl) => moment.unix(cl.createdAt).format('MMMM D, YYYY [at] LT')
 
 function levelTwoConceptsQuery(){
   return `
@@ -114,8 +117,8 @@ class ConceptBox extends React.Component<ConceptBoxProps, ConceptBoxState> {
       return (<ChangeLogModal
         cancel={this.closeChangeLogModal}
         changedFields={changedFields}
-        concept={concept}
         levelNumber={this.props.levelNumber}
+        record={concept}
         save={(changeLogs) => { this.save(editConcept, changeLogs)}}
       />)
     }
@@ -123,6 +126,7 @@ class ConceptBox extends React.Component<ConceptBoxProps, ConceptBoxState> {
 
   save = (editConcept, changeLogs) => {
     const { concept } = this.state
+    debugger;
     editConcept({ variables: {
       id: concept.id,
       name: concept.name,
@@ -191,7 +195,7 @@ class ConceptBox extends React.Component<ConceptBoxProps, ConceptBoxState> {
   }
 
   activateConceptInput = () => {
-    document.getElementById('concept-name').focus()
+    document.getElementById('record-name').focus()
   }
 
   renderDropdownInput = () => {
@@ -255,34 +259,34 @@ class ConceptBox extends React.Component<ConceptBoxProps, ConceptBoxState> {
     const { levelNumber, } = this.props
     if (levelNumber === 2) {
       return (<div>
-        <div className="concept-input-container">
+        <div className="record-input-container">
           <Input
             handleCancel={this.cancelRename}
             handleChange={this.renameConcept}
-            id='concept-name'
+            id='record-name'
             label='Level 2'
             type='text'
             value={concept.name}
           />
           {this.renderRenameAndArchiveSection()}
         </div>
-        <ConceptChangeLogs changeLogs={concept.changeLogs} />
+        <IndividualRecordChangeLogs changeLogs={concept.changeLogs} formatDateTime={formatDateTime} />
       </div>)
     } else if (levelNumber === 1) {
       return (<div>
         {this.renderDropdownInput()}
-        <div className="concept-input-container">
+        <div className="record-input-container">
           <Input
             handleCancel={this.cancelRename}
             handleChange={this.renameConcept}
-            id='concept-name'
+            id='record-name'
             label='Level 1'
             type='text'
             value={concept.name}
           />
           {this.renderRenameAndArchiveSection()}
         </div>
-        <ConceptChangeLogs changeLogs={concept.changeLogs} />
+        <IndividualRecordChangeLogs changeLogs={concept.changeLogs} />
       </div>)
     } else if (levelNumber === 0) {
       return (<div>
@@ -293,11 +297,11 @@ class ConceptBox extends React.Component<ConceptBoxProps, ConceptBoxState> {
           value={concept.parent.parent.name}
         />
         {this.renderDropdownInput()}
-        <div className="concept-input-container">
+        <div className="record-input-container">
           <Input
             handleCancel={this.cancelRename}
             handleChange={this.renameConcept}
-            id='concept-name'
+            id='record-name'
             label='Level 0'
             type='text'
             value={concept.name}
@@ -306,7 +310,7 @@ class ConceptBox extends React.Component<ConceptBoxProps, ConceptBoxState> {
         </div>
         <RuleDescriptionField handleChange={this.changeDescription} ruleDescription={concept.description} />
         <ExplanationField explanation={concept.explanation} handleChange={this.changeExplanation} />
-        <ConceptChangeLogs changeLogs={concept.changeLogs} />
+        <IndividualRecordChangeLogs changeLogs={concept.changeLogs} />
       </div>)
     }
   }
@@ -328,9 +332,9 @@ class ConceptBox extends React.Component<ConceptBoxProps, ConceptBoxState> {
     return  (
       <Mutation mutation={EDIT_CONCEPT} onCompleted={finishEditingConcept}>
         {(editConcept, {}) => (
-          <div className="concept-box">
+          <div className="record-box">
             {this.renderChangeLogModal(editConcept)}
-            <span className="close-concept-box" onClick={closeConceptBox}><i className="fas fa-times" /></span>
+            <span className="close-record-box" onClick={closeConceptBox}><i className="fas fa-times" /></span>
             <form acceptCharset="UTF-8" onSubmit={this.handleSubmit} >
               <div className="static">
                 <p>Level {levelNumber}</p>

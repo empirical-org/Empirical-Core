@@ -1,7 +1,9 @@
-.live-topics-manager {
-  margin-left: 31px;
-  display: flex;
-  .ant-table-wrapper {
-    margin-right: 20px;
+.topics-manager {
+  margin: 30px;
+  .live-topics-manager {
+    display: flex;
+    .ant-table-wrapper {
+      margin-right: 20px;
+    }
   }
 }
