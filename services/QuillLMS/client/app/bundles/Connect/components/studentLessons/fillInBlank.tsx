@@ -2,6 +2,7 @@ declare function require(name:string);
 import * as React from 'react';
 import * as  _ from 'underscore';
 import { stringNormalize } from 'quill-string-normalizer';
+import stripHtml from "string-strip-html";
 
 import Cues from '../renderForQuestions/cues.jsx';
 import FeedbackContainer from '../renderForQuestions/feedback'
@@ -24,9 +25,6 @@ const styles = {
   container: {
     marginTop: 35,
     marginBottom: 18,
-    display: 'flex',
-    alignItems: 'center',
-    flexWrap: 'wrap',
     fontSize: 24,
   },
   text: {
@@ -51,13 +49,19 @@ interface PlayFillInTheBlankQuestionProps {
 }
 
 interface PlayFillInTheBlankQuestionState {
+  blankAllowed?: boolean;
+  cues?: string[];
+  inputVals?: any;
+  inputErrors?: any;
   previewAttempt: any;
   previewAttemptSubmitted: boolean;
   previewSentenceOrFragmentSelected: boolean;
   previewSubmissionCount: number;
+  responses?: any;
+  splitPrompt?: string[];
 }
 
-export class PlayFillInTheBlankQuestion extends React.Component<PlayFillInTheBlankQuestionProps, any> {
+export class PlayFillInTheBlankQuestion extends React.Component<PlayFillInTheBlankQuestionProps, PlayFillInTheBlankQuestionState> {
   constructor(props) {
     super(props);
 
@@ -281,7 +285,9 @@ export class PlayFillInTheBlankQuestion extends React.Component<PlayFillInTheBla
     const { inputVals, splitPrompt, } = this.state
     const trimmedInputVals = inputVals.map(iv => iv.trim())
     const zipped = _.zip(splitPrompt, trimmedInputVals);
-    return _.flatten(zipped).join('').trim();
+    const formatted = _.flatten(zipped).join('').trim();
+    // we use stripHtml for prompts that have stylized elements
+    return stripHtml(formatted);
   }
 
   handleSubmitClick = () => {
