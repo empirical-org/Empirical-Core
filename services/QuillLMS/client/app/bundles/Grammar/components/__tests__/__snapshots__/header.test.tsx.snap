@@ -6,7 +6,6 @@ exports[`<Header /> should render 1`] = `
 >
   <Row
     align="middle"
-    gutter={0}
     justify="space-between"
     style={
       Object {

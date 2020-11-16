@@ -699,7 +699,7 @@ describe User, type: :model do
   end
 
   describe '#clear_data' do
-    let(:user) { create(:user, google_id: 'sergey_and_larry_were_here') }
+    let(:user) { create(:teacher_with_school, google_id: 'sergey_and_larry_were_here') }
     let!(:auth_credential) { create(:auth_credential, user: user) }
     before(:each) { user.clear_data }
 
@@ -721,6 +721,9 @@ describe User, type: :model do
 
     it "destroys associated auth credentials if present" do
       expect(user.reload.auth_credential).to be nil
+    end
+    it "destroys associated schools_users if present" do
+      expect(user.reload.schools_users).to be nil
     end
   end
 

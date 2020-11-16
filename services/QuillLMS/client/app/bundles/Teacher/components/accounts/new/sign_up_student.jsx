@@ -1,6 +1,5 @@
 import React from 'react';
 import request from 'request'
-import { SegmentAnalytics, Events } from '../../../../../modules/analytics';
 
 import AuthSignUp from './auth_sign_up'
 import AnalyticsWrapper from '../../shared/analytics_wrapper'
@@ -28,7 +27,6 @@ class SignUpStudent extends React.Component {
   }
 
   handleClickSignUpAsTeacher = (e) => {
-    SegmentAnalytics.track(Events.CLICK_CREATE_TEACHER_USER)
     window.location.href = '/sign-up/teacher'
   }
 
@@ -41,7 +39,6 @@ class SignUpStudent extends React.Component {
     const { firstName, lastName, username, password, timesSubmitted, email, } = this.state
     const emailToSubmit = email && email.length ? email : null
     e.preventDefault();
-    SegmentAnalytics.track(Events.SUBMIT_SIGN_UP, {provider: Events.providers.EMAIL});
     request({
       url: `${process.env.DEFAULT_URL}/account`,
       method: 'POST',

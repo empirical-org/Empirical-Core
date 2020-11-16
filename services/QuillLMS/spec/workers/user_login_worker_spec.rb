@@ -20,34 +20,9 @@ describe UserLoginWorker, type: :worker do
 
   context 'when student with teacher logs in' do
 
-    it 'track teacher student sign in and student sign in' do
+    it 'track teacher student sign in' do
       expect(analyzer).to receive(:track).with(teacher, SegmentIo::BackgroundEvents::TEACHERS_STUDENT_SIGNIN)
       worker.perform(student.id, "127.0.0.1")
-      expect(analyzer).to have_received(:track_with_attributes).with(
-          student.reload,
-          SegmentIo::BackgroundEvents::STUDENT_SIGNIN,
-          {
-              context: { :ip => student.reload.ip_address },
-              integrations: { all: true, Intercom: false }
-          }
-      )
-    end
-  end
-
-  context 'student with no teacher logs in' do
-    let(:student) { create(:student, classrooms: []) }
-
-    it 'should track student signin' do
-      expect(analyzer).to_not receive(:track)
-      worker.perform(student.id, "127.0.0.1")
-      expect(analyzer).to have_received(:track_with_attributes).with(
-          student.reload,
-          SegmentIo::BackgroundEvents::STUDENT_SIGNIN,
-          {
-              context: { :ip => student.reload.ip_address },
-              integrations: { all: true, Intercom: false }
-          }
-      )
     end
   end
 end
