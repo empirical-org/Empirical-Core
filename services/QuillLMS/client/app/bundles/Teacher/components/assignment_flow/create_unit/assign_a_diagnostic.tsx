@@ -6,13 +6,14 @@ import AssignmentFlowNavigation from '../assignment_flow_navigation'
 import { UNIT_TEMPLATE_NAME, UNIT_TEMPLATE_ID, ACTIVITY_IDS_ARRAY, UNIT_NAME, } from '../assignmentFlowConstants'
 import ScrollToTop from '../../shared/scroll_to_top'
 
-const starterDiagnosticSrc = `${process.env.CDN_URL}/images/illustrations/diagnostics-starter.svg`
-const intermediateDiagnosticSrc = `${process.env.CDN_URL}/images/illustrations/diagnostics-intermediate.svg`
-const advancedDiagnosticSrc = `${process.env.CDN_URL}/images/illustrations/diagnostics-advanced.svg`
-const ellDiagnosticSrc = `${process.env.CDN_URL}/images/illustrations/diagnostics-ell.svg`
-const ellStarterDiagnosticSrc = `${process.env.CDN_URL}/images/illustrations/diagnostics-ell-starter.svg`
-const preApWritingSkillsSrc = `${process.env.CDN_URL}/images/college_board/diagnostics-preap.svg`
-const apWritingSkillsSrc = `${process.env.CDN_URL}/images/college_board/diagnostics-ap.svg`
+const starterDiagnosticSrc = `http://assets.quill.org/images/illustrations/diagnostics-starter.svg`
+const intermediateDiagnosticSrc = `http://assets.quill.org/images/illustrations/diagnostics-intermediate.svg`
+const advancedDiagnosticSrc = `http://assets.quill.org/images/illustrations/diagnostics-advanced.svg`
+const ellDiagnosticSrc = `http://assets.quill.org/images/illustrations/icons-diagnostics-ell-intermediate.svg`
+const ellStarterDiagnosticSrc = `http://assets.quill.org/images/illustrations/icons-diagnostics-ell-starter.svg`
+const preApWritingSkillsSrc = `http://assets.quill.org/images/college_board/icons-diagnostics-preap.svg`
+const apWritingSkillsSrc = `http://assets.quill.org/images/college_board/icons-diagnostics-ap.svg`
+const springBoardWritingSkillsSrc = `http://assets.quill.org/images/college_board/icons-diagnostics-springboard.svg`
 
 const STARTER_DIAGNOSTIC = 'Starter Diagnostic'
 const INTERMEDIATE_DIAGNOSTIC = 'Intermediate Diagnostic'
@@ -22,6 +23,7 @@ const ELL_STARTER_DIAGNOSTIC = 'ELL Diagnostic 1: Entering and Emerging'
 const PRE_AP_WRITINGS_SKILLS_1 = 'Pre-AP Writing Skills Survey 1'
 const PRE_AP_WRITINGS_SKILLS_2 = 'Pre-AP Writing Skills Survey 2'
 const AP_WRITINGS_SKILLS = 'AP Writing Skills Survey'
+const SPRING_BOARD_WRITINGS_SKILLS = 'SpringBoard Writing Skills Survey'
 
 const STARTER_DIAGNOSTIC_ACTIVITY_ID = 849
 const INTERMEDIATE_DIAGNOSTIC_ACTIVITY_ID = 850
@@ -31,6 +33,17 @@ const ELL_STARTER_DIAGNOSTIC_ACTIVITY_ID = 1161
 const PRE_AP_WRITINGS_SKILLS_1_ACTIVITY_ID = 1229
 const PRE_AP_WRITINGS_SKILLS_2_ACTIVITY_ID = 1230
 const AP_WRITINGS_SKILLS_ACTIVITY_ID = 992
+const SPRING_BOARD_SKILLS_ACTIVITY_ID = 1432
+
+const STARTER_DIAGNOSTIC_UNIT_TEMPLATE_ID = 99
+const INTERMEDIATE_DIAGNOSTIC_UNIT_TEMPLATE_ID = 100
+const ADVANCED_DIAGNOSTIC_UNIT_TEMPLATE_ID = 126
+const ELL_DIAGNOSTIC_UNIT_TEMPLATE_ID = 154
+const ELL_STARTER_DIAGNOSTIC_UNIT_TEMPLATE_ID = 34
+const PRE_AP_WRITINGS_SKILLS_1_UNIT_TEMPLATE_ID = 193
+const PRE_AP_WRITINGS_SKILLS_2_UNIT_TEMPLATE_ID = 194
+const AP_WRITINGS_SKILLS_UNIT_TEMPLATE_ID = 195
+const SPRING_BOARD_SKILLS_UNIT_TEMPLATE_ID = 253
 
 const selectCard = (history: any, unitTemplateName: string, activityIdsArray: string, unitTemplateId: number) => {
   const unitTemplateIdString = unitTemplateId.toString();
@@ -52,7 +65,7 @@ const minis = ({ history }) => [
     header={STARTER_DIAGNOSTIC}
     imgAlt="page with a little writing"
     imgSrc={starterDiagnosticSrc}
-    selectCard={() => selectCard(history, STARTER_DIAGNOSTIC, encodeURIComponent([STARTER_DIAGNOSTIC_ACTIVITY_ID].toString()), 99)}
+    selectCard={() => selectCard(history, STARTER_DIAGNOSTIC, encodeURIComponent([STARTER_DIAGNOSTIC_ACTIVITY_ID].toString()), STARTER_DIAGNOSTIC_UNIT_TEMPLATE_ID)}
   />),
   (<AssignmentCard
     bodyArray={[
@@ -64,7 +77,7 @@ const minis = ({ history }) => [
     header={INTERMEDIATE_DIAGNOSTIC}
     imgAlt="page with a medium amount of writing"
     imgSrc={intermediateDiagnosticSrc}
-    selectCard={() => selectCard(history, INTERMEDIATE_DIAGNOSTIC, encodeURIComponent([INTERMEDIATE_DIAGNOSTIC_ACTIVITY_ID].toString()), 100)}
+    selectCard={() => selectCard(history, INTERMEDIATE_DIAGNOSTIC, encodeURIComponent([INTERMEDIATE_DIAGNOSTIC_ACTIVITY_ID].toString()), INTERMEDIATE_DIAGNOSTIC_UNIT_TEMPLATE_ID)}
   />),
   (<AssignmentCard
     bodyArray={[
@@ -76,7 +89,7 @@ const minis = ({ history }) => [
     header={ADVANCED_DIAGNOSTIC}
     imgAlt="page with a large amount of writing"
     imgSrc={advancedDiagnosticSrc}
-    selectCard={() => selectCard(history, ADVANCED_DIAGNOSTIC, encodeURIComponent([ADVANCED_DIAGNOSTIC_ACTIVITY_ID].toString()), 126)}
+    selectCard={() => selectCard(history, ADVANCED_DIAGNOSTIC, encodeURIComponent([ADVANCED_DIAGNOSTIC_ACTIVITY_ID].toString()), ADVANCED_DIAGNOSTIC_UNIT_TEMPLATE_ID)}
   />),
   (<AssignmentCard
     bodyArray={[
@@ -88,7 +101,7 @@ const minis = ({ history }) => [
     header={ELL_STARTER_DIAGNOSTIC}
     imgAlt="page with less writing that says ELL in the corner"
     imgSrc={ellStarterDiagnosticSrc}
-    selectCard={() => selectCard(history, ELL_STARTER_DIAGNOSTIC, encodeURIComponent([ELL_STARTER_DIAGNOSTIC_ACTIVITY_ID].toString()), 154)}
+    selectCard={() => selectCard(history, ELL_STARTER_DIAGNOSTIC, encodeURIComponent([ELL_STARTER_DIAGNOSTIC_ACTIVITY_ID].toString()), ELL_STARTER_DIAGNOSTIC_UNIT_TEMPLATE_ID)}
   />),
   (<AssignmentCard
     bodyArray={[
@@ -100,7 +113,7 @@ const minis = ({ history }) => [
     header={ELL_DIAGNOSTIC}
     imgAlt="page with writing that says ELL in the corner"
     imgSrc={ellDiagnosticSrc}
-    selectCard={() => selectCard(history, ELL_DIAGNOSTIC, encodeURIComponent([ELL_DIAGNOSTIC_ACTIVITY_ID].toString()), 34)}
+    selectCard={() => selectCard(history, ELL_DIAGNOSTIC, encodeURIComponent([ELL_DIAGNOSTIC_ACTIVITY_ID].toString()), ELL_DIAGNOSTIC_UNIT_TEMPLATE_ID)}
   />),
   (<AssignmentCard
     bodyArray={[
@@ -112,11 +125,11 @@ const minis = ({ history }) => [
     header={AP_WRITINGS_SKILLS}
     imgAlt="page with writing that says AP in corner"
     imgSrc={apWritingSkillsSrc}
-    selectCard={() => selectCard(history, AP_WRITINGS_SKILLS, encodeURIComponent([AP_WRITINGS_SKILLS_ACTIVITY_ID].toString()), 193)}
+    selectCard={() => selectCard(history, AP_WRITINGS_SKILLS, encodeURIComponent([AP_WRITINGS_SKILLS_ACTIVITY_ID].toString()), AP_WRITINGS_SKILLS_UNIT_TEMPLATE_ID)}
   />),
   (<AssignmentCard
     bodyArray={[
-      { key: 'What', text: 'Subject-verb agreement, pronouns, compound subjects, objects, and predicates, and compound and complex sentences', },
+      { key: 'What', text: 'Subject-verb agreement, pronouns, and coordinating and subordinating conjunctions', },
       { key: 'When', text: 'Your students are working on basic sentence patterns and the skills outlined in the Pre-AP® English High School Course Framework.', }
     ]}
     buttonLink={`/activity_sessions/anonymous?activity_id=${PRE_AP_WRITINGS_SKILLS_1_ACTIVITY_ID}`}
@@ -124,7 +137,7 @@ const minis = ({ history }) => [
     header={PRE_AP_WRITINGS_SKILLS_1}
     imgAlt="page with writing that says Pre-AP on bottom"
     imgSrc={preApWritingSkillsSrc}
-    selectCard={() => selectCard(history, PRE_AP_WRITINGS_SKILLS_1, encodeURIComponent([PRE_AP_WRITINGS_SKILLS_1_ACTIVITY_ID].toString()), 194)}
+    selectCard={() => selectCard(history, PRE_AP_WRITINGS_SKILLS_1, encodeURIComponent([PRE_AP_WRITINGS_SKILLS_1_ACTIVITY_ID].toString()), PRE_AP_WRITINGS_SKILLS_1_UNIT_TEMPLATE_ID)}
   />),
   (<AssignmentCard
     bodyArray={[
@@ -136,7 +149,19 @@ const minis = ({ history }) => [
     header={PRE_AP_WRITINGS_SKILLS_2}
     imgAlt="page with writing that says Pre-AP on bottom"
     imgSrc={preApWritingSkillsSrc}
-    selectCard={() => selectCard(history, PRE_AP_WRITINGS_SKILLS_2, encodeURIComponent([PRE_AP_WRITINGS_SKILLS_2_ACTIVITY_ID].toString()), 195)}
+    selectCard={() => selectCard(history, PRE_AP_WRITINGS_SKILLS_2, encodeURIComponent([PRE_AP_WRITINGS_SKILLS_2_ACTIVITY_ID].toString()), PRE_AP_WRITINGS_SKILLS_2_UNIT_TEMPLATE_ID)}
+  />),
+  (<AssignmentCard
+    bodyArray={[
+      { key: 'What', text: 'Subject-verb agreement, pronouns, coordinating and subordinating conjunctions, prepositional phrases, and commonly confused words', },
+      { key: 'When', text: 'Your students are working on basic sentence patterns and the grammar skills covered in the SpringBoard grades 6-8 materials.', }
+    ]}
+    buttonLink={`/activity_sessions/anonymous?activity_id=${SPRING_BOARD_SKILLS_ACTIVITY_ID}`}
+    buttonText="Preview"
+    header={SPRING_BOARD_WRITINGS_SKILLS}
+    imgAlt="page with writing that says SpringBoard on bottom"
+    imgSrc={springBoardWritingSkillsSrc}
+    selectCard={() => selectCard(history, SPRING_BOARD_WRITINGS_SKILLS, encodeURIComponent([SPRING_BOARD_SKILLS_ACTIVITY_ID].toString()), SPRING_BOARD_SKILLS_UNIT_TEMPLATE_ID)}
   />)
 ];
 

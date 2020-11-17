@@ -9,8 +9,19 @@ const selectCard = (history: any, link: string) => {
 
 const apSrc = `${process.env.CDN_URL}/images/college_board/ap.svg`
 const preApSrc = `${process.env.CDN_URL}/images/college_board/pre-ap.svg`
+const springBoardSrc = `${process.env.CDN_URL}/images/college_board/icons-springboard.svg`
 
 const minis = ({ history }) => [
+  (<AssignmentCard
+    bodyArray={[
+      { key: 'What', text: 'Assign a skills survey that assesses seven key sentence construction skills and provides up to 40 practice activities.', },
+      { key: 'When', text: 'You want to fill gaps in foundational writing skills for students writing at an AP level.', }
+    ]}
+    header="View AP Activities"
+    imgAlt="Page with writing with the word AP in top left corner"
+    imgSrc={apSrc}
+    selectCard={() => selectCard(history, '/assign/ap')}
+  />),
   (<AssignmentCard
     bodyArray={[
       { key: 'What', text: 'Explore 20 activities based on Pre-AP texts and two skills surveys that provide targeted practice on key writing skills.', },
@@ -24,13 +35,13 @@ const minis = ({ history }) => [
   />),
   (<AssignmentCard
     bodyArray={[
-      { key: 'What', text: 'Assign a skills survey that assesses seven key sentence construction skills and provides up to 40 practice activities.', },
-      { key: 'When', text: 'You want to fill gaps in foundational writing skills for students writing at an AP level.', }
+      { key: 'What', text: 'Assign a skills survey that assesses key writing skills and provides practice aligned to SpringBoard grades 6-8.', },
+      { key: 'When', text: 'You want to build foundational skills and provide practice aligned to the grammar skills featured in the SpringBoard grades 6-8 materials.', }
     ]}
-    header="View AP Activities"
-    imgAlt="Page with writing with the word AP in top left corner"
-    imgSrc={apSrc}
-    selectCard={() => selectCard(history, '/assign/ap')}
+    header="View SpringBoard Activities"
+    imgAlt="Page with writing with the word SpringBoard on top"
+    imgSrc={springBoardSrc}
+    selectCard={() => selectCard(history, '/assign/springboard')}
   />)
 ];
 
@@ -39,7 +50,7 @@ const AssignADiagnostic = (props: any) => (
     <AssignmentFlowNavigation />
     <ScrollToTop />
     <div className="diagnostic-page container">
-      <h1>Do you want to use activities aligned to Pre-AP or AP courses?</h1>
+      <h1>Do you want to use activities aligned to SpringBoard, Pre-AP, or AP?</h1>
       <div className="minis">{minis(props)}</div>
     </div>
   </div>
