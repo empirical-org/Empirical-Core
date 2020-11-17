@@ -34,4 +34,30 @@ describe Api::V1::UsersController do
       }.to_json)
     end
   end
+  describe '#current_user_role' do
+    it 'should return teacher for teacher users' do
+      user = create(:teacher)
+      allow(controller).to receive(:current_user) { user }
+      get :current_user_role, format: :json
+      expect(response.body).to eq({ role: "teacher" }.to_json)
+    end
+    it 'should return admin for admin users' do
+      user = create(:admin)
+      allow(controller).to receive(:current_user) { user }
+      get :current_user_role, format: :json
+      expect(response.body).to eq({ role: "admin" }.to_json)
+    end
+    it 'should return student for student users' do
+      user = create(:student)
+      allow(controller).to receive(:current_user) { user }
+      get :current_user_role, format: :json
+      expect(response.body).to eq({ role: "student" }.to_json)
+    end
+    it 'should return nil if current_user is nil' do
+      user = nil
+      allow(controller).to receive(:current_user) { user }
+      get :current_user_role, format: :json
+      expect(response.body).to eq({ role: nil }.to_json)
+    end
+  end
 end

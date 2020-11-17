@@ -25,9 +25,9 @@ describe('Prompt component', () => {
     expect(component).toMatchSnapshot();
   });
   it('should render one <em> element and one <strong> element in the same <p> tag', () => {
-    expect(component.find('p').first().props().dangerouslySetInnerHTML.__html).toEqual('<em>Ele</em> <strong>gosta</strong>')
+    expect(component.find('span').first().props().dangerouslySetInnerHTML.__html).toEqual('<em>Ele</em> <strong>gosta</strong>')
   })
   it('should render one <u> element in a <p> tag', () => {
-    expect(component.find('p').last().props().dangerouslySetInnerHTML.__html).toEqual('bater <u>papo.</u>')
+    expect(component.find('span').last().props().dangerouslySetInnerHTML.__html).toEqual('bater <u>papo.</u>')
   })
 })

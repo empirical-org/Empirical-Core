@@ -20,7 +20,7 @@ import * as titleCardActions from './actions/titleCards.ts';
 import * as Sentry from '@sentry/browser';
 import quillNormalizer from './libs/quillNormalizer';
 import './i18n';
-import Home from './components/home.jsx';
+import Home from './components/home';
 
 if (process.env.RAILS_ENV === 'production') {
   Sentry.init({ dsn: 'https://528794315c61463db7d5181ebc1d51b9@o95148.ingest.sentry.io/210579' })
