@@ -58,12 +58,6 @@ jobs:
             cd services/QuillLMS
             TESTFILES=$(circleci tests glob "spec/**/*_spec.rb" | circleci tests split)
             bundle exec rspec -- ${TESTFILES}
-      - run:
-          name: Run Comprehension engine tests
-          command: |
-            cd services/QuillLMS/engines/comprehension
-            bundle install
-            bundle exec rake test
   lms_node_build:
     working_directory: ~/Empirical-Core
     parallelism: 3
