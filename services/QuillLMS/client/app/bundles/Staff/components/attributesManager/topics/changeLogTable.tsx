@@ -71,7 +71,7 @@ function columns() {
       dataIndex: 'created_at',
       key: 'created_at',
       render: (timestamp) => moment(timestamp).format('MMMM D, YYYY [at] LT'),
-      sorter:  (a, b) => (a.created_at - b.created_at),
+      sorter:  (a, b) => (new Date(a.created_at) - new Date(b.created_at)),
       defaultSortOrder: 'descend'
     },
   ];

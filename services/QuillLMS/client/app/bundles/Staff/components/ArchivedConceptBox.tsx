@@ -201,8 +201,8 @@ class ArchivedConceptBox extends React.Component<ArchivedConceptBoxProps, Archiv
       return (<ChangeLogModal
         cancel={this.closeChangeLogModal}
         changedFields={changedFields}
-        record={concept}
         levelNumber={this.props.levelNumber}
+        record={concept}
         save={(changeLogs) => { this.save(editConcept, changeLogs)}}
       />)
     }

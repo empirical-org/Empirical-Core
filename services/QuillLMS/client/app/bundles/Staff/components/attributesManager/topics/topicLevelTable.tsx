@@ -49,7 +49,7 @@ function columns(levelNumber, selectTopic, showExtraColumns) {
       dataIndex: 'created_at',
       key: 'created_at',
       render: (text) => moment(text).format('M/D/YY'),
-      sorter:  (a, b) => (a.created_at - b.created_at),
+      sorter:  (a, b) => (new Date(a.created_at) - new Date(b.created_at)),
     }
     sharedColumns = sharedColumns.concat([createdAtColumn])
   }

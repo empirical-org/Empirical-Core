@@ -4,7 +4,7 @@ class Cms::TopicsController < Cms::CmsController
     change_logs = []
     topics = Topic.includes(:activities, change_logs: :user).all.map do |t|
       topic = t.attributes
-      if t.level === 3
+      if t.level == 3
         child_topics = Topic.where(visible: true, parent_id: t.id)
         topic[:activity_count] = child_topics.map { |ct| ct.activities.count}.reduce(:+)
       else

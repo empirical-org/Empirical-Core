@@ -51,7 +51,7 @@ class ChangeLog < ActiveRecord::Base
   def record_is_for_new_topic?
     # in the cms topics controller, we use nested attributes to create change logs for the topic
     # on create, this causes the validation to fail because there isn't a changed_record_id yet - it gets added after the validations are run
-    action != 'Created' && changed_record_type === 'Topic'
+    action != 'Created' && changed_record_type == 'Topic'
   end
 
   def needs_a_changed_record_id?
