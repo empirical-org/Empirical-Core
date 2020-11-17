@@ -1,18 +1,23 @@
 import * as React from 'react';
 
 import QuestionsAndAnswers from '../../containers/QuestionsAndAnswers';
-import { COLLEGE_BOARD_SLUG, AP_SLUG, PRE_AP_SLUG } from '../assignment_flow/assignmentFlowConstants';
+import * as constants from '../assignment_flow/assignmentFlowConstants';
 
 interface SpringBoardProps {
   isPartOfAssignmentFlow?: boolean;
 }
 
-const generateLink = ({ unitTemplateId, isCollegeBoard, isAp }) => {
-  let additionalPathParameters = '';
-  if(isCollegeBoard) {
-    additionalPathParameters = `?${COLLEGE_BOARD_SLUG}=${isAp ? AP_SLUG : PRE_AP_SLUG}`;
-  };
-  return `/assign/featured-activity-packs/${unitTemplateId}` + additionalPathParameters;
+const generateLink = ({ isPartOfAssignmentFlow, unitTemplateId, isCollegeBoard, slugType='' }) => {
+  console.log('isCollegeBoard', isCollegeBoard)
+  const slugTypes = {
+    'ap': constants.AP_SLUG,
+    'pre-ap': constants.PRE_AP_SLUG,
+    'springboard': constants.SPRING_BOARD_SLUG
+  }
+  if(isPartOfAssignmentFlow && isCollegeBoard) {
+    return `/assign/featured-activity-packs/${unitTemplateId}?${constants.COLLEGE_BOARD_SLUG}=${slugTypes[slugType]}`;
+  }
+  return `/activities/packs/${unitTemplateId}`
 }
 
 const SpringBoard = ({ isPartOfAssignmentFlow }: SpringBoardProps) => {
@@ -53,7 +58,7 @@ const SpringBoard = ({ isPartOfAssignmentFlow }: SpringBoardProps) => {
               <p className="activity-header springboard-sub-header" id="writing-skills-survey-1">SpringBoard Writing Skills Survey</p>
               <div className="college-board-activity-tag">For SpringBoard 6-8</div>
             </div>
-            <a className="quill-button medium primary outlined view-button focus-on-light" href={generateLink({unitTemplateId: 253, isCollegeBoard: false, isAp: false})} rel="noopener noreferrer" target={isPartOfAssignmentFlow ? '' : "_blank"}>View</a>
+            <a className="quill-button medium primary outlined view-button focus-on-light" href={generateLink({isPartOfAssignmentFlow, unitTemplateId: constants.SPRING_BOARD_SKILLS_UNIT_TEMPLATE_ID, isCollegeBoard: true, slugType: constants.SPRING_BOARD_SLUG })} rel="noopener noreferrer" target={isPartOfAssignmentFlow ? '' : "_blank"}>View</a>
           </div>
           <div className="activity-text-container">
             <p className="activity-sub-text">Students complete a twenty-five-item survey to gauge their understanding of key writing skills, fundamental grammatical elements, common editing mistakes, and compound/complex sentence constructions. The skills addressed in this survey are aligned to the grammar instruction featured in the SpringBoard Language and Writer’s Craft and Language Checkpoint lesson components. </p>
@@ -67,7 +72,7 @@ const SpringBoard = ({ isPartOfAssignmentFlow }: SpringBoardProps) => {
               <p className="activity-header springboard-sub-header" id="writing-skills-survey-1">Pre-AP Writing Skills Survey 1: Basic of Sentence Patterns</p>
               <div className="college-board-activity-tag">For SpringBoard 9-10</div>
             </div>
-            <a className="quill-button medium primary outlined view-button focus-on-light" href={generateLink({unitTemplateId: 194, isCollegeBoard: true, isAp: false})} rel="noopener noreferrer" target={isPartOfAssignmentFlow ? '' : "_blank"}>View</a>
+            <a className="quill-button medium primary outlined view-button focus-on-light" href={generateLink({isPartOfAssignmentFlow, unitTemplateId: constants.PRE_AP_WRITINGS_SKILLS_1_UNIT_TEMPLATE_ID, isCollegeBoard: true, slugType: constants.PRE_AP_SLUG })} rel="noopener noreferrer" target={isPartOfAssignmentFlow ? '' : "_blank"}>View</a>
           </div>
           <div className="activity-text-container">
             <p className="activity-sub-text">Students complete a twelve-item survey to gauge their understanding of key writing skills, fundamental grammatical elements, and compound/complex sentence constructions. The skills addressed in this survey are aligned to the Pre-AP English High School Course Framework for English 1 and English 2. </p>
@@ -81,7 +86,7 @@ const SpringBoard = ({ isPartOfAssignmentFlow }: SpringBoardProps) => {
               <p className="activity-header springboard-sub-header" id="writing-skills-survey-2">Pre-AP Writing Skills Survey 2: Tools for Sentence Expansion</p>
               <div className="college-board-activity-tag">For SpringBoard 9-10</div>
             </div>
-            <a className="quill-button medium primary outlined view-button focus-on-light" href={generateLink({unitTemplateId: 195, isCollegeBoard: true, isAp: false})} rel="noopener noreferrer" target={isPartOfAssignmentFlow ? '' : "_blank"}>View</a>
+            <a className="quill-button medium primary outlined view-button focus-on-light" href={generateLink({isPartOfAssignmentFlow, unitTemplateId: constants.PRE_AP_WRITINGS_SKILLS_2_UNIT_TEMPLATE_ID, isCollegeBoard: true, slugType: constants.PRE_AP_SLUG })} rel="noopener noreferrer" target={isPartOfAssignmentFlow ? '' : "_blank"}>View</a>
           </div>
           <div className="activity-text-container">
             <p className="activity-sub-text">Students complete a twelve-item survey to gauge their understanding of key writing skills, focusing on constructions for expanding sentences with description and detail. The skills addressed in this survey are aligned to the Pre-AP English High School Course Framework for English 1 and English 2.</p>
@@ -95,7 +100,7 @@ const SpringBoard = ({ isPartOfAssignmentFlow }: SpringBoardProps) => {
               <p className="activity-header springboard-sub-header" id="writing-skills-survey">AP Writing Skills Survey</p>
               <div className="college-board-activity-tag">For SpringBoard 11-12</div>
             </div>
-            <a className="quill-button medium primary outlined view-button focus-on-light" href={generateLink({unitTemplateId: 193, isCollegeBoard: true, isAp: true})} rel="noopener noreferrer" target={isPartOfAssignmentFlow ? '' : "_blank"}>View</a>
+            <a className="quill-button medium primary outlined view-button focus-on-light" href={generateLink({isPartOfAssignmentFlow, unitTemplateId: constants.AP_WRITINGS_SKILLS_UNIT_TEMPLATE_ID, isCollegeBoard: true, slugType: constants.AP_SLUG })} rel="noopener noreferrer" target={isPartOfAssignmentFlow ? '' : "_blank"}>View</a>
           </div>
           <div className="activity-text-container">
             <p className="activity-sub-text">Students complete a seventeen-item survey to gauge their understanding of key writing skills that are essential to successful AP- and SAT-level writing.</p>
@@ -148,7 +153,7 @@ const SpringBoard = ({ isPartOfAssignmentFlow }: SpringBoardProps) => {
               <p className="activity-header springboard-sub-header" id="writing-skills-survey-1">ELL Skills Survey 1: Entering and Emerging</p>
               <div className="college-board-activity-tag">For SpringBoard 6-12</div>
             </div>
-            <a className="quill-button medium primary outlined view-button focus-on-light" href={generateLink({unitTemplateId: 154, isCollegeBoard: false, isAp: false})} rel="noopener noreferrer" target={isPartOfAssignmentFlow ? '' : "_blank"}>View</a>
+            <a className="quill-button medium primary outlined view-button focus-on-light" href={generateLink({isPartOfAssignmentFlow, unitTemplateId: constants.ELL_STARTER_DIAGNOSTIC_UNIT_TEMPLATE_ID, isCollegeBoard: false })} rel="noopener noreferrer" target={isPartOfAssignmentFlow ? '' : "_blank"}>View</a>
           </div>
           <div className="activity-text-container">
             <p className="activity-sub-text">Students complete a twenty-two-item placement activity. Directions can be shown in English only, or shown in both English and another selected language.</p>
@@ -162,7 +167,7 @@ const SpringBoard = ({ isPartOfAssignmentFlow }: SpringBoardProps) => {
               <p className="activity-header springboard-sub-header" id="writing-skills-survey-1">ELL Skills Survey 2: Developing and Expanding</p>
               <div className="college-board-activity-tag">For SpringBoard 6-12</div>
             </div>
-            <a className="quill-button medium primary outlined view-button focus-on-light" href={generateLink({unitTemplateId: 34, isCollegeBoard: false, isAp: false})} rel="noopener noreferrer" target={isPartOfAssignmentFlow ? '' : "_blank"}>View</a>
+            <a className="quill-button medium primary outlined view-button focus-on-light" href={generateLink({isPartOfAssignmentFlow, unitTemplateId: constants.ELL_DIAGNOSTIC_UNIT_TEMPLATE_ID, isCollegeBoard: false })} rel="noopener noreferrer" target={isPartOfAssignmentFlow ? '' : "_blank"}>View</a>
           </div>
           <div className="activity-text-container">
             <p className="activity-sub-text">Students complete a twenty-two-item placement activity. Directions can be shown in English only, or shown in both English and another selected language.</p>

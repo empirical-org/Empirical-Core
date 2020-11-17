@@ -3,7 +3,8 @@ import * as React from 'react';
 import AssignmentCard from './assignment_card';
 
 import AssignmentFlowNavigation from '../assignment_flow_navigation'
-import { UNIT_TEMPLATE_NAME, UNIT_TEMPLATE_ID, ACTIVITY_IDS_ARRAY, UNIT_NAME, } from '../assignmentFlowConstants'
+// import { UNIT_TEMPLATE_NAME, UNIT_TEMPLATE_ID, ACTIVITY_IDS_ARRAY, UNIT_NAME, TARTER_DIAGNOSTIC_UNIT_TEMPLATE_ID, INTERMEDIATE_DIAGNOSTIC_UNIT_TEMPLATE_ID, } from '../assignmentFlowConstants'
+import * as constants from '../assignmentFlowConstants'
 import ScrollToTop from '../../shared/scroll_to_top'
 
 const starterDiagnosticSrc = `http://assets.quill.org/images/illustrations/diagnostics-starter.svg`
@@ -35,22 +36,12 @@ const PRE_AP_WRITINGS_SKILLS_2_ACTIVITY_ID = 1230
 const AP_WRITINGS_SKILLS_ACTIVITY_ID = 992
 const SPRING_BOARD_SKILLS_ACTIVITY_ID = 1432
 
-const STARTER_DIAGNOSTIC_UNIT_TEMPLATE_ID = 99
-const INTERMEDIATE_DIAGNOSTIC_UNIT_TEMPLATE_ID = 100
-const ADVANCED_DIAGNOSTIC_UNIT_TEMPLATE_ID = 126
-const ELL_DIAGNOSTIC_UNIT_TEMPLATE_ID = 154
-const ELL_STARTER_DIAGNOSTIC_UNIT_TEMPLATE_ID = 34
-const PRE_AP_WRITINGS_SKILLS_1_UNIT_TEMPLATE_ID = 193
-const PRE_AP_WRITINGS_SKILLS_2_UNIT_TEMPLATE_ID = 194
-const AP_WRITINGS_SKILLS_UNIT_TEMPLATE_ID = 195
-const SPRING_BOARD_SKILLS_UNIT_TEMPLATE_ID = 253
-
 const selectCard = (history: any, unitTemplateName: string, activityIdsArray: string, unitTemplateId: number) => {
   const unitTemplateIdString = unitTemplateId.toString();
-  window.localStorage.setItem(UNIT_TEMPLATE_NAME, unitTemplateName)
-  window.localStorage.setItem(UNIT_NAME, unitTemplateName)
-  window.localStorage.setItem(ACTIVITY_IDS_ARRAY, activityIdsArray)
-  window.localStorage.setItem(UNIT_TEMPLATE_ID, unitTemplateIdString)
+  window.localStorage.setItem(constants.UNIT_TEMPLATE_NAME, unitTemplateName)
+  window.localStorage.setItem(constants.UNIT_NAME, unitTemplateName)
+  window.localStorage.setItem(constants.ACTIVITY_IDS_ARRAY, activityIdsArray)
+  window.localStorage.setItem(constants.UNIT_TEMPLATE_ID, unitTemplateIdString)
   history.push(`/assign/select-classes?diagnostic_unit_template_id=${unitTemplateIdString}`)
 }
 
@@ -65,7 +56,7 @@ const minis = ({ history }) => [
     header={STARTER_DIAGNOSTIC}
     imgAlt="page with a little writing"
     imgSrc={starterDiagnosticSrc}
-    selectCard={() => selectCard(history, STARTER_DIAGNOSTIC, encodeURIComponent([STARTER_DIAGNOSTIC_ACTIVITY_ID].toString()), STARTER_DIAGNOSTIC_UNIT_TEMPLATE_ID)}
+    selectCard={() => selectCard(history, STARTER_DIAGNOSTIC, encodeURIComponent([STARTER_DIAGNOSTIC_ACTIVITY_ID].toString()), constants.STARTER_DIAGNOSTIC_UNIT_TEMPLATE_ID)}
   />),
   (<AssignmentCard
     bodyArray={[
@@ -77,7 +68,7 @@ const minis = ({ history }) => [
     header={INTERMEDIATE_DIAGNOSTIC}
     imgAlt="page with a medium amount of writing"
     imgSrc={intermediateDiagnosticSrc}
-    selectCard={() => selectCard(history, INTERMEDIATE_DIAGNOSTIC, encodeURIComponent([INTERMEDIATE_DIAGNOSTIC_ACTIVITY_ID].toString()), INTERMEDIATE_DIAGNOSTIC_UNIT_TEMPLATE_ID)}
+    selectCard={() => selectCard(history, INTERMEDIATE_DIAGNOSTIC, encodeURIComponent([INTERMEDIATE_DIAGNOSTIC_ACTIVITY_ID].toString()), constants.INTERMEDIATE_DIAGNOSTIC_UNIT_TEMPLATE_ID)}
   />),
   (<AssignmentCard
     bodyArray={[
@@ -89,7 +80,7 @@ const minis = ({ history }) => [
     header={ADVANCED_DIAGNOSTIC}
     imgAlt="page with a large amount of writing"
     imgSrc={advancedDiagnosticSrc}
-    selectCard={() => selectCard(history, ADVANCED_DIAGNOSTIC, encodeURIComponent([ADVANCED_DIAGNOSTIC_ACTIVITY_ID].toString()), ADVANCED_DIAGNOSTIC_UNIT_TEMPLATE_ID)}
+    selectCard={() => selectCard(history, ADVANCED_DIAGNOSTIC, encodeURIComponent([ADVANCED_DIAGNOSTIC_ACTIVITY_ID].toString()), constants.ADVANCED_DIAGNOSTIC_UNIT_TEMPLATE_ID)}
   />),
   (<AssignmentCard
     bodyArray={[
@@ -101,7 +92,7 @@ const minis = ({ history }) => [
     header={ELL_STARTER_DIAGNOSTIC}
     imgAlt="page with less writing that says ELL in the corner"
     imgSrc={ellStarterDiagnosticSrc}
-    selectCard={() => selectCard(history, ELL_STARTER_DIAGNOSTIC, encodeURIComponent([ELL_STARTER_DIAGNOSTIC_ACTIVITY_ID].toString()), ELL_STARTER_DIAGNOSTIC_UNIT_TEMPLATE_ID)}
+    selectCard={() => selectCard(history, ELL_STARTER_DIAGNOSTIC, encodeURIComponent([ELL_STARTER_DIAGNOSTIC_ACTIVITY_ID].toString()), constants.ELL_STARTER_DIAGNOSTIC_UNIT_TEMPLATE_ID)}
   />),
   (<AssignmentCard
     bodyArray={[
@@ -113,7 +104,7 @@ const minis = ({ history }) => [
     header={ELL_DIAGNOSTIC}
     imgAlt="page with writing that says ELL in the corner"
     imgSrc={ellDiagnosticSrc}
-    selectCard={() => selectCard(history, ELL_DIAGNOSTIC, encodeURIComponent([ELL_DIAGNOSTIC_ACTIVITY_ID].toString()), ELL_DIAGNOSTIC_UNIT_TEMPLATE_ID)}
+    selectCard={() => selectCard(history, ELL_DIAGNOSTIC, encodeURIComponent([ELL_DIAGNOSTIC_ACTIVITY_ID].toString()), constants.ELL_DIAGNOSTIC_UNIT_TEMPLATE_ID)}
   />),
   (<AssignmentCard
     bodyArray={[
@@ -125,7 +116,7 @@ const minis = ({ history }) => [
     header={AP_WRITINGS_SKILLS}
     imgAlt="page with writing that says AP in corner"
     imgSrc={apWritingSkillsSrc}
-    selectCard={() => selectCard(history, AP_WRITINGS_SKILLS, encodeURIComponent([AP_WRITINGS_SKILLS_ACTIVITY_ID].toString()), AP_WRITINGS_SKILLS_UNIT_TEMPLATE_ID)}
+    selectCard={() => selectCard(history, AP_WRITINGS_SKILLS, encodeURIComponent([AP_WRITINGS_SKILLS_ACTIVITY_ID].toString()), constants.AP_WRITINGS_SKILLS_UNIT_TEMPLATE_ID)}
   />),
   (<AssignmentCard
     bodyArray={[
@@ -137,7 +128,7 @@ const minis = ({ history }) => [
     header={PRE_AP_WRITINGS_SKILLS_1}
     imgAlt="page with writing that says Pre-AP on bottom"
     imgSrc={preApWritingSkillsSrc}
-    selectCard={() => selectCard(history, PRE_AP_WRITINGS_SKILLS_1, encodeURIComponent([PRE_AP_WRITINGS_SKILLS_1_ACTIVITY_ID].toString()), PRE_AP_WRITINGS_SKILLS_1_UNIT_TEMPLATE_ID)}
+    selectCard={() => selectCard(history, PRE_AP_WRITINGS_SKILLS_1, encodeURIComponent([PRE_AP_WRITINGS_SKILLS_1_ACTIVITY_ID].toString()), constants.PRE_AP_WRITINGS_SKILLS_1_UNIT_TEMPLATE_ID)}
   />),
   (<AssignmentCard
     bodyArray={[
@@ -149,7 +140,7 @@ const minis = ({ history }) => [
     header={PRE_AP_WRITINGS_SKILLS_2}
     imgAlt="page with writing that says Pre-AP on bottom"
     imgSrc={preApWritingSkillsSrc}
-    selectCard={() => selectCard(history, PRE_AP_WRITINGS_SKILLS_2, encodeURIComponent([PRE_AP_WRITINGS_SKILLS_2_ACTIVITY_ID].toString()), PRE_AP_WRITINGS_SKILLS_2_UNIT_TEMPLATE_ID)}
+    selectCard={() => selectCard(history, PRE_AP_WRITINGS_SKILLS_2, encodeURIComponent([PRE_AP_WRITINGS_SKILLS_2_ACTIVITY_ID].toString()), constants.PRE_AP_WRITINGS_SKILLS_2_UNIT_TEMPLATE_ID)}
   />),
   (<AssignmentCard
     bodyArray={[
@@ -161,7 +152,7 @@ const minis = ({ history }) => [
     header={SPRING_BOARD_WRITINGS_SKILLS}
     imgAlt="page with writing that says SpringBoard on bottom"
     imgSrc={springBoardWritingSkillsSrc}
-    selectCard={() => selectCard(history, SPRING_BOARD_WRITINGS_SKILLS, encodeURIComponent([SPRING_BOARD_SKILLS_ACTIVITY_ID].toString()), SPRING_BOARD_SKILLS_UNIT_TEMPLATE_ID)}
+    selectCard={() => selectCard(history, SPRING_BOARD_WRITINGS_SKILLS, encodeURIComponent([SPRING_BOARD_SKILLS_ACTIVITY_ID].toString()), constants.SPRING_BOARD_SKILLS_UNIT_TEMPLATE_ID)}
   />)
 ];
 
