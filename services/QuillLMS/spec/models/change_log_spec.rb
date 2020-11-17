@@ -1,10 +1,12 @@
-describe ChangeLog, type: :model do
+require 'rails_helper'
+
+RSpec.describe ChangeLog, type: :model do
 
   it { should belong_to(:changed_record) }
   it { should belong_to(:user) }
 
   describe "validations" do
-    let (:change_log) { create(:change_log) }
+    let (:change_log) { create(:change_log, changed_record_type: 'Concept') }
 
     it "should save if it has all required fields and correct action and changed_record_type" do
       expect(change_log.save).to be
