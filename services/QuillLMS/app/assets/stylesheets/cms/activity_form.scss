@@ -1,0 +1,32 @@
+.activity-form {
+  .cms-form {
+    div {
+      margin-bottom: 16px;
+    }
+    label {
+      width: 100%;
+    }
+  }
+  .description-container {
+    display: flex;
+    flex-direction: column;
+  }
+  .checkbox-container {
+    display: flex;
+    align-items: center;
+    label {
+      margin-left: 8px;
+    }
+    input {
+      width: min-content;
+      margin: 0px;
+    }
+  }
+  .enabled-attribute-container {
+    display: flex;
+    align-items: flex-start;
+    .checkbox-container {
+      margin-right: 16px;
+    }
+  }
+}

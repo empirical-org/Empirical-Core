@@ -1,37 +1,11 @@
-<div class="cms-form">
-  <% if @activity.new_record? %>
-    <% url = url_for(controller: 'cms/activities', activity_classification_id: @activity.classification.id, action: 'create') %>
-  <% else %>
-    <% url = url_for(controller: 'cms/activities', activity_classification_id: @activity.classification.id, action: 'update', id: @activity.id) %>
-  <% end %>
-
-  <%= form_for @activity, url: url, html: { class: 'box-full-form form-vertical' } do |f| %>
-    <div class="l-section">
-      <h4>Basic setup</h4>
-      <%= f.label :name %>
-      <%= f.text_field :name %>
-      <br>
-      <%= f.label :description %>
-      <%= f.text_area :description, rows: 10, cols: 100 %>
-      <br>
-      <%= f.label :flag %>
-      <%= f.select :flag, Activity::FLAGS %>
-      <br>
-      <%= f.label :repeatable %>
-      <%= f.check_box :repeatable %>
-      <br>
-      <%= f.label :standard_category %>
-      <%= f.collection_select :standard_id, Standard.all, :id, :name %>
-      <br>
-      <%= f.label :supporting_info %>
-      <%= f.text_field :supporting_info %>
-      <br>
-      <% if @activity.classification.id == 6 %>
-        <%= f.label :follow_up_activity %>
-        <%= f.collection_select :follow_up_activity_id, Activity.all, :id, :name %>
-      <% end %>
-      <br>
-    </div>
-    <%= f.submit :save %>
-    <% end %>
-</div>
+<%= react_component('ActivityFormIndex', props: {
+  activity: @activity,
+  activityClassification: @activity_classification,
+  contentPartnerOptions: ContentPartner.all,
+  activityCategoryOptions: ActivityCategory.all,
+  standardOptions: Standard.all,
+  rawScoreOptions: RawScore.all,
+  topicOptions: Topic.all,
+  flagOptions: Activity::FLAGS,
+  followUpActivityOptions: Activity.all
+}) %>

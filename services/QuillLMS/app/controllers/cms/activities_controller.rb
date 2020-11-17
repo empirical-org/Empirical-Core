@@ -1,6 +1,6 @@
 class Cms::ActivitiesController < Cms::CmsController
   before_filter :find_classification
-  before_filter :set_activity, only: [:edit, :update, :destroy]
+  before_filter :set_activity, only: [:update, :destroy]
 
   def index
     @flag = params[:flag].to_s.to_sym.presence || :production
@@ -14,10 +14,15 @@ class Cms::ActivitiesController < Cms::CmsController
   end
 
   def new
-    @activity = Activity.new(classification: @activity_classification)
+    @js_file = 'staff'
+    activity = Activity.new(classification: @activity_classification)
+    @activity = format_activity_for_activity_form(activity)
   end
 
   def edit
+    @js_file = 'staff'
+    activity = Activity.find(params[:id])
+    @activity = format_activity_for_activity_form(activity)
   end
 
   def create
@@ -48,6 +53,14 @@ class Cms::ActivitiesController < Cms::CmsController
   end
 
   protected
+
+  def format_activity_for_activity_form(activity)
+    formatted_activity = activity.attributes
+    formatted_activity[:content_partner_ids] = activity.content_partner_ids
+    formatted_activity[:topic_ids] = activity.topic_ids
+    formatted_activity[:activity_category_ids] = activity.activity_category_ids
+    formatted_activity
+  end
 
   def set_activity
     @activity = @activity_classification.activities.find(params[:id])
