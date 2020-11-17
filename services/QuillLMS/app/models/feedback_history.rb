@@ -1,10 +1,11 @@
 class FeedbackHistory < ActiveRecord::Base
   CONCEPT_UID_LENGTH = 22
+  DEFAULT_PROMPT_TYPE = "Comprehension::Prompt"
   MIN_ATTEMPT = 1
   MAX_ATTEMPT = 5
   MIN_ENTRY_LENGTH = 25
   MAX_ENTRY_LENGTH = 500
-  MIN_FEEDBACK_LENGTH = 25
+  MIN_FEEDBACK_LENGTH = 10
   MAX_FEEDBACK_LENGTH = 500
   FEEDBACK_TYPES = [
     GRAMMAR = "grammar",
@@ -14,11 +15,13 @@ class FeedbackHistory < ActiveRecord::Base
     SPELLING = "spelling"
   ]
 
+  before_validation :confirm_prompt_type, on: :create
+
   belongs_to :activity_session, foreign_key: :activity_session_uid, primary_key: :uid
   belongs_to :prompt, polymorphic: true
   belongs_to :concept, foreign_key: :concept_uid, primary_key: :uid
 
-
+  validates :activity_session_uid, presence: true
   validates :concept_uid, allow_blank: true, length: {is: CONCEPT_UID_LENGTH}
   validates :attempt, presence: true,
     numericality: {
@@ -58,5 +61,13 @@ class FeedbackHistory < ActiveRecord::Base
              :feedback_text, :feedback_type, :time, :metadata],
       include: [:prompt]
     ))
+  end
+
+  def self.batch_create(param_array)
+    param_array.map { |params| create(params) }
+  end
+
+  private def confirm_prompt_type
+    self.prompt_type = DEFAULT_PROMPT_TYPE if prompt_id && !prompt_type
   end
 end
