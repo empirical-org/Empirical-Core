@@ -10,6 +10,7 @@ RSpec.describe FeedbackHistory, type: :model do
   end
 
   context 'validations' do
+    it { should validate_presence_of(:activity_session_uid) }
 
     it { should validate_presence_of(:attempt) }
     it do
@@ -24,7 +25,7 @@ RSpec.describe FeedbackHistory, type: :model do
     it { should validate_presence_of(:entry) }
     it { should validate_length_of(:entry).is_at_least(25).is_at_most(500) }
 
-    it { should validate_length_of(:feedback_text).is_at_least(25).is_at_most(500) }
+    it { should validate_length_of(:feedback_text).is_at_least(10).is_at_most(500) }
 
     it { should validate_presence_of(:feedback_type) }
     it { should validate_inclusion_of(:feedback_type).in_array(FeedbackHistory::FEEDBACK_TYPES) }
@@ -88,6 +89,53 @@ RSpec.describe FeedbackHistory, type: :model do
 
       assert_equal json_hash['prompt'], @feedback_history.prompt.as_json
       assert_equal json_hash['prompt']['text'], @prompt.text
+    end
+  end
+
+  context 'batch_create' do
+    setup do
+      @valid_fh_params = {
+        activity_session_uid: SecureRandom.uuid,
+        attempt: 1,
+	entry: 'This is the student entry',
+	feedback_text: 'This is the feedback text',
+	feedback_type: 'semantic',
+	optimal: false,
+	time: Time.now,
+	used: true
+      }
+      @invalid_fh_params = {}
+    end
+
+    it 'should save and return if all creations are valid' do
+        assert_equal FeedbackHistory.count, 0
+	FeedbackHistory.batch_create([@valid_fh_params, @valid_fh_params, @valid_fh_params])
+	assert_equal FeedbackHistory.count, 3
+    end
+
+    it 'should save any valid records if, but not any valid ones' do
+        assert_equal FeedbackHistory.count, 0
+	results = FeedbackHistory.batch_create([@invalid_fh_params, @valid_fh_params])
+	assert_equal FeedbackHistory.count, 1
+        assert results[0].errors[:entry].include?("can't be blank")
+        assert results[1].valid?
+    end
+  end
+
+  context 'before_validation: ensure_prompt_type' do
+    it 'should set default prompt_type if prompt_id is set, but prompt_type is not' do
+      fh = FeedbackHistory.create(prompt_id: 1)
+      assert_equal fh.prompt_type, FeedbackHistory::DEFAULT_PROMPT_TYPE
+    end
+
+    it 'should not set prompt_type if there is no prompt_id' do
+      fh = FeedbackHistory.create
+      refute fh.prompt_type
+    end
+
+    it 'should not set prompt_type if prompt_type is provided' do
+      fh = FeedbackHistory.create(prompt_id: 1, prompt_type: 'MadeUp')
+      assert_equal fh.prompt_type, 'MadeUp'
     end
   end
 end
