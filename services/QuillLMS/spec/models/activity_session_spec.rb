@@ -14,6 +14,7 @@ describe ActivitySession, type: :model, redis: true do
   it { is_expected.to callback(:set_state).before(:create) }
   it { is_expected.to callback(:set_completed_at).before(:save) }
   it { is_expected.to callback(:set_activity_id).before(:save) }
+  it { is_expected.to callback(:set_score_from_feedback_history).before(:save) }
   it { is_expected.to callback(:determine_if_final_score).after(:save) }
   it { is_expected.to callback(:update_milestones).after(:save) }
   it { is_expected.to callback(:invalidate_activity_session_count_if_completed).after(:commit) }
@@ -47,7 +48,7 @@ describe ActivitySession, type: :model, redis: true do
       end
     end
 
-    context 'when classroom activity does not exist' do
+    context 'when neither unit activity nor classroom activity unit state exist' do
       let(:unit) { create(:unit) }
       let(:classroom_unit) { create(:classroom_unit, unit: unit) }
       let(:follow_up_activity) { create(:activity) }
@@ -59,7 +60,7 @@ describe ActivitySession, type: :model, redis: true do
         )
       end
 
-      it 'should create the unit_activity' do
+      it 'should create the unit_activity and the classroom unit activity state' do
         unit_activity = ActivitySession.assign_follow_up_lesson(
           classroom_unit.id,
           activity.id,
@@ -67,7 +68,54 @@ describe ActivitySession, type: :model, redis: true do
         expect(unit_activity.activity_id).to eq(follow_up_activity.id)
         expect(unit_activity.unit_id).to eq(unit.id)
         expect(unit_activity.visible).to eq(true)
-        expect(unit_activity.classroom_unit_activity_states.first.locked).to eq(true)
+        expect(unit_activity.classroom_unit_activity_states.first).to be
+      end
+    end
+
+    context 'when unit activity exists but classroom unit activity state does not' do
+      let(:unit) { create(:unit) }
+      let(:classroom_unit) { create(:classroom_unit, unit: unit) }
+      let(:follow_up_activity) { create(:activity) }
+      let(:activity) { create(:activity, follow_up_activity: follow_up_activity) }
+      let!(:unit_activity) { create(:unit_activity, unit: unit, activity: follow_up_activity)}
+      let!(:activity_session) do
+        create(:activity_session,
+          activity: activity,
+          classroom_unit: classroom_unit
+        )
+      end
+
+      it 'should return the unit_activity and create a classroom activity unit state' do
+        follow_up_unit_activity = ActivitySession.assign_follow_up_lesson(
+          classroom_unit.id,
+          activity.id,
+        )
+        expect(follow_up_unit_activity.id).to eq(unit_activity.id)
+        expect(unit_activity.classroom_unit_activity_states.first).to be
+      end
+    end
+
+    context 'when unit activity exists but is archived and classroom unit activity state does not exist' do
+      let(:unit) { create(:unit) }
+      let(:classroom_unit) { create(:classroom_unit, unit: unit) }
+      let(:follow_up_activity) { create(:activity) }
+      let(:activity) { create(:activity, follow_up_activity: follow_up_activity) }
+      let!(:unit_activity) { create(:unit_activity, unit: unit, activity: follow_up_activity, visible: false)}
+      let!(:activity_session) do
+        create(:activity_session,
+          activity: activity,
+          classroom_unit: classroom_unit
+        )
+      end
+
+      it 'should return the unit_activity, make it visible, and create a classroom activity unit state' do
+        follow_up_unit_activity = ActivitySession.assign_follow_up_lesson(
+          classroom_unit.id,
+          activity.id,
+        )
+        expect(follow_up_unit_activity.id).to eq(unit_activity.id)
+        expect(follow_up_unit_activity.visible).to eq(true)
+        expect(unit_activity.classroom_unit_activity_states.first).to be
       end
     end
   end
@@ -165,21 +213,21 @@ describe ActivitySession, type: :model, redis: true do
       end
     end
 
-    context 'section_id' do
-      let(:section) { create(:section) }
-      let(:classroom_unit1) { create(:classroom_unit, section: section) }
+    context 'standard_level_id' do
+      let(:standard_level) { create(:standard_level) }
+      let(:classroom_unit1) { create(:classroom_unit, standard_level: standard_level) }
 
-      it 'should return the given query with the given section_id' do
-        expect(ActivitySession.with_filters(ClassroomUnit, {section_id: section.id}))
+      it 'should return the given query with the given standard_level_id' do
+        expect(ActivitySession.with_filters(ClassroomUnit, {standard_level_id: standard_level.id}))
       end
     end
 
-    context 'topic_id' do
-      let(:topic) { create(:topic) }
-      let(:classroom_unit1) { create(:classroom_unit, topic: topic) }
+    context 'standard_id' do
+      let(:standard) { create(:standard) }
+      let(:classroom_unit1) { create(:classroom_unit, standard: standard) }
 
-      it 'should return the given query with the given topic_id' do
-        expect(ActivitySession.with_filters(ClassroomUnit, {topic_id: topic.id}))
+      it 'should return the given query with the given standard_id' do
+        expect(ActivitySession.with_filters(ClassroomUnit, {standard_id: standard.id}))
       end
     end
   end
@@ -487,7 +535,7 @@ end
       expect(ActivitySession.search_sort_sql({field: 'completed_at', direction: "desc"})).to eq("activity_sessions.completed_at desc")
       expect(ActivitySession.search_sort_sql({field: 'activity_name', direction: "anything"})).to eq("activities.name asc")
       expect(ActivitySession.search_sort_sql({field: 'percentage', direction: "anything"})).to eq("activity_sessions.percentage asc")
-      expect(ActivitySession.search_sort_sql({field: 'standard', direction: "anything"})).to eq("topics.name asc")
+      expect(ActivitySession.search_sort_sql({field: 'standard', direction: "anything"})).to eq("standards.name asc")
       expect(ActivitySession.search_sort_sql({field: ''})).to eq("#{last_name} asc, users.name asc")
       expect(ActivitySession.search_sort_sql({})).to eq("#{last_name} asc, users.name asc")
     end
@@ -798,8 +846,23 @@ end
       expect(returned_activity_session).to eq(started_activity_session)
     end
 
+    it "returns a started activity session if it exists, even if there are also finished sessions" do
+      started_activity_session = create(:activity_session, :started, user: student, activity: activity, classroom_unit: classroom_unit)
+      finished_activity_sessions = create_list(:activity_session, 10, state: 'finished', user: student, activity: activity, classroom_unit: classroom_unit)
+      returned_activity_session = ActivitySession.find_or_create_started_activity_session(student.id, classroom_unit.id, activity.id)
+      expect(returned_activity_session).to eq(started_activity_session)
+    end
+
     it "finds an unstarted activity session if it exists, updates it to started, and returns it" do
       unstarted_activity_session = create(:activity_session, :unstarted, user: student, activity: activity, classroom_unit: classroom_unit)
+      returned_activity_session = ActivitySession.find_or_create_started_activity_session(student.id, classroom_unit.id, activity.id)
+      expect(returned_activity_session).to eq(unstarted_activity_session)
+      expect(returned_activity_session.state).to eq('started')
+    end
+
+    it "finds an unstarted activity session if it exists, updates it to started, and returns it, even if there are also finished sessions" do
+      unstarted_activity_session = create(:activity_session, :unstarted, user: student, activity: activity, classroom_unit: classroom_unit)
+      finished_activity_sessions = create_list(:activity_session, 10, state: 'finished', user: student, activity: activity, classroom_unit: classroom_unit)
       returned_activity_session = ActivitySession.find_or_create_started_activity_session(student.id, classroom_unit.id, activity.id)
       expect(returned_activity_session).to eq(unstarted_activity_session)
       expect(returned_activity_session.state).to eq('started')
@@ -853,6 +916,45 @@ end
       interval = 76.seconds
       activity_session = build(:activity_session, state: 'finished', started_at: time - interval, completed_at: time, timespent: 99)
       expect(activity_session.timespent).to eq(99)
+    end
+  end
+
+  describe "#set_comprehension_session_score" do
+    setup do
+      @activity = create(:comprehension_activity)
+      @prompt = Comprehension::Prompt.create(text: 'Test test test text', activity: @activity, conjunction: "but")
+      @prompt_two = Comprehension::Prompt.create(text: 'Test test test text', activity: @activity, conjunction: "because")
+    end
+
+    it 'should calculate score' do
+      activity_session = create(:activity_session, state: 'finished', activity_id: @activity.id)
+      feedback_history = create(:feedback_history, attempt: 4, prompt: @prompt, activity_session_uid: activity_session.uid)
+      activity_session.save
+      expect(activity_session.percentage).to eq(0.25)
+    end
+
+    it 'should only factor in the feedback history with maximum attempts' do
+      activity_session = create(:activity_session, state: 'finished', activity_id: @activity.id)
+      feedback_history = create(:feedback_history, attempt: 4, prompt: @prompt, activity_session_uid: activity_session.uid)
+      feedback_history_max = create(:feedback_history, attempt: 5, prompt: @prompt, activity_session_uid: activity_session.uid)
+      activity_session.save
+      expect(activity_session.percentage).to eq(0)
+    end
+
+    it 'should average scores for more than one prompt' do
+      activity_session = create(:activity_session, state: 'finished', activity_id: @activity.id)
+      feedback_history_prompt_one = create(:feedback_history, attempt: 1, prompt: @prompt, activity_session_uid: activity_session.uid)
+      feedback_history_prompt_two = create(:feedback_history, attempt: 3, prompt: @prompt_two, activity_session_uid: activity_session.uid)
+      activity_session.save
+      expect(activity_session.percentage).to eq(0.75)
+    end
+
+    it 'should ignore unused feedback histories' do
+      activity_session = create(:activity_session, state: 'finished', activity_id: @activity.id)
+      feedback_history = create(:feedback_history, attempt: 2, prompt: @prompt, activity_session_uid: activity_session.uid)
+      feedback_history = create(:feedback_history, attempt: 4, prompt: @prompt, activity_session_uid: activity_session.uid, used: false)
+      activity_session.save
+      expect(activity_session.percentage).to eq(0.75)
     end
   end
 end

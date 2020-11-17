@@ -1,12 +1,11 @@
 import React from 'react';
 import request from 'request'
-import { SegmentAnalytics, Events } from '../../../../../modules/analytics';
-import { Input } from 'quill-component-library/dist/componentLibrary'
 
 import AuthSignUp from './auth_sign_up'
 import AnalyticsWrapper from '../../shared/analytics_wrapper'
 import AgreementsAndLinkToLogin from './agreements_and_link_to_login'
 import getAuthToken from '../../modules/get_auth_token';
+import { Input, } from '../../../../Shared/index'
 
 class SignUpStudent extends React.Component {
   constructor(props) {
@@ -28,7 +27,6 @@ class SignUpStudent extends React.Component {
   }
 
   handleClickSignUpAsTeacher = (e) => {
-    SegmentAnalytics.track(Events.CLICK_CREATE_TEACHER_USER)
     window.location.href = '/sign-up/teacher'
   }
 
@@ -41,7 +39,6 @@ class SignUpStudent extends React.Component {
     const { firstName, lastName, username, password, timesSubmitted, email, } = this.state
     const emailToSubmit = email && email.length ? email : null
     e.preventDefault();
-    SegmentAnalytics.track(Events.SUBMIT_SIGN_UP, {provider: Events.providers.EMAIL});
     request({
       url: `${process.env.DEFAULT_URL}/account`,
       method: 'POST',

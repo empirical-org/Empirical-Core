@@ -12,7 +12,7 @@ FactoryBot.define do
     end
     description             { "This is the description for the '#{name}' activity." }
     uid                     { SecureRandom.urlsafe_base64 }
-    topic                   { Topic.first || create(:topic) }
+    standard                   { Standard.first || create(:standard) }
     classification          { create(:classification) }
     activity_categories     { create_pair(:activity_category) }
     repeatable              true
@@ -48,6 +48,11 @@ FactoryBot.define do
       trait :with_follow_up do
         follow_up_activity { create(:lesson_activity) }
       end
+    end
+
+    factory :comprehension_activity do
+      classification { ActivityClassification.find_by_key(attributes_for(:comprehension)[:key]) || create(:comprehension) }
+      activity_classification_id { ActivityClassification.find_by_key(attributes_for(:comprehension)[:key])&.id || create(:comprehension).id }
     end
 
     trait :production do

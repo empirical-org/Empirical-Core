@@ -1,6 +1,6 @@
 import * as React from 'react'
 
-import { Card, Input, Snackbar, defaultSnackbarTimeout } from 'quill-component-library/dist/componentLibrary'
+import { Card, Snackbar, defaultSnackbarTimeout } from 'quill-component-library/dist/componentLibrary'
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 
 import AssignmentFlowNavigation from '../assignment_flow_navigation'
@@ -12,10 +12,11 @@ import {
   ACTIVITY_IDS_ARRAY,
   CLASSROOMS,
   UNIT_ID,
-} from '../localStorageKeyConstants'
+} from '../assignmentFlowConstants'
 
 import ScrollToTop from '../../shared/scroll_to_top'
 import ViewAsStudentModal from '../../shared/view_as_student_modal'
+import { Input, } from '../../../../Shared/index'
 
 const assignedActivitiesSrc = `${process.env.CDN_URL}/images/illustrations/assigned-activities.svg`
 const assignActivitiesSrc = `${process.env.CDN_URL}/images/illustrations/assign-activities.svg`

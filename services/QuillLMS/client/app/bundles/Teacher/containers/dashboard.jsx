@@ -1,8 +1,10 @@
 import React from 'react';
+import { Snackbar, defaultSnackbarTimeout } from 'quill-component-library/dist/componentLibrary'
+
 import { requestGet } from '../../../modules/request';
 import ClassOverview from '../components/dashboard/class_overview';
 import MyClasses from '../components/dashboard/my_classes';
-import MyResources from '../components/dashboard/my_resources';
+import TeacherCenter from '../components/dashboard/teacher_center.tsx';
 import DashboardFooter from '../components/dashboard/dashboard_footer';
 import ExploreActivitiesModal from '../components/dashboard/explore_activities_modal'
 
@@ -20,9 +22,20 @@ export default class Dashboard extends React.Component {
         { header: 'Difficult Concepts', results: null, }
       ],
     }
+
+    this.getNecessaryData()
   }
 
-  UNSAFE_componentWillMount() {
+  componentWillUnmount() {
+    const ajaxCalls = this.ajax;
+    for (const key in ajaxCalls) {
+      if (ajaxCalls.hasOwnProperty(key)) {
+        ajaxCalls[key].abort();
+      }
+    }
+  }
+
+  getNecessaryData = () => {
     this.ajax = {};
     this.ajax.classRoomRequest = requestGet('/teachers/classrooms/classroom_mini', (result) => {
       this.setState({ classrooms: result.classes, });
@@ -38,14 +51,16 @@ export default class Dashboard extends React.Component {
     })
   }
 
-  componentWillUnmount() {
-    const ajaxCalls = this.ajax;
-    for (const key in ajaxCalls) {
-      if (ajaxCalls.hasOwnProperty(key)) {
-        ajaxCalls[key].abort();
-      }
-    }
+  onSuccess = (snackbarCopy) => {
+    this.getNecessaryData()
+    this.showSnackbar(snackbarCopy)
   }
+
+  showSnackbar = snackbarCopy => {
+    this.setState({ showSnackbar: true, snackbarCopy }, () => {
+      setTimeout(() => this.setState({ showSnackbar: false, }), defaultSnackbarTimeout)
+    })
+  };
 
   closeExploreActivitiesModal = () => {
     this.setState({ showExploreActivitiesModal: false, })
@@ -53,7 +68,7 @@ export default class Dashboard extends React.Component {
 
   hasClasses() {
     if (this.state.classrooms) {
-      return (<MyClasses classList={this.state.classrooms} user={JSON.parse(this.props.user)} />);
+      return (<MyClasses classList={this.state.classrooms} onSuccess={this.onSuccess} user={JSON.parse(this.props.user)} />);
     }
   }
 
@@ -66,17 +81,20 @@ export default class Dashboard extends React.Component {
   }
 
   render() {
+    const { snackbarCopy, showSnackbar, } = this.state
+    const { user, featuredBlogPosts, } = this.props
     return (
       <div id="dashboard">
+        <Snackbar text={snackbarCopy} visible={showSnackbar} />
         {this.renderExploreActivitiesModal()}
         <ClassOverview
           data={this.state.performanceQuery}
-          flag={JSON.parse(this.props.user).flag}
+          flag={JSON.parse(user).flag}
           notifications={this.state.notifications}
           premium={this.state.hasPremium}
         />
         {this.hasClasses()}
-        <MyResources data={this.state} />
+        <TeacherCenter featuredBlogPosts={featuredBlogPosts} />
         <DashboardFooter />
       </div>
     );

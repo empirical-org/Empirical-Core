@@ -1,11 +1,11 @@
 class Api::V1::ActivitiesController < Api::ApiController
 
   before_action :doorkeeper_authorize!, only: [:create, :update, :destroy]
-  before_action :find_activity, except: [:index, :create, :uids_and_flags]
+  before_action :find_activity, except: [:index, :create, :uids_and_flags, :published_edition]
 
   # GET
   def show
-    render json: @activity, meta: {status: 'success', message: nil, errors: nil}
+    render json: @activity, meta: {status: 'success', message: nil, errors: nil}, serializer: ActivitySerializer
   end
 
   # PATCH, PUT
@@ -18,7 +18,7 @@ class Api::V1::ActivitiesController < Api::ApiController
       @message = "Activity Update Failed"
     end
 
-    render json: @activity, meta: {status: @status, message: @message, errors: @activity.errors}
+    render json: @activity, meta: {status: @status, message: @message, errors: @activity.errors}, serializer: ActivitySerializer
 
   end
 
@@ -39,15 +39,16 @@ class Api::V1::ActivitiesController < Api::ApiController
 
     render json: activity,
       meta: {status: @status, message: @message, errors: activity.errors},
-      status: @response_status
+      status: @response_status,
+      serializer: ActivitySerializer
   end
 
   # DELETE
   def destroy
     if @activity.destroy!
-      render json: Activity.new, meta: {status: 'success', message: "Activity Destroy Successful", errors: nil}
+      render json: Activity.new, meta: {status: 'success', message: "Activity Destroy Successful", errors: nil}, serializer: ActivitySerializer
     else
-      render json: @activity, meta: {status: 'failed', message: "Activity Destroy Failed", errors: @activity.errors}
+      render json: @activity, meta: {status: 'failed', message: "Activity Destroy Failed", errors: @activity.errors}, serializer: ActivitySerializer
     end
 
   end
@@ -87,6 +88,7 @@ class Api::V1::ActivitiesController < Api::ApiController
 
   def find_activity
     @activity = Activity.find_by_uid(params[:id]) || Activity.find_by_id(params[:id])
+    raise ActiveRecord::RecordNotFound unless @activity
   end
 
   def activity_params
@@ -97,7 +99,7 @@ class Api::V1::ActivitiesController < Api::ApiController
     params.except(:id).permit(:name,
                               :description,
                               :activity_classification_uid,
-                              :topic_uid,
+                              :standard_uid,
                               :flags,
                               :uid)
                       .merge(data: @data)

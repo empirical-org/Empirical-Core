@@ -1,0 +1,22 @@
+.teacher-model-container {
+  margin-top: 50px;
+  .answer-header {
+    color: #969696;
+    font-family: $family-monospace;
+    font-size: 20px;
+  }
+  .teacher-model {
+    font-size: 30px;
+    margin-top: 30px;
+    margin-bottom: 30px;
+    padding: 15px;
+    border: 1px solid #00c2a2;
+    border-radius: 5px;
+  }
+}
+
+.student-model-wrapper {
+  .display-mode .answer-header {
+    margin-top: 40px;
+  }
+}

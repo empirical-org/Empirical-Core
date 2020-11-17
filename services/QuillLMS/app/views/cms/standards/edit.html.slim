@@ -1,0 +1,8 @@
+.container
+  .cms-form
+    = form_for [:cms, @standard] do |f|
+      = f.label :name
+      = f.text_field :name
+      = f.collection_select :standard_level_id, StandardLevel.all, :id, :name
+      = f.collection_select :standard_category_id, StandardCategory.all, :id, :name
+      = f.submit :save

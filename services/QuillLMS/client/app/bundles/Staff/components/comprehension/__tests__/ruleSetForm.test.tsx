@@ -1,8 +1,9 @@
 import * as React from 'react';
 import { shallow } from 'enzyme';
-import { Input, TextEditor } from 'quill-component-library/dist/componentLibrary';
 import RuleSetForm from '../configureRegex/ruleSetForm';
 import RegexSection from '../configureRegex/regexSection';
+import { Input, TextEditor, } from '../../../../Shared/index'
+
 jest.mock('string-strip-html', () => ({
   default: jest.fn()
 }))
@@ -23,6 +24,11 @@ const mockRuleSet = {
 }
 const mockProps = {
   activityRuleSet: mockRuleSet,
+  activityData: {
+    title: 'test',
+    scored_level: '7',
+    target_level: 7
+  },
   closeModal: jest.fn(),
   submitRuleSet: jest.fn()
 };

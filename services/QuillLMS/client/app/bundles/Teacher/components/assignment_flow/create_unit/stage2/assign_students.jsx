@@ -1,5 +1,5 @@
 import React from 'react'
-import { Snackbar, defaultSnackbarTimeout, DropdownInput } from 'quill-component-library/dist/componentLibrary'
+import Pusher from 'pusher-js';
 
 import CreateAClassInlineForm from './create_a_class_inline_form.tsx'
 import ClassroomCard from './classroom_card.tsx'
@@ -7,6 +7,7 @@ import ButtonLoadingIndicator from '../../../shared/button_loading_indicator';
 import ImportGoogleClassroomsModal from '../../../classrooms/import_google_classrooms_modal.tsx'
 import GoogleClassroomEmailModal from '../../../classrooms/google_classroom_email_modal.tsx'
 import GoogleClassroomsEmptyModal from '../../../classrooms/google_classrooms_empty_modal.tsx'
+import { Snackbar, defaultSnackbarTimeout, DropdownInput } from '../../../../../Shared/index'
 import { requestGet } from '../../../../../../modules/request';
 
 const emptyClassSrc = `${process.env.CDN_URL}/images/illustrations/empty-class.svg`
@@ -42,18 +43,36 @@ export default class AssignStudents extends React.Component {
     if (this.props.user && this.props.user.google_id) {
       this.setState({ googleClassroomsLoading: true}, () => {
         requestGet('/teachers/classrooms/retrieve_google_classrooms', (body) => {
-          const googleClassrooms = body.classrooms.filter(classroom => !classroom.alreadyImported)
-          const newStateObj = { googleClassrooms, googleClassroomsLoading: false, }
-          if (this.state.attemptedImportGoogleClassrooms) {
-            newStateObj.attemptedImportGoogleClassrooms = false
-            this.setState(newStateObj, this.clickImportGoogleClassrooms)
+          if (body.quill_retrieval_processing) {
+            this.initializePusherForGoogleClassrooms(body.id)
           } else {
-            this.setState(newStateObj)
+            const googleClassrooms = body.classrooms.filter(classroom => !classroom.alreadyImported)
+            const newStateObj = { googleClassrooms, googleClassroomsLoading: false, }
+            if (this.state.attemptedImportGoogleClassrooms) {
+              newStateObj.attemptedImportGoogleClassrooms = false
+              this.setState(newStateObj, this.clickImportGoogleClassrooms)
+            } else {
+              this.setState(newStateObj)
+            }
           }
         });
       })
     }
   };
+
+  initializePusherForGoogleClassrooms = (id) => {
+    if (process.env.RAILS_ENV === 'development') {
+      Pusher.logToConsole = true;
+    }
+    const pusher = new Pusher(process.env.PUSHER_KEY, { encrypted: true, });
+    const channelName = String(id)
+    const channel = pusher.subscribe(channelName);
+    const that = this;
+    channel.bind('google-classrooms-retrieved', () => {
+      that.getGoogleClassrooms()
+      pusher.unsubscribe(channelName)
+    });
+  }
 
   clickImportGoogleClassrooms = () => {
     const { googleClassrooms, googleClassroomsLoading, } = this.state

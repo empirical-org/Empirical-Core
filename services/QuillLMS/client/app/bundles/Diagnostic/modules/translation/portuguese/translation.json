@@ -1,0 +1,54 @@
+{
+    "buttons": {
+        "begin": "Begin / Comece",
+        "continue": "Continue",
+        "next": "Continue",
+        "resume": "Continue",
+        "submit": "Submit / Enviar"
+    },
+    "intro": {
+        "header": "Atividade de Colocação da Quill",
+        "text": "Você agora deverá responder 22 perguntas sobre como escrever frases. Algumas das perguntas podem ser sobre coisas que você ainda não aprendeu - tudo bem! Você só precisa responder da melhor maneira que puder. Não se esqueça de ler cuidadosamente as instruções para cada pergunta! Quando terminar, a Quill criará um plano de aprendizagem só para você."
+    },
+    "ELL Starter Fill in the Blank": {
+        "header": "Preencha os espaços em branco",
+        "text": "Nesta seção, cada frase poderá ter um, dois ou três espaços em branco. Você deverá preencher cada espaço em branco com uma das palavras da lista; ou, se nenhuma palavra for necessária, deixe o espaço em branco vazio. Digite nas caixas as palavras que você escolher. Lembre-se de verificar a ortografia! Vamos começar!"
+    },
+    "ELL Starter Halfway": {
+        "header": "Você já está no meio do caminho!",
+        "text": "Continue, você está indo muito bem!"
+    },
+    "ELL Starter Questions": {
+        "header": "Perguntas",
+        "text": "Nesta seção, você vai escrever perguntas. Lembre-se que as perguntas têm um ponto de interrogação (?) no final. Você consegue!"
+    },
+    "ELL Starter Sentence Combining": {
+        "header": "Combinação de frases",
+        "text": "Você está quase acabando! Só faltam 3 perguntas. Nesta seção, você deverá combinar frases para formar uma nova frase. Você receberá uma palavra de ligação que poderá usar. Lembre-se que uma frase só tem um ponto final. Você entendeu!"
+    },
+    "End: You Did it!": {
+        "header": "Você conseguiu!",
+        "text": "Isso mesmo! Você acabou de completar a atividade de colocação da Quill. Vamos enviar os resultados para sua professora e depois começaremos a criar o seu plano de aprendizagem."
+    },
+    "completedDiagnostic": {
+        "header": "Você concluiu a atividade de colocação da Quill",
+        "text": "Seus resultados estão sendo salvos agora. Assim que seus resultados forem salvos, você será redirecionado automaticamente."
+    },
+    "instructions": {
+        "Fill in the blank with one of the choices.": "Escreva uma das opções escolhidas no espaço em branco.",
+        "Fill in each blank with one of the choices.": "Preencha cada espaço em branco com uma das opções escolhidas.",
+        "Fill in the blanks with one word each.": "Preencha cada espaço em branco com uma palavra.",
+        "Fill in the blanks with one word each. You can leave one empty.": "Preencha cada espaço em branco com uma palavra. Você pode deixar um espaço vazio.",
+        "Use the joining word to combine the sentences into one sentence.": "Use a palavra de ligação para combinar as frases e formar uma frase só."
+    },
+    "cues": {
+        "choose one": "choose one / escolha uma",
+        "choose three": "choose three / escolha três",
+        "choose two or three" : "choose two or three / escolha duas ou três",
+        "joining word": "joining word / ligando palavras"
+    },
+    "feedback": {
+        "blank": "Use uma das opções abaixo ou deixe em branco.",
+        "no blank": "Use uma das opções abaixo."
+    }
+}

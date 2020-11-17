@@ -54,7 +54,7 @@ class Teachers::ProgressReports::ActivitySessionsController < Teachers::Progress
         EXTRACT(EPOCH FROM (activity_sessions.completed_at + INTERVAL '#{current_user.utc_offset} seconds')) AS completed_at,
         activity_sessions.completed_at + INTERVAL '#{current_user.utc_offset} seconds' AS visual_date,
         (CASE WHEN activity_classifications.scored THEN activity_sessions.percentage ELSE -1 END) AS percentage,
-        topics.name AS standard,
+        standards.name AS standard,
         activity_sessions.user_id AS student_id,
         activities.name AS activity_name,
         users.name AS student_name,
@@ -83,8 +83,8 @@ class Teachers::ProgressReports::ActivitySessionsController < Teachers::Progress
         ON activities.id = activity_sessions.activity_id
       JOIN activity_classifications
         ON activity_classifications.id = activities.activity_classification_id
-      JOIN topics
-        ON topics.id = activities.topic_id
+      LEFT JOIN standards
+        ON standards.id = activities.standard_id
       WHERE classrooms_teachers.user_id = #{current_user.id}
       ORDER BY #{sort_field} #{sort_direction}
       #{query_limit}

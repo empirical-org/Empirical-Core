@@ -1,0 +1,63 @@
+.two-thumb-slider-container {
+  .track-container {
+    width: 100%;
+  }
+  .track {
+    height: 2px;
+    border-radius: 3px;
+    align-items: center;
+    width: 100%;
+    // this slightly extends the track so that the mark text for the first and last steps looks centered whether the thumbs are over it or not
+    &::before {
+      content: " ";
+      position: absolute;
+      z-index: -1;
+      height: 2px;
+      border-radius: 3px;
+      background-color: #dbdbdb;
+      width: calc(100% + 10px);
+      margin-left: -5px;
+    }
+  }
+  .mark {
+    background-color: transparent;
+    padding: 0px;
+    margin-top: 15px !important;
+    font-size: 14px;
+    text-align: center;
+    line-height: normal;
+    color: #646464;
+    white-space: nowrap;
+  }
+  .thumb {
+    width: 16px;
+    height: 16px;
+    border-radius: 9px;
+    background-color: #06806b;
+    &:focus {
+      outline: none;
+      &::before {
+        content: " ";
+        position: absolute;
+        z-index: -1;
+        top: 50%;
+        left: 50%;
+        width: 28px;
+        height: 28px;
+        right: 0px;
+        transform: translate(-50%, -50%);
+        border-radius: 17px;
+        bottom: 0px;
+        border: 2px dotted #06806b;
+      }
+    }
+  }
+}
+
+.hide-focus-outline {
+ .thumb:focus {
+    &::before {
+      display: none !important;
+    }
+  }
+}

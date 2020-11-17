@@ -1,4 +1,7 @@
 .activity-categories-container {
+  section {
+    border-bottom: none;
+  }
   h1 {
     margin: 20px 0px;
   }
@@ -9,11 +12,6 @@
     margin-right: 10px;
     &:first-of-type {
       width: 300px;
-    }
-  }
-  .selected-activities-section {
-    .deselect-activity {
-      width: 50px;
     }
   }
   .list {

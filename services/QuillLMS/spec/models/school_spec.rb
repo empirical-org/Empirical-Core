@@ -27,6 +27,28 @@ describe School, type: :model do
     end
   end
 
+  describe('#present_and_future_subscriptions') do
+    let!(:subscription) { create(:subscription, expiration: Date.tomorrow) }
+    let!(:next_subscription) { create(:subscription, expiration: Date.tomorrow + 1.year, start_date: Date.tomorrow) }
+    let!(:school_subscription) {create(:school_subscription, school: bk_school, subscription: subscription)}
+    let!(:next_school_subscription) {create(:school_subscription, school: bk_school, subscription: next_subscription)}
+    let!(:expired_subscription) {create(:subscription, expiration: Date.yesterday, de_activated_date: Date.yesterday)}
+    let!(:expired_school_subscription) {create(:school_subscription, school: bk_school, subscription: expired_subscription)}
+
+    it "returns all subscriptions even if they have not started yet" do
+      expect(bk_school.present_and_future_subscriptions.size).to eq(2)
+    end
+
+    it "returns in ascending order of expiration date" do
+      expect(bk_school.present_and_future_subscriptions.first).to eq(subscription)
+      expect(bk_school.present_and_future_subscriptions.last).to eq(next_subscription)
+    end
+
+    it "does not return deactivated subscriptions" do
+      expect(bk_school.present_and_future_subscriptions).not_to include(expired_subscription)
+    end
+  end
+
 
   describe 'validations' do
     before do
@@ -74,6 +96,18 @@ describe School, type: :model do
       expect(@school.errors[:lower_grade]).to eq(['must be less than or equal to upper grade'])
     end
 
+  end
+
+  describe('school_year_start method') do
+    it 'fetches 08-01 of this year if the date is after 08-01' do
+      time = Date.parse('2020-08-01')
+      expect(School.school_year_start(time)).to eq(time.beginning_of_day)
+    end
+
+    it 'fetches 08-01 of last year if the date is before 08-01' do
+      time = Date.parse('2020-07-01')
+      expect(School.school_year_start(time)).to eq(Date.parse('2019-08-01').beginning_of_day)
+    end
   end
 
 end

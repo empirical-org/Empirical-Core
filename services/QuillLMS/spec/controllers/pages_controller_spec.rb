@@ -165,13 +165,13 @@ describe PagesController do
   end
 
   describe '#activities' do
-    let!(:section) { create(:section) }
+    let!(:standard_level) { create(:standard_level) }
 
-    it 'should set the body class, section and topics' do
+    it 'should set the body class, standard_level and standards' do
       get :activities
       expect(assigns(:body_class)).to eq 'full-width-page white-page'
-      expect(assigns(:section)).to eq section
-      expect(assigns(:topics)).to eq section.topics.map{ |topic| [topic, topic.activities.production] }.select{ |group| group.second.any? }
+      expect(assigns(:standard_level)).to eq standard_level
+      expect(assigns(:standards)).to eq standard_level.standards.map{ |standard| [standard, standard.activities.production] }.select{ |group| group.second.any? }
     end
   end
 
@@ -219,11 +219,9 @@ describe PagesController do
   end
 
   describe 'careers page' do
-    render_views # needed if you want to confirm the view renders without an error
-
-    subject { get :careers }
     it 'should load page' do
-      expect(subject).to render_template(:careers)
+      get :careers
+      expect(response).to be_success
     end
   end
 

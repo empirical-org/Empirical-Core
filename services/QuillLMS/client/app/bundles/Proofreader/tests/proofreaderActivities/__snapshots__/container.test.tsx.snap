@@ -1,0 +1,151 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<PlayProofreaderContainer /> should render 1`] = `
+<PlayProofreaderContainer
+  activityUID="KMyh3LulfVL0_KuPb8u"
+  dispatch={[Function]}
+  proofreaderActivities={
+    Object {
+      "currentActivity": Object {
+        "description": "Correct the following nine errors.",
+        "flag": "production",
+        "passage": "Coney Island is both a neighborhood in {+Brooklyn, New York,-Brooklyn New York|1AJtvwkbBLHzYg2a4eRcBA} and an amusement park. {+There are-They’re|8NObTn-ErGu5tADF0LWxbQ} many tourist attractions at Coney Island like the Cyclone rollercoaster and the Wonder Wheel ferris wheel. Coney means rabbit. There is a theory that the island is named Coney because there was a large population of wild rabbits when the area was {+an-a|5s-r1281DV8EpHyc9qJfiw} English colony in the 1600s. The Cyclone roller coaster was built in 1927, and it is one of the few wooden roller coasters still in use in the United States. The Cyclones {+is-are|Tlhrx6Igxn6cR_SD1U5efA} also the name of the minor league baseball team that plays at the stadium in the neighborhood.  There is a  parachute jump from the 1939 {+World's-Worlds|nAcT-C3UfPFuhWcf0JJNMw} Fair still intact, and although it is no longer used, it is a landmark occasionally referred {+to-too|Oo9MdluHtJFdh5d1uL9qYQ} as the Effiel Tower of Brooklyn. The New York Aquarium is near Coney Island, just one subway stop away at a station {+called-call|IDyiKUM8LLD7Bz8ftg6p0A} West Eighth Street. The Coney Island stop is the last stop on the F line subway. <br/><br/>
+
+Over the years, Coney Island has expanded to have a few parks with rides. There is a park called {+Astroland-astroland|YkA1YFe-dUvXqkEXxbNgQw} and another section called Luna Park that has rides for smaller kids. The boardwalk of Coney Island is thriving with food stands, including the original Nathan’s Hot Dog stand. Every year at Coney Island, Nathan’s hosts a hot dog eating contest. The winner of the contest usually  eats around 150 hot dogs in an {+extremely-extreme|Jm8fUXNgIR66RYWt51OVyQ} short period of time. Also annually at Coney Island is the Mermaid Parade, where people dress up as mermaids. The mayor of New York is always in attendance.<br/><br/>",
+        "standard": Object {
+          "name": "CCSS Grade 7 Summative Assessments",
+          "uid": "pM3sNYWnNnWdR5YKu7lAHw",
+        },
+        "standardCategory": Object {
+          "name": "Summative Assessments",
+          "uid": "XSx6hcLxlSf1WKaJFWgsNA",
+        },
+        "standardLevel": Object {
+          "name": "7th Grade CCSS",
+          "uid": "8g1_400wzXuijt4NB9uqtw",
+        },
+        "title": "Coney Island",
+        "underlineErrorsInProofreader": false,
+      },
+      "data": Object {
+        "-KMyh3LulfVL0_KuPb8u": Object {
+          "description": "Correct the following nine errors.",
+          "flag": "production",
+          "passage": "Coney Island is both a neighborhood in {+Brooklyn, New York,-Brooklyn New York|1AJtvwkbBLHzYg2a4eRcBA} and an amusement park. {+There are-They’re|8NObTn-ErGu5tADF0LWxbQ} many tourist attractions at Coney Island like the Cyclone rollercoaster and the Wonder Wheel ferris wheel. Coney means rabbit. There is a theory that the island is named Coney because there was a large population of wild rabbits when the area was {+an-a|5s-r1281DV8EpHyc9qJfiw} English colony in the 1600s. The Cyclone roller coaster was built in 1927, and it is one of the few wooden roller coasters still in use in the United States. The Cyclones {+is-are|Tlhrx6Igxn6cR_SD1U5efA} also the name of the minor league baseball team that plays at the stadium in the neighborhood.  There is a  parachute jump from the 1939 {+World's-Worlds|nAcT-C3UfPFuhWcf0JJNMw} Fair still intact, and although it is no longer used, it is a landmark occasionally referred {+to-too|Oo9MdluHtJFdh5d1uL9qYQ} as the Effiel Tower of Brooklyn. The New York Aquarium is near Coney Island, just one subway stop away at a station {+called-call|IDyiKUM8LLD7Bz8ftg6p0A} West Eighth Street. The Coney Island stop is the last stop on the F line subway. <br/><br/>
+
+Over the years, Coney Island has expanded to have a few parks with rides. There is a park called {+Astroland-astroland|YkA1YFe-dUvXqkEXxbNgQw} and another section called Luna Park that has rides for smaller kids. The boardwalk of Coney Island is thriving with food stands, including the original Nathan’s Hot Dog stand. Every year at Coney Island, Nathan’s hosts a hot dog eating contest. The winner of the contest usually  eats around 150 hot dogs in an {+extremely-extreme|Jm8fUXNgIR66RYWt51OVyQ} short period of time. Also annually at Coney Island is the Mermaid Parade, where people dress up as mermaids. The mayor of New York is always in attendance.<br/><br/>",
+          "standard": Object {
+            "name": "CCSS Grade 7 Summative Assessments",
+            "uid": "pM3sNYWnNnWdR5YKu7lAHw",
+          },
+          "standardCategory": Object {
+            "name": "Summative Assessments",
+            "uid": "XSx6hcLxlSf1WKaJFWgsNA",
+          },
+          "standardLevel": Object {
+            "name": "7th Grade CCSS",
+            "uid": "8g1_400wzXuijt4NB9uqtw",
+          },
+          "title": "Coney Island",
+          "underlineErrorsInProofreader": false,
+        },
+      },
+      "hasreceiveddata": true,
+      "states": Object {},
+    }
+  }
+  session={
+    Object {
+      "passage": Array [],
+    }
+  }
+>
+  <WelcomePage
+    onNextClick={[Function]}
+  >
+    <div
+      className="welcome-page"
+    >
+      <div
+        className="header-section"
+      >
+        <h1>
+          Welcome to Quill Proofreader!
+        </h1>
+      </div>
+      <div
+        className="steps-section"
+      >
+        <div
+          className="step"
+        >
+          <div
+            className="step-number"
+          >
+            1
+          </div>
+          <h2>
+            Read
+          </h2>
+          <p>
+            Read the passage and correct the grammar and punctuation errors you find.
+          </p>
+          <img
+            alt="Proofreader example showing a potential grammar mistake highlighted"
+            src="undefined/images/illustrations/proofreader-example-proofread.svg"
+          />
+        </div>
+        <div
+          className="step"
+        >
+          <div
+            className="step-number"
+          >
+            2
+          </div>
+          <h2>
+            Review
+          </h2>
+          <p>
+            Get feedback on each correction you made.
+          </p>
+          <img
+            alt="Proofreader example showing a correct and incorrect revision"
+            src="undefined/images/illustrations/proofreader-example-review.svg"
+          />
+        </div>
+        <div
+          className="step"
+        >
+          <div
+            className="step-number"
+          >
+            3
+          </div>
+          <h2>
+            Improve
+          </h2>
+          <p>
+            Work on a follow-up activity that focuses on one of the errors from the passage.
+          </p>
+          <img
+            alt="Follow-up example showing a correct revision"
+            src="undefined/images/illustrations/proofreader-example-practice.svg"
+          />
+        </div>
+      </div>
+      <div
+        className="button-section"
+      >
+        <button
+          className="quill-button large contained primary focus-on-light"
+          onClick={[Function]}
+          type="button"
+        >
+          Next
+        </button>
+      </div>
+    </div>
+  </WelcomePage>
+</PlayProofreaderContainer>
+`;

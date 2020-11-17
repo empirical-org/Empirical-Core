@@ -3,8 +3,9 @@ require 'rails_helper'
 describe Activity, type: :model, redis: true do
   it { should have_and_belong_to_many(:unit_templates) }
   it { should belong_to(:classification).class_name("ActivityClassification") }
-  it { should belong_to(:topic) }
-  it { should have_one(:section).through(:topic) }
+  it { should belong_to(:standard) }
+  it { should belong_to(:raw_score) }
+  it { should have_one(:standard_level).through(:standard) }
   it do
     should belong_to(:follow_up_activity).class_name("Activity")
       .with_foreign_key("follow_up_activity_id")
@@ -16,6 +17,11 @@ describe Activity, type: :model, redis: true do
   it { should have_many(:recommendations).dependent(:destroy) }
   it { should have_many(:activity_category_activities).dependent(:destroy) }
   it { should have_many(:activity_categories).through(:activity_category_activities) }
+  it { should have_many(:content_partners).through(:content_partner_activities) }
+  it { should have_many(:teacher_saved_activities) }
+  it { should have_many(:teachers).through(:teacher_saved_activities)}
+  it { should have_many(:activity_topics) }
+  it { should have_many(:topics).through(:activity_topics)}
 
   it { is_expected.to callback(:flag_as_beta).before(:create).unless(:flags?) }
   it do
@@ -267,13 +273,13 @@ describe Activity, type: :model, redis: true do
     end
   end
 
-  describe '#topic_uid =' do
+  describe '#standard_uid =' do
     let(:activity) { create(:activity) }
-    let(:topic) { create(:topic) }
+    let(:standard) { create(:standard) }
 
-    it 'should set the topic_uid' do
-      activity.topic_uid = topic.uid
-      expect(activity.topic_id).to eq(topic.id)
+    it 'should set the standard_uid' do
+      activity.standard_uid = standard.uid
+      expect(activity.standard_id).to eq(standard.id)
     end
   end
 
@@ -312,6 +318,24 @@ describe Activity, type: :model, redis: true do
     end
   end
 
+  describe '#search_results' do
+    let!(:cache_activity) { create(:activity, :production) }
+
+    it 'when cache is empty the result is the value of the search results' do
+      $redis.redis.flushdb
+      search_results = Activity.search_results(nil)
+      results = ActivitySearchWrapper.search_cache_data(nil)
+      expect(search_results).to eq(JSON.parse(results))
+    end
+
+    it 'when cache exists the result is the cached object' do
+      results = '{"something": "something" }'
+      $redis.set('default_activity_search', results)
+      search_results = Activity.search_results(nil)
+      expect(search_results).to eq(JSON.parse(results))
+    end
+  end
+
   describe '#add_question' do
     let(:activity) { create(:connect_activity) }
     let(:question) { create(:question)}
@@ -343,6 +367,28 @@ describe Activity, type: :model, redis: true do
       proofreader_activity = create(:proofreader_activity, data: data)
       proofreader_activity.add_question(question_obj)
       expect(proofreader_activity.errors[:activity]).to include("You can't add questions to this type of activity.")
+    end
+  end
+
+  describe '#readability_grade_level' do
+
+    it 'should return the corresponding grade level' do
+      raw_score = create(:raw_score, :eight_hundred_to_nine_hundred)
+      activity = create(:activity, raw_score_id: raw_score.id)
+      expect(activity.readability_grade_level).to eq('6th-7th')
+    end
+
+    it 'should behave differently based on activity classification' do
+      raw_score = create(:raw_score, :five_hundred_to_six_hundred)
+      connect_activity = create(:connect_activity, raw_score_id: raw_score.id)
+      proofreader_activity = create(:proofreader_activity, raw_score_id: raw_score.id)
+      expect(proofreader_activity.readability_grade_level).to eq('4th-5th')
+      expect(connect_activity.readability_grade_level).to eq('6th-7th')
+    end
+
+    it 'should return nil if there is no raw_score_id' do
+      activity = create(:activity)
+      expect(activity.readability_grade_level).to eq(nil)
     end
   end
 end

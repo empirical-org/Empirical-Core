@@ -1,4 +1,6 @@
 import * as React from "react";
+import { EditorState, ContentState } from 'draft-js'
+import { TextEditor } from '../../Shared/index'
 
 export default class ExplanationField extends React.Component<any, any> {
   constructor(props) {
@@ -37,10 +39,12 @@ export default class ExplanationField extends React.Component<any, any> {
           {isNew ? '' : <p className="remove-concept-attribute-field" onClick={this.cancel}><i className="fas fa-archive" /><span>Remove</span></p>}
         </div>
         <p className="concept-attribute-field-editor-subheader">Displays in Proofreader</p>
-        <textarea
+        <TextEditor
+          ContentState={ContentState}
+          EditorState={EditorState}
+          handleTextChange={handleChange}
           key="concept-explanation"
-          onChange={handleChange}
-          value={explanation}
+          text={explanation}
         />
         {isNew ? <p className="cancel-concept-attribute-field" onClick={this.cancel}>Cancel</p> : ''}
       </div>

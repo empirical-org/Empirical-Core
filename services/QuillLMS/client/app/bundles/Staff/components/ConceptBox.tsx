@@ -2,13 +2,13 @@ import * as React from "react";
 import { Query, Mutation } from "react-apollo";
 import gql from "graphql-tag";
 import _ from 'lodash'
-import { Input, DropdownInput } from 'quill-component-library/dist/componentLibrary'
 
 import { Concept } from '../interfaces/interfaces'
 import RuleDescriptionField from './RuleDescriptionField'
 import ExplanationField from './ExplanationField'
 import ConceptChangeLogs from './ConceptChangeLogs'
 import ChangeLogModal from './ChangeLogModal'
+import { Input, DropdownInput, } from '../../Shared/index'
 
 function levelTwoConceptsQuery(){
   return `
@@ -176,9 +176,8 @@ class ConceptBox extends React.Component<ConceptBoxProps, ConceptBoxState> {
     }
   }
 
-  changeExplanation = (e) => {
+  changeExplanation = (explanation) => {
     const { concept, } = this.state
-    const explanation = e.target.value
     if (explanation !== concept.explanation) {
       const newConcept = Object.assign({}, concept, { explanation })
       this.setState({ concept: newConcept })

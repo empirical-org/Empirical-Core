@@ -21,7 +21,7 @@ class StudentsController < ApplicationController
   end
 
   def student_demo
-    @user = User.find_by_email 'maya_angelou_demo@quill.org'
+    @user = User.find_by_email 'angie_thomas_demo@quill.org'
     if @user.nil?
       Demo::ReportDemoDestroyer.destroy_demo(nil)
       Demo::ReportDemoCreator.create_demo(nil)
@@ -45,7 +45,7 @@ class StudentsController < ApplicationController
 
   def update_account
     if current_user.update_attributes(student_params.slice(:email, :name, :username))
-      render json: current_user
+      render json: current_user, serializer: UserSerializer
     else
       render json: {errors: current_user.errors.messages}, status: 422
     end
@@ -64,20 +64,19 @@ class StudentsController < ApplicationController
       errors['current_password'] = 'Wrong password. Try again or click Forgot password to reset it.'
     end
     return render json: {errors: errors}, status: 422 if errors.any?
-    render json: current_user
+    render json: current_user, serializer: UserSerializer
   end
 
   def join_classroom
     if current_user
-      if current_user.role === 'student'
+      if current_user.student?
         classcode = params[:classcode].downcase
         begin
-          classroom = Classroom.find_by(code: classcode)
+          classroom = Classroom.find_by!(code: classcode)
           Associators::StudentsToClassrooms.run(current_user, classroom)
           JoinClassroomWorker.perform_async(current_user.id)
-        rescue NoMethodError => e
+        rescue ActiveRecord::RecordNotFound => e
           if Classroom.unscoped.find_by(code: classcode).nil?
-            InvalidClasscodeWorker.perform_async(current_user.id, params[:classcode], classcode)
             flash[:error] = "Oops! There is no class with the code #{classcode}. Ask your teacher for help."
           else
             flash[:error] = "Oops! The class with the code #{classcode} is archived. Ask your teacher for help."

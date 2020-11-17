@@ -1,0 +1,30 @@
+.diagnostic-reports-empty-state {
+  border-bottom: none;
+  min-height: calc(100vh - 160px);
+  h1 {
+    font-size: 24px;
+    font-weight: bold;
+    line-height: 1.33;
+    margin-bottom: 56px;
+  }
+  h2 {
+    font-size: 20px;
+    font-weight: bold;
+    line-height: normal;
+    margin: 16px 0px 8px;
+  }
+  p {
+    max-width: 460px;
+    font-size: 16px;
+    line-height: normal;
+    margin-bottom: 32px;
+  }
+  a:not(.quill-button) {
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 1.57;
+    color: #06806b;
+    margin-top: 16px;
+    display: inline-block;
+  }
+}

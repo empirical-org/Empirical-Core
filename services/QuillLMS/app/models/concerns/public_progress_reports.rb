@@ -65,10 +65,15 @@ module PublicProgressReports
          prompt: v[:prompt],
          instructions: v[:instructions]}
       end
+
+      if questions_arr.empty?
+        questions_arr = generic_questions_for_report(params[:activity_id])
+      end
+
       questions_arr
     end
 
-    def classrooms_with_students_that_completed_activity(unit_id, activity_id)
+    def classrooms_with_students_for_report(unit_id, activity_id)
       h = {}
       unit = Unit.find_by(id: unit_id)
       if unit
@@ -81,7 +86,7 @@ module PublicProgressReports
           cuas = ClassroomUnitActivityState.find_by(unit_activity: unit_activity, classroom_unit: cu)
           classroom = cu.classroom.attributes
           activity_sessions = cu.activity_sessions.completed
-          if activity_sessions.present? || cuas&.completed
+          if activity_sessions.present? || cuas&.completed || Activity.diagnostic_activity_ids.include?(activity_id.to_i)
             class_id = classroom['id']
             h[class_id] ||= classroom
             h[class_id][:classroom_unit_id] = cu.id
@@ -119,19 +124,11 @@ module PublicProgressReports
         id: classroom.id,
         name: classroom.name,
         students: [],
-        started_names: [],
-        unstarted_names: [],
+        not_completed_names: [],
         missed_names: []
       }
 
       students = User.includes(:students_classrooms).where(id: classroom_unit.assigned_student_ids)
-
-      started_sessions = ActivitySession.where(
-        user_id: students.map(&:id),
-        state: 'started',
-        classroom_unit_id: classroom_unit.id,
-        activity_id: activity_id
-      ).group_by(&:user_id)
 
       finished_sessions = ActivitySession.where(
         user_id: students.map(&:id),
@@ -149,8 +146,7 @@ module PublicProgressReports
           next
         end
 
-        session = started_sessions[student.id]&.first
-        key = unfinished_key(session, state)
+        key = unfinished_key(state)
 
         scores[key].push(student.name)
       end
@@ -158,11 +154,10 @@ module PublicProgressReports
       scores
     end
 
-    private def unfinished_key(session, state)
-      return :started_names if session
+    private def unfinished_key(state)
       return :missed_names if state&.completed
 
-      :unstarted_names
+      :not_completed_names
     end
 
     def formatted_score_obj(final_activity_session, activity, student)
@@ -244,12 +239,16 @@ module PublicProgressReports
       classroom_unit = ClassroomUnit.find_by(classroom_id: classroom_id, unit_id: unit_id)
       classroom = Classroom.find(classroom_id)
       diagnostic = Activity.find(activity_id)
-      students = classroom.students
       activity_sessions = ActivitySession.includes(concept_results: :concept)
                       .where(classroom_unit_id: classroom_unit.id, is_final_score: true, activity: activity_id)
       activity_sessions_counted = activity_sessions_with_counted_concepts(activity_sessions)
-      unique_students = activity_sessions.map {|activity_session| user = activity_session.user; {id: user.id, name: user.name}}
-                                         .sort_by {|stud| stud[:name].split()[1]}
+      students = classroom.students.map do |s|
+        next unless classroom_unit.assigned_student_ids.include?(s&.id)
+        completed = activity_sessions.any? { |session| session.user_id == s&.id }
+        {id: s&.id, name: s&.name || "Unknown Student", completed: completed }
+      end
+
+      sorted_students = students.compact.sort_by {|stud| stud[:name].split()[1]}
 
       recommendations = RecommendationsQuery.new(diagnostic.id).activity_recommendations.map do |activity_pack_recommendation|
         students = []
@@ -268,7 +267,7 @@ module PublicProgressReports
         return_value_for_recommendation(students, activity_pack_recommendation)
       end
       {
-        students: unique_students,
+        students: sorted_students,
         recommendations: recommendations
       }
     end
@@ -321,6 +320,21 @@ module PublicProgressReports
         hash[concept_result.concept.uid]["total"] += 1
       end
       hash
+    end
+
+    def generic_questions_for_report(activity_id)
+      questions = Activity.find_by_id(activity_id).data['questions'].map { |q| Question.find_by_uid(q['key']) }
+      question_array = []
+      questions.compact.each do |q|
+        next if !q.data['prompt']
+        question_array.push({
+          question_id: question_array.length + 1,
+          score: nil,
+          prompt: q.data['prompt'],
+          instructions: q.data['instructions']
+        })
+      end
+      question_array
     end
 
 end

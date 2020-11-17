@@ -1,13 +1,14 @@
 import * as React from "react";
-import { DataTable, Error, Modal, Spinner } from 'quill-component-library/dist/componentLibrary';
-import { buildErrorMessage, getPromptsIcons } from '../../../../../helpers/comprehension';
+import { queryCache, useQuery } from 'react-query'
+
+import { buildErrorMessage, getPromptsIcons } from '../../../helpers/comprehension';
 import { BECAUSE, BUT, SO } from '../../../../../constants/comprehension';
 import { RegexRuleInterface } from '../../../interfaces/comprehensionInterfaces';
-import { deleteRuleSet, fetchRuleSet, updateRuleSet, createRule, updateRule, deleteRule } from '../../../utils/comprehension/ruleSetAPIs';
+import { deleteRuleSet, fetchRuleSet, fetchRuleSets, updateRuleSet, createRule, updateRule, deleteRule } from '../../../utils/comprehension/ruleSetAPIs';
 import { fetchActivity } from '../../../utils/comprehension/activityAPIs';
 import RuleSetForm from './ruleSetForm';
 import SubmissionModal from '../shared/submissionModal';
-import { queryCache, useQuery } from 'react-query'
+import { DataTable, Error, Modal, Spinner } from '../../../../Shared/index';
 
 const RuleSet = ({ history, match }) => {
   const { params } = match;
@@ -17,13 +18,19 @@ const RuleSet = ({ history, match }) => {
   const [showSubmissionModal, setShowSubmissionModal] = React.useState<boolean>(false);
   const [errors, setErrors] = React.useState<object>({});
 
-  // get cached activity data to pass to ruleSetForm 
+  // get cached activity data to pass to ruleSetForm
   const { data: activityData } = useQuery({
     queryKey: [`activity-${activityId}`, activityId],
     queryFn: fetchActivity
   });
 
-  // cache ruleSet data 
+  // get cached ruleSets data to pass ruleSets count to ruleSetForm
+  const { data: ruleSetsData } = useQuery({
+    queryKey: [`ruleSets-${activityId}`, activityId],
+    queryFn: fetchRuleSets
+  });
+
+  // cache ruleSet data
   const { data: ruleSetData } = useQuery({
     queryKey: [`ruleSet-${ruleSetId}`, activityId, ruleSetId],
     queryFn: fetchRuleSet
@@ -60,9 +67,9 @@ const RuleSet = ({ history, match }) => {
       const promptsIcons = prompts && getPromptsIcons(prompts);
       const regexRules = rules && getRegexRules(rules);
       let fields = [
-        { 
+        {
           label: 'Name',
-          value: name 
+          value: name
         },
         {
           label: 'Feedback',
@@ -99,7 +106,7 @@ const RuleSet = ({ history, match }) => {
     rules.map((rule: RegexRuleInterface, i: number) => {
       const { id } = rule;
       if(id && rulesToDelete[id]) {
-        deleteRule(activityId, ruleSetId, id).then((response) => {
+        deleteRule(ruleSetId, id).then((response) => {
           const { error } = response;
           if(error) {
             let updatedErrors = errors;
@@ -110,7 +117,7 @@ const RuleSet = ({ history, match }) => {
           queryCache.refetchQueries(`ruleSet-${ruleSetId}`);
         });
       } else if(id && rulesToUpdate[id]) {
-        updateRule(activityId, rule, ruleSetId, id).then((response) => {
+        updateRule(rule, ruleSetId, id).then((response) => {
           const { error } = response;
           if(error) {
             let updatedErrors = errors;
@@ -121,7 +128,7 @@ const RuleSet = ({ history, match }) => {
           queryCache.refetchQueries(`ruleSet-${ruleSetId}`);
         });
       } else {
-        createRule(activityId, rule, ruleSetId).then((response) => {
+        createRule(rule, ruleSetId).then((response) => {
           const { error } = response;
           if(error) {
             let updatedErrors = errors;
@@ -163,7 +170,7 @@ const RuleSet = ({ history, match }) => {
       }
       toggleShowDeleteRuleSetModal();
 
-      if(errors) {
+      if(Object.keys(errors).length) {
         toggleSubmissionModal();
       } else {
         // update ruleSets cache to remove delete ruleSet
@@ -176,15 +183,16 @@ const RuleSet = ({ history, match }) => {
   const renderRuleSetForm = () => {
     return(
       <Modal>
-        <RuleSetForm 
+        <RuleSetForm
           activityData={activityData && activityData.activity}
-          activityRuleSet={ruleSetData && ruleSetData.ruleset} 
-          closeModal={toggleShowEditRuleSetModal} 
-          submitRuleSet={submitRuleSet} 
+          activityRuleSet={ruleSetData && ruleSetData.ruleset}
+          closeModal={toggleShowEditRuleSetModal}
+          ruleSetsCount={ruleSetsData && ruleSetsData.rulesets.length}
+          submitRuleSet={submitRuleSet}
         />
       </Modal>
     );
-  } 
+  }
 
   const renderDeleteRuleSetModal = () => {
     return(
@@ -214,7 +222,7 @@ const RuleSet = ({ history, match }) => {
 
   // The header labels felt redundant so passing empty strings and hiding header display
   const dataTableFields = [
-    { name: "", attribute:"field", width: "180px" }, 
+    { name: "", attribute:"field", width: "180px" },
     { name: "", attribute:"value", width: "600px" }
   ];
 

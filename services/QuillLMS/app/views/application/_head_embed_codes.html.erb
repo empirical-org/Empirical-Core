@@ -6,13 +6,16 @@
     analytics.load("<%= ENV["SEGMENT_WRITE_KEY"] %>", {
         integrations: {
           all: true
-          <%#= We're using @should_load_intercom as a proxy for Salesmachine
+
+          <%#= We're using load_intercom? as a proxy for Salesmachine
+               and our new sales platform Vitally, which will replace it
                since the conditions are basically the same (teachers only).
                If we shouldn't load Intercom, then we shouldn't send any
-               events to Salesmachine, either. %>
-          <% unless @should_load_intercom %>
+               events to Salesmachine or Vitally, either. %>
+          <% unless load_intercom? %>
           , Intercom: false
           , Salesmachine: false
+          , Vitally: false
           <% end %>
         }
       }
@@ -22,19 +25,39 @@
       #   2) the user literally just logged out, and the controller let us know
       #   3) this is an anonymous user, in which case we don't do anything special at all
     %>
-    <% if current_user %>
-      analytics.identify(<%= raw(generate_segment_identify_arguments(current_user, @should_load_intercom)) %>);
+    <% if load_intercom? %>
+      analytics.identify(<%= raw(generate_segment_identify_arguments(current_user)) %>);
+      <% if current_user.school %>
+        analytics.group("<%= raw(current_user.school.id) %>", {
+          name: "<%= raw(current_user.school.name) %>"
+        })
+      <% end %>
     <% elsif @logging_user_out %>
       analytics.reset()
     <% end %>
-    analytics.page();
-    <% if @should_load_intercom %>
+    <% unless current_user&.student? %>
+      analytics.page();
+    <% end %>
+
+    <% if load_intercom? %>
 
       setInterval(function() {
         if (typeof Intercom !== 'undefined') {
           Intercom('update');
         }
       }, 30000)
+
+      // In addition to loading Intercom, we're using "load_intercom?" as a proxy for
+      // "this is a teacher user".  While the `analytics.page()` call above is enough for
+      // our integration with Salesmachine, our integration with Vitally suppresses .page()
+      // calls.  This means that we need to track pageviews for Vitally with explicit
+      // calls to `analytics.track()`.  But we only need to send this data to Vitally.
+      analytics.track(`Vitally Pageview`, {}, {
+        integrations: {
+          All: false,
+          Vitally: true
+        }
+      });
     <% else %>
       // In case a teacher was signed in on this computer and set the Intercom
       // localStorage, and then a student logged into this computer, let's
@@ -49,4 +72,5 @@
   }}();
   </script>
   <!-- end Segment.io -->
+  <%= render partial: 'application/coview' if load_intercom? %>
 <% end %>

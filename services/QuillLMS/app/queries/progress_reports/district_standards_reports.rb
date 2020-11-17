@@ -8,7 +8,7 @@ class ProgressReports::DistrictStandardsReports
   def results
     # Uncomment the line below, and comment out the sql query, to bypass
     # The database while testing
-    # [{"id"=>"1", "name"=>"class 1b", "section_name"=>"how to tell cactus from cow", "total_activity_count"=>"2", "total_student_count"=>"33", "proficient_count"=>"15"}]
+    # [{"id"=>"1", "name"=>"class 1b", "standard_level_name"=>"how to tell cactus from cow", "total_activity_count"=>"2", "total_student_count"=>"33", "proficient_count"=>"15"}]
     ids = user_ids(admin_id)
     if !ids.empty?
       ActiveRecord::Base.connection.execute(query(ids)).to_a
@@ -22,32 +22,32 @@ class ProgressReports::DistrictStandardsReports
   def query(user_ids)
     <<~SQL
       WITH final_activity_sessions AS (
-        SELECT activity_sessions.*, activities.topic_id FROM activity_sessions
+        SELECT activity_sessions.*, activities.standard_id FROM activity_sessions
           JOIN classroom_units ON activity_sessions.classroom_unit_id = classroom_units.id
           JOIN activities ON activity_sessions.activity_id = activities.id
-          JOIN topics ON topics.id = activities.topic_id
+          LEFT JOIN standards ON standards.id = activities.standard_id
           JOIN classrooms_teachers on classrooms_teachers.classroom_id = classroom_units.classroom_id
           WHERE activity_sessions.is_final_score
           AND classrooms_teachers.user_id in (#{user_ids})
           AND activity_sessions.visible
               AND classroom_units.visible
       ) SELECT
-          topics.id,
-          topics.name,
-          sections.name as section_name,
+          standards.id,
+          standards.name,
+          standard_levels.name as standard_level_name,
           COUNT(DISTINCT(final_activity_sessions.activity_id)) as total_activity_count,
           COUNT(DISTINCT(final_activity_sessions.user_id)) as total_student_count,
-          COUNT(DISTINCT(avg_score_for_topic_by_user.user_id)) as proficient_count
-        FROM topics
-          JOIN sections ON sections.id = topics.section_id
-          JOIN final_activity_sessions ON final_activity_sessions.topic_id = topics.id
-          LEFT JOIN (SELECT topic_id, user_id, AVG(percentage) as avg_score
+          COUNT(DISTINCT(avg_score_for_standard_by_user.user_id)) as proficient_count
+        FROM standards
+          JOIN standard_levels ON standard_levels.id = standards.standard_level_id
+          JOIN final_activity_sessions ON final_activity_sessions.standard_id = standards.id
+          LEFT JOIN (SELECT standard_id, user_id, AVG(percentage) as avg_score
             FROM final_activity_sessions
-            GROUP BY final_activity_sessions.topic_id, final_activity_sessions.user_id
+            GROUP BY final_activity_sessions.standard_id, final_activity_sessions.user_id
             HAVING AVG(percentage) >= 0.8
-          ) AS avg_score_for_topic_by_user ON avg_score_for_topic_by_user.topic_id = topics.id
-        GROUP BY topics.id, sections.name
-        ORDER BY topics.name ASC;
+          ) AS avg_score_for_standard_by_user ON avg_score_for_standard_by_user.standard_id = standards.id
+        GROUP BY standards.id, standard_levels.name
+        ORDER BY standards.name ASC;
     SQL
   end
 

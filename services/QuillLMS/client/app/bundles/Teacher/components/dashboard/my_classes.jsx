@@ -1,28 +1,24 @@
-'use strict'
+import React from 'react'
+import * as moment from 'moment'
 
- import React from 'react'
- import _ from 'underscore'
- import ClassMini from './class_mini.jsx'
- import AddOrSyncClassroomsMini from './add_or_sync_classrooms_mini.jsx'
+import ClassMini from './class_mini.jsx'
+import AddOrSyncClassroomsMini from './add_or_sync_classrooms_mini.jsx'
+import BulkArchiveClassesBanner from '../shared/bulk_archive_classes_banner'
 
- export default class extends React.Component {
-   createMinis = () => {
-     var classes = this.props.classList;
-     var minis = _.map(classes, function(classObj) {
-       return <ClassMini classObj={classObj} key={classObj.code} />;
-     });
-     return minis;
-   };
+const MyClasses = ({ classList, user, onSuccess, }) => {
+  const minis = classList.map(classObj => <ClassMini classObj={classObj} key={classObj.code} />)
+  const ownedClasses = classList.filter(c => c.teacher_role === 'owner')
 
-   render() {
-     return (
-       <div className='dashboard-section-container'>
-         <h3 className='dashboard-header'>My Classes</h3>
-         <div className='row'>
-           {this.createMinis()}
-           <AddOrSyncClassroomsMini user={this.props.user} />
-         </div>
-       </div>
-     );
-   }
- }
+  return (
+    <div className='dashboard-section-container'>
+      <h3 className='dashboard-header'>My Classes</h3>
+      <BulkArchiveClassesBanner classes={ownedClasses} onSuccess={onSuccess} userId={user.id} />
+      <div className='row'>
+        {minis}
+        <AddOrSyncClassroomsMini user={user} />
+      </div>
+    </div>
+  );
+}
+
+export default MyClasses

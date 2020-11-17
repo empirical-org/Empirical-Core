@@ -79,4 +79,15 @@ describe Cms::BlogPostsController, type: :controller do
       expect(bpost1.reload.order_number).to eq 4
     end
   end
+
+  describe '#update_featured_order_numbers' do
+    let!(:bpost) { create(:blog_post) }
+    let!(:bpost1) { create(:blog_post) }
+
+    it 'should update the order number for all given blog posts' do
+      get :update_featured_order_numbers, blog_posts: [{ id: bpost.id, featured_order_number: 2 }, { id: bpost1.id, featured_order_number: 4 }].to_json
+      expect(bpost.reload.featured_order_number).to eq 2
+      expect(bpost1.reload.featured_order_number).to eq 4
+    end
+  end
 end

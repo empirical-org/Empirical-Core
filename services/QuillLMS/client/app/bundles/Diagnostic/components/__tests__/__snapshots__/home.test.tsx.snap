@@ -1,0 +1,41 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Home Component should match snapshot 1`] = `
+<Layout
+  className="hide-focus-outline"
+>
+  <Layout>
+    <Content
+      style={
+        Object {
+          "height": "100vh",
+          "overflow": "auto",
+        }
+      }
+    >
+      <div
+        id="main-content"
+        tabIndex={-1}
+      >
+        <Switch>
+          <Route
+            key="0"
+            path="/admin"
+            render={[Function]}
+          />
+          <Route
+            key="1"
+            path="/play/diagnostic/:diagnosticID"
+            render={[Function]}
+          />
+          <Route
+            key="2"
+            path="/turk/:diagnosticID"
+            render={[Function]}
+          />
+        </Switch>
+      </div>
+    </Content>
+  </Layout>
+</Layout>
+`;

@@ -15,7 +15,8 @@ describe Teachers::UnitsController, type: :controller do
     classroom: classroom,
     assigned_student_ids: [student.id]
   )}
-  let!(:diagnostic_activity) { create(:diagnostic_activity, activity_classification_id: 4)}
+  let!(:diagnostic) { create(:diagnostic) }
+  let!(:diagnostic_activity) { create(:diagnostic_activity)}
   let!(:unit_activity) { create(:unit_activity, unit: unit, activity: diagnostic_activity, due_date: Time.now )}
   let!(:completed_activity_session) { create(:activity_session, user: student, activity: diagnostic_activity, classroom_unit: classroom_unit)}
 
@@ -97,9 +98,41 @@ describe Teachers::UnitsController, type: :controller do
   describe '#diagnostic_units' do
 
     it 'should render the correct json' do
-      get :diagnostic_units, report: true
+      get :diagnostic_units
 
-      expect(JSON.parse(response.body)[0]["unit_name"]).to eq(unit.name)
+      expected_response = [
+        {
+          "name" => diagnostic_activity.name,
+          "id" => diagnostic_activity.id,
+          "individual_assignments" => [
+            {
+              "assigned_count" => 1,
+              "completed_count" => 1,
+              "classroom_name" =>  classroom.name,
+              "activity_name" =>  diagnostic_activity.name,
+              "activity_id" => diagnostic_activity.id,
+              "unit_id" => unit.id,
+              "unit_name" => unit.name,
+              "classroom_id" => classroom.id,
+              "assigned_date" =>  unit_activity.created_at
+            }
+          ],
+          "last_assigned" =>  unit_activity.created_at,
+          "classes_count" => 1,
+          "total_assigned" => 1,
+          "total_completed" => 1
+        }
+      ]
+      expect(response.body).to eq(expected_response.to_json)
+    end
+  end
+
+  describe '#hide' do
+    it 'should hide the unit; kick off ArchiveUnitsClassroomUnitsWorker and ResetLessonCacheWorker' do
+      expect(ArchiveUnitsClassroomUnitsWorker).to receive(:perform_async).with(unit.id)
+      expect(ResetLessonCacheWorker).to receive_message_chain(:new, :perform).with(no_args).with(teacher.id)
+      put :hide, id: unit.id
+      expect(unit.reload.visible).to eq false
     end
   end
 

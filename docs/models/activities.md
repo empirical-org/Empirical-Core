@@ -41,7 +41,7 @@ Type: integer
 
 Example: 1
 
-### topic_id
+### standard_id
 This allows us to categorize activities and align them to standards.
 
 Type: integer
@@ -104,9 +104,9 @@ has_and_belongs_to_many => unit_templates
 
 belongs_to => activity_classifications
 
-belongs_to => topics
+belongs_to => standards
 
-has_one => sections through topic
+has_one => standard level through standard
 
 belongs_to => activities
 

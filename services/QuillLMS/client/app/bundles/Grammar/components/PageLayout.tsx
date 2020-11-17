@@ -1,0 +1,121 @@
+import * as React from "react";
+import { Layout } from "antd";
+import {renderRoutes} from "react-router-config";
+import { useQuery } from 'react-query';
+
+import { Header } from "./Header";
+
+import { routes } from "../routes";
+import { fetchUserRole } from '../../Shared/utils/userAPIs';
+import getParameterByName from '../helpers/getParameterByName';
+import { TeacherPreviewMenu } from '../../Shared/index';
+
+export const PageLayout = () => {
+
+    const studentSession = getParameterByName('student', window.location.href);
+    const proofreaderSession = getParameterByName('proofreaderSessionId', window.location.href);
+    const turkSession = window.location.href.includes('turk');
+    const studentOrTurkOrProofreader = studentSession || turkSession || proofreaderSession;
+    const isPlaying = window.location.href.includes('play');
+    const { data } = useQuery("user-role", fetchUserRole);
+    const isTeacherOrAdmin = data && data.role && data.role !== 'student';
+
+    const [showFocusState, setShowFocusState] = React.useState<boolean>(false);
+    const [previewShowing, setPreviewShowing] = React.useState<boolean>(!studentOrTurkOrProofreader);
+    const [questionToPreview, setQuestionToPreview] = React.useState<any>(null);
+    const [switchedBackToPreview, setSwitchedBackToPreview] = React.useState<boolean>(false);
+    const [randomizedQuestions, setRandomizedQuestions] = React.useState<any>(null);
+    const [skippedToQuestionFromIntro, setSkippedToQuestionFromIntro] = React.useState<boolean>(false);
+
+
+  function handleKeyDown (e: any) {
+    if (e.key !== 'Tab') { return }
+    if (showFocusState) { return }
+
+    setShowFocusState(true);
+  }
+
+  document.addEventListener('keydown', handleKeyDown);
+  document.removeEventListener('keydown', handleKeyDown);
+
+  function handleSkipToMainContentClick () {
+    const element = document.getElementById("main-content")
+    if (!element) { return }
+    element.focus()
+    element.scrollIntoView()
+  }
+
+  function handleTogglePreviewMenu () {
+    if(previewShowing) {
+      setSwitchedBackToPreview(false);
+    } else {
+      setSwitchedBackToPreview(true);
+    }
+    setPreviewShowing(!previewShowing);
+  }
+
+  function handleToggleQuestion (question: object) {
+    setQuestionToPreview(question);
+  }
+
+  function handleUpdateRandomizedQuestions (questions: any[]) {
+    setRandomizedQuestions(questions);
+  }
+
+  function handleSkipToQuestionFromIntro () {
+    setSkippedToQuestionFromIntro(true);
+  }
+
+  function renderContent (header: JSX.Element, showPreview: boolean) {
+    return(
+      <Layout.Content style={{ height: '100vh', overflow: 'auto' }}>
+        <button className="skip-main" onClick={handleSkipToMainContentClick} type="button">Skip to main content</button>
+        {header}
+        <div id="main-content" tabIndex={-1}>{renderRoutes(routes, {
+          switchedBackToPreview: switchedBackToPreview,
+          handleToggleQuestion: handleToggleQuestion,
+          previewMode: showPreview,
+          questionToPreview: questionToPreview,
+          randomizedQuestions: randomizedQuestions,
+          skippedToQuestionFromIntro: skippedToQuestionFromIntro
+        })}</div>
+      </Layout.Content>
+    );
+  }
+
+  const showPreview = previewShowing && isTeacherOrAdmin && isPlaying;
+  let className = "ant-layout ";
+  className = showFocusState ? '' : 'hide-focus-outline';
+  let header;
+
+  if(isPlaying && isTeacherOrAdmin) {
+    header = <Header isTeacher={!studentOrTurkOrProofreader} onTogglePreview={handleTogglePreviewMenu} previewShowing={showPreview} />;
+  } else if(isPlaying) {
+    header = <Header />;
+  }
+
+  return(
+    <Layout className={className}>
+      <Layout>
+        {showPreview && <Layout.Sider
+          breakpoint="md"
+          className="sider-container"
+          collapsedWidth="0"
+          width={360}
+        >
+          <TeacherPreviewMenu
+            onHandleSkipToQuestionFromIntro={handleSkipToQuestionFromIntro}
+            onTogglePreview={handleTogglePreviewMenu}
+            onToggleQuestion={handleToggleQuestion}
+            onUpdateRandomizedQuestions={handleUpdateRandomizedQuestions}
+            questionToPreview={questionToPreview}
+            showPreview={previewShowing}
+          />
+        </Layout.Sider>}
+        {renderContent(header, showPreview)}
+      </Layout>
+    </Layout>
+  );
+}
+
+export default PageLayout;

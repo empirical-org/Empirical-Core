@@ -1,5 +1,6 @@
 class PagesController < ApplicationController
   include HTTParty
+  include PagesHelper
   before_filter :determine_js_file, :determine_flag
   layout :determine_layout
 
@@ -111,7 +112,7 @@ class PagesController < ApplicationController
           },
           {
             question: "Which grammar concepts are covered by Quill?",
-            answer: "<p>Quill activities cover more than 300 grammar concepts such as Complex Sentences, Capitalization, Fragments, Compound Sentences, Adjectives, Prepositions and more. You can view a list of our most popular activity packs <a href='https://www.quill.org/activities/packs'>here</a> and you can view a list of the standards that we cover <a href='https://www.quill.org/activities/section/7'>here</a>.</p>"
+            answer: "<p>Quill activities cover more than 300 grammar concepts such as Complex Sentences, Capitalization, Fragments, Compound Sentences, Adjectives, Prepositions and more. You can view a list of our most popular activity packs <a href='https://www.quill.org/activities/packs'>here</a> and you can view a list of the standards that we cover <a href='https://www.quill.org/activities/standard_level/7'>here</a>.</p>"
           },
           {
             question: "How much does Quill cost?",
@@ -403,8 +404,8 @@ class PagesController < ApplicationController
 
   def activities
     @body_class = 'full-width-page white-page'
-    @section = params[:section_id].present? ? Section.find(params[:section_id]) : Section.first
-    @topics = @section.topics.map{ |topic| [topic, topic.activities.production] }.select{ |group| group.second.any? }
+    @standard_level = params[:standard_level_id].present? ? StandardLevel.find(params[:standard_level_id]) : StandardLevel.first
+    @standards = @standard_level.standards.map{ |standard| [standard, standard.activities.production] }.select{ |group| group.second.any? }
   end
 
   # for link to premium within 'about' (discover) pages
@@ -415,7 +416,6 @@ class PagesController < ApplicationController
     @user_has_school = !!current_user&.school && ['home school', 'us higher ed', 'international', 'other', 'not listed'].exclude?(current_user&.school&.name)
     @user_belongs_to_school_that_has_paid = current_user&.school ? Subscription.school_or_user_has_ever_paid?(current_user&.school) : false
     @last_four = current_user&.last_four
-    @user_has_covid_19_subscription = current_user&.subscriptions&.any?(&:covid19?)
 
     @title = 'Premium'
   end
@@ -435,8 +435,42 @@ class PagesController < ApplicationController
   def referrals_toc
   end
 
+  def preap_units
+    render json: { units: preap_content }
+  end
+
   def backpack
     @style_file = 'staff'
+  end
+
+  def comprehension
+    allow_iframe
+    @style_file = ApplicationController::COMPREHENSION
+  end
+
+  def proofreader
+    allow_iframe
+    @style_file = ApplicationController::PROOFREADER
+  end
+
+  def grammar
+    allow_iframe
+    @style_file = ApplicationController::GRAMMAR
+  end
+
+  def lessons
+    allow_iframe
+    @style_file = ApplicationController::LESSONS
+  end
+
+  def connect
+    allow_iframe
+    @style_file = ApplicationController::CONNECT
+  end
+
+  def diagnostic
+    allow_iframe
+    @style_file = ApplicationController::DIAGNOSTIC
   end
 
   private
@@ -447,6 +481,8 @@ class PagesController < ApplicationController
       'home'
     when 'home_new', 'diagnostic_tool', 'connect_tool', 'grammar_tool', 'proofreader_tool', 'lessons_tool'
       'twenty_seventeen_home'
+    when ApplicationController::COMPREHENSION, ApplicationController::PROOFREADER, ApplicationController::GRAMMAR, ApplicationController::LESSONS, ApplicationController::DIAGNOSTIC, ApplicationController::CONNECT
+      'activity'
     end
   end
 
@@ -458,6 +494,18 @@ class PagesController < ApplicationController
       @js_file = 'tools'
     when 'backpack'
       @js_file = 'staff'
+    when ApplicationController::COMPREHENSION
+      @js_file = ApplicationController::COMPREHENSION
+    when ApplicationController::PROOFREADER
+      @js_file = ApplicationController::PROOFREADER
+    when ApplicationController::GRAMMAR
+      @js_file = ApplicationController::GRAMMAR
+    when ApplicationController::LESSONS
+      @js_file = ApplicationController::LESSONS
+    when ApplicationController::CONNECT
+      @js_file = ApplicationController::CONNECT
+    when ApplicationController::DIAGNOSTIC
+      @js_file = ApplicationController::DIAGNOSTIC
     end
   end
 
@@ -482,5 +530,8 @@ class PagesController < ApplicationController
     return true if session.key?(SessionsController::CLEAR_ANALYTICS_SESSION_KEY)
   end
 
+  def allow_iframe
+    response.headers.delete "X-Frame-Options"
+  end
 
 end

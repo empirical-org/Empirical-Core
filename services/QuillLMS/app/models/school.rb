@@ -38,6 +38,10 @@ class School < ActiveRecord::Base
    subscriptions.where("expiration > ? AND start_date <= ?", Date.today, Date.today).order(expiration: :desc).limit(1).first
   end
 
+  def present_and_future_subscriptions
+    subscriptions.where("expiration > ? AND de_activated_date IS NULL", Date.today).order(expiration: :asc)
+  end
+
   def ulocal_to_school_type
     data = {
       "11": "City, Large",
@@ -73,6 +77,10 @@ class School < ActiveRecord::Base
     User.joins(student_in_classroom: {teachers: :school}).where(schools: {id: id}).uniq
   end
 
+  def self.school_year_start(time)
+    time.month >= 8 ? time.beginning_of_year + 7.months : time.beginning_of_year - 5.months
+  end
+
   private def generate_leap_csv_row(student, teacher, classroom, activity_session)
     [
       student.id,
@@ -85,7 +93,7 @@ class School < ActiveRecord::Base
       activity_session.percentage,
       activity_session.completed_at,
       activity_session.activity.name,
-      activity_session.activity.topic.topic_category.name,
+      activity_session.activity&.standard&.standard_category&.name,
       activity_session.minutes_to_complete
     ]
   end

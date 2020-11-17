@@ -1,0 +1,109 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`MobileSortMenu component with showMobileSortMenu false should render 1`] = `
+<MobileSortMenu
+  setShowMobileSortMenu={[Function]}
+  setSort={[Function]}
+  showMobileSortMenu={false}
+>
+  <span />
+</MobileSortMenu>
+`;
+
+exports[`MobileSortMenu component with showMobileSortMenu true should render 1`] = `
+<MobileSortMenu
+  setShowMobileSortMenu={[Function]}
+  setSort={[Function]}
+  showMobileSortMenu={true}
+>
+  <section
+    className="mobile-sort-menu"
+  >
+    <div
+      className="top-section"
+    >
+      <button
+        className="interactive-wrapper focus-on-light"
+        onClick={[Function]}
+        type="button"
+      >
+        <img
+          alt="Close icon"
+          src="undefined/images/icons/close.svg"
+        />
+        Close
+      </button>
+    </div>
+    <div
+      className="sort-options"
+    >
+      <h2>
+        Sort by
+      </h2>
+      <button
+        id="default"
+        key="default"
+        onClick={[Function]}
+        type="button"
+        value="default"
+      >
+        Default
+      </button>
+      <button
+        id="readability-asc"
+        key="readability-asc"
+        onClick={[Function]}
+        type="button"
+        value="readability-asc"
+      >
+        Readability Level (Low to High)
+      </button>
+      <button
+        id="readability-desc"
+        key="readability-desc"
+        onClick={[Function]}
+        type="button"
+        value="readability-desc"
+      >
+        Readability Level (High to Low)
+      </button>
+      <button
+        id="ccss-asc"
+        key="ccss-asc"
+        onClick={[Function]}
+        type="button"
+        value="ccss-asc"
+      >
+        CCSS Grade Level (Low to High)
+      </button>
+      <button
+        id="ccss-desc"
+        key="ccss-desc"
+        onClick={[Function]}
+        type="button"
+        value="ccss-desc"
+      >
+        CCSS Grade Level (High to Low)
+      </button>
+      <button
+        id="concept"
+        key="concept"
+        onClick={[Function]}
+        type="button"
+        value="concept"
+      >
+        Concept
+      </button>
+      <button
+        id="topic"
+        key="topic"
+        onClick={[Function]}
+        type="button"
+        value="topic"
+      >
+        Topic
+      </button>
+    </div>
+  </section>
+</MobileSortMenu>
+`;

@@ -1,0 +1,50 @@
+@import './question.scss';
+@import './spinner.scss';
+@import "./node_modules/bulma/bulma.sass";
+@import './admin.scss';
+@import './selectSearch.scss';
+@import './dashboards.scss';
+@import './intro.scss';
+@import './headerStyling.scss';
+@import '~react-table/react-table.css';
+@import '~antd/dist/antd.css';
+@import '../../../../../app/assets/stylesheets/shared/teacher-preview-menu.scss';
+
+body, #app {
+  height: 100%;
+  color: #3f3f3f;
+}
+
+.ant-layout {
+  height: min-content;
+  min-height: 100%;
+  background-color: #ededed;
+  font-family: adelle-sans, "Arial", sans-serif;
+  -moz-font-feature-settings: "ss04";
+  -webkit-font-feature-settings: "ss04";
+  font-feature-settings: "ss04";
+  .sider-container {
+    background-color: white;
+    width: 360px;
+  }
+}
+
+button.card-footer-item {
+  color: #3273dc;
+  cursor: pointer;
+  text-decoration: none;
+  background-color: transparent;
+}
+
+button.card-footer-item:hover {
+  color: black;
+}
+
+.control.checkbox-wrapper {
+  display: inline-block;
+}
+
+.checkbox-label {
+  display: inline-block;
+  margin: 8px;
+}

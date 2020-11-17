@@ -1,2 +1,0 @@
--r jsdom-global/register
-test/**/*.js

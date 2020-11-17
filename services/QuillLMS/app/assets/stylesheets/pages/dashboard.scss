@@ -11,8 +11,14 @@
     padding-top: 36px;
     padding-bottom: 16px;
     width: 100%;
-    border-top: 1px solid #cecece;
     font-weight: 700;
+    display: flex;
+    justify-content: space-between;
+    a {
+      color: $link-color;
+      font-size: 14px;
+      font-weight: normal;
+    }
   }
   @media (max-width: 1000px) {
     .dashboard-header {
@@ -133,14 +139,16 @@
 
   .class-mini {
     padding-top: 19px;
+    overflow-y: visible;
   }
 
   .mini_content {
     margin: auto;
     width: 300px;
-    height: 270px;
+    height: 282px;
     overflow-y: scroll;
-    border: 1px solid #cecece;
+    border: 1px solid #e0e0e0;
+    border-radius: 4px;
     background-color: #ffffff;
     margin-bottom: 40px;
 
@@ -236,9 +244,9 @@
       margin: auto;
       width: 280px;
       padding-bottom: 10px;
-      border-bottom: 1px solid #cecece;
       margin-bottom: 12px;
       margin-top: 7px;
+      border-bottom: 1px solid #E0E0E0;
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
@@ -277,7 +285,7 @@
       margin: auto;
       padding: 16px 0px;
       width: 280px;
-      border-bottom: solid 1px #cecece;
+      border-bottom: solid 1px #E0E0E0;
       &+p {
         font-size: 14px;
         margin: auto;
@@ -357,26 +365,26 @@
       line-height: 29px;
     }
   }
+  a.preview-card-link:not(:nth-child(3n)) {
+    margin-right: 40px;
+  }
 }
 
-.lessons-list {
-  @media (max-width: 700px) {
-    display: none;
-  }
-  height: 270px;
+.lessons-list, #recently-assigned-diagnostics-card {
+  height: 282px;
   margin-bottom: 40px;
+  padding-top: 0px;
   .inner-container {
-    padding: 0 20 8 20px;
-    border: 1px solid #cecece;
-    max-width: 638px;
-    height: 270px;
+    border: 1px solid #e0e0e0;
+    border-radius: 4px;
+    height: 282px;
     margin: auto;
     background-color: #ffffff;
   }
   .header-container {
     font-weight: 600;
     height: 46px;
-    border-bottom: solid 1px #e9e9e9;
+    border-bottom: solid 1px #e0e0e0;
     h3 {
       font-size: 16px;
     }
@@ -384,6 +392,16 @@
       font-size: 14px;
       color: #027360;
     }
+  }
+}
+
+.lessons-list {
+  @media (max-width: 700px) {
+    display: none;
+  }
+  .inner-container {
+    padding: 0 20 8 20px;
+    max-width: 638px;
   }
   .image-container {
     width: 36px;

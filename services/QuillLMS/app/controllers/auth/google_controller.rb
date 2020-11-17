@@ -55,6 +55,12 @@ class Auth::GoogleController < ApplicationController
       end
     end
     @user = GoogleIntegration::User.new(@profile).update_or_initialize
+    if @user.new_record? && session[:role].blank?
+      flash[:error] = "<p align='left'>We could not find your account. Is this your first time logging in? <a href='/account/new'>Sign up</a> here if so."\
+      "<br/>If you believe this is an error, please contact <strong>support@quill.org</strong> with the following info to unblock your account: <i>failed login of #{@profile.email} and googleID #{@profile.google_id} at #{Time.zone.now}</i>."
+      flash.keep(:error)
+      redirect_to(new_session_path, status: :see_other)
+    end
   end
 
   def save_student_from_google_signup

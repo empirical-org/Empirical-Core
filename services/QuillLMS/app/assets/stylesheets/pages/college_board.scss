@@ -1,0 +1,536 @@
+.college-board-container {
+  #info-blurbs-1-wrapper {
+    border-bottom: 1px solid #e0e0e0;;
+  }
+  .section-wrapper {
+    padding-top: 20px;
+    .college-board-header-container {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px 0px 40px 0px;
+      .header-left {
+        display: flex;
+        flex-direction: column;
+        margin-right: 30px;
+        .logo-container {
+          display: flex;
+          flex-direction: row;
+          margin: 0px 0px 40px 0px;
+          .divider {
+            width: 2px;
+            height: 46px;
+            background-color: #221f20;
+            margin: 0px 20px 0px 20px;
+          }
+        }
+        .header-text-container {
+          max-width: 475px;
+          h1 {
+            font-size: 30px;
+            font-weight: bold;
+            line-height: 1.33;
+            color: black;
+          }
+          p {
+            opacity: 0.9;
+            font-size: 16px;
+            line-height: 1.5;
+            color: black;
+            margin: 10px 0px 30px 0px;
+          }
+        }
+      }
+      img {
+        object-fit: contain
+      }
+    }
+    .cb-message-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      background-color: white;
+      margin-top: 100px;
+      margin-bottom: 120px;
+      .cb-message-header {
+        font-size: 24px;
+        font-weight: bold;
+        line-height: 1.5;
+        color: black;
+        max-width: 554px;
+        padding: 60px 0px 40px 0px;
+      }
+      .sub-header-container {
+        max-width: 554px;
+        width: 100%;
+        .cb-message-sub-header {
+          font-size: 16px;
+          font-weight: bold;
+          color: black;
+        }
+      }
+      .quote-container {
+        display: flex;
+        max-width: 648px;
+        padding: 25px 0px 50px 0px;
+        .inner-text-container {
+          p {
+            font-size: 16px;
+            line-height: 1.5;
+            color: black;
+          }
+          p:nth-of-type(1) {
+            padding-bottom: 25px;
+          }
+        }
+        #first-quote {
+          align-self: flex-start;
+          margin-right: 15px;
+        }
+        #second-quote {
+          align-self: flex-end;
+          margin-left: 15px;
+        }
+      }
+    }
+  }
+  .white-section-wrapper {
+    background-color: white;
+    .college-board-activities-section {
+      padding: 80px 0px 40px 0px;
+      .header {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        padding-bottom: 50px;
+        .text-container {
+          max-width: 640px;
+          h2 {
+            font-size: 24px;
+            font-weight: bold;
+            line-height: 1.5;
+            color: black;
+            margin: 16px 0px 10px 0px;
+          }
+          p {
+            font-size: 16px;
+            line-height: 1.5;
+            color: black;
+          }
+        }
+      }
+      .activities-subheader {
+        display: flex;
+        align-items: center;
+        padding: 20px;
+        h2 {
+          font-size: 20px;
+          font-weight: 600;
+          color: black;
+          margin-right: 10px;
+        }
+        .college-board-activity-tag {
+          border-radius: 6px;
+          border: solid 1px #e2c447;
+          background-color: #fdf1be;
+          font-size: 16px;
+          font-weight: 600;
+          color: black;
+          text-align: center;
+          padding: 3px 16px 3px 16px;
+          margin: 0px 3px 0px 3px;
+        }
+      }
+      .activity-container {
+        margin-bottom: 20px;
+        border-radius: 6px;
+        border: solid 1px #e0e0e0;
+        padding-top: 20px;
+        .activity-header-container {
+          display: flex;
+          align-items: baseline;
+          justify-content: space-between;
+          .activity-header-left-container {
+            display: flex;
+            align-items: center;
+            .springboard-sub-header {
+              padding-bottom: 0px;
+              margin-right: 16px;
+            }
+          }
+          .activity-header {
+            font-size: 16px;
+            font-weight: bold;
+            color: #06806b;
+            padding-bottom: 8px;
+            margin-left: 24px;
+            text-decoration: none;
+          }
+          .college-board-activity-tag {
+            border-radius: 6px;
+            border: solid 1px #e2c447;
+            background-color: #fdf1be;
+            font-size: 16px;
+            font-weight: 600;
+            color: black;
+            text-align: center;
+            padding: 3px 16px 3px 16px;
+            margin: 0px 3px 0px 3px;
+          }
+          .view-button {
+            margin: 12px 26px 0px 0px;
+          }
+        }
+        .activity-text-container {
+          display: flex;
+          flex-direction: column;
+          max-width: 735px;
+          padding: 0px 0px 24px 24px;
+          .activity-sub-header {
+            color: #646464;
+            font-size: 14px;
+            line-height: 1.5;
+            padding: 8px 0px 8px 0px;
+          }
+          .activity-sub-text {
+            color: black;
+            font-size: 14px;
+            line-height: 1.5;
+          }
+        }
+        .top-section {
+          display: flex;
+          width: 100%;
+          justify-content: space-between;
+          padding: 0px 20px 20px 20px;
+          .unit-header-container {
+            .unit-title {
+              font-size: 20px;
+              font-weight: bold;
+              color: black;
+              padding-bottom: 8px;
+            }
+            .unit-sub-header-container {
+              display: flex;
+              p {
+                font-size: 16px;
+                line-height: 1.5;
+                color: #646464;
+                &:nth-of-type(2) {
+                  margin: 0px 10px 0px 10px;
+                }
+              }
+              p:nth-of-type(2) {
+                color: #BDBDBD;
+              }
+            }
+          }
+          .expand-collapse-button {
+            background-color: white;
+            margin-top: 14px;
+          }
+          &.open {
+            .expand-arrow {
+              transform: rotate(180deg);
+            }
+          }
+        }
+        .bottom-section {
+          border-top: solid 1px #e0e0e0;
+          padding: 0px 20px 0px 20px;
+          .learning-cycle-container {
+            .divider {
+
+            }
+            .learning-cycle-header {
+              font-size: 20px;
+              border-bottom: solid 1px #e0e0e0;
+              padding: 40px 0px 5px 0px;
+            }
+            .cycle-activities-container {
+              .cycle-activity-container {
+                padding: 30px 0px 30px 0px;
+                border-bottom: solid 1px #e0e0e0;
+                &.highlighted {
+                  background-color: #e8f7f3;
+                  margin-right: -20px;
+                  margin-left: -20px;
+                  padding-right: 20px;
+                  padding-left: 20px;
+                }
+                .top-content {
+                  display: flex;
+                  justify-content: space-between;
+                  .activity-title {
+                    font-size: 16px;
+                    font-weight: bold;
+                    color: #06806b;
+                  }
+                  .activity-title:hover {
+                    text-decoration: none;
+                  }
+                }
+                .description {
+                  margin-top: -8px;
+                }
+                &.last-activity {
+                  border-bottom: none;
+                }
+              }
+            }
+          }
+          &.hidden {
+            display: none;
+          }
+        }
+        &.expandable {
+          display: flex;
+          flex-direction: column;
+        }
+      }
+    }
+    .info-blurbs-section {
+      padding: 0px 0px 40px 0px;
+      .info-blurb-container {
+        display: flex;
+        justify-content: space-between;
+        padding-bottom: 50px;
+        .text-container {
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          max-width: 447px;
+          .info-blurb-header {
+            font-size: 24px;
+            font-weight: bold;
+            line-height: 1.5;
+            color: black;
+            padding-bottom: 8px;
+          }
+          .info-blurb-text {
+            font-size: 16px;
+            line-height: 1.5;
+            color: black;
+            a {
+              text-decoration: underline;
+            }
+          }
+        }
+      }
+    }
+  }
+  #q-and-a {
+    .q-and-a-inner-wrapper {
+      .qa-section {
+        .qa {
+          .question {
+            text-align: left;
+            padding-left: 0;
+            margin: 16px 0px 16px 0px;
+          }
+          .question:focus {
+            outline: none !important;
+          }
+          .answer {
+            div {
+              .college-board-sub-header {
+                font-weight: 600;
+              }
+              .college-board-q-and-a-text {
+                padding-bottom: 20px;
+                a {
+                  color: black;
+                }
+                strong {
+                  font-weight: 600;
+                }
+              }
+              .college-board-q-and-a-text:last-child {
+                padding-bottom: 0px;
+              }
+              ul {
+                li {
+                  p:first-of-type {
+                    font-weight: 600;
+                  }
+                }
+              }
+            }
+            p {
+              line-height: 1.5;
+              a {
+                color: black;
+              }
+            }
+            .college-board-block {
+              padding: 15px 0px 15px 0px;
+            }
+          }
+        }
+        .expand-collapse-button {
+          background-color: white;
+          margin-top: 16px;
+        }
+      }
+      .qa-section:last-of-type {
+        border-bottom: 1px solid #e0e0e0;
+      }
+    }
+  }
+}
+
+@media only screen and (max-width : 750px){
+  .college-board-container {
+    .section-wrapper {
+      padding: 16px;
+      .college-board-header-container {
+        flex-direction: column;
+        align-items: center;
+        .header-left {
+          margin-right: 0px;
+          .logo-container {
+            flex-direction: column;
+            align-items: center;
+            .divider {
+              width: 210px;
+              height: 2px;
+              background-color: #221f20;
+              margin: 20px;
+            }
+          }
+          .header-text-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            a {
+              margin-bottom: 40px;
+            }
+          }
+        }
+      }
+      .cb-message-container {
+        .quote-container {
+          img {
+            display: none;
+          }
+        }
+      }
+    }
+    .white-section-wrapper {
+      padding: 16px;
+      .info-blurbs-section {
+        .info-blurb-container {
+          .text-container {
+            .info-blurb-text {
+              padding: 20px 0px 20px 0px;
+            }
+          }
+        }
+        .info-blurb-container:nth-of-type(1), .info-blurb-container:nth-of-type(3) {
+          flex-direction: column-reverse;
+        }
+        .info-blurb-container:nth-of-type(2) {
+          flex-direction: column;
+        }
+      }
+      .college-board-activities-section {
+        .activities-subheader {
+          display: flex;
+          flex-direction: column;
+          align-items: flex-start;
+          padding: 0px;
+          .college-board-activity-tag:nth-of-type(1) {
+            margin: 16px 0px 8px 0px;
+          }
+          .college-board-activity-tag:nth-of-type(2) {
+            margin: 0px 0px 16px 0px;
+          }
+          #ell-header {
+            margin-top: 16px;
+          }
+        }
+        .activity-container {
+          padding: 16px;
+          .activity-header-container {
+            align-items: flex-start;
+            .activity-header {
+              margin: 0px;
+              max-width: 152px;
+            }
+            .view-button {
+              margin: 0px;
+            }
+          }
+          .activity-text-container {
+            padding: 0px;
+          }
+        }
+      }
+      .units-container {
+        margin-left: -16px;
+        margin-right: -16px;
+        .activity-container {
+          padding: 0px;
+          .top-section {
+            padding-top: 20px;
+            .unit-header-container {
+              .unit-title {
+                max-width: 200px;
+              }
+              .unit-sub-header-container {
+                display: flex;
+                flex-direction: column;
+                .bullet {
+                  display: none;
+                }
+              }
+            }
+            div {
+              .expand-collapse-button {
+                margin-top: 0px;
+              }
+            }
+          }
+          .bottom-section {
+            .learning-cycle-container {
+              .cycle-activities-container {
+                .cycle-activity-container {
+                  .top-content {
+                    .activity-title {
+                      max-width: 152px;
+                    }
+                  }
+                  .description {
+                    margin-top: 8px;
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+  #q-and-a {
+    .q-and-a-inner-wrapper {
+      padding: 0px 16px 0px 16px !important;
+      .qa-section {
+        .qa {
+          .question {
+            text-align: left;
+          }
+          .answer {
+            div {
+              .college-board-q-and-a-text {
+                padding-left: 6px !important;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

@@ -93,7 +93,7 @@ class TeachersController < ApplicationController
 
   def update_current_user
     if current_user.update(teacher_params)
-      render json: current_user
+      render json: current_user, serializer: UserSerializer
     else
       render json: {errors: current_user.errors}, status: 400
     end
@@ -110,44 +110,31 @@ class TeachersController < ApplicationController
   end
 
   def diagnostic_info_for_dashboard_mini
-    if current_user
-      records = ActiveRecord::Base.connection.execute("SELECT cu.id AS classroom_unit_id,
-        units.id AS unit_id,
-        classroom.id AS classroom_id,
-        acts.id AS activity_id,
-        actsesh.completed_at FROM classroom_units cu
-                 JOIN units ON cu.unit_id = units.id
-                 JOIN unit_activities ON units.id = unit_activities.unit_id
-                 JOIN classrooms AS classroom ON cu.classroom_id = classroom.id
-                 LEFT JOIN activity_sessions AS actsesh ON actsesh.classroom_unit_id = cu.id
-                 JOIN activities AS acts ON unit_activities.activity_id = acts.id
-                 WHERE units.user_id = #{current_user.id}
-                 AND acts.activity_classification_id = 4
-                 ORDER BY actsesh.completed_at DESC").to_a
-      if !records.empty?
-        most_recently_completed = records.find { |r| !r['completed_at'].nil? }
-        # checks to see if the diagnostic was completed within a week
-        if most_recently_completed && 1.week.ago < most_recently_completed['completed_at']
-          number_of_finished_students = ActiveRecord::Base.connection.execute("SELECT COUNT(actsesh.user_id) FROM activity_sessions actsesh
-                                JOIN classroom_units AS cu ON actsesh.classroom_unit_id = cu.id
-                                WHERE cu.id = #{ActiveRecord::Base.sanitize(most_recently_completed['classroom_unit_id'])}
-                                AND actsesh.state = 'finished'
-                                AND actsesh.visible = 'true'
-                                AND cu.visible = 'true'
-                                GROUP BY actsesh.user_id
-                                ").to_a.length
-          render json: {status: 'recently completed', unit_info: most_recently_completed, number_of_finished_students: number_of_finished_students }
-        elsif most_recently_completed
-          render json: {status: 'completed'}
-        else
-          render json: {status: 'assigned'}
-        end
-      else
-        render json: {status: 'unassigned'}
-      end
+    if !current_user
+      units = []
     else
-      render json: {}
+      diagnostic_activity_ids = ActivityClassification.find_by_key('diagnostic').activity_ids
+      records = ClassroomsTeacher.select("classrooms.name AS classroom_name, activities.name AS activity_name, activities.id AS activity_id, classroom_units.unit_id AS unit_id, classrooms.id AS classroom_id, activity_sessions.count AS completed_count, array_length(classroom_units.assigned_student_ids, 1) AS assigned_count")
+      .joins("JOIN classrooms ON classrooms_teachers.classroom_id = classrooms.id AND classrooms.visible = TRUE AND classrooms_teachers.user_id = #{current_user.id}")
+      .joins("JOIN classroom_units ON classroom_units.classroom_id = classrooms.id AND classroom_units.visible")
+      .joins("JOIN unit_activities ON unit_activities.unit_id = classroom_units.unit_id AND unit_activities.activity_id IN (#{diagnostic_activity_ids.join(',')}) AND unit_activities.visible")
+      .joins("JOIN activities ON unit_activities.activity_id = activities.id")
+      .joins("LEFT JOIN activity_sessions ON activity_sessions.activity_id = unit_activities.activity_id AND activity_sessions.classroom_unit_id = classroom_units.id AND activity_sessions.visible AND activity_sessions.is_final_score")
+      .group("classrooms.name, activities.name, activities.id, classroom_units.unit_id, classrooms.id, classroom_units.assigned_student_ids, classroom_units.created_at, unit_activities.created_at")
+      .order("greatest(classroom_units.created_at, unit_activities.created_at) DESC")
+      units = records.map do |r|
+        {
+          assigned_count: r['assigned_count'] || 0,
+          completed_count: r['completed_count'],
+          classroom_name: r['classroom_name'],
+          activity_name: r['activity_name'],
+          activity_id: r['activity_id'],
+          unit_id: r['unit_id'],
+          classroom_id: r['classroom_id']
+        }
+      end
     end
+    render json: { units: units }
   end
 
   private

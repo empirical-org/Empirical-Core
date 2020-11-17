@@ -6,7 +6,7 @@ describe Unit, type: :model do
   it { should have_many(:classroom_units).dependent(:destroy) }
   it { should have_many(:classrooms).through(:classroom_units) }
   it { should have_many(:activities).through(:unit_activities) }
-  it { should have_many(:topics).through(:activities) }
+  it { should have_many(:standards).through(:activities) }
   it { should belong_to(:unit_template) }
   it do
     is_expected

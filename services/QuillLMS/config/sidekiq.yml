@@ -1,9 +1,9 @@
 ---
-:concurrency: 5
+:concurrency: <%= ENV.fetch("MAX_THREADS", 5).to_i - 1 %>
 staging:
-  :concurrency: 5
+  :concurrency: <%= ENV.fetch("MAX_THREADS", 5).to_i - 1 %>
 production:
-  :concurrency: 5
+  :concurrency: <%= ENV.fetch("MAX_THREADS", 5).to_i - 1 %>
 :queues:
   - critical
   - default

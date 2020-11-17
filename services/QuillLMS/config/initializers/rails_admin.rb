@@ -144,6 +144,14 @@ RailsAdmin.config do |config|
     edit do
       exclude_fields :classroom_units, :classrooms, :unit_activities, :units
     end
+    list do
+      field :id
+      field :name do
+        searchable true
+      end
+      field :classification
+      field :flags
+    end
   end
 
   # Limit pagination for models with large datasets (~1M+) because of performance

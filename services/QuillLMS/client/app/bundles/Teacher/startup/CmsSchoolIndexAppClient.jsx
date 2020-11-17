@@ -96,7 +96,7 @@ export default class CmsSchoolIndex extends React.Component {
   };
 
   search = (e) => {
-    e.preventDefault()
+    e ? e.preventDefault() : null
     this.setState({loading: true})
     const link = `${process.env.DEFAULT_URL}/cms/schools/search`
     const data = new FormData();

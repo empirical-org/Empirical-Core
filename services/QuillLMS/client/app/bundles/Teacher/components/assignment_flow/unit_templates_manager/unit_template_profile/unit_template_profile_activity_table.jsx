@@ -26,8 +26,8 @@ export default class UnitTemplateProfileActivityTable extends React.Component {
           data-tip={
             `<h1>${props.value.name}</h1>
               <p>Tool: ${props.value.classification.name}</p>
-              <p>${props.value.section_name}</p>
-              <p>${props.value.topic.name}</p>
+              <p>${props.value.standard_level_name}</p>
+              <p>${props.value.standard.name}</p>
               <p>${props.value.description}</p>`
           }
           onClick={() => this.redirectToActivity(props.value.id)}
@@ -41,7 +41,7 @@ export default class UnitTemplateProfileActivityTable extends React.Component {
         Header: 'Concept',
         accessor: a => a,
         id: 'conceptName',
-        Cell: props => <a className='row-link-disguise' onClick={() => this.redirectToActivity(props.value.id)} style={{color: 'black'}}><span>{props.value.topic.topic_category.name}</span></a>
+        Cell: props => <a className='row-link-disguise' onClick={() => this.redirectToActivity(props.value.id)} style={{color: 'black'}}><span>{props.value.standard.standard_category.name}</span></a>
       },
       {
         accessor: 'id',

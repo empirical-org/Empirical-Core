@@ -182,9 +182,10 @@ export default class ActivityPacks extends React.Component {
       return new Promise(resolve => {
         request.get(`${process.env.DEFAULT_URL}/teachers/units/score_info_for_activity/${u.activity_id}?classroom_unit_id=${u.classroom_unit_id}`, (error, httpStatus, body) => {
           this.state.allUnits.forEach((stateUnit) => {
-            if (typeof stateUnit.classroomActivities.get(u.activity_id) != 'undefined' ) {
-              stateUnit.classroomActivities.get(u.activity_id).cumulativeScore = JSON.parse(body).cumulative_score;
-              stateUnit.classroomActivities.get(u.activity_id).completedCount = JSON.parse(body).completed_count;
+            const unitActivity = stateUnit.classroomActivities.get(u.activity_id)
+            if (typeof unitActivity != 'undefined' && Number(unitActivity.cuId) === Number(u.classroom_unit_id)) {
+              unitActivity.cumulativeScore = JSON.parse(body).cumulative_score;
+              unitActivity.completedCount = JSON.parse(body).completed_count;
             }
           })
           resolve()

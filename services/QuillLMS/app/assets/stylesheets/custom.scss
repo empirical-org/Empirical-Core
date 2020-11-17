@@ -1,5 +1,9 @@
 @import url(//fonts.googleapis.com/css?family=Open+Sans:700,400,300,600);
 
+input:disabled {
+  background-color: transparent;
+}
+
 .page {
   min-height: 100vh;
 }
@@ -190,7 +194,7 @@ button {
 }
 
 .button-green, .btn-orange {
-  padding: 10px 25px;
+  padding: 10px 24px;
   font-size: 14px;
   border-radius: 5px;
   transition: 0.1s ease-out;
@@ -237,11 +241,6 @@ button {
   .fas {
     margin-left: 10px;
   }
-}
-
-.section-header {
-  font-weight: 600;
-  font-size: 24px;
 }
 
 /* ==========================================================================

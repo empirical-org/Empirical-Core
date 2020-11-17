@@ -65,18 +65,19 @@ export const readingLevelOptions = [
   },
 ];
 
-export const promptStems = ['because', 'but', 'so'];
-
 export const BECAUSE = 'because';
 export const BUT = 'but';
 export const SO = 'so';
+export const promptStems = [BECAUSE, BUT, SO];
 export const DEFAULT_MAX_ATTEMPTS = 5;
 
-export const blankActivity = { 
-  title: '', 
-  flag:'', 
-  passages: [{ text: '' }],
-  prompts: [
+export const blankActivity = {
+  title: '',
+  // flag:'',
+  scored_level: '',
+  target_level: null,
+  passage_attributes: [{ text: '' }],
+  prompt_attributes: [
     {
       conjunction: 'because',
       text: '',
@@ -100,7 +101,33 @@ export const blankActivity = {
 
 export const blankRuleSet = {
 	name: '',
-	feedback: '',
-	rules: [], 
+  feedback: '',
+  priority: null,
+	rules: [],
   prompts: []
 }
+
+export const TITLE = 'Title';
+export const SCORED_READING_LEVEL = 'Scored reading level';
+export const TARGET_READING_LEVEL = 'Target reading level';
+export const PARENT_ACTIVITY_ID = 'Parent activity ID'
+export const MAX_ATTEMPTS_FEEDBACK = 'Max attempts feedback';
+export const PASSAGE = 'Passage';
+export const BECAUSE_STEM = 'Because stem';
+export const BUT_STEM = 'But stem';
+export const SO_STEM = 'So stem';
+
+export const activityFormKeys = [
+  TITLE,
+  SCORED_READING_LEVEL,
+  TARGET_READING_LEVEL,
+  PARENT_ACTIVITY_ID,
+  MAX_ATTEMPTS_FEEDBACK,
+  PASSAGE,
+  BECAUSE_STEM,
+  BUT_STEM,
+  SO_STEM
+];
+
+export const MINIMUM_READING_LEVEL = 4;
+export const MAXIMUM_READING_LEVEL = 12;

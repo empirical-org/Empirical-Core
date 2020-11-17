@@ -4,9 +4,9 @@ class ActivitySearchWrapper
   def initialize(flag=nil, user_id=nil)
     @activities = nil
     @activity_classifications = []
-    @topics = []
+    @standards = []
     @activity_categories = []
-    @sections = []
+    @standard_levels = []
     @flag = flag
     @user_id = user_id
   end
@@ -24,11 +24,11 @@ class ActivitySearchWrapper
       activities: @activities,
       activity_classifications: @activity_classifications,
       activity_categories: @activity_categories,
-      sections: @sections,
+      standard_levels: @standard_levels,
     }
   end
 
-  def self.search_cache_data=(flag = nil)
+  def self.search_cache_data(flag = nil)
     substring = flag ? flag + "_" : ""
     activity_search_json = ActivitySearchWrapper.new(flag).search.to_json
     $redis.set("default_#{substring}activity_search", activity_search_json)
@@ -39,7 +39,7 @@ class ActivitySearchWrapper
 
   def custom_search_results
     activity_search
-    activity_categories_classifications_topics_and_section
+    activity_categories_classifications_standards_and_standard_level
     formatted_search_results
   end
 
@@ -48,38 +48,57 @@ class ActivitySearchWrapper
   end
 
   def formatted_search_results
-    @activities = @activities.map do |a|
+    unique_activities_array = []
+    @activities.each do |a|
       activity_id = a['activity_id'].to_i
-      classification_id = a['classification_id'].to_i
-      {
-        name: a['activity_name'],
-        description: a['activity_description'],
-        flags: a['activity_flag'],
-        id: activity_id,
-        uid: a['activity_uid'],
-        anonymous_path: Rails.application.routes.url_helpers.anonymous_activity_sessions_path(activity_id: activity_id),
-        activity_classification: classification_hash(classification_id),
-        activity_category: {id: a['activity_category_id'].to_i, name: a['activity_category_name']},
-        activity_category_name: a['activity_category_name'],
-        activity_category_id: a['activity_category_id'].to_i,
-        section: {id: a['section_id'].to_i, name: a['section_name']},
-        section_name: a['section_name'],
-        topic_name: a['topic_name']
-      }
+      content_partners = a['content_partner_name'] ? [{ name: a['content_partner_name'], description: a['content_partner_description'], id: a['content_partner_id']}] : []
+      topics = a['topic_name'] ? [{ name: a['topic_name'], level: a['topic_level'], id: a['topic_id'].to_i, parent_id: a['topic_parent_id'].to_i }] : []
+      existing_record = unique_activities_array.find { |act| act[:id] == activity_id }
+      # if there is an existing record, it is possible that that's because the activity has more than one content partner
+      if existing_record
+        content_partners = existing_record[:content_partners].concat(content_partners).uniq
+        topics = existing_record[:topics].concat(topics).uniq
+        index_of_existing_record = unique_activities_array.find_index(existing_record)
+        unique_activities_array[index_of_existing_record][:content_partners] = content_partners
+        unique_activities_array[index_of_existing_record][:topics] = topics
+      else
+        classification_id = a['classification_id'].to_i
+
+        act = {
+          name: a['activity_name'],
+          description: a['activity_description'],
+          flags: a['activity_flag'],
+          id: activity_id,
+          uid: a['activity_uid'],
+          anonymous_path: Rails.application.routes.url_helpers.anonymous_activity_sessions_path(activity_id: activity_id),
+          activity_classification: classification_hash(classification_id),
+          activity_category: {id: a['activity_category_id'].to_i, name: a['activity_category_name']},
+          activity_category_name: a['activity_category_name'],
+          activity_category_id: a['activity_category_id'].to_i,
+          standard_level: {id: a['standard_level_id'].to_i, name: a['standard_level_name']},
+          standard_level_name: a['standard_level_name'],
+          standard_name: a['standard_name'],
+          content_partners: content_partners,
+          topics: topics,
+          readability_grade_level: Activity.find(activity_id).readability_grade_level
+        }
+        unique_activities_array.push(act)
+      end
     end
+    @activities = unique_activities_array
   end
 
-  def activity_categories_classifications_topics_and_section
-    section_ids = []
+  def activity_categories_classifications_standards_and_standard_level
+    standard_level_ids = []
     activity_classification_ids = []
     @activities.each do |a|
-      section_ids << a['section_id']
+      standard_level_ids << a['standard_level_id']
       activity_classification_ids << a['classification_id'].to_i
     end
     @activity_classification_ids = activity_classification_ids.uniq
     @activity_classifications = activity_classifications
     @activity_categories = ActivityCategory.all
-    @sections = Section.where(id: section_ids.uniq)
+    @standard_levels = StandardLevel.where(id: standard_level_ids.uniq)
   end
 
   def activity_classifications

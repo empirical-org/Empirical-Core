@@ -172,12 +172,14 @@ li.premium-tab > a:hover {
     margin-bottom: 30px;
     display: flex;
     justify-content: space-between;
+    @media (max-width: 990px) {
+      flex-direction: column;
+    }
   }
   .pricing-mini {
     font-size: 15px;
-    min-height: 513px;
     width: 300px;
-    height: 597px;
+    height: 621px;
     border-radius: 4px;
     border: solid 1px #e0e0e0;
     background-color: white;
@@ -259,7 +261,7 @@ li.premium-tab > a:hover {
     }
     .pricing-info {
       color: #333333;
-      height: 435px;
+      height: 462px;
       @media (max-width: 990px) {
         min-height: 0;
         ul {

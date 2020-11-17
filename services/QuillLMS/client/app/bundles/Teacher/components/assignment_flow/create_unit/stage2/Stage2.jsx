@@ -1,9 +1,10 @@
 import React from 'react';
 
-import ButtonLoadingIndicator from '../../../shared/button_loading_indicator';
 import NameTheUnit from './name_the_unit';
 import ReviewActivities from './review_activities'
 import AssignStudents from './assign_students'
+
+import ButtonLoadingIndicator from '../../../shared/button_loading_indicator';
 import AssignmentFlowNavigation from '../../assignment_flow_navigation.tsx'
 import ScrollToTop from '../../../shared/scroll_to_top'
 
@@ -12,7 +13,6 @@ export default class Stage2 extends React.Component {
     super(props)
 
     this.state = {
-      buttonDisabled: false,
       prematureAssignAttempted: false,
       loading: false,
       timesSubmitted: 0
@@ -20,31 +20,32 @@ export default class Stage2 extends React.Component {
   }
 
   assignButton() {
-    return this.state.loading
-      ? <button className={`${this.determineAssignButtonClass()} pull-right`} id="assign">Assigning... <ButtonLoadingIndicator /></button>
-      : <button className={`${this.determineAssignButtonClass()} pull-right`} id="assign" onClick={this.finish}>Assign pack to classes</button>;
+    const { loading, } = this.state
+    return loading
+      ? <button className={`${this.determineAssignButtonClass()} pull-right`} id="assign" type="button">Assigning... <ButtonLoadingIndicator /></button>
+      : <button className={`${this.determineAssignButtonClass()} pull-right`} id="assign" onClick={this.handleClickAssign} type="button">Assign pack to classes</button>;
   }
 
   determineAssignButtonClass() {
+    const { areAnyStudentsSelected, selectedActivities, } = this.props
     let buttonClass = 'quill-button contained primary medium';
-    if (this.state.buttonDisabled || !this.props.areAnyStudentsSelected) {
+    if (!this.buttonEnabled()) {
       buttonClass += ' disabled';
     }
     return buttonClass;
   }
 
-  determineErrorMessageClass() {
-    if (this.state.prematureAssignAttempted) {
-      return 'error-message visible-error-message';
-    }
-    return 'error-message hidden-error-message';
+  buttonEnabled() {
+    const { areAnyStudentsSelected, selectedActivities, } = this.props
+    return areAnyStudentsSelected && selectedActivities.length
   }
 
-  finish = () => {
-    const { buttonDisabled, timesSubmitted, } = this.props
-    if (!this.state.buttonDisabled && !this.props.errorMessage) {
+  handleClickAssign = () => {
+    const { timesSubmitted, } = this.state
+    const { errorMessage, finish, } = this.props
+    if (this.buttonEnabled() && !errorMessage) {
       this.setState({ loading: true, });
-      this.props.finish();
+      finish();
     } else {
       this.setState({ prematureAssignAttempted: true, timesSubmitted: timesSubmitted + 1 });
     }
@@ -72,7 +73,6 @@ export default class Stage2 extends React.Component {
     const { errorMessage, unitName, updateUnitName, } = this.props
     return (<NameTheUnit
       nameError={errorMessage ? errorMessage.name : null}
-      nameError={errorMessage ? errorMessage.name : null}
       timesSubmitted={timesSubmitted}
       unitName={unitName}
       updateUnitName={updateUnitName}
@@ -95,8 +95,7 @@ export default class Stage2 extends React.Component {
   }
 
   render() {
-    const { errorMessage, unitTemplateName, unitTemplateId, selectedActivities, isFromDiagnosticPath, } = this.props
-    const buttonError = errorMessage ? errorMessage.students : null
+    const { unitTemplateName, unitTemplateId, selectedActivities, isFromDiagnosticPath, } = this.props
     let assignName = 'Activity Pack'
     if (unitTemplateName) {
       assignName = unitTemplateName

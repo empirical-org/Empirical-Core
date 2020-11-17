@@ -6,9 +6,10 @@ class Activity < ActiveRecord::Base
 
   has_and_belongs_to_many :unit_templates
   belongs_to :classification, class_name: 'ActivityClassification', foreign_key: 'activity_classification_id'
-  belongs_to :topic
+  belongs_to :standard
+  belongs_to :raw_score
 
-  has_one :section, through: :topic
+  has_one :standard_level, through: :standard
 
   belongs_to :follow_up_activity, class_name: "Activity", foreign_key: "follow_up_activity_id"
 
@@ -19,6 +20,12 @@ class Activity < ActiveRecord::Base
   has_many :recommendations, dependent: :destroy
   has_many :activity_category_activities, dependent: :destroy
   has_many :activity_categories, through: :activity_category_activities
+  has_many :content_partner_activities, dependent: :destroy
+  has_many :content_partners, :through => :content_partner_activities
+  has_many :teacher_saved_activities, dependent: :destroy
+  has_many :teachers, through: :teacher_saved_activities, foreign_key: 'teacher_id'
+  has_many :activity_topics, dependent: :destroy
+  has_many :topics, through: :activity_topics
   before_create :flag_as_beta, unless: :flags?
   after_commit :clear_activity_search_cache
 
@@ -57,8 +64,8 @@ class Activity < ActiveRecord::Base
     end
   end
 
-  def topic_uid= uid
-    self.topic_id = Topic.find_by_uid(uid).id
+  def standard_uid= uid
+    self.standard_id = Standard.find_by_uid(uid).id
   end
 
   def activity_classification_uid= uid
@@ -136,10 +143,14 @@ class Activity < ActiveRecord::Base
     activity_classification_id == 6
   end
 
+  def uses_feedback_history?
+    is_comprehension?
+  end
+
   def self.search_results(flag)
     substring = flag ? flag + "_" : ""
     activity_search_results = $redis.get("default_#{substring}activity_search")
-    activity_search_results ||= ActivitySearchWrapper.search_cache_data=(flag)
+    activity_search_results ||= ActivitySearchWrapper.search_cache_data(flag)
     JSON.parse(activity_search_results)
   end
 
@@ -156,6 +167,32 @@ class Activity < ActiveRecord::Base
     data['questions'] ||= []
     data['questions'].push(question)
     save
+  end
+
+  def readability_grade_level
+    return nil unless raw_score_id
+
+    raw_score = RawScore.find(raw_score_id)
+    case raw_score.name
+    when "1200-1300", "1300-1400", "1400-1500"
+      "10th-12th"
+    when "900-1000", "1000-1100", "1100-1200"
+      "8th-9th"
+    when "500-600"
+      if is_proofreader?
+        "4th-5th"
+      else
+        "6th-7th"
+      end
+    when "600-700", "700-800", "800-900"
+      "6th-7th"
+    when "300-400", "400-500"
+      "4th-5th"
+    when "BR100-0", "0-100", "100-200", "200-300"
+      "2nd-3rd"
+    else
+      ""
+    end
   end
 
   private
@@ -200,7 +237,8 @@ class Activity < ActiveRecord::Base
 
   def fix_angular_fragment!
     unless @url.fragment.blank?
-      @url.path = "/##{@url.fragment}"
+      path = @url.path || '/'
+      @url.path = "#{@url.path}##{@url.fragment}"
       @url.fragment = nil
     end
 
@@ -217,5 +255,13 @@ class Activity < ActiveRecord::Base
       return false
     end
     return true
+  end
+
+  def is_proofreader?
+    classification.key == ActivityClassification::PROOFREADER_KEY
+  end
+
+  def is_comprehension?
+    classification&.key == ActivityClassification::COMPREHENSION_KEY
   end
 end

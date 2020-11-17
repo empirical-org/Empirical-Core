@@ -5,11 +5,6 @@ class UserMailer < ActionMailer::Base
 
   COTEACHER_SUPPORT_ARTICLE = 'http://support.quill.org/getting-started-for-teachers/manage-classes/how-do-i-share-a-class-with-my-co-teacher'
 
-  def welcome_email user
-    @user = user
-    mail to: user.email, subject: 'Welcome to Quill!'
-  end
-
   def invitation_to_non_existing_user invitation_email_hash
     @email_hash = invitation_email_hash.merge(support_article_link: COTEACHER_SUPPORT_ARTICLE, join_link: new_account_url).stringify_keys
     mail from: "Quill Team <hello@quill.org>", 'reply-to': @email_hash["inviter_email"], to: @email_hash["invitee_email"], subject: "#{@email_hash['inviter_name']} has invited you to co-teach on Quill.org!"
@@ -118,13 +113,14 @@ class UserMailer < ActionMailer::Base
     @classrooms_created = Classroom.where(created_at: start_time..end_time).size
     @activities_assigned = UnitActivity.where(created_at: start_time..end_time).size
     # Sentences written is quantified by number of activities completed multiplied by 10 because
-    # there are an average of 10 sentences per activity.    
+    # there are an average of 10 sentences per activity.
     @sentences_written = ActivitySession.where(completed_at: start_time..end_time).size * 10
     @diagnostics_completed = ActivitySession.where(completed_at: start_time..end_time).where(activity_id: Activity.diagnostic_activity_ids).size
     @teacher_conversion_rate = number_to_percentage(conversion_rate, precision: 5)
     @support_tickets_resolved = get_intercom_data(start_time, end_time)
     @satismeter_nps_data = get_satismeter_nps_data(start_time, end_time)
     @satismeter_comment_data = get_satismeter_comment_data(start_time, end_time)
+
     mail to: "team@quill.org", subject: "Quill Daily Analytics - #{subject_date}"
   end
 

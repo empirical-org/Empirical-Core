@@ -1,0 +1,181 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`AssignADiagnostic component should render AssignADiagnostic 1`] = `
+<div
+  className="assignment-flow-container"
+>
+  <AssignmentFlowNavigation />
+  <ScrollToTop />
+  <div
+    className="diagnostic-page container"
+  >
+    <h1>
+      Which diagnostic covers the skills you want to assess?
+    </h1>
+    <div
+      className="minis"
+    >
+      <AssignmentCard
+        bodyArray={
+          Array [
+            Object {
+              "key": "What",
+              "text": "Plural and possessive nouns, pronouns, verbs, adjectives, adverbs of manner, commas, prepositions, and capitalization",
+            },
+            Object {
+              "key": "When",
+              "text": "Your students are working on basic grammar concepts.",
+            },
+          ]
+        }
+        buttonLink="/activity_sessions/anonymous?activity_id=849"
+        buttonText="Preview"
+        header="Starter Diagnostic"
+        imgAlt="page with a little writing"
+        imgSrc="undefined/images/illustrations/diagnostics-starter.svg"
+        selectCard={[Function]}
+      />
+      <AssignmentCard
+        bodyArray={
+          Array [
+            Object {
+              "key": "What",
+              "text": "Compound sentences, complex sentences, conjunctive adverbs, pronouns, and commonly confused words",
+            },
+            Object {
+              "key": "When",
+              "text": "Your students have practiced the basics of grammar and are ready to develop their sentence construction skills.",
+            },
+          ]
+        }
+        buttonLink="/activity_sessions/anonymous?activity_id=850"
+        buttonText="Preview"
+        header="Intermediate Diagnostic"
+        imgAlt="page with a medium amount of writing"
+        imgSrc="undefined/images/illustrations/diagnostics-intermediate.svg"
+        selectCard={[Function]}
+      />
+      <AssignmentCard
+        bodyArray={
+          Array [
+            Object {
+              "key": "What",
+              "text": "Compound-complex sentences, appositive phrases, relative clauses, participial phrases, and parallel structure",
+            },
+            Object {
+              "key": "When",
+              "text": "Your students are experienced with Quill, understand sentence combining, and are ready to develop multi-clause sentences.",
+            },
+          ]
+        }
+        buttonLink="/activity_sessions/anonymous?activity_id=888"
+        buttonText="Preview"
+        header="Advanced Diagnostic"
+        imgAlt="page with a large amount of writing"
+        imgSrc="undefined/images/illustrations/diagnostics-advanced.svg"
+        selectCard={[Function]}
+      />
+      <AssignmentCard
+        bodyArray={
+          Array [
+            Object {
+              "key": "What",
+              "text": "Simple verb conjugation, articles, subject-verb agreement, simple word order, singular and plural nouns, and adjective placement",
+            },
+            Object {
+              "key": "When",
+              "text": "Your students are beginning English language learners who are working on foundational grammar skills.",
+            },
+          ]
+        }
+        buttonLink="/activity_sessions/anonymous?activity_id=1161"
+        buttonText="Preview"
+        header="ELL Diagnostic 1: Entering and Emerging"
+        imgAlt="page with less writing that says ELL in the corner"
+        imgSrc="undefined/images/illustrations/diagnostics-ell-starter.svg"
+        selectCard={[Function]}
+      />
+      <AssignmentCard
+        bodyArray={
+          Array [
+            Object {
+              "key": "What",
+              "text": "Subject-verb agreement, verb tense, adjectives, adverbs, articles, prepositions, compound and complex sentences, and capitalization",
+            },
+            Object {
+              "key": "When",
+              "text": "Your students are English language learners at the developing, expanding, or bridging stages of language proficiency.",
+            },
+          ]
+        }
+        buttonLink="/activity_sessions/anonymous?activity_id=447"
+        buttonText="Preview"
+        header="ELL Diagnostic 2: Developing and Expanding"
+        imgAlt="page with writing that says ELL in the corner"
+        imgSrc="undefined/images/illustrations/diagnostics-ell.svg"
+        selectCard={[Function]}
+      />
+      <AssignmentCard
+        bodyArray={
+          Array [
+            Object {
+              "key": "What",
+              "text": "Compound-complex sentences, appositive phrases, relative clauses, participial phrases, and parallel structure",
+            },
+            Object {
+              "key": "When",
+              "text": "Your students are developing their advanced sentence-level writing skills to prepare for writing in an AP® classroom.",
+            },
+          ]
+        }
+        buttonLink="/activity_sessions/anonymous?activity_id=992"
+        buttonText="Preview"
+        header="AP Writing Skills Survey"
+        imgAlt="page with writing that says AP in corner"
+        imgSrc="undefined/images/college_board/diagnostics-ap.svg"
+        selectCard={[Function]}
+      />
+      <AssignmentCard
+        bodyArray={
+          Array [
+            Object {
+              "key": "What",
+              "text": "Subject-verb agreement, pronouns, compound subjects, objects, and predicates, and compound and complex sentences",
+            },
+            Object {
+              "key": "When",
+              "text": "Your students are working on basic sentence patterns and the skills outlined in the Pre-AP® English High School Course Framework.",
+            },
+          ]
+        }
+        buttonLink="/activity_sessions/anonymous?activity_id=1229"
+        buttonText="Preview"
+        header="Pre-AP Writing Skills Survey 1"
+        imgAlt="page with writing that says Pre-AP on bottom"
+        imgSrc="undefined/images/college_board/diagnostics-preap.svg"
+        selectCard={[Function]}
+      />
+      <AssignmentCard
+        bodyArray={
+          Array [
+            Object {
+              "key": "What",
+              "text": "Conjunctive adverbs, relative clauses, appositive phrases, participial phrases, and parallel structure",
+            },
+            Object {
+              "key": "When",
+              "text": "Your students are working on basic sentence patterns and the skills outlined in the Pre-AP® English High School Course Framework.",
+            },
+          ]
+        }
+        buttonLink="/activity_sessions/anonymous?activity_id=1230"
+        buttonText="Preview"
+        header="Pre-AP Writing Skills Survey 2"
+        imgAlt="page with writing that says Pre-AP on bottom"
+        imgSrc="undefined/images/college_board/diagnostics-preap.svg"
+        selectCard={[Function]}
+      />
+    </div>
+  </div>
+</div>
+`;

@@ -24,8 +24,8 @@ class ActivitySession < ActiveRecord::Base
   belongs_to :user
 
   before_create :set_state
-  before_save   :set_completed_at
-  before_save   :set_activity_id
+  before_save   :set_completed_at, :set_activity_id
+  before_save   :set_score_from_feedback_history, if: [:finished?, :uses_feedback_history?]
 
   after_save    :determine_if_final_score, :update_milestones
 
@@ -122,12 +122,12 @@ class ActivitySession < ActiveRecord::Base
       query = query.joins(:classroom_unit).where("classroom_units.unit_id = ?", filters[:unit_id])
     end
 
-    if filters[:section_id].present?
-      query = query.joins(activity: :topic).where('topics.section_id IN (?)', filters[:section_id])
+    if filters[:standard_level_id].present?
+      query = query.joins(activity: :standard).where('standards.standard_level_id IN (?)', filters[:standard_level_id])
     end
 
-    if filters[:topic_id].present?
-      query = query.joins(:activity).where('activities.topic_id IN (?)', filters[:topic_id])
+    if filters[:standard_id].present?
+      query = query.joins(:activity).where('activities.standard_id IN (?)', filters[:standard_id])
     end
 
     query
@@ -208,6 +208,24 @@ class ActivitySession < ActiveRecord::Base
 
   def score
     (percentage*100).round
+  end
+
+  def uses_feedback_history?
+    activity&.uses_feedback_history?
+  end
+
+  def set_score_from_feedback_history
+    max_attempts_per_prompt = FeedbackHistory.used.where(activity_session_uid: uid).group(:prompt_id).maximum(:attempt)
+    return if max_attempts_per_prompt.empty?
+
+    # the math here expresses the score chart translating number of attempts to score:
+    # 1 attempt => 1
+    # 2 attempts => 0.75
+    # 3 attempts => 0.5
+    # 4 attempts => 0.25
+    # 5 attempts => 0
+    calculated_score = max_attempts_per_prompt.sum { |m| 1.25 - 0.25 * m[1] }
+    self.percentage = ((calculated_score / max_attempts_per_prompt.size) * 100).round / 100.0
   end
 
   def start
@@ -357,7 +375,7 @@ class ActivitySession < ActiveRecord::Base
     end.flatten
   end
 
-  def self.assign_follow_up_lesson(classroom_unit_id, activity_uid, locked = true)
+  def self.assign_follow_up_lesson(classroom_unit_id, activity_uid)
     activity = Activity.find_by_id_or_uid(activity_uid)
     classroom_unit = ClassroomUnit.find(classroom_unit_id)
 
@@ -366,39 +384,20 @@ class ActivitySession < ActiveRecord::Base
     end
 
     follow_up_activity = Activity.find_by(id: activity.follow_up_activity_id)
-    unit_activity = UnitActivity.find_by(
+    unit_activity = UnitActivity.unscoped.find_or_create_by(
       activity: follow_up_activity,
       unit_id: classroom_unit.unit_id
     )
-    state = ClassroomUnitActivityState.find_by(
+
+    unit_activity.update(visible: true)
+
+    state = ClassroomUnitActivityState.find_or_create_by(
       unit_activity: unit_activity,
       classroom_unit: classroom_unit,
     )
 
-    if state.present?
-      state.update(locked: false)
-      return unit_activity
-    end
-
-    begin
-      ActiveRecord::Base.transaction do
-        follow_up_unit_activity = UnitActivity.create!(
-          activity_id: activity.follow_up_activity_id,
-          unit_id: classroom_unit.unit_id,
-          visible: true
-        )
-
-        ClassroomUnitActivityState.create!(
-          locked: locked,
-          unit_activity: follow_up_unit_activity,
-          classroom_unit: classroom_unit
-        )
-
-        return follow_up_unit_activity
-      end
-    rescue StandardError => e
-      false
-    end
+    state.update(locked: false)
+    unit_activity
   end
 
   def self.generate_activity_url(classroom_unit_id, activity_id)
@@ -407,25 +406,28 @@ class ActivitySession < ActiveRecord::Base
 
   def self.find_or_create_started_activity_session(student_id, classroom_unit_id, activity_id)
     activity = Activity.find_by_id_or_uid(activity_id)
-    activity_session = ActivitySession.find_by(
+    activity_sessions = ActivitySession.where(
       classroom_unit_id: classroom_unit_id,
       user_id: student_id,
       activity: activity
     )
-    if activity_session && activity_session.state == 'started'
-      activity_session
-    elsif activity_session && activity_session.state == 'unstarted'
-      activity_session.update(state: 'started')
-      activity_session
-    else
-      ActivitySession.create(
-        classroom_unit_id: classroom_unit_id,
-        user_id: student_id,
-        activity: activity,
-        state: 'started',
-        started_at: Time.now
-      )
+
+    started_session = activity_sessions.find { |as| as.state == 'started' }
+    return started_session if started_session
+
+    unstarted_session = activity_sessions.find { |as| as.state == 'unstarted' }
+    if unstarted_session
+      unstarted_session.update(state: 'started')
+      return unstarted_session
     end
+
+    ActivitySession.create(
+      classroom_unit_id: classroom_unit_id,
+      user_id: student_id,
+      activity: activity,
+      state: 'started',
+      started_at: Time.now
+    )
   end
 
   def minutes_to_complete
@@ -478,7 +480,7 @@ class ActivitySession < ActiveRecord::Base
     when 'percentage'
       "activity_sessions.percentage #{order}"
     when 'standard'
-      "topics.name #{order}"
+      "standards.name #{order}"
     end
   end
 

@@ -1,6 +1,8 @@
 import * as React from 'react'
 import * as moment from 'moment'
 
+import { Tooltip } from 'quill-component-library/dist/componentLibrary'
+
 import ClassroomStudentSection from './classroom_student_section'
 import ClassroomTeacherSection from './classroom_teacher_section'
 import LeaveClassModal from './leave_class_modal'
@@ -52,15 +54,36 @@ export default class Classroom extends React.Component<ClassroomProps, Classroom
     this.setState({ showModal: null })
   }
 
-  renderClassCodeOrType() {
+  renderClassType() {
     const { classroom } = this.props
-    if (classroom.google_classroom_id) {
-      return 'Google Classroom'
-    } else if (classroom.clever_id) {
-      return 'Clever Classroom'
-    } else {
-      return `Class code: ${classroom.code}`
+    if (!classroom.google_classroom_id && !classroom.clever_id) { return }
+
+    const text = classroom.google_classroom_id ? 'Google Classroom' : 'Clever Classroom'
+
+    return (<React.Fragment>
+      <span className="item">{text}</span>
+      <span className="bullet item">•</span>
+    </React.Fragment>)
+  }
+
+  renderClassCode() {
+    const { classroom } = this.props
+    const { code, google_classroom_id, clever_id, } = classroom
+    if (google_classroom_id) {
+      return (<Tooltip
+        tooltipText={`Add students by syncing with Google Classroom. Experiencing sync issues? You can add students with the class code '${code}'`}
+        tooltipTriggerText="Class code: N/A"
+      />)
     }
+
+    if (clever_id) {
+      return (<Tooltip
+        tooltipText={`Add students through Clever. Experiencing sync issues? You can add students with the class code '${code}'`}
+        tooltipTriggerText="Class code: N/A"
+      />)
+    }
+
+    return `Class code: ${code}`
   }
 
   renderGrade() {
@@ -78,18 +101,19 @@ export default class Classroom extends React.Component<ClassroomProps, Classroom
     const numberOfTeachers = classroom.teachers.length
     const createdAt = moment(classroom.created_at).format('MMM D, YYYY')
     const updatedAt = moment(classroom.updated_at).format('MMM D, YYYY')
-    const archivedDate = classroom.visible ? null : [<span className="bullet">•</span>, <span>Archived {updatedAt}</span>]
-    const coteachers = numberOfTeachers > 1 ? [<span>{numberOfTeachers - 1} {numberOfTeachers === 2 ? 'co-teacher' : 'co-teachers'}</span>, <span className="bullet">•</span>] : null
+    const archivedDate = classroom.visible ? null : [<span className="bullet item">•</span>, <span className="item">Archived {updatedAt}</span>]
+    const coteachers = numberOfTeachers > 1 ? [<span className="item">{numberOfTeachers - 1} {numberOfTeachers === 2 ? 'co-teacher' : 'co-teachers'}</span>, <span className="bullet item">•</span>] : null
 
     return (<div className="classroom-data">
-      <span>{numberOfStudents} {numberOfStudents === 1 ? 'student' : 'students'}</span>
-      <span className="bullet">•</span>
+      <span className="item">{numberOfStudents} {numberOfStudents === 1 ? 'student' : 'students'}</span>
+      <span className="bullet item">•</span>
       {coteachers}
-      <span>{this.renderClassCodeOrType()}</span>
-      <span className="bullet">•</span>
-      <span>{this.renderGrade()}</span>
-      <span className="bullet">•</span>
-      <span>Created {createdAt}</span>
+      {this.renderClassType()}
+      <span className="item">{this.renderClassCode()}</span>
+      <span className="bullet item">•</span>
+      <span className="item">{this.renderGrade()}</span>
+      <span className="bullet item">•</span>
+      <span className="item">Created {createdAt}</span>
       {archivedDate}
     </div>)
   }

@@ -68,6 +68,6 @@ class ProgressReports::ActivitySessionSerializer  < ActiveModel::Serializer
   end
 
   def standard
-    object.activity.topic.try(:name_prefix)
+    object.activity&.standard.try(:name_prefix)
   end
 end

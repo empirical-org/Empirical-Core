@@ -21,15 +21,17 @@ export default class QuestionAndAnswer extends React.Component {
   expandOrCollapseButton() {
     const { questionsAndAnswersFile } = this.props
     const { expanded } = this.state
+    const files = [ 'premium', 'preap', 'ap', 'springboard'];
+    const buttonClass = questionsAndAnswersFile === 'lessons' ? 'focus-on-dark' : 'focus-on-light';
     let innerElement;
 
-    if (questionsAndAnswersFile === 'premium' || questionsAndAnswersFile === 'preap') {
+    if (files.includes(questionsAndAnswersFile)) {
       const imageLink = expanded ? 'collapse.svg' : 'expand.svg'
       innerElement = <img alt="expand-and-collapse" src={`${process.env.CDN_URL}/images/shared/${imageLink}`} />
     } else {
       innerElement = expanded ? <p>Collapse</p> : <p>Expand</p>
     }
-    return <button className="expand-collapse-button focus-on-light" onClick={this.handleToggleExpansion} onKeyPress={this.handleKeyPress} type="button">{innerElement}</button>
+    return <button className={`expand-collapse-button ${buttonClass}`} onClick={this.handleToggleExpansion} onKeyPress={this.handleKeyPress} type="button">{innerElement}</button>
   }
 
   handleKeyPress = (e) => {

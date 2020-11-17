@@ -1,8 +1,7 @@
 import * as React from 'react'
 import * as moment from 'moment'
 
-import { Input, DataTable } from 'quill-component-library/dist/componentLibrary'
-
+import { Input, DataTable, } from '../../../Shared/index'
 import { requestPost, } from '../../../../modules/request/index.js';
 
 interface InviteCoteachersModalProps {

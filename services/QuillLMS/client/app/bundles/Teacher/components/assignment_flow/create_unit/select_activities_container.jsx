@@ -1,7 +1,7 @@
 import React from 'react';
 
 import AssignmentFlowNavigation from '../assignment_flow_navigation.tsx'
-import ActivitySearchAndSelect from './activity_search/activity_search_and_select';
+import CustomActivityPack from './custom_activity_pack/index'
 import AssigningIndicator from '../../shared/button_loading_indicator';
 
 export default class SelectActivitiesContainer extends React.Component {
@@ -43,35 +43,25 @@ export default class SelectActivitiesContainer extends React.Component {
     this.setState({ loading: true, });
   }
 
-  renderSelectActivitiesButton = () => {
-    let buttonClass = 'quill-button contained primary medium';
-    if (!(this.props.selectedActivities && this.props.selectedActivities.length)) {
-      buttonClass += ' disabled';
-    }
-    return <button className={buttonClass} onClick={this.clickContinue}>Select activities</button>
-  }
+  render() {
+    const { editing, errorMessage, clickContinue, activities, selectedActivities, setSelectedActivities, toggleActivitySelection, unitName, } = this.props
+    const error = errorMessage ? <span><i className="fas fa-exclamation-triangle" />{errorMessage}</span> : '';
+    const navigation = editing ? null : <AssignmentFlowNavigation />
 
-  render = () => {
-    const error = this.props.errorMessage ? <span><i className="fas fa-exclamation-triangle" />{this.props.errorMessage}</span> : '';
-    const navigation = this.props.editing ? null : <AssignmentFlowNavigation button={this.renderSelectActivitiesButton()} />
+    const clickFunction = editing ? this.handleClick : clickContinue
 
     return (
       <div>
         {navigation}
-        <div className="container">
-          <ActivitySearchAndSelect
-            activities={this.props.activities}
-            clickContinue={this.props.clickContinue}
-            errorMessage={this.props.errorMessage}
-            selectedActivities={this.props.selectedActivities}
-            toggleActivitySelection={this.props.toggleActivitySelection}
-            unitName={this.props.unitName}
-          />
-          <div className="error-message-and-button">
-            <div className={this.determineErrorMessageClass()}>{error}</div>
-            {this.ctaButton()}
-          </div>
-        </div>
+        <CustomActivityPack
+          clickContinue={clickFunction}
+          errorMessage={errorMessage}
+          passedActivities={activities}
+          selectedActivities={selectedActivities}
+          setSelectedActivities={setSelectedActivities}
+          toggleActivitySelection={toggleActivitySelection}
+          unitName={unitName}
+        />
       </div>
     );
   }

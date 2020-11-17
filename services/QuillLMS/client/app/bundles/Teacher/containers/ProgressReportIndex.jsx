@@ -3,9 +3,9 @@ import React from 'react'
 import ActivitiesProgressReport from '../components/progress_reports/activities_progress_report.jsx'
 import StandardsAllClassroomsProgressReport from '../components/progress_reports/standards_all_classrooms_progress_report.jsx'
 import StandardsClassroomStudentsProgressReport from '../components/progress_reports/standards_classroom_students_progress_report.jsx'
-import StandardsTopicsProgressReport from '../components/progress_reports/standards_topics_progress_report.jsx'
-import StandardsClassroomTopicsProgressReport from '../components/progress_reports/standards_classroom_topics_progress_report.jsx'
-import StandardsTopicStudentsProgressReport from '../components/progress_reports/standards_topic_students_progress_report.jsx'
+import StandardsStandardsProgressReport from '../components/progress_reports/standards_standards_progress_report.jsx'
+import StandardsClassroomStandardsProgressReport from '../components/progress_reports/standards_classroom_standards_progress_report.jsx'
+import StandardsStandardStudentsProgressReport from '../components/progress_reports/standards_standard_students_progress_report.jsx'
 import ConceptsStudentsProgressReport from '../components/progress_reports/concepts_students_progress_report.jsx'
 import ConceptsConceptsProgressReport from '../components/progress_reports/concepts_concepts_progress_report.jsx'
 import PremiumBannerBuilder from '../components/scorebook/premium_banners/premium_banner_builder'
@@ -32,9 +32,9 @@ export default class ProgressReportIndex extends React.Component {
       'progress-reports-activities': <ActivitiesProgressReport {...props} />,
       'progress-reports-standards-classrooms': <StandardsAllClassroomsProgressReport {...props} />,
       'progress-reports-standards-classroom-students': <StandardsClassroomStudentsProgressReport {...props} />,
-      'progress-reports-standards-topics': <StandardsTopicsProgressReport {...props} />,
-      'progress-reports-standards-classroom-topics': <StandardsClassroomTopicsProgressReport {...props} />,
-      'progress-reports-standards-topic-students': <StandardsTopicStudentsProgressReport {...props} />,
+      'progress-reports-standards-standards': <StandardsStandardsProgressReport {...props} />,
+      'progress-reports-standards-classroom-standards': <StandardsClassroomStandardsProgressReport {...props} />,
+      'progress-reports-standards-standard-students': <StandardsStandardStudentsProgressReport {...props} />,
       'progress-reports-concepts-students': <ConceptsStudentsProgressReport {...props} />,
       'progress-reports-concepts-concepts': <ConceptsConceptsProgressReport {...props} />,
       'progress-reports-landing-page-container': <LandingPageContainer {...props} />,

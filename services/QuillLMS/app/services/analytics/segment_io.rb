@@ -14,21 +14,16 @@ module SegmentIo
   end
 
   module BackgroundEvents
-    CLICK_SIGN_UP ||= 'Click Sign Up'
     TEACHER_ACCOUNT_CREATION ||= 'Teacher created an account'
     TEACHER_SIGNED_UP_FOR_NEWSLETTER ||= 'Teacher signed up for newsletter'
-    STUDENT_ACCOUNT_CREATION ||= 'Student created an account'
     TEACHERS_STUDENT_ACCOUNT_CREATION ||= "Teacher's student account created"
-    STUDENT_ENTERED_INVALID_CLASSCODE ||= "Student Entered Invalid Classcode"
     TEACHER_SIGNIN ||= 'Teacher signed in'
-    STUDENT_SIGNIN ||= 'Student signed in'
     TEACHERS_STUDENT_SIGNIN ||= "Teacher's student signed in"
     CLASSROOM_CREATION ||= 'Teacher created a classroom'
     ACTIVITY_COMPLETION ||= 'Student completed an activity'
+    ACTIVITY_PACK_ASSIGNMENT ||= 'Teacher assigned an activity pack'
     ACTIVITY_ASSIGNMENT ||= 'Teacher assigned an activity'
     USER_COMPLETED_MILESTONE ||= 'User Completed Milestone'
-    ASSIGN_FEATURED_ACTIVITY_PACK ||= 'Assign Featured Activity Pack'
-    BUILD_YOUR_OWN_ACTIVITY_PACK ||= 'Build Your Own Activity Pack'
     ACCESS_PROGRESS_REPORT ||= 'Teacher opened progress report'
     ASSIGN_DIAGNOSTIC ||= 'Teacher assigned the diagnostic'
     ASSIGN_RECOMMENDATIONS ||= 'Teacher assigned the recommendations'
@@ -47,8 +42,6 @@ module SegmentIo
 
   module Events
     # New events that may overlap with those defined in a front-end React module
-    CLICK_SIGN_UP = 'ClickSignUp'
-    CLICK_LOG_IN = 'ClickLogIn'
   end
 
 end

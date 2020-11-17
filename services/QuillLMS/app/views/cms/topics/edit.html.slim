@@ -1,8 +1,0 @@
-.container
-  .cms-form
-    = form_for [:cms, @topic] do |f|
-      = f.label :name
-      = f.text_field :name
-      = f.collection_select :section_id, Section.all, :id, :name
-      = f.collection_select :topic_category_id, TopicCategory.all, :id, :name
-      = f.submit :save

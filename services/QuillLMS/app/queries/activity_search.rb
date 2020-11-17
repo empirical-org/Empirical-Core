@@ -21,21 +21,31 @@ class ActivitySearch
     		activities.uid AS activity_uid,
         activity_categories.id AS activity_category_id,
         activity_categories.name AS activity_category_name,
-        sections.id AS section_id,
-        sections.name AS section_name,
-        topics.name AS topic_name,
+        standard_levels.id AS standard_level_id,
+        standard_levels.name AS standard_level_name,
+        standards.name AS standard_name,
         activity_classifications.id AS classification_id,
         activity_classifications.order_number,
         activity_categories.order_number,
-        activity_category_activities.order_number
+        activity_category_activities.order_number,
+        content_partners.name AS content_partner_name,
+        content_partners.description AS content_partner_description,
+        content_partners.id AS content_partner_id,
+        topics.id AS topic_id,
+        topics.name AS topic_name,
+        topics.parent_id AS topic_parent_id,
+        topics.level AS topic_level
       FROM activities
       LEFT JOIN activity_classifications ON activities.activity_classification_id = activity_classifications.id
-      LEFT JOIN topics ON activities.topic_id = topics.id
-      LEFT JOIN sections ON topics.section_id = sections.id
+      LEFT JOIN standards ON activities.standard_id = standards.id
+      LEFT JOIN standard_levels ON standards.standard_level_id = standard_levels.id
       LEFT JOIN activity_category_activities ON activities.id = activity_category_activities.activity_id
       LEFT JOIN activity_categories ON activity_category_activities.activity_category_id = activity_categories.id
-      WHERE sections.id IS NOT NULL
-      AND activities.flags && ARRAY[#{flags}]::varchar[]
+      LEFT JOIN content_partner_activities ON content_partner_activities.activity_id = activities.id
+      LEFT JOIN content_partners ON content_partners.id = content_partner_activities.content_partner_id
+      LEFT JOIN activity_topics ON activity_topics.activity_id = activities.id
+      LEFT JOIN topics ON activity_topics.topic_id = topics.id AND topics.visible
+      WHERE activities.flags && ARRAY[#{flags}]::varchar[]
       ORDER BY activity_classifications.order_number asc, activity_categories.order_number asc, activity_category_activities.order_number asc").to_a
   end
 end

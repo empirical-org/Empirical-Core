@@ -1,7 +1,7 @@
 import React from 'react'
 import request from 'request'
 import getAuthToken from '../components/modules/get_auth_token'
-import ActivitySearchAndSelect from '../components/assignment_flow/create_unit/activity_search/activity_search_and_select'
+import CustomActivityPackPage from '../components/assignment_flow/create_unit/custom_activity_pack/index'
 
 export default class ActivityCategory extends React.Component {
   constructor(props) {
@@ -44,11 +44,11 @@ export default class ActivityCategory extends React.Component {
     this.setState({selectedActivities: newSelectedActivities})
   };
 
-  updateActivityOrder = sortInfo => {
-    const originalOrderedActivities = this.state.selectedActivities
-    const newOrder = sortInfo.map(item => item.key);
+  updateActivityOrder = newSelectedActivities => {
+    const { selectedActivities, } = this.state
+    const newOrder = newSelectedActivities.map(item => item.id);
     const newOrderedActivities = newOrder.map((key, i) => {
-      const newActivity = originalOrderedActivities[key]
+      const newActivity = selectedActivities.find(a => a.id === key)
       newActivity.order_number = i
       return newActivity
     })
@@ -57,13 +57,12 @@ export default class ActivityCategory extends React.Component {
 
   render() {
     return(<div>
-      <ActivitySearchAndSelect
+      <CustomActivityPackPage
+        clickContinue={this.destroyAndRecreateOrderNumbers}
         selectedActivities={this.state.selectedActivities}
-        sortable={true}
-        sortCallback={this.updateActivityOrder}
+        setSelectedActivities={this.updateActivityOrder}
         toggleActivitySelection={this.toggleActivitySelection}
       />
-      <button onClick={this.destroyAndRecreateOrderNumbers}>Save Activities</button>
     </div>
   )
   }

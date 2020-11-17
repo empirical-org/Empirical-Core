@@ -11,27 +11,9 @@
       Quill provides free writing and grammar activities
       for elementary, middle, and high school students.
     </p>
-    <%= render layout: "tracked_link", locals: { href: "/sign-up/student",
-                                                 classes: "q-button cta-button cta-home  bg-white",
-                                                 event: SegmentIo::Events::CLICK_SIGN_UP,
-                                                 properties: { location: "mainCTA", button: "student" }
-                                                } do %>
-      Student
-    <% end %>
-    <%= render layout: "tracked_link", locals: { href: "/sign-up/teacher",
-                                                 classes: "q-button cta-button cta-home bg-white",
-                                                 event: SegmentIo::Events::CLICK_SIGN_UP,
-                                                 properties: { location: "mainCTA", button: "teacher" }
-                                                } do %>
-      Teacher
-    <% end %>
-    <%= render layout: "tracked_link", locals: { href: "/sign-up/teacher",
-                                                 classes: "q-button cta-button cta-home  bg-white",
-                                                 event: SegmentIo::Events::CLICK_SIGN_UP,
-                                                 properties: { location: "mainCTA", button: "guardian" }
-                                                } do %>
-      Guardian
-    <% end %>
+    <a class="q-button cta-button cta-home  bg-white" href="/sign-up/student">Student</a>
+    <a class="q-button cta-button cta-home  bg-white" href="/sign-up/teacher">Teacher</a>
+    <a class="q-button cta-button cta-home  bg-white" href="/sign-up/teacher">Guardian</a>
   </div>
   <div class="q-hero-footer">
     <p class="text-white">
@@ -262,12 +244,12 @@ Quill Grammar has over 150 sentence writing activities to help your students. Ou
   <div class="concepts">
     <a class="concept-link" target="_blank" href="/activity_sessions/anonymous?activity_id=299">Parallel Structure</a>
     <a class="concept-link" target="_blank" href="/activity_sessions/anonymous?activity_id=178">Capitalization</a>
-    <a class="concept-link" target="_blank" href="http://connect.quill.org/#/play/lesson/-KQX-YEGiFW71KKpep2X">Subordinating Conjunctions</a>
-    <a class="concept-link" target="_blank" href="http://connect.quill.org/#/play/lesson/-KS7QDRfWsPhAZF27hfL">Coordinating Conjunctions</a>
-    <a class="concept-link" target="_blank" href="http://connect.quill.org/#/play/lesson/-KRizUHvbl3hLJH6eey3">Commas</a>
+    <a class="concept-link" target="_blank" href="http://quill.org/connect/#/play/lesson/-KQX-YEGiFW71KKpep2X">Subordinating Conjunctions</a>
+    <a class="concept-link" target="_blank" href="http://quill.org/connect/#/play/lesson/-KS7QDRfWsPhAZF27hfL">Coordinating Conjunctions</a>
+    <a class="concept-link" target="_blank" href="http://quill.org/connect/#/play/lesson/-KRizUHvbl3hLJH6eey3">Commas</a>
     <a class="concept-link" target="_blank" href="/activity_sessions/anonymous?activity_id=291">Prepositions</a>
     <a class="concept-link" target="_blank" href="/activity_sessions/anonymous?activity_id=298">Pronoun Reference</a>
-    <a class="concept-link" target="_blank" href="http://connect.quill.org/#/play/lesson/-KXHxOiPXAMZmQOGGer9">Run-ons</a>
+    <a class="concept-link" target="_blank" href="http://quill.org/connect/#/play/lesson/-KXHxOiPXAMZmQOGGer9">Run-ons</a>
     <a class="concept-link" target="_blank" href="/activity_sessions/anonymous?activity_id=297">Subject-Verb Agreement</a>
     <a class="concept-link" target="_blank" href="/activity_sessions/anonymous?activity_id=154">Verb Tense</a>
     <a class="concept-link" target="_blank" href="/activity_sessions/anonymous?activity_id=111">Commonly Confused Words</a>
@@ -383,12 +365,12 @@ Quill Grammar has over 150 sentence writing activities to help your students. Ou
 
 <section class="premium-section">
   <div class="premium-text-container">
-    <p class="premium-header">Quill Premium</p>    
+    <p class="premium-header">Quill Premium</p>
     <p class="premium-text">Quill Premium's advanced reporting features are the best way to support teachers at the school or district level.</p>
     <div class="premium-button-container">
       <a class="quill-button medium primary contained sales-button" href="https://quillpremium.wufoo.com/forms/quill-premium-quote/" target="_blank">Contact sales</a>
       <a class="quill-button medium secondary outlined" href="https://www.quill.org/premium" target="_blank">Learn more</a>
-    </div>    
+    </div>
   </div>
   <img src=<%="#{ENV['CDN_URL']}/images/homepage/quill-premium-user-interfaces.svg"%>
   class="quill-premium-user-interfaces">
@@ -406,13 +388,7 @@ Quill Grammar has over 150 sentence writing activities to help your students. Ou
     </div>
   </a>
   <div class="press-cta">
-    <%= render layout: "tracked_link", locals: { href: "/account/new",
-                                                 classes: "get-started-link",
-                                                 event: SegmentIo::Events::CLICK_SIGN_UP,
-                                                 properties: { location: "finalCTA" }
-                                                } do %>
-    <button class="quill-button large primary contained">Get started</button>
-    <% end %>
+    <a class="get-started-link quill-button large primary contained" href="/account/new">Get Started</a>
   </div>
 </section>
 

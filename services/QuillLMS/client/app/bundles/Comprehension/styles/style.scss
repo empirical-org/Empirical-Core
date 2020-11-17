@@ -1,0 +1,52 @@
+@import './activity.scss';
+@import './headerStyling.scss';
+@import './spinner.scss';
+@import './step.scss';
+@import './editorContainer.scss';
+@import './fade.scss';
+@import './buttonLoadingSpinner.scss';
+@import './completed.scss';
+@import "~bulma/bulma.sass";
+
+html {
+  overscroll-behavior: none;
+}
+
+body {
+  background-color: white;
+}
+
+body, button, input, select, textarea {
+  font-family: adelle-sans, "Arial", sans-serif;
+  -moz-font-feature-settings: "ss04";
+  -webkit-font-feature-settings: "ss04";
+  font-feature-settings: "ss04";
+}
+
+#app, .app-container {
+  height: 100%;
+}
+
+button {
+  cursor: pointer;
+}
+
+.hide-focus-outline {
+  button, div, .step {
+    &:focus {
+      outline: none;
+    }
+  }
+}
+
+@media (min-width: 1100px) {
+  .hide-on-desktop {
+    display: none !important;
+  }
+}
+
+@media (max-width: 1099px) {
+  .hide-on-mobile {
+    display: none !important;
+  }
+}

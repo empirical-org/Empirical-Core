@@ -46,7 +46,7 @@ describe ProgressReports::Standards::StudentSerializer, type: :serializer do
           'not_proficient_standard_count',
           'total_activity_count',
           'average_score',
-          'student_topics_href',
+          'student_standards_href',
           'mastery_status'
         ]
       )

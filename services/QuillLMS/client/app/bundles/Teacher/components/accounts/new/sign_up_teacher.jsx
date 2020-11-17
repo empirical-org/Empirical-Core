@@ -1,13 +1,12 @@
 import React from 'react';
 import request from 'request'
-import { SegmentAnalytics, Events } from '../../../../../modules/analytics';
-import { Input } from 'quill-component-library/dist/componentLibrary'
 
 import AuthSignUp from './auth_sign_up'
 import AnalyticsWrapper from '../../shared/analytics_wrapper'
 import AgreementsAndLinkToLogin from './agreements_and_link_to_login'
 import AssignActivityPackBanner from '../assignActivityPackBanner'
 import getAuthToken from '../../modules/get_auth_token';
+import { Input, } from '../../../../Shared/index'
 
 const smallWhiteCheckSrc = `${process.env.CDN_URL}/images/shared/check-small-white.svg`
 
@@ -32,7 +31,6 @@ class SignUpTeacher extends React.Component {
 
 
   handleClickSignUpAsStudent = (e) => {
-    SegmentAnalytics.track(Events.CLICK_CREATE_STUDENT_USER)
     window.location.href = '/sign-up/student'
   }
 
@@ -51,7 +49,6 @@ class SignUpTeacher extends React.Component {
   handleSubmit = (e) => {
     const { firstName, lastName, email, password, sendNewsletter, timesSubmitted, } = this.state
     e.preventDefault();
-    SegmentAnalytics.track(Events.SUBMIT_SIGN_UP, {provider: Events.providers.EMAIL});
     request({
       url: `${process.env.DEFAULT_URL}/account`,
       method: 'POST',
@@ -90,7 +87,6 @@ class SignUpTeacher extends React.Component {
     this.setState(prevState => ({ sendNewsletter: !prevState.sendNewsletter, }), () => {
       const { sendNewsletter, } = this.state
       const setState = sendNewsletter ? 'optIn' : 'optOut';
-      SegmentAnalytics.track(Events.CLICK_NEWSLETTER_OPT_IN_OUT, { setState, });
     });
   }
 
@@ -136,7 +132,7 @@ class SignUpTeacher extends React.Component {
             <div className="info">
               <h2>More than 5,000 schools use Quill&#39;s free online tools to help their students become strong&nbsp;writers.</h2>
               <ul>
-                <li>Quill provides free access to 400 writing and grammar&nbsp;activities</li>
+                <li>Quill provides free access to 700 writing and grammar&nbsp;activities</li>
                 <li>Students receive immediate feedback on their&nbsp;work</li>
                 <li>Teachers or guardians identify student needs and measure growth with diagnostics and&nbsp;reports</li>
               </ul>

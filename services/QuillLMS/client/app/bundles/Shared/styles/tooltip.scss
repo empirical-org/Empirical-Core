@@ -1,0 +1,41 @@
+.quill-tooltip-trigger {
+  position: relative;
+  cursor: pointer;
+  white-space: nowrap;
+  width: min-content;
+}
+
+.quill-tooltip:not(.visible) {
+  opacity: 0;
+  transition: opacity 0s;
+  height: 0px;
+}
+
+.quill-tooltip-wrapper {
+  width: 300px;
+  position: absolute;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 2;
+}
+
+.quill-tooltip {
+  height: min-content;
+  border-radius: 4px;
+  background-color: #757575;
+  font-size: 12px;
+  font-weight: 600;
+  display: inline-block;
+  color: white;
+  padding: 8px 16px;
+  opacity: 1;
+  white-space: normal;
+  transition: opacity .5s;
+  max-width: 100%;
+  position: absolute;
+  top: 8px;
+  bottom: 0px;
+}

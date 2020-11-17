@@ -7,8 +7,8 @@
     "build": "babel src -d lib",
     "start": "npm run build && node lib/index.js",
     "serve": "node lib/index.js",
-    "start:dev": "./rethink_local.sh start; PORT=3200 RETHINKDB_HOST=localhost RETHINK_DB_PORT=28015 nodemon src/index.js --exec babel-node .babelrc; ./rethink_local.sh stop",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start:dev": "./rethink_local.sh start; PORT=3200 RETHINKDB_HOST=localhost RETHINK_DB_PORT=28015 nodemon src/index.js --exec babel-node src/index.js; ./rethink_local.sh stop",
+    "test": "jest test"
   },
   "author": "",
   "license": "ISC",
@@ -22,11 +22,12 @@
     "@sentry/node": "^5.11.0",
     "dotenv": "^5.0.1",
     "jsonwebtoken": "^8.2.1",
-    "newrelic": "^4.8.0",
+    "newrelic": "^6.11.0",
     "rethinkdb": "^2.3.3",
     "socket.io": "^2.0.3"
   },
   "devDependencies": {
+    "jest": "^25.5.4",
     "nodemon": "^1.17.3",
     "socket.io-redis": "^5.2.0"
   },

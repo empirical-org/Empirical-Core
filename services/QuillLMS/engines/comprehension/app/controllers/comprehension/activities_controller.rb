@@ -6,7 +6,7 @@ module Comprehension
 
     # GET /activities.json
     def index
-      @activities = Activity.all
+      @activities = Comprehension::Activity.all
 
       render json: @activities
     end
@@ -53,7 +53,7 @@ module Comprehension
         :target_level,
         :scored_level,
         passages_attributes: [:id, :text],
-        prompts_attributes: [:id, :conjunction, :text, :max_attempts_feedback]
+        prompts_attributes: [:id, :conjunction, :text, :max_attempts, :max_attempts_feedback]
       )
     end
   end

@@ -1,0 +1,81 @@
+.cms-blog-posts {
+  h1 {
+    font-weight: bold;
+    margin-bottom: 8px;
+  }
+
+  .interactive-wrapper {
+    background-color: transparent;
+  }
+
+  .featured-blog-posts {
+    margin-bottom: 40px;
+    .explanation {
+      color: gray;
+    }
+    .list {
+      display: flex;
+    }
+    .list-item {
+      flex: 1;
+      max-width: 311px;
+      &:not(:last-of-type) {
+        margin-right: 8px;
+      }
+    }
+    .featured-blog-post {
+      border: 1px solid gray;
+      padding: 8px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      height: 128px;
+      .featured-blog-post-header {
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+      }
+      .title {
+        -webkit-line-clamp: 4;
+        overflow: hidden;
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+      }
+    }
+  }
+}
+
+.blog-post-table {
+  margin-bottom: 40px;
+  tr {
+    display: flex;
+    padding: 5px;
+    &.blog-post-row {
+      border: 1px gray solid;
+      margin-top: 3px;
+      width: 100%
+    }
+    th, td {
+      width: 100px;
+    }
+    th:last-of-type, td:last-of-type, th:nth-of-type(7), td:nth-of-type(7) {
+      width: 50px;
+    }
+    th:first-of-type, td:first-of-type, th:nth-of-type(4), td:nth-of-type(4), th:nth-of-type(5), td:nth-of-type(5), th:nth-of-type(8), td:nth-of-type(8), td:nth-of-type(6), th:nth-of-type(6) {
+      width: 75px;
+    }
+    td:nth-of-type(2), th:nth-of-type(2) {
+      width: 200px;
+      padding-right: 10px;
+    }
+    td:nth-of-type(3), th:nth-of-type(3) {
+      width: 150px;
+    }
+  }
+}
+
+.save-order {
+  font-size: 14px;
+  color: $quillgreen;
+  cursor: pointer;
+}

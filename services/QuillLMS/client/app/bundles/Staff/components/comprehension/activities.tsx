@@ -1,9 +1,10 @@
 import * as React from "react";
-import { Link } from 'react-router-dom'
-import { DataTable, Error, Spinner } from 'quill-component-library/dist/componentLibrary';
+import { Link } from 'react-router-dom';
+import { useQuery } from 'react-query';
+
 import { ActivityInterface } from '../../interfaces/comprehensionInterfaces';
 import { fetchActivities } from '../../utils/comprehension/activityAPIs';
-import { useQuery } from 'react-query'
+import { DataTable, Error, Spinner } from '../../../Shared/index';
 
 const Activities = () => {
 

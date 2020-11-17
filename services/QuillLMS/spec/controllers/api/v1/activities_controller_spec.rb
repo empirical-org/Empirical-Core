@@ -18,6 +18,11 @@ describe Api::V1::ActivitiesController, type: :controller do
       expect(response.status).to eq(200)
     end
 
+    it 'responds with 404 if activity does not exist' do
+      get :show, format: :json, id: 'doesnotexist'
+      expect(response.status).to eq(404)
+    end
+
     # it "should have an object at it's root" do
     #   expect(@parsed_body.keys).to include('status')
     # end
@@ -46,15 +51,15 @@ describe Api::V1::ActivitiesController, type: :controller do
 
   context 'POST #create' do
     include_context 'calling the api'
-    let(:topic) { create(:topic) }
-    let(:section) { create(:section) }
+    let(:standard) { create(:standard) }
+    let(:standard_level) { create(:standard_level) }
     let(:activity_classification) { create(:activity_classification) }
 
     subject do
       post :create, {
         name: 'foobar',
         uid: 'abcdef123',
-        topic_uid: topic.uid,
+        standard_uid: standard.uid,
         activity_classification_uid: activity_classification.uid
       }
     end
@@ -78,8 +83,8 @@ describe Api::V1::ActivitiesController, type: :controller do
       describe 'handles uid information' do
         let(:activity) { Activity.find_by_uid(@parsed_body['activity']['uid']) }
 
-        it 'sets topic_id from topic_uid' do
-          expect(activity.topic).to be_present
+        it 'sets standard_id from standard_uid' do
+          expect(activity.standard).to be_present
         end
 
         it 'sets activity_classification_id from activity_classification_uid' do

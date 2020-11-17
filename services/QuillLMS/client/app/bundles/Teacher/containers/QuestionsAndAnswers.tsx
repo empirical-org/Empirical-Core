@@ -1,9 +1,12 @@
 import * as React from 'react'
+
 import QuestionAndAnswer from '../components/shared/QuestionAndAnswer.jsx'
 import lessons from '../components/modules/questionsAndAnswers/lessons'
 import admin from '../components/modules/questionsAndAnswers/admin'
 import premium from '../components/modules/questionsAndAnswers/premium'
 import preap from '../components/modules/questionsAndAnswers/preap'
+import ap from '../components/modules/questionsAndAnswers/ap'
+import springboard from '../components/modules/questionsAndAnswers/springboard'
 
 export interface QuestionsAndAnswersProps {
   questionsAndAnswersFile: string;
@@ -31,6 +34,12 @@ export default class QuestionsAndAnswers extends React.Component<QuestionsAndAns
         break
       case 'preap':
         questionsAndAnswers = preap
+        break
+      case 'ap':
+        questionsAndAnswers = ap
+        break
+      case 'springboard':
+        questionsAndAnswers = springboard
         break
       default:
         questionsAndAnswers = []

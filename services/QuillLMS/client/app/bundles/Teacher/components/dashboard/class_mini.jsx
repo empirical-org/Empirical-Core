@@ -1,8 +1,9 @@
 import React from 'react';
+import { Tooltip } from 'quill-component-library/dist/componentLibrary'
 
 const editSrc = `${process.env.CDN_URL}/images/icons/edit.svg`
 
-export default class extends React.Component {
+export default class ClassMini extends React.Component {
   manageClassGear = () => {
     return (
       <a className="class-mini-edit-link" href={this.manageClassLink()}>
@@ -37,6 +38,26 @@ export default class extends React.Component {
     return `/teachers/classrooms/scorebook?classroom_id=${this.props.classObj.id}`;
   };
 
+  renderCode() {
+    const { classObj, } = this.props
+    const { code, google_classroom_id, clever_id, } = classObj
+    if (google_classroom_id) {
+      return (<Tooltip
+        tooltipText={`Add students by syncing with Google Classroom. Experiencing sync issues? You can add students with the class code '${code}'`}
+        tooltipTriggerText="Class Code: N/A"
+      />)
+    }
+
+    if (clever_id) {
+      return (<Tooltip
+        tooltipText={`Add students through Clever. Experiencing sync issues? You can add students with the class code '${code}'`}
+        tooltipTriggerText="Class Code: N/A"
+      />)
+    }
+
+    return <p>Class Code: {code}</p>
+  }
+
   classroomSpecificButton = () => {
     if (!this.studentCount()) {
       return (
@@ -66,8 +87,7 @@ export default class extends React.Component {
         <a href={this.classroomSpecificReportLink()}><h3 className="classroom_name">
           {this.props.classObj.name}</h3></a>
         <div className="classMetaData text-center">
-          <p>
-            Class Code: {this.props.classObj.code}</p>
+          {this.renderCode()}
           <p>
             {this.studentCount()}
           </p>

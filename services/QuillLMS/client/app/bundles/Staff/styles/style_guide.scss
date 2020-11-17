@@ -1,6 +1,9 @@
 .style-guide-index {
   display: flex;
   font-family: adelle-sans, "Arial", sans-serif;
+  -moz-font-feature-settings: "ss04";
+  -webkit-font-feature-settings: "ss04";
+  font-feature-settings: "ss04";
   overflow: scroll;
   height: 100%;
 }
@@ -73,6 +76,13 @@
 
   .extra-big-element:last-of-type {
     padding-bottom: 30px;
+  }
+
+  .sliders-container {
+    margin-top: 20px;
+    .two-thumb-slider-container {
+      width: 160px;
+    }
   }
 }
 

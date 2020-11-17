@@ -1,104 +1,48 @@
 require 'rails_helper'
 
 describe Topic, type: :model do
+  it { should have_many(:activity_topics) }
+  it { should have_many(:activities).through(:activity_topics)}
 
-	let!(:topic){create(:topic, name: "a")}
+  it { should validate_presence_of(:name) }
+  it { should validate_presence_of(:visible) }
+  it { should validate_inclusion_of(:level).in?(0..3) }
 
-  it_behaves_like 'uid'
+  let!(:level_three_topic) { create(:topic, level: 3) }
 
-	context "when the default order is by name" do
+  it "should send callback after commit" do
+    expect(Activity).to receive(:clear_activity_search_cache)
+    level_three_topic.run_callbacks(:commit)
+  end
 
-		let!(:topic1){create(:topic, name: "c")}
-		let!(:topic2){create(:topic, name: "b")}
+  describe 'saving a topic with parent id' do
+    it 'should raise error if level is not 2' do
+      level_one_topic = Topic.new(name: 'test', level: 1, parent_id: level_three_topic.id,visible: true)
+      expect{ level_one_topic.save! }.to raise_error
+    end
 
-		it "must be ordered correctly" do
-			expect(Topic.all.map{|x| x.name}).to eq ["a", "b", "c"]
-		end
-	end
+    it 'should raise error if level is 2 and parent is not level 3' do
+      level_one_topic = Topic.create(name: 'test', level: 1, visible: true)
+      level_two_topic = Topic.new(name: 'test', level: 2, visible: true, parent_id: level_one_topic.id)
+      expect{ level_two_topic.save! }.to raise_error
+    end
 
-	context "when it's updated/created" do
+    it 'should not raise error if level is 2 and parent is 3' do
+      level_two_topic = Topic.new(name: 'test', level: 2, visible: true, parent_id: level_three_topic.id)
+      expect{ level_two_topic.save! }.not_to raise_error
+    end
+  end
 
-		it "must be valid with valid info" do
-			expect(topic.valid?).to be_truthy
-		end
+  describe 'saving a topic without parent id' do
+    it 'should raise error if level is 2' do
+      level_two_topic = Topic.new(name: 'test', level: 2, visible: true)
+      expect{ level_two_topic.save! }.to raise_error
+    end
 
-		context "when it runs validations" do
-			it "must have a name" do
-				topic.name=nil
-				topic.valid?
-				expect(topic.errors[:name]).to include "can't be blank"
-			end
+    it 'should not raise error if level is not 2' do
+      level_one_topic = Topic.new(name: 'test', level: 1, visible: true)
+      expect{ level_one_topic.save! }.not_to raise_error
+    end
+  end
 
-			it "must have a unique name" do
-				t=Topic.first
-				n=build(:topic, name: t.name)
-				n.valid?
-				expect(n.errors[:name]).to include "has already been taken"
-			end
-
-			it "must have a section" do
-				topic.section_id=nil
-				topic.valid?
-				expect(topic.errors[:section]).to include "can't be blank"
-			end
-		end
-	end
-
-	context "retrieving topics for the progress report" do
-    let(:filters) { {} }
-	  include_context 'Topic Progress Report'
-
-	  subject { ProgressReports::Standards::Topic.new(teacher).results(filters).to_a }
-
-	  it "retrieves aggregated topics data" do
-	  	found_topics = subject
-	  	expect(found_topics.size).to eq(visible_topics.size)
-      expect(found_topics[0].name).to be_present
-      expect(found_topics[0].total_student_count).to be_present
-      expect(found_topics[0].proficient_student_count).to be_present
-      expect(found_topics[0].not_proficient_student_count).to be_present
-      expect(found_topics[0].total_activity_count).to be_present
-      expect(found_topics[0].average_score).to be_present
-	  end
-
-	  context "when a classroom filter is provided" do
-	    let(:filters) { {section_id: section.id, classroom_id: full_classroom.id} }
-
-	  	it "filters by classroom" do
-	  		expect(subject.size).to eq(visible_topics.size)
-	  	end
-	  end
-
-	  context "classroom filter for an empty classroom" do
-	  	let(:filters) { {section_id: section.id, classroom_id: empty_classroom.id} }
-
-	  	it "returns no results" do
-	  		expect(subject.size).to eq(0)
-	  	end
-	  end
-
-	  context "classroom filter with no ID" do
-    	let(:filters) { {section_id: section.id, classroom_id: ""} }
-
-	  	it "does not filter by classroom" do
-	  		expect(subject.size).to eq(visible_topics.size)
-	  	end
-	  end
-
-	  context "when a unit filter is provided" do
-    	let(:filters) { {section_id: section.id, unit_id: unit1.id} }
-
-	  	it "filters by unit" do
-	  		expect(subject.size).to eq(visible_topics.size)
-	  	end
-	  end
-
-	  context "when an empty unit filter is provided" do
-    	let(:filters) { {section_id: section.id, unit_id: ""} }
-
-	  	it "does not filter by unit" do
-	  		expect(subject.size).to eq(visible_topics.size)
-	  	end
-	  end
-	end
 end

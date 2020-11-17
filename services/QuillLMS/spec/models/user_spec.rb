@@ -19,6 +19,8 @@ describe User, type: :model do
   it { should have_many(:schools_admins).class_name('SchoolsAdmins') }
   it { should have_many(:administered_schools).through(:schools_admins).source(:school).with_foreign_key('user_id') }
   it { should have_many(:classrooms_teachers) }
+  it { should have_many(:teacher_saved_activities).with_foreign_key('teacher_id') }
+  it { should have_many(:activities).through(:teacher_saved_activities)}
   it { should have_many(:classrooms_i_teach).through(:classrooms_teachers).source(:classroom) }
   it { should have_and_belong_to_many(:districts) }
   it { should have_one(:ip_location) }
@@ -697,7 +699,7 @@ describe User, type: :model do
   end
 
   describe '#clear_data' do
-    let(:user) { create(:user, google_id: 'sergey_and_larry_were_here') }
+    let(:user) { create(:teacher_with_school, google_id: 'sergey_and_larry_were_here') }
     let!(:auth_credential) { create(:auth_credential, user: user) }
     before(:each) { user.clear_data }
 
@@ -719,6 +721,9 @@ describe User, type: :model do
 
     it "destroys associated auth credentials if present" do
       expect(user.reload.auth_credential).to be nil
+    end
+    it "destroys associated schools_users if present" do
+      expect(user.reload.schools_users).to be nil
     end
   end
 
@@ -1119,20 +1124,6 @@ describe User, type: :model do
         expect(SubscribeToNewsletterWorker).to_not receive(:perform_async)
         user.subscribe_to_newsletter
       end
-    end
-  end
-
-  describe '#send_welcome_email' do
-    let(:user) { build(:user) }
-
-    it 'sends welcome given email' do
-      user.email = 'present@exmaple.lan'
-      expect { user.send(:send_welcome_email) }.to change { ActionMailer::Base.deliveries.count }.by(1)
-    end
-
-    it 'does not send welcome without email' do
-      user.email = nil
-      expect { user.send(:send_welcome_email) }.to_not change { ActionMailer::Base.deliveries.count }
     end
   end
 

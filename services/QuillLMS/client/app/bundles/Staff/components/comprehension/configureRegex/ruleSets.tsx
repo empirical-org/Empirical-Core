@@ -1,14 +1,15 @@
 import * as React from "react";
 import { Link, RouteComponentProps } from 'react-router-dom'
-import { DataTable, Error, Modal, Spinner } from 'quill-component-library/dist/componentLibrary';
+import { queryCache, useQuery } from 'react-query';
+
 import RuleSetForm from './ruleSetForm';
 import SubmissionModal from '../shared/submissionModal';
-import { buildErrorMessage, getPromptsIcons } from '../../../../../helpers/comprehension';
-import { ActivityRouteProps, ActivityRuleSetInterface, RegexRuleInterface } from '../../../interfaces/comprehensionInterfaces';
+import { buildErrorMessage, getPromptsIcons } from '../../../helpers/comprehension';
+import { ActivityRouteProps, RegexRuleInterface } from '../../../interfaces/comprehensionInterfaces';
 import { BECAUSE, BUT, SO, blankRuleSet } from '../../../../../constants/comprehension';
 import { fetchActivity } from '../../../utils/comprehension/activityAPIs';
 import { createRule, createRuleSet, fetchRuleSets } from '../../../utils/comprehension/ruleSetAPIs';
-import { queryCache, useQuery } from 'react-query'
+import { DataTable, Error, Modal, Spinner } from '../../../../Shared/index';
 
 const RuleSets: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ match }) => {
   const { params } = match;
@@ -17,13 +18,13 @@ const RuleSets: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ match }) 
   const [showSubmissionModal, setShowSubmissionModal] = React.useState<boolean>(false);
   const [errors, setErrors] = React.useState<object>({});
 
-  // cache ruleSets data for updates 
+  // cache ruleSets data for updates
   const { data: ruleSetsData } = useQuery({
     queryKey: [`ruleSets-${activityId}`, activityId],
     queryFn: fetchRuleSets
   });
 
-  // get cached activity data to pass to ruleSetForm 
+  // get cached activity data to pass to ruleSetForm
   const { data: activityData } = useQuery({
     queryKey: [`activity-${activityId}`, activityId],
     queryFn: fetchActivity
@@ -45,7 +46,7 @@ const RuleSets: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ match }) 
 
   const handleRuleCreation = (rules: RegexRuleInterface[], ruleSetId: string) => {
     rules.map((rule: RegexRuleInterface, i: number) => {
-      createRule(activityId, rule, ruleSetId).then((response) => {
+      createRule(rule, ruleSetId).then((response) => {
         const { error } = response;
         if(error) {
           let updatedErrors = errors;
@@ -63,7 +64,7 @@ const RuleSets: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ match }) 
         let updatedErrors = errors;
         updatedErrors['ruleSetError'] = error;
         setErrors(updatedErrors);
-      } else if(rules.length && ruleSetId) {
+      } else if(rules && rules.length && ruleSetId) {
         handleRuleCreation(rules, ruleSetId);
       }
       // update ruleSets cache to display newly created ruleSet
@@ -87,9 +88,10 @@ const RuleSets: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ match }) 
       <Modal>
         <RuleSetForm
           activityData={activityData && activityData.activity}
-          activityRuleSet={blankRuleSet} 
-          closeModal={toggleAddRuleSetModal} 
-          submitRuleSet={submitRuleSet} 
+          activityRuleSet={blankRuleSet}
+          closeModal={toggleAddRuleSetModal}
+          ruleSetsCount={ruleSetsData && ruleSetsData.rulesets.length}
+          submitRuleSet={submitRuleSet}
         />
       </Modal>
     );
@@ -120,7 +122,7 @@ const RuleSets: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ match }) 
   }
 
   const dataTableFields = [
-    { name: "Name", attribute:"name", width: "400px" }, 
+    { name: "Name", attribute:"name", width: "400px" },
     { name: "Because", attribute:"because_prompt", width: "100px" },
     { name: "But", attribute:"but_prompt", width: "100px" },
     { name: "So", attribute:"so_prompt", width: "100px" },

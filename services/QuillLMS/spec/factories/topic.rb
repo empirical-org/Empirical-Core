@@ -1,7 +1,8 @@
 FactoryBot.define do
   factory :topic do
-    sequence(:name) { |n| "Topic #{n}" }
-    section         { create(:section) }
-    topic_category  { TopicCategory.first || create(:topic_category) }
+    sequence(:name) { |i| "Topic #{i}" }
+    level           { 3 }
+    visible         { "true" }
+    parent_id       { nil }
   end
 end

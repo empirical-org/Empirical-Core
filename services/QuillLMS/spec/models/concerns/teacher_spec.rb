@@ -422,10 +422,14 @@ describe User, type: :model do
             name: classroom.name,
             id: classroom.id,
             code: classroom.code,
+            google_classroom_id: classroom.google_classroom_id,
+            clever_id: classroom.clever_id,
             student_count: classroom.students.length,
             activity_count: classroom.activity_sessions.where(is_final_score: true).length,
             has_coteacher: classroom.coteachers.any?,
-            teacher_role: ClassroomsTeacher.find_by(user_id: teacher.id, classroom_id: classroom.id).role
+            teacher_role: ClassroomsTeacher.find_by(user_id: teacher.id, classroom_id: classroom.id).role,
+            created_at: classroom.created_at,
+            grade: classroom.grade
           }
         end
         expect(teacher.classroom_minis_info).to match_array(sanitize_hash_array_for_comparison_with_redis(expected_response))

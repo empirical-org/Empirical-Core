@@ -26,7 +26,6 @@ class CreateOrIncrementResponseWorker
     response.increment!(:count)
     increment_first_attempt_count(response, symbolized_vals)
     increment_child_count_of_parent(response)
-    response.update_index_in_elastic_search
   end
 
   def increment_first_attempt_count(response, symbolized_vals)
