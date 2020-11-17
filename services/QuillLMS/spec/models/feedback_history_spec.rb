@@ -102,7 +102,7 @@ RSpec.describe FeedbackHistory, type: :model do
     end
 
     it 'should not set prompt_type if there is no prompt_id' do
-      fh = FeedbackHistory.create()
+      fh = FeedbackHistory.create
       refute fh.prompt_type
     end
 
