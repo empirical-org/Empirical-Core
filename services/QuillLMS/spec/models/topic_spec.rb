@@ -2,8 +2,8 @@ require 'rails_helper'
 
 describe Topic, type: :model do
   it { should have_many(:activity_topics) }
-  it { should have_many(:activities).through(:activity_topics)}
-  it { should have_many(:change_logs).as(:changed_record)}
+  it { should have_many(:activities).through(:activity_topics) }
+  it { should have_many(:change_logs) }
 
   it { should validate_presence_of(:name) }
   it { should validate_inclusion_of(:visible).in?([true, false]) }
