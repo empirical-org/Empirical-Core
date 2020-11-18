@@ -106,14 +106,11 @@ export default class StudentProfileUnit extends React.Component {
     const buttonStyle = isNextActivity ? 'primary contained' : 'secondary outlined'
 
     if (isBeingPreviewed) {
-      return <button className={`quill-button medium focus-on-light ${buttonStyle}`} handleOnClick={this.onClick} type="button">{linkText}</button>;
+      const onClick = () => onShowPreviewModal(activity_id)
+      return <button className={`quill-button medium focus-on-light ${buttonStyle}`} onClick={onClick} type="button">{linkText}</button>;
     }
 
     return <a className={`quill-button medium focus-on-light ${buttonStyle}`} href={activityLaunchLink(ca_id, activity_id)}>{linkText}</a>;
-  }
-
-  handleOnClick = () => {
-    onShowPreviewModal(activity_id)
   }
 
   score = (act) => {
