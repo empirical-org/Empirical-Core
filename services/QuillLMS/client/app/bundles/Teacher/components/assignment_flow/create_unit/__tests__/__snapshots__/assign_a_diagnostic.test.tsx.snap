@@ -32,7 +32,7 @@ exports[`AssignADiagnostic component should render 1`] = `
         buttonText="Preview"
         header="Starter Diagnostic"
         imgAlt="page with a little writing"
-        imgSrc="undefined/images/illustrations/diagnostics-starter.svg"
+        imgSrc="http://assets.quill.org/images/illustrations/diagnostics-starter.svg"
         selectCard={[Function]}
       />
       <AssignmentCard
@@ -52,7 +52,7 @@ exports[`AssignADiagnostic component should render 1`] = `
         buttonText="Preview"
         header="Intermediate Diagnostic"
         imgAlt="page with a medium amount of writing"
-        imgSrc="undefined/images/illustrations/diagnostics-intermediate.svg"
+        imgSrc="http://assets.quill.org/images/illustrations/diagnostics-intermediate.svg"
         selectCard={[Function]}
       />
       <AssignmentCard
@@ -72,7 +72,7 @@ exports[`AssignADiagnostic component should render 1`] = `
         buttonText="Preview"
         header="Advanced Diagnostic"
         imgAlt="page with a large amount of writing"
-        imgSrc="undefined/images/illustrations/diagnostics-advanced.svg"
+        imgSrc="http://assets.quill.org/images/illustrations/diagnostics-advanced.svg"
         selectCard={[Function]}
       />
       <AssignmentCard
@@ -92,7 +92,7 @@ exports[`AssignADiagnostic component should render 1`] = `
         buttonText="Preview"
         header="ELL Diagnostic 1: Entering and Emerging"
         imgAlt="page with less writing that says ELL in the corner"
-        imgSrc="undefined/images/illustrations/diagnostics-ell-starter.svg"
+        imgSrc="http://assets.quill.org/images/illustrations/icons-diagnostics-ell-starter.svg"
         selectCard={[Function]}
       />
       <AssignmentCard
@@ -112,7 +112,7 @@ exports[`AssignADiagnostic component should render 1`] = `
         buttonText="Preview"
         header="ELL Diagnostic 2: Developing and Expanding"
         imgAlt="page with writing that says ELL in the corner"
-        imgSrc="undefined/images/illustrations/diagnostics-ell.svg"
+        imgSrc="http://assets.quill.org/images/illustrations/icons-diagnostics-ell-intermediate.svg"
         selectCard={[Function]}
       />
       <AssignmentCard
@@ -132,7 +132,7 @@ exports[`AssignADiagnostic component should render 1`] = `
         buttonText="Preview"
         header="AP Writing Skills Survey"
         imgAlt="page with writing that says AP in corner"
-        imgSrc="undefined/images/college_board/diagnostics-ap.svg"
+        imgSrc="http://assets.quill.org/images/college_board/icons-diagnostics-ap.svg"
         selectCard={[Function]}
       />
       <AssignmentCard
@@ -140,7 +140,7 @@ exports[`AssignADiagnostic component should render 1`] = `
           Array [
             Object {
               "key": "What",
-              "text": "Subject-verb agreement, pronouns, compound subjects, objects, and predicates, and compound and complex sentences",
+              "text": "Subject-verb agreement, pronouns, and coordinating and subordinating conjunctions",
             },
             Object {
               "key": "When",
@@ -152,7 +152,7 @@ exports[`AssignADiagnostic component should render 1`] = `
         buttonText="Preview"
         header="Pre-AP Writing Skills Survey 1"
         imgAlt="page with writing that says Pre-AP on bottom"
-        imgSrc="undefined/images/college_board/diagnostics-preap.svg"
+        imgSrc="http://assets.quill.org/images/college_board/icons-diagnostics-preap.svg"
         selectCard={[Function]}
       />
       <AssignmentCard
@@ -172,7 +172,27 @@ exports[`AssignADiagnostic component should render 1`] = `
         buttonText="Preview"
         header="Pre-AP Writing Skills Survey 2"
         imgAlt="page with writing that says Pre-AP on bottom"
-        imgSrc="undefined/images/college_board/diagnostics-preap.svg"
+        imgSrc="http://assets.quill.org/images/college_board/icons-diagnostics-preap.svg"
+        selectCard={[Function]}
+      />
+      <AssignmentCard
+        bodyArray={
+          Array [
+            Object {
+              "key": "What",
+              "text": "Subject-verb agreement, pronouns, coordinating and subordinating conjunctions, prepositional phrases, and commonly confused words",
+            },
+            Object {
+              "key": "When",
+              "text": "Your students are working on basic sentence patterns and the grammar skills covered in the SpringBoard grades 6-8 materials.",
+            },
+          ]
+        }
+        buttonLink="/activity_sessions/anonymous?activity_id=1432"
+        buttonText="Preview"
+        header="SpringBoard Writing Skills Survey"
+        imgAlt="page with writing that says SpringBoard on bottom"
+        imgSrc="http://assets.quill.org/images/college_board/icons-diagnostics-springboard.svg"
         selectCard={[Function]}
       />
     </div>
