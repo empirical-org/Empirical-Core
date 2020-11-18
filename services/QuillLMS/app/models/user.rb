@@ -121,6 +121,7 @@ class User < ActiveRecord::Base
     else
       0
     end
+    1
   end
 
   def purchaser?
