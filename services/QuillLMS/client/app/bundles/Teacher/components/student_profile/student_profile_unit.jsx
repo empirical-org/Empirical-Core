@@ -1,9 +1,7 @@
 import * as React from 'react'
-
 import moment from 'moment'
 
 import { DataTable } from '../../../Shared/index'
-
 import activityLaunchLink from '../modules/generate_activity_launch_link.js';
 
 const diagnosticSrc = `${process.env.CDN_URL}/images/icons/tool-diagnostic-gray.svg`
@@ -108,18 +106,21 @@ export default class StudentProfileUnit extends React.Component {
     const buttonStyle = isNextActivity ? 'primary contained' : 'secondary outlined'
 
     if (isBeingPreviewed) {
-      const onClick = () => onShowPreviewModal(activity_id)
-      return <button className={`quill-button medium focus-on-light ${buttonStyle}`} onClick={onClick} type="button">{linkText}</button>;
+      return <button className={`quill-button medium focus-on-light ${buttonStyle}`} handleOnClick={this.onClick} type="button">{linkText}</button>;
     }
 
     return <a className={`quill-button medium focus-on-light ${buttonStyle}`} href={activityLaunchLink(ca_id, activity_id)}>{linkText}</a>;
+  }
+
+  handleOnClick = () => {
+    onShowPreviewModal(activity_id)
   }
 
   score = (act) => {
     const { activity_classification_id, max_percentage, } = act
     const maxPercentage = Number(max_percentage)
     if (activity_classification_id === DIAGNOSTIC_ACTIVITY_CLASSIFICATION_ID || activity_classification_id === LESSONS_ACTIVITY_CLASSIFICATION_ID) {
-      return (<div className="score"><div className="unscored" /><span>Unscored</span></div>)
+      return (<div className="score"><div className="unscored" /><span>Completed</span></div>)
     }
 
     if (maxPercentage >= PROFICIENT_CUTOFF) {
