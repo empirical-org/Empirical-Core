@@ -7,14 +7,14 @@ import AssignmentFlowNavigation from '../assignment_flow_navigation'
 import * as constants from '../assignmentFlowConstants'
 import ScrollToTop from '../../shared/scroll_to_top'
 
-const starterDiagnosticSrc = `http://assets.quill.org/images/illustrations/diagnostics-starter.svg`
-const intermediateDiagnosticSrc = `http://assets.quill.org/images/illustrations/diagnostics-intermediate.svg`
-const advancedDiagnosticSrc = `http://assets.quill.org/images/illustrations/diagnostics-advanced.svg`
-const ellDiagnosticSrc = `http://assets.quill.org/images/illustrations/icons-diagnostics-ell-intermediate.svg`
-const ellStarterDiagnosticSrc = `http://assets.quill.org/images/illustrations/icons-diagnostics-ell-starter.svg`
-const preApWritingSkillsSrc = `http://assets.quill.org/images/college_board/icons-diagnostics-preap.svg`
-const apWritingSkillsSrc = `http://assets.quill.org/images/college_board/icons-diagnostics-ap.svg`
-const springBoardWritingSkillsSrc = `http://assets.quill.org/images/college_board/icons-diagnostics-springboard.svg`
+const starterDiagnosticSrc = `${process.env.CDN_URL}/images/illustrations/diagnostics-starter.svg`
+const intermediateDiagnosticSrc = `${process.env.CDN_URL}/images/illustrations/diagnostics-intermediate.svg`
+const advancedDiagnosticSrc = `${process.env.CDN_URL}/images/illustrations/diagnostics-advanced.svg`
+const ellDiagnosticSrc = `${process.env.CDN_URL}/images/illustrations/icons-diagnostics-ell-intermediate.svg`
+const ellStarterDiagnosticSrc = `${process.env.CDN_URL}/images/illustrations/icons-diagnostics-ell-starter.svg`
+const preApWritingSkillsSrc = `${process.env.CDN_URL}/images/college_board/icons-diagnostics-preap.svg`
+const apWritingSkillsSrc = `${process.env.CDN_URL}/images/college_board/icons-diagnostics-ap.svg`
+const springBoardWritingSkillsSrc = `${process.env.CDN_URL}/images/college_board/icons-diagnostics-springboard.svg`
 
 const STARTER_DIAGNOSTIC = 'Starter Diagnostic'
 const INTERMEDIATE_DIAGNOSTIC = 'Intermediate Diagnostic'
