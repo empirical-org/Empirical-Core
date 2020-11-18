@@ -2,10 +2,10 @@ class Api::V1::ProgressReportsController < Api::ApiController
   include QuillAuthentication
   before_action :authorize!, only: :student_overview_data
 
-  def activities_scores_by_classroom_data
+  def activities_scores_by_classroom_data()
     classroom_ids = current_user&.classrooms_i_teach&.map(&:id)
     if !classroom_ids.empty?
-      data = ProgressReports::ActivitiesScoresByClassroom.results(classroom_ids)
+      data = ProgressReports::ActivitiesScoresByClassroom.results(classroom_ids)#, current_user.utc_offset)
       render json: { data: data }
     else
       render json: { data: [] }

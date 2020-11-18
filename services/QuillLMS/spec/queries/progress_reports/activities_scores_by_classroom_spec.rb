@@ -1,11 +1,17 @@
 require 'rails_helper'
 
 describe 'ActivitiesScoresByClassroom' do
-  let(:classroom) {create(:classroom_with_classroom_units)}
+  let(:classroom) {create(:classroom_with_active_students)}
 
   it "returns a row for each student that completed an activity session" do
     expect(ProgressReports::ActivitiesScoresByClassroom.results(classroom.owner.classrooms_i_teach.map(&:id)).length).to eq(classroom.students.length)
   end
+
+  it "returns student activity times in the timezone of the teacher (user)" do 
+    results = ProgressReports::ActivitiesScoresByClassroom.results(classroom.owner.classrooms_i_teach.map(&:id))
+    require 'pry'
+  end
+
 
   it "returns the average score and activity count for each student that completed activity sessions" do
     results = ProgressReports::ActivitiesScoresByClassroom.results(classroom.owner.classrooms_i_teach.map(&:id))

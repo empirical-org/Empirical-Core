@@ -1,8 +1,15 @@
 class ProgressReports::ActivitiesScoresByClassroom
   def self.results(classroom_ids)
     ids = classroom_ids.join(', ')
-    ActiveRecord::Base.connection.execute(query(ids)).to_a
+    result = ActiveRecord::Base.connection.execute(query(ids)).to_a
+    #transform_timestamps(result)
   end
+
+  # def transform_timestamps
+  #   keys.each {|k| key.&prop.&prop = key.&prop.&prop}
+
+    # DB -> UTC times
+    # UTC time - > local_time(UTC, local timezone)
 
   private
 

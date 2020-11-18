@@ -23,6 +23,11 @@ FactoryBot.define do
       students { create_list(:student, 1) }
     end
 
+    factory :classroom_with_active_students do 
+      [create(:student, last_active: Time.now)]
+
+    end
+
     factory :classroom_with_students_and_activities do
       students { create_list(:student_with_many_activities, 2) }
     end
