@@ -1,9 +1,7 @@
 import * as React from 'react'
-
 import moment from 'moment'
 
 import { DataTable } from '../../../Shared/index'
-
 import activityLaunchLink from '../modules/generate_activity_launch_link.js';
 
 const diagnosticSrc = `${process.env.CDN_URL}/images/icons/tool-diagnostic-gray.svg`
@@ -119,7 +117,7 @@ export default class StudentProfileUnit extends React.Component {
     const { activity_classification_id, max_percentage, } = act
     const maxPercentage = Number(max_percentage)
     if (activity_classification_id === DIAGNOSTIC_ACTIVITY_CLASSIFICATION_ID || activity_classification_id === LESSONS_ACTIVITY_CLASSIFICATION_ID) {
-      return (<div className="score"><div className="unscored" /><span>Unscored</span></div>)
+      return (<div className="score"><div className="unscored" /><span>Completed</span></div>)
     }
 
     if (maxPercentage >= PROFICIENT_CUTOFF) {
