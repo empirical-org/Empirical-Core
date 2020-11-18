@@ -48,20 +48,21 @@
   font-size: 16px;
 }
 
-.concepts-index-tools {
+.cms-tabs {
   display: flex;
   align-items: center;
   margin-bottom: 1em;
   width: 100%;
   border-bottom: 1px solid #ebebeb;
-  p {
+  padding-left: 31px;
+  p, a {
     font-weight: 500;
     color: black;
     padding: 10px;
     border-bottom: 4px solid white;
     cursor: pointer;
     margin-bottom: 0px;
-    width: 100px;
+    min-width: 100px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -83,12 +84,12 @@
   top: 0;
 }
 
-.concept-manager-nav {
+.cms-manager-nav {
   width: 100%;
   border-bottom: 1px solid #ebebeb;
   background-color: #f8f8f8;
   height: 70px;
-  .concept-manager-links {
+  .cms-manager-links {
     width: 500px;
     display: -ms-flexbox;
     display: flex;
@@ -142,87 +143,6 @@
   margin-right: 20px;
   td div {
     cursor: pointer;
-  }
-}
-
-.concept-box {
-  padding: 30px 20px;
-  background-color: #fff;
-  border: 1px solid #ebebeb;
-  border-radius: 6px;
-  width: 500px;
-  margin-bottom: 10px;
-  .fas {
-    margin-right: 5px;
-  }
-  &:not(.create-concept-box) {
-    position: -webkit-sticky; /* Safari */
-    position: sticky;
-    top: 0;
-    min-height: 400px;
-  }
-  &.archived-concept-box {
-    .concept-input-container {
-      align-items: center !important;
-    }
-    .fields {
-      .input-container {
-        width: 220px;
-      }
-    }
-  }
-  .close-concept-box {
-    position: absolute;
-    right: 20px;
-    top: 20px;
-    cursor: pointer;
-  }
-  .static {
-    p {
-      font-size: 12px;
-      margin-bottom: 6px;
-      color: #7f7f7f;
-      font-weight: 600;
-    }
-    h1 {
-      font-size: 16px;
-      color: black;
-    }
-  }
-  .fields {
-    margin-left: 15px;
-    margin-top: 35px;
-    .concept-input-container {
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-end;
-    }
-    #concept-name {
-      width: 260px;
-      padding-right: 20px;
-    }
-    .rename-and-archive {
-      color: #7f7f7f;
-      margin-bottom: 14px;
-      margin-left: 10px;
-      width: 166px;
-      display: flex;
-      justify-content: space-between;
-      .rename, .archive {
-        cursor: pointer;
-        svg {
-          margin-right: 5px;
-        }
-      }
-    }
-    .quill-button {
-      width: 100% !important;
-    }
-  }
-  &.create-concept-box {
-    .input-container {
-      width: 100%;
-    }
   }
 }
 
@@ -341,7 +261,7 @@
 .live-or-archived {
   color: #7f7f7f;
   font-size: 12px;
-  width: 65px;
+  width: 70px;
   .date {
     padding-left: 16px;
   }

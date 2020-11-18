@@ -1,18 +1,18 @@
 import React from 'react'
 import { TextArea } from 'quill-component-library/dist/componentLibrary'
 
-import { Concept } from '../interfaces/interfaces'
+import { Concept } from '../../interfaces/interfaces'
 
 interface ChangeLogModalProps {
   changedFields: Array<{ fieldName: string; previousValue?: any, newValue?: any }>;
   cancel(event): void;
   save(event): void;
-  concept: Concept;
+  record: Concept|any;
   levelNumber?: number;
 }
 
 interface ChangeLogModalState {
-  [key:string]: { action: string, explanation: string, conceptID?: string }
+  [key:string]: { action: string, explanation: string, recordID?: string }
 }
 
 export default class ChangeLogModal extends React.Component<ChangeLogModalProps, ChangeLogModalState> {
@@ -24,7 +24,7 @@ export default class ChangeLogModal extends React.Component<ChangeLogModalProps,
       stateObj[`changeLog${i}`] = {
         action: this.fieldToActionNameMap()[field.fieldName],
         explanation: '',
-        conceptID: props.concept.id,
+        recordID: props.record.id,
         previousValue: field.previousValue !== null ? String(field.previousValue) : null,
         newValue: field.newValue !== null ? String(field.newValue) : null,
         changedAttribute: field.fieldName
@@ -38,11 +38,11 @@ export default class ChangeLogModal extends React.Component<ChangeLogModalProps,
   }
 
   fieldToActionNameMap() {
-    const { levelNumber, concept, } = this.props
+    const { levelNumber, record, } = this.props
     return {
       name: 'Renamed',
       parent_id: `Level ${levelNumber + 1} updated`,
-      visible: concept.visible ? 'Unarchived' : 'Archived',
+      visible: record.visible ? 'Unarchived' : 'Archived',
       description: 'Rule description updated',
       explanation: 'Explanation updated',
       new: 'Created',
@@ -54,6 +54,13 @@ export default class ChangeLogModal extends React.Component<ChangeLogModalProps,
     const changeLog = this.state[key]
     changeLog.explanation = e.target.value
     this.setState({ [key]: changeLog })
+  }
+
+  handleClickSave = (e) => {
+    e.preventDefault()
+    const { save, } = this.props
+    const changeLogs = Object.keys(this.state).map(key => this.state[key])
+    save(changeLogs)
   }
 
   renderChangeLogFields() {
@@ -71,16 +78,15 @@ export default class ChangeLogModal extends React.Component<ChangeLogModalProps,
   }
 
   renderButtons() {
-    const { save, cancel, } = this.props
+    const { cancel, } = this.props
     let saveButtonClass = 'quill-button contained primary medium';
     const allChangesEntered = Object.keys(this.state).every(key => this.state[key].explanation.length > 9)
-    const changeLogs = Object.keys(this.state).map(key => this.state[key])
     if (!allChangesEntered) {
       saveButtonClass += ' disabled';
     }
     return (<div className="buttons">
       <button className="quill-button medium secondary outlined" onClick={cancel}>Cancel</button>
-      <button className={saveButtonClass} onClick={() => save(changeLogs)}>Save</button>
+      <button className={saveButtonClass} onClick={this.handleClickSave}>Save</button>
     </div>)
   }
 
@@ -89,7 +95,7 @@ export default class ChangeLogModal extends React.Component<ChangeLogModalProps,
       <div className="modal-background" />
       <div className="change-log-modal">
         <h1>Describe what action you took and why.</h1>
-        <p>Be as specific as possible. For example, if you rename a concept, include the concept's original name in the description. If you archive a concept because it was a duplicate, include the UID of the concept being retained.</p>
+        <p>Be as specific as possible. For example, if you rename a record, include the record's original name in the description. If you archive a record because it was a duplicate, include the UID of the record being retained.</p>
         <form acceptCharset="UTF-8" >
           {this.renderChangeLogFields()}
           {this.renderButtons()}
