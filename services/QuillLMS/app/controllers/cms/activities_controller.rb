@@ -21,6 +21,7 @@ class Cms::ActivitiesController < Cms::CmsController
 
   def edit
     @js_file = 'staff'
+    @style_file = 'staff'
     activity = Activity.find(params[:id])
     @activity = format_activity_for_activity_form(activity)
   end

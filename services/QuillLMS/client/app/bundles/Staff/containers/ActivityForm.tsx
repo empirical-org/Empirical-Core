@@ -1,7 +1,79 @@
 import * as React from 'react'
 
+import TopicColumn from '../components/activityForm/topicColumn'
+
 import { Snackbar, defaultSnackbarTimeout } from '../../Shared/index'
 import { requestGet, requestPut, requestPost, } from '../../../modules/request/index'
+
+const Topics = ({ activity, createNewTopic, topicOptions, handleTopicsChange, }) => {
+  const [topicsEnabled, setTopicsEnabled] = React.useState(!!activity.topic_ids.length)
+
+  React.useEffect(() => {
+    if (!topicsEnabled) {
+      handleTopicsChange([])
+    }
+  }, [topicsEnabled])
+
+  function getOptionsForLevel(level: number) {
+    if (!topicsEnabled) { return [] }
+    return topicOptions.filter(to => to.level === level)
+  }
+
+  function getFilteredOptionsForLevel(level: number) {
+    const allOptions = getOptionsForLevel(level)
+    const selectedLevelTwo = getSelectedOptionForLevel(2)
+    const selectedLevelThree = getSelectedOptionForLevel(3)
+
+    if (level === 3 && selectedLevelTwo) {
+      return allOptions.filter(o => o.id === selectedLevelTwo.parent_id)
+    }
+
+    if (level === 2 && selectedLevelThree) {
+      return allOptions.filter(o => o.parent_id === selectedLevelThree.id)
+    }
+
+    return allOptions
+  }
+
+  function getSelectedOptionForLevel(level: number) {
+    const levelOptionsForLevel = getOptionsForLevel(level)
+    const option = levelOptionsForLevel.find(t => activity.topic_ids.includes(t.id))
+    return option
+  }
+
+  function onChangeTopics(topicId) {
+    let newTopicIds = [...activity.topic_ids, topicId]
+    const topic = topicOptions.find(t => t.id === topicId)
+    const extantOption = getSelectedOptionForLevel(topic.level)
+    if (extantOption) {
+      newTopicIds = newTopicIds.filter(id => id !== extantOption.id)
+    }
+    handleTopicsChange(newTopicIds)
+  }
+
+  function toggleTopicsEnabled(e) {
+    setTopicsEnabled(!topicsEnabled)
+  }
+
+  const sharedTopicColumnProps = {
+    activity,
+    getFilteredOptionsForLevel,
+    selectTopic: onChangeTopics,
+    getSelectedOptionForLevel,
+    createNewTopic
+  }
+
+  return (<section className="topics-container enabled-attribute-container">
+    <section className="enable-topics-container checkbox-container">
+      <input checked={topicsEnabled} onChange={toggleTopicsEnabled} type="checkbox" />
+      <label>Topics enabled</label>
+    </section>
+    <TopicColumn {...sharedTopicColumnProps} levelNumber={3} />
+    <TopicColumn {...sharedTopicColumnProps} levelNumber={2} />
+    <TopicColumn {...sharedTopicColumnProps} levelNumber={1} />
+    <TopicColumn {...sharedTopicColumnProps} levelNumber={0} />
+  </section>)
+}
 
 const RawScore = ({ activity, rawScoreOptions, handleRawScoreChange, }) => {
   const [rawScoreEnabled, setRawScoreEnabled] = React.useState(!!activity.raw_score_id)
@@ -21,16 +93,16 @@ const RawScore = ({ activity, rawScoreOptions, handleRawScoreChange, }) => {
     setRawScoreEnabled(!rawScoreEnabled)
   }
 
-  return (<div className="raw-score-container enabled-attribute-container">
-    <div className="enable-raw-score-container checkbox-container">
+  return (<section className="raw-score-container enabled-attribute-container">
+    <section className="enable-raw-score-container checkbox-container">
       <input checked={rawScoreEnabled} onChange={toggleRawScoreEnabled} type="checkbox" />
       <label>Readability enabled</label>
-    </div>
-    <div>
+    </section>
+    <section>
       <label>Readability</label>
       <select disabled={!rawScoreEnabled} onChange={onChangeRawScore} value={activity.raw_score_id || ''}>{rawScoreOptionElements}</select>
-    </div>
-  </div>)
+    </section>
+  </section>)
 }
 
 const ContentPartner = ({ activity, contentPartnerOptions, handleContentPartnerChange, }) => {
@@ -52,20 +124,28 @@ const ContentPartner = ({ activity, contentPartnerOptions, handleContentPartnerC
     setContentPartnerEnabled(!contentPartnerEnabled)
   }
 
-  return (<div className="content-partner-container enabled-attribute-container">
-    <div className="enable-content-partner-container checkbox-container">
+  return (<section className="content-partner-container enabled-attribute-container">
+    <section className="enable-content-partner-container checkbox-container">
       <input checked={contentPartnerEnabled} onChange={toggleContentPartnerEnabled} type="checkbox" />
       <label>Content partner enabled</label>
-    </div>
-    <div>
+    </section>
+    <section>
       <label>Content Partner</label>
       <select disabled={!contentPartnerEnabled} multiple onChange={onChangeContentPartner} value={activity.content_partner_ids}>{contentPartnerOptionElements}</select>
-    </div>
-  </div>)
+    </section>
+  </section>)
 }
 
-const ActivityForm = ({ activity, activityClassification, contentPartnerOptions, activityCategoryOptions, standardOptions, rawScoreOptions, topicOptions, flagOptions, followUpActivityOptions, }) => {
+const ActivityForm = ({ activity, activityClassification, contentPartnerOptions, activityCategoryOptions, standardOptions, rawScoreOptions, passedTopicOptions, flagOptions, followUpActivityOptions, }) => {
   const [editedActivity, setEditedActivity] = React.useState(activity);
+  const [topicOptions, setTopicOptions] = React.useState(passedTopicOptions);
+  const [showSnackbar, setShowSnackbar] = React.useState(false)
+
+  React.useEffect(() => {
+    if (showSnackbar) {
+      setTimeout(() => setShowSnackbar(false), defaultSnackbarTimeout)
+    }
+  }, [showSnackbar])
 
   function handleSubmit() {
     if (activity.id) {
@@ -81,7 +161,24 @@ const ActivityForm = ({ activity, activityClassification, contentPartnerOptions,
         }
       )
     }
+  }
 
+  function getTopics() {
+    requestGet('/cms/topics',
+      (data) => {
+        setTopicOptions(data.topics);
+      }
+    )
+  }
+
+  function createNewTopic(topic, e=null) {
+    if (e) { e.preventDefault() }
+    requestPost(`/cms/topics`, { topic, },
+      (data) => {
+        getTopics()
+        setShowSnackbar(true)
+      }
+    )
   }
 
   function handleAttributeChange(attribute, value) {
@@ -116,6 +213,10 @@ const ActivityForm = ({ activity, activityClassification, contentPartnerOptions,
     handleAttributeChange('raw_score_id', value)
   }
 
+  function handleTopicsChange(options) {
+    handleAttributeChange('topic_ids', options)
+  }
+
   const flagOptionElements = flagOptions.map(fo => (<option value={fo}>{fo}</option>))
 
   const standardOptionElements = standardOptions.map(so => (<option value={so.id}>{so.name}</option>))
@@ -126,51 +227,53 @@ const ActivityForm = ({ activity, activityClassification, contentPartnerOptions,
 
   if (activityClassification.key === 'lessons') {
     const followUpActivityOptionElements = followUpActivityOptions.map(act => (<option value={act.id}>{act.name}</option>))
-    followUpActivityField = (<div>
+    followUpActivityField = (<section>
       <label>Followup Activity</label>
       <select onChange={handleFollowUpActivityChange} value={editedActivity.follow_up_activity_id}>{followUpActivityOptionElements}</select>
-    </div>)
+    </section>)
   }
 
 
-  return (<div className="cms-form">
+  return (<section className="cms-form">
+    <Snackbar text="Changes saved" visible={showSnackbar} />
     <form className="box-full-form form-vertical" onSubmit={handleSubmit}>
-      <div className="l-section">
-        <div>
+      <section className="l-section">
+        <section>
           <label>Name</label>
           <input onChange={handleNameChange} value={editedActivity.name} />
-        </div>
-        <div className="description-container">
+        </section>
+        <section className="description-container">
           <label>Description</label>
           <textarea cols={100} onChange={handleDescriptionChange} rows={10} value={editedActivity.description} />
-        </div>
-        <div>
+        </section>
+        <section>
           <label>Flag</label>
           <select onChange={handleFlagChange} value={editedActivity.flag}>{flagOptionElements}</select>
-        </div>
-        <div className="repeatable-container checkbox-container">
+        </section>
+        <section className="repeatable-container checkbox-container">
           <input checked={activity.repeatable} onChange={handleRepeatableChange} type="checkbox" />
           <label>Repeatable</label>
-        </div>
-      </div>
-      <div>
+        </section>
+      </section>
+      <section>
         <label>Supporting info</label>
         <input onChange={handleSupportingInfoChange} value={editedActivity.supporting_info} />
-      </div>
+      </section>
       {followUpActivityField}
-      <div>
+      <section>
         <label>Standard</label>
         <select onChange={handleStandardChange} value={editedActivity.standard_id}>{standardOptionElements}</select>
-      </div>
-      <div>
+      </section>
+      <section>
         <label>Activity Category</label>
         <select multiple onChange={handleActivityCategoryChange} value={editedActivity.activity_category_ids}>{activityCategoryOptionElements}</select>
-      </div>
+      </section>
       <ContentPartner activity={editedActivity} contentPartnerOptions={contentPartnerOptions} handleContentPartnerChange={handleContentPartnerChange} />
       <RawScore activity={editedActivity} rawScoreOptions={rawScoreOptions} handleRawScoreChange={handleRawScoreChange} />
+      <Topics activity={editedActivity} createNewTopic={createNewTopic} topicOptions={topicOptions} handleTopicsChange={handleTopicsChange} />
       <input type="submit" value="Save" />
     </form>
-  </div>)
+  </section>)
 }
 
 export default ActivityForm

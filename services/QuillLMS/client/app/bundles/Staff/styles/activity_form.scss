@@ -1,0 +1,69 @@
+.activity-form {
+  max-width: 1165px;
+  margin: 20px auto;
+  .cms-form {
+    section {
+      margin-bottom: 16px;
+    }
+    label {
+      width: 100%;
+    }
+  }
+  .description-container {
+    display: flex;
+    flex-direction: column;
+  }
+  .checkbox-container {
+    display: flex;
+    align-items: center;
+    label {
+      margin-left: 8px;
+    }
+    input {
+      width: min-content;
+      margin: 0px;
+    }
+  }
+  .enabled-attribute-container {
+    display: flex;
+    align-items: flex-start;
+    .checkbox-container {
+      margin-right: 16px;
+    }
+  }
+  .selected-option {
+    min-height: 24px;
+    .interactive-wrapper {
+      margin-left: 8px;
+    }
+  }
+  .ant-table-wrapper {
+    margin-left: 20px;
+    .ant-table-filter-trigger {
+      display: flex;
+      align-items: center;
+    }
+    .fa-search {
+      color: black !important;
+    }
+  }
+  .selected {
+    td.ant-table-column-sort {
+      background-color: #b2ebd7;
+    }
+  }
+  .record-cell {
+    cursor: pointer;
+  }
+  .new-topic-field {
+    margin-top: 20px;
+    width: 100%;
+    input {
+      width: 100%;
+      margin: 4px 0px 8px;
+    }
+    .quill-button {
+      float: right;
+    }
+  }
+}
