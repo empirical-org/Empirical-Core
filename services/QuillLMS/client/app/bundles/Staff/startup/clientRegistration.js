@@ -14,5 +14,6 @@ ReactOnRails.register({
   ConceptsIndex,
   BackpackIndex,
   ComprehensionIndex,
-  ActivityFormIndex
+  AttributesManagerIndex,
+  ActivityFormIndex,
 });

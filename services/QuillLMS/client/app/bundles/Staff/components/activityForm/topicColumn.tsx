@@ -3,7 +3,7 @@ import {  Table, Input, Button, Space  } from 'antd';
 
 // code for the antd implementation adapted from their example here: https://ant.design/components/table/#components-table-demo-custom-filter-panel as of 11/18/20
 
-const TopicColumn = ({ activity, createNewTopic, levelNumber, getFilteredOptionsForLevel, selectTopic, getSelectedOptionForLevel, }) => {
+const TopicColumn = ({ createNewTopic, levelNumber, getFilteredOptionsForLevel, selectTopic, getSelectedOptionForLevel, }) => {
   const [searchText, setSearchText] = React.useState('')
   const [newTopicName, setNewTopicName] = React.useState('')
 
@@ -13,6 +13,16 @@ const TopicColumn = ({ activity, createNewTopic, levelNumber, getFilteredOptions
 
   function handleNewTopicNameChange(e) {
     setNewTopicName(e.target.value)
+  }
+
+  function handleClickAddTopic(e) {
+    e.preventDefault()
+    const newTopic = {
+      level: 0,
+      name: newTopicName
+    }
+    createNewTopic(newTopic)
+    setNewTopicName('')
   }
 
   function getColumnSearchProps() {
@@ -91,11 +101,7 @@ const TopicColumn = ({ activity, createNewTopic, levelNumber, getFilteredOptions
   }
 
   if (levelNumber === 0) {
-    const newTopic = {
-      level: 0,
-      name: newTopicName
-    }
-    const button = newTopicName.length ? <button className="quill-button primary small contained" onClick={(e) => createNewTopic(newTopic, e)}>Add</button> : null
+    const button = newTopicName.length ? <button className="quill-button primary small contained" onClick={handleClickAddTopic}>Add</button> : null
     newTopicField = (<div className="new-topic-field">
       <label>New Topic Level 0</label>
       <input onChange={handleNewTopicNameChange} value={newTopicName} />

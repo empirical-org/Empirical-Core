@@ -56,7 +56,6 @@ const Topics = ({ activity, createNewTopic, topicOptions, handleTopicsChange, })
   }
 
   const sharedTopicColumnProps = {
-    activity,
     getFilteredOptionsForLevel,
     selectTopic: onChangeTopics,
     getSelectedOptionForLevel,
@@ -147,17 +146,20 @@ const ActivityForm = ({ activity, activityClassification, contentPartnerOptions,
     }
   }, [showSnackbar])
 
-  function handleSubmit() {
+  function handleSubmit(e) {
+    e.preventDefault()
+    const editedActivityParams = {...editedActivity}
+    delete editedActivityParams.id
     if (activity.id) {
-      requestPut(`/cms/activities/${activity.id}`, { activity: editedActivity, },
+      requestPut(`/cms/activity_classifications/${activityClassification.id}/activities/${activity.id}`, { activity: editedActivityParams, },
         (data) => {
-          debugger;
+          setShowSnackbar(true)
         }
       )
     } else {
-      requestPost(`/cms/activities/`, { activity: editedActivity, },
+      requestPost(`/cms/activity_classifications/${activityClassification.id}/activities/`, { activity: editedActivityParams, },
         (data) => {
-          debugger;
+          setShowSnackbar(true)
         }
       )
     }
@@ -171,8 +173,7 @@ const ActivityForm = ({ activity, activityClassification, contentPartnerOptions,
     )
   }
 
-  function createNewTopic(topic, e=null) {
-    if (e) { e.preventDefault() }
+  function createNewTopic(topic) {
     requestPost(`/cms/topics`, { topic, },
       (data) => {
         getTopics()
@@ -251,7 +252,7 @@ const ActivityForm = ({ activity, activityClassification, contentPartnerOptions,
           <select onChange={handleFlagChange} value={editedActivity.flag}>{flagOptionElements}</select>
         </section>
         <section className="repeatable-container checkbox-container">
-          <input checked={activity.repeatable} onChange={handleRepeatableChange} type="checkbox" />
+          <input checked={editedActivity.repeatable} onChange={handleRepeatableChange} type="checkbox" />
           <label>Repeatable</label>
         </section>
       </section>

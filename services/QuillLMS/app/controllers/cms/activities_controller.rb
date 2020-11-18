@@ -36,10 +36,9 @@ class Cms::ActivitiesController < Cms::CmsController
   end
 
   def update
-    if @activity.update_attributes(activity_params)
-      redirect_to cms_activity_classification_activity_data_path(@activity_classification, @activity), notice: 'Activity was successfully updated.'
-    else
-      render :new
+    if @activity.update_attributes!(activity_params)
+      binding.pry
+      render json: {}
     end
   end
 
@@ -56,10 +55,21 @@ class Cms::ActivitiesController < Cms::CmsController
   protected
 
   def format_activity_for_activity_form(activity)
-    formatted_activity = activity.attributes
-    formatted_activity[:content_partner_ids] = activity.content_partner_ids
-    formatted_activity[:topic_ids] = activity.topic_ids
-    formatted_activity[:activity_category_ids] = activity.activity_category_ids
+    formatted_activity = activity.attributes.slice(
+      'id',
+      'name',
+      'description',
+      'supporting_info',
+      'repeatable',
+      'flag',
+      'flags',
+      'standard_id',
+      'raw_score_id',
+      'follow_up_activity_id'
+    )
+    formatted_activity['content_partner_ids'] = activity.content_partner_ids
+    formatted_activity['topic_ids'] = activity.topic_ids
+    formatted_activity['activity_category_ids'] = activity.activity_category_ids
     formatted_activity
   end
 
@@ -79,9 +89,14 @@ class Cms::ActivitiesController < Cms::CmsController
                                      :activity_classification_id,
                                      :standard_id,
                                      :flag,
-                                     :flags,
                                      :repeatable,
                                      :follow_up_activity_id,
-                                     :supporting_info)
+                                     :supporting_info,
+                                     :raw_score_id,
+                                     topic_ids: [],
+                                     activity_category_ids: [],
+                                     content_partner_ids: [],
+                                     flags: []
+                                   )
   end
 end
