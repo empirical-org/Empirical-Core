@@ -1,15 +1,39 @@
 class ProgressReports::ActivitiesScoresByClassroom
   class << self 
-    def results(classroom_ids, utc_offset=0)
+    # params:
+    # => timezone: string | nil. 
+    #       Examples: "America/Chicago", 'Eastern Time (US & Canada)', nil
+    def results(classroom_ids, timezone=nil)
       ids = classroom_ids.join(', ')
       result = ActiveRecord::Base.connection.execute(query(ids)).to_a
-      transform_timestamps(result, utc_offset)
+      transform_timestamps!(result, timezone)
+      result
     end
 
-    def transform_timestamps(data, utc_offset)
-      data.each_index {|i| data[i][:last_active] = Time.new(data[i][:last_active]) + (utc_offset.hours) }
-      data
+    # params:
+    # => timezone: string | nil. 
+    #       Examples: "America/Chicago", 'Eastern Time (US & Canada)', nil
+    def transform_timestamps!(data, timezone)
+      data.each_index do |i| 
+        if timezone
+          begin
+            data[i]['last_active'] = DateTime.strptime(
+              data[i]['last_active'], '%Y-%m-%d %H:%M:%S'
+            ).in_time_zone(timezone).strftime('%Y-%m-%d %H:%M:%S')
+          rescue => e 
+            puts "parse error!"
+            #TODO: clean up this exception handling
+          end
+        end
+      end
     end
+
+    # params:
+    # => string: 'YYYY-MM-DD HH:MM:SS'
+    # This method is used because Time#new and Time#utc does not parse required format correctly
+    # def time_string_to_time(str)
+    #   Time.new(*str.split('-').map(&:to_i))
+    # end
 
 
     private

@@ -8,14 +8,11 @@ describe 'ActivitiesScoresByClassroom' do
     expect(ProgressReports::ActivitiesScoresByClassroom.results(classroom.owner.classrooms_i_teach.map(&:id)).length).to eq(classroom.students.length)
   end
 
-  it "returns student activity times in the timezone of the teacher (user)" do 
-    utc_offset = 1
-    results = ProgressReports::ActivitiesScoresByClassroom.results(
-      classroom.owner.classrooms_i_teach.map(&:id), utc_offset)
-
-  end
-
-
+  # it "returns student activity times in the timezone of the teacher (user)" do 
+  #   results = ProgressReports::ActivitiesScoresByClassroom.results(
+  #     classroom.owner.classrooms_i_teach.map(&:id), "America/Chicago")
+  #   # TODO: control and inspect the last_active data, then add expectation
+  # end
 
   it "returns the average score and activity count for each student that completed activity sessions" do
     results = ProgressReports::ActivitiesScoresByClassroom.results(classroom.owner.classrooms_i_teach.map(&:id))
@@ -28,15 +25,32 @@ describe 'ActivitiesScoresByClassroom' do
     end
   end
 
-  describe 'transform_timestamps' do 
-    it 'should modify the timestamp according to the given offset' do 
-      the_time = Time.new(2020, 1, 1, 9, 30).to_s
-      data = [
-        { last_active: the_time}
-      ]
-      result = ProgressReports::ActivitiesScoresByClassroom.transform_timestamps(data, 3)
-      expect(result.first[:last_active]).to eq(Time.new(2020, 1, 1, 12, 30))
+  describe '#transform_timestamps' do 
+    context 'timezone available' do 
+      it 'should modify the timestamp according to the given offset' do 
+        the_time = "2020-11-19 19:00:00"
+
+        data = [
+          { 'last_active' => the_time }
+        ]
+        result = ProgressReports::ActivitiesScoresByClassroom.transform_timestamps!(data, "America/Chicago")
+        expect(result.first['last_active']).to match("2020-11-19 13:00:00")
+      end
     end
+
+    context 'timezone not available' do 
+      it 'should not modify the timestamp, because UTC +0 is implied' do 
+        the_time = "2020-11-19 19:00:00"
+
+        data = [
+          { 'last_active' => the_time }
+        ]
+
+        result = ProgressReports::ActivitiesScoresByClassroom.transform_timestamps!(data, nil)
+        expect(result.first['last_active']).to match("2020-11-19 19:00:00")
+      end
+    end
+
   end
 
 end
