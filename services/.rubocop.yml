@@ -325,6 +325,7 @@ Metrics/ModuleLength:
   Max: 448
   Exclude:
     - 'QuillLMS/app/models/concerns/teacher.rb'
+    - 'QuillLMS/app/helpers/pages_helper.rb'
 
 Style/AsciiComments:
   Enabled: true
