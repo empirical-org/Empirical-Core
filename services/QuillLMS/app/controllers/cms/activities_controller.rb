@@ -28,12 +28,16 @@ class Cms::ActivitiesController < Cms::CmsController
     @activity = @activity_classification.activities.new(activity_params)
     if @activity.save
       render json: { activity: @activity }
+    else
+      render json: { }
     end
   end
 
   def update
     if @activity.update_attributes!(activity_params)
       render json: { activity: @activity }
+    else
+      render json: { }
     end
   end
 
