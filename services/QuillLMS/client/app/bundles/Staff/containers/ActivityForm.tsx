@@ -58,6 +58,8 @@ const ActivityForm = ({ activity, activityClassification, contentPartnerOptions,
       (data) => {
         getTopics()
         setShowSnackbar(true)
+        const extantTopicIds = activity.topic_ids
+        handleTopicsChange(extantTopicIds.concat(data.topic.id))
       }
     )
   }
@@ -120,7 +122,7 @@ const ActivityForm = ({ activity, activityClassification, contentPartnerOptions,
     <form className="box-full-form form-vertical" onSubmit={handleSubmit}>
       <section className="l-section">
         <section>
-          <label>Name</label>
+          <label>Activity name</label>
           <input onChange={handleNameChange} value={editedActivity.name} />
         </section>
         <section className="description-container">
@@ -147,12 +149,13 @@ const ActivityForm = ({ activity, activityClassification, contentPartnerOptions,
       </section>
       <section>
         <label>Activity Category</label>
-        <select multiple onChange={handleActivityCategoryChange} value={editedActivity.activity_category_ids}>{activityCategoryOptionElements}</select>
+        <select className="activity-categories" multiple onChange={handleActivityCategoryChange} value={editedActivity.activity_category_ids}>{activityCategoryOptionElements}</select>
       </section>
       <ContentPartners activity={editedActivity} contentPartnerOptions={contentPartnerOptions} handleContentPartnerChange={handleContentPartnerChange} />
       <RawScore activity={editedActivity} handleRawScoreChange={handleRawScoreChange} rawScoreOptions={rawScoreOptions} />
       <Topics activity={editedActivity} createNewTopic={createNewTopic} handleTopicsChange={handleTopicsChange} topicOptions={topicOptions} />
       <input className={submitClassName()} disabled={!editedActivity.name.length} type="submit" value="Save" />
+      <p>When you've saved the activity, please head over to the <a href='/assign/activity-library'>Activity Library</a> to make sure the activity metadata looks right in production.</p>
     </form>
   </section>)
 }

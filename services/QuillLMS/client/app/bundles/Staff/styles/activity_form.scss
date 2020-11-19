@@ -1,7 +1,7 @@
 .activity-form {
   max-width: 1165px;
   margin: 20px auto;
-  input.quill-button {
+  input {
     width: 100%;
   }
   .cms-form {
@@ -26,6 +26,9 @@
       width: min-content;
       margin: 0px;
     }
+  }
+  .activity-categories {
+    min-height: 200px;
   }
   .enabled-attribute-container {
     display: flex;
@@ -64,7 +67,6 @@
     margin-top: 20px;
     width: 100%;
     input {
-      width: 100%;
       margin: 4px 0px 8px;
     }
     .quill-button {
