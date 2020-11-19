@@ -7,7 +7,7 @@ import ContentPartners from '../components/activityForm/contentPartners'
 import { Snackbar, defaultSnackbarTimeout } from '../../Shared/index'
 import { requestGet, requestPut, requestPost, } from '../../../modules/request/index'
 
-const ActivityForm = ({ activity, activityClassification, contentPartnerOptions, activityCategoryOptions, standardOptions, rawScoreOptions, passedTopicOptions, flagOptions, followUpActivityOptions, }) => {
+const ActivityForm = ({ activity, activityClassification, contentPartnerOptions, activityCategoryOptions, standardOptions, rawScoreOptions, passedTopicOptions, flagOptions, followUpActivityOptions, gradeBands, }) => {
   const [editedActivity, setEditedActivity] = React.useState(activity);
   const [topicOptions, setTopicOptions] = React.useState(passedTopicOptions);
   const [showSnackbar, setShowSnackbar] = React.useState(false)
@@ -152,7 +152,7 @@ const ActivityForm = ({ activity, activityClassification, contentPartnerOptions,
         <select className="activity-categories" multiple onChange={handleActivityCategoryChange} value={editedActivity.activity_category_ids}>{activityCategoryOptionElements}</select>
       </section>
       <ContentPartners activity={editedActivity} contentPartnerOptions={contentPartnerOptions} handleContentPartnerChange={handleContentPartnerChange} />
-      <RawScore activity={editedActivity} handleRawScoreChange={handleRawScoreChange} rawScoreOptions={rawScoreOptions} />
+      <RawScore activity={editedActivity} gradeBands={gradeBands} handleRawScoreChange={handleRawScoreChange} rawScoreOptions={rawScoreOptions} />
       <Topics activity={editedActivity} createNewTopic={createNewTopic} handleTopicsChange={handleTopicsChange} topicOptions={topicOptions} />
       <input className={submitClassName()} disabled={!editedActivity.name.length} type="submit" value="Save" />
       <p>When you've saved the activity, please head over to the <a href='/assign/activity-library'>Activity Library</a> to make sure the activity metadata looks right in production.</p>
