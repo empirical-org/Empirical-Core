@@ -1,6 +1,7 @@
 class Cms::ActivitiesController < Cms::CmsController
   before_filter :find_classification
   before_filter :set_activity, only: [:update, :destroy]
+  before_filter :set_style_and_javascript_file, only: [:new, :edit]
 
   def index
     @flag = params[:flag].to_s.to_sym.presence || :production
@@ -14,14 +15,11 @@ class Cms::ActivitiesController < Cms::CmsController
   end
 
   def new
-    @js_file = 'staff'
     activity = Activity.new(classification: @activity_classification)
     @activity = format_activity_for_activity_form(activity)
   end
 
   def edit
-    @js_file = 'staff'
-    @style_file = 'staff'
     activity = Activity.find(params[:id])
     @activity = format_activity_for_activity_form(activity)
   end
@@ -29,16 +27,13 @@ class Cms::ActivitiesController < Cms::CmsController
   def create
     @activity = @activity_classification.activities.new(activity_params)
     if @activity.save
-      redirect_to cms_activity_classification_activity_data_path(@activity_classification, @activity), notice: 'Activity was successfully created.'
-    else
-      render :new
+      render json: { activity: @activity }
     end
   end
 
   def update
     if @activity.update_attributes!(activity_params)
-      binding.pry
-      render json: {}
+      render json: { activity: @activity }
     end
   end
 
@@ -79,6 +74,11 @@ class Cms::ActivitiesController < Cms::CmsController
 
   def find_classification
     @activity_classification = ActivityClassification.find_by_id!(params[:activity_classification_id])
+  end
+
+  def set_style_and_javascript_file
+    @js_file = 'staff'
+    @style_file = 'staff'
   end
 
   def activity_params

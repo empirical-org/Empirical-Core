@@ -1,139 +1,11 @@
 import * as React from 'react'
 
-import TopicColumn from '../components/activityForm/topicColumn'
+import Topics from '../components/activityForm/topics'
+import RawScore from '../components/activityForm/rawScore'
+import ContentPartners from '../components/activityForm/contentPartners'
 
 import { Snackbar, defaultSnackbarTimeout } from '../../Shared/index'
 import { requestGet, requestPut, requestPost, } from '../../../modules/request/index'
-
-const Topics = ({ activity, createNewTopic, topicOptions, handleTopicsChange, }) => {
-  const [topicsEnabled, setTopicsEnabled] = React.useState(!!activity.topic_ids.length)
-
-  React.useEffect(() => {
-    if (!topicsEnabled) {
-      handleTopicsChange([])
-    }
-  }, [topicsEnabled])
-
-  function getOptionsForLevel(level: number) {
-    if (!topicsEnabled) { return [] }
-    return topicOptions.filter(to => to.level === level)
-  }
-
-  function getFilteredOptionsForLevel(level: number) {
-    const allOptions = getOptionsForLevel(level)
-    const selectedLevelTwo = getSelectedOptionForLevel(2)
-    const selectedLevelThree = getSelectedOptionForLevel(3)
-
-    if (level === 3 && selectedLevelTwo) {
-      return allOptions.filter(o => o.id === selectedLevelTwo.parent_id)
-    }
-
-    if (level === 2 && selectedLevelThree) {
-      return allOptions.filter(o => o.parent_id === selectedLevelThree.id)
-    }
-
-    return allOptions
-  }
-
-  function getSelectedOptionForLevel(level: number) {
-    const levelOptionsForLevel = getOptionsForLevel(level)
-    const option = levelOptionsForLevel.find(t => activity.topic_ids.includes(t.id))
-    return option
-  }
-
-  function onChangeTopics(topicId) {
-    let newTopicIds = [...activity.topic_ids, topicId]
-    const topic = topicOptions.find(t => t.id === topicId)
-    const extantOption = getSelectedOptionForLevel(topic.level)
-    if (extantOption) {
-      newTopicIds = newTopicIds.filter(id => id !== extantOption.id)
-    }
-    handleTopicsChange(newTopicIds)
-  }
-
-  function toggleTopicsEnabled(e) {
-    setTopicsEnabled(!topicsEnabled)
-  }
-
-  const sharedTopicColumnProps = {
-    getFilteredOptionsForLevel,
-    selectTopic: onChangeTopics,
-    getSelectedOptionForLevel,
-    createNewTopic
-  }
-
-  return (<section className="topics-container enabled-attribute-container">
-    <section className="enable-topics-container checkbox-container">
-      <input checked={topicsEnabled} onChange={toggleTopicsEnabled} type="checkbox" />
-      <label>Topics enabled</label>
-    </section>
-    <TopicColumn {...sharedTopicColumnProps} levelNumber={3} />
-    <TopicColumn {...sharedTopicColumnProps} levelNumber={2} />
-    <TopicColumn {...sharedTopicColumnProps} levelNumber={1} />
-    <TopicColumn {...sharedTopicColumnProps} levelNumber={0} />
-  </section>)
-}
-
-const RawScore = ({ activity, rawScoreOptions, handleRawScoreChange, }) => {
-  const [rawScoreEnabled, setRawScoreEnabled] = React.useState(!!activity.raw_score_id)
-  const rawScoreOptionElements = [<option value={null}></option>].concat(rawScoreOptions.map(cpo => (<option value={cpo.id}>{cpo.name}</option>)))
-
-  React.useEffect(() => {
-    if (!rawScoreEnabled) {
-      handleRawScoreChange(null)
-    }
-  }, [rawScoreEnabled])
-
-  function onChangeRawScore(e) {
-    handleRawScoreChange(e.target.value)
-  }
-
-  function toggleRawScoreEnabled(e) {
-    setRawScoreEnabled(!rawScoreEnabled)
-  }
-
-  return (<section className="raw-score-container enabled-attribute-container">
-    <section className="enable-raw-score-container checkbox-container">
-      <input checked={rawScoreEnabled} onChange={toggleRawScoreEnabled} type="checkbox" />
-      <label>Readability enabled</label>
-    </section>
-    <section>
-      <label>Readability</label>
-      <select disabled={!rawScoreEnabled} onChange={onChangeRawScore} value={activity.raw_score_id || ''}>{rawScoreOptionElements}</select>
-    </section>
-  </section>)
-}
-
-const ContentPartner = ({ activity, contentPartnerOptions, handleContentPartnerChange, }) => {
-  const [contentPartnerEnabled, setContentPartnerEnabled] = React.useState(!!activity.content_partner_ids.length)
-  const contentPartnerOptionElements = contentPartnerOptions.map(cpo => (<option value={cpo.id}>{cpo.name}</option>))
-
-  React.useEffect(() => {
-    if (!contentPartnerEnabled) {
-      handleContentPartnerChange([])
-    }
-  }, [contentPartnerEnabled])
-
-  function onChangeContentPartner(e) {
-    const selectedOptions = Array.from(e.target.selectedOptions, option => option.value)
-    handleContentPartnerChange(selectedOptions)
-  }
-
-  function toggleContentPartnerEnabled(e) {
-    setContentPartnerEnabled(!contentPartnerEnabled)
-  }
-
-  return (<section className="content-partner-container enabled-attribute-container">
-    <section className="enable-content-partner-container checkbox-container">
-      <input checked={contentPartnerEnabled} onChange={toggleContentPartnerEnabled} type="checkbox" />
-      <label>Content partner enabled</label>
-    </section>
-    <section>
-      <label>Content Partner</label>
-      <select disabled={!contentPartnerEnabled} multiple onChange={onChangeContentPartner} value={activity.content_partner_ids}>{contentPartnerOptionElements}</select>
-    </section>
-  </section>)
-}
 
 const ActivityForm = ({ activity, activityClassification, contentPartnerOptions, activityCategoryOptions, standardOptions, rawScoreOptions, passedTopicOptions, flagOptions, followUpActivityOptions, }) => {
   const [editedActivity, setEditedActivity] = React.useState(activity);
@@ -145,6 +17,14 @@ const ActivityForm = ({ activity, activityClassification, contentPartnerOptions,
       setTimeout(() => setShowSnackbar(false), defaultSnackbarTimeout)
     }
   }, [showSnackbar])
+
+  function submitClassName() {
+    let className = "quill-button primary contained large"
+    if (!editedActivity.name.length) {
+      className+= ' disabled'
+    }
+    return className
+  }
 
   function handleSubmit(e) {
     e.preventDefault()
@@ -269,10 +149,10 @@ const ActivityForm = ({ activity, activityClassification, contentPartnerOptions,
         <label>Activity Category</label>
         <select multiple onChange={handleActivityCategoryChange} value={editedActivity.activity_category_ids}>{activityCategoryOptionElements}</select>
       </section>
-      <ContentPartner activity={editedActivity} contentPartnerOptions={contentPartnerOptions} handleContentPartnerChange={handleContentPartnerChange} />
+      <ContentPartners activity={editedActivity} contentPartnerOptions={contentPartnerOptions} handleContentPartnerChange={handleContentPartnerChange} />
       <RawScore activity={editedActivity} rawScoreOptions={rawScoreOptions} handleRawScoreChange={handleRawScoreChange} />
       <Topics activity={editedActivity} createNewTopic={createNewTopic} topicOptions={topicOptions} handleTopicsChange={handleTopicsChange} />
-      <input type="submit" value="Save" />
+      <input className={submitClassName()} disabled={!editedActivity.name.length} type="submit" value="Save" />
     </form>
   </section>)
 }

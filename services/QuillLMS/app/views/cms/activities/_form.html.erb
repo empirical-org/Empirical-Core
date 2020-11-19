@@ -1,11 +1,11 @@
 <%= react_component('ActivityFormIndex', props: {
   activity: @activity,
   activityClassification: @activity_classification,
-  contentPartnerOptions: ContentPartner.all,
-  activityCategoryOptions: ActivityCategory.all,
-  standardOptions: Standard.all,
-  rawScoreOptions: RawScore.all,
-  passedTopicOptions: Topic.all,
+  contentPartnerOptions: ContentPartner.all.sort_by(&:name),
+  activityCategoryOptions: ActivityCategory.all.sort_by(&:name),
+  standardOptions: Standard.all.sort_by(&:name),
+  rawScoreOptions: RawScore.all.sort_by(&:name),
+  passedTopicOptions: Topic.all.sort_by(&:name),
   flagOptions: Activity::FLAGS,
-  followUpActivityOptions: Activity.all
+  followUpActivityOptions: Activity.all.sort_by(&:name)
 }) %>

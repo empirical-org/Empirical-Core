@@ -1,6 +1,9 @@
 .activity-form {
   max-width: 1165px;
   margin: 20px auto;
+  input.quill-button {
+    width: 100%;
+  }
   .cms-form {
     section {
       margin-bottom: 16px;
@@ -37,8 +40,10 @@
       margin-left: 8px;
     }
   }
-  .ant-table-wrapper {
+  .topic-column {
     margin-left: 20px;
+  }
+  .ant-table-wrapper {
     .ant-table-filter-trigger {
       display: flex;
       align-items: center;
