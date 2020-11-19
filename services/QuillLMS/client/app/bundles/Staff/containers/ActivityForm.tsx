@@ -150,8 +150,8 @@ const ActivityForm = ({ activity, activityClassification, contentPartnerOptions,
         <select multiple onChange={handleActivityCategoryChange} value={editedActivity.activity_category_ids}>{activityCategoryOptionElements}</select>
       </section>
       <ContentPartners activity={editedActivity} contentPartnerOptions={contentPartnerOptions} handleContentPartnerChange={handleContentPartnerChange} />
-      <RawScore activity={editedActivity} rawScoreOptions={rawScoreOptions} handleRawScoreChange={handleRawScoreChange} />
-      <Topics activity={editedActivity} createNewTopic={createNewTopic} topicOptions={topicOptions} handleTopicsChange={handleTopicsChange} />
+      <RawScore activity={editedActivity} handleRawScoreChange={handleRawScoreChange} rawScoreOptions={rawScoreOptions} />
+      <Topics activity={editedActivity} createNewTopic={createNewTopic} handleTopicsChange={handleTopicsChange} topicOptions={topicOptions} />
       <input className={submitClassName()} disabled={!editedActivity.name.length} type="submit" value="Save" />
     </form>
   </section>)

@@ -2,7 +2,7 @@ import * as React from 'react'
 
 const RawScore = ({ activity, rawScoreOptions, handleRawScoreChange, }) => {
   const [rawScoreEnabled, setRawScoreEnabled] = React.useState(!!activity.raw_score_id)
-  const rawScoreOptionElements = [<option value={null}></option>].concat(rawScoreOptions.map(cpo => (<option value={cpo.id}>{cpo.name}</option>)))
+  const rawScoreOptionElements = [<option value={null} />].concat(rawScoreOptions.map(cpo => (<option value={cpo.id}>{cpo.name}</option>)))
 
   React.useEffect(() => {
     if (!rawScoreEnabled) {

@@ -50,7 +50,22 @@ describe Cms::ActivitiesController, type: :controller do
 
     it 'should find the activity' do
       get :edit, activity_classification_id: classification.id, id: activity.id
-      expect(assigns(:activity)).to eq activity
+      activity_hash = {
+        'id': activity.id,
+        'name': activity.name,
+        'description': activity.description,
+        'supporting_info': activity.supporting_info,
+        'repeatable': activity.repeatable,
+        'flag': activity.flag,
+        'flags': activity.flags,
+        'standard_id': activity.standard_id,
+        'raw_score_id': activity.raw_score_id,
+        'follow_up_activity_id': activity.follow_up_activity_id,
+        'content_partner_ids': activity.content_partner_ids,
+        'topic_ids': activity.topic_ids,
+        'activity_category_ids': activity.activity_category_ids
+      }
+      expect(assigns(:activity)).to eq activity_hash
     end
   end
 
@@ -72,16 +87,4 @@ describe Cms::ActivitiesController, type: :controller do
       expect(activity.reload.description).to eq "new description"
     end
   end
-
-  # describe '#destroy' do
-  #   let!(:activity) { create(:activity, classification: classification) }
-  #   let!(:assignment) { create(:assignment, activity: activity) }
-  #   let!(:score) { create(:score, assignment: assignment) }
-  #
-  #   it 'should destroy the given activity and assignments' do
-  #     delete :destroy, activity_classification_id: classification.id, id: activity.id
-  #     expect(Assignment.find(assignment.id)).to eq nil
-  #     expect(Activity.find(activity.id)).to eq nil
-  #   end
-  # end
 end

@@ -30,20 +30,20 @@ const TopicColumn = ({ createNewTopic, levelNumber, getFilteredOptionsForLevel, 
       filterDropdown: ({ setSelectedKeys, selectedKeys, confirm, clearFilters }) => (
         <div style={{ padding: 8 }}>
           <Input
-            ref={searchInput}
-            placeholder={`Search Level ${levelNumber}`}
-            value={selectedKeys[0]}
             onChange={e => setSelectedKeys(e.target.value ? [e.target.value] : [])}
             onPressEnter={() => handleSearch(selectedKeys, confirm)}
+            placeholder={`Search Level ${levelNumber}`}
+            ref={searchInput}
             style={{ width: 188, marginBottom: 8, display: 'block' }}
+            value={selectedKeys[0]}
           />
           <Space>
             <Button
-              type="primary"
-              onClick={() => handleSearch(selectedKeys, confirm)}
               icon={<i className="fas fa-search" />}
+              onClick={() => handleSearch(selectedKeys, confirm)}
               size="small"
               style={{ width: 90 }}
+              type="primary"
             >
               Search
             </Button>
@@ -101,11 +101,14 @@ const TopicColumn = ({ createNewTopic, levelNumber, getFilteredOptionsForLevel, 
   }
 
   if (levelNumber === 0) {
-    const button = newTopicName.length ? <button className="quill-button primary small contained" onClick={handleClickAddTopic}>Add</button> : null
+    let buttonClassName = "quill-button secondary small outlined"
+    if (!newTopicName.length) {
+      buttonClassName+= ' disabled'
+    }
     newTopicField = (<div className="new-topic-field">
       <label>New Topic Level 0</label>
-      <input onChange={handleNewTopicNameChange} value={newTopicName} />
-      {button}
+      <input disabled={!options.length} onChange={handleNewTopicNameChange} value={newTopicName} />
+      <button className={buttonClassName} disabled={!options.length} onClick={handleClickAddTopic}>Add</button>
     </div>)
   }
 
