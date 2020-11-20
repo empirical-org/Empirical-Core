@@ -88,7 +88,7 @@ export default class TeacherGeneralAccountInfo extends React.Component {
   };
 
   handleSubmit = e => {
-    const { name, email, timeZone, school, changedSchools, schoolType } = this.state
+    const { name, email, timeZone, school, changedSchools, } = this.state
     e.preventDefault()
     const data = {
       name,
@@ -96,7 +96,6 @@ export default class TeacherGeneralAccountInfo extends React.Component {
       time_zone: timeZone,
       school_id: school.id,
       school_options_do_not_apply: !changedSchools,
-      school_type: schoolType
     };
     this.props.updateUser(data, '/teachers/update_my_account', 'Settings saved')
   };
