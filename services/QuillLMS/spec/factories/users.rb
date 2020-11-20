@@ -145,10 +145,6 @@ FactoryBot.define do
         username { "#{name}@student" }
       end
 
-      trait :recently_active do 
-        last_active { Time.now }
-      end
-
       trait :signed_up_with_clever do
         password { nil }
         username { "#{name}@student" }
