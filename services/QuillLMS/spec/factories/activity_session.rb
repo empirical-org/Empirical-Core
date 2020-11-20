@@ -19,11 +19,11 @@ FactoryBot.define do
       elsif activity_session.user && activity_session.classroom_unit && activity_session.classroom_unit.assigned_student_ids.empty?
         activity_session.classroom_unit.update(assigned_student_ids: [activity_session.user.id])
       elsif activity_session.classroom_unit && !activity_session.user
-        student = create(:student, last_active: Time.new(2020, 1, 1))
+        student = create(:student)
         activity_session.user = student
         activity_session.classroom_unit.update(assigned_student_ids: [activity_session.user.id])
       elsif !activity_session.user && !activity_session.classroom_unit
-        student = create(:student, last_active: Time.new(2020, 1, 1))
+        student = create(:student)
         activity_session.user = student
         activity_session.classroom_unit = create(:classroom_unit, assigned_student_ids: [student.id])
       end
