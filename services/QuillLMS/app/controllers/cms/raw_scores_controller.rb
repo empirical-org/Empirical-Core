@@ -3,7 +3,15 @@ class Cms::RawScoresController < Cms::CmsController
   def index
     raw_scores = RawScore.order_by_name
     activity_classification_conversion_charts = {}
-    ActivityClassification.all.map do |ac|
+    # setting the order in this kind of weird way because it was required in the spec
+    activity_classifications = [
+      ActivityClassification.find_by_key(ActivityClassification::CONNECT_KEY),
+      ActivityClassification.find_by_key(ActivityClassification::GRAMMAR_KEY),
+      ActivityClassification.find_by_key(ActivityClassification::PROOFREADER_KEY),
+      ActivityClassification.find_by_key(ActivityClassification::LESSONS_KEY),
+      ActivityClassification.find_by_key(ActivityClassification::DIAGNOSTIC_KEY)
+    ]
+    activity_classifications.map do |ac|
       conversion_table = raw_scores.map do |rs|
         {
           raw_score: rs.name,
