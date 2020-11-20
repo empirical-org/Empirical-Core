@@ -10,6 +10,7 @@ class ProgressReports::ActivitiesScoresByClassroom
       result
     end
 
+    # Example argument string format: 'YYYY-MM-DD HH:MM:SS'
     # params:
     # => timezone: string | nil. 
     #       Examples: "America/Chicago", 'Eastern Time (US & Canada)', nil
@@ -20,20 +21,13 @@ class ProgressReports::ActivitiesScoresByClassroom
             data[i]['last_active'] = DateTime.strptime(
               data[i]['last_active'], '%Y-%m-%d %H:%M:%S'
             ).in_time_zone(timezone).strftime('%Y-%m-%d %H:%M:%S')
-          rescue => e 
-            puts "parse error!"
-            #TODO: clean up this exception handling
+          rescue ArgumentError => e
+            # no-op error handling, fails silently
+            puts "Parsing error on date time"
           end
         end
       end
     end
-
-    # params:
-    # => string: 'YYYY-MM-DD HH:MM:SS'
-    # This method is used because Time#new and Time#utc does not parse required format correctly
-    # def time_string_to_time(str)
-    #   Time.new(*str.split('-').map(&:to_i))
-    # end
 
 
     private
