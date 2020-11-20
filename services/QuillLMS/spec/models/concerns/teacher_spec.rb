@@ -505,4 +505,52 @@ describe User, type: :model do
       expect(other_teacher.teaches_student?(student_id)).to be(false)
     end
   end
+
+  describe '#update_teacher' do
+    let(:teacher) { create(:teacher) }
+    let(:school) { create(:school) }
+
+    it 'should update teacher with new params' do
+      params = ActionController::Parameters.new({
+        "name"=>"Cissy Yu",
+        "email"=>"cissy.yu.808@gmail.com",
+        "role"=>"teacher",
+        "send_newsletter"=>true,
+        "school_options_do_not_apply"=>true
+      })
+      teacher.update_teacher(params)
+      expect(teacher.name).to eq(params["name"])
+      expect(teacher.email).to eq(params["email"])
+    end
+
+    it 'should update teacher with new school if school id present' do
+      params = ActionController::Parameters.new({
+        "name"=>"Cissy Yu",
+        "email"=>"cissy.yu.808@gmail.com",
+        "role"=>"teacher",
+        "send_newsletter"=>true,
+        "school_options_do_not_apply"=>false,
+        "school_id"=>school.id
+      })
+      teacher.update_teacher(params)
+      expect(teacher.name).to eq(params["name"])
+      expect(teacher.email).to eq(params["email"])
+      expect(teacher.school).to eq(school)
+    end
+
+    it 'should update teacher with new school type if school type present' do
+      params = ActionController::Parameters.new({
+        "name"=>"Cissy Yu",
+        "email"=>"cissy.yu.808@gmail.com",
+        "role"=>"teacher",
+        "send_newsletter"=>true,
+        "school_options_do_not_apply"=>false,
+        "school_type"=>"home school"
+      })
+      teacher.update_teacher(params)
+      expect(teacher.name).to eq(params["name"])
+      expect(teacher.email).to eq(params["email"])
+      expect(teacher.school.name).to eq(params["school_type"])
+    end
+  end
 end

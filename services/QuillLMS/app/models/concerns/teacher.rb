@@ -262,17 +262,19 @@ module Teacher
                   :google_id,
                   :clever_id,
                   :signed_up_with_google,
-                  :post_google_classroom_assignments)
+                  :post_google_classroom_assignments,
+                  :school_type)
 
     self.validate_username = true
 
     are_there_school_related_errors = false
     if params[:school_options_do_not_apply] == 'false' || !params[:school_options_do_not_apply]
-      if params[:school_id].blank?
+      if params[:school_id].blank? && params[:school_type].blank?
         are_there_school_related_errors = true
       else
-        self.school = School.find(params[:school_id])
-        updated_school params[:school_id]
+        school = School.find_by_id(params[:school_id]) || School.find_or_create_by(name: params[:school_type])
+        self.school = school
+        updated_school school.id
         find_or_create_checkbox('Add School', self)
       end
     end
