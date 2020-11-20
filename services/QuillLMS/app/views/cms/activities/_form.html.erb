@@ -1,4 +1,4 @@
-<% raw_score_options = RawScore.all.sort_by(&:name) %>
+<% raw_score_options = RawScore.order_by_name %>
 <% grade_band_hash = {} %>
 <% raw_score_options.each { |rs| grade_band_hash[rs.name] = rs.readability_grade_level(@activity_classification.id) } %>
 
