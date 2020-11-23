@@ -11,6 +11,8 @@ class ActivityClassification < ActiveRecord::Base
   PROOFREADER_KEY = 'passage'
   LESSONS_KEY = 'lessons'
   COMPREHENSION_KEY = 'comprehension'
+  CONNECT_KEY = 'connect'
+  GRAMMAR_KEY = 'sentence'
 
   def self.diagnostic
     find_by_key DIAGNOSTIC_KEY

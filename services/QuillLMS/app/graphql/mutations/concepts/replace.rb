@@ -27,7 +27,7 @@ class Mutations::Concepts::Replace < Mutations::BaseMutation
         {
           explanation: cl[:explanation],
           action: cl[:action],
-          changed_record_id: cl[:conceptID],
+          changed_record_id: cl[:recordID],
           changed_record_type: 'Concept',
           user_id: context[:current_user].id,
           changed_attribute: 'replacement_id',
