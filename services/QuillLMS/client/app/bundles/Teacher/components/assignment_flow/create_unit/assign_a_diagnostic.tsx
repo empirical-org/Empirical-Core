@@ -3,7 +3,6 @@ import * as React from 'react';
 import AssignmentCard from './assignment_card';
 
 import AssignmentFlowNavigation from '../assignment_flow_navigation'
-// import { UNIT_TEMPLATE_NAME, UNIT_TEMPLATE_ID, ACTIVITY_IDS_ARRAY, UNIT_NAME, TARTER_DIAGNOSTIC_UNIT_TEMPLATE_ID, INTERMEDIATE_DIAGNOSTIC_UNIT_TEMPLATE_ID, } from '../assignmentFlowConstants'
 import * as constants from '../assignmentFlowConstants'
 import ScrollToTop from '../../shared/scroll_to_top'
 
