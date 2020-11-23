@@ -9,6 +9,7 @@ import { routes } from "../routes";
 import { getParameterByName } from '../libs/getParameterByName';
 import { TeacherPreviewMenu } from '../../Shared/index';
 import { fetchUserRole } from '../../Shared/utils/userAPIs';
+import { addKeyDownListener } from '../../Shared/hooks/addKeyDownListener';
 
 interface PageLayoutState {
   showFocusState: boolean;
@@ -39,8 +40,7 @@ export const Home = () => {
     setShowFocusState(true);
   }
 
-  document.addEventListener('keydown', handleKeyDown);
-  document.removeEventListener('keydown', handleKeyDown);
+  addKeyDownListener(handleKeyDown);
 
   function handleSkipToMainContentClick () {
     const element = document.getElementById("main-content")
