@@ -15,19 +15,19 @@ class ProgressReports::ActivitiesScoresByClassroom
   #       Examples: "America/Chicago", 'Eastern Time (US & Canada)', nil
   def self.transform_timestamps!(data, timezone)
     data.each_index do |i| 
-      if timezone
+      if timezone 
         begin
           data[i]['last_active'] = DateTime.strptime(
             data[i]['last_active'], '%Y-%m-%d %H:%M:%S'
           ).in_time_zone(timezone).strftime('%Y-%m-%d %H:%M:%S')
-        rescue ArgumentError => e
+        rescue ArgumentError, TypeError, NoMethodError => e
           # no-op error handling, fails silently
-          puts "Parsing error on date time"
+          puts "time string parsing error: #{e}"
         end
       end
     end
   end
-  
+
   private
 
   def self.query(classroom_ids)
