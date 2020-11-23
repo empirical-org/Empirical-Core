@@ -27,7 +27,7 @@ class ProgressReports::ActivitiesScoresByClassroom
       end
     end
   end
-
+  
   private
 
   def self.query(classroom_ids)
