@@ -11,14 +11,6 @@ import { TeacherPreviewMenu } from '../../Shared/index';
 import { fetchUserRole } from '../../Shared/utils/userAPIs';
 import { addKeyDownListener } from '../../Shared/hooks/addKeyDownListener';
 
-interface PageLayoutState {
-  showFocusState: boolean;
-  previewShowing: boolean;
-  questionToPreview: any;
-  switchedBackToPreview: boolean;
-  skippedToQuestionFromIntro: boolean;
-}
-
 export const Home = () => {
   const studentSession = getParameterByName('student', window.location.href);
   const turkSession = window.location.href.includes('turk');
