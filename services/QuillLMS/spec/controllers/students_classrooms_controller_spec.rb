@@ -14,7 +14,6 @@ describe StudentsClassroomsController, type: :controller do
 
         it 'should kick off the students to classroom associator and join classroom worker' do
           expect(Associators::StudentsToClassrooms).to receive(:run).with(user, classroom)
-          expect(JoinClassroomWorker).to receive(:perform_async).with(user.id)
           post :create, classcode: classroom.code
           expect(response.body).to eq classroom.attributes.to_json
         end

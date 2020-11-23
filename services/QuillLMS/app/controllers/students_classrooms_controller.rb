@@ -14,7 +14,6 @@ class StudentsClassroomsController < ApplicationController
         end
       end
       Associators::StudentsToClassrooms.run(@user, classroom)
-      JoinClassroomWorker.perform_async(@user.id)
       render json: classroom.attributes
     else
       render status: 403, json: {error: "Student not logged in."}, text: "Student not logged in."
