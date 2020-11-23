@@ -82,3 +82,20 @@ QuillLMS is the Learning Management System that powers Quill.org. It is part of 
 In case you are unable to start QuillLMS on your computer, please submit and issue. If you found a work around, we would also love to read your suggestions!
 
 For more information on setting up and launching QuillLMS, visit the [docs](https://docs.quill.org/misc/setting_up.html).
+
+## Test Suite
+- backend
+```ruby
+bundle exec rspec spec
+```
+- frontend
+TBD
+
+## Deployment
+```bash
+bash deploy.sh staging|sprint|prod
+```
+
+## Infrastructure
+[staging (Heroku)](https://dashboard.heroku.com/apps/empirical-grammar-staging)
+[production (Heroku)](https://dashboard.heroku.com/apps/empirical-grammar)
