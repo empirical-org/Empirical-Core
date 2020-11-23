@@ -3,6 +3,11 @@ require 'rails_helper'
 describe Cms::RawScoresController do
   let!(:user) { create(:staff) }
   let!(:raw_scores) { create_list(:raw_score, 10) }
+  let!(:connect) { create(:activity_classification, key: ActivityClassification::CONNECT_KEY) }
+  let!(:grammar) { create(:activity_classification, key: ActivityClassification::GRAMMAR_KEY) }
+  let!(:proofreader) { create(:activity_classification, key: ActivityClassification::PROOFREADER_KEY) }
+  let!(:lessons) { create(:activity_classification, key: ActivityClassification::LESSONS_KEY) }
+  let!(:diagnostic) { create(:activity_classification, key: ActivityClassification::DIAGNOSTIC_KEY) }
 
   before do
     allow(controller).to receive(:current_user) { user }
