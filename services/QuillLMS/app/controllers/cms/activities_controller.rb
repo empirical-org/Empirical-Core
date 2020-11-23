@@ -1,6 +1,8 @@
 class Cms::ActivitiesController < Cms::CmsController
   before_filter :find_classification
-  before_filter :set_activity, only: [:edit, :update, :destroy]
+  before_filter :set_activity, only: [:update, :destroy, :edit]
+  before_filter :set_style_and_javascript_file, only: [:new, :edit]
+  before_filter :set_raw_score_options_and_grade_band_hash, only: [:new, :edit]
 
   def index
     @flag = params[:flag].to_s.to_sym.presence || :production
@@ -14,26 +16,28 @@ class Cms::ActivitiesController < Cms::CmsController
   end
 
   def new
-    @activity = Activity.new(classification: @activity_classification)
+    activity = Activity.new(classification: @activity_classification)
+    @activity = format_activity_for_activity_form(activity)
   end
 
   def edit
+    @activity = format_activity_for_activity_form(@activity)
   end
 
   def create
     @activity = @activity_classification.activities.new(activity_params)
     if @activity.save
-      redirect_to cms_activity_classification_activity_data_path(@activity_classification, @activity), notice: 'Activity was successfully created.'
+      render json: { activity: @activity }
     else
-      render :new
+      render json: { }
     end
   end
 
   def update
-    if @activity.update_attributes(activity_params)
-      redirect_to cms_activity_classification_activity_data_path(@activity_classification, @activity), notice: 'Activity was successfully updated.'
+    if @activity.update_attributes!(activity_params)
+      render json: { activity: @activity }
     else
-      render :new
+      render json: { }
     end
   end
 
@@ -49,12 +53,42 @@ class Cms::ActivitiesController < Cms::CmsController
 
   protected
 
+  def format_activity_for_activity_form(activity)
+    formatted_activity = activity.attributes.slice(
+      'id',
+      'name',
+      'description',
+      'supporting_info',
+      'repeatable',
+      'flag',
+      'flags',
+      'standard_id',
+      'raw_score_id',
+      'follow_up_activity_id'
+    )
+    formatted_activity['content_partner_ids'] = activity.content_partner_ids
+    formatted_activity['topic_ids'] = activity.topic_ids
+    formatted_activity['activity_category_ids'] = activity.activity_category_ids
+    formatted_activity
+  end
+
   def set_activity
     @activity = @activity_classification.activities.find(params[:id])
   end
 
   def find_classification
     @activity_classification = ActivityClassification.find_by_id!(params[:activity_classification_id])
+  end
+
+  def set_raw_score_options_and_grade_band_hash
+    @raw_score_options = RawScore.order_by_name
+    @grade_band_hash = {}
+    @raw_score_options.each { |rs| @grade_band_hash[rs.name] = rs.readability_grade_level(@activity_classification.id) }
+  end
+
+  def set_style_and_javascript_file
+    @js_file = 'staff'
+    @style_file = 'staff'
   end
 
   def activity_params
@@ -65,9 +99,14 @@ class Cms::ActivitiesController < Cms::CmsController
                                      :activity_classification_id,
                                      :standard_id,
                                      :flag,
-                                     :flags,
                                      :repeatable,
                                      :follow_up_activity_id,
-                                     :supporting_info)
+                                     :supporting_info,
+                                     :raw_score_id,
+                                     topic_ids: [],
+                                     activity_category_ids: [],
+                                     content_partner_ids: [],
+                                     flags: []
+                                   )
   end
 end

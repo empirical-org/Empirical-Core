@@ -8,5 +8,12 @@ import ConceptsIndex from './ConceptsIndex.tsx';
 import ComprehensionIndex from './ComprehensionIndex.tsx';
 import BackpackIndex from '../containers/BackpackIndex.tsx'
 import AttributesManagerIndex from './AttributesManagerIndex'
+import ActivityFormIndex from './ActivityFormIndex'
 
-ReactOnRails.register({ ConceptsIndex, BackpackIndex, ComprehensionIndex, AttributesManagerIndex });
+ReactOnRails.register({
+  ConceptsIndex,
+  BackpackIndex,
+  ComprehensionIndex,
+  AttributesManagerIndex,
+  ActivityFormIndex,
+});

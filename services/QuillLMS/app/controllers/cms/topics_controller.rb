@@ -24,9 +24,12 @@ class Cms::TopicsController < Cms::CmsController
 
   def create
     topic = topic_params
-    topic[:change_logs_attributes] = topic[:change_logs_attributes].map do |cl|
-      cl[:user_id] = current_user.id
-      cl
+    
+    if topic[:change_logs_attributes]
+      topic[:change_logs_attributes] = topic[:change_logs_attributes].map do |cl|
+        cl[:user_id] = current_user.id
+        cl
+      end
     end
 
     new_topic = Topic.create!(topic)
