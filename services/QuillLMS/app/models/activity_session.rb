@@ -350,15 +350,15 @@ class ActivitySession < ActiveRecord::Base
 
   def self.mark_all_activity_sessions_complete(classroom_unit_id, activity_id, data={})
     activity = Activity.find_by_id_or_uid(activity_id)
-    ActivitySession.unscoped
-      .where(classroom_unit_id: classroom_unit_id, activity: activity)
-      .update_all(
+    ActivitySession.unscoped.where(classroom_unit_id: classroom_unit_id, activity: activity).each do |as|
+      as.update(
         state: 'finished',
         percentage: 1,
         completed_at: Time.current,
         data: data,
         is_final_score: true
       )
+    end
   end
 
   def self.activity_session_metadata(classroom_unit_id, activity_id)
