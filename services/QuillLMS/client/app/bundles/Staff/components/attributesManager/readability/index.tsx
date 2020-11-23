@@ -5,6 +5,8 @@ import ActivityClassificationConversionChart from './activityClassificationConve
 import { Snackbar, defaultSnackbarTimeout, Input } from '../../../../Shared/index'
 import { requestGet, requestPut, requestPost, } from '../../../../../modules/request/index'
 
+const baseUrl = "/cms/raw_scores/"
+
 const RawScoreTableRow = ({ rawScore, saveRawScoreChanges, }) => {
   const [editing, setEditing] = React.useState(false)
   const [newName, setNewName] = React.useState(rawScore.name)
@@ -60,7 +62,7 @@ const Readability = ({ match, location, }) => {
   }, [showSnackbar])
 
   function getReadabilityData() {
-    requestGet('/cms/raw_scores',
+    requestGet(baseUrl,
       (data) => {
         setRawScores(data.raw_scores);
         setActivityClassificationConversionCharts(data.activity_classification_conversion_charts)
@@ -73,7 +75,7 @@ const Readability = ({ match, location, }) => {
   }
 
   function saveRawScoreChanges(id, rawScore) {
-    requestPut(`/cms/raw_scores/${id}`, { raw_score: rawScore },
+    requestPut(`${baseUrl}/${id}`, { raw_score: rawScore },
       (data) => {
         getReadabilityData()
         setShowSnackbar(true)
@@ -82,7 +84,7 @@ const Readability = ({ match, location, }) => {
   }
 
   function createNewRawScore() {
-    requestPost(`/cms/raw_scores`, { raw_score: { name: newRawScoreName, } },
+    requestPost(baseUrl, { raw_score: { name: newRawScoreName, } },
       (data) => {
         getReadabilityData()
         setNewRawScoreName('')
