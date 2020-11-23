@@ -1,7 +1,8 @@
 class Cms::ActivitiesController < Cms::CmsController
   before_filter :find_classification
-  before_filter :set_activity, only: [:update, :destroy]
+  before_filter :set_activity, only: [:update, :destroy, :edit]
   before_filter :set_style_and_javascript_file, only: [:new, :edit]
+  before_filter :set_raw_score_options_and_grade_band_hash, only: [:new, :edit]
 
   def index
     @flag = params[:flag].to_s.to_sym.presence || :production
@@ -20,8 +21,7 @@ class Cms::ActivitiesController < Cms::CmsController
   end
 
   def edit
-    activity = Activity.find(params[:id])
-    @activity = format_activity_for_activity_form(activity)
+    @activity = format_activity_for_activity_form(@activity)
   end
 
   def create
@@ -78,6 +78,12 @@ class Cms::ActivitiesController < Cms::CmsController
 
   def find_classification
     @activity_classification = ActivityClassification.find_by_id!(params[:activity_classification_id])
+  end
+
+  def set_raw_score_options_and_grade_band_hash
+    @raw_score_options = RawScore.order_by_name
+    @grade_band_hash = {}
+    @raw_score_options.each { |rs| @grade_band_hash[rs.name] = rs.readability_grade_level(@activity_classification.id) }
   end
 
   def set_style_and_javascript_file

@@ -1,16 +1,12 @@
-<% raw_score_options = RawScore.order_by_name %>
-<% grade_band_hash = {} %>
-<% raw_score_options.each { |rs| grade_band_hash[rs.name] = rs.readability_grade_level(@activity_classification.id) } %>
-
 <%= react_component('ActivityFormIndex', props: {
   activity: @activity,
   activityClassification: @activity_classification,
   contentPartnerOptions: ContentPartner.all.sort_by(&:name),
   activityCategoryOptions: ActivityCategory.all.sort_by(&:name),
   standardOptions: Standard.all.sort_by(&:name),
-  rawScoreOptions: raw_score_options,
+  rawScoreOptions: @raw_score_options,
   passedTopicOptions: Topic.all.sort_by(&:name),
   flagOptions: Activity::FLAGS,
   followUpActivityOptions: Activity.all.sort_by(&:name),
-  gradeBands: grade_band_hash
+  gradeBands: @grade_band_hash
 }) %>
