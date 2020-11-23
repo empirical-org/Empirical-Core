@@ -2,7 +2,7 @@ require 'rails_helper'
 
 describe Cms::TopicsController do
   let!(:user) { create(:staff) }
-  let!(:raw_scores) { create_list(:raw_score, 10, :with_change_log) }
+  let!(:topics) { create_list(:topic, 10, :with_change_log) }
 
   before do
     allow(controller).to receive(:current_user) { user }
