@@ -1,10 +1,13 @@
 class Topic < ActiveRecord::Base
   validates :name, presence: true
-  validates :visible, presence: true
+  validates :visible, :inclusion => { :in => [true, false] } # presence: true doesn't work for booleans because false will fail
   validates_inclusion_of :level, :in => 0..3
 
   has_many :activity_topics, dependent: :destroy
   has_many :activities, through: :activity_topics
+  has_many :change_logs, as: :changed_record
+
+  accepts_nested_attributes_for :change_logs
 
   after_commit 'Activity.clear_activity_search_cache'
 
