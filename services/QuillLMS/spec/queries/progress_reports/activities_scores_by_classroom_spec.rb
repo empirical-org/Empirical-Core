@@ -18,4 +18,52 @@ describe 'ActivitiesScoresByClassroom' do
     end
   end
 
+  describe '#transform_timestamps' do 
+    context 'invalid date time string' do 
+      it 'should not throw error when date string is nil' do 
+        data = [
+          { 'last_active' => nil }
+        ]
+        expect do 
+          ProgressReports::ActivitiesScoresByClassroom.transform_timestamps!(data, "America/Chicago")
+        end.to_not raise_error
+      end
+
+      it 'should not throw error when date string is malformed' do 
+        the_time = "abc"
+
+        data = [
+          { 'last_active' => the_time}
+        ]
+        expect do 
+          ProgressReports::ActivitiesScoresByClassroom.transform_timestamps!(data, "America/Chicago")
+        end.to_not raise_error
+      end
+    end
+
+    context 'timezone available' do 
+      it 'should modify the timestamp according to the given offset' do 
+        the_time = "2020-11-19 19:00:00"
+
+        data = [
+          { 'last_active' => the_time }
+        ]
+        result = ProgressReports::ActivitiesScoresByClassroom.transform_timestamps!(data, "America/Chicago")
+        expect(result.first['last_active']).to match("2020-11-19 13:00:00")
+      end
+    end
+
+    context 'timezone not available' do 
+      it 'should not modify the timestamp, because UTC +0 is implied' do 
+        the_time = "2020-11-19 19:00:00"
+
+        data = [
+          { 'last_active' => the_time }
+        ]
+
+        result = ProgressReports::ActivitiesScoresByClassroom.transform_timestamps!(data, nil)
+        expect(result.first['last_active']).to match("2020-11-19 19:00:00")
+      end
+    end
+  end
 end

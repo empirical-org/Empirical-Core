@@ -1,7 +1,31 @@
 class ProgressReports::ActivitiesScoresByClassroom
-  def self.results(classroom_ids)
+  # params:
+  # => timezone: string | nil. 
+  #       Examples: "America/Chicago", 'Eastern Time (US & Canada)', nil
+  def self.results(classroom_ids, timezone=nil)
     ids = classroom_ids.join(', ')
-    ActiveRecord::Base.connection.execute(query(ids)).to_a
+    result = ActiveRecord::Base.connection.execute(query(ids)).to_a
+    transform_timestamps!(result, timezone)
+    result
+  end
+
+  # Example argument string format: 'YYYY-MM-DD HH:MM:SS'
+  # params:
+  # => timezone: string | nil. 
+  #       Examples: "America/Chicago", 'Eastern Time (US & Canada)', nil
+  def self.transform_timestamps!(data, timezone)
+    data.each_index do |i| 
+      if timezone 
+        begin
+          data[i]['last_active'] = DateTime.strptime(
+            data[i]['last_active'], '%Y-%m-%d %H:%M:%S'
+          ).in_time_zone(timezone).strftime('%Y-%m-%d %H:%M:%S')
+        rescue ArgumentError, TypeError, NoMethodError => e
+          # no-op error handling, fails silently
+          puts "time string parsing error: #{e}"
+        end
+      end
+    end
   end
 
   private
