@@ -3,6 +3,7 @@ class UserSubscription < ActiveRecord::Base
   belongs_to :user
   belongs_to :subscription
   after_create :send_premium_emails
+  after_create :send_analytics
 
   def self.create_user_sub_from_school_sub_if_they_do_not_have_that_school_sub(user_id, subscription_id)
       if !UserSubscription.where(user_id: user_id, subscription_id: subscription_id).exists?
@@ -34,6 +35,8 @@ class UserSubscription < ActiveRecord::Base
     User.find(user_id).present_and_future_subscriptions.each{|s| s.credit_user_and_de_activate}
   end
 
-
+  def send_analytics
+    PremiumAnalyticsWorker.perform_async(user_id, subscription&.account_type)
+  end
 
 end
