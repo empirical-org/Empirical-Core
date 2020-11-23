@@ -11,7 +11,7 @@ class UnitActivity < ActiveRecord::Base
   after_save :hide_appropriate_activity_sessions, :teacher_checkbox
 
   def teacher_checkbox
-    if unit && unit.user
+    if unit && unit.user && unit.visible && visible
       owner = unit.user
       checkbox_name = checkbox_type
       if owner && unit.name
