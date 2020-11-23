@@ -1,6 +1,6 @@
 FactoryBot.define do
   factory :raw_score do
-    name 'score'
+    sequence(:name) { |i| "Raw Score #{i}" }
     trait :eight_hundred_to_nine_hundred do
       name { '800-900' }
     end

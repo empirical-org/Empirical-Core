@@ -534,6 +534,13 @@ EmpiricalGrammar::Application.routes.draw do
     end
 
     resources :announcements, only: [:index, :new, :create, :update, :edit]
+
+    resources :topics, only: [:index, :update, :create]
+    resources :raw_scores, only: [:index, :update, :create]
+    resources :attributes_manager, only: [:index], as: 'attributes_manager'
+    get 'attributes_manager/:attribute/:tab' => 'attributes_manager#index'
+    get 'attributes_manager/:attribute' => 'attributes_manager#index'
+
   end
 
   resources :referrals, only: [:index] do

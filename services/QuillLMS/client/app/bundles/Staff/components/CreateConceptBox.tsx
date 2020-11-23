@@ -5,7 +5,7 @@ import gql from "graphql-tag";
 import { Concept } from '../interfaces/interfaces'
 import RuleDescriptionField from './RuleDescriptionField'
 import ExplanationField from './ExplanationField'
-import ChangeLogModal from './ChangeLogModal'
+import ChangeLogModal from './shared/changeLogModal'
 import { Input, DropdownInput, } from '../../Shared/index'
 
 const CREATE_CONCEPT = gql`
@@ -135,7 +135,7 @@ class CreateConceptBox extends React.Component<CreateConceptBoxProps, CreateConc
   }
 
   activateConceptInput() {
-    document.getElementById('concept-name').focus()
+    document.getElementById('record-name').focus()
   }
 
   renderDropdownInput(dropdownLevel) {
@@ -181,7 +181,7 @@ class CreateConceptBox extends React.Component<CreateConceptBoxProps, CreateConc
     const { concept, } = this.state
     if (this.props.levelNumber === 2) {
       return (<div>
-        <div className="concept-input-container">
+        <div className="record-input-container">
           <Input
             handleChange={this.renameConcept}
             label='Level 2'
@@ -193,7 +193,7 @@ class CreateConceptBox extends React.Component<CreateConceptBoxProps, CreateConc
     } else if (this.props.levelNumber === 1) {
       return (<div>
         {this.renderDropdownInput(2)}
-        <div className="concept-input-container">
+        <div className="record-input-container">
           <Input
             handleChange={this.renameConcept}
             label='Level 1'
@@ -206,7 +206,7 @@ class CreateConceptBox extends React.Component<CreateConceptBoxProps, CreateConc
       return (<div>
         {this.renderDropdownInput(2)}
         {this.renderDropdownInput(1)}
-        <div className="concept-input-container">
+        <div className="record-input-container">
           <Input
             handleChange={this.renameConcept}
             label='Level 0'
@@ -244,8 +244,8 @@ class CreateConceptBox extends React.Component<CreateConceptBoxProps, CreateConc
       return (<ChangeLogModal
         cancel={this.closeChangeLogModal}
         changedFields={[{ fieldName: 'new' }]}
-        concept={concept}
         levelNumber={this.props.levelNumber}
+        record={concept}
         save={(changeLogs) => { this.save(createConcept, changeLogs)}}
       />)
     }
@@ -256,7 +256,7 @@ class CreateConceptBox extends React.Component<CreateConceptBoxProps, CreateConc
     return  (
       <Mutation mutation={CREATE_CONCEPT} onCompleted={this.props.finishEditingOrCreatingConcept}>
         {(createConcept, {}) => (
-          <div className={`concept-box create-concept-box create-concept-box-level-${levelNumber}`}>
+          <div className={`record-box create-record-box create-record-box-level-${levelNumber}`}>
             {this.renderChangeLogModal(createConcept)}
             <form acceptCharset="UTF-8" onSubmit={this.handleSubmit} >
               <div className="static">
