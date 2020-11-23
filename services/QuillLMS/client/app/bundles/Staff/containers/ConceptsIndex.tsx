@@ -143,7 +143,7 @@ class ConceptsIndex extends React.Component<any, ConceptsIndexState> {
 
   renderLiveAndArchivedTabs() {
     const { visible } = this.state
-    return (<div className="concepts-index-tools">
+    return (<div className="cms-tabs">
       <p className={visible ? 'active' : ''} onClick={() => this.setVisible(true)}>Live</p>
       <p className={visible ? '' : 'active'} onClick={() => this.setVisible(false)}>Archived</p>
     </div>)
