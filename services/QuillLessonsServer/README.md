@@ -1,6 +1,6 @@
 # Quill Lessons Server
 
-## Local Setup
+## Installation / Setup
 
 ### Configure everything for local execution
 
@@ -26,3 +26,18 @@
 
 1. You will need the QuillLMS running to generate the JWT needed to authenticate connections to the QuillLessonsServer. In a new terminal window, navigate to ../QuillLMS and execute `npm run start:dev`.
 1. In a new terminal window, start the Quill Lessons server by executing `npm run start:dev`.  This will spin up your local RethinkDB server, and then connect your local QuillLessons server to it.  Note that using ctrl-c to stop the server will also stop your local RethinkDB instance.
+
+
+## Test Suite
+If you'd like to run tests:
+```
+$ jest
+```
+
+## Deployment
+```bash
+bash deploy.sh prod|staging
+```
+
+## Infrastructure
+TBD
