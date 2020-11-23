@@ -33,6 +33,10 @@ export const Home = () => {
     setShowFocusState(true);
   }
 
+  React.useEffect(() => {
+    console.log('showFocusState', showFocusState)
+  })
+
   addKeyDownListener(handleKeyDown);
 
   function handleSkipToMainContentClick () {
