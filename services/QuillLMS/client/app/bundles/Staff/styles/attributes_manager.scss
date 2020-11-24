@@ -9,8 +9,14 @@
 }
 
 .standards-manager {
-  .record-input-container {
+  .record-box {
+    width: 600px;
+  }
+  .record-input-container .input-container {
     width: 80%;
+  }
+  .record-box .fields #record-name {
+    width: 100%;
   }
 }
 

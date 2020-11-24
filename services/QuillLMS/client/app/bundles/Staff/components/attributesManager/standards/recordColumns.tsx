@@ -5,7 +5,7 @@ import RecordBox from './recordBox'
 import ArchivedRecordBox from './archivedRecordBox'
 import NewRecordBox from './newRecordBox'
 
-const RecordColumns = ({ searchValue, visible, isNew, standardCategories, standardLevels, recordTypes,}) => {
+const RecordColumns = ({ searchValue, visible, isNew, standardCategories, standardLevels, recordTypes, standards, }) => {
   const [selectedRecordId, setSelectedRecordId] = React.useState(null)
   const [selectedRecordType, setSelectedRecordType] = React.useState(null)
 
@@ -26,6 +26,7 @@ const RecordColumns = ({ searchValue, visible, isNew, standardCategories, standa
     closeRecordBox,
     standardCategories,
     standardLevels,
+    standards,
     recordType: selectedRecordType
   }
 
@@ -34,7 +35,8 @@ const RecordColumns = ({ searchValue, visible, isNew, standardCategories, standa
     const recordBoxProps = {
       ...sharedRecordBoxProps,
       originalRecord: recordType.records.find(r => r.id === selectedRecordId),
-      saveRecordChanges: recordType.saveChanges
+      saveRecordChanges: recordType.saveChanges,
+      recordTypeAttribute: recordType.attribute
     }
     recordBox = visible ? <RecordBox {...recordBoxProps} /> : <ArchivedRecordBox {...recordBoxProps} />
   }

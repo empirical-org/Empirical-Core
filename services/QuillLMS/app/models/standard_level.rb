@@ -12,12 +12,12 @@ class StandardLevel < ActiveRecord::Base
 
   after_commit 'Activity.clear_activity_search_cache'
 
-  before_save :archive_or_unarchive_standards
+  before_save :archive_standards_if_archived
 
   accepts_nested_attributes_for :change_logs
 
-  def archive_or_unarchive_standards
-    if visible_changed?
+  def archive_standards_if_archived
+    if visible_changed? && !visible
       standards.each do |standard|
         standard.update(visible: visible)
       end

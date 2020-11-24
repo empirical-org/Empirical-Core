@@ -161,7 +161,7 @@ const ArchivedRecordBox = ({ originalRecord, recordType, standardLevels, standar
     const { standard_category_id, standard_level_id, } = record
     const hasStandardCategoryAndLevelIfStandard = recordType === STANDARD ? standard_category_id && standard_level_id && standardCategories.find(t => t.id === record.standard_category_id).visible && standardLevels.find(t => t.id === record.standard_level_id).visible : true
 
-    if (hasStandardCategoryAndLevelIfStandard) {
+    if (!hasStandardCategoryAndLevelIfStandard) {
       return (<input
         className="quill-button contained disabled primary medium"
         type="submit"

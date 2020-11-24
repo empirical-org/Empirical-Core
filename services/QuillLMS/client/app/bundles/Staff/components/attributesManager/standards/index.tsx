@@ -139,11 +139,13 @@ const Standards = ({ match, location, }) => {
       recordType: 'Standard Level',
       records: standardLevels,
       saveChanges: saveStandardLevelChanges,
+      attribute: 'standard_level_id'
     },
     {
       recordType: 'Standard Category',
       records: standardCategories,
       saveChanges: saveStandardCategoryChanges,
+      attribute: 'standard_category_id'
     },
     {
       recordType: STANDARD,
@@ -157,7 +159,8 @@ const Standards = ({ match, location, }) => {
     searchValue,
     standardLevels,
     standardCategories,
-    recordTypes
+    recordTypes,
+    standards
   }
 
   const allChangeLogs = [...standardChangeLogs, ...standardLevelChangeLogs, ...standardCategoryChangeLogs]

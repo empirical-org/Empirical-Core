@@ -20,7 +20,7 @@ interface RecordBoxProps {
 
 const formatDateTime = (cl) => moment(cl.created_at).format('MMMM D, YYYY [at] LT')
 
-const RecordBox = ({ originalRecord, saveRecordChanges, closeRecordBox, recordType, standardCategories, standardLevels, }) => {
+const RecordBox = ({ originalRecord, saveRecordChanges, closeRecordBox, recordType, standardCategories, standardLevels, standards, recordTypeAttribute }) => {
   const [showChangeLogModal, setShowChangeLogModal] = React.useState(false)
   const [record, setRecord] = React.useState(originalRecord)
   const [changeLogs, setChangeLogs] = React.useState([])
@@ -35,7 +35,16 @@ const RecordBox = ({ originalRecord, saveRecordChanges, closeRecordBox, recordTy
 
   function handleSubmit(e) {
     e.preventDefault()
-    setShowChangeLogModal(true)
+    let message
+    const visibilityHasChanged = originalRecord.visible !== record.visible
+    if (visibilityHasChanged && recordType !== STANDARD) {
+      const affectedStandards = standards.filter(s => s[recordTypeAttribute] === record.id && s.visible)
+      const affectedStandardsString = affectedStandards.map(as => as.name).join('\n')
+      message = `You are about to archive this ${recordType.toLowerCase()}. The following standards will also be archived if you proceed:\n\n${affectedStandardsString}`
+    }
+    if (!visibilityHasChanged || window.confirm(message)) {
+      setShowChangeLogModal(true)
+    }
   }
 
   function closeChangeLogModal() {
