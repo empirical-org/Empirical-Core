@@ -9,6 +9,7 @@ import AssignADiagnostic from '../components/assignment_flow/create_unit/assign_
 import CollegeBoard from '../components/assignment_flow/create_unit/college_board.tsx'
 import AssignPreAp from '../components/assignment_flow/create_unit/assign_pre_ap.tsx'
 import AssignAp from '../components/assignment_flow/create_unit/assign_ap.tsx'
+import AssignSpringBoard from '../components/assignment_flow/create_unit/assign_springboard.tsx'
 import CreateUnit from '../components/assignment_flow/create_unit/create_unit'
 import LearningProcess from '../components/assignment_flow/create_unit/learning_process.tsx'
 import ActivityType from '../components/assignment_flow/create_unit/activity_type.tsx'
@@ -21,6 +22,7 @@ const AssignActivitiesRouter = props => (
       <Route component={routerProps => <ActivityType {...props} {...routerProps} />} path="/assign/activity-type" />
       <Route component={routerProps => <AssignPreAp {...props} {...routerProps} />} path="/assign/pre-ap" />
       <Route component={routerProps => <AssignAp {...props} {...routerProps} />} path="/assign/ap" />
+      <Route component={routerProps => <AssignSpringBoard {...props} {...routerProps} />} path="/assign/springboard" />
       <Route component={routerProps => <CollegeBoard {...props} {...routerProps} />} path="/assign/college-board" />
       <Route component={routerProps => <AssignADiagnostic {...props} {...routerProps} />} path="/assign/diagnostic" />
       <Route component={routerProps => <CreateUnit {...props} {...routerProps} />} path="/assign/activity-library" />

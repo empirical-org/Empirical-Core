@@ -3,16 +3,17 @@ import * as React from 'react';
 import AssignmentCard from './assignment_card';
 
 import AssignmentFlowNavigation from '../assignment_flow_navigation'
-import { UNIT_TEMPLATE_NAME, UNIT_TEMPLATE_ID, ACTIVITY_IDS_ARRAY, UNIT_NAME, } from '../assignmentFlowConstants'
+import * as constants from '../assignmentFlowConstants'
 import ScrollToTop from '../../shared/scroll_to_top'
 
 const starterDiagnosticSrc = `${process.env.CDN_URL}/images/illustrations/diagnostics-starter.svg`
 const intermediateDiagnosticSrc = `${process.env.CDN_URL}/images/illustrations/diagnostics-intermediate.svg`
 const advancedDiagnosticSrc = `${process.env.CDN_URL}/images/illustrations/diagnostics-advanced.svg`
-const ellDiagnosticSrc = `${process.env.CDN_URL}/images/illustrations/diagnostics-ell.svg`
-const ellStarterDiagnosticSrc = `${process.env.CDN_URL}/images/illustrations/diagnostics-ell-starter.svg`
-const preApWritingSkillsSrc = `${process.env.CDN_URL}/images/college_board/diagnostics-preap.svg`
-const apWritingSkillsSrc = `${process.env.CDN_URL}/images/college_board/diagnostics-ap.svg`
+const ellDiagnosticSrc = `${process.env.CDN_URL}/images/illustrations/icons-diagnostics-ell-intermediate.svg`
+const ellStarterDiagnosticSrc = `${process.env.CDN_URL}/images/illustrations/icons-diagnostics-ell-starter.svg`
+const preApWritingSkillsSrc = `${process.env.CDN_URL}/images/college_board/icons-diagnostics-preap.svg`
+const apWritingSkillsSrc = `${process.env.CDN_URL}/images/college_board/icons-diagnostics-ap.svg`
+const springBoardWritingSkillsSrc = `${process.env.CDN_URL}/images/college_board/icons-diagnostics-springboard.svg`
 
 const STARTER_DIAGNOSTIC = 'Starter Diagnostic'
 const INTERMEDIATE_DIAGNOSTIC = 'Intermediate Diagnostic'
@@ -22,6 +23,7 @@ const ELL_STARTER_DIAGNOSTIC = 'ELL Diagnostic 1: Entering and Emerging'
 const PRE_AP_WRITINGS_SKILLS_1 = 'Pre-AP Writing Skills Survey 1'
 const PRE_AP_WRITINGS_SKILLS_2 = 'Pre-AP Writing Skills Survey 2'
 const AP_WRITINGS_SKILLS = 'AP Writing Skills Survey'
+const SPRING_BOARD_WRITINGS_SKILLS = 'SpringBoard Writing Skills Survey'
 
 const STARTER_DIAGNOSTIC_ACTIVITY_ID = 849
 const INTERMEDIATE_DIAGNOSTIC_ACTIVITY_ID = 850
@@ -31,13 +33,14 @@ const ELL_STARTER_DIAGNOSTIC_ACTIVITY_ID = 1161
 const PRE_AP_WRITINGS_SKILLS_1_ACTIVITY_ID = 1229
 const PRE_AP_WRITINGS_SKILLS_2_ACTIVITY_ID = 1230
 const AP_WRITINGS_SKILLS_ACTIVITY_ID = 992
+const SPRING_BOARD_SKILLS_ACTIVITY_ID = 1432
 
 const selectCard = (history: any, unitTemplateName: string, activityIdsArray: string, unitTemplateId: number) => {
   const unitTemplateIdString = unitTemplateId.toString();
-  window.localStorage.setItem(UNIT_TEMPLATE_NAME, unitTemplateName)
-  window.localStorage.setItem(UNIT_NAME, unitTemplateName)
-  window.localStorage.setItem(ACTIVITY_IDS_ARRAY, activityIdsArray)
-  window.localStorage.setItem(UNIT_TEMPLATE_ID, unitTemplateIdString)
+  window.localStorage.setItem(constants.UNIT_TEMPLATE_NAME, unitTemplateName)
+  window.localStorage.setItem(constants.UNIT_NAME, unitTemplateName)
+  window.localStorage.setItem(constants.ACTIVITY_IDS_ARRAY, activityIdsArray)
+  window.localStorage.setItem(constants.UNIT_TEMPLATE_ID, unitTemplateIdString)
   history.push(`/assign/select-classes?diagnostic_unit_template_id=${unitTemplateIdString}`)
 }
 
@@ -52,7 +55,7 @@ const minis = ({ history }) => [
     header={STARTER_DIAGNOSTIC}
     imgAlt="page with a little writing"
     imgSrc={starterDiagnosticSrc}
-    selectCard={() => selectCard(history, STARTER_DIAGNOSTIC, encodeURIComponent([STARTER_DIAGNOSTIC_ACTIVITY_ID].toString()), 99)}
+    selectCard={() => selectCard(history, STARTER_DIAGNOSTIC, encodeURIComponent([STARTER_DIAGNOSTIC_ACTIVITY_ID].toString()), constants.STARTER_DIAGNOSTIC_UNIT_TEMPLATE_ID)}
   />),
   (<AssignmentCard
     bodyArray={[
@@ -64,7 +67,7 @@ const minis = ({ history }) => [
     header={INTERMEDIATE_DIAGNOSTIC}
     imgAlt="page with a medium amount of writing"
     imgSrc={intermediateDiagnosticSrc}
-    selectCard={() => selectCard(history, INTERMEDIATE_DIAGNOSTIC, encodeURIComponent([INTERMEDIATE_DIAGNOSTIC_ACTIVITY_ID].toString()), 100)}
+    selectCard={() => selectCard(history, INTERMEDIATE_DIAGNOSTIC, encodeURIComponent([INTERMEDIATE_DIAGNOSTIC_ACTIVITY_ID].toString()), constants.INTERMEDIATE_DIAGNOSTIC_UNIT_TEMPLATE_ID)}
   />),
   (<AssignmentCard
     bodyArray={[
@@ -76,7 +79,7 @@ const minis = ({ history }) => [
     header={ADVANCED_DIAGNOSTIC}
     imgAlt="page with a large amount of writing"
     imgSrc={advancedDiagnosticSrc}
-    selectCard={() => selectCard(history, ADVANCED_DIAGNOSTIC, encodeURIComponent([ADVANCED_DIAGNOSTIC_ACTIVITY_ID].toString()), 126)}
+    selectCard={() => selectCard(history, ADVANCED_DIAGNOSTIC, encodeURIComponent([ADVANCED_DIAGNOSTIC_ACTIVITY_ID].toString()), constants.ADVANCED_DIAGNOSTIC_UNIT_TEMPLATE_ID)}
   />),
   (<AssignmentCard
     bodyArray={[
@@ -88,7 +91,7 @@ const minis = ({ history }) => [
     header={ELL_STARTER_DIAGNOSTIC}
     imgAlt="page with less writing that says ELL in the corner"
     imgSrc={ellStarterDiagnosticSrc}
-    selectCard={() => selectCard(history, ELL_STARTER_DIAGNOSTIC, encodeURIComponent([ELL_STARTER_DIAGNOSTIC_ACTIVITY_ID].toString()), 154)}
+    selectCard={() => selectCard(history, ELL_STARTER_DIAGNOSTIC, encodeURIComponent([ELL_STARTER_DIAGNOSTIC_ACTIVITY_ID].toString()), constants.ELL_STARTER_DIAGNOSTIC_UNIT_TEMPLATE_ID)}
   />),
   (<AssignmentCard
     bodyArray={[
@@ -100,7 +103,7 @@ const minis = ({ history }) => [
     header={ELL_DIAGNOSTIC}
     imgAlt="page with writing that says ELL in the corner"
     imgSrc={ellDiagnosticSrc}
-    selectCard={() => selectCard(history, ELL_DIAGNOSTIC, encodeURIComponent([ELL_DIAGNOSTIC_ACTIVITY_ID].toString()), 34)}
+    selectCard={() => selectCard(history, ELL_DIAGNOSTIC, encodeURIComponent([ELL_DIAGNOSTIC_ACTIVITY_ID].toString()), constants.ELL_DIAGNOSTIC_UNIT_TEMPLATE_ID)}
   />),
   (<AssignmentCard
     bodyArray={[
@@ -112,11 +115,11 @@ const minis = ({ history }) => [
     header={AP_WRITINGS_SKILLS}
     imgAlt="page with writing that says AP in corner"
     imgSrc={apWritingSkillsSrc}
-    selectCard={() => selectCard(history, AP_WRITINGS_SKILLS, encodeURIComponent([AP_WRITINGS_SKILLS_ACTIVITY_ID].toString()), 193)}
+    selectCard={() => selectCard(history, AP_WRITINGS_SKILLS, encodeURIComponent([AP_WRITINGS_SKILLS_ACTIVITY_ID].toString()), constants.AP_WRITINGS_SKILLS_UNIT_TEMPLATE_ID)}
   />),
   (<AssignmentCard
     bodyArray={[
-      { key: 'What', text: 'Subject-verb agreement, pronouns, compound subjects, objects, and predicates, and compound and complex sentences', },
+      { key: 'What', text: 'Subject-verb agreement, pronouns, and coordinating and subordinating conjunctions', },
       { key: 'When', text: 'Your students are working on basic sentence patterns and the skills outlined in the Pre-AP® English High School Course Framework.', }
     ]}
     buttonLink={`/activity_sessions/anonymous?activity_id=${PRE_AP_WRITINGS_SKILLS_1_ACTIVITY_ID}`}
@@ -124,7 +127,7 @@ const minis = ({ history }) => [
     header={PRE_AP_WRITINGS_SKILLS_1}
     imgAlt="page with writing that says Pre-AP on bottom"
     imgSrc={preApWritingSkillsSrc}
-    selectCard={() => selectCard(history, PRE_AP_WRITINGS_SKILLS_1, encodeURIComponent([PRE_AP_WRITINGS_SKILLS_1_ACTIVITY_ID].toString()), 194)}
+    selectCard={() => selectCard(history, PRE_AP_WRITINGS_SKILLS_1, encodeURIComponent([PRE_AP_WRITINGS_SKILLS_1_ACTIVITY_ID].toString()), constants.PRE_AP_WRITINGS_SKILLS_1_UNIT_TEMPLATE_ID)}
   />),
   (<AssignmentCard
     bodyArray={[
@@ -136,7 +139,19 @@ const minis = ({ history }) => [
     header={PRE_AP_WRITINGS_SKILLS_2}
     imgAlt="page with writing that says Pre-AP on bottom"
     imgSrc={preApWritingSkillsSrc}
-    selectCard={() => selectCard(history, PRE_AP_WRITINGS_SKILLS_2, encodeURIComponent([PRE_AP_WRITINGS_SKILLS_2_ACTIVITY_ID].toString()), 195)}
+    selectCard={() => selectCard(history, PRE_AP_WRITINGS_SKILLS_2, encodeURIComponent([PRE_AP_WRITINGS_SKILLS_2_ACTIVITY_ID].toString()), constants.PRE_AP_WRITINGS_SKILLS_2_UNIT_TEMPLATE_ID)}
+  />),
+  (<AssignmentCard
+    bodyArray={[
+      { key: 'What', text: 'Subject-verb agreement, pronouns, coordinating and subordinating conjunctions, prepositional phrases, and commonly confused words', },
+      { key: 'When', text: 'Your students are working on basic sentence patterns and the grammar skills covered in the SpringBoard grades 6-8 materials.', }
+    ]}
+    buttonLink={`/activity_sessions/anonymous?activity_id=${SPRING_BOARD_SKILLS_ACTIVITY_ID}`}
+    buttonText="Preview"
+    header={SPRING_BOARD_WRITINGS_SKILLS}
+    imgAlt="page with writing that says SpringBoard on bottom"
+    imgSrc={springBoardWritingSkillsSrc}
+    selectCard={() => selectCard(history, SPRING_BOARD_WRITINGS_SKILLS, encodeURIComponent([SPRING_BOARD_SKILLS_ACTIVITY_ID].toString()), constants.SPRING_BOARD_SKILLS_UNIT_TEMPLATE_ID)}
   />)
 ];
 
