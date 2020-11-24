@@ -21,6 +21,7 @@
   <meta name="og:description" content="<%= @description || @content %>">
 
   <script defer src=<%= ENV['FONT_AWESOME_KIT_LINK'] %> crossorigin="anonymous" integrity="sha384-p7JrABPXxZLpj1XoHTzkPyVs8ekVssRFXc4B7XU6Z1c8XVDA7sVPem/lQ9UouxqE"></script>
+  <!-- Inspectlet tracking -->
   <% if current_user&.teacher? %>
     <script type="text/javascript">
       (function() {
