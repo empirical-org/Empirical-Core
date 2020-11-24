@@ -498,7 +498,6 @@ exports[`PreAp component should render when it is not part of the assignment flo
             className="units-container"
           >
             <ExpandableUnit
-              generateLink={[Function]}
               isFirst={true}
               learningCycles={
                 Array [
@@ -546,6 +545,7 @@ exports[`PreAp component should render when it is not part of the assignment flo
                   },
                 ]
               }
+              slug="pre-ap"
               title="Unit 1: Telling Details"
             >
               <div
@@ -814,7 +814,6 @@ exports[`PreAp component should render when it is not part of the assignment flo
               </div>
             </ExpandableUnit>
             <ExpandableUnit
-              generateLink={[Function]}
               isFirst={false}
               learningCycles={
                 Array [
@@ -862,6 +861,7 @@ exports[`PreAp component should render when it is not part of the assignment flo
                   },
                 ]
               }
+              slug="pre-ap"
               title="Unit 2: Pivotal Words and Phrases"
             >
               <div
@@ -1130,7 +1130,6 @@ exports[`PreAp component should render when it is not part of the assignment flo
               </div>
             </ExpandableUnit>
             <ExpandableUnit
-              generateLink={[Function]}
               isFirst={false}
               learningCycles={
                 Array [
@@ -1178,6 +1177,7 @@ exports[`PreAp component should render when it is not part of the assignment flo
                   },
                 ]
               }
+              slug="pre-ap"
               title="Unit 3: Compelling Evidence"
             >
               <div
@@ -1446,7 +1446,6 @@ exports[`PreAp component should render when it is not part of the assignment flo
               </div>
             </ExpandableUnit>
             <ExpandableUnit
-              generateLink={[Function]}
               isFirst={false}
               learningCycles={
                 Array [
@@ -1494,6 +1493,7 @@ exports[`PreAp component should render when it is not part of the assignment flo
                   },
                 ]
               }
+              slug="pre-ap"
               title="Unit 4: Powerful Openings"
             >
               <div
@@ -2820,7 +2820,6 @@ exports[`PreAp component should render when it is part of the assignment flow 1`
             className="units-container"
           >
             <ExpandableUnit
-              generateLink={[Function]}
               isFirst={true}
               isPartOfAssignmentFlow={true}
               learningCycles={
@@ -2869,6 +2868,7 @@ exports[`PreAp component should render when it is part of the assignment flow 1`
                   },
                 ]
               }
+              slug="pre-ap"
               title="Unit 1: Telling Details"
             >
               <div
@@ -3137,7 +3137,6 @@ exports[`PreAp component should render when it is part of the assignment flow 1`
               </div>
             </ExpandableUnit>
             <ExpandableUnit
-              generateLink={[Function]}
               isFirst={false}
               isPartOfAssignmentFlow={true}
               learningCycles={
@@ -3186,6 +3185,7 @@ exports[`PreAp component should render when it is part of the assignment flow 1`
                   },
                 ]
               }
+              slug="pre-ap"
               title="Unit 2: Pivotal Words and Phrases"
             >
               <div
@@ -3454,7 +3454,6 @@ exports[`PreAp component should render when it is part of the assignment flow 1`
               </div>
             </ExpandableUnit>
             <ExpandableUnit
-              generateLink={[Function]}
               isFirst={false}
               isPartOfAssignmentFlow={true}
               learningCycles={
@@ -3503,6 +3502,7 @@ exports[`PreAp component should render when it is part of the assignment flow 1`
                   },
                 ]
               }
+              slug="pre-ap"
               title="Unit 3: Compelling Evidence"
             >
               <div
@@ -3771,7 +3771,6 @@ exports[`PreAp component should render when it is part of the assignment flow 1`
               </div>
             </ExpandableUnit>
             <ExpandableUnit
-              generateLink={[Function]}
               isFirst={false}
               isPartOfAssignmentFlow={true}
               learningCycles={
@@ -3820,6 +3819,7 @@ exports[`PreAp component should render when it is part of the assignment flow 1`
                   },
                 ]
               }
+              slug="pre-ap"
               title="Unit 4: Powerful Openings"
             >
               <div

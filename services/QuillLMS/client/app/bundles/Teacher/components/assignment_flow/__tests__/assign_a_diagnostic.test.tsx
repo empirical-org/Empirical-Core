@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { shallow } from 'enzyme';
+
 import AssignADiagnostic from '../create_unit/assign_a_diagnostic';
 import AssignmentCard from '../create_unit/assignment_card';
 
@@ -10,6 +11,6 @@ describe('AssignADiagnostic component', () => {
     expect(component).toMatchSnapshot();
   });
   it('should render 8 AssignmentCard components', ()=> {
-    expect(component.find(AssignmentCard)).toHaveLength(8);
+    expect(component.find(AssignmentCard)).toHaveLength(9);
   })
 });

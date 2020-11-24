@@ -34,10 +34,10 @@ const minis = (props) => [
   />),
   (<AssignmentCard
     bodyArray={[
-      { key: 'What', text: 'Find activities focused on key Pre-AP and AP writing skills, as well as in-content activities based on Pre-AP texts.', },
-      { key: 'When', text: "You're teaching AP or Pre-AP students, or you're interested in using AP or Pre-AP materials with your high school students." }
+      { key: 'What', text: 'Find activities focused on key SpringBoard, Pre-AP and AP writing skills, as well as in-content activities based on Pre-AP texts.', },
+      { key: 'When', text: "You're a SpringBoard teacher, you teach AP or Pre-AP students, or you'd like to use AP or Pre-AP materials with your students." }
     ]}
-    header="Explore Pre-AP and AP activities"
+    header="Explore SpringBoard, Pre-AP and AP activities"
     imgAlt="graduation cap"
     imgClassName="graduation-cap"
     imgSrc={graduationCapSrc}
