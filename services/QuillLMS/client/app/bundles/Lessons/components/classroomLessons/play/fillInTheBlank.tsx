@@ -133,7 +133,7 @@ class FillInTheBlank extends React.Component<fillInTheBlankProps, fillInTheBlank
   updateBlankValue = (e: React.ChangeEvent<HTMLInputElement>, i: number) => {
     const { inputVals, } = this.state
     const existing = [...inputVals];
-    existing[i] = e.target.value.trim();
+    existing[i] = e.target.value
     this.setState({
       editing: existing.find(val => val.length),
       inputVals: existing,

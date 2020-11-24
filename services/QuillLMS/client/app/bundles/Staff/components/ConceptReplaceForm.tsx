@@ -4,7 +4,7 @@ import gql from "graphql-tag";
 import { DropdownInput } from '../../Shared/index'
 
 import { Concept } from '../interfaces/interfaces'
-import ChangeLogModal from './ChangeLogModal'
+import ChangeLogModal from './shared/changeLogModal'
 
 const REPLACE_CONCEPT = gql`
   mutation replaceConcept($id: ID! $replacementId: ID!, $changeLogs: [ChangeLogInput!]!){
@@ -64,8 +64,8 @@ class ConceptReplaceForm extends React.Component<ConceptReplaceFormProps, Concep
       return (<ChangeLogModal
         cancel={this.closeChangeLogModal}
         changedFields={changedFields}
-        concept={replacedConcept}
         levelNumber={0}
+        record={replacedConcept}
         save={(changeLogs) => { this.save(replaceConcept, changeLogs)}}
       />)
     }

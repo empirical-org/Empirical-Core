@@ -7,6 +7,11 @@ describe Cms::ActivitiesController, type: :controller do
   let!(:classification) { create(:activity_classification) }
   let(:activities) { double(:activities, production: "production set", flagged: "flagged set") }
   let(:user) { create(:staff) }
+  let(:topic) { create(:topic) }
+  let(:content_partner) { create(:content_partner) }
+  let(:raw_score) { create(:raw_score) }
+  let(:activity_category) { create(:activity_category) }
+  let(:standard) { create(:standard) }
 
   before do
     allow(controller).to receive(:current_user) { user }
@@ -34,32 +39,57 @@ describe Cms::ActivitiesController, type: :controller do
     end
   end
 
-  describe '#new' do
-    before do
-      allow_any_instance_of(ActivityClassification).to receive(:activities) { activities }
-    end
-
-    it 'should give a new activity with the classification given' do
-      get :new, activity_classification_id: classification.id
-      expect(assigns(:activity).classification).to eq classification
-    end
-  end
-
   describe '#edit' do
     let!(:activity) { create(:activity, classification: classification) }
 
     it 'should find the activity' do
       get :edit, activity_classification_id: classification.id, id: activity.id
-      expect(assigns(:activity)).to eq activity
+      activity_hash = {
+        'id' => activity.id,
+        'name' => activity.name,
+        'description' => activity.description,
+        'supporting_info' => activity.supporting_info,
+        'repeatable' => activity.repeatable,
+        'flags' => activity.flags.map { |f| f.to_s },
+        'standard_id' => activity.standard_id,
+        'raw_score_id' => activity.raw_score_id,
+        'follow_up_activity_id' => activity.follow_up_activity_id,
+        'content_partner_ids' => activity.content_partner_ids,
+        'topic_ids' => activity.topic_ids,
+        'activity_category_ids' => activity.activity_category_ids
+      }
+      expect(assigns(:activity)).to eq activity_hash
     end
   end
 
   describe "#create" do
-    let(:activity_attributes) { build(:activity).attributes }
+    let(:activity_attributes) { build(:activity, name: 'Unique Name', raw_score_id: raw_score.id, standard_id: standard.id).attributes }
 
     it 'should create the activity' do
-      post :create, activity_classification_id: classification.id, activity: activity_attributes
-      expect(response).to redirect_to cms_activity_classification_activity_data_path(classification.id, classification.reload.activities.last)
+      selected_attributes = activity_attributes.slice(
+        'name',
+        'description',
+        'uid',
+        'data',
+        'activity_classification_id',
+        'standard_id',
+        'flag',
+        'repeatable',
+        'follow_up_activity_id',
+        'supporting_info',
+        'raw_score_id'
+      )
+      selected_attributes[:topic_ids] = [topic.id]
+      selected_attributes[:content_partner_ids] = [content_partner.id]
+      selected_attributes[:activity_category_ids] = [activity_category.id]
+      post :create, activity_classification_id: classification.id, activity: selected_attributes, format: :json
+      created_activity = Activity.find_by_name('Unique Name')
+      expect(created_activity).to be
+      expect(created_activity.topics).to eq([topic])
+      expect(created_activity.content_partners).to eq([content_partner])
+      expect(created_activity.activity_categories).to eq([activity_category])
+      expect(created_activity.raw_score).to eq(raw_score)
+      expect(created_activity.standard).to eq(standard)
     end
   end
 
@@ -67,21 +97,33 @@ describe Cms::ActivitiesController, type: :controller do
     let!(:activity) { create(:activity, classification: classification) }
 
     it 'should update the given activity' do
-      expect(activity.description).to_not eq "new description"
-      put :update, activity_classification_id: classification.id, id: activity.id, activity: { description: "new description" }
-      expect(activity.reload.description).to eq "new description"
+      selected_attributes = activity.attributes.slice(
+        :name,
+        :description,
+        :uid,
+        :data,
+        :activity_classification_id,
+        :standard_id,
+        :flag,
+        :repeatable,
+        :follow_up_activity_id,
+        :supporting_info,
+        :raw_score_id
+      )
+      selected_attributes[:name] = 'Unique Name'
+      selected_attributes[:topic_ids] = [topic.id]
+      selected_attributes[:content_partner_ids] = [content_partner.id]
+      selected_attributes[:activity_category_ids] = [activity_category.id]
+      selected_attributes[:standard_id] = standard.id
+      selected_attributes[:raw_score_id] = raw_score.id
+      put :update, id: activity.id, activity_classification_id: classification.id, activity: selected_attributes
+      updated_activity = Activity.find_by_name('Unique Name')
+      expect(updated_activity.id).to eq activity.id
+      expect(updated_activity.topics.to_a).to eq([topic])
+      expect(updated_activity.content_partners.to_a).to eq([content_partner])
+      expect(updated_activity.activity_categories.to_a).to eq([activity_category])
+      expect(updated_activity.raw_score).to eq(raw_score)
+      expect(updated_activity.standard).to eq(standard)
     end
   end
-
-  # describe '#destroy' do
-  #   let!(:activity) { create(:activity, classification: classification) }
-  #   let!(:assignment) { create(:assignment, activity: activity) }
-  #   let!(:score) { create(:score, assignment: assignment) }
-  #
-  #   it 'should destroy the given activity and assignments' do
-  #     delete :destroy, activity_classification_id: classification.id, id: activity.id
-  #     expect(Assignment.find(assignment.id)).to eq nil
-  #     expect(Activity.find(activity.id)).to eq nil
-  #   end
-  # end
 end

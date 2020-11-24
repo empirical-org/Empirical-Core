@@ -1,17 +1,17 @@
 import * as React from "react";
 import moment from 'moment'
 
-import { ChangeLog } from '../interfaces/interfaces'
+import { ChangeLog } from '../../interfaces/interfaces'
 
-interface ConceptChangeLogProps {
+interface IndividualRecordChangeLogProps {
   changeLogs: Array<ChangeLog>
 }
 
-interface ConceptChangeLogState {
+interface IndividualRecordChangeLogState {
   open: boolean;
 }
 
-export default class ConceptChangeLogs extends React.Component<ConceptChangeLogProps, ConceptChangeLogState> {
+export default class IndividualRecordChangeLogs extends React.Component<IndividualRecordChangeLogProps, IndividualRecordChangeLogState> {
   constructor(props) {
     super(props)
 
@@ -28,10 +28,11 @@ export default class ConceptChangeLogs extends React.Component<ConceptChangeLogP
   }
 
   renderChangeLogs() {
+    const { changeLogs, formatDateTime, } = this.props
     if (this.state.open) {
-      const changeLogItems = this.props.changeLogs.map(cl => {
+      const changeLogItems = changeLogs.map(cl => {
         return (<div className="change-log-item" key={cl.id}>
-          <p className="date">{moment.unix(cl.createdAt).format('MMMM D, YYYY [at] LT')}</p>
+          <p className="date">{formatDateTime(cl)}</p>
           <p className="action">Action: {cl.action}</p>
           <p className="explanation">{cl.explanation}</p>
           <p className="user">
