@@ -1,20 +1,17 @@
-import * as React from 'react'
+import * as React from 'react';
 
-import QuestionsAndAnswers from '../../containers/QuestionsAndAnswers'
-import { COLLEGE_BOARD_SLUG, AP_SLUG } from '../assignment_flow/assignmentFlowConstants'
+import QuestionsAndAnswers from '../../containers/QuestionsAndAnswers';
+import { AP_SLUG, AP_WRITINGS_SKILLS_UNIT_TEMPLATE_ID } from '../assignment_flow/assignmentFlowConstants';
+import { generateLink, getStartedButton } from '../../helpers/collegeBoard';
+import { scrollToTop } from '../../hooks/scrollToTop';
 
 interface ApContainerProps {
   isPartOfAssignmentFlow?: boolean;
 }
 
-const generateLink = (isPartOfAssignmentFlow, unitTemplateId) => {
-  if (isPartOfAssignmentFlow) { return `/assign/featured-activity-packs/${unitTemplateId}?${COLLEGE_BOARD_SLUG}=${AP_SLUG}` }
-
-  return `/activities/packs/${unitTemplateId}`
-}
-
 const Ap = ({ isPartOfAssignmentFlow, }: ApContainerProps) => {
-  const getStartedButton = isPartOfAssignmentFlow ? null : <a className="quill-button large primary contained focus-on-light" href="https://www.quill.org/account/new" rel="noopener noreferrer" target="_blank">Get started</a>
+
+  isPartOfAssignmentFlow && scrollToTop();
 
   return (<div className="college-board-container">
     <div className="section-wrapper">
@@ -28,7 +25,7 @@ const Ap = ({ isPartOfAssignmentFlow, }: ApContainerProps) => {
           <div className="header-text-container">
             <h1>Official AP Writing Practice</h1>
             <p>Free AP® writing practice with comprehensive progress reports for you and immediate feedback for students that guides them towards mastery of sentence-level skills.</p>
-            {getStartedButton}
+            {getStartedButton(isPartOfAssignmentFlow)}
           </div>
         </div>
         <img alt="Photograph of a teacher talking to a classroom of high school students" src="https://assets.quill.org/images/college_board/teaching-english-practice.png" />
@@ -50,7 +47,7 @@ const Ap = ({ isPartOfAssignmentFlow, }: ApContainerProps) => {
         <div className="activity-container">
           <div className="activity-header-container">
             <p className="activity-header" id="writing-skills-survey">AP Writing Skills Survey</p>
-            <a className="quill-button medium primary outlined view-button focus-on-light" href={generateLink(isPartOfAssignmentFlow, 193)} rel="noopener noreferrer" target={isPartOfAssignmentFlow ? '' : "_blank"}>View</a>
+            <a className="quill-button medium primary outlined view-button focus-on-light" href={generateLink({ isPartOfAssignmentFlow, unitTemplateId: AP_WRITINGS_SKILLS_UNIT_TEMPLATE_ID, slug: AP_SLUG })} rel="noopener noreferrer" target={isPartOfAssignmentFlow ? '' : "_blank"}>View</a>
           </div>
           <div className="activity-text-container">
             <p className="activity-sub-text">Students complete a seventeen-item survey to gauge their understanding of key writing skills that are essential to successful AP- and SAT-level writing. After students complete the survey, Quill will automatically recommend up to seven activity packs for each student based on their needs. Each pack contains a series of activities that each take about 15 minutes to complete and provide scaffolded, sequenced practice with one of the skills covered by the survey.</p>

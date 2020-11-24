@@ -1,4 +1,6 @@
 import * as React from 'react';
+
+import { generateLink } from '../../helpers/collegeBoard';
 const expandSrc = `https://assets.quill.org/images/icons/expand.svg`;
 
 interface Activity {
@@ -14,10 +16,10 @@ export interface ExpandableUnitProps {
     activities: Activity[]
   }[]
   isPartOfAssignmentFlow: boolean;
-  generateLink: (isPartOfAssignmentFlow: boolean, unitTemplateId: string) => string;
+  slug: string;
 }
 
-const ExpandableUnit = ({ title, isFirst, learningCycles, isPartOfAssignmentFlow, generateLink, }: ExpandableUnitProps) => {
+const ExpandableUnit = ({ title, isFirst, learningCycles, isPartOfAssignmentFlow, slug }: ExpandableUnitProps) => {
   // per CollegeBoard specs, first section will be expanded when visting the page
   const [expanded, setExpanded] = React.useState<boolean>(isFirst);
   const [focusedSectionExpanded, setFocusedSectionExpanded] = React.useState<boolean>(false);
@@ -37,7 +39,7 @@ const ExpandableUnit = ({ title, isFirst, learningCycles, isPartOfAssignmentFlow
       }
       const lastActivity = isLastCycle && i === activities.length - 1;
       const additionalStyle = `${lastActivity ? 'last-activity' : ''} ${isLocationMatch ? 'highlighted' : ''}`
-      const link = generateLink(isPartOfAssignmentFlow, unit_template_id)
+      const link = generateLink({ isPartOfAssignmentFlow, unitTemplateId: unit_template_id, slug })
       const target = isPartOfAssignmentFlow ? '' : "_blank"
       return(
         <div className={`cycle-activity-container ${additionalStyle}`} id={cb_anchor_tag} key={i}>
