@@ -27,7 +27,7 @@ module SegmentIo
     ASSIGN_DIAGNOSTIC ||= 'Teacher assigned the diagnostic'
     ASSIGN_RECOMMENDATIONS ||= 'Teacher assigned a recommended activity pack'
     ERROR_500 ||= '500 Error'
-    BEGAN_PREMIUM_TRIAL ||= 'Teacher began premium trial'
+    BEGAN_PREMIUM_TRIAL ||= 'Teacher began teacher premium trial'
     BEGAN_SCHOOL_PREMIUM ||= 'Teacher began paid school premium'
     BEGAN_TEACHER_PREMIUM ||= 'Teacher began paid teacher premium'
     TEACHER_DELETED_STUDENT_ACCOUNT ||= 'Teacher deleted student account'
