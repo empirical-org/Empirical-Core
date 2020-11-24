@@ -1,5 +1,7 @@
 # README
 
+
+## Installation / Setup
 1. - clone the repo
 1. - gem install bundler
 1. - bundle install
@@ -15,3 +17,16 @@
 1. - set up redis with ```redis-server --port 6400```
 1. - rails s
 1. - go to [localhost:3100](http://localhost:3100)
+
+## Test Suite
+```ruby
+bundle exec rspec spec
+```
+
+## Deployment
+```bash
+bash deploy.sh staging|prod
+```
+
+## Infrastructure
+TODO

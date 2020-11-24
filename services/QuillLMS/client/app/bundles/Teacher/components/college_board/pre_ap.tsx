@@ -2,34 +2,32 @@ import * as React from 'react'
 
 import ExpandableUnitSection from '../shared/expandableUnit'
 import QuestionsAndAnswers from '../../containers/QuestionsAndAnswers'
-import { COLLEGE_BOARD_SLUG, PRE_AP_SLUG } from '../assignment_flow/assignmentFlowConstants'
+import { PRE_AP_WRITINGS_SKILLS_1_UNIT_TEMPLATE_ID, PRE_AP_WRITINGS_SKILLS_2_UNIT_TEMPLATE_ID, PRE_AP_SLUG } from '../assignment_flow/assignmentFlowConstants'
+import { generateLink, getStartedButton } from '../../helpers/collegeBoard';
+import { scrollToTop } from '../../hooks/scrollToTop';
 
 interface PreApContainerProps {
   isPartOfAssignmentFlow?: boolean;
   units?: Array<any>
 }
 
-const generateLink = (isPartOfAssignmentFlow, unitTemplateId) => {
-  if (isPartOfAssignmentFlow) { return `/assign/featured-activity-packs/${unitTemplateId}?${COLLEGE_BOARD_SLUG}=${PRE_AP_SLUG}` }
-
-  return `/activities/packs/${unitTemplateId}`
-}
-
 const PreAp = ({ units, isPartOfAssignmentFlow, }: PreApContainerProps) => {
+
+  // we need this otherwise the pages will be rendered partially scrolled from preview assignment flow step
+  isPartOfAssignmentFlow && scrollToTop();
+
   const expandableUnits = units.map((u, index) => {
     return (
       <ExpandableUnitSection
-        generateLink={generateLink}
         isFirst={index === 0}
         isPartOfAssignmentFlow={isPartOfAssignmentFlow}
         key={u.id}
         learningCycles={u.learning_cycles}
+        slug={PRE_AP_SLUG}
         title={u.title}
       />
     )
   })
-
-  const getStartedButton = isPartOfAssignmentFlow ? null : <a className="quill-button large primary contained focus-on-light" href="https://www.quill.org/account/new" rel="noopener noreferrer" target="_blank">Get started</a>
 
   return (<div className="college-board-container">
     <div className="section-wrapper">
@@ -43,7 +41,7 @@ const PreAp = ({ units, isPartOfAssignmentFlow, }: PreApContainerProps) => {
           <div className="header-text-container">
             <h1>Official Pre-AP English Practice</h1>
             <p>Free Pre-AP® English writing practice aligned to the Pre-AP English High School Course Framework for the English 1 and English 2 courses with immediate feedback for students and progress reports for you.</p>
-            {getStartedButton}
+            {getStartedButton(isPartOfAssignmentFlow)}
           </div>
         </div>
         <img alt="Photograph of a teacher talking to a classroom of high school students" src="https://assets.quill.org/images/college_board/teaching-english-practice.png" />
@@ -66,7 +64,7 @@ const PreAp = ({ units, isPartOfAssignmentFlow, }: PreApContainerProps) => {
         <div className="activity-container">
           <div className="activity-header-container">
             <p className="activity-header" id="writing-skills-survey-1">Pre-AP Writing Skills Survey 1: Basic of Sentence Patterns</p>
-            <a className="quill-button medium primary outlined view-button focus-on-light" href={generateLink(isPartOfAssignmentFlow, 194)} rel="noopener noreferrer" target={isPartOfAssignmentFlow ? '' : "_blank"}>View</a>
+            <a className="quill-button medium primary outlined view-button focus-on-light" href={generateLink({ isPartOfAssignmentFlow, unitTemplateId: PRE_AP_WRITINGS_SKILLS_1_UNIT_TEMPLATE_ID, slug: PRE_AP_SLUG })} rel="noopener noreferrer" target={isPartOfAssignmentFlow ? '' : "_blank"}>View</a>
           </div>
           <div className="activity-text-container">
             <p className="activity-sub-text">Students complete a twelve-item survey to gauge their understanding of key writing skills, fundamental grammatical elements, and compound/complex sentence constructions. After students complete the survey, Quill will automatically recommend up to five activity packs for each student based on their needs. Each pack contains four to six activities that each take about 15 minutes to complete and provide scaffolded, sequenced practice on one of the five skills addressed in the survey.</p>
@@ -77,7 +75,7 @@ const PreAp = ({ units, isPartOfAssignmentFlow, }: PreApContainerProps) => {
         <div className="activity-container">
           <div className="activity-header-container">
             <p className="activity-header" id="writing-skills-survey-2">Pre-AP Writing Skills Survey 2: Tools for Sentence Expansion</p>
-            <a className="quill-button medium primary outlined view-button focus-on-light" href={generateLink(isPartOfAssignmentFlow, 195)} rel="noopener noreferrer" target={isPartOfAssignmentFlow ? '' : "_blank"}>View</a>
+            <a className="quill-button medium primary outlined view-button focus-on-light" href={generateLink({ isPartOfAssignmentFlow, unitTemplateId: PRE_AP_WRITINGS_SKILLS_2_UNIT_TEMPLATE_ID, slug: PRE_AP_SLUG })} rel="noopener noreferrer" target={isPartOfAssignmentFlow ? '' : "_blank"}>View</a>
           </div>
           <div className="activity-text-container">
             <p className="activity-sub-text">Students complete a twelve-item survey to gauge their understanding of key writing skills, focusing on constructions for expanding sentences with description and detail. After students complete the survey, Quill will automatically recommend up to five activity packs for each student based on their needs. Each pack contains four to six activities that each take about 15 minutes to complete and provide scaffolded, sequenced practice on one of the five skills addressed in the survey.</p>

@@ -360,7 +360,9 @@ EmpiricalGrammar::Application.routes.draw do
       resources :activities,              except: [:index, :new, :edit]
       resources :activity_flags,          only: [:index]
       resources :activity_sessions,       except: [:index, :new, :edit]
-      resources :feedback_histories,        only: [:index, :show, :create, :update, :destroy]
+      resources :feedback_histories,      only: [:index, :show, :create, :update, :destroy] do
+        post :batch, on: :collection
+      end
       resources :lessons_tokens,          only: [:create]
       resources :standard_levels,                only: [:index]
       resources :standards,                  only: [:index]
@@ -532,6 +534,13 @@ EmpiricalGrammar::Application.routes.draw do
     end
 
     resources :announcements, only: [:index, :new, :create, :update, :edit]
+
+    resources :topics, only: [:index, :update, :create]
+    resources :raw_scores, only: [:index, :update, :create]
+    resources :attributes_manager, only: [:index], as: 'attributes_manager'
+    get 'attributes_manager/:attribute/:tab' => 'attributes_manager#index'
+    get 'attributes_manager/:attribute' => 'attributes_manager#index'
+
   end
 
   resources :referrals, only: [:index] do

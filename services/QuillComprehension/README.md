@@ -1,6 +1,10 @@
 # Quill Comprehension
 
-## Getting Started
+## Installation / Setup
+
+### Version Info
+Ruby: 2.5.1  
+Rails: 5.2.0
 
 ### System Dependencies
 Quill Comprehension uses [Yarn](https://yarnpkg.com/lang/en/) to manage dependencies. To install dependencies from `yarn.lock` and gems from `Gemfile`:
@@ -17,7 +21,7 @@ $ rails db:create
 $ rails db:migrate
 ```
 
-## Seed data
+### Seed data
 To get initial data in your db, run:
 
 ```
@@ -30,24 +34,26 @@ To launch Quill Comprehension:
 $ rails server
 ```
 
-### Test Suite
+## Test Suite
 If you'd like to run tests:
 ```
 $ bundle exec rspec
 ```
 
-### Version Info
-Ruby: 2.5.1  
-Rails: 5.2.0
+## Deployment
+```bash
+bash deploy.sh prod
+```
 
-### Other
+## Infrastructure
+TBD
+
+## Other
 
 Things we may want to cover in README:
 
 * Configuration
 
 * Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
 
 * ...

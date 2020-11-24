@@ -31,6 +31,7 @@ class Auth::CleverController < ApplicationController
   # data is a user record
   # have to put a second argument in there due to the send method
   def user_success(data, redirect=nil)
+    CompleteAccountCreation.new(data, request.remote_ip).call if data.previous_changes["id"]
     data.update_attributes(ip_address: request.remote_ip)
     if session[ApplicationController::CLEVER_REDIRECT]
       redirect_route = session[ApplicationController::CLEVER_REDIRECT]

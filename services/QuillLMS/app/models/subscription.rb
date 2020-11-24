@@ -309,7 +309,6 @@ class Subscription < ActiveRecord::Base
       # if there is no expiration, either give them a trial one or a premium one
       # TODO: 'subscription type spot'
       if attributes[:account_type]&.downcase == 'teacher trial'
-        PremiumAnalyticsWorker.perform_async(school_or_user_id, attributes[:account_type])
         attributes = attributes.merge(Subscription.set_trial_expiration_and_start_date(school_or_user))
       elsif attributes[:account_type] == CB_LIFETIME_SUBSCRIPTION_TYPE
         attributes = attributes.merge(Subscription.set_cb_lifetime_expiration_and_start_date)

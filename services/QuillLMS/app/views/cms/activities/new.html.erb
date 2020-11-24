@@ -1,0 +1,12 @@
+<% activity_editor_link = "/cms/activity_classifications" %>
+<% activity_classification_link = "#{activity_editor_link}/#{@activity_classification.id}" %>
+<article class="activity-form simple-rounded-box">
+  <div>
+    <a href="/">Staff Profile</a>
+    /
+    <a href=<%= activity_editor_link %>>Activity Editor</a>
+    /
+    <a href=<%= activity_classification_link %>><%= @activity_classification.name %></a>
+  </div>
+  <%= render 'form' %>
+</article>
