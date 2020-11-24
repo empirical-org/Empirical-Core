@@ -9,14 +9,7 @@ import { routes } from "../routes";
 import { getParameterByName } from '../libs/getParameterByName';
 import { TeacherPreviewMenu } from '../../Shared/index';
 import { fetchUserRole } from '../../Shared/utils/userAPIs';
-
-interface PageLayoutState {
-  showFocusState: boolean;
-  previewShowing: boolean;
-  questionToPreview: any;
-  switchedBackToPreview: boolean;
-  skippedToQuestionFromIntro: boolean;
-}
+import { addKeyDownListener } from '../../Shared/hooks/addKeyDownListener';
 
 export const Home = () => {
   const studentSession = getParameterByName('student', window.location.href);
@@ -39,8 +32,7 @@ export const Home = () => {
     setShowFocusState(true);
   }
 
-  document.addEventListener('keydown', handleKeyDown);
-  document.removeEventListener('keydown', handleKeyDown);
+  addKeyDownListener(handleKeyDown);
 
   function handleSkipToMainContentClick () {
     const element = document.getElementById("main-content")
