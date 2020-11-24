@@ -110,7 +110,7 @@ class SegmentAnalytics
 
 
   def identify(user)
-    if backend.present? && !user&.student?
+    if backend.present? && user&.teacher?
       backend.identify(identify_params(user))
     end
   end
