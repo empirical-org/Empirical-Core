@@ -2,7 +2,7 @@ import * as React from 'react'
 import { Link } from 'react-router-dom'
 
 import parsedQueryParams from './parsedQueryParams'
-import { COLLEGE_BOARD_SLUG, PRE_AP_SLUG, AP_SLUG } from './assignmentFlowConstants'
+import { COLLEGE_BOARD_SLUG, PRE_AP_SLUG, AP_SLUG, SPRING_BOARD_SLUG } from './assignmentFlowConstants'
 import LeavingModal from './leaving_modal'
 
 const quillLogoGreenSrc =  `${process.env.CDN_URL}/images/logos/quill-logo-green.svg`
@@ -23,6 +23,7 @@ const selectClassesSlug = 'select-classes'
 const featuredActivityPacksSlug = 'featured-activity-packs'
 const preApSlug = PRE_AP_SLUG
 const apSlug = AP_SLUG
+const springBoardSlug = SPRING_BOARD_SLUG
 
 const slash = (index: number) => <span className="slash" key={index}>/</span>
 const learningProcess = () => <Link key="learning-process" to={`/assign/${learningProcessSlug}`}>Learning process</Link>
@@ -34,6 +35,7 @@ const selectClasses = () => <Link key="assign-" to={`/assign/${selectClassesSlug
 const activityPack = () => <Link key="activity-pack" to={`/assign/${featuredActivityPacksSlug}`}>Activity pack</Link>
 const preAp = () => <Link key="activity-pack" to={`/assign/${preApSlug}`}>Pre-AP</Link>
 const ap = () => <Link key="activity-pack" to={`/assign/${apSlug}`}>AP</Link>
+const springBoard = () => <Link key="activity-pack" to={`/assign/${springBoardSlug}`}>SpringBoard</Link>
 const individualFeaturedActivityPack = (unitTemplateId, unitTemplateName) => {
   let link = `/assign/${featuredActivityPacksSlug}/${unitTemplateId}`
   const collegeBoardActivityTypeSlug = parsedQueryParams()[collegeBoardSlug]
@@ -45,7 +47,8 @@ const individualFeaturedActivityPack = (unitTemplateId, unitTemplateName) => {
 
 const collegeBoardSlugsToLinks = {
   [preApSlug]: preAp(),
-  [apSlug]: ap()
+  [apSlug]: ap(),
+  [springBoardSlug]: springBoard()
 }
 
 const routeLinks = {
@@ -107,6 +110,7 @@ const routeProgress = {
   [collegeBoardSlug]: () => 'step-two',
   [preApSlug]: () => 'step-three',
   [apSlug]: () => 'step-three',
+  [springBoardSlug]: () => 'step-three',
   [activityLibrarySlug]: () => 'step-three',
   [selectClassesSlug]: () => 'step-five',
   [featuredActivityPacksSlug]: (unitTemplateId, unitTemplateName) => {
