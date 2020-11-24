@@ -1,10 +1,16 @@
-.topics-manager {
+.topics-manager, .standards-manager {
   margin: 30px;
-  .topic-columns {
+  .topic-columns, .standard-columns {
     display: flex;
     .ant-table-wrapper {
       margin-right: 20px;
     }
+  }
+}
+
+.standards-manager {
+  .record-input-container {
+    width: 80%;
   }
 }
 
