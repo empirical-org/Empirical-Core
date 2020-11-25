@@ -2,7 +2,7 @@ import * as React from "react";
 import _ from 'lodash'
 import moment from 'moment'
 
-import { STANDARD, } from './constants'
+import { STANDARD, sortWordsThatIncludeNumbers, } from './shared'
 import { Record, StandardLevel, StandardCategory } from './interfaces'
 
 import IndividualRecordChangeLogs from '../../shared/individualRecordChangeLogs'
@@ -54,7 +54,7 @@ const ArchivedRecordBox = ({ originalRecord, recordType, standardLevels, standar
         previous_value: previousValue,
         new_value: newValue,
         changed_record_id: recordID,
-        changed_record_type: recordType
+        changed_record_type: recordType.split(" ").join("")
       }
     })
 
@@ -85,10 +85,10 @@ const ArchivedRecordBox = ({ originalRecord, recordType, standardLevels, standar
   }
 
   function renderDropdownInputs() {
-    const standardLevelOptions = standardLevels.map(t => ({ value: t.id, label: t.name })).sort((a, b) => a.label.localeCompare(b.label))
+    const standardLevelOptions = standardLevels.sort(sortWordsThatIncludeNumbers()).map(t => ({ value: t.id, label: t.name }))
     const selectedStandardLevel = standardLevels.find(sl => sl.id === record.standard_level_id)
     const standardLevelValue = standardLevelOptions.find(opt => opt.value === record.standard_level_id)
-    const standardCategoryOptions = standardCategories.map(t => ({ value: t.id, label: t.name })).sort((a, b) => a.label.localeCompare(b.label))
+    const standardCategoryOptions = standardCategories.sort(sortWordsThatIncludeNumbers()).map(t => ({ value: t.id, label: t.name }))
     const selectedStandardCategory = standardCategories.find(sl => sl.id === record.standard_category_id)
     const standardCategoryValue = standardCategoryOptions.find(opt => opt.value === record.standard_category_id)
     return (<div>

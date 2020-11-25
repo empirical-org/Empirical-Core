@@ -2,6 +2,8 @@ import * as React from 'react';
 import { Table } from 'antd';
 import moment from 'moment';
 
+import { sortWordsThatIncludeNumbers, } from './shared'
+
 interface RecordColumnProps {
   records: Array<any>,
   recordType: string,
@@ -16,30 +18,16 @@ interface RecordRow {
 }
 
 function columns(selectRecord, recordType) {
-  let sharedColumns = [
+  return [
     {
       title: recordType,
       dataIndex: 'name',
       defaultSortOrder: 'ascend',
       key: 'name',
       render: (text, record:RecordRow) => (<div onClick={() => selectRecord(record, recordType)}>{text}</div>),
-      sorter:  (a, b) => {
-        const numberRegex = /(\d+)/g
-        const aNumberMatch = a.name.match(numberRegex)
-        const bNumberMatch = b.name.match(numberRegex)
-        if (aNumberMatch && bNumberMatch) {
-          return (Number(aNumberMatch[0]) - Number((bNumberMatch[0])))
-        }
-
-        if (aNumberMatch) { return 1 }
-        if (bNumberMatch) { return -1 }
-
-        return (a.name.localeCompare(b.name))
-      },
+      sorter: sortWordsThatIncludeNumbers()
     }
   ]
-
-  return sharedColumns
 }
 
 const RecordColumn: React.SFC<RecordColumnProps> = ({ records, selectRecord, recordType }) => {

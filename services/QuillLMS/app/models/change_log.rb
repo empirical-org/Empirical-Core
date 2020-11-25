@@ -73,13 +73,13 @@ class ChangeLog < ActiveRecord::Base
   validates :changed_record_type, inclusion: CHANGED_RECORD_TYPES
 
   def applies_to_single_record?
-    ['Concept', 'Topic', 'Standard', 'StandardLevel', 'StandardCategeory'].include?(changed_record_type) || !(GENERIC_USER_ACTIONS.include?(action))
+    ['Concept', 'Topic', 'Standard', 'StandardLevel', 'StandardCategory'].include?(changed_record_type) || !(GENERIC_USER_ACTIONS.include?(action))
   end
 
   def record_is_not_being_created_from_cms?
     # in the cms topics, standards, standard levels, and standard categories controllers, we use nested attributes to create change logs for the topic
     # on create, this causes the validation to fail because there isn't a changed_record_id yet - it gets added after the validations are run
-    action != CREATED || ['Topic', 'Standard', 'StandardLevel', 'StandardCategeory'].include?(changed_record_type)
+    !(action == CREATED && ['Topic', 'Standard', 'StandardLevel', 'StandardCategory'].include?(changed_record_type))
   end
 
   def needs_a_changed_record_id?

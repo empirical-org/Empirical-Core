@@ -4,7 +4,8 @@ import { Route, Switch, Link, } from 'react-router-dom';
 import RecordColumns from './recordColumns'
 import ChangeLogTable from './changeLogTable'
 import StandardSearch from './standardSearch'
-import { STANDARD, } from './constants'
+import StandardsTable from './standardsTable'
+import { STANDARD, STANDARD_CATEGORY, STANDARD_LEVEL,   } from './shared'
 
 import { Snackbar, defaultSnackbarTimeout } from '../../../../Shared/index'
 import { requestGet, requestPut, requestPost, } from '../../../../../modules/request/index'
@@ -136,25 +137,28 @@ const Standards = ({ match, location, }) => {
 
   const recordTypes = [
     {
-      recordType: 'Standard Level',
+      recordType: STANDARD_LEVEL,
       records: standardLevels,
       saveChanges: saveStandardLevelChanges,
+      createNew: createNewStandardLevel,
       attribute: 'standard_level_id'
     },
     {
-      recordType: 'Standard Category',
+      recordType: STANDARD_CATEGORY,
       records: standardCategories,
       saveChanges: saveStandardCategoryChanges,
+      createNew: createNewStandardCategory,
       attribute: 'standard_category_id'
     },
     {
       recordType: STANDARD,
       records: standards,
+      createNew: createNewStandard,
       saveChanges: saveStandardChanges
     }
   ]
 
-  const sharedRecordColumnProps = {
+  const sharedProps = {
     path: `${match.path}`,
     searchValue,
     standardLevels,
@@ -187,7 +191,7 @@ const Standards = ({ match, location, }) => {
         <Route
           component={() => (
             <RecordColumns
-              {...sharedRecordColumnProps}
+              {...sharedProps}
               isNew={true}
               visible={true}
             />
@@ -197,11 +201,20 @@ const Standards = ({ match, location, }) => {
         <Route
           component={() => (
             <RecordColumns
-              {...sharedRecordColumnProps}
+              {...sharedProps}
               visible={false}
             />
           )}
           path={`${match.path}/${ARCHIVED}`}
+        />
+        <Route
+          component={() => (
+            <StandardsTable
+              {...sharedProps}
+              visible={true}
+            />
+          )}
+          path={match.path}
         />
       </Switch>
     </div>

@@ -1,7 +1,7 @@
 import * as React from "react";
 import _ from 'lodash'
 
-import { STANDARD, } from './constants'
+import { STANDARD, sortWordsThatIncludeNumbers, } from './shared'
 import { Record } from './interfaces'
 
 import ChangeLogModal from '../../shared/changeLogModal'
@@ -51,7 +51,7 @@ const NewRecordBox = ({ recordType, createNewRecord, closeRecordBox, standardCat
         previous_value: previousValue,
         new_value: newValue,
         changed_record_id: recordID,
-        changed_record_type: recordType
+        changed_record_type: recordType.split(" ").join("")
       }
     })
     const recordToSave = {
@@ -85,9 +85,9 @@ const NewRecordBox = ({ recordType, createNewRecord, closeRecordBox, standardCat
   }
 
   function renderDropdownInputs() {
-    const standardLevelOptions = standardLevels.map(t => ({ value: t.id, label: t.name })).sort((a, b) => a.label.localeCompare(b.label))
+    const standardLevelOptions = standardLevels.sort(sortWordsThatIncludeNumbers()).map(t => ({ value: t.id, label: t.name }))
+    const standardCategoryOptions = standardCategories.sort(sortWordsThatIncludeNumbers()).map(t => ({ value: t.id, label: t.name }))
     const standardLevelValue = standardLevelOptions.find(opt => opt.value === record.standard_level_id)
-    const standardCategoryOptions = standardCategories.map(t => ({ value: t.id, label: t.name })).sort((a, b) => a.label.localeCompare(b.label))
     const standardCategoryValue = standardCategoryOptions.find(opt => opt.value === record.standard_category_id)
     return (<div>
       <DropdownInput

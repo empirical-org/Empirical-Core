@@ -15,8 +15,13 @@
   .record-input-container .input-container {
     width: 80%;
   }
-  .record-box .fields #record-name {
-    width: 100%;
+  .record-box .fields {
+    #record-name {
+      width: 100%;
+    }
+    .rename-and-archive {
+      width: 200px;
+    }
   }
 }
 

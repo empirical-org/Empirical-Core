@@ -24,9 +24,9 @@ const RecordColumns = ({ searchValue, visible, isNew, standardCategories, standa
 
   const sharedRecordBoxProps = {
     closeRecordBox,
-    standardCategories,
-    standardLevels,
-    standards,
+    standardCategories: visible ? standardCategories.filter(sc => sc.visible) : standardCategories,
+    standardLevels: visible ? standardLevels.filter(sl => sl.visible) : standardLevels,
+    standards: visible ? standards.filter(s => s.visible) : standards,
     recordType: selectedRecordType
   }
 
