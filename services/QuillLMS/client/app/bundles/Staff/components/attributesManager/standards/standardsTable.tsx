@@ -5,10 +5,16 @@ import moment from 'moment';
 import RecordBox from './recordBox'
 import { sortWordsThatIncludeNumbers, STANDARD, STANDARD_CATEGORY, STANDARD_LEVEL} from './shared'
 
+import { Tooltip } from '../../../../Shared/index'
+
+const standardCategoryTooltipText = "Each standard is assigned a standard category. The standard category displays in a featured activity pack page as the \"concept\" for each activity. The standard category that gets displayed is determined by the standard that has been assigned to the activity.  Standard categories also display as the concepts of the pack, shown in the white box on the right of an activity pack page. Although standard categories are called \"concepts\" in a featured activity pack page, they are not the same concepts that are used to filter or order activities in the custom activity pack page."
+
+const standardLevelTooltipText = "Standards are grouped by their grade level. The standard level displays to teachers on the Standards data report and is used as an activity attribute filter, called CCSS Grade Level, on the custom activity pack page."
+
 function columns(selectRecord) {
   return [
     {
-      title: 'Standard Level',
+      title: <Tooltip tooltipTriggerText="Standard Level" tooltipText={standardLevelTooltipText} />,
       dataIndex: 'standard_level_name',
       defaultSortOrder: 'ascend',
       key: 'standardLevelName',
@@ -22,7 +28,7 @@ function columns(selectRecord) {
       sorter:  (a, b) => (a.standard_level_activity_count - b.standard_level_activity_count)
     },
     {
-      title: 'Standard Category',
+      title: <Tooltip tooltipTriggerText="Standard Category" tooltipText={standardCategoryTooltipText} />,
       dataIndex: 'standard_category_name',
       key: 'standardCategoryName',
       render: (text, record) => (<div onClick={() => selectRecord(record.standard_category_id, STANDARD_CATEGORY)}>{text}</div>),
