@@ -12,7 +12,7 @@ export const getActivity = (sessionID: string, activityUID: string) => {
       sessionID: sessionID
     }));
 
-    const activityUrl = `${process.env.EMPIRICAL_BASE_URL}/api/v1/comprehension/activities/${activityUID}.json`;
+    const activityUrl = `${process.env.DEFAULT_URL}/api/v1/comprehension/activities/${activityUID}.json`;
 
     request.get(activityUrl, (e, r, body) => {
       const activity = JSON.parse(body)

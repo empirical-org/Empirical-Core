@@ -12,6 +12,7 @@ import { Events } from '../../modules/analytics'
 import { getFeedback } from '../../actions/session'
 import { ActivitiesReducerState } from '../../reducers/activitiesReducer'
 import { SessionReducerState } from '../../reducers/sessionReducer'
+import getParameterByName from '../../helpers/getParameterByName';
 
 const bigCheckSrc =  `${process.env.CDN_URL}/images/icons/check-circle-big.svg`
 const tadaSrc =  `${process.env.CDN_URL}/images/illustrations/tada.svg`
@@ -20,7 +21,9 @@ interface StudentViewContainerProps {
   dispatch: Function;
   activities: ActivitiesReducerState;
   session: SessionReducerState;
-  location: any;
+  location?: any;
+  handleFinishActivity?: () => void;
+  isTurk?: boolean;
 }
 
 interface StudentViewContainerState {
@@ -72,10 +75,14 @@ export class StudentViewContainer extends React.Component<StudentViewContainerPr
   onMobile = () => window.innerWidth < 1100
 
   activityUID = () => {
-    const { location, } = this.props
-    const { search, } = location
-    if (!search) { return }
-    return queryString.parse(search).uid
+    const { location, isTurk } = this.props
+    if(isTurk) {
+      return getParameterByName('uid', window.location.href)
+    } else {
+      const { search, } = location
+      if (!search) { return }
+      return queryString.parse(search).uid
+    }
   }
 
   submitResponse = (entry: string, promptID: string, promptText: string, attempt: number) => {
@@ -149,7 +156,7 @@ export class StudentViewContainer extends React.Component<StudentViewContainerPr
   }
 
   trackActivityCompletedEvent = () => {
-    const { dispatch, } = this.props
+    const { dispatch, isTurk, handleFinishActivity } = this.props
     const { session, } = this.props
     const { sessionID, } = session
     const activityID = this.activityUID()
@@ -158,6 +165,9 @@ export class StudentViewContainer extends React.Component<StudentViewContainerPr
       activityID,
       sessionID,
     }))
+    if(isTurk) {
+      handleFinishActivity();
+    }
   }
 
   activateStep = (step?: number, callback?: Function) => {

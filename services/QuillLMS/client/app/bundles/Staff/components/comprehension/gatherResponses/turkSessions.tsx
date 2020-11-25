@@ -87,7 +87,7 @@ const TurkSessions: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ match
 
   const turkSessionsRows = data && data.turkSessions && data.turkSessions.map((turkSession: TurkSessionInterface) => {
     const { activity_id, expires_at, id } = turkSession;
-    const url = `https://comprehension-247816.appspot.com/#/turk/${activity_id}/${id}`;
+    const url = `${process.env.DEFAULT_URL}/comprehension/#/turk?uid=${activity_id}&id=${id}`;
     const link = <a href={url} rel="noopener noreferrer" target="_blank">{url}</a>;
     const editButton = (
       <button
