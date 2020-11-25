@@ -83,7 +83,7 @@ export default class TeacherGeneralAccountInfo extends React.Component {
   handleSchoolTypeChange = schoolType => {
     // we don't want teachers to set their school as "not-listed" if they already have a school selected
     if (schoolType.value !== 'U.S. K-12 school' || this.state.schoolType !== 'U.S. K-12 school') {
-      this.setState({ schoolType: schoolType.value, school: schoolType, });
+      this.setState({ schoolType: schoolType.value, school: schoolType, changedSchools: true});
     }
   };
 
