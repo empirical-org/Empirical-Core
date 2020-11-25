@@ -27,7 +27,7 @@ describe('Activities actions', () => {
     })
 
     it('makes a GET request to the activities API', () => {
-      const expectedUrl = `${process.env.EMPIRICAL_BASE_URL}/api/v1/comprehension/activities/${mockActivityID}.json`
+      const expectedUrl = `https://comprehension-247816.appspot.com/activities/${mockActivityID}`
       expect(mockGet).toBeCalledWith(expectedUrl, expect.anything())
     })
   })
