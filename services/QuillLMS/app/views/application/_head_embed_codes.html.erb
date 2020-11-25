@@ -16,6 +16,7 @@
           , Intercom: false
           , Salesmachine: false
           , Vitally: false
+          , Heap: false
           <% end %>
         }
       }
@@ -35,7 +36,8 @@
     <% elsif @logging_user_out %>
       analytics.reset()
     <% end %>
-    <% unless current_user&.student? %>
+
+    <% if current_user&.teacher? %>
       analytics.page();
     <% end %>
 
