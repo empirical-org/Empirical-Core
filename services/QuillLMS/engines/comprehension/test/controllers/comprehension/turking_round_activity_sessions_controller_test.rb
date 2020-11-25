@@ -7,7 +7,7 @@ module Comprehension
     end
 
     context "index" do
-     should "return successfully - no turking_round_activity_session" do
+      should "return successfully - no turking_round_activity_session" do
         get :index
 
         parsed_response = JSON.parse(response.body)
