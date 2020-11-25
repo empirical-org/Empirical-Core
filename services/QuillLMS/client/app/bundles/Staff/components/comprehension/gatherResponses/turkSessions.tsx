@@ -5,11 +5,11 @@ import { SingleDatePicker } from 'react-dates';
 import * as moment from 'moment';
 import { queryCache, useQuery } from 'react-query';
 
+import EditOrDeleteTurkSession from './editOrDeleteTurkSession';
+
+import SubmissionModal from '../shared/submissionModal';
 import { ActivityRouteProps, TurkSessionInterface } from '../../../interfaces/comprehensionInterfaces';
 import { createTurkSession, fetchTurkSessions } from '../../../utils/comprehension/turkAPIs';
-import EditOrDeleteTurkSession from './editOrDeleteTurkSession';
-import SubmissionModal from '../shared/submissionModal';
-import { getCsrfToken } from "../../../helpers/comprehension";
 import { DataTable, Error, Modal, Spinner } from '../../../../Shared/index';
 
 const TurkSessions: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ match }) => {
@@ -34,8 +34,7 @@ const TurkSessions: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ match
     if(!newTurkSessionDate) {
       setDateError('Please choose an expiration date.')
     } else {
-      const csrfToken = getCsrfToken();
-      createTurkSession(activityId, newTurkSessionDate, csrfToken).then((response) => {
+      createTurkSession(activityId, newTurkSessionDate).then((response) => {
         const { error } = response;
         if(error) {
           setSubmissionMessage(error);

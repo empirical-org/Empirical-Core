@@ -1,14 +1,14 @@
 import * as React from "react";
-const checkIcon = <img alt="check icon" src={`${process.env.QUILL_CDN_URL}/images/icons/check-circle-big.svg`} />;
+const checkIcon = <img alt="check icon" src={`${process.env.CDN_URL}/images/icons/check-circle-big.svg`} />;
 
 const TurkLanding = ({ handleStartActivity}) => {
   return(
-    <div className="turk-landing-container">
-      <div className="turk-landing-header-container">
+    <section className="turk-landing-container">
+      <section className="turk-landing-header-container">
         <h1>Amazon Mechanical Turk Task</h1>
         <p>You are completing a reading and writing activity. Your responses will be used to develop our system so that millions of students around the world can improve their reading and writing skills.</p>
-      </div>
-      <div className="turk-landing-directions-container">
+      </section>
+      <section className="turk-landing-directions-container">
         <h1>Directions:</h1>
         <div className="bolded">In order to accurately complete the HIT for payment, you <p>must</p> do the following:</div>
         <ul>
@@ -45,15 +45,15 @@ const TurkLanding = ({ handleStartActivity}) => {
           </li>
         </ul>
         <p className="bolded">By following these directions, you will be provided with a code to input in order to be paid for the HIT.</p>
-      </div>
-      <div className="button-container">
-        <button 
-          className="quill-button small primary contained focus-on-light" 
+      </section>
+      <section className="button-container">
+        <button
+          className="quill-button small primary contained focus-on-light"
           onClick={handleStartActivity}
           type="button"
         >Start Activity</button>
-      </div>
-    </div>
+      </section>
+    </section>
   )
 }
 

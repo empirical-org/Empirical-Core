@@ -1,4 +1,6 @@
 import dispatch from '../../__mocks__/dispatch'
+import { getActivity } from '../../actions/activities'
+import { Events } from '../../modules/analytics'
 
 const mockGet = jest.fn()
 jest.mock('request', () => ({
@@ -9,9 +11,6 @@ const mockTrackAnalyticsEvent = jest.fn()
 jest.mock('../../actions/analytics', () => ({
   TrackAnalyticsEvent: mockTrackAnalyticsEvent
 }))
-
-import { getActivity } from '../../actions/activities'
-import { Events } from '../../modules/analytics'
 
 describe('Activities actions', () => {
   describe('when the getActivity action is dispatched', () => {
@@ -28,7 +27,7 @@ describe('Activities actions', () => {
     })
 
     it('makes a GET request to the activities API', () => {
-      const expectedUrl = `https://comprehension-247816.appspot.com/activities/${mockActivityID}`
+      const expectedUrl = `${process.env.EMPIRICAL_BASE_URL}/api/v1/comprehension/activities/${mockActivityID}.json`
       expect(mockGet).toBeCalledWith(expectedUrl, expect.anything())
     })
   })

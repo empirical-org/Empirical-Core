@@ -4,6 +4,7 @@ import { connect } from "react-redux";
 
 import PromptStep from './promptStep'
 import StepLink from './stepLink'
+
 import LoadingSpinner from '../shared/loadingSpinner'
 import { getActivity } from "../../actions/activities";
 import { TrackAnalyticsEvent } from "../../actions/analytics";
@@ -242,7 +243,8 @@ export class StudentViewContainer extends React.Component<StudentViewContainerPr
 
   addPTagsToPassages = (passages) => {
     return passages.map(passage => {
-      const paragraphArray = passage.match(/[^\r\n]+/g)
+      const { text } = passage;
+      const paragraphArray = text ? text.match(/[^\r\n]+/g) : [];
       return paragraphArray.map(p => `<p>${p}</p>`).join('')
     })
   }

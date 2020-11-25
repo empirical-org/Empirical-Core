@@ -1,5 +1,6 @@
 .turker-view-container {
   overflow: auto;
+
   .turk-landing-container {
     display: flex;
     flex-direction: column;
@@ -11,16 +12,17 @@
     }
     .turk-landing-header-container {
       padding-top: 20px;
-      max-width: 910px;
+      max-width: 750px;
       p {
-        padding: 30px 0px 30px 0px;
+        padding: 20px 0px 20px 0px;
       }
     }
     .turk-landing-directions-container {
+      max-width: 750px;
       .bolded {
         display: flex;
         font-weight: bold;
-        padding: 30px 0px 30px 0px;
+        padding: 20px 0px 20px 0px;
         p {
           margin: 0px 3px 0px 3px;
           text-decoration: underline;
@@ -44,8 +46,9 @@
       }
     }
     .button-container {
-      max-width: 910px;
+      max-width: 750px;
       width: 100%;
+      margin-top: 20px;
       button {
         width: 200px;
       }
@@ -69,10 +72,10 @@
     }
     .code {
       background-color: #009a80;
-    padding: 10px;
-    color: white;
-    font-weight: bold;
-    border-radius: 6px;
+      padding: 10px;
+      color: white;
+      font-weight: bold;
+      border-radius: 6px;
     }
   }
 }
