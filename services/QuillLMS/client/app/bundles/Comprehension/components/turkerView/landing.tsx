@@ -1,7 +1,7 @@
 import * as React from "react";
 const checkIcon = <img alt="check icon" src={`${process.env.CDN_URL}/images/icons/check-circle-big.svg`} />;
 
-const TurkLanding = ({ handleStartActivity}) => {
+export const TurkLanding = ({ handleStartActivity}) => {
   return(
     <section className="turk-landing-container">
       <section className="turk-landing-header-container">

@@ -11,11 +11,11 @@ export const TurkerView = ({ session }) => {
   const [activityStarted, setActivityStarted] = React.useState<boolean>(false);
   const [activityCompleted, setActivityCompleted] = React.useState<boolean>(false);
 
-  const handleStartActivity = () => {
+  function handleStartActivity() {
     setActivityStarted(true);
   }
 
-  const handleFinishActivity = () => {
+  function handleFinishActivity() {
     setActivityCompleted(true);
   }
 
