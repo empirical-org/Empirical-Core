@@ -36,14 +36,17 @@ export class Tooltip extends React.Component<TooltipProps, {}> {
   }
 
   showTooltip() {
+    const { tooltipText, } = this.props
     const activeTooltips = document.getElementsByClassName('visible quill-tooltip')
     Array.from(activeTooltips).forEach(tooltip => tooltip.classList.remove('visible'))
     clearTimeout(this.timer)
+    this.tooltip.innerHTML = tooltipText
     this.tooltip.classList.add('visible')
   }
 
   hideTooltip() {
     this.tooltip.classList.remove('visible')
+    this.tooltip.innerHTML = ''
   }
 
   startTimer() {
@@ -51,7 +54,7 @@ export class Tooltip extends React.Component<TooltipProps, {}> {
   }
 
   render() {
-    const { tooltipText, tooltipTriggerText, tooltipTriggerTextClass, tooltipTriggerStyle, tooltipTriggerTextStyle, } = this.props
+    const { tooltipTriggerText, tooltipTriggerTextClass, tooltipTriggerStyle, tooltipTriggerTextStyle, } = this.props
     return (
       <span
         className="quill-tooltip-trigger"
@@ -70,9 +73,7 @@ export class Tooltip extends React.Component<TooltipProps, {}> {
           <span
             className="quill-tooltip"
             ref={node => this.tooltip = node}
-          >
-            {tooltipText}
-          </span>
+          />
         </span>
       </span>)
   }

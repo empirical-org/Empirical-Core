@@ -122,6 +122,7 @@ const StandardsTable = ({ searchValue, standardCategories, standardLevels, recor
       columns={columns(selectRecord)}
       dataSource={filteredRecords}
       pagination={false}
+      showSorterTooltip={false}
       size="middle"
     />
     <div className="record-box-container">

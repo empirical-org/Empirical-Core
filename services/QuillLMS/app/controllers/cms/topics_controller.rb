@@ -22,4 +22,52 @@ class Cms::TopicsController < Cms::CmsController
     render json: { topics: topics, change_logs: change_logs }
   end
 
+
+  def create
+    topic = topic_params
+
+    if topic[:change_logs_attributes]
+      topic[:change_logs_attributes] = topic[:change_logs_attributes].map do |cl|
+        cl[:user_id] = current_user.id
+        cl
+      end
+    end
+
+    new_topic = Topic.create!(topic)
+
+    render json: { topic: new_topic }
+  end
+
+  def update
+    topic = topic_params
+    topic[:change_logs_attributes] = topic[:change_logs_attributes].map do |cl|
+      cl[:user_id] = current_user.id
+      cl
+    end
+
+    updated_topic = Topic.find_by_id(params[:id]).update(topic)
+
+    render json: { topic: updated_topic }
+  end
+
+  def topic_params
+    params.require(:topic).permit(
+      :name,
+      :id,
+      :visible,
+      :parent_id,
+      :level,
+      change_logs_attributes: [
+        :action,
+        :explanation,
+        :changed_attribute,
+        :previous_value,
+        :new_value,
+        :changed_record_id,
+        :changed_record_type,
+        :user_id
+      ]
+    )
+  end
+
 end
