@@ -14,7 +14,7 @@ const standardLevelTooltipText = "Standards are grouped by their grade level. Th
 function columns(selectRecord) {
   return [
     {
-      title: <Tooltip tooltipTriggerText="Standard Level" tooltipText={standardLevelTooltipText} />,
+      title: <Tooltip tooltipText={standardLevelTooltipText} tooltipTriggerText="Standard Level" />,
       dataIndex: 'standard_level_name',
       defaultSortOrder: 'ascend',
       key: 'standardLevelName',
@@ -28,7 +28,7 @@ function columns(selectRecord) {
       sorter:  (a, b) => (a.standard_level_activity_count - b.standard_level_activity_count)
     },
     {
-      title: <Tooltip tooltipTriggerText="Standard Category" tooltipText={standardCategoryTooltipText} />,
+      title: <Tooltip tooltipText={standardCategoryTooltipText} tooltipTriggerText="Standard Category" />,
       dataIndex: 'standard_category_name',
       key: 'standardCategoryName',
       render: (text, record) => (<div onClick={() => selectRecord(record.standard_category_id, STANDARD_CATEGORY)}>{text}</div>),
