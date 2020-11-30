@@ -46,7 +46,9 @@ export default class ChangeLogModal extends React.Component<ChangeLogModalProps,
       description: 'Rule description updated',
       explanation: 'Explanation updated',
       new: 'Created',
-      replaced: 'Replaced'
+      replaced: 'Replaced',
+      standard_category_id: 'Standard category updated',
+      standard_level_id: 'Standard level updated'
     }
   }
 

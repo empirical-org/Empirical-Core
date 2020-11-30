@@ -87,5 +87,12 @@ FactoryBot.define do
       position  { 19 }
       uid       { 'w-FS_PyaoAnRt9ZiVQQZgA' }
     end
+
+    trait :with_change_log do
+      after(:create) do |t|
+        create(:change_log, changed_record: t)
+      end
+    end
+    
   end
 end
