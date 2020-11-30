@@ -63,7 +63,7 @@ exports[`TurkLanding Component should match snapshot 1`] = `
           src="undefined/images/icons/check-circle-big.svg"
         />
         <div>
-          Use the feedback to revise each sentence up to 
+          Use the feedback to revise each sentence up to
           <p>
             five
           </p>
