@@ -287,7 +287,6 @@ workflows:
       - lms_node_build
       - marking_logic_node_build
       - cms_rails_build
-      - spellchecker_node_build
       - comprehension_rails_build
       - comprehension_python_build
   lint-code:
