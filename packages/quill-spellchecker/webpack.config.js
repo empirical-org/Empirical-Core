@@ -10,8 +10,7 @@ module.exports = {
     },
     module: {
         rules: [
-            { test: /\.ts$/, exclude: [/node_modules/], use: ['ts-loader'] },
-            { test: /\.css$/, use: ['style-loader', 'css-loader'] },
+            { test: /\.ts$/, exclude: [/node_modules/], use: ['ts-loader'] }
         ]
     },
     resolve: {

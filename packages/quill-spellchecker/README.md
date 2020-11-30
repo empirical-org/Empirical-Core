@@ -96,14 +96,9 @@ karma init
 ```
 With Mocha
 ```
-npm i  karma-mocha karma-phantomjs-launcher karma-webpack -D
+npm i  karma-mocha karma-webpack -D
 ```
 singleRun .. true
-
-### Webpack
-```
-npm i  webpack webpack-dev-server -D
-```
 
 ### NPM Scripts
 ```

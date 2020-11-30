@@ -5,6 +5,8 @@ var webpackConfig = require('./webpack.config');
 webpackConfig.entry = {};
 webpackConfig.plugins = [];
 webpackConfig.devtool = 'inline-source-map';
+const puppeteer = require('puppeteer');
+process.env.CHROME_BIN = puppeteer.executablePath();
 
 module.exports = function (config) {
     config.set({
@@ -18,7 +20,6 @@ module.exports = function (config) {
 
         // list of files / patterns to load in the browser
         files: [
-            './node_modules/phantomjs-polyfill-object-assign/object-assign-polyfill.js',
             './test/index.js',
             './src/**/*.spec.ts'
         ],
@@ -71,7 +72,7 @@ module.exports = function (config) {
 
         // start these browsers
         // available browser launchers: https://npmjs.org/browse/keyword/karma-launcher
-        browsers: ['PhantomJS'],
+        browsers: ['ChromeHeadless'],
 
         // Continuous Integration mode
         // if true, Karma captures browsers, runs the tests and exits
@@ -83,8 +84,8 @@ module.exports = function (config) {
 
         plugins: [
             require('karma-mocha'),
-            require('karma-phantomjs-launcher'),
-            require('karma-webpack')
+            require('karma-webpack'),
+            require('karma-chrome-launcher')
         ]
     })
 }
