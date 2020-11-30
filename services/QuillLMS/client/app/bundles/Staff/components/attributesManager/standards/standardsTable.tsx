@@ -18,7 +18,7 @@ function columns(selectRecord) {
       dataIndex: 'standard_level_name',
       defaultSortOrder: 'ascend',
       key: 'standardLevelName',
-      render: (text, record) => (<div onClick={() => selectRecord(record.standard_level_id, STANDARD_LEVEL)}>{text}</div>),
+      render: (text, record) => (<button className="interactive-wrapper" onClick={() => selectRecord(record.standard_level_id, STANDARD_LEVEL)}>{text}</button>),
       sorter: sortWordsThatIncludeNumbers('standard_level_name')
     },
     {
@@ -31,7 +31,7 @@ function columns(selectRecord) {
       title: <Tooltip tooltipText={standardCategoryTooltipText} tooltipTriggerText="Standard Category" />,
       dataIndex: 'standard_category_name',
       key: 'standardCategoryName',
-      render: (text, record) => (<div onClick={() => selectRecord(record.standard_category_id, STANDARD_CATEGORY)}>{text}</div>),
+      render: (text, record) => (<button className="interactive-wrapper" onClick={() => selectRecord(record.standard_category_id, STANDARD_CATEGORY)}>{text}</button>),
       sorter: sortWordsThatIncludeNumbers('standard_category_name')
     },
     {
@@ -44,7 +44,7 @@ function columns(selectRecord) {
       title: 'Standard ',
       dataIndex: 'name',
       key: 'standardName',
-      render: (text, record) => (<div onClick={() => selectRecord(record.id, STANDARD)}>{text}</div>),
+      render: (text, record) => (<button className="interactive-wrapper" onClick={() => selectRecord(record.id, STANDARD)}>{text}</button>),
       sorter: sortWordsThatIncludeNumbers()
     },
     {

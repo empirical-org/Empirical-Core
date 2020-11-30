@@ -24,7 +24,7 @@ function columns(selectRecord, recordType) {
       dataIndex: 'name',
       defaultSortOrder: 'ascend',
       key: 'name',
-      render: (text, record:RecordRow) => (<div onClick={() => selectRecord(record, recordType)}>{text}</div>),
+      render: (text, record:RecordRow) => (<button className="interactive-wrapper" onClick={() => selectRecord(record, recordType)}>{text}</button>),
       sorter: sortWordsThatIncludeNumbers()
     }
   ]
