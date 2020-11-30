@@ -254,7 +254,12 @@ export class StudentViewContainer extends React.Component<StudentViewContainerPr
   addPTagsToPassages = (passages) => {
     return passages.map(passage => {
       const { text } = passage;
-      const paragraphArray = text ? text.match(/[^\r\n]+/g) : [];
+      let paragraphArray = [];
+      if(text) {
+        paragraphArray = text.match(/[^\r\n]+/g)
+      } else if(typeof passage === 'string') {
+        paragraphArray = passage.match(/[^\r\n]+/g)
+      }
       return paragraphArray.map(p => `<p>${p}</p>`).join('')
     })
   }

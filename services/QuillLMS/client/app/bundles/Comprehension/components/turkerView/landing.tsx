@@ -2,6 +2,14 @@ import * as React from "react";
 const checkIcon = <img alt="check icon" src={`${process.env.CDN_URL}/images/icons/check-circle-big.svg`} />;
 
 export const TurkLanding = ({ handleStartActivity}) => {
+  function renderElement(text: string, textArray?: string[], style?: string) {
+    return(
+      <li>
+        {checkIcon}
+        {textArray ? <div className={style}>{textArray[0]}<p>{text}</p>{textArray[1]}</div> : <p>{text}</p>}
+      </li>
+    );
+  }
   return(
     <section className="turk-landing-container">
       <section className="turk-landing-header-container">
@@ -12,37 +20,16 @@ export const TurkLanding = ({ handleStartActivity}) => {
         <h1>Directions:</h1>
         <div className="bolded">In order to accurately complete the HIT for payment, you <p>must</p> do the following:</div>
         <ul>
-          <li>
-            {checkIcon}
-            <p>Read the passage</p>
-          </li>
-          <li>
-            {checkIcon}
-            <p>Complete all three sentences</p>
-          </li>
-          <li>
-            {checkIcon}
-            <p>Analyze the feedback provided</p>
-          </li>
-          <li>
-            {checkIcon}
-            <div>Use the feedback to revise each sentence up to <p>five</p> times</div>
-          </li>
+          {renderElement('Read the passage')}
+          {renderElement('Complete all three sentences')}
+          {renderElement('Analyze the feedback provided')}
+          {renderElement('five', ['Use the feedback to revise each sentence up to', ' times'])}
         </ul>
         <div className="bolded">Each of your sentences <p>must</p>:</div>
         <ul>
-          <li>
-            {checkIcon}
-            <div>Be <p>one</p> sentence long</div>
-          </li>
-          <li>
-            {checkIcon}
-            <p>Use proper capitalization (i.e. do not write in capital letters)</p>
-          </li>
-          <li>
-            {checkIcon}
-            <p>Be based on the text, but written in your own words</p>
-          </li>
+          {renderElement('one', ['Be ', ' sentence long'])}
+          {renderElement('Use proper capitalization (i.e. do not write in capital letters)')}
+          {renderElement('Be based on the text, but written in your own words')}
         </ul>
         <p className="bolded">By following these directions, you will be provided with a code to input in order to be paid for the HIT.</p>
       </section>
