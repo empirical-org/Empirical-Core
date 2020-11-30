@@ -18,6 +18,13 @@
         justify-content: space-between;
         align-items: center;
         height: 18px;
+        h2 {
+          display: flex;
+          align-items: center;
+          i {
+            margin-left: 4px;
+          }
+        }
       }
       p {
         padding-left: 24px;
@@ -48,7 +55,7 @@
       .saved-row {
         margin-left: 24px;
       }
-      &.content-partner-filter-section, &.activity-category-filter-section {
+      &.content-partner-filter-section, &.activity-category-filter-section, &.flag-filter-section {
         .individual-row {
           margin-left: 24px;
         }

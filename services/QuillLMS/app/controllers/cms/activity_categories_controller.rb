@@ -3,6 +3,12 @@ class Cms::ActivityCategoriesController < Cms::CmsController
 
   def index
     @activity_categories = ActivityCategory.order(order_number: :asc)
+
+    respond_to do |format|
+      format.json {
+        render json: { activity_categories: @activity_categories }
+      }
+    end
   end
 
   def update

@@ -40,6 +40,8 @@ export const ACTIVITY_CATEGORY_FILTERS = 'activityCategoryFilters'
 
 export const CONTENT_PARTNER_FILTERS = 'contentPartnerFilters'
 
+export const FLAG_FILTERS = 'flagFilters'
+
 export const TOPIC_FILTERS = 'topicFilters'
 
 export const SAVED_ACTIVITY_FILTERS = 'savedActivityFilters'
@@ -111,7 +113,7 @@ export const filters = {
   [CONTENT_PARTNER_FILTERS]: filterByContentPartners,
   [TOPIC_FILTERS]: filterByTopic,
   [SAVED_ACTIVITY_FILTERS]: filterBySavedActivityIds,
-  flagFilters: filterByFlag
+  [FLAG_FILTERS]: filterByFlag
 }
 
 export const stringifyLowerLevelTopics = (topics) => {

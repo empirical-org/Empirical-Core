@@ -63,6 +63,7 @@ const CustomActivityPack = ({
   const debouncedContentPartnerFilters = useDebounce(contentPartnerFilters, DEBOUNCE_LENGTH);
   const debouncedTopicFilters = useDebounce(topicFilters, DEBOUNCE_LENGTH);
   const debouncedSavedActivityFilters = useDebounce(savedActivityFilters, DEBOUNCE_LENGTH);
+  const debouncedFlagFilters = useDebounce(flagFilters, DEBOUNCE_LENGTH);
 
   React.useEffect(() => {
     getActivities();
@@ -82,7 +83,7 @@ const CustomActivityPack = ({
     }
   }, [activities])
 
-  React.useEffect(handleFilterChange, [debouncedSearch, debouncedActivityClassificationFilters, debouncedCCSSGradeLevelFilters, debouncedActivityCategoryFilters, debouncedContentPartnerFilters, debouncedReadabilityGradeLevelFilters, debouncedTopicFilters, debouncedSavedActivityFilters])
+  React.useEffect(handleFilterChange, [debouncedSearch, debouncedActivityClassificationFilters, debouncedCCSSGradeLevelFilters, debouncedActivityCategoryFilters, debouncedContentPartnerFilters, debouncedReadabilityGradeLevelFilters, debouncedTopicFilters, debouncedSavedActivityFilters, debouncedFlagFilters])
 
   function handleFilterChange() {
     updateQueryString()

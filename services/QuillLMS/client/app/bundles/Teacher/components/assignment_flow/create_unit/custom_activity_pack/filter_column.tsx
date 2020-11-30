@@ -3,10 +3,12 @@ import * as React from 'react';
 import { Activity } from './interfaces'
 import ActivityClassificationFilters from './activity_classification_filters'
 import ActivityCategoryFilters from './activity_category_filters'
+import StaffActivityCategoryFilters from './staff_activity_category_filters'
 import CCSSGradeLevelFilters from './ccss_grade_level_filters'
 import ReadabilityGradeLevelFilters from './readability_grade_level_filters'
 import ContentPartnerFilters from './content_partner_filters'
 import TopicFilters from './topic_filters'
+import FlagFilters from './flag_filters'
 
 interface FilterColumnProps {
   activities: Activity[],
@@ -54,11 +56,38 @@ const FilterColumn = ({
   handleTopicFilterChange,
   savedActivityFilters,
   handleSavedActivityFilterChange,
-  savedActivityIds
+  savedActivityIds,
+  isStaff,
+  flagFilters,
+  handleFlagFilterChange
 }: FilterColumnProps) => {
   const numberOfFilters = calculateNumberOfFilters()
   const clearAllButton = numberOfFilters ? <button className="interactive-wrapper clear-filter focus-on-light" onClick={resetAllFilters} type="button">Clear all filters</button> : <span />
   const filterCount = numberOfFilters ? `${numberOfFilters} filter${numberOfFilters === 1 ? '' : 's'} • ` : ''
+
+  let flagFilterSection
+  let activityCategoryFilterSection = (<ActivityCategoryFilters
+    activities={activities}
+    activityCategoryFilters={activityCategoryFilters}
+    filterActivities={filterActivities}
+    handleActivityCategoryFilterChange={handleActivityCategoryFilterChange}
+  />)
+
+  if (isStaff) {
+    flagFilterSection = <FlagFilters
+      activities={activities}
+      flagFilters={flagFilters}
+      filterActivities={filterActivities}
+      handleFlagFilterChange={handleFlagFilterChange}
+    />
+    activityCategoryFilterSection = (<StaffActivityCategoryFilters
+      activities={activities}
+      activityCategoryFilters={activityCategoryFilters}
+      filterActivities={filterActivities}
+      handleActivityCategoryFilterChange={handleActivityCategoryFilterChange}
+    />)
+  }
+
   return (<section className="filter-column">
     <section className="filter-section filtered-results">
       <div className="name-and-clear-wrapper">
@@ -67,6 +96,7 @@ const FilterColumn = ({
       </div>
       <p>{filterCount}{filteredActivities.length} of {activities.length} activities</p>
     </section>
+    {flagFilterSection}
     <ActivityClassificationFilters
       activities={activities}
       activityClassificationFilters={activityClassificationFilters}
@@ -84,12 +114,7 @@ const FilterColumn = ({
       ccssGradeLevelFilters={ccssGradeLevelFilters}
       handleCCSSGradeLevelFilterChange={handleCCSSGradeLevelFilterChange}
     />
-    <ActivityCategoryFilters
-      activities={activities}
-      activityCategoryFilters={activityCategoryFilters}
-      filterActivities={filterActivities}
-      handleActivityCategoryFilterChange={handleActivityCategoryFilterChange}
-    />
+    {activityCategoryFilterSection}
     <TopicFilters
       activities={activities}
       filterActivities={filterActivities}
