@@ -1,8 +1,9 @@
-import {responses} from '../../../test/data/batswings'
 import { assert } from 'chai';
+
 import {checkDiagnosticQuestion} from './diagnostic_question';
-import {Response} from '../../interfaces';
+
 import { feedbackStrings } from '../constants/feedback_strings';
+import {responses} from '../../../test/data/batswings'
 
 describe('The checking a diagnostic question', () => {
 

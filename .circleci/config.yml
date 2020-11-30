@@ -135,22 +135,6 @@ jobs:
           command: |
             cd services/QuillCMS
             bundle exec rake spec
-  spellchecker_node_build:
-    working_directory: ~/Empirical-Core
-    docker:
-      - image: circleci/node:8.11.3
-    steps:
-      - checkout
-      - run:
-          name: Install NPM dependencies
-          command: |
-            cd packages/quill-spellchecker
-            npm install
-      - run:
-          name: Run Spellchecker Tests
-          command: |
-            cd packages/quill-spellchecker
-            FORCE_COLOR=true npm run test --colors
   marking_logic_node_build:
     working_directory: ~/Empirical-Core
     docker:
