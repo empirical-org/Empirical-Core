@@ -17,6 +17,7 @@ const DEBOUNCE_LENGTH = 500
 
 interface CustomActivityPackProps {
   passedActivities?: Activity[],
+  isStaff?: boolean
   clickContinue: (event: any) => void,
   selectedActivities: Activity[],
   setSelectedActivities: (selectedActivities: Activity[]) => void,
@@ -29,6 +30,7 @@ const CustomActivityPack = ({
   selectedActivities,
   setSelectedActivities,
   toggleActivitySelection,
+  isStaff
 }: CustomActivityPackProps) => {
   const url = queryString.parseUrl(window.location.href, { arrayFormat: 'bracket', parseNumbers: true }).query;
 
@@ -44,6 +46,7 @@ const CustomActivityPack = ({
   const [activityCategoryFilters, setActivityCategoryFilters] = React.useState(url.activityCategoryFilters || [])
   const [contentPartnerFilters, setContentPartnerFilters] = React.useState(url.contentPartnerFilters || [])
   const [topicFilters, setTopicFilters] = React.useState(url.topicFilters || [])
+  const [flagFilters, setFlagFilters] = React.useState(url.flagFilters || [])
   const [savedActivityFilters, setSavedActivityFilters] = React.useState([])
   const [showMobileFilterMenu, setShowMobileFilterMenu] = React.useState(false)
   const [showMobileSortMenu, setShowMobileSortMenu] = React.useState(false)
@@ -95,6 +98,7 @@ const CustomActivityPack = ({
     number += contentPartnerFilters.length
     number += topicFilters.length
     number += savedActivityFilters.length ? 1 : 0
+    number += flagFilters.length
 
     activityClassificationGroupings.forEach((g) => {
       if (g.keys.every(key => activityClassificationFilters.includes(key))) {
@@ -187,6 +191,11 @@ const CustomActivityPack = ({
     setTopicFilters(newTopicFilters)
   }
 
+  function handleFlagFilterChange(newFlagFilters: string[]) {
+    setFilterHistory(prevFilterHistory => prevFilterHistory.concat([{ function: setFlagFilters, argument: topicFilters }]))
+    setFlagFilters(newFlagFilters)
+  }
+
   function handleSavedActivityFilterChange() {
     setFilterHistory(prevFilterHistory => prevFilterHistory.concat([{ function: setSavedActivityFilters, argument: savedActivityFilters }]))
     setSavedActivityFilters(savedActivityFilters.length ? [] : savedActivityIds)
@@ -202,6 +211,7 @@ const CustomActivityPack = ({
     setContentPartnerFilters([])
     setTopicFilters([])
     setSavedActivityFilters([])
+    setFlagFilters([])
   }
 
   function filterActivities(ignoredKey=null) {
@@ -266,7 +276,10 @@ const CustomActivityPack = ({
     handleTopicFilterChange,
     savedActivityFilters,
     handleSavedActivityFilterChange,
-    savedActivityIds
+    savedActivityIds,
+    handleFlagFilterChange,
+    flagFilters,
+    isStaff
   }
 
   return (<div className="custom-activity-pack-page">

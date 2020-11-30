@@ -22,8 +22,8 @@ interface HeaderProps {
 }
 
 const AssignButton = ({ selectedActivities, handleClickContinue, }: AssignButtonProps) => {
-  let buttonClass = 'quill-button contained primary medium focus-on-light';
   let action = handleClickContinue
+  let buttonClass = 'quill-button contained primary medium focus-on-light';
   if (!(selectedActivities && selectedActivities.length)) {
     buttonClass += ' disabled';
     action = null
@@ -34,6 +34,8 @@ const AssignButton = ({ selectedActivities, handleClickContinue, }: AssignButton
 const Header = ({ handleClickContinue, selectedActivities, setSelectedActivities, toggleActivitySelection, }: HeaderProps) => {
   const [showActivities, setShowActivities] = React.useState(false)
   const [showSnackbar, setShowSnackbar] = React.useState(false)
+
+  let action = handleClickContinue
 
   React.useEffect(() => {
     if (showSnackbar) {

@@ -28,7 +28,10 @@ interface FilterColumnProps {
   handleTopicFilterChange: (topicFilters: number[]) => void,
   savedActivityFilters: number[],
   handleSavedActivityFilterChange: () => void,
-  savedActivityIds: number[]
+  savedActivityIds: number[],
+  flagFilters: string[],
+  handleFlagFilterChange: () => void,
+  isStaff?: boolean
 }
 
 const FilterColumn = ({
