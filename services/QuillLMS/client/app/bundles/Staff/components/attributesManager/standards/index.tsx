@@ -123,17 +123,11 @@ const Standards = ({ match, location, }) => {
 
   let activeLink
 
-  if (location.pathname.includes(ARCHIVED)) {
-    activeLink = ARCHIVED
-  }
-
-  if (location.pathname.includes(NEW)) {
-    activeLink = NEW
-  }
-
-  if (location.pathname.includes(CHANGE_LOGS)) {
-    activeLink = CHANGE_LOGS
-  }
+  [ARCHIVED, NEW, CHANGE_LOGS].forEach(path => {
+    if (location.pathname.includes(path)) {
+      activeLink = path
+    }
+  })
 
   const recordTypes = [
     {

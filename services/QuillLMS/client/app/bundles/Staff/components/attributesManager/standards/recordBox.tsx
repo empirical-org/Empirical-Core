@@ -7,7 +7,7 @@ import { STANDARD, sortWordsThatIncludeNumbers, } from './shared'
 
 import IndividualRecordChangeLogs from '../../shared/individualRecordChangeLogs'
 import ChangeLogModal from '../../shared/changeLogModal'
-import { Input, DropdownInput, } from '../../../../Shared/index'
+import { Input, DropdownInput, momentFormatConstants, } from '../../../../Shared/index'
 
 interface RecordBoxProps {
   originalRecord: Record;
@@ -18,7 +18,7 @@ interface RecordBoxProps {
   standardLevels: any
 }
 
-const formatDateTime = (cl) => moment(cl.created_at).format('MMMM D, YYYY [at] LT')
+const formatDateTime = (cl) => moment(cl.created_at).format(momentFormatConstants.LONG_DATE_WITH_TIME)
 
 const RecordBox = ({ originalRecord, saveRecordChanges, closeRecordBox, recordType, standardCategories, standardLevels, standards, recordTypeAttribute }) => {
   const [showChangeLogModal, setShowChangeLogModal] = React.useState(false)
