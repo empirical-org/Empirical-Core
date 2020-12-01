@@ -1,6 +1,6 @@
 {
   "name": "quill-marking-logic",
-  "version": "0.14.0",
+  "version": "0.14.1",
   "description": "Shared Quill logic for grading and contextualizing student writing.",
   "main": "./dist/lib",
   "module": "./dist/lib",
