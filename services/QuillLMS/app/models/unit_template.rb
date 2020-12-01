@@ -65,7 +65,7 @@ class UnitTemplate < ActiveRecord::Base
     student_ids = [] # student ids will be populated in the classroom activity assign_on_join callback
     argument_hash = {
       unit_template_id: unit_template_id,
-      class_id: class_id,
+      classroom_id: class_id,
       student_ids: student_ids,
       last: true,
       lesson: true,
