@@ -123,25 +123,33 @@ class Teachers::ProgressReports::DiagnosticReportsController < Teachers::Progres
 
   private
     def create_or_update_selected_packs
-        if params[:whole_class]
-          $redis.set("user_id:#{current_user.id}_lesson_diagnostic_recommendations_start_time", Time.now)
-          return render json: {}, status: 401 unless current_user.classrooms_i_teach.map(&:id).include?(params[:classroom_id].to_i)
-          UnitTemplate.assign_to_whole_class(params[:classroom_id], params[:unit_template_id])
-        else
-          selections_with_students = params[:selections].select do |ut|
-            ut[:classrooms][0][:student_ids]&.compact&.any?
-          end
-          if selections_with_students.any?
-            $redis.set("user_id:#{current_user.id}_diagnostic_recommendations_start_time", Time.now)
-            number_of_selections = selections_with_students.length
-            selections_with_students.each_with_index do |value, index|
-                last = (number_of_selections - 1) == index
-                # this only accommodates one classroom at a time
-                classroom = value[:classrooms][0]
-                AssignRecommendationsWorker.perform_async(value[:id], classroom[:id], classroom[:student_ids].compact, last, false) if current_user.classrooms_i_teach.map(&:id).include?(classroom[:id].to_i)
-            end
+      if params[:whole_class]
+        $redis.set("user_id:#{current_user.id}_lesson_diagnostic_recommendations_start_time", Time.now)
+        return render json: {}, status: 401 unless current_user.classrooms_i_teach.map(&:id).include?(params[:classroom_id].to_i)
+        UnitTemplate.assign_to_whole_class(params[:classroom_id], params[:unit_template_id])
+      else
+        selections_with_students = params[:selections].select do |ut|
+          ut[:classrooms][0][:student_ids]&.compact&.any?
+        end
+        if selections_with_students.any?
+          $redis.set("user_id:#{current_user.id}_diagnostic_recommendations_start_time", Time.now)
+          number_of_selections = selections_with_students.length
+          selections_with_students.each_with_index do |value, index|
+              last = (number_of_selections - 1) == index
+              # this only accommodates one classroom at a time
+              classroom = value[:classrooms][0]
+              argument_hash = {
+                unit_template_id: value[:id],
+                classroom_id: classroom[:id],
+                student_ids: classroom[:student_ids].compact,
+                last: last,
+                lesson: false,
+                assigning_all_recommended_packs: params[:assigning_all_recommended_packs]
+              }
+              AssignRecommendationsWorker.new.perform(argument_hash) if current_user.classrooms_i_teach.map(&:id).include?(classroom[:id].to_i)
           end
         end
+      end
     end
 
     def authorize_teacher!

@@ -127,8 +127,13 @@ export default class Recommendations extends React.Component {
   }
 
   handleAssignClick = () => {
+    const { recommendations, selections, } = this.state
+    const dataToPass = {
+      ...this.formatSelectionsForAssignment(),
+      assigning_all_recommended_packs: _.isEqual(selections, recommendations)
+    }
     this.setState({ assigning: true, }, () => {
-      requestPost('/teachers/progress_reports/assign_selected_packs/', this.formatSelectionsForAssignment(), (data) => {
+      requestPost('/teachers/progress_reports/assign_selected_packs/', dataToPass, (data) => {
         this.initializePusher()
       }, (data) => {
         alert('We had trouble processing your request. Please check your network connection and try again.');

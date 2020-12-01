@@ -33,7 +33,8 @@
           name: "<%= raw(current_user.school.name) %>"
         })
       <% end %>
-    <% elsif @logging_user_out %>
+    <% else %>
+    <%# <% elsif @logging_user_out %> %>
       analytics.reset()
     <% end %>
 
