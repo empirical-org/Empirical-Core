@@ -13,6 +13,7 @@ import { getFeedback } from '../../actions/session'
 import { ActivitiesReducerState } from '../../reducers/activitiesReducer'
 import { SessionReducerState } from '../../reducers/sessionReducer'
 import getParameterByName from '../../helpers/getParameterByName';
+import { Activity, Passage } from '../../interfaces/activities'
 
 const bigCheckSrc =  `${process.env.CDN_URL}/images/icons/check-circle-big.svg`
 const tadaSrc =  `${process.env.CDN_URL}/images/illustrations/tada.svg`
@@ -78,11 +79,10 @@ export class StudentViewContainer extends React.Component<StudentViewContainerPr
     const { location, isTurk } = this.props
     if(isTurk) {
       return getParameterByName('uid', window.location.href)
-    } else {
-      const { search, } = location
-      if (!search) { return }
-      return queryString.parse(search).uid
     }
+    const { search, } = location
+    if (!search) { return }
+    return queryString.parse(search).uid
   }
 
   submitResponse = (entry: string, promptID: string, promptText: string, attempt: number) => {
@@ -251,15 +251,10 @@ export class StudentViewContainer extends React.Component<StudentViewContainerPr
     this.scrollToStepOnMobile(`step${stepNumber}`)
   }
 
-  addPTagsToPassages = (passages) => {
+  addPTagsToPassages = (passages: Passage[]) => {
     return passages.map(passage => {
       const { text } = passage;
-      let paragraphArray = [];
-      if(text) {
-        paragraphArray = text.match(/[^\r\n]+/g)
-      } else if(typeof passage === 'string') {
-        paragraphArray = passage.match(/[^\r\n]+/g)
-      }
+      const paragraphArray = text ? text.match(/[^\r\n]+/g) : [];
       return paragraphArray.map(p => `<p>${p}</p>`).join('')
     })
   }
@@ -271,7 +266,7 @@ export class StudentViewContainer extends React.Component<StudentViewContainerPr
 
     if (!currentActivity) { return }
 
-    let passages = currentActivity.passages
+    let passages: any[] = currentActivity.passages
     const passagesWithPTags = this.addPTagsToPassages(passages)
 
     if (!activeStep || activeStep === READ_PASSAGE_STEP) { return passagesWithPTags }
@@ -290,9 +285,10 @@ export class StudentViewContainer extends React.Component<StudentViewContainerPr
 
     passageHighlights.forEach(hl => {
       const characterStart = hl.character || 0
-      passages = passages.map(passage => {
-        const passageBeforeCharacterStart = passage.substring(0, characterStart)
-        const passageAfterCharacterStart = passage.substring(characterStart)
+      passages = passages.map((passage: Passage) => {
+        const { text } = passage;
+        const passageBeforeCharacterStart = text.substring(0, characterStart)
+        const passageAfterCharacterStart = text.substring(characterStart)
         const highlightedPassageAfterCharacterStart = passageAfterCharacterStart.replace(hl.text, `<span class="passage-highlight">${hl.text}</span>`)
         return `${passageBeforeCharacterStart}${highlightedPassageAfterCharacterStart}`
       })

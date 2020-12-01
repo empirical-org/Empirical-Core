@@ -19,11 +19,17 @@ export const TurkerView = ({ session }) => {
     setActivityCompleted(true);
   }
 
+  function componentToShow() {
+    if (!activityStarted) { return <TurkLanding handleStartActivity={handleStartActivity} /> }
+
+    if (activityStarted && !activityCompleted) { return <StudentView handleFinishActivity={handleFinishActivity} isTurk={true} />}
+
+    return <TurkCompleted code={sessionID} />
+ }
+
   return(
     <div className="turker-view-container">
-      {!activityStarted && <TurkLanding handleStartActivity={handleStartActivity} />}
-      {activityStarted && !activityCompleted && <StudentView handleFinishActivity={handleFinishActivity} isTurk={true} />}
-      {activityCompleted && <TurkCompleted code={sessionID} />}
+      {componentToShow()}
     </div>
   )
 }

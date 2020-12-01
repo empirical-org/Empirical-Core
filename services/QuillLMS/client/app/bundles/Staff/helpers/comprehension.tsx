@@ -11,7 +11,8 @@ const fetchDefaults = require("fetch-defaults");
 export const apiFetch = fetchDefaults(fetch, baseUrl, {
   headers: {
     "Accept": "application/JSON",
-    "Content-Type": "application/json"
+    "Content-Type": "application/json",
+    "X-CSRF-Token": localStorage.getItem('csrfToken')
   }
 })
 
@@ -147,3 +148,5 @@ export const handleApiError = (errorMessage: string, response: any) => {
   }
   return error;
 }
+
+export const getCsrfToken = () => document.querySelector('meta[name="csrf-token"]').getAttribute('content');

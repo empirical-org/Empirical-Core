@@ -9,7 +9,7 @@ jest.mock('request', () => ({
 
 const mockTrackAnalyticsEvent = jest.fn()
 jest.mock('../../actions/analytics', () => ({
-  TrackAnalyticsEvent: mockTrackAnalyticsEvent
+  TrackAnalyticsEvent: () => mockTrackAnalyticsEvent
 }))
 
 describe('Activities actions', () => {

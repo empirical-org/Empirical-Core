@@ -11,12 +11,16 @@ import { ActivityInterface } from '../../interfaces/comprehensionInterfaces';
 import { createActivity } from '../../utils/comprehension/activityAPIs';
 import { Modal } from '../../../Shared/index';
 import { blankActivity } from '../../../../constants/comprehension';
+import { getCsrfToken } from "../../helpers/comprehension";
 
 const ComprehensionLanding = ({ location }: RouteComponentProps) => {
   const { pathname } = location
   const [showCreateActivityModal, setShowCreateActivityModal] = React.useState<boolean>(false);
   const [showSubmissionModal, setShowSubmissionModal] = React.useState<boolean>(false);
   const [error, setError] = React.useState<string>('');
+
+  const csrfToken = getCsrfToken();
+  localStorage.setItem('csrfToken', csrfToken);
 
   const checkIndexActive = () => {
     if(!location) return false;
