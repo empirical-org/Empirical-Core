@@ -13,7 +13,9 @@ import { getFeedback } from '../../actions/session'
 import { ActivitiesReducerState } from '../../reducers/activitiesReducer'
 import { SessionReducerState } from '../../reducers/sessionReducer'
 import getParameterByName from '../../helpers/getParameterByName';
-import { Activity, Passage } from '../../interfaces/activities'
+import { Passage } from '../../interfaces/activities'
+import { postTurkSession } from '../../utils/turkAPI';
+import { getCsrfToken } from "../../../Staff/helpers/comprehension";
 
 const bigCheckSrc =  `${process.env.CDN_URL}/images/icons/check-circle-big.svg`
 const tadaSrc =  `${process.env.CDN_URL}/images/illustrations/tada.svg`
@@ -55,15 +57,19 @@ export class StudentViewContainer extends React.Component<StudentViewContainerPr
     this.step2 = React.createRef()
     this.step3 = React.createRef()
     this.step4 = React.createRef()
+
+    const csrfToken = getCsrfToken();
+    localStorage.setItem('csrfToken', csrfToken);
   }
 
   componentDidMount() {
-    const { dispatch, session, } = this.props
+    const { dispatch, session, isTurk } = this.props
     const { sessionID, } = session
     const activityUID = this.activityUID()
 
     if (activityUID) {
       dispatch(getActivity(sessionID, activityUID))
+      isTurk && this.handlePostTurkSession(sessionID);
     }
 
     window.addEventListener('keydown', this.handleKeyDown)
@@ -71,6 +77,16 @@ export class StudentViewContainer extends React.Component<StudentViewContainerPr
 
   componentWillUnmount() {
     window.removeEventListener('keydown', this.handleKeyDown)
+  }
+
+  handlePostTurkSession = (activitySessionId: string) => {
+    const turkingRoundID = getParameterByName('id', window.location.href);
+    postTurkSession(turkingRoundID, activitySessionId).then(response => {
+      const { error } = response;
+      if(error) {
+        alert(`${error}`);
+      }
+    });
   }
 
   onMobile = () => window.innerWidth < 1100
