@@ -31,7 +31,7 @@ module Comprehension
           assert_response :success
           assert_equal Array, parsed_response.class
           refute parsed_response.empty?
-      
+
           assert_equal @rule_set.activity_id, parsed_response.first['activity_id']
           assert_equal @rule_set.prompts, parsed_response.first['prompts']
           assert_equal @rule_set.name, parsed_response.first['name']
@@ -86,7 +86,7 @@ module Comprehension
         assert_equal 200, response.code.to_i
 
         parsed_response = JSON.parse(response.body)
-    
+
         assert_equal @rule_set.prompts, parsed_response['prompts']
         assert_equal @rule_set.name, parsed_response['name']
         assert_equal @rule_set.feedback, parsed_response['feedback']
@@ -113,13 +113,16 @@ module Comprehension
         @rule = create(:comprehension_rule, rule_set: @rule_set)
       end
 
-      should "update record if valid, return nothing" do
+      should "update ruleset record if valid, return the ruleset" do
         patch :update, activity_id: @rule_set.activity_id, id: @rule_set.id, rule_set: { feedback: 'Updated feedback', name: 'Updated name', priority: 100, prompt_ids: [@prompt.id] }
 
-        assert_equal "", response.body
-        assert_equal 204, response.code.to_i
+        assert_equal 202, response.code.to_i
+
+        parsed_response = JSON.parse(response.body)
 
         @rule_set.reload
+
+        assert_equal @rule_set.as_json, parsed_response
     
         assert_equal [@prompt], @rule_set.prompts
         assert_equal "Updated name", @rule_set.name
@@ -127,11 +130,14 @@ module Comprehension
         assert_equal 100, @rule_set.priority
       end
 
-      should "update rule if valid, return nothing" do
+      should "update nested rule record if valid, return ruleset" do
         patch :update, activity_id: @rule_set.activity_id, id: @rule_set.id, rule_set: { rules_attributes: [{id: @rule.id, regex_text: 'Some updated text', case_sensitive: true}] }
 
-        assert_equal "", response.body
-        assert_equal 204, response.code.to_i
+        parsed_response = JSON.parse(response.body)
+
+        assert_equal 202, response.code.to_i
+
+        assert_equal @rule_set.as_json, parsed_response
 
         @rule.reload
 

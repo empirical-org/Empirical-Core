@@ -1,50 +1,66 @@
 class Cms::StandardsController < Cms::CmsController
-  before_action :set_standard, only: [:show, :edit, :update, :destroy]
-
   def index
-    @standards = Standard.includes(:standard_level).order('standard_levels.name ASC')
-  end
+    change_logs = []
+    standards = Standard.includes(:activities, change_logs: :user).all.map do |s|
+      standard = s.attributes
+      standard[:activity_count] = s.activities.count
+      standard[:change_logs] = s.change_logs.map do |cl|
+        change_log = cl.attributes
+        change_log[:user] = cl.user
+        change_log[:record_name] = s.name
+        change_logs.push(change_log)
+        change_log
+      end
+      standard
+    end
 
-  def show
-  end
-
-  def new
-    @standard = Standard.new
-  end
-
-  def edit
+    render json: { standards: standards, change_logs: change_logs }
   end
 
   def create
-    @standard = Standard.new(standard_params)
+    standard = standard_params
 
-    if @standard.save
-      redirect_to cms_standards_url, notice: 'Standard was successfully created.'
-    else
-      render action: 'new'
+    if standard[:change_logs_attributes]
+      standard[:change_logs_attributes] = standard[:change_logs_attributes].map do |cl|
+        cl[:user_id] = current_user.id
+        cl
+      end
     end
+
+    new_standard = Standard.create!(standard)
+
+    render json: { standard: new_standard }
   end
 
   def update
-    if @standard.update(standard_params)
-      redirect_to cms_standards_url, notice: 'Standard was successfully updated.'
-    else
-      render action: 'edit'
+    standard = standard_params
+    standard[:change_logs_attributes] = standard[:change_logs_attributes].map do |cl|
+      cl[:user_id] = current_user.id
+      cl
     end
-  end
 
-  def destroy
-    @standard.destroy
-    redirect_to cms_standards_url, notice: 'Standard was successfully deleted.'
-  end
+    updated_standard = Standard.find_by_id(params[:id]).update(standard)
 
-  private
-
-  def set_standard
-    @standard = Standard.find(params[:id])
+    render json: { standard: updated_standard }
   end
 
   def standard_params
-    params.require(:standard).permit(:name, :standard_level_id, :standard_category_id)
+    params.require(:standard).permit(
+      :name,
+      :id,
+      :visible,
+      :standard_category_id,
+      :standard_level_id,
+      change_logs_attributes: [
+        :action,
+        :explanation,
+        :changed_attribute,
+        :previous_value,
+        :new_value,
+        :changed_record_id,
+        :changed_record_type,
+        :user_id
+      ]
+    )
   end
 end

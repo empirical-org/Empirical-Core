@@ -99,9 +99,8 @@ export default class Recommendations extends React.Component {
   assignToWholeClass  = (unitTemplateId) => {
     const { params, } = this.props
     const that = this;
-    requestPost('/teachers/progress_reports/assign_selected_packs/', { whole_class: true, unit_template_id: unitTemplateId, classroom_id: params.classroomId }, (data) => {
-      this.initializePusher(unitTemplateId)
-    }, (data) => {
+    this.initializePusher(unitTemplateId)
+    requestPost('/teachers/progress_reports/assign_selected_packs/', { whole_class: true, unit_template_id: unitTemplateId, classroom_id: params.classroomId }, (data) => {}, (data) => {
       alert('We had trouble processing your request. Please check your network connection and try again.');
     })
   }
@@ -127,10 +126,14 @@ export default class Recommendations extends React.Component {
   }
 
   handleAssignClick = () => {
+    const { recommendations, selections, } = this.state
+    const dataToPass = {
+      ...this.formatSelectionsForAssignment(),
+      assigning_all_recommended_packs: _.isEqual(selections, recommendations)
+    }
     this.setState({ assigning: true, }, () => {
-      requestPost('/teachers/progress_reports/assign_selected_packs/', this.formatSelectionsForAssignment(), (data) => {
-        this.initializePusher()
-      }, (data) => {
+      this.initializePusher()
+      requestPost('/teachers/progress_reports/assign_selected_packs/', dataToPass, (data) => {}, (data) => {
         alert('We had trouble processing your request. Please check your network connection and try again.');
         this.setState({ assigning: false, });
       })

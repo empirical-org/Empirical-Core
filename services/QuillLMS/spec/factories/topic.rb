@@ -10,11 +10,12 @@ FactoryBot.define do
         t.parent_id = Topic.find_by_level(3)&.id || create(:topic, level: 3).id
       end
     end
-  end
 
-  trait :with_change_log do
-    after(:create) do |t|
-      create(:change_log, changed_record: t)
+    trait :with_change_log do
+      after(:create) do |t|
+        create(:change_log, changed_record: t)
+      end
     end
   end
+
 end
