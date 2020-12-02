@@ -7,7 +7,7 @@ const StandardSearch = ({ updateSearchValue, }) => (<div className="certain-cate
   <Search
     onSearch={updateSearchValue}
     placeholder="Search by standard name"
-    prefix={<i className="fas fa-search" style={{color: '#d9d9d9'}} />}
+    prefix={<i className="fas fa-search" />}
     style={{ width: '100%' }}
   />
 </div>)

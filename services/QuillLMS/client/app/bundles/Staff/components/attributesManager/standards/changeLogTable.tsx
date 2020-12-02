@@ -3,6 +3,7 @@ import { Table } from 'antd';
 import moment from 'moment';
 
 import { ChangeLog } from '../../../interfaces/interfaces';
+import { momentFormatConstants } from '../../../../Shared/index'
 
 interface ChangeLogsTableProps {
   changeLogs: Array<ChangeLog>
@@ -77,7 +78,7 @@ function columns() {
       title: 'Timestamp',
       dataIndex: 'created_at',
       key: 'created_at',
-      render: (timestamp) => moment(timestamp).format('MMMM D, YYYY [at] LT'),
+      render: (timestamp) => moment(timestamp).format(momentFormatConstants.LONG_DATE_WITH_TIME),
       sorter:  (a, b) => (new Date(a.created_at) - new Date(b.created_at)),
       defaultSortOrder: 'descend'
     },

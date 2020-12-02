@@ -7,7 +7,7 @@ import { Record, StandardLevel, StandardCategory } from './interfaces'
 
 import IndividualRecordChangeLogs from '../../shared/individualRecordChangeLogs'
 import ChangeLogModal from '../../shared/changeLogModal'
-import { Input, DropdownInput, } from '../../../../Shared/index'
+import { Input, DropdownInput, momentFormatConstants, } from '../../../../Shared/index'
 
 interface ArchivedRecordBoxProps {
   originalRecord: Record;
@@ -18,7 +18,7 @@ interface ArchivedRecordBoxProps {
   standardCategories: StandardCategory[]
 }
 
-const formatDateTime = (cl) => moment(cl.created_at).format('MMMM D, YYYY [at] LT')
+const formatDateTime = (cl) => moment(cl.created_at).format(momentFormatConstants.LONG_DATE_WITH_TIME)
 
 const ArchivedRecordBox = ({ originalRecord, recordType, standardLevels, standardCategories, saveRecordChanges, closeRecordBox, }: ArchivedRecordBoxProps) => {
   const [showChangeLogModal, setShowChangeLogModal] = React.useState(false)
