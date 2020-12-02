@@ -141,6 +141,16 @@ class Classroom < ActiveRecord::Base
     attributes.merge({student_ids: students.ids})
   end
 
+  def classroom_type_for_segment
+    if google_classroom_id
+      'Google Classroom'
+    elsif clever_id
+      'Clever'
+    else
+      'Manual'
+    end
+  end
+
   private
 
   # Clever integration

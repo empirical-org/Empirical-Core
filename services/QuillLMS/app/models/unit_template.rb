@@ -63,7 +63,15 @@ class UnitTemplate < ActiveRecord::Base
   def self.assign_to_whole_class(class_id, unit_template_id)
     assign_on_join = true
     student_ids = [] # student ids will be populated in the classroom activity assign_on_join callback
-    AssignRecommendationsWorker.perform_async(unit_template_id, class_id, student_ids, true, true, assign_on_join)
+    argument_hash = {
+      unit_template_id: unit_template_id,
+      classroom_id: class_id,
+      student_ids: student_ids,
+      last: true,
+      lesson: true,
+      assign_on_join: assign_on_join
+    }
+    AssignRecommendationsWorker.perform_async(**argument_hash)
   end
 
   def self.delete_all_caches
