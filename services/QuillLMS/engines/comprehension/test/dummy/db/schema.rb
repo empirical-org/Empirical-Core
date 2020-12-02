@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20200630161345) do
+ActiveRecord::Schema.define(version: 20201125161727) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -78,6 +78,16 @@ ActiveRecord::Schema.define(version: 20200630161345) do
   end
 
   add_index "comprehension_rules", ["rule_set_id"], name: "index_comprehension_rules_on_rule_set_id", using: :btree
+
+  create_table "comprehension_turking_round_activity_sessions", force: :cascade do |t|
+    t.integer  "turking_round_id"
+    t.string   "activity_session_uid"
+    t.datetime "created_at",           null: false
+    t.datetime "updated_at",           null: false
+  end
+
+  add_index "comprehension_turking_round_activity_sessions", ["activity_session_uid"], name: "comprehension_turking_sessions_activity_uid", unique: true, using: :btree
+  add_index "comprehension_turking_round_activity_sessions", ["turking_round_id"], name: "comprehension_turking_sessions_turking_id", using: :btree
 
   create_table "comprehension_turking_rounds", force: :cascade do |t|
     t.integer  "activity_id"
