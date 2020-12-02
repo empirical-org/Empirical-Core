@@ -485,10 +485,10 @@ EmpiricalGrammar::Application.routes.draw do
     get '/concepts/concepts_in_use', to: 'concepts#concepts_in_use', only: [:csv], defaults: { format: 'csv' }
     resources :concepts
     resources :comprehension, only: [:index]
-    resources :standard_levels
-    resources :standards
+    resources :standard_levels, only: [:index, :create, :update]
+    resources :standards, only: [:index, :create, :update]
     resources :subscriptions
-    resources :standard_categories
+    resources :standard_categories, only: [:index, :create, :update]
     resources :authors, only: [:index, :create, :edit, :update, :new]
     put '/unit_templates/update_order_numbers', to: 'unit_templates#update_order_numbers'
     resources :unit_templates, only: [:index, :create, :update, :destroy]

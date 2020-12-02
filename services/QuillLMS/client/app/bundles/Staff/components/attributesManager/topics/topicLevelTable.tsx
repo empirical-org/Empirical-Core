@@ -27,7 +27,7 @@ function columns(levelNumber, selectTopic, showExtraColumns) {
       dataIndex: 'name',
       defaultSortOrder: 'ascend',
       key: 'name',
-      render: (text, record:TopicRow) => (<div onClick={() => selectTopic(record)}>{text}</div>),
+      render: (text, record:TopicRow) => (<button className="interactive-wrapper" onClick={() => selectTopic(record)}>{text}</button>),
       sorter:  (a, b) => (a.name.localeCompare(b.name)),
     }
   ]

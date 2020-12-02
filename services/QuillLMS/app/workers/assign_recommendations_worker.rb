@@ -2,7 +2,16 @@ class AssignRecommendationsWorker
   include Sidekiq::Worker
   sidekiq_options queue: SidekiqQueue::CRITICAL
 
-  def perform(unit_template_id, classroom_id, student_id_array, last, lesson, assign_on_join=false)
+  def perform(options={})
+    options = options.with_indifferent_access
+    unit_template_id = options["unit_template_id"]
+    classroom_id = options["classroom_id"]
+    student_ids = options["student_ids"]
+    last = options["last"]
+    lesson = options["lesson"]
+    assign_on_join = options["assign_on_join"]
+    assigning_all_recommended_packs = options["assigning_all_recommended_packs"]
+
     classroom = Classroom.find(classroom_id)
     teacher = classroom.owner
     units = find_units(unit_template_id, teacher.id)
@@ -12,7 +21,7 @@ class AssignRecommendationsWorker
     end
     classroom_data = {
       id: classroom_id,
-      student_ids: student_id_array,
+      student_ids: student_ids,
       assign_on_join: assign_on_join
     }
     unit ||= nil
@@ -21,6 +30,7 @@ class AssignRecommendationsWorker
     if last
       handle_error_tracking_for_diagnostic_recommendation_assignment_time(teacher.id, lesson)
       PusherRecommendationCompleted.run(classroom, unit_template_id, lesson)
+      track_assign_all_recommendations(teacher) if assigning_all_recommended_packs
     end
   end
 
@@ -46,6 +56,11 @@ class AssignRecommendationsWorker
   def track_recommendation_assignment(teacher)
     analytics = Analyzer.new
     analytics.track(teacher, SegmentIo::BackgroundEvents::ASSIGN_RECOMMENDATIONS)
+  end
+
+  def track_assign_all_recommendations(teacher)
+    analytics = Analyzer.new
+    analytics.track(teacher, SegmentIo::BackgroundEvents::ASSIGN_ALL_RECOMMENDATIONS)
   end
 
   def find_unit(units)

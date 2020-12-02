@@ -32,11 +32,20 @@ class SegmentAnalytics
     user = User.find(teacher_id)
     activity = Activity.find(activity_id)
 
+    # properties here get used by Heap
     track(user, {
       user_id: teacher_id,
       event: SegmentIo::BackgroundEvents::ACTIVITY_ASSIGNMENT,
       properties: activity_info_for_tracking(activity)
     })
+
+    # this event is for Vitally, which does not show properties
+    if Activity.diagnostic_activity_ids.include?(activity_id)
+      track(user, {
+        user_id: teacher_id,
+        event: "#{SegmentIo::BackgroundEvents::DIAGNOSTIC_ASSIGNMENT} | #{activity.name}"
+      })
+    end
   end
 
   def track_activity_pack_assignment(teacher_id, unit_id)
@@ -53,6 +62,12 @@ class SegmentAnalytics
       activity_pack_type = 'Custom'
     end
 
+    # first event is for Vitally, which does not show properties
+    track(user, {
+      user_id: teacher_id,
+      event: "#{SegmentIo::BackgroundEvents::ACTIVITY_PACK_ASSIGNMENT} | #{activity_pack_type} | #{unit.name}"
+    })
+    # second event is for Heap, which does
     track(user, {
       user_id: teacher_id,
       event: SegmentIo::BackgroundEvents::ACTIVITY_PACK_ASSIGNMENT,
@@ -73,9 +88,18 @@ class SegmentAnalytics
 
   def track_classroom_creation(classroom)
     user = User.find(classroom&.owner&.id)
+    # first event is for Vitally, which does not show properties
     track(user, {
       user_id: classroom&.owner&.id,
-      event: SegmentIo::BackgroundEvents::CLASSROOM_CREATION
+      event: "#{SegmentIo::BackgroundEvents::CLASSROOM_CREATION} | #{classroom.classroom_type_for_segment}"
+    })
+    # second event is for Heap, which does
+    track(user, {
+      user_id: classroom&.owner&.id,
+      event: SegmentIo::BackgroundEvents::CLASSROOM_CREATION,
+      properties: {
+        classroom_type: classroom.classroom_type_for_segment
+      }
     })
   end
 
