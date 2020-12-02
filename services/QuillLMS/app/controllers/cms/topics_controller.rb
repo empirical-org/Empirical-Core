@@ -22,9 +22,10 @@ class Cms::TopicsController < Cms::CmsController
     render json: { topics: topics, change_logs: change_logs }
   end
 
+
   def create
     topic = topic_params
-    
+
     if topic[:change_logs_attributes]
       topic[:change_logs_attributes] = topic[:change_logs_attributes].map do |cl|
         cl[:user_id] = current_user.id

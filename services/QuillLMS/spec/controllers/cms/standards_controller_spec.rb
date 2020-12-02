@@ -1,61 +1,75 @@
 require 'rails_helper'
 
 describe Cms::StandardsController do
-  it { should use_before_action :set_standard }
-
-  let(:user) { create(:staff) }
+  let!(:user) { create(:staff) }
+  let!(:standard_category) { create(:standard_category) }
+  let!(:standard_level) { create(:standard_level) }
+  let!(:standards) { create_list(:standard, 10, :with_change_log) }
 
   before do
     allow(controller).to receive(:current_user) { user }
   end
 
   describe '#index' do
-    let!(:standard) { create(:standard) }
-    let!(:standard1) { create(:standard) }
-
-    it 'sould give all the standards' do
+    it 'returns a json hash with all the standards and change logs' do
       get :index
-      expect(assigns(:standards)).to include standard
-      expect(assigns(:standards)).to include standard1
-    end
-  end
-
-  describe '#edit' do
-    let!(:standard) { create(:standard) }
-
-    it 'should find the standard' do
-      get :edit, id: standard.id
-      expect(assigns(:standard)).to eq standard
+      parsed_response = JSON.parse(response.body)
+      standard_results = parsed_response["standards"]
+      change_log_results = parsed_response["change_logs"]
+      standards.each do |t|
+        expect(standard_results.find { |tr| tr["id"] == t.id }).to be
+        expect(change_log_results.find { |cl| cl["id"] == t.change_logs[0].id}).to be
+      end
     end
   end
 
   describe '#create' do
-    let(:standard) { build(:standard) }
-
-    it 'should create the standard with the given params' do
-      post :create, standard: standard.attributes
-      expect(Standard.last.name).to eq standard.name
-      expect(Standard.last.standard_category_id).to eq standard.standard_category_id
-      expect(Standard.last.standard_level_id).to eq standard.standard_level_id
+    it 'creates a new standard with the nested change logs' do
+      post :create, {
+        standard: {
+          name: 'New Standard',
+          level: 3,
+          visible: true,
+          standard_level_id: standard_level.id,
+          standard_category_id: standard_category.id,
+          change_logs_attributes: [
+            {
+              action: 'Created',
+              changed_record_type: 'Standard',
+              explanation: 'Here is an explanation'
+            }
+          ]
+        }
+      }
+      parsed_response = JSON.parse(response.body)
+      id = parsed_response["standard"]["id"]
+      expect(id).to be
+      expect(Standard.find_by_id(id)).to be
+      expect(ChangeLog.find_by(changed_record_id: id, changed_record_type: 'Standard', action: 'Created')).to be
     end
   end
 
   describe '#update' do
-    let!(:standard) { create(:standard) }
-
-    it 'should update the given standard' do
-      post :update, id: standard.id, standard: { name: "new name" }
-      expect(standard.reload.name).to eq "new name"
-    end
-  end
-
-  describe '#destroy' do
-    let!(:standard) { create(:standard) }
-
-    it 'should destroy the given standard' do
-      delete :destroy, id: standard.id
-      expect{ Standard.find standard.id }.to raise_exception ActiveRecord::RecordNotFound
-      expect(response).to redirect_to cms_standards_url
+    it 'creates a new standard with the nested change logs' do
+      new_name = 'New Standard Name'
+      id = standards[0].id
+      put :update, {
+        id: id,
+        standard: {
+          name: new_name,
+          id: id,
+          change_logs_attributes: [
+            {
+              action: 'Renamed',
+              changed_record_type: 'Standard',
+              changed_record_id: id,
+              explanation: 'Here is an explanation'
+            }
+          ]
+        }
+      }
+      expect(Standard.find_by_id(id).name).to eq(new_name)
+      expect(ChangeLog.find_by(changed_record_id: id, changed_record_type: 'Standard', action: 'Renamed')).to be
     end
   end
 end
