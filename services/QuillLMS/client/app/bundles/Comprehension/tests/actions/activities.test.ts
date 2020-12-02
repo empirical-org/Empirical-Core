@@ -9,7 +9,7 @@ jest.mock('request', () => ({
 
 const mockTrackAnalyticsEvent = jest.fn()
 jest.mock('../../actions/analytics', () => ({
-  TrackAnalyticsEvent: () => mockTrackAnalyticsEvent
+  TrackAnalyticsEvent: mockTrackAnalyticsEvent
 }))
 
 describe('Activities actions', () => {
@@ -27,7 +27,7 @@ describe('Activities actions', () => {
     })
 
     it('makes a GET request to the activities API', () => {
-      const expectedUrl = `https://comprehension-247816.appspot.com/activities/${mockActivityID}`
+      const expectedUrl = `${process.env.DEFAULT_URL}/api/v1/comprehension/activities/${mockActivityID}`
       expect(mockGet).toBeCalledWith(expectedUrl, expect.anything())
     })
   })
