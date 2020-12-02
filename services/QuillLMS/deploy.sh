@@ -9,6 +9,7 @@ case $1 in
     HEROKU_APP=empirical-grammar
     URL="https://www.quill.org/"
     NR_URL="https://rpm.newrelic.com/accounts/2639113/applications/548856875"
+    current_branch="origin/production"
     ;;
   staging)
     DEPLOY_GIT_BRANCH=deploy-lms-staging
