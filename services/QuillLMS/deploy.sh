@@ -33,9 +33,9 @@ then
     sh ../../scripts/post_slack_deploy.sh $app_name $1 $current_branch false
     if [ $1 == 'prod' ]
     then
-        sh ../../scripts/post_slack_deploy_description.sh $app_name
         # For production, push directly from the remote production branch without going local
         git push --no-verify --force origin origin/production:refs/heads/$DEPLOY_GIT_BRANCH
+        sh ../../scripts/post_slack_deploy_description.sh $app_name
     else
         git push --no-verify --force origin ${current_branch}:$DEPLOY_GIT_BRANCH
     fi
