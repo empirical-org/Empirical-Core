@@ -146,7 +146,7 @@ class Teachers::ProgressReports::DiagnosticReportsController < Teachers::Progres
                 lesson: false,
                 assigning_all_recommended_packs: params[:assigning_all_recommended_packs]
               }
-              AssignRecommendationsWorker.new.perform(argument_hash) if current_user.classrooms_i_teach.map(&:id).include?(classroom[:id].to_i)
+              AssignRecommendationsWorker.perform_async(**argument_hash) if current_user.classrooms_i_teach.map(&:id).include?(classroom[:id].to_i)
           end
         end
       end

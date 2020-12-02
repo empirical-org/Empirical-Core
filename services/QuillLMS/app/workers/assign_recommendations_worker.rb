@@ -2,7 +2,16 @@ class AssignRecommendationsWorker
   include Sidekiq::Worker
   sidekiq_options queue: SidekiqQueue::CRITICAL
 
-  def perform(unit_template_id:, classroom_id:, student_ids:, last:, lesson:, assign_on_join: false, assigning_all_recommended_packs: false)
+  def perform(options={})
+    options = options.with_indifferent_access
+    unit_template_id = options["unit_template_id"]
+    classroom_id = options["classroom_id"]
+    student_ids = options["student_ids"]
+    last = options["last"]
+    lesson = options["lesson"]
+    assign_on_join = options["assign_on_join"]
+    assigning_all_recommended_packs = options["assigning_all_recommended_packs"]
+
     classroom = Classroom.find(classroom_id)
     teacher = classroom.owner
     units = find_units(unit_template_id, teacher.id)

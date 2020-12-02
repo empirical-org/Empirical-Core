@@ -71,7 +71,7 @@ class UnitTemplate < ActiveRecord::Base
       lesson: true,
       assign_on_join: assign_on_join
     }
-    AssignRecommendationsWorker.perform_async(argument_hash)
+    AssignRecommendationsWorker.perform_async(**argument_hash)
   end
 
   def self.delete_all_caches
