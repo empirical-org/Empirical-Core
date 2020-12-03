@@ -1,7 +1,16 @@
 class UserMailer < ActionMailer::Base
-  default from: 'hello@quill.org'
   include EmailApiHelper
   include ActionView::Helpers::NumberHelper
+
+  default from: 'hello@quill.org', foo: 'bar'
+
+  CONSTANTS = {
+    signatures: {
+      quill_team: 'The Quill Team'
+    }    
+  }
+
+  before_action { @constants = CONSTANTS }
 
   COTEACHER_SUPPORT_ARTICLE = 'http://support.quill.org/getting-started-for-teachers/manage-classes/how-do-i-share-a-class-with-my-co-teacher'
 
