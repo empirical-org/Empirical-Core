@@ -1,15 +1,16 @@
+import * as request from 'request';
+
 import dispatch from '../../__mocks__/dispatch'
 import { getActivity } from '../../actions/activities'
+import { TrackAnalyticsEvent } from '../../actions/analytics'
 import { Events } from '../../modules/analytics'
 
-const mockGet = jest.fn()
 jest.mock('request', () => ({
-  get: mockGet
+  get: jest.fn()
 }))
 
-const mockTrackAnalyticsEvent = jest.fn()
 jest.mock('../../actions/analytics', () => ({
-  TrackAnalyticsEvent: mockTrackAnalyticsEvent
+  TrackAnalyticsEvent: jest.fn()
 }))
 
 describe('Activities actions', () => {
@@ -20,7 +21,7 @@ describe('Activities actions', () => {
     dispatch(getActivity(mockSessionID, mockActivityID))
 
     it('sends a COMPREHENSION_ACTIVITY_STARTED analytics event', () => {
-      expect(mockTrackAnalyticsEvent).toBeCalledWith(Events.COMPREHENSION_ACTIVITY_STARTED, {
+      expect(TrackAnalyticsEvent).toBeCalledWith(Events.COMPREHENSION_ACTIVITY_STARTED, {
         activityID: mockActivityID,
         sessionID: mockSessionID
       })
@@ -28,7 +29,7 @@ describe('Activities actions', () => {
 
     it('makes a GET request to the activities API', () => {
       const expectedUrl = `${process.env.DEFAULT_URL}/api/v1/comprehension/activities/${mockActivityID}`
-      expect(mockGet).toBeCalledWith(expectedUrl, expect.anything())
+      expect(request.get).toBeCalledWith(expectedUrl, expect.anything())
     })
   })
 })
