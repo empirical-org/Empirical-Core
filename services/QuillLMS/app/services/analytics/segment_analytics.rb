@@ -63,7 +63,7 @@ class SegmentAnalytics
     end
 
     # we don't want to have a unique event for teacher-named packs because that would be a potentially infinite number of unique events
-    activity_pack_name_string = activity_pack_type === 'Custom' ? '' : " | #{unit.name}"
+    activity_pack_name_string = activity_pack_type == 'Custom' ? '' : " | #{unit.name}"
 
     # first event is for Vitally, which does not show properties
     track(user, {
