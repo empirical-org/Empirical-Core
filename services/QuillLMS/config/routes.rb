@@ -487,6 +487,7 @@ EmpiricalGrammar::Application.routes.draw do
     resources :comprehension, only: [:index]
     resources :standard_levels, only: [:index, :create, :update]
     resources :standards, only: [:index, :create, :update]
+    resources :content_partners, only: [:index, :create, :update]
     resources :subscriptions
     resources :standard_categories, only: [:index, :create, :update]
     resources :authors, only: [:index, :create, :edit, :update, :new]
