@@ -2,6 +2,7 @@ require_dependency 'comprehension/application_controller'
 
 module Comprehension
   class ActivitiesController < ApplicationController
+    skip_before_action :verify_authenticity_token
     before_action :set_activity, only: [:show, :update, :destroy]
 
     # GET /activities.json
