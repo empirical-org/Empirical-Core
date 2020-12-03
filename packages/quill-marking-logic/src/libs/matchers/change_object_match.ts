@@ -2,7 +2,7 @@ import * as _ from 'underscore';
 import { diffWords } from 'diff';
 import {getOptimalResponses, getSubOptimalResponses} from '../sharedResponseFunctions'
 import {stringNormalize} from 'quill-string-normalizer'
-import {processSentences, correct, train} from 'quill-spellchecker';
+import {processSentences, correct, train} from '../spellchecker/main';
 import {Response, PartialResponse} from '../../interfaces'
 import {removePunctuation} from '../helpers/remove_punctuation'
 import {feedbackStrings, spellingFeedbackStrings} from '../constants/feedback_strings'
