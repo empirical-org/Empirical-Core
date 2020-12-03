@@ -1,17 +1,17 @@
+import * as request from 'request';
+
 import dispatch from '../../__mocks__/dispatch'
-
-const mockGet = jest.fn()
-jest.mock('request', () => ({
-  get: mockGet
-}))
-
-const mockTrackAnalyticsEvent = jest.fn()
-jest.mock('../../actions/analytics', () => ({
-  TrackAnalyticsEvent: mockTrackAnalyticsEvent
-}))
-
 import { getActivity } from '../../actions/activities'
+import { TrackAnalyticsEvent } from '../../actions/analytics'
 import { Events } from '../../modules/analytics'
+
+jest.mock('request', () => ({
+  get: jest.fn()
+}))
+
+jest.mock('../../actions/analytics', () => ({
+  TrackAnalyticsEvent: jest.fn()
+}))
 
 describe('Activities actions', () => {
   describe('when the getActivity action is dispatched', () => {
@@ -21,15 +21,15 @@ describe('Activities actions', () => {
     dispatch(getActivity(mockSessionID, mockActivityID))
 
     it('sends a COMPREHENSION_ACTIVITY_STARTED analytics event', () => {
-      expect(mockTrackAnalyticsEvent).toBeCalledWith(Events.COMPREHENSION_ACTIVITY_STARTED, {
+      expect(TrackAnalyticsEvent).toBeCalledWith(Events.COMPREHENSION_ACTIVITY_STARTED, {
         activityID: mockActivityID,
         sessionID: mockSessionID
       })
     })
 
     it('makes a GET request to the activities API', () => {
-      const expectedUrl = `https://comprehension-247816.appspot.com/activities/${mockActivityID}`
-      expect(mockGet).toBeCalledWith(expectedUrl, expect.anything())
+      const expectedUrl = `${process.env.DEFAULT_URL}/api/v1/comprehension/activities/${mockActivityID}`
+      expect(request.get).toBeCalledWith(expectedUrl, expect.anything())
     })
   })
 })

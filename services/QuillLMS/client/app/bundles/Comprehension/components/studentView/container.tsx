@@ -4,6 +4,7 @@ import { connect } from "react-redux";
 
 import PromptStep from './promptStep'
 import StepLink from './stepLink'
+
 import LoadingSpinner from '../shared/loadingSpinner'
 import { getActivity } from "../../actions/activities";
 import { TrackAnalyticsEvent } from "../../actions/analytics";
@@ -11,6 +12,10 @@ import { Events } from '../../modules/analytics'
 import { getFeedback } from '../../actions/session'
 import { ActivitiesReducerState } from '../../reducers/activitiesReducer'
 import { SessionReducerState } from '../../reducers/sessionReducer'
+import getParameterByName from '../../helpers/getParameterByName';
+import { Passage } from '../../interfaces/activities'
+import { postTurkSession } from '../../utils/turkAPI';
+import { getCsrfToken } from "../../../Staff/helpers/comprehension";
 
 const bigCheckSrc =  `${process.env.CDN_URL}/images/icons/check-circle-big.svg`
 const tadaSrc =  `${process.env.CDN_URL}/images/illustrations/tada.svg`
@@ -19,7 +24,9 @@ interface StudentViewContainerProps {
   dispatch: Function;
   activities: ActivitiesReducerState;
   session: SessionReducerState;
-  location: any;
+  location?: any;
+  handleFinishActivity?: () => void;
+  isTurk?: boolean;
 }
 
 interface StudentViewContainerState {
@@ -50,15 +57,19 @@ export class StudentViewContainer extends React.Component<StudentViewContainerPr
     this.step2 = React.createRef()
     this.step3 = React.createRef()
     this.step4 = React.createRef()
+
+    const csrfToken = getCsrfToken();
+    localStorage.setItem('csrfToken', csrfToken);
   }
 
   componentDidMount() {
-    const { dispatch, session, } = this.props
+    const { dispatch, session, isTurk } = this.props
     const { sessionID, } = session
     const activityUID = this.activityUID()
 
     if (activityUID) {
       dispatch(getActivity(sessionID, activityUID))
+      isTurk && this.handlePostTurkSession(sessionID);
     }
 
     window.addEventListener('keydown', this.handleKeyDown)
@@ -68,10 +79,23 @@ export class StudentViewContainer extends React.Component<StudentViewContainerPr
     window.removeEventListener('keydown', this.handleKeyDown)
   }
 
+  handlePostTurkSession = (activitySessionId: string) => {
+    const turkingRoundID = getParameterByName('id', window.location.href);
+    postTurkSession(turkingRoundID, activitySessionId).then(response => {
+      const { error } = response;
+      if(error) {
+        alert(`${error}`);
+      }
+    });
+  }
+
   onMobile = () => window.innerWidth < 1100
 
   activityUID = () => {
-    const { location, } = this.props
+    const { location, isTurk } = this.props
+    if(isTurk) {
+      return getParameterByName('uid', window.location.href)
+    }
     const { search, } = location
     if (!search) { return }
     return queryString.parse(search).uid
@@ -148,7 +172,7 @@ export class StudentViewContainer extends React.Component<StudentViewContainerPr
   }
 
   trackActivityCompletedEvent = () => {
-    const { dispatch, } = this.props
+    const { dispatch, isTurk, handleFinishActivity } = this.props
     const { session, } = this.props
     const { sessionID, } = session
     const activityID = this.activityUID()
@@ -157,6 +181,9 @@ export class StudentViewContainer extends React.Component<StudentViewContainerPr
       activityID,
       sessionID,
     }))
+    if(isTurk) {
+      handleFinishActivity();
+    }
   }
 
   activateStep = (step?: number, callback?: Function) => {
@@ -240,9 +267,10 @@ export class StudentViewContainer extends React.Component<StudentViewContainerPr
     this.scrollToStepOnMobile(`step${stepNumber}`)
   }
 
-  addPTagsToPassages = (passages) => {
+  addPTagsToPassages = (passages: Passage[]) => {
     return passages.map(passage => {
-      const paragraphArray = passage.match(/[^\r\n]+/g)
+      const { text } = passage;
+      const paragraphArray = text ? text.match(/[^\r\n]+/g) : [];
       return paragraphArray.map(p => `<p>${p}</p>`).join('')
     })
   }
@@ -254,7 +282,7 @@ export class StudentViewContainer extends React.Component<StudentViewContainerPr
 
     if (!currentActivity) { return }
 
-    let passages = currentActivity.passages
+    let passages: any[] = currentActivity.passages
     const passagesWithPTags = this.addPTagsToPassages(passages)
 
     if (!activeStep || activeStep === READ_PASSAGE_STEP) { return passagesWithPTags }
@@ -273,9 +301,10 @@ export class StudentViewContainer extends React.Component<StudentViewContainerPr
 
     passageHighlights.forEach(hl => {
       const characterStart = hl.character || 0
-      passages = passages.map(passage => {
-        const passageBeforeCharacterStart = passage.substring(0, characterStart)
-        const passageAfterCharacterStart = passage.substring(characterStart)
+      passages = passages.map((passage: Passage) => {
+        const { text } = passage;
+        const passageBeforeCharacterStart = text.substring(0, characterStart)
+        const passageAfterCharacterStart = text.substring(characterStart)
         const highlightedPassageAfterCharacterStart = passageAfterCharacterStart.replace(hl.text, `<span class="passage-highlight">${hl.text}</span>`)
         return `${passageBeforeCharacterStart}${highlightedPassageAfterCharacterStart}`
       })
