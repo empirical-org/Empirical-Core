@@ -9,7 +9,7 @@ class AssignRecommendationsWorker
     student_ids = options["student_ids"]
     last = options["last"]
     lesson = options["lesson"]
-    assign_on_join = options["assign_on_join"]
+    assign_on_join = options["assign_on_join"] || false
     assigning_all_recommended_packs = options["assigning_all_recommended_packs"]
 
     classroom = Classroom.find(classroom_id)
