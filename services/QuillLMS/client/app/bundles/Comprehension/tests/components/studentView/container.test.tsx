@@ -4,6 +4,9 @@ import toJson from 'enzyme-to-json';
 
 import { activityOne } from './data'
 
+const csrfToken = 'mocked-csrf-token';
+document.head.innerHTML = `<meta name="csrf-token" content="${csrfToken}">`;
+
 const mockParse = () => ({ uid: activityOne.activity_id })
 jest.mock('query-string', () => ({
   default: {

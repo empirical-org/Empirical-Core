@@ -1,0 +1,28 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`TurkCompleted Component should match snapshot 1`] = `
+<div
+  className="turk-completed-container"
+>
+  <h1>
+    Activity Completed!
+  </h1>
+  <p>
+    Thank you for completing this activity.
+  </p>
+  <p>
+    Your responses will be used to develop our system so that millions of students around the world can improve their reading and writing skills.
+  </p>
+  <h1>
+    Payment Directions
+  </h1>
+  <p>
+    Use the following HIT code for payment:
+  </p>
+  <div
+    className="code"
+  >
+    saideira-maracuja
+  </div>
+</div>
+`;

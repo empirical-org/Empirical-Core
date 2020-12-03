@@ -7,9 +7,6 @@ jest.mock('string-strip-html', () => ({
   default: jest.fn()
 }));
 
-const csrfToken = 'mocked-csrf-token';
-document.head.innerHTML = `<meta name="csrf-token" content="${csrfToken}">`;
-
 const mockActivity = {
   title: 'Could Capybaras Create Chaos?',
   scored_level: '7',
