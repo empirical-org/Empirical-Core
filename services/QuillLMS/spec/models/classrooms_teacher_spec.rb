@@ -42,16 +42,6 @@ RSpec.describe ClassroomsTeacher, type: :model, redis: true do
     let(:classrooms_teacher) { build(:classrooms_teacher) }
     let(:teacher) { classrooms_teacher.teacher }
 
-    it 'should trigger_analytics_events_for_classroom_creation on create commit' do
-      expect{ create(:classrooms_teacher).run_callbacks(:commit) }.to change(ClassroomCreationWorker.jobs, :size).by 1
-    end
-
-    it 'should find or create checkbox' do
-      expect(classrooms_teacher).to receive(:find_or_create_checkbox)
-      classrooms_teacher.save
-      classrooms_teacher.run_callbacks(:commit)
-    end
-
     it 'should delete_classroom_minis_cache on create' do
       $redis.set("user_id:#{teacher.id}_classroom_minis", {something: 'something'})
       classrooms_teacher.save

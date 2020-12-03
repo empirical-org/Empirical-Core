@@ -62,10 +62,13 @@ class SegmentAnalytics
       activity_pack_type = 'Custom'
     end
 
+    # we don't want to have a unique event for teacher-named packs because that would be a potentially infinite number of unique events
+    activity_pack_name_string = activity_pack_type === 'Custom' ? '' : " | #{unit.name}"
+
     # first event is for Vitally, which does not show properties
     track(user, {
       user_id: teacher_id,
-      event: "#{SegmentIo::BackgroundEvents::ACTIVITY_PACK_ASSIGNMENT} | #{activity_pack_type} | #{unit.name}"
+      event: "#{SegmentIo::BackgroundEvents::ACTIVITY_PACK_ASSIGNMENT} | #{activity_pack_type}#{activity_pack_name_string}"
     })
     # second event is for Heap, which does
     track(user, {
