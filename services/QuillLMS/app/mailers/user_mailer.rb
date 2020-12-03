@@ -16,18 +16,18 @@ class UserMailer < ActionMailer::Base
 
   def invitation_to_non_existing_user invitation_email_hash
     @email_hash = invitation_email_hash.merge(support_article_link: COTEACHER_SUPPORT_ARTICLE, join_link: new_account_url).stringify_keys
-    mail from: "Quill Team <hello@quill.org>", 'reply-to': @email_hash["inviter_email"], to: @email_hash["invitee_email"], subject: "#{@email_hash['inviter_name']} has invited you to co-teach on Quill.org!"
+    mail from: "The Quill Team <hello@quill.org>", 'reply-to': @email_hash["inviter_email"], to: @email_hash["invitee_email"], subject: "#{@email_hash['inviter_name']} has invited you to co-teach on Quill.org!"
   end
 
   def invitation_to_existing_user invitation_email_hash
     invitation_email_hash.stringify_keys!
     @email_hash = invitation_email_hash.merge(support_article_link: COTEACHER_SUPPORT_ARTICLE,  accept_link: teachers_classrooms_url).stringify_keys
-    mail from: "Quill Team <hello@quill.org>", 'reply-to': @email_hash["inviter_email"], to: @email_hash["invitee_email"], subject: "#{@email_hash['inviter_name']} has invited you to co-teach on Quill.org!"
+    mail from: "The Quill Team <hello@quill.org>", 'reply-to': @email_hash["inviter_email"], to: @email_hash["invitee_email"], subject: "#{@email_hash['inviter_name']} has invited you to co-teach on Quill.org!"
   end
 
   def password_reset_email user
     @user = user
-    mail to: user.email, subject: 'Reset your Quill password'
+    mail from: "The Quill Team <hello@quill.org>", to: user.email, subject: 'Reset your Quill password'
   end
 
   # Sent when an admin adds a new teacher to one of their schools.
@@ -54,31 +54,31 @@ class UserMailer < ActionMailer::Base
 
   def premium_user_subscription_email(user)
     @user = user
-    mail to: user.email, subject: "#{user.first_name}, your Quill account has been upgraded to Premium! ⭐️"
+    mail from: "The Quill Team <hello@quill.org>", to: user.email, subject: "#{user.first_name}, your Quill account has been upgraded to Premium! ⭐️"
   end
 
   def premium_school_subscription_email(user, school, admin)
     @user = user
     @school = school
     @admin = admin
-    mail to: user.email, subject: "#{user.first_name}, your Quill account has been upgraded to Premium! ⭐️"
+    mail from: "The Quill Team <hello@quill.org>", to: user.email, subject: "#{user.first_name}, your Quill account has been upgraded to Premium! ⭐️"
   end
 
   def new_admin_email(user, school)
     @user = user
     @school = school
-    mail from: "Quill Team <hello@quill.org>", to: user.email, subject: "#{user.first_name}, you are now an admin on Quill!"
+    mail from: "The Quill Team <hello@quill.org>",  to: user.email, subject: "#{user.first_name}, you are now an admin on Quill!"
   end
 
   def activated_referral_email(referrer_hash, referral_hash)
     @referrer = referrer_hash
     @referral = referral_hash
-    mail from: "Quill Team <hello@quill.org>", 'reply-to': @referral['email'], to: @referrer['email'], subject: "#{@referral['name']} just activated their account on Quill!"
+    mail from: "The Quill Team <hello@quill.org>", 'reply-to': @referral['email'], to: @referrer['email'], subject: "#{@referral['name']} just activated their account on Quill!"
   end
 
   def referral_invitation_email(inviter_hash, invitee_email)
     @inviter = inviter_hash
-    mail from: "Quill Team <hello@quill.org>", 'reply-to': @inviter['email'], to: invitee_email, subject: "#{@inviter['name']} invites you to join Quill.org!"
+    mail from: "The Quill Team <hello@quill.org>", 'reply-to': @inviter['email'], to: invitee_email, subject: "#{@inviter['name']} invites you to join Quill.org!"
   end
 
   def premium_missing_school_email(user)
@@ -100,7 +100,7 @@ class UserMailer < ActionMailer::Base
 
   def declined_renewal_email(user)
     @user = user
-    mail from: "Quill Team <hello@quill.org>", to: user.email, subject: "Quill Premium Renewal"
+    mail from: "The Quill Team <hello@quill.org>", to: user.email, subject: "Quill Premium Renewal"
   end
 
   def daily_stats_email(date_string)
@@ -135,7 +135,7 @@ class UserMailer < ActionMailer::Base
 
   def ell_starter_diagnostic_info_email(name, email)
     @name = name
-    mail from: "Quill Team <hello@quill.org>", to: email, subject: "ELL Starter Diagnostic Next Steps"
+    mail from: "The Quill Team <hello@quill.org>", to: email, subject: "ELL Starter Diagnostic Next Steps"
   end
 
 end
