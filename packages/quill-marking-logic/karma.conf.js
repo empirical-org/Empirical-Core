@@ -5,9 +5,10 @@ var webpackConfig = require('./webpack.config');
 webpackConfig.entry = {};
 webpackConfig.plugins = [];
 webpackConfig.devtool = 'inline-source-map';
+const puppeteer = require('puppeteer');
+process.env.CHROME_BIN = puppeteer.executablePath();
 
 module.exports = function (config) {
-  'use strict'
     config.set({
 
         // base path that will be used to resolve all patterns (eg. files, exclude)
@@ -15,15 +16,10 @@ module.exports = function (config) {
 
         // frameworks to use
         // available frameworks: https://npmjs.org/browse/keyword/karma-adapter
-        frameworks: ['mocha', 'chai'],
+        frameworks: ['mocha'],
 
         // list of files / patterns to load in the browser
         files: [
-            './node_modules/babel-polyfill/dist/polyfill.js',
-            './node_modules/phantomjs-polyfill/bind-polyfill.js',
-            './node_modules/phantomjs-polyfill-object-assign/object-assign-polyfill.js',
-            './test/index.js',
-            // './test/module.spec.ts',
             './src/**/*.spec.ts'
         ],
 
@@ -34,9 +30,7 @@ module.exports = function (config) {
         // preprocess matching files before serving them to the browser
         // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
         preprocessors: {
-            'test/index.js': ['webpack'],
             'src/**/*.spec.ts': ['webpack']
-            // './test/module.spec.ts': ['webpack']
         },
 
         webpack: {
@@ -48,9 +42,6 @@ module.exports = function (config) {
                     { test: /\.ts$/, exclude: [/node_modules/], use: ['ts-loader'] }
                 ]
             },
-            node: {
-                fs: 'empty'
-            }
         },
 
         webpackMiddleware: {
@@ -79,7 +70,7 @@ module.exports = function (config) {
 
         // start these browsers
         // available browser launchers: https://npmjs.org/browse/keyword/karma-launcher
-        browsers: ['PhantomJS'],
+        browsers: ['ChromeHeadless'],
 
         // Continuous Integration mode
         // if true, Karma captures browsers, runs the tests and exits
@@ -91,10 +82,8 @@ module.exports = function (config) {
 
         plugins: [
             require('karma-mocha'),
-            require('karma-phantomjs-launcher'),
             require('karma-webpack'),
-            require('karma-browserify'),
-            require('karma-chai')
+            require('karma-chrome-launcher')
         ]
     })
 }
