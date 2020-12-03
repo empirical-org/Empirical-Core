@@ -43,8 +43,8 @@ class Cms::ActivityCategoriesController < Cms::CmsController
   end
 
   def create
-    ActivityCategory.create(activity_category_params)
-    redirect_to cms_activity_categories_path
+    activity_category = ActivityCategory.create(activity_category_params)
+    render json: { activity_category: activity_category }, status: 200
   end
 
   def destroy

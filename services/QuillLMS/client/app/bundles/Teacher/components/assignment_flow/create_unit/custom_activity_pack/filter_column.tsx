@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { Activity } from './interfaces'
+import { Activity, ActivityCategoryEditor } from './interfaces'
 import ActivityClassificationFilters from './activity_classification_filters'
 import ActivityCategoryFilters from './activity_category_filters'
 import StaffActivityCategoryFilters from './staff_activity_category_filters'
@@ -33,7 +33,8 @@ interface FilterColumnProps {
   savedActivityIds: number[],
   flagFilters: string[],
   handleFlagFilterChange: () => void,
-  isStaff?: boolean
+  isStaff?: boolean,
+  activityCategoryEditor?: ActivityCategoryEditor
 }
 
 const FilterColumn = ({
@@ -59,7 +60,8 @@ const FilterColumn = ({
   savedActivityIds,
   isStaff,
   flagFilters,
-  handleFlagFilterChange
+  handleFlagFilterChange,
+  activityCategoryEditor
 }: FilterColumnProps) => {
   const numberOfFilters = calculateNumberOfFilters()
   const clearAllButton = numberOfFilters ? <button className="interactive-wrapper clear-filter focus-on-light" onClick={resetAllFilters} type="button">Clear all filters</button> : <span />
@@ -81,7 +83,7 @@ const FilterColumn = ({
       handleFlagFilterChange={handleFlagFilterChange}
     />
     activityCategoryFilterSection = (<StaffActivityCategoryFilters
-      activities={activities}
+      activityCategoryEditor={activityCategoryEditor}
       activityCategoryFilters={activityCategoryFilters}
       filterActivities={filterActivities}
       handleActivityCategoryFilterChange={handleActivityCategoryFilterChange}

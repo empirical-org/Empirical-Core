@@ -26,7 +26,8 @@ export interface ActivityClassification {
 
 export interface ActivityCategory {
   id: number,
-  name: string
+  name: string,
+  order_number?: number
 }
 
 interface StandardLevel {
@@ -45,4 +46,10 @@ export interface Topic {
   name: string,
   level: number,
   parent_id?: number
+}
+
+export interface ActivityCategoryEditor {
+  activityCategories: ActivityCategory[],
+  getActivityCategories: () => void,
+  setActivityCategories: (activityCategories: ActivityCategory[]) => void
 }

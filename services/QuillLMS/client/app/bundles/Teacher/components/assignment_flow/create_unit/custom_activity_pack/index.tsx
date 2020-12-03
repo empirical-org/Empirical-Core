@@ -1,7 +1,7 @@
 import * as React from 'react';
 import queryString from 'query-string';
 
-import { Activity } from './interfaces'
+import { Activity, ActivityCategoryEditor } from './interfaces'
 import { calculateNumberOfPages, activityClassificationGroupings, filters, DEFAULT } from './shared'
 import ActivityTableContainer from './activity_table_container'
 import FilterColumn from './filter_column'
@@ -22,6 +22,7 @@ interface CustomActivityPackProps {
   selectedActivities: Activity[],
   setSelectedActivities: (selectedActivities: Activity[]) => void,
   toggleActivitySelection: (activity: Activity) => void,
+  activityCategoryEditor?: ActivityCategoryEditor
 }
 
 const CustomActivityPack = ({
@@ -30,7 +31,8 @@ const CustomActivityPack = ({
   selectedActivities,
   setSelectedActivities,
   toggleActivitySelection,
-  isStaff
+  isStaff,
+  activityCategoryEditor
 }: CustomActivityPackProps) => {
   const url = queryString.parseUrl(window.location.href, { arrayFormat: 'bracket', parseNumbers: true }).query;
 
@@ -46,7 +48,7 @@ const CustomActivityPack = ({
   const [activityCategoryFilters, setActivityCategoryFilters] = React.useState(url.activityCategoryFilters || [])
   const [contentPartnerFilters, setContentPartnerFilters] = React.useState(url.contentPartnerFilters || [])
   const [topicFilters, setTopicFilters] = React.useState(url.topicFilters || [])
-  const [flagFilters, setFlagFilters] = React.useState(url.flagFilters || [])
+  const [flagFilters, setFlagFilters] = React.useState(url.flagFilters || isStaff ? ['production'] : [])
   const [savedActivityFilters, setSavedActivityFilters] = React.useState([])
   const [showMobileFilterMenu, setShowMobileFilterMenu] = React.useState(false)
   const [showMobileSortMenu, setShowMobileSortMenu] = React.useState(false)
@@ -280,7 +282,8 @@ const CustomActivityPack = ({
     savedActivityIds,
     handleFlagFilterChange,
     flagFilters,
-    isStaff
+    isStaff,
+    activityCategoryEditor
   }
 
   return (<div className="custom-activity-pack-page">

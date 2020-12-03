@@ -52,13 +52,19 @@
           left: 217px !important;
         }
       }
-      .saved-row {
-        margin-left: 24px;
+      .create-activity-category-form {
+        margin: 16px 0px 16px 24px;
+        .quill-button {
+          float: right;
+        }
       }
       &.content-partner-filter-section, &.activity-category-filter-section, &.flag-filter-section {
         .individual-row {
           margin-left: 24px;
         }
+      }
+      .saved-row {
+        margin-left: 24px;
       }
       &.activity-category-filter-section {
         .individual-row, .toggle-show-all-button {
@@ -68,6 +74,21 @@
           margin-top: 16px;
           font-weight: 600;
           color: #06806b;
+        }
+      }
+      &.staff-activity-category-filter-section {
+        .list-item section {
+          display: flex;
+          align-items: center;
+          margin-top: 16px;
+          .reorder-icon {
+            width: 20px;
+            margin-right: 4px;
+          }
+          .individual-row {
+            margin: 0px;
+            width: 100%;
+          }
         }
       }
     }

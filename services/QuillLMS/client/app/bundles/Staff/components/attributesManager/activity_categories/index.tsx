@@ -3,7 +3,26 @@ import { requestGet, requestPut, requestPost, } from '../../../../../modules/req
 import CustomActivityPackPage from '../../../../Teacher/components/assignment_flow/create_unit/custom_activity_pack/index'
 
 const ActivityCategories = () => {
+  const [activityCategories, setActivityCategories] = React.useState([])
+
+  React.useEffect(getActivityCategories, [])
+
+  function getActivityCategories() {
+    requestGet('/cms/activity_categories',
+      (data) => {
+        setActivityCategories(data.activity_categories);
+      }
+    )
+  }
+
+  const activityCategoryEditorProps = {
+    activityCategories,
+    getActivityCategories,
+    setActivityCategories
+  }
+
   return (<CustomActivityPackPage
+    activityCategoryEditor={activityCategoryEditorProps}
     clickContinue={() => {}}
     isStaff={true}
     selectedActivities={[]}
