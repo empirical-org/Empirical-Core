@@ -2,15 +2,16 @@ import * as React from "react";
 import { NavLink, Redirect, Route, RouteComponentProps, Switch, withRouter } from 'react-router-dom';
 import { queryCache } from 'react-query';
 
-import { ActivityInterface } from '../../interfaces/comprehensionInterfaces';
-import { blankActivity } from '../../../../constants/comprehension';
-import ActivityForm from './configureSettings/activityForm';
 import Activities from './activities';
 import Activity from './activity';
 import SubmissionModal from './shared/submissionModal';
+import ActivityForm from './configureSettings/activityForm';
+
+import { ActivityInterface } from '../../interfaces/comprehensionInterfaces';
 import { createActivity } from '../../utils/comprehension/activityAPIs';
-import { getCsrfToken } from "../../helpers/comprehension";
 import { Modal } from '../../../Shared/index';
+import { blankActivity } from '../../../../constants/comprehension';
+import { getCsrfToken } from "../../helpers/comprehension";
 
 const ComprehensionLanding = ({ location }: RouteComponentProps) => {
   const { pathname } = location
