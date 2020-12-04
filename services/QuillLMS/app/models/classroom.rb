@@ -1,4 +1,6 @@
 class Classroom < ActiveRecord::Base
+  include CheckboxCallback
+
   GRADES = %w(1 2 3 4 5 6 7 8 9 10 11 12 University)
   validates_uniqueness_of :code
   validates_presence_of :name
@@ -6,6 +8,7 @@ class Classroom < ActiveRecord::Base
   default_scope { where(visible: true)}
 
   after_commit :hide_appropriate_classroom_units
+  after_commit :trigger_analytics_for_classroom_creation, on: :create
 
   has_many :classroom_units
   has_many :units, through: :classroom_units
@@ -158,6 +161,9 @@ class Classroom < ActiveRecord::Base
     Clever::Section.retrieve(clever_id, teacher.districts.first.token)
   end
 
-
+  def trigger_analytics_for_classroom_creation
+    find_or_create_checkbox('Create a Classroom', owner)
+    ClassroomCreationWorker.perform_async(id)
+  end
 
 end
