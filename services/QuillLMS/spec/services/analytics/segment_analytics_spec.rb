@@ -86,12 +86,12 @@ describe 'SegmentAnalytics' do
       analytics.track_activity_pack_assignment(teacher.id, diagnostic_unit.id)
       expect(identify_calls.size).to eq(0)
       expect(track_calls.size).to eq(2)
-      expect(track_calls[0][:event]).to eq("#{SegmentIo::BackgroundEvents::ACTIVITY_PACK_ASSIGNMENT} | Diagnostic | #{diagnostic_unit.name}")
+      expect(track_calls[0][:event]).to eq("#{SegmentIo::BackgroundEvents::ACTIVITY_PACK_ASSIGNMENT} | Diagnostic | #{diagnostic_unit_template.name}")
       expect(track_calls[0][:user_id]).to eq(teacher.id)
       expect(track_calls[1][:event]).to eq(SegmentIo::BackgroundEvents::ACTIVITY_PACK_ASSIGNMENT)
       expect(track_calls[1][:user_id]).to eq(teacher.id)
       expect(track_calls[1][:properties][:activity_pack_type]).to eq("Diagnostic")
-      expect(track_calls[1][:properties][:activity_pack_name]).to eq(diagnostic_unit.name)
+      expect(track_calls[1][:properties][:activity_pack_name]).to eq(diagnostic_unit_template.name)
     end
 
     it 'sends two events with information about the activity pack when it is a custom activity pack' do
@@ -99,7 +99,7 @@ describe 'SegmentAnalytics' do
       analytics.track_activity_pack_assignment(teacher.id, unit.id)
       expect(identify_calls.size).to eq(0)
       expect(track_calls.size).to eq(2)
-      expect(track_calls[0][:event]).to eq("#{SegmentIo::BackgroundEvents::ACTIVITY_PACK_ASSIGNMENT} | Custom | #{unit.name}")
+      expect(track_calls[0][:event]).to eq("#{SegmentIo::BackgroundEvents::ACTIVITY_PACK_ASSIGNMENT} | Custom")
       expect(track_calls[0][:user_id]).to eq(teacher.id)
       expect(track_calls[1][:event]).to eq(SegmentIo::BackgroundEvents::ACTIVITY_PACK_ASSIGNMENT)
       expect(track_calls[1][:user_id]).to eq(teacher.id)
@@ -115,12 +115,12 @@ describe 'SegmentAnalytics' do
       analytics.track_activity_pack_assignment(teacher.id, unit.id)
       expect(identify_calls.size).to eq(0)
       expect(track_calls.size).to eq(2)
-      expect(track_calls[0][:event]).to eq("#{SegmentIo::BackgroundEvents::ACTIVITY_PACK_ASSIGNMENT} | Pre-made | #{unit.name}")
+      expect(track_calls[0][:event]).to eq("#{SegmentIo::BackgroundEvents::ACTIVITY_PACK_ASSIGNMENT} | Pre-made | #{unit_template.name}")
       expect(track_calls[0][:user_id]).to eq(teacher.id)
       expect(track_calls[1][:event]).to eq(SegmentIo::BackgroundEvents::ACTIVITY_PACK_ASSIGNMENT)
       expect(track_calls[1][:user_id]).to eq(teacher.id)
       expect(track_calls[1][:properties][:activity_pack_type]).to eq("Pre-made")
-      expect(track_calls[1][:properties][:activity_pack_name]).to eq(unit.name)
+      expect(track_calls[1][:properties][:activity_pack_name]).to eq(unit_template.name)
     end
 
   end
