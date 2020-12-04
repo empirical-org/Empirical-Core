@@ -5,6 +5,16 @@ then
   exit 1
 fi
 
+[ ! -d '/Applications/Postgres.app' ] && echo 'Please make sure Postgres.app is installed. Exiting.' && exit 1
+
+postgres_already_running_msg="It looks like you have a non-Postgres.app version \n 
+of postgres already running. Try running \n 
+pg_ctl -D /usr/local/var/postgresql@10 \n
+to gracefully stop this process."
+
+ps -ef | grep '/usr/local/opt/postgresql' | grep -v grep > /dev/null
+[ $? -eq 0 ] && echo -e $postgres_already_running_msg
+
 echo 'Copy git hooks'
 cp ../../hooks/* ../../.git/hooks/
 
