@@ -7,6 +7,6 @@
   rawScoreOptions: @raw_score_options,
   passedTopicOptions: Topic.all.sort_by(&:name),
   flagOptions: Activity::FLAGS,
-  followUpActivityOptions: Activity.all.sort_by(&:name),
+  followUpActivityOptions: Activity.all.sort_by { |a| a.name || '' },
   gradeBands: @grade_band_hash
 }) %>
