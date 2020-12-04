@@ -20,14 +20,7 @@ const NewRecordBox = ({ createNewContentPartner, closeRecordBox, }: NewRecordBox
   }
 
   function save() {
-    const { name, visible, description, } = record
-    const recordToSave = {
-      name,
-      visible,
-      description
-    }
-
-    createNewContentPartner(recordToSave)
+    createNewContentPartner(record)
   }
 
   function renameRecord(e) {

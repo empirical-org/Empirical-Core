@@ -33,9 +33,8 @@ const ArchivedRecordBox = ({ originalRecord, saveContentPartnerChanges, closeRec
     saveContentPartnerChanges(recordToSave)
   }
 
-  function renderArchivedOrLive(r) {
-    if (!r) { return }
-    if (r.visible) {
+  function renderArchivedOrLive() {
+    if (record.visible) {
       return (
         <div className="live-or-archived">
           <div>
@@ -52,7 +51,7 @@ const ArchivedRecordBox = ({ originalRecord, saveContentPartnerChanges, closeRec
           <div className="archived" />
           Archived
         </div>
-        <div className="date">{moment(r.updated_at).format('M/D/YY')}</div>
+        <div className="date">{moment(record.updated_at).format('M/D/YY')}</div>
       </div>
     )
   }
@@ -66,7 +65,7 @@ const ArchivedRecordBox = ({ originalRecord, saveContentPartnerChanges, closeRec
           type='text'
           value={record.name}
         />
-        {renderArchivedOrLive(record)}
+        {renderArchivedOrLive()}
       </div>
       <div className="record-input-container description">
         <TextArea
