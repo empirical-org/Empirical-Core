@@ -1,22 +1,21 @@
 import * as React from "react";
-import { deleteTurkSession, editTurkSession } from '../../../utils/comprehension/turkAPIs';
 import "react-dates/initialize";
 import { SingleDatePicker } from 'react-dates';
 import * as moment from 'moment';
 import { queryCache } from 'react-query';
-import { getCsrfToken } from "../../../helpers/comprehension";
+
+import { deleteTurkSession, editTurkSession } from '../../../utils/comprehension/turkAPIs';
 
 const EditTurkSession = ({ activityId, closeModal, originalSessionDate, setMessage, turkSessionId }) => {
   const [turkSessionDate, setTurkSessionDate] = React.useState<object>(moment(originalSessionDate));
   const [focused, setFocusedState] = React.useState<boolean>(false);
-  const csrfToken = getCsrfToken();
 
   const handleDateChange = (date: {}) => { setTurkSessionDate(date) };
-  
+
   const handleFocusChange = ({ focused }) => { setFocusedState(focused) };
 
   const handleEditTurkSession = async () => {
-    editTurkSession(activityId, turkSessionId, turkSessionDate, csrfToken).then((response) => {
+    editTurkSession(activityId, turkSessionId, turkSessionDate).then((response) => {
       const { error } = response;
       if(error) {
         setMessage(error);
@@ -30,7 +29,7 @@ const EditTurkSession = ({ activityId, closeModal, originalSessionDate, setMessa
   }
 
   const handleDeleteTurkSession = async () => {
-    deleteTurkSession(turkSessionId, csrfToken).then((response) => {
+    deleteTurkSession(turkSessionId).then((response) => {
       const { error } = response;
       if(error) {
         setMessage(error);
