@@ -4,6 +4,7 @@ describe "user_mailer/ell_starter_diagnostic_info_email.html.erb", type: :view d
   it "should render the email" do
     allow(view).to receive(:stylesheet_link_tag)
     assign(:name, "Eric")
+    assign(:constants, UserMailer::CONSTANTS)
 
     render
 
