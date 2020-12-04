@@ -1,5 +1,5 @@
 import { assert } from 'chai';
-import { correct } from '../src/main';
+import { correct } from './correct';
 import { Dictionary } from './dictionary';
 
 describe('The correct function', () => {

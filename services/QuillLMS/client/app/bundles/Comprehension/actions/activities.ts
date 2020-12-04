@@ -2,6 +2,7 @@ import * as request from 'request';
 
 import { ActionTypes } from './actionTypes'
 import { TrackAnalyticsEvent } from './analytics'
+
 import { Events } from '../modules/analytics'
 
 export const getActivity = (sessionID: string, activityUID: string) => {
@@ -11,7 +12,7 @@ export const getActivity = (sessionID: string, activityUID: string) => {
       sessionID: sessionID
     }));
 
-    const activityUrl = `https://comprehension-247816.appspot.com/activities/${activityUID}`
+    const activityUrl = `${process.env.DEFAULT_URL}/api/v1/comprehension/activities/${activityUID}`
 
     request.get(activityUrl, (e, r, body) => {
       const activity = JSON.parse(body)

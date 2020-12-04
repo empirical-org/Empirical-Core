@@ -9,11 +9,7 @@ case $1 in
     HEROKU_APP=empirical-grammar
     URL="https://www.quill.org/"
     NR_URL="https://rpm.newrelic.com/accounts/2639113/applications/548856875"
-    if [ ${current_branch} != "production" ]
-    then
-      echo "You can not make a production deploy from a branch other than 'production'.  Don't forget to make sure you have the latest code pulled."
-      exit 1
-    fi
+    current_branch="origin/production"
     ;;
   staging)
     DEPLOY_GIT_BRANCH=deploy-lms-staging
@@ -36,10 +32,13 @@ read -r -p "Deploy branch '$current_branch' to '$1' environment? [y/N]" response
 if [[ "$response" =~ ^([y])$ ]]
 then
     sh ../../scripts/post_slack_deploy.sh $app_name $1 $current_branch false
-    git push origin -f ${current_branch}:$DEPLOY_GIT_BRANCH
     if [ $1 == 'prod' ]
     then
+        # For production, push directly from the remote production branch without going local
+        git push --no-verify --force origin origin/production:refs/heads/$DEPLOY_GIT_BRANCH
         sh ../../scripts/post_slack_deploy_description.sh $app_name
+    else
+        git push --no-verify --force origin ${current_branch}:$DEPLOY_GIT_BRANCH
     fi
     open "https://dashboard.heroku.com/apps/$HEROKU_APP/activity"
     open $URL

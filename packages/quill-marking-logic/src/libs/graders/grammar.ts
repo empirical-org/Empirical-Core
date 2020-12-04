@@ -1,6 +1,6 @@
 import * as _ from 'underscore';
 import {Response, PartialResponse, IncorrectSequence, FocusPoint, GradingObject} from '../../interfaces';
-import {correctSentenceFromSamples} from 'quill-spellchecker';
+import {correctSentenceFromSamples} from '../spellchecker/main';
 import {getOptimalResponses} from '../sharedResponseFunctions';
 import {conceptResultTemplate} from '../helpers/concept_result_template'
 

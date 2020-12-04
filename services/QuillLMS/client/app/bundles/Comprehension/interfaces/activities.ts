@@ -1,7 +1,7 @@
 export interface Activity {
   activity_id: number;
   title: string;
-  passages: Array<string>;
+  passages: Array<Passage>
   prompts: Array<Prompt>;
 }
 
@@ -10,4 +10,9 @@ export interface Prompt {
   text: string;
   max_attempts: number;
   max_attempts_feedback: string;
+}
+
+export interface Passage {
+  id: number,
+  text: string
 }
