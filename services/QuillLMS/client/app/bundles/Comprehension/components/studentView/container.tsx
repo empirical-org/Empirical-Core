@@ -131,7 +131,7 @@ export class StudentViewContainer extends React.Component<StudentViewContainerPr
 
     if (promptIndex < 0 || !currentActivity.prompts[promptIndex]) return; // If we're on a step earlier than a prompt, or there's no prompt for this step then there's nothing to track
 
-    const promptID = currentActivity.prompts[promptIndex].prompt_id
+    const promptID = currentActivity.prompts[promptIndex].id
 
     return {
       activityID,
@@ -288,7 +288,7 @@ export class StudentViewContainer extends React.Component<StudentViewContainerPr
     if (!activeStep || activeStep === READ_PASSAGE_STEP) { return passagesWithPTags }
 
     const promptIndex = activeStep - 2 // have to subtract 2 because the prompts array index starts at 0 but the prompt numbers in the state are 2..4
-    const activePromptId = currentActivity.prompts[promptIndex].prompt_id
+    const activePromptId = currentActivity.prompts[promptIndex].id
     const submittedResponsesForActivePrompt = session.submittedResponses[activePromptId]
 
     if (!(submittedResponsesForActivePrompt && submittedResponsesForActivePrompt.length)) { return passagesWithPTags }
@@ -377,7 +377,7 @@ export class StudentViewContainer extends React.Component<StudentViewContainerPr
         stepNumber={stepNumber}
         stepNumberComponent={this.renderStepNumber(stepNumber)}
         submitResponse={this.submitResponse}
-        submittedResponses={submittedResponses[prompt.prompt_id] || []}
+        submittedResponses={submittedResponses[prompt.id] || []}
       />)
     })
 
