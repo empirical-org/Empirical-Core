@@ -18,8 +18,11 @@ QuillLMS is the Learning Management System that powers Quill.org, a free writing
 In your terminal:
 1. Clone the Empirical Core repo `git clone https://github.com/empirical-org/Empirical-Core.git`
 2. Navigate to LMS directory: `cd services/QuillLMS`
-3. Run install script: `sh bin/dev/bootstrap.sh`
-4. Open your browser to [localhost:3000](http://localhost:3000), the app should be running.
+3. (recommended) Install the version of [Postgres.app](https://postgresapp.com/) that supports all postgres versions.
+    - install the binary
+    - create a postgresql v10 server through the Postgres.app GUI and start it
+4. Run install script: `sh bin/dev/bootstrap.sh`
+5. Open your browser to [localhost:3000](http://localhost:3000), the app should be running.
 
 ### Manual Install Instructions
 
