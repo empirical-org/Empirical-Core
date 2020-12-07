@@ -697,6 +697,7 @@ EmpiricalGrammar::Application.routes.draw do
   resource :status, only: [] do
     collection do
       get :index, :database, :database_write, :database_follower, :redis_cache, :redis_queue, :sidekiq_queue_length
+      post :deployment_notification
     end
   end
 
