@@ -243,6 +243,12 @@
     }
   }
 
+  @media (max-width: 1500px) and (min-width: 1051px) {
+    .main-content-container .activity-table-container .lessons-banner {
+      max-width: calc(100vw - 312px - 64px);
+    }
+  }
+
   @media (max-width: 1050px) {
     .main-content-container {
       header {
