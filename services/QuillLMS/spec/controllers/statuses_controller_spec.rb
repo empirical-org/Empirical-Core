@@ -36,7 +36,7 @@ describe StatusesController, type: :controller do
 
     context 'upstream non-2xx response' do 
       it 'should return with status 502' do 
-        resp = double()
+        resp = double
         allow(resp).to receive(:status) { 400 }
         allow(Faraday).to receive(:post).and_return(resp)
 

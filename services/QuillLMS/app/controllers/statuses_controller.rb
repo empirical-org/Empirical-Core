@@ -55,21 +55,19 @@ class StatusesController < ApplicationController
       puts "Faraday error: #{e}"
     end
 
-    if resp && resp.status == 201 
+    if resp.respond_to?(:status) && resp.status == 201 
       render plain: 'OK' 
+    elsif resp.respond_to?(:status)
+      render(**{ 
+        plain: "Error: New Relic POST request had return code #{resp.respond_to?(:status)}", 
+        status: 502
+      })        
     else
-      if resp.respond_to?(:status)
-        render **{ 
-          plain: "Error: New Relic POST request had return code #{resp.respond_to?(:status)}", 
-          status: 502
-        }        
-      else
-        render **{ 
-          plain: "Error: New Relic POST failed.", 
-          status: 500
-        }      
-      end
-
+      render(**{ 
+        plain: "Error: New Relic POST failed.", 
+        status: 500
+      })      
     end
+
   end
 end
