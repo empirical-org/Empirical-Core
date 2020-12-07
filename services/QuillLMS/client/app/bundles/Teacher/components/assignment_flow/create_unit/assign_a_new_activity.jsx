@@ -14,8 +14,8 @@ const closeIconSrc = `${process.env.CDN_URL}/images/icons/close.svg`
 const minis = (diagnosticBannerShowing) => [
   (<AssignmentCard
     bodyArray={[
-      { key: 'What', text: "Have students complete a short writing assessment, and we&#39;ll generate a set of practice activities for each student based on the results.", },
-      { key: 'When', text: "You want data on what each student needs to practice, or you&#39;d like Quill to recommend activities for your students.", }
+      { key: 'What', text: "Have students complete a short writing assessment, and we'll generate a set of practice activities for each student based on the results.", },
+      { key: 'When', text: "You want data on what each student needs to practice, or you'd like Quill to recommend activities for your students.", }
     ]}
     header="Assess student writing with a diagnostic"
     imgAlt="page with writing and a magnifying glass over it"
@@ -27,7 +27,7 @@ const minis = (diagnosticBannerShowing) => [
   (<AssignmentCard
     bodyArray={[
       { key: 'What', text: "Search our entire library of activities to find exactly what your students need and build your own custom activity packs.", },
-      { key: 'When', text: "You know which skills you want your students to practice, or you&#39;d like to browse all our activities before assigning a diagnostic.", }
+      { key: 'When', text: "You know which skills you want your students to practice, or you'd like to browse all our activities before assigning a diagnostic.", }
     ]}
     header="Explore all activities in our activity library"
     imgAlt="web page with the layout of the Quill Activity Library"
