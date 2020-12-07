@@ -19,11 +19,11 @@ exports[`AssignANewActivity component default should render 1`] = `
             Array [
               Object {
                 "key": "What",
-                "text": "Have students complete a short writing assessment, and we'll generate a set of practice activities for each student based on the results.",
+                "text": "Have students complete a short writing assessment, and we&#39;ll generate a set of practice activities for each student based on the results.",
               },
               Object {
                 "key": "When",
-                "text": "You want data on what each student needs to practice, or you'd like Quill to recommend activities for your students.",
+                "text": "You want data on what each student needs to practice, or you&#39;d like Quill to recommend activities for your students.",
               },
             ]
           }
@@ -71,7 +71,7 @@ exports[`AssignANewActivity component default should render 1`] = `
                 <p
                   className="text"
                 >
-                  Have students complete a short writing assessment, and we'll generate a set of practice activities for each student based on the results.
+                  Have students complete a short writing assessment, and we&#39;ll generate a set of practice activities for each student based on the results.
                 </p>
               </div>
               <div
@@ -86,7 +86,7 @@ exports[`AssignANewActivity component default should render 1`] = `
                 <p
                   className="text"
                 >
-                  You want data on what each student needs to practice, or you'd like Quill to recommend activities for your students.
+                  You want data on what each student needs to practice, or you&#39;d like Quill to recommend activities for your students.
                 </p>
               </div>
             </div>
@@ -101,7 +101,7 @@ exports[`AssignANewActivity component default should render 1`] = `
               },
               Object {
                 "key": "When",
-                "text": "You know which skills you want your students to practice, or you'd like to browse all our activities before assigning a diagnostic.",
+                "text": "You know which skills you want your students to practice, or you&#39;d like to browse all our activities before assigning a diagnostic.",
               },
             ]
           }
@@ -164,7 +164,7 @@ exports[`AssignANewActivity component default should render 1`] = `
                 <p
                   className="text"
                 >
-                  You know which skills you want your students to practice, or you'd like to browse all our activities before assigning a diagnostic.
+                  You know which skills you want your students to practice, or you&#39;d like to browse all our activities before assigning a diagnostic.
                 </p>
               </div>
             </div>
