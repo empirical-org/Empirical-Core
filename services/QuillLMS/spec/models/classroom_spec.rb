@@ -192,4 +192,17 @@ describe Classroom, type: :model do
     end
   end
 
+  describe 'callbacks' do
+    it 'should trigger_analytics_events_for_classroom_creation on create commit' do
+      expect{ create(:classroom).run_callbacks(:commit) }.to change(ClassroomCreationWorker.jobs, :size).by 1
+    end
+
+    it 'should find or create checkbox' do
+      classroom = build(:classroom)
+      expect(classroom).to receive(:find_or_create_checkbox)
+      classroom.save
+      classroom.run_callbacks(:commit)
+    end
+  end
+
 end
