@@ -122,6 +122,8 @@ EmpiricalGrammar::Application.routes.draw do
   resources :milestones, only: [] do
     get :has_viewed_lesson_tutorial, on: :collection
     post :complete_view_lesson_tutorial, on: :collection
+    post :complete_acknowledge_lessons_banner, on: :collection
+    post :complete_acknowledge_diagnostic_banner, on: :collection
   end
 
   resources :grades, only: [:index]

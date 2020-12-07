@@ -21,6 +21,7 @@ interface CustomActivityPackProps {
   selectedActivities: Activity[],
   setSelectedActivities: (selectedActivities: Activity[]) => void,
   toggleActivitySelection: (activity: Activity) => void,
+  showLessonsBanner?: boolean
 }
 
 const CustomActivityPack = ({
@@ -29,6 +30,7 @@ const CustomActivityPack = ({
   selectedActivities,
   setSelectedActivities,
   toggleActivitySelection,
+  showLessonsBanner,
 }: CustomActivityPackProps) => {
   const url = queryString.parseUrl(window.location.href, { arrayFormat: 'bracket', parseNumbers: true }).query;
 
@@ -289,6 +291,7 @@ const CustomActivityPack = ({
         setShowMobileFilterMenu={setShowMobileFilterMenu}
         setShowMobileSortMenu={setShowMobileSortMenu}
         setSort={setSort}
+        showLessonsBanner={showLessonsBanner}
         sort={sort}
         toggleActivitySelection={toggleActivitySelection}
         undoLastFilter={undoLastFilter}

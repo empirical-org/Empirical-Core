@@ -10,6 +10,7 @@ interface AssignmentCardProps {
   buttonLink?: string;
   imgClassName?: string;
   showNewTag?: boolean;
+  showRecommendedToStartTag?: boolean;
 }
 
 export default class AssignmentCard extends React.Component<AssignmentCardProps, {}> {
@@ -39,7 +40,7 @@ export default class AssignmentCard extends React.Component<AssignmentCardProps,
   }
 
   render() {
-    const { imgSrc, imgAlt, imgClassName, showNewTag, header, bodyArray, } = this.props
+    const { imgSrc, imgAlt, imgClassName, showNewTag, header, bodyArray, showRecommendedToStartTag, } = this.props
     const bodyElements = bodyArray.map(obj => (
       <div className="body-element" key={obj.key}>
         <p className="key">{obj.key}</p>
@@ -48,12 +49,17 @@ export default class AssignmentCard extends React.Component<AssignmentCardProps,
     )
 
     const newTag = showNewTag ? <span className="new-tag">NEW</span> : null
+    const recommendedToStartTag = showRecommendedToStartTag ? <span className="recommended-to-start-tag">Recommended to start</span> : null
+    const leftClassName = showRecommendedToStartTag ? "left include-recommended-to-start-tag" : "left"
 
     return (<div className="assignment-card quill-card" onClick={this.handleClick}>
       <div className="top-row">
-        <div className="left">
+        <div className={leftClassName}>
           <img alt={imgAlt} className={imgClassName} src={imgSrc} />
-          <h2>{header}</h2>
+          <div className="header-wrapper">
+            {recommendedToStartTag}
+            <h2>{header}</h2>
+          </div>
           {newTag}
         </div>
         {this.renderButtons()}
