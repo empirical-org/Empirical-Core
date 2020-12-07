@@ -43,10 +43,10 @@ class StatusesController < ApplicationController
         req.headers['Content-Type'] = 'application/json'
         req.body = {
           "deployment": {
-            "revision": "Commit: #{params[:head_long]} | Heroku release: #{params[:release]}",
-            "changelog": params[:git_log],
-            "description": params[:head_long],
-            "user": params[:user],
+            "revision": "Commit: #{params['head_long']} | Heroku release: #{params['release']}",
+            "changelog": params['git_log'],
+            "description": params['head_long'],
+            "user": params['user'],
             "timestamp": Time.now.utc
           }
         }.to_json
