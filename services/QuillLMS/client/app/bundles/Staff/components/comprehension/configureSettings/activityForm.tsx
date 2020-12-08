@@ -4,7 +4,7 @@ import { EditorState, ContentState } from 'draft-js';
 import PromptsForm from './promptsForm';
 
 // import { flagOptions } from '../../../../../constants/comprehension'
-import { validateForm, buildActivity, buildBlankPrompt, promptsByConjunction } from '../../../helpers/comprehension';
+import { validateForm, buildActivity, buildBlankPrompt, promptsByConjunction, getActivityPrompt, getActivityPromptSetter } from '../../../helpers/comprehension';
 import {
   BECAUSE,
   BUT,
@@ -71,22 +71,22 @@ const ActivityForm = ({ activity, closeModal, submitActivity }: ActivityFormProp
     setActivityPassages(updatedPassages)
    };
 
-  function handleSetActivityBecausePrompt(e: InputEvent){
-    const updatedBecausePrompt = {...activityBecausePrompt};
-    updatedBecausePrompt.text = e.target.value;
-    setActivityBecausePrompt(updatedBecausePrompt)
-  };
+  function handleSetPrompt (e: InputEvent, conjunction: string) {
+    const prompt = getActivityPrompt({ activityBecausePrompt, activityButPrompt, activitySoPrompt, conjunction });
+    const updatePrompt = getActivityPromptSetter({ setActivityBecausePrompt, setActivityButPrompt, setActivitySoPrompt, conjunction});
+    if(prompt && updatePrompt) {
+      prompt.text = e.target.value;
+      updatePrompt(prompt);
+    }
+  }
 
-  function handleSetActivityButPrompt(e: InputEvent){
-    const updatedButPrompt = {...activityButPrompt};
-    updatedButPrompt.text = e.target.value;
-    setActivityButPrompt(updatedButPrompt)
-  };
-
-  function handleSetActivitySoPrompt(e: InputEvent){
-    const updatedSoPrompt = {...activitySoPrompt};
-    updatedSoPrompt.text = e.target.value;
-    setActivitySoPrompt(updatedSoPrompt)
+  function handleSetPlagiarismText(conjunction: string, text: string) {
+    const prompt = getActivityPrompt({ activityBecausePrompt, activityButPrompt, activitySoPrompt, conjunction });
+    const updatePrompt = getActivityPromptSetter({ setActivityBecausePrompt, setActivityButPrompt, setActivitySoPrompt, conjunction});
+    if(prompt && updatePrompt) {
+      prompt.plagiarism_text = text;
+      updatePrompt(prompt)
+    }
   };
 
   function handleSubmitActivity(){
@@ -118,6 +118,12 @@ const ActivityForm = ({ activity, closeModal, submitActivity }: ActivityFormProp
     } else {
       submitActivity(activityObject);
     }
+  }
+
+  const plagiarismLabelsTextStyle = {
+    [BECAUSE]: activityBecausePrompt.plagiarism_text && activityBecausePrompt.plagiarism_text.length && activityBecausePrompt.plagiarism_text !== '<br/>' ? 'has-text' : '',
+    [BUT]: activityButPrompt.plagiarism_text && activityButPrompt.plagiarism_text.length && activityButPrompt.plagiarism_text !== '<br/>' ? 'has-text' : '',
+    [SO]: activitySoPrompt.plagiarism_text && activitySoPrompt.plagiarism_text.length && activitySoPrompt.plagiarism_text !== '<br/>' ? 'has-text' : ''
   }
 
   const errorsPresent = !!Object.keys(errors).length;
@@ -189,9 +195,9 @@ const ActivityForm = ({ activity, closeModal, submitActivity }: ActivityFormProp
           activityButPrompt={activityButPrompt}
           activitySoPrompt={activitySoPrompt}
           errors={errors}
-          handleSetActivityBecausePrompt={handleSetActivityBecausePrompt}
-          handleSetActivityButPrompt={handleSetActivityButPrompt}
-          handleSetActivitySoPrompt={handleSetActivitySoPrompt}
+          handleSetPlagiarismText={handleSetPlagiarismText}
+          handleSetPrompt={handleSetPrompt}
+          plagiarismLabelsTextStyle={plagiarismLabelsTextStyle}
         />
         <div className="submit-button-container">
           {errorsPresent && <div className="error-message-container">
