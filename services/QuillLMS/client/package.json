@@ -68,7 +68,7 @@
     "pusher-js": "^5.0.1",
     "query-string": "^6.13.6",
     "quill-component-library": "0.10.2",
-    "quill-marking-logic": "0.13.7",
+    "quill-marking-logic": "0.14.1",
     "quill-string-normalizer": "0.0.9",
     "raven-js": "^3.17.0",
     "react": "^16.13.1",
