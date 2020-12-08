@@ -84,9 +84,7 @@ const FilterColumn = ({
     />
     activityCategoryFilterSection = (<StaffActivityCategoryFilters
       activityCategoryEditor={activityCategoryEditor}
-      activityCategoryFilters={activityCategoryFilters}
       filterActivities={filterActivities}
-      handleActivityCategoryFilterChange={handleActivityCategoryFilterChange}
     />)
   }
 

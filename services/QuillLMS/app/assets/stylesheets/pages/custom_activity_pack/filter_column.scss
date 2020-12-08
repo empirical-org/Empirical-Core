@@ -81,13 +81,29 @@
           display: flex;
           align-items: center;
           margin-top: 16px;
-          .reorder-icon {
+          .reorder-icon, .fa-minus-circle {
             width: 20px;
             margin-right: 4px;
           }
-          .individual-row {
+          .individual-row.activity-category-row {
             margin: 0px;
             width: 100%;
+            div {
+              align-items: center;
+            }
+            .input-container {
+              min-height: min-content;
+              label, input {
+                margin-bottom: 0px;
+              }
+            }
+            .tooltip-trigger-text {
+              max-width: 180px;
+            }
+            .pencil-and-count-wrapper {
+              width: 50px;
+              justify-content: space-between;
+            }
           }
         }
       }
@@ -173,6 +189,24 @@
   @media (max-width: 1050px) {
     .filter-column {
       display: none;
+    }
+  }
+}
+
+.sortable-filter-row {
+  section {
+    display: flex;
+    background-color: white;
+    .activity-category-row {
+      display: flex;
+      justify-content: space-between;
+    }
+    .reorder-icon {
+      width: 20px;
+      margin-right: 4px;
+    }
+    .quill-checkbox {
+      margin-right: 8px;
     }
   }
 }

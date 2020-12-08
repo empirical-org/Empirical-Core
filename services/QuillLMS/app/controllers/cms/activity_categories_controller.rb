@@ -2,7 +2,11 @@ class Cms::ActivityCategoriesController < Cms::CmsController
   before_filter :set_activity_category, only: [:destroy, :show]
 
   def index
-    @activity_categories = ActivityCategory.order(order_number: :asc)
+    @activity_categories = ActivityCategory.includes(:activity_category_activities).order(order_number: :asc).all.map do |ac|
+      activity_category = ac.attributes
+      activity_category['activity_ids'] = ac.activity_category_activities.order(order_number: :asc).map(&:activity_id)
+      activity_category
+    end
 
     respond_to do |format|
       format.json {

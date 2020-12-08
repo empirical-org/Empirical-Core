@@ -51,5 +51,7 @@ export interface Topic {
 export interface ActivityCategoryEditor {
   activityCategories: ActivityCategory[],
   getActivityCategories: () => void,
-  setActivityCategories: (activityCategories: ActivityCategory[]) => void
+  setActivityCategories: (activityCategories: ActivityCategory[]) => void,
+  selectedActivityCategoryId: number,
+  handleActivityCategorySelect: (activityCategoryId: number) => void
 }

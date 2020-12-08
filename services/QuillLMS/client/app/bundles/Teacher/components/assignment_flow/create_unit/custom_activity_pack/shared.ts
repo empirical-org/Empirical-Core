@@ -99,7 +99,7 @@ function filterBySavedActivityIds(savedActivityFilters: number[], activity: Acti
   return savedActivityFilters.some(id => Number(activity.id) === Number(id))
 }
 
-function filterByFlag(flagFilters: string[], activity:Activity) {
+export function filterByFlag(flagFilters: string[], activity:Activity) {
   if (!flagFilters.length) { return true }
   return flagFilters.some(flag => activity.flags.includes(flag))
 }

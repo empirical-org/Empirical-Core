@@ -2,7 +2,7 @@ import * as React from 'react';
 import queryString from 'query-string';
 
 import { Activity, ActivityCategoryEditor } from './interfaces'
-import { calculateNumberOfPages, activityClassificationGroupings, filters, DEFAULT } from './shared'
+import { calculateNumberOfPages, activityClassificationGroupings, filters, filterByFlag, DEFAULT } from './shared'
 import ActivityTableContainer from './activity_table_container'
 import FilterColumn from './filter_column'
 import Header from './header'
@@ -286,13 +286,15 @@ const CustomActivityPack = ({
     activityCategoryEditor
   }
 
+  const selectedActivitiesFilteredByFlag = selectedActivities.filter(a => filterByFlag(flagFilters, a))
+
   return (<div className="custom-activity-pack-page">
     <Snackbar text={snackbarText} visible={showSnackbar} />
     <MobileFilterMenu {...filterColumnProps} setShowMobileFilterMenu={setShowMobileFilterMenu} showMobileFilterMenu={showMobileFilterMenu} />
     <MobileSortMenu setShowMobileSortMenu={setShowMobileSortMenu} setSort={setSort} showMobileSortMenu={showMobileSortMenu} />
     <FilterColumn {...filterColumnProps} />
     <section className="main-content-container">
-      <Header handleClickContinue={clickContinue} selectedActivities={selectedActivities} setSelectedActivities={setSelectedActivities} toggleActivitySelection={toggleActivitySelection} />
+      <Header handleClickContinue={clickContinue} selectedActivities={selectedActivitiesFilteredByFlag} setSelectedActivities={setSelectedActivities} toggleActivitySelection={toggleActivitySelection} />
       <ActivityTableContainer
         currentPage={currentPage}
         filteredActivities={filteredActivities}

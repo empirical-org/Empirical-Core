@@ -11,47 +11,48 @@ import { Tooltip, Input, Snackbar, defaultSnackbarTimeout } from '../../../../..
 const smallWhiteCheckSrc = `${process.env.CDN_URL}/images/shared/check-small-white.svg`
 const reorderSrc = `${process.env.CDN_URL}/images/icons/reorder.svg`
 
-interface ActivityCategoryFilterRowProps {
-  activityCategoryFilters: number[],
+interface StaffActivityCategoryFilterRowProps {
+  selectedActivityCategoryId: number,
   activityCategory: ActivityCategory,
-  handleActivityCategoryFilterChange: (activityCategoryFilters: number[]) => void,
+  handleActivityCategorySelect: (activityCategoryId: number) => void,
   uniqueActivityCategories: ActivityCategory[],
   filteredActivities: Activity[],
   handleRemoveActivityCategory: (id: number) => void,
   handleActivityCategoryNameChange: (id: number, name: string) => void
 }
 
-interface ActivityCategoryFiltersProps {
-  activities: Activity[],
+interface StaffActivityCategoryFiltersProps {
   filterActivities: (ignoredKey?: string) => Activity[]
-  activityCategoryFilters: number[],
-  handleActivityCategoryFilterChange: (activityCategoryFilters: number[]) => void,
   activityCategoryEditor: ActivityCategoryEditor
 }
 
 const activityCategoryTooltipText = "Each activity is assigned one activity category. Activity categories are the \"concept\" activity attribute used to filter and order activities and shown under the activity's title in the custom activity pack page. Changing the order of activity categories on this page changes the default order in which activities are displayed to teachers. Note that these concepts are not the same concepts that are displayed in a featured activity pack page, and they are not the same concepts used to build the Concepts data report."
 
-const ActivityCategoryFilterRow = ({
-  activityCategoryFilters,
+const StaffActivityCategoryFilterRow = ({
+  selectedActivityCategoryId,
   activityCategory,
-  handleActivityCategoryFilterChange,
+  handleActivityCategorySelect,
   filteredActivities,
   handleRemoveActivityCategory,
   handleActivityCategoryNameChange
-}: ActivityCategoryFilterRowProps) => {
+}: StaffActivityCategoryFilterRowProps) => {
+  const [originalActivityCategory, setOriginalActivityCategory] = React.useState(activityCategory)
   const [inEditMode, setInEditMode] = React.useState(false)
 
   function checkIndividualFilter() {
-    const newActivityCategoryFilters = Array.from(new Set(activityCategoryFilters.concat([activityCategory.id])))
-    handleActivityCategoryFilterChange(newActivityCategoryFilters)
+    handleActivityCategorySelect(activityCategory.id)
   }
 
   function uncheckIndividualFilter() {
-    const newActivityCategoryFilters = activityCategoryFilters.filter(k => k !== activityCategory.id)
-    handleActivityCategoryFilterChange(newActivityCategoryFilters)
+    handleActivityCategorySelect(null)
   }
 
   function startEditing() { setInEditMode(true) }
+
+  function stopEditing() {
+    handleActivityCategoryNameChange(activityCategory.id, originalActivityCategory.name)
+    setInEditMode(false)
+  }
 
   function removeActivityCategory() {
     handleRemoveActivityCategory(activityCategory.id)
@@ -66,13 +67,13 @@ const ActivityCategoryFilterRow = ({
 
   if (activityCount === 0) {
     checkbox = <div aria-label={`Check ${activityCategory.name}`} className="focus-on-light quill-checkbox disabled" />
-  } else if (activityCategoryFilters.includes(activityCategory.id)) {
+  } else if (selectedActivityCategoryId === activityCategory.id) {
     checkbox = (<button aria-label={`Uncheck ${activityCategory.name}`} className="focus-on-light quill-checkbox selected" onClick={uncheckIndividualFilter} type="button">
       <img alt="Checked checkbox" src={smallWhiteCheckSrc} />
     </button>)
   }
 
-  const activityCategoryNameElement = activityCategory.name.length * AVERAGE_FONT_WIDTH >= 200 ? <Tooltip tooltipText={activityCategory.name} tooltipTriggerText={activityCategory.name} tooltipTriggerTextClass="tooltip-trigger-text" /> : <span>{activityCategory.name}</span>
+  const activityCategoryNameElement = activityCategory.name.length * AVERAGE_FONT_WIDTH >= 160 ? <Tooltip tooltipText={activityCategory.name} tooltipTriggerText={activityCategory.name} tooltipTriggerTextClass="tooltip-trigger-text" /> : <span>{activityCategory.name}</span>
   const DragHandle = SortableHandle(() => <img alt="Reorder icon" className="reorder-icon focus-on-light" src={reorderSrc} tabIndex={0} />);
 
   if (inEditMode) {
@@ -87,7 +88,7 @@ const ActivityCategoryFilterRow = ({
             value={activityCategory.name}
           />
         </div>
-        <span>({activityCount})</span>
+        <button className="interactive-wrapper" onClick={stopEditing}><i className="fas fa-times" /></button>
       </div>
     </section>)
   }
@@ -100,7 +101,7 @@ const ActivityCategoryFilterRow = ({
         {checkbox}
         {activityCategoryNameElement}
       </div>
-      <div>
+      <div className="pencil-and-count-wrapper">
         <button className="interactive-wrapper" onClick={startEditing}><i className="fas fa-pencil-alt" /></button>
         <span>({activityCount})</span>
       </div>
@@ -108,11 +109,11 @@ const ActivityCategoryFilterRow = ({
   </section>)
 }
 
-const ActivityCategoryFilters = ({ activityCategoryEditor, filterActivities, activityCategoryFilters, handleActivityCategoryFilterChange, }: ActivityCategoryFiltersProps) => {
+const StaffActivityCategoryFilters = ({ activityCategoryEditor, filterActivities, }: StaffActivityCategoryFiltersProps) => {
   const [newActivityCategoryName, setNewActivityCategoryName] = React.useState('')
   const [showSnackbar, setShowSnackbar] = React.useState(false)
 
-  const { activityCategories, getActivityCategories, setActivityCategories, } = activityCategoryEditor
+  const { activityCategories, getActivityCategories, setActivityCategories, selectedActivityCategoryId, handleActivityCategorySelect, } = activityCategoryEditor
 
   React.useEffect(getActivityCategories, [])
 
@@ -121,8 +122,6 @@ const ActivityCategoryFilters = ({ activityCategoryEditor, filterActivities, act
       setTimeout(() => setShowSnackbar(false), defaultSnackbarTimeout)
     }
   }, [showSnackbar])
-
-  function clearAllActivityCategoryFilters() { handleActivityCategoryFilterChange([]) }
 
   function sortCallback(sortInfo) {
     const newOrder = sortInfo.map(item => item.key);
@@ -168,20 +167,18 @@ const ActivityCategoryFilters = ({ activityCategoryEditor, filterActivities, act
 
   const filteredActivities = filterActivities(ACTIVITY_CATEGORY_FILTERS)
 
-  const activityCategoryRows = activityCategories.map(ac => (<ActivityCategoryFilterRow
+  const activityCategoryRows = activityCategories.map(ac => (<StaffActivityCategoryFilterRow
     activityCategory={ac}
-    activityCategoryFilters={activityCategoryFilters}
+    selectedActivityCategoryId={selectedActivityCategoryId}
     filteredActivities={filteredActivities}
     handleActivityCategoryNameChange={handleActivityCategoryNameChange}
-    handleActivityCategoryFilterChange={handleActivityCategoryFilterChange}
+    handleActivityCategorySelect={handleActivityCategorySelect}
     handleRemoveActivityCategory={handleRemoveActivityCategory}
     key={ac.id}
     uniqueActivityCategories={activityCategories}
   />))
 
   const activityCategoryList = <SortableList data={activityCategoryRows} helperClass="sortable-filter-row" sortCallback={sortCallback} useDragHandle={true} />
-
-  const clearButton = activityCategoryFilters.length ? <button className="interactive-wrapper clear-filter focus-on-light" onClick={clearAllActivityCategoryFilters} type="button">Clear</button> : <span />
 
   let createNewActivityCategoryButtonClassName = "quill-button primary contained fun"
   if (!newActivityCategoryName.length) { createNewActivityCategoryButtonClassName += ' disabled' }
@@ -195,7 +192,6 @@ const ActivityCategoryFilters = ({ activityCategoryEditor, filterActivities, act
         tooltipTriggerText={<i className="fal fa-info-circle" />}
       />
       </h2>
-      {clearButton}
     </div>
     {activityCategoryList}
     <section className="create-activity-category-form">
@@ -209,4 +205,4 @@ const ActivityCategoryFilters = ({ activityCategoryEditor, filterActivities, act
   </section>)
 }
 
-export default ActivityCategoryFilters
+export default StaffActivityCategoryFilters

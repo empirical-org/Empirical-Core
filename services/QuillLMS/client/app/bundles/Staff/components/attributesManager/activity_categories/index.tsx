@@ -4,8 +4,34 @@ import CustomActivityPackPage from '../../../../Teacher/components/assignment_fl
 
 const ActivityCategories = () => {
   const [activityCategories, setActivityCategories] = React.useState([])
+  const [selectedActivityCategoryId, setSelectedActivityCategoryId] = React.useState(null)
+  const [selectedActivities, setSelectedActivities] = React.useState([])
+  const [activities, setActivities] = React.useState([])
 
-  React.useEffect(getActivityCategories, [])
+  React.useEffect(() => {
+    getActivityCategories()
+    getActivities()
+  }, [])
+
+  React.useEffect(() => {
+    if (selectedActivityCategoryId === null) {
+      setSelectedActivities([])
+    } else {
+      const selectedActivityCategory = activityCategories.find(ac => ac.id === selectedActivityCategoryId)
+      const selectedActivityCategoryActivities = selectedActivityCategory.activity_ids.map(id => activities.find(a => a.id === id))
+      setSelectedActivities(selectedActivityCategoryActivities)
+    }
+  }, [selectedActivityCategoryId])
+
+  React.useEffect(() => {
+    if (!selectedActivityCategoryId) { return }
+
+    const selectedActivityIds = selectedActivities.map(a => a.id)
+    const newActivityCategories = [...activityCategories]
+    const indexOfActivityCategory = newActivityCategories.findIndex(act => act.id === selectedActivityCategoryId);
+    newActivityCategories[indexOfActivityCategory].activity_ids = selectedActivityIds
+    setActivityCategories(newActivityCategories)
+  }, [selectedActivities])
 
   function getActivityCategories() {
     requestGet('/cms/activity_categories',
@@ -15,19 +41,51 @@ const ActivityCategories = () => {
     )
   }
 
+  function getActivities() {
+    requestGet('/activities/search',
+      (data) => {
+        setActivities(data.activities);
+      }
+    )
+  }
+
+  function handleActivityCategorySelect(activityCategoryId) {
+    setSelectedActivityCategoryId(activityCategoryId)
+  }
+
+  function toggleActivitySelection(activity) {
+    const indexOfActivity = selectedActivities.findIndex(act => act.id === activity.id);
+    const newActivityArray = selectedActivities.slice();
+    if (indexOfActivity === -1) {
+      newActivityArray.push(activity);
+    } else {
+      newActivityArray.splice(indexOfActivity, 1);
+    }
+    setSelectedActivities(newActivityArray)
+  }
+
+  function handleSelectedActivityReorder(reorderedActivities) {
+    // handles the case where the selected activities are filtered by flag - we don't want to remove hidden activities from the list so we just put them at the end of the new order
+    const hiddenSelectedActivities = selectedActivities.filter(sa => !reorderedActivities.find(ra => ra.id === sa.id))
+    setSelectedActivities(reorderedActivities.concat(hiddenSelectedActivities))
+  }
+
   const activityCategoryEditorProps = {
     activityCategories,
     getActivityCategories,
-    setActivityCategories
+    setActivityCategories,
+    selectedActivityCategoryId,
+    handleActivityCategorySelect
   }
 
   return (<CustomActivityPackPage
     activityCategoryEditor={activityCategoryEditorProps}
     clickContinue={() => {}}
     isStaff={true}
-    selectedActivities={[]}
-    setSelectedActivities={() => {}}
-    toggleActivitySelection={() => {}}
+    passedActivities={activities}
+    selectedActivities={selectedActivities}
+    setSelectedActivities={handleSelectedActivityReorder}
+    toggleActivitySelection={toggleActivitySelection}
   />)
 }
 

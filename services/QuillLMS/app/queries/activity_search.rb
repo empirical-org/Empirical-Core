@@ -3,6 +3,8 @@ class ActivitySearch
   # sort = hash with 'field' and 'asc_or_desc' (?) as keys
   def self.search(flag)
     case flag
+    when 'archived'
+      flags = "'private', 'alpha', 'beta', 'production', 'archived'"
     when 'private'
       flags = "'private', 'alpha', 'beta', 'production'"
     when 'alpha'
