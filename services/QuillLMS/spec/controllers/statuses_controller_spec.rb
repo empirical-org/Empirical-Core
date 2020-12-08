@@ -12,11 +12,11 @@ describe StatusesController, type: :controller do
     end
 
     context 'upstream 2xx response' do 
-      it 'should render OK' do 
+      it 'should render OK with status 201' do 
         VCR.use_cassette('new_relic_deployment_notification') do 
           post :deployment_notification, **params
         end
-        expect(response.status).to eq 200
+        expect(response.status).to eq 201
         expect(response.body).to eq 'OK'
       end
     end
@@ -27,15 +27,12 @@ describe StatusesController, type: :controller do
 
         expect {
           post :deployment_notification, **params
-        }.to_not raise_error
-
-        expect(response.status).to eq 500
-        expect(response.body).to match(/Error/)
+        }.to raise_error(RuntimeError, 'Faraday exception')
       end
     end
 
     context 'upstream non-2xx response' do 
-      it 'should return with status 502' do 
+      it 'should return OK with the upstream status' do 
         resp = double
         allow(resp).to receive(:status) { 400 }
         allow(Faraday).to receive(:post).and_return(resp)
@@ -44,8 +41,8 @@ describe StatusesController, type: :controller do
           post :deployment_notification, **params
         }.to_not raise_error
 
-        expect(response.status).to eq 502
-        expect(response.body).to match(/Error/)
+        expect(response.status).to eq 400
+        expect(response.body).to eq 'OK'
       end
     end
   end
