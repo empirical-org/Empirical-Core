@@ -1,14 +1,13 @@
 import * as React from "react";
 
 import { Snackbar } from '../../../Shared/index';
+import { copyToClipboard } from '../../../Shared/libs/copyToClipboard';
 
 export const TurkCompleted = ({ code }) => {
   const [snackBarVisible, setSnackBarVisible] = React.useState(false);
 
-  function copyToClipboard(e: React.SyntheticEvent) {
-    navigator.clipboard.writeText(code);
-    setSnackBarVisible(true);
-    setTimeout(() => setSnackBarVisible(false), 3000);
+  function handleCopyToClipboard(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) {
+    copyToClipboard(e, setSnackBarVisible);
   };
 
   return(
@@ -22,7 +21,7 @@ export const TurkCompleted = ({ code }) => {
       {/* Logical shortcut for only displaying the button if the copy command exists */}
       {document.queryCommandSupported('copy') &&
         <div className="button-container">
-          <button className="quill-button fun primary outlined focus-on-light copy-button" onClick={copyToClipboard} type="button">Copy</button>
+          <button className="quill-button fun primary outlined focus-on-light copy-button" onClick={handleCopyToClipboard} type="button" value={code}>Copy</button>
           <Snackbar text="Copied!" visible={snackBarVisible} />
         </div>}
     </div>

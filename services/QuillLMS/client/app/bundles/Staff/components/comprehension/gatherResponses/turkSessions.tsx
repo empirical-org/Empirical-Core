@@ -11,6 +11,7 @@ import SubmissionModal from '../shared/submissionModal';
 import { ActivityRouteProps, TurkSessionInterface } from '../../../interfaces/comprehensionInterfaces';
 import { createTurkSession, fetchTurkSessions } from '../../../utils/comprehension/turkAPIs';
 import { DataTable, Error, Modal, Spinner, Snackbar } from '../../../../Shared/index';
+import { copyToClipboard } from '../../../../Shared/libs/copyToClipboard';
 
 const TurkSessions: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ match }) => {
   const [newTurkSessionDate, setNewTurkSessionDate] = React.useState<any>(null);
@@ -51,7 +52,7 @@ const TurkSessions: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ match
     }
   }
 
-  function handleEditOrDeleteTurkSession (e: React.SyntheticEvent) {
+  function handleEditOrDeleteTurkSession (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) {
     const target  = e.target as HTMLButtonElement;
     const { id, value } = target;
     setEditTurkSessionId(id);
@@ -86,18 +87,16 @@ const TurkSessions: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ match
     );
   }
 
-  function handleCopyTurkLink (e: React.FormEvent<HTMLInputElement>) {
-    navigator.clipboard.writeText(e.currentTarget.value);
-    setSnackBarVisible(true);
-    setTimeout(() => setSnackBarVisible(false), 3000);
+  function handleCopyTurkLink (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) {
+    copyToClipboard(e, setSnackBarVisible);
   }
 
-  function renderButton ({ id, value, label}: { id: number, value?: string, label: string }) {
+  function renderButton ({ id, value, label, clickHandler }: { id: number, value?: string, label: string, clickHandler: (e?: any) => void }) {
     return(
       <button
         className="quill-button fun primary contained"
         id={`${id}`}
-        onClick={label !== 'copy' ? handleEditOrDeleteTurkSession : handleCopyTurkLink}
+        onClick={clickHandler}
         type="submit"
         value={value}
       >
@@ -114,9 +113,9 @@ const TurkSessions: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ match
       id: `${activity_id}-${id}`,
       link,
       expiration: moment(expires_at).format('MMMM Do, YYYY'),
-      copy: renderButton({ id, value: url, label: 'copy'}),
-      edit: renderButton({ id, value: expires_at, label: 'edit'}),
-      delete: renderButton({ id, label: 'delete'})
+      copy: renderButton({ id, value: url, label: 'copy', clickHandler: handleCopyTurkLink}),
+      edit: renderButton({ id, value: expires_at, label: 'edit', clickHandler: handleEditOrDeleteTurkSession }),
+      delete: renderButton({ id, label: 'delete', clickHandler: handleEditOrDeleteTurkSession })
     }
   });
 
