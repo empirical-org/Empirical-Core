@@ -1,6 +1,8 @@
 import * as React from "react";
 import { EditorState, ContentState } from 'draft-js';
 
+import PromptsForm from './promptsForm';
+
 // import { flagOptions } from '../../../../../constants/comprehension'
 import { validateForm, buildActivity, buildBlankPrompt, promptsByConjunction } from '../../../helpers/comprehension';
 import {
@@ -13,10 +15,7 @@ import {
   TARGET_READING_LEVEL,
   PARENT_ACTIVITY_ID,
   MAX_ATTEMPTS_FEEDBACK,
-  PASSAGE,
-  BECAUSE_STEM,
-  BUT_STEM,
-  SO_STEM
+  PASSAGE
 } from '../../../../../constants/comprehension';
 import { ActivityInterface, PromptInterface, PassagesInterface } from '../../../interfaces/comprehensionInterfaces';
 import { Input, TextEditor, } from '../../../../Shared/index'
@@ -185,26 +184,14 @@ const ActivityForm = ({ activity, closeModal, submitActivity }: ActivityFormProp
           text={activityMaxFeedback}
         />
         {errors[MAX_ATTEMPTS_FEEDBACK] && <p className="error-message">{errors[MAX_ATTEMPTS_FEEDBACK]}</p>}
-        <Input
-          className="because-input"
-          error={errors[BECAUSE_STEM]}
-          handleChange={handleSetActivityBecausePrompt}
-          label="Because Stem"
-          value={activityBecausePrompt.text}
-        />
-        <Input
-          className="but-input"
-          error={errors[BUT_STEM]}
-          handleChange={handleSetActivityButPrompt}
-          label="But Stem"
-          value={activityButPrompt.text}
-        />
-        <Input
-          className="so-input"
-          error={errors[SO_STEM]}
-          handleChange={handleSetActivitySoPrompt}
-          label="So Stem"
-          value={activitySoPrompt.text}
+        <PromptsForm
+          activityBecausePrompt={activityBecausePrompt}
+          activityButPrompt={activityButPrompt}
+          activitySoPrompt={activitySoPrompt}
+          errors={errors}
+          handleSetActivityBecausePrompt={handleSetActivityBecausePrompt}
+          handleSetActivityButPrompt={handleSetActivityButPrompt}
+          handleSetActivitySoPrompt={handleSetActivitySoPrompt}
         />
         <div className="submit-button-container">
           {errorsPresent && <div className="error-message-container">
