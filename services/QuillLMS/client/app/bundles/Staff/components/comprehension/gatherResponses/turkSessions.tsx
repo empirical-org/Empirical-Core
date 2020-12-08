@@ -6,12 +6,12 @@ import * as moment from 'moment';
 import { queryCache, useQuery } from 'react-query';
 
 import EditOrDeleteTurkSession from './editOrDeleteTurkSession';
+import TurkSessionButton from './turkSessionButton';
 
 import SubmissionModal from '../shared/submissionModal';
 import { ActivityRouteProps, TurkSessionInterface } from '../../../interfaces/comprehensionInterfaces';
 import { createTurkSession, fetchTurkSessions } from '../../../utils/comprehension/turkAPIs';
-import { DataTable, Error, Modal, Spinner, Snackbar } from '../../../../Shared/index';
-import { copyToClipboard } from '../../../../Shared/libs/copyToClipboard';
+import { DataTable, Error, Modal, Spinner, Snackbar, copyToClipboard } from '../../../../Shared/index';
 
 const TurkSessions: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ match }) => {
   const [newTurkSessionDate, setNewTurkSessionDate] = React.useState<any>(null);
@@ -91,20 +91,6 @@ const TurkSessions: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ match
     copyToClipboard(e, setSnackBarVisible);
   }
 
-  function renderButton ({ id, value, label, clickHandler }: { id: number, value?: string, label: string, clickHandler: (e?: any) => void }) {
-    return(
-      <button
-        className="quill-button fun primary contained"
-        id={`${id}`}
-        onClick={clickHandler}
-        type="submit"
-        value={value}
-      >
-        {label}
-      </button>
-    )
-  }
-
   const turkSessionsRows = data && data.turkSessions && data.turkSessions.map((turkSession: TurkSessionInterface) => {
     const { activity_id, expires_at, id } = turkSession;
     const url = `${process.env.DEFAULT_URL}/comprehension/#/turk?uid=${activity_id}&id=${id}`;
@@ -113,9 +99,9 @@ const TurkSessions: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ match
       id: `${activity_id}-${id}`,
       link,
       expiration: moment(expires_at).format('MMMM Do, YYYY'),
-      copy: renderButton({ id, value: url, label: 'copy', clickHandler: handleCopyTurkLink}),
-      edit: renderButton({ id, value: expires_at, label: 'edit', clickHandler: handleEditOrDeleteTurkSession }),
-      delete: renderButton({ id, label: 'delete', clickHandler: handleEditOrDeleteTurkSession })
+      copy: <TurkSessionButton clickHandler={handleCopyTurkLink} id={id} label="copy" value={url} />,
+      edit: <TurkSessionButton clickHandler={handleEditOrDeleteTurkSession} id={id} label="edit" value={expires_at} />,
+      delete: <TurkSessionButton clickHandler={handleEditOrDeleteTurkSession} id={id} label="delete" />
     }
   });
 

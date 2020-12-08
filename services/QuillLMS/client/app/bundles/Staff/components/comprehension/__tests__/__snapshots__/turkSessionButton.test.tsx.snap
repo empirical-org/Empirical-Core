@@ -1,0 +1,13 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`TurkSessionButton component should render TurkSessionButton 1`] = `
+<button
+  className="quill-button fun primary contained"
+  id="17"
+  onClick={[MockFunction]}
+  type="submit"
+  value="maracuja"
+>
+  copy
+</button>
+`;

@@ -1165,32 +1165,23 @@ exports[`TurkSessions component should render TurkSessions 1`] = `
       rows={
         Array [
           Object {
-            "copy": <button
-              className="quill-button fun primary contained"
-              id="1"
-              onClick={[Function]}
-              type="submit"
+            "copy": <Unknown
+              clickHandler={[Function]}
+              id={1}
+              label="copy"
               value="undefined/comprehension/#/turk?uid=17&id=1"
-            >
-              copy
-            </button>,
-            "delete": <button
-              className="quill-button fun primary contained"
-              id="1"
-              onClick={[Function]}
-              type="submit"
-            >
-              delete
-            </button>,
-            "edit": <button
-              className="quill-button fun primary contained"
-              id="1"
-              onClick={[Function]}
-              type="submit"
+            />,
+            "delete": <Unknown
+              clickHandler={[Function]}
+              id={1}
+              label="delete"
+            />,
+            "edit": <Unknown
+              clickHandler={[Function]}
+              id={1}
+              label="edit"
               value="2020-12-07T22:52:41.945Z"
-            >
-              edit
-            </button>,
+            />,
             "expiration": "December 7th, 2020",
             "id": "17-1",
             "link": <a
@@ -1317,15 +1308,12 @@ exports[`TurkSessions component should render TurkSessions 1`] = `
             <Tooltip
               key="copy-17-1"
               tooltipText={
-                <button
-                  className="quill-button fun primary contained"
-                  id="1"
-                  onClick={[Function]}
-                  type="submit"
+                <Unknown
+                  clickHandler={[Function]}
+                  id={1}
+                  label="copy"
                   value="undefined/comprehension/#/turk?uid=17&id=1"
-                >
-                  copy
-                </button>
+                />
               }
               tooltipTriggerStyle={
                 Object {
@@ -1335,15 +1323,12 @@ exports[`TurkSessions component should render TurkSessions 1`] = `
                 }
               }
               tooltipTriggerText={
-                <button
-                  className="quill-button fun primary contained"
-                  id="1"
-                  onClick={[Function]}
-                  type="submit"
+                <Unknown
+                  clickHandler={[Function]}
+                  id={1}
+                  label="copy"
                   value="undefined/comprehension/#/turk?uid=17&id=1"
-                >
-                  copy
-                </button>
+                />
               }
               tooltipTriggerTextClass="data-table-row-section undefined"
               tooltipTriggerTextStyle={
@@ -1376,15 +1361,22 @@ exports[`TurkSessions component should render TurkSessions 1`] = `
                     }
                   }
                 >
-                  <button
-                    className="quill-button fun primary contained"
-                    id="1"
-                    onClick={[Function]}
-                    type="submit"
+                  <Component
+                    clickHandler={[Function]}
+                    id={1}
+                    label="copy"
                     value="undefined/comprehension/#/turk?uid=17&id=1"
                   >
-                    copy
-                  </button>
+                    <button
+                      className="quill-button fun primary contained"
+                      id="1"
+                      onClick={[Function]}
+                      type="submit"
+                      value="undefined/comprehension/#/turk?uid=17&id=1"
+                    >
+                      copy
+                    </button>
+                  </Component>
                 </span>
                 <span
                   className="quill-tooltip-wrapper"
@@ -1398,15 +1390,12 @@ exports[`TurkSessions component should render TurkSessions 1`] = `
             <Tooltip
               key="edit-17-1"
               tooltipText={
-                <button
-                  className="quill-button fun primary contained"
-                  id="1"
-                  onClick={[Function]}
-                  type="submit"
+                <Unknown
+                  clickHandler={[Function]}
+                  id={1}
+                  label="edit"
                   value="2020-12-07T22:52:41.945Z"
-                >
-                  edit
-                </button>
+                />
               }
               tooltipTriggerStyle={
                 Object {
@@ -1416,15 +1405,12 @@ exports[`TurkSessions component should render TurkSessions 1`] = `
                 }
               }
               tooltipTriggerText={
-                <button
-                  className="quill-button fun primary contained"
-                  id="1"
-                  onClick={[Function]}
-                  type="submit"
+                <Unknown
+                  clickHandler={[Function]}
+                  id={1}
+                  label="edit"
                   value="2020-12-07T22:52:41.945Z"
-                >
-                  edit
-                </button>
+                />
               }
               tooltipTriggerTextClass="data-table-row-section undefined"
               tooltipTriggerTextStyle={
@@ -1457,15 +1443,22 @@ exports[`TurkSessions component should render TurkSessions 1`] = `
                     }
                   }
                 >
-                  <button
-                    className="quill-button fun primary contained"
-                    id="1"
-                    onClick={[Function]}
-                    type="submit"
+                  <Component
+                    clickHandler={[Function]}
+                    id={1}
+                    label="edit"
                     value="2020-12-07T22:52:41.945Z"
                   >
-                    edit
-                  </button>
+                    <button
+                      className="quill-button fun primary contained"
+                      id="1"
+                      onClick={[Function]}
+                      type="submit"
+                      value="2020-12-07T22:52:41.945Z"
+                    >
+                      edit
+                    </button>
+                  </Component>
                 </span>
                 <span
                   className="quill-tooltip-wrapper"
@@ -1479,14 +1472,11 @@ exports[`TurkSessions component should render TurkSessions 1`] = `
             <Tooltip
               key="delete-17-1"
               tooltipText={
-                <button
-                  className="quill-button fun primary contained"
-                  id="1"
-                  onClick={[Function]}
-                  type="submit"
-                >
-                  delete
-                </button>
+                <Unknown
+                  clickHandler={[Function]}
+                  id={1}
+                  label="delete"
+                />
               }
               tooltipTriggerStyle={
                 Object {
@@ -1496,14 +1486,11 @@ exports[`TurkSessions component should render TurkSessions 1`] = `
                 }
               }
               tooltipTriggerText={
-                <button
-                  className="quill-button fun primary contained"
-                  id="1"
-                  onClick={[Function]}
-                  type="submit"
-                >
-                  delete
-                </button>
+                <Unknown
+                  clickHandler={[Function]}
+                  id={1}
+                  label="delete"
+                />
               }
               tooltipTriggerTextClass="data-table-row-section undefined"
               tooltipTriggerTextStyle={
@@ -1536,14 +1523,20 @@ exports[`TurkSessions component should render TurkSessions 1`] = `
                     }
                   }
                 >
-                  <button
-                    className="quill-button fun primary contained"
-                    id="1"
-                    onClick={[Function]}
-                    type="submit"
+                  <Component
+                    clickHandler={[Function]}
+                    id={1}
+                    label="delete"
                   >
-                    delete
-                  </button>
+                    <button
+                      className="quill-button fun primary contained"
+                      id="1"
+                      onClick={[Function]}
+                      type="submit"
+                    >
+                      delete
+                    </button>
+                  </Component>
                 </span>
                 <span
                   className="quill-tooltip-wrapper"

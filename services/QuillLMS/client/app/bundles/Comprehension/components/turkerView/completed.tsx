@@ -1,7 +1,7 @@
 import * as React from "react";
 
 import { Snackbar } from '../../../Shared/index';
-import { copyToClipboard } from '../../../Shared/libs/copyToClipboard';
+import { copyToClipboard } from '../../../Shared/index';
 
 export const TurkCompleted = ({ code }) => {
   const [snackBarVisible, setSnackBarVisible] = React.useState(false);
