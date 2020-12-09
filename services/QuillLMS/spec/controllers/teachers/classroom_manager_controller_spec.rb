@@ -70,6 +70,50 @@ describe Teachers::ClassroomManagerController, type: :controller do
           expect(assigns(:last_classroom_name)).to eq user.classrooms_i_teach.last.name
         end
       end
+
+      describe 'show lessons banner' do
+        it 'should be true if the user has not completed any lessons and does not have the milestone' do
+          get :assign
+          expect(assigns(:show_lessons_banner)).to eq true
+        end
+
+        it 'should be false if the user has already completed a lesson' do
+          unit = create(:unit, user: user)
+          classroom_unit = create(:classroom_unit, unit: unit, classroom: user.classrooms_i_teach.last)
+          unit_activity = create(:unit_activity, :lesson_unit_activity, unit: unit)
+          classroom_unit_activity_state = create(:classroom_unit_activity_state, classroom_unit: classroom_unit, unit_activity: unit_activity, completed: true)
+          get :assign
+          expect(assigns(:show_lessons_banner)).to eq false
+        end
+
+        it 'should be false if the user already has the acknowledge lessons banner milestone' do
+          milestone = create(:acknowledge_lessons_banner)
+          user_milestone = create(:user_milestone, milestone: milestone, user: user)
+          get :assign
+          expect(assigns(:show_lessons_banner)).to eq false
+        end
+      end
+
+      describe 'show diagnostic banner' do
+        it 'should be true if the user has not assigned any diagnostics and does not have the milestone' do
+          get :assign
+          expect(assigns(:show_diagnostic_banner)).to eq true
+        end
+
+        it 'should be false if the user has already assigned a diagnostic' do
+          unit = create(:unit, user: user)
+          unit_activity = create(:unit_activity, :diagnostic_unit_activity, unit: unit)
+          get :assign
+          expect(assigns(:show_diagnostic_banner)).to eq false
+        end
+
+        it 'should be false if the user already has the acknowledge diagnostic banner milestone' do
+          milestone = create(:acknowledge_diagnostic_banner)
+          user_milestone = create(:user_milestone, milestone: milestone, user: user)
+          get :assign
+          expect(assigns(:show_diagnostic_banner)).to eq false
+        end
+      end
     end
   end
 

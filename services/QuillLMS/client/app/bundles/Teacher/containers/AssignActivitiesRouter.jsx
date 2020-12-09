@@ -11,14 +11,12 @@ import AssignPreAp from '../components/assignment_flow/create_unit/assign_pre_ap
 import AssignAp from '../components/assignment_flow/create_unit/assign_ap.tsx'
 import AssignSpringBoard from '../components/assignment_flow/create_unit/assign_springboard.tsx'
 import CreateUnit from '../components/assignment_flow/create_unit/create_unit'
-import LearningProcess from '../components/assignment_flow/create_unit/learning_process.tsx'
 import ActivityType from '../components/assignment_flow/create_unit/activity_type.tsx'
 
 const AssignActivitiesRouter = props => (
   <BrowserRouter>
     <Route component={AssignActivitiesContainer} path="/assign" />
     <Switch>
-      <Route component={routerProps => <LearningProcess {...props} {...routerProps} />} path="/assign/learning-process" />
       <Route component={routerProps => <ActivityType {...props} {...routerProps} />} path="/assign/activity-type" />
       <Route component={routerProps => <AssignPreAp {...props} {...routerProps} />} path="/assign/pre-ap" />
       <Route component={routerProps => <AssignAp {...props} {...routerProps} />} path="/assign/ap" />
