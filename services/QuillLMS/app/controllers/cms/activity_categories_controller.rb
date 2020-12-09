@@ -5,7 +5,7 @@ class Cms::ActivityCategoriesController < Cms::CmsController
 
   def mass_update
     ActivityCategory.all.each do |extant_ac|
-      ac = params[:activity_categories].find { |activity_category| activity_category[:id] == extant_ac.id }
+      ac = params[:activity_categories].find { |activity_category| activity_category[:id].to_i == extant_ac.id }
       if ac
         extant_ac.assign_attributes(ac.except(:activity_ids, :created_at, :updated_at, :id).permit!)
         if extant_ac.changed?
