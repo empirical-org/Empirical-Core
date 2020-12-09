@@ -91,9 +91,9 @@ export const formatPrompt = (prompt: PromptInterface) => {
   let formattedPrompt = prompt;
   const text = formattedPrompt.text;
   const lastChar = text.charAt(text.length - 1);
-  if(lastChar !== ',' && prompt.conjunction !== BECAUSE) {
+  if(text && lastChar !== ',' && prompt.conjunction !== BECAUSE) {
     formattedPrompt.text = text + ',';
-  } else if(lastChar === ',' && prompt.conjunction === BECAUSE) {
+  } else if(text && lastChar === ',' && prompt.conjunction === BECAUSE) {
     formattedPrompt.text = text.slice(0, -1);
   }
   return formattedPrompt;
@@ -182,7 +182,7 @@ export const validateForm = (keys: string[], state: string[]) => {
         }
         break;
       default:
-        const strippedValue = stripHtml(value);
+        const strippedValue = value && stripHtml(value);
         if(!strippedValue || strippedValue.length === 0) {
           errors[keys[i]] = `${keys[i]} cannot be blank.`;
         }

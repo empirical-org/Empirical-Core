@@ -118,8 +118,17 @@ const ActivityForm = ({ activity, closeModal, submitActivity }: ActivityFormProp
       activityMaxFeedback,
       activityPassages[0].text,
       activityBecausePrompt.text,
+      activityBecausePrompt.plagiarism_text,
+      activityBecausePrompt.plagiarism_first_feedback,
+      activityBecausePrompt.plagiarism_second_feedback,
       activityButPrompt.text,
-      activitySoPrompt.text
+      activityButPrompt.plagiarism_text,
+      activityButPrompt.plagiarism_first_feedback,
+      activityButPrompt.plagiarism_second_feedback,
+      activitySoPrompt.text,
+      activitySoPrompt.plagiarism_text,
+      activitySoPrompt.plagiarism_first_feedback,
+      activitySoPrompt.plagiarism_second_feedback,
     ];
     const validationErrors = validateForm(activityFormKeys, state);
     if(validationErrors && Object.keys(validationErrors).length !== 0) {

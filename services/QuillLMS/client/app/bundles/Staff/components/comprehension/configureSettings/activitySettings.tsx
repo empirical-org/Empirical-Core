@@ -1,19 +1,20 @@
 import * as React from "react";
 import { RouteComponentProps } from 'react-router-dom';
+import { queryCache, useQuery } from 'react-query'
+
+import ActivityForm from './activityForm';
 
 import { ActivityInterface, ActivityRouteProps } from '../../../interfaces/comprehensionInterfaces';
 import { BECAUSE, BUT, SO } from '../../../../../constants/comprehension';
-import ActivityForm from './activityForm';
 import SubmissionModal from '../shared/submissionModal';
 // import { flagOptions } from '../../../../../constants/comprehension';
 import { fetchActivity, updateActivity } from '../../../utils/comprehension/activityAPIs';
-import { queryCache, useQuery } from 'react-query'
 import { promptsByConjunction } from "../../../helpers/comprehension";
 import { DataTable, Error, Modal, Spinner } from '../../../../Shared/index';
 
 const ActivitySettings: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ match }) => {
 
-  const [error, setError] = React.useState<string>(null);
+  const [errorOrSuccessMessage, setErrorOrSuccessMessage] = React.useState<string>(null);
   // const [activityFlag, setActivityFlag] = React.useState<FlagInterface>(null);
   const [showEditActivityModal, setShowEditActivityModal] = React.useState<boolean>(false);
   // const [showEditFlagModal, setShowEditFlagModal] = React.useState<boolean>(false);
@@ -30,9 +31,13 @@ const ActivitySettings: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ m
   const handleUpdateActivity = (activity: ActivityInterface) => {
     updateActivity(activity, activityId).then((response) => {
       const { error } = response;
-      error && setError(error);
+      error && setErrorOrSuccessMessage(error);
       queryCache.refetchQueries(`activity-${activityId}`)
-      setShowEditActivityModal(false);
+      if(!error) {
+        setShowEditActivityModal(false);
+        // reset errorOrSuccessMessage in case of subsequent submission
+        setErrorOrSuccessMessage('Activity successfully updated!');
+      }
       toggleSubmissionModal();
     });
   }
@@ -108,7 +113,7 @@ const ActivitySettings: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ m
   // }
 
   const renderSubmissionModal = () => {
-    const message = error ? error : 'Activity successfully updated!';
+    const message = errorOrSuccessMessage ? errorOrSuccessMessage : 'Activity successfully updated!';
     return <SubmissionModal close={toggleSubmissionModal} message={message} />;
   }
 
