@@ -8,7 +8,7 @@ namespace :activities do
         description = row["Revised Activity Description"]
         activity.update!(description: description)
       rescue => e
-        puts "ID:${row["ID"]}: #{e}"
+        puts "ID:#{row["ID"]}: #{e}"
       end
     end
     instructions_table = CSV.parse(File.read("lib/data/activity_instructions.csv"), headers: true)
@@ -20,7 +20,7 @@ namespace :activities do
         data["instructions"] = instructions
         activity.update!(data: data)
       rescue => e
-        puts "ID:${row["ID"]}: #{e}"
+        puts "ID:#{row["ID"]}: #{e}"
       end
     end
   end
