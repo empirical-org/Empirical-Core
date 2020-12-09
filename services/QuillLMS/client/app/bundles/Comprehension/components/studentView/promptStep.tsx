@@ -2,9 +2,9 @@ import * as React from 'react'
 
 import EditorContainer from './editorContainer'
 import Feedback from './feedback'
+
 import EditCaretPositioning from '../../helpers/EditCaretPositioning'
 import ButtonLoadingSpinner from '../shared/buttonLoadingSpinner'
-
 import preFilters from '../../modules/prefilters'
 
 interface PromptStepProps {
@@ -53,15 +53,17 @@ export default class PromptStep extends React.Component<PromptStepProps, PromptS
 
   unsubmittableResponses = () => {
     const { submittedResponses, prompt } = this.props
-    return submittedResponses.map(r => r.entry).concat(prompt.text)
+    const { conjunction, text } = prompt
+    const response = `${text} ${conjunction}`
+    return submittedResponses.map(r => r.entry).concat(response)
   }
 
   stripHtml = (html: string) => html.replace(/<p>|<\/p>|<u>|<\/u>|<b>|<\/b>/g, '').replace(/&nbsp;/g, ' ')
 
   formattedPrompt = () => {
     const { prompt, } = this.props
-    const { text, } = prompt
-    return `<p>${this.allButLastWord(text)} <u>${this.lastWord(text)}</u>&nbsp;</p>`
+    const { conjunction, text } = prompt
+    return `<p>${text} <u>${conjunction}</u>&nbsp;</p>`
   }
 
   textWithoutStem = (text: string) => {
@@ -69,10 +71,6 @@ export default class PromptStep extends React.Component<PromptStepProps, PromptS
     const regex = new RegExp(`^${formattedPrompt}`)
     return text.replace(regex, '')
   }
-
-  allButLastWord = (str: string) => str.substring(0, str.lastIndexOf(' '))
-
-  lastWord = (str: string) => str.substring(str.lastIndexOf(' ') + 1)
 
   boldMisspellings = (str: string) => {
     const lastSubmittedResponse = this.lastSubmittedResponse()
@@ -197,14 +195,15 @@ export default class PromptStep extends React.Component<PromptStepProps, PromptS
 
   renderButton = () => {
     const { prompt, submittedResponses, everyOtherStepCompleted, } = this.props
+    const { id, text, max_attempts } = prompt
     const { html, numberOfSubmissions, } = this.state
     const entry = this.stripHtml(html).trim()
     const awaitingFeedback = numberOfSubmissions !== submittedResponses.length
     const buttonLoadingSpinner = awaitingFeedback ? <ButtonLoadingSpinner /> : null
     let buttonCopy = submittedResponses.length ? 'Get new feedback' : 'Get feedback'
     let className = 'quill-button'
-    let onClick = () => this.handleGetFeedbackClick(entry, prompt.prompt_id, prompt.text)
-    if (submittedResponses.length === prompt.max_attempts || this.lastSubmittedResponse().optimal) {
+    let onClick = () => this.handleGetFeedbackClick(entry, id, text)
+    if (submittedResponses.length === max_attempts || this.lastSubmittedResponse().optimal) {
       onClick = this.completeStep
       buttonCopy = everyOtherStepCompleted ? 'Done' : 'Start next sentence'
     } else if (this.unsubmittableResponses().includes(entry) || awaitingFeedback) {
@@ -267,10 +266,10 @@ export default class PromptStep extends React.Component<PromptStepProps, PromptS
 
   renderActiveContent = () => {
     const { active, prompt, stepNumberComponent, submittedResponses, } = this.props
-    const { text, } = prompt
+    const { conjunction, text } = prompt
 
     if (!active) {
-      const promptTextComponent = <p className="prompt-text">{this.allButLastWord(text)} <span>{this.lastWord(text)}</span></p>
+      const promptTextComponent = <p className="prompt-text">{text} <span>{conjunction}</span></p>
       const lastSubmittedResponse = this.lastSubmittedResponse()
       const outOfAttempts = submittedResponses.length === prompt.max_attempts
       const editor = lastSubmittedResponse.optimal || outOfAttempts ? this.renderEditorContainer() : null

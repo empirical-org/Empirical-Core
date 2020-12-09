@@ -6,7 +6,7 @@ export interface Activity {
 }
 
 export interface Prompt {
-  prompt_id: number;
+  id: number;
   text: string;
   max_attempts: number;
   max_attempts_feedback: string;

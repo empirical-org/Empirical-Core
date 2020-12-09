@@ -6,11 +6,12 @@ import * as moment from 'moment';
 import { queryCache, useQuery } from 'react-query';
 
 import EditOrDeleteTurkSession from './editOrDeleteTurkSession';
+import TurkSessionButton from './turkSessionButton';
 
 import SubmissionModal from '../shared/submissionModal';
 import { ActivityRouteProps, TurkSessionInterface } from '../../../interfaces/comprehensionInterfaces';
 import { createTurkSession, fetchTurkSessions } from '../../../utils/comprehension/turkAPIs';
-import { DataTable, Error, Modal, Spinner } from '../../../../Shared/index';
+import { DataTable, Error, Modal, Spinner, Snackbar, copyToClipboard } from '../../../../Shared/index';
 
 const TurkSessions: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ match }) => {
   const [newTurkSessionDate, setNewTurkSessionDate] = React.useState<any>(null);
@@ -21,6 +22,7 @@ const TurkSessions: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ match
   const [showEditOrDeleteTurkSessionModal, setShowEditOrDeleteTurkSessionModal] = React.useState<boolean>(false);
   const [dateError, setDateError] = React.useState<string>('');
   const [submissionMessage, setSubmissionMessage] = React.useState<string>('');
+  const [snackBarVisible, setSnackBarVisible] = React.useState(false);
   const { params } = match;
   const { activityId } = params;
 
@@ -30,7 +32,7 @@ const TurkSessions: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ match
     queryFn: fetchTurkSessions
   });
 
-  const handleGenerateNewTurkSession = async () => {
+  async function handleGenerateNewTurkSession () {
     if(!newTurkSessionDate) {
       setDateError('Please choose an expiration date.')
     } else {
@@ -50,7 +52,7 @@ const TurkSessions: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ match
     }
   }
 
-  const handleEditOrDeleteTurkSession = (e: React.SyntheticEvent) => {
+  function handleEditOrDeleteTurkSession (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) {
     const target  = e.target as HTMLButtonElement;
     const { id, value } = target;
     setEditTurkSessionId(id);
@@ -60,15 +62,15 @@ const TurkSessions: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ match
     toggleSubmissionModal();
   }
 
-  const handleEditOrDeleteMessage = (message: string) => {
+  function handleEditOrDeleteMessage (message: string) {
     setSubmissionMessage(message);
   }
 
-  const renderSubmissionModal = () => {
+  function renderSubmissionModal () {
     return <SubmissionModal close={toggleSubmissionModal} message={submissionMessage} />;
   }
 
-  const renderEditOrDeleteTurkSessionModal = () => {
+  function renderEditOrDeleteTurkSessionModal () {
     return(
       <Modal>
         <div className="close-button-container">
@@ -85,37 +87,21 @@ const TurkSessions: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ match
     );
   }
 
+  function handleCopyTurkLink (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) {
+    copyToClipboard(e, setSnackBarVisible);
+  }
+
   const turkSessionsRows = data && data.turkSessions && data.turkSessions.map((turkSession: TurkSessionInterface) => {
     const { activity_id, expires_at, id } = turkSession;
     const url = `${process.env.DEFAULT_URL}/comprehension/#/turk?uid=${activity_id}&id=${id}`;
     const link = <a href={url} rel="noopener noreferrer" target="_blank">{url}</a>;
-    const editButton = (
-      <button
-        className="quill-button fun primary contained"
-        id={`${id}`}
-        onClick={handleEditOrDeleteTurkSession}
-        type="submit"
-        value={expires_at}
-      >
-        edit
-      </button>
-    );
-    const deleteButton = (
-      <button
-        className="quill-button fun primary contained"
-        id={`${id}`}
-        onClick={handleEditOrDeleteTurkSession}
-        type="submit"
-      >
-        delete
-      </button>
-    );
     return {
       id: `${activity_id}-${id}`,
       link,
       expiration: moment(expires_at).format('MMMM Do, YYYY'),
-      edit: editButton,
-      delete: deleteButton
+      copy: <TurkSessionButton clickHandler={handleCopyTurkLink} id={id} label="copy" value={url} />,
+      edit: <TurkSessionButton clickHandler={handleEditOrDeleteTurkSession} id={id} label="edit" value={expires_at} />,
+      delete: <TurkSessionButton clickHandler={handleEditOrDeleteTurkSession} id={id} label="delete" />
     }
   });
 
@@ -147,8 +133,9 @@ const TurkSessions: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ match
   }
 
   const dataTableFields = [
-    { name: "Link", attribute:"link", width: "600px" },
+    { name: "Link", attribute:"link", width: "500px" },
     { name: "Expiration Date", attribute:"expiration", width: "200px" },
+    { name: "", attribute:"copy", width: "100px" },
     { name: "", attribute:"edit", width: "100px" },
     { name: "", attribute:"delete", width: "100px" },
   ];
@@ -184,6 +171,7 @@ const TurkSessions: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ match
         headers={dataTableFields}
         rows={turkSessionsRows ? turkSessionsRows : []}
       />
+      <Snackbar text="Copied!" visible={snackBarVisible} />
     </div>
   );
 }
