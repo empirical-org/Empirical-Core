@@ -56,7 +56,7 @@ class AdminMultistep extends React.Component<AdminMultistepProps, any>{
       {},
       this.state.question
     );
-    _.set(newVals, 'play.prompt', e.replace('\n', '<br/>'))
+    _.set(newVals, 'play.prompt', e.target.value)
     this.setState({question: newVals})
   }
 
