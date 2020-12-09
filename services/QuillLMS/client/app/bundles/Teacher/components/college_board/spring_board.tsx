@@ -23,8 +23,8 @@ const SpringBoard = ({ isPartOfAssignmentFlow }: SpringBoardProps) => {
             <img alt="Quill logo" src="https://assets.quill.org/images/logos/quill-logo-green.svg" />
           </div>
           <div className="header-text-container">
-            <h1>Official SpringBoard® Writing Practice</h1>
-            <p>Free SpringBoard English writing practice aligned to a variety of skills addressed through SpringBoard Grades 6-8, with immediate feedback for students and progress reports for you. Additional tools for SpringBoard Grades 9-10 and Grades 11-12 as well! Find out more below.</p>
+            <h1>Official SpringBoard Writing Practice</h1>
+            <p>Free SpringBoard® English writing practice aligned to a variety of skills addressed through SpringBoard Grades 6-8, with immediate feedback for students and progress reports for you. Additional tools for SpringBoard Grades 9-10 and Grades 11-12 as well! Find out more below.</p>
             {getStartedButton(isPartOfAssignmentFlow)}
           </div>
         </div>
