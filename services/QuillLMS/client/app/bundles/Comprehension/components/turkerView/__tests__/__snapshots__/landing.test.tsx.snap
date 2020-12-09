@@ -78,7 +78,6 @@ exports[`TurkLanding Component should match snapshot 1`] = `
       <p>
         must
       </p>
-      :
     </div>
     <ul>
       <li>
