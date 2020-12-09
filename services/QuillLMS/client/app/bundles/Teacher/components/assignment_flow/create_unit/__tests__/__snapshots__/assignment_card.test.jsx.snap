@@ -15,9 +15,13 @@ exports[`AssignmentCard component should render 1`] = `
         alt="page with a little writing"
         src="http://localhost:45537/images/illustrations/diagnostics-starter.svg"
       />
-      <h2>
-        Starter Diagnostic
-      </h2>
+      <div
+        className="header-wrapper"
+      >
+        <h2>
+          Starter Diagnostic
+        </h2>
+      </div>
     </div>
     <div
       className="button-container"

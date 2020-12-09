@@ -29,6 +29,8 @@ create(:view_lessons_tutorial_milestone)
 create(:complete_diagnostic_milestone)
 create(:publish_customized_lesson_milestone)
 create(:complete_customized_lesson_milestone)
+create(:acknowledge_lessons_banner)
+create(:acknowledge_diagnostic_banner)
 
 # Path to SQL seeds files
 dir_path = File.dirname(__FILE__) + '/seeds/'
