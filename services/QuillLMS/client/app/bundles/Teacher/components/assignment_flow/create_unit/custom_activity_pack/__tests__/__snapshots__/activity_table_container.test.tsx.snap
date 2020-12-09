@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`ActivityTableContainer component should render 1`] = `
+exports[`ActivityTableContainer component default should render 1`] = `
 <ActivityTableContainer
   currentPage={1}
   filteredActivities={
@@ -4411,6 +4411,12 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
   <section
     className="activity-table-container"
   >
+    <LessonsBanner
+      closeLessonsBanner={[Function]}
+      selectedActivities={Array []}
+    >
+      <span />
+    </LessonsBanner>
     <SearchAndSort
       handleSearch={[Function]}
       search=""
