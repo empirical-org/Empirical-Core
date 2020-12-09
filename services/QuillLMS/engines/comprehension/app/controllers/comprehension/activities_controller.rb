@@ -2,6 +2,7 @@ require_dependency 'comprehension/application_controller'
 
 module Comprehension
   class ActivitiesController < ApplicationController
+    skip_before_action :verify_authenticity_token
     before_action :set_activity, only: [:show, :update, :destroy]
 
     # GET /activities.json
@@ -53,7 +54,7 @@ module Comprehension
         :target_level,
         :scored_level,
         passages_attributes: [:id, :text],
-        prompts_attributes: [:id, :conjunction, :text, :max_attempts, :max_attempts_feedback]
+        prompts_attributes: [:id, :conjunction, :text, :max_attempts, :max_attempts_feedback, :plagiarism_text, :plagiarism_first_feedback, :plagiarism_second_feedback]
       )
     end
   end
