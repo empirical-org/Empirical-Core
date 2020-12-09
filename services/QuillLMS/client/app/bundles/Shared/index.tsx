@@ -79,5 +79,6 @@ export {
 export {
   hashToCollection,
   isValidRegex,
-  momentFormatConstants
+  momentFormatConstants,
+  copyToClipboard
 } from './libs/index'

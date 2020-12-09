@@ -19,28 +19,31 @@ But how can democracies have representative governments unless all or most of th
         ],
         "prompts": Array [
           Object {
+            "conjunction": "because",
             "max_attempts": 5,
             "max_attempts_feedback": "Nice effort! You made some strong revisions. Here is an example of a strong response. What is similar or different about your response? 
 
  Governments should make voting compulsory because otherwise not everyone will vote.",
             "prompt_id": 1,
-            "text": "Governments should make voting compulsory because",
+            "text": "Governments should make voting compulsory",
           },
           Object {
+            "conjunction": "but",
             "max_attempts": 5,
             "max_attempts_feedback": "Nice effort! You made some strong revisions. Here is an example of a strong response. What is similar or different about your response? 
 
  Governments should make voting compulsory, but with exceptions for people who have good reasons for not being able to vote.",
             "prompt_id": 2,
-            "text": "Governments should make voting compulsory, but",
+            "text": "Governments should make voting compulsory,",
           },
           Object {
+            "conjunction": "so",
             "max_attempts": 5,
             "max_attempts_feedback": "Nice effort! You made some strong revisions. Here is an example of a strong response. What is similar or different about your response? 
 
  Governments should make voting compulsory so that the elected government represents the majority of the population.",
             "prompt_id": 3,
-            "text": "Governments should make voting compulsory so",
+            "text": "Governments should make voting compulsory,",
           },
         ],
         "title": "Should Voting be Required?",
@@ -185,12 +188,13 @@ But how can democracies have representative governments unless all or most of th
             passedRef={[Function]}
             prompt={
               Object {
+                "conjunction": "because",
                 "max_attempts": 5,
                 "max_attempts_feedback": "Nice effort! You made some strong revisions. Here is an example of a strong response. What is similar or different about your response? 
 
  Governments should make voting compulsory because otherwise not everyone will vote.",
                 "prompt_id": 1,
-                "text": "Governments should make voting compulsory because",
+                "text": "Governments should make voting compulsory",
               }
             }
             stepNumber={2}
@@ -248,12 +252,13 @@ But how can democracies have representative governments unless all or most of th
             passedRef={[Function]}
             prompt={
               Object {
+                "conjunction": "but",
                 "max_attempts": 5,
                 "max_attempts_feedback": "Nice effort! You made some strong revisions. Here is an example of a strong response. What is similar or different about your response? 
 
  Governments should make voting compulsory, but with exceptions for people who have good reasons for not being able to vote.",
                 "prompt_id": 2,
-                "text": "Governments should make voting compulsory, but",
+                "text": "Governments should make voting compulsory,",
               }
             }
             stepNumber={3}
@@ -311,12 +316,13 @@ But how can democracies have representative governments unless all or most of th
             passedRef={[Function]}
             prompt={
               Object {
+                "conjunction": "so",
                 "max_attempts": 5,
                 "max_attempts_feedback": "Nice effort! You made some strong revisions. Here is an example of a strong response. What is similar or different about your response? 
 
  Governments should make voting compulsory so that the elected government represents the majority of the population.",
                 "prompt_id": 3,
-                "text": "Governments should make voting compulsory so",
+                "text": "Governments should make voting compulsory,",
               }
             }
             stepNumber={4}
@@ -353,7 +359,7 @@ But how can democracies have representative governments unless all or most of th
                     <p
                       className="prompt-text"
                     >
-                      Governments should make voting compulsory
+                      Governments should make voting compulsory,
                        
                       <span>
                         so
