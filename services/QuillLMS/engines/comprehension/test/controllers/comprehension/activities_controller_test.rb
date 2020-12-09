@@ -78,7 +78,7 @@ module Comprehension
       end
 
       should "create a valid record with prompt attributes" do
-        post :create, activity: { parent_activity_id: @activity.parent_activity_id, scored_level: @activity.scored_level, target_level: @activity.target_level, title: @activity.title, prompts_attributes: [{text: "meat is bad for you.", conjunction: "because" , plagiarism_first_feedback: "Don't plagiarize."}] }
+        post :create, activity: { parent_activity_id: @activity.parent_activity_id, scored_level: @activity.scored_level, target_level: @activity.target_level, title: @activity.title, prompts_attributes: [{text: "meat is bad for you.", conjunction: "because", plagiarism_first_feedback: "Don't plagiarize."}] }
 
         parsed_response = JSON.parse(response.body)
 
