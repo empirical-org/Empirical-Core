@@ -22,7 +22,7 @@ module Comprehension
     def serializable_hash(options = nil)
       options ||= {}
       super(options.reverse_merge(
-        only: [:id, :conjunction, :text, :max_attempts, :max_attempts_feedback]
+        only: [:id, :conjunction, :text, :max_attempts, :max_attempts_feedback, :plagiarism_text, :plagiarism_first_feedback, :plagiarism_second_feedback]
       ))
     end
 

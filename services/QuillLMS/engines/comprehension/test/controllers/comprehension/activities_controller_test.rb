@@ -78,7 +78,7 @@ module Comprehension
       end
 
       should "create a valid record with prompt attributes" do
-        post :create, activity: { parent_activity_id: @activity.parent_activity_id, scored_level: @activity.scored_level, target_level: @activity.target_level, title: @activity.title, prompts_attributes: [{text: "meat is bad for you.", conjunction: "because" }] }
+        post :create, activity: { parent_activity_id: @activity.parent_activity_id, scored_level: @activity.scored_level, target_level: @activity.target_level, title: @activity.title, prompts_attributes: [{text: "meat is bad for you.", conjunction: "because", plagiarism_first_feedback: "Don't plagiarize."}] }
 
         parsed_response = JSON.parse(response.body)
 
@@ -87,6 +87,7 @@ module Comprehension
         assert_equal 1, Activity.count
         assert_equal 1, Activity.first.prompts.count
         assert_equal "meat is bad for you.", Activity.first.prompts.first.text
+        assert_equal "Don't plagiarize.", Activity.first.prompts.first.plagiarism_first_feedback
       end
     end
 
@@ -148,7 +149,7 @@ module Comprehension
       end
 
       should "update prompt if valid, return nothing" do
-        put :update, id: @activity.id, activity: { prompts_attributes: [{id: @prompt.id, text: "this is a good thing."}] }
+        put :update, id: @activity.id, activity: { prompts_attributes: [{id: @prompt.id, text: "this is a good thing.", plagiarism_text: "plagiarized text", plagiarism_first_feedback: "Try again.", plagiarism_second_feedback: "Try again!"}] }
 
         assert_equal "", response.body
         assert_equal 204, response.code.to_i
@@ -156,6 +157,9 @@ module Comprehension
         @prompt.reload
 
         assert_equal "this is a good thing.", @prompt.text
+        assert_equal "plagiarized text", @prompt.plagiarism_text
+        assert_equal "Try again.", @prompt.plagiarism_first_feedback
+        assert_equal "Try again!", @prompt.plagiarism_second_feedback
       end
 
 
