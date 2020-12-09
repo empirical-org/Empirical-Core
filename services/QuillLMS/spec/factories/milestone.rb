@@ -25,5 +25,13 @@ FactoryBot.define do
     factory :invite_a_coteacher do
       name { 'Invite a Co-Teacher' }
     end
+
+    factory :acknowledge_lessons_banner do
+      name { 'Acknowledge Lessons Banner' }
+    end
+
+    factory :acknowledge_diagnostic_banner do
+      name { 'Acknowledge Diagnostic Banner' }
+    end
   end
 end

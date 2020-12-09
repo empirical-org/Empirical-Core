@@ -6,6 +6,9 @@ import ActivityRow from './activity_row'
 import Pagination from './pagination'
 import SortDropdown from './sort_dropdown'
 
+import { requestPost, } from '../../../../../../modules/request'
+
+const quillLessonsTeacherSrc = `${process.env.CDN_URL}/images/illustrations/quill-lessons-teacher.svg`
 const searchIconSrc = `${process.env.CDN_URL}/images/icons/search.svg`
 const closeIconSrc = `${process.env.CDN_URL}/images/icons/close.svg`
 const filterIconSrc = `${process.env.CDN_URL}/images/icons/icons-filter.svg`
@@ -28,7 +31,8 @@ interface ActivityTableContainerProps {
   setSort: (sort: string) => void,
   saveActivity: (activityId: number) => void,
   unsaveActivity: (activityId: number) => void,
-  savedActivityIds: number[]
+  savedActivityIds: number[],
+  showLessonsBanner: boolean
 }
 
 const FilterAndSort = ({ setShowMobileFilterMenu, setShowMobileSortMenu, }) => {
@@ -79,6 +83,22 @@ const EmptyState = ({ undoLastFilter, resetAllFilters, }) => {
   </div>)
 }
 
+const LessonsBanner = ({ lessonsBannerShowing, selectedActivities, closeLessonsBanner, }) => {
+  if (!lessonsBannerShowing) { return <span /> }
+  if (!selectedActivities.some(sa => sa.activity_classification.key === 'lessons')) { return <span /> }
+
+  return (<section className="lessons-banner">
+    <img alt="teacher at a board showing a projected Quill Lesson" src={quillLessonsTeacherSrc} />
+    <div className="text">
+      <h2>Heads up, you’ve selected a Quill Lessons activity (whole class instruction)</h2>
+      <p>Quill Lessons requires the teacher to launch and lead an interactive lesson synchronously with their students. <a href="https://support.quill.org/en/articles/1173157-getting-started-how-to-set-up-your-first-quill-lesson">Learn more about how Quill Lessons works.</a></p>
+    </div>
+    <button className="quill-button outlined secondary medium" onClick={closeLessonsBanner} type="button">
+      Got it
+    </button>
+  </section>)
+}
+
 const ActivityTableContainer = ({
   filteredActivities,
   selectedActivities,
@@ -95,10 +115,18 @@ const ActivityTableContainer = ({
   setSort,
   saveActivity,
   unsaveActivity,
-  savedActivityIds
+  savedActivityIds,
+  showLessonsBanner
 }: ActivityTableContainerProps) => {
+  const [lessonsBannerShowing, setLessonsBannerShowing] = React.useState(showLessonsBanner)
   const sortedActivities = sort ? sortFunctions[sort]([...filteredActivities]) : filteredActivities
   const currentPageActivities = sortedActivities.slice(lowerBound(currentPage), upperBound(currentPage));
+
+  function closeLessonsBanner() {
+    setLessonsBannerShowing(false)
+    requestPost('/milestones/complete_acknowledge_lessons_banner')
+  }
+
 
   const activityRows = currentPageActivities.map((act, i) => {
     const isSelected = selectedActivities.some(s => s.id === act.id)
@@ -117,6 +145,7 @@ const ActivityTableContainer = ({
   const activityRowsOrEmptyState = activityRows.length ? activityRows : <EmptyState resetAllFilters={resetAllFilters} undoLastFilter={undoLastFilter} />
 
   return (<section className="activity-table-container">
+    <LessonsBanner closeLessonsBanner={closeLessonsBanner} lessonsBannerShowing={lessonsBannerShowing} selectedActivities={selectedActivities} />
     <SearchAndSort handleSearch={handleSearch} search={search} setSort={setSort} sort={sort} />
     <FilterAndSort setShowMobileFilterMenu={setShowMobileFilterMenu} setShowMobileSortMenu={setShowMobileSortMenu} />
     {activityRowsOrEmptyState}

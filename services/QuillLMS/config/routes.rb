@@ -122,6 +122,8 @@ EmpiricalGrammar::Application.routes.draw do
   resources :milestones, only: [] do
     get :has_viewed_lesson_tutorial, on: :collection
     post :complete_view_lesson_tutorial, on: :collection
+    post :complete_acknowledge_lessons_banner, on: :collection
+    post :complete_acknowledge_diagnostic_banner, on: :collection
   end
 
   resources :grades, only: [:index]
@@ -466,6 +468,7 @@ EmpiricalGrammar::Application.routes.draw do
 
   namespace :cms do
     resources :images, only: [:index, :destroy, :create]
+    put '/activity_categories/mass_update', to: 'activity_categories#mass_update'
     put '/activity_categories/update_order_numbers', to: 'activity_categories#update_order_numbers'
     post '/activity_categories/destroy_and_recreate_acas', to: 'activity_categories#destroy_and_recreate_acas'
     resources :activity_categories, only: [:index, :show, :create, :update, :destroy]
@@ -487,6 +490,7 @@ EmpiricalGrammar::Application.routes.draw do
     resources :comprehension, only: [:index]
     resources :standard_levels, only: [:index, :create, :update]
     resources :standards, only: [:index, :create, :update]
+    resources :content_partners, only: [:index, :create, :update]
     resources :subscriptions
     resources :standard_categories, only: [:index, :create, :update]
     resources :authors, only: [:index, :create, :edit, :update, :new]
@@ -697,6 +701,7 @@ EmpiricalGrammar::Application.routes.draw do
   resource :status, only: [] do
     collection do
       get :index, :database, :database_write, :database_follower, :redis_cache, :redis_queue, :sidekiq_queue_length
+      post :deployment_notification
     end
   end
 

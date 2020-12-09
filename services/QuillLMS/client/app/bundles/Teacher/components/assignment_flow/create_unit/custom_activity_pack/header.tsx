@@ -11,27 +11,37 @@ const reorderSrc = `${process.env.CDN_URL}/images/icons/reorder.svg`
 
 interface AssignButtonProps {
   selectedActivities: Activity[],
-  handleClickContinue: (event: any) => void
+  handleClickContinue: (event: any) => void,
+  saveButtonEnabled: boolean,
+  isStaff: boolean
 }
 
 interface HeaderProps {
   handleClickContinue: (event: any) => void,
   selectedActivities: Activity[],
   setSelectedActivities: (selectedActivities: Activity[]) => void,
-  toggleActivitySelection: (activity: Activity, isSelected: boolean) => void
+  toggleActivitySelection: (activity: Activity, isSelected: boolean) => void,
+  saveButtonEnabled: boolean,
+  isStaff: boolean
 }
 
-const AssignButton = ({ selectedActivities, handleClickContinue, }: AssignButtonProps) => {
+const AssignButton = ({ selectedActivities, handleClickContinue, saveButtonEnabled, isStaff, }: AssignButtonProps) => {
   let action = handleClickContinue
   let buttonClass = 'quill-button contained primary medium focus-on-light';
-  if (!(selectedActivities && selectedActivities.length)) {
+  const buttonCopy = isStaff ? 'Save' : 'Assign'
+  if (isStaff) {
+    if (!saveButtonEnabled) {
+      buttonClass += ' disabled';
+      action = null
+    }
+  } else if (!(selectedActivities && selectedActivities.length)) {
     buttonClass += ' disabled';
     action = null
   }
-  return <button className={buttonClass} onClick={action} type="button">Assign</button>
+  return <button className={buttonClass} onClick={action} type="button">{buttonCopy}</button>
 }
 
-const Header = ({ handleClickContinue, selectedActivities, setSelectedActivities, toggleActivitySelection, }: HeaderProps) => {
+const Header = ({ handleClickContinue, selectedActivities, setSelectedActivities, toggleActivitySelection, saveButtonEnabled, isStaff, }: HeaderProps) => {
   const [showActivities, setShowActivities] = React.useState(false)
   const [showSnackbar, setShowSnackbar] = React.useState(false)
 
@@ -89,7 +99,7 @@ const Header = ({ handleClickContinue, selectedActivities, setSelectedActivities
     <Snackbar text="Activity removed" visible={showSnackbar} />
     <div className="header-content">
       {headerContent}
-      <AssignButton handleClickContinue={handleClickContinue} selectedActivities={selectedActivities} />
+      <AssignButton handleClickContinue={handleClickContinue} isStaff={isStaff} saveButtonEnabled={saveButtonEnabled} selectedActivities={selectedActivities} />
     </div>
     {selectedActivitySection}
   </header>)

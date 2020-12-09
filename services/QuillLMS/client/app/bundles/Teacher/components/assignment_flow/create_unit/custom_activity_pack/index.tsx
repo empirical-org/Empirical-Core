@@ -22,7 +22,9 @@ interface CustomActivityPackProps {
   selectedActivities: Activity[],
   setSelectedActivities: (selectedActivities: Activity[]) => void,
   toggleActivitySelection: (activity: Activity) => void,
-  activityCategoryEditor?: ActivityCategoryEditor
+  activityCategoryEditor?: ActivityCategoryEditor,
+  showLessonsBanner?: boolean,
+  saveButtonEnabled?: boolean
 }
 
 const CustomActivityPack = ({
@@ -32,7 +34,9 @@ const CustomActivityPack = ({
   setSelectedActivities,
   toggleActivitySelection,
   isStaff,
-  activityCategoryEditor
+  activityCategoryEditor,
+  showLessonsBanner,
+  saveButtonEnabled
 }: CustomActivityPackProps) => {
   const url = queryString.parseUrl(window.location.href, { arrayFormat: 'bracket', parseNumbers: true }).query;
 
@@ -294,7 +298,14 @@ const CustomActivityPack = ({
     <MobileSortMenu setShowMobileSortMenu={setShowMobileSortMenu} setSort={setSort} showMobileSortMenu={showMobileSortMenu} />
     <FilterColumn {...filterColumnProps} />
     <section className="main-content-container">
-      <Header handleClickContinue={clickContinue} selectedActivities={selectedActivitiesFilteredByFlag} setSelectedActivities={setSelectedActivities} toggleActivitySelection={toggleActivitySelection} />
+      <Header
+        handleClickContinue={clickContinue}
+        isStaff={isStaff}
+        saveButtonEnabled={saveButtonEnabled}
+        selectedActivities={selectedActivitiesFilteredByFlag}
+        setSelectedActivities={setSelectedActivities}
+        toggleActivitySelection={toggleActivitySelection}
+      />
       <ActivityTableContainer
         currentPage={currentPage}
         filteredActivities={filteredActivities}
@@ -308,6 +319,7 @@ const CustomActivityPack = ({
         setShowMobileFilterMenu={setShowMobileFilterMenu}
         setShowMobileSortMenu={setShowMobileSortMenu}
         setSort={setSort}
+        showLessonsBanner={showLessonsBanner}
         sort={sort}
         toggleActivitySelection={toggleActivitySelection}
         undoLastFilter={undoLastFilter}

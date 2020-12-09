@@ -1,9 +1,18 @@
-.topics-manager, .standards-manager {
+.topics-manager, .standards-manager, .content-partners-manager {
   margin: 30px;
-  .topic-columns, .standard-columns {
+  .topic-columns, .standard-columns, .content-partner-columns {
     display: flex;
     .ant-table-wrapper {
       margin-right: 20px;
+    }
+  }
+}
+
+.content-partners-manager {
+  .description {
+    margin-top: 16px;
+    div {
+      width: 100%;
     }
   }
 }
