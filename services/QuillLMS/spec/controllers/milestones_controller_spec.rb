@@ -16,4 +16,24 @@ describe MilestonesController do
       expect(user.milestones).to include milestone
     end
   end
+
+  describe '#complete_acknowledge_lessons_banner' do
+    let!(:milestone) { create(:acknowledge_lessons_banner) }
+
+    it 'should push the milestone into users milestones' do
+      expect(user.milestones).to_not include milestone
+      post :complete_acknowledge_lessons_banner
+      expect(user.milestones).to include milestone
+    end
+  end
+
+  describe '#complete_acknowledge_diagnostic_banner' do
+    let!(:milestone) { create(:acknowledge_diagnostic_banner) }
+
+    it 'should push the milestone into users milestones' do
+      expect(user.milestones).to_not include milestone
+      post :complete_acknowledge_diagnostic_banner
+      expect(user.milestones).to include milestone
+    end
+  end
 end
