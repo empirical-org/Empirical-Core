@@ -6,9 +6,9 @@ namespace :activities do
       begin
         activity = Activity.find(row["ID"])
         description = row["Revised Activity Description"]
-        activity.update(description: description)
+        activity.update!(description: description)
       rescue => e
-        puts e
+        puts "ID:${row["ID"]}: #{e}"
       end
     end
     instructions_table = CSV.parse(File.read("lib/data/activity_instructions.csv"), headers: true)
@@ -18,9 +18,9 @@ namespace :activities do
         instructions = row["Instructions"]
         data = activity.data
         data["instructions"] = instructions
-        activity.update(data: data)
+        activity.update!(data: data)
       rescue => e
-        puts e
+        puts "ID:${row["ID"]}: #{e}"
       end
     end
   end
