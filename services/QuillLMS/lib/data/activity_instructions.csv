@@ -1,0 +1,696 @@
+ID,Instructions
+1283,
+1237,
+877,
+878,
+1224,
+443,
+449,
+1431,
+876,
+1228,
+450,
+1236,
+1222,
+1284,
+1195,
+1272,
+1278,
+1275,
+1095,
+1282,
+711,
+1096,
+1104,
+1106,
+1109,
+1111,
+1113,
+1114,
+1152,
+1136,
+1151,
+1115,
+1098,
+1116,
+1119,
+1121,
+1123,
+1125,
+1127,
+1129,
+1131,
+1133,
+1134,
+1135,
+1100,
+1156,
+1157,
+1158,
+1159,
+1160,
+1139,
+1140,
+1143,
+1148,
+1149,
+1150,
+1137,
+1102,
+775,
+433,
+844,
+846,
+645,
+650,
+717,
+441,
+438,
+439,
+440,
+858,
+1194,
+1279,
+419,
+1221,
+898,
+890,
+424,
+897,
+899,
+780,
+426,
+1217,
+427,
+430,
+776,
+838,
+879,
+867,
+1213,
+872,
+1214,
+866,
+1212,
+442,
+448,
+1211,
+1220,
+994,
+999,
+420,
+792,
+990,
+859,
+613,
+429,
+428,
+779,
+1051,
+1219,
+1196,
+841,
+840,
+1403,
+842,
+843,
+1390,
+653,
+435,
+1004,
+857,
+1422,
+856,
+1420,
+436,
+1000,
+862,
+434,
+1003,
+437,
+837,
+1005,
+1001,
+868,
+869,
+985,
+986,
+987,
+1276,
+1419,
+861,
+870,
+993,
+851,
+847,
+1418,
+1407,
+713,
+1411,
+714,
+715,
+716,
+1409,
+1412,
+983,
+615,
+622,
+863,
+712,
+614,
+627,
+860,
+1286,
+755,
+617,
+642,
+623,
+1415,
+756,
+586,
+606,
+853,
+854,
+1223,
+845,
+1277,
+605,
+628,
+425,
+1290,
+432,
+902,
+752,
+1235,
+754,
+1037,
+1048,
+880,
+882,
+1234,
+635,
+1425,
+1426,
+600,
+634,
+633,
+852,
+1430,
+848,
+599,
+737,
+736,
+732,
+733,
+734,
+735,
+1199,
+1203,
+1200,
+1201,
+1205,
+1202,
+1209,
+1210,
+1207,
+1208,
+762,
+761,
+763,
+764,
+875,
+1002,
+640,
+1317,
+1333,
+1280,
+757,
+1270,
+619,
+742,
+751,
+1054,
+1055,
+418,
+781,
+995,
+431,
+777,
+1057,
+1226,
+1225,
+769,
+768,
+766,
+767,
+773,
+772,
+1233,
+1232,
+770,
+771,
+765,
+896,
+774,
+1215,
+1216,
+991,
+422,
+652,
+1052,
+1359,
+1281,
+616,
+629,
+592,
+595,
+639,
+476,
+478,
+587,
+1274,
+1273,
+585,
+901,
+584,
+641,
+1414,
+618,
+1271,
+643,
+621,
+630,
+477,
+608,
+728,
+731,
+1285,
+1428,
+759,
+417,
+1056,
+1429,
+884,
+620,
+729,
+730,
+638,
+783,
+632,
+474,
+475,
+473,
+1231,
+593,
+596,
+778,
+591,
+594,
+597,
+598,
+1218,
+873,
+889,
+1427,
+888,
+992,
+447,
+1161,
+850,
+1229,
+1230,
+849,
+273,
+138,
+140,
+1105,
+1144,
+1107,
+1108,
+1110,
+1112,
+1097,
+1153,
+1145,
+1154,
+1138,
+1117,
+1118,
+1120,
+1122,
+1124,
+1099,
+1126,
+1128,
+1130,
+1132,
+1155,
+1142,
+1141,
+1101,
+1146,
+1147,
+1103,
+160,
+988,
+989,
+750,
+137,
+1340,
+136,
+1368,
+285,
+126,
+1406,
+302,
+308,
+816,
+128,
+293,
+129,
+604,
+161,
+887,
+886,
+802,
+1342,
+801,
+1392,
+181,
+804,
+1405,
+885,
+127,
+142,
+143,
+144,
+148,
+177,
+278,
+169,
+180,
+176,
+819,
+821,
+820,
+151,
+817,
+124,
+1382,
+125,
+178,
+603,
+287,
+167,
+105,
+301,
+1320,
+147,
+179,
+152,
+636,
+155,
+96,
+288,
+164,
+168,
+163,
+162,
+174,
+283,
+145,
+107,
+1435,
+813,
+132,
+109,
+166,
+146,
+149,
+134,
+106,
+291,
+1378,
+108,
+135,
+286,
+488,
+637,
+173,
+94,
+808,
+1386,
+809,
+1381,
+281,
+282,
+300,
+631,
+1204,
+1206,
+172,
+271,
+154,
+803,
+1377,
+131,
+133,
+806,
+171,
+810,
+175,
+150,
+153,
+284,
+88,
+110,
+123,
+111,
+141,
+139,
+90,
+112,
+307,
+182,
+165,
+818,
+122,
+121,
+118,
+805,
+130,
+828,
+835,
+829,
+832,
+831,
+984,
+565,
+563,
+567,
+726,
+568,
+566,
+560,
+569,
+571,
+570,
+745,
+739,
+830,
+564,
+654,
+1292,
+1287,
+583,
+574,
+581,
+572,
+575,
+576,
+559,
+577,
+743,
+738,
+827,
+573,
+655,
+727,
+561,
+578,
+580,
+582,
+744,
+562,
+579,
+834,
+833,
+648,
+13,"Read the passage. At each underlined part of the passage, choose the correct option and delete the incorrect option and the slash (/). "
+374,Read the passage and correct the underlined errors.
+89,Read the passage and correct the spelling of the commonly confused words.
+791,"Read the passage. At each underlined part of the passage, choose the correct option and delete the incorrect option and the slash (/). "
+748,"Read the passage. At each underlined part of the passage, choose the correct option and delete the incorrect option and the slash (/). "
+15,Read the passage and correct the capitalization errors you find.
+611,
+51,Read the passage. rewrite the underlined word so it correctly shows a comparison.
+7,Read the passage and correct the verb tense errors you find.
+251,Read the passage and correct any grammar or punctuation errors you find.
+91,Read the passage and correct the the words that don't match the others in the list.
+63,Read the passage. Add commas and colons to the lists.
+369,Read the passage and correct the underlined errors.
+534,Read the passage and correct any grammar or punctuation errors you find.
+387,Read the passage and correct any grammar or punctuation errors you find.
+19,"Read the passage. rewrite the underlined words as contractions (e.g. doesn't, can't)."
+538,Read the passage and correct any grammar or punctuation errors you find.
+492,Read the passage and correct any grammar or punctuation errors you find.
+254,Read the passage and correct the capitalization errors you find.
+362,Read the passage and correct the underlined errors.
+378,Read the passage and correct any grammar or punctuation errors you find.
+540,Read the passage and correct any grammar or punctuation errors you find.
+391,Read the passage and correct any grammar or punctuation errors you find.
+311,Read the passage. rewrite the underlined action words so they're in the right tense.
+312,Read the passage. rewrite the underlined action words so they're in the right tense.
+85,Read the passage and correct the spelling of the commonly confused words.
+624,Read the passage. Add commas where needed.
+462,Read the passage and correct any grammar or punctuation errors you find.
+245,Read the passage and correct the underlined errors.
+262,Read the passage and correct the underlined errors.
+252,Read the passage and correct the underlined errors.
+371,Read the passage and correct any grammar or punctuation errors you find.
+881,Read the passage and correct any grammar or punctuation errors you find.
+532,Read the passage and correct any grammar or punctuation errors you find.
+364,Read the passage and correct the underlined errors.
+530,Read the passage and correct any grammar or punctuation errors you find.
+499,Read the passage and correct any grammar or punctuation errors you find.
+794,Read the passage. rewrite the underlined action words so they're in the right tense.
+657,"Read the passage. At each underlined part of the passage, choose the correct option and delete the incorrect option and the slash (/). "
+382,Read the passage and correct any grammar or punctuation errors you find.
+525,Read the passage and correct any grammar or punctuation errors you find.
+658,"Read the passage. At each underlined part of the passage, choose the correct option and delete the incorrect option and the slash (/). "
+406,Read the passage and correct the underlined errors.
+367,Read the passage and correct the underlined errors.
+75,Read the passage. Add spaces between the quotation marks and the words next to them.
+384,Read the passage and correct the underlined errors.
+368,Read the passage and correct the underlined errors.
+248,"Read the passage. Replace the underlined error with the correct reflexive pronoun (e.g. himself, myself)."
+79,Read the passage and correct the verb tense errors you find.
+23,Read the passage and correct the verb tense errors you find.
+360,Read the passage and correct the underlined errors.
+268,Read the passage and correct the underlined errors.
+533,Read the passage and correct any grammar or punctuation errors you find.
+77,Read the passage. Find the places where two describing words are connected by and. Replace and with a comma to practice one way of using describing words. Remember to check your spacing!
+47,"Read the passage. At each underlined part of the passage, choose the correct option and delete the incorrect option and the slash (/). "
+398,Read the passage and correct the underlined errors.
+53,Read the passage. Add commas to the addresses.
+233,Read the passage and correct any grammar or punctuation errors you find.
+797,Read the passage. rewrite the underlined action words so they're in the right tense.
+370,Read the passage and correct the underlined errors.
+260,Read the passage and correct any grammar or punctuation errors you find.
+405,Read the passage and correct the underlined errors.
+381,Read the passage and correct the underlined errors.
+457,Read the passage and correct any grammar or punctuation errors you find.
+545,Read the passage and correct any grammar or punctuation errors you find.
+394,Read the passage and correct any grammar or punctuation errors you find.
+9,"Read the passage. At each underlined part of the passage, choose the correct option and delete the incorrect option and the slash (/). "
+542,Read the passage and correct any grammar or punctuation errors you find.
+544,Read the passage and correct any grammar or punctuation errors you find.
+264,Read the passage and correct the underlined errors.
+535,Read the passage and correct any grammar or punctuation errors you find.
+383,Read the passage and correct any grammar or punctuation errors you find.
+400,Read the passage and correct any grammar or punctuation errors you find.
+403,Read the passage and correct any grammar or punctuation errors you find.
+361,Read the passage and correct the underlined errors.
+267,Read the passage and correct the underlined errors.
+263,Read the passage and correct the underlined errors.
+266,Read the passage and correct the underlined errors.
+524,Read the passage and correct any grammar or punctuation errors you find.
+527,Read the passage and correct any grammar or punctuation errors you find.
+626,Read the passage and correct any grammar or punctuation errors you find.
+386,Read the passage and correct any grammar or punctuation errors you find.
+41,"Read the passage. At each underlined part of the passage, choose the correct option and delete the incorrect option and the slash (/). "
+35,"Read the passage. At each underlined part of the passage, choose the correct option and delete the incorrect option and the slash (/). "
+407,Read the passage and correct the underlined errors.
+393,Read the passage and correct any grammar or punctuation errors you find.
+539,Read the passage and correct any grammar or punctuation errors you find.
+723,"Read the passage. At each underlined part of the passage, choose the correct option and delete the incorrect option and the slash (/). "
+724,"Read the passage. At each underlined part of the passage, choose the correct option and delete the incorrect option and the slash (/). "
+536,Read the passage and correct any grammar or punctuation errors you find.
+397,Read the passage and correct the underlined errors.
+249,Read the passage and correct the underlined errors.
+517,Read the passage and correct any grammar or punctuation errors you find.
+537,Read the passage and correct any grammar or punctuation errors you find.
+358,Read the passage and correct any grammar or punctuation errors you find.
+253,Read the passage. Add commas to the lists and the dates.
+503,Read the passage and correct any grammar or punctuation errors you find.
+518,Read the passage and correct any grammar or punctuation errors you find.
+408,Read the passage and correct the underlined errors.
+244,Read the passage and correct any grammar or punctuation errors you find.
+549,Read the passage and correct any grammar or punctuation errors you find.
+363,Read the passage and correct the underlined errors.
+409,Read the passage and correct the underlined errors.
+69,Read the passage. Add commas where needed after the introductory words.
+747,Read the passage and correct any grammar or punctuation errors you find.
+725,"Read the passage. rewrite the underlined words so they are in the future perfect tense. Form the future perfect by using ""will have"" and a special past tense form of the action word. "
+543,Read the passage and correct any grammar or punctuation errors you find.
+531,Read the passage and correct any grammar or punctuation errors you find.
+401,Read the passage and correct any grammar or punctuation errors you find.
+455,Read the passage and correct any grammar or punctuation errors you find.
+37,"Read the passage. At each underlined part of the passage, choose the correct option and delete the incorrect option and the slash (/). "
+376,Read the passage and correct the underlined errors.
+388,Read the passage and correct the underlined errors.
+504,Read the passage and correct any grammar or punctuation errors you find.
+21,"Read the passage. At each underlined part of the passage, choose the correct option and delete the incorrect option and the slash (/). "
+11,Read the passage and correct the spelling of the plural words.
+315,Read the passage and correct any grammar or punctuation errors you find.
+379,Read the passage and correct any grammar or punctuation errors you find.
+255,Read the passage and correct the underlined errors.
+399,Read the passage and correct any grammar or punctuation errors you find.
+101,Read the passage and correct any grammar or punctuation errors you find.
+490,Read the passage and correct any grammar or punctuation errors you find.
+256,Read the passage and correct any grammar or punctuation errors you find.
+392,Read the passage and correct any grammar or punctuation errors you find.
+411,Read the passage and correct the underlined errors.
+710,"Read the passage. At each underlined part of the passage, choose the correct option and delete the incorrect option and the slash (/). "
+261,Read the passage and correct any grammar or punctuation errors you find.
+464,Read the passage and correct any grammar or punctuation errors you find.
+365,Read the passage and correct the underlined errors.
+412,Read the passage and correct the underlined errors.
+39,Read the passage and correct the capitalization errors you find.
+95,Read the passage and correct the spelling of the commonly confused words.
+380,Read the passage and correct any grammar or punctuation errors you find.
+377,Read the passage and correct the underlined errors.
+460,Read the passage and correct any grammar or punctuation errors you find.
+719,"Read the passage. At each underlined part of the passage, choose the correct option and delete the incorrect option and the slash (/). "
+609,Read the passage and correct any grammar or punctuation errors you find.
+523,Read the passage and correct any grammar or punctuation errors you find.
+520,Read the passage and correct any grammar or punctuation errors you find.
+547,Read the passage and correct any grammar or punctuation errors you find.
+481,Read the passage and correct any grammar or punctuation errors you find.
+516,Read the passage and correct any grammar or punctuation errors you find.
+548,Read the passage and correct any grammar or punctuation errors you find.
+389,Read the passage and correct any grammar or punctuation errors you find.
+345,Read the passage and correct any grammar or punctuation errors you find.
+522,Read the passage and correct any grammar or punctuation errors you find.
+269,Read the passage and correct the the words that don't match the others in the list.
+366,Read the passage and correct the underlined errors.
+489,Read the passage and correct any grammar or punctuation errors you find.
+309,Read the passage and correct the underlined errors.
+43,"Read the passage. At each underlined part of the passage, choose the correct option and delete the incorrect option and the slash (/). "
+55,Read the passage. Add quotation marks and punctuation to the dialogue.
+505,Read the passage and correct any grammar or punctuation errors you find.
+491,Read the passage and correct any grammar or punctuation errors you find.
+265,Read the passage and correct the underlined errors.
+402,Read the passage and correct any grammar or punctuation errors you find.
+528,Read the passage and correct any grammar or punctuation errors you find.
+798,"Read the passage. At each underlined part of the passage, choose the correct option and delete the incorrect option and the slash (/). "
+529,Read the passage and correct any grammar or punctuation errors you find.
+793,Read the passage. rewrite the underlined word so it correctly shows a comparison.
+521,Read the passage and correct any grammar or punctuation errors you find.
+215,Read the passage and correct any grammar or punctuation errors you find.
+541,Read the passage and correct any grammar or punctuation errors you find.
+795,"Read the passage. At each underlined part of the passage, choose the correct option and delete the incorrect option and the slash (/). "
+546,Read the passage and correct any grammar or punctuation errors you find.
+93,Read the passage and correct the spelling of the commonly confused words.
+550,Read the passage and correct any grammar or punctuation errors you find.
+113,
