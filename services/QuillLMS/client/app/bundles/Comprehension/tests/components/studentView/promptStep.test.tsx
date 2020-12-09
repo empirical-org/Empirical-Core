@@ -2,12 +2,13 @@ import * as React from 'react'
 import { mount } from 'enzyme';
 import toJson from 'enzyme-to-json';
 
+import { activityOne, optimalSubmittedResponse, suboptimalSubmittedResponse, } from './data'
+
 import PromptStep from '../../../components/studentView/promptStep'
 import EditorContainer from '../../../components/studentView/editorContainer'
 import { TOO_LONG_FEEDBACK, TOO_SHORT_FEEDBACK, MULTIPLE_SENTENCES_FEEDBACK, PROFANITY_FEEDBACK } from '../../../modules/prefilters'
 
 
-import { activityOne, optimalSubmittedResponse, suboptimalSubmittedResponse, } from './data'
 
 const prompt = activityOne.prompts[0]
 
@@ -64,7 +65,8 @@ describe('PromptStep component', () => {
       describe('#unsubmittableResponses', () => {
         it('should return the formatted prompt and all of the submitted responses', () => {
           const entries = submittedResponses.map(r => r.entry)
-          const arrayOfUnsubmittableResponses = entries.concat([defaultProps.prompt.text])
+          const response = `${defaultProps.prompt.text} ${defaultProps.prompt.conjunction}`
+          const arrayOfUnsubmittableResponses = entries.concat([response])
           const unsubmittableResponses = wrapper.instance().unsubmittableResponses()
           expect(unsubmittableResponses).toEqual(arrayOfUnsubmittableResponses)
         })
@@ -82,18 +84,6 @@ describe('PromptStep component', () => {
           expect(wrapper.instance().formattedPrompt()).toEqual("<p>Governments should make voting compulsory <u>because</u>&nbsp;</p>")
         })
 
-      })
-
-      describe('#allButLastWord', () => {
-        it('should return all but the last word of a string', () => {
-          expect(wrapper.instance().allButLastWord('This is a string')).toEqual('This is a')
-        })
-      })
-
-      describe('#lastWord', () => {
-        it('should return the last word of a string', () => {
-          expect(wrapper.instance().lastWord('This is a string')).toEqual('string')
-        })
       })
 
       describe('#onTextChange', () => {
