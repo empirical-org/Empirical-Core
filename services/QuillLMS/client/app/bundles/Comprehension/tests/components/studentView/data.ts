@@ -7,19 +7,22 @@ export const activityOne = {
 	prompts: [
     {
       prompt_id: 1,
-  		text: "Governments should make voting compulsory because",
+      conjunction: "because",
+  		text: "Governments should make voting compulsory",
   		max_attempts: 5,
       max_attempts_feedback: "Nice effort! You made some strong revisions. Here is an example of a strong response. What is similar or different about your response? \n\n Governments should make voting compulsory because otherwise not everyone will vote."
     },
     {
       prompt_id: 2,
-      text: "Governments should make voting compulsory, but",
+      conjunction: "but",
+      text: "Governments should make voting compulsory,",
       max_attempts: 5,
       max_attempts_feedback: "Nice effort! You made some strong revisions. Here is an example of a strong response. What is similar or different about your response? \n\n Governments should make voting compulsory, but with exceptions for people who have good reasons for not being able to vote."
     },
     {
       prompt_id: 3,
-  		text: "Governments should make voting compulsory so",
+      conjunction: "so",
+  		text: "Governments should make voting compulsory,",
   		max_attempts: 5,
       max_attempts_feedback: "Nice effort! You made some strong revisions. Here is an example of a strong response. What is similar or different about your response? \n\n Governments should make voting compulsory so that the elected government represents the majority of the population."
     }
@@ -37,7 +40,7 @@ export const responses = [
   },
   {
     prompt_id: 3,
-    text: "Governments should make voting compulsory so that the elected government represents the majority of the population."
+    text: "Governments should make voting compulsory, so that the elected government represents the majority of the population."
   }
 ]
 
@@ -50,7 +53,7 @@ export const suboptimalSubmittedResponse = {
   feedback_type: "semantic",
   optimal: false,
   response_id: 1,
-  entry: "Governments should make voting compulsory so that more voices are heard in elections."
+  entry: "Governments should make voting compulsory, so that more voices are heard in elections."
 }
 
 export const optimalSubmittedResponse = {
@@ -58,5 +61,5 @@ export const optimalSubmittedResponse = {
   feedback_type: "semantic",
   optimal: true,
   response_id: 2,
-  entry: "Governments should make voting compulsory so that the elected government represents the majority of the population."
+  entry: "Governments should make voting compulsory, so that the elected government represents the majority of the population."
 }

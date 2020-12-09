@@ -79,7 +79,7 @@ describe('StudentViewContainer component', () => {
         expect(mockTrackAnalyticsEvent).toHaveBeenNthCalledWith(2, Events.COMPREHENSION_PROMPT_STARTED, {
           activityID: activityOne.activity_id,
           sessionID: sessionReducer.sessionID,
-          promptID: activityOne.prompts[0].prompt_id
+          promptID: activityOne.prompts[0].id
         })
       })
     })
@@ -101,7 +101,7 @@ describe('StudentViewContainer component', () => {
           expect(mockTrackAnalyticsEvent).toHaveBeenNthCalledWith(1, Events.COMPREHENSION_PROMPT_COMPLETED, {
             activityID: activityOne.activity_id,
             sessionID: sessionReducer.sessionID,
-            promptID: activityOne.prompts[0].prompt_id
+            promptID: activityOne.prompts[0].id
           })
         })
 
@@ -109,7 +109,7 @@ describe('StudentViewContainer component', () => {
           expect(mockTrackAnalyticsEvent).toHaveBeenNthCalledWith(2, Events.COMPREHENSION_PROMPT_STARTED, {
             activityID: activityOne.activity_id,
             sessionID: sessionReducer.sessionID,
-            promptID: activityOne.prompts[1].prompt_id
+            promptID: activityOne.prompts[1].id
           })
         })
       })
@@ -173,7 +173,7 @@ describe('StudentViewContainer component', () => {
           expect(mockTrackAnalyticsEvent).toHaveBeenCalledWith(Events.COMPREHENSION_PROMPT_STARTED, {
             activityID: activityOne.activity_id,
             sessionID: sessionReducer.sessionID,
-            promptID: activityOne.prompts[lastPromptIndex].prompt_id
+            promptID: activityOne.prompts[lastPromptIndex].id
           })
         })
       })

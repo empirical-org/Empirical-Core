@@ -10,12 +10,13 @@ exports[`PromptStep component active state before any responses have been submit
   passedRef={[Function]}
   prompt={
     Object {
+      "conjunction": "because",
       "max_attempts": 5,
       "max_attempts_feedback": "Nice effort! You made some strong revisions. Here is an example of a strong response. What is similar or different about your response? 
 
  Governments should make voting compulsory because otherwise not everyone will vote.",
       "prompt_id": 1,
-      "text": "Governments should make voting compulsory because",
+      "text": "Governments should make voting compulsory",
     }
   }
   stepNumberComponent={<span />}
@@ -53,7 +54,7 @@ exports[`PromptStep component active state before any responses have been submit
             html="<p>Governments should make voting compulsory <u>because</u>&nbsp;</p>"
             innerRef={[Function]}
             isResettable={false}
-            promptText="Governments should make voting compulsory because"
+            promptText="Governments should make voting compulsory"
             resetText={[Function]}
             stripHtml={[Function]}
           >
@@ -126,12 +127,13 @@ exports[`PromptStep component active state when a profane response has been subm
   passedRef={[Function]}
   prompt={
     Object {
+      "conjunction": "because",
       "max_attempts": 5,
       "max_attempts_feedback": "Nice effort! You made some strong revisions. Here is an example of a strong response. What is similar or different about your response? 
 
  Governments should make voting compulsory because otherwise not everyone will vote.",
       "prompt_id": 1,
-      "text": "Governments should make voting compulsory because",
+      "text": "Governments should make voting compulsory",
     }
   }
   stepNumberComponent={<span />}
@@ -169,7 +171,7 @@ exports[`PromptStep component active state when a profane response has been subm
             html="<p>Governments should make voting compulsory <u>because</u>&nbsp;</p>"
             innerRef={[Function]}
             isResettable={false}
-            promptText="Governments should make voting compulsory because"
+            promptText="Governments should make voting compulsory"
             resetText={[Function]}
             stripHtml={[Function]}
           >
@@ -231,12 +233,13 @@ exports[`PromptStep component active state when a profane response has been subm
             lastSubmittedResponse={Object {}}
             prompt={
               Object {
+                "conjunction": "because",
                 "max_attempts": 5,
                 "max_attempts_feedback": "Nice effort! You made some strong revisions. Here is an example of a strong response. What is similar or different about your response? 
 
  Governments should make voting compulsory because otherwise not everyone will vote.",
                 "prompt_id": 1,
-                "text": "Governments should make voting compulsory because",
+                "text": "Governments should make voting compulsory",
               }
             }
             submittedResponses={Array []}
@@ -325,12 +328,13 @@ exports[`PromptStep component active state when a response with multiple sentenc
   passedRef={[Function]}
   prompt={
     Object {
+      "conjunction": "because",
       "max_attempts": 5,
       "max_attempts_feedback": "Nice effort! You made some strong revisions. Here is an example of a strong response. What is similar or different about your response? 
 
  Governments should make voting compulsory because otherwise not everyone will vote.",
       "prompt_id": 1,
-      "text": "Governments should make voting compulsory because",
+      "text": "Governments should make voting compulsory",
     }
   }
   stepNumberComponent={<span />}
@@ -368,7 +372,7 @@ exports[`PromptStep component active state when a response with multiple sentenc
             html="<p>Governments should make voting compulsory <u>because</u>&nbsp;</p>"
             innerRef={[Function]}
             isResettable={false}
-            promptText="Governments should make voting compulsory because"
+            promptText="Governments should make voting compulsory"
             resetText={[Function]}
             stripHtml={[Function]}
           >
@@ -430,12 +434,13 @@ exports[`PromptStep component active state when a response with multiple sentenc
             lastSubmittedResponse={Object {}}
             prompt={
               Object {
+                "conjunction": "because",
                 "max_attempts": 5,
                 "max_attempts_feedback": "Nice effort! You made some strong revisions. Here is an example of a strong response. What is similar or different about your response? 
 
  Governments should make voting compulsory because otherwise not everyone will vote.",
                 "prompt_id": 1,
-                "text": "Governments should make voting compulsory because",
+                "text": "Governments should make voting compulsory",
               }
             }
             submittedResponses={Array []}
@@ -524,12 +529,13 @@ exports[`PromptStep component active state when a suboptimal response has been s
   passedRef={[Function]}
   prompt={
     Object {
+      "conjunction": "because",
       "max_attempts": 5,
       "max_attempts_feedback": "Nice effort! You made some strong revisions. Here is an example of a strong response. What is similar or different about your response? 
 
  Governments should make voting compulsory because otherwise not everyone will vote.",
       "prompt_id": 1,
-      "text": "Governments should make voting compulsory because",
+      "text": "Governments should make voting compulsory",
     }
   }
   stepNumberComponent={<span />}
@@ -537,7 +543,7 @@ exports[`PromptStep component active state when a suboptimal response has been s
   submittedResponses={
     Array [
       Object {
-        "entry": "Governments should make voting compulsory so that more voices are heard in elections.",
+        "entry": "Governments should make voting compulsory, so that more voices are heard in elections.",
         "feedback": "Good start! You stated that compulsory voting will ensure that more voices are heard. Now take it one step further—according to the passage, why is it important that more voices are heard?",
         "feedback_type": "semantic",
         "optimal": false,
@@ -577,7 +583,7 @@ exports[`PromptStep component active state when a suboptimal response has been s
             html="<p>Governments should make voting compulsory <u>because</u>&nbsp;</p>"
             innerRef={[Function]}
             isResettable={false}
-            promptText="Governments should make voting compulsory because"
+            promptText="Governments should make voting compulsory"
             resetText={[Function]}
             stripHtml={[Function]}
           >
@@ -649,7 +655,7 @@ exports[`PromptStep component active state when a suboptimal response has been s
             customFeedbackKey={null}
             lastSubmittedResponse={
               Object {
-                "entry": "Governments should make voting compulsory so that more voices are heard in elections.",
+                "entry": "Governments should make voting compulsory, so that more voices are heard in elections.",
                 "feedback": "Good start! You stated that compulsory voting will ensure that more voices are heard. Now take it one step further—according to the passage, why is it important that more voices are heard?",
                 "feedback_type": "semantic",
                 "optimal": false,
@@ -658,18 +664,19 @@ exports[`PromptStep component active state when a suboptimal response has been s
             }
             prompt={
               Object {
+                "conjunction": "because",
                 "max_attempts": 5,
                 "max_attempts_feedback": "Nice effort! You made some strong revisions. Here is an example of a strong response. What is similar or different about your response? 
 
  Governments should make voting compulsory because otherwise not everyone will vote.",
                 "prompt_id": 1,
-                "text": "Governments should make voting compulsory because",
+                "text": "Governments should make voting compulsory",
               }
             }
             submittedResponses={
               Array [
                 Object {
-                  "entry": "Governments should make voting compulsory so that more voices are heard in elections.",
+                  "entry": "Governments should make voting compulsory, so that more voices are heard in elections.",
                   "feedback": "Good start! You stated that compulsory voting will ensure that more voices are heard. Now take it one step further—according to the passage, why is it important that more voices are heard?",
                   "feedback_type": "semantic",
                   "optimal": false,
@@ -762,12 +769,13 @@ exports[`PromptStep component active state when a too-long response has been sub
   passedRef={[Function]}
   prompt={
     Object {
+      "conjunction": "because",
       "max_attempts": 5,
       "max_attempts_feedback": "Nice effort! You made some strong revisions. Here is an example of a strong response. What is similar or different about your response? 
 
  Governments should make voting compulsory because otherwise not everyone will vote.",
       "prompt_id": 1,
-      "text": "Governments should make voting compulsory because",
+      "text": "Governments should make voting compulsory",
     }
   }
   stepNumberComponent={<span />}
@@ -805,7 +813,7 @@ exports[`PromptStep component active state when a too-long response has been sub
             html="<p>Governments should make voting compulsory <u>because</u>&nbsp;</p>"
             innerRef={[Function]}
             isResettable={false}
-            promptText="Governments should make voting compulsory because"
+            promptText="Governments should make voting compulsory"
             resetText={[Function]}
             stripHtml={[Function]}
           >
@@ -867,12 +875,13 @@ exports[`PromptStep component active state when a too-long response has been sub
             lastSubmittedResponse={Object {}}
             prompt={
               Object {
+                "conjunction": "because",
                 "max_attempts": 5,
                 "max_attempts_feedback": "Nice effort! You made some strong revisions. Here is an example of a strong response. What is similar or different about your response? 
 
  Governments should make voting compulsory because otherwise not everyone will vote.",
                 "prompt_id": 1,
-                "text": "Governments should make voting compulsory because",
+                "text": "Governments should make voting compulsory",
               }
             }
             submittedResponses={Array []}
@@ -961,12 +970,13 @@ exports[`PromptStep component active state when a too-short response has been su
   passedRef={[Function]}
   prompt={
     Object {
+      "conjunction": "because",
       "max_attempts": 5,
       "max_attempts_feedback": "Nice effort! You made some strong revisions. Here is an example of a strong response. What is similar or different about your response? 
 
  Governments should make voting compulsory because otherwise not everyone will vote.",
       "prompt_id": 1,
-      "text": "Governments should make voting compulsory because",
+      "text": "Governments should make voting compulsory",
     }
   }
   stepNumberComponent={<span />}
@@ -1004,7 +1014,7 @@ exports[`PromptStep component active state when a too-short response has been su
             html="<p>Governments should make voting compulsory <u>because</u>&nbsp;</p>"
             innerRef={[Function]}
             isResettable={false}
-            promptText="Governments should make voting compulsory because"
+            promptText="Governments should make voting compulsory"
             resetText={[Function]}
             stripHtml={[Function]}
           >
@@ -1066,12 +1076,13 @@ exports[`PromptStep component active state when a too-short response has been su
             lastSubmittedResponse={Object {}}
             prompt={
               Object {
+                "conjunction": "because",
                 "max_attempts": 5,
                 "max_attempts_feedback": "Nice effort! You made some strong revisions. Here is an example of a strong response. What is similar or different about your response? 
 
  Governments should make voting compulsory because otherwise not everyone will vote.",
                 "prompt_id": 1,
-                "text": "Governments should make voting compulsory because",
+                "text": "Governments should make voting compulsory",
               }
             }
             submittedResponses={Array []}
@@ -1160,12 +1171,13 @@ exports[`PromptStep component active state when an optimal response has been sub
   passedRef={[Function]}
   prompt={
     Object {
+      "conjunction": "because",
       "max_attempts": 5,
       "max_attempts_feedback": "Nice effort! You made some strong revisions. Here is an example of a strong response. What is similar or different about your response? 
 
  Governments should make voting compulsory because otherwise not everyone will vote.",
       "prompt_id": 1,
-      "text": "Governments should make voting compulsory because",
+      "text": "Governments should make voting compulsory",
     }
   }
   stepNumberComponent={<span />}
@@ -1173,7 +1185,7 @@ exports[`PromptStep component active state when an optimal response has been sub
   submittedResponses={
     Array [
       Object {
-        "entry": "Governments should make voting compulsory so that the elected government represents the majority of the population.",
+        "entry": "Governments should make voting compulsory, so that the elected government represents the majority of the population.",
         "feedback": "That's a really strong sentence! You used evidence from the text to identify why governments should make voting compulsory.",
         "feedback_type": "semantic",
         "optimal": true,
@@ -1213,7 +1225,7 @@ exports[`PromptStep component active state when an optimal response has been sub
             html="<p>Governments should make voting compulsory <u>because</u>&nbsp;</p>"
             innerRef={[Function]}
             isResettable={false}
-            promptText="Governments should make voting compulsory because"
+            promptText="Governments should make voting compulsory"
             resetText={[Function]}
             stripHtml={[Function]}
           >
@@ -1274,7 +1286,7 @@ exports[`PromptStep component active state when an optimal response has been sub
             customFeedbackKey={null}
             lastSubmittedResponse={
               Object {
-                "entry": "Governments should make voting compulsory so that the elected government represents the majority of the population.",
+                "entry": "Governments should make voting compulsory, so that the elected government represents the majority of the population.",
                 "feedback": "That's a really strong sentence! You used evidence from the text to identify why governments should make voting compulsory.",
                 "feedback_type": "semantic",
                 "optimal": true,
@@ -1283,18 +1295,19 @@ exports[`PromptStep component active state when an optimal response has been sub
             }
             prompt={
               Object {
+                "conjunction": "because",
                 "max_attempts": 5,
                 "max_attempts_feedback": "Nice effort! You made some strong revisions. Here is an example of a strong response. What is similar or different about your response? 
 
  Governments should make voting compulsory because otherwise not everyone will vote.",
                 "prompt_id": 1,
-                "text": "Governments should make voting compulsory because",
+                "text": "Governments should make voting compulsory",
               }
             }
             submittedResponses={
               Array [
                 Object {
-                  "entry": "Governments should make voting compulsory so that the elected government represents the majority of the population.",
+                  "entry": "Governments should make voting compulsory, so that the elected government represents the majority of the population.",
                   "feedback": "That's a really strong sentence! You used evidence from the text to identify why governments should make voting compulsory.",
                   "feedback_type": "semantic",
                   "optimal": true,
@@ -1387,12 +1400,13 @@ exports[`PromptStep component active state when the max attempts have been reach
   passedRef={[Function]}
   prompt={
     Object {
+      "conjunction": "because",
       "max_attempts": 5,
       "max_attempts_feedback": "Nice effort! You made some strong revisions. Here is an example of a strong response. What is similar or different about your response? 
 
  Governments should make voting compulsory because otherwise not everyone will vote.",
       "prompt_id": 1,
-      "text": "Governments should make voting compulsory because",
+      "text": "Governments should make voting compulsory",
     }
   }
   stepNumberComponent={<span />}
@@ -1400,35 +1414,35 @@ exports[`PromptStep component active state when the max attempts have been reach
   submittedResponses={
     Array [
       Object {
-        "entry": "Governments should make voting compulsory so that more voices are heard in elections.",
+        "entry": "Governments should make voting compulsory, so that more voices are heard in elections.",
         "feedback": "Good start! You stated that compulsory voting will ensure that more voices are heard. Now take it one step further—according to the passage, why is it important that more voices are heard?",
         "feedback_type": "semantic",
         "optimal": false,
         "response_id": 1,
       },
       Object {
-        "entry": "Governments should make voting compulsory so that more voices are heard in elections.",
+        "entry": "Governments should make voting compulsory, so that more voices are heard in elections.",
         "feedback": "Good start! You stated that compulsory voting will ensure that more voices are heard. Now take it one step further—according to the passage, why is it important that more voices are heard?",
         "feedback_type": "semantic",
         "optimal": false,
         "response_id": 1,
       },
       Object {
-        "entry": "Governments should make voting compulsory so that more voices are heard in elections.",
+        "entry": "Governments should make voting compulsory, so that more voices are heard in elections.",
         "feedback": "Good start! You stated that compulsory voting will ensure that more voices are heard. Now take it one step further—according to the passage, why is it important that more voices are heard?",
         "feedback_type": "semantic",
         "optimal": false,
         "response_id": 1,
       },
       Object {
-        "entry": "Governments should make voting compulsory so that more voices are heard in elections.",
+        "entry": "Governments should make voting compulsory, so that more voices are heard in elections.",
         "feedback": "Good start! You stated that compulsory voting will ensure that more voices are heard. Now take it one step further—according to the passage, why is it important that more voices are heard?",
         "feedback_type": "semantic",
         "optimal": false,
         "response_id": 1,
       },
       Object {
-        "entry": "Governments should make voting compulsory so that more voices are heard in elections.",
+        "entry": "Governments should make voting compulsory, so that more voices are heard in elections.",
         "feedback": "Good start! You stated that compulsory voting will ensure that more voices are heard. Now take it one step further—according to the passage, why is it important that more voices are heard?",
         "feedback_type": "semantic",
         "optimal": false,
@@ -1468,7 +1482,7 @@ exports[`PromptStep component active state when the max attempts have been reach
             html="<p>Governments should make voting compulsory <u>because</u>&nbsp;</p>"
             innerRef={[Function]}
             isResettable={false}
-            promptText="Governments should make voting compulsory because"
+            promptText="Governments should make voting compulsory"
             resetText={[Function]}
             stripHtml={[Function]}
           >
@@ -1529,7 +1543,7 @@ exports[`PromptStep component active state when the max attempts have been reach
             customFeedbackKey={null}
             lastSubmittedResponse={
               Object {
-                "entry": "Governments should make voting compulsory so that more voices are heard in elections.",
+                "entry": "Governments should make voting compulsory, so that more voices are heard in elections.",
                 "feedback": "Good start! You stated that compulsory voting will ensure that more voices are heard. Now take it one step further—according to the passage, why is it important that more voices are heard?",
                 "feedback_type": "semantic",
                 "optimal": false,
@@ -1538,46 +1552,47 @@ exports[`PromptStep component active state when the max attempts have been reach
             }
             prompt={
               Object {
+                "conjunction": "because",
                 "max_attempts": 5,
                 "max_attempts_feedback": "Nice effort! You made some strong revisions. Here is an example of a strong response. What is similar or different about your response? 
 
  Governments should make voting compulsory because otherwise not everyone will vote.",
                 "prompt_id": 1,
-                "text": "Governments should make voting compulsory because",
+                "text": "Governments should make voting compulsory",
               }
             }
             submittedResponses={
               Array [
                 Object {
-                  "entry": "Governments should make voting compulsory so that more voices are heard in elections.",
+                  "entry": "Governments should make voting compulsory, so that more voices are heard in elections.",
                   "feedback": "Good start! You stated that compulsory voting will ensure that more voices are heard. Now take it one step further—according to the passage, why is it important that more voices are heard?",
                   "feedback_type": "semantic",
                   "optimal": false,
                   "response_id": 1,
                 },
                 Object {
-                  "entry": "Governments should make voting compulsory so that more voices are heard in elections.",
+                  "entry": "Governments should make voting compulsory, so that more voices are heard in elections.",
                   "feedback": "Good start! You stated that compulsory voting will ensure that more voices are heard. Now take it one step further—according to the passage, why is it important that more voices are heard?",
                   "feedback_type": "semantic",
                   "optimal": false,
                   "response_id": 1,
                 },
                 Object {
-                  "entry": "Governments should make voting compulsory so that more voices are heard in elections.",
+                  "entry": "Governments should make voting compulsory, so that more voices are heard in elections.",
                   "feedback": "Good start! You stated that compulsory voting will ensure that more voices are heard. Now take it one step further—according to the passage, why is it important that more voices are heard?",
                   "feedback_type": "semantic",
                   "optimal": false,
                   "response_id": 1,
                 },
                 Object {
-                  "entry": "Governments should make voting compulsory so that more voices are heard in elections.",
+                  "entry": "Governments should make voting compulsory, so that more voices are heard in elections.",
                   "feedback": "Good start! You stated that compulsory voting will ensure that more voices are heard. Now take it one step further—according to the passage, why is it important that more voices are heard?",
                   "feedback_type": "semantic",
                   "optimal": false,
                   "response_id": 1,
                 },
                 Object {
-                  "entry": "Governments should make voting compulsory so that more voices are heard in elections.",
+                  "entry": "Governments should make voting compulsory, so that more voices are heard in elections.",
                   "feedback": "Good start! You stated that compulsory voting will ensure that more voices are heard. Now take it one step further—according to the passage, why is it important that more voices are heard?",
                   "feedback_type": "semantic",
                   "optimal": false,
@@ -1672,12 +1687,13 @@ exports[`PromptStep component active state when the max attempts have been reach
   passedRef={[Function]}
   prompt={
     Object {
+      "conjunction": "because",
       "max_attempts": 5,
       "max_attempts_feedback": "Nice effort! You made some strong revisions. Here is an example of a strong response. What is similar or different about your response? 
 
  Governments should make voting compulsory because otherwise not everyone will vote.",
       "prompt_id": 1,
-      "text": "Governments should make voting compulsory because",
+      "text": "Governments should make voting compulsory",
     }
   }
   stepNumberComponent={<span />}
@@ -1685,7 +1701,7 @@ exports[`PromptStep component active state when the max attempts have been reach
   submittedResponses={
     Array [
       Object {
-        "entry": "Governments should make voting compulsory so that the elected government represents the majority of the population.",
+        "entry": "Governments should make voting compulsory, so that the elected government represents the majority of the population.",
         "feedback": "That's a really strong sentence! You used evidence from the text to identify why governments should make voting compulsory.",
         "feedback_type": "semantic",
         "optimal": true,
@@ -1725,7 +1741,7 @@ exports[`PromptStep component active state when the max attempts have been reach
             html="<p>Governments should make voting compulsory <u>because</u>&nbsp;</p>"
             innerRef={[Function]}
             isResettable={false}
-            promptText="Governments should make voting compulsory because"
+            promptText="Governments should make voting compulsory"
             resetText={[Function]}
             stripHtml={[Function]}
           >
@@ -1786,7 +1802,7 @@ exports[`PromptStep component active state when the max attempts have been reach
             customFeedbackKey={null}
             lastSubmittedResponse={
               Object {
-                "entry": "Governments should make voting compulsory so that the elected government represents the majority of the population.",
+                "entry": "Governments should make voting compulsory, so that the elected government represents the majority of the population.",
                 "feedback": "That's a really strong sentence! You used evidence from the text to identify why governments should make voting compulsory.",
                 "feedback_type": "semantic",
                 "optimal": true,
@@ -1795,18 +1811,19 @@ exports[`PromptStep component active state when the max attempts have been reach
             }
             prompt={
               Object {
+                "conjunction": "because",
                 "max_attempts": 5,
                 "max_attempts_feedback": "Nice effort! You made some strong revisions. Here is an example of a strong response. What is similar or different about your response? 
 
  Governments should make voting compulsory because otherwise not everyone will vote.",
                 "prompt_id": 1,
-                "text": "Governments should make voting compulsory because",
+                "text": "Governments should make voting compulsory",
               }
             }
             submittedResponses={
               Array [
                 Object {
-                  "entry": "Governments should make voting compulsory so that the elected government represents the majority of the population.",
+                  "entry": "Governments should make voting compulsory, so that the elected government represents the majority of the population.",
                   "feedback": "That's a really strong sentence! You used evidence from the text to identify why governments should make voting compulsory.",
                   "feedback_type": "semantic",
                   "optimal": true,
@@ -1899,12 +1916,13 @@ exports[`PromptStep component inactive state renders 1`] = `
   passedRef={[Function]}
   prompt={
     Object {
+      "conjunction": "because",
       "max_attempts": 5,
       "max_attempts_feedback": "Nice effort! You made some strong revisions. Here is an example of a strong response. What is similar or different about your response? 
 
  Governments should make voting compulsory because otherwise not everyone will vote.",
       "prompt_id": 1,
-      "text": "Governments should make voting compulsory because",
+      "text": "Governments should make voting compulsory",
     }
   }
   stepNumberComponent={<span />}
