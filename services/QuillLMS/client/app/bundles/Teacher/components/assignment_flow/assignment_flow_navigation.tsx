@@ -26,7 +26,7 @@ const apSlug = AP_SLUG
 const springBoardSlug = SPRING_BOARD_SLUG
 
 const slash = (index: number) => <span className="slash" key={index}>/</span>
-const learningProcess = () => <Link key="learning-process" to={`/assign/${learningProcessSlug}`}>Learning process</Link>
+const learningProcess = () => <a href="/assign" key="learning-process">Learning process</a>
 const diagnostic = () => <Link key="diagnostic" to={`/assign/${diagnosticSlug}`}>Diagnostic</Link>
 const activityType = () => <Link key="activity-type" to={`/assign/${activityTypeSlug}`}>Activity type</Link>
 const collegeBoard = () => <Link key="college-board" to={`/assign/${collegeBoardSlug}`}>College Board</Link>
@@ -58,7 +58,7 @@ const routeLinks = {
   [preApSlug]: () => [slash(1), learningProcess(), slash(2), collegeBoard(), slash(3), preAp()],
   [apSlug]: () => [slash(1), learningProcess(), slash(2), collegeBoard(), slash(3), ap()],
   [collegeBoardSlug]: () => [slash(1), learningProcess(), slash(2), collegeBoard()],
-  [activityLibrarySlug]: () => [slash(1), learningProcess(), slash(2), activityType(), slash(3), createActivityPack()],
+  [activityLibrarySlug]: () => [slash(1), learningProcess(), slash(2), createActivityPack()],
   [selectClassesSlug]: (unitTemplateId, unitTemplateName, isFromDiagnosticPath) => {
     if (isFromDiagnosticPath) {
       return [
