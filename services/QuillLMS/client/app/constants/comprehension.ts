@@ -70,6 +70,8 @@ export const BUT = 'but';
 export const SO = 'so';
 export const promptStems = [BECAUSE, BUT, SO];
 export const DEFAULT_MAX_ATTEMPTS = 5;
+export const FIRST = 'first';
+export const SECOND = 'second';
 
 export const blankActivity = {
   title: '',

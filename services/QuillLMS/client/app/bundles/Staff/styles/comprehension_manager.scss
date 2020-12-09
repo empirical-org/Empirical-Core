@@ -265,6 +265,9 @@
       .prompt-section {
         .plagiarism-section {
           margin-left: 10px;
+          .primary-feedback-input, .secondary-feedback-input {
+            margin-top: 15px;
+          }
         }
       }
     }

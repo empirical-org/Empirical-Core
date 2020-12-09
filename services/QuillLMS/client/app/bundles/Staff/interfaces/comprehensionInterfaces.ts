@@ -32,7 +32,9 @@ export interface PromptInterface {
   text: string,
   max_attempts: number,
   max_attempts_feedback: string,
-  plagiarism_text: string
+  plagiarism_text: string,
+  plagiarism_first_feedback: string,
+  plagiarism_second_feedback: string
 }
 
 export interface RegexRuleInterface {

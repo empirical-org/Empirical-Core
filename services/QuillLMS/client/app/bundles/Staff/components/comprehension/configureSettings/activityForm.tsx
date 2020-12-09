@@ -89,6 +89,15 @@ const ActivityForm = ({ activity, closeModal, submitActivity }: ActivityFormProp
     }
   };
 
+  function handleSetPlagiarismFeedback(e: InputEvent, order: string, conjunction: string) {
+    const prompt = getActivityPrompt({ activityBecausePrompt, activityButPrompt, activitySoPrompt, conjunction });
+    const updatePrompt = getActivityPromptSetter({ setActivityBecausePrompt, setActivityButPrompt, setActivitySoPrompt, conjunction});
+    if(prompt && updatePrompt) {
+      prompt[`plagiarism_${order}_feedback`] = e.target.value;
+      updatePrompt(prompt)
+    }
+  }
+
   function handleSubmitActivity(){
     const activityObject = buildActivity({
       activityTitle,
@@ -118,12 +127,6 @@ const ActivityForm = ({ activity, closeModal, submitActivity }: ActivityFormProp
     } else {
       submitActivity(activityObject);
     }
-  }
-
-  const plagiarismLabelsTextStyle = {
-    [BECAUSE]: activityBecausePrompt.plagiarism_text && activityBecausePrompt.plagiarism_text.length && activityBecausePrompt.plagiarism_text !== '<br/>' ? 'has-text' : '',
-    [BUT]: activityButPrompt.plagiarism_text && activityButPrompt.plagiarism_text.length && activityButPrompt.plagiarism_text !== '<br/>' ? 'has-text' : '',
-    [SO]: activitySoPrompt.plagiarism_text && activitySoPrompt.plagiarism_text.length && activitySoPrompt.plagiarism_text !== '<br/>' ? 'has-text' : ''
   }
 
   const errorsPresent = !!Object.keys(errors).length;
@@ -195,9 +198,9 @@ const ActivityForm = ({ activity, closeModal, submitActivity }: ActivityFormProp
           activityButPrompt={activityButPrompt}
           activitySoPrompt={activitySoPrompt}
           errors={errors}
+          handleSetPlagiarismFeedback={handleSetPlagiarismFeedback}
           handleSetPlagiarismText={handleSetPlagiarismText}
           handleSetPrompt={handleSetPrompt}
-          plagiarismLabelsTextStyle={plagiarismLabelsTextStyle}
         />
         <div className="submit-button-container">
           {errorsPresent && <div className="error-message-container">

@@ -2,7 +2,7 @@ import * as React from "react";
 import { EditorState, ContentState } from 'draft-js';
 
 import { Input, TextEditor } from '../../../../Shared/index';
-import { BECAUSE, BUT, SO, BECAUSE_STEM, BUT_STEM, SO_STEM } from '../../../../../constants/comprehension';
+import { BECAUSE, BUT, SO, BECAUSE_STEM, BUT_STEM, SO_STEM, FIRST, SECOND } from '../../../../../constants/comprehension';
 import { PromptInterface } from '../../../interfaces/comprehensionInterfaces';
 
 type InputEvent = React.ChangeEvent<HTMLInputElement>;
@@ -12,9 +12,9 @@ interface PromptsFormProps {
   activityButPrompt: PromptInterface;
   activitySoPrompt: PromptInterface;
   errors: any;
+  handleSetPlagiarismFeedback: (e: InputEvent, order: string, conjunction: string) => void;
   handleSetPlagiarismText: (conjunction: string, text: string) => void;
   handleSetPrompt: (e: InputEvent, conjunction: string) => void;
-  plagiarismLabelsTextStyle: any;
 }
 
 const PromptsForm = (props: PromptsFormProps) => {
@@ -23,9 +23,9 @@ const PromptsForm = (props: PromptsFormProps) => {
     activityButPrompt,
     activitySoPrompt,
     errors,
+    handleSetPlagiarismFeedback,
     handleSetPlagiarismText,
-    handleSetPrompt,
-    plagiarismLabelsTextStyle
+    handleSetPrompt
   } = props;
 
   function handleSetBecausePrompt (e: InputEvent) { handleSetPrompt(e, BECAUSE) }
@@ -39,6 +39,24 @@ const PromptsForm = (props: PromptsFormProps) => {
   function handleSetButPlagiarismText (text: string) { handleSetPlagiarismText(BUT, text) }
 
   function handleSetSoPlagiarismText (text: string) { handleSetPlagiarismText(SO, text) }
+
+  function handleSetFirstBecausePlagiarismFeedback (e: InputEvent) { handleSetPlagiarismFeedback(e, FIRST, BECAUSE) }
+
+  function handleSetSecondBecausePlagiarismFeedback (e: InputEvent) { handleSetPlagiarismFeedback(e, SECOND, BECAUSE) }
+
+  function handleSetFirstButPlagiarismFeedback (e: InputEvent) { handleSetPlagiarismFeedback(e, FIRST, BUT) }
+
+  function handleSetSecondButPlagiarismFeedback (e: InputEvent) { handleSetPlagiarismFeedback(e, SECOND, BUT) }
+
+  function handleSetFirstSoPlagiarismFeedback (e: InputEvent) { handleSetPlagiarismFeedback(e, FIRST, SO) }
+
+  function handleSetSecondSoPlagiarismFeedback (e: InputEvent) { handleSetPlagiarismFeedback(e, SECOND, SO) }
+
+  const plagiarismLabelsTextStyle = {
+    [BECAUSE]: activityBecausePrompt.plagiarism_text && activityBecausePrompt.plagiarism_text.length && activityBecausePrompt.plagiarism_text !== '<br/>' ? 'has-text' : '',
+    [BUT]: activityButPrompt.plagiarism_text && activityButPrompt.plagiarism_text.length && activityButPrompt.plagiarism_text !== '<br/>' ? 'has-text' : '',
+    [SO]: activitySoPrompt.plagiarism_text && activitySoPrompt.plagiarism_text.length && activitySoPrompt.plagiarism_text !== '<br/>' ? 'has-text' : ''
+  }
 
   return(
     <React.Fragment>
@@ -59,6 +77,19 @@ const PromptsForm = (props: PromptsFormProps) => {
             key="max-attempt-feedback"
             text={activityBecausePrompt.plagiarism_text}
           />
+          <Input
+            className="primary-feedback-input"
+            handleChange={handleSetFirstBecausePlagiarismFeedback}
+            label="Primary Feedback"
+            value={activityBecausePrompt.plagiarism_first_feedback}
+          />
+          <Input
+            className="secondary-feedback-input"
+            error={errors[BECAUSE_STEM]}
+            handleChange={handleSetSecondBecausePlagiarismFeedback}
+            label="Secondary Feedback"
+            value={activityBecausePrompt.plagiarism_second_feedback}
+          />
         </section>
       </section>
       <section className="prompt-section">
@@ -78,6 +109,18 @@ const PromptsForm = (props: PromptsFormProps) => {
             key="max-attempt-feedback"
             text={activityButPrompt.plagiarism_text}
           />
+          <Input
+            className="primary-feedback-input"
+            handleChange={handleSetFirstButPlagiarismFeedback}
+            label="Primary Feedback"
+            value={activityButPrompt.plagiarism_first_feedback}
+          />
+          <Input
+            className="secondary-feedback-input"
+            handleChange={handleSetSecondButPlagiarismFeedback}
+            label="Secondary Feedback"
+            value={activityButPrompt.plagiarism_second_feedback}
+          />
         </section>
       </section>
       <section className="prompt-section">
@@ -96,6 +139,18 @@ const PromptsForm = (props: PromptsFormProps) => {
             handleTextChange={handleSetSoPlagiarismText}
             key="max-attempt-feedback"
             text={activitySoPrompt.plagiarism_text}
+          />
+          <Input
+            className="primary-feedback-input"
+            handleChange={handleSetFirstSoPlagiarismFeedback}
+            label="Primary Feedback"
+            value={activitySoPrompt.plagiarism_first_feedback}
+          />
+          <Input
+            className="secondary-feedback-input"
+            handleChange={handleSetSecondSoPlagiarismFeedback}
+            label="Secondary Feedback"
+            value={activitySoPrompt.plagiarism_second_feedback}
           />
         </section>
       </section>
