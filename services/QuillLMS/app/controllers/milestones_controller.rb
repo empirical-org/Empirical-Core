@@ -1,9 +1,21 @@
 class MilestonesController < ApplicationController
 
   def complete_view_lesson_tutorial
+    complete_milestone('View Lessons Tutorial')
+  end
+
+  def complete_acknowledge_diagnostic_banner
+    complete_milestone(Milestone::TYPES[:acknowledge_diagnostic_banner])
+  end
+
+  def complete_acknowledge_lessons_banner
+    complete_milestone(Milestone::TYPES[:acknowledge_lessons_banner])
+  end
+
+  private def complete_milestone(milestone_name)
     if current_user
-      milestone = Milestone.find_by(name: 'View Lessons Tutorial')
-      if !milestone.users.find_by(id: current_user.id)
+      milestone = Milestone.find_by_name(milestone_name)
+      if milestone && !milestone.users.find_by(id: current_user.id)
         current_user.milestones.push(milestone)
       end
     end

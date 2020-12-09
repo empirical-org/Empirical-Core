@@ -20,11 +20,22 @@
       img {
         margin-right: 24px;
       }
+      &.include-recommended-to-start-tag {
+        align-items: flex-start;
+      }
     }
     h2 {
       font-size: 16px;
       font-weight: bold;
       line-height: 1.5;
+    }
+    .recommended-to-start-tag {
+      font-size: 12px;
+      font-weight: 600;
+      line-height: 1;
+      margin: 4px 0px;
+      display: inline-block;
+      color: #06806b;
     }
   }
   .body {
@@ -49,67 +60,79 @@
 }
 
 .assign-a-new-activity {
-  padding: 43px 0px;
-  .assign-a-new-activity-hero {
-    border-radius: 4px;
-    border: solid 1px #e0e0e0;
+  padding: 47px 0px;
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  max-width: 90%;
+
+  h1 {
+    font-size: 24px;
+    font-weight: bold;
+    line-height: 1.33;
+    margin-bottom: 40px;
     text-align: center;
-    padding: 40px;
-    align-items: center;
+  }
+
+  .diagnostic-banner {
+    padding: 0px 0px 16px;
+    border-radius: 6px;
+    border: solid 1px #06806b;
     display: flex;
-    flex-direction: column;
-    h1 {
-      font-size: 24px;
-      font-weight: bold;
-      line-height: 1.33;
+    background-color: #e1f3f1;
+    margin-bottom: 24px;
+    max-width: 950px;
+    width: 100%;
+    img {
+      height: min-content;
+    }
+    .text {
+      margin: 24px 16px 16px;
+      flex: 1;
+      h2 {
+        font-size: 16px;
+        font-weight: bold;
+        line-height: normal;
+        margin-bottom: 16px;
+      }
+      p {
+        max-width: 600px;
+        color: #222222;
+      }
+    }
+    .interactive-wrapper {
+      height: min-content;
       margin: 24px;
     }
   }
+
+  .minis {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    max-width: 950px;
+    .assignment-card {
+      width: 100%;
+      max-width: 463px;
+      margin: 0px 0px 24px;
+    }
+  }
+
   .previously-assigned-activities {
     text-align: center;
-    margin-top: 40px;
-    margin-bottom: 80px;
+    margin-top: 26px;
     font-size: 14px;
     color: #646464;
     a {
       color: #027360;
     }
   }
-  .assignment-steps {
-    display: flex;
-    justify-content: space-between;
-    .assignment-step {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      text-align: center;
-      max-width: 272px;
-      width: 100%;
-      .assignment-step-number {
-        width: 40px;
-        height: 40px;
-        border: solid 1px #666666;
-        border-radius: 20px;
-        display: flex;
-        justify-content: center;
-        font-size: 20px;
-        font-weight: bold;
-        line-height: 1;
-        text-align: center;
-        color: #666666;
-        margin-bottom: 24px;
-        align-items: center;
-      }
-      .assignment-step-header {
-        font-size: 16px;
-        font-weight: bold;
-        margin-bottom: 8px;
-      }
-      .assignment-step-text {
-        font-size: 16px;
-        line-height: normal;
-        text-align: center;
-        color: #7f7f7f;
+
+  @media (max-width: 1100px) {
+    .minis {
+      justify-content: center;
+      .assignment-card {
+        max-width: 100%;
       }
     }
   }
@@ -117,7 +140,7 @@
 
 .button-container {
   display: flex;
-  
+
   a:first-child {
     margin-right: 16px;
   }
