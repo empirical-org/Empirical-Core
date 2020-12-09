@@ -80,7 +80,7 @@ const ActivityForm = ({ activity, closeModal, submitActivity }: ActivityFormProp
     }
   }
 
-  function handleSetPlagiarismText(conjunction: string, text: string) {
+  function handleSetPlagiarismText(text: string, conjunction: string) {
     const prompt = getActivityPrompt({ activityBecausePrompt, activityButPrompt, activitySoPrompt, conjunction });
     const updatePrompt = getActivityPromptSetter({ setActivityBecausePrompt, setActivityButPrompt, setActivitySoPrompt, conjunction});
     if(prompt && updatePrompt) {

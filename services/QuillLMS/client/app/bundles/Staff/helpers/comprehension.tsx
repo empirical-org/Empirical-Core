@@ -72,11 +72,7 @@ export const buildActivity = ({
       scored_level: activityScoredReadingLevel,
       target_level: parseInt(activityTargetReadingLevel),
       passages_attributes: activityPassages,
-      prompts_attributes: [
-        formatPrompt(prompts[0]),
-        formatPrompt(prompts[1]),
-        formatPrompt(prompts[2])
-      ]
+      prompts_attributes: prompts
     }
   };
 }
@@ -85,18 +81,6 @@ export const promptsByConjunction = (prompts: PromptInterface[]) => {
   const formattedPrompts = {};
   prompts && prompts.map((prompt: PromptInterface) => formattedPrompts[prompt.conjunction] = prompt);
   return formattedPrompts;
-}
-
-export const formatPrompt = (prompt: PromptInterface) => {
-  let formattedPrompt = prompt;
-  const text = formattedPrompt.text;
-  const lastChar = text.charAt(text.length - 1);
-  if(text && lastChar !== ',' && prompt.conjunction !== BECAUSE) {
-    formattedPrompt.text = text + ',';
-  } else if(text && lastChar === ',' && prompt.conjunction === BECAUSE) {
-    formattedPrompt.text = text.slice(0, -1);
-  }
-  return formattedPrompt;
 }
 
 export function getActivityPrompt({

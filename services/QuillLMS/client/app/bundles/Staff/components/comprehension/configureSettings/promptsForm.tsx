@@ -13,7 +13,7 @@ interface PromptsFormProps {
   activitySoPrompt: PromptInterface;
   errors: any;
   handleSetPlagiarismFeedback: (e: InputEvent, order: string, conjunction: string) => void;
-  handleSetPlagiarismText: (conjunction: string, text: string) => void;
+  handleSetPlagiarismText: (text: string, conjunction: string) => void;
   handleSetPrompt: (e: InputEvent, conjunction: string) => void;
 }
 
@@ -34,11 +34,11 @@ const PromptsForm = (props: PromptsFormProps) => {
 
   function handleSetSoPrompt (e: InputEvent) { handleSetPrompt(e, C.SO) }
 
-  function handleSetBecausePlagiarismText (text: string) { handleSetPlagiarismText(C.BECAUSE, text) }
+  function handleSetBecausePlagiarismText (text: string) { handleSetPlagiarismText(text, C.BECAUSE, ) }
 
-  function handleSetButPlagiarismText (text: string) { handleSetPlagiarismText(C.BUT, text) }
+  function handleSetButPlagiarismText (text: string) { handleSetPlagiarismText(text, C.BUT) }
 
-  function handleSetSoPlagiarismText (text: string) { handleSetPlagiarismText(C.SO, text) }
+  function handleSetSoPlagiarismText (text: string) { handleSetPlagiarismText(text, C.SO) }
 
   function handleSetFirstBecausePlagiarismFeedback (e: InputEvent) { handleSetPlagiarismFeedback(e, C.FIRST, C.BECAUSE) }
 
