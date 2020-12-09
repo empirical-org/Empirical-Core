@@ -65,9 +65,7 @@ const StaffActivityCategoryFilterRow = ({
   const activityCount = filteredActivities.filter(act => activityCategory.id === act.activity_category.id).length
   let checkbox = <button aria-label={`Check ${activityCategory.name}`} className="focus-on-light quill-checkbox unselected" onClick={checkIndividualFilter} type="button" />
 
-  if (activityCount === 0) {
-    checkbox = <div aria-label={`Check ${activityCategory.name}`} className="focus-on-light quill-checkbox disabled" />
-  } else if (selectedActivityCategoryId === activityCategory.id) {
+  if (selectedActivityCategoryId === activityCategory.id) {
     checkbox = (<button aria-label={`Uncheck ${activityCategory.name}`} className="focus-on-light quill-checkbox selected" onClick={uncheckIndividualFilter} type="button">
       <img alt="Checked checkbox" src={smallWhiteCheckSrc} />
     </button>)
@@ -79,34 +77,36 @@ const StaffActivityCategoryFilterRow = ({
   if (inEditMode) {
     return (
       <section key={activityCategory.id}>
-        <button className="interactive-wrapper" onClick={removeActivityCategory}><i className="fas fa-minus-circle" /></button>
+        <button className="interactive-wrapper" onClick={removeActivityCategory} type="button"><i className="fas fa-minus-circle" /></button>
         <div className="individual-row filter-row activity-category-row">
-        <div>
-          {checkbox}
-          <Input
-            handleChange={onActivityCategoryNameChange}
-            value={activityCategory.name}
-          />
+          <div>
+            {checkbox}
+            <Input
+              handleChange={onActivityCategoryNameChange}
+              value={activityCategory.name}
+            />
+          </div>
+          <button className="interactive-wrapper" onClick={stopEditing}><i className="fas fa-times" /></button>
         </div>
-        <button className="interactive-wrapper" onClick={stopEditing}><i className="fas fa-times" /></button>
-      </div>
-    </section>)
+      </section>
+    )
   }
 
   return (
     <section key={activityCategory.id}>
       <DragHandle />
       <div className="individual-row filter-row activity-category-row">
-      <div>
-        {checkbox}
-        {activityCategoryNameElement}
+        <div>
+          {checkbox}
+          {activityCategoryNameElement}
+        </div>
+        <div className="pencil-and-count-wrapper">
+          <button className="interactive-wrapper" onClick={startEditing}><i className="fas fa-pencil-alt" /></button>
+          <span>({activityCount})</span>
+        </div>
       </div>
-      <div className="pencil-and-count-wrapper">
-        <button className="interactive-wrapper" onClick={startEditing}><i className="fas fa-pencil-alt" /></button>
-        <span>({activityCount})</span>
-      </div>
-    </div>
-  </section>)
+    </section>
+  )
 }
 
 const StaffActivityCategoryFilters = ({ activityCategoryEditor, filterActivities, }: StaffActivityCategoryFiltersProps) => {
@@ -169,12 +169,12 @@ const StaffActivityCategoryFilters = ({ activityCategoryEditor, filterActivities
 
   const activityCategoryRows = activityCategories.map(ac => (<StaffActivityCategoryFilterRow
     activityCategory={ac}
-    selectedActivityCategoryId={selectedActivityCategoryId}
     filteredActivities={filteredActivities}
     handleActivityCategoryNameChange={handleActivityCategoryNameChange}
     handleActivityCategorySelect={handleActivityCategorySelect}
     handleRemoveActivityCategory={handleRemoveActivityCategory}
     key={ac.id}
+    selectedActivityCategoryId={selectedActivityCategoryId}
     uniqueActivityCategories={activityCategories}
   />))
 
@@ -187,17 +187,17 @@ const StaffActivityCategoryFilters = ({ activityCategoryEditor, filterActivities
     <Snackbar text="Changes saved" visible={showSnackbar} />
     <div className="name-and-clear-wrapper">
       <h2>Concepts (Activity Category)
-      <Tooltip
-        tooltipText={activityCategoryTooltipText}
-        tooltipTriggerText={<i className="fal fa-info-circle" />}
-      />
+        <Tooltip
+          tooltipText={activityCategoryTooltipText}
+          tooltipTriggerText={<i className="fal fa-info-circle" />}
+        />
       </h2>
     </div>
     {activityCategoryList}
     <section className="create-activity-category-form">
       <Input
-        label="Activity category"
         handleChange={handleNewActivityCategoryNameChange}
+        label="Activity category"
         value={newActivityCategoryName}
       />
       <button className={createNewActivityCategoryButtonClassName} onClick={createNewActivityCategory}>Add</button>

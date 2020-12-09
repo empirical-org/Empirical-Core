@@ -1,8 +1,7 @@
 import * as React from 'react'
-import _ from 'lodash'
 
 import { Snackbar, defaultSnackbarTimeout, } from '../../../../Shared/index'
-import { requestGet, requestPut, requestPost, } from '../../../../../modules/request/index'
+import { requestGet, requestPut, } from '../../../../../modules/request/index'
 import CustomActivityPackPage from '../../../../Teacher/components/assignment_flow/create_unit/custom_activity_pack/index'
 
 const ActivityCategories = () => {
@@ -12,6 +11,7 @@ const ActivityCategories = () => {
   const [selectedActivities, setSelectedActivities] = React.useState([])
   const [activities, setActivities] = React.useState([])
   const [showSnackbar, setShowSnackbar] = React.useState(false)
+  const [saveButtonEnabled, setSaveButtonEnabled] = React.useState(false)
 
   React.useEffect(() => {
     if (showSnackbar) {
@@ -23,6 +23,12 @@ const ActivityCategories = () => {
     getActivityCategories()
     getActivities()
   }, [])
+
+  React.useEffect(() => {
+    if (!_.isEqual(activityCategories, originalActivityCategories)) {
+      setSaveButtonEnabled(true)
+    }
+  }, [activityCategories])
 
   React.useEffect(() => {
     if (selectedActivityCategoryId === null) {
@@ -47,8 +53,8 @@ const ActivityCategories = () => {
   function getActivityCategories() {
     requestGet('/cms/activity_categories',
       (data) => {
-        setActivityCategories(data.activity_categories);
-        setOriginalActivityCategories(data.activity_categories)
+        setOriginalActivityCategories(_.cloneDeep(data.activity_categories))
+        setActivityCategories(_.cloneDeep(data.activity_categories));
       }
     )
   }
@@ -64,7 +70,10 @@ const ActivityCategories = () => {
   function saveActivityCategories() {
     requestPut('/cms/activity_categories/mass_update', { activity_categories: activityCategories, },
       (data) => {
-        setActivityCategories(data.activity_categories)
+        setOriginalActivityCategories(_.cloneDeep(data.activity_categories))
+        setActivityCategories(_.cloneDeep(data.activity_categories));
+        setSaveButtonEnabled(false)
+        setShowSnackbar(true)
         getActivities()
       }
     )
@@ -83,12 +92,14 @@ const ActivityCategories = () => {
       newActivityArray.splice(indexOfActivity, 1);
     }
     setSelectedActivities(newActivityArray)
+    setSaveButtonEnabled(true)
   }
 
   function handleSelectedActivityReorder(reorderedActivities) {
     // handles the case where the selected activities are filtered by flag - we don't want to remove hidden activities from the list so we just put them at the end of the new order
     const hiddenSelectedActivities = selectedActivities.filter(sa => !reorderedActivities.find(ra => ra.id === sa.id))
     setSelectedActivities(reorderedActivities.concat(hiddenSelectedActivities))
+    setSaveButtonEnabled(true)
   }
 
   const activityCategoryEditorProps = {
@@ -98,7 +109,6 @@ const ActivityCategories = () => {
     selectedActivityCategoryId,
     handleActivityCategorySelect
   }
-
   return (<React.Fragment>
     <Snackbar text="Changes saved" visible={showSnackbar} />
     <CustomActivityPackPage
@@ -106,7 +116,7 @@ const ActivityCategories = () => {
       clickContinue={saveActivityCategories}
       isStaff={true}
       passedActivities={activities}
-      saveButtonEnabled={!_.isEqual(activityCategories, originalActivityCategories)}
+      saveButtonEnabled={saveButtonEnabled}
       selectedActivities={selectedActivities}
       setSelectedActivities={handleSelectedActivityReorder}
       toggleActivitySelection={toggleActivitySelection}

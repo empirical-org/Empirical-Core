@@ -469,9 +469,7 @@ EmpiricalGrammar::Application.routes.draw do
   namespace :cms do
     resources :images, only: [:index, :destroy, :create]
     put '/activity_categories/mass_update', to: 'activity_categories#mass_update'
-    put '/activity_categories/update_order_numbers', to: 'activity_categories#update_order_numbers'
-    post '/activity_categories/destroy_and_recreate_acas', to: 'activity_categories#destroy_and_recreate_acas'
-    resources :activity_categories, only: [:index, :show, :create, :update, :destroy]
+    resources :activity_categories, only: [:index, :create]
     resources :activity_classifications do
       put :update_order_numbers, on: :collection
       resources :activities do
