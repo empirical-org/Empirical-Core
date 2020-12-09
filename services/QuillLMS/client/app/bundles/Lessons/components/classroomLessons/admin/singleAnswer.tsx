@@ -46,7 +46,7 @@ class AdminSingleAnswer extends Component<SingleAnswerProps, any>{
       {},
       this.state.question
     );
-    _.set(newVals, 'play.prompt', e)
+    _.set(newVals, 'play.prompt', e.replace('\n', '<br/>'))
     this.setState({question: newVals})
   }
 

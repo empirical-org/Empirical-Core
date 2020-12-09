@@ -47,7 +47,7 @@ class AdminFillInTheList extends React.Component<AdminFillInTheListProps, any>{
       {},
       this.state.question
     );
-    _.set(newVals, 'play.prompt', e.target.value)
+    _.set(newVals, 'play.prompt', e.replace('\n', '<br/>'))
     this.setState({question: newVals})
   }
 

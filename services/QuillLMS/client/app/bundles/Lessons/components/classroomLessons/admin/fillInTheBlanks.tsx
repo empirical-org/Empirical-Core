@@ -67,7 +67,7 @@ class AdminFillInTheBlanks extends Component<AdminFillInTheBlanksProps, AdminFil
       {},
       this.state.question
     );
-    _.set(newVals, 'play.prompt', e.target.value)
+    _.set(newVals, 'play.prompt', e.replace('\n', '<br/>'))
     this.setState({question: newVals}, () => this.updatePrefilledSampleCorrectAnswer(this.state.question.play.prompt))
   }
 
