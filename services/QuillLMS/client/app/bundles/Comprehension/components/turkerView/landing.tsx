@@ -27,7 +27,7 @@ export const TurkLanding = ({ handleStartActivity}) => {
           {ListElement('Analyze the feedback provided')}
           {ListElement('five', ['Use the feedback to revise each sentence up to', ' times'])}
         </ul>
-        <div className="bolded">Each of your sentences <p>must</p>:</div>
+        <div className="bolded">Each of your sentences <p>must</p></div>
         <ul>
           {ListElement('one', ['Be ', ' sentence long'])}
           {ListElement('Use proper capitalization (i.e. do not write in capital letters)')}
