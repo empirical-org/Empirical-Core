@@ -211,8 +211,6 @@ class Teachers::UnitsController < ApplicationController
       scores, completed, archived_activities = ''
       if report
         completed = lessons ? "HAVING ca.completed" : "HAVING SUM(CASE WHEN act_sesh.visible = true AND act_sesh.state = 'finished' THEN 1 ELSE 0 END) > 0"
-      else
-        archived_activities = "AND 'archived' != ANY(activities.flags)"
       end
       if lessons
         lessons = "AND activities.activity_classification_id = 6"
@@ -259,7 +257,6 @@ class Teachers::UnitsController < ApplicationController
         AND units.visible = true
         AND cu.visible = true
         AND ua.visible = true
-        #{archived_activities}
         #{lessons}
         GROUP BY units.name, units.created_at, cu.id, classrooms.name, classrooms.id, activities.name, activities.activity_classification_id, activities.id, activities.uid, unit_owner.name, unit_owner.id, ua.due_date, ua.created_at, unit_activity_id, state.completed, ua.id
         #{completed}
