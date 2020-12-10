@@ -53,9 +53,9 @@ const PromptsForm = (props: PromptsFormProps) => {
   function handleSetSecondSoPlagiarismFeedback (e: InputEvent) { handleSetPlagiarismFeedback(e, C.SECOND, C.SO) }
 
   const plagiarismLabelsTextStyle = {
-    [C.BECAUSE]: activityBecausePrompt.plagiarism_text && activityBecausePrompt.plagiarism_text.length && activityBecausePrompt.plagiarism_text !== '<br/>' ? 'has-text' : '',
-    [C.BUT]: activityButPrompt.plagiarism_text && activityButPrompt.plagiarism_text.length && activityButPrompt.plagiarism_text !== '<br/>' ? 'has-text' : '',
-    [C.SO]: activitySoPrompt.plagiarism_text && activitySoPrompt.plagiarism_text.length && activitySoPrompt.plagiarism_text !== '<br/>' ? 'has-text' : ''
+    [C.BECAUSE]: activityBecausePrompt.plagiarism_text && activityBecausePrompt.plagiarism_text !== '<br/>' ? 'has-text' : '',
+    [C.BUT]: activityButPrompt.plagiarism_text && activityButPrompt.plagiarism_text !== '<br/>' ? 'has-text' : '',
+    [C.SO]: activitySoPrompt.plagiarism_text && activitySoPrompt.plagiarism_text !== '<br/>' ? 'has-text' : ''
   }
 
   return(
