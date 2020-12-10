@@ -186,7 +186,7 @@ const ActivitySettings: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ m
   if(data && data.error) {
     return(
       <div className="error-container">
-        <Error error={`${error}`} />
+        <Error error={`${data.error}`} />
       </div>
     );
   }
