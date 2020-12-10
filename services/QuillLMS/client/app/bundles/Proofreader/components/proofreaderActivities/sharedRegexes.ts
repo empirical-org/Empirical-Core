@@ -1,4 +1,4 @@
-export const startsWithPunctuationRegex = /^[.,\/#!$%\^&\*;:=\-_`~()]/
+export const startsWithPunctuationRegex = /^[.,\/#!$%\^&\*;:=\-_`~)]/
 
 export const isAnEditRegex = /{\+([^-]+)-([^|]*)\|([^}]*)}/g
 
