@@ -33,10 +33,10 @@ exports[`SpringBoard component should render when it is not part of the assignme
             className="header-text-container"
           >
             <h1>
-              Official SpringBoard® Writing Practice
+              Official SpringBoard Writing Practice
             </h1>
             <p>
-              Free SpringBoard English writing practice aligned to a variety of skills addressed through SpringBoard Grades 6-8, with immediate feedback for students and progress reports for you. Additional tools for SpringBoard Grades 9-10 and Grades 11-12 as well! Find out more below.
+              Free SpringBoard® English writing practice aligned to a variety of skills addressed through SpringBoard Grades 6-8, with immediate feedback for students and progress reports for you. Additional tools for SpringBoard Grades 9-10 and Grades 11-12 as well! Find out more below.
             </p>
             <a
               className="quill-button large primary contained focus-on-light"
@@ -990,10 +990,10 @@ exports[`SpringBoard component should render when it is part of the assignment f
             className="header-text-container"
           >
             <h1>
-              Official SpringBoard® Writing Practice
+              Official SpringBoard Writing Practice
             </h1>
             <p>
-              Free SpringBoard English writing practice aligned to a variety of skills addressed through SpringBoard Grades 6-8, with immediate feedback for students and progress reports for you. Additional tools for SpringBoard Grades 9-10 and Grades 11-12 as well! Find out more below.
+              Free SpringBoard® English writing practice aligned to a variety of skills addressed through SpringBoard Grades 6-8, with immediate feedback for students and progress reports for you. Additional tools for SpringBoard Grades 9-10 and Grades 11-12 as well! Find out more below.
             </p>
           </div>
         </div>
