@@ -2,8 +2,8 @@
 -- PostgreSQL database dump
 --
 
--- Dumped from database version 10.14
--- Dumped by pg_dump version 10.14
+-- Dumped from database version 10.12
+-- Dumped by pg_dump version 10.12
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -1186,10 +1186,7 @@ CREATE TABLE public.comprehension_prompts (
     text character varying,
     max_attempts_feedback text,
     created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL,
-    plagiarism_text text,
-    plagiarism_first_feedback text,
-    plagiarism_second_feedback text
+    updated_at timestamp without time zone NOT NULL
 );
 
 
@@ -1312,39 +1309,6 @@ CREATE SEQUENCE public.comprehension_rules_id_seq
 --
 
 ALTER SEQUENCE public.comprehension_rules_id_seq OWNED BY public.comprehension_rules.id;
-
-
---
--- Name: comprehension_turking_round_activity_sessions; Type: TABLE; Schema: public; Owner: -
---
-
-CREATE TABLE public.comprehension_turking_round_activity_sessions (
-    id integer NOT NULL,
-    turking_round_id integer,
-    activity_session_uid character varying,
-    created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL
-);
-
-
---
--- Name: comprehension_turking_round_activity_sessions_id_seq; Type: SEQUENCE; Schema: public; Owner: -
---
-
-CREATE SEQUENCE public.comprehension_turking_round_activity_sessions_id_seq
-    AS integer
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
---
--- Name: comprehension_turking_round_activity_sessions_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
---
-
-ALTER SEQUENCE public.comprehension_turking_round_activity_sessions_id_seq OWNED BY public.comprehension_turking_round_activity_sessions.id;
 
 
 --
@@ -1529,8 +1493,7 @@ CREATE TABLE public.content_partners (
     name character varying NOT NULL,
     description character varying,
     created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL,
-    visible boolean DEFAULT true
+    updated_at timestamp without time zone NOT NULL
 );
 
 
@@ -2916,6 +2879,40 @@ ALTER SEQUENCE public.teacher_saved_activities_id_seq OWNED BY public.teacher_sa
 
 --
 -- Name: third_party_user_ids; Type: TABLE; Schema: public; Owner: -
+
+--
+
+CREATE TABLE public.teacher_saved_activities (
+    id integer NOT NULL,
+    teacher_id integer NOT NULL,
+    activity_id integer NOT NULL,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: teacher_saved_activities_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.teacher_saved_activities_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: teacher_saved_activities_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.teacher_saved_activities_id_seq OWNED BY public.teacher_saved_activities.id;
+
+
+--
+-- Name: third_party_user_ids; Type: TABLE; Schema: public; Owner: -
 --
 
 CREATE TABLE public.third_party_user_ids (
@@ -2992,9 +2989,7 @@ CREATE TABLE public.topics (
     name character varying NOT NULL,
     level integer NOT NULL,
     visible boolean DEFAULT true NOT NULL,
-    parent_id integer,
-    created_at timestamp without time zone,
-    updated_at timestamp without time zone
+    parent_id integer
 );
 
 
@@ -3531,13 +3526,6 @@ ALTER TABLE ONLY public.comprehension_rules ALTER COLUMN id SET DEFAULT nextval(
 
 
 --
--- Name: comprehension_turking_round_activity_sessions id; Type: DEFAULT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.comprehension_turking_round_activity_sessions ALTER COLUMN id SET DEFAULT nextval('public.comprehension_turking_round_activity_sessions_id_seq'::regclass);
-
-
---
 -- Name: comprehension_turking_rounds id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -3840,6 +3828,14 @@ ALTER TABLE ONLY public.subscriptions ALTER COLUMN id SET DEFAULT nextval('publi
 
 --
 -- Name: teacher_saved_activities id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.teacher_saved_activities ALTER COLUMN id SET DEFAULT nextval('public.teacher_saved_activities_id_seq'::regclass);
+
+
+--
+-- Name: third_party_user_ids id; Type: DEFAULT; Schema: public; Owner: -
+
 --
 
 ALTER TABLE ONLY public.teacher_saved_activities ALTER COLUMN id SET DEFAULT nextval('public.teacher_saved_activities_id_seq'::regclass);
@@ -4160,14 +4156,6 @@ ALTER TABLE ONLY public.comprehension_rule_sets
 
 ALTER TABLE ONLY public.comprehension_rules
     ADD CONSTRAINT comprehension_rules_pkey PRIMARY KEY (id);
-
-
---
--- Name: comprehension_turking_round_activity_sessions comprehension_turking_round_activity_sessions_pkey; Type: CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.comprehension_turking_round_activity_sessions
-    ADD CONSTRAINT comprehension_turking_round_activity_sessions_pkey PRIMARY KEY (id);
 
 
 --
@@ -4622,20 +4610,6 @@ CREATE INDEX aut ON public.activities_unit_templates USING btree (activity_id, u
 --
 
 CREATE UNIQUE INDEX classroom_invitee_index ON public.coteacher_classroom_invitations USING btree (invitation_id, classroom_id);
-
-
---
--- Name: comprehension_turking_sessions_activity_uid; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE UNIQUE INDEX comprehension_turking_sessions_activity_uid ON public.comprehension_turking_round_activity_sessions USING btree (activity_session_uid);
-
-
---
--- Name: comprehension_turking_sessions_turking_id; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX comprehension_turking_sessions_turking_id ON public.comprehension_turking_round_activity_sessions USING btree (turking_round_id);
 
 
 --
@@ -6905,12 +6879,4 @@ INSERT INTO schema_migrations (version) VALUES ('20201023212528');
 INSERT INTO schema_migrations (version) VALUES ('20201026184657');
 
 INSERT INTO schema_migrations (version) VALUES ('20201026185613');
-
-INSERT INTO schema_migrations (version) VALUES ('20201116132148');
-
-INSERT INTO schema_migrations (version) VALUES ('20201125190536');
-
-INSERT INTO schema_migrations (version) VALUES ('20201202224853');
-
-INSERT INTO schema_migrations (version) VALUES ('20201203173440');
 
