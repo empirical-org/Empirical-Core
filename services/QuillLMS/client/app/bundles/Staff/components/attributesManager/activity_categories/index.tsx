@@ -1,6 +1,8 @@
 import * as React from 'react'
 
 import { Snackbar, defaultSnackbarTimeout, } from '../../../../Shared/index'
+import useSnackbarMonitor from '../../../../Shared/hooks/useSnackbarMonitor'
+
 import { requestGet, requestPut, } from '../../../../../modules/request/index'
 import CustomActivityPackPage from '../../../../Teacher/components/assignment_flow/create_unit/custom_activity_pack/index'
 
@@ -14,11 +16,7 @@ const ActivityCategories = () => {
   const [saveButtonEnabled, setSaveButtonEnabled] = React.useState(false)
   const [timesSubmitted, setTimesSubmitted] = React.useState(0)
 
-  React.useEffect(() => {
-    if (showSnackbar) {
-      setTimeout(() => setShowSnackbar(false), defaultSnackbarTimeout)
-    }
-  }, [showSnackbar])
+  useSnackbarMonitor(showSnackbar, setShowSnackbar, defaultSnackbarTimeout)
 
   React.useEffect(() => {
     getActivityCategories()
