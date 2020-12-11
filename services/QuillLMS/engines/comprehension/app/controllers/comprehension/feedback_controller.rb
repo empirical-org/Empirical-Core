@@ -1,6 +1,5 @@
 module Comprehension
   require 'json'
-  require 'pry'
 
   class FeedbackController < ApplicationController
     skip_before_action :verify_authenticity_token
