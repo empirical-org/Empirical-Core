@@ -2,8 +2,8 @@ import * as request from 'request';
 
 import { ActionTypes } from './actionTypes'
 import { TrackAnalyticsEvent } from './analytics'
-import { Events } from '../modules/analytics'
 
+import { Events } from '../modules/analytics'
 import { FeedbackObject } from '../interfaces/feedback'
 
 interface GetFeedbackArguments {
@@ -20,8 +20,8 @@ interface GetFeedbackArguments {
 export const getFeedback = (args: GetFeedbackArguments) => {
   const { sessionID, activityUID, entry, promptID, promptText, attempt, previousFeedback, callback, } = args
   return (dispatch: Function) => {
-    // const feedbackURL = 'https://us-central1-comprehension-247816.cloudfunctions.net/comprehension-endpoint-go'
-    const feedbackURL = `${process.env.DEFAULT_URL}/api/v1/comprehension/feedback/plagiarism.json`
+    const feedbackURL = 'https://us-central1-comprehension-247816.cloudfunctions.net/comprehension-endpoint-go'
+    // const feedbackURL = `${process.env.DEFAULT_URL}/api/v1/comprehension/feedback/plagiarism.json`
     const promptRegex = new RegExp(`^${promptText}`)
     const entryWithoutStem = entry.replace(promptRegex, "").trim()
     const mostRecentFeedback = previousFeedback.slice(-1)[0] || {}
@@ -39,8 +39,6 @@ export const getFeedback = (args: GetFeedbackArguments) => {
       json: true,
     }
 
-    console.log('requestObject', requestObject)
-
     dispatch(TrackAnalyticsEvent(Events.COMPREHENSION_ENTRY_SUBMITTED, {
       activityID: activityUID,
       attemptNumber: attempt,
@@ -53,7 +51,6 @@ export const getFeedback = (args: GetFeedbackArguments) => {
     }));
 
     request.post(requestObject, (e, r, body) => {
-      console.log('body', body)
       const { feedback, feedback_type, optimal, response_id, highlight, labels, } = body
       const feedbackObj: FeedbackObject = {
         entry,
