@@ -76,12 +76,12 @@ const FilterColumn = ({
   />)
 
   if (isStaff) {
-    flagFilterSection = <FlagFilters
+    flagFilterSection = (<FlagFilters
       activities={activities}
-      flagFilters={flagFilters}
       filterActivities={filterActivities}
+      flagFilters={flagFilters}
       handleFlagFilterChange={handleFlagFilterChange}
-    />
+    />)
     activityCategoryFilterSection = (<StaffActivityCategoryFilters
       activityCategoryEditor={activityCategoryEditor}
       filterActivities={filterActivities}

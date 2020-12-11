@@ -36,9 +36,9 @@ class Cms::ActivityCategoriesController < Cms::CmsController
     end
   end
 
-  def format_activity_category(ac)
-    activity_category = ac.attributes
-    activity_category['activity_ids'] = ac.activity_category_activities.order(order_number: :asc).map(&:activity_id)
+  def format_activity_category(ac_record)
+    activity_category = ac_record.attributes
+    activity_category['activity_ids'] = ac_record.activity_category_activities.order(order_number: :asc).map(&:activity_id)
     activity_category
   end
 

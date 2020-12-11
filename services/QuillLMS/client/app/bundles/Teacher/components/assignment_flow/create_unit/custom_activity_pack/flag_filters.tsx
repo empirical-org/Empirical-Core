@@ -58,9 +58,9 @@ const FlagFilters = ({ activities, filterActivities, flagFilters, handleFlagFilt
 
   const flagRows = ['alpha', 'beta', 'production', 'archived', 'private'].map(ac =>
     (<FlagFilterRow
+      filteredActivities={filteredActivities}
       flag={ac}
       flagFilters={flagFilters}
-      filteredActivities={filteredActivities}
       handleFlagFilterChange={handleFlagFilterChange}
       key={ac}
     />)
