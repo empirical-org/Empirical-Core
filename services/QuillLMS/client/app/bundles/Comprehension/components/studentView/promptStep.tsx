@@ -53,18 +53,21 @@ export default class PromptStep extends React.Component<PromptStepProps, PromptS
 
   unsubmittableResponses = () => {
     const { submittedResponses, prompt } = this.props
-    const { conjunction, text } = prompt
-    const response = `${text} ${conjunction}`
-    return submittedResponses.map(r => r.entry).concat(response)
+    const { text } = prompt;
+    return submittedResponses.map(r => r.entry).concat(text)
   }
 
   stripHtml = (html: string) => html.replace(/<p>|<\/p>|<u>|<\/u>|<b>|<\/b>/g, '').replace(/&nbsp;/g, ' ')
 
   formattedPrompt = () => {
     const { prompt, } = this.props
-    const { conjunction, text } = prompt
-    return `<p>${text} <u>${conjunction}</u>&nbsp;</p>`
+    const { text } = prompt
+    return `<p>${this.allButLastWord(text)} <u>${this.lastWord(text)}</u>&nbsp;</p>`
   }
+
+  allButLastWord = (str: string) => str.substring(0, str.lastIndexOf(' '))
+
+  lastWord = (str: string) => str.substring(str.lastIndexOf(' ') + 1)
 
   textWithoutStem = (text: string) => {
     const formattedPrompt = this.formattedPrompt().replace(/<p>|<\/p>|<br>/g, '')
@@ -266,10 +269,10 @@ export default class PromptStep extends React.Component<PromptStepProps, PromptS
 
   renderActiveContent = () => {
     const { active, prompt, stepNumberComponent, submittedResponses, } = this.props
-    const { conjunction, text } = prompt
+    const { text } = prompt
 
     if (!active) {
-      const promptTextComponent = <p className="prompt-text">{text} <span>{conjunction}</span></p>
+      const promptTextComponent = <p className="prompt-text">{this.allButLastWord(text)} <span>{this.lastWord(text)}</span></p>
       const lastSubmittedResponse = this.lastSubmittedResponse()
       const outOfAttempts = submittedResponses.length === prompt.max_attempts
       const editor = lastSubmittedResponse.optimal || outOfAttempts ? this.renderEditorContainer() : null
