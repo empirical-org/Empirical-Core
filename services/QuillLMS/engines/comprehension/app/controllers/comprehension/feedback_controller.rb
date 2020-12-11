@@ -73,7 +73,7 @@ module Comprehension
         curr_slice = get_slice(entry_arr, i, slice_size)
         if passage.include?(curr_slice)
           matched_slice = curr_slice
-          while true
+          loop do
             slice_size += 1
             curr_slice = get_slice(entry_arr, i, slice_size)
             if !passage.include?(curr_slice) || (i + slice_size) > entry_arr.size
