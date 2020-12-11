@@ -53,5 +53,6 @@ export interface ActivityCategoryEditor {
   getActivityCategories: () => void,
   setActivityCategories: (activityCategories: ActivityCategory[]) => void,
   selectedActivityCategoryId: number,
-  handleActivityCategorySelect: (activityCategoryId: number) => void
+  handleActivityCategorySelect: (activityCategoryId: number) => void,
+  timesSubmitted: number
 }

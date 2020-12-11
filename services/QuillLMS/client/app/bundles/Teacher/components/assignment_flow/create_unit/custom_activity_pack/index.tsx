@@ -72,9 +72,14 @@ const CustomActivityPack = ({
   const debouncedFlagFilters = useDebounce(flagFilters, DEBOUNCE_LENGTH);
 
   React.useEffect(() => {
-    getActivities();
+    if (loading) { getActivities() }
     getSavedActivities();
   }, []);
+
+  React.useEffect(() => {
+    setLoading(!passedActivities.length)
+    setActivities(passedActivities)
+  }, [passedActivities])
 
   React.useEffect(() => {
     if (showSnackbar) {
@@ -290,7 +295,7 @@ const CustomActivityPack = ({
     activityCategoryEditor
   }
 
-  const selectedActivitiesFilteredByFlag = selectedActivities.filter(a => filterByFlag(flagFilters, a))
+  const selectedActivitiesFilteredByFlag =  isStaff && !flagFilters.length ? [] : selectedActivities.filter(a => filterByFlag(flagFilters, a))
 
   return (<div className="custom-activity-pack-page">
     <Snackbar text={snackbarText} visible={showSnackbar} />

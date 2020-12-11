@@ -18,7 +18,8 @@ interface StaffActivityCategoryFilterRowProps {
   uniqueActivityCategories: ActivityCategory[],
   filteredActivities: Activity[],
   handleRemoveActivityCategory: (id: number) => void,
-  handleActivityCategoryNameChange: (id: number, name: string) => void
+  handleActivityCategoryNameChange: (id: number, name: string) => void,
+  timesSubmitted: number
 }
 
 interface StaffActivityCategoryFiltersProps {
@@ -34,10 +35,15 @@ const StaffActivityCategoryFilterRow = ({
   handleActivityCategorySelect,
   filteredActivities,
   handleRemoveActivityCategory,
-  handleActivityCategoryNameChange
+  handleActivityCategoryNameChange,
+  timesSubmitted
 }: StaffActivityCategoryFilterRowProps) => {
   const [originalActivityCategory, setOriginalActivityCategory] = React.useState(activityCategory)
   const [inEditMode, setInEditMode] = React.useState(false)
+
+  React.useEffect(() => {
+    setInEditMode(false)
+  }, [timesSubmitted])
 
   function checkIndividualFilter() {
     handleActivityCategorySelect(activityCategory.id)
@@ -113,7 +119,7 @@ const StaffActivityCategoryFilters = ({ activityCategoryEditor, filterActivities
   const [newActivityCategoryName, setNewActivityCategoryName] = React.useState('')
   const [showSnackbar, setShowSnackbar] = React.useState(false)
 
-  const { activityCategories, getActivityCategories, setActivityCategories, selectedActivityCategoryId, handleActivityCategorySelect, } = activityCategoryEditor
+  const { activityCategories, getActivityCategories, setActivityCategories, selectedActivityCategoryId, handleActivityCategorySelect, timesSubmitted, } = activityCategoryEditor
 
   React.useEffect(getActivityCategories, [])
 
@@ -139,7 +145,8 @@ const StaffActivityCategoryFilters = ({ activityCategoryEditor, filterActivities
     const params = { activity_category: { name: newActivityCategoryName, }}
     requestPost('/cms/activity_categories', params,
       (data) => {
-        getActivityCategories()
+        const newActivityCategories = activityCategories.concat([data.activity_category])
+        setActivityCategories(newActivityCategories)
         setShowSnackbar(true)
         setNewActivityCategoryName('')
       }
@@ -175,6 +182,7 @@ const StaffActivityCategoryFilters = ({ activityCategoryEditor, filterActivities
     handleRemoveActivityCategory={handleRemoveActivityCategory}
     key={ac.id}
     selectedActivityCategoryId={selectedActivityCategoryId}
+    timesSubmitted={timesSubmitted}
     uniqueActivityCategories={activityCategories}
   />))
 

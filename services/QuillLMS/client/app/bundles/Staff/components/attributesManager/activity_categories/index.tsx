@@ -12,6 +12,7 @@ const ActivityCategories = () => {
   const [activities, setActivities] = React.useState([])
   const [showSnackbar, setShowSnackbar] = React.useState(false)
   const [saveButtonEnabled, setSaveButtonEnabled] = React.useState(false)
+  const [timesSubmitted, setTimesSubmitted] = React.useState(0)
 
   React.useEffect(() => {
     if (showSnackbar) {
@@ -74,6 +75,8 @@ const ActivityCategories = () => {
         setActivityCategories(_.cloneDeep(data.activity_categories));
         setSaveButtonEnabled(false)
         setShowSnackbar(true)
+        setTimesSubmitted(timesSubmitted + 1)
+        setActivities([])
         getActivities()
       }
     )
@@ -107,7 +110,8 @@ const ActivityCategories = () => {
     getActivityCategories,
     setActivityCategories,
     selectedActivityCategoryId,
-    handleActivityCategorySelect
+    handleActivityCategorySelect,
+    timesSubmitted
   }
   return (<React.Fragment>
     <Snackbar text="Changes saved" visible={showSnackbar} />

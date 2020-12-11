@@ -25,17 +25,21 @@ class Cms::ActivityCategoriesController < Cms::CmsController
 
   def create
     activity_category = ActivityCategory.create(activity_category_params)
-    render json: { activity_category: activity_category }, status: 200
+    render json: { activity_category: format_activity_category(activity_category) }, status: 200
   end
 
   private
 
   def format_activity_categories
     @activity_categories = ActivityCategory.includes(:activity_category_activities).order(order_number: :asc).all.map do |ac|
-      activity_category = ac.attributes
-      activity_category['activity_ids'] = ac.activity_category_activities.order(order_number: :asc).map(&:activity_id)
-      activity_category
+      format_activity_category(ac)
     end
+  end
+
+  def format_activity_category(ac)
+    activity_category = ac.attributes
+    activity_category['activity_ids'] = ac.activity_category_activities.order(order_number: :asc).map(&:activity_id)
+    activity_category
   end
 
   def activity_category_params
