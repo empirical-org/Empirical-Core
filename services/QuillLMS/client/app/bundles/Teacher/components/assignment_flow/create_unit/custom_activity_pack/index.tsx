@@ -77,8 +77,10 @@ const CustomActivityPack = ({
   }, []);
 
   React.useEffect(() => {
-    setLoading(!passedActivities.length)
-    setActivities(passedActivities)
+    if (passedActivities) {
+      setLoading(!passedActivities.length)
+      setActivities(passedActivities)
+    }
   }, [passedActivities])
 
   React.useEffect(() => {

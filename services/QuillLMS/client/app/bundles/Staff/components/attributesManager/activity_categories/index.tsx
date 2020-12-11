@@ -69,6 +69,7 @@ const ActivityCategories = () => {
   }
 
   function saveActivityCategories() {
+    setActivities([])
     requestPut('/cms/activity_categories/mass_update', { activity_categories: activityCategories, },
       (data) => {
         setOriginalActivityCategories(_.cloneDeep(data.activity_categories))
@@ -76,7 +77,6 @@ const ActivityCategories = () => {
         setSaveButtonEnabled(false)
         setShowSnackbar(true)
         setTimesSubmitted(timesSubmitted + 1)
-        setActivities([])
         getActivities()
       }
     )
