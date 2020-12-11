@@ -7,6 +7,10 @@ describe Cms::ActivityCategoriesController, type: :controller do
     allow(controller).to receive(:current_user) { user }
   end
 
+  around do |example|
+    travel_to(Time.zone.now) { example.run } 
+  end
+
   describe '#index' do
     let!(:category1) { create(:activity_category) }
     let!(:category2) { create(:activity_category) }
