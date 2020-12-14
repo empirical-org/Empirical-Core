@@ -53,8 +53,6 @@
   <meta id='current-user-is-premium?' property="is_premium?" content=<%= current_user&.is_premium?%> />
   <meta id='current-user-email' property="email" content=<%= current_user&.email%> />
 
-  <%= render :partial => 'firewall_test' if @firewall_test %>
-
 <!--[if !IE 7]>
   <style type="text/css">
     #wrap { display: table ; height: 100% }
