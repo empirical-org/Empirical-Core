@@ -46,7 +46,7 @@ class Classroom < ActiveRecord::Base
 
   def units_json
     units.select('units.id AS value, units.name')
-         .joins(:classroom_units).where(classroom_units: {visible: true})
+         .where(classroom_units: {visible: true})
          .distinct.order('units.name').as_json(except: :id)
   end
 
