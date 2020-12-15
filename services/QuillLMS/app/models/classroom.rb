@@ -45,7 +45,9 @@ class Classroom < ActiveRecord::Base
   end
 
   def units_json
-    units.select('units.id AS value, units.name').distinct.order('units.name').as_json(except: :id)
+    units.select('units.id AS value, units.name')
+         .joins(:classroom_units).where(classroom_units: {visible: true})
+         .distinct.order('units.name').as_json(except: :id)
   end
 
   def unique_standard_count
