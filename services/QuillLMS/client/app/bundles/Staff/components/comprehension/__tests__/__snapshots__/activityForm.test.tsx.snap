@@ -60,7 +60,7 @@ exports[`Activity Form component should render Activities 1`] = `
       text="..."
     />
     <p
-      className="text-editor-label has-text"
+      className="text-editor-label "
     >
       Max Attemps Feedback
     </p>
@@ -69,28 +69,37 @@ exports[`Activity Form component should render Activities 1`] = `
       EditorState={[Function]}
       handleTextChange={[Function]}
       key="max-attempt-feedback"
-      text="WRONG!"
+      text=""
     />
-    <Input
-      autoComplete="on"
-      className="because-input"
-      handleChange={[Function]}
-      label="Because Stem"
-      value="1"
-    />
-    <Input
-      autoComplete="on"
-      className="but-input"
-      handleChange={[Function]}
-      label="But Stem"
-      value="2"
-    />
-    <Input
-      autoComplete="on"
-      className="so-input"
-      handleChange={[Function]}
-      label="So Stem"
-      value="3"
+    <PromptsForm
+      activityBecausePrompt={
+        Object {
+          "conjunction": "because",
+          "max_attempts": 5,
+          "max_attempts_feedback": "",
+          "text": "",
+        }
+      }
+      activityButPrompt={
+        Object {
+          "conjunction": "but",
+          "max_attempts": 5,
+          "max_attempts_feedback": "",
+          "text": "",
+        }
+      }
+      activitySoPrompt={
+        Object {
+          "conjunction": "so",
+          "max_attempts": 5,
+          "max_attempts_feedback": "",
+          "text": "",
+        }
+      }
+      errors={Object {}}
+      handleSetPlagiarismFeedback={[Function]}
+      handleSetPlagiarismText={[Function]}
+      handleSetPrompt={[Function]}
     />
     <div
       className="submit-button-container"
