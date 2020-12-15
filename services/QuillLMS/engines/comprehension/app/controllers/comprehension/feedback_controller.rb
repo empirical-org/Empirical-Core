@@ -10,7 +10,11 @@ module Comprehension
 
     def plagiarism
       entry = params[:entry]
-      prompt = Comprehension::Prompt.find(params[:prompt_id])
+      begin
+        prompt = Comprehension::Prompt.find(params[:prompt_id])
+      rescue ActiveRecord::RecordNotFound
+        return render :body => nil, :status => 404
+      end
       session_id = params[:session_id]
       previous_feedback = params[:previous_feedback]
       response_obj = {
@@ -30,29 +34,26 @@ module Comprehension
         render json: response_obj
       else
         matched_slice = match_entry_on_passage(cleaned_entry, cleaned_passage)
-        if !matched_slice.blank?
-          entry_hl = get_highlight(entry, cleaned_entry, matched_slice)
-          passage_hl = get_highlight(passage, cleaned_passage, matched_slice)
-          feedback = get_feedback_from_previous_feedback(previous_feedback, prompt)
-          render json: response_obj.update(
-            feedback: feedback,
-            optimal: false,
-            highlight: [
-              {
-                type: PASSAGE_TYPE,
-                text: passage_hl,
-                category: ''
-              },
-              {
-                type: ENTRY_TYPE,
-                text: entry_hl,
-                category: ''
-              }
-            ]
-          )
-        else
-          render json: response_obj
-        end
+        return render json: response_obj if matched_slice.blank?
+        entry_hl = get_highlight(entry, cleaned_entry, matched_slice)
+        passage_hl = get_highlight(passage, cleaned_passage, matched_slice)
+        feedback = get_feedback_from_previous_feedback(previous_feedback, prompt)
+        render json: response_obj.update(
+          feedback: feedback,
+          optimal: false,
+          highlight: [
+            {
+              type: PASSAGE_TYPE,
+              text: passage_hl,
+              category: ''
+            },
+            {
+              type: ENTRY_TYPE,
+              text: entry_hl,
+              category: ''
+            }
+          ]
+        )
       end
     end
 
@@ -76,11 +77,8 @@ module Comprehension
           loop do
             slice_size += 1
             curr_slice = get_slice(entry_arr, i, slice_size)
-            if !passage.include?(curr_slice) || (i + slice_size) > entry_arr.size
-              break
-            else
-              matched_slice = curr_slice
-            end
+            break if !passage.include?(curr_slice) || (i + slice_size) > entry_arr.size
+            matched_slice = curr_slice
           end
           return matched_slice
         end
@@ -90,9 +88,7 @@ module Comprehension
 
     private def get_slice(array, start_index, slice_size)
       end_index = start_index + slice_size - 1
-      if end_index < array.size
-        return array[start_index..end_index].join(' ')
-      end
+      return array[start_index..end_index].join(' ') if end_index < array.size
       return ""
     end
 
