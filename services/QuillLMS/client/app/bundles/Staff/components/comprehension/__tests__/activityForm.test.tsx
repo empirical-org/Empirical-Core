@@ -1,11 +1,14 @@
 import * as React from 'react';
 import { shallow } from 'enzyme';
 
+import { BUT, BECAUSE, SO }  from '../../../../../constants/comprehension';
 import ActivityForm from '../configureSettings/activityForm';
-import { Input, TextEditor, } from '../../../../Shared/index'
+
 jest.mock('string-strip-html', () => ({
   default: jest.fn()
 }));
+
+const FEEDBACK = 'At no point in your rambling, incoherent response were you even close to anything that could be considered a rational thought. I award you no points, and may God have mercy on your soul.'
 
 const mockActivity = {
   title: 'Could Capybaras Create Chaos?',
@@ -13,10 +16,34 @@ const mockActivity = {
   target_level: 7,
   parent_activity_id: '17',
   passages: [{text: '...'}],
-  prompts: [
-    { conjunction: 'because', text: '1', max_attempts: 5, max_attempts_feedback: 'WRONG!' },
-    { conjunction: 'but', text: '2', max_attempts: 5, max_attempts_feedback: 'WRONG!' },
-    { conjunction: 'so', text: '3', max_attempts: 5, max_attempts_feedback: 'WRONG!' }
+  prompt_attributes: [
+    {
+      conjunction: BECAUSE,
+      text: '1',
+      max_attempts: 5,
+      max_attempts_feedback: FEEDBACK,
+      plagiarism_text: BECAUSE,
+      plagiarism_first_feedback: FEEDBACK,
+      plagiarism_second_feedback: FEEDBACK
+    },
+    {
+      conjunction: BUT,
+      text: '2',
+      max_attempts: 5,
+      max_attempts_feedback: FEEDBACK,
+      plagiarism_text: BUT,
+      plagiarism_first_feedback: FEEDBACK,
+      plagiarism_second_feedback: FEEDBACK
+    },
+    {
+      conjunction: SO,
+      text: '3',
+      max_attempts: 5,
+      max_attempts_feedback: FEEDBACK,
+      plagiarism_text: SO,
+      plagiarism_first_feedback: FEEDBACK,
+      plagiarism_second_feedback: FEEDBACK
+    }
   ]
 }
 const mockProps = {
@@ -30,13 +57,6 @@ describe('Activity Form component', () => {
 
   it('should render Activities', () => {
     expect(container).toMatchSnapshot();
-  });
-
-  it('should render a DropdownInput, Input, or TextEditor component for each field', () => {
-    // Input: Title, Scored Reading Level, Target Reading Level, But Stem, Because Stem, So Stem (6)
-    // TextEditor: Passage, Max Feedback (2)
-    expect(container.find(Input).length).toEqual(7);
-    expect(container.find(TextEditor).length).toEqual(2);
   });
   it('clicking the "x" button or "close" button should call closeModal prop', () => {
     container.find('#activity-close-button').simulate('click');

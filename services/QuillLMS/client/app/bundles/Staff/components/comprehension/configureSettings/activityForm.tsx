@@ -1,8 +1,10 @@
 import * as React from "react";
 import { EditorState, ContentState } from 'draft-js';
 
+import PromptsForm from './promptsForm';
+
 // import { flagOptions } from '../../../../../constants/comprehension'
-import { validateForm, buildActivity, buildBlankPrompt, promptsByConjunction } from '../../../helpers/comprehension';
+import { validateForm, buildActivity, buildBlankPrompt, promptsByConjunction, getActivityPrompt, getActivityPromptSetter } from '../../../helpers/comprehension';
 import {
   BECAUSE,
   BUT,
@@ -13,10 +15,7 @@ import {
   TARGET_READING_LEVEL,
   PARENT_ACTIVITY_ID,
   MAX_ATTEMPTS_FEEDBACK,
-  PASSAGE,
-  BECAUSE_STEM,
-  BUT_STEM,
-  SO_STEM
+  PASSAGE
 } from '../../../../../constants/comprehension';
 import { ActivityInterface, PromptInterface, PassagesInterface } from '../../../interfaces/comprehensionInterfaces';
 import { Input, TextEditor, } from '../../../../Shared/index'
@@ -72,23 +71,32 @@ const ActivityForm = ({ activity, closeModal, submitActivity }: ActivityFormProp
     setActivityPassages(updatedPassages)
    };
 
-  function handleSetActivityBecausePrompt(e: InputEvent){
-    const updatedBecausePrompt = {...activityBecausePrompt};
-    updatedBecausePrompt.text = e.target.value;
-    setActivityBecausePrompt(updatedBecausePrompt)
+  function handleSetPrompt (e: InputEvent, conjunction: string) {
+    const prompt = getActivityPrompt({ activityBecausePrompt, activityButPrompt, activitySoPrompt, conjunction });
+    const updatePrompt = getActivityPromptSetter({ setActivityBecausePrompt, setActivityButPrompt, setActivitySoPrompt, conjunction});
+    if(prompt && updatePrompt) {
+      prompt.text = e.target.value;
+      updatePrompt(prompt);
+    }
+  }
+
+  function handleSetPlagiarismText(text: string, conjunction: string) {
+    const prompt = getActivityPrompt({ activityBecausePrompt, activityButPrompt, activitySoPrompt, conjunction });
+    const updatePrompt = getActivityPromptSetter({ setActivityBecausePrompt, setActivityButPrompt, setActivitySoPrompt, conjunction});
+    if(prompt && updatePrompt) {
+      prompt.plagiarism_text = text;
+      updatePrompt(prompt)
+    }
   };
 
-  function handleSetActivityButPrompt(e: InputEvent){
-    const updatedButPrompt = {...activityButPrompt};
-    updatedButPrompt.text = e.target.value;
-    setActivityButPrompt(updatedButPrompt)
-  };
-
-  function handleSetActivitySoPrompt(e: InputEvent){
-    const updatedSoPrompt = {...activitySoPrompt};
-    updatedSoPrompt.text = e.target.value;
-    setActivitySoPrompt(updatedSoPrompt)
-  };
+  function handleSetPlagiarismFeedback(e: InputEvent, order: string, conjunction: string) {
+    const prompt = getActivityPrompt({ activityBecausePrompt, activityButPrompt, activitySoPrompt, conjunction });
+    const updatePrompt = getActivityPromptSetter({ setActivityBecausePrompt, setActivityButPrompt, setActivitySoPrompt, conjunction});
+    if(prompt && updatePrompt) {
+      prompt[`plagiarism_${order}_feedback`] = e.target.value;
+      updatePrompt(prompt)
+    }
+  }
 
   function handleSubmitActivity(){
     const activityObject = buildActivity({
@@ -110,8 +118,17 @@ const ActivityForm = ({ activity, closeModal, submitActivity }: ActivityFormProp
       activityMaxFeedback,
       activityPassages[0].text,
       activityBecausePrompt.text,
+      activityBecausePrompt.plagiarism_text,
+      activityBecausePrompt.plagiarism_first_feedback,
+      activityBecausePrompt.plagiarism_second_feedback,
       activityButPrompt.text,
-      activitySoPrompt.text
+      activityButPrompt.plagiarism_text,
+      activityButPrompt.plagiarism_first_feedback,
+      activityButPrompt.plagiarism_second_feedback,
+      activitySoPrompt.text,
+      activitySoPrompt.plagiarism_text,
+      activitySoPrompt.plagiarism_first_feedback,
+      activitySoPrompt.plagiarism_second_feedback,
     ];
     const validationErrors = validateForm(activityFormKeys, state);
     if(validationErrors && Object.keys(validationErrors).length !== 0) {
@@ -185,26 +202,14 @@ const ActivityForm = ({ activity, closeModal, submitActivity }: ActivityFormProp
           text={activityMaxFeedback}
         />
         {errors[MAX_ATTEMPTS_FEEDBACK] && <p className="error-message">{errors[MAX_ATTEMPTS_FEEDBACK]}</p>}
-        <Input
-          className="because-input"
-          error={errors[BECAUSE_STEM]}
-          handleChange={handleSetActivityBecausePrompt}
-          label="Because Stem"
-          value={activityBecausePrompt.text}
-        />
-        <Input
-          className="but-input"
-          error={errors[BUT_STEM]}
-          handleChange={handleSetActivityButPrompt}
-          label="But Stem"
-          value={activityButPrompt.text}
-        />
-        <Input
-          className="so-input"
-          error={errors[SO_STEM]}
-          handleChange={handleSetActivitySoPrompt}
-          label="So Stem"
-          value={activitySoPrompt.text}
+        <PromptsForm
+          activityBecausePrompt={activityBecausePrompt}
+          activityButPrompt={activityButPrompt}
+          activitySoPrompt={activitySoPrompt}
+          errors={errors}
+          handleSetPlagiarismFeedback={handleSetPlagiarismFeedback}
+          handleSetPlagiarismText={handleSetPlagiarismText}
+          handleSetPrompt={handleSetPrompt}
         />
         <div className="submit-button-container">
           {errorsPresent && <div className="error-message-container">
