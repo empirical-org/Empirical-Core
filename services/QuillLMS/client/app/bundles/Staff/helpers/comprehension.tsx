@@ -1,7 +1,17 @@
 import * as React from "react";
 import stripHtml from "string-strip-html";
 
-import { promptStems, DEFAULT_MAX_ATTEMPTS, BECAUSE, MINIMUM_READING_LEVEL, MAXIMUM_READING_LEVEL, TARGET_READING_LEVEL, SCORED_READING_LEVEL } from '../../../constants/comprehension';
+import {
+  promptStems,
+  DEFAULT_MAX_ATTEMPTS,
+  BECAUSE,
+  BUT,
+  SO,
+  MINIMUM_READING_LEVEL,
+  MAXIMUM_READING_LEVEL,
+  TARGET_READING_LEVEL,
+  SCORED_READING_LEVEL
+} from '../../../constants/comprehension';
 import { ActivityRuleSetPrompt, PromptInterface } from '../interfaces/comprehensionInterfaces'
 
 const quillCheckmark = 'https://assets.quill.org/images/icons/check-circle-small.svg';
@@ -62,11 +72,7 @@ export const buildActivity = ({
       scored_level: activityScoredReadingLevel,
       target_level: parseInt(activityTargetReadingLevel),
       passages_attributes: activityPassages,
-      prompts_attributes: [
-        formatPrompt(prompts[0]),
-        formatPrompt(prompts[1]),
-        formatPrompt(prompts[2])
-      ]
+      prompts_attributes: prompts
     }
   };
 }
@@ -77,17 +83,51 @@ export const promptsByConjunction = (prompts: PromptInterface[]) => {
   return formattedPrompts;
 }
 
-export const formatPrompt = (prompt: PromptInterface) => {
-  let formattedPrompt = prompt;
-  const text = formattedPrompt.text;
-  const lastChar = text.charAt(text.length - 1);
-  if(lastChar !== ',' && prompt.conjunction !== BECAUSE) {
-    formattedPrompt.text = text + ',';
-  } else if(lastChar === ',' && prompt.conjunction === BECAUSE) {
-    formattedPrompt.text = text.slice(0, -1);
+export function getActivityPrompt({
+  activityBecausePrompt,
+  activityButPrompt,
+  activitySoPrompt,
+  conjunction
+}) {
+  let prompt;
+  switch(conjunction) {
+    case BECAUSE:
+      prompt = {...activityBecausePrompt};
+      break;
+    case BUT:
+      prompt = {...activityButPrompt};
+      break;
+    case SO:
+      prompt = {...activitySoPrompt};
+      break;
+    default:
+      prompt;
   }
-  return formattedPrompt;
-}
+  return prompt;
+};
+
+export function getActivityPromptSetter({
+  setActivityBecausePrompt,
+  setActivityButPrompt,
+  setActivitySoPrompt,
+  conjunction
+}) {
+  let updatePrompt;
+  switch(conjunction) {
+    case BECAUSE:
+      updatePrompt = setActivityBecausePrompt;
+      break;
+    case BUT:
+      updatePrompt = setActivityButPrompt;
+      break;
+    case SO:
+      updatePrompt = setActivitySoPrompt;
+      break;
+    default:
+      updatePrompt;
+  }
+  return updatePrompt;
+};
 
 const targetReadingLevelError = (value: string) => {
   if(!value) {
@@ -126,7 +166,7 @@ export const validateForm = (keys: string[], state: string[]) => {
         }
         break;
       default:
-        const strippedValue = stripHtml(value);
+        const strippedValue = value && stripHtml(value);
         if(!strippedValue || strippedValue.length === 0) {
           errors[keys[i]] = `${keys[i]} cannot be blank.`;
         }
