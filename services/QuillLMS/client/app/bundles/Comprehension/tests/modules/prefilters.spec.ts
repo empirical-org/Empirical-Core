@@ -25,7 +25,7 @@ describe("#profanity", () => {
 
 describe("#tooShort", () => {
   it('returns matched: true if the string passed in is equal to or less than the MINIMUM_WORD_COUNT', () => {
-    expect(tooShort('something.').matched).toEqual(true)
+    expect(tooShort('something something.').matched).toEqual(true)
   })
 
   it('returns matched: false if the string passed in is greater than the MINIMUM_WORD_COUNT', () => {

@@ -4,7 +4,7 @@ import { sentences } from 'sbd'
 const filter = new Filter()
 
 
-const MINIMUM_WORD_COUNT = 2
+const MINIMUM_WORD_COUNT = 3
 const MAXIMUM_WORD_COUNT = 100
 
 export const TOO_SHORT_FEEDBACK = "Whoops, it looks like you submitted your response before it was ready! Re-read what you wrote and finish the sentence provided."
