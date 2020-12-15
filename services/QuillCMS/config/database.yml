@@ -10,8 +10,8 @@ development_env: &development_env
   database: quill_cms_development
   host: localhost
   port: 5433
-  user: root
-  password: password
+  user: <%= ENV["DEV_POSTGRES_USER"] || "root" %>
+  password: <%= ENV["DEV_POSTGRES_PASSWORD"] || "password" %>
 
 test_env: &test_env
   <<: *development_env

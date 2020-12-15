@@ -1,5 +1,5 @@
-export interface ActivityRouteProps { 
-  activityId: string 
+export interface ActivityRouteProps {
+  activityId: string
 }
 
 export interface ActivityRuleSetInterface {
@@ -31,7 +31,10 @@ export interface PromptInterface {
   conjunction: string,
   text: string,
   max_attempts: number,
-  max_attempts_feedback: string
+  max_attempts_feedback: string,
+  plagiarism_text: string,
+  plagiarism_first_feedback: string,
+  plagiarism_second_feedback: string
 }
 
 export interface RegexRuleInterface {
@@ -52,7 +55,7 @@ export interface ActivityRuleSetPrompt {
 
 export interface TurkSessionInterface {
   id: number
-  activity_id: number, 
+  activity_id: number,
   expires_at: string,
   expired: boolean
 }
