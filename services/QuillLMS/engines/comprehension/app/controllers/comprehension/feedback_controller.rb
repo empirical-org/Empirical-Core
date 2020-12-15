@@ -73,17 +73,21 @@ module Comprehension
       (0..(entry_len - slice_size)).each do |i|
         curr_slice = get_slice(entry_arr, i, slice_size)
         if passage.include?(curr_slice)
-          matched_slice = curr_slice
-          loop do
-            slice_size += 1
-            curr_slice = get_slice(entry_arr, i, slice_size)
-            break if !passage.include?(curr_slice) || (i + slice_size) > entry_arr.size
-            matched_slice = curr_slice
-          end
-          return matched_slice
+          j = passage.index(curr_slice)
+          return extend_slice(curr_slice, entry_arr, i, slice_size, passage[j..-1])
         end
       end
       return ""
+    end
+
+    private def extend_slice(longest_match_found, entry_arr, i, slice_size, passage)
+      loop do
+        slice_size += 1
+        match_candidate = get_slice(entry_arr, i, slice_size)
+        break if !passage.include?(match_candidate) || (i + slice_size) > entry_arr.size
+        longest_match_found = match_candidate
+      end
+      return longest_match_found
     end
 
     private def get_slice(array, start_index, slice_size)
