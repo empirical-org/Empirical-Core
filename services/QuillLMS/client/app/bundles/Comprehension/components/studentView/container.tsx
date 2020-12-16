@@ -302,11 +302,13 @@ export class StudentViewContainer extends React.Component<StudentViewContainerPr
     passageHighlights.forEach(hl => {
       const characterStart = hl.character || 0
       passages = passages.map((passage: Passage) => {
+        let formattedPassage = passage;
         const { text } = passage;
         const passageBeforeCharacterStart = text.substring(0, characterStart)
         const passageAfterCharacterStart = text.substring(characterStart)
         const highlightedPassageAfterCharacterStart = passageAfterCharacterStart.replace(hl.text, `<span class="passage-highlight">${hl.text}</span>`)
-        return `${passageBeforeCharacterStart}${highlightedPassageAfterCharacterStart}`
+        formattedPassage.text = `${passageBeforeCharacterStart}${highlightedPassageAfterCharacterStart}`
+        return formattedPassage
       })
     })
 
