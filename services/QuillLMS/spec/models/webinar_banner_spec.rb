@@ -16,13 +16,13 @@ describe WebinarBanner, type: :model do
   end
 
   it "does return true for show? when the key does have an associated webinar" do
-    time =  DateTime.new(2021,01,04,16,1,0)
+    time =  DateTime.new(2021,1,4,16,1,0)
     banner = WebinarBanner.new(time)
     expect(banner.show?).to eq(true)
   end
 
   it "does not return true for show? when the key falls on a skipped day" do
-    time =  DateTime.new(2021,01,18,16,1,0)
+    time =  DateTime.new(2021,1,18,16,1,0)
     banner = WebinarBanner.new(time)
     expect(banner.show?).to eq(false)
   end
@@ -36,7 +36,7 @@ describe WebinarBanner, type: :model do
   end
 
   it "does return correct link and title when the key does have an associated recurring webinar" do
-    time =  DateTime.new(2021,01,04,16,1,0)
+    time =  DateTime.new(2021,1,4,16,1,0)
     banner = WebinarBanner.new(time)
     expect(banner.title).to eq("Quill Webinar 101: Getting Started")
     expect(banner.link).to eq("https://quill-org.zoom.us/webinar/register/WN_a4Z1_Zs6RSGUWwr_t0V18Q")
