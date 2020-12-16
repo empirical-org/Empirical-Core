@@ -6,6 +6,7 @@ import Activities from './activities';
 import Activity from './activity';
 import SubmissionModal from './shared/submissionModal';
 import ActivityForm from './configureSettings/activityForm';
+import SessionsIndex from './activitySessions/sessionsIndex';
 
 import { ActivityInterface } from '../../interfaces/comprehensionInterfaces';
 import { createActivity } from '../../utils/comprehension/activityAPIs';
@@ -29,7 +30,12 @@ const ComprehensionLanding = ({ location }: RouteComponentProps) => {
 
   const checkOverviewActive = () => {
     if(!location) return false;
-    return pathname !== '/activities' && !showCreateActivityModal;
+    return pathname.startsWith('/activities') && pathname.length > 11 && !showCreateActivityModal;
+  }
+
+  const checkActivitySessionsActive = () => {
+    if(!location) return false;
+    return pathname.startsWith('/activity-sessions') && !showCreateActivityModal;
   }
 
   const toggleCreateActivityModal = () => {
@@ -81,12 +87,18 @@ const ComprehensionLanding = ({ location }: RouteComponentProps) => {
           <button className={`create-activity-button ${showCreateActivityModal ? 'is-active' :''}`} onClick={toggleCreateActivityModal} type="submit">
             Create New Activity
           </button>
+          <NavLink activeClassName='is-active' isActive={checkActivitySessionsActive} to='/activity-sessions'>
+            Activity Sessions
+          </NavLink>
         </ul>
       </section>
       {showCreateActivityModal && renderActivityForm()}
       {showSubmissionModal && renderSubmissionModal()}
       <Switch>
         <Redirect exact from='/' to='/activities' />
+        <Route component={SessionsIndex} path='/activity-sessions/:activityId' />
+        {/* eslint-disable-next-line react/jsx-no-bind */}
+        <Route component={() => <Activities type='sessions' />} path='/activity-sessions' />
         <Route component={Activity} path='/activities/:activityId' />
         <Route component={Activities} path='/activities' />
       </Switch>
