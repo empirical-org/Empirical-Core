@@ -99,7 +99,8 @@ class User < ActiveRecord::Base
   ALPHA = 'alpha'
   BETA = 'beta'
   PRIVATE = 'private'
-  TESTING_FLAGS = [ALPHA, BETA, PRIVATE]
+  ARCHIVED = 'archived'
+  TESTING_FLAGS = [ALPHA, BETA, PRIVATE, ARCHIVED]
   PERMISSIONS_FLAGS = %w(auditor purchaser school_point_of_contact)
   VALID_FLAGS = TESTING_FLAGS.dup.concat(PERMISSIONS_FLAGS)
 
@@ -109,7 +110,7 @@ class User < ActiveRecord::Base
   attr_accessor :newsletter
 
   def testing_flag
-    role == STAFF ? PRIVATE : flags.detect{|f| TESTING_FLAGS.include?(f)}
+    role == STAFF ? ARCHIVED : flags.detect{|f| TESTING_FLAGS.include?(f)}
   end
 
   def auditor?
