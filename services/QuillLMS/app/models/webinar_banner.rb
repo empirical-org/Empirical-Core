@@ -12,6 +12,10 @@ class WebinarBanner
     '1-16' => ["Quill Webinar 101: Getting Started", "#{ZOOM_URL}/WN_a4Z1_Zs6RSGUWwr_t0V18Q"]
   }
 
+  MLK_DAY_2021 = Date.parse("20210118")
+  PRESIDENTS_DAY_2021 = Date.parse("20210215")
+  SKIPPED_DAYS = [MLK_DAY_2021, PRESIDENTS_DAY_2021]
+
   def initialize(time)
     @time = time
   end
@@ -25,7 +29,11 @@ class WebinarBanner
   end
 
   def show?
-    link.present? && title.present?
+    link.present? && title.present? && !skipped_day?
+  end
+
+  private def skipped_day?
+    SKIPPED_DAYS.any? { |date| date.month == time.month && date.day == time.day }
   end
 
   private def values

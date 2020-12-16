@@ -1,5 +1,5 @@
 <% current_time_on_east_coast = Time.now.in_time_zone('America/New_York') %>
-<% still_doing_webinars = current_time_on_east_coast > Date.parse("20210113") && current_time_on_east_coast < Date.parse("20210401") %>
+<% still_doing_webinars = current_time_on_east_coast > Date.parse("20210103") && current_time_on_east_coast < Date.parse("20210330") %>
 
 <% if (still_doing_webinars && (!current_user || current_user.teacher?)) %>
   <% banner = WebinarBanner.new(current_time_on_east_coast) %>
