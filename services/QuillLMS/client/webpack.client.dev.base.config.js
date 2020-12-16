@@ -68,9 +68,6 @@ module.exports = {
     login: [
       './app/bundles/Login/startup/clientRegistration'
     ],
-    firewall_test: [
-      './app/bundles/Firewall_test/firewall_test.js'
-    ],
     public: [
       './app/bundles/Public/public.js'
     ],

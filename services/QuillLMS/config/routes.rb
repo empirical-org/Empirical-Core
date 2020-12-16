@@ -574,7 +574,6 @@ EmpiricalGrammar::Application.routes.draw do
     news
     home_new
     map
-    firewall_info
     referrals_toc
     announcements
     backpack
