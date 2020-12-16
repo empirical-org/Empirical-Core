@@ -240,11 +240,6 @@ describe Teachers::ClassroomManagerController, type: :controller do
       allow(teacher).to receive(:has_outstanding_coteacher_invitation?) { true }
     end
 
-    it 'should set the firewall test to true' do
-      get :dashboard
-      expect(assigns(:firewall_test)).to eq true
-    end
-
     it 'should set the featured_blog_posts variable to the array of featured blog posts' do
       get :dashboard
       expect(assigns(:featured_blog_posts)).to eq [blog_post1, blog_post2, blog_post3]
