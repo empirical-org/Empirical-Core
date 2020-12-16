@@ -2,7 +2,7 @@ import React, {Component} from 'react'
 import _ from 'lodash'
 
 import { connect } from 'react-redux';
-import { SortableList } from 'quill-component-library/dist/componentLibrary';
+import { SortableList } from '../../../../Shared/index';
 
 import EditEditionDetails from './editEditionDetails'
 import DeleteSlideButton from './deleteSlideButton'

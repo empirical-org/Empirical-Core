@@ -1,6 +1,6 @@
 import * as React from 'react'
 import Pusher from 'pusher-js';
-import { Snackbar, defaultSnackbarTimeout } from 'quill-component-library/dist/componentLibrary'
+import { Snackbar, defaultSnackbarTimeout } from '../../../Shared/index'
 
 import CreateAClassModal from './create_a_class_modal'
 import RenameClassModal from './rename_classroom_modal'

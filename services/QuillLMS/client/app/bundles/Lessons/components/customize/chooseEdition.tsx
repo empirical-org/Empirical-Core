@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
 import * as _ from 'lodash';
-import { Spinner } from 'quill-component-library/dist/componentLibrary'
+import { Spinner } from '../../../../Shared/index'
 
 import {
   getClassLesson

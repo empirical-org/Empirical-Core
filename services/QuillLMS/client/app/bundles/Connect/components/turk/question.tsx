@@ -6,11 +6,10 @@ import {
 } from '../../actions/responses.js';
 import RenderQuestionFeedback from '../renderForQuestions/feedbackStatements.jsx';
 import RenderQuestionCues from '../renderForQuestions/cues.jsx';
-import { Feedback, SentenceFragments } from '../../../Shared/index';
+import { Feedback, SentenceFragments, } from '../../../Shared/index';
 import getResponse from '../renderForQuestions/checkAnswer';
 import updateResponseResource from '../renderForQuestions/updateResponseResource.js';
 import TextEditor from '../renderForQuestions/renderTextEditor.jsx';
-import { Response } from 'quill-component-library/dist/componentLibrary';
 
 const C = require('../../constants').default;
 
@@ -235,7 +234,7 @@ class PlayDiagnosticQuestion extends React.Component {
   }
 }
 
-const getLatestAttempt = function (attempts = []): { found: any, response: Response } {
+const getLatestAttempt = function (attempts = []): { found: any, response: any } {
   const lastIndex = attempts.length - 1;
   return attempts[lastIndex];
 };

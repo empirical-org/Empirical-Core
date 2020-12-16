@@ -1,5 +1,5 @@
 import React from 'react'
-import { TextArea } from 'quill-component-library/dist/componentLibrary'
+import { TextArea } from '../../../Shared/index'
 
 import { Concept } from '../../interfaces/interfaces'
 

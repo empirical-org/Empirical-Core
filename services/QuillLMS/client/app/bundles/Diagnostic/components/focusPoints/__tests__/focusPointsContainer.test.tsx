@@ -3,7 +3,7 @@ import { MemoryRouter } from 'react-router'
 import { shallow, mount } from 'enzyme';
 import { genericQuestion } from '../../../test/data/test_data.js';
 import { FocusPointsContainer } from '../focusPointsContainer.jsx';
-import { SortableList } from 'quill-component-library/dist/componentLibrary';
+import { SortableList } from '../../../../Shared/index';
 
 function setup() {
   const params = { questionID: 100, };
@@ -33,7 +33,7 @@ describe('The focusPointsContainer', () => {
     it('should render in the correct order', () => {
       const { props, } = setup();
       const wrapper = mount(
-        <MemoryRouter>     
+        <MemoryRouter>
           <FocusPointsContainer {...props} />
         </MemoryRouter>
         );

@@ -2,7 +2,7 @@ import React from 'react';
 import { mount } from 'enzyme';
 
 import Landing from '../landing';
-import { ResumeOrBeginButton } from 'quill-component-library/dist/componentLibrary';
+import { ResumeOrBeginButton } from '../../../../Shared/index';
 
 describe('Landing component', () => {
 
