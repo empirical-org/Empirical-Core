@@ -1,7 +1,0 @@
-<div class="container activity-categories-container">
-  <h1><%= link_to "Activity Categories", cms_activity_categories_path %></h1>
-  <h2><%= @activity_category.name %></h2>
-  <%= react_component('ActivityCategoryApp',
-  props: {activity_category: @activity_category, activities: @activities}) %>
-
-</div>

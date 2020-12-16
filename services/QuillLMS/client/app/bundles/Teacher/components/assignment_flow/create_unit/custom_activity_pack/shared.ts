@@ -40,6 +40,8 @@ export const ACTIVITY_CATEGORY_FILTERS = 'activityCategoryFilters'
 
 export const CONTENT_PARTNER_FILTERS = 'contentPartnerFilters'
 
+export const FLAG_FILTERS = 'flagFilters'
+
 export const TOPIC_FILTERS = 'topicFilters'
 
 export const SAVED_ACTIVITY_FILTERS = 'savedActivityFilters'
@@ -97,6 +99,11 @@ function filterBySavedActivityIds(savedActivityFilters: number[], activity: Acti
   return savedActivityFilters.some(id => Number(activity.id) === Number(id))
 }
 
+export function filterByFlag(flagFilters: string[], activity:Activity) {
+  if (!flagFilters.length) { return true }
+  return flagFilters.some(flag => activity.flags.includes(flag))
+}
+
 export const filters = {
   search: filterBySearch,
   [ACTIVITY_CLASSIFICATION_FILTERS]: filterByActivityClassification,
@@ -105,7 +112,8 @@ export const filters = {
   [ACTIVITY_CATEGORY_FILTERS]: filterByActivityCategory,
   [CONTENT_PARTNER_FILTERS]: filterByContentPartners,
   [TOPIC_FILTERS]: filterByTopic,
-  [SAVED_ACTIVITY_FILTERS]: filterBySavedActivityIds
+  [SAVED_ACTIVITY_FILTERS]: filterBySavedActivityIds,
+  [FLAG_FILTERS]: filterByFlag
 }
 
 export const stringifyLowerLevelTopics = (topics) => {

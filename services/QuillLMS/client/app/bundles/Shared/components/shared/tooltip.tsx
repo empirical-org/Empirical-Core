@@ -2,7 +2,7 @@ import * as React from 'react'
 
 interface TooltipProps {
   tooltipText: string,
-  tooltipTriggerText: string,
+  tooltipTriggerText: string|JSX.Element,
   tooltipTriggerTextClass?: string,
   tooltipTriggerTextStyle?: { [key:string]: any }
   tooltipTriggerStyle?: { [key:string]: any }
