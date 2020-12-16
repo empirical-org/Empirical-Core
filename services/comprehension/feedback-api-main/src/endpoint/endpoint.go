@@ -130,17 +130,13 @@ func processResults(results map[int]InternalAPIResponse, length int) (int, bool)
 		if !has_key {
 			return 0, false
 		}
-		fmt.Println("Checking result %d", i)
-		fmt.Println(result)
 
 		if !result.Error && !result.APIResponse.Optimal {
-			fmt.Println("Use this feedback")
 			return i, true
 		}
 	}
 
 	all_correct := len(results) >= length
-	fmt.Println("All endpoints checked.  all_correct == %b", all_correct)
 
 	return automl_index, all_correct
 }
