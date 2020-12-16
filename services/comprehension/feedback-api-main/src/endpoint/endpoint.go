@@ -87,7 +87,7 @@ func Endpoint(responseWriter http.ResponseWriter, request *http.Request) {
 
 	for response := range c {
 		results[response.Priority] = response
-		return_index, finished := processResults(results, len(urls), response.Error)
+		return_index, finished := processResults(results, len(urls))
 
 		if finished {
 			// If processResults reports that it's "finished", but the APIResponse at
@@ -124,21 +124,23 @@ func Endpoint(responseWriter http.ResponseWriter, request *http.Request) {
 	wg.Wait()
 }
 // returns a typle of results index and that should be returned.
-func processResults(results map[int]InternalAPIResponse, length int, usable bool) (int, bool) {
-	if usable {
-		for i := 0; i < len(results); i++ {
+func processResults(results map[int]InternalAPIResponse, length int) (int, bool) {
+	for i := 0; i < len(results); i++ {
 		result, has_key := results[i]
-			if !has_key {
-				return 0, false
-			}
+		if !has_key {
+			return 0, false
+		}
+		fmt.Println("Checking result %d", i)
+		fmt.Println(result)
 
-			if !result.APIResponse.Optimal {
-				return i, true
-			}
+		if !result.Error && !result.APIResponse.Optimal {
+			fmt.Println("Use this feedback")
+			return i, true
 		}
 	}
 
 	all_correct := len(results) >= length
+	fmt.Println("All endpoints checked.  all_correct == %b", all_correct)
 
 	return automl_index, all_correct
 }
