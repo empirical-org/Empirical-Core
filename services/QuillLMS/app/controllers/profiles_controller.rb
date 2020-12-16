@@ -4,7 +4,6 @@ class ProfilesController < ApplicationController
   def show
     @user = current_user
     if current_user.role == 'student'
-      @firewall_test = true
       @js_file = 'student'
       if current_user.classrooms.any?
         # in the future, we could use the following sql query to direct the student

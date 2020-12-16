@@ -73,7 +73,7 @@ const ActivityForm = ({ activity, activityClassification, contentPartnerOptions,
 
   function handleDescriptionChange(e) { handleAttributeChange('description', e.target.value) }
 
-  function handleFlagChange(e) { handleAttributeChange('flag', e.target.value) }
+  function handleFlagChange(e) { handleAttributeChange('flags', [e.target.value]) }
 
   function handleRepeatableChange(e) { handleAttributeChange('repeatable', e.target.checked)}
 
@@ -131,7 +131,7 @@ const ActivityForm = ({ activity, activityClassification, contentPartnerOptions,
         </section>
         <section>
           <label>Flag</label>
-          <select onChange={handleFlagChange} value={editedActivity.flag}>{flagOptionElements}</select>
+          <select onChange={handleFlagChange} value={editedActivity.flags[0]}>{flagOptionElements}</select>
         </section>
         <section className="repeatable-container checkbox-container">
           <input checked={editedActivity.repeatable} onChange={handleRepeatableChange} type="checkbox" />

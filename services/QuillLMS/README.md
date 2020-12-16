@@ -96,9 +96,11 @@ TBD
 
 ## Deployment
 ```bash
-bash deploy.sh staging|sprint|prod
+bash deploy.sh staging|staging2|sprint|prod
 ```
 
 ## Infrastructure
 [staging (Heroku)](https://dashboard.heroku.com/apps/empirical-grammar-staging)
+[staging 2 (Heroku)](https://dashboard.heroku.com/apps/empirical-grammar-staging2)
+[sprint (Heroku)](https://dashboard.heroku.com/apps/quill-lms-sprint)
 [production (Heroku)](https://dashboard.heroku.com/apps/empirical-grammar)
