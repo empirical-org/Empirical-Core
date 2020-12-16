@@ -86,10 +86,67 @@ func TestAllOptimal(t *testing.T) {
 	results[1] = responseOptimal
 	results[2] = responseOptimal
 
-	return_index, returnable := processResults(results, 3, true)
+	return_index, returnable := processResults(results, 3)
 
 	if return_index != automl_index {
 		t.Errorf("processResults got index %v, want %v", return_index, automl_index)
+	}
+	if !returnable {
+		t.Errorf("processResults returnable should be true")
+	}
+}
+
+func TestFirstResponseErrorAllOptimal(t *testing.T) {
+	responseOptimal := InternalAPIResponse{
+		APIResponse: APIResponse{Optimal: true},
+		Error: false,
+	}
+
+	responseError := InternalAPIResponse{
+		APIResponse: APIResponse{Optimal: false},
+		Error: true,
+	}
+
+	results := map[int]InternalAPIResponse{}
+	results[0] = responseError
+	results[1] = responseOptimal
+	results[2] = responseOptimal
+
+	return_index, returnable := processResults(results, 3)
+
+	if return_index != automl_index {
+		t.Errorf("processResults got index %v, want %v", return_index, automl_index)
+	}
+	if !returnable {
+		t.Errorf("processResults returnable should be true")
+	}
+}
+
+func TestFirstResponseErrorLaterNonOptimal(t *testing.T) {
+	responseOptimal := InternalAPIResponse{
+		APIResponse: APIResponse{Optimal: true},
+		Error: false,
+	}
+
+	responseNonOptimal := InternalAPIResponse{
+		APIResponse: APIResponse{Optimal: false},
+		Error: false,
+	}
+
+	responseError := InternalAPIResponse{
+		APIResponse: APIResponse{Optimal: false},
+		Error: true,
+	}
+
+	results := map[int]InternalAPIResponse{}
+	results[0] = responseError
+	results[1] = responseOptimal
+	results[2] = responseNonOptimal
+
+	return_index, returnable := processResults(results, 3)
+
+	if return_index != 2 {
+		t.Errorf("processResults got index %v, want %v", return_index, 2)
 	}
 	if !returnable {
 		t.Errorf("processResults returnable should be true")
