@@ -80,11 +80,11 @@ module Comprehension
       return ""
     end
 
-    private def extend_slice(longest_match_found, entry_arr, i, slice_size, passage)
+    private def extend_slice(longest_match_found, entry_arr, idx, slice_size, passage)
       loop do
         slice_size += 1
-        match_candidate = get_slice(entry_arr, i, slice_size)
-        break if !passage.include?(match_candidate) || (i + slice_size) > entry_arr.size
+        match_candidate = get_slice(entry_arr, idx, slice_size)
+        break if !passage.include?(match_candidate) || (idx + slice_size) > entry_arr.size
         longest_match_found = match_candidate
       end
       return longest_match_found
