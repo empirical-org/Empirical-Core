@@ -12,6 +12,12 @@ class SerializeVitallySalesUser
     active_students_this_year = active_students_query(@user).where("activity_sessions.updated_at >= ?", school_year_start).count
     activities_finished = activities_finished_query(@user).count
     activities_finished_this_year = activities_finished_query(@user).where("activity_sessions.updated_at >= ?", school_year_start).count
+    activities_assigned = activities_assigned_query(@user).count
+    activities_assigned_this_year = activities_assigned_query(@user).where("unit_activities.created_at >= ?", school_year_start).count
+    diagnostics_assigned = activities_assigned_query(@user).joins(:activity).where('activities.activity_classification_id=4').count
+    diagnostics_assigned_this_year = activities_assigned_query(@user).where('activities.activity_classification_id=4 and unit_activities.created_at >= ?', school_year_start).count
+    diagnostics_finished = activities_finished_query(@user).where('activities.activity_classification_id=4').count
+    diagnostics_finished_this_year = activities_finished_query(@user).where('activities.activity_classification_id=4 and unit_activities.created_at >= ?', school_year_start).count
     {
       accountId: @user.school.id.to_s,
       userId: @user.id.to_s,
@@ -32,14 +38,6 @@ class SerializeVitallySalesUser
         school_point_of_contact: @user.school_poc?,
         premium_status: premium_status,
         premium_expiry_date: subscription_expiration_date,
-        total_students: @user.students.count,
-        total_students_this_year: total_students_this_year(school_year_start),
-        active_students: active_students,
-        active_students_this_year: active_students_this_year,
-        completed_activities: activities_finished,
-        completed_activities_this_year: activities_finished_this_year,
-        completed_activities_per_student: activities_per_student(active_students, activities_finished),
-        completed_activities_per_student_this_year: activities_per_student(active_students_this_year, activities_finished_this_year),
         frl: free_lunches,
         teacher_link: teacher_link,
         edit_teacher_link: edit_teacher_link,
@@ -47,6 +45,24 @@ class SerializeVitallySalesUser
         state: state,
         zipcode: zipcode,
         district: district,
+        total_students: @user.students.count,
+        active_students: active_students,
+        activites_assigned: activities_assigned,
+        completed_activities: activities_finished,
+        percent_completed_activities: completed_activities / activities_assigned,
+        completed_activities_per_student: activities_per_student(active_students, activities_finished),
+        diagnostics_assigned: diagnostics_assigned,
+        diagnostics_finished: diagnostics_finished,
+        percent_completed_diagnostics: diagnostics_finished / diagnostics_assigned,
+        total_students_this_year: total_students_this_year(school_year_start),
+        active_students_this_year: active_students_this_year,
+        activities_assigned_this_year: activities_assigned_this_year,
+        completed_activities_this_year: activities_finished_this_year,
+        completed_activities_per_student_this_year: activities_per_student(active_students_this_year, activities_finished_this_year),
+        percent_completed_activities_this_year: activities_finished_this_year / activities_assigned_this_year,
+        diagnostics_assigned_this_year: diagnostics_assigned_this_year,
+        diagnostics_finished_this_year: diagnostics_finished_this_year,
+        percent_completed_diagnostics_this_year: diagnostics_finished_this_year / diagnostics_assigned_this_year
       }.merge(account_data_params)
     }
   end
@@ -107,6 +123,10 @@ class SerializeVitallySalesUser
       .joins(classroom_unit: {classroom: [:teachers]})
       .where(state: 'finished')
       .where('classrooms_teachers.user_id = ?', user.id)
+  end
+
+  private def activities_assigned_query(user)
+    user.unit_activities
   end
 
   private def activities_finished_query(user)
