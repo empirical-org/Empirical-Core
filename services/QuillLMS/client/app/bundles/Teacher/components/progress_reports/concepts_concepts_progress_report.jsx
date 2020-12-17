@@ -90,7 +90,7 @@ export default class extends React.Component {
             <a className='how-we-grade' href="https://support.quill.org/activities-implementation/how-does-grading-work">How We Grade<i className="fas fa-long-arrow-alt-right" /></a>
           </div>
         </div>
-        <div className='studentName'>{this.state.studentName}</div>
+        <div className='student-name'>{this.state.studentName}</div>
         <div key={`concepts-concepts-progress-report-length-${this.state.reportData.length}`}>
           <ReactTable
             className='progress-report has-green-arrow'
