@@ -4,10 +4,6 @@ module Comprehension
     ALL_CORRECT_FEEDBACK = 'All plagiarism checks passed.'
     PASSAGE_TYPE = 'passage'
     ENTRY_TYPE = 'response'
-    # TODO: fix the syntax for everything
-    # make sure all vars are full words
-    # implicit returns on last lines
-    # avoid mutating objects
     attr_reader :entry, :passage, :nonoptimal_feedback
 
     def initialize(entry, passage, feedback)
@@ -26,7 +22,7 @@ module Comprehension
 
     def highlights
       return [] if optimal?
-      [ passage_highlight, entry_highlight ]
+      [ entry_highlight, passage_highlight ]
     end
 
     private def passage_highlight
@@ -70,11 +66,17 @@ module Comprehension
       entry_arr = clean_entry.split
       entry_len = entry_arr.size
       slice_size = 6
-      (0..(entry_len - slice_size)).each do |i|
-        curr_slice = get_slice(entry_arr, i, slice_size)
+      left_index = 0
+      longest_slice_found = ""
+      while left_index <= (entry_len - slice_size) do
+        curr_slice = get_slice(entry_arr, left_index, slice_size)
         if clean_passage.include?(curr_slice)
-          j = passage.index(curr_slice)
-          return extend_slice(curr_slice, entry_arr, i, slice_size, clean_passage[j..-1])
+          j = clean_passage.index(curr_slice)
+          extended_slice = extend_slice(curr_slice, entry_arr, left_index, slice_size, clean_passage[j..-1])
+          longest_slice_found = extended_slice if extended_slice.size > longest_slice_found.size
+          left_index += extended_slice.split.length
+        else
+          left_index += 1
         end
       end
       return longest_slice_found
@@ -89,11 +91,6 @@ module Comprehension
       end
       return longest_match_found
     end
-
-    # passage_chunks, entry_chunks
-    # take the intersection of these two
-    # [[6] [6] [6]]
-    # method to get the longest contiguous match from this array
 
     private def get_slice(array, start_index, slice_size)
       end_index = start_index + slice_size - 1
