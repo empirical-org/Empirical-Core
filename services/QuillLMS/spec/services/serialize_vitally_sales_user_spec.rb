@@ -166,7 +166,9 @@ describe 'SerializeVitallySalesUser' do
     teacher = create(:user, role: 'teacher', school: school)
     classroom = create(:classroom)
     old_classroom = create(:classroom, created_at: Time.now - 1.year)
-    classroom_unit = create(:classroom_unit, classroom: classroom)
+    unit = create(:unit, user_id: teacher.id)
+    binding.pry
+    classroom_unit = create(:classroom_unit, classroom: classroom, unit: unit)
     old_classroom_unit = create(:classroom_unit, classroom: old_classroom)
     student = create(:user, role: 'student')
     old_student = create(:user, role: 'student')
@@ -174,13 +176,17 @@ describe 'SerializeVitallySalesUser' do
     create(:classrooms_teacher, user: teacher, classroom: old_classroom)
     create(:students_classrooms, student: student, classroom: classroom)
     create(:students_classrooms, student: old_student, classroom: old_classroom)
+    unit_activity = create(:unit_activity, unit: unit)
+    binding.pry
     create(:activity_session,
       classroom_unit: classroom_unit,
+      activity: unit_activity.activity,
       user: student,
       state: 'finished'
     )
     create(:activity_session,
       classroom_unit: old_classroom_unit,
+      activity: unit_activity.activity,
       user: old_student,
       state: 'finished',
       created_at: Time.now - 1.year,
@@ -188,10 +194,11 @@ describe 'SerializeVitallySalesUser' do
     )
     create(:activity_session,
       classroom_unit: classroom_unit,
+      activity: unit_activity.activity,
       user: student,
       state: 'started'
     )
-
+    binding.pry
     teacher_data = SerializeVitallySalesUser.new(teacher).data
 
     expect(teacher_data[:traits]).to include(
@@ -199,9 +206,10 @@ describe 'SerializeVitallySalesUser' do
       active_students: 2,
       active_students_this_year: 1,
       completed_activities: 2,
-      completed_activities_per_student: 1,
+      completed_activities_per_student: 1.0,
       completed_activities_this_year: 1,
-      completed_activities_per_student_this_year: 1
+      completed_activities_per_student_this_year: 1.0,
+      percent_completed_activities: 1.0,
     )
   end
 

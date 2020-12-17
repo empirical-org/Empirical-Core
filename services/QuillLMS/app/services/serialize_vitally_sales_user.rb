@@ -15,9 +15,9 @@ class SerializeVitallySalesUser
     activities_assigned = activities_assigned_query(@user).count
     activities_assigned_this_year = activities_assigned_query(@user).where("unit_activities.created_at >= ?", school_year_start).count
     diagnostics_assigned = activities_assigned_query(@user).joins(:activity).where('activities.activity_classification_id=4').count
-    diagnostics_assigned_this_year = activities_assigned_query(@user).where('activities.activity_classification_id=4 and unit_activities.created_at >= ?', school_year_start).count
-    diagnostics_finished = activities_finished_query(@user).where('activities.activity_classification_id=4').count
-    diagnostics_finished_this_year = activities_finished_query(@user).where('activities.activity_classification_id=4 and unit_activities.created_at >= ?', school_year_start).count
+    diagnostics_assigned_this_year = activities_assigned_query(@user).joins(:activity).where('activities.activity_classification_id=4 and unit_activities.created_at >= ?', school_year_start).count
+    # diagnostics_finished = activities_finished_query(@user).joins(:activity).where('activities.activity_classification_id=4').count
+    # diagnostics_finished_this_year = activities_finished_query(@user).joins(:activity).where('activities.activity_classification_id=4 and unit_activities.created_at >= ?', school_year_start).count
     {
       accountId: @user.school.id.to_s,
       userId: @user.id.to_s,
@@ -49,20 +49,20 @@ class SerializeVitallySalesUser
         active_students: active_students,
         activites_assigned: activities_assigned,
         completed_activities: activities_finished,
-        percent_completed_activities: completed_activities / activities_assigned,
+        percent_completed_activities: activities_assigned > 0 ? activities_finished / activities_assigned : 'N/A',
         completed_activities_per_student: activities_per_student(active_students, activities_finished),
         diagnostics_assigned: diagnostics_assigned,
-        diagnostics_finished: diagnostics_finished,
-        percent_completed_diagnostics: diagnostics_finished / diagnostics_assigned,
+        # diagnostics_finished: diagnostics_finished,
+        percent_completed_diagnostics: diagnostics_assigned > 0 ? diagnostics_finished / diagnostics_assigned : 'N/A',
         total_students_this_year: total_students_this_year(school_year_start),
         active_students_this_year: active_students_this_year,
         activities_assigned_this_year: activities_assigned_this_year,
         completed_activities_this_year: activities_finished_this_year,
         completed_activities_per_student_this_year: activities_per_student(active_students_this_year, activities_finished_this_year),
-        percent_completed_activities_this_year: activities_finished_this_year / activities_assigned_this_year,
+        percent_completed_activities_this_year: activities_assigned_this_year > 0 ? activities_finished_this_year / activities_assigned_this_year : 'N/A',
         diagnostics_assigned_this_year: diagnostics_assigned_this_year,
-        diagnostics_finished_this_year: diagnostics_finished_this_year,
-        percent_completed_diagnostics_this_year: diagnostics_finished_this_year / diagnostics_assigned_this_year
+        # diagnostics_finished_this_year: diagnostics_finished_this_year,
+        percent_completed_diagnostics_this_year: diagnostics_assigned_this_year > 0 ? diagnostics_finished_this_year / diagnostics_assigned_this_year : 'N/A'
       }.merge(account_data_params)
     }
   end
