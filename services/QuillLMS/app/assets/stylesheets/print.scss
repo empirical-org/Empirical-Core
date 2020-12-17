@@ -39,6 +39,11 @@
     .meta-overview, .dropdown-container {
       display: none;
     }
+
+    > .studentName {
+      display: block;
+      padding: 1rem;
+    }
     .rt-tr {
       display: flex;
     }

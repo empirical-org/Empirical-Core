@@ -81,6 +81,8 @@ QuillLMS is the Learning Management System that powers Quill.org. It is part of 
     2. Navigate your browser to [localhost:3000](http://localhost:3000).
     3. When you're done with the server, use Ctrl-C to break it and return to your command line.
 
+15. Optional: To play through activities locally, start LMS via `npm run start:prod-cms` rather than `Procfile.static`. This points the local LMS to production CMS.
+
 
 In case you are unable to start QuillLMS on your computer, please submit and issue. If you found a work around, we would also love to read your suggestions!
 
