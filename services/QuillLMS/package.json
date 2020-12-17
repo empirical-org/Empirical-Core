@@ -30,7 +30,7 @@
     "start:dev": "foreman start -f Procfile.static; npm run build:clean",
     "start:prod-cms": "foreman start -f Procfile.prod_cms; npm run build:clean",
     "hot-assets": "(cd client && npm run hot-assets)",
-    "jest": "./script/jest.sh",
+    "jest": "cd client && npm run jest",
     "jest:u": "cd client && npm run jest -- -u",
     "jest:update": "cd client && npm run jest -- -u",
     "jest:watch": "cd client && npm run jest:watch",
