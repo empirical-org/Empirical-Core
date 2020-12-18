@@ -44,7 +44,6 @@
       font-size: 11px;
       letter-spacing: 1px;
       margin-bottom: 5px;
-      text-transform: uppercase;
     }
     .menu-list {
       display: flex;
@@ -525,6 +524,37 @@
     }
     .submission-message {
       padding: 20px;
+    }
+  }
+  .sessions-index-container {
+    width: 100%;
+    padding-left: 24px;
+    h1 {
+      border-bottom: 1px solid lightgray;;
+      padding: 40px 0px 20px 0px;
+      font-weight: 300;
+    }
+    .total-container {
+      display: flex;
+      align-items: center;
+      margin-top: 30px;
+      padding-left: 16px;
+      .total-label {
+        margin-right: 30px;
+      }
+      .total-value {
+        border: 1px solid lightgray;
+        padding: 3px 7px;
+      }
+    }
+    .activity-sessions-table {
+      .data-table-body {
+        .data-table-row {
+          span:nth-of-type(4), span:nth-of-type(5), span:nth-of-type(6), span:nth-of-type(7) {
+            text-align: left !important;
+          }
+        }
+      }
     }
   }
 }
