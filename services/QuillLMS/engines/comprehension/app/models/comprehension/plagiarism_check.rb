@@ -71,8 +71,8 @@ module Comprehension
       while left_index <= (entry_len - slice_size) do
         curr_slice = get_slice(entry_arr, left_index, slice_size)
         if clean_passage.include?(curr_slice)
-          j = clean_passage.index(curr_slice)
-          extended_slice = extend_slice(curr_slice, entry_arr, left_index, slice_size, clean_passage[j..-1])
+          trimmed_passage = clean_passage[clean_passage.index(curr_slice)..-1]
+          extended_slice = extend_slice(curr_slice, entry_arr, left_index, slice_size, trimmed_passage)
           longest_slice_found = extended_slice if extended_slice.size > longest_slice_found.size
           left_index += extended_slice.split.length
         else
