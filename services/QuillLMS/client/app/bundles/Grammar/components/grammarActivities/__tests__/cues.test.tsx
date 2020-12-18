@@ -1,6 +1,6 @@
 import * as React from "react";
 import {shallow} from "enzyme";
-import { Cue, CueExplanation, } from 'quill-component-library/dist/componentLibrary'
+import { Cue, CueExplanation, } from '../../../../Shared/index'
 
 import Cues from "../cues";
 

@@ -83,7 +83,6 @@ module LicenseFinder
     'lambdas/rematching',
     'packages/apply-feature',
     'packages/quill-cdn',
-    'packages/quill-component-library',
     'packages/quill-marking-logic',
     'packages/quill-spellchecker'
   ]

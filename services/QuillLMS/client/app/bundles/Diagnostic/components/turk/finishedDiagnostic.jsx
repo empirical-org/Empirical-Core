@@ -1,5 +1,5 @@
 import React from 'react'
-import { Spinner } from 'quill-component-library/dist/componentLibrary'
+import { Spinner } from '../../../Shared/index'
 export default class extends React.Component {
   componentDidMount() {
     this.props.saveToLMS()

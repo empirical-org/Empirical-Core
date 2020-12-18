@@ -2,7 +2,7 @@ import * as React from 'react';
 import {
   Cue,
   CueExplanation
-} from 'quill-component-library/dist/componentLibrary';
+} from '../../../Shared/index';
 
 const arrow = `${process.env.CDN_URL}/images/icons/pointing-arrow.svg`;
 

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Tooltip } from 'quill-component-library/dist/componentLibrary'
+import { Tooltip } from '../../../Shared/index'
 
 const editSrc = `${process.env.CDN_URL}/images/icons/edit.svg`
 

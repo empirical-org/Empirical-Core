@@ -1,5 +1,4 @@
 import * as React from 'react'
-import { FlagDropdown, } from 'quill-component-library/dist/componentLibrary';
 import { connect } from 'react-redux'
 import TextEditor from '../shared/textEditor'
 import * as questionActions from '../../actions/questions'
@@ -7,7 +6,7 @@ import { ConceptReducerState } from '../../reducers/conceptsReducer'
 import { QuestionsReducerState } from '../../reducers/questionsReducer'
 import { Match } from '../../interfaces/match'
 import { Question } from '../../interfaces/questions'
-import { hashToCollection, } from '../../../Shared/index'
+import { hashToCollection, FlagDropdown, } from '../../../Shared/index'
 import { Link } from 'react-router-dom';
 import { EditorState, ContentState } from 'draft-js'
 import _ from 'underscore'

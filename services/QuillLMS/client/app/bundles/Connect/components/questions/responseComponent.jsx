@@ -2,11 +2,6 @@ import React from 'react';
 import { connect } from 'react-redux';
 import filterActions from '../../actions/filters';
 import _ from 'underscore';
-import {
-  ResponseSortFields,
-  ResponseToggleFields,
-  QuestionBar
-} from 'quill-component-library/dist/componentLibrary';
 import ResponseList from './responseList.jsx';
 import QuestionMatcher from '../../libs/question';
 import questionActions from '../../actions/questions';
@@ -22,7 +17,12 @@ import {
 import massEdit from '../../actions/massEdit';
 import request from 'request';
 import { submitResponseEdit } from '../../actions/responses';
-import { hashToCollection, } from '../../../Shared/index'
+import {
+  ResponseSortFields,
+  ResponseToggleFields,
+  QuestionBar,
+  hashToCollection
+} from '../../../Shared/index'
 
 const C = require('../../constants').default;
 
