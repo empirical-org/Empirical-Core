@@ -58,7 +58,7 @@ exports[`Unit assignment followup component When there are students assigned on 
     <div
       className="unit-assignment-followup referral"
     >
-      <Snackbar
+      <Component
         text=""
         visible={false}
       />

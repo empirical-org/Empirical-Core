@@ -2,11 +2,8 @@ import React from 'react'
 import {connect} from 'react-redux'
 import { Link } from 'react-router-dom'
 
-import {
-  ArchivedButton
-} from 'quill-component-library/dist/componentLibrary'
 import { QuestionList } from '../shared/questionList'
-import { hashToCollection } from '../../../Shared/index'
+import { hashToCollection, ArchivedButton, } from '../../../Shared/index'
 
 class SentenceFragments extends React.Component {
   constructor(props) {

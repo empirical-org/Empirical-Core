@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { Snackbar, defaultSnackbarTimeout } from 'quill-component-library/dist/componentLibrary'
+import { Snackbar, defaultSnackbarTimeout } from '../../../Shared/index'
 
 import Classroom from './classroom'
 import UnarchiveClassroomModal from './unarchive_classroom_modal'

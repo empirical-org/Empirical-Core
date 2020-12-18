@@ -4,7 +4,7 @@ exports[`ArchivedClassrooms component with classrooms should render with classro
 <div
   className="archived-classrooms classrooms-page"
 >
-  <Snackbar
+  <Component
     visible={false}
   />
   <div
@@ -1132,7 +1132,7 @@ exports[`ArchivedClassrooms component with no classrooms should render with no c
 <div
   className="archived-classrooms classrooms-page"
 >
-  <Snackbar
+  <Component
     visible={false}
   />
   <div

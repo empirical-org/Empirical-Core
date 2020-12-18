@@ -65,8 +65,7 @@ describe('PromptStep component', () => {
       describe('#unsubmittableResponses', () => {
         it('should return the formatted prompt and all of the submitted responses', () => {
           const entries = submittedResponses.map(r => r.entry)
-          const response = `${defaultProps.prompt.text} ${defaultProps.prompt.conjunction}`
-          const arrayOfUnsubmittableResponses = entries.concat([response])
+          const arrayOfUnsubmittableResponses = entries.concat([defaultProps.prompt.text])
           const unsubmittableResponses = wrapper.instance().unsubmittableResponses()
           expect(unsubmittableResponses).toEqual(arrayOfUnsubmittableResponses)
         })
