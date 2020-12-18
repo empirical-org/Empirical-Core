@@ -1,4 +1,5 @@
 require 'test_helper'
+require './lib/plagiarism_check'
 
 module Comprehension
   class PlagiarismCheckTest < ActiveSupport::TestCase
