@@ -6,8 +6,7 @@ import * as moment from 'moment'
 import { DataTable, Error, Spinner } from '../../../../Shared/index';
 import { fetchActivity } from '../../../utils/comprehension/activityAPIs';
 
-var sessionData = require('./data.json');
-
+var sessionsData = require('./sessionsData.json');
 
 const SessionsIndex = ({ match }) => {
   const { params } = match;
@@ -19,7 +18,7 @@ const SessionsIndex = ({ match }) => {
     queryFn: fetchActivity
   });
 
-  function formatSessionData(activitySessions: any[]) {
+  function formatSessionsData(activitySessions: any[]) {
     return activitySessions.map(session => {
       const formattedSession = {...session};
       const { start_date, session_uid, because_responses, but_responses, so_responses } = session;
@@ -64,19 +63,22 @@ const SessionsIndex = ({ match }) => {
 
   const { activity } = data;
   const { title } = activity;
-  const { activity_sessions, total_activity_sessions } = sessionData
+  const { activity_sessions, total_activity_sessions } = sessionsData
   return(
     <div className="sessions-index-container">
-      <h1>{title}</h1>
+      <section className="sessions-header">
+        <h1>{title}</h1>
+        <Link to="/activity-sessions">← Return to Activities Index</Link>
+      </section>
       <section>
         <div className="total-container">
           <p className="total-label">Total</p>
-          <p className="total-value ">{total_activity_sessions}</p>
+          <p className="total-value">{total_activity_sessions}</p>
         </div>
         <DataTable
           className="activity-sessions-table"
           headers={dataTableFields}
-          rows={formatSessionData(activity_sessions)}
+          rows={formatSessionsData(activity_sessions)}
         />
       </section>
     </div>

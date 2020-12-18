@@ -7,6 +7,7 @@ import Activity from './activity';
 import SubmissionModal from './shared/submissionModal';
 import ActivityForm from './configureSettings/activityForm';
 import SessionsIndex from './activitySessions/sessionsIndex';
+import SessionView from './activitySessions/sessionView';
 
 import { ActivityInterface } from '../../interfaces/comprehensionInterfaces';
 import { createActivity } from '../../utils/comprehension/activityAPIs';
@@ -96,6 +97,7 @@ const ComprehensionLanding = ({ location }: RouteComponentProps) => {
       {showSubmissionModal && renderSubmissionModal()}
       <Switch>
         <Redirect exact from='/' to='/activities' />
+        <Route component={SessionView} path='/activity-sessions/:activityId/:sessionId' />
         <Route component={SessionsIndex} path='/activity-sessions/:activityId' />
         {/* eslint-disable-next-line react/jsx-no-bind */}
         <Route component={() => <Activities type='sessions' />} path='/activity-sessions' />

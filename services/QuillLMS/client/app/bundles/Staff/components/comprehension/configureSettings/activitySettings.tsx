@@ -191,7 +191,7 @@ const ActivitySettings: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ m
     );
   }
 
-  // The header labels felt redundant so passing empty strings and hiding header display
+  // Header labels are redundant so passing empty strings and hiding header display
   const dataTableFields = [
     { name: "", attribute:"field", width: "200px" },
     { name: "", attribute:"value", width: "400px" }

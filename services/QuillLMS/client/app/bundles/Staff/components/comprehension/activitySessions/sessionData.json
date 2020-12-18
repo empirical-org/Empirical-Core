@@ -1,0 +1,173 @@
+{
+  "start_date": "2020-12-18T16:28:51.552Z",
+  "session_uid": "6c90e707-835c-44c4-80d4-4cab039ec5bc",
+  "activity_id": 17,
+  "session_completed": true,
+  "prompts": [{
+		"prompt_id": 1,
+		"conjunction": "because",
+		"attempts": {
+      "1":
+      [{
+					"used": true,
+					"entry": "this is a test response.",
+					"feedback_text": "this is some test feedback.",
+					"feedback_type": "semantic",
+					"optimal": false
+				},
+				{
+					"used": false,
+					"entry": "this is a test response.",
+					"feedback_text": "this is some test feedback.",
+					"feedback_type": "semantic",
+					"optimal": false
+      }],
+      "2":
+      [{
+        "used": true,
+        "entry": "this is a test response.",
+        "feedback_text": "this is some test feedback.",
+        "feedback_type": "semantic",
+        "optimal": false
+      },
+      {
+        "used": false,
+        "entry": "this is a test response.",
+        "feedback_text": "this is some test feedback.",
+        "feedback_type": "semantic",
+        "optimal": false
+      }],
+      "3":
+      [{
+        "used": true,
+        "entry": "this is a test response.",
+        "feedback_text": "this is some test feedback.",
+        "feedback_type": "semantic",
+        "optimal": false
+      },
+      {
+        "used": false,
+        "entry": "this is a test response.",
+        "feedback_text": "this is some test feedback.",
+        "feedback_type": "semantic",
+        "optimal": false
+      }],
+      "4":
+      [{
+        "used": true,
+        "entry": "this is a test response.",
+        "feedback_text": "this is some test feedback.",
+        "feedback_type": "semantic",
+        "optimal": false
+      },
+      {
+        "used": false,
+        "entry": "this is a test response.",
+        "feedback_text": "this is some test feedback.",
+        "feedback_type": "semantic",
+        "optimal": false
+      }]
+		}
+	},{
+		"prompt_id": 2,
+		"conjunction": "but",
+		"attempts": {
+      "1":
+      [{
+					"used": true,
+					"entry": "this is a test response.",
+					"feedback_text": "this is some test feedback.",
+					"feedback_type": "semantic",
+					"optimal": false
+				},
+				{
+					"used": false,
+					"entry": "this is a test response.",
+					"feedback_text": "this is some test feedback.",
+					"feedback_type": "semantic",
+					"optimal": false
+      }],
+      "2":
+      [{
+        "used": true,
+        "entry": "this is a test response.",
+        "feedback_text": "this is some test feedback.",
+        "feedback_type": "semantic",
+        "optimal": false
+      },
+      {
+        "used": false,
+        "entry": "this is a test response.",
+        "feedback_text": "this is some test feedback.",
+        "feedback_type": "semantic",
+        "optimal": false
+      }],
+      "3":
+      [{
+        "used": true,
+        "entry": "this is a test response.",
+        "feedback_text": "this is some test feedback.",
+        "feedback_type": "semantic",
+        "optimal": false
+      },
+      {
+        "used": false,
+        "entry": "this is a test response.",
+        "feedback_text": "this is some test feedback.",
+        "feedback_type": "semantic",
+        "optimal": false
+      }]
+    }
+  },
+  {
+    "prompt_id": 3,
+		"conjunction": "so",
+		"attempts": {
+      "1":
+      [{
+					"used": true,
+					"entry": "this is a test response.",
+					"feedback_text": "this is some test feedback.",
+					"feedback_type": "semantic",
+					"optimal": false
+				},
+				{
+					"used": false,
+					"entry": "this is a test response.",
+					"feedback_text": "this is some test feedback.",
+					"feedback_type": "semantic",
+					"optimal": false
+      }],
+      "2":
+      [{
+        "used": true,
+        "entry": "this is a test response.",
+        "feedback_text": "this is some test feedback.",
+        "feedback_type": "semantic",
+        "optimal": false
+      },
+      {
+        "used": false,
+        "entry": "this is a test response.",
+        "feedback_text": "this is some test feedback.",
+        "feedback_type": "semantic",
+        "optimal": false
+      }],
+      "3":
+      [{
+        "used": true,
+        "entry": "this is a test response.",
+        "feedback_text": "this is some test feedback.",
+        "feedback_type": "semantic",
+        "optimal": false
+      },
+      {
+        "used": false,
+        "entry": "this is a test response.",
+        "feedback_text": "this is some test feedback.",
+        "feedback_type": "semantic",
+        "optimal": false
+      }]
+    }
+  }]
+}

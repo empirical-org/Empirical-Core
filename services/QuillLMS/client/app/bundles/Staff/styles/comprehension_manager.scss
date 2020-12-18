@@ -526,13 +526,15 @@
       padding: 20px;
     }
   }
-  .sessions-index-container {
-    width: 100%;
+  .sessions-index-container, .session-view-container {
+    width: 80vw;
     padding-left: 24px;
-    h1 {
+    .sessions-header {
       border-bottom: 1px solid lightgray;;
       padding: 40px 0px 20px 0px;
-      font-weight: 300;
+      h1 {
+        font-weight: 300;
+      }
     }
     .total-container {
       display: flex;
@@ -552,6 +554,16 @@
         .data-table-row {
           span:nth-of-type(4), span:nth-of-type(5), span:nth-of-type(6), span:nth-of-type(7) {
             text-align: left !important;
+          }
+        }
+      }
+    }
+    .session-overview-table {
+      padding-top: 30px;
+      .data-table-body {
+        .data-table-row {
+          span:nth-of-type(1) {
+            font-weight: 600;
           }
         }
       }
