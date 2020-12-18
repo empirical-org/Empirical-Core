@@ -1,17 +1,7 @@
 .radio-group {
-  // these style react-radio-button (https://github.com/mu29/react-radio-buttons), hence the importants
-  & > div {
-    border: none !important;
-    padding-bottom: 10px !important;
-    & > div {
-      div:last-of-type {
-        color: #666 !important;
-        padding-left: 10px !important;
-      }
-      div:first-of-type {
-        // padding-top: 10px !important;
-        color: inherit !important;
-      }
-    }
+  display: flex;
+  flex-direction: column;
+  label {
+    font-weight: 400;
   }
 }

@@ -4,11 +4,8 @@ import { NavLink } from 'react-router-dom';
 import _ from 'underscore';
 import questionActions from '../../actions/questions';
 import sentenceFragmentActions from '../../actions/sentenceFragments';
-import {
-  SortableList
-} from 'quill-component-library/dist/componentLibrary';
 
-import { hashToCollection, } from '../../../Shared/index'
+import { hashToCollection, SortableList, } from '../../../Shared/index'
 
 export class FocusPointsContainer extends Component {
   constructor() {

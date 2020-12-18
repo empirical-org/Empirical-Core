@@ -16,7 +16,7 @@ exports[`PromptStep component active state before any responses have been submit
 
  Governments should make voting compulsory because otherwise not everyone will vote.",
       "prompt_id": 1,
-      "text": "Governments should make voting compulsory",
+      "text": "Governments should make voting compulsory because",
     }
   }
   stepNumberComponent={<span />}
@@ -54,7 +54,7 @@ exports[`PromptStep component active state before any responses have been submit
             html="<p>Governments should make voting compulsory <u>because</u>&nbsp;</p>"
             innerRef={[Function]}
             isResettable={false}
-            promptText="Governments should make voting compulsory"
+            promptText="Governments should make voting compulsory because"
             resetText={[Function]}
             stripHtml={[Function]}
           >
@@ -133,7 +133,7 @@ exports[`PromptStep component active state when a profane response has been subm
 
  Governments should make voting compulsory because otherwise not everyone will vote.",
       "prompt_id": 1,
-      "text": "Governments should make voting compulsory",
+      "text": "Governments should make voting compulsory because",
     }
   }
   stepNumberComponent={<span />}
@@ -171,7 +171,7 @@ exports[`PromptStep component active state when a profane response has been subm
             html="<p>Governments should make voting compulsory <u>because</u>&nbsp;</p>"
             innerRef={[Function]}
             isResettable={false}
-            promptText="Governments should make voting compulsory"
+            promptText="Governments should make voting compulsory because"
             resetText={[Function]}
             stripHtml={[Function]}
           >
@@ -239,7 +239,7 @@ exports[`PromptStep component active state when a profane response has been subm
 
  Governments should make voting compulsory because otherwise not everyone will vote.",
                 "prompt_id": 1,
-                "text": "Governments should make voting compulsory",
+                "text": "Governments should make voting compulsory because",
               }
             }
             submittedResponses={Array []}
@@ -334,7 +334,7 @@ exports[`PromptStep component active state when a response with multiple sentenc
 
  Governments should make voting compulsory because otherwise not everyone will vote.",
       "prompt_id": 1,
-      "text": "Governments should make voting compulsory",
+      "text": "Governments should make voting compulsory because",
     }
   }
   stepNumberComponent={<span />}
@@ -372,7 +372,7 @@ exports[`PromptStep component active state when a response with multiple sentenc
             html="<p>Governments should make voting compulsory <u>because</u>&nbsp;</p>"
             innerRef={[Function]}
             isResettable={false}
-            promptText="Governments should make voting compulsory"
+            promptText="Governments should make voting compulsory because"
             resetText={[Function]}
             stripHtml={[Function]}
           >
@@ -440,7 +440,7 @@ exports[`PromptStep component active state when a response with multiple sentenc
 
  Governments should make voting compulsory because otherwise not everyone will vote.",
                 "prompt_id": 1,
-                "text": "Governments should make voting compulsory",
+                "text": "Governments should make voting compulsory because",
               }
             }
             submittedResponses={Array []}
@@ -535,7 +535,7 @@ exports[`PromptStep component active state when a suboptimal response has been s
 
  Governments should make voting compulsory because otherwise not everyone will vote.",
       "prompt_id": 1,
-      "text": "Governments should make voting compulsory",
+      "text": "Governments should make voting compulsory because",
     }
   }
   stepNumberComponent={<span />}
@@ -583,7 +583,7 @@ exports[`PromptStep component active state when a suboptimal response has been s
             html="<p>Governments should make voting compulsory <u>because</u>&nbsp;</p>"
             innerRef={[Function]}
             isResettable={false}
-            promptText="Governments should make voting compulsory"
+            promptText="Governments should make voting compulsory because"
             resetText={[Function]}
             stripHtml={[Function]}
           >
@@ -670,7 +670,7 @@ exports[`PromptStep component active state when a suboptimal response has been s
 
  Governments should make voting compulsory because otherwise not everyone will vote.",
                 "prompt_id": 1,
-                "text": "Governments should make voting compulsory",
+                "text": "Governments should make voting compulsory because",
               }
             }
             submittedResponses={
@@ -775,7 +775,7 @@ exports[`PromptStep component active state when a too-long response has been sub
 
  Governments should make voting compulsory because otherwise not everyone will vote.",
       "prompt_id": 1,
-      "text": "Governments should make voting compulsory",
+      "text": "Governments should make voting compulsory because",
     }
   }
   stepNumberComponent={<span />}
@@ -813,7 +813,7 @@ exports[`PromptStep component active state when a too-long response has been sub
             html="<p>Governments should make voting compulsory <u>because</u>&nbsp;</p>"
             innerRef={[Function]}
             isResettable={false}
-            promptText="Governments should make voting compulsory"
+            promptText="Governments should make voting compulsory because"
             resetText={[Function]}
             stripHtml={[Function]}
           >
@@ -881,7 +881,7 @@ exports[`PromptStep component active state when a too-long response has been sub
 
  Governments should make voting compulsory because otherwise not everyone will vote.",
                 "prompt_id": 1,
-                "text": "Governments should make voting compulsory",
+                "text": "Governments should make voting compulsory because",
               }
             }
             submittedResponses={Array []}
@@ -976,7 +976,7 @@ exports[`PromptStep component active state when a too-short response has been su
 
  Governments should make voting compulsory because otherwise not everyone will vote.",
       "prompt_id": 1,
-      "text": "Governments should make voting compulsory",
+      "text": "Governments should make voting compulsory because",
     }
   }
   stepNumberComponent={<span />}
@@ -1014,7 +1014,7 @@ exports[`PromptStep component active state when a too-short response has been su
             html="<p>Governments should make voting compulsory <u>because</u>&nbsp;</p>"
             innerRef={[Function]}
             isResettable={false}
-            promptText="Governments should make voting compulsory"
+            promptText="Governments should make voting compulsory because"
             resetText={[Function]}
             stripHtml={[Function]}
           >
@@ -1082,7 +1082,7 @@ exports[`PromptStep component active state when a too-short response has been su
 
  Governments should make voting compulsory because otherwise not everyone will vote.",
                 "prompt_id": 1,
-                "text": "Governments should make voting compulsory",
+                "text": "Governments should make voting compulsory because",
               }
             }
             submittedResponses={Array []}
@@ -1177,7 +1177,7 @@ exports[`PromptStep component active state when an optimal response has been sub
 
  Governments should make voting compulsory because otherwise not everyone will vote.",
       "prompt_id": 1,
-      "text": "Governments should make voting compulsory",
+      "text": "Governments should make voting compulsory because",
     }
   }
   stepNumberComponent={<span />}
@@ -1225,7 +1225,7 @@ exports[`PromptStep component active state when an optimal response has been sub
             html="<p>Governments should make voting compulsory <u>because</u>&nbsp;</p>"
             innerRef={[Function]}
             isResettable={false}
-            promptText="Governments should make voting compulsory"
+            promptText="Governments should make voting compulsory because"
             resetText={[Function]}
             stripHtml={[Function]}
           >
@@ -1301,7 +1301,7 @@ exports[`PromptStep component active state when an optimal response has been sub
 
  Governments should make voting compulsory because otherwise not everyone will vote.",
                 "prompt_id": 1,
-                "text": "Governments should make voting compulsory",
+                "text": "Governments should make voting compulsory because",
               }
             }
             submittedResponses={
@@ -1406,7 +1406,7 @@ exports[`PromptStep component active state when the max attempts have been reach
 
  Governments should make voting compulsory because otherwise not everyone will vote.",
       "prompt_id": 1,
-      "text": "Governments should make voting compulsory",
+      "text": "Governments should make voting compulsory because",
     }
   }
   stepNumberComponent={<span />}
@@ -1482,7 +1482,7 @@ exports[`PromptStep component active state when the max attempts have been reach
             html="<p>Governments should make voting compulsory <u>because</u>&nbsp;</p>"
             innerRef={[Function]}
             isResettable={false}
-            promptText="Governments should make voting compulsory"
+            promptText="Governments should make voting compulsory because"
             resetText={[Function]}
             stripHtml={[Function]}
           >
@@ -1558,7 +1558,7 @@ exports[`PromptStep component active state when the max attempts have been reach
 
  Governments should make voting compulsory because otherwise not everyone will vote.",
                 "prompt_id": 1,
-                "text": "Governments should make voting compulsory",
+                "text": "Governments should make voting compulsory because",
               }
             }
             submittedResponses={
@@ -1693,7 +1693,7 @@ exports[`PromptStep component active state when the max attempts have been reach
 
  Governments should make voting compulsory because otherwise not everyone will vote.",
       "prompt_id": 1,
-      "text": "Governments should make voting compulsory",
+      "text": "Governments should make voting compulsory because",
     }
   }
   stepNumberComponent={<span />}
@@ -1741,7 +1741,7 @@ exports[`PromptStep component active state when the max attempts have been reach
             html="<p>Governments should make voting compulsory <u>because</u>&nbsp;</p>"
             innerRef={[Function]}
             isResettable={false}
-            promptText="Governments should make voting compulsory"
+            promptText="Governments should make voting compulsory because"
             resetText={[Function]}
             stripHtml={[Function]}
           >
@@ -1817,7 +1817,7 @@ exports[`PromptStep component active state when the max attempts have been reach
 
  Governments should make voting compulsory because otherwise not everyone will vote.",
                 "prompt_id": 1,
-                "text": "Governments should make voting compulsory",
+                "text": "Governments should make voting compulsory because",
               }
             }
             submittedResponses={
@@ -1922,7 +1922,7 @@ exports[`PromptStep component inactive state renders 1`] = `
 
  Governments should make voting compulsory because otherwise not everyone will vote.",
       "prompt_id": 1,
-      "text": "Governments should make voting compulsory",
+      "text": "Governments should make voting compulsory because",
     }
   }
   stepNumberComponent={<span />}

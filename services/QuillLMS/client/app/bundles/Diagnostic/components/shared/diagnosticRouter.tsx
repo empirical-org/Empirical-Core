@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { BrowserRouter, Route, withRouter } from 'react-router-dom';
 import StudentDiagnostic from '../diagnostics/studentDiagnostic';
 import ELLStudentDiagnostic from '../eslDiagnostic/studentDiagnostic';
-import { SmartSpinner } from 'quill-component-library/dist/componentLibrary';
+import { SmartSpinner } from '../../../Shared/index';
 import { Location } from '../../interfaces/location';
 import { PlayDiagnostic } from '../../interfaces/playDiagnostic';
 import { RouteInterace } from '../../interfaces/routeInterfaces';

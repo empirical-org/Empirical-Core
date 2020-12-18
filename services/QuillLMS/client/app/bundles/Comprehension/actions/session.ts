@@ -2,8 +2,8 @@ import * as request from 'request';
 
 import { ActionTypes } from './actionTypes'
 import { TrackAnalyticsEvent } from './analytics'
-import { Events } from '../modules/analytics'
 
+import { Events } from '../modules/analytics'
 import { FeedbackObject } from '../interfaces/feedback'
 
 interface GetFeedbackArguments {

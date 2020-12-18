@@ -1,22 +1,22 @@
 import React from 'react';
-import { RadioGroup, ReversedRadioButton } from 'react-radio-buttons';
 
 export default class extends React.Component {
-  handleChange = val => {
-    this.props.changeRecurringStatus(val);
+  handleChange = e => {
+    this.props.changeRecurringStatus(Boolean(e.target.value));
   };
 
   render() {
+    const { recurring, } = this.props
     return (
       <div className="change-plan">
-        <RadioGroup className="radio-group" onChange={this.handleChange} vertical>
-          <ReversedRadioButton checked={this.props.recurring} iconSize={20} padding={'0'} pointColor={' #00c2a2'} rootColor={'#666'} value={Boolean(true)}>
-            {this.props.subscriptionType} Premium - ${this.props.price} Annual Subscription
-          </ReversedRadioButton>
-          <ReversedRadioButton checked={!this.props.recurring} iconSize={20} padding={'0'} pointColor={' #00c2a2'} rootColor={'#666'} value={Boolean(false)}>
-            Quill Basic - Free
-          </ReversedRadioButton>
-        </RadioGroup>
+        <div className="radio-group">
+          <label className="radio-option">
+            <input checked={recurring} name="recurring" onChange={this.handleChange} type="radio" value={true} /> {this.props.subscriptionType} Premium - ${this.props.price} Annual Subscription
+          </label>
+          <label className="radio-option">
+            <input checked={!recurring} name="recurring" onChange={this.handleChange} type="radio" value={false} /> Quill Basic - Free
+          </label>
+        </div>
       </div>
     );
   }

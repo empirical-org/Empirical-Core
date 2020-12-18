@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 import _ from 'underscore';
-import { SortableList } from 'quill-component-library/dist/componentLibrary';
+import { SortableList } from '../../../Shared/index';
 
 import questionActions from '../../actions/questions';
 import sentenceFragmentActions from '../../actions/sentenceFragments';

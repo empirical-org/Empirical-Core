@@ -1,5 +1,5 @@
 import React from 'react';
-import { Snackbar, defaultSnackbarTimeout, } from 'quill-component-library/dist/componentLibrary'
+import { Snackbar, defaultSnackbarTimeout, } from '../../../../Shared/index'
 import LoadingSpinner from '../../shared/loading_indicator.jsx';
 import _ from 'underscore';
 import { requestGet, requestPost } from '../../../../../modules/request';
