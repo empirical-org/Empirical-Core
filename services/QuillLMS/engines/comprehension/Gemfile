@@ -17,5 +17,4 @@ group :test do
   gem 'rails-controller-testing'
   gem 'shoulda'
   gem 'shoulda-matchers', '~> 2.0'
-  gem 'rspec-rails', '~> 3.7.2'
 end
