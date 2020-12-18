@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { ResumeOrBeginButton } from 'quill-component-library/dist/componentLibrary'
+import { ResumeOrBeginButton } from '../../../Shared/index'
 
 export default class Landing extends React.Component {
 

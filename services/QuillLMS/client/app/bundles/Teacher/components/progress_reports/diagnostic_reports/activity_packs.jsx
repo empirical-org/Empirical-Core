@@ -1,6 +1,6 @@
 import React from 'react';
 import request from 'request';
-import { Spinner } from 'quill-component-library/dist/componentLibrary';
+import { Spinner } from '../../../../Shared/index';
 
 import Units from '../../assignment_flow/manage_units/activities_units.jsx';
 import EmptyProgressReport from '../../shared/EmptyProgressReport.jsx';

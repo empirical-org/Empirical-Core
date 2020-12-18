@@ -42,14 +42,12 @@ lambdas/rematching/node_modules/**
 lambdas/rematching_api/node_modules/**
 packages/apply-feature/node_modules/**
 packages/quill-cdn/node_modules/**
-packages/quill-component-library/node_modules/**
 packages/quill-marking-logic/node_modules/**
 packages/quill-spellchecker/node_modules/**
 lambdas/rematching/dist/**
 lambdas/rematching_api/dist/**
 packages/apply-feature/dist/**
 packages/quill-cdn/dist/**
-packages/quill-component-library/dist/**
 packages/quill-marking-logic/dist/**
 packages/quill-spellchecker/dist/**
 *.d.ts

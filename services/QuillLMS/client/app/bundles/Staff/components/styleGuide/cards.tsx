@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Card } from 'quill-component-library/dist/componentLibrary'
+import { Card } from '../../../Shared/index'
 
 const Cards = () => {
   return (<div id="cards">
