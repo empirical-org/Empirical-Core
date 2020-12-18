@@ -199,7 +199,7 @@ func buildBatchFeedbackHistories(request_object APIRequest, feedbacks map[int]In
 	feedback_histories := []FeedbackHistory{}
 	used_key := identifyUsedFeedbackIndex(feedbacks)
 	for key, feedback := range feedbacks {
-		if !feedback.Error {
+		if !feedback.Error || key == automl_index {
 			feedback_histories = append(feedback_histories, buildFeedbackHistory(request_object, feedback, used_key == key, time_received))
 		}
 	}
