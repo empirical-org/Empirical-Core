@@ -31,6 +31,7 @@ module Comprehension
         highlight: plagiarism_check.highlights
       }
     end
+      
 
     private def get_feedback_from_previous_feedback(prev, prompt)
       previous_plagiarism = prev.select {|f| f["feedback_type"] == PLAGIARISM_TYPE && f["optimal"] == false }
