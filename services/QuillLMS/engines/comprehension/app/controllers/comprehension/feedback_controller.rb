@@ -1,5 +1,6 @@
 module Comprehension
   require 'json'
+  require './lib/plagiarism_check'
 
   class FeedbackController < ApplicationController
     skip_before_action :verify_authenticity_token
