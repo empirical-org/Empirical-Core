@@ -24,7 +24,12 @@ export default class extends React.Component {
       url: `${process.env.DEFAULT_URL}/${this.props.sourceUrl}`
     }, (e, r, body) => {
       const data = JSON.parse(body)
-      that.setState({loading: false, errors: body.errors, reportData: data.concepts, studentName: data.student.name});
+      that.setState({ 
+        loading: false, 
+        errors: body.errors, 
+        reportData: data.concepts, 
+        studentName: data.student.name
+      });
     });
   }
 
@@ -81,10 +86,11 @@ export default class extends React.Component {
             <p>You can print this report by downloading a PDF file or export this data by downloading a CSV file.</p>
           </div>
           <div className='csv-and-how-we-grade'>
-            <CSVDownloadForProgressReport data={this.state.reportData} />
+            <CSVDownloadForProgressReport data={this.state.reportData} studentName={this.state.studentName} />
             <a className='how-we-grade' href="https://support.quill.org/activities-implementation/how-does-grading-work">How We Grade<i className="fas fa-long-arrow-alt-right" /></a>
           </div>
         </div>
+        <div className='student-name'>{this.state.studentName}</div>
         <div key={`concepts-concepts-progress-report-length-${this.state.reportData.length}`}>
           <ReactTable
             className='progress-report has-green-arrow'
