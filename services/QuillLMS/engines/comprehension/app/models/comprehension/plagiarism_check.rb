@@ -99,10 +99,10 @@ module Comprehension
     end
 
     private def get_highlight(text, cleaned_text)
-      i = cleaned_text.index(matched_slice)
-      j = i + matched_slice.size - 1
+      start_index = cleaned_text.index(matched_slice)
+      end_index = start_index + matched_slice.size - 1
       char_positions = text.enum_for(:scan, /[A-Za-z0-9\s]/).map { |c| Regexp.last_match.begin(0) }
-      return text[char_positions[i]..char_positions[j]]
+      return text[char_positions[start_index]..char_positions[end_index]]
     end
   end
 end
