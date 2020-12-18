@@ -53,18 +53,21 @@ export default class PromptStep extends React.Component<PromptStepProps, PromptS
 
   unsubmittableResponses = () => {
     const { submittedResponses, prompt } = this.props
-    const { conjunction, text } = prompt
-    const response = `${text} ${conjunction}`
-    return submittedResponses.map(r => r.entry).concat(response)
+    const { text } = prompt;
+    return submittedResponses.map(r => r.entry).concat(text)
   }
 
   stripHtml = (html: string) => html.replace(/<p>|<\/p>|<u>|<\/u>|<b>|<\/b>/g, '').replace(/&nbsp;/g, ' ')
 
   formattedPrompt = () => {
     const { prompt, } = this.props
-    const { conjunction, text } = prompt
-    return `<p>${text} <u>${conjunction}</u>&nbsp;</p>`
+    const { text } = prompt
+    return `<p>${this.allButLastWord(text)} <u>${this.lastWord(text)}</u>&nbsp;</p>`
   }
+
+  allButLastWord = (str: string) => str.substring(0, str.lastIndexOf(' '))
+
+  lastWord = (str: string) => str.substring(str.lastIndexOf(' ') + 1)
 
   textWithoutStem = (text: string) => {
     const formattedPrompt = this.formattedPrompt().replace(/<p>|<\/p>|<br>/g, '')
@@ -72,16 +75,17 @@ export default class PromptStep extends React.Component<PromptStepProps, PromptS
     return text.replace(regex, '')
   }
 
-  boldMisspellings = (str: string) => {
+  formatStudentResponse = (str: string) => {
     const lastSubmittedResponse = this.lastSubmittedResponse()
     if (!(lastSubmittedResponse && lastSubmittedResponse.highlight && lastSubmittedResponse.highlight.filter(hl => hl.type === RESPONSE).length)) {
       return str
     }
-    const misspelledWords = lastSubmittedResponse.highlight.filter(hl => hl.type === RESPONSE).map(hl => hl.text)
+    let wordsToFormat = lastSubmittedResponse.highlight.filter(hl => hl.type === RESPONSE).map(hl => hl.text)
+    wordsToFormat = wordsToFormat.length === 1 ? wordsToFormat[0] : wordsToFormat
     const wordArray = this.stripHtml(str).split(' ')
     const newWordArray = wordArray.map(word => {
       const punctuationStrippedWord = word.replace(/[^A-Za-z0-9\s]/g, '')
-      if (misspelledWords.includes(punctuationStrippedWord)) {
+      if (wordsToFormat.includes(punctuationStrippedWord)) {
         return `<b>${word}</b>`
       } else {
         return word
@@ -249,8 +253,7 @@ export default class PromptStep extends React.Component<PromptStepProps, PromptS
     const regex = new RegExp(`^${formattedPrompt}`)
     const textWithoutStem = text.replace(regex, '')
     const spaceAtEnd = text.match(/\s$/m) ? '&nbsp;' : ''
-    const htmlWithBolding = active ? `<p>${formattedPrompt}${this.boldMisspellings(textWithoutStem)}${spaceAtEnd}</p>` : `<p>${textWithoutStem}</p>`
-
+    const htmlWithBolding = active ? `<p>${formattedPrompt}${this.formatStudentResponse(textWithoutStem)}${spaceAtEnd}</p>` : `<p>${textWithoutStem}</p>`
     return (<EditorContainer
       className={className}
       disabled={disabled}
@@ -266,10 +269,10 @@ export default class PromptStep extends React.Component<PromptStepProps, PromptS
 
   renderActiveContent = () => {
     const { active, prompt, stepNumberComponent, submittedResponses, } = this.props
-    const { conjunction, text } = prompt
+    const { text } = prompt
 
     if (!active) {
-      const promptTextComponent = <p className="prompt-text">{text} <span>{conjunction}</span></p>
+      const promptTextComponent = <p className="prompt-text">{this.allButLastWord(text)} <span>{this.lastWord(text)}</span></p>
       const lastSubmittedResponse = this.lastSubmittedResponse()
       const outOfAttempts = submittedResponses.length === prompt.max_attempts
       const editor = lastSubmittedResponse.optimal || outOfAttempts ? this.renderEditorContainer() : null

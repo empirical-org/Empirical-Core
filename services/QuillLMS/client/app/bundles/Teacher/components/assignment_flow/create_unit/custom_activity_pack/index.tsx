@@ -1,8 +1,8 @@
 import * as React from 'react';
 import queryString from 'query-string';
 
-import { Activity } from './interfaces'
-import { calculateNumberOfPages, activityClassificationGroupings, filters, DEFAULT } from './shared'
+import { Activity, ActivityCategoryEditor } from './interfaces'
+import { calculateNumberOfPages, activityClassificationGroupings, filters, filterByFlag, DEFAULT } from './shared'
 import ActivityTableContainer from './activity_table_container'
 import FilterColumn from './filter_column'
 import Header from './header'
@@ -17,11 +17,14 @@ const DEBOUNCE_LENGTH = 500
 
 interface CustomActivityPackProps {
   passedActivities?: Activity[],
+  isStaff?: boolean
   clickContinue: (event: any) => void,
   selectedActivities: Activity[],
   setSelectedActivities: (selectedActivities: Activity[]) => void,
   toggleActivitySelection: (activity: Activity) => void,
-  showLessonsBanner?: boolean
+  activityCategoryEditor?: ActivityCategoryEditor,
+  showLessonsBanner?: boolean,
+  saveButtonEnabled?: boolean
 }
 
 const CustomActivityPack = ({
@@ -30,7 +33,10 @@ const CustomActivityPack = ({
   selectedActivities,
   setSelectedActivities,
   toggleActivitySelection,
+  isStaff,
+  activityCategoryEditor,
   showLessonsBanner,
+  saveButtonEnabled
 }: CustomActivityPackProps) => {
   const url = queryString.parseUrl(window.location.href, { arrayFormat: 'bracket', parseNumbers: true }).query;
 
@@ -46,6 +52,7 @@ const CustomActivityPack = ({
   const [activityCategoryFilters, setActivityCategoryFilters] = React.useState(url.activityCategoryFilters || [])
   const [contentPartnerFilters, setContentPartnerFilters] = React.useState(url.contentPartnerFilters || [])
   const [topicFilters, setTopicFilters] = React.useState(url.topicFilters || [])
+  const [flagFilters, setFlagFilters] = React.useState(url.flagFilters || isStaff ? ['production'] : [])
   const [savedActivityFilters, setSavedActivityFilters] = React.useState([])
   const [showMobileFilterMenu, setShowMobileFilterMenu] = React.useState(false)
   const [showMobileSortMenu, setShowMobileSortMenu] = React.useState(false)
@@ -62,11 +69,19 @@ const CustomActivityPack = ({
   const debouncedContentPartnerFilters = useDebounce(contentPartnerFilters, DEBOUNCE_LENGTH);
   const debouncedTopicFilters = useDebounce(topicFilters, DEBOUNCE_LENGTH);
   const debouncedSavedActivityFilters = useDebounce(savedActivityFilters, DEBOUNCE_LENGTH);
+  const debouncedFlagFilters = useDebounce(flagFilters, DEBOUNCE_LENGTH);
 
   React.useEffect(() => {
-    getActivities();
+    if (loading) { getActivities() }
     getSavedActivities();
   }, []);
+
+  React.useEffect(() => {
+    if (passedActivities) {
+      setLoading(!passedActivities.length)
+      setActivities(passedActivities)
+    }
+  }, [passedActivities])
 
   React.useEffect(() => {
     if (showSnackbar) {
@@ -81,7 +96,7 @@ const CustomActivityPack = ({
     }
   }, [activities])
 
-  React.useEffect(handleFilterChange, [debouncedSearch, debouncedActivityClassificationFilters, debouncedCCSSGradeLevelFilters, debouncedActivityCategoryFilters, debouncedContentPartnerFilters, debouncedReadabilityGradeLevelFilters, debouncedTopicFilters, debouncedSavedActivityFilters])
+  React.useEffect(handleFilterChange, [debouncedSearch, debouncedActivityClassificationFilters, debouncedCCSSGradeLevelFilters, debouncedActivityCategoryFilters, debouncedContentPartnerFilters, debouncedReadabilityGradeLevelFilters, debouncedTopicFilters, debouncedSavedActivityFilters, debouncedFlagFilters])
 
   function handleFilterChange() {
     updateQueryString()
@@ -97,6 +112,7 @@ const CustomActivityPack = ({
     number += contentPartnerFilters.length
     number += topicFilters.length
     number += savedActivityFilters.length ? 1 : 0
+    number += flagFilters.length
 
     activityClassificationGroupings.forEach((g) => {
       if (g.keys.every(key => activityClassificationFilters.includes(key))) {
@@ -189,6 +205,11 @@ const CustomActivityPack = ({
     setTopicFilters(newTopicFilters)
   }
 
+  function handleFlagFilterChange(newFlagFilters: string[]) {
+    setFilterHistory(prevFilterHistory => prevFilterHistory.concat([{ function: setFlagFilters, argument: topicFilters }]))
+    setFlagFilters(newFlagFilters)
+  }
+
   function handleSavedActivityFilterChange() {
     setFilterHistory(prevFilterHistory => prevFilterHistory.concat([{ function: setSavedActivityFilters, argument: savedActivityFilters }]))
     setSavedActivityFilters(savedActivityFilters.length ? [] : savedActivityIds)
@@ -204,6 +225,7 @@ const CustomActivityPack = ({
     setContentPartnerFilters([])
     setTopicFilters([])
     setSavedActivityFilters([])
+    setFlagFilters([])
   }
 
   function filterActivities(ignoredKey=null) {
@@ -268,8 +290,14 @@ const CustomActivityPack = ({
     handleTopicFilterChange,
     savedActivityFilters,
     handleSavedActivityFilterChange,
-    savedActivityIds
+    savedActivityIds,
+    handleFlagFilterChange,
+    flagFilters,
+    isStaff,
+    activityCategoryEditor
   }
+
+  const selectedActivitiesFilteredByFlag =  isStaff && !flagFilters.length ? [] : selectedActivities.filter(a => filterByFlag(flagFilters, a))
 
   return (<div className="custom-activity-pack-page">
     <Snackbar text={snackbarText} visible={showSnackbar} />
@@ -277,7 +305,14 @@ const CustomActivityPack = ({
     <MobileSortMenu setShowMobileSortMenu={setShowMobileSortMenu} setSort={setSort} showMobileSortMenu={showMobileSortMenu} />
     <FilterColumn {...filterColumnProps} />
     <section className="main-content-container">
-      <Header handleClickContinue={clickContinue} selectedActivities={selectedActivities} setSelectedActivities={setSelectedActivities} toggleActivitySelection={toggleActivitySelection} />
+      <Header
+        handleClickContinue={clickContinue}
+        isStaff={isStaff}
+        saveButtonEnabled={saveButtonEnabled}
+        selectedActivities={selectedActivitiesFilteredByFlag}
+        setSelectedActivities={setSelectedActivities}
+        toggleActivitySelection={toggleActivitySelection}
+      />
       <ActivityTableContainer
         currentPage={currentPage}
         filteredActivities={filteredActivities}

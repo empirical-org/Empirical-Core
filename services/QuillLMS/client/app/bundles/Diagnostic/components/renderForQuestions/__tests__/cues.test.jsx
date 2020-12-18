@@ -1,7 +1,7 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import { Cues } from '../cues.tsx';
-import { Cue, CueExplanation } from 'quill-component-library/dist/componentLibrary';
+import { Cue, CueExplanation } from '../../../../Shared/index';
 
 let mockProps = {
     customText: 'test text',

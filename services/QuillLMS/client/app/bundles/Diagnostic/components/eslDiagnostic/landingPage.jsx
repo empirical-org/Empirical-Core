@@ -1,5 +1,5 @@
 import React from 'react';
-import { ResumeOrBeginButton } from 'quill-component-library/dist/componentLibrary';
+import { ResumeOrBeginButton } from '../../../Shared/index';
 import { ENGLISH, rightToLeftLanguages } from '../../modules/translation/languagePageInfo';
 
 export class LandingPage extends React.Component {

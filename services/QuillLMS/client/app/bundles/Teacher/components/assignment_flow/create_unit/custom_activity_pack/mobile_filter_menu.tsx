@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { Activity } from './interfaces'
+import { Activity, ActivityCategoryEditor } from './interfaces'
 import FilterColumn from './filter_column'
 
 const closeIconSrc = `${process.env.CDN_URL}/images/icons/close.svg`
@@ -27,7 +27,11 @@ interface MobileFilterMenuProps {
   handleTopicFilterChange: (topicFilters: number[]) => void,
   savedActivityFilters: number[],
   handleSavedActivityFilterChange: () => void,
-  savedActivityIds: number[]
+  savedActivityIds: number[],
+  flagFilters: string[],
+  handleFlagFilterChange: () => void,
+  isStaff?: boolean,
+  activityCategoryEditor?: ActivityCategoryEditor
 }
 
 const MobileFilterMenu = ({
@@ -52,11 +56,43 @@ const MobileFilterMenu = ({
   setShowMobileFilterMenu,
   savedActivityFilters,
   handleSavedActivityFilterChange,
-  savedActivityIds
+  savedActivityIds,
+  isStaff,
+  flagFilters,
+  handleFlagFilterChange,
+  activityCategoryEditor
 }: MobileFilterMenuProps) => {
   if (!showMobileFilterMenu) { return <span /> }
 
   function closeMobileFilterMenu() { setShowMobileFilterMenu(false) }
+
+  const filterColumnProps = {
+    activities,
+    activityCategoryFilters,
+    activityClassificationFilters,
+    calculateNumberOfFilters,
+    contentPartnerFilters,
+    filterActivities,
+    filteredActivities,
+    ccssGradeLevelFilters,
+    handleActivityCategoryFilterChange,
+    handleActivityClassificationFilterChange,
+    handleContentPartnerFilterChange,
+    handleCCSSGradeLevelFilterChange,
+    resetAllFilters,
+    readabilityGradeLevelFilters,
+    handleReadabilityGradeLevelFilterChange,
+    topicFilters,
+    handleTopicFilterChange,
+    savedActivityFilters,
+    handleSavedActivityFilterChange,
+    savedActivityIds,
+    handleFlagFilterChange,
+    flagFilters,
+    isStaff,
+    activityCategoryEditor
+  }
+
   return (<section className="mobile-filter-menu">
     <div className="top-section">
       <button className="interactive-wrapper focus-on-light" onClick={closeMobileFilterMenu} type="button">
@@ -65,26 +101,7 @@ const MobileFilterMenu = ({
       </button>
     </div>
     <FilterColumn
-      activities={activities}
-      activityCategoryFilters={activityCategoryFilters}
-      activityClassificationFilters={activityClassificationFilters}
-      calculateNumberOfFilters={calculateNumberOfFilters}
-      ccssGradeLevelFilters={ccssGradeLevelFilters}
-      contentPartnerFilters={contentPartnerFilters}
-      filterActivities={filterActivities}
-      filteredActivities={filteredActivities}
-      handleActivityCategoryFilterChange={handleActivityCategoryFilterChange}
-      handleActivityClassificationFilterChange={handleActivityClassificationFilterChange}
-      handleCCSSGradeLevelFilterChange={handleCCSSGradeLevelFilterChange}
-      handleContentPartnerFilterChange={handleContentPartnerFilterChange}
-      handleReadabilityGradeLevelFilterChange={handleReadabilityGradeLevelFilterChange}
-      handleSavedActivityFilterChange={handleSavedActivityFilterChange}
-      handleTopicFilterChange={handleTopicFilterChange}
-      readabilityGradeLevelFilters={readabilityGradeLevelFilters}
-      resetAllFilters={resetAllFilters}
-      savedActivityFilters={savedActivityFilters}
-      savedActivityIds={savedActivityIds}
-      topicFilters={topicFilters}
+      {...filterColumnProps}
     />
     <button className="quill-button primary contained medium focus-on-light" onClick={closeMobileFilterMenu} type="button">
       Apply

@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { Snackbar, defaultSnackbarTimeout } from 'quill-component-library/dist/componentLibrary'
+import { Snackbar, defaultSnackbarTimeout } from '../../../Shared/index'
 
 class Snackbars extends React.Component {
   constructor(props) {

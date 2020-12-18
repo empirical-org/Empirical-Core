@@ -1,7 +1,7 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 
-import { Error } from 'quill-component-library/dist/componentLibrary';
+import { Error } from '../../../../Shared/index';
 
 describe('Error component', () => {
   const error = 'You did something wrong.'

@@ -1,7 +1,7 @@
 import * as React from 'react'
 import request from 'request'
 import getAuthToken from '../../../components/modules/get_auth_token'
-import { Card } from 'quill-component-library/dist/componentLibrary'
+import { Card } from '../../../../Shared/index'
 
 import AssignActivityPackBanner from '../assignActivityPackBanner'
 

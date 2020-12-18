@@ -205,4 +205,21 @@ describe Classroom, type: :model do
     end
   end
 
+  describe '#units_json' do
+    let(:classroom) { create(:classroom) }
+    let(:unit1) { create(:unit) }
+
+    it 'should find visible classroom_units' do
+      classroom_unit_visible = create(:classroom_unit, classroom: classroom, unit: unit1, visible: true)
+      result = classroom.units_json
+      expect(result.length).to eq(1)
+    end
+
+    it 'should not find hidden classroom_units' do
+      classroom_unit_hidden = create(:classroom_unit, classroom: classroom, unit: unit1, visible: false)
+      result = classroom.units_json
+      expect(result.length).to eq(0)
+    end
+  end
+
 end
