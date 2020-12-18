@@ -1,6 +1,9 @@
 .student-slide-wrapper {
   .prompt {
     line-height: 1.53;
+    div {
+      display: inline-block;
+    }
   }
   .sentence-fragments {
     line-height: 1.27;

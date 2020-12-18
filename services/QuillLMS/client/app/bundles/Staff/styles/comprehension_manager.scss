@@ -205,7 +205,7 @@
         justify-content: flex-start;
         align-items: center;
         margin-top: 20px;
-      }   
+      }
       .submit-button-container {
         display: flex;
         justify-content: flex-end;
@@ -227,7 +227,7 @@
         border-radius: 6px;
         margin-top: 20px;
       }
-      .title-input, .course-input, .flag-input, .reading-level-input, 
+      .title-input, .course-input, .flag-input, .reading-level-input,
       .reading-score-input, .because-input, .but-input {
         margin-top: 20px;
         max-width: 650px;
@@ -262,6 +262,14 @@
           }
         }
       }
+      .prompt-section {
+        .plagiarism-section {
+          margin-left: 10px;
+          .primary-feedback-input, .secondary-feedback-input {
+            margin-top: 15px;
+          }
+        }
+      }
     }
     .close-button-container {
       display: flex;
@@ -277,6 +285,7 @@
     .submit-button-container {
       display: flex;
       justify-content: flex-end;
+      margin-top: 20px;
       #activity-submit-button {
         margin-bottom: 20px;
       }

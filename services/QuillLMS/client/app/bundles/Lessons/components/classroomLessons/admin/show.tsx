@@ -11,7 +11,7 @@ import {
 } from '../../../actions/classroomLesson'
 import { createNewAdminEdition } from '../../../actions/customize'
 import EditLessonDetails from './editLessonDetails'
-import { SortableList } from 'quill-component-library/dist/componentLibrary';
+import { SortableList } from '../../../../Shared/index';
 
 class ShowClassroomLesson extends Component<any, any> {
   constructor(props){

@@ -25,7 +25,7 @@ But how can democracies have representative governments unless all or most of th
 
  Governments should make voting compulsory because otherwise not everyone will vote.",
             "prompt_id": 1,
-            "text": "Governments should make voting compulsory",
+            "text": "Governments should make voting compulsory because",
           },
           Object {
             "conjunction": "but",
@@ -34,7 +34,7 @@ But how can democracies have representative governments unless all or most of th
 
  Governments should make voting compulsory, but with exceptions for people who have good reasons for not being able to vote.",
             "prompt_id": 2,
-            "text": "Governments should make voting compulsory,",
+            "text": "Governments should make voting compulsory, but",
           },
           Object {
             "conjunction": "so",
@@ -43,7 +43,7 @@ But how can democracies have representative governments unless all or most of th
 
  Governments should make voting compulsory so that the elected government represents the majority of the population.",
             "prompt_id": 3,
-            "text": "Governments should make voting compulsory,",
+            "text": "Governments should make voting compulsory so",
           },
         ],
         "title": "Should Voting be Required?",
@@ -194,7 +194,7 @@ But how can democracies have representative governments unless all or most of th
 
  Governments should make voting compulsory because otherwise not everyone will vote.",
                 "prompt_id": 1,
-                "text": "Governments should make voting compulsory",
+                "text": "Governments should make voting compulsory because",
               }
             }
             stepNumber={2}
@@ -258,7 +258,7 @@ But how can democracies have representative governments unless all or most of th
 
  Governments should make voting compulsory, but with exceptions for people who have good reasons for not being able to vote.",
                 "prompt_id": 2,
-                "text": "Governments should make voting compulsory,",
+                "text": "Governments should make voting compulsory, but",
               }
             }
             stepNumber={3}
@@ -322,7 +322,7 @@ But how can democracies have representative governments unless all or most of th
 
  Governments should make voting compulsory so that the elected government represents the majority of the population.",
                 "prompt_id": 3,
-                "text": "Governments should make voting compulsory,",
+                "text": "Governments should make voting compulsory so",
               }
             }
             stepNumber={4}
@@ -359,7 +359,7 @@ But how can democracies have representative governments unless all or most of th
                     <p
                       className="prompt-text"
                     >
-                      Governments should make voting compulsory,
+                      Governments should make voting compulsory
                        
                       <span>
                         so

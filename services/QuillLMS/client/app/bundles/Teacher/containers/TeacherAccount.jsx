@@ -1,6 +1,6 @@
 import React from 'react';
 import request from 'request';
-import { Snackbar, defaultSnackbarTimeout } from 'quill-component-library/dist/componentLibrary'
+import { Snackbar, defaultSnackbarTimeout } from '../../Shared/index'
 
 import TeacherGeneralAccountInfo from '../components/accounts/edit/teacher_general'
 import TeacherPasswordAccountInfo from '../components/accounts/edit/update_password'

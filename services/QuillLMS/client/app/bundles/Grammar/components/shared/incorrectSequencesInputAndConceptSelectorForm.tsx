@@ -1,6 +1,6 @@
 import * as React from 'react';
 import * as _ from 'underscore';
-import { isValidRegex } from 'quill-component-library/dist/componentLibrary'
+import { isValidRegex } from '../../../Shared/index'
 import * as request from 'request'
 import { EditorState, ContentState } from 'draft-js'
 

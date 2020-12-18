@@ -39,6 +39,10 @@ export default class extends React.Component {
     })
   }
 
+  formatFilename(studentName) {
+    return `concept_results_for_${studentName}`
+  }
+
   cleanData(data) {
     let finalValue
     if (!Array.isArray(data[0])) {
@@ -108,10 +112,26 @@ export default class extends React.Component {
             </span>
 
             <div className='button-wrapper'>
-              <button className="print-button" onClick={window.print}><img alt="print" className="print-img" src="https://assets.quill.org/images/icons/download-report-premium.svg" />PDF</button>
-              <CSVLink data={this.state.data} target="_blank">
-                <button><img alt="csv" src="https://assets.quill.org/images/icons/download-report-premium-csv.svg" />CSV</button>
+
+              <button className="print-button" onClick={window.print}>
+                <img 
+                  alt="print" 
+                  className="print-img" 
+                  src="https://assets.quill.org/images/icons/download-report-premium.svg" 
+                />PDF
+              </button>
+
+              <CSVLink 
+                data={this.state.data} 
+                filename={this.formatFilename(this.props.studentName)}
+                target="_blank"
+              >
+                <button>
+                  <img alt="csv" src="https://assets.quill.org/images/icons/download-report-premium-csv.svg" />
+                  CSV
+                </button>
               </CSVLink>
+
             </div>
           </div>
         )

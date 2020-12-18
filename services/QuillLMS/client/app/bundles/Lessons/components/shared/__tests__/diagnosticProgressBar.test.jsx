@@ -1,7 +1,7 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 
-import { ProgressBar } from 'quill-component-library/dist/componentLibrary';
+import { ProgressBar } from '../../../../Shared/index';
 
 describe('ProgressBar component', () => {
   const wrapper = shallow(<ProgressBar percent={15} /> )

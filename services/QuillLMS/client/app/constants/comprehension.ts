@@ -70,6 +70,8 @@ export const BUT = 'but';
 export const SO = 'so';
 export const promptStems = [BECAUSE, BUT, SO];
 export const DEFAULT_MAX_ATTEMPTS = 5;
+export const FIRST = 'first';
+export const SECOND = 'second';
 
 export const blankActivity = {
   title: '',
@@ -114,8 +116,17 @@ export const PARENT_ACTIVITY_ID = 'Parent activity ID'
 export const MAX_ATTEMPTS_FEEDBACK = 'Max attempts feedback';
 export const PASSAGE = 'Passage';
 export const BECAUSE_STEM = 'Because stem';
+export const BECAUSE_PLAGIARISM_TEXT = 'Because plagiarism text';
+export const BECAUSE_PLAGIARISM_PRIMARY_FEEDBACK = 'Because primary feedback';
+export const BECAUSE_PLAGIARISM_SECONDARY_FEEDBACK = 'Because secondary feedback';
 export const BUT_STEM = 'But stem';
+export const BUT_PLAGIARISM_TEXT = 'But plagiarism text';
+export const BUT_PLAGIARISM_PRIMARY_FEEDBACK = 'But primary feedback';
+export const BUT_PLAGIARISM_SECONDARY_FEEDBACK = 'But secondary feedback';
 export const SO_STEM = 'So stem';
+export const SO_PLAGIARISM_TEXT = 'So plagiarism text';
+export const SO_PLAGIARISM_PRIMARY_FEEDBACK = 'So primary feedback';
+export const SO_PLAGIARISM_SECONDARY_FEEDBACK = 'So secondary feedback';
 
 export const activityFormKeys = [
   TITLE,
@@ -125,8 +136,17 @@ export const activityFormKeys = [
   MAX_ATTEMPTS_FEEDBACK,
   PASSAGE,
   BECAUSE_STEM,
+  BECAUSE_PLAGIARISM_TEXT,
+  BECAUSE_PLAGIARISM_PRIMARY_FEEDBACK,
+  BECAUSE_PLAGIARISM_SECONDARY_FEEDBACK,
   BUT_STEM,
-  SO_STEM
+  BUT_PLAGIARISM_TEXT,
+  BUT_PLAGIARISM_PRIMARY_FEEDBACK,
+  BUT_PLAGIARISM_SECONDARY_FEEDBACK,
+  SO_STEM,
+  SO_PLAGIARISM_TEXT,
+  SO_PLAGIARISM_PRIMARY_FEEDBACK,
+  SO_PLAGIARISM_SECONDARY_FEEDBACK,
 ];
 
 export const MINIMUM_READING_LEVEL = 4;
