@@ -1,6 +1,6 @@
 import * as React from 'react'
 
-import { Card, Snackbar, defaultSnackbarTimeout } from 'quill-component-library/dist/componentLibrary'
+import { Card, Snackbar, defaultSnackbarTimeout } from '../../../../Shared/index'
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 
 import AssignmentFlowNavigation from '../assignment_flow_navigation'

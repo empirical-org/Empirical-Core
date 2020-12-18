@@ -38,7 +38,7 @@ import { ClassroomLesson } from '../../../interfaces/classroomLessons';
 import * as CustomizeIntf from '../../../interfaces/customize';
 import { scriptTagStrip } from '../shared/scriptTagStrip';
 
-import { Spinner } from 'quill-component-library/dist/componentLibrary';
+import { Spinner } from '../../../../Shared/index';
 
 const arrowSrc = `${process.env.CDN_URL}/images/icons/chevron-arrow-filled.svg`
 

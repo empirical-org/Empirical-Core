@@ -1,6 +1,6 @@
 import React from 'react';
 import Pusher from 'pusher-js';
-import { Snackbar, defaultSnackbarTimeout } from 'quill-component-library/dist/componentLibrary'
+import { Snackbar, defaultSnackbarTimeout } from '../../Shared/index'
 
 import { requestGet } from '../../../modules/request';
 import CreateAClassModal from '../components/classrooms/create_a_class_modal.tsx'

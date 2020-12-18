@@ -3,7 +3,7 @@ import 'whatwg-fetch'
 import { shallow } from 'enzyme';
 import { loadData, resumePreviousSession, submitResponse, updateCurrentQuestion, nextQuestion } from '../../../actions.js';
 import { Lesson } from '../lesson.jsx';
-import { PlayTitleCard, Spinner, ProgressBar } from 'quill-component-library/dist/componentLibrary';
+import { PlayTitleCard, Spinner, ProgressBar } from '../../../../Shared/index';
 import { Register } from '../../../../Shared/index';
 import Finished from '../finished.jsx';
 import PlayLessonQuestion from '../question';

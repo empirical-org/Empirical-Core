@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { SortableList } from 'quill-component-library/dist/componentLibrary';
+import { SortableList } from '../../../../Shared/index';
 
 class Script extends React.Component<any, any> {
   constructor(props){

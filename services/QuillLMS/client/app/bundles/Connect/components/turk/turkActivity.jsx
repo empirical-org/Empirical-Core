@@ -8,7 +8,7 @@ import {
   CarouselAnimation,
   PlayTitleCard,
   ProgressBar
-} from 'quill-component-library/dist/componentLibrary';
+} from '../../../Shared/index';
 import { clearData, loadData, nextQuestion, submitResponse, updateCurrentQuestion } from '../../actions/turk.js';
 import diagnosticQuestions from './diagnosticQuestions.jsx';
 import PlaySentenceFragment from './sentenceFragment.jsx';
