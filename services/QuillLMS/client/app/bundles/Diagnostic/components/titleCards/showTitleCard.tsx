@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
 import {
   TitleCard
-} from 'quill-component-library/dist/componentLibrary'
+} from '../../../Shared/index'
 
 export interface ComponentProps {
   titleCards: any
