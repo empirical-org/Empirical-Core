@@ -48,8 +48,7 @@
       }, 30000)
 
       // In addition to loading Intercom, we're using "load_intercom?" as a proxy for
-      // "this is a teacher user".  While the `analytics.page()` call above was enough for
-      // our integration with Salesmachine, our integration with Vitally suppresses .page()
+      // "this is a teacher user". Our integration with Vitally suppresses .page()
       // calls.  This means that we need to track pageviews for Vitally with explicit
       // calls to `analytics.track()`.  But we only need to send this data to Vitally.
       analytics.track(`Vitally Pageview`, {}, {
