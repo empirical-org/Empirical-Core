@@ -527,6 +527,37 @@ module Teacher
     ReferrerUser.create(user_id: id, referral_code: name.downcase.gsub(/[^a-z ]/, '').gsub(' ', '-') + '-' + id.to_s)
   end
 
+  def number_of_assigned_students_per_activity_assigned
+    # ActiveRecord::Base.connection.execute("
+    #   SELECT SUM(assigned_students) FROM
+    #     (SELECT array_length(classroom_units.assigned_student_ids, 1) AS assigned_students, unit_activities.id FROM classroom_units
+    #         JOIN unit_activities ON classroom_units.unit_id = unit_activities.unit_id
+    #         JOIN classrooms ON classrooms.id = classroom_units.classroom_id
+    #         JOIN
+    #             classrooms_teachers ON classrooms.id = classrooms_teachers.classroom_id
+    #         JOIN
+    #             users ON classrooms_teachers.user_id = users.id
+    #         WHERE
+    #             users.id=#{id}
+    #     ) subquery
+    # ").to_a[0]["sum"]&.to_i
+    ActiveRecord::Base.connection.execute("
+      SELECT array_length(classroom_units.assigned_student_ids, 1) AS assigned_students, activities.id AS activity_id, unit_activities.created_at AS created_at
+        FROM classroom_units
+        JOIN unit_activities ON classroom_units.unit_id = unit_activities.unit_id
+        JOIN classrooms ON classrooms.id = classroom_units.classroom_id
+        JOIN
+            classrooms_teachers ON classrooms.id = classrooms_teachers.classroom_id
+        JOIN
+            users ON classrooms_teachers.user_id = users.id
+        JOIN
+            activities ON activities.id = unit_activities.activity_id
+        JOIN
+            activity_classifications ON activity_classifications.id = activities.activity_classification_id
+        WHERE
+            users.id=#{id}").to_a
+  end
+
   private
 
   def base_sql_for_teacher_classrooms(only_visible_classrooms=true)

@@ -12,11 +12,11 @@ class SerializeVitallySalesUser
     active_students_this_year = active_students_query(@user).where("activity_sessions.updated_at >= ?", school_year_start).count
     activities_finished = activities_finished_query(@user).count
     activities_finished_this_year = activities_finished_query(@user).where("activity_sessions.updated_at >= ?", school_year_start).count
-    activities_assigned = activities_assigned_query(@user).count
-    activities_assigned_this_year = activities_assigned_query(@user).where("unit_activities.created_at >= ?", school_year_start).count
-    diagnostics_assigned = activities_assigned_query(@user).joins(:activity).where('activities.activity_classification_id=4').count
-    diagnostics_assigned_this_year = activities_assigned_query(@user).joins(:activity).where('activities.activity_classification_id=4 and unit_activities.created_at >= ?', school_year_start).count
-    # diagnostics_finished = activities_finished_query(@user).joins(:activity).where('activities.activity_classification_id=4').count
+    activities_assigned = activities_assigned(@user)
+    activities_assigned_this_year = activities_assigned_this_year(@user, school_year_start)
+    diagnostics_assigned = diagnostics_assigned(@user)
+    diagnostics_assigned_this_year = diagnostics_assigned_this_year(@user, school_year_start)
+    # diagnostics_finished = activities_finished_query(@user).joins(:activities).where('activities.activity_classification_id=4').count
     # diagnostics_finished_this_year = activities_finished_query(@user).joins(:activity).where('activities.activity_classification_id=4 and unit_activities.created_at >= ?', school_year_start).count
     {
       accountId: @user.school.id.to_s,
@@ -47,22 +47,22 @@ class SerializeVitallySalesUser
         district: district,
         total_students: @user.students.count,
         active_students: active_students,
-        activites_assigned: activities_assigned,
+        activities_assigned: activities_assigned,
         completed_activities: activities_finished,
-        percent_completed_activities: activities_assigned > 0 ? activities_finished / activities_assigned : 'N/A',
+        percent_completed_activities: activities_assigned > 0 ? (activities_finished.to_f / activities_assigned).round(2) : 'N/A',
         completed_activities_per_student: activities_per_student(active_students, activities_finished),
         diagnostics_assigned: diagnostics_assigned,
         # diagnostics_finished: diagnostics_finished,
-        percent_completed_diagnostics: diagnostics_assigned > 0 ? diagnostics_finished / diagnostics_assigned : 'N/A',
+        # percent_completed_diagnostics: diagnostics_assigned > 0 ? diagnostics_finished / diagnostics_assigned : 'N/A',
         total_students_this_year: total_students_this_year(school_year_start),
         active_students_this_year: active_students_this_year,
         activities_assigned_this_year: activities_assigned_this_year,
         completed_activities_this_year: activities_finished_this_year,
         completed_activities_per_student_this_year: activities_per_student(active_students_this_year, activities_finished_this_year),
-        percent_completed_activities_this_year: activities_assigned_this_year > 0 ? activities_finished_this_year / activities_assigned_this_year : 'N/A',
+        percent_completed_activities_this_year: activities_assigned_this_year > 0 ? (activities_finished_this_year.to_f / activities_assigned_this_year).round(2) : 'N/A',
         diagnostics_assigned_this_year: diagnostics_assigned_this_year,
         # diagnostics_finished_this_year: diagnostics_finished_this_year,
-        percent_completed_diagnostics_this_year: diagnostics_assigned_this_year > 0 ? diagnostics_finished_this_year / diagnostics_assigned_this_year : 'N/A'
+        # percent_completed_diagnostics_this_year: diagnostics_assigned_this_year > 0 ? diagnostics_finished_this_year / diagnostics_assigned_this_year : 'N/A'
       }.merge(account_data_params)
     }
   end
@@ -125,8 +125,24 @@ class SerializeVitallySalesUser
       .where('classrooms_teachers.user_id = ?', user.id)
   end
 
+  private def activities_assigned(user)
+    activities_assigned_query(user).map { |h| h["assigned_students"].to_i }.sum || 0
+  end
+
+  private def diagnostics_assigned(user)
+    activities_assigned_query(user).select {|h| Activity.find(h["activity_id"]).is_diagnostic? }.map { |h| h["assigned_students"].to_i }.sum || 0
+  end
+
+  private def diagnostics_assigned_this_year(user, school_year_start)
+    activities_assigned_query(user).select {|h| Activity.find(h["activity_id"]).is_diagnostic? }.select {|h| Date.parse(h["created_at"]) >= school_year_start }.map { |h| h["assigned_students"].to_i }.sum || 0
+  end
+
+  private def activities_assigned_this_year(user, school_year_start)
+    activities_assigned_query(user).select {|h| Date.parse(h["created_at"]) >= school_year_start }.map { |h| h["assigned_students"].to_i }.sum || 0
+  end
+
   private def activities_assigned_query(user)
-    user.unit_activities
+    user.number_of_assigned_students_per_activity_assigned
   end
 
   private def activities_finished_query(user)

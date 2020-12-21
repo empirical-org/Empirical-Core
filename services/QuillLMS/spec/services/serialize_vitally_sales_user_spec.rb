@@ -167,17 +167,17 @@ describe 'SerializeVitallySalesUser' do
     classroom = create(:classroom)
     old_classroom = create(:classroom, created_at: Time.now - 1.year)
     unit = create(:unit, user_id: teacher.id)
-    binding.pry
     classroom_unit = create(:classroom_unit, classroom: classroom, unit: unit)
-    old_classroom_unit = create(:classroom_unit, classroom: old_classroom)
+    old_classroom_unit = create(:classroom_unit, classroom: old_classroom, created_at: Time.now - 1.year)
     student = create(:user, role: 'student')
     old_student = create(:user, role: 'student')
     create(:classrooms_teacher, user: teacher, classroom: classroom)
     create(:classrooms_teacher, user: teacher, classroom: old_classroom)
     create(:students_classrooms, student: student, classroom: classroom)
     create(:students_classrooms, student: old_student, classroom: old_classroom)
+    old_unit_activity = create(:unit_activity, unit: unit, created_at: Time.now - 1.year)
     unit_activity = create(:unit_activity, unit: unit)
-    binding.pry
+    diagnostic_unit_activity = create(:unit_activity, :diagnostic_unit_activity, unit: unit)
     create(:activity_session,
       classroom_unit: classroom_unit,
       activity: unit_activity.activity,
@@ -186,7 +186,7 @@ describe 'SerializeVitallySalesUser' do
     )
     create(:activity_session,
       classroom_unit: old_classroom_unit,
-      activity: unit_activity.activity,
+      activity: old_unit_activity.activity,
       user: old_student,
       state: 'finished',
       created_at: Time.now - 1.year,
@@ -198,7 +198,6 @@ describe 'SerializeVitallySalesUser' do
       user: student,
       state: 'started'
     )
-    binding.pry
     teacher_data = SerializeVitallySalesUser.new(teacher).data
 
     expect(teacher_data[:traits]).to include(
@@ -209,7 +208,12 @@ describe 'SerializeVitallySalesUser' do
       completed_activities_per_student: 1.0,
       completed_activities_this_year: 1,
       completed_activities_per_student_this_year: 1.0,
-      percent_completed_activities: 1.0,
+      activities_assigned: 3,
+      activities_assigned_this_year: 2,
+      diagnostics_assigned: 1,
+      diagnostics_assigned_this_year: 1,
+      percent_completed_activities: 0.67,
+      percent_completed_activities_this_year: 0.33,
     )
   end
 
