@@ -100,9 +100,6 @@ class SchoolsController < ApplicationController
         school_user = SchoolsUsers.find_or_initialize_by(
           user_id: current_user.id
         )
-        if school_user.update(school_id: school.id)
-          SyncSalesContactWorker.perform_async(current_user.id)
-        end
         find_or_create_checkbox('Add School', current_user)
         render json: {}
       }

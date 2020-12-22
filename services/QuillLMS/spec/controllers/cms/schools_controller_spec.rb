@@ -121,8 +121,7 @@ describe Cms::SchoolsController do
   end
 
   describe '#create' do
-    it 'should create the school with the given params and kick off sync sales account worker' do
-      expect(SyncSalesAccountWorker).to receive(:perform_async)
+    it 'should create the school with the given params' do
       post :create, school: {
           name: "test",
           city: "test city",
