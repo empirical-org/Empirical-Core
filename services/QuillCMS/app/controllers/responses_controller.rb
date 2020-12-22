@@ -115,7 +115,7 @@ class ResponsesController < ApplicationController
 
     responses = Response.where(question_uid: params[:question_uid], optimal: nil)
 
-    Response.where(question_uid: params[:question_uid], optimal: nil).find_each do |response|
+    Response.where(question_uid: params[:question_uid], optimal: nil).limit(MAX_MATCHES).find_each do |response|
       no_matching_used_sequences = used_sequences.none? { |us| Regexp.new(us).match(response.text)}
       next unless no_matching_used_sequences
 
