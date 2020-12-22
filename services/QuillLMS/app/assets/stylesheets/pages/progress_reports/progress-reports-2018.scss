@@ -21,6 +21,10 @@
     border-bottom: solid 1px rgba(0, 0, 0, 0.05);
   }
 
+  > .student-name {
+    display: none;
+  }
+
   .header-and-info {
     max-width: 603px;
     h1 {
@@ -33,7 +37,6 @@
       }
     }
   }
-
 
   .dropdown-container {
     margin-top: 21px;

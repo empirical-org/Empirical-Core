@@ -89,7 +89,6 @@ class Cms::SchoolsController < Cms::CmsController
   def create
     new_school = School.new(edit_or_add_school_params)
     if new_school.save
-      SyncSalesAccountWorker.perform_async(new_school.id)
       redirect_to cms_school_path(new_school.id)
     else
       render :new
