@@ -15,12 +15,12 @@ module Comprehension
     context '#optimal' do
       should 'be true when there is no plagiarism' do
         plagiarism_check = Comprehension::PlagiarismCheck.new("these are some response words", "this is the passage", nil)
-        assert_equal plagiarism_check.optimal?, true
+        assert plagiarism_check.optimal?
       end
 
       should 'be false when there is plagiarism' do
         plagiarism_check = Comprehension::PlagiarismCheck.new("these are some response words to plagiarize", "these are some response words to plagiarize", nil)
-        assert_equal plagiarism_check.optimal?, false
+        refute plagiarism_check.optimal?
       end
     end
 
