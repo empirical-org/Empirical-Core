@@ -46,7 +46,6 @@ describe Cms::UsersController do
     let!(:school) { create(:school) }
 
     it 'should create the school users and kick of the syn sales contact worker' do
-      expect(SyncSalesContactWorker).to receive(:perform_async)
       post :create_with_school, user: new_user.attributes.merge({password: "test123"}), school_id: school.id
       expect(SchoolsUsers.last.school_id).to eq school.id
       expect(response).to redirect_to cms_school_path(school.id)
@@ -77,7 +76,6 @@ describe Cms::UsersController do
     let(:new_user) { build(:user) }
 
     it 'should create the user with the given params' do
-      expect(SyncSalesContactWorker).to receive(:perform_async)
       post :create, user: new_user.attributes.merge({password: "test123"})
       expect(response).to redirect_to cms_users_path
       expect(User.last.email).to eq new_user.email

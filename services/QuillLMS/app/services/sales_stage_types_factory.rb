@@ -34,7 +34,7 @@ class SalesStageTypesFactory
     {
       name: 'In Conversation: Interested',
       order: '3.3',
-      description: 'After a successful call when the teacher wants to purchase Premium. Log call notes in SalesMachine.',
+      description: 'After a successful call when the teacher wants to purchase Premium. Log call notes in Vitally.',
       trigger: 'user'
     },
     {
@@ -52,7 +52,7 @@ class SalesStageTypesFactory
     {
       name: 'Invoice Sent',
       order: '5.2',
-      description: 'When we issue an invoice via Xero, Xero will automatically update SalesMachine with Invoice sent. Not in Quill.',
+      description: 'When we issue an invoice via Xero, Xero will automatically update Vitally with Invoice sent. Not in Quill.',
       trigger: 'auto'
     },
     {

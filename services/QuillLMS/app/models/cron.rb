@@ -20,7 +20,6 @@ class Cron
     QuillStaffAccountsChangedWorker.perform_async
     RenewExpiringRecurringSubscriptionsWorker.perform_async
     ResetDemoAccountWorker.perform_async
-    SyncSalesmachineWorker.perform_async
     SyncVitallyWorker.perform_async
   end
 
