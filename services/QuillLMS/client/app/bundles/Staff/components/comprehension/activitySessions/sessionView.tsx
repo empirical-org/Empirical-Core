@@ -3,6 +3,8 @@ import { Link } from 'react-router-dom';
 import { useQuery } from 'react-query';
 import * as moment from 'moment'
 
+import PromptTable from './promptTable';
+
 import { DataTable, Error, Spinner } from '../../../../Shared/index';
 import { fetchActivity } from '../../../utils/comprehension/activityAPIs';
 
@@ -58,9 +60,19 @@ const SessionsIndex = ({ match }) => {
     }
   }
 
+  function renderPromptTables(sessionData: any) {
+    if(!sessionData) {
+      return null;
+    }
+    const { prompts } = sessionData;
+    return prompts && prompts.map((prompt: any, i: number) => {
+      return <PromptTable key={i} prompt={prompt} />;
+    })
+  }
+
   function getTotalResponses(prompts: any[]) {
     let total = 0;
-    prompts && prompts.forEach(prompt => {
+    prompts && prompts.forEach((prompt: any) => {
       const { attempts } = prompt;
       total += Object.keys(attempts).length;
     });
@@ -103,6 +115,7 @@ const SessionsIndex = ({ match }) => {
         headers={dataTableFields}
         rows={sessionRows(sessionData)}
       />
+      {renderPromptTables(sessionData)}
     </div>
   );
 }

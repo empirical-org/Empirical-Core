@@ -550,6 +550,8 @@
       }
     }
     .activity-sessions-table {
+      overflow-y: auto;
+      overflow-x: hidden;
       .data-table-body {
         .data-table-row {
           span:nth-of-type(4), span:nth-of-type(5), span:nth-of-type(6), span:nth-of-type(7) {
@@ -559,12 +561,35 @@
       }
     }
     .session-overview-table {
-      padding-top: 30px;
+      margin: 30px 0px 30px 0px;
+      border: 1px solid lightgray;
+      .data-table-headers {
+        display: none;
+      }
       .data-table-body {
         .data-table-row {
           span:nth-of-type(1) {
             font-weight: 600;
           }
+        }
+      }
+    }
+    .prompt-table-container {
+      .attempts-section, .completed-section {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        max-width: 250px;
+        border: 1px solid lightgray;
+        padding: 10px 0px 10px 18px;
+        p {
+          margin-bottom: 0px;
+        }
+        .attempts-label, .completed-label {
+          font-weight: 600;
+        }
+        .attempts-value, .completed-value {
+          margin-right: 20px;
         }
       }
     }

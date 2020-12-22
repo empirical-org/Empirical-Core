@@ -7,6 +7,7 @@
       "start_date": "2020-12-18T16:28:51.552Z",
       "session_uid": "6c90e707-835c-44c4-80d4-4cab039ec5bc",
       "activity_id": "17",
+      "completed": true,
       "because_responses": 3,
       "but_responses": 4,
       "so_responses": 2
@@ -15,6 +16,7 @@
       "start_date": "2020-12-18T16:28:51.552Z",
       "session_uid": "6c90e707-835c-44c4-80d4-4cab039ec5bc",
       "activity_id": "17",
+      "completed": true,
       "because_responses": 2,
       "but_responses": 4,
       "so_responses": 1
@@ -23,6 +25,7 @@
       "start_date": "2020-12-18T16:28:51.552Z",
       "session_uid": "6c90e707-835c-44c4-80d4-4cab039ec5bc",
       "activity_id": "17",
+      "completed": false,
       "because_responses": 2,
       "but_responses": 3,
       "so_responses": 5
@@ -31,6 +34,7 @@
       "start_date": "2020-12-18T16:28:51.552Z",
       "session_uid": "6c90e707-835c-44c4-80d4-4cab039ec5bc",
       "activity_id": "17",
+      "completed": true,
       "because_responses": 2,
       "but_responses": 1,
       "so_responses": 1
@@ -39,6 +43,7 @@
       "start_date": "2020-12-18T16:28:51.552Z",
       "session_uid": "6c90e707-835c-44c4-80d4-4cab039ec5bc",
       "activity_id": "17",
+      "completed": false,
       "because_responses": 3,
       "but_responses": 2,
       "so_responses": 2
@@ -47,6 +52,7 @@
       "start_date": "2020-12-18T16:28:51.552Z",
       "session_uid": "6c90e707-835c-44c4-80d4-4cab039ec5bc",
       "activity_id": "17",
+      "completed": false,
       "because_responses": 3,
       "but_responses": 3,
       "so_responses": 3
@@ -55,6 +61,7 @@
       "start_date": "2020-12-18T16:28:51.552Z",
       "session_uid": "6c90e707-835c-44c4-80d4-4cab039ec5bc",
       "activity_id": "17",
+      "completed": true,
       "because_responses": 5,
       "but_responses": 5,
       "so_responses": 5
@@ -63,6 +70,7 @@
       "start_date": "2020-12-18T16:28:51.552Z",
       "session_uid": "6c90e707-835c-44c4-80d4-4cab039ec5bc",
       "activity_id": "17",
+      "completed": true,
       "because_responses": 1,
       "but_responses": 2,
       "so_responses": 3
@@ -71,6 +79,7 @@
       "start_date": "2020-12-18T16:28:51.552Z",
       "session_uid": "6c90e707-835c-44c4-80d4-4cab039ec5bc",
       "activity_id": "17",
+      "completed": false,
       "because_responses": 1,
       "but_responses": 1,
       "so_responses": 2
@@ -79,6 +88,7 @@
       "start_date": "2020-12-18T16:28:51.552Z",
       "session_uid": "6c90e707-835c-44c4-80d4-4cab039ec5bc",
       "activity_id": "17",
+      "completed": true,
       "because_responses": 3,
       "but_responses": 4,
       "so_responses": 2

@@ -44,7 +44,10 @@ export const buildBlankPrompt = (conjunction: string) => {
     conjunction: conjunction,
     text: '',
     max_attempts: DEFAULT_MAX_ATTEMPTS,
-    max_attempts_feedback: ''
+    max_attempts_feedback: '',
+    plagiarism_text: '',
+    plagiarism_first_feedback: '',
+    plagiarism_second_feedback: ''
   }
 }
 

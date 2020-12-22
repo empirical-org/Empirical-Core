@@ -6,6 +6,7 @@ import * as moment from 'moment'
 import { DataTable, Error, Spinner } from '../../../../Shared/index';
 import { fetchActivity } from '../../../utils/comprehension/activityAPIs';
 
+const quillCheckmark = 'https://assets.quill.org/images/icons/check-circle-small.svg';
 var sessionsData = require('./sessionsData.json');
 
 const SessionsIndex = ({ match }) => {
@@ -21,7 +22,7 @@ const SessionsIndex = ({ match }) => {
   function formatSessionsData(activitySessions: any[]) {
     return activitySessions.map(session => {
       const formattedSession = {...session};
-      const { start_date, session_uid, because_responses, but_responses, so_responses } = session;
+      const { start_date, session_uid, because_responses, but_responses, so_responses, completed } = session;
       const dateObject = new Date(start_date);
       const date = moment(dateObject).format("MM/DD/YY");
       const time = moment(dateObject).format("HH:MM A");
@@ -30,6 +31,7 @@ const SessionsIndex = ({ match }) => {
       formattedSession.time = time;
       formattedSession.total_responses = total;
       formattedSession.view_link = <Link to={`/activity-sessions/${activityId}/${session_uid}`}>View</Link>;
+      formattedSession.completed = completed ? <img alt="quill-circle-checkmark" src={quillCheckmark} /> : "";
       return formattedSession;
     });
   }
@@ -55,10 +57,11 @@ const SessionsIndex = ({ match }) => {
     { name: "Time", attribute:"time", width: "100px" },
     { name: "Session ID", attribute:"session_uid", width: "350px" },
     { name: "Total Responses", attribute:"total_responses", width: "150px" },
-    { name: "Because", attribute:"because_responses", width: "75px" },
-    { name: "But", attribute:"but_responses", width: "75px" },
-    { name: "So", attribute:"so_responses", width: "75px" },
-    { name: "View", attribute:"view_link", width: "150px" }
+    { name: "Because", attribute:"because_responses", width: "50px" },
+    { name: "But", attribute:"but_responses", width: "50px" },
+    { name: "So", attribute:"so_responses", width: "50px" },
+    { name: "Completed?", attribute: "completed", width: "75px"},
+    { name: "View", attribute:"view_link", width: "100px" }
   ];
 
   const { activity } = data;

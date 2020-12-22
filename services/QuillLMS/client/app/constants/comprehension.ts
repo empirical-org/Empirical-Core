@@ -73,6 +73,12 @@ export const DEFAULT_MAX_ATTEMPTS = 5;
 export const FIRST = 'first';
 export const SECOND = 'second';
 
+export const PROMPT_SESSION_LABELS = {
+  [BECAUSE] : 'Because Prompt',
+  [BUT] : 'But Prompt',
+  [SO] : 'Because Prompt',
+}
+
 export const blankActivity = {
   title: '',
   // flag:'',
@@ -84,19 +90,28 @@ export const blankActivity = {
       conjunction: 'because',
       text: '',
       max_attempts: 5,
-      max_attempts_feedback: 'try again.'
+      max_attempts_feedback: 'try again.',
+      plagiarism_text: '',
+      plagiarism_first_feedback: '',
+      plagiarism_second_feedback: ''
     },
     {
       conjunction: 'but',
       text: '',
       max_attempts: 5,
-      max_attempts_feedback: 'try again.'
+      max_attempts_feedback: 'try again.',
+      plagiarism_text: '',
+      plagiarism_first_feedback: '',
+      plagiarism_second_feedback: ''
     },
     {
       conjunction: 'so',
       text: '',
       max_attempts: 5,
-      max_attempts_feedback: 'try again.'
+      max_attempts_feedback: 'try again.',
+      plagiarism_text: '',
+      plagiarism_first_feedback: '',
+      plagiarism_second_feedback: ''
     }
   ]
 }
