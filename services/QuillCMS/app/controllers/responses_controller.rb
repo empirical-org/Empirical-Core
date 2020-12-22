@@ -101,18 +101,24 @@ class ResponsesController < ApplicationController
   end
 
   def count_affected_by_incorrect_sequences
-    used_sequences = params_for_count_affected_by_incorrect_sequences[:used_sequences] || []
+    used_sequences = (
+      params_for_count_affected_by_incorrect_sequences[:used_sequences] || []
+    ).select { |us| !us.empty? }
+
     selected_sequences = params_for_count_affected_by_incorrect_sequences[:selected_sequences]
     responses = Response.where(question_uid: params[:question_uid], optimal: nil)
     non_blank_selected_sequences = selected_sequences.reject { |ss| ss.empty?}
     matched_responses_count = 0
     responses.each do |response|
-      no_matching_used_sequences = used_sequences.none? { |us| !us.empty? && Regexp.new(us).match(response.text) }
+      no_matching_used_sequences = used_sequences.none? { |us| response.text.match(us) }
+      next unless no_matching_used_sequences
+
       matching_selected_sequence = non_blank_selected_sequences.any? do |ss|
         sequence_particles = ss.split('&&')
-        sequence_particles.all? { |sp| !sp.empty? && Regexp.new(sp).match(response.text)}
+        sequence_particles.all? { |sp| !sp.empty? && response.text.match(sp)}
       end
-      if no_matching_used_sequences && matching_selected_sequence
+
+      if matching_selected_sequence
         matched_responses_count += 1
       end
     end

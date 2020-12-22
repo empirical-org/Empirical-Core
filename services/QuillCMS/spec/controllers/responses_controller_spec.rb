@@ -19,6 +19,30 @@ RSpec.describe ResponsesController, type: :controller do
     get_ids(array&.select { |r| r['parent_id'].nil?})
   end
 
+  describe "#count_affected_by_incorrect_sequences" do 
+    before(:each) do 
+      create(:response, question_uid: '123', text: "some words", optimal: nil)
+      create(:response, question_uid: '123', text: "matchyword some words", optimal: nil)
+      create(:response, question_uid: '123', text: "some matchyword words", optimal: nil)
+    end
+
+    it 'should enumerate matching responses' do 
+      stats = AllocationStats.trace do 
+        post :count_affected_by_incorrect_sequences, params: {
+          "data" => {
+            "used_sequences"=>[], 
+            "selected_sequences"=>["matchyword", ""]}, 
+            "question_uid"=>'123', 
+            "response"=>{}
+        }
+      end
+
+      puts stats.allocations(alias_paths: true).group_by(:class).at_least(3).to_text
+      matchedCount = JSON.parse(response.body)["matchedCount"]
+      expect(matchedCount).to eq 2
+    end
+  end
+
   describe '#create_or_increment' do
     let(:q_response) { create(:response, question_uid: '123456', text: 'Reading is fundamental.') }
     let(:response_payload) { {question_uid: q_response.question_uid, text: q_response.text} }
