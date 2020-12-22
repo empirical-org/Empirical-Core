@@ -1,15 +1,13 @@
 import * as React from "react";
 
 import { DataTable, Spinner } from '../../../../Shared/index';
-import { PROMPT_SESSION_LABELS } from '../../../../../constants/comprehension';
-
-const quillCheckmark = 'https://assets.quill.org/images/icons/check-circle-small.svg';
+import { PROMPT_SESSION_LABELS, PROMPT_ATTEMPTS_FEEDBACK_LABELS } from '../../../../../constants/comprehension';
 
 const SessionsIndex = ({ prompt }) => {
 
 
-  function formatFirstTableData(prompt) {
-    const { attempts, conjunction } = prompt;
+  function formatFirstTableData(prompt: any) {
+    const { attempts } = prompt;
     const keys = attempts && Object.keys(attempts);
     let completed
     if(keys.length === 5) {
@@ -34,6 +32,27 @@ const SessionsIndex = ({ prompt }) => {
     }
   }
 
+  function formatFeedbackData(prompt: any) {
+    const { attempts, prompt_id } = prompt;
+    const keys = attempts && Object.keys(attempts);
+    const rows = [];
+    keys.map((key: any, i: number) => {
+      const attempt = attempts[key][0];
+      const { entry, feedback_text, feedback_type } = attempt;
+      const { attemptLabel, feedbackLabel } = PROMPT_ATTEMPTS_FEEDBACK_LABELS[key];
+      const attemptObject: any = {};
+      const feedbackObject: any = {};
+      attemptObject.status = attemptLabel;
+      attemptObject.results = entry;
+      feedbackObject.status = feedbackLabel;
+      feedbackObject.results = feedback_text;
+      feedbackObject.feedback = feedback_type;
+      rows.push(attemptObject);
+      rows.push(feedbackObject);
+    });
+    return rows;
+  }
+
   if(!prompt) {
     return(
       <div className="loading-spinner-container">
@@ -41,6 +60,12 @@ const SessionsIndex = ({ prompt }) => {
       </div>
     );
   }
+
+  const dataTableFields = [
+    { name: "Status", attribute:"status", width: "100px" },
+    { name: "Results", attribute:"results", width: "500px" },
+    { name: "Feedback Type", attribute:"feedback", width: "100px" }
+  ];
 
   const firstTableData = formatFirstTableData(prompt);
   const { attemptsLabel, attemptsValue, completedLabel, completedValue } = firstTableData
@@ -57,6 +82,11 @@ const SessionsIndex = ({ prompt }) => {
         <p className="completed-label">{completedLabel}</p>
         <p className="completed-value">{completedValue}</p>
       </section>
+      <DataTable
+        className="attempts-feedback-table"
+        headers={dataTableFields}
+        rows={formatFeedbackData(prompt)}
+      />
     </section>
   );
 }

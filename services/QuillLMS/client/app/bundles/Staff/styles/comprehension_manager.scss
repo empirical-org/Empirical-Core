@@ -582,6 +582,7 @@
         max-width: 250px;
         border: 1px solid lightgray;
         padding: 10px 0px 10px 18px;
+        margin-bottom: 20px;
         p {
           margin-bottom: 0px;
         }
@@ -590,6 +591,14 @@
         }
         .attempts-value, .completed-value {
           margin-right: 20px;
+        }
+      }
+      .attempts-feedback-table {
+        margin-bottom: 20px;
+        .data-table-body {
+          .data-table-row:nth-child(odd) {
+            background-color: #aef2e7;
+          }
         }
       }
     }

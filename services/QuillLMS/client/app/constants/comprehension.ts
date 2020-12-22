@@ -79,6 +79,29 @@ export const PROMPT_SESSION_LABELS = {
   [SO] : 'Because Prompt',
 }
 
+export const PROMPT_ATTEMPTS_FEEDBACK_LABELS = {
+  "1": {
+    attemptLabel: '1st Attempt',
+    feedbackLabel: '1st Feedback',
+  },
+  "2": {
+    attemptLabel: '2nd Attempt',
+    feedbackLabel: '2nd Feedback',
+  },
+  "3": {
+    attemptLabel: '3rd Attempt',
+    feedbackLabel: '3rd Feedback',
+  },
+  "4": {
+    attemptLabel: '4th Attempt',
+    feedbackLabel: '4th Feedback',
+  },
+  "5": {
+    attemptLabel: '5th Attempt',
+    feedbackLabel: '5th Feedback',
+  }
+}
+
 export const blankActivity = {
   title: '',
   // flag:'',

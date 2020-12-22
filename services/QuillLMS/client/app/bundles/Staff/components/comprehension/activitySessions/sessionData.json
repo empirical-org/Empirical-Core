@@ -27,7 +27,7 @@
         "used": true,
         "entry": "this is a test response.",
         "feedback_text": "this is some test feedback.",
-        "feedback_type": "semantic",
+        "feedback_type": "grammar",
         "optimal": false
       },
       {
@@ -42,7 +42,7 @@
         "used": true,
         "entry": "this is a test response.",
         "feedback_text": "this is some test feedback.",
-        "feedback_type": "semantic",
+        "feedback_type": "plagiarism",
         "optimal": false
       },
       {
@@ -92,7 +92,7 @@
         "used": true,
         "entry": "this is a test response.",
         "feedback_text": "this is some test feedback.",
-        "feedback_type": "semantic",
+        "feedback_type": "grammar",
         "optimal": false
       },
       {
@@ -107,7 +107,7 @@
         "used": true,
         "entry": "this is a test response.",
         "feedback_text": "this is some test feedback.",
-        "feedback_type": "semantic",
+        "feedback_type": "grammar",
         "optimal": false
       },
       {
@@ -128,7 +128,7 @@
 					"used": true,
 					"entry": "this is a test response.",
 					"feedback_text": "this is some test feedback.",
-					"feedback_type": "semantic",
+					"feedback_type": "plagiarism",
 					"optimal": false
 				},
 				{
@@ -143,7 +143,7 @@
         "used": true,
         "entry": "this is a test response.",
         "feedback_text": "this is some test feedback.",
-        "feedback_type": "semantic",
+        "feedback_type": "grammar",
         "optimal": false
       },
       {
