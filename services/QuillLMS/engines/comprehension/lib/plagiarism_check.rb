@@ -4,6 +4,7 @@ module Comprehension
     ALL_CORRECT_FEEDBACK = 'All plagiarism checks passed.'
     PASSAGE_TYPE = 'passage'
     ENTRY_TYPE = 'response'
+    MATCH_MINIMUM = 6
     attr_reader :entry, :passage, :nonoptimal_feedback
 
     def initialize(entry, passage, feedback)
@@ -50,59 +51,56 @@ module Comprehension
     end
 
     private def matched_slice
-      return "" if no_matching_strings?
+      return "" if !minimum_overlap?
       @matched_slice ||= match_entry_on_passage
     end
 
-    private def no_matching_strings?
-      (clean_entry.split & clean_passage.split).size < 6 || clean_passage.empty?
+    private def minimum_overlap?
+      !clean_passage.empty? && (clean_entry.split & clean_passage.split).size >= MATCH_MINIMUM
     end
 
     private def clean(str)
       str.gsub(/[[:punct:]]/, '').downcase
     end
 
+    # 1) split the entry into an array: ["i", "had", "a", "great", "time", "with", "you"]
+    # 2) slice that array into contiguous 6-word slices and filter for plagiarized slices
+    # 3) using the indices of plagiarized slices, find the longest continuous plagiarized section
+    # 4) piece together the words of the longest plagiarized section and return that string
     private def match_entry_on_passage
+      # 1
       entry_arr = clean_entry.split
-      entry_len = entry_arr.size
-      slice_size = 6
-      left_index = 0
-      longest_slice_found = ""
-      while left_index <= (entry_len - slice_size)
-        curr_slice = get_slice(entry_arr, left_index, slice_size)
-        if clean_passage.include?(curr_slice)
-          trimmed_passage = clean_passage[clean_passage.index(curr_slice)..-1]
-          extended_slice = extend_slice(curr_slice, entry_arr, left_index, slice_size, trimmed_passage)
-          longest_slice_found = extended_slice if extended_slice.size > longest_slice_found.size
-          left_index += extended_slice.split.length
-        else
-          left_index += 1
-        end
-      end
-      return longest_slice_found
-    end
 
-    private def extend_slice(longest_match_found, entry_arr, idx, slice_size, passage)
-      loop do
-        slice_size += 1
-        match_candidate = get_slice(entry_arr, idx, slice_size)
-        break if !passage.include?(match_candidate) || (idx + slice_size) > entry_arr.size
-        longest_match_found = match_candidate
-      end
-      return longest_match_found
+      # 2
+      slices = entry_arr.each_cons(MATCH_MINIMUM).with_index.to_a.map(&:reverse).to_h
+      matched_slices = slices.select {|k,v| v.in?(passage_word_arrays) }.keys
+      return "" if matched_slices.empty?
+
+      # 3
+      matched_consecutive_indices = matched_slices.slice_when {|before_item, after_item| after_item != before_item + 1}.to_a
+      longest_consecutive_indices = matched_consecutive_indices.max { |a, b| a.size <=> b.size }
+
+      # 4
+      string_result = slices[longest_consecutive_indices[0]].join(' ')
+      longest_consecutive_indices.drop(1).each {|i| string_result += ' ' + slices[i].last}
+      string_result
     end
 
     private def get_slice(array, start_index, slice_size)
       end_index = start_index + slice_size - 1
       return array[start_index..end_index].join(' ') if end_index < array.size
-      return ""
+      ""
+    end
+
+    def passage_word_arrays
+      @passage_word_arrays ||= clean_passage.split.each_cons(MATCH_MINIMUM).to_a
     end
 
     private def get_highlight(text, cleaned_text)
       start_index = cleaned_text.index(matched_slice)
       end_index = start_index + matched_slice.size - 1
       char_positions = text.enum_for(:scan, /[A-Za-z0-9\s]/).map { |c| Regexp.last_match.begin(0) }
-      return text[char_positions[start_index]..char_positions[end_index]]
+      text[char_positions[start_index]..char_positions[end_index]]
     end
   end
 end
