@@ -108,31 +108,6 @@
     justify-content: flex-start;
     width: 70vw;
     border-right: 1px solid lightgray;
-    .tabs-container {
-      display: flex;
-      width: 100%;
-      justify-content: space-around;
-      background-color: #f8f8f8;
-      a {
-        color: black;
-      }
-      .tab-option {
-        margin-top: 5px;
-        padding: 10px;
-      }
-      .is-active {
-        color: #19a08a;
-        text-decoration: none;
-        .tab-option {
-          border-top: 1px solid lightgray;
-          border-right: 1px solid lightgray;
-          border-left: 1px solid lightgray;
-          border-top-right-radius: 10px;
-          border-top-left-radius: 10px;
-          background-color: white;
-        }
-      }
-    }
   }
   .activity-settings-container {
     display: flex;
@@ -529,6 +504,9 @@
   .sessions-index-container, .session-view-container {
     width: 80vw;
     padding-left: 24px;
+    .session-view-container {
+      margin-top: 30px
+    }
     .sessions-header {
       border-bottom: 1px solid lightgray;;
       padding: 40px 0px 20px 0px;
@@ -576,6 +554,7 @@
       }
     }
     .prompt-table-container {
+      margin-top: 30px;
       .attempts-section, .completed-section {
         display: flex;
         align-items: center;
@@ -616,5 +595,36 @@
         }
       }
     }
+  }
+  .tabs-container {
+    display: flex;
+    width: 100%;
+    justify-content: space-around;
+    background-color: #f8f8f8;
+    a {
+      color: black;
+    }
+    .tab-option {
+      margin-top: 5px;
+      padding: 10px;
+    }
+    .is-active {
+      color: #19a08a;
+      text-decoration: none;
+      .tab-option {
+        border-top: 1px solid lightgray;
+        border-right: 1px solid lightgray;
+        border-left: 1px solid lightgray;
+        border-top-right-radius: 10px;
+        border-top-left-radius: 10px;
+        background-color: white;
+      }
+    }
+  }
+  .return-link {
+    color: #19a08a;
+  }
+  .return-link:hover {
+    color: #61cfbc;
   }
 }

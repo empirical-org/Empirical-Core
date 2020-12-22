@@ -71,7 +71,7 @@ const SessionsIndex = ({ match }) => {
     <div className="sessions-index-container">
       <section className="sessions-header">
         <h1>{title}</h1>
-        <Link to="/activity-sessions">← Return to Activities Index</Link>
+        <Link className="return-link" to="/activity-sessions">← Return to Activities Index</Link>
       </section>
       <section>
         <div className="total-container">

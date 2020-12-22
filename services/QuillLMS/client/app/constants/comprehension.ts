@@ -73,12 +73,6 @@ export const DEFAULT_MAX_ATTEMPTS = 5;
 export const FIRST = 'first';
 export const SECOND = 'second';
 
-export const PROMPT_SESSION_LABELS = {
-  [BECAUSE] : 'Because Prompt',
-  [BUT] : 'But Prompt',
-  [SO] : 'So Prompt',
-}
-
 export const PROMPT_ATTEMPTS_FEEDBACK_LABELS = {
   "1": {
     attemptLabel: '1st Attempt',

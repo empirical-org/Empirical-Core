@@ -1,17 +1,17 @@
 import * as React from "react";
-import { Link } from 'react-router-dom';
+import { Link, NavLink, Redirect, Route, Switch, withRouter } from 'react-router-dom';
 import { useQuery } from 'react-query';
-import * as moment from 'moment'
 
 import PromptTable from './promptTable';
+import SessionOverview from './sessionOverview';
 
-import { DataTable, Error, Spinner } from '../../../../Shared/index';
+import { Error, Spinner } from '../../../../Shared/index';
 import { fetchActivity } from '../../../utils/comprehension/activityAPIs';
 
 var sessionData = require('./sessionData.json');
 
 
-const SessionsIndex = ({ match }) => {
+const SessionView = ({ match }) => {
   const { params } = match;
   const { activityId } = params;
 
@@ -21,65 +21,13 @@ const SessionsIndex = ({ match }) => {
     queryFn: fetchActivity
   });
 
-  function sessionRows(sessionData: any) {
+  function getPrompt(sessionData: any, index: number) {
     if(!sessionData) {
-      return [];
-    } else {
-      // format for DataTable to display labels on left side and values on right
-      const { start_date, prompts, session_completed, session_uid } = sessionData;
-      const totalResponses = getTotalResponses(prompts);
-      const dateObject = new Date(start_date);
-      const date = moment(dateObject).format("MM/DD/YY HH:MM A");
-
-      const fields = [
-        {
-          label: 'Activity Session',
-          value: session_uid
-        },
-        {
-          label: 'Time Started',
-          value: date
-        },
-        {
-          label: 'Session Complete?',
-          value: session_completed ? 'True' : 'False'
-        },
-        {
-          label: 'Total Responses',
-          value: totalResponses
-        }
-      ];
-      return fields.map((field, i) => {
-        const { label, value } = field
-        return {
-          id: `${field}-${i}`,
-          field: label,
-          value
-        }
-      });
-    }
-  }
-
-  function renderPromptTables(sessionData: any, activityData: any) {
-    if(!sessionData || !activityData) {
       return null;
     }
     const { prompts } = sessionData;
-    const { activity } = activityData;
-    return prompts && prompts.map((prompt: any, i: number) => {
-      return <PromptTable activity={activity} key={i} prompt={prompt} />;
-    })
+    return prompts[index];
   }
-
-  function getTotalResponses(prompts: any[]) {
-    let total = 0;
-    prompts && prompts.forEach((prompt: any) => {
-      const { attempts } = prompt;
-      total += Object.keys(attempts).length;
-    });
-    return total;
-  }
-
 
   if(!data) {
     return(
@@ -97,28 +45,51 @@ const SessionsIndex = ({ match }) => {
     );
   }
 
-  // Header labels are redundant so passing empty strings and hiding header display
-  const dataTableFields = [
-    { name: "", attribute:"field", width: "200px" },
-    { name: "", attribute:"value", width: "400px" }
-  ];
-
   const { activity } = data;
   const { title } = activity;
+  const { session_uid } = sessionData;
+
   return(
     <div className="session-view-container">
       <section className="sessions-header">
         <h1>{title}</h1>
-        <Link to={`/activity-sessions/${activityId}`}>← Return to Session Index</Link>
+        <Link className="return-link" to={`/activity-sessions/${activityId}`}>← Return to Sessions Index</Link>
       </section>
-      <DataTable
-        className="session-overview-table"
-        headers={dataTableFields}
-        rows={sessionRows(sessionData)}
-      />
-      {renderPromptTables(sessionData, data)}
+      <div className="tabs-container">
+        <NavLink activeClassName="is-active" to={`/activity-sessions/${activityId}/${session_uid}/overview`}>
+          <div className="tab-option">
+            Session Overview
+          </div>
+        </NavLink>
+        <NavLink activeClassName="is-active" to={`/activity-sessions/${activityId}/${session_uid}/because-responses`}>
+          <div className="tab-option">
+            Because Responses
+          </div>
+        </NavLink>
+        <NavLink activeClassName="is-active" to={`/activity-sessions/${activityId}/${session_uid}/but-responses`}>
+          <div className="tab-option">
+            But Responses
+          </div>
+        </NavLink>
+        <NavLink activeClassName="is-active" to={`/activity-sessions/${activityId}/${session_uid}/so-responses`}>
+          <div className="tab-option">
+            So Responses
+          </div>
+        </NavLink>
+      </div>
+      <Switch>
+        <Redirect exact from='/activity-sessions/:activityId/:sessionId' to='/activity-sessions/:activityId/:sessionId/overview' />
+        {/* eslint-disable-next-line react/jsx-no-bind */}
+        <Route component={() => <SessionOverview sessionData={sessionData} />} path='/activity-sessions/:activityId/:sessionId/overview' />
+        {/* eslint-disable-next-line react/jsx-no-bind */}
+        <Route component={() => <PromptTable activity={activity} prompt={getPrompt(sessionData, 0)} />} path='/activity-sessions/:activityId/:sessionId/because-responses' />
+        {/* eslint-disable-next-line react/jsx-no-bind */}
+        <Route component={() => <PromptTable activity={activity} prompt={getPrompt(sessionData, 1)} />} path='/activity-sessions/:activityId/:sessionId/but-responses' />
+        {/* eslint-disable-next-line react/jsx-no-bind */}
+        <Route component={() => <PromptTable activity={activity} prompt={getPrompt(sessionData, 2)} />} path='/activity-sessions/:activityId/:sessionId/so-responses' />
+      </Switch>
     </div>
   );
 }
 
-export default SessionsIndex
+export default withRouter(SessionView)
