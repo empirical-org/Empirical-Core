@@ -60,13 +60,14 @@ const SessionsIndex = ({ match }) => {
     }
   }
 
-  function renderPromptTables(sessionData: any) {
-    if(!sessionData) {
+  function renderPromptTables(sessionData: any, activityData: any) {
+    if(!sessionData || !activityData) {
       return null;
     }
     const { prompts } = sessionData;
+    const { activity } = activityData;
     return prompts && prompts.map((prompt: any, i: number) => {
-      return <PromptTable key={i} prompt={prompt} />;
+      return <PromptTable activity={activity} key={i} prompt={prompt} />;
     })
   }
 
@@ -115,7 +116,7 @@ const SessionsIndex = ({ match }) => {
         headers={dataTableFields}
         rows={sessionRows(sessionData)}
       />
-      {renderPromptTables(sessionData)}
+      {renderPromptTables(sessionData, data)}
     </div>
   );
 }

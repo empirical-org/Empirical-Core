@@ -3,26 +3,26 @@ import * as React from "react";
 import { DataTable, Spinner } from '../../../../Shared/index';
 import { PROMPT_SESSION_LABELS, PROMPT_ATTEMPTS_FEEDBACK_LABELS } from '../../../../../constants/comprehension';
 
-const SessionsIndex = ({ prompt }) => {
+const SessionsIndex = ({ activity, prompt }) => {
 
 
   function formatFirstTableData(prompt: any) {
     const { attempts } = prompt;
     const keys = attempts && Object.keys(attempts);
-    let completed
+    let completed: boolean;
     if(keys.length === 5) {
       completed = true;
     } else {
       const usedAttempts = [];
       keys.forEach(key => {
-        attempts[key].forEach(attempt => {
+        attempts[key].forEach((attempt: any) => {
           // only get
           if(attempt.used) {
             usedAttempts.push(attempt);
           }
         });
       });
-      completed = usedAttempts.some((attempt) => attempt.optimal);
+      completed = !!usedAttempts.some((attempt) => attempt.optimal);
     }
     return {
       attemptsLabel: 'Attempts',
@@ -34,6 +34,8 @@ const SessionsIndex = ({ prompt }) => {
 
   function formatFeedbackData(prompt: any) {
     const { attempts, prompt_id } = prompt;
+    const { prompts } = activity;
+    const matchedPrompt = prompts.filter(prompt => prompt.id === prompt_id)[0];
     const keys = attempts && Object.keys(attempts);
     const rows = [];
     keys.map((key: any, i: number) => {
@@ -43,7 +45,10 @@ const SessionsIndex = ({ prompt }) => {
       const attemptObject: any = {};
       const feedbackObject: any = {};
       attemptObject.status = attemptLabel;
-      attemptObject.results = entry;
+      attemptObject.results = (<div>
+        <b>{matchedPrompt && matchedPrompt.text}</b>
+        <p className="entry">{entry}</p>
+      </div>);
       feedbackObject.status = feedbackLabel;
       feedbackObject.results = feedback_text;
       feedbackObject.feedback = feedback_type;

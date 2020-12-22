@@ -76,7 +76,7 @@ export const SECOND = 'second';
 export const PROMPT_SESSION_LABELS = {
   [BECAUSE] : 'Because Prompt',
   [BUT] : 'But Prompt',
-  [SO] : 'Because Prompt',
+  [SO] : 'So Prompt',
 }
 
 export const PROMPT_ATTEMPTS_FEEDBACK_LABELS = {

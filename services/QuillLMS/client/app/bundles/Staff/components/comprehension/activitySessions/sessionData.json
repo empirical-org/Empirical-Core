@@ -126,7 +126,7 @@
       "1":
       [{
 					"used": true,
-					"entry": "this is a test response.",
+					"entry": "this is a test response with some more text to make it a longer string.",
 					"feedback_text": "this is some test feedback.",
 					"feedback_type": "plagiarism",
 					"optimal": false
@@ -141,7 +141,7 @@
       "2":
       [{
         "used": true,
-        "entry": "this is a test response.",
+        "entry": "this is a test response with some more text to make it a longer string with some more text to make it an even longer string.",
         "feedback_text": "this is some test feedback.",
         "feedback_type": "grammar",
         "optimal": false

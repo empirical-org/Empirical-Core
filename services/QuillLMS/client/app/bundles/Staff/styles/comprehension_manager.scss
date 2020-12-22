@@ -563,6 +563,7 @@
     .session-overview-table {
       margin: 30px 0px 30px 0px;
       border: 1px solid lightgray;
+      max-width: 700px;
       .data-table-headers {
         display: none;
       }
@@ -595,9 +596,22 @@
       }
       .attempts-feedback-table {
         margin-bottom: 20px;
+        border: 1px solid lightgray;
         .data-table-body {
           .data-table-row:nth-child(odd) {
             background-color: #aef2e7;
+          }
+          .data-table-row {
+            height: auto;
+            padding: 10px 16px;
+            span {
+              div {
+                .entry {
+                  margin-bottom: 0px;
+                  white-space: break-spaces !important;
+                }
+              }
+            }
           }
         }
       }
