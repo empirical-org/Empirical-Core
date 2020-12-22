@@ -542,7 +542,7 @@ module Teacher
         JOIN
             activity_classifications ON activity_classifications.id = activities.activity_classification_id
         WHERE
-            users.id=#{id}")
+            users.id=#{id}").to_a
   end
 
   private

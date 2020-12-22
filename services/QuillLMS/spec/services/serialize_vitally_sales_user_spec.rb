@@ -208,10 +208,14 @@ describe 'SerializeVitallySalesUser' do
   end
 
   it 'presents diagnostic data' do
+    new_student = create(:user, role: 'student')
     create(:classrooms_teacher, user: teacher, classroom: classroom)
     create(:classrooms_teacher, user: teacher, classroom: old_classroom)
     create(:students_classrooms, student: student, classroom: classroom)
     create(:students_classrooms, student: old_student, classroom: old_classroom)
+    create(:students_classrooms, student: new_student, classroom: old_classroom)
+    classroom_unit.assigned_student_ids << new_student.id
+    classroom_unit.save!
 
     old_diagnostic_unit_activity = create(:unit_activity, :diagnostic_unit_activity, unit: old_unit, created_at: Time.now - 1.year)
     create(:activity_session,
@@ -232,12 +236,12 @@ describe 'SerializeVitallySalesUser' do
     teacher_data = SerializeVitallySalesUser.new(teacher).data
 
     expect(teacher_data[:traits]).to include(
-      diagnostics_assigned: 2,
+      diagnostics_assigned: 3,
       diagnostics_finished: 2,
-      diagnostics_assigned_this_year: 1,
+      diagnostics_assigned_this_year: 2,
       diagnostics_finished_this_year: 1,
-      percent_completed_diagnostics: 1.0,
-      percent_completed_diagnostics_this_year: 1.0
+      percent_completed_diagnostics: 0.67,
+      percent_completed_diagnostics_this_year: 0.5
     )
   end
 

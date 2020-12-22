@@ -391,4 +391,17 @@ describe Activity, type: :model, redis: true do
       expect(activity.readability_grade_level).to eq(nil)
     end
   end
+
+  describe '#is_diagnostic' do
+
+    it 'should return true when activity is diagnostic' do
+      diagnostic_activity = create(:diagnostic_activity)
+      assert diagnostic_activity.is_diagnostic?
+    end
+
+    it 'should return false when activity is not diagnostic' do
+      connect_activity = create(:connect_activity)
+      refute connect_activity.is_diagnostic?
+    end
+  end
 end

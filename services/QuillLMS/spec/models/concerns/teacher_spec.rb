@@ -505,4 +505,27 @@ describe User, type: :model do
       expect(other_teacher.teaches_student?(student_id)).to be(false)
     end
   end
+
+  describe '#number_of_assigned_students_per_activity_assigned' do
+    it 'should return the correct number of students assigned' do
+      teacher = create(:teacher, :with_classrooms_students_and_activities)
+      assigned_units = teacher.number_of_assigned_students_per_activity_assigned
+      teacher.classroom_units.each { |cu|
+        cu.unit.unit_activities.each { |ua|
+          matching_row = assigned_units.select {|u| u["activity_id"].to_i == ua.activity_id}
+          matching_element = matching_row[0]
+          expect(matching_element).to_not be_nil
+          expect(matching_element["assigned_students"].to_i).to eq(cu.assigned_student_ids.count)
+          expect(DateTime.parse(matching_element["created_at"])).to eq(ua.created_at)
+          assigned_units.delete_at(assigned_units.index(matching_element))
+        }
+      }
+      expect(assigned_units).to be_empty
+    end
+
+    it 'should return empty array if no students are assigned' do
+      teacher = create(:teacher)
+      expect(teacher.number_of_assigned_students_per_activity_assigned).to be_empty
+    end
+  end
 end

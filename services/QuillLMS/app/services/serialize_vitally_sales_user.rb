@@ -151,7 +151,7 @@ class SerializeVitallySalesUser
   end
 
   private def this_school_year(rows, school_year_start)
-    rows.select {|row| Date.parse(row["created_at"]) >= school_year_start }
+    rows.select {|row| DateTime.parse(row["created_at"]) >= school_year_start }
   end
 
   private def is_diagnostic(rows)
