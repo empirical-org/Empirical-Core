@@ -1,5 +1,6 @@
 class SerializeVitallySalesUser
   BASE_USER_URL = "https://www.quill.org/cms/users"
+  DIAGNOSTIC_ID = ActivityClassification.diagnostic.id
 
   def initialize(user)
     @user = user
@@ -9,15 +10,15 @@ class SerializeVitallySalesUser
     current_time = Time.zone.now
     school_year_start = School.school_year_start(current_time)
     active_students = active_students_query(@user).count
-    active_students_this_year = active_students_query(@user).where("activity_sessions.updated_at >= ?", school_year_start).count
+    active_students_this_year = active_students_query(@user).where("activity_sessions.completed_at >= ?", school_year_start).count
     activities_finished = activities_finished_query(@user).count
-    activities_finished_this_year = activities_finished_query(@user).where("activity_sessions.updated_at >= ?", school_year_start).count
-    activities_assigned = activities_assigned(@user)
-    activities_assigned_this_year = activities_assigned_this_year(@user, school_year_start)
-    diagnostics_assigned = diagnostics_assigned(@user)
-    diagnostics_assigned_this_year = diagnostics_assigned_this_year(@user, school_year_start)
-    # diagnostics_finished = activities_finished_query(@user).joins(:activities).where('activities.activity_classification_id=4').count
-    # diagnostics_finished_this_year = activities_finished_query(@user).joins(:activity).where('activities.activity_classification_id=4 and unit_activities.created_at >= ?', school_year_start).count
+    activities_finished_this_year = activities_finished_query(@user).where("activity_sessions.completed_at >= ?", school_year_start).count
+    activities_assigned = activities_assigned_count(@user)
+    activities_assigned_this_year = activities_assigned_this_year_count(@user, school_year_start)
+    diagnostics_assigned = diagnostics_assigned_count(@user)
+    diagnostics_assigned_this_year = diagnostics_assigned_this_year_count(@user, school_year_start)
+    diagnostics_finished = diagnostics_finished(@user).count
+    diagnostics_finished_this_year = diagnostics_finished(@user).where("activity_sessions.completed_at >=?", school_year_start).count
     {
       accountId: @user.school.id.to_s,
       userId: @user.id.to_s,
@@ -52,8 +53,8 @@ class SerializeVitallySalesUser
         percent_completed_activities: activities_assigned > 0 ? (activities_finished.to_f / activities_assigned).round(2) : 'N/A',
         completed_activities_per_student: activities_per_student(active_students, activities_finished),
         diagnostics_assigned: diagnostics_assigned,
-        # diagnostics_finished: diagnostics_finished,
-        # percent_completed_diagnostics: diagnostics_assigned > 0 ? diagnostics_finished / diagnostics_assigned : 'N/A',
+        diagnostics_finished: diagnostics_finished,
+        percent_completed_diagnostics: diagnostics_assigned > 0 ? (diagnostics_finished.to_f / diagnostics_assigned).round(2) : 'N/A',
         total_students_this_year: total_students_this_year(school_year_start),
         active_students_this_year: active_students_this_year,
         activities_assigned_this_year: activities_assigned_this_year,
@@ -61,8 +62,8 @@ class SerializeVitallySalesUser
         completed_activities_per_student_this_year: activities_per_student(active_students_this_year, activities_finished_this_year),
         percent_completed_activities_this_year: activities_assigned_this_year > 0 ? (activities_finished_this_year.to_f / activities_assigned_this_year).round(2) : 'N/A',
         diagnostics_assigned_this_year: diagnostics_assigned_this_year,
-        # diagnostics_finished_this_year: diagnostics_finished_this_year,
-        # percent_completed_diagnostics_this_year: diagnostics_assigned_this_year > 0 ? diagnostics_finished_this_year / diagnostics_assigned_this_year : 'N/A'
+        diagnostics_finished_this_year: diagnostics_finished_this_year,
+        percent_completed_diagnostics_this_year: diagnostics_assigned_this_year > 0 ? (diagnostics_finished_this_year.to_f / diagnostics_assigned_this_year).round(2) : 'N/A'
       }.merge(account_data_params)
     }
   end
@@ -119,36 +120,53 @@ class SerializeVitallySalesUser
   end
 
   private def active_students_query(user)
-    ActivitySession.select(:user_id).distinct
+    @active_students ||= ActivitySession.select(:user_id).distinct
       .joins(classroom_unit: {classroom: [:teachers]})
       .where(state: 'finished')
       .where('classrooms_teachers.user_id = ?', user.id)
   end
 
-  private def activities_assigned(user)
-    activities_assigned_query(user).map { |h| h["assigned_students"].to_i }.sum || 0
-  end
-
-  private def diagnostics_assigned(user)
-    activities_assigned_query(user).select {|h| Activity.find(h["activity_id"]).is_diagnostic? }.map { |h| h["assigned_students"].to_i }.sum || 0
-  end
-
-  private def diagnostics_assigned_this_year(user, school_year_start)
-    activities_assigned_query(user).select {|h| Activity.find(h["activity_id"]).is_diagnostic? }.select {|h| Date.parse(h["created_at"]) >= school_year_start }.map { |h| h["assigned_students"].to_i }.sum || 0
-  end
-
-  private def activities_assigned_this_year(user, school_year_start)
-    activities_assigned_query(user).select {|h| Date.parse(h["created_at"]) >= school_year_start }.map { |h| h["assigned_students"].to_i }.sum || 0
-  end
-
   private def activities_assigned_query(user)
-    user.number_of_assigned_students_per_activity_assigned
+    @activities_assigned ||= user.number_of_assigned_students_per_activity_assigned
+  end
+
+  private def activities_assigned_count(user)
+    sum_students(activities_assigned_query(user))
+  end
+
+  private def diagnostics_assigned_count(user)
+    sum_students(is_diagnostic(activities_assigned_query(user)))
+  end
+
+  private def diagnostics_assigned_this_year_count(user, school_year_start)
+    sum_students(is_diagnostic(this_school_year(activities_assigned_query(user), school_year_start)))
+  end
+
+  private def activities_assigned_this_year_count(user, school_year_start)
+    sum_students(this_school_year(activities_assigned_query(user), school_year_start))
+  end
+
+  private def sum_students(rows)
+    rows.map { |row| row["assigned_students"].to_i }.sum || 0
+  end
+
+  private def this_school_year(rows, school_year_start)
+    rows.select {|row| Date.parse(row["created_at"]) >= school_year_start }
+  end
+
+  private def is_diagnostic(rows)
+    rows.select {|row| Activity.find(row["activity_id"]).is_diagnostic? }
+  end
+
+  private def diagnostics_finished(user)
+    activities_finished_query(user).where("activities.activity_classification_id=#{DIAGNOSTIC_ID}")
   end
 
   private def activities_finished_query(user)
-    ClassroomsTeacher.joins(classroom: :activity_sessions)
-      .where(user: user)
-      .where('activity_sessions.state = ?', 'finished')
+    @activities_finished ||= ClassroomsTeacher
+      .where(user_id: user.id)
+      .joins(classroom: [classroom_units: [activity_sessions: :activity]])
+      .where("activity_sessions.state='finished'")
   end
 
   private def premium_status
