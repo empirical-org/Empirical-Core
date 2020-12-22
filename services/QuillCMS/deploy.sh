@@ -17,6 +17,6 @@ esac
 # Slack deploy start
 sh ../../scripts/post_slack_deploy.sh $app_name $1 $current_branch false
 
-eb deploy ${EB_ENVIRONMENT_NAME}
+eb deploy ${EB_ENVIRONMENT_NAME} --label `git rev-parse HEAD`
 open "https://rpm.newrelic.com/accounts/2639113/applications/548895592"
 open "https://console.aws.amazon.com/elasticbeanstalk/home?region=us-east-1#/environment/dashboard?applicationName=QuillCMS&environmentId=e-7n7bmkzhp3"
