@@ -31,7 +31,8 @@ RSpec.describe ResponsesController, type: :controller do
         post :count_affected_by_incorrect_sequences, params: {
           "data" => {
             "used_sequences"=>[], 
-            "selected_sequences"=>["matchyword", ""]}, 
+            "selected_sequences"=>["matchyword", ""]
+            }, 
             "question_uid"=>'123', 
             "response"=>{}
         }
@@ -43,36 +44,39 @@ RSpec.describe ResponsesController, type: :controller do
       post :count_affected_by_incorrect_sequences, params: {
         "data" => {
           "used_sequences"=>[], 
-          "selected_sequences"=>["matchyword", ""]}, 
+          "selected_sequences"=>["matchyword", ""]
+          }, 
           "question_uid"=>'123', 
           "response"=>{}
       }
-      matchedCount = JSON.parse(response.body)["matchedCount"]
-      expect(matchedCount).to eq 2
+      matched_count = JSON.parse(response.body)["matchedCount"]
+      expect(matched_count).to eq 2
     end
 
     it 'should enumerate matching responses with && delimited input' do 
       post :count_affected_by_incorrect_sequences, params: {
         "data" => {
           "used_sequences"=>[], 
-          "selected_sequences"=>["matchy&&word", ""]}, 
+          "selected_sequences"=>["matchy&&word", ""]
+          }, 
           "question_uid"=>'123', 
           "response"=>{}
       }
-      matchedCount = JSON.parse(response.body)["matchedCount"]
-      expect(matchedCount).to eq 2
+      matched_count = JSON.parse(response.body)["matchedCount"]
+      expect(matched_count).to eq 2
     end
 
     it 'should not match when sequences are already used' do 
       post :count_affected_by_incorrect_sequences, params: {
         "data" => {
           "used_sequences"=>['matchyword'], 
-          "selected_sequences"=>["matchy&&word", ""]}, 
+          "selected_sequences"=>["matchy&&word", ""]
+          }, 
           "question_uid"=>'123', 
           "response"=>{}
       }
-      matchedCount = JSON.parse(response.body)["matchedCount"]
-      expect(matchedCount).to eq 0
+      matched_count = JSON.parse(response.body)["matchedCount"]
+      expect(matched_count).to eq 0
     end
 
   end

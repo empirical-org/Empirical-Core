@@ -103,7 +103,7 @@ class ResponsesController < ApplicationController
   def count_affected_by_incorrect_sequences
     used_sequences = (
       params_for_count_affected_by_incorrect_sequences[:used_sequences] || []
-    ).select { |us| !us.empty? }
+    ).reject { |us| us.empty? }
 
     selected_sequences = params_for_count_affected_by_incorrect_sequences[:selected_sequences]
     responses = Response.where(question_uid: params[:question_uid], optimal: nil)
