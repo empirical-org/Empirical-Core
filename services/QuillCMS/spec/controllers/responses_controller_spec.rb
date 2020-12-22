@@ -26,7 +26,7 @@ RSpec.describe ResponsesController, type: :controller do
       create(:response, question_uid: '123', text: "some matchyword words", optimal: nil)
     end
 
-    it 'should enumerate matching responses' do 
+    it 'benchmarking' do 
       stats = AllocationStats.trace do 
         post :count_affected_by_incorrect_sequences, params: {
           "data" => {
@@ -36,11 +36,45 @@ RSpec.describe ResponsesController, type: :controller do
             "response"=>{}
         }
       end
-
       puts stats.allocations(alias_paths: true).group_by(:class).at_least(3).to_text
+    end
+
+    it 'should enumerate matching responses' do 
+      post :count_affected_by_incorrect_sequences, params: {
+        "data" => {
+          "used_sequences"=>[], 
+          "selected_sequences"=>["matchyword", ""]}, 
+          "question_uid"=>'123', 
+          "response"=>{}
+      }
       matchedCount = JSON.parse(response.body)["matchedCount"]
       expect(matchedCount).to eq 2
     end
+
+    it 'should enumerate matching responses with && delimited input' do 
+      post :count_affected_by_incorrect_sequences, params: {
+        "data" => {
+          "used_sequences"=>[], 
+          "selected_sequences"=>["matchy&&word", ""]}, 
+          "question_uid"=>'123', 
+          "response"=>{}
+      }
+      matchedCount = JSON.parse(response.body)["matchedCount"]
+      expect(matchedCount).to eq 2
+    end
+
+    it 'should not match when sequences are already used' do 
+      post :count_affected_by_incorrect_sequences, params: {
+        "data" => {
+          "used_sequences"=>['matchyword'], 
+          "selected_sequences"=>["matchy&&word", ""]}, 
+          "question_uid"=>'123', 
+          "response"=>{}
+      }
+      matchedCount = JSON.parse(response.body)["matchedCount"]
+      expect(matchedCount).to eq 0
+    end
+
   end
 
   describe '#create_or_increment' do

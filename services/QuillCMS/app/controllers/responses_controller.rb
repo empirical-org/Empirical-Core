@@ -110,12 +110,12 @@ class ResponsesController < ApplicationController
     non_blank_selected_sequences = selected_sequences.reject { |ss| ss.empty?}
     matched_responses_count = 0
     responses.each do |response|
-      no_matching_used_sequences = used_sequences.none? { |us| response.text.match(us) }
+      no_matching_used_sequences = used_sequences.none? { |us| Regexp.new(us).match(response.text)}
       next unless no_matching_used_sequences
 
       matching_selected_sequence = non_blank_selected_sequences.any? do |ss|
-        sequence_particles = ss.split('&&')
-        sequence_particles.all? { |sp| !sp.empty? && response.text.match(sp)}
+        cleaned_sequence = ss.split('&&').join('')
+        Regexp.new(cleaned_sequence).match(response.text)
       end
 
       if matching_selected_sequence
