@@ -57,7 +57,7 @@ RSpec.describe ResponsesController, type: :controller do
       post :count_affected_by_incorrect_sequences, params: {
         "data" => {
           "used_sequences"=>[], 
-          "selected_sequences"=>["matchy&&word", ""]
+          "selected_sequences"=>["matchyword&&some", ""]
           }, 
           "question_uid"=>'123', 
           "response"=>{}
