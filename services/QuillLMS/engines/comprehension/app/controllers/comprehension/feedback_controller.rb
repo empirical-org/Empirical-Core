@@ -19,7 +19,7 @@ module Comprehension
 
       feedback = get_feedback_from_previous_feedback(previous_feedback, prompt)
 
-      plagiarism_check = PlagiarismCheck.new(entry, passage, feedback)
+      plagiarism_check = Comprehension::PlagiarismCheck.new(entry, passage, feedback)
 
       render json: {
         feedback: plagiarism_check.feedback,
