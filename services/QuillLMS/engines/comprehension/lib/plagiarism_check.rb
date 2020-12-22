@@ -63,24 +63,24 @@ module Comprehension
       str.gsub(/[[:punct:]]/, '').downcase
     end
 
-    # 1) split the entry into an array: ["i", "had", "a", "great", "time", "with", "you"]
-    # 2) slice that array into contiguous 6-word slices and filter for plagiarized slices
-    # 3) using the indices of plagiarized slices, find the longest continuous plagiarized section
-    # 4) piece together the words of the longest plagiarized section and return that string
+    # split the entry into an array: ["i", "had", "a", "great", "time", "with", "you"]
+    # slice that array into contiguous 6-word slices and filter for plagiarized slices
     private def match_entry_on_passage
-      # 1
       entry_arr = clean_entry.split
 
-      # 2
       slices = entry_arr.each_cons(MATCH_MINIMUM).with_index.to_a.map(&:reverse).to_h
       matched_slices = slices.select {|k,v| v.in?(passage_word_arrays) }.keys
       return "" if matched_slices.empty?
 
-      # 3
-      matched_consecutive_indices = matched_slices.slice_when {|before_item, after_item| after_item != before_item + 1}.to_a
-      longest_consecutive_indices = matched_consecutive_indices.max { |a, b| a.size <=> b.size }
+      build_longest_continuous_slice(matched_slices, slices)
+    end
 
-      # 4
+    # using the indices of plagiarized slices, find the longest continuous plagiarized section
+    # piece together the words of the longest plagiarized section and return that string
+    def build_longest_continuous_slice(matched_slices, slices)
+      matched_consecutive_indices = matched_slices.slice_when {|before_item, after_item| after_item != before_item + 1}.to_a
+      longest_consecutive_indices = matched_consecutive_indices.max_by(&:size)
+
       string_result = slices[longest_consecutive_indices[0]].join(' ')
       longest_consecutive_indices.drop(1).each {|i| string_result += ' ' + slices[i].last}
       string_result
