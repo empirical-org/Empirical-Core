@@ -52,7 +52,6 @@ GEM
       tzinfo (~> 1.1)
     addressable (2.6.0)
       public_suffix (>= 2.0.2, < 4.0)
-    allocation_stats (0.1.5)
     arel (9.0.0)
     builder (3.2.4)
     bulk_insert (1.4.0)
@@ -277,7 +276,6 @@ PLATFORMS
 DEPENDENCIES
   active_model_serializers (~> 0.10.0)
   activerecord-import
-  allocation_stats
   bulk_insert
   byebug
   connection_pool

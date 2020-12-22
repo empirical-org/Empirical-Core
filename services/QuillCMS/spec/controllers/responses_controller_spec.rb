@@ -26,20 +26,6 @@ RSpec.describe ResponsesController, type: :controller do
       create(:response, question_uid: '123', text: "some matchyword words", optimal: nil)
     end
 
-    it 'benchmarking' do 
-      stats = AllocationStats.trace do 
-        post :count_affected_by_incorrect_sequences, params: {
-          "data" => {
-            "used_sequences"=>[], 
-            "selected_sequences"=>["matchyword", ""]
-            }, 
-            "question_uid"=>'123', 
-            "response"=>{}
-        }
-      end
-      puts stats.allocations(alias_paths: true).group_by(:class).at_least(3).to_text
-    end
-
     it 'should enumerate matching responses' do 
       post :count_affected_by_incorrect_sequences, params: {
         "data" => {
