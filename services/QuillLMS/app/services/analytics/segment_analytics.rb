@@ -152,8 +152,7 @@ class SegmentAnalytics
     should_send_data = (user&.role == 'teacher')
     integrations = {
      all: true,
-     Intercom: should_send_data,
-     Salesmachine: false
+     Intercom: should_send_data
     }
     integrations
   end
