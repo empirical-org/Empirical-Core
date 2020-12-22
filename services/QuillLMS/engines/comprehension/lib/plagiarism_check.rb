@@ -86,12 +86,6 @@ module Comprehension
       string_result
     end
 
-    private def get_slice(array, start_index, slice_size)
-      end_index = start_index + slice_size - 1
-      return array[start_index..end_index].join(' ') if end_index < array.size
-      ""
-    end
-
     def passage_word_arrays
       @passage_word_arrays ||= clean_passage.split.each_cons(MATCH_MINIMUM).to_a
     end
