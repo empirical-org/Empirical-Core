@@ -1,5 +1,4 @@
 require 'test_helper'
-require './lib/plagiarism_check'
 
 module Comprehension
   class PlagiarismCheckTest < ActiveSupport::TestCase
@@ -64,6 +63,12 @@ module Comprehension
         plagiarism_check = Comprehension::PlagiarismCheck.new("there is one plagiarized phrase here, but this plagiarized phrase is a little longer", "there is one plagiarized phrase here, and we see that this plagiarized phrase is a little longer", nil)
         assert_equal plagiarism_check.highlights[0][:text], "this plagiarized phrase is a little longer"
         assert_equal plagiarism_check.highlights[1][:text], "this plagiarized phrase is a little longer"
+      end
+
+      should 'should return the longest plagiarized phrase when there are duplicate words' do
+        plagiarism_check = Comprehension::PlagiarismCheck.new("test test test test test test", "test test test test test test test test", nil)
+        assert_equal plagiarism_check.highlights[0][:text], "test test test test test test"
+        assert_equal plagiarism_check.highlights[1][:text], "test test test test test test"
       end
     end
   end

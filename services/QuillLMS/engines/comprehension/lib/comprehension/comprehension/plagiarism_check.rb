@@ -56,7 +56,11 @@ module Comprehension
     end
 
     private def minimum_overlap?
-      !clean_passage.empty? && (clean_entry.split & clean_passage.split).size >= MATCH_MINIMUM
+      !clean_passage.empty? && (intersect_with_duplicates(clean_entry.split, clean_passage.split)).size >= MATCH_MINIMUM
+    end
+
+    private def intersect_with_duplicates(arr1, arr2)
+      (arr1 & arr2).flat_map { |n| [n]*[arr1.count(n), arr2.count(n)].min }
     end
 
     private def clean(str)
