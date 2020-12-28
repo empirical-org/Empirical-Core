@@ -2,7 +2,8 @@ import React from 'react';
 
 export default class extends React.Component {
   handleChange = e => {
-    this.props.changeRecurringStatus(Boolean(e.target.value));
+    // So it turns out that `value={false}` below doesn't set the value to a boolean, but to the string "false" which, of course, evaluates as truth-y.  This meant that both checking the truthiness of the value itself is the same in both cases, and the buttons won't toggle.
+    this.props.changeRecurringStatus(e.target.value !== 'false');
   };
 
   render() {
