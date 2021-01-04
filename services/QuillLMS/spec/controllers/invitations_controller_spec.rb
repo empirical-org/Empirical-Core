@@ -8,6 +8,12 @@ describe InvitationsController, type: :controller do
   let(:user) { classroom.owner }
 
   before do
+    # It is necessary to load Invitation here explicitly.
+    # Otherwise, RSpec will stub Invitation as a Module (rather than an ActiveRecord::Base descendent) 
+    # when stub_const is called within a spec.
+    # Reference: 
+    # https://stackoverflow.com/questions/32563359/stubing-a-model-constant-for-assosiation-undefined-method-relation-delegate-cl
+    Invitation.class 
     allow(controller).to receive(:current_user) { user }
   end
 
