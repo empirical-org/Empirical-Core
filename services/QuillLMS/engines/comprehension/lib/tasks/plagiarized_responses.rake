@@ -1,5 +1,4 @@
 require 'csv'
-require './lib/plagiarism_check'
 
 namespace :plagiarized_responses do
 
