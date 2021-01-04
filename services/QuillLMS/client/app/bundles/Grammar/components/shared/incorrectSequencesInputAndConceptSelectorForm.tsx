@@ -171,7 +171,7 @@ export default class IncorrectSequencesInputAndConceptSelectorForm extends React
           </p>
         </div>
         <div>
-          <label className="label">{this.state.matchedCount} {this.state.matchedCount === 1 ? 'sequence' : 'sequences'} affected</label>
+          <label className="label">At least {this.state.matchedCount} {this.state.matchedCount === 1 ? 'sequence' : 'sequences'} affected</label>
           <ResponseComponent
             mode={mode}
             question={dataset}
