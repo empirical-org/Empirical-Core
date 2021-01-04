@@ -3,7 +3,7 @@ class UpdateSalesContact
   def initialize(user_id, stage_number, current_user = nil, notifier = nil)
     @user_id      = user_id
     @stage_number = stage_number
-    @notifier     = notifier || SalesContactAnalyticsWorker
+    @notifier     = notifier
     @current_user = current_user
   end
 
@@ -41,6 +41,6 @@ class UpdateSalesContact
   end
 
   def notify_cms
-    @notifier.perform_async(user.id, sales_stage_type.name_param)
+    @notifier&.perform_async(user.id, sales_stage_type.name_param)
   end
 end

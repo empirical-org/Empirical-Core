@@ -592,7 +592,6 @@ GEM
       sexp_processor (~> 4.9)
     rubyzip (1.2.2)
     safe_yaml (1.0.4)
-    salesmachine-ruby (1.0.0)
     sass (3.7.4)
       sass-listen (~> 4.0.0)
     sass-listen (4.0.0)
@@ -836,7 +835,6 @@ DEPENDENCIES
   rspec-redis_helper
   rspec-retry
   rubyzip
-  salesmachine-ruby (~> 1.0.0)
   sass
   sass-rails
   sassc-rails (>= 2.1.0)

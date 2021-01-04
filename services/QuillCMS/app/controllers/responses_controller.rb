@@ -8,6 +8,10 @@ class ResponsesController < ApplicationController
   RESPONSE_LIMIT = 100
   MULTIPLE_CHOICE_LIMIT = 2
   CACHE_EXPIRY = 60.minutes.to_i
+  # MAX_MATCHES: A heuristic to reduce controller compute time
+  # see https://github.com/empirical-org/Empirical-Core/pull/7086/files
+  # for more context
+  MAX_MATCHES = 10_000
 
   before_action :set_response, only: [:show, :update, :destroy]
 
@@ -101,20 +105,27 @@ class ResponsesController < ApplicationController
   end
 
   def count_affected_by_incorrect_sequences
-    used_sequences = params_for_count_affected_by_incorrect_sequences[:used_sequences] || []
+    used_sequences = (
+      params_for_count_affected_by_incorrect_sequences[:used_sequences] || []
+    ).reject { |us| us.empty? }
+
     selected_sequences = params_for_count_affected_by_incorrect_sequences[:selected_sequences]
-    responses = Response.where(question_uid: params[:question_uid], optimal: nil)
     non_blank_selected_sequences = selected_sequences.reject { |ss| ss.empty?}
     matched_responses_count = 0
-    responses.each do |response|
-      no_matching_used_sequences = used_sequences.none? { |us| !us.empty? && Regexp.new(us).match(response.text) }
+
+    Response.where(question_uid: params[:question_uid], optimal: nil).limit(MAX_MATCHES).each do |response|
+      matching_used_sequences = used_sequences.any? { |us| Regexp.new(us).match(response.text)}
+      next if matching_used_sequences
+
       matching_selected_sequence = non_blank_selected_sequences.any? do |ss|
         sequence_particles = ss.split('&&')
         sequence_particles.all? { |sp| !sp.empty? && Regexp.new(sp).match(response.text)}
       end
-      if no_matching_used_sequences && matching_selected_sequence
+
+      if matching_selected_sequence
         matched_responses_count += 1
       end
+
     end
     render json: {matchedCount: matched_responses_count}
   end
