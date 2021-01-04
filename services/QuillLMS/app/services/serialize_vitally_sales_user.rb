@@ -135,11 +135,11 @@ class SerializeVitallySalesUser
   end
 
   private def diagnostics_assigned_count(user)
-    sum_students(is_diagnostic(activities_assigned_query(user)))
+    sum_students(filter_diagnostics(activities_assigned_query(user)))
   end
 
   private def diagnostics_assigned_this_year_count(user, school_year_start)
-    sum_students(is_diagnostic(this_school_year(activities_assigned_query(user), school_year_start)))
+    sum_students(filter_diagnostics(this_school_year(activities_assigned_query(user), school_year_start)))
   end
 
   private def activities_assigned_this_year_count(user, school_year_start)
@@ -154,7 +154,7 @@ class SerializeVitallySalesUser
     rows.select {|row| DateTime.parse(row["created_at"]) >= school_year_start }
   end
 
-  private def is_diagnostic(rows)
+  private def filter_diagnostics(rows)
     rows.select {|row| Activity.find(row["activity_id"]).is_diagnostic? }
   end
 

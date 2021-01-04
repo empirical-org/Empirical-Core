@@ -9,7 +9,7 @@ describe 'SerializeVitallySalesUser' do
   let!(:old_classroom) { create(:classroom, created_at: Time.now - 1.year) }
   let!(:unit) { create(:unit, user_id: teacher.id) }
   let!(:old_unit) { create(:unit, user_id: teacher.id, created_at: Time.now - 1.year) }
-  let!(:classroom_unit) { create(:classroom_unit, classroom: classroom, unit: unit, assigned_student_ids: [ student.id ]) }
+  let!(:classroom_unit) { create(:classroom_unit, classroom: classroom, unit: unit, assigned_student_ids: [student.id]) }
   let!(:old_classroom_unit) { create(:classroom_unit, classroom: old_classroom, unit: old_unit, created_at: Time.now - 1.year, assigned_student_ids: [old_student.id]) }
   let!(:unit_activity) { create(:unit_activity, unit: unit) }
   let!(:diagnostic_unit_activity) { create(:unit_activity, :diagnostic_unit_activity, unit: unit) }
