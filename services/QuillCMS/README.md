@@ -26,7 +26,11 @@ bundle exec rspec spec
 ```
 
 ## Deployment
+Prerequisites:
+- Ensure the elastic beanstalk CLI is [installed and configured](https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/eb-cli3-install.html)
+- ```QuillCMS$ eb init```
 ```bash
+git checkout production && git pull
 bash deploy.sh staging|prod
 ```
 
