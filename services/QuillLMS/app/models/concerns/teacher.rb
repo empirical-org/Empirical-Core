@@ -527,22 +527,12 @@ module Teacher
     ReferrerUser.create(user_id: id, referral_code: name.downcase.gsub(/[^a-z ]/, '').gsub(' ', '-') + '-' + id.to_s)
   end
 
-  def number_of_assigned_students_per_activity_assigned
-    ActiveRecord::Base.connection.execute("
-      SELECT array_length(classroom_units.assigned_student_ids, 1) AS assigned_students, activities.id AS activity_id, unit_activities.created_at AS created_at
-        FROM classroom_units
-        JOIN unit_activities ON classroom_units.unit_id = unit_activities.unit_id
-        JOIN classrooms ON classrooms.id = classroom_units.classroom_id
-        JOIN
-            classrooms_teachers ON classrooms.id = classrooms_teachers.classroom_id
-        JOIN
-            users ON classrooms_teachers.user_id = users.id
-        JOIN
-            activities ON activities.id = unit_activities.activity_id
-        JOIN
-            activity_classifications ON activity_classifications.id = activities.activity_classification_id
-        WHERE
-            users.id=#{id}").to_a
+  def assigned_students_per_activity_assigned
+    ClassroomUnit.joins("JOIN unit_activities ON classroom_units.unit_id=unit_activities.unit_id")
+      .joins("JOIN activities ON activities.id = unit_activities.activity_id")
+      .joins(classroom: [classrooms_teachers: [:user]])
+      .where("users.id = ?", id)
+      .select("assigned_student_ids, activities.id, unit_activities.created_at")
   end
 
   private

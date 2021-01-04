@@ -127,7 +127,7 @@ class SerializeVitallySalesUser
   end
 
   private def activities_assigned_query(user)
-    @activities_assigned ||= user.number_of_assigned_students_per_activity_assigned
+    @activities_assigned ||= user.assigned_students_per_activity_assigned
   end
 
   private def activities_assigned_count(user)
@@ -146,16 +146,16 @@ class SerializeVitallySalesUser
     sum_students(this_school_year(activities_assigned_query(user), school_year_start))
   end
 
-  private def sum_students(rows)
-    rows.map { |row| row["assigned_students"].to_i }.sum || 0
+  private def sum_students(records)
+    records.map { |r| r.assigned_student_ids.count }.sum || 0
   end
 
-  private def this_school_year(rows, school_year_start)
-    rows.select {|row| DateTime.parse(row["created_at"]) >= school_year_start }
+  private def this_school_year(records, school_year_start)
+    records.select {|r| r.created_at >= school_year_start }
   end
 
-  private def filter_diagnostics(rows)
-    rows.select {|row| Activity.find(row["activity_id"]).is_diagnostic? }
+  private def filter_diagnostics(records)
+    records.select {|r| Activity.find(r.id).is_diagnostic? }
   end
 
   private def diagnostics_finished(user)
