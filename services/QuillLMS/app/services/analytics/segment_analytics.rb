@@ -81,11 +81,11 @@ class SegmentAnalytics
     })
   end
 
-  def track_activity_completion(user, activity)
+  def track_activity_completion(user, student_id, activity)
     track(user, {
       user_id: user.id,
       event: SegmentIo::BackgroundEvents::ACTIVITY_COMPLETION,
-      properties: activity_info_for_tracking(activity)
+      properties: activity_info_for_tracking(activity, student_id).merge({student_id: student_id})
     })
   end
 
