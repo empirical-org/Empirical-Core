@@ -2,6 +2,8 @@ class Classroom < ActiveRecord::Base
   include CheckboxCallback
 
   GRADES = %w(1 2 3 4 5 6 7 8 9 10 11 12 University)
+  GRADE_INTEGERS = {"Kindergarten" => 0, "University" => 13, "PostGraduate" => 14}
+
   validates_uniqueness_of :code
   validates_presence_of :name
   validate :validate_name
@@ -154,6 +156,12 @@ class Classroom < ActiveRecord::Base
     else
       'Manual'
     end
+  end
+
+  def grade_as_integer
+    return grade.to_i if /\A\d+\z/.match(grade)
+    return GRADE_INTEGERS[grade] if GRADE_INTEGERS[grade].present?
+    nil
   end
 
   private

@@ -222,4 +222,25 @@ describe Classroom, type: :model do
     end
   end
 
+  describe '#grade_as_integer' do
+    it 'should return the grade if it is an integer' do
+      classroom = create(:classroom, grade: 1)
+      expect(classroom.grade_as_integer).to eq(1)
+    end
+
+    it 'should convert the grade if it can be converted' do
+      classroom = create(:classroom, grade: 'University')
+      expect(classroom.grade_as_integer).to eq(13)
+    end
+
+    it 'should return nil if the grade cannot be converted' do
+      classroom = create(:classroom, grade: 'Other')
+      expect(classroom.grade_as_integer).to eq(nil)
+
+      classroom = create(:classroom, grade: nil)
+      expect(classroom.grade_as_integer).to eq(nil)
+    end
+
+  end
+
 end
