@@ -20,7 +20,7 @@ class SerializeVitallySalesUser
     diagnostics_finished = diagnostics_finished(@user).count
     diagnostics_finished_this_year = diagnostics_finished(@user).where("activity_sessions.completed_at >=?", school_year_start).count
     {
-      accountId: @user.school.id.to_s,
+      accountId: @user.school&.id&.to_s,
       userId: @user.id.to_s,
       # Type is used by Vitally to determine which data type the payload contains in batches
       type: 'user',
@@ -192,7 +192,7 @@ class SerializeVitallySalesUser
   end
 
   private def account_uid
-    @user.school.id
+    @user.school&.id
   end
 
   private def school
