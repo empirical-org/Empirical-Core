@@ -1,0 +1,117 @@
+.my-activities {
+  section {
+    padding: 0px;
+  }
+  .my-activities-header {
+    background-color: white;
+    padding: 32px 0px;
+    border-bottom: 1px solid #e0e0e0;
+    .top-line {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    h1 {
+      font-size: 24px;
+      font-weight: bold;
+      line-height: 1.33;
+    }
+    .dropdown-container {
+      max-width: 300px;
+      min-height: 58px;
+      .dropdown__menu {
+        margin-top: -20px;
+      }
+    }
+  }
+  .my-activities-empty-state {
+    img {
+      margin: 32px 0px 16px;
+    }
+    h2 {
+      font-size: 20px;
+      font-weight: bold;
+      line-height: normal;
+    }
+    p {
+      margin: 8px 0px 32px;
+      font-size: 16px;
+      line-height: normal;
+      max-width: 460px;
+    }
+  }
+  .activity-pack {
+    border-radius: 6px;
+    border: solid 1px #e0e0e0 !important;
+    background-color: white;
+    margin-top: 32px;
+    .top-section {
+      padding: 32px;
+      border-bottom: 1px solid #e0e0e0;
+    }
+    .top-section-header {
+      display: flex;
+    }
+    .left-side {
+      flex: 1;
+    }
+    .right-side {
+      display: flex;
+      flex-direction: column;
+      button {
+        margin-bottom: 16px;
+        display: flex;
+        align-items: center;
+        img {
+          margin-right: 4px;
+          width: 24px;
+        }
+      }
+    }
+    h2 {
+      font-size: 24px;
+      font-weight: bold;
+      line-height: 1.33;
+      margin-bottom: 9px;
+    }
+    .total-classroom-info, .individual-classroom {
+      display: flex;
+      align-items: center;
+      margin-bottom: 16px;
+      button {
+        display: flex;
+        align-items: center;
+      }
+      img {
+        margin-right: 9px;
+      }
+      &.is-open {
+        button img {
+          transform: rotate(180deg)
+        }
+      }
+    }
+    .individual-classroom {
+      margin-left: 16px;
+      .name-and-count {
+        display: flex;
+        flex-direction: column;
+        max-width: calc(100% - 32px);
+        .count {
+          font-size: 12px;
+          line-height: 1;
+          color: #5c5c5c;
+          margin-top: 4px;
+        }
+        .quill-tooltip-trigger {
+          max-width: 100%;
+        }
+        .tooltip-trigger-text {
+          text-overflow: ellipsis;
+          display: block;
+          overflow: hidden;
+        }
+      }
+    }
+  }
+}

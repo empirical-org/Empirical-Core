@@ -1,15 +1,18 @@
 import React from 'react';
 import request from 'request';
-import Units from './activities_units';
-import ManageUnitsHeader from './manageUnitsHeader.jsx';
-import EmptyAssignedUnits from './EmptyAssignedUnits.jsx';
+import _ from 'underscore';
+
+import ActivityPack from './activity_pack'
+
 import LoadingIndicator from '../../shared/loading_indicator';
 import ItemDropdown from '../../general_components/dropdown_selectors/item_dropdown';
 import getParameterByName from '../../modules/get_parameter_by_name';
 import getAuthToken from '../../modules/get_auth_token';
-import _ from 'underscore';
+import { DropdownInput, } from '../../../../Shared/index'
 
-const allClassroomKey = 'All Classrooms';
+const clipboardSrc = `${process.env.CDN_URL}/images/illustrations/clipboard.svg`
+
+const allClassroomKey = 'All Classes';
 
 export default class ManageUnits extends React.Component {
   constructor(props) {
@@ -20,7 +23,7 @@ export default class ManageUnits extends React.Component {
       units: [],
       loaded: false,
       classrooms: [],
-      selectedClassroomId: getParameterByName('classroom_id'),
+      selectedClassroomId: getParameterByName('classroom_id') || allClassroomKey,
       activityWithRecommendationsIds: [],
     };
   }
@@ -82,13 +85,14 @@ export default class ManageUnits extends React.Component {
   };
 
   getUnitsForCurrentClass = () => {
-    if (this.state.selectedClassroomId && this.state.selectedClassroomId != allClassroomKey) {
+    const { selectedClassroomId, classrooms, } = this.state
+    if (selectedClassroomId && selectedClassroomId != allClassroomKey) {
       // TODO: Refactor this. It is ridiculous that we need to find a classroom and match on name. Instead, the units should just have a list of classroom_ids that we can match on.
-      const selectedClassroom = this.state.classrooms.find(c => c.id === Number(this.state.selectedClassroomId));
-      const unitsInCurrentClassroom = this.state.allUnits.filter(unit => unit.classrooms.find(c => c.name === selectedClassroom.name));
+      const selectedClassroom = classrooms.find(c => c.id === Number(selectedClassroomId));
+      const unitsInCurrentClassroom = allUnits.filter(unit => unit.classrooms.find(c => c.name === selectedClassroom.name));
       this.setState({ units: unitsInCurrentClassroom, loaded: true, });
     } else {
-      this.setState({ units: this.state.allUnits, loaded: true, });
+      this.setState(prevState => ({ units: prevState.allUnits, loaded: true, }));
     }
   };
 
@@ -160,25 +164,13 @@ export default class ManageUnits extends React.Component {
     this.hashLinkScroll();
   };
 
-  hideUnit = (id) => {
-    let units,
-      x1;
-    units = this.state.units;
-    x1 = _.reject(units, unit => this.getIdFromUnit(unit) == id);
-    this.setState({ units: x1, });
-
-    request.put(`${process.env.DEFAULT_URL}/teachers/units/${id}/hide`, {
-      json: { authenticity_token: getAuthToken(), },
-    });
-  };
-
   hideUnitActivity = (uaId, unitId) => {
+    const { units, } = this.state
     request.put({
       url: `${process.env.DEFAULT_URL}/teachers/unit_activities/${uaId}/hide`,
       json: { authenticity_token: getAuthToken(), }, },
       (error, httpStatus, body) => {
         if (httpStatus && httpStatus.statusCode === 200) {
-          const units = this.state.units;
           const modifiedUnits = _.map(units, (unit) => {
             const modifiedUnit = unit;
             if (this.getIdFromUnit(modifiedUnit) === unitId) {
@@ -214,55 +206,38 @@ export default class ManageUnits extends React.Component {
     } else {
       window.history.pushState({}, '', '/teachers/classrooms/activity_planner');
     }
-    this.setState({ selectedClassroomId: classroom.id, }, () => this.getUnitsForCurrentClass());
+    this.setState({ selectedClassroomId: classroom.value, }, () => this.getUnitsForCurrentClass());
   };
 
   stateBasedComponent = () => {
-    let content;
-    if (this.state.units.length === 0 && this.state.loaded === true) {
-      if (this.state.selectedClassroomId) {
-        content = <p className="no-activity-packs">There are no activity packs assigned to this classroom. To assign a new activity pack, click the <strong>Assign A New Activity</strong> button above. To assign an existing activity pack to this classroom, select another classroom from the dropdown menu and click <strong>Edit Classes & Students</strong> next to the activity pack you'd like to assign.</p>;
-      } else {
-        content = <p className="no-activity-packs">Welcome! This is where your assigned activity packs are stored, but it's empty at the moment. Let's assign your first activity pack by clicking on the <strong>Assign A New Activity</strong> button above.</p>;
-      }
-    } else if (!this.state.loaded) {
-      return <LoadingIndicator />;
-    } else {
-      content = (<Units
-        activityWithRecommendationsIds={this.state.activityWithRecommendationsIds}
-        allowSorting="true"
-        data={this.state.units}
-        editUnit={this.props.actions.editUnit}
-        hideUnit={this.hideUnit}
-        hideUnitActivity={this.hideUnitActivity}
+    const { actions, } = this.props
+    const { units, selectedClassroomId, classrooms, } = this.state
+
+    if (!units.length) {
+      return (<div className="my-activities-empty-state container">
+        <img alt="Clipboard with notes written on it" src={clipboardSrc} />
+        <h2>Start by assigning activities</h2>
+        <p>Nothing to see here yet! Once you assign activities, they will show up here.</p>
+      </div>)
+    }
+
+    const activityPacks = units.map(unit => (
+      <ActivityPack
+        data={unit}
+        editActivityPack={actions.editUnit}
+        getUnits={this.getUnits}
+        hideActivityPackActivity={this.hideUnitActivity}
+        key={unit.unitId}
         updateDueDate={this.updateDueDate}
         updateMultipleDueDates={this.updateMultipleDueDates}
-      />);
-    }
-    const allClassroomsClassroom = { name: allClassroomKey, id: allClassroomKey, };
-    const classrooms = [allClassroomsClassroom].concat(this.state.classrooms);
-    const classroomWithSelectedId = classrooms.length ? classrooms.find(classy => classy.id === Number(this.state.selectedClassroomId)) : null
-    const selectedClassroom = classroomWithSelectedId || allClassroomsClassroom;
+      />
+    ))
+
     return (
-      <span>
-        {/* TODO: fix this so it links to the activity type selection page
-          <div  className= "create-unit-button-container">
-					<button onClick={this.switchToCreateUnit} className="button-green create-unit">Assign A New Activity</button>
-				</div> */}
-        <ManageUnitsHeader />
-        <div className="classroom-selector">
-          <p>Select a classroom: </p>
-          <ItemDropdown
-            callback={this.switchClassrooms}
-            className="manage-units-classroom-dropdown"
-            items={classrooms}
-            selectedItem={selectedClassroom}
-          />
-        </div>
-        {content}
-      </span>
-    );
-    return <span />;
+      <section className="activity-packs container">
+        {activityPacks}
+      </section>
+    )
   };
 
   getIdFromUnit = (unit) => {
@@ -270,8 +245,34 @@ export default class ManageUnits extends React.Component {
   };
 
   render() {
+    const { classrooms, selectedClassroomId, loaded, } = this.state
+
+    if (!loaded) { return <LoadingIndicator /> }
+
+    const allClassroomsClassroom = { label: allClassroomKey, value: allClassroomKey, };
+    const classroomOptions = classrooms.map(c => {
+      c.value = c.id
+      c.label = c.name
+      return c
+    })
+    const allOptions = [allClassroomsClassroom, ...classroomOptions]
+    const selectedOption = allOptions.find(opt => String(opt.value) === String(selectedClassroomId))
+
     return (
-      <div className="container manage-units">
+      <div className="my-activities">
+        <section className="my-activities-header">
+          <div className="container">
+            <div className="top-line">
+              <h1>My Activity Packs</h1>
+              <a className="quill-button contained primary medium focus-on-light" href="/assign">Assign activities</a>
+            </div>
+            <DropdownInput
+              handleChange={this.switchClassrooms}
+              options={allOptions}
+              value={selectedOption}
+            />
+          </div>
+        </section>
         {this.stateBasedComponent()}
       </div>
     );
