@@ -1,9 +1,12 @@
 import * as React from "react";
 import * as moment from 'moment'
 
-import { DataTable, Error, Spinner } from '../../../../Shared/index';
+import PromptTable from './promptTable';
 
-const SessionOverview = ({ sessionData }) => {
+import { DataTable, Error, Spinner } from '../../../../Shared/index';
+import { getPromptForActivitySession } from "../../../helpers/comprehension";
+
+const SessionOverview = ({ activity, sessionData }) => {
 
   function sessionRows(sessionData: any) {
     if(!sessionData) {
@@ -83,6 +86,9 @@ const SessionOverview = ({ sessionData }) => {
         headers={dataTableFields}
         rows={sessionRows(sessionData)}
       />
+      <PromptTable activity={activity} prompt={getPromptForActivitySession(sessionData, 0)} showHeader={true} />
+      <PromptTable activity={activity} prompt={getPromptForActivitySession(sessionData, 1)} showHeader={true} />
+      <PromptTable activity={activity} prompt={getPromptForActivitySession(sessionData, 2)} showHeader={true} />
     </div>
   );
 }

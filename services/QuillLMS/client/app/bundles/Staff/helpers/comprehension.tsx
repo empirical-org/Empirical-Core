@@ -133,6 +133,14 @@ export function getActivityPromptSetter({
   return updatePrompt;
 };
 
+export function getPromptForActivitySession(sessionData: any, index: number) {
+  if(!sessionData) {
+    return null;
+  }
+  const { prompts } = sessionData;
+  return prompts[index];
+}
+
 const targetReadingLevelError = (value: string) => {
   if(!value) {
     return `${TARGET_READING_LEVEL} must be a number between 4 and 12, and cannot be blank.`

@@ -1,9 +1,9 @@
 import * as React from "react";
 
 import { DataTable, Spinner } from '../../../../Shared/index';
-import { PROMPT_ATTEMPTS_FEEDBACK_LABELS } from '../../../../../constants/comprehension';
+import { PROMPT_ATTEMPTS_FEEDBACK_LABELS, PROMPT_HEADER_LABELS } from '../../../../../constants/comprehension';
 
-const SessionsIndex = ({ activity, prompt }) => {
+const SessionsIndex = ({ activity, prompt, showHeader }) => {
 
 
   function formatFirstTableData(prompt: any) {
@@ -72,11 +72,13 @@ const SessionsIndex = ({ activity, prompt }) => {
     { name: "Feedback Type", attribute:"feedback", width: "100px" }
   ];
 
+  const { conjunction } = prompt;
   const firstTableData = formatFirstTableData(prompt);
   const { attemptsLabel, attemptsValue, completedLabel, completedValue } = firstTableData
 
   return(
     <section className="prompt-table-container">
+      {showHeader && <h2>{PROMPT_HEADER_LABELS[conjunction]}</h2>}
       <section className="attempts-section">
         <p className="attempts-label">{attemptsLabel}</p>
         <p className="attempts-value">{attemptsValue}</p>

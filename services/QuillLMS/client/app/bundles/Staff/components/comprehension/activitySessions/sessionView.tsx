@@ -7,6 +7,7 @@ import SessionOverview from './sessionOverview';
 
 import { Error, Spinner } from '../../../../Shared/index';
 import { fetchActivity } from '../../../utils/comprehension/activityAPIs';
+import { getPromptForActivitySession } from "../../../helpers/comprehension";
 
 var sessionData = require('./sessionData.json');
 
@@ -20,14 +21,6 @@ const SessionView = ({ match }) => {
     queryKey: [`activity-${activityId}`, activityId],
     queryFn: fetchActivity
   });
-
-  function getPrompt(sessionData: any, index: number) {
-    if(!sessionData) {
-      return null;
-    }
-    const { prompts } = sessionData;
-    return prompts[index];
-  }
 
   if(!data) {
     return(
@@ -80,13 +73,13 @@ const SessionView = ({ match }) => {
       <Switch>
         <Redirect exact from='/activity-sessions/:activityId/:sessionId' to='/activity-sessions/:activityId/:sessionId/overview' />
         {/* eslint-disable-next-line react/jsx-no-bind */}
-        <Route component={() => <SessionOverview sessionData={sessionData} />} path='/activity-sessions/:activityId/:sessionId/overview' />
+        <Route component={() => <SessionOverview activity={activity} sessionData={sessionData} />} path='/activity-sessions/:activityId/:sessionId/overview' />
         {/* eslint-disable-next-line react/jsx-no-bind */}
-        <Route component={() => <PromptTable activity={activity} prompt={getPrompt(sessionData, 0)} />} path='/activity-sessions/:activityId/:sessionId/because-responses' />
+        <Route component={() => <PromptTable activity={activity} prompt={getPromptForActivitySession(sessionData, 0)} />} path='/activity-sessions/:activityId/:sessionId/because-responses' />
         {/* eslint-disable-next-line react/jsx-no-bind */}
-        <Route component={() => <PromptTable activity={activity} prompt={getPrompt(sessionData, 1)} />} path='/activity-sessions/:activityId/:sessionId/but-responses' />
+        <Route component={() => <PromptTable activity={activity} prompt={getPromptForActivitySession(sessionData, 1)} />} path='/activity-sessions/:activityId/:sessionId/but-responses' />
         {/* eslint-disable-next-line react/jsx-no-bind */}
-        <Route component={() => <PromptTable activity={activity} prompt={getPrompt(sessionData, 2)} />} path='/activity-sessions/:activityId/:sessionId/so-responses' />
+        <Route component={() => <PromptTable activity={activity} prompt={getPromptForActivitySession(sessionData, 2)} />} path='/activity-sessions/:activityId/:sessionId/so-responses' />
       </Switch>
     </div>
   );

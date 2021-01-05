@@ -96,6 +96,12 @@ export const PROMPT_ATTEMPTS_FEEDBACK_LABELS = {
   }
 }
 
+export const PROMPT_HEADER_LABELS = {
+  "because": 'Because Responses',
+  "but": 'But Responses',
+  "so": 'So Responses',
+}
+
 export const blankActivity = {
   title: '',
   // flag:'',
