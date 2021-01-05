@@ -2,7 +2,7 @@
 
 exports[`Recommendations Component if all of the students have completed the activity renders 1`] = `
 <div>
-  <Snackbar
+  <Component
     visible={false}
   />
   <div
@@ -4799,7 +4799,7 @@ exports[`Recommendations Component if all of the students have completed the act
 
 exports[`Recommendations Component if none of the students have completed the activity renders 1`] = `
 <div>
-  <Snackbar
+  <Component
     visible={false}
   />
   <div

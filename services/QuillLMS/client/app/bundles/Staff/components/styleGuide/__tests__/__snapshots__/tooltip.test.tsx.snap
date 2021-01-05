@@ -20,9 +20,7 @@ exports[`Tooltip component should render when it is not searchable 1`] = `
     >
       <span
         className="quill-tooltip"
-      >
-        I am a tooltip
-      </span>
+      />
     </span>
   </span>
 </Tooltip>

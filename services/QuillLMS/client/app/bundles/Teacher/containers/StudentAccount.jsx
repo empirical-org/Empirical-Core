@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Snackbar, defaultSnackbarTimeout } from 'quill-component-library/dist/componentLibrary';
+import { Snackbar, defaultSnackbarTimeout } from '../../Shared/index';
 import StudentGeneralAccountInfo from '../components/accounts/edit/student_general.jsx';
 import StudentPasswordAccountInfo from '../components/accounts/edit/update_password';
 import getAuthToken from '../components/modules/get_auth_token';

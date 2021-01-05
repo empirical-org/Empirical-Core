@@ -7,7 +7,7 @@
     "doc": "docs"
   },
   "dependencies": {
-    "lodash": "^4.17.15",
+    "lodash": "^4.17.20",
     "request": "^2.81.0",
     "typescript": "^3.6.4"
   },

@@ -18,7 +18,7 @@ import {
   hideSignupModal,
   finishActivity
 } from '../../../actions/classroomSessions';
-import { Spinner } from 'quill-component-library/dist/componentLibrary';
+import { Spinner } from '../../../../Shared/index';
 import CLLobby from './lobby';
 import CLStatic from './static';
 import CLSingleAnswer from './singleAnswer';

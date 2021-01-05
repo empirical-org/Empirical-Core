@@ -1,5 +1,8 @@
 import React from 'react'
 import createReactClass from 'create-react-class';
+
+import formatString from './formatString'
+
 import ScoreColor from '../../modules/score_color.js'
 import ConceptResultTableRow from './concept_result_table_row.tsx'
 import NumberSuffix from '../../modules/numberSuffixBuilder.js'
@@ -19,7 +22,7 @@ export default createReactClass({
   <tr className={classNameAndText}>
     <td>{classNameAndText}</td>
     <td />
-    <td>{directionsOrFeedback.replace(/&#x27;/g, "'")}</td>
+    <td>{formatString(directionsOrFeedback)}</td>
   </tr>)
 		}
 	},
@@ -57,6 +60,7 @@ export default createReactClass({
 			}
 			attemptNum += 1;
 		}
+
 		return results;
 	},
 
@@ -114,7 +118,7 @@ export default createReactClass({
             <tr>
               <td>Prompt</td>
               <td />
-              <td>{data.prompt.replace(/&#x27;/g, "'")}</td>
+              <td>{formatString(data.prompt)}</td>
             </tr>
             {this.questionScore()}
             {this.emptyRow()}

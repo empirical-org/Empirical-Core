@@ -1,11 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-import {
-  PlayTitleCard,
-  Spinner,
-  ProgressBar
-} from 'quill-component-library/dist/componentLibrary';
 import _ from 'underscore';
 
 import PlayLessonQuestion from './question';
@@ -14,7 +9,12 @@ import PlayFillInTheBlankQuestion from './fillInBlank.tsx'
 import Finished from './finished.jsx';
 
 import SessionActions from '../../actions/sessions.js';
-import { Register } from '../../../Shared/index';
+import {
+  PlayTitleCard,
+  Spinner,
+  ProgressBar,
+  Register
+} from '../../../Shared/index';
 import { clearData, loadData, nextQuestion, submitResponse, updateCurrentQuestion, resumePreviousSession } from '../../actions.js';
 import { getConceptResultsForAllQuestions, calculateScoreForLesson } from '../../libs/conceptResults/lesson';
 import { getParameterByName } from '../../libs/getParameterByName';

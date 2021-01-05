@@ -75,16 +75,17 @@ export default class PromptStep extends React.Component<PromptStepProps, PromptS
     return text.replace(regex, '')
   }
 
-  boldMisspellings = (str: string) => {
+  formatStudentResponse = (str: string) => {
     const lastSubmittedResponse = this.lastSubmittedResponse()
     if (!(lastSubmittedResponse && lastSubmittedResponse.highlight && lastSubmittedResponse.highlight.filter(hl => hl.type === RESPONSE).length)) {
       return str
     }
-    const misspelledWords = lastSubmittedResponse.highlight.filter(hl => hl.type === RESPONSE).map(hl => hl.text)
+    let wordsToFormat = lastSubmittedResponse.highlight.filter(hl => hl.type === RESPONSE).map(hl => hl.text)
+    wordsToFormat = wordsToFormat.length === 1 ? wordsToFormat[0] : wordsToFormat
     const wordArray = this.stripHtml(str).split(' ')
     const newWordArray = wordArray.map(word => {
       const punctuationStrippedWord = word.replace(/[^A-Za-z0-9\s]/g, '')
-      if (misspelledWords.includes(punctuationStrippedWord)) {
+      if (wordsToFormat.includes(punctuationStrippedWord)) {
         return `<b>${word}</b>`
       } else {
         return word
@@ -252,8 +253,7 @@ export default class PromptStep extends React.Component<PromptStepProps, PromptS
     const regex = new RegExp(`^${formattedPrompt}`)
     const textWithoutStem = text.replace(regex, '')
     const spaceAtEnd = text.match(/\s$/m) ? '&nbsp;' : ''
-    const htmlWithBolding = active ? `<p>${formattedPrompt}${this.boldMisspellings(textWithoutStem)}${spaceAtEnd}</p>` : `<p>${textWithoutStem}</p>`
-
+    const htmlWithBolding = active ? `<p>${formattedPrompt}${this.formatStudentResponse(textWithoutStem)}${spaceAtEnd}</p>` : `<p>${textWithoutStem}</p>`
     return (<EditorContainer
       className={className}
       disabled={disabled}
