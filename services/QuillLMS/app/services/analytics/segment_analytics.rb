@@ -102,7 +102,7 @@ class SegmentAnalytics
       event: SegmentIo::BackgroundEvents::CLASSROOM_CREATION,
       properties: {
         classroom_type: classroom.classroom_type_for_segment,
-        classroom_grade: classroom.grade_as_integer
+        classroom_grade: classroom.grade_as_integer >= 0 ? classroom.grade_as_integer : nil
       }
     })
   end

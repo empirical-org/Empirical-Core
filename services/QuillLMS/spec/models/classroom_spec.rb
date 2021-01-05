@@ -235,10 +235,10 @@ describe Classroom, type: :model do
 
     it 'should return nil if the grade cannot be converted' do
       classroom = create(:classroom, grade: 'Other')
-      expect(classroom.grade_as_integer).to eq(nil)
+      expect(classroom.grade_as_integer).to eq(-1)
 
       classroom = create(:classroom, grade: nil)
-      expect(classroom.grade_as_integer).to eq(nil)
+      expect(classroom.grade_as_integer).to eq(-1)
     end
 
   end
