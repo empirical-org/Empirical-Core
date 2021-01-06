@@ -25,7 +25,7 @@ class FinishActivityWorker
 
     if activity_session.eligible_for_tracking?
       analytics = SegmentAnalytics.new
-      analytics.track_activity_completion(activity_session.classroom_owner, activity_session.activity)
+      analytics.track_activity_completion(activity_session.classroom_owner, activity_session.user_id, activity_session.activity)
     end
 
     # add it to the student's scorebook
