@@ -23,6 +23,7 @@ class BlogPost < ActiveRecord::Base
     WHATS_NEW,
     GETTING_STARTED,
     BEST_PRACTICES,
+    WEBINARS,
     VIDEO_TUTORIALS,
     TEACHER_MATERIALS,
     WRITING_INSTRUCTION_RESEARCH,
@@ -31,7 +32,6 @@ class BlogPost < ActiveRecord::Base
     IN_THE_NEWS,
     CASE_STUDIES,
     SUPPORT,
-    WEBINARS,
     TWITTER_LOVE
   ]
 
