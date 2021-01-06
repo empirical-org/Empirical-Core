@@ -3,7 +3,7 @@ class Classroom < ActiveRecord::Base
 
   GRADES = %w(1 2 3 4 5 6 7 8 9 10 11 12 University)
   UNIVERSITY= "University"
-  GRADE_INTEGERS = {:Kindergarten => 0, :University => 13, :PostGraduate => 14}
+  GRADE_INTEGERS = {Kindergarten: 0, University: 13, PostGraduate: 14}
 
   validates_uniqueness_of :code
   validates_presence_of :name
