@@ -1,7 +1,7 @@
 module NameGenerator
 
   def generate
-    "#{sample('noun_3.db')}-#{sample('noun_2.db')}"
+    sample('nouns.db').map { |w| w.strip }.join('-')
   end
 
   extend self
@@ -9,6 +9,6 @@ module NameGenerator
   private
 
   def sample file
-    File.readlines(Rails.root.join('db', file)).sample.strip
+    File.readlines(Rails.root.join('db', file)).sample(3)
   end
 end
