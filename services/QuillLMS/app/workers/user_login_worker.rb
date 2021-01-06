@@ -15,7 +15,7 @@ class UserLoginWorker
         # keep these in the following order so the student is the last one identified
         teacher = @user.teacher_of_student
         if teacher.present?
-          analytics.track(
+          analytics.track_with_attributes(
             teacher,
             SegmentIo::BackgroundEvents::TEACHERS_STUDENT_SIGNIN,
             properties: {
