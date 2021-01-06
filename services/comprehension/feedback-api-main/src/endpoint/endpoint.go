@@ -208,7 +208,7 @@ func buildBatchFeedbackHistories(request_object APIRequest, feedbacks map[int]In
 			fmt.Println(feedback)
 		} else if key == automl_index {
 			fallback_feedback := InternalAPIResponse{APIResponse: default_api_response}
-			feedback_histories = append(feedback_histories, buildFeedbackHistory(request_object, fallback_feedback, key == -1, time_received))
+			feedback_histories = append(feedback_histories, buildFeedbackHistory(request_object, fallback_feedback, used_key == -1, time_received))
 			fmt.Println("Adding Feedback to history batch:")
 			fmt.Println(fallback_feedback)
 		} else {
