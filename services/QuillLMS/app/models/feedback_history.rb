@@ -3,7 +3,7 @@ class FeedbackHistory < ActiveRecord::Base
   DEFAULT_PROMPT_TYPE = "Comprehension::Prompt"
   MIN_ATTEMPT = 1
   MAX_ATTEMPT = 5
-  MIN_ENTRY_LENGTH = 25
+  MIN_ENTRY_LENGTH = 5
   MAX_ENTRY_LENGTH = 500
   MIN_FEEDBACK_LENGTH = 10
   MAX_FEEDBACK_LENGTH = 500
