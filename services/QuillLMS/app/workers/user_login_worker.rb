@@ -18,6 +18,9 @@ class UserLoginWorker
           analytics.track(
             teacher,
             SegmentIo::BackgroundEvents::TEACHERS_STUDENT_SIGNIN,
+            properties: {
+              student_id: @user.id
+            }
           )
         end
       end
