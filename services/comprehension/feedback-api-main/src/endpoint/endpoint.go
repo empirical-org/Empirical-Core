@@ -38,7 +38,7 @@ var urls = [...]string{
 // you can't use const for structs, so this is the closest thing we can get for this value
 var default_api_response = APIResponse{
 	Feedback: "Thank you for your response.",
-	Feedback_type: "fallback",
+	Feedback_type: "semantic",
 	Optimal: true,
 }
 
@@ -198,9 +198,16 @@ func buildFeedbackHistory(request_object APIRequest, feedback InternalAPIRespons
 func buildBatchFeedbackHistories(request_object APIRequest, feedbacks map[int]InternalAPIResponse, time_received time.Time) (BatchHistoriesAPIRequest, error) {
 	feedback_histories := []FeedbackHistory{}
 	used_key := identifyUsedFeedbackIndex(feedbacks)
+	fmt.Println("Constructing FeedbackHistory batch payload")
+	fmt.Println(fmt.Sprintf("Session: %s, Prompt: %d", request_object.Session_id, request_object.Prompt_id))
 	for key, feedback := range feedbacks {
 		if !feedback.Error || key == automl_index {
 			feedback_histories = append(feedback_histories, buildFeedbackHistory(request_object, feedback, used_key == key, time_received))
+			fmt.Println("Adding Feedback to history batch:")
+			fmt.Println(feedback)
+		} else {
+			fmt.Println("Not adding Feedback to history batch:")
+			fmt.Println(feedback)
 		}
 	}
 
