@@ -1,7 +1,7 @@
 module NameGenerator
 
   def generate
-    "#{sample('noun_1.db')}-#{sample('noun_2.db')}"
+    "#{sample('noun_1.db')}-#{sample('noun_2.db')}-#{SecureRandom.hex(2)}"
   end
 
   extend self
