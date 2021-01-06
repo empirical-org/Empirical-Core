@@ -201,6 +201,7 @@ func buildBatchFeedbackHistories(request_object APIRequest, feedbacks map[int]In
 	fmt.Println("Constructing FeedbackHistory batch payload")
 	fmt.Println(fmt.Sprintf("Session: %s, Prompt: %d", request_object.Session_id, request_object.Prompt_id))
 	for key, feedback := range feedbacks {
+		fmt.Println(fmt.Sprintf("Key: %d, Used Key: %d", key, used_key))
 		if !feedback.Error{
 			feedback_histories = append(feedback_histories, buildFeedbackHistory(request_object, feedback, used_key == key, time_received))
 			fmt.Println("Adding Feedback to history batch:")
