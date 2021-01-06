@@ -577,8 +577,16 @@
         margin-bottom: 20px;
         border: 1px solid lightgray;
         .data-table-body {
-          .data-table-row:nth-child(odd) {
-            background-color: #aef2e7;
+          // .data-table-row:nth-child(odd) {
+          //   background-color: #ffbcbc;
+          // }
+          .data-table-row {
+            &.optimal {
+              background-color:  #a7efa7
+            }
+            &.sub-optimal {
+              background-color:  #ffbcbc;
+            }
           }
           .data-table-row {
             height: auto;

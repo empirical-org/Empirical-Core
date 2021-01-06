@@ -56,9 +56,9 @@
       [{
         "used": true,
         "entry": "this is a test response.",
-        "feedback_text": "this is some test feedback.",
+        "feedback_text": "this is some OPTIMAL test feedback.",
         "feedback_type": "semantic",
-        "optimal": false
+        "optimal": true
       },
       {
         "used": false,

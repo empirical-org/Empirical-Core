@@ -40,7 +40,7 @@ const SessionsIndex = ({ activity, prompt, showHeader }) => {
     const rows = [];
     keys.map((key: any, i: number) => {
       const attempt = attempts[key][0];
-      const { entry, feedback_text, feedback_type } = attempt;
+      const { entry, feedback_text, feedback_type, optimal } = attempt;
       const { attemptLabel, feedbackLabel } = PROMPT_ATTEMPTS_FEEDBACK_LABELS[key];
       const attemptObject: any = {};
       const feedbackObject: any = {};
@@ -52,6 +52,7 @@ const SessionsIndex = ({ activity, prompt, showHeader }) => {
       feedbackObject.status = feedbackLabel;
       feedbackObject.results = feedback_text;
       feedbackObject.feedback = feedback_type;
+      feedbackObject.className = optimal ? 'optimal' : 'sub-optimal'
       rows.push(attemptObject);
       rows.push(feedbackObject);
     });
