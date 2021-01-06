@@ -38,8 +38,9 @@ module SegmentIo
     REFERRAL_INVITED ||= "A new teacher signed up from this teacher's referral link"
     REFERRAL_ACTIVATED ||= "One of this teacher's referrals is now active"
     COTEACHER_INVITATION ||= 'Teacher invited a coteacher'
-    COTEACHER_ACCEPTANCE ||= 'Teacher accepted an invitation to coteach'
+    COTEACHER_ACCEPTANCE ||= 'Teacher accepted coteacher invitation'
     TRANSFER_OWNERSHIP ||= 'Teacher transferred ownership of a classroom'
+    VIEWED_AS_STUDENT ||= 'Teacher viewed Quill as a student'
   end
 
   module Events
