@@ -41,6 +41,7 @@ then
     if [ $1 == 'prod' ]
     then
         # For production, push directly from the remote production branch without going local
+        git fetch origin production
         git push --no-verify --force origin origin/production:refs/heads/$DEPLOY_GIT_BRANCH
         sh ../../scripts/post_slack_deploy_description.sh $app_name
     else
