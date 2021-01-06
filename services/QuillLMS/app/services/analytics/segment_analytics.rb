@@ -81,11 +81,11 @@ class SegmentAnalytics
     })
   end
 
-  def track_activity_completion(user, activity)
+  def track_activity_completion(user, student_id, activity)
     track(user, {
       user_id: user.id,
       event: SegmentIo::BackgroundEvents::ACTIVITY_COMPLETION,
-      properties: activity_info_for_tracking(activity)
+      properties: activity_info_for_tracking(activity).merge({student_id: student_id})
     })
   end
 
@@ -101,7 +101,8 @@ class SegmentAnalytics
       user_id: classroom&.owner&.id,
       event: SegmentIo::BackgroundEvents::CLASSROOM_CREATION,
       properties: {
-        classroom_type: classroom.classroom_type_for_segment
+        classroom_type: classroom.classroom_type_for_segment,
+        classroom_grade: classroom.grade_as_integer >= 0 ? classroom.grade_as_integer : nil
       }
     })
   end

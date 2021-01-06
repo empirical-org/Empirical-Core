@@ -21,7 +21,7 @@ describe UserLoginWorker, type: :worker do
   context 'when student with teacher logs in' do
 
     it 'track teacher student sign in' do
-      expect(analyzer).to receive(:track).with(teacher, SegmentIo::BackgroundEvents::TEACHERS_STUDENT_SIGNIN)
+      expect(analyzer).to receive(:track).with(teacher, SegmentIo::BackgroundEvents::TEACHERS_STUDENT_SIGNIN, properties: {student_id: student.id})
       worker.perform(student.id, "127.0.0.1")
     end
   end
