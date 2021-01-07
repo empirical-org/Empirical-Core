@@ -175,9 +175,9 @@ class Activity < ActiveRecord::Base
     raw_score.readability_grade_level(activity_classification_id)
   end
 
-  def is_diagnostic?
-    classification&.key == ActivityClassification::DIAGNOSTIC_KEY
-  end
+  # def is_diagnostic?
+  #   classification&.key == ActivityClassification::DIAGNOSTIC_KEY
+  # end
 
   private
 
