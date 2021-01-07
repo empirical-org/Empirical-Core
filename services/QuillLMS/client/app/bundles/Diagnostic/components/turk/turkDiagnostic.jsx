@@ -8,7 +8,7 @@ import {
   SmartSpinner,
   PlayTitleCard,
   ProgressBar
-} from 'quill-component-library/dist/componentLibrary';
+} from '../../../Shared/index';
 import PlaySentenceFragment from '../diagnostics/sentenceFragment.jsx'
 import PlayDiagnosticQuestion from '../diagnostics/sentenceCombining.jsx';
 import PlayFillInTheBlankQuestion from '../fillInBlank/playFillInTheBlankQuestion';

@@ -1,6 +1,6 @@
 import React from 'react';
 import rootRef from '../../libs/firebase';
-import { Spinner } from 'quill-component-library/dist/componentLibrary';
+import { Spinner } from '../../../Shared/index';
 
 export default class extends React.Component {
   state = {

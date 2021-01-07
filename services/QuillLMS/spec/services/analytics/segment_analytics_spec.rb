@@ -22,6 +22,7 @@ describe 'SegmentAnalytics' do
       expect(track_calls[1][:event]).to eq(SegmentIo::BackgroundEvents::CLASSROOM_CREATION)
       expect(track_calls[1][:user_id]).to eq(classroom.owner.id)
       expect(track_calls[1][:properties][:classroom_type]).to eq(classroom.classroom_type_for_segment)
+      expect(track_calls[1][:properties][:classroom_grade]).to eq(classroom.grade_as_integer)
     end
   end
 
@@ -63,15 +64,17 @@ describe 'SegmentAnalytics' do
   context 'tracking activity completion' do
     let(:teacher) { create(:teacher) }
     let(:activity) { create(:diagnostic_activity) }
+    let(:student) { create(:student) }
 
     it 'sends an event with information about the activity' do
-      analytics.track_activity_completion(teacher, activity)
+      analytics.track_activity_completion(teacher, student.id, activity)
       expect(identify_calls.size).to eq(0)
       expect(track_calls.size).to eq(1)
       expect(track_calls[0][:event]).to eq(SegmentIo::BackgroundEvents::ACTIVITY_COMPLETION)
       expect(track_calls[0][:user_id]).to eq(teacher.id)
       expect(track_calls[0][:properties][:activity_name]).to eq(activity.name)
       expect(track_calls[0][:properties][:tool_name]).to eq('Diagnostic')
+      expect(track_calls[0][:properties][:student_id]).to eq(student.id)
     end
   end
 
@@ -129,24 +132,22 @@ describe 'SegmentAnalytics' do
     let(:teacher) { create(:teacher) }
     let(:student) { create(:student) }
 
-    it 'never sends events to Salesmachine, even if the user is a teacher' do
+    it 'sends events to Intercom when the user is a teacher' do
       analytics.track(teacher, {})
       expect(identify_calls.size).to eq(0)
       expect(track_calls.size).to eq(1)
       expect(track_calls[0][:integrations]).to eq({
         all: true,
-        Salesmachine: false,
         Intercom: true
       })
     end
 
-    it 'does not send events to the Salesmachine integration when user is not a teacher' do
+    it 'does not send events to Intercom when user is not a teacher' do
       analytics.track(student, {})
       expect(identify_calls.size).to eq(0)
       expect(track_calls.size).to eq(1)
       expect(track_calls[0][:integrations]).to eq({
         all: true,
-        Salesmachine: false,
         Intercom: false
       })
     end

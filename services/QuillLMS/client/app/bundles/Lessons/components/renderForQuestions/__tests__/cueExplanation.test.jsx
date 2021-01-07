@@ -1,7 +1,7 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 
-import { CueExplanation } from 'quill-component-library/dist/componentLibrary';
+import { CueExplanation } from '../../../../Shared/index';
 
 describe('CueExplanation component', () => {
   const text = 'Add words'

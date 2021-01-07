@@ -5,8 +5,9 @@ import _ from 'underscore';
 import {
   ResponseSortFields,
   ResponseToggleFields,
-  QuestionBar
-} from 'quill-component-library/dist/componentLibrary';
+  QuestionBar,
+  hashToCollection
+} from '../../../Shared/index';
 import ResponseList from './responseList.jsx';
 import QuestionMatcher from '../../libs/question';
 import questionActions from '../../actions/questions';
@@ -24,7 +25,6 @@ import DiagnosticQuestionMatcher from '../../libs/diagnosticQuestion.js';
 import massEdit from '../../actions/massEdit';
 import request from 'request';
 import { submitResponseEdit } from '../../actions/responses';
-import { hashToCollection } from '../../../Shared/index'
 
 const C = require('../../constants').default;
 

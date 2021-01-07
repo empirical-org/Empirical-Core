@@ -8,6 +8,7 @@ import (
 	"bytes"
 	"encoding/json"
 	"reflect"
+	"strings"
 	"time"
 )
 
@@ -86,10 +87,67 @@ func TestAllOptimal(t *testing.T) {
 	results[1] = responseOptimal
 	results[2] = responseOptimal
 
-	return_index, returnable := processResults(results, 3, true)
+	return_index, returnable := processResults(results, 3)
 
 	if return_index != automl_index {
 		t.Errorf("processResults got index %v, want %v", return_index, automl_index)
+	}
+	if !returnable {
+		t.Errorf("processResults returnable should be true")
+	}
+}
+
+func TestFirstResponseErrorAllOptimal(t *testing.T) {
+	responseOptimal := InternalAPIResponse{
+		APIResponse: APIResponse{Optimal: true},
+		Error: false,
+	}
+
+	responseError := InternalAPIResponse{
+		APIResponse: APIResponse{Optimal: false},
+		Error: true,
+	}
+
+	results := map[int]InternalAPIResponse{}
+	results[0] = responseError
+	results[1] = responseOptimal
+	results[2] = responseOptimal
+
+	return_index, returnable := processResults(results, 3)
+
+	if return_index != automl_index {
+		t.Errorf("processResults got index %v, want %v", return_index, automl_index)
+	}
+	if !returnable {
+		t.Errorf("processResults returnable should be true")
+	}
+}
+
+func TestFirstResponseErrorLaterNonOptimal(t *testing.T) {
+	responseOptimal := InternalAPIResponse{
+		APIResponse: APIResponse{Optimal: true},
+		Error: false,
+	}
+
+	responseNonOptimal := InternalAPIResponse{
+		APIResponse: APIResponse{Optimal: false},
+		Error: false,
+	}
+
+	responseError := InternalAPIResponse{
+		APIResponse: APIResponse{Optimal: false},
+		Error: true,
+	}
+
+	results := map[int]InternalAPIResponse{}
+	results[0] = responseError
+	results[1] = responseOptimal
+	results[2] = responseNonOptimal
+
+	return_index, returnable := processResults(results, 3)
+
+	if return_index != 2 {
+		t.Errorf("processResults got index %v, want %v", return_index, 2)
 	}
 	if !returnable {
 		t.Errorf("processResults returnable should be true")
@@ -184,7 +242,8 @@ func TestBuildBatchFeedbackHistories(t *testing.T) {
 
 	results := map[int]InternalAPIResponse{}
 	results[0] = InternalAPIResponse { APIResponse: APIResponse { Concept_uid: "test_concept", Feedback: "Feedback text: optimal", Feedback_type: "type1", Optimal: true, Labels: "test_label" } }
-	results[2] = InternalAPIResponse { APIResponse: APIResponse { Concept_uid: "test_concept", Feedback: "Feedback text: non-optimal", Feedback_type: "type2", Optimal: false, Labels: "test_label" } }
+	results[automl_index] = InternalAPIResponse { Error: true, APIResponse: default_api_response }
+	results[2] = InternalAPIResponse { Error: true, APIResponse: APIResponse { Concept_uid: "test_concept", Feedback: "Feedback text: non-optimal", Feedback_type: "type2", Optimal: false, Labels: "test_label" } }
 	results[3] = InternalAPIResponse { APIResponse: APIResponse { Concept_uid: "test_concept", Feedback: "Feedback text: optimal", Feedback_type: "type3", Optimal: false, Labels: "test_label" } }
 
 	now := time.Now()
@@ -209,15 +268,15 @@ func TestBuildBatchFeedbackHistories(t *testing.T) {
 			FeedbackHistory {
 				Activity_session_uid: api_request.Session_id,
 				Prompt_id: api_request.Prompt_id,
-				Concept_uid: results[2].APIResponse.Concept_uid,
+				Concept_uid: default_api_response.Concept_uid,
 				Attempt: api_request.Attempt,
 				Entry: api_request.Entry,
-				Feedback_text: results[2].APIResponse.Feedback,
-				Feedback_type: results[2].APIResponse.Feedback_type,
-				Optimal: results[2].APIResponse.Optimal,
-				Used: true,
+				Feedback_text: default_api_response.Feedback,
+				Feedback_type: default_api_response.Feedback_type,
+				Optimal: default_api_response.Optimal,
+				Used: false,
 				Time: now,
-				Metadata: FeedbackHistoryMetadata { Labels: results[2].APIResponse.Labels },
+				Metadata: FeedbackHistoryMetadata { Labels: default_api_response.Labels },
 			},
 			FeedbackHistory {
 				Activity_session_uid: api_request.Session_id,
@@ -228,7 +287,7 @@ func TestBuildBatchFeedbackHistories(t *testing.T) {
 				Feedback_text: results[3].APIResponse.Feedback,
 				Feedback_type: results[3].APIResponse.Feedback_type,
 				Optimal: results[3].APIResponse.Optimal,
-				Used: false,
+				Used: true,
 				Time: now,
 				Metadata: FeedbackHistoryMetadata { Labels: results[3].APIResponse.Labels },
 			},
@@ -241,10 +300,14 @@ func TestBuildBatchFeedbackHistories(t *testing.T) {
 
 	payload_json, _ := json.Marshal(payload)
 	payload_str := string(payload_json)
-	expected_json, _ := json.Marshal(expected)
-	expected_str := string(expected_json)
-	if payload_str != expected_str {
-		t.Errorf("Payload not properly formatted.\n\nReceived:\n%s\n\nExpected:\n%s", payload_str, expected_str)
+	for _, feedback_history := range expected.Feedback_histories {
+		expected_json, _ := json.Marshal(feedback_history)
+		expected_str := string(expected_json)
+		if !strings.Contains(payload_str, expected_str) {
+			expected_json, _ := json.Marshal(expected)
+			expected_str := string(expected_json)
+			t.Errorf("Payload not properly formatted.\n\nReceived:\n%s\n\nExpected:\n%s", payload_str, expected_str)
+		}
 	}
 }
 

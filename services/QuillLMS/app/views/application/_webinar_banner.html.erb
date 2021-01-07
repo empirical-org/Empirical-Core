@@ -1,5 +1,5 @@
 <% current_time_on_east_coast = Time.now.in_time_zone('America/New_York') %>
-<% still_doing_webinars = current_time_on_east_coast < Date.parse("20201217") %>
+<% still_doing_webinars = current_time_on_east_coast > Date.parse("20210103") && current_time_on_east_coast < Date.parse("20210330") %>
 
 <% if (still_doing_webinars && (!current_user || current_user.teacher?)) %>
   <% banner = WebinarBanner.new(current_time_on_east_coast) %>
@@ -7,7 +7,7 @@
     <div class="banner" id="webinar-banner">
       <div class="content-container">
         <img alt="Video player with play symbol" class="banner-icon" src=<%= "#{ENV['CDN_URL']}/images/icons/live-stream.svg" %>>
-        <p><a href=<%= banner.link %> rel="noopener noreferrer" target="_blank"><strong><%=banner.title%></strong> is live now! Register and join.</a></p>
+        <p><strong><%=banner.title%></strong> is live now! <a href=<%= banner.link %> rel="noopener noreferrer" target="_blank">Click here to register and join.</a></p>
         <img alt="White X" id="close-webinar-banner" src=<%= "#{ENV['CDN_URL']}/images/icons/close-white.svg" %>>
       </div>
     </div>

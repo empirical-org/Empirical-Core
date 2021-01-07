@@ -17,7 +17,7 @@ const (
 	automl_api = "https://comprehension-247816.appspot.com/feedback/ml"
 	//automl_api = "https://www.quill.org/comprehension/ml_feedback.json"
 	grammar_check_api = "https://us-central1-comprehension-247816.cloudfunctions.net/topic-grammar-API"
-	plagiarism_api = "https://comprehension-247816.appspot.com/feedback/plagiarism"
+	plagiarism_api = "https://www.quill.org/api/v1/comprehension/feedback/plagiarism.json"
 	regex_rules_api = "https://comprehension-247816.appspot.com/feedback/rules/first_pass"
 	spell_check_local = "https://us-central1-comprehension-247816.cloudfunctions.net/spell-check-cloud-function"
 	spell_check_bing = "https://us-central1-comprehension-247816.cloudfunctions.net/bing-API-spell-check"
@@ -87,7 +87,7 @@ func Endpoint(responseWriter http.ResponseWriter, request *http.Request) {
 
 	for response := range c {
 		results[response.Priority] = response
-		return_index, finished := processResults(results, len(urls), response.Error)
+		return_index, finished := processResults(results, len(urls))
 
 		if finished {
 			// If processResults reports that it's "finished", but the APIResponse at
@@ -124,17 +124,15 @@ func Endpoint(responseWriter http.ResponseWriter, request *http.Request) {
 	wg.Wait()
 }
 // returns a typle of results index and that should be returned.
-func processResults(results map[int]InternalAPIResponse, length int, usable bool) (int, bool) {
-	if usable {
-		for i := 0; i < len(results); i++ {
+func processResults(results map[int]InternalAPIResponse, length int) (int, bool) {
+	for i := 0; i < len(results); i++ {
 		result, has_key := results[i]
-			if !has_key {
-				return 0, false
-			}
+		if !has_key {
+			return 0, false
+		}
 
-			if !result.APIResponse.Optimal {
-				return i, true
-			}
+		if !result.Error && !result.APIResponse.Optimal {
+			return i, true
 		}
 	}
 
@@ -201,7 +199,7 @@ func buildBatchFeedbackHistories(request_object APIRequest, feedbacks map[int]In
 	feedback_histories := []FeedbackHistory{}
 	used_key := identifyUsedFeedbackIndex(feedbacks)
 	for key, feedback := range feedbacks {
-		if !feedback.Error {
+		if !feedback.Error || key == automl_index {
 			feedback_histories = append(feedback_histories, buildFeedbackHistory(request_object, feedback, used_key == key, time_received))
 		}
 	}

@@ -1,6 +1,6 @@
 import * as React from 'react'
 import _ from 'underscore'
-import { AffectedResponse, isValidRegex } from 'quill-component-library/dist/componentLibrary'
+import { AffectedResponse, isValidRegex } from '../../../Shared/index'
 import { focusPointMatchHelper, incorrectSequenceMatchHelper } from "quill-marking-logic"
 
 import Response from './response'
