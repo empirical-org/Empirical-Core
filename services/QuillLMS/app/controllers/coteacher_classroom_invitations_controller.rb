@@ -16,6 +16,7 @@ class CoteacherClassroomInvitationsController < ApplicationController
     invitations.each do |invitation|
       ClassroomsTeacher.create(classroom_id: invitation['classroom_id'], role: ClassroomsTeacher::ROLE_TYPES[:coteacher], user_id: current_user.id)
       CoteacherClassroomInvitation.find_by(classroom_id: invitation['classroom_id'], invitation_id: invitation['invitation_id'])&.destroy
+      Analyzer.new.track(current_user, SegmentIo::BackgroundEvents::COTEACHER_ACCEPTANCE)
     end
     respond_to do |format|
       format.html { return redirect_to dashboard_teachers_classrooms_path }
