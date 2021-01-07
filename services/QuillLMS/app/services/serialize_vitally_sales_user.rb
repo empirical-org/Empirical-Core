@@ -1,6 +1,6 @@
 class SerializeVitallySalesUser
   BASE_USER_URL = "https://www.quill.org/cms/users"
-  DIAGNOSTIC_ID = ActivityClassification.diagnostic.id
+  # DIAGNOSTIC_ID = ActivityClassification.diagnostic.id
 
   def initialize(user)
     @user = user
