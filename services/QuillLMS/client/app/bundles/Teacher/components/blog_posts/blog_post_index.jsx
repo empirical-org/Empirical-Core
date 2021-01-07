@@ -16,6 +16,9 @@ import {
   TEACHER_STORIES,
   GETTING_STARTED,
   WRITING_INSTRUCTION_RESEARCH,
+  VIDEO_TUTORIALS,
+  WHATS_NEW,
+  BEST_PRACTICES,
   SUPPORT,
   WEBINARS,
 } from './blog_post_constants'
@@ -41,18 +44,24 @@ export default class BlogPostIndex extends React.Component {
 
     switch (this.pageTitle()) {
       case TEACHER_STORIES:
-        return 'Read success stories about Quill in the class'
+        return 'Read success stories about Quill in the classroom'
       case GETTING_STARTED:
         return 'Set up your classroom on Quill with guides, videos, and presentations'
       case WRITING_INSTRUCTION_RESEARCH:
-        return 'Read and download handpicked materials to teach writing'
+        return "Learn about the research behind Quill's methods and pedagogy"
       case SUPPORT:
         return 'The most common questions teachers ask about Quill'
       case WEBINARS:
-        return 'Join online conferences to learn best practices for how to use Quill with your students'
+        return "Watch Quill's recorded professional development sessions to learn Quill's implementation best practices"
+      case VIDEO_TUTORIALS:
+        return "View step-by-step walkthroughs of set-up and navigation"
+      case BEST_PRACTICES:
+        return 'Explore implementation ideas from Quill’s instructional experts'
+      case WHATS_NEW:
+        return 'Stay up to date on the latest Quill news'
       case TEACHER_CENTER:
       default:
-        return 'Everything you need to know about Quill’s pedagogy and use in the classroom'
+        return 'Explore implementation ideas from Quill’s instructional experts'
     }
   }
 
