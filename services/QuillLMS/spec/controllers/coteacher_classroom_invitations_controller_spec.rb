@@ -7,6 +7,7 @@ describe CoteacherClassroomInvitationsController, type: :controller do
   let(:invite_two) { create(:coteacher_classroom_invitation, classroom_id: teacher.classrooms_i_own.second.id, invitation_id: pending_invitation.id) }
   let(:invited_teacher) { User.find_by_email(pending_invitation.invitee_email) }
   let(:unaffiliated_teacher) { create(:teacher) }
+  let(:analyzer) { double(:analyzer, track: true, track_with_attributes: true) }
 
   describe '#accept_pending_coteacher_invitations' do
     context 'user is signed in' do
@@ -29,6 +30,10 @@ describe CoteacherClassroomInvitationsController, type: :controller do
       end
 
       context 'post' do
+        before do
+          allow(Analyzer).to receive(:new) { analyzer }
+        end
+
         it 'should accept one invitation' do
           get :accept_pending_coteacher_invitations, coteacher_invitation_ids: [invite_one.id]
           expect(invited_teacher.classrooms_i_coteach.map(&:id)).to match_array([invite_one.classroom_id])
@@ -37,6 +42,11 @@ describe CoteacherClassroomInvitationsController, type: :controller do
         it 'should accept multiple invitations' do
           get :accept_pending_coteacher_invitations, coteacher_invitation_ids: [invite_one.id, invite_two.id]
           expect(invited_teacher.classrooms_i_coteach.map(&:id)).to match_array([invite_one.classroom_id, invite_two.classroom_id])
+        end
+
+        it 'should track event' do
+          expect(analyzer).to receive(:track).with(invited_teacher, SegmentIo::BackgroundEvents::COTEACHER_ACCEPTANCE)
+          get :accept_pending_coteacher_invitations, coteacher_invitation_ids: [invite_one.id, invite_two.id]
         end
       end
     end
