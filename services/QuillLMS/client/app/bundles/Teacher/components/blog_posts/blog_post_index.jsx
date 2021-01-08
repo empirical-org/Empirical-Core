@@ -64,7 +64,7 @@ export default class BlogPostIndex extends React.Component {
         return 'Read and download useful materials to help navigate Quill, support students, and teach writing'
       case TEACHER_CENTER:
       default:
-        return 'Explore implementation ideas from Quill’s instructional experts'
+        return 'Everything you need to know about Quill’s pedagogy and use in the classroom'
     }
   }
 
