@@ -527,13 +527,13 @@ module Teacher
     ReferrerUser.create(user_id: id, referral_code: name.downcase.gsub(/[^a-z ]/, '').gsub(' ', '-') + '-' + id.to_s)
   end
 
-  # def assigned_students_per_activity_assigned
-  #   ClassroomUnit.joins("JOIN unit_activities ON classroom_units.unit_id=unit_activities.unit_id")
-  #     .joins("JOIN activities ON activities.id = unit_activities.activity_id")
-  #     .joins(classroom: [classrooms_teachers: [:user]])
-  #     .where("users.id = ?", id)
-  #     .select("assigned_student_ids, activities.id, unit_activities.created_at")
-  # end
+  def assigned_students_per_activity_assigned
+    ClassroomUnit.joins("JOIN unit_activities ON classroom_units.unit_id=unit_activities.unit_id")
+      .joins("JOIN activities ON activities.id = unit_activities.activity_id")
+      .joins(classroom: [classrooms_teachers: [:user]])
+      .where("users.id = ?", id)
+      .select("assigned_student_ids, activities.id, unit_activities.created_at")
+  end
 
   private
 
