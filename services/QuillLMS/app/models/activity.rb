@@ -47,7 +47,7 @@ class Activity < ActiveRecord::Base
   ACTIVITY_TYPES_WITH_QUESTIONS = [2,4,5]
 
   def self.diagnostic_activity_ids
-    ActivityClassification.find_by_key(ActivityClassification::DIAGNOSTIC_KEY)&.activities&.pluck(:id) || []
+    ActivityClassification.find_by_key('diagnostic')&.activities&.pluck(:id) || []
   end
 
   def self.activity_with_recommendations_ids
