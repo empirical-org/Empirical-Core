@@ -1,6 +1,7 @@
 class SerializeVitallySalesUser
   BASE_USER_URL = "https://www.quill.org/cms/users"
-  # DIAGNOSTIC_ID = ActivityClassification.find_by_key('diagnostic').id
+  # TODO: This should not be hard coded.
+  DIAGNOSTIC_ID = 4
 
   def initialize(user)
     @user = user
@@ -159,8 +160,7 @@ class SerializeVitallySalesUser
   end
 
   private def diagnostics_finished(user)
-    # activities_finished_query(user).where("activities.activity_classification_id=4")
-    nil
+    activities_finished_query(user).where("activities.activity_classification_id=?", DIAGNOSTIC_ID)
   end
 
   private def activities_finished_query(user)
