@@ -160,12 +160,12 @@ describe Api::V1::FeedbackHistoriesController, type: :controller do
     end
 
     it "should not update record and return errors as json" do
-      put :update, id: @feedback_history.id, feedback_history: { entry: 'Too short' }
+      put :update, id: @feedback_history.id, feedback_history: { entry: '<5' }
 
       parsed_response = JSON.parse(response.body)
 
       assert_equal 422, response.code.to_i
-      assert parsed_response['entry'].include?("is too short (minimum is 25 characters)")
+      assert parsed_response['entry'].include?("is too short (minimum is 5 characters)")
     end
   end
 
