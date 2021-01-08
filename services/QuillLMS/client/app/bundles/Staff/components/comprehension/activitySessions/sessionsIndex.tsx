@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { useQuery } from 'react-query';
 import * as moment from 'moment'
 
-import { DataTable, Error, Spinner } from '../../../../Shared/index';
+import { DataTable, Error, Spinner, DropdownInput } from '../../../../Shared/index';
 import { fetchActivity } from '../../../utils/comprehension/activityAPIs';
 
 const quillCheckmark = 'https://assets.quill.org/images/icons/check-circle-small.svg';
@@ -13,11 +13,22 @@ const SessionsIndex = ({ match }) => {
   const { params } = match;
   const { activityId } = params;
 
+  const [pageNumber, setPageNumber] = React.useState<object>(null);
+  const [dropdownOptions, setDropdownOptions] = React.useState<object>(null);
+
+  React.useEffect(() => {
+    getDropdownOptions(sessionsData)
+  }, [dropdownOptions]);
+
   // cache activity data for updates
   const { data } = useQuery({
     queryKey: [`activity-${activityId}`, activityId],
     queryFn: fetchActivity
   });
+
+  function handlePageChange(number) {
+    setPageNumber(number)
+  }
 
   function formatSessionsData(activitySessions: any[]) {
     return activitySessions.map(session => {
@@ -34,6 +45,22 @@ const SessionsIndex = ({ match }) => {
       formattedSession.completed = completed ? <img alt="quill-circle-checkmark" src={quillCheckmark} /> : "";
       return formattedSession;
     });
+  }
+
+  function getDropdownOptions(sessionsData) {
+    if(!sessionsData) {
+      return null;
+    }
+    if(dropdownOptions) {
+      return dropdownOptions;
+    }
+    const { current_page, total_pages } = sessionsData;
+    setPageNumber({'value':current_page, 'label':`Page ${current_page}`})
+    const options = [];
+    for(let i=1; i <= total_pages; i++) {
+      options.push({'value':i, 'label':`Page ${i}`})
+    }
+    setDropdownOptions(options);
   }
 
   if(!data) {
@@ -67,6 +94,7 @@ const SessionsIndex = ({ match }) => {
   const { activity } = data;
   const { title } = activity;
   const { activity_sessions, total_activity_sessions } = sessionsData
+
   return(
     <div className="sessions-index-container">
       <section className="sessions-header">
@@ -74,10 +102,19 @@ const SessionsIndex = ({ match }) => {
         <Link className="return-link" to="/activity-sessions">← Return to Activities Index</Link>
       </section>
       <section>
-        <div className="total-container">
-          <p className="total-label">Total</p>
-          <p className="total-value">{total_activity_sessions}</p>
-        </div>
+        <section className="top-section">
+          <section className="total-container">
+            <p className="total-label">Total</p>
+            <p className="total-value">{total_activity_sessions}</p>
+          </section>
+          <DropdownInput
+            handleChange={handlePageChange}
+            isSearchable={false}
+            label=""
+            options={dropdownOptions}
+            value={pageNumber}
+          />
+        </section>
         <DataTable
           className="activity-sessions-table"
           headers={dataTableFields}

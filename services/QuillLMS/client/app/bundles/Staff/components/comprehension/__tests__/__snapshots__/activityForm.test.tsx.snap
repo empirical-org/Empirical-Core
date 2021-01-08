@@ -77,6 +77,9 @@ exports[`Activity Form component should render Activities 1`] = `
           "conjunction": "because",
           "max_attempts": 5,
           "max_attempts_feedback": "",
+          "plagiarism_first_feedback": "",
+          "plagiarism_second_feedback": "",
+          "plagiarism_text": "",
           "text": "",
         }
       }
@@ -85,6 +88,9 @@ exports[`Activity Form component should render Activities 1`] = `
           "conjunction": "but",
           "max_attempts": 5,
           "max_attempts_feedback": "",
+          "plagiarism_first_feedback": "",
+          "plagiarism_second_feedback": "",
+          "plagiarism_text": "",
           "text": "",
         }
       }
@@ -93,6 +99,9 @@ exports[`Activity Form component should render Activities 1`] = `
           "conjunction": "so",
           "max_attempts": 5,
           "max_attempts_feedback": "",
+          "plagiarism_first_feedback": "",
+          "plagiarism_second_feedback": "",
+          "plagiarism_text": "",
           "text": "",
         }
       }
