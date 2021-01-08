@@ -16,6 +16,7 @@ import {
   TEACHER_STORIES,
   GETTING_STARTED,
   WRITING_INSTRUCTION_RESEARCH,
+  TEACHER_MATERIALS,
   VIDEO_TUTORIALS,
   WHATS_NEW,
   BEST_PRACTICES,
@@ -54,11 +55,13 @@ export default class BlogPostIndex extends React.Component {
       case WEBINARS:
         return "Watch Quill's recorded professional development sessions to learn Quill's implementation best practices"
       case VIDEO_TUTORIALS:
-        return "View step-by-step walkthroughs of set-up and navigation"
+        return "View detailed walkthroughs of Quill tools, set-up, and features"
       case BEST_PRACTICES:
         return 'Explore implementation ideas from Quill’s instructional experts'
       case WHATS_NEW:
         return 'Stay up to date on the latest Quill news'
+      case TEACHER_MATERIALS:
+        return 'Read and download useful materials to help navigate Quill, support students, and teach writing'
       case TEACHER_CENTER:
       default:
         return 'Explore implementation ideas from Quill’s instructional experts'
