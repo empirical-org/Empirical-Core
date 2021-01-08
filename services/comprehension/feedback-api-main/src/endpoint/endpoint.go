@@ -198,22 +198,12 @@ func buildFeedbackHistory(request_object APIRequest, feedback InternalAPIRespons
 func buildBatchFeedbackHistories(request_object APIRequest, feedbacks map[int]InternalAPIResponse, time_received time.Time) (BatchHistoriesAPIRequest, error) {
 	feedback_histories := []FeedbackHistory{}
 	used_key := identifyUsedFeedbackIndex(feedbacks)
-	fmt.Println("Constructing FeedbackHistory batch payload")
-	fmt.Println(fmt.Sprintf("Session: %s, Prompt: %d", request_object.Session_id, request_object.Prompt_id))
 	for key, feedback := range feedbacks {
-		fmt.Println(fmt.Sprintf("Key: %d, Used Key: %d", key, used_key))
 		if !feedback.Error{
 			feedback_histories = append(feedback_histories, buildFeedbackHistory(request_object, feedback, used_key == key, time_received))
-			fmt.Println("Adding Feedback to history batch:")
-			fmt.Println(feedback)
 		} else if key == automl_index {
 			fallback_feedback := InternalAPIResponse{APIResponse: default_api_response}
 			feedback_histories = append(feedback_histories, buildFeedbackHistory(request_object, fallback_feedback, used_key == -1, time_received))
-			fmt.Println("Adding Feedback to history batch:")
-			fmt.Println(fallback_feedback)
-		} else {
-			fmt.Println("Not adding Feedback to history batch:")
-			fmt.Println(feedback)
 		}
 	}
 
@@ -235,10 +225,7 @@ func batchRecordFeedback(incoming_params APIRequest, feedbacks map[int]InternalA
 
 	// TODO For now, just swallow any errors from this, but we'd want to report errors.
 	// TODO: Replace "client" with "http" when we remove the segment above
-	result, err := client.Post(batch_feedback_history_url, "application/json",  bytes.NewBuffer(histories_json))
-	fmt.Println("FeedbackHistory batch POST result:")
-	fmt.Println(result)
-	fmt.Println(err)
+	client.Post(batch_feedback_history_url, "application/json",  bytes.NewBuffer(histories_json))
 }
 
 type APIRequest struct {
