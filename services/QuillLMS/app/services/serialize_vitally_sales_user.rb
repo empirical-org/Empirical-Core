@@ -159,7 +159,8 @@ class SerializeVitallySalesUser
   end
 
   private def diagnostics_finished(user)
-    activities_finished_query(user).where("activities.activity_classification_id=4")
+    # activities_finished_query(user).where("activities.activity_classification_id=4")
+    nil
   end
 
   private def activities_finished_query(user)
