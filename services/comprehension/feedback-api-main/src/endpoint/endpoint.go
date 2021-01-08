@@ -38,7 +38,7 @@ var urls = [...]string{
 // you can't use const for structs, so this is the closest thing we can get for this value
 var default_api_response = APIResponse{
 	Feedback: "Thank you for your response.",
-	Feedback_type: "fallback",
+	Feedback_type: "semantic",
 	Optimal: true,
 }
 
@@ -199,8 +199,11 @@ func buildBatchFeedbackHistories(request_object APIRequest, feedbacks map[int]In
 	feedback_histories := []FeedbackHistory{}
 	used_key := identifyUsedFeedbackIndex(feedbacks)
 	for key, feedback := range feedbacks {
-		if !feedback.Error || key == automl_index {
+		if !feedback.Error{
 			feedback_histories = append(feedback_histories, buildFeedbackHistory(request_object, feedback, used_key == key, time_received))
+		} else if key == automl_index {
+			fallback_feedback := InternalAPIResponse{APIResponse: default_api_response}
+			feedback_histories = append(feedback_histories, buildFeedbackHistory(request_object, fallback_feedback, used_key == -1, time_received))
 		}
 	}
 
@@ -210,6 +213,8 @@ func buildBatchFeedbackHistories(request_object APIRequest, feedbacks map[int]In
 }
 
 func batchRecordFeedback(incoming_params APIRequest, feedbacks map[int]InternalAPIResponse) {
+	defer wg.Done() // mark task as done in WaitGroup on return
+
 	histories, err := buildBatchFeedbackHistories(incoming_params, feedbacks, time.Now())
 
 	if err != nil {
@@ -221,8 +226,6 @@ func batchRecordFeedback(incoming_params APIRequest, feedbacks map[int]InternalA
 	// TODO For now, just swallow any errors from this, but we'd want to report errors.
 	// TODO: Replace "client" with "http" when we remove the segment above
 	client.Post(batch_feedback_history_url, "application/json",  bytes.NewBuffer(histories_json))
-	wg.Done() // mark task as done in WaitGroup
-
 }
 
 type APIRequest struct {
