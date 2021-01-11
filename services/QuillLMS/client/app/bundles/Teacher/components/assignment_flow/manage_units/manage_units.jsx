@@ -164,42 +164,6 @@ export default class ManageUnits extends React.Component {
     this.hashLinkScroll();
   };
 
-  hideUnitActivity = (uaId, unitId) => {
-    const { units, } = this.state
-    request.put({
-      url: `${process.env.DEFAULT_URL}/teachers/unit_activities/${uaId}/hide`,
-      json: { authenticity_token: getAuthToken(), }, },
-      (error, httpStatus, body) => {
-        if (httpStatus && httpStatus.statusCode === 200) {
-          const modifiedUnits = _.map(units, (unit) => {
-            const modifiedUnit = unit;
-            if (this.getIdFromUnit(modifiedUnit) === unitId) {
-              if (modifiedUnit.classroom_activities) {
-                modifiedUnit.classroom_activities = _.reject(modifiedUnit.classroom_activities, ca => ca.ua_id === uaId);
-              } else if (modifiedUnit.classroomActivities) {
-                modifiedUnit.classroomActivities = new Map(_.reject(Array.from(modifiedUnit.classroomActivities), ca => ca[1].uaId === uaId)); // This is very bad code.
-              }
-            }
-            return modifiedUnit;
-          });
-          this.setState({ units: modifiedUnits, });
-        }
-      }
-    );
-  };
-
-  updateDueDate = (ua_id, date) => {
-    request.put(`${process.env.DEFAULT_URL}/teachers/unit_activities/${ua_id}`, {
-      json: { unit_activity: { due_date: date, }, authenticity_token: getAuthToken(), },
-    });
-  };
-
-  updateMultipleDueDates = (ua_ids, date) => {
-    request.put(`${process.env.DEFAULT_URL}/teachers/unit_activities/update_multiple_due_dates`, {
-      json: { unit_activity_ids: ua_ids, due_date: date, authenticity_token: getAuthToken(), },
-    });
-  };
-
   switchClassrooms = (classroom) => {
     if (classroom.id) {
       window.history.pushState({}, '', `/teachers/classrooms/activity_planner?classroom_id=${classroom.id}`);
@@ -228,8 +192,6 @@ export default class ManageUnits extends React.Component {
         getUnits={this.getUnits}
         hideActivityPackActivity={this.hideUnitActivity}
         key={unit.unitId}
-        updateDueDate={this.updateDueDate}
-        updateMultipleDueDates={this.updateMultipleDueDates}
       />
     ))
 

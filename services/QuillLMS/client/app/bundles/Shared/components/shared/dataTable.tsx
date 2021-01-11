@@ -1,7 +1,9 @@
 import * as React from 'react'
 import * as CSS from 'csstype'
+import { SortableHandle, } from 'react-sortable-hoc';
 
 import { Tooltip } from './tooltip'
+import SortableList from './sortableList'
 
 export const descending = 'desc'
 export const ascending = 'asc'
@@ -16,6 +18,7 @@ const removeSrc = 'https://assets.quill.org/images/icons/remove.svg'
 const moreHorizontalSrc = 'https://assets.quill.org/images/icons/more-horizontal.svg'
 const smallWhiteCheckSrc = 'https://assets.quill.org/images/shared/check-small-white.svg'
 const arrowSrc = 'https://assets.quill.org/images/shared/arrow.svg'
+const reorderSrc = `${process.env.CDN_URL}/images/icons/reorder.svg`
 
 interface DataTableRow {
   id: number|string;
@@ -48,6 +51,8 @@ interface DataTableProps {
   uncheckRow?: (event: any) => void;
   uncheckAllRows?: (event: any) => void;
   checkAllRows?: (event: any) => void;
+  isReorderable?: boolean;
+  reorderCallback?: (event: any) => void;
 }
 
 interface DataTableState {
@@ -142,6 +147,13 @@ export class DataTable extends React.Component<DataTableProps, DataTableState> {
     return <span className={dataTableHeaderClassName} />
   }
 
+  renderHeaderForOrder() {
+    const { isReorderable } = this.props
+    if (!isReorderable) { return }
+
+    return <span className={`${dataTableHeaderClassName} reorder-header`}>Order</span>
+  }
+
   renderActionsHeader() {
     const { showActions } = this.props
     if (!showActions) { return null }
@@ -164,7 +176,7 @@ export class DataTable extends React.Component<DataTableProps, DataTableState> {
   renderRowRemoveIcon(row) {
     const { showRemoveIcon, removeRow, } = this.props
     if (showRemoveIcon && row.removable) {
-      return <button className="removable data-table-row-section" onClick={() => removeRow(row.id)} type="button"><img alt="x" src={removeSrc} /></button>
+      return <button className="removable data-table-row-section focus-on-light" id={`remove-button-${row.id}`} onClick={() => removeRow(row.id)} type="button"><img alt="x" src={removeSrc} /></button>
     }
 
     return <span className='removable data-table-row-section' />
@@ -229,7 +241,7 @@ export class DataTable extends React.Component<DataTableProps, DataTableState> {
   renderHeaders() {
     const { headers, } = this.props
     const headerItems = headers.map(header => this.renderHeader(header))
-    return <div className="data-table-headers">{this.renderHeaderCheckbox()}{headerItems}{this.renderHeaderForRemoval()}{this.renderActionsHeader()}</div>
+    return <div className="data-table-headers">{this.renderHeaderCheckbox()}{this.renderHeaderForOrder()}{headerItems}{this.renderHeaderForRemoval()}{this.renderActionsHeader()}</div>
   }
 
   renderRowSection(row, header) {
@@ -259,15 +271,27 @@ export class DataTable extends React.Component<DataTableProps, DataTableState> {
     }
   }
 
+  renderRowDragHandle(row) {
+    const { isReorderable, } = this.props
+    if (!isReorderable) { return }
+
+    const DragHandle = SortableHandle(() => <img alt="Reorder icon" className="reorder-icon focus-on-light" src={reorderSrc} tabIndex={0} />);
+    return <span className='reorder-section data-table-row-section'><DragHandle /></span>
+  }
+
   renderRow(row) {
     const { headers, } = this.props
     const rowClassName = `data-table-row ${row.checked ? 'checked' : ''} ${row.className || ''}`
     const rowSections = headers.map(header => this.renderRowSection(row, header))
-    return <div className={rowClassName} key={String(row.id)}>{this.renderRowCheckbox(row)}{rowSections}{this.renderRowRemoveIcon(row)}{this.renderActions(row)}</div>
+    return <div className={rowClassName} key={String(row.id)}>{this.renderRowCheckbox(row)}{this.renderRowDragHandle(row)}{rowSections}{this.renderRowRemoveIcon(row)}{this.renderActions(row)}</div>
   }
 
   renderRows() {
+    const { isReorderable, reorderCallback, } = this.props
     const rows = this.sortRows().map(row => this.renderRow(row))
+    if (isReorderable) {
+      return <div className="data-table-body reorderable"><SortableList data={rows} helperClass="sortable-data-table-row" sortCallback={reorderCallback} useDragHandle={true} /></div>
+    }
     return <div className="data-table-body">{rows}</div>
   }
 
