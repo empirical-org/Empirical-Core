@@ -85,7 +85,7 @@ export default class ManageUnits extends React.Component {
   };
 
   getUnitsForCurrentClass = () => {
-    const { selectedClassroomId, classrooms, } = this.state
+    const { selectedClassroomId, classrooms, allUnits, } = this.state
     if (selectedClassroomId && selectedClassroomId != allClassroomKey) {
       // TODO: Refactor this. It is ridiculous that we need to find a classroom and match on name. Instead, the units should just have a list of classroom_ids that we can match on.
       const selectedClassroom = classrooms.find(c => c.id === Number(selectedClassroomId));
@@ -188,9 +188,7 @@ export default class ManageUnits extends React.Component {
     const activityPacks = units.map(unit => (
       <ActivityPack
         data={unit}
-        editActivityPack={actions.editUnit}
         getUnits={this.getUnits}
-        hideActivityPackActivity={this.hideUnitActivity}
         key={unit.unitId}
       />
     ))

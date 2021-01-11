@@ -151,6 +151,42 @@
       }
     }
   }
+
+  @media (min-width: 992px) {
+    .small-screen {
+      display: none;
+    }
+  }
+
+  @media (max-width: 991px) {
+    .activity-pack {
+      .top-section-header {
+        flex-direction: column-reverse;
+        .right-side {
+          margin-top: 16px;
+        }
+      }
+      .big-screen {
+        display: none;
+      }
+      .data-table {
+        overflow: hidden;
+        .due-date-picker, .due-date-header-container, .reorder-header, .reorder-section {
+          display: none;
+        }
+      }
+    }
+  }
+
+  @media (max-width: 500px) {
+    .my-activities-header .top-line {
+      flex-direction: column;
+      align-items: flex-start;
+      .quill-button {
+        margin-top: 16px;
+      }
+    }
+  }
 }
 
 // the following css can't be contained in other rules because of how the dragged sortable rows work

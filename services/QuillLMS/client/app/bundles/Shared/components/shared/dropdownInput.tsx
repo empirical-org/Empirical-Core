@@ -293,6 +293,7 @@ export class DropdownInput extends React.Component<DropdownInputProps, DropdownI
       updateCursor: this.updateCursor,
       components: { Option: StandardDropdownOption },
       onInputChange: this.handleInputChange,
+      tabIndex: isSearchable ? 0 : -1,
       inputValue
     }
     if (error) {
