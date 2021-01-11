@@ -96,9 +96,13 @@ export default class PromptStep extends React.Component<PromptStepProps, PromptS
 
   // for now this function is identical to formatPlagiarismHighlight, but we may want to
   // change the highlighting behavior when feedback is spelling/grammar related
-  formatSpellingGrammarHighlight = (str: string, wordsToFormat: string) => {
-    let boldedString = `<b>${wordsToFormat}</b>`
-    return str.replace(wordsToFormat, boldedString)
+  formatSpellingGrammarHighlight = (str: string, wordsToFormat: string | string[]) => {
+    let wordArray = [].concat(wordsToFormat)
+    let newString = str
+    wordArray.forEach((word) => {
+      newString = newString.replace(word, `<b>${word}</b>`)
+    })
+    return newString
   }
 
   onTextChange = (e) => {
