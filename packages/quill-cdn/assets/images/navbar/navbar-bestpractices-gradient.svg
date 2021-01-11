@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="20" height="22" viewBox="0 0 20 22">
+    <defs>
+        <linearGradient id="elpcwnpl9a" x1="50%" x2="50%" y1="0%" y2="219.993%">
+            <stop offset="0%" stop-color="#00947B"/>
+            <stop offset="100%" stop-color="#00C2A2"/>
+        </linearGradient>
+        <linearGradient id="ryrk0p72zb" x1="50%" x2="50%" y1="-62.632%" y2="100%">
+            <stop offset="0%" stop-color="#00947B"/>
+            <stop offset="100%" stop-color="#00C2A2"/>
+        </linearGradient>
+        <linearGradient id="xmv67upiqc" x1="50%" x2="51.251%" y1="148.017%" y2="-145.802%">
+            <stop offset="0%" stop-color="#00C2A2"/>
+            <stop offset="58.088%" stop-color="#01A58A"/>
+            <stop offset="100%" stop-color="#00947B"/>
+        </linearGradient>
+    </defs>
+    <g fill="none" fill-rule="evenodd">
+        <g>
+            <g transform="translate(-703 -325) translate(704 326)">
+                <path stroke="url(#elpcwnpl9a)" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4.531 9.153L0 0 5.4 0 9 7.273M13.469 9.153L18 0 12.6 0 9 7.273"/>
+                <ellipse cx="9" cy="13.636" stroke="url(#ryrk0p72zb)" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" rx="6.3" ry="6.364"/>
+                <path fill="url(#xmv67upiqc)" fill-rule="nonzero" d="M10.058 12.513L12.424 12.86 10.712 14.545 11.116 16.925 9 15.802 6.884 16.925 7.288 14.545 5.576 12.86 7.942 12.513 9 10.347z"/>
+            </g>
+        </g>
+    </g>
+</svg>
