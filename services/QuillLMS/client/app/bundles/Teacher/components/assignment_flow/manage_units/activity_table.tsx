@@ -1,6 +1,6 @@
 import * as React from 'react'
 import { SingleDatePicker } from 'react-dates'
-import moment from 'moment';
+import * as moment from 'moment';
 
 import * as api from '../../modules/call_api';
 import { requestPut } from '../../../../../modules/request/index.js';
@@ -63,9 +63,10 @@ const tableHeaders = (isOwner) => ([
 ])
 
 const ActivityTable = ({ data, onSuccess, isOwner, }) => {
-  const [focusedHash, setFocusedHash] = React.useState({})
-
   const classroomActivityArray = Array.from(data.classroomActivities).map(ca => ca[1])
+
+  const [focusedHash, setFocusedHash] = React.useState({})
+  const [activityOrder, setActivityOrder] = React.useState(classroomActivityArray.map(ca => ca.activityId) || [])
 
   function handleKeyDown(event) {
     if (event.key !== 'Tab') { return }
@@ -98,10 +99,12 @@ const ActivityTable = ({ data, onSuccess, isOwner, }) => {
   function reorderCallback(sortInfo) {
     const newUnitActivityOrder = sortInfo.map(item => item.key);
     const newActivityOrder = newUnitActivityOrder.map(unitActivityId => classroomActivityArray.find(ca => String(ca.uaId) === String(unitActivityId)).activityId)
+    setActivityOrder(newActivityOrder)
     api.changeActivityPackOrder(data.unitId, newActivityOrder, () => onSuccess(null), null)
   }
 
-  const activityRows = classroomActivityArray.map(activity => {
+  const activityRows = activityOrder.map(activityId => {
+    const activity = classroomActivityArray.find(act => act.activityId === activityId)
     const toolIcon = imageTagForClassification(activity.activityClassificationId)
     const previewLink = <a href={`/activity_sessions/anonymous?activity_id=${activity.activityId}`} tabIndex={-1}>{activity.name}</a>
     activity.toolAndNameSection = (<a className="interactive-wrapper focus-on-light" href={`/activity_sessions/anonymous?activity_id=${activity.activityId}`} id={`tool-and-name-section-${activity.uaId}`}>
