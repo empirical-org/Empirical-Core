@@ -42,7 +42,6 @@ interface PlayFillInTheBlankQuestionProps {
   prefill: any;
   previewMode: boolean;
   question: FillInBlankQuestion;
-  questionToPreview: FillInBlankQuestion;
   setResponse: (response: Response) => void;
   submitResponse?: (response: any) => void;
   key: string;
@@ -53,24 +52,19 @@ interface PlayFillInTheBlankQuestionState {
   cues?: string[];
   inputVals?: any;
   inputErrors?: any;
-  previewAttempt: any;
-  previewAttemptSubmitted: boolean;
-  previewSentenceOrFragmentSelected: boolean;
-  previewSubmissionCount: number;
   responses?: any;
   splitPrompt?: string[];
 }
 
 export class PlayFillInTheBlankQuestion extends React.Component<PlayFillInTheBlankQuestionProps, PlayFillInTheBlankQuestionState> {
-  constructor(props) {
-    super(props);
 
-    this.state = {
-      previewAttempt: null,
-      previewAttemptSubmitted: false,
-      previewSubmissionCount: 0,
-      previewSentenceOrFragmentSelected: false
-    }
+  state = {
+    inputErrors: null,
+    inputVals: [],
+    blankAllowed: false,
+    cues: [],
+    splitPrompt: null,
+    responses: null
   }
 
   componentDidMount() {
@@ -107,10 +101,7 @@ export class PlayFillInTheBlankQuestion extends React.Component<PlayFillInTheBla
   }
 
   getQuestion = () => {
-    const { question, previewMode, questionToPreview } = this.props;
-    if(previewMode && questionToPreview) {
-      return questionToPreview;
-    }
+    const { question } = this.props;
     return question
   }
 
@@ -195,7 +186,11 @@ export class PlayFillInTheBlankQuestion extends React.Component<PlayFillInTheBla
   }
 
   renderInput = (i: number) => {
-    const { inputErrors, cues, inputVals, } = this.state
+    const { inputErrors, cues, inputVals } = this.state
+    const { question } = this.props;
+    const maxAttemptsReached = question.attempts && question.attempts.length === 5;
+    const latestAttempt = this.getLatestAttempt();
+    const responseOptimal = latestAttempt && latestAttempt.response.optimal;
     let className = 'fill-in-blank-input'
     if (inputErrors[i]) {
       className += ' error'
@@ -209,6 +204,7 @@ export class PlayFillInTheBlankQuestion extends React.Component<PlayFillInTheBla
           aria-label="text input"
           autoComplete="off"
           className={className}
+          disabled={maxAttemptsReached || responseOptimal}
           id={`input${i}`}
           key={i + 100}
           onChange={this.getChangeHandler(i)}
@@ -292,7 +288,7 @@ export class PlayFillInTheBlankQuestion extends React.Component<PlayFillInTheBla
 
   handleSubmitClick = () => {
     this.validateAllInputs().then(() => {
-      const { submitResponse, previewMode } = this.props;
+      const { submitResponse} = this.props;
       const question = this.getQuestion();
       const { caseInsensitive, conceptID, key } = question;
       const { inputErrors, responses, } = this.state;
@@ -303,13 +299,6 @@ export class PlayFillInTheBlankQuestion extends React.Component<PlayFillInTheBla
         const defaultConceptUID = conceptID;
         const responsesArray = hashToCollection(responses);
         const response = {response: checkFillInTheBlankQuestion(questionUID, zippedAnswer, responsesArray, caseInsensitive, defaultConceptUID)};
-        if(previewMode) {
-          this.setState(prevState => ({
-            previewAttempt: response,
-            previewAttemptSubmitted: true,
-            previewSubmissionCount: prevState.previewSubmissionCount + 1
-          }));
-        }
         this.updateResponseResource(response);
         submitResponse(response);
       }
@@ -324,8 +313,8 @@ export class PlayFillInTheBlankQuestion extends React.Component<PlayFillInTheBla
   }
 
   updateResponseResource(response) {
-    const { dispatch, previewMode } = this.props
-    const attempts = previewMode ? [this.getLatestAttempt()] : this.getQuestion().attempts;
+    const { dispatch } = this.props
+    const attempts = this.getQuestion().attempts;
     updateResponseResource(response, this.getQuestion().key, attempts, dispatch);
   }
 
@@ -348,19 +337,14 @@ export class PlayFillInTheBlankQuestion extends React.Component<PlayFillInTheBla
   }
 
   getLatestAttempt = ():{response:Response}|undefined => {
-    const { previewAttempt } = this.state;
     const { question } = this.props;
-    if(previewAttempt) {
-      return previewAttempt;
-    }
     return _.last(question.attempts || []);
   }
 
   showNextQuestionButton = () => {
-    const { previewSubmissionCount } = this.state;
-    const { question, previewMode } = this.props;
+    const { question } = this.props;
     const latestAttempt = this.getLatestAttempt();
-    const maxAttemptsReached = (question.attempts && question.attempts.length > 4) ||(previewMode && previewSubmissionCount > 4);
+    const maxAttemptsReached = question.attempts && question.attempts.length > 4;
     const optimalResponse = latestAttempt && latestAttempt.response.optimal;
     return maxAttemptsReached || optimalResponse;
   }
@@ -368,13 +352,8 @@ export class PlayFillInTheBlankQuestion extends React.Component<PlayFillInTheBla
   renderButton = () => {
     const { nextQuestion, isLastQuestion, previewMode } = this.props
     const question = this.getQuestion();
-    const { responses, previewSubmissionCount } = this.state
-    let showRecheckWorkButton;
-    if(previewMode) {
-      showRecheckWorkButton = previewSubmissionCount > 0;
-    } else {
-      showRecheckWorkButton = question && question.attempts ? question.attempts.length > 0 : false
-    }
+    const { responses } = this.state
+    const showRecheckWorkButton = question && question.attempts ? question.attempts.length > 0 : false
     if (this.showNextQuestionButton()) {
       const buttonText = isLastQuestion ? 'Next' : 'Next question';
       const disabledStyle = previewMode && isLastQuestion ? 'disabled' : '';
@@ -399,7 +378,7 @@ export class PlayFillInTheBlankQuestion extends React.Component<PlayFillInTheBla
   renderFeedback = () => {
     const question = this.getQuestion();
     const { previewMode } = this.props;
-    const { responses, inputErrors, previewAttempt, previewAttemptSubmitted} = this.state
+    const { responses, inputErrors } = this.state
 
     if (inputErrors && _.size(inputErrors) !== 0) {
       const blankFeedback = question.blankAllowed ? ' or leave it blank' : ''
@@ -413,8 +392,6 @@ export class PlayFillInTheBlankQuestion extends React.Component<PlayFillInTheBla
 
     return (<FeedbackContainer
       getQuestion={this.getQuestion}
-      previewAttempt={previewAttempt}
-      previewAttemptSubmitted={previewAttemptSubmitted}
       previewMode={previewMode}
       question={question}
       renderFeedbackStatements={this.renderFeedbackStatements}
