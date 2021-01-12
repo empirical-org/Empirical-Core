@@ -6,7 +6,8 @@ import stripHtml from "string-strip-html";
 import { getActivity } from "../../../Grammar/actions/grammarActivities";
 import getParameterByName from "../../../Grammar/helpers/getParameterByName";
 import { Question } from '../../../Grammar/interfaces/questions';
-import { setCurrentQuestion } from '../../../Diagnostic/actions/diagnostics.js';
+import * as diagnosticActions from '../../../Diagnostic/actions/diagnostics.js';
+import * as connectActions from '../../../Connect/actions';
 
 interface Activity {
   title?: string;
@@ -260,7 +261,7 @@ const TeacherPreviewMenuComponent = ({
     if(!questionToPreview) {
       onHandleSkipToQuestionFromIntro();
     }
-    const action = setCurrentQuestion(question);
+    const action = isDiagnosticActivity ? diagnosticActions.setCurrentQuestion(question) : connectActions.setCurrentQuestion(question);
     dispatch(action);
     onToggleQuestion(question);
   }

@@ -12,32 +12,43 @@ export const getCurrentQuestion = ({ action, answeredQuestions, questionSet, una
   let currentQuestion;
 
   // check answeredQuestions
-  currentQuestion = answeredQuestions.filter((question: { data: Question }) => {
+  // Connect has type question: { question: {...}} and Diagnostic has type question: { data: {...}}
+  currentQuestion = answeredQuestions.filter((questionObject: { data?: Question, question?: Question }) => {
+    const { data, question } = questionObject;
+    const dataObject = data || question;
     // some ELL SC questions get an -esp appended to the key
-    return key === question.data.key || key === `${question.data.key}-esp`;
+    return key === dataObject.key || key === `${dataObject.key}-esp`;
   })[0];
 
   // check unansweredQuestions
   if(!currentQuestion) {
-    currentQuestion = unansweredQuestions.filter((question: { data: Question }) => {
-      return key === question.data.key || key === `${question.data.key}-esp`;
+    currentQuestion = unansweredQuestions.filter((questionObject: { data?: Question, question?: Question }) => {
+      const { data, question } = questionObject;
+      const dataObject = data || question;
+      return key === dataObject.key || key === `${dataObject.key}-esp`;
     })[0];
   }
   // check questionSet, is title card
   if(!currentQuestion) {
-    currentQuestion = questionSet.filter((question: { data: Question }) => key === question.data.key)[0];
+    currentQuestion = questionSet.filter((questionObject: { data?: Question, question?: Question }) => {
+      const { data, question } = questionObject;
+      const dataObject = data || question;
+      return key === dataObject.key
+    })[0];
   }
   return currentQuestion;
 }
 
-export const getQuestionsWithAttempts = (questions: { data: Question }[]) => {
+// Connect has type question: { question: {...}} and Diagnostic has type question: { data: {...}}
+export const getQuestionsWithAttempts = (questions: { data?: Question, question?: Question }[]) => {
   const questionsWithAttempts = {}
 
-  questions.forEach(question => {
-    const { data } = question;
-    const { attempts, key } = data;
-    if(attempts.length) {
-      questionsWithAttempts[key] = question;
+  questions.forEach(questionObject => {
+    const { data, question } = questionObject;
+    const dataObject = data || question;
+    const { attempts, key } = dataObject;
+    if(attempts && attempts.length) {
+      questionsWithAttempts[key] = questionObject;
     }
   });
 
@@ -48,9 +59,10 @@ export const getFilteredQuestions = ({ questionsSlice, answeredQuestionsWithAtte
   if(!questionsSlice.length) {
     return [];
   }
-  return questionsSlice.map((question: { data: Question }) => {
-    const { data } = question;
-    const { key } = data;
+  return questionsSlice.map((questionObject: { data?: Question, question?: Question }) => {
+    const { data, question } = questionObject;
+    const dataObject = data || question;
+    const { key } = dataObject;
     // some ELL SC questions get an -esp appended to the key
     const slicedKey = key.slice(0, -4);
     const answeredQuestionWithAttempts = answeredQuestionsWithAttempts[key] || answeredQuestionsWithAttempts[slicedKey];
@@ -61,7 +73,7 @@ export const getFilteredQuestions = ({ questionsSlice, answeredQuestionsWithAtte
     } else if(unansweredQuestionWithAttempts) {
       return unansweredQuestionWithAttempts;
     } else {
-      return question;
+      return questionObject;
     }
   });
 }

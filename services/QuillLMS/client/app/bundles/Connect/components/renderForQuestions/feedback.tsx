@@ -1,5 +1,7 @@
 import * as React from 'react';
+
 import getAnswerState from './answerState';
+
 import { Feedback } from '../../../Shared/index';
 
 class FeedbackComponent extends React.Component<any, any> {
@@ -8,14 +10,8 @@ class FeedbackComponent extends React.Component<any, any> {
   }
 
   getFeedbackType(data?): string {
-    const { previewAttempt, previewMode } = this.props;
     if (data) {
-      let latestAttempt
-      if(previewMode && previewAttempt) {
-        latestAttempt = previewAttempt;
-      } else {
-        latestAttempt = getLatestAttempt(data.question.attempts);
-      }
+      const latestAttempt = getLatestAttempt(data.question.attempts);
       if (latestAttempt) {
         if (data.override) {
           return "override"
@@ -43,13 +39,7 @@ class FeedbackComponent extends React.Component<any, any> {
   }
 
   getFeedbackCopy(data): string {
-    const { previewAttempt, previewMode } = this.props;
-    let latestAttempt
-    if(previewMode && previewAttempt) {
-      latestAttempt = previewAttempt;
-    } else {
-      latestAttempt = getLatestAttempt(data.question.attempts);
-    }
+    const latestAttempt = getLatestAttempt(data.question.attempts);
     let returnVal;
     switch (this.getFeedbackType(data)) {
       case "revise-unmatched":
