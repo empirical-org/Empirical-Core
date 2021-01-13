@@ -427,6 +427,7 @@ describe Teachers::ClassroomManagerController, type: :controller do
     let!(:student1) { create(:student)}
     let!(:student2) { create(:student)}
     let!(:students_classrooms) { create(:students_classrooms, student: student1, classroom: classroom)}
+    let!(:analyzer) { double(:analyzer, track: true) }
 
     before do
       allow(controller).to receive(:current_user) { teacher }
@@ -451,6 +452,11 @@ describe Teachers::ClassroomManagerController, type: :controller do
     it 'will redirect to the profile path' do
       get :preview_as_student, student_id: 'random'
       expect(response).to redirect_to profile_path
+    end
+    
+    it 'will track event' do
+      expect(analyzer).to receive(:track).with(teacher, SegmentIo::BackgroundEvents::VIEWED_AS_STUDENT)
+      get :preview_as_student, student_id: student1.id
     end
   end
 
