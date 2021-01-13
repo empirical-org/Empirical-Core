@@ -73,6 +73,11 @@ module PagesHelper
             img: 'team-peter-gault@2x.png'
           },
           {
+            name: 'Lila Jane Mabe',
+            title: 'Managing Director of Strategy & Impact',
+            img: 'team-lila-jane-mabe@2x.png'
+          },
+          {
             name: 'Hannah Monk',
             title: 'Curriculum Director',
             img: 'team-hannah-monk@2x.png'
@@ -87,6 +92,11 @@ module PagesHelper
             name: 'Eric Adams',
             title: 'Software Developer',
             img: 'team-eric-adams@2x.png'
+          },
+          {
+            name: 'Taha Adib',
+            title: 'Associate Data Product Manager',
+            img: 'team-taha-adib@2x.png'
           },
           {
             name: 'Devin Kawailani Barricklow',
