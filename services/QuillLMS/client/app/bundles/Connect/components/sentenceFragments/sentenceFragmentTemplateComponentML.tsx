@@ -1,14 +1,14 @@
 import * as React from 'react';
-import TextEditor from '../renderForQuestions/renderTextEditor.jsx';
 import * as _ from 'underscore';
 import {checkSentenceFragment, Response } from 'quill-marking-logic'
+
+import TextEditor from '../renderForQuestions/renderTextEditor.jsx';
 import Feedback from '../renderForQuestions/feedback';
 import RenderQuestionFeedback from '../renderForQuestions/feedbackStatements.jsx';
 import {
   getGradedResponsesWithCallback
 } from '../../actions/responses';
 import updateResponseResource from '../renderForQuestions/updateResponseResource.js';
-import POSMatcher from '../../libs/sentenceFragment';
 import { SentenceFragmentQuestion } from '../../interfaces/questions';
 import { Attempt } from '../renderForQuestions/answerState.js';
 import { hashToCollection, ConceptExplanation, } from '../../../Shared/index'
@@ -20,8 +20,6 @@ interface PlaySentenceFragmentProps {
   dispatch: () => void;
   updateAttempts: (response: object) => void;
   previewMode: boolean;
-  previewAttempt: any;
-  questionToPreview: SentenceFragmentQuestion;
   markIdentify: (boolean: boolean) => void;
   currentKey: string;
   conceptsFeedback: any;
@@ -34,10 +32,6 @@ interface PlaySentenceFragmentState {
   checkAnswerEnabled: boolean;
   response: string;
   responses?: object[];
-  previewAttempt: any;
-  previewAttemptSubmitted: boolean;
-  previewSubmissionCount: number;
-  previewSentenceOrFragmentSelected: boolean;
 }
 
 class PlaySentenceFragment extends React.Component<PlaySentenceFragmentProps, PlaySentenceFragmentState> {
@@ -57,11 +51,7 @@ class PlaySentenceFragment extends React.Component<PlaySentenceFragmentProps, Pl
     this.state = {
       response,
       checkAnswerEnabled: true,
-      editing: false,
-      previewAttempt: null,
-      previewAttemptSubmitted: false,
-      previewSubmissionCount: 0,
-      previewSentenceOrFragmentSelected: false
+      editing: false
     }
   }
 
@@ -80,20 +70,12 @@ class PlaySentenceFragment extends React.Component<PlaySentenceFragmentProps, Pl
 
   shouldComponentUpdate(nextProps: PlaySentenceFragmentProps, nextState: PlaySentenceFragmentState) {
     const { question, } = this.props
-    const { response, responses, previewAttempt, previewAttemptSubmitted, previewSubmissionCount, previewSentenceOrFragmentSelected } = this.state
+    const { response, responses } = this.state
     if (question !== nextProps.question) {
       return true;
     } else if (response !== nextState.response) {
       return true;
     } else if (responses !== nextState.responses) {
-      return true;
-    } else if(previewAttempt !== nextState.previewAttempt) {
-      return true;
-    } else if(previewAttemptSubmitted !== nextState.previewAttemptSubmitted) {
-      return true;
-    } else if(previewSubmissionCount !== nextState.previewSubmissionCount) {
-      return true;
-    } else if(previewSentenceOrFragmentSelected !== nextState.previewSentenceOrFragmentSelected) {
       return true;
     }
     return false;
@@ -109,27 +91,19 @@ class PlaySentenceFragment extends React.Component<PlaySentenceFragmentProps, Pl
 
 
   showNextQuestionButton = () => {
-    const { previewSubmissionCount } = this.state;
-    const { question, previewMode } = this.props;
+    const { question } = this.props;
     const latestAttempt = this.getLatestAttempt();
-    const maxAttempts = (question.attempts && question.attempts.length > 4) || (previewMode && previewSubmissionCount > 4);
+    const maxAttempts = question.attempts && question.attempts.length > 4
     return maxAttempts || (latestAttempt && latestAttempt.response.optimal);
   }
 
   getLatestAttempt = ():{response:Response}|undefined => {
-    const { previewAttempt } = this.state;
     const { question } = this.props;
-    if(previewAttempt) {
-      return previewAttempt;
-    }
     return _.last(question.attempts || []);
   }
 
   getQuestion = () => {
-    const { question, previewMode, questionToPreview } = this.props;
-    if(previewMode && questionToPreview) {
-      return questionToPreview;
-    }
+    const { question } = this.props;
     return question
   }
 
@@ -138,12 +112,9 @@ class PlaySentenceFragment extends React.Component<PlaySentenceFragmentProps, Pl
   handleClickIncompleteSentence = () => this.checkChoice('Fragment')
 
   checkChoice(choice: string) {
-    const { markIdentify, previewMode } = this.props
+    const { markIdentify } = this.props
     const question = this.getQuestion();
     const questionType = question.isFragment ? 'Fragment' : 'Sentence';
-    if(previewMode) {
-      this.setState({ previewSentenceOrFragmentSelected: true });
-    }
     markIdentify(choice === questionType);
   }
 
@@ -157,12 +128,7 @@ class PlaySentenceFragment extends React.Component<PlaySentenceFragmentProps, Pl
   }
 
   choosingSentenceOrFragment = () => {
-    const { previewSentenceOrFragmentSelected } = this.state;
-    const { previewMode } = this.props;
     const question = this.getQuestion();
-    if(previewMode && previewSentenceOrFragmentSelected) {
-      return false;
-    }
     return question.identified === undefined && (question.needsIdentification === undefined || question.needsIdentification === true);
     // the case for question.needsIdentification===undefined is for sentenceFragments that were created before the needsIdentification field was put in
   }
@@ -174,18 +140,9 @@ class PlaySentenceFragment extends React.Component<PlaySentenceFragmentProps, Pl
     });
   }
 
-  handleCheckSentenceFragment = ({ fields, key, attempts, response }) => {
-    const { dispatch, updateAttempts, previewMode } = this.props
+  handleCheckSentenceFragment = ({ fields, key, attempts }) => {
+    const { dispatch, updateAttempts } = this.props
     checkSentenceFragment(fields).then((resp) => {
-      if(previewMode) {
-        const responseMatcher = new POSMatcher(fields);
-        const submittedResponse = responseMatcher.checkMatch(response);
-        this.setState(prevState => ({
-          previewAttempt: submittedResponse,
-          previewAttemptSubmitted: true,
-          previewSubmissionCount: prevState.previewSubmissionCount + 1
-        }));
-      }
       const matched = {response: resp}
       if (typeof(matched) === 'object') {
         updateResponseResource(matched, key, attempts, dispatch, );
@@ -197,9 +154,9 @@ class PlaySentenceFragment extends React.Component<PlaySentenceFragmentProps, Pl
 
   handleResponseSubmission = () => {
     const { checkAnswerEnabled, responses, response } = this.state
-    const { currentKey, question, previewMode, questionToPreview } = this.props
+    const { currentKey, question } = this.props
     if (checkAnswerEnabled && responses) {
-      const key = previewMode && questionToPreview ? questionToPreview.key : currentKey;
+      const key = currentKey;
       const { attempts } = question;
       this.setState({ checkAnswerEnabled: false, }, () => {
         const { prompt, wordCountChange, ignoreCaseAndPunc, incorrectSequences, focusPoints, modelConceptUID, concept_uid, conceptID } = this.getQuestion();
@@ -218,7 +175,7 @@ class PlaySentenceFragment extends React.Component<PlaySentenceFragmentProps, Pl
           incorrectSequences,
           defaultConceptUID
         }
-        this.handleCheckSentenceFragment({ fields, key, attempts, response });
+        this.handleCheckSentenceFragment({ fields, key, attempts });
       });
     }
   }
@@ -284,14 +241,9 @@ class PlaySentenceFragment extends React.Component<PlaySentenceFragmentProps, Pl
   }
 
   renderButton = () => {
-    const { responses, previewSubmissionCount } = this.state
+    const { responses } = this.state
     const { nextQuestion, question, previewMode, isLastQuestion } = this.props;
-    let showRecheckWorkButton;
-    if(previewMode) {
-      showRecheckWorkButton = previewSubmissionCount > 0;
-    } else {
-      showRecheckWorkButton = question && question.attempts ? question.attempts.length > 0 : false
-    }
+    const showRecheckWorkButton = question && question.attempts ? question.attempts.length > 0 : false
     if (this.showNextQuestionButton()) {
       const disabledStyle = previewMode && isLastQuestion ? 'disabled' : '';
       return <button className={`quill-button focus-on-light large primary contained ${disabledStyle}`} onClick={nextQuestion} type="button">Next</button>;
@@ -312,8 +264,7 @@ class PlaySentenceFragment extends React.Component<PlaySentenceFragmentProps, Pl
 
   renderPlaySentenceFragmentMode = () => {
     const question = this.getQuestion();
-    const { previewMode } = this.props;
-    const { response, responses, previewAttempt, previewAttemptSubmitted } = this.state
+    const { response, responses } = this.state
     let instructions;
     const latestAttempt = this.getLatestAttempt();
     if (latestAttempt) {
@@ -329,9 +280,6 @@ class PlaySentenceFragment extends React.Component<PlaySentenceFragmentProps, Pl
       <div className="container">
         <Feedback
           getQuestion={this.getQuestion}
-          previewAttempt={previewAttempt}
-          previewAttemptSubmitted={previewAttemptSubmitted}
-          previewMode={previewMode}
           question={question}
           renderFeedbackStatements={this.renderFeedbackStatements}
           responses={responses}
