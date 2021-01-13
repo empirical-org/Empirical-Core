@@ -392,13 +392,16 @@ class User < ActiveRecord::Base
         email:     "deleted_user_#{id}@example.com",
         username:  "deleted_user_#{id}",
         google_id: nil,
-        clever_id: nil
+        clever_id: nil,
+        ip_address: nil,
+        send_newsletter: false
       )
       StudentsClassrooms.where(student_id: id).update_all(visible: false)
-      if auth_credential.present?
-        auth_credential.destroy!
-      end
+      auth_credential.destroy! if auth_credential.present?
+      ip_location.destroy! if ip_location.present?
       SchoolsUsers.where(user_id: id).destroy_all
+      ClassroomUnit.where("? = ANY (assigned_student_ids)", id).each {|cu| cu.update(assigned_student_ids: cu.assigned_student_ids - [id])}
+      ActivitySession.where(user_id: id).update_all(user_id: nil, classroom_unit_id: nil)
     end
   end
 
