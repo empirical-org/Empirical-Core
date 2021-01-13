@@ -427,7 +427,7 @@ describe Teachers::ClassroomManagerController, type: :controller do
     let!(:student1) { create(:student)}
     let!(:student2) { create(:student)}
     let!(:students_classrooms) { create(:students_classrooms, student: student1, classroom: classroom)}
-    let(:analyzer) { double(:analyzer, track: true) }
+    let!(:analyzer) { double(:analyzer, track: true) }
 
     before do
       allow(controller).to receive(:current_user) { teacher }
