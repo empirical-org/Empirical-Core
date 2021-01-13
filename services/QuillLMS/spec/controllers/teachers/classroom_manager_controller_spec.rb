@@ -453,11 +453,6 @@ describe Teachers::ClassroomManagerController, type: :controller do
       get :preview_as_student, student_id: 'random'
       expect(response).to redirect_to profile_path
     end
-
-    it 'will track event' do
-      expect(analyzer).to receive(:track).with(teacher, SegmentIo::BackgroundEvents::VIEWED_AS_STUDENT)
-      get :preview_as_student, student_id: student1.id
-    end
   end
 
   describe '#unset_preview_as_student' do
