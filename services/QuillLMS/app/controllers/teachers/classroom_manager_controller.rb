@@ -192,6 +192,7 @@ class Teachers::ClassroomManagerController < ApplicationController
   def preview_as_student
     student = User.find_by_id(params[:student_id])
     if student && (student&.classrooms&.to_a & current_user&.classrooms_i_teach)&.any?
+      Analyzer.new.track(current_user, SegmentIo::BackgroundEvents::VIEWED_AS_STUDENT)
       self.preview_student_id= params[:student_id]
     end
     redirect_to '/profile'
