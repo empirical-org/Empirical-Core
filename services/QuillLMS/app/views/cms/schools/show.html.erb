@@ -15,7 +15,6 @@
       </thead>
       <tbody>
         <% @teacher_data.each do |teacher| %>
-
           <tr>
             <td><%= teacher['teacher_name'] || 'N/A' %></td>
             <td><%= teacher['flags']&.include?('auditor') ? 'Auditor' : 'Teacher' %></td>
@@ -26,16 +25,21 @@
               <td><%= teacher[attribute] || 'N/A' %></td>
             <% end %>
             <td>
-              <% unless teacher['admin_id'].blank? %>
-                <%= button_to 'Remove Admin', cms_user_remove_admin_path(user_id: teacher['user_id'], school_id: params[:id]), method: :put %>
-              <% else %>
-                <%= button_to 'Make Admin', cms_user_make_admin_path(user_id: teacher['user_id'], school_id: params[:id]), method: :put %>
+              <% if !teacher['user_id'].blank? %>
+                <% if !teacher['admin_id'].blank? %>
+                  <%= button_to 'Remove Admin', cms_user_remove_admin_path(user_id: teacher['user_id'], school_id: params[:id]), method: :put %>
+                <% else %>
+                  <%= button_to 'Make Admin', cms_user_make_admin_path(user_id: teacher['user_id'], school_id: params[:id]), method: :put %>
+                <% end %>
+
+                <td>
+                  <%= link_to 'edit', edit_cms_user_path(teacher['user_id']) %>
+                </td>
+                <td>
+                  <%= link_to 'Sign In', sign_in_cms_user_path(teacher['user_id']) %>
+                </td>
               <% end %>
             </td>
-            <td>
-              <%= link_to 'edit', edit_cms_user_path(teacher['user_id']) %>
-            </td>
-            <td><%= link_to 'Sign In', sign_in_cms_user_path(teacher['user_id']) %></td>
           </tr>
         <% end %>
       </tbody>
