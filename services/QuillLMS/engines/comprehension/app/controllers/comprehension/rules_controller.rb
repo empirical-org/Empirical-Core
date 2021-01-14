@@ -46,7 +46,7 @@ module Comprehension
     end
 
     private def rule_params
-      params.require(:rule).permit(:uid, :name, :description, :universal, :rule_type, :optimal, :suborder, :concept_uid)
+      params.require(:rule).permit(:name, :description, :universal, :rule_type, :optimal, :suborder, :concept_uid)
     end
   end
 end

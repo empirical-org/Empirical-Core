@@ -5,7 +5,6 @@ module Comprehension
 
     context 'validations' do
       should validate_uniqueness_of(:uid)
-      should validate_presence_of(:uid)
       should validate_presence_of(:name)
       should validate_length_of(:name).is_at_most(50)
       should validate_inclusion_of(:universal).in_array(Rule::ALLOWED_BOOLEANS)
@@ -19,6 +18,22 @@ module Comprehension
 
     context 'relationships' do
       # FIXME put relationship tests here.
+    end
+
+    context 'before_validation' do
+      context 'assign_uid_if_missing' do 
+        should 'keep existing uid if already set' do 
+          rule = build(:comprehension_rule)
+          old_uid = rule.uid
+          rule.valid?
+          assert_equal old_uid, rule.uid
+        end 
+        should 'set new uid if missing' do
+          rule = build(:comprehension_rule, uid: nil) 
+          rule.valid?
+          assert_not_nil rule.uid 
+        end
+      end  
     end
   end
 end
