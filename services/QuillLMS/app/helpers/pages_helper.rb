@@ -199,9 +199,9 @@ module PagesHelper
             img: 'board-stephanie-cohen@2x.png'
           },
           {
-            name: 'Rhys Kidd',
-            title: 'Vice President at Macquarie Group',
-            img: 'board-rhys-kidd@2x.png'
+            name: 'Michael Conner',
+            title: 'Superintendent of Schools at Middletown Public Schools',
+            img: 'board-michael-conner@2x.png'
           },
           {
             name: 'Jane Parver',
@@ -212,6 +212,11 @@ module PagesHelper
             name: 'Matthew Rodriguez',
             title: 'Trader at Millennium Management',
             img: 'board-matthew-rodriguez@2x.png'
+          },
+          {
+            name: 'Tony Sebro',
+            title: 'Deputy General Counsel at Wikimedia Foundation',
+            img: 'board-tony-sebro@2x.png'
           },
           {
             name: 'Ben Sussman',
