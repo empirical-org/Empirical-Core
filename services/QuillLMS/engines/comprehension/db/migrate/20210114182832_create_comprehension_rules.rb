@@ -5,7 +5,7 @@ class CreateComprehensionRules < ActiveRecord::Migration
       t.string :name
       t.string :description
       t.boolean :universal
-      t.string :type
+      t.string :rule_type
       t.boolean :optimal
       t.integer :suborder
       t.string :concept_uid
