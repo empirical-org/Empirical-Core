@@ -1,5 +1,5 @@
 module Comprehension
-  class RulesController < ApplicationController
+  class RegexRulesController < ApplicationController
     before_action :set_rule_set
     before_action :set_rule, only: [:show, :update, :destroy]
 
