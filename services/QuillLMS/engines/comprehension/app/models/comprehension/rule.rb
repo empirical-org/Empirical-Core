@@ -16,7 +16,7 @@ module Comprehension
     validates :name, presence: true, length: {maximum: MAX_NAME_LENGTH}
     validates :universal, inclusion: ALLOWED_BOOLEANS
     validates :optimal, inclusion: ALLOWED_BOOLEANS 
-    validates :type, inclusion: {in: TYPES}
+    validates :rule_type, inclusion: {in: TYPES}
     validates :suborder, numericality: {only_integer: true, greater_than_or_equal_to: 0}
     validates :concept_uid, presence: true
 	
@@ -25,7 +25,7 @@ module Comprehension
       options ||= {}
 
       super(options.reverse_merge(
-        only: [:id, :uid, :name, :description, :universal, :type, :optimal, :suborder, :concept_uid]
+        only: [:id, :uid, :name, :description, :universal, :rule_type, :optimal, :suborder, :concept_uid]
       ))
     end
   end
