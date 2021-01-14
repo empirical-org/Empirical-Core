@@ -57,11 +57,10 @@ module Comprehension
       end
 
       should "create a valid record and return it as json" do
-        post :create, rule: { concept_uid: @rule.concept_uid, description: @rule.description, name: @rule.name, optimal: @rule.optimal, suborder: @rule.suborder, rule_type: @rule.rule_type, uid: @rule.uid, universal: @rule.universal }
+        post :create, rule: { concept_uid: @rule.concept_uid, description: @rule.description, name: @rule.name, optimal: @rule.optimal, suborder: @rule.suborder, rule_type: @rule.rule_type, universal: @rule.universal }
 
         parsed_response = JSON.parse(response.body)
         assert_equal 201, response.code.to_i
-        assert_equal @rule.uid, parsed_response['uid']
 
         assert_equal @rule.name, parsed_response['name']
 
@@ -81,7 +80,7 @@ module Comprehension
       end
 
       should "not create an invalid record and return errors as json" do
-        post :create, rule: { concept_uid: @rule.uid, description: @rule.description, name: @rule.name, optimal: @rule.optimal, suborder: -1, rule_type: @rule.rule_type, uid: @rule.uid, universal: @rule.universal }
+        post :create, rule: { concept_uid: @rule.uid, description: @rule.description, name: @rule.name, optimal: @rule.optimal, suborder: -1, rule_type: @rule.rule_type, universal: @rule.universal }
 
         parsed_response = JSON.parse(response.body)
 
@@ -134,7 +133,7 @@ module Comprehension
       end
 
       should "update record if valid, return nothing" do
-        patch :update, id: @rule.id, rule: { concept_uid: @rule.concept_uid, description: @rule.description, name: @rule.name, optimal: @rule.optimal, suborder: @rule.suborder, rule_type: @rule.rule_type, uid: @rule.uid, universal: @rule.universal }
+        patch :update, id: @rule.id, rule: { concept_uid: @rule.concept_uid, description: @rule.description, name: @rule.name, optimal: @rule.optimal, suborder: @rule.suborder, rule_type: @rule.rule_type, universal: @rule.universal }
 
         assert_equal "", response.body
         assert_equal 204, response.code.to_i
@@ -142,7 +141,7 @@ module Comprehension
       end
 
       should "not update record and return errors as json" do
-        patch :update, id: @rule.id, rule: { concept_uid: @rule.concept_uid, description: @rule.description, name: @rule.name, optimal: @rule.optimal, suborder: -1, rule_type: @rule.rule_type, uid: @rule.uid, universal: @rule.universal }
+        patch :update, id: @rule.id, rule: { concept_uid: @rule.concept_uid, description: @rule.description, name: @rule.name, optimal: @rule.optimal, suborder: -1, rule_type: @rule.rule_type, universal: @rule.universal }
 
         parsed_response = JSON.parse(response.body)
 

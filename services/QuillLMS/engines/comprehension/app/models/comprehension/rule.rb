@@ -1,5 +1,5 @@
 module Comprehension
-  class Rule < ActiveRecord::Base
+  class Rule < ActiveRecord::Base    
     MAX_NAME_LENGTH = 50
     ALLOWED_BOOLEANS = [true, false]
     TYPES= [
@@ -10,6 +10,7 @@ module Comprehension
       TYPE_REGEX = 'Regex',
       TYPE_SPELLING = 'Spelling'    
     ]
+    before_validation :assign_uid_if_missing 
     # FIXME, add relationships
 
     validates :uid, presence: true, uniqueness: true
@@ -27,6 +28,10 @@ module Comprehension
       super(options.reverse_merge(
         only: [:id, :uid, :name, :description, :universal, :rule_type, :optimal, :suborder, :concept_uid]
       ))
+    end
+
+    private def assign_uid_if_missing
+      self.uid ||= SecureRandom.uuid
     end
   end
 end
