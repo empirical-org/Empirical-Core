@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20201125161727) do
+ActiveRecord::Schema.define(version: 20210114154926) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -38,12 +38,15 @@ ActiveRecord::Schema.define(version: 20201125161727) do
 
   create_table "comprehension_prompts", force: :cascade do |t|
     t.integer  "activity_id"
-    t.integer  "max_attempts",          limit: 2
-    t.string   "conjunction",           limit: 20
+    t.integer  "max_attempts",               limit: 2
+    t.string   "conjunction",                limit: 20
     t.string   "text"
     t.text     "max_attempts_feedback"
-    t.datetime "created_at",                       null: false
-    t.datetime "updated_at",                       null: false
+    t.datetime "created_at",                            null: false
+    t.datetime "updated_at",                            null: false
+    t.text     "plagiarism_text"
+    t.text     "plagiarism_first_feedback"
+    t.text     "plagiarism_second_feedback"
   end
 
   add_index "comprehension_prompts", ["activity_id"], name: "index_comprehension_prompts_on_activity_id", using: :btree
@@ -55,6 +58,16 @@ ActiveRecord::Schema.define(version: 20201125161727) do
 
   add_index "comprehension_prompts_rule_sets", ["prompt_id"], name: "index_comprehension_prompts_rule_sets_on_prompt_id", using: :btree
   add_index "comprehension_prompts_rule_sets", ["rule_set_id"], name: "index_comprehension_prompts_rule_sets_on_rule_set_id", using: :btree
+
+  create_table "comprehension_regex_rules", force: :cascade do |t|
+    t.integer  "rule_set_id"
+    t.string   "regex_text",     limit: 200
+    t.boolean  "case_sensitive"
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
+  end
+
+  add_index "comprehension_regex_rules", ["rule_set_id"], name: "index_comprehension_regex_rules_on_rule_set_id", using: :btree
 
   create_table "comprehension_rule_sets", force: :cascade do |t|
     t.integer  "activity_id"
