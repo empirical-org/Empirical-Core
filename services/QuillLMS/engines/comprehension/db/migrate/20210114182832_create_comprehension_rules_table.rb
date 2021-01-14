@@ -1,4 +1,4 @@
-class CreateComprehensionRules < ActiveRecord::Migration
+class CreateComprehensionRulesTable < ActiveRecord::Migration
   def change
     create_table :comprehension_rules do |t|
       t.string :uid
