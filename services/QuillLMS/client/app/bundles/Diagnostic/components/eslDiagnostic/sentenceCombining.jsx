@@ -10,13 +10,12 @@ import updateResponseResource from '../renderForQuestions/updateResponseResource
 import TextEditor from '../renderForQuestions/renderTextEditor.jsx';
 import RenderQuestionFeedback from '../renderForQuestions/feedbackStatements.jsx';
 import RenderQuestionCues from '../renderForQuestions/cues.tsx';
-import { renderPreviewFeedback, getDisplayedText } from '../../libs/previewHelperFunctions';
 import { submitResponse, } from '../../actions/diagnostics.js';
 import { getGradedResponsesWithCallback } from '../../actions/responses.js';
 import translations from '../../libs/translations/index.js';
 import translationMap from '../../libs/translations/ellQuestionMapper.js';
 import { ENGLISH, rightToLeftLanguages } from '../../modules/translation/languagePageInfo';
-import { Feedback, SentenceFragments, getLatestAttempt } from '../../../Shared/index';
+import { Feedback, SentenceFragments, getLatestAttempt, renderPreviewFeedback, getDisplayedText } from '../../../Shared/index';
 
 const C = require('../../constants').default;
 

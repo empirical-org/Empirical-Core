@@ -81,5 +81,10 @@ export {
   isValidRegex,
   momentFormatConstants,
   copyToClipboard,
-  getLatestAttempt
+  getLatestAttempt,
+  getCurrentQuestion,
+  getQuestionsWithAttempts,
+  getFilteredQuestions,
+  getDisplayedText,
+  renderPreviewFeedback
 } from './libs/index'
