@@ -158,7 +158,7 @@ export default class CreateUnit extends React.Component {
     } else if (!this.isUnitNameValid()) {
       return { name: 'Please provide a name for your activity pack.', }
     } else if (!this.isUnitNameUnique()) {
-      return { name: "You're already using that name for another activity pack. Please modify the activity pack name to assign it.", }
+      return { name: "Each activity pack needs a unique name. You're already using that name for another activity pack. Please choose a different name.", }
     }
   }
 

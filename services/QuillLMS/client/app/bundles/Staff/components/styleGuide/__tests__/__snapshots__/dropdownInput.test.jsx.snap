@@ -58,6 +58,7 @@ exports[`Dropdown input component should render when it is multi-option 1`] = `
       ]
     }
     placeholder=""
+    tabIndex={-1}
     updateCursor={[Function]}
     value={Array []}
   />
@@ -114,6 +115,7 @@ exports[`Dropdown input component should render when it is not searchable 1`] = 
       ]
     }
     placeholder=""
+    tabIndex={-1}
     updateCursor={[Function]}
     value={
       Object {
@@ -175,6 +177,7 @@ exports[`Dropdown input component should render when it is searchable 1`] = `
       ]
     }
     placeholder="Value goes here"
+    tabIndex={0}
     updateCursor={[Function]}
     value={
       Object {

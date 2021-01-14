@@ -158,9 +158,9 @@ class Teachers::ClassroomsController < ApplicationController
     coteacher_invitations = CoteacherClassroomInvitation.includes(invitation: :inviter).joins(:invitation, :classroom).where(invitations: {invitee_email: current_user.email}, classrooms: { visible: true})
     coteacher_invitations.map do |coteacher_invitation|
       coteacher_invitation_obj = coteacher_invitation.attributes
-      coteacher_invitation_obj[:classroom_name] = Classroom.find(coteacher_invitation.classroom_id).name
-      coteacher_invitation_obj[:inviter_name] = coteacher_invitation.invitation.inviter.name
-      coteacher_invitation_obj[:inviter_email] = coteacher_invitation.invitation.inviter.email
+      coteacher_invitation_obj[:classroom_name] = Classroom.find(coteacher_invitation.classroom_id)&.name
+      coteacher_invitation_obj[:inviter_name] = coteacher_invitation&.invitation&.inviter&.name
+      coteacher_invitation_obj[:inviter_email] = coteacher_invitation&.invitation&.inviter&.email
       coteacher_invitation_obj
     end
   end

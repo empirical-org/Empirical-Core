@@ -467,8 +467,10 @@
 }
 
 .rename-class-modal,
+.rename-activity-pack-modal,
 .change-grade-modal,
 .archive-class-modal,
+.archive-activity-pack-modal,
 .unarchive-class-modal,
 .edit-student-account-modal,
 .reset-student-password-modal,
@@ -505,8 +507,9 @@
   }
 }
 
-.rename-class-modal {
-  height: 273px;
+.rename-class-modal, .rename-activity-pack-modal {
+  min-height: 273px;
+  height: min-content;
   .title {
     margin-bottom: 24px;
   }
@@ -532,6 +535,11 @@
   height: 316px;
 }
 
+.archive-activity-pack-modal {
+  min-height: 274px;
+  height: min-content;
+}
+
 .unarchive-class-modal, .leave-class-modal {
   height: 250px;
 }
@@ -553,6 +561,7 @@
 .archive-class-modal-text,
 .unarchive-class-modal-text,
 .leave-class-modal-text,
+.archive-activity-pack-modal-text,
 .explore-activities-modal-text {
   margin-top: 24px;
   margin-bottom: 48px;

@@ -1,0 +1,209 @@
+.my-activities {
+  section {
+    padding: 0px;
+  }
+  .my-activities-header {
+    background-color: white;
+    padding: 32px 0px;
+    border-bottom: 1px solid #e0e0e0 !important;
+    .top-line {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    h1 {
+      font-size: 24px;
+      font-weight: bold;
+      line-height: 1.33;
+    }
+    .dropdown-container {
+      max-width: 300px;
+      min-height: 58px;
+      .dropdown__menu {
+        margin-top: -20px;
+      }
+    }
+  }
+  .my-activities-empty-state {
+    img {
+      margin: 32px 0px 16px;
+    }
+    h2 {
+      font-size: 20px;
+      font-weight: bold;
+      line-height: normal;
+    }
+    p {
+      margin: 8px 0px 32px;
+      font-size: 16px;
+      line-height: normal;
+      max-width: 460px;
+    }
+  }
+  .activity-pack {
+    border-radius: 6px;
+    border: solid 1px #e0e0e0 !important;
+    background-color: white;
+    margin-top: 32px;
+    .top-section {
+      padding: 32px;
+      border-bottom: 1px solid #e0e0e0;
+      .quill-button {
+        margin-top: 16px;
+      }
+    }
+    .top-section-header {
+      display: flex;
+      flex-direction: row-reverse;
+    }
+    .left-side {
+      flex: 1;
+    }
+    .right-side {
+      display: flex;
+      flex-direction: column;
+      button {
+        display: flex;
+        align-items: center;
+        img {
+          margin-right: 4px;
+          width: 24px;
+        }
+        &:first-of-type {
+          margin-bottom: 16px;
+        }
+      }
+    }
+    h2 {
+      font-size: 24px;
+      font-weight: bold;
+      line-height: 1.33;
+      margin-bottom: 9px;
+    }
+    .coteacher-explanation {
+      display: flex;
+      margin-bottom: 16px;
+      img {
+        margin-right: 8px;
+      }
+      span {
+        color: #5c5c5c;
+        margin-top: 4px;
+        font-size: 12px;
+      }
+    }
+    .total-classroom-info, .individual-classroom {
+      display: flex;
+      align-items: center;
+      button {
+        display: flex;
+        align-items: center;
+      }
+      img {
+        margin-right: 9px;
+      }
+      &.is-open {
+        button img {
+          transform: rotate(180deg)
+        }
+      }
+    }
+    .individual-classroom {
+      margin-left: 16px;
+      margin-top: 16px;
+      .name-and-count {
+        display: flex;
+        flex-direction: column;
+        max-width: calc(100% - 32px);
+        .count {
+          font-size: 12px;
+          line-height: 1;
+          color: #5c5c5c;
+          margin-top: 4px;
+        }
+        .quill-tooltip-trigger {
+          max-width: 100%;
+        }
+        .tooltip-trigger-text {
+          text-overflow: ellipsis;
+          display: block;
+          overflow: hidden;
+        }
+      }
+    }
+    .add-activities-button {
+      margin-left: 32px;
+      margin-bottom: 32px;
+    }
+    .data-table {
+      overflow: visible;
+      margin: 32px 32px 16px;
+      .due-date-picker .DateInput_input::placeholder {
+        color: #000;
+      }
+      .due-date-header {
+        span {
+          font-weight: 400;
+        }
+      }
+      .no-right-margin {
+        margin-right: 0px;
+      }
+    }
+  }
+
+  @media (min-width: 992px) {
+    .small-screen {
+      display: none;
+    }
+  }
+
+  @media (max-width: 991px) {
+    .activity-pack {
+      .top-section-header {
+        flex-direction: column-reverse;
+        .right-side {
+          margin-top: 16px;
+        }
+      }
+      .big-screen {
+        display: none;
+      }
+      .data-table {
+        overflow: hidden;
+        .due-date-picker, .due-date-header-container, .reorder-header, .reorder-section {
+          display: none;
+        }
+      }
+    }
+  }
+
+  @media (max-width: 500px) {
+    .my-activities-header .top-line {
+      flex-direction: column;
+      align-items: flex-start;
+      .quill-button {
+        margin-top: 16px;
+      }
+    }
+  }
+}
+
+// the following css can't be contained in other rules because of how the dragged sortable rows work
+.tool-icon-wrapper, .tool-and-name-header span {
+  width: 48px;
+  display: inline-block;
+}
+
+.tool-and-name-section {
+  overflow: visible;
+  a {
+    height: 22px;
+    display: inline-block;
+    color: #027360;
+  }
+  .interactive-wrapper {
+    display: flex;
+    align-items: center;
+  }
+}

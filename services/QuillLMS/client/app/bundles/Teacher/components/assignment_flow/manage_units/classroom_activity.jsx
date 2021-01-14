@@ -1,8 +1,6 @@
 import React from 'react';
 import moment from 'moment';
-import { SingleDatePicker } from 'react-dates'
 import Pluralize from 'pluralize';
-import ApplyToAll from './apply_to_all'
 import activityFromClassificationId from '../../modules/activity_from_classification_id.js';
 
 import PreviewOrLaunchModal from '../../shared/preview_or_launch_modal';
@@ -140,24 +138,6 @@ export default class ClassroomActivity extends React.Component {
       /* eslint-enable react/jsx-no-target-blank */
     } else if (this.isLesson()) {
       return this.lessonFinalCell();
-    }
-    if (data.ownedByCurrentUser) {
-      return (<span className="due-date-field">
-        <SingleDatePicker
-          customInputIcon={<img alt="dropdown indicator" src="https://assets.quill.org/images/icons/dropdown.svg" style={dropdownIconStyle} />}
-          date={startDate}
-          focused={focused}
-          id={`${this.classroomUnitId()}-date-picker`}
-          inputIconPosition="after"
-          navNext={'›'}
-          navPrev={'‹'}
-          numberOfMonths={1}
-          onDateChange={this.handleChange}
-          onFocusChange={({ focused }) => this.setState({ focused })}
-          placeholder={startDate ? startDate.toString() : 'Due Date (Optional)'}
-        />
-        {startDate && isFirst ? <ApplyToAll id="classroom-activity-apply-all" startDate={startDate} updateAllDueDates={updateAllDueDates} /> : null}
-      </span>);
     }
   }
 
