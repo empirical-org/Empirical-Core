@@ -80,5 +80,6 @@ export {
   hashToCollection,
   isValidRegex,
   momentFormatConstants,
-  copyToClipboard
+  copyToClipboard,
+  getLatestAttempt
 } from './libs/index'

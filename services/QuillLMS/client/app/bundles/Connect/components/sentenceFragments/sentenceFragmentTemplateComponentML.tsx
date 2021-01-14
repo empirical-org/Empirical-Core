@@ -11,7 +11,7 @@ import {
 import updateResponseResource from '../renderForQuestions/updateResponseResource.js';
 import { SentenceFragmentQuestion } from '../../interfaces/questions';
 import { Attempt } from '../renderForQuestions/answerState.js';
-import { hashToCollection, ConceptExplanation, } from '../../../Shared/index'
+import { hashToCollection, ConceptExplanation, getLatestAttempt } from '../../../Shared/index'
 
 const icon = `${process.env.CDN_URL}/images/icons/direction.svg`
 
@@ -92,19 +92,9 @@ class PlaySentenceFragment extends React.Component<PlaySentenceFragmentProps, Pl
 
   showNextQuestionButton = () => {
     const { question } = this.props;
-    const latestAttempt = this.getLatestAttempt();
+    const latestAttempt = getLatestAttempt(question.attempts);
     const maxAttempts = question.attempts && question.attempts.length > 4
     return maxAttempts || (latestAttempt && latestAttempt.response.optimal);
-  }
-
-  getLatestAttempt = ():{response:Response}|undefined => {
-    const { question } = this.props;
-    return _.last(question.attempts || []);
-  }
-
-  getQuestion = () => {
-    const { question } = this.props;
-    return question
   }
 
   handleClickCompleteSentence = () => this.checkChoice('Sentence')
@@ -112,8 +102,7 @@ class PlaySentenceFragment extends React.Component<PlaySentenceFragmentProps, Pl
   handleClickIncompleteSentence = () => this.checkChoice('Fragment')
 
   checkChoice(choice: string) {
-    const { markIdentify } = this.props
-    const question = this.getQuestion();
+    const { markIdentify, question } = this.props
     const questionType = question.isFragment ? 'Fragment' : 'Sentence';
     markIdentify(choice === questionType);
   }
@@ -128,7 +117,7 @@ class PlaySentenceFragment extends React.Component<PlaySentenceFragmentProps, Pl
   }
 
   choosingSentenceOrFragment = () => {
-    const question = this.getQuestion();
+    const { question } = this.props;
     return question.identified === undefined && (question.needsIdentification === undefined || question.needsIdentification === true);
     // the case for question.needsIdentification===undefined is for sentenceFragments that were created before the needsIdentification field was put in
   }
@@ -159,7 +148,7 @@ class PlaySentenceFragment extends React.Component<PlaySentenceFragmentProps, Pl
       const key = currentKey;
       const { attempts } = question;
       this.setState({ checkAnswerEnabled: false, }, () => {
-        const { prompt, wordCountChange, ignoreCaseAndPunc, incorrectSequences, focusPoints, modelConceptUID, concept_uid, conceptID } = this.getQuestion();
+        const { prompt, wordCountChange, ignoreCaseAndPunc, incorrectSequences, focusPoints, modelConceptUID, concept_uid, conceptID } = question;
         const hashedResponses = hashToCollection(responses)
         const defaultConceptUID = modelConceptUID || concept_uid || conceptID
         const fields = {
@@ -190,10 +179,11 @@ class PlaySentenceFragment extends React.Component<PlaySentenceFragmentProps, Pl
   }
 
   handleConceptExplanation = () => {
+    const { question } = this.props;
     if(this.showNextQuestionButton()) {
       return;
     }
-    const latestAttempt:{response: Response}|undefined  = this.getLatestAttempt();
+    const latestAttempt:{response: Response}|undefined  = getLatestAttempt(question.attempts);
     const nonOptimalResponse = latestAttempt && latestAttempt.response && !latestAttempt.response.optimal;
     if (nonOptimalResponse) {
       return this.renderConceptExplanation(latestAttempt);
@@ -201,8 +191,7 @@ class PlaySentenceFragment extends React.Component<PlaySentenceFragmentProps, Pl
   }
 
   renderConceptExplanation = (latestAttempt) => {
-    const { conceptsFeedback, } = this.props;
-    const question = this.getQuestion();
+    const { conceptsFeedback, question } = this.props;
     if (latestAttempt.response.conceptResults) {
       const conceptID = this.getNegativeConceptResultForResponse(latestAttempt.response.conceptResults);
       const data = conceptID ? conceptsFeedback.data[conceptID.conceptUID] : null;
@@ -259,14 +248,14 @@ class PlaySentenceFragment extends React.Component<PlaySentenceFragmentProps, Pl
   }
 
   renderFeedbackStatements(attempt: Attempt) {
-    return <RenderQuestionFeedback attempt={attempt} getQuestion={this.getQuestion} />;
+    return <RenderQuestionFeedback attempt={attempt} />;
   }
 
   renderPlaySentenceFragmentMode = () => {
-    const question = this.getQuestion();
+    const { question } = this.props;
     const { response, responses } = this.state
     let instructions;
-    const latestAttempt = this.getLatestAttempt();
+    const latestAttempt = getLatestAttempt(question.attempts);
     if (latestAttempt) {
       const component = <span dangerouslySetInnerHTML={{__html: latestAttempt.response.feedback}} />
       instructions = latestAttempt.response.feedback ? component :
@@ -279,7 +268,6 @@ class PlaySentenceFragment extends React.Component<PlaySentenceFragmentProps, Pl
     return (
       <div className="container">
         <Feedback
-          getQuestion={this.getQuestion}
           question={question}
           renderFeedbackStatements={this.renderFeedbackStatements}
           responses={responses}
@@ -316,7 +304,7 @@ class PlaySentenceFragment extends React.Component<PlaySentenceFragmentProps, Pl
     return (
       <div className="student-container-inner-diagnostic">
         <div className="draft-js sentence-fragments prevent-selection">
-          <p>{this.getQuestion() ? this.getQuestion().prompt : ''}</p>
+          <p>{question ? question.prompt : ''}</p>
         </div>
         {this.renderInteractiveComponent()}
       </div>

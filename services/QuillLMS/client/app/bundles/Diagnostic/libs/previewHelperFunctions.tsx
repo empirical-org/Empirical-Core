@@ -1,10 +1,8 @@
 import * as React from 'react';
 import stripHtml from "string-strip-html";
 
-import { getLatestAttempt } from './sharedQuestionFunctions';
-
 import { Question } from '../interfaces/question';
-import { Feedback } from '../../Shared/index';
+import { Feedback, getLatestAttempt } from '../../Shared/index';
 
 export const getCurrentQuestion = ({ action, answeredQuestions, questionSet, unansweredQuestions }) => {
   const { data } = action;

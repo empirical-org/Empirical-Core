@@ -8,6 +8,7 @@ import {
   ConceptExplanation,
   MultipleChoice,
   hashToCollection,
+  getLatestAttempt
 } from '../../../Shared/index'
 import { submitResponse } from '../../actions.js';
 import Question from '../../libs/question';
@@ -23,7 +24,6 @@ import {
   getGradedResponsesWithCallback
 } from '../../actions/responses.js';
 import EditCaretPositioning from '../../libs/EditCaretPositioning';
-import { Attempt } from '../renderForQuestions/answerState.js';
 
 const RenderSentenceFragments = SentenceFragments
 const C = require('../../constants').default;
@@ -74,7 +74,7 @@ export default class PlayLessonQuestion extends React.Component<PlayLessonQuesti
   }
 
   componentDidMount() {
-    const question = this.getQuestion();
+    const { question } = this.props;
     getGradedResponsesWithCallback(
       question.key,
       (data) => {
@@ -119,9 +119,9 @@ export default class PlayLessonQuestion extends React.Component<PlayLessonQuesti
   }
 
   getInitialValue = () => {
-    const { prefill, } = this.props
+    const { prefill, question } = this.props
     if (prefill) {
-      return this.getQuestion().prefilledText;
+      return question.prefilledText;
     }
   }
 
@@ -145,8 +145,9 @@ export default class PlayLessonQuestion extends React.Component<PlayLessonQuesti
   }
 
   getQuestionMarkerFields = () => {
+    const { question } = this.props;
     return ({
-      prompt: this.getQuestion().prompt,
+      prompt: question.prompt,
       responses: hashToCollection(this.getResponses()),
     });
   }
@@ -162,7 +163,8 @@ export default class PlayLessonQuestion extends React.Component<PlayLessonQuesti
   }
 
   renderSentenceFragments = () => {
-    return <RenderSentenceFragments prompt={this.getQuestion().prompt} />;
+    const { question } = this.props;
+    return <RenderSentenceFragments prompt={question.prompt} />;
   }
 
   listCuesAsString = (cues: string[]) => {
@@ -175,13 +177,12 @@ export default class PlayLessonQuestion extends React.Component<PlayLessonQuesti
     let sentence;
     if (override) {
       sentence = override;
-    } else if (this.getQuestion() && this.getQuestion().modelConceptUID) {
+    } else if (question && question.modelConceptUID) {
       sentence = 'Revise your work. Use the hint below as an example.';
     } else {
       sentence = 'Keep writing! Revise your sentence by changing the order of the ideas.';
     }
     return (<RenderFeedback
-      getQuestion={this.getQuestion}
       listCuesAsString={this.listCuesAsString}
       override={!!override}
       previewMode={previewMode}
@@ -199,19 +200,20 @@ export default class PlayLessonQuestion extends React.Component<PlayLessonQuesti
 
   renderFeedbackStatements = () => {
     const questionAttempt = this.handleGetLatestAttempt();
-    return <RenderQuestionFeedback attempt={questionAttempt} getErrorsForAttempt={this.getErrorsForAttempt} getQuestion={this.getQuestion} />;
+    return <RenderQuestionFeedback attempt={questionAttempt} />;
   }
 
   renderCues = () => {
+    const { question } = this.props;
     return (<RenderQuestionCues
       displayArrowAndText={true}
-      getQuestion={this.getQuestion}
+      question={question}
     />);
   }
 
   updateResponseResource(response) {
-    const { dispatch, } = this.props
-    updateResponseResource(response, this.getQuestion().key, this.getQuestion().attempts, dispatch);
+    const { dispatch, question } = this.props
+    updateResponseResource(response, question.key, question.attempts, dispatch);
   }
 
   answeredCorrectly = () => {
@@ -221,10 +223,11 @@ export default class PlayLessonQuestion extends React.Component<PlayLessonQuesti
   }
 
   checkAnswer = (e: React.SyntheticEvent) => {
+    const { question } = this.props;
     const { editing, response, } = this.state
     if (editing && this.getResponses() && Object.keys(this.getResponses()).length) {
       this.removePrefilledUnderscores();
-      const submittedResponse = getResponse(this.getQuestion(), response, this.getResponses());
+      const submittedResponse = getResponse(question, response, this.getResponses());
       this.updateResponseResource(submittedResponse);
       this.submitResponse(submittedResponse);
       this.setState({ editing: false });
@@ -317,7 +320,7 @@ export default class PlayLessonQuestion extends React.Component<PlayLessonQuesti
   }
 
   renderConceptExplanation = () => {
-    const { conceptsFeedback, } = this.props
+    const { conceptsFeedback, question } = this.props
     //TODO: update Response interface in quill-marking-logic to fix Boolean/boolean type checking
     const latestAttempt:{response: Response}|undefined = this.handleGetLatestAttempt();
 
@@ -350,15 +353,15 @@ export default class PlayLessonQuestion extends React.Component<PlayLessonQuesti
 
     } else {
       // we only want to show question-level concept feedback if the response is unmatched
-      if (this.getQuestion() && this.getQuestion().modelConceptUID) {
-        const dataF = conceptsFeedback.data[this.getQuestion().modelConceptUID];
+      if (question && question.modelConceptUID) {
+        const dataF = conceptsFeedback.data[question.modelConceptUID];
         if (dataF) {
           return <ConceptExplanation {...dataF} />;
         }
       }
 
-      if (this.getQuestion().conceptID) {
-        const data = conceptsFeedback.data[this.getQuestion().conceptID];
+      if (question.conceptID) {
+        const data = conceptsFeedback.data[question.conceptID];
         if (data) {
           return <ConceptExplanation {...data} />;
         }
@@ -374,7 +377,7 @@ export default class PlayLessonQuestion extends React.Component<PlayLessonQuesti
   }
 
   handleGetLatestAttempt = () => {
-    const question = this.getQuestion();
+    const { question } = this.props;
     const latestAttempt = getLatestAttempt(question.attempts);
     return latestAttempt;
   }
@@ -482,8 +485,3 @@ export default class PlayLessonQuestion extends React.Component<PlayLessonQuesti
     return (<p>Loading...</p>);
   }
 }
-
-function getLatestAttempt(attempts:Array<{response: Response}> = []):{response: Response}|undefined {
-  const lastIndex = attempts.length - 1;
-  return attempts[lastIndex];
-};
