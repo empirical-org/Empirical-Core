@@ -105,6 +105,7 @@ const ActivityTable = ({ data, onSuccess, isOwner, }) => {
 
   const activityRows = activityOrder.map(activityId => {
     const activity = classroomActivityArray.find(act => act.activityId === activityId)
+    if (!activity) { return }
     const toolIcon = imageTagForClassification(activity.activityClassificationId)
     const previewLink = <a href={`/activity_sessions/anonymous?activity_id=${activity.activityId}`} tabIndex={-1}>{activity.name}</a>
     activity.toolAndNameSection = (<a className="interactive-wrapper focus-on-light" href={`/activity_sessions/anonymous?activity_id=${activity.activityId}`} id={`tool-and-name-section-${activity.uaId}`}>
@@ -134,7 +135,7 @@ const ActivityTable = ({ data, onSuccess, isOwner, }) => {
     activity.removable = true
     activity.id = activity.uaId
     return activity
-  })
+  }).filter(Boolean)
   return (<DataTable
     headers={tableHeaders(isOwner)}
     isReorderable={isOwner}
