@@ -7,9 +7,9 @@ module Comprehension
     belongs_to :activity, inverse_of: :rule_sets
     has_many :prompts_rule_sets
     has_many :prompts, through: :prompts_rule_sets, inverse_of: :rule_sets
-    has_many :rules, inverse_of: :rule_set, dependent: :destroy
+    has_many :regex_rules, inverse_of: :rule_set, dependent: :destroy
 
-    accepts_nested_attributes_for :rules, reject_if: proc { |r| r['regex_text'].blank? }
+    accepts_nested_attributes_for :regex_rules, reject_if: proc { |r| r['regex_text'].blank? }
 
     validates_presence_of :activity
     validates :name, presence: true, length: {maximum: MAX_NAME_LENGTH}
@@ -22,7 +22,7 @@ module Comprehension
       super(options.reverse_merge(
         only: [:id, :activity_id, :name, :feedback, :priority],
         include: {
-          rules: {},
+          regex_rules: {},
           prompts: { only: [:id, :conjunction] }
         }
       ))
