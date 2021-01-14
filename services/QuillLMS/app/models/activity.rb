@@ -47,7 +47,7 @@ class Activity < ActiveRecord::Base
   ACTIVITY_TYPES_WITH_QUESTIONS = [2,4,5]
 
   def self.diagnostic_activity_ids
-    ActivityClassification.find_by(key: 'diagnostic')&.activities&.pluck(:id) || []
+    ActivityClassification.find_by_key('diagnostic')&.activities&.pluck(:id) || []
   end
 
   def self.activity_with_recommendations_ids
@@ -173,6 +173,10 @@ class Activity < ActiveRecord::Base
     return nil unless raw_score_id
 
     raw_score.readability_grade_level(activity_classification_id)
+  end
+
+  def is_diagnostic?
+    classification&.key == ActivityClassification::DIAGNOSTIC_KEY
   end
 
   private

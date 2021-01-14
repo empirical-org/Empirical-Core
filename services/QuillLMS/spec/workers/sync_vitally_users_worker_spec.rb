@@ -7,6 +7,7 @@ describe SyncVitallyUsersWorker do
 
   describe '#perform' do
     it 'build payloads from user objects and batch send them to Vitally' do
+      create(:diagnostic)
       vitally_api_double = double
       serializer_double = double('serializer', data: SerializeVitallySalesUser.new(user).data)
       expect(SerializeVitallySalesUser).to receive(:new).and_return(serializer_double)

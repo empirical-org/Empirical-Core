@@ -23,7 +23,8 @@ class Teachers::ClassroomManagerController < ApplicationController
     @number_of_activities_assigned = current_user.units.map(&:unit_activities).flatten.map(&:activity_id).uniq.size
     acknowledge_diagnostic_banner_milestone = Milestone.find_by_name(Milestone::TYPES[:acknowledge_diagnostic_banner])
     acknowledge_lessons_banner_milestone = Milestone.find_by_name(Milestone::TYPES[:acknowledge_lessons_banner])
-    @show_diagnostic_banner = !UserMilestone.find_by(milestone_id: acknowledge_diagnostic_banner_milestone&.id, user_id: current_user&.id) && current_user&.unit_activities&.where(activity_id: Activity.diagnostic_activity_ids)&.none?
+    diagnostic_ids = Activity.diagnostic_activity_ids
+    @show_diagnostic_banner = !UserMilestone.find_by(milestone_id: acknowledge_diagnostic_banner_milestone&.id, user_id: current_user&.id) && current_user&.unit_activities&.where(activity_id: diagnostic_ids)&.none?
     @show_lessons_banner = !UserMilestone.find_by(milestone_id: acknowledge_lessons_banner_milestone&.id, user_id: current_user&.id) && current_user&.classroom_unit_activity_states&.where(completed: true)&.none?
   end
 
@@ -191,6 +192,7 @@ class Teachers::ClassroomManagerController < ApplicationController
   def preview_as_student
     student = User.find_by_id(params[:student_id])
     if student && (student&.classrooms&.to_a & current_user&.classrooms_i_teach)&.any?
+      Analyzer.new.track(current_user, SegmentIo::BackgroundEvents::VIEWED_AS_STUDENT)
       self.preview_student_id= params[:student_id]
     end
     redirect_to '/profile'
