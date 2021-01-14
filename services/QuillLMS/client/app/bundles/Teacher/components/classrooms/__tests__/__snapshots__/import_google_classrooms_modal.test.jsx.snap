@@ -497,6 +497,7 @@ exports[`ImportGoogleClassroomsModal component #handleClickImportClasses should 
                         onKeyDown={[Function]}
                         options={Array []}
                         placeholder=""
+                        tabIndex={-1}
                         updateCursor={[Function]}
                         value=""
                       >
@@ -549,7 +550,7 @@ exports[`ImportGoogleClassroomsModal component #handleClickImportClasses should 
                           placeholder=""
                           screenReaderStatus={[Function]}
                           styles={Object {}}
-                          tabIndex="0"
+                          tabIndex={-1}
                           tabSelectsValue={true}
                           updateCursor={[Function]}
                           value=""
@@ -622,7 +623,7 @@ exports[`ImportGoogleClassroomsModal component #handleClickImportClasses should 
                                 "placeholder": "",
                                 "screenReaderStatus": [Function],
                                 "styles": Object {},
-                                "tabIndex": "0",
+                                "tabIndex": -1,
                                 "tabSelectsValue": true,
                                 "type": undefined,
                                 "updateCursor": [Function],
@@ -748,7 +749,7 @@ exports[`ImportGoogleClassroomsModal component #handleClickImportClasses should 
                                       "placeholder": "",
                                       "screenReaderStatus": [Function],
                                       "styles": Object {},
-                                      "tabIndex": "0",
+                                      "tabIndex": -1,
                                       "tabSelectsValue": true,
                                       "type": undefined,
                                       "updateCursor": [Function],
@@ -882,7 +883,7 @@ exports[`ImportGoogleClassroomsModal component #handleClickImportClasses should 
                                             "placeholder": "",
                                             "screenReaderStatus": [Function],
                                             "styles": Object {},
-                                            "tabIndex": "0",
+                                            "tabIndex": -1,
                                             "tabSelectsValue": true,
                                             "type": undefined,
                                             "updateCursor": [Function],
@@ -1003,7 +1004,7 @@ exports[`ImportGoogleClassroomsModal component #handleClickImportClasses should 
                                                   "placeholder": "",
                                                   "screenReaderStatus": [Function],
                                                   "styles": Object {},
-                                                  "tabIndex": "0",
+                                                  "tabIndex": -1,
                                                   "tabSelectsValue": true,
                                                   "type": undefined,
                                                   "updateCursor": [Function],
@@ -1126,7 +1127,7 @@ exports[`ImportGoogleClassroomsModal component #handleClickImportClasses should 
                                                   "placeholder": "",
                                                   "screenReaderStatus": [Function],
                                                   "styles": Object {},
-                                                  "tabIndex": "0",
+                                                  "tabIndex": -1,
                                                   "tabSelectsValue": true,
                                                   "type": undefined,
                                                   "updateCursor": [Function],
@@ -1134,7 +1135,7 @@ exports[`ImportGoogleClassroomsModal component #handleClickImportClasses should 
                                                 }
                                               }
                                               spellCheck="false"
-                                              tabIndex="0"
+                                              tabIndex={-1}
                                               theme={
                                                 Object {
                                                   "borderRadius": 4,
@@ -1211,7 +1212,7 @@ exports[`ImportGoogleClassroomsModal component #handleClickImportClasses should 
                                                     onChange={[Function]}
                                                     onFocus={[Function]}
                                                     spellCheck="false"
-                                                    tabIndex="0"
+                                                    tabIndex={-1}
                                                     type="text"
                                                     value=""
                                                   >
@@ -1248,7 +1249,7 @@ exports[`ImportGoogleClassroomsModal component #handleClickImportClasses should 
                                                             "width": "1px",
                                                           }
                                                         }
-                                                        tabIndex="0"
+                                                        tabIndex={-1}
                                                         type="text"
                                                         value=""
                                                       />
@@ -1333,7 +1334,7 @@ exports[`ImportGoogleClassroomsModal component #handleClickImportClasses should 
                                             "placeholder": "",
                                             "screenReaderStatus": [Function],
                                             "styles": Object {},
-                                            "tabIndex": "0",
+                                            "tabIndex": -1,
                                             "tabSelectsValue": true,
                                             "type": undefined,
                                             "updateCursor": [Function],
@@ -1449,7 +1450,7 @@ exports[`ImportGoogleClassroomsModal component #handleClickImportClasses should 
                                                   "placeholder": "",
                                                   "screenReaderStatus": [Function],
                                                   "styles": Object {},
-                                                  "tabIndex": "0",
+                                                  "tabIndex": -1,
                                                   "tabSelectsValue": true,
                                                   "type": undefined,
                                                   "updateCursor": [Function],
@@ -1576,7 +1577,7 @@ exports[`ImportGoogleClassroomsModal component #handleClickImportClasses should 
                                                   "placeholder": "",
                                                   "screenReaderStatus": [Function],
                                                   "styles": Object {},
-                                                  "tabIndex": "0",
+                                                  "tabIndex": -1,
                                                   "tabSelectsValue": true,
                                                   "type": undefined,
                                                   "updateCursor": [Function],
