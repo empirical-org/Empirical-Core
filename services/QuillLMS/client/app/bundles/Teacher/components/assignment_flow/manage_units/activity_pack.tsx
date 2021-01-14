@@ -1,7 +1,7 @@
 import * as React from 'react'
 
 import ActivityTable from './activity_table'
-import RightSide from './right_side'
+import ActivityPackUpdateButtons from './activity_pack_update_buttons'
 import IndividualClassroom from './individual_classroom'
 import ArchiveModal from './archive_modal'
 import RenameModal from './rename_modal'
@@ -76,7 +76,7 @@ const ActivityPack = ({
     />}
     <div className="top-section">
       <div className="top-section-header">
-        {isOwner && <RightSide handleClickShowRemove={handleClickShowRemove} handleClickShowRename={handleClickShowRename} />}
+        {isOwner && <ActivityPackUpdateButtons handleClickShowRemove={handleClickShowRemove} handleClickShowRename={handleClickShowRename} />}
         <div className="left-side">
           <h2>{data.unitName}</h2>
           {!isOwner && (<div className="coteacher-explanation">

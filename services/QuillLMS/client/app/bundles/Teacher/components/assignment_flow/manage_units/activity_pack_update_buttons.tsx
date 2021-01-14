@@ -3,7 +3,7 @@ import * as React from 'react'
 const renameSrc = `${process.env.CDN_URL}/images/icons/icons-rename.svg`
 const removeInCircleSrc = `${process.env.CDN_URL}/images/icons/remove-in-circle.svg`
 
-const RightSide = ({
+const ActivityPackUpdateButtons = ({
   handleClickShowRename,
   handleClickShowRemove
 }) => (
@@ -19,4 +19,4 @@ const RightSide = ({
   </div>
 )
 
-export default RightSide
+export default ActivityPackUpdateButtons

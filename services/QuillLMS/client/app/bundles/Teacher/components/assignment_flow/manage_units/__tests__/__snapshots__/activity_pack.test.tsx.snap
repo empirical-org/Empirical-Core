@@ -722,7 +722,7 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
       <div
         className="top-section-header"
       >
-        <RightSide
+        <ActivityPackUpdateButtons
           handleClickShowRemove={[Function]}
           handleClickShowRename={[Function]}
         >
@@ -756,7 +756,7 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
               </span>
             </button>
           </div>
-        </RightSide>
+        </ActivityPackUpdateButtons>
         <div
           className="left-side"
         >
