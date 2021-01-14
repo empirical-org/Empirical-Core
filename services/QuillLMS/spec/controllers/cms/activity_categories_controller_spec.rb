@@ -8,7 +8,7 @@ describe Cms::ActivityCategoriesController, type: :controller do
   end
 
   around do |example|
-    travel_to(Time.zone.now) { example.run } 
+    travel_to(Time.zone.now) { example.run }
   end
 
   describe '#index' do
@@ -84,9 +84,8 @@ describe Cms::ActivityCategoriesController, type: :controller do
           activity_ids: []
         }
       ]
-
       put :mass_update, activity_categories: params
-      expect(ActivityCategoryActivity.find_by(id: activity_categories[2].id)).not_to be
+      expect(ActivityCategory.find_by(id: activity_categories[2].id)).not_to be
     end
   end
 
