@@ -154,10 +154,11 @@ func getAPIResponse(url string, priority int, json_params [] byte, c chan Intern
 	}
 
 	var result APIResponse
-	print("\n response from ", url)
-	fmt.Println(response_json)
-	fmt.Println(err)
-	print("----")
+	fmt.Print("\n response from ", url)
+	fmt.Printf("%+v\n", response_json)
+	fmt.Printf("%+v\n", err)
+	fmt.Println("----")
+
 	if err := json.NewDecoder(response_json.Body).Decode(&result); err != nil {
 		// TODO might want to think about what this should be.
 		c <- InternalAPIResponse{Priority: priority, Error: true, APIResponse: APIResponse{Feedback: "There was an JSON error" + err.Error(), Feedback_type: "API Error", Labels: url, Optimal: false}}
