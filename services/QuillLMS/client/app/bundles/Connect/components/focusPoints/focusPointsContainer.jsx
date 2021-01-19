@@ -65,7 +65,7 @@ export class FocusPointsContainer extends Component {
   }
 
   sortCallback = sortInfo => {
-    const fpOrderedIds = sortInfo.data.items.map(item => item.key);
+    const fpOrderedIds = sortInfo.map(item => item.key);
     this.setState({ fpOrderedIds, });
   };
 

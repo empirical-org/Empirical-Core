@@ -77,7 +77,7 @@ class IncorrectSequencesContainer extends Component {
     const { params } = match
     const { questionID } = params
     const incorrectSequences = this.getSequences()
-    const newOrder = sortInfo.data.items.filter(item => item).map(item => item.key);
+    const newOrder = sortInfo.filter(item => item).map(item => item.key);
     const newIncorrectSequences = newOrder.map((key) => incorrectSequences[key])
     dispatch(updateIncorrectSequences(questionID, newIncorrectSequences));
   };

@@ -105,7 +105,7 @@ class ShowEditionSlide extends Component<any, any> {
   }
 
   updateScriptItemOrder(sortInfo) {
-    const newOrder = sortInfo.data.items.map(item => item.key);
+    const newOrder = sortInfo.map(item => item.key);
     const newScriptItems = newOrder.map((key) => this.currentSlide().data.teach.script[key])
     const {editionID, slideID} = this.props.match.params;
     updateSlideScriptItems(editionID, slideID, newScriptItems)
