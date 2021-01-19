@@ -699,8 +699,11 @@ describe User, type: :model do
   end
 
   describe '#clear_data' do
-    let(:user) { create(:teacher_with_school, google_id: 'sergey_and_larry_were_here') }
+    let!(:ip_location) { create(:ip_location) }
+    let(:user) { create(:student_in_two_classrooms_with_many_activities, google_id: 'sergey_and_larry_were_here', send_newsletter: true, ip_location: ip_location) }
     let!(:auth_credential) { create(:auth_credential, user: user) }
+    let!(:activity_sessions) { user.activity_sessions }
+    let!(:classroom_units) { ClassroomUnit.where("? = ANY (assigned_student_ids)", user.id) }
     before(:each) { user.clear_data }
 
     it "changes the user's email to one that is not personally identiable" do
@@ -724,6 +727,32 @@ describe User, type: :model do
     end
     it "destroys associated schools_users if present" do
       expect(user.reload.schools_users).to be nil
+    end
+
+    it "destroys associated students_classrooms if present" do
+      expect(StudentsClassrooms.where(student_id: user.id).count).to eq(0)
+    end
+
+    it "removes the ip address" do
+      expect(user.ip_address).to be nil
+    end
+
+    it "sets send_newsletter to be false" do
+      expect(user.send_newsletter).to be false
+    end
+
+    it "removes ip_location" do
+      expect(user.reload.ip_location).to be nil
+    end
+
+    it "removes student from related classroom_units" do
+      classroom_units.each {|cu| expect(cu.assigned_student_ids).not_to include(user.id)}
+    end
+
+    it "removes student from related activity_sessions" do
+      expect(user.activity_sessions.count).to eq(0)
+      activity_sessions.each {|as| expect(as.classroom_unit_id).to be nil}
+      activity_sessions.each {|as| expect(as.user_id).to be nil}
     end
   end
 
