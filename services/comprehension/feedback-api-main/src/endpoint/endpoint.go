@@ -96,6 +96,7 @@ func Endpoint(responseWriter http.ResponseWriter, request *http.Request) {
 			// This should really only happen when there's no Semantic Feedback available,
 			// even for success cases, which means that if everything is working correctly,
 			// this only comes up during the initial Turking process
+			fmt.Printf("\n results %+v\n", results)
 			if !results[return_index].Error {
 				returnable_result = results[return_index].APIResponse
 			} else {
@@ -154,10 +155,8 @@ func getAPIResponse(url string, priority int, json_params [] byte, c chan Intern
 	}
 
 	var result APIResponse
-	fmt.Print("\n response from ", url)
-	fmt.Printf("%+v\n", response_json)
-	fmt.Printf("%+v\n", err)
-	fmt.Println("----")
+	fmt.Printf("\nresponse from %+v %+v %+v\n", url, response_json, err)
+
 
 	if err := json.NewDecoder(response_json.Body).Decode(&result); err != nil {
 		// TODO might want to think about what this should be.
