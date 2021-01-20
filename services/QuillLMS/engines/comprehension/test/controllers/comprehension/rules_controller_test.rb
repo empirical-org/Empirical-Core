@@ -7,7 +7,7 @@ module Comprehension
     end
 
     context "index" do
-     should "return successfully - no rule" do
+      should "return successfully - no rule" do
         get :index
 
         parsed_response = JSON.parse(response.body)
