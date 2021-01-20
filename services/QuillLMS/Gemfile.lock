@@ -230,7 +230,7 @@ GEM
     graphiql-rails (1.7.0)
       railties
       sprockets-rails
-    graphql (1.9.2)
+    graphql (1.11.7)
     guard (2.15.0)
       formatador (>= 0.2.4)
       listen (>= 2.7, < 4.0)
@@ -448,7 +448,7 @@ GEM
     rack (1.6.13)
     rack-affiliates (0.4.0)
       rack
-    rack-attack (5.4.2)
+    rack-attack (6.3.1)
       rack (>= 1.0, < 3)
     rack-cache (1.6.1)
       rack (>= 0.4)
