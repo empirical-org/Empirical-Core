@@ -7,7 +7,7 @@ module Comprehension
     end
 
     context "index" do
-     should "return successfully - no rule" do
+      should "return successfully - no rule" do
         get :index
 
         parsed_response = JSON.parse(response.body)
@@ -30,7 +30,7 @@ module Comprehension
           assert_response :success
           assert_equal Array, parsed_response.class
           refute parsed_response.empty?
-      
+
           assert_equal @rule.uid, parsed_response.first['uid']
 
           assert_equal @rule.name, parsed_response.first['name']
@@ -101,7 +101,7 @@ module Comprehension
         parsed_response = JSON.parse(response.body)
 
         assert_equal 200, response.code.to_i
-    
+
         assert_equal @rule.uid, parsed_response['uid']
 
         assert_equal @rule.name, parsed_response['name']

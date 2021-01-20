@@ -17,23 +17,22 @@ module Comprehension
     end
 
     context 'relationships' do
-      # FIXME put relationship tests here.
     end
 
     context 'before_validation' do
-      context 'assign_uid_if_missing' do 
-        should 'keep existing uid if already set' do 
+      context 'assign_uid_if_missing' do
+        should 'keep existing uid if already set' do
           rule = build(:comprehension_rule)
           old_uid = rule.uid
           rule.valid?
           assert_equal old_uid, rule.uid
-        end 
-        should 'set new uid if missing' do
-          rule = build(:comprehension_rule, uid: nil) 
-          rule.valid?
-          assert_not_nil rule.uid 
         end
-      end  
+        should 'set new uid if missing' do
+          rule = build(:comprehension_rule, uid: nil)
+          rule.valid?
+          assert_not_nil rule.uid
+        end
+      end
     end
   end
 end
