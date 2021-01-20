@@ -25,7 +25,7 @@ export const fetchRuleSet = async (key: string, activityId: string, ruleSetId: s
 export const createRuleSet = async (activityId: string, ruleSet: { rule_set: ActivityRuleSetInterface }) => {
   const { rule_set } = ruleSet;
   const { rules } = rule_set;
-  ruleSet.regex_rules = rules;
+  ruleSet.rule_set.regex_rules_attributes = ruleSet.rule_set.rules_attributes;
   const response = await apiFetch(`activities/${activityId}/rule_sets`, {
     method: 'POST',
     body: JSON.stringify(ruleSet)
