@@ -4,4 +4,5 @@ class TeacherSavedActivity < ActiveRecord::Base
 
   validates :activity_id, presence: true
   validates :teacher_id, presence: true
+  validates :activity_id, uniqueness: { scope: :teacher_id }
 end

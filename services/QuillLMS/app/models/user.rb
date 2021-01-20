@@ -396,7 +396,7 @@ class User < ActiveRecord::Base
         ip_address: nil,
         send_newsletter: false
       )
-      StudentsClassrooms.where(student_id: id).update_all(visible: false)
+      StudentsClassrooms.where(student_id: id).destroy_all
       auth_credential.destroy! if auth_credential.present?
       ip_location.destroy! if ip_location.present?
       SchoolsUsers.where(user_id: id).destroy_all

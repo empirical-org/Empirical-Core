@@ -1186,7 +1186,10 @@ CREATE TABLE public.comprehension_prompts (
     text character varying,
     max_attempts_feedback text,
     created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL
+    updated_at timestamp without time zone NOT NULL,
+    plagiarism_text text,
+    plagiarism_first_feedback text,
+    plagiarism_second_feedback text
 );
 
 
@@ -1239,6 +1242,40 @@ CREATE SEQUENCE public.comprehension_prompts_rule_sets_id_seq
 --
 
 ALTER SEQUENCE public.comprehension_prompts_rule_sets_id_seq OWNED BY public.comprehension_prompts_rule_sets.id;
+
+
+--
+-- Name: comprehension_regex_rules; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.comprehension_regex_rules (
+    id integer NOT NULL,
+    rule_set_id integer,
+    regex_text character varying(200),
+    case_sensitive boolean,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: comprehension_regex_rules_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.comprehension_regex_rules_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: comprehension_regex_rules_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.comprehension_regex_rules_id_seq OWNED BY public.comprehension_regex_rules.id;
 
 
 --
@@ -1309,6 +1346,39 @@ CREATE SEQUENCE public.comprehension_rules_id_seq
 --
 
 ALTER SEQUENCE public.comprehension_rules_id_seq OWNED BY public.comprehension_rules.id;
+
+
+--
+-- Name: comprehension_turking_round_activity_sessions; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.comprehension_turking_round_activity_sessions (
+    id integer NOT NULL,
+    turking_round_id integer,
+    activity_session_uid character varying,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: comprehension_turking_round_activity_sessions_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.comprehension_turking_round_activity_sessions_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: comprehension_turking_round_activity_sessions_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.comprehension_turking_round_activity_sessions_id_seq OWNED BY public.comprehension_turking_round_activity_sessions.id;
 
 
 --
@@ -1493,7 +1563,8 @@ CREATE TABLE public.content_partners (
     name character varying NOT NULL,
     description character varying,
     created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL
+    updated_at timestamp without time zone NOT NULL,
+    visible boolean DEFAULT true
 );
 
 
@@ -2879,40 +2950,6 @@ ALTER SEQUENCE public.teacher_saved_activities_id_seq OWNED BY public.teacher_sa
 
 --
 -- Name: third_party_user_ids; Type: TABLE; Schema: public; Owner: -
-
---
-
-CREATE TABLE public.teacher_saved_activities (
-    id integer NOT NULL,
-    teacher_id integer NOT NULL,
-    activity_id integer NOT NULL,
-    created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL
-);
-
-
---
--- Name: teacher_saved_activities_id_seq; Type: SEQUENCE; Schema: public; Owner: -
---
-
-CREATE SEQUENCE public.teacher_saved_activities_id_seq
-    AS integer
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
---
--- Name: teacher_saved_activities_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
---
-
-ALTER SEQUENCE public.teacher_saved_activities_id_seq OWNED BY public.teacher_saved_activities.id;
-
-
---
--- Name: third_party_user_ids; Type: TABLE; Schema: public; Owner: -
 --
 
 CREATE TABLE public.third_party_user_ids (
@@ -2989,7 +3026,9 @@ CREATE TABLE public.topics (
     name character varying NOT NULL,
     level integer NOT NULL,
     visible boolean DEFAULT true NOT NULL,
-    parent_id integer
+    parent_id integer,
+    created_at timestamp without time zone,
+    updated_at timestamp without time zone
 );
 
 
@@ -3512,6 +3551,13 @@ ALTER TABLE ONLY public.comprehension_prompts_rule_sets ALTER COLUMN id SET DEFA
 
 
 --
+-- Name: comprehension_regex_rules id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.comprehension_regex_rules ALTER COLUMN id SET DEFAULT nextval('public.comprehension_regex_rules_id_seq'::regclass);
+
+
+--
 -- Name: comprehension_rule_sets id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -3523,6 +3569,13 @@ ALTER TABLE ONLY public.comprehension_rule_sets ALTER COLUMN id SET DEFAULT next
 --
 
 ALTER TABLE ONLY public.comprehension_rules ALTER COLUMN id SET DEFAULT nextval('public.comprehension_rules_id_seq'::regclass);
+
+
+--
+-- Name: comprehension_turking_round_activity_sessions id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.comprehension_turking_round_activity_sessions ALTER COLUMN id SET DEFAULT nextval('public.comprehension_turking_round_activity_sessions_id_seq'::regclass);
 
 
 --
@@ -3835,14 +3888,6 @@ ALTER TABLE ONLY public.teacher_saved_activities ALTER COLUMN id SET DEFAULT nex
 
 --
 -- Name: third_party_user_ids id; Type: DEFAULT; Schema: public; Owner: -
-
---
-
-ALTER TABLE ONLY public.teacher_saved_activities ALTER COLUMN id SET DEFAULT nextval('public.teacher_saved_activities_id_seq'::regclass);
-
-
---
--- Name: third_party_user_ids id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.third_party_user_ids ALTER COLUMN id SET DEFAULT nextval('public.third_party_user_ids_id_seq'::regclass);
@@ -4143,6 +4188,14 @@ ALTER TABLE ONLY public.comprehension_prompts_rule_sets
 
 
 --
+-- Name: comprehension_regex_rules comprehension_regex_rules_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.comprehension_regex_rules
+    ADD CONSTRAINT comprehension_regex_rules_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: comprehension_rule_sets comprehension_rule_sets_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -4156,6 +4209,14 @@ ALTER TABLE ONLY public.comprehension_rule_sets
 
 ALTER TABLE ONLY public.comprehension_rules
     ADD CONSTRAINT comprehension_rules_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: comprehension_turking_round_activity_sessions comprehension_turking_round_activity_sessions_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.comprehension_turking_round_activity_sessions
+    ADD CONSTRAINT comprehension_turking_round_activity_sessions_pkey PRIMARY KEY (id);
 
 
 --
@@ -4613,6 +4674,20 @@ CREATE UNIQUE INDEX classroom_invitee_index ON public.coteacher_classroom_invita
 
 
 --
+-- Name: comprehension_turking_sessions_activity_uid; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX comprehension_turking_sessions_activity_uid ON public.comprehension_turking_round_activity_sessions USING btree (activity_session_uid);
+
+
+--
+-- Name: comprehension_turking_sessions_turking_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX comprehension_turking_sessions_turking_id ON public.comprehension_turking_round_activity_sessions USING btree (turking_round_id);
+
+
+--
 -- Name: email_idx; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -5016,6 +5091,13 @@ CREATE INDEX index_comprehension_prompts_rule_sets_on_prompt_id ON public.compre
 --
 
 CREATE INDEX index_comprehension_prompts_rule_sets_on_rule_set_id ON public.comprehension_prompts_rule_sets USING btree (rule_set_id);
+
+
+--
+-- Name: index_comprehension_regex_rules_on_rule_set_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_comprehension_regex_rules_on_rule_set_id ON public.comprehension_regex_rules USING btree (rule_set_id);
 
 
 --
@@ -5548,6 +5630,13 @@ CREATE INDEX index_teacher_saved_activities_on_activity_id ON public.teacher_sav
 --
 
 CREATE INDEX index_teacher_saved_activities_on_teacher_id ON public.teacher_saved_activities USING btree (teacher_id);
+
+
+--
+-- Name: index_teacher_saved_activities_on_teacher_id_and_activity_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_teacher_saved_activities_on_teacher_id_and_activity_id ON public.teacher_saved_activities USING btree (teacher_id, activity_id);
 
 
 --
@@ -6879,4 +6968,16 @@ INSERT INTO schema_migrations (version) VALUES ('20201023212528');
 INSERT INTO schema_migrations (version) VALUES ('20201026184657');
 
 INSERT INTO schema_migrations (version) VALUES ('20201026185613');
+
+INSERT INTO schema_migrations (version) VALUES ('20201116132148');
+
+INSERT INTO schema_migrations (version) VALUES ('20201125190536');
+
+INSERT INTO schema_migrations (version) VALUES ('20201202224853');
+
+INSERT INTO schema_migrations (version) VALUES ('20201203173440');
+
+INSERT INTO schema_migrations (version) VALUES ('20210113130854');
+
+INSERT INTO schema_migrations (version) VALUES ('20210114160155');
 

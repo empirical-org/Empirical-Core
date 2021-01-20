@@ -729,6 +729,10 @@ describe User, type: :model do
       expect(user.reload.schools_users).to be nil
     end
 
+    it "destroys associated students_classrooms if present" do
+      expect(StudentsClassrooms.where(student_id: user.id).count).to eq(0)
+    end
+
     it "removes the ip address" do
       expect(user.ip_address).to be nil
     end

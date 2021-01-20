@@ -56,7 +56,7 @@ module Comprehension
         :feedback,
         :priority,
         prompt_ids: [],
-        rules_attributes: [:id, :rule_set_id, :regex_text, :case_sensitive]
+        regex_rules_attributes: [:id, :rule_set_id, :regex_text, :case_sensitive]
       )
     end
   end
