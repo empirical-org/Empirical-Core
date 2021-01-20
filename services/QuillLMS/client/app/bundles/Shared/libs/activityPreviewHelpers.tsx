@@ -1,52 +1,54 @@
 import * as React from 'react';
 import stripHtml from "string-strip-html";
 
-import { Question } from '../interfaces/question';
+import { QuestionObject } from '../interfaces/question';
 import { Feedback, getLatestAttempt } from '../../Shared/index';
 
 export const getCurrentQuestion = ({ action, answeredQuestions, questionSet, unansweredQuestions }) => {
-  const { data } = action;
-  const { key } = data;
+  const { data, question } = action;
+  const dataObject = data || question;
+  const key = dataObject.key ? dataObject.key : dataObject.uid;
   let currentQuestion;
 
   // check answeredQuestions
   // Connect has type question: { question: {...}} and Diagnostic has type question: { data: {...}}
-  currentQuestion = answeredQuestions.filter((questionObject: { data?: Question, question?: Question }) => {
+  currentQuestion = answeredQuestions.filter((questionObject: QuestionObject) => {
     const { data, question } = questionObject;
-    const dataObject = data || question;
+    const dataObject = data || question || questionObject;
     // some ELL SC questions get an -esp appended to the key
-    return key === dataObject.key || key === `${dataObject.key}-esp`;
+    return key === dataObject.key || key === `${dataObject.key}-esp` || key === dataObject.uid;
   })[0];
 
   // check unansweredQuestions
   if(!currentQuestion) {
-    currentQuestion = unansweredQuestions.filter((questionObject: { data?: Question, question?: Question }) => {
+    currentQuestion = unansweredQuestions.filter((questionObject: QuestionObject) => {
       const { data, question } = questionObject;
-      const dataObject = data || question;
-      return key === dataObject.key || key === `${dataObject.key}-esp`;
+      const dataObject = data || question || questionObject;
+      return key === dataObject.key || key === `${dataObject.key}-esp` || key === dataObject.uid;;
     })[0];
   }
   // check questionSet, is title card
   if(!currentQuestion) {
-    currentQuestion = questionSet.filter((questionObject: { data?: Question, question?: Question }) => {
+    currentQuestion = questionSet.filter((questionObject: QuestionObject) => {
       const { data, question } = questionObject;
-      const dataObject = data || question;
-      return key === dataObject.key
+      const dataObject = data || question || questionObject;
+      return key === dataObject.key || key === dataObject.uid;
     })[0];
   }
   return currentQuestion;
 }
 
 // Connect has type question: { question: {...}} and Diagnostic has type question: { data: {...}}
-export const getQuestionsWithAttempts = (questions: { data?: Question, question?: Question }[]) => {
+export const getQuestionsWithAttempts = (questions: QuestionObject[]) => {
   const questionsWithAttempts = {}
 
   questions.forEach(questionObject => {
     const { data, question } = questionObject;
-    const dataObject = data || question;
-    const { attempts, key } = dataObject;
+    const dataObject = data || question || questionObject;
+    const { attempts, key, uid } = dataObject;
+    const keyOrUid = key ? key : uid;
     if(attempts && attempts.length) {
-      questionsWithAttempts[key] = questionObject;
+      questionsWithAttempts[keyOrUid] = questionObject;
     }
   });
 
@@ -57,10 +59,10 @@ export const getFilteredQuestions = ({ questionsSlice, answeredQuestionsWithAtte
   if(!questionsSlice.length) {
     return [];
   }
-  return questionsSlice.map((questionObject: { data?: Question, question?: Question }) => {
+  return questionsSlice.map((questionObject: QuestionObject) => {
     const { data, question } = questionObject;
-    const dataObject = data || question;
-    const { key } = dataObject;
+    const dataObject = data || question || questionObject;
+    const key = dataObject.key ? dataObject.key : dataObject.uid;
     // some ELL SC questions get an -esp appended to the key
     const slicedKey = key.slice(0, -4);
     const answeredQuestionWithAttempts = answeredQuestionsWithAttempts[key] || answeredQuestionsWithAttempts[slicedKey];
