@@ -16,15 +16,15 @@ class Rack::Attack
   end
 
   Rack::Attack.throttled_response = lambda do |request|
-  # NB: you have access to the name and other data about the matched throttle
-  #  request.env['rack.attack.matched'],
-  #  request.env['rack.attack.match_type'],
-  #  request.env['rack.attack.match_data'],
-  #  request.env['rack.attack.match_discriminator']
+    # NB: you have access to the name and other data about the matched throttle
+    #  request.env['rack.attack.matched'],
+    #  request.env['rack.attack.match_type'],
+    #  request.env['rack.attack.match_data'],
+    #  request.env['rack.attack.match_discriminator']
 
-  # Using 503 because it may make attacker think that they have successfully
-  # DOSed the site. Rack::Attack returns 429 for throttling by default
-    [503, {}, [ { message: 'Too many login attempts. Please try again later.', type: 'password' }.to_json ]]
+    # Using 503 because it may make attacker think that they have successfully
+    # DOSed the site. Rack::Attack returns 429 for throttling by default
+    [503, {}, [{ message: 'Too many login attempts. Please try again later.', type: 'password' }.to_json]]
   end
 
 end
