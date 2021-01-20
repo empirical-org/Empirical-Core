@@ -101,7 +101,6 @@ module Comprehension
         parsed_response = JSON.parse(response.body)
 
         assert_equal 200, response.code.to_i
-
         assert_equal @rule.uid, parsed_response['uid']
 
         assert_equal @rule.name, parsed_response['name']
