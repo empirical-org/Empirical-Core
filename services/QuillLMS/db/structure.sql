@@ -2,8 +2,8 @@
 -- PostgreSQL database dump
 --
 
--- Dumped from database version 10.13
--- Dumped by pg_dump version 10.13
+-- Dumped from database version 10.12
+-- Dumped by pg_dump version 10.12
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -1242,6 +1242,40 @@ CREATE SEQUENCE public.comprehension_prompts_rule_sets_id_seq
 --
 
 ALTER SEQUENCE public.comprehension_prompts_rule_sets_id_seq OWNED BY public.comprehension_prompts_rule_sets.id;
+
+
+--
+-- Name: comprehension_regex_rules; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.comprehension_regex_rules (
+    id integer NOT NULL,
+    rule_set_id integer,
+    regex_text character varying(200),
+    case_sensitive boolean,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: comprehension_regex_rules_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.comprehension_regex_rules_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: comprehension_regex_rules_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.comprehension_regex_rules_id_seq OWNED BY public.comprehension_regex_rules.id;
 
 
 --
@@ -3517,6 +3551,13 @@ ALTER TABLE ONLY public.comprehension_prompts_rule_sets ALTER COLUMN id SET DEFA
 
 
 --
+-- Name: comprehension_regex_rules id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.comprehension_regex_rules ALTER COLUMN id SET DEFAULT nextval('public.comprehension_regex_rules_id_seq'::regclass);
+
+
+--
 -- Name: comprehension_rule_sets id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -4144,6 +4185,14 @@ ALTER TABLE ONLY public.comprehension_prompts
 
 ALTER TABLE ONLY public.comprehension_prompts_rule_sets
     ADD CONSTRAINT comprehension_prompts_rule_sets_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: comprehension_regex_rules comprehension_regex_rules_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.comprehension_regex_rules
+    ADD CONSTRAINT comprehension_regex_rules_pkey PRIMARY KEY (id);
 
 
 --
@@ -5042,6 +5091,13 @@ CREATE INDEX index_comprehension_prompts_rule_sets_on_prompt_id ON public.compre
 --
 
 CREATE INDEX index_comprehension_prompts_rule_sets_on_rule_set_id ON public.comprehension_prompts_rule_sets USING btree (rule_set_id);
+
+
+--
+-- Name: index_comprehension_regex_rules_on_rule_set_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_comprehension_regex_rules_on_rule_set_id ON public.comprehension_regex_rules USING btree (rule_set_id);
 
 
 --
@@ -6922,4 +6978,6 @@ INSERT INTO schema_migrations (version) VALUES ('20201202224853');
 INSERT INTO schema_migrations (version) VALUES ('20201203173440');
 
 INSERT INTO schema_migrations (version) VALUES ('20210113130854');
+
+INSERT INTO schema_migrations (version) VALUES ('20210114160155');
 
