@@ -1,11 +1,11 @@
 module Comprehension
-  class RulesController < ApplicationController
+  class RegexRulesController < ApplicationController
     before_action :set_rule_set
     before_action :set_rule, only: [:show, :update, :destroy]
 
     # GET /rules.json
     def index
-      @rules = @rule_set.rules
+      @rules = @rule_set.regex_rules
 
       render json: @rules
     end
@@ -17,7 +17,7 @@ module Comprehension
 
     # POST /rules.json
     def create
-      @rule = @rule_set.rules.build(rule_params)
+      @rule = @rule_set.regex_rules.build(rule_params)
 
       if @rule.save
         render json: @rule, status: :created
@@ -48,11 +48,11 @@ module Comprehension
       end
 
       def set_rule
-        @rule = @rule_set.rules.find(params[:id])
+        @rule = @rule_set.regex_rules.find(params[:id])
       end
 
       def rule_params
-        params.require(:rule).permit(:regex_text, :case_sensitive)
+        params.require(:regex_rule).permit(:regex_text, :case_sensitive)
       end
   end
 end

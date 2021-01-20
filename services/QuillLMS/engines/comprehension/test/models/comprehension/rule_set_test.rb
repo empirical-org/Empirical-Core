@@ -7,7 +7,7 @@ module Comprehension
       should belong_to(:activity)
       should have_many(:prompts_rule_sets)
       should have_many(:prompts).through(:prompts_rule_sets)
-      should have_many(:rules).dependent(:destroy)
+      should have_many(:regex_rules).dependent(:destroy)
     end
 
     context 'validations' do
@@ -28,7 +28,7 @@ module Comprehension
         @activity = create(:comprehension_activity, title: "First Activity", target_level: 8, scored_level: "4th grade")
         @prompt = create(:comprehension_prompt, activity: @activity, text: "it is good.", conjunction: "because", max_attempts_feedback: "good work!.")
         @rule_set = create(:comprehension_rule_set, activity: @activity, prompts: [@prompt], name: 'Test Rule Set', feedback: 'Feedback' * 10, priority: 0)
-        @rule = create(:comprehension_rule, rule_set: @rule_set, regex_text: 'test', case_sensitive: true)
+        @rule = create(:comprehension_regex_rule, rule_set: @rule_set, regex_text: 'test', case_sensitive: true)
       end
 
       should 'fill out hash with all fields' do
@@ -44,7 +44,7 @@ module Comprehension
 
         assert_equal prompt_hash['id'], @prompt.id
 
-        rule_hash = json_hash['rules'].first
+        rule_hash = json_hash['regex_rules'].first
 
         assert_equal rule_hash['id'], @rule.id
         assert_equal rule_hash['regex_text'], @rule.regex_text
