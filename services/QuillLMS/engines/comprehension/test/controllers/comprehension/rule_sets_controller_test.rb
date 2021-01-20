@@ -77,7 +77,7 @@ module Comprehension
     context "show" do
       setup do
         @rule_set = create(:comprehension_rule_set)
-        @rule = create(:comprehension_rule, rule_set: @rule_set)
+        @rule = create(:comprehension_regex_rule, rule_set: @rule_set)
       end
 
       should "return json if found" do
@@ -92,7 +92,7 @@ module Comprehension
         assert_equal @rule_set.feedback, parsed_response['feedback']
         assert_equal @rule_set.priority, parsed_response['priority']
 
-        rule_response = parsed_response['rules'].first
+        rule_response = parsed_response['regex_rules'].first
 
         assert_equal @rule.id, rule_response['id']
         assert_equal @rule.regex_text, rule_response['regex_text']
@@ -110,7 +110,7 @@ module Comprehension
       setup do
         @prompt = create(:comprehension_prompt)
         @rule_set = create(:comprehension_rule_set, activity: @prompt.activity)
-        @rule = create(:comprehension_rule, rule_set: @rule_set)
+        @rule = create(:comprehension_regex_rule, rule_set: @rule_set)
       end
 
       should "update ruleset record if valid, return the ruleset" do
@@ -131,7 +131,7 @@ module Comprehension
       end
 
       should "update nested rule record if valid, return ruleset" do
-        patch :update, activity_id: @rule_set.activity_id, id: @rule_set.id, rule_set: { rules_attributes: [{id: @rule.id, regex_text: 'Some updated text', case_sensitive: true}] }
+        patch :update, activity_id: @rule_set.activity_id, id: @rule_set.id, rule_set: { regex_rules_attributes: [{id: @rule.id, regex_text: 'Some updated text', case_sensitive: true}] }
 
         parsed_response = JSON.parse(response.body)
 

@@ -82,16 +82,25 @@ export default class PromptStep extends React.Component<PromptStepProps, PromptS
     }
     let wordsToFormat = lastSubmittedResponse.highlight.filter(hl => hl.type === RESPONSE).map(hl => hl.text)
     wordsToFormat = wordsToFormat.length === 1 ? wordsToFormat[0] : wordsToFormat
-    const wordArray = this.stripHtml(str).split(' ')
-    const newWordArray = wordArray.map(word => {
-      const punctuationStrippedWord = word.replace(/[^A-Za-z0-9\s]/g, '')
-      if (wordsToFormat.includes(punctuationStrippedWord)) {
-        return `<b>${word}</b>`
-      } else {
-        return word
-      }
+    if (lastSubmittedResponse.feedback_type == 'plagiarism') {
+      return this.formatPlagiarismHighlight(str, wordsToFormat)
+    } else {
+      return this.formatSpellingGrammarHighlight(str, wordsToFormat)
+    }
+  }
+
+  formatPlagiarismHighlight = (str: string, wordsToFormat: string) => {
+    let boldedString = `<b>${wordsToFormat}</b>`
+    return str.replace(wordsToFormat, boldedString)
+  }
+
+  formatSpellingGrammarHighlight = (str: string, wordsToFormat: string | string[]) => {
+    let wordArray = [].concat(wordsToFormat)
+    let newString = str
+    wordArray.forEach((word) => {
+      newString = newString.replace(word, `<b>${word}</b>`)
     })
-    return newWordArray.join(' ')
+    return newString
   }
 
   onTextChange = (e) => {
