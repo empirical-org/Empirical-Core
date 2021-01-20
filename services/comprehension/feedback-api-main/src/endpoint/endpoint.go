@@ -16,7 +16,7 @@ import (
 const (
 	automl_api = "https://comprehension-247816.appspot.com/feedback/ml"
 	//automl_api = "https://www.quill.org/comprehension/ml_feedback.json"
-	grammar_check_api = "https://us-central1-comprehension-247816.cloudfunctions.net/topic-grammar-API"
+	grammar_check_api = "https://grammar-api.ue.r.appspot.com"
 	plagiarism_api = "https://www.quill.org/api/v1/comprehension/feedback/plagiarism.json"
 	regex_rules_api = "https://comprehension-247816.appspot.com/feedback/rules/first_pass"
 	spell_check_local = "https://us-central1-comprehension-247816.cloudfunctions.net/spell-check-cloud-function"
@@ -96,6 +96,7 @@ func Endpoint(responseWriter http.ResponseWriter, request *http.Request) {
 			// This should really only happen when there's no Semantic Feedback available,
 			// even for success cases, which means that if everything is working correctly,
 			// this only comes up during the initial Turking process
+			fmt.Printf("\n results %+v\n", results)
 			if !results[return_index].Error {
 				returnable_result = results[return_index].APIResponse
 			} else {
@@ -154,6 +155,8 @@ func getAPIResponse(url string, priority int, json_params [] byte, c chan Intern
 	}
 
 	var result APIResponse
+	fmt.Printf("\nresponse from %+v %+v %+v\n", url, response_json, err)
+
 
 	if err := json.NewDecoder(response_json.Body).Decode(&result); err != nil {
 		// TODO might want to think about what this should be.
