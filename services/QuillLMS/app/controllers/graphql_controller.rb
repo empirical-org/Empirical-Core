@@ -1,5 +1,4 @@
 class GraphqlController < ApplicationController
-  disable_introspection_entry_points unless Rails.env.development?
 
   def execute
     variables = ensure_hash(params[:variables])
