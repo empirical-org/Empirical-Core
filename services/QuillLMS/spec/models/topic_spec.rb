@@ -1,3 +1,19 @@
+# == Schema Information
+#
+# Table name: topics
+#
+#  id         :integer          not null, primary key
+#  level      :integer          not null
+#  name       :string           not null
+#  visible    :boolean          default(TRUE), not null
+#  created_at :datetime
+#  updated_at :datetime
+#  parent_id  :integer
+#
+# Foreign Keys
+#
+#  fk_rails_...  (parent_id => topics.id)
+#
 require 'rails_helper'
 
 describe Topic, type: :model do

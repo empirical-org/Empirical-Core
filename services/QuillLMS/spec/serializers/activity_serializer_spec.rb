@@ -1,3 +1,35 @@
+# == Schema Information
+#
+# Table name: activities
+#
+#  id                         :integer          not null, primary key
+#  data                       :jsonb
+#  description                :text
+#  flags                      :string           default([]), not null, is an Array
+#  name                       :string
+#  repeatable                 :boolean          default(TRUE)
+#  supporting_info            :string
+#  uid                        :string           not null
+#  created_at                 :datetime
+#  updated_at                 :datetime
+#  activity_classification_id :integer
+#  follow_up_activity_id      :integer
+#  raw_score_id               :integer
+#  standard_id                :integer
+#  topic_id                   :integer
+#
+# Indexes
+#
+#  index_activities_on_activity_classification_id  (activity_classification_id)
+#  index_activities_on_raw_score_id                (raw_score_id)
+#  index_activities_on_topic_id                    (topic_id)
+#  index_activities_on_uid                         (uid) UNIQUE
+#
+# Foreign Keys
+#
+#  fk_rails_...  (raw_score_id => raw_scores.id)
+#  fk_rails_...  (standard_id => standards.id)
+#
 require 'rails_helper'
 
 describe ActivitySerializer, type: :serializer do

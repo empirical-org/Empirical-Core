@@ -1,3 +1,25 @@
+# == Schema Information
+#
+# Table name: concept_results
+#
+#  id                         :integer          not null, primary key
+#  metadata                   :json
+#  question_type              :string
+#  activity_classification_id :integer
+#  activity_session_id        :integer
+#  concept_id                 :integer          not null
+#
+# Indexes
+#
+#  index_concept_results_on_activity_classification_id  (activity_classification_id)
+#  index_concept_results_on_activity_session_id         (activity_session_id)
+#  index_concept_results_on_concept_id                  (concept_id)
+#  index_concept_results_on_question_type               (question_type)
+#
+# Foreign Keys
+#
+#  fk_rails_...  (activity_classification_id => activity_classifications.id)
+#
 class ConceptResult < ActiveRecord::Base
 
   belongs_to :concept
