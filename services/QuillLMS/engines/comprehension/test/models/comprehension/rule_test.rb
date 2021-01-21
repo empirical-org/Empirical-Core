@@ -4,6 +4,7 @@ module Comprehension
   class RuleTest < ActiveSupport::TestCase
 
     context 'validations' do
+      subject { FactoryBot.build(:comprehension_rule) }
       should validate_uniqueness_of(:uid)
       should validate_presence_of(:name)
       should validate_length_of(:name).is_at_most(50)
