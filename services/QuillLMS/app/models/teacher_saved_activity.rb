@@ -10,8 +10,9 @@
 #
 # Indexes
 #
-#  index_teacher_saved_activities_on_activity_id  (activity_id)
-#  index_teacher_saved_activities_on_teacher_id   (teacher_id)
+#  index_teacher_saved_activities_on_activity_id                 (activity_id)
+#  index_teacher_saved_activities_on_teacher_id                  (teacher_id)
+#  index_teacher_saved_activities_on_teacher_id_and_activity_id  (teacher_id,activity_id) UNIQUE
 #
 # Foreign Keys
 #
