@@ -63,7 +63,7 @@ class LessonForm extends React.Component {
   };
 
   sortCallback = sortInfo => {
-    const newOrder = sortInfo.data.items.map(item => Object.assign({key: item.key, questionType: item.props.questionType}));
+    const newOrder = sortInfo.map(item => Object.assign({key: item.key, questionType: item.props.questionType}));
     this.setState({ selectedQuestions: newOrder, });
   };
 

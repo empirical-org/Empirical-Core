@@ -92,7 +92,7 @@ class ShowAdminEdition extends Component<any, any> {
     const { match, } = this.props
     const { params, } = match
     const originalSlides = this.editionQuestions()
-    const newOrder = sortInfo.data.items.map(item => item.key);
+    const newOrder = sortInfo.map(item => item.key);
     const firstSlide = originalSlides[0]
     const middleSlides = newOrder.map((key) => originalSlides[key])
     const lastSlide = originalSlides[originalSlides.length - 1]

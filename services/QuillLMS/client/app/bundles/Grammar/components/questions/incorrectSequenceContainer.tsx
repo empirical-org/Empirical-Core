@@ -2,7 +2,8 @@ import * as React from 'react';
 import { connect } from 'react-redux';
 import _ from 'underscore';
 import * as questionActions from '../../actions/questions';
-import SortableList from '../shared/sortableList';
+
+import { SortableList, } from '../../../Shared/index';
 
 class IncorrectSequencesContainer extends React.Component {
 
@@ -91,7 +92,7 @@ class IncorrectSequencesContainer extends React.Component {
   sortCallback = (sortInfo) => {
     const { dispatch, match, } = this.props
     const incorrectSequences = this.getSequences()
-    const newOrder = sortInfo.data.items.map(item => item.key);
+    const newOrder = sortInfo.map(item => item.key);
     const newIncorrectSequences = newOrder.map((key) => incorrectSequences[key])
     dispatch(questionActions.updateIncorrectSequences(match.params.questionID, newIncorrectSequences))
   }

@@ -1,8 +1,10 @@
 import React from 'react';
-import BlogPostRow from './blog_post_row.jsx';
-import SortableList from '../../shared/sortableList'
 import request from 'request';
 import moment from 'moment';
+
+import BlogPostRow from './blog_post_row.jsx';
+
+import { SortableList, } from  '../../../../Shared/index'
 import getAuthToken from '../../modules/get_auth_token';
 
 export default class BlogPostTable extends React.Component {
