@@ -2,8 +2,8 @@
 -- PostgreSQL database dump
 --
 
--- Dumped from database version 10.12
--- Dumped by pg_dump version 10.12
+-- Dumped from database version 10.15
+-- Dumped by pg_dump version 10.15
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -1320,9 +1320,14 @@ ALTER SEQUENCE public.comprehension_rule_sets_id_seq OWNED BY public.comprehensi
 
 CREATE TABLE public.comprehension_rules (
     id integer NOT NULL,
-    rule_set_id integer,
-    regex_text character varying,
-    case_sensitive boolean,
+    uid character varying NOT NULL,
+    name character varying NOT NULL,
+    description character varying,
+    universal boolean NOT NULL,
+    rule_type character varying NOT NULL,
+    optimal boolean NOT NULL,
+    suborder integer,
+    concept_uid character varying NOT NULL,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL
 );
@@ -5115,10 +5120,10 @@ CREATE INDEX index_comprehension_rule_sets_on_prompt_id ON public.comprehension_
 
 
 --
--- Name: index_comprehension_rules_on_rule_set_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_comprehension_rules_on_uid; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_comprehension_rules_on_rule_set_id ON public.comprehension_rules USING btree (rule_set_id);
+CREATE UNIQUE INDEX index_comprehension_rules_on_uid ON public.comprehension_rules USING btree (uid);
 
 
 --
@@ -6980,4 +6985,8 @@ INSERT INTO schema_migrations (version) VALUES ('20201203173440');
 INSERT INTO schema_migrations (version) VALUES ('20210113130854');
 
 INSERT INTO schema_migrations (version) VALUES ('20210114160155');
+
+INSERT INTO schema_migrations (version) VALUES ('20210114164445');
+
+INSERT INTO schema_migrations (version) VALUES ('20210114202136');
 
