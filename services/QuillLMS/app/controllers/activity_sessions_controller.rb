@@ -39,6 +39,7 @@ class ActivitySessionsController < ApplicationController
 
   def anonymous
     @activity = Activity.find_by_id_or_uid(params[:activity_id])
+    PreviewedActivityWorker.perform_async(current_user&.id, params[:activity_id])
     redirect_to anonymous_return_url
   end
 

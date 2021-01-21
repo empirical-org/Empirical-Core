@@ -129,6 +129,20 @@ class SegmentAnalytics
     })
   end
 
+  def track_previewed_activity(user_id, activity_id)
+    user = User.find(user_id)
+    activity = Activity.find(activity_id)
+    track(user, {
+      user_id: user_id,
+      event: SegmentIo::BackgroundEvents::PREVIEWED_ACTIVITY,
+      properties: {
+        activity_name: activity.name,
+        tool_name: activity&.classification&.name
+      }
+    })
+
+  end
+
   def track(user, options)
     if backend.present?
       options[:integrations] = integration_rules(user)
