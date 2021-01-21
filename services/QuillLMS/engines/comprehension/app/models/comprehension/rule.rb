@@ -10,8 +10,11 @@ module Comprehension
       TYPE_REGEX = 'Regex',
       TYPE_SPELLING = 'Spelling'    
     ]
-    before_validation :assign_uid_if_missing 
-    # FIXME, add relationships
+    before_validation :assign_uid_if_missing     
+
+    has_many :feedbacks    
+
+    accepts_nested_attributes_for :feedbacks
 
     validates :uid, presence: true, uniqueness: true
     validates :name, presence: true, length: {maximum: MAX_NAME_LENGTH}
@@ -26,7 +29,8 @@ module Comprehension
       options ||= {}
 
       super(options.reverse_merge(
-        only: [:id, :uid, :name, :description, :universal, :rule_type, :optimal, :suborder, :concept_uid]
+        only: [:id, :uid, :name, :description, :universal, :rule_type, :optimal, :suborder, :concept_uid],
+        include: [:feedbacks]
       ))
     end
 

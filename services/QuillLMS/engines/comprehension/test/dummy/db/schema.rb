@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20210114182832) do
+ActiveRecord::Schema.define(version: 20210121200031) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -26,6 +26,17 @@ ActiveRecord::Schema.define(version: 20210114182832) do
   end
 
   add_index "comprehension_activities", ["parent_activity_id"], name: "index_comprehension_activities_on_parent_activity_id", using: :btree
+
+  create_table "comprehension_feedbacks", force: :cascade do |t|
+    t.integer  "rule_id",     null: false
+    t.string   "text",        null: false
+    t.string   "description"
+    t.integer  "order",       null: false
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
+  add_index "comprehension_feedbacks", ["rule_id", "order"], name: "index_comprehension_feedbacks_on_rule_id_and_order", unique: true, using: :btree
 
   create_table "comprehension_passages", force: :cascade do |t|
     t.integer  "activity_id"
@@ -83,19 +94,19 @@ ActiveRecord::Schema.define(version: 20210114182832) do
   add_index "comprehension_rule_sets", ["prompt_id"], name: "index_comprehension_rule_sets_on_prompt_id", using: :btree
 
   create_table "comprehension_rules", force: :cascade do |t|
-    t.string   "uid",         null: false
-    t.string   "name",        null: false
+    t.string   "uid"
+    t.string   "name"
     t.string   "description"
-    t.boolean  "universal",   null: false
-    t.string   "rule_type",   null: false
-    t.boolean  "optimal",     null: false
+    t.boolean  "universal"
+    t.string   "rule_type"
+    t.boolean  "optimal"
     t.integer  "suborder"
-    t.string   "concept_uid", null: false
+    t.string   "concept_uid"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
   end
 
-  add_index "comprehension_rules", ["uid"], name: "index_comprehension_rules_on_uid", unique: true, using: :btree
+  add_index "comprehension_rules", ["uid"], name: "index_comprehension_rules_on_uid", using: :btree
 
   create_table "comprehension_turking_round_activity_sessions", force: :cascade do |t|
     t.integer  "turking_round_id"
