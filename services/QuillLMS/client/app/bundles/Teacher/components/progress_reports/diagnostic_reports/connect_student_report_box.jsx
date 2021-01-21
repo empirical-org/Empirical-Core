@@ -118,7 +118,7 @@ export default createReactClass({
             <tr>
               <td>Prompt</td>
               <td />
-              <td>{formatString(data.prompt)}</td>
+              <td>{formatString(prompt).replace(/\.(?=[^ ])/g, '. ')}</td>
             </tr>
             {this.questionScore()}
             {this.emptyRow()}

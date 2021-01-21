@@ -34,7 +34,7 @@ export class StudentReportBox extends React.Component<StudentReportBoxProps> {
       <tr>
         <td>Prompt</td>
         <td />
-        <td><span dangerouslySetInnerHTML={{ __html: formatString(prompt) }} /></td>
+        <td><span dangerouslySetInnerHTML={{ __html: formatString(prompt).replace(/\.(?=[^ ])/g, '. ')}} /></td>
       </tr>
     );
   }
