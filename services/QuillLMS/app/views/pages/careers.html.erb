@@ -77,8 +77,12 @@
     <div class="job-listings">
       <h2>Open positions</h2>
       <div class="job-board">
-        <% @open_positions.each do |job| %>
-          <%= render partial: 'pages/job', locals: {job: job} %>
+        <% if @open_positions%>
+          <% @open_positions.each do |job| %>
+            <%= render partial: 'pages/job', locals: {job: job} %>
+          <% end %>
+        <% else %>
+          <p>We have no open positions at this time. Please check back later for postings!</p>
         <% end %>
       </div>
     </div>

@@ -73,6 +73,11 @@ module PagesHelper
             img: 'team-peter-gault@2x.png'
           },
           {
+            name: 'Lila Jane Mabe',
+            title: 'Managing Director of Strategy & Impact',
+            img: 'team-lila-jane-mabe@2x.png'
+          },
+          {
             name: 'Hannah Monk',
             title: 'Curriculum Director',
             img: 'team-hannah-monk@2x.png'
@@ -87,6 +92,11 @@ module PagesHelper
             name: 'Eric Adams',
             title: 'Software Developer',
             img: 'team-eric-adams@2x.png'
+          },
+          {
+            name: 'Taha Adib',
+            title: 'Associate Data Product Manager',
+            img: 'team-taha-adib@2x.png'
           },
           {
             name: 'Devin Kawailani Barricklow',
@@ -199,9 +209,9 @@ module PagesHelper
             img: 'board-stephanie-cohen@2x.png'
           },
           {
-            name: 'Rhys Kidd',
-            title: 'Vice President at Macquarie Group',
-            img: 'board-rhys-kidd@2x.png'
+            name: 'Michael Conner',
+            title: 'Superintendent of Schools at Middletown Public Schools',
+            img: 'board-michael-conner@2x.png'
           },
           {
             name: 'Jane Parver',
@@ -212,6 +222,11 @@ module PagesHelper
             name: 'Matthew Rodriguez',
             title: 'Trader at Millennium Management',
             img: 'board-matthew-rodriguez@2x.png'
+          },
+          {
+            name: 'Tony Sebro',
+            title: 'Deputy General Counsel at Wikimedia Foundation',
+            img: 'board-tony-sebro@2x.png'
           },
           {
             name: 'Ben Sussman',

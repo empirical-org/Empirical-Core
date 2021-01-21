@@ -11,9 +11,9 @@ module Comprehension
       should validate_inclusion_of(:universal).in_array(Rule::ALLOWED_BOOLEANS)
       should validate_inclusion_of(:rule_type).in_array(Rule::TYPES)
       should validate_inclusion_of(:optimal).in_array(Rule::ALLOWED_BOOLEANS)
-      should validate_numericality_of(:suborder)
-        .only_integer
-        .is_greater_than_or_equal_to(0)
+      should validate_numericality_of(:suborder).
+        only_integer.
+        is_greater_than_or_equal_to(0)
       should validate_presence_of(:concept_uid)
     end
 
@@ -21,19 +21,19 @@ module Comprehension
     end
 
     context 'before_validation' do
-      context 'assign_uid_if_missing' do 
-        should 'keep existing uid if already set' do 
+      context 'assign_uid_if_missing' do
+        should 'keep existing uid if already set' do
           rule = build(:comprehension_rule)
           old_uid = rule.uid
           rule.valid?
           assert_equal old_uid, rule.uid
-        end 
-        should 'set new uid if missing' do
-          rule = build(:comprehension_rule, uid: nil) 
-          rule.valid?
-          assert_not_nil rule.uid 
         end
-      end  
+        should 'set new uid if missing' do
+          rule = build(:comprehension_rule, uid: nil)
+          rule.valid?
+          assert_not_nil rule.uid
+        end
+      end
     end
   end
 end
