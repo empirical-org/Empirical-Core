@@ -57,6 +57,8 @@ module Comprehension
       end
 
       should "create a valid record and return it as json" do
+        assert_equal 0, Rule.count
+
         post :create, rule: { concept_uid: @rule.concept_uid, description: @rule.description, name: @rule.name, optimal: @rule.optimal, suborder: @rule.suborder, rule_type: @rule.rule_type, universal: @rule.universal }
 
         parsed_response = JSON.parse(response.body)
