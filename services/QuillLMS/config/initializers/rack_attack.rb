@@ -2,16 +2,10 @@ class Rack::Attack
   # Use redis for caching
   Rack::Attack.cache.store = Rack::Attack::StoreProxy::RedisStoreProxy.new($redis.redis)
 
-  Rack::Attack.throttle('limit logins per email', limit: 6, period: 30.minutes) do |req|
+  Rack::Attack.throttle('limit logins per email', limit: 20, period: 10.minutes) do |req|
     if req.path == '/session/login_through_ajax' && req.post?
       params = JSON.parse( req.body.read )
       params['user']['email'].to_s.downcase.gsub(/\s+/, "")
-    end
-  end
-
-  Rack::Attack.throttle('limit logins per ip', limit: 6, period: 30.minutes) do |req|
-    if req.path == '/session/login_through_ajax' && req.post?
-      req.ip
     end
   end
 
