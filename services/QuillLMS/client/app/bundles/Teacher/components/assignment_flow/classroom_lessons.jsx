@@ -184,7 +184,7 @@ export default class ClassroomLessons extends React.Component {
   }
 
   renderEmptyState() {
-    const assignLessonsLink = <a className="bg-quillgreen text-white" href="/teachers/classrooms/assign_activities/create-unit?tool=lessons" target="_blank">Assign Lessons</a>  // eslint-disable-line react/jsx-no-target-blank
+    const assignLessonsLink = <a className="bg-quillgreen text-white" href="/assign/activity-library?activityClassificationFilters[]=lessons" target="_blank">Assign Lessons</a>  // eslint-disable-line react/jsx-no-target-blank
     const learnMoreLink = <a className="bg-white text-quillgreen" href="/tools/lessons" target="_blank">Learn More</a> // eslint-disable-line react/jsx-no-target-blank
     return (<div className="empty-lessons manage-units">
       <div className="content">
