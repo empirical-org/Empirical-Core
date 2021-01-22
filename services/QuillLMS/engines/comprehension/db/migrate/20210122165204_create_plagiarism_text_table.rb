@@ -3,7 +3,10 @@ class CreatePlagiarismTextTable < ActiveRecord::Migration
     create_table :comprehension_plagiarism_text do |t|
       t.references :prompt, null: false
       t.string :plagiarism_text, null: false
-    end
     
+      t.timestamps null: false
+    end
+
+    add_index :comprehension_plagiarism_text, :prompt_id    
   end
 end
