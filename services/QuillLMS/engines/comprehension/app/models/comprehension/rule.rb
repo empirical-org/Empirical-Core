@@ -12,7 +12,7 @@ module Comprehension
     ]
     before_validation :assign_uid_if_missing
 
-    has_one :plagiarism_text, inverse_of: :rule
+    has_one :plagiarism_text, inverse_of: :rule, dependent: :destroy
 
     accepts_nested_attributes_for :plagiarism_text
 
