@@ -18,6 +18,7 @@ module Comprehension
     end
 
     context 'relationships' do
+      should have_many(:feedbacks)
     end
 
     context 'before_validation' do
