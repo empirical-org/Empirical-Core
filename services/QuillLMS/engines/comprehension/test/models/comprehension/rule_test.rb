@@ -11,9 +11,9 @@ module Comprehension
       should validate_inclusion_of(:universal).in_array(Rule::ALLOWED_BOOLEANS)
       should validate_inclusion_of(:rule_type).in_array(Rule::TYPES)
       should validate_inclusion_of(:optimal).in_array(Rule::ALLOWED_BOOLEANS)
-      should validate_numericality_of(:suborder).
-        only_integer.
-        is_greater_than_or_equal_to(0)
+      should validate_numericality_of(:suborder)
+        .only_integer
+        .is_greater_than_or_equal_to(0)
       should validate_presence_of(:concept_uid)
     end
 
