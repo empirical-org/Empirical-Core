@@ -1,3 +1,26 @@
+# == Schema Information
+#
+# Table name: classrooms
+#
+#  id                  :integer          not null, primary key
+#  code                :string
+#  grade               :string
+#  grade_level         :integer
+#  name                :string
+#  visible             :boolean          default(TRUE), not null
+#  created_at          :datetime
+#  updated_at          :datetime
+#  clever_id           :string
+#  google_classroom_id :bigint
+#  teacher_id          :integer
+#
+# Indexes
+#
+#  index_classrooms_on_code         (code)
+#  index_classrooms_on_grade        (grade)
+#  index_classrooms_on_grade_level  (grade_level)
+#  index_classrooms_on_teacher_id   (teacher_id)
+#
 require 'rails_helper'
 
 describe Classroom, type: :model do

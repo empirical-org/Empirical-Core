@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20210114182832) do
+ActiveRecord::Schema.define(version: 20210122144228) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -59,10 +59,20 @@ ActiveRecord::Schema.define(version: 20210114182832) do
   add_index "comprehension_prompts_rule_sets", ["prompt_id"], name: "index_comprehension_prompts_rule_sets_on_prompt_id", using: :btree
   add_index "comprehension_prompts_rule_sets", ["rule_set_id"], name: "index_comprehension_prompts_rule_sets_on_rule_set_id", using: :btree
 
+  create_table "comprehension_prompts_rules", force: :cascade do |t|
+    t.integer  "prompt_id",  null: false
+    t.integer  "rule_id",    null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "comprehension_prompts_rules", ["prompt_id", "rule_id"], name: "index_comprehension_prompts_rules_on_prompt_id_and_rule_id", unique: true, using: :btree
+  add_index "comprehension_prompts_rules", ["rule_id"], name: "index_comprehension_prompts_rules_on_rule_id", using: :btree
+
   create_table "comprehension_regex_rules", force: :cascade do |t|
-    t.integer  "rule_set_id"
-    t.string   "regex_text",     limit: 200
-    t.boolean  "case_sensitive"
+    t.integer  "rule_set_id",                null: false
+    t.string   "regex_text",     limit: 200, null: false
+    t.boolean  "case_sensitive",             null: false
     t.datetime "created_at",                 null: false
     t.datetime "updated_at",                 null: false
   end

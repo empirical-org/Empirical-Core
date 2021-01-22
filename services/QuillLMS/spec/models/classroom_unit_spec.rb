@@ -1,3 +1,27 @@
+# == Schema Information
+#
+# Table name: classroom_units
+#
+#  id                   :integer          not null, primary key
+#  assign_on_join       :boolean          default(FALSE)
+#  assigned_student_ids :integer          default([]), is an Array
+#  visible              :boolean          default(TRUE)
+#  created_at           :datetime
+#  updated_at           :datetime
+#  classroom_id         :integer          not null
+#  unit_id              :integer          not null
+#
+# Indexes
+#
+#  index_classroom_units_on_classroom_id              (classroom_id)
+#  index_classroom_units_on_unit_id                   (unit_id)
+#  index_classroom_units_on_unit_id_and_classroom_id  (unit_id,classroom_id) UNIQUE
+#
+# Foreign Keys
+#
+#  fk_rails_...  (classroom_id => classrooms.id)
+#  fk_rails_...  (unit_id => units.id)
+#
 require 'rails_helper'
 
 describe ClassroomUnit, type: :model, redis: true do
