@@ -1,3 +1,15 @@
+# == Schema Information
+#
+# Table name: standard_levels
+#
+#  id         :integer          not null, primary key
+#  name       :string
+#  position   :integer
+#  uid        :string
+#  visible    :boolean          default(TRUE)
+#  created_at :datetime         not null
+#  updated_at :datetime         not null
+#
 require 'rails_helper'
 
 describe StandardLevel, type: :model do

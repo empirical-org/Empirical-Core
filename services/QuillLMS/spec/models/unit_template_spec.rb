@@ -1,3 +1,26 @@
+# == Schema Information
+#
+# Table name: unit_templates
+#
+#  id                        :integer          not null, primary key
+#  activity_info             :text
+#  flag                      :string
+#  grades                    :text
+#  image_link                :string
+#  name                      :string
+#  order_number              :integer          default(999999999)
+#  time                      :integer
+#  created_at                :datetime
+#  updated_at                :datetime
+#  author_id                 :integer
+#  unit_template_category_id :integer
+#
+# Indexes
+#
+#  index_unit_templates_on_activity_info              (activity_info)
+#  index_unit_templates_on_author_id                  (author_id)
+#  index_unit_templates_on_unit_template_category_id  (unit_template_category_id)
+#
 require 'rails_helper'
 
 describe UnitTemplate, redis: true, type: :model do
