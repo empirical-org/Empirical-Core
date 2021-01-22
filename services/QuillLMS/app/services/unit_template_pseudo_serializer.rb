@@ -45,7 +45,7 @@ class UnitTemplatePseudoSerializer
     author = @unit_template.author
     {
       name: author&.name,
-      avatar_url: author.avatar_url
+      avatar_url: author&.avatar_url
     }
   end
 

@@ -4,8 +4,7 @@ import { SortableHandle, } from 'react-sortable-hoc';
 import { Activity } from './interfaces'
 import ActivityRow from './activity_row'
 
-import SortableList from '../../../shared/sortableList'
-import { Snackbar, defaultSnackbarTimeout } from '../../../../../Shared/index'
+import { Snackbar, defaultSnackbarTimeout, SortableList, } from '../../../../../Shared/index'
 
 const reorderSrc = `${process.env.CDN_URL}/images/icons/reorder.svg`
 

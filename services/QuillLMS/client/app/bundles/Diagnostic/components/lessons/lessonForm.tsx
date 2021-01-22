@@ -116,7 +116,7 @@ export class LessonForm extends React.Component<LessonFormProps, LessonFormState
       }[]
     }
   }) => {
-    const newOrder = sortInfo.data.items.map(item => {
+    const newOrder = sortInfo.map(item => {
       return { key: item.key, questionType: item.props.defaultValue }
     });
     this.setState({ selectedQuestions: newOrder });

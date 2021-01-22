@@ -1487,7 +1487,7 @@ exports[`ActivityTable component renders if the current user created the unit 1`
       <div
         className="data-table-body reorderable"
       >
-        <SortableComponent
+        <SortableList
           data={
             Array [
               <div
@@ -11601,7 +11601,7 @@ exports[`ActivityTable component renders if the current user created the unit 1`
               </div>
             </Component>
           </sortableList>
-        </SortableComponent>
+        </SortableList>
       </div>
     </div>
   </DataTable>
