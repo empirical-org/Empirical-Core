@@ -105,6 +105,23 @@ module Comprehension
         assert_equal feedback.order, parsed_response['feedbacks'][0]['order']
         
         assert_equal 1, Feedback.count
+      end
+
+      should "create nested highlight record when nested in feedback_attributes" do
+        assert_equal 0, Highlight.count    
+    
+        feedback = create(:comprehension_feedback, rule: @rule)
+        highlight = build(:comprehension_highlight, starting_index: 2)
+        post :create, rule: { concept_uid: @rule.concept_uid, description: @rule.description, name: @rule.name, optimal: @rule.optimal, suborder: @rule.suborder, rule_type: @rule.rule_type, universal: @rule.universal, feedbacks_attributes: [{text: feedback.text, description: feedback.description, order: feedback.order, highlights_attributes: [text: highlight.text, highlight_type: highlight.highlight_type, starting_index: highlight.starting_index ]}]}
+
+        parsed_response = JSON.parse(response.body)
+        assert_equal 201, response.code.to_i
+
+        assert_equal highlight.text, parsed_response['feedbacks'][0]['highlights'][0]['text']
+        assert_equal highlight.highlight_type, parsed_response['feedbacks'][0]['highlights'][0]['highlight_type']
+        assert_equal highlight.starting_index, parsed_response['feedbacks'][0]['highlights'][0]['starting_index']
+        
+        assert_equal 1, Highlight.count
       end 
     end
 

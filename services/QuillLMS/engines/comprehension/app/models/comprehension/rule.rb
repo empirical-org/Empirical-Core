@@ -12,7 +12,7 @@ module Comprehension
     ]
     before_validation :assign_uid_if_missing     
 
-    has_many :feedbacks    
+    has_many :feedbacks, inverse_of: :rule, dependent: :destroy
 
     accepts_nested_attributes_for :feedbacks
 
