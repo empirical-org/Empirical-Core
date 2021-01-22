@@ -384,16 +384,309 @@ exports[`The focusPointsContainer should render 1`] = `
           key="3"
           sortCallback={[Function]}
         >
-          <div
-            className="list"
+          <sortableList
+            axis="y"
+            disableAutoscroll={false}
+            distance={2}
+            getHelperDimensions={[Function]}
+            hideSortableGhost={true}
+            items={
+              Array [
+                <div
+                  className="card is-fullwidth has-bottom-margin"
+                >
+                  <header
+                    className="card-header"
+                  >
+                    <p
+                      className="card-header-title"
+                      style={
+                        Object {
+                          "display": "inline-block",
+                        }
+                      }
+                    >
+                      <span
+                        className="tag is-medium is-light"
+                        style={
+                          Object {
+                            "margin": "3px",
+                          }
+                        }
+                      >
+                        Anne Lindbergh
+                      </span>
+                    </p>
+                    <p
+                      className="card-header-icon"
+                    >
+                      1
+                    </p>
+                  </header>
+                  <div
+                    className="card-content"
+                  >
+                    <p
+                      className="control title is-4"
+                      dangerouslySetInnerHTML={
+                        Object {
+                          "__html": "<strong>Feedback</strong>: Who flew around the world.",
+                        }
+                      }
+                    />
+                    <p
+                      className="control sub-title is-6"
+                    >
+                      Verbs | Active and Passive Voice | Passive Voice
+                      <span
+                        className="tag is-small is-success"
+                        style={
+                          Object {
+                            "marginLeft": 5,
+                          }
+                        }
+                      >
+                        Correct
+                      </span>
+                      <span
+                        className="tag is-small is-warning"
+                        onClick={[Function]}
+                        style={
+                          Object {
+                            "cursor": "pointer",
+                            "marginLeft": 5,
+                          }
+                        }
+                      >
+                        Delete
+                      </span>
+                    </p>
+                  </div>
+                  <footer
+                    className="card-footer"
+                  >
+                    <ForwardRef
+                      className="card-footer-item"
+                      to="undefined/-Kh82k5DfAAQQKljJmyU/edit"
+                    >
+                      Edit
+                    </ForwardRef>
+                    <a
+                      className="card-footer-item"
+                      onClick={[Function]}
+                    >
+                      Delete
+                    </a>
+                  </footer>
+                </div>,
+                <div
+                  className="card is-fullwidth has-bottom-margin"
+                >
+                  <header
+                    className="card-header"
+                  >
+                    <p
+                      className="card-header-title"
+                      style={
+                        Object {
+                          "display": "inline-block",
+                        }
+                      }
+                    >
+                      <span
+                        className="tag is-medium is-light"
+                        style={
+                          Object {
+                            "margin": "3px",
+                          }
+                        }
+                      >
+                        husband
+                      </span>
+                    </p>
+                    <p
+                      className="card-header-icon"
+                    >
+                      2
+                    </p>
+                  </header>
+                  <div
+                    className="card-content"
+                  >
+                    <p
+                      className="control title is-4"
+                      dangerouslySetInnerHTML={
+                        Object {
+                          "__html": "<strong>Feedback</strong>: Who did she fly around the world with?",
+                        }
+                      }
+                    />
+                    <p
+                      className="control sub-title is-6"
+                    >
+                      Adjectives & Adverbs | Adjectives to Adverbs | Adjectives to Adverbs: Consonant Ending
+                      <span
+                        className="tag is-small is-success"
+                        style={
+                          Object {
+                            "marginLeft": 5,
+                          }
+                        }
+                      >
+                        Correct
+                      </span>
+                      <span
+                        className="tag is-small is-warning"
+                        onClick={[Function]}
+                        style={
+                          Object {
+                            "cursor": "pointer",
+                            "marginLeft": 5,
+                          }
+                        }
+                      >
+                        Delete
+                      </span>
+                    </p>
+                  </div>
+                  <footer
+                    className="card-footer"
+                  >
+                    <ForwardRef
+                      className="card-footer-item"
+                      to="undefined/-Kh82qvvcNKb85yZPHOs/edit"
+                    >
+                      Edit
+                    </ForwardRef>
+                    <a
+                      className="card-footer-item"
+                      onClick={[Function]}
+                    >
+                      Delete
+                    </a>
+                  </footer>
+                </div>,
+                <div
+                  className="card is-fullwidth has-bottom-margin"
+                >
+                  <header
+                    className="card-header"
+                  >
+                    <p
+                      className="card-header-title"
+                      style={
+                        Object {
+                          "display": "inline-block",
+                        }
+                      }
+                    >
+                      <span
+                        className="tag is-medium is-light"
+                        style={
+                          Object {
+                            "margin": "3px",
+                          }
+                        }
+                      >
+                        home
+                      </span>
+                    </p>
+                    <p
+                      className="card-header-icon"
+                    >
+                      3
+                    </p>
+                  </header>
+                  <div
+                    className="card-content"
+                  >
+                    <p
+                      className="control title is-4"
+                      dangerouslySetInnerHTML={
+                        Object {
+                          "__html": "<strong>Feedback</strong>: What could she do instead of fly?",
+                        }
+                      }
+                    />
+                    <p
+                      className="control sub-title is-6"
+                    >
+                      Verbs | Active and Passive Voice | Passive Voice
+                      <span
+                        className="tag is-small is-success"
+                        style={
+                          Object {
+                            "marginLeft": 5,
+                          }
+                        }
+                      >
+                        Correct
+                      </span>
+                      <span
+                        className="tag is-small is-warning"
+                        onClick={[Function]}
+                        style={
+                          Object {
+                            "cursor": "pointer",
+                            "marginLeft": 5,
+                          }
+                        }
+                      >
+                        Delete
+                      </span>
+                    </p>
+                  </div>
+                  <footer
+                    className="card-footer"
+                  >
+                    <ForwardRef
+                      className="card-footer-item"
+                      to="undefined/-Kh82vHrCCP4CG2eSSaC/edit"
+                    >
+                      Edit
+                    </ForwardRef>
+                    <a
+                      className="card-footer-item"
+                      onClick={[Function]}
+                    >
+                      Delete
+                    </a>
+                  </footer>
+                </div>,
+              ]
+            }
+            keyCodes={
+              Object {
+                "cancel": Array [
+                  27,
+                ],
+                "down": Array [
+                  40,
+                  39,
+                ],
+                "drop": Array [
+                  32,
+                ],
+                "lift": Array [
+                  32,
+                ],
+                "up": Array [
+                  38,
+                  37,
+                ],
+              }
+            }
+            lockOffset="50%"
+            lockToContainerEdges={false}
+            onSortEnd={[Function]}
+            onSortMove={[Function]}
+            pressDelay={0}
+            pressThreshold={5}
+            shouldCancelStart={[Function]}
+            transitionDuration={300}
+            useWindowAsScrollContainer={false}
           >
-            <Sortable
-              childProps={
-                Object {
-                  "className": "myClass1",
-                }
-              }
-              draggingIndex={null}
+            <Component
               items={
                 Array [
                   <div
@@ -659,23 +952,15 @@ exports[`The focusPointsContainer should render 1`] = `
                   </div>,
                 ]
               }
-              key="0"
-              onSortItems={[Function]}
-              outline="list"
-              sortId={0}
-              updateState={[Function]}
             >
-              <ListItem
-                childProps={
-                  Object {
-                    "className": "myClass1",
-                  }
-                }
-                data-id={0}
-                draggable={true}
-                draggingIndex={null}
-                items={
-                  Array [
+              <div
+                className="list sortable-list"
+              >
+                <sortableElement
+                  collection={0}
+                  index={0}
+                  key="0"
+                  value={
                     <div
                       className="card is-fullwidth has-bottom-margin"
                     >
@@ -762,204 +1047,11 @@ exports[`The focusPointsContainer should render 1`] = `
                           Delete
                         </a>
                       </footer>
-                    </div>,
-                    <div
-                      className="card is-fullwidth has-bottom-margin"
-                    >
-                      <header
-                        className="card-header"
-                      >
-                        <p
-                          className="card-header-title"
-                          style={
-                            Object {
-                              "display": "inline-block",
-                            }
-                          }
-                        >
-                          <span
-                            className="tag is-medium is-light"
-                            style={
-                              Object {
-                                "margin": "3px",
-                              }
-                            }
-                          >
-                            husband
-                          </span>
-                        </p>
-                        <p
-                          className="card-header-icon"
-                        >
-                          2
-                        </p>
-                      </header>
-                      <div
-                        className="card-content"
-                      >
-                        <p
-                          className="control title is-4"
-                          dangerouslySetInnerHTML={
-                            Object {
-                              "__html": "<strong>Feedback</strong>: Who did she fly around the world with?",
-                            }
-                          }
-                        />
-                        <p
-                          className="control sub-title is-6"
-                        >
-                          Adjectives & Adverbs | Adjectives to Adverbs | Adjectives to Adverbs: Consonant Ending
-                          <span
-                            className="tag is-small is-success"
-                            style={
-                              Object {
-                                "marginLeft": 5,
-                              }
-                            }
-                          >
-                            Correct
-                          </span>
-                          <span
-                            className="tag is-small is-warning"
-                            onClick={[Function]}
-                            style={
-                              Object {
-                                "cursor": "pointer",
-                                "marginLeft": 5,
-                              }
-                            }
-                          >
-                            Delete
-                          </span>
-                        </p>
-                      </div>
-                      <footer
-                        className="card-footer"
-                      >
-                        <ForwardRef
-                          className="card-footer-item"
-                          to="undefined/-Kh82qvvcNKb85yZPHOs/edit"
-                        >
-                          Edit
-                        </ForwardRef>
-                        <a
-                          className="card-footer-item"
-                          onClick={[Function]}
-                        >
-                          Delete
-                        </a>
-                      </footer>
-                    </div>,
-                    <div
-                      className="card is-fullwidth has-bottom-margin"
-                    >
-                      <header
-                        className="card-header"
-                      >
-                        <p
-                          className="card-header-title"
-                          style={
-                            Object {
-                              "display": "inline-block",
-                            }
-                          }
-                        >
-                          <span
-                            className="tag is-medium is-light"
-                            style={
-                              Object {
-                                "margin": "3px",
-                              }
-                            }
-                          >
-                            home
-                          </span>
-                        </p>
-                        <p
-                          className="card-header-icon"
-                        >
-                          3
-                        </p>
-                      </header>
-                      <div
-                        className="card-content"
-                      >
-                        <p
-                          className="control title is-4"
-                          dangerouslySetInnerHTML={
-                            Object {
-                              "__html": "<strong>Feedback</strong>: What could she do instead of fly?",
-                            }
-                          }
-                        />
-                        <p
-                          className="control sub-title is-6"
-                        >
-                          Verbs | Active and Passive Voice | Passive Voice
-                          <span
-                            className="tag is-small is-success"
-                            style={
-                              Object {
-                                "marginLeft": 5,
-                              }
-                            }
-                          >
-                            Correct
-                          </span>
-                          <span
-                            className="tag is-small is-warning"
-                            onClick={[Function]}
-                            style={
-                              Object {
-                                "cursor": "pointer",
-                                "marginLeft": 5,
-                              }
-                            }
-                          >
-                            Delete
-                          </span>
-                        </p>
-                      </div>
-                      <footer
-                        className="card-footer"
-                      >
-                        <ForwardRef
-                          className="card-footer-item"
-                          to="undefined/-Kh82vHrCCP4CG2eSSaC/edit"
-                        >
-                          Edit
-                        </ForwardRef>
-                        <a
-                          className="card-footer-item"
-                          onClick={[Function]}
-                        >
-                          Delete
-                        </a>
-                      </footer>
-                    </div>,
-                  ]
-                }
-                onDragEnd={[Function]}
-                onDragOver={[Function]}
-                onDragStart={[Function]}
-                onTouchEnd={[Function]}
-                onTouchMove={[Function]}
-                onTouchStart={[Function]}
-                outline="list"
-                updateState={[Function]}
-              >
-                <div
-                  childProps={
-                    Object {
-                      "className": "myClass1",
-                    }
+                    </div>
                   }
-                  className="list-item"
-                  data-id={0}
-                  draggable={true}
-                  draggingIndex={null}
-                  items={
-                    Array [
+                >
+                  <Component
+                    value={
                       <div
                         className="card is-fullwidth has-bottom-margin"
                       >
@@ -1046,9 +1138,15 @@ exports[`The focusPointsContainer should render 1`] = `
                             Delete
                           </a>
                         </footer>
-                      </div>,
+                      </div>
+                    }
+                  >
+                    <div
+                      className="list-item"
+                    >
                       <div
                         className="card is-fullwidth has-bottom-margin"
+                        key="-Kh82k5DfAAQQKljJmyU"
                       >
                         <header
                           className="card-header"
@@ -1063,19 +1161,20 @@ exports[`The focusPointsContainer should render 1`] = `
                           >
                             <span
                               className="tag is-medium is-light"
+                              key="fp0"
                               style={
                                 Object {
                                   "margin": "3px",
                                 }
                               }
                             >
-                              husband
+                              Anne Lindbergh
                             </span>
                           </p>
                           <p
                             className="card-header-icon"
                           >
-                            2
+                            1
                           </p>
                         </header>
                         <div
@@ -1085,99 +1184,13 @@ exports[`The focusPointsContainer should render 1`] = `
                             className="control title is-4"
                             dangerouslySetInnerHTML={
                               Object {
-                                "__html": "<strong>Feedback</strong>: Who did she fly around the world with?",
+                                "__html": "<strong>Feedback</strong>: Who flew around the world.",
                               }
                             }
                           />
                           <p
                             className="control sub-title is-6"
-                          >
-                            Adjectives & Adverbs | Adjectives to Adverbs | Adjectives to Adverbs: Consonant Ending
-                            <span
-                              className="tag is-small is-success"
-                              style={
-                                Object {
-                                  "marginLeft": 5,
-                                }
-                              }
-                            >
-                              Correct
-                            </span>
-                            <span
-                              className="tag is-small is-warning"
-                              onClick={[Function]}
-                              style={
-                                Object {
-                                  "cursor": "pointer",
-                                  "marginLeft": 5,
-                                }
-                              }
-                            >
-                              Delete
-                            </span>
-                          </p>
-                        </div>
-                        <footer
-                          className="card-footer"
-                        >
-                          <ForwardRef
-                            className="card-footer-item"
-                            to="undefined/-Kh82qvvcNKb85yZPHOs/edit"
-                          >
-                            Edit
-                          </ForwardRef>
-                          <a
-                            className="card-footer-item"
-                            onClick={[Function]}
-                          >
-                            Delete
-                          </a>
-                        </footer>
-                      </div>,
-                      <div
-                        className="card is-fullwidth has-bottom-margin"
-                      >
-                        <header
-                          className="card-header"
-                        >
-                          <p
-                            className="card-header-title"
-                            style={
-                              Object {
-                                "display": "inline-block",
-                              }
-                            }
-                          >
-                            <span
-                              className="tag is-medium is-light"
-                              style={
-                                Object {
-                                  "margin": "3px",
-                                }
-                              }
-                            >
-                              home
-                            </span>
-                          </p>
-                          <p
-                            className="card-header-icon"
-                          >
-                            3
-                          </p>
-                        </header>
-                        <div
-                          className="card-content"
-                        >
-                          <p
-                            className="control title is-4"
-                            dangerouslySetInnerHTML={
-                              Object {
-                                "__html": "<strong>Feedback</strong>: What could she do instead of fly?",
-                              }
-                            }
-                          />
-                          <p
-                            className="control sub-title is-6"
+                            key="Verbs | Active and Passive Voice | Passive Voice"
                           >
                             Verbs | Active and Passive Voice | Passive Voice
                             <span
@@ -1207,12 +1220,39 @@ exports[`The focusPointsContainer should render 1`] = `
                         <footer
                           className="card-footer"
                         >
-                          <ForwardRef
+                          <NavLink
                             className="card-footer-item"
-                            to="undefined/-Kh82vHrCCP4CG2eSSaC/edit"
+                            to="undefined/-Kh82k5DfAAQQKljJmyU/edit"
                           >
-                            Edit
-                          </ForwardRef>
+                            <Link
+                              aria-current={null}
+                              className="card-footer-item"
+                              to={
+                                Object {
+                                  "hash": "",
+                                  "pathname": "/undefined/-Kh82k5DfAAQQKljJmyU/edit",
+                                  "search": "",
+                                  "state": null,
+                                }
+                              }
+                            >
+                              <LinkAnchor
+                                aria-current={null}
+                                className="card-footer-item"
+                                href="/undefined/-Kh82k5DfAAQQKljJmyU/edit"
+                                navigate={[Function]}
+                              >
+                                <a
+                                  aria-current={null}
+                                  className="card-footer-item"
+                                  href="/undefined/-Kh82k5DfAAQQKljJmyU/edit"
+                                  onClick={[Function]}
+                                >
+                                  Edit
+                                </a>
+                              </LinkAnchor>
+                            </Link>
+                          </NavLink>
                           <a
                             className="card-footer-item"
                             onClick={[Function]}
@@ -1220,514 +1260,15 @@ exports[`The focusPointsContainer should render 1`] = `
                             Delete
                           </a>
                         </footer>
-                      </div>,
-                    ]
-                  }
-                  onDragEnd={[Function]}
-                  onDragOver={[Function]}
-                  onDragStart={[Function]}
-                  onTouchEnd={[Function]}
-                  onTouchMove={[Function]}
-                  onTouchStart={[Function]}
-                  outline="list"
-                  updateState={[Function]}
-                >
-                  <div
-                    className="card is-fullwidth has-bottom-margin"
-                    key="-Kh82k5DfAAQQKljJmyU"
-                  >
-                    <header
-                      className="card-header"
-                    >
-                      <p
-                        className="card-header-title"
-                        style={
-                          Object {
-                            "display": "inline-block",
-                          }
-                        }
-                      >
-                        <span
-                          className="tag is-medium is-light"
-                          key="fp0"
-                          style={
-                            Object {
-                              "margin": "3px",
-                            }
-                          }
-                        >
-                          Anne Lindbergh
-                        </span>
-                      </p>
-                      <p
-                        className="card-header-icon"
-                      >
-                        1
-                      </p>
-                    </header>
-                    <div
-                      className="card-content"
-                    >
-                      <p
-                        className="control title is-4"
-                        dangerouslySetInnerHTML={
-                          Object {
-                            "__html": "<strong>Feedback</strong>: Who flew around the world.",
-                          }
-                        }
-                      />
-                      <p
-                        className="control sub-title is-6"
-                        key="Verbs | Active and Passive Voice | Passive Voice"
-                      >
-                        Verbs | Active and Passive Voice | Passive Voice
-                        <span
-                          className="tag is-small is-success"
-                          style={
-                            Object {
-                              "marginLeft": 5,
-                            }
-                          }
-                        >
-                          Correct
-                        </span>
-                        <span
-                          className="tag is-small is-warning"
-                          onClick={[Function]}
-                          style={
-                            Object {
-                              "cursor": "pointer",
-                              "marginLeft": 5,
-                            }
-                          }
-                        >
-                          Delete
-                        </span>
-                      </p>
-                    </div>
-                    <footer
-                      className="card-footer"
-                    >
-                      <NavLink
-                        className="card-footer-item"
-                        to="undefined/-Kh82k5DfAAQQKljJmyU/edit"
-                      >
-                        <Link
-                          aria-current={null}
-                          className="card-footer-item"
-                          to={
-                            Object {
-                              "hash": "",
-                              "pathname": "/undefined/-Kh82k5DfAAQQKljJmyU/edit",
-                              "search": "",
-                              "state": null,
-                            }
-                          }
-                        >
-                          <LinkAnchor
-                            aria-current={null}
-                            className="card-footer-item"
-                            href="/undefined/-Kh82k5DfAAQQKljJmyU/edit"
-                            navigate={[Function]}
-                          >
-                            <a
-                              aria-current={null}
-                              className="card-footer-item"
-                              href="/undefined/-Kh82k5DfAAQQKljJmyU/edit"
-                              onClick={[Function]}
-                            >
-                              Edit
-                            </a>
-                          </LinkAnchor>
-                        </Link>
-                      </NavLink>
-                      <a
-                        className="card-footer-item"
-                        onClick={[Function]}
-                      >
-                        Delete
-                      </a>
-                    </footer>
-                  </div>
-                </div>
-              </ListItem>
-            </Sortable>
-            <Sortable
-              childProps={
-                Object {
-                  "className": "myClass1",
-                }
-              }
-              draggingIndex={null}
-              items={
-                Array [
-                  <div
-                    className="card is-fullwidth has-bottom-margin"
-                  >
-                    <header
-                      className="card-header"
-                    >
-                      <p
-                        className="card-header-title"
-                        style={
-                          Object {
-                            "display": "inline-block",
-                          }
-                        }
-                      >
-                        <span
-                          className="tag is-medium is-light"
-                          style={
-                            Object {
-                              "margin": "3px",
-                            }
-                          }
-                        >
-                          Anne Lindbergh
-                        </span>
-                      </p>
-                      <p
-                        className="card-header-icon"
-                      >
-                        1
-                      </p>
-                    </header>
-                    <div
-                      className="card-content"
-                    >
-                      <p
-                        className="control title is-4"
-                        dangerouslySetInnerHTML={
-                          Object {
-                            "__html": "<strong>Feedback</strong>: Who flew around the world.",
-                          }
-                        }
-                      />
-                      <p
-                        className="control sub-title is-6"
-                      >
-                        Verbs | Active and Passive Voice | Passive Voice
-                        <span
-                          className="tag is-small is-success"
-                          style={
-                            Object {
-                              "marginLeft": 5,
-                            }
-                          }
-                        >
-                          Correct
-                        </span>
-                        <span
-                          className="tag is-small is-warning"
-                          onClick={[Function]}
-                          style={
-                            Object {
-                              "cursor": "pointer",
-                              "marginLeft": 5,
-                            }
-                          }
-                        >
-                          Delete
-                        </span>
-                      </p>
-                    </div>
-                    <footer
-                      className="card-footer"
-                    >
-                      <ForwardRef
-                        className="card-footer-item"
-                        to="undefined/-Kh82k5DfAAQQKljJmyU/edit"
-                      >
-                        Edit
-                      </ForwardRef>
-                      <a
-                        className="card-footer-item"
-                        onClick={[Function]}
-                      >
-                        Delete
-                      </a>
-                    </footer>
-                  </div>,
-                  <div
-                    className="card is-fullwidth has-bottom-margin"
-                  >
-                    <header
-                      className="card-header"
-                    >
-                      <p
-                        className="card-header-title"
-                        style={
-                          Object {
-                            "display": "inline-block",
-                          }
-                        }
-                      >
-                        <span
-                          className="tag is-medium is-light"
-                          style={
-                            Object {
-                              "margin": "3px",
-                            }
-                          }
-                        >
-                          husband
-                        </span>
-                      </p>
-                      <p
-                        className="card-header-icon"
-                      >
-                        2
-                      </p>
-                    </header>
-                    <div
-                      className="card-content"
-                    >
-                      <p
-                        className="control title is-4"
-                        dangerouslySetInnerHTML={
-                          Object {
-                            "__html": "<strong>Feedback</strong>: Who did she fly around the world with?",
-                          }
-                        }
-                      />
-                      <p
-                        className="control sub-title is-6"
-                      >
-                        Adjectives & Adverbs | Adjectives to Adverbs | Adjectives to Adverbs: Consonant Ending
-                        <span
-                          className="tag is-small is-success"
-                          style={
-                            Object {
-                              "marginLeft": 5,
-                            }
-                          }
-                        >
-                          Correct
-                        </span>
-                        <span
-                          className="tag is-small is-warning"
-                          onClick={[Function]}
-                          style={
-                            Object {
-                              "cursor": "pointer",
-                              "marginLeft": 5,
-                            }
-                          }
-                        >
-                          Delete
-                        </span>
-                      </p>
-                    </div>
-                    <footer
-                      className="card-footer"
-                    >
-                      <ForwardRef
-                        className="card-footer-item"
-                        to="undefined/-Kh82qvvcNKb85yZPHOs/edit"
-                      >
-                        Edit
-                      </ForwardRef>
-                      <a
-                        className="card-footer-item"
-                        onClick={[Function]}
-                      >
-                        Delete
-                      </a>
-                    </footer>
-                  </div>,
-                  <div
-                    className="card is-fullwidth has-bottom-margin"
-                  >
-                    <header
-                      className="card-header"
-                    >
-                      <p
-                        className="card-header-title"
-                        style={
-                          Object {
-                            "display": "inline-block",
-                          }
-                        }
-                      >
-                        <span
-                          className="tag is-medium is-light"
-                          style={
-                            Object {
-                              "margin": "3px",
-                            }
-                          }
-                        >
-                          home
-                        </span>
-                      </p>
-                      <p
-                        className="card-header-icon"
-                      >
-                        3
-                      </p>
-                    </header>
-                    <div
-                      className="card-content"
-                    >
-                      <p
-                        className="control title is-4"
-                        dangerouslySetInnerHTML={
-                          Object {
-                            "__html": "<strong>Feedback</strong>: What could she do instead of fly?",
-                          }
-                        }
-                      />
-                      <p
-                        className="control sub-title is-6"
-                      >
-                        Verbs | Active and Passive Voice | Passive Voice
-                        <span
-                          className="tag is-small is-success"
-                          style={
-                            Object {
-                              "marginLeft": 5,
-                            }
-                          }
-                        >
-                          Correct
-                        </span>
-                        <span
-                          className="tag is-small is-warning"
-                          onClick={[Function]}
-                          style={
-                            Object {
-                              "cursor": "pointer",
-                              "marginLeft": 5,
-                            }
-                          }
-                        >
-                          Delete
-                        </span>
-                      </p>
-                    </div>
-                    <footer
-                      className="card-footer"
-                    >
-                      <ForwardRef
-                        className="card-footer-item"
-                        to="undefined/-Kh82vHrCCP4CG2eSSaC/edit"
-                      >
-                        Edit
-                      </ForwardRef>
-                      <a
-                        className="card-footer-item"
-                        onClick={[Function]}
-                      >
-                        Delete
-                      </a>
-                    </footer>
-                  </div>,
-                ]
-              }
-              key="1"
-              onSortItems={[Function]}
-              outline="list"
-              sortId={1}
-              updateState={[Function]}
-            >
-              <ListItem
-                childProps={
-                  Object {
-                    "className": "myClass1",
-                  }
-                }
-                data-id={1}
-                draggable={true}
-                draggingIndex={null}
-                items={
-                  Array [
-                    <div
-                      className="card is-fullwidth has-bottom-margin"
-                    >
-                      <header
-                        className="card-header"
-                      >
-                        <p
-                          className="card-header-title"
-                          style={
-                            Object {
-                              "display": "inline-block",
-                            }
-                          }
-                        >
-                          <span
-                            className="tag is-medium is-light"
-                            style={
-                              Object {
-                                "margin": "3px",
-                              }
-                            }
-                          >
-                            Anne Lindbergh
-                          </span>
-                        </p>
-                        <p
-                          className="card-header-icon"
-                        >
-                          1
-                        </p>
-                      </header>
-                      <div
-                        className="card-content"
-                      >
-                        <p
-                          className="control title is-4"
-                          dangerouslySetInnerHTML={
-                            Object {
-                              "__html": "<strong>Feedback</strong>: Who flew around the world.",
-                            }
-                          }
-                        />
-                        <p
-                          className="control sub-title is-6"
-                        >
-                          Verbs | Active and Passive Voice | Passive Voice
-                          <span
-                            className="tag is-small is-success"
-                            style={
-                              Object {
-                                "marginLeft": 5,
-                              }
-                            }
-                          >
-                            Correct
-                          </span>
-                          <span
-                            className="tag is-small is-warning"
-                            onClick={[Function]}
-                            style={
-                              Object {
-                                "cursor": "pointer",
-                                "marginLeft": 5,
-                              }
-                            }
-                          >
-                            Delete
-                          </span>
-                        </p>
                       </div>
-                      <footer
-                        className="card-footer"
-                      >
-                        <ForwardRef
-                          className="card-footer-item"
-                          to="undefined/-Kh82k5DfAAQQKljJmyU/edit"
-                        >
-                          Edit
-                        </ForwardRef>
-                        <a
-                          className="card-footer-item"
-                          onClick={[Function]}
-                        >
-                          Delete
-                        </a>
-                      </footer>
-                    </div>,
+                    </div>
+                  </Component>
+                </sortableElement>
+                <sortableElement
+                  collection={0}
+                  index={1}
+                  key="1"
+                  value={
                     <div
                       className="card is-fullwidth has-bottom-margin"
                     >
@@ -1814,204 +1355,11 @@ exports[`The focusPointsContainer should render 1`] = `
                           Delete
                         </a>
                       </footer>
-                    </div>,
-                    <div
-                      className="card is-fullwidth has-bottom-margin"
-                    >
-                      <header
-                        className="card-header"
-                      >
-                        <p
-                          className="card-header-title"
-                          style={
-                            Object {
-                              "display": "inline-block",
-                            }
-                          }
-                        >
-                          <span
-                            className="tag is-medium is-light"
-                            style={
-                              Object {
-                                "margin": "3px",
-                              }
-                            }
-                          >
-                            home
-                          </span>
-                        </p>
-                        <p
-                          className="card-header-icon"
-                        >
-                          3
-                        </p>
-                      </header>
-                      <div
-                        className="card-content"
-                      >
-                        <p
-                          className="control title is-4"
-                          dangerouslySetInnerHTML={
-                            Object {
-                              "__html": "<strong>Feedback</strong>: What could she do instead of fly?",
-                            }
-                          }
-                        />
-                        <p
-                          className="control sub-title is-6"
-                        >
-                          Verbs | Active and Passive Voice | Passive Voice
-                          <span
-                            className="tag is-small is-success"
-                            style={
-                              Object {
-                                "marginLeft": 5,
-                              }
-                            }
-                          >
-                            Correct
-                          </span>
-                          <span
-                            className="tag is-small is-warning"
-                            onClick={[Function]}
-                            style={
-                              Object {
-                                "cursor": "pointer",
-                                "marginLeft": 5,
-                              }
-                            }
-                          >
-                            Delete
-                          </span>
-                        </p>
-                      </div>
-                      <footer
-                        className="card-footer"
-                      >
-                        <ForwardRef
-                          className="card-footer-item"
-                          to="undefined/-Kh82vHrCCP4CG2eSSaC/edit"
-                        >
-                          Edit
-                        </ForwardRef>
-                        <a
-                          className="card-footer-item"
-                          onClick={[Function]}
-                        >
-                          Delete
-                        </a>
-                      </footer>
-                    </div>,
-                  ]
-                }
-                onDragEnd={[Function]}
-                onDragOver={[Function]}
-                onDragStart={[Function]}
-                onTouchEnd={[Function]}
-                onTouchMove={[Function]}
-                onTouchStart={[Function]}
-                outline="list"
-                updateState={[Function]}
-              >
-                <div
-                  childProps={
-                    Object {
-                      "className": "myClass1",
-                    }
+                    </div>
                   }
-                  className="list-item"
-                  data-id={1}
-                  draggable={true}
-                  draggingIndex={null}
-                  items={
-                    Array [
-                      <div
-                        className="card is-fullwidth has-bottom-margin"
-                      >
-                        <header
-                          className="card-header"
-                        >
-                          <p
-                            className="card-header-title"
-                            style={
-                              Object {
-                                "display": "inline-block",
-                              }
-                            }
-                          >
-                            <span
-                              className="tag is-medium is-light"
-                              style={
-                                Object {
-                                  "margin": "3px",
-                                }
-                              }
-                            >
-                              Anne Lindbergh
-                            </span>
-                          </p>
-                          <p
-                            className="card-header-icon"
-                          >
-                            1
-                          </p>
-                        </header>
-                        <div
-                          className="card-content"
-                        >
-                          <p
-                            className="control title is-4"
-                            dangerouslySetInnerHTML={
-                              Object {
-                                "__html": "<strong>Feedback</strong>: Who flew around the world.",
-                              }
-                            }
-                          />
-                          <p
-                            className="control sub-title is-6"
-                          >
-                            Verbs | Active and Passive Voice | Passive Voice
-                            <span
-                              className="tag is-small is-success"
-                              style={
-                                Object {
-                                  "marginLeft": 5,
-                                }
-                              }
-                            >
-                              Correct
-                            </span>
-                            <span
-                              className="tag is-small is-warning"
-                              onClick={[Function]}
-                              style={
-                                Object {
-                                  "cursor": "pointer",
-                                  "marginLeft": 5,
-                                }
-                              }
-                            >
-                              Delete
-                            </span>
-                          </p>
-                        </div>
-                        <footer
-                          className="card-footer"
-                        >
-                          <ForwardRef
-                            className="card-footer-item"
-                            to="undefined/-Kh82k5DfAAQQKljJmyU/edit"
-                          >
-                            Edit
-                          </ForwardRef>
-                          <a
-                            className="card-footer-item"
-                            onClick={[Function]}
-                          >
-                            Delete
-                          </a>
-                        </footer>
-                      </div>,
+                >
+                  <Component
+                    value={
                       <div
                         className="card is-fullwidth has-bottom-margin"
                       >
@@ -2098,9 +1446,15 @@ exports[`The focusPointsContainer should render 1`] = `
                             Delete
                           </a>
                         </footer>
-                      </div>,
+                      </div>
+                    }
+                  >
+                    <div
+                      className="list-item"
+                    >
                       <div
                         className="card is-fullwidth has-bottom-margin"
+                        key="-Kh82qvvcNKb85yZPHOs"
                       >
                         <header
                           className="card-header"
@@ -2115,19 +1469,20 @@ exports[`The focusPointsContainer should render 1`] = `
                           >
                             <span
                               className="tag is-medium is-light"
+                              key="fp0"
                               style={
                                 Object {
                                   "margin": "3px",
                                 }
                               }
                             >
-                              home
+                              husband
                             </span>
                           </p>
                           <p
                             className="card-header-icon"
                           >
-                            3
+                            2
                           </p>
                         </header>
                         <div
@@ -2137,14 +1492,15 @@ exports[`The focusPointsContainer should render 1`] = `
                             className="control title is-4"
                             dangerouslySetInnerHTML={
                               Object {
-                                "__html": "<strong>Feedback</strong>: What could she do instead of fly?",
+                                "__html": "<strong>Feedback</strong>: Who did she fly around the world with?",
                               }
                             }
                           />
                           <p
                             className="control sub-title is-6"
+                            key="Adjectives & Adverbs | Adjectives to Adverbs | Adjectives to Adverbs: Consonant Ending"
                           >
-                            Verbs | Active and Passive Voice | Passive Voice
+                            Adjectives & Adverbs | Adjectives to Adverbs | Adjectives to Adverbs: Consonant Ending
                             <span
                               className="tag is-small is-success"
                               style={
@@ -2172,12 +1528,39 @@ exports[`The focusPointsContainer should render 1`] = `
                         <footer
                           className="card-footer"
                         >
-                          <ForwardRef
+                          <NavLink
                             className="card-footer-item"
-                            to="undefined/-Kh82vHrCCP4CG2eSSaC/edit"
+                            to="undefined/-Kh82qvvcNKb85yZPHOs/edit"
                           >
-                            Edit
-                          </ForwardRef>
+                            <Link
+                              aria-current={null}
+                              className="card-footer-item"
+                              to={
+                                Object {
+                                  "hash": "",
+                                  "pathname": "/undefined/-Kh82qvvcNKb85yZPHOs/edit",
+                                  "search": "",
+                                  "state": null,
+                                }
+                              }
+                            >
+                              <LinkAnchor
+                                aria-current={null}
+                                className="card-footer-item"
+                                href="/undefined/-Kh82qvvcNKb85yZPHOs/edit"
+                                navigate={[Function]}
+                              >
+                                <a
+                                  aria-current={null}
+                                  className="card-footer-item"
+                                  href="/undefined/-Kh82qvvcNKb85yZPHOs/edit"
+                                  onClick={[Function]}
+                                >
+                                  Edit
+                                </a>
+                              </LinkAnchor>
+                            </Link>
+                          </NavLink>
                           <a
                             className="card-footer-item"
                             onClick={[Function]}
@@ -2185,601 +1568,15 @@ exports[`The focusPointsContainer should render 1`] = `
                             Delete
                           </a>
                         </footer>
-                      </div>,
-                    ]
-                  }
-                  onDragEnd={[Function]}
-                  onDragOver={[Function]}
-                  onDragStart={[Function]}
-                  onTouchEnd={[Function]}
-                  onTouchMove={[Function]}
-                  onTouchStart={[Function]}
-                  outline="list"
-                  updateState={[Function]}
-                >
-                  <div
-                    className="card is-fullwidth has-bottom-margin"
-                    key="-Kh82qvvcNKb85yZPHOs"
-                  >
-                    <header
-                      className="card-header"
-                    >
-                      <p
-                        className="card-header-title"
-                        style={
-                          Object {
-                            "display": "inline-block",
-                          }
-                        }
-                      >
-                        <span
-                          className="tag is-medium is-light"
-                          key="fp0"
-                          style={
-                            Object {
-                              "margin": "3px",
-                            }
-                          }
-                        >
-                          husband
-                        </span>
-                      </p>
-                      <p
-                        className="card-header-icon"
-                      >
-                        2
-                      </p>
-                    </header>
-                    <div
-                      className="card-content"
-                    >
-                      <p
-                        className="control title is-4"
-                        dangerouslySetInnerHTML={
-                          Object {
-                            "__html": "<strong>Feedback</strong>: Who did she fly around the world with?",
-                          }
-                        }
-                      />
-                      <p
-                        className="control sub-title is-6"
-                        key="Adjectives & Adverbs | Adjectives to Adverbs | Adjectives to Adverbs: Consonant Ending"
-                      >
-                        Adjectives & Adverbs | Adjectives to Adverbs | Adjectives to Adverbs: Consonant Ending
-                        <span
-                          className="tag is-small is-success"
-                          style={
-                            Object {
-                              "marginLeft": 5,
-                            }
-                          }
-                        >
-                          Correct
-                        </span>
-                        <span
-                          className="tag is-small is-warning"
-                          onClick={[Function]}
-                          style={
-                            Object {
-                              "cursor": "pointer",
-                              "marginLeft": 5,
-                            }
-                          }
-                        >
-                          Delete
-                        </span>
-                      </p>
-                    </div>
-                    <footer
-                      className="card-footer"
-                    >
-                      <NavLink
-                        className="card-footer-item"
-                        to="undefined/-Kh82qvvcNKb85yZPHOs/edit"
-                      >
-                        <Link
-                          aria-current={null}
-                          className="card-footer-item"
-                          to={
-                            Object {
-                              "hash": "",
-                              "pathname": "/undefined/-Kh82qvvcNKb85yZPHOs/edit",
-                              "search": "",
-                              "state": null,
-                            }
-                          }
-                        >
-                          <LinkAnchor
-                            aria-current={null}
-                            className="card-footer-item"
-                            href="/undefined/-Kh82qvvcNKb85yZPHOs/edit"
-                            navigate={[Function]}
-                          >
-                            <a
-                              aria-current={null}
-                              className="card-footer-item"
-                              href="/undefined/-Kh82qvvcNKb85yZPHOs/edit"
-                              onClick={[Function]}
-                            >
-                              Edit
-                            </a>
-                          </LinkAnchor>
-                        </Link>
-                      </NavLink>
-                      <a
-                        className="card-footer-item"
-                        onClick={[Function]}
-                      >
-                        Delete
-                      </a>
-                    </footer>
-                  </div>
-                </div>
-              </ListItem>
-            </Sortable>
-            <Sortable
-              childProps={
-                Object {
-                  "className": "myClass1",
-                }
-              }
-              draggingIndex={null}
-              items={
-                Array [
-                  <div
-                    className="card is-fullwidth has-bottom-margin"
-                  >
-                    <header
-                      className="card-header"
-                    >
-                      <p
-                        className="card-header-title"
-                        style={
-                          Object {
-                            "display": "inline-block",
-                          }
-                        }
-                      >
-                        <span
-                          className="tag is-medium is-light"
-                          style={
-                            Object {
-                              "margin": "3px",
-                            }
-                          }
-                        >
-                          Anne Lindbergh
-                        </span>
-                      </p>
-                      <p
-                        className="card-header-icon"
-                      >
-                        1
-                      </p>
-                    </header>
-                    <div
-                      className="card-content"
-                    >
-                      <p
-                        className="control title is-4"
-                        dangerouslySetInnerHTML={
-                          Object {
-                            "__html": "<strong>Feedback</strong>: Who flew around the world.",
-                          }
-                        }
-                      />
-                      <p
-                        className="control sub-title is-6"
-                      >
-                        Verbs | Active and Passive Voice | Passive Voice
-                        <span
-                          className="tag is-small is-success"
-                          style={
-                            Object {
-                              "marginLeft": 5,
-                            }
-                          }
-                        >
-                          Correct
-                        </span>
-                        <span
-                          className="tag is-small is-warning"
-                          onClick={[Function]}
-                          style={
-                            Object {
-                              "cursor": "pointer",
-                              "marginLeft": 5,
-                            }
-                          }
-                        >
-                          Delete
-                        </span>
-                      </p>
-                    </div>
-                    <footer
-                      className="card-footer"
-                    >
-                      <ForwardRef
-                        className="card-footer-item"
-                        to="undefined/-Kh82k5DfAAQQKljJmyU/edit"
-                      >
-                        Edit
-                      </ForwardRef>
-                      <a
-                        className="card-footer-item"
-                        onClick={[Function]}
-                      >
-                        Delete
-                      </a>
-                    </footer>
-                  </div>,
-                  <div
-                    className="card is-fullwidth has-bottom-margin"
-                  >
-                    <header
-                      className="card-header"
-                    >
-                      <p
-                        className="card-header-title"
-                        style={
-                          Object {
-                            "display": "inline-block",
-                          }
-                        }
-                      >
-                        <span
-                          className="tag is-medium is-light"
-                          style={
-                            Object {
-                              "margin": "3px",
-                            }
-                          }
-                        >
-                          husband
-                        </span>
-                      </p>
-                      <p
-                        className="card-header-icon"
-                      >
-                        2
-                      </p>
-                    </header>
-                    <div
-                      className="card-content"
-                    >
-                      <p
-                        className="control title is-4"
-                        dangerouslySetInnerHTML={
-                          Object {
-                            "__html": "<strong>Feedback</strong>: Who did she fly around the world with?",
-                          }
-                        }
-                      />
-                      <p
-                        className="control sub-title is-6"
-                      >
-                        Adjectives & Adverbs | Adjectives to Adverbs | Adjectives to Adverbs: Consonant Ending
-                        <span
-                          className="tag is-small is-success"
-                          style={
-                            Object {
-                              "marginLeft": 5,
-                            }
-                          }
-                        >
-                          Correct
-                        </span>
-                        <span
-                          className="tag is-small is-warning"
-                          onClick={[Function]}
-                          style={
-                            Object {
-                              "cursor": "pointer",
-                              "marginLeft": 5,
-                            }
-                          }
-                        >
-                          Delete
-                        </span>
-                      </p>
-                    </div>
-                    <footer
-                      className="card-footer"
-                    >
-                      <ForwardRef
-                        className="card-footer-item"
-                        to="undefined/-Kh82qvvcNKb85yZPHOs/edit"
-                      >
-                        Edit
-                      </ForwardRef>
-                      <a
-                        className="card-footer-item"
-                        onClick={[Function]}
-                      >
-                        Delete
-                      </a>
-                    </footer>
-                  </div>,
-                  <div
-                    className="card is-fullwidth has-bottom-margin"
-                  >
-                    <header
-                      className="card-header"
-                    >
-                      <p
-                        className="card-header-title"
-                        style={
-                          Object {
-                            "display": "inline-block",
-                          }
-                        }
-                      >
-                        <span
-                          className="tag is-medium is-light"
-                          style={
-                            Object {
-                              "margin": "3px",
-                            }
-                          }
-                        >
-                          home
-                        </span>
-                      </p>
-                      <p
-                        className="card-header-icon"
-                      >
-                        3
-                      </p>
-                    </header>
-                    <div
-                      className="card-content"
-                    >
-                      <p
-                        className="control title is-4"
-                        dangerouslySetInnerHTML={
-                          Object {
-                            "__html": "<strong>Feedback</strong>: What could she do instead of fly?",
-                          }
-                        }
-                      />
-                      <p
-                        className="control sub-title is-6"
-                      >
-                        Verbs | Active and Passive Voice | Passive Voice
-                        <span
-                          className="tag is-small is-success"
-                          style={
-                            Object {
-                              "marginLeft": 5,
-                            }
-                          }
-                        >
-                          Correct
-                        </span>
-                        <span
-                          className="tag is-small is-warning"
-                          onClick={[Function]}
-                          style={
-                            Object {
-                              "cursor": "pointer",
-                              "marginLeft": 5,
-                            }
-                          }
-                        >
-                          Delete
-                        </span>
-                      </p>
-                    </div>
-                    <footer
-                      className="card-footer"
-                    >
-                      <ForwardRef
-                        className="card-footer-item"
-                        to="undefined/-Kh82vHrCCP4CG2eSSaC/edit"
-                      >
-                        Edit
-                      </ForwardRef>
-                      <a
-                        className="card-footer-item"
-                        onClick={[Function]}
-                      >
-                        Delete
-                      </a>
-                    </footer>
-                  </div>,
-                ]
-              }
-              key="2"
-              onSortItems={[Function]}
-              outline="list"
-              sortId={2}
-              updateState={[Function]}
-            >
-              <ListItem
-                childProps={
-                  Object {
-                    "className": "myClass1",
-                  }
-                }
-                data-id={2}
-                draggable={true}
-                draggingIndex={null}
-                items={
-                  Array [
-                    <div
-                      className="card is-fullwidth has-bottom-margin"
-                    >
-                      <header
-                        className="card-header"
-                      >
-                        <p
-                          className="card-header-title"
-                          style={
-                            Object {
-                              "display": "inline-block",
-                            }
-                          }
-                        >
-                          <span
-                            className="tag is-medium is-light"
-                            style={
-                              Object {
-                                "margin": "3px",
-                              }
-                            }
-                          >
-                            Anne Lindbergh
-                          </span>
-                        </p>
-                        <p
-                          className="card-header-icon"
-                        >
-                          1
-                        </p>
-                      </header>
-                      <div
-                        className="card-content"
-                      >
-                        <p
-                          className="control title is-4"
-                          dangerouslySetInnerHTML={
-                            Object {
-                              "__html": "<strong>Feedback</strong>: Who flew around the world.",
-                            }
-                          }
-                        />
-                        <p
-                          className="control sub-title is-6"
-                        >
-                          Verbs | Active and Passive Voice | Passive Voice
-                          <span
-                            className="tag is-small is-success"
-                            style={
-                              Object {
-                                "marginLeft": 5,
-                              }
-                            }
-                          >
-                            Correct
-                          </span>
-                          <span
-                            className="tag is-small is-warning"
-                            onClick={[Function]}
-                            style={
-                              Object {
-                                "cursor": "pointer",
-                                "marginLeft": 5,
-                              }
-                            }
-                          >
-                            Delete
-                          </span>
-                        </p>
                       </div>
-                      <footer
-                        className="card-footer"
-                      >
-                        <ForwardRef
-                          className="card-footer-item"
-                          to="undefined/-Kh82k5DfAAQQKljJmyU/edit"
-                        >
-                          Edit
-                        </ForwardRef>
-                        <a
-                          className="card-footer-item"
-                          onClick={[Function]}
-                        >
-                          Delete
-                        </a>
-                      </footer>
-                    </div>,
-                    <div
-                      className="card is-fullwidth has-bottom-margin"
-                    >
-                      <header
-                        className="card-header"
-                      >
-                        <p
-                          className="card-header-title"
-                          style={
-                            Object {
-                              "display": "inline-block",
-                            }
-                          }
-                        >
-                          <span
-                            className="tag is-medium is-light"
-                            style={
-                              Object {
-                                "margin": "3px",
-                              }
-                            }
-                          >
-                            husband
-                          </span>
-                        </p>
-                        <p
-                          className="card-header-icon"
-                        >
-                          2
-                        </p>
-                      </header>
-                      <div
-                        className="card-content"
-                      >
-                        <p
-                          className="control title is-4"
-                          dangerouslySetInnerHTML={
-                            Object {
-                              "__html": "<strong>Feedback</strong>: Who did she fly around the world with?",
-                            }
-                          }
-                        />
-                        <p
-                          className="control sub-title is-6"
-                        >
-                          Adjectives & Adverbs | Adjectives to Adverbs | Adjectives to Adverbs: Consonant Ending
-                          <span
-                            className="tag is-small is-success"
-                            style={
-                              Object {
-                                "marginLeft": 5,
-                              }
-                            }
-                          >
-                            Correct
-                          </span>
-                          <span
-                            className="tag is-small is-warning"
-                            onClick={[Function]}
-                            style={
-                              Object {
-                                "cursor": "pointer",
-                                "marginLeft": 5,
-                              }
-                            }
-                          >
-                            Delete
-                          </span>
-                        </p>
-                      </div>
-                      <footer
-                        className="card-footer"
-                      >
-                        <ForwardRef
-                          className="card-footer-item"
-                          to="undefined/-Kh82qvvcNKb85yZPHOs/edit"
-                        >
-                          Edit
-                        </ForwardRef>
-                        <a
-                          className="card-footer-item"
-                          onClick={[Function]}
-                        >
-                          Delete
-                        </a>
-                      </footer>
-                    </div>,
+                    </div>
+                  </Component>
+                </sortableElement>
+                <sortableElement
+                  collection={0}
+                  index={2}
+                  key="2"
+                  value={
                     <div
                       className="card is-fullwidth has-bottom-margin"
                     >
@@ -2866,204 +1663,11 @@ exports[`The focusPointsContainer should render 1`] = `
                           Delete
                         </a>
                       </footer>
-                    </div>,
-                  ]
-                }
-                onDragEnd={[Function]}
-                onDragOver={[Function]}
-                onDragStart={[Function]}
-                onTouchEnd={[Function]}
-                onTouchMove={[Function]}
-                onTouchStart={[Function]}
-                outline="list"
-                updateState={[Function]}
-              >
-                <div
-                  childProps={
-                    Object {
-                      "className": "myClass1",
-                    }
+                    </div>
                   }
-                  className="list-item"
-                  data-id={2}
-                  draggable={true}
-                  draggingIndex={null}
-                  items={
-                    Array [
-                      <div
-                        className="card is-fullwidth has-bottom-margin"
-                      >
-                        <header
-                          className="card-header"
-                        >
-                          <p
-                            className="card-header-title"
-                            style={
-                              Object {
-                                "display": "inline-block",
-                              }
-                            }
-                          >
-                            <span
-                              className="tag is-medium is-light"
-                              style={
-                                Object {
-                                  "margin": "3px",
-                                }
-                              }
-                            >
-                              Anne Lindbergh
-                            </span>
-                          </p>
-                          <p
-                            className="card-header-icon"
-                          >
-                            1
-                          </p>
-                        </header>
-                        <div
-                          className="card-content"
-                        >
-                          <p
-                            className="control title is-4"
-                            dangerouslySetInnerHTML={
-                              Object {
-                                "__html": "<strong>Feedback</strong>: Who flew around the world.",
-                              }
-                            }
-                          />
-                          <p
-                            className="control sub-title is-6"
-                          >
-                            Verbs | Active and Passive Voice | Passive Voice
-                            <span
-                              className="tag is-small is-success"
-                              style={
-                                Object {
-                                  "marginLeft": 5,
-                                }
-                              }
-                            >
-                              Correct
-                            </span>
-                            <span
-                              className="tag is-small is-warning"
-                              onClick={[Function]}
-                              style={
-                                Object {
-                                  "cursor": "pointer",
-                                  "marginLeft": 5,
-                                }
-                              }
-                            >
-                              Delete
-                            </span>
-                          </p>
-                        </div>
-                        <footer
-                          className="card-footer"
-                        >
-                          <ForwardRef
-                            className="card-footer-item"
-                            to="undefined/-Kh82k5DfAAQQKljJmyU/edit"
-                          >
-                            Edit
-                          </ForwardRef>
-                          <a
-                            className="card-footer-item"
-                            onClick={[Function]}
-                          >
-                            Delete
-                          </a>
-                        </footer>
-                      </div>,
-                      <div
-                        className="card is-fullwidth has-bottom-margin"
-                      >
-                        <header
-                          className="card-header"
-                        >
-                          <p
-                            className="card-header-title"
-                            style={
-                              Object {
-                                "display": "inline-block",
-                              }
-                            }
-                          >
-                            <span
-                              className="tag is-medium is-light"
-                              style={
-                                Object {
-                                  "margin": "3px",
-                                }
-                              }
-                            >
-                              husband
-                            </span>
-                          </p>
-                          <p
-                            className="card-header-icon"
-                          >
-                            2
-                          </p>
-                        </header>
-                        <div
-                          className="card-content"
-                        >
-                          <p
-                            className="control title is-4"
-                            dangerouslySetInnerHTML={
-                              Object {
-                                "__html": "<strong>Feedback</strong>: Who did she fly around the world with?",
-                              }
-                            }
-                          />
-                          <p
-                            className="control sub-title is-6"
-                          >
-                            Adjectives & Adverbs | Adjectives to Adverbs | Adjectives to Adverbs: Consonant Ending
-                            <span
-                              className="tag is-small is-success"
-                              style={
-                                Object {
-                                  "marginLeft": 5,
-                                }
-                              }
-                            >
-                              Correct
-                            </span>
-                            <span
-                              className="tag is-small is-warning"
-                              onClick={[Function]}
-                              style={
-                                Object {
-                                  "cursor": "pointer",
-                                  "marginLeft": 5,
-                                }
-                              }
-                            >
-                              Delete
-                            </span>
-                          </p>
-                        </div>
-                        <footer
-                          className="card-footer"
-                        >
-                          <ForwardRef
-                            className="card-footer-item"
-                            to="undefined/-Kh82qvvcNKb85yZPHOs/edit"
-                          >
-                            Edit
-                          </ForwardRef>
-                          <a
-                            className="card-footer-item"
-                            onClick={[Function]}
-                          >
-                            Delete
-                          </a>
-                        </footer>
-                      </div>,
+                >
+                  <Component
+                    value={
                       <div
                         className="card is-fullwidth has-bottom-margin"
                       >
@@ -3150,139 +1754,135 @@ exports[`The focusPointsContainer should render 1`] = `
                             Delete
                           </a>
                         </footer>
-                      </div>,
-                    ]
-                  }
-                  onDragEnd={[Function]}
-                  onDragOver={[Function]}
-                  onDragStart={[Function]}
-                  onTouchEnd={[Function]}
-                  onTouchMove={[Function]}
-                  onTouchStart={[Function]}
-                  outline="list"
-                  updateState={[Function]}
-                >
-                  <div
-                    className="card is-fullwidth has-bottom-margin"
-                    key="-Kh82vHrCCP4CG2eSSaC"
+                      </div>
+                    }
                   >
-                    <header
-                      className="card-header"
-                    >
-                      <p
-                        className="card-header-title"
-                        style={
-                          Object {
-                            "display": "inline-block",
-                          }
-                        }
-                      >
-                        <span
-                          className="tag is-medium is-light"
-                          key="fp0"
-                          style={
-                            Object {
-                              "margin": "3px",
-                            }
-                          }
-                        >
-                          home
-                        </span>
-                      </p>
-                      <p
-                        className="card-header-icon"
-                      >
-                        3
-                      </p>
-                    </header>
                     <div
-                      className="card-content"
+                      className="list-item"
                     >
-                      <p
-                        className="control title is-4"
-                        dangerouslySetInnerHTML={
-                          Object {
-                            "__html": "<strong>Feedback</strong>: What could she do instead of fly?",
-                          }
-                        }
-                      />
-                      <p
-                        className="control sub-title is-6"
-                        key="Verbs | Active and Passive Voice | Passive Voice"
+                      <div
+                        className="card is-fullwidth has-bottom-margin"
+                        key="-Kh82vHrCCP4CG2eSSaC"
                       >
-                        Verbs | Active and Passive Voice | Passive Voice
-                        <span
-                          className="tag is-small is-success"
-                          style={
-                            Object {
-                              "marginLeft": 5,
-                            }
-                          }
+                        <header
+                          className="card-header"
                         >
-                          Correct
-                        </span>
-                        <span
-                          className="tag is-small is-warning"
-                          onClick={[Function]}
-                          style={
-                            Object {
-                              "cursor": "pointer",
-                              "marginLeft": 5,
+                          <p
+                            className="card-header-title"
+                            style={
+                              Object {
+                                "display": "inline-block",
+                              }
                             }
-                          }
-                        >
-                          Delete
-                        </span>
-                      </p>
-                    </div>
-                    <footer
-                      className="card-footer"
-                    >
-                      <NavLink
-                        className="card-footer-item"
-                        to="undefined/-Kh82vHrCCP4CG2eSSaC/edit"
-                      >
-                        <Link
-                          aria-current={null}
-                          className="card-footer-item"
-                          to={
-                            Object {
-                              "hash": "",
-                              "pathname": "/undefined/-Kh82vHrCCP4CG2eSSaC/edit",
-                              "search": "",
-                              "state": null,
-                            }
-                          }
-                        >
-                          <LinkAnchor
-                            aria-current={null}
-                            className="card-footer-item"
-                            href="/undefined/-Kh82vHrCCP4CG2eSSaC/edit"
-                            navigate={[Function]}
                           >
-                            <a
+                            <span
+                              className="tag is-medium is-light"
+                              key="fp0"
+                              style={
+                                Object {
+                                  "margin": "3px",
+                                }
+                              }
+                            >
+                              home
+                            </span>
+                          </p>
+                          <p
+                            className="card-header-icon"
+                          >
+                            3
+                          </p>
+                        </header>
+                        <div
+                          className="card-content"
+                        >
+                          <p
+                            className="control title is-4"
+                            dangerouslySetInnerHTML={
+                              Object {
+                                "__html": "<strong>Feedback</strong>: What could she do instead of fly?",
+                              }
+                            }
+                          />
+                          <p
+                            className="control sub-title is-6"
+                            key="Verbs | Active and Passive Voice | Passive Voice"
+                          >
+                            Verbs | Active and Passive Voice | Passive Voice
+                            <span
+                              className="tag is-small is-success"
+                              style={
+                                Object {
+                                  "marginLeft": 5,
+                                }
+                              }
+                            >
+                              Correct
+                            </span>
+                            <span
+                              className="tag is-small is-warning"
+                              onClick={[Function]}
+                              style={
+                                Object {
+                                  "cursor": "pointer",
+                                  "marginLeft": 5,
+                                }
+                              }
+                            >
+                              Delete
+                            </span>
+                          </p>
+                        </div>
+                        <footer
+                          className="card-footer"
+                        >
+                          <NavLink
+                            className="card-footer-item"
+                            to="undefined/-Kh82vHrCCP4CG2eSSaC/edit"
+                          >
+                            <Link
                               aria-current={null}
                               className="card-footer-item"
-                              href="/undefined/-Kh82vHrCCP4CG2eSSaC/edit"
-                              onClick={[Function]}
+                              to={
+                                Object {
+                                  "hash": "",
+                                  "pathname": "/undefined/-Kh82vHrCCP4CG2eSSaC/edit",
+                                  "search": "",
+                                  "state": null,
+                                }
+                              }
                             >
-                              Edit
-                            </a>
-                          </LinkAnchor>
-                        </Link>
-                      </NavLink>
-                      <a
-                        className="card-footer-item"
-                        onClick={[Function]}
-                      >
-                        Delete
-                      </a>
-                    </footer>
-                  </div>
-                </div>
-              </ListItem>
-            </Sortable>
-          </div>
+                              <LinkAnchor
+                                aria-current={null}
+                                className="card-footer-item"
+                                href="/undefined/-Kh82vHrCCP4CG2eSSaC/edit"
+                                navigate={[Function]}
+                              >
+                                <a
+                                  aria-current={null}
+                                  className="card-footer-item"
+                                  href="/undefined/-Kh82vHrCCP4CG2eSSaC/edit"
+                                  onClick={[Function]}
+                                >
+                                  Edit
+                                </a>
+                              </LinkAnchor>
+                            </Link>
+                          </NavLink>
+                          <a
+                            className="card-footer-item"
+                            onClick={[Function]}
+                          >
+                            Delete
+                          </a>
+                        </footer>
+                      </div>
+                    </div>
+                  </Component>
+                </sortableElement>
+              </div>
+            </Component>
+          </sortableList>
         </SortableList>
       </div>
     </FocusPointsContainer>

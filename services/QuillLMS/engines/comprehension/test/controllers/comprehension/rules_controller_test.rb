@@ -1,3 +1,6 @@
+require 'test_helper'
+
+
 module Comprehension
   class RulesControllerTest < ActionController::TestCase
     setup do
@@ -88,7 +91,7 @@ module Comprehension
         assert parsed_response['suborder'].include?("must be greater than or equal to 0")
         assert_equal 0, Rule.count
       end
-
+      
       should "create nested feedback record when present in params" do
         assert_equal 0, Feedback.count
 
@@ -191,6 +194,7 @@ module Comprehension
         feedback.reload
         assert_equal feedback.text, new_text
       end
+
     end
 
     context 'destroy' do

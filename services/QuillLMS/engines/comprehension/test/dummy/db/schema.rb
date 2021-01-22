@@ -11,6 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
+
 ActiveRecord::Schema.define(version: 20210121200031) do
 
   # These are extensions that must be enabled in order to support this database
@@ -94,19 +95,19 @@ ActiveRecord::Schema.define(version: 20210121200031) do
   add_index "comprehension_rule_sets", ["prompt_id"], name: "index_comprehension_rule_sets_on_prompt_id", using: :btree
 
   create_table "comprehension_rules", force: :cascade do |t|
-    t.string   "uid"
-    t.string   "name"
+    t.string   "uid",         null: false
+    t.string   "name",        null: false
     t.string   "description"
-    t.boolean  "universal"
-    t.string   "rule_type"
-    t.boolean  "optimal"
+    t.boolean  "universal",   null: false
+    t.string   "rule_type",   null: false
+    t.boolean  "optimal",     null: false
     t.integer  "suborder"
-    t.string   "concept_uid"
+    t.string   "concept_uid", null: false
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
   end
 
-  add_index "comprehension_rules", ["uid"], name: "index_comprehension_rules_on_uid", using: :btree
+  add_index "comprehension_rules", ["uid"], name: "index_comprehension_rules_on_uid", unique: true, using: :btree
 
   create_table "comprehension_turking_round_activity_sessions", force: :cascade do |t|
     t.integer  "turking_round_id"

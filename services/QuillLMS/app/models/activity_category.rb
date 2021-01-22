@@ -1,3 +1,13 @@
+# == Schema Information
+#
+# Table name: activity_categories
+#
+#  id           :integer          not null, primary key
+#  name         :string
+#  order_number :integer
+#  created_at   :datetime
+#  updated_at   :datetime
+#
 class ActivityCategory < ActiveRecord::Base
   has_many :activity_category_activities, dependent: :destroy
   has_many :activities, through: :activity_category_activities
