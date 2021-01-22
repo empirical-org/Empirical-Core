@@ -46,7 +46,8 @@ module Comprehension
     end
 
     private def rule_params
-      params.require(:rule).permit(:name, :description, :universal, :rule_type, :optimal, :suborder, :concept_uid)
+      params.require(:rule).permit(:name, :description, :universal, :rule_type, :optimal, :suborder, :concept_uid,
+        plagiarism_text_attributes: [:id, :text])
     end
   end
 end

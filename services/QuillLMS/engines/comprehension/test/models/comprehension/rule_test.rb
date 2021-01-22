@@ -18,6 +18,7 @@ module Comprehension
     end
 
     context 'relationships' do
+      should have_one(:plagiarism_text)
     end
 
     context 'before_validation' do
