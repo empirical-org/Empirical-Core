@@ -1,4 +1,4 @@
-
+require 'test_helper'
 
 module Comprehension
   class RulesControllerTest < ActionController::TestCase

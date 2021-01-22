@@ -48,7 +48,7 @@ module Comprehension
 
     private def rule_params
       params.require(:rule).permit(:name, :description, :universal, :rule_type, :optimal, :suborder, :concept_uid,
-         feedbacks_attributes: [:id, :text, :description, :order, highlights_attributes:[:id, :text, :highlight_type, :starting_index]]
+         feedbacks_attributes: [:id, :text, :description, :order, highlights_attributes: [:id, :text, :highlight_type, :starting_index]]
       )
     end
   end
