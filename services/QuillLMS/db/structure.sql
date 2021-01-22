@@ -1245,6 +1245,39 @@ ALTER SEQUENCE public.comprehension_prompts_rule_sets_id_seq OWNED BY public.com
 
 
 --
+-- Name: comprehension_prompts_rules; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.comprehension_prompts_rules (
+    id integer NOT NULL,
+    prompt_id integer NOT NULL,
+    rule_id integer NOT NULL,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: comprehension_prompts_rules_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.comprehension_prompts_rules_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: comprehension_prompts_rules_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.comprehension_prompts_rules_id_seq OWNED BY public.comprehension_prompts_rules.id;
+
+
+--
 -- Name: comprehension_regex_rules; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -3556,6 +3589,13 @@ ALTER TABLE ONLY public.comprehension_prompts_rule_sets ALTER COLUMN id SET DEFA
 
 
 --
+-- Name: comprehension_prompts_rules id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.comprehension_prompts_rules ALTER COLUMN id SET DEFAULT nextval('public.comprehension_prompts_rules_id_seq'::regclass);
+
+
+--
 -- Name: comprehension_regex_rules id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -4190,6 +4230,14 @@ ALTER TABLE ONLY public.comprehension_prompts
 
 ALTER TABLE ONLY public.comprehension_prompts_rule_sets
     ADD CONSTRAINT comprehension_prompts_rule_sets_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: comprehension_prompts_rules comprehension_prompts_rules_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.comprehension_prompts_rules
+    ADD CONSTRAINT comprehension_prompts_rules_pkey PRIMARY KEY (id);
 
 
 --
@@ -5096,6 +5144,20 @@ CREATE INDEX index_comprehension_prompts_rule_sets_on_prompt_id ON public.compre
 --
 
 CREATE INDEX index_comprehension_prompts_rule_sets_on_rule_set_id ON public.comprehension_prompts_rule_sets USING btree (rule_set_id);
+
+
+--
+-- Name: index_comprehension_prompts_rules_on_prompt_id_and_rule_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_comprehension_prompts_rules_on_prompt_id_and_rule_id ON public.comprehension_prompts_rules USING btree (prompt_id, rule_id);
+
+
+--
+-- Name: index_comprehension_prompts_rules_on_rule_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_comprehension_prompts_rules_on_rule_id ON public.comprehension_prompts_rules USING btree (rule_id);
 
 
 --
@@ -6989,4 +7051,6 @@ INSERT INTO schema_migrations (version) VALUES ('20210114160155');
 INSERT INTO schema_migrations (version) VALUES ('20210114164445');
 
 INSERT INTO schema_migrations (version) VALUES ('20210114202136');
+
+INSERT INTO schema_migrations (version) VALUES ('20210122150843');
 
