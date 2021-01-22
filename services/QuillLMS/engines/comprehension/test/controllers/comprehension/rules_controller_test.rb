@@ -92,20 +92,36 @@ module Comprehension
       end
 
       should "create nested feedback record when present in params" do
-        assert_equal 0, Feedback.count    
-    
+        assert_equal 0, Feedback.count
+
         feedback = build(:comprehension_feedback)
-        post :create, rule: { concept_uid: @rule.concept_uid, description: @rule.description, name: @rule.name, optimal: @rule.optimal, suborder: @rule.suborder, rule_type: @rule.rule_type, universal: @rule.universal, feedbacks_attributes: [{text: feedback.text, description: feedback.description, order: feedback.order }]}    
-        
+        post :create, rule: {
+          concept_uid: @rule.concept_uid,
+          description: @rule.description,
+          name: @rule.name,
+          optimal: @rule.optimal,
+          suborder: @rule.suborder,
+          rule_type: @rule.rule_type,
+          universal: @rule.universal,
+          feedbacks_attributes:
+            [
+              {
+                text: feedback.text,
+                description: feedback.description,
+                order: feedback.order
+              }
+            ]
+        }
+
         parsed_response = JSON.parse(response.body)
         assert_equal 201, response.code.to_i
 
         assert_equal feedback.text, parsed_response['feedbacks'][0]['text']
         assert_equal feedback.description, parsed_response['feedbacks'][0]['description']
         assert_equal feedback.order, parsed_response['feedbacks'][0]['order']
-        
+
         assert_equal 1, Feedback.count
-      end 
+      end
     end
 
     context "show" do
@@ -166,17 +182,17 @@ module Comprehension
         assert parsed_response['suborder'].include?("must be greater than or equal to 0")
       end
 
-      should "update nested feedback attributes if present" do 
+      should "update nested feedback attributes if present" do
         feedback = create(:comprehension_feedback, rule: @rule)
-        new_text = 'new text for the feedbacks object'        
+        new_text = 'new text for the feedbacks object'
         patch :update, id: @rule.id, rule: { feedbacks_attributes: [{id: feedback.id, text: new_text}]}
 
         assert_equal 204, response.code.to_i
         assert_equal "", response.body
-        
+
         feedback.reload
         assert_equal feedback.text, new_text
-      end 
+      end
     end
 
     context 'destroy' do
