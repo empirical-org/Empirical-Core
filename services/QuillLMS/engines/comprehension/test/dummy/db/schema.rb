@@ -13,6 +13,7 @@
 
 ActiveRecord::Schema.define(version: 20210122144228) do
 
+
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -26,6 +27,17 @@ ActiveRecord::Schema.define(version: 20210122144228) do
   end
 
   add_index "comprehension_activities", ["parent_activity_id"], name: "index_comprehension_activities_on_parent_activity_id", using: :btree
+
+  create_table "comprehension_feedbacks", force: :cascade do |t|
+    t.integer  "rule_id",     null: false
+    t.string   "text",        null: false
+    t.string   "description"
+    t.integer  "order",       null: false
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
+  add_index "comprehension_feedbacks", ["rule_id", "order"], name: "index_comprehension_feedbacks_on_rule_id_and_order", unique: true, using: :btree
 
   create_table "comprehension_passages", force: :cascade do |t|
     t.integer  "activity_id"
