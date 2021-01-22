@@ -1,3 +1,14 @@
+# == Schema Information
+#
+# Table name: firebase_apps
+#
+#  id         :integer          not null, primary key
+#  name       :string
+#  pkey       :text
+#  secret     :string
+#  created_at :datetime
+#  updated_at :datetime
+#
 require 'rails_helper'
 require 'jwt'
 

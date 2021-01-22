@@ -1,3 +1,20 @@
+# == Schema Information
+#
+# Table name: invitations
+#
+#  id              :integer          not null, primary key
+#  archived        :boolean          default(FALSE)
+#  invitation_type :string
+#  invitee_email   :string           not null
+#  created_at      :datetime
+#  updated_at      :datetime
+#  inviter_id      :integer          not null
+#
+# Indexes
+#
+#  index_invitations_on_invitee_email  (invitee_email)
+#  index_invitations_on_inviter_id     (inviter_id)
+#
 class Invitation < ActiveRecord::Base
 
   belongs_to :inviter, class_name: 'User', foreign_key: 'inviter_id'

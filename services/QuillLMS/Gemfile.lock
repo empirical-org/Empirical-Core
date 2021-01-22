@@ -55,6 +55,9 @@ GEM
     analytics-ruby (2.0.13)
     ancestry (3.0.5)
       activerecord (>= 3.2.0)
+    annotate (3.1.1)
+      activerecord (>= 3.2, < 7.0)
+      rake (>= 10.4, < 14.0)
     arel (6.0.4)
     atomic_arrays (1.1.0)
       activerecord (>= 4.0)
@@ -733,6 +736,7 @@ DEPENDENCIES
   addressable
   analytics-ruby (~> 2.0.0)
   ancestry
+  annotate
   atomic_arrays
   awesome_print
   aws-sdk-s3 (~> 1.48)
