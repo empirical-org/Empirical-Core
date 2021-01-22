@@ -9,5 +9,6 @@ class CreatePlagiarismTextTable < ActiveRecord::Migration
     end
 
     add_index :comprehension_plagiarism_texts, :rule_id, unique: true
+    add_foreign_key :comprehension_plagiarism_texts, :comprehension_rules, column: :rule_id, on_delete: :cascade
   end
 end
