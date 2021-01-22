@@ -1,5 +1,3 @@
-
-
 module Comprehension
   class RulesControllerTest < ActionController::TestCase
     setup do
