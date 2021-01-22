@@ -18,6 +18,8 @@ module Comprehension
     end
 
     context 'relationships' do
+      should have_many(:prompts_rules)
+      should have_many(:prompts).through(:prompts_rules)
     end
 
     context 'before_validation' do

@@ -11,7 +11,9 @@ module Comprehension
       TYPE_SPELLING = 'Spelling'    
     ]
     before_validation :assign_uid_if_missing 
-    # FIXME, add relationships
+
+    has_many :prompts_rules
+    has_many :prompts, through: :prompts_rules, inverse_of: :rules
 
     validates :uid, presence: true, uniqueness: true
     validates :name, presence: true, length: {maximum: MAX_NAME_LENGTH}
