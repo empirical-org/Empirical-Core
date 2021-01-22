@@ -16,7 +16,6 @@ module Comprehension
 
     # POST /rules.json
     def create
-      puts rule_params
       @rule = Comprehension::Rule.new(rule_params)
 
       if @rule.save
