@@ -1,3 +1,52 @@
+# == Schema Information
+#
+# Table name: schools
+#
+#  id                    :integer          not null, primary key
+#  charter               :string
+#  city                  :string
+#  ethnic_group          :string
+#  free_lunches          :integer
+#  fte_classroom_teacher :integer
+#  latitude              :decimal(9, 6)
+#  leanm                 :string
+#  longitude             :decimal(9, 6)
+#  lower_grade           :integer
+#  magnet                :string
+#  mail_city             :string
+#  mail_state            :string
+#  mail_street           :string
+#  mail_zipcode          :string
+#  name                  :string
+#  nces_status_code      :string
+#  nces_type_code        :string
+#  phone                 :string
+#  ppin                  :string
+#  school_level          :integer
+#  state                 :string
+#  street                :string
+#  total_students        :integer
+#  ulocal                :integer
+#  upper_grade           :integer
+#  zipcode               :string
+#  created_at            :datetime
+#  updated_at            :datetime
+#  authorizer_id         :integer
+#  clever_id             :string
+#  coordinator_id        :integer
+#  lea_id                :string
+#  nces_id               :string
+#
+# Indexes
+#
+#  index_schools_on_mail_zipcode    (mail_zipcode)
+#  index_schools_on_name            (name)
+#  index_schools_on_nces_id         (nces_id)
+#  index_schools_on_state           (state)
+#  index_schools_on_zipcode         (zipcode)
+#  unique_index_schools_on_nces_id  (nces_id) UNIQUE WHERE ((nces_id)::text <> ''::text)
+#  unique_index_schools_on_ppin     (ppin) UNIQUE WHERE ((ppin)::text <> ''::text)
+#
 require 'rails_helper'
 
 describe School, type: :model do

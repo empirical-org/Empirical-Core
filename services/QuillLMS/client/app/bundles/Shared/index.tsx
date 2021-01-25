@@ -29,6 +29,7 @@ export {
   Snackbar,
   defaultSnackbarTimeout,
   Spinner,
+  SortableList,
   TeacherPreviewMenu,
   TextEditor,
   TextArea,
@@ -40,11 +41,6 @@ export {
 export {
   Modal
 } from './components/modal/modal'
-
-export {
-  ListItem,
-  SortableList
-} from './components/sortableList/index'
 
 export {
   AffectedResponse,

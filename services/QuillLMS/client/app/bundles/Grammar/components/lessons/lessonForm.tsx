@@ -4,11 +4,10 @@ import { connect } from 'react-redux';
 import { EditorState, ContentState } from 'draft-js'
 import TextEditor from '../shared/textEditor'
 import ConceptSelector from '../shared/conceptSelector'
-import SortableList from '../shared/sortableList'
 import { GrammarActivity, Concepts, Concept } from '../../interfaces/grammarActivities'
 import { Question } from '../../interfaces/questions'
 import { ConceptReducerState } from '../../reducers/conceptsReducer'
-import { hashToCollection } from '../../../Shared/index'
+import { hashToCollection, SortableList,  } from '../../../Shared/index'
 
 interface LessonFormState {
   title: string;
@@ -119,7 +118,7 @@ class LessonForm extends React.Component<LessonFormProps, LessonFormState> {
   }
 
   sortCallback = (sortInfo) => {
-    const newOrder = sortInfo.data.items.map(item => Object.assign({key: item.key}));
+    const newOrder = sortInfo.map(item => Object.assign({key: item.key}));
     this.setState({ activityQuestions: newOrder, });
   }
 

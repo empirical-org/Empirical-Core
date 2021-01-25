@@ -1,9 +1,9 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
 import * as _ from 'underscore';
+
 import * as questionActions from '../../actions/questions';
-import SortableList from '../shared/sortableList'
-import { hashToCollection } from '../../../Shared/index'
+import { hashToCollection, SortableList,  } from '../../../Shared/index'
 
 export class FocusPointsContainer extends React.Component {
   constructor(props) {
@@ -94,7 +94,7 @@ export class FocusPointsContainer extends React.Component {
   }
 
   sortCallback(sortInfo) {
-    const fpOrderedIds = sortInfo.data.items.map(item => item.key);
+    const fpOrderedIds = sortInfo.map(item => item.key);
     this.setState({ fpOrderedIds, });
   }
 

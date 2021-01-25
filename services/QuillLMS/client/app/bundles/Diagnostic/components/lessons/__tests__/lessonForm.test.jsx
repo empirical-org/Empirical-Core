@@ -161,46 +161,41 @@ describe('LessonForm component', () => {
         expect(handleQuestionChange).toHaveBeenCalledWith(e.value);
     });
     it('sortCallback sets selectedQuestion piece of state to reordered array of questions', () => {
-        const sortInfo = {
-            data: {
-                draggingIndex: null,
-                items: [
-                    {
-                        $$typeof: 'Symbol(react.element)',
-                        type: 'p',
-                        key: '-KdCgy8wt_rQiYpOURdW',
-                        ref: null,
-                        props: {
-                            className: 'sortable-list-item',
-                            defaultValue: 'fillInBlank',
-                            children: []
-                        }
-                    },
-                    {
-                        $$typeof: 'Symbol(react.element)',
-                        type: 'p',
-                        key: '-KOqLeXEvMjNuE6MGOop',
-                        ref: null,
-                        props: {
-                            className: 'sortable-list-item',
-                            defaultValue: 'sentenceFragments',
-                            children: []
-                        }
-                    },
-                    {
-                        $$typeof: 'Symbol(react.element)',
-                        type: 'p',
-                        key: '-KdChHgbE9377Jgzkoci',
-                        ref: null,
-                        props: {
-                            className: 'sortable-list-item',
-                            defaultValue: 'fillInBlank',
-                            children: []
-                        }
-                    },
-                ]
-            }
-        };
+        const sortInfo = [
+          {
+              $$typeof: 'Symbol(react.element)',
+              type: 'p',
+              key: '-KdCgy8wt_rQiYpOURdW',
+              ref: null,
+              props: {
+                  className: 'sortable-list-item',
+                  defaultValue: 'fillInBlank',
+                  children: []
+              }
+          },
+          {
+              $$typeof: 'Symbol(react.element)',
+              type: 'p',
+              key: '-KOqLeXEvMjNuE6MGOop',
+              ref: null,
+              props: {
+                  className: 'sortable-list-item',
+                  defaultValue: 'sentenceFragments',
+                  children: []
+              }
+          },
+          {
+              $$typeof: 'Symbol(react.element)',
+              type: 'p',
+              key: '-KdChHgbE9377Jgzkoci',
+              ref: null,
+              props: {
+                  className: 'sortable-list-item',
+                  defaultValue: 'fillInBlank',
+                  children: []
+              }
+          },
+      ]
         const newOrder = [
             { key: '-KdCgy8wt_rQiYpOURdW', questionType: 'fillInBlank' },
             { key: '-KOqLeXEvMjNuE6MGOop', questionType: 'sentenceFragments' },

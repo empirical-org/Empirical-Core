@@ -1,3 +1,12 @@
+# == Schema Information
+#
+# Table name: unit_template_categories
+#
+#  id              :integer          not null, primary key
+#  name            :string
+#  primary_color   :string
+#  secondary_color :string
+#
 require 'rails_helper'
 
 RSpec.describe UnitTemplateCategory, type: :model do
