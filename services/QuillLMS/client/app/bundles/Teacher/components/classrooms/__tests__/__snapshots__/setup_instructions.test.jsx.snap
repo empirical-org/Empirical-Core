@@ -18,6 +18,7 @@ exports[`SetupInstructions component if there are no students should render Setu
     <a
       download={true}
       href="undefined/documents/setup_instructions_pdfs/class_code_links.pdf"
+      rel="noopener noreferrer"
       target="_blank"
     >
       <img
@@ -71,6 +72,7 @@ exports[`SetupInstructions component if there are students should render SetupIn
     <a
       download={false}
       href="/teachers/classrooms/285383/student_logins"
+      rel="noopener noreferrer"
       target="_blank"
     >
       <img
