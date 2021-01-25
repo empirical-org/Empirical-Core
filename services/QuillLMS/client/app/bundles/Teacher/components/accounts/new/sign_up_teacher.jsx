@@ -2,6 +2,8 @@ import React from 'react';
 import request from 'request'
 
 import AuthSignUp from './auth_sign_up'
+
+import PasswordWrapper from '../shared/password_wrapper'
 import AnalyticsWrapper from '../../shared/analytics_wrapper'
 import AgreementsAndLinkToLogin from './agreements_and_link_to_login'
 import AssignActivityPackBanner from '../assignActivityPackBanner'
@@ -28,7 +30,6 @@ class SignUpTeacher extends React.Component {
   componentDidMount() {
     document.title = 'Quill.org | Teacher Sign Up'
   }
-
 
   handleClickSignUpAsStudent = (e) => {
     window.location.href = '/sign-up/student'
@@ -180,15 +181,14 @@ class SignUpTeacher extends React.Component {
                       type="email"
                       value={email}
                     />
-                    <Input
+                    <PasswordWrapper
                       autoComplete="new-password"
-                      className="password"
+                      className="password inspectletIgnore"
                       error={errors.password}
-                      handleChange={this.update}
                       id="password"
                       label="Password"
+                      onChange={this.update}
                       timesSubmitted={timesSubmitted}
-                      type='password'
                       value={password}
                     />
                     {this.renderNewsletterRow()}

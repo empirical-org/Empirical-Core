@@ -36,16 +36,12 @@ class PasswordResetController < ApplicationController
 
   def update
     @user = User.find_by_token!(params[:id])
-    if params[:user][:password] == params[:user][:password_confirmation]
-      @user.update_attributes params[:user].permit(:password, :password_confirmation)
-      @user.save validate: false
-      sign_in @user
-      flash[:notice] = 'Your password has been updated.'
-      flash.keep(:notice)
-      render json: { redirect: '/profile'}
-    else
-      render json: { message: "Those passwords didn't match. Try again.", type: 'password_confirmation' }, status: 401
-    end
+    @user.update_attributes params[:user].permit(:password)
+    @user.save validate: false
+    sign_in @user
+    flash[:notice] = 'Your password has been updated.'
+    flash.keep(:notice)
+    render json: { redirect: '/profile'}
   end
 
   private def set_title
