@@ -1,5 +1,9 @@
 module Comprehension
+<<<<<<< HEAD
   class Rule < ActiveRecord::Base    
+=======
+  class Rule < ActiveRecord::Base
+>>>>>>> 0b5e51f699b43e3445965b5160b4df63fe2c6c97
     MAX_NAME_LENGTH = 50
     ALLOWED_BOOLEANS = [true, false]
     TYPES= [
@@ -8,22 +12,38 @@ module Comprehension
       TYPE_OPINION = 'Opinion',
       TYPE_PLAGIARISM = 'Plagiarism',
       TYPE_REGEX = 'Regex',
+<<<<<<< HEAD
       TYPE_SPELLING = 'Spelling'    
     ]
     before_validation :assign_uid_if_missing     
 
     has_many :feedbacks    
+=======
+      TYPE_SPELLING = 'Spelling'
+    ]
+    before_validation :assign_uid_if_missing
+
+    has_many :feedbacks, inverse_of: :rule
+>>>>>>> 0b5e51f699b43e3445965b5160b4df63fe2c6c97
 
     accepts_nested_attributes_for :feedbacks
 
     validates :uid, presence: true, uniqueness: true
     validates :name, presence: true, length: {maximum: MAX_NAME_LENGTH}
     validates :universal, inclusion: ALLOWED_BOOLEANS
+<<<<<<< HEAD
     validates :optimal, inclusion: ALLOWED_BOOLEANS 
     validates :rule_type, inclusion: {in: TYPES}
     validates :suborder, numericality: {only_integer: true, greater_than_or_equal_to: 0}
     validates :concept_uid, presence: true
 	
+=======
+    validates :optimal, inclusion: ALLOWED_BOOLEANS
+    validates :rule_type, inclusion: {in: TYPES}
+    validates :suborder, numericality: {only_integer: true, greater_than_or_equal_to: 0}
+    validates :concept_uid, presence: true
+
+>>>>>>> 0b5e51f699b43e3445965b5160b4df63fe2c6c97
 
     def serializable_hash(options = nil)
       options ||= {}

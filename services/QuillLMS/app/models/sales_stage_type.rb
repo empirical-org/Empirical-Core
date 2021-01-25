@@ -1,3 +1,19 @@
+# == Schema Information
+#
+# Table name: sales_stage_types
+#
+#  id          :integer          not null, primary key
+#  description :text
+#  name        :text             not null
+#  order       :string           not null
+#  trigger     :integer
+#  created_at  :datetime
+#  updated_at  :datetime
+#
+# Indexes
+#
+#  index_sales_stage_types_on_name_and_order  (name,order) UNIQUE
+#
 class SalesStageType < ActiveRecord::Base
   validates :name, uniqueness: true
   validates :order, uniqueness: true

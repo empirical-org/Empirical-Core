@@ -41,6 +41,7 @@ module SegmentIo
     COTEACHER_ACCEPTANCE ||= 'Teacher accepted coteacher invitation'
     TRANSFER_OWNERSHIP ||= 'Teacher transferred ownership of a classroom'
     VIEWED_AS_STUDENT ||= 'Teacher viewed Quill as a student'
+    PREVIEWED_ACTIVITY ||= 'Teacher previewed an activity'
   end
 
   module Events

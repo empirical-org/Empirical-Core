@@ -52,6 +52,10 @@ export {
 } from './snackbar'
 
 export {
+  SortableList
+} from './sortableList'
+
+export {
   Spinner
 } from './spinner'
 

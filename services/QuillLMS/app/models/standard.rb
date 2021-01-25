@@ -1,3 +1,21 @@
+# == Schema Information
+#
+# Table name: standards
+#
+#  id                   :integer          not null, primary key
+#  name                 :string
+#  uid                  :string
+#  visible              :boolean          default(TRUE)
+#  created_at           :datetime         not null
+#  updated_at           :datetime         not null
+#  standard_category_id :integer
+#  standard_level_id    :integer
+#
+# Foreign Keys
+#
+#  fk_rails_...  (standard_category_id => standard_categories.id)
+#  fk_rails_...  (standard_level_id => standard_levels.id)
+#
 class Standard < ActiveRecord::Base
   include Uid
 

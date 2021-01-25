@@ -461,7 +461,7 @@ export default class ClassroomStudentSection extends React.Component<ClassroomSt
       download = true
     }
     /* eslint-disable react/jsx-no-target-blank */
-    const loginPdfLink = <a className="quill-button secondary outlined small" download={download} href={loginPdfHref} target="_blank">Download setup instructions</a>
+    const loginPdfLink = <a className="quill-button secondary outlined small" download={download} href={loginPdfHref} rel="noopener noreferrer" target="_blank">Download setup instructions</a>
     /* eslint-enable react/jsx-no-target-blank */
 
     return (<div className="students-section-header-buttons">

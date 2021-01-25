@@ -1,3 +1,38 @@
+# == Schema Information
+#
+# Table name: blog_posts
+#
+#  id                    :integer          not null, primary key
+#  body                  :text             not null
+#  center_images         :boolean
+#  draft                 :boolean          default(TRUE)
+#  external_link         :string
+#  featured_order_number :integer
+#  image_link            :string
+#  order_number          :integer
+#  premium               :boolean          default(FALSE)
+#  press_name            :string
+#  preview_card_content  :text             not null
+#  published_at          :datetime
+#  read_count            :integer          default(0), not null
+#  slug                  :string
+#  subtitle              :text
+#  title                 :string           not null
+#  topic                 :string
+#  tsv                   :tsvector
+#  created_at            :datetime
+#  updated_at            :datetime
+#  author_id             :integer
+#
+# Indexes
+#
+#  index_blog_posts_on_author_id   (author_id)
+#  index_blog_posts_on_read_count  (read_count)
+#  index_blog_posts_on_slug        (slug) UNIQUE
+#  index_blog_posts_on_title       (title)
+#  index_blog_posts_on_topic       (topic)
+#  tsv_idx                         (tsv) USING gin
+#
 require 'rails_helper'
 
 describe BlogPost, type: :model do

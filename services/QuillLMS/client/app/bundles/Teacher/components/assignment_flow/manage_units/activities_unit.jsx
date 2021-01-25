@@ -2,9 +2,10 @@ import React from 'react';
 import _ from 'underscore';
 import moment from 'moment';
 import Pluralize from 'pluralize';
-import SortableList from '../../shared/sortableList'
+
 import ClassroomActivity from './classroom_activity';
 import AddClassroomActivityRow from './add_classroom_activity_row.jsx';
+
 import { Snackbar, defaultSnackbarTimeout } from '../../../../Shared/index';
 import * as api from '../../modules/call_api';
 
@@ -221,12 +222,6 @@ export default class ActivitiesUnit extends React.Component {
     this.props.updateMultipleDueDates(uaIds, date);
   }
 
-  updateSortOrder = (sortableListState) => {
-    const startingSortOrder = this.state.activityOrder;
-    const newSortOrder = sortableListState.map( (i) => i.props.data.activityId );
-    this.setState({activityOrder: newSortOrder}, this.saveSortOrder);
-  }
-
   renderClassroomActivities = () => {
     const { allowSorting, activityOrder, classroomActivities, } = this.state
     const {
@@ -262,11 +257,8 @@ export default class ActivitiesUnit extends React.Component {
         i += 1;
       }
     }
-    if (allowSorting) {
-      return <SortableList data={classroomActivitiesArr} helperClass="sortable-activity-row" sortCallback={this.updateSortOrder} />
-    } else {
-      return classroomActivitiesArr;
-    }
+
+    return classroomActivitiesArr;
   }
 
   renderTooltip = () => {
