@@ -101,11 +101,6 @@ export class PlayFillInTheBlankQuestion extends React.Component<PlayFillInTheBla
     );
   }
 
-  getQuestion = () => {
-    const { question } = this.props;
-    return question
-  }
-
   getInstructionText = () => {
     const { question } = this.props;
     let instructions: JSX.Element|string = 'Fill in the blanks with the word or phrase that best fits the sentence.';
