@@ -53,6 +53,7 @@ exports[`ClassroomStudentSection component with students should render 1`] = `
         <a
           className="quill-button secondary outlined small"
           href="/teachers/classrooms/285383/student_logins"
+          rel="noopener noreferrer"
           target="_blank"
         >
           Download setup instructions
