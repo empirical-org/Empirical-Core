@@ -83,9 +83,10 @@ export class PlayFillInTheBlankQuestion extends React.Component<PlayFillInTheBla
   setQuestionValues = (question: FillInBlankQuestion) => {
     const q = question;
     const splitPrompt = q.prompt.split('___');
+    const numberOfInputVals = q.prompt.match(/___/g).length
     this.setState({
       splitPrompt,
-      inputVals: this.generateInputs(splitPrompt),
+      inputVals: this.generateInputs(numberOfInputVals),
       inputErrors: {},
       cues: q.cues,
       blankAllowed: q.blankAllowed,
@@ -115,16 +116,16 @@ export class PlayFillInTheBlankQuestion extends React.Component<PlayFillInTheBla
     return instructions
   }
 
-  generateInputs(promptArray: string[]) {
-    let inputs: string[] = [];
-    const { question } = this.props;
-    const latestAttempt = getLatestAttempt(question.attempts);
-    if (latestAttempt) {
-      const text = latestAttempt.response.text
-      const promptRegex = new RegExp(promptArray.join('|'), 'i')
-      inputs = text.split(promptRegex).filter(input => input.length)
-    } else {
-      inputs = Array.from({length: promptArray.length - 2}, () => '')
+  generateInputs(numberOfInputVals: number) {
+    const { question, previewMode } = this.props;
+    const latestAttempt = getLatestAttempt(question.attempts)
+    const inputs: Array<string> = [];
+    for (let i = 0; i < numberOfInputVals; i += 1) {
+      if(previewMode && latestAttempt && latestAttempt.response && latestAttempt.response.inputs) {
+        inputs.push(latestAttempt.response.inputs[i]);
+      } else {
+        inputs.push('');
+      }
     }
     return inputs;
   }
@@ -225,10 +226,10 @@ export class PlayFillInTheBlankQuestion extends React.Component<PlayFillInTheBla
   renderConceptExplanation = () => {
     const { conceptsFeedback, question } = this.props
     // TODO: update Response interface in quill-marking-logic
-    const latestAttempt: Attempt|undefined = getLatestAttempt();
+    const latestAttempt: Attempt|undefined = getLatestAttempt(question.attempts);
     if (latestAttempt && latestAttempt.response && !latestAttempt.response.optimal ) {
       if (latestAttempt.response.conceptResults) {
-          const conceptID = this.getNegativeConceptResultForResponse(latestAttempt.response.conceptResults);
+        const conceptID = this.getNegativeConceptResultForResponse(latestAttempt.response.conceptResults);
           if (conceptID) {
             const data = conceptsFeedback.data[conceptID.conceptUID];
             if (data) {
@@ -285,9 +286,9 @@ export class PlayFillInTheBlankQuestion extends React.Component<PlayFillInTheBla
 
   handleSubmitClick = () => {
     this.validateAllInputs().then(() => {
-      const { submitResponse, question } = this.props;
+      const { submitResponse, question, previewMode } = this.props;
       const { caseInsensitive, conceptID, key } = question;
-      const { inputErrors, responses, } = this.state;
+      const { inputErrors, inputVals, responses, } = this.state;
       const noErrors = _.size(inputErrors) === 0;
       if (noErrors && responses) {
         const zippedAnswer = this.zipInputsAndText();
@@ -295,6 +296,9 @@ export class PlayFillInTheBlankQuestion extends React.Component<PlayFillInTheBla
         const defaultConceptUID = conceptID;
         const responsesArray = hashToCollection(responses);
         const response = {response: checkFillInTheBlankQuestion(questionUID, zippedAnswer, responsesArray, caseInsensitive, defaultConceptUID)};
+        if(previewMode) {
+          response.response.inputs = inputVals;
+        }
         this.updateResponseResource(response);
         submitResponse(response);
       }
