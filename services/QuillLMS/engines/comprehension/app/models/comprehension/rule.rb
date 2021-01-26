@@ -13,6 +13,8 @@ module Comprehension
     before_validation :assign_uid_if_missing
 
     has_many :feedbacks, inverse_of: :rule
+    has_many :prompts_rules
+    has_many :prompts, through: :prompts_rules, inverse_of: :rules
 
     accepts_nested_attributes_for :feedbacks
 
@@ -23,7 +25,6 @@ module Comprehension
     validates :rule_type, inclusion: {in: TYPES}
     validates :suborder, numericality: {only_integer: true, greater_than_or_equal_to: 0}
     validates :concept_uid, presence: true
-
 
     def serializable_hash(options = nil)
       options ||= {}

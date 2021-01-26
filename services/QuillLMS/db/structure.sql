@@ -1142,6 +1142,76 @@ ALTER SEQUENCE public.comprehension_activities_id_seq OWNED BY public.comprehens
 
 
 --
+-- Name: comprehension_feedbacks; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.comprehension_feedbacks (
+    id integer NOT NULL,
+    rule_id integer NOT NULL,
+    text character varying NOT NULL,
+    description character varying,
+    "order" integer NOT NULL,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: comprehension_feedbacks_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.comprehension_feedbacks_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: comprehension_feedbacks_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.comprehension_feedbacks_id_seq OWNED BY public.comprehension_feedbacks.id;
+
+
+--
+-- Name: comprehension_highlights; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.comprehension_highlights (
+    id integer NOT NULL,
+    feedback_id integer NOT NULL,
+    text character varying NOT NULL,
+    highlight_type character varying NOT NULL,
+    starting_index integer,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: comprehension_highlights_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.comprehension_highlights_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: comprehension_highlights_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.comprehension_highlights_id_seq OWNED BY public.comprehension_highlights.id;
+
+
+--
 -- Name: comprehension_passages; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -3568,6 +3638,20 @@ ALTER TABLE ONLY public.comprehension_activities ALTER COLUMN id SET DEFAULT nex
 
 
 --
+-- Name: comprehension_feedbacks id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.comprehension_feedbacks ALTER COLUMN id SET DEFAULT nextval('public.comprehension_feedbacks_id_seq'::regclass);
+
+
+--
+-- Name: comprehension_highlights id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.comprehension_highlights ALTER COLUMN id SET DEFAULT nextval('public.comprehension_highlights_id_seq'::regclass);
+
+
+--
 -- Name: comprehension_passages id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -4206,6 +4290,22 @@ ALTER TABLE ONLY public.classrooms_teachers
 
 ALTER TABLE ONLY public.comprehension_activities
     ADD CONSTRAINT comprehension_activities_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: comprehension_feedbacks comprehension_feedbacks_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.comprehension_feedbacks
+    ADD CONSTRAINT comprehension_feedbacks_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: comprehension_highlights comprehension_highlights_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.comprehension_highlights
+    ADD CONSTRAINT comprehension_highlights_pkey PRIMARY KEY (id);
 
 
 --
@@ -5116,6 +5216,13 @@ CREATE INDEX index_classrooms_teachers_on_user_id ON public.classrooms_teachers 
 --
 
 CREATE INDEX index_comprehension_activities_on_parent_activity_id ON public.comprehension_activities USING btree (parent_activity_id);
+
+
+--
+-- Name: index_comprehension_feedbacks_on_rule_id_and_order; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_comprehension_feedbacks_on_rule_id_and_order ON public.comprehension_feedbacks USING btree (rule_id, "order");
 
 
 --
@@ -6163,6 +6270,14 @@ ALTER TABLE ONLY public.activity_topics
 
 
 --
+-- Name: comprehension_highlights fk_rails_9d58aa0a3c; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.comprehension_highlights
+    ADD CONSTRAINT fk_rails_9d58aa0a3c FOREIGN KEY (feedback_id) REFERENCES public.comprehension_feedbacks(id) ON DELETE CASCADE;
+
+
+--
 -- Name: classroom_units fk_rails_a3c514fc6d; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -7052,5 +7167,10 @@ INSERT INTO schema_migrations (version) VALUES ('20210114164445');
 
 INSERT INTO schema_migrations (version) VALUES ('20210114202136');
 
+INSERT INTO schema_migrations (version) VALUES ('20210121213613');
+
 INSERT INTO schema_migrations (version) VALUES ('20210122150843');
 
+INSERT INTO schema_migrations (version) VALUES ('20210122195721');
+
+INSERT INTO schema_migrations (version) VALUES ('20210122150843');
