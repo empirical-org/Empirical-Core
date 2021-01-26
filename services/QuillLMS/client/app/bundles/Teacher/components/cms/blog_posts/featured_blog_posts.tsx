@@ -1,5 +1,6 @@
 import React from 'react';
-import SortableList from '../../shared/sortableList'
+
+import { SortableList, } from '../../../../Shared/index'
 
 const featuredBlogPost = (blogPost, handleClickStar) => {
   const handleClick = () => handleClickStar(blogPost.id)

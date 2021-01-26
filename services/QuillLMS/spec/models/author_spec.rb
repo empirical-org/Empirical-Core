@@ -1,3 +1,11 @@
+# == Schema Information
+#
+# Table name: authors
+#
+#  id     :integer          not null, primary key
+#  avatar :text
+#  name   :string
+#
 require 'rails_helper'
 
 describe Author, type: :model, redis: true do

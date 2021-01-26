@@ -3,7 +3,7 @@ import * as CSS from 'csstype'
 import { SortableHandle, } from 'react-sortable-hoc';
 
 import { Tooltip } from './tooltip'
-import SortableList from './sortableList'
+import { SortableList, } from './sortableList'
 
 export const descending = 'desc'
 export const ascending = 'asc'

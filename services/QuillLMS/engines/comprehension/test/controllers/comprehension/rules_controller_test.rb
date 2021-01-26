@@ -1,5 +1,9 @@
 require 'test_helper'
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> 58e431accea2f7e732c223fb8d967a1a3fcfe391
 module Comprehension
   class RulesControllerTest < ActionController::TestCase
     setup do
@@ -90,6 +94,7 @@ module Comprehension
         assert parsed_response['suborder'].include?("must be greater than or equal to 0")
         assert_equal 0, Rule.count
       end
+<<<<<<< HEAD
 
       should "create nested feedback record when present in params" do
         assert_equal 0, Feedback.count    
@@ -97,12 +102,38 @@ module Comprehension
         feedback = build(:comprehension_feedback)
         post :create, rule: { concept_uid: @rule.concept_uid, description: @rule.description, name: @rule.name, optimal: @rule.optimal, suborder: @rule.suborder, rule_type: @rule.rule_type, universal: @rule.universal, feedbacks_attributes: [{text: feedback.text, description: feedback.description, order: feedback.order }]}    
         
+=======
+      
+      should "create nested feedback record when present in params" do
+        assert_equal 0, Feedback.count
+
+        feedback = build(:comprehension_feedback)
+        post :create, rule: {
+          concept_uid: @rule.concept_uid,
+          description: @rule.description,
+          name: @rule.name,
+          optimal: @rule.optimal,
+          suborder: @rule.suborder,
+          rule_type: @rule.rule_type,
+          universal: @rule.universal,
+          feedbacks_attributes:
+            [
+              {
+                text: feedback.text,
+                description: feedback.description,
+                order: feedback.order
+              }
+            ]
+        }
+
+>>>>>>> 58e431accea2f7e732c223fb8d967a1a3fcfe391
         parsed_response = JSON.parse(response.body)
         assert_equal 201, response.code.to_i
 
         assert_equal feedback.text, parsed_response['feedbacks'][0]['text']
         assert_equal feedback.description, parsed_response['feedbacks'][0]['description']
         assert_equal feedback.order, parsed_response['feedbacks'][0]['order']
+<<<<<<< HEAD
         
         assert_equal 1, Feedback.count
       end
@@ -123,6 +154,11 @@ module Comprehension
         
         assert_equal 1, Highlight.count
       end 
+=======
+
+        assert_equal 1, Feedback.count
+      end
+>>>>>>> 58e431accea2f7e732c223fb8d967a1a3fcfe391
     end
 
     context "show" do
@@ -183,18 +219,29 @@ module Comprehension
         assert parsed_response['suborder'].include?("must be greater than or equal to 0")
       end
 
+<<<<<<< HEAD
       should "update nested feedback attributes if present" do 
         feedback = create(:comprehension_feedback, rule: @rule)
         new_text = 'new text for the feedbacks object'        
+=======
+      should "update nested feedback attributes if present" do
+        feedback = create(:comprehension_feedback, rule: @rule)
+        new_text = 'new text for the feedbacks object'
+>>>>>>> 58e431accea2f7e732c223fb8d967a1a3fcfe391
         patch :update, id: @rule.id, rule: { feedbacks_attributes: [{id: feedback.id, text: new_text}]}
 
         assert_equal 204, response.code.to_i
         assert_equal "", response.body
+<<<<<<< HEAD
         
+=======
+
+>>>>>>> 58e431accea2f7e732c223fb8d967a1a3fcfe391
         feedback.reload
         assert_equal feedback.text, new_text
       end
 
+<<<<<<< HEAD
       should "update nested highlight attributes in feedback if present" do
         feedback = create(:comprehension_feedback, rule: @rule)
         highlight = create(:comprehension_highlight, feedback: feedback)
@@ -208,6 +255,8 @@ module Comprehension
         highlight.reload
         assert_equal new_text, highlight.text
       end 
+=======
+>>>>>>> 58e431accea2f7e732c223fb8d967a1a3fcfe391
     end
 
     context 'destroy' do

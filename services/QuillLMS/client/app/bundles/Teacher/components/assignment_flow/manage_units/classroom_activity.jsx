@@ -134,7 +134,7 @@ export default class ClassroomActivity extends React.Component {
       ];
     } else if (report) {
       /* eslint-disable react/jsx-no-target-blank */
-      return [<a href={this.anonymousPath()} key={this.anonymousPath()} target="_blank">Preview</a>, <a key={`report-url-${this.classroomUnitId()}`} onClick={this.handleReportLinkClick}>View Report</a>];
+      return [<a href={this.anonymousPath()} key={this.anonymousPath()} rel="noopener noreferrer" target="_blank">Preview</a>, <a key={`report-url-${this.classroomUnitId()}`} onClick={this.handleReportLinkClick}>View Report</a>];
       /* eslint-enable react/jsx-no-target-blank */
     } else if (this.isLesson()) {
       return this.lessonFinalCell();

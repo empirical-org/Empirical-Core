@@ -1,3 +1,11 @@
+# == Schema Information
+#
+# Table name: authors
+#
+#  id     :integer          not null, primary key
+#  avatar :text
+#  name   :string
+#
 class Author < ActiveRecord::Base
   has_many :unit_templates
   after_commit :delete_relevant_caches

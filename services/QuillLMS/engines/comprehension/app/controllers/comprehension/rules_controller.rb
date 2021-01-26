@@ -16,7 +16,10 @@ module Comprehension
 
     # POST /rules.json
     def create
+<<<<<<< HEAD
       puts rule_params
+=======
+>>>>>>> 58e431accea2f7e732c223fb8d967a1a3fcfe391
       @rule = Comprehension::Rule.new(rule_params)
 
       if @rule.save
@@ -48,7 +51,11 @@ module Comprehension
 
     private def rule_params
       params.require(:rule).permit(:name, :description, :universal, :rule_type, :optimal, :suborder, :concept_uid,
+<<<<<<< HEAD
          feedbacks_attributes: [:id, :text, :description, :order, highlights_attributes: [:id, :text, :highlight_type, :starting_index]]
+=======
+         feedbacks_attributes: [:id, :text, :description, :order]
+>>>>>>> 58e431accea2f7e732c223fb8d967a1a3fcfe391
       )
     end
   end

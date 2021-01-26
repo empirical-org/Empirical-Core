@@ -1,3 +1,25 @@
+# == Schema Information
+#
+# Table name: zipcode_infos
+#
+#  id                   :integer          not null, primary key
+#  _area_codes          :text
+#  _secondary_cities    :text
+#  city                 :text
+#  county               :text
+#  decommissioned       :boolean
+#  estimated_population :integer
+#  lat                  :float
+#  lng                  :float
+#  state                :text
+#  timezone             :text
+#  zipcode              :text
+#  zipcode_type         :text
+#
+# Indexes
+#
+#  index_zipcode_infos_on_zipcode  (zipcode) UNIQUE
+#
 class ZipcodeInfo < ActiveRecord::Base
 
   
