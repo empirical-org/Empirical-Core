@@ -90,6 +90,26 @@ module Comprehension
         assert parsed_response['suborder'].include?("must be greater than or equal to 0")
         assert_equal 0, Rule.count
       end
+
+      should "create a valid record with plagiarism_text attributes" do
+        plagiarism_text = "Here is some text to be checked for plagiarism."
+        post :create, rule: {
+              concept_uid: @rule.concept_uid,
+              description: @rule.description,
+              name: @rule.name,
+              optimal: @rule.optimal,
+              suborder: @rule.suborder,
+              rule_type: @rule.rule_type,
+              universal: @rule.universal,
+              plagiarism_text_attributes: {
+                text: plagiarism_text
+              }
+            }
+
+        parsed_response = JSON.parse(response.body)
+        assert_equal @rule.name, parsed_response['name']
+        assert_equal plagiarism_text, parsed_response['plagiarism_text']['text']
+      end
       
       should "create nested feedback record when present in params" do
         assert_equal 0, Feedback.count
@@ -199,6 +219,13 @@ module Comprehension
         assert parsed_response['suborder'].include?("must be greater than or equal to 0")
       end
 
+      should "update a valid record with plagiarism_text attributes" do
+        plagiarism_text = "New plagiarism text"
+        patch :update, id: @rule.id, rule: { plagiarism_text_attributes: {text: plagiarism_text}}
+
+        assert_equal @rule.reload.plagiarism_text.text, plagiarism_text
+      end
+
       should "update nested feedback attributes if present" do
         feedback = create(:comprehension_feedback, rule: @rule)
         new_text = 'new text for the feedbacks object'
@@ -224,6 +251,7 @@ module Comprehension
         highlight.reload
         assert_equal new_text, highlight.text
       end 
+
     end
 
     context 'destroy' do

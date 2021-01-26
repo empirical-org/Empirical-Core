@@ -13,9 +13,11 @@ module Comprehension
     before_validation :assign_uid_if_missing     
 
     has_many :feedbacks, inverse_of: :rule, dependent: :destroy
+    has_one :plagiarism_text, inverse_of: :rule, dependent: :destroy
     has_many :prompts_rules
     has_many :prompts, through: :prompts_rules, inverse_of: :rules
 
+    accepts_nested_attributes_for :plagiarism_text
     accepts_nested_attributes_for :feedbacks
 
     validates :uid, presence: true, uniqueness: true
@@ -26,12 +28,13 @@ module Comprehension
     validates :suborder, numericality: {only_integer: true, greater_than_or_equal_to: 0}
     validates :concept_uid, presence: true
 
+
     def serializable_hash(options = nil)
       options ||= {}
 
       super(options.reverse_merge(
         only: [:id, :uid, :name, :description, :universal, :rule_type, :optimal, :suborder, :concept_uid],
-        include: [:feedbacks]
+        include: [:plagiarism_text, :feedbacks]
       ))
     end
 
