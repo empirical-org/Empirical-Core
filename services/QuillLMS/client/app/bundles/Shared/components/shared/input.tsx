@@ -77,7 +77,12 @@ export class Input extends React.Component<InputProps, InputState> {
   }
 
   deactivateInput = () => {
-    this.setState({ inactive: true, }, () => this.input.blur())
+    this.setState({ inactive: true, }, () => {
+      // performing the blur on Safari causes tab navigation to skip the rest of the inputs on the page
+      if (!(navigator.userAgent.search("Safari") >= 0 && navigator.userAgent.search("Chrome") < 0)) {
+        this.input.blur()
+      }
+    })
   }
 
   handleClick = (e) => {
