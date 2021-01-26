@@ -3,7 +3,9 @@ namespace :plagiarism do
   desc "Migrates old plagiarism from fields on Prompt to new models PlagiarismText and Feedback"
 
   task :migrate => :environment do |t, args|
-    concept = Concept.create!(name: 'Plagiarism', uid: SecureRandom.uuid, visible: false)
+    # waiting on Lindsey to provide the final ID of the Plagiarism Concept
+    CONCEPT_ID = 0
+    concept = Concept.find(CONCEPT_ID)
     Comprehension::Prompt.all.each do |prompt|
       if prompt.plagiarism_text.present?
         rule = Comprehension::Rule.create!(name: 'Plagiarism', rule_type: Comprehension::Rule::TYPE_PLAGIARISM, universal: false, optimal: false, suborder: 0, concept_uid: concept.uid)
