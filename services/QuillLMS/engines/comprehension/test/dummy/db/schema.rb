@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20210122165204) do
+ActiveRecord::Schema.define(version: 20210122165328) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -37,6 +37,15 @@ ActiveRecord::Schema.define(version: 20210122165204) do
   end
 
   add_index "comprehension_feedbacks", ["rule_id", "order"], name: "index_comprehension_feedbacks_on_rule_id_and_order", unique: true, using: :btree
+
+  create_table "comprehension_highlights", force: :cascade do |t|
+    t.integer  "feedback_id",    null: false
+    t.string   "text",           null: false
+    t.string   "highlight_type", null: false
+    t.integer  "starting_index"
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
+  end
 
   create_table "comprehension_passages", force: :cascade do |t|
     t.integer  "activity_id"
@@ -148,5 +157,6 @@ ActiveRecord::Schema.define(version: 20210122165204) do
   add_index "comprehension_turking_rounds", ["activity_id"], name: "index_comprehension_turking_rounds_on_activity_id", using: :btree
   add_index "comprehension_turking_rounds", ["uuid"], name: "index_comprehension_turking_rounds_on_uuid", unique: true, using: :btree
 
+  add_foreign_key "comprehension_highlights", "comprehension_feedbacks", column: "feedback_id", on_delete: :cascade
   add_foreign_key "comprehension_plagiarism_texts", "comprehension_rules", column: "rule_id", on_delete: :cascade
 end
