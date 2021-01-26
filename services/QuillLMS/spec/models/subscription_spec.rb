@@ -1,3 +1,29 @@
+# == Schema Information
+#
+# Table name: subscriptions
+#
+#  id                   :integer          not null, primary key
+#  account_type         :string
+#  de_activated_date    :date
+#  expiration           :date
+#  payment_amount       :integer
+#  payment_method       :string
+#  purchaser_email      :string
+#  recurring            :boolean          default(FALSE)
+#  start_date           :date
+#  created_at           :datetime
+#  updated_at           :datetime
+#  purchaser_id         :integer
+#  subscription_type_id :integer
+#
+# Indexes
+#
+#  index_subscriptions_on_de_activated_date  (de_activated_date)
+#  index_subscriptions_on_purchaser_email    (purchaser_email)
+#  index_subscriptions_on_purchaser_id       (purchaser_id)
+#  index_subscriptions_on_recurring          (recurring)
+#  index_subscriptions_on_start_date         (start_date)
+#
 require 'rails_helper'
 require 'ostruct'
 

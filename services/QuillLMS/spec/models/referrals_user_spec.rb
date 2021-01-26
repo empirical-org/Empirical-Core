@@ -1,3 +1,20 @@
+# == Schema Information
+#
+# Table name: referrals_users
+#
+#  id               :integer          not null, primary key
+#  activated        :boolean          default(FALSE)
+#  created_at       :datetime         not null
+#  updated_at       :datetime         not null
+#  referred_user_id :integer          not null
+#  user_id          :integer          not null
+#
+# Indexes
+#
+#  index_referrals_users_on_activated         (activated)
+#  index_referrals_users_on_referred_user_id  (referred_user_id) UNIQUE
+#  index_referrals_users_on_user_id           (user_id)
+#
 require 'rails_helper'
 
 RSpec.describe ReferralsUser, type: :model do

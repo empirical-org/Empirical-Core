@@ -1,3 +1,12 @@
+# == Schema Information
+#
+# Table name: unit_template_categories
+#
+#  id              :integer          not null, primary key
+#  name            :string
+#  primary_color   :string
+#  secondary_color :string
+#
 FactoryBot.define do
   factory :unit_template_category do
     sequence(:name) {|i| "Unit Template Category #{i}" }

@@ -1,3 +1,18 @@
+# == Schema Information
+#
+# Table name: concepts
+#
+#  id             :integer          not null, primary key
+#  description    :text
+#  explanation    :text
+#  name           :string
+#  uid            :string           not null
+#  visible        :boolean          default(TRUE)
+#  created_at     :datetime
+#  updated_at     :datetime
+#  parent_id      :integer
+#  replacement_id :integer
+#
 class Concept < ActiveRecord::Base
   include Uid
   belongs_to :parent, class_name: 'Concept', foreign_key: :parent_id

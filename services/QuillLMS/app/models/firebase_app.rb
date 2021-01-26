@@ -1,3 +1,14 @@
+# == Schema Information
+#
+# Table name: firebase_apps
+#
+#  id         :integer          not null, primary key
+#  name       :string
+#  pkey       :text
+#  secret     :string
+#  created_at :datetime
+#  updated_at :datetime
+#
 require 'firebase_token_generator'
 require "jwt"
 

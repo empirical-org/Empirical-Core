@@ -1,3 +1,14 @@
+# == Schema Information
+#
+# Table name: blog_post_user_ratings
+#
+#  id           :integer          not null, primary key
+#  rating       :integer
+#  created_at   :datetime         not null
+#  updated_at   :datetime         not null
+#  blog_post_id :integer
+#  user_id      :integer
+#
 require 'rails_helper'
 
 RSpec.describe BlogPostUserRating, type: :model do
