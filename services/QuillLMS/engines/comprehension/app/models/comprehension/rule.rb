@@ -13,6 +13,8 @@ module Comprehension
     before_validation :assign_uid_if_missing
 
     has_many :feedbacks, inverse_of: :rule
+    has_many :prompts_rules
+    has_many :prompts, through: :prompts_rules, inverse_of: :rules
 
     accepts_nested_attributes_for :feedbacks
 
