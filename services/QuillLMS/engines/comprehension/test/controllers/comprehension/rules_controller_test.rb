@@ -1,6 +1,5 @@
 require 'test_helper'
 
-
 module Comprehension
   class RulesControllerTest < ActionController::TestCase
     setup do
@@ -120,9 +119,9 @@ module Comprehension
         assert_equal feedback.text, parsed_response['feedbacks'][0]['text']
         assert_equal feedback.description, parsed_response['feedbacks'][0]['description']
         assert_equal feedback.order, parsed_response['feedbacks'][0]['order']
-
+        
         assert_equal 1, Feedback.count
-      end
+      end 
     end
 
     context "show" do
@@ -190,11 +189,10 @@ module Comprehension
 
         assert_equal 204, response.code.to_i
         assert_equal "", response.body
-
+        
         feedback.reload
         assert_equal feedback.text, new_text
-      end
-
+      end 
     end
 
     context 'destroy' do
