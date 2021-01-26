@@ -11,20 +11,16 @@ module Comprehension
       should validate_inclusion_of(:universal).in_array(Rule::ALLOWED_BOOLEANS)
       should validate_inclusion_of(:rule_type).in_array(Rule::TYPES)
       should validate_inclusion_of(:optimal).in_array(Rule::ALLOWED_BOOLEANS)
-<<<<<<< HEAD
-      should validate_numericality_of(:suborder).
-        only_integer.
-        is_greater_than_or_equal_to(0)
-=======
       should validate_numericality_of(:suborder)
         .only_integer
         .is_greater_than_or_equal_to(0)
->>>>>>> 0b5e51f699b43e3445965b5160b4df63fe2c6c97
       should validate_presence_of(:concept_uid)
     end
 
     context 'relationships' do
       should have_many(:feedbacks)
+      should have_many(:prompts_rules)
+      should have_many(:prompts).through(:prompts_rules)
     end
 
     context 'before_validation' do
