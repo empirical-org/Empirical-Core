@@ -12,9 +12,14 @@ module Comprehension
     ]
     before_validation :assign_uid_if_missing
 
+
     has_one :plagiarism_text, inverse_of: :rule, dependent: :destroy
+    has_many :feedbacks, inverse_of: :rule
+    has_many :prompts_rules
+    has_many :prompts, through: :prompts_rules, inverse_of: :rules
 
     accepts_nested_attributes_for :plagiarism_text
+    accepts_nested_attributes_for :feedbacks
 
     validates :uid, presence: true, uniqueness: true
     validates :name, presence: true, length: {maximum: MAX_NAME_LENGTH}
@@ -30,7 +35,7 @@ module Comprehension
 
       super(options.reverse_merge(
         only: [:id, :uid, :name, :description, :universal, :rule_type, :optimal, :suborder, :concept_uid],
-        include: [:plagiarism_text]
+        include: [:plagiarism_text, :feedbacks]
       ))
     end
 

@@ -1,3 +1,29 @@
+# == Schema Information
+#
+# Table name: feedback_histories
+#
+#  id                   :integer          not null, primary key
+#  activity_session_uid :text
+#  attempt              :integer          not null
+#  concept_uid          :text
+#  entry                :text             not null
+#  feedback_text        :text
+#  feedback_type        :text             not null
+#  metadata             :jsonb
+#  optimal              :boolean          not null
+#  prompt_type          :string
+#  time                 :datetime         not null
+#  used                 :boolean          not null
+#  created_at           :datetime         not null
+#  updated_at           :datetime         not null
+#  prompt_id            :integer
+#
+# Indexes
+#
+#  index_feedback_histories_on_activity_session_uid  (activity_session_uid)
+#  index_feedback_histories_on_concept_uid           (concept_uid)
+#  index_feedback_histories_on_prompt_type_and_id    (prompt_type,prompt_id)
+#
 class FeedbackHistory < ActiveRecord::Base
   CONCEPT_UID_LENGTH = 22
   DEFAULT_PROMPT_TYPE = "Comprehension::Prompt"

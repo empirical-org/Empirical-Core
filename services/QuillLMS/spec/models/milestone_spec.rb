@@ -1,3 +1,16 @@
+# == Schema Information
+#
+# Table name: milestones
+#
+#  id         :integer          not null, primary key
+#  name       :string           not null
+#  created_at :datetime
+#  updated_at :datetime
+#
+# Indexes
+#
+#  index_milestones_on_name  (name)
+#
 require 'rails_helper'
 
 describe Milestone, type: :model do
