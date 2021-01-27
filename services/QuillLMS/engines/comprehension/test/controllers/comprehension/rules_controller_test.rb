@@ -94,6 +94,26 @@ module Comprehension
         assert_equal 0, Rule.count
       end
 
+      should "create a valid record with plagiarism_text attributes" do
+        plagiarism_text = "Here is some text to be checked for plagiarism."
+        post :create, rule: {
+              concept_uid: @rule.concept_uid,
+              description: @rule.description,
+              name: @rule.name,
+              optimal: @rule.optimal,
+              suborder: @rule.suborder,
+              rule_type: @rule.rule_type,
+              universal: @rule.universal,
+              plagiarism_text_attributes: {
+                text: plagiarism_text
+              }
+            }
+
+        parsed_response = JSON.parse(response.body)
+        assert_equal @rule.name, parsed_response['name']
+        assert_equal plagiarism_text, parsed_response['plagiarism_text']['text']
+      end
+
       should "create nested feedback record when present in params" do
         assert_equal 0, Feedback.count
 
@@ -126,30 +146,21 @@ module Comprehension
         assert_equal 1, Feedback.count
       end
 
-      should "create nested plagiarism_text object when present" do
-        assert_equal 0, PlagiarismText.count
+      should "create nested highlight record when nested in feedback_attributes" do
+        assert_equal 0, Highlight.count
 
-        plagiarism_text = build(:comprehension_plagiarism_text)
-        post :create, rule: {
-          concept_uid: @rule.concept_uid,
-          description: @rule.description,
-          name: @rule.name,
-          optimal: @rule.optimal,
-          suborder: @rule.suborder,
-          rule_type: @rule.rule_type,
-          universal: @rule.universal,
-          plagiarism_text_attributes:
-            {
-              text: plagiarism_text.text
-            }
-        }
+        feedback = create(:comprehension_feedback, rule: @rule)
+        highlight = build(:comprehension_highlight, starting_index: 2)
+        post :create, rule: { concept_uid: @rule.concept_uid, description: @rule.description, name: @rule.name, optimal: @rule.optimal, suborder: @rule.suborder, rule_type: @rule.rule_type, universal: @rule.universal, feedbacks_attributes: [{text: feedback.text, description: feedback.description, order: feedback.order, highlights_attributes: [{text: highlight.text, highlight_type: highlight.highlight_type, starting_index: highlight.starting_index }]}]}
 
         parsed_response = JSON.parse(response.body)
         assert_equal 201, response.code.to_i
 
-        assert_equal plagiarism_text.text, parsed_response['plagiarism_text']['text']
+        assert_equal highlight.text, parsed_response['feedbacks'][0]['highlights'][0]['text']
+        assert_equal highlight.highlight_type, parsed_response['feedbacks'][0]['highlights'][0]['highlight_type']
+        assert_equal highlight.starting_index, parsed_response['feedbacks'][0]['highlights'][0]['starting_index']
 
-        assert_equal 1, PlagiarismText.count
+        assert_equal 1, Highlight.count
       end
     end
 
@@ -214,6 +225,13 @@ module Comprehension
         assert parsed_response['suborder'].include?("must be greater than or equal to 0")
       end
 
+      should "update a valid record with plagiarism_text attributes" do
+        plagiarism_text = "New plagiarism text"
+        patch :update, id: @rule.id, rule: { plagiarism_text_attributes: {text: plagiarism_text}}
+
+        assert_equal @rule.reload.plagiarism_text.text, plagiarism_text
+      end
+
       should "update nested feedback attributes if present" do
         feedback = create(:comprehension_feedback, rule: @rule)
         new_text = 'new text for the feedbacks object'
@@ -226,16 +244,18 @@ module Comprehension
         assert_equal feedback.text, new_text
       end
 
-      should "update nested plagiarism text attributes if present" do
-        plagiarism_text = create(:comprehension_plagiarism_text, rule: @rule)
-        new_text = 'new text for the plagiarized text object'
-        patch :update, id: @rule.id, rule: { plagiarism_text_attributes: {id: plagiarism_text.id, text: new_text}}
+      should "update nested highlight attributes in feedback if present" do
+        feedback = create(:comprehension_feedback, rule: @rule)
+        highlight = create(:comprehension_highlight, feedback: feedback)
+        new_text = "New text to highlight"
+
+        post :update, id: @rule.id, rule: { feedbacks_attributes: [{id: feedback.id, highlights_attributes: [{id: highlight.id, text: new_text}]}]}
 
         assert_equal 204, response.code.to_i
         assert_equal "", response.body
 
-        plagiarism_text.reload
-        assert_equal plagiarism_text.text, new_text
+        highlight.reload
+        assert_equal new_text, highlight.text
       end
 
     end
