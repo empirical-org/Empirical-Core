@@ -203,8 +203,8 @@ export default class StandardsAllClassroomsProgressReport extends React.Componen
           </div>
         </div>
         <div className='dropdown-container' id="flexed">
-          <ItemDropdown callback={this.switchClassrooms} className="student-reports-class-dropdown" items={this.state.classrooms.map(c => c.name)} selectedItem={this.state.selectedClassroom} />
-          <ItemDropdown callback={this.goToStudentPage} className="student-reports-class-dropdown" items={_.uniq(this.state.students.map(s => s.name))} />
+          <ItemDropdown callback={this.switchClassrooms} items={this.state.classrooms.map(c => c.name)} selectedItem={this.state.selectedClassroom} />
+          <ItemDropdown callback={this.goToStudentPage} items={_.uniq(this.state.students.map(s => s.name))} />
         </div>
         {this.tableOrEmptyMessage()}
       </div>

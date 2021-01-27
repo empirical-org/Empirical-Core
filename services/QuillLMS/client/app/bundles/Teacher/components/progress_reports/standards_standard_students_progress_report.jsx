@@ -138,7 +138,7 @@ export default class IndividualStandardsReport extends React.Component {
             <a className='how-we-grade' href="https://support.quill.org/activities-implementation/how-does-grading-work">How We Grade<i className="fas fa-long-arrow-alt-right" /></a>
           </div>
           <div className='dropdown-container'>
-            <ItemDropdown callback={this.switchClassrooms} className="student-reports-class-dropdown" items={this.state.classrooms.map(c => c.name)} selectedItem={this.state.selectedClassroom.name} />
+            <ItemDropdown callback={this.switchClassrooms} items={this.state.classrooms.map(c => c.name)} selectedItem={this.state.selectedClassroom.name} />
           </div>
         </div>
         <div key={`concept-progress-report-length-${this.state.studentData.length}`}>
