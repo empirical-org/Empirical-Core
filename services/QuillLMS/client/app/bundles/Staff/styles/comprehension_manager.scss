@@ -512,6 +512,21 @@
       }
     }
   }
+  .universal-rules-index-container {
+    padding: 20px;
+    .top-section {
+      display: flex;
+      align-items: center;
+      margin: 30px 0px 0px 3px;
+      .rule-type-input {
+        margin-right: 20px;
+      }
+    }
+    .sortable-instructions {
+      margin: 10px 0px 10px 3px;
+      font-style: italic;
+    }
+  }
   .modal {
     .close-button-container {
       display: flex;

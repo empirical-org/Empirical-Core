@@ -6,6 +6,7 @@ import Activities from './activities';
 import Activity from './activity';
 import SubmissionModal from './shared/submissionModal';
 import ActivityForm from './configureSettings/activityForm';
+import UniversalRulesIndex from './universalRules/listView';
 
 import { ActivityInterface } from '../../interfaces/comprehensionInterfaces';
 import { createActivity } from '../../utils/comprehension/activityAPIs';
@@ -29,7 +30,12 @@ const ComprehensionLanding = ({ location }: RouteComponentProps) => {
 
   const checkOverviewActive = () => {
     if(!location) return false;
-    return pathname !== '/activities' && !showCreateActivityModal;
+    return pathname !== '/activities' && pathname !== '/universal-rules' && !showCreateActivityModal;
+  }
+
+  const checkUniversalRulesActive = () => {
+    if(!location) return false;
+    return pathname === '/universal-rules' && !showCreateActivityModal;
   }
 
   const toggleCreateActivityModal = () => {
@@ -81,6 +87,9 @@ const ComprehensionLanding = ({ location }: RouteComponentProps) => {
           <button className={`create-activity-button ${showCreateActivityModal ? 'is-active' :''}`} onClick={toggleCreateActivityModal} type="submit">
             Create New Activity
           </button>
+          <NavLink activeClassName='is-active' isActive={checkUniversalRulesActive} to='/universal-rules'>
+            Universal Rules
+          </NavLink>
         </ul>
       </section>
       {showCreateActivityModal && renderActivityForm()}
@@ -89,6 +98,7 @@ const ComprehensionLanding = ({ location }: RouteComponentProps) => {
         <Redirect exact from='/' to='/activities' />
         <Route component={Activity} path='/activities/:activityId' />
         <Route component={Activities} path='/activities' />
+        <Route component={UniversalRulesIndex} path='/universal-rules' />
       </Switch>
     </div>
   )
