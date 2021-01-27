@@ -132,7 +132,8 @@ export class UnitTemplateProfile extends React.Component<RouteComponentProps, Un
           <ScrollToTop />
           {navigation}
           <div className="unit-template-profile-container">
-            <h1>Activity Pack: {name}</h1>
+            <h2>Activity Pack</h2>
+            <h1>{name}</h1>
             <UnitTemplateProfileActivityTable data={data} />
             <div className="first-content-section flex-row space-between first-content-section">
               <div className="description">
