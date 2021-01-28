@@ -138,8 +138,7 @@ export class Input extends React.Component<InputProps, InputState> {
     const { inactive, errorAcknowledged} = this.state
     const { className, label, handleChange, value, placeholder, error, type, id, disabled, characterLimit, autoComplete } = this.props
     const inactiveOrActive = inactive ? 'inactive' : 'active'
-    const showPlaceholder = !inactive && placeholder
-    const hasText = value || showPlaceholder ? 'has-text' : ''
+    const hasText = value ? 'has-text' : ''
     const hasCharacterLimit = characterLimit ? 'has-character-limit' : ''
     const sharedClassNames = `input-container  ${inactiveOrActive} ${hasText} ${className} ${hasCharacterLimit}`
     const commonProps = {
@@ -148,7 +147,7 @@ export class Input extends React.Component<InputProps, InputState> {
       onChange: handleChange,
       value,
       type,
-      placeholder,
+      placeholder: !inactive && placeholder,
       disabled,
       maxLength: characterLimit ? characterLimit : 10000,
       autoComplete
