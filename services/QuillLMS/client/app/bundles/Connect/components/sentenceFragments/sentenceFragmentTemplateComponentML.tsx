@@ -367,7 +367,7 @@ class PlaySentenceFragment extends React.Component<PlaySentenceFragmentProps, Pl
 
     return (
       <div className="student-container-inner-diagnostic">
-        <div className="draft-js sentence-fragments prevent-selection">
+        <div className="draft-js sentence-fragments">
           <p>{this.getQuestion() ? this.getQuestion().prompt : ''}</p>
         </div>
         {this.renderInteractiveComponent()}
