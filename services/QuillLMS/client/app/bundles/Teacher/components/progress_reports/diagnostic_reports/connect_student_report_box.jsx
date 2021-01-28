@@ -1,7 +1,7 @@
 import React from 'react'
 import createReactClass from 'create-react-class';
 
-import formatString from './formatString'
+import { formatString, formatStringAndAddSpacesAfterPeriods, } from './formatString'
 
 import ScoreColor from '../../modules/score_color.js'
 import ConceptResultTableRow from './concept_result_table_row.tsx'
@@ -118,7 +118,7 @@ export default createReactClass({
             <tr>
               <td>Prompt</td>
               <td />
-              <td>{formatString(data.prompt)}</td>
+              <td>{formatStringAndAddSpacesAfterPeriods(data.prompt)}</td>
             </tr>
             {this.questionScore()}
             {this.emptyRow()}
