@@ -96,12 +96,6 @@ export default class Stage2 extends React.Component {
 
   render() {
     const { unitTemplateName, unitTemplateId, selectedActivities, isFromDiagnosticPath, } = this.props
-    let assignName = 'Activity Pack'
-    if (unitTemplateName) {
-      assignName = unitTemplateName
-    } else if (selectedActivities.every(act => act.activity_classification.key === 'diagnostic')) {
-      assignName = 'Diagnostic'
-    }
     return (
       <div>
         <ScrollToTop />
@@ -112,7 +106,7 @@ export default class Stage2 extends React.Component {
           unitTemplateName={unitTemplateName}
         />
         <div className="name-and-assign-activity-pack container">
-          <h1 className="assign-header">Assign {assignName}</h1>
+          <h1 className="assign-header">Review and assign</h1>
           {this.renderNameSection()}
           {this.renderReviewActivitiesSection()}
           {this.renderAssignStudentsSection()}

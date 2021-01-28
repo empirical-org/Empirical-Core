@@ -1,5 +1,6 @@
 import * as React from 'react'
-import formatString from './formatString'
+
+import { formatString, formatStringAndAddSpacesAfterPeriods, } from './formatString'
 
 import ScoreColor from '../../modules/score_color.js'
 import ConceptResultTableRow from './concept_result_table_row.tsx'
@@ -34,7 +35,7 @@ export class StudentReportBox extends React.Component<StudentReportBoxProps> {
       <tr>
         <td>Prompt</td>
         <td />
-        <td><span dangerouslySetInnerHTML={{ __html: formatString(prompt) }} /></td>
+        <td><span dangerouslySetInnerHTML={{ __html: formatStringAndAddSpacesAfterPeriods(prompt)}} /></td>
       </tr>
     );
   }
