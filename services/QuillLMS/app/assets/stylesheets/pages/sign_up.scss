@@ -158,13 +158,13 @@
       font-size: 14px;
       padding: 16px 16px 18px;
       line-height: 1;
-      span {
+      .interactive-wrapper {
         cursor: pointer;
         color: #009a80;
         font-weight: 600;
       }
     }
-    .no-school-found, .no-location-found {
+    .no-school-found, .default-school-search {
       height: 258px;
       justify-content: center;
       display: flex;
@@ -186,7 +186,7 @@
         margin-bottom: 8px;
       }
     }
-    .no-location-found {
+    .default-school-search {
       .message {
         font-weight: 600;
       }
