@@ -7,7 +7,7 @@ class ResponsesController < ApplicationController
 
   RESPONSE_LIMIT = 100
   MULTIPLE_CHOICE_LIMIT = 2
-  CACHE_EXPIRY = 60.minutes.to_i
+  CACHE_EXPIRY = 8.hours.to_i
   # MAX_MATCHES: A heuristic to reduce controller compute time
   # see https://github.com/empirical-org/Empirical-Core/pull/7086/files
   # for more context
