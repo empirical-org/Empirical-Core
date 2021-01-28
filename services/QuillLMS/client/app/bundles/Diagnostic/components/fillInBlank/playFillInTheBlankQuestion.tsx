@@ -71,6 +71,11 @@ export class PlayFillInTheBlankQuestion extends React.Component<PlayFillInTheBla
     const { question, } = this.props
 
     this.setQuestionValues(question)
+
+    window.addEventListener('paste', (e) => {
+      e.preventDefault()
+      return false
+    }, true);
   }
 
   UNSAFE_componentWillReceiveProps(nextProps: PlayFillInTheBlankQuestionProps) {

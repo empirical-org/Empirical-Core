@@ -17,6 +17,13 @@ export default class RenderTextEditor extends React.Component {
     }
   }
 
+  componentDidMount() {
+    window.addEventListener('paste', (e) => {
+      e.preventDefault()
+      return false
+    }, true);
+  }
+
   UNSAFE_componentWillReceiveProps(nextProps) {
     const { latestAttempt, getResponse, } = this.props
     if (nextProps.latestAttempt !== latestAttempt) {
