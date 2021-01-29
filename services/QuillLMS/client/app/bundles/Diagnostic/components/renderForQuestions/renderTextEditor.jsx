@@ -133,7 +133,6 @@ export default class RenderTextEditor extends React.Component {
             <Textarea
               autoCapitalize="off"
               autoCorrect="off"
-              autoFocus
               className="connect-text-area"
               onInput={this.handleTextChange}
               onKeyDown={this.handleKeyDown}
