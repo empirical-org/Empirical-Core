@@ -15,7 +15,6 @@ import generatedIncorrectSequences from './generatedIncorrectSequences';
 import itemLevels from './item-levels';
 import lessons from './lessons';
 import massEdit from './massEdit';
-import pathways from './pathways';
 import playLesson from './questionReducer';
 import question from './questionReducerV2';
 import questions from './questions';
@@ -41,7 +40,6 @@ const combinedReducers = combineReducers({
   itemLevels,
   lessons,
   massEdit,
-  pathways,
   playLesson,
   question,
   questions,

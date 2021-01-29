@@ -15,7 +15,6 @@ import filters from './filtersReducer';
 import generatedIncorrectSequences from './generatedIncorrectSequences';
 import lessons from './lessons.ts';
 import massEdit from './massEdit';
-import pathways from './pathways';
 import playDiagnostic from './diagnostics';
 import playLesson from './questionReducer';
 import question from './questionReducerV2';
@@ -43,7 +42,6 @@ const combinedReducers = combineReducers({
   generatedIncorrectSequences,
   lessons,
   massEdit,
-  pathways,
   playDiagnostic,
   playLesson,
   question,

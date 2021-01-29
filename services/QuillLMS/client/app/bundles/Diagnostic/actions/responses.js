@@ -1,6 +1,5 @@
 /* eslint-env browser*/
 import _ from 'underscore';
-import pathwaysActions from './pathways';
 import rootRef from '../libs/firebase';
 import request from 'request';
 import { requestGet } from '../libs/request';
@@ -230,7 +229,6 @@ export function incrementResponseCount(qid, rid, prid, isFirstAttempt) {
       if (error) {
         dispatch({ type: C.DISPLAY_ERROR, error: `increment failed! ${error}`, });
       } else {
-        dispatch(pathwaysActions.submitNewPathway(rid, prid, qid));
         dispatch({ type: C.DISPLAY_MESSAGE, message: 'Response successfully incremented!', });
         if (isFirstAttempt) {
           dispatch(incrementFirstAttemptCount(rid));

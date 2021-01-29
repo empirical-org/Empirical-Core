@@ -3,7 +3,6 @@ import _ from 'underscore';
 import moment from 'moment';
 import request from 'request';
 
-import pathwaysActions from './pathways';
 import rootRef from '../libs/firebase';
 import C from '../constants'
 import objectWithSnakeKeysFromCamel from '../libs/objectWithSnakeKeysFromCamel';
@@ -229,7 +228,6 @@ export function incrementResponseCount(qid, rid, prid, isFirstAttempt) {
       if (error) {
         dispatch({ type: C.DISPLAY_ERROR, error: `increment failed! ${error}`, });
       } else {
-        dispatch(pathwaysActions.submitNewPathway(rid, prid, qid));
         dispatch({ type: C.DISPLAY_MESSAGE, message: 'Response successfully incremented!', });
         if (isFirstAttempt) {
           dispatch(incrementFirstAttemptCount(rid));
