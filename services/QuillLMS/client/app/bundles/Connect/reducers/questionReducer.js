@@ -1,4 +1,5 @@
 import { SubmitActions } from '../actions';
+import { getCurrentQuestion, getQuestionsWithAttempts, getFilteredQuestions } from '../../Shared/index';
  /// make this playLessonsReducer.
 const initialState = {
   answeredQuestions: [],
@@ -39,7 +40,7 @@ function question(state = initialState, action) {
           question: Object.assign({},
             state.currentQuestion.question,
             {
-              attempts: state.currentQuestion.question.attempts.concat([action.response])
+              attempts: state.currentQuestion.question.attempts ? state.currentQuestion.question.attempts.concat([action.response]) : [action.response]
             })
           })
         }
@@ -64,6 +65,36 @@ function question(state = initialState, action) {
       return Object.assign({}, state, changes)
     case SubmitActions.RESUME_PREVIOUS_SESSION:
       return Object.assign({}, state, action.data)
+    case SubmitActions.SET_CURRENT_QUESTION:
+      const { currentQuestion, questionSet, unansweredQuestions } = state;
+      let answeredQuestions = state.answeredQuestions;
+
+      if (currentQuestion) {
+        answeredQuestions = answeredQuestions.concat([currentQuestion]);
+      }
+
+      const answeredQuestionsWithAttempts = getQuestionsWithAttempts(answeredQuestions);
+      const unansweredQuestionsWithAttempts = getQuestionsWithAttempts(unansweredQuestions);
+
+      const newCurrentQuestion = getCurrentQuestion({
+        action,
+        answeredQuestions,
+        questionSet,
+        unansweredQuestions
+      });
+
+      const currentQuestionIndex = questionSet.findIndex(questionObject => action.data.key === questionObject.question.key);
+      const answeredSlice = questionSet.slice(0, currentQuestionIndex);
+      const unansweredSlice = questionSet.slice(currentQuestionIndex + 1);
+
+      const newAnsweredQuestions = getFilteredQuestions({ questionsSlice: answeredSlice, answeredQuestionsWithAttempts, unansweredQuestionsWithAttempts });
+      const newUnansweredQuestions = getFilteredQuestions({ questionsSlice: unansweredSlice, answeredQuestionsWithAttempts, unansweredQuestionsWithAttempts });
+
+      state.answeredQuestions = newAnsweredQuestions;
+      state.unansweredQuestions = newUnansweredQuestions;
+      state.currentQuestion = newCurrentQuestion;
+
+      return Object.assign({}, state, action.data);
     default:
       return state
   }
