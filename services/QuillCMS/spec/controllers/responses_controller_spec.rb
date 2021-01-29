@@ -76,7 +76,7 @@ RSpec.describe ResponsesController, type: :controller do
     end
 
     it 'should enqueue CreateOrIncrementResponseWorker' do
-      expect(CreateOrIncrementResponseWorker).to receive(:perform_in).with(12.hours, response_payload)
+      expect(CreateOrIncrementResponseWorker).to receive(:perform_in).with(6.hours, response_payload)
       post :create_or_increment, params: {response: response_payload}
 
     end
