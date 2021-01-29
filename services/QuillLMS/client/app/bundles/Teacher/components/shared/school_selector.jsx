@@ -1,7 +1,9 @@
 import React from 'react';
 import request from 'request'
+
 import LoadingIndicator from './loading_indicator.jsx';
 import SchoolOption from './school_option'
+
 import { Input, } from '../../../Shared/index'
 
 const mapSearchSrc = `${process.env.CDN_URL}/images/onboarding/map-search.svg`
@@ -14,21 +16,8 @@ export default class SchoolSelector extends React.Component {
       search: '',
       schools: [],
       errors: {},
-      loading: true
+      loading: false
     }
-  }
-
-  componentDidMount() {
-    this.enableLocationAccess()
-  }
-
-  getLocation = (position) => {
-    const { latitude, longitude, } = position.coords
-    this.setState({ latitude, longitude, loading: true, }, this.search)
-  }
-
-  enableLocationAccess = () => {
-    navigator.geolocation.getCurrentPosition(this.getLocation, this.noLocation);
   }
 
   handleSkipClick = () => {
@@ -36,30 +25,8 @@ export default class SchoolSelector extends React.Component {
     selectSchool('not listed')
   }
 
-  locationServicesLink() {
-    const { userAgent, } = navigator
-    if (userAgent.indexOf('OPR') !== -1) {
-      return 'https://help.opera.com/en/geolocation/'
-    } else if (userAgent.indexOf('Chrom') !== -1) {
-      return 'https://support.google.com/chrome/answer/114662?visit_id=636771351335585730-3894756667&rd=1'
-    } else if (userAgent.indexOf('Firefox') !== -1) {
-      return 'https://yandex.com/support/common/browsers-settings/geo-firefox.html'
-    } else if (userAgent.indexOf('Seamonkey') !== -1) {
-      return 'https://www.seamonkey-project.org/doc/2.0/geolocation'
-    } else if (userAgent.indexOf('Safari') !== -1) {
-      return 'https://support.apple.com/en-us/HT204690'
-      // internet explorer
-    } else if (userAgent.indexOf('MSIE') !== -1) {
-      return 'https://support.microsoft.com/en-us/help/17479/windows-internet-explorer-11-change-security-privacy-settings'
-    }
-  }
-
-  noLocation = () => {
-    this.setState({ loading: false, })
-  }
-
   search = () => {
-    const { search, latitude, longitude } = this.state
+    const { search } = this.state
 
     const wholeSearchIsNumbersRegex = /^\d+$/
 
@@ -68,9 +35,11 @@ export default class SchoolSelector extends React.Component {
       return null
     }
 
+    this.setState({ loading: true, })
+
     request({
       url: `${process.env.DEFAULT_URL}/schools`,
-      qs: { search, lat: latitude, lng: longitude, },
+      qs: { search },
       method: 'GET',
     },
     (err, httpResponse, body) => {
@@ -99,17 +68,16 @@ export default class SchoolSelector extends React.Component {
     </div>)
   }
 
-  renderNoLocationFound() {
-    return (<div className="no-location-found">
-      <img alt="map search image" src={mapSearchSrc} />
-      <p className="message">We couldn&#39;t find your location</p>
-      <p className="sub-text"><a href={this.locationServicesLink()} rel="noopener noreferrer" target="_blank">Enable location access</a> or search for your school above.</p>
+  renderDefault() {
+    return (<div className="default-school-search">
+      <img alt="Map with a magnifying glass over it" src={mapSearchSrc} />
+      <p className="message">Search for your school above</p>
     </div>)
   }
 
   renderNoSchoolFound() {
     return (<div className="no-school-found">
-      <img alt="map search image" src={mapSearchSrc} />
+      <img alt="Map with a magnifying glass over it" src={mapSearchSrc} />
       <p className="message">We couldn&#39;t find your school</p>
       <p className="sub-text">Try another search or click skip for now below.</p>
     </div>)
@@ -150,27 +118,22 @@ export default class SchoolSelector extends React.Component {
   }
 
   renderSchoolsListSection = () => {
-    const { schools, search, latitude, longitude, loading } = this.state
+    const { schools, search, loading } = this.state
     let title
     let schoolsListOrEmptyState
     if (loading) {
       schoolsListOrEmptyState = this.renderLoading()
-    } else if (search.length < 4 && !latitude && !longitude) {
-      schoolsListOrEmptyState = this.renderNoLocationFound()
+    } else if (search.length < 5) {
+      schoolsListOrEmptyState = this.renderDefault()
     } else if (schools && schools.length) {
       schoolsListOrEmptyState = this.renderSchoolsList(schools)
     } else {
       schoolsListOrEmptyState = this.renderNoSchoolFound()
     }
-    if (search.length < 4) {
-      title = 'Schools near you'
-    } else {
-      title = 'Results'
-    }
     return (<div className="schools-list-section">
-      <div className="title">{title}</div>
+      <div className="title">Results</div>
       {schoolsListOrEmptyState}
-      <div className="school-not-listed">School not listed? <span onClick={this.handleSkipClick}>Skip for now</span></div>
+      <div className="school-not-listed">School not listed? <button className="interactive-wrapper" onClick={this.handleSkipClick} type="button">Skip for now</button></div>
     </div>)
   }
 
