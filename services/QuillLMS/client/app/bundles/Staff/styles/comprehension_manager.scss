@@ -517,6 +517,7 @@
     .top-section {
       display: flex;
       align-items: center;
+      justify-content: space-between;
       margin: 30px 0px 0px 3px;
       .rule-type-input {
         margin-right: 20px;
@@ -525,6 +526,18 @@
     .sortable-instructions {
       margin: 10px 0px 10px 3px;
       font-style: italic;
+    }
+    .universal-rules-table {
+      .universal-rule-row {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border: 1px solid lightgray;
+        border-radius: 6px;
+        p {
+          margin: 0px
+        }
+      }
     }
   }
   .modal {
