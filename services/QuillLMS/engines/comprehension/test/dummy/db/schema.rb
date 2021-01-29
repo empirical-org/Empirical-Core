@@ -11,8 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-
-ActiveRecord::Schema.define(version: 20210122165204) do
+ActiveRecord::Schema.define(version: 20210122165328) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -57,14 +56,10 @@ ActiveRecord::Schema.define(version: 20210122165204) do
 
   add_index "comprehension_passages", ["activity_id"], name: "index_comprehension_passages_on_activity_id", using: :btree
 
-  create_table "comprehension_plagiarism_texts", force: :cascade do |t|
-    t.integer  "rule_id",    null: false
-    t.string   "text",       null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+  create_table "comprehension_plagiarism_text", force: :cascade do |t|
+    t.integer "prompt_id",       null: false
+    t.string  "plagiarism_text", null: false
   end
-
-  add_index "comprehension_plagiarism_texts", ["rule_id"], name: "index_comprehension_plagiarism_texts_on_rule_id", unique: true, using: :btree
 
   create_table "comprehension_prompts", force: :cascade do |t|
     t.integer  "activity_id"
@@ -100,9 +95,9 @@ ActiveRecord::Schema.define(version: 20210122165204) do
   add_index "comprehension_prompts_rules", ["rule_id"], name: "index_comprehension_prompts_rules_on_rule_id", using: :btree
 
   create_table "comprehension_regex_rules", force: :cascade do |t|
-    t.integer  "rule_set_id",                null: false
-    t.string   "regex_text",     limit: 200, null: false
-    t.boolean  "case_sensitive",             null: false
+    t.integer  "rule_set_id"
+    t.string   "regex_text",     limit: 200
+    t.boolean  "case_sensitive"
     t.datetime "created_at",                 null: false
     t.datetime "updated_at",                 null: false
   end
@@ -123,19 +118,19 @@ ActiveRecord::Schema.define(version: 20210122165204) do
   add_index "comprehension_rule_sets", ["prompt_id"], name: "index_comprehension_rule_sets_on_prompt_id", using: :btree
 
   create_table "comprehension_rules", force: :cascade do |t|
-    t.string   "uid",         null: false
-    t.string   "name",        null: false
+    t.string   "uid"
+    t.string   "name"
     t.string   "description"
-    t.boolean  "universal",   null: false
-    t.string   "rule_type",   null: false
-    t.boolean  "optimal",     null: false
+    t.boolean  "universal"
+    t.string   "rule_type"
+    t.boolean  "optimal"
     t.integer  "suborder"
-    t.string   "concept_uid", null: false
+    t.string   "concept_uid"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
   end
 
-  add_index "comprehension_rules", ["uid"], name: "index_comprehension_rules_on_uid", unique: true, using: :btree
+  add_index "comprehension_rules", ["uid"], name: "index_comprehension_rules_on_uid", using: :btree
 
   create_table "comprehension_turking_round_activity_sessions", force: :cascade do |t|
     t.integer  "turking_round_id"
@@ -159,5 +154,4 @@ ActiveRecord::Schema.define(version: 20210122165204) do
   add_index "comprehension_turking_rounds", ["uuid"], name: "index_comprehension_turking_rounds_on_uuid", unique: true, using: :btree
 
   add_foreign_key "comprehension_highlights", "comprehension_feedbacks", column: "feedback_id", on_delete: :cascade
-  add_foreign_key "comprehension_plagiarism_texts", "comprehension_rules", column: "rule_id", on_delete: :cascade
 end
