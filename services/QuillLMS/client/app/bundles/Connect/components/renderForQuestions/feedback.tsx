@@ -1,21 +1,14 @@
 import * as React from 'react';
+
 import getAnswerState from './answerState';
-import { Feedback } from '../../../Shared/index';
+
+import { Feedback, getLatestAttempt } from '../../../Shared/index';
 
 class FeedbackComponent extends React.Component<any, any> {
-  constructor(props){
-    super(props)
-  }
 
   getFeedbackType(data?): string {
-    const { previewAttempt, previewMode } = this.props;
     if (data) {
-      let latestAttempt
-      if(previewMode && previewAttempt) {
-        latestAttempt = previewAttempt;
-      } else {
-        latestAttempt = getLatestAttempt(data.question.attempts);
-      }
+      const latestAttempt = getLatestAttempt(data.question.attempts);
       if (latestAttempt) {
         if (data.override) {
           return "override"
@@ -29,10 +22,10 @@ class FeedbackComponent extends React.Component<any, any> {
         if(!!data.question.instructions) {
           return "instructions"
         }
-        else if(data.getQuestion && data.getQuestion().instructions!=="") {
+        else if(data.question && data.question.instructions!=="") {
           return "getQuestion-instructions"
         }
-        else if (data.getQuestion && data.getQuestion().cues && data.getQuestion().cues.length > 0 && data.getQuestion().cues[0] !== "") {
+        else if (data.question && data.question.cues && data.question.cues.length > 0 && data.question.cues[0] !== "") {
           return "default-with-cues"
         } else {
           return "default"
@@ -43,33 +36,28 @@ class FeedbackComponent extends React.Component<any, any> {
   }
 
   getFeedbackCopy(data): string {
-    const { previewAttempt, previewMode } = this.props;
-    let latestAttempt
-    if(previewMode && previewAttempt) {
-      latestAttempt = previewAttempt;
-    } else {
-      latestAttempt = getLatestAttempt(data.question.attempts);
-    }
+    const { question, sentence, renderFeedbackStatements } = data;
+    const latestAttempt = getLatestAttempt(question.attempts);
     let returnVal;
     switch (this.getFeedbackType(data)) {
       case "revise-unmatched":
-        returnVal = (<p>{data.sentence}</p>);
+        returnVal = (<p>{sentence}</p>);
         break;
       case "revise-matched":
       case "correct-matched":
-        returnVal = data.renderFeedbackStatements(latestAttempt);
+        returnVal = renderFeedbackStatements(latestAttempt);
         break;
       case "override":
-        returnVal = (<p>{data.sentence}</p>);
+        returnVal = (<p>{sentence}</p>);
         break;
       case "instructions":
-        returnVal = (<p>{data.question.instructions}</p>);
+        returnVal = (<p>{question.instructions}</p>);
         break;
       case "getQuestion-instructions":
-        returnVal = (<p>{data.getQuestion().instructions}</p>);
+        returnVal = (<p>{question.instructions}</p>);
         break;
       case "default-with-cues":
-        const cues = data.getQuestion().cues
+        const cues = question.cues
         if (cues.length === 1) {
           returnVal = (<p>Combine the sentences into one sentence. Use the joining word.</p>)
         } else {
@@ -103,8 +91,3 @@ class FeedbackComponent extends React.Component<any, any> {
 }
 
 export default FeedbackComponent;
-
-const getLatestAttempt = function (attempts: Array<any> = []): any {
-  const lastIndex = attempts.length - 1;
-  return attempts[lastIndex]
-}

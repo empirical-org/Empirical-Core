@@ -20,7 +20,7 @@
             <div class='team-member'>
               <img class="square-small-img" src=<%= "#{base_image_url}#{person[:img]}" %> alt=<%= "#{person[:name]}"%> />
               <h4> <%= person[:name] %> </h4>
-              <h5> <%= person[:title] %> </h5>
+              <h5 class="square-small-img-width"> <%= person[:title] %> </h5>
             </div>
           <% end %>
         </div>
@@ -41,7 +41,7 @@
               <img class="square-extra-small-img" src=<%= "#{base_image_url}#{person[:img]}" %> alt=<%= "#{person[:name]}"%> />
               <div>
                 <h4> <%= person[:name] %> </h4>
-                <h5> <%= person[:title] %> </h5>
+                <h5 class="square-small-img-width"> <%= person[:title] %> </h5>
               </div>
             </div>
           <% end %>

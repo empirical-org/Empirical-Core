@@ -1,14 +1,16 @@
+import _ from 'lodash';
+import { checkGrammarQuestion, Response } from 'quill-marking-logic'
+
 import { ActionTypes } from './actionTypes'
+import * as responseActions from './responses'
+
 import { QuestionApi, GRAMMAR_QUESTION_TYPE } from '../libs/questions_api'
 import { SessionApi } from '../libs/sessions_api'
-import * as responseActions from './responses'
 import { Question } from '../interfaces/questions'
 import { SessionState } from '../reducers/sessionReducer'
-import { checkGrammarQuestion, Response } from 'quill-marking-logic'
 import { shuffle } from '../helpers/shuffle';
 import { permittedFlag } from '../helpers/flagArray'
 import { hashToCollection } from '../../Shared/index'
-import _ from 'lodash';
 
 export const allQuestions = {};
 let questionsInitialized = false;
@@ -53,7 +55,7 @@ export const denormalizeSession = (session: object): object => {
     typeof session.unansweredQuestions[0] == "object"
   )
   // Normalized answered questions have only two keys: "question" and "attempts".
-  // The presence of the standard "uid" key means that the session is denormalized 
+  // The presence of the standard "uid" key means that the session is denormalized
   const answeredCheck = (
     session.answeredQuestions.length &&
     session.answeredQuestions[0].uid
@@ -302,5 +304,11 @@ export const startNewSession = () => {
   return (dispatch) => {
     dispatch({ type: ActionTypes.START_NEW_SESSION, })
     dispatch({ type: ActionTypes.START_NEW_ACTIVITY, })
+  }
+}
+
+export const setCurrentQuestion = (question: Question) => {
+  return dispatch => {
+    dispatch({ type: ActionTypes.SET_CURRENT_QUESTION, question })
   }
 }

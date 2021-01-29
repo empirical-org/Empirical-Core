@@ -49,8 +49,6 @@ interface PlayGrammarContainerProps {
   questions: Question[];
   handleToggleQuestion: (question: Question) => void;
   skippedToQuestionFromIntro: boolean;
-  switchedBackToPreview: boolean;
-  randomizedQuestions: any[];
 }
 
 export class PlayGrammarContainer extends React.Component<PlayGrammarContainerProps, PlayGrammarContainerState> {
@@ -248,7 +246,7 @@ export class PlayGrammarContainer extends React.Component<PlayGrammarContainerPr
     render(): JSX.Element {
       const proofreaderSessionId = getParameterByName('proofreaderSessionId', window.location.href)
       const { showTurkCode, saving, } = this.state
-      const { grammarActivities, session, concepts, conceptsFeedback, previewMode, questionToPreview, questions, handleToggleQuestion, switchedBackToPreview, randomizedQuestions, skippedToQuestionFromIntro } = this.props
+      const { dispatch, grammarActivities, session, concepts, conceptsFeedback, previewMode, questions, handleToggleQuestion } = this.props
       if (showTurkCode) {
         return <TurkCodePage />
       }
@@ -262,14 +260,13 @@ export class PlayGrammarContainer extends React.Component<PlayGrammarContainerPr
             checkAnswer={this.checkAnswer}
             concepts={concepts}
             conceptsFeedback={conceptsFeedback}
-            currentQuestion={questionToPreview || session.currentQuestion}
+            currentQuestion={session.currentQuestion}
+            dispatch={dispatch}
             goToNextQuestion={this.goToNextQuestion}
             handleToggleQuestion={handleToggleQuestion}
             previewMode={previewMode}
             questions={questions}
-            questionToPreview={questionToPreview}
-            randomizedQuestions={randomizedQuestions}
-            switchedBackToPreview={switchedBackToPreview}
+            questionSet={session.questionSet}
             unansweredQuestions={session.unansweredQuestions}
           />)
         }
