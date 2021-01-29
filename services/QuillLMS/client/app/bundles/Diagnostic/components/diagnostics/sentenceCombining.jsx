@@ -3,14 +3,12 @@ import _ from 'underscore';
 import ReactTransition from 'react-addons-css-transition-group';
 
 import { submitResponse } from '../../actions/diagnostics.js';
-import { getLatestAttempt } from '../../libs/sharedQuestionFunctions';
-import { renderPreviewFeedback, getDisplayedText } from '../../libs/previewHelperFunctions';
 import {
   getGradedResponsesWithCallback
 } from '../../actions/responses.js';
 import RenderQuestionFeedback from '../renderForQuestions/feedbackStatements.jsx';
 import RenderQuestionCues from '../renderForQuestions/cues.tsx';
-import { Feedback, SentenceFragments } from '../../../Shared/index';
+import { Feedback, SentenceFragments, getLatestAttempt, renderPreviewFeedback, getDisplayedText } from '../../../Shared/index';
 import getResponse from '../renderForQuestions/checkAnswer';
 import { submitQuestionResponse } from '../renderForQuestions/submitResponse.js';
 import updateResponseResource from '../renderForQuestions/updateResponseResource.js';

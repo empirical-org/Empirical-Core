@@ -1,43 +1,54 @@
 import * as React from 'react';
 import stripHtml from "string-strip-html";
 
-import { getLatestAttempt } from './sharedQuestionFunctions';
-
-import { Question } from '../interfaces/question';
-import { Feedback } from '../../Shared/index';
+import { QuestionObject } from '../interfaces/question';
+import { Feedback, getLatestAttempt } from '../../Shared/index';
 
 export const getCurrentQuestion = ({ action, answeredQuestions, questionSet, unansweredQuestions }) => {
-  const { data } = action;
-  const { key } = data;
+  const { data, question } = action;
+  const dataObject = data || question;
+  const key = dataObject.key ? dataObject.key : dataObject.uid;
   let currentQuestion;
 
   // check answeredQuestions
-  currentQuestion = answeredQuestions.filter((question: { data: Question }) => {
+  // Connect has type question: { question: {...}} and Diagnostic has type question: { data: {...}}
+  currentQuestion = answeredQuestions.filter((questionObject: QuestionObject) => {
+    const { data, question } = questionObject;
+    const dataObject = data || question || questionObject;
     // some ELL SC questions get an -esp appended to the key
-    return key === question.data.key || key === `${question.data.key}-esp`;
+    return key === dataObject.key || key === `${dataObject.key}-esp` || key === dataObject.uid;
   })[0];
 
   // check unansweredQuestions
   if(!currentQuestion) {
-    currentQuestion = unansweredQuestions.filter((question: { data: Question }) => {
-      return key === question.data.key || key === `${question.data.key}-esp`;
+    currentQuestion = unansweredQuestions.filter((questionObject: QuestionObject) => {
+      const { data, question } = questionObject;
+      const dataObject = data || question || questionObject;
+      return key === dataObject.key || key === `${dataObject.key}-esp` || key === dataObject.uid;;
     })[0];
   }
   // check questionSet, is title card
   if(!currentQuestion) {
-    currentQuestion = questionSet.filter((question: { data: Question }) => key === question.data.key)[0];
+    currentQuestion = questionSet.filter((questionObject: QuestionObject) => {
+      const { data, question } = questionObject;
+      const dataObject = data || question || questionObject;
+      return key === dataObject.key || key === dataObject.uid;
+    })[0];
   }
   return currentQuestion;
 }
 
-export const getQuestionsWithAttempts = (questions: { data: Question }[]) => {
+// Connect has type question: { question: {...}} and Diagnostic has type question: { data: {...}}
+export const getQuestionsWithAttempts = (questions: QuestionObject[]) => {
   const questionsWithAttempts = {}
 
-  questions.forEach(question => {
-    const { data } = question;
-    const { attempts, key } = data;
-    if(attempts.length) {
-      questionsWithAttempts[key] = question;
+  questions.forEach(questionObject => {
+    const { data, question } = questionObject;
+    const dataObject = data || question || questionObject;
+    const { attempts, key, uid } = dataObject;
+    const keyOrUid = key ? key : uid;
+    if(attempts && attempts.length) {
+      questionsWithAttempts[keyOrUid] = questionObject;
     }
   });
 
@@ -48,9 +59,10 @@ export const getFilteredQuestions = ({ questionsSlice, answeredQuestionsWithAtte
   if(!questionsSlice.length) {
     return [];
   }
-  return questionsSlice.map((question: { data: Question }) => {
-    const { data } = question;
-    const { key } = data;
+  return questionsSlice.map((questionObject: QuestionObject) => {
+    const { data, question } = questionObject;
+    const dataObject = data || question || questionObject;
+    const key = dataObject.key ? dataObject.key : dataObject.uid;
     // some ELL SC questions get an -esp appended to the key
     const slicedKey = key.slice(0, -4);
     const answeredQuestionWithAttempts = answeredQuestionsWithAttempts[key] || answeredQuestionsWithAttempts[slicedKey];
@@ -61,7 +73,7 @@ export const getFilteredQuestions = ({ questionsSlice, answeredQuestionsWithAtte
     } else if(unansweredQuestionWithAttempts) {
       return unansweredQuestionWithAttempts;
     } else {
-      return question;
+      return questionObject;
     }
   });
 }

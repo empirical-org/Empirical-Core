@@ -15,7 +15,7 @@ import {
   ProgressBar,
   Register
 } from '../../../Shared/index';
-import { clearData, loadData, nextQuestion, submitResponse, updateCurrentQuestion, resumePreviousSession } from '../../actions.js';
+import { clearData, loadData, nextQuestion, submitResponse, updateCurrentQuestion, resumePreviousSession, setCurrentQuestion } from '../../actions.js';
 import { getConceptResultsForAllQuestions, calculateScoreForLesson } from '../../libs/conceptResults/lesson';
 import { getParameterByName } from '../../libs/getParameterByName';
 import { permittedFlag } from '../../libs/flagArray'
@@ -39,7 +39,8 @@ export class Lesson extends React.Component {
       hasOrIsGettingResponses: false,
       sessionInitialized: false,
       introSkipped: false,
-      isLastQuestion: isLastQuestion
+      isLastQuestion: isLastQuestion,
+      lessonLoaded: false
     }
   }
 
@@ -53,8 +54,8 @@ export class Lesson extends React.Component {
   UNSAFE_componentWillReceiveProps(nextProps) {
     const { playLesson, } = this.props
     const answeredQuestionsHasChanged = nextProps.playLesson.answeredQuestions.length !== playLesson.answeredQuestions.length
-    const nextPropsAttemptsLength = nextProps.playLesson.currentQuestion && nextProps.playLesson.currentQuestion.question ? nextProps.playLesson.currentQuestion.question.attempts.length : 0
-    const thisPropsAttemptsLength = playLesson.currentQuestion && playLesson.currentQuestion.question ? playLesson.currentQuestion.question.attempts.length : 0
+    const nextPropsAttemptsLength = nextProps.playLesson.currentQuestion && nextProps.playLesson.currentQuestion.question && nextProps.playLesson.currentQuestion.question.attempts ? nextProps.playLesson.currentQuestion.question.attempts.length : 0
+    const thisPropsAttemptsLength = playLesson.currentQuestion && playLesson.currentQuestion.question &&  playLesson.currentQuestion.question.attempts ? playLesson.currentQuestion.question.attempts.length : 0
     const attemptsHasChanged = nextPropsAttemptsLength !== thisPropsAttemptsLength
     if (answeredQuestionsHasChanged || attemptsHasChanged) {
       this.saveSessionData(nextProps.playLesson);
@@ -62,8 +63,8 @@ export class Lesson extends React.Component {
   }
 
   componentDidUpdate(prevProps) {
-    const { sessionInitialized, introSkipped, isLastQuestion } = this.state
-    const { questions, fillInBlank, sentenceFragments, titleCards, previewMode, questionToPreview, playLesson, skippedToQuestionFromIntro, match, lessons } = this.props
+    const { sessionInitialized, isLastQuestion, lessonLoaded } = this.state
+    const { dispatch, questions, fillInBlank, sentenceFragments, titleCards, previewMode, questionToPreview, playLesson, skippedToQuestionFromIntro, match, lessons } = this.props
     const { data, hasreceiveddata } = lessons
     const { params } = match
     const { lessonID, } = params;
@@ -89,7 +90,12 @@ export class Lesson extends React.Component {
       if (!sessionInitialized) {
         this.saveSessionIdToState();
       }
-      if(previewMode && !introSkipped && skippedToQuestionFromIntro) {
+      if(lessons.hasreceiveddata && data && !lessonLoaded) {
+        const action = loadData(this.questionsForLesson());
+        dispatch(action);
+        this.setState({ lessonLoaded: true });
+      }
+      if(prevProps.skippedToQuestionFromIntro !== skippedToQuestionFromIntro && previewMode && questionToPreview) {
         this.setState({ introSkipped: true });
         this.startActivity();
       }
@@ -108,13 +114,10 @@ export class Lesson extends React.Component {
     this.setState(prevState => ({ isLastQuestion: !prevState.isLastQuestion }));
   }
 
-  getNextPreviewQuestion = (question) => {
+  getNextPreviewQuestion = () => {
     const { playLesson } = this.props;
-    const { questionSet } = playLesson;
-    const filteredQuestionsSet = questionSet.map(questionObject => questionObject.question);
-    const questionKeys = filteredQuestionsSet.map(question => question.key);
-    const nextQuestionIndex = questionKeys.indexOf(question.key) + 1;
-    return filteredQuestionsSet[nextQuestionIndex];
+    const { unansweredQuestions } = playLesson;
+    return unansweredQuestions[0];
   }
 
   getLesson = () => {
@@ -126,11 +129,8 @@ export class Lesson extends React.Component {
   }
 
   getQuestion = () => {
-    const { playLesson, questionToPreview, previewMode } = this.props;
+    const { playLesson } = this.props;
     const { question } = playLesson.currentQuestion;
-    if(previewMode && questionToPreview) {
-      return questionToPreview;
-    }
     return question;
   }
 
@@ -197,10 +197,12 @@ export class Lesson extends React.Component {
   nextQuestion = () => {
     const { dispatch, previewMode, onHandleToggleQuestion } = this.props;
     if(previewMode) {
-      const question = this.getQuestion();
-      const nextPreviewQuestion = this.getNextPreviewQuestion(question);
-      if(nextPreviewQuestion) {
-        onHandleToggleQuestion(nextPreviewQuestion)
+      const questionObject = this.getNextPreviewQuestion();
+      if(questionObject && questionObject.question) {
+        const { question } = questionObject
+        onHandleToggleQuestion(question)
+        const action = setCurrentQuestion(question);
+        dispatch(action);
       } else {
         this.toggleIsLastQuestion();
       }
@@ -292,11 +294,17 @@ export class Lesson extends React.Component {
   }
 
   startActivity = () => {
-    const { dispatch, } = this.props
+    const { dispatch, skippedToQuestionFromIntro, questionToPreview, previewMode } = this.props
     const action = loadData(this.questionsForLesson());
     dispatch(action);
-    const next = nextQuestion();
-    dispatch(next);
+    // when user skips to question from the landing page, we set the current question here in this one instance
+    if(previewMode && skippedToQuestionFromIntro && questionToPreview) {
+      const action = setCurrentQuestion(questionToPreview);
+      dispatch(action);
+    } else {
+      const next = nextQuestion();
+      dispatch(next);
+    }
   }
 
   submitResponse = (response) => {
@@ -343,7 +351,7 @@ export class Lesson extends React.Component {
     const { lessonID, } = params;
     let component;
 
-    if (!(sessionInitialized && hasreceiveddata && data && data[lessonID])) {
+    if (!(sessionInitialized && hasreceiveddata && data && data[lessonID] && playLesson && playLesson.questionSet)) {
       return (<div className="student-container student-container-diagnostic"><Spinner /></div>);
     }
 
