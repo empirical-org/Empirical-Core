@@ -186,5 +186,29 @@ module Comprehension
         assert_nil Passage.find_by_id(@passage.id)
       end
     end
+
+    context 'rules' do
+      setup do
+        @activity = create(:comprehension_activity)
+        @prompt = create(:comprehension_prompt, activity: @activity)
+        @rule = create(:comprehension_rule, prompts: [@prompt])
+        @passage = create(:comprehension_passage, activity: @activity)
+      end
+
+      should "return rules" do
+        get :rules, id: @activity.id
+
+        parsed_response = JSON.parse(response.body)
+
+        assert_equal 200, response.code.to_i
+        assert_equal parsed_response[0]['id'], @rule.id
+      end
+
+      should "404 if activity is invalid" do
+        assert_raises ActiveRecord::RecordNotFound do
+          get :rules, id: 99999
+        end
+      end
+    end
   end
 end

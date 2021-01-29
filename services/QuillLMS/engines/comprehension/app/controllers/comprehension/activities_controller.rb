@@ -3,7 +3,7 @@ require_dependency 'comprehension/application_controller'
 module Comprehension
   class ActivitiesController < ApplicationController
     skip_before_action :verify_authenticity_token
-    before_action :set_activity, only: [:show, :update, :destroy]
+    before_action :set_activity, only: [:show, :update, :destroy, :rules]
 
     # GET /activities.json
     def index
@@ -41,6 +41,11 @@ module Comprehension
     def destroy
       @activity.destroy
       head :no_content
+    end
+
+    # GET /activities/1/rules.json
+    def rules
+      render json: @activity.prompts&.map {|p| p.rules}&.flatten
     end
 
     private def set_activity
