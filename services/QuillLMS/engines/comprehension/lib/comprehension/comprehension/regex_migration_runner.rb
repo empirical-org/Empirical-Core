@@ -10,7 +10,7 @@ module Comprehension
           rule_type: Rule::TYPE_REGEX,
           concept_uid: 'whtever'
         )
-        rule.prompts << rule_set.prompts
+        rule.prompts << rule_set.prompts if rule.prompts != rule_set.prompts
         Feedback.find_or_create_by!(rule: rule, text: rule_set.feedback, order: rule_set.priority)
         rule_set.regex_rules.each do |regex_rule|
           regex_rule.update!(rule_id: rule.id)
