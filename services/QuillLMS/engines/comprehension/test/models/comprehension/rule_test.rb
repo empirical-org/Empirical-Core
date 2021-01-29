@@ -22,6 +22,7 @@ module Comprehension
       should have_many(:feedbacks)
       should have_many(:prompts_rules)
       should have_many(:prompts).through(:prompts_rules)
+      should have_many(:regex_rules).dependent(:destroy)
     end
 
     context 'before_validation' do

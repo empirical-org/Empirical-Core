@@ -5,6 +5,7 @@ module Comprehension
     CASE_SENSITIVE_ALLOWED_VALUES = [true, false]
 
     belongs_to :rule_set, inverse_of: :regex_rules
+    belongs_to :rule, inverse_of: :regex_rules
 
     before_validation :set_default_case_sensitivity, on: :create
 
