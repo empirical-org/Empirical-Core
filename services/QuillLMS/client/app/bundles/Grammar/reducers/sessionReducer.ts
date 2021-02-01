@@ -39,7 +39,7 @@ export default (
             }
             changes.currentQuestion = changes.unansweredQuestions.splice(0, 1)[0]
             // we add the currentQuestion to questionSet only on first load
-            if(!currentState.questionSet.some(question => question.uid === changes.currentQuestion.uid)) {
+            if(!currentState.questionSet.some(question => question && question.uid === changes.currentQuestion.uid)) {
               changes.questionSet = [changes.currentQuestion, ...currentState.questionSet]
             }
             if (changes.currentQuestion) {
