@@ -76,5 +76,11 @@ export {
   hashToCollection,
   isValidRegex,
   momentFormatConstants,
-  copyToClipboard
+  copyToClipboard,
+  getLatestAttempt,
+  getCurrentQuestion,
+  getQuestionsWithAttempts,
+  getFilteredQuestions,
+  getDisplayedText,
+  renderPreviewFeedback
 } from './libs/index'
