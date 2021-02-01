@@ -8,7 +8,6 @@ import classroomSessions from './classroomSessions';
 import concepts from './concepts.ts';
 import conceptsFeedback from './conceptsFeedback.ts';
 import customize, * as FromCustomize from './customize'
-import diagnosticQuestions from './diagnosticQuestions';
 import display from './display';
 import fillInBlank from './fillInBlank.ts';
 import filters from './filtersReducer';
@@ -23,9 +22,6 @@ import responses from './responsesReducer';
 import sentenceFragments from './sentenceFragments.ts';
 import sessions from './sessions';
 import titleCards from './titleCards.ts';
-import connectSentenceCombining from './connectSentenceCombining';
-import connectSentenceFragments from './connectSentenceFragments';
-import connectFillInBlank from './connectFillInBlank';
 
 const combinedReducers = combineReducers({
   classroomLesson,
@@ -35,7 +31,6 @@ const combinedReducers = combineReducers({
   concepts,
   conceptsFeedback,
   customize,
-  diagnosticQuestions,
   display,
   fillInBlank,
   filters,
@@ -51,9 +46,6 @@ const combinedReducers = combineReducers({
   sentenceFragments,
   sessions,
   titleCards,
-  connectSentenceCombining,
-  connectSentenceFragments,
-  connectFillInBlank
 });
 
 export default combinedReducers;

@@ -12,7 +12,6 @@ import ResponseList from './responseList.jsx';
 import QuestionMatcher from '../../libs/question';
 import questionActions from '../../actions/questions';
 import sentenceFragmentActions from '../../actions/sentenceFragments.ts';
-import diagnosticQuestionActions from '../../actions/diagnosticQuestions';
 import { getPartsOfSpeechTags } from '../../libs/partsOfSpeechTagging.js';
 import POSForResponsesList from './POSForResponsesList.jsx';
 import respWithStatus from '../../libs/responseTools.js';
@@ -45,10 +44,7 @@ class ResponseComponent extends React.Component {
     if (this.props.mode === 'sentenceFragments') {
       actions = sentenceFragmentActions;
       matcher = POSMatcher;
-    } else if (this.props.mode === 'diagnosticQuestions') {
-      actions = diagnosticQuestionActions;
-      matcher = DiagnosticQuestionMatcher;
-    } else {
+    }else {
       actions = questionActions;
       matcher = QuestionMatcher;
     }
