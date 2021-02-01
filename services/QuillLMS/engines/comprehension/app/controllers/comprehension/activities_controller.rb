@@ -3,7 +3,7 @@ require_dependency 'comprehension/application_controller'
 module Comprehension
   class ActivitiesController < ApplicationController
     skip_before_action :verify_authenticity_token
-    before_action :set_activity, only: [:show, :update, :destroy]
+    before_action :set_activity, only: [:show, :update, :destroy, :rules]
 
     # GET /activities.json
     def index
@@ -43,6 +43,11 @@ module Comprehension
       head :no_content
     end
 
+    # GET /activities/1/rules.json
+    def rules
+      render json: @activity.prompts&.map {|p| p.rules}&.flatten
+    end
+
     private def set_activity
       @activity = Comprehension::Activity.find(params[:id])
     end
@@ -54,7 +59,7 @@ module Comprehension
         :target_level,
         :scored_level,
         passages_attributes: [:id, :text],
-        prompts_attributes: [:id, :conjunction, :text, :max_attempts, :max_attempts_feedback, :plagiarism_text, :plagiarism_first_feedback, :plagiarism_second_feedback]
+        prompts_attributes: [:id, :conjunction, :text, :max_attempts, :max_attempts_feedback]
       )
     end
   end
