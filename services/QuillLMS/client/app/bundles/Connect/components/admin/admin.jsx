@@ -1,7 +1,6 @@
 import React from 'react';
 import { Redirect, Route, Switch, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
-import * as userActions from '../../actions/users';
 import conceptActions from '../../actions/concepts';
 import conceptsFeedbackActions from '../../actions/concepts-feedback';
 import questionActions from '../../actions/questions';
@@ -36,7 +35,6 @@ class adminContainer extends React.Component {
   componentDidMount() {
     const { dispatch } = this.props;
     this.handleAuthCheck();
-    dispatch(userActions.firebaseAuth());
     dispatch(conceptActions.startListeningToConcepts());
     dispatch(conceptsFeedbackActions.startListeningToConceptsFeedback());
     dispatch(questionActions.startListeningToQuestions());
