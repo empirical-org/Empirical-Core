@@ -7,7 +7,6 @@ import conceptsFeedbackActions from '../../actions/concepts-feedback';
 import questionActions from '../../actions/questions';
 import fillInBlankActions from '../../actions/fillInBlank';
 import sentenceFragmentActions from '../../actions/sentenceFragments';
-import diagnosticLessonActions from '../../actions/diagnosticLessons'
 import titleCardActions from '../../actions/titleCards.ts';
 import AdminMainSidebar from '../../components/admin/adminMainSidebar.jsx'
 import AdminLesson from './adminLesson.jsx'
@@ -44,7 +43,6 @@ class adminContainer extends React.Component {
     dispatch(fillInBlankActions.startListeningToQuestions());
     dispatch(sentenceFragmentActions.startListeningToSentenceFragments());
     dispatch(titleCardActions.startListeningToTitleCards())
-    dispatch(diagnosticLessonActions.loadDiagnosticLessons())
   }
 
   handleAuthCheck = () => {

@@ -22,7 +22,6 @@ import responses from './responsesReducer';
 import sentenceFragments from './sentenceFragments';
 import sessions from './sessions';
 import titleCards from './titleCards';
-import diagnosticLessons from './diagnosticLessons';
 import playTurk from './turk';
 
 const combinedReducers = combineReducers({
@@ -48,7 +47,6 @@ const combinedReducers = combineReducers({
   sentenceFragments,
   sessions,
   titleCards,
-  diagnosticLessons,
   playTurk
 });
 
