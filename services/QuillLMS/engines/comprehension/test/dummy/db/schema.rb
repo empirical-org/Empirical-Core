@@ -11,8 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-
-ActiveRecord::Schema.define(version: 20210122165204) do
+ActiveRecord::Schema.define(version: 20210128155938) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -105,8 +104,10 @@ ActiveRecord::Schema.define(version: 20210122165204) do
     t.boolean  "case_sensitive",             null: false
     t.datetime "created_at",                 null: false
     t.datetime "updated_at",                 null: false
+    t.integer  "rule_id"
   end
 
+  add_index "comprehension_regex_rules", ["rule_id"], name: "index_comprehension_regex_rules_on_rule_id", using: :btree
   add_index "comprehension_regex_rules", ["rule_set_id"], name: "index_comprehension_regex_rules_on_rule_set_id", using: :btree
 
   create_table "comprehension_rule_sets", force: :cascade do |t|
@@ -123,16 +124,17 @@ ActiveRecord::Schema.define(version: 20210122165204) do
   add_index "comprehension_rule_sets", ["prompt_id"], name: "index_comprehension_rule_sets_on_prompt_id", using: :btree
 
   create_table "comprehension_rules", force: :cascade do |t|
-    t.string   "uid",         null: false
-    t.string   "name",        null: false
+    t.string   "uid",           null: false
+    t.string   "name",          null: false
     t.string   "description"
-    t.boolean  "universal",   null: false
-    t.string   "rule_type",   null: false
-    t.boolean  "optimal",     null: false
+    t.boolean  "universal",     null: false
+    t.string   "rule_type",     null: false
+    t.boolean  "optimal",       null: false
     t.integer  "suborder"
-    t.string   "concept_uid", null: false
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+    t.string   "concept_uid",   null: false
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
+    t.string   "sequence_type"
   end
 
   add_index "comprehension_rules", ["uid"], name: "index_comprehension_rules_on_uid", unique: true, using: :btree
@@ -160,4 +162,5 @@ ActiveRecord::Schema.define(version: 20210122165204) do
 
   add_foreign_key "comprehension_highlights", "comprehension_feedbacks", column: "feedback_id", on_delete: :cascade
   add_foreign_key "comprehension_plagiarism_texts", "comprehension_rules", column: "rule_id", on_delete: :cascade
+  add_foreign_key "comprehension_regex_rules", "comprehension_rules", column: "rule_id", on_delete: :cascade
 end

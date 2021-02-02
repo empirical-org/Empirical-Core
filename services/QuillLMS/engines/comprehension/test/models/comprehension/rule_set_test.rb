@@ -7,7 +7,7 @@ module Comprehension
       should belong_to(:activity)
       should have_many(:prompts_rule_sets)
       should have_many(:prompts).through(:prompts_rule_sets)
-      should have_many(:regex_rules).dependent(:destroy)
+      should have_many(:regex_rules)
     end
 
     context 'validations' do
