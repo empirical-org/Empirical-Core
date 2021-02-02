@@ -42,7 +42,7 @@ class Lessons extends React.Component {
     const { data, flag } = this.props.lessons;
     let keys = _.keys(data);
     if (flag !== 'All Flags') {
-      keys = _.filter(keys, key => data[key].flag === flag);
+      keys = keys.filter(key => data[key] && data[key].flag === flag);
     }
     if (this.state.showOnlyArchived) {
       keys = keys.filter((key) => {
