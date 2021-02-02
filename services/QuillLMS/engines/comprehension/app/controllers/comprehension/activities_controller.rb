@@ -45,7 +45,7 @@ module Comprehension
 
     # GET /activities/1/rules.json
     def rules
-      render json: @activity.prompts&.map {|p| p.rules}&.flatten
+      render json: @activity.prompts&.map {|p| p.rules}&.flatten&.uniq
     end
 
     private def set_activity
