@@ -1,14 +1,17 @@
 declare function require(name:string);
+
 import * as React from 'react';
 import { connect } from 'react-redux';
 import * as  _ from 'underscore';
-const qml = require('quill-marking-logic')
-const checkFillInTheBlankQuestion = qml.checkFillInTheBlankQuestion
+import { stringNormalize } from 'quill-string-normalizer'
+
 import { getGradedResponsesWithCallback } from '../../actions/responses.js';
 import { Feedback, Prompt, } from '../../../Shared/index';
 import Cues from '../renderForQuestions/cues.jsx';
 import { hashToCollection, } from '../../../Shared/index'
-import { stringNormalize } from 'quill-string-normalizer'
+
+const qml = require('quill-marking-logic')
+const checkFillInTheBlankQuestion = qml.checkFillInTheBlankQuestion
 
 const styles = {
   container: {
@@ -271,7 +274,7 @@ export class PlayFillInTheBlankQuestion extends React.Component<any, any> {
               <Cues
                 customText={this.customText()}
                 displayArrowAndText={true}
-                getQuestion={this.getQuestion}
+                question={question}
               />
               {this.renderFeedback()}
             </div>
