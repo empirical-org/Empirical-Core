@@ -35,21 +35,6 @@ class SentenceFragment extends React.Component {
     }
   }
 
-  componentDidMount() {
-    const { match } = this.props
-    const { params } = match
-    const { questionID } = params
-    listenToResponsesWithCallback(
-      questionID,
-      (data) => {
-        this.setState({
-          responses: data,
-          loadedResponses: true,
-        });
-      }
-    );
-  }
-
   getQuestion = () => {
     const { sentenceFragments, match } = this.props
     const { params } = match
