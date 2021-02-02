@@ -15,7 +15,7 @@ module Comprehension
       session_id = params[:session_id]
       previous_feedback = params[:previous_feedback]
 
-      passage = prompt.plagiarism_text || ''
+      passage = prompt.rules&.find_by(rule_type: Comprehension::Rule::TYPE_PLAGIARISM)&.plagiarism_text&.text || ''
 
       feedback = get_feedback_from_previous_feedback(previous_feedback, prompt)
 
@@ -33,7 +33,8 @@ module Comprehension
 
     private def get_feedback_from_previous_feedback(prev, prompt)
       previous_plagiarism = prev.select {|f| f["feedback_type"] == PLAGIARISM_TYPE && f["optimal"] == false }
-      previous_plagiarism.empty? ? prompt.plagiarism_first_feedback : prompt.plagiarism_second_feedback
+      feedbacks = prompt.rules&.find_by(rule_type: Comprehension::Rule::TYPE_PLAGIARISM)&.feedbacks
+      previous_plagiarism.empty? ? feedbacks&.find_by(order: 0)&.text : feedbacks&.find_by(order: 1)&.text
     end
   end
 end
