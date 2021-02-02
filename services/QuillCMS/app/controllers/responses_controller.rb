@@ -1,6 +1,7 @@
 require 'modules/response_search'
 require 'modules/response_aggregator'
 require 'modules/incorrect_sequence_calculator'
+
 class ResponsesController < ApplicationController
   include ResponseSearch
   include ResponseAggregator
@@ -14,13 +15,6 @@ class ResponsesController < ApplicationController
   MAX_MATCHES = 10_000
 
   before_action :set_response, only: [:show, :update, :destroy]
-
-  # GET /responses
-  def index
-    @responses = Response.all
-
-    render json: @responses
-  end
 
   # GET /responses/1
   def show
