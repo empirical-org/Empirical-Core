@@ -25,7 +25,7 @@ import { Modal, UploadOptimalResponses, } from '../../../Shared/index'
 
 const icon = `${process.env.CDN_URL}/images/icons/direction.svg`
 
-class Question extends React.Component {
+export class Question extends React.Component {
   constructor(props) {
     super(props)
 
