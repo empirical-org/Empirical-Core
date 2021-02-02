@@ -13,5 +13,6 @@ Comprehension::Engine.routes.draw do
 
   namespace :feedback do
     post :plagiarism
+    post :regex
   end
 end

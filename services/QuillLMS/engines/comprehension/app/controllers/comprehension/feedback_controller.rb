@@ -3,32 +3,40 @@ module Comprehension
 
   class FeedbackController < ApplicationController
     skip_before_action :verify_authenticity_token
+    before_action :get_params, only: [:plagiarism, :regex]
     PLAGIARISM_TYPE = 'plagiarism'
+    REGEX_TYPE = 'regex'
 
     def plagiarism
-      entry = params[:entry]
-      begin
-        prompt = Comprehension::Prompt.find(params[:prompt_id])
-      rescue ActiveRecord::RecordNotFound
-        return render :body => nil, :status => 404
-      end
-      session_id = params[:session_id]
-      previous_feedback = params[:previous_feedback]
+      passage = @prompt.plagiarism_text || ''
 
-      passage = prompt.plagiarism_text || ''
+      feedback = get_feedback_from_previous_feedback(@previous_feedback, @prompt)
 
-      feedback = get_feedback_from_previous_feedback(previous_feedback, prompt)
-
-      plagiarism_check = Comprehension::PlagiarismCheck.new(entry, passage, feedback)
+      plagiarism_check = Comprehension::PlagiarismCheck.new(@entry, passage, feedback)
 
       render json: {
         feedback: plagiarism_check.feedback,
         feedback_type: PLAGIARISM_TYPE,
         optimal: plagiarism_check.optimal?,
         response_id: '',
-        entry: entry,
+        entry: @entry,
         highlight: plagiarism_check.highlights
       }
+    end
+
+    def regex
+
+    end
+
+    private def get_params
+      @entry = params[:entry]
+      begin
+        @prompt = Comprehension::Prompt.find(params[:prompt_id])
+      rescue ActiveRecord::RecordNotFound
+        return render :body => nil, :status => 404
+      end
+      @session_id = params[:session_id]
+      @previous_feedback = params[:previous_feedback]
     end
 
     private def get_feedback_from_previous_feedback(prev, prompt)
