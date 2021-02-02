@@ -1,5 +1,6 @@
 module Comprehension
   class RulesController < ApplicationController
+    skip_before_action :verify_authenticity_token
     before_action :set_rule, only: [:show, :update, :destroy]
 
     # GET /rules.json
@@ -47,6 +48,7 @@ module Comprehension
 
     private def rule_params
       params.require(:rule).permit(:name, :description, :universal, :rule_type, :optimal, :suborder, :concept_uid,
+         prompt_ids: [],
          plagiarism_text_attributes: [:id, :text],
          feedbacks_attributes: [:id, :text, :description, :order, highlights_attributes: [:id, :text, :highlight_type, :starting_index]]
       )

@@ -8,9 +8,9 @@ module Comprehension
       TYPE_OPINION = 'Opinion',
       TYPE_PLAGIARISM = 'Plagiarism',
       TYPE_REGEX = 'Regex',
-      TYPE_SPELLING = 'Spelling'    
+      TYPE_SPELLING = 'Spelling'
     ]
-    before_validation :assign_uid_if_missing     
+    before_validation :assign_uid_if_missing
 
     has_many :feedbacks, inverse_of: :rule, dependent: :destroy
     has_one :plagiarism_text, inverse_of: :rule, dependent: :destroy
@@ -23,7 +23,7 @@ module Comprehension
     validates :uid, presence: true, uniqueness: true
     validates :name, presence: true, length: {maximum: MAX_NAME_LENGTH}
     validates :universal, inclusion: ALLOWED_BOOLEANS
-    validates :optimal, inclusion: ALLOWED_BOOLEANS 
+    validates :optimal, inclusion: ALLOWED_BOOLEANS
     validates :rule_type, inclusion: {in: TYPES}
     validates :suborder, numericality: {only_integer: true, greater_than_or_equal_to: 0}
     validates :concept_uid, presence: true
@@ -33,8 +33,9 @@ module Comprehension
       options ||= {}
 
       super(options.reverse_merge(
-        only: [:id, :uid, :name, :description, :universal, :rule_type, :optimal, :suborder, :concept_uid],
-        include: [:plagiarism_text, :feedbacks]
+        only: [:id, :uid, :name, :description, :universal, :rule_type, :optimal, :suborder, :concept_uid, :prompt_ids],
+        include: [:plagiarism_text, :feedbacks],
+        methods: :prompt_ids
       ))
     end
 
