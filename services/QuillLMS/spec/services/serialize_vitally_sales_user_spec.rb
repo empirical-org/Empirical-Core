@@ -260,4 +260,15 @@ describe 'SerializeVitallySalesUser' do
       teacher_link: "https://www.quill.org/cms/users/#{teacher.id}/sign_in"
     )
   end
+  
+  context 'testing private methods' do
+    let(:teacher) { create(:teacher, :with_classrooms_students_and_activities) }
+    let(:classroom_unit) { [teacher.classroom_units[0]] }
+    let(:records) { classroom_unit + [nil] }
+    let(:vitally_user) { SerializeVitallySalesUser.new(teacher) }
+
+    it 'handles nil record #sum_students' do
+      expect(vitally_user.send(:sum_students, records)).to eq 3
+    end
+  end
 end
