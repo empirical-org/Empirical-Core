@@ -130,11 +130,13 @@
       padding: 6px 12px;
       width: 100%;
       display: flex;
+      align-items: center;
       font-weight: 600px;
       color: #027360;
       .image-container {
         display: flex;
-        width: 22px;
+        max-height: 12px;
+        margin-right: 8px;
       }
       .hover {
         display: none;
