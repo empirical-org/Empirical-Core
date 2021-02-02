@@ -39,5 +39,28 @@ module Comprehension
         end
       end
     end
+
+    context 'serializable_hash' do
+      setup do
+        @rule_prompt = create(:comprehension_prompts_rule)
+        @rule = @rule_prompt.rule
+        @prompt = @rule_prompt.prompt
+      end
+
+      should 'fill out hash with all fields' do
+        json_hash = @rule.as_json
+
+        assert_equal json_hash['id'], @rule.id
+        assert_equal json_hash['uid'], @rule.uid
+        assert_equal json_hash['name'], @rule.name
+        assert_equal json_hash['description'], @rule.description
+        assert_equal json_hash['universal'], @rule.universal
+        assert_equal json_hash['rule_type'], @rule.rule_type
+        assert_equal json_hash['optimal'], @rule.optimal
+        assert_equal json_hash['suborder'], @rule.suborder
+        assert_equal json_hash['concept_uid'], @rule.concept_uid
+        assert_equal json_hash['prompt_ids'], @rule.prompt_ids
+      end
+    end
   end
 end
