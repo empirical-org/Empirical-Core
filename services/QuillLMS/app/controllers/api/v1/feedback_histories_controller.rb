@@ -67,7 +67,8 @@ class Api::V1::FeedbackHistoriesController < Api::ApiController
       :optimal,
       :used,
       :time,
-      :metadata
+      :metadata,
+      :rule_uid
     )
   end
 
@@ -83,7 +84,8 @@ class Api::V1::FeedbackHistoriesController < Api::ApiController
       :optimal,
       :used,
       :time,
-      :metadata
+      :metadata,
+      :rule_uid
     ])[:feedback_histories]
   end
 end
