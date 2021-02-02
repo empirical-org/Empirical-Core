@@ -187,6 +187,7 @@ func buildFeedbackHistory(request_object APIRequest, feedback InternalAPIRespons
 		Optimal: feedback.APIResponse.Optimal,
 		Used: used,
 		Time: time_received,
+		Rule_uid: feedback.APIResponse.Rule_uid,
 		Metadata: FeedbackHistoryMetadata{
 			Highlight: feedback.APIResponse.Highlight,
 			Labels: feedback.APIResponse.Labels,
@@ -244,6 +245,7 @@ type APIResponse struct {
 	Response_id string `json:"response_id"`
 	Highlight []Highlight `json:"highlight"`
 	Labels string `json:"labels,omitempty"`
+	Rule_uid string `json:"rule_uid"`
 }
 
 type Highlight struct {
@@ -278,6 +280,7 @@ type FeedbackHistory struct {
 	Used bool `json:"used"`
 	Time time.Time `json:"time"`
 	Metadata FeedbackHistoryMetadata `json:"metadata"`
+	Rule_uid string `json:"rule_uid"`
 }
 
 type BatchHistoriesAPIRequest struct {
