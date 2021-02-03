@@ -134,7 +134,6 @@ ActiveRecord::Schema.define(version: 20210128155938) do
     t.string   "concept_uid",   null: false
     t.datetime "created_at",    null: false
     t.datetime "updated_at",    null: false
-    t.string   "sequence_type"
   end
 
   add_index "comprehension_rules", ["uid"], name: "index_comprehension_rules_on_uid", unique: true, using: :btree
