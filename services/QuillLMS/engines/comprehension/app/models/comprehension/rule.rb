@@ -20,6 +20,7 @@ module Comprehension
 
     accepts_nested_attributes_for :plagiarism_text
     accepts_nested_attributes_for :feedbacks
+    accepts_nested_attributes_for :regex_rules
 
     validates :uid, presence: true, uniqueness: true
     validates :name, presence: true, length: {maximum: MAX_NAME_LENGTH}
@@ -35,7 +36,7 @@ module Comprehension
 
       super(options.reverse_merge(
         only: [:id, :uid, :name, :description, :universal, :rule_type, :optimal, :suborder, :concept_uid, :prompt_ids],
-        include: [:plagiarism_text, :feedbacks],
+        include: [:plagiarism_text, :feedbacks, :regex_rules],
         methods: :prompt_ids
       ))
     end

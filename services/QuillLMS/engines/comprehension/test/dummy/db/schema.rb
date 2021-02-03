@@ -67,15 +67,12 @@ ActiveRecord::Schema.define(version: 20210128155938) do
 
   create_table "comprehension_prompts", force: :cascade do |t|
     t.integer  "activity_id"
-    t.integer  "max_attempts",               limit: 2
-    t.string   "conjunction",                limit: 20
+    t.integer  "max_attempts",          limit: 2
+    t.string   "conjunction",           limit: 20
     t.string   "text"
     t.text     "max_attempts_feedback"
-    t.datetime "created_at",                            null: false
-    t.datetime "updated_at",                            null: false
-    t.text     "plagiarism_text"
-    t.text     "plagiarism_first_feedback"
-    t.text     "plagiarism_second_feedback"
+    t.datetime "created_at",                       null: false
+    t.datetime "updated_at",                       null: false
   end
 
   add_index "comprehension_prompts", ["activity_id"], name: "index_comprehension_prompts_on_activity_id", using: :btree
@@ -124,16 +121,16 @@ ActiveRecord::Schema.define(version: 20210128155938) do
   add_index "comprehension_rule_sets", ["prompt_id"], name: "index_comprehension_rule_sets_on_prompt_id", using: :btree
 
   create_table "comprehension_rules", force: :cascade do |t|
-    t.string   "uid",           null: false
-    t.string   "name",          null: false
+    t.string   "uid",         null: false
+    t.string   "name",        null: false
     t.string   "description"
-    t.boolean  "universal",     null: false
-    t.string   "rule_type",     null: false
-    t.boolean  "optimal",       null: false
+    t.boolean  "universal",   null: false
+    t.string   "rule_type",   null: false
+    t.boolean  "optimal",     null: false
     t.integer  "suborder"
-    t.string   "concept_uid",   null: false
-    t.datetime "created_at",    null: false
-    t.datetime "updated_at",    null: false
+    t.string   "concept_uid", null: false
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
   end
 
   add_index "comprehension_rules", ["uid"], name: "index_comprehension_rules_on_uid", unique: true, using: :btree
