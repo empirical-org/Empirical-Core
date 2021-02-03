@@ -10,24 +10,23 @@ import { fetchUserRole } from '../../Shared/utils/userAPIs';
 import getParameterByName from '../helpers/getParameterByName';
 import { TeacherPreviewMenu } from '../../Shared/index';
 import { addKeyDownListener } from '../../Shared/hooks/addKeyDownListener';
+import { setCurrentQuestion } from '../actions/session';
 
 export const PageLayout = () => {
 
-    const studentSession = getParameterByName('student', window.location.href);
-    const proofreaderSession = getParameterByName('proofreaderSessionId', window.location.href);
-    const turkSession = window.location.href.includes('turk');
-    const studentOrTurkOrProofreader = studentSession || turkSession || proofreaderSession;
-    const isPlaying = window.location.href.includes('play');
-    const { data } = useQuery("user-role", fetchUserRole);
-    const isTeacherOrAdmin = data && data.role && data.role !== 'student';
+  const studentSession = getParameterByName('student', window.location.href);
+  const proofreaderSession = getParameterByName('proofreaderSessionId', window.location.href);
+  const turkSession = window.location.href.includes('turk');
+  const studentOrTurkOrProofreader = studentSession || turkSession || proofreaderSession;
+  const isPlaying = window.location.href.includes('play');
+  const { data } = useQuery("user-role", fetchUserRole);
+  const isTeacherOrAdmin = data && data.role && data.role !== 'student';
 
-    const [showFocusState, setShowFocusState] = React.useState<boolean>(false);
-    const [previewShowing, setPreviewShowing] = React.useState<boolean>(!studentOrTurkOrProofreader);
-    const [questionToPreview, setQuestionToPreview] = React.useState<any>(null);
-    const [switchedBackToPreview, setSwitchedBackToPreview] = React.useState<boolean>(false);
-    const [randomizedQuestions, setRandomizedQuestions] = React.useState<any>(null);
-    const [skippedToQuestionFromIntro, setSkippedToQuestionFromIntro] = React.useState<boolean>(false);
-
+  const [showFocusState, setShowFocusState] = React.useState<boolean>(false);
+  const [previewShowing, setPreviewShowing] = React.useState<boolean>(!studentOrTurkOrProofreader);
+  const [questionToPreview, setQuestionToPreview] = React.useState<any>(null);
+  const [switchedBackToPreview, setSwitchedBackToPreview] = React.useState<boolean>(false);
+  const [skippedToQuestionFromIntro, setSkippedToQuestionFromIntro] = React.useState<boolean>(false);
 
   function handleKeyDown (e: any) {
     if (e.key !== 'Tab') { return }
@@ -58,10 +57,6 @@ export const PageLayout = () => {
     setQuestionToPreview(question);
   }
 
-  function handleUpdateRandomizedQuestions (questions: any[]) {
-    setRandomizedQuestions(questions);
-  }
-
   function handleSkipToQuestionFromIntro () {
     setSkippedToQuestionFromIntro(true);
   }
@@ -76,7 +71,6 @@ export const PageLayout = () => {
           handleToggleQuestion: handleToggleQuestion,
           previewMode: showPreview,
           questionToPreview: questionToPreview,
-          randomizedQuestions: randomizedQuestions,
           skippedToQuestionFromIntro: skippedToQuestionFromIntro
         })}</div>
       </Layout.Content>
@@ -107,7 +101,6 @@ export const PageLayout = () => {
             onHandleSkipToQuestionFromIntro={handleSkipToQuestionFromIntro}
             onTogglePreview={handleTogglePreviewMenu}
             onToggleQuestion={handleToggleQuestion}
-            onUpdateRandomizedQuestions={handleUpdateRandomizedQuestions}
             questionToPreview={questionToPreview}
             showPreview={previewShowing}
           />

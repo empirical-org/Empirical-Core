@@ -179,6 +179,11 @@ module PagesHelper
             img: 'team-peter-sharkey@2x.png'
           },
           {
+            name: 'Brendan Shean',
+            title: 'Senior Software Developer',
+            img: 'team-brendan-shean@2x.png'
+          },
+          {
             name: 'Emma Volk',
             title: 'Lead Curriculum Developer',
             img: 'team-emma-volk@2x.png'

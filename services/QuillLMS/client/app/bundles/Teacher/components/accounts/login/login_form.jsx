@@ -2,6 +2,8 @@ import React from 'react';
 import request from 'request';
 
 import PasswordInfo from './password_info.jsx';
+
+import PasswordWrapper from '../shared/password_wrapper'
 import AssignActivityPackBanner from '../assignActivityPackBanner'
 import getAuthToken from '../../modules/get_auth_token';
 import { Input, } from '../../../../Shared/index'
@@ -11,7 +13,6 @@ class LoginFormApp extends React.Component {
     super(props);
 
     this.state = {
-      showPass: false,
       email: '',
       password: '',
       errors: {},
@@ -65,12 +66,6 @@ class LoginFormApp extends React.Component {
     this.handleSignUpClick(e)
   }
 
-  handleKeyEnterOnTogglePassword = (e) => {
-    if (e.key !== 'Enter') { return }
-
-    this.handleTogglePassClick(e)
-  }
-
   handleSignUpClick = (e) => {
     window.location.href = '/account/new'
   }
@@ -111,12 +106,6 @@ class LoginFormApp extends React.Component {
     });
   }
 
-  handleTogglePassClick = () => {
-    this.setState(prevState => ({
-      showPass: !prevState.showPass,
-    }))
-  }
-
   submitClass = () => {
     const { password, email, } = this.state
     let buttonClass = 'quill-button contained primary medium focus-on-light';
@@ -124,16 +113,6 @@ class LoginFormApp extends React.Component {
       buttonClass += ' disabled';
     }
     return buttonClass;
-  }
-
-  toggleButtonText = () => {
-    const { showPass, } = this.state
-    return !showPass ? 'Show' : 'Hide';
-  }
-
-  togglePass = () => {
-    const { showPass, } = this.state
-    return !showPass ? 'password' : 'text';
   }
 
   render() {
@@ -169,21 +148,18 @@ class LoginFormApp extends React.Component {
                     type="text"
                     value={email}
                   />
-                  <Input
+                  <PasswordWrapper
                     autoComplete="current-password"
                     className="password inspectletIgnore"
                     error={errors.password}
-                    handleChange={this.onPasswordChange}
+                    id="password"
                     label="Password"
+                    onChange={this.onPasswordChange}
                     timesSubmitted={timesSubmitted}
-                    type={this.togglePass()}
                     value={password}
                   />
                   <div className="forget-and-show-password">
                     <a className="inline-link" href="/password_reset">Forgot password?</a>
-                    <span className="inline-link" onClick={this.handleTogglePassClick} onKeyDown={this.handleKeyEnterOnTogglePassword} role="button" tabIndex={0}>
-                      {this.toggleButtonText()} password
-                    </span>
                   </div>
                   <input aria-label="Log in" className={this.submitClass()} name="commit" type="submit" value="Log in" />
                 </form>

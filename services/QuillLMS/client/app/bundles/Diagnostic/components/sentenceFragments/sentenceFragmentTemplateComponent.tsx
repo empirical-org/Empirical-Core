@@ -4,8 +4,6 @@ import { connect } from 'react-redux';
 import {checkDiagnosticSentenceFragment, Response } from 'quill-marking-logic'
 import * as _ from 'underscore';
 
-import { getLatestAttempt } from '../../libs/sharedQuestionFunctions';
-import { renderPreviewFeedback, getDisplayedText } from '../../libs/previewHelperFunctions';
 import TextEditor from '../renderForQuestions/renderTextEditor.jsx';
 import {
   getGradedResponsesWithCallback
@@ -13,10 +11,7 @@ import {
 import updateResponseResource from '../renderForQuestions/updateResponseResource.js';
 import Feedback from '../renderForQuestions/feedback';
 import RenderQuestionFeedback from '../renderForQuestions/feedbackStatements.jsx';
-import {
-  hashToCollection,
-  ConceptExplanation,
-} from '../../../Shared/index'
+import { hashToCollection, ConceptExplanation, getLatestAttempt, renderPreviewFeedback, getDisplayedText } from '../../../Shared/index'
 
 class PlaySentenceFragment extends React.Component<any, any> {
   constructor(props) {

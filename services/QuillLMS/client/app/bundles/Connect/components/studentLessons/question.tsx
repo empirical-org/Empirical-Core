@@ -8,6 +8,7 @@ import {
   ConceptExplanation,
   MultipleChoice,
   hashToCollection,
+  getLatestAttempt
 } from '../../../Shared/index'
 import { submitResponse } from '../../actions.js';
 import Question from '../../libs/question';
@@ -23,7 +24,6 @@ import {
   getGradedResponsesWithCallback
 } from '../../actions/responses.js';
 import EditCaretPositioning from '../../libs/EditCaretPositioning';
-import { Attempt } from '../renderForQuestions/answerState.js';
 
 const RenderSentenceFragments = SentenceFragments
 const C = require('../../constants').default;
@@ -50,9 +50,6 @@ interface PlayLessonQuestionState {
   multipleChoice: boolean;
   multipleChoiceCorrect?: boolean;
   multipleChoiceResponseOptions?: object[];
-  previewAttempt: object;
-  previewAttemptSubmitted: boolean;
-  previewSubmissionCount: number;
   sessionKey?: string;
 }
 
@@ -72,15 +69,12 @@ export default class PlayLessonQuestion extends React.Component<PlayLessonQuesti
       editing: false,
       response,
       finished: false,
-      multipleChoice: false,
-      previewAttempt: null,
-      previewAttemptSubmitted: false,
-      previewSubmissionCount: 0
+      multipleChoice: false
     }
   }
 
   componentDidMount() {
-    const question = this.getQuestion();
+    const { question } = this.props;
     getGradedResponsesWithCallback(
       question.key,
       (data) => {
@@ -97,12 +91,10 @@ export default class PlayLessonQuestion extends React.Component<PlayLessonQuesti
 
   shouldComponentUpdate(nextProps: PlayLessonQuestionProps, nextState: PlayLessonQuestionState) {
     const { question, } = this.props
-    const { response, finished, multipleChoice, responses, previewAttempt, previewAttemptSubmitted, previewSubmissionCount } = this.state
+    const { response, finished, multipleChoice, responses} = this.state
     if (question !== nextProps.question) {
       return true;
     } else if (response !== nextState.response) {
-      // reset previewAttemptSubmitted for renderFeedback check for previewMode
-      this.setState({ previewAttemptSubmitted: false });
       return true;
     } else if (finished !== nextState.finished) {
       return true;
@@ -110,20 +102,26 @@ export default class PlayLessonQuestion extends React.Component<PlayLessonQuesti
       return true;
     } else if (responses !== nextState.responses) {
       return true;
-    } else if(previewAttempt !== nextState.previewAttempt) {
-      return true;
-    } else if(previewAttemptSubmitted !== nextState.previewAttemptSubmitted) {
-      return true;
-    } else if(previewSubmissionCount !== nextState.previewSubmissionCount) {
-      return true;
     }
     return false;
   }
 
+  componentDidUpdate(prevProps) {
+    const { question } = this.props;
+    if(prevProps.question !== question) {
+      getMultipleChoiceResponseOptionsWithCallback(
+        question.key,
+        (data) => {
+          this.setState({ multipleChoiceResponseOptions: _.shuffle(data), });
+        }
+      );
+    }
+  }
+
   getInitialValue = () => {
-    const { prefill, } = this.props
+    const { prefill, question } = this.props
     if (prefill) {
-      return this.getQuestion().prefilledText;
+      return question.prefilledText;
     }
   }
 
@@ -133,10 +131,7 @@ export default class PlayLessonQuestion extends React.Component<PlayLessonQuesti
   }
 
   getQuestion = () => {
-    const { question, previewMode, questionToPreview } = this.props;
-    if(previewMode && questionToPreview) {
-      return questionToPreview;
-    }
+    const { question } = this.props;
     return question
   }
 
@@ -150,8 +145,9 @@ export default class PlayLessonQuestion extends React.Component<PlayLessonQuesti
   }
 
   getQuestionMarkerFields = () => {
+    const { question } = this.props;
     return ({
-      prompt: this.getQuestion().prompt,
+      prompt: question.prompt,
       responses: hashToCollection(this.getResponses()),
     });
   }
@@ -167,7 +163,8 @@ export default class PlayLessonQuestion extends React.Component<PlayLessonQuesti
   }
 
   renderSentenceFragments = () => {
-    return <RenderSentenceFragments prompt={this.getQuestion().prompt} />;
+    const { question } = this.props;
+    return <RenderSentenceFragments prompt={question.prompt} />;
   }
 
   listCuesAsString = (cues: string[]) => {
@@ -177,20 +174,17 @@ export default class PlayLessonQuestion extends React.Component<PlayLessonQuesti
 
   renderFeedback = (override?: string) => {
     const { question, previewMode } = this.props;
-    const { previewAttempt } = this.state;
     let sentence;
     if (override) {
       sentence = override;
-    } else if (this.getQuestion() && this.getQuestion().modelConceptUID) {
+    } else if (question && question.modelConceptUID) {
       sentence = 'Revise your work. Use the hint below as an example.';
     } else {
       sentence = 'Keep writing! Revise your sentence by changing the order of the ideas.';
     }
     return (<RenderFeedback
-      getQuestion={this.getQuestion}
       listCuesAsString={this.listCuesAsString}
       override={!!override}
-      previewAttempt={previewAttempt}
       previewMode={previewMode}
       question={question}
       renderFeedbackStatements={this.renderFeedbackStatements}
@@ -199,56 +193,44 @@ export default class PlayLessonQuestion extends React.Component<PlayLessonQuesti
     />);
   }
 
-  getQuestionAttempt = (attempt: Attempt) => {
-    const { previewAttempt } = this.state;
-    const { previewMode } = this.props;
-    return previewMode && previewAttempt ? previewAttempt : attempt;
-  }
-
-  getErrorsForAttempt = (attempt: Attempt) => {
-    const questionAttempt = this.getQuestionAttempt(attempt);
+  getErrorsForAttempt = () => {
+    const questionAttempt = this.handleGetLatestAttempt();
     return _.pick(questionAttempt, ...C.ERROR_TYPES);
   }
 
-  renderFeedbackStatements = (attempt: Attempt) => {
-    const questionAttempt = this.getQuestionAttempt(attempt);
-    return <RenderQuestionFeedback attempt={questionAttempt} getErrorsForAttempt={this.getErrorsForAttempt} getQuestion={this.getQuestion} />;
+  renderFeedbackStatements = () => {
+    const questionAttempt = this.handleGetLatestAttempt();
+    return <RenderQuestionFeedback attempt={questionAttempt} />;
   }
 
   renderCues = () => {
+    const { question } = this.props;
     return (<RenderQuestionCues
       displayArrowAndText={true}
-      getQuestion={this.getQuestion}
+      question={question}
     />);
   }
 
   updateResponseResource(response) {
-    const { dispatch, } = this.props
-    updateResponseResource(response, this.getQuestion().key, this.getQuestion().attempts, dispatch);
+    const { dispatch, question } = this.props
+    updateResponseResource(response, question.key, question.attempts, dispatch);
   }
 
   answeredCorrectly = () => {
     const latestAttempt = this.handleGetLatestAttempt();
-    const errorsForAttempt = _.keys(this.getErrorsForAttempt(latestAttempt)).length > 0;
+    const errorsForAttempt = _.keys(this.getErrorsForAttempt()).length > 0;
     return (latestAttempt && latestAttempt.response && !errorsForAttempt && latestAttempt.response.optimal);
   }
 
   checkAnswer = (e: React.SyntheticEvent) => {
-    const { previewMode } = this.props;
+    const { question } = this.props;
     const { editing, response, } = this.state
     if (editing && this.getResponses() && Object.keys(this.getResponses()).length) {
       this.removePrefilledUnderscores();
-      const submittedResponse = getResponse(this.getQuestion(), response, this.getResponses());
+      const submittedResponse = getResponse(question, response, this.getResponses());
       this.updateResponseResource(submittedResponse);
       this.submitResponse(submittedResponse);
       this.setState({ editing: false });
-      if(previewMode) {
-        this.setState(prevState => ({
-          previewAttempt: submittedResponse,
-          previewAttemptSubmitted: true,
-          previewSubmissionCount: prevState.previewSubmissionCount + 1
-        }));
-      }
     }
   }
 
@@ -280,7 +262,7 @@ export default class PlayLessonQuestion extends React.Component<PlayLessonQuesti
     }
     const latestAttempt = this.handleGetLatestAttempt();
     if (latestAttempt && latestAttempt.response) {
-      const errors = _.keys(this.getErrorsForAttempt(latestAttempt));
+      const errors = _.keys(this.getErrorsForAttempt());
       return latestAttempt.response.optimal && errors.length === 0;
     }
   }
@@ -293,8 +275,7 @@ export default class PlayLessonQuestion extends React.Component<PlayLessonQuesti
 
   getDisabledStatus = () => {
     const { previewMode, isLastQuestion } = this.props;
-    const { previewSubmissionCount, previewAttempt } = this.state;
-    return previewMode && isLastQuestion && (previewSubmissionCount === 5 || previewAttempt.optimal);
+    return previewMode && isLastQuestion
   }
 
   finish = () => {
@@ -339,7 +320,7 @@ export default class PlayLessonQuestion extends React.Component<PlayLessonQuesti
   }
 
   renderConceptExplanation = () => {
-    const { conceptsFeedback, } = this.props
+    const { conceptsFeedback, question } = this.props
     //TODO: update Response interface in quill-marking-logic to fix Boolean/boolean type checking
     const latestAttempt:{response: Response}|undefined = this.handleGetLatestAttempt();
 
@@ -372,15 +353,15 @@ export default class PlayLessonQuestion extends React.Component<PlayLessonQuesti
 
     } else {
       // we only want to show question-level concept feedback if the response is unmatched
-      if (this.getQuestion() && this.getQuestion().modelConceptUID) {
-        const dataF = conceptsFeedback.data[this.getQuestion().modelConceptUID];
+      if (question && question.modelConceptUID) {
+        const dataF = conceptsFeedback.data[question.modelConceptUID];
         if (dataF) {
           return <ConceptExplanation {...dataF} />;
         }
       }
 
-      if (this.getQuestion().conceptID) {
-        const data = conceptsFeedback.data[this.getQuestion().conceptID];
+      if (question.conceptID) {
+        const data = conceptsFeedback.data[question.conceptID];
         if (data) {
           return <ConceptExplanation {...data} />;
         }
@@ -396,21 +377,14 @@ export default class PlayLessonQuestion extends React.Component<PlayLessonQuesti
   }
 
   handleGetLatestAttempt = () => {
-    const { previewAttempt } = this.state;
-    const { previewMode } = this.props;
-    const question = this.getQuestion();
-    let latestAttempt
-    if(previewMode && previewAttempt) {
-      latestAttempt = previewAttempt;
-    } else {
-      latestAttempt = getLatestAttempt(question.attempts);
-    }
+    const { question } = this.props;
+    const latestAttempt = getLatestAttempt(question.attempts);
     return latestAttempt;
   }
 
   render() {
     const { question, isAdmin, previewMode } = this.props
-    const { response, finished, multipleChoice, multipleChoiceCorrect, multipleChoiceResponseOptions, previewAttempt, previewAttemptSubmitted, previewSubmissionCount } = this.state
+    const { response, finished, multipleChoice, multipleChoiceCorrect, multipleChoiceResponseOptions  } = this.state
     const questionID = question.key;
 
     if (question) {
@@ -429,13 +403,11 @@ export default class PlayLessonQuestion extends React.Component<PlayLessonQuesti
         sentenceFragments: this.renderSentenceFragments(),
         cues: this.renderCues(),
         className: 'fubar',
-        previewAttempt,
-        previewAttemptSubmitted,
         previewMode
       };
       let component;
-      const maxAttemptsSubmitted = (question.attempts && question.attempts.length > 4) || (previewSubmissionCount > 4);
-      const someAttemptsSubmitted = (question.attempts && question.attempts.length > 0) || previewMode;
+      const maxAttemptsSubmitted = question.attempts && question.attempts.length > 4;
+      const someAttemptsSubmitted = question.attempts && question.attempts.length > 0;
       if (finished) {
         component = (
           <AnswerForm
@@ -513,8 +485,3 @@ export default class PlayLessonQuestion extends React.Component<PlayLessonQuesti
     return (<p>Loading...</p>);
   }
 }
-
-function getLatestAttempt(attempts:Array<{response: Response}> = []):{response: Response}|undefined {
-  const lastIndex = attempts.length - 1;
-  return attempts[lastIndex];
-};

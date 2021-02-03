@@ -165,7 +165,7 @@ export default class extends React.Component {
           </div>
         </div>
         <div className='dropdown-container'>
-          <ItemDropdown callback={this.switchClassrooms} className="student-reports-class-dropdown" items={this.state.classroomNames} selectedItem={this.state.selectedClassroom} />
+          <ItemDropdown callback={this.switchClassrooms} items={this.state.classroomNames} selectedItem={this.state.selectedClassroom} />
         </div>
         {this.tableOrEmptyMessage(filteredClassroomsData)}
       </div>

@@ -5,8 +5,6 @@ import { checkFillInTheBlankQuestion } from 'quill-marking-logic';
 import { stringNormalize } from 'quill-string-normalizer';
 
 import { getGradedResponsesWithCallback } from '../../actions/responses.js';
-import { getLatestAttempt } from '../../libs/sharedQuestionFunctions';
-import { renderPreviewFeedback } from '../../libs/previewHelperFunctions';
 import { submitResponse, } from '../../actions/diagnostics.js';
 import { submitQuestionResponse } from '../renderForQuestions/submitResponse.js';
 import updateResponseResource from '../renderForQuestions/updateResponseResource.js';
@@ -15,7 +13,7 @@ import translations from '../../libs/translations/index.js';
 import translationMap from '../../libs/translations/ellQuestionMapper.js';
 import { ENGLISH, rightToLeftLanguages } from '../../modules/translation/languagePageInfo';
 import Question from '../../interfaces/Question.ts';
-import { hashToCollection, Prompt, Feedback } from '../../../Shared/index'
+import { hashToCollection, Prompt, Feedback, getLatestAttempt, renderPreviewFeedback } from '../../../Shared/index'
 
 interface PlayFillInTheBlankQuestionProps {
   currentKey: string,

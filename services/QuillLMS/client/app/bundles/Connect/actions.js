@@ -12,6 +12,7 @@ export const CLEAR_RESPONSES_ANON = 'CLEAR_RESPONSES_ANON'
 export const UPDATE_NAME = 'UPDATE_NAME'
 export const START_QUESTION = 'START_QUESTION'
 export const UPDATE_CURRENT_QUESTION = 'UPDATE_CURRENT_QUESTION'
+export const SET_CURRENT_QUESTION = 'SET_CURRENT_QUESTION'
 export const RESUME_PREVIOUS_SESSION = 'RESUME_PREVIOUS_SESSION'
 
 export const SubmitActions = {
@@ -26,6 +27,7 @@ export const SubmitActions = {
   UPDATE_NAME,
   START_QUESTION,
   UPDATE_CURRENT_QUESTION,
+  SET_CURRENT_QUESTION,
   RESUME_PREVIOUS_SESSION
 }
 
@@ -79,4 +81,8 @@ export function updateCurrentQuestion(data) {
 
 export function resumePreviousSession(data) {
   return { type: RESUME_PREVIOUS_SESSION, data}
+}
+
+export function setCurrentQuestion(data) {
+  return { type: SET_CURRENT_QUESTION, data };
 }
