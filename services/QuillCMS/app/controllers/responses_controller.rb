@@ -1,26 +1,20 @@
 require 'modules/response_search'
 require 'modules/response_aggregator'
 require 'modules/incorrect_sequence_calculator'
+
 class ResponsesController < ApplicationController
   include ResponseSearch
   include ResponseAggregator
 
   RESPONSE_LIMIT = 100
   MULTIPLE_CHOICE_LIMIT = 2
-  CACHE_EXPIRY = 60.minutes.to_i
+  CACHE_EXPIRY = 8.hours.to_i
   # MAX_MATCHES: A heuristic to reduce controller compute time
   # see https://github.com/empirical-org/Empirical-Core/pull/7086/files
   # for more context
   MAX_MATCHES = 10_000
 
   before_action :set_response, only: [:show, :update, :destroy]
-
-  # GET /responses
-  def index
-    @responses = Response.all
-
-    render json: @responses
-  end
 
   # GET /responses/1
   def show
@@ -42,7 +36,8 @@ class ResponsesController < ApplicationController
   # POST /responses/create_or_increment
   def create_or_increment
     transformed_response = transformed_new_vals(params_for_create).to_h
-    CreateOrIncrementResponseWorker.perform_async(transformed_response)
+    # delaying this to off-hours to eliminate read/write traffic in peak hours
+    CreateOrIncrementResponseWorker.perform_in(6.hours, transformed_response)
     render json: {}
   end
 

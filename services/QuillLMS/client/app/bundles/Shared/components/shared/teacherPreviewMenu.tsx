@@ -6,7 +6,9 @@ import stripHtml from "string-strip-html";
 import { getActivity } from "../../../Grammar/actions/grammarActivities";
 import getParameterByName from "../../../Grammar/helpers/getParameterByName";
 import { Question } from '../../../Grammar/interfaces/questions';
-import { setCurrentQuestion } from '../../../Diagnostic/actions/diagnostics.js';
+import * as diagnosticActions from '../../../Diagnostic/actions/diagnostics.js';
+import * as connectActions from '../../../Connect/actions';
+import * as grammarActions from '../../../Grammar/actions/session';
 
 interface Activity {
   title?: string;
@@ -144,12 +146,11 @@ const renderQuestions = ({
   lesson,
   questions,
   questionToPreview,
-  randomizedQuestions,
   sentenceFragments,
   session,
   titleCards
 }) => {
-  if(!activity && !randomizedQuestions && !session) {
+  if(!activity && !session) {
     return null;
   // some Grammar activities return an empty array for the questions property so we check it's length
   } else if(activity && activity.questions && activity.questions.length) {
@@ -173,8 +174,8 @@ const renderQuestions = ({
         </button>
       );
     })
-  } else if(randomizedQuestions) {
-    return randomizedQuestions.map((question: any, i: number) => {
+  } else if(session && session.questionSet) {
+    return session.questionSet.map((question: any, i: number) => {
       const { uid } = question;
       const highlightedStyle = getStyling({ questionToPreview, uidOrKey: uid, i, session, lesson });
       const indentationStyle = getIndentation(i);
@@ -195,7 +196,6 @@ interface TeacherPreviewMenuProps {
   onHandleSkipToQuestionFromIntro: () => void;
   onTogglePreview?: () => void;
   onToggleQuestion?: (question: Question) => void;
-  onUpdateRandomizedQuestions?: (questions: any[]) => void;
   lesson: any;
   questions: Question[];
   questionToPreview?: {
@@ -215,7 +215,6 @@ const TeacherPreviewMenuComponent = ({
   onHandleSkipToQuestionFromIntro,
   onTogglePreview,
   onToggleQuestion,
-  onUpdateRandomizedQuestions,
   lesson,
   questions,
   questionToPreview,
@@ -225,21 +224,11 @@ const TeacherPreviewMenuComponent = ({
   titleCards
 }: TeacherPreviewMenuProps) => {
 
-  const [randomizedQuestions, setRandomizedQuestions] = React.useState<Question[]>();
-
   React.useEffect(() => {
     // we need to fetch grammar activities here
     const activityUID = getParameterByName('uid', window.location.href);
     if (activityUID) {
       dispatch(getActivity(activityUID))
-    }
-    if(!randomizedQuestions && session && session.hasreceiveddata && session.currentQuestion) {
-      const activityQuestions = [session.currentQuestion, ...session.unansweredQuestions];
-      setRandomizedQuestions(activityQuestions);
-      onUpdateRandomizedQuestions(activityQuestions);
-      if(!questionToPreview) {
-        onToggleQuestion(session.currentQuestion);
-      }
     }
   }, [session]);
 
@@ -250,17 +239,21 @@ const TeacherPreviewMenuComponent = ({
   const handleQuestionUpdate = (e: React.SyntheticEvent) => {
     const questionUID = e.currentTarget.id;
     let question: Question;
-    if(randomizedQuestions) {
-      question = randomizedQuestions.filter(question => question.uid === questionUID)[0];
-    } else {
-      question = questions && questions[questionUID] || titleCards && titleCards[questionUID] || sentenceFragments && sentenceFragments[questionUID] || fillInBlank && fillInBlank[questionUID];
-      question.key = questionUID;
-    }
+    question = questions && questions[questionUID] || titleCards && titleCards[questionUID] || sentenceFragments && sentenceFragments[questionUID] || fillInBlank && fillInBlank[questionUID];
+    question.key = questionUID;
+    question.uid = questionUID;
     // again we use session for Grammar and playLesson for Connect
     if(!questionToPreview) {
       onHandleSkipToQuestionFromIntro();
     }
-    const action = setCurrentQuestion(question);
+    let action;
+    if(isDiagnosticActivity) {
+      action = diagnosticActions.setCurrentQuestion(question)
+    } else if(isConnectActivity) {
+      action = connectActions.setCurrentQuestion(question);
+    } else {
+      action = grammarActions.setCurrentQuestion(question);
+    }
     dispatch(action);
     onToggleQuestion(question);
   }
@@ -291,7 +284,6 @@ const TeacherPreviewMenuComponent = ({
             lesson,
             questions,
             questionToPreview,
-            randomizedQuestions,
             sentenceFragments,
             session,
             titleCards

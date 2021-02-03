@@ -12,10 +12,8 @@ const icon = `${process.env.CDN_URL}/images/icons/direction.svg`
 import updateResponseResource from '../renderForQuestions/updateResponseResource.js';
 import translations from '../../libs/translations/index.js';
 import translationMap from '../../libs/translations/ellQuestionMapper.js';
-import { renderPreviewFeedback, getDisplayedText } from '../../libs/previewHelperFunctions';
-import { getLatestAttempt } from '../../libs/sharedQuestionFunctions';
 import { ENGLISH, rightToLeftLanguages } from '../../modules/translation/languagePageInfo';
-import { hashToCollection, Feedback, } from '../../../Shared/index'
+import { hashToCollection, Feedback, getLatestAttempt, renderPreviewFeedback, getDisplayedText } from '../../../Shared/index'
 
 const key = ''; // enables this component to be used by both play/sentence-fragments and play/diagnostic
 const availableLanguages = ['arabic', 'spanish', 'french', 'chinese', 'hindi', 'vietnamese'];
@@ -248,7 +246,7 @@ class PlaySentenceFragment extends React.Component {
     const fragment = this.getQuestion();
     return (
       <div className="student-container-inner-diagnostic">
-        <div className="draft-js sentence-fragments prevent-selection">
+        <div className="draft-js sentence-fragments">
           <p>{this.getQuestion().prompt}</p>
         </div>
 

@@ -53,8 +53,6 @@ interface ResponseProps {
   },
   readOnly: boolean,
   state: string,
-  printPathways: Function,
-  toPathways: Function,
   states: {}
 }
 
@@ -463,63 +461,6 @@ export default class extends React.Component<ResponseProps, ResponseState> {
             getResponse={getResponse}
             questionID={questionID}
             responses={getChildResponses(key)}
-            showPathways={false}
-            states={states}
-          />
-        </Modal>
-      );
-    }
-  }
-
-  renderToResponsePathways = (isViewingToResponses, key) => {
-    const { ascending, dispatch, expand, allExpanded, getChildResponses, getResponse, questionID, toPathways, response, states } = this.props
-    if (isViewingToResponses) {
-      return (
-        <Modal close={this.cancelToResponseView.bind(null, key)}>
-          <ResponseList
-            admin={false}
-            ascending={ascending}
-            dispatch={dispatch}
-            expand={expand}
-            expanded={allExpanded}
-            getChildResponses={getChildResponses}
-            getResponse={getResponse}
-            questionID={questionID}
-            responses={toPathways(response.key)}
-            showPathways={false}
-            states={states}
-          />
-        </Modal>
-      );
-    }
-  }
-
-  renderFromResponsePathways= (isViewingFromResponses, key) => {
-    const { response, printPathways, ascending, dispatch, expand, allExpanded, getChildResponses, getResponse, questionID, states } = this.props
-    if (isViewingFromResponses) {
-      const pathways = printPathways(response.key);
-      let initialCount;
-      const resps = _.reject(hashToCollection(pathways), fromer => fromer.initial === true);
-      if (_.find(pathways, { initial: true, })) {
-        initialCount = (
-          <p style={{ color: 'white', }}>First attempt: {_.find(pathways, { initial: true, }).pathCount}</p>
-        );
-      }
-      return (
-        <Modal close={this.cancelFromResponseView.bind(null, key)}>
-          {initialCount}
-          <br />
-          <ResponseList
-            admin={false}
-            ascending={ascending}
-            dispatch={dispatch}
-            expand={expand}
-            expanded={allExpanded}
-            getChildResponses={getChildResponses}
-            getResponse={getResponse}
-            questionID={questionID}
-            responses={resps}
-            showPathways={false}
             states={states}
           />
         </Modal>
@@ -539,8 +480,6 @@ export default class extends React.Component<ResponseProps, ResponseState> {
         {this.renderResponseContent(isEditing, response)}
         {this.renderResponseFooter(isEditing, response)}
         {this.renderChildResponses(isViewingChildResponses, response.key)}
-        {this.renderFromResponsePathways(isViewingFromResponses, response.key)}
-        {this.renderToResponsePathways(isViewingToResponses, response.key)}
       </div>
     );
   }

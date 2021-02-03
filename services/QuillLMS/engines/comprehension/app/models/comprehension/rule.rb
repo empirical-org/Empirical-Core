@@ -34,8 +34,9 @@ module Comprehension
       options ||= {}
 
       super(options.reverse_merge(
-        only: [:id, :uid, :name, :description, :universal, :rule_type, :optimal, :suborder, :concept_uid],
-        include: [:plagiarism_text, :feedbacks]
+        only: [:id, :uid, :name, :description, :universal, :rule_type, :optimal, :suborder, :concept_uid, :prompt_ids],
+        include: [:plagiarism_text, :feedbacks],
+        methods: :prompt_ids
       ))
     end
 

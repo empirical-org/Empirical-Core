@@ -55,7 +55,6 @@ function select(state) {
     questions: state.questions,
     fillInBlank: state.fillInBlank,
     sentenceFragments: state.sentenceFragments,
-    diagnosticQuestions: state.diagnosticQuestions,
     routing: state.routing,
   };
 }

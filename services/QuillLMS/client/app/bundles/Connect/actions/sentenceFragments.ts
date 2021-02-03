@@ -1,5 +1,4 @@
 const C = require('../constants').default;
-import pathwaysActions from './pathways.js';
 import { submitResponse } from './responses';
 import { push } from 'react-router-redux';
 import _ from 'lodash';

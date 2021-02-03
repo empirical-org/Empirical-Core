@@ -83,7 +83,7 @@ exports[`Multistep component projector view inactive renders 1`] = `
           prompt="Label each group of words as a fragment or a complete sentence."
         >
           <div
-            className="draft-js sentence-fragments prevent-selection"
+            className="draft-js sentence-fragments"
             dangerouslySetInnerHTML={
               Object {
                 "__html": "Label each group of words as a fragment or a complete sentence.",
@@ -385,7 +385,7 @@ exports[`Multistep component projector view when an answer is being displayed re
           prompt="Label each group of words as a fragment or a complete sentence."
         >
           <div
-            className="draft-js sentence-fragments prevent-selection"
+            className="draft-js sentence-fragments"
             dangerouslySetInnerHTML={
               Object {
                 "__html": "Label each group of words as a fragment or a complete sentence.",
@@ -627,7 +627,7 @@ exports[`Multistep component student view inactive renders 1`] = `
           prompt="Label each group of words as a fragment or a complete sentence."
         >
           <div
-            className="draft-js sentence-fragments prevent-selection"
+            className="draft-js sentence-fragments"
             dangerouslySetInnerHTML={
               Object {
                 "__html": "Label each group of words as a fragment or a complete sentence.",
@@ -882,7 +882,7 @@ exports[`Multistep component student view when an answer is being displayed rend
           prompt="Label each group of words as a fragment or a complete sentence."
         >
           <div
-            className="draft-js sentence-fragments prevent-selection"
+            className="draft-js sentence-fragments"
             dangerouslySetInnerHTML={
               Object {
                 "__html": "Label each group of words as a fragment or a complete sentence.",
@@ -1127,7 +1127,7 @@ exports[`Multistep component student view when the student has submitted an answ
           prompt="Label each group of words as a fragment or a complete sentence."
         >
           <div
-            className="draft-js sentence-fragments prevent-selection"
+            className="draft-js sentence-fragments"
             dangerouslySetInnerHTML={
               Object {
                 "__html": "Label each group of words as a fragment or a complete sentence.",
@@ -1371,7 +1371,7 @@ exports[`Multistep component student view when the student has submitted an answ
           prompt="Label each group of words as a fragment or a complete sentence."
         >
           <div
-            className="draft-js sentence-fragments prevent-selection"
+            className="draft-js sentence-fragments"
             dangerouslySetInnerHTML={
               Object {
                 "__html": "Label each group of words as a fragment or a complete sentence.",

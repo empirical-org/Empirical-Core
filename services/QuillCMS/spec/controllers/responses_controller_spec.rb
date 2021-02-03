@@ -19,46 +19,46 @@ RSpec.describe ResponsesController, type: :controller do
     get_ids(array&.select { |r| r['parent_id'].nil?})
   end
 
-  describe "#count_affected_by_incorrect_sequences" do 
-    before(:each) do 
+  describe "#count_affected_by_incorrect_sequences" do
+    before(:each) do
       create(:response, question_uid: '123', text: "some words", optimal: nil)
       create(:response, question_uid: '123', text: "matchyword some words", optimal: nil)
       create(:response, question_uid: '123', text: "some matchyword words", optimal: nil)
     end
 
-    it 'should enumerate matching responses' do 
+    it 'should enumerate matching responses' do
       post :count_affected_by_incorrect_sequences, params: {
         "data" => {
-          "used_sequences"=>[], 
+          "used_sequences"=>[],
           "selected_sequences"=>["matchyword", ""]
-          }, 
-          "question_uid"=>'123', 
+          },
+          "question_uid"=>'123',
           "response"=>{}
       }
       matched_count = JSON.parse(response.body)["matchedCount"]
       expect(matched_count).to eq 2
     end
 
-    it 'should enumerate matching responses with && delimited input' do 
+    it 'should enumerate matching responses with && delimited input' do
       post :count_affected_by_incorrect_sequences, params: {
         "data" => {
-          "used_sequences"=>[], 
+          "used_sequences"=>[],
           "selected_sequences"=>["matchyword&&some", ""]
-          }, 
-          "question_uid"=>'123', 
+          },
+          "question_uid"=>'123',
           "response"=>{}
       }
       matched_count = JSON.parse(response.body)["matchedCount"]
       expect(matched_count).to eq 2
     end
 
-    it 'should not match when sequences are already used' do 
+    it 'should not match when sequences are already used' do
       post :count_affected_by_incorrect_sequences, params: {
         "data" => {
-          "used_sequences"=>['matchyword'], 
+          "used_sequences"=>['matchyword'],
           "selected_sequences"=>["matchy&&word", ""]
-          }, 
-          "question_uid"=>'123', 
+          },
+          "question_uid"=>'123',
           "response"=>{}
       }
       matched_count = JSON.parse(response.body)["matchedCount"]
@@ -76,13 +76,13 @@ RSpec.describe ResponsesController, type: :controller do
     end
 
     it 'should enqueue CreateOrIncrementResponseWorker' do
-      expect(CreateOrIncrementResponseWorker).to receive(:perform_async).with(response_payload)
+      expect(CreateOrIncrementResponseWorker).to receive(:perform_in).with(6.hours, response_payload)
       post :create_or_increment, params: {response: response_payload}
 
     end
 
     it 'should return a 200' do
-      allow(CreateOrIncrementResponseWorker).to receive(:perform_async)
+      allow(CreateOrIncrementResponseWorker).to receive(:perform_in)
       post :create_or_increment, params: {response: response_payload}
       expect(response.status).to eq(200)
     end
