@@ -25,7 +25,15 @@ module Comprehension
     end
 
     def regex
-
+      regex_check = Comprehension::RegexCheck.new(@entry, @prompt.id)
+      render json: {
+        feedback: regex_check.feedback,
+        feedback_type: REGEX_TYPE,
+        optimal: regex_check.optimal?,
+        response_id: '',
+        entry: @entry,
+        highlight: []
+      }
     end
 
     private def get_params
