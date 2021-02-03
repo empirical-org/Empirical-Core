@@ -10,7 +10,7 @@ module Comprehension
             optimal: false,
             rule_type: Rule::TYPE_REGEX,
             concept_uid: 'temp-uid',
-            sequence_type: RULE::TYPE_INCORRECT_SEQ
+            sequence_type: Rule::TYPE_INCORRECT_SEQ
           )
           rule.prompts << rule_set.prompts if rule.prompts != rule_set.prompts
           Feedback.create!(rule: rule, text: rule_set.feedback, order: rule_set.priority)
