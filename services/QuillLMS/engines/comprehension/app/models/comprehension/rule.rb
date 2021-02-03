@@ -1,6 +1,6 @@
 module Comprehension
   class Rule < ActiveRecord::Base
-    MAX_NAME_LENGTH = 50
+    MAX_NAME_LENGTH = 250
     ALLOWED_BOOLEANS = [true, false]
     TYPES= [
       TYPE_AUTOML = 'AutoML',
@@ -33,8 +33,9 @@ module Comprehension
       options ||= {}
 
       super(options.reverse_merge(
-        only: [:id, :uid, :name, :description, :universal, :rule_type, :optimal, :suborder, :concept_uid],
-        include: [:plagiarism_text, :feedbacks]
+        only: [:id, :uid, :name, :description, :universal, :rule_type, :optimal, :suborder, :concept_uid, :prompt_ids],
+        include: [:plagiarism_text, :feedbacks],
+        methods: :prompt_ids
       ))
     end
 

@@ -1,15 +1,17 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link, NavLink, Route, Switch, withRouter } from 'react-router-dom';
-import Cues from '../renderForQuestions/cues.jsx';
+
 import EditFillInBlank from './editFillInBlank.jsx';
 import TestFillInBlankQuestionContainer from './testFillInBlankQuestionContainer.jsx';
+
+import Cues from '../renderForQuestions/cues.jsx';
 import ResponseComponentWrapper from '../questions/responseRouteWrapper.jsx';
 import MassEditContainer from '../questions/massEditContainer.jsx';
 
 const icon = `${process.env.CDN_URL}/images/icons/direction.svg`
 
-class FillInBlankQuestion extends Component {
+export class FillInBlankQuestion extends Component {
 
   getQuestion = () => {
     const { match, fillInBlank, } = this.props
@@ -44,7 +46,7 @@ class FillInBlankQuestion extends Component {
           </div>
           <Cues
             displayArrowAndText={true}
-            getQuestion={this.getQuestion}
+            question={question}
           />
           <div className="feedback-row student-feedback-inner-container admin-feedback-row">
             <img alt="Directions Icon" className="info" src={icon} />

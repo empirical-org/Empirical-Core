@@ -116,7 +116,7 @@ export default class extends React.Component {
 
   returnAppropriateDataset = () => {
     const questionID = this.props.questionID
-    const datasets = ['fillInBlank', 'sentenceFragments', 'diagnosticQuestions'];
+    const datasets = ['fillInBlank', 'sentenceFragments'];
     let theDatasetYouAreLookingFor = this.props.questions.data[questionID];
     let mode = 'questions';
     datasets.forEach((dataset) => {

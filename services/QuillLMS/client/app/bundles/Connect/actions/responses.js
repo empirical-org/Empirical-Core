@@ -2,13 +2,8 @@
 import _ from 'underscore';
 import moment from 'moment';
 import request from 'request';
-
-import pathwaysActions from './pathways';
-import rootRef from '../libs/firebase';
 import C from '../constants'
 import objectWithSnakeKeysFromCamel from '../libs/objectWithSnakeKeysFromCamel';
-
-const responsesRef = rootRef.child('responses');
 
 export function deleteStatus(questionId) {
   return { type: C.DELETE_RESPONSE_STATUS, data: { questionId, }, };
@@ -20,10 +15,6 @@ export function updateStatus(questionId, status) {
 
 export function updateData(questionId, responses) {
   return { type: C.UPDATE_RESPONSE_DATA, data: { questionId, responses, }, };
-}
-
-function responsesForQuestionRef(questionId) {
-  return responsesRef.orderByChild('questionUID').equalTo(questionId);
 }
 
 function getQuestionLoadedStatusForGroupedResponses(groupedResponses) {
@@ -195,81 +186,6 @@ export function deleteResponse(qid, rid) {
   };
 }
 
-export function setUpdatedResponse(rid, content) {
-  alert('This is being called');
-  return (dispatch) => {
-    responsesRef.child(rid).set(content, (error) => {
-      if (error) {
-        dispatch({ type: C.DISPLAY_ERROR, error: `Update failed! ${error}`, });
-      } else {
-        dispatch({ type: C.DISPLAY_MESSAGE, message: 'Update successfully saved!', });
-      }
-    });
-  };
-}
-
-export function incrementFirstAttemptCount(rid) {
-  alert('This is being called');
-  return (dispatch) => {
-    responsesRef.child(`${rid}/firstAttemptCount`).transaction(currentCount => currentCount + 1, (error) => {
-      if (error) {
-        dispatch({ type: C.DISPLAY_ERROR, error: `increment failed! ${error}`, });
-      } else {
-        dispatch({ type: C.DISPLAY_MESSAGE, message: 'first attempt count successfully incremented!', });
-      }
-    });
-  };
-}
-
-export function incrementResponseCount(qid, rid, prid, isFirstAttempt) {
-  alert('This is being called');
-  return (dispatch) => {
-    const responseRef = responsesRef.child(rid);
-    responseRef.child('/count').transaction(currentCount => currentCount + 1, (error) => {
-      if (error) {
-        dispatch({ type: C.DISPLAY_ERROR, error: `increment failed! ${error}`, });
-      } else {
-        dispatch(pathwaysActions.submitNewPathway(rid, prid, qid));
-        dispatch({ type: C.DISPLAY_MESSAGE, message: 'Response successfully incremented!', });
-        if (isFirstAttempt) {
-          dispatch(incrementFirstAttemptCount(rid));
-        }
-      }
-    });
-    responseRef.child('parentID').once('value', (snap) => {
-      if (snap.val()) {
-        dispatch(incrementChildResponseCount(snap.val()));
-      }
-    });
-  };
-}
-
-export function incrementChildResponseCount(rid) {
-  alert('This is being called');
-  return (dispatch) => {
-    responsesRef.child(`${rid}/childCount`).transaction(currentCount => currentCount + 1, (error) => {
-      if (error) {
-        dispatch({ type: C.DISPLAY_ERROR, error: `increment failed! ${error}`, });
-      } else {
-        dispatch({ type: C.DISPLAY_MESSAGE, message: 'Child Response successfully incremented!', });
-      }
-    });
-  };
-}
-
-export function removeLinkToParentID(rid) {
-  alert('This is being called');
-  return (dispatch) => {
-    responsesRef.child(`${rid}/parentID`).remove((error) => {
-      if (error) {
-        dispatch({ type: C.DISPLAY_ERROR, error: `Deletion failed! ${error}`, });
-      } else {
-        dispatch({ type: C.DISPLAY_MESSAGE, message: 'Response successfully deleted!', });
-      }
-    });
-  };
-}
-
 function makeIterator(array) {
     let nextIndex = 0;
 
@@ -286,22 +202,6 @@ function makeIterator(array) {
            return nextVal;
        }
     };
-}
-
-export function getResponsesWithCallback(questionID, callback) {
-  responsesForQuestionRef(questionID).once('value', (snapshot) => {
-    callback(snapshot.val());
-  });
-}
-
-export function listenToResponsesWithCallback(questionID, callback) {
-  responsesForQuestionRef(questionID).on('value', (snapshot) => {
-    callback(snapshot.val());
-  });
-}
-
-function gradedResponsesForQuestionRef(questionId) {
-  return responsesRef.orderByChild('gradeIndex').equalTo(`human${questionId}`);
 }
 
 export function getGradedResponsesWithCallback(questionID, callback) {

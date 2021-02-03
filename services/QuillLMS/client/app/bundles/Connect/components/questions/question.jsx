@@ -25,7 +25,7 @@ import { Modal, UploadOptimalResponses, } from '../../../Shared/index'
 
 const icon = `${process.env.CDN_URL}/images/icons/direction.svg`
 
-class Question extends React.Component {
+export class Question extends React.Component {
   constructor(props) {
     super(props)
 
@@ -264,7 +264,7 @@ class Question extends React.Component {
           </div>
           <Cues
             displayArrowAndText={true}
-            getQuestion={this.getQuestion}
+            question={data[questionID]}
           />
           <div className="feedback-row student-feedback-inner-container admin-feedback-row">
             <img alt="Directions Icon" className="info" src={icon} />

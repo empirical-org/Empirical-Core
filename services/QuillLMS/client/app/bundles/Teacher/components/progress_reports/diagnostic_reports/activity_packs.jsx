@@ -238,7 +238,6 @@ export default class ActivityPacks extends React.Component {
           <p>Select a classroom:</p>
           <ItemDropdown
             callback={this.switchClassrooms}
-            className="activity-analysis-classroom-dropdown"
             items={classrooms.filter(Boolean)}
             selectedItem={selectedClassroom}
           />

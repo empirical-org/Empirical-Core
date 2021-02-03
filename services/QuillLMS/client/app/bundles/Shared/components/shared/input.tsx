@@ -77,7 +77,12 @@ export class Input extends React.Component<InputProps, InputState> {
   }
 
   deactivateInput = () => {
-    this.setState({ inactive: true, }, () => this.input.blur())
+    this.setState({ inactive: true, }, () => {
+      // performing the blur on Safari causes tab navigation to skip the rest of the inputs on the page
+      if (!(navigator.userAgent.search("Safari") >= 0 && navigator.userAgent.search("Chrome") < 0)) {
+        this.input.blur()
+      }
+    })
   }
 
   handleClick = (e) => {
@@ -132,8 +137,8 @@ export class Input extends React.Component<InputProps, InputState> {
   renderInput = () => {
     const { inactive, errorAcknowledged} = this.state
     const { className, label, handleChange, value, placeholder, error, type, id, disabled, characterLimit, autoComplete } = this.props
-    const hasText = value ? 'has-text' : ''
     const inactiveOrActive = inactive ? 'inactive' : 'active'
+    const hasText = value ? 'has-text' : ''
     const hasCharacterLimit = characterLimit ? 'has-character-limit' : ''
     const sharedClassNames = `input-container  ${inactiveOrActive} ${hasText} ${className} ${hasCharacterLimit}`
     const commonProps = {
@@ -142,7 +147,7 @@ export class Input extends React.Component<InputProps, InputState> {
       onChange: handleChange,
       value,
       type,
-      placeholder,
+      placeholder: !inactive && placeholder,
       disabled,
       maxLength: characterLimit ? characterLimit : 10000,
       autoComplete

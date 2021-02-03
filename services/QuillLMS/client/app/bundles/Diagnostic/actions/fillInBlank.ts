@@ -1,11 +1,6 @@
 const C = require('../constants').default;
-import rootRef from '../libs/firebase';
-const	fillInBlankQuestionsRef = rootRef.child('diagnostic_fillInBlankQuestions');
-const	responsesRef = rootRef.child('responses');
-const moment = require('moment');
 import _ from 'lodash';
 import { push } from 'react-router-redux';
-import pathwaysActions from './pathways';
 import { submitResponse } from './responses';
 import sessionActions from './sessions';
 import { Questions, Question, FocusPoint, IncorrectSequence } from '../interfaces/questions'

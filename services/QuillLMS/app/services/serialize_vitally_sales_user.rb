@@ -148,7 +148,7 @@ class SerializeVitallySalesUser
   end
 
   private def sum_students(records)
-    records.map { |r| r.assigned_student_ids.count }.sum || 0
+    records.map { |r| r&.assigned_student_ids&.count || 0 }.sum || 0
   end
 
   private def this_school_year(records, school_year_start)
