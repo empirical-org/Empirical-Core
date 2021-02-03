@@ -10,6 +10,10 @@ module Comprehension
       TYPE_REGEX = 'Regex',
       TYPE_SPELLING = 'Spelling'
     ]
+    SEQUENCE_TYPES = [
+      TYPE_INCORRECT_SEQ = 'Incorrect',
+      TYPE_REQUIRED_SEQ = 'Required'
+    ]
     before_validation :assign_uid_if_missing
 
     has_many :feedbacks, inverse_of: :rule, dependent: :destroy
@@ -28,6 +32,7 @@ module Comprehension
     validates :rule_type, inclusion: {in: TYPES}
     validates :suborder, numericality: {only_integer: true, greater_than_or_equal_to: 0}
     validates :concept_uid, presence: true
+    validates :sequence_type, inclusion: {in: SEQUENCE_TYPES}
 
 
     def serializable_hash(options = nil)
