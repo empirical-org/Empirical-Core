@@ -44,7 +44,7 @@ class ResponseComponent extends React.Component {
     if (this.props.mode === 'sentenceFragments') {
       actions = sentenceFragmentActions;
       matcher = POSMatcher;
-    }else {
+    } else {
       actions = questionActions;
       matcher = QuestionMatcher;
     }
