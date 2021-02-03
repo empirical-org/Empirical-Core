@@ -10,7 +10,6 @@ module Comprehension
 
     has_many :passages, inverse_of: :activity, dependent: :destroy
     has_many :prompts, inverse_of: :activity, dependent: :destroy
-    has_many :rule_sets, inverse_of: :activity, dependent: :destroy
     has_many :turking_rounds, inverse_of: :activity
     belongs_to :parent_activity, class_name: Comprehension.parent_activity_class
 
