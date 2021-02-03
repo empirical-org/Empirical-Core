@@ -96,20 +96,6 @@ ActiveRecord::Schema.define(version: 20210128155938) do
   end
 
   add_index "comprehension_regex_rules", ["rule_id"], name: "index_comprehension_regex_rules_on_rule_id", using: :btree
-  add_index "comprehension_regex_rules", ["rule_set_id"], name: "index_comprehension_regex_rules_on_rule_set_id", using: :btree
-
-  create_table "comprehension_rule_sets", force: :cascade do |t|
-    t.integer  "activity_id"
-    t.integer  "prompt_id"
-    t.string   "name",        limit: 100
-    t.text     "feedback"
-    t.integer  "priority",    limit: 2
-    t.datetime "created_at",              null: false
-    t.datetime "updated_at",              null: false
-  end
-
-  add_index "comprehension_rule_sets", ["activity_id"], name: "index_comprehension_rule_sets_on_activity_id", using: :btree
-  add_index "comprehension_rule_sets", ["prompt_id"], name: "index_comprehension_rule_sets_on_prompt_id", using: :btree
 
   create_table "comprehension_rules", force: :cascade do |t|
     t.string   "uid",         null: false
