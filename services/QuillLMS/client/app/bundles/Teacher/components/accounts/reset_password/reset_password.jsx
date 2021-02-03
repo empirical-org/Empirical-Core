@@ -1,9 +1,8 @@
 import React from 'react'
 import request from 'request'
 
+import PasswordWrapper from '../shared/password_wrapper'
 import getAuthToken from '../../modules/get_auth_token';
-import { Input, } from '../../../../Shared/index'
-
 
 export default class ForgotPassword extends React.Component {
   constructor() {
@@ -11,7 +10,6 @@ export default class ForgotPassword extends React.Component {
 
     this.state = {
       password: '',
-      passwordConfirmation: '',
       errors: {},
       timesSubmitted: 0,
     };
@@ -21,20 +19,15 @@ export default class ForgotPassword extends React.Component {
     this.setState({ password: e.target.value, });
   }
 
-  onPasswordConfirmationChange = (e) => {
-    this.setState({ passwordConfirmation: e.target.value, });
-  }
-
   handleSubmit = (e) => {
-    const { timesSubmitted, password, passwordConfirmation, } = this.state
+    const { timesSubmitted, password, } = this.state
     e.preventDefault();
     request({
       url: window.location.href,
       method: 'PUT',
       json: {
         user: {
-          password,
-          password_confirmation: passwordConfirmation,
+          password
         },
         authenticity_token: getAuthToken(),
       },
@@ -62,43 +55,32 @@ export default class ForgotPassword extends React.Component {
   }
 
   submitClass() {
-    const { password, passwordConfirmation, } = this.state
+    const { password, } = this.state
     let buttonClass = "quill-button contained primary medium focus-on-light"
-    if (!password.length || !passwordConfirmation.length) {
+    if (!password.length) {
       buttonClass += ' disabled'
     }
     return buttonClass
   }
 
   render() {
-    const { authToken, password, passwordConfirmation, errors, timesSubmitted, } = this.state
+    const { authToken, password, errors, timesSubmitted, } = this.state
     return (
       <div className="container account-form reset-password">
-        <h1>Reset Password</h1>
+        <h1>Reset password</h1>
 
         <div className="form-container">
           <form acceptCharset="UTF-8" onSubmit={this.handleSubmit} >
             <input aria-hidden="true" aria-label="utf8" name="utf8" type="hidden" value="✓" />
             <input aria-hidden="true" aria-label="authenticity token" name="authenticity_token" type="hidden" value={authToken} />
-            <Input
+            <PasswordWrapper
               autoComplete="new-password"
               className="password inspectletIgnore"
               error={errors.password}
-              handleChange={this.onPasswordChange}
               label="New password"
+              onChange={this.onPasswordChange}
               timesSubmitted={timesSubmitted}
-              type="password"
               value={password}
-            />
-            <Input
-              autoComplete="new-password"
-              className="password-confirmation inspectletIgnore"
-              error={errors.password_confirmation}
-              handleChange={this.onPasswordConfirmationChange}
-              label="Confirm password"
-              timesSubmitted={timesSubmitted}
-              type="password"
-              value={passwordConfirmation}
             />
             <input aria-label="Save and log in" className={this.submitClass()} name="commit" type="submit" value="Save and log in" />
           </form>
