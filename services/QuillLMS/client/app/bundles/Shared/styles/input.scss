@@ -12,6 +12,10 @@
     }
   }
 
+  &.not-editable input {
+    cursor: default;
+  }
+
   &.dropdown-container:focus {
     outline: none;
     label {
@@ -21,6 +25,10 @@
       border: 2px #009a80 !important;
       border-style: none none solid !important;
     }
+  }
+
+  .dropdown__indicators {
+    justify-content: flex-end;
   }
 
   input, input:focus, textarea, textarea:focus {
@@ -85,7 +93,6 @@
       background: url('https://assets.quill.org/images/icons/dropdown.svg');
       width: 0;
       height: 0;
-      margin-bottom: 10px;
     }
     .dropdown {
       border-bottom: none !important;
@@ -132,7 +139,6 @@
       color: #000;
       font-size: 16px;
       margin-left: 0px;
-      top: 30%;
       overflow: visible;
       .css-1g6gooi {
         margin: 0px;
@@ -144,6 +150,7 @@
       font-size: 16px;
       line-height: 1;
       color: #000;
+      height: 20px;
     }
     .dropdown__indicator-separator {
       display: none;
@@ -197,7 +204,7 @@
 
   &.checkbox-dropdown {
     .dropdown__control {
-      min-width: 120px;
+      min-width: 126px;
       width: min-content;
     }
     .dropdown__dropdown-indicator {

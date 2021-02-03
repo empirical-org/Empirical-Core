@@ -1,34 +1,16 @@
-button.select-item-dropdown, #select-student-dropdown, #select-role-dropdown {
-    padding: 10px 14px;
-    margin-right: 10px;
-    width: 214px;
-    height: 40px;
-    border-radius: 8px;
-    border: solid 1px $lightgray;
-    font-size: 14px;
-    color: #000000;
-    text-overflow: ellipsis;
-    overflow: hidden;
-    font-weight: 400;
-    text-align: left;
-    position: relative;
-    .caret {
-        left: 100%;
-        position: absolute;
-        margin-top: 6px;
-        margin-left: -25px;
-        border-color: #7e7e7e;
-        border-top: 7px solid;
-        border-right: 6px solid transparent;
-        border-left: 6px solid transparent;
+.select-item-dropdown {
+  max-width: 300px;
+  width: 100%;
+  &.input-container.active.not-editable {
+    min-height: 58px;
+    .dropdown__menu {
+      margin-top: -20px;
     }
-
+  }
+  .dropdown__control {
+    background-color: transparent;
+  }
 }
-
-button.select-item-dropdown:focus {
-  color: #000000;
-}
-
 .activities-scores-by-classroom .btn:focus {
   color: #000000;
 }
