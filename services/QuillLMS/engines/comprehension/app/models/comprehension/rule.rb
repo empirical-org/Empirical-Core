@@ -1,6 +1,6 @@
 module Comprehension
   class Rule < ActiveRecord::Base
-    MAX_NAME_LENGTH = 50
+    MAX_NAME_LENGTH = 100
     ALLOWED_BOOLEANS = [true, false]
     TYPES= [
       TYPE_AUTOML = 'AutoML',
