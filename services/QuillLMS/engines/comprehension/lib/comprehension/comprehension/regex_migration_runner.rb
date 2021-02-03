@@ -3,6 +3,7 @@ module Comprehension
     def self.run
       ActiveRecord::Base.transaction do
         RuleSet.all.each do |rule_set|
+          next unless Comprehension::Rule.where(name: rule_set.name, rule_type: Comprehension::Rule::TYPE_REGEX, suborder: rule_set.priority).joins(:prompts).merge( Comprehension::Prompt.where(id: rule_set.prompt_ids)).empty?
           rule = Rule.create!(
             name: rule_set.name,
             suborder: rule_set.priority,
