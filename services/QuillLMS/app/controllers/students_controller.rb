@@ -55,11 +55,7 @@ class StudentsController < ApplicationController
     # @TODO - move to the model in an update_password method that uses validations and returns the user record with errors if it's not successful.
     errors = {}
     if current_user.authenticate(params[:current_password])
-      if params[:new_password] == params[:confirmed_new_password]
-        current_user.update(password: params[:new_password])
-      else
-        errors['confirmed_new_password'] = "Those passwords didn't match. Try again."
-      end
+      current_user.update(password: params[:new_password])
     else
       errors['current_password'] = 'Wrong password. Try again or click Forgot password to reset it.'
     end
