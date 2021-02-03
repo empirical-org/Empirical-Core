@@ -11,7 +11,6 @@ declare global {
 import request from 'request';
 import _ from 'underscore';
 import { goBack } from 'react-router-redux';
-import pathwaysActions from './pathways';
 import { submitResponse } from './responses';
 import { Questions, Question, FocusPoint, IncorrectSequence } from '../interfaces/questions'
 import {

@@ -19,7 +19,7 @@ class FillInBlankQuestions extends Component {
   UNSAFE_componentWillReceiveProps(nextProps) {
     const { fillInBlank, } = nextProps
     if (fillInBlank.hasreceiveddata) {
-      if (Object.keys(this.state.questions).length === 0 || !_.isEqual(this.props.fillInBlank.data, fillInBlank.data) || (!_.isEqual(this.props.diagnosticLessons.data, diagnosticLessons.data))) {
+      if (Object.keys(this.state.questions).length === 0 || !_.isEqual(this.props.fillInBlank.data, fillInBlank.data)) {
         this.setState({ questions: fillInBlank.data, })
       }
     }

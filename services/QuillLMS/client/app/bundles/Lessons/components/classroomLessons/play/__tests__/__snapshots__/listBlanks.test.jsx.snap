@@ -95,7 +95,7 @@ exports[`ListBlanks component projector view inactive renders 1`] = `
           prompt="List three action words:"
         >
           <div
-            className="draft-js sentence-fragments prevent-selection"
+            className="draft-js sentence-fragments"
             dangerouslySetInnerHTML={
               Object {
                 "__html": "List three action words:",
@@ -405,7 +405,7 @@ exports[`ListBlanks component projector view when an answer is being displayed r
           prompt="List three action words:"
         >
           <div
-            className="draft-js sentence-fragments prevent-selection"
+            className="draft-js sentence-fragments"
             dangerouslySetInnerHTML={
               Object {
                 "__html": "List three action words:",
@@ -659,7 +659,7 @@ exports[`ListBlanks component student view inactive renders 1`] = `
           prompt="List three action words:"
         >
           <div
-            className="draft-js sentence-fragments prevent-selection"
+            className="draft-js sentence-fragments"
             dangerouslySetInnerHTML={
               Object {
                 "__html": "List three action words:",
@@ -914,7 +914,7 @@ exports[`ListBlanks component student view when an answer is being displayed ren
           prompt="List three action words:"
         >
           <div
-            className="draft-js sentence-fragments prevent-selection"
+            className="draft-js sentence-fragments"
             dangerouslySetInnerHTML={
               Object {
                 "__html": "List three action words:",
@@ -1161,7 +1161,7 @@ exports[`ListBlanks component student view when the student has submitted an ans
           prompt="List three action words:"
         >
           <div
-            className="draft-js sentence-fragments prevent-selection"
+            className="draft-js sentence-fragments"
             dangerouslySetInnerHTML={
               Object {
                 "__html": "List three action words:",
@@ -1408,7 +1408,7 @@ exports[`ListBlanks component student view when the student has submitted an ans
           prompt="List three action words:"
         >
           <div
-            className="draft-js sentence-fragments prevent-selection"
+            className="draft-js sentence-fragments"
             dangerouslySetInnerHTML={
               Object {
                 "__html": "List three action words:",

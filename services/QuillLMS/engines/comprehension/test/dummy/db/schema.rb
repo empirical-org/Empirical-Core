@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20210129184505) do
+ActiveRecord::Schema.define(version: 20210128155938) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -92,8 +92,28 @@ ActiveRecord::Schema.define(version: 20210129184505) do
     t.boolean  "case_sensitive",             null: false
     t.datetime "created_at",                 null: false
     t.datetime "updated_at",                 null: false
+    t.integer  "rule_id"
   end
 
+<<<<<<< HEAD
+=======
+  add_index "comprehension_regex_rules", ["rule_id"], name: "index_comprehension_regex_rules_on_rule_id", using: :btree
+  add_index "comprehension_regex_rules", ["rule_set_id"], name: "index_comprehension_regex_rules_on_rule_set_id", using: :btree
+
+  create_table "comprehension_rule_sets", force: :cascade do |t|
+    t.integer  "activity_id"
+    t.integer  "prompt_id"
+    t.string   "name",        limit: 100
+    t.text     "feedback"
+    t.integer  "priority",    limit: 2
+    t.datetime "created_at",              null: false
+    t.datetime "updated_at",              null: false
+  end
+
+  add_index "comprehension_rule_sets", ["activity_id"], name: "index_comprehension_rule_sets_on_activity_id", using: :btree
+  add_index "comprehension_rule_sets", ["prompt_id"], name: "index_comprehension_rule_sets_on_prompt_id", using: :btree
+
+>>>>>>> 0ce3cd08e90e7c6a61ba93aee692b742cbbc098b
   create_table "comprehension_rules", force: :cascade do |t|
     t.string   "uid",         null: false
     t.string   "name",        null: false
@@ -132,4 +152,5 @@ ActiveRecord::Schema.define(version: 20210129184505) do
 
   add_foreign_key "comprehension_highlights", "comprehension_feedbacks", column: "feedback_id", on_delete: :cascade
   add_foreign_key "comprehension_plagiarism_texts", "comprehension_rules", column: "rule_id", on_delete: :cascade
+  add_foreign_key "comprehension_regex_rules", "comprehension_rules", column: "rule_id", on_delete: :cascade
 end

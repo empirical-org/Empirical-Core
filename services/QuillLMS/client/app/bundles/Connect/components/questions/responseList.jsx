@@ -49,16 +49,13 @@ export default class ResponseList extends React.Component {
       key={resp.key}
       massEdit={this.props.massEdit}
       mode={this.props.mode}
-      printPathways={this.props.printPathways}
       question={this.props.question}
       questionID={this.props.questionID}
       readOnly={this.props.admin}
       response={resp}
       responses={this.props.responses}
-      showPathways={this.props.showPathways}
       state={this.props.states[this.props.questionID]}
       states={this.props.states}
-      toPathways={this.props.toPathways}
     />)
   }
 

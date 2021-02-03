@@ -98,7 +98,7 @@ exports[`SingleAnswer component projector view inactive renders 1`] = `
           prompt="<p>Yesterday, riding my bike through the town.</p>"
         >
           <div
-            className="draft-js sentence-fragments prevent-selection"
+            className="draft-js sentence-fragments"
             dangerouslySetInnerHTML={
               Object {
                 "__html": "<p>Yesterday, riding my bike through the town.</p>",
@@ -332,7 +332,7 @@ exports[`SingleAnswer component projector view when an answer is being displayed
           prompt="<p>Yesterday, riding my bike through the town.</p>"
         >
           <div
-            className="draft-js sentence-fragments prevent-selection"
+            className="draft-js sentence-fragments"
             dangerouslySetInnerHTML={
               Object {
                 "__html": "<p>Yesterday, riding my bike through the town.</p>",
@@ -520,7 +520,7 @@ exports[`SingleAnswer component student view inactive renders 1`] = `
           prompt="<p>Yesterday, riding my bike through the town.</p>"
         >
           <div
-            className="draft-js sentence-fragments prevent-selection"
+            className="draft-js sentence-fragments"
             dangerouslySetInnerHTML={
               Object {
                 "__html": "<p>Yesterday, riding my bike through the town.</p>",
@@ -715,7 +715,7 @@ exports[`SingleAnswer component student view when an answer is being displayed r
           prompt="<p>Yesterday, riding my bike through the town.</p>"
         >
           <div
-            className="draft-js sentence-fragments prevent-selection"
+            className="draft-js sentence-fragments"
             dangerouslySetInnerHTML={
               Object {
                 "__html": "<p>Yesterday, riding my bike through the town.</p>",
@@ -904,7 +904,7 @@ exports[`SingleAnswer component student view when the student has submitted an a
           prompt="<p>Yesterday, riding my bike through the town.</p>"
         >
           <div
-            className="draft-js sentence-fragments prevent-selection"
+            className="draft-js sentence-fragments"
             dangerouslySetInnerHTML={
               Object {
                 "__html": "<p>Yesterday, riding my bike through the town.</p>",

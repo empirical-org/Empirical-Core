@@ -8,14 +8,12 @@ import classroomSessions from './classroomSessions';
 import concepts from './concepts.ts';
 import conceptsFeedback from './conceptsFeedback.ts';
 import customize, * as FromCustomize from './customize'
-import diagnosticQuestions from './diagnosticQuestions';
 import display from './display';
 import fillInBlank from './fillInBlank.ts';
 import filters from './filtersReducer';
 import generatedIncorrectSequences from './generatedIncorrectSequences';
 import lessons from './lessons.ts';
 import massEdit from './massEdit';
-import pathways from './pathways';
 import playDiagnostic from './diagnostics';
 import playLesson from './questionReducer';
 import question from './questionReducerV2';
@@ -24,9 +22,6 @@ import responses from './responsesReducer';
 import sentenceFragments from './sentenceFragments.ts';
 import sessions from './sessions';
 import titleCards from './titleCards.ts';
-import connectSentenceCombining from './connectSentenceCombining';
-import connectSentenceFragments from './connectSentenceFragments';
-import connectFillInBlank from './connectFillInBlank';
 
 const combinedReducers = combineReducers({
   classroomLesson,
@@ -36,14 +31,12 @@ const combinedReducers = combineReducers({
   concepts,
   conceptsFeedback,
   customize,
-  diagnosticQuestions,
   display,
   fillInBlank,
   filters,
   generatedIncorrectSequences,
   lessons,
   massEdit,
-  pathways,
   playDiagnostic,
   playLesson,
   question,
@@ -53,9 +46,6 @@ const combinedReducers = combineReducers({
   sentenceFragments,
   sessions,
   titleCards,
-  connectSentenceCombining,
-  connectSentenceFragments,
-  connectFillInBlank
 });
 
 export default combinedReducers;

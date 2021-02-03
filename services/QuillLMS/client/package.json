@@ -41,7 +41,6 @@
     "draft-js-richbuttons-plugin": "^2.2.0",
     "es5-shim": "^4.5.7",
     "fetch-defaults": "^1.0.0",
-    "firebase": "^7.14.1",
     "font-awesome": "^4.7.0",
     "fuse.js": "^3.2.1",
     "fuzzyset.js": "0.0.7",

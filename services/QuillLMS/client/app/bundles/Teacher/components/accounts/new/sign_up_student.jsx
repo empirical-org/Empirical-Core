@@ -2,6 +2,8 @@ import React from 'react';
 import request from 'request'
 
 import AuthSignUp from './auth_sign_up'
+
+import PasswordWrapper from '../shared/password_wrapper'
 import AnalyticsWrapper from '../../shared/analytics_wrapper'
 import AgreementsAndLinkToLogin from './agreements_and_link_to_login'
 import getAuthToken from '../../modules/get_auth_token';
@@ -155,15 +157,14 @@ class SignUpStudent extends React.Component {
                   type="email"
                   value={email}
                 />
-                <Input
-                  autocomplete="new-password"
-                  className="password"
+                <PasswordWrapper
+                  autoComplete="new-password"
+                  className="password inspectletIgnore"
                   error={errors.password}
-                  handleChange={this.update}
                   id="password"
                   label="Password"
+                  onChange={this.update}
                   timesSubmitted={timesSubmitted}
-                  type='password'
                   value={password}
                 />
                 <input aria-label="Sign up" className={this.submitClass()} name="commit" type="submit" value="Sign up" />

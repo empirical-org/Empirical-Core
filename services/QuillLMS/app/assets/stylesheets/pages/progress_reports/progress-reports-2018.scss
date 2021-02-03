@@ -42,20 +42,9 @@
     margin-top: 21px;
     margin-bottom: 21px;
     width: 100%;
-    .student-reports-class-dropdown, .admin-activity-dropdown, .admin-concept-dropdown {
-      .dropdown__control {
-        border-radius: 6px;
-        padding: 7px 14px;
-        height: 40px;
-        width: 180px;
-        border: solid 1px #cecece;
-        border-radius: 6px !important;
-      }
-    }
   }
   #flexed {
     display: flex;
-    width: 200px !important;
     .admin-activity-dropdown, .admin-concept-dropdown, .student-reports-class-dropdown {
       margin-right: 10px;
     }
