@@ -3,7 +3,7 @@ import { NavLink, Redirect, Route, RouteComponentProps, Switch, withRouter } fro
 
 import ActivitySettings from './configureSettings/activitySettings';
 import Rules from './configureRules/rules';
-import RuleSet from './configureRules/ruleSet';
+import Rule from './configureRules/rule';
 import TurkSessions from './gatherResponses/turkSessions';
 
 import { ActivityRouteProps } from '../../interfaces/comprehensionInterfaces';
@@ -48,7 +48,7 @@ const Activity: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ match }) 
       <Switch>
         <Redirect exact from='/activities/:activityId' to='/activities/:activityId/settings' />
         <Route component={ActivitySettings} path='/activities/:activityId/settings' />
-        <Route component={RuleSet} path='/activities/:activityId/rulesets/:ruleSetId' />
+        <Route component={Rule} path='/activities/:activityId/rules/:ruleId' />
         <Route component={Rules} path='/activities/:activityId/rules' />
         <Route component={TurkSessions} path='/activities/:activityId/turk-sessions' />
       </Switch>

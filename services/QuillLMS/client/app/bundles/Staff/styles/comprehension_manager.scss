@@ -216,8 +216,8 @@
       }
     }
   }
-  .activity-form-container, .ruleset-form-container {
-    .activity-form , .ruleset-form {
+  .activity-form-container, .rule-form-container {
+    .activity-form , .rule-form {
       padding: 0px 30px 0px 30px;
       max-height: 80vh;
       .card {
@@ -308,7 +308,7 @@
       }
     }
   }
-  .rules-container, .ruleset-container, .turk-sessions-container {
+  .rules-container, .rule-container, .turk-sessions-container {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -320,7 +320,7 @@
         font-weight: bold;
       }
     }
-    .rules-table, .ruleset-table, .turk-sessions-table {
+    .rules-table, .rule-table, .turk-sessions-table {
       .data-table-body{
         max-height: 500px;
         overflow: auto;
@@ -342,7 +342,7 @@
         }
       }
     }
-    .ruleset-table {
+    .rule-table {
       border: 1px solid lightgray;
       border-radius: 6px;
       .data-table-headers {
@@ -365,29 +365,29 @@
       justify-content: flex-end;
       padding: 20px 10px 20px 0px;
       width: 900px;
-      #edit-ruleset-button, #delete-ruleset-button {
+      #edit-rule-button, #delete-rule-button {
         margin-right: 10px;
       }
     }
   }
 
-  .ruleset-container {
-    .delete-ruleset-container {
-      .delete-ruleset-text {
+  .rule-container {
+    .delete-rule-container {
+      .delete-rule-text {
         padding: 20px;
       }
-      .delete-ruleset-button-container {
+      .delete-rule-button-container {
         display: flex;
         justify-content: flex-end;
         padding: 10px;
-        #delete-ruleset-button {
+        #delete-rule-button {
           margin-right: 10px;
         }
       }
     }
   }
-  .ruleset-form-container {
-    .ruleset-form {
+  .rule-form-container {
+    .rule-form {
       .form-subsection-label {
         font-size: 12px;
         font-weight: 600;

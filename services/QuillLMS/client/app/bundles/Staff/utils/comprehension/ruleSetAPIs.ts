@@ -6,7 +6,7 @@ export const fetchRules = async (key: string, activityId: string) => {
   const rules = await response.json();
   // rulesets.forEach((ruleset) => { ruleset.rules = ruleset.regex_rules });
   return {
-    error: handleApiError('Failed to fetch rule sets, please refresh the page.', response),
+    error: handleApiError('Failed to fetch rules, please refresh the page.', response),
     rules: rules
   };
 }
@@ -29,6 +29,15 @@ export const fetchRuleSet = async (key: string, activityId: string, ruleSetId: s
   return {
     error: handleApiError('Failed to fetch rule set, please refresh the page.', response),
     ruleset
+  };
+}
+
+export const fetchRule = async (key: string, ruleSetId: string) => {
+  const response = await apiFetch(`rules/${ruleSetId}`);
+  const rule = await response.json();
+  return {
+    error: handleApiError('Failed to fetch rule, please refresh the page.', response),
+    rule
   };
 }
 

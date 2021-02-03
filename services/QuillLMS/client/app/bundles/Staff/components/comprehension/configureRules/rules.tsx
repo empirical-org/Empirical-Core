@@ -31,20 +31,10 @@ const Rules: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ match }) => 
     queryFn: fetchActivity
   });
 
-  function handleGetPromptsIcons(promptIds: number[]) {
-    if(activityData && activityData.activity && activityData.activity.prompts) {
-      const { activity } = activityData;
-      const { prompts } = activity;
-      const attachedPrompts = prompts.filter(prompt => promptIds.includes(prompt.id));
-      return getPromptsIcons(attachedPrompts);
-    }
-    return getPromptsIcons(null);
-  }
-
   const formattedRows = rulesData && rulesData.rules && rulesData.rules.map(rule => {
     const { name, id, rule_type, universal, suborder, prompt_ids } = rule;
     const ruleLink = (<Link to={`/activities/${activityId}/rules/${id}`}>{name}</Link>);
-    const promptsIcons = handleGetPromptsIcons(prompt_ids);
+    const promptsIcons = getPromptsIcons(activityData, prompt_ids);
     return {
       id: `${activityId}-${id}`,
       type: rule_type,

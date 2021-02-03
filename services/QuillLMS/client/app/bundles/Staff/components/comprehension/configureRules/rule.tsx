@@ -6,15 +6,15 @@ import RuleSetForm from './ruleSetForm';
 import { buildErrorMessage, getPromptsIcons } from '../../../helpers/comprehension';
 import { BECAUSE, BUT, SO } from '../../../../../constants/comprehension';
 import { RegexRuleInterface } from '../../../interfaces/comprehensionInterfaces';
-import { deleteRuleSet, fetchRuleSet, fetchRuleSets, updateRuleSet, createRule, updateRule, deleteRule } from '../../../utils/comprehension/ruleSetAPIs';
+import { deleteRuleSet, updateRuleSet, createRule, updateRule, deleteRule, fetchRule } from '../../../utils/comprehension/ruleSetAPIs';
 import { fetchActivity } from '../../../utils/comprehension/activityAPIs';
 import SubmissionModal from '../shared/submissionModal';
 import { DataTable, Error, Modal, Spinner } from '../../../../Shared/index';
 
-const RuleSet = ({ history, match }) => {
+const Rule = ({ history, match }) => {
   const { params } = match;
-  const { activityId, ruleSetId } = params;
-  const [showDeleteRuleSetModal, setShowDeleteRuleSetModal] = React.useState<boolean>(false);
+  const { activityId, ruleId } = params;
+  const [showDeleteRuleModal, setShowDeleteRuleModal] = React.useState<boolean>(false);
   const [showEditRuleSetModal, setShowEditRuleSetModal] = React.useState<boolean>(false);
   const [showSubmissionModal, setShowSubmissionModal] = React.useState<boolean>(false);
   const [errors, setErrors] = React.useState<object>({});
@@ -25,57 +25,53 @@ const RuleSet = ({ history, match }) => {
     queryFn: fetchActivity
   });
 
-  // get cached ruleSets data to pass ruleSets count to ruleSetForm
-  const { data: ruleSetsData } = useQuery({
-    queryKey: [`ruleSets-${activityId}`, activityId],
-    queryFn: fetchRuleSets
-  });
-
-  // cache ruleSet data
-  const { data: ruleSetData } = useQuery({
-    queryKey: [`ruleSet-${ruleSetId}`, activityId, ruleSetId],
-    queryFn: fetchRuleSet
+  // cache rule data
+  const { data: ruleData } = useQuery({
+    queryKey: [`rule-${ruleId}`, ruleId],
+    queryFn: fetchRule
   });
 
   const toggleShowEditRuleSetModal = () => {
     setShowEditRuleSetModal(!showEditRuleSetModal);
   }
 
-  const toggleShowDeleteRuleSetModal = () => {
-    setShowDeleteRuleSetModal(!showDeleteRuleSetModal);
+  const toggleShowDeleteRuleModal = () => {
+    setShowDeleteRuleModal(!showDeleteRuleModal);
   }
 
   const toggleSubmissionModal = () => {
     setShowSubmissionModal(!showSubmissionModal);
   }
 
-  const getRegexRules = (rules: RegexRuleInterface[]) => {
-    return rules.map(rule => {
-      const { regex_text } = rule;
+  function handleGetFeedbackData(feedbacks) {
+    return feedbacks.map((feedback, i) => {
+      const { text } = feedback;
       return {
-        label: 'Regex Rule',
-        value: regex_text
+        label: `Feedback ${i + 1}`,
+        value: text
       }
     });
   }
 
-  const ruleSetRows = ({ ruleset }) => {
-    if(!ruleset) {
+  const ruleRows = ({ rule }) => {
+    if(!rule) {
       return [];
     } else {
       // format for DataTable to display labels on left side and values on right
-      const { feedback, name, prompts, rules } = ruleset;
-      const promptsIcons = prompts && getPromptsIcons(prompts);
-      const regexRules = rules && getRegexRules(rules);
-      let fields = [
+      const { feedbacks, name, prompt_ids, rule_type } = rule;
+      const promptsIcons = getPromptsIcons(activityData, prompt_ids);
+      const feedbackFields = handleGetFeedbackData(feedbacks);
+      const firstFields = [
+        {
+          label: 'Type',
+          value: rule_type
+        },
         {
           label: 'Name',
           value: name
-        },
-        {
-          label: 'Feedback',
-          value: feedback
-        },
+        }
+      ];
+      const lastFields = [
         {
           label: "Because",
           value: promptsIcons ? promptsIcons[BECAUSE] : null
@@ -89,9 +85,7 @@ const RuleSet = ({ history, match }) => {
           value: promptsIcons ? promptsIcons[SO] : null
         },
       ];
-      if(regexRules) {
-        fields = fields.concat(regexRules);
-      }
+      const fields = firstFields.concat(feedbackFields).concat(lastFields);
       return fields.map((field, i) => {
         const { label, value } = field
         return {
@@ -107,7 +101,7 @@ const RuleSet = ({ history, match }) => {
     rules.map((rule: RegexRuleInterface, i: number) => {
       const { id } = rule;
       if(id && rulesToDelete[id]) {
-        deleteRule(ruleSetId, id).then((response) => {
+        deleteRule(ruleId, id).then((response) => {
           const { error } = response;
           if(error) {
             let updatedErrors = errors;
@@ -115,10 +109,10 @@ const RuleSet = ({ history, match }) => {
             setErrors(updatedErrors);
           }
           // update ruleSet cache to remove deleted rule
-          queryCache.refetchQueries(`ruleSet-${ruleSetId}`);
+          queryCache.refetchQueries(`ruleSet-${ruleId}`);
         });
       } else if(id && rulesToUpdate[id]) {
-        updateRule(rule, ruleSetId, id).then((response) => {
+        updateRule(rule, ruleId, id).then((response) => {
           const { error } = response;
           if(error) {
             let updatedErrors = errors;
@@ -126,10 +120,10 @@ const RuleSet = ({ history, match }) => {
             setErrors(updatedErrors);
           }
           // update ruleSet cache to display newly updated rule
-          queryCache.refetchQueries(`ruleSet-${ruleSetId}`);
+          queryCache.refetchQueries(`ruleSet-${ruleId}`);
         });
       } else {
-        createRule(rule, ruleSetId).then((response) => {
+        createRule(rule, ruleId).then((response) => {
           const { error } = response;
           if(error) {
             let updatedErrors = errors;
@@ -137,14 +131,14 @@ const RuleSet = ({ history, match }) => {
             setErrors(updatedErrors);
           }
           // update ruleSet cache to display newly created rule
-          queryCache.refetchQueries(`ruleSet-${ruleSetId}`);
+          queryCache.refetchQueries(`ruleSet-${ruleId}`);
         });
       }
     });
   }
 
   const submitRuleSet = ({ ruleSet, rules, rulesToDelete, rulesToUpdate }) => {
-    updateRuleSet(activityId, ruleSetId, ruleSet).then((response) => {
+    updateRuleSet(activityId, ruleId, ruleSet).then((response) => {
       const { error } = response;
       if(error) {
         let updatedErrors = errors;
@@ -154,7 +148,7 @@ const RuleSet = ({ history, match }) => {
         handleCreateOrUpdateRules(rules, rulesToDelete, rulesToUpdate);
       }
       // update ruleSet cache to display newly updated ruleSet
-      queryCache.refetchQueries(`ruleSet-${ruleSetId}`);
+      queryCache.refetchQueries(`ruleSet-${ruleId}`);
     });
 
     toggleShowEditRuleSetModal();
@@ -162,14 +156,14 @@ const RuleSet = ({ history, match }) => {
   }
 
   const handleDeleteRuleSet = () => {
-    deleteRuleSet(activityId, ruleSetId).then((response) => {
+    deleteRuleSet(activityId, ruleId).then((response) => {
       const { error } = response;
       if(error) {
         let updatedErrors = errors;
         updatedErrors['delete error'] = error;
         setErrors(updatedErrors);
       }
-      toggleShowDeleteRuleSetModal();
+      toggleShowDeleteRuleModal();
 
       if(Object.keys(errors).length) {
         toggleSubmissionModal();
@@ -186,7 +180,7 @@ const RuleSet = ({ history, match }) => {
       <Modal>
         <RuleSetForm
           activityData={activityData && activityData.activity}
-          activityRuleSet={ruleSetData && ruleSetData.ruleset}
+          activityRuleSet={ruleData && ruleData.rule}
           closeModal={toggleShowEditRuleSetModal}
           ruleSetsCount={ruleSetsData && ruleSetsData.rulesets.length}
           submitRuleSet={submitRuleSet}
@@ -195,16 +189,16 @@ const RuleSet = ({ history, match }) => {
     );
   }
 
-  const renderDeleteRuleSetModal = () => {
+  const renderDeleteRuleModal = () => {
     return(
       <Modal>
-        <div className="delete-ruleset-container">
-          <p className="delete-ruleset-text">Are you sure that you want to delete this ruleset?</p>
-          <div className="delete-ruleset-button-container">
-            <button className="quill-button fun primary contained" id="delete-ruleset-button" onClick={handleDeleteRuleSet} type="button">
+        <div className="delete-rule-container">
+          <p className="delete-rule-text">Are you sure that you want to delete this rule?</p>
+          <div className="delete-rule-button-container">
+            <button className="quill-button fun primary contained" id="delete-rule-button" onClick={handleDeleteRuleSet} type="button">
               Delete
             </button>
-            <button className="quill-button fun primary contained" id="close-ruleset-modal-button" onClick={toggleShowDeleteRuleSetModal} type="button">
+            <button className="quill-button fun primary contained" id="close-rule-modal-button" onClick={toggleShowDeleteRuleModal} type="button">
               Cancel
             </button>
           </div>
@@ -227,7 +221,7 @@ const RuleSet = ({ history, match }) => {
     { name: "", attribute:"value", width: "600px" }
   ];
 
-  if(!ruleSetData) {
+  if(!ruleData) {
     return(
       <div className="loading-spinner-container">
         <Spinner />
@@ -235,32 +229,32 @@ const RuleSet = ({ history, match }) => {
     );
   }
 
-  if(ruleSetData.error) {
+  if(ruleData.error) {
     return(
       <div className="error-container">
-        <Error error={`${ruleSetData.error}`} />
+        <Error error={`${ruleData.error}`} />
       </div>
     );
   }
 
   return(
-    <div className="ruleset-container">
-      {showDeleteRuleSetModal && renderDeleteRuleSetModal()}
+    <div className="rule-container">
+      {showDeleteRuleModal && renderDeleteRuleModal()}
       {showEditRuleSetModal && renderRuleSetForm()}
       {showSubmissionModal && renderSubmissionModal()}
       <div className="header-container">
         <p>Rule Set</p>
       </div>
       <DataTable
-        className="ruleset-table"
+        className="rule-table"
         headers={dataTableFields}
-        rows={ruleSetRows(ruleSetData)}
+        rows={ruleRows(ruleData)}
       />
       <div className="button-container">
-        <button className="quill-button fun primary contained" id="edit-ruleset-button" onClick={toggleShowEditRuleSetModal} type="button">
+        <button className="quill-button fun primary contained" id="edit-rule-button" onClick={toggleShowEditRuleSetModal} type="button">
           Configure
         </button>
-        <button className="quill-button fun primary contained" id="delete-ruleset-button" onClick={toggleShowDeleteRuleSetModal} type="button">
+        <button className="quill-button fun primary contained" id="delete-rule-button" onClick={toggleShowDeleteRuleModal} type="button">
           Delete
         </button>
       </div>
@@ -268,4 +262,4 @@ const RuleSet = ({ history, match }) => {
   );
 }
 
-export default RuleSet
+export default Rule
