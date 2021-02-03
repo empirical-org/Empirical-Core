@@ -4,8 +4,11 @@ module Comprehension
     MAX_REGEX_TEXT_LENGTH = 200
     CASE_SENSITIVE_ALLOWED_VALUES = [true, false]
 
+    belongs_to :rule, inverse_of: :regex_rules
+
     before_validation :set_default_case_sensitivity, on: :create
 
+    validates_presence_of :rule
     validates :regex_text, presence: true, length: {maximum: MAX_REGEX_TEXT_LENGTH}
     validates :case_sensitive, inclusion: CASE_SENSITIVE_ALLOWED_VALUES
 
