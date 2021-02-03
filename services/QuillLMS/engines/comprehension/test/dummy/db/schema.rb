@@ -95,8 +95,6 @@ ActiveRecord::Schema.define(version: 20210128155938) do
     t.integer  "rule_id"
   end
 
-<<<<<<< HEAD
-=======
   add_index "comprehension_regex_rules", ["rule_id"], name: "index_comprehension_regex_rules_on_rule_id", using: :btree
   add_index "comprehension_regex_rules", ["rule_set_id"], name: "index_comprehension_regex_rules_on_rule_set_id", using: :btree
 
@@ -113,7 +111,6 @@ ActiveRecord::Schema.define(version: 20210128155938) do
   add_index "comprehension_rule_sets", ["activity_id"], name: "index_comprehension_rule_sets_on_activity_id", using: :btree
   add_index "comprehension_rule_sets", ["prompt_id"], name: "index_comprehension_rule_sets_on_prompt_id", using: :btree
 
->>>>>>> 0ce3cd08e90e7c6a61ba93aee692b742cbbc098b
   create_table "comprehension_rules", force: :cascade do |t|
     t.string   "uid",         null: false
     t.string   "name",        null: false
