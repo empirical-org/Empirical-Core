@@ -9,8 +9,7 @@ module Comprehension
             suborder: rule_set.priority,
             universal: false,
             optimal: false,
-            rule_type: Rule::TYPE_REGEX,
-            concept_uid: 'temp-uid'
+            rule_type: Rule::TYPE_REGEX
           )
           rule.prompts << rule_set.prompts
           Feedback.create!(rule: rule, text: rule_set.feedback, order: rule_set.priority)

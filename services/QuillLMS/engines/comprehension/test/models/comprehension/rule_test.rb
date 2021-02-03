@@ -14,7 +14,6 @@ module Comprehension
       should validate_numericality_of(:suborder)
         .only_integer
         .is_greater_than_or_equal_to(0)
-      should validate_presence_of(:concept_uid)
     end
 
     context 'relationships' do
