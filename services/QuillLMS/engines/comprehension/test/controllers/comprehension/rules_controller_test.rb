@@ -162,6 +162,36 @@ module Comprehension
 
         assert_equal 1, Highlight.count
       end
+
+      should "create nested regex rule record when present in params" do
+        assert_equal 0, RegexRule.count
+
+        regex_rule = build(:comprehension_regex_rule)
+        post :create, rule: {
+          concept_uid: @rule.concept_uid,
+          description: @rule.description,
+          name: @rule.name,
+          optimal: @rule.optimal,
+          suborder: @rule.suborder,
+          rule_type: @rule.rule_type,
+          universal: @rule.universal,
+          regex_rules_attributes:
+            [
+              {
+                regex_text: regex_rule.regex_text,
+                case_sensitive: regex_rule.case_sensitive
+              }
+            ]
+        }
+
+        parsed_response = JSON.parse(response.body)
+        assert_equal 201, response.code.to_i
+
+        assert_equal regex_rule.regex_text, parsed_response['regex_rules'][0]['regex_text']
+        assert_equal regex_rule.case_sensitive, parsed_response['regex_rules'][0]['case_sensitive']
+
+        assert_equal 1, RegexRule.count
+      end
     end
 
     context "show" do
@@ -256,6 +286,19 @@ module Comprehension
 
         highlight.reload
         assert_equal new_text, highlight.text
+      end
+
+      should "update nested reged rule attributes if present" do
+        regex_rule = create(:comprehension_regex_rule, rule: @rule)
+        new_text = "new regex text"
+
+        post :update, id: @rule.id, rule: { regex_rules_attributes: [{id: regex_rule.id, regex_text: new_text}]}
+
+        assert_equal 204, response.code.to_i
+        assert_equal "", response.body
+
+        regex_rule.reload
+        assert_equal new_text, regex_rule.regex_text
       end
 
     end

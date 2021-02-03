@@ -5,6 +5,7 @@ module Comprehension
 
     context 'relationships' do
       should belong_to(:rule_set)
+      should belong_to(:rule)
     end
 
     context 'validations' do
