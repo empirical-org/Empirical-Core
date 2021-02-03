@@ -57,7 +57,6 @@ class EditIncorrectSequencesContainer extends Component {
     return (
       <div>
         <IncorrectSequencesInputAndConceptSelectorForm
-          diagnosticQuestions
           fillInBlank
           item={Object.assign(this.getIncorrectSequence(), { id: incorrectSequenceID, })}
           itemLabel='Incorrect Sequence'
@@ -79,7 +78,6 @@ function select(props) {
     generatedIncorrectSequences: props.generatedIncorrectSequences,
     fillInBlank: props.fillInBlank,
     sentenceFragments: props.sentenceFragments,
-    diagnosticQuestions: props.diagnosticQuestions,
     states: props.states
   };
 }

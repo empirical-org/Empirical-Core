@@ -15,7 +15,6 @@ import generatedIncorrectSequences from './generatedIncorrectSequences';
 import itemLevels from './item-levels';
 import lessons from './lessons';
 import massEdit from './massEdit';
-import pathways from './pathways';
 import playLesson from './questionReducer';
 import question from './questionReducerV2';
 import questions from './questions';
@@ -23,7 +22,6 @@ import responses from './responsesReducer';
 import sentenceFragments from './sentenceFragments';
 import sessions from './sessions';
 import titleCards from './titleCards';
-import diagnosticLessons from './diagnosticLessons';
 import playTurk from './turk';
 
 const combinedReducers = combineReducers({
@@ -41,7 +39,6 @@ const combinedReducers = combineReducers({
   itemLevels,
   lessons,
   massEdit,
-  pathways,
   playLesson,
   question,
   questions,
@@ -50,7 +47,6 @@ const combinedReducers = combineReducers({
   sentenceFragments,
   sessions,
   titleCards,
-  diagnosticLessons,
   playTurk
 });
 
