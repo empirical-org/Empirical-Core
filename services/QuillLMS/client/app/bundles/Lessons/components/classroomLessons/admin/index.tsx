@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import rootRef, { firebase } from '../../../libs/firebase';
 import _ from 'lodash'
 import {
   addLesson
