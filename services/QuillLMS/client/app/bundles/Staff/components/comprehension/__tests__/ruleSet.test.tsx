@@ -1,7 +1,8 @@
 import * as React from 'react';
 import { shallow } from 'enzyme';
 import { createMemoryHistory, createLocation } from 'history';
-import RuleSet from '../configureRegex/ruleSet';
+
+import RuleSet from '../configureRules/ruleSet';
 import 'whatwg-fetch';
 
 const mockProps = {

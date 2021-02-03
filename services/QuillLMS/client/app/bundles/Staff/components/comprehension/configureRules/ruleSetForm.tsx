@@ -1,9 +1,11 @@
 import * as React from "react";
 import { EditorState, ContentState } from 'draft-js'
+
+import RegexSection from './regexSection';
+
 import { validateForm } from '../../../helpers/comprehension';
 import { BECAUSE, BUT, SO } from '../../../../../constants/comprehension';
 import { ActivityInterface, ActivityRuleSetInterface, PromptInterface, RegexRuleInterface } from '../../../interfaces/comprehensionInterfaces';
-import RegexSection from './regexSection';
 import { Input, TextEditor, } from '../../../../Shared/index'
 
 interface RuleSetFormProps {
@@ -76,7 +78,7 @@ const RuleSetForm = ({ activityData, activityRuleSet, closeModal, ruleSetsCount,
       // TODO: add feature for updating ruleSet priority
       priority: priority || ruleSetsCount + 1,
       prompt_ids: [],
-      rules_attributes: []
+      regex_rules_attributes: []
     };
     Object.keys(ruleSetPrompts).forEach(key => {
       ruleSetPrompts[key].checked && promptIds.push(ruleSetPrompts[key].id);
@@ -85,7 +87,7 @@ const RuleSetForm = ({ activityData, activityRuleSet, closeModal, ruleSetsCount,
       rules.push(regexRules[key]);
     });
     ruleSet.prompt_ids = promptIds;
-    ruleSet.rules_attributes = rules;
+    ruleSet.regex_rules_attributes = rules;
     return {
       rule_set: ruleSet
     };

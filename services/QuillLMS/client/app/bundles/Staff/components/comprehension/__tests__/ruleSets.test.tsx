@@ -1,7 +1,8 @@
 import * as React from 'react';
 import { shallow } from 'enzyme';
 import { createMemoryHistory, createLocation } from 'history';
-import RuleSets from '../configureRegex/ruleSets';
+
+import Rules from '../configureRules/rules';
 import 'whatwg-fetch';
 
 const mockProps = {
@@ -17,10 +18,10 @@ const mockProps = {
   location: createLocation('')
 }
 
-describe('RuleSets component', () => {
-  const container = shallow(<RuleSets {...mockProps} />);
+describe('Rules component', () => {
+  const container = shallow(<Rules {...mockProps} />);
 
-  it('should render RuleSets', () => {
+  it('should render Rules', () => {
     expect(container).toMatchSnapshot();
   });
 });

@@ -3,25 +3,26 @@ import { Link, RouteComponentProps } from 'react-router-dom'
 import { queryCache, useQuery } from 'react-query';
 
 import RuleSetForm from './ruleSetForm';
+
 import SubmissionModal from '../shared/submissionModal';
-import { buildErrorMessage, getPromptsIcons } from '../../../helpers/comprehension';
+import { buildErrorMessage, getPromptsIcons, getUniversalIcon } from '../../../helpers/comprehension';
 import { ActivityRouteProps, RegexRuleInterface } from '../../../interfaces/comprehensionInterfaces';
 import { BECAUSE, BUT, SO, blankRuleSet } from '../../../../../constants/comprehension';
 import { fetchActivity } from '../../../utils/comprehension/activityAPIs';
-import { createRule, createRuleSet, fetchRuleSets } from '../../../utils/comprehension/ruleSetAPIs';
+import { createRule, createRuleSet, fetchRules } from '../../../utils/comprehension/ruleSetAPIs';
 import { DataTable, Error, Modal, Spinner } from '../../../../Shared/index';
 
-const RuleSets: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ match }) => {
+const Rules: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ match }) => {
   const { params } = match;
   const { activityId } = params;
-  const [showAddRuleSetModal, setShowAddRuleSetModal] = React.useState<boolean>(false);
+  const [showAddRuleModal, setShowAddRuleModal] = React.useState<boolean>(false);
   const [showSubmissionModal, setShowSubmissionModal] = React.useState<boolean>(false);
   const [errors, setErrors] = React.useState<object>({});
 
   // cache ruleSets data for updates
-  const { data: ruleSetsData } = useQuery({
-    queryKey: [`ruleSets-${activityId}`, activityId],
-    queryFn: fetchRuleSets
+  const { data: rulesData } = useQuery({
+    queryKey: [`rules-${activityId}`, activityId],
+    queryFn: fetchRules
   });
 
   // get cached activity data to pass to ruleSetForm
@@ -30,17 +31,29 @@ const RuleSets: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ match }) 
     queryFn: fetchActivity
   });
 
-  const formattedRows = ruleSetsData && ruleSetsData.rulesets && ruleSetsData.rulesets.map(rule => {
-    const { name, id, prompts, rules } = rule;
-    const ruleSetLink = (<Link to={`/activities/${activityId}/rulesets/${id}`}>{name}</Link>);
-    const promptsIcons = getPromptsIcons(prompts);
+  function handleGetPromptsIcons(promptIds: number[]) {
+    if(activityData && activityData.activity && activityData.activity.prompts) {
+      const { activity } = activityData;
+      const { prompts } = activity;
+      const attachedPrompts = prompts.filter(prompt => promptIds.includes(prompt.id));
+      return getPromptsIcons(attachedPrompts);
+    }
+    return getPromptsIcons(null);
+  }
+
+  const formattedRows = rulesData && rulesData.rules && rulesData.rules.map(rule => {
+    const { name, id, rule_type, universal, suborder, prompt_ids } = rule;
+    const ruleLink = (<Link to={`/activities/${activityId}/rules/${id}`}>{name}</Link>);
+    const promptsIcons = handleGetPromptsIcons(prompt_ids);
     return {
       id: `${activityId}-${id}`,
-      name: ruleSetLink,
+      type: rule_type,
+      name: ruleLink,
       because_prompt: promptsIcons[BECAUSE],
       but_prompt: promptsIcons[BUT],
       so_prompt: promptsIcons[SO],
-      rule_count: rules.length
+      universal: getUniversalIcon(universal),
+      suborder: suborder
     }
   });
 
@@ -70,13 +83,13 @@ const RuleSets: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ match }) 
       // update ruleSets cache to display newly created ruleSet
       queryCache.refetchQueries(`ruleSets-${activityId}`);
 
-      toggleAddRuleSetModal();
+      toggleAddRuleModal();
       toggleSubmissionModal();
     });
   }
 
-  const toggleAddRuleSetModal = () => {
-    setShowAddRuleSetModal(!showAddRuleSetModal);
+  const toggleAddRuleModal = () => {
+    setShowAddRuleModal(!showAddRuleModal);
   }
 
   const toggleSubmissionModal = () => {
@@ -89,8 +102,8 @@ const RuleSets: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ match }) 
         <RuleSetForm
           activityData={activityData && activityData.activity}
           activityRuleSet={blankRuleSet}
-          closeModal={toggleAddRuleSetModal}
-          ruleSetsCount={ruleSetsData && ruleSetsData.rulesets.length}
+          closeModal={toggleAddRuleModal}
+          ruleSetsCount={rulesData && rulesData.rules.length}
           submitRuleSet={submitRuleSet}
         />
       </Modal>
@@ -105,7 +118,7 @@ const RuleSets: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ match }) 
     return <SubmissionModal close={toggleSubmissionModal} message={message} />;
   }
 
-  if(!ruleSetsData) {
+  if(!rulesData) {
     return(
       <div className="loading-spinner-container">
         <Spinner />
@@ -113,37 +126,39 @@ const RuleSets: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ match }) 
     );
   }
 
-  if(ruleSetsData.error) {
+  if(rulesData.error) {
     return(
       <div className="error-container">
-        <Error error={`${ruleSetsData.error}`} />
+        <Error error={`${rulesData.error}`} />
       </div>
     );
   }
 
   const dataTableFields = [
+    { name: "Type", attribute:"type", width: "100px" },
     { name: "Name", attribute:"name", width: "400px" },
-    { name: "Because", attribute:"because_prompt", width: "100px" },
-    { name: "But", attribute:"but_prompt", width: "100px" },
-    { name: "So", attribute:"so_prompt", width: "100px" },
-    { name: "Regex Count", attribute:"rule_count", width: "80px" },
+    { name: "Because", attribute:"because_prompt", width: "70px" },
+    { name: "But", attribute:"but_prompt", width: "70px" },
+    { name: "So", attribute:"so_prompt", width: "70px" },
+    { name: "Universal?", attribute:"universal", width: "70px" },
+    { name: "Sub Order", attribute:"suborder", width: "70px" },
   ];
 
   return(
-    <div className="rulesets-container">
-      {showAddRuleSetModal && renderRuleSetForm()}
+    <div className="rules-container">
+      {showAddRuleModal && renderRuleSetForm()}
       {showSubmissionModal && renderSubmissionModal()}
       <div className="header-container">
-        <p>Rule Sets</p>
+        <p>Rules</p>
       </div>
       <DataTable
-        className="rulesets-table"
+        className="rules-table"
         defaultSortAttribute="name"
         headers={dataTableFields}
         rows={formattedRows ? formattedRows : []}
       />
       <div className="button-container">
-        <button className="quill-button fun primary contained" id="add-rule-button" onClick={toggleAddRuleSetModal} type="submit">
+        <button className="quill-button fun primary contained" id="add-rule-button" onClick={toggleAddRuleModal} type="submit">
           Add Rule
         </button>
       </div>
@@ -151,4 +166,4 @@ const RuleSets: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ match }) 
   );
 }
 
-export default RuleSets
+export default Rules

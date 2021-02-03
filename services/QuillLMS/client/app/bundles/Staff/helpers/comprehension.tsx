@@ -28,7 +28,7 @@ export const apiFetch = fetchDefaults(fetch, baseUrl, {
 
 export const getPromptsIcons = (prompts: ActivityRuleSetPrompt[]) => {
   const icons = {};
-  prompts.forEach(prompt => {
+  prompts && prompts.forEach(prompt => {
     const { conjunction } = prompt;
     if(promptStems.includes(conjunction)) {
       icons[conjunction] = (<img alt="quill-circle-checkmark" src={quillCheckmark} />)
@@ -37,6 +37,14 @@ export const getPromptsIcons = (prompts: ActivityRuleSetPrompt[]) => {
     }
   });
   return icons;
+}
+
+export const getUniversalIcon = (universal: boolean) => {
+  if(universal) {
+    return (<img alt="quill-circle-checkmark" src={quillCheckmark} />)
+  } else {
+    return (<div />);
+  }
 }
 
 export const buildBlankPrompt = (conjunction: string) => {
