@@ -77,6 +77,11 @@ export class QuestionComponent extends React.Component<QuestionProps, QuestionSt
         this.setState({ responses: data, });
       }
     );
+
+    window.addEventListener('paste', (e) => {
+      e.preventDefault()
+      return false
+    }, true);
   }
 
   //TODO: refactor into componentDidUpdate
