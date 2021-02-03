@@ -22,9 +22,9 @@ describe('PlayFillInBlankQuestion component', () => {
     />
   );
   it('#generateInputs will return array of inputs from last attempt if it exists', () => {
-    const promptArray = fillInBlankQuestionWithOneAttempt.prompt.split('___')
-    const generatedInputs = wrapper.instance().generateInputs(promptArray)
-    expect(generatedInputs[0]).toBe(['the'][0]);
+    const numberOfInputVals = fillInBlankQuestionWithOneAttempt.prompt.match(/___/g).length
+    const generatedInputs = wrapper.instance().generateInputs(numberOfInputVals)
+    expect(generatedInputs[0]).toBe([''][0]);
   });
   it('#zipInputsAndText combines text and inputs, and strips html from string output', () => {
     wrapper.setState({

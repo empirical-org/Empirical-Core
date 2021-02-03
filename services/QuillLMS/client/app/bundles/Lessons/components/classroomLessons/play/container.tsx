@@ -79,6 +79,11 @@ class PlayClassroomLessonContainer extends React.Component<any, any> {
     }
     document.getElementsByTagName("html")[0].style.backgroundColor = "white";
     this.setInitialData(this.props)
+
+    window.addEventListener('paste', (e) => {
+      e.preventDefault()
+      return false
+    }, true);
   }
 
   UNSAFE_componentWillReceiveProps(nextProps, nextState) {

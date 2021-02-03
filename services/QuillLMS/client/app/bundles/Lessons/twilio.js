@@ -1,5 +1,3 @@
-const functions = require('firebase-functions');
-
 // Max number of lines of the chat history.
 const MAX_LOG_COUNT = 5;
 

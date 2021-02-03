@@ -1,18 +1,12 @@
 import React from 'react';
 import { Link, Redirect, Route, Switch, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
-import * as userActions from '../../actions/users';
 import conceptActions from '../../actions/concepts';
 import conceptsFeedbackActions from '../../actions/concepts-feedback';
 import questionActions from '../../actions/questions';
 import fillInBlankActions from '../../actions/fillInBlank';
-import diagnosticQuestionActions from '../../actions/diagnosticQuestions';
 import sentenceFragmentActions from '../../actions/sentenceFragments.ts';
 import * as titleCardActions from '../../actions/titleCards.ts';
-import * as connectSentenceCombiningActions from '../../actions/connectSentenceCombining.ts';
-import * as connectFillInBlankActions from '../../actions/connectFillInBlank.ts';
-import * as connectSentenceFragmentActions from '../../actions/connectSentenceFragments.ts';
-import CloneConnectQuestions from '../cloneConnect/cloneConnectQuestions.tsx';
 import ConceptsFeedback from '../feedback/concepts-feedback.jsx';
 import ConceptFeedback from '../feedback/concept-feedback.jsx';
 import Concepts from '../concepts/concepts.jsx';
@@ -51,17 +45,12 @@ class Admin extends React.Component {
   componentDidMount() {
     const { dispatch } = this.props;
     this.handleAuthCheck();
-    dispatch(userActions.firebaseAuth());
     dispatch(conceptActions.startListeningToConcepts());
     dispatch(conceptsFeedbackActions.startListeningToConceptsFeedback());
     dispatch(questionActions.loadQuestions());
     dispatch(fillInBlankActions.startListeningToQuestions());
-    dispatch(diagnosticQuestionActions.startListeningToDiagnosticQuestions());
     dispatch(sentenceFragmentActions.startListeningToSentenceFragments());
     dispatch(titleCardActions.startListeningToTitleCards());
-    dispatch(connectSentenceCombiningActions.startListeningToConnectQuestions())
-    dispatch(connectFillInBlankActions.startListeningToConnectFillInBlankQuestions())
-    dispatch(connectSentenceFragmentActions.startListeningToConnectSentenceFragments())
   }
 
   handleAuthCheck = () => {
@@ -123,7 +112,6 @@ class Admin extends React.Component {
           <Route component={ConceptsFeedback} path='/admin/concepts-feedback' />
           <Route component={Concept} path='/admin/concepts/:conceptID' />
           <Route component={Concepts} path='/admin/concepts' />
-          <Route component={CloneConnectQuestions} path='/admin/clone_questions' />
           <Route component={Lesson} path='/admin/lessons/:lessonID' />
           <Route component={Lessons} path='/admin/lessons' />
           <Route component={Question} path='/admin/questions/:questionID' />

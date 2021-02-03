@@ -42,8 +42,8 @@ class QuillStaffAccountsChangedWorker
     end
 
     existing_ids.each do |id|
-      old_data = current_staff_accounts.find { |acc| acc['id'] === id.to_s }
-      new_data = previous_staff_accounts.find { |acc| acc['id'] === id.to_s }
+      old_data = previous_staff_accounts.find { |acc| acc['id'] === id.to_s }
+      new_data = current_staff_accounts.find { |acc| acc['id'] === id.to_s }
       PARAMS_TO_TRACK.each do |key|
         unless old_data[key] === new_data[key]
           body << "ID ##{id} #{key}: #{old_data[key]} => #{new_data[key]}\n\n"

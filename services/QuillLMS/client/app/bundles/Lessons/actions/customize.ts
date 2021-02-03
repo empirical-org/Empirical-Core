@@ -1,5 +1,4 @@
 declare function require(name:string);
-import rootRef, { firebase } from '../libs/firebase';
 import C from '../constants';
 import * as CustomizeIntf from '../interfaces/customize'
 import lessonSlideBoilerplates from '../components/classroomLessons/shared/lessonSlideBoilerplates'

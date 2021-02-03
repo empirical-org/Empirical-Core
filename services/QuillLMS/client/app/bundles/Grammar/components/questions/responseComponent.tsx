@@ -88,15 +88,9 @@ class ResponseComponent extends React.Component {
     this.renderViewResponsesOrPOSButton = this.renderViewResponsesOrPOSButton.bind(this)
     this.renderResetAllFiltersButton = this.renderResetAllFiltersButton.bind(this)
     this.renderDeselectAllFiltersButton = this.renderDeselectAllFiltersButton.bind(this)
-    this.getToPathwaysForResponse = this.getToPathwaysForResponse.bind(this)
-    this.getUniqAndCountedToResponsePathways = this.getUniqAndCountedToResponsePathways.bind(this)
-    this.mapCountToToResponse = this.mapCountToToResponse.bind(this)
-    this.getFromPathwaysForResponse = this.getFromPathwaysForResponse.bind(this)
-    this.getUniqAndCountedResponsePathways = this.getUniqAndCountedResponsePathways.bind(this)
     this.getPOSTagsList = this.getPOSTagsList.bind(this)
     this.handleStringFiltering = this.handleStringFiltering.bind(this)
     this.getFilteredResponses = this.getFilteredResponses.bind(this)
-    this.mapCountToResponse = this.mapCountToResponse.bind(this)
     this.updatePageNumber = this.updatePageNumber.bind(this)
     this.incrementPageNumber = this.incrementPageNumber.bind(this)
     this.decrementPageNumber = this.decrementPageNumber.bind(this)
@@ -304,15 +298,12 @@ class ResponseComponent extends React.Component {
         getResponse={this.getResponse}
         massEdit={this.props.massEdit}
         mode={this.props.mode}
-        printPathways={this.mapCountToResponse}
         question={this.props.question}
         questionID={questionID}
         responses={responses}
         selectedFocusPoints={selectedFocusPoints}
         selectedIncorrectSequences={selectedIncorrectSequences}
-        showPathways
         states={this.props.states}
-        toPathways={this.mapCountToToResponse}
       />);
     }
   }
@@ -448,43 +439,6 @@ class ResponseComponent extends React.Component {
     );
   }
 
-  getToPathwaysForResponse(rid) {
-    const responseCollection = hashToCollection(this.props.pathways.data);
-    const responsePathways = _.where(responseCollection, { fromResponseID: rid, });
-    return responsePathways;
-  }
-
-  getUniqAndCountedToResponsePathways(rid) {
-    const counted = _.countBy(this.getToPathwaysForResponse(rid), path => path.toResponseID);
-    return counted;
-  }
-
-  mapCountToToResponse(rid) {
-    const uniqAndCountedResponsePathways = this.getUniqAndCountedToResponsePathways(rid)
-    const mapped = Object.keys(uniqAndCountedResponsePathways).map(key => {
-      return this.props.responses[key]
-    })
-    // const mapped = _.mapObject(this.getUniqAndCountedToResponsePathways(rid), (value, key) => {
-    //   const response = this.props.responses[key];
-    //   // response.pathCount = value
-    //   return response;
-    // });
-    return _.values(mapped);
-  }
-
-  // from pathways
-
-  getFromPathwaysForResponse(rid) {
-    const responseCollection = hashToCollection(this.props.pathways.data);
-    const responsePathways = _.where(responseCollection, { toResponseID: rid, });
-    return responsePathways;
-  }
-
-  getUniqAndCountedResponsePathways(rid) {
-    const counted = _.countBy(this.getFromPathwaysForResponse(rid), path => path.fromResponseID);
-    return counted;
-  }
-
   getPOSTagsList() {
     const responses = this.gatherVisibleResponses();
     const responsesWithPOSTags = responses.map((response) => {
@@ -523,38 +477,6 @@ class ResponseComponent extends React.Component {
     }
     const that = this;
     return _.filter(responses, response => response.text.indexOf(that.props.filters.stringFilter) >= 0);
-  }
-
-  mapCountToResponse(rid) {
-    const uniqAndCountedResponsePathways = this.getUniqAndCountedResponsePathways(rid)
-    const mapped = Object.keys(uniqAndCountedResponsePathways).map(key => {
-      const value = uniqAndCountedResponsePathways[key]
-      let response = this.props.responses[key];
-      if (response) {
-        response.pathCount = value;
-      } else {
-        response = {
-          initial: true,
-          pathCount: value,
-          key: 'initial',
-        };
-      }
-      return response;
-    })
-    // const mapped = _.mapObject(this.getUniqAndCountedResponsePathways(rid), (value, key) => {
-    //   let response = this.props.responses[key];
-    //   if (response) {
-    //     response.pathCount = value;
-    //   } else {
-    //     response = {
-    //       initial: true,
-    //       pathCount: value,
-    //       key: 'initial',
-    //     };
-    //   }
-    //   return response;
-    // });
-    return _.values(mapped);
   }
 
   updatePageNumber(pageNumber) {
@@ -700,7 +622,6 @@ class ResponseComponent extends React.Component {
 function select(state) {
   return {
     filters: state.filters,
-    pathways: state.pathways,
     conceptsFeedback: state.conceptsFeedback,
     concepts: state.concepts,
     massEdit: state.massEdit,

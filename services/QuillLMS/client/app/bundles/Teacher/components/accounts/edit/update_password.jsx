@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
+
+import PasswordWrapper from '../shared/password_wrapper'
 import { Input, } from '../../../../Shared/index'
 
 export default class UpdatePassword extends Component {
   state = {
     currentPassword: '',
     newPassword: '',
-    confirmedNewPassword: '',
     showButtonSection: false
   }
 
@@ -16,10 +17,7 @@ export default class UpdatePassword extends Component {
     }
   }
 
-  onConfirmedNewPasswordChange = (e) => this.handleChange('confirmedNewPassword', e)
-
   onCurrentPasswordChange = (e) => this.handleChange('currentPassword', e)
-
 
   onNewPasswordChange = (e) => this.handleChange('newPassword', e)
 
@@ -43,14 +41,13 @@ export default class UpdatePassword extends Component {
   }
 
   handleSubmit = (e) => {
-    const { currentPassword, newPassword, confirmedNewPassword, } = this.state;
+    const { currentPassword, newPassword, } = this.state;
     const { updateUser, role } = this.props;
     const url = role === 'teacher' ? '/teachers/update_my_password' : '/students/update_password';
     e.preventDefault()
     const data = {
       current_password: currentPassword,
-      new_password: newPassword,
-      confirmed_new_password: confirmedNewPassword
+      new_password: newPassword
     };
     updateUser(data, url, 'Settings saved');
   }
@@ -58,15 +55,14 @@ export default class UpdatePassword extends Component {
   reset = () => {
     this.setState({
       currentPassword: '',
-      newPassword: '',
-      confirmedNewPassword: ''
+      newPassword: ''
     });
   }
 
   submitClass = () => {
-    const { currentPassword, newPassword, confirmedNewPassword, } = this.state
+    const { currentPassword, newPassword, } = this.state
     let buttonClass = 'quill-button contained primary medium focus-on-light';
-    if (!(currentPassword.length && newPassword.length && confirmedNewPassword.length)) {
+    if (!(currentPassword.length && newPassword.length)) {
       buttonClass += ' disabled';
     }
     return buttonClass;
@@ -83,7 +79,7 @@ export default class UpdatePassword extends Component {
   }
 
   renderContent = () => {
-    const { currentPassword, newPassword, confirmedNewPassword, } = this.state
+    const { currentPassword, newPassword, } = this.state
     const { errors, active, timesSubmitted, googleId, cleverId, role,} = this.props;
     const accountType = googleId ? 'Google' : 'Clever';
     const teacherScript = `Before you can create a password, you will need to unlink your ${accountType} account below.`;
@@ -92,37 +88,25 @@ export default class UpdatePassword extends Component {
       return (<form acceptCharset="UTF-8" onSubmit={this.handleSubmit} >
         <div className="fields">
           <div className="current-password-section">
-            <Input
+            <PasswordWrapper
               autoComplete="current-password"
               className="current-password inspectletIgnore"
               error={errors.current_password}
-              handleChange={this.onCurrentPasswordChange}
               label="Current password"
+              onChange={this.onCurrentPasswordChange}
               timesSubmitted={timesSubmitted}
-              type="password"
               value={currentPassword}
             />
             <a className="forgot-password inline-link" href="/password_reset">Forgot password?</a>
           </div>
-          <Input
+          <PasswordWrapper
             autoComplete="new-password"
             className="new-password inspectletIgnore"
             error={errors.new_password}
-            handleChange={this.onNewPasswordChange}
             label="New password"
+            onChange={this.onNewPasswordChange}
             timesSubmitted={timesSubmitted}
-            type="password"
             value={newPassword}
-          />
-          <Input
-            autoComplete="new-password"
-            className="confirmed-new-password inspectletIgnore"
-            error={errors.confirmed_new_password}
-            handleChange={this.onConfirmedNewPasswordChange}
-            label="Confirm new password"
-            timesSubmitted={timesSubmitted}
-            type="password"
-            value={confirmedNewPassword}
           />
         </div>
         {this.renderButtonSection()}

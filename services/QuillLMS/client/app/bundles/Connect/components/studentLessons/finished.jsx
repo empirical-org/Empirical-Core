@@ -1,5 +1,4 @@
 import React from 'react';
-import rootRef from '../../libs/firebase';
 import { Spinner } from '../../../Shared/index';
 
 export default class extends React.Component {

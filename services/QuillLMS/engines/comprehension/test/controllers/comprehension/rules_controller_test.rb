@@ -1,5 +1,6 @@
 require 'test_helper'
 
+
 module Comprehension
   class RulesControllerTest < ActionController::TestCase
     setup do
@@ -59,7 +60,7 @@ module Comprehension
       should "create a valid record and return it as json" do
         assert_equal 0, Rule.count
 
-        post :create, rule: { concept_uid: @rule.concept_uid, description: @rule.description, name: @rule.name, optimal: @rule.optimal, suborder: @rule.suborder, rule_type: @rule.rule_type, universal: @rule.universal }
+        post :create, rule: { concept_uid: @rule.concept_uid, description: @rule.description, name: @rule.name, optimal: @rule.optimal, suborder: @rule.suborder, rule_type: @rule.rule_type, universal: @rule.universal, prompt_ids: @rule.prompt_ids }
 
         parsed_response = JSON.parse(response.body)
         assert_equal 201, response.code.to_i
@@ -77,6 +78,8 @@ module Comprehension
         assert_equal @rule.suborder, parsed_response['suborder']
 
         assert_equal @rule.concept_uid, parsed_response['concept_uid']
+
+        assert_equal @rule.prompt_ids, parsed_response['prompt_ids']
 
         assert_equal 1, Rule.count
       end
@@ -110,7 +113,7 @@ module Comprehension
         assert_equal @rule.name, parsed_response['name']
         assert_equal plagiarism_text, parsed_response['plagiarism_text']['text']
       end
-      
+
       should "create nested feedback record when present in params" do
         assert_equal 0, Feedback.count
 
@@ -139,13 +142,13 @@ module Comprehension
         assert_equal feedback.text, parsed_response['feedbacks'][0]['text']
         assert_equal feedback.description, parsed_response['feedbacks'][0]['description']
         assert_equal feedback.order, parsed_response['feedbacks'][0]['order']
-        
+
         assert_equal 1, Feedback.count
       end
 
       should "create nested highlight record when nested in feedback_attributes" do
-        assert_equal 0, Highlight.count    
-    
+        assert_equal 0, Highlight.count
+
         feedback = create(:comprehension_feedback, rule: @rule)
         highlight = build(:comprehension_highlight, starting_index: 2)
         post :create, rule: { concept_uid: @rule.concept_uid, description: @rule.description, name: @rule.name, optimal: @rule.optimal, suborder: @rule.suborder, rule_type: @rule.rule_type, universal: @rule.universal, feedbacks_attributes: [{text: feedback.text, description: feedback.description, order: feedback.order, highlights_attributes: [{text: highlight.text, highlight_type: highlight.highlight_type, starting_index: highlight.starting_index }]}]}
@@ -156,9 +159,39 @@ module Comprehension
         assert_equal highlight.text, parsed_response['feedbacks'][0]['highlights'][0]['text']
         assert_equal highlight.highlight_type, parsed_response['feedbacks'][0]['highlights'][0]['highlight_type']
         assert_equal highlight.starting_index, parsed_response['feedbacks'][0]['highlights'][0]['starting_index']
-        
+
         assert_equal 1, Highlight.count
-      end 
+      end
+
+      should "create nested regex rule record when present in params" do
+        assert_equal 0, RegexRule.count
+
+        regex_rule = build(:comprehension_regex_rule)
+        post :create, rule: {
+          concept_uid: @rule.concept_uid,
+          description: @rule.description,
+          name: @rule.name,
+          optimal: @rule.optimal,
+          suborder: @rule.suborder,
+          rule_type: @rule.rule_type,
+          universal: @rule.universal,
+          regex_rules_attributes:
+            [
+              {
+                regex_text: regex_rule.regex_text,
+                case_sensitive: regex_rule.case_sensitive
+              }
+            ]
+        }
+
+        parsed_response = JSON.parse(response.body)
+        assert_equal 201, response.code.to_i
+
+        assert_equal regex_rule.regex_text, parsed_response['regex_rules'][0]['regex_text']
+        assert_equal regex_rule.case_sensitive, parsed_response['regex_rules'][0]['case_sensitive']
+
+        assert_equal 1, RegexRule.count
+      end
     end
 
     context "show" do
@@ -199,15 +232,18 @@ module Comprehension
 
     context "update" do
       setup do
-        @rule = create(:comprehension_rule)
+        @prompt = create(:comprehension_prompt)
+        @rule = create(:comprehension_rule, prompt_ids: [@prompt.id])
       end
 
       should "update record if valid, return nothing" do
-        patch :update, id: @rule.id, rule: { concept_uid: @rule.concept_uid, description: @rule.description, name: @rule.name, optimal: @rule.optimal, suborder: @rule.suborder, rule_type: @rule.rule_type, universal: @rule.universal }
+        new_prompt = create(:comprehension_prompt)
+        patch :update, id: @rule.id, rule: { concept_uid: @rule.concept_uid, description: @rule.description, name: @rule.name, optimal: @rule.optimal, suborder: @rule.suborder, rule_type: @rule.rule_type, universal: @rule.universal, prompt_ids: [new_prompt.id] }
 
         assert_equal "", response.body
         assert_equal 204, response.code.to_i
 
+        assert_equal @rule.reload.prompt_ids, [new_prompt.id]
       end
 
       should "not update record and return errors as json" do
@@ -242,7 +278,7 @@ module Comprehension
         feedback = create(:comprehension_feedback, rule: @rule)
         highlight = create(:comprehension_highlight, feedback: feedback)
         new_text = "New text to highlight"
-    
+
         post :update, id: @rule.id, rule: { feedbacks_attributes: [{id: feedback.id, highlights_attributes: [{id: highlight.id, text: new_text}]}]}
 
         assert_equal 204, response.code.to_i
@@ -250,7 +286,20 @@ module Comprehension
 
         highlight.reload
         assert_equal new_text, highlight.text
-      end 
+      end
+
+      should "update nested reged rule attributes if present" do
+        regex_rule = create(:comprehension_regex_rule, rule: @rule)
+        new_text = "new regex text"
+
+        post :update, id: @rule.id, rule: { regex_rules_attributes: [{id: regex_rule.id, regex_text: new_text}]}
+
+        assert_equal 204, response.code.to_i
+        assert_equal "", response.body
+
+        regex_rule.reload
+        assert_equal new_text, regex_rule.regex_text
+      end
 
     end
 
