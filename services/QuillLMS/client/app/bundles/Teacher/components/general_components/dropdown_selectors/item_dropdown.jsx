@@ -55,7 +55,6 @@ export default class ItemDropdown extends React.Component {
       <DropdownInput
         className={className ? className : "select-item-dropdown"}
         handleChange={this.handleSelect}
-        isSearchable={true}
         options={this.items()}
         value={selectedItem}
       />

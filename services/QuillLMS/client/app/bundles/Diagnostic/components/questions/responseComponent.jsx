@@ -12,7 +12,6 @@ import ResponseList from './responseList.jsx';
 import QuestionMatcher from '../../libs/question';
 import questionActions from '../../actions/questions';
 import sentenceFragmentActions from '../../actions/sentenceFragments.ts';
-import diagnosticQuestionActions from '../../actions/diagnosticQuestions';
 import { getPartsOfSpeechTags } from '../../libs/partsOfSpeechTagging.js';
 import POSForResponsesList from './POSForResponsesList.jsx';
 import respWithStatus from '../../libs/responseTools.js';
@@ -45,9 +44,6 @@ class ResponseComponent extends React.Component {
     if (this.props.mode === 'sentenceFragments') {
       actions = sentenceFragmentActions;
       matcher = POSMatcher;
-    } else if (this.props.mode === 'diagnosticQuestions') {
-      actions = diagnosticQuestionActions;
-      matcher = DiagnosticQuestionMatcher;
     } else {
       actions = questionActions;
       matcher = QuestionMatcher;
@@ -255,15 +251,12 @@ class ResponseComponent extends React.Component {
         getResponse={this.getResponse}
         massEdit={this.props.massEdit}
         mode={this.props.mode}
-        printPathways={this.mapCountToResponse}
         question={this.props.question}
         questionID={questionID}
         responses={responses}
         selectedFocusPoints={selectedFocusPoints}
         selectedIncorrectSequences={selectedIncorrectSequences}
-        showPathways
         states={this.props.states}
-        toPathways={this.mapCountToToResponse}
       />);
     }
   };
@@ -399,39 +392,6 @@ class ResponseComponent extends React.Component {
     );
   };
 
-  getToPathwaysForResponse = rid => {
-    const responseCollection = hashToCollection(this.props.pathways.data);
-    const responsePathways = _.where(responseCollection, { fromResponseID: rid, });
-    return responsePathways;
-  };
-
-  getUniqAndCountedToResponsePathways = rid => {
-    const counted = _.countBy(this.getToPathwaysForResponse(rid), path => path.toResponseID);
-    return counted;
-  };
-
-  mapCountToToResponse = rid => {
-    const mapped = _.mapObject(this.getUniqAndCountedToResponsePathways(rid), (value, key) => {
-      const response = this.props.responses[key];
-      // response.pathCount = value
-      return response;
-    });
-    return _.values(mapped);
-  };
-
-  // from pathways
-
-  getFromPathwaysForResponse = rid => {
-    const responseCollection = hashToCollection(this.props.pathways.data);
-    const responsePathways = _.where(responseCollection, { toResponseID: rid, });
-    return responsePathways;
-  };
-
-  getUniqAndCountedResponsePathways = rid => {
-    const counted = _.countBy(this.getFromPathwaysForResponse(rid), path => path.fromResponseID);
-    return counted;
-  };
-
   getPOSTagsList = () => {
     const responses = this.gatherVisibleResponses();
     const responsesWithPOSTags = responses.map((response) => {
@@ -478,23 +438,6 @@ class ResponseComponent extends React.Component {
     }
     const that = this;
     return _.filter(responses, response => response.text.indexOf(that.props.filters.stringFilter) >= 0);
-  };
-
-  mapCountToResponse = rid => {
-    const mapped = _.mapObject(this.getUniqAndCountedResponsePathways(rid), (value, key) => {
-      let response = this.props.responses[key];
-      if (response) {
-        response.pathCount = value;
-      } else {
-        response = {
-          initial: true,
-          pathCount: value,
-          key: 'initial',
-        };
-      }
-      return response;
-    });
-    return _.values(mapped);
   };
 
   updatePageNumber = pageNumber => {
@@ -650,7 +593,6 @@ class ResponseComponent extends React.Component {
 function select(state) {
   return {
     filters: state.filters,
-    pathways: state.pathways,
     conceptsFeedback: state.conceptsFeedback,
     concepts: state.concepts,
     massEdit: state.massEdit,

@@ -1,13 +1,11 @@
 import React from 'react';
 import { Redirect, Route, Switch, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
-import * as userActions from '../../actions/users';
 import conceptActions from '../../actions/concepts';
 import conceptsFeedbackActions from '../../actions/concepts-feedback';
 import questionActions from '../../actions/questions';
 import fillInBlankActions from '../../actions/fillInBlank';
 import sentenceFragmentActions from '../../actions/sentenceFragments';
-import diagnosticLessonActions from '../../actions/diagnosticLessons'
 import titleCardActions from '../../actions/titleCards.ts';
 import AdminMainSidebar from '../../components/admin/adminMainSidebar.jsx'
 import AdminLesson from './adminLesson.jsx'
@@ -37,14 +35,12 @@ class adminContainer extends React.Component {
   componentDidMount() {
     const { dispatch } = this.props;
     this.handleAuthCheck();
-    dispatch(userActions.firebaseAuth());
     dispatch(conceptActions.startListeningToConcepts());
     dispatch(conceptsFeedbackActions.startListeningToConceptsFeedback());
     dispatch(questionActions.startListeningToQuestions());
     dispatch(fillInBlankActions.startListeningToQuestions());
     dispatch(sentenceFragmentActions.startListeningToSentenceFragments());
     dispatch(titleCardActions.startListeningToTitleCards())
-    dispatch(diagnosticLessonActions.loadDiagnosticLessons())
   }
 
   handleAuthCheck = () => {

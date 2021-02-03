@@ -3,7 +3,7 @@ require 'sidekiq/web'
 Rails.application.routes.draw do
   get '/' => 'stats#up'
 
-  resources :responses
+  resources :responses, only: [:show, :new, :create, :edit, :update, :destroy]
   get  'questions/:question_uid/responses' => 'responses#responses_for_question'
   get  'questions/:question_uid/multiple_choice_options' => 'responses#multiple_choice_options'
   get  'questions/:question_uid/health' => 'responses#health_of_question'
