@@ -9,6 +9,7 @@ import { getGradedResponsesWithCallback } from '../../actions/responses.js';
 import { Feedback, Prompt, } from '../../../Shared/index';
 import Cues from '../renderForQuestions/cues.jsx';
 import { hashToCollection, } from '../../../Shared/index'
+import updateResponseResource from '../renderForQuestions/updateResponseResource.js';
 
 const qml = require('quill-marking-logic')
 const checkFillInTheBlankQuestion = qml.checkFillInTheBlankQuestion
@@ -87,6 +88,12 @@ export class PlayFillInTheBlankQuestion extends React.Component<any, any> {
     return inputs;
   }
 
+  updateResponseResource = (response) => {
+    const { dispatch, } = this.props
+
+    updateResponseResource(response, this.getQuestion().key, this.getQuestion().attempts, dispatch);
+  }
+
   handleChange(i, e) {
     const { inputVals, } = this.state
     const existing = [...inputVals];
@@ -148,6 +155,7 @@ export class PlayFillInTheBlankQuestion extends React.Component<any, any> {
     return (
       <span key={`span${i}`}>
         <input
+          aria-label="text input"
           className={className}
           id={`input${i}`}
           key={i + 100}
@@ -203,6 +211,7 @@ export class PlayFillInTheBlankQuestion extends React.Component<any, any> {
       const responsesArray = hashToCollection(responses);
       const response = {response: checkFillInTheBlankQuestion(questionUID, zippedAnswer, responsesArray, caseInsensitive, defaultConceptUID)}
       this.setResponse(response);
+      this.updateResponseResource(response)
       submitResponse(response);
       this.setState({
         response: '',
