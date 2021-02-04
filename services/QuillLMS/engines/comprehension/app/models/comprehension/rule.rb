@@ -40,6 +40,10 @@ module Comprehension
       ))
     end
 
+    def regex_is_passing?(entry)
+      self.regex_rules.all?{ |regex_rule| Regexp.new(regex_rule.regex_text).match(entry).empty? }
+    end
+
     private def assign_uid_if_missing
       self.uid ||= SecureRandom.uuid
     end
