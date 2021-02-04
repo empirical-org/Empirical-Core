@@ -2,6 +2,7 @@
  * action types
  */
 export const SUBMIT_RESPONSE = 'SUBMIT_RESPONSE'
+export const SUBMIT_RESPONSE_IMMEDIATE = 'SUBMIT_RESPONSE_IMMEDIATE'
 export const SUBMIT_RESPONSE_ANON = 'SUBMIT_RESPONSE_ANON'
 export const NEXT_QUESTION = 'NEXT_QUESTION'
 export const LOAD_DATA = 'LOAD_DATA'
@@ -17,6 +18,7 @@ export const RESUME_PREVIOUS_SESSION = 'RESUME_PREVIOUS_SESSION'
 
 export const SubmitActions = {
   SUBMIT_RESPONSE,
+  SUBMIT_RESPONSE_IMMEDIATE,
   SUBMIT_RESPONSE_ANON,
   NEXT_QUESTION,
   LOAD_DATA,
@@ -37,6 +39,10 @@ export const SubmitActions = {
 
 export function submitResponse(response) {
   return { type: SUBMIT_RESPONSE, response}
+}
+
+export function submitResponseImmediate(response) {
+  return { type: SUBMIT_RESPONSE_IMMEDIATE, response}
 }
 
 export function clearResponses() {

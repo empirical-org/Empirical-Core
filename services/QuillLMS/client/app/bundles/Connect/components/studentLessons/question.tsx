@@ -10,13 +10,12 @@ import {
   hashToCollection,
   getLatestAttempt
 } from '../../../Shared/index'
-import { submitResponse } from '../../actions.js';
+import { submitResponse, submitResponseImmediate } from '../../actions.js';
 import Question from '../../libs/question';
 import RenderQuestionFeedback from '../renderForQuestions/feedbackStatements.jsx';
 import RenderQuestionCues from '../renderForQuestions/cues.jsx';
 import RenderFeedback from '../renderForQuestions/feedback';
 import getResponse from '../renderForQuestions/checkAnswer';
-import submitQuestionResponse from '../renderForQuestions/submitResponse.js';
 import updateResponseResource from '../renderForQuestions/updateResponseResource.js';
 import AnswerForm from '../renderForQuestions/renderFormForAnswer.jsx';
 import {
@@ -157,9 +156,17 @@ export default class PlayLessonQuestion extends React.Component<PlayLessonQuesti
     return new Question(fields);
   }
 
-  submitResponse(response) {
-    const { sessionKey, } = this.state
-    submitQuestionResponse(response, this.props, sessionKey, submitResponse);
+  // submitQuestionResponse(response, this.props, sessionKey, submitResponse); # INJEcT FLAG HERE???
+  submitResponseHandler(response) {
+    let action;
+    if (this.props.isAdmin) {
+      action = submitResponseImmediate(response);
+    }
+    else {
+      action = submitResponse(response);
+    }
+    
+    this.props.dispatch(action);
   }
 
   renderSentenceFragments = () => {
@@ -229,7 +236,7 @@ export default class PlayLessonQuestion extends React.Component<PlayLessonQuesti
       this.removePrefilledUnderscores();
       const submittedResponse = getResponse(question, response, this.getResponses());
       this.updateResponseResource(submittedResponse);
-      this.submitResponse(submittedResponse);
+      this.submitResponseHandler(submittedResponse);
       this.setState({ editing: false });
     }
   }
