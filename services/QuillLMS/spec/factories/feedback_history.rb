@@ -10,5 +10,6 @@ FactoryBot.define do
     used { true }
     time { DateTime.now }
     metadata { {foo: 'bar'} }
+    rule_uid { SecureRandom.uuid }
   end
 end
