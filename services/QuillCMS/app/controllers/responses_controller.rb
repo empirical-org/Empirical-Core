@@ -40,7 +40,7 @@ class ResponsesController < ApplicationController
     if params[:no_delay] && params[:no_delay] == 'true'
       CreateOrIncrementResponseWorker.perform_async(transformed_response)
     else
-       # delaying this to off-hours to eliminate read/write traffic in peak hours
+      # delaying this to off-hours to eliminate read/write traffic in peak hours
       CreateOrIncrementResponseWorker.perform_in(6.hours, transformed_response)
     end
     render json: {}
