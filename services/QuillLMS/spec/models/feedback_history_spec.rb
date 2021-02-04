@@ -12,6 +12,7 @@
 #  metadata             :jsonb
 #  optimal              :boolean          not null
 #  prompt_type          :string
+#  rule_uid             :string
 #  time                 :datetime         not null
 #  used                 :boolean          not null
 #  created_at           :datetime         not null
@@ -23,6 +24,7 @@
 #  index_feedback_histories_on_activity_session_uid  (activity_session_uid)
 #  index_feedback_histories_on_concept_uid           (concept_uid)
 #  index_feedback_histories_on_prompt_type_and_id    (prompt_type,prompt_id)
+#  index_feedback_histories_on_rule_uid              (rule_uid)
 #
 require 'rails_helper'
 
@@ -112,6 +114,7 @@ RSpec.describe FeedbackHistory, type: :model do
       assert_equal json_hash['feedback_type'], @feedback_history.feedback_type
       assert_equal json_hash['time'], @feedback_history.time
       assert_equal json_hash['metadata'], @feedback_history.metadata
+      assert_equal json_hash['rule_uid'], @feedback_history.rule_uid
 
       assert_equal json_hash['prompt'], @feedback_history.prompt.as_json
       assert_equal json_hash['prompt']['text'], @prompt.text
