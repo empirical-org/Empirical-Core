@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { shallow } from 'enzyme';
 
-import RuleSetForm from '../configureRules/ruleSetForm';
+import RuleForm from '../configureRules/ruleForm';
 import RegexSection from '../configureRules/regexSection';
 import { Input, TextEditor, } from '../../../../Shared/index'
 
@@ -9,7 +9,7 @@ jest.mock('string-strip-html', () => ({
   default: jest.fn()
 }))
 
-const mockRuleSet = {
+const mockRule = {
   id: 1,
   name: 'remove all instances of "it contains methane"',
   feedback: 'Revise your work. Delete the phrase "it contains methane" because it repeats the first part of the sentence',
@@ -24,20 +24,20 @@ const mockRuleSet = {
   ]
 }
 const mockProps = {
-  activityRuleSet: mockRuleSet,
+  rule: mockRule,
   activityData: {
     title: 'test',
     scored_level: '7',
     target_level: 7
   },
   closeModal: jest.fn(),
-  submitRuleSet: jest.fn()
+  submitRule: jest.fn()
 };
 
-describe('RuleSetForm component', () => {
-  const container = shallow(<RuleSetForm {...mockProps} />);
+describe('RuleForm component', () => {
+  const container = shallow(<RuleForm {...mockProps} />);
 
-  it('should render RuleSetForm', () => {
+  it('should render RuleForm', () => {
     expect(container).toMatchSnapshot();
   });
 

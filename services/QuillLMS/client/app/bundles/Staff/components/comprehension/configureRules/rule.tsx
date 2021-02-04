@@ -1,12 +1,12 @@
 import * as React from "react";
-import { queryCache, useQuery } from 'react-query'
+import { queryCache, useQuery } from 'react-query';
+import stripHtml from "string-strip-html";
 
-import RuleSetForm from './ruleSetForm';
+import RuleForm from './ruleForm';
 
 import { buildErrorMessage, getPromptsIcons } from '../../../helpers/comprehension';
 import { BECAUSE, BUT, SO } from '../../../../../constants/comprehension';
-import { RegexRuleInterface } from '../../../interfaces/comprehensionInterfaces';
-import { deleteRuleSet, updateRuleSet, createRule, updateRule, deleteRule, fetchRule } from '../../../utils/comprehension/ruleSetAPIs';
+import { updateRule, deleteRule, fetchRule } from '../../../utils/comprehension/ruleSetAPIs';
 import { fetchActivity } from '../../../utils/comprehension/activityAPIs';
 import SubmissionModal from '../shared/submissionModal';
 import { DataTable, Error, Modal, Spinner } from '../../../../Shared/index';
@@ -15,11 +15,11 @@ const Rule = ({ history, match }) => {
   const { params } = match;
   const { activityId, ruleId } = params;
   const [showDeleteRuleModal, setShowDeleteRuleModal] = React.useState<boolean>(false);
-  const [showEditRuleSetModal, setShowEditRuleSetModal] = React.useState<boolean>(false);
+  const [showEditRuleModal, setShowEditRuleModal] = React.useState<boolean>(false);
   const [showSubmissionModal, setShowSubmissionModal] = React.useState<boolean>(false);
   const [errors, setErrors] = React.useState<object>({});
 
-  // get cached activity data to pass to ruleSetForm
+  // get cached activity data to pass to ruleForm
   const { data: activityData } = useQuery({
     queryKey: [`activity-${activityId}`, activityId],
     queryFn: fetchActivity
@@ -31,8 +31,8 @@ const Rule = ({ history, match }) => {
     queryFn: fetchRule
   });
 
-  const toggleShowEditRuleSetModal = () => {
-    setShowEditRuleSetModal(!showEditRuleSetModal);
+  const toggleShowEditRuleModal = () => {
+    setShowEditRuleModal(!showEditRuleModal);
   }
 
   const toggleShowDeleteRuleModal = () => {
@@ -48,7 +48,7 @@ const Rule = ({ history, match }) => {
       const { text } = feedback;
       return {
         label: `Feedback ${i + 1}`,
-        value: text
+        value: stripHtml(text)
       }
     });
   }
@@ -97,66 +97,24 @@ const Rule = ({ history, match }) => {
     }
   }
 
-  const handleCreateOrUpdateRules = (rules: RegexRuleInterface[], rulesToDelete: object, rulesToUpdate: object) => {
-    rules.map((rule: RegexRuleInterface, i: number) => {
-      const { id } = rule;
-      if(id && rulesToDelete[id]) {
-        deleteRule(ruleId, id).then((response) => {
-          const { error } = response;
-          if(error) {
-            let updatedErrors = errors;
-            updatedErrors[`delete rule-${i} error`] = error;
-            setErrors(updatedErrors);
-          }
-          // update ruleSet cache to remove deleted rule
-          queryCache.refetchQueries(`ruleSet-${ruleId}`);
-        });
-      } else if(id && rulesToUpdate[id]) {
-        updateRule(rule, ruleId, id).then((response) => {
-          const { error } = response;
-          if(error) {
-            let updatedErrors = errors;
-            updatedErrors[`update rule-${i} error`] = error;
-            setErrors(updatedErrors);
-          }
-          // update ruleSet cache to display newly updated rule
-          queryCache.refetchQueries(`ruleSet-${ruleId}`);
-        });
-      } else {
-        createRule(rule, ruleId).then((response) => {
-          const { error } = response;
-          if(error) {
-            let updatedErrors = errors;
-            updatedErrors[`create rule-${i} error`] = error;
-            setErrors(updatedErrors);
-          }
-          // update ruleSet cache to display newly created rule
-          queryCache.refetchQueries(`ruleSet-${ruleId}`);
-        });
-      }
-    });
-  }
-
-  const submitRuleSet = ({ ruleSet, rules, rulesToDelete, rulesToUpdate }) => {
-    updateRuleSet(activityId, ruleId, ruleSet).then((response) => {
+  const handleSubmitRule = ({ rule }) => {
+    updateRule(ruleId, rule).then((response) => {
       const { error } = response;
       if(error) {
         let updatedErrors = errors;
         updatedErrors['update error'] = error;
         setErrors(updatedErrors);
-      } else if(rules) {
-        handleCreateOrUpdateRules(rules, rulesToDelete, rulesToUpdate);
       }
-      // update ruleSet cache to display newly updated ruleSet
-      queryCache.refetchQueries(`ruleSet-${ruleId}`);
+      // update rule cache to display newly updated rule
+      queryCache.refetchQueries(`rule-${ruleId}`);
     });
 
-    toggleShowEditRuleSetModal();
+    toggleShowEditRuleModal();
     toggleSubmissionModal();
   }
 
-  const handleDeleteRuleSet = () => {
-    deleteRuleSet(activityId, ruleId).then((response) => {
+  const handleDeleteRule = () => {
+    deleteRule(ruleId).then((response) => {
       const { error } = response;
       if(error) {
         let updatedErrors = errors;
@@ -169,21 +127,20 @@ const Rule = ({ history, match }) => {
         toggleSubmissionModal();
       } else {
         // update ruleSets cache to remove delete ruleSet
-        queryCache.refetchQueries(`ruleSets-${activityId}`);
-        history.push(`/activities/${activityId}/rulesets`);
+        queryCache.refetchQueries(`rules-${activityId}`);
+        history.push(`/activities/${activityId}/rules`);
       }
     });
   }
 
-  const renderRuleSetForm = () => {
+  const renderRuleForm = () => {
     return(
       <Modal>
-        <RuleSetForm
+        <RuleForm
           activityData={activityData && activityData.activity}
-          activityRuleSet={ruleData && ruleData.rule}
-          closeModal={toggleShowEditRuleSetModal}
-          ruleSetsCount={ruleSetsData && ruleSetsData.rulesets.length}
-          submitRuleSet={submitRuleSet}
+          closeModal={toggleShowEditRuleModal}
+          rule={ruleData && ruleData.rule}
+          submitRule={handleSubmitRule}
         />
       </Modal>
     );
@@ -195,7 +152,7 @@ const Rule = ({ history, match }) => {
         <div className="delete-rule-container">
           <p className="delete-rule-text">Are you sure that you want to delete this rule?</p>
           <div className="delete-rule-button-container">
-            <button className="quill-button fun primary contained" id="delete-rule-button" onClick={handleDeleteRuleSet} type="button">
+            <button className="quill-button fun primary contained" id="delete-rule-button" onClick={handleDeleteRule} type="button">
               Delete
             </button>
             <button className="quill-button fun primary contained" id="close-rule-modal-button" onClick={toggleShowDeleteRuleModal} type="button">
@@ -208,7 +165,7 @@ const Rule = ({ history, match }) => {
   }
 
   const renderSubmissionModal = () => {
-    let message = 'Rule set successfully updated!';
+    let message = 'Rule successfully updated!';
     if(Object.keys(errors).length) {
       message = buildErrorMessage(errors);
     }
@@ -240,10 +197,10 @@ const Rule = ({ history, match }) => {
   return(
     <div className="rule-container">
       {showDeleteRuleModal && renderDeleteRuleModal()}
-      {showEditRuleSetModal && renderRuleSetForm()}
+      {showEditRuleModal && renderRuleForm()}
       {showSubmissionModal && renderSubmissionModal()}
       <div className="header-container">
-        <p>Rule Set</p>
+        <p>Rule</p>
       </div>
       <DataTable
         className="rule-table"
@@ -251,7 +208,7 @@ const Rule = ({ history, match }) => {
         rows={ruleRows(ruleData)}
       />
       <div className="button-container">
-        <button className="quill-button fun primary contained" id="edit-rule-button" onClick={toggleShowEditRuleSetModal} type="button">
+        <button className="quill-button fun primary contained" id="edit-rule-button" onClick={toggleShowEditRuleModal} type="button">
           Configure
         </button>
         <button className="quill-button fun primary contained" id="delete-rule-button" onClick={toggleShowDeleteRuleModal} type="button">

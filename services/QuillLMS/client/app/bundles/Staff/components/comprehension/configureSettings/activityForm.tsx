@@ -141,7 +141,6 @@ const ActivityForm = ({ activity, closeModal, submitActivity }: ActivityFormProp
   const errorsPresent = !!Object.keys(errors).length;
   const passageLabelStyle = activityPassages[0].text.length  && activityPassages[0].text !== '<br/>' ? 'has-text' : '';
   const maxAttemptStyle = activityMaxFeedback.length && activityMaxFeedback !== '<br/>' ? 'has-text' : '';
-
   return(
     <div className="activity-form-container">
       <div className="close-button-container">

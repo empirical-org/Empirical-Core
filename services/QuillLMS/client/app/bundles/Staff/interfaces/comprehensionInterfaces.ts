@@ -2,15 +2,35 @@ export interface ActivityRouteProps {
   activityId: string
 }
 
-export interface ActivityRuleSetInterface {
+export interface ActivityRuleInterface {
   id?: number,
-	name: string,
-  feedback: string,
-  priority: number,
-  rules?: RegexRuleInterface[],
-  rules_attributes?: RegexRuleInterface[],
-  prompts?: ActivityRuleSetPrompt[],
-  prompt_ids?: number[]
+  uid?: string,
+  name: string,
+  description?: string,
+  universal: boolean,
+  rule_type: string,
+  optimal: boolean,
+  suborder: number,
+  concept_uid: string,
+  prompt_ids: number[],
+  plagiarism_text_attributes?: {
+    id: number,
+    rule_id: number,
+    text: string
+  }
+  regex_rules_attributes?: {
+    id: number,
+    regex_text: string,
+    case_sensitive: boolean
+  }
+  feedbacks: {
+    id: number,
+    rule_id: number,
+    text: string,
+    description?: string,
+    order: number,
+    highlights: string[]
+  }[]
 }
 
 export interface ActivityInterface {

@@ -2,7 +2,7 @@ import * as React from "react";
 import { Link, RouteComponentProps } from 'react-router-dom'
 import { queryCache, useQuery } from 'react-query';
 
-import RuleSetForm from './ruleSetForm';
+import RuleSetForm from './ruleForm';
 
 import SubmissionModal from '../shared/submissionModal';
 import { buildErrorMessage, getPromptsIcons, getUniversalIcon } from '../../../helpers/comprehension';
@@ -47,31 +47,16 @@ const Rules: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ match }) => 
     }
   });
 
-  const handleRuleCreation = (rules: RegexRuleInterface[], ruleSetId: string) => {
-    rules.map((rule: RegexRuleInterface, i: number) => {
-      createRule(rule, ruleSetId).then((response) => {
-        const { error } = response;
-        if(error) {
-          let updatedErrors = errors;
-          updatedErrors[`rule-${i}`] = error;
-          setErrors(updatedErrors);
-        }
-      });
-    });
-  }
-
-  const submitRuleSet = ({ ruleSet }) => {
-    createRuleSet(activityId, ruleSet).then((response) => {
-      const { error, rules, ruleSetId } = response;
+  const submitRule = ({ rule }) => {
+    createRuleSet(rule).then((response) => {
+      const { error } = response;
       if(error) {
         let updatedErrors = errors;
         updatedErrors['ruleSetError'] = error;
         setErrors(updatedErrors);
-      } else if(rules && rules.length && ruleSetId) {
-        handleRuleCreation(rules, ruleSetId);
       }
       // update ruleSets cache to display newly created ruleSet
-      queryCache.refetchQueries(`ruleSets-${activityId}`);
+      queryCache.refetchQueries(`rules-${activityId}`);
 
       toggleAddRuleModal();
       toggleSubmissionModal();
@@ -94,7 +79,7 @@ const Rules: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ match }) => 
           activityRuleSet={blankRuleSet}
           closeModal={toggleAddRuleModal}
           ruleSetsCount={rulesData && rulesData.rules.length}
-          submitRuleSet={submitRuleSet}
+          submitRule={submitRule}
         />
       </Modal>
     );

@@ -65,6 +65,11 @@ export const readingLevelOptions = [
   },
 ];
 
+export const ruleTypeOptions = [
+  {"value":"Regex","label":"Regex"},
+  {"value":"Plagiarism","label":"Plagiarism"}
+];
+
 export const BECAUSE = 'because';
 export const BUT = 'but';
 export const SO = 'so';
