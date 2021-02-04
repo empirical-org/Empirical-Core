@@ -86,6 +86,25 @@ RSpec.describe ResponsesController, type: :controller do
       post :create_or_increment, params: {response: response_payload}
       expect(response.status).to eq(200)
     end
+
+    context 'no_delay flag passed' do 
+      it 'should call sync worker' do 
+        expect(CreateOrIncrementResponseWorker).to receive(:perform_async)
+        post :create_or_increment, params: { response: response_payload, no_delay: 'true' }
+      end
+
+      it 'should call delayed worker' do 
+        expect(CreateOrIncrementResponseWorker).to receive(:perform_in)
+        post :create_or_increment, params: { response: response_payload, no_delay: 'false' }
+      end
+    end
+
+    context 'no_delay flag omitted' do
+      it 'should call delayed worker' do 
+        expect(CreateOrIncrementResponseWorker).to receive(:perform_in)
+        post :create_or_increment, params: {response: response_payload}
+      end 
+    end
   end
 
   describe '#responses_for_question' do
