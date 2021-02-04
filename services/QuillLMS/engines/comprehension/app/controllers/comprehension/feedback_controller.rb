@@ -8,7 +8,7 @@ module Comprehension
     REGEX_TYPE = 'regex'
 
     def plagiarism
-      passage = @prompt.plagiarism_text || ''
+      passage = @prompt.rules&.find_by(rule_type: Comprehension::Rule::TYPE_PLAGIARISM)&.plagiarism_text&.text || ''
 
       feedback = get_feedback_from_previous_feedback(@previous_feedback, @prompt)
 
