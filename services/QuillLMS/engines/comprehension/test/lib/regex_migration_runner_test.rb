@@ -8,14 +8,17 @@ module Comprehension
       @regex_rule = create(:comprehension_regex_rule, rule_set: @rule_set)
     end
 
-    should 'run' do
-      Comprehension::RegexMigrationRunner.run
-      new_rule = Comprehension::Rule.find_by(name: @rule_set.name, suborder: @rule_set.priority)
-      assert new_rule.present?
-      assert_equal new_rule.prompt_ids, [@prompt.id]
-      assert_equal @prompt.rule_ids, [new_rule.id]
-      assert Comprehension::Feedback.find_by(text: @rule_set.feedback).present?
-      assert_equal @regex_rule.reload.rule_id, new_rule.id
-    end
+    # This test has been commented out because the Comprehension::RuleSet model and table have been
+    # deleted.
+
+    # should 'run' do
+    #   Comprehension::RegexMigrationRunner.run
+    #   new_rule = Comprehension::Rule.find_by(name: @rule_set.name, suborder: @rule_set.priority)
+    #   assert new_rule.present?
+    #   assert_equal new_rule.prompt_ids, [@prompt.id]
+    #   assert_equal @prompt.rule_ids, [new_rule.id]
+    #   assert Comprehension::Feedback.find_by(text: @rule_set.feedback).present?
+    #   assert_equal @regex_rule.reload.rule_id, new_rule.id
+    # end
   end
 end

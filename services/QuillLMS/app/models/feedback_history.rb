@@ -12,6 +12,7 @@
 #  metadata             :jsonb
 #  optimal              :boolean          not null
 #  prompt_type          :string
+#  rule_uid             :string
 #  time                 :datetime         not null
 #  used                 :boolean          not null
 #  created_at           :datetime         not null
@@ -23,6 +24,7 @@
 #  index_feedback_histories_on_activity_session_uid  (activity_session_uid)
 #  index_feedback_histories_on_concept_uid           (concept_uid)
 #  index_feedback_histories_on_prompt_type_and_id    (prompt_type,prompt_id)
+#  index_feedback_histories_on_rule_uid              (rule_uid)
 #
 class FeedbackHistory < ActiveRecord::Base
   CONCEPT_UID_LENGTH = 22
@@ -84,7 +86,7 @@ class FeedbackHistory < ActiveRecord::Base
 
     super(options.reverse_merge(
       only: [:id, :activity_session_uid, :concept_uid, :attempt, :entry, :optimal, :used,
-             :feedback_text, :feedback_type, :time, :metadata],
+             :feedback_text, :feedback_type, :time, :metadata, :rule_uid],
       include: [:prompt]
     ))
   end
