@@ -87,13 +87,25 @@ const RuleForm = ({ activityData, rule, closeModal, submitRule }: RuleFormProps)
     if(rule && rule.feedbacks && Object.keys(rule.feedbacks).length) {
       const { feedbacks } =  rule;
       if(ruleType && ruleType.value === "Plagiarism") {
-        setFirstPlagiarismFeedback(feedbacks[0]);
-        setSecondPlagiarismFeedback(feedbacks[1]);
+        const formattedFirstFeedback = {
+          id: feedbacks[0].id,
+          order: 0,
+          description: feedbacks[0].description,
+          text: stripHtml(feedbacks[0].text)
+        }
+        const formattedSecondFeedback = {
+          id: feedbacks[1].id,
+          order: 1,
+          description: feedbacks[1].description,
+          text: stripHtml(feedbacks[1].text)
+        }
+        setFirstPlagiarismFeedback(formattedFirstFeedback);
+        setSecondPlagiarismFeedback(formattedSecondFeedback);
       }
       else if(ruleType && ruleType.value === "Regex") {
         const formattedFeedback = {
           id: feedbacks[0].id,
-          order: feedbacks[0].order,
+          order: 0,
           description: feedbacks[0].description,
           text: stripHtml(feedbacks[0].text)
         }
@@ -133,26 +145,30 @@ const RuleForm = ({ activityData, rule, closeModal, submitRule }: RuleFormProps)
       });
       newRule.regex_rules_attributes = rules;
     }
-    return newRule;
+    return {
+      rule: newRule
+    };
   }
 
   function handleSetRuleName(e: InputEvent) { setRuleName(e.target.value) };
 
   function handleSetFirstPlagiarismFeedback(text) {
-    const feedback = firstPlagiarismFeedback;
-    feedback.text = text;
-    if(!feedback.order) {
-      feedback.order = 0;
+    if(stripHtml(text)) {
+      const feedback = {...firstPlagiarismFeedback};
+      if(!feedback.order) {
+        feedback.order = 0;
+      }
+      feedback.text = text;
+      setFirstPlagiarismFeedback(feedback)
     }
-    setFirstPlagiarismFeedback(feedback)
   }
 
   function handleSetSecondPlagiarismFeedback(text) {
-    const feedback = secondPlagiarismFeedback;
-    feedback.text = text;
+    const feedback = {...secondPlagiarismFeedback};
     if(!feedback.order) {
       feedback.order = 1;
     }
+    feedback.text = text;
     setSecondPlagiarismFeedback(feedback)
   }
 
@@ -160,10 +176,10 @@ const RuleForm = ({ activityData, rule, closeModal, submitRule }: RuleFormProps)
     const { target } = e;
     const { value } = target;
     const feedback = {...regexFeedback};
-    feedback.text = value;
     if(!feedback.order) {
       feedback.order = 0;
     }
+    feedback.text = value;
     setRegexFeedback(feedback)
   }
 

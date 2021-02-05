@@ -10,14 +10,8 @@ module Comprehension
             universal: false,
             optimal: false,
             rule_type: Rule::TYPE_REGEX,
-<<<<<<< HEAD
-            concept_uid: 'temp-uid'
-          )
-          rule.prompts << rule_set.prompts
-=======
             prompts: rule_set.prompts
           )
->>>>>>> 8bfb6b2e9da3c4674eda62389cd1b6332283b046
           Feedback.create!(rule: rule, text: rule_set.feedback, order: rule_set.priority)
           rule_set.regex_rules.each do |regex_rule|
             regex_rule.update!(rule_id: rule.id)
