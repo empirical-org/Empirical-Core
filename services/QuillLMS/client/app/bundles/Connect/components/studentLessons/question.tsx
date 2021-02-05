@@ -156,16 +156,17 @@ export default class PlayLessonQuestion extends React.Component<PlayLessonQuesti
     return new Question(fields);
   }
 
-  // submitQuestionResponse(response, this.props, sessionKey, submitResponse); # INJEcT FLAG HERE???
   submitResponseHandler(response) {
     let action;
+    console.log("RESPONSE HANDLER: ", this.props)
     if (this.props.isAdmin) {
+      console.log("about to call submitResponseImmediate")
       action = submitResponseImmediate(response);
     }
     else {
       action = submitResponse(response);
     }
-    
+    console.log("action: ", action)
     this.props.dispatch(action);
   }
 

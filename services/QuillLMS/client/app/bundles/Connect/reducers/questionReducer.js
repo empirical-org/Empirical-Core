@@ -35,6 +35,19 @@ function question(state = initialState, action) {
         unansweredQuestions: []
       })
     case SubmitActions.SUBMIT_RESPONSE:
+    console.log("HERE 2")
+      var changes = {currentQuestion:
+        Object.assign({}, state.currentQuestion, {
+          question: Object.assign({},
+            state.currentQuestion.question,
+            {
+              attempts: state.currentQuestion.question.attempts ? state.currentQuestion.question.attempts.concat([action.response]) : [action.response]
+            })
+          })
+        }
+      return Object.assign({}, state, changes)
+    case SubmitActions.SUBMIT_RESPONSE_IMMEDIATE:
+      console.log("HERE1")
       var changes = {currentQuestion:
         Object.assign({}, state.currentQuestion, {
           question: Object.assign({},

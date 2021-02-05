@@ -44,7 +44,13 @@ function groupResponsesByQuestion(snapshot) {
   return groupedResponses;
 }
 
-export function submitResponse(content, prid, isFirstAttempt) {
+export function submitResponseImmediate(content, prid, isFirstAttempt) {
+  console.log("submitResponseImmediate called.")
+  return submitResponse(content, prid, isFirstAttempt, false)
+}
+
+export function submitResponse(content, prid, isFirstAttempt, delay = true) {
+  console.log("submitResponse called.")
   delete content.gradeIndex;
   const rubyConvertedResponse = objectWithSnakeKeysFromCamel(content);
   rubyConvertedResponse.created_at = moment().format('x');
@@ -53,7 +59,7 @@ export function submitResponse(content, prid, isFirstAttempt) {
   return (dispatch) => {
     request.post({
       url: `${process.env.QUILL_CMS}/responses/create_or_increment`,
-      form: { response: rubyConvertedResponse, }, },
+      form: { response: rubyConvertedResponse, delay}, },
       (error, httpStatus, body) => {
         if (error) {
           dispatch({ type: C.DISPLAY_ERROR, error: `Submission failed! ${error}`, });
