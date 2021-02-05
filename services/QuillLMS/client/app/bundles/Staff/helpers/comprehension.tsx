@@ -74,11 +74,7 @@ export const buildActivity = ({
   activitySoPrompt
 }) => {
   // const { label } = activityFlag;
-  const prompts = [activityBecausePrompt, activityButPrompt, activitySoPrompt].map(prompt => {
-    prompt.max_attempts_feedback = activityMaxFeedback;
-    prompt.plagiarism_text = stripHtml(prompt.plagiarism_text)
-    return prompt;
-  });
+  const prompts = [activityBecausePrompt, activityButPrompt, activitySoPrompt];
   return {
     activity: {
       title: activityTitle,
