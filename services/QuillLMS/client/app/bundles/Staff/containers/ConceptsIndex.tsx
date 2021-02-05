@@ -3,7 +3,7 @@ import { Query } from "react-apollo";
 import gql from "graphql-tag";
 import ConceptsTable from "../components/ConceptsTable";
 import ConceptLevels from "../components/ConceptLevels";
-import ConceptSearch from "../components/ConceptsSearch";
+import Search from "../components/shared/search";
 import ConceptManagerNav from "../components/ConceptManagerNav";
 import ConceptBoxContainer from "../components/ConceptBoxContainer";
 import Fuse from 'fuse.js'
@@ -183,8 +183,8 @@ class ConceptsIndex extends React.Component<any, ConceptsIndexState> {
             return (
               <div className="concepts-index">
                 <div className="concepts-index-top">
-                  <ConceptSearch
-                    concepts={this.filterConcepts(data.concepts, this.state.searchValue)}
+                  <Search
+                    placeholder="Search by concept name or UID"
                     searchValue={this.state.searchValue}
                     updateSearchValue={this.updateSearchValue}
                   />
