@@ -4,36 +4,20 @@ module Comprehension
   class FeedbackController < ApplicationController
     skip_before_action :verify_authenticity_token
     before_action :get_params, only: [:plagiarism, :regex]
-    PLAGIARISM_TYPE = 'plagiarism'
-    REGEX_TYPE = 'regex'
 
     def plagiarism
-      passage = @prompt.rules&.find_by(rule_type: Comprehension::Rule::TYPE_PLAGIARISM)&.plagiarism_text&.text || ''
-
+      rule = @prompt.rules&.find_by(rule_type: Comprehension::Rule::TYPE_PLAGIARISM)
+      passage = rule&.plagiarism_text&.text || ''
       feedback = get_feedback_from_previous_feedback(@previous_feedback, @prompt)
 
-      plagiarism_check = Comprehension::PlagiarismCheck.new(@entry, passage, feedback)
+      plagiarism_check = Comprehension::PlagiarismCheck.new(@entry, passage, feedback, rule)
 
-      render json: {
-        feedback: plagiarism_check.feedback,
-        feedback_type: PLAGIARISM_TYPE,
-        optimal: plagiarism_check.optimal?,
-        response_id: '',
-        entry: @entry,
-        highlight: plagiarism_check.highlights
-      }
+      render json: plagiarism_check.feedback_object
     end
 
     def regex
       regex_check = Comprehension::RegexCheck.new(@entry, @prompt.id)
-      render json: {
-        feedback: regex_check.feedback,
-        feedback_type: REGEX_TYPE,
-        optimal: regex_check.optimal?,
-        response_id: '',
-        entry: @entry,
-        highlight: []
-      }
+      render json: regex_check.feedback_object
     end
 
     private def get_params
@@ -48,7 +32,7 @@ module Comprehension
     end
 
     private def get_feedback_from_previous_feedback(prev, prompt)
-      previous_plagiarism = prev.select {|f| f["feedback_type"] == PLAGIARISM_TYPE && f["optimal"] == false }
+      previous_plagiarism = prev.select {|f| f["feedback_type"] == Comprehension::Rule::TYPE_PLAGIARISM && f["optimal"] == false }
       feedbacks = prompt.rules&.find_by(rule_type: Comprehension::Rule::TYPE_PLAGIARISM)&.feedbacks
       previous_plagiarism.empty? ? feedbacks&.find_by(order: 0)&.text : feedbacks&.find_by(order: 1)&.text
     end

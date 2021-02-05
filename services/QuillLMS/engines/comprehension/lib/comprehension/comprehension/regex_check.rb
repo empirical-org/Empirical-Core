@@ -9,13 +9,22 @@ module Comprehension
       @prompt = prompt
     end
 
-    def optimal?
-      matched_rule.blank?
+    def feedback_object
+      {
+        feedback: feedback,
+        feedback_type: Rule::TYPE_REGEX,
+        optimal: matched_rule.blank?,
+        response_id: '',
+        entry: @entry,
+        concept_uid: matched_rule&.concept_uid || '',
+        rule_uid: matched_rule&.uid || '',
+        highlight: []
+      }
     end
 
-    def feedback
+    private def feedback
       return ALL_CORRECT_FEEDBACK unless matched_rule
-      matched_rule&.feedbacks&.first&.text  
+      matched_rule&.feedbacks&.first&.text
     end
 
     private def matched_rule
@@ -24,7 +33,7 @@ module Comprehension
 
     private def get_matching_rule
       rules = @prompt.rules.where(rule_type: Rule::TYPE_REGEX).order(:suborder)
-      rules.each do |rule| 
+      rules.each do |rule|
         return rule unless rule.regex_is_passing?(@entry)
       end
       nil

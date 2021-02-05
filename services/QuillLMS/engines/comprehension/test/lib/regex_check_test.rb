@@ -18,27 +18,29 @@ module Comprehension
       end
     end
 
-    context '#optimal?' do
-      should 'be true when there is no regex match' do
-        regex_check = Comprehension::RegexCheck.new("this is not a good regex match", @prompt)
-        assert regex_check.optimal?
+    context '#feedback_object' do
+      should 'return optimal blank feedback when there is no regex match' do
+        entry = "this is not a good regex match"
+        regex_check = Comprehension::RegexCheck.new(entry, @prompt)
+        feedback = regex_check.feedback_object
+        assert_equal feedback[:feedback], Comprehension::RegexCheck::ALL_CORRECT_FEEDBACK
+        assert_equal feedback[:feedback_type], Comprehension::Rule::TYPE_REGEX
+        assert feedback[:optimal]
+        assert_equal feedback[:entry], entry
+        assert_equal feedback[:concept_uid], ''
+        assert_equal feedback[:rule_uid], ''
       end
 
       should 'be false when there is a regex match' do
-        regex_check = Comprehension::RegexCheck.new("Test regex, this matches", @prompt)
-        refute regex_check.optimal?
-      end
-    end
-
-    context '#feedback' do
-      should 'should be default correct feedback when there is no regex match' do
-        regex_check = Comprehension::RegexCheck.new("this is not a regex match", @prompt)
-        assert_equal regex_check.feedback, Comprehension::RegexCheck::ALL_CORRECT_FEEDBACK
-      end
-
-      should 'should be regex feedback when there is a regex match' do
-        regex_check = Comprehension::RegexCheck.new("Test regex string to match", @prompt)
-        assert_equal regex_check.feedback, @feedback.text
+        entry = "Test this is a good regex match"
+        regex_check = Comprehension::RegexCheck.new(entry, @prompt)
+        feedback = regex_check.feedback_object
+        assert_equal feedback[:feedback], @feedback.text
+        assert_equal feedback[:feedback_type], Comprehension::Rule::TYPE_REGEX
+        refute feedback[:optimal]
+        assert_equal feedback[:entry], entry
+        assert_equal feedback[:concept_uid], @rule.concept_uid
+        assert_equal feedback[:rule_uid], @rule.uid
       end
     end
   end
