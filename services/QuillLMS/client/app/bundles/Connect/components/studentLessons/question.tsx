@@ -16,7 +16,7 @@ import RenderQuestionFeedback from '../renderForQuestions/feedbackStatements.jsx
 import RenderQuestionCues from '../renderForQuestions/cues.jsx';
 import RenderFeedback from '../renderForQuestions/feedback';
 import getResponse from '../renderForQuestions/checkAnswer';
-import updateResponseResource from '../renderForQuestions/updateResponseResource.js';
+import updateResponseResource from '../renderForQuestions/updateResponseResource';
 import AnswerForm from '../renderForQuestions/renderFormForAnswer.jsx';
 import {
   getMultipleChoiceResponseOptionsWithCallback,
@@ -156,20 +156,6 @@ export default class PlayLessonQuestion extends React.Component<PlayLessonQuesti
     return new Question(fields);
   }
 
-  submitResponseHandler(response) {
-    let action;
-    console.log("RESPONSE HANDLER: ", this.props)
-    if (this.props.isAdmin) {
-      console.log("about to call submitResponseImmediate")
-      action = submitResponseImmediate(response);
-    }
-    else {
-      action = submitResponse(response);
-    }
-    console.log("action: ", action)
-    this.props.dispatch(action);
-  }
-
   renderSentenceFragments = () => {
     const { question } = this.props;
     return <RenderSentenceFragments prompt={question.prompt} />;
@@ -219,9 +205,15 @@ export default class PlayLessonQuestion extends React.Component<PlayLessonQuesti
     />);
   }
 
-  updateResponseResource(response) {
-    const { dispatch, question } = this.props
-    updateResponseResource(response, question.key, question.attempts, dispatch);
+  updateResponseResourceHandler(response) {
+    const { dispatch, question, isAdmin } = this.props
+    updateResponseResource({
+      response, 
+      questionID: question.key, 
+      attempts: question.attempts, 
+      dispatch, 
+      isAdmin
+    });
   }
 
   answeredCorrectly = () => {
@@ -236,8 +228,7 @@ export default class PlayLessonQuestion extends React.Component<PlayLessonQuesti
     if (editing && this.getResponses() && Object.keys(this.getResponses()).length) {
       this.removePrefilledUnderscores();
       const submittedResponse = getResponse(question, response, this.getResponses());
-      this.updateResponseResource(submittedResponse);
-      this.submitResponseHandler(submittedResponse);
+      this.updateResponseResourceHandler(submittedResponse);
       this.setState({ editing: false });
     }
   }

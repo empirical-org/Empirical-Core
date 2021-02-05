@@ -8,7 +8,7 @@ import RenderQuestionFeedback from '../renderForQuestions/feedbackStatements.jsx
 import {
   getGradedResponsesWithCallback
 } from '../../actions/responses';
-import updateResponseResource from '../renderForQuestions/updateResponseResource.js';
+import updateResponseResource from '../renderForQuestions/updateResponseResource';
 import { SentenceFragmentQuestion } from '../../interfaces/questions';
 import { Attempt } from '../renderForQuestions/answerState.js';
 import { hashToCollection, ConceptExplanation, getLatestAttempt } from '../../../Shared/index'

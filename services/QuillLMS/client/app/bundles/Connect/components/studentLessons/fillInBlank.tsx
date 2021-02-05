@@ -9,7 +9,7 @@ import FeedbackContainer from '../renderForQuestions/feedback'
 import RenderQuestionFeedback from '../renderForQuestions/feedbackStatements.jsx';
 import { Attempt } from '../renderForQuestions/answerState.js';
 import { getGradedResponsesWithCallback } from '../../actions/responses.js';
-import updateResponseResource from '../renderForQuestions/updateResponseResource.js';
+import updateResponseResource from '../renderForQuestions/updateResponseResource';
 import { FillInBlankQuestion } from '../../interfaces/questions';
 import {
   hashToCollection,

@@ -45,12 +45,10 @@ function groupResponsesByQuestion(snapshot) {
 }
 
 export function submitResponseImmediate(content, prid, isFirstAttempt) {
-  console.log("submitResponseImmediate called.")
   return submitResponse(content, prid, isFirstAttempt, false)
 }
 
 export function submitResponse(content, prid, isFirstAttempt, delay = true) {
-  console.log("submitResponse called.")
   delete content.gradeIndex;
   const rubyConvertedResponse = objectWithSnakeKeysFromCamel(content);
   rubyConvertedResponse.created_at = moment().format('x');

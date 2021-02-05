@@ -9,7 +9,7 @@ import { getGradedResponsesWithCallback } from '../../actions/responses.js';
 import { Feedback, Prompt, } from '../../../Shared/index';
 import Cues from '../renderForQuestions/cues.jsx';
 import { hashToCollection, } from '../../../Shared/index'
-import updateResponseResource from '../renderForQuestions/updateResponseResource.js';
+import updateResponseResource from '../renderForQuestions/updateResponseResource';
 
 const qml = require('quill-marking-logic')
 const checkFillInTheBlankQuestion = qml.checkFillInTheBlankQuestion
