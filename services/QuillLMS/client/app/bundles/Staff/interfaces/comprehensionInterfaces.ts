@@ -2,43 +2,6 @@ export interface ActivityRouteProps {
   activityId: string
 }
 
-export interface RuleInterface {
-  id?: number,
-  uid?: string,
-  name: string,
-  description?: string,
-  universal: boolean,
-  rule_type: string,
-  optimal: boolean,
-  suborder: number,
-  concept_uid: string,
-  prompt_ids: number[],
-  plagiarism_text_attributes?: {
-    id: number,
-    rule_id: number,
-    text: string
-  }
-  regex_rules?: {
-    id: number,
-    rule_id: number,
-    regex_text: string,
-    case_sensitive: boolean
-  }
-  regex_rules_attributes?: {
-    id: number,
-    regex_text: string,
-    case_sensitive: boolean
-  }
-  feedbacks?: {
-    id: number,
-    rule_id: number,
-    text: string,
-    description?: string,
-    order: number,
-    highlights: string[]
-  }[]
-}
-
 export interface ActivityInterface {
   id?: string,
   parent_activity_id?: string,
@@ -88,5 +51,51 @@ export interface TurkSessionInterface {
 
 export interface PassagesInterface {
   id?: number,
+  text: string
+}
+
+export interface RuleInterface {
+  id?: number,
+  uid?: string,
+  name: string,
+  description?: string,
+  universal: boolean,
+  rule_type: string,
+  optimal: boolean,
+  suborder: number,
+  concept_uid: string,
+  prompt_ids: number[],
+  plagiarism_text_attributes?: {
+    id: number,
+    rule_id: number,
+    text: string
+  }[]
+  regex_rules?: {
+    id: number,
+    rule_id: number,
+    regex_text: string,
+    case_sensitive: boolean
+  }[]
+  regex_rules_attributes?: {
+    id: number,
+    regex_text: string,
+    case_sensitive: boolean
+  }[]
+  feedbacks?: {
+    id: number,
+    rule_id: number,
+    text: string,
+    description?: string,
+    order: number,
+    highlights: string[]
+  }[]
+}
+
+export interface RuleFeedbackInterface {
+  description?: string,
+  highlights?: string[],
+  id?: number,
+  order?: number,
+  rule_id?: number,
   text: string
 }

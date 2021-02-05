@@ -92,6 +92,77 @@ export const buildActivity = ({
   };
 }
 
+export const formatPrompts = ({ activityData, rule, setRulePrompts }) => {
+  let checkedPrompts = {};
+  let formatted = {};
+
+  // get ids of all applied prompts
+  rule && rule.prompt_ids && rule.prompt_ids.forEach(id => {
+    checkedPrompts[id] = true;
+  });
+
+  // use activity data to apply each prompt ID
+  activityData.prompts && activityData.prompts.forEach((prompt: PromptInterface) => {
+    const { conjunction, id } = prompt;
+    formatted[conjunction] = {
+      id,
+      checked: !!checkedPrompts[id]
+    };
+  });
+
+  setRulePrompts(formatted);
+}
+
+export const formatRegexRules = ({ rule, setRegexRules }) => {
+  let formatted = {};
+  rule && rule.regex_rules && rule.regex_rules.map((rule, i) => {
+    const { case_sensitive, id, regex_text } = rule;
+    const formattedRule = {
+      id: id,
+      case_sensitive: case_sensitive,
+      regex_text: regex_text
+    }
+    formatted[`regex-rule-${i}`] = formattedRule;
+  });
+  setRegexRules(formatted);
+}
+
+export const formatFeedbacks = ({ rule, ruleType, setFirstPlagiarismFeedback, setSecondPlagiarismFeedback, setRegexFeedback }) => {
+  if(rule && rule.feedbacks && Object.keys(rule.feedbacks).length) {
+    const { feedbacks } =  rule;
+    if(ruleType && ruleType.value === "Plagiarism") {
+      const formattedFirstFeedback = {
+        id: feedbacks[0].id,
+        order: 0,
+        description: feedbacks[0].description,
+        text: feedbacks[0].text
+      }
+      const formattedSecondFeedback = {
+        id: feedbacks[1].id,
+        order: 1,
+        description: feedbacks[1].description,
+        text: feedbacks[1].text
+      }
+      setFirstPlagiarismFeedback(formattedFirstFeedback);
+      setSecondPlagiarismFeedback(formattedSecondFeedback);
+    }
+    else if(ruleType && ruleType.value === "Regex") {
+      const formattedFeedback = {
+        id: feedbacks[0].id,
+        order: 0,
+        description: feedbacks[0].description,
+        text: feedbacks[0].text
+      }
+      setRegexFeedback(formattedFeedback);
+    }
+  } else {
+    // creating new rule, set all to empty break tag in case user switches between rule types
+    setFirstPlagiarismFeedback({ text: '<br/>'});
+    setSecondPlagiarismFeedback({ text: '<br/>'});
+    setRegexFeedback({ text: '<br/>'});
+  }
+}
+
 export const buildFeedbacks = ({ ruleType, regexFeedback, firstPlagiarismFeedback, secondPlagiarismFeedback }) => {
   if(ruleType.value === "Regex") {
     return [regexFeedback];
@@ -104,13 +175,14 @@ export const buildRule = ({
   rule,
   ruleName,
   ruleType,
+  ruleOptimal,
   rulePrompts,
   regexFeedback,
   firstPlagiarismFeedback,
   secondPlagiarismFeedback,
   regexRules
 }) => {
-  const { optimal, suborder, universal, concept_uid } =  rule;
+  const { suborder, universal, concept_uid } =  rule;
   const promptIds = [];
   const rules = [];
   Object.keys(rulePrompts).forEach(key => {
@@ -127,7 +199,7 @@ export const buildRule = ({
       name: ruleName,
       feedbacks_attributes: buildFeedbacks({ruleType, regexFeedback, firstPlagiarismFeedback, secondPlagiarismFeedback }),
       concept_uid: concept_uid,
-      optimal: optimal,
+      optimal: ruleOptimal.value,
       rule_type: ruleType.value,
       suborder: suborder,
       universal: universal,

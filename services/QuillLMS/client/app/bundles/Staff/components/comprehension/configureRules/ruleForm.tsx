@@ -2,35 +2,32 @@ import * as React from "react";
 
 import RuleFeedbacksSection from './ruleFeedbacksSection';
 
-import { validateForm, buildRule } from '../../../helpers/comprehension';
-import { BECAUSE, BUT, SO, ruleTypeOptions } from '../../../../../constants/comprehension';
-import { ActivityInterface, RuleInterface, PromptInterface, RegexRuleInterface } from '../../../interfaces/comprehensionInterfaces';
+import { validateForm, buildRule, formatPrompts, formatFeedbacks, formatRegexRules } from '../../../helpers/comprehension';
+import { BECAUSE, BUT, SO, ruleTypeOptions, ruleOptimalOptions } from '../../../../../constants/comprehension';
+import { ActivityInterface, RuleInterface, RuleFeedbackInterface  } from '../../../interfaces/comprehensionInterfaces';
 import { Input, DropdownInput } from '../../../../Shared/index'
 
 interface RuleFormProps {
   activityData: ActivityInterface,
   rule: RuleInterface,
   closeModal: (event: React.MouseEvent) => void,
-  submitRule: (argumentsHash: {
-    ruleSet: { rule_set: RuleInterface},
-    rules: RegexRuleInterface[],
-    rulesToDelete: object,
-    rulesToUpdate: object
-  }) => void
+  submitRule: (rule: {rule: RuleInterface}) => void
 }
 
 type InputEvent = React.ChangeEvent<HTMLInputElement>;
 
 const RuleForm = ({ activityData, rule, closeModal, submitRule }: RuleFormProps) => {
 
-  const { name, rule_type, id } = rule;
+  const { name, rule_type, id, optimal } = rule;
   const initialRuleType = rule_type ? ruleTypeOptions.filter(ruleType => ruleType.value === rule_type)[0] : ruleTypeOptions[0];
+  const initialRuleOptimal = optimal ? ruleOptimalOptions[0] : ruleOptimalOptions[1];
 
-  const [ruleType, setRuleType] = React.useState<{ value: string, label: string}>(initialRuleType);
+  const [ruleType, setRuleType] = React.useState<any>(initialRuleType);
   const [ruleName, setRuleName] = React.useState<string>(name || '');
-  const [firstPlagiarismFeedback, setFirstPlagiarismFeedback] = React.useState<any>({ text: '' });
-  const [secondPlagiarismFeedback, setSecondPlagiarismFeedback] = React.useState<any>({ text: '' });
-  const [regexFeedback, setRegexFeedback] = React.useState<any>({ text: '' });
+  const [ruleOptimal, setRuleOptimal] = React.useState<any>(initialRuleOptimal);
+  const [firstPlagiarismFeedback, setFirstPlagiarismFeedback] = React.useState<RuleFeedbackInterface >(null);
+  const [secondPlagiarismFeedback, setSecondPlagiarismFeedback] = React.useState<RuleFeedbackInterface >(null);
+  const [regexFeedback, setRegexFeedback] = React.useState<RuleFeedbackInterface >(null);
   const [rulePrompts, setRulePrompts] = React.useState<object>({});
   const [regexRules, setRegexRules] = React.useState<object>({});
   const [rulesToCreate, setRulesToCreate] = React.useState<object>({});
@@ -39,83 +36,17 @@ const RuleForm = ({ activityData, rule, closeModal, submitRule }: RuleFormProps)
   const [errors, setErrors] = React.useState<object>({});
 
   React.useEffect(() => {
-    formatPrompts();
+    formatPrompts({ activityData, rule, setRulePrompts });
   }, [activityData]);
 
   React.useEffect(() => {
-    formatRegexRules();
-    formatFeedbacks();
+    formatRegexRules({ rule, setRegexRules });
+    formatFeedbacks({ rule, ruleType, setFirstPlagiarismFeedback, setSecondPlagiarismFeedback, setRegexFeedback });
   }, [rule]);
-
-  function formatPrompts() {
-    let checkedPrompts = {};
-    let formatted = {};
-
-    // get ids of all applied prompts
-    rule && rule.prompt_ids && rule.prompt_ids.forEach(id => {
-      checkedPrompts[id] = true;
-    });
-
-    // use activity data to apply each prompt ID
-    activityData.prompts && activityData.prompts.forEach((prompt: PromptInterface) => {
-      const { conjunction, id } = prompt;
-      formatted[conjunction] = {
-        id,
-        checked: !!checkedPrompts[id]
-      };
-    });
-
-    setRulePrompts(formatted);
-  }
-
-  function formatRegexRules() {
-    let formatted = {};
-    rule && rule.regex_rules && rule.regex_rules.map((rule, i) => {
-      const { case_sensitive, id, regex_text } = rule;
-      const formattedRule = {
-        id: id,
-        case_sensitive: case_sensitive,
-        regex_text: regex_text
-      }
-      formatted[`regex-rule-${i}`] = formattedRule;
-    });
-    setRegexRules(formatted);
-  }
-
-  function formatFeedbacks() {
-    if(rule && rule.feedbacks && Object.keys(rule.feedbacks).length) {
-      const { feedbacks } =  rule;
-      if(ruleType && ruleType.value === "Plagiarism") {
-        const formattedFirstFeedback = {
-          id: feedbacks[0].id,
-          order: 0,
-          description: feedbacks[0].description,
-          text: feedbacks[0].text
-        }
-        const formattedSecondFeedback = {
-          id: feedbacks[1].id,
-          order: 1,
-          description: feedbacks[1].description,
-          text: feedbacks[1].text
-        }
-        setFirstPlagiarismFeedback(formattedFirstFeedback);
-        setSecondPlagiarismFeedback(formattedSecondFeedback);
-      }
-      else if(ruleType && ruleType.value === "Regex") {
-        const formattedFeedback = {
-          id: feedbacks[0].id,
-          order: 0,
-          description: feedbacks[0].description,
-          text: feedbacks[0].text
-        }
-        setRegexFeedback(formattedFeedback);
-      }
-    }
-  }
 
   function handleSetRuleName(e: InputEvent) { setRuleName(e.target.value) };
 
-  function handleSetFirstPlagiarismFeedback(text) {
+  function handleSetFirstPlagiarismFeedback(text: string) {
     const feedback = {...firstPlagiarismFeedback};
     if(!feedback.order) {
       feedback.order = 0;
@@ -124,7 +55,7 @@ const RuleForm = ({ activityData, rule, closeModal, submitRule }: RuleFormProps)
     setFirstPlagiarismFeedback(feedback)
   }
 
-  function handleSetSecondPlagiarismFeedback(text) {
+  function handleSetSecondPlagiarismFeedback(text: string) {
     const feedback = {...secondPlagiarismFeedback};
     if(!feedback.order) {
       feedback.order = 1;
@@ -133,7 +64,7 @@ const RuleForm = ({ activityData, rule, closeModal, submitRule }: RuleFormProps)
     setSecondPlagiarismFeedback(feedback)
   }
 
-  function handleSetRegexFeedback(text) {
+  function handleSetRegexFeedback(text: string) {
     const feedback = {...regexFeedback};
     if(!feedback.order) {
       feedback.order = 0;
@@ -143,6 +74,8 @@ const RuleForm = ({ activityData, rule, closeModal, submitRule }: RuleFormProps)
   }
 
   function handleSetRuleType(ruleType: { value: string, label: string }) { setRuleType(ruleType) };
+
+  function handleSetRuleOptimal(ruleOptimal: { value: boolean, label: string }) { setRuleOptimal(ruleOptimal) };
 
   function handleRulePromptChange(e: InputEvent) {
     const { target } = e;
@@ -161,20 +94,21 @@ const RuleForm = ({ activityData, rule, closeModal, submitRule }: RuleFormProps)
       rule,
       ruleName,
       ruleType,
+      ruleOptimal,
       rulePrompts,
       regexFeedback,
       firstPlagiarismFeedback,
       secondPlagiarismFeedback,
       regexRules
     });
-    const keys: string[] = ['Name'];
-    const state: any[] = [ruleName];
+    let keys: string[] = ['Name'];
+    let state: any[] = [ruleName];
     if(ruleType.value === "Regex") {
       keys.push("Regex Feedback");
       state.push(regexFeedback.text)
     } else if(ruleType.value === "Plagiarism") {
-      keys.concat(["First Plagiarism Feedback", "Second Plagiarism Feedback"]);
-      state.concat([firstPlagiarismFeedback.text, secondPlagiarismFeedback.text]);
+      keys = keys.concat(["First Plagiarism Feedback", "Second Plagiarism Feedback"]);
+      state = state.concat([firstPlagiarismFeedback.text, secondPlagiarismFeedback.text]);
     }
     Object.keys(regexRules).map((key, i) => {
       keys.push(`Regex rule ${i + 1}`);
@@ -266,6 +200,14 @@ const RuleForm = ({ activityData, rule, closeModal, submitRule }: RuleFormProps)
           handleChange={handleSetRuleName}
           label="Name"
           value={ruleName}
+        />
+        <DropdownInput
+          className='rule-type-input'
+          handleChange={handleSetRuleOptimal}
+          isSearchable={true}
+          label="Optimal?"
+          options={ruleOptimalOptions}
+          value={ruleOptimal}
         />
         <RuleFeedbacksSection
           errors={errors}

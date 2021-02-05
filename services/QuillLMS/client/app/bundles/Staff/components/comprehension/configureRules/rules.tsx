@@ -79,7 +79,6 @@ const Rules: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ history, mat
           activityData={activityData && activityData.activity}
           closeModal={toggleAddRuleModal}
           rule={blankRule}
-          ruleSetsCount={rulesData && rulesData.rules.length}
           submitRule={submitRule}
         />
       </Modal>

@@ -19,13 +19,11 @@ const RuleFeedbacksSection = ({
   handleSetRegexRule,
   regexRules,
 }) => {
-  // console.log('firstPlagiarismFeedback.text', firstPlagiarismFeedback.text)
-  // console.log('secondPlagiarismFeedback.text', secondPlagiarismFeedback.text)
   if(ruleType === "Plagiarism") {
     return(
       <React.Fragment>
         <p className="form-subsection-label">Feedback</p>
-        {firstPlagiarismFeedback.text && <TextEditor
+        {firstPlagiarismFeedback && <TextEditor
           ContentState={ContentState}
           EditorState={EditorState}
           handleTextChange={setFirstPlagiarismFeedback}
@@ -33,7 +31,7 @@ const RuleFeedbacksSection = ({
           text={firstPlagiarismFeedback.text}
         />}
         {errors['First Plagiarism Feedback'] && <p className="error-message">{errors['First Plagiarism Feedback']}</p>}
-        {secondPlagiarismFeedback.text && <TextEditor
+        {secondPlagiarismFeedback && <TextEditor
           ContentState={ContentState}
           EditorState={EditorState}
           handleTextChange={setSecondPlagiarismFeedback}
@@ -46,7 +44,7 @@ const RuleFeedbacksSection = ({
   }
   return (
     <React.Fragment>
-      {regexFeedback.text && <TextEditor
+      {regexFeedback && <TextEditor
         ContentState={ContentState}
         EditorState={EditorState}
         handleTextChange={setRegexFeedback}

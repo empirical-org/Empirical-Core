@@ -70,6 +70,11 @@ export const ruleTypeOptions = [
   {"value":"Plagiarism","label":"Plagiarism"}
 ];
 
+export const ruleOptimalOptions = [
+  {"value":true,"label":"Optimal"},
+  {"value":false,"label":"Sub-Optimal"}
+];
+
 export const BECAUSE = 'because';
 export const BUT = 'but';
 export const SO = 'so';
