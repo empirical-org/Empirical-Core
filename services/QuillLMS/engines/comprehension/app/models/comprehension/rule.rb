@@ -41,7 +41,7 @@ module Comprehension
     end
 
     def regex_is_passing?(entry)
-      self.regex_rules.none?{ |regex_rule| Regexp.new(regex_rule.regex_text).match(entry) }
+      regex_rules.none?{ |regex_rule| Regexp.new(regex_rule.regex_text).match(entry) }
     end
 
     private def assign_uid_if_missing

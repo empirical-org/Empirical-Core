@@ -28,10 +28,10 @@ module Comprehension
     end
 
     private def matched_rule
-      @matched_rule ||= get_matching_rule
+      @matched_rule ||= first_failing_regex_rule
     end
 
-    private def get_matching_rule
+    private def first_failing_regex_rule
       rules = @prompt.rules.where(rule_type: Rule::TYPE_REGEX).order(:suborder)
       rules.each do |rule|
         return rule unless rule.regex_is_passing?(@entry)

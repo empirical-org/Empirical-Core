@@ -3,7 +3,7 @@ module Comprehension
 
   class FeedbackController < ApplicationController
     skip_before_action :verify_authenticity_token
-    before_action :get_params, only: [:plagiarism, :regex]
+    before_action :set_params, only: [:plagiarism, :regex]
 
     def plagiarism
       rule = @prompt.rules&.find_by(rule_type: Comprehension::Rule::TYPE_PLAGIARISM)
@@ -20,7 +20,7 @@ module Comprehension
       render json: regex_check.feedback_object
     end
 
-    private def get_params
+    private def set_params
       @entry = params[:entry]
       begin
         @prompt = Comprehension::Prompt.find(params[:prompt_id])
