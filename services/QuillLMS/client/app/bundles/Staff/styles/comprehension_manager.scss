@@ -388,6 +388,24 @@
   }
   .rule-form-container {
     .rule-form {
+      .rule-type-input {
+        &.disabled {
+          .dropdown {
+            .dropdown__control {
+              .dropdown__value-container {
+                .dropdown__single-value {
+                  color: #7f7f7f;
+                }
+              }
+            }
+          }
+        }
+      }
+      .rule-type-input:hover {
+        &.disabled {
+          cursor:not-allowed;
+        }
+      }
       .form-subsection-label {
         font-size: 12px;
         font-weight: 600;

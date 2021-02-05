@@ -98,7 +98,7 @@ const Rule = ({ history, match }) => {
     }
   }
 
-  const handleSubmitRule = (rule: RuleInterface) => {
+  const handleSubmitRule = ({rule}: {rule: RuleInterface}) => {
     updateRule(ruleId, rule).then((response) => {
       const { error } = response;
       if(error) {

@@ -92,6 +92,51 @@ export const buildActivity = ({
   };
 }
 
+export const buildFeedbacks = ({ ruleType, regexFeedback, firstPlagiarismFeedback, secondPlagiarismFeedback }) => {
+  if(ruleType.value === "Regex") {
+    return [regexFeedback];
+  } else if(ruleType.value === "Plagiarism") {
+    return [firstPlagiarismFeedback, secondPlagiarismFeedback];
+  }
+}
+
+export const buildRule = ({
+  rule,
+  ruleName,
+  ruleType,
+  rulePrompts,
+  regexFeedback,
+  firstPlagiarismFeedback,
+  secondPlagiarismFeedback,
+  regexRules
+}) => {
+  const { optimal, suborder, universal, concept_uid } =  rule;
+  const promptIds = [];
+  const rules = [];
+  Object.keys(rulePrompts).forEach(key => {
+    rulePrompts[key].checked && promptIds.push(rulePrompts[key].id);
+  });
+  if(ruleType.value === 'Regex'){
+    Object.keys(regexRules).forEach(key => {
+      rules.push(regexRules[key]);
+    });
+  }
+
+  return {
+    rule: {
+      name: ruleName,
+      feedbacks_attributes: buildFeedbacks({ruleType, regexFeedback, firstPlagiarismFeedback, secondPlagiarismFeedback }),
+      concept_uid: concept_uid,
+      optimal: optimal,
+      rule_type: ruleType.value,
+      suborder: suborder,
+      universal: universal,
+      prompt_ids: promptIds,
+      regex_rules_attributes: rules
+    }
+  };
+}
+
 export const promptsByConjunction = (prompts: PromptInterface[]) => {
   const formattedPrompts = {};
   prompts && prompts.map((prompt: PromptInterface) => formattedPrompts[prompt.conjunction] = prompt);

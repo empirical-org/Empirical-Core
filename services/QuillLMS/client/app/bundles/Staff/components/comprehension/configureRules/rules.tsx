@@ -47,7 +47,7 @@ const Rules: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ history, mat
     }
   });
 
-  const submitRule = (rule: RuleInterface) => {
+  const submitRule = ({rule}: {rule: RuleInterface}) => {
     createRule(rule).then((response) => {
       const { error, rule } = response;
       if(error) {

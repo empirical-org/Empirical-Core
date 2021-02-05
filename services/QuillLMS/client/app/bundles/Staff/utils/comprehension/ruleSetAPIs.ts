@@ -41,7 +41,7 @@ export const deleteRule = async (ruleId: string) => {
 export const createRule = async (rule: RuleInterface) => {
   const response = await apiFetch(`rules`, {
     method: 'POST',
-    body: JSON.stringify(rule)
+    body: JSON.stringify({ rule })
   });
   const newRule = await response.json();
   return { error: handleApiError('Failed to create rule, please try again.', response), rule: newRule };

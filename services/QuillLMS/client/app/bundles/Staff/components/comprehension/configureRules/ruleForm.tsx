@@ -1,9 +1,8 @@
 import * as React from "react";
-import stripHtml from "string-strip-html";
 
 import RuleFeedbacksSection from './ruleFeedbacksSection';
 
-import { validateForm } from '../../../helpers/comprehension';
+import { validateForm, buildRule } from '../../../helpers/comprehension';
 import { BECAUSE, BUT, SO, ruleTypeOptions } from '../../../../../constants/comprehension';
 import { ActivityInterface, RuleInterface, PromptInterface, RegexRuleInterface } from '../../../interfaces/comprehensionInterfaces';
 import { Input, DropdownInput } from '../../../../Shared/index'
@@ -24,14 +23,14 @@ type InputEvent = React.ChangeEvent<HTMLInputElement>;
 
 const RuleForm = ({ activityData, rule, closeModal, submitRule }: RuleFormProps) => {
 
-  const { name, rule_type } = rule;
+  const { name, rule_type, id } = rule;
   const initialRuleType = rule_type ? ruleTypeOptions.filter(ruleType => ruleType.value === rule_type)[0] : ruleTypeOptions[0];
 
   const [ruleType, setRuleType] = React.useState<{ value: string, label: string}>(initialRuleType);
   const [ruleName, setRuleName] = React.useState<string>(name || '');
-  const [firstPlagiarismFeedback, setFirstPlagiarismFeedback] = React.useState<any>({});
-  const [secondPlagiarismFeedback, setSecondPlagiarismFeedback] = React.useState<any>({});
-  const [regexFeedback, setRegexFeedback] = React.useState<any>({});
+  const [firstPlagiarismFeedback, setFirstPlagiarismFeedback] = React.useState<any>({ text: '' });
+  const [secondPlagiarismFeedback, setSecondPlagiarismFeedback] = React.useState<any>({ text: '' });
+  const [regexFeedback, setRegexFeedback] = React.useState<any>({ text: '' });
   const [rulePrompts, setRulePrompts] = React.useState<object>({});
   const [regexRules, setRegexRules] = React.useState<object>({});
   const [rulesToCreate, setRulesToCreate] = React.useState<object>({});
@@ -91,13 +90,13 @@ const RuleForm = ({ activityData, rule, closeModal, submitRule }: RuleFormProps)
           id: feedbacks[0].id,
           order: 0,
           description: feedbacks[0].description,
-          text: stripHtml(feedbacks[0].text)
+          text: feedbacks[0].text
         }
         const formattedSecondFeedback = {
           id: feedbacks[1].id,
           order: 1,
           description: feedbacks[1].description,
-          text: stripHtml(feedbacks[1].text)
+          text: feedbacks[1].text
         }
         setFirstPlagiarismFeedback(formattedFirstFeedback);
         setSecondPlagiarismFeedback(formattedSecondFeedback);
@@ -107,60 +106,22 @@ const RuleForm = ({ activityData, rule, closeModal, submitRule }: RuleFormProps)
           id: feedbacks[0].id,
           order: 0,
           description: feedbacks[0].description,
-          text: stripHtml(feedbacks[0].text)
+          text: feedbacks[0].text
         }
         setRegexFeedback(formattedFeedback);
       }
     }
   }
 
-  function buildFeedbacks() {
-    if(ruleType.value === "Regex") {
-      return [regexFeedback];
-    } else if(ruleType.value === "Plagiarism") {
-      return [firstPlagiarismFeedback, secondPlagiarismFeedback];
-    }
-  }
-
-  function buildRule() {
-    const { optimal, suborder, universal, concept_uid } =  rule;
-    const promptIds = [];
-    const rules = [];
-    const newRule = {
-      name: ruleName,
-      feedbacks_attributes: buildFeedbacks(),
-      concept_uid: concept_uid,
-      optimal: optimal,
-      rule_type: ruleType.value,
-      suborder: suborder,
-      universal: universal
-    };
-    Object.keys(rulePrompts).forEach(key => {
-      rulePrompts[key].checked && promptIds.push(rulePrompts[key].id);
-    });
-    newRule.prompt_ids = promptIds;
-    if(ruleType.value === 'Regex'){
-      Object.keys(regexRules).forEach(key => {
-        rules.push(regexRules[key]);
-      });
-      newRule.regex_rules_attributes = rules;
-    }
-    return {
-      rule: newRule
-    };
-  }
-
   function handleSetRuleName(e: InputEvent) { setRuleName(e.target.value) };
 
   function handleSetFirstPlagiarismFeedback(text) {
-    if(stripHtml(text)) {
-      const feedback = {...firstPlagiarismFeedback};
-      if(!feedback.order) {
-        feedback.order = 0;
-      }
-      feedback.text = text;
-      setFirstPlagiarismFeedback(feedback)
+    const feedback = {...firstPlagiarismFeedback};
+    if(!feedback.order) {
+      feedback.order = 0;
     }
+    feedback.text = text;
+    setFirstPlagiarismFeedback(feedback)
   }
 
   function handleSetSecondPlagiarismFeedback(text) {
@@ -172,14 +133,12 @@ const RuleForm = ({ activityData, rule, closeModal, submitRule }: RuleFormProps)
     setSecondPlagiarismFeedback(feedback)
   }
 
-  function handleSetRegexFeedback(e) {
-    const { target } = e;
-    const { value } = target;
+  function handleSetRegexFeedback(text) {
     const feedback = {...regexFeedback};
     if(!feedback.order) {
       feedback.order = 0;
     }
-    feedback.text = value;
+    feedback.text = text;
     setRegexFeedback(feedback)
   }
 
@@ -198,9 +157,18 @@ const RuleForm = ({ activityData, rule, closeModal, submitRule }: RuleFormProps)
   };
 
   function handleSubmitRule() {
-    const rule = buildRule();
-    const keys = ['Name'];
-    const state = [ruleName];
+    const newOrUpdatedRule = buildRule({
+      rule,
+      ruleName,
+      ruleType,
+      rulePrompts,
+      regexFeedback,
+      firstPlagiarismFeedback,
+      secondPlagiarismFeedback,
+      regexRules
+    });
+    const keys: string[] = ['Name'];
+    const state: any[] = [ruleName];
     if(ruleType.value === "Regex") {
       keys.push("Regex Feedback");
       state.push(regexFeedback.text)
@@ -218,7 +186,7 @@ const RuleForm = ({ activityData, rule, closeModal, submitRule }: RuleFormProps)
     if(validationErrors && Object.keys(validationErrors).length) {
       setErrors(validationErrors);
     } else {
-      submitRule(rule);
+      submitRule(newOrUpdatedRule);
     }
   }
 
@@ -275,6 +243,7 @@ const RuleForm = ({ activityData, rule, closeModal, submitRule }: RuleFormProps)
   const butPrompt = rulePrompts[BUT];
   const soPrompt = rulePrompts[SO];
   const errorsPresent = !!Object.keys(errors).length;
+  const ruleTypeDisabled = id ? 'disabled' : '';
 
   return(
     <div className="rule-form-container">
@@ -283,7 +252,8 @@ const RuleForm = ({ activityData, rule, closeModal, submitRule }: RuleFormProps)
       </div>
       <form className="rule-form">
         <DropdownInput
-          className="rule-type-input"
+          className={`rule-type-input ${ruleTypeDisabled}`}
+          disabled={!!ruleTypeDisabled}
           handleChange={handleSetRuleType}
           isSearchable={true}
           label="Rule Type"
