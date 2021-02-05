@@ -6,13 +6,13 @@ import RuleSetForm from './ruleForm';
 
 import SubmissionModal from '../shared/submissionModal';
 import { buildErrorMessage, getPromptsIcons, getUniversalIcon } from '../../../helpers/comprehension';
-import { ActivityRouteProps, RegexRuleInterface } from '../../../interfaces/comprehensionInterfaces';
-import { BECAUSE, BUT, SO, blankRuleSet } from '../../../../../constants/comprehension';
+import { ActivityRouteProps, RuleInterface } from '../../../interfaces/comprehensionInterfaces';
+import { BECAUSE, BUT, SO, blankRule } from '../../../../../constants/comprehension';
 import { fetchActivity } from '../../../utils/comprehension/activityAPIs';
-import { createRule, createRuleSet, fetchRules } from '../../../utils/comprehension/ruleSetAPIs';
+import { createRule, fetchRules } from '../../../utils/comprehension/ruleSetAPIs';
 import { DataTable, Error, Modal, Spinner } from '../../../../Shared/index';
 
-const Rules: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ match }) => {
+const Rules: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ history, match }) => {
   const { params } = match;
   const { activityId } = params;
   const [showAddRuleModal, setShowAddRuleModal] = React.useState<boolean>(false);
@@ -47,9 +47,9 @@ const Rules: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ match }) => 
     }
   });
 
-  const submitRule = ({ rule }) => {
-    createRuleSet(rule).then((response) => {
-      const { error } = response;
+  const submitRule = (rule: RuleInterface) => {
+    createRule(rule).then((response) => {
+      const { error, rule } = response;
       if(error) {
         let updatedErrors = errors;
         updatedErrors['ruleSetError'] = error;
@@ -57,6 +57,7 @@ const Rules: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ match }) => 
       }
       // update ruleSets cache to display newly created ruleSet
       queryCache.refetchQueries(`rules-${activityId}`);
+      history.push(`/activities/${activityId}/rules/${rule.id}`);
 
       toggleAddRuleModal();
       toggleSubmissionModal();
@@ -76,8 +77,8 @@ const Rules: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ match }) => 
       <Modal>
         <RuleSetForm
           activityData={activityData && activityData.activity}
-          activityRuleSet={blankRuleSet}
           closeModal={toggleAddRuleModal}
+          rule={blankRule}
           ruleSetsCount={rulesData && rulesData.rules.length}
           submitRule={submitRule}
         />

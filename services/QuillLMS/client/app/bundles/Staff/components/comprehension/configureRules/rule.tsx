@@ -7,6 +7,7 @@ import RuleForm from './ruleForm';
 import { buildErrorMessage, getPromptsIcons } from '../../../helpers/comprehension';
 import { BECAUSE, BUT, SO } from '../../../../../constants/comprehension';
 import { updateRule, deleteRule, fetchRule } from '../../../utils/comprehension/ruleSetAPIs';
+import { RuleInterface } from '../../../interfaces/comprehensionInterfaces';
 import { fetchActivity } from '../../../utils/comprehension/activityAPIs';
 import SubmissionModal from '../shared/submissionModal';
 import { DataTable, Error, Modal, Spinner } from '../../../../Shared/index';
@@ -97,7 +98,7 @@ const Rule = ({ history, match }) => {
     }
   }
 
-  const handleSubmitRule = ({ rule }) => {
+  const handleSubmitRule = (rule: RuleInterface) => {
     updateRule(ruleId, rule).then((response) => {
       const { error } = response;
       if(error) {

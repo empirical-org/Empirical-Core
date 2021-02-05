@@ -12,7 +12,7 @@ import {
   TARGET_READING_LEVEL,
   SCORED_READING_LEVEL
 } from '../../../constants/comprehension';
-import { ActivityRuleSetPrompt, PromptInterface } from '../interfaces/comprehensionInterfaces'
+import { PromptInterface } from '../interfaces/comprehensionInterfaces'
 
 const quillCheckmark = 'https://assets.quill.org/images/icons/check-circle-small.svg';
 const baseUrl = `${process.env.DEFAULT_URL}/api/v1/comprehension/`;;
@@ -164,7 +164,7 @@ const scoredReadingLevelError = (value: string) => {
   }
 }
 
-export const validateForm = (keys: string[], state: string[]) => {
+export const validateForm = (keys: string[], state: any[]) => {
   let errors = {};
   state.map((value, i) => {
     switch(keys[i]) {
@@ -178,6 +178,12 @@ export const validateForm = (keys: string[], state: string[]) => {
         const scoredError = scoredReadingLevelError(value);
         if(scoredError) {
           errors[SCORED_READING_LEVEL] = scoredError
+        }
+        break;
+      case "Stem Applied":
+        const stemApplied = Object.keys(value).some(stem => value[stem].checked);
+        if(!stemApplied) {
+          errors[keys[i]] = 'You must select at least one stem.';
         }
         break;
       default:

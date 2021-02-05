@@ -1,4 +1,4 @@
-import { ActivityRuleInterface, RegexRuleInterface } from '../../interfaces/comprehensionInterfaces';
+import { RuleInterface } from '../../interfaces/comprehensionInterfaces';
 import { handleApiError, apiFetch } from '../../helpers/comprehension';
 
 export const fetchRules = async (key: string, activityId: string) => {
@@ -11,18 +11,8 @@ export const fetchRules = async (key: string, activityId: string) => {
   };
 }
 
-export const fetchRuleSets = async (key: string, activityId: string) => {
-  const response = await apiFetch(`activities/${activityId}/rule_sets`);
-  const rulesets = await response.json();
-  rulesets.forEach((ruleset) => { ruleset.rules = ruleset.regex_rules });
-  return {
-    error: handleApiError('Failed to fetch rule sets, please refresh the page.', response),
-    rulesets: rulesets.rule_sets || rulesets
-  };
-}
-
 export const fetchRuleSet = async (key: string, activityId: string, ruleSetId: string) => {
-  let ruleset: ActivityRuleInterface;
+  let ruleset: RuleInterface;
   const response = await apiFetch(`activities/${activityId}/rule_sets/${ruleSetId}`);
   ruleset = await response.json();
   ruleset.rules = ruleset.regex_rules;
@@ -32,8 +22,8 @@ export const fetchRuleSet = async (key: string, activityId: string, ruleSetId: s
   };
 }
 
-export const fetchRule = async (key: string, ruleSetId: string) => {
-  const response = await apiFetch(`rules/${ruleSetId}`);
+export const fetchRule = async (key: string, ruleId: string) => {
+  const response = await apiFetch(`rules/${ruleId}`);
   const rule = await response.json();
   return {
     error: handleApiError('Failed to fetch rule, please refresh the page.', response),
@@ -41,22 +31,23 @@ export const fetchRule = async (key: string, ruleSetId: string) => {
   };
 }
 
-export const deleteRule = async (ruleSetId: string) => {
-  const response = await apiFetch(`rules/${ruleSetId}`, {
+export const deleteRule = async (ruleId: string) => {
+  const response = await apiFetch(`rules/${ruleId}`, {
     method: 'DELETE'
   });
   return { error: handleApiError('Failed to delete rule, please try again.', response)};
 }
 
-export const createRule = async (rule: RegexRuleInterface, ruleSetId: string) => {
-  const response = await apiFetch(`rule_sets/${ruleSetId}/regex_rules`, {
+export const createRule = async (rule: RuleInterface) => {
+  const response = await apiFetch(`rules`, {
     method: 'POST',
     body: JSON.stringify(rule)
   });
-  return { error: handleApiError('Failed to create rule, please try again.', response) };
+  const newRule = await response.json();
+  return { error: handleApiError('Failed to create rule, please try again.', response), rule: newRule };
 }
 
-export const updateRule = async (ruleId: number, rule: ActivityRuleInterface) => {
+export const updateRule = async (ruleId: number, rule: RuleInterface) => {
   const response = await apiFetch(`rules/${ruleId}`, {
     method: 'PUT',
     body: JSON.stringify({ rule })

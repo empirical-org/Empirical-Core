@@ -2,7 +2,7 @@ export interface ActivityRouteProps {
   activityId: string
 }
 
-export interface ActivityRuleInterface {
+export interface RuleInterface {
   id?: number,
   uid?: string,
   name: string,
@@ -18,12 +18,18 @@ export interface ActivityRuleInterface {
     rule_id: number,
     text: string
   }
+  regex_rules?: {
+    id: number,
+    rule_id: number,
+    regex_text: string,
+    case_sensitive: boolean
+  }
   regex_rules_attributes?: {
     id: number,
     regex_text: string,
     case_sensitive: boolean
   }
-  feedbacks: {
+  feedbacks?: {
     id: number,
     rule_id: number,
     text: string,

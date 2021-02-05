@@ -106,12 +106,15 @@ export const blankActivity = {
   ]
 }
 
-export const blankRuleSet = {
-	name: '',
-  feedback: '',
-  priority: null,
-	rules: [],
-  prompts: []
+export const blankRule = {
+  name: '',
+  description: null,
+  universal: false,
+  rule_type: '',
+  optimal: false,
+  suborder: 0,
+  concept_uid: 'Kr8PdUfXnU0L7RrGpY4uqg',
+  prompt_ids: []
 }
 
 export const TITLE = 'Title';

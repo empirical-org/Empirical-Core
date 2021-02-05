@@ -5,15 +5,15 @@ import RuleFeedbacksSection from './ruleFeedbacksSection';
 
 import { validateForm } from '../../../helpers/comprehension';
 import { BECAUSE, BUT, SO, ruleTypeOptions } from '../../../../../constants/comprehension';
-import { ActivityInterface, ActivityRuleInterface, PromptInterface, RegexRuleInterface } from '../../../interfaces/comprehensionInterfaces';
+import { ActivityInterface, RuleInterface, PromptInterface, RegexRuleInterface } from '../../../interfaces/comprehensionInterfaces';
 import { Input, DropdownInput } from '../../../../Shared/index'
 
 interface RuleFormProps {
   activityData: ActivityInterface,
-  rule: ActivityRuleInterface,
+  rule: RuleInterface,
   closeModal: (event: React.MouseEvent) => void,
   submitRule: (argumentsHash: {
-    ruleSet: { rule_set: ActivityRuleInterface},
+    ruleSet: { rule_set: RuleInterface},
     rules: RegexRuleInterface[],
     rulesToDelete: object,
     rulesToUpdate: object
@@ -71,8 +71,14 @@ const RuleForm = ({ activityData, rule, closeModal, submitRule }: RuleFormProps)
 
   function formatRegexRules() {
     let formatted = {};
-    rule && rule.regex_rules_attributes && rule.regex_rules_attributes.map((rule, i) => {
-      formatted[`regex-rule-${i}`] = rule;
+    rule && rule.regex_rules && rule.regex_rules.map((rule, i) => {
+      const { case_sensitive, id, regex_text } = rule;
+      const formattedRule = {
+        id: id,
+        case_sensitive: case_sensitive,
+        regex_text: regex_text
+      }
+      formatted[`regex-rule-${i}`] = formattedRule;
     });
     setRegexRules(formatted);
   }
@@ -105,11 +111,17 @@ const RuleForm = ({ activityData, rule, closeModal, submitRule }: RuleFormProps)
   }
 
   function buildRule() {
+    const { optimal, suborder, universal, concept_uid } =  rule;
     const promptIds = [];
     const rules = [];
     const newRule = {
       name: ruleName,
-      feedbacks_attributes: buildFeedbacks()
+      feedbacks_attributes: buildFeedbacks(),
+      concept_uid: concept_uid,
+      optimal: optimal,
+      rule_type: ruleType.value,
+      suborder: suborder,
+      universal: universal
     };
     Object.keys(rulePrompts).forEach(key => {
       rulePrompts[key].checked && promptIds.push(rulePrompts[key].id);
@@ -149,6 +161,9 @@ const RuleForm = ({ activityData, rule, closeModal, submitRule }: RuleFormProps)
     const { value } = target;
     const feedback = {...regexFeedback};
     feedback.text = value;
+    if(!feedback.order) {
+      feedback.order = 0;
+    }
     setRegexFeedback(feedback)
   }
 
@@ -168,7 +183,7 @@ const RuleForm = ({ activityData, rule, closeModal, submitRule }: RuleFormProps)
 
   function handleSubmitRule() {
     const rule = buildRule();
-    const keys = ['Name', 'Feedback'];
+    const keys = ['Name'];
     const state = [ruleName];
     if(ruleType.value === "Regex") {
       keys.push("Regex Feedback");
@@ -181,11 +196,13 @@ const RuleForm = ({ activityData, rule, closeModal, submitRule }: RuleFormProps)
       keys.push(`Regex rule ${i + 1}`);
       state.push(regexRules[key].regex_text);
     });
+    keys.push('Stem Applied');
+    state.push(rulePrompts);
     const validationErrors = validateForm(keys, state);
     if(validationErrors && Object.keys(validationErrors).length) {
       setErrors(validationErrors);
     } else {
-      submitRule({ rule });
+      submitRule(rule);
     }
   }
 
@@ -278,7 +295,6 @@ const RuleForm = ({ activityData, rule, closeModal, submitRule }: RuleFormProps)
           setRegexFeedback={handleSetRegexFeedback}
           setSecondPlagiarismFeedback={handleSetSecondPlagiarismFeedback}
         />
-        {errors['Feedback'] && <p className="error-message">{errors['Feedback']}</p>}
         <p className="form-subsection-label">Apply To Stems</p>
         <div className="checkboxes-container">
           <div className="checkbox-container">
@@ -318,6 +334,7 @@ const RuleForm = ({ activityData, rule, closeModal, submitRule }: RuleFormProps)
             />
           </div>
         </div>
+        {errors['Stem Applied'] && <p className="error-message">{errors['Stem Applied']}</p>}
         <div className="submit-button-container">
           {errorsPresent && <div className="error-message-container">
             <p className="all-errors-message">Please check that all fields have been completed correctly.</p>
