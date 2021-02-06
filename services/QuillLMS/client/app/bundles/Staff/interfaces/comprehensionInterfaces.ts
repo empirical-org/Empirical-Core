@@ -20,10 +20,7 @@ export interface PromptInterface {
   conjunction: string,
   text: string,
   max_attempts: number,
-  max_attempts_feedback: string,
-  plagiarism_text: string,
-  plagiarism_first_feedback: string,
-  plagiarism_second_feedback: string
+  max_attempts_feedback: string
 }
 
 export interface RegexRuleInterface {

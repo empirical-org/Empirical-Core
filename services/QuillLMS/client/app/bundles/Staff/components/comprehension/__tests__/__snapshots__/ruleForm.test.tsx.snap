@@ -1,8 +1,8 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`RuleSetForm component should render RuleSetForm 1`] = `
+exports[`RuleForm component should render RuleForm 1`] = `
 <div
-  className="ruleset-form-container"
+  className="rule-form-container"
 >
   <div
     className="close-button-container"
@@ -17,8 +17,33 @@ exports[`RuleSetForm component should render RuleSetForm 1`] = `
     </button>
   </div>
   <form
-    className="ruleset-form"
+    className="rule-form"
   >
+    <DropdownInput
+      className="rule-type-input disabled"
+      disabled={true}
+      handleChange={[Function]}
+      isSearchable={true}
+      label="Rule Type"
+      options={
+        Array [
+          Object {
+            "label": "Regex",
+            "value": "Regex",
+          },
+          Object {
+            "label": "Plagiarism",
+            "value": "Plagiarism",
+          },
+        ]
+      }
+      value={
+        Object {
+          "label": "Regex",
+          "value": "Regex",
+        }
+      }
+    />
     <Input
       autoComplete="on"
       className="name-input"
@@ -26,17 +51,43 @@ exports[`RuleSetForm component should render RuleSetForm 1`] = `
       label="Name"
       value="remove all instances of \\"it contains methane\\""
     />
-    <p
-      className="form-subsection-label"
-    >
-      Feedback
-    </p>
-    <TextEditor
-      ContentState={[Function]}
-      EditorState={[Function]}
-      handleTextChange={[Function]}
-      key="feedback-description"
-      text="Revise your work. Delete the phrase \\"it contains methane\\" because it repeats the first part of the sentence"
+    <DropdownInput
+      className="rule-type-input"
+      handleChange={[Function]}
+      isSearchable={true}
+      label="Optimal?"
+      options={
+        Array [
+          Object {
+            "label": "Optimal",
+            "value": true,
+          },
+          Object {
+            "label": "Sub-Optimal",
+            "value": false,
+          },
+        ]
+      }
+      value={
+        Object {
+          "label": "Sub-Optimal",
+          "value": false,
+        }
+      }
+    />
+    <RuleFeedbacksSection
+      errors={Object {}}
+      firstPlagiarismFeedback={null}
+      handleAddRegexInput={[Function]}
+      handleDeleteRegexRule={[Function]}
+      handleSetRegexRule={[Function]}
+      regexFeedback={null}
+      regexRules={Object {}}
+      ruleType="Regex"
+      secondPlagiarismFeedback={null}
+      setFirstPlagiarismFeedback={[Function]}
+      setRegexFeedback={[Function]}
+      setSecondPlagiarismFeedback={[Function]}
     />
     <p
       className="form-subsection-label"
@@ -95,19 +146,6 @@ exports[`RuleSetForm component should render RuleSetForm 1`] = `
         />
       </div>
     </div>
-    <p
-      className="form-subsection-label"
-      id="regex-rules-label"
-    >
-      Regex Rules
-    </p>
-    <RegexSection
-      errors={Object {}}
-      handleAddRegexInput={[Function]}
-      handleDeleteRegexRule={[Function]}
-      handleSetRegexRule={[Function]}
-      regexRules={Object {}}
-    />
     <div
       className="submit-button-container"
     >

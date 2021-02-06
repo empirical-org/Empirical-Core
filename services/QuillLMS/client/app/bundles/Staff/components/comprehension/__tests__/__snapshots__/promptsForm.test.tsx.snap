@@ -12,36 +12,6 @@ exports[`PromptsForm component should render PromptsForm 1`] = `
       label="Because Stem"
       value="1"
     />
-    <section
-      className="plagiarism-section"
-    >
-      <p
-        className="text-editor-label has-text"
-      >
-        Plagiarism Text
-      </p>
-      <TextEditor
-        ContentState={[Function]}
-        EditorState={[Function]}
-        handleTextChange={[Function]}
-        key="max-attempt-feedback"
-        text="because"
-      />
-      <Input
-        autoComplete="on"
-        className="primary-feedback-input"
-        handleChange={[Function]}
-        label="Primary Feedback"
-        value="At no point in your rambling, incoherent response were you even close to anything that could be considered a rational thought. I award you no points, and may God have mercy on your soul."
-      />
-      <Input
-        autoComplete="on"
-        className="secondary-feedback-input"
-        handleChange={[Function]}
-        label="Secondary Feedback"
-        value="At no point in your rambling, incoherent response were you even close to anything that could be considered a rational thought. I award you no points, and may God have mercy on your soul."
-      />
-    </section>
   </section>
   <section
     className="prompt-section"
@@ -53,36 +23,6 @@ exports[`PromptsForm component should render PromptsForm 1`] = `
       label="But Stem"
       value="2"
     />
-    <section
-      className="plagiarism-section"
-    >
-      <p
-        className="text-editor-label has-text"
-      >
-        Plagiarism Text
-      </p>
-      <TextEditor
-        ContentState={[Function]}
-        EditorState={[Function]}
-        handleTextChange={[Function]}
-        key="max-attempt-feedback"
-        text="but"
-      />
-      <Input
-        autoComplete="on"
-        className="primary-feedback-input"
-        handleChange={[Function]}
-        label="Primary Feedback"
-        value="At no point in your rambling, incoherent response were you even close to anything that could be considered a rational thought. I award you no points, and may God have mercy on your soul."
-      />
-      <Input
-        autoComplete="on"
-        className="secondary-feedback-input"
-        handleChange={[Function]}
-        label="Secondary Feedback"
-        value="At no point in your rambling, incoherent response were you even close to anything that could be considered a rational thought. I award you no points, and may God have mercy on your soul."
-      />
-    </section>
   </section>
   <section
     className="prompt-section"
@@ -94,36 +34,6 @@ exports[`PromptsForm component should render PromptsForm 1`] = `
       label="So Stem"
       value="3"
     />
-    <section
-      className="plagiarism-section"
-    >
-      <p
-        className="text-editor-label has-text"
-      >
-        Plagiarism Text
-      </p>
-      <TextEditor
-        ContentState={[Function]}
-        EditorState={[Function]}
-        handleTextChange={[Function]}
-        key="max-attempt-feedback"
-        text="so"
-      />
-      <Input
-        autoComplete="on"
-        className="primary-feedback-input"
-        handleChange={[Function]}
-        label="Primary Feedback"
-        value="At no point in your rambling, incoherent response were you even close to anything that could be considered a rational thought. I award you no points, and may God have mercy on your soul."
-      />
-      <Input
-        autoComplete="on"
-        className="secondary-feedback-input"
-        handleChange={[Function]}
-        label="Secondary Feedback"
-        value="At no point in your rambling, incoherent response were you even close to anything that could be considered a rational thought. I award you no points, and may God have mercy on your soul."
-      />
-    </section>
   </section>
 </Fragment>
 `;

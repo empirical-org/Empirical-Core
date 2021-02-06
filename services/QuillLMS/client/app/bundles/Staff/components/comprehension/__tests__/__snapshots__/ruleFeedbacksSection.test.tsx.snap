@@ -1,0 +1,33 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`RuleFeedbacksSection component should render RuleFeedbacksSection 1`] = `
+<Fragment>
+  <TextEditor
+    ContentState={[Function]}
+    EditorState={[Function]}
+    handleTextChange={[MockFunction]}
+    key="regex-feedback"
+    text=""
+  />
+  <p
+    className="form-subsection-label"
+    id="regex-rules-label"
+  >
+    Regex Rules
+  </p>
+  <RegexSection
+    errors={Object {}}
+    handleAddRegexInput={[MockFunction]}
+    handleDeleteRegexRule={[MockFunction]}
+    handleSetRegexRule={[MockFunction]}
+    regexRules={
+      Array [
+        Object {
+          "id": 1,
+          "regex_text": "test",
+        },
+      ]
+    }
+  />
+</Fragment>
+`;

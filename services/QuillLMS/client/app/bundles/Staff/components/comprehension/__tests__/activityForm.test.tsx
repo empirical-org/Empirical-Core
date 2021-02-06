@@ -21,28 +21,19 @@ const mockActivity = {
       conjunction: BECAUSE,
       text: '1',
       max_attempts: 5,
-      max_attempts_feedback: FEEDBACK,
-      plagiarism_text: BECAUSE,
-      plagiarism_first_feedback: FEEDBACK,
-      plagiarism_second_feedback: FEEDBACK
+      max_attempts_feedback: FEEDBACK
     },
     {
       conjunction: BUT,
       text: '2',
       max_attempts: 5,
-      max_attempts_feedback: FEEDBACK,
-      plagiarism_text: BUT,
-      plagiarism_first_feedback: FEEDBACK,
-      plagiarism_second_feedback: FEEDBACK
+      max_attempts_feedback: FEEDBACK
     },
     {
       conjunction: SO,
       text: '3',
       max_attempts: 5,
-      max_attempts_feedback: FEEDBACK,
-      plagiarism_text: SO,
-      plagiarism_first_feedback: FEEDBACK,
-      plagiarism_second_feedback: FEEDBACK
+      max_attempts_feedback: FEEDBACK
     }
   ]
 }
