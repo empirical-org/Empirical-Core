@@ -134,7 +134,7 @@ class PlaySentenceFragment extends React.Component<PlaySentenceFragmentProps, Pl
     checkSentenceFragment(fields).then((resp) => {
       const matched = {response: resp}
       if (typeof(matched) === 'object') {
-        updateResponseResource(matched, key, attempts, dispatch, );
+        updateResponseResource({response: matched, questionID: key, attempts, dispatch});
         updateAttempts(matched);
         this.setState({ checkAnswerEnabled: true, });
       }

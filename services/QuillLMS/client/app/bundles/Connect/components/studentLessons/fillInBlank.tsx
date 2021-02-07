@@ -299,7 +299,7 @@ export class PlayFillInTheBlankQuestion extends React.Component<PlayFillInTheBla
         if(previewMode) {
           response.response.inputs = inputVals;
         }
-        this.updateResponseResource(response);
+        this.updateResponseResourceHandler(response);
         submitResponse(response);
       }
     })
@@ -312,10 +312,10 @@ export class PlayFillInTheBlankQuestion extends React.Component<PlayFillInTheBla
     }
   }
 
-  updateResponseResource(response) {
+  updateResponseResourceHandler(response) {
     const { dispatch, question } = this.props
     const attempts = question.attempts;
-    updateResponseResource(response, question.key, attempts, dispatch);
+    updateResponseResource({response, questionID: question.key, attempts, dispatch});
   }
 
   renderMedia = () => {

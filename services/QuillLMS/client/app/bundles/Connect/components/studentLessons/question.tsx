@@ -10,7 +10,7 @@ import {
   hashToCollection,
   getLatestAttempt
 } from '../../../Shared/index'
-import { submitResponse, submitResponseImmediate } from '../../actions.js';
+
 import Question from '../../libs/question';
 import RenderQuestionFeedback from '../renderForQuestions/feedbackStatements.jsx';
 import RenderQuestionCues from '../renderForQuestions/cues.jsx';
@@ -212,7 +212,7 @@ export default class PlayLessonQuestion extends React.Component<PlayLessonQuesti
       questionID: question.key, 
       attempts: question.attempts, 
       dispatch, 
-      isAdmin
+      isAdmin,
     });
   }
 

@@ -102,10 +102,16 @@ class PlayDiagnosticQuestion extends React.Component {
     />);
   }
 
-  updateResponseResource = (response) => {
+  updateResponseResourceHandler = (response) => {
     const { dispatch, } = this.props
-
-    updateResponseResource(response, this.getQuestion().key, this.getQuestion().attempts, dispatch);
+    updateResponseResource(
+      {
+        response, 
+        questionID: this.getQuestion().key, 
+        attempts: this.getQuestion().attempts, 
+        dispatch
+       }
+      );
   }
 
   setResponse(response) {
@@ -122,7 +128,7 @@ class PlayDiagnosticQuestion extends React.Component {
     if (editing) {
       this.removePrefilledUnderscores();
       const markedResponse = getResponse(this.getQuestion(), response, this.getResponses(), marking || 'diagnostic');
-      this.updateResponseResource(markedResponse);
+      this.updateResponseResourceHandler(markedResponse);
       this.setResponse(markedResponse);
       if (markedResponse.response && markedResponse.response.author === 'Missing Details Hint') {
         this.setState({

@@ -88,10 +88,9 @@ export class PlayFillInTheBlankQuestion extends React.Component<any, any> {
     return inputs;
   }
 
-  updateResponseResource = (response) => {
+  updateResponseResourceHandler = (response) => {
     const { dispatch, } = this.props
-
-    updateResponseResource(response, this.getQuestion().key, this.getQuestion().attempts, dispatch);
+    updateResponseResource({response, questionID: this.getQuestion().key, attempts: this.getQuestion().attempts, dispatch});
   }
 
   handleChange(i, e) {
@@ -211,7 +210,7 @@ export class PlayFillInTheBlankQuestion extends React.Component<any, any> {
       const responsesArray = hashToCollection(responses);
       const response = {response: checkFillInTheBlankQuestion(questionUID, zippedAnswer, responsesArray, caseInsensitive, defaultConceptUID)}
       this.setResponse(response);
-      this.updateResponseResource(response)
+      this.updateResponseResourceHandler(response)
       submitResponse(response);
       this.setState({
         response: '',
