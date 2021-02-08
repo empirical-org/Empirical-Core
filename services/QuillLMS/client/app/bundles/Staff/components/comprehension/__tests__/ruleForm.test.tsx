@@ -2,7 +2,7 @@ import * as React from 'react';
 import { shallow } from 'enzyme';
 
 import RuleForm from '../configureRules/ruleForm';
-import RuleFeedbacksSection from '../configureRules/ruleFeedbacksSection';
+import RuleAttributesSection from '../configureRules/ruleAttributesSection';
 import { Input, DropdownInput} from '../../../../Shared/index'
 
 const mockRule = {
@@ -37,6 +37,7 @@ const mockProps = {
     scored_level: '7',
     target_level: 7
   },
+  activityId : '1',
   closeModal: jest.fn(),
   submitRule: jest.fn()
 };
@@ -51,10 +52,10 @@ describe('RuleForm component', () => {
   it('should render an Input, TextEditor or checkbox component for each field', () => {
     // Dropdown Input: Rule Type (1), Optimal (1)
     // Input: Name (1)
-    // RuleFeedbacksSection (1)
+    // RuleAttributesSection (1)
     expect(container.find(DropdownInput).length).toEqual(2);
     expect(container.find(Input).length).toEqual(1);
-    expect(container.find(RuleFeedbacksSection).length).toEqual(1);
+    expect(container.find(RuleAttributesSection).length).toEqual(1);
   });
   it('clicking the "x" button or "close" button should call closeModal prop', () => {
     container.find('#activity-close-button').simulate('click');

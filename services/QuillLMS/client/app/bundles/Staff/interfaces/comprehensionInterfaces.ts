@@ -62,11 +62,11 @@ export interface RuleInterface {
   suborder: number,
   concept_uid: string,
   prompt_ids: number[],
-  plagiarism_text_attributes?: {
-    id: number,
-    rule_id: number,
+  plagiarism_text?: {
+    id?: number,
+    rule_id?: number,
     text: string
-  }[]
+  }
   regex_rules?: {
     id: number,
     rule_id: number,

@@ -1,7 +1,12 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`RuleFeedbacksSection component should render RuleFeedbacksSection 1`] = `
+exports[`RuleAttributesSection component should render RuleAttributesSection 1`] = `
 <Fragment>
+  <p
+    className="form-subsection-label"
+  >
+    Feedback
+  </p>
   <TextEditor
     ContentState={[Function]}
     EditorState={[Function]}

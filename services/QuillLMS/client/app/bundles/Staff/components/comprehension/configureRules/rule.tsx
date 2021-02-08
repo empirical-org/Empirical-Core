@@ -44,14 +44,22 @@ const Rule = ({ history, match }) => {
     setShowSubmissionModal(!showSubmissionModal);
   }
 
-  function handleGetFeedbackData(feedbacks) {
-    return feedbacks.map((feedback, i) => {
+  function handleAttributesFields(feedbacks, plagiarism_text) {
+    let attributesArray = [];
+    if(plagiarism_text && plagiarism_text.text) {
+      attributesArray = [{
+        label: 'Plagiarism Text',
+        value: stripHtml(plagiarism_text.text)
+      }];
+    }
+    const feedbacksArray = feedbacks.map((feedback, i) => {
       const { text } = feedback;
       return {
         label: `Feedback ${i + 1}`,
         value: stripHtml(text)
       }
     });
+    return attributesArray.concat(feedbacksArray);
   }
 
   const ruleRows = ({ rule }) => {
@@ -59,9 +67,9 @@ const Rule = ({ history, match }) => {
       return [];
     } else {
       // format for DataTable to display labels on left side and values on right
-      const { feedbacks, name, prompt_ids, rule_type } = rule;
+      const { feedbacks, name, prompt_ids, rule_type, plagiarism_text } = rule;
       const promptsIcons = getPromptsIcons(activityData, prompt_ids);
-      const feedbackFields = handleGetFeedbackData(feedbacks);
+      const attributesFields = handleAttributesFields(feedbacks, plagiarism_text);
       const firstFields = [
         {
           label: 'Type',
@@ -86,7 +94,7 @@ const Rule = ({ history, match }) => {
           value: promptsIcons ? promptsIcons[SO] : null
         },
       ];
-      const fields = firstFields.concat(feedbackFields).concat(lastFields);
+      const fields = firstFields.concat(attributesFields).concat(lastFields);
       return fields.map((field, i) => {
         const { label, value } = field
         return {
@@ -139,6 +147,7 @@ const Rule = ({ history, match }) => {
       <Modal>
         <RuleForm
           activityData={activityData && activityData.activity}
+          activityId={activityId}
           closeModal={toggleShowEditRuleModal}
           rule={ruleData && ruleData.rule}
           submitRule={handleSubmitRule}

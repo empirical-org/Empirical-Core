@@ -75,17 +75,23 @@ exports[`RuleForm component should render RuleForm 1`] = `
         }
       }
     />
-    <RuleFeedbacksSection
+    <RuleAttributesSection
       errors={Object {}}
       firstPlagiarismFeedback={null}
       handleAddRegexInput={[Function]}
       handleDeleteRegexRule={[Function]}
       handleSetRegexRule={[Function]}
+      plagiarismText={
+        Object {
+          "text": "",
+        }
+      }
       regexFeedback={null}
       regexRules={Object {}}
       ruleType="Regex"
       secondPlagiarismFeedback={null}
       setFirstPlagiarismFeedback={[Function]}
+      setPlagiarismText={[Function]}
       setRegexFeedback={[Function]}
       setSecondPlagiarismFeedback={[Function]}
     />

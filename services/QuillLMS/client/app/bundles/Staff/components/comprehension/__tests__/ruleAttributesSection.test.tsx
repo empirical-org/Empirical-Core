@@ -1,12 +1,14 @@
 import * as React from 'react';
 import { shallow } from 'enzyme';
 
-import RuleFeedbacksSection from '../configureRules/ruleFeedbacksSection';
+import RuleAttributesSection from '../configureRules/ruleAttributesSection';
 import RegexSection from '../configureRules/regexSection';
 import { TextEditor } from '../../../../Shared/index'
 
 const mockProps = {
   ruleType: 'Regex',
+  plagiarismText: { text: '' },
+  setPlagiarismText: jest.fn(),
   firstPlagiarismFeedback: { text: '' },
   setFirstPlagiarismFeedback: { text: '' },
   secondPlagiarismFeedback: { text: '' },
@@ -20,10 +22,10 @@ const mockProps = {
   regexRules: [{id: 1, regex_text: 'test'}],
 };
 
-describe('RuleFeedbacksSection component', () => {
-  let container = shallow(<RuleFeedbacksSection {...mockProps} />);
+describe('RuleAttributesSection component', () => {
+  let container = shallow(<RuleAttributesSection {...mockProps} />);
 
-  it('should render RuleFeedbacksSection', () => {
+  it('should render RuleAttributesSection', () => {
     expect(container).toMatchSnapshot();
   });
 
@@ -35,8 +37,8 @@ describe('RuleFeedbacksSection component', () => {
   });
   it('should render a 2 TextEditor sections if ruleType is Plagiarism', () => {
     mockProps.ruleType = 'Plagiarism';
-    container = shallow(<RuleFeedbacksSection {...mockProps} />);
-    // TextEditor: First Plagiarism Feedback, Second Plagiarism Feedback (2)
-    expect(container.find(TextEditor).length).toEqual(2);
+    container = shallow(<RuleAttributesSection {...mockProps} />);
+    // TextEditor: Plagiarism Text, First Plagiarism Feedback, Second Plagiarism Feedback (3)
+    expect(container.find(TextEditor).length).toEqual(3);
   });
 });

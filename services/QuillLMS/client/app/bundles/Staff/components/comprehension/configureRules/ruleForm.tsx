@@ -1,7 +1,9 @@
 import * as React from "react";
+import { useQuery } from 'react-query';
 
-import RuleFeedbacksSection from './ruleFeedbacksSection';
+import RuleAttributesSection from './ruleAttributesSection';
 
+import { fetchRules } from '../../../utils/comprehension/ruleSetAPIs';
 import { validateForm, buildRule, formatPrompts, formatFeedbacks, formatRegexRules } from '../../../helpers/comprehension';
 import { BECAUSE, BUT, SO, ruleTypeOptions, ruleOptimalOptions } from '../../../../../constants/comprehension';
 import { ActivityInterface, RuleInterface, RuleFeedbackInterface  } from '../../../interfaces/comprehensionInterfaces';
@@ -9,6 +11,7 @@ import { Input, DropdownInput } from '../../../../Shared/index'
 
 interface RuleFormProps {
   activityData: ActivityInterface,
+  activityId: string,
   rule: RuleInterface,
   closeModal: (event: React.MouseEvent) => void,
   submitRule: (rule: {rule: RuleInterface}) => void
@@ -16,15 +19,17 @@ interface RuleFormProps {
 
 type InputEvent = React.ChangeEvent<HTMLInputElement>;
 
-const RuleForm = ({ activityData, rule, closeModal, submitRule }: RuleFormProps) => {
+const RuleForm = ({ activityData, activityId, rule, closeModal, submitRule }: RuleFormProps) => {
 
-  const { name, rule_type, id, optimal } = rule;
+  const { name, rule_type, id, optimal, plagiarism_text } = rule;
   const initialRuleType = rule_type ? ruleTypeOptions.filter(ruleType => ruleType.value === rule_type)[0] : ruleTypeOptions[0];
   const initialRuleOptimal = optimal ? ruleOptimalOptions[0] : ruleOptimalOptions[1];
+  const initialPlagiarismText = plagiarism_text ? plagiarism_text : { text: '' }
 
   const [ruleType, setRuleType] = React.useState<any>(initialRuleType);
   const [ruleName, setRuleName] = React.useState<string>(name || '');
   const [ruleOptimal, setRuleOptimal] = React.useState<any>(initialRuleOptimal);
+  const [plagiarismText, setPlagiarismText] = React.useState<RuleInterface["plagiarism_text"]>(initialPlagiarismText);
   const [firstPlagiarismFeedback, setFirstPlagiarismFeedback] = React.useState<RuleFeedbackInterface >(null);
   const [secondPlagiarismFeedback, setSecondPlagiarismFeedback] = React.useState<RuleFeedbackInterface >(null);
   const [regexFeedback, setRegexFeedback] = React.useState<RuleFeedbackInterface >(null);
@@ -33,7 +38,14 @@ const RuleForm = ({ activityData, rule, closeModal, submitRule }: RuleFormProps)
   const [rulesToCreate, setRulesToCreate] = React.useState<object>({});
   const [rulesToDelete, setRulesToDelete] = React.useState<object>({});
   const [rulesToUpdate, setRulesToUpdate] = React.useState<object>({});
+  const [rulesCount, setRulesCount] = React.useState<number>(null);
   const [errors, setErrors] = React.useState<object>({});
+
+  // cache ruleSets data for handling rule suborder
+  const { data: rulesData } = useQuery({
+    queryKey: [`rules-${activityId}`, activityId],
+    queryFn: fetchRules
+  });
 
   React.useEffect(() => {
     formatPrompts({ activityData, rule, setRulePrompts });
@@ -44,7 +56,20 @@ const RuleForm = ({ activityData, rule, closeModal, submitRule }: RuleFormProps)
     formatFeedbacks({ rule, ruleType, setFirstPlagiarismFeedback, setSecondPlagiarismFeedback, setRegexFeedback });
   }, [rule]);
 
+  React.useEffect(() => {
+    if(rulesData && rulesData.rules) {
+      const { rules } = rulesData;
+      setRulesCount(rules.length);
+    }
+  }, [rulesData])
+
   function handleSetRuleName(e: InputEvent) { setRuleName(e.target.value) };
+
+  function handleSetPlagiarismText(text: string) {
+    const plagiarismTextObject = {...plagiarismText};
+    plagiarismTextObject.text = text;
+    setPlagiarismText(plagiarismTextObject)
+  }
 
   function handleSetFirstPlagiarismFeedback(text: string) {
     const feedback = {...firstPlagiarismFeedback};
@@ -91,15 +116,17 @@ const RuleForm = ({ activityData, rule, closeModal, submitRule }: RuleFormProps)
 
   function handleSubmitRule() {
     const newOrUpdatedRule = buildRule({
+      plagiarismText,
+      firstPlagiarismFeedback,
+      regexFeedback,
+      regexRules,
       rule,
       ruleName,
-      ruleType,
       ruleOptimal,
       rulePrompts,
-      regexFeedback,
-      firstPlagiarismFeedback,
+      rulesCount,
+      ruleType,
       secondPlagiarismFeedback,
-      regexRules
     });
     let keys: string[] = ['Name'];
     let state: any[] = [ruleName];
@@ -107,8 +134,8 @@ const RuleForm = ({ activityData, rule, closeModal, submitRule }: RuleFormProps)
       keys.push("Regex Feedback");
       state.push(regexFeedback.text)
     } else if(ruleType.value === "Plagiarism") {
-      keys = keys.concat(["First Plagiarism Feedback", "Second Plagiarism Feedback"]);
-      state = state.concat([firstPlagiarismFeedback.text, secondPlagiarismFeedback.text]);
+      keys = keys.concat(["Plagiarism Text", "First Plagiarism Feedback", "Second Plagiarism Feedback"]);
+      state = state.concat([plagiarismText.text, firstPlagiarismFeedback.text, secondPlagiarismFeedback.text]);
     }
     Object.keys(regexRules).map((key, i) => {
       keys.push(`Regex rule ${i + 1}`);
@@ -209,17 +236,19 @@ const RuleForm = ({ activityData, rule, closeModal, submitRule }: RuleFormProps)
           options={ruleOptimalOptions}
           value={ruleOptimal}
         />
-        <RuleFeedbacksSection
+        <RuleAttributesSection
           errors={errors}
           firstPlagiarismFeedback={firstPlagiarismFeedback}
           handleAddRegexInput={handleAddRegexInput}
           handleDeleteRegexRule={handleDeleteRegexRule}
           handleSetRegexRule={handleSetRegexRule}
+          plagiarismText={plagiarismText}
           regexFeedback={regexFeedback}
           regexRules={regexRules}
           ruleType={ruleType && ruleType.value}
           secondPlagiarismFeedback={secondPlagiarismFeedback}
           setFirstPlagiarismFeedback={handleSetFirstPlagiarismFeedback}
+          setPlagiarismText={handleSetPlagiarismText}
           setRegexFeedback={handleSetRegexFeedback}
           setSecondPlagiarismFeedback={handleSetSecondPlagiarismFeedback}
         />

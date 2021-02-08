@@ -123,6 +123,13 @@ export const formatRegexRules = ({ rule, setRegexRules }) => {
   setRegexRules(formatted);
 }
 
+// export const formatPlagiarismText = ({ rule, setPlagiarismText }) => {
+//   if(rule && rule.plagiarism_text_attributes && rule.plagiarism_text_attributes[0]) {
+//     const { plagiarism_text_attributes } = rule;
+
+//   }
+// }
+
 export const formatFeedbacks = ({ rule, ruleType, setFirstPlagiarismFeedback, setSecondPlagiarismFeedback, setRegexFeedback }) => {
   if(rule && rule.feedbacks && Object.keys(rule.feedbacks).length) {
     const { feedbacks } =  rule;
@@ -173,35 +180,45 @@ export const buildRule = ({
   ruleType,
   ruleOptimal,
   rulePrompts,
+  rulesCount,
   regexFeedback,
+  plagiarismText,
   firstPlagiarismFeedback,
   secondPlagiarismFeedback,
   regexRules
 }) => {
   const { suborder, universal, concept_uid } =  rule;
   const promptIds = [];
-  const rules = [];
   Object.keys(rulePrompts).forEach(key => {
     rulePrompts[key].checked && promptIds.push(rulePrompts[key].id);
   });
-  if(ruleType.value === 'Regex'){
+
+  let newOrUpdatedRule: any = {
+    name: ruleName,
+    feedbacks_attributes: buildFeedbacks({ruleType, regexFeedback, firstPlagiarismFeedback, secondPlagiarismFeedback }),
+    concept_uid: concept_uid,
+    optimal: ruleOptimal.value,
+    rule_type: ruleType.value,
+    suborder: suborder ? suborder : rulesCount,
+    universal: universal,
+    prompt_ids: promptIds
+  };
+
+  if(newOrUpdatedRule.rule_type === 'Regex') {
+    const rules = [];
     Object.keys(regexRules).forEach(key => {
       rules.push(regexRules[key]);
     });
+    newOrUpdatedRule.regex_rules_attributes = rules;
+  } else if(newOrUpdatedRule.rule_type === 'Plagiarism') {
+    newOrUpdatedRule.plagiarism_text_attributes = {
+      id: plagiarismText.id,
+      text: plagiarismText.text
+    };
   }
 
   return {
-    rule: {
-      name: ruleName,
-      feedbacks_attributes: buildFeedbacks({ruleType, regexFeedback, firstPlagiarismFeedback, secondPlagiarismFeedback }),
-      concept_uid: concept_uid,
-      optimal: ruleOptimal.value,
-      rule_type: ruleType.value,
-      suborder: suborder,
-      universal: universal,
-      prompt_ids: promptIds,
-      regex_rules_attributes: rules
-    }
+    rule: newOrUpdatedRule
   };
 }
 

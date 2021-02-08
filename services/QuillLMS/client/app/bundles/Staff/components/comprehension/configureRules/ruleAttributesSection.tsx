@@ -5,23 +5,34 @@ import RegexSection from './regexSection';
 
 import { TextEditor } from '../../../../Shared/index'
 
-const RuleFeedbacksSection = ({
-  ruleType,
-  firstPlagiarismFeedback,
-  setFirstPlagiarismFeedback,
-  secondPlagiarismFeedback,
-  setSecondPlagiarismFeedback,
-  regexFeedback,
-  setRegexFeedback,
+const RuleAttributesSection = ({
   errors,
+  firstPlagiarismFeedback,
   handleAddRegexInput,
   handleDeleteRegexRule,
   handleSetRegexRule,
+  plagiarismText,
+  regexFeedback,
   regexRules,
+  ruleType,
+  secondPlagiarismFeedback,
+  setFirstPlagiarismFeedback,
+  setPlagiarismText,
+  setSecondPlagiarismFeedback,
+  setRegexFeedback,
 }) => {
   if(ruleType === "Plagiarism") {
     return(
       <React.Fragment>
+        <p className="form-subsection-label">Plagiarism Text</p>
+        {plagiarismText && <TextEditor
+          ContentState={ContentState}
+          EditorState={EditorState}
+          handleTextChange={setPlagiarismText}
+          key="plagiarism-text"
+          text={plagiarismText.text}
+        />}
+        {errors['Plagiarism Text'] && <p className="error-message">{errors['Plagiarism Text']}</p>}
         <p className="form-subsection-label">Feedback</p>
         {firstPlagiarismFeedback && <TextEditor
           ContentState={ContentState}
@@ -44,6 +55,7 @@ const RuleFeedbacksSection = ({
   }
   return (
     <React.Fragment>
+      <p className="form-subsection-label">Feedback</p>
       {regexFeedback && <TextEditor
         ContentState={ContentState}
         EditorState={EditorState}
@@ -64,4 +76,4 @@ const RuleFeedbacksSection = ({
   );
 };
 
-export default RuleFeedbacksSection;
+export default RuleAttributesSection;
