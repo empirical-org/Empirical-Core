@@ -7,21 +7,34 @@ module Comprehension
     MATCH_MINIMUM = 6
     attr_reader :entry, :passage, :nonoptimal_feedback
 
-    def initialize(entry, passage, feedback)
+    def initialize(entry, passage, feedback, rule)
       @entry = entry
       @passage = passage
       @nonoptimal_feedback = feedback
     end
 
-    def optimal?
+    def feedback_object
+      {
+        feedback: feedback,
+        feedback_type: Rule::TYPE_PLAGIARISM,
+        optimal: optimal?,
+        response_id: '',
+        entry: @entry,
+        concept_uid: @rule&.concept_uid || '',
+        rule_uid: @rule&.uid || '',
+        highlight: highlights
+      }
+    end 
+
+    private def optimal?
       matched_slice.blank?
     end
 
-    def feedback
+    private def feedback
       optimal? ? ALL_CORRECT_FEEDBACK : nonoptimal_feedback
     end
 
-    def highlights
+    private def highlights
       return [] if optimal?
       [entry_highlight, passage_highlight]
     end
