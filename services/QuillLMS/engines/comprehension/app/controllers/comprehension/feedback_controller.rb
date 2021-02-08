@@ -8,7 +8,7 @@ module Comprehension
     def plagiarism
       rule = @prompt.rules&.find_by(rule_type: Comprehension::Rule::TYPE_PLAGIARISM)
       passage = rule&.plagiarism_text&.text || ''
-      feedback = get_feedback_from_previous_feedback(@previous_feedback, @prompt)
+      feedback = get_plagiarism_feedback_from_previous_feedback(@previous_feedback, @prompt)
 
       plagiarism_check = Comprehension::PlagiarismCheck.new(@entry, passage, feedback, rule)
 
@@ -31,7 +31,7 @@ module Comprehension
       @previous_feedback = params[:previous_feedback]
     end
 
-    private def get_feedback_from_previous_feedback(prev, prompt)
+    private def get_plagiarism_feedback_from_previous_feedback(prev, prompt)
       previous_plagiarism = prev.select {|f| f["feedback_type"] == Comprehension::Rule::TYPE_PLAGIARISM && f["optimal"] == false }
       feedbacks = prompt.rules&.find_by(rule_type: Comprehension::Rule::TYPE_PLAGIARISM)&.feedbacks
       previous_plagiarism.empty? ? feedbacks&.find_by(order: 0)&.text : feedbacks&.find_by(order: 1)&.text
