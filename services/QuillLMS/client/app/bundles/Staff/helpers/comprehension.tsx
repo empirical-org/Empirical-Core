@@ -177,6 +177,7 @@ export const buildFeedbacks = ({ ruleType, regexFeedback, firstPlagiarismFeedbac
 export const buildRule = ({
   rule,
   ruleName,
+  ruleConceptUID,
   ruleType,
   ruleOptimal,
   rulePrompts,
@@ -187,7 +188,7 @@ export const buildRule = ({
   secondPlagiarismFeedback,
   regexRules
 }) => {
-  const { suborder, universal, concept_uid } =  rule;
+  const { suborder, universal } =  rule;
   const promptIds = [];
   Object.keys(rulePrompts).forEach(key => {
     rulePrompts[key].checked && promptIds.push(rulePrompts[key].id);
@@ -196,7 +197,7 @@ export const buildRule = ({
   let newOrUpdatedRule: any = {
     name: ruleName,
     feedbacks_attributes: buildFeedbacks({ruleType, regexFeedback, firstPlagiarismFeedback, secondPlagiarismFeedback }),
-    concept_uid: concept_uid,
+    concept_uid: ruleConceptUID,
     optimal: ruleOptimal.value,
     rule_type: ruleType.value,
     suborder: suborder ? suborder : rulesCount,
@@ -314,6 +315,11 @@ export const validateForm = (keys: string[], state: any[]) => {
         const stemApplied = Object.keys(value).some(stem => value[stem].checked);
         if(!stemApplied) {
           errors[keys[i]] = 'You must select at least one stem.';
+        }
+        break;
+      case "Concept UID":
+        if(!value) {
+          errors[keys[i]] = 'Concept UID cannot be blank. Default for plagiarism rules is "Kr8PdUfXnU0L7RrGpY4uqg"'
         }
         break;
       default:

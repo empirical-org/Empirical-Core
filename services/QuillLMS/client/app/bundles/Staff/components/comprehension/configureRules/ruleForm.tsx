@@ -21,7 +21,7 @@ type InputEvent = React.ChangeEvent<HTMLInputElement>;
 
 const RuleForm = ({ activityData, activityId, rule, closeModal, submitRule }: RuleFormProps) => {
 
-  const { name, rule_type, id, optimal, plagiarism_text } = rule;
+  const { name, rule_type, id, optimal, plagiarism_text, concept_uid } = rule;
   const initialRuleType = rule_type ? ruleTypeOptions.filter(ruleType => ruleType.value === rule_type)[0] : ruleTypeOptions[0];
   const initialRuleOptimal = optimal ? ruleOptimalOptions[0] : ruleOptimalOptions[1];
   const initialPlagiarismText = plagiarism_text ? plagiarism_text : { text: '' }
@@ -29,6 +29,7 @@ const RuleForm = ({ activityData, activityId, rule, closeModal, submitRule }: Ru
   const [ruleType, setRuleType] = React.useState<any>(initialRuleType);
   const [ruleName, setRuleName] = React.useState<string>(name || '');
   const [ruleOptimal, setRuleOptimal] = React.useState<any>(initialRuleOptimal);
+  const [ruleConceptUID, setRuleConceptUID] = React.useState<string>(concept_uid);
   const [plagiarismText, setPlagiarismText] = React.useState<RuleInterface["plagiarism_text"]>(initialPlagiarismText);
   const [firstPlagiarismFeedback, setFirstPlagiarismFeedback] = React.useState<RuleFeedbackInterface >(null);
   const [secondPlagiarismFeedback, setSecondPlagiarismFeedback] = React.useState<RuleFeedbackInterface >(null);
@@ -64,6 +65,8 @@ const RuleForm = ({ activityData, activityId, rule, closeModal, submitRule }: Ru
   }, [rulesData])
 
   function handleSetRuleName(e: InputEvent) { setRuleName(e.target.value) };
+
+  function handleSetRuleConceptUID(e: InputEvent) { setRuleConceptUID(e.target.value) };
 
   function handleSetPlagiarismText(text: string) {
     const plagiarismTextObject = {...plagiarismText};
@@ -122,14 +125,15 @@ const RuleForm = ({ activityData, activityId, rule, closeModal, submitRule }: Ru
       regexRules,
       rule,
       ruleName,
+      ruleConceptUID,
       ruleOptimal,
       rulePrompts,
       rulesCount,
       ruleType,
       secondPlagiarismFeedback,
     });
-    let keys: string[] = ['Name'];
-    let state: any[] = [ruleName];
+    let keys: string[] = ['Name', 'Concept UID'];
+    let state: any[] = [ruleName, ruleConceptUID];
     if(ruleType.value === "Regex") {
       keys.push("Regex Feedback");
       state.push(regexFeedback.text)
@@ -227,6 +231,13 @@ const RuleForm = ({ activityData, activityId, rule, closeModal, submitRule }: Ru
           handleChange={handleSetRuleName}
           label="Name"
           value={ruleName}
+        />
+        <Input
+          className="concept-uid-input"
+          error={errors['Concept UID']}
+          handleChange={handleSetRuleConceptUID}
+          label="Concept UID"
+          value={ruleConceptUID}
         />
         <DropdownInput
           className='rule-type-input'

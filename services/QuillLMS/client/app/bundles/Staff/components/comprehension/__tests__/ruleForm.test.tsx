@@ -24,7 +24,7 @@ const mockRule = {
       highlights: []
     }
   ],
-  regex_ules: [
+  regex_rules: [
     { id: 1, regex_text: 'it contain(s)? methane gas', case_sensitive: false },
     { id: 2, regex_text: 'another reg(ex) line', case_sensitive: true },
     { id: 3, regex_text: 'some m?ore reg(ex', case_sensitive: false }
@@ -51,10 +51,10 @@ describe('RuleForm component', () => {
 
   it('should render an Input, TextEditor or checkbox component for each field', () => {
     // Dropdown Input: Rule Type (1), Optimal (1)
-    // Input: Name (1)
+    // Input: Name, ConceptUID (2)
     // RuleAttributesSection (1)
     expect(container.find(DropdownInput).length).toEqual(2);
-    expect(container.find(Input).length).toEqual(1);
+    expect(container.find(Input).length).toEqual(2);
     expect(container.find(RuleAttributesSection).length).toEqual(1);
   });
   it('clicking the "x" button or "close" button should call closeModal prop', () => {

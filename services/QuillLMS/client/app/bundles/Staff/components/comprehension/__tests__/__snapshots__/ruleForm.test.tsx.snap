@@ -51,6 +51,13 @@ exports[`RuleForm component should render RuleForm 1`] = `
       label="Name"
       value="remove all instances of \\"it contains methane\\""
     />
+    <Input
+      autoComplete="on"
+      className="concept-uid-input"
+      handleChange={[Function]}
+      label="Concept UID"
+      value="a34qreadbgt6"
+    />
     <DropdownInput
       className="rule-type-input"
       handleChange={[Function]}
