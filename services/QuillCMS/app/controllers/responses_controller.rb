@@ -36,8 +36,7 @@ class ResponsesController < ApplicationController
   # POST /responses/create_or_increment
   def create_or_increment
     transformed_response = transformed_new_vals(params_for_create).to_h
-    # delaying this to off-hours to eliminate read/write traffic in peak hours
-    CreateOrIncrementResponseWorker.perform_in(6.hours, transformed_response)
+    CreateOrIncrementResponseWorker.perform_async(transformed_response)
     render json: {}
   end
 
