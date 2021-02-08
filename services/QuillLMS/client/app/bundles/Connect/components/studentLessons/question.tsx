@@ -212,7 +212,7 @@ export default class PlayLessonQuestion extends React.Component<PlayLessonQuesti
       questionID: question.key, 
       attempts: question.attempts, 
       dispatch, 
-      isAdmin,
+      requestSynchronously: isAdmin,
     });
   }
 

@@ -109,8 +109,9 @@ class PlayDiagnosticQuestion extends React.Component {
         response, 
         questionID: this.getQuestion().key, 
         attempts: this.getQuestion().attempts, 
-        dispatch
-       }
+        dispatch,
+        requestSynchronously: true
+      }
       );
   }
 

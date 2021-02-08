@@ -19,7 +19,7 @@ interface UpdateResponseResourceParams {
   attempts: any;
   dispatch: () => void;
   playQuestion?: any;
-  isAdmin?: boolean
+  requestSynchronously?: boolean
 }
 
 export default function updateResponseResource(params: UpdateResponseResourceParams)  {
@@ -28,7 +28,7 @@ export default function updateResponseResource(params: UpdateResponseResourcePar
   if (preAtt) { previousAttempt = getLatestAttempt(params.attempts).response; }
   const prid = previousAttempt ? previousAttempt.key : undefined;
   const isFirstAttempt = !preAtt;
-  const submitFunction = params.isAdmin ? submitResponseImmediate : submitResponse
+  const submitFunction = params.requestSynchronously ? submitResponseImmediate : submitResponse
 
   params.dispatch(
     submitFunction(params.response, prid, isFirstAttempt)
