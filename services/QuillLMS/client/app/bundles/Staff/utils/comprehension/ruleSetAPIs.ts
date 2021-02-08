@@ -4,7 +4,6 @@ import { handleApiError, apiFetch } from '../../helpers/comprehension';
 export const fetchRules = async (key: string, activityId: string) => {
   const response = await apiFetch(`activities/${activityId}/rules`);
   const rules = await response.json();
-  // rulesets.forEach((ruleset) => { ruleset.rules = ruleset.regex_rules });
   return {
     error: handleApiError('Failed to fetch rules, please refresh the page.', response),
     rules: rules
