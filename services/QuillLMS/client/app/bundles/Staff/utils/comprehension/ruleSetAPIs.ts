@@ -11,17 +11,6 @@ export const fetchRules = async (key: string, activityId: string) => {
   };
 }
 
-export const fetchRuleSet = async (key: string, activityId: string, ruleSetId: string) => {
-  let ruleset: RuleInterface;
-  const response = await apiFetch(`activities/${activityId}/rule_sets/${ruleSetId}`);
-  ruleset = await response.json();
-  ruleset.rules = ruleset.regex_rules;
-  return {
-    error: handleApiError('Failed to fetch rule set, please refresh the page.', response),
-    ruleset
-  };
-}
-
 export const fetchRule = async (key: string, ruleId: string) => {
   const response = await apiFetch(`rules/${ruleId}`);
   const rule = await response.json();

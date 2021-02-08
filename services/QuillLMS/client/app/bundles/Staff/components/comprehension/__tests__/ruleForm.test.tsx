@@ -25,9 +25,9 @@ const mockRule = {
     }
   ],
   regex_rules: [
-    { id: 1, regex_text: 'it contain(s)? methane gas', case_sensitive: false },
-    { id: 2, regex_text: 'another reg(ex) line', case_sensitive: true },
-    { id: 3, regex_text: 'some m?ore reg(ex', case_sensitive: false }
+    { id: 1, rule_id: 1, regex_text: 'it contain(s)? methane gas', case_sensitive: false },
+    { id: 2, rule_id: 1, regex_text: 'another reg(ex) line', case_sensitive: true },
+    { id: 3, rule_id: 1, regex_text: 'some m?ore reg(ex', case_sensitive: false }
   ]
 }
 const mockProps = {
