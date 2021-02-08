@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`RuleSets component should render RuleSets 1`] = `
+exports[`Rules component should render Rules 1`] = `
 <div
   className="loading-spinner-container"
 >

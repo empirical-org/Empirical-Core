@@ -1,9 +1,11 @@
 import * as React from "react";
 import { NavLink, Redirect, Route, RouteComponentProps, Switch, withRouter } from 'react-router-dom';
+
 import ActivitySettings from './configureSettings/activitySettings';
-import RuleSets from './configureRegex/ruleSets';
-import RuleSet from './configureRegex/ruleSet';
+import Rules from './configureRules/rules';
+import Rule from './configureRules/rule';
 import TurkSessions from './gatherResponses/turkSessions';
+
 import { ActivityRouteProps } from '../../interfaces/comprehensionInterfaces';
 
 const Activity: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ match }) => {
@@ -37,17 +39,17 @@ const Activity: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ match }) 
             Train Models
           </div>
         </NavLink>
-        <NavLink activeClassName="is-active" to={`/activities/${activityId}/rulesets`}>
+        <NavLink activeClassName="is-active" to={`/activities/${activityId}/rules`}>
           <div className="tab-option">
-            Configure RegEx
+            Configure Rules
           </div>
         </NavLink>
       </div>
       <Switch>
         <Redirect exact from='/activities/:activityId' to='/activities/:activityId/settings' />
         <Route component={ActivitySettings} path='/activities/:activityId/settings' />
-        <Route component={RuleSet} path='/activities/:activityId/rulesets/:ruleSetId' />
-        <Route component={RuleSets} path='/activities/:activityId/rulesets' />
+        <Route component={Rule} path='/activities/:activityId/rules/:ruleId' />
+        <Route component={Rules} path='/activities/:activityId/rules' />
         <Route component={TurkSessions} path='/activities/:activityId/turk-sessions' />
       </Switch>
     </div>
