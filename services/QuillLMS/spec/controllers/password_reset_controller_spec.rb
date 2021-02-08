@@ -72,6 +72,7 @@ describe PasswordResetController do
       post :update, id: @user.token, user: { password: "test123" }
       expect(session[:user_id]).to eq @user.id
       expect(response.body).to eq({ redirect: '/profile'}.to_json)
+      expect(@user.reload.token).to eq nil
     end
 
   end
