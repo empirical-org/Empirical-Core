@@ -12,10 +12,10 @@ import {
   TARGET_READING_LEVEL,
   SCORED_READING_LEVEL
 } from '../../../constants/comprehension';
-import { ActivityRuleSetPrompt, PromptInterface } from '../interfaces/comprehensionInterfaces'
+import { PromptInterface } from '../interfaces/comprehensionInterfaces'
 
 const quillCheckmark = 'https://assets.quill.org/images/icons/check-circle-small.svg';
-const baseUrl = `${process.env.DEFAULT_URL}/api/v1/comprehension/`;;
+const baseUrl = `${process.env.DEFAULT_URL}/api/v1/comprehension/`;
 const fetchDefaults = require("fetch-defaults");
 
 export const apiFetch = fetchDefaults(fetch, baseUrl, {
@@ -26,17 +26,31 @@ export const apiFetch = fetchDefaults(fetch, baseUrl, {
   }
 })
 
-export const getPromptsIcons = (prompts: ActivityRuleSetPrompt[]) => {
-  const icons = {};
-  prompts.forEach(prompt => {
-    const { conjunction } = prompt;
-    if(promptStems.includes(conjunction)) {
-      icons[conjunction] = (<img alt="quill-circle-checkmark" src={quillCheckmark} />)
-    } else {
-      icons[conjunction] = (<div />);
-    }
-  });
-  return icons;
+export const getPromptsIcons = (activityData, promptIds: number[]) => {
+  if(activityData && activityData.activity && activityData.activity.prompts) {
+    const { activity } = activityData;
+    const { prompts } = activity;
+    const attachedPrompts = prompts.filter(prompt => promptIds.includes(prompt.id));
+    const icons = {};
+    attachedPrompts.forEach(prompt => {
+      const { conjunction } = prompt;
+      if(promptStems.includes(conjunction)) {
+        icons[conjunction] = (<img alt="quill-circle-checkmark" src={quillCheckmark} />)
+      } else {
+        icons[conjunction] = (<div />);
+      }
+    });
+    return icons;
+  }
+  return {};
+}
+
+export const getUniversalIcon = (universal: boolean) => {
+  if(universal) {
+    return (<img alt="quill-circle-checkmark" src={quillCheckmark} />)
+  } else {
+    return (<div />);
+  }
 }
 
 export const buildBlankPrompt = (conjunction: string) => {
@@ -60,11 +74,7 @@ export const buildActivity = ({
   activitySoPrompt
 }) => {
   // const { label } = activityFlag;
-  const prompts = [activityBecausePrompt, activityButPrompt, activitySoPrompt].map(prompt => {
-    prompt.max_attempts_feedback = activityMaxFeedback;
-    prompt.plagiarism_text = stripHtml(prompt.plagiarism_text)
-    return prompt;
-  });
+  const prompts = [activityBecausePrompt, activityButPrompt, activitySoPrompt];
   return {
     activity: {
       title: activityTitle,
@@ -75,6 +85,141 @@ export const buildActivity = ({
       passages_attributes: activityPassages,
       prompts_attributes: prompts
     }
+  };
+}
+
+export const formatPrompts = ({ activityData, rule, setRulePrompts }) => {
+  let checkedPrompts = {};
+  let formatted = {};
+
+  // get ids of all applied prompts
+  rule && rule.prompt_ids && rule.prompt_ids.forEach(id => {
+    checkedPrompts[id] = true;
+  });
+
+  // use activity data to apply each prompt ID
+  activityData.prompts && activityData.prompts.forEach((prompt: PromptInterface) => {
+    const { conjunction, id } = prompt;
+    formatted[conjunction] = {
+      id,
+      checked: !!checkedPrompts[id]
+    };
+  });
+
+  setRulePrompts(formatted);
+}
+
+export const formatRegexRules = ({ rule, setRegexRules }) => {
+  let formatted = {};
+  rule && rule.regex_rules && rule.regex_rules.map((rule, i) => {
+    const { case_sensitive, id, regex_text } = rule;
+    const formattedRule = {
+      id: id,
+      case_sensitive: case_sensitive,
+      regex_text: regex_text
+    }
+    formatted[`regex-rule-${i}`] = formattedRule;
+  });
+  setRegexRules(formatted);
+}
+
+// export const formatPlagiarismText = ({ rule, setPlagiarismText }) => {
+//   if(rule && rule.plagiarism_text_attributes && rule.plagiarism_text_attributes[0]) {
+//     const { plagiarism_text_attributes } = rule;
+
+//   }
+// }
+
+export const formatFeedbacks = ({ rule, ruleType, setFirstPlagiarismFeedback, setSecondPlagiarismFeedback, setRegexFeedback }) => {
+  if(rule && rule.feedbacks && Object.keys(rule.feedbacks).length) {
+    const { feedbacks } =  rule;
+    if(ruleType && ruleType.value === "Plagiarism") {
+      const formattedFirstFeedback = {
+        id: feedbacks[0].id,
+        order: 0,
+        description: feedbacks[0].description,
+        text: feedbacks[0].text
+      }
+      const formattedSecondFeedback = {
+        id: feedbacks[1].id,
+        order: 1,
+        description: feedbacks[1].description,
+        text: feedbacks[1].text
+      }
+      setFirstPlagiarismFeedback(formattedFirstFeedback);
+      setSecondPlagiarismFeedback(formattedSecondFeedback);
+    }
+    else if(ruleType && ruleType.value === "Regex") {
+      const formattedFeedback = {
+        id: feedbacks[0].id,
+        order: 0,
+        description: feedbacks[0].description,
+        text: feedbacks[0].text
+      }
+      setRegexFeedback(formattedFeedback);
+    }
+  } else {
+    // creating new rule, set all to empty break tag in case user switches between rule types
+    setFirstPlagiarismFeedback({ text: '<br/>'});
+    setSecondPlagiarismFeedback({ text: '<br/>'});
+    setRegexFeedback({ text: '<br/>'});
+  }
+}
+
+export const buildFeedbacks = ({ ruleType, regexFeedback, firstPlagiarismFeedback, secondPlagiarismFeedback }) => {
+  if(ruleType.value === "Regex") {
+    return [regexFeedback];
+  } else if(ruleType.value === "Plagiarism") {
+    return [firstPlagiarismFeedback, secondPlagiarismFeedback];
+  }
+}
+
+export const buildRule = ({
+  rule,
+  ruleName,
+  ruleConceptUID,
+  ruleType,
+  ruleOptimal,
+  rulePrompts,
+  rulesCount,
+  regexFeedback,
+  plagiarismText,
+  firstPlagiarismFeedback,
+  secondPlagiarismFeedback,
+  regexRules
+}) => {
+  const { suborder, universal } =  rule;
+  const promptIds = [];
+  Object.keys(rulePrompts).forEach(key => {
+    rulePrompts[key].checked && promptIds.push(rulePrompts[key].id);
+  });
+
+  let newOrUpdatedRule: any = {
+    name: ruleName,
+    feedbacks_attributes: buildFeedbacks({ruleType, regexFeedback, firstPlagiarismFeedback, secondPlagiarismFeedback }),
+    concept_uid: ruleConceptUID,
+    optimal: ruleOptimal.value,
+    rule_type: ruleType.value,
+    suborder: suborder ? suborder : rulesCount,
+    universal: universal,
+    prompt_ids: promptIds
+  };
+
+  if(newOrUpdatedRule.rule_type === 'Regex') {
+    const rules = [];
+    Object.keys(regexRules).forEach(key => {
+      rules.push(regexRules[key]);
+    });
+    newOrUpdatedRule.regex_rules_attributes = rules;
+  } else if(newOrUpdatedRule.rule_type === 'Plagiarism') {
+    newOrUpdatedRule.plagiarism_text_attributes = {
+      id: plagiarismText.id,
+      text: plagiarismText.text
+    };
+  }
+
+  return {
+    rule: newOrUpdatedRule
   };
 }
 
@@ -150,7 +295,7 @@ const scoredReadingLevelError = (value: string) => {
   }
 }
 
-export const validateForm = (keys: string[], state: string[]) => {
+export const validateForm = (keys: string[], state: any[]) => {
   let errors = {};
   state.map((value, i) => {
     switch(keys[i]) {
@@ -164,6 +309,17 @@ export const validateForm = (keys: string[], state: string[]) => {
         const scoredError = scoredReadingLevelError(value);
         if(scoredError) {
           errors[SCORED_READING_LEVEL] = scoredError
+        }
+        break;
+      case "Stem Applied":
+        const stemApplied = Object.keys(value).some(stem => value[stem].checked);
+        if(!stemApplied) {
+          errors[keys[i]] = 'You must select at least one stem.';
+        }
+        break;
+      case "Concept UID":
+        if(!value) {
+          errors[keys[i]] = 'Concept UID cannot be blank. Default for plagiarism rules is "Kr8PdUfXnU0L7RrGpY4uqg"'
         }
         break;
       default:

@@ -80,24 +80,6 @@ const ActivityForm = ({ activity, closeModal, submitActivity }: ActivityFormProp
     }
   }
 
-  function handleSetPlagiarismText(text: string, conjunction: string) {
-    const prompt = getActivityPrompt({ activityBecausePrompt, activityButPrompt, activitySoPrompt, conjunction });
-    const updatePrompt = getActivityPromptSetter({ setActivityBecausePrompt, setActivityButPrompt, setActivitySoPrompt, conjunction});
-    if(prompt && updatePrompt) {
-      prompt.plagiarism_text = text;
-      updatePrompt(prompt)
-    }
-  };
-
-  function handleSetPlagiarismFeedback(e: InputEvent, order: string, conjunction: string) {
-    const prompt = getActivityPrompt({ activityBecausePrompt, activityButPrompt, activitySoPrompt, conjunction });
-    const updatePrompt = getActivityPromptSetter({ setActivityBecausePrompt, setActivityButPrompt, setActivitySoPrompt, conjunction});
-    if(prompt && updatePrompt) {
-      prompt[`plagiarism_${order}_feedback`] = e.target.value;
-      updatePrompt(prompt)
-    }
-  }
-
   function handleSubmitActivity(){
     const activityObject = buildActivity({
       activityTitle,
@@ -115,20 +97,11 @@ const ActivityForm = ({ activity, closeModal, submitActivity }: ActivityFormProp
       activityScoredReadingLevel,
       activityTargetReadingLevel,
       activityParentActivityId,
-      activityMaxFeedback,
       activityPassages[0].text,
+      activityMaxFeedback,
       activityBecausePrompt.text,
-      activityBecausePrompt.plagiarism_text,
-      activityBecausePrompt.plagiarism_first_feedback,
-      activityBecausePrompt.plagiarism_second_feedback,
       activityButPrompt.text,
-      activityButPrompt.plagiarism_text,
-      activityButPrompt.plagiarism_first_feedback,
-      activityButPrompt.plagiarism_second_feedback,
-      activitySoPrompt.text,
-      activitySoPrompt.plagiarism_text,
-      activitySoPrompt.plagiarism_first_feedback,
-      activitySoPrompt.plagiarism_second_feedback,
+      activitySoPrompt.text
     ];
     const validationErrors = validateForm(activityFormKeys, state);
     if(validationErrors && Object.keys(validationErrors).length !== 0) {
@@ -141,7 +114,6 @@ const ActivityForm = ({ activity, closeModal, submitActivity }: ActivityFormProp
   const errorsPresent = !!Object.keys(errors).length;
   const passageLabelStyle = activityPassages[0].text.length  && activityPassages[0].text !== '<br/>' ? 'has-text' : '';
   const maxAttemptStyle = activityMaxFeedback.length && activityMaxFeedback !== '<br/>' ? 'has-text' : '';
-
   return(
     <div className="activity-form-container">
       <div className="close-button-container">
@@ -207,8 +179,6 @@ const ActivityForm = ({ activity, closeModal, submitActivity }: ActivityFormProp
           activityButPrompt={activityButPrompt}
           activitySoPrompt={activitySoPrompt}
           errors={errors}
-          handleSetPlagiarismFeedback={handleSetPlagiarismFeedback}
-          handleSetPlagiarismText={handleSetPlagiarismText}
           handleSetPrompt={handleSetPrompt}
         />
         <div className="submit-button-container">
