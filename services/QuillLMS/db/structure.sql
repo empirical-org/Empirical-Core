@@ -131,7 +131,7 @@ CREATE FUNCTION public.timespent_question(act_sess integer, question character v
           item timestamp;
         BEGIN
           SELECT created_at INTO as_created_at FROM activity_sessions WHERE id = act_sess;
-          
+
           -- backward compatibility block
           IF as_created_at IS NULL OR as_created_at < timestamp '2013-08-25 00:00:00.000000' THEN
             SELECT SUM(
@@ -146,11 +146,11 @@ CREATE FUNCTION public.timespent_question(act_sess integer, question character v
                       'epoch' FROM (activity_sessions.completed_at - activity_sessions.started_at)
                     )
                 END) INTO time_spent FROM activity_sessions WHERE id = act_sess AND state='finished';
-                
+
                 RETURN COALESCE(time_spent,0);
           END IF;
-          
-          
+
+
           first_item := NULL;
           last_item := NULL;
           max_item := NULL;
@@ -174,11 +174,11 @@ CREATE FUNCTION public.timespent_question(act_sess integer, question character v
 
             END IF;
           END LOOP;
-          
+
           IF max_item IS NOT NULL AND first_item IS NOT NULL THEN
             time_spent := time_spent + EXTRACT( EPOCH FROM max_item - first_item );
           END IF;
-          
+
           RETURN time_spent;
         END;
       $$;
@@ -193,7 +193,7 @@ CREATE FUNCTION public.timespent_student(student integer) RETURNS bigint
     AS $$
         SELECT COALESCE(SUM(time_spent),0) FROM (
           SELECT id,timespent_activity_session(id) AS time_spent FROM activity_sessions
-          WHERE activity_sessions.user_id = student 
+          WHERE activity_sessions.user_id = student
           GROUP BY id) as as_ids;
 
       $$;
@@ -1245,6 +1245,39 @@ ALTER SEQUENCE public.comprehension_passages_id_seq OWNED BY public.comprehensio
 
 
 --
+-- Name: comprehension_plagiarism_texts; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.comprehension_plagiarism_texts (
+    id integer NOT NULL,
+    rule_id integer NOT NULL,
+    text character varying NOT NULL,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: comprehension_plagiarism_texts_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.comprehension_plagiarism_texts_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: comprehension_plagiarism_texts_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.comprehension_plagiarism_texts_id_seq OWNED BY public.comprehension_plagiarism_texts.id;
+
+
+--
 -- Name: comprehension_prompts; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -1256,10 +1289,7 @@ CREATE TABLE public.comprehension_prompts (
     text character varying,
     max_attempts_feedback text,
     created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL,
-    plagiarism_text text,
-    plagiarism_first_feedback text,
-    plagiarism_second_feedback text
+    updated_at timestamp without time zone NOT NULL
 );
 
 
@@ -1896,7 +1926,8 @@ CREATE TABLE public.feedback_histories (
     "time" timestamp without time zone NOT NULL,
     metadata jsonb,
     created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL
+    updated_at timestamp without time zone NOT NULL,
+    rule_uid character varying
 );
 
 
@@ -3659,6 +3690,13 @@ ALTER TABLE ONLY public.comprehension_passages ALTER COLUMN id SET DEFAULT nextv
 
 
 --
+-- Name: comprehension_plagiarism_texts id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.comprehension_plagiarism_texts ALTER COLUMN id SET DEFAULT nextval('public.comprehension_plagiarism_texts_id_seq'::regclass);
+
+
+--
 -- Name: comprehension_prompts id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -4314,6 +4352,14 @@ ALTER TABLE ONLY public.comprehension_highlights
 
 ALTER TABLE ONLY public.comprehension_passages
     ADD CONSTRAINT comprehension_passages_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: comprehension_plagiarism_texts comprehension_plagiarism_texts_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.comprehension_plagiarism_texts
+    ADD CONSTRAINT comprehension_plagiarism_texts_pkey PRIMARY KEY (id);
 
 
 --
@@ -5233,6 +5279,13 @@ CREATE INDEX index_comprehension_passages_on_activity_id ON public.comprehension
 
 
 --
+-- Name: index_comprehension_plagiarism_texts_on_rule_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_comprehension_plagiarism_texts_on_rule_id ON public.comprehension_plagiarism_texts USING btree (rule_id);
+
+
+--
 -- Name: index_comprehension_prompts_on_activity_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -5447,6 +5500,13 @@ CREATE INDEX index_feedback_histories_on_concept_uid ON public.feedback_historie
 --
 
 CREATE INDEX index_feedback_histories_on_prompt_type_and_id ON public.feedback_histories USING btree (prompt_type, prompt_id);
+
+
+--
+-- Name: index_feedback_histories_on_rule_uid; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_feedback_histories_on_rule_uid ON public.feedback_histories USING btree (rule_uid);
 
 
 --
@@ -6334,6 +6394,14 @@ ALTER TABLE ONLY public.classroom_unit_activity_states
 
 
 --
+-- Name: comprehension_plagiarism_texts fk_rails_bcd03e8630; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.comprehension_plagiarism_texts
+    ADD CONSTRAINT fk_rails_bcd03e8630 FOREIGN KEY (rule_id) REFERENCES public.comprehension_rules(id) ON DELETE CASCADE;
+
+
+--
 -- Name: standards fk_rails_c84477fd6e; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -7171,6 +7239,10 @@ INSERT INTO schema_migrations (version) VALUES ('20210121213613');
 
 INSERT INTO schema_migrations (version) VALUES ('20210122150843');
 
+INSERT INTO schema_migrations (version) VALUES ('20210122172552');
+
 INSERT INTO schema_migrations (version) VALUES ('20210122195721');
 
-INSERT INTO schema_migrations (version) VALUES ('20210122150843');
+INSERT INTO schema_migrations (version) VALUES ('20210128152452');
+
+INSERT INTO schema_migrations (version) VALUES ('20210202210617');
