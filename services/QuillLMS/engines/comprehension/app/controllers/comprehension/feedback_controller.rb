@@ -16,7 +16,7 @@ module Comprehension
     end
 
     def regex
-      regex_check = Comprehension::RegexCheck.new(@entry, @prompt.id)
+      regex_check = Comprehension::RegexCheck.new(@entry, @prompt)
       render json: regex_check.feedback_object
     end
 
