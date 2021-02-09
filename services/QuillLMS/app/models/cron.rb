@@ -21,7 +21,6 @@ class Cron
     RenewExpiringRecurringSubscriptionsWorker.perform_async
     ResetDemoAccountWorker.perform_async
     SyncVitallyWorker.perform_async
-    ExpireUserTokensWorker.perform_async
   end
 
   def self.run_saturday

@@ -19,6 +19,7 @@ class PasswordResetController < ApplicationController
         UserMailer.password_reset_email(user).deliver_now!
         flash[:notice] = 'We sent you an email with instructions on how to reset your password.'
         flash.keep(:notice)
+        ExpirePasswordTokenWorker.perform_in(24.hours, user.id)
         render json: { redirect: '/password_reset'}
       end
     else
