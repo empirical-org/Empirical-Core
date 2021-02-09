@@ -114,14 +114,6 @@ class ResponseComponent extends React.Component {
     return _.filter(responses, response => response.text.indexOf(that.props.filters.stringFilter) >= 0);
   };
 
-  // from pathways
-
-  getFromPathwaysForResponse = rid => {
-    const responseCollection = hashToCollection(this.props.pathways.data);
-    const responsePathways = _.where(responseCollection, { toResponseID: rid, });
-    return responsePathways;
-  };
-
   getGradeBreakdown = () => {
     request(
       {
@@ -198,24 +190,8 @@ class ResponseComponent extends React.Component {
     return responses;
   };
 
-  getToPathwaysForResponse = rid => {
-    const responseCollection = hashToCollection(this.props.pathways.data);
-    const responsePathways = _.where(responseCollection, { fromResponseID: rid, });
-    return responsePathways;
-  };
-
   getTotalAttempts = () => {
     return this.state.health.total_number_of_attempts;
-  };
-
-  getUniqAndCountedResponsePathways = rid => {
-    const counted = _.countBy(this.getFromPathwaysForResponse(rid), path => path.fromResponseID);
-    return counted;
-  };
-
-  getUniqAndCountedToResponsePathways = rid => {
-    const counted = _.countBy(this.getToPathwaysForResponse(rid), path => path.toResponseID);
-    return counted;
   };
 
   allClosed = () => {
@@ -296,31 +272,6 @@ class ResponseComponent extends React.Component {
     if (this.props.filters.responsePageNumber < this.getNumberOfPages()) {
       this.updatePageNumber(this.props.filters.responsePageNumber + 1);
     }
-  };
-
-  mapCountToResponse = rid => {
-    const mapped = _.mapObject(this.getUniqAndCountedResponsePathways(rid), (value, key) => {
-      let response = this.props.responses[key];
-      if (response) {
-        response.pathCount = value;
-      } else {
-        response = {
-          initial: true,
-          pathCount: value,
-          key: 'initial',
-        };
-      }
-      return response;
-    });
-    return _.values(mapped);
-  };
-
-  mapCountToToResponse = rid => {
-    const mapped = _.mapObject(this.getUniqAndCountedToResponsePathways(rid), (value, key) => {
-      const response = this.props.responses[key];
-      return response;
-    });
-    return _.values(mapped);
   };
 
   rematchAllResponses = () => {
@@ -523,15 +474,12 @@ class ResponseComponent extends React.Component {
         getResponse={this.getResponse}
         massEdit={this.props.massEdit}
         mode={this.props.mode}
-        printPathways={this.mapCountToResponse}
         question={this.props.question}
         questionID={questionID}
         responses={responses}
         selectedFocusPoints={selectedFocusPoints}
         selectedIncorrectSequences={selectedIncorrectSequences}
-        showPathways
         states={this.props.states}
-        toPathways={this.mapCountToToResponse}
       />);
     }
   };
@@ -640,7 +588,6 @@ class ResponseComponent extends React.Component {
 function select(state) {
   return {
     filters: state.filters,
-    pathways: state.pathways,
     conceptsFeedback: state.conceptsFeedback,
     concepts: state.concepts,
     massEdit: state.massEdit,

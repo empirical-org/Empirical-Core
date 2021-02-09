@@ -267,6 +267,7 @@
                     font-size: 16px;
                     font-weight: bold;
                     color: #06806b;
+                    flex: 1;
                   }
                   .activity-title:hover {
                     text-decoration: none;
@@ -314,6 +315,8 @@
             line-height: 1.5;
             color: black;
             a {
+              margin-right: 0.4em;
+              margin-left: 0.4em;
               text-decoration: underline;
             }
           }

@@ -2,74 +2,43 @@ require 'test_helper'
 
 module Comprehension
   class PlagiarismCheckTest < ActiveSupport::TestCase
-    context '#initialize' do
-      should 'should have working accessor methods for all initialized fields' do
-        plagiarism_check = Comprehension::PlagiarismCheck.new("entry", "passage", "feedback")
-        assert_equal plagiarism_check.entry, "entry"
-        assert_equal plagiarism_check.passage, "passage"
-        assert_equal plagiarism_check.nonoptimal_feedback, "feedback"
+    setup do 
+      @rule = create(:comprehension_rule, rule_type: 'Plagiarism')
+    end
+  
+    context '#feedback_object' do
+      should 'return appropriate feedback attributes if there is plagiarism' do
+        entry = "these are s'',ome! r''esponse words to plagiarize"
+        passage = "these are some res,,,,ponse,,,, words to plagiarize"
+        feedback = "this is some standard plagiarism feedback"
+        plagiarism_check = Comprehension::PlagiarismCheck.new(entry, passage, feedback, @rule)
+        feedback = plagiarism_check.feedback_object
+        assert feedback[:feedback], feedback
+        assert feedback[:feedback_type], Comprehension::Rule::TYPE_PLAGIARISM
+        refute feedback[:optimal]
+        assert feedback[:entry], entry
+        assert feedback[:rule_uid], @rule.uid
+        assert feedback[:concept_uid], @rule.concept_uid
+        assert feedback[:highlight][0][:text], entry
+        assert feedback[:highlight][1][:text], passage 
       end
+
+      should 'return appropriate feedback when there is no plagiarism' do
+        
+        entry = "these are some response words to plagiarize"
+        passage = "it is always bad to plagiarize"
+        feedback = "this is some standard plagiarism feedback"
+        plagiarism_check = Comprehension::PlagiarismCheck.new(entry, passage, feedback, @rule)
+        feedback = plagiarism_check.feedback_object
+        assert feedback[:feedback], Comprehension::PlagiarismCheck::ALL_CORRECT_FEEDBACK
+        assert feedback[:feedback_type], Comprehension::Rule::TYPE_PLAGIARISM
+        assert feedback[:optimal]
+        assert feedback[:entry], entry
+        assert feedback[:rule_uid], @rule.uid
+        assert feedback[:concept_uid], @rule.concept_uid
+      end
+    
     end
 
-    context '#optimal' do
-      should 'be true when there is no plagiarism' do
-        plagiarism_check = Comprehension::PlagiarismCheck.new("these are some response words", "this is the passage", nil)
-        assert plagiarism_check.optimal?
-      end
-
-      should 'be false when there is plagiarism' do
-        plagiarism_check = Comprehension::PlagiarismCheck.new("these are some response words to plagiarize", "these are some response words to plagiarize", nil)
-        refute plagiarism_check.optimal?
-      end
-    end
-
-    context '#feedback' do
-      should 'should be default correct feedback when there is no plagiarism' do
-        plagiarism_check = Comprehension::PlagiarismCheck.new("these are some response words", "this is the passage", nil)
-        assert_equal plagiarism_check.feedback, Comprehension::PlagiarismCheck::ALL_CORRECT_FEEDBACK
-      end
-
-      should 'should be nonoptimal feedback when there is plagiarism' do
-        plagiarism_check = Comprehension::PlagiarismCheck.new("these are some response words to plagiarize", "these are some response words to plagiarize", "that was plagiarized")
-        assert_equal plagiarism_check.feedback, "that was plagiarized"
-      end
-    end
-
-    context '#highlights' do
-      should 'should be empty when there is no plagiarism' do
-        plagiarism_check = Comprehension::PlagiarismCheck.new("these are some response words", "this is the passage", nil)
-        assert_equal plagiarism_check.highlights, []
-      end
-
-      should 'should return appropriate highlighted phrases when there is plagiarism' do
-        plagiarism_check = Comprehension::PlagiarismCheck.new("these are some response words to plagiarize", "these are some response words to plagiarize", nil)
-        assert_equal plagiarism_check.highlights[0][:text], "these are some response words to plagiarize"
-        assert_equal plagiarism_check.highlights[1][:text], "these are some response words to plagiarize"
-      end
-
-      should 'should return appropriate highlighted phrases with punctuation when there is plagiarism' do
-        plagiarism_check = Comprehension::PlagiarismCheck.new("these? are some,,,,, response words! to plagiarize", "these are some response words to plagiarize", nil)
-        assert_equal plagiarism_check.highlights[0][:text], "these? are some,,,,, response words! to plagiarize"
-        assert_equal plagiarism_check.highlights[1][:text], "these are some response words to plagiarize"
-      end
-
-      should 'should return appropriate highlighted phrases with punctuation when there is plagiarism 2' do
-        plagiarism_check = Comprehension::PlagiarismCheck.new("these? are some,,,,, response words! to plagiarize", "these are some!! response!! words !,to plagi?arize", nil)
-        assert_equal plagiarism_check.highlights[0][:text], "these? are some,,,,, response words! to plagiarize"
-        assert_equal plagiarism_check.highlights[1][:text], "these are some!! response!! words !,to plagi?arize"
-      end
-
-      should 'should return the longest plagiarized phrase when there are two or more plagiarized phrases' do
-        plagiarism_check = Comprehension::PlagiarismCheck.new("there is one plagiarized phrase here, but this plagiarized phrase is a little longer", "there is one plagiarized phrase here, and we see that this plagiarized phrase is a little longer", nil)
-        assert_equal plagiarism_check.highlights[0][:text], "this plagiarized phrase is a little longer"
-        assert_equal plagiarism_check.highlights[1][:text], "this plagiarized phrase is a little longer"
-      end
-
-      should 'should return the longest plagiarized phrase when there are duplicate words' do
-        plagiarism_check = Comprehension::PlagiarismCheck.new("test test test test test test", "test test test test test test test test", nil)
-        assert_equal plagiarism_check.highlights[0][:text], "test test test test test test"
-        assert_equal plagiarism_check.highlights[1][:text], "test test test test test test"
-      end
-    end
   end
 end

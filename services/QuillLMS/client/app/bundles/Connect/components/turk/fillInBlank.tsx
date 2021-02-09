@@ -1,14 +1,18 @@
 declare function require(name:string);
+
 import * as React from 'react';
 import { connect } from 'react-redux';
 import * as  _ from 'underscore';
-const qml = require('quill-marking-logic')
-const checkFillInTheBlankQuestion = qml.checkFillInTheBlankQuestion
+import { stringNormalize } from 'quill-string-normalizer'
+
 import { getGradedResponsesWithCallback } from '../../actions/responses.js';
 import { Feedback, Prompt, } from '../../../Shared/index';
 import Cues from '../renderForQuestions/cues.jsx';
 import { hashToCollection, } from '../../../Shared/index'
-import { stringNormalize } from 'quill-string-normalizer'
+import updateResponseResource from '../renderForQuestions/updateResponseResource.js';
+
+const qml = require('quill-marking-logic')
+const checkFillInTheBlankQuestion = qml.checkFillInTheBlankQuestion
 
 const styles = {
   container: {
@@ -84,6 +88,12 @@ export class PlayFillInTheBlankQuestion extends React.Component<any, any> {
     return inputs;
   }
 
+  updateResponseResource = (response) => {
+    const { dispatch, } = this.props
+
+    updateResponseResource(response, this.getQuestion().key, this.getQuestion().attempts, dispatch);
+  }
+
   handleChange(i, e) {
     const { inputVals, } = this.state
     const existing = [...inputVals];
@@ -145,6 +155,7 @@ export class PlayFillInTheBlankQuestion extends React.Component<any, any> {
     return (
       <span key={`span${i}`}>
         <input
+          aria-label="text input"
           className={className}
           id={`input${i}`}
           key={i + 100}
@@ -200,6 +211,7 @@ export class PlayFillInTheBlankQuestion extends React.Component<any, any> {
       const responsesArray = hashToCollection(responses);
       const response = {response: checkFillInTheBlankQuestion(questionUID, zippedAnswer, responsesArray, caseInsensitive, defaultConceptUID)}
       this.setResponse(response);
+      this.updateResponseResource(response)
       submitResponse(response);
       this.setState({
         response: '',
@@ -271,7 +283,7 @@ export class PlayFillInTheBlankQuestion extends React.Component<any, any> {
               <Cues
                 customText={this.customText()}
                 displayArrowAndText={true}
-                getQuestion={this.getQuestion}
+                question={question}
               />
               {this.renderFeedback()}
             </div>

@@ -67,20 +67,12 @@ describe PasswordResetController do
       @user.refresh_token!
     end
 
-    context 'when passwords match' do
-      it 'should update the sign the user in and redirect to profile path' do
-        expect(@user.password).to_not eq "test123"
-        post :update, id: @user.token, user: { password: "test123", password_confirmation: "test123" }
-        expect(session[:user_id]).to eq @user.id
-        expect(response.body).to eq({ redirect: '/profile'}.to_json)
-      end
+    it 'should update the sign the user in and redirect to profile path' do
+      expect(@user.password).to_not eq "test123"
+      post :update, id: @user.token, user: { password: "test123" }
+      expect(session[:user_id]).to eq @user.id
+      expect(response.body).to eq({ redirect: '/profile'}.to_json)
     end
 
-    context 'when passwords do not match' do
-      it 'should set the flash error and render show' do
-        post :update, id: @user.token, user: { password: "test123", password_confirmation: "test" }
-        expect(response.body).to eq ({ message: "Those passwords didn't match. Try again.", type: 'password_confirmation' }.to_json)
-      end
-    end
   end
 end

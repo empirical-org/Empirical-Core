@@ -8,8 +8,8 @@ module Comprehension
     MAX_MAX_ATTEMPTS = 6
 
     belongs_to :activity, inverse_of: :passages
-    has_many :prompts_rule_sets
-    has_many :rule_sets, through: :prompts_rule_sets, inverse_of: :prompts
+    has_many :prompts_rules
+    has_many :rules, through: :prompts_rules, inverse_of: :prompts
 
     before_validation :downcase_conjunction
     before_validation :set_max_attempts, on: :create

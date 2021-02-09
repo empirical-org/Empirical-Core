@@ -1,0 +1,184 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`RuleForm component should render RuleForm 1`] = `
+<div
+  className="rule-form-container"
+>
+  <div
+    className="close-button-container"
+  >
+    <button
+      className="quill-button fun primary contained"
+      id="activity-close-button"
+      onClick={[MockFunction]}
+      type="submit"
+    >
+      x
+    </button>
+  </div>
+  <form
+    className="rule-form"
+  >
+    <DropdownInput
+      className="rule-type-input disabled"
+      disabled={true}
+      handleChange={[Function]}
+      isSearchable={true}
+      label="Rule Type"
+      options={
+        Array [
+          Object {
+            "label": "Regex",
+            "value": "Regex",
+          },
+          Object {
+            "label": "Plagiarism",
+            "value": "Plagiarism",
+          },
+        ]
+      }
+      value={
+        Object {
+          "label": "Regex",
+          "value": "Regex",
+        }
+      }
+    />
+    <Input
+      autoComplete="on"
+      className="name-input"
+      handleChange={[Function]}
+      label="Name"
+      value="remove all instances of \\"it contains methane\\""
+    />
+    <Input
+      autoComplete="on"
+      className="concept-uid-input"
+      handleChange={[Function]}
+      label="Concept UID"
+      value="a34qreadbgt6"
+    />
+    <DropdownInput
+      className="rule-type-input"
+      handleChange={[Function]}
+      isSearchable={true}
+      label="Optimal?"
+      options={
+        Array [
+          Object {
+            "label": "Optimal",
+            "value": true,
+          },
+          Object {
+            "label": "Sub-Optimal",
+            "value": false,
+          },
+        ]
+      }
+      value={
+        Object {
+          "label": "Sub-Optimal",
+          "value": false,
+        }
+      }
+    />
+    <RuleAttributesSection
+      errors={Object {}}
+      firstPlagiarismFeedback={null}
+      handleAddRegexInput={[Function]}
+      handleDeleteRegexRule={[Function]}
+      handleSetRegexRule={[Function]}
+      plagiarismText={
+        Object {
+          "text": "",
+        }
+      }
+      regexFeedback={null}
+      regexRules={Object {}}
+      ruleType="Regex"
+      secondPlagiarismFeedback={null}
+      setFirstPlagiarismFeedback={[Function]}
+      setPlagiarismText={[Function]}
+      setRegexFeedback={[Function]}
+      setSecondPlagiarismFeedback={[Function]}
+    />
+    <p
+      className="form-subsection-label"
+    >
+      Apply To Stems
+    </p>
+    <div
+      className="checkboxes-container"
+    >
+      <div
+        className="checkbox-container"
+      >
+        <label
+          id="stem-label-1"
+        >
+          Because
+        </label>
+        <input
+          aria-labelledby="stem-label-1"
+          name="Because"
+          onChange={[Function]}
+          type="checkbox"
+          value="because"
+        />
+      </div>
+      <div
+        className="checkbox-container"
+      >
+        <label
+          id="stem-label-2"
+        >
+          But
+        </label>
+        <input
+          aria-labelledby="stem-label-2"
+          name="But"
+          onChange={[Function]}
+          type="checkbox"
+          value="but"
+        />
+      </div>
+      <div
+        className="checkbox-container"
+      >
+        <label
+          id="stem-label-3"
+        >
+          So
+        </label>
+        <input
+          aria-labelledby="stem-label-3"
+          name="So"
+          onChange={[Function]}
+          type="checkbox"
+          value="so"
+        />
+      </div>
+    </div>
+    <div
+      className="submit-button-container"
+    >
+      <button
+        className="quill-button fun primary contained"
+        id="activity-submit-button"
+        onClick={[Function]}
+        type="button"
+      >
+        Submit
+      </button>
+      <button
+        className="quill-button fun primary contained"
+        id="activity-cancel-button"
+        onClick={[MockFunction]}
+        type="submit"
+      >
+        Cancel
+      </button>
+    </div>
+  </form>
+</div>
+`;

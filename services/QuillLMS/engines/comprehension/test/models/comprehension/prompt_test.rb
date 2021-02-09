@@ -4,8 +4,8 @@ module Comprehension
   class PromptTest < ActiveSupport::TestCase
     context 'relations' do
       should belong_to(:activity)
-      should have_many(:prompts_rule_sets)
-      should have_many(:rule_sets).through(:prompts_rule_sets)
+      should have_many(:prompts_rules)
+      should have_many(:rules).through(:prompts_rules)
     end
 
     context 'validations' do
