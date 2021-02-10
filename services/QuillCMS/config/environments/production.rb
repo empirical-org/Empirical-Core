@@ -1,3 +1,5 @@
+require "active_support/core_ext/integer/time"
+
 Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
 
@@ -23,15 +25,14 @@ Rails.application.configure do
   # Apache or NGINX already handles this.
   config.public_file_server.enabled = ENV['RAILS_SERVE_STATIC_FILES'].present?
 
-
   # Enable serving of images, stylesheets, and JavaScripts from an asset server.
-  # config.action_controller.asset_host = 'http://assets.example.com'
+  # config.asset_host = 'http://assets.example.com'
 
   # Specifies the header that your server uses for sending files.
   # config.action_dispatch.x_sendfile_header = 'X-Sendfile' # for Apache
   # config.action_dispatch.x_sendfile_header = 'X-Accel-Redirect' # for NGINX
 
-  # Mount Action Cable outside main process or domain
+  # Mount Action Cable outside main process or domain.
   # config.action_cable.mount_path = nil
   # config.action_cable.url = 'wss://example.com/cable'
   # config.action_cable.allowed_request_origins = [ 'http://example.com', /http:\/\/example.*/ ]
@@ -39,20 +40,20 @@ Rails.application.configure do
   # Force all access to the app over SSL, use Strict-Transport-Security, and use secure cookies.
   # config.force_ssl = true
 
-  # Use the lowest log level to ensure availability of diagnostic information
-  # when problems arise.
+  # Include generic and useful information about system operation, but avoid logging too much
+  # information to avoid inadvertent exposure of personally identifiable information (PII).
   config.log_level = :debug
 
   # Prepend all log lines with the following tags.
   config.log_tags = [:request_id]
 
   # Use a different cache store in production.
-  # config.cache_store = :mem_cache_store
+  config.cache_store = :mem_cache_store, ENV["MEMCACHED_URL"], { pool_size: ENV.fetch("RAILS_MAX_THREADS", 5) }
 
   # Use a real queuing backend for Active Job (and separate queues per environment)
   # config.active_job.queue_adapter     = :resque
   # config.active_job.queue_name_prefix = "QuillCMS_#{Rails.env}"
-  config.action_mailer.perform_caching = false
+  # config.action_mailer.perform_caching = false
 
   # Ignore bad email addresses and do not raise email delivery errors.
   # Set this to true and configure the email server for immediate delivery to raise delivery errors.
@@ -65,11 +66,17 @@ Rails.application.configure do
   # Send deprecation notices to registered listeners.
   config.active_support.deprecation = :notify
 
+  # Log disallowed deprecations.
+  config.active_support.disallowed_deprecation = :log
+
+  # Tell Active Support which deprecation messages to disallow.
+  config.active_support.disallowed_deprecation_warnings = []
+
   # Use default logging formatter so that PID and timestamp are not suppressed.
   config.log_formatter = ::Logger::Formatter.new
 
   # Use a different logger for distributed setups.
-  # require 'syslog/logger'
+  # require "syslog/logger"
   # config.logger = ActiveSupport::TaggedLogging.new(Syslog::Logger.new 'app-name')
 
   if ENV["RAILS_LOG_TO_STDOUT"].present?
@@ -81,19 +88,36 @@ Rails.application.configure do
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
 
-
   # Allow cross site origin in the following contexts
   config.middleware.insert_before 0, Rack::Cors do
     allow do
       origins 'quill.org', %r{https://(.)*.quill.org}, /localhost:.*/, /127.0.0.1:.*/
 
       resource '*',
-        headers: :any,
-        methods: [:get, :post, :put, :patch, :delete, :options, :head],
-        credentials: true
+               headers: :any,
+               methods: %i[get post put patch delete options head],
+               credentials: true
     end
   end
 
-  # Use Redis for caching
-  config.cache_store = :dalli_store, ENV["MEMCACHED_URL"], { :pool_size => ENV.fetch("RAILS_MAX_THREADS") { 5 } }
+  # Inserts middleware to perform automatic connection switching.
+  # The `database_selector` hash is used to pass options to the DatabaseSelector
+  # middleware. The `delay` is used to determine how long to wait after a write
+  # to send a subsequent read to the primary.
+  #
+  # The `database_resolver` class is used by the middleware to determine which
+  # database is appropriate to use based on the time delay.
+  #
+  # The `database_resolver_context` class is used by the middleware to set
+  # timestamps for the last write to the primary. The resolver uses the context
+  # class timestamps to determine how long to wait before reading from the
+  # replica.
+  #
+  # By default Rails will store a last write timestamp in the session. The
+  # DatabaseSelector middleware is designed as such you can define your own
+  # strategy for connection switching and pass that into the middleware through
+  # these configuration options.
+  # config.active_record.database_selector = { delay: 2.seconds }
+  # config.active_record.database_resolver = ActiveRecord::Middleware::DatabaseSelector::Resolver
+  # config.active_record.database_resolver_context = ActiveRecord::Middleware::DatabaseSelector::Resolver::Session
 end

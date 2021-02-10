@@ -26,8 +26,10 @@ describe PasswordResetController do
       it 'should refresh the token, send the password reset mailer and redirect to index path' do
         expect_any_instance_of(User).to receive(:refresh_token!)
         expect(UserMailer).to receive(:password_reset_email).with(user)
+        expect(ExpirePasswordTokenWorker).to receive(:perform_in).with(24.hours, user.id)
         post :create, user: { email: user.email }
         expect(response.body).to eq ({ redirect: '/password_reset'}.to_json)
+
       end
     end
 
@@ -72,6 +74,7 @@ describe PasswordResetController do
       post :update, id: @user.token, user: { password: "test123" }
       expect(session[:user_id]).to eq @user.id
       expect(response.body).to eq({ redirect: '/profile'}.to_json)
+      expect(@user.reload.token).to eq nil
     end
 
   end

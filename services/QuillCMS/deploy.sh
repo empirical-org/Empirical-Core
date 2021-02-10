@@ -1,10 +1,11 @@
 #!/bin/bash
 current_branch=`git rev-parse --abbrev-ref HEAD`
 app_name="QuillCMS"
+environment_id='e-ddeyrmmznn'
 
 case $1 in
   prod)
-    EB_ENVIRONMENT_NAME=production-ruby2-6
+    EB_ENVIRONMENT_NAME=Quillcms-production
     ;;
   staging)
     EB_ENVIRONMENT_NAME=Quillcms-staging
@@ -19,4 +20,4 @@ sh ../../scripts/post_slack_deploy.sh $app_name $1 $current_branch false
 
 eb deploy ${EB_ENVIRONMENT_NAME} --label `git rev-parse HEAD`
 open "https://rpm.newrelic.com/accounts/2639113/applications/548895592"
-open "https://console.aws.amazon.com/elasticbeanstalk/home?region=us-east-1#/environment/dashboard?applicationName=QuillCMS&environmentId=e-7n7bmkzhp3"
+open "https://console.aws.amazon.com/elasticbeanstalk/home?region=us-east-1#/environment/dashboard?applicationName=${app_name}&environmentId=${environment_id}"

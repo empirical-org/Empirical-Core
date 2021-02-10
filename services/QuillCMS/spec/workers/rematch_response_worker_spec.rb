@@ -132,7 +132,7 @@ describe RematchResponseWorker do
 
       reference_response_ids = reference_responses.map { |r| r.id }
 
-      expect(subject).to receive(:retrieve_question).with(sample_payload['question']['key'], sample_payload['type']).and_return(sample_payload['question'])
+      expect(subject).to receive(:retrieve_question).with(sample_payload['question']['key']).and_return(sample_payload['question'])
       expect(subject).to receive(:rematch_response).with(response, sample_payload['type'], sample_payload['question'], reference_responses).and_call_original
       subject.perform(response.id, sample_payload['type'], sample_payload['question']['key'], reference_response_ids)
       response.reload
