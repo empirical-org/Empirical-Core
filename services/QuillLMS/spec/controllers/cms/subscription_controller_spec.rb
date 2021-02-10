@@ -18,6 +18,14 @@ describe Cms::SubscriptionsController do
       expect(school.reload.subscriptions.last.payment_method).to eq subscription.payment_method
       expect(school.reload.subscriptions.last.payment_amount).to eq subscription.payment_amount
     end
+
+    it 'should change current subscription to non-recurring' do
+      subscription = create(:subscription, recurring: true)
+      create(:school_subscription, school: school, subscription: subscription)
+      new_subscription = Subscription.new(start_date: school.redemption_start_date, expiration: school.redemption_start_date + 1.year)
+      post :create, school_or_user_id: school.id, school_or_user: "school", subscription: new_subscription.attributes
+      expect(subscription.reload.recurring).to eq(false)
+    end
   end
 
   describe '#update' do

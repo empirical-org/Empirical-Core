@@ -94,7 +94,7 @@ class Cms::UsersController < Cms::CmsController
   end
 
   def new_subscription
-    @subscription = Subscription.new(start_date: @user.redemption_start_date)
+    @subscription = Subscription.new(start_date: @user.redemption_start_date, expiration: @user.redemption_start_date + 1.year)
   end
 
   def update

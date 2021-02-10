@@ -152,6 +152,7 @@ describe Cms::UsersController do
     it 'should create a new subscription with starting after the current subscription ends' do
       get :new_subscription, id: another_user.id
       expect(assigns(:subscription).start_date).to eq subscription.expiration
+      expect(assigns(:subscription).expiration).to eq subscription.expiration + 1.year
     end
   end
 

@@ -126,6 +126,19 @@ class School < ActiveRecord::Base
     User.joins(student_in_classroom: {teachers: :school}).where(schools: {id: id}).uniq
   end
 
+  def redemption_start_date
+    last_subscription = subscriptions
+      .where(de_activated_date: nil)
+      .where("expiration > ?", Date.today)
+      .order(expiration: :asc)
+      .limit(1).first
+    if last_subscription.present?
+      last_subscription.expiration
+    else
+      Date.today
+    end
+  end
+
   def self.school_year_start(time)
     time.month >= 8 ? time.beginning_of_year + 7.months : time.beginning_of_year - 5.months
   end
