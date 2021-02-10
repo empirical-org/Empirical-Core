@@ -97,8 +97,6 @@ exports[`Activity Form component should render Activities 1`] = `
         }
       }
       errors={Object {}}
-      handleSetPlagiarismFeedback={[Function]}
-      handleSetPlagiarismText={[Function]}
       handleSetPrompt={[Function]}
     />
     <div

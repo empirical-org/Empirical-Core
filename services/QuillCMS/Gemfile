@@ -1,85 +1,46 @@
 source 'https://rubygems.org'
 
+ruby File.read('.ruby-version').strip
+
 git_source(:github) do |repo_name|
-  repo_name = "#{repo_name}/#{repo_name}" unless repo_name.include?("/")
+  repo_name = "#{repo_name}/#{repo_name}" unless repo_name.include?('/')
   "https://github.com/#{repo_name}.git"
 end
 
-gem 'dotenv-rails', '~> 2.6.0'
-# Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '~> 5.2.4.4'
-# Use Postgres for our database
-gem 'pg'
-# Use Puma as the app server
+# CORE
 gem 'puma', '~> 3.12.6'
-# Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
-# gem 'jbuilder', '~> 2.5'
-# Use Redis adapter to run Action Cable in production
-# gem 'redis', '~> 3.0'
-# Use ActiveModel has_secure_password
-# gem 'bcrypt', '~> 3.1.7'
+gem 'rails', '~> 6.1'
 
-# Use Capistrano for deployment
-# gem 'capistrano-rails', group: :development
+# EARLY TO APPLY TO OTHER GEMS
+gem 'dotenv-rails', '~> 2.7'
 
-
-# Use Redis for caching
-gem 'redis'
-gem 'redis-namespace'
-gem 'redis-rails'
-gem 'redis-rack-cache'
-
-# Use Sidekiq for background jobs
-source "https://gems.contribsys.com/" do
-  gem 'sidekiq-pro', '>= 5.0.0'
-end
-gem 'sinatra', require: false # Used for the web-based queue management interface
-
-# Use Rack CORS for handling Cross-Origin Resource Sharing (CORS), making cross-origin AJAX possible
-gem 'rack-cors', :require => 'rack/cors'
-
-# For serializing js responses
-gem 'active_model_serializers', '~> 0.10.0'
-
-# Memcached Support
-gem 'dalli'
-gem 'connection_pool'
-
-group :development, :test do
-  gem 'rspec-rails', '~> 3.5'
-  # Call 'byebug' anywhere in the code to stop execution and get a debugger console
-  gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
-  gem 'pry'
-  gem 'webmock', '~> 2.1'
-  gem 'factory_bot_rails', '~> 4.8.2'
-end
-
-group :development do
-  gem 'listen', '>= 3.0.5', '< 3.2'
-  # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
-  gem 'spring'
-  gem 'spring-watcher-listen', '~> 2.0.0'
-end
-
-# Windows does not include zoneinfo files, so bundle the tzinfo-data gem
-gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
-
-# For paginating search results
-gem "kaminari", ">= 1.2.1"
-
-# For searching via Elasticsearch
-gem 'elasticsearch-model'
-gem 'elasticsearch-rails'
-
-# for importing multiple db records at once.
+# DB
 gem 'activerecord-import'
 gem 'bulk_insert'
+gem 'pg', '~> 1.2'
 
-# for unzipping files
-gem 'rubyzip'
+# QUEUE/CACHING
+gem 'connection_pool'
+gem 'dalli'
+gem 'redis'
+gem 'redis-namespace'
+gem 'sidekiq-pro', '>= 5.0.0', source: 'https://gems.contribsys.com/'
+gem 'sinatra', require: false # Used for the web-based queue management interface
 
-# for server monitoring
+# MIDDLEWARE
+gem 'rack-cors', require: 'rack/cors'
+
+# API
+gem 'active_model_serializers'
+
+# SEARCH
+gem 'elasticsearch-model', '~> 5.1'
+gem 'elasticsearch-rails', '~> 5.1'
+gem 'kaminari'
+
+# OTHER
 gem 'newrelic_rpm'
+gem 'rubyzip'
 
 # WEBSOCKETS
 gem 'pusher'
@@ -87,4 +48,17 @@ gem 'pusher'
 # HTTP
 gem 'httparty'
 
-gem 'rb-readline', :group => [:test, :development]
+group :development do
+  gem 'listen', '>= 3.0.5', '< 3.2'
+  gem 'spring'
+  gem 'spring-watcher-listen', '~> 2.0.0'
+end
+
+group :development, :test do
+  gem 'byebug', platforms: %i[mri mingw x64_mingw]
+  gem 'factory_bot_rails', '~> 4.8.2'
+  gem 'pry'
+  gem 'rb-readline'
+  gem 'rspec-rails', '~> 4.0'
+  gem 'webmock'
+end
