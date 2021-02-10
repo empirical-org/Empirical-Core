@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 
 import { Error, Spinner, DropdownInput, DataTable } from '../../../../Shared/index';
 
-const data = require('./data.json');
+const data = require('./rulesData.json');
 const { universal_rules } = data;
 const ruleTypes = [{"value":"opinion","label":"Opinion"},{"value":"grammar","label":"Grammar"},{"value":"spelling","label":"Spelling"}];
 

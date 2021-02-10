@@ -530,8 +530,9 @@
       }
     }
   }
-  .universal-rules-index-container {
+  .universal-rules-index-container, .universal-rule-container {
     padding: 20px;
+    width: 80vw;
     .top-section {
       display: flex;
       align-items: center;
@@ -545,7 +546,7 @@
       margin: 10px 0px 10px 3px;
       font-style: italic;
     }
-    .universal-rules-table {
+    .universal-rules-table, .universal-rule-table {
       .universal-rule-row {
         display: flex;
         justify-content: space-between;
@@ -557,6 +558,18 @@
         }
       }
     }
+    .button-container {
+      display: flex;
+      justify-content: flex-start;
+      width: 690px;
+      padding: 20px 10px 20px 0px;
+      #edit-rule-button {
+        margin-right: 30px;
+      }
+    }
+  }
+  .universal-rules-table {
+    height: 100%;
   }
   .modal {
     .close-button-container {
@@ -572,5 +585,11 @@
     .submission-message {
       padding: 20px;
     }
+  }
+  .return-link {
+    color: #19a08a;
+  }
+  .return-link:hover {
+    color: #61cfbc;
   }
 }

@@ -7,6 +7,7 @@ import Activity from './activity';
 import SubmissionModal from './shared/submissionModal';
 import ActivityForm from './configureSettings/activityForm';
 import UniversalRulesIndex from './universalRules/listView';
+import UniversalRule from './universalRules/ruleView';
 
 import { ActivityInterface } from '../../interfaces/comprehensionInterfaces';
 import { createActivity } from '../../utils/comprehension/activityAPIs';
@@ -30,12 +31,12 @@ const ComprehensionLanding = ({ location }: RouteComponentProps) => {
 
   const checkOverviewActive = () => {
     if(!location) return false;
-    return pathname !== '/activities' && pathname !== '/universal-rules' && !showCreateActivityModal;
+    return pathname !== '/activities' && !pathname.includes('/universal-rules') && !showCreateActivityModal;
   }
 
   const checkUniversalRulesActive = () => {
     if(!location) return false;
-    return pathname === '/universal-rules' && !showCreateActivityModal;
+    return pathname.includes('/universal-rules') && !showCreateActivityModal;
   }
 
   const toggleCreateActivityModal = () => {
@@ -98,6 +99,7 @@ const ComprehensionLanding = ({ location }: RouteComponentProps) => {
         <Redirect exact from='/' to='/activities' />
         <Route component={Activity} path='/activities/:activityId' />
         <Route component={Activities} path='/activities' />
+        <Route component={UniversalRule} path='/universal-rules/:ruleId' />
         <Route component={UniversalRulesIndex} path='/universal-rules' />
       </Switch>
     </div>
