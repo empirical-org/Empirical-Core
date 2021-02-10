@@ -1,7 +1,7 @@
 # require_relative '../quill_scaffold_controller'
 module Comprehension
   class Engine < ::Rails::Engine
-    config.eager_load_paths << "#{config.root}/lib/comprehension"
+    config.eager_load_paths += %W{#{config.root}/lib/comprehension}
     isolate_namespace Comprehension
 
     config.generators do |g|
