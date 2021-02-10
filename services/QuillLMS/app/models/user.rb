@@ -205,7 +205,6 @@ class User < ActiveRecord::Base
       .where("expiration > ?", Date.today)
       .order(expiration: :asc)
       .limit(1).first
-
     if last_subscription.present?
       last_subscription.expiration
     else

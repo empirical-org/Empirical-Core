@@ -344,6 +344,7 @@ class Subscription < ActiveRecord::Base
     end
     subscription = Subscription.create!(attributes)
     if subscription.persisted?
+      school_or_user.subscription.update!(recurring: false) if subscription.start_date > Date.today
       h = {}
       h["#{type.downcase}_id".to_sym] = school_or_user_id
       h[:subscription_id] = subscription.id

@@ -144,6 +144,17 @@ describe Cms::UsersController do
     end
   end
 
+  describe '#new_subscription' do
+    let!(:another_user) { create(:user) }
+    let!(:subscription) { create(:subscription)}
+    let!(:user_subscription) { create(:user_subscription, user: another_user, subscription: subscription) }
+
+    it 'should create a new subscription with starting after the current subscription ends' do
+      get :new_subscription, id: another_user.id
+      expect(assigns(:subscription).start_date).to eq subscription.expiration
+    end
+  end
+
   describe '#update' do
     let!(:another_user) { create(:user) }
 
