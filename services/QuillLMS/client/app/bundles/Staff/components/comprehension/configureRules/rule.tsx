@@ -6,7 +6,7 @@ import RuleForm from './ruleForm';
 
 import { buildErrorMessage, getPromptsIcons } from '../../../helpers/comprehension';
 import { BECAUSE, BUT, SO } from '../../../../../constants/comprehension';
-import { updateRule, deleteRule, fetchRule } from '../../../utils/comprehension/ruleSetAPIs';
+import { updateRule, deleteRule, fetchRule } from '../../../utils/comprehension/ruleAPIs';
 import { RuleInterface } from '../../../interfaces/comprehensionInterfaces';
 import { fetchActivity } from '../../../utils/comprehension/activityAPIs';
 import SubmissionModal from '../shared/submissionModal';

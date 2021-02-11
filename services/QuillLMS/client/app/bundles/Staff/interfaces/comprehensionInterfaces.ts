@@ -96,3 +96,5 @@ export interface RuleFeedbackInterface {
   rule_id?: number,
   text: string
 }
+
+export type InputEvent = React.ChangeEvent<HTMLInputElement>;

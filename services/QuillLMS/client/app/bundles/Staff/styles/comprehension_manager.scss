@@ -567,9 +567,24 @@
         margin-right: 30px;
       }
     }
+    .delete-rule-container {
+      .delete-rule-text {
+        padding: 20px;
+      }
+      .delete-rule-button-container {
+        display: flex;
+        justify-content: flex-end;
+        padding: 10px;
+        #delete-rule-button {
+          margin-right: 10px;
+        }
+      }
+    }
   }
-  .universal-rules-table {
-    height: 100%;
+  .universal-rule-container {
+    .universal-rules-table {
+      height: 100%;
+    }
   }
   .modal {
     .close-button-container {

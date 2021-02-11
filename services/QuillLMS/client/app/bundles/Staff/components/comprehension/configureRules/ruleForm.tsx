@@ -2,24 +2,30 @@ import * as React from "react";
 import { useQuery } from 'react-query';
 
 import RuleAttributesSection from './ruleAttributesSection';
+import RulePromptsSection from './rulePromptsSection';
 
-import { fetchRules } from '../../../utils/comprehension/ruleSetAPIs';
+import { fetchRules, fetchUniversalRules } from '../../../utils/comprehension/ruleAPIs';
 import { validateForm, buildRule, formatPrompts, formatFeedbacks, formatRegexRules } from '../../../helpers/comprehension';
-import { BECAUSE, BUT, SO, ruleTypeOptions, ruleOptimalOptions } from '../../../../../constants/comprehension';
-import { ActivityInterface, RuleInterface, RuleFeedbackInterface  } from '../../../interfaces/comprehensionInterfaces';
+import {
+  handleSetRuleName,
+  handleSetRuleConceptUID,
+  handleSetRuleType,
+  handleSetRuleOptimal
+} from '../../../helpers/comprehension/ruleHelpers';
+import { ruleTypeOptions, ruleOptimalOptions } from '../../../../../constants/comprehension';
+import { ActivityInterface, RuleInterface, RuleFeedbackInterface, InputEvent } from '../../../interfaces/comprehensionInterfaces';
 import { Input, DropdownInput } from '../../../../Shared/index'
 
 interface RuleFormProps {
   activityData: ActivityInterface,
   activityId: string,
-  rule: RuleInterface,
   closeModal: (event: React.MouseEvent) => void,
+  isUniversal: boolean,
+  rule: RuleInterface,
   submitRule: (rule: {rule: RuleInterface}) => void
 }
 
-type InputEvent = React.ChangeEvent<HTMLInputElement>;
-
-const RuleForm = ({ activityData, activityId, rule, closeModal, submitRule }: RuleFormProps) => {
+const RuleForm = ({ activityData, activityId, closeModal, isUniversal, rule, submitRule }: RuleFormProps) => {
 
   const { name, rule_type, id, optimal, plagiarism_text, concept_uid } = rule;
   const initialRuleType = rule_type ? ruleTypeOptions.filter(ruleType => ruleType.value === rule_type)[0] : ruleTypeOptions[0];
@@ -40,6 +46,7 @@ const RuleForm = ({ activityData, activityId, rule, closeModal, submitRule }: Ru
   const [rulesToDelete, setRulesToDelete] = React.useState<object>({});
   const [rulesToUpdate, setRulesToUpdate] = React.useState<object>({});
   const [rulesCount, setRulesCount] = React.useState<number>(null);
+  const [universalRulesCount, setUniversalRulesCount] = React.useState<number>(null);
   const [errors, setErrors] = React.useState<object>({});
 
   // cache ruleSets data for handling rule suborder
@@ -47,6 +54,9 @@ const RuleForm = ({ activityData, activityId, rule, closeModal, submitRule }: Ru
     queryKey: [`rules-${activityId}`, activityId],
     queryFn: fetchRules
   });
+
+    // cache ruleSets data for handling universal rule suborder
+    const { data: universalRulesData } = useQuery("universal-rules", fetchUniversalRules);
 
   React.useEffect(() => {
     formatPrompts({ activityData, rule, setRulePrompts });
@@ -58,64 +68,23 @@ const RuleForm = ({ activityData, activityId, rule, closeModal, submitRule }: Ru
   }, [rule]);
 
   React.useEffect(() => {
-    if(rulesData && rulesData.rules) {
+    if(!rulesCount && rulesData && rulesData.rules) {
       const { rules } = rulesData;
       setRulesCount(rules.length);
     }
-  }, [rulesData])
-
-  function handleSetRuleName(e: InputEvent) { setRuleName(e.target.value) };
-
-  function handleSetRuleConceptUID(e: InputEvent) { setRuleConceptUID(e.target.value) };
-
-  function handleSetPlagiarismText(text: string) {
-    const plagiarismTextObject = {...plagiarismText};
-    plagiarismTextObject.text = text;
-    setPlagiarismText(plagiarismTextObject)
-  }
-
-  function handleSetFirstPlagiarismFeedback(text: string) {
-    const feedback = {...firstPlagiarismFeedback};
-    if(!feedback.order) {
-      feedback.order = 0;
+    else if(!universalRulesCount && universalRulesData && universalRulesData.universalRules) {
+      const { universalRules } = universalRulesData;
+      setUniversalRulesCount(universalRules.length);
     }
-    feedback.text = text;
-    setFirstPlagiarismFeedback(feedback)
-  }
+  }, [rulesData, universalRulesData])
 
-  function handleSetSecondPlagiarismFeedback(text: string) {
-    const feedback = {...secondPlagiarismFeedback};
-    if(!feedback.order) {
-      feedback.order = 1;
-    }
-    feedback.text = text;
-    setSecondPlagiarismFeedback(feedback)
-  }
+  function onHandleSetRuleType(ruleType) { handleSetRuleType(ruleType, setRuleType) }
 
-  function handleSetRegexFeedback(text: string) {
-    const feedback = {...regexFeedback};
-    if(!feedback.order) {
-      feedback.order = 0;
-    }
-    feedback.text = text;
-    setRegexFeedback(feedback)
-  }
+  function onHandleSetRuleName(e: InputEvent) { handleSetRuleName(e, setRuleName) }
 
-  function handleSetRuleType(ruleType: { value: string, label: string }) { setRuleType(ruleType) };
+  function onHandleSetRuleConceptUID(e: InputEvent) { handleSetRuleConceptUID(e, setRuleConceptUID) }
 
-  function handleSetRuleOptimal(ruleOptimal: { value: boolean, label: string }) { setRuleOptimal(ruleOptimal) };
-
-  function handleRulePromptChange(e: InputEvent) {
-    const { target } = e;
-    const { id, value } = target;
-    let updatedPrompts = {...rulePrompts};
-    const checked = updatedPrompts[value].checked;
-    updatedPrompts[value] = {
-      id: parseInt(id),
-      checked: !checked
-    };
-    setRulePrompts(updatedPrompts);
-  };
+  function onHandleSetRuleOptimal(ruleOptimal) { handleSetRuleOptimal(ruleOptimal, setRuleOptimal) }
 
   function handleSubmitRule() {
     const newOrUpdatedRule = buildRule({
@@ -155,58 +124,6 @@ const RuleForm = ({ activityData, activityId, rule, closeModal, submitRule }: Ru
     }
   }
 
-  function handleSetRegexRule(e: InputEvent) {
-    const { target } = e;
-    const { id, type, value } = target;
-    let updatedRules = {...regexRules};
-    if(type === 'checkbox') {
-      updatedRules[value].case_sensitive = !regexRules[value].case_sensitive;
-    } else {
-      updatedRules[id].regex_text = value;
-    }
-    const rule = updatedRules[value] || updatedRules[id];
-    if(rule.id) {
-      const updatedHash = rulesToUpdate;
-      updatedHash[rule.id] = rule;
-      setRulesToUpdate(updatedHash);
-    } else {
-      const updatedHash = rulesToCreate;
-      updatedHash[rule] = rule;
-      setRulesToCreate(updatedHash);
-    }
-    setRegexRules(updatedRules);
-  }
-
-  function handleAddRegexInput() {
-    let updatedRules = {...regexRules};
-    let id = Object.keys(updatedRules).length;
-    const newRegexRule = { regex_text: '', case_sensitive: false };
-    // increment id so exisiting rules are not overwritten
-    while(updatedRules[`regex-rule-${id}`] ) {
-      id += 1;
-    }
-    updatedRules[`regex-rule-${id}`] = newRegexRule;
-    setRegexRules(updatedRules);
-  }
-
-  function handleDeleteRegexRule(e: InputEvent) {
-    const { target } = e;
-    const { value } = target;
-    let updatedRules = {...regexRules};
-    const rule = updatedRules[value]
-    // add to regexRulesToDelete array to delete during ruleSet update
-    if(rule.id) {
-      const updatedHash = rulesToDelete;
-      updatedHash[rule.id] = rule;
-      setRulesToDelete(updatedHash);
-    }
-    delete updatedRules[value];
-    setRegexRules(updatedRules);
-  }
-
-  const becausePrompt = rulePrompts[BECAUSE];
-  const butPrompt = rulePrompts[BUT];
-  const soPrompt = rulePrompts[SO];
   const errorsPresent = !!Object.keys(errors).length;
   const ruleTypeDisabled = id ? 'disabled' : '';
 
@@ -219,7 +136,7 @@ const RuleForm = ({ activityData, activityId, rule, closeModal, submitRule }: Ru
         <DropdownInput
           className={`rule-type-input ${ruleTypeDisabled}`}
           disabled={!!ruleTypeDisabled}
-          handleChange={handleSetRuleType}
+          handleChange={onHandleSetRuleType}
           isSearchable={true}
           label="Rule Type"
           options={ruleTypeOptions}
@@ -228,20 +145,20 @@ const RuleForm = ({ activityData, activityId, rule, closeModal, submitRule }: Ru
         <Input
           className="name-input"
           error={errors['Name']}
-          handleChange={handleSetRuleName}
+          handleChange={onHandleSetRuleName}
           label="Name"
           value={ruleName}
         />
         <Input
           className="concept-uid-input"
           error={errors['Concept UID']}
-          handleChange={handleSetRuleConceptUID}
+          handleChange={onHandleSetRuleConceptUID}
           label="Concept UID"
           value={ruleConceptUID}
         />
         <DropdownInput
           className='rule-type-input'
-          handleChange={handleSetRuleOptimal}
+          handleChange={onHandleSetRuleOptimal}
           isSearchable={true}
           label="Optimal?"
           options={ruleOptimalOptions}
@@ -250,59 +167,28 @@ const RuleForm = ({ activityData, activityId, rule, closeModal, submitRule }: Ru
         <RuleAttributesSection
           errors={errors}
           firstPlagiarismFeedback={firstPlagiarismFeedback}
-          handleAddRegexInput={handleAddRegexInput}
-          handleDeleteRegexRule={handleDeleteRegexRule}
-          handleSetRegexRule={handleSetRegexRule}
           plagiarismText={plagiarismText}
           regexFeedback={regexFeedback}
           regexRules={regexRules}
+          rulesToCreate={rulesToCreate}
+          rulesToDelete={rulesToDelete}
+          rulesToUpdate={rulesToUpdate}
           ruleType={ruleType && ruleType.value}
           secondPlagiarismFeedback={secondPlagiarismFeedback}
-          setFirstPlagiarismFeedback={handleSetFirstPlagiarismFeedback}
-          setPlagiarismText={handleSetPlagiarismText}
-          setRegexFeedback={handleSetRegexFeedback}
-          setSecondPlagiarismFeedback={handleSetSecondPlagiarismFeedback}
+          setFirstPlagiarismFeedback={setFirstPlagiarismFeedback}
+          setPlagiarismText={setPlagiarismText}
+          setRegexFeedback={setRegexFeedback}
+          setRegexRules={setRegexRules}
+          setRulesToCreate={setRulesToCreate}
+          setRulesToDelete={setRulesToDelete}
+          setRulesToUpdate={setRulesToUpdate}
+          setSecondPlagiarismFeedback={setSecondPlagiarismFeedback}
         />
-        <p className="form-subsection-label">Apply To Stems</p>
-        <div className="checkboxes-container">
-          <div className="checkbox-container">
-            <label htmlFor={becausePrompt && becausePrompt.id} id="stem-label-1">Because</label>
-            <input
-              aria-labelledby="stem-label-1"
-              checked={becausePrompt && becausePrompt.checked}
-              id={becausePrompt && becausePrompt.id}
-              name="Because"
-              onChange={handleRulePromptChange}
-              type="checkbox"
-              value="because"
-            />
-          </div>
-          <div className="checkbox-container">
-            <label htmlFor={butPrompt && butPrompt.id} id="stem-label-2">But</label>
-            <input
-              aria-labelledby="stem-label-2"
-              checked={butPrompt && butPrompt.checked}
-              id={butPrompt && butPrompt.id}
-              name="But"
-              onChange={handleRulePromptChange}
-              type="checkbox"
-              value="but"
-            />
-          </div>
-          <div className="checkbox-container">
-            <label htmlFor={soPrompt && soPrompt.id} id="stem-label-3">So</label>
-            <input
-              aria-labelledby="stem-label-3"
-              checked={soPrompt && soPrompt.checked}
-              id={soPrompt && soPrompt.id}
-              name="So"
-              onChange={handleRulePromptChange}
-              type="checkbox"
-              value="so"
-            />
-          </div>
-        </div>
-        {errors['Stem Applied'] && <p className="error-message">{errors['Stem Applied']}</p>}
+        <RulePromptsSection
+          errors={errors}
+          rulePrompts={rulePrompts}
+          setRulePrompts={setRulePrompts}
+        />
         <div className="submit-button-container">
           {errorsPresent && <div className="error-message-container">
             <p className="all-errors-message">Please check that all fields have been completed correctly.</p>

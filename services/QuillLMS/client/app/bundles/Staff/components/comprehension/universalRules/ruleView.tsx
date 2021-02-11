@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import stripHtml from "string-strip-html";
 
 import { buildErrorMessage } from '../../../helpers/comprehension';
-import { updateRule, deleteRule, fetchRule } from '../../../utils/comprehension/ruleSetAPIs';
+import { updateRule, deleteRule, fetchRule } from '../../../utils/comprehension/ruleAPIs';
 import { RuleInterface } from '../../../interfaces/comprehensionInterfaces';
 import SubmissionModal from '../shared/submissionModal';
 import { DataTable, Error, Modal, Spinner } from '../../../../Shared/index';

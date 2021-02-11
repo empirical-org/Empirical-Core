@@ -9,7 +9,7 @@ import { buildErrorMessage, getPromptsIcons, getUniversalIcon } from '../../../h
 import { ActivityRouteProps, RuleInterface } from '../../../interfaces/comprehensionInterfaces';
 import { BECAUSE, BUT, SO, blankRule } from '../../../../../constants/comprehension';
 import { fetchActivity } from '../../../utils/comprehension/activityAPIs';
-import { createRule, fetchRules } from '../../../utils/comprehension/ruleSetAPIs';
+import { createRule, fetchRules } from '../../../utils/comprehension/ruleAPIs';
 import { DataTable, Error, Modal, Spinner } from '../../../../Shared/index';
 
 const Rules: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ history, match }) => {
@@ -79,6 +79,7 @@ const Rules: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ history, mat
           activityData={activityData && activityData.activity}
           activityId={activityId}
           closeModal={toggleAddRuleModal}
+          isUniversal={false}
           rule={blankRule}
           submitRule={submitRule}
         />
