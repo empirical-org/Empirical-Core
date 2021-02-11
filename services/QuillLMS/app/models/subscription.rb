@@ -107,6 +107,7 @@ class Subscription < ActiveRecord::Base
   PAYMENT_METHODS = ['Invoice', 'Credit Card', 'Premium Credit']
   ALL_TYPES = ALL_FREE_TYPES.dup.concat(ALL_PAID_TYPES)
 
+  scope :active, -> { where(de_activated_date: nil).where("expiration > ?", Date.today).order(expiration: :asc) }
 
   def is_trial?
     account_type && (TRIAL_TYPES | COVID_TYPES).include?(account_type)

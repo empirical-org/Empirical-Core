@@ -200,11 +200,7 @@ class User < ActiveRecord::Base
   end
 
   def redemption_start_date
-    last_subscription = subscriptions
-      .where(de_activated_date: nil)
-      .where("expiration > ?", Date.today)
-      .order(expiration: :asc)
-      .limit(1).first
+    last_subscription = subscriptions.active.first
     if last_subscription.present?
       last_subscription.expiration
     else
