@@ -1318,6 +1318,7 @@ describe User, type: :model do
   end
 
   describe 'redemption_start_date' do
+    let!(:user) { create(:user) }
     let!(:subscription) { create(:subscription, expiration: Date.tomorrow) }
     let!(:user_subscription) {create(:user_subscription, user: user, subscription: subscription)}
 
