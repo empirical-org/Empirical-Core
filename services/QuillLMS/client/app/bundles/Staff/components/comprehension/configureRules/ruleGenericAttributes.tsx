@@ -12,7 +12,7 @@ import { ruleTypeOptions, ruleOptimalOptions } from '../../../../../constants/co
 import { InputEvent, DropdownObjectInterface } from '../../../interfaces/comprehensionInterfaces';
 import { Input, DropdownInput, TextEditor } from '../../../../Shared/index'
 
-interface RuleFormProps {
+interface RuleGenericAttributesProps {
   errors: any,
   ruleConceptUID: string,
   ruleDescription: string,
@@ -27,7 +27,7 @@ interface RuleFormProps {
   setRuleType: (ruleType: DropdownObjectInterface) => void
 }
 
-const RuleGenericAttributesSection = ({
+const RuleGenericAttributes = ({
   errors,
   ruleConceptUID,
   ruleDescription,
@@ -40,7 +40,7 @@ const RuleGenericAttributesSection = ({
   setRuleName,
   setRuleOptimal,
   setRuleType
- }: RuleFormProps) => {
+ }: RuleGenericAttributesProps) => {
 
   function onHandleSetRuleType(ruleType: DropdownObjectInterface) { handleSetRuleType(ruleType, setRuleType) }
 
@@ -99,4 +99,4 @@ const RuleGenericAttributesSection = ({
   )
 }
 
-export default RuleGenericAttributesSection;
+export default RuleGenericAttributes;

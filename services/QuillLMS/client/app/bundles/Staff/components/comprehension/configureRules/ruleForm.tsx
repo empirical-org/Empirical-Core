@@ -1,16 +1,16 @@
 import * as React from "react";
 import { useQuery } from 'react-query';
 
-import RuleAttributesSection from './ruleAttributesSection';
-import RuleGenericAttributesSection from './ruleGenericAttributesSection';
-import RulePromptsSection from './rulePromptsSection';
+import RuleGenericAttributes from './ruleGenericAttributes';
+import RulePlagiarismAttributes from './rulePlagiarismAttributes';
+import RuleRegexAttributes from './ruleRegexAttributes';
+import RulePrompts from './rulePrompts';
 
 import { fetchRules, fetchUniversalRules } from '../../../utils/comprehension/ruleAPIs';
 import { formatPrompts, formatFeedbacks, formatRegexRules } from '../../../helpers/comprehension';
 import { handleSubmitRule } from '../../../helpers/comprehension/ruleHelpers';
 import { ruleTypeOptions, ruleOptimalOptions } from '../../../../../constants/comprehension';
 import { ActivityInterface, RuleInterface, RuleFeedbackInterface, DropdownObjectInterface } from '../../../interfaces/comprehensionInterfaces';
-import { Input, DropdownInput } from '../../../../Shared/index'
 
 interface RuleFormProps {
   activityData: ActivityInterface,
@@ -104,7 +104,7 @@ const RuleForm = ({ activityData, activityId, closeModal, isUniversal, rule, sub
         <button className="quill-button fun primary contained" id="activity-close-button" onClick={closeModal} type="submit">x</button>
       </div>
       <form className="rule-form">
-        <RuleGenericAttributesSection
+        <RuleGenericAttributes
           errors={errors}
           ruleConceptUID={ruleConceptUID}
           ruleDescription={ruleDescription}
@@ -118,28 +118,29 @@ const RuleForm = ({ activityData, activityId, closeModal, isUniversal, rule, sub
           setRuleOptimal={setRuleOptimal}
           setRuleType={setRuleType}
         />
-        {/* TODO: break out into two separate components: RulePlagiarismAttributesSection and RuleRegexAttributesSection */}
-        <RuleAttributesSection
+        {ruleType && ruleType.value === 'Plagiarism' && <RulePlagiarismAttributes
           errors={errors}
           firstPlagiarismFeedback={firstPlagiarismFeedback}
           plagiarismText={plagiarismText}
+          secondPlagiarismFeedback={secondPlagiarismFeedback}
+          setFirstPlagiarismFeedback={setFirstPlagiarismFeedback}
+          setPlagiarismText={setPlagiarismText}
+          setSecondPlagiarismFeedback={setSecondPlagiarismFeedback}
+        />}
+        {ruleType && ruleType.value === 'Regex' && <RuleRegexAttributes
+          errors={errors}
           regexFeedback={regexFeedback}
           regexRules={regexRules}
           rulesToCreate={rulesToCreate}
           rulesToDelete={rulesToDelete}
           rulesToUpdate={rulesToUpdate}
-          ruleType={ruleType && ruleType.value}
-          secondPlagiarismFeedback={secondPlagiarismFeedback}
-          setFirstPlagiarismFeedback={setFirstPlagiarismFeedback}
-          setPlagiarismText={setPlagiarismText}
           setRegexFeedback={setRegexFeedback}
           setRegexRules={setRegexRules}
           setRulesToCreate={setRulesToCreate}
           setRulesToDelete={setRulesToDelete}
           setRulesToUpdate={setRulesToUpdate}
-          setSecondPlagiarismFeedback={setSecondPlagiarismFeedback}
-        />
-        <RulePromptsSection
+        />}
+        <RulePrompts
           errors={errors}
           rulePrompts={rulePrompts}
           setRulePrompts={setRulePrompts}

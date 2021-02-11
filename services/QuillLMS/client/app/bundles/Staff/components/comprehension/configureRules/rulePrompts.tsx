@@ -4,13 +4,13 @@ import { handleRulePromptChange } from '../../../helpers/comprehension/ruleHelpe
 import { BECAUSE, BUT, SO } from '../../../../../constants/comprehension';
 import { InputEvent } from '../../../interfaces/comprehensionInterfaces';
 
-interface RulePromptsSectionProps {
+interface RulePromptsProps {
   errors: any,
   rulePrompts: any,
   setRulePrompts: (rulePrompt: any) => void;
 }
 
-const RulePromptsSection = ({ errors, rulePrompts, setRulePrompts }: RulePromptsSectionProps) => {
+const RulePrompts = ({ errors, rulePrompts, setRulePrompts }: RulePromptsProps) => {
 
   function onHandleRulePromptChange(e: InputEvent) { handleRulePromptChange(e, rulePrompts, setRulePrompts) }
 
@@ -64,4 +64,4 @@ const RulePromptsSection = ({ errors, rulePrompts, setRulePrompts }: RulePrompts
   );
 }
 
-export default RulePromptsSection;
+export default RulePrompts;

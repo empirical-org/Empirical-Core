@@ -2,7 +2,7 @@ import * as React from 'react';
 import { shallow } from 'enzyme';
 
 import RuleAttributesSection from '../configureRules/ruleAttributesSection';
-import RegexSection from '../configureRules/regexSection';
+import RegexSection from '../configureRules/regexRules';
 import { TextEditor } from '../../../../Shared/index'
 
 const mockProps = {
