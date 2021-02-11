@@ -1,5 +1,4 @@
 import * as React from "react";
-import { Layout, Row } from "antd";
 import * as Redux from "redux";
 import { connect } from "react-redux";
 import '../styles/headerStyling.scss'
@@ -38,12 +37,12 @@ class Header extends React.Component<any, any> {
 
   render() {
     return (
-      <Layout.Header className="header">
-        <Row align="middle" justify="space-between" style={{height: '100%', maxWidth: '800px', margin: 'auto'}} type="flex">
+      <div className="header">
+        <div className="activity-navbar-content">
           <a className="focus-on-dark" href={process.env.DEFAULT_URL}><img alt="Quill logo" src={quillLogoSrc} /></a>
           <button className="focus-on-dark" onClick={this.handleSaveAndExitClick} type="button">Save and exit</button>
-        </Row>
-      </Layout.Header>
+        </div>
+      </div>
     );
   }
 };

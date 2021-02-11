@@ -20,6 +20,10 @@ body, button, input, select, textarea, {
   background-color: #ededed;
 }
 
+.page-content {
+  width: 100%;
+}
+
 button {
   cursor: pointer;
   &:focus {

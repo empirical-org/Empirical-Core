@@ -1,7 +1,6 @@
 import * as React from 'react';
 import { renderRoutes } from "react-router-config";
 import { routes } from "../routes";
-import { Layout } from "antd";
 
 export default class Home extends React.Component<any, any> {
   constructor(props) {
@@ -40,14 +39,14 @@ export default class Home extends React.Component<any, any> {
     const mainContent = document.getElementById("main-content")
     const skipToMainContentButton = mainContent ? <button className="skip-main" onClick={this.handleSkipToMainContentClick} type="button">Skip to main content</button> : null
     return(
-      <Layout className={className}>
-        <Layout>
-          <Layout.Content>
+      <div className={className}>
+        <div>
+          <main>
             {skipToMainContentButton}
             {renderRoutes(routes)}
-          </Layout.Content>
-        </Layout>
-      </Layout>
+          </main>
+        </div>
+      </div>
     );
   }
 };
