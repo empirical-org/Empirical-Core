@@ -5,29 +5,32 @@ import RuleGenericAttributes from './ruleGenericAttributes';
 import RulePlagiarismAttributes from './rulePlagiarismAttributes';
 import RuleRegexAttributes from './ruleRegexAttributes';
 import RulePrompts from './rulePrompts';
+import RuleUniversalAttributes from './ruleUniversalAttributes';
 
 import { fetchRules, fetchUniversalRules } from '../../../utils/comprehension/ruleAPIs';
 import { formatPrompts, formatFeedbacks, formatRegexRules } from '../../../helpers/comprehension';
-import { handleSubmitRule } from '../../../helpers/comprehension/ruleHelpers';
-import { ruleTypeOptions, ruleOptimalOptions } from '../../../../../constants/comprehension';
+import { handleSubmitRule, getInitialRuleType } from '../../../helpers/comprehension/ruleHelpers';
+import { ruleOptimalOptions } from '../../../../../constants/comprehension';
 import { ActivityInterface, RuleInterface, RuleFeedbackInterface, DropdownObjectInterface } from '../../../interfaces/comprehensionInterfaces';
 
 interface RuleFormProps {
-  activityData: ActivityInterface,
-  activityId: string,
+  activityData?: ActivityInterface,
+  activityId?: string,
   closeModal: (event: React.MouseEvent) => void,
   isUniversal: boolean,
   rule: RuleInterface,
   submitRule: (rule: {rule: RuleInterface}) => void
+  universalRuleType?: string
 }
 
-const RuleForm = ({ activityData, activityId, closeModal, isUniversal, rule, submitRule }: RuleFormProps) => {
+const RuleForm = ({ activityData, activityId, closeModal, isUniversal, rule, submitRule, universalRuleType }: RuleFormProps) => {
 
-  const { name, rule_type, id, optimal, plagiarism_text, concept_uid, description } = rule;
-  const initialRuleType = rule_type ? ruleTypeOptions.filter(ruleType => ruleType.value === rule_type)[0] : ruleTypeOptions[0];
+  const { name, rule_type, id, optimal, plagiarism_text, concept_uid, description, feedbacks } = rule;
+  const initialRuleType = getInitialRuleType({ isUniversal, rule_type, universalRuleType});
   const initialRuleOptimal = optimal ? ruleOptimalOptions[0] : ruleOptimalOptions[1];
   const initialPlagiarismText = plagiarism_text ? plagiarism_text : { text: '' }
   const initialDescription = description ? description : '';
+  const initialUniversalFeedback = isUniversal && feedbacks ? feedbacks : [{ text: '' }];
 
   const [errors, setErrors] = React.useState<object>({});
   const [firstPlagiarismFeedback, setFirstPlagiarismFeedback] = React.useState<RuleFeedbackInterface >(null);
@@ -45,6 +48,7 @@ const RuleForm = ({ activityData, activityId, closeModal, isUniversal, rule, sub
   const [rulesToUpdate, setRulesToUpdate] = React.useState<object>({});
   const [ruleType, setRuleType] = React.useState<DropdownObjectInterface>(initialRuleType);
   const [secondPlagiarismFeedback, setSecondPlagiarismFeedback] = React.useState<RuleFeedbackInterface >(null);
+  const [universalFeedback, setUniversalFeedback] = React.useState<object>(initialUniversalFeedback);
   const [universalRulesCount, setUniversalRulesCount] = React.useState<number>(null);
 
   // cache ruleSets data for handling rule suborder
@@ -106,6 +110,7 @@ const RuleForm = ({ activityData, activityId, closeModal, isUniversal, rule, sub
       <form className="rule-form">
         <RuleGenericAttributes
           errors={errors}
+          isUniversal={isUniversal}
           ruleConceptUID={ruleConceptUID}
           ruleDescription={ruleDescription}
           ruleID={id}
@@ -140,11 +145,16 @@ const RuleForm = ({ activityData, activityId, closeModal, isUniversal, rule, sub
           setRulesToDelete={setRulesToDelete}
           setRulesToUpdate={setRulesToUpdate}
         />}
-        <RulePrompts
+        {!isUniversal && <RulePrompts
           errors={errors}
           rulePrompts={rulePrompts}
           setRulePrompts={setRulePrompts}
-        />
+        />}
+        {isUniversal && <RuleUniversalAttributes
+          errors={errors}
+          setUniversalFeedback={setUniversalFeedback}
+          universalFeedback={universalFeedback}
+        />}
         <div className="submit-button-container">
           {errorsPresent && <div className="error-message-container">
             <p className="all-errors-message">Please check that all fields have been completed correctly.</p>

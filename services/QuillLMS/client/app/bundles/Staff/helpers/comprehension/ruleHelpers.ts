@@ -1,5 +1,6 @@
 import { buildRule, validateForm } from '../comprehension';
 import { InputEvent, DropdownObjectInterface } from '../../interfaces/comprehensionInterfaces';
+import { ruleTypeOptions, universalRuleTypeOptions } from '../../../../constants/comprehension';
 
 export function handleSetRuleType(ruleType: DropdownObjectInterface, setRuleType) { setRuleType(ruleType) };
 
@@ -111,6 +112,21 @@ export function handleDeleteRegexRule({ e, regexRules, rulesToDelete, setRulesTo
   }
   delete updatedRules[value];
   setRegexRules(updatedRules);
+}
+
+export function handleSetUniversalFeedback(text, universalFeedback, setUniversalFeedback) {
+
+}
+
+export function getInitialRuleType({ isUniversal, rule_type, universalRuleType }) {
+  const options = isUniversal ? universalRuleTypeOptions : ruleTypeOptions;
+  if(rule_type) {
+    return options.filter(ruleType => ruleType.value === rule_type)[0];
+  } else if(universalRuleType) {
+    return options.filter(ruleType => ruleType.value === universalRuleType)[0];
+  } else {
+    return options[0];
+  }
 }
 
 export function handleSubmitRule({

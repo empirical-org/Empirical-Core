@@ -6,8 +6,8 @@ import Activities from './activities';
 import Activity from './activity';
 import SubmissionModal from './shared/submissionModal';
 import ActivityForm from './configureSettings/activityForm';
-import UniversalRulesIndex from './universalRules/listView';
-import UniversalRule from './universalRules/ruleView';
+import UniversalRulesIndex from './universalRules/universalRules';
+import UniversalRule from './universalRules/universalRule';
 
 import { ActivityInterface } from '../../interfaces/comprehensionInterfaces';
 import { createActivity } from '../../utils/comprehension/activityAPIs';

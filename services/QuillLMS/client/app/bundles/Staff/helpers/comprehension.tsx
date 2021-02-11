@@ -98,7 +98,7 @@ export const formatPrompts = ({ activityData, rule, setRulePrompts }) => {
   });
 
   // use activity data to apply each prompt ID
-  activityData.prompts && activityData.prompts.forEach((prompt: PromptInterface) => {
+  activityData && activityData.prompts && activityData.prompts.forEach((prompt: PromptInterface) => {
     const { conjunction, id } = prompt;
     formatted[conjunction] = {
       id,

@@ -8,11 +8,12 @@ import {
   handleSetRuleOptimal,
   handleSetRuleType,
 } from '../../../helpers/comprehension/ruleHelpers';
-import { ruleTypeOptions, ruleOptimalOptions } from '../../../../../constants/comprehension';
+import { ruleTypeOptions, universalRuleTypeOptions, ruleOptimalOptions } from '../../../../../constants/comprehension';
 import { InputEvent, DropdownObjectInterface } from '../../../interfaces/comprehensionInterfaces';
 import { Input, DropdownInput, TextEditor } from '../../../../Shared/index'
 
 interface RuleGenericAttributesProps {
+  isUniversal: boolean,
   errors: any,
   ruleConceptUID: string,
   ruleDescription: string,
@@ -28,6 +29,7 @@ interface RuleGenericAttributesProps {
 }
 
 const RuleGenericAttributes = ({
+  isUniversal,
   errors,
   ruleConceptUID,
   ruleDescription,
@@ -40,7 +42,7 @@ const RuleGenericAttributes = ({
   setRuleName,
   setRuleOptimal,
   setRuleType
- }: RuleGenericAttributesProps) => {
+}: RuleGenericAttributesProps) => {
 
   function onHandleSetRuleType(ruleType: DropdownObjectInterface) { handleSetRuleType(ruleType, setRuleType) }
 
@@ -53,6 +55,7 @@ const RuleGenericAttributes = ({
   function onHandleSetRuleDescription(text: string) { handleSetRuleDescription(text, setRuleDescription)}
 
   const ruleTypeDisabled = ruleID ? 'disabled' : '';
+  const options = isUniversal ? universalRuleTypeOptions : ruleTypeOptions;
 
   return(
     <React.Fragment>
@@ -62,7 +65,7 @@ const RuleGenericAttributes = ({
         handleChange={onHandleSetRuleType}
         isSearchable={true}
         label="Rule Type"
-        options={ruleTypeOptions}
+        options={options}
         value={ruleType}
       />
       <Input

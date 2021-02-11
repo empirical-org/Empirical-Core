@@ -81,7 +81,7 @@ const Rule = ({ history, match }) => {
         },
         {
           label: 'Description',
-          value: stripHtml(description)
+          value: description ? stripHtml(description) : ''
         }
       ];
       const lastFields = [

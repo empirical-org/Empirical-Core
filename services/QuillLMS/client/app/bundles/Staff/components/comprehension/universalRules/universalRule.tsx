@@ -3,10 +3,11 @@ import { Link } from 'react-router-dom';
 import { queryCache, useQuery } from 'react-query';
 import stripHtml from "string-strip-html";
 
+import RuleForm from '../configureRules/ruleForm';
+import SubmissionModal from '../shared/submissionModal';
 import { buildErrorMessage } from '../../../helpers/comprehension';
 import { updateRule, deleteRule, fetchRule } from '../../../utils/comprehension/ruleAPIs';
 import { RuleInterface } from '../../../interfaces/comprehensionInterfaces';
-import SubmissionModal from '../shared/submissionModal';
 import { DataTable, Error, Modal, Spinner } from '../../../../Shared/index';
 
 const ruleData = require('./ruleData.json');
@@ -37,22 +38,14 @@ const UniversalRule = ({ history, match }) => {
     setShowSubmissionModal(!showSubmissionModal);
   }
 
-  function handleAttributesFields(feedbacks, plagiarism_text) {
-    let attributesArray = [];
-    if(plagiarism_text && plagiarism_text.text) {
-      attributesArray = [{
-        label: 'Plagiarism Text',
-        value: stripHtml(plagiarism_text.text)
-      }];
-    }
-    const feedbacksArray = feedbacks.map((feedback, i) => {
+  function handleAttributesFields(feedbacks) {
+    return feedbacks.map((feedback, i) => {
       const { text } = feedback;
       return {
         label: `Feedback ${i + 1}`,
         value: stripHtml(text)
       }
     });
-    return attributesArray.concat(feedbacksArray);
   }
 
   const ruleRows = ({ rule }) => {
@@ -61,7 +54,7 @@ const UniversalRule = ({ history, match }) => {
     } else {
       // format for DataTable to display labels on left side and values on right
       const { feedbacks, name, rule_type, description, suborder, } = rule;
-      const attributesFields = handleAttributesFields(feedbacks, null);
+      const attributesFields = handleAttributesFields(feedbacks);
       const firstFields = [
         {
           label: 'Type',
@@ -129,7 +122,12 @@ const UniversalRule = ({ history, match }) => {
   const renderRuleForm = () => {
     return(
       <Modal>
-        boop
+        <RuleForm
+          closeModal={toggleShowEditRuleModal}
+          isUniversal={true}
+          rule={ruleData && ruleData.rule}
+          submitRule={handleSubmitRule}
+        />
       </Modal>
     );
   }

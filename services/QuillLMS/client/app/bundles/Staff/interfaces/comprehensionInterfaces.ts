@@ -61,7 +61,7 @@ export interface RuleInterface {
   optimal: boolean,
   suborder: number,
   concept_uid: string,
-  prompt_ids: number[],
+  prompt_ids?: number[],
   plagiarism_text?: {
     id?: number,
     rule_id?: number,

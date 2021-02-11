@@ -70,6 +70,12 @@ export const ruleTypeOptions = [
   {"value":"Plagiarism","label":"Plagiarism"}
 ];
 
+export const universalRuleTypeOptions = [
+  {"value":"Grammar","label":"Grammar"},
+  {"value":"Opinion","label":"Opinion"},
+  {"value":"Spelling","label":"Spelling"}
+];
+
 export const ruleOptimalOptions = [
   {"value":"optimal","label":"Optimal"},
   {"value":"","label":"Sub-Optimal"}
@@ -120,6 +126,23 @@ export const blankRule = {
   suborder: 0,
   concept_uid: 'Kr8PdUfXnU0L7RrGpY4uqg',
   prompt_ids: []
+}
+
+export const blankUniversalRule = {
+  name: '',
+  description: null,
+  universal: true,
+  rule_type: '',
+  optimal: false,
+  suborder: 0,
+  concept_uid: 'Kr8PdUfXnU0L7RrGpY4uqg',
+  feedbacks: [
+    {
+      text: '',
+      order: 0,
+      highlights: []
+    }
+  ]
 }
 
 export const TITLE = 'Title';
