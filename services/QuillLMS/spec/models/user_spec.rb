@@ -1319,7 +1319,7 @@ describe User, type: :model do
 
   describe 'redemption_start_date' do
     let!(:subscription) { create(:subscription, expiration: Date.tomorrow) }
-    let!(:school_subscription) {create(:school_subscription, school: user, subscription: subscription)}
+    let!(:user_subscription) {create(:user_subscription, user: user, subscription: subscription)}
 
     it 'fetches the expiration date of current subscription' do
       expect(user.redemption_start_date).to eq(subscription.expiration)
