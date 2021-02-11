@@ -210,7 +210,7 @@ module PagesHelper
         members: [
           {
             name: 'Stephanie Cohen',
-            title: 'Co-Head of Consumer Wealth Management at Goldman',
+            title: 'Chief Strategy Officer at Goldman Sachs',
             img: 'board-stephanie-cohen@2x.png'
           },
           {
