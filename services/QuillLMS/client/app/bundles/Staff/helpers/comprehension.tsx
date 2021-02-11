@@ -123,13 +123,6 @@ export const formatRegexRules = ({ rule, setRegexRules }) => {
   setRegexRules(formatted);
 }
 
-// export const formatPlagiarismText = ({ rule, setPlagiarismText }) => {
-//   if(rule && rule.plagiarism_text_attributes && rule.plagiarism_text_attributes[0]) {
-//     const { plagiarism_text_attributes } = rule;
-
-//   }
-// }
-
 export const formatFeedbacks = ({ rule, ruleType, setFirstPlagiarismFeedback, setSecondPlagiarismFeedback, setRegexFeedback }) => {
   if(rule && rule.feedbacks && Object.keys(rule.feedbacks).length) {
     const { feedbacks } =  rule;
@@ -175,18 +168,19 @@ export const buildFeedbacks = ({ ruleType, regexFeedback, firstPlagiarismFeedbac
 }
 
 export const buildRule = ({
+  firstPlagiarismFeedback,
+  plagiarismText,
+  regexFeedback,
+  regexRules,
   rule,
-  ruleName,
+  rulesCount,
   ruleConceptUID,
-  ruleType,
+  ruleDescription,
+  ruleName,
   ruleOptimal,
   rulePrompts,
-  rulesCount,
-  regexFeedback,
-  plagiarismText,
-  firstPlagiarismFeedback,
+  ruleType,
   secondPlagiarismFeedback,
-  regexRules
 }) => {
   const { suborder, universal } =  rule;
   const promptIds = [];
@@ -195,14 +189,15 @@ export const buildRule = ({
   });
 
   let newOrUpdatedRule: any = {
-    name: ruleName,
-    feedbacks_attributes: buildFeedbacks({ruleType, regexFeedback, firstPlagiarismFeedback, secondPlagiarismFeedback }),
     concept_uid: ruleConceptUID,
-    optimal: ruleOptimal.value,
+    description: ruleDescription,
+    feedbacks_attributes: buildFeedbacks({ruleType, regexFeedback, firstPlagiarismFeedback, secondPlagiarismFeedback }),
+    name: ruleName,
+    optimal: !!ruleOptimal.value,
+    prompt_ids: promptIds,
     rule_type: ruleType.value,
     suborder: suborder ? suborder : rulesCount,
-    universal: universal,
-    prompt_ids: promptIds
+    universal: universal
   };
 
   if(newOrUpdatedRule.rule_type === 'Regex') {

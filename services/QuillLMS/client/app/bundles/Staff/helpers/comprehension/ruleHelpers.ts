@@ -1,12 +1,15 @@
-type InputEvent = React.ChangeEvent<HTMLInputElement>;
+import { buildRule, validateForm } from '../comprehension';
+import { InputEvent, DropdownObjectInterface } from '../../interfaces/comprehensionInterfaces';
 
-export function handleSetRuleType(ruleType: { value: string, label: string }, setRuleType) { setRuleType(ruleType) };
+export function handleSetRuleType(ruleType: DropdownObjectInterface, setRuleType) { setRuleType(ruleType) };
 
 export function handleSetRuleName(e: InputEvent, setRuleName) { setRuleName(e.target.value) };
 
-export function handleSetRuleOptimal(ruleOptimal: { value: boolean, label: string }, setRuleOptimal) { setRuleOptimal(ruleOptimal) };
+export function handleSetRuleOptimal(ruleOptimal: DropdownObjectInterface, setRuleOptimal) { setRuleOptimal(ruleOptimal) };
 
 export function handleSetRuleConceptUID(e: InputEvent, setRuleConceptUID) { setRuleConceptUID(e.target.value) };
+
+export function handleSetRuleDescription(text: string, setRuleDescription) { setRuleDescription(text) }
 
 export function handleSetPlagiarismText(text: string, plagiarismText, setPlagiarismText) {
   const plagiarismTextObject = {...plagiarismText};
@@ -108,4 +111,59 @@ export function handleDeleteRegexRule({ e, regexRules, rulesToDelete, setRulesTo
   }
   delete updatedRules[value];
   setRegexRules(updatedRules);
+}
+
+export function handleSubmitRule({
+  plagiarismText,
+  firstPlagiarismFeedback,
+  regexFeedback,
+  regexRules,
+  rule,
+  ruleName,
+  ruleConceptUID,
+  ruleDescription,
+  ruleOptimal,
+  rulePrompts,
+  rulesCount,
+  ruleType,
+  secondPlagiarismFeedback,
+  setErrors,
+  submitRule
+}) {
+  const newOrUpdatedRule = buildRule({
+    plagiarismText,
+    firstPlagiarismFeedback,
+    regexFeedback,
+    regexRules,
+    rule,
+    ruleName,
+    ruleConceptUID,
+    ruleDescription,
+    ruleOptimal,
+    rulePrompts,
+    rulesCount,
+    ruleType,
+    secondPlagiarismFeedback,
+  });
+  let keys: string[] = ['Name', 'Concept UID'];
+  let state: any[] = [ruleName, ruleConceptUID];
+  if(ruleType.value === "Regex") {
+    keys.push("Regex Feedback");
+    state.push(regexFeedback.text)
+  } else if(ruleType.value === "Plagiarism") {
+    keys = keys.concat(["Plagiarism Text", "First Plagiarism Feedback", "Second Plagiarism Feedback"]);
+    state = state.concat([plagiarismText.text, firstPlagiarismFeedback.text, secondPlagiarismFeedback.text]);
+  }
+  Object.keys(regexRules).map((key, i) => {
+    keys.push(`Regex rule ${i + 1}`);
+    state.push(regexRules[key].regex_text);
+  });
+  keys.push('Stem Applied');
+  state.push(rulePrompts);
+  const validationErrors = validateForm(keys, state);
+  if(validationErrors && Object.keys(validationErrors).length) {
+    setErrors(validationErrors);
+  } else {
+    submitRule(newOrUpdatedRule);
+  }
 }

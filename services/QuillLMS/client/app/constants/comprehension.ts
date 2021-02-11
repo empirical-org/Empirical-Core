@@ -71,8 +71,8 @@ export const ruleTypeOptions = [
 ];
 
 export const ruleOptimalOptions = [
-  {"value":true,"label":"Optimal"},
-  {"value":false,"label":"Sub-Optimal"}
+  {"value":"optimal","label":"Optimal"},
+  {"value":"","label":"Sub-Optimal"}
 ];
 
 export const BECAUSE = 'because';

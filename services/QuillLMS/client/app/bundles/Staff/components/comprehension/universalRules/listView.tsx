@@ -9,7 +9,7 @@ const ruleTypes = [{"value":"opinion","label":"Opinion"},{"value":"grammar","lab
 
 const UniversalRulesIndex = () => {
 
-  const [ruleType, setRuleType] = React.useState<{ value: string, label: string }>(ruleTypes[0]);
+  const [ruleType, setRuleType] = React.useState<any>(ruleTypes[0]);
   const [rulesHash, setRulesHash] = React.useState<object>({});
   const [rulesList, setRulesList] = React.useState<any[]>([]);
   const [ruleOrderUpdated, setRuleOrderUpdated] = React.useState<boolean>(false);

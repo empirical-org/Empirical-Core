@@ -1,6 +1,6 @@
 import * as React from "react";
 import { Link } from 'react-router-dom';
-// import { queryCache, useQuery } from 'react-query';
+import { queryCache, useQuery } from 'react-query';
 import stripHtml from "string-strip-html";
 
 import { buildErrorMessage } from '../../../helpers/comprehension';

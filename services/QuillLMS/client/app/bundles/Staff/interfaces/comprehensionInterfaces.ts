@@ -97,4 +97,9 @@ export interface RuleFeedbackInterface {
   text: string
 }
 
+export interface DropdownObjectInterface {
+  value: string,
+  label: string
+}
+
 export type InputEvent = React.ChangeEvent<HTMLInputElement>;
