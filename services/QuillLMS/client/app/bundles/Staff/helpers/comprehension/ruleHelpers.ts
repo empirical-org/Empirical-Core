@@ -114,8 +114,25 @@ export function handleDeleteRegexRule({ e, regexRules, rulesToDelete, setRulesTo
   setRegexRules(updatedRules);
 }
 
-export function handleSetUniversalFeedback(text, universalFeedback, setUniversalFeedback) {
-
+export function handleSetUniversalFeedback({
+    text,
+    universalFeedback,
+    setUniversalFeedback,
+    updateType,
+    feedbackIndex,
+    highlightIndex
+}) {
+  const updatedFeedback = [...universalFeedback];
+  if(updateType === 'feedback') {
+    updatedFeedback[feedbackIndex].text = text;
+    setUniversalFeedback(updatedFeedback);
+  } else if(updateType === 'highlight text') {
+    updatedFeedback[feedbackIndex].highlights[highlightIndex].text = text;
+    setUniversalFeedback(updatedFeedback);
+  } else if(updateType === 'highlight addition') {
+    updatedFeedback[feedbackIndex].highlights.push({ text: '' });
+  }
+  setUniversalFeedback(updatedFeedback);
 }
 
 export function getInitialRuleType({ isUniversal, rule_type, universalRuleType }) {

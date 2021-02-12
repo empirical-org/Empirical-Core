@@ -169,3 +169,11 @@ export const activityFormKeys = [
 
 export const MINIMUM_READING_LEVEL = 4;
 export const MAXIMUM_READING_LEVEL = 12;
+
+export const numericalWordOptions = {
+  0: 'First',
+  1: 'Second',
+  2: 'Third',
+  3: 'Fourth',
+  4: 'Fifth'
+}

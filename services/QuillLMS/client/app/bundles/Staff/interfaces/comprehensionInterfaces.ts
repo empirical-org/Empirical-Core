@@ -103,3 +103,4 @@ export interface DropdownObjectInterface {
 }
 
 export type InputEvent = React.ChangeEvent<HTMLInputElement>;
+export type ClickEvent = React.MouseEvent<HTMLElement>;
