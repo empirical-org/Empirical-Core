@@ -1,9 +1,11 @@
 import * as React from 'react'
-import { Table } from 'antd';
+import ReactTable from 'react-table';
 import moment from 'moment';
 
 import RecordBox from './recordBox'
 import { sortWordsThatIncludeNumbers, STANDARD, STANDARD_CATEGORY, STANDARD_LEVEL} from './shared'
+
+import { getColumnWidth, } from '../../shared/getColumnWidth'
 
 import { Tooltip, momentFormatConstants } from '../../../../Shared/index'
 
@@ -11,54 +13,61 @@ const standardCategoryTooltipText = "Each standard is assigned a standard catego
 
 const standardLevelTooltipText = "Standards are grouped by their grade level. The standard level displays to teachers on the Standards data report and is used as an activity attribute filter, called CCSS Grade Level, on the custom activity pack page."
 
-function columns(selectRecord) {
+function columns(selectRecord, data) {
   return [
     {
-      title: <Tooltip tooltipText={standardLevelTooltipText} tooltipTriggerText="Standard Level" />,
-      dataIndex: 'standard_level_name',
+      Header: <Tooltip tooltipText={standardLevelTooltipText} tooltipTriggerText="Standard Level" />,
+      accessor: 'standard_level_name',
       defaultSortOrder: 'ascend',
       key: 'standardLevelName',
-      render: (text, record) => (<button className="interactive-wrapper" onClick={() => selectRecord(record.standard_level_id, STANDARD_LEVEL)}>{text}</button>),
-      sorter: sortWordsThatIncludeNumbers('standard_level_name')
+      Cell: (props) => (<button className="interactive-wrapper" onClick={() => selectRecord(props.original.standard_level_id, STANDARD_LEVEL)}>{props.original.standard_level_name}</button>),
+      sortType: sortWordsThatIncludeNumbers('standard_level_name'),
+      width: getColumnWidth('standard_level_name', "Standard Level", data)
     },
     {
-      title: 'Activities',
-      dataIndex: 'standard_level_activity_count',
+      Header: 'Activities',
+      accessor: 'standard_level_activity_count',
       key: 'standardLevelActivityCount',
-      sorter:  (a, b) => (a.standard_level_activity_count - b.standard_level_activity_count)
+      sortType:  (a, b) => (a.standard_level_activity_count - b.standard_level_activity_count),
+      width: getColumnWidth('standard_level_activity_count', "Activities", data)
     },
     {
-      title: <Tooltip tooltipText={standardCategoryTooltipText} tooltipTriggerText="Standard Category" />,
-      dataIndex: 'standard_category_name',
+      Header: <Tooltip tooltipText={standardCategoryTooltipText} tooltipTriggerText="Standard Category" />,
+      accessor: 'standard_category_name',
       key: 'standardCategoryName',
-      render: (text, record) => (<button className="interactive-wrapper" onClick={() => selectRecord(record.standard_category_id, STANDARD_CATEGORY)}>{text}</button>),
-      sorter: sortWordsThatIncludeNumbers('standard_category_name')
+      Cell: (props) => (<button className="interactive-wrapper" onClick={() => selectRecord(props.original.standard_category_id, STANDARD_CATEGORY)}>{props.original.standard_category_name}</button>),
+      sortType: sortWordsThatIncludeNumbers('standard_category_name'),
+      width: getColumnWidth('standard_category_name', "Standard Category", data)
     },
     {
-      title: 'Activities',
-      dataIndex: 'standard_category_activity_count',
+      Header: 'Activities',
+      accessor: 'standard_category_activity_count',
       key: 'standardCategoryActivityCount',
-      sorter:  (a, b) => (a.standard_category_activity_count - b.standard_category_activity_count)
+      sortType:  (a, b) => (a.standard_category_activity_count - b.standard_category_activity_count),
+      width: getColumnWidth('standard_category_activity_count', "Activities", data)
     },
     {
-      title: 'Standard ',
-      dataIndex: 'name',
+      Header: 'Standard',
+      accessor: 'name',
       key: 'standardName',
-      render: (text, record) => (<button className="interactive-wrapper" onClick={() => selectRecord(record.id, STANDARD)}>{text}</button>),
-      sorter: sortWordsThatIncludeNumbers()
+      Cell: (props) => (<button className="interactive-wrapper" onClick={() => selectRecord(props.original.id, STANDARD)}>{props.original.name}</button>),
+      sortType: sortWordsThatIncludeNumbers(),
+      width: getColumnWidth('name', "Standard", data)
     },
     {
-      title: 'Activities',
-      dataIndex: 'activity_count',
+      Header: 'Activities',
+      accessor: 'activity_count',
       key: 'standardActivityCount',
-      sorter:  (a, b) => (a.activity_count - b.activity_count)
+      sortType:  (a, b) => (a.activity_count - b.activity_count),
+      width: getColumnWidth('activity_count', "Activities", data)
     },
     {
-      title: 'Created At',
-      dataIndex: 'created_at',
+      Header: 'Created At',
+      accessor: 'created_at',
       key: 'created_at',
-      render: (text) => moment(text).format(momentFormatConstants.MONTH_DAY_YEAR),
-      sorter:  (a, b) => (new Date(a.created_at) - new Date(b.created_at)),
+      Cell: (props) => moment(props.original.created_at).format(momentFormatConstants.MONTH_DAY_YEAR),
+      sortType:  (a, b) => (new Date(a.created_at) - new Date(b.created_at)),
+      width: getColumnWidth('created_at', "Created At", data)
     }
   ]
 }
@@ -116,14 +125,12 @@ const StandardsTable = ({ searchValue, standardCategories, standardLevels, recor
   })
 
   return (<div className="standard-columns">
-    <Table
-      bordered
+    <ReactTable
       className="records-table"
-      columns={columns(selectRecord)}
-      dataSource={filteredRecords}
-      pagination={false}
-      showSorterTooltip={false}
-      size="middle"
+      columns={columns(selectRecord, filteredRecords)}
+      data={filteredRecords}
+      defaultPageSize={filteredRecords.length}
+      showPagination={false}
     />
     <div className="record-box-container">
       {recordBox}

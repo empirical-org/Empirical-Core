@@ -1,11 +1,13 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Home Component should match snapshot 1`] = `
-<Layout
+<div
   className="hide-focus-outline"
 >
-  <Layout>
-    <Content
+  <div
+    className="activity-container"
+  >
+    <main
       style={
         Object {
           "height": "100vh",
@@ -42,7 +44,7 @@ exports[`Home Component should match snapshot 1`] = `
           />
         </Switch>
       </div>
-    </Content>
-  </Layout>
-</Layout>
+    </main>
+  </div>
+</div>
 `;

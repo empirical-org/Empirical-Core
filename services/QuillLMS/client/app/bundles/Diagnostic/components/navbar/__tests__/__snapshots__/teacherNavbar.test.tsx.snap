@@ -1,21 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`TeacherNavbar renders when the language menu is not open 1`] = `
-<Header
+<div
   className="header"
 >
-  <Row
-    align="middle"
-    gutter={0}
-    justify="space-between"
-    style={
-      Object {
-        "height": "100%",
-        "margin": "auto",
-        "maxWidth": "800px",
-      }
-    }
-    type="flex"
+  <div
+    className="activity-navbar-content"
   >
     <a
       className="focus-on-dark"
@@ -30,26 +20,16 @@ exports[`TeacherNavbar renders when the language menu is not open 1`] = `
     >
       Save and exit
     </a>
-  </Row>
-</Header>
+  </div>
+</div>
 `;
 
 exports[`TeacherNavbar renders when the language menu is open 1`] = `
-<Header
+<div
   className="header"
 >
-  <Row
-    align="middle"
-    gutter={0}
-    justify="space-between"
-    style={
-      Object {
-        "height": "100%",
-        "margin": "auto",
-        "maxWidth": "800px",
-      }
-    }
-    type="flex"
+  <div
+    className="activity-navbar-content"
   >
     <a
       className="focus-on-dark"
@@ -72,19 +52,9 @@ exports[`TeacherNavbar renders when the language menu is open 1`] = `
         Close
       </span>
     </button>
-  </Row>
-  <Row
-    align="middle"
-    gutter={0}
-    justify="space-between"
-    style={
-      Object {
-        "height": "100%",
-        "margin": "auto",
-        "maxWidth": "800px",
-      }
-    }
-    type="flex"
+  </div>
+  <div
+    className="activity-navbar-content"
   >
     <div
       className="mobile-student-language-menu"
@@ -97,6 +67,6 @@ exports[`TeacherNavbar renders when the language menu is open 1`] = `
         dispatch={[Function]}
       />
     </div>
-  </Row>
-</Header>
+  </div>
+</div>
 `;

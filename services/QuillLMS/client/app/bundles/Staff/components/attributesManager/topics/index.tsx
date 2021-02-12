@@ -79,7 +79,7 @@ const Topics = ({ match, location, }) => {
   return (
     <div className="topics-manager">
       <Snackbar text="Changes saved" visible={showSnackbar} />
-      <TopicSearch placeholder="Search by topic name" searchValue={searchValue} updateSearchValue={setSearchValue} />
+      <Search placeholder="Search by topic name" searchValue={searchValue} updateSearchValue={setSearchValue} />
       <div className="cms-tabs">
         <Link className={activeLink ? '': 'active'} to={`${match.path}`}>Live</Link>
         <Link className={activeLink === NEW ? 'active': ''} to={`${match.path}/${NEW}`}>Add Topics</Link>
