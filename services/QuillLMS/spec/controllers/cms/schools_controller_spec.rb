@@ -49,16 +49,16 @@ describe Cms::SchoolsController do
   describe '#show' do
     let!(:school) { create(:school) }
 
-    context 'render views' do 
+    context 'render views' do
       render_views
-      xit 'handle teachers who are admins but have no user_id' do 
+      xit 'handle teachers who are admins but have no user_id' do
 
-        allow_any_instance_of(Cms::TeacherSearchQuery).to receive(:run) do 
+        allow_any_instance_of(Cms::TeacherSearchQuery).to receive(:run) do
           [
-            {"teacher_name"=>"Cathy", 
-              "number_students"=>"119", 
-              "number_activities_completed"=>"3927", 
-              "last_active"=>"Jan 08, 2021", 
+            {"teacher_name"=>"Cathy",
+              "number_students"=>"119",
+              "number_activities_completed"=>"3927",
+              "last_active"=>"Jan 08, 2021",
               "user_id"=>nil, "admin_id"=>1}
           ]
         end
@@ -177,6 +177,18 @@ describe Cms::SchoolsController do
       expect(School.last.leanm).to eq "lean"
       expect(School.last.free_lunches).to eq 2
       expect(response).to redirect_to cms_school_path(School.last.id)
+    end
+  end
+
+  describe '#new_subscription' do
+    let!(:school) { create(:school) }
+    let!(:subscription) { create(:subscription)}
+    let!(:school_subscription) { create(:school_subscription, school: school, subscription: subscription) }
+
+    it 'should create a new subscription with starting after the current subscription ends' do
+      get :new_subscription, id: school.id
+      expect(assigns(:subscription).start_date).to eq subscription.expiration
+      expect(assigns(:subscription).expiration).to eq subscription.expiration + 1.year
     end
   end
 

@@ -261,6 +261,16 @@ describe Subscription, type: :model do
     end
   end
 
+  describe "#self.redemption_start_date" do
+    let!(:school) { create(:school) }
+    let!(:subscription) { create(:subscription, expiration: Date.tomorrow) }
+    let!(:school_subscription) {create(:school_subscription, school: school, subscription: subscription)}
+
+    it 'fetches the expiration date of current subscription' do
+      expect(Subscription.redemption_start_date(school)).to eq(subscription.expiration)
+    end
+  end
+
   describe "#self.promotional_dates" do
     context 'when called on a day prior to August, 1' do
       before do
