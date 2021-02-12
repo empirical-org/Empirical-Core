@@ -158,14 +158,4 @@ describe School, type: :model do
       expect(School.school_year_start(time)).to eq(Date.parse('2019-08-01').beginning_of_day)
     end
   end
-
-  describe('redemption_start_date') do
-    let!(:subscription) { create(:subscription, expiration: Date.tomorrow) }
-    let!(:school_subscription) {create(:school_subscription, school: bk_school, subscription: subscription)}
-
-    it 'fetches the expiration date of current subscription' do
-      expect(Subscription.redemption_start_date(school)).to eq(subscription.expiration)
-    end
-  end
-
 end
