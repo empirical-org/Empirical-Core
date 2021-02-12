@@ -22,7 +22,7 @@ describe Cms::SubscriptionsController do
     it 'should change current subscription to non-recurring' do
       subscription = create(:subscription, recurring: true)
       create(:school_subscription, school: school, subscription: subscription)
-      new_subscription = Subscription.new(start_date: school.redemption_start_date, expiration: school.redemption_start_date + 1.year)
+      new_subscription = Subscription.new(start_date: Subscription.redemption_start_date(school), expiration: Subscription.redemption_start_date(school) + 1.year)
       post :create, school_or_user_id: school.id, school_or_user: "school", subscription: new_subscription.attributes
       expect(subscription.reload.recurring).to eq(false)
     end

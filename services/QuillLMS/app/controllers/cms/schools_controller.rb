@@ -77,7 +77,7 @@ class Cms::SchoolsController < Cms::CmsController
   end
 
   def new_subscription
-    @subscription = Subscription.new(start_date: @school.redemption_start_date, expiration: @user.redemption_start_date + 1.year)
+    @subscription = Subscription.new(start_date: Subscription.redemption_start_date(@school), expiration: Subscription.redemption_start_date(@school) + 1.year)
   end
 
   # This allows staff members to create a new school.

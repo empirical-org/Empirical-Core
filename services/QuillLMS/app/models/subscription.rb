@@ -213,6 +213,15 @@ class Subscription < ActiveRecord::Base
     end
   end
 
+  def self.redemption_start_date(school_or_user)
+    last_subscription = school_or_user.subscriptions.active.first
+    if last_subscription.present?
+      last_subscription.expiration
+    else
+      Date.today
+    end
+  end
+
   def update_if_charge_succeeds
     charge = charge_user
     if charge[:status] == 'succeeded'
@@ -343,14 +352,16 @@ class Subscription < ActiveRecord::Base
         attributes = attributes.merge(Subscription.set_premium_expiration_and_start_date(school_or_user))
       end
     end
+
+    school_or_user.subscriptions.each {|s| s.update!(recurring: false)}
     subscription = Subscription.create!(attributes)
-    if subscription.persisted?
-      school_or_user.subscription.update!(recurring: false) if subscription.start_date > Date.today
-      h = {}
-      h["#{type.downcase}_id".to_sym] = school_or_user_id
-      h[:subscription_id] = subscription.id
-      "#{type}Subscription".constantize.create(h)
-    end
+
+    school_or_user.subscription.update!(recurring: false) if subscription.start_date > Date.today
+    h = {}
+    h["#{type.downcase}_id".to_sym] = school_or_user_id
+    h[:subscription_id] = subscription.id
+    "#{type}Subscription".constantize.create(h)
+
     subscription
   end
 

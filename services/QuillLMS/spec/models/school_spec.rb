@@ -164,7 +164,7 @@ describe School, type: :model do
     let!(:school_subscription) {create(:school_subscription, school: bk_school, subscription: subscription)}
 
     it 'fetches the expiration date of current subscription' do
-      expect(bk_school.redemption_start_date).to eq(subscription.expiration)
+      expect(Subscription.redemption_start_date(school)).to eq(subscription.expiration)
     end
   end
 

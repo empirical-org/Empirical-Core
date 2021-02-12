@@ -189,22 +189,13 @@ class User < ActiveRecord::Base
     if balance > 0
       new_sub = Subscription.create_with_user_join(id, {account_type: 'Premium Credit',
                                                             payment_method: 'Premium Credit',
-                                                            expiration: redemption_start_date + balance,
-                                                            start_date: redemption_start_date,
+                                                            expiration: Subscription.redemption_start_date(self) + balance,
+                                                            start_date: Subscription.redemption_start_date(self),
                                                             purchaser_id: id})
       if new_sub
         CreditTransaction.create!(user: self, amount: 0 - balance, source: new_sub)
       end
       new_sub
-    end
-  end
-
-  def redemption_start_date
-    last_subscription = subscriptions.active.first
-    if last_subscription.present?
-      last_subscription.expiration
-    else
-      Date.today
     end
   end
 

@@ -1316,14 +1316,4 @@ describe User, type: :model do
       expect(user.valid?).to be
     end
   end
-
-  describe 'redemption_start_date' do
-    let!(:user) { create(:user) }
-    let!(:subscription) { create(:subscription, expiration: Date.tomorrow) }
-    let!(:user_subscription) {create(:user_subscription, user: user, subscription: subscription)}
-
-    it 'fetches the expiration date of current subscription' do
-      expect(user.redemption_start_date).to eq(subscription.expiration)
-    end
-  end
 end
