@@ -2,6 +2,7 @@ module Comprehension
   class RegexCheck
 
     ALL_CORRECT_FEEDBACK = 'All regex checks passed.'
+    OPTIMAL_RULE_UID = Comprehension::Rule.find_by(optimal: true, rule_type: Rule::TYPE_REGEX)&.uid
     attr_reader :entry, :prompt
 
     def initialize(entry, prompt)
@@ -17,7 +18,7 @@ module Comprehension
         response_id: '',
         entry: @entry,
         concept_uid: matched_rule&.concept_uid || '',
-        rule_uid: matched_rule&.uid || '',
+        rule_uid: matched_rule&.uid || OPTIMAL_RULE_UID,
         highlight: []
       }
     end

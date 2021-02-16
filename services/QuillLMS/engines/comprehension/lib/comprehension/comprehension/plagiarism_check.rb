@@ -5,6 +5,7 @@ module Comprehension
     PASSAGE_TYPE = 'passage'
     ENTRY_TYPE = 'response'
     MATCH_MINIMUM = 6
+    OPTIMAL_RULE = Comprehension::Rule.find_by(optimal: true, rule_type: Rule::TYPE_PLAGIARISM)
     attr_reader :entry, :passage, :nonoptimal_feedback
 
     def initialize(entry, passage, feedback, rule)
@@ -20,11 +21,11 @@ module Comprehension
         optimal: optimal?,
         response_id: '',
         entry: @entry,
-        concept_uid: @rule&.concept_uid || '',
-        rule_uid: @rule&.uid || '',
+        concept_uid: @rule&.concept_uid || OPTIMAL_RULE&.concept_uid,
+        rule_uid: @rule&.uid || OPTIMAL_RULE&.uid,
         highlight: highlights
       }
-    end 
+    end
 
     private def optimal?
       matched_slice.blank?
