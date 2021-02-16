@@ -19,6 +19,7 @@ module Comprehension
 
     context '#feedback_object' do
       should 'return optimal blank feedback when there is no regex match' do
+        optimal_rule = create(:comprehension_rule, rule_type: 'Regex', optimal: true)
         entry = "this is not a good regex match"
         regex_check = Comprehension::RegexCheck.new(entry, @prompt)
         feedback = regex_check.feedback_object
@@ -27,7 +28,7 @@ module Comprehension
         assert feedback[:optimal]
         assert_equal feedback[:entry], entry
         assert_equal feedback[:concept_uid], ''
-        assert_equal feedback[:rule_uid], ''
+        assert_equal feedback[:rule_uid], optimal_rule.uid
       end
 
       should 'be false when there is a regex match' do
