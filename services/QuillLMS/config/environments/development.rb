@@ -18,7 +18,7 @@ EmpiricalGrammar::Application.configure do
   config.action_controller.asset_host
 
   # Raise an error in development when an invalid parameter is passed.
-  config.action_controller.action_on_unpermitted_parameters = :raise
+  # config.action_controller.action_on_unpermitted_parameters = :raise
 
   config.action_mailer.raise_delivery_errors = true
   config.action_mailer.delivery_method = :smtp
