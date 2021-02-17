@@ -10,7 +10,7 @@
     </div>
   </div>
 
-  <%= react_component('StudentFeedbackModal', props: { question: question_text, gradeLevels: current_user&.classrooms&.map(&:grade)&.uniq }) %>
+  <%= react_component('StudentFeedbackModal', props: { question: question_text, gradeLevels: current_user&.classrooms&.pluck(:grade)&.uniq }) %>
 
   <script>
     window.addEventListener('load', function(e) {
