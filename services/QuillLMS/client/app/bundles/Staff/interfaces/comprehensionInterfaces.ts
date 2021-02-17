@@ -84,13 +84,15 @@ export interface RuleInterface {
     text: string,
     description?: string,
     order: number,
-    highlights: string[]
+    highlights?: any[]
+    highlights_attributes?: any[]
   }[]
 }
 
 export interface RuleFeedbackInterface {
   description?: string,
-  highlights?: string[],
+  highlights?: any[],
+  highlights_attributes?: any[],
   id?: number,
   order?: number,
   rule_id?: number,

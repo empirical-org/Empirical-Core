@@ -1,6 +1,6 @@
-import { buildRule, validateForm } from '../comprehension';
+import { validateForm } from '../comprehension';
 import { InputEvent, DropdownObjectInterface } from '../../interfaces/comprehensionInterfaces';
-import { ruleTypeOptions, universalRuleTypeOptions } from '../../../../constants/comprehension';
+import { ruleTypeOptions, universalRuleTypeOptions, ruleHighlightOptions } from '../../../../constants/comprehension';
 
 export function handleSetRuleType(ruleType: DropdownObjectInterface, setRuleType) { setRuleType(ruleType) };
 
@@ -127,10 +127,12 @@ export function handleSetUniversalFeedback({
     updatedFeedback[feedbackIndex].text = text;
     setUniversalFeedback(updatedFeedback);
   } else if(updateType === 'highlight text') {
-    updatedFeedback[feedbackIndex].highlights[highlightIndex].text = text;
+    updatedFeedback[feedbackIndex].highlights_attributes[highlightIndex].text = text;
     setUniversalFeedback(updatedFeedback);
   } else if(updateType === 'highlight addition') {
-    updatedFeedback[feedbackIndex].highlights.push({ text: '' });
+    updatedFeedback[feedbackIndex].highlights_attributes.push({ text: '' });
+  } else if(updateType === 'highlight type') {
+    updatedFeedback[feedbackIndex].highlights_attributes[highlightIndex].highlight_type = text
   }
   setUniversalFeedback(updatedFeedback);
 }
@@ -144,6 +146,98 @@ export function getInitialRuleType({ isUniversal, rule_type, universalRuleType }
   } else {
     return options[0];
   }
+}
+
+const formatUniversalFeedback = (feedbacks) => {
+  return feedbacks.map(feedback => {
+    const formattedFeedback = {...feedback};
+    const formattedHighlights = feedback.highlights_attributes.map(highlight => {
+      const { highlight_type } = highlight;
+      const formattedHighlight = {...highlight};
+      // convert highlight type into string from DropdownInput value type
+      if(highlight_type && highlight_type.value) {
+        formattedHighlight.highlight_type = highlight_type.value;
+      // default option of type Passage was left selected
+      } else {
+        formattedHighlight.highlight_type = ruleHighlightOptions[0].value;
+      }
+      // default starting index at 0, future functionality will allow user to have option to change starting index
+      formattedHighlight.starting_index = 0;
+      return formattedHighlight;
+    });
+    formattedFeedback.highlights_attributes = formattedHighlights;
+    return formattedFeedback;
+  });
+}
+
+const buildFeedbacks = ({ ruleType, regexFeedback, firstPlagiarismFeedback, secondPlagiarismFeedback, universalFeedback }) => {
+  if(ruleType.value === "Regex") {
+    return [regexFeedback];
+  } else if(ruleType.value === "Plagiarism") {
+    return [firstPlagiarismFeedback, secondPlagiarismFeedback];
+  } else {
+    return formatUniversalFeedback(universalFeedback);
+  }
+}
+
+export const buildRule = ({
+  firstPlagiarismFeedback,
+  plagiarismText,
+  regexFeedback,
+  regexRules,
+  rule,
+  rulesCount,
+  ruleConceptUID,
+  ruleDescription,
+  ruleName,
+  ruleOptimal,
+  rulePrompts,
+  ruleType,
+  secondPlagiarismFeedback,
+  universalFeedback,
+  universalRulesCount
+}) => {
+  const { suborder, universal } =  rule;
+  const promptIds = [];
+  Object.keys(rulePrompts).forEach(key => {
+    rulePrompts[key].checked && promptIds.push(rulePrompts[key].id);
+  });
+  const order = universal ? universalRulesCount : rulesCount;
+
+  let newOrUpdatedRule: any = {
+    concept_uid: ruleConceptUID,
+    description: ruleDescription,
+    feedbacks_attributes: buildFeedbacks({
+      ruleType,
+      regexFeedback,
+      firstPlagiarismFeedback,
+      secondPlagiarismFeedback,
+      universalFeedback
+    }),
+    name: ruleName,
+    optimal: !!ruleOptimal.value,
+    prompt_ids: promptIds,
+    rule_type: ruleType.value,
+    suborder: suborder ? suborder : order,
+    universal: universal
+  };
+
+  if(newOrUpdatedRule.rule_type === 'Regex') {
+    const rules = [];
+    Object.keys(regexRules).forEach(key => {
+      rules.push(regexRules[key]);
+    });
+    newOrUpdatedRule.regex_rules_attributes = rules;
+  } else if(newOrUpdatedRule.rule_type === 'Plagiarism') {
+    newOrUpdatedRule.plagiarism_text_attributes = {
+      id: plagiarismText.id,
+      text: plagiarismText.text
+    };
+  }
+
+  return {
+    rule: newOrUpdatedRule
+  };
 }
 
 export function handleSubmitRule({
@@ -161,7 +255,9 @@ export function handleSubmitRule({
   ruleType,
   secondPlagiarismFeedback,
   setErrors,
-  submitRule
+  submitRule,
+  universalFeedback,
+  universalRulesCount
 }) {
   const newOrUpdatedRule = buildRule({
     plagiarismText,
@@ -177,22 +273,27 @@ export function handleSubmitRule({
     rulesCount,
     ruleType,
     secondPlagiarismFeedback,
+    universalFeedback,
+    universalRulesCount
   });
+  const { universal } = rule;
   let keys: string[] = ['Name', 'Concept UID'];
   let state: any[] = [ruleName, ruleConceptUID];
   if(ruleType.value === "Regex") {
     keys.push("Regex Feedback");
-    state.push(regexFeedback.text)
+    state.push(regexFeedback.text);
+    Object.keys(regexRules).map((key, i) => {
+      keys.push(`Regex rule ${i + 1}`);
+      state.push(regexRules[key].regex_text);
+    });
   } else if(ruleType.value === "Plagiarism") {
     keys = keys.concat(["Plagiarism Text", "First Plagiarism Feedback", "Second Plagiarism Feedback"]);
     state = state.concat([plagiarismText.text, firstPlagiarismFeedback.text, secondPlagiarismFeedback.text]);
   }
-  Object.keys(regexRules).map((key, i) => {
-    keys.push(`Regex rule ${i + 1}`);
-    state.push(regexRules[key].regex_text);
-  });
-  keys.push('Stem Applied');
-  state.push(rulePrompts);
+  if(!universal) {
+    keys.push('Stem Applied');
+    state.push(rulePrompts);
+  }
   const validationErrors = validateForm(keys, state);
   if(validationErrors && Object.keys(validationErrors).length) {
     setErrors(validationErrors);

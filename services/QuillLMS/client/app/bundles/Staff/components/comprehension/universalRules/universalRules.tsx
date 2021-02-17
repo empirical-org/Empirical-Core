@@ -3,20 +3,16 @@ import { Link } from 'react-router-dom';
 import { queryCache, useQuery } from 'react-query';
 
 import SubmissionModal from '../shared/submissionModal';
-import { createRule } from '../../../utils/comprehension/ruleAPIs';
+import { createRule, fetchUniversalRules } from '../../../utils/comprehension/ruleAPIs';
 import RuleForm from '../configureRules/ruleForm';
 import { buildErrorMessage } from '../../../helpers/comprehension';
-import { blankUniversalRule } from '../../../../../constants/comprehension';
+import { blankUniversalRule, universalRuleTypeOptions, ruleOrder} from '../../../../../constants/comprehension';
 import { RuleInterface } from '../../../interfaces/comprehensionInterfaces';
 import { Error, Spinner, DropdownInput, DataTable, Modal } from '../../../../Shared/index';
 
-const data = require('./rulesData.json');
-const { universal_rules } = data;
-const ruleTypes = [{"value":"opinion","label":"Opinion"},{"value":"grammar","label":"Grammar"},{"value":"spelling","label":"Spelling"}];
-
 const UniversalRulesIndex = ({ history }) => {
 
-  const [ruleType, setRuleType] = React.useState<any>(ruleTypes[0]);
+  const [ruleType, setRuleType] = React.useState<any>(universalRuleTypeOptions[0]);
   const [rulesHash, setRulesHash] = React.useState<object>({});
   const [rulesList, setRulesList] = React.useState<any[]>([]);
   const [ruleOrderUpdated, setRuleOrderUpdated] = React.useState<boolean>(false);
@@ -24,29 +20,34 @@ const UniversalRulesIndex = ({ history }) => {
   const [showSubmissionModal, setShowSubmissionModal] = React.useState<boolean>(false);
   const [errors, setErrors] = React.useState<object>({});
 
-  React.useEffect(() => {
-    if (universal_rules) {
-      const hash = {};
-      universal_rules.map(rule => {
-        const { uid } = rule;
-        hash[uid] = rule;
-      });
-      setRulesHash(hash);
-      const rules = universal_rules.filter(rule => rule.type === ruleType);
-      setRulesList(rules);
-    }
-  }, [universal_rules]);
+  // cache ruleSets data for handling universal rule suborder
+  const { data: rules } = useQuery("universal-rules", fetchUniversalRules);
+
+  if(rules && rules.universalRules && rules.universalRules.length && !Object.keys(rulesHash).length) {
+    setRulesHashAndList();
+  }
 
   React.useEffect(() => {
-    const rules = universal_rules.filter(rule => rule.type === ruleType.value);
-    setRulesList(rules);
+    const updatedRulesList = rules && rules.universalRules && rules.universalRules.filter(rule => rule.rule_type === ruleType.value);
+    setRulesList(updatedRulesList);
     setRuleOrderUpdated(false);
-  }, [ruleType])
+  }, [ruleType]);
+
+  function setRulesHashAndList() {
+    const hash = {};
+    rules.universalRules.map(rule => {
+      const { uid } = rule;
+      hash[uid] = rule;
+    });
+    setRulesHash(hash);
+    const updatedRulesList = rules.universalRules.filter(rule => rule.type === ruleType);
+    setRulesList(updatedRulesList);
+  }
 
   function handleSetRuleType(ruleType: any) { setRuleType(ruleType) };
 
   function sortCallback(sortInfo) {
-    const newRulesList = sortInfo.map((item, i) => {
+    const newRulesList = sortInfo.map(item => {
       const { key } = item;
       return rulesHash[key];
     });
@@ -55,15 +56,15 @@ const UniversalRulesIndex = ({ history }) => {
   }
 
   function renderUniversalRules() {
-    const list = rulesList.map((rule, i) => {
-      const { api_order, type, name, order, uid, id } = rule;
+    const list = rulesList.map(rule => {
+      const { rule_type, name, suborder, uid, id } = rule;
       const universalRuleLink = (<Link to={`/universal-rules/${id}`}>View</Link>);
       return {
         id: uid,
-        api_order,
-        type,
+        api_order: ruleOrder[rule_type],
+        type: rule_type,
         name,
-        order,
+        order: suborder,
         view: universalRuleLink
       }
     });
@@ -96,12 +97,13 @@ const UniversalRulesIndex = ({ history }) => {
   }
 
   const renderRuleForm = () => {
+    const blankRule = {...blankUniversalRule}
     return(
       <Modal>
         <RuleForm
           closeModal={toggleAddRuleModal}
           isUniversal={true}
-          rule={blankUniversalRule}
+          rule={blankRule}
           submitRule={submitRule}
           universalRuleType={ruleType.label}
         />
@@ -117,7 +119,7 @@ const UniversalRulesIndex = ({ history }) => {
     return <SubmissionModal close={toggleSubmissionModal} message={message} />;
   }
 
-  if(!data) {
+  if(!rules || rules && rules.universalRules && rules.universalRules.length && !Object.keys(rulesHash).length) {
     return(
       <div className="loading-spinner-container">
         <Spinner />
@@ -125,10 +127,10 @@ const UniversalRulesIndex = ({ history }) => {
     );
   }
 
-  if(data.error) {
+  if(rules.error) {
     return(
       <div className="error-container">
-        <Error error={`${data.error}`} />
+        <Error error={`${rules.error}`} />
       </div>
     );
   }
@@ -154,7 +156,7 @@ const UniversalRulesIndex = ({ history }) => {
           handleChange={handleSetRuleType}
           isSearchable={true}
           label="Select Rule Type"
-          options={ruleTypes}
+          options={universalRuleTypeOptions}
           value={ruleType}
         />
         <button className={`quill-button small primary contained ${disabledStatus}`} disabled={!!disabledStatus} type="button">Update Rule Order</button>
@@ -167,7 +169,7 @@ const UniversalRulesIndex = ({ history }) => {
         headers={dataTableFields}
         isReorderable={true}
         reorderCallback={sortCallback}
-        rows={rulesHash && renderUniversalRules()}
+        rows={renderUniversalRules()}
       />
     </div>
   );

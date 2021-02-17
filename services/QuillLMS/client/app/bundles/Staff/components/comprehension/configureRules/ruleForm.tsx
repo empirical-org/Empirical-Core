@@ -48,7 +48,7 @@ const RuleForm = ({ activityData, activityId, closeModal, isUniversal, rule, sub
   const [rulesToUpdate, setRulesToUpdate] = React.useState<object>({});
   const [ruleType, setRuleType] = React.useState<DropdownObjectInterface>(initialRuleType);
   const [secondPlagiarismFeedback, setSecondPlagiarismFeedback] = React.useState<RuleFeedbackInterface >(null);
-  const [universalFeedback, setUniversalFeedback] = React.useState<object>(feedbacks);
+  const [universalFeedback, setUniversalFeedback] = React.useState<object>(initialUniversalFeedback);
   const [universalRulesCount, setUniversalRulesCount] = React.useState<number>(null);
 
   // cache ruleSets data for handling rule suborder
@@ -96,7 +96,9 @@ const RuleForm = ({ activityData, activityId, closeModal, isUniversal, rule, sub
       ruleType,
       secondPlagiarismFeedback,
       setErrors,
-      submitRule
+      submitRule,
+      universalFeedback,
+      universalRulesCount
     });
   }
 

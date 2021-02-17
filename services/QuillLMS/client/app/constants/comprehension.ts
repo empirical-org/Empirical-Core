@@ -76,10 +76,25 @@ export const universalRuleTypeOptions = [
   {"value":"Spelling","label":"Spelling"}
 ];
 
+export const ruleHighlightOptions = [
+  {"value":"passage","label":"Passage"},
+  {"value":"prompt","label":"Prompt"},
+  {"value":"response","label":"Response"}
+]
+
 export const ruleOptimalOptions = [
   {"value":"optimal","label":"Optimal"},
   {"value":"","label":"Sub-Optimal"}
 ];
+
+export const ruleOrder = {
+  'AutoML': 1,
+  'Grammar': 2,
+  'Opinion': 3,
+  'Plagiarism': 4,
+  'Regex': 5,
+  'Spelling': 6
+}
 
 export const BECAUSE = 'because';
 export const BUT = 'but';
@@ -140,7 +155,7 @@ export const blankUniversalRule = {
     {
       text: '',
       order: 0,
-      highlights: []
+      highlights_attributes: []
     }
   ]
 }

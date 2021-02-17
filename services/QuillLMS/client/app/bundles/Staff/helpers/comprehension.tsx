@@ -159,65 +159,6 @@ export const formatFeedbacks = ({ rule, ruleType, setFirstPlagiarismFeedback, se
   }
 }
 
-export const buildFeedbacks = ({ ruleType, regexFeedback, firstPlagiarismFeedback, secondPlagiarismFeedback }) => {
-  if(ruleType.value === "Regex") {
-    return [regexFeedback];
-  } else if(ruleType.value === "Plagiarism") {
-    return [firstPlagiarismFeedback, secondPlagiarismFeedback];
-  }
-}
-
-export const buildRule = ({
-  firstPlagiarismFeedback,
-  plagiarismText,
-  regexFeedback,
-  regexRules,
-  rule,
-  rulesCount,
-  ruleConceptUID,
-  ruleDescription,
-  ruleName,
-  ruleOptimal,
-  rulePrompts,
-  ruleType,
-  secondPlagiarismFeedback,
-}) => {
-  const { suborder, universal } =  rule;
-  const promptIds = [];
-  Object.keys(rulePrompts).forEach(key => {
-    rulePrompts[key].checked && promptIds.push(rulePrompts[key].id);
-  });
-
-  let newOrUpdatedRule: any = {
-    concept_uid: ruleConceptUID,
-    description: ruleDescription,
-    feedbacks_attributes: buildFeedbacks({ruleType, regexFeedback, firstPlagiarismFeedback, secondPlagiarismFeedback }),
-    name: ruleName,
-    optimal: !!ruleOptimal.value,
-    prompt_ids: promptIds,
-    rule_type: ruleType.value,
-    suborder: suborder ? suborder : rulesCount,
-    universal: universal
-  };
-
-  if(newOrUpdatedRule.rule_type === 'Regex') {
-    const rules = [];
-    Object.keys(regexRules).forEach(key => {
-      rules.push(regexRules[key]);
-    });
-    newOrUpdatedRule.regex_rules_attributes = rules;
-  } else if(newOrUpdatedRule.rule_type === 'Plagiarism') {
-    newOrUpdatedRule.plagiarism_text_attributes = {
-      id: plagiarismText.id,
-      text: plagiarismText.text
-    };
-  }
-
-  return {
-    rule: newOrUpdatedRule
-  };
-}
-
 export const promptsByConjunction = (prompts: PromptInterface[]) => {
   const formattedPrompts = {};
   prompts && prompts.map((prompt: PromptInterface) => formattedPrompts[prompt.conjunction] = prompt);

@@ -1,10 +1,10 @@
 import * as React from "react";
 import { EditorState, ContentState } from 'draft-js'
 
-import { numericalWordOptions } from '../../../../../constants/comprehension';
+import { numericalWordOptions, ruleHighlightOptions } from '../../../../../constants/comprehension';
 import { RuleFeedbackInterface, ClickEvent } from '../../../interfaces/comprehensionInterfaces';
 import { handleSetUniversalFeedback } from '../../../helpers/comprehension/ruleHelpers';
-import { TextEditor } from '../../../../Shared/index';
+import { TextEditor, DropdownInput } from '../../../../Shared/index';
 
 /* esl-lint disable notes: arrow functions needed to get correct index of feedback/highlight being updated in array, and a
 Fragment is appropriate since there can be multiple feedbacks */
@@ -39,11 +39,33 @@ const RuleAttributesSection = ({
     });
   }
 
+  function onHandleAddFeedbackLayer(e: ClickEvent) {
+
+  }
+
   function renderHighlights(highlights, i) {
     return highlights.map((highlight, j) => {
+      let highlightTypeValue = ruleHighlightOptions[0];
+      // this is an update for existing rule, convert to object for DropdownInput value
+      if(highlight.highlight_type && typeof highlight.highlight_type === 'string') {
+        const { highlight_type } = highlight;
+        highlightTypeValue = { label: highlight_type, value: highlight_type };
+      } else if(highlight.highlight_type && highlight.highlight_type.value) {
+        const { highlight_type } = highlight;
+        highlightTypeValue = highlight_type;
+      }
       return(
         <React.Fragment key={j}>
           <p className="form-subsection-label">{`${numericalWordOptions[i]} Revision - Highlight`}</p>
+          <DropdownInput
+            className='rule-type-input'
+            // eslint-disable-next-line
+            handleChange={(e) => onHandleSetUniversalFeedback(e, i, j, 'highlight type')}
+            isSearchable={true}
+            label="Optimal?"
+            options={ruleHighlightOptions}
+            value={highlightTypeValue}
+          />
           <TextEditor
             ContentState={ContentState}
             EditorState={EditorState}
@@ -72,7 +94,8 @@ const RuleAttributesSection = ({
           />
           {errors['Universal Feedback'] && errors['Universal Feedback'].length && <p className="error-message">{errors['Universal Feedback'][i]}</p>}
           <button className="quill-button small primary outlined" id={`${i}`} onClick={onHandleAddHighlight} type="button">Add Highlight</button>
-          {feedback.highlights && feedback.highlights && renderHighlights(feedback.highlights, i)}
+          {feedback.highlights_attributes && feedback.highlights_attributes && renderHighlights(feedback.highlights_attributes, i)}
+          <button className="quill-button small primary outlined" id={`${i}`} onClick={onHandleAddFeedbackLayer} type="button">Add Feedback Layer</button>
         </React.Fragment>
       )
     })
