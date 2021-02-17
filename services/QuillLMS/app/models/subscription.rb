@@ -356,7 +356,6 @@ class Subscription < ActiveRecord::Base
     school_or_user.subscriptions.each {|s| s.update!(recurring: false)}
     subscription = Subscription.create!(attributes)
 
-    school_or_user.subscription.update!(recurring: false) if subscription.start_date > Date.today
     h = {}
     h["#{type.downcase}_id".to_sym] = school_or_user_id
     h[:subscription_id] = subscription.id
