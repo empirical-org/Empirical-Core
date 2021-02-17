@@ -30,7 +30,7 @@ module Comprehension
         optimal_rule_uid = Comprehension::Rule.find_by(optimal: true, rule_type: Rule::TYPE_REGEX)&.uid
         $redis.set(OPTIMAL_RULE_KEY, optimal_rule_uid)
       end
-      optimal_rule_uid
+      optimal_rule_uid || ''
     end
 
     private def feedback
