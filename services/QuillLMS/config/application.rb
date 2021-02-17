@@ -60,6 +60,8 @@ module EmpiricalGrammar
     # Aug 21, 2018 Max Buck]
     config.active_record.schema_format = :sql
 
+    config.action_controller.always_permitted_parameters = %w(controller action format)
+
     # http://stackoverflow.com/questions/14647731/rails-converts-empty-arrays-into-nils-in-params-of-the-request
     config.action_dispatch.perform_deep_munge = false
 

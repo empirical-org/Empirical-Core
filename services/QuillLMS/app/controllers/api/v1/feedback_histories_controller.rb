@@ -73,19 +73,25 @@ class Api::V1::FeedbackHistoriesController < Api::ApiController
   end
 
   private def batch_feedback_history_params
-    params.permit(feedback_histories: [
-      :activity_session_uid,
-      :prompt_id,
-      :concept_uid,
-      :attempt,
-      :entry,
-      :feedback_text,
-      :feedback_type,
-      :optimal,
-      :used,
-      :time,
-      :metadata,
-      :rule_uid
-    ])[:feedback_histories]
+    # Note: nested params MUST be permitted last in any list
+    params.permit(
+      feedback_histories: [
+        :activity_session_uid,
+        :prompt_id,
+        :concept_uid,
+        :attempt,
+        :entry,
+        :feedback_text,
+        :feedback_type,
+        :optimal,
+        :used,
+        :time,
+        :rule_uid,
+        metadata: [
+          :response_id,
+          highlight: []
+        ]
+      ]
+    )[:feedback_histories]
   end
 end
