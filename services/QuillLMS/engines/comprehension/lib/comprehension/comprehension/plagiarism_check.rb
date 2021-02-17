@@ -5,6 +5,7 @@ module Comprehension
     PASSAGE_TYPE = 'passage'
     ENTRY_TYPE = 'response'
     MATCH_MINIMUM = 6
+    OPTIMAL_RULE_KEY = 'optimal_plagiarism_rule_serialized'
     attr_reader :entry, :passage, :nonoptimal_feedback
 
     def initialize(entry, passage, feedback, rule)
@@ -21,14 +22,20 @@ module Comprehension
         optimal: optimal?,
         response_id: '',
         entry: @entry,
-        concept_uid: optimal? ? optimal_rule&.concept_uid : @rule&.concept_uid,
-        rule_uid: optimal? ? optimal_rule&.uid : @rule&.uid,
+        concept_uid: optimal? ? optimal_rule_hash["concept_uid"] : @rule&.concept_uid,
+        rule_uid: optimal? ? optimal_rule_hash["uid"] : @rule&.uid,
         highlight: highlights
       }
     end
 
-    private def optimal_rule
-      @optimal_rule ||= Comprehension::Rule.find_by(optimal: true, rule_type: Rule::TYPE_PLAGIARISM)
+    private def optimal_rule_hash
+      cached = $redis.get(OPTIMAL_RULE_KEY)
+      serialized_optimal_rule = cached.nil? || cached&.blank? ? nil : JSON.parse(cached)
+      unless serialized_optimal_rule
+        serialized_optimal_rule = Comprehension::Rule.find_by(optimal: true, rule_type: Rule::TYPE_PLAGIARISM).to_json
+        $redis.set(OPTIMAL_RULE_KEY, serialized_optimal_rule)
+      end
+      serialized_optimal_rule || {}
     end
 
     private def optimal?

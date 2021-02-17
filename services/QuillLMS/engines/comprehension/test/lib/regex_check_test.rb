@@ -19,10 +19,12 @@ module Comprehension
 
     context '#feedback_object' do
       should 'return optimal blank feedback when there is no regex match' do
+        $redis.redis.flushdb
         optimal_rule = create(:comprehension_rule, rule_type: 'Regex', optimal: true)
         entry = "this is not a good regex match"
         regex_check = Comprehension::RegexCheck.new(entry, @prompt)
         feedback = regex_check.feedback_object
+
         assert_equal feedback[:feedback], Comprehension::RegexCheck::ALL_CORRECT_FEEDBACK
         assert_equal feedback[:feedback_type], Comprehension::Rule::TYPE_REGEX
         assert feedback[:optimal]

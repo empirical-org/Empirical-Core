@@ -8,6 +8,7 @@ module Comprehension
 
     context '#feedback_object' do
       should 'return appropriate feedback attributes if there is plagiarism' do
+        $redis.redis.flushdb
         entry = "these are s'',ome! r''esponse words to plagiarize"
         passage = "these are some res,,,,ponse,,,, words to plagiarize"
         feedback = "this is some standard plagiarism feedback"
