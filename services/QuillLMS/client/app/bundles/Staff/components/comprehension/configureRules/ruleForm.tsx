@@ -8,8 +8,8 @@ import RulePrompts from './rulePrompts';
 import RuleUniversalAttributes from './ruleUniversalAttributes';
 
 import { fetchRules, fetchUniversalRules } from '../../../utils/comprehension/ruleAPIs';
-import { formatPrompts, formatFeedbacks, formatRegexRules } from '../../../helpers/comprehension';
-import { handleSubmitRule, getInitialRuleType } from '../../../helpers/comprehension/ruleHelpers';
+import { formatPrompts, formatRegexRules } from '../../../helpers/comprehension';
+import { handleSubmitRule, getInitialRuleType, formatFeedbacks, formatInitialUniversalFeedback} from '../../../helpers/comprehension/ruleHelpers';
 import { ruleOptimalOptions } from '../../../../../constants/comprehension';
 import { ActivityInterface, RuleInterface, RuleFeedbackInterface, DropdownObjectInterface } from '../../../interfaces/comprehensionInterfaces';
 
@@ -30,7 +30,7 @@ const RuleForm = ({ activityData, activityId, closeModal, isUniversal, rule, sub
   const initialRuleOptimal = optimal ? ruleOptimalOptions[0] : ruleOptimalOptions[1];
   const initialPlagiarismText = plagiarism_text ? plagiarism_text : { text: '' }
   const initialDescription = description ? description : '';
-  const initialUniversalFeedback = isUniversal && feedbacks ? feedbacks : [{ text: '' }];
+  const initialUniversalFeedback = isUniversal && feedbacks ? formatInitialUniversalFeedback(feedbacks) : [{ text: '' }];
 
   const [errors, setErrors] = React.useState<object>({});
   const [firstPlagiarismFeedback, setFirstPlagiarismFeedback] = React.useState<RuleFeedbackInterface >(null);

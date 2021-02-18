@@ -123,42 +123,6 @@ export const formatRegexRules = ({ rule, setRegexRules }) => {
   setRegexRules(formatted);
 }
 
-export const formatFeedbacks = ({ rule, ruleType, setFirstPlagiarismFeedback, setSecondPlagiarismFeedback, setRegexFeedback }) => {
-  if(rule && rule.feedbacks && Object.keys(rule.feedbacks).length) {
-    const { feedbacks } =  rule;
-    if(ruleType && ruleType.value === "Plagiarism") {
-      const formattedFirstFeedback = {
-        id: feedbacks[0].id,
-        order: 0,
-        description: feedbacks[0].description,
-        text: feedbacks[0].text
-      }
-      const formattedSecondFeedback = {
-        id: feedbacks[1].id,
-        order: 1,
-        description: feedbacks[1].description,
-        text: feedbacks[1].text
-      }
-      setFirstPlagiarismFeedback(formattedFirstFeedback);
-      setSecondPlagiarismFeedback(formattedSecondFeedback);
-    }
-    else if(ruleType && ruleType.value === "Regex") {
-      const formattedFeedback = {
-        id: feedbacks[0].id,
-        order: 0,
-        description: feedbacks[0].description,
-        text: feedbacks[0].text
-      }
-      setRegexFeedback(formattedFeedback);
-    }
-  } else {
-    // creating new rule, set all to empty break tag in case user switches between rule types
-    setFirstPlagiarismFeedback({ text: '<br/>'});
-    setSecondPlagiarismFeedback({ text: '<br/>'});
-    setRegexFeedback({ text: '<br/>'});
-  }
-}
-
 export const promptsByConjunction = (prompts: PromptInterface[]) => {
   const formattedPrompts = {};
   prompts && prompts.map((prompt: PromptInterface) => formattedPrompts[prompt.conjunction] = prompt);

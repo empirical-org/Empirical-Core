@@ -449,6 +449,12 @@
         min-width: 20px;
         padding: 0px 7px 5px 7px;
       }
+      .rule-highlight-section {
+        margin-left: 10px;
+      }
+      .add-highlight, .add-feedback-layer {
+        margin-top: 15px;
+      }
     }
   }
   .turk-sessions-container {
@@ -557,6 +563,9 @@
           margin: 0px
         }
       }
+    }
+    .universal-rules-table {
+      height: 100%;
     }
     .button-container {
       display: flex;

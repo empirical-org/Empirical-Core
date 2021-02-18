@@ -55,8 +55,8 @@ const RuleAttributesSection = ({
         highlightTypeValue = highlight_type;
       }
       return(
-        <React.Fragment key={j}>
-          <p className="form-subsection-label">{`${numericalWordOptions[i]} Revision - Highlight`}</p>
+        <section className="rule-highlight-section" key={j}>
+          <p className="form-subsection-label">{`${numericalWordOptions[i]} Revision - ${numericalWordOptions[j]} Highlight`}</p>
           <DropdownInput
             className='rule-type-input'
             // eslint-disable-next-line
@@ -74,7 +74,7 @@ const RuleAttributesSection = ({
             key="universal-feedback-highlight"
             text={highlight.text}
           />
-        </React.Fragment>
+        </section>
       );
     });
   }
@@ -93,9 +93,9 @@ const RuleAttributesSection = ({
             text={universalFeedback[i].text}
           />
           {errors['Universal Feedback'] && errors['Universal Feedback'].length && <p className="error-message">{errors['Universal Feedback'][i]}</p>}
-          <button className="quill-button small primary outlined" id={`${i}`} onClick={onHandleAddHighlight} type="button">Add Highlight</button>
+          <button className="add-highlight quill-button small primary outlined" id={`${i}`} onClick={onHandleAddHighlight} type="button">Add Highlight</button>
           {feedback.highlights_attributes && feedback.highlights_attributes && renderHighlights(feedback.highlights_attributes, i)}
-          <button className="quill-button small primary outlined" id={`${i}`} onClick={onHandleAddFeedbackLayer} type="button">Add Feedback Layer</button>
+          <button className="add-feedback-layer quill-button small primary outlined" id={`${i}`} onClick={onHandleAddFeedbackLayer} type="button">Add Feedback Layer</button>
         </React.Fragment>
       )
     })

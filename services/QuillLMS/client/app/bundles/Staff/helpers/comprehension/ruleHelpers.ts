@@ -148,6 +148,66 @@ export function getInitialRuleType({ isUniversal, rule_type, universalRuleType }
   }
 }
 
+export const formatFeedbacks = ({ rule, ruleType, setFirstPlagiarismFeedback, setSecondPlagiarismFeedback, setRegexFeedback }) => {
+  if(rule && rule.feedbacks && Object.keys(rule.feedbacks).length) {
+    const { feedbacks } =  rule;
+    if(ruleType && ruleType.value === "Plagiarism") {
+      const formattedFirstFeedback = {
+        id: feedbacks[0].id,
+        order: 0,
+        description: feedbacks[0].description,
+        text: feedbacks[0].text
+      }
+      const formattedSecondFeedback = {
+        id: feedbacks[1].id,
+        order: 1,
+        description: feedbacks[1].description,
+        text: feedbacks[1].text
+      }
+      setFirstPlagiarismFeedback(formattedFirstFeedback);
+      setSecondPlagiarismFeedback(formattedSecondFeedback);
+    }
+    else if(ruleType && ruleType.value === "Regex") {
+      const formattedFeedback = {
+        id: feedbacks[0].id,
+        order: 0,
+        description: feedbacks[0].description,
+        text: feedbacks[0].text
+      }
+      setRegexFeedback(formattedFeedback);
+    }
+  } else {
+    // creating new rule, set all to empty break tag in case user switches between rule types
+    setFirstPlagiarismFeedback({ text: '<br/>'});
+    setSecondPlagiarismFeedback({ text: '<br/>'});
+    setRegexFeedback({ text: '<br/>'});
+  }
+}
+
+export const formatInitialUniversalFeedback = (feedbacks) => {
+  return feedbacks.map(feedback => {
+    const { id, description, order, text, highlights } = feedback;
+    const formattedFeedback = {
+      id,
+      description,
+      order,
+      text,
+      highlights_attributes: null
+    };
+    const formattedHighlights = highlights && highlights.map(highlight => {
+      const { id, text,  highlight_type, starting_index} = highlight;
+      return {
+        id,
+        text,
+        highlight_type,
+        starting_index
+      };
+    });
+    formattedFeedback.highlights_attributes = formattedHighlights || [];
+    return formattedFeedback;
+  });
+}
+
 const formatUniversalFeedback = (feedbacks) => {
   return feedbacks.map(feedback => {
     const formattedFeedback = {...feedback};

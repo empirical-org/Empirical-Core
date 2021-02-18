@@ -28,10 +28,17 @@ const UniversalRulesIndex = ({ history }) => {
   }
 
   React.useEffect(() => {
-    const updatedRulesList = rules && rules.universalRules && rules.universalRules.filter(rule => rule.rule_type === ruleType.value);
-    setRulesList(updatedRulesList);
+    handleUpdateRulesList(null);
     setRuleOrderUpdated(false);
   }, [ruleType]);
+
+  function handleUpdateRulesList(rule) {
+    const updatedRulesList = rules && rules.universalRules && rules.universalRules.filter(rule => rule.rule_type === ruleType.value);
+    if(rule) {
+      updatedRulesList.push(rule);
+    }
+    setRulesList(updatedRulesList);
+  }
 
   function setRulesHashAndList() {
     const hash = {};
@@ -40,8 +47,7 @@ const UniversalRulesIndex = ({ history }) => {
       hash[uid] = rule;
     });
     setRulesHash(hash);
-    const updatedRulesList = rules.universalRules.filter(rule => rule.type === ruleType);
-    setRulesList(updatedRulesList);
+    handleUpdateRulesList(null);
   }
 
   function handleSetRuleType(ruleType: any) { setRuleType(ruleType) };
@@ -79,9 +85,8 @@ const UniversalRulesIndex = ({ history }) => {
         updatedErrors['ruleSetError'] = error;
         setErrors(updatedErrors);
       }
-      // update ruleSets cache to display newly created ruleSet
       queryCache.refetchQueries(`universal-rules`);
-      history.push(`universal-rules`);
+      handleUpdateRulesList(rule);
 
       toggleAddRuleModal();
       toggleSubmissionModal();

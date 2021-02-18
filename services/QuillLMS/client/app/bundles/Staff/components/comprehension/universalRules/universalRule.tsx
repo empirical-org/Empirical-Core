@@ -10,8 +10,6 @@ import { updateRule, deleteRule, fetchRule } from '../../../utils/comprehension/
 import { RuleInterface } from '../../../interfaces/comprehensionInterfaces';
 import { DataTable, Error, Modal, Spinner } from '../../../../Shared/index';
 
-const ruleData = require('./ruleData.json');
-
 const UniversalRule = ({ history, match }) => {
   const { params } = match;
   const { ruleId } = params;
@@ -21,10 +19,10 @@ const UniversalRule = ({ history, match }) => {
   const [errors, setErrors] = React.useState<object>({});
 
   // cache rule data
-  // const { data: ruleData } = useQuery({
-  //   queryKey: [`rule-${ruleId}`, ruleId],
-  //   queryFn: fetchRule
-  // });
+  const { data: ruleData } = useQuery({
+    queryKey: [`rule-${ruleId}`, ruleId],
+    queryFn: fetchRule
+  });
 
   const toggleShowEditRuleModal = () => {
     setShowEditRuleModal(!showEditRuleModal);
@@ -66,7 +64,7 @@ const UniversalRule = ({ history, match }) => {
         },
         {
           label: 'Description',
-          value: description
+          value: description && stripHtml(description)
         },
         {
           label: 'Order',
@@ -114,7 +112,7 @@ const UniversalRule = ({ history, match }) => {
       if(Object.keys(errors).length) {
         toggleSubmissionModal();
       } else {
-        history.push(`/univeral-rules`);
+        history.push(`/universal-rules`);
       }
     });
   }
