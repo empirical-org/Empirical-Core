@@ -46,7 +46,7 @@ const StudentFeedbackModal = ({ question, gradeLevels, }) => {
         />
         <div className="buttons">
           <button className="quill-button medium secondary outlined focus-on-light" onClick={cancel} type="button">Cancel</button>
-          <button className={saveButtonClass} onClick={handleClickSave} type="button">Save</button>
+          <button className={saveButtonClass} onClick={handleClickSave} type="button">Submit</button>
         </div>
       </form>
     </div>
