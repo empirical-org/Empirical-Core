@@ -158,5 +158,4 @@ describe School, type: :model do
       expect(School.school_year_start(time)).to eq(Date.parse('2019-08-01').beginning_of_day)
     end
   end
-
 end
