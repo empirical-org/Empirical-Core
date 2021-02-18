@@ -9,6 +9,7 @@ const ComprehensionLanding = () => (
     <Switch>
       <Redirect exact from='/' to='/activities' />
       <Route component={Activity} path='/activities/:activityId' />
+      <Route component={Activities} path='/universal-rules' />
       <Route component={Activities} path='/activities' />
     </Switch>
   </div>

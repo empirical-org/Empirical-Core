@@ -22,14 +22,9 @@ const Navigation = ({ location, match }) => {
   const csrfToken = getCsrfToken();
   localStorage.setItem('csrfToken', csrfToken);
 
-  const checkIndexActive = () => {
-    if(!location) return false;
-    return pathname === '/activities' && !showCreateActivityModal;
-  }
-
   const checkOverviewActive = () => {
     if(!location) return false;
-    return pathname !== '/activities' && !showCreateActivityModal;
+    return pathname === '/activities' && !showCreateActivityModal;
   }
 
   const toggleCreateActivityModal = () => {
@@ -79,6 +74,15 @@ const Navigation = ({ location, match }) => {
         <NavLink activeClassName="is-active" to={`/activities/${activityId}/turk-sessions`}>
           Collect Turk Responses
         </NavLink>
+        <NavLink activeClassName="is-active" to={`/activities/${activityId}/semantic-rules-and-models`}>
+          Semantic Rules + Models
+        </NavLink>
+        <NavLink activeClassName="is-active" to={`/activities/${activityId}/regex-rules`}>
+          RegEx Rules
+        </NavLink>
+        <NavLink activeClassName="is-active" to={`/activities/${activityId}/plagiarism-rules`}>
+          Plagiarism Rules
+        </NavLink>
         <NavLink activeClassName="is-active" to={`/activities/${activityId}/rules`}>
           View All Rules
         </NavLink>
@@ -87,6 +91,12 @@ const Navigation = ({ location, match }) => {
         Activity Results
       </p>
       <ul className="menu-list">
+        <NavLink activeClassName="is-active" to={`/activities/${activityId}/stats`}>
+          Activity Stats
+        </NavLink>
+        <NavLink activeClassName="is-active" to={`/activities/${activityId}/sessions`}>
+          View Sessions
+        </NavLink>
       </ul>
     </React.Fragment>)
   }
@@ -97,15 +107,15 @@ const Navigation = ({ location, match }) => {
         Tool Views
       </p>
       <ul className="menu-list">
-        <NavLink activeClassName='is-active' isActive={checkIndexActive} to='/activities'>
-          Activities Index
-        </NavLink>
-        <NavLink activeClassName='is-active' isActive={checkOverviewActive} to={pathname}>
+        <NavLink activeClassName='is-active' isActive={checkOverviewActive} to="/activities">
           Activity Overview
         </NavLink>
         <button className={`create-activity-button ${showCreateActivityModal ? 'is-active' :''}`} onClick={toggleCreateActivityModal} type="submit">
           Create New Activity
         </button>
+        <NavLink activeClassName='is-active' to="/universal-rules">
+          View Universal Rules
+        </NavLink>
       </ul>
       {activityEditorAndResults}
     </section>
