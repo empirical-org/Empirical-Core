@@ -2,10 +2,10 @@ require 'test_helper'
 
 module Comprehension
   class PlagiarismCheckTest < ActiveSupport::TestCase
-    setup do 
-      @rule = create(:comprehension_rule, rule_type: 'Plagiarism')
+    setup do
+      @rule = create(:comprehension_rule, rule_type: 'plagiarism')
     end
-  
+
     context '#feedback_object' do
       should 'return appropriate feedback attributes if there is plagiarism' do
         entry = "these are s'',ome! r''esponse words to plagiarize"
@@ -20,11 +20,11 @@ module Comprehension
         assert feedback[:rule_uid], @rule.uid
         assert feedback[:concept_uid], @rule.concept_uid
         assert feedback[:highlight][0][:text], entry
-        assert feedback[:highlight][1][:text], passage 
+        assert feedback[:highlight][1][:text], passage
       end
 
       should 'return appropriate feedback when there is no plagiarism' do
-        
+
         entry = "these are some response words to plagiarize"
         passage = "it is always bad to plagiarize"
         feedback = "this is some standard plagiarism feedback"
@@ -37,7 +37,7 @@ module Comprehension
         assert feedback[:rule_uid], @rule.uid
         assert feedback[:concept_uid], @rule.concept_uid
       end
-    
+
     end
 
   end

@@ -3,12 +3,12 @@ module Comprehension
     MAX_NAME_LENGTH = 250
     ALLOWED_BOOLEANS = [true, false]
     TYPES= [
-      TYPE_AUTOML = 'AutoML',
-      TYPE_GRAMMAR = 'Grammar',
-      TYPE_OPINION = 'Opinion',
-      TYPE_PLAGIARISM = 'Plagiarism',
-      TYPE_REGEX = 'Regex',
-      TYPE_SPELLING = 'Spelling'
+      TYPE_AUTOML = 'autoML',
+      TYPE_GRAMMAR = 'grammar',
+      TYPE_OPINION = 'opinion',
+      TYPE_PLAGIARISM = 'plagiarism',
+      TYPE_REGEX = 'rules-based',
+      TYPE_SPELLING = 'spelling'
     ]
     before_validation :assign_uid_if_missing
 
