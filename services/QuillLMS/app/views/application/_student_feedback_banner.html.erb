@@ -2,7 +2,7 @@
 <% question_text = "What’s a part of your culture, upbringing, or background you’d like your classmates to learn more about in a Quill activity?" %>
 <% number_of_completed_activity_sessions = current_user&.activity_sessions&.completed&.length || 0 %>
 
-<% if number_of_completed_activity_sessions > 4 %>
+<% if current_user&.student? && number_of_completed_activity_sessions > 4 %>
   <div class="banner" id="student-feedback-banner">
     <div class="content-container">
       <img alt="Person raising their hand up icon" class="banner-icon" src=<%= "#{ENV['CDN_URL']}/images/icons/person-greeting.svg" %>>
