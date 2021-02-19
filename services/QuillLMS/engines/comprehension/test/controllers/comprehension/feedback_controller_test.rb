@@ -5,7 +5,7 @@ module Comprehension
     setup do
       @routes = Engine.routes
       @prompt = create(:comprehension_prompt)
-      @rule = create(:comprehension_rule, rule_type: 'Plagiarism')
+      @rule = create(:comprehension_rule, rule_type: 'plagiarism')
       create(:comprehension_prompts_rule, rule: @rule, prompt: @prompt)
       create(:comprehension_plagiarism_text, text: "do not plagiarize this text please", rule: @rule)
       @first_feedback = create(:comprehension_feedback, text: 'here is our first feedback', rule: @rule, order: 0)
