@@ -131,6 +131,8 @@ export const MAX_ATTEMPTS_FEEDBACK = 'Max attempts feedback';
 export const BECAUSE_STEM = 'Because stem';
 export const BUT_STEM = 'But stem';
 export const SO_STEM = 'So stem';
+export const IMAGE_LINK = 'Image link'
+export const IMAGE_ALT_TEXT = 'Image alt text'
 
 export const activityFormKeys = [
   TITLE,
@@ -141,7 +143,9 @@ export const activityFormKeys = [
   MAX_ATTEMPTS_FEEDBACK,
   BECAUSE_STEM,
   BUT_STEM,
-  SO_STEM
+  SO_STEM,
+  IMAGE_LINK,
+  IMAGE_ALT_TEXT,
 ];
 
 export const MINIMUM_READING_LEVEL = 4;

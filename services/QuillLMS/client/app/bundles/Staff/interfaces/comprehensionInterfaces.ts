@@ -48,7 +48,9 @@ export interface TurkSessionInterface {
 
 export interface PassagesInterface {
   id?: number,
-  text: string
+  text: string,
+  image_link?: string,
+  image_alt_text?: string
 }
 
 export interface RuleInterface {
