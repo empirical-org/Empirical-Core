@@ -3,7 +3,7 @@ require 'test_helper'
 module Comprehension
   class PlagiarismCheckTest < ActiveSupport::TestCase
     setup do
-      @rule = create(:comprehension_rule, rule_type: 'Plagiarism')
+      @rule = create(:comprehension_rule, rule_type: 'plagiarism')
     end
 
     context '#feedback_object' do
