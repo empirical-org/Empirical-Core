@@ -79,12 +79,12 @@ module Comprehension
       end
 
       should 'be false if sequence_type is required and entry does not match regex text' do
-        @regex_rule_2= create(:comprehension_regex_rule, rule: @rule, regex_text: "you need this sequence", sequence_type: 'required')
+        @regex_rule_two= create(:comprehension_regex_rule, rule: @rule, regex_text: "you need this sequence", sequence_type: 'required')
         assert !@rule.regex_is_passing?('I do not have the right sequence')
       end
 
       should 'be true if sequence_type is required and entry matches regex text' do
-        @regex_rule_2= create(:comprehension_regex_rule, rule: @rule, regex_text: "you need this sequence", sequence_type: 'required')
+        @regex_rule_two= create(:comprehension_regex_rule, rule: @rule, regex_text: "you need this sequence", sequence_type: 'required')
         assert @rule.regex_is_passing?('you need this sequence and I do have it')
       end
 
