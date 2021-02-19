@@ -3,6 +3,10 @@ module Comprehension
     DEFAULT_CASE_SENSITIVITY = true
     MAX_REGEX_TEXT_LENGTH = 200
     CASE_SENSITIVE_ALLOWED_VALUES = [true, false]
+    SEQUENCE_TYPES = [
+      TYPE_INCORRECT = 'incorrect',
+      TYPE_REQUIRED = 'required'
+    ]
 
     belongs_to :rule, inverse_of: :regex_rules
 

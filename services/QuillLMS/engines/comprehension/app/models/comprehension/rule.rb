@@ -41,7 +41,7 @@ module Comprehension
 
     def regex_is_passing?(entry)
       regex_rules.none? do |regex_rule|
-        regex_rule.sequence_type == 'incorrect' ? Regexp.new(regex_rule.regex_text).match(entry) : !Regexp.new(regex_rule.regex_text).match(entry)
+        regex_rule.sequence_type == RegexRule::TYPE_INCORRECT ? Regexp.new(regex_rule.regex_text).match(entry) : !Regexp.new(regex_rule.regex_text).match(entry)
       end
     end
 
