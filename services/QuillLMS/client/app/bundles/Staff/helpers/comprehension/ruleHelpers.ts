@@ -133,6 +133,12 @@ export function handleSetUniversalFeedback({
     updatedFeedback[feedbackIndex].highlights_attributes.push({ text: '' });
   } else if(updateType === 'highlight type') {
     updatedFeedback[feedbackIndex].highlights_attributes[highlightIndex].highlight_type = text
+  } else if(updateType === 'feedback layer addition') {
+    updatedFeedback.push({
+      text: '',
+      order: universalFeedback.length,
+      highlights_attributes: []
+    });
   }
   setUniversalFeedback(updatedFeedback);
 }

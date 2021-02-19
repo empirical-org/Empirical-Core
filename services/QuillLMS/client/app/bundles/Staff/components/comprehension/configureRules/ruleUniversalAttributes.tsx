@@ -9,6 +9,8 @@ import { TextEditor, DropdownInput } from '../../../../Shared/index';
 /* esl-lint disable notes: arrow functions needed to get correct index of feedback/highlight being updated in array, and a
 Fragment is appropriate since there can be multiple feedbacks */
 
+// TODO: add ability to delete added feedback layer/ highlight sections
+
 const RuleAttributesSection = ({
   errors,
   setUniversalFeedback,
@@ -39,8 +41,15 @@ const RuleAttributesSection = ({
     });
   }
 
-  function onHandleAddFeedbackLayer(e: ClickEvent) {
-
+  function onHandleAddFeedbackLayer() {
+    handleSetUniversalFeedback({
+      text: '',
+      universalFeedback,
+      setUniversalFeedback,
+      updateType: 'feedback layer addition',
+      feedbackIndex: null,
+      highlightIndex: null
+    });
   }
 
   function renderHighlights(highlights, i) {
@@ -95,16 +104,16 @@ const RuleAttributesSection = ({
           {errors['Universal Feedback'] && errors['Universal Feedback'].length && <p className="error-message">{errors['Universal Feedback'][i]}</p>}
           <button className="add-highlight quill-button small primary outlined" id={`${i}`} onClick={onHandleAddHighlight} type="button">Add Highlight</button>
           {feedback.highlights_attributes && feedback.highlights_attributes && renderHighlights(feedback.highlights_attributes, i)}
-          <button className="add-feedback-layer quill-button small primary outlined" id={`${i}`} onClick={onHandleAddFeedbackLayer} type="button">Add Feedback Layer</button>
         </React.Fragment>
-      )
-    })
+      );
+    });
   }
 
   return(
     // eslint-disable-next-line
     <React.Fragment>
       {universalFeedback && renderFeedbacks(universalFeedback)}
+      <button className="add-feedback-layer quill-button small primary outlined" onClick={onHandleAddFeedbackLayer} type="button">Add Feedback Layer</button>
     </React.Fragment>
   );
 };
