@@ -3,7 +3,7 @@ import { Route, Switch, Link, } from 'react-router-dom';
 
 import TopicColumns from './topicColumns'
 import ChangeLogTable from './changeLogTable'
-import TopicSearch from './topicSearch'
+import Search from '../../shared/search'
 
 import { Snackbar, defaultSnackbarTimeout } from '../../../../Shared/index'
 import { requestGet, requestPut, requestPost, } from '../../../../../modules/request/index'
@@ -79,7 +79,7 @@ const Topics = ({ match, location, }) => {
   return (
     <div className="topics-manager">
       <Snackbar text="Changes saved" visible={showSnackbar} />
-      <TopicSearch updateSearchValue={setSearchValue} />
+      <Search placeholder="Search by topic name" searchValue={searchValue} updateSearchValue={setSearchValue} />
       <div className="cms-tabs">
         <Link className={activeLink ? '': 'active'} to={`${match.path}`}>Live</Link>
         <Link className={activeLink === NEW ? 'active': ''} to={`${match.path}/${NEW}`}>Add Topics</Link>

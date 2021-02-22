@@ -6,11 +6,13 @@ import AccountSettingsApp from './AccountSettingsAppClient';
 import StudentProfileApp from './StudentProfileAppClient';
 import StudentProfileRouter from './StudentProfileRouter';
 import StudentNavbarItems from './StudentNavbarItemsAppClient'
+import StudentFeedbackModal from './StudentFeedbackModalAppClient'
 
 ReactOnRails.register({
   StudentProfileApp,
   JoinClassApp,
   AccountSettingsApp,
   StudentProfileRouter,
-  StudentNavbarItems
+  StudentNavbarItems,
+  StudentFeedbackModal
 });

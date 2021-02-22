@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Table } from 'antd';
+import ReactTable from 'react-table';
 import { firstBy } from "thenby";
 
 import { Concept } from '../containers/ConceptsIndex';
@@ -25,32 +25,32 @@ interface ConceptRow {
 function columns(selectConcept) {
   return [
     {
-      title: 'Level 2',
-      dataIndex: 'grandparentConceptName',
+      Header: 'Level 2',
+      accessor: 'grandparentConceptName',
       key: 'grandparentConceptName',
-      render: (text, record:ConceptRow) => (<div onClick={() => selectConcept(record.grandparentConceptId, 2)}>{text}</div>),
-      sorter: firstBy<ConceptRow>('grandparentConceptName').thenBy('parentConceptName').thenBy('conceptName'),
+      Cell: (props) => (<div onClick={() => selectConcept(props.original.grandparentConceptId, 2)}>{props.original.grandparentConceptName}</div>),
+      sortType: firstBy<ConceptRow>('grandparentConceptName').thenBy('parentConceptName').thenBy('conceptName'),
     },
     {
-      title: 'Level 1',
-      dataIndex: 'parentConceptName',
+      Header: 'Level 1',
+      accessor: 'parentConceptName',
       key: 'parentConceptName',
-      render: (text, record:ConceptRow) => (<div onClick={() => selectConcept(record.parentConceptId, 1)}>{text}</div>),
-      sorter: firstBy<ConceptRow>('parentConceptName').thenBy('conceptName'),
+      Cell: (props) => (<div onClick={() => selectConcept(props.original.parentConceptId, 1)}>{props.original.parentConceptName}</div>),
+      sortType: firstBy<ConceptRow>('parentConceptName').thenBy('conceptName'),
     },
     {
-      title: 'Level 0',
-      dataIndex: 'conceptName',
+      Header: 'Level 0',
+      accessor: 'conceptName',
       key: 'conceptName',
-      render: (text, record:ConceptRow) => (<div onClick={() => selectConcept(record.conceptId, 0)}>{text}</div>),
-      sorter: firstBy('conceptName'),
+      Cell: (props) => (<div onClick={() => selectConcept(props.original.conceptId, 0)}>{props.original.conceptName}</div>),
+      sortType: firstBy('conceptName'),
     },
     {
-      title: 'Created At',
-      dataIndex: 'createdAt',
+      Header: 'Created At',
+      accessor: 'createdAt',
       key: 'createdAt',
-      render: (text) => moment(text* 1000).format('M/D/YY'),
-      sorter:  (a, b) => (a.createdAt - b.createdAt),
+      Cell: (props) => moment(props.original.createdAt* 1000).format('M/D/YY'),
+      sortType:  (a, b) => (a.createdAt - b.createdAt),
     },
   ];
 }
@@ -79,13 +79,12 @@ function filterData(concepts:Array<Concept>, visible:Boolean):Array<Concept> {
 const ConceptsTable: React.SFC<ConceptsTableProps> = ({concepts, visible, selectConcept}) => {
   const data = prepareData(filterData(concepts, visible));
   return (
-    <Table
-      bordered
+    <ReactTable
       className="concepts-table"
       columns={columns(selectConcept)}
-      dataSource={data}
-      pagination={false}
-      size="middle"
+      data={data}
+      defaultPageSize={data.length}
+      showPagination={false}
     />
   );
 };

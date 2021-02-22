@@ -1,6 +1,5 @@
 import * as React from "react";
 import ContentEditable from 'react-contenteditable';
-import { Row } from "antd";
 import { Response, ConceptResult } from 'quill-marking-logic';
 
 import Cues from './cues'
@@ -254,14 +253,14 @@ export class QuestionComponent extends React.Component<QuestionProps, QuestionSt
     const { showExample, } = this.state
     const example = this.example()
     if (example) {
-      let componentClasses = 'example-container'
+      let componentClasses = 'example-container flex-start'
       if (showExample) {
         componentClasses += ' show'
       }
       return (
-        <Row align="middle" className={componentClasses} gutter={0} justify="start" type="flex">
+        <div className={componentClasses}>
           <div className="example" dangerouslySetInnerHTML={{ __html: example.replace(/\n/g, "<br />") }} />
-        </Row>
+        </div>
       );
 
     } else {
@@ -327,14 +326,9 @@ export class QuestionComponent extends React.Component<QuestionProps, QuestionSt
         percent={meterWidth}
         questionCount={counts['totalQuestionCount']}
       />
-      <Row
-        align="middle"
-        gutter={0}
-        justify="space-between"
-        type="flex"
-      >
+      <div className="flex-space-between">
         <h1>{activity ? activity.title : null}</h1>
-      </Row>
+      </div>
       {this.renderExample()}
     </div>)
   }
@@ -344,7 +338,7 @@ export class QuestionComponent extends React.Component<QuestionProps, QuestionSt
     const noMoreSubmissionsForStudentSession = [CORRECTLY_ANSWERED, FINAL_ATTEMPT].includes(questionStatus)
     const disabled = noMoreSubmissionsForStudentSession ? 'disabled' : '';
 
-    return (<Row align="middle" gutter={0} justify="start" type="flex">
+    return (<div className="flex-start">
       <ContentEditable
         className={`input-field ${disabled}`}
         data-gramm={false}
@@ -355,7 +349,7 @@ export class QuestionComponent extends React.Component<QuestionProps, QuestionSt
         placeholder="Type your answer here."
         spellCheck={false}
       />
-    </Row>)
+    </div>)
   }
 
   renderQuestionSection(): JSX.Element {
@@ -364,22 +358,22 @@ export class QuestionComponent extends React.Component<QuestionProps, QuestionSt
     const latestAttempt = this.handleGetLatestAttempt(attempts)
     const feedbackKey = latestAttempt ? latestAttempt.text : 'instructions'
     return (<div className="question-section">
-      <Row align="middle" gutter={0} justify="start" type="flex">
+      <div className="flex-start">
         <div className="prompt" dangerouslySetInnerHTML={{ __html: prompt }} />
-      </Row>
-      <Row align="middle" gutter={0} justify="start" type="flex">
+      </div>
+      <div className="flex-start">
         <Cues cues={cues} cuesLabel={cues_label} />
-      </Row>
-      <Row align="middle" gutter={0} justify="start" key={feedbackKey} type="flex">
+      </div>
+      <div className="flex-start" key={feedbackKey}>
         {this.renderFeedbackSection()}
-      </Row>
+      </div>
       {this.renderTextareaSection()}
-      <Row align="middle" gutter={0} justify="end" type="flex">
+      <div className="flex-end">
         {this.renderCheckAnswerButton()}
-      </Row>
-      <Row align="middle" gutter={0} justify="start" type="flex">
+      </div>
+      <div className="flex-start">
         {this.renderConceptExplanation()}
-      </Row>
+      </div>
     </div>)
   }
 
