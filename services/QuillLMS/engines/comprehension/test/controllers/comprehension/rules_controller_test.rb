@@ -288,7 +288,7 @@ module Comprehension
         assert_equal new_text, highlight.text
       end
 
-      should "update nested reged rule attributes if present" do
+      should "update nested regex rule attributes if present" do
         regex_rule = create(:comprehension_regex_rule, rule: @rule)
         new_text = "new regex text"
 
@@ -299,6 +299,18 @@ module Comprehension
 
         regex_rule.reload
         assert_equal new_text, regex_rule.regex_text
+      end
+
+      should "return an error if regex is invalid" do
+        regex_rule = create(:comprehension_regex_rule, rule: @rule)
+        new_text = "(invalid|"
+
+        post :update, id: @rule.id, rule: { regex_rules_attributes: [{id: regex_rule.id, regex_text: new_text}]}
+
+        parsed_response = JSON.parse(response.body)
+
+        assert_equal 422, response.code.to_i
+        assert parsed_response['rule'][0].include?("Invalid regex")
       end
 
     end
