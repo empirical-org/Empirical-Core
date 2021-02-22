@@ -40,6 +40,7 @@ import Ap from './ApAppClient';
 import SpringBoard from './SpringBoardAppClient.tsx';
 
 import StudentNavbarItems from '../../Student/startup/StudentNavbarItemsAppClient'
+import StudentFeedbackModal from '../../Student/startup/StudentFeedbackModalAppClient'
 
 require('../../../assets/styles/home.scss');
 
@@ -81,5 +82,6 @@ ReactOnRails.register({ TeacherGuideApp,
   QuestionsAndAnswersSection,
   PreAp,
   Ap,
-  SpringBoard
+  SpringBoard,
+  StudentFeedbackModal
 });
