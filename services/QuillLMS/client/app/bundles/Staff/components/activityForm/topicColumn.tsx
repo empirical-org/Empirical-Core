@@ -1,13 +1,8 @@
 import * as React from 'react'
-import {  Table, Input, Button, Space  } from 'antd';
-
-// code for the antd implementation adapted from their example here: https://ant.design/components/table/#components-table-demo-custom-filter-panel as of 11/18/20
+import ReactTable from 'react-table'
 
 const TopicColumn = ({ createNewTopic, levelNumber, getFilteredOptionsForLevel, selectTopic, getSelectedOptionForLevel, }) => {
-  const [searchText, setSearchText] = React.useState('')
   const [newTopicName, setNewTopicName] = React.useState('')
-
-  const searchInput = React.useRef(null)
 
   const options = getFilteredOptionsForLevel(levelNumber)
 
@@ -25,68 +20,16 @@ const TopicColumn = ({ createNewTopic, levelNumber, getFilteredOptionsForLevel, 
     setNewTopicName('')
   }
 
-  function getColumnSearchProps() {
-    return ({
-      filterDropdown: ({ setSelectedKeys, selectedKeys, confirm, clearFilters }) => (
-        <div style={{ padding: 8 }}>
-          <Input
-            onChange={e => setSelectedKeys(e.target.value ? [e.target.value] : [])}
-            onPressEnter={() => handleSearch(selectedKeys, confirm)}
-            placeholder={`Search Level ${levelNumber}`}
-            ref={searchInput}
-            style={{ width: 188, marginBottom: 8, display: 'block' }}
-            value={selectedKeys[0]}
-          />
-          <Space>
-            <Button
-              icon={<i className="fas fa-search" />}
-              onClick={() => handleSearch(selectedKeys, confirm)}
-              size="small"
-              style={{ width: 90 }}
-              type="primary"
-            >
-              Search
-            </Button>
-            <Button onClick={() => handleReset(clearFilters)} size="small" style={{ width: 90 }}>
-              Reset
-            </Button>
-          </Space>
-        </div>
-      ),
-      filterIcon: <i className="fas fa-search" style={{color: '#d9d9d9'}} />,
-      onFilter: (value, record) =>
-        record.name
-          ? record.name.toLowerCase().includes(value.toLowerCase())
-          : '',
-      onFilterDropdownVisibleChange: visible => {
-        if (visible) {
-          setTimeout(() => searchInput.select(), 100);
-        }
-      }
-    });
-  }
 
-  function handleSearch(selectedKeys, confirm) {
-    confirm();
-    setSearchText(selectedKeys[0])
-  };
-
-  function handleReset(clearFilters) {
-    clearFilters();
-    setSearchText('')
-  };
-
-  const columns = [
+  const columns = (selectedOption) => ([
     {
       title: 'Name',
-      dataIndex: 'name',
+      data: 'name',
       key: 'name',
-      render: (text, record) => (<div className="record-cell" onClick={() => selectTopic(record.id)}>{text}</div>),
-      sorter:  (a, b) => (a.name.localeCompare(b.name)),
-      defaultSortOrder: 'ascend',
-      ...getColumnSearchProps(),
+      Cell: (props) => (<div className={`record-cell ${selectedOption && selectedOption.id === props.original.id  ? 'selected' : ''}`} onClick={() => selectTopic(props.original.id)}>{props.original.name}</div>),
+      sortType:  (a, b) => (a.name.localeCompare(b.name)),
     }
-  ];
+  ]);
 
   const selectedOption = getSelectedOptionForLevel(levelNumber)
 
@@ -115,14 +58,12 @@ const TopicColumn = ({ createNewTopic, levelNumber, getFilteredOptionsForLevel, 
   return (<div className="topic-column">
     <label>Topic Level {levelNumber}</label>
     {selectedOptionElement}
-    <Table
-      bordered
-      columns={columns}
-      dataSource={options}
-      pagination={false}
-      rowClassName={(record, index) =>  (selectedOption && selectedOption.id === record.id  ? 'selected' : '')}
-      scroll={{ y: 240 }}
-      size="middle"
+    <ReactTable
+      columns={columns(selectedOption)}
+      data={options}
+      defaultFilterMethod={(filter, row) => row._original.name ? row._original.name.toLowerCase().includes(filter.value.toLowerCase()) : ''}
+      filterable
+      showPagination={false}
     />
     {newTopicField}
   </div>);

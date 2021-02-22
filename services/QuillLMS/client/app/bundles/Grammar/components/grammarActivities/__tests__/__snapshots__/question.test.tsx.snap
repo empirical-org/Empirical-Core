@@ -195,99 +195,76 @@ Sentences flow easily when all the actions in a list have the same ending. This 
           </p>
         </div>
       </ProgressBar>
-      <Row
-        align="middle"
-        gutter={0}
-        justify="space-between"
-        type="flex"
+      <div
+        className="flex-space-between"
+      >
+        <h1>
+          Parallel Structure
+        </h1>
+      </div>
+      <div
+        className="example-container flex-start show"
       >
         <div
-          className="ant-row ant-row-space-between ant-row-middle"
-          style={Object {}}
-          type="flex"
-        >
-          <h1>
-            Parallel Structure
-          </h1>
-        </div>
-      </Row>
-      <Row
-        align="middle"
-        className="example-container show"
-        gutter={0}
-        justify="start"
-        type="flex"
-      >
-        <div
-          className="ant-row ant-row-start ant-row-middle example-container show"
-          style={Object {}}
-          type="flex"
-        >
-          <div
-            className="example"
-            dangerouslySetInnerHTML={
-              Object {
-                "__html": "<b>Correct:</b> I laughed, I cried, and I shouted during the performance.<br /><b>Incorrect:</b> I laughed, I was crying, and I shout during the performance.<br />Sentences flow easily when all the actions in a list have the same ending. This means that each and every action in a list stays in the past, present, or future tense.",
-              }
+          className="example"
+          dangerouslySetInnerHTML={
+            Object {
+              "__html": "<b>Correct:</b> I laughed, I cried, and I shouted during the performance.<br /><b>Incorrect:</b> I laughed, I was crying, and I shout during the performance.<br />Sentences flow easily when all the actions in a list have the same ending. This means that each and every action in a list stays in the past, present, or future tense.",
             }
-          />
-        </div>
-      </Row>
+          }
+        />
+      </div>
     </div>
     <div
       className="question-section"
     >
-      <Row
-        align="middle"
-        gutter={0}
-        justify="start"
-        type="flex"
+      <div
+        className="flex-start"
       >
         <div
-          className="ant-row ant-row-start ant-row-middle"
-          style={Object {}}
-          type="flex"
+          className="prompt"
+          dangerouslySetInnerHTML={
+            Object {
+              "__html": "The team stretched their legs, practice their drills, and then rehearsed their set plays.",
+            }
+          }
+        />
+      </div>
+      <div
+        className="flex-start"
+      >
+        <Cues>
+          <span />
+        </Cues>
+      </div>
+      <div
+        className="flex-start"
+        key="instructions"
+      >
+        <Feedback
+          feedback={
+            <p
+              dangerouslySetInnerHTML={
+                Object {
+                  "__html": "Rewrite the sentence so that it has proper parallel structure.",
+                }
+              }
+            />
+          }
+          feedbackType="instructions"
         >
           <div
-            className="prompt"
-            dangerouslySetInnerHTML={
-              Object {
-                "__html": "The team stretched their legs, practice their drills, and then rehearsed their set plays.",
-              }
-            }
-          />
-        </div>
-      </Row>
-      <Row
-        align="middle"
-        gutter={0}
-        justify="start"
-        type="flex"
-      >
-        <div
-          className="ant-row ant-row-start ant-row-middle"
-          style={Object {}}
-          type="flex"
-        >
-          <Cues>
-            <span />
-          </Cues>
-        </div>
-      </Row>
-      <Row
-        align="middle"
-        gutter={0}
-        justify="start"
-        key="instructions"
-        type="flex"
-      >
-        <div
-          className="ant-row ant-row-start ant-row-middle"
-          style={Object {}}
-          type="flex"
-        >
-          <Feedback
-            feedback={
+            className="student-feedback-container default"
+            role="status"
+          >
+            <div
+              className="feedback-row student-feedback-inner-container"
+            >
+              <img
+                alt="Directions Icon"
+                className="info"
+                src="https://assets.quill.org/images/icons/direction.svg"
+              />
               <p
                 dangerouslySetInnerHTML={
                   Object {
@@ -295,106 +272,56 @@ Sentences flow easily when all the actions in a list have the same ending. This 
                   }
                 }
               />
-            }
-            feedbackType="instructions"
-          >
-            <div
-              className="student-feedback-container default"
-              role="status"
-            >
-              <div
-                className="feedback-row student-feedback-inner-container"
-              >
-                <img
-                  alt="Directions Icon"
-                  className="info"
-                  src="https://assets.quill.org/images/icons/direction.svg"
-                />
-                <p
-                  dangerouslySetInnerHTML={
-                    Object {
-                      "__html": "Rewrite the sentence so that it has proper parallel structure.",
-                    }
-                  }
-                />
-              </div>
             </div>
-          </Feedback>
-        </div>
-      </Row>
-      <Row
-        align="middle"
-        gutter={0}
-        justify="start"
-        type="flex"
+          </div>
+        </Feedback>
+      </div>
+      <div
+        className="flex-start"
       >
-        <div
-          className="ant-row ant-row-start ant-row-middle"
-          style={Object {}}
-          type="flex"
+        <ContentEditable
+          className="input-field "
+          data-gramm={false}
+          disabled={false}
+          html=""
+          onChange={[Function]}
+          onKeyDown={[Function]}
+          placeholder="Type your answer here."
+          spellCheck={false}
         >
-          <ContentEditable
+          <div
             className="input-field "
+            contentEditable={true}
+            dangerouslySetInnerHTML={
+              Object {
+                "__html": "",
+              }
+            }
             data-gramm={false}
             disabled={false}
-            html=""
+            onBlur={[Function]}
             onChange={[Function]}
+            onInput={[Function]}
             onKeyDown={[Function]}
+            onKeyUp={[Function]}
             placeholder="Type your answer here."
             spellCheck={false}
-          >
-            <div
-              className="input-field "
-              contentEditable={true}
-              dangerouslySetInnerHTML={
-                Object {
-                  "__html": "",
-                }
-              }
-              data-gramm={false}
-              disabled={false}
-              onBlur={[Function]}
-              onChange={[Function]}
-              onInput={[Function]}
-              onKeyDown={[Function]}
-              onKeyUp={[Function]}
-              placeholder="Type your answer here."
-              spellCheck={false}
-            />
-          </ContentEditable>
-        </div>
-      </Row>
-      <Row
-        align="middle"
-        gutter={0}
-        justify="end"
-        type="flex"
+          />
+        </ContentEditable>
+      </div>
+      <div
+        className="flex-end"
       >
-        <div
-          className="ant-row ant-row-end ant-row-middle"
-          style={Object {}}
-          type="flex"
+        <button
+          className="quill-button primary contained large focus-on-light disabled"
+          type="submit"
         >
-          <button
-            className="quill-button primary contained large focus-on-light disabled"
-            type="submit"
-          >
-            Get feedback
-          </button>
-        </div>
-      </Row>
-      <Row
-        align="middle"
-        gutter={0}
-        justify="start"
-        type="flex"
-      >
-        <div
-          className="ant-row ant-row-start ant-row-middle"
-          style={Object {}}
-          type="flex"
-        />
-      </Row>
+          Get feedback
+        </button>
+      </div>
+      <div
+        className="flex-start"
+      />
     </div>
   </div>
 </QuestionComponent>

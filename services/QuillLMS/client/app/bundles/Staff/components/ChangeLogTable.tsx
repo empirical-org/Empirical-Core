@@ -1,6 +1,5 @@
 import * as React from 'react';
-import { Table } from 'antd';
-import { firstBy } from "thenby";
+import ReactTable from 'react-table';
 
 import { ChangeLog } from '../interfaces/interfaces';
 import moment from 'moment';
@@ -24,64 +23,64 @@ interface ChangeLogRow {
 function columns() {
   return [
     {
-      title: 'Concept Name',
-      dataIndex: 'conceptName',
+      Header: 'Concept Name',
+      accessor: 'conceptName',
       key: 'conceptName',
-      render: (text) => (<div>{text}</div>),
-      sorter: ((a, b) => a.conceptName.localeCompare(b.conceptName))
+      Cell: (props) => (<div>{props.original.conceptName}</div>),
+      sortType: ((a, b) => a.conceptName.localeCompare(b.conceptName))
     },
     {
-      title: 'UID',
-      dataIndex: 'conceptUID',
+      Header: 'UID',
+      accessor: 'conceptUID',
       key: 'conceptUID',
-      render: (text) => (<div>{text}</div>),
-      sorter: ((a, b) => a.conceptUID.localeCompare(b.conceptUID)),
+      Cell: (props) => (<div>{props.original.conceptUID}</div>),
+      sortType: ((a, b) => a.conceptUID.localeCompare(b.conceptUID)),
     },
     {
-      title: 'Action',
-      dataIndex: 'action',
+      Header: 'Action',
+      accessor: 'action',
       key: 'action',
-      render: (text) => (<div>{text}</div>),
-      sorter: ((a, b) => a.action.localeCompare(b.action)),
-      width: 120
+      Cell: (props) => (<div>{props.original.action}</div>),
+      sortType: ((a, b) => a.action.localeCompare(b.action)),
+      maxWidth: 120
     },
     {
-      title: 'Explanation',
-      dataIndex: 'explanation',
+      Header: 'Explanation',
+      accessor: 'explanation',
       key: 'explanation',
-      render: (text) => (<div>{text}</div>),
-      sorter: ((a, b) => a.explanation.localeCompare(b.explanation)),
-      width: 250
+      Cell: (props) => (<div>{props.original.explanation}</div>),
+      sortType: ((a, b) => a.explanation.localeCompare(b.explanation)),
+      maxWidth: 250
     },
     {
-      title: 'Changed Attribute',
-      dataIndex: 'changedAttribute',
+      Header: 'Changed Attribute',
+      accessor: 'changedAttribute',
       key: 'changedAttribute',
-      render: (text) => (<div>{text}</div>),
-      sorter: ((a, b) => a.changedAttribute.localeCompare(b.changedAttribute)),
-      width: 130
+      Cell: (props) => (<div>{props.original.changedAttribute}</div>),
+      sortType: ((a, b) => a.changedAttribute.localeCompare(b.changedAttribute)),
+      maxWidth: 130
     },
     {
-      title: 'Previous Value',
-      dataIndex: 'previousValue',
+      Header: 'Previous Value',
+      accessor: 'previousValue',
       key: 'previousValue',
-      render: (text) => (<div>{text}</div>),
-      sorter: ((a, b) => a.previousValue.localeCompare(b.previousValue)),
+      Cell: (props) => (<div>{props.original.previousValue}</div>),
+      sortType: ((a, b) => a.previousValue.localeCompare(b.previousValue)),
     },
     {
-      title: 'Author',
-      dataIndex: 'authorName',
+      Header: 'Author',
+      accessor: 'authorName',
       key: 'authorName',
-      render: (text) => (<div>{text}</div>),
-      sorter: ((a, b) => a.authorName.localeCompare(b.authorName)),
+      Cell: (props) => (<div>{props.original.authorName}</div>),
+      sortType: ((a, b) => a.authorName.localeCompare(b.authorName)),
     },
     {
-      title: 'Timestamp',
-      dataIndex: 'createdAt',
+      Header: 'Timestamp',
+      accessor: 'createdAt',
       key: 'createdAt',
-      render: (timestamp) => moment.unix(timestamp).format('MMMM D, YYYY [at] LT'),
-      sorter:  (a, b) => (a.createdAt - b.createdAt),
-      defaultSortOrder: 'descend'
+      Cell: (props) => moment.unix(props.original.createdAt).format('MMMM D, YYYY [at] LT'),
+      sortType:  (a, b) => (a.createdAt - b.createdAt),
+      sortDescFirst: true
     },
   ];
 }
@@ -107,13 +106,12 @@ function prepareRow(changeLog:ChangeLog):ChangeLogRow {
 const ChangeLogsTable: React.SFC<ChangeLogsTableProps> = ({changeLogs}) => {
   const data = prepareData(changeLogs)
   return (
-    <Table
-      bordered
+    <ReactTable
       className="concepts-table"
       columns={columns()}
-      dataSource={data}
-      pagination={false}
-      size="middle"
+      data={data}
+      defaultPageSize={data.length}
+      showPagination={false}
     />
   );
 };
