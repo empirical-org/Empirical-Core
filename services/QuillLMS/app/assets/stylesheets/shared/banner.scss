@@ -8,6 +8,11 @@
   &.webinar-banner {
     display: block;
   }
+  &#student-feedback-banner {
+    .interactive-wrapper {
+      text-decoration: underline;
+    }
+  }
   p, a {
     font-size: 16px;
     color: #fff;

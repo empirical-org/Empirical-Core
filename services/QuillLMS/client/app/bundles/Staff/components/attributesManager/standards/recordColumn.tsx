@@ -1,7 +1,9 @@
 import * as React from 'react';
-import { Table } from 'antd';
+import ReactTable from 'react-table';
 
 import { sortWordsThatIncludeNumbers, } from './shared'
+
+import { getColumnWidth, } from '../../shared/getColumnWidth'
 
 interface RecordColumnProps {
   records: Array<any>,
@@ -16,28 +18,27 @@ interface RecordRow {
   createdAt:number;
 }
 
-function columns(selectRecord, recordType) {
+function columns(selectRecord, recordType, records) {
   return [
     {
-      title: recordType,
-      dataIndex: 'name',
-      defaultSortOrder: 'ascend',
+      Header: recordType,
+      accessor: 'name',
       key: 'name',
-      render: (text, record:RecordRow) => (<button className="interactive-wrapper" onClick={() => selectRecord(record, recordType)}>{text}</button>),
-      sorter: sortWordsThatIncludeNumbers()
+      Cell: (props) => (<button className="interactive-wrapper" onClick={() => selectRecord(props.original, recordType)}>{props.original.name}</button>),
+      sorter: sortWordsThatIncludeNumbers(),
+      width: getColumnWidth('name', recordType, records)
     }
   ]
 }
 
 const RecordColumn: React.SFC<RecordColumnProps> = ({ records, selectRecord, recordType }) => {
   return (
-    <Table
-      bordered
+    <ReactTable
       className="records-table"
-      columns={columns(selectRecord, recordType)}
-      dataSource={records}
-      pagination={false}
-      size="middle"
+      columns={columns(selectRecord, recordType, records)}
+      data={records}
+      defaultPageSize={records.length}
+      showPagination={false}
     />
   );
 };

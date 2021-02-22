@@ -119,7 +119,7 @@ export default class PromptStep extends React.Component<PromptStepProps, PromptS
       const splitSubmission = text.split('&nbsp;')
 
       // handles case where change is only in the formatted prompt part
-      if (splitSubmission[1]) {
+      if (splitSubmission.length > 1) {
         const newValue = `${formattedPrompt}${splitSubmission[1]}`
         this.setState({ html: newValue}, () => {
           this.editor.innerHTML = newValue

@@ -78,7 +78,7 @@ describe Api::V1::FeedbackHistoriesController, type: :controller do
       post :batch, feedback_histories: [{ activity_session_uid: '1', attempt: 1, optimal: false, used: true,
                                           time: DateTime.now, entry: 'This is the entry provided by the student',
                                           feedback_text: 'This is the feedback provided by the algorithm',
-                                          feedback_type: 'semantic', metadata: {foo: 'bar'} },
+                                          feedback_type: 'semantic', metadata: {highlight: [], response_id: "0", rule_uid: ""} },
                                         { activity_session_uid: '1', attempt: 1, optimal: false, used: true,
                                           time: DateTime.now, entry: 'This is the entry provided by the student',
                                           feedback_text: 'This is the feedback provided by the algorithm',

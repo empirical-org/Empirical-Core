@@ -2,8 +2,12 @@
   margin: 30px;
   .topic-columns, .standard-columns, .content-partner-columns {
     display: flex;
-    .ant-table-wrapper {
+    .ReactTable {
+      width: 100%;
       margin-right: 20px;
+      .rt-tr-group {
+        max-height: 40px;
+      }
     }
   }
 }
@@ -72,5 +76,11 @@
       align-items: center;
       justify-content: space-between;
     }
+  }
+}
+
+.change-log-table.ReactTable {
+  .rt-th, .rt-td {
+    white-space: pre-wrap;
   }
 }

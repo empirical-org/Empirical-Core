@@ -64,6 +64,7 @@ EmpiricalGrammar::Application.routes.draw do
 
   post 'rate_blog_post', to: 'blog_post_user_ratings#create'
 
+  resources :student_feedback_responses, only: [:create]
 
   # for Stripe
   resources :charges, only: [:create]

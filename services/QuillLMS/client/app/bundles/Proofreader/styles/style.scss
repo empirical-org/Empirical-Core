@@ -7,8 +7,6 @@
 @import './headerStyling.scss';
 @import './welcomePage.scss';
 @import "~bulma/bulma.sass";
-@import '~antd/dist/antd.css';
-
 
 body, button, input, select, textarea, {
   font-family: adelle-sans,Arial,sans-serif;
@@ -20,6 +18,10 @@ body, button, input, select, textarea, {
 .ant-layout {
   height: 100vw;
   background-color: #ededed;
+}
+
+.page-content {
+  width: 100%;
 }
 
 button {

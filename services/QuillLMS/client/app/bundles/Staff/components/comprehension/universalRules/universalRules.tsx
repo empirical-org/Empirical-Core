@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { queryCache, useQuery } from 'react-query';
 
 import SubmissionModal from '../shared/submissionModal';
+import Navigation from '../navigation'
 import { createRule, fetchUniversalRules } from '../../../utils/comprehension/ruleAPIs';
 import RuleForm from '../configureRules/ruleForm';
 import { buildErrorMessage } from '../../../helpers/comprehension';
@@ -10,7 +11,7 @@ import { blankUniversalRule, universalRuleTypeOptions, ruleOrder} from '../../..
 import { RuleInterface } from '../../../interfaces/comprehensionInterfaces';
 import { Error, Spinner, DropdownInput, DataTable, Modal } from '../../../../Shared/index';
 
-const UniversalRulesIndex = ({ history }) => {
+const UniversalRulesIndex = ({ location, match }) => {
 
   const [ruleType, setRuleType] = React.useState<any>(universalRuleTypeOptions[0]);
   const [rulesHash, setRulesHash] = React.useState<object>({});
@@ -110,7 +111,7 @@ const UniversalRulesIndex = ({ history }) => {
           isUniversal={true}
           rule={blankRule}
           submitRule={submitRule}
-          universalRuleType={ruleType.label}
+          universalRuleType={ruleType.value}
         />
       </Modal>
     );
@@ -151,32 +152,35 @@ const UniversalRulesIndex = ({ history }) => {
   const disabledStatus = !ruleOrderUpdated ? 'disabled' : '';
 
   return(
-    <div className="universal-rules-index-container">
-      {showAddRuleModal && renderRuleForm()}
-      {showSubmissionModal && renderSubmissionModal()}
-      <h2>Universal Rules Index</h2>
-      <section className="top-section">
-        <DropdownInput
-          className="rule-type-input"
-          handleChange={handleSetRuleType}
-          isSearchable={true}
-          label="Select Rule Type"
-          options={universalRuleTypeOptions}
-          value={ruleType}
+    <React.Fragment>
+      <Navigation location={location} match={match} />
+      <div className="universal-rules-index-container">
+        {showAddRuleModal && renderRuleForm()}
+        {showSubmissionModal && renderSubmissionModal()}
+        <h2>Universal Rules Index</h2>
+        <section className="top-section">
+          <DropdownInput
+            className="rule-type-input"
+            handleChange={handleSetRuleType}
+            isSearchable={true}
+            label="Select Rule Type"
+            options={universalRuleTypeOptions}
+            value={ruleType}
+          />
+          <button className={`quill-button small primary contained ${disabledStatus}`} disabled={!!disabledStatus} type="button">Update Rule Order</button>
+          <button className="quill-button small primary contained" onClick={toggleAddRuleModal} type="button">{`Create New ${ruleType.label} Rule (Danger Zone!)`}</button>
+        </section>
+        <p className="sortable-instructions">Change the rule order note by drag and drop</p>
+        <DataTable
+          className="universal-rules-table"
+          defaultSortAttribute="title"
+          headers={dataTableFields}
+          isReorderable={true}
+          reorderCallback={sortCallback}
+          rows={renderUniversalRules()}
         />
-        <button className={`quill-button small primary contained ${disabledStatus}`} disabled={!!disabledStatus} type="button">Update Rule Order</button>
-        <button className="quill-button small primary contained" onClick={toggleAddRuleModal} type="button">{`Create New ${ruleType.label} Rule (Danger Zone!)`}</button>
-      </section>
-      <p className="sortable-instructions">Change the rule order note by drag and drop</p>
-      <DataTable
-        className="universal-rules-table"
-        defaultSortAttribute="title"
-        headers={dataTableFields}
-        isReorderable={true}
-        reorderCallback={sortCallback}
-        rows={renderUniversalRules()}
-      />
-    </div>
+      </div>
+    </React.Fragment>
   );
 }
 

@@ -4,7 +4,7 @@ FactoryBot.define do
     name { "Test Rule" }
     description { "This rule is a test" }
     universal { false }
-    rule_type { "Regex" }
+    rule_type { "plagiarism" }
     optimal { false }
     suborder { 1 }
     concept_uid { "ConceptUID" }

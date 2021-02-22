@@ -1,0 +1,36 @@
+#student-feedback-modal-component {
+  display: none;
+  .student-feedback-modal {
+    max-height: 90%;
+    overflow: scroll;
+    max-width: 560px;
+    border-radius: 6px;
+    background-color: #ffffff;
+    z-index: 100;
+    position: fixed;
+    top: 45%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 32px;
+    display: block;
+    .buttons {
+      display: flex;
+      justify-content: flex-end;
+    }
+    .quill-button {
+      margin-left: 20px;
+    }
+    h1 {
+      line-height: 1.57;
+      margin-bottom: 24px;
+      font-size: 16px;
+      font-weight: 800;
+    }
+    p {
+      line-height: 1.57;
+      color: #646464;
+      font-size: 14px;
+      margin-bottom: 32px;
+    }
+  }
+}

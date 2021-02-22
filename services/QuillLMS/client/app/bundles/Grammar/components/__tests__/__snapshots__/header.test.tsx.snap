@@ -1,21 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`<Header /> should render 1`] = `
-<Header
+<div
   className="header"
 >
-  <Row
-    align="middle"
-    gutter={0}
-    justify="space-between"
-    style={
-      Object {
-        "height": "100%",
-        "margin": "auto",
-        "maxWidth": "800px",
-      }
-    }
-    type="flex"
+  <div
+    className="activity-navbar-content"
   >
     <a
       className="focus-on-dark"
@@ -30,6 +20,6 @@ exports[`<Header /> should render 1`] = `
     >
       Save and exit
     </a>
-  </Row>
-</Header>
+  </div>
+</div>
 `;

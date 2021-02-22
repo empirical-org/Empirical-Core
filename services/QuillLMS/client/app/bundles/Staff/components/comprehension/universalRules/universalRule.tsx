@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { queryCache, useQuery } from 'react-query';
 import stripHtml from "string-strip-html";
 
+import Navigation from '../navigation'
 import RuleForm from '../configureRules/ruleForm';
 import SubmissionModal from '../shared/submissionModal';
 import { buildErrorMessage } from '../../../helpers/comprehension';
@@ -10,7 +11,7 @@ import { updateRule, deleteRule, fetchRule } from '../../../utils/comprehension/
 import { RuleInterface } from '../../../interfaces/comprehensionInterfaces';
 import { DataTable, Error, Modal, Spinner } from '../../../../Shared/index';
 
-const UniversalRule = ({ history, match }) => {
+const UniversalRule = ({ history, location, match }) => {
   const { params } = match;
   const { ruleId } = params;
   const [showDeleteRuleModal, setShowDeleteRuleModal] = React.useState<boolean>(false);
@@ -107,6 +108,7 @@ const UniversalRule = ({ history, match }) => {
         updatedErrors['delete error'] = error;
         setErrors(updatedErrors);
       }
+      queryCache.refetchQueries('universal-rules');
       toggleShowDeleteRuleModal();
 
       if(Object.keys(errors).length) {
@@ -179,28 +181,31 @@ const UniversalRule = ({ history, match }) => {
   }
 
   return(
-    <div className="universal-rule-container">
-      {showDeleteRuleModal && renderDeleteRuleModal()}
-      {showEditRuleModal && renderRuleForm()}
-      {showSubmissionModal && renderSubmissionModal()}
-      <div className="header-container">
-        <h2>Universal Rule</h2>
-        <Link className="return-link" to="/universal-rules">← Return to Universal Rules Index</Link>
+    <React.Fragment>
+      <Navigation location={location} match={match} />
+      <div className="universal-rule-container">
+        {showDeleteRuleModal && renderDeleteRuleModal()}
+        {showEditRuleModal && renderRuleForm()}
+        {showSubmissionModal && renderSubmissionModal()}
+        <div className="header-container">
+          <h2>Universal Rule</h2>
+          <Link className="return-link" to="/universal-rules">← Return to Universal Rules Index</Link>
+        </div>
+        <DataTable
+          className="universal-rule-table"
+          headers={dataTableFields}
+          rows={ruleRows(ruleData)}
+        />
+        <div className="button-container">
+          <button className="quill-button fun primary contained" id="edit-rule-button" onClick={toggleShowEditRuleModal} type="button">
+            Configure
+          </button>
+          <button className="quill-button fun primary contained" id="delete-rule-button" onClick={toggleShowDeleteRuleModal} type="button">
+            Delete
+          </button>
+        </div>
       </div>
-      <DataTable
-        className="universal-rule-table"
-        headers={dataTableFields}
-        rows={ruleRows(ruleData)}
-      />
-      <div className="button-container">
-        <button className="quill-button fun primary contained" id="edit-rule-button" onClick={toggleShowEditRuleModal} type="button">
-          Configure
-        </button>
-        <button className="quill-button fun primary contained" id="delete-rule-button" onClick={toggleShowDeleteRuleModal} type="button">
-          Delete
-        </button>
-      </div>
-    </div>
+    </React.Fragment>
   );
 }
 

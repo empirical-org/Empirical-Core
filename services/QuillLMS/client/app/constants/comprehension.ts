@@ -66,14 +66,14 @@ export const readingLevelOptions = [
 ];
 
 export const ruleTypeOptions = [
-  {"value":"Regex","label":"Regex"},
-  {"value":"Plagiarism","label":"Plagiarism"}
+  {"value":"rules_based","label":"Regex"},
+  {"value":"plagiarism","label":"Plagiarism"}
 ];
 
 export const universalRuleTypeOptions = [
-  {"value":"Grammar","label":"Grammar"},
-  {"value":"Opinion","label":"Opinion"},
-  {"value":"Spelling","label":"Spelling"}
+  {"value":"grammar","label":"Grammar"},
+  {"value":"opinion","label":"Opinion"},
+  {"value":"spelling","label":"Spelling"}
 ];
 
 export const ruleHighlightOptions = [

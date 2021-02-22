@@ -5,7 +5,7 @@ import Fuse from 'fuse.js'
 
 import { ChangeLog } from '../interfaces/interfaces'
 import ChangeLogTable from "../components/ChangeLogTable";
-import ChangeLogSearch from "../components/ChangeLogSearch";
+import Search from "../components/shared/search";
 import ConceptManagerNav from "../components/ConceptManagerNav";
 
 const conceptsChangeLogIndexQuery:string = `
@@ -92,8 +92,8 @@ class ConceptsChangeLog extends React.Component<any, ConceptsChangeLogState> {
             return (
               <div className="concepts-change-log-index">
                 <div className="concepts-change-log-index-top">
-                  <ChangeLogSearch
-                    changeLogs={this.filterChangeLog(data.concepts, this.state.searchValue)}
+                  <Search
+                    placeholder="Search by concept name or UID"
                     searchValue={this.state.searchValue}
                     updateSearchValue={this.updateSearchValue}
                   />
