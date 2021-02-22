@@ -33,6 +33,9 @@ class FeedbackComponent extends React.Component<any, any> {
         else if(data.getQuestion && data.getQuestion().instructions!=="") {
           return "getQuestion-instructions"
         }
+        else if (data.question.prompt.match(/___/g).length > 0) {
+          return "default-fill-in-blank"
+        }
         else if (data.getQuestion && data.getQuestion().cues && data.getQuestion().cues.length > 0 && data.getQuestion().cues[0] !== "") {
           return "default-with-cues"
         } else {
@@ -62,6 +65,9 @@ class FeedbackComponent extends React.Component<any, any> {
         break;
       case "getQuestion-instructions":
         returnVal = (<p>{data.getQuestion().instructions}</p>);
+        break;
+      case "default-fill-in-blank":
+        returnVal = (<p>Fill in the blank with the correct option.</p>);
         break;
       case "default-with-cues":
         returnVal = (<p>Combine the sentences using {data.listCuesAsString(data.getQuestion().cues)}</p>);
