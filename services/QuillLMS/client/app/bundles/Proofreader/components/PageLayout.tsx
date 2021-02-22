@@ -1,5 +1,4 @@
 import * as React from "react";
-import { Layout } from "antd";
 import Header from "./Header";
 import {renderRoutes} from "react-router-config";
 import { routes } from "../routes";
@@ -38,19 +37,17 @@ export default class PageLayout extends React.Component<any, { showFocusState: b
 
   render() {
     const { showFocusState, } = this.state
-    let className = "ant-layout "
-    className = showFocusState ? '' : 'hide-focus-outline'
+    let className = "ant-layout activity-container "
+    className += showFocusState ? '' : 'hide-focus-outline'
     const header = window.location.href.includes('play') ? <Header /> : null
     return (
-      <Layout className={className}>
-        <Layout>
-          <Layout.Content>
-            <button className="skip-main" onClick={this.handleSkipToMainContentClick} type="button">Skip to main content</button>
-            {header}
-            <div id="main-content" tabIndex={-1}>{renderRoutes(routes)}</div>
-          </Layout.Content>
-        </Layout>
-      </Layout>
+      <div className={className}>
+        <div className="page-content">
+          <button className="skip-main" onClick={this.handleSkipToMainContentClick} type="button">Skip to main content</button>
+          {header}
+          <div id="main-content" tabIndex={-1}>{renderRoutes(routes)}</div>
+        </div>
+      </div>
     );
   }
 };

@@ -3,7 +3,7 @@ import { Route, Switch, Link, } from 'react-router-dom';
 
 import RecordColumns from './recordColumns'
 import ChangeLogTable from './changeLogTable'
-import StandardSearch from './standardSearch'
+import Search from '../../shared/search'
 import StandardsTable from './standardsTable'
 import { STANDARD, STANDARD_CATEGORY, STANDARD_LEVEL,   } from './shared'
 
@@ -166,7 +166,7 @@ const Standards = ({ match, location, }) => {
   return (
     <div className="standards-manager">
       <Snackbar text="Changes saved" visible={showSnackbar} />
-      <StandardSearch updateSearchValue={setSearchValue} />
+      <Search placeholder="Search by standard name" searchValue={searchValue} updateSearchValue={setSearchValue} />
       <div className="cms-tabs">
         <Link className={activeLink ? '': 'active'} to={`${match.path}`}>Live</Link>
         <Link className={activeLink === NEW ? 'active': ''} to={`${match.path}/${NEW}`}>Add Standards</Link>

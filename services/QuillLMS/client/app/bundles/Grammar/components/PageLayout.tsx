@@ -1,5 +1,4 @@
 import * as React from "react";
-import { Layout } from "antd";
 import {renderRoutes} from "react-router-config";
 import { useQuery } from 'react-query';
 
@@ -63,7 +62,7 @@ export const PageLayout = () => {
 
   function renderContent (header: JSX.Element, showPreview: boolean) {
     return(
-      <Layout.Content style={{ height: '100vh', overflow: 'auto' }}>
+      <main style={{ height: '100vh', overflow: 'auto' }}>
         <button className="skip-main" onClick={handleSkipToMainContentClick} type="button">Skip to main content</button>
         {header}
         <div id="main-content" tabIndex={-1}>{renderRoutes(routes, {
@@ -73,13 +72,13 @@ export const PageLayout = () => {
           questionToPreview: questionToPreview,
           skippedToQuestionFromIntro: skippedToQuestionFromIntro
         })}</div>
-      </Layout.Content>
+      </main>
     );
   }
 
   const showPreview = previewShowing && isTeacherOrAdmin && isPlaying;
   let className = "ant-layout ";
-  className = showFocusState ? '' : 'hide-focus-outline';
+  className += showFocusState ? '' : 'hide-focus-outline';
   let header;
 
   if(isPlaying && isTeacherOrAdmin) {
@@ -89,13 +88,11 @@ export const PageLayout = () => {
   }
 
   return(
-    <Layout className={className}>
-      <Layout>
-        {showPreview && <Layout.Sider
-          breakpoint="md"
+    <div className={className}>
+      <div className="activity-container">
+        {showPreview && <aside
           className="sider-container"
-          collapsedWidth="0"
-          width={360}
+          style={{ height: '100vh', overflowY: 'auto', width: '360px' }}
         >
           <TeacherPreviewMenu
             onHandleSkipToQuestionFromIntro={handleSkipToQuestionFromIntro}
@@ -104,10 +101,10 @@ export const PageLayout = () => {
             questionToPreview={questionToPreview}
             showPreview={previewShowing}
           />
-        </Layout.Sider>}
+        </aside>}
         {renderContent(header, showPreview)}
-      </Layout>
-    </Layout>
+      </div>
+    </div>
   );
 }
 

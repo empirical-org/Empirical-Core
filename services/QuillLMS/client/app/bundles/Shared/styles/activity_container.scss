@@ -1,0 +1,14 @@
+.activity-container {
+  display: flex;
+  main {
+    flex: 1;
+  }
+  .activity-navbar-content {
+    height: 100%;
+    max-width: 800px;
+    margin: auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+}

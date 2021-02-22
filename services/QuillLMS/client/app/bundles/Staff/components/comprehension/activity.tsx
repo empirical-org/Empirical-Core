@@ -1,6 +1,7 @@
 import * as React from "react";
-import { NavLink, Redirect, Route, RouteComponentProps, Switch, withRouter } from 'react-router-dom';
+import { Redirect, Route, RouteComponentProps, Switch, withRouter } from 'react-router-dom';
 
+import Navigation from './navigation'
 import ActivitySettings from './configureSettings/activitySettings';
 import Rules from './configureRules/rules';
 import Rule from './configureRules/rule';
@@ -8,43 +9,11 @@ import TurkSessions from './gatherResponses/turkSessions';
 
 import { ActivityRouteProps } from '../../interfaces/comprehensionInterfaces';
 
-const Activity: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ match }) => {
+const Activity: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ match, location, }) => {
   const { params } = match;
-  const { activityId } = params;
-  return(
+  return(<React.Fragment>
+    <Navigation location={location} match={match} />
     <div className="activity-container">
-      <div className="tabs-container">
-        <NavLink activeClassName="is-active" to={`/activities/${activityId}/settings`}>
-          <div className="tab-option">
-            Configure Settings
-          </div>
-        </NavLink>
-        <NavLink activeClassName="is-active" to={`/activities/${activityId}/turk-sessions`}>
-          <div className="tab-option">
-            Gather Responses
-          </div>
-        </NavLink>
-        <NavLink activeClassName="is-active" to={`/activities/${activityId}/labeling`}>
-          <div className="tab-option">
-            Label Responses
-          </div>
-        </NavLink>
-        <NavLink activeClassName="is-active" to={`/activities/${activityId}/feedback`}>
-          <div className="tab-option">
-            Configure Feedback
-          </div>
-        </NavLink>
-        <NavLink activeClassName="is-active" to={`/activities/${activityId}/topic-model`}>
-          <div className="tab-option">
-            Train Models
-          </div>
-        </NavLink>
-        <NavLink activeClassName="is-active" to={`/activities/${activityId}/rules`}>
-          <div className="tab-option">
-            Configure Rules
-          </div>
-        </NavLink>
-      </div>
       <Switch>
         <Redirect exact from='/activities/:activityId' to='/activities/:activityId/settings' />
         <Route component={ActivitySettings} path='/activities/:activityId/settings' />
@@ -53,6 +22,6 @@ const Activity: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ match }) 
         <Route component={TurkSessions} path='/activities/:activityId/turk-sessions' />
       </Switch>
     </div>
-  );
+  </React.Fragment>);
 }
 export default withRouter(Activity)

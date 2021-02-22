@@ -346,4 +346,7 @@ export const handleApiError = (errorMessage: string, response: any) => {
   return error;
 }
 
-export const getCsrfToken = () => document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+export const getCsrfToken = () => {
+  const token = document.querySelector('meta[name="csrf-token"]')
+  if (token) { return token.getAttribute('content') }
+};
