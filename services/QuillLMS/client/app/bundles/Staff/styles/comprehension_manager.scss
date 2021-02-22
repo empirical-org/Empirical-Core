@@ -3,7 +3,7 @@
   border-bottom: 1px solid lightgray;
   overflow: auto;
   .left-side-menu {
-    width: 15vw;
+    width: 200px;
     height: 80vh;
     padding: 20px;
   }
@@ -107,7 +107,8 @@
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
-    width: 100%;
+    width: calc(100vw - 200px);
+    padding: 0px 20px;    
     .tabs-container {
       display: flex;
       width: 100%;
@@ -320,6 +321,8 @@
       }
     }
     .rules-table, .rule-table, .turk-sessions-table {
+      max-width: 100%;
+      overflow: scroll;
       .data-table-body{
         max-height: 500px;
         overflow: auto;
