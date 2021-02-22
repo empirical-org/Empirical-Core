@@ -30,7 +30,7 @@ module Comprehension
       begin
         Regexp.new(regex_text)
       rescue RegexpError => e
-        self.rule.errors.add(:errors, "Invalid regex: #{e}")
+        rule.errors.add(:errors, "Invalid regex: #{e}")
         false
       end
     end

@@ -102,8 +102,7 @@ module Comprehension
                 regex_text: '(invalid|',
                 case_sensitive: false
               }
-            ]
-          }
+            ]}
 
         parsed_response = JSON.parse(response.body)
 
