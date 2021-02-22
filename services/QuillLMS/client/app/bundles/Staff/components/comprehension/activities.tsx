@@ -2,11 +2,13 @@ import * as React from "react";
 import { Link } from 'react-router-dom';
 import { useQuery } from 'react-query';
 
+import Navigation from './navigation'
+
 import { ActivityInterface } from '../../interfaces/comprehensionInterfaces';
 import { fetchActivities } from '../../utils/comprehension/activityAPIs';
 import { DataTable, Error, Spinner } from '../../../Shared/index';
 
-const Activities = () => {
+const Activities = ({ location, match, }) => {
 
   // cache activity data for updates
   const { data } = useQuery("activities", fetchActivities);
@@ -40,7 +42,8 @@ const Activities = () => {
     { name: "Title", attribute:"title", width: "900px" }
   ];
 
-  return(
+  return(<React.Fragment>
+    <Navigation location={location} match={match} />
     <div className="activities-container">
       <DataTable
         className="activities-table"
@@ -49,7 +52,7 @@ const Activities = () => {
         rows={formattedRows ? formattedRows : []}
       />
     </div>
-  );
+  </React.Fragment>);
 }
 
 export default Activities
