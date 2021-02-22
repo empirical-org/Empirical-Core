@@ -5,6 +5,7 @@ import { requestPost } from '../../../modules/request/index.js';
 
 const StudentFeedbackModal = ({ question, gradeLevels, }) => {
   const [response, setResponse] = React.useState('')
+  const [submitting, setSubmitting] = React.useState(false)
 
   function updateResponse(e) {
     setResponse(e.target.value)
@@ -18,6 +19,9 @@ const StudentFeedbackModal = ({ question, gradeLevels, }) => {
 
   function handleClickSave(e) {
     e.preventDefault()
+    if (submitting) { return }
+
+    setSubmitting(true)
     requestPost('/student_feedback_responses', { student_feedback_response: { question, response, grade_levels: gradeLevels } }, () => {
       document.getElementById('student-feedback-modal-component').style.display = 'none'
       document.cookie = `student_feedback_banner_1_closed=1; path=/`;
@@ -27,7 +31,7 @@ const StudentFeedbackModal = ({ question, gradeLevels, }) => {
   }
 
   let saveButtonClass = 'quill-button contained primary medium focus-on-light';
-  if (!response.length) {
+  if (!response.length || submitting) {
     saveButtonClass += ' disabled';
   }
 
