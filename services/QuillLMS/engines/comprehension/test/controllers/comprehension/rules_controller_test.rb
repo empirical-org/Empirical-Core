@@ -94,6 +94,23 @@ module Comprehension
         assert_equal 0, Rule.count
       end
 
+      should "return an error if regex is invalid" do
+        post :create, rule: { concept_uid: @rule.uid, description: @rule.description, name: @rule.name, optimal: @rule.optimal, suborder: 1, rule_type: @rule.rule_type, universal: @rule.universal,
+          regex_rules_attributes:
+            [
+              {
+                regex_text: '(invalid|',
+                case_sensitive: false
+              }
+            ]
+          }
+
+        parsed_response = JSON.parse(response.body)
+
+        assert_equal 422, response.code.to_i
+        assert parsed_response['errors'][0].include?("Invalid regex")
+      end
+
       should "create a valid record with plagiarism_text attributes" do
         plagiarism_text = "Here is some text to be checked for plagiarism."
         post :create, rule: {
@@ -310,7 +327,7 @@ module Comprehension
         parsed_response = JSON.parse(response.body)
 
         assert_equal 422, response.code.to_i
-        assert parsed_response['rule'][0].include?("Invalid regex")
+        assert parsed_response['errors'][0].include?("Invalid regex")
       end
 
     end
