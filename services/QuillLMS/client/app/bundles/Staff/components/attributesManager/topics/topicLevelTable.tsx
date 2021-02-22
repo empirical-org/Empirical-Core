@@ -1,6 +1,8 @@
 import * as React from 'react';
-import { Table } from 'antd';
+import ReactTable from 'react-table';
 import moment from 'moment';
+
+import { getColumnWidth, } from '../../shared/getColumnWidth'
 
 interface TopicLevelTableProps {
   topics: Array<Topic>,
@@ -20,36 +22,39 @@ interface TopicRow {
   createdAt:number;
 }
 
-function columns(levelNumber, selectTopic, showExtraColumns) {
+function columns(levelNumber, selectTopic, showExtraColumns, data) {
+  const levelNumberColumnHeader = `Level ${levelNumber}`
+  const levelNumberColumnWidth = getColumnWidth('name', levelNumberColumnHeader, data)
   let sharedColumns = [
     {
-      title: `Level ${levelNumber}`,
-      dataIndex: 'name',
-      defaultSortOrder: 'ascend',
+      Header: levelNumberColumnHeader,
+      accessor: 'name',
       key: 'name',
-      render: (text, record:TopicRow) => (<button className="interactive-wrapper" onClick={() => selectTopic(record)}>{text}</button>),
-      sorter:  (a, b) => (a.name.localeCompare(b.name)),
+      Cell: (props) => (<button className="interactive-wrapper" onClick={() => selectTopic(props.original)}>{props.original.name}</button>),
+      sortType:  (a, b) => (a.name.localeCompare(b.name)),
+      minWidth: levelNumberColumnWidth
     }
   ]
 
   if (showExtraColumns) {
     sharedColumns = sharedColumns.concat([
       {
-        title: 'Activities',
-        dataIndex: 'activity_count',
+        Header: 'Activities',
+        accessor: 'activity_count',
         key: 'activities',
-        sorter:  (a, b) => (a.activity_count - b.activity_count),
+        sortType:  (a, b) => (a.activity_count - b.activity_count),
+        maxWidth: 120
       }
     ])
   }
 
   if (showExtraColumns && levelNumber === 0) {
     const createdAtColumn = {
-      title: 'Created At',
-      dataIndex: 'created_at',
+      Header: 'Created At',
+      accessor: 'created_at',
       key: 'created_at',
-      render: (text) => moment(text).format('M/D/YY'),
-      sorter:  (a, b) => (new Date(a.created_at) - new Date(b.created_at)),
+      Cell: (props) => moment(props.original.created_at).format('M/D/YY'),
+      sortType:  (a, b) => (new Date(a.created_at) - new Date(b.created_at)),
     }
     sharedColumns = sharedColumns.concat([createdAtColumn])
   }
@@ -60,13 +65,12 @@ function columns(levelNumber, selectTopic, showExtraColumns) {
 const TopicLevelTable: React.SFC<TopicLevelTableProps> = ({ topics, selectTopic, levelNumber, showExtraColumns }) => {
   const data = topics.filter(t => t.level === levelNumber);
   return (
-    <Table
-      bordered
+    <ReactTable
       className="topics-table"
-      columns={columns(levelNumber, selectTopic, showExtraColumns)}
-      dataSource={data}
-      pagination={false}
-      size="middle"
+      columns={columns(levelNumber, selectTopic, showExtraColumns, data)}
+      data={data}
+      defaultPageSize={data.length}
+      showPagination={false}
     />
   );
 };

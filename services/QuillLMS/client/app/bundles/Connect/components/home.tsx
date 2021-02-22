@@ -1,7 +1,6 @@
 import * as React from 'react';
 import { renderRoutes } from "react-router-config";
 import { useQuery } from 'react-query';
-import { Layout } from "antd";
 
 import { NavBar } from './navbar/navbar';
 
@@ -68,14 +67,11 @@ export const Home = () => {
     header = <NavBar />;
   }
   return(
-    <Layout className={className}>
-      <Layout>
-        {showPreview && <Layout.Sider
-          breakpoint="md"
+    <div className={className}>
+      <div className="activity-container">
+        {showPreview && <aside
           className="sider-container"
-          collapsedWidth="0"
-          style={{ height: '100vh', overflowY: 'auto' }}
-          width={360}
+          style={{ height: '100vh', overflowY: 'auto', width: '360px' }}
         >
           <TeacherPreviewMenu
             onHandleSkipToQuestionFromIntro={handleSkipToQuestionFromIntro}
@@ -84,8 +80,8 @@ export const Home = () => {
             questionToPreview={questionToPreview}
             showPreview={previewShowing}
           />
-        </Layout.Sider>}
-        <Layout.Content style={{ height: '100vh', overflow: 'auto' }}>
+        </aside>}
+        <main style={{ height: '100vh', overflow: 'auto' }}>
           <button className="skip-main" onClick={handleSkipToMainContentClick} type="button">Skip to main content</button>
           {header}
           <div id="main-content" tabIndex={-1}>{renderRoutes(routes, {
@@ -95,9 +91,9 @@ export const Home = () => {
             questionToPreview: questionToPreview,
             skippedToQuestionFromIntro: skippedToQuestionFromIntro
           })}</div>
-        </Layout.Content>
-      </Layout>
-    </Layout>
+        </main>
+      </div>
+    </div>
   );
 }
 

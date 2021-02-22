@@ -1,6 +1,5 @@
 import * as React from "react";
 import { connect } from 'react-redux';
-import { Layout, Row } from "antd";
 
 import { LanguageOptions } from '../shared/languageOptions';
 import { closeLanguageMenu } from '../../actions/diagnostics'
@@ -24,31 +23,31 @@ export const TeacherNavbar = ({ dispatch, diagnosticID, languageMenuOpen, previe
 
   if(!languageMenuOpen) {
     return (
-      <Layout.Header className="header">
-        <Row align="middle" gutter={0} justify="space-between" style={{height: '100%', maxWidth: '800px', margin: 'auto'}} type="flex">
+      <div className="header">
+        <div className="activity-navbar-content">
           {!previewShowing && <button className="quill-button medium secondary outlined focus-on-dark" onClick={handleTogglePreview} type="button">Show menu</button>}
           {LogoComponent}
           <a className="focus-on-dark" href={process.env.DEFAULT_URL}>Save and exit</a>
-        </Row>
-      </Layout.Header>
+        </div>
+      </div>
     );
   }
   return (
-    <Layout.Header className="header">
-      <Row align="middle" gutter={0} justify="space-between" style={{height: '100%', maxWidth: '800px', margin: 'auto'}} type="flex">
+    <div className="header">
+      <div className="activity-navbar-content">
         {LogoComponent}
         <button className="focus-on-dark" onClick={handleClickClose} type="button">
           <img alt="Close icon" src={closeSrc} />
           <span>Close</span>
         </button>
-      </Row>
-      <Row align="middle" gutter={0} justify="space-between" style={{height: '100%', maxWidth: '800px', margin: 'auto'}} type="flex">
+      </div>
+      <div className="activity-navbar-content">
         <div className="mobile-student-language-menu">
           <h2>Choose a directions language</h2>
           <LanguageOptions diagnosticID={diagnosticID} dispatch={dispatch} />
         </div>
-      </Row>
-    </Layout.Header>
+      </div>
+    </div>
   );
 };
 

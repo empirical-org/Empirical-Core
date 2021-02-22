@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { Table } from 'antd';
+import ReactTable from 'react-table';
 import moment from 'moment';
 
 import RecordBox from './recordBox'
@@ -10,28 +10,28 @@ import { momentFormatConstants } from '../../../../Shared/index'
 
 function columns(selectRecord, visible) {
   const sharedColumn = {
-    title: 'Content Partner',
-    dataIndex: 'name',
+    Header: 'Content Partner',
+    accessor: 'name',
     defaultSortOrder: 'ascend',
     key: 'name',
-    render: (text, record) => (<button className="interactive-wrapper" onClick={() => selectRecord(record.id)}>{text}</button>),
-    sorter: (a, b) => a.name.localeCompare(b.name)
+    Cell: (props) => (<button className="interactive-wrapper" onClick={() => selectRecord(props.original.id)}>{props.original.name}</button>),
+    sortType: (a, b) => a.name.localeCompare(b.name)
   }
   if (visible) {
     return [
       sharedColumn,
       {
-        title: 'Activities',
-        dataIndex: 'activity_count',
+        Header: 'Activities',
+        accessor: 'activity_count',
         key: 'activity_count',
-        sorter:  (a, b) => (a.activity_count - b.activity_count)
+        sortType:  (a, b) => (a.activity_count - b.activity_count)
       },
       {
-        title: 'Created At',
-        dataIndex: 'created_at',
+        Header: 'Created At',
+        accessor: 'created_at',
         key: 'created_at',
-        render: (text) => moment(text).format(momentFormatConstants.MONTH_DAY_YEAR),
-        sorter:  (a, b) => (new Date(a.created_at) - new Date(b.created_at)),
+        Cell: (props) => moment(props.original.created_at).format(momentFormatConstants.MONTH_DAY_YEAR),
+        sortType:  (a, b) => (new Date(a.created_at) - new Date(b.created_at)),
       }
     ]
   }
@@ -39,11 +39,11 @@ function columns(selectRecord, visible) {
   return [
     sharedColumn,
     {
-      title: 'Archived At',
-      dataIndex: 'updated_at',
+      Header: 'Archived At',
+      accessor: 'updated_at',
       key: 'updated_at',
-      render: (text) => moment(text).format(momentFormatConstants.MONTH_DAY_YEAR),
-      sorter:  (a, b) => (new Date(a.updated_at) - new Date(b.updated_at)),
+      Cell: (props) => moment(props.original.updated_at).format(momentFormatConstants.MONTH_DAY_YEAR),
+      sortType:  (a, b) => (new Date(a.updated_at) - new Date(b.updated_at)),
     }
   ]
 }
@@ -78,14 +78,12 @@ const ContentPartnersTable = ({ visible, contentPartners, saveContentPartnerChan
   />)
 
   return (<div className="content-partner-columns">
-    <Table
-      bordered
+    <ReactTable
       className="records-table"
       columns={columns(selectRecord, visible)}
-      dataSource={filteredRecords}
-      pagination={false}
-      showSorterTooltip={false}
-      size="middle"
+      data={filteredRecords}
+      defaultPageSize={filteredRecords.length}
+      showPagination={false}
     />
     <div className="record-box-container">
       {recordBox}
