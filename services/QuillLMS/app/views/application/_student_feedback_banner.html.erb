@@ -1,0 +1,34 @@
+<%# IMPORTANT! If you are making a substantive change to this question, such that it should be considered a new question and shown to students who have already answered the question in its previous form, please increment the number after `student_feedback_banner` in the name of the cookie, both in this file and in the sessions controller. Example: `student_feedback_banner_1_closed` should become `student_feedback_banner_2_closed` %>
+<% question_text = "What’s a part of your culture, upbringing, or background you’d like your classmates to learn more about in a Quill activity?" %>
+<% number_of_completed_activity_sessions = current_user&.activity_sessions&.completed&.length || 0 %>
+
+<% if current_user&.student? && number_of_completed_activity_sessions > 4 %>
+  <div class="banner" id="student-feedback-banner">
+    <div class="content-container">
+      <img alt="Person raising their hand up icon" class="banner-icon" src=<%= "#{ENV['CDN_URL']}/images/icons/person-greeting.svg" %>>
+      <p><%= question_text %> <button class="interactive-wrapper" id="show-modal-button">Answer now</button></p>
+      <img alt="White X" id="close-banner" src=<%= "#{ENV['CDN_URL']}/images/icons/close-white.svg" %>>
+    </div>
+  </div>
+
+  <%= react_component('StudentFeedbackModal', props: { question: question_text, gradeLevels: current_user&.classrooms&.pluck(:grade)&.uniq }) %>
+
+  <script>
+    window.addEventListener('load', function(e) {
+      if (document.cookie.indexOf('student_feedback_banner_1_closed=1') === -1) {
+        document.getElementById('student-feedback-banner').style.display = 'block';
+      }
+    });
+
+    document.getElementById('close-banner').addEventListener('click', function(e) {
+        e.preventDefault();
+        document.getElementById('student-feedback-banner').style.display = 'none';
+        document.cookie = `student_feedback_banner_1_closed=1; path=/`;
+    }, false);
+
+    document.getElementById('show-modal-button').addEventListener('click', function(e) {
+        e.preventDefault();
+        document.getElementById('student-feedback-modal-component').style.display = 'block';
+    }, false);
+  </script>
+<% end %>
