@@ -26,7 +26,7 @@ class FeedbackComponent extends React.Component<any, any> {
         else if (data.getQuestion && data.getQuestion().instructions !== "") {
           return "getQuestion-instructions"
         }
-        else if (data.question.prompt.match(/___/g).length > 0) {
+        else if (data.question.prompt.match(/___/g) && data.question.prompt.match(/___/g).length > 0) {
           return "default-fill-in-blank"
         }
         else if (data.getQuestion && data.getQuestion().cues && data.getQuestion().cues.length > 0 && data.getQuestion().cues[0] !== "") {
