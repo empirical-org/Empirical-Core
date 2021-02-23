@@ -1,6 +1,9 @@
 import React from 'react'
 import request from 'request'
 import {CSVDownload, CSVLink} from 'react-csv'
+import _ from 'underscore'
+import queryString from 'query-string';
+
 import CSVDownloadForProgressReport from './csv_download_for_progress_report.jsx'
 import ReactTable from 'react-table'
 import 'react-table/react-table.css'
@@ -9,8 +12,6 @@ import LoadingSpinner from '../shared/loading_indicator.jsx'
 import {sortByLastName, sortFromSQLTimeStamp} from '../../../../modules/sortingMethods.js'
 import moment from 'moment'
 import EmptyStateForReport from './empty_state_for_report'
-
-import _ from 'underscore'
 
 const showAllClassroomKey = 'All Classrooms'
 
@@ -34,7 +35,15 @@ export default class extends React.Component {
       // gets unique classroom names
       const classroomNames = Array.from(new Set(classroomsData.map(row => row.classroom_name)))
       classroomNames.unshift(showAllClassroomKey)
-      that.setState({loading: false, errors: body.errors, classroomsData, classroomNames});
+
+      const newState = {loading: false, errors: body.errors, classroomsData, classroomNames}
+      const selectedClassroomId = queryString.parse(window.location.search).classroom_id
+
+      if (selectedClassroomId) {
+        const selectedClassroom = classroomsData.find(c => Number(c.classroom_id) === Number(selectedClassroomId))
+        newState.selectedClassroom = selectedClassroom.classroom_name || showAllClassroomKey
+      }
+      that.setState(newState);
     });
   }
 
@@ -120,6 +129,13 @@ export default class extends React.Component {
   }
 
   switchClassrooms = classroom => {
+    const { classroomsData, } = this.state
+    const classroomRecord = classroomsData.find(c => c.classroom_name === classroom)
+    if (classroomRecord) {
+      window.history.pushState({}, '', `${window.location.pathname}?classroom_id=${classroomRecord.classroom_id}`);
+    } else {
+      window.history.pushState({}, '', window.location.pathname);
+    }
     this.setState({selectedClassroom: classroom})
   };
 
