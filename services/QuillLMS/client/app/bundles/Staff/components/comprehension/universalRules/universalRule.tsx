@@ -1,30 +1,23 @@
 import * as React from "react";
+import { Link } from 'react-router-dom';
 import { queryCache, useQuery } from 'react-query';
 import stripHtml from "string-strip-html";
 
-import RuleForm from './ruleForm';
-
-import { buildErrorMessage, getPromptsIcons } from '../../../helpers/comprehension';
-import { BECAUSE, BUT, SO } from '../../../../../constants/comprehension';
+import Navigation from '../navigation'
+import RuleForm from '../configureRules/ruleForm';
+import SubmissionModal from '../shared/submissionModal';
+import { buildErrorMessage } from '../../../helpers/comprehension';
 import { updateRule, deleteRule, fetchRule } from '../../../utils/comprehension/ruleAPIs';
 import { RuleInterface } from '../../../interfaces/comprehensionInterfaces';
-import { fetchActivity } from '../../../utils/comprehension/activityAPIs';
-import SubmissionModal from '../shared/submissionModal';
 import { DataTable, Error, Modal, Spinner } from '../../../../Shared/index';
 
-const Rule = ({ history, match }) => {
+const UniversalRule = ({ history, location, match }) => {
   const { params } = match;
-  const { activityId, ruleId } = params;
+  const { ruleId } = params;
   const [showDeleteRuleModal, setShowDeleteRuleModal] = React.useState<boolean>(false);
   const [showEditRuleModal, setShowEditRuleModal] = React.useState<boolean>(false);
   const [showSubmissionModal, setShowSubmissionModal] = React.useState<boolean>(false);
   const [errors, setErrors] = React.useState<object>({});
-
-  // get cached activity data to pass to ruleForm
-  const { data: activityData } = useQuery({
-    queryKey: [`activity-${activityId}`, activityId],
-    queryFn: fetchActivity
-  });
 
   // cache rule data
   const { data: ruleData } = useQuery({
@@ -44,22 +37,14 @@ const Rule = ({ history, match }) => {
     setShowSubmissionModal(!showSubmissionModal);
   }
 
-  function handleAttributesFields(feedbacks, plagiarism_text) {
-    let attributesArray = [];
-    if(plagiarism_text && plagiarism_text.text) {
-      attributesArray = [{
-        label: 'Plagiarism Text',
-        value: stripHtml(plagiarism_text.text)
-      }];
-    }
-    const feedbacksArray = feedbacks.map((feedback, i) => {
+  function handleAttributesFields(feedbacks) {
+    return feedbacks.map((feedback, i) => {
       const { text } = feedback;
       return {
         label: `Feedback ${i + 1}`,
         value: stripHtml(text)
       }
     });
-    return attributesArray.concat(feedbacksArray);
   }
 
   const ruleRows = ({ rule }) => {
@@ -67,9 +52,8 @@ const Rule = ({ history, match }) => {
       return [];
     } else {
       // format for DataTable to display labels on left side and values on right
-      const { description, feedbacks, name, prompt_ids, rule_type, plagiarism_text } = rule;
-      const promptsIcons = getPromptsIcons(activityData, prompt_ids);
-      const attributesFields = handleAttributesFields(feedbacks, plagiarism_text);
+      const { feedbacks, name, rule_type, description, suborder, } = rule;
+      const attributesFields = handleAttributesFields(feedbacks);
       const firstFields = [
         {
           label: 'Type',
@@ -81,24 +65,14 @@ const Rule = ({ history, match }) => {
         },
         {
           label: 'Description',
-          value: description ? stripHtml(description) : ''
-        }
-      ];
-      const lastFields = [
-        {
-          label: "Because",
-          value: promptsIcons ? promptsIcons[BECAUSE] : null
+          value: description && stripHtml(description)
         },
         {
-          label: "But",
-          value: promptsIcons ? promptsIcons[BUT] : null
-        },
-        {
-          label: "So",
-          value: promptsIcons ? promptsIcons[SO] : null
+          label: 'Order',
+          value: suborder
         },
       ];
-      const fields = firstFields.concat(attributesFields).concat(lastFields);
+      const fields = firstFields.concat(attributesFields);
       return fields.map((field, i) => {
         const { label, value } = field
         return {
@@ -118,8 +92,9 @@ const Rule = ({ history, match }) => {
         updatedErrors['update error'] = error;
         setErrors(updatedErrors);
       }
-      // update rule cache to display newly updated rule
+      // update rule caches to display newly updated rule
       queryCache.refetchQueries(`rule-${ruleId}`);
+      queryCache.refetchQueries('universal-rules');
     });
 
     toggleShowEditRuleModal();
@@ -134,14 +109,16 @@ const Rule = ({ history, match }) => {
         updatedErrors['delete error'] = error;
         setErrors(updatedErrors);
       }
+      queryCache.refetchQueries('universal-rules');
       toggleShowDeleteRuleModal();
 
       if(Object.keys(errors).length) {
         toggleSubmissionModal();
       } else {
-        // update ruleSets cache to remove delete ruleSet
-        queryCache.refetchQueries(`rules-${activityId}`);
-        history.push(`/activities/${activityId}/rules`);
+        history.push({
+          pathname: '/universal-rules',
+          state: 'rule-deleted'
+        });
       }
     });
   }
@@ -150,10 +127,8 @@ const Rule = ({ history, match }) => {
     return(
       <Modal>
         <RuleForm
-          activityData={activityData && activityData.activity}
-          activityId={activityId}
           closeModal={toggleShowEditRuleModal}
-          isUniversal={false}
+          isUniversal={true}
           rule={ruleData && ruleData.rule}
           submitRule={handleSubmitRule}
         />
@@ -195,9 +170,12 @@ const Rule = ({ history, match }) => {
 
   if(!ruleData) {
     return(
-      <div className="loading-spinner-container">
-        <Spinner />
-      </div>
+      <React.Fragment>
+        <Navigation location={location} match={match} />
+        <div className="loading-spinner-container">
+          <Spinner />
+        </div>
+      </React.Fragment>
     );
   }
 
@@ -210,28 +188,32 @@ const Rule = ({ history, match }) => {
   }
 
   return(
-    <div className="rule-container">
-      {showDeleteRuleModal && renderDeleteRuleModal()}
-      {showEditRuleModal && renderRuleForm()}
-      {showSubmissionModal && renderSubmissionModal()}
-      <div className="header-container">
-        <p>Rule</p>
+    <React.Fragment>
+      <Navigation location={location} match={match} />
+      <div className="universal-rule-container">
+        {showDeleteRuleModal && renderDeleteRuleModal()}
+        {showEditRuleModal && renderRuleForm()}
+        {showSubmissionModal && renderSubmissionModal()}
+        <div className="header-container">
+          <h2>Universal Rule</h2>
+          <Link to={{ pathname: "/universal-rules", state: 'returned-to-index' }}>← Return to Universal Rules Index</Link>
+        </div>
+        <DataTable
+          className="universal-rule-table"
+          headers={dataTableFields}
+          rows={ruleRows(ruleData)}
+        />
+        <div className="button-container">
+          <button className="quill-button fun primary contained" id="edit-rule-button" onClick={toggleShowEditRuleModal} type="button">
+            Configure
+          </button>
+          <button className="quill-button fun primary contained" id="delete-rule-button" onClick={toggleShowDeleteRuleModal} type="button">
+            Delete
+          </button>
+        </div>
       </div>
-      <DataTable
-        className="rule-table"
-        headers={dataTableFields}
-        rows={ruleRows(ruleData)}
-      />
-      <div className="button-container">
-        <button className="quill-button fun primary contained" id="edit-rule-button" onClick={toggleShowEditRuleModal} type="button">
-          Configure
-        </button>
-        <button className="quill-button fun primary contained" id="delete-rule-button" onClick={toggleShowDeleteRuleModal} type="button">
-          Delete
-        </button>
-      </div>
-    </div>
+    </React.Fragment>
   );
 }
 
-export default Rule
+export default UniversalRule;
