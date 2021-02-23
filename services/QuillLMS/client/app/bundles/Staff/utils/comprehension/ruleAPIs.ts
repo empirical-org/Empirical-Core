@@ -13,8 +13,8 @@ export const fetchRules = async (key: string, activityId: string) => {
 export const fetchUniversalRules = async (key: string) => {
   const response = await apiFetch(`rules`);
   let universalRules = await response.json();
-  if(universalRules.length) {
-    universalRules = universalRules.filter((rule: RuleInterface) => rule.universal);
+  if(universalRules.rules && universalRules.rules.length) {
+    universalRules = universalRules.rules.filter((rule: RuleInterface) => rule.universal);
   }
   return {
     error: handleApiError('Failed to fetch universal rules, please refresh the page.', response),

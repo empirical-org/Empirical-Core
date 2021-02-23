@@ -1,6 +1,10 @@
+import * as React from "react";
+import { EditorState, ContentState } from 'draft-js';
+
 import { validateForm } from '../comprehension';
 import { InputEvent, DropdownObjectInterface } from '../../interfaces/comprehensionInterfaces';
-import { ruleTypeOptions, universalRuleTypeOptions, ruleHighlightOptions } from '../../../../constants/comprehension';
+import { ruleTypeOptions, universalRuleTypeOptions, ruleHighlightOptions, numericalWordOptions } from '../../../../constants/comprehension';
+import { TextEditor, DropdownInput } from '../../../Shared/index';
 
 export function handleSetRuleType(ruleType: DropdownObjectInterface, setRuleType) { setRuleType(ruleType) };
 
@@ -114,21 +118,21 @@ export function handleDeleteRegexRule({ e, regexRules, rulesToDelete, setRulesTo
   setRegexRules(updatedRules);
 }
 
-export function handleSetUniversalFeedback({
+export function handleSetFeedback({
     text,
-    universalFeedback,
-    setUniversalFeedback,
+    feedback,
+    setFeedback,
     updateType,
     feedbackIndex,
     highlightIndex
 }) {
-  const updatedFeedback = [...universalFeedback];
+  const updatedFeedback = [...feedback];
   if(updateType === 'feedback') {
     updatedFeedback[feedbackIndex].text = text;
-    setUniversalFeedback(updatedFeedback);
+    setFeedback(updatedFeedback);
   } else if(updateType === 'highlight text') {
     updatedFeedback[feedbackIndex].highlights_attributes[highlightIndex].text = text;
-    setUniversalFeedback(updatedFeedback);
+    setFeedback(updatedFeedback);
   } else if(updateType === 'highlight addition') {
     updatedFeedback[feedbackIndex].highlights_attributes.push({ text: '' });
   } else if(updateType === 'highlight type') {
@@ -136,11 +140,47 @@ export function handleSetUniversalFeedback({
   } else if(updateType === 'feedback layer addition') {
     updatedFeedback.push({
       text: '',
-      order: universalFeedback.length,
+      order: feedback.length,
       highlights_attributes: []
     });
   }
-  setUniversalFeedback(updatedFeedback);
+  setFeedback(updatedFeedback);
+}
+
+export function renderHighlights(highlights, i, changeHandler) {
+  return highlights.map((highlight, j) => {
+    let highlightTypeValue = ruleHighlightOptions[0];
+    // this is an update for existing rule, convert to object for DropdownInput value
+    if(highlight.highlight_type && typeof highlight.highlight_type === 'string') {
+      const { highlight_type } = highlight;
+      highlightTypeValue = { label: highlight_type, value: highlight_type };
+    } else if(highlight.highlight_type && highlight.highlight_type.value) {
+      const { highlight_type } = highlight;
+      highlightTypeValue = highlight_type;
+    }
+    return(
+      <section className="rule-highlight-section" key={j}>
+        <p className="form-subsection-label">{`${numericalWordOptions[i]} Revision - ${numericalWordOptions[j]} Highlight`}</p>
+        <DropdownInput
+          className='rule-type-input'
+          // eslint-disable-next-line
+          handleChange={(e) => changeHandler(e, i, j, 'highlight type')}
+          isSearchable={true}
+          label="Optimal?"
+          options={ruleHighlightOptions}
+          value={highlightTypeValue}
+        />
+        <TextEditor
+          ContentState={ContentState}
+          EditorState={EditorState}
+          // eslint-disable-next-line
+          handleTextChange={(text) => changeHandler(text, i, j, 'highlight text')}
+          key="universal-feedback-highlight"
+          text={highlight.text}
+        />
+      </section>
+    );
+  });
 }
 
 export function getInitialRuleType({ isUniversal, rule_type, universalRuleType }) {

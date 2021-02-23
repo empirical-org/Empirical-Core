@@ -79,8 +79,8 @@ export interface RuleInterface {
     case_sensitive: boolean
   }[]
   feedbacks?: {
-    id: number,
-    rule_id: number,
+    id?: number,
+    rule_id?: number,
     text: string,
     description?: string,
     order: number,

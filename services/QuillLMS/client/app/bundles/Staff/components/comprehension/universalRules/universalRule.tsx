@@ -92,8 +92,9 @@ const UniversalRule = ({ history, location, match }) => {
         updatedErrors['update error'] = error;
         setErrors(updatedErrors);
       }
-      // update rule cache to display newly updated rule
+      // update rule caches to display newly updated rule
       queryCache.refetchQueries(`rule-${ruleId}`);
+      queryCache.refetchQueries('universal-rules');
     });
 
     toggleShowEditRuleModal();
@@ -114,7 +115,10 @@ const UniversalRule = ({ history, location, match }) => {
       if(Object.keys(errors).length) {
         toggleSubmissionModal();
       } else {
-        history.push(`/universal-rules`);
+        history.push({
+          pathname: '/universal-rules',
+          state: 'rule-deleted'
+        });
       }
     });
   }
@@ -166,9 +170,12 @@ const UniversalRule = ({ history, location, match }) => {
 
   if(!ruleData) {
     return(
-      <div className="loading-spinner-container">
-        <Spinner />
-      </div>
+      <React.Fragment>
+        <Navigation location={location} match={match} />
+        <div className="loading-spinner-container">
+          <Spinner />
+        </div>
+      </React.Fragment>
     );
   }
 
@@ -189,7 +196,7 @@ const UniversalRule = ({ history, location, match }) => {
         {showSubmissionModal && renderSubmissionModal()}
         <div className="header-container">
           <h2>Universal Rule</h2>
-          <Link className="return-link" to="/universal-rules">← Return to Universal Rules Index</Link>
+          <Link to={{ pathname: "/universal-rules", state: 'returned-to-index' }}>← Return to Universal Rules Index</Link>
         </div>
         <DataTable
           className="universal-rule-table"

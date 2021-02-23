@@ -17,6 +17,7 @@ const UniversalRulesIndex = ({ location, match }) => {
   const [rulesHash, setRulesHash] = React.useState<object>({});
   const [rulesList, setRulesList] = React.useState<any[]>([]);
   const [ruleOrderUpdated, setRuleOrderUpdated] = React.useState<boolean>(false);
+  const [rulesUpdated, setRulesUpdated] = React.useState<boolean>(false);
   const [showAddRuleModal, setShowAddRuleModal] = React.useState<boolean>(false);
   const [showSubmissionModal, setShowSubmissionModal] = React.useState<boolean>(false);
   const [errors, setErrors] = React.useState<object>({});
@@ -24,9 +25,14 @@ const UniversalRulesIndex = ({ location, match }) => {
   // cache ruleSets data for handling universal rule suborder
   const { data: rules } = useQuery("universal-rules", fetchUniversalRules);
 
-  if(rules && rules.universalRules && rules.universalRules.length && !Object.keys(rulesHash).length) {
+  if(rules && rules.universalRules && !Object.keys(rulesHash).length && !rulesList) {
     setRulesHashAndList();
   }
+
+  if((location && (location.state === 'returned-to-index' || location.state === 'rule-deleted')) && !rulesUpdated) {
+    handleUpdateRulesList(null);
+  }
+
 
   React.useEffect(() => {
     handleUpdateRulesList(null);
@@ -34,10 +40,11 @@ const UniversalRulesIndex = ({ location, match }) => {
   }, [ruleType]);
 
   function handleUpdateRulesList(rule) {
-    const updatedRulesList = rules && rules.universalRules && rules.universalRules.filter(rule => rule.rule_type === ruleType.value);
+    const updatedRulesList = rules && rules.universalRules && rules.universalRules.length && rules.universalRules.filter(rule => rule.rule_type === ruleType.value);
     if(rule) {
       updatedRulesList.push(rule);
     }
+    setRulesUpdated(true);
     setRulesList(updatedRulesList);
   }
 
@@ -63,7 +70,7 @@ const UniversalRulesIndex = ({ location, match }) => {
   }
 
   function renderUniversalRules() {
-    const list = rulesList.map(rule => {
+    const list = rulesList && rulesList.length && rulesList.map(rule => {
       const { rule_type, name, suborder, uid, id } = rule;
       const universalRuleLink = (<Link to={`/universal-rules/${id}`}>View</Link>);
       return {
@@ -75,7 +82,7 @@ const UniversalRulesIndex = ({ location, match }) => {
         view: universalRuleLink
       }
     });
-    return list;
+    return list || [];
   }
 
   const submitRule = ({rule}: {rule: RuleInterface}) => {
@@ -118,18 +125,21 @@ const UniversalRulesIndex = ({ location, match }) => {
   }
 
   const renderSubmissionModal = () => {
-    let message = 'Rule set successfully created!';
+    let message = 'Universal rule successfully created!';
     if(Object.keys(errors).length) {
       message = buildErrorMessage(errors);
     }
     return <SubmissionModal close={toggleSubmissionModal} message={message} />;
   }
 
-  if(!rules || rules && rules.universalRules && rules.universalRules.length && !Object.keys(rulesHash).length) {
+  if(!rules || rules && rules.universalRules && rules.universalRules.length && !Object.keys(rulesHash).length && rulesList && !rulesList.length) {
     return(
-      <div className="loading-spinner-container">
-        <Spinner />
-      </div>
+      <React.Fragment>
+        <Navigation location={location} match={match} />
+        <div className="loading-spinner-container">
+          <Spinner />
+        </div>
+      </React.Fragment>
     );
   }
 
