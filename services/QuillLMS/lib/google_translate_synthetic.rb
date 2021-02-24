@@ -55,17 +55,17 @@ class GoogleTranslateSynthetic
     end
   end
 
-  # input file is a csv with two columsn and no: text, label
+  # input file is a csv with two columns and no header: text, label
   # pass in file paths, e.g. /Users/yourname/Desktop/
-  def self.generate_from_file(input_file_path, output_file_path)
+  def self.generate_from_file(input_file_path, output_file_path, languages: DEFAULT_LANGUAGES.keys)
     texts_and_labels = CSV.open(input_file_path).to_a
 
-    synthetics = GoogleTranslateSynthetic.new(texts_and_labels)
+    synthetics = GoogleTranslateSynthetic.new(texts_and_labels, languages: languages)
 
     synthetics.fetch_results
 
     CSV.open(output_file_path, "w") do |csv|
-      csv << ['Text', 'Label', 'Original', 'Changed?', 'Language',]
+      csv << ['Text', 'Label', 'Original', 'Changed?', 'Language']
       synthetics.results.each do |result|
           csv << [result.original, result.label,'','', 'original']
         result.translations.each do |language, new_text|
