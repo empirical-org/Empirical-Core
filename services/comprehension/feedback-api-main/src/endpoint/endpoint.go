@@ -19,7 +19,9 @@ const (
 	grammar_check_api = "https://grammar-api.ue.r.appspot.com"
 	opinion_check_api = "https://opinion-api.ue.r.appspot.com/"
 	plagiarism_api = "https://www.quill.org/api/v1/comprehension/feedback/plagiarism.json"
-	regex_rules_api = "https://www.quill.org/api/v1/comprehension/feedback/regex.json"
+	sentence_structure_regex_api = "https://www.quill.org/api/v1/comprehension/feedback/regex/rules-based-1.json"
+	post_topic_regex_api = "https://www.quill.org/api/v1/comprehension/feedback/regex/rules-based-2.json"
+	typo_regex_api = "https://www.quill.org/api/v1/comprehension/feedback/regex/rules-based-3.json"
 	spell_check_local = "https://us-central1-comprehension-247816.cloudfunctions.net/spell-check-cloud-function"
 	spell_check_bing = "https://us-central1-comprehension-247816.cloudfunctions.net/bing-API-spell-check"
 	batch_feedback_history_url = "https://www.quill.org/api/v1/feedback_histories/batch.json"
@@ -29,12 +31,14 @@ const (
 var wg sync.WaitGroup
 
 var urls = [...]string{
+	sentence_structure_regex_api,
 	opinion_check_api,
 	plagiarism_api,
 	automl_api,
-	regex_rules_api,
+	post_topic_regex_api,
 	grammar_check_api,
 	spell_check_bing,
+	typo_regex_api
 }
 
 // you can't use const for structs, so this is the closest thing we can get for this value
