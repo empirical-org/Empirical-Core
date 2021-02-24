@@ -56,7 +56,7 @@ class GoogleTranslateSynthetic
   end
 
   # input file is a csv with two columsn and no: text, label
-  # pass in a file path, e.g. /Users/yourname/Desktop/
+  # pass in file paths, e.g. /Users/yourname/Desktop/
   def self.generate_from_file(input_file_path, output_file_path)
     texts_and_labels = CSV.open(input_file_path).to_a
 
