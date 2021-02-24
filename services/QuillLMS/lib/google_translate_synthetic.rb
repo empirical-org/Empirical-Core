@@ -5,7 +5,7 @@ require "google/cloud/translate"
 
 class GoogleTranslateSynthetic
 
-  Synthetic = Struct.new(:text, :label, :results, keyword_init: true)
+  SyntheticResult = Struct.new(:original, :label, :translations, keyword_init: true)
 
   # NB, there is a V3, but that throws errors with our current Google Integration
   TRANSLATOR = Google::Cloud::Translate.new(version: :v2)
@@ -27,12 +27,12 @@ class GoogleTranslateSynthetic
   # Throttling to 100 sentences at a time.
   BATCH_SIZE = 100
 
-  attr_reader :synthetics, :languages
+  attr_reader :results, :languages
 
   def initialize(texts_and_labels, languages: DEFAULT_LANGUAGES.keys)
     @languages = languages
-    @synthetics = texts_and_labels.map do |text_and_label|
-      Synthetic.new(text: text_and_label.first, label: text_and_label.last, results: {})
+    @results = texts_and_labels.map do |text_and_label|
+      SyntheticResult.new(original: text_and_label.first, label: text_and_label.last, translations: {})
     end
   end
 
@@ -41,16 +41,16 @@ class GoogleTranslateSynthetic
       fetch_results_for(language: language)
     end
 
-    synthetics
+    results
   end
 
   def fetch_results_for(language: )
-    synthetics.each_slice(BATCH_SIZE).each do |synthetics_slice|
-      translations = TRANSLATOR.translate(synthetics_slice.map(&:text), from: ENGLISH, to: language)
+    results.each_slice(BATCH_SIZE).each do |results_slice|
+      translations = TRANSLATOR.translate(results_slice.map(&:original), from: ENGLISH, to: language)
       english_texts = TRANSLATOR.translate(translations.map(&:text), from: language, to: ENGLISH)
 
-      synthetics_slice.each.with_index do |synthetic, index|
-        synthetic.results[language] = english_texts[index].text
+      results_slice.each.with_index do |result, index|
+        result.translations[language] = english_texts[index].text
       end
     end
   end
@@ -66,10 +66,10 @@ class GoogleTranslateSynthetic
 
     CSV.open(output_file_path, "w") do |csv|
       csv << ['Text', 'Label', 'Original', 'Changed?', 'Language',]
-      synthetics.synthetics.each do |synthetic|
-          csv << [synthetic.text, synthetic.label,'','', 'original']
-        synthetic.results.each do |language, new_text|
-          csv << [new_text, synthetic.label, synthetic.text, new_text == synthetic.text ? 'no_change' : '', DEFAULT_LANGUAGES[language] || language]
+      synthetics.results.each do |result|
+          csv << [result.original, result.label,'','', 'original']
+        result.translations.each do |language, new_text|
+          csv << [new_text, result.label, result.original, new_text == result.original ? 'no_change' : '', DEFAULT_LANGUAGES[language] || language]
         end
       end
     end
