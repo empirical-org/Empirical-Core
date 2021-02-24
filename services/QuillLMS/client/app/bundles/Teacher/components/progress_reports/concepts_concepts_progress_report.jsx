@@ -19,12 +19,11 @@ export default class extends React.Component {
   }
 
   componentDidMount() {
-    const that = this;
     request.get({
       url: `${process.env.DEFAULT_URL}/${this.props.sourceUrl}`
     }, (e, r, body) => {
       const data = JSON.parse(body)
-      that.setState({
+      this.setState({
         loading: false,
         errors: body.errors,
         reportData: data.concepts,

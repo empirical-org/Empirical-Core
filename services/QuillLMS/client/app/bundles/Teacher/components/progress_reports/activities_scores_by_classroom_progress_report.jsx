@@ -26,7 +26,6 @@ export default class extends React.Component {
   }
 
   componentDidMount() {
-    const that = this;
     request.get({
       url: `${process.env.DEFAULT_URL}/api/v1/progress_reports/activities_scores_by_classroom_data`
     }, (e, r, body) => {
@@ -43,7 +42,7 @@ export default class extends React.Component {
         const selectedClassroom = classroomsData.find(c => Number(c.classroom_id) === Number(selectedClassroomId))
         newState.selectedClassroom = selectedClassroom.classroom_name || showAllClassroomKey
       }
-      that.setState(newState);
+      this.setState(newState);
     });
   }
 
