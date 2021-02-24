@@ -47,13 +47,17 @@ module Comprehension
 
         should 'not validate state = active if labels_valid? is false' do
           @automl_model.state = Comprehension::AutomlModel::STATE_ACTIVE
-          def @automl_model.labels_valid?; false; end
+          def @automl_model.labels_valid?
+            false
+          end
           assert !@automl_model.valid?
         end
 
         should 'validate state = active if labels_valid? is true' do
           @automl_model.state = Comprehension::AutomlModel::STATE_ACTIVE
-          def @automl_model.labels_valid?; true; end
+          def @automl_model.labels_valid?
+            true
+          end
           assert @automl_model.valid?
         end
       end

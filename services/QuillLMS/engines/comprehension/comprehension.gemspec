@@ -17,8 +17,8 @@ Gem::Specification.new do |s|
   s.files = Dir["{app,config,db,lib}/**/*", "MIT-LICENSE", "Rakefile", "README.rdoc"]
   s.test_files = Dir["test/**/*"]
 
-  s.add_dependency "rails", "~> 4.2.11.1"
   s.add_dependency "google-cloud-automl", "~> 1.0.2"
+  s.add_dependency "rails", "~> 4.2.11.1"
 
   # Gems needed for the test environment
   s.add_development_dependency 'factory_bot_rails'

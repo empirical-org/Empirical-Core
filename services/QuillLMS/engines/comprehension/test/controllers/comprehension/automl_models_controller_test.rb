@@ -7,7 +7,7 @@ module Comprehension
     end
 
     context "index" do
-     should "return successfully - no automl_model" do
+      should "return successfully - no automl_model" do
         get :index
 
         parsed_response = JSON.parse(response.body)
@@ -140,7 +140,7 @@ module Comprehension
       end
 
       should "update record if valid, return nothing" do
-	# NOTE: Only prompt_id is available to change during an update call
+        # NOTE: Only prompt_id is available to change during an update call
         @new_prompt = create(:comprehension_prompt)
         new_prompt_id = @new_prompt_id
         patch :update, id: @automl_model.id, automl_model: { prompt_id: new_prompt_id }
