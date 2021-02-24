@@ -3,7 +3,7 @@ require "google/cloud/translate"
 # TRANSLATE_PROJECT (project id)
 # TRANSLATE_CREDENTIALS (service account json object created in cloud console)
 
-class GoogleTranslate
+class GoogleTranslateSynthetic
 
   Synthetic = Struct.new(:text, :label, :results, keyword_init: true)
 
@@ -23,9 +23,9 @@ class GoogleTranslate
     ko:  'korean',
   }
   ENGLISH = :en
+  # the API with throw an error if you send too many text strings at a time.
+  # Throttling to 100 sentences at a time.
   BATCH_SIZE = 100
-  TEST_INPUT = '/Users/danieldrabik/Downloads/surge_barriers_test.csv'
-  TEST_OUTPUT = '/Users/danieldrabik/Downloads/surge_barriers_test_output.csv'
 
   attr_reader :synthetics, :languages
 
@@ -38,13 +38,13 @@ class GoogleTranslate
 
   def fetch_results
     languages.each do |language|
-      synthetics_for_language(language: language)
+      fetch_results_for(language: language)
     end
 
     synthetics
   end
 
-  def synthetics_for_language(language: )
+  def fetch_results_for(language: )
     synthetics.each_slice(BATCH_SIZE).each do |synthetics_slice|
       translations = TRANSLATOR.translate(synthetics_slice.map(&:text), from: ENGLISH, to: language)
       english_texts = TRANSLATOR.translate(translations.map(&:text), from: language, to: ENGLISH)
@@ -57,19 +57,19 @@ class GoogleTranslate
 
   # input file is a csv with two columsn and no: text, label
   # pass in a file path, e.g. /Users/yourname/Desktop/
-  def self.synthetics_from_file(input_file_path, output_file_path)
+  def self.generate_from_file(input_file_path, output_file_path)
     texts_and_labels = CSV.open(input_file_path).to_a
 
-    synthetics = GoogleTranslate.new(texts_and_labels)
+    synthetics = GoogleTranslateSynthetic.new(texts_and_labels)
 
     synthetics.fetch_results
 
     CSV.open(output_file_path, "w") do |csv|
-      csv << ['Text', 'Label', 'Language', 'Original', 'Changed?']
+      csv << ['Text', 'Label', 'Original', 'Changed?', 'Language',]
       synthetics.synthetics.each do |synthetic|
-          csv << [synthetic.text, synthetic.label, 'original']
+          csv << [synthetic.text, synthetic.label,'','', 'original']
         synthetic.results.each do |language, new_text|
-          csv << [new_text, synthetic.label, DEFAULT_LANGUAGES[language] || language, synthetic.text, new_text == synthetic.text ? 'no_change' : '']
+          csv << [new_text, synthetic.label, synthetic.text, new_text == synthetic.text ? 'no_change' : '', DEFAULT_LANGUAGES[language] || language]
         end
       end
     end
