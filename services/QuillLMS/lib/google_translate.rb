@@ -74,47 +74,4 @@ class GoogleTranslate
       end
     end
   end
-
-
-  def self.synthetics_from_file(input_file_path, output_file_path)
-    texts_and_labels = CSV.open(input_file_path).to_a
-
-    csv_output = synthetics_for_languages(texts_and_labels)
-
-    CSV.open(output_file_path, "w") do |csv|
-      csv_output.each do |row|
-        csv << row
-      end
-    end
-  end
-
-  def self.synthetics_for_languages(texts_and_labels, languages: DEFAULT_LANGUAGES.keys)
-    texts = texts_and_labels.map(&:first)
-
-    output = []
-    languages.each do |language|
-      synthetics = synthetics_for_language(texts, language: language)
-      transposed_texts_and_labels = synthetics.map.with_index do |text, index|
-        [text, texts_and_labels[index].last]
-      end
-
-      output += transposed_texts_and_labels
-    end
-
-    output
-  end
-
-
-  def self.synthetics_for_language(texts, language: )
-    output = []
-    texts.each_slice(BATCH_SIZE).each do |text_slice|
-
-      translations = TRANSLATOR.translate(text_slice, from: ENGLISH, to: language)
-      english_texts = TRANSLATOR.translate(translations.map(&:text), from: language, to: ENGLISH)
-
-      output += english_texts.map(&:text)
-    end
-
-    output
-  end
 end
