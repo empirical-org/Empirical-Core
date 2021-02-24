@@ -63,17 +63,24 @@ module Comprehension
       end
     end
 
+    context 'display_name' do
+      should 'correspond to the correct display name' do
+        rule = create(:comprehension_rule, rule_type: 'rules-based-2')
+        assert rule.display_name, 'Post-Topic Regex'
+      end
+    end
+
     context 'regex_is_passing?' do
       setup do
         @rule = create(:comprehension_rule)
         @regex_rule = create(:comprehension_regex_rule, rule: @rule, regex_text: "^Hello")
       end
 
-      should 'be true if entry does not match the regex text' do 
+      should 'be true if entry does not match the regex text' do
         assert @rule.regex_is_passing?('Nope, I dont start with hello.')
-      end 
+      end
 
-      should 'be false if entry matches regex text' do 
+      should 'be false if entry matches regex text' do
         assert !@rule.regex_is_passing?('Hello!!!')
       end
 

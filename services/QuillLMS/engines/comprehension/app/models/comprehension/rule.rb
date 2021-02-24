@@ -7,9 +7,17 @@ module Comprehension
       TYPE_GRAMMAR = 'grammar',
       TYPE_OPINION = 'opinion',
       TYPE_PLAGIARISM = 'plagiarism',
-      TYPE_REGEX = 'rules-based',
+      TYPE_REGEX_ONE = 'rules-based-1',
+      TYPE_REGEX_TWO = 'rules-based-2',
+      TYPE_REGEX_THREE = 'rules-based-3',
       TYPE_SPELLING = 'spelling'
     ]
+    DISPLAY_NAMES = {
+      'rules-based-1': 'Sentence Structure Regex',
+      'rules-based-2': 'Post-Topic Regex',
+      'rules-based-3': 'Typo Regex',
+      'plagiarism': 'Plagiarism'
+    }
     before_validation :assign_uid_if_missing
 
     has_many :feedbacks, inverse_of: :rule, dependent: :destroy
@@ -42,6 +50,10 @@ module Comprehension
 
     def regex_is_passing?(entry)
       regex_rules.none?{ |regex_rule| Regexp.new(regex_rule.regex_text).match(entry) }
+    end
+
+    def display_name
+      DISPLAY_NAMES[rule_type] || rule_type
     end
 
     private def assign_uid_if_missing
