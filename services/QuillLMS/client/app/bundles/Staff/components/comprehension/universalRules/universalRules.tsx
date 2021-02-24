@@ -132,7 +132,9 @@ const UniversalRulesIndex = ({ location, match }) => {
     return <SubmissionModal close={toggleSubmissionModal} message={message} />;
   }
 
-  if(!rules || rules && rules.universalRules && rules.universalRules.length && !Object.keys(rulesHash).length && rulesList && !rulesList.length) {
+  const rulesNotReadyForRender = rules && rules.universalRules && rules.universalRules.length && !Object.keys(rulesHash).length && rulesList && !rulesList.length;
+
+  if(!rules || rulesNotReadyForRender) {
     return(
       <React.Fragment>
         <Navigation location={location} match={match} />

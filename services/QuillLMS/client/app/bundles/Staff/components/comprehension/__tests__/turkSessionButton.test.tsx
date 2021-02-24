@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { shallow } from 'enzyme';
+import { mount } from 'enzyme';
 
 import TurkSessionButton from '../gatherResponses/turkSessionButton';
 
@@ -10,7 +10,7 @@ describe('TurkSessionButton component', () => {
     label: 'copy',
     clickHandler: jest.fn()
   }
-  const container = shallow(<TurkSessionButton {...mockProps} />);
+  const container = mount(<TurkSessionButton {...mockProps} />);
 
   it('should render TurkSessionButton', () => {
     expect(container).toMatchSnapshot();

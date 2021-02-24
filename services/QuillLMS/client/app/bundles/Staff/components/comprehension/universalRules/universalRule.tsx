@@ -50,38 +50,37 @@ const UniversalRule = ({ history, location, match }) => {
   const ruleRows = ({ rule }) => {
     if(!rule) {
       return [];
-    } else {
-      // format for DataTable to display labels on left side and values on right
-      const { feedbacks, name, rule_type, description, suborder, } = rule;
-      const attributesFields = handleAttributesFields(feedbacks);
-      const firstFields = [
-        {
-          label: 'Type',
-          value: rule_type
-        },
-        {
-          label: 'Name',
-          value: name
-        },
-        {
-          label: 'Description',
-          value: description && stripHtml(description)
-        },
-        {
-          label: 'Order',
-          value: suborder
-        },
-      ];
-      const fields = firstFields.concat(attributesFields);
-      return fields.map((field, i) => {
-        const { label, value } = field
-        return {
-          id: `${label}-${i}`,
-          field: label,
-          value
-        }
-      });
     }
+    // format for DataTable to display labels on left side and values on right
+    const { feedbacks, name, rule_type, description, suborder, } = rule;
+    const attributesFields = handleAttributesFields(feedbacks);
+    const firstFields = [
+      {
+        label: 'Type',
+        value: rule_type
+      },
+      {
+        label: 'Name',
+        value: name
+      },
+      {
+        label: 'Description',
+        value: description && stripHtml(description)
+      },
+      {
+        label: 'Order',
+        value: suborder
+      },
+    ];
+    const fields = firstFields.concat(attributesFields);
+    return fields.map((field, i) => {
+      const { label, value } = field
+      return {
+        id: `${label}-${i}`,
+        field: label,
+        value
+      }
+    });
   }
 
   const handleSubmitRule = ({rule}: {rule: RuleInterface}) => {

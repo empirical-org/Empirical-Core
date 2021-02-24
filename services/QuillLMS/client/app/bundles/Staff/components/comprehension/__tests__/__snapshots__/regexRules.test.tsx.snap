@@ -1,145 +1,234 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`RegexRules component should render RegexRules 1`] = `
-<div
-  className="regex-rules-container"
+<RegexRules
+  errors={Object {}}
+  handleAddRegexInput={[MockFunction]}
+  handleDeleteRegexRule={[MockFunction]}
+  handleSetRegexRule={[MockFunction]}
+  regexRules={
+    Object {
+      "regex-rule-0": Object {
+        "case_sensitive": false,
+        "id": 1,
+        "regex_text": "it contain(s)? methane gas",
+      },
+      "regex-rule-1": Object {
+        "case_sensitive": true,
+        "id": 2,
+        "regex_text": "another reg(ex) line",
+      },
+      "regex-rule-2": Object {
+        "case_sensitive": false,
+        "id": 3,
+        "regex_text": "some m?ore reg(ex",
+      },
+    }
+  }
 >
   <div
-    className="regex-rule-container"
-    key="regex-rule-container-0"
+    className="regex-rules-container"
   >
     <div
-      className="regex-input-container"
+      className="regex-rule-container"
+      key="regex-rule-container-0"
     >
-      <Input
-        autoComplete="on"
-        className="regex-input"
-        handleChange={[MockFunction]}
-        id="regex-rule-0"
-        value="it contain(s)? methane gas"
-      />
       <div
-        className="checkbox-container"
+        className="regex-input-container"
       >
-        <label
-          className="case-sensitive-label"
-          htmlFor="regex-case-sensitive-0"
+        <Input
+          autoComplete="on"
+          className="regex-input"
+          handleChange={[MockFunction]}
+          id="regex-rule-0"
+          value="it contain(s)? methane gas"
         >
-          Case Sensitive?
-        </label>
-        <input
-          aria-labelledby="regex-rule-0"
-          checked={false}
-          id="regex-case-sensitive-0"
-          onChange={[MockFunction]}
-          type="checkbox"
-          value="regex-rule-0"
-        />
+          <div
+            className="input-container  inactive has-text regex-input "
+            onClick={[Function]}
+            onKeyDown={[Function]}
+            role="button"
+            tabIndex={-1}
+          >
+            <label
+              htmlFor="regex-rule-0"
+            />
+            <input
+              autoComplete="on"
+              id="regex-rule-0"
+              maxLength={10000}
+              onChange={[MockFunction]}
+              onFocus={[Function]}
+              placeholder={false}
+              value="it contain(s)? methane gas"
+            />
+          </div>
+        </Input>
+        <div
+          className="checkbox-container"
+        >
+          <label
+            className="case-sensitive-label"
+            htmlFor="regex-case-sensitive-0"
+          >
+            Case Sensitive?
+          </label>
+          <input
+            aria-labelledby="regex-rule-0"
+            checked={false}
+            id="regex-case-sensitive-0"
+            onChange={[MockFunction]}
+            type="checkbox"
+            value="regex-rule-0"
+          />
+        </div>
       </div>
+      <button
+        className="quill-button fun primary outlined delete-regex-button"
+        id="remove-regex-button"
+        onClick={[MockFunction]}
+        type="button"
+        value="regex-rule-0"
+      >
+        remove
+      </button>
     </div>
-    <button
-      className="quill-button fun primary outlined delete-regex-button"
-      id="remove-regex-button"
-      onClick={[MockFunction]}
-      type="button"
-      value="regex-rule-0"
-    >
-      remove
-    </button>
-  </div>
-  <div
-    className="regex-rule-container"
-    key="regex-rule-container-1"
-  >
     <div
-      className="regex-input-container"
+      className="regex-rule-container"
+      key="regex-rule-container-1"
     >
-      <Input
-        autoComplete="on"
-        className="regex-input"
-        handleChange={[MockFunction]}
-        id="regex-rule-1"
-        value="another reg(ex) line"
-      />
       <div
-        className="checkbox-container"
+        className="regex-input-container"
       >
-        <label
-          className="case-sensitive-label"
-          htmlFor="regex-case-sensitive-1"
+        <Input
+          autoComplete="on"
+          className="regex-input"
+          handleChange={[MockFunction]}
+          id="regex-rule-1"
+          value="another reg(ex) line"
         >
-          Case Sensitive?
-        </label>
-        <input
-          aria-labelledby="regex-rule-1"
-          checked={true}
-          id="regex-case-sensitive-1"
-          onChange={[MockFunction]}
-          type="checkbox"
-          value="regex-rule-1"
-        />
+          <div
+            className="input-container  inactive has-text regex-input "
+            onClick={[Function]}
+            onKeyDown={[Function]}
+            role="button"
+            tabIndex={-1}
+          >
+            <label
+              htmlFor="regex-rule-1"
+            />
+            <input
+              autoComplete="on"
+              id="regex-rule-1"
+              maxLength={10000}
+              onChange={[MockFunction]}
+              onFocus={[Function]}
+              placeholder={false}
+              value="another reg(ex) line"
+            />
+          </div>
+        </Input>
+        <div
+          className="checkbox-container"
+        >
+          <label
+            className="case-sensitive-label"
+            htmlFor="regex-case-sensitive-1"
+          >
+            Case Sensitive?
+          </label>
+          <input
+            aria-labelledby="regex-rule-1"
+            checked={true}
+            id="regex-case-sensitive-1"
+            onChange={[MockFunction]}
+            type="checkbox"
+            value="regex-rule-1"
+          />
+        </div>
       </div>
+      <button
+        className="quill-button fun primary outlined delete-regex-button"
+        id="remove-regex-button"
+        onClick={[MockFunction]}
+        type="button"
+        value="regex-rule-1"
+      >
+        remove
+      </button>
     </div>
-    <button
-      className="quill-button fun primary outlined delete-regex-button"
-      id="remove-regex-button"
-      onClick={[MockFunction]}
-      type="button"
-      value="regex-rule-1"
-    >
-      remove
-    </button>
-  </div>
-  <div
-    className="regex-rule-container"
-    key="regex-rule-container-2"
-  >
     <div
-      className="regex-input-container"
+      className="regex-rule-container"
+      key="regex-rule-container-2"
     >
-      <Input
-        autoComplete="on"
-        className="regex-input"
-        handleChange={[MockFunction]}
-        id="regex-rule-2"
-        value="some m?ore reg(ex"
-      />
       <div
-        className="checkbox-container"
+        className="regex-input-container"
       >
-        <label
-          className="case-sensitive-label"
-          htmlFor="regex-case-sensitive-2"
+        <Input
+          autoComplete="on"
+          className="regex-input"
+          handleChange={[MockFunction]}
+          id="regex-rule-2"
+          value="some m?ore reg(ex"
         >
-          Case Sensitive?
-        </label>
-        <input
-          aria-labelledby="regex-rule-2"
-          checked={false}
-          id="regex-case-sensitive-2"
-          onChange={[MockFunction]}
-          type="checkbox"
-          value="regex-rule-2"
-        />
+          <div
+            className="input-container  inactive has-text regex-input "
+            onClick={[Function]}
+            onKeyDown={[Function]}
+            role="button"
+            tabIndex={-1}
+          >
+            <label
+              htmlFor="regex-rule-2"
+            />
+            <input
+              autoComplete="on"
+              id="regex-rule-2"
+              maxLength={10000}
+              onChange={[MockFunction]}
+              onFocus={[Function]}
+              placeholder={false}
+              value="some m?ore reg(ex"
+            />
+          </div>
+        </Input>
+        <div
+          className="checkbox-container"
+        >
+          <label
+            className="case-sensitive-label"
+            htmlFor="regex-case-sensitive-2"
+          >
+            Case Sensitive?
+          </label>
+          <input
+            aria-labelledby="regex-rule-2"
+            checked={false}
+            id="regex-case-sensitive-2"
+            onChange={[MockFunction]}
+            type="checkbox"
+            value="regex-rule-2"
+          />
+        </div>
       </div>
+      <button
+        className="quill-button fun primary outlined delete-regex-button"
+        id="remove-regex-button"
+        onClick={[MockFunction]}
+        type="button"
+        value="regex-rule-2"
+      >
+        remove
+      </button>
     </div>
     <button
-      className="quill-button fun primary outlined delete-regex-button"
-      id="remove-regex-button"
+      className="quill-button fun primary outlined add-regex-button"
+      id="add-regex-button"
       onClick={[MockFunction]}
       type="button"
-      value="regex-rule-2"
     >
-      remove
+      Add Regex Rule +
     </button>
   </div>
-  <button
-    className="quill-button fun primary outlined add-regex-button"
-    id="add-regex-button"
-    onClick={[MockFunction]}
-    type="button"
-  >
-    Add Regex Rule +
-  </button>
-</div>
+</RegexRules>
 `;

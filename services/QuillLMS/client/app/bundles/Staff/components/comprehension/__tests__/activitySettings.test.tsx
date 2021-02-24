@@ -1,6 +1,6 @@
 import * as React from 'react';
 import 'whatwg-fetch';
-import { shallow } from 'enzyme';
+import { mount } from 'enzyme';
 import { createMemoryHistory, createLocation } from 'history';
 
 import ActivitySettings from '../configureSettings/activitySettings';
@@ -19,7 +19,7 @@ const mockProps = {
 }
 
 describe('ActivitySettings component', () => {
-  const container = shallow(<ActivitySettings {...mockProps} />);
+  const container = mount(<ActivitySettings {...mockProps} />);
 
   it('should render ActivitySettings', () => {
     expect(container).toMatchSnapshot();

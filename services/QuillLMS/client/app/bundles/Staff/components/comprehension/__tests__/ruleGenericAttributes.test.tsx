@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { shallow } from 'enzyme';
+import { mount } from 'enzyme';
 
 import RuleGenericAttributes from '../configureRules/ruleGenericAttributes';
 import { DropdownInput, Input, TextEditor } from '../../../../Shared/index'
@@ -21,7 +21,7 @@ const mockProps = {
 };
 
 describe('RuleGenericAttributes component', () => {
-  let container = shallow(<RuleGenericAttributes {...mockProps} />);
+  let container = mount(<RuleGenericAttributes {...mockProps} />);
 
   it('should render RuleGenericAttributes', () => {
     expect(container).toMatchSnapshot();

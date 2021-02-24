@@ -197,7 +197,7 @@ export function getInitialRuleType({ isUniversal, rule_type, universalRuleType }
 export const formatFeedbacks = ({ rule, ruleType, setFirstPlagiarismFeedback, setSecondPlagiarismFeedback, setRegexFeedback }) => {
   if(rule && rule.feedbacks && Object.keys(rule.feedbacks).length) {
     const { feedbacks } =  rule;
-    if(ruleType && ruleType.value === "Plagiarism") {
+    if(ruleType && ruleType.value === 'plagiarism') {
       const formattedFirstFeedback = {
         id: feedbacks[0].id,
         order: 0,
@@ -213,7 +213,7 @@ export const formatFeedbacks = ({ rule, ruleType, setFirstPlagiarismFeedback, se
       setFirstPlagiarismFeedback(formattedFirstFeedback);
       setSecondPlagiarismFeedback(formattedSecondFeedback);
     }
-    else if(ruleType && ruleType.value === "Regex") {
+    else if(ruleType && ruleType.value === 'rules-based') {
       const formattedFeedback = {
         id: feedbacks[0].id,
         order: 0,
@@ -277,9 +277,9 @@ const formatUniversalFeedback = (feedbacks) => {
 }
 
 const buildFeedbacks = ({ ruleType, regexFeedback, firstPlagiarismFeedback, secondPlagiarismFeedback, universalFeedback }) => {
-  if(ruleType.value === "Regex") {
+  if(ruleType.value === 'rules-based') {
     return [regexFeedback];
-  } else if(ruleType.value === "Plagiarism") {
+  } else if(ruleType.value === 'plagiarism') {
     return [firstPlagiarismFeedback, secondPlagiarismFeedback];
   } else {
     return formatUniversalFeedback(universalFeedback);
@@ -325,16 +325,17 @@ export const buildRule = ({
     prompt_ids: promptIds,
     rule_type: ruleType.value,
     suborder: suborder ? suborder : order,
-    universal: universal
+    universal: universal,
+    state: 'active'
   };
 
-  if(newOrUpdatedRule.rule_type === 'Regex') {
+  if(newOrUpdatedRule.rule_type === 'rules-based') {
     const rules = [];
     Object.keys(regexRules).forEach(key => {
       rules.push(regexRules[key]);
     });
     newOrUpdatedRule.regex_rules_attributes = rules;
-  } else if(newOrUpdatedRule.rule_type === 'Plagiarism') {
+  } else if(newOrUpdatedRule.rule_type === 'plagiarism') {
     newOrUpdatedRule.plagiarism_text_attributes = {
       id: plagiarismText.id,
       text: plagiarismText.text
@@ -385,15 +386,15 @@ export function handleSubmitRule({
   const { universal } = rule;
   let keys: string[] = ['Name', 'Concept UID'];
   let state: any[] = [ruleName, ruleConceptUID];
-  if(ruleType.value === "Regex") {
-    keys.push("Regex Feedback");
+  if(ruleType.value === 'rules-based') {
+    keys.push('Regex Feedback');
     state.push(regexFeedback.text);
     Object.keys(regexRules).map((key, i) => {
       keys.push(`Regex rule ${i + 1}`);
       state.push(regexRules[key].regex_text);
     });
-  } else if(ruleType.value === "Plagiarism") {
-    keys = keys.concat(["Plagiarism Text", "First Plagiarism Feedback", "Second Plagiarism Feedback"]);
+  } else if(ruleType.value === 'plagiarism') {
+    keys = keys.concat(['Plagiarism Text', 'First Plagiarism Feedback', 'Second Plagiarism Feedback']);
     state = state.concat([plagiarismText.text, firstPlagiarismFeedback.text, secondPlagiarismFeedback.text]);
   }
   if(!universal) {

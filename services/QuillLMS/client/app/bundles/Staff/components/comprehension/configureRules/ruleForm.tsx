@@ -28,8 +28,8 @@ const RuleForm = ({ activityData, activityId, closeModal, isUniversal, rule, sub
   const { name, rule_type, id, optimal, plagiarism_text, concept_uid, description, feedbacks } = rule;
   const initialRuleType = getInitialRuleType({ isUniversal, rule_type, universalRuleType});
   const initialRuleOptimal = optimal ? ruleOptimalOptions[0] : ruleOptimalOptions[1];
-  const initialPlagiarismText = plagiarism_text ? plagiarism_text : { text: '' }
-  const initialDescription = description ? description : '';
+  const initialPlagiarismText = plagiarism_text || { text: '' }
+  const initialDescription = description || '';
   const initialUniversalFeedback = isUniversal && feedbacks ? formatInitialUniversalFeedback(feedbacks) : [{ text: '' }];
 
   const [errors, setErrors] = React.useState<object>({});
@@ -134,7 +134,7 @@ const RuleForm = ({ activityData, activityId, closeModal, isUniversal, rule, sub
           setPlagiarismText={setPlagiarismText}
           setSecondPlagiarismFeedback={setSecondPlagiarismFeedback}
         />}
-        {ruleType && ruleType.value === 'rules_based' && <RuleRegexAttributes
+        {ruleType && ruleType.value === 'rules-based' && <RuleRegexAttributes
           errors={errors}
           regexFeedback={regexFeedback}
           regexRules={regexRules}

@@ -66,7 +66,7 @@ export const readingLevelOptions = [
 ];
 
 export const ruleTypeOptions = [
-  {"value":"rules_based","label":"Regex"},
+  {"value":"rules-based","label":"Regex"},
   {"value":"plagiarism","label":"Plagiarism"}
 ];
 

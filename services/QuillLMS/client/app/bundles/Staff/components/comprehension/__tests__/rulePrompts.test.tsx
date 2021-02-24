@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { shallow } from 'enzyme';
+import { mount } from 'enzyme';
 
 import RulePrompts from '../configureRules/rulePrompts';
 import { BECAUSE, BUT, SO } from '../../../../../constants/comprehension';
@@ -15,7 +15,7 @@ const mockProps = {
 };
 
 describe('RulePrompts component', () => {
-  let container = shallow(<RulePrompts {...mockProps} />);
+  let container = mount(<RulePrompts {...mockProps} />);
 
   it('should render RulePrompts', () => {
     expect(container).toMatchSnapshot();

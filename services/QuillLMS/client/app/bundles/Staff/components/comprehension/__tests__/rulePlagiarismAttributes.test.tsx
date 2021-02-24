@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { shallow } from 'enzyme';
+import { mount } from 'enzyme';
 
 import RulePlagiarismAttributes from '../configureRules/rulePlagiarismAttributes';
 import { TextEditor } from '../../../../Shared/index'
@@ -15,7 +15,7 @@ const mockProps = {
 };
 
 describe('RulePlagiarismAttributes component', () => {
-  let container = shallow(<RulePlagiarismAttributes {...mockProps} />);
+  let container = mount(<RulePlagiarismAttributes {...mockProps} />);
 
   it('should render RulePlagiarismAttributes', () => {
     expect(container).toMatchSnapshot();

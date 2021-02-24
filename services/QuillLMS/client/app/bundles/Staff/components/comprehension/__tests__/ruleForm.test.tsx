@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { shallow } from 'enzyme';
+import { mount } from 'enzyme';
 
 import RuleForm from '../configureRules/ruleForm';
 import RuleGenericAttributes from '../configureRules/ruleGenericAttributes';
@@ -8,7 +8,7 @@ import RulePrompts from '../configureRules/rulePrompts';
 
 jest.mock('../../../helpers/comprehension/ruleHelpers', () => ({
   getInitialRuleType: jest.fn().mockImplementation(() => {
-    return { value: 'rules_based', label: 'Regex' }
+    return { value: 'rules-based', label: 'Regex' }
    })
 }));
 
@@ -52,7 +52,7 @@ const mockProps = {
 };
 
 describe('RuleForm component', () => {
-  const container = shallow(<RuleForm {...mockProps} />);
+  const container = mount(<RuleForm {...mockProps} />);
 
   it('should render RuleForm', () => {
     expect(container).toMatchSnapshot();
