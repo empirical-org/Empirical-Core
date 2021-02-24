@@ -40,7 +40,8 @@ class FeedbackHistory < ActiveRecord::Base
     PLAGIARISM = "plagiarism",
     RULES_BASED = "rules-based",
     SEMANTIC = "semantic",
-    SPELLING = "spelling"
+    SPELLING = "spelling",
+    OPINION = "opinion"
   ]
 
   before_validation :confirm_prompt_type, on: :create
