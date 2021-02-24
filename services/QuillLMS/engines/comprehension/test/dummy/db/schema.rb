@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20210128155938) do
+ActiveRecord::Schema.define(version: 20210219163806) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -26,6 +26,16 @@ ActiveRecord::Schema.define(version: 20210128155938) do
   end
 
   add_index "comprehension_activities", ["parent_activity_id"], name: "index_comprehension_activities_on_parent_activity_id", using: :btree
+
+  create_table "comprehension_automl_models", force: :cascade do |t|
+    t.string   "automl_model_id",              null: false
+    t.string   "name",                         null: false
+    t.string   "labels",          default: [],              array: true
+    t.integer  "prompt_id"
+    t.string   "state",                        null: false
+    t.datetime "created_at",                   null: false
+    t.datetime "updated_at",                   null: false
+  end
 
   create_table "comprehension_feedbacks", force: :cascade do |t|
     t.integer  "rule_id",     null: false
@@ -47,11 +57,20 @@ ActiveRecord::Schema.define(version: 20210128155938) do
     t.datetime "updated_at",     null: false
   end
 
+  create_table "comprehension_labels", force: :cascade do |t|
+    t.string   "name",       null: false
+    t.integer  "rule_id",    null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "comprehension_passages", force: :cascade do |t|
     t.integer  "activity_id"
     t.text     "text"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+    t.datetime "created_at",                  null: false
+    t.datetime "updated_at",                  null: false
+    t.string   "image_link"
+    t.string   "image_alt_text", default: ""
   end
 
   add_index "comprehension_passages", ["activity_id"], name: "index_comprehension_passages_on_activity_id", using: :btree
@@ -105,9 +124,10 @@ ActiveRecord::Schema.define(version: 20210128155938) do
     t.string   "rule_type",   null: false
     t.boolean  "optimal",     null: false
     t.integer  "suborder"
-    t.string   "concept_uid", null: false
+    t.string   "concept_uid"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
+    t.string   "state",       null: false
   end
 
   add_index "comprehension_rules", ["uid"], name: "index_comprehension_rules_on_uid", unique: true, using: :btree
@@ -133,7 +153,9 @@ ActiveRecord::Schema.define(version: 20210128155938) do
   add_index "comprehension_turking_rounds", ["activity_id"], name: "index_comprehension_turking_rounds_on_activity_id", using: :btree
   add_index "comprehension_turking_rounds", ["uuid"], name: "index_comprehension_turking_rounds_on_uuid", unique: true, using: :btree
 
+  add_foreign_key "comprehension_automl_models", "comprehension_prompts", column: "prompt_id"
   add_foreign_key "comprehension_highlights", "comprehension_feedbacks", column: "feedback_id", on_delete: :cascade
+  add_foreign_key "comprehension_labels", "comprehension_rules", column: "rule_id", on_delete: :cascade
   add_foreign_key "comprehension_plagiarism_texts", "comprehension_rules", column: "rule_id", on_delete: :cascade
   add_foreign_key "comprehension_regex_rules", "comprehension_rules", column: "rule_id", on_delete: :cascade
 end
