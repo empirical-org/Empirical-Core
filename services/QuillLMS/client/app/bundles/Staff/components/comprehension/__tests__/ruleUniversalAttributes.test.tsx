@@ -30,7 +30,6 @@ describe('RuleUniversalAttributes component', () => {
   it('should render the appropriate form components for each feedback and highlight attribute', () => {
     // TextEditor: Feedback 1, Feedback 2, Feedback 1 Highlight 1, Feedback 1 Highlight 2 (4)
     // DropdownInput: Feedback 1 Highlight 1, Feedback 1 Highlight 2 (2)
-    console.log(container.debug())
     expect(container.find(TextEditor).length).toEqual(4);
     expect(container.find(DropdownInput).length).toEqual(2);
   });
