@@ -12,7 +12,9 @@ import {
 import { TextEditor } from '../../../../Shared/index'
 import { InputEvent } from '../../../interfaces/comprehensionInterfaces';
 
-const RuleAttributesSection = ({
+// TODO: add props interface
+
+const RuleRegexAttributes = ({
   errors,
   regexFeedback,
   regexRules,
@@ -65,4 +67,4 @@ const RuleAttributesSection = ({
   );
 };
 
-export default RuleAttributesSection;
+export default RuleRegexAttributes;

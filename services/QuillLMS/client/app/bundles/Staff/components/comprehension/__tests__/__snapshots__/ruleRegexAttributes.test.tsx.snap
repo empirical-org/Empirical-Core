@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`RuleAttributesSection component should render RuleAttributesSection 1`] = `
+exports[`RuleRegexAttributes component should render RuleRegexAttributes 1`] = `
 <Fragment>
   <p
     className="form-subsection-label"
@@ -10,9 +10,9 @@ exports[`RuleAttributesSection component should render RuleAttributesSection 1`]
   <TextEditor
     ContentState={[Function]}
     EditorState={[Function]}
-    handleTextChange={[MockFunction]}
+    handleTextChange={[Function]}
     key="regex-feedback"
-    text=""
+    text="test regex feedback"
   />
   <p
     className="form-subsection-label"
@@ -20,16 +20,20 @@ exports[`RuleAttributesSection component should render RuleAttributesSection 1`]
   >
     Regex Rules
   </p>
-  <RegexSection
+  <RegexRules
     errors={Object {}}
-    handleAddRegexInput={[MockFunction]}
-    handleDeleteRegexRule={[MockFunction]}
-    handleSetRegexRule={[MockFunction]}
+    handleAddRegexInput={[Function]}
+    handleDeleteRegexRule={[Function]}
+    handleSetRegexRule={[Function]}
     regexRules={
       Array [
         Object {
           "id": 1,
-          "regex_text": "test",
+          "text": "test1",
+        },
+        Object {
+          "id": 1,
+          "text": "test2",
         },
       ]
     }

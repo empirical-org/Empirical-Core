@@ -1,8 +1,6 @@
 import { RuleInterface } from '../../interfaces/comprehensionInterfaces';
 import { handleApiError, apiFetch } from '../../helpers/comprehension';
 
-// test comment
-
 export const fetchRules = async (key: string, activityId: string) => {
   const response = await apiFetch(`activities/${activityId}/rules`);
   const rules = await response.json();

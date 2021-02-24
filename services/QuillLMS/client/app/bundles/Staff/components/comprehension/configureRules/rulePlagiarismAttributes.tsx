@@ -8,6 +8,8 @@ import {
 } from '../../../helpers/comprehension/ruleHelpers';
 import { TextEditor } from '../../../../Shared/index'
 
+// TODO: add props interface
+
 const RulePlagiarismAttributes = ({
   errors,
   firstPlagiarismFeedback,

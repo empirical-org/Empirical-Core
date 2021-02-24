@@ -1,0 +1,76 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`RuleGenericAttributes component should render RuleGenericAttributes 1`] = `
+<Fragment>
+  <DropdownInput
+    className="rule-type-input disabled"
+    disabled={true}
+    handleChange={[Function]}
+    isSearchable={true}
+    label="Rule Type"
+    options={
+      Array [
+        Object {
+          "label": "Regex",
+          "value": "rules_based",
+        },
+        Object {
+          "label": "Plagiarism",
+          "value": "plagiarism",
+        },
+      ]
+    }
+    value={
+      Object {
+        "label": "Plagiarism",
+        "value": "plagiarism",
+      }
+    }
+  />
+  <Input
+    autoComplete="on"
+    className="name-input"
+    handleChange={[Function]}
+    label="Name"
+    value="generic rule 17"
+  />
+  <Input
+    autoComplete="on"
+    className="concept-uid-input"
+    handleChange={[Function]}
+    label="Concept UID"
+    value="test-id"
+  />
+  <DropdownInput
+    className="rule-type-input"
+    handleChange={[Function]}
+    isSearchable={true}
+    label="Optimal?"
+    options={
+      Array [
+        Object {
+          "label": "Optimal",
+          "value": "optimal",
+        },
+        Object {
+          "label": "Sub-Optimal",
+          "value": "",
+        },
+      ]
+    }
+    value={false}
+  />
+  <p
+    className="form-subsection-label"
+  >
+    Rule Description
+  </p>
+  <TextEditor
+    ContentState={[Function]}
+    EditorState={[Function]}
+    handleTextChange={[Function]}
+    key="rule-description"
+    text="test description"
+  />
+</Fragment>
+`;

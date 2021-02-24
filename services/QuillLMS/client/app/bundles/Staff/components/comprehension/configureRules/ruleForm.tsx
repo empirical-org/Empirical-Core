@@ -125,7 +125,7 @@ const RuleForm = ({ activityData, activityId, closeModal, isUniversal, rule, sub
           setRuleOptimal={setRuleOptimal}
           setRuleType={setRuleType}
         />
-        {ruleType && ruleType.value === 'Plagiarism' && <RulePlagiarismAttributes
+        {ruleType && ruleType.value === 'plagiarism' && <RulePlagiarismAttributes
           errors={errors}
           firstPlagiarismFeedback={firstPlagiarismFeedback}
           plagiarismText={plagiarismText}
@@ -134,7 +134,7 @@ const RuleForm = ({ activityData, activityId, closeModal, isUniversal, rule, sub
           setPlagiarismText={setPlagiarismText}
           setSecondPlagiarismFeedback={setSecondPlagiarismFeedback}
         />}
-        {ruleType && ruleType.value === 'Regex' && <RuleRegexAttributes
+        {ruleType && ruleType.value === 'rules_based' && <RuleRegexAttributes
           errors={errors}
           regexFeedback={regexFeedback}
           regexRules={regexRules}

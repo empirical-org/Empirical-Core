@@ -2,12 +2,19 @@ import * as React from 'react';
 import { shallow } from 'enzyme';
 
 import RuleForm from '../configureRules/ruleForm';
-import RuleAttributesSection from '../configureRules/ruleAttributesSection';
-import { Input, DropdownInput} from '../../../../Shared/index'
+import RuleGenericAttributes from '../configureRules/ruleGenericAttributes';
+import RuleRegexAttributes from '../configureRules/ruleRegexAttributes';
+import RulePrompts from '../configureRules/rulePrompts';
+
+jest.mock('../../../helpers/comprehension/ruleHelpers', () => ({
+  getInitialRuleType: jest.fn().mockImplementation(() => {
+    return { value: 'rules_based', label: 'Regex' }
+   })
+}));
 
 const mockRule = {
   id: 1,
-  rule_type: 'Regex',
+  rule_type: 'regex' ,
   name: 'remove all instances of "it contains methane"',
   universal: false,
   optimal: false,
@@ -30,6 +37,7 @@ const mockRule = {
     { id: 3, rule_id: 1, regex_text: 'some m?ore reg(ex', case_sensitive: false }
   ]
 }
+
 const mockProps = {
   rule: mockRule,
   activityData: {
@@ -39,7 +47,8 @@ const mockProps = {
   },
   activityId : '1',
   closeModal: jest.fn(),
-  submitRule: jest.fn()
+  submitRule: jest.fn(),
+  isUniversal: false
 };
 
 describe('RuleForm component', () => {
@@ -49,22 +58,14 @@ describe('RuleForm component', () => {
     expect(container).toMatchSnapshot();
   });
 
-  it('should render an Input, TextEditor or checkbox component for each field', () => {
-    // Dropdown Input: Rule Type (1), Optimal (1)
-    // Input: Name, ConceptUID (2)
-    // RuleAttributesSection (1)
-    expect(container.find(DropdownInput).length).toEqual(2);
-    expect(container.find(Input).length).toEqual(2);
-    expect(container.find(RuleAttributesSection).length).toEqual(1);
+  it('should render a RuleGenericAttributes component and other expected components', () => {
+    expect(container.find(RuleGenericAttributes).length).toEqual(1);
+    expect(container.find(RuleRegexAttributes).length).toEqual(1);
+    expect(container.find(RulePrompts).length).toEqual(1);
   });
   it('clicking the "x" button or "close" button should call closeModal prop', () => {
     container.find('#activity-close-button').simulate('click');
     container.find('#activity-cancel-button').simulate('click');
     expect(mockProps.closeModal).toHaveBeenCalledTimes(2);
   });
-  // TODO: fix this test
-  // it('clicking submit button should submit activity', () => {
-  //   container.find('#activity-submit-button').simulate('click');
-  //   expect(mockProps.closeModal).toHaveBeenCalled();
-  // });
 });
