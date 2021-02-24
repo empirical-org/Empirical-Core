@@ -29,6 +29,9 @@ class GoogleTranslateSynthetic
 
   attr_reader :results, :languages
 
+  # params:
+  # texts_and_labels: [['text', 'label_5'],['text', 'label_1'],...]
+  # languages: [:es, :ja, ...]
   def initialize(texts_and_labels, languages: DEFAULT_LANGUAGES.keys)
     @languages = languages
     @results = texts_and_labels.map do |text_and_label|
