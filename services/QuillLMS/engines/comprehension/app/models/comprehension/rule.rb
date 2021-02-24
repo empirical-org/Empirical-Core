@@ -26,7 +26,7 @@ module Comprehension
     validates :name, presence: true, length: {maximum: MAX_NAME_LENGTH}
     validates :universal, inclusion: ALLOWED_BOOLEANS
     validates :optimal, inclusion: ALLOWED_BOOLEANS
-    # validates :rule_type, inclusion: {in: TYPES}
+    validates :rule_type, inclusion: {in: TYPES}
     validates :suborder, numericality: {only_integer: true, greater_than_or_equal_to: 0}
 
 
