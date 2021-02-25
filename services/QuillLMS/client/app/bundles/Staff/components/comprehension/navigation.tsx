@@ -108,7 +108,7 @@ const Navigation = ({ location, match }) => {
       </p>
       <ul className="menu-list">
         <NavLink activeClassName='is-active' isActive={checkOverviewActive} to="/activities">
-          Activity Overview
+          View Activities
         </NavLink>
         <button className={`create-activity-button ${showCreateActivityModal ? 'is-active' :''}`} onClick={toggleCreateActivityModal} type="submit">
           Create New Activity

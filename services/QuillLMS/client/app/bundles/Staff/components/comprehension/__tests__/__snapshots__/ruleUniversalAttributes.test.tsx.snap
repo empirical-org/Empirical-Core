@@ -1,0 +1,143 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`RuleUniversalAttributes component should render RuleUniversalAttributes 1`] = `
+<Fragment>
+  <p
+    className="form-subsection-label"
+  >
+    First Revision - Feedback
+  </p>
+  <TextEditor
+    ContentState={[Function]}
+    EditorState={[Function]}
+    handleTextChange={[Function]}
+    key="universal-feedback"
+    text="test universal feedback"
+  />
+  <button
+    className="add-highlight quill-button small primary outlined"
+    id="0"
+    onClick={[Function]}
+    type="button"
+  >
+    Add Highlight
+  </button>
+  <section
+    className="rule-highlight-section"
+    key="0"
+  >
+    <p
+      className="form-subsection-label"
+    >
+      First Revision - First Highlight
+    </p>
+    <DropdownInput
+      className="rule-type-input"
+      handleChange={[Function]}
+      isSearchable={true}
+      label="Optimal?"
+      options={
+        Array [
+          Object {
+            "label": "Passage",
+            "value": "passage",
+          },
+          Object {
+            "label": "Prompt",
+            "value": "prompt",
+          },
+          Object {
+            "label": "Response",
+            "value": "response",
+          },
+        ]
+      }
+      value={
+        Object {
+          "label": "prompt",
+          "value": "prompt",
+        }
+      }
+    />
+    <TextEditor
+      ContentState={[Function]}
+      EditorState={[Function]}
+      handleTextChange={[Function]}
+      key="universal-feedback-highlight"
+      text="prompt highlight"
+    />
+  </section>
+  <section
+    className="rule-highlight-section"
+    key="1"
+  >
+    <p
+      className="form-subsection-label"
+    >
+      First Revision - Second Highlight
+    </p>
+    <DropdownInput
+      className="rule-type-input"
+      handleChange={[Function]}
+      isSearchable={true}
+      label="Optimal?"
+      options={
+        Array [
+          Object {
+            "label": "Passage",
+            "value": "passage",
+          },
+          Object {
+            "label": "Prompt",
+            "value": "prompt",
+          },
+          Object {
+            "label": "Response",
+            "value": "response",
+          },
+        ]
+      }
+      value={
+        Object {
+          "label": "prompt",
+          "value": "prompt",
+        }
+      }
+    />
+    <TextEditor
+      ContentState={[Function]}
+      EditorState={[Function]}
+      handleTextChange={[Function]}
+      key="universal-feedback-highlight"
+      text="passage highlight"
+    />
+  </section>
+  <p
+    className="form-subsection-label"
+  >
+    Second Revision - Feedback
+  </p>
+  <TextEditor
+    ContentState={[Function]}
+    EditorState={[Function]}
+    handleTextChange={[Function]}
+    key="universal-feedback"
+    text="test universal feedback"
+  />
+  <button
+    className="add-highlight quill-button small primary outlined"
+    id="1"
+    onClick={[Function]}
+    type="button"
+  >
+    Add Highlight
+  </button>
+  <button
+    className="add-feedback-layer quill-button small primary outlined"
+    onClick={[Function]}
+    type="button"
+  >
+    Add Feedback Layer
+  </button>
+</Fragment>
+`;
