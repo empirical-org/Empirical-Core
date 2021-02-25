@@ -1,10 +1,10 @@
 import * as React from 'react';
-import { mount } from 'enzyme';
+import { shallow } from 'enzyme';
 import { MemoryRouter } from 'react-router-dom';
 import ComprehensionLanding from '../ComprehensionLanding';
 
 describe('ComprehensionLanding component', () => {
-  const container = mount(
+  const container = shallow(
     <MemoryRouter>
       <ComprehensionLanding />
     </MemoryRouter>

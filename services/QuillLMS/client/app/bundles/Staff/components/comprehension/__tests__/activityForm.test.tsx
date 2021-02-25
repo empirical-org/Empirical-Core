@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { mount } from 'enzyme';
+import { shallow } from 'enzyme';
 
 import { BUT, BECAUSE, SO }  from '../../../../../constants/comprehension';
 import ActivityForm from '../configureSettings/activityForm';
@@ -44,7 +44,7 @@ const mockProps = {
 };
 
 describe('Activity Form component', () => {
-  const container = mount(<ActivityForm {...mockProps} />);
+  const container = shallow(<ActivityForm {...mockProps} />);
 
   it('should render Activities', () => {
     expect(container).toMatchSnapshot();

@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { mount } from 'enzyme';
+import { shallow } from 'enzyme';
 
 import PromptsForm from '../configureSettings/promptsForm';
 import { BUT, BECAUSE, SO, FIRST, SECOND }  from '../../../../../constants/comprehension';
@@ -30,7 +30,7 @@ const mockProps = {
 };
 
 describe('PromptsForm component', () => {
-  const container = mount(<PromptsForm {...mockProps} />);
+  const container = shallow(<PromptsForm {...mockProps} />);
 
   it('should render PromptsForm', () => {
     expect(container).toMatchSnapshot();

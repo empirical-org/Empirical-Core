@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { mount } from 'enzyme';
+import { shallow } from 'enzyme';
 
 import RuleRegexAttributes from '../configureRules/ruleRegexAttributes';
 import RegexRules from '../configureRules/regexRules';
@@ -20,7 +20,7 @@ const mockProps = {
 };
 
 describe('RuleRegexAttributes component', () => {
-  let container = mount(<RuleRegexAttributes {...mockProps} />);
+  let container = shallow(<RuleRegexAttributes {...mockProps} />);
 
   it('should render RuleRegexAttributes', () => {
     expect(container).toMatchSnapshot();

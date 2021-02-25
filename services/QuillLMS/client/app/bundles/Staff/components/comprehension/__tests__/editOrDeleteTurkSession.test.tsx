@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { mount } from 'enzyme';
+import { shallow } from 'enzyme';
 import 'whatwg-fetch';
 
 import EditOrDeleteTurkSession from '../gatherResponses/editOrDeleteTurkSession';
@@ -12,7 +12,7 @@ describe('EditOrDeleteTurkSession component', () => {
     originalSessionDate: '2020-05-27T21:39:20Z',
     turkSessionId: 3
   }
-  const container = mount(<EditOrDeleteTurkSession {...mockProps} />);
+  const container = shallow(<EditOrDeleteTurkSession {...mockProps} />);
 
   it('should render EditOrDeleteTurkSession', () => {
     expect(container).toMatchSnapshot();

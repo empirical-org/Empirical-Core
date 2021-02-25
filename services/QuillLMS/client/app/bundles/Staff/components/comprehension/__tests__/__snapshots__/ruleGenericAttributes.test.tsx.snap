@@ -12,7 +12,7 @@ exports[`RuleGenericAttributes component should render RuleGenericAttributes 1`]
       Array [
         Object {
           "label": "Regex",
-          "value": "rules_based",
+          "value": "rules-based",
         },
         Object {
           "label": "Plagiarism",

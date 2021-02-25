@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { mount } from 'enzyme';
+import { shallow } from 'enzyme';
 import { createMemoryHistory, createLocation } from 'history';
 
 import Rule from '../configureRules/rule';
@@ -28,7 +28,7 @@ const fields = [
 ];
 
 describe('Rule component', () => {
-  const container = mount(<Rule {...mockProps} />);
+  const container = shallow(<Rule {...mockProps} />);
 
   it('should render Rule', () => {
     expect(container).toMatchSnapshot();

@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { mount } from 'enzyme';
+import { shallow } from 'enzyme';
 
 import RuleForm from '../configureRules/ruleForm';
 import RuleGenericAttributes from '../configureRules/ruleGenericAttributes';
@@ -52,7 +52,7 @@ const mockProps = {
 };
 
 describe('RuleForm component', () => {
-  const container = mount(<RuleForm {...mockProps} />);
+  const container = shallow(<RuleForm {...mockProps} />);
 
   it('should render RuleForm', () => {
     expect(container).toMatchSnapshot();

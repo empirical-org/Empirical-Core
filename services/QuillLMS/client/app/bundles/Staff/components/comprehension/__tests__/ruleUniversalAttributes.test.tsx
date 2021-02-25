@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { mount } from 'enzyme';
+import { shallow } from 'enzyme';
 
 import RuleUniversalAttributes from '../configureRules/ruleUniversalAttributes';
 import { DropdownInput, TextEditor } from '../../../../Shared/index'
@@ -21,7 +21,7 @@ const mockProps = {
 };
 
 describe('RuleUniversalAttributes component', () => {
-  let container = mount(<RuleUniversalAttributes {...mockProps} />);
+  let container = shallow(<RuleUniversalAttributes {...mockProps} />);
 
   it('should render RuleUniversalAttributes', () => {
     expect(container).toMatchSnapshot();
