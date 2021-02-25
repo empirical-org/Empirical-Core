@@ -70,6 +70,17 @@ module Comprehension
       transaction_succeeded
     end
 
+    def fetch_automl_label(text)
+      automl_payload = {
+        text_snippet: {
+          content: text
+        }
+      }
+      results = automl_prediction_client.predict(name: automl_model_full_id, payload: automl_payload)
+      sorted_results = results.sort_by { |i| i.classification.score }.reverse
+      sorted_results[0].display_name
+    end
+
     private def state_can_be_active
       if state == STATE_ACTIVE && !labels_valid?
         errors.add(:state, "can't be set to 'active' until all labels have a corresponding rule")
@@ -122,6 +133,10 @@ module Comprehension
 
     private def automl_client
       @automl_client ||= Google::Cloud::AutoML.auto_ml
+    end
+
+    private def automl_prediction_client
+      @automl_prediction_client ||= Google::Cloud::AutoML.prediction_service
     end
 
     private def automl_model_full_id
