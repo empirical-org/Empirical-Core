@@ -224,7 +224,7 @@ export const validateForm = (keys: string[], state: any[]) => {
         }
         break;
       case PARENT_ACTIVITY_ID:
-        // this field is no required
+        // this field is not required
         break;
       default:
         const strippedValue = value && stripHtml(value);
