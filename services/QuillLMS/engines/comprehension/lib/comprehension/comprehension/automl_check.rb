@@ -1,0 +1,37 @@
+module Comprehension
+  class AutomlCheck
+
+    attr_reader :entry, :prompt
+
+    def initialize(entry, prompt, previous_feedback=[])
+      @entry = entry
+      @prompt = prompt
+      @automl_model = prompt.automl_models.where(state: AutomlModel::STATE_ACTIVE).first
+      @previous_feedback = previous_feedback
+    end
+
+    def feedback_object
+      return nil if not matched_rule
+      feedback = matched_rule.determine_feedback_from_history(@previous_feedback)
+      {
+        feedback: feedback.text,
+        feedback_type: Rule::TYPE_AUTOML,
+        optimal: matched_rule.optimal,
+        response_id: '',
+        entry: @entry,
+        concept_uid: matched_rule&.concept_uid || '',
+        rule_uid: matched_rule&.uid,
+        highlight: []
+      }
+    end
+
+    private def matched_rule
+      @matched_rule ||= fetch_matched_rule
+    end
+
+    private def fetch_matched_rule
+      google_automl_label = @automl_model.fetch_automl_label(@entry)
+      @prompt.rules.joins(:label).find_by(comprehension_labels: {name: google_automl_label})
+    end
+  end
+end
