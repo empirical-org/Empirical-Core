@@ -436,7 +436,11 @@ class PagesController < ApplicationController
   end
 
   def preap_units
-    render json: { units: preap_content }
+    render json: { units: preap_and_springboard_content }
+  end
+
+  def springboard_units
+    render json: { units: preap_and_springboard_content }
   end
 
   def backpack

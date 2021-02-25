@@ -148,6 +148,8 @@
         border-radius: 6px;
         border: solid 1px #e0e0e0;
         padding-top: 20px;
+        display: flex;
+        flex-direction: column;
         .activity-header-container {
           display: flex;
           align-items: baseline;
