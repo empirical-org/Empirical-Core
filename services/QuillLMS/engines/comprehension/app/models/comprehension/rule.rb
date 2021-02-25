@@ -47,6 +47,17 @@ module Comprehension
       ))
     end
 
+    def determine_feedback_from_history(feedback_history)
+      relevant_history = feedback_history.filter { |fb| fb['feedback_type'] == rule_type }
+      relevant_feedback_text = relevant_history.map { |fb| fb['feedback'] }
+
+      first_unused = feedbacks.where.not(text: relevant_feedback_text).order(:order).first
+      return first_unused if first_unused
+
+      # If we didn't find a first unused we instead want the last Feedback by order
+      return feedbacks.order(order: :desc).first
+    end
+
     def regex_is_passing?(entry)
       regex_rules.none?{ |regex_rule| Regexp.new(regex_rule.regex_text).match(entry) }
     end

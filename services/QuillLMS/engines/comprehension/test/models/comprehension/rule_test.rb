@@ -65,6 +65,45 @@ module Comprehension
       end
     end
 
+    context '#determine_feedback_from_history' do
+      setup do
+        @rule = create(:comprehension_rule)
+        @feedback1 = create(:comprehension_feedback, rule: @rule, order: 0, text: 'Example feedback 1')
+        @feedback2 = create(:comprehension_feedback, rule: @rule, order: 1, text: 'Example feedback 2')
+        @feedback3 = create(:comprehension_feedback, rule: @rule, order: 2, text: 'Example feedback 3')
+      end
+
+      should 'fetch lowest order feedback if feedback history is empty' do
+        feedback_history = []
+
+        assert_equal @rule.determine_feedback_from_history(feedback_history), @feedback1
+      end
+
+      should 'fetch lowest order feedback with text not matched from history' do
+        feedback_history = [{
+          "feedback" => @feedback1.text,
+          "feedback_type" => @rule.rule_type
+        }]
+
+        assert_equal @rule.determine_feedback_from_history(feedback_history), @feedback2
+      end
+
+      should 'fetch highest order if all feedbacks have text matched from history' do
+        feedback_history = [{
+          "feedback" => @feedback1.text,
+          "feedback_type" => @rule.rule_type
+        },{
+          "feedback" => @feedback2.text,
+          "feedback_type" => @rule.rule_type
+        },{
+          "feedback" => @feedback3.text,
+          "feedback_type" => @rule.rule_type
+        }]
+
+        assert_equal @rule.determine_feedback_from_history(feedback_history), @feedback3
+      end
+    end
+
     context 'regex_is_passing?' do
       setup do
         @rule = create(:comprehension_rule)
