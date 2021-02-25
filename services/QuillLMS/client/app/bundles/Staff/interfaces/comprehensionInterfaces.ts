@@ -61,7 +61,7 @@ export interface RuleInterface {
   optimal: boolean,
   suborder: number,
   concept_uid: string,
-  prompt_ids: number[],
+  prompt_ids?: number[],
   plagiarism_text?: {
     id?: number,
     rule_id?: number,
@@ -79,20 +79,30 @@ export interface RuleInterface {
     case_sensitive: boolean
   }[]
   feedbacks?: {
-    id: number,
-    rule_id: number,
+    id?: number,
+    rule_id?: number,
     text: string,
     description?: string,
     order: number,
-    highlights: string[]
+    highlights?: any[]
+    highlights_attributes?: any[]
   }[]
 }
 
 export interface RuleFeedbackInterface {
   description?: string,
-  highlights?: string[],
+  highlights?: any[],
+  highlights_attributes?: any[],
   id?: number,
   order?: number,
   rule_id?: number,
   text: string
 }
+
+export interface DropdownObjectInterface {
+  value: string,
+  label: string
+}
+
+export type InputEvent = React.ChangeEvent<HTMLInputElement>;
+export type ClickEvent = React.MouseEvent<HTMLElement>;

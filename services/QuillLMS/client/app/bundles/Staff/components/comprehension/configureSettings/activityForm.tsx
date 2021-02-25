@@ -17,7 +17,7 @@ import {
   MAX_ATTEMPTS_FEEDBACK,
   PASSAGE
 } from '../../../../../constants/comprehension';
-import { ActivityInterface, PromptInterface, PassagesInterface } from '../../../interfaces/comprehensionInterfaces';
+import { ActivityInterface, PromptInterface, PassagesInterface, InputEvent } from '../../../interfaces/comprehensionInterfaces';
 import { Input, TextEditor, } from '../../../../Shared/index'
 
 interface ActivityFormProps {
@@ -25,7 +25,6 @@ interface ActivityFormProps {
   closeModal: (event: React.MouseEvent) => void,
   submitActivity: (activity: object) => void
 }
-type InputEvent = React.ChangeEvent<HTMLInputElement>;
 
 const ActivityForm = ({ activity, closeModal, submitActivity }: ActivityFormProps) => {
 

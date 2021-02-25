@@ -2,7 +2,7 @@ import * as React from 'react';
 import { shallow } from 'enzyme';
 
 import { Input } from '../../../../Shared/index';
-import RegexSection from '../configureRules/regexSection';
+import RegexRules from '../configureRules/regexRules';
 jest.mock('string-strip-html', () => ({
   default: jest.fn()
 }))
@@ -32,10 +32,10 @@ const mockProps = {
   regexRules: mockRegexRules
 };
 
-describe('RegexSection component', () => {
-  const container = shallow(<RegexSection {...mockProps} />);
+describe('RegexRules component', () => {
+  const container = shallow(<RegexRules {...mockProps} />);
 
-  it('should render RegexSection', () => {
+  it('should render RegexRules', () => {
     expect(container).toMatchSnapshot();
   });
 
