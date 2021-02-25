@@ -3,7 +3,8 @@ module Feature
 
   # pass a unique id
   def self.in_day_bucket?(id:, percent_per_day:)
-    mod_base = (100.0/percent_per_day).to_i
+    safe_percent_per_day = percent_per_day.to_f == 0.0 ? 1.0 : percent_per_day.to_f
+    mod_base = 100.0/safe_percent_per_day
 
     day_since_epoch = Time.zone.now.to_i / SECONDS_PER_DAY
 
