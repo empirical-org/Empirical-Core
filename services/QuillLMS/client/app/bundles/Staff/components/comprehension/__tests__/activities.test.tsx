@@ -28,7 +28,7 @@ describe('Activities component', () => {
     location: createLocation('')
   }
   const container = shallow(
-      <Activities {...mockProps} />
+    <Activities {...mockProps} />
   );
 
   it('should render a DataTable passing activites', () => {
