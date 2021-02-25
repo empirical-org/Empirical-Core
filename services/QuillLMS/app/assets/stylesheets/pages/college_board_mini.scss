@@ -1,5 +1,8 @@
 .college-board-mini {
   .mini_content {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
     padding: 11px 16px;
   }
   p {
