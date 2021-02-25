@@ -325,8 +325,7 @@ export const buildRule = ({
     prompt_ids: promptIds,
     rule_type: ruleType.value,
     suborder: suborder ? suborder : order,
-    universal: universal,
-    state: 'active'
+    universal: universal
   };
 
   if(newOrUpdatedRule.rule_type === 'rules-based') {
