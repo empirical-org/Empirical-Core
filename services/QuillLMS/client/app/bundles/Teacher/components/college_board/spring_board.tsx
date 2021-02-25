@@ -24,6 +24,7 @@ const SpringBoard = ({ isPartOfAssignmentFlow, units, }: SpringBoardProps) => {
         key={u.id}
         learningCycles={u.learning_cycles}
         slug={SPRING_BOARD_SLUG}
+        tag={<div className="college-board-activity-tag">For SpringBoard 9</div>}
         title={u.title}
       />
     )
@@ -195,7 +196,6 @@ const SpringBoard = ({ isPartOfAssignmentFlow, units, }: SpringBoardProps) => {
         </div>
         <div className="activities-subheader">
           <h2>Passage-Aligned Activities</h2>
-          <div className="college-board-activity-tag">For SpringBoard 9</div>
         </div>
         <div className="white-section-wrapper">
           <div className="units-container">
