@@ -130,7 +130,7 @@ module Comprehension
 
     private def automl_labels
       evaluations = automl_client.list_model_evaluations(parent: automl_model_full_id)
-      evaluations.map { |e| e.display_name }
+      evaluations.map { |e| e.display_name }.reject { |l| l.empty? }
     end
 
     private def automl_name
