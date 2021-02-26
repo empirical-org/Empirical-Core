@@ -58,9 +58,13 @@ export const Home = () => {
     setSkippedToQuestionFromIntro(true);
   }
 
+  function onMobile() {
+    return window.innerWidth < 1100
+  }
+
   let className = "ant-layout "
   className = showFocusState ? '' : 'hide-focus-outline'
-  const showPreview = previewShowing && isTeacherOrAdmin && isPlaying;
+  const showPreview = previewShowing && isTeacherOrAdmin && isPlaying && !onMobile();
   return(
     <div className={className}>
       <div className="activity-container">
