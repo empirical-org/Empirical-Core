@@ -10,6 +10,7 @@ Comprehension::Engine.routes.draw do
     end
   end
   namespace :feedback do
+    post :automl
     post :plagiarism
     post :regex
   end
