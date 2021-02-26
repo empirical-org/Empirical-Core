@@ -11,7 +11,7 @@ module Comprehension
     end
 
     def feedback_object
-      return nil if not matched_rule
+      return nil unless matched_rule
       feedback = matched_rule.determine_feedback_from_history(@previous_feedback)
       {
         feedback: feedback.text,
