@@ -66,6 +66,12 @@ describe StudentsClassrooms, type: :model, redis: true do
         expect(ArchiveStudentAssociationsForClassroomWorker).to receive(:perform_async).with(student.id, student_classroom.classroom_id)
         student_classroom.update(visible: false)
       end
+
+      it "should not call the ArchiveStudentAssociationsForClassroomWorker if skip attribute is set to true" do
+        student_classroom.skip_archive_student_associations = true
+        expect(ArchiveStudentAssociationsForClassroomWorker).not_to receive(:perform_async).with(student.id, student_classroom.classroom_id)
+        student_classroom.update(visible: false)
+      end
     end
 
     context 'invalidate_classroom_minis' do
