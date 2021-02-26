@@ -11,7 +11,7 @@ import {
   MAXIMUM_READING_LEVEL,
   TARGET_READING_LEVEL,
   SCORED_READING_LEVEL,
-  PARENT_ACTIVITY_ID
+  PARENT_ACTIVITY_ID,
 } from '../../../constants/comprehension';
 import { PromptInterface } from '../interfaces/comprehensionInterfaces'
 
