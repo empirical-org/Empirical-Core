@@ -10,7 +10,8 @@ import {
   MINIMUM_READING_LEVEL,
   MAXIMUM_READING_LEVEL,
   TARGET_READING_LEVEL,
-  SCORED_READING_LEVEL
+  SCORED_READING_LEVEL,
+  PARENT_ACTIVITY_ID,
 } from '../../../constants/comprehension';
 import { PromptInterface } from '../interfaces/comprehensionInterfaces'
 
@@ -221,6 +222,9 @@ export const validateForm = (keys: string[], state: any[]) => {
         if(!value) {
           errors[keys[i]] = 'Concept UID cannot be blank. Default for plagiarism rules is "Kr8PdUfXnU0L7RrGpY4uqg"'
         }
+        break;
+      case PARENT_ACTIVITY_ID:
+        // this field is not required
         break;
       default:
         const strippedValue = value && stripHtml(value);
