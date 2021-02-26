@@ -11,6 +11,8 @@ module Comprehension
       should validate_presence_of(:rule)
       should validate_presence_of(:regex_text)
       should validate_length_of(:regex_text).is_at_most(200)
+      should validate_inclusion_of(:case_sensitive).in_array(RegexRule::CASE_SENSITIVE_ALLOWED_VALUES)
+      should validate_inclusion_of(:sequence_type).in_array(RegexRule::SEQUENCE_TYPES)
     end
 
     context 'custom validations' do

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20210128155938) do
+ActiveRecord::Schema.define(version: 20210218213618) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -88,11 +88,12 @@ ActiveRecord::Schema.define(version: 20210128155938) do
   add_index "comprehension_prompts_rules", ["rule_id"], name: "index_comprehension_prompts_rules_on_rule_id", using: :btree
 
   create_table "comprehension_regex_rules", force: :cascade do |t|
-    t.string   "regex_text",     limit: 200, null: false
-    t.boolean  "case_sensitive",             null: false
-    t.datetime "created_at",                 null: false
-    t.datetime "updated_at",                 null: false
+    t.string   "regex_text",     limit: 200,                       null: false
+    t.boolean  "case_sensitive",                                   null: false
+    t.datetime "created_at",                                       null: false
+    t.datetime "updated_at",                                       null: false
     t.integer  "rule_id"
+    t.text     "sequence_type",              default: "incorrect", null: false
   end
 
   add_index "comprehension_regex_rules", ["rule_id"], name: "index_comprehension_regex_rules_on_rule_id", using: :btree
@@ -104,8 +105,8 @@ ActiveRecord::Schema.define(version: 20210128155938) do
     t.boolean  "universal",   null: false
     t.string   "rule_type",   null: false
     t.boolean  "optimal",     null: false
-    t.integer  "suborder"
-    t.string   "concept_uid", null: false
+    t.text     "suborder"
+    t.string   "concept_uid"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
   end
