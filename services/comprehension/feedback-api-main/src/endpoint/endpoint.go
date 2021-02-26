@@ -71,10 +71,7 @@ func Endpoint(responseWriter http.ResponseWriter, request *http.Request) map[int
 	}
 	fmt.Println(string(requestDump))
 
-	fmt.Println(request.Body)
 	request_body, err := ioutil.ReadAll(request.Body)
-	fmt.Println("*******")
-	fmt.Println(request_body)
 
 	if err != nil {
 		//TODO make this response in the same format maybe?
@@ -120,6 +117,10 @@ func Endpoint(responseWriter http.ResponseWriter, request *http.Request) map[int
 	// instead of transforming from bytes to object, combining, and then converting back to bytes
 	if err := json.NewDecoder(bytes.NewReader(request_body)).Decode(&request_object); err != nil {
 		return make(map[int]InternalAPIResponse)
+	}
+
+	if len(request_object.Previous_feedback) < 1 {
+		request_object.Previous_feedback = make([]string, 0)
 	}
 
 	go batchRecordFeedback(request_object, results)

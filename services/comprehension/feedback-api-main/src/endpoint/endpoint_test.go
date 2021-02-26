@@ -48,8 +48,14 @@ func TestUpstreamAPIIntegrations(t *testing.T) {
 }
 
 func TestPublishMessage(t *testing.T) {
-
-	api_request := APIRequest{Prompt_text: "They cut funding because", Entry: "they needed to save money.", Prompt_id: 4, Session_id: "Asfasdf", Attempt: 2}
+	api_request := APIRequest{
+		Prompt_text:       "They cut funding because",
+		Entry:             "they needed to save money.",
+		Prompt_id:         4,
+		Session_id:        "Asfasdf",
+		Attempt:           2,
+		Previous_feedback: make([]string, 0),
+	}
 	request_json, _ := json.Marshal(api_request)
 	json_string := bytes.NewBuffer(request_json)
 
@@ -81,7 +87,13 @@ func TestPublishMessage(t *testing.T) {
 
 func TestDefaultFeedbackFallback(t *testing.T) {
 	// Same as the regular test, but with a missing PromptID param which should crash the endpoint
-	api_request := APIRequest{Prompt_text: "They cut funding because", Entry: "they needed to save money.", Session_id: "Asfasdf", Attempt: 2}
+	api_request := APIRequest{
+		Prompt_text:       "They cut funding because",
+		Entry:             "they needed to save money.",
+		Session_id:        "Asfasdf",
+		Attempt:           2,
+		Previous_feedback: make([]string, 0),
+	}
 	request_json, _ := json.Marshal(api_request)
 	json_string := bytes.NewBuffer(request_json)
 
@@ -228,11 +240,12 @@ func TestIdentifyUsedFeedbackIndex(t *testing.T) {
 
 func TestBuildFeedbackHistory(t *testing.T) {
 	request_object := APIRequest{
-		Entry:       "test entry",
-		Prompt_text: "test prompt_text",
-		Prompt_id:   1,
-		Session_id:  "test session_id",
-		Attempt:     1,
+		Entry:             "test entry",
+		Prompt_text:       "test prompt_text",
+		Prompt_id:         1,
+		Session_id:        "test session_id",
+		Attempt:           1,
+		Previous_feedback: make([]string, 0),
 	}
 	feedback := InternalAPIResponse{
 		Error: false,
@@ -281,7 +294,14 @@ func TestBuildFeedbackHistory(t *testing.T) {
 }
 
 func TestBuildBatchFeedbackHistories(t *testing.T) {
-	api_request := APIRequest{Prompt_text: "They cut funding because", Entry: "they needed to save money.", Prompt_id: 4, Session_id: "Asfasdf", Attempt: 2}
+	api_request := APIRequest{
+		Prompt_text:       "They cut funding because",
+		Entry:             "they needed to save money.",
+		Prompt_id:         4,
+		Session_id:        "Asfasdf",
+		Attempt:           2,
+		Previous_feedback: make([]string, 0),
+	}
 
 	results := map[int]InternalAPIResponse{}
 	results[0] = InternalAPIResponse{APIResponse: APIResponse{Concept_uid: "test_concept", Feedback: "Feedback text: optimal", Feedback_type: "type1", Optimal: true, Labels: "test_label"}}
