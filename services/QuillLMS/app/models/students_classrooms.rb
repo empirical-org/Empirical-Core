@@ -21,10 +21,12 @@ class StudentsClassrooms < ActiveRecord::Base
   belongs_to :classroom, class_name: "Classroom"
   # validates uniqueness of student/classroom on db
   after_save :checkbox, :run_associator
-  after_save :archive_student_associations_for_classroom, if: proc { |sc| !sc.visible && sc.student && sc.classroom }
+  after_save :archive_student_associations_for_classroom, if: proc { |sc| !sc.visible && sc.student && sc.classroom }, unless: :skip_archive_student_associations
   after_commit :invalidate_classroom_minis
 
   default_scope { where(visible: true)}
+
+  attr_accessor :skip_archive_student_associations
 
   def archived_classrooms_manager
     {joinDate: created_at.strftime("%m/%d/%Y"), className: classroom.name, teacherName: classroom.owner.name, id: id}

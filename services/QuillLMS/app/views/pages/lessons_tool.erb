@@ -7,14 +7,19 @@
 
 <div class="tool-container lessons-tool-page">
 
-    <section class='tool-hero text-center bg-lessons-purple'>
+    <section class='tool-hero text-center bg-lessons-purple tool-section'>
         <h1 class="q-h1">
             <img class="tool-page-icon lazyload" data-src=<%= "#{ENV['CDN_URL']}/images/shared/icon_lessons_white.svg" %>>Quill Lessons
         </h1>
         <p class='description'>
           Quill Lessons enables teachers to lead whole-class and small group writing instruction. Teachers control interactive slides that contain writing prompts, and the entire class responds to each prompt. Each Quill Lessons activity provides a lesson plan, writing prompts, discussion topics, and a follow up independent practice activity.
         </p>
-        <a href=<%= "/activity_sessions/anonymous?activity_id=566" %> target="_blank" class="q-button cta-button bg-white text-lessonspurple">Try Quill Lessons Now</a>
+        <section class="tool-ctas lessons-tool">
+          <a href=<%= "/activity_sessions/anonymous?activity_id=566" %> target="_blank" class="q-button cta-button bg-white text-lessonspurple">Try a sample activity</a>
+          <% if current_user&.teacher? %>
+            <a href='/assign/activity-library?activityClassificationFilters[]=lessons' class="q-button text-white learn-more-button">Assign</a>
+          <% end %>
+        </section>
     </section>
 
     <section class="tool-animation-section " id="overview">

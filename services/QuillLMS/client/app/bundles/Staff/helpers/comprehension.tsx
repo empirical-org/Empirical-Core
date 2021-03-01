@@ -10,7 +10,10 @@ import {
   MINIMUM_READING_LEVEL,
   MAXIMUM_READING_LEVEL,
   TARGET_READING_LEVEL,
-  SCORED_READING_LEVEL
+  PARENT_ACTIVITY_ID,
+  SCORED_READING_LEVEL,
+  IMAGE_LINK,
+  IMAGE_ALT_TEXT
 } from '../../../constants/comprehension';
 import { PromptInterface } from '../interfaces/comprehensionInterfaces'
 
@@ -98,7 +101,7 @@ export const formatPrompts = ({ activityData, rule, setRulePrompts }) => {
   });
 
   // use activity data to apply each prompt ID
-  activityData.prompts && activityData.prompts.forEach((prompt: PromptInterface) => {
+  activityData && activityData.prompts && activityData.prompts.forEach((prompt: PromptInterface) => {
     const { conjunction, id } = prompt;
     formatted[conjunction] = {
       id,
@@ -121,106 +124,6 @@ export const formatRegexRules = ({ rule, setRegexRules }) => {
     formatted[`regex-rule-${i}`] = formattedRule;
   });
   setRegexRules(formatted);
-}
-
-// export const formatPlagiarismText = ({ rule, setPlagiarismText }) => {
-//   if(rule && rule.plagiarism_text_attributes && rule.plagiarism_text_attributes[0]) {
-//     const { plagiarism_text_attributes } = rule;
-
-//   }
-// }
-
-export const formatFeedbacks = ({ rule, ruleType, setFirstPlagiarismFeedback, setSecondPlagiarismFeedback, setRegexFeedback }) => {
-  if(rule && rule.feedbacks && Object.keys(rule.feedbacks).length) {
-    const { feedbacks } =  rule;
-    if(ruleType && ruleType.value === "Plagiarism") {
-      const formattedFirstFeedback = {
-        id: feedbacks[0].id,
-        order: 0,
-        description: feedbacks[0].description,
-        text: feedbacks[0].text
-      }
-      const formattedSecondFeedback = {
-        id: feedbacks[1].id,
-        order: 1,
-        description: feedbacks[1].description,
-        text: feedbacks[1].text
-      }
-      setFirstPlagiarismFeedback(formattedFirstFeedback);
-      setSecondPlagiarismFeedback(formattedSecondFeedback);
-    }
-    else if(ruleType && ruleType.value === "Regex") {
-      const formattedFeedback = {
-        id: feedbacks[0].id,
-        order: 0,
-        description: feedbacks[0].description,
-        text: feedbacks[0].text
-      }
-      setRegexFeedback(formattedFeedback);
-    }
-  } else {
-    // creating new rule, set all to empty break tag in case user switches between rule types
-    setFirstPlagiarismFeedback({ text: '<br/>'});
-    setSecondPlagiarismFeedback({ text: '<br/>'});
-    setRegexFeedback({ text: '<br/>'});
-  }
-}
-
-export const buildFeedbacks = ({ ruleType, regexFeedback, firstPlagiarismFeedback, secondPlagiarismFeedback }) => {
-  if(ruleType.value === "Regex") {
-    return [regexFeedback];
-  } else if(ruleType.value === "Plagiarism") {
-    return [firstPlagiarismFeedback, secondPlagiarismFeedback];
-  }
-}
-
-export const buildRule = ({
-  rule,
-  ruleName,
-  ruleConceptUID,
-  ruleType,
-  ruleOptimal,
-  rulePrompts,
-  rulesCount,
-  regexFeedback,
-  plagiarismText,
-  firstPlagiarismFeedback,
-  secondPlagiarismFeedback,
-  regexRules
-}) => {
-  const { suborder, universal } =  rule;
-  const promptIds = [];
-  Object.keys(rulePrompts).forEach(key => {
-    rulePrompts[key].checked && promptIds.push(rulePrompts[key].id);
-  });
-
-  let newOrUpdatedRule: any = {
-    name: ruleName,
-    feedbacks_attributes: buildFeedbacks({ruleType, regexFeedback, firstPlagiarismFeedback, secondPlagiarismFeedback }),
-    concept_uid: ruleConceptUID,
-    optimal: ruleOptimal.value,
-    rule_type: ruleType.value,
-    suborder: suborder ? suborder : rulesCount,
-    universal: universal,
-    prompt_ids: promptIds
-  };
-
-  if(newOrUpdatedRule.rule_type === 'Regex') {
-    const rules = [];
-    Object.keys(regexRules).forEach(key => {
-      rules.push(regexRules[key]);
-    });
-    newOrUpdatedRule.regex_rules_attributes = rules;
-  } else if(newOrUpdatedRule.rule_type === 'Plagiarism') {
-    newOrUpdatedRule.plagiarism_text_attributes = {
-      id: plagiarismText.id,
-      text: plagiarismText.text
-    };
-  }
-
-  return {
-    rule: newOrUpdatedRule
-  };
 }
 
 export const promptsByConjunction = (prompts: PromptInterface[]) => {
@@ -299,6 +202,9 @@ export const validateForm = (keys: string[], state: any[]) => {
   let errors = {};
   state.map((value, i) => {
     switch(keys[i]) {
+      case IMAGE_LINK:
+      case IMAGE_ALT_TEXT:
+        break;
       case TARGET_READING_LEVEL:
         const targetError = targetReadingLevelError(value);
         if(targetError) {
@@ -321,6 +227,9 @@ export const validateForm = (keys: string[], state: any[]) => {
         if(!value) {
           errors[keys[i]] = 'Concept UID cannot be blank. Default for plagiarism rules is "Kr8PdUfXnU0L7RrGpY4uqg"'
         }
+        break;
+      case PARENT_ACTIVITY_ID:
+        // this field is not required
         break;
       default:
         const strippedValue = value && stripHtml(value);

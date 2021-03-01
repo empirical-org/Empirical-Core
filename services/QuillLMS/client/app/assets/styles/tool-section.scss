@@ -380,9 +380,26 @@ $tool-grey: #f8f9f9;
   @media only screen and (max-width : 550px) {
     padding-top: 30px;
   }
+  &.tool-section {
+    min-height: min-content;
+  }
   .cta-button {
     padding: 11px 19px 8px;
+  }
+  .tool-ctas {
     margin-top: 26px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    .learn-more-button {
+      margin-left: 10px;
+      height: 45px;
+      padding-top: 8px;
+      padding-bottom: 8px;
+      &:hover {
+        border: 1px solid white;
+      }
+    }
   }
   .q-h1 {
     font-size: 36px;
@@ -797,11 +814,6 @@ $tool-grey: #f8f9f9;
 }
 
 .diagnostic-tool-page {
-  .tool-hero {
-    .cta-button {
-      margin-top: 50px;
-    }
-  }
   .tool-animation-section {
     background-image: url('../../../../public/images/landing_page_diagnostic_pattern.png');
     background-position: center;

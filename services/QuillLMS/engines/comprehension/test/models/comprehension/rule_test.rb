@@ -14,6 +14,7 @@ module Comprehension
       should validate_numericality_of(:suborder)
         .only_integer
         .is_greater_than_or_equal_to(0)
+        .allow_nil
     end
 
     context 'relationships' do
@@ -73,15 +74,29 @@ module Comprehension
     context 'regex_is_passing?' do
       setup do
         @rule = create(:comprehension_rule)
-        @regex_rule = create(:comprehension_regex_rule, rule: @rule, regex_text: "^Hello")
+        @regex_rule = create(:comprehension_regex_rule, rule: @rule, regex_text: "^Hello", sequence_type: 'incorrect')
       end
 
       should 'be true if entry does not match the regex text' do
         assert @rule.regex_is_passing?('Nope, I dont start with hello.')
       end
 
-      should 'be false if entry matches regex text' do
+      should 'be true if sequence_type is incorrect and entry does not match the regex text' do
+        assert @rule.regex_is_passing?('Nope, I dont start with hello.')
+      end
+
+      should 'be false if sequence_type is incorrect and entry matches regex text' do
         assert !@rule.regex_is_passing?('Hello!!!')
+      end
+
+      should 'be false if sequence_type is required and entry does not match regex text' do
+        @regex_rule_two= create(:comprehension_regex_rule, rule: @rule, regex_text: "you need this sequence", sequence_type: 'required')
+        assert !@rule.regex_is_passing?('I do not have the right sequence')
+      end
+
+      should 'be true if sequence_type is required and entry matches regex text' do
+        @regex_rule_two= create(:comprehension_regex_rule, rule: @rule, regex_text: "you need this sequence", sequence_type: 'required')
+        assert @rule.regex_is_passing?('you need this sequence and I do have it')
       end
 
     end
