@@ -194,26 +194,10 @@ export function getInitialRuleType({ isUniversal, rule_type, universalRuleType }
   }
 }
 
-export const formatFeedbacks = ({ rule, ruleType, setFirstPlagiarismFeedback, setSecondPlagiarismFeedback, setRegexFeedback }) => {
+export const formatFeedbacks = ({ rule, ruleType, setRegexFeedback }) => {
   if(rule && rule.feedbacks && Object.keys(rule.feedbacks).length) {
     const { feedbacks } =  rule;
-    if(ruleType && ruleType.value === 'plagiarism') {
-      const formattedFirstFeedback = {
-        id: feedbacks[0].id,
-        order: 0,
-        description: feedbacks[0].description,
-        text: feedbacks[0].text
-      }
-      const formattedSecondFeedback = {
-        id: feedbacks[1].id,
-        order: 1,
-        description: feedbacks[1].description,
-        text: feedbacks[1].text
-      }
-      setFirstPlagiarismFeedback(formattedFirstFeedback);
-      setSecondPlagiarismFeedback(formattedSecondFeedback);
-    }
-    else if(ruleType && ruleType.value === 'rules-based') {
+    if(ruleType && ruleType.value === 'rules-based') {
       const formattedFeedback = {
         id: feedbacks[0].id,
         order: 0,
@@ -224,13 +208,18 @@ export const formatFeedbacks = ({ rule, ruleType, setFirstPlagiarismFeedback, se
     }
   } else {
     // creating new rule, set all to empty break tag in case user switches between rule types
-    setFirstPlagiarismFeedback({ text: '<br/>'});
-    setSecondPlagiarismFeedback({ text: '<br/>'});
     setRegexFeedback({ text: '<br/>'});
   }
 }
 
-export const formatInitialUniversalFeedback = (feedbacks) => {
+export const returnInitialFeedback = (ruleType: string) => {
+  if(ruleType === 'plagiarism') {
+    return [{ text: '', order: 0, highlights_attributes: [] }, { text: '', order: 1, highlights_attributes: [] }];
+  }
+  return [{ text: '', highlights_attributes: [] }];
+}
+
+export const formatInitialFeedbacks = (feedbacks) => {
   return feedbacks.map(feedback => {
     const { id, description, order, text, highlights } = feedback;
     const formattedFeedback = {
@@ -276,18 +265,15 @@ const formatUniversalFeedback = (feedbacks) => {
   });
 }
 
-const buildFeedbacks = ({ ruleType, regexFeedback, firstPlagiarismFeedback, secondPlagiarismFeedback, universalFeedback }) => {
+const buildFeedbacks = ({ ruleType, regexFeedback, ruleFeedbacks }) => {
   if(ruleType.value === 'rules-based') {
     return [regexFeedback];
-  } else if(ruleType.value === 'plagiarism') {
-    return [firstPlagiarismFeedback, secondPlagiarismFeedback];
   } else {
-    return formatUniversalFeedback(universalFeedback);
+    return formatUniversalFeedback(ruleFeedbacks);
   }
 }
 
 export const buildRule = ({
-  firstPlagiarismFeedback,
   plagiarismText,
   regexFeedback,
   regexRules,
@@ -299,8 +285,7 @@ export const buildRule = ({
   ruleOptimal,
   rulePrompts,
   ruleType,
-  secondPlagiarismFeedback,
-  universalFeedback,
+  ruleFeedbacks,
   universalRulesCount
 }) => {
   const { suborder, universal } =  rule;
@@ -316,9 +301,7 @@ export const buildRule = ({
     feedbacks_attributes: buildFeedbacks({
       ruleType,
       regexFeedback,
-      firstPlagiarismFeedback,
-      secondPlagiarismFeedback,
-      universalFeedback
+      ruleFeedbacks
     }),
     name: ruleName,
     optimal: !!ruleOptimal.value,
@@ -348,7 +331,6 @@ export const buildRule = ({
 
 export function handleSubmitRule({
   plagiarismText,
-  firstPlagiarismFeedback,
   regexFeedback,
   regexRules,
   rule,
@@ -359,15 +341,13 @@ export function handleSubmitRule({
   rulePrompts,
   rulesCount,
   ruleType,
-  secondPlagiarismFeedback,
   setErrors,
   submitRule,
-  universalFeedback,
+  ruleFeedbacks,
   universalRulesCount
 }) {
   const newOrUpdatedRule = buildRule({
     plagiarismText,
-    firstPlagiarismFeedback,
     regexFeedback,
     regexRules,
     rule,
@@ -378,8 +358,7 @@ export function handleSubmitRule({
     rulePrompts,
     rulesCount,
     ruleType,
-    secondPlagiarismFeedback,
-    universalFeedback,
+    ruleFeedbacks,
     universalRulesCount
   });
   const { universal } = rule;
@@ -394,7 +373,7 @@ export function handleSubmitRule({
     });
   } else if(ruleType.value === 'plagiarism') {
     keys = keys.concat(['Plagiarism Text', 'First Plagiarism Feedback', 'Second Plagiarism Feedback']);
-    state = state.concat([plagiarismText.text, firstPlagiarismFeedback.text, secondPlagiarismFeedback.text]);
+    state = state.concat([plagiarismText.text, ruleFeedbacks[0].text, ruleFeedbacks[1].text]);
   }
   if(!universal) {
     keys.push('Stem Applied');

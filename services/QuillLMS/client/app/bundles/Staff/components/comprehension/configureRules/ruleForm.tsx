@@ -9,7 +9,7 @@ import RuleUniversalAttributes from './ruleUniversalAttributes';
 
 import { fetchRules, fetchUniversalRules } from '../../../utils/comprehension/ruleAPIs';
 import { formatPrompts, formatRegexRules } from '../../../helpers/comprehension';
-import { handleSubmitRule, getInitialRuleType, formatFeedbacks, formatInitialUniversalFeedback} from '../../../helpers/comprehension/ruleHelpers';
+import { handleSubmitRule, getInitialRuleType, formatFeedbacks, formatInitialFeedbacks, returnInitialFeedback } from '../../../helpers/comprehension/ruleHelpers';
 import { ruleOptimalOptions } from '../../../../../constants/comprehension';
 import { ActivityInterface, RuleInterface, RuleFeedbackInterface, DropdownObjectInterface } from '../../../interfaces/comprehensionInterfaces';
 
@@ -30,15 +30,15 @@ const RuleForm = ({ activityData, activityId, closeModal, isUniversal, rule, sub
   const initialRuleOptimal = optimal ? ruleOptimalOptions[0] : ruleOptimalOptions[1];
   const initialPlagiarismText = plagiarism_text || { text: '' }
   const initialDescription = description || '';
-  const initialUniversalFeedback = isUniversal && feedbacks ? formatInitialUniversalFeedback(feedbacks) : [{ text: '' }];
+  const initialFeedbacks = feedbacks ? formatInitialFeedbacks(feedbacks) : returnInitialFeedback(initialRuleType.value);
 
   const [errors, setErrors] = React.useState<object>({});
-  const [firstPlagiarismFeedback, setFirstPlagiarismFeedback] = React.useState<RuleFeedbackInterface >(null);
   const [plagiarismText, setPlagiarismText] = React.useState<RuleInterface["plagiarism_text"]>(initialPlagiarismText);
   const [regexFeedback, setRegexFeedback] = React.useState<RuleFeedbackInterface >(null);
   const [regexRules, setRegexRules] = React.useState<object>({});
   const [ruleConceptUID, setRuleConceptUID] = React.useState<string>(concept_uid);
   const [ruleDescription, setRuleDescription] = React.useState<string>(initialDescription);
+  const [ruleFeedbacks, setRuleFeedbacks] = React.useState<object>(initialFeedbacks);
   const [ruleOptimal, setRuleOptimal] = React.useState<any>(initialRuleOptimal);
   const [ruleName, setRuleName] = React.useState<string>(name || '');
   const [rulePrompts, setRulePrompts] = React.useState<object>({});
@@ -47,8 +47,6 @@ const RuleForm = ({ activityData, activityId, closeModal, isUniversal, rule, sub
   const [rulesToDelete, setRulesToDelete] = React.useState<object>({});
   const [rulesToUpdate, setRulesToUpdate] = React.useState<object>({});
   const [ruleType, setRuleType] = React.useState<DropdownObjectInterface>(initialRuleType);
-  const [secondPlagiarismFeedback, setSecondPlagiarismFeedback] = React.useState<RuleFeedbackInterface >(null);
-  const [universalFeedback, setUniversalFeedback] = React.useState<object>(initialUniversalFeedback);
   const [universalRulesCount, setUniversalRulesCount] = React.useState<number>(null);
 
   // cache ruleSets data for handling rule suborder
@@ -66,7 +64,7 @@ const RuleForm = ({ activityData, activityId, closeModal, isUniversal, rule, sub
 
   React.useEffect(() => {
     formatRegexRules({ rule, setRegexRules });
-    formatFeedbacks({ rule, ruleType, setFirstPlagiarismFeedback, setSecondPlagiarismFeedback, setRegexFeedback });
+    formatFeedbacks({ rule, ruleType, setRegexFeedback });
   }, [rule]);
 
   React.useEffect(() => {
@@ -80,24 +78,30 @@ const RuleForm = ({ activityData, activityId, closeModal, isUniversal, rule, sub
     }
   }, [rulesData, universalRulesData]);
 
+  // needed for case where user toggles between plagiarism and rules-based rule types for new rules
+  React.useEffect(() => {
+    if(!feedbacks) {
+      const initialFeedbacks = returnInitialFeedback(ruleType.value);
+      setRuleFeedbacks(initialFeedbacks);
+    }
+  }, [ruleType]);
+
   function onHandleSubmitRule() {
     handleSubmitRule({
       plagiarismText,
-      firstPlagiarismFeedback,
       regexFeedback,
       regexRules,
       rule,
       ruleName,
       ruleConceptUID,
       ruleDescription,
+      ruleFeedbacks,
       ruleOptimal,
       rulePrompts,
       rulesCount,
       ruleType,
-      secondPlagiarismFeedback,
       setErrors,
       submitRule,
-      universalFeedback,
       universalRulesCount
     });
   }
@@ -127,12 +131,10 @@ const RuleForm = ({ activityData, activityId, closeModal, isUniversal, rule, sub
         />
         {ruleType && ruleType.value === 'plagiarism' && <RulePlagiarismAttributes
           errors={errors}
-          firstPlagiarismFeedback={firstPlagiarismFeedback}
+          plagiarismFeedbacks={ruleFeedbacks}
           plagiarismText={plagiarismText}
-          secondPlagiarismFeedback={secondPlagiarismFeedback}
-          setFirstPlagiarismFeedback={setFirstPlagiarismFeedback}
+          setPlagiarismFeedbacks={setRuleFeedbacks}
           setPlagiarismText={setPlagiarismText}
-          setSecondPlagiarismFeedback={setSecondPlagiarismFeedback}
         />}
         {ruleType && ruleType.value === 'rules-based' && <RuleRegexAttributes
           errors={errors}
@@ -154,8 +156,8 @@ const RuleForm = ({ activityData, activityId, closeModal, isUniversal, rule, sub
         />}
         {isUniversal && <RuleUniversalAttributes
           errors={errors}
-          setUniversalFeedback={setUniversalFeedback}
-          universalFeedback={universalFeedback}
+          setUniversalFeedback={setRuleFeedbacks}
+          universalFeedback={ruleFeedbacks}
         />}
         <div className="submit-button-container">
           {errorsPresent && <div className="error-message-container">
