@@ -38,7 +38,9 @@ class FeedbackHistory < ActiveRecord::Base
   FEEDBACK_TYPES = [
     GRAMMAR = "grammar",
     PLAGIARISM = "plagiarism",
-    RULES_BASED = "rules-based",
+    RULES_BASED_ONE = "rules-based-one",
+    RULES_BASED_TWO = "rules-based-two",
+    RULES_BASED_THREE = "rules-based-three",
     SEMANTIC = "semantic",
     SPELLING = "spelling",
     OPINION = "opinion"
