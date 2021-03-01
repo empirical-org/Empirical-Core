@@ -66,7 +66,6 @@ export class PlayGrammarContainer extends React.Component<PlayGrammarContainerPr
       const { dispatch, previewMode } = props
       dispatch(startListeningToConceptsFeedback());
       dispatch(startListeningToConcepts());
-      const activityUID = getParameterByName('uid', window.location.href)
       const sessionID = getParameterByName('student', window.location.href)
       const proofreaderSessionId = getParameterByName('proofreaderSessionId', window.location.href)
 
@@ -75,10 +74,6 @@ export class PlayGrammarContainer extends React.Component<PlayGrammarContainerPr
       } else {
         dispatch(startListeningToQuestions());
         dispatch(startNewSession())
-      }
-
-      if (activityUID) {
-        dispatch(getActivity(activityUID))
       }
 
       if (proofreaderSessionId) {
@@ -125,10 +120,17 @@ export class PlayGrammarContainer extends React.Component<PlayGrammarContainerPr
     }
 
     componentDidUpdate(prevProps) {
-      const { grammarActivities } = this.props
+      const { grammarActivities, dispatch, } = this.props
       const { hasreceiveddata } = grammarActivities
+
+      const activityUID = getParameterByName('uid', window.location.href)
+
       if (prevProps.grammarActivities.hasreceiveddata != hasreceiveddata && hasreceiveddata) {
         document.title = `Quill.org | ${grammarActivities.currentActivity.title}`
+      }
+
+      if (!hasreceiveddata && activityUID) {
+        dispatch(getActivity(activityUID))
       }
     }
 
@@ -270,8 +272,8 @@ export class PlayGrammarContainer extends React.Component<PlayGrammarContainerPr
             unansweredQuestions={session.unansweredQuestions}
           />)
         }
-        if (saving) { return <LoadingSpinner /> }
-        return <Intro activity={grammarActivities ? grammarActivities.currentActivity : null} previewMode={previewMode} session={session} startActivity={this.goToNextQuestion} />
+        if (saving || (!grammarActivities && !proofreaderSessionId)) { return <LoadingSpinner /> }
+        return <Intro activity={grammarActivities.currentActivity} previewMode={previewMode} session={session} startActivity={this.goToNextQuestion} />
       }
 
       if (session.error) {
