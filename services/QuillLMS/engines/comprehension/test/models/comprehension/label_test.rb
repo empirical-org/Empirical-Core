@@ -14,8 +14,11 @@ module Comprehension
       should validate_uniqueness_of(:rule)
 
       should 'not allow changes to name after creation' do
-        @label.name = 'something totally new I am making up'
-        assert !@label.valid?
+        old_name = @label.name
+        @label.name = "NEW_#{@old_name}"
+        @label.save
+        @label.reload
+        assert_equal @label.name, old_name
       end
     end
 

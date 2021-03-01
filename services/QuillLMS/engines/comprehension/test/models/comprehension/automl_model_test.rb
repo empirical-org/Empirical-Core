@@ -45,17 +45,17 @@ module Comprehension
           @automl_model = create(:comprehension_automl_model)
         end
 
-        should 'not validate state = active if labels_valid? is false' do
+        should 'not validate state = active if labels_have_associated_rules is false' do
           @automl_model.state = Comprehension::AutomlModel::STATE_ACTIVE
-          def @automl_model.labels_valid?
+          def @automl_model.labels_have_associated_rules
             false
           end
           assert !@automl_model.valid?
         end
 
-        should 'validate state = active if labels_valid? is true' do
+        should 'validate state = active if labels_have_associated_rules is true' do
           @automl_model.state = Comprehension::AutomlModel::STATE_ACTIVE
-          def @automl_model.labels_valid?
+          def @automl_model.labels_have_associated_rules
             true
           end
           assert @automl_model.valid?
@@ -64,30 +64,39 @@ module Comprehension
 
       context '#forbid_automl_model_id_change' do
         should 'not allow automl_model_id to change after create' do
-          automl_model = create(:comprehension_automl_model)
+          original_id = 'automl_id'
+          automl_model = create(:comprehension_automl_model, automl_model_id: original_id)
           automl_model.automl_model_id = 'some new value'
-          assert !automl_model.valid?
+          automl_model.save
+          automl_model.reload
+          assert_equal automl_model.automl_model_id, original_id
         end
       end
 
       context '#forbid_name_change' do
         should 'not allow name to change after create' do
-          automl_model = create(:comprehension_automl_model)
+          original_name = 'name'
+          automl_model = create(:comprehension_automl_model, name: original_name)
           automl_model.name = 'some new value'
-          assert !automl_model.valid?
+          automl_model.save
+          automl_model.reload
+          assert_equal automl_model.name, original_name
         end
       end
 
       context '#forbid_labels_change' do
         should 'not allow labels to change after create' do
-          automl_model = create(:comprehension_automl_model)
-          automl_model.automl_model_id = ['some new value']
-          assert !automl_model.valid?
+          original_labels = ['label1']
+          automl_model = create(:comprehension_automl_model, labels: original_labels)
+          automl_model.labels = ['some new value']
+          automl_model.save
+          automl_model.reload
+          assert_equal automl_model.labels, original_labels
         end
       end
     end
 
-    context '#labels_valid?' do
+    context '#labels_have_associated_rules?' do
       setup do
         @automl_model = create(:comprehension_automl_model)
       end
@@ -256,6 +265,8 @@ module Comprehension
 
         response = @model.activate
 
+        @model.reload
+
         assert_equal response, false
         assert_equal @model.state, AutomlModel::STATE_INACTIVE 
       end
@@ -266,8 +277,6 @@ module Comprehension
         @old_model = create(:comprehension_automl_model, prompt: @prompt, state: AutomlModel::STATE_ACTIVE, labels: [@label1, @label2])
         @new_model = create(:comprehension_automl_model, prompt: @prompt, state: AutomlModel::STATE_INACTIVE, labels: ['no_rule_for_label'])
 
-        assert @old_model.valid?
-
         response = @new_model.activate
         assert_equal response, false
 
@@ -275,18 +284,9 @@ module Comprehension
         @rule1.reload
         @rule2.reload
 
-        assert @new_model.valid?
-        assert_equal @old_model.state, AutomlModel::STATE_ACTIVE
+        assert @old_model.active?
         assert_equal @rule1.state, Rule::STATE_ACTIVE
         assert_equal @rule2.state, Rule::STATE_ACTIVE
-      end
-
-      should 'leave the model in an valid state when activate fails' do
-        @model = create(:comprehension_automl_model, prompt: @prompt, state: AutomlModel::STATE_INACTIVE, labels: ['no_rule_for_label'])
-
-        response = @model.activate
-
-        assert @model.valid?
       end
 
       should 'return self and be valid with state active if this item is already the active model' do

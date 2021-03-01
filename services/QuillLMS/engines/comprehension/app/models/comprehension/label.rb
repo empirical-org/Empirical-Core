@@ -3,9 +3,9 @@ module Comprehension
     NAME_MIN_LENGTH = 3
     NAME_MAX_LENGTH = 50
 
-    belongs_to :rule, inverse_of: :label
+    attr_readonly :name
 
-    validate :forbid_name_change, on: :update
+    belongs_to :rule, inverse_of: :label
 
     validates :rule, presence: true, uniqueness: true
     validates :name, presence: true, length: {in: NAME_MIN_LENGTH..NAME_MAX_LENGTH}
@@ -16,12 +16,6 @@ module Comprehension
       super(options.reverse_merge(
         only: [:id, :name, :rule_id]
       ))
-    end
-
-    private def forbid_name_change
-      if name_changed?
-        errors.add(:name, "can not be changed after creation")
-      end
     end
   end
 end
