@@ -319,17 +319,14 @@ module Comprehension
         assert_equal new_text, highlight.text
       end
 
-      should "not update nested label if invalid" do
+      should "not update read-only nested label name" do
         label = create(:comprehension_label, rule: @rule)
         new_name = 'can not be updated'
 
         post :update, id: @rule.id, rule: { label_attributes: {id: label.id, name: new_name}}
 
 
-        assert_equal 422, response.code.to_i
-        parsed_response = JSON.parse(response.body)
-
-        assert parsed_response['label.name'].include?("can not be changed after creation")
+        assert_equal 204, response.code.to_i
 
         label.reload
         assert label.name != new_name

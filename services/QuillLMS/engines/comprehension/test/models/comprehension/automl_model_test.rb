@@ -45,17 +45,17 @@ module Comprehension
           @automl_model = create(:comprehension_automl_model)
         end
 
-        should 'not validate state = active if labels_valid? is false' do
+        should 'not validate state = active if labels_have_associated_rules is false' do
           @automl_model.state = Comprehension::AutomlModel::STATE_ACTIVE
-          def @automl_model.labels_valid?
+          def @automl_model.labels_have_associated_rules
             false
           end
           assert !@automl_model.valid?
         end
 
-        should 'validate state = active if labels_valid? is true' do
+        should 'validate state = active if labels_have_associated_rules is true' do
           @automl_model.state = Comprehension::AutomlModel::STATE_ACTIVE
-          def @automl_model.labels_valid?
+          def @automl_model.labels_have_associated_rules
             true
           end
           assert @automl_model.valid?
@@ -64,30 +64,39 @@ module Comprehension
 
       context '#forbid_automl_model_id_change' do
         should 'not allow automl_model_id to change after create' do
-          automl_model = create(:comprehension_automl_model)
+          original_id = 'automl_id'
+          automl_model = create(:comprehension_automl_model, automl_model_id: original_id)
           automl_model.automl_model_id = 'some new value'
-          assert !automl_model.valid?
+          automl_model.save
+          automl_model.reload
+          assert_equal automl_model.automl_model_id, original_id
         end
       end
 
       context '#forbid_name_change' do
         should 'not allow name to change after create' do
-          automl_model = create(:comprehension_automl_model)
+          original_name = 'name'
+          automl_model = create(:comprehension_automl_model, name: original_name)
           automl_model.name = 'some new value'
-          assert !automl_model.valid?
+          automl_model.save
+          automl_model.reload
+          assert_equal automl_model.name, original_name
         end
       end
 
       context '#forbid_labels_change' do
         should 'not allow labels to change after create' do
-          automl_model = create(:comprehension_automl_model)
-          automl_model.automl_model_id = ['some new value']
-          assert !automl_model.valid?
+          original_labels = ['label1']
+          automl_model = create(:comprehension_automl_model, labels: original_labels)
+          automl_model.labels = ['some new value']
+          automl_model.save
+          automl_model.reload
+          assert_equal automl_model.labels, original_labels
         end
       end
     end
 
-    context '#labels_valid?' do
+    context '#labels_have_associated_rules?' do
       setup do
         @automl_model = create(:comprehension_automl_model)
       end

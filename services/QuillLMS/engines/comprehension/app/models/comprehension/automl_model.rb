@@ -9,16 +9,14 @@ module Comprehension
       STATE_INACTIVE = 'inactive'
     ]
 
+    attr_readonly :automl_model_id, :name, :labels
+
     belongs_to :prompt, inverse_of: :automl_models
 
-    validate :state_can_be_active
-    validate :labels_is_array
-    validate :labels_not_empty
-    validate :forbid_automl_model_id_change, on: :update
-    validate :forbid_name_change, on: :update
-    validate :forbid_labels_change, on: :update
+    validate :validate_label_associations, if: :active?
 
     validates :automl_model_id, presence: true, uniqueness: true
+    validates :labels, presence: true, length: {minimum: 1}
     validates :name, presence: true
     validates :state, inclusion: {in: ['active', 'inactive']}
 
@@ -34,6 +32,10 @@ module Comprehension
       self.name = automl_name
       self.labels = automl_labels
       self.state = STATE_INACTIVE
+    end
+
+    def active?
+      state == STATE_ACTIVE
     end
 
     def activate
@@ -70,42 +72,6 @@ module Comprehension
       transaction_succeeded
     end
 
-    private def state_can_be_active
-      if state == STATE_ACTIVE && !labels_valid?
-        errors.add(:state, "can't be set to 'active' until all labels have a corresponding rule")
-      end
-    end
-
-    private def labels_is_array
-      unless labels.is_a?(Array)
-        errors.add(:labels, "must be an array")
-      end
-    end
-
-    private def labels_not_empty
-      unless labels.length >= MIN_LABELS_LENGTH
-        errors.add(:labels, "must contain at least #{MIN_LABELS_LENGTH} items")
-      end
-    end
-
-    private def forbid_automl_model_id_change
-      if automl_model_id_changed?
-        errors.add(:automl_model_id, "can not be changed after creation")
-      end
-    end
-
-    private def forbid_name_change
-      if name_changed?
-        errors.add(:name, "can not be changed after creation")
-      end
-    end
-
-    private def forbid_labels_change
-      if labels_changed?
-        errors.add(:labels, "can not be changed after creation")
-      end
-    end
-
     private def prompt_automl_rules
       prompt.rules.where(rule_type: Rule::TYPE_AUTOML)
     end
@@ -114,10 +80,19 @@ module Comprehension
       prompt_automl_rules.all.map { |r| r.label }
     end
 
-    private def labels_valid?
-      prompt_label_names = prompt_labels.map { |l| l.name }
+    private def prompt_label_names
+      prompt_labels.map { |l| l.name }
+    end
+
+    private def labels_have_associated_rules
       missing_labels = labels - prompt_label_names
       missing_labels == []
+    end
+
+    private def validate_label_associations
+      if state == STATE_ACTIVE && !labels_have_associated_rules
+        errors.add(:state, "can't be set to 'active' until all labels have a corresponding rule")
+      end
     end
 
     private def automl_client

@@ -153,13 +153,15 @@ module Comprehension
         assert_equal new_prompt_id, @automl_model.prompt_id
       end
 
-      should "not update record and return errors as json" do
+      should "not update read-only attributes return empty 204" do
+        old_id = @automl_model.automl_model_id
         patch :update, id: @automl_model.id, automl_model: { automl_model_id: 'anything', name: 'anything', labels: ['anything'] }
 
-        parsed_response = JSON.parse(response.body)
+        assert_equal 204, response.code.to_i
+        assert_equal response.body, ''
 
-        assert_equal 422, response.code.to_i
-        assert parsed_response['automl_model_id'].include?("can not be changed after creation")
+        @automl_model.reload
+        assert_equal @automl_model.automl_model_id, old_id
       end
     end
 
