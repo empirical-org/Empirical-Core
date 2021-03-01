@@ -39,37 +39,20 @@ module Comprehension
     end
 
     def activate
-      self.state = STATE_ACTIVE
-      if !valid?
-        self.state = STATE_INACTIVE
-        return false
-      end
-
-      active_model = prompt.automl_models.where(state: STATE_ACTIVE).first
-      return self if active_model == self
-
-      active_model.state = STATE_INACTIVE if active_model
-      rules = prompt_automl_rules.all
-      transaction_succeeded = true
       AutomlModel.transaction do
         begin
-          active_model&.save!
-          save!
-          rules.each do |r|
-            if labels.include?(r.label&.name)
-              r.state = Rule::STATE_ACTIVE
-            else
-              r.state = Rule::STATE_INACTIVE
-            end
-            r.save!
+          prompt.automl_models.each { |m| m.update!(state: STATE_INACTIVE) }
+          prompt_automl_rules.all.each do |rule|
+            rule.update!(state: Rule::STATE_INACTIVE) unless labels.include?(rule.label&.name)
+            rule.update!(state: Rule::STATE_ACTIVE) if labels.include?(rule.label&.name)
           end
+          update!(state: STATE_ACTIVE)
         rescue StandardError => e
-          transaction_succeeded = false
-          self.state = STATE_INACTIVE
           raise e unless e.is_a?(ActiveRecord::RecordInvalid)
+          return false
         end
       end
-      transaction_succeeded
+      self
     end
 
     private def prompt_automl_rules
@@ -90,7 +73,7 @@ module Comprehension
     end
 
     private def validate_label_associations
-      if state == STATE_ACTIVE && !labels_have_associated_rules
+      if active? && !labels_have_associated_rules
         errors.add(:state, "can't be set to 'active' until all labels have a corresponding rule")
       end
     end

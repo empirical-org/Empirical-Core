@@ -224,6 +224,8 @@ module Comprehension
 
         response = @model.activate
 
+        @model.reload
+
         assert_equal response, false
         assert_equal @model.state, AutomlModel::STATE_INACTIVE 
       end
@@ -234,8 +236,6 @@ module Comprehension
         @old_model = create(:comprehension_automl_model, prompt: @prompt, state: AutomlModel::STATE_ACTIVE, labels: [@label1, @label2])
         @new_model = create(:comprehension_automl_model, prompt: @prompt, state: AutomlModel::STATE_INACTIVE, labels: ['no_rule_for_label'])
 
-        assert @old_model.valid?
-
         response = @new_model.activate
         assert_equal response, false
 
@@ -243,18 +243,9 @@ module Comprehension
         @rule1.reload
         @rule2.reload
 
-        assert @new_model.valid?
-        assert_equal @old_model.state, AutomlModel::STATE_ACTIVE
+        assert @old_model.active?
         assert_equal @rule1.state, Rule::STATE_ACTIVE
         assert_equal @rule2.state, Rule::STATE_ACTIVE
-      end
-
-      should 'leave the model in an valid state when activate fails' do
-        @model = create(:comprehension_automl_model, prompt: @prompt, state: AutomlModel::STATE_INACTIVE, labels: ['no_rule_for_label'])
-
-        response = @model.activate
-
-        assert @model.valid?
       end
 
       should 'return self and be valid with state active if this item is already the active model' do
