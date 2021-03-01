@@ -76,7 +76,11 @@ export const PageLayout = () => {
     );
   }
 
-  const showPreview = previewShowing && isTeacherOrAdmin && isPlaying;
+  function onMobile() {
+    return window.innerWidth < 1100
+  }
+
+  const showPreview = previewShowing && isTeacherOrAdmin && isPlaying && !onMobile();
   let className = "ant-layout ";
   className += showFocusState ? '' : 'hide-focus-outline';
   let header;

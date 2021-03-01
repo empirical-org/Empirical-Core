@@ -1,0 +1,36 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`RulePlagiarismAttributes component should render RulePlagiarismAttributes 1`] = `
+<Fragment>
+  <p
+    className="form-subsection-label"
+  >
+    Plagiarism Text
+  </p>
+  <TextEditor
+    ContentState={[Function]}
+    EditorState={[Function]}
+    handleTextChange={[Function]}
+    key="plagiarism-text"
+  />
+  <p
+    className="form-subsection-label"
+  >
+    Feedback
+  </p>
+  <TextEditor
+    ContentState={[Function]}
+    EditorState={[Function]}
+    handleTextChange={[Function]}
+    key="first-plagiarism-feedback"
+    text="do not plagiarize."
+  />
+  <TextEditor
+    ContentState={[Function]}
+    EditorState={[Function]}
+    handleTextChange={[Function]}
+    key="second-plagiarism-feedback"
+    text="seriously... do not plagiarize!"
+  />
+</Fragment>
+`;

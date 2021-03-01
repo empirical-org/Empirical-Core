@@ -47,7 +47,7 @@ class FillInBlankQuestion extends Component {
           />
           <div className="feedback-row student-feedback-inner-container admin-feedback-row">
             <img alt="Directions Icon" className="info" src={icon} />
-            <p>{question.instructions || 'Combine the sentences into one sentence.'}</p>
+            <p>{question.instructions || 'Fill in the blank with the correct option.'}</p>
           </div>
           <p className="control button-group" style={{ marginTop: 10, }}>
             <Link className="button is-outlined is-primary" to={`/admin/fill-in-the-blanks/${questionID}/edit`}>Edit Question</Link>

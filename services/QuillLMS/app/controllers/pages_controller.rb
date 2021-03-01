@@ -361,6 +361,7 @@ class PagesController < ApplicationController
   end
 
   def team
+    @open_positions = OPEN_POSITIONS
   end
 
   def tos

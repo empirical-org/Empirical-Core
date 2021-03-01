@@ -19,146 +19,49 @@ exports[`RuleForm component should render RuleForm 1`] = `
   <form
     className="rule-form"
   >
-    <DropdownInput
-      className="rule-type-input disabled"
-      disabled={true}
-      handleChange={[Function]}
-      isSearchable={true}
-      label="Rule Type"
-      options={
-        Array [
-          Object {
-            "label": "Regex",
-            "value": "Regex",
-          },
-          Object {
-            "label": "Plagiarism",
-            "value": "Plagiarism",
-          },
-        ]
-      }
-      value={
-        Object {
-          "label": "Regex",
-          "value": "Regex",
-        }
-      }
-    />
-    <Input
-      autoComplete="on"
-      className="name-input"
-      handleChange={[Function]}
-      label="Name"
-      value="remove all instances of \\"it contains methane\\""
-    />
-    <Input
-      autoComplete="on"
-      className="concept-uid-input"
-      handleChange={[Function]}
-      label="Concept UID"
-      value="a34qreadbgt6"
-    />
-    <DropdownInput
-      className="rule-type-input"
-      handleChange={[Function]}
-      isSearchable={true}
-      label="Optimal?"
-      options={
-        Array [
-          Object {
-            "label": "Optimal",
-            "value": true,
-          },
-          Object {
-            "label": "Sub-Optimal",
-            "value": false,
-          },
-        ]
-      }
-      value={
+    <RuleGenericAttributes
+      errors={Object {}}
+      isUniversal={false}
+      ruleConceptUID="a34qreadbgt6"
+      ruleDescription=""
+      ruleID={1}
+      ruleName="remove all instances of \\"it contains methane\\""
+      ruleOptimal={
         Object {
           "label": "Sub-Optimal",
-          "value": false,
+          "value": "",
         }
       }
-    />
-    <RuleAttributesSection
-      errors={Object {}}
-      firstPlagiarismFeedback={null}
-      handleAddRegexInput={[Function]}
-      handleDeleteRegexRule={[Function]}
-      handleSetRegexRule={[Function]}
-      plagiarismText={
+      ruleType={
         Object {
-          "text": "",
+          "label": "Regex",
+          "value": "rules-based",
         }
       }
+      setRuleConceptUID={[Function]}
+      setRuleDescription={[Function]}
+      setRuleName={[Function]}
+      setRuleOptimal={[Function]}
+      setRuleType={[Function]}
+    />
+    <RuleRegexAttributes
+      errors={Object {}}
       regexFeedback={null}
       regexRules={Object {}}
-      ruleType="Regex"
-      secondPlagiarismFeedback={null}
-      setFirstPlagiarismFeedback={[Function]}
-      setPlagiarismText={[Function]}
+      rulesToCreate={Object {}}
+      rulesToDelete={Object {}}
+      rulesToUpdate={Object {}}
       setRegexFeedback={[Function]}
-      setSecondPlagiarismFeedback={[Function]}
+      setRegexRules={[Function]}
+      setRulesToCreate={[Function]}
+      setRulesToDelete={[Function]}
+      setRulesToUpdate={[Function]}
     />
-    <p
-      className="form-subsection-label"
-    >
-      Apply To Stems
-    </p>
-    <div
-      className="checkboxes-container"
-    >
-      <div
-        className="checkbox-container"
-      >
-        <label
-          id="stem-label-1"
-        >
-          Because
-        </label>
-        <input
-          aria-labelledby="stem-label-1"
-          name="Because"
-          onChange={[Function]}
-          type="checkbox"
-          value="because"
-        />
-      </div>
-      <div
-        className="checkbox-container"
-      >
-        <label
-          id="stem-label-2"
-        >
-          But
-        </label>
-        <input
-          aria-labelledby="stem-label-2"
-          name="But"
-          onChange={[Function]}
-          type="checkbox"
-          value="but"
-        />
-      </div>
-      <div
-        className="checkbox-container"
-      >
-        <label
-          id="stem-label-3"
-        >
-          So
-        </label>
-        <input
-          aria-labelledby="stem-label-3"
-          name="So"
-          onChange={[Function]}
-          type="checkbox"
-          value="so"
-        />
-      </div>
-    </div>
+    <RulePrompts
+      errors={Object {}}
+      rulePrompts={Object {}}
+      setRulePrompts={[Function]}
+    />
     <div
       className="submit-button-container"
     >

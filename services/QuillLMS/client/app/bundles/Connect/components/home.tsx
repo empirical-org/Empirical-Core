@@ -57,9 +57,13 @@ export const Home = () => {
     setSkippedToQuestionFromIntro(true);
   }
 
+  function onMobile() {
+    return window.innerWidth < 1100
+  }
+
   let className = "ant-layout "
   className = showFocusState ? '' : 'hide-focus-outline'
-  const showPreview = previewShowing && isTeacherOrAdmin && isPlaying;
+  const showPreview = previewShowing && isTeacherOrAdmin && isPlaying && !onMobile();
   let header;
   if(isTeacherOrAdmin && isPlaying) {
     header = <NavBar isTeacher={isTeacherOrAdmin} onTogglePreview={handleTogglePreviewMenu} previewShowing={previewShowing} />;
