@@ -53,7 +53,7 @@ module Comprehension
     end
 
     def display_name
-      DISPLAY_NAMES[rule_type] || rule_type
+      DISPLAY_NAMES[rule_type.to_sym] || rule_type
     end
 
     private def assign_uid_if_missing
