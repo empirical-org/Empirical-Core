@@ -52,10 +52,7 @@ module Comprehension
       relevant_feedback_text = relevant_history.map { |fb| fb['feedback'] }
 
       first_unused = feedbacks.where.not(text: relevant_feedback_text).order(:order).first
-      return first_unused if first_unused
-
-      # If we didn't find a first unused we instead want the last Feedback by order
-      return feedbacks.order(order: :desc).first
+      return first_unused || feedbacks.order(order: :desc).first
     end
 
     def regex_is_passing?(entry)

@@ -20,7 +20,7 @@ module Comprehension
         response_id: '',
         entry: @entry,
         concept_uid: matched_rule&.concept_uid || '',
-        rule_uid: matched_rule&.uid,
+        rule_uid: matched_rule&.uid || '',
         highlight: []
       }
     end
