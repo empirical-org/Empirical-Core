@@ -10,7 +10,7 @@ class WebinarBanner
 
   RECURRING = {
     '1-16' => ["<strong>Quill Webinar 101: Getting Started</strong> is live now!", "Click here to register and join." "#{ZOOM_URL}/WN_a4Z1_Zs6RSGUWwr_t0V18Q"],
-    '3-10' => ["Quill Office Hours are live now!", "Click here to join", "https://quill-org.zoom.us/j/93744355918#success"],
+    '1-13' => ["Quill Office Hours are live now!", "Click here to join", "https://quill-org.zoom.us/j/93744355918#success"],
     '3-16' => ["Quill Office Hours are live now!", "Click here to join", "https://quill-org.zoom.us/j/95335806177#success"]
   }
 
@@ -35,7 +35,7 @@ class WebinarBanner
   end
 
   def show?
-    link.present? && title.present? && !skipped_day?
+    link.present? && title.present? && link_display_text.present? && !skipped_day?
   end
 
   private def skipped_day?
