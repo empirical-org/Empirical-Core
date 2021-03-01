@@ -128,13 +128,13 @@ export default class PromptStep extends React.Component<PromptStepProps, PromptS
 
       // handles case where change is only in the formatted prompt part
       if (splitSubmission.length > 1) {
-        const newValue = `${formattedPrompt}${splitSubmission[1]}`
+        const newValue = `${this.formattedPrompt}${splitSubmission[1]}`
         this.setState({ html: newValue}, () => {
           this.editor.innerHTML = newValue
         })
       // student overwrote or deleted both part of their submission and the formatted prompt and the solution is much more complicated
       } else {
-        const formattedPromptWordArray = formattedPrompt.split(' ')
+        const formattedPromptWordArray = this.htmlStrippedPrompt().split(' ')
         const textWordArray = text.replace(/&nbsp;/g, ' ').split(' ')
 
         // if the user has tried to edit part of the original prompt, we find the words in their submission that are different from the original prompt
