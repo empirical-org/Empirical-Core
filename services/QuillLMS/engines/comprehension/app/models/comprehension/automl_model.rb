@@ -40,19 +40,17 @@ module Comprehension
 
     def activate
       AutomlModel.transaction do
-        begin
-          prompt.automl_models.each { |m| m.update!(state: STATE_INACTIVE) }
-          prompt_automl_rules.all.each do |rule|
-            rule.update!(state: Rule::STATE_INACTIVE) unless labels.include?(rule.label&.name)
-            rule.update!(state: Rule::STATE_ACTIVE) if labels.include?(rule.label&.name)
-          end
-          update!(state: STATE_ACTIVE)
-        rescue StandardError => e
-          raise e unless e.is_a?(ActiveRecord::RecordInvalid)
-          return false
+        prompt.automl_models.update_all(state: STATE_INACTIVE)
+        update!(state: STATE_ACTIVE)
+        prompt_automl_rules.all.each do |rule|
+          rule.update!(state: Rule::STATE_INACTIVE) unless labels.include?(rule.label&.name)
+          rule.update!(state: Rule::STATE_ACTIVE) if labels.include?(rule.label&.name)
         end
       end
       self
+    rescue StandardError => e
+      raise e unless e.is_a?(ActiveRecord::RecordInvalid)
+      return false
     end
 
     private def prompt_automl_rules
