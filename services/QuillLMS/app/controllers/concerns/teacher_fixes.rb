@@ -2,6 +2,7 @@ module TeacherFixes
   extend ActiveSupport::Concern
   include AtomicArrays
 
+  #TODO: do we need catches for this to not error, like both have to be the same classroom
   def self.merge_two_units(unit1, unit2)
     # move all additional information from unit1 into unit2
     # and then delete unit1
