@@ -1,6 +1,8 @@
 import React from 'react'
 import request from 'request'
 import {CSVDownload, CSVLink} from 'react-csv'
+import queryString from 'query-string';
+
 import CSVDownloadForProgressReport from './csv_download_for_progress_report.jsx'
 import ReactTable from 'react-table'
 import 'react-table/react-table.css'
@@ -23,7 +25,7 @@ export default class StandardsAllClassroomsProgressReport extends React.Componen
     this.state = {
       loading: true,
       errors: false,
-      selectedClassroom: showAllClassroomKey,
+      selectedClassroomId: queryString.parse(window.location.search).classroom_id || showAllClassroomKey,
       updatingData: true,
       classrooms: [],
       userIsPremium: userIsPremium()
@@ -35,11 +37,13 @@ export default class StandardsAllClassroomsProgressReport extends React.Componen
   }
 
   getData() {
+    const { selectedClassroomId, } = this.state
+
     const that = this;
-    let qs
-    if (this.state.selectedClassroom !== showAllClassroomKey) {
-      const classroom = this.state.classrooms.find(c => c.name === this.state.selectedClassroom)
-      qs = classroom ? {classroom_id: classroom.id} : null
+    let qs = null
+
+    if (selectedClassroomId !== showAllClassroomKey) {
+      qs = {classroom_id: selectedClassroomId}
     }
     request.get({
       url: `${process.env.DEFAULT_URL}/teachers/progress_reports/standards/classrooms.json`, qs
@@ -56,7 +60,7 @@ export default class StandardsAllClassroomsProgressReport extends React.Componen
 
   columns() {
     const blurIfNotPremium = this.state.userIsPremium ? null : 'non-premium-blur'
-    const selectedClassroomId = this.state.selectedClassroom !== showAllClassroomKey ? this.state.classrooms.find(c => c.name === this.state.selectedClassroom).id : 0
+    const selectedClassroomId = this.state.selectedClassroomId !== showAllClassroomKey ? this.state.classrooms.find(c => c.name === this.state.selectedClassroomId) : 0
     return ([
       {
         Header: 'Standard Level',
@@ -132,7 +136,7 @@ export default class StandardsAllClassroomsProgressReport extends React.Componen
   }
 
   formatStandardsData(data) {
-    const selectedClassroomId = this.state.selectedClassroom !== showAllClassroomKey ? this.state.classrooms.find(c => c.name === this.state.selectedClassroom).id : 0
+    const { selectedClassroomId, } = this.state
     return data.map((row) => {
       row.standard_level = row.standard_level_name
       row.standard_name = row.name
@@ -140,11 +144,11 @@ export default class StandardsAllClassroomsProgressReport extends React.Componen
       row.proficient = `${row.proficient_count} of ${row.total_student_count}`
       row.activities = Number(row.total_activity_count)
       row.green_arrow = (
-        <a className='green-arrow' href={`/teachers/progress_reports/standards/classrooms/${selectedClassroomId}/standards/${row.id}/students`}>
+        <a className='green-arrow' href={`/teachers/progress_reports/standards/classrooms/${selectedClassroomId || 0}/standards/${row.id}/students`}>
           <img alt="" src="https://assets.quill.org/images/icons/chevron-dark-green.svg" />
         </a>
       )
-      row.link = `/teachers/progress_reports/standards/classrooms/${selectedClassroomId}/standards/${row.id}/students`
+      row.link = `/teachers/progress_reports/standards/classrooms/${selectedClassroomId || 0}/standards/${row.id}/students`
       return row
     })
   }
@@ -157,7 +161,13 @@ export default class StandardsAllClassroomsProgressReport extends React.Componen
   };
 
   switchClassrooms = classroom => {
-    this.setState({selectedClassroom: classroom, updatingData: true}, () => this.getData())
+    if (classroom.name !== showAllClassroomKey) {
+      window.history.pushState({}, '', `${window.location.pathname}?classroom_id=${classroom.id}`);
+    } else {
+      window.history.pushState({}, '', window.location.pathname);
+    }
+
+    this.setState({selectedClassroomId: classroom.id, updatingData: true}, () => this.getData())
   };
 
   tableOrEmptyMessage(){
@@ -183,13 +193,13 @@ export default class StandardsAllClassroomsProgressReport extends React.Componen
     }
 
   render() {
-    let errors
-    if (this.state.errors) {
-      errors = <div className='errors'>{this.state.errors}</div>
-    }
-    if (this.state.loading) {
+    const { classrooms, selectedClassroomId, loading, students, } = this.state
+    const selectedClassroom = classrooms.find(c => String(c.id) === String(selectedClassroomId))
+
+    if (loading) {
       return <LoadingSpinner />
     }
+
     return (
       <div className='standards-all-classrooms progress-reports-2018 '>
         <div className="meta-overview flex-row space-between">
@@ -203,8 +213,8 @@ export default class StandardsAllClassroomsProgressReport extends React.Componen
           </div>
         </div>
         <div className='dropdown-container' id="flexed">
-          <ItemDropdown callback={this.switchClassrooms} items={this.state.classrooms.map(c => c.name)} selectedItem={this.state.selectedClassroom} />
-          <ItemDropdown callback={this.goToStudentPage} items={_.uniq(this.state.students.map(s => s.name))} />
+          <ItemDropdown callback={this.switchClassrooms} items={classrooms} selectedItem={selectedClassroom} />
+          <ItemDropdown callback={this.goToStudentPage} items={_.uniq(students.map(s => s.name))} />
         </div>
         {this.tableOrEmptyMessage()}
       </div>
