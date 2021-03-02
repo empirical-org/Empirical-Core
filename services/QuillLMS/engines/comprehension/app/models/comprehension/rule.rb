@@ -34,7 +34,6 @@ module Comprehension
     validates :optimal, inclusion: ALLOWED_BOOLEANS
     validates :rule_type, inclusion: {in: TYPES}
     validates :state, inclusion: {in: STATES}
-    validates :suborder, numericality: {only_integer: true, greater_than_or_equal_to: 0}
     validates :suborder, numericality: {allow_blank: true, only_integer: true, greater_than_or_equal_to: 0}
 
     def serializable_hash(options = nil)
@@ -45,6 +44,14 @@ module Comprehension
         include: [:plagiarism_text, :feedbacks, :label, :regex_rules],
         methods: :prompt_ids
       ))
+    end
+
+    def determine_feedback_from_history(feedback_history)
+      relevant_history = feedback_history.filter { |fb| fb['feedback_type'] == rule_type }
+      relevant_feedback_text = relevant_history.map { |fb| fb['feedback'] }
+
+      first_unused = feedbacks.where.not(text: relevant_feedback_text).order(:order).first
+      return first_unused || feedbacks.order(order: :desc).first
     end
 
     def regex_is_passing?(entry)

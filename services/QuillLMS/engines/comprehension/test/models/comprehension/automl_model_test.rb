@@ -154,6 +154,49 @@ module Comprehension
       end
     end
 
+    context '#fetch_automl_label' do
+      setup do
+        @automl_model = create(:comprehension_automl_model)
+      end
+
+      should 'return the highest score label display_name' do
+        def mock_prediction(name, score)
+          prediction_mock = Minitest::Mock.new
+          classification_mock = Minitest::Mock.new
+          prediction_mock.expect(:display_name, name)
+          prediction_mock.expect(:classification, classification_mock)
+          classification_mock.expect(:score, score)
+          prediction_mock
+        end
+
+        label1 = 'label1'
+        label2 = 'label2'
+
+        prediction1 = mock_prediction(label1, 0.8)
+        prediction2 = mock_prediction(label2, 0.5)
+
+        entry_text = 'test entry text'
+        automl_payload = {
+          text_snippet: {
+            content: entry_text
+          }
+        }
+
+        automl_model_full_id = 'path-to-automl-model'
+
+        prediction_client_mock = Minitest::Mock.new
+        prediction_response_mock = Minitest::Mock.new
+        prediction_response_mock.expect(:payload, [prediction1, prediction2])
+        prediction_client_mock.expect(:predict, prediction_response_mock, [{name: automl_model_full_id, payload: automl_payload}])
+
+        AutomlModel.stub_any_instance(:automl_prediction_client, prediction_client_mock) do
+          AutomlModel.stub_any_instance(:automl_model_full_id, automl_model_full_id) do
+            assert_equal @automl_model.fetch_automl_label(entry_text), label1
+          end
+        end
+      end
+    end
+
     context '#automl_model_full_id' do
       should 'call model_path on the automl_client with specified values' do
         project_id = 'PROJECT'

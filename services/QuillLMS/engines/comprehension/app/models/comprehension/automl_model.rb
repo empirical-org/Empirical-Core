@@ -53,6 +53,17 @@ module Comprehension
       return false
     end
 
+    def fetch_automl_label(text)
+      automl_payload = {
+        text_snippet: {
+          content: text
+        }
+      }
+      results = automl_prediction_client.predict(name: automl_model_full_id, payload: automl_payload)
+      sorted_results = results.payload.sort_by { |i| i.classification.score }.reverse
+      sorted_results[0].display_name
+    end
+
     private def prompt_automl_rules
       prompt.rules.where(rule_type: Rule::TYPE_AUTOML)
     end
@@ -78,6 +89,10 @@ module Comprehension
 
     private def automl_client
       @automl_client ||= Google::Cloud::AutoML.auto_ml
+    end
+
+    private def automl_prediction_client
+      @automl_prediction_client ||= Google::Cloud::AutoML.prediction_service
     end
 
     private def automl_model_full_id

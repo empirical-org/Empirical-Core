@@ -124,7 +124,7 @@ ActiveRecord::Schema.define(version: 20210219163806) do
     t.boolean  "universal",   null: false
     t.string   "rule_type",   null: false
     t.boolean  "optimal",     null: false
-    t.integer  "suborder"
+    t.text     "suborder"
     t.string   "concept_uid"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
