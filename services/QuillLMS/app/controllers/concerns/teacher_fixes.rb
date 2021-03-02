@@ -44,15 +44,15 @@ module TeacherFixes
 
   def self.merge_activity_sessions_between_two_classroom_units(cu1, cu2)
     # use the most recently completed activity session
-    cu1.activity_sessions.each do |act_sesh_1|
-      act_sesh_2 = ActivitySession.find_by(classroom_unit: cu2, activity: act_sesh_1.activity, user: act_sesh_1.user)
-      if act_sesh_2.blank?
-        act_sesh_1.update!(classroom_unit_id: cu2.id)
-      elsif act_sesh_1.updated_at < act_sesh_2.updated_at
-        act_sesh_1.update!(visible: false)
+    cu1.activity_sessions.each do |act_sesh1|
+      act_sesh2 = ActivitySession.find_by(classroom_unit: cu2, activity: act_sesh1.activity, user: act_sesh1.user)
+      if act_sesh2.blank?
+        act_sesh1.update!(classroom_unit_id: cu2.id)
+      elsif act_sesh1.updated_at < act_sesh2.updated_at
+        act_sesh1.update!(visible: false)
       else
-        act_sesh_2.update!(visible: false)
-        act_sesh_1.update!(classroom_unit_id: cu2.id)
+        act_sesh2.update!(visible: false)
+        act_sesh1.update!(classroom_unit_id: cu2.id)
       end
     end
   end
