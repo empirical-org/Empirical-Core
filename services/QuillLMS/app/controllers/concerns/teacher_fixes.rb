@@ -2,7 +2,6 @@ module TeacherFixes
   extend ActiveSupport::Concern
   include AtomicArrays
 
-  #TODO: do we need catches for this to not error, like both have to be the same classroom
   def self.merge_two_units(unit1, unit2)
     # move all additional information from unit1 into unit2
     # and then delete unit1
@@ -32,18 +31,30 @@ module TeacherFixes
       cuas1 = ClassroomUnitActivityState.find_by(classroom_unit: cu1, unit_activity: ua)
       cuas2 = ClassroomUnitActivityState.find_by(classroom_unit: cu2, unit_activity: ua)
       if cuas1 && !cuas2
-        cuas1.update(classroom_unit_id: cu2)
-      elsif cuas1 && cuas2
-        cuas1.update(visible: false)
+        cuas1.update!(classroom_unit: cu2)
+      elsif cuas1 && cuas2 && cuas1.updated_at > cuas2.updated_at
+        cuas2.destroy!
+        cuas1.update!(classroom_unit: cu2)
       end
     end
-    cu1.update(visible: false)
+    cu1.update!(visible: false)
     # update cu1 activity sessions to belong to cu2
     merge_activity_sessions_between_two_classroom_units(cu1, cu2)
   end
 
   def self.merge_activity_sessions_between_two_classroom_units(cu1, cu2)
-    cu1.activity_sessions.each{|act_sesh| act_sesh.update!(classroom_unit_id: cu2.id)}
+    # use the most recently completed activity session
+    cu1.activity_sessions.each do |act_sesh_1|
+      act_sesh_2 = ActivitySession.find_by(classroom_unit: cu2, activity: act_sesh_1.activity, user: act_sesh_1.user)
+      if act_sesh_2.blank?
+        act_sesh_1.update!(classroom_unit_id: cu2.id)
+      elsif act_sesh_1.updated_at < act_sesh_2.updated_at
+        act_sesh_1.update!(visible: false)
+      else
+        act_sesh_2.update!(visible: false)
+        act_sesh_1.update!(classroom_unit_id: cu2.id)
+      end
+    end
   end
 
   def self.move_activity_sessions(user, classroom1, classroom2)
