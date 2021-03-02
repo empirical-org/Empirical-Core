@@ -6,7 +6,7 @@ import RuleForm from './ruleForm';
 
 import { buildErrorMessage, getPromptsIcons } from '../../../helpers/comprehension';
 import { BECAUSE, BUT, SO } from '../../../../../constants/comprehension';
-import { updateRule, deleteRule, fetchRule } from '../../../utils/comprehension/ruleSetAPIs';
+import { updateRule, deleteRule, fetchRule } from '../../../utils/comprehension/ruleAPIs';
 import { RuleInterface } from '../../../interfaces/comprehensionInterfaces';
 import { fetchActivity } from '../../../utils/comprehension/activityAPIs';
 import SubmissionModal from '../shared/submissionModal';
@@ -67,7 +67,7 @@ const Rule = ({ history, match }) => {
       return [];
     } else {
       // format for DataTable to display labels on left side and values on right
-      const { feedbacks, name, prompt_ids, rule_type, plagiarism_text } = rule;
+      const { description, feedbacks, name, prompt_ids, rule_type, plagiarism_text } = rule;
       const promptsIcons = getPromptsIcons(activityData, prompt_ids);
       const attributesFields = handleAttributesFields(feedbacks, plagiarism_text);
       const firstFields = [
@@ -78,6 +78,10 @@ const Rule = ({ history, match }) => {
         {
           label: 'Name',
           value: name
+        },
+        {
+          label: 'Description',
+          value: description ? stripHtml(description) : ''
         }
       ];
       const lastFields = [
@@ -149,6 +153,7 @@ const Rule = ({ history, match }) => {
           activityData={activityData && activityData.activity}
           activityId={activityId}
           closeModal={toggleShowEditRuleModal}
+          isUniversal={false}
           rule={ruleData && ruleData.rule}
           submitRule={handleSubmitRule}
         />

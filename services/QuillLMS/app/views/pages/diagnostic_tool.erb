@@ -6,14 +6,19 @@
 </section>
 <div class="tool-container diagnostic-tool-page">
 
-    <section class='tool-hero text-center bg-darkred'>
+    <section class='tool-hero text-center bg-darkred tool-section'>
         <h1 class="q-h1">
             <img class="tool-page-icon lazyload" data-src=<%= "#{ENV['CDN_URL']}/images/shared/quill_diagnostic_white.svg" %>>Quill Diagnostic
         </h1>
         <p class='description'>
             Quickly determine which skills your students need to work on with our diagnostic activities. The diagnostics cover vital sentence construction skills and generate personalized learning plans based on the student’s performance.
         </p>
-        <a href=<%= "/activity_sessions/anonymous?activity_id=-LKbzH_Er916zGjgHk5U" %> target="_blank" class="q-button cta-button bg-white text-darkred">Try Quill Diagnostic Now</a>
+        <section class="tool-ctas diagnostic-tool">
+          <a href=<%= "/activity_sessions/anonymous?activity_id=-LKbzH_Er916zGjgHk5U" %> target="_blank" class="q-button cta-button bg-white text-darkred">Try a sample activity</a>
+          <% if current_user&.teacher? %>
+            <a href='/assign/activity-library?activityClassificationFilters[]=diagnostic' class="q-button text-white learn-more-button">Assign</a>
+          <% end %>
+        </section>
     </section>
 
     <section class="tool-animation-section " id="overview">

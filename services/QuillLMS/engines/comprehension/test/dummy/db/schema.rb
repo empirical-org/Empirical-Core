@@ -107,11 +107,12 @@ ActiveRecord::Schema.define(version: 20210219163806) do
   add_index "comprehension_prompts_rules", ["rule_id"], name: "index_comprehension_prompts_rules_on_rule_id", using: :btree
 
   create_table "comprehension_regex_rules", force: :cascade do |t|
-    t.string   "regex_text",     limit: 200, null: false
-    t.boolean  "case_sensitive",             null: false
-    t.datetime "created_at",                 null: false
-    t.datetime "updated_at",                 null: false
+    t.string   "regex_text",     limit: 200,                       null: false
+    t.boolean  "case_sensitive",                                   null: false
+    t.datetime "created_at",                                       null: false
+    t.datetime "updated_at",                                       null: false
     t.integer  "rule_id"
+    t.text     "sequence_type",              default: "incorrect", null: false
   end
 
   add_index "comprehension_regex_rules", ["rule_id"], name: "index_comprehension_regex_rules_on_rule_id", using: :btree

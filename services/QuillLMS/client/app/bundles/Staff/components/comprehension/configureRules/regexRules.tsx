@@ -2,14 +2,14 @@ import * as React from "react";
 
 import { Input } from '../../../../Shared/index';
 
-interface RegexSectionProps {
+interface RegexRulesProps {
   errors: {},
   handleAddRegexInput: (event: React.MouseEvent) => void,
   handleDeleteRegexRule: (event: React.SyntheticEvent) => void,
   handleSetRegexRule: (event: React.ChangeEvent) => void,
   regexRules: {}
 }
-const RegexSection = ({ errors, handleAddRegexInput, handleDeleteRegexRule, handleSetRegexRule, regexRules }: RegexSectionProps) => {
+const RegexRules = ({ errors, handleAddRegexInput, handleDeleteRegexRule, handleSetRegexRule, regexRules }: RegexRulesProps) => {
   const renderRegexRules = () => {
     const regexRuleKeys = Object.keys(regexRules);
     return !!regexRuleKeys.length && regexRuleKeys.map((ruleKey, i) => {
@@ -65,4 +65,4 @@ const RegexSection = ({ errors, handleAddRegexInput, handleDeleteRegexRule, hand
   )
 }
 
-export default RegexSection
+export default RegexRules

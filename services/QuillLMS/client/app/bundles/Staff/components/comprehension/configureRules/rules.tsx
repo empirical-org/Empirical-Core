@@ -2,14 +2,14 @@ import * as React from "react";
 import { Link, RouteComponentProps } from 'react-router-dom'
 import { queryCache, useQuery } from 'react-query';
 
-import RuleSetForm from './ruleForm';
+import RuleForm from './ruleForm';
 
 import SubmissionModal from '../shared/submissionModal';
 import { buildErrorMessage, getPromptsIcons, getUniversalIcon } from '../../../helpers/comprehension';
 import { ActivityRouteProps, RuleInterface } from '../../../interfaces/comprehensionInterfaces';
 import { BECAUSE, BUT, SO, blankRule } from '../../../../../constants/comprehension';
 import { fetchActivity } from '../../../utils/comprehension/activityAPIs';
-import { createRule, fetchRules } from '../../../utils/comprehension/ruleSetAPIs';
+import { createRule, fetchRules } from '../../../utils/comprehension/ruleAPIs';
 import { DataTable, Error, Modal, Spinner } from '../../../../Shared/index';
 
 const Rules: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ history, match }) => {
@@ -19,13 +19,13 @@ const Rules: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ history, mat
   const [showSubmissionModal, setShowSubmissionModal] = React.useState<boolean>(false);
   const [errors, setErrors] = React.useState<object>({});
 
-  // cache ruleSets data for updates
+  // cache rules data for updates
   const { data: rulesData } = useQuery({
     queryKey: [`rules-${activityId}`, activityId],
     queryFn: fetchRules
   });
 
-  // get cached activity data to pass to ruleSetForm
+  // get cached activity data to pass to rule
   const { data: activityData } = useQuery({
     queryKey: [`activity-${activityId}`, activityId],
     queryFn: fetchActivity
@@ -72,13 +72,14 @@ const Rules: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ history, mat
     setShowSubmissionModal(!showSubmissionModal);
   }
 
-  const renderRuleSetForm = () => {
+  const renderRuleForm = () => {
     return(
       <Modal>
-        <RuleSetForm
+        <RuleForm
           activityData={activityData && activityData.activity}
           activityId={activityId}
           closeModal={toggleAddRuleModal}
+          isUniversal={false}
           rule={blankRule}
           submitRule={submitRule}
         />
@@ -122,7 +123,7 @@ const Rules: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ history, mat
 
   return(
     <div className="rules-container">
-      {showAddRuleModal && renderRuleSetForm()}
+      {showAddRuleModal && renderRuleForm()}
       {showSubmissionModal && renderSubmissionModal()}
       <div className="header-container">
         <p>Rules</p>
