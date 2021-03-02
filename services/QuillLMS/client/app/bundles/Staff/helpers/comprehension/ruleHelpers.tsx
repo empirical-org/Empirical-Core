@@ -22,33 +22,6 @@ export function handleSetPlagiarismText(text: string, plagiarismText, setPlagiar
   setPlagiarismText(plagiarismTextObject)
 }
 
-export function handleSetFirstPlagiarismFeedback(text: string, firstPlagiarismFeedback, setFirstPlagiarismFeedback) {
-  const feedback = {...firstPlagiarismFeedback};
-  if(!feedback.order) {
-    feedback.order = 0;
-  }
-  feedback.text = text;
-  setFirstPlagiarismFeedback(feedback)
-}
-
-export function handleSetSecondPlagiarismFeedback(text: string, secondPlagiarismFeedback, setSecondPlagiarismFeedback) {
-  const feedback = {...secondPlagiarismFeedback};
-  if(!feedback.order) {
-    feedback.order = 1;
-  }
-  feedback.text = text;
-  setSecondPlagiarismFeedback(feedback)
-}
-
-export function handleSetRegexFeedback(text: string, regexFeedback, setRegexFeedback) {
-  const feedback = {...regexFeedback};
-  if(!feedback.order) {
-    feedback.order = 0;
-  }
-  feedback.text = text;
-  setRegexFeedback(feedback)
-}
-
 export function handleRulePromptChange(e: InputEvent, rulePrompts, setRulePrompts) {
   const { target } = e;
   const { id, value } = target;
@@ -153,7 +126,8 @@ export function renderHighlights(highlights, i, changeHandler) {
     // this is an update for existing rule, convert to object for DropdownInput value
     if(highlight.highlight_type && typeof highlight.highlight_type === 'string') {
       const { highlight_type } = highlight;
-      highlightTypeValue = { label: highlight_type, value: highlight_type };
+      const label = highlight_type[0].toUpperCase() + highlight_type.slice(1).toLowerCase();
+      highlightTypeValue = { label: label, value: highlight_type };
     } else if(highlight.highlight_type && highlight.highlight_type.value) {
       const { highlight_type } = highlight;
       highlightTypeValue = highlight_type;
@@ -166,7 +140,7 @@ export function renderHighlights(highlights, i, changeHandler) {
           // eslint-disable-next-line
           handleChange={(e) => changeHandler(e, i, j, 'highlight type')}
           isSearchable={true}
-          label="Optimal?"
+          label="Highlight Type"
           options={ruleHighlightOptions}
           value={highlightTypeValue}
         />
@@ -194,29 +168,11 @@ export function getInitialRuleType({ isUniversal, rule_type, universalRuleType }
   }
 }
 
-export const formatFeedbacks = ({ rule, ruleType, setRegexFeedback }) => {
-  if(rule && rule.feedbacks && Object.keys(rule.feedbacks).length) {
-    const { feedbacks } =  rule;
-    if(ruleType && ruleType.value === 'rules-based') {
-      const formattedFeedback = {
-        id: feedbacks[0].id,
-        order: 0,
-        description: feedbacks[0].description,
-        text: feedbacks[0].text
-      }
-      setRegexFeedback(formattedFeedback);
-    }
-  } else {
-    // creating new rule, set all to empty break tag in case user switches between rule types
-    setRegexFeedback({ text: '<br/>'});
-  }
-}
-
 export const returnInitialFeedback = (ruleType: string) => {
   if(ruleType === 'plagiarism') {
     return [{ text: '', order: 0, highlights_attributes: [] }, { text: '', order: 1, highlights_attributes: [] }];
   }
-  return [{ text: '', highlights_attributes: [] }];
+  return [{ text: '', order: 0, highlights_attributes: [] }];
 }
 
 export const formatInitialFeedbacks = (feedbacks) => {
@@ -243,7 +199,7 @@ export const formatInitialFeedbacks = (feedbacks) => {
   });
 }
 
-const formatUniversalFeedback = (feedbacks) => {
+const buildFeedbacks = (feedbacks) => {
   return feedbacks.map(feedback => {
     const formattedFeedback = {...feedback};
     const formattedHighlights = feedback.highlights_attributes.map(highlight => {
@@ -265,17 +221,8 @@ const formatUniversalFeedback = (feedbacks) => {
   });
 }
 
-const buildFeedbacks = ({ ruleType, regexFeedback, ruleFeedbacks }) => {
-  if(ruleType.value === 'rules-based') {
-    return [regexFeedback];
-  } else {
-    return formatUniversalFeedback(ruleFeedbacks);
-  }
-}
-
 export const buildRule = ({
   plagiarismText,
-  regexFeedback,
   regexRules,
   rule,
   rulesCount,
@@ -298,11 +245,7 @@ export const buildRule = ({
   let newOrUpdatedRule: any = {
     concept_uid: ruleConceptUID,
     description: ruleDescription,
-    feedbacks_attributes: buildFeedbacks({
-      ruleType,
-      regexFeedback,
-      ruleFeedbacks
-    }),
+    feedbacks_attributes: buildFeedbacks(ruleFeedbacks),
     name: ruleName,
     optimal: !!ruleOptimal.value,
     prompt_ids: promptIds,
@@ -331,7 +274,6 @@ export const buildRule = ({
 
 export function handleSubmitRule({
   plagiarismText,
-  regexFeedback,
   regexRules,
   rule,
   ruleName,
@@ -348,7 +290,6 @@ export function handleSubmitRule({
 }) {
   const newOrUpdatedRule = buildRule({
     plagiarismText,
-    regexFeedback,
     regexRules,
     rule,
     ruleName,
@@ -366,7 +307,7 @@ export function handleSubmitRule({
   let state: any[] = [ruleName, ruleConceptUID];
   if(ruleType.value === 'rules-based') {
     keys.push('Regex Feedback');
-    state.push(regexFeedback.text);
+    state.push(ruleFeedbacks[0].text);
     Object.keys(regexRules).map((key, i) => {
       keys.push(`Regex rule ${i + 1}`);
       state.push(regexRules[key].regex_text);

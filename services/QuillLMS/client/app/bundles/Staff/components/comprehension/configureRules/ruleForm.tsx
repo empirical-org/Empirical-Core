@@ -9,9 +9,9 @@ import RuleUniversalAttributes from './ruleUniversalAttributes';
 
 import { fetchRules, fetchUniversalRules } from '../../../utils/comprehension/ruleAPIs';
 import { formatPrompts, formatRegexRules } from '../../../helpers/comprehension';
-import { handleSubmitRule, getInitialRuleType, formatFeedbacks, formatInitialFeedbacks, returnInitialFeedback } from '../../../helpers/comprehension/ruleHelpers';
+import { handleSubmitRule, getInitialRuleType, formatInitialFeedbacks, returnInitialFeedback } from '../../../helpers/comprehension/ruleHelpers';
 import { ruleOptimalOptions } from '../../../../../constants/comprehension';
-import { ActivityInterface, RuleInterface, RuleFeedbackInterface, DropdownObjectInterface } from '../../../interfaces/comprehensionInterfaces';
+import { ActivityInterface, RuleInterface, DropdownObjectInterface } from '../../../interfaces/comprehensionInterfaces';
 
 interface RuleFormProps {
   activityData?: ActivityInterface,
@@ -34,7 +34,6 @@ const RuleForm = ({ activityData, activityId, closeModal, isUniversal, rule, sub
 
   const [errors, setErrors] = React.useState<object>({});
   const [plagiarismText, setPlagiarismText] = React.useState<RuleInterface["plagiarism_text"]>(initialPlagiarismText);
-  const [regexFeedback, setRegexFeedback] = React.useState<RuleFeedbackInterface >(null);
   const [regexRules, setRegexRules] = React.useState<object>({});
   const [ruleConceptUID, setRuleConceptUID] = React.useState<string>(concept_uid);
   const [ruleDescription, setRuleDescription] = React.useState<string>(initialDescription);
@@ -64,7 +63,6 @@ const RuleForm = ({ activityData, activityId, closeModal, isUniversal, rule, sub
 
   React.useEffect(() => {
     formatRegexRules({ rule, setRegexRules });
-    formatFeedbacks({ rule, ruleType, setRegexFeedback });
   }, [rule]);
 
   React.useEffect(() => {
@@ -89,7 +87,6 @@ const RuleForm = ({ activityData, activityId, closeModal, isUniversal, rule, sub
   function onHandleSubmitRule() {
     handleSubmitRule({
       plagiarismText,
-      regexFeedback,
       regexRules,
       rule,
       ruleName,
@@ -138,12 +135,12 @@ const RuleForm = ({ activityData, activityId, closeModal, isUniversal, rule, sub
         />}
         {ruleType && ruleType.value === 'rules-based' && <RuleRegexAttributes
           errors={errors}
-          regexFeedback={regexFeedback}
+          regexFeedback={ruleFeedbacks}
           regexRules={regexRules}
           rulesToCreate={rulesToCreate}
           rulesToDelete={rulesToDelete}
           rulesToUpdate={rulesToUpdate}
-          setRegexFeedback={setRegexFeedback}
+          setRegexFeedback={setRuleFeedbacks}
           setRegexRules={setRegexRules}
           setRulesToCreate={setRulesToCreate}
           setRulesToDelete={setRulesToDelete}

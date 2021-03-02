@@ -45,19 +45,6 @@ const RulePlagiarismAttributes = ({
     });
   }
 
-  function onHandleAddFeedbackHighlight(e: ClickEvent) {
-    const { target } = e;
-    const { id } = (target as HTMLButtonElement);
-    handleSetFeedback({
-      text: '',
-      feedback: plagiarismFeedbacks,
-      setFeedback: setPlagiarismFeedbacks,
-      updateType: 'highlight addition',
-      feedbackIndex: parseInt(id),
-      highlightIndex: null
-    });
-  }
-
     return(
       <React.Fragment>
         <p className="form-subsection-label">Plagiarism Text</p>
