@@ -60,7 +60,7 @@ module Comprehension
         }
       }
       results = automl_prediction_client.predict(name: automl_model_full_id, payload: automl_payload)
-      sorted_results = results.sort_by { |i| i.classification.score }.reverse
+      sorted_results = results.payload.sort_by { |i| i.classification.score }.reverse
       sorted_results[0].display_name
     end
 
