@@ -126,7 +126,7 @@ const Rules: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ history, mat
       {showAddRuleModal && renderRuleForm()}
       {showSubmissionModal && renderSubmissionModal()}
       <div className="header-container">
-        <p>Rules</p>
+        <h2>Rules</h2>
       </div>
       <DataTable
         className="rules-table"

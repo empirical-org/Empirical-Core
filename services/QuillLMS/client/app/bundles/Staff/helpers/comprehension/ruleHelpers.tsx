@@ -3,7 +3,7 @@ import { EditorState, ContentState } from 'draft-js';
 
 import { validateForm } from '../comprehension';
 import { InputEvent, DropdownObjectInterface } from '../../interfaces/comprehensionInterfaces';
-import { ruleTypeOptions, universalRuleTypeOptions, ruleHighlightOptions, numericalWordOptions } from '../../../../constants/comprehension';
+import { ruleTypeOptions, universalRuleTypeOptions, ruleHighlightOptions, numericalWordOptions, regexRuleSequenceOptions } from '../../../../constants/comprehension';
 import { TextEditor, DropdownInput } from '../../../Shared/index';
 
 export function handleSetRuleType(ruleType: DropdownObjectInterface, setRuleType) { setRuleType(ruleType) };
@@ -33,6 +33,12 @@ export function handleRulePromptChange(e: InputEvent, rulePrompts, setRulePrompt
   };
   setRulePrompts(updatedPrompts);
 };
+
+export function handleSetRegexRuleSequence({ option, ruleKey, regexRules, setRegexRules }) {
+  const updatedRules = {...regexRules};
+  updatedRules[ruleKey].sequence_type = option;
+  setRegexRules(updatedRules);
+}
 
 export function handleSetRegexRule({
   e,
@@ -89,6 +95,29 @@ export function handleDeleteRegexRule({ e, regexRules, rulesToDelete, setRulesTo
   }
   delete updatedRules[value];
   setRegexRules(updatedRules);
+}
+
+const getSequenceType = (sequenceType) => {
+  if(sequenceType) {
+    return regexRuleSequenceOptions.filter(option => option.value === sequenceType)[0];
+  }
+  return null;
+}
+
+export const formatRegexRules = ({ rule, setRegexRules }) => {
+  let formatted = {};
+  rule && rule.regex_rules && rule.regex_rules.map((rule, i) => {
+    const { case_sensitive, id, regex_text, sequence_type } = rule;
+    const regexRuleSequenceType = getSequenceType(sequence_type);
+    const formattedRule = {
+      id: id,
+      case_sensitive: case_sensitive,
+      regex_text: regex_text,
+      sequence_type: regexRuleSequenceType
+    }
+    formatted[`regex-rule-${i}`] = formattedRule;
+  });
+  setRegexRules(formatted);
 }
 
 export function handleSetFeedback({
@@ -251,13 +280,20 @@ export const buildRule = ({
     prompt_ids: promptIds,
     rule_type: ruleType.value,
     suborder: suborder ? suborder : order,
-    universal: universal
+    universal: universal,
+    state: 'active'
   };
 
   if(newOrUpdatedRule.rule_type === 'rules-based') {
-    const rules = [];
+    let rules = [];
     Object.keys(regexRules).forEach(key => {
       rules.push(regexRules[key]);
+    });
+    // format from DropdownInput option
+    rules = rules.map(rule => {
+      // choose default Incorrect option for case where user doesn't change dropdown option
+      rule.sequence_type = rule.sequence_type && rule.sequence_type.value ? rule.sequence_type.value : regexRuleSequenceOptions[0].value;
+      return rule;
     });
     newOrUpdatedRule.regex_rules_attributes = rules;
   } else if(newOrUpdatedRule.rule_type === 'plagiarism') {
@@ -266,7 +302,6 @@ export const buildRule = ({
       text: plagiarismText.text
     };
   }
-
   return {
     rule: newOrUpdatedRule
   };

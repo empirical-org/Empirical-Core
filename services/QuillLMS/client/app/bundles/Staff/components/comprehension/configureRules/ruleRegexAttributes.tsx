@@ -5,13 +5,14 @@ import RegexRules from './regexRules';
 
 import {
   handleSetRegexRule,
+  handleSetRegexRuleSequence,
   handleAddRegexInput,
   handleDeleteRegexRule,
   handleSetFeedback,
   renderHighlights
 } from '../../../helpers/comprehension/ruleHelpers';
 import { TextEditor } from '../../../../Shared/index'
-import { InputEvent, ClickEvent } from '../../../interfaces/comprehensionInterfaces';
+import { InputEvent, ClickEvent, DropdownObjectInterface } from '../../../interfaces/comprehensionInterfaces';
 
 // TODO: add props interface
 
@@ -38,6 +39,10 @@ const RuleRegexAttributes = ({
     setRegexRules,
     setRulesToUpdate,
     setRulesToCreate})
+  }
+
+  function onHandleSetRegexRuleSequence(option: DropdownObjectInterface, ruleKey) {
+    handleSetRegexRuleSequence({ option, ruleKey, regexRules, setRegexRules });
   }
 
   function onHandleAddRegexInput() { handleAddRegexInput(regexRules, setRegexRules) }
@@ -88,6 +93,7 @@ const RuleRegexAttributes = ({
         handleAddRegexInput={onHandleAddRegexInput}
         handleDeleteRegexRule={onHandleDeleteRegexRule}
         handleSetRegexRule={onHandleSetRegexRule}
+        handleSetRegexRuleSequence={onHandleSetRegexRuleSequence}
         regexRules={regexRules}
       />
     </React.Fragment>

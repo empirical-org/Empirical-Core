@@ -8,8 +8,8 @@ import RulePrompts from './rulePrompts';
 import RuleUniversalAttributes from './ruleUniversalAttributes';
 
 import { fetchRules, fetchUniversalRules } from '../../../utils/comprehension/ruleAPIs';
-import { formatPrompts, formatRegexRules } from '../../../helpers/comprehension';
-import { handleSubmitRule, getInitialRuleType, formatInitialFeedbacks, returnInitialFeedback } from '../../../helpers/comprehension/ruleHelpers';
+import { formatPrompts } from '../../../helpers/comprehension';
+import { handleSubmitRule, getInitialRuleType, formatInitialFeedbacks, returnInitialFeedback, formatRegexRules } from '../../../helpers/comprehension/ruleHelpers';
 import { ruleOptimalOptions } from '../../../../../constants/comprehension';
 import { ActivityInterface, RuleInterface, DropdownObjectInterface } from '../../../interfaces/comprehensionInterfaces';
 

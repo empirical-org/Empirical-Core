@@ -87,6 +87,11 @@ export const ruleOptimalOptions = [
   {"value":"","label":"Sub-Optimal"}
 ];
 
+export const regexRuleSequenceOptions = [
+  {"value":"incorrect","label":"Incorrect"},
+  {"value":"required","label":"Required"}
+];
+
 export const ruleOrder = {
   'AutoML': 1,
   'Grammar': 2,
