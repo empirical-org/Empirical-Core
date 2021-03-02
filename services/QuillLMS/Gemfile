@@ -165,7 +165,7 @@ gem 'awesome_print'
 group :test, :development do
   gem 'quiet_assets'
   gem 'parallel_tests'
-  gem 'pry'
+  gem 'pry', '~> 0.12.2'
   gem 'pry-rails'
   gem 'pry-remote'
   gem 'pry-stack_explorer'

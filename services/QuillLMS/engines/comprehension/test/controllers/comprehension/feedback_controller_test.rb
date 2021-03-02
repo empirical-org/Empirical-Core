@@ -38,5 +38,29 @@ module Comprehension
         assert_equal parsed_response["feedback"], @second_feedback.text
       end
     end
+
+    context "#automl" do
+      should 'return feedback payloads based on the lib matched_rule value' do
+        entry = 'entry'
+
+        AutomlCheck.stub_any_instance(:matched_rule, @rule) do
+          Rule.stub_any_instance(:determine_feedback_from_history, @first_feedback) do
+            post 'automl', entry: entry, prompt_id: @prompt.id, session_id: 1, previous_feedback: []
+
+            parsed_response = JSON.parse(response.body)
+            assert_equal parsed_response, {
+              feedback: @first_feedback.text,
+              feedback_type: Rule::TYPE_AUTOML,
+              optimal: @rule.optimal,
+              response_id: '',
+              entry: entry,
+              concept_uid: @rule.concept_uid,
+              rule_uid: @rule.uid,
+              highlight: []
+            }.stringify_keys
+          end
+        end
+      end
+    end
   end
 end
