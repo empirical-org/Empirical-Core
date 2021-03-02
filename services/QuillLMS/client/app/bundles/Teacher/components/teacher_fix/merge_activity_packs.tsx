@@ -1,9 +1,7 @@
-import React from 'react'
+import * as React from "react";
 import request from 'request'
 import getAuthToken from '../modules/get_auth_token'
 
-//TODO: write jest test?
-//TODO: linting
 export default class MergeActivityPacks extends React.Component {
   constructor(props) {
     super(props)
