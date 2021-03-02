@@ -42,6 +42,19 @@ module Comprehension
           }
         end
       end
+
+      should 'include highlight data when the feedback object has highlights' do
+        AutomlModel.stub_any_instance(:fetch_automl_label, @label.name) do
+          highlight = create(:comprehension_highlight, feedback: @feedback)
+          automl_check = Comprehension::AutomlCheck.new('whatever', @prompt)
+
+          assert_equal automl_check.feedback_object[:highlight], [{
+            type: highlight.highlight_type,
+            text: highlight.text,
+            category: ''
+          }]
+        end
+      end
     end
   end
 end
