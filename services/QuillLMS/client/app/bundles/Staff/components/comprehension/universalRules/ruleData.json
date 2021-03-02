@@ -1,0 +1,14 @@
+{
+  "rule": {
+    "id": 1,
+    "uid": "qwdx",
+    "description": "this is a description of this rule!",
+    "rule_type": "Grammar",
+    "concept_uid": "3987qahsdkjh84",
+    "name":  "passive with incorrect participle",
+    "suborder": 1,
+    "optimal": false,
+    "universal": true,
+    "feedbacks": []
+  }
+}

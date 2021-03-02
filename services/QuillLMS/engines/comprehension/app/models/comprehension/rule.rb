@@ -35,7 +35,7 @@ module Comprehension
     validates :rule_type, inclusion: {in: TYPES}
     validates :state, inclusion: {in: STATES}
     validates :suborder, numericality: {only_integer: true, greater_than_or_equal_to: 0}
-
+    validates :suborder, numericality: {allow_blank: true, only_integer: true, greater_than_or_equal_to: 0}
 
     def serializable_hash(options = nil)
       options ||= {}
@@ -48,7 +48,9 @@ module Comprehension
     end
 
     def regex_is_passing?(entry)
-      regex_rules.none?{ |regex_rule| Regexp.new(regex_rule.regex_text).match(entry) }
+      regex_rules.none? do |regex_rule|
+        regex_rule.sequence_type == RegexRule::TYPE_INCORRECT ? Regexp.new(regex_rule.regex_text).match(entry) : !Regexp.new(regex_rule.regex_text).match(entry)
+      end
     end
 
     private def assign_uid_if_missing

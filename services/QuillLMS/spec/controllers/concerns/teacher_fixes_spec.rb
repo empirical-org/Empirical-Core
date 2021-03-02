@@ -180,5 +180,26 @@ describe TeacherFixes do
         TeacherFixes::merge_two_classroom_units(cu1.reload, cu2.reload)
       end
     end
+
+    describe '#move_students_from_one_class_to_another' do
+      it 'should update the classroom values if existing StudentClassroom record is not found' do
+        student_classrooms = StudentsClassrooms.where(classroom_id: classroom.id)
+        TeacherFixes::move_students_from_one_class_to_another(classroom.id, classroom2.id)
+        student_classrooms.each do |sc|
+          expect(sc.classroom).to eq(classroom2)
+        end
+      end
+
+      it 'should archive the old StudentClassroom record if existing StudentClassroom record is found' do
+        student_classrooms = StudentsClassrooms.where(classroom_id: classroom.id)
+        create(:students_classrooms, student: student1, classroom: classroom2)
+        create(:students_classrooms, student: student2, classroom: classroom2)
+        TeacherFixes::move_students_from_one_class_to_another(classroom.id, classroom2.id)
+        student_classrooms.each do |sc|
+          expect(sc.skip_archive_student_associations).to eq(true)
+          expect(sc.visible).to eq(false)
+        end
+      end
+    end
   end
 end

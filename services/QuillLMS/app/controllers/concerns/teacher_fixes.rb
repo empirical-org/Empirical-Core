@@ -96,6 +96,7 @@ module TeacherFixes
   def self.move_students_from_one_class_to_another(class_id1, class_id2)
     StudentsClassrooms.where(classroom_id: class_id1).each do |sc|
       if StudentsClassrooms.unscoped.find_by(classroom_id: class_id2, student_id: sc.student_id)
+        sc.skip_archive_student_associations = true
         sc.update(visible: false)
       else
         sc.update(classroom_id: class_id2)

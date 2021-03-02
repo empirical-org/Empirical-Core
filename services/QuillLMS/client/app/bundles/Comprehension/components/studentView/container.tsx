@@ -396,10 +396,15 @@ export class StudentViewContainer extends React.Component<StudentViewContainerPr
     const { currentActivity, } = activities
     if (!currentActivity) { return }
 
+    const { title, passages, } = currentActivity
+
+    const headerImage = passages[0].image_link && <img alt={passages[0].image_alt_text} className="header-image" src={passages[0].image_link} />
+
     return (<div className="read-passage-container">
       <div>
         <p className="directions">Read the passage.</p>
         <h1 className="title">{currentActivity.title}</h1>
+        {headerImage}
         <div className="passage" dangerouslySetInnerHTML={{__html: this.formatHtmlForPassage()}} />
       </div>
     </div>)
