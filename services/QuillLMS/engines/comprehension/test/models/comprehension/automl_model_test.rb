@@ -185,7 +185,9 @@ module Comprehension
         automl_model_full_id = 'path-to-automl-model'
 
         prediction_client_mock = Minitest::Mock.new
-        prediction_client_mock.expect(:predict, [prediction1, prediction2], [{name: automl_model_full_id, payload: automl_payload}])
+        prediction_response_mock = Minitest::Mock.new
+        prediction_response_mock.expect(:payload, [prediction1, prediction2])
+        prediction_client_mock.expect(:predict, prediction_response_mock, [{name: automl_model_full_id, payload: automl_payload}])
 
         AutomlModel.stub_any_instance(:automl_prediction_client, prediction_client_mock) do
           AutomlModel.stub_any_instance(:automl_model_full_id, automl_model_full_id) do

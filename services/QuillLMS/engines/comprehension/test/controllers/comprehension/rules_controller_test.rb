@@ -97,7 +97,7 @@ module Comprehension
       end
 
       should "return an error if regex is invalid" do
-        post :create, rule: { concept_uid: @rule.uid, description: @rule.description, name: @rule.name, optimal: @rule.optimal, suborder: 1, rule_type: @rule.rule_type, universal: @rule.universal,
+        post :create, rule: { concept_uid: @rule.uid, description: @rule.description, name: @rule.name, optimal: @rule.optimal, suborder: 1, rule_type: @rule.rule_type, universal: @rule.universal, state: Rule::STATE_INACTIVE,
           regex_rules_attributes:
             [
               {

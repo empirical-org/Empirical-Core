@@ -34,7 +34,6 @@ module Comprehension
     validates :optimal, inclusion: ALLOWED_BOOLEANS
     validates :rule_type, inclusion: {in: TYPES}
     validates :state, inclusion: {in: STATES}
-    validates :suborder, numericality: {only_integer: true, greater_than_or_equal_to: 0}
     validates :suborder, numericality: {allow_blank: true, only_integer: true, greater_than_or_equal_to: 0}
 
     def serializable_hash(options = nil)
