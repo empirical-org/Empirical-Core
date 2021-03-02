@@ -16,7 +16,7 @@ module Comprehension
     validate :validate_label_associations, if: :active?
 
     validates :automl_model_id, presence: true, uniqueness: true
-    validates :labels, presence: true, length: {minimum: 1}
+    validates :labels, presence: true, length: {minimum: MIN_LABELS_LENGTH}
     validates :name, presence: true
     validates :state, inclusion: {in: ['active', 'inactive']}
 
