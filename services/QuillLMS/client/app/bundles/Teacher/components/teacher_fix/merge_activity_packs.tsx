@@ -2,7 +2,6 @@ import React from 'react'
 import request from 'request'
 import getAuthToken from '../modules/get_auth_token'
 
-//TODO: make tsx file
 //TODO: write jest test?
 //TODO: linting
 export default class MergeActivityPacks extends React.Component {
@@ -26,8 +25,6 @@ export default class MergeActivityPacks extends React.Component {
         that.setState({error: response.error})
       } else if (r.statusCode === 200){
         window.alert('Activity Packs have been merged!')
-      } else {
-        // to do, use Sentry to capture error
       }
     })
   };

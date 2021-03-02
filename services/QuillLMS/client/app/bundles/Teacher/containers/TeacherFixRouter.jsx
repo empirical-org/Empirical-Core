@@ -8,7 +8,7 @@ import RecoverUnitActivities from '../components/teacher_fix/recover_unit_activi
 import RecoverActivitySessions from '../components/teacher_fix/recover_activity_sessions.jsx'
 import MergeStudentAccounts from '../components/teacher_fix/merge_student_accounts.jsx'
 import MergeTeacherAccounts from '../components/teacher_fix/merge_teacher_accounts.jsx'
-import MergeActivityPacks from '../components/teacher_fix/merge_activity_packs.jsx'
+import MergeActivityPacks from '../components/teacher_fix/merge_activity_packs'
 import MoveStudent from '../components/teacher_fix/move_student.jsx'
 import GoogleUnsync from '../components/teacher_fix/google_unsync'
 import MergeTwoSchools from '../components/teacher_fix/merge_two_schools'
