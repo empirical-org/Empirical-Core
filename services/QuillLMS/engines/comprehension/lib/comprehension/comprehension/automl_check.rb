@@ -13,6 +13,13 @@ module Comprehension
     def feedback_object
       return nil unless matched_rule
       feedback = matched_rule.determine_feedback_from_history(@previous_feedback)
+      highlight = feedback.highlights.map do |h|
+        {
+          type: h.highlight_type,
+          text: h.text,
+          category: ''
+        }
+      end
       {
         feedback: feedback.text,
         feedback_type: Rule::TYPE_AUTOML,
@@ -21,7 +28,7 @@ module Comprehension
         entry: @entry,
         concept_uid: matched_rule&.concept_uid || '',
         rule_uid: matched_rule&.uid || '',
-        highlight: []
+        highlight: highlight
       }
     end
 
