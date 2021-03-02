@@ -47,10 +47,11 @@ module Comprehension
     end
 
     private def rule_params
-      params.require(:rule).permit(:name, :description, :universal, :rule_type, :optimal, :suborder, :concept_uid,
+      params.require(:rule).permit(:name, :description, :universal, :rule_type, :optimal, :state, :suborder, :concept_uid,
          prompt_ids: [],
          plagiarism_text_attributes: [:id, :text],
          regex_rules_attributes: [:id, :regex_text, :case_sensitive],
+         label_attributes: [:id, :name, :state],
          feedbacks_attributes: [:id, :text, :description, :order, highlights_attributes: [:id, :text, :highlight_type, :starting_index]]
       )
     end
