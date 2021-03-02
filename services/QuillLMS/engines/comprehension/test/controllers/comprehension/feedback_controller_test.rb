@@ -50,7 +50,7 @@ module Comprehension
             parsed_response = JSON.parse(response.body)
             assert_equal parsed_response, {
               feedback: @first_feedback.text,
-              feedback_type: Rule::TYPE_AUTOML,
+              feedback_type: 'semantic',
               optimal: @rule.optimal,
               response_id: '',
               entry: entry,
