@@ -194,7 +194,6 @@ class TeacherFixController < ApplicationController
     render json: {}, status: 200
   end
 
-  #TODO: unit test this
   def merge_activity_packs
     begin
       raise 'Please specify an activity pack ID.' if params['from_activity_pack_id'].nil? || params['to_activity_pack_id'].nil?
