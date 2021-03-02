@@ -4,6 +4,7 @@ module Comprehension
   class PromptTest < ActiveSupport::TestCase
     context 'relations' do
       should belong_to(:activity)
+      should have_many(:automl_models)
       should have_many(:prompts_rules)
       should have_many(:rules).through(:prompts_rules)
     end
