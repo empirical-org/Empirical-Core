@@ -15,6 +15,18 @@ exports[`RuleGenericAttributes component should render RuleGenericAttributes 1`]
           "value": "rules-based",
         },
         Object {
+          "label": "Sentence Structure Regex",
+          "value": "rules-based-1",
+        },
+        Object {
+          "label": "Post-Topic Regex",
+          "value": "rules-based-2",
+        },
+        Object {
+          "label": "Typo Regex",
+          "value": "rules-based-3",
+        },
+        Object {
           "label": "Plagiarism",
           "value": "plagiarism",
         },

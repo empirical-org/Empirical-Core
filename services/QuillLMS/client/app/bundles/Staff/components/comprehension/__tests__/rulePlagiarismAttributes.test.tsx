@@ -6,12 +6,10 @@ import { TextEditor } from '../../../../Shared/index'
 
 const mockProps = {
   errors: {},
-  firstPlagiarismFeedback: { text: 'do not plagiarize.' },
+  plagiarismFeedbacks: [{ text: 'do not plagiarize.' }, { text: 'seriously... do not plagiarize!' }],
   plagiarismText: 'test plagiarism text',
-  secondPlagiarismFeedback: { text: 'seriously... do not plagiarize!' },
-  setFirstPlagiarismFeedback: jest.fn(),
-  setPlagiarismText: jest.fn(),
-  setSecondPlagiarismFeedback: jest.fn()
+  setPlagiarismFeedbacks: jest.fn(),
+  setPlagiarismText: jest.fn()
 };
 
 describe('RulePlagiarismAttributes component', () => {

@@ -10,7 +10,7 @@ import RuleUniversalAttributes from './ruleUniversalAttributes';
 import { fetchRules, fetchUniversalRules } from '../../../utils/comprehension/ruleAPIs';
 import { formatPrompts } from '../../../helpers/comprehension';
 import { handleSubmitRule, getInitialRuleType, formatInitialFeedbacks, returnInitialFeedback, formatRegexRules } from '../../../helpers/comprehension/ruleHelpers';
-import { ruleOptimalOptions } from '../../../../../constants/comprehension';
+import { ruleOptimalOptions, regexRuleTypes } from '../../../../../constants/comprehension';
 import { ActivityInterface, RuleInterface, DropdownObjectInterface } from '../../../interfaces/comprehensionInterfaces';
 
 interface RuleFormProps {
@@ -133,7 +133,7 @@ const RuleForm = ({ activityData, activityId, closeModal, isUniversal, rule, sub
           setPlagiarismFeedbacks={setRuleFeedbacks}
           setPlagiarismText={setPlagiarismText}
         />}
-        {ruleType && ruleType.value === 'rules-based' && <RuleRegexAttributes
+        {ruleType && regexRuleTypes.includes(ruleType.value) && <RuleRegexAttributes
           errors={errors}
           regexFeedback={ruleFeedbacks}
           regexRules={regexRules}

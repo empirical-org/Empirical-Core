@@ -3,7 +3,7 @@ import { EditorState, ContentState } from 'draft-js';
 
 import { validateForm } from '../comprehension';
 import { InputEvent, DropdownObjectInterface } from '../../interfaces/comprehensionInterfaces';
-import { ruleTypeOptions, universalRuleTypeOptions, ruleHighlightOptions, numericalWordOptions, regexRuleSequenceOptions } from '../../../../constants/comprehension';
+import { ruleTypeOptions, universalRuleTypeOptions, ruleHighlightOptions, numericalWordOptions, regexRuleSequenceOptions, regexRuleTypes } from '../../../../constants/comprehension';
 import { TextEditor, DropdownInput } from '../../../Shared/index';
 
 export function handleSetRuleType(ruleType: DropdownObjectInterface, setRuleType) { setRuleType(ruleType) };
@@ -284,7 +284,7 @@ export const buildRule = ({
     state: 'active'
   };
 
-  if(newOrUpdatedRule.rule_type === 'rules-based') {
+  if(regexRuleTypes.includes(newOrUpdatedRule.rule_type)) {
     let rules = [];
     Object.keys(regexRules).forEach(key => {
       rules.push(regexRules[key]);
@@ -340,7 +340,7 @@ export function handleSubmitRule({
   const { universal } = rule;
   let keys: string[] = ['Name', 'Concept UID'];
   let state: any[] = [ruleName, ruleConceptUID];
-  if(ruleType.value === 'rules-based') {
+  if(regexRuleTypes.includes(ruleType.value)) {
     keys.push('Regex Feedback');
     state.push(ruleFeedbacks[0].text);
     Object.keys(regexRules).map((key, i) => {
