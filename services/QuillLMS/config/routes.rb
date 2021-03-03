@@ -586,6 +586,7 @@ EmpiricalGrammar::Application.routes.draw do
     diagnostic
     connect
     preap_units
+    springboard_units
   )
 
   all_pages = other_pages

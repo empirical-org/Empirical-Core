@@ -6,6 +6,7 @@ FactoryBot.define do
     universal { false }
     rule_type { "plagiarism" }
     optimal { false }
+    state { Comprehension::Rule::STATE_INACTIVE }
     suborder { 1 }
     concept_uid { "ConceptUID" }
   end

@@ -1,7 +1,200 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`SpringBoard component should render when it is not part of the assignment flow 1`] = `
-<SpringBoard>
+<SpringBoard
+  units={
+    Array [
+      Object {
+        "learning_cycles": Array [
+          Object {
+            "activities": Array [
+              Object {
+                "cb_anchor_tag": "the-first-day",
+                "description": "Explore first-person narration and characterization",
+                "title": "Sentence Combining: “The First Day” by Edward P. Jones",
+                "unit_template_id": "216",
+              },
+            ],
+          },
+          Object {
+            "activities": Array [
+              Object {
+                "cb_anchor_tag": "what-happened-during-the-ice-storm",
+                "description": "Explore flash fiction and the establishment of tension and setting",
+                "title": "Sentence Combining: “What Happened During the Ice Storm” by Jim Heynen",
+                "unit_template_id": "218",
+              },
+              Object {
+                "cb_anchor_tag": "the-red-fox-fur-coat",
+                "description": "Explore fantastical storytelling and character evolution",
+                "title": "Sentence Combining: “The Red Fox Fur Coat” by Teolinda Gersão",
+                "unit_template_id": "219",
+              },
+              Object {
+                "cb_anchor_tag": "lamb-to-the-slaughter",
+                "description": "Explore narrative revelations with sudden character shifts",
+                "title": "Sentence Combining: “Lamb to the Slaughter” by Roald Dahl",
+                "unit_template_id": "220",
+              },
+            ],
+          },
+          Object {
+            "activities": Array [
+              Object {
+                "cb_anchor_tag": "an-occurrence-at-owl-creek-bridge",
+                "description": "Explore complex characterization and narrative truth",
+                "title": "Sentence Combining: “An Occurrence at Owl Creek Bridge” by Ambrose Bierce",
+                "unit_template_id": "221",
+              },
+            ],
+          },
+        ],
+        "title": "Unit 1: Telling Details",
+      },
+      Object {
+        "learning_cycles": Array [
+          Object {
+            "activities": Array [
+              Object {
+                "cb_anchor_tag": "lottery",
+                "description": "Explore personal essay and poetic revision",
+                "title": "Sentence Combining: “Lottery” by Rasma Haidri",
+                "unit_template_id": "222",
+              },
+              Object {
+                "cb_anchor_tag": "the-fight",
+                "description": "Explore poetic contrast and human truths",
+                "title": "Sentence Combining: “The Fight” by John Montague",
+                "unit_template_id": "223",
+              },
+            ],
+          },
+          Object {
+            "activities": Array [
+              Object {
+                "cb_anchor_tag": "tamaras-opus",
+                "description": "Explore spoken word and performative expression",
+                "title": "Sentence Combining: “Tamara’s Opus” by Joshua Bennett",
+                "unit_template_id": "224",
+              },
+              Object {
+                "cb_anchor_tag": "the-hamilton-mixtape",
+                "description": "Explore the application of hip-hop storytelling to a historical figure",
+                "title": "Sentence Combining: “The Hamilton Mixtape” by Lin-Manuel Miranda",
+                "unit_template_id": "225",
+              },
+            ],
+          },
+          Object {
+            "activities": Array [
+              Object {
+                "cb_anchor_tag": "romeo-and-juliet",
+                "description": "Explore dramatic characterization and Shakepearean turns of phrase",
+                "title": "Sentence Combining: Excerpt from Romeo and Juliet by William Shakespeare",
+                "unit_template_id": "226",
+              },
+            ],
+          },
+        ],
+        "title": "Unit 2: Pivotal Words and Phrases",
+      },
+      Object {
+        "learning_cycles": Array [
+          Object {
+            "activities": Array [
+              Object {
+                "cb_anchor_tag": "the-work-you-do-the-person-you-are",
+                "description": "Explore personal essay and economic disparities in differing views of work",
+                "title": "Sentence Combining: “The Work You Do, the Person You Are” by Toni Morrison",
+                "unit_template_id": "227",
+              },
+              Object {
+                "cb_anchor_tag": "drowning-in-dishes-but-finding-a-home",
+                "description": "Explore how seemingly menial work may lead to meaningful life lessons",
+                "title": "Sentence Combining: “Drowning in Dishes, but Finding a Home” by Danial Adkison",
+                "unit_template_id": "228",
+              },
+            ],
+          },
+          Object {
+            "activities": Array [
+              Object {
+                "cb_anchor_tag": "what-to-do-with-kids-in-the-summer-put-em-to-work",
+                "description": "Explore opinion writing and how personal perspective shapes argument",
+                "title": "Sentence Combining: “What to Do with the Kids This Summer? Put ’Em to Work” by Ben Sasse",
+                "unit_template_id": "229",
+              },
+              Object {
+                "cb_anchor_tag": "the-decline-of-the-american-teenagers-summer-job",
+                "description": "Explore evolving perspectives of the summer job and its value to teens’ lives",
+                "title": "Sentence Combining: “The Decline of the American Teenager’s Summer Job” by Lexington",
+                "unit_template_id": "230",
+              },
+            ],
+          },
+          Object {
+            "activities": Array [
+              Object {
+                "cb_anchor_tag": "teenagers-have-stopped-getting-summer-jobs-why",
+                "description": "Explore multiple views of a controversial issue using data to inform perspectives",
+                "title": "Sentence Combining: “Teenagers Have Stopped Getting Summer Jobs—Why?” by Derek Thompson",
+                "unit_template_id": "231",
+              },
+            ],
+          },
+        ],
+        "title": "Unit 3: Compelling Evidence",
+      },
+      Object {
+        "learning_cycles": Array [
+          Object {
+            "activities": Array [
+              Object {
+                "cb_anchor_tag": "1984",
+                "description": "Explore how key imagery sets place and tone at the start of a novel",
+                "title": "Sentence Combining: Excerpt from 1984 by George Orwell",
+                "unit_template_id": "232",
+              },
+              Object {
+                "cb_anchor_tag": "the-night-circus",
+                "description": "Explore how second-person point of view sets up a fantastical world",
+                "title": "Sentence Combining: Except from The Night Circus by Erin Morgenstern",
+                "unit_template_id": "233",
+              },
+            ],
+          },
+          Object {
+            "activities": Array [
+              Object {
+                "cb_anchor_tag": "out-of-my-mind",
+                "description": "Explore how first-person point of view efficiently establishes a narrator’s experience",
+                "title": "Sentence Combining: Except from Out of My Mind by Sharon M. Draper",
+                "unit_template_id": "234",
+              },
+              Object {
+                "cb_anchor_tag": "all-the-light-we-cannot-see",
+                "description": "Explore how omniscient point of view shines a light on multiple characters’ experiences of a threatening world",
+                "title": "Sentence Combining: Excerpt from All the Light We Cannot See by Anthony Doerr",
+                "unit_template_id": "235",
+              },
+            ],
+          },
+          Object {
+            "activities": Array [
+              Object {
+                "cb_anchor_tag": "the-girl-who-fell-from-the-sky",
+                "description": "Explore how a present-tense narrative moment establishes a child’s perspective",
+                "title": "Sentence Combining: Excerpt from The Girl Who Fell from the Sky by Heidi W. Durrow",
+                "unit_template_id": "236",
+              },
+            ],
+          },
+        ],
+        "title": "Unit 4: Powerful Openings",
+      },
+    ]
+  }
+>
   <div
     className="college-board-container"
   >
@@ -498,6 +691,1367 @@ exports[`SpringBoard component should render when it is not part of the assignme
       </div>
     </div>
     <div
+      className="white-section-wrapper"
+    >
+      <div
+        className="container college-board-activities-section"
+      >
+        <div
+          className="header"
+        >
+          <img
+            alt="Illustration of a book opened"
+            src="https://assets.quill.org/images/college_board/passage-book.svg"
+          />
+          <div
+            className="text-container"
+          >
+            <h2>
+              Passage-Aligned Activities
+            </h2>
+            <p>
+              Twenty custom sentence-combining activities, each one aligned to a unique 9th grade SpringBoard ELA text to give your students the opportunity to practice their sentence construction skills in context.
+            </p>
+          </div>
+        </div>
+        <div
+          className="activities-subheader"
+        >
+          <h2>
+            Passage-Aligned Activities
+          </h2>
+        </div>
+        <div
+          className="white-section-wrapper"
+        >
+          <div
+            className="units-container"
+          >
+            <ExpandableUnit
+              isFirst={true}
+              learningCycles={
+                Array [
+                  Object {
+                    "activities": Array [
+                      Object {
+                        "cb_anchor_tag": "the-first-day",
+                        "description": "Explore first-person narration and characterization",
+                        "title": "Sentence Combining: “The First Day” by Edward P. Jones",
+                        "unit_template_id": "216",
+                      },
+                    ],
+                  },
+                  Object {
+                    "activities": Array [
+                      Object {
+                        "cb_anchor_tag": "what-happened-during-the-ice-storm",
+                        "description": "Explore flash fiction and the establishment of tension and setting",
+                        "title": "Sentence Combining: “What Happened During the Ice Storm” by Jim Heynen",
+                        "unit_template_id": "218",
+                      },
+                      Object {
+                        "cb_anchor_tag": "the-red-fox-fur-coat",
+                        "description": "Explore fantastical storytelling and character evolution",
+                        "title": "Sentence Combining: “The Red Fox Fur Coat” by Teolinda Gersão",
+                        "unit_template_id": "219",
+                      },
+                      Object {
+                        "cb_anchor_tag": "lamb-to-the-slaughter",
+                        "description": "Explore narrative revelations with sudden character shifts",
+                        "title": "Sentence Combining: “Lamb to the Slaughter” by Roald Dahl",
+                        "unit_template_id": "220",
+                      },
+                    ],
+                  },
+                  Object {
+                    "activities": Array [
+                      Object {
+                        "cb_anchor_tag": "an-occurrence-at-owl-creek-bridge",
+                        "description": "Explore complex characterization and narrative truth",
+                        "title": "Sentence Combining: “An Occurrence at Owl Creek Bridge” by Ambrose Bierce",
+                        "unit_template_id": "221",
+                      },
+                    ],
+                  },
+                ]
+              }
+              slug="springboard"
+              tag={
+                <div
+                  className="college-board-activity-tag"
+                >
+                  For SpringBoard 9
+                </div>
+              }
+              title="Unit 1: Telling Details"
+            >
+              <div
+                className="activity-container expandable"
+              >
+                <div
+                  className="top-section open"
+                >
+                  <div
+                    className="unit-header-container"
+                  >
+                    <p
+                      className="unit-title"
+                    >
+                      <span>
+                        Unit 1: Telling Details
+                      </span>
+                      <div
+                        className="college-board-activity-tag"
+                      >
+                        For SpringBoard 9
+                      </div>
+                    </p>
+                    <div
+                      className="unit-sub-header-container"
+                    >
+                      <p>
+                        3
+                         Learning Cycles
+                      </p>
+                      <p
+                        className="bullet"
+                      >
+                        •
+                      </p>
+                      <p>
+                        5 Passage-Aligned Activities
+                      </p>
+                    </div>
+                  </div>
+                  <div>
+                    <button
+                      className="expand-collapse-button focus-on-light"
+                      onClick={[Function]}
+                      type="button"
+                    >
+                      <img
+                        alt="arrow icon"
+                        className="expand-arrow"
+                        src="https://assets.quill.org/images/icons/expand.svg"
+                      />
+                    </button>
+                  </div>
+                </div>
+                <div
+                  className="bottom-section "
+                >
+                  <div
+                    className="learning-cycle-container"
+                    key="0"
+                  >
+                    <p
+                      className="learning-cycle-header"
+                    >
+                      Learning Cycle 
+                      1
+                    </p>
+                    <div
+                      className="divider"
+                    />
+                    <div
+                      className="cycle-activities-container"
+                    >
+                      <div
+                        className="cycle-activity-container  "
+                        id="the-first-day"
+                        key="0"
+                      >
+                        <div
+                          className="top-content"
+                        >
+                          <a
+                            className="activity-title"
+                            href="/activities/packs/216"
+                            rel="noopener noreferrer"
+                            tabIndex={-1}
+                            target="_blank"
+                          >
+                            Sentence Combining: “The First Day” by Edward P. Jones
+                          </a>
+                          <a
+                            className="quill-button medium primary outlined focus-on-light"
+                            href="/activities/packs/216"
+                            rel="noopener noreferrer"
+                            target="_blank"
+                          >
+                            View
+                          </a>
+                        </div>
+                        <p
+                          className="description"
+                        >
+                          Explore first-person narration and characterization
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                  <div
+                    className="learning-cycle-container"
+                    key="1"
+                  >
+                    <p
+                      className="learning-cycle-header"
+                    >
+                      Learning Cycle 
+                      2
+                    </p>
+                    <div
+                      className="divider"
+                    />
+                    <div
+                      className="cycle-activities-container"
+                    >
+                      <div
+                        className="cycle-activity-container  "
+                        id="what-happened-during-the-ice-storm"
+                        key="0"
+                      >
+                        <div
+                          className="top-content"
+                        >
+                          <a
+                            className="activity-title"
+                            href="/activities/packs/218"
+                            rel="noopener noreferrer"
+                            tabIndex={-1}
+                            target="_blank"
+                          >
+                            Sentence Combining: “What Happened During the Ice Storm” by Jim Heynen
+                          </a>
+                          <a
+                            className="quill-button medium primary outlined focus-on-light"
+                            href="/activities/packs/218"
+                            rel="noopener noreferrer"
+                            target="_blank"
+                          >
+                            View
+                          </a>
+                        </div>
+                        <p
+                          className="description"
+                        >
+                          Explore flash fiction and the establishment of tension and setting
+                        </p>
+                      </div>
+                      <div
+                        className="cycle-activity-container  "
+                        id="the-red-fox-fur-coat"
+                        key="1"
+                      >
+                        <div
+                          className="top-content"
+                        >
+                          <a
+                            className="activity-title"
+                            href="/activities/packs/219"
+                            rel="noopener noreferrer"
+                            tabIndex={-1}
+                            target="_blank"
+                          >
+                            Sentence Combining: “The Red Fox Fur Coat” by Teolinda Gersão
+                          </a>
+                          <a
+                            className="quill-button medium primary outlined focus-on-light"
+                            href="/activities/packs/219"
+                            rel="noopener noreferrer"
+                            target="_blank"
+                          >
+                            View
+                          </a>
+                        </div>
+                        <p
+                          className="description"
+                        >
+                          Explore fantastical storytelling and character evolution
+                        </p>
+                      </div>
+                      <div
+                        className="cycle-activity-container  "
+                        id="lamb-to-the-slaughter"
+                        key="2"
+                      >
+                        <div
+                          className="top-content"
+                        >
+                          <a
+                            className="activity-title"
+                            href="/activities/packs/220"
+                            rel="noopener noreferrer"
+                            tabIndex={-1}
+                            target="_blank"
+                          >
+                            Sentence Combining: “Lamb to the Slaughter” by Roald Dahl
+                          </a>
+                          <a
+                            className="quill-button medium primary outlined focus-on-light"
+                            href="/activities/packs/220"
+                            rel="noopener noreferrer"
+                            target="_blank"
+                          >
+                            View
+                          </a>
+                        </div>
+                        <p
+                          className="description"
+                        >
+                          Explore narrative revelations with sudden character shifts
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                  <div
+                    className="learning-cycle-container"
+                    key="2"
+                  >
+                    <p
+                      className="learning-cycle-header"
+                    >
+                      Learning Cycle 
+                      3
+                    </p>
+                    <div
+                      className="divider"
+                    />
+                    <div
+                      className="cycle-activities-container"
+                    >
+                      <div
+                        className="cycle-activity-container last-activity "
+                        id="an-occurrence-at-owl-creek-bridge"
+                        key="0"
+                      >
+                        <div
+                          className="top-content"
+                        >
+                          <a
+                            className="activity-title"
+                            href="/activities/packs/221"
+                            rel="noopener noreferrer"
+                            tabIndex={-1}
+                            target="_blank"
+                          >
+                            Sentence Combining: “An Occurrence at Owl Creek Bridge” by Ambrose Bierce
+                          </a>
+                          <a
+                            className="quill-button medium primary outlined focus-on-light"
+                            href="/activities/packs/221"
+                            rel="noopener noreferrer"
+                            target="_blank"
+                          >
+                            View
+                          </a>
+                        </div>
+                        <p
+                          className="description"
+                        >
+                          Explore complex characterization and narrative truth
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </ExpandableUnit>
+            <ExpandableUnit
+              isFirst={false}
+              learningCycles={
+                Array [
+                  Object {
+                    "activities": Array [
+                      Object {
+                        "cb_anchor_tag": "lottery",
+                        "description": "Explore personal essay and poetic revision",
+                        "title": "Sentence Combining: “Lottery” by Rasma Haidri",
+                        "unit_template_id": "222",
+                      },
+                      Object {
+                        "cb_anchor_tag": "the-fight",
+                        "description": "Explore poetic contrast and human truths",
+                        "title": "Sentence Combining: “The Fight” by John Montague",
+                        "unit_template_id": "223",
+                      },
+                    ],
+                  },
+                  Object {
+                    "activities": Array [
+                      Object {
+                        "cb_anchor_tag": "tamaras-opus",
+                        "description": "Explore spoken word and performative expression",
+                        "title": "Sentence Combining: “Tamara’s Opus” by Joshua Bennett",
+                        "unit_template_id": "224",
+                      },
+                      Object {
+                        "cb_anchor_tag": "the-hamilton-mixtape",
+                        "description": "Explore the application of hip-hop storytelling to a historical figure",
+                        "title": "Sentence Combining: “The Hamilton Mixtape” by Lin-Manuel Miranda",
+                        "unit_template_id": "225",
+                      },
+                    ],
+                  },
+                  Object {
+                    "activities": Array [
+                      Object {
+                        "cb_anchor_tag": "romeo-and-juliet",
+                        "description": "Explore dramatic characterization and Shakepearean turns of phrase",
+                        "title": "Sentence Combining: Excerpt from Romeo and Juliet by William Shakespeare",
+                        "unit_template_id": "226",
+                      },
+                    ],
+                  },
+                ]
+              }
+              slug="springboard"
+              tag={
+                <div
+                  className="college-board-activity-tag"
+                >
+                  For SpringBoard 9
+                </div>
+              }
+              title="Unit 2: Pivotal Words and Phrases"
+            >
+              <div
+                className="activity-container expandable"
+              >
+                <div
+                  className="top-section closed"
+                >
+                  <div
+                    className="unit-header-container"
+                  >
+                    <p
+                      className="unit-title"
+                    >
+                      <span>
+                        Unit 2: Pivotal Words and Phrases
+                      </span>
+                      <div
+                        className="college-board-activity-tag"
+                      >
+                        For SpringBoard 9
+                      </div>
+                    </p>
+                    <div
+                      className="unit-sub-header-container"
+                    >
+                      <p>
+                        3
+                         Learning Cycles
+                      </p>
+                      <p
+                        className="bullet"
+                      >
+                        •
+                      </p>
+                      <p>
+                        5 Passage-Aligned Activities
+                      </p>
+                    </div>
+                  </div>
+                  <div>
+                    <button
+                      className="expand-collapse-button focus-on-light"
+                      onClick={[Function]}
+                      type="button"
+                    >
+                      <img
+                        alt="arrow icon"
+                        className="expand-arrow"
+                        src="https://assets.quill.org/images/icons/expand.svg"
+                      />
+                    </button>
+                  </div>
+                </div>
+                <div
+                  className="bottom-section hidden"
+                >
+                  <div
+                    className="learning-cycle-container"
+                    key="0"
+                  >
+                    <p
+                      className="learning-cycle-header"
+                    >
+                      Learning Cycle 
+                      1
+                    </p>
+                    <div
+                      className="divider"
+                    />
+                    <div
+                      className="cycle-activities-container"
+                    >
+                      <div
+                        className="cycle-activity-container  "
+                        id="lottery"
+                        key="0"
+                      >
+                        <div
+                          className="top-content"
+                        >
+                          <a
+                            className="activity-title"
+                            href="/activities/packs/222"
+                            rel="noopener noreferrer"
+                            tabIndex={-1}
+                            target="_blank"
+                          >
+                            Sentence Combining: “Lottery” by Rasma Haidri
+                          </a>
+                          <a
+                            className="quill-button medium primary outlined focus-on-light"
+                            href="/activities/packs/222"
+                            rel="noopener noreferrer"
+                            target="_blank"
+                          >
+                            View
+                          </a>
+                        </div>
+                        <p
+                          className="description"
+                        >
+                          Explore personal essay and poetic revision
+                        </p>
+                      </div>
+                      <div
+                        className="cycle-activity-container  "
+                        id="the-fight"
+                        key="1"
+                      >
+                        <div
+                          className="top-content"
+                        >
+                          <a
+                            className="activity-title"
+                            href="/activities/packs/223"
+                            rel="noopener noreferrer"
+                            tabIndex={-1}
+                            target="_blank"
+                          >
+                            Sentence Combining: “The Fight” by John Montague
+                          </a>
+                          <a
+                            className="quill-button medium primary outlined focus-on-light"
+                            href="/activities/packs/223"
+                            rel="noopener noreferrer"
+                            target="_blank"
+                          >
+                            View
+                          </a>
+                        </div>
+                        <p
+                          className="description"
+                        >
+                          Explore poetic contrast and human truths
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                  <div
+                    className="learning-cycle-container"
+                    key="1"
+                  >
+                    <p
+                      className="learning-cycle-header"
+                    >
+                      Learning Cycle 
+                      2
+                    </p>
+                    <div
+                      className="divider"
+                    />
+                    <div
+                      className="cycle-activities-container"
+                    >
+                      <div
+                        className="cycle-activity-container  "
+                        id="tamaras-opus"
+                        key="0"
+                      >
+                        <div
+                          className="top-content"
+                        >
+                          <a
+                            className="activity-title"
+                            href="/activities/packs/224"
+                            rel="noopener noreferrer"
+                            tabIndex={-1}
+                            target="_blank"
+                          >
+                            Sentence Combining: “Tamara’s Opus” by Joshua Bennett
+                          </a>
+                          <a
+                            className="quill-button medium primary outlined focus-on-light"
+                            href="/activities/packs/224"
+                            rel="noopener noreferrer"
+                            target="_blank"
+                          >
+                            View
+                          </a>
+                        </div>
+                        <p
+                          className="description"
+                        >
+                          Explore spoken word and performative expression
+                        </p>
+                      </div>
+                      <div
+                        className="cycle-activity-container  "
+                        id="the-hamilton-mixtape"
+                        key="1"
+                      >
+                        <div
+                          className="top-content"
+                        >
+                          <a
+                            className="activity-title"
+                            href="/activities/packs/225"
+                            rel="noopener noreferrer"
+                            tabIndex={-1}
+                            target="_blank"
+                          >
+                            Sentence Combining: “The Hamilton Mixtape” by Lin-Manuel Miranda
+                          </a>
+                          <a
+                            className="quill-button medium primary outlined focus-on-light"
+                            href="/activities/packs/225"
+                            rel="noopener noreferrer"
+                            target="_blank"
+                          >
+                            View
+                          </a>
+                        </div>
+                        <p
+                          className="description"
+                        >
+                          Explore the application of hip-hop storytelling to a historical figure
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                  <div
+                    className="learning-cycle-container"
+                    key="2"
+                  >
+                    <p
+                      className="learning-cycle-header"
+                    >
+                      Learning Cycle 
+                      3
+                    </p>
+                    <div
+                      className="divider"
+                    />
+                    <div
+                      className="cycle-activities-container"
+                    >
+                      <div
+                        className="cycle-activity-container last-activity "
+                        id="romeo-and-juliet"
+                        key="0"
+                      >
+                        <div
+                          className="top-content"
+                        >
+                          <a
+                            className="activity-title"
+                            href="/activities/packs/226"
+                            rel="noopener noreferrer"
+                            tabIndex={-1}
+                            target="_blank"
+                          >
+                            Sentence Combining: Excerpt from Romeo and Juliet by William Shakespeare
+                          </a>
+                          <a
+                            className="quill-button medium primary outlined focus-on-light"
+                            href="/activities/packs/226"
+                            rel="noopener noreferrer"
+                            target="_blank"
+                          >
+                            View
+                          </a>
+                        </div>
+                        <p
+                          className="description"
+                        >
+                          Explore dramatic characterization and Shakepearean turns of phrase
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </ExpandableUnit>
+            <ExpandableUnit
+              isFirst={false}
+              learningCycles={
+                Array [
+                  Object {
+                    "activities": Array [
+                      Object {
+                        "cb_anchor_tag": "the-work-you-do-the-person-you-are",
+                        "description": "Explore personal essay and economic disparities in differing views of work",
+                        "title": "Sentence Combining: “The Work You Do, the Person You Are” by Toni Morrison",
+                        "unit_template_id": "227",
+                      },
+                      Object {
+                        "cb_anchor_tag": "drowning-in-dishes-but-finding-a-home",
+                        "description": "Explore how seemingly menial work may lead to meaningful life lessons",
+                        "title": "Sentence Combining: “Drowning in Dishes, but Finding a Home” by Danial Adkison",
+                        "unit_template_id": "228",
+                      },
+                    ],
+                  },
+                  Object {
+                    "activities": Array [
+                      Object {
+                        "cb_anchor_tag": "what-to-do-with-kids-in-the-summer-put-em-to-work",
+                        "description": "Explore opinion writing and how personal perspective shapes argument",
+                        "title": "Sentence Combining: “What to Do with the Kids This Summer? Put ’Em to Work” by Ben Sasse",
+                        "unit_template_id": "229",
+                      },
+                      Object {
+                        "cb_anchor_tag": "the-decline-of-the-american-teenagers-summer-job",
+                        "description": "Explore evolving perspectives of the summer job and its value to teens’ lives",
+                        "title": "Sentence Combining: “The Decline of the American Teenager’s Summer Job” by Lexington",
+                        "unit_template_id": "230",
+                      },
+                    ],
+                  },
+                  Object {
+                    "activities": Array [
+                      Object {
+                        "cb_anchor_tag": "teenagers-have-stopped-getting-summer-jobs-why",
+                        "description": "Explore multiple views of a controversial issue using data to inform perspectives",
+                        "title": "Sentence Combining: “Teenagers Have Stopped Getting Summer Jobs—Why?” by Derek Thompson",
+                        "unit_template_id": "231",
+                      },
+                    ],
+                  },
+                ]
+              }
+              slug="springboard"
+              tag={
+                <div
+                  className="college-board-activity-tag"
+                >
+                  For SpringBoard 9
+                </div>
+              }
+              title="Unit 3: Compelling Evidence"
+            >
+              <div
+                className="activity-container expandable"
+              >
+                <div
+                  className="top-section closed"
+                >
+                  <div
+                    className="unit-header-container"
+                  >
+                    <p
+                      className="unit-title"
+                    >
+                      <span>
+                        Unit 3: Compelling Evidence
+                      </span>
+                      <div
+                        className="college-board-activity-tag"
+                      >
+                        For SpringBoard 9
+                      </div>
+                    </p>
+                    <div
+                      className="unit-sub-header-container"
+                    >
+                      <p>
+                        3
+                         Learning Cycles
+                      </p>
+                      <p
+                        className="bullet"
+                      >
+                        •
+                      </p>
+                      <p>
+                        5 Passage-Aligned Activities
+                      </p>
+                    </div>
+                  </div>
+                  <div>
+                    <button
+                      className="expand-collapse-button focus-on-light"
+                      onClick={[Function]}
+                      type="button"
+                    >
+                      <img
+                        alt="arrow icon"
+                        className="expand-arrow"
+                        src="https://assets.quill.org/images/icons/expand.svg"
+                      />
+                    </button>
+                  </div>
+                </div>
+                <div
+                  className="bottom-section hidden"
+                >
+                  <div
+                    className="learning-cycle-container"
+                    key="0"
+                  >
+                    <p
+                      className="learning-cycle-header"
+                    >
+                      Learning Cycle 
+                      1
+                    </p>
+                    <div
+                      className="divider"
+                    />
+                    <div
+                      className="cycle-activities-container"
+                    >
+                      <div
+                        className="cycle-activity-container  "
+                        id="the-work-you-do-the-person-you-are"
+                        key="0"
+                      >
+                        <div
+                          className="top-content"
+                        >
+                          <a
+                            className="activity-title"
+                            href="/activities/packs/227"
+                            rel="noopener noreferrer"
+                            tabIndex={-1}
+                            target="_blank"
+                          >
+                            Sentence Combining: “The Work You Do, the Person You Are” by Toni Morrison
+                          </a>
+                          <a
+                            className="quill-button medium primary outlined focus-on-light"
+                            href="/activities/packs/227"
+                            rel="noopener noreferrer"
+                            target="_blank"
+                          >
+                            View
+                          </a>
+                        </div>
+                        <p
+                          className="description"
+                        >
+                          Explore personal essay and economic disparities in differing views of work
+                        </p>
+                      </div>
+                      <div
+                        className="cycle-activity-container  "
+                        id="drowning-in-dishes-but-finding-a-home"
+                        key="1"
+                      >
+                        <div
+                          className="top-content"
+                        >
+                          <a
+                            className="activity-title"
+                            href="/activities/packs/228"
+                            rel="noopener noreferrer"
+                            tabIndex={-1}
+                            target="_blank"
+                          >
+                            Sentence Combining: “Drowning in Dishes, but Finding a Home” by Danial Adkison
+                          </a>
+                          <a
+                            className="quill-button medium primary outlined focus-on-light"
+                            href="/activities/packs/228"
+                            rel="noopener noreferrer"
+                            target="_blank"
+                          >
+                            View
+                          </a>
+                        </div>
+                        <p
+                          className="description"
+                        >
+                          Explore how seemingly menial work may lead to meaningful life lessons
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                  <div
+                    className="learning-cycle-container"
+                    key="1"
+                  >
+                    <p
+                      className="learning-cycle-header"
+                    >
+                      Learning Cycle 
+                      2
+                    </p>
+                    <div
+                      className="divider"
+                    />
+                    <div
+                      className="cycle-activities-container"
+                    >
+                      <div
+                        className="cycle-activity-container  "
+                        id="what-to-do-with-kids-in-the-summer-put-em-to-work"
+                        key="0"
+                      >
+                        <div
+                          className="top-content"
+                        >
+                          <a
+                            className="activity-title"
+                            href="/activities/packs/229"
+                            rel="noopener noreferrer"
+                            tabIndex={-1}
+                            target="_blank"
+                          >
+                            Sentence Combining: “What to Do with the Kids This Summer? Put ’Em to Work” by Ben Sasse
+                          </a>
+                          <a
+                            className="quill-button medium primary outlined focus-on-light"
+                            href="/activities/packs/229"
+                            rel="noopener noreferrer"
+                            target="_blank"
+                          >
+                            View
+                          </a>
+                        </div>
+                        <p
+                          className="description"
+                        >
+                          Explore opinion writing and how personal perspective shapes argument
+                        </p>
+                      </div>
+                      <div
+                        className="cycle-activity-container  "
+                        id="the-decline-of-the-american-teenagers-summer-job"
+                        key="1"
+                      >
+                        <div
+                          className="top-content"
+                        >
+                          <a
+                            className="activity-title"
+                            href="/activities/packs/230"
+                            rel="noopener noreferrer"
+                            tabIndex={-1}
+                            target="_blank"
+                          >
+                            Sentence Combining: “The Decline of the American Teenager’s Summer Job” by Lexington
+                          </a>
+                          <a
+                            className="quill-button medium primary outlined focus-on-light"
+                            href="/activities/packs/230"
+                            rel="noopener noreferrer"
+                            target="_blank"
+                          >
+                            View
+                          </a>
+                        </div>
+                        <p
+                          className="description"
+                        >
+                          Explore evolving perspectives of the summer job and its value to teens’ lives
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                  <div
+                    className="learning-cycle-container"
+                    key="2"
+                  >
+                    <p
+                      className="learning-cycle-header"
+                    >
+                      Learning Cycle 
+                      3
+                    </p>
+                    <div
+                      className="divider"
+                    />
+                    <div
+                      className="cycle-activities-container"
+                    >
+                      <div
+                        className="cycle-activity-container last-activity "
+                        id="teenagers-have-stopped-getting-summer-jobs-why"
+                        key="0"
+                      >
+                        <div
+                          className="top-content"
+                        >
+                          <a
+                            className="activity-title"
+                            href="/activities/packs/231"
+                            rel="noopener noreferrer"
+                            tabIndex={-1}
+                            target="_blank"
+                          >
+                            Sentence Combining: “Teenagers Have Stopped Getting Summer Jobs—Why?” by Derek Thompson
+                          </a>
+                          <a
+                            className="quill-button medium primary outlined focus-on-light"
+                            href="/activities/packs/231"
+                            rel="noopener noreferrer"
+                            target="_blank"
+                          >
+                            View
+                          </a>
+                        </div>
+                        <p
+                          className="description"
+                        >
+                          Explore multiple views of a controversial issue using data to inform perspectives
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </ExpandableUnit>
+            <ExpandableUnit
+              isFirst={false}
+              learningCycles={
+                Array [
+                  Object {
+                    "activities": Array [
+                      Object {
+                        "cb_anchor_tag": "1984",
+                        "description": "Explore how key imagery sets place and tone at the start of a novel",
+                        "title": "Sentence Combining: Excerpt from 1984 by George Orwell",
+                        "unit_template_id": "232",
+                      },
+                      Object {
+                        "cb_anchor_tag": "the-night-circus",
+                        "description": "Explore how second-person point of view sets up a fantastical world",
+                        "title": "Sentence Combining: Except from The Night Circus by Erin Morgenstern",
+                        "unit_template_id": "233",
+                      },
+                    ],
+                  },
+                  Object {
+                    "activities": Array [
+                      Object {
+                        "cb_anchor_tag": "out-of-my-mind",
+                        "description": "Explore how first-person point of view efficiently establishes a narrator’s experience",
+                        "title": "Sentence Combining: Except from Out of My Mind by Sharon M. Draper",
+                        "unit_template_id": "234",
+                      },
+                      Object {
+                        "cb_anchor_tag": "all-the-light-we-cannot-see",
+                        "description": "Explore how omniscient point of view shines a light on multiple characters’ experiences of a threatening world",
+                        "title": "Sentence Combining: Excerpt from All the Light We Cannot See by Anthony Doerr",
+                        "unit_template_id": "235",
+                      },
+                    ],
+                  },
+                  Object {
+                    "activities": Array [
+                      Object {
+                        "cb_anchor_tag": "the-girl-who-fell-from-the-sky",
+                        "description": "Explore how a present-tense narrative moment establishes a child’s perspective",
+                        "title": "Sentence Combining: Excerpt from The Girl Who Fell from the Sky by Heidi W. Durrow",
+                        "unit_template_id": "236",
+                      },
+                    ],
+                  },
+                ]
+              }
+              slug="springboard"
+              tag={
+                <div
+                  className="college-board-activity-tag"
+                >
+                  For SpringBoard 9
+                </div>
+              }
+              title="Unit 4: Powerful Openings"
+            >
+              <div
+                className="activity-container expandable"
+              >
+                <div
+                  className="top-section closed"
+                >
+                  <div
+                    className="unit-header-container"
+                  >
+                    <p
+                      className="unit-title"
+                    >
+                      <span>
+                        Unit 4: Powerful Openings
+                      </span>
+                      <div
+                        className="college-board-activity-tag"
+                      >
+                        For SpringBoard 9
+                      </div>
+                    </p>
+                    <div
+                      className="unit-sub-header-container"
+                    >
+                      <p>
+                        3
+                         Learning Cycles
+                      </p>
+                      <p
+                        className="bullet"
+                      >
+                        •
+                      </p>
+                      <p>
+                        5 Passage-Aligned Activities
+                      </p>
+                    </div>
+                  </div>
+                  <div>
+                    <button
+                      className="expand-collapse-button focus-on-light"
+                      onClick={[Function]}
+                      type="button"
+                    >
+                      <img
+                        alt="arrow icon"
+                        className="expand-arrow"
+                        src="https://assets.quill.org/images/icons/expand.svg"
+                      />
+                    </button>
+                  </div>
+                </div>
+                <div
+                  className="bottom-section hidden"
+                >
+                  <div
+                    className="learning-cycle-container"
+                    key="0"
+                  >
+                    <p
+                      className="learning-cycle-header"
+                    >
+                      Learning Cycle 
+                      1
+                    </p>
+                    <div
+                      className="divider"
+                    />
+                    <div
+                      className="cycle-activities-container"
+                    >
+                      <div
+                        className="cycle-activity-container  "
+                        id="1984"
+                        key="0"
+                      >
+                        <div
+                          className="top-content"
+                        >
+                          <a
+                            className="activity-title"
+                            href="/activities/packs/232"
+                            rel="noopener noreferrer"
+                            tabIndex={-1}
+                            target="_blank"
+                          >
+                            Sentence Combining: Excerpt from 1984 by George Orwell
+                          </a>
+                          <a
+                            className="quill-button medium primary outlined focus-on-light"
+                            href="/activities/packs/232"
+                            rel="noopener noreferrer"
+                            target="_blank"
+                          >
+                            View
+                          </a>
+                        </div>
+                        <p
+                          className="description"
+                        >
+                          Explore how key imagery sets place and tone at the start of a novel
+                        </p>
+                      </div>
+                      <div
+                        className="cycle-activity-container  "
+                        id="the-night-circus"
+                        key="1"
+                      >
+                        <div
+                          className="top-content"
+                        >
+                          <a
+                            className="activity-title"
+                            href="/activities/packs/233"
+                            rel="noopener noreferrer"
+                            tabIndex={-1}
+                            target="_blank"
+                          >
+                            Sentence Combining: Except from The Night Circus by Erin Morgenstern
+                          </a>
+                          <a
+                            className="quill-button medium primary outlined focus-on-light"
+                            href="/activities/packs/233"
+                            rel="noopener noreferrer"
+                            target="_blank"
+                          >
+                            View
+                          </a>
+                        </div>
+                        <p
+                          className="description"
+                        >
+                          Explore how second-person point of view sets up a fantastical world
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                  <div
+                    className="learning-cycle-container"
+                    key="1"
+                  >
+                    <p
+                      className="learning-cycle-header"
+                    >
+                      Learning Cycle 
+                      2
+                    </p>
+                    <div
+                      className="divider"
+                    />
+                    <div
+                      className="cycle-activities-container"
+                    >
+                      <div
+                        className="cycle-activity-container  "
+                        id="out-of-my-mind"
+                        key="0"
+                      >
+                        <div
+                          className="top-content"
+                        >
+                          <a
+                            className="activity-title"
+                            href="/activities/packs/234"
+                            rel="noopener noreferrer"
+                            tabIndex={-1}
+                            target="_blank"
+                          >
+                            Sentence Combining: Except from Out of My Mind by Sharon M. Draper
+                          </a>
+                          <a
+                            className="quill-button medium primary outlined focus-on-light"
+                            href="/activities/packs/234"
+                            rel="noopener noreferrer"
+                            target="_blank"
+                          >
+                            View
+                          </a>
+                        </div>
+                        <p
+                          className="description"
+                        >
+                          Explore how first-person point of view efficiently establishes a narrator’s experience
+                        </p>
+                      </div>
+                      <div
+                        className="cycle-activity-container  "
+                        id="all-the-light-we-cannot-see"
+                        key="1"
+                      >
+                        <div
+                          className="top-content"
+                        >
+                          <a
+                            className="activity-title"
+                            href="/activities/packs/235"
+                            rel="noopener noreferrer"
+                            tabIndex={-1}
+                            target="_blank"
+                          >
+                            Sentence Combining: Excerpt from All the Light We Cannot See by Anthony Doerr
+                          </a>
+                          <a
+                            className="quill-button medium primary outlined focus-on-light"
+                            href="/activities/packs/235"
+                            rel="noopener noreferrer"
+                            target="_blank"
+                          >
+                            View
+                          </a>
+                        </div>
+                        <p
+                          className="description"
+                        >
+                          Explore how omniscient point of view shines a light on multiple characters’ experiences of a threatening world
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                  <div
+                    className="learning-cycle-container"
+                    key="2"
+                  >
+                    <p
+                      className="learning-cycle-header"
+                    >
+                      Learning Cycle 
+                      3
+                    </p>
+                    <div
+                      className="divider"
+                    />
+                    <div
+                      className="cycle-activities-container"
+                    >
+                      <div
+                        className="cycle-activity-container last-activity "
+                        id="the-girl-who-fell-from-the-sky"
+                        key="0"
+                      >
+                        <div
+                          className="top-content"
+                        >
+                          <a
+                            className="activity-title"
+                            href="/activities/packs/236"
+                            rel="noopener noreferrer"
+                            tabIndex={-1}
+                            target="_blank"
+                          >
+                            Sentence Combining: Excerpt from The Girl Who Fell from the Sky by Heidi W. Durrow
+                          </a>
+                          <a
+                            className="quill-button medium primary outlined focus-on-light"
+                            href="/activities/packs/236"
+                            rel="noopener noreferrer"
+                            target="_blank"
+                          >
+                            View
+                          </a>
+                        </div>
+                        <p
+                          className="description"
+                        >
+                          Explore how a present-tense narrative moment establishes a child’s perspective
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </ExpandableUnit>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
       className="section-wrapper"
     >
       <div
@@ -958,6 +2512,198 @@ exports[`SpringBoard component should render when it is not part of the assignme
 exports[`SpringBoard component should render when it is part of the assignment flow 1`] = `
 <SpringBoard
   isPartOfAssignmentFlow={true}
+  units={
+    Array [
+      Object {
+        "learning_cycles": Array [
+          Object {
+            "activities": Array [
+              Object {
+                "cb_anchor_tag": "the-first-day",
+                "description": "Explore first-person narration and characterization",
+                "title": "Sentence Combining: “The First Day” by Edward P. Jones",
+                "unit_template_id": "216",
+              },
+            ],
+          },
+          Object {
+            "activities": Array [
+              Object {
+                "cb_anchor_tag": "what-happened-during-the-ice-storm",
+                "description": "Explore flash fiction and the establishment of tension and setting",
+                "title": "Sentence Combining: “What Happened During the Ice Storm” by Jim Heynen",
+                "unit_template_id": "218",
+              },
+              Object {
+                "cb_anchor_tag": "the-red-fox-fur-coat",
+                "description": "Explore fantastical storytelling and character evolution",
+                "title": "Sentence Combining: “The Red Fox Fur Coat” by Teolinda Gersão",
+                "unit_template_id": "219",
+              },
+              Object {
+                "cb_anchor_tag": "lamb-to-the-slaughter",
+                "description": "Explore narrative revelations with sudden character shifts",
+                "title": "Sentence Combining: “Lamb to the Slaughter” by Roald Dahl",
+                "unit_template_id": "220",
+              },
+            ],
+          },
+          Object {
+            "activities": Array [
+              Object {
+                "cb_anchor_tag": "an-occurrence-at-owl-creek-bridge",
+                "description": "Explore complex characterization and narrative truth",
+                "title": "Sentence Combining: “An Occurrence at Owl Creek Bridge” by Ambrose Bierce",
+                "unit_template_id": "221",
+              },
+            ],
+          },
+        ],
+        "title": "Unit 1: Telling Details",
+      },
+      Object {
+        "learning_cycles": Array [
+          Object {
+            "activities": Array [
+              Object {
+                "cb_anchor_tag": "lottery",
+                "description": "Explore personal essay and poetic revision",
+                "title": "Sentence Combining: “Lottery” by Rasma Haidri",
+                "unit_template_id": "222",
+              },
+              Object {
+                "cb_anchor_tag": "the-fight",
+                "description": "Explore poetic contrast and human truths",
+                "title": "Sentence Combining: “The Fight” by John Montague",
+                "unit_template_id": "223",
+              },
+            ],
+          },
+          Object {
+            "activities": Array [
+              Object {
+                "cb_anchor_tag": "tamaras-opus",
+                "description": "Explore spoken word and performative expression",
+                "title": "Sentence Combining: “Tamara’s Opus” by Joshua Bennett",
+                "unit_template_id": "224",
+              },
+              Object {
+                "cb_anchor_tag": "the-hamilton-mixtape",
+                "description": "Explore the application of hip-hop storytelling to a historical figure",
+                "title": "Sentence Combining: “The Hamilton Mixtape” by Lin-Manuel Miranda",
+                "unit_template_id": "225",
+              },
+            ],
+          },
+          Object {
+            "activities": Array [
+              Object {
+                "cb_anchor_tag": "romeo-and-juliet",
+                "description": "Explore dramatic characterization and Shakepearean turns of phrase",
+                "title": "Sentence Combining: Excerpt from Romeo and Juliet by William Shakespeare",
+                "unit_template_id": "226",
+              },
+            ],
+          },
+        ],
+        "title": "Unit 2: Pivotal Words and Phrases",
+      },
+      Object {
+        "learning_cycles": Array [
+          Object {
+            "activities": Array [
+              Object {
+                "cb_anchor_tag": "the-work-you-do-the-person-you-are",
+                "description": "Explore personal essay and economic disparities in differing views of work",
+                "title": "Sentence Combining: “The Work You Do, the Person You Are” by Toni Morrison",
+                "unit_template_id": "227",
+              },
+              Object {
+                "cb_anchor_tag": "drowning-in-dishes-but-finding-a-home",
+                "description": "Explore how seemingly menial work may lead to meaningful life lessons",
+                "title": "Sentence Combining: “Drowning in Dishes, but Finding a Home” by Danial Adkison",
+                "unit_template_id": "228",
+              },
+            ],
+          },
+          Object {
+            "activities": Array [
+              Object {
+                "cb_anchor_tag": "what-to-do-with-kids-in-the-summer-put-em-to-work",
+                "description": "Explore opinion writing and how personal perspective shapes argument",
+                "title": "Sentence Combining: “What to Do with the Kids This Summer? Put ’Em to Work” by Ben Sasse",
+                "unit_template_id": "229",
+              },
+              Object {
+                "cb_anchor_tag": "the-decline-of-the-american-teenagers-summer-job",
+                "description": "Explore evolving perspectives of the summer job and its value to teens’ lives",
+                "title": "Sentence Combining: “The Decline of the American Teenager’s Summer Job” by Lexington",
+                "unit_template_id": "230",
+              },
+            ],
+          },
+          Object {
+            "activities": Array [
+              Object {
+                "cb_anchor_tag": "teenagers-have-stopped-getting-summer-jobs-why",
+                "description": "Explore multiple views of a controversial issue using data to inform perspectives",
+                "title": "Sentence Combining: “Teenagers Have Stopped Getting Summer Jobs—Why?” by Derek Thompson",
+                "unit_template_id": "231",
+              },
+            ],
+          },
+        ],
+        "title": "Unit 3: Compelling Evidence",
+      },
+      Object {
+        "learning_cycles": Array [
+          Object {
+            "activities": Array [
+              Object {
+                "cb_anchor_tag": "1984",
+                "description": "Explore how key imagery sets place and tone at the start of a novel",
+                "title": "Sentence Combining: Excerpt from 1984 by George Orwell",
+                "unit_template_id": "232",
+              },
+              Object {
+                "cb_anchor_tag": "the-night-circus",
+                "description": "Explore how second-person point of view sets up a fantastical world",
+                "title": "Sentence Combining: Except from The Night Circus by Erin Morgenstern",
+                "unit_template_id": "233",
+              },
+            ],
+          },
+          Object {
+            "activities": Array [
+              Object {
+                "cb_anchor_tag": "out-of-my-mind",
+                "description": "Explore how first-person point of view efficiently establishes a narrator’s experience",
+                "title": "Sentence Combining: Except from Out of My Mind by Sharon M. Draper",
+                "unit_template_id": "234",
+              },
+              Object {
+                "cb_anchor_tag": "all-the-light-we-cannot-see",
+                "description": "Explore how omniscient point of view shines a light on multiple characters’ experiences of a threatening world",
+                "title": "Sentence Combining: Excerpt from All the Light We Cannot See by Anthony Doerr",
+                "unit_template_id": "235",
+              },
+            ],
+          },
+          Object {
+            "activities": Array [
+              Object {
+                "cb_anchor_tag": "the-girl-who-fell-from-the-sky",
+                "description": "Explore how a present-tense narrative moment establishes a child’s perspective",
+                "title": "Sentence Combining: Excerpt from The Girl Who Fell from the Sky by Heidi W. Durrow",
+                "unit_template_id": "236",
+              },
+            ],
+          },
+        ],
+        "title": "Unit 4: Powerful Openings",
+      },
+    ]
+  }
 >
   <div
     className="college-board-container"
@@ -1442,6 +3188,1371 @@ exports[`SpringBoard component should render when it is part of the assignment f
             >
               Fragments; articles; verb tense; adjectives; adverbs; prepositions; compound subjects, objects, and predicates; compound sentences; complex sentences
             </p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      className="white-section-wrapper"
+    >
+      <div
+        className="container college-board-activities-section"
+      >
+        <div
+          className="header"
+        >
+          <img
+            alt="Illustration of a book opened"
+            src="https://assets.quill.org/images/college_board/passage-book.svg"
+          />
+          <div
+            className="text-container"
+          >
+            <h2>
+              Passage-Aligned Activities
+            </h2>
+            <p>
+              Twenty custom sentence-combining activities, each one aligned to a unique 9th grade SpringBoard ELA text to give your students the opportunity to practice their sentence construction skills in context.
+            </p>
+          </div>
+        </div>
+        <div
+          className="activities-subheader"
+        >
+          <h2>
+            Passage-Aligned Activities
+          </h2>
+        </div>
+        <div
+          className="white-section-wrapper"
+        >
+          <div
+            className="units-container"
+          >
+            <ExpandableUnit
+              isFirst={true}
+              isPartOfAssignmentFlow={true}
+              learningCycles={
+                Array [
+                  Object {
+                    "activities": Array [
+                      Object {
+                        "cb_anchor_tag": "the-first-day",
+                        "description": "Explore first-person narration and characterization",
+                        "title": "Sentence Combining: “The First Day” by Edward P. Jones",
+                        "unit_template_id": "216",
+                      },
+                    ],
+                  },
+                  Object {
+                    "activities": Array [
+                      Object {
+                        "cb_anchor_tag": "what-happened-during-the-ice-storm",
+                        "description": "Explore flash fiction and the establishment of tension and setting",
+                        "title": "Sentence Combining: “What Happened During the Ice Storm” by Jim Heynen",
+                        "unit_template_id": "218",
+                      },
+                      Object {
+                        "cb_anchor_tag": "the-red-fox-fur-coat",
+                        "description": "Explore fantastical storytelling and character evolution",
+                        "title": "Sentence Combining: “The Red Fox Fur Coat” by Teolinda Gersão",
+                        "unit_template_id": "219",
+                      },
+                      Object {
+                        "cb_anchor_tag": "lamb-to-the-slaughter",
+                        "description": "Explore narrative revelations with sudden character shifts",
+                        "title": "Sentence Combining: “Lamb to the Slaughter” by Roald Dahl",
+                        "unit_template_id": "220",
+                      },
+                    ],
+                  },
+                  Object {
+                    "activities": Array [
+                      Object {
+                        "cb_anchor_tag": "an-occurrence-at-owl-creek-bridge",
+                        "description": "Explore complex characterization and narrative truth",
+                        "title": "Sentence Combining: “An Occurrence at Owl Creek Bridge” by Ambrose Bierce",
+                        "unit_template_id": "221",
+                      },
+                    ],
+                  },
+                ]
+              }
+              slug="springboard"
+              tag={
+                <div
+                  className="college-board-activity-tag"
+                >
+                  For SpringBoard 9
+                </div>
+              }
+              title="Unit 1: Telling Details"
+            >
+              <div
+                className="activity-container expandable"
+              >
+                <div
+                  className="top-section open"
+                >
+                  <div
+                    className="unit-header-container"
+                  >
+                    <p
+                      className="unit-title"
+                    >
+                      <span>
+                        Unit 1: Telling Details
+                      </span>
+                      <div
+                        className="college-board-activity-tag"
+                      >
+                        For SpringBoard 9
+                      </div>
+                    </p>
+                    <div
+                      className="unit-sub-header-container"
+                    >
+                      <p>
+                        3
+                         Learning Cycles
+                      </p>
+                      <p
+                        className="bullet"
+                      >
+                        •
+                      </p>
+                      <p>
+                        5 Passage-Aligned Activities
+                      </p>
+                    </div>
+                  </div>
+                  <div>
+                    <button
+                      className="expand-collapse-button focus-on-light"
+                      onClick={[Function]}
+                      type="button"
+                    >
+                      <img
+                        alt="arrow icon"
+                        className="expand-arrow"
+                        src="https://assets.quill.org/images/icons/expand.svg"
+                      />
+                    </button>
+                  </div>
+                </div>
+                <div
+                  className="bottom-section "
+                >
+                  <div
+                    className="learning-cycle-container"
+                    key="0"
+                  >
+                    <p
+                      className="learning-cycle-header"
+                    >
+                      Learning Cycle 
+                      1
+                    </p>
+                    <div
+                      className="divider"
+                    />
+                    <div
+                      className="cycle-activities-container"
+                    >
+                      <div
+                        className="cycle-activity-container  "
+                        id="the-first-day"
+                        key="0"
+                      >
+                        <div
+                          className="top-content"
+                        >
+                          <a
+                            className="activity-title"
+                            href="/assign/featured-activity-packs/216?college-board=springboard"
+                            rel="noopener noreferrer"
+                            tabIndex={-1}
+                            target=""
+                          >
+                            Sentence Combining: “The First Day” by Edward P. Jones
+                          </a>
+                          <a
+                            className="quill-button medium primary outlined focus-on-light"
+                            href="/assign/featured-activity-packs/216?college-board=springboard"
+                            rel="noopener noreferrer"
+                            target=""
+                          >
+                            View
+                          </a>
+                        </div>
+                        <p
+                          className="description"
+                        >
+                          Explore first-person narration and characterization
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                  <div
+                    className="learning-cycle-container"
+                    key="1"
+                  >
+                    <p
+                      className="learning-cycle-header"
+                    >
+                      Learning Cycle 
+                      2
+                    </p>
+                    <div
+                      className="divider"
+                    />
+                    <div
+                      className="cycle-activities-container"
+                    >
+                      <div
+                        className="cycle-activity-container  "
+                        id="what-happened-during-the-ice-storm"
+                        key="0"
+                      >
+                        <div
+                          className="top-content"
+                        >
+                          <a
+                            className="activity-title"
+                            href="/assign/featured-activity-packs/218?college-board=springboard"
+                            rel="noopener noreferrer"
+                            tabIndex={-1}
+                            target=""
+                          >
+                            Sentence Combining: “What Happened During the Ice Storm” by Jim Heynen
+                          </a>
+                          <a
+                            className="quill-button medium primary outlined focus-on-light"
+                            href="/assign/featured-activity-packs/218?college-board=springboard"
+                            rel="noopener noreferrer"
+                            target=""
+                          >
+                            View
+                          </a>
+                        </div>
+                        <p
+                          className="description"
+                        >
+                          Explore flash fiction and the establishment of tension and setting
+                        </p>
+                      </div>
+                      <div
+                        className="cycle-activity-container  "
+                        id="the-red-fox-fur-coat"
+                        key="1"
+                      >
+                        <div
+                          className="top-content"
+                        >
+                          <a
+                            className="activity-title"
+                            href="/assign/featured-activity-packs/219?college-board=springboard"
+                            rel="noopener noreferrer"
+                            tabIndex={-1}
+                            target=""
+                          >
+                            Sentence Combining: “The Red Fox Fur Coat” by Teolinda Gersão
+                          </a>
+                          <a
+                            className="quill-button medium primary outlined focus-on-light"
+                            href="/assign/featured-activity-packs/219?college-board=springboard"
+                            rel="noopener noreferrer"
+                            target=""
+                          >
+                            View
+                          </a>
+                        </div>
+                        <p
+                          className="description"
+                        >
+                          Explore fantastical storytelling and character evolution
+                        </p>
+                      </div>
+                      <div
+                        className="cycle-activity-container  "
+                        id="lamb-to-the-slaughter"
+                        key="2"
+                      >
+                        <div
+                          className="top-content"
+                        >
+                          <a
+                            className="activity-title"
+                            href="/assign/featured-activity-packs/220?college-board=springboard"
+                            rel="noopener noreferrer"
+                            tabIndex={-1}
+                            target=""
+                          >
+                            Sentence Combining: “Lamb to the Slaughter” by Roald Dahl
+                          </a>
+                          <a
+                            className="quill-button medium primary outlined focus-on-light"
+                            href="/assign/featured-activity-packs/220?college-board=springboard"
+                            rel="noopener noreferrer"
+                            target=""
+                          >
+                            View
+                          </a>
+                        </div>
+                        <p
+                          className="description"
+                        >
+                          Explore narrative revelations with sudden character shifts
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                  <div
+                    className="learning-cycle-container"
+                    key="2"
+                  >
+                    <p
+                      className="learning-cycle-header"
+                    >
+                      Learning Cycle 
+                      3
+                    </p>
+                    <div
+                      className="divider"
+                    />
+                    <div
+                      className="cycle-activities-container"
+                    >
+                      <div
+                        className="cycle-activity-container last-activity "
+                        id="an-occurrence-at-owl-creek-bridge"
+                        key="0"
+                      >
+                        <div
+                          className="top-content"
+                        >
+                          <a
+                            className="activity-title"
+                            href="/assign/featured-activity-packs/221?college-board=springboard"
+                            rel="noopener noreferrer"
+                            tabIndex={-1}
+                            target=""
+                          >
+                            Sentence Combining: “An Occurrence at Owl Creek Bridge” by Ambrose Bierce
+                          </a>
+                          <a
+                            className="quill-button medium primary outlined focus-on-light"
+                            href="/assign/featured-activity-packs/221?college-board=springboard"
+                            rel="noopener noreferrer"
+                            target=""
+                          >
+                            View
+                          </a>
+                        </div>
+                        <p
+                          className="description"
+                        >
+                          Explore complex characterization and narrative truth
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </ExpandableUnit>
+            <ExpandableUnit
+              isFirst={false}
+              isPartOfAssignmentFlow={true}
+              learningCycles={
+                Array [
+                  Object {
+                    "activities": Array [
+                      Object {
+                        "cb_anchor_tag": "lottery",
+                        "description": "Explore personal essay and poetic revision",
+                        "title": "Sentence Combining: “Lottery” by Rasma Haidri",
+                        "unit_template_id": "222",
+                      },
+                      Object {
+                        "cb_anchor_tag": "the-fight",
+                        "description": "Explore poetic contrast and human truths",
+                        "title": "Sentence Combining: “The Fight” by John Montague",
+                        "unit_template_id": "223",
+                      },
+                    ],
+                  },
+                  Object {
+                    "activities": Array [
+                      Object {
+                        "cb_anchor_tag": "tamaras-opus",
+                        "description": "Explore spoken word and performative expression",
+                        "title": "Sentence Combining: “Tamara’s Opus” by Joshua Bennett",
+                        "unit_template_id": "224",
+                      },
+                      Object {
+                        "cb_anchor_tag": "the-hamilton-mixtape",
+                        "description": "Explore the application of hip-hop storytelling to a historical figure",
+                        "title": "Sentence Combining: “The Hamilton Mixtape” by Lin-Manuel Miranda",
+                        "unit_template_id": "225",
+                      },
+                    ],
+                  },
+                  Object {
+                    "activities": Array [
+                      Object {
+                        "cb_anchor_tag": "romeo-and-juliet",
+                        "description": "Explore dramatic characterization and Shakepearean turns of phrase",
+                        "title": "Sentence Combining: Excerpt from Romeo and Juliet by William Shakespeare",
+                        "unit_template_id": "226",
+                      },
+                    ],
+                  },
+                ]
+              }
+              slug="springboard"
+              tag={
+                <div
+                  className="college-board-activity-tag"
+                >
+                  For SpringBoard 9
+                </div>
+              }
+              title="Unit 2: Pivotal Words and Phrases"
+            >
+              <div
+                className="activity-container expandable"
+              >
+                <div
+                  className="top-section closed"
+                >
+                  <div
+                    className="unit-header-container"
+                  >
+                    <p
+                      className="unit-title"
+                    >
+                      <span>
+                        Unit 2: Pivotal Words and Phrases
+                      </span>
+                      <div
+                        className="college-board-activity-tag"
+                      >
+                        For SpringBoard 9
+                      </div>
+                    </p>
+                    <div
+                      className="unit-sub-header-container"
+                    >
+                      <p>
+                        3
+                         Learning Cycles
+                      </p>
+                      <p
+                        className="bullet"
+                      >
+                        •
+                      </p>
+                      <p>
+                        5 Passage-Aligned Activities
+                      </p>
+                    </div>
+                  </div>
+                  <div>
+                    <button
+                      className="expand-collapse-button focus-on-light"
+                      onClick={[Function]}
+                      type="button"
+                    >
+                      <img
+                        alt="arrow icon"
+                        className="expand-arrow"
+                        src="https://assets.quill.org/images/icons/expand.svg"
+                      />
+                    </button>
+                  </div>
+                </div>
+                <div
+                  className="bottom-section hidden"
+                >
+                  <div
+                    className="learning-cycle-container"
+                    key="0"
+                  >
+                    <p
+                      className="learning-cycle-header"
+                    >
+                      Learning Cycle 
+                      1
+                    </p>
+                    <div
+                      className="divider"
+                    />
+                    <div
+                      className="cycle-activities-container"
+                    >
+                      <div
+                        className="cycle-activity-container  "
+                        id="lottery"
+                        key="0"
+                      >
+                        <div
+                          className="top-content"
+                        >
+                          <a
+                            className="activity-title"
+                            href="/assign/featured-activity-packs/222?college-board=springboard"
+                            rel="noopener noreferrer"
+                            tabIndex={-1}
+                            target=""
+                          >
+                            Sentence Combining: “Lottery” by Rasma Haidri
+                          </a>
+                          <a
+                            className="quill-button medium primary outlined focus-on-light"
+                            href="/assign/featured-activity-packs/222?college-board=springboard"
+                            rel="noopener noreferrer"
+                            target=""
+                          >
+                            View
+                          </a>
+                        </div>
+                        <p
+                          className="description"
+                        >
+                          Explore personal essay and poetic revision
+                        </p>
+                      </div>
+                      <div
+                        className="cycle-activity-container  "
+                        id="the-fight"
+                        key="1"
+                      >
+                        <div
+                          className="top-content"
+                        >
+                          <a
+                            className="activity-title"
+                            href="/assign/featured-activity-packs/223?college-board=springboard"
+                            rel="noopener noreferrer"
+                            tabIndex={-1}
+                            target=""
+                          >
+                            Sentence Combining: “The Fight” by John Montague
+                          </a>
+                          <a
+                            className="quill-button medium primary outlined focus-on-light"
+                            href="/assign/featured-activity-packs/223?college-board=springboard"
+                            rel="noopener noreferrer"
+                            target=""
+                          >
+                            View
+                          </a>
+                        </div>
+                        <p
+                          className="description"
+                        >
+                          Explore poetic contrast and human truths
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                  <div
+                    className="learning-cycle-container"
+                    key="1"
+                  >
+                    <p
+                      className="learning-cycle-header"
+                    >
+                      Learning Cycle 
+                      2
+                    </p>
+                    <div
+                      className="divider"
+                    />
+                    <div
+                      className="cycle-activities-container"
+                    >
+                      <div
+                        className="cycle-activity-container  "
+                        id="tamaras-opus"
+                        key="0"
+                      >
+                        <div
+                          className="top-content"
+                        >
+                          <a
+                            className="activity-title"
+                            href="/assign/featured-activity-packs/224?college-board=springboard"
+                            rel="noopener noreferrer"
+                            tabIndex={-1}
+                            target=""
+                          >
+                            Sentence Combining: “Tamara’s Opus” by Joshua Bennett
+                          </a>
+                          <a
+                            className="quill-button medium primary outlined focus-on-light"
+                            href="/assign/featured-activity-packs/224?college-board=springboard"
+                            rel="noopener noreferrer"
+                            target=""
+                          >
+                            View
+                          </a>
+                        </div>
+                        <p
+                          className="description"
+                        >
+                          Explore spoken word and performative expression
+                        </p>
+                      </div>
+                      <div
+                        className="cycle-activity-container  "
+                        id="the-hamilton-mixtape"
+                        key="1"
+                      >
+                        <div
+                          className="top-content"
+                        >
+                          <a
+                            className="activity-title"
+                            href="/assign/featured-activity-packs/225?college-board=springboard"
+                            rel="noopener noreferrer"
+                            tabIndex={-1}
+                            target=""
+                          >
+                            Sentence Combining: “The Hamilton Mixtape” by Lin-Manuel Miranda
+                          </a>
+                          <a
+                            className="quill-button medium primary outlined focus-on-light"
+                            href="/assign/featured-activity-packs/225?college-board=springboard"
+                            rel="noopener noreferrer"
+                            target=""
+                          >
+                            View
+                          </a>
+                        </div>
+                        <p
+                          className="description"
+                        >
+                          Explore the application of hip-hop storytelling to a historical figure
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                  <div
+                    className="learning-cycle-container"
+                    key="2"
+                  >
+                    <p
+                      className="learning-cycle-header"
+                    >
+                      Learning Cycle 
+                      3
+                    </p>
+                    <div
+                      className="divider"
+                    />
+                    <div
+                      className="cycle-activities-container"
+                    >
+                      <div
+                        className="cycle-activity-container last-activity "
+                        id="romeo-and-juliet"
+                        key="0"
+                      >
+                        <div
+                          className="top-content"
+                        >
+                          <a
+                            className="activity-title"
+                            href="/assign/featured-activity-packs/226?college-board=springboard"
+                            rel="noopener noreferrer"
+                            tabIndex={-1}
+                            target=""
+                          >
+                            Sentence Combining: Excerpt from Romeo and Juliet by William Shakespeare
+                          </a>
+                          <a
+                            className="quill-button medium primary outlined focus-on-light"
+                            href="/assign/featured-activity-packs/226?college-board=springboard"
+                            rel="noopener noreferrer"
+                            target=""
+                          >
+                            View
+                          </a>
+                        </div>
+                        <p
+                          className="description"
+                        >
+                          Explore dramatic characterization and Shakepearean turns of phrase
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </ExpandableUnit>
+            <ExpandableUnit
+              isFirst={false}
+              isPartOfAssignmentFlow={true}
+              learningCycles={
+                Array [
+                  Object {
+                    "activities": Array [
+                      Object {
+                        "cb_anchor_tag": "the-work-you-do-the-person-you-are",
+                        "description": "Explore personal essay and economic disparities in differing views of work",
+                        "title": "Sentence Combining: “The Work You Do, the Person You Are” by Toni Morrison",
+                        "unit_template_id": "227",
+                      },
+                      Object {
+                        "cb_anchor_tag": "drowning-in-dishes-but-finding-a-home",
+                        "description": "Explore how seemingly menial work may lead to meaningful life lessons",
+                        "title": "Sentence Combining: “Drowning in Dishes, but Finding a Home” by Danial Adkison",
+                        "unit_template_id": "228",
+                      },
+                    ],
+                  },
+                  Object {
+                    "activities": Array [
+                      Object {
+                        "cb_anchor_tag": "what-to-do-with-kids-in-the-summer-put-em-to-work",
+                        "description": "Explore opinion writing and how personal perspective shapes argument",
+                        "title": "Sentence Combining: “What to Do with the Kids This Summer? Put ’Em to Work” by Ben Sasse",
+                        "unit_template_id": "229",
+                      },
+                      Object {
+                        "cb_anchor_tag": "the-decline-of-the-american-teenagers-summer-job",
+                        "description": "Explore evolving perspectives of the summer job and its value to teens’ lives",
+                        "title": "Sentence Combining: “The Decline of the American Teenager’s Summer Job” by Lexington",
+                        "unit_template_id": "230",
+                      },
+                    ],
+                  },
+                  Object {
+                    "activities": Array [
+                      Object {
+                        "cb_anchor_tag": "teenagers-have-stopped-getting-summer-jobs-why",
+                        "description": "Explore multiple views of a controversial issue using data to inform perspectives",
+                        "title": "Sentence Combining: “Teenagers Have Stopped Getting Summer Jobs—Why?” by Derek Thompson",
+                        "unit_template_id": "231",
+                      },
+                    ],
+                  },
+                ]
+              }
+              slug="springboard"
+              tag={
+                <div
+                  className="college-board-activity-tag"
+                >
+                  For SpringBoard 9
+                </div>
+              }
+              title="Unit 3: Compelling Evidence"
+            >
+              <div
+                className="activity-container expandable"
+              >
+                <div
+                  className="top-section closed"
+                >
+                  <div
+                    className="unit-header-container"
+                  >
+                    <p
+                      className="unit-title"
+                    >
+                      <span>
+                        Unit 3: Compelling Evidence
+                      </span>
+                      <div
+                        className="college-board-activity-tag"
+                      >
+                        For SpringBoard 9
+                      </div>
+                    </p>
+                    <div
+                      className="unit-sub-header-container"
+                    >
+                      <p>
+                        3
+                         Learning Cycles
+                      </p>
+                      <p
+                        className="bullet"
+                      >
+                        •
+                      </p>
+                      <p>
+                        5 Passage-Aligned Activities
+                      </p>
+                    </div>
+                  </div>
+                  <div>
+                    <button
+                      className="expand-collapse-button focus-on-light"
+                      onClick={[Function]}
+                      type="button"
+                    >
+                      <img
+                        alt="arrow icon"
+                        className="expand-arrow"
+                        src="https://assets.quill.org/images/icons/expand.svg"
+                      />
+                    </button>
+                  </div>
+                </div>
+                <div
+                  className="bottom-section hidden"
+                >
+                  <div
+                    className="learning-cycle-container"
+                    key="0"
+                  >
+                    <p
+                      className="learning-cycle-header"
+                    >
+                      Learning Cycle 
+                      1
+                    </p>
+                    <div
+                      className="divider"
+                    />
+                    <div
+                      className="cycle-activities-container"
+                    >
+                      <div
+                        className="cycle-activity-container  "
+                        id="the-work-you-do-the-person-you-are"
+                        key="0"
+                      >
+                        <div
+                          className="top-content"
+                        >
+                          <a
+                            className="activity-title"
+                            href="/assign/featured-activity-packs/227?college-board=springboard"
+                            rel="noopener noreferrer"
+                            tabIndex={-1}
+                            target=""
+                          >
+                            Sentence Combining: “The Work You Do, the Person You Are” by Toni Morrison
+                          </a>
+                          <a
+                            className="quill-button medium primary outlined focus-on-light"
+                            href="/assign/featured-activity-packs/227?college-board=springboard"
+                            rel="noopener noreferrer"
+                            target=""
+                          >
+                            View
+                          </a>
+                        </div>
+                        <p
+                          className="description"
+                        >
+                          Explore personal essay and economic disparities in differing views of work
+                        </p>
+                      </div>
+                      <div
+                        className="cycle-activity-container  "
+                        id="drowning-in-dishes-but-finding-a-home"
+                        key="1"
+                      >
+                        <div
+                          className="top-content"
+                        >
+                          <a
+                            className="activity-title"
+                            href="/assign/featured-activity-packs/228?college-board=springboard"
+                            rel="noopener noreferrer"
+                            tabIndex={-1}
+                            target=""
+                          >
+                            Sentence Combining: “Drowning in Dishes, but Finding a Home” by Danial Adkison
+                          </a>
+                          <a
+                            className="quill-button medium primary outlined focus-on-light"
+                            href="/assign/featured-activity-packs/228?college-board=springboard"
+                            rel="noopener noreferrer"
+                            target=""
+                          >
+                            View
+                          </a>
+                        </div>
+                        <p
+                          className="description"
+                        >
+                          Explore how seemingly menial work may lead to meaningful life lessons
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                  <div
+                    className="learning-cycle-container"
+                    key="1"
+                  >
+                    <p
+                      className="learning-cycle-header"
+                    >
+                      Learning Cycle 
+                      2
+                    </p>
+                    <div
+                      className="divider"
+                    />
+                    <div
+                      className="cycle-activities-container"
+                    >
+                      <div
+                        className="cycle-activity-container  "
+                        id="what-to-do-with-kids-in-the-summer-put-em-to-work"
+                        key="0"
+                      >
+                        <div
+                          className="top-content"
+                        >
+                          <a
+                            className="activity-title"
+                            href="/assign/featured-activity-packs/229?college-board=springboard"
+                            rel="noopener noreferrer"
+                            tabIndex={-1}
+                            target=""
+                          >
+                            Sentence Combining: “What to Do with the Kids This Summer? Put ’Em to Work” by Ben Sasse
+                          </a>
+                          <a
+                            className="quill-button medium primary outlined focus-on-light"
+                            href="/assign/featured-activity-packs/229?college-board=springboard"
+                            rel="noopener noreferrer"
+                            target=""
+                          >
+                            View
+                          </a>
+                        </div>
+                        <p
+                          className="description"
+                        >
+                          Explore opinion writing and how personal perspective shapes argument
+                        </p>
+                      </div>
+                      <div
+                        className="cycle-activity-container  "
+                        id="the-decline-of-the-american-teenagers-summer-job"
+                        key="1"
+                      >
+                        <div
+                          className="top-content"
+                        >
+                          <a
+                            className="activity-title"
+                            href="/assign/featured-activity-packs/230?college-board=springboard"
+                            rel="noopener noreferrer"
+                            tabIndex={-1}
+                            target=""
+                          >
+                            Sentence Combining: “The Decline of the American Teenager’s Summer Job” by Lexington
+                          </a>
+                          <a
+                            className="quill-button medium primary outlined focus-on-light"
+                            href="/assign/featured-activity-packs/230?college-board=springboard"
+                            rel="noopener noreferrer"
+                            target=""
+                          >
+                            View
+                          </a>
+                        </div>
+                        <p
+                          className="description"
+                        >
+                          Explore evolving perspectives of the summer job and its value to teens’ lives
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                  <div
+                    className="learning-cycle-container"
+                    key="2"
+                  >
+                    <p
+                      className="learning-cycle-header"
+                    >
+                      Learning Cycle 
+                      3
+                    </p>
+                    <div
+                      className="divider"
+                    />
+                    <div
+                      className="cycle-activities-container"
+                    >
+                      <div
+                        className="cycle-activity-container last-activity "
+                        id="teenagers-have-stopped-getting-summer-jobs-why"
+                        key="0"
+                      >
+                        <div
+                          className="top-content"
+                        >
+                          <a
+                            className="activity-title"
+                            href="/assign/featured-activity-packs/231?college-board=springboard"
+                            rel="noopener noreferrer"
+                            tabIndex={-1}
+                            target=""
+                          >
+                            Sentence Combining: “Teenagers Have Stopped Getting Summer Jobs—Why?” by Derek Thompson
+                          </a>
+                          <a
+                            className="quill-button medium primary outlined focus-on-light"
+                            href="/assign/featured-activity-packs/231?college-board=springboard"
+                            rel="noopener noreferrer"
+                            target=""
+                          >
+                            View
+                          </a>
+                        </div>
+                        <p
+                          className="description"
+                        >
+                          Explore multiple views of a controversial issue using data to inform perspectives
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </ExpandableUnit>
+            <ExpandableUnit
+              isFirst={false}
+              isPartOfAssignmentFlow={true}
+              learningCycles={
+                Array [
+                  Object {
+                    "activities": Array [
+                      Object {
+                        "cb_anchor_tag": "1984",
+                        "description": "Explore how key imagery sets place and tone at the start of a novel",
+                        "title": "Sentence Combining: Excerpt from 1984 by George Orwell",
+                        "unit_template_id": "232",
+                      },
+                      Object {
+                        "cb_anchor_tag": "the-night-circus",
+                        "description": "Explore how second-person point of view sets up a fantastical world",
+                        "title": "Sentence Combining: Except from The Night Circus by Erin Morgenstern",
+                        "unit_template_id": "233",
+                      },
+                    ],
+                  },
+                  Object {
+                    "activities": Array [
+                      Object {
+                        "cb_anchor_tag": "out-of-my-mind",
+                        "description": "Explore how first-person point of view efficiently establishes a narrator’s experience",
+                        "title": "Sentence Combining: Except from Out of My Mind by Sharon M. Draper",
+                        "unit_template_id": "234",
+                      },
+                      Object {
+                        "cb_anchor_tag": "all-the-light-we-cannot-see",
+                        "description": "Explore how omniscient point of view shines a light on multiple characters’ experiences of a threatening world",
+                        "title": "Sentence Combining: Excerpt from All the Light We Cannot See by Anthony Doerr",
+                        "unit_template_id": "235",
+                      },
+                    ],
+                  },
+                  Object {
+                    "activities": Array [
+                      Object {
+                        "cb_anchor_tag": "the-girl-who-fell-from-the-sky",
+                        "description": "Explore how a present-tense narrative moment establishes a child’s perspective",
+                        "title": "Sentence Combining: Excerpt from The Girl Who Fell from the Sky by Heidi W. Durrow",
+                        "unit_template_id": "236",
+                      },
+                    ],
+                  },
+                ]
+              }
+              slug="springboard"
+              tag={
+                <div
+                  className="college-board-activity-tag"
+                >
+                  For SpringBoard 9
+                </div>
+              }
+              title="Unit 4: Powerful Openings"
+            >
+              <div
+                className="activity-container expandable"
+              >
+                <div
+                  className="top-section closed"
+                >
+                  <div
+                    className="unit-header-container"
+                  >
+                    <p
+                      className="unit-title"
+                    >
+                      <span>
+                        Unit 4: Powerful Openings
+                      </span>
+                      <div
+                        className="college-board-activity-tag"
+                      >
+                        For SpringBoard 9
+                      </div>
+                    </p>
+                    <div
+                      className="unit-sub-header-container"
+                    >
+                      <p>
+                        3
+                         Learning Cycles
+                      </p>
+                      <p
+                        className="bullet"
+                      >
+                        •
+                      </p>
+                      <p>
+                        5 Passage-Aligned Activities
+                      </p>
+                    </div>
+                  </div>
+                  <div>
+                    <button
+                      className="expand-collapse-button focus-on-light"
+                      onClick={[Function]}
+                      type="button"
+                    >
+                      <img
+                        alt="arrow icon"
+                        className="expand-arrow"
+                        src="https://assets.quill.org/images/icons/expand.svg"
+                      />
+                    </button>
+                  </div>
+                </div>
+                <div
+                  className="bottom-section hidden"
+                >
+                  <div
+                    className="learning-cycle-container"
+                    key="0"
+                  >
+                    <p
+                      className="learning-cycle-header"
+                    >
+                      Learning Cycle 
+                      1
+                    </p>
+                    <div
+                      className="divider"
+                    />
+                    <div
+                      className="cycle-activities-container"
+                    >
+                      <div
+                        className="cycle-activity-container  "
+                        id="1984"
+                        key="0"
+                      >
+                        <div
+                          className="top-content"
+                        >
+                          <a
+                            className="activity-title"
+                            href="/assign/featured-activity-packs/232?college-board=springboard"
+                            rel="noopener noreferrer"
+                            tabIndex={-1}
+                            target=""
+                          >
+                            Sentence Combining: Excerpt from 1984 by George Orwell
+                          </a>
+                          <a
+                            className="quill-button medium primary outlined focus-on-light"
+                            href="/assign/featured-activity-packs/232?college-board=springboard"
+                            rel="noopener noreferrer"
+                            target=""
+                          >
+                            View
+                          </a>
+                        </div>
+                        <p
+                          className="description"
+                        >
+                          Explore how key imagery sets place and tone at the start of a novel
+                        </p>
+                      </div>
+                      <div
+                        className="cycle-activity-container  "
+                        id="the-night-circus"
+                        key="1"
+                      >
+                        <div
+                          className="top-content"
+                        >
+                          <a
+                            className="activity-title"
+                            href="/assign/featured-activity-packs/233?college-board=springboard"
+                            rel="noopener noreferrer"
+                            tabIndex={-1}
+                            target=""
+                          >
+                            Sentence Combining: Except from The Night Circus by Erin Morgenstern
+                          </a>
+                          <a
+                            className="quill-button medium primary outlined focus-on-light"
+                            href="/assign/featured-activity-packs/233?college-board=springboard"
+                            rel="noopener noreferrer"
+                            target=""
+                          >
+                            View
+                          </a>
+                        </div>
+                        <p
+                          className="description"
+                        >
+                          Explore how second-person point of view sets up a fantastical world
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                  <div
+                    className="learning-cycle-container"
+                    key="1"
+                  >
+                    <p
+                      className="learning-cycle-header"
+                    >
+                      Learning Cycle 
+                      2
+                    </p>
+                    <div
+                      className="divider"
+                    />
+                    <div
+                      className="cycle-activities-container"
+                    >
+                      <div
+                        className="cycle-activity-container  "
+                        id="out-of-my-mind"
+                        key="0"
+                      >
+                        <div
+                          className="top-content"
+                        >
+                          <a
+                            className="activity-title"
+                            href="/assign/featured-activity-packs/234?college-board=springboard"
+                            rel="noopener noreferrer"
+                            tabIndex={-1}
+                            target=""
+                          >
+                            Sentence Combining: Except from Out of My Mind by Sharon M. Draper
+                          </a>
+                          <a
+                            className="quill-button medium primary outlined focus-on-light"
+                            href="/assign/featured-activity-packs/234?college-board=springboard"
+                            rel="noopener noreferrer"
+                            target=""
+                          >
+                            View
+                          </a>
+                        </div>
+                        <p
+                          className="description"
+                        >
+                          Explore how first-person point of view efficiently establishes a narrator’s experience
+                        </p>
+                      </div>
+                      <div
+                        className="cycle-activity-container  "
+                        id="all-the-light-we-cannot-see"
+                        key="1"
+                      >
+                        <div
+                          className="top-content"
+                        >
+                          <a
+                            className="activity-title"
+                            href="/assign/featured-activity-packs/235?college-board=springboard"
+                            rel="noopener noreferrer"
+                            tabIndex={-1}
+                            target=""
+                          >
+                            Sentence Combining: Excerpt from All the Light We Cannot See by Anthony Doerr
+                          </a>
+                          <a
+                            className="quill-button medium primary outlined focus-on-light"
+                            href="/assign/featured-activity-packs/235?college-board=springboard"
+                            rel="noopener noreferrer"
+                            target=""
+                          >
+                            View
+                          </a>
+                        </div>
+                        <p
+                          className="description"
+                        >
+                          Explore how omniscient point of view shines a light on multiple characters’ experiences of a threatening world
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                  <div
+                    className="learning-cycle-container"
+                    key="2"
+                  >
+                    <p
+                      className="learning-cycle-header"
+                    >
+                      Learning Cycle 
+                      3
+                    </p>
+                    <div
+                      className="divider"
+                    />
+                    <div
+                      className="cycle-activities-container"
+                    >
+                      <div
+                        className="cycle-activity-container last-activity "
+                        id="the-girl-who-fell-from-the-sky"
+                        key="0"
+                      >
+                        <div
+                          className="top-content"
+                        >
+                          <a
+                            className="activity-title"
+                            href="/assign/featured-activity-packs/236?college-board=springboard"
+                            rel="noopener noreferrer"
+                            tabIndex={-1}
+                            target=""
+                          >
+                            Sentence Combining: Excerpt from The Girl Who Fell from the Sky by Heidi W. Durrow
+                          </a>
+                          <a
+                            className="quill-button medium primary outlined focus-on-light"
+                            href="/assign/featured-activity-packs/236?college-board=springboard"
+                            rel="noopener noreferrer"
+                            target=""
+                          >
+                            View
+                          </a>
+                        </div>
+                        <p
+                          className="description"
+                        >
+                          Explore how a present-tense narrative moment establishes a child’s perspective
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </ExpandableUnit>
           </div>
         </div>
       </div>
