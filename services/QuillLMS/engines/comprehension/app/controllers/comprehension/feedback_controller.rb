@@ -17,6 +17,7 @@ module Comprehension
 
     def regex
       rule_type = params[:rule_type]
+      return render :body => nil, :status => 404 if !Comprehension::Rule::TYPES.include? rule_type
       regex_check = Comprehension::RegexCheck.new(@entry, @prompt, rule_type)
       render json: regex_check.feedback_object
     end
