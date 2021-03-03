@@ -54,6 +54,11 @@ module Comprehension
         assert_equal response.status, 404
       end
 
+      should "return 404 if rule_type does not exist" do
+        post 'regex', :rule_type => "not-rule-type", entry: "no regex problems here.", prompt_id: 100, session_id: 1, previous_feedback: []
+        assert_equal response.status, 404
+      end
+
       should "return successfully when there is regex feedback" do
         post 'regex', :rule_type => @rule_regex.rule_type, entry: "test regex response", prompt_id: @prompt.id, session_id: 1, previous_feedback: []
         parsed_response = JSON.parse(response.body)
