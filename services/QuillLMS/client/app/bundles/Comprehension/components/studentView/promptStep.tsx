@@ -70,8 +70,7 @@ export default class PromptStep extends React.Component<PromptStepProps, PromptS
   lastWord = (str: string) => str.substring(str.lastIndexOf(' ') + 1)
 
   textWithoutStem = (text: string) => {
-    const formattedPrompt = this.formattedPrompt().replace(/<p>|<\/p>|<br>/g, '')
-    const regex = new RegExp(`^${formattedPrompt}`)
+    const regex = this.promptAsRegex()
     return text.replace(regex, '')
   }
 
@@ -103,12 +102,21 @@ export default class PromptStep extends React.Component<PromptStepProps, PromptS
     return newString
   }
 
+  htmlStrippedPrompt = (escapeRegexCharacters=false) => {
+    const strippedPrompt = this.formattedPrompt().replace(/<p>|<\/p>|<br>/g, '')
+    if (escapeRegexCharacters) {
+      return strippedPrompt.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'); // $& means the whole matched string
+    }
+    return strippedPrompt
+  }
+
+  promptAsRegex = () => new RegExp(`^${this.htmlStrippedPrompt(true)}`)
+
   onTextChange = (e) => {
     const { html, } = this.state
     const { value, } = e.target
     const text = value.replace(/<b>|<\/b>|<p>|<\/p>|<br>/g, '')
-    const formattedPrompt = this.formattedPrompt().replace(/<p>|<\/p>|<br>/g, '')
-    const regex = new RegExp(`^${formattedPrompt}`)
+    const regex = this.promptAsRegex()
     const caretPosition = EditCaretPositioning.saveSelection(this.editor)
     if (text.match(regex)) {
       this.setState({ html: value, }, () => EditCaretPositioning.restoreSelection(this.editor, caretPosition))
@@ -120,13 +128,13 @@ export default class PromptStep extends React.Component<PromptStepProps, PromptS
 
       // handles case where change is only in the formatted prompt part
       if (splitSubmission.length > 1) {
-        const newValue = `${formattedPrompt}${splitSubmission[1]}`
+        const newValue = `${this.htmlStrippedPrompt()}${splitSubmission[1]}`
         this.setState({ html: newValue}, () => {
           this.editor.innerHTML = newValue
         })
       // student overwrote or deleted both part of their submission and the formatted prompt and the solution is much more complicated
       } else {
-        const formattedPromptWordArray = formattedPrompt.split(' ')
+        const formattedPromptWordArray = this.htmlStrippedPrompt().split(' ')
         const textWordArray = text.replace(/&nbsp;/g, ' ').split(' ')
 
         // if the user has tried to edit part of the original prompt, we find the words in their submission that are different from the original prompt
@@ -258,11 +266,10 @@ export default class PromptStep extends React.Component<PromptStepProps, PromptS
     }
 
     const text = html.replace(/<b>|<\/b>|<p>|<\/p>|<br>/g, '')
-    const formattedPrompt = this.formattedPrompt().replace(/<p>|<\/p>|<br>/g, '')
-    const regex = new RegExp(`^${formattedPrompt}`)
+    const regex = this.promptAsRegex()
     const textWithoutStem = text.replace(regex, '')
     const spaceAtEnd = text.match(/\s$/m) ? '&nbsp;' : ''
-    const htmlWithBolding = active ? `<p>${formattedPrompt}${this.formatStudentResponse(textWithoutStem)}${spaceAtEnd}</p>` : `<p>${textWithoutStem}</p>`
+    const htmlWithBolding = active ? `<p>${this.htmlStrippedPrompt()}${this.formatStudentResponse(textWithoutStem)}${spaceAtEnd}</p>` : `<p>${textWithoutStem}</p>`
     return (<EditorContainer
       className={className}
       disabled={disabled}
