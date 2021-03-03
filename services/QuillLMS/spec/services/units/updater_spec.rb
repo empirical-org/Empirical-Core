@@ -4,6 +4,9 @@ describe Units::Updater do
   include_context 'Unit Assignments Variables'
 
   let!(:unit) { create(:unit, user_id: teacher.id)}
+  let!(:unit_template) { create(:unit_template_with_activities )}
+  let!(:unit_based_on_unit_template) { create(:unit, user_id: teacher.id, unit_template_id: unit_template.id)}
+  let!(:classroom_unit_for_unit_template) { create(:classroom_unit, classroom_id: classroom.id, unit_id: unit_based_on_unit_template.id, assigned_student_ids: [student.id])}
   # let activities_data = [{id: activity.id, due_date: nil}]
   # classroom_unit.update(unit_id: unit.id)
 
@@ -26,6 +29,19 @@ describe Units::Updater do
   # and array of student ids.
   # self.run(unit.id, activities_data, classrooms_data)
 
+  describe "assign_unit_template_to_one_class" do
+    context "there are already students assigned to the classroom unit" do
+      describe "concatenate_extant_student_ids is true" do
+
+        it 'should add the new student to the array but also keep the old one' do
+          classroom_data = {id: classroom.id, student_ids: [student1.id]}
+          Units::Updater.assign_unit_template_to_one_class(unit_based_on_unit_template.id, classroom_data, unit_template.id, teacher.id, true)
+          expect(classroom_unit_for_unit_template.reload.assigned_student_ids).to eq([student.id, student1.id])
+        end
+
+      end
+    end
+  end
 
   describe "the updated classroom_unit's" do
 
