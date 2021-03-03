@@ -4,7 +4,7 @@ Comprehension::Engine.routes.draw do
       get :rules
     end
   end
-  
+
   resources :automl_models, only: [:index, :show, :create, :update, :destroy] do
     member do
       put :activate
@@ -13,7 +13,7 @@ Comprehension::Engine.routes.draw do
   namespace :feedback do
     post :automl
     post :plagiarism
-    post 'feedback/regex/:rule_type' => 'feedback#regex'
+    post 'regex/:rule_type' => :regex
   end
   resources :rules, only: [:index, :show, :create, :update, :destroy]
   resources :turking_round_activity_sessions, only: [:index, :show, :create, :update, :destroy]
