@@ -10,7 +10,10 @@ import {
   MINIMUM_READING_LEVEL,
   MAXIMUM_READING_LEVEL,
   TARGET_READING_LEVEL,
-  SCORED_READING_LEVEL
+  PARENT_ACTIVITY_ID,
+  SCORED_READING_LEVEL,
+  IMAGE_LINK,
+  IMAGE_ALT_TEXT
 } from '../../../constants/comprehension';
 import { PromptInterface } from '../interfaces/comprehensionInterfaces'
 
@@ -199,6 +202,9 @@ export const validateForm = (keys: string[], state: any[]) => {
   let errors = {};
   state.map((value, i) => {
     switch(keys[i]) {
+      case IMAGE_LINK:
+      case IMAGE_ALT_TEXT:
+        break;
       case TARGET_READING_LEVEL:
         const targetError = targetReadingLevelError(value);
         if(targetError) {
@@ -221,6 +227,9 @@ export const validateForm = (keys: string[], state: any[]) => {
         if(!value) {
           errors[keys[i]] = 'Concept UID cannot be blank. Default for plagiarism rules is "Kr8PdUfXnU0L7RrGpY4uqg"'
         }
+        break;
+      case PARENT_ACTIVITY_ID:
+        // this field is not required
         break;
       default:
         const strippedValue = value && stripHtml(value);

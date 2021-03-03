@@ -3,7 +3,7 @@ module Comprehension
 
   class FeedbackController < ApplicationController
     skip_before_action :verify_authenticity_token
-    before_action :set_params, only: [:plagiarism, :regex]
+    before_action :set_params, only: [:automl, :plagiarism, :regex]
 
     def plagiarism
       rule = @prompt.rules&.find_by(rule_type: Comprehension::Rule::TYPE_PLAGIARISM)
@@ -18,6 +18,11 @@ module Comprehension
     def regex
       regex_check = Comprehension::RegexCheck.new(@entry, @prompt)
       render json: regex_check.feedback_object
+    end
+
+    def automl
+      automl_check = Comprehension::AutomlCheck.new(@entry, @prompt, @previous_feedback)
+      render json: automl_check.feedback_object
     end
 
     private def set_params

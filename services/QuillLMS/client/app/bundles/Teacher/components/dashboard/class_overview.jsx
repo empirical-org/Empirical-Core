@@ -1,6 +1,5 @@
 import React from 'react';
 import _ from 'underscore';
-import NotificationFeed from './notifications/container';
 import OverviewMini from './overview_mini';
 import PremiumMini from './premium_mini';
 import TeacherGuide from '../teacher_guide/teacher_guide';
@@ -67,7 +66,6 @@ export default class ClassOverview extends React.Component {
         {this.hasPremium()}
         {this.lessonsList()}
         {this.overviewMinis()}
-        <NotificationFeed notifications={this.props.notifications} />
       </div>
     );
   }
