@@ -59,7 +59,8 @@ describe AssignRecommendationsWorker do
                   assign_on_join: false
               },
               unit_template.id,
-              teacher.id
+              teacher.id,
+              true
           )
           call_method
         end
