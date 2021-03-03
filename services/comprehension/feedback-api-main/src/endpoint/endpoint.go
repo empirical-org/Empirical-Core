@@ -14,7 +14,8 @@ import (
 )
 
 const (
-	automl_api = "https://www.quill.org/api/v1/comprehension/feedback/automl.json"
+	automl_api = "https://comprehension-247816.appspot.com/feedback/ml"
+	//automl_api = "https://www.quill.org/comprehension/ml_feedback.json"
 	grammar_check_api = "https://grammar-api.ue.r.appspot.com"
 	opinion_check_api = "https://opinion-api.ue.r.appspot.com/"
 	plagiarism_api = "https://www.quill.org/api/v1/comprehension/feedback/plagiarism.json"
@@ -170,6 +171,11 @@ func identifyUsedFeedbackIndex(feedbacks map[int]InternalAPIResponse) int {
 		if !feedback.Error && !feedback.APIResponse.Optimal {
 			return key
 		}
+	}
+	// If none of the feedbacks are non-optimal, check to see if automl is feedback
+	// is not optimal and not in error.  Because if it so, that's the feedback we'll use
+	if !feedbacks[automl_index].Error && feedbacks[automl_index].APIResponse.Optimal {
+		return automl_index
 	}
 	// We use -1 as the return value if we couldn't find an index since
 	// it should correspond to no index

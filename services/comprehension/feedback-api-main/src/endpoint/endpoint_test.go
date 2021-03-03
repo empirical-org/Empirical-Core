@@ -180,6 +180,15 @@ func TestIdentifyUsedFeedbackIndex(t *testing.T) {
 	if result != 2 {
 		t.Errorf("Should have identified 2 for unfound used feedback, but got %d", result)
 	}
+
+	for i := 0; i <= automl_index; i++ {
+		feedbacks[i] = optimal_response
+	}
+
+	result = identifyUsedFeedbackIndex(feedbacks)
+	if result != automl_index {
+		t.Errorf("Should have identified the automl_index constant of %d for unfound used feedback, but got %d", automl_index, result)
+	}
 }
 
 
