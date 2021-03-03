@@ -134,11 +134,9 @@ describe TeacherFixes do
   describe '#merge_two_units and #merge_two_classroom_units' do
     let (:student_a) {create(:student)}
     let (:student_b) {create(:student)}
-    let! (:classroom_with_classroom_units) {create(:classroom_with_classroom_units, students: [student_a, student_b])}
-    let! (:unit1) {create(:unit, user_id: classroom_with_classroom_units.owner.id)}
-    let! (:unit2) {create(:unit, user_id: classroom_with_classroom_units.owner.id)}
-    let! (:activity) {create(:activity)}
-    let! (:unit_activity) {create(:unit_activity, activity: activity, unit: unit1)}
+    let! (:classroom_with_classroom_units) {create(:classroom, students: [student_a, student_b])}
+    let! (:unit5) {create(:unit, user_id: classroom_with_classroom_units.owner.id, classrooms: [classroom_with_classroom_units])}
+    let! (:unit6) {create(:unit, user_id: classroom_with_classroom_units.owner.id, classrooms: [classroom_with_classroom_units])}
     let (:activity_session_1) {create(:activity_session, classroom_unit: classroom_with_classroom_units.classroom_units.first, user_id: student_a.id)}
     let (:activity_session_2) {create(:activity_session, classroom_unit: classroom_with_classroom_units.classroom_units.last, user_id: student_b.id)}
 
@@ -159,10 +157,6 @@ describe TeacherFixes do
 
     describe '#merge_two_units' do
 
-      before(:each) do
-        prep
-      end
-
       describe 'the first unit passed' do
         # it 'is no longer visible' do
         #   TeacherFixes::merge_two_units(unit1, unit2)
@@ -177,8 +171,8 @@ describe TeacherFixes do
 
       describe '#self.merge_two_classroom_units' do
         it 'is called when both units have a classroom unit with the same classroom' do
-          TeacherFixes.should receive(:merge_two_classroom_units).with(cu1.reload, cu2)
-          TeacherFixes::merge_two_units(unit1, unit2)
+          TeacherFixes.should receive(:merge_two_classroom_units).with(cu1, cu2)
+          TeacherFixes::merge_two_units(cu1.unit, cu2.unit)
         end
 
         it 'is not called when both units do not have a classroom unit with the same classroom' do
