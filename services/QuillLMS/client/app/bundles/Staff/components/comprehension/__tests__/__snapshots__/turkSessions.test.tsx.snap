@@ -48,6 +48,13 @@ exports[`TurkSessions component should render TurkSessions 1`] = `
     className="turk-sessions-container"
   >
     <div
+      className="header-container"
+    >
+      <h2>
+        Turk Sessions
+      </h2>
+    </div>
+    <div
       className="add-session-container"
     >
       <div

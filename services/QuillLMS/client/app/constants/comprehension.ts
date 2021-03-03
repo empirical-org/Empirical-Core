@@ -65,8 +65,13 @@ export const readingLevelOptions = [
   },
 ];
 
+export const regexRuleTypes = ["rules-based", "rules-based-1", "rules-based-2", "rules-based-3"];
+
 export const ruleTypeOptions = [
   {"value":"rules-based","label":"Regex"},
+  {"value":"rules-based-1","label":"Sentence Structure Regex"},
+  {"value":"rules-based-2","label":"Post-Topic Regex"},
+  {"value":"rules-based-3","label":"Typo Regex"},
   {"value":"plagiarism","label":"Plagiarism"}
 ];
 
@@ -85,6 +90,11 @@ export const ruleHighlightOptions = [
 export const ruleOptimalOptions = [
   {"value":"optimal","label":"Optimal"},
   {"value":"","label":"Sub-Optimal"}
+];
+
+export const regexRuleSequenceOptions = [
+  {"value":"incorrect","label":"Incorrect"},
+  {"value":"required","label":"Required"}
 ];
 
 export const ruleOrder = {

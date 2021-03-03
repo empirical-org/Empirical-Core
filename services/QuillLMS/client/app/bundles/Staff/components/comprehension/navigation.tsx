@@ -113,7 +113,7 @@ const Navigation = ({ location, match }) => {
         <button className={`create-activity-button ${showCreateActivityModal ? 'is-active' :''}`} onClick={toggleCreateActivityModal} type="submit">
           Create New Activity
         </button>
-        <NavLink activeClassName='is-active' to="/universal-rules">
+        <NavLink activeClassName={!showCreateActivityModal ? 'is-active' :''} to="/universal-rules">
           View Universal Rules
         </NavLink>
       </ul>

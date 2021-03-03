@@ -144,6 +144,9 @@ const TurkSessions: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ match
     <div className="turk-sessions-container">
       {showSubmissionModal && renderSubmissionModal()}
       {showEditOrDeleteTurkSessionModal && renderEditOrDeleteTurkSessionModal()}
+      <div className="header-container">
+        <h2>Turk Sessions</h2>
+      </div>
       <div className="add-session-container">
         <div className="date-picker-container">
           <label className="datepicker-label" htmlFor="date-picker">Expiration</label>

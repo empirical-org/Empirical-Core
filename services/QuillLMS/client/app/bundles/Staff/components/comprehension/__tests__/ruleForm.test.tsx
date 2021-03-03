@@ -9,7 +9,16 @@ import RulePrompts from '../configureRules/rulePrompts';
 jest.mock('../../../helpers/comprehension/ruleHelpers', () => ({
   getInitialRuleType: jest.fn().mockImplementation(() => {
     return { value: 'rules-based', label: 'Regex' }
-   })
+   }),
+  formatInitialFeedbacks: jest.fn().mockImplementation(() => {
+    return [{
+      id: 7,
+      description: null,
+      order: 0,
+      text: 'Revise your work. Delete the phrase "it contains methane" because it repeats the first part of the sentence',
+      highlights_attributes: []
+    }];
+  })
 }));
 
 const mockRule = {
