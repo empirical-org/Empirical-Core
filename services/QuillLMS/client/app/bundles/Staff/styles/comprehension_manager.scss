@@ -451,6 +451,12 @@
         min-width: 20px;
         padding: 0px 7px 5px 7px;
       }
+      .rule-highlight-section {
+        margin-left: 10px;
+      }
+      .add-highlight, .add-feedback-layer {
+        margin-top: 15px;
+      }
     }
   }
   .turk-sessions-container {
@@ -532,6 +538,65 @@
       }
     }
   }
+  .universal-rules-index-container, .universal-rule-container {
+    padding: 20px;
+    width: 80vw;
+    .top-section {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin: 30px 0px 0px 3px;
+      .rule-type-input {
+        margin-right: 20px;
+      }
+    }
+    .sortable-instructions {
+      margin: 10px 0px 10px 3px;
+      font-style: italic;
+    }
+    .universal-rules-table, .universal-rule-table {
+      .universal-rule-row {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border: 1px solid lightgray;
+        border-radius: 6px;
+        p {
+          margin: 0px
+        }
+      }
+    }
+    .universal-rules-table {
+      height: 100%;
+    }
+    .button-container {
+      display: flex;
+      justify-content: flex-start;
+      width: 690px;
+      padding: 20px 10px 20px 0px;
+      #edit-rule-button {
+        margin-right: 30px;
+      }
+    }
+    .delete-rule-container {
+      .delete-rule-text {
+        padding: 20px;
+      }
+      .delete-rule-button-container {
+        display: flex;
+        justify-content: flex-end;
+        padding: 10px;
+        #delete-rule-button {
+          margin-right: 10px;
+        }
+      }
+    }
+  }
+  .universal-rule-container {
+    .universal-rules-table {
+      height: 100%;
+    }
+  }
   .modal {
     .close-button-container {
       display: flex;
@@ -546,5 +611,11 @@
     .submission-message {
       padding: 20px;
     }
+  }
+  .return-link {
+    color: #19a08a;
+  }
+  .return-link:hover {
+    color: #61cfbc;
   }
 }

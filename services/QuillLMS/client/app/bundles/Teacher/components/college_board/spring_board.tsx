@@ -1,5 +1,7 @@
 import * as React from 'react';
 
+import ExpandableUnitSection from '../shared/expandableUnit'
+import { SPRING_BOARD_SLUG } from '../assignment_flow/assignmentFlowConstants'
 import QuestionsAndAnswers from '../../containers/QuestionsAndAnswers';
 import * as constants from '../assignment_flow/assignmentFlowConstants';
 import { generateLink, getStartedButton } from '../../helpers/collegeBoard';
@@ -7,11 +9,26 @@ import { scrollToTop } from '../../hooks/scrollToTop';
 
 interface SpringBoardProps {
   isPartOfAssignmentFlow?: boolean;
+  units?: Array<any>
 }
 
-const SpringBoard = ({ isPartOfAssignmentFlow }: SpringBoardProps) => {
+const SpringBoard = ({ isPartOfAssignmentFlow, units, }: SpringBoardProps) => {
 
   isPartOfAssignmentFlow && scrollToTop();
+
+  const expandableUnits = units.map((u, index) => {
+    return (
+      <ExpandableUnitSection
+        isFirst={index === 0}
+        isPartOfAssignmentFlow={isPartOfAssignmentFlow}
+        key={u.id}
+        learningCycles={u.learning_cycles}
+        slug={SPRING_BOARD_SLUG}
+        tag={<div className="college-board-activity-tag">For SpringBoard 9</div>}
+        title={u.title}
+      />
+    )
+  })
 
   return (<div className="college-board-container">
     <div className="section-wrapper">
@@ -164,6 +181,25 @@ const SpringBoard = ({ isPartOfAssignmentFlow }: SpringBoardProps) => {
             <p className="activity-sub-text">Students complete a twenty-two-item placement activity. Directions can be shown in English only, or shown in both English and another selected language.</p>
             <p className="activity-sub-header">Skills</p>
             <p className="activity-sub-text">Fragments; articles; verb tense; adjectives; adverbs; prepositions; compound subjects, objects, and predicates; compound sentences; complex sentences</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div className="white-section-wrapper">
+      <div className="container college-board-activities-section">
+        <div className="header">
+          <img alt="Illustration of a book opened" src="https://assets.quill.org/images/college_board/passage-book.svg" />
+          <div className="text-container">
+            <h2>Passage-Aligned Activities</h2>
+            <p>Twenty custom sentence-combining activities, each one aligned to a unique 9th grade SpringBoard ELA text to give your students the opportunity to practice their sentence construction skills in context.</p>
+          </div>
+        </div>
+        <div className="activities-subheader">
+          <h2>Passage-Aligned Activities</h2>
+        </div>
+        <div className="white-section-wrapper">
+          <div className="units-container">
+            {expandableUnits}
           </div>
         </div>
       </div>

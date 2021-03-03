@@ -210,7 +210,7 @@ module PagesHelper
         members: [
           {
             name: 'Stephanie Cohen',
-            title: 'Chief Strategy Officer at Goldman Sachs',
+            title: 'Co-Head of Consumer Wealth Management at Goldman',
             img: 'board-stephanie-cohen@2x.png'
           },
           {
@@ -283,7 +283,7 @@ module PagesHelper
     ]
   end
 
-  def preap_content
+  def preap_and_springboard_content
     [
       {
         title: 'Unit 1: Telling Details',

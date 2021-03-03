@@ -1,7 +1,7 @@
 module Comprehension
   class Highlight < ActiveRecord::Base
     MIN_TEXT_LENGTH = 1
-    MAX_TEXT_LENGTH = 500
+    MAX_TEXT_LENGTH = 5000
     TYPES= [
       'passage',
       'response',

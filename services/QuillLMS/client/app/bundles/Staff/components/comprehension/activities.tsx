@@ -24,9 +24,12 @@ const Activities = ({ location, match, }) => {
 
   if(!data) {
     return(
-      <div className="loading-spinner-container">
-        <Spinner />
-      </div>
+      <React.Fragment>
+        <Navigation location={location} match={match} />
+        <div className="loading-spinner-container">
+          <Spinner />
+        </div>
+      </React.Fragment>
     );
   }
 

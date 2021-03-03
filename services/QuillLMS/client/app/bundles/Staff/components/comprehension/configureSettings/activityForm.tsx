@@ -15,9 +15,11 @@ import {
   TARGET_READING_LEVEL,
   PARENT_ACTIVITY_ID,
   MAX_ATTEMPTS_FEEDBACK,
-  PASSAGE
+  PASSAGE,
+  IMAGE_LINK,
+  IMAGE_ALT_TEXT
 } from '../../../../../constants/comprehension';
-import { ActivityInterface, PromptInterface, PassagesInterface } from '../../../interfaces/comprehensionInterfaces';
+import { ActivityInterface, PromptInterface, PassagesInterface, InputEvent } from '../../../interfaces/comprehensionInterfaces';
 import { Input, TextEditor, } from '../../../../Shared/index'
 
 interface ActivityFormProps {
@@ -25,7 +27,6 @@ interface ActivityFormProps {
   closeModal: (event: React.MouseEvent) => void,
   submitActivity: (activity: object) => void
 }
-type InputEvent = React.ChangeEvent<HTMLInputElement>;
 
 const ActivityForm = ({ activity, closeModal, submitActivity }: ActivityFormProps) => {
 
@@ -65,9 +66,15 @@ const ActivityForm = ({ activity, closeModal, submitActivity }: ActivityFormProp
 
   function handleSetActivityParentActivityId(e: InputEvent){ setActivityParentActivityId(e.target.value) };
 
-  function handleSetActivityPassages(text: string){
+  function handleSetImageLink(e: InputEvent){ handleSetActivityPassages('image_link', e.target.value) };
+
+  function handleSetImageAltText(e: InputEvent){ handleSetActivityPassages('image_alt_text', e.target.value) };
+
+  function handleSetPassageText(text: string) { handleSetActivityPassages('text', text)}
+
+  function handleSetActivityPassages(key, value){
     const updatedPassages = [...activityPassages];
-    updatedPassages[0].text = text;
+    updatedPassages[0][key] = value;
     setActivityPassages(updatedPassages)
    };
 
@@ -101,7 +108,9 @@ const ActivityForm = ({ activity, closeModal, submitActivity }: ActivityFormProp
       activityMaxFeedback,
       activityBecausePrompt.text,
       activityButPrompt.text,
-      activitySoPrompt.text
+      activitySoPrompt.text,
+      activityPassages[0].image_link,
+      activityPassages[0].image_alt_text
     ];
     const validationErrors = validateForm(activityFormKeys, state);
     if(validationErrors && Object.keys(validationErrors).length !== 0) {
@@ -156,16 +165,30 @@ const ActivityForm = ({ activity, closeModal, submitActivity }: ActivityFormProp
           label="Parent Activity ID"
           value={activityParentActivityId}
         />
+        <Input
+          className="image-link-input"
+          error={errors[IMAGE_LINK]}
+          handleChange={handleSetImageLink}
+          label="Image Link"
+          value={activityPassages[0].image_link}
+        />
+        <Input
+          className="image-alt-text-input"
+          error={errors[IMAGE_ALT_TEXT]}
+          handleChange={handleSetImageAltText}
+          label="Image Alt Text"
+          value={activityPassages[0].image_alt_text}
+        />
         <p className={`text-editor-label ${passageLabelStyle}`}>Passage</p>
         <TextEditor
           ContentState={ContentState}
           EditorState={EditorState}
-          handleTextChange={handleSetActivityPassages}
+          handleTextChange={handleSetPassageText}
           key="passage-description"
           text={activityPassages[0].text}
         />
         {errors[PASSAGE] && <p className="error-message">{errors[PASSAGE]}</p>}
-        <p className={`text-editor-label ${maxAttemptStyle}`}>Max Attemps Feedback</p>
+        <p className={`text-editor-label ${maxAttemptStyle}`}>Max Attempts Feedback</p>
         <TextEditor
           ContentState={ContentState}
           EditorState={EditorState}

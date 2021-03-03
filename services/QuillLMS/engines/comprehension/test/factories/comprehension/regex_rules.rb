@@ -3,5 +3,6 @@ FactoryBot.define do
     association :rule, factory: :comprehension_rule
     regex_text { "MyString" }
     case_sensitive { false }
+    sequence_type { "incorrect" }
   end
 end
