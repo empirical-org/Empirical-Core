@@ -283,7 +283,7 @@ module PagesHelper
     ]
   end
 
-  def preap_content
+  def preap_and_springboard_content
     [
       {
         title: 'Unit 1: Telling Details',
