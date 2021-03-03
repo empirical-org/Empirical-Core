@@ -46,7 +46,17 @@ exports[`RuleForm component should render RuleForm 1`] = `
     />
     <RuleRegexAttributes
       errors={Object {}}
-      regexFeedback={null}
+      regexFeedback={
+        Array [
+          Object {
+            "description": null,
+            "highlights_attributes": Array [],
+            "id": 7,
+            "order": 0,
+            "text": "Revise your work. Delete the phrase \\"it contains methane\\" because it repeats the first part of the sentence",
+          },
+        ]
+      }
       regexRules={Object {}}
       rulesToCreate={Object {}}
       rulesToDelete={Object {}}

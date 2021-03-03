@@ -108,16 +108,17 @@ const UniversalRule = ({ history, location, match }) => {
         updatedErrors['delete error'] = error;
         setErrors(updatedErrors);
       }
-      queryCache.refetchQueries('universal-rules');
       toggleShowDeleteRuleModal();
 
       if(Object.keys(errors).length) {
         toggleSubmissionModal();
       } else {
-        history.push({
-          pathname: '/universal-rules',
-          state: 'rule-deleted'
-        });
+        queryCache.refetchQueries('universal-rules').then(() => {
+          history.push({
+            pathname: '/universal-rules',
+            state: { ruleDeleted: true }
+          });
+        })
       }
     });
   }

@@ -10,6 +10,8 @@ import { buildErrorMessage } from '../../../helpers/comprehension';
 import { blankUniversalRule, universalRuleTypeOptions, ruleOrder} from '../../../../../constants/comprehension';
 import { RuleInterface } from '../../../interfaces/comprehensionInterfaces';
 import { Error, Spinner, DropdownInput, DataTable, Modal } from '../../../../Shared/index';
+import populateRulesState from '../../../../Shared/hooks/comprehension/populateRulesState'
+import handleRulesListUpdate from '../../../../Shared/hooks/comprehension/handleRulesListUpdate'
 
 const UniversalRulesIndex = ({ location, match }) => {
 
@@ -25,27 +27,24 @@ const UniversalRulesIndex = ({ location, match }) => {
   // cache ruleSets data for handling universal rule suborder
   const { data: rules } = useQuery("universal-rules", fetchUniversalRules);
 
-  if(rules && rules.universalRules && !Object.keys(rulesHash).length && !rulesList) {
-    setRulesHashAndList();
-  }
+  populateRulesState({ rules, rulesHash, rulesList, setRulesHashAndList });
 
-  if((location && (location.state === 'returned-to-index' || location.state === 'rule-deleted')) && !rulesUpdated) {
-    handleUpdateRulesList(null);
-  }
-
+  handleRulesListUpdate({ location, rulesUpdated, handleUpdateRulesList });
 
   React.useEffect(() => {
-    handleUpdateRulesList(null);
+    handleUpdateRulesList();
     setRuleOrderUpdated(false);
   }, [ruleType]);
 
-  function handleUpdateRulesList(rule) {
-    const updatedRulesList = rules && rules.universalRules && rules.universalRules.length && rules.universalRules.filter(rule => rule.rule_type === ruleType.value);
-    if(rule) {
-      updatedRulesList.push(rule);
+  function handleUpdateRulesList(rule=null) {
+    if(rules && rules.universalRules && rules.universalRules.length) {
+      const updatedRulesList = rules.universalRules.filter(rule => rule.rule_type === ruleType.value);
+      if(rule) {
+        updatedRulesList.push(rule);
+      }
+      setRulesUpdated(true);
+      setRulesList(updatedRulesList);
     }
-    setRulesUpdated(true);
-    setRulesList(updatedRulesList);
   }
 
   function setRulesHashAndList() {
@@ -55,7 +54,7 @@ const UniversalRulesIndex = ({ location, match }) => {
       hash[uid] = rule;
     });
     setRulesHash(hash);
-    handleUpdateRulesList(null);
+    handleUpdateRulesList();
   }
 
   function handleSetRuleType(ruleType: any) { setRuleType(ruleType) };
@@ -93,11 +92,11 @@ const UniversalRulesIndex = ({ location, match }) => {
         updatedErrors['ruleSetError'] = error;
         setErrors(updatedErrors);
       }
-      queryCache.refetchQueries(`universal-rules`);
-      handleUpdateRulesList(rule);
-
       toggleAddRuleModal();
-      toggleSubmissionModal();
+      queryCache.refetchQueries(`universal-rules`).then(() => {
+        handleUpdateRulesList(rule);
+        toggleSubmissionModal();
+      });
     });
   }
 
