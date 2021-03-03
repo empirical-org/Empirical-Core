@@ -63,6 +63,8 @@ module Comprehension
         post 'regex', :rule_type => @rule_regex.rule_type, entry: "test regex response", prompt_id: @prompt.id, session_id: 1, previous_feedback: []
         parsed_response = JSON.parse(response.body)
         assert_equal parsed_response["optimal"], false
+      end
+    end
 
     context "#automl" do
       should 'return feedback payloads based on the lib matched_rule value' do
