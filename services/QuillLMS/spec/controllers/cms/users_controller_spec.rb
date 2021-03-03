@@ -29,15 +29,33 @@ describe Cms::UsersController do
   end
 
   describe '#search' do
-    before do
-      allow(ActiveRecord::Base.connection).to receive(:execute).and_return(["results"])
-    end
 
     it 'should search for the users' do
       get :search, user_flag: "auditor"
-      expect(response.body).to eq({numberOfPages: 0, userSearchQueryResults: ["results"], userSearchQuery: {user_flag: "auditor"}}.to_json)
+      expect(response.body).to eq({numberOfPages: 0, userSearchQueryResults: [], userSearchQuery: {user_flag: "auditor"}}.to_json)
       expect(ChangeLog.last.action).to eq(ChangeLog::USER_ACTIONS[:search])
       expect(ChangeLog.last.explanation).to include('auditor')
+    end
+
+    it 'should search for the users' do
+      teacher = create(:teacher_with_one_classroom, email: 'test@t.org')
+      classroom = teacher.classrooms_i_teach.first
+      classroom.teachers = [teacher]
+      class_code = classroom.code
+      get :search, class_code: class_code
+      expect(JSON.parse(response.body)).to eq({"numberOfPages"=> 1, "userSearchQueryResults"=>
+        [{
+          "name"=> teacher.name,
+          "email"=> teacher.email,
+          "role"=> teacher.role,
+          "subscription"=> nil,
+          "last_sign_in"=> nil,
+          "school"=> nil,
+          "school_id"=> nil,
+          "id"=> "#{teacher.id}"
+        }], "userSearchQuery"=> {"class_code"=> class_code}})
+      expect(ChangeLog.last.action).to eq(ChangeLog::USER_ACTIONS[:search])
+      expect(ChangeLog.last.explanation).to include('class_code')
     end
   end
 
