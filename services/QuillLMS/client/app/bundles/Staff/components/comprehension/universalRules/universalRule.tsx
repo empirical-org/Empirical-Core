@@ -116,10 +116,7 @@ const UniversalRule = ({ history, location, match }) => {
         queryCache.refetchQueries('universal-rules').then(() => {
           history.push({
             pathname: '/universal-rules',
-            state: {
-              ruleDeleted: true,
-              ruleId: ruleId
-            }
+            state: { ruleDeleted: true }
           });
         })
       }

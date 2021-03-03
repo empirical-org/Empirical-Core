@@ -5,9 +5,7 @@ function handleRulesListUpdate({ location, rulesUpdated, handleUpdateRulesList }
     if(location && location.state && !rulesUpdated) {
       const { state } = location;
       const { returnedToIndex, ruleDeleted } = state
-      if(returnedToIndex) {
-        handleUpdateRulesList();
-      } else if(ruleDeleted) {
+      if(returnedToIndex || ruleDeleted) {
         handleUpdateRulesList();
       }
     }
