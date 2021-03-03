@@ -130,7 +130,8 @@ module Comprehension
           name: automl_model.name,
           labels: automl_model.labels,
           state: automl_model.state,
-          prompt_id: automl_model.prompt_id
+          prompt_id: automl_model.prompt_id,
+          older_models: automl_model.older_models
         }.stringify_keys
       end
     end
@@ -302,6 +303,22 @@ module Comprehension
         assert @model.valid?
         assert_equal @model.state, AutomlModel::STATE_ACTIVE
         assert_equal result, @model
+      end
+    end
+
+    context '#older_models' do
+      setup do
+        @first_model = create(:comprehension_automl_model)
+      end
+
+      should 'be 0 if there are no previous models for the prompt' do
+        assert_equal @first_model.older_models, 0
+      end
+
+      should 'be 1 if there is a single previous model for the prompt' do
+        second_model = create(:comprehension_automl_model, prompt: @first_model.prompt)
+        assert_equal @first_model.older_models, 0
+        assert_equal second_model.older_models, 1
       end
     end
   end

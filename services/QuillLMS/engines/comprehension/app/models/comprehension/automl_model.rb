@@ -24,7 +24,8 @@ module Comprehension
       options ||= {}
 
       super(options.reverse_merge(
-        only: [:id, :automl_model_id, :name, :labels, :state, :prompt_id]
+        only: [:id, :automl_model_id, :name, :labels, :state, :prompt_id],
+        methods: [:older_models]
       ))
     end
 
@@ -62,6 +63,10 @@ module Comprehension
       results = automl_prediction_client.predict(name: automl_model_full_id, payload: automl_payload)
       sorted_results = results.payload.sort_by { |i| i.classification.score }.reverse
       sorted_results[0].display_name
+    end
+
+    def older_models
+      @older_models ||= AutomlModel.where(prompt_id: prompt_id).where("created_at < ?", created_at).count
     end
 
     private def prompt_automl_rules
