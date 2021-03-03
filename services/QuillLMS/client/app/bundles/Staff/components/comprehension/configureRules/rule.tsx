@@ -1,5 +1,6 @@
 import * as React from "react";
 import { queryCache, useQuery } from 'react-query';
+import { Link } from 'react-router-dom';
 import stripHtml from "string-strip-html";
 
 import RuleForm from './ruleForm';
@@ -215,7 +216,8 @@ const Rule = ({ history, match }) => {
       {showEditRuleModal && renderRuleForm()}
       {showSubmissionModal && renderSubmissionModal()}
       <div className="header-container">
-        <p>Rule</p>
+        <h2>Rule</h2>
+        <Link to={`/activities/${activityId}/rules`}>← Return to Rules Index</Link>
       </div>
       <DataTable
         className="rule-table"

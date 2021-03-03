@@ -10,6 +10,7 @@ module Comprehension
       should validate_length_of(:name).is_at_most(250)
       should validate_inclusion_of(:universal).in_array(Rule::ALLOWED_BOOLEANS)
       should validate_inclusion_of(:rule_type).in_array(Rule::TYPES)
+      should validate_inclusion_of(:state).in_array(Rule::STATES)
       should validate_inclusion_of(:optimal).in_array(Rule::ALLOWED_BOOLEANS)
       should validate_numericality_of(:suborder)
         .only_integer
@@ -18,6 +19,7 @@ module Comprehension
     end
 
     context 'relationships' do
+      should have_one(:label)
       should have_one(:plagiarism_text)
       should have_many(:feedbacks)
       should have_many(:prompts_rules)
@@ -64,10 +66,50 @@ module Comprehension
       end
     end
 
+
     context 'display_name' do
       should 'correspond to the correct display name' do
         rule = create(:comprehension_rule, rule_type: 'rules-based-2')
         assert rule.display_name, 'Post-Topic Regex'
+      end
+    end
+
+    context '#determine_feedback_from_history' do
+      setup do
+        @rule = create(:comprehension_rule)
+        @feedback1 = create(:comprehension_feedback, rule: @rule, order: 0, text: 'Example feedback 1')
+        @feedback2 = create(:comprehension_feedback, rule: @rule, order: 1, text: 'Example feedback 2')
+        @feedback3 = create(:comprehension_feedback, rule: @rule, order: 2, text: 'Example feedback 3')
+      end
+
+      should 'fetch lowest order feedback if feedback history is empty' do
+        feedback_history = []
+
+        assert_equal @rule.determine_feedback_from_history(feedback_history), @feedback1
+      end
+
+      should 'fetch lowest order feedback with text not matched from history' do
+        feedback_history = [{
+          "feedback" => @feedback1.text,
+          "feedback_type" => @rule.rule_type
+        }]
+
+        assert_equal @rule.determine_feedback_from_history(feedback_history), @feedback2
+      end
+
+      should 'fetch highest order if all feedbacks have text matched from history' do
+        feedback_history = [{
+          "feedback" => @feedback1.text,
+          "feedback_type" => @rule.rule_type
+        },{
+          "feedback" => @feedback2.text,
+          "feedback_type" => @rule.rule_type
+        },{
+          "feedback" => @feedback3.text,
+          "feedback_type" => @rule.rule_type
+        }]
+
+        assert_equal @rule.determine_feedback_from_history(feedback_history), @feedback3
       end
     end
 

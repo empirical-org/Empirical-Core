@@ -278,10 +278,10 @@ export class Question extends React.Component {
           <div className="tabs">
             <ul>
               <NavLink activeClassName="is-active" to={`${match.url}/responses`}>Responses</NavLink>
-              <NavLink activeClassName="is-active" to='test'>Play Question</NavLink>
-              <NavLink activeClassName="is-active" to='choose-model'>{data[questionID].modelConceptUID ? 'Edit' : 'Add'} Model Concept</NavLink>
-              <NavLink activeClassName="is-active" to='focus-points'>{data[questionID].focusPoints ? 'Edit' : 'Add'} Focus Points</NavLink>
-              <NavLink activeClassName="is-active" to='incorrect-sequences'>{data[questionID].incorrectSequences ? 'Edit' : 'Add'} Incorrect Sequences</NavLink>
+              <NavLink activeClassName="is-active" to={`${match.url}/test`}>Play Question</NavLink>
+              <NavLink activeClassName="is-active" to={`${match.url}/choose-model`}>{data[questionID].modelConceptUID ? 'Edit' : 'Add'} Model Concept</NavLink>
+              <NavLink activeClassName="is-active" to={`${match.url}/focus-points`}>{data[questionID].focusPoints ? 'Edit' : 'Add'} Focus Points</NavLink>
+              <NavLink activeClassName="is-active" to={`${match.url}/incorrect-sequences`}>{data[questionID].incorrectSequences ? 'Edit' : 'Add'} Incorrect Sequences</NavLink>
               {activeLink}
             </ul>
           </div>
