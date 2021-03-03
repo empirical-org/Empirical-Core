@@ -73,6 +73,8 @@ const RuleRegexAttributes = ({
     });
   }
 
+  // TODO: break out Regex feedback into separate component
+
   return(
     <React.Fragment>
       <p className="form-subsection-label">Feedback</p>

@@ -45,6 +45,8 @@ const RulePlagiarismAttributes = ({
     });
   }
 
+  // TODO: break out Plagiarism feedbacks into separate components
+
     return(
       <React.Fragment>
         <p className="form-subsection-label">Plagiarism Text</p>
