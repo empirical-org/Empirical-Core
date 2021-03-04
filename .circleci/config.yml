@@ -194,7 +194,7 @@ jobs:
             PG_USER: ubuntu
             PG_PASS: ""
             DJANGO_SETTINGS_MODULE: "mysite.settings.circle"
-  comprehension_build:
+  comprehension_go_build:
     working_directory: ~/Empirical-Core
     docker:
       - image: circleci/golang:1.12
