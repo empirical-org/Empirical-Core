@@ -175,6 +175,11 @@ func identifyUsedFeedbackIndex(feedbacks map[int]InternalAPIResponse) int {
 			return key
 		}
 	}
+	// If none of the feedbacks are non-optimal, check to see if automl is feedback
+	// is not optimal and not in error.  Because if it so, that's the feedback we'll use
+	if !feedbacks[automl_index].Error && feedbacks[automl_index].APIResponse.Optimal {
+		return automl_index
+	}
 	// We use -1 as the return value if we couldn't find an index since
 	// it should correspond to no index
 	return -1
