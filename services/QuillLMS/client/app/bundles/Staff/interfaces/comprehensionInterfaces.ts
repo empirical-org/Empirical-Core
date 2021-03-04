@@ -1,5 +1,6 @@
 export interface ActivityRouteProps {
-  activityId: string
+  activityId: string,
+  type?: string
 }
 
 export interface ActivityInterface {

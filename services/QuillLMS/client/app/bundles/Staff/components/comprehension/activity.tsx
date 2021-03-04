@@ -6,6 +6,7 @@ import ActivitySettings from './configureSettings/activitySettings';
 import Rules from './configureRules/rules';
 import Rule from './configureRules/rule';
 import TurkSessions from './gatherResponses/turkSessions';
+import SessionsIndex from './activitySessions/sessionsIndex';
 
 import { ActivityRouteProps } from '../../interfaces/comprehensionInterfaces';
 
@@ -20,6 +21,7 @@ const Activity: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ match, lo
         <Route component={Rule} path='/activities/:activityId/rules/:ruleId' />
         <Route component={Rules} path='/activities/:activityId/rules' />
         <Route component={TurkSessions} path='/activities/:activityId/turk-sessions' />
+        <Route component={SessionsIndex} path='/activities/:activityId/activity-sessions' />
       </Switch>
     </div>
   </React.Fragment>);

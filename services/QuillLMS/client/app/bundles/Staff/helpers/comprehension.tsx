@@ -58,7 +58,10 @@ export const buildBlankPrompt = (conjunction: string) => {
     conjunction: conjunction,
     text: '',
     max_attempts: DEFAULT_MAX_ATTEMPTS,
-    max_attempts_feedback: ''
+    max_attempts_feedback: '',
+    plagiarism_text: '',
+    plagiarism_first_feedback: '',
+    plagiarism_second_feedback: ''
   }
 }
 
@@ -174,6 +177,14 @@ export function getActivityPromptSetter({
   }
   return updatePrompt;
 };
+
+export function getPromptForActivitySession(sessionData: any, index: number) {
+  if(!sessionData) {
+    return null;
+  }
+  const { prompts } = sessionData;
+  return prompts[index];
+}
 
 const targetReadingLevelError = (value: string) => {
   if(!value) {

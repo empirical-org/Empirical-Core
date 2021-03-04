@@ -104,6 +104,35 @@ export const DEFAULT_MAX_ATTEMPTS = 5;
 export const FIRST = 'first';
 export const SECOND = 'second';
 
+export const PROMPT_ATTEMPTS_FEEDBACK_LABELS = {
+  "1": {
+    attemptLabel: '1st Attempt',
+    feedbackLabel: '1st Feedback',
+  },
+  "2": {
+    attemptLabel: '2nd Attempt',
+    feedbackLabel: '2nd Feedback',
+  },
+  "3": {
+    attemptLabel: '3rd Attempt',
+    feedbackLabel: '3rd Feedback',
+  },
+  "4": {
+    attemptLabel: '4th Attempt',
+    feedbackLabel: '4th Feedback',
+  },
+  "5": {
+    attemptLabel: '5th Attempt',
+    feedbackLabel: '5th Feedback',
+  }
+}
+
+export const PROMPT_HEADER_LABELS = {
+  "because": 'Because Responses',
+  "but": 'But Responses',
+  "so": 'So Responses',
+}
+
 export const blankActivity = {
   title: '',
   // flag:'',
@@ -115,19 +144,28 @@ export const blankActivity = {
       conjunction: 'because',
       text: '',
       max_attempts: 5,
-      max_attempts_feedback: 'try again.'
+      max_attempts_feedback: 'try again.',
+      plagiarism_text: '',
+      plagiarism_first_feedback: '',
+      plagiarism_second_feedback: ''
     },
     {
       conjunction: 'but',
       text: '',
       max_attempts: 5,
-      max_attempts_feedback: 'try again.'
+      max_attempts_feedback: 'try again.',
+      plagiarism_text: '',
+      plagiarism_first_feedback: '',
+      plagiarism_second_feedback: ''
     },
     {
       conjunction: 'so',
       text: '',
       max_attempts: 5,
-      max_attempts_feedback: 'try again.'
+      max_attempts_feedback: 'try again.',
+      plagiarism_text: '',
+      plagiarism_first_feedback: '',
+      plagiarism_second_feedback: ''
     }
   ]
 }

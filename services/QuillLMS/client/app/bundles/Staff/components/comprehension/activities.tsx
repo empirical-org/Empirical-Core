@@ -8,14 +8,15 @@ import { ActivityInterface } from '../../interfaces/comprehensionInterfaces';
 import { fetchActivities } from '../../utils/comprehension/activityAPIs';
 import { DataTable, Error, Spinner } from '../../../Shared/index';
 
-const Activities = ({ location, match, }) => {
+const Activities = ({ location, match, type }) => {
 
   // cache activity data for updates
   const { data } = useQuery("activities", fetchActivities);
 
   const formattedRows = data && data.activities && data.activities.map((activity: ActivityInterface) => {
     const { id,  title } = activity;
-    const activityLink = (<Link to={`/activities/${id}`}>{title}</Link>);
+    const link = type === 'sessions' ? `/activity-sessions/${id}` : `/activities/${id}`
+    const activityLink = (<Link to={link}>{title}</Link>);
     return {
       id,
       title: activityLink

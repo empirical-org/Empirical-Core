@@ -1,0 +1,246 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SessionOverview component should render SessionOverview 1`] = `
+<div
+  className="session-overview-container"
+>
+  <DataTable
+    averageFontWidth={7}
+    className="session-overview-table"
+    headers={
+      Array [
+        Object {
+          "attribute": "field",
+          "name": "",
+          "width": "200px",
+        },
+        Object {
+          "attribute": "value",
+          "name": "",
+          "width": "400px",
+        },
+      ]
+    }
+    rows={
+      Array [
+        Object {
+          "field": "Activity Session",
+          "id": "[object Object]-0",
+          "value": "6c90e707-835c-44c4-80d4-4cab039ec5bc",
+        },
+        Object {
+          "field": "Time Started",
+          "id": "[object Object]-1",
+          "value": "12/18/20 13:12 PM",
+        },
+        Object {
+          "field": "Session Complete?",
+          "id": "[object Object]-2",
+          "value": "True",
+        },
+        Object {
+          "field": "Total Responses",
+          "id": "[object Object]-3",
+          "value": 10,
+        },
+      ]
+    }
+  />
+  <SessionsIndex
+    activity={Object {}}
+    prompt={
+      Object {
+        "attempts": Object {
+          "1": Array [
+            Object {
+              "entry": "this is a test response.",
+              "feedback_text": "this is some test feedback.",
+              "feedback_type": "semantic",
+              "optimal": false,
+              "used": true,
+            },
+            Object {
+              "entry": "this is a test response.",
+              "feedback_text": "this is some test feedback.",
+              "feedback_type": "semantic",
+              "optimal": false,
+              "used": false,
+            },
+          ],
+          "2": Array [
+            Object {
+              "entry": "this is a test response.",
+              "feedback_text": "this is some test feedback.",
+              "feedback_type": "grammar",
+              "optimal": false,
+              "used": true,
+            },
+            Object {
+              "entry": "this is a test response.",
+              "feedback_text": "this is some test feedback.",
+              "feedback_type": "semantic",
+              "optimal": false,
+              "used": false,
+            },
+          ],
+          "3": Array [
+            Object {
+              "entry": "this is a test response.",
+              "feedback_text": "this is some test feedback.",
+              "feedback_type": "plagiarism",
+              "optimal": false,
+              "used": true,
+            },
+            Object {
+              "entry": "this is a test response.",
+              "feedback_text": "this is some test feedback.",
+              "feedback_type": "semantic",
+              "optimal": false,
+              "used": false,
+            },
+          ],
+          "4": Array [
+            Object {
+              "entry": "this is a test response.",
+              "feedback_text": "this is some OPTIMAL test feedback.",
+              "feedback_type": "semantic",
+              "optimal": true,
+              "used": true,
+            },
+            Object {
+              "entry": "this is a test response.",
+              "feedback_text": "this is some test feedback.",
+              "feedback_type": "semantic",
+              "optimal": false,
+              "used": false,
+            },
+          ],
+        },
+        "conjunction": "because",
+        "prompt_id": 1,
+      }
+    }
+    showHeader={true}
+  />
+  <SessionsIndex
+    activity={Object {}}
+    prompt={
+      Object {
+        "attempts": Object {
+          "1": Array [
+            Object {
+              "entry": "this is a test response.",
+              "feedback_text": "this is some test feedback.",
+              "feedback_type": "semantic",
+              "optimal": false,
+              "used": true,
+            },
+            Object {
+              "entry": "this is a test response.",
+              "feedback_text": "this is some test feedback.",
+              "feedback_type": "semantic",
+              "optimal": false,
+              "used": false,
+            },
+          ],
+          "2": Array [
+            Object {
+              "entry": "this is a test response.",
+              "feedback_text": "this is some test feedback.",
+              "feedback_type": "grammar",
+              "optimal": false,
+              "used": true,
+            },
+            Object {
+              "entry": "this is a test response.",
+              "feedback_text": "this is some test feedback.",
+              "feedback_type": "semantic",
+              "optimal": false,
+              "used": false,
+            },
+          ],
+          "3": Array [
+            Object {
+              "entry": "this is a test response.",
+              "feedback_text": "this is some test feedback.",
+              "feedback_type": "grammar",
+              "optimal": false,
+              "used": true,
+            },
+            Object {
+              "entry": "this is a test response.",
+              "feedback_text": "this is some test feedback.",
+              "feedback_type": "semantic",
+              "optimal": false,
+              "used": false,
+            },
+          ],
+        },
+        "conjunction": "but",
+        "prompt_id": 2,
+      }
+    }
+    showHeader={true}
+  />
+  <SessionsIndex
+    activity={Object {}}
+    prompt={
+      Object {
+        "attempts": Object {
+          "1": Array [
+            Object {
+              "entry": "this is a test response with some more text to make it a longer string.",
+              "feedback_text": "this is some test feedback.",
+              "feedback_type": "plagiarism",
+              "optimal": false,
+              "used": true,
+            },
+            Object {
+              "entry": "this is a test response.",
+              "feedback_text": "this is some test feedback.",
+              "feedback_type": "semantic",
+              "optimal": false,
+              "used": false,
+            },
+          ],
+          "2": Array [
+            Object {
+              "entry": "this is a test response with some more text to make it a longer string with some more text to make it an even longer string.",
+              "feedback_text": "this is some test feedback.",
+              "feedback_type": "grammar",
+              "optimal": false,
+              "used": true,
+            },
+            Object {
+              "entry": "this is a test response.",
+              "feedback_text": "this is some test feedback.",
+              "feedback_type": "semantic",
+              "optimal": false,
+              "used": false,
+            },
+          ],
+          "3": Array [
+            Object {
+              "entry": "this is a test response.",
+              "feedback_text": "this is some test feedback.",
+              "feedback_type": "semantic",
+              "optimal": false,
+              "used": true,
+            },
+            Object {
+              "entry": "this is a test response.",
+              "feedback_text": "this is some test feedback.",
+              "feedback_type": "semantic",
+              "optimal": false,
+              "used": false,
+            },
+          ],
+        },
+        "conjunction": "so",
+        "prompt_id": 3,
+      }
+    }
+    showHeader={true}
+  />
+</div>
+`;
