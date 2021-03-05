@@ -24,7 +24,7 @@ const (
 	spell_check_local = "https://us-central1-comprehension-247816.cloudfunctions.net/spell-check-cloud-function"
 	spell_check_bing = "https://us-central1-comprehension-247816.cloudfunctions.net/bing-API-spell-check"
 	batch_feedback_history_url = "https://www.quill.org/api/v1/feedback_histories/batch.json"
-	automl_index = 2
+	automl_index = 3
 )
 
 var wg sync.WaitGroup
@@ -37,7 +37,7 @@ var urls = [...]string{
 	post_topic_regex_api,
 	grammar_check_api,
 	spell_check_bing,
-	typo_regex_api
+	typo_regex_api,
 }
 
 // you can't use const for structs, so this is the closest thing we can get for this value
