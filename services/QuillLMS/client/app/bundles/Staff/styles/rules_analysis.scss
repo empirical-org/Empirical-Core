@@ -9,6 +9,16 @@
   }
 
   .rt-table {
+    .rt-th {
+      border-bottom: 1px solid #eee;
+    }
+    .more-info {
+      padding: 10px;
+    }
+    .expand-cell {
+      font-size: 30px;
+      text-align: center;
+    }
     .rt-td {
       padding: 0px;
       border-right: none;
@@ -20,9 +30,16 @@
       border: none;
       padding: 7px 10px;
       text-align: left;
-      &.odd {
-        background-color: white;
-      }
+      background-color: white;
+    }
+  }
+
+  &.show-colored-rows {
+    .even {
+      background-color: #eee;
+    }
+    .odd {
+      background-color: white;
     }
   }
 

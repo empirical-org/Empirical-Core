@@ -6,12 +6,19 @@ import ReactTable from 'react-table';
 
 import { getPromptsIcons, getUniversalIcon } from '../../../helpers/comprehension';
 import { ActivityRouteProps } from '../../../interfaces/comprehensionInterfaces';
-import { BECAUSE, BUT, SO, ruleOrder } from '../../../../../constants/comprehension';
+import { ruleOrder } from '../../../../../constants/comprehension';
 import { fetchActivity } from '../../../utils/comprehension/activityAPIs';
 import { fetchRules } from '../../../utils/comprehension/ruleAPIs';
 import { Error, Spinner, DropdownInput, } from '../../../../Shared/index';
 
-const Rules: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ history, match }) => {
+const MoreInfo = (row) => {
+  return (<div className="more-info">
+    <p><strong>Rule Description:</strong> <span dangerouslySetInnerHTML={{ __html: row.original.description || "N/A" }} /></p>
+    <p><strong>First Layer Feedback:</strong> <span dangerouslySetInnerHTML={{ __html: row.original.firstLayerFeedback || "N/A" }} /></p>
+  </div>)
+}
+
+const RulesAnalysis: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ history, match }) => {
   const { params } = match;
   const { activityId } = params;
 
@@ -56,6 +63,13 @@ const Rules: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ history, mat
   }).sort(firstBy('apiOrder').thenBy('ruleOrder'));
 
   const dataTableFields = [
+  {
+    expander: true,
+    Header: () => '',
+    width: 65,
+    Expander: ({ isExpanded, ...props }) =>
+      (<div className={`${props.original.className} expand-cell`}>+</div>),
+    },
     {
       Header: "API Name",
       accessor: "apiName",
@@ -114,8 +128,10 @@ const Rules: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ history, mat
     return promptOption
   })
 
+  const containerClassName = sorted.length ? "rules-analysis-container" : "rules-analysis-container show-colored-rows"
+
   return(
-    <div className="rules-analysis-container">
+    <div className={containerClassName}>
       <h1>Rules Analysis</h1>
       <div className="dropdowns">
         <DropdownInput
@@ -134,9 +150,10 @@ const Rules: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ history, mat
         onSortedChange={setSorted}
         showPagination={false}
         sorted={sorted}
+        SubComponent={MoreInfo}
       />}
     </div>
   );
 }
 
-export default Rules
+export default RulesAnalysis
