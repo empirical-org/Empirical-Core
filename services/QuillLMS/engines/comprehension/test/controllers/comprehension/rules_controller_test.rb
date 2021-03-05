@@ -48,6 +48,8 @@ module Comprehension
 
           assert_equal @rule.concept_uid, parsed_response.first['concept_uid']
 
+          assert_equal @rule.display_name, parsed_response.first['display_name']
+
         end
       end
     end

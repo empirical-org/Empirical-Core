@@ -3,7 +3,10 @@ require 'sidekiq/web'
 Rails.application.routes.draw do
   get '/' => 'stats#up'
 
-  resources :responses, only: [:show, :new, :create, :edit, :update, :destroy]
+  put 'responses/replace_concept_uids' => 'responses#replace_concept_uids'
+
+  resources :responses, only: [:show, :create, :update, :destroy]
+
   get  'questions/:question_uid/responses' => 'responses#responses_for_question'
   get  'questions/:question_uid/multiple_choice_options' => 'responses#multiple_choice_options'
   get  'questions/:question_uid/health' => 'responses#health_of_question'
@@ -13,12 +16,11 @@ Rails.application.routes.draw do
   put  'responses/mass_edit/edit_many' => 'responses#edit_many'
   post 'responses/mass_edit/delete_many' => 'responses#delete_many'
   get  'responses/:question_uid/incorrect_sequences' => 'responses#incorrect_sequences'
-  post  'responses/:question_uid/incorrect_sequence_affected_count' => 'responses#count_affected_by_incorrect_sequences'
-  post  'responses/:question_uid/focus_point_affected_count' => 'responses#count_affected_by_focus_points'
+  post 'responses/:question_uid/incorrect_sequence_affected_count' => 'responses#count_affected_by_incorrect_sequences'
+  post 'responses/:question_uid/focus_point_affected_count' => 'responses#count_affected_by_focus_points'
   post 'questions/:question_uid/responses/search' => 'responses#search'
   post 'responses/batch_responses_for_lesson' => 'responses#batch_responses_for_lesson'
-  put 'responses/replace_concept_uids' => 'responses#replace_concept_uids'
-  put 'question/:question_uid/reindex_responses_updated_today_for_given_question' => 'responses#reindex_responses_updated_today_for_given_question'
+  put  'question/:question_uid/reindex_responses_updated_today_for_given_question' => 'responses#reindex_responses_updated_today_for_given_question'
   post 'responses/clone_responses' => 'responses#clone_responses'
   post 'responses/rematch_all' => 'responses#rematch_all_responses_for_question'
   # Stats controller
