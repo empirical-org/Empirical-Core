@@ -194,6 +194,23 @@ class TeacherFixController < ApplicationController
     render json: {}, status: 200
   end
 
+  def merge_activity_packs
+    begin
+      raise 'Please specify an activity pack ID.' if params['from_activity_pack_id'].nil? || params['to_activity_pack_id'].nil?
+      unit1 = Unit.find_by(id: params['from_activity_pack_id'])
+      unit2 = Unit.find_by(id: params['to_activity_pack_id'])
+      raise 'The first activity pack ID is invalid.' if !unit1
+      raise 'The second activity pack ID is invalid.' if !unit2
+      raise 'The two activity packs must belong to the same teacher.' if unit1.user != unit2.user
+
+      raise 'The two activity packs must be assigned to the same classroom.' if (unit1.classrooms & unit2.classrooms).empty?
+      TeacherFixes::merge_two_units(unit1, unit2)
+    rescue => e
+      return render json: { error: e.message || e }
+    end
+    render json: {}, status: 200
+  end
+
   def delete_last_activity_session
     begin
       account_identifier = params['student_identifier']

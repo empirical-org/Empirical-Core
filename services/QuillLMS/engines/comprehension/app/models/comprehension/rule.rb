@@ -11,9 +11,17 @@ module Comprehension
       TYPE_GRAMMAR = 'grammar',
       TYPE_OPINION = 'opinion',
       TYPE_PLAGIARISM = 'plagiarism',
-      TYPE_REGEX = 'rules-based',
+      TYPE_REGEX_ONE = 'rules-based-1',
+      TYPE_REGEX_TWO = 'rules-based-2',
+      TYPE_REGEX_THREE = 'rules-based-3',
       TYPE_SPELLING = 'spelling'
     ]
+    DISPLAY_NAMES = {
+      'rules-based-1': 'Sentence Structure Regex',
+      'rules-based-2': 'Post-Topic Regex',
+      'rules-based-3': 'Typo Regex',
+      'plagiarism': 'Plagiarism'
+    }
     before_validation :assign_uid_if_missing
 
     has_many :feedbacks, inverse_of: :rule, dependent: :destroy
@@ -42,7 +50,7 @@ module Comprehension
       super(options.reverse_merge(
         only: [:id, :uid, :name, :description, :universal, :rule_type, :optimal, :state, :suborder, :concept_uid, :prompt_ids],
         include: [:plagiarism_text, :feedbacks, :label, :regex_rules],
-        methods: :prompt_ids
+        methods: [:prompt_ids, :display_name]
       ))
     end
 
@@ -58,6 +66,10 @@ module Comprehension
       regex_rules.none? do |regex_rule|
         regex_rule.sequence_type == RegexRule::TYPE_INCORRECT ? Regexp.new(regex_rule.regex_text).match(entry) : !Regexp.new(regex_rule.regex_text).match(entry)
       end
+    end
+
+    def display_name
+      DISPLAY_NAMES[rule_type.to_sym] || rule_type
     end
 
     private def assign_uid_if_missing

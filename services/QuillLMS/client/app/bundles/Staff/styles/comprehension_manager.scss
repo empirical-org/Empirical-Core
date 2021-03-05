@@ -108,7 +108,7 @@
     flex-direction: column;
     justify-content: flex-start;
     width: calc(100vw - 200px);
-    padding: 0px 20px;    
+    padding: 0px 20px;
     .tabs-container {
       display: flex;
       width: 100%;
@@ -309,15 +309,20 @@
     }
   }
   .rules-container, .rule-container, .turk-sessions-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+    padding: 20px;
+    width: 80vw;
     .header-container {
-      margin-top: 80px;
+      margin-bottom: 10px;
       width: 900px;
       p {
         font-size: 20px;
         font-weight: bold;
+      }
+      a {
+        color: #00c2a2
+      }
+      a:hover {
+        color: #29d8bc;
       }
     }
     .rules-table, .rule-table, .turk-sessions-table {
@@ -328,12 +333,14 @@
         overflow: auto;
         .data-table-row {
           span {
-            a {
-              color: #00c2a2;
-            }
-            .a:hover {
-              cursor: pointer;
-              color: #19a08a;
+            span {
+              a {
+                color: #00c2a2;
+              }
+              .a:hover {
+                cursor: pointer;
+                color: #29d8bc
+              }
             }
           }
         }
@@ -434,6 +441,9 @@
             width: 100%;
             margin-right: 30px;
             .checkbox-container {
+              display: flex;
+              align-items: center;
+              justify-content: space-between;
               .case-sensitive-label {
                 margin-right: 10px;
               }
@@ -460,7 +470,6 @@
     }
   }
   .turk-sessions-container {
-    margin-top: 30px;
     .add-session-container, .edit-turk-session-container {
       .date-picker-container {
         display: flex;
@@ -493,7 +502,8 @@
       display: flex;
       align-items: center;
       align-self: flex-start;
-      margin-left: 35px;
+      margin-left: 15px;
+      padding: 10px 0px 10px 0px;
     }
     .edit-turk-session-container {
       display: flex;
@@ -550,6 +560,14 @@
         margin-right: 20px;
       }
     }
+    .header-container {
+      a {
+        color: #00c2a2
+      }
+      a:hover {
+        color: #29d8bc;
+      }
+    }
     .sortable-instructions {
       margin: 10px 0px 10px 3px;
       font-style: italic;
@@ -563,6 +581,28 @@
         border-radius: 6px;
         p {
           margin: 0px
+        }
+      }
+      .data-table-body{
+        max-height: 500px;
+        overflow: auto;
+        .data-table-row {
+          span {
+            span {
+              a {
+                color: #00c2a2;
+              }
+              .a:hover {
+                cursor: pointer;
+                color: #29d8bc
+              }
+            }
+          }
+        }
+        .quill-tooltip-trigger {
+          .quill-tooltip {
+            display: none;
+          }
         }
       }
     }

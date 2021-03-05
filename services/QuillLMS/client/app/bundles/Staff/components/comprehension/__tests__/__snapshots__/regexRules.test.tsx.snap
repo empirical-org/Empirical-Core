@@ -21,6 +21,31 @@ exports[`RegexRules component should render RegexRules 1`] = `
       <div
         className="checkbox-container"
       >
+        <DropdownInput
+          className="rule-type-input"
+          handleChange={[Function]}
+          id="regex-rule-0"
+          isSearchable={true}
+          label="Sequence Type"
+          options={
+            Array [
+              Object {
+                "label": "Incorrect",
+                "value": "incorrect",
+              },
+              Object {
+                "label": "Required",
+                "value": "required",
+              },
+            ]
+          }
+          value={
+            Object {
+              "label": "Incorrect",
+              "value": "incorrect",
+            }
+          }
+        />
         <label
           className="case-sensitive-label"
           htmlFor="regex-case-sensitive-0"
@@ -64,6 +89,31 @@ exports[`RegexRules component should render RegexRules 1`] = `
       <div
         className="checkbox-container"
       >
+        <DropdownInput
+          className="rule-type-input"
+          handleChange={[Function]}
+          id="regex-rule-1"
+          isSearchable={true}
+          label="Sequence Type"
+          options={
+            Array [
+              Object {
+                "label": "Incorrect",
+                "value": "incorrect",
+              },
+              Object {
+                "label": "Required",
+                "value": "required",
+              },
+            ]
+          }
+          value={
+            Object {
+              "label": "Incorrect",
+              "value": "incorrect",
+            }
+          }
+        />
         <label
           className="case-sensitive-label"
           htmlFor="regex-case-sensitive-1"
@@ -107,6 +157,31 @@ exports[`RegexRules component should render RegexRules 1`] = `
       <div
         className="checkbox-container"
       >
+        <DropdownInput
+          className="rule-type-input"
+          handleChange={[Function]}
+          id="regex-rule-2"
+          isSearchable={true}
+          label="Sequence Type"
+          options={
+            Array [
+              Object {
+                "label": "Incorrect",
+                "value": "incorrect",
+              },
+              Object {
+                "label": "Required",
+                "value": "required",
+              },
+            ]
+          }
+          value={
+            Object {
+              "label": "Incorrect",
+              "value": "incorrect",
+            }
+          }
+        />
         <label
           className="case-sensitive-label"
           htmlFor="regex-case-sensitive-2"

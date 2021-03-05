@@ -35,7 +35,7 @@ exports[`RuleUniversalAttributes component should render RuleUniversalAttributes
       className="rule-type-input"
       handleChange={[Function]}
       isSearchable={true}
-      label="Optimal?"
+      label="Highlight Type"
       options={
         Array [
           Object {
@@ -54,7 +54,7 @@ exports[`RuleUniversalAttributes component should render RuleUniversalAttributes
       }
       value={
         Object {
-          "label": "prompt",
+          "label": "Prompt",
           "value": "prompt",
         }
       }
@@ -80,7 +80,7 @@ exports[`RuleUniversalAttributes component should render RuleUniversalAttributes
       className="rule-type-input"
       handleChange={[Function]}
       isSearchable={true}
-      label="Optimal?"
+      label="Highlight Type"
       options={
         Array [
           Object {
@@ -99,7 +99,7 @@ exports[`RuleUniversalAttributes component should render RuleUniversalAttributes
       }
       value={
         Object {
-          "label": "prompt",
+          "label": "Prompt",
           "value": "prompt",
         }
       }

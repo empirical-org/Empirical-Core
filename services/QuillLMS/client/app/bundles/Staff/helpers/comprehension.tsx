@@ -112,20 +112,6 @@ export const formatPrompts = ({ activityData, rule, setRulePrompts }) => {
   setRulePrompts(formatted);
 }
 
-export const formatRegexRules = ({ rule, setRegexRules }) => {
-  let formatted = {};
-  rule && rule.regex_rules && rule.regex_rules.map((rule, i) => {
-    const { case_sensitive, id, regex_text } = rule;
-    const formattedRule = {
-      id: id,
-      case_sensitive: case_sensitive,
-      regex_text: regex_text
-    }
-    formatted[`regex-rule-${i}`] = formattedRule;
-  });
-  setRegexRules(formatted);
-}
-
 export const promptsByConjunction = (prompts: PromptInterface[]) => {
   const formattedPrompts = {};
   prompts && prompts.map((prompt: PromptInterface) => formattedPrompts[prompt.conjunction] = prompt);
