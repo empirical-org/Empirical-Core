@@ -1,0 +1,29 @@
+.rules-analysis-container {
+  .dropdowns {
+    margin-top: 20px;
+    min-height: 58px;
+  }
+
+  .dropdown-container {
+    max-width: 600px;
+  }
+
+  .rt-table {
+    .rt-td {
+      padding: 0px;
+      border-right: none;
+      white-space: pre-wrap;
+    }
+    button {
+      height: 100%;
+      width: 100%;
+      border: none;
+      padding: 7px 10px;
+      text-align: left;
+      &.odd {
+        background-color: white;
+      }
+    }
+  }
+
+}

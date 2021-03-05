@@ -97,6 +97,9 @@ const Navigation = ({ location, match }) => {
         <NavLink activeClassName="is-active" to={`/activities/${activityId}/sessions`}>
           View Sessions
         </NavLink>
+        <NavLink activeClassName="is-active" to={`/activities/${activityId}/rules-analysis`}>
+          Rules Analysis
+        </NavLink>
       </ul>
     </React.Fragment>)
   }
