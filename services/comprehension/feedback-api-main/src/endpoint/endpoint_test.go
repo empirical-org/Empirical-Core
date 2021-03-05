@@ -12,18 +12,12 @@ import (
 	"time"
 )
 
-// func assert(pred bool, message string, t *testing.T) {
-// 	if !pred {
-// 		t.Errorf(message)
-// 	}
-// }
-
 // We want to be alerted at CI time if requests to upstream APIs are not succeeding
 func TestUpstreamAPIIntegrations(t *testing.T) {
 	api_request := APIRequest{
 		Prompt_text:       "They cut funding because",
 		Entry:             "they needed to save money.",
-		Prompt_id:         26,
+		Prompt_id:         97,
 		Session_id:        "go_test",
 		Attempt:           2,
 		Previous_feedback: make([]string, 0),
