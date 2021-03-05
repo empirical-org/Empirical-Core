@@ -169,7 +169,6 @@ func getAPIResponse(url string, priority int, json_params []byte, c chan Interna
 				Feedback_type: "API Error",
 				Optimal:       false,
 			},
-			//Previous_feedback: []string, //TODO: pass in
 		}
 		return
 	}
@@ -189,7 +188,6 @@ func getAPIResponse(url string, priority int, json_params []byte, c chan Interna
 				Labels:        url,
 				Optimal:       false,
 			},
-			//Previous_feedback: []string, //TODO: pass in
 		}
 		return
 	}
