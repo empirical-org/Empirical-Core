@@ -1,15 +1,16 @@
 import * as React from "react";
-import { Link, RouteComponentProps } from 'react-router-dom'
+import { RouteComponentProps } from 'react-router-dom'
 import { useQuery } from 'react-query';
 import { firstBy } from "thenby";
 import ReactTable from 'react-table';
 
-import { getPromptsIcons, getUniversalIcon } from '../../../helpers/comprehension';
 import { ActivityRouteProps } from '../../../interfaces/comprehensionInterfaces';
 import { ruleOrder } from '../../../../../constants/comprehension';
 import { fetchActivity } from '../../../utils/comprehension/activityAPIs';
 import { fetchRules } from '../../../utils/comprehension/ruleAPIs';
-import { Error, Spinner, DropdownInput, } from '../../../../Shared/index';
+import { DropdownInput, } from '../../../../Shared/index';
+
+const DEFAULT_RULE_TYPE = 'All Rules'
 
 const MoreInfo = (row) => {
   return (<div className="more-info">
@@ -23,6 +24,7 @@ const RulesAnalysis: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ hist
   const { activityId } = params;
 
   const [selectedPrompt, setSelectedPrompt] = React.useState(null)
+  const [selectedRuleType, setSelectedRuleType] = React.useState({ label: DEFAULT_RULE_TYPE, value: DEFAULT_RULE_TYPE })
   const [sorted, setSorted] = React.useState([])
 
   // cache rules data for updates
@@ -39,7 +41,9 @@ const RulesAnalysis: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ hist
 
 
   const formattedRows = selectedPrompt && rulesData && rulesData.rules && rulesData.rules.filter(rule => {
-    console.log('selectedPrompt', selectedPrompt)
+    if (selectedRuleType.value !== DEFAULT_RULE_TYPE && rule.rule_type !== selectedRuleType.value) {
+      return false
+    }
     return rule.prompt_ids.includes(selectedPrompt.id)
   }).map(rule => {
     const { name, id, rule_type, suborder, description, percentage_strong, percentage_scored, total_responses, scored_responses, feedbacks, } = rule;
@@ -128,6 +132,10 @@ const RulesAnalysis: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ hist
     return promptOption
   })
 
+  const ruleTypeValues = [DEFAULT_RULE_TYPE].concat(Object.keys(ruleOrder))
+
+  const ruleTypeOptions = ruleTypeValues.map(val => ({ label: val, value: val, }))
+
   const containerClassName = sorted.length ? "rules-analysis-container" : "rules-analysis-container show-colored-rows"
 
   return(
@@ -141,8 +149,14 @@ const RulesAnalysis: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ hist
           usesCustomOption={true}
           value={selectedPrompt}
         />
+        <DropdownInput
+          handleChange={setSelectedRuleType}
+          label="Select Rule Type"
+          options={ruleTypeOptions || []}
+          value={selectedRuleType}
+        />
       </div>
-      {selectedPrompt && formattedRows && <ReactTable
+      {selectedPrompt && formattedRows && (<ReactTable
         className="rules-analysis-table"
         columns={dataTableFields}
         data={formattedRows ? formattedRows : []}
@@ -151,7 +165,7 @@ const RulesAnalysis: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ hist
         showPagination={false}
         sorted={sorted}
         SubComponent={MoreInfo}
-      />}
+      />)}
     </div>
   );
 }
