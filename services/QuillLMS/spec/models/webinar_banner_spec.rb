@@ -3,13 +3,13 @@ require 'rails_helper'
 describe WebinarBanner, type: :model do
 
   it "does return false for show? when the key does not have an associated webinar" do
-    time =  DateTime.new(2020,1,1,10,0,0)
+    time =  DateTime.new(2020,1,1,11,0,0)
     banner = WebinarBanner.new(time)
     expect(banner.show?).to eq(false)
   end
 
   it "does return no link or title when the key does not have an associated webinar" do
-    time =  DateTime.new(2020,1,1,10,0,0)
+    time =  DateTime.new(2020,1,1,11,0,0)
     banner = WebinarBanner.new(time)
     expect(banner.link).to eq(nil)
     expect(banner.title).to eq(nil)
