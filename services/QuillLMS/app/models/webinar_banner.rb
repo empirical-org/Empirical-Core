@@ -51,7 +51,7 @@ class WebinarBanner
   end
 
   private def recurring?
-    time.wday == 1 || time.wday == 2
+    time.wday == 1 || time.wday == 2 || time.wday == 3
   end
 
   private def recurring_key
@@ -59,7 +59,7 @@ class WebinarBanner
   end
 
   private def one_off?
-    time.wday == 3
+    false
   end
 
   private def one_off_key
