@@ -41,7 +41,13 @@ function getConceptResultsForAttempt(attempt: ResponseAttempt, question: Questio
       correct: !!attempt.optimal
     }];
   }
-  const directions = question.instructions;
+
+  let directions = question.instructions
+
+  if (index > 0) {
+    directions = question.attempts[index - 1].feedback;
+  }
+
   const attemptNumber = index + 1
   return conceptResults.map((conceptResult: ConceptResult) => {
     return {
