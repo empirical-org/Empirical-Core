@@ -48,6 +48,52 @@ module Comprehension
 
           assert_equal @rule.concept_uid, parsed_response.first['concept_uid']
 
+          assert_equal @rule.display_name, parsed_response.first['display_name']
+
+        end
+      end
+
+      context 'with filter params' do
+        setup do
+          @prompt1 = create(:comprehension_prompt)
+          @prompt2 = create(:comprehension_prompt)
+
+          @rule1 = create(:comprehension_rule, prompts: [@prompt1], rule_type: Rule::TYPE_AUTOML)
+          @rule2 = create(:comprehension_rule, prompts: [@prompt1], rule_type: Rule::TYPE_GRAMMAR)
+          @rule3 = create(:comprehension_rule, prompts: [@prompt2], rule_type: Rule::TYPE_AUTOML)
+          @rule4 = create(:comprehension_rule, prompts: [@prompt2], rule_type: Rule::TYPE_GRAMMAR)
+        end
+
+        should 'only get Rules for specified prompt when provided' do
+          get :index, prompt_id: @prompt1.id
+
+          parsed_response = JSON.parse(response.body)
+
+          assert_equal parsed_response.length, 2
+          parsed_response.each do |r|
+            assert r['prompt_ids'].include?(@prompt1.id)
+          end
+        end
+
+        should 'only get Rules for specified rule type when provided' do
+          get :index, rule_type: Rule::TYPE_AUTOML
+
+          parsed_response = JSON.parse(response.body)
+
+          assert_equal parsed_response.length, 2
+          parsed_response.each do |r|
+            assert_equal r['rule_type'], Rule::TYPE_AUTOML
+          end
+        end
+
+        should 'only get Rules for the intersection of prompt and rule type when both are provided' do
+          get :index, prompt_id: @prompt1.id, rule_type: Rule::TYPE_AUTOML
+
+          parsed_response = JSON.parse(response.body)
+
+          assert_equal parsed_response.length, 1
+          assert parsed_response[0]['prompt_ids'].include?(@prompt1.id)
+          assert_equal parsed_response[0]['rule_type'], Rule::TYPE_AUTOML
         end
       end
     end
