@@ -14,7 +14,7 @@ class SessionFeedbackHistory
       order('start_date DESC')
     query = query.where(comprehension_prompts: {activity_id: activity_id.to_i}) if activity_id
     query = query.limit(page_size)
-    query = query.offset((page.to_i - 1) * page_size.to_i) if page && page > 1
+    query = query.offset((page - 1) * page_size.to_i) if page && page > 1
     query
   end
 
@@ -34,6 +34,8 @@ class SessionFeedbackHistory
 
   def self.serialize_detail_by_activity_session(activity_session_uid)
     histories = FeedbackHistory.where(activity_session_uid: activity_session_uid).all
+
+    return nil if histories.length == 0
 
     start_date = histories.first&.time
     activity_id = histories.first&.prompt&.activity_id

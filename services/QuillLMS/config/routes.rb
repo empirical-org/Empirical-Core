@@ -367,6 +367,7 @@ EmpiricalGrammar::Application.routes.draw do
         post :batch, on: :collection
       end
       resources :lessons_tokens,          only: [:create]
+      resources :session_feedback_histories, only: [:index, :show]
       resources :standard_levels,                only: [:index]
       resources :standards,                  only: [:index]
       resources :standard_categories,        only: [:index]
