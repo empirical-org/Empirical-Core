@@ -94,53 +94,6 @@ class FeedbackHistory < ActiveRecord::Base
     ))
   end
 
-  def self.serialize_detail_by_activity_session(activity_session_uid)
-    histories = where(activity_session_uid: activity_session_uid).all
-
-
-    start_date = histories.first&.time
-    activity_id = histories.first&.prompt&.activity_id
-    because_attempts = serialize_conjunction_feedback_history(histories.filter { |h| h.prompt&.conjunction == 'because' })
-    but_attempts = serialize_conjunction_feedback_history(histories.filter { |h| h.prompt&.conjunction == 'but' })
-    so_attempts = serialize_conjunction_feedback_history(histories.filter { |h| h.prompt&.conjunction == 'so' })
-
-    output = {
-      start_date: start_date,
-      session_uid: activity_session_uid,
-      activity_id: activity_id,
-      session_completed: "",
-      prompts: [
-      ]
-    }
-
-    output.prompts.push(because_attempts) if because_attempts[:prompt_id]
-    output.prompts.push(but_attempts) if but_attempts[:prompt_id]
-    output.prompts.push(so_attempts) if so_attempts[:prompt_id]
-
-    output
-  end
-
-  def self.serialize_conjunction_feedback_history(feedback_histories)
-    conjunction_prompt = {
-      prompt_id: feedback_histories.first&.prompt_id,
-      conjunction: feedback_histories.first&.prompt&.conjunction,
-      attempts: {}
-    }
-
-    feedback_histories.each do |feedback_history|
-      conjunction_prompt[:attempts][feedback_history.attempt] ||= []
-      conjunction_prompt[:attempts][feedback_history.attempt].push({
-        used: feedback_history.used,
-        entry: feedback_history.entry,
-        feedback_text: feedback_history.feedback_text,
-        feedback_type: feedback_history.feedback_type,
-        optimal: feedback_history.optimal
-      })
-    end
-
-    conjunction_prompt
-  end
-
   def self.batch_create(param_array)
     param_array.map { |params| create(params) }
   end
