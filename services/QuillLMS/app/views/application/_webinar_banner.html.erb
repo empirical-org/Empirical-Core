@@ -7,7 +7,7 @@
     <div class="banner" id="webinar-banner">
       <div class="content-container">
         <img alt="Video player with play symbol" class="banner-icon" src=<%= "#{ENV['CDN_URL']}/images/icons/live-stream.svg" %>>
-        <p><%=banner.title %> <a href=<%= banner.link %> rel="noopener noreferrer" target="_blank"><%= banner.link_display_text %></a></p>
+        <p><%=banner.title.html_safe %> <a href=<%= banner.link %> rel="noopener noreferrer" target="_blank"><%= banner.link_display_text %></a></p>
         <img alt="White X" id="close-webinar-banner" src=<%= "#{ENV['CDN_URL']}/images/icons/close-white.svg" %>>
       </div>
     </div>
