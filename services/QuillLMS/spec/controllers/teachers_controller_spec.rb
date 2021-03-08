@@ -3,7 +3,8 @@ require 'rails_helper'
 describe TeachersController, type: :controller do
 
   context "with teacher" do
-    let!(:teacher) { create(:teacher, :with_classrooms_students_and_activities) }
+    let!(:school) { create(:school) }
+    let!(:teacher) { create(:teacher, :with_classrooms_students_and_activities, school: school) }
     let!(:co_taught_classroom) {create(:classroom, :with_no_teacher)}
     let!(:co_taught_classrooms_teacher) {create(:classrooms_teacher, classroom: co_taught_classroom, user: teacher, role: 'coteacher')}
 
@@ -65,6 +66,14 @@ describe TeachersController, type: :controller do
         allow(controller).to receive(:current_user) { user }
         get :admin_dashboard
         expect(response).to render_template('admin')
+      end
+    end
+
+    describe '#unlink' do
+      it 'unlinks the teacher from the school' do
+        expect(SchoolsUsers.find_by(user_id: teacher.id)).to_be
+        post :unlink, teacher_id: teacher.id
+        expect(SchoolsUsers.find_by(user_id: teacher.id)).not_to be
       end
     end
 
