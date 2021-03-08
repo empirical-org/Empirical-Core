@@ -75,10 +75,10 @@ const SemanticRulesIndex = ({ match }) => {
       <Switch>
         <Redirect exact from='/activities/:activityId/semantic-rules' to='/activities/:activityId/semantic-rules/all' />
         {/* eslint-disable react/jsx-no-bind */}
-        <Route component={() => <SemanticRulesOverview prompts={getPromptForComponent(activityData, 'all')} />} path='/activities/:activityId/semantic-rules/all' />
-        <Route component={() => <SemanticRulesOverview prompts={getPromptForComponent(activityData, BECAUSE)} />} path='/activities/:activityId/semantic-rules/because' />
-        <Route component={() => <SemanticRulesOverview prompts={getPromptForComponent(activityData, BUT)} />} path='/activities/:activityId/semantic-rules/but' />
-        <Route component={() => <SemanticRulesOverview prompts={getPromptForComponent(activityData, SO)} />} path='/activities/:activityId/semantic-rules/so' />
+        <Route component={() => <SemanticRulesOverview activityId={activityId} prompts={getPromptForComponent(activityData, 'all')} />} path='/activities/:activityId/semantic-rules/all' />
+        <Route component={() => <SemanticRulesOverview activityId={activityId} prompts={getPromptForComponent(activityData, BECAUSE)} />} path='/activities/:activityId/semantic-rules/because' />
+        <Route component={() => <SemanticRulesOverview activityId={activityId} prompts={getPromptForComponent(activityData, BUT)} />} path='/activities/:activityId/semantic-rules/but' />
+        <Route component={() => <SemanticRulesOverview activityId={activityId} prompts={getPromptForComponent(activityData, SO)} />} path='/activities/:activityId/semantic-rules/so' />
       </Switch>
     </div>
   );

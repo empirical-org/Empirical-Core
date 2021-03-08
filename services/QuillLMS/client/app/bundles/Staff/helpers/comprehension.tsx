@@ -18,7 +18,8 @@ import {
 import { PromptInterface } from '../interfaces/comprehensionInterfaces'
 
 const quillCheckmark = 'https://assets.quill.org/images/icons/check-circle-small.svg';
-const baseUrl = `${process.env.DEFAULT_URL}/api/v1/comprehension/`;
+const baseUrl = `https://www.quill.org/api/v1/comprehension/`;
+// const baseUrl = `${process.env.DEFAULT_URL}/api/v1/comprehension/`;
 const fetchDefaults = require("fetch-defaults");
 
 export const apiFetch = fetchDefaults(fetch, baseUrl, {
@@ -48,8 +49,8 @@ export const getPromptsIcons = (activityData, promptIds: number[]) => {
   return {};
 }
 
-export const getUniversalIcon = (universal: boolean) => {
-  if(universal) {
+export const getCheckIcon = (value: boolean) => {
+  if(value) {
     return (<img alt="quill-circle-checkmark" src={quillCheckmark} />)
   } else {
     return (<div />);
