@@ -1,16 +1,36 @@
 class Api::V1::FeedbackHistoriesController < Api::ApiController
-  before_action :set_feedback_history, only: [:show, :update, :destroy]
+  before_action :set_feedback_history, only: [:update, :destroy]
 
-  # GET /feedback_histories.json
+  DEFAULT_PAGE_SIZE = 25
+
+  # GET /feedback_histories.json?page=1&activity_id=33
   def index
-    @feedback_histories = FeedbackHistory.all
+    activity_id = params[:activity_id]
+    page = [params[:page].to_i, 1].max
+    records = FeedbackHistory.list_by_activity_session
 
-    render json: @feedback_histories
+    count = records.length
+
+    render json: {
+      total_pages: count / DEFAULT_PAGE_SIZE,
+      total_activity_sessions: count,
+      current_page: page,
+      activity_sessions: records.map(&:serialize_list_by_activity_session)
+    }
   end
 
   # GET /feedback_histories/1.json
   def show
-    render json: @feedback_history
+    activity_session_uid = params[:id]
+
+    puts 'id'
+    puts activity_session_uid
+    puts FeedbackHistory.where(activity_session_uid: activity_session_uid).count
+    render json: FeedbackHistory.serialize_detail_by_activity_session(activity_session_uid)
+  end
+
+  def show_by_activity_session
+
   end
 
   # POST /feedback_histories.json
@@ -73,25 +93,19 @@ class Api::V1::FeedbackHistoriesController < Api::ApiController
   end
 
   private def batch_feedback_history_params
-    # Note: nested params MUST be permitted last in any list
-    params.permit(
-      feedback_histories: [
-        :activity_session_uid,
-        :prompt_id,
-        :concept_uid,
-        :attempt,
-        :entry,
-        :feedback_text,
-        :feedback_type,
-        :optimal,
-        :used,
-        :time,
-        :rule_uid,
-        metadata: [
-          :response_id,
-          highlight: []
-        ]
-      ]
-    )[:feedback_histories]
+    params.permit(feedback_histories: [
+      :activity_session_uid,
+      :prompt_id,
+      :concept_uid,
+      :attempt,
+      :entry,
+      :feedback_text,
+      :feedback_type,
+      :optimal,
+      :used,
+      :time,
+      :metadata,
+      :rule_uid
+    ])[:feedback_histories]
   end
 end
