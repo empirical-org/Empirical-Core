@@ -194,6 +194,17 @@ jobs:
             PG_USER: ubuntu
             PG_PASS: ""
             DJANGO_SETTINGS_MODULE: "mysite.settings.circle"
+  comprehension_go_build:
+    working_directory: ~/Empirical-Core
+    docker:
+      - image: circleci/golang:1.12
+    steps:
+      - checkout
+      - run:
+          name: Run tests
+          command: |
+            cd services/comprehension/feedback-api-main/src/endpoint
+            go test
   node_lint:
     working_directory: ~/Empirical-Core
     docker:
@@ -242,6 +253,7 @@ workflows:
       - marking_logic_node_build
       - cms_rails_build
       - comprehension_python_build
+      - comprehension_go_build
   lint-code:
     jobs:
       - node_lint

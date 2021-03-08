@@ -5,14 +5,6 @@ module TeacherFixes
   def self.merge_two_units(unit1, unit2)
     # move all additional information from unit1 into unit2
     # and then delete unit1
-    UnitActivity.where(unit_id: unit1.id).each do |ua1|
-      ua2 = UnitActivity.find_by(unit_id: unit2.id, activity_id: ua1.activity_id)
-      if ua2
-        ua1.update!(visible: false)
-      else
-        ua1.update!(unit_id: unit2.id)
-      end
-    end
     ClassroomUnit.where(unit_id: unit1.id).each do |cu1|
       cu2 = ClassroomUnit.find_by(unit_id: unit2.id, classroom_id: cu1.classroom_id)
       if cu2
@@ -21,9 +13,19 @@ module TeacherFixes
         cu1.update!(unit_id: unit2.id)
       end
     end
+    UnitActivity.where(unit_id: unit1.id).each do |ua1|
+      ua2 = UnitActivity.find_by(unit_id: unit2.id, activity_id: ua1.activity_id)
+      if ua2
+        ua1.update!(visible: false)
+      else
+        ua1.update!(unit_id: unit2.id)
+      end
+    end
   end
 
   def self.merge_two_classroom_units(cu1, cu2)
+    # update cu1 activity sessions to belong to cu2
+    merge_activity_sessions_between_two_classroom_units(cu1, cu2)
     # add all assigned students from cu1 to cu2
     all_assigned_students = cu1.assigned_student_ids.dup.concat(cu2.assigned_student_ids).uniq
     cu2.update(assigned_student_ids: all_assigned_students)
@@ -31,18 +33,28 @@ module TeacherFixes
       cuas1 = ClassroomUnitActivityState.find_by(classroom_unit: cu1, unit_activity: ua)
       cuas2 = ClassroomUnitActivityState.find_by(classroom_unit: cu2, unit_activity: ua)
       if cuas1 && !cuas2
-        cuas1.update(classroom_unit_id: cu2)
-      elsif cuas1 && cuas2
-        cuas1.update(visible: false)
+        cuas1.update!(classroom_unit: cu2)
+      elsif cuas1 && cuas2 && cuas1.updated_at > cuas2.updated_at
+        cuas2.destroy!
+        cuas1.update!(classroom_unit: cu2)
       end
     end
-    cu1.update(visible: false)
-    # update cu1 activity sessions to belong to cu2
-    merge_activity_sessions_between_two_classroom_units(cu1, cu2)
+    cu1.update!(visible: false)
   end
 
   def self.merge_activity_sessions_between_two_classroom_units(cu1, cu2)
-    cu1.activity_sessions.each{|act_sesh| act_sesh.update!(classroom_unit_id: cu2.id)}
+    # use the most recently completed activity session
+    cu1.activity_sessions.each do |act_sesh1|
+      act_sesh2 = ActivitySession.find_by(classroom_unit: cu2, activity: act_sesh1.activity, user: act_sesh1.user)
+      if act_sesh2.blank?
+        act_sesh1.update!(classroom_unit_id: cu2.id)
+      elsif act_sesh1.updated_at < act_sesh2.updated_at
+        act_sesh1.update!(visible: false)
+      else
+        act_sesh2.update!(visible: false)
+        act_sesh1.update!(classroom_unit_id: cu2.id)
+      end
+    end
   end
 
   def self.move_activity_sessions(user, classroom1, classroom2)

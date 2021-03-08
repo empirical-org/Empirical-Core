@@ -7,7 +7,7 @@ import { TextEditor } from '../../../../Shared/index'
 
 const mockProps = {
   errors: {},
-  regexFeedback: { text: 'test regex feedback'},
+  regexFeedback: [{ text: 'test regex feedback'}],
   regexRules: [{id: 1, text: 'test1'}, {id: 1, text: 'test2'}],
   rulesToUpdate: [],
   rulesToCreate: [],

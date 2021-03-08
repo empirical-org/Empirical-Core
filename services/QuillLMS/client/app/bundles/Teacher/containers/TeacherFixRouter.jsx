@@ -8,6 +8,7 @@ import RecoverUnitActivities from '../components/teacher_fix/recover_unit_activi
 import RecoverActivitySessions from '../components/teacher_fix/recover_activity_sessions.jsx'
 import MergeStudentAccounts from '../components/teacher_fix/merge_student_accounts.jsx'
 import MergeTeacherAccounts from '../components/teacher_fix/merge_teacher_accounts.jsx'
+import MergeActivityPacks from '../components/teacher_fix/merge_activity_packs'
 import MoveStudent from '../components/teacher_fix/move_student.jsx'
 import GoogleUnsync from '../components/teacher_fix/google_unsync'
 import MergeTwoSchools from '../components/teacher_fix/merge_two_schools'
@@ -28,6 +29,7 @@ const TeacherFixRouter = () => {
             <Route component={GoogleUnsync} path="/teacher_fix/google_unsync" />
             <Route component={MergeTwoSchools} path="/teacher_fix/merge_two_schools" />
             <Route component={MergeTwoClassrooms} path="/teacher_fix/merge_two_classrooms" />
+            <Route component={MergeActivityPacks} path="/teacher_fix/merge_activity_packs" />
             <Route component={DeleteLastActivitySession} path="/teacher_fix/delete_last_activity_session" />
             <Route component={TeacherFixIndex} exact path="/teacher_fix" />
           </Switch>

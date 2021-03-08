@@ -180,6 +180,15 @@ func TestIdentifyUsedFeedbackIndex(t *testing.T) {
 	if result != 2 {
 		t.Errorf("Should have identified 2 for unfound used feedback, but got %d", result)
 	}
+
+	for i := 0; i <= automl_index; i++ {
+		feedbacks[i] = optimal_response
+	}
+
+	result = identifyUsedFeedbackIndex(feedbacks)
+	if result != automl_index {
+		t.Errorf("Should have identified the automl_index constant of %d for unfound used feedback, but got %d", automl_index, result)
+	}
 }
 
 
@@ -242,9 +251,9 @@ func TestBuildBatchFeedbackHistories(t *testing.T) {
 
 	results := map[int]InternalAPIResponse{}
 	results[0] = InternalAPIResponse { APIResponse: APIResponse { Concept_uid: "test_concept", Feedback: "Feedback text: optimal", Feedback_type: "type1", Optimal: true, Labels: "test_label" } }
+	results[1] = InternalAPIResponse { Error: true, APIResponse: APIResponse { Concept_uid: "test_concept", Feedback: "Feedback text: non-optimal", Feedback_type: "type2", Optimal: false, Labels: "test_label" } }
+	results[2] = InternalAPIResponse { APIResponse: APIResponse { Concept_uid: "test_concept", Feedback: "Feedback text: optimal", Feedback_type: "type3", Optimal: false, Labels: "test_label" } }
 	results[automl_index] = InternalAPIResponse { Error: true, APIResponse: default_api_response }
-	results[2] = InternalAPIResponse { Error: true, APIResponse: APIResponse { Concept_uid: "test_concept", Feedback: "Feedback text: non-optimal", Feedback_type: "type2", Optimal: false, Labels: "test_label" } }
-	results[3] = InternalAPIResponse { APIResponse: APIResponse { Concept_uid: "test_concept", Feedback: "Feedback text: optimal", Feedback_type: "type3", Optimal: false, Labels: "test_label" } }
 
 	now := time.Now()
 
@@ -268,6 +277,19 @@ func TestBuildBatchFeedbackHistories(t *testing.T) {
 			FeedbackHistory {
 				Activity_session_uid: api_request.Session_id,
 				Prompt_id: api_request.Prompt_id,
+				Concept_uid: results[2].APIResponse.Concept_uid,
+				Attempt: api_request.Attempt,
+				Entry: api_request.Entry,
+				Feedback_text: results[2].APIResponse.Feedback,
+				Feedback_type: results[2].APIResponse.Feedback_type,
+				Optimal: results[2].APIResponse.Optimal,
+				Used: true,
+				Time: now,
+				Metadata: FeedbackHistoryMetadata { Labels: results[2].APIResponse.Labels },
+			},
+			FeedbackHistory {
+				Activity_session_uid: api_request.Session_id,
+				Prompt_id: api_request.Prompt_id,
 				Concept_uid: default_api_response.Concept_uid,
 				Attempt: api_request.Attempt,
 				Entry: api_request.Entry,
@@ -277,19 +299,6 @@ func TestBuildBatchFeedbackHistories(t *testing.T) {
 				Used: false,
 				Time: now,
 				Metadata: FeedbackHistoryMetadata { Labels: default_api_response.Labels },
-			},
-			FeedbackHistory {
-				Activity_session_uid: api_request.Session_id,
-				Prompt_id: api_request.Prompt_id,
-				Concept_uid: results[3].APIResponse.Concept_uid,
-				Attempt: api_request.Attempt,
-				Entry: api_request.Entry,
-				Feedback_text: results[3].APIResponse.Feedback,
-				Feedback_type: results[3].APIResponse.Feedback_type,
-				Optimal: results[3].APIResponse.Optimal,
-				Used: true,
-				Time: now,
-				Metadata: FeedbackHistoryMetadata { Labels: results[3].APIResponse.Labels },
 			},
 		},
 	}

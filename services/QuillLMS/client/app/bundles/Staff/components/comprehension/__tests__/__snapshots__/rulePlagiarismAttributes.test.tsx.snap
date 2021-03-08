@@ -16,7 +16,7 @@ exports[`RulePlagiarismAttributes component should render RulePlagiarismAttribut
   <p
     className="form-subsection-label"
   >
-    Feedback
+    First Feedback
   </p>
   <TextEditor
     ContentState={[Function]}
@@ -25,6 +25,19 @@ exports[`RulePlagiarismAttributes component should render RulePlagiarismAttribut
     key="first-plagiarism-feedback"
     text="do not plagiarize."
   />
+  <button
+    className="add-highlight quill-button small primary outlined"
+    id="0"
+    onClick={[Function]}
+    type="button"
+  >
+    Add Highlight
+  </button>
+  <p
+    className="form-subsection-label"
+  >
+    Second Feedback
+  </p>
   <TextEditor
     ContentState={[Function]}
     EditorState={[Function]}
@@ -32,5 +45,13 @@ exports[`RulePlagiarismAttributes component should render RulePlagiarismAttribut
     key="second-plagiarism-feedback"
     text="seriously... do not plagiarize!"
   />
+  <button
+    className="add-highlight quill-button small primary outlined"
+    id="1"
+    onClick={[Function]}
+    type="button"
+  >
+    Add Highlight
+  </button>
 </Fragment>
 `;
