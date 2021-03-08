@@ -72,6 +72,7 @@ describe TeachersController, type: :controller do
     describe '#unlink' do
       it 'unlinks teacher from school' do
         expect(SchoolsUsers.find_by(user: teacher)).to be
+        expect($redis).to receive(:del).with("SERIALIZED_ADMIN_USERS_FOR_#{teacher.id}")
         post :unlink, teacher_id: teacher.id
         expect(SchoolsUsers.find_by(user: teacher)).not_to be
       end
