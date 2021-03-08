@@ -151,7 +151,7 @@ class Cms::UsersController < Cms::CmsController
   end
 
   def user_query_params
-    params.permit(@text_search_inputs.map(&:to_sym) + default_params + [:page, :user_role, :user_flag, :sort, :sort_direction, :user_premium_status])
+    params.permit(@text_search_inputs.map(&:to_sym) + default_params + [:page, :user_role, :user_flag, :sort, :sort_direction, :user_premium_status, :class_code])
   end
 
   def user_query(params)
@@ -188,6 +188,8 @@ class Cms::UsersController < Cms::CmsController
       LEFT JOIN user_subscriptions ON users.id = user_subscriptions.user_id
       AND user_subscriptions.created_at = (SELECT MAX(user_subscriptions.created_at) FROM user_subscriptions WHERE user_subscriptions.user_id = users.id)
       LEFT JOIN subscriptions ON user_subscriptions.subscription_id = subscriptions.id
+      LEFT JOIN classrooms_teachers ON users.id = classrooms_teachers.user_id
+      LEFT JOIN classrooms ON classrooms.id = classrooms_teachers.classroom_id
       #{where_query_string_builder}
       #{order_by_query_string}
       #{pagination_query_string}
@@ -237,6 +239,8 @@ class Cms::UsersController < Cms::CmsController
       "schools.name ILIKE #{(sanitized_fuzzy_param_value)}"
     when 'user_premium_status'
       "subscriptions.account_type IN (#{sanitized_param_value})"
+    when 'class_code'
+      "classrooms.code = #{(sanitized_param_value)}"
     else
       nil
     end
@@ -266,12 +270,14 @@ class Cms::UsersController < Cms::CmsController
       LEFT JOIN schools ON schools_users.school_id = schools.id
       LEFT JOIN user_subscriptions ON users.id = user_subscriptions.user_id
       LEFT JOIN subscriptions ON user_subscriptions.subscription_id = subscriptions.id
+      LEFT JOIN classrooms_teachers ON users.id = classrooms_teachers.user_id
+      LEFT JOIN classrooms ON classrooms.id = classrooms_teachers.classroom_id
       #{where_query_string_builder}
     ").to_a[0]['count'].to_i
   end
 
   def set_search_inputs
-    @text_search_inputs = ['user_name', 'user_username', 'user_email', 'user_ip', 'school_name']
+    @text_search_inputs = ['user_name', 'user_username', 'user_email', 'user_ip', 'school_name', 'class_code']
     @school_premium_types = Subscription.account_types
     @user_role_types = User::ROLES
     @all_search_inputs = @text_search_inputs + ['user_premium_status', 'user_role', 'page', 'user_flag']
