@@ -74,8 +74,8 @@ const Navigation = ({ location, match }) => {
         <NavLink activeClassName="is-active" to={`/activities/${activityId}/turk-sessions`}>
           Collect Turk Responses
         </NavLink>
-        <NavLink activeClassName="is-active" to={`/activities/${activityId}/semantic-rules-and-models`}>
-          Semantic Rules + Models
+        <NavLink activeClassName="is-active" to={`/activities/${activityId}/semantic-rules`}>
+          Semantic Rules
         </NavLink>
         <NavLink activeClassName="is-active" to={`/activities/${activityId}/regex-rules`}>
           RegEx Rules

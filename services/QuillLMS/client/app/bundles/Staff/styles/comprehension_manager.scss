@@ -308,7 +308,7 @@
       }
     }
   }
-  .rules-container, .rule-container, .turk-sessions-container {
+  .rules-container, .rule-container, .turk-sessions-container, .semantic-rules-container {
     padding: 20px;
     width: 80vw;
     .header-container {
@@ -323,6 +323,25 @@
       }
       a:hover {
         color: #29d8bc;
+      }
+      h5 {
+        margin: 5px 0px 5px 0px;
+        display: flex;
+        p {
+          margin-left: 5px;
+          font-size: 14px;
+          font-weight: bold;
+        }
+      }
+      .lower-header-container {
+        display: flex;
+        justify-content: space-between;
+      }
+    }
+    .tabs-container {
+      .tab-option {
+        width: 200px;
+        text-align: center;
       }
     }
     .rules-table, .rule-table, .turk-sessions-table {

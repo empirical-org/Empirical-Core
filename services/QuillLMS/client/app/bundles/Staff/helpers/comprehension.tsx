@@ -118,6 +118,18 @@ export const promptsByConjunction = (prompts: PromptInterface[]) => {
   return formattedPrompts;
 }
 
+export function getPromptForComponent(activityData: any, key: string) {
+  if(!activityData || activityData && !activityData.activity) {
+    return null;
+  }
+  const { activity } = activityData;
+  const { prompts } = activity;
+  const promptsHash = {};
+  prompts.forEach(prompt => promptsHash[prompt.conjunction] = [prompt]);
+  promptsHash['all'] = [promptsHash[BECAUSE][0], promptsHash[BUT][0], promptsHash[SO][0]];
+  return promptsHash[key];
+}
+
 export function getActivityPrompt({
   activityBecausePrompt,
   activityButPrompt,
