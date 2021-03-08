@@ -64,6 +64,16 @@ class TeachersController < ApplicationController
     end
   end
 
+  def unlink
+    teacher_id = params["teacher_id"].to_i
+    schools_users = SchoolsUsers.find_by(user_id: teacher_id)
+    if schools_users&.destroy
+      render json: {}, status: 200
+    else
+      render json: {errors: schools_users&.errors}, status: 400
+    end
+  end
+
   def current_user_json
     render json: current_user.to_json
   end

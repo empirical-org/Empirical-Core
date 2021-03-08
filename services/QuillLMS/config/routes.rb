@@ -148,6 +148,7 @@ EmpiricalGrammar::Application.routes.draw do
   get 'teachers/admin_dashboard/district_activity_scores/student_overview' => 'teachers#admin_dashboard'
   get 'teachers/admin_dashboard/district_concept_reports' => 'teachers#admin_dashboard'
   get 'teachers/admin_dashboard/district_standards_reports' => 'teachers#admin_dashboard'
+  post 'teachers/unlink/:teacher_id' => 'teachers#unlink'
   put 'teachers/update_current_user' => 'teachers#update_current_user'
   get 'teachers/:id/schools/:school_id' => 'teachers#add_school'
   get 'teachers/completed_diagnostic_unit_info' => 'teachers#completed_diagnostic_unit_info'
