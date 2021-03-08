@@ -68,6 +68,7 @@ class TeachersController < ApplicationController
     teacher_id = params["teacher_id"].to_i
     schools_users = SchoolsUsers.find_by(user_id: teacher_id)
     if schools_users&.destroy
+      $redis.del("SERIALIZED_ADMIN_USERS_FOR_#{teacher_id}")
       render json: {}, status: 200
     elsif !schools_users
       render json: {errors: 'This user is not attached to a school.'}, status: 400
