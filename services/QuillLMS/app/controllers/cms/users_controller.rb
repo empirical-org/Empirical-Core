@@ -173,7 +173,7 @@ class Cms::UsersController < Cms::CmsController
     # ADJUST THE PAGINATION QUERY STRING AS WELL.
     #
     ActiveRecord::Base.connection.execute("
-      SELECT
+      SELECT DISTINCT
       	users.name AS name,
       	users.email AS email,
       	users.role AS role,
@@ -189,7 +189,8 @@ class Cms::UsersController < Cms::CmsController
       AND user_subscriptions.created_at = (SELECT MAX(user_subscriptions.created_at) FROM user_subscriptions WHERE user_subscriptions.user_id = users.id)
       LEFT JOIN subscriptions ON user_subscriptions.subscription_id = subscriptions.id
       LEFT JOIN classrooms_teachers ON users.id = classrooms_teachers.user_id
-      LEFT JOIN classrooms ON classrooms.id = classrooms_teachers.classroom_id
+      LEFT JOIN students_classrooms ON users.id = students_classrooms.student_id
+      LEFT JOIN classrooms ON classrooms.id = classrooms_teachers.classroom_id OR classrooms.id = students_classrooms.classroom_id
       #{where_query_string_builder}
       #{order_by_query_string}
       #{pagination_query_string}
@@ -271,7 +272,8 @@ class Cms::UsersController < Cms::CmsController
       LEFT JOIN user_subscriptions ON users.id = user_subscriptions.user_id
       LEFT JOIN subscriptions ON user_subscriptions.subscription_id = subscriptions.id
       LEFT JOIN classrooms_teachers ON users.id = classrooms_teachers.user_id
-      LEFT JOIN classrooms ON classrooms.id = classrooms_teachers.classroom_id
+      LEFT JOIN students_classrooms ON users.id = students_classrooms.student_id
+      LEFT JOIN classrooms ON classrooms.id = classrooms_teachers.classroom_id OR classrooms.id = students_classrooms.classroom_id
       #{where_query_string_builder}
     ").to_a[0]['count'].to_i
   end
