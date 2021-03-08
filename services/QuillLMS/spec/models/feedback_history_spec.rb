@@ -167,28 +167,4 @@ RSpec.describe FeedbackHistory, type: :model do
       assert_equal fh.prompt_type, 'MadeUp'
     end
   end
-
-  context '#serialize_list_by_activity_session' do
-    setup do
-      @prompt = Comprehension::Prompt.create(text: 'Test text')
-      @feedback_history = create(:feedback_history, prompt: @prompt)
-    end
-
-    it 'should fill out hash with specified fields' do
-      json_hash = @feedback_history.serialize_list_by_activity_session
-
-    serializable_hash({only: [:session_uid, :start_date, :activity_id, :because_attempts,
-                              :but_attempts, :so_attempts, :complete],
-      assert_equal json_hash['session_uid'], @feedback_history.activity_session_uid
-    end
-
-  end
-
-  context '#self.serialize_conjunction_feedback_history' do
-
-  end
-
-  context '#list_by_activity_session' do
-
-  end
 end
