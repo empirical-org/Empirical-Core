@@ -52,7 +52,7 @@ describe Cms::UsersController do
           "last_sign_in"=> nil,
           "school"=> nil,
           "school_id"=> nil,
-          "id"=> "#{teacher.id}"
+          "id"=> teacher.id.to_s
         }], "userSearchQuery"=> {"class_code"=> class_code}})
       expect(ChangeLog.last.action).to eq(ChangeLog::USER_ACTIONS[:search])
       expect(ChangeLog.last.explanation).to include('class_code')
