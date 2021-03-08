@@ -105,14 +105,14 @@ export default class ActivityPacks extends React.Component {
       createdAt: u.ca_created_at,
       dueDate: u.due_date,
       numberOfAssignedStudents: assignedStudentCount,
-      cumulativeScore,
-      completedCount,
+      cumulativeScore: cumulativeScore || 0,
+      completedCount: completedCount || 0,
     };
   }
 
   generateNewCaUnit = (u) => {
     const assignedStudentCount = this.assignedStudentCount(u);
-    const classroom = { name: u.class_name, totalStudentCount: u.class_size, assignedStudentCount, };
+    const classroom = { name: u.class_name, totalStudentCount: u.class_size, assignedStudentCount, cuId: u.classroom_unit_id };
     const caObj = {
       classrooms: [classroom],
       classroomActivities: new Map(),
@@ -132,8 +132,8 @@ export default class ActivityPacks extends React.Component {
       ownerName: u.owner_name,
       dueDate: u.due_date,
       numberOfAssignedStudents: assignedStudentCount,
-      completedCount: u.completed_count,
-      cumulativeScore: u.classroom_cumulative_score,
+      completedCount: u.completed_count || 0,
+      cumulativeScore: u.classroom_cumulative_score || 0,
     });
     return caObj;
   }
@@ -155,7 +155,7 @@ export default class ActivityPacks extends React.Component {
         const caUnit = parsedUnits[u.unit_id];
         if (caUnit.classrooms.findIndex(c => c.name === u.class_name) === -1) {
           // add the info and student count from the classroom if it hasn't already been done
-          const classroom = { name: u.class_name, totalStudentCount: u.class_size, assignedStudentCount, };
+          const classroom = { name: u.class_name, totalStudentCount: u.class_size, assignedStudentCount, cuId: u.classroom_unit_id};
           caUnit.classrooms.push(classroom);
         }
         // if the activity info already exists, add to the completed count
@@ -163,11 +163,11 @@ export default class ActivityPacks extends React.Component {
         let completedCount,
           cumulativeScore;
         if (caUnit.classroomActivities.has(u.activity_id)) {
-          completedCount = Number(caUnit.classroomActivities.get(u.activity_id).completedCount) + Number(u.completed_count);
-          cumulativeScore = Number(caUnit.classroomActivities.get(u.activity_id).cumulativeScore) + Number(u.classroom_cumulative_score);
+          completedCount = Number(caUnit.classroomActivities.get(u.activity_id).completedCount) + Number(u.completed_count || 0);
+          cumulativeScore = Number(caUnit.classroomActivities.get(u.activity_id).cumulativeScore) + Number(u.classroom_cumulative_score || 0);
         } else {
-          cumulativeScore = Number(u.classroom_cumulative_score);
-          completedCount = Number(u.completed_count);
+          cumulativeScore = Number(u.classroom_cumulative_score || 0);
+          completedCount = Number(u.completed_count || 0);
         }
         //completedCount = Number(4); // number of srudents who completed
         //cumulativeScore = Number(332); // cumulative percentage for those //completed --- 83*4
@@ -183,9 +183,9 @@ export default class ActivityPacks extends React.Component {
         request.get(`${process.env.DEFAULT_URL}/teachers/units/score_info_for_activity/${u.activity_id}?classroom_unit_id=${u.classroom_unit_id}`, (error, httpStatus, body) => {
           this.state.allUnits.forEach((stateUnit) => {
             const unitActivity = stateUnit.classroomActivities.get(u.activity_id)
-            if (typeof unitActivity != 'undefined' && Number(unitActivity.cuId) === Number(u.classroom_unit_id)) {
-              unitActivity.cumulativeScore = JSON.parse(body).cumulative_score;
-              unitActivity.completedCount = JSON.parse(body).completed_count;
+            if (typeof unitActivity != 'undefined' && stateUnit.classrooms.find(c => Number(c.cuId) === Number(u.classroom_unit_id))) {
+              unitActivity.cumulativeScore += JSON.parse(body).cumulative_score;
+              unitActivity.completedCount += JSON.parse(body).completed_count;
             }
           })
           resolve()
