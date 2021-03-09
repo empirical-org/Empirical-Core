@@ -4,14 +4,14 @@ class SessionFeedbackHistory
   DEFAULT_PAGE_SIZE = 25
 
   def self.list_by_activity_session(activity_id: nil, page: 1, page_size: DEFAULT_PAGE_SIZE)
-    query = FeedbackHistory.select('feedback_histories.activity_session_uid AS session_uid, min(feedback_histories.time) as start_date, comprehension_prompts.activity_id, max(because_feedback.attempt) AS because_attempts, max(but_feedback.attempt) AS but_attempts, max(so_feedback.attempt) AS so_attempts, (bool_or(because_feedback.optimal)::integer & bool_or(but_feedback.optimal)::integer & bool_or(so_feedback.optimal)::integer)::boolean AS complete').
-      joins("LEFT OUTER JOIN comprehension_prompts ON feedback_histories.prompt_id = comprehension_prompts.id").
-      joins("LEFT OUTER JOIN feedback_histories AS because_feedback ON feedback_histories.id = because_feedback.id AND comprehension_prompts.conjunction = 'because'").
-      joins("LEFT OUTER JOIN feedback_histories AS but_feedback ON feedback_histories.id = but_feedback.id AND comprehension_prompts.conjunction = 'but'").
-      joins("LEFT OUTER JOIN feedback_histories AS so_feedback ON feedback_histories.id = so_feedback.id AND comprehension_prompts.conjunction = 'so'").
-      where(used: true).
-      group(:activity_session_uid, :activity_id).
-      order('start_date DESC')
+    query = FeedbackHistory.select('feedback_histories.activity_session_uid AS session_uid, min(feedback_histories.time) as start_date, comprehension_prompts.activity_id, max(because_feedback.attempt) AS because_attempts, max(but_feedback.attempt) AS but_attempts, max(so_feedback.attempt) AS so_attempts, (bool_or(because_feedback.optimal)::integer & bool_or(but_feedback.optimal)::integer & bool_or(so_feedback.optimal)::integer)::boolean AS complete')
+      .joins("LEFT OUTER JOIN comprehension_prompts ON feedback_histories.prompt_id = comprehension_prompts.id")
+      .joins("LEFT OUTER JOIN feedback_histories AS because_feedback ON feedback_histories.id = because_feedback.id AND comprehension_prompts.conjunction = 'because'")
+      .joins("LEFT OUTER JOIN feedback_histories AS but_feedback ON feedback_histories.id = but_feedback.id AND comprehension_prompts.conjunction = 'but'")
+      .joins("LEFT OUTER JOIN feedback_histories AS so_feedback ON feedback_histories.id = so_feedback.id AND comprehension_prompts.conjunction = 'so'")
+      .where(used: true)
+      .group(:activity_session_uid, :activity_id)
+      .order('start_date DESC')
     query = query.where(comprehension_prompts: {activity_id: activity_id.to_i}) if activity_id
     query = query.limit(page_size)
     query = query.offset((page - 1) * page_size.to_i) if page && page > 1
@@ -35,7 +35,7 @@ class SessionFeedbackHistory
   def self.serialize_detail_by_activity_session(activity_session_uid)
     histories = FeedbackHistory.where(activity_session_uid: activity_session_uid).all
 
-    return nil if histories.length == 0
+    return nil if histories.empty?
 
     start_date = histories.first&.time
     activity_id = histories.first&.prompt&.activity_id
@@ -58,8 +58,7 @@ class SessionFeedbackHistory
       session_uid: activity_session_uid,
       activity_id: activity_id,
       session_completed: because_complete && but_complete && so_complete,
-      prompts: [
-      ]
+      prompts: []
     }
 
     output[:prompts].push(because_attempts) if because_attempts[:prompt_id]
