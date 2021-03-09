@@ -4,7 +4,7 @@ import { requestPost } from '../../../modules/request/index.js';
 
 const unlink = (id, refreshData) => {
   return requestPost(`/teachers/unlink/${id}`, null, () => {
-    refreshData();
+    refreshData()
   })
 }
 

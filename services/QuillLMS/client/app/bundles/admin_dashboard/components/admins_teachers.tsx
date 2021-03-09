@@ -45,7 +45,7 @@ const AdminsTeachers: React.SFC<AdminsTeachersProps> = ({
     {
       Header: 'Manage',
       Cell: (row) => {
-        return <UnlinkLink id={row.original.id} refreshData={refreshData} />;
+        return <UnlinkLink id={row.original.id} refreshData={refreshData}/>;
       },
     }
   ];
