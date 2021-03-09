@@ -1,18 +1,15 @@
 import * as React from 'react';
 import TeacherLinks from './teacher_links';
-import UnlinkLink from './unlink_link';
 import ReactTable from 'react-table';
 
 interface AdminsTeachersProps {
   data: Array<Object>;
   isValid: boolean;
-  refreshData: () => void;
 }
 
 const AdminsTeachers: React.SFC<AdminsTeachersProps> = ({
   data,
-  isValid,
-  refreshData
+  isValid
 }) => {
   const teacherColumns = [
     {
@@ -36,16 +33,10 @@ const AdminsTeachers: React.SFC<AdminsTeachersProps> = ({
       accessor: 'time_spent',
     },
     {
-      Header: 'Login As Teacher',
+      Header: 'View As Teacher',
       accessor: 'link_components',
       Cell: (row) => {
         return <TeacherLinks isValid={isValid} links={row.original.links} />;
-      },
-    },
-    {
-      Header: 'Manage',
-      Cell: (row) => {
-        return <UnlinkLink id={row.original.id} refreshData={refreshData}/>;
       },
     }
   ];
