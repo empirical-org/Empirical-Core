@@ -55,16 +55,16 @@ describe Cms::UsersController do
           "school_id"=> nil,
           "id"=> teacher.id.to_s
         },
-        {
-          "name" => student.name,
-          "email" => student.email,
-          "role" => student.role,
-          "subscription" => nil,
-          "last_sign_in" => nil,
-          "school" => nil,
-          "school_id" => nil,
-          "id" => student.id.to_s
-        }], "userSearchQuery"=> {"class_code"=> class_code}})
+         {
+           "name" => student.name,
+           "email" => student.email,
+           "role" => student.role,
+           "subscription" => nil,
+           "last_sign_in" => nil,
+           "school" => nil,
+           "school_id" => nil,
+           "id" => student.id.to_s
+         }], "userSearchQuery"=> {"class_code"=> class_code}})
       expect(ChangeLog.last.action).to eq(ChangeLog::USER_ACTIONS[:search])
       expect(ChangeLog.last.explanation).to include('class_code')
     end

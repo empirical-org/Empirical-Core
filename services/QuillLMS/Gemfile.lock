@@ -536,6 +536,7 @@ GEM
       rails (>= 4.0, < 6)
       remotipart (~> 1.3)
       sass-rails (>= 4.0, < 6)
+    rails_autoscale_agent (0.10.2)
     rails_serve_static_assets (0.0.5)
     rails_stdout_logging (0.0.5)
     railties (4.2.11.3)
@@ -854,6 +855,7 @@ DEPENDENCIES
   rails (= 4.2.11.3)
   rails_12factor
   rails_admin (~> 1.4.2)
+  rails_autoscale_agent
   ranked-model
   ransack
   rb-readline
