@@ -49,9 +49,9 @@ export default class AdminDashboard extends React.Component {
   };
 
   initializePusher = () => {
-    if (process.env.RAILS_ENV === 'development') {
-      Pusher.logToConsole = true;
-    }
+
+    Pusher.logToConsole = true;
+
     const adminId = String(this.state.model.id)
     const pusher = new Pusher(process.env.PUSHER_KEY, { encrypted: true, });
     const channel = pusher.subscribe(adminId);
