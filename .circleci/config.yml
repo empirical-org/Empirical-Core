@@ -220,6 +220,7 @@ jobs:
           POSTGRES_USER: ubuntu
           POSTGRES_DB: quill_comprehension_test_db
           POSTGRES_PASSWORD: ""
+      - image: circleci/redis:6.0.9
     steps:
       - checkout
       - restore_cache:
