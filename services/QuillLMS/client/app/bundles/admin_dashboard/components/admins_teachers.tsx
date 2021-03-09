@@ -6,11 +6,13 @@ import ReactTable from 'react-table';
 interface AdminsTeachersProps {
   data: Array<Object>;
   isValid: boolean;
+  refreshData: () => void;
 }
 
 const AdminsTeachers: React.SFC<AdminsTeachersProps> = ({
   data,
-  isValid
+  isValid,
+  refreshData
 }) => {
   const teacherColumns = [
     {
@@ -43,7 +45,7 @@ const AdminsTeachers: React.SFC<AdminsTeachersProps> = ({
     {
       Header: 'Manage',
       Cell: (row) => {
-        return <UnlinkLink id={row.original.id} />;
+        return <UnlinkLink id={row.original.id} refreshData={refreshData}/>;
       },
     }
   ];

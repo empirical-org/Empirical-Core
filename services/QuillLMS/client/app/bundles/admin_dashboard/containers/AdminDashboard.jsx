@@ -44,7 +44,7 @@ export default class AdminDashboard extends React.Component {
     if (Object.keys(data).length > 1) {
       this.setState({ model: data, loading: false, });
     } else {
-      this.setState({ model: data}, this.initializePusher)
+      this.setState({ model: data, loading: true, }, this.initializePusher)
     }
   };
 
@@ -88,6 +88,7 @@ export default class AdminDashboard extends React.Component {
             <AdminsTeachers
               data={this.state.model.teachers}
               isValid={!!this.state.model.valid_subscription}
+              refreshData={this.getData}
             />
             <CreateNewAccounts
               addTeacherAccount={this.addTeacherAccount}
