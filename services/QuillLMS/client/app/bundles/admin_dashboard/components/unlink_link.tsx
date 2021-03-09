@@ -1,4 +1,3 @@
-import { truncate, truncateSync } from 'fs';
 import * as React from 'react';
 import { requestPost } from '../../../modules/request/index.js';
 
