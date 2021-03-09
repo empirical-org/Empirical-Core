@@ -310,6 +310,7 @@ workflows:
       - cms_rails_build
       - comprehension_python_build
       - comprehension_go_build
+      - comprehension_rails_build
   lint-code:
     jobs:
       - node_lint
