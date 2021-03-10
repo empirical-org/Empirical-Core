@@ -39,19 +39,9 @@ class SessionFeedbackHistory
 
     start_date = histories.first&.time
     activity_id = histories.first&.prompt&.activity_id
-    because_attempts = serialize_conjunction_feedback_history(histories.filter { |h| h.prompt&.conjunction == 'because' })
-    but_attempts = serialize_conjunction_feedback_history(histories.filter { |h| h.prompt&.conjunction == 'but' })
-    so_attempts = serialize_conjunction_feedback_history(histories.filter { |h| h.prompt&.conjunction == 'so' })
-
-    because_complete = because_attempts[:attempts].values.any? do |attempt|
-      attempt.any? { |v| v[:optimal] && v[:used] }
-    end
-    but_complete = but_attempts[:attempts].values.any? do |attempt|
-      attempt.any? { |v| v[:optimal] && v[:used] }
-    end
-    so_complete = so_attempts[:attempts].values.any? do |attempt|
-      attempt.any? { |v| v[:optimal] && v[:used] }
-    end
+    because_attempts, because_complete = serialize_conjunction_feedback_history(histories, 'because')
+    but_attempts, but_complete = serialize_conjunction_feedback_history(histories, 'but')
+    so_attempts, so_complete = serialize_conjunction_feedback_history(histories, 'so')
 
     output = {
       start_date: start_date&.iso8601,
@@ -68,7 +58,9 @@ class SessionFeedbackHistory
     output
   end
 
-  private_class_method def self.serialize_conjunction_feedback_history(feedback_histories)
+  private_class_method def self.serialize_conjunction_feedback_history(feedback_histories, conjunction=nil)
+    feedback_histories = feedback_histories.filter { |h| h.prompt&.conjunction == conjunction } if conjunction
+
     conjunction_prompt = {
       prompt_id: feedback_histories.first&.prompt_id,
       conjunction: feedback_histories.first&.prompt&.conjunction,
@@ -86,6 +78,10 @@ class SessionFeedbackHistory
       })
     end
 
-    conjunction_prompt
+    complete = conjunction_prompt[:attempts].values.any? do |attempt|
+      attempt.any? { |entry| entry[:optimal] && entry[:used] }
+    end
+
+    [conjunction_prompt, complete]
   end
 end
