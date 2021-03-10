@@ -36,7 +36,7 @@ const AdminsTeachers: React.SFC<AdminsTeachersProps> = ({
       accessor: 'time_spent',
     },
     {
-      Header: 'View As Teacher',
+      Header: 'Login As Teacher',
       accessor: 'link_components',
       Cell: (row) => {
         return <TeacherLinks isValid={isValid} links={row.original.links} />;
