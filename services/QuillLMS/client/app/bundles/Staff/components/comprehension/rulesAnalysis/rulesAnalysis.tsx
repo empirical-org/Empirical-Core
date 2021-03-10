@@ -67,12 +67,12 @@ const RulesAnalysis: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ hist
   }).sort(firstBy('apiOrder').thenBy('ruleOrder'));
 
   const dataTableFields = [
-  {
-    expander: true,
-    Header: () => '',
-    width: 65,
-    Expander: ({ isExpanded, ...props }) =>
-      (<div className={`${props.original.className} expand-cell`}>+</div>),
+    {
+      expander: true,
+      Header: () => '',
+      width: 65,
+      Expander: ({ isExpanded, ...props }) =>
+        (<div className={`${props.original.className} expand-cell`}>+</div>),
     },
     {
       Header: "API Name",

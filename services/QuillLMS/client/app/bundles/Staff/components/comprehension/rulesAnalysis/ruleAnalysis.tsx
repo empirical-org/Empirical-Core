@@ -3,6 +3,7 @@ import { queryCache, useQuery } from 'react-query';
 import { Link } from 'react-router-dom';
 import stripHtml from "string-strip-html";
 import moment from 'moment';
+import ReactTable from 'react-table';
 
 import { fetchRule } from '../../../utils/comprehension/ruleAPIs';
 import { fetchActivity } from '../../../utils/comprehension/activityAPIs';
@@ -774,10 +775,10 @@ const Rule = ({ history, match }) => {
     return responses.map(r => {
       const formattedResponse = {...r}
       const highlightedEntry = r.entry.replace(r.highlight, `<strong>${r.highlight}</strong>`)
-      const strongButton = <button className={r.strength === true ? 'strength-button strong' : 'strength-button'} onClick={makeStrong(r)}>Strong</button>
-      const weakButton = <button className={r.strength === false ? 'strength-button weak' : 'strength-button'} onClick={makeWeak(r)}>Weak</button>
+      const strongButton = <button className={r.strength === true ? 'strength-button strong' : 'strength-button'} onClick={() => makeStrong(r)} type="button">Strong</button>
+      const weakButton = <button className={r.strength === false ? 'strength-button weak' : 'strength-button'} onClick={() => makeWeak(r)} type="button">Weak</button>
 
-      formattedResponse.entry = <span dangerouslySetInnerHTML={{ __html: highlightedEntry }} />
+      formattedResponse.response = <span dangerouslySetInnerHTML={{ __html: highlightedEntry }} key={r.entry} />
       formattedResponse.datetime = moment(r.datetime).format('MM/DD/YYYY')
       formattedResponse.strengthButtons = (<div className="strength-buttons">{strongButton}{weakButton}</div>)
 
@@ -787,24 +788,25 @@ const Rule = ({ history, match }) => {
 
   const responseHeaders = [
     {
-      name: "Time",
-      attribute: "datetime",
-      width: '100px'
+      Header: "Time",
+      accessor: "datetime",
+      width: 100
     },
     {
-      name: activityData ? activityData.activity.prompts[0].text.replace(activityData.activity.prompts[0].conjunction, '') : '', // necessary because sometimes the conjunction is part of the prompt and sometimes it isn't
-      attribute: "entry",
-      width: '600px'
+      Header: activityData ? activityData.activity.prompts[0].text.replace(activityData.activity.prompts[0].conjunction, '') : '', // necessary because sometimes the conjunction is part of the prompt and sometimes it isn't
+      accessor: "response",
+      width: 600,
+      sortMethod: (a, b) => (a.key.localeCompare(b.key))
     },
     {
-      name: "Highlighted Output",
-      attribute: "highlight",
-      width: '100px'
+      Header: "Highlighted Output",
+      accessor: "highlight",
+      width: 100
     },
     {
-      name: "",
-      attribute: "strengthButtons",
-      width: '300px'
+      Header: "",
+      accessor: "strengthButtons",
+      width: 300
     }
   ]
 
@@ -835,10 +837,12 @@ const Rule = ({ history, match }) => {
         rows={ruleRows(ruleData)}
       />
       <Link className="quill-button medium contained primary" to={`/activities/${activityId}/rules/${ruleData.rule.id}`}>Edit Rule Feedback</Link>
-      <DataTable
+      <ReactTable
         className="responses-table"
-        headers={responseHeaders}
-        rows={responseRows(responseData)}
+        columns={responseHeaders}
+        data={responseRows(responseData)}
+        defaultPageSize={responseRows(responseData).length < 100 ? responseRows(responseData).length : 100}
+        showPagination={true}
       />
     </div>
   );
