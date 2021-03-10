@@ -41,27 +41,27 @@ const RulesAnalysis: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ hist
 
 
   const formattedRows = selectedPrompt && rulesData && rulesData.rules && rulesData.rules.filter(rule => {
-    if (selectedRuleType.value !== DEFAULT_RULE_TYPE && rule.rule_type !== selectedRuleType.value) {
+    if (selectedRuleType.value !== DEFAULT_RULE_TYPE && rule.api_name !== selectedRuleType.value) {
       return false
     }
     return rule.prompt_ids.includes(selectedPrompt.id)
   }).map(rule => {
-    const { name, id, rule_type, suborder, description, percentage_strong, percentage_scored, total_responses, scored_responses, feedbacks, } = rule;
-    const apiOrder = ruleOrder[rule_type]
+    const { name, id, api_name, rule_order, rule_description, pct_strong, pct_scored, total_responses, scored_responses, feedback_first_layer, } = rule;
+    const apiOrder = ruleOrder[api_name]
     return {
       id,
       className: apiOrder % 2 === 0 ? 'even' : 'odd',
       apiOrder,
-      apiName: rule_type,
-      ruleOrder: Number(suborder),
+      apiName: api_name,
+      ruleOrder: Number(rule_order),
       rule: name,
-      percentageStrong: percentage_strong,
+      percentageStrong: pct_strong,
       totalResponses: total_responses,
       scoredResponses: scored_responses,
-      percentageScored: percentage_scored,
+      percentageScored: pct_scored,
       activityId,
-      description,
-      firstLayerFeedback: feedbacks && feedbacks[0].text,
+      description: rule_description,
+      firstLayerFeedback: feedback_first_layer,
       handleClick: () => window.location.href = `/cms/comprehension#/activities/${activityId}/rules-analysis/${id}`
     }
   }).sort(firstBy('apiOrder').thenBy('ruleOrder'));
