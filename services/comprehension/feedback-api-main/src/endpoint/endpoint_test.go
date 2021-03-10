@@ -1,20 +1,55 @@
 package endpoint
 
 import (
+	"bytes"
+	"encoding/json"
 	"io/ioutil"
 	"net/http"
 	"net/http/httptest"
-	"testing"
-	"bytes"
-	"encoding/json"
 	"reflect"
 	"strings"
+	"testing"
 	"time"
 )
 
-func TestPublishMessage(t *testing.T) {
+// We want to be alerted at CI time if requests to upstream APIs are not succeeding
+func TestUpstreamAPIIntegrations(t *testing.T) {
+	api_request := APIRequest{
+		Prompt_text:       "They cut funding because",
+		Entry:             "they needed to save money.",
+		Prompt_id:         97,
+		Session_id:        "go_test",
+		Attempt:           2,
+		Previous_feedback: make([]string, 0),
+	}
+	request_json, _ := json.Marshal(api_request)
+	json_string := bytes.NewBuffer(request_json)
 
-	api_request := APIRequest{Prompt_text: "They cut funding because", Entry: "they needed to save money.", Prompt_id: 4, Session_id: "Asfasdf", Attempt: 2}
+	rr := httptest.NewRecorder()
+	req := httptest.NewRequest("POST", "/", json_string)
+	upstreamAPIResponses := Endpoint(rr, req)
+
+	for _, response := range upstreamAPIResponses {
+		if response.Error == true {
+			t.Errorf(
+				"Endpoint %v got an error with HTTP status %v: %v",
+				response.Url,
+				response.StatusCode,
+				response.APIResponse.Feedback,
+			)
+		}
+	}
+}
+
+func TestPublishMessage(t *testing.T) {
+	api_request := APIRequest{
+		Prompt_text:       "They cut funding because",
+		Entry:             "they needed to save money.",
+		Prompt_id:         4,
+		Session_id:        "Asfasdf",
+		Attempt:           2,
+		Previous_feedback: make([]string, 0),
+	}
 	request_json, _ := json.Marshal(api_request)
 	json_string := bytes.NewBuffer(request_json)
 
@@ -46,7 +81,13 @@ func TestPublishMessage(t *testing.T) {
 
 func TestDefaultFeedbackFallback(t *testing.T) {
 	// Same as the regular test, but with a missing PromptID param which should crash the endpoint
-	api_request := APIRequest{Prompt_text: "They cut funding because", Entry: "they needed to save money.", Session_id: "Asfasdf", Attempt: 2}
+	api_request := APIRequest{
+		Prompt_text:       "They cut funding because",
+		Entry:             "they needed to save money.",
+		Session_id:        "Asfasdf",
+		Attempt:           2,
+		Previous_feedback: make([]string, 0),
+	}
 	request_json, _ := json.Marshal(api_request)
 	json_string := bytes.NewBuffer(request_json)
 
@@ -79,7 +120,7 @@ func TestDefaultFeedbackFallback(t *testing.T) {
 func TestAllOptimal(t *testing.T) {
 	responseOptimal := InternalAPIResponse{
 		APIResponse: APIResponse{Optimal: true},
-		Error: false,
+		Error:       false,
 	}
 
 	results := map[int]InternalAPIResponse{}
@@ -100,12 +141,12 @@ func TestAllOptimal(t *testing.T) {
 func TestFirstResponseErrorAllOptimal(t *testing.T) {
 	responseOptimal := InternalAPIResponse{
 		APIResponse: APIResponse{Optimal: true},
-		Error: false,
+		Error:       false,
 	}
 
 	responseError := InternalAPIResponse{
 		APIResponse: APIResponse{Optimal: false},
-		Error: true,
+		Error:       true,
 	}
 
 	results := map[int]InternalAPIResponse{}
@@ -126,17 +167,17 @@ func TestFirstResponseErrorAllOptimal(t *testing.T) {
 func TestFirstResponseErrorLaterNonOptimal(t *testing.T) {
 	responseOptimal := InternalAPIResponse{
 		APIResponse: APIResponse{Optimal: true},
-		Error: false,
+		Error:       false,
 	}
 
 	responseNonOptimal := InternalAPIResponse{
 		APIResponse: APIResponse{Optimal: false},
-		Error: false,
+		Error:       false,
 	}
 
 	responseError := InternalAPIResponse{
 		APIResponse: APIResponse{Optimal: false},
-		Error: true,
+		Error:       true,
 	}
 
 	results := map[int]InternalAPIResponse{}
@@ -161,9 +202,9 @@ func TestAutoMLIndex(t *testing.T) {
 }
 
 func TestIdentifyUsedFeedbackIndex(t *testing.T) {
-	usable_response := InternalAPIResponse { Error: false, APIResponse: APIResponse { Concept_uid: "test_concept", Feedback: "Feedback text: optimal", Feedback_type: "type1", Optimal: false, Labels: "test_label" } }
-	error_response := InternalAPIResponse { Error: true, APIResponse: APIResponse { Concept_uid: "test_concept", Feedback: "Feedback text: optimal", Feedback_type: "type1", Optimal: false, Labels: "test_label" } }
-	optimal_response := InternalAPIResponse { Error: false, APIResponse: APIResponse { Concept_uid: "test_concept", Feedback: "Feedback text: optimal", Feedback_type: "type1", Optimal: true, Labels: "test_label" } }
+	usable_response := InternalAPIResponse{Error: false, APIResponse: APIResponse{Concept_uid: "test_concept", Feedback: "Feedback text: optimal", Feedback_type: "type1", Optimal: false, Labels: "test_label"}}
+	error_response := InternalAPIResponse{Error: true, APIResponse: APIResponse{Concept_uid: "test_concept", Feedback: "Feedback text: optimal", Feedback_type: "type1", Optimal: false, Labels: "test_label"}}
+	optimal_response := InternalAPIResponse{Error: false, APIResponse: APIResponse{Concept_uid: "test_concept", Feedback: "Feedback text: optimal", Feedback_type: "type1", Optimal: true, Labels: "test_label"}}
 
 	feedbacks := map[int]InternalAPIResponse{}
 
@@ -191,29 +232,29 @@ func TestIdentifyUsedFeedbackIndex(t *testing.T) {
 	}
 }
 
-
 func TestBuildFeedbackHistory(t *testing.T) {
-	request_object := APIRequest {
-		Entry: "test entry",
-		Prompt_text: "test prompt_text",
-		Prompt_id: 1,
-		Session_id: "test session_id",
-		Attempt: 1,
+	request_object := APIRequest{
+		Entry:             "test entry",
+		Prompt_text:       "test prompt_text",
+		Prompt_id:         1,
+		Session_id:        "test session_id",
+		Attempt:           1,
+		Previous_feedback: make([]string, 0),
 	}
-	feedback := InternalAPIResponse {
+	feedback := InternalAPIResponse{
 		Error: false,
-		APIResponse: APIResponse {
-			Concept_uid: "test concept_uid",
-			Feedback: "test feedback",
+		APIResponse: APIResponse{
+			Concept_uid:   "test concept_uid",
+			Feedback:      "test feedback",
 			Feedback_type: "test feedback_type",
-			Optimal: false,
-			Response_id: "test response_id",
-			Labels: "test labels",
-			Highlight: []Highlight {
-				Highlight {
-					Type: "passage",
-					Text: "test highlight",
-					Category: "test highlight category",
+			Optimal:       false,
+			Response_id:   "test response_id",
+			Labels:        "test labels",
+			Highlight: []Highlight{
+				Highlight{
+					Type:      "passage",
+					Text:      "test highlight",
+					Category:  "test highlight category",
 					Character: 0,
 				},
 			},
@@ -223,20 +264,20 @@ func TestBuildFeedbackHistory(t *testing.T) {
 	time_received := time.Now()
 
 	result := buildFeedbackHistory(request_object, feedback, used, time_received)
-	expected := FeedbackHistory {
+	expected := FeedbackHistory{
 		Activity_session_uid: request_object.Session_id,
-		Prompt_id: request_object.Prompt_id,
-		Concept_uid: feedback.APIResponse.Concept_uid,
-		Attempt: request_object.Attempt,
-		Entry: request_object.Entry,
-		Feedback_text: feedback.APIResponse.Feedback,
-		Feedback_type: feedback.APIResponse.Feedback_type,
-		Optimal: feedback.APIResponse.Optimal,
-		Used: used,
-		Time: time_received,
+		Prompt_id:            request_object.Prompt_id,
+		Concept_uid:          feedback.APIResponse.Concept_uid,
+		Attempt:              request_object.Attempt,
+		Entry:                request_object.Entry,
+		Feedback_text:        feedback.APIResponse.Feedback,
+		Feedback_type:        feedback.APIResponse.Feedback_type,
+		Optimal:              feedback.APIResponse.Optimal,
+		Used:                 used,
+		Time:                 time_received,
 		Metadata: FeedbackHistoryMetadata{
-			Highlight: feedback.APIResponse.Highlight,
-			Labels: feedback.APIResponse.Labels,
+			Highlight:   feedback.APIResponse.Highlight,
+			Labels:      feedback.APIResponse.Labels,
 			Response_id: feedback.APIResponse.Response_id,
 		},
 	}
@@ -247,63 +288,70 @@ func TestBuildFeedbackHistory(t *testing.T) {
 }
 
 func TestBuildBatchFeedbackHistories(t *testing.T) {
-	api_request := APIRequest{Prompt_text: "They cut funding because", Entry: "they needed to save money.", Prompt_id: 4, Session_id: "Asfasdf", Attempt: 2}
+	api_request := APIRequest{
+		Prompt_text:       "They cut funding because",
+		Entry:             "they needed to save money.",
+		Prompt_id:         4,
+		Session_id:        "Asfasdf",
+		Attempt:           2,
+		Previous_feedback: make([]string, 0),
+	}
 
 	results := map[int]InternalAPIResponse{}
-	results[0] = InternalAPIResponse { APIResponse: APIResponse { Concept_uid: "test_concept", Feedback: "Feedback text: optimal", Feedback_type: "type1", Optimal: true, Labels: "test_label" } }
-	results[1] = InternalAPIResponse { Error: true, APIResponse: APIResponse { Concept_uid: "test_concept", Feedback: "Feedback text: non-optimal", Feedback_type: "type2", Optimal: false, Labels: "test_label" } }
-	results[2] = InternalAPIResponse { APIResponse: APIResponse { Concept_uid: "test_concept", Feedback: "Feedback text: optimal", Feedback_type: "type3", Optimal: false, Labels: "test_label" } }
-	results[automl_index] = InternalAPIResponse { Error: true, APIResponse: default_api_response }
+	results[0] = InternalAPIResponse{APIResponse: APIResponse{Concept_uid: "test_concept", Feedback: "Feedback text: optimal", Feedback_type: "type1", Optimal: true, Labels: "test_label"}}
+	results[1] = InternalAPIResponse{Error: true, APIResponse: APIResponse{Concept_uid: "test_concept", Feedback: "Feedback text: non-optimal", Feedback_type: "type2", Optimal: false, Labels: "test_label"}}
+	results[2] = InternalAPIResponse{APIResponse: APIResponse{Concept_uid: "test_concept", Feedback: "Feedback text: optimal", Feedback_type: "type3", Optimal: false, Labels: "test_label"}}
+	results[automl_index] = InternalAPIResponse{Error: true, APIResponse: default_api_response}
 
 	now := time.Now()
 
 	payload, _ := buildBatchFeedbackHistories(api_request, results, now)
 
-	expected := BatchHistoriesAPIRequest {
+	expected := BatchHistoriesAPIRequest{
 		Feedback_histories: []FeedbackHistory{
-			FeedbackHistory {
+			FeedbackHistory{
 				Activity_session_uid: api_request.Session_id,
-				Prompt_id: api_request.Prompt_id,
-				Concept_uid: results[0].APIResponse.Concept_uid,
-				Attempt: api_request.Attempt,
-				Entry: api_request.Entry,
-				Feedback_text: results[0].APIResponse.Feedback,
-				Feedback_type: results[0].APIResponse.Feedback_type,
-				Optimal: results[0].APIResponse.Optimal,
-				Used: false,
-				Time: now,
-				Metadata: FeedbackHistoryMetadata { Labels: results[0].APIResponse.Labels },
+				Prompt_id:            api_request.Prompt_id,
+				Concept_uid:          results[0].APIResponse.Concept_uid,
+				Attempt:              api_request.Attempt,
+				Entry:                api_request.Entry,
+				Feedback_text:        results[0].APIResponse.Feedback,
+				Feedback_type:        results[0].APIResponse.Feedback_type,
+				Optimal:              results[0].APIResponse.Optimal,
+				Used:                 false,
+				Time:                 now,
+				Metadata:             FeedbackHistoryMetadata{Labels: results[0].APIResponse.Labels},
 			},
-			FeedbackHistory {
+			FeedbackHistory{
 				Activity_session_uid: api_request.Session_id,
-				Prompt_id: api_request.Prompt_id,
-				Concept_uid: results[2].APIResponse.Concept_uid,
-				Attempt: api_request.Attempt,
-				Entry: api_request.Entry,
-				Feedback_text: results[2].APIResponse.Feedback,
-				Feedback_type: results[2].APIResponse.Feedback_type,
-				Optimal: results[2].APIResponse.Optimal,
-				Used: true,
-				Time: now,
-				Metadata: FeedbackHistoryMetadata { Labels: results[2].APIResponse.Labels },
+				Prompt_id:            api_request.Prompt_id,
+				Concept_uid:          results[2].APIResponse.Concept_uid,
+				Attempt:              api_request.Attempt,
+				Entry:                api_request.Entry,
+				Feedback_text:        results[2].APIResponse.Feedback,
+				Feedback_type:        results[2].APIResponse.Feedback_type,
+				Optimal:              results[2].APIResponse.Optimal,
+				Used:                 true,
+				Time:                 now,
+				Metadata:             FeedbackHistoryMetadata{Labels: results[2].APIResponse.Labels},
 			},
-			FeedbackHistory {
+			FeedbackHistory{
 				Activity_session_uid: api_request.Session_id,
-				Prompt_id: api_request.Prompt_id,
-				Concept_uid: default_api_response.Concept_uid,
-				Attempt: api_request.Attempt,
-				Entry: api_request.Entry,
-				Feedback_text: default_api_response.Feedback,
-				Feedback_type: default_api_response.Feedback_type,
-				Optimal: default_api_response.Optimal,
-				Used: false,
-				Time: now,
-				Metadata: FeedbackHistoryMetadata { Labels: default_api_response.Labels },
+				Prompt_id:            api_request.Prompt_id,
+				Concept_uid:          default_api_response.Concept_uid,
+				Attempt:              api_request.Attempt,
+				Entry:                api_request.Entry,
+				Feedback_text:        default_api_response.Feedback,
+				Feedback_type:        default_api_response.Feedback_type,
+				Optimal:              default_api_response.Optimal,
+				Used:                 false,
+				Time:                 now,
+				Metadata:             FeedbackHistoryMetadata{Labels: default_api_response.Labels},
 			},
 		},
 	}
 
-	if len(payload.Feedback_histories) != len(expected.Feedback_histories){
+	if len(payload.Feedback_histories) != len(expected.Feedback_histories) {
 		t.Errorf("Batch Feedback History rolled up the wrong number of items.\nReceived: %d\nExpected: %d", len(payload.Feedback_histories), len(expected.Feedback_histories))
 	}
 
@@ -321,9 +369,9 @@ func TestBuildBatchFeedbackHistories(t *testing.T) {
 }
 
 type ResponseJson struct {
-	Feedback string
-	Optimal bool
+	Feedback      string
+	Optimal       bool
 	Feedback_type string
-	Response_id string
-	Highlight []string
+	Response_id   string
+	Highlight     []string
 }

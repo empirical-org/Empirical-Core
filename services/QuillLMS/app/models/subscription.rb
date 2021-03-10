@@ -222,6 +222,15 @@ class Subscription < ActiveRecord::Base
     end
   end
 
+  def self.default_expiration_date(school_or_user)
+    last_subscription = school_or_user.subscriptions.active.first
+    if last_subscription.present?
+      redemption_start_date(school_or_user) + 1.year
+    else
+      promotional_dates[:expiration]
+    end
+  end
+
   def update_if_charge_succeeds
     charge = charge_user
     if charge[:status] == 'succeeded'

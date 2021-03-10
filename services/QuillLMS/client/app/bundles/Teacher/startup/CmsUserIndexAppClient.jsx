@@ -249,6 +249,11 @@ export default class CmsUserIndex extends React.Component {
                 <label>School Name</label>
                 <input id='school_name' name='school_name' onChange={e => this.updateField(e, 'school_name')} value={this.state.query.school_name} />
               </div>
+
+              <div className='cms-form-row'>
+                <label>Class Code</label>
+                <input id='class_code' name='class_code' onChange={e => this.updateField(e, 'class_code')} value={this.state.query.class_code} />
+              </div>
             </div>
 
             <div className='cms-meta-right'>

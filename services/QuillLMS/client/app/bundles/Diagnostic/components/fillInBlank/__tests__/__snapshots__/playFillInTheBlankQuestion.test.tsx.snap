@@ -218,6 +218,7 @@ Completa el espacio en blanco con una de estas palabras: a, an, the. Si no se ne
                     "__html": "I have ",
                   }
                 }
+                key="0"
                 style={
                   Object {
                     "marginRight": 5,
@@ -257,6 +258,7 @@ Completa el espacio en blanco con una de estas palabras: a, an, the. Si no se ne
                     "__html": " friend named Marco who loves ",
                   }
                 }
+                key="3"
                 style={
                   Object {
                     "marginRight": 5,
@@ -296,6 +298,7 @@ Completa el espacio en blanco con una de estas palabras: a, an, the. Si no se ne
                     "__html": " football.",
                   }
                 }
+                key="6"
                 style={
                   Object {
                     "marginRight": 5,
