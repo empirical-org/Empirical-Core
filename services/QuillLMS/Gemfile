@@ -143,6 +143,7 @@ gem 'rack-heartbeat'
 gem 'clever-ruby', '~> 2.0.1'
 
 group :production, :staging do
+  gem 'rails_autoscale_agent'
   gem 'rails_12factor'
   gem 'lograge' # for making logs more dense
   # gem 'rack-timeout'
