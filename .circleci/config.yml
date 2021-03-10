@@ -205,6 +205,63 @@ jobs:
           command: |
             cd services/comprehension/feedback-api-main/src/endpoint
             go test
+  comprehension_rails_build:
+    working_directory: ~/Empirical-Core
+    parallelism: 4
+    docker:
+      - image: circleci/ruby:2.6.6
+        environment:
+          PG_DB: quill_comprehension_test_db
+          PG_USER: ubuntu
+          RAILS_ENV: test
+          RACK_ENV: test
+      - image: postgres:10.5-alpine
+        environment:
+          POSTGRES_USER: ubuntu
+          POSTGRES_DB: quill_comprehension_test_db
+          POSTGRES_PASSWORD: ""
+      - image: circleci/redis:6.0.9
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+            - bundle-cache-comprehension-v1-{{ checksum "services/QuillLMS/engines/comprehension/Gemfile.lock" }}
+            - bundle-cache-comprehension-v1
+      - run:
+          name: Bundle Install if cache isn't present.
+          command: |
+            cd services/QuillLMS/engines/comprehension
+            # BUNDLE_GEMS__CONTRIBSYS__COM defined in https://circleci.com/gh/empirical-org/Empirical-Core/edit#env-vars
+            bundle config --local gems.contribsys.com ${BUNDLE_GEMS__CONTRIBSYS__COM}
+            bundle check || bundle install --path vendor/bundle
+      - save_cache:
+          key: bundle-cache-comprehension-v2-{{ checksum "services/QuillLMS/engines/comprehension/Gemfile.lock" }}
+          paths:
+            - services/QuillLMS/engines/comprehension/vendor/bundle
+      - run:
+          name: Install postgres dependencies
+          command: |
+            sudo apt-get update
+            sudo apt-cache search postgres
+            sudo apt install -y postgresql-client
+      - run:
+          name: Copy Config files
+          command: |
+            cd services/QuillLMS/engines/comprehension/test/dummy
+            cp config/database.yml.circle config/database.yml
+      - run:
+          name: Set up DB
+          command: |
+            cd services/QuillLMS/engines/comprehension
+            bundle exec rake db:create
+            bundle exec rake db:migrate
+          environment:
+            DATABASE_URL: "postgres://ubuntu@localhost:5432/quill_comprehension_test_db"
+      - run:
+          name: Run tests
+          command: |
+            cd services/QuillLMS/engines/comprehension
+            bundle exec rake test
   node_lint:
     working_directory: ~/Empirical-Core
     docker:
@@ -254,6 +311,7 @@ workflows:
       - cms_rails_build
       - comprehension_python_build
       - comprehension_go_build
+      - comprehension_rails_build
   lint-code:
     jobs:
       - node_lint
