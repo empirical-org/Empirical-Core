@@ -5,9 +5,11 @@ module Comprehension
 
     # GET /rules.json
     def index
-      @rules = Comprehension::Rule.all
+      @rules = Comprehension::Rule
+      @rules = @rules.joins(:prompts_rules).where(comprehension_prompts_rules: {prompt_id: params[:prompt_id]}) if params[:prompt_id]
+      @rules = @rules.where(rule_type: params[:rule_type]) if params[:rule_type]
 
-      render json: @rules
+      render json: @rules.all
     end
 
     # GET /rules/1.json

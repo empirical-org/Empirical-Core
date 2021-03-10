@@ -8,8 +8,12 @@ class WebinarBanner
 
   ONE_OFFS = {}
 
+  OFFICE_HOURS_TITLE = "Quill Office Hours are live now!"
+
   RECURRING = {
-    '1-16' => ["Quill Webinar 101: Getting Started", "#{ZOOM_URL}/WN_a4Z1_Zs6RSGUWwr_t0V18Q"]
+    '1-16' => ["<strong>Quill Webinar 101: Getting Started</strong> is live now!", "Click here to register and join.", "#{ZOOM_URL}/WN_a4Z1_Zs6RSGUWwr_t0V18Q"],
+    '3-10' => [OFFICE_HOURS_TITLE, "Click here to join", "https://quill-org.zoom.us/j/93744355918#success"],
+    '3-16' => [OFFICE_HOURS_TITLE, "Click here to join", "https://quill-org.zoom.us/j/95335806177#success"]
   }
 
   MLK_DAY_2021 = Date.parse("20210118")
@@ -21,6 +25,10 @@ class WebinarBanner
   end
 
   def link
+    values&.at(2)
+  end
+
+  def link_display_text
     values&.at(1)
   end
 
@@ -29,7 +37,7 @@ class WebinarBanner
   end
 
   def show?
-    link.present? && title.present? && !skipped_day?
+    link.present? && title.present? && link_display_text.present? && !skipped_day?
   end
 
   private def skipped_day?
@@ -45,7 +53,7 @@ class WebinarBanner
   end
 
   private def recurring?
-    time.wday == 1 || time.wday == 2
+    time.wday == 1 || time.wday == 2 || time.wday == 3
   end
 
   private def recurring_key
@@ -53,7 +61,7 @@ class WebinarBanner
   end
 
   private def one_off?
-    time.wday == 3
+    false
   end
 
   private def one_off_key

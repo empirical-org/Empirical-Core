@@ -29,15 +29,44 @@ describe Cms::UsersController do
   end
 
   describe '#search' do
-    before do
-      allow(ActiveRecord::Base.connection).to receive(:execute).and_return(["results"])
-    end
 
     it 'should search for the users' do
       get :search, user_flag: "auditor"
-      expect(response.body).to eq({numberOfPages: 0, userSearchQueryResults: ["results"], userSearchQuery: {user_flag: "auditor"}}.to_json)
+      expect(response.body).to eq({numberOfPages: 0, userSearchQueryResults: [], userSearchQuery: {user_flag: "auditor"}}.to_json)
       expect(ChangeLog.last.action).to eq(ChangeLog::USER_ACTIONS[:search])
       expect(ChangeLog.last.explanation).to include('auditor')
+    end
+
+    it 'should search for the users' do
+      teacher = create(:teacher_with_one_classroom, email: 'test@t.org')
+      classroom = teacher.classrooms_i_teach.first
+      classroom.teachers = [teacher]
+      student = create(:student, classrooms: [classroom])
+      class_code = classroom.code
+      get :search, class_code: class_code
+      expect(JSON.parse(response.body)).to eq({"numberOfPages"=> 1, "userSearchQueryResults"=>
+        [{
+          "name"=> teacher.name,
+          "email"=> teacher.email,
+          "role"=> teacher.role,
+          "subscription"=> nil,
+          "last_sign_in"=> nil,
+          "school"=> nil,
+          "school_id"=> nil,
+          "id"=> teacher.id.to_s
+         },
+         {
+          "name" => student.name,
+          "email" => student.email,
+          "role" => student.role,
+          "subscription" => nil,
+          "last_sign_in" => nil,
+          "school" => nil,
+          "school_id" => nil,
+          "id" => student.id.to_s
+         }], "userSearchQuery"=> {"class_code"=> class_code}})
+      expect(ChangeLog.last.action).to eq(ChangeLog::USER_ACTIONS[:search])
+      expect(ChangeLog.last.explanation).to include('class_code')
     end
   end
 
@@ -146,13 +175,24 @@ describe Cms::UsersController do
 
   describe '#new_subscription' do
     let!(:another_user) { create(:user) }
+    let!(:user_with_no_subscription) { create(:user) }
     let!(:subscription) { create(:subscription)}
     let!(:user_subscription) { create(:user_subscription, user: another_user, subscription: subscription) }
 
-    it 'should create a new subscription with starting after the current subscription ends' do
-      get :new_subscription, id: another_user.id
-      expect(assigns(:subscription).start_date).to eq subscription.expiration
-      expect(assigns(:subscription).expiration).to eq subscription.expiration + 1.year
+    describe 'when there is no existing subscription' do
+      it 'should create a new subscription that starts today and ends at the promotional expiration date' do
+        get :new_subscription, id: user_with_no_subscription.id
+        expect(assigns(:subscription).start_date).to eq Date.today
+        expect(assigns(:subscription).expiration).to eq Subscription.promotional_dates[:expiration]
+      end
+    end
+
+    describe 'when there is an existing subscription' do
+      it 'should create a new subscription with starting after the current subscription ends' do
+        get :new_subscription, id: another_user.id
+        expect(assigns(:subscription).start_date).to eq subscription.expiration
+        expect(assigns(:subscription).expiration).to eq subscription.expiration + 1.year
+      end
     end
   end
 

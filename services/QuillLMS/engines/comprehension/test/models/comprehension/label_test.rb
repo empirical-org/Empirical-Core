@@ -20,6 +20,17 @@ module Comprehension
         @label.reload
         assert_equal @label.name, old_name
       end
+
+      context '#name_unique_for_prompt' do
+        should 'not allow a label to be created if its name collides with another on the prompt' do
+          prompt = create(:comprehension_prompt)
+          @label.rule.update(prompts: [prompt])
+          rule = create(:comprehension_rule, prompts: [prompt])
+          label = build(:comprehension_label, rule: rule, name: @label.name)
+          assert !label.valid?
+          assert label.errors[:name].include?("can't be the same as any other labels related to the same prompt")
+        end
+      end
     end
 
     context 'relationships' do
