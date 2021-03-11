@@ -7,32 +7,34 @@ import { DataTable, Spinner } from '../../../../Shared/index';
 import { getCheckIcon } from '../../../helpers/comprehension';
 
 const LabelsTable = ({ activityId, prompt }) => {
-  let semanticRules;
 
   const { data: rulesData } = useQuery({
     // cache rules data for updates
-    queryKey: [`rules-${activityId}`, activityId],
+    queryKey: [`rules-${activityId}`, activityId, prompt.id, 'autoML'],
     queryFn: fetchRules
   });
 
-  if(rulesData && rulesData.rules) {
-    semanticRules = rulesData.rules.filter(rule => rule.rule_type === 'autoML');
-  }
-
-  const formattedRows = semanticRules && semanticRules.map(rule => {
+  const formattedRows = rulesData && rulesData.rules && rulesData.rules.map(rule => {
     const { name, id, state, optimal, label } = rule;
-    const ruleLink = (<Link to={`/activities/${activityId}/rules/${id}`}>Edit</Link>);
+    const ruleLink = (
+      <Link to={{
+        pathname: `/activities/${activityId}/semantic-rules/${id}`,
+        state: {
+          rule: rule
+        }
+      }}>Edit</Link>
+    );
     return {
       id: id,
       name: name,
-      label_name: label.name,
+      label_name: label && label.name,
       state: state,
       optimal: getCheckIcon(optimal),
       edit: ruleLink
     }
   });
 
-  if(!prompt) {
+  if(!rulesData) {
     return(
       <div className="loading-spinner-container">
         <Spinner />
@@ -48,6 +50,7 @@ const LabelsTable = ({ activityId, prompt }) => {
     { name: "Optimal?", attribute:"optimal", width: "70px" },
     { name: "", attribute:"edit", width: "70px" }
   ];
+  const ruleLink = (<Link to={`/activities/${activityId}/semantic-rules/new`}>Add Rule/Label</Link>);
 
   return(
     <section className="semantic-rules-container">
@@ -56,9 +59,7 @@ const LabelsTable = ({ activityId, prompt }) => {
         <h5>Prompt ID: <p>{prompt.id}</p></h5>
         <section className="lower-header-container">
           <h5>Prompt Labelset</h5>
-          <button className="quill-button fun primary contained" id="add-rule-button" type="submit">
-            Add Rule/Label
-          </button>
+          <button className="quill-button fun primary contained" id="add-rule-button" type="submit">{ruleLink}</button>
         </section>
       </section>
       <DataTable

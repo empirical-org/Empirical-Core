@@ -10,6 +10,8 @@ export function handleSetRuleType(ruleType: DropdownObjectInterface, setRuleType
 
 export function handleSetRuleName(e: InputEvent, setRuleName) { setRuleName(e.target.value) };
 
+export function handleSetRuleLabelName(e: InputEvent, setRuleLabelName) { setRuleLabelName(e.target.value) };
+
 export function handleSetRuleOptimal(ruleOptimal: DropdownObjectInterface, setRuleOptimal) { setRuleOptimal(ruleOptimal) };
 
 export function handleSetRuleConceptUID(e: InputEvent, setRuleConceptUID) { setRuleConceptUID(e.target.value) };

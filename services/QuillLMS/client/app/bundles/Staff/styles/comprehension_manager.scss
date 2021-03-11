@@ -217,7 +217,15 @@
     }
   }
   .activity-form-container, .rule-form-container {
-    .activity-form , .rule-form {
+    .semantic-rule-form-header {
+      a {
+        color: #00c2a2
+      }
+      a:hover {
+        color: #29d8bc;
+      }
+    }
+    .activity-form , .rule-form, .semantic-rule-form {
       padding: 0px 30px 0px 30px;
       max-height: 80vh;
       .card {
@@ -312,7 +320,7 @@
     padding: 20px;
     width: 80vw;
     .header-container {
-      margin-bottom: 10px;
+      margin-bottom: 20px;
       width: 900px;
       p {
         font-size: 20px;
@@ -335,7 +343,14 @@
       }
       .lower-header-container {
         display: flex;
-        justify-content: space-between;
+        align-items: center;
+        #add-rule-button {
+          margin-left: 20px;
+          a {
+            color: white;
+            text-decoration: none;
+          }
+        }
       }
     }
     .tabs-container {
@@ -415,7 +430,7 @@
     }
   }
   .rule-form-container {
-    .rule-form {
+    .rule-form, .semantic-rule-form {
       .rule-type-input {
         &.disabled {
           .dropdown {
@@ -485,6 +500,40 @@
       }
       .add-highlight, .add-feedback-layer {
         margin-top: 15px;
+      }
+    }
+    .semantic-rule-form {
+      margin-top: 20px;
+      padding: 0px;
+      .label-name-input {
+        margin-top: 15px;
+      }
+      .label-status-container {
+        display: flex;
+        align-items: center;
+        margin-top: 20px;
+        #label-status-label {
+          margin-right: 10px;
+          font-size: 12px;
+          font-weight: 600;
+          color: #7f7f7f;
+        }
+        #label-status {
+          font-weight: bold;
+          font-size: 16px;
+        }
+      }
+      .card {
+        max-width: 1000px !important;
+      }
+      .submit-button-container {
+        #rule-cancel-button {
+          margin-left: 20px;
+          a {
+            color: white;
+            text-decoration: none;
+          }
+        }
       }
     }
   }
