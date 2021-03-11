@@ -4,14 +4,18 @@
   }
 
   .responses-table {
-    max-height: 400px;
-    .data-table-row {
-      min-height: 48px;
-      height: min-content;
-    }
-    .data-table-row-section {
-      white-space: pre-wrap;
-    }
+    margin-top: 20px;
+  }
+
+  .rt-td, .rt-th {
+    white-space: pre-wrap;
+  }
+
+  .-odd {
+    background-color: #eee;
+  }
+  .-even {
+    background-color: white;
   }
 
   .strength-button {
