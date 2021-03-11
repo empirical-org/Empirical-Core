@@ -25,7 +25,7 @@ interface RuleFormProps {
 
 const RuleForm = ({ activityData, activityId, closeModal, isUniversal, rule, submitRule, universalRuleType }: RuleFormProps) => {
 
-  const { name, rule_type, id, optimal, plagiarism_text, concept_uid, description, feedbacks } = rule;
+  const { name, rule_type, id, uid, optimal, plagiarism_text, concept_uid, description, feedbacks } = rule;
   const initialRuleType = getInitialRuleType({ isUniversal, rule_type, universalRuleType});
   const initialRuleOptimal = optimal ? ruleOptimalOptions[0] : ruleOptimalOptions[1];
   const initialPlagiarismText = plagiarism_text || { text: '' }
@@ -90,11 +90,14 @@ const RuleForm = ({ activityData, activityId, closeModal, isUniversal, rule, sub
       regexRules,
       rule,
       ruleName,
+      ruleId: null,
+      ruleLabelName: null,
       ruleConceptUID,
       ruleDescription,
       ruleFeedbacks,
       ruleOptimal,
       rulePrompts,
+      rulePromptIds: null,
       rulesCount,
       ruleType,
       setErrors,
@@ -120,6 +123,7 @@ const RuleForm = ({ activityData, activityId, closeModal, isUniversal, rule, sub
           ruleName={ruleName}
           ruleOptimal={ruleOptimal}
           ruleType={ruleType}
+          ruleUID={uid}
           setRuleConceptUID={setRuleConceptUID}
           setRuleDescription={setRuleDescription}
           setRuleName={setRuleName}

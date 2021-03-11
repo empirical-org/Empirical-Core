@@ -1,5 +1,5 @@
 import * as React from "react";
-import { useQuery } from 'react-query';
+import { useQuery, queryCache } from 'react-query';
 import { NavLink, Redirect, Route, Switch, withRouter } from 'react-router-dom';
 
 import SemanticRulesOverview from './semanticRulesOverview'
@@ -8,11 +8,15 @@ import SemanticRuleForm from './semanticRule';
 import { ALL, BECAUSE, BUT, SO, blankRule } from '../../../../../constants/comprehension';
 import { getPromptForComponent } from '../../../helpers/comprehension';
 import { fetchActivity } from '../../../utils/comprehension/activityAPIs';
+import { createRule, updateRule } from '../../../utils/comprehension/ruleAPIs';
 import { Error, Spinner } from '../../../../Shared/index';
+import { RuleInterface } from '../../../interfaces/comprehensionInterfaces';
 
-const SemanticRulesIndex = ({ match, location }) => {
+const SemanticRulesIndex = ({ history, match, location }) => {
   const { params } = match;
   const { activityId } = params;
+
+  const [errors, setErrors] = React.useState<object>({});
 
   // get cached activity data to pass to ruleForm
   const { data: activityData } = useQuery({
@@ -26,6 +30,40 @@ const SemanticRulesIndex = ({ match, location }) => {
     }
     const { title } = activity;
     return <h2>{title}</h2>
+  }
+
+  function handleSetErrors(errors) {
+    setErrors(errors);
+  }
+
+  function handleCreateRule({rule}: {rule: RuleInterface}) {
+    createRule(rule).then((response) => {
+      const { error, rule } = response;
+      if(error) {
+        let updatedErrors = errors;
+        updatedErrors['ruleSetError'] = error;
+        setErrors(updatedErrors);
+      }
+      // update rules cache to display newly created rule
+      queryCache.refetchQueries(`rules-${activityId}`).then(() => {
+        history.push(`/activities/${activityId}/semantic-rules/all`);
+      });
+    });
+  }
+
+  function handleUpdateRule({rule}: {rule: RuleInterface}, ruleId) {
+    updateRule(ruleId, rule).then((response) => {
+      const { error } = response;
+      if(error) {
+        let updatedErrors = errors;
+        updatedErrors['update error'] = error;
+        setErrors(updatedErrors);
+      }
+      // update rules cache to display newly updated rule
+      queryCache.refetchQueries(`rules-${activityId}`).then(() => {
+        history.push(`/activities/${activityId}/semantic-rules/all`);
+      });
+    });
   }
 
   if(!activityData) {
@@ -85,16 +123,22 @@ const SemanticRulesIndex = ({ match, location }) => {
         <Route component={() => <SemanticRuleForm
           activityData={activityData && activityData.activity}
           activityId={activityId}
+          errors={errors}
+          handleSetErrors={handleSetErrors}
           isSemantic={true}
           isUniversal={false}
           rule={blankSemanticRule}
+          submitRule={handleCreateRule}
         />} path='/activities/:activityId/semantic-rules/new' />
         <Route component={() => <SemanticRuleForm
           activityData={activityData && activityData.activity}
           activityId={activityId}
+          errors={errors}
+          handleSetErrors={handleSetErrors}
           isSemantic={true}
           isUniversal={false}
           rule={null}
+          submitRule={handleUpdateRule}
         />} path='/activities/:activityId/semantic-rules/:ruleId' />
       </Switch>
     </div>

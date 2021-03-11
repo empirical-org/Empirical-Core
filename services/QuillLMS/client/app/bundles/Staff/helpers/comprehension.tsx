@@ -18,8 +18,8 @@ import {
 import { PromptInterface } from '../interfaces/comprehensionInterfaces'
 
 const quillCheckmark = 'https://assets.quill.org/images/icons/check-circle-small.svg';
-const baseUrl = `https://www.quill.org/api/v1/comprehension/`;
-// const baseUrl = `${process.env.DEFAULT_URL}/api/v1/comprehension/`;
+// const baseUrl = `https://www.quill.org/api/v1/comprehension/`;
+const baseUrl = `${process.env.DEFAULT_URL}/api/v1/comprehension/`;
 const fetchDefaults = require("fetch-defaults");
 
 export const apiFetch = fetchDefaults(fetch, baseUrl, {

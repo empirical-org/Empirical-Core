@@ -260,8 +260,10 @@ export const buildRule = ({
   ruleConceptUID,
   ruleDescription,
   ruleName,
+  ruleLabelName,
   ruleOptimal,
   rulePrompts,
+  rulePromptIds,
   ruleType,
   ruleFeedbacks,
   universalRulesCount
@@ -303,6 +305,11 @@ export const buildRule = ({
       id: plagiarismText.id,
       text: plagiarismText.text
     };
+  } else if(newOrUpdatedRule.rule_type === 'autoML') {
+    newOrUpdatedRule.label_attributes = {
+      name: ruleLabelName
+    };
+    newOrUpdatedRule.prompt_ids = rulePromptIds;
   }
   return {
     rule: newOrUpdatedRule
@@ -314,10 +321,13 @@ export function handleSubmitRule({
   regexRules,
   rule,
   ruleName,
+  ruleId,
+  ruleLabelName,
   ruleConceptUID,
   ruleDescription,
   ruleOptimal,
   rulePrompts,
+  rulePromptIds,
   rulesCount,
   ruleType,
   setErrors,
@@ -330,10 +340,12 @@ export function handleSubmitRule({
     regexRules,
     rule,
     ruleName,
+    ruleLabelName,
     ruleConceptUID,
     ruleDescription,
     ruleOptimal,
     rulePrompts,
+    rulePromptIds,
     rulesCount,
     ruleType,
     ruleFeedbacks,
@@ -352,8 +364,11 @@ export function handleSubmitRule({
   } else if(ruleType.value === 'plagiarism') {
     keys = keys.concat(['Plagiarism Text', 'First Plagiarism Feedback', 'Second Plagiarism Feedback']);
     state = state.concat([plagiarismText.text, ruleFeedbacks[0].text, ruleFeedbacks[1].text]);
+  } else if(ruleType.value === 'autoML') {
+    keys.push('Label Name');
+    state.push(ruleLabelName);
   }
-  if(!universal) {
+  if(!universal && ruleType.value !== 'autoML') {
     keys.push('Stem Applied');
     state.push(rulePrompts);
   }
@@ -361,6 +376,6 @@ export function handleSubmitRule({
   if(validationErrors && Object.keys(validationErrors).length) {
     setErrors(validationErrors);
   } else {
-    submitRule(newOrUpdatedRule);
+    submitRule(newOrUpdatedRule, ruleId);
   }
 }

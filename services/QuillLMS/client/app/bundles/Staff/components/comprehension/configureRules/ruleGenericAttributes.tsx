@@ -17,7 +17,8 @@ interface RuleGenericAttributesProps {
   errors: any,
   ruleConceptUID: string,
   ruleDescription: string,
-  ruleID: number,
+  ruleID?: number,
+  ruleUID?: string,
   ruleName: string,
   ruleOptimal: any,
   ruleType: any,
@@ -34,6 +35,7 @@ const RuleGenericAttributes = ({
   ruleConceptUID,
   ruleDescription,
   ruleID,
+  ruleUID,
   ruleName,
   ruleOptimal,
   ruleType,
@@ -90,6 +92,14 @@ const RuleGenericAttributes = ({
         options={ruleOptimalOptions}
         value={ruleOptimal}
       />
+      {ruleID && <section className="label-status-container">
+        <p id="label-status-label">Rule ID</p>
+        <p id="label-status">{ruleID}</p>
+      </section>}
+      {ruleUID && <section className="label-status-container">
+        <p id="label-status-label">Rule UID</p>
+        <p id="label-status">{ruleUID}</p>
+      </section>}
       <p className="form-subsection-label">Rule Description</p>
       <TextEditor
         ContentState={ContentState}
