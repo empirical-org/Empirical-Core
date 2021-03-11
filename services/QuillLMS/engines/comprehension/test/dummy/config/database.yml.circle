@@ -1,0 +1,15 @@
+default: &default
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+  timeout: 5000
+
+test_env: &test_env
+  encoding: unicode
+  host:     localhost
+  database: <%= ENV.fetch("PG_DB") %>
+  user: <%= ENV.fetch("PG_USER") %>
+
+test:
+  <<: *default
+  adapter: postgresql
+  <<: *test_env
+

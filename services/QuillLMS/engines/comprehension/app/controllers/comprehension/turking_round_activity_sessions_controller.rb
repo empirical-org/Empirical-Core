@@ -1,5 +1,7 @@
 module Comprehension
   class TurkingRoundActivitySessionsController < ApplicationController
+    skip_before_action :verify_authenticity_token
+
     before_action :set_turking_round_activity_session, only: [:show, :update, :destroy]
 
     # GET /turking_round_activity_sessions.json
