@@ -182,13 +182,25 @@ describe Cms::SchoolsController do
 
   describe '#new_subscription' do
     let!(:school) { create(:school) }
+    let!(:school_with_no_subscription) { create(:school) }
     let!(:subscription) { create(:subscription)}
     let!(:school_subscription) { create(:school_subscription, school: school, subscription: subscription) }
 
-    it 'should create a new subscription with starting after the current subscription ends' do
-      get :new_subscription, id: school.id
-      expect(assigns(:subscription).start_date).to eq subscription.expiration
-      expect(assigns(:subscription).expiration).to eq subscription.expiration + 1.year
+
+    describe 'when there is no existing subscription' do
+      it 'should create a new subscription that starts today and ends at the promotional expiration date' do
+        get :new_subscription, id: school_with_no_subscription.id
+        expect(assigns(:subscription).start_date).to eq Date.today
+        expect(assigns(:subscription).expiration).to eq Subscription.promotional_dates[:expiration]
+      end
+    end
+
+    describe 'when there is an existing subscription' do
+      it 'should create a new subscription with starting after the current subscription ends' do
+        get :new_subscription, id: school.id
+        expect(assigns(:subscription).start_date).to eq subscription.expiration
+        expect(assigns(:subscription).expiration).to eq subscription.expiration + 1.year
+      end
     end
   end
 

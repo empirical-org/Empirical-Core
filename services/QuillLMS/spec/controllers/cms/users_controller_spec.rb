@@ -54,8 +54,8 @@ describe Cms::UsersController do
           "school"=> nil,
           "school_id"=> nil,
           "id"=> teacher.id.to_s
-        },
-        {
+         },
+         {
           "name" => student.name,
           "email" => student.email,
           "role" => student.role,
@@ -64,7 +64,7 @@ describe Cms::UsersController do
           "school" => nil,
           "school_id" => nil,
           "id" => student.id.to_s
-        }], "userSearchQuery"=> {"class_code"=> class_code}})
+         }], "userSearchQuery"=> {"class_code"=> class_code}})
       expect(ChangeLog.last.action).to eq(ChangeLog::USER_ACTIONS[:search])
       expect(ChangeLog.last.explanation).to include('class_code')
     end
@@ -175,13 +175,24 @@ describe Cms::UsersController do
 
   describe '#new_subscription' do
     let!(:another_user) { create(:user) }
+    let!(:user_with_no_subscription) { create(:user) }
     let!(:subscription) { create(:subscription)}
     let!(:user_subscription) { create(:user_subscription, user: another_user, subscription: subscription) }
 
-    it 'should create a new subscription with starting after the current subscription ends' do
-      get :new_subscription, id: another_user.id
-      expect(assigns(:subscription).start_date).to eq subscription.expiration
-      expect(assigns(:subscription).expiration).to eq subscription.expiration + 1.year
+    describe 'when there is no existing subscription' do
+      it 'should create a new subscription that starts today and ends at the promotional expiration date' do
+        get :new_subscription, id: user_with_no_subscription.id
+        expect(assigns(:subscription).start_date).to eq Date.today
+        expect(assigns(:subscription).expiration).to eq Subscription.promotional_dates[:expiration]
+      end
+    end
+
+    describe 'when there is an existing subscription' do
+      it 'should create a new subscription with starting after the current subscription ends' do
+        get :new_subscription, id: another_user.id
+        expect(assigns(:subscription).start_date).to eq subscription.expiration
+        expect(assigns(:subscription).expiration).to eq subscription.expiration + 1.year
+      end
     end
   end
 
