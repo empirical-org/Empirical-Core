@@ -133,6 +133,17 @@ class Cms::SchoolsController < Cms::CmsController
     end
   end
 
+  def unlink
+    begin
+      teacher = User.find(params[:teacher_id])
+      flash[:error] = "It didn't work!" if !teacher.unlink
+      flash[:success] = "Yay! It worked! 🎉"
+      redirect_to :back
+    rescue
+      flash[:error] = "It didn't work. Make sure the teacher still exists and belongs to this school."
+    end
+  end
+
   private
 
   def set_school

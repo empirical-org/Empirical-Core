@@ -27,10 +27,11 @@
             <td>
               <% if !teacher['user_id'].blank? %>
                 <% if !teacher['admin_id'].blank? %>
-                  <%= button_to 'Remove Admin', cms_user_remove_admin_url(:user_id => teacher['user_id'], :school_id => params[:id]), method: :put %>
+                  <%= button_to 'Remove Admin', cms_user_remove_admin_url(:user_id => teacher['user_id'], :school_id => params[:id]), method: :put, class: 'link' %>
                 <% else %>
-                  <%= button_to 'Makee Admin', cms_user_make_admin_url(:user_id => teacher['user_id'], :school_id => params[:id]), method: :put %>
+                  <%= button_to 'Make Admin', cms_user_make_admin_url(:user_id => teacher['user_id'], :school_id => params[:id]), method: :put, class: 'link' %>
                 <% end %>
+                <%= button_to 'Unlink from School', unlink_cms_school_path(teacher_id: teacher['user_id']), method: :post, remote: true, class: 'link' %>
 
                 <td>
                   <%= link_to 'edit', edit_cms_user_path(teacher['user_id']) %>

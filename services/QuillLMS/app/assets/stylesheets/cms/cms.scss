@@ -285,7 +285,7 @@
       text-align: right;
     }
   }
-  
+
   .blog-dropdown-container {
     display: flex;
     .blog-dropdown {
@@ -368,4 +368,12 @@
 .warning {
   color: #c51916;
   margin: 18px;
+}
+
+.link {
+  padding: 0;
+  border: 0px;
+  background: none;
+  border-bottom: 2px solid #eee;
+  color: black;
 }

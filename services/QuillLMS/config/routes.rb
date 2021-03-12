@@ -536,6 +536,7 @@ EmpiricalGrammar::Application.routes.draw do
         get :add_existing_user
         post :add_admin_by_email
         post :add_existing_user_by_email
+        post :unlink
       end
     end
 
