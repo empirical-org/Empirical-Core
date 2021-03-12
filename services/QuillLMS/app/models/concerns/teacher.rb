@@ -370,7 +370,7 @@ module Teacher
   def unlink
     self.school = nil
     updated_school(nil)
-    self.save
+    save
   end
 
   def premium_updated_or_created_today?
