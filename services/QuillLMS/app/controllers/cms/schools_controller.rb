@@ -140,7 +140,7 @@ class Cms::SchoolsController < Cms::CmsController
         flash[:success] = "Yay! It worked! 🎉"
         redirect_to :back
       else
-        flash[:error] = "It didn't work!" if !teacher.unlink
+        flash[:error] = "It didn't work. See a developer about this issue." if !teacher.unlink
         redirect_to :back
       end
     rescue
