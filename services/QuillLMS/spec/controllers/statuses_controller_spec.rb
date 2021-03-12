@@ -13,7 +13,8 @@ describe StatusesController, type: :controller do
 
     context 'upstream 2xx response' do 
       it 'should render OK with status 201' do 
-        VCR.use_cassette('new_relic_deployment_notification') do 
+        VCR.use_cassette('new_relic_deployment_notification') do
+          ENV['NEW_RELIC_APP_ID'] = '638151804'
           post :deployment_notification, **params
         end
         expect(response.status).to eq 201
