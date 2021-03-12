@@ -42,7 +42,7 @@ const AdminsTeachers: React.SFC<AdminsTeachersProps> = ({
       resizable: false,
     },
     {
-      Header: 'Login As Teacher',
+      Header: 'Log In As Teacher',
       accessor: 'link_components',
       Cell: (row) => {
         return <TeacherLinks isValid={isValid} links={row.original.links} />;
