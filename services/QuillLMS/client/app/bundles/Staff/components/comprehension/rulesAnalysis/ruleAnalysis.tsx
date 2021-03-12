@@ -13,9 +13,15 @@ import { fetchResponses } from '../../../utils/comprehension/responseAPIs';
 import { editFeedbackHistory } from '../../../utils/comprehension/feedbackHistoryAPIs';
 import { DataTable, Error, Spinner } from '../../../../Shared/index';
 
-const Rule = ({ history, match }) => {
+const ALL = 'All'
+const SCORED = 'Scored'
+const UNSCORED = 'Unscored'
+
+const RuleAnalysis = ({ history, match }) => {
   const { params } = match;
   const { activityId, ruleId } = params;
+
+  const [filter, setFilter] = React.useState(ALL)
 
   // cache rule data
   const { data: ruleData } = useQuery({
@@ -33,16 +39,25 @@ const Rule = ({ history, match }) => {
   //   queryFn: fetchResponses
   // })
 
+  function handleFilterChange(e) { setFilter(e.target.value) }
 
- async function makeStrong(response) { updateFeedbackHistoryStrength(response.response_id, true) }
+  function filterResponses(r) {
+    if (filter === ALL) { return true }
+    if (filter === SCORED && r.strength !== null) { return true }
+    if (filter === UNSCORED && r.strength === null) { return true }
 
- async function makeWeak(response) { updateFeedbackHistoryStrength(response.response_id, false) }
+    return false
+  }
 
- async function updateFeedbackHistoryStrength(responseId, strong) {
-   editFeedbackHistory(responseId, { strength: strong, }).then((response) => {
-     queryCache.refetchQueries(`responses-for-activity-${activityId}-rule-${ruleId}`);
-   });
- }
+   async function makeStrong(response) { updateFeedbackHistoryStrength(response.response_id, true) }
+
+   async function makeWeak(response) { updateFeedbackHistoryStrength(response.response_id, false) }
+
+   async function updateFeedbackHistoryStrength(responseId, strong) {
+     editFeedbackHistory(responseId, { strength: strong, }).then((response) => {
+       queryCache.refetchQueries(`responses-for-activity-${activityId}-rule-${ruleId}`);
+     });
+   }
 
   const ruleRows = ({ rule }) => {
     if(!rule) {
@@ -107,7 +122,7 @@ const Rule = ({ history, match }) => {
 
   const responseRows = ({ responses, }) => {
     if (!activityData && !responseData) { return [] }
-    return responses.map(r => {
+    return responses.filter(filterResponses).map(r => {
       const formattedResponse = {...r}
       const highlightedEntry = r.entry.replace(r.highlight, `<strong>${r.highlight}</strong>`)
       const strongButton = <button className={r.strength === true ? 'strength-button strong' : 'strength-button'} onClick={() => makeStrong(r)} type="button">Strong</button>
@@ -174,6 +189,26 @@ const Rule = ({ history, match }) => {
         rows={ruleRows(ruleData)}
       />
       <Link className="quill-button medium contained primary" to={`/activities/${activityId}/rules/${ruleData.rule.id}`}>Edit Rule Feedback</Link>
+      <div className="radio-options">
+        <div className="radio">
+          <label id={ALL}>
+            <input aria-labelledby={ALL} checked={filter === ALL} onChange={handleFilterChange} type="radio" value={ALL} />
+            Show all responses
+          </label>
+        </div>
+        <div className="radio">
+          <label id={SCORED}>
+            <input aria-labelledby={SCORED} checked={filter === SCORED} onChange={handleFilterChange} type="radio" value={SCORED} />
+            Show only scored responses
+          </label>
+        </div>
+        <div className="radio">
+          <label id={UNSCORED}>
+            <input aria-labelledby={UNSCORED} checked={filter === UNSCORED} onChange={handleFilterChange} type="radio" value={UNSCORED} />
+            Show only unscored responses
+          </label>
+        </div>
+      </div>
       <ReactTable
         className="responses-table"
         columns={responseHeaders}
@@ -185,4 +220,4 @@ const Rule = ({ history, match }) => {
   );
 }
 
-export default Rule
+export default RuleAnalysis
