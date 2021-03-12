@@ -233,9 +233,26 @@ describe Cms::SchoolsController do
       expect(another_user.reload.school).to eq school
     end
 
-    it 'should create the schools users and redirect to cms school path' do
+    it 'should not create the schools users and redirect to cms school path if email is invalid' do
       post :add_existing_user_by_email, email_address: 'random-invalid-email', id: school.id
       expect(flash[:error]).to eq "It did't work! Make sure the email you typed is correct."
+    end
+  end
+
+  describe '#unlink' do
+    let!(:school) { create(:school)}
+    let!(:another_user) { create(:user, school: school)}
+    before(:each) do
+      request.env['HTTP_REFERER'] = cms_school_path(school.id)
+    end
+
+    it 'should unlink the user and redirect to cms school path' do
+      expect(SchoolsUsers.find_by(user: another_user.id, school: school)).to be
+      post :unlink, teacher_id: another_user.id, id: school.id
+      expect(flash[:success]).to eq "Yay! It worked! 🎉"
+      expect(response).to redirect_to cms_school_path(school.id)
+      expect(SchoolsUsers.find_by(user: another_user.id, school: school)).not_to be
+      expect(another_user.reload.school).to eq nil
     end
   end
 end

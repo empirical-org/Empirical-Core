@@ -86,11 +86,6 @@ class Cms::UsersController < Cms::CmsController
     redirect_to :back
   end
 
-  def unlink
-    flash[:success] = 'Success! 🎉'
-    redirect_to :back
-  end
-
   def edit
   end
 
