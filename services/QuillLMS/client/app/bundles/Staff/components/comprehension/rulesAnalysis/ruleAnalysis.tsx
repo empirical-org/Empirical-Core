@@ -5,6 +5,8 @@ import stripHtml from "string-strip-html";
 import moment from 'moment';
 import ReactTable from 'react-table';
 
+import { responseData, } from './responseData'
+
 import { fetchRule } from '../../../utils/comprehension/ruleAPIs';
 import { fetchActivity } from '../../../utils/comprehension/activityAPIs';
 import { fetchResponses } from '../../../utils/comprehension/responseAPIs';
@@ -26,10 +28,11 @@ const Rule = ({ history, match }) => {
     queryFn: fetchActivity
   });
 
-  const { data: responseData } = useQuery({
-    queryKey: [`responses-for-activity-${activityId}-rule-${ruleId}`, activityId, ruleId],
-    queryFn: fetchResponses
-  })
+  // const { data: responseData } = useQuery({
+  //   queryKey: [`responses-for-activity-${activityId}-rule-${ruleId}`, activityId, ruleId],
+  //   queryFn: fetchResponses
+  // })
+
 
  async function makeStrong(response) { updateFeedbackHistoryStrength(response.response_id, true) }
 
@@ -82,7 +85,7 @@ const Rule = ({ history, match }) => {
         },
         {
           label: 'Responses',
-          value: responseData.responses.length
+          value: responseData && responseData.responses ? responseData.responses.length : 0
         }
       ];
       return fields.map((field, i) => {
@@ -128,7 +131,9 @@ const Rule = ({ history, match }) => {
       Header: activityData ? activityData.activity.prompts[0].text.replace(activityData.activity.prompts[0].conjunction, '') : '', // necessary because sometimes the conjunction is part of the prompt and sometimes it isn't
       accessor: "response",
       width: 600,
-      sortMethod: (a, b) => (a.key.localeCompare(b.key))
+      sortMethod: (a, b) => (a.key.localeCompare(b.key)),
+      filterMethod: (filter, row) => (row.response.key.includes(filter.value)),
+      filterable: true
     },
     {
       Header: "Highlighted Output",
