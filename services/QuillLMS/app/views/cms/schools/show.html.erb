@@ -27,9 +27,9 @@
             <td>
               <% if !teacher['user_id'].blank? %>
                 <% if !teacher['admin_id'].blank? %>
-                  <%= link_to 'Remove Admin', cms_user_remove_admin_url(:user_id => teacher['user_id'], :school_id => params[:id]), method: :put %>
+                  <%= button_to 'Remove Admin', cms_user_remove_admin_url(:user_id => teacher['user_id'], :school_id => params[:id]), method: :put %>
                 <% else %>
-                  <%= link_to 'Makee Admin', cms_user_make_admin_url(:user_id => teacher['user_id'], :school_id => params[:id]), method: :put %>
+                  <%= button_to 'Makee Admin', cms_user_make_admin_url(:user_id => teacher['user_id'], :school_id => params[:id]), method: :put %>
                 <% end %>
 
                 <td>
@@ -46,7 +46,7 @@
     </table>
     <h2>Add New User</h2>
     <%= link_to 'Add New User', new_with_school_cms_users_path(params[:id]), class: 'btn button-green' %>
-    <%= link_to 'Add Existing User', add_existing_cms_school_path(params[:id]), class: 'btn button-green' %>
+    <%= link_to 'Add Existing User', add_existing_user_cms_school_path(params[:id]), class: 'btn button-green' %>
     <br /><br />
     <h2>School Subscription</h2>
     <br />

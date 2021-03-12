@@ -99,7 +99,7 @@ class Cms::SchoolsController < Cms::CmsController
     @school = School.find(params[:id])
   end
 
-  def add_existing
+  def add_existing_user
     @school = School.find(params[:id])
   end
 
