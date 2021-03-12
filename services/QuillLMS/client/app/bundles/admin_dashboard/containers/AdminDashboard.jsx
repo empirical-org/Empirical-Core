@@ -31,6 +31,7 @@ export default class AdminDashboard extends React.Component {
   }
 
   getData = () => {
+    this.initializePusher();
     request.get({
       url: `${process.env.DEFAULT_URL}/admins/${this.props.adminId}`,
     },
@@ -44,17 +45,17 @@ export default class AdminDashboard extends React.Component {
     if (Object.keys(data).length > 1) {
       this.setState({ model: data, loading: false, });
     } else {
-      this.setState({ model: data}, this.initializePusher)
+      this.setState({ model: data, loading: true, });
     }
   };
 
   initializePusher = () => {
+    const { adminId } = this.props
     if (process.env.RAILS_ENV === 'development') {
       Pusher.logToConsole = true;
     }
-    const adminId = String(this.state.model.id)
     const pusher = new Pusher(process.env.PUSHER_KEY, { encrypted: true, });
-    const channel = pusher.subscribe(adminId);
+    const channel = pusher.subscribe(String(adminId));
     const that = this;
     channel.bind('admin-users-found', () => {
       that.getData()
@@ -88,6 +89,7 @@ export default class AdminDashboard extends React.Component {
             <AdminsTeachers
               data={this.state.model.teachers}
               isValid={!!this.state.model.valid_subscription}
+              refreshData={this.getData}
             />
             <CreateNewAccounts
               addTeacherAccount={this.addTeacherAccount}
