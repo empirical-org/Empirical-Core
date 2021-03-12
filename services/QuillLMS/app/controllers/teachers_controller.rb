@@ -70,8 +70,10 @@ class TeachersController < ApplicationController
     if schools_users&.destroy
       $redis.del("SERIALIZED_ADMIN_USERS_FOR_#{current_user.id}")
       render json: {}, status: 200
+    elsif !schools_users
+      render json: {errors: 'This user is not attached to a school.'}, status: 400
     else
-      render json: {errors: schools_users&.errors}, status: 400
+      render json: {errors: schools_users.errors}, status: 400
     end
   end
 
