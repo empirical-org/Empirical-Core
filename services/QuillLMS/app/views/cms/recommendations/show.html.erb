@@ -4,7 +4,7 @@
     <hr>
     <h2>Criteria</h2>
     <% if @recommendation.present? && @recommendation.criteria.present? -%>
-      <table class="table">
+      <table class="table cms-recommendations-table">
         <thead>
           <tr>
             <th>Concept</th>
@@ -31,7 +31,7 @@
               %>
             </td>
             <td>
-              <%= link_to 'Delete',
+              <%= button_to 'Delete',
                 cms_activity_classification_activity_recommendation_criterion_path(
                   @activity_classification,
                   @activity,
@@ -39,7 +39,8 @@
                   criterion
                 ),
                 method: :delete,
-                data: { confirm: 'Are you sure?' }
+                data: { confirm: 'Are you sure?' },
+                class: 'interactive-wrapper'
               %>
             </td>
           </tr>

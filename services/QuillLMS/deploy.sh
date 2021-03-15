@@ -8,6 +8,7 @@ case $1 in
     DEPLOY_GIT_BRANCH=deploy-lms-prod
     HEROKU_APP=empirical-grammar
     URL="https://www.quill.org/"
+    AUTOSCALE_URL="https://app.railsautoscale.com/empirical-grammar/settings/edit"
     NR_URL="https://rpm.newrelic.com/accounts/2639113/applications/548856875"
     current_branch="origin/production"
     ;;
@@ -48,6 +49,7 @@ then
         git push --no-verify --force origin origin/production:refs/heads/$DEPLOY_GIT_BRANCH
 
         sh ../../scripts/post_slack_deploy_description.sh $app_name
+        open $AUTOSCALE_URL
     else
         git fetch origin $DEPLOY_GIT_BRANCH
         git push --no-verify --force origin ${current_branch}:$DEPLOY_GIT_BRANCH

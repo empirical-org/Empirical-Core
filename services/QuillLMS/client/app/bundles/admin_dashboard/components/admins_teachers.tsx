@@ -1,43 +1,61 @@
 import * as React from 'react';
 import TeacherLinks from './teacher_links';
 import ReactTable from 'react-table';
+import UnlinkLink from './unlink_link';
 
 interface AdminsTeachersProps {
   data: Array<Object>;
   isValid: boolean;
+  refreshData(): void;
 }
 
 const AdminsTeachers: React.SFC<AdminsTeachersProps> = ({
   data,
-  isValid
+  isValid,
+  refreshData,
 }) => {
   const teacherColumns = [
     {
       Header: 'Name',
       accessor: 'name',
+      resizable: false,
     },
     {
       Header: 'School',
       accessor: 'school',
+      resizable: false,
     },
     {
       Header: 'Students',
       accessor: 'number_of_students',
+      resizable: false,
+      maxWidth: 80,
     },
     {
       Header: 'Questions Completed',
       accessor: 'number_of_questions_completed',
+      resizable: false,
     },
     {
       Header: 'Time Spent',
       accessor: 'time_spent',
+      resizable: false,
     },
     {
-      Header: 'View As Teacher',
+      Header: 'Log In As Teacher',
       accessor: 'link_components',
       Cell: (row) => {
         return <TeacherLinks isValid={isValid} links={row.original.links} />;
       },
+      resizable: false,
+    },
+    {
+      Header: 'Manage',
+      Cell: (row) => {
+        return <UnlinkLink id={row.original.id} refreshData={refreshData} />;
+      },
+      minWidth: 130,
+      resizable: false,
     }
   ];
 
