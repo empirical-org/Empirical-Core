@@ -235,7 +235,7 @@ describe Cms::SchoolsController do
 
     it 'should not create the schools users and redirect to cms school path if email is invalid' do
       post :add_existing_user_by_email, email_address: 'random-invalid-email', id: school.id
-      expect(flash[:error]).to eq "It did't work! Make sure the email you typed is correct."
+      expect(flash[:error]).to eq "It didn't work! Make sure the email you typed is correct."
     end
   end
 
