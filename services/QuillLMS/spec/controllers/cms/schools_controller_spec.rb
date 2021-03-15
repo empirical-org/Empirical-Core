@@ -226,8 +226,6 @@ describe Cms::SchoolsController do
 
     it 'should create the schools users and redirect to cms school path' do
       post :add_existing_user_by_email, email_address: another_user.email, id: school.id
-      expect(SchoolsUsers.last.user).to eq another_user
-      expect(SchoolsUsers.last.school).to eq school
       expect(another_user.reload.school).to eq school
     end
 
