@@ -534,7 +534,10 @@ EmpiricalGrammar::Application.routes.draw do
         get :edit_subscription
         get :new_subscription
         get :new_admin
+        get :add_existing_user
         post :add_admin_by_email
+        post :add_existing_user_by_email
+        post :unlink
       end
     end
 
