@@ -220,9 +220,6 @@ describe Cms::SchoolsController do
   describe '#add_existing_user_by_email' do
     let!(:another_user) { create(:user) }
     let!(:school) { create(:school) }
-    before(:each) do
-      request.env['HTTP_REFERER'] = 'quill.org'
-    end
 
     it 'should create the schools users and redirect to cms school path' do
       post :add_existing_user_by_email, email_address: another_user.email, id: school.id
