@@ -321,6 +321,27 @@
   .rules-container, .rule-container, .turk-sessions-container, .semantic-rules-container {
     padding: 20px;
     width: 80vw;
+    .model-form-container {
+      .model-id {
+        width: 300px;
+      }
+      #add-model-button {
+        margin-top: 20px;
+      }
+      .form-subsection-label {
+        font-size: 12px;
+        font-weight: 600;
+        color: #7f7f7f;
+        margin-top: 15px;
+      }
+      .card {
+        max-width: 650px;
+        padding: 10px;
+        border: 1px solid #e0e0e0;
+        border-radius: 6px;
+        margin-top: 20px;
+      }
+    }
     .header-container {
       margin-bottom: 20px;
       width: 900px;

@@ -65,13 +65,10 @@ module Comprehension
       sorted_results[0].display_name
     end
 
-<<<<<<< HEAD
-=======
     def older_models
       @older_models ||= AutomlModel.where(prompt_id: prompt_id).where("created_at < ?", created_at).count
     end
 
->>>>>>> 377437b3b56bafe05b3495f6a38526fd43914d5c
     private def prompt_automl_rules
       prompt.rules.where(rule_type: Rule::TYPE_AUTOML)
     end

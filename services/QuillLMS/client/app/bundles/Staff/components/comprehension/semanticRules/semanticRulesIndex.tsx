@@ -4,6 +4,8 @@ import { NavLink, Redirect, Route, Switch, withRouter } from 'react-router-dom';
 
 import SemanticRulesOverview from './semanticRulesOverview'
 import SemanticRuleForm from './semanticRule';
+import ModelForm from './modelForm';
+import Model from './model';
 
 import { ALL, BECAUSE, BUT, SO, blankRule } from '../../../../../constants/comprehension';
 import { getPromptForComponent } from '../../../helpers/comprehension';
@@ -120,6 +122,8 @@ const SemanticRulesIndex = ({ history, match, location }) => {
         <Route component={() => <SemanticRulesOverview activityId={activityId} prompts={getPromptForComponent(activityData, BECAUSE)} />} path='/activities/:activityId/semantic-rules/because' />
         <Route component={() => <SemanticRulesOverview activityId={activityId} prompts={getPromptForComponent(activityData, BUT)} />} path='/activities/:activityId/semantic-rules/but' />
         <Route component={() => <SemanticRulesOverview activityId={activityId} prompts={getPromptForComponent(activityData, SO)} />} path='/activities/:activityId/semantic-rules/so' />
+        <Route component={Model} path='/activities/:activityId/semantic-rules/model' />
+        <Route component={ModelForm} path='/activities/:activityId/semantic-rules/add-model' />
         <Route component={() => <SemanticRuleForm
           activityData={activityData && activityData.activity}
           activityId={activityId}

@@ -25,14 +25,14 @@ const ModelsTable = ({ activityId, prompt }) => {
     { name: "Activate", attribute:"", width: "100px" }
   ];
 
+  const addModelLink = <Link to={`/activities/${activityId}/semantic-rules/add-model`}>Add Model</Link>
+
   return(
     <section className="semantic-rules-container">
       <section className="header-container">
         <section className="lower-header-container">
           <h5>Prompt Models</h5>
-          <button className="quill-button fun primary contained" id="add-model-button" type="submit">
-            Add Model
-          </button>
+          <button className="quill-button fun primary contained" id="add-model-button" type="submit">{addModelLink}</button>
         </section>
       </section>
       <DataTable
