@@ -218,14 +218,18 @@ describe Cms::SchoolsController do
   end
 
   describe '#add_existing_user_by_email' do
-    let!(:another_user) { create(:user) }
+    let!(:another_user) { create(:user, role: 'teacher') }
     let!(:school) { create(:school) }
     before(:each) do
-      request.env['HTTP_REFERER'] = 'http://example.com'
+      request.env['HTTP_REFERER'] = 'quill.org'
     end
 
     it 'should create the schools users and redirect to cms school path' do
       post :add_existing_user_by_email, email_address: another_user.email, id: school.id
+      expect(flash[:success]).to eq "Yay! It worked! 🎉"
+      expect(response).to redirect_to cms_school_path(school.id)
+      expect(SchoolsUsers.last.user).to eq another_user
+      expect(SchoolsUsers.last.school).to eq school
       expect(another_user.reload.school).to eq school
     end
 
