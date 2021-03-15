@@ -1,5 +1,6 @@
 module Comprehension
   class AutomlModelsController < ApplicationController
+    skip_before_action :verify_authenticity_token
     before_action :set_automl_model, only: [:show, :update, :activate, :destroy]
 
     # GET /automl_models.json
