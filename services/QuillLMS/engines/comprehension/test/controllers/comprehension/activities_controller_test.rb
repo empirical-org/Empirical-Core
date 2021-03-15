@@ -88,6 +88,16 @@ module Comprehension
         assert_equal 1, Activity.first.prompts.count
         assert_equal "meat is bad for you.", Activity.first.prompts.first.text
       end
+
+      should "create a new parent activity and activity if no parent_activity_id is passed" do
+        post :create, activity: { parent_activity_id: nil, scored_level: @activity.scored_level, target_level: @activity.target_level, title: @activity.title, prompts_attributes: [{text: "meat is bad for you.", conjunction: "because"}] }
+
+        parent_activity = ::Activity.find_by_name(@activity.title)
+        new_activity = Activity.find_by_name(@activity.title)
+        assert parent_activity.exists?
+        assert_equal new_activity.parent_activity_id, parent_activity.id
+        assert new_activity.id.exists?
+      end
     end
 
     context "show" do
