@@ -11,9 +11,27 @@ class WebinarBanner
   OFFICE_HOURS_TITLE = "Quill Office Hours are live now!"
 
   RECURRING = {
-    '1-16' => ["<strong>Quill Webinar 101: Getting Started</strong> is live now!", "Click here to register and join.", "#{ZOOM_URL}/WN_a4Z1_Zs6RSGUWwr_t0V18Q"],
-    '3-10' => [OFFICE_HOURS_TITLE, "Click here to join", "https://quill-org.zoom.us/j/93744355918#success"],
-    '3-16' => [OFFICE_HOURS_TITLE, "Click here to join", "https://quill-org.zoom.us/j/95335806177#success"]
+    '1-16' => {
+      title: "<strong>Quill Webinar 101: Getting Started</strong> is live now!",
+      link_display_text: "Click here to register and join.",
+      link: "#{ZOOM_URL}/WN_a4Z1_Zs6RSGUWwr_t0V18Q",
+      subscription_only: false,
+      second_or_fourth_only: false
+    },
+    '3-10' => {
+      title: OFFICE_HOURS_TITLE,
+      link_display_text: "Click here to join",
+      link: "https://quill-org.zoom.us/j/93744355918#success",
+      subscription_only: true,
+      second_or_fourth_only: true
+    },
+    '3-16' => {
+      title: OFFICE_HOURS_TITLE,
+      link_display_text: "Click here to join",
+      link: "https://quill-org.zoom.us/j/95335806177#success",
+      subscription_only: true,
+      second_or_fourth_only: true
+    }
   }
 
   MLK_DAY_2021 = Date.parse("20210118")
@@ -25,19 +43,36 @@ class WebinarBanner
   end
 
   def link
-    values&.at(2)
+    values&.fetch(:link)
   end
 
   def link_display_text
-    values&.at(1)
+    values&.fetch(:link_display_text)
   end
 
   def title
-    values&.at(0)
+    values&.fetch(:title)
   end
 
-  def show?
-    link.present? && title.present? && link_display_text.present? && !skipped_day?
+  def subscription_only?
+    values&.fetch(:subscription_only)
+  end
+
+  def second_or_fourth_only
+    values&.fetch(:second_or_fourth_only)
+  end
+
+  def show?(has_subscription)
+    (link.present? && title.present? && link_display_text.present? && !skipped_day? &&
+     show_with_subscription?(has_subscription) && show_with_month_restrictions)
+  end
+
+  def show_with_subscription?(has_subscription)
+    !subscription_only? || has_subscription
+  end
+
+  def show_with_month_restrictions
+    !second_or_fourth_only || is_second_or_fourth_week_of_month(time)
   end
 
   private def skipped_day?
@@ -66,5 +101,9 @@ class WebinarBanner
 
   private def one_off_key
     "#{time.month}-#{time.day}-#{time.hour}"
+  end
+
+  private def is_second_or_fourth_week_of_month(date)
+    ((date.day - 1) / 7).odd?
   end
 end
