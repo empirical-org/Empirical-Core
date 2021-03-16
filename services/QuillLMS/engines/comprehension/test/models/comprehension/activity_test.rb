@@ -55,6 +55,24 @@ module Comprehension
       end
     end
 
+    context 'create parent activity' do
+      should 'not create a new LMS activity if the parent_activity_id is already present' do
+        @activity = create(:comprehension_activity, parent_activity_id: 7)
+        @activity.create_parent_activity
+
+        refute ::Activity.find_by_id(7).exists?
+      end
+
+      should 'create a new LMS activity if the parent_activity_id is not present' do
+        @activity = create(:comprehension_activity, parent_activity_id: nil)
+        @activity.create_parent_activity
+
+        parent_activity = ::Activity.find_by_name(@activity.title)
+        assert parent_activity.exists?
+        assert_equal @activity.parent_activity_id, parent_activity.id
+      end
+    end
+
     context 'dependent destroy' do
       should 'destroy dependent passages' do
         @activity = create(:comprehension_activity)

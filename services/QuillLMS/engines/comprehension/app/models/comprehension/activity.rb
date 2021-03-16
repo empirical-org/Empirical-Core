@@ -26,6 +26,13 @@ module Comprehension
     validates :title, presence: true, length: {in: MIN_TITLE_LENGTH..MAX_TITLE_LENGTH}
     validates :scored_level, length: { maximum: MAX_SCORED_LEVEL_LENGTH, allow_nil: true}
 
+    def self.create_parent_activity
+      unless parent_activity_id
+        parent_activity = ::Activity.find_or_create_by!(name: title, activity_classification_id: ActivityClassification.comprehension&.id)
+        parent_activity_id = parent_activity.id
+      end
+    end
+
     # match signature of method
     def serializable_hash(options = nil)
       options ||= {}

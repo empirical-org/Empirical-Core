@@ -19,13 +19,9 @@ module Comprehension
 
     # POST /activities.json
     def create
-      activity_hash = activity_params
-      unless activity_hash["parent_activity_id"]
-        lms_activity = ::Activity.find_or_create_by!(name: activity_hash[:title], activity_classification_id: ::ActivityClassification.comprehension&.id)
-        activity_hash["parent_activity_id"] = lms_activity.id
-      end
+      @activity = Comprehension::Activity.new(activity_params)
 
-      @activity = Comprehension::Activity.new(activity_hash)
+      @activity.create_parent_activity
 
       if @activity.save
         render json: @activity, status: :created
