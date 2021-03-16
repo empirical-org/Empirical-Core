@@ -40,7 +40,7 @@ class WebinarBanner
   end
 
   def show_with_month_restrictions
-    !second_or_fourth_only || is_second_or_fourth_week_of_month(time)
+    !second_or_fourth_only || second_or_fourth_week_of_month(time)
   end
 
   private def values
@@ -55,7 +55,7 @@ class WebinarBanner
     SKIPPED_DAYS.any? { |date| date.month == time.month && date.day == time.day }
   end
 
-  private def is_second_or_fourth_week_of_month(date)
+  private def second_or_fourth_week_of_month?(date)
     ((date.day - 1) / 7).odd?
   end
 end
