@@ -4,11 +4,6 @@ class OneOffBanner < WebinarBanner
   # RECURRING have the key format DayOfWeek-Hour
 
   WEBINARS = {
-    '3-16-13' => {
-      title: "Quill's Diagnostics Deep Dive is live now!",
-      link_display_text: "Register and join.",
-      link: "#{ZOOM_URL}/WN_Va64n0FNQvOAhYWXUreRvw"
-    },
     '3-24-16' => {
       title: "Quill's Diagnostics Deep Dive is live now!",
       link_display_text: "Register and join.",
