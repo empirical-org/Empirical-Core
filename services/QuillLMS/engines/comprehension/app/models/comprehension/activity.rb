@@ -29,7 +29,6 @@ module Comprehension
     def self.create_parent_activity
       unless parent_activity_id
         parent_activity = ::Activity.find_or_create_by!(name: title, activity_classification_id: ActivityClassification.comprehension&.id)
-        parent_activity_id = parent_activity.id
       end
     end
 
