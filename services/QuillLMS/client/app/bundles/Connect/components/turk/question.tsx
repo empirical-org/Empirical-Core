@@ -5,7 +5,7 @@ import {
   getGradedResponsesWithCallback
 } from '../../actions/responses.js';
 import RenderQuestionFeedback from '../renderForQuestions/feedbackStatements.jsx';
-import RenderQuestionCues from '../renderForQuestions/cues.jsx';
+import Cues from '../renderForQuestions/cues.jsx';
 import { Feedback, SentenceFragments, } from '../../../Shared/index';
 import getResponse from '../renderForQuestions/checkAnswer';
 import updateResponseResource from '../renderForQuestions/updateResponseResource.js';
@@ -96,9 +96,10 @@ class PlayDiagnosticQuestion extends React.Component {
   }
 
   renderCues = () => {
-    return (<RenderQuestionCues
+    const { question, } = this.props
+    return (<Cues
       displayArrowAndText={true}
-      getQuestion={this.getQuestion}
+      question={question}
     />);
   }
 
