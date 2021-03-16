@@ -40,7 +40,7 @@ class WebinarBanner
   end
 
   def show_with_month_restrictions
-    !second_or_fourth_only || second_or_fourth_week_of_month(time)
+    !second_or_fourth_only || second_or_fourth_week_of_month?(time)
   end
 
   private def values
