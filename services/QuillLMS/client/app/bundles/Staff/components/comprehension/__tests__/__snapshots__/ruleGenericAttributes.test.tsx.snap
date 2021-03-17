@@ -46,12 +46,23 @@ exports[`RuleGenericAttributes component should render RuleGenericAttributes 1`]
     label="Name"
     value="generic rule 17"
   />
-  <Input
-    autoComplete="on"
+  <DropdownInput
     className="concept-uid-input"
     handleChange={[Function]}
-    label="Concept UID"
-    value="test-id"
+    isSearchable={true}
+    label="Concept"
+    options={
+      Array [
+        Object {
+          "label": "A | Concept | Name",
+          "value": "blah",
+        },
+        Object {
+          "label": "Another | Concept | Name",
+          "value": "blahblah",
+        },
+      ]
+    }
   />
   <DropdownInput
     className="rule-type-input"
