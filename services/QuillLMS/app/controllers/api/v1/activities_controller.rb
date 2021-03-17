@@ -1,6 +1,6 @@
 class Api::V1::ActivitiesController < Api::ApiController
 
-  before_action :doorkeeper_authorize!, only: [:create, :update, :destroy]
+  before_filter :staff!, only: [:create, :update, :destroy]
   before_action :find_activity, except: [:index, :create, :uids_and_flags, :published_edition]
 
   # GET
@@ -85,6 +85,11 @@ class Api::V1::ActivitiesController < Api::ApiController
   end
 
   private
+
+  def staff!
+    return if current_user.try(:staff?)
+    auth_failed
+  end
 
   def find_activity
     @activity = Activity.find_by_uid(params[:id]) || Activity.find_by_id(params[:id])
