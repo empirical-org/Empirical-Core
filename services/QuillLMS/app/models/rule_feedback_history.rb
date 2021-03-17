@@ -1,8 +1,7 @@
 class RuleFeedbackHistory
     def self.generate_report(conj)
-
         sql_result = self.exec_query(conj)
-        prepare_sql_results(sql_result)
+        format_sql_results(sql_result)
     end
 
     def self.exec_query(conj)
