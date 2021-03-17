@@ -23,7 +23,7 @@ class Cms::UsersController < Cms::CmsController
     user_search_query = user_query_params
     user_search_query_results = user_query(user_query_params)
     user_search_query_results ||= []
-    number_of_pages = (number_of_users_matched / USERS_PER_PAGE).ceil
+    number_of_pages = (user_search_query_results.size / USERS_PER_PAGE).ceil
     render json: {numberOfPages: number_of_pages, userSearchQueryResults: user_search_query_results, userSearchQuery: user_search_query}
   end
 
@@ -270,22 +270,6 @@ class Cms::UsersController < Cms::CmsController
     else
       "ORDER BY last_sign_in DESC"
     end
-  end
-
-  def number_of_users_matched
-    ActiveRecord::Base.connection.execute("
-      SELECT
-      	COUNT(users.id) AS count
-      FROM users
-      LEFT JOIN schools_users ON users.id = schools_users.user_id
-      LEFT JOIN schools ON schools_users.school_id = schools.id
-      LEFT JOIN user_subscriptions ON users.id = user_subscriptions.user_id
-      LEFT JOIN subscriptions ON user_subscriptions.subscription_id = subscriptions.id
-      LEFT JOIN classrooms_teachers ON users.id = classrooms_teachers.user_id
-      LEFT JOIN students_classrooms ON users.id = students_classrooms.student_id
-      LEFT JOIN classrooms ON classrooms.id = classrooms_teachers.classroom_id OR classrooms.id = students_classrooms.classroom_id
-      #{where_query_string_builder}
-    ").to_a[0]['count'].to_i
   end
 
   def set_search_inputs
