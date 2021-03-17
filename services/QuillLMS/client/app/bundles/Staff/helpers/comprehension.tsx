@@ -18,16 +18,21 @@ import {
 import { PromptInterface } from '../interfaces/comprehensionInterfaces'
 
 const quillCheckmark = 'https://assets.quill.org/images/icons/check-circle-small.svg';
-const baseUrl = `${process.env.DEFAULT_URL}/api/v1/comprehension/`;
+const mainBaseUrl = `${process.env.DEFAULT_URL}/api/v1/`;
+const comprehensionBaseUrl = `${mainBaseUrl}comprehension/`;
 const fetchDefaults = require("fetch-defaults");
 
-export const apiFetch = fetchDefaults(fetch, baseUrl, {
+const headerHash = {
   headers: {
     "Accept": "application/JSON",
     "Content-Type": "application/json",
     "X-CSRF-Token": localStorage.getItem('csrfToken')
   }
-})
+}
+
+export const apiFetch = fetchDefaults(fetch, comprehensionBaseUrl, headerHash)
+
+export const mainApiFetch = fetchDefaults(fetch, mainBaseUrl, headerHash)
 
 export const getPromptsIcons = (activityData, promptIds: number[]) => {
   if(activityData && activityData.activity && activityData.activity.prompts) {

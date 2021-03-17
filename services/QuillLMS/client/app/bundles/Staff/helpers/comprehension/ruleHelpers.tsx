@@ -12,7 +12,7 @@ export function handleSetRuleName(e: InputEvent, setRuleName) { setRuleName(e.ta
 
 export function handleSetRuleOptimal(ruleOptimal: DropdownObjectInterface, setRuleOptimal) { setRuleOptimal(ruleOptimal) };
 
-export function handleSetRuleConceptUID(e: InputEvent, setRuleConceptUID) { setRuleConceptUID(e.target.value) };
+export function handleSetRuleConceptUID(value, setRuleConceptUID) { setRuleConceptUID(value) };
 
 export function handleSetRuleDescription(text: string, setRuleDescription) { setRuleDescription(text) }
 

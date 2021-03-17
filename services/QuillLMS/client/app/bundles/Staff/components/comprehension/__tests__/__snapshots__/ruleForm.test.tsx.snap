@@ -20,6 +20,7 @@ exports[`RuleForm component should render RuleForm 1`] = `
     className="rule-form"
   >
     <RuleGenericAttributes
+      concepts={Array []}
       errors={Object {}}
       isUniversal={false}
       ruleConceptUID="a34qreadbgt6"

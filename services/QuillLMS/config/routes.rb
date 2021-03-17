@@ -371,7 +371,11 @@ EmpiricalGrammar::Application.routes.draw do
       resources :standard_levels,                only: [:index]
       resources :standards,                  only: [:index]
       resources :standard_categories,        only: [:index]
-      resources :concepts,                only: [:index, :create]
+      resources :concepts,                only: [:index, :create] do
+        collection do
+          get 'level_zero_concepts_with_lineage'
+        end
+      end
       resources :users,                   only: [:index]
       resources :classroom_units,         only: [] do
         collection do
