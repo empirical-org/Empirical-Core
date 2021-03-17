@@ -11,6 +11,7 @@ import {
   SO,
   activityFormKeys,
   TITLE,
+  NAME,
   SCORED_READING_LEVEL,
   TARGET_READING_LEVEL,
   PARENT_ACTIVITY_ID,
@@ -30,7 +31,7 @@ interface ActivityFormProps {
 
 const ActivityForm = ({ activity, closeModal, submitActivity }: ActivityFormProps) => {
 
-  const { parent_activity_id, passages, prompts, scored_level, target_level, title } = activity;
+  const { parent_activity_id, passages, prompts, scored_level, target_level, title, name, } = activity;
   // const formattedFlag = flag ? { label: flag, value: flag } : flagOptions[0];
   const formattedScoredLevel = scored_level || '';
   const formattedTargetLevel = target_level ? target_level.toString() : '';
@@ -43,6 +44,7 @@ const ActivityForm = ({ activity, closeModal, submitActivity }: ActivityFormProp
   const soPrompt = formattedPrompts && formattedPrompts[SO] ? formattedPrompts[SO] : buildBlankPrompt(SO);
 
   const [activityTitle, setActivityTitle] = React.useState<string>(title || '');
+  const [activityName, setActivityName] = React.useState<string>(name || '');
   // const [activityFlag, setActivityFlag] = React.useState<FlagInterface>(formattedFlag);
   const [activityScoredReadingLevel, setActivityScoredReadingLevel] = React.useState<string>(formattedScoredLevel);
   const [activityTargetReadingLevel, setActivityTargetReadingLevel] = React.useState<string>(formattedTargetLevel);
@@ -55,6 +57,8 @@ const ActivityForm = ({ activity, closeModal, submitActivity }: ActivityFormProp
   const [errors, setErrors] = React.useState<{}>({});
 
   function handleSetActivityTitle(e: InputEvent){ setActivityTitle(e.target.value) };
+
+  function handleSetActivityName(e: InputEvent){ setActivityName(e.target.value) };
 
   // const handleSetActivityFlag = (flag: FlagInterface) => { setActivityFlag(flag) };
 
@@ -89,6 +93,7 @@ const ActivityForm = ({ activity, closeModal, submitActivity }: ActivityFormProp
 
   function handleSubmitActivity(){
     const activityObject = buildActivity({
+      activityName,
       activityTitle,
       activityScoredReadingLevel,
       activityTargetReadingLevel,
@@ -101,6 +106,7 @@ const ActivityForm = ({ activity, closeModal, submitActivity }: ActivityFormProp
     });
     const state = [
       activityTitle,
+      activityName,
       activityScoredReadingLevel,
       activityTargetReadingLevel,
       activityParentActivityId,
@@ -130,10 +136,17 @@ const ActivityForm = ({ activity, closeModal, submitActivity }: ActivityFormProp
       </div>
       <form className="activity-form">
         <Input
+          className="name-input"
+          error={errors[NAME]}
+          handleChange={handleSetActivityName}
+          label="Activity Name"
+          value={activityName}
+        />
+        <Input
           className="title-input"
           error={errors[TITLE]}
           handleChange={handleSetActivityTitle}
-          label="Title"
+          label="Passage Title"
           value={activityTitle}
         />
         {/* <DropdownInput
