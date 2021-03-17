@@ -29,7 +29,7 @@ const ActivitySettings: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ m
   });
 
   const handleClickArchiveActivity = () => {
-    if (window.confirm('Are you sure you want to archive? If you archive, it will not be displayed on the "View Activities" page')) {
+    if (window.confirm('Are you sure you want to archive? If you archive, it will not be displayed on the "View Activities" page. Please also make sure that the activity has the correct parent activity id, because the parent activity will be archived as well.')) {
       archiveParentActivity(data.activity.parent_activity_id).then((response) => {
         const { error } = response;
         error && setErrorOrSuccessMessage(error);

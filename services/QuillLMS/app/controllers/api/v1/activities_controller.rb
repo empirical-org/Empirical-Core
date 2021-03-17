@@ -105,8 +105,8 @@ class Api::V1::ActivitiesController < Api::ApiController
                               :description,
                               :activity_classification_uid,
                               :standard_uid,
-                              :flags,
-                              :uid)
+                              :uid,
+                              flags: [])
                       .merge(data: @data)
                       .reject {|k,v| v.nil? }
   end
