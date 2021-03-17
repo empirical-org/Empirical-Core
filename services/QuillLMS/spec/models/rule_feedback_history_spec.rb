@@ -41,7 +41,6 @@ RSpec.describe RuleFeedbackHistory, type: :model do
       formatted = RuleFeedbackHistory.format_sql_results(sql_result)
       expect(formatted.first).to eq(
         {
-          api_order: "1",
           api_name: 'autoML',
           rule_order: 1, 
           feedback_first_layer: 'To Be Implemented', 

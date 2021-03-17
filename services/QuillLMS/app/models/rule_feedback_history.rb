@@ -21,9 +21,8 @@ class RuleFeedbackHistory
     def self.format_sql_results(relations)
         relations.map do |r|
             {
-                api_order: r.rule_suborder,
                 api_name: r.rule_type,
-                rule_order: 1, # TODO: update later,
+                rule_order: r.rule_suborder,
                 feedback_first_layer: 'To Be Implemented', # TODO: to be implemented
                 rule_description: r.rule_name,
                 pct_strong: 0, # TODO: to be implemented
