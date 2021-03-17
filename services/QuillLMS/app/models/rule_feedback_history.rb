@@ -19,26 +19,17 @@ class RuleFeedbackHistory
         rules = Comprehension::Rule.find_by_sql(sql)
     end
 
-    def self.prepare_sql_results(relations)
+    def self.format_sql_results(relations)
         relations.map do |r|
             {
-                api_order: r.suborder,
+                api_order: r.rule_suborder,
                 api_name: r.rule_type,
                 rule_order: 1, # TODO: update later,
                 feedback_first_layer: 'To Be Implemented', # TODO: to be implemented
-                rule_description: r.name,
+                rule_description: r.rule_name,
                 pct_strong: 0, # TODO: to be implemented
                 scored_responses: 0,
                 pct_scored: 0
-        # api_order: 1, -> suborder !!
-        # api_name: element of Enum<API_NAMES>, -> rule.rule_type !!
-        # rule_order: 1, !!
-        # feedback_first_layer, -> rule.feedbacks.first
-        # rule_description: "A lovely rule" -> rule.name !!
-        # pct_strong: 0.85 !!
-        # total_responses: 100, -> calculable
-        # scored_responses: 100, -> hardcode to 0
-        # pct_scored: 1.00 -> hardcode to 0
             }
 
         end
