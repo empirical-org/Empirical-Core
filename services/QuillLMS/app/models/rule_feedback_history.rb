@@ -8,11 +8,13 @@ class RuleFeedbackHistory
     def self.exec_query(conj)
         # prompts = Comprehension::Prompt.where(conjunction: 'so')
         sql = <<~SQL
-            select rules.id,rules.uid,rules.rule_type,rules.suborder, rules.name from comprehension_rules as rules 
+            select rules.uid, MAX(rules.rule_type) as rule_type, MAX(rules.suborder) as rule_suborder, MAX(rules.name) as rule_name, count(feedbacks.id) as feedback_histories_count
+            FROM comprehension_rules as rules 
             INNER JOIN comprehension_prompts_rules as prompts_rules ON rules.id = prompts_rules.rule_id 
             INNER JOIN comprehension_prompts as prompts ON prompts_rules.prompt_id = prompts.id 
             INNER JOIN feedback_histories as feedbacks ON feedbacks.rule_uid = rules.uid
             WHERE prompts.conjunction = '#{conj}'
+            GROUP BY rules.uid 
         SQL
         rules = Comprehension::Rule.find_by_sql(sql)
     end

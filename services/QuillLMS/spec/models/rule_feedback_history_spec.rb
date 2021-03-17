@@ -15,8 +15,8 @@ RSpec.describe RuleFeedbackHistory, type: :model do
     )
   end 
 
-  describe '#generate_report' do 
-    it 'should foo' do 
+  describe '#exec_query' do 
+    it 'should aggregate feedbacks for a given rule' do 
       activity1 = Comprehension::Activity.create!(title: 'Title 1', parent_activity_id: 1, target_level: 1)
 
       # prompts
@@ -29,20 +29,18 @@ RSpec.describe RuleFeedbackHistory, type: :model do
 
       # feedbacks
       create(:feedback_history, rule_uid: so_rule_1.uid)
+      create(:feedback_history, rule_uid: so_rule_1.uid)
 
       # prompts rules
       Comprehension::PromptsRule.create!(prompt: so_prompt_1, rule: so_rule_1)
       Comprehension::PromptsRule.create!(prompt: because_prompt_1, rule: because_rule_1)
 
-      result = RuleFeedbackHistory.generate_report('so')
+      sql_result = RuleFeedbackHistory.exec_query('so')
 
-      expect(result.count).to eq 1
-      expect(result.first[:rule_description]).to eq 'so_rule_1'
- 
 
-      # prompt = params[:prompt]
-      # rules = Rule.where(prompt: prompt)
-      # rules.join(feedback_histories)
+      expect(sql_result.count).to eq 1
+      expect(sql_result.first.rule_type).to eq 'autoML'
+      expect(sql_result.first.feedback_histories_count).to eq 2
 
       # CREATE TABLE public.comprehension_feedbacks (
       #     id integer NOT NULL,
