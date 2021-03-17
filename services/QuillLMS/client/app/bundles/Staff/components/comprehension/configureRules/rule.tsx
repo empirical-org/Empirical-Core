@@ -8,6 +8,7 @@ import RuleForm from './ruleForm';
 import { buildErrorMessage, getPromptsIcons } from '../../../helpers/comprehension';
 import { BECAUSE, BUT, SO } from '../../../../../constants/comprehension';
 import { updateRule, deleteRule, fetchRule } from '../../../utils/comprehension/ruleAPIs';
+import { fetchConcepts, } from '../../../utils/comprehension/conceptAPIs';
 import { RuleInterface } from '../../../interfaces/comprehensionInterfaces';
 import { fetchActivity } from '../../../utils/comprehension/activityAPIs';
 import SubmissionModal from '../shared/submissionModal';
@@ -26,6 +27,12 @@ const Rule = ({ history, match }) => {
     queryKey: [`activity-${activityId}`, activityId],
     queryFn: fetchActivity
   });
+
+  const { data: conceptsData } = useQuery({
+    queryKey: ['concepts', activityId],
+    queryFn: fetchConcepts
+  });
+
 
   // cache rule data
   const { data: ruleData } = useQuery({
