@@ -14,11 +14,11 @@ const Activities = ({ location, match, }) => {
   const { data } = useQuery("activities", fetchActivities);
 
   const formattedRows = data && data.activities && data.activities.map((activity: ActivityInterface) => {
-    const { id,  title } = activity;
-    const activityLink = (<Link to={`/activities/${id}`}>{title}</Link>);
+    const { id,  name, } = activity;
+    const activityLink = (<Link to={`/activities/${id}`}>{name}</Link>);
     return {
       id,
-      title: activityLink
+      name: activityLink
     }
   });
 
@@ -42,7 +42,7 @@ const Activities = ({ location, match, }) => {
   }
 
   const dataTableFields = [
-    { name: "Title", attribute:"title", width: "900px" }
+    { name: "Name", attribute:"name", width: "900px" }
   ];
 
   return(<React.Fragment>
@@ -50,7 +50,7 @@ const Activities = ({ location, match, }) => {
     <div className="activities-container">
       <DataTable
         className="activities-table"
-        defaultSortAttribute="title"
+        defaultSortAttribute="name"
         headers={dataTableFields}
         rows={formattedRows ? formattedRows : []}
       />
