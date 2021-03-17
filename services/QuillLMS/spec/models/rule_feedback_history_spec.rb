@@ -37,12 +37,12 @@ RSpec.describe RuleFeedbackHistory, type: :model do
       Comprehension::PromptsRule.create!(prompt: so_prompt_1, rule: so_rule_1)
       Comprehension::PromptsRule.create!(prompt: because_prompt_1, rule: because_rule_1)
 
-      sql_result = RuleFeedbackHistory.exec_query('so')
+      sql_result = RuleFeedbackHistory.exec_query(conjunction: 'so', activity_id: activity1.id)
       formatted = RuleFeedbackHistory.format_sql_results(sql_result)
       expect(formatted.first).to eq(
         {
           api_name: 'autoML',
-          rule_order: 1, 
+          rule_order: "1", 
           feedback_first_layer: 'To Be Implemented', 
           rule_description: 'so_rule_1',
           pct_strong: 0, 
@@ -74,11 +74,14 @@ RSpec.describe RuleFeedbackHistory, type: :model do
       Comprehension::PromptsRule.create!(prompt: so_prompt_1, rule: so_rule_1)
       Comprehension::PromptsRule.create!(prompt: because_prompt_1, rule: because_rule_1)
 
-      sql_result = RuleFeedbackHistory.exec_query('so')
+      sql_result = RuleFeedbackHistory.exec_query(conjunction: 'so', activity_id: activity1.id)
 
       expect(sql_result.count).to eq 1
       expect(sql_result.first.rule_type).to eq 'autoML'
       expect(sql_result.first.feedback_histories_count).to eq 2
+    end
+
+    xit 'should only return results related to the specified activity' do 
     end
   end
 

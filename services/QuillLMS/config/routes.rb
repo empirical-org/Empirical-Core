@@ -361,7 +361,7 @@ EmpiricalGrammar::Application.routes.draw do
     namespace :v1 do
 
       get 'activities/uids_and_flags' => 'activities#uids_and_flags'
-      get 'rule_feedback_histories/:conjunction' => 'rule_feedback_histories#by_conjunction'
+      get 'rule_feedback_histories/:activity_id' => 'rule_feedback_histories#by_conjunction'
       resources :activities,              except: [:index, :new, :edit]
       resources :activity_flags,          only: [:index]
       resources :activity_sessions,       except: [:index, :new, :edit]
