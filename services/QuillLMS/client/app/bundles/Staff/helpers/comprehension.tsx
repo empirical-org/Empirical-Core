@@ -71,6 +71,7 @@ export const buildBlankPrompt = (conjunction: string) => {
 }
 
 export const buildActivity = ({
+  activityName,
   activityTitle,
   activityScoredReadingLevel,
   activityTargetReadingLevel,
@@ -85,6 +86,7 @@ export const buildActivity = ({
   const prompts = [activityBecausePrompt, activityButPrompt, activitySoPrompt];
   return {
     activity: {
+      name: activityName,
       title: activityTitle,
       parent_activity_id: parseInt(activityParentActivityId),
       // flag: label,
