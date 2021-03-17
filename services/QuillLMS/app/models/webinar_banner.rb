@@ -6,6 +6,8 @@ class WebinarBanner
   PRESIDENTS_DAY_2021 = Date.parse("20210215")
   SKIPPED_DAYS = [MLK_DAY_2021, PRESIDENTS_DAY_2021]
 
+  SCHOOL_PREMIUM_TYPES = ["School Paid", "School District Paid", "School Sponsored Free"]
+
   def initialize(time)
     @time = time
   end
@@ -30,13 +32,13 @@ class WebinarBanner
     values&.fetch(:second_or_fourth_only, nil)
   end
 
-  def show?(has_subscription)
+  def show?(account_type = nil)
     (link.present? && title.present? && link_display_text.present? && !skipped_day? &&
-     show_with_subscription?(has_subscription) && show_with_month_restrictions)
+     show_with_subscription?(account_type) && show_with_month_restrictions)
   end
 
-  def show_with_subscription?(has_subscription)
-    !subscription_only? || has_subscription
+  def show_with_subscription?(account_type)
+    !subscription_only? || SCHOOL_PREMIUM_TYPES.include?(account_type)
   end
 
   def show_with_month_restrictions

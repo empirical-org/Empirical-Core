@@ -3,7 +3,7 @@
 
 <% if (still_doing_webinars && (!current_user || current_user.teacher?)) %>
   <% recurring_banner = RecurringBanner.new(current_time_on_east_coast) %>
-  <% if recurring_banner.show?(current_user&.subscription&.present?) %>
+  <% if recurring_banner.show?(current_user&.subscription&.account_type) %>
     <div class="banner" id="webinar-banner-recurring">
       <div class="content-container">
         <img alt="Video player with play symbol" class="banner-icon" src=<%= "#{ENV['CDN_URL']}/images/icons/live-stream.svg" %>>

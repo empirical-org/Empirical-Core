@@ -5,7 +5,7 @@ describe OneOffBanner, type: :model do
   it "does return false for show? when the key does not have an associated webinar" do
     time =  DateTime.new(2020,1,1,11,0,0)
     banner = OneOffBanner.new(time)
-    expect(banner.show?(true)).to eq(false)
+    expect(banner.show?).to eq(false)
   end
 
   it "does return no link or title when the key does not have an associated webinar" do
@@ -18,13 +18,13 @@ describe OneOffBanner, type: :model do
   it "does return true for show? when the key does have an associated webinar" do
     time =  DateTime.new(2021,4,7,16,1,0)
     banner = OneOffBanner.new(time)
-    expect(banner.show?(true)).to eq(true)
+    expect(banner.show?).to eq(true)
   end
 
   it "does not return true for show? when the key falls on a skipped day" do
     time =  DateTime.new(2021,1,18,16,1,0)
     banner = OneOffBanner.new(time)
-    expect(banner.show?(true)).to eq(false)
+    expect(banner.show?).to eq(false)
   end
 
   it "does return correct link and title when the key does have an associated recurring webinar" do
