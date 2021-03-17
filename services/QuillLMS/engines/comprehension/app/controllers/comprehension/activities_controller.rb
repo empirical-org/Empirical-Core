@@ -21,8 +21,6 @@ module Comprehension
     def create
       @activity = Comprehension::Activity.new(activity_params)
 
-      @activity.create_parent_activity
-
       if @activity.save
         render json: @activity, status: :created
       else
