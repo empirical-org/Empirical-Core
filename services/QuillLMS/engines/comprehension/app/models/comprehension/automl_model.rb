@@ -24,7 +24,7 @@ module Comprehension
       options ||= {}
 
       super(options.reverse_merge(
-        only: [:id, :automl_model_id, :name, :labels, :state, :prompt_id],
+        only: [:id, :automl_model_id, :name, :labels, :state, :prompt_id, :created_at],
         methods: [:older_models]
       ))
     end

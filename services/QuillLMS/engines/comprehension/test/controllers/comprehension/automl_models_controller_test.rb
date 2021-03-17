@@ -30,7 +30,7 @@ module Comprehension
           assert_response :success
           assert_equal Array, parsed_response.class
           refute parsed_response.empty?
-      
+
           assert_equal @automl_model.automl_model_id, parsed_response.first['automl_model_id']
 
           assert_equal @automl_model.name, parsed_response.first['name']
@@ -41,6 +41,29 @@ module Comprehension
 
           assert_equal @automl_model.labels, parsed_response.first['labels']
 
+        end
+      end
+
+      context "with filter params" do
+        setup do
+          @prompt1 = create(:comprehension_prompt)
+          @prompt2 = create(:comprehension_prompt)
+
+          @model1 = create(:comprehension_automl_model, prompt_id: @prompt1.id)
+          @model2 = create(:comprehension_automl_model, prompt_id: @prompt1.id)
+          @model3 = create(:comprehension_automl_model, prompt_id: @prompt2.id)
+          @model4 = create(:comprehension_automl_model, prompt_id: @prompt2.id)
+        end
+
+        should 'only get Models for specified prompt id when provided' do
+          get :index, prompt_id: @prompt1.id
+
+          parsed_response = JSON.parse(response.body)
+
+          assert_equal parsed_response.length, 2
+          parsed_response.each do |r|
+            assert r['prompt_ids'].include?(@prompt1.id)
+          end
         end
       end
     end
@@ -60,7 +83,7 @@ module Comprehension
         parsed_response = JSON.parse(response.body)
 
         assert_equal 201, response.code.to_i
-    
+
         assert_equal @automl_model.automl_model_id, parsed_response['automl_model_id']
 
         assert_equal @automl_model.name, parsed_response['name']
@@ -114,7 +137,7 @@ module Comprehension
         parsed_response = JSON.parse(response.body)
 
         assert_equal 200, response.code.to_i
-    
+
         assert_equal @automl_model.automl_model_id, parsed_response['automl_model_id']
 
         assert_equal @automl_model.name, parsed_response['name']
@@ -149,7 +172,7 @@ module Comprehension
         assert_equal 204, response.code.to_i
 
         @automl_model.reload
-    
+
         assert_equal new_prompt_id, @automl_model.prompt_id
       end
 

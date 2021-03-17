@@ -6,6 +6,7 @@ module Comprehension
     # GET /automl_models.json
     def index
       @automl_models = Comprehension::AutomlModel.all
+      @automl_models = @automl_models.where(prompt_id: params[:prompt_id]) if params[:prompt_id]
 
       render json: @automl_models
     end

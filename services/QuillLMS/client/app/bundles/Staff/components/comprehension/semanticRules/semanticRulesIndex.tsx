@@ -122,28 +122,36 @@ const SemanticRulesIndex = ({ history, match, location }) => {
         <Route component={() => <SemanticRulesOverview activityId={activityId} prompts={getPromptForComponent(activityData, BECAUSE)} />} path='/activities/:activityId/semantic-rules/because' />
         <Route component={() => <SemanticRulesOverview activityId={activityId} prompts={getPromptForComponent(activityData, BUT)} />} path='/activities/:activityId/semantic-rules/but' />
         <Route component={() => <SemanticRulesOverview activityId={activityId} prompts={getPromptForComponent(activityData, SO)} />} path='/activities/:activityId/semantic-rules/so' />
-        <Route component={Model} path='/activities/:activityId/semantic-rules/model' />
+        <Route component={Model} path='/activities/:activityId/semantic-rules/model/:modelId' />
         <Route component={ModelForm} path='/activities/:activityId/semantic-rules/add-model' />
-        <Route component={() => <SemanticRuleForm
-          activityData={activityData && activityData.activity}
-          activityId={activityId}
-          errors={errors}
-          handleSetErrors={handleSetErrors}
-          isSemantic={true}
-          isUniversal={false}
-          rule={blankSemanticRule}
-          submitRule={handleCreateRule}
-        />} path='/activities/:activityId/semantic-rules/new' />
-        <Route component={() => <SemanticRuleForm
-          activityData={activityData && activityData.activity}
-          activityId={activityId}
-          errors={errors}
-          handleSetErrors={handleSetErrors}
-          isSemantic={true}
-          isUniversal={false}
-          rule={null}
-          submitRule={handleUpdateRule}
-        />} path='/activities/:activityId/semantic-rules/:ruleId' />
+        <Route
+          component={() =>
+            (<SemanticRuleForm
+              activityData={activityData && activityData.activity}
+              activityId={activityId}
+              errors={errors}
+              handleSetErrors={handleSetErrors}
+              isSemantic={true}
+              isUniversal={false}
+              rule={blankSemanticRule}
+              submitRule={handleCreateRule}
+            />)}
+          path='/activities/:activityId/semantic-rules/new'
+        />
+        <Route
+          component={() =>
+            (<SemanticRuleForm
+              activityData={activityData && activityData.activity}
+              activityId={activityId}
+              errors={errors}
+              handleSetErrors={handleSetErrors}
+              isSemantic={true}
+              isUniversal={false}
+              rule={null}
+              submitRule={handleUpdateRule}
+            />)}
+          path='/activities/:activityId/semantic-rules/:ruleId'
+        />
       </Switch>
     </div>
   );

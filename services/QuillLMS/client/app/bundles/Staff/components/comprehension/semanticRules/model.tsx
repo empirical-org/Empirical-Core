@@ -1,12 +1,13 @@
 import * as React from "react";
-import { withRouter } from 'react-router-dom';
+import { withRouter, Link } from 'react-router-dom';
 
-const Model = ({ history }) => {
-console.log("🚀 ~ file: model.tsx ~ line 5 ~ Model ~ history", history)
+const Model = ({ history, match }) => {
+  const { params } = match;
+  const { activityId, modelId } = params;
 
   return(
     <div className="model-container">
-      Model
+      <Link id="semantic-index-return" to={{ pathname: `/activities/${activityId}/semantic-rules`, state: 'returned-to-index' }}>← Return to Semantic Rules Index</Link>
     </div>
   );
 }

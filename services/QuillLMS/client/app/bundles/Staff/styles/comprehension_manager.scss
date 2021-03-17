@@ -318,7 +318,7 @@
       }
     }
   }
-  .rules-container, .rule-container, .turk-sessions-container, .semantic-rules-container {
+  .rules-container, .rule-container, .turk-sessions-container, .semantic-rules-container, .model-container {
     padding: 20px;
     width: 80vw;
     .model-form-container {
@@ -327,6 +327,12 @@
       }
       #add-model-button {
         margin-top: 20px;
+      }
+      #semantic-index-return {
+        color: #00c2a2
+      }
+      #semantic-index-return:hover {
+        color: #29d8bc;
       }
       .form-subsection-label {
         font-size: 12px;
@@ -367,7 +373,7 @@
       .lower-header-container {
         display: flex;
         align-items: center;
-        #add-rule-button {
+        #add-rule-button, #add-model-button {
           margin-left: 20px;
           a {
             color: white;
