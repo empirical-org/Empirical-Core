@@ -7,7 +7,7 @@ module Comprehension
 
     # GET /activities.json
     def index
-      @activities = Comprehension::Activity.all
+      @activities = Comprehension::Activity.all.order(:name)
 
       render json: @activities
     end
@@ -55,6 +55,7 @@ module Comprehension
     private def activity_params
       params.require(:activity).permit(
         :title,
+        :name,
         :parent_activity_id,
         :target_level,
         :scored_level,
