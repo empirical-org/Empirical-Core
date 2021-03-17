@@ -17,12 +17,7 @@ const LabelsTable = ({ activityId, prompt }) => {
   const formattedRows = rulesData && rulesData.rules && rulesData.rules.length && rulesData.rules.map(rule => {
     const { name, id, state, optimal, label } = rule;
     const ruleLink = (
-      <Link to={{
-        pathname: `/activities/${activityId}/semantic-rules/${id}`,
-        state: {
-          rule: rule
-        }
-      }}>Edit</Link>
+      <Link className="data-link" to={{ pathname: `/activities/${activityId}/semantic-rules/${id}`, state: { rule: rule } }}>Edit</Link>
     );
     return {
       id: id,
@@ -51,12 +46,7 @@ const LabelsTable = ({ activityId, prompt }) => {
     { name: "", attribute:"edit", width: "70px" }
   ];
   const ruleLink = (
-    <Link to={{
-      pathname: `/activities/${activityId}/semantic-rules/new`,
-      state: {
-        promptId: [prompt.id]
-      }
-    }}>Add Rule/Label</Link>
+    <Link to={{ pathname: `/activities/${activityId}/semantic-rules/new`, state: { promptId: [prompt.id] }}}>Add Rule/Label</Link>
   );
 
   return(
@@ -70,7 +60,7 @@ const LabelsTable = ({ activityId, prompt }) => {
         </section>
       </section>
       <DataTable
-        className="rules-table"
+        className="semantic-rules-table"
         defaultSortAttribute="name"
         headers={dataTableFields}
         rows={formattedRows ? formattedRows : []}

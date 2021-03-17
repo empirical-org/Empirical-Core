@@ -16,10 +16,10 @@ const ModelsTable = ({ activityId, prompt }) => {
   const formattedRows = modelsData && modelsData.models && modelsData.models.length && modelsData.models.map(model => {
     const { id, created_at, name, older_models, labels, state } = model;
     const viewLink = (
-      <Link to={{ pathname: `/activities/${activityId}/semantic-rules/model/${id}`, state: { model: model }}}>View Model</Link>
+      <Link className="data-link" to={{ pathname: `/activities/${activityId}/semantic-rules/model/${id}`, state: { model: model }}}>View Model</Link>
     );
     const activateLink = (
-      <Link to={{ pathname: `/activities/${activityId}/semantic-rules/model/${id}/activate`, state: { model: model } }}>Activate Settings</Link>
+      <Link className="data-link" to={{ pathname: `/activities/${activityId}/semantic-rules/model/${id}/activate`, state: { model: model } }}>Activate Settings</Link>
     );
     return {
       id: id,
@@ -57,7 +57,7 @@ const ModelsTable = ({ activityId, prompt }) => {
   );
 
   return(
-    <section className="semantic-rules-container">
+    <section className="models-container">
       <section className="header-container">
         <section className="lower-header-container">
           <h5>Prompt Models</h5>
@@ -65,7 +65,7 @@ const ModelsTable = ({ activityId, prompt }) => {
         </section>
       </section>
       <DataTable
-        className="rules-table"
+        className="models-table"
         defaultSortAttribute="name"
         headers={dataTableFields}
         rows={formattedRows ? formattedRows : []}

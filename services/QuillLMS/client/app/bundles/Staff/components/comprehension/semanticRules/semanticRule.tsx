@@ -10,6 +10,7 @@ import RulePrompts from '../configureRules/rulePrompts';
 import RuleUniversalAttributes from '../configureRules/ruleUniversalAttributes';
 import { Spinner, Modal } from '../../../../Shared/index';
 import { deleteRule, fetchRules, fetchUniversalRules } from '../../../utils/comprehension/ruleAPIs';
+import { fetchConcepts, } from '../../../utils/comprehension/conceptAPIs';
 import { formatPrompts } from '../../../helpers/comprehension';
 import { handleSubmitRule, getInitialRuleType, formatInitialFeedbacks, returnInitialFeedback, formatRegexRules } from '../../../helpers/comprehension/ruleHelpers';
 import { ruleOptimalOptions, regexRuleTypes } from '../../../../../constants/comprehension';
@@ -70,6 +71,11 @@ const SemanticRuleForm = ({ activityData, activityId, errors, handleSetErrors, i
 
   // cache ruleSets data for handling universal rule suborder
   const { data: universalRulesData } = useQuery("universal-rules", fetchUniversalRules);
+
+  const { data: conceptsData } = useQuery({
+    queryKey: ['concepts', activityId],
+    queryFn: fetchConcepts
+  });
 
   React.useEffect(() => {
     formatPrompts({ activityData, rule, setRulePrompts });
@@ -191,13 +197,14 @@ const SemanticRuleForm = ({ activityData, activityId, errors, handleSetErrors, i
     <div className="rule-form-container">
       {showDeleteRuleModal && renderDeleteRuleModal()}
       <section className="semantic-rule-form-header">
-        <Link to={`/activities/${activityId}/semantic-rules`}>← Return to Semantic Rules Index</Link>
+        <Link className="return-link" to={`/activities/${activityId}/semantic-rules`}>← Return to Semantic Rules Index</Link>
         <button className="quill-button fun primary contained" id="rule-delete-button" onClick={toggleShowDeleteRuleModal} type="button">
           Delete
         </button>
       </section>
       <form className="semantic-rule-form">
         <RuleGenericAttributes
+          concepts={conceptsData ? conceptsData.concepts : []}
           errors={errors}
           isUniversal={isUniversal}
           ruleConceptUID={ruleConceptUID}
