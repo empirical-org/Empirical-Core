@@ -17,7 +17,11 @@ const mockProps = {
   setRuleDescription: jest.fn(),
   setRuleName: jest.fn(),
   setRuleOptimal: jest.fn(),
-  setRuleType: jest.fn()
+  setRuleType: jest.fn(),
+  concepts: [
+    { name: 'A | Concept | Name', uid: 'blah' },
+    { name: 'Another | Concept | Name', uid: 'blahblah' }
+  ]
 };
 
 describe('RuleGenericAttributes component', () => {
@@ -32,7 +36,7 @@ describe('RuleGenericAttributes component', () => {
     // Input: Name, Concept UID (2)
     // DropdownInput: Type, Description (2)
     expect(container.find(TextEditor).length).toEqual(1);
-    expect(container.find(Input).length).toEqual(2);
-    expect(container.find(DropdownInput).length).toEqual(2);
+    expect(container.find(Input).length).toEqual(1);
+    expect(container.find(DropdownInput).length).toEqual(3);
   });
 });

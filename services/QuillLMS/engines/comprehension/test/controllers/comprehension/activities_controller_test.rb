@@ -42,16 +42,17 @@ module Comprehension
 
     context "create" do
       setup do
-        @activity = build(:comprehension_activity, parent_activity_id: 1, title: "First Activity", target_level: 8, scored_level: "4th grade")
+        @activity = build(:comprehension_activity, parent_activity_id: 1, title: "First Activity", target_level: 8, scored_level: "4th grade", name: "First Activity - Name")
       end
 
       should "create a valid record and return it as json" do
-        post :create, activity: { parent_activity_id: @activity.parent_activity_id, scored_level: @activity.scored_level, target_level: @activity.target_level, title: @activity.title }
+        post :create, activity: { parent_activity_id: @activity.parent_activity_id, scored_level: @activity.scored_level, target_level: @activity.target_level, title: @activity.title, name: @activity.name }
 
         parsed_response = JSON.parse(response.body)
 
         assert_equal 201, response.code.to_i
         assert_equal "First Activity", parsed_response['title']
+        assert_equal "First Activity - Name", parsed_response['name']
         assert_equal 1, Activity.count
       end
 
@@ -66,24 +67,26 @@ module Comprehension
       end
 
       should "create a valid record with passage attributes" do
-        post :create, activity: { parent_activity_id: @activity.parent_activity_id, scored_level: @activity.scored_level, target_level: @activity.target_level, title: @activity.title, passages_attributes: [{text: ("Hello " * 20) }] }
+        post :create, activity: { parent_activity_id: @activity.parent_activity_id, scored_level: @activity.scored_level, target_level: @activity.target_level, title: @activity.title, name: @activity.name, passages_attributes: [{text: ("Hello " * 20) }] }
 
         parsed_response = JSON.parse(response.body)
 
         assert_equal 201, response.code.to_i
         assert_equal "First Activity", parsed_response['title']
+        assert_equal "First Activity - Name", parsed_response['name']
         assert_equal 1, Activity.count
         assert_equal 1, Activity.first.passages.count
         assert_equal ("Hello " * 20), Activity.first.passages.first.text
       end
 
       should "create a valid record with prompt attributes" do
-        post :create, activity: { parent_activity_id: @activity.parent_activity_id, scored_level: @activity.scored_level, target_level: @activity.target_level, title: @activity.title, prompts_attributes: [{text: "meat is bad for you.", conjunction: "because"}] }
+        post :create, activity: { parent_activity_id: @activity.parent_activity_id, scored_level: @activity.scored_level, target_level: @activity.target_level, title: @activity.title, name: @activity.name, prompts_attributes: [{text: "meat is bad for you.", conjunction: "because"}] }
 
         parsed_response = JSON.parse(response.body)
 
         assert_equal 201, response.code.to_i
         assert_equal "First Activity", parsed_response['title']
+        assert_equal "First Activity - Name", parsed_response['name']
         assert_equal 1, Activity.count
         assert_equal 1, Activity.first.prompts.count
         assert_equal "meat is bad for you.", Activity.first.prompts.first.text

@@ -21,6 +21,9 @@ module Comprehension
       should validate_presence_of(:title)
       should validate_length_of(:title).is_at_least(5).is_at_most(100)
 
+      should validate_presence_of(:name)
+      should validate_length_of(:name).is_at_least(5).is_at_most(100)
+
       should validate_length_of(:scored_level).is_at_most(100)
     end
 

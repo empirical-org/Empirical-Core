@@ -8,6 +8,7 @@ import requestMock from '../../../../../__mocks__/request'
 jest.mock('request')
 
 describe('AdminDashboard container', () => {
+  process.env.PUSHER_KEY = 'pusher';
   const wrapper = shallow(<AdminDashboard id={7} />);
   wrapper.setState({ loading: false });
 
