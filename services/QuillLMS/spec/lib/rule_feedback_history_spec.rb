@@ -39,17 +39,18 @@ RSpec.describe RuleFeedbackHistory, type: :model do
 
       sql_result = RuleFeedbackHistory.exec_query(conjunction: 'so', activity_id: activity1.id)
       formatted = RuleFeedbackHistory.format_sql_results(sql_result)
-      expect(formatted.first).to eq(
-        {
-          api_name: 'autoML',
-          rule_order: "1", 
-          feedback_first_layer: 'To Be Implemented', 
-          rule_description: 'so_rule_1',
-          pct_strong: 0, 
-          scored_responses: 0,
-          pct_scored: 0          
-        }
-      )
+      expected = {
+        api_name: 'autoML',
+        rule_order: "1", 
+        feedback_first_layer: 'To Be Implemented', 
+        rule_name: 'so_rule_1',
+        pct_strong: 0, 
+        scored_responses: 0,
+        pct_scored: 0          
+      }
+
+      expect(expected <= formatted.first).to be true
+
     end
   end
 

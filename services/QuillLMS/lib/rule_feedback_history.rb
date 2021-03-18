@@ -32,8 +32,5 @@ class RuleFeedbackHistory
             }
 
         end
-
-
     end
-
 end
