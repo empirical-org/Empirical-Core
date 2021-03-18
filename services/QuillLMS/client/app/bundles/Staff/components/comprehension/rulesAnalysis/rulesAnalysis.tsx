@@ -44,7 +44,7 @@ const RulesAnalysis: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ hist
   const formattedRows = selectedPrompt && ruleFeedbackHistory && ruleFeedbackHistory.ruleFeedbackHistories && ruleFeedbackHistory.ruleFeedbackHistories.filter(rule => {
     return selectedRuleType.value === DEFAULT_RULE_TYPE || rule.api_name === selectedRuleType.value
   }).map(rule => {
-    const { name, uid, api_name, rule_order, rule_description, pct_strong, pct_scored, total_responses, scored_responses, feedback_first_layer, } = rule;
+    const { rule_name, uid, api_name, rule_order, rule_description, pct_strong, pct_scored, total_responses, scored_responses, feedback_first_layer, } = rule;
     const apiOrder = ruleOrder[api_name]
     return {
       uid,
@@ -52,7 +52,7 @@ const RulesAnalysis: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ hist
       apiOrder,
       apiName: api_name,
       ruleOrder: Number(rule_order),
-      rule: name,
+      rule: rule_name,
       percentageStrong: pct_strong,
       totalResponses: total_responses,
       scoredResponses: scored_responses,
