@@ -13,23 +13,23 @@ class WebinarBanner
   end
 
   def link
-    values&.fetch(:link, nil)
+    values&.dig(:link)
   end
 
   def link_display_text
-    values&.fetch(:link_display_text, nil)
+    values&.dig(:link_display_text)
   end
 
   def title
-    values&.fetch(:title, nil)
+    values&.dig(:title)
   end
 
   def subscription_only?
-    values&.fetch(:subscription_only, nil)
+    values&.dig(:subscription_only)
   end
 
   def second_or_fourth_only
-    values&.fetch(:second_or_fourth_only, nil)
+    values&.dig(:second_or_fourth_only)
   end
 
   def show?(account_type = nil)

@@ -51,10 +51,6 @@ class OneOffBanner < WebinarBanner
     }
   }
 
-  def initialize(time)
-    super(time)
-  end
-
   private def values
     WEBINARS[key]
   end
