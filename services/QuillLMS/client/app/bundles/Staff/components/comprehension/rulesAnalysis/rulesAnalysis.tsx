@@ -44,10 +44,10 @@ const RulesAnalysis: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ hist
   const formattedRows = selectedPrompt && ruleFeedbackHistory && ruleFeedbackHistory.ruleFeedbackHistories && ruleFeedbackHistory.ruleFeedbackHistories.filter(rule => {
     return selectedRuleType.value === DEFAULT_RULE_TYPE || rule.api_name === selectedRuleType.value
   }).map(rule => {
-    const { name, id, api_name, rule_order, rule_description, pct_strong, pct_scored, total_responses, scored_responses, feedback_first_layer, } = rule;
+    const { name, uid, api_name, rule_order, rule_description, pct_strong, pct_scored, total_responses, scored_responses, feedback_first_layer, } = rule;
     const apiOrder = ruleOrder[api_name]
     return {
-      id,
+      uid,
       className: apiOrder % 2 === 0 ? 'even' : 'odd',
       apiOrder,
       apiName: api_name,
@@ -60,7 +60,7 @@ const RulesAnalysis: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ hist
       activityId,
       description: rule_description,
       firstLayerFeedback: feedback_first_layer,
-      handleClick: () => window.location.href = `/cms/comprehension#/activities/${activityId}/rules-analysis/${id}`
+      handleClick: () => window.location.href = `/cms/comprehension#/activities/${activityId}/rules-analysis/${uid}`
     }
   }).sort(firstBy('apiOrder').thenBy('ruleOrder'));
 
