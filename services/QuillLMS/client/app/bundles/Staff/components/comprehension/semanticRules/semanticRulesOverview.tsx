@@ -10,10 +10,10 @@ const SemanticRulesOverview = ({ activityId, prompts }) => {
 function renderPrompts() {
   return prompts.map(prompt => {
     return(
-      <React.Fragment key={prompt.id}>
+      <section className="prompt-section" key={prompt.id}>
         <LabelsTable activityId={activityId} prompt={prompt} />
         <ModelsTable activityId={activityId} prompt={prompt} />
-      </React.Fragment>
+      </section>
     )
   });
 }

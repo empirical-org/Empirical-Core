@@ -1,30 +1,29 @@
 import * as React from "react";
+import { useQuery } from 'react-query';
 import { withRouter, Link } from 'react-router-dom';
 import { EditorState, ContentState } from 'draft-js';
 
+import { fetchModel } from '../../../utils/comprehension/modelAPIs';
 import { DataTable, Spinner, TextEditor } from '../../../../Shared/index';
 
 const Model = ({ location, match }) => {
-
-  if(!location.state) {
-    return(
-      <div className="loading-spinner-container">
-        <Spinner />
-      </div>
-    );
-  }
-  const { state } = location;
   const { params } = match;
-  const { activityId } = params;
+  const { activityId, modelId } = params;
 
-  const [modelNotes, setModelNotes] = React.useState<string>(state && state.model ? state.model.notes : '');
+  // const [modelNotes, setModelNotes] = React.useState<string>('');
   const [errors, setErrors] = React.useState<object>({});
 
-  function handleSetModelNotes(text: string){ setModelNotes(text) };
+  // cache ruleSets data for handling rule suborder
+  const { data: modelData } = useQuery({
+    queryKey: [`model-${modelId}`, modelId],
+    queryFn: fetchModel
+  });
 
-  function onHandleUpdateModel() {
+  // function handleSetModelNotes(text: string){ setModelNotes(text) };
 
-  }
+  // function onHandleUpdateModel() {
+
+  // }
 
   function upperSectionRows ({ model }) {
     if(!model) {
@@ -82,8 +81,16 @@ const Model = ({ location, match }) => {
     { name: "", attribute:"field", width: "200px" },
     { name: "", attribute:"value", width: "400px" }
   ];
-  const modelNotesStyle = modelNotes && modelNotes.length && modelNotes !== '<br/>' ? 'has-text' : '';
-  const errorsPresent = !!Object.keys(errors).length;
+  // const modelNotesStyle = modelNotes && modelNotes.length && modelNotes !== '<br/>' ? 'has-text' : '';
+  // const errorsPresent = !!Object.keys(errors).length;
+
+  if(!modelData) {
+    return(
+      <div className="loading-spinner-container">
+        <Spinner />
+      </div>
+    );
+  }
 
   return(
     <div className="model-container">
@@ -92,30 +99,31 @@ const Model = ({ location, match }) => {
         <DataTable
           className="model-table"
           headers={dataTableFields}
-          rows={upperSectionRows(state)}
+          rows={upperSectionRows(modelData)}
         />
-        <p className={`text-editor-label ${modelNotesStyle}`}>Model Notes</p>
+        {/* <p className={`text-editor-label ${modelNotesStyle}`}>Model Notes</p>
         <TextEditor
+          disabled={true}
           ContentState={ContentState}
           EditorState={EditorState}
           handleTextChange={handleSetModelNotes}
           key="model-notes"
           text={modelNotes}
-        />
+        /> */}
         <DataTable
           className="model-table"
           headers={dataTableFields}
-          rows={lowerSectionRows(state)}
+          rows={lowerSectionRows(modelData)}
         />
       </section>
-      <div className="submit-button-container">
+      {/* <div className="submit-button-container">
         {errorsPresent && <div className="error-message-container">
           <p className="all-errors-message">Failed to updated model notes.</p>
         </div>}
         <button className="quill-button fun primary contained" id="rule-submit-button" onClick={onHandleUpdateModel} type="button">
           Submit
         </button>
-      </div>
+      </div> */}
     </div>
   );
 }

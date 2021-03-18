@@ -45,9 +45,7 @@ const LabelsTable = ({ activityId, prompt }) => {
     { name: "Optimal?", attribute:"optimal", width: "70px" },
     { name: "", attribute:"edit", width: "70px" }
   ];
-  const ruleLink = (
-    <Link to={{ pathname: `/activities/${activityId}/semantic-rules/new`, state: { promptId: [prompt.id] }}}>Add Rule/Label</Link>
-  );
+  const ruleLink = <Link to={`/activities/${activityId}/semantic-rules/${prompt.id}/new`}>Add Rule/Label</Link>;
 
   return(
     <section className="semantic-rules-container">

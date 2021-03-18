@@ -16,10 +16,10 @@ const ModelsTable = ({ activityId, prompt }) => {
   const formattedRows = modelsData && modelsData.models && modelsData.models.length && modelsData.models.map(model => {
     const { id, created_at, name, older_models, labels, state } = model;
     const viewLink = (
-      <Link className="data-link" to={{ pathname: `/activities/${activityId}/semantic-rules/model/${id}`, state: { model: model }}}>View Model</Link>
+      <Link className="data-link" to={`/activities/${activityId}/semantic-rules/model/${id}`}>View Model</Link>
     );
     const activateLink = (
-      <Link className="data-link" to={{ pathname: `/activities/${activityId}/semantic-rules/model/${id}/activate`, state: { model: model } }}>Activate Settings</Link>
+      <Link className="data-link" to={`/activities/${activityId}/semantic-rules/${prompt.id}/model/${id}/activate`}>Activate Settings</Link>
     );
     return {
       id: id,
@@ -52,9 +52,7 @@ const ModelsTable = ({ activityId, prompt }) => {
     { name: "", attribute:"activate", width: "150px" }
   ];
 
-  const addModelLink = (
-    <Link to={{ pathname: `/activities/${activityId}/semantic-rules/add-model`, state: { promptId: prompt.id }}}>Add Model</Link>
-  );
+  const addModelLink = <Link to={`/activities/${activityId}/semantic-rules/${prompt.id}/add-model`}>Add Model</Link>;
 
   return(
     <section className="models-container">

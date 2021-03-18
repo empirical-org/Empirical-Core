@@ -11,9 +11,8 @@ import RuleUniversalAttributes from '../configureRules/ruleUniversalAttributes';
 import { Spinner, Modal } from '../../../../Shared/index';
 import { deleteRule, fetchRules, fetchUniversalRules } from '../../../utils/comprehension/ruleAPIs';
 import { fetchConcepts, } from '../../../utils/comprehension/conceptAPIs';
-import { formatPrompts } from '../../../helpers/comprehension';
 import { handleSubmitRule, getInitialRuleType, formatInitialFeedbacks, returnInitialFeedback, formatRegexRules } from '../../../helpers/comprehension/ruleHelpers';
-import { ruleOptimalOptions, regexRuleTypes } from '../../../../../constants/comprehension';
+import { ruleOptimalOptions, regexRuleTypes, blankRule } from '../../../../../constants/comprehension';
 import { RuleInterface, DropdownObjectInterface } from '../../../interfaces/comprehensionInterfaces';
 
 interface SemanticRuleFormProps {
@@ -27,16 +26,22 @@ interface SemanticRuleFormProps {
   submitRule: any,
   prompt?: any,
   history: any,
-  location: any
+  location: any,
+  match: any,
 }
 
-const SemanticRuleForm = ({ activityData, activityId, errors, handleSetErrors, isSemantic, isUniversal, rule, submitRule, location, history }: SemanticRuleFormProps) => {
+const SemanticRuleForm = ({ activityId, errors, handleSetErrors, isSemantic, isUniversal, rule, submitRule, location, history, match }: SemanticRuleFormProps) => {
+  const { params } = match;
+  const { promptId } = params;
 
   let ruleForForm;
-  if(rule) {
+  if(rule && rule.id) {
     ruleForForm = rule;
   } else if(location.state && location.state.rule) {
     ruleForForm = location.state.rule;
+  } else {
+    ruleForForm = blankRule;
+    ruleForForm.rule_type = 'autoML';
   }
 
   const initialRuleType = getInitialRuleType({ isUniversal, rule_type: ruleForForm && ruleForForm.rule_type, universalRuleType: null});
@@ -78,21 +83,6 @@ const SemanticRuleForm = ({ activityData, activityId, errors, handleSetErrors, i
   });
 
   React.useEffect(() => {
-    formatPrompts({ activityData, rule, setRulePrompts });
-  }, [activityData]);
-
-  React.useEffect(() => {
-    formatRegexRules({ rule, setRegexRules });
-    if(Object.keys(errors).length) {
-      handleSetErrors({});
-    }
-  }, [rule]);
-
-  React.useEffect(() => {
-    formatRegexRules({ rule, setRegexRules });
-  }, [ruleForForm]);
-
-  React.useEffect(() => {
     if(!rulesCount && rulesData && rulesData.rules) {
       const { rules } = rulesData;
       setRulesCount(rules.length);
@@ -102,14 +92,6 @@ const SemanticRuleForm = ({ activityData, activityId, errors, handleSetErrors, i
       setUniversalRulesCount(universalRules.length);
     }
   }, [rulesData, universalRulesData]);
-
-  // needed for case where user toggles between plagiarism and rules-based rule types for new rules
-  React.useEffect(() => {
-    if(ruleForForm && !ruleForForm.feedbacks) {
-      const initialFeedbacks = returnInitialFeedback(ruleType.value);
-      setRuleFeedbacks(initialFeedbacks);
-    }
-  }, [ruleType]);
 
   function toggleShowDeleteRuleModal() {
     setShowDeleteRuleModal(!showDeleteRuleModal);
@@ -146,7 +128,7 @@ const SemanticRuleForm = ({ activityData, activityId, errors, handleSetErrors, i
       ruleFeedbacks,
       ruleOptimal,
       rulePrompts,
-      rulePromptIds: location.state && location.state.promptId ? location.state.promptId : null,
+      rulePromptIds: [promptId],
       rulesCount,
       ruleType,
       setErrors: handleSetErrors,
@@ -161,24 +143,10 @@ const SemanticRuleForm = ({ activityData, activityId, errors, handleSetErrors, i
       ruleId = location.state.rule.id;
     }
     deleteRule(ruleId).then((response) => {
-      // const { error } = response;
-      // if(error) {
-      //   let updatedErrors = errors;
-      //   updatedErrors['delete error'] = error;
-      //   setErrors(updatedErrors);
-      // }
       toggleShowDeleteRuleModal();
       // update ruleSets cache to remove delete ruleSet
       queryCache.refetchQueries(`rules-${activityId}`);
       history.push(`/activities/${activityId}/semantic-rules/all`);
-
-      // if(Object.keys(errors).length) {
-      //   toggleSubmissionModal();
-      // } else {
-      //   // update ruleSets cache to remove delete ruleSet
-      //   queryCache.refetchQueries(`rules-${activityId}`);
-      //   history.push(`/activities/${activityId}/rules`);
-      // }
     });
   }
 

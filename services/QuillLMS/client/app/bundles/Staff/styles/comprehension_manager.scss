@@ -312,6 +312,25 @@
   }
   .rules-container, .rule-container, .turk-sessions-container, .semantic-rules-container, .model-container {
     width: 80vw;
+    .semantic-rules-overview-container {
+      .prompt-section {
+        border-top: 2px solid #e0e0e0;
+        border-bottom: 2px solid #e0e0e0;
+        padding: 20px;
+      }
+    }
+    .activate-model-container {
+      .activate-model-form {
+        padding-top: 20px;
+        .model-activate-table {
+          width: 50vw;
+          margin-bottom: 20px;
+          .data-table-headers {
+            display: none;
+          }
+        }
+      }
+    }
     .model-form-container {
       .model-id {
         width: 300px;
@@ -575,6 +594,10 @@
       }
       .card {
         max-width: 1000px !important;
+        padding: 10px;
+        border: 1px solid #e0e0e0;
+        border-radius: 6px;
+        margin-top: 20px;
       }
       .submit-button-container {
         #rule-cancel-button {

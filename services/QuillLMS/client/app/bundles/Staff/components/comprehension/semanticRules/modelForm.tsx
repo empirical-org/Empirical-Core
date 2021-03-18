@@ -5,11 +5,9 @@ import { InputEvent } from '../../../interfaces/comprehensionInterfaces';
 import { Input, Spinner } from '../../../../Shared/index';
 import { createModel } from '../../../utils/comprehension/modelAPIs';
 
-const ModelForm = ({ location, history, match }) => {
+const ModelForm = ({ history, match }) => {
   const { params } = match;
-  const { state } = location;
-  const { activityId } = params;
-  const { promptId } = state;
+  const { activityId, promptId } = params;
 
   const [errors, setErrors] = React.useState<object>({});
   const [modelId, setModelId] = React.useState<string>('');
@@ -33,12 +31,9 @@ const ModelForm = ({ location, history, match }) => {
           updatedErrors['Model Submission Error'] = error;
           setErrors(updatedErrors);
           setIsLoading(false);
+        } else {
+          history.push(`/activities/${activityId}/semantic-rules/model/${model.id}`);
         }
-        // update rules cache to display newly created rule
-        history.push({
-          pathname: `/activities/${activityId}/semantic-rules/model/${model.id}`,
-          state: { model: model }
-        });
       });
     }
   }
@@ -53,7 +48,7 @@ const ModelForm = ({ location, history, match }) => {
 
   return(
     <div className="model-form-container">
-      <Link id="semantic-index-return" to={{ pathname: `/activities/${activityId}/semantic-rules`, state: 'returned-to-index' }}>← Return to Semantic Rules Index</Link>
+      <Link className="return-link" to={{ pathname: `/activities/${activityId}/semantic-rules`, state: 'returned-to-index' }}>← Return to Semantic Rules Index</Link>
       <Input
         className="model-id"
         error={errors['Model ID']}
