@@ -45,14 +45,6 @@ class WebinarBanner
     !second_or_fourth_only || second_or_fourth_week_of_month?(time)
   end
 
-  private def values
-    # implemented in the subclass
-  end
-
-  private def key
-    # implemented in the subclass
-  end
-
   private def skipped_day?
     SKIPPED_DAYS.any? { |date| date.month == time.month && date.day == time.day }
   end
