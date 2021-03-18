@@ -378,7 +378,7 @@ describe TeacherFixController do
     context 'when one or more unit IDs are invalid' do
       it 'should not merge activity packs' do
         expect(TeacherFixes).to_not receive(:merge_two_units)
-        post :merge_activity_packs, from_activity_pack_id: unit1.id, to_activity_pack_id: 100
+        post :merge_activity_packs, from_activity_pack_id: unit1.id, to_activity_pack_id: 1000000000000
         expect(response.body).to eq({error: "The second activity pack ID is invalid."}.to_json)
       end
     end

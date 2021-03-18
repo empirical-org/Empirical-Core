@@ -54,4 +54,32 @@ describe Api::V1::ConceptsController, type: :controller do
       expect(parsed_body['concepts'].length).to eq(2)
     end
   end
+
+  context 'GET #level_zero_concepts_with_lineage' do
+    let!(:concept1) { create(:concept, name: 'Articles') }
+    let!(:concept2) { create(:concept, name: 'The', parent: concept1) }
+    let!(:concept3) { create(:concept, name: 'Something', parent: concept2)}
+    let!(:concept4) { create(:concept, name: 'Different') }
+    let!(:concept5) { create(:concept, name: 'Name', parent: concept4) }
+    let!(:concept6) { create(:concept, name: 'Other', parent: concept5)}
+    let(:parsed_body) { JSON.parse(response.body) }
+
+    def subject
+      get :level_zero_concepts_with_lineage
+    end
+
+    before do
+      subject
+    end
+
+    it 'returns a row for each level 0 concept' do
+      expect(parsed_body['concepts'].length).to eq(2)
+    end
+
+    it 'returns them in alphabetical order and formats the names correctly' do
+      expect(parsed_body['concepts'][0]['name']).to eq('Articles | The | Something')
+      expect(parsed_body['concepts'][1]['name']).to eq('Different | Name | Other')
+    end
+  end
+
 end

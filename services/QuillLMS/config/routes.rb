@@ -371,7 +371,11 @@ EmpiricalGrammar::Application.routes.draw do
       resources :standard_levels,                only: [:index]
       resources :standards,                  only: [:index]
       resources :standard_categories,        only: [:index]
-      resources :concepts,                only: [:index, :create]
+      resources :concepts,                only: [:index, :create] do
+        collection do
+          get 'level_zero_concepts_with_lineage'
+        end
+      end
       resources :users,                   only: [:index]
       resources :classroom_units,         only: [] do
         collection do
@@ -533,7 +537,10 @@ EmpiricalGrammar::Application.routes.draw do
         get :edit_subscription
         get :new_subscription
         get :new_admin
+        get :add_existing_user
         post :add_admin_by_email
+        post :add_existing_user_by_email
+        post :unlink
       end
     end
 

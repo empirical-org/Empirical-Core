@@ -28,6 +28,7 @@ ActiveRecord::Schema.define(version: 20210317200004) do
     t.string   "scored_level",       limit: 100
     t.datetime "created_at",                     null: false
     t.datetime "updated_at",                     null: false
+    t.string   "name"
   end
 
   add_index "comprehension_activities", ["parent_activity_id"], name: "index_comprehension_activities_on_parent_activity_id", using: :btree
