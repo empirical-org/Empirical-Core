@@ -22,20 +22,20 @@ RSpec.describe RuleFeedbackHistory, type: :model do
       activity1 = Comprehension::Activity.create!(title: 'Title 1', parent_activity_id: 1, target_level: 1)
 
       # prompts
-      so_prompt_1 = Comprehension::Prompt.create!(activity: activity1, conjunction: 'so', text: 'Some feedback text', max_attempts_feedback: 'Feedback')
-      because_prompt_1 = Comprehension::Prompt.create!(activity: activity1, conjunction: 'because', text: 'Some feedback text', max_attempts_feedback: 'Feedback')
+      so_prompt1 = Comprehension::Prompt.create!(activity: activity1, conjunction: 'so', text: 'Some feedback text', max_attempts_feedback: 'Feedback')
+      because_prompt1 = Comprehension::Prompt.create!(activity: activity1, conjunction: 'because', text: 'Some feedback text', max_attempts_feedback: 'Feedback')
     
       # rules
-      so_rule_1 = rule_factory { { name: 'so_rule_1', rule_type: 'autoML'} } 
-      because_rule_1 = rule_factory { {name: 'because_rule_1'} } 
+      so_rule1 = rule_factory { { name: 'so_rule1', rule_type: 'autoML'} } 
+      because_rule1 = rule_factory { {name: 'because_rule1'} } 
 
       # feedbacks
-      create(:feedback_history, rule_uid: so_rule_1.uid)
-      create(:feedback_history, rule_uid: so_rule_1.uid)
+      create(:feedback_history, rule_uid: so_rule1.uid)
+      create(:feedback_history, rule_uid: so_rule1.uid)
 
       # prompts rules
-      Comprehension::PromptsRule.create!(prompt: so_prompt_1, rule: so_rule_1)
-      Comprehension::PromptsRule.create!(prompt: because_prompt_1, rule: because_rule_1)
+      Comprehension::PromptsRule.create!(prompt: so_prompt1, rule: so_rule1)
+      Comprehension::PromptsRule.create!(prompt: because_prompt1, rule: because_rule1)
 
       sql_result = RuleFeedbackHistory.exec_query(conjunction: 'so', activity_id: activity1.id)
       formatted = RuleFeedbackHistory.format_sql_results(sql_result)
@@ -43,7 +43,7 @@ RSpec.describe RuleFeedbackHistory, type: :model do
         api_name: 'autoML',
         rule_order: "1", 
         feedback_first_layer: 'To Be Implemented', 
-        rule_name: 'so_rule_1',
+        rule_name: 'so_rule1',
         pct_strong: 0, 
         scored_responses: 0,
         pct_scored: 0          
@@ -60,20 +60,20 @@ RSpec.describe RuleFeedbackHistory, type: :model do
       activity1 = Comprehension::Activity.create!(title: 'Title 1', parent_activity_id: 1, target_level: 1)
 
       # prompts
-      so_prompt_1 = Comprehension::Prompt.create!(activity: activity1, conjunction: 'so', text: 'Some feedback text', max_attempts_feedback: 'Feedback')
-      because_prompt_1 = Comprehension::Prompt.create!(activity: activity1, conjunction: 'because', text: 'Some feedback text', max_attempts_feedback: 'Feedback')
+      so_prompt1 = Comprehension::Prompt.create!(activity: activity1, conjunction: 'so', text: 'Some feedback text', max_attempts_feedback: 'Feedback')
+      because_prompt1 = Comprehension::Prompt.create!(activity: activity1, conjunction: 'because', text: 'Some feedback text', max_attempts_feedback: 'Feedback')
     
       # rules
-      so_rule_1 = rule_factory { { name: 'so_rule_1', rule_type: 'autoML'} } 
-      because_rule_1 = rule_factory { {name: 'because_rule_1'} } 
+      so_rule1 = rule_factory { { name: 'so_rule1', rule_type: 'autoML'} } 
+      because_rule1 = rule_factory { {name: 'because_rule1'} } 
 
       # feedbacks
-      create(:feedback_history, rule_uid: so_rule_1.uid)
-      create(:feedback_history, rule_uid: so_rule_1.uid)
+      create(:feedback_history, rule_uid: so_rule1.uid)
+      create(:feedback_history, rule_uid: so_rule1.uid)
 
       # prompts rules
-      Comprehension::PromptsRule.create!(prompt: so_prompt_1, rule: so_rule_1)
-      Comprehension::PromptsRule.create!(prompt: because_prompt_1, rule: because_rule_1)
+      Comprehension::PromptsRule.create!(prompt: so_prompt1, rule: so_rule1)
+      Comprehension::PromptsRule.create!(prompt: because_prompt1, rule: because_rule1)
 
       sql_result = RuleFeedbackHistory.exec_query(conjunction: 'so', activity_id: activity1.id)
 
