@@ -17,6 +17,31 @@ module Comprehension
         assert parsed_response.empty?
       end
 
+      context 'with activities where one has an archived parent' do
+        setup do
+          @archived_activity = create(:activity, flags: ['archived'])
+          @unarchived_activity = create(:activity)
+          create(:comprehension_activity, parent_activity_id: @archived_activity.id, title: "First Activity", target_level: 8)
+          create(:comprehension_activity, parent_activity_id: @unarchived_activity.id, title: "Second Activity",
+            target_level: 5)
+        end
+
+        should "return with only the unarchived activity" do
+          get :index
+
+          parsed_response = JSON.parse(response.body)
+
+          assert_response :success
+          assert_equal Array, parsed_response.class
+          refute parsed_response.empty?
+
+          assert_equal parsed_response.length, 1
+          assert_equal  "Second Activity", parsed_response.first['title']
+          assert_equal  5, parsed_response.first['target_level']
+          assert_equal  @unarchived_activity.id, parsed_response.first['parent_activity_id']
+        end
+      end
+
       context 'with actitivites' do
         setup do
           create(:comprehension_activity, parent_activity_id: 1, title: "First Activity", target_level: 8)
