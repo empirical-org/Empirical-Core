@@ -7,7 +7,7 @@ import ReactTable from 'react-table';
 import { ActivityRouteProps } from '../../../interfaces/comprehensionInterfaces';
 import { ruleOrder } from '../../../../../constants/comprehension';
 import { fetchActivity } from '../../../utils/comprehension/activityAPIs';
-import { fetchRules } from '../../../utils/comprehension/ruleAPIs';
+import { fetchRuleFeedbackHistories } from '../../../utils/comprehension/ruleFeedbackHistoryAPIs';
 import { DropdownInput, } from '../../../../Shared/index';
 
 const DEFAULT_RULE_TYPE = 'All Rules'
@@ -27,10 +27,11 @@ const RulesAnalysis: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ hist
   const [selectedRuleType, setSelectedRuleType] = React.useState({ label: DEFAULT_RULE_TYPE, value: DEFAULT_RULE_TYPE })
   const [sorted, setSorted] = React.useState([])
 
+  const selectedConjunction = selectedPrompt ? selectedPrompt.conjunction : null
   // cache rules data for updates
-  const { data: rulesData } = useQuery({
-    queryKey: [`rules-${selectedPrompt ? selectedPrompt.id : null}`, activityId],
-    queryFn: fetchRules // this will be a different function once we have one for specific prompts
+  const { data: ruleFeedbackHistory } = useQuery({
+    queryKey: [`rule-feedback-history-by-conjunction-${selectedConjunction}-and-activity-${activityId}`, activityId, selectedConjunction],
+    queryFn: fetchRuleFeedbackHistories
   });
 
   // get cached activity data to pass to rule
@@ -40,11 +41,8 @@ const RulesAnalysis: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ hist
   });
 
 
-  const formattedRows = selectedPrompt && rulesData && rulesData.rules && rulesData.rules.filter(rule => {
-    if (selectedRuleType.value !== DEFAULT_RULE_TYPE && rule.api_name !== selectedRuleType.value) {
-      return false
-    }
-    return rule.prompt_ids.includes(selectedPrompt.id)
+  const formattedRows = selectedPrompt && ruleFeedbackHistory && ruleFeedbackHistory.rule_feedback_histories && ruleFeedbackHistory.rule_feedback_histories.filter(rule => {
+    return selectedRuleType.value === DEFAULT_RULE_TYPE && rule.api_name === selectedRuleType.value
   }).map(rule => {
     const { name, id, api_name, rule_order, rule_description, pct_strong, pct_scored, total_responses, scored_responses, feedback_first_layer, } = rule;
     const apiOrder = ruleOrder[api_name]
