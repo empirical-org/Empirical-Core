@@ -4,9 +4,9 @@ export const fetchRuleFeedbackHistories = async (key: string, activityId: string
   if (!selectedPromptId) { return }
 
   const response = await apiFetch(`rule_feedback_histories/${activityId}?conjunction=${selectedPromptId}`);
-  const rules = await response.json();
+  const ruleFeedbackHistories = await response.json();
   return {
-    error: handleApiError('Failed to fetch rules, please refresh the page.', response),
-    rules: rules
+    error: handleApiError('Failed to fetch rule feedback histories, please refresh the page.', response),
+    ruleFeedbackHistories
   };
 }
