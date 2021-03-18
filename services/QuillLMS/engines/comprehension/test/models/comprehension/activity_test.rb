@@ -67,13 +67,13 @@ module Comprehension
     end
 
     context 'create parent activity' do
-      should 'set the parent_activity_id to nil if passed in Activity doesnt exist' do
+      should 'set the parent_activity_id to nil if passed in Activity does NOT exist' do
         @activity = create(:comprehension_activity, parent_activity_id: 7)
 
         assert_nil @activity.parent_activity
       end
 
-      should 'set the parent_activity_id if passed in Activity doesnt exist' do
+      should 'set the parent_activity_id if passed in Activity does exist' do
         @parent_activity = ::Activity.create(name: "test name")
         @activity = create(:comprehension_activity, parent_activity_id: @parent_activity.id)
 
