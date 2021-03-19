@@ -19,8 +19,8 @@ module Comprehension
 
       context 'with activities where one has an archived parent' do
         setup do
-          @archived_activity = create(:activity, flags: ['archived'])
-          @unarchived_activity = create(:activity)
+          @archived_activity = Comprehension.parent_activity_class.create(name: 'Archived Activity', flags: ['archived'])
+          @unarchived_activity = Comprehension.parent_activity_class.create(name: 'Unarchived Activity')
           create(:comprehension_activity, parent_activity_id: @archived_activity.id, title: "First Activity", target_level: 8)
           create(:comprehension_activity, parent_activity_id: @unarchived_activity.id, title: "Second Activity",
             target_level: 5)
@@ -68,7 +68,7 @@ module Comprehension
     context "create" do
       setup do
         @activity = build(:comprehension_activity, parent_activity_id: 1, title: "First Activity", target_level: 8, scored_level: "4th grade", name: "First Activity - Name")
-        ::ActivityClassification.create(key: 'comprehension')
+        Comprehension.parent_activity_classification_class.create(key: 'comprehension')
       end
 
       should "create a valid record and return it as json" do
@@ -120,7 +120,7 @@ module Comprehension
 
       should "create a new parent activity and activity if no parent_activity_id is passed" do
         post :create, activity: { parent_activity_id: nil, scored_level: @activity.scored_level, target_level: @activity.target_level, title: @activity.title, name: @activity.title, prompts_attributes: [{text: "meat is bad for you.", conjunction: "because"}] }
-        parent_activity = ::Activity.find_by_name(@activity.title)
+        parent_activity = Comprehension.parent_activity_class.find_by_name(@activity.title)
         new_activity = Activity.find_by_title(@activity.title)
         assert parent_activity.present?
         assert_equal new_activity.parent_activity_id, parent_activity.id
