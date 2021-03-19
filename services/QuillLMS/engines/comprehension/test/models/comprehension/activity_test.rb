@@ -26,6 +26,7 @@ module Comprehension
 
       context 'parent_activity_id' do
         setup do
+          ::ActivityClassification.create(key: 'comprehension')
           parent_activity = ::Activity.create
           create(:comprehension_activity, parent_activity_id: parent_activity.id)
           @activity_with_same_parent = build(:comprehension_activity, parent_activity_id: parent_activity.id)
