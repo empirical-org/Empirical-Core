@@ -48,6 +48,9 @@ class SessionsController < ApplicationController
       render json: {message: 'Did you sign up with Google? If so, please log in with Google using the link above.', type: 'email'}, status: 401
     elsif @user.authenticate(params[:user][:password])
       sign_in(@user)
+
+      session[ApplicationController::KEEP_ME_SIGNED_IN] = params[:keep_me_signed_in]
+
       if session[ApplicationController::POST_AUTH_REDIRECT].present?
         url = session[ApplicationController::POST_AUTH_REDIRECT]
         session.delete(ApplicationController::POST_AUTH_REDIRECT)

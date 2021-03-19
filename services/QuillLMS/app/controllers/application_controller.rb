@@ -6,6 +6,7 @@ class ApplicationController < ActionController::Base
   GOOGLE_REDIRECT = :google_redirect
   POST_AUTH_REDIRECT = :post_auth_redirect
   GOOGLE_OR_CLEVER_JUST_SET = :google_or_clever_just_set
+  KEEP_ME_SIGNED_IN = :keep_me_signed_in
   COMPREHENSION = 'comprehension'
   PROOFREADER = 'proofreader'
   GRAMMAR = 'grammar'
@@ -140,14 +141,11 @@ class ApplicationController < ActionController::Base
   end
 
   def confirm_valid_session
-    now = Time.now().in_time_zone.utc
     # Don't do anything if there's no authorized user or session
     return if !current_user || !session
     # if user is staff, logout if last_sign_in was more than 4 hours ago
     if current_user && current_user.role == 'staff' && current_user.last_sign_in
-      time_diff = now - current_user.last_sign_in
-      time_diff = time_diff.round.abs
-      hours = time_diff / 3600
+      hours = time_diff(current_user.last_sign_in) / 3600
       if hours > 4
         user_id = current_user.id
         auth_credential = AuthCredential.where(user_id: user_id).first
@@ -157,6 +155,9 @@ class ApplicationController < ActionController::Base
         return if !current_user || !session
       end
     end
+
+    return reset_session if user_inactive_for_too_long?
+
     # If the user is google authed, but doesn't have a valid refresh
     # token, then we need to invalidate their session
     return reset_session if current_user.google_id && current_user.auth_credential && !current_user.auth_credential&.refresh_token
@@ -164,5 +165,24 @@ class ApplicationController < ActionController::Base
     # Assuming that the refresh_token expires at (current_user.auth_credential.created_at  + 6 months),
     # we can reset the session whenever (Time.now > (current_user.auth_credential.created_at + 5 months))
     return reset_session if current_user.google_id && current_user.auth_credential && Time.now > (current_user.auth_credential.created_at + 5.months)
+  end
+
+  def user_inactive_for_too_long?
+    return false if session[KEEP_ME_SIGNED_IN] || current_user.google_id || current_user.clever_id
+
+    seconds_in_day = 86400
+    max_inactivity = 30
+
+    days_since_last_sign_in = current_user.last_sign_in ? time_diff(current_user.last_sign_in)/seconds_in_day : 0
+    days_since_last_active = current_user.last_active ? time_diff(current_user.last_active)/seconds_in_day : 0
+
+    [days_since_last_active, days_since_last_sign_in].min >= max_inactivity
+  end
+
+  def time_diff(timestamp)
+    now = Time.now().in_time_zone.utc
+
+    diff = now - timestamp
+    diff.round.abs
   end
 end
