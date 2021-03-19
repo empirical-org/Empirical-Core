@@ -3,6 +3,7 @@ require 'staff_constraint'
 
 EmpiricalGrammar::Application.routes.draw do
 
+  resources :feedback_history_ratings
   if Rails.env.development?
     mount GraphiQL::Rails::Engine, at: "/graphiql", graphql_path: "/graphql"
   end
