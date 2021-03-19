@@ -10,8 +10,6 @@ module Comprehension
     end
 
     context 'validations' do
-      should validate_uniqueness_of(:parent_activity_id).allow_nil
-
       should validate_presence_of(:target_level)
       should validate_numericality_of(:target_level)
         .only_integer
@@ -25,11 +23,24 @@ module Comprehension
       should validate_length_of(:name).is_at_least(5).is_at_most(100)
 
       should validate_length_of(:scored_level).is_at_most(100)
+
+      context 'parent_activity_id' do
+        setup do
+          parent_activity = ::Activity.create
+          create(:comprehension_activity, parent_activity_id: parent_activity.id)
+          @activity_with_same_parent = build(:comprehension_activity, parent_activity_id: parent_activity.id)
+        end
+
+        should 'not be valid if not unique' do
+          refute @activity_with_same_parent.valid?
+          assert "has already been taken".in?(@activity_with_same_parent.errors.messages[:parent_activity_id])
+        end
+      end
     end
 
     context 'serializable_hash' do
       setup do
-        @activity = create(:comprehension_activity, parent_activity_id: 1, title: "First Activity", target_level: 8, scored_level: "4th grade")
+        @activity = create(:comprehension_activity, title: "First Activity", target_level: 8, scored_level: "4th grade")
         @passage = create(:comprehension_passage, activity: @activity, text: ('Hello' * 20))
         @prompt = create(:comprehension_prompt, activity: @activity, text: "it is good.", conjunction: "because", max_attempts_feedback: "good work!.")
       end
@@ -38,7 +49,7 @@ module Comprehension
         json_hash = @activity.as_json
 
         assert_equal json_hash['id'], @activity.id
-        assert_equal json_hash['parent_activity_id'], 1
+        assert_equal json_hash['parent_activity_id'], @activity.parent_activity.id
         assert_equal json_hash['title'], "First Activity"
         assert_equal json_hash['target_level'], 8
         assert_equal json_hash['scored_level'], "4th grade"
@@ -55,6 +66,27 @@ module Comprehension
         assert_equal prompt_hash['text'], "it is good."
         assert_equal prompt_hash['max_attempts'], 5
         assert_equal prompt_hash['max_attempts_feedback'], "good work!."
+      end
+    end
+
+    context 'create parent activity' do
+      should 'set the parent_activity_id to nil if passed in Activity does NOT exist' do
+        @activity = create(:comprehension_activity, parent_activity_id: 7)
+
+        assert_nil @activity.parent_activity
+      end
+
+      should 'set the parent_activity_id if passed in Activity does exist' do
+        @parent_activity = ::Activity.create(name: "test name")
+        @activity = create(:comprehension_activity, parent_activity_id: @parent_activity.id)
+
+        assert_not_nil @activity.parent_activity.id
+      end
+
+      should 'create a new LMS activity if the parent_activity_id is not present' do
+        @activity = create(:comprehension_activity, parent_activity_id: nil)
+
+        assert @activity.parent_activity.id
       end
     end
 
