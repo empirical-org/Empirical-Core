@@ -10,6 +10,7 @@ import (
 	"net/http/httputil"
 	"sync"
 	"time"
+	"github.com/newrelic/go-agent/v3/newrelic"
 )
 
 const (
@@ -54,6 +55,14 @@ var client = &http.Client{
 }
 
 func Endpoint(responseWriter http.ResponseWriter, request *http.Request) map[int]InternalAPIResponse {
+	app, err := newrelic.NewApplication(
+		newrelic.ConfigAppName("go-fanout production"),
+		newrelic.ConfigLicense("c7b73d33409ad27cc3c42f423787f44b2dedNRAL"),
+		newrelic.ConfigDistributedTracerEnabled(true),
+	)
+	
+	txn := app.StartTransaction("Endpoint")
+	defer txn.End()
 	// need this for javascript cors requests
 	// https://cloud.google.com/functions/docs/writing/http#functions_http_cors-go
 	if request.Method == http.MethodOptions {
