@@ -3,7 +3,6 @@ require 'staff_constraint'
 
 EmpiricalGrammar::Application.routes.draw do
 
-  resources :feedback_history_ratings
   if Rails.env.development?
     mount GraphiQL::Rails::Engine, at: "/graphiql", graphql_path: "/graphql"
   end
@@ -361,7 +360,7 @@ EmpiricalGrammar::Application.routes.draw do
   # API routes
   namespace :api do
     namespace :v1 do
-
+      put 'feedback_history_ratings' => 'feedback_history_ratings#create_or_update'
       get 'activities/uids_and_flags' => 'activities#uids_and_flags'
       get 'rule_feedback_histories' => 'rule_feedback_histories#by_conjunction'
       resources :activities,              except: [:index, :new, :edit]

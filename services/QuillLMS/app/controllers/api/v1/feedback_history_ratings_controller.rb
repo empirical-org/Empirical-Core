@@ -1,4 +1,4 @@
-class FeedbackHistoryRatingsController < ApplicationController
+class Api::V1::FeedbackHistoryRatingsController < ApplicationController
   before_action :set_feedback_history_rating, only: [:show, :edit, :update, :destroy]
 
   def create_or_update
