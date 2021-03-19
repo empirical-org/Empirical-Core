@@ -34,7 +34,7 @@ module Comprehension
       else
         self.parent_activity = Comprehension.parent_activity_class.find_or_create_by(
           name: title,
-          activity_classification_id: Comprehension.parent_activity_classification_id
+          activity_classification_id: Comprehension.parent_activity_classification_class.comprehension&.id
         )
       end
     end
