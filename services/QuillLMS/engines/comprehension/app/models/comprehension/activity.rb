@@ -7,6 +7,7 @@ module Comprehension
     MAX_SCORED_LEVEL_LENGTH = 100
 
     before_destroy :expire_turking_rounds
+    before_validation :set_parent_activity, on: :create
 
     has_many :passages, inverse_of: :activity, dependent: :destroy
     has_many :prompts, inverse_of: :activity, dependent: :destroy
@@ -26,6 +27,17 @@ module Comprehension
     validates :title, presence: true, length: {in: MIN_TITLE_LENGTH..MAX_TITLE_LENGTH}
     validates :name, presence: true, length: {in: MIN_TITLE_LENGTH..MAX_TITLE_LENGTH}
     validates :scored_level, length: { maximum: MAX_SCORED_LEVEL_LENGTH, allow_nil: true}
+
+    def set_parent_activity
+      if parent_activity_id
+        self.parent_activity = Comprehension.parent_activity_class.find_by_id(parent_activity_id)
+      else
+        self.parent_activity = Comprehension.parent_activity_class.find_or_create_by(
+          name: title,
+          activity_classification_id: Comprehension.parent_activity_classification_id
+        )
+      end
+    end
 
     # match signature of method
     def serializable_hash(options = nil)

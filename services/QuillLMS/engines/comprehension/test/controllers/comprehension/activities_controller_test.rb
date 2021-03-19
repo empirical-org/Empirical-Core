@@ -19,8 +19,8 @@ module Comprehension
 
       context 'with actitivites' do
         setup do
-          create(:comprehension_activity, parent_activity_id: 1, title: "First Activity", target_level: 8)
-          create(:comprehension_activity, parent_activity_id: 2, title: "Second Activity",
+          @first_activity = create(:comprehension_activity, title: "First Activity", target_level: 8)
+          create(:comprehension_activity, title: "Second Activity",
             target_level: 5)
         end
 
@@ -35,7 +35,7 @@ module Comprehension
 
           assert_equal  "First Activity", parsed_response.first['title']
           assert_equal  8, parsed_response.first['target_level']
-          assert_equal  1, parsed_response.first['parent_activity_id']
+          assert_equal  @first_activity.parent_activity.id, parsed_response.first['parent_activity_id']
         end
       end
     end
@@ -90,6 +90,16 @@ module Comprehension
         assert_equal 1, Activity.count
         assert_equal 1, Activity.first.prompts.count
         assert_equal "meat is bad for you.", Activity.first.prompts.first.text
+      end
+
+      should "create a new parent activity and activity if no parent_activity_id is passed" do
+        post :create, activity: { parent_activity_id: nil, scored_level: @activity.scored_level, target_level: @activity.target_level, title: @activity.title, name: @activity.title, prompts_attributes: [{text: "meat is bad for you.", conjunction: "because"}] }
+
+        parent_activity = ::Activity.find_by_name(@activity.title)
+        new_activity = Activity.find_by_title(@activity.title)
+        assert parent_activity.present?
+        assert_equal new_activity.parent_activity_id, parent_activity.id
+        assert new_activity.present?
       end
     end
 
