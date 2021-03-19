@@ -70,7 +70,8 @@ class SessionsController < ApplicationController
     admin_id = session.delete(:admin_id)
     admin = User.find_by_id(admin_id)
     staff_id = session.delete(:staff_id)
-    cookies[:webinar_banner_closed] = { expires: Time.now }
+    cookies[:webinar_banner_recurring_closed] = { expires: Time.now }
+    cookies[:webinar_banner_one_off_closed] = { expires: Time.now }
     cookies[:student_feedback_banner_1_closed] = { expires: Time.now }
     if admin.present? and (admin != current_user)
       sign_out
