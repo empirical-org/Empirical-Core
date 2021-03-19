@@ -32,7 +32,7 @@
   <% end %>
 
   <% one_off_banner = OneOffBanner.new(current_time_on_east_coast) %>
-  <% if one_off_banner.show?(current_user&.subscription&.present?) %>
+  <% if one_off_banner.show?(current_user&.subscription&.account_type) %>
     <div class="banner" id="webinar-banner-one-off">
       <div class="content-container">
         <img alt="Video player with play symbol" class="banner-icon" src=<%= "#{ENV['CDN_URL']}/images/icons/live-stream.svg" %>>
