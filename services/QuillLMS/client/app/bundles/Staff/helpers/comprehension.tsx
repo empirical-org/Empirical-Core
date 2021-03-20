@@ -17,7 +17,8 @@ import {
 } from '../../../constants/comprehension';
 import { PromptInterface } from '../interfaces/comprehensionInterfaces'
 
-const quillCheckmark = 'https://assets.quill.org/images/icons/check-circle-small.svg';
+const quillCheckmark = `/images/green_check.svg`;
+const quillX = '/images/red_x.svg';
 const mainBaseUrl = `${process.env.DEFAULT_URL}/api/v1/`;
 const comprehensionBaseUrl = `${mainBaseUrl}comprehension/`;
 const fetchDefaults = require("fetch-defaults");
@@ -57,9 +58,16 @@ export const getCheckIcon = (value: boolean) => {
   if(value) {
     return (<img alt="quill-circle-checkmark" src={quillCheckmark} />)
   } else {
-    return (<div />);
+    return (<img alt="quill-circle-checkmark" src={quillX} />);
   }
 }
+// export const getXIcon = (value: boolean) => {
+//   if(value) {
+//     return (<img alt="quill-circle-checkmark" src={quillX} />)
+//   } else {
+//     return (<div />);
+//   }
+// }
 
 export const buildBlankPrompt = (conjunction: string) => {
   return {

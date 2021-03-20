@@ -2,17 +2,23 @@ import * as React from "react";
 import { useQuery } from 'react-query';
 import { withRouter, Link } from 'react-router-dom';
 
-import { fetchModel, fetchModels } from '../../../utils/comprehension/modelAPIs';
+import { activateModel, fetchModel, fetchModels } from '../../../utils/comprehension/modelAPIs';
 import { fetchRules } from '../../../utils/comprehension/ruleAPIs';
 import { DataTable, Spinner } from '../../../../Shared/index';
 import { getCheckIcon } from '../../../helpers/comprehension';
 
-const ActivateModel = ({ match }) => {
+const ActivateModelForm = ({ match }) => {
   const { params } = match;
   const { activityId, modelId, promptId } = params;
 
+  const [activeLabels, setActiveLabels] = React.useState(null);
+  const [activeModel, setActiveModel] = React.useState(null);
+  const [error, setError] = React.useState(null);
+  const [isLoading, setIsLoading] = React.useState(false);
+  const [labelsChecked, setLabelsChecked] = React.useState(false);
   const [existingLabels, setExisitingLabels] = React.useState(null);
-  const [activeLabels, setActiveLabels] = React.useState({});
+  const [modelReady, setModelReady] = React.useState(false);
+  const [modelToActivate, setModelToActivate] = React.useState(null);
 
   // cache ruleSets data for handling rule suborder
   const { data: modelData } = useQuery({
@@ -32,6 +38,15 @@ const ActivateModel = ({ match }) => {
     queryFn: fetchRules
   });
 
+  if(!modelToActivate && modelData && modelData.model) {
+    setModelToActivate(modelData.model);
+  }
+
+  if(!activeModel && modelsData && modelsData.models && modelsData.models[0]) {
+    setActiveModel(modelsData.models[0]);
+  }
+
+
   if(!existingLabels && rulesData && rulesData.rules) {
     const rulesHash = {};
     rulesData.rules.forEach(rule => {
@@ -42,8 +57,35 @@ const ActivateModel = ({ match }) => {
     setExisitingLabels(rulesHash);
   }
 
-  if(!Object.keys(activeLabels) && modelsData && modelsData.models && modelsData.models[0]) {
-    const model = modelsData.models[0];
+  if(!labelsChecked && existingLabels && modelToActivate) {
+    const { model } = modelData;
+    const { labels } = model;
+    const labelPresent = (label) => existingLabels[label];
+    const modelIsReady = labels.every(labelPresent);
+    setModelReady(modelIsReady);
+    setLabelsChecked(true);
+  }
+
+  if(!activeLabels && activeModel) {;
+    updateActiveLabels(activeModel);
+  }
+
+  function handleModelActivation() {
+    setIsLoading(true);
+    activateModel(modelId).then((response) => {
+      const { error } = response;
+      if(error) {
+        setError(error);
+        setIsLoading(false);
+      } else {
+        setActiveModel(modelToActivate);
+        updateActiveLabels(modelToActivate);
+        setIsLoading(false);
+      }
+    })
+  }
+
+  function updateActiveLabels(model) {
     const { labels } = model;
     const activeLabelsHash = {};
     labels.forEach(label => {
@@ -52,11 +94,7 @@ const ActivateModel = ({ match }) => {
     setActiveLabels(activeLabelsHash);
   }
 
-  function handleModelActivation() {
-
-  }
-
-  function modelRows ({ model }) {
+  function modelRows (model) {
     if(!model) {
       return [];
     }
@@ -87,7 +125,7 @@ const ActivateModel = ({ match }) => {
     });
   }
 
-  function missingLabelsRows ({ model }) {
+  function missingLabelsRows (model) {
     if(!model) {
       return [];
     }
@@ -112,15 +150,15 @@ const ActivateModel = ({ match }) => {
     });
   }
 
-  function labelStatusRows ({ model }) {
+  function labelStatusRows (model) {
     if(!model) {
       return [];
     }
 
     const { labels } = model;
     return labels.map((label, i) => {
-      const labelPresent = !!existingLabels[label];
-      const labelActive = !!activeLabels[label];
+      const labelPresent = existingLabels ? !!existingLabels[label] : false;
+      const labelActive = activeLabels ? !!activeLabels[label] : false;
       const modelStatus = (
         <div className="model-status">
           <p>{labelPresent ? 'Present' : 'Missing'}</p>
@@ -130,7 +168,7 @@ const ActivateModel = ({ match }) => {
       const activeStatus = (
         <div className="model-status">
           <p>{labelActive ? 'Active In Model' : 'Inactive In Model'}</p>
-          {labelActive ? getCheckIcon(labelActive) : <p>X</p>}
+          {getCheckIcon(labelActive)}
         </div>
       );
       return {
@@ -154,7 +192,7 @@ const ActivateModel = ({ match }) => {
     { name: "Active Status", attribute:"status", width: "200px" }
   ];
 
-  if(!modelData && !modelsData) {
+  if((!modelData && !modelsData) || isLoading) {
     return(
       <div className="loading-spinner-container">
         <Spinner />
@@ -162,10 +200,12 @@ const ActivateModel = ({ match }) => {
     );
   }
 
-  const modelNotReady = modelData && rulesData && existingLabels;
   const showModelActiveTable = modelsData && modelsData[0];
   const showLabelStatusTable = modelData && existingLabels;
-  const buttonStyle = modelNotReady ? 'disabled' : '';
+  const showMissingLabelsTable = !modelReady && modelData && existingLabels;
+  const activeModelisModelToActive = activeModel && modelToActivate && activeModel.id === modelToActivate.id;
+  const buttonDisabled = !modelReady || activeModelisModelToActive
+  const buttonStyle = buttonDisabled ? 'disabled' : '';
   const labelLink = <Link to={`/activities/${activityId}/semantic-rules/${promptId}/new`}>Add Label</Link>;
 
   return(
@@ -174,18 +214,18 @@ const ActivateModel = ({ match }) => {
       <section className="activate-model-form">
         <section className="activate-model-section">
           <h4>Model Set To Be Active</h4>
-          {modelData && <DataTable
+          {modelToActivate && <DataTable
             className="model-activate-table"
             headers={dataTableFields}
-            rows={modelRows(modelData)}
+            rows={modelRows(modelToActivate)}
           />}
         </section>
         <section className="activate-model-section">
           <h4>Current Model Active</h4>
-          {showModelActiveTable && <DataTable
+          {activeModel && <DataTable
             className="model-activate-table"
             headers={dataTableFields}
-            rows={modelRows(modelsData[0])}
+            rows={modelRows(activeModel)}
           />}
           {!showModelActiveTable && <p className="activation-label">There is currently no active model.</p>}
         </section>
@@ -194,28 +234,31 @@ const ActivateModel = ({ match }) => {
             <h4>Missing Labels from Model</h4>
             <button className="quill-button fun primary contained" id="add-rule-button" type="submit">{labelLink}</button>
           </section>
-          {modelNotReady && <section>
+          {showMissingLabelsTable && <section>
             <DataTable
               className="missing-labels-table"
               headers={dataTableFields}
-              rows={missingLabelsRows(modelData)}
+              rows={missingLabelsRows(modelToActivate)}
             />
             <p className="activation-label">A model cannot be activated if there are any missing labels/rules. Please create those labels/rules.</p>
           </section>}
-          {!modelNotReady && <p className="activation-label">All labels are present; model ready for activation.</p>}
+          {modelReady && <p className="activation-label">All labels are present; model ready for activation.</p>}
         </section>
         <section className="activate-model-section">
           <h4>Label Changes</h4>
           {showLabelStatusTable && <DataTable
             className="label-status-table"
             headers={labelStatusDataTableFields}
-            rows={labelStatusRows(modelData)}
+            rows={labelStatusRows(modelToActivate)}
           />}
         </section>
-        <button className={`quill-button fun primary contained ${buttonStyle}`} disabled={modelNotReady} onClick={handleModelActivation} type="submit">Activate Model</button>
+        {error && <div className="error-message-container">
+          <p className="all-errors-message">{error}</p>
+        </div>}
+        <button className={`quill-button fun primary contained ${buttonStyle}`} disabled={!modelReady} onClick={handleModelActivation} type="submit">Activate Model</button>
       </section>
     </div>
   );
 }
 
-export default withRouter(ActivateModel)
+export default withRouter(ActivateModelForm)
