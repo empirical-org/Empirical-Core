@@ -6367,6 +6367,14 @@ ALTER TABLE ONLY public.activity_topics
 
 
 --
+-- Name: feedback_history_ratings fk_rails_54039a8fd0; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.feedback_history_ratings
+    ADD CONSTRAINT fk_rails_54039a8fd0 FOREIGN KEY (user_id) REFERENCES public.users(id);
+
+
+--
 -- Name: topics fk_rails_5f3c091f12; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 

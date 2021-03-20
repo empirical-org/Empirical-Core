@@ -9,6 +9,10 @@
 #  feedback_history_id :integer          not null
 #  user_id             :integer          not null
 #
+# Foreign Keys
+#
+#  fk_rails_...  (user_id => users.id)
+#
 class FeedbackHistoryRating < ActiveRecord::Base
     RATINGS = %w(strong weak unrated)
     belongs_to :feedback_history 

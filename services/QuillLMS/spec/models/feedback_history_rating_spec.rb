@@ -9,6 +9,10 @@
 #  feedback_history_id :integer          not null
 #  user_id             :integer          not null
 #
+# Foreign Keys
+#
+#  fk_rails_...  (user_id => users.id)
+#
 require 'rails_helper'
 
 RSpec.describe FeedbackHistoryRating, type: :model do
