@@ -2,11 +2,6 @@ require 'rails_helper'
 
 RSpec.describe Api::V1::FeedbackHistoryRatingsController, type: :controller do
 
-  let(:invalid_attributes) {
-    {}
-  }
-
-
   describe "PUT #create_or_update" do
     context "with valid params" do
       it "should attach to an existing FeedbackHistory" do
@@ -27,7 +22,7 @@ RSpec.describe Api::V1::FeedbackHistoryRatingsController, type: :controller do
     context "with invalid params" do
       it "returns a success response (i.e. to display the 'new' template)" do
         expect do 
-          post :create_or_update, {:feedback_history_rating => invalid_attributes}
+          post :create_or_update, {:feedback_history_rating => {}}
         end.to raise_error(ActionController::ParameterMissing)
       end
     end
