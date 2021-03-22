@@ -25,7 +25,7 @@ export default class StandardsAllClassroomsProgressReport extends React.Componen
     this.state = {
       loading: true,
       errors: false,
-      selectedClassroomId: queryString.parse(window.location.search).classroom_id || showAllClassroomKey,
+      selectedClassroomId: queryString.parse(window.location.search).classroom_id,
       updatingData: true,
       classrooms: [],
       userIsPremium: userIsPremium()
@@ -42,7 +42,7 @@ export default class StandardsAllClassroomsProgressReport extends React.Componen
     const that = this;
     let qs = null
 
-    if (selectedClassroomId !== showAllClassroomKey) {
+    if (selectedClassroomId !== null) {
       qs = {classroom_id: selectedClassroomId}
     }
     request.get({
@@ -60,7 +60,7 @@ export default class StandardsAllClassroomsProgressReport extends React.Componen
 
   columns() {
     const blurIfNotPremium = this.state.userIsPremium ? null : 'non-premium-blur'
-    const selectedClassroomId = this.state.selectedClassroomId !== showAllClassroomKey ? this.state.classrooms.find(c => c.name === this.state.selectedClassroomId) : 0
+
     return ([
       {
         Header: 'Standard Level',
@@ -68,7 +68,7 @@ export default class StandardsAllClassroomsProgressReport extends React.Componen
         sortMethod: sortByStandardLevel,
         resizable: false,
         width: 150,
-        Cell: (row, selectedClassroomId) => (
+        Cell: (row) => (
           <a href={row.original['link']} style={{width: '100%', display: 'inline-block'}}>
             {row.original['standard_level_name']}
           </a>
@@ -79,7 +79,7 @@ export default class StandardsAllClassroomsProgressReport extends React.Componen
         sortMethod: sortByStandardLevel,
         resizable: false,
         minWidth: 300,
-        Cell: (row, selectedClassroomId) => (
+        Cell: (row) => (
           <a className="row-link-disguise" href={row.original['link']}>
             {row.original['name']}
           </a>
@@ -88,7 +88,7 @@ export default class StandardsAllClassroomsProgressReport extends React.Componen
         Header: "Students",
         accessor: 'number_of_students',
         resizable: false,
-        Cell: (row, selectedClassroomId) => (
+        Cell: (row) => (
           <a className="row-link-disguise" href={row.original['link']}>
             {row.original['number_of_students']}
           </a>
@@ -98,7 +98,7 @@ export default class StandardsAllClassroomsProgressReport extends React.Componen
 				accessor: 'proficient',
 				resizable: false,
         className: blurIfNotPremium,
-        Cell: (row, selectedClassroomId) => (
+        Cell: (row) => (
           <a className="row-link-disguise" href={row.original['link']}>
             {row.original['proficient']}
           </a>
@@ -107,7 +107,7 @@ export default class StandardsAllClassroomsProgressReport extends React.Componen
 				Header: "Activities",
 				accessor: 'activities',
 				resizable: false,
-        Cell: (row, selectedClassroomId) => (
+        Cell: (row) => (
           <a className="row-link-disguise" href={row.original['link']}>
             {row.original['activities']}
           </a>
@@ -137,6 +137,7 @@ export default class StandardsAllClassroomsProgressReport extends React.Componen
 
   formatStandardsData(data) {
     const { selectedClassroomId, } = this.state
+    
     return data.map((row) => {
       row.standard_level = row.standard_level_name
       row.standard_name = row.name
