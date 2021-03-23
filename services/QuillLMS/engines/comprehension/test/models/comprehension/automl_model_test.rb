@@ -305,8 +305,6 @@ module Comprehension
         assert_equal result, @model
       end
     end
-<<<<<<< HEAD
-=======
 
     context '#older_models' do
       setup do
@@ -323,6 +321,5 @@ module Comprehension
         assert_equal second_model.older_models, 1
       end
     end
->>>>>>> 377437b3b56bafe05b3495f6a38526fd43914d5c
   end
 end
