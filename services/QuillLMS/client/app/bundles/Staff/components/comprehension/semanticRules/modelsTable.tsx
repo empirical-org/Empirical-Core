@@ -2,6 +2,7 @@ import * as React from "react";
 import * as moment from 'moment';
 import { Link } from 'react-router-dom'
 import { useQuery } from 'react-query';
+import { firstBy } from 'thenby';
 
 import { fetchModels } from '../../../utils/comprehension/modelAPIs';
 import { DataTable, Spinner } from '../../../../Shared/index';
@@ -13,25 +14,32 @@ const ModelsTable = ({ activityId, prompt }) => {
     queryFn: fetchModels
   });
 
-  const formattedRows = modelsData && modelsData.models && modelsData.models.length && modelsData.models.map(model => {
-    const { id, created_at, name, older_models, labels, state } = model;
-    const viewLink = (
-      <Link className="data-link" to={`/activities/${activityId}/semantic-rules/model/${id}`}>View Model</Link>
-    );
-    const activateLink = (
-      <Link className="data-link" to={`/activities/${activityId}/semantic-rules/${prompt.id}/model/${id}/activate`}>Activate Settings</Link>
-    );
-    return {
-      id: id,
-      created_at: moment(created_at).format('MM/DD/YY'),
-      version: older_models + 1,
-      name: name,
-      labels: `${labels.length} labels`,
-      status: state,
-      view: viewLink,
-      activate: activateLink
+  function getFormattedRows() {
+    if(modelsData && modelsData.models && modelsData.models.length) {
+      const formattedRows = modelsData.models.map(model => {
+        const { id, created_at, name, older_models, labels, state } = model;
+        const viewLink = (
+          <Link className="data-link" to={`/activities/${activityId}/semantic-rules/model/${id}`}>View</Link>
+        );
+        const activateLink = (
+          <Link className="data-link" to={`/activities/${activityId}/semantic-rules/${prompt.id}/model/${id}/activate`}>Activate</Link>
+        );
+        return {
+          id: id,
+          created_at: moment(created_at).format('MM/DD/YY'),
+          version: older_models + 1,
+          name: name,
+          labels: `${labels.length} labels`,
+          status: state,
+          view: viewLink,
+          activate: activateLink,
+          className: state === 'active' ? 'active-row' : ''
+        }
+      });
+      return formattedRows.sort(firstBy('created_at'));
     }
-  });
+    return [];
+  }
 
   if(!prompt) {
     return(
@@ -66,7 +74,7 @@ const ModelsTable = ({ activityId, prompt }) => {
         className="models-table"
         defaultSortAttribute="name"
         headers={dataTableFields}
-        rows={formattedRows ? formattedRows : []}
+        rows={getFormattedRows()}
       />
     </section>
   );

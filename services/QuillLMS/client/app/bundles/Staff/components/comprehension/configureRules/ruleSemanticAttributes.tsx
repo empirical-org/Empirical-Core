@@ -32,6 +32,7 @@ const RuleSemanticAttributes = ({
         label="Label Name"
         value={ruleLabelName}
       />
+      <p className="label-explanation">Label requirements: name must be unique (prompt cannot have duplicate label names), labels cannot contain spaces; maximum of 32 characters.</p>
       <section className="label-status-container">
         <p id="label-status-label">Label/Rule Status</p>
         <p id="label-status">{ruleLabelStatus}</p>

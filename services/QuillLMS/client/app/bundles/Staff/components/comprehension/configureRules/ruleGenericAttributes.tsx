@@ -58,7 +58,7 @@ const RuleGenericAttributes = ({
 
   function onHandleSetRuleDescription(text: string) { handleSetRuleDescription(text, setRuleDescription)}
 
-  const ruleTypeDisabled = ruleID ? 'disabled' : '';
+  const ruleTypeDisabled = ruleID || ruleType.value === 'autoML' ? 'disabled' : '';
   const options = isUniversal ? universalRuleTypeOptions : ruleTypeOptions;
 
   const conceptOptions = concepts.map(c => ({ value: c.uid, label: c.name, }))

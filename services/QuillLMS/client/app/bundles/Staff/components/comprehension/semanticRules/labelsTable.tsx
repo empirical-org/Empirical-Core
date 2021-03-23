@@ -1,6 +1,7 @@
 import * as React from "react";
 import { Link } from 'react-router-dom'
 import { useQuery } from 'react-query';
+import { firstBy } from 'thenby';
 
 import { fetchRules } from '../../../utils/comprehension/ruleAPIs';
 import { DataTable, Spinner } from '../../../../Shared/index';
@@ -19,15 +20,39 @@ const LabelsTable = ({ activityId, prompt }) => {
     const ruleLink = (
       <Link className="data-link" to={{ pathname: `/activities/${activityId}/semantic-rules/${id}`, state: { rule: rule } }}>Edit</Link>
     );
+    const isActive = state === 'active';
     return {
       id: id,
       name: name,
       label_name: label && label.name,
-      state: state,
+      state: getCheckIcon(isActive),
       optimal: getCheckIcon(optimal),
       edit: ruleLink
     }
   });
+
+  function getFormattedRows() {
+    if(!(rulesData && rulesData.rules && rulesData.rules.length)) {
+      return [];
+    }
+    const formattedRows = rulesData.rules.map(rule => {
+      const { name, id, state, optimal, label } = rule;
+      const ruleLink = (
+        <Link className="data-link" to={{ pathname: `/activities/${activityId}/semantic-rules/${id}`, state: { rule: rule } }}>View</Link>
+      );
+      const isActive = state === 'active';
+      return {
+        id: id,
+        name: name,
+        label_name: label && label.name,
+        state_for_sort: state,
+        state: getCheckIcon(isActive),
+        optimal: getCheckIcon(optimal),
+        edit: ruleLink
+      }
+    });
+    return formattedRows.sort(firstBy('state_for_sort').thenBy('id'));
+  }
 
   if(!rulesData) {
     return(
@@ -59,9 +84,8 @@ const LabelsTable = ({ activityId, prompt }) => {
       </section>
       <DataTable
         className="semantic-rules-table"
-        defaultSortAttribute="name"
         headers={dataTableFields}
-        rows={formattedRows ? formattedRows : []}
+        rows={getFormattedRows()}
       />
     </section>
   );

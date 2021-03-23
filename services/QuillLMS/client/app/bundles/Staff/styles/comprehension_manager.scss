@@ -458,6 +458,12 @@
         }
       }
     }
+    .models-table {
+      .active-row {
+        background-color: #e7fee8;
+        // font-weight: bold;
+      }
+    }
     .rule-table {
       border: 1px solid lightgray;
       border-radius: 6px;
@@ -612,6 +618,9 @@
       padding: 0px;
       .label-name-input {
         margin-top: 15px;
+      }
+      .label-explanation {
+        font-style: italic;
       }
       .label-status-container {
         display: flex;

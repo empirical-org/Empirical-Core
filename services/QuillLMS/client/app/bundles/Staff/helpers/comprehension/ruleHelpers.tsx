@@ -285,7 +285,7 @@ export const buildRule = ({
     rule_type: ruleType.value,
     suborder: suborder ? suborder : order,
     universal: universal,
-    state: 'active'
+    state: ruleType.value === 'autoML' ? 'inactive' : 'active'
   };
 
   if(regexRuleTypes.includes(newOrUpdatedRule.rule_type)) {

@@ -200,11 +200,10 @@ const ActivateModelForm = ({ match }) => {
     );
   }
 
-  const showModelActiveTable = modelsData && modelsData[0];
   const showLabelStatusTable = modelData && existingLabels;
   const showMissingLabelsTable = !modelReady && modelData && existingLabels;
-  const activeModelisModelToActive = activeModel && modelToActivate && activeModel.id === modelToActivate.id;
-  const buttonDisabled = !modelReady || activeModelisModelToActive
+  const activeModelisModelToActivate = activeModel && modelToActivate && activeModel.id === modelToActivate.id;
+  const buttonDisabled = !modelReady || activeModelisModelToActivate
   const buttonStyle = buttonDisabled ? 'disabled' : '';
   const labelLink = <Link to={`/activities/${activityId}/semantic-rules/${promptId}/new`}>Add Label</Link>;
 
@@ -227,7 +226,7 @@ const ActivateModelForm = ({ match }) => {
             headers={dataTableFields}
             rows={modelRows(activeModel)}
           />}
-          {!showModelActiveTable && <p className="activation-label">There is currently no active model.</p>}
+          {!activeModel && <p className="activation-label">There is currently no active model.</p>}
         </section>
         <section className="activate-model-section">
           <section className="missing-labels-header">
@@ -242,7 +241,8 @@ const ActivateModelForm = ({ match }) => {
             />
             <p className="activation-label">A model cannot be activated if there are any missing labels/rules. Please create those labels/rules.</p>
           </section>}
-          {modelReady && <p className="activation-label">All labels are present; model ready for activation.</p>}
+          {modelReady && !activeModelisModelToActivate && <p className="activation-label">All labels are present; model ready for activation.</p>}
+          {activeModelisModelToActivate && <p className="activation-label">Model is already active.</p>}
         </section>
         <section className="activate-model-section">
           <h4>Label Changes</h4>
