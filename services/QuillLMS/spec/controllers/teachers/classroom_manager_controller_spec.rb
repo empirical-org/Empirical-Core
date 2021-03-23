@@ -1,7 +1,8 @@
 require 'rails_helper'
-include ActivityFeedHelper
 
 describe Teachers::ClassroomManagerController, type: :controller do
+
+  include ActivityFeedHelper
 
   it { should use_before_filter :teacher_or_public_activity_packs }
   it { should use_before_filter :authorize_owner! }

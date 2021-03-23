@@ -104,7 +104,7 @@ describe ActivityFeedHelper, type: :helper do
       it 'should return the written out date' do
         date = 8.days.ago
         # this test is not going to work within the first 8 days of the calendar year, so we shouldn't bother running it then
-        if date.year == Time.now().year
+        if date.year == Time.now.year
           expect(helper.text_for_completed(date)).to eq(date.strftime("%b #{date.day.ordinalize}"))
         end
       end
