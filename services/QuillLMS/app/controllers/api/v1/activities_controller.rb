@@ -1,6 +1,7 @@
 class Api::V1::ActivitiesController < Api::ApiController
+  include QuillAuthentication
 
-  before_action :doorkeeper_authorize!, only: [:create, :update, :destroy]
+  before_action :doorkeeper_authorize!, only: [:create, :update, :destroy], unless: :staff?
   before_action :find_activity, except: [:index, :create, :uids_and_flags, :published_edition]
 
   # GET
@@ -100,8 +101,8 @@ class Api::V1::ActivitiesController < Api::ApiController
                               :description,
                               :activity_classification_uid,
                               :standard_uid,
-                              :flags,
-                              :uid)
+                              :uid,
+                              flags: [])
                       .merge(data: @data)
                       .reject {|k,v| v.nil? }
   end
