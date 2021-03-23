@@ -1,4 +1,5 @@
 require 'rails_helper'
+include ActivityFeedHelper
 
 describe Teachers::ClassroomManagerController, type: :controller do
 
@@ -453,7 +454,7 @@ describe Teachers::ClassroomManagerController, type: :controller do
       get :preview_as_student, student_id: 'random'
       expect(response).to redirect_to profile_path
     end
-    
+
     it 'will track event' do
       expect(analyzer).to receive(:track).with(teacher, SegmentIo::BackgroundEvents::VIEWED_AS_STUDENT)
       get :preview_as_student, student_id: student1.id
@@ -481,6 +482,20 @@ describe Teachers::ClassroomManagerController, type: :controller do
     it 'will call preview_student_id=' do
       expect(controller).to receive(:preview_student_id=).with(nil)
       get :unset_preview_as_student
+    end
+
+  end
+
+  describe '#activity_feed' do
+    let!(:teacher) { create(:teacher) }
+
+    before do
+      allow(controller).to receive(:current_user) { teacher }
+    end
+
+    it 'will respond with the data from the activity feed helper' do
+      get :activity_feed
+      expect(response.body).to eq ({ data: data_for_activity_feed(teacher) }.to_json)
     end
 
   end
