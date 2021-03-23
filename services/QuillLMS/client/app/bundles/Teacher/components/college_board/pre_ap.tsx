@@ -106,7 +106,7 @@ const PreAp = ({ units, isPartOfAssignmentFlow, }: PreApContainerProps) => {
           <div className="text-container">
             <p className="info-blurb-header">Additional Practice</p>
             <p className="info-blurb-text">Some of your students may benefit from more opportunities to practice a skill after they have completed the activities recommended based on their writing skills survey results. In that case, you can assign a second set of independent practice activities: same skills, new content.
-              <a className="focus-on-light" href="https://assets.quill.org/documents/additional_practice_packs.pdf" rel="noopener noreferrer" target="_blank">Learn more about the additional activity packs.</a>
+              <a className="focus-on-light" href="https://support.quill.org/en/articles/4579893-how-do-i-assign-additional-practice-packs-for-pre-ap-skills-surveys" rel="noopener noreferrer" target="_blank">Learn more about the additional activity packs.</a>
             </p>
           </div>
         </div>
