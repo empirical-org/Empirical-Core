@@ -374,8 +374,9 @@ export function handleSubmitRule({
   }
   const validationErrors = validateForm(keys, state);
   if(validationErrors && Object.keys(validationErrors).length) {
-    setErrors(validationErrors);
+    return setErrors(validationErrors);
   } else {
-    submitRule(newOrUpdatedRule, ruleId);
+    setErrors({});
+    return submitRule(newOrUpdatedRule, ruleId);
   }
 }

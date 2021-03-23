@@ -6,7 +6,7 @@ import { EditorState, ContentState } from 'draft-js';
 import { fetchModel } from '../../../utils/comprehension/modelAPIs';
 import { DataTable, Spinner, TextEditor } from '../../../../Shared/index';
 
-const Model = ({ location, match }) => {
+const Model = ({ match }) => {
   const { params } = match;
   const { activityId, modelId } = params;
 

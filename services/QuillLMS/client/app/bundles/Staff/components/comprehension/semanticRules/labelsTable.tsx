@@ -15,22 +15,6 @@ const LabelsTable = ({ activityId, prompt }) => {
     queryFn: fetchRules
   });
 
-  const formattedRows = rulesData && rulesData.rules && rulesData.rules.length && rulesData.rules.map(rule => {
-    const { name, id, state, optimal, label } = rule;
-    const ruleLink = (
-      <Link className="data-link" to={{ pathname: `/activities/${activityId}/semantic-rules/${id}`, state: { rule: rule } }}>Edit</Link>
-    );
-    const isActive = state === 'active';
-    return {
-      id: id,
-      name: name,
-      label_name: label && label.name,
-      state: getCheckIcon(isActive),
-      optimal: getCheckIcon(optimal),
-      edit: ruleLink
-    }
-  });
-
   function getFormattedRows() {
     if(!(rulesData && rulesData.rules && rulesData.rules.length)) {
       return [];
@@ -70,7 +54,7 @@ const LabelsTable = ({ activityId, prompt }) => {
     { name: "Optimal?", attribute:"optimal", width: "70px" },
     { name: "", attribute:"edit", width: "70px" }
   ];
-  const ruleLink = <Link to={`/activities/${activityId}/semantic-rules/${prompt.id}/new`}>Add Rule/Label</Link>;
+  const addRuleLink = <Link to={`/activities/${activityId}/semantic-rules/${prompt.id}/new`}>Add Rule/Label</Link>;
 
   return(
     <section className="semantic-rules-container">
@@ -79,7 +63,7 @@ const LabelsTable = ({ activityId, prompt }) => {
         <h5>Prompt ID: <p>{prompt.id}</p></h5>
         <section className="lower-header-container">
           <h5>Prompt Labelset</h5>
-          <button className="quill-button fun primary contained" id="add-rule-button" type="submit">{ruleLink}</button>
+          <button className="quill-button fun primary contained" id="add-rule-button" type="submit">{addRuleLink}</button>
         </section>
       </section>
       <DataTable

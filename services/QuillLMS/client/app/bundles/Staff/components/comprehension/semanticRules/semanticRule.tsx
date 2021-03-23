@@ -54,6 +54,7 @@ const SemanticRuleForm = ({ activityId, errors, handleSetErrors, isSemantic, isU
   const initialLabel = ruleForForm && ruleForForm.label && ruleForForm.label.name;
   const ruleLabelStatus = ruleForForm && ruleForForm.state;
 
+  const [isLoading, setIsLoading] = React.useState<boolean>(false);
   const [plagiarismText, setPlagiarismText] = React.useState<RuleInterface["plagiarism_text"]>(initialPlagiarismText);
   const [regexRules, setRegexRules] = React.useState<object>({});
   const [ruleConceptUID, setRuleConceptUID] = React.useState<string>(initialConceptUID);
@@ -119,6 +120,7 @@ const SemanticRuleForm = ({ activityId, errors, handleSetErrors, isSemantic, isU
   }
 
   function onHandleSubmitRule() {
+    setIsLoading(true);
     handleSubmitRule({
       plagiarismText,
       regexRules,
@@ -137,6 +139,8 @@ const SemanticRuleForm = ({ activityId, errors, handleSetErrors, isSemantic, isU
       setErrors: handleSetErrors,
       submitRule,
       universalRulesCount
+    }).then(() => {
+      setIsLoading(false);
     });
   }
 
@@ -156,7 +160,7 @@ const SemanticRuleForm = ({ activityId, errors, handleSetErrors, isSemantic, isU
   const errorsPresent = !!Object.keys(errors).length;
   const cancelLink = (<Link to={`/activities/${activityId}/semantic-rules`}>Cancel</Link>);
 
-  if(!ruleForForm) {
+  if(!ruleForForm || isLoading) {
     return(
       <div className="loading-spinner-container">
         <Spinner />
