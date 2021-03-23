@@ -174,7 +174,7 @@ class ApplicationController < ActionController::Base
     max_inactivity = 30
 
     days_since_last_sign_in = current_user.last_sign_in ? time_diff(current_user.last_sign_in)/seconds_in_day : 0
-    days_since_last_active = current_user.last_active ? time_diff(current_user.last_active)/seconds_in_day : 0
+    days_since_last_active = current_user.last_active ? time_diff(current_user.last_active)/seconds_in_day : max_inactivity
 
     [days_since_last_active, days_since_last_sign_in].min >= max_inactivity
   end
