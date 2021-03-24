@@ -1,28 +1,17 @@
 require 'rails_helper'
 
 describe ActivityFeedHelper, type: :helper do
-  let!(:classroom) { create(:classroom)  }
-  let!(:teacher) { classroom.owner}
-  let!(:activity) {create(:activity)}
-  let!(:student) {create(:student)}
-  let!(:student1) {create(:student)}
-  let!(:student2) {create(:student)}
-  let!(:classroom_unit) { create(:classroom_unit, classroom_id: classroom.id, assigned_student_ids: [student.id], assign_on_join: false)}
-  let!(:unit_activity) { create(:unit_activity, activity_id: activity.id)}
-  let!(:activity_session) {create(:activity_session, classroom_unit_id: classroom_unit.id, activity_id: activity.id, user_id: student.id, state: 'finished')}
+  include_context "Unit Assignments Variables"
+
   let!(:classroom_unit1) { create(:classroom_unit, classroom_id: classroom.id, assigned_student_ids: [student1.id, student2.id], assign_on_join: false)}
   let!(:activity_session1) {create(:activity_session, classroom_unit_id: classroom_unit1.id, activity_id: activity.id, user_id: student1.id, completed_at: 1.day.ago)}
   let!(:activity_session2) {create(:activity_session, classroom_unit_id: classroom_unit1.id, activity_id: activity.id, user_id: student2.id, completed_at: 2.days.ago)}
 
   describe '#data_for_activity_feed' do
     it "has all activity sessions completed for that teacher's classroom, in reverse chronological order" do
+      activity_session
       classroom_ids = teacher.classrooms_teachers.pluck(:id)
-      puts 'classroom_ids', classroom_ids
-      puts 'classroom_id', classroom.id
-      puts 'classroom_unit_id', classroom_unit.id
-      puts 'classroom_unit1', classroom_unit1.id
       classroom_unit_ids = ClassroomUnit.where(classroom_id: classroom_ids).pluck(:id)
-      puts 'classroom_unit_ids', classroom_unit_ids
       data = helper.data_for_activity_feed(teacher)
       expect(data.length).to eq(3)
       expect(data[0][:id]).to eq(activity_session.id)
