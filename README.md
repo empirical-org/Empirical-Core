@@ -15,11 +15,13 @@ The Quill LMS is a [Ruby on Rails](https://rubyonrails.org/) application (v4.2).
 Most of the Quill LMS frontend javascript code is written in [React](https://reactjs.org/) and lives in the [`/client`](services/QuillLMS/client) directory. The React code is organized into a few main `bundles` [here](services/QuillLMS/client/app/bundles) based on learning tool and use.
 
 The frontends for the Quill Learning Tools are contained in the Quill LMS
-- Quill Connect ([overview](https://www.quill.org/tools/connect), [code](services/QuillLMS/client/app/bundles/Connect))
-- Quill Lessons ([overview](https://www.quill.org/tools/lessons), [code](services/QuillLMS/client/app/bundles/Lessons))
-- Quill Diagnostic ([overview](https://www.quill.org/tools/diagnostic), [code](services/QuillLMS/client/app/bundles/Diagnostic))
-- Quill Proofreader ([overview](https://www.quill.org/tools/proofreader), [code](services/QuillLMS/client/app/bundles/Proofreader))
-- Quill Grammar ([overview](https://www.quill.org/tools/grammar), [code](services/QuillLMS/client/app/bundles/Grammar))
+Learning Tool | Demo | LMS Code
+-----
+Quill Connect  | [demo](https://www.quill.org/tools/connect) | [code](services/QuillLMS/client/app/bundles/Connect)
+Quill Lessons | [demo](https://www.quill.org/tools/lessons) | [code](services/QuillLMS/client/app/bundles/Lessons)
+Quill Diagnostic | [demo](https://www.quill.org/tools/diagnostic) | [code](services/QuillLMS/client/app/bundles/Diagnostic)
+Quill Proofreader | [demo](https://www.quill.org/tools/proofreader) | [code](services/QuillLMS/client/app/bundles/Proofreader)
+Quill Grammar | [demo](https://www.quill.org/tools/grammar) | [code](services/QuillLMS/client/app/bundles/Grammar)
 
 ### [QuillCMS](services/QuillCMS/README.md)
 
