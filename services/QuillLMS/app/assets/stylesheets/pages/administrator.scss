@@ -7,12 +7,18 @@
   .link-section-and-image-container {
     display: flex;
     align-items: center;
+    width: 950px;
+    .link-section-container {
+      width: 100%;
+    }
     .link-section {
-      padding: 16px 24px 24px;
+      padding: 16px 16px 24px;
       border-radius: 8px;
       border: 1px solid #e0e0e0;
-      margin: 8px 0px;
+      margin: 16px 0px;
+      width: 100%;
       p {
+        font-size: 16px;
         margin-bottom: 24px;
       }
     }
