@@ -16,7 +16,7 @@ Most of the Quill LMS frontend javascript code is written in [React](https://rea
 
 The frontends for the Quill Learning Tools are contained in the Quill LMS
 Learning Tool | Demo | LMS Code
------
+--|-|--
 Quill Connect  | [demo](https://www.quill.org/tools/connect) | [code](services/QuillLMS/client/app/bundles/Connect)
 Quill Lessons | [demo](https://www.quill.org/tools/lessons) | [code](services/QuillLMS/client/app/bundles/Lessons)
 Quill Diagnostic | [demo](https://www.quill.org/tools/diagnostic) | [code](services/QuillLMS/client/app/bundles/Diagnostic)
