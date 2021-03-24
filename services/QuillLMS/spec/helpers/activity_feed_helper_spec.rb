@@ -9,7 +9,7 @@ describe ActivityFeedHelper, type: :helper do
 
   describe '#data_for_activity_feed' do
     it "has all activity sessions completed for that teacher's classroom, in reverse chronological order" do
-      activity_session!
+      activity_session
       classroom_ids = teacher.classrooms_teachers.pluck(:id)
       puts 'classroom_ids', classroom_ids
       puts 'classroom_id', classroom.id
