@@ -596,6 +596,7 @@ EmpiricalGrammar::Application.routes.draw do
     connect
     preap_units
     springboard_units
+    administrator
   )
 
   all_pages = other_pages

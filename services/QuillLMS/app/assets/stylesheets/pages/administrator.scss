@@ -1,0 +1,36 @@
+.administrator-page.about-us-page {
+  padding-bottom: 105px;
+  min-height: 100vh;
+  .header p {
+    margin-bottom: 120px;
+  }
+  .link-section-and-image-container {
+    display: flex;
+    align-items: center;
+    .link-section {
+      padding: 16px 24px 24px;
+      border-radius: 8px;
+      border: 1px solid #e0e0e0;
+      margin: 8px 0px;
+      p {
+        margin-bottom: 24px;
+      }
+    }
+    img {
+      margin-left: 56px;
+    }
+  }
+  @media only screen and (max-width: 900px) {
+    .header {
+      align-items: center;
+      padding-left: 28px;
+      padding-right: 28px;
+    }
+    .header h1, .header p {
+      text-align: center;
+    }
+    .link-section-and-image-container, .link-section-container, .link-section {
+      width: 100%;
+    }
+  }
+}
