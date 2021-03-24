@@ -10,6 +10,10 @@ describe ActivityFeedHelper, type: :helper do
   describe '#data_for_activity_feed' do
     it "has all activity sessions completed for that teacher's classroom, in reverse chronological order" do
       activity_session
+      classroom_ids = teacher.classrooms_teachers.pluck(:id)
+      puts 'classroom_ids', classroom_ids
+      classroom_unit_ids = ClassroomUnit.where(classroom_id: classroom_ids).pluck(:id)
+      puts 'classroom_unit_ids', classroom_unit_ids
       data = helper.data_for_activity_feed(teacher)
       expect(data.length).to eq(3)
       expect(data[0][:id]).to eq(activity_session.id)
@@ -103,9 +107,10 @@ describe ActivityFeedHelper, type: :helper do
     context 'when the timestamp was more than one week ago but this calendar year' do
       it 'should return the written out date' do
         date = 8.days.ago
-        # this test is not going to work within the first 8 days of the calendar year, so we shouldn't bother running it then
         if date.year == Time.now.year
           expect(helper.text_for_completed(date)).to eq(date.strftime("%b #{date.day.ordinalize}"))
+        else
+          expect(helper.text_for_completed(date)).to eq(date.strftime("%b #{date.day.ordinalize}, %Y"))
         end
       end
     end
