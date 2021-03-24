@@ -1,7 +1,7 @@
 module ActivityFeedHelper
 
   def data_for_activity_feed(teacher)
-    classroom_ids = teacher.classrooms_teachers.pluck(:id)
+    classroom_ids = teacher.classrooms_teachers.pluck(:classroom_id)
     classroom_unit_ids = ClassroomUnit.where(classroom_id: classroom_ids).pluck(:id)
 
     return [] if classroom_unit_ids.none?
