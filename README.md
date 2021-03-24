@@ -1,32 +1,46 @@
-# Welcome to the Quill universe.
+# Welcome to the Quill!
 
-Each package and service in our repository has its own idiosycracies that will
-be documented in it's own README.
+This is [Quill.org](https://www.quill.org/) monorepo. This repo contains the code that powers [Quill.org](https://www.quill.org/) and its learning tools.
 
-## Structure
+## Overview
 
-If you've installed the repository hooks, it's time to start writing code that
-will help a student become a better writer. Here is a quick overview of where to
-find what you're looking for.
- 
-- **services**. This directory contains 4 self-contained applications of the core Quill offering.
-  - [comprehension/README.md](services/comprehension/README.md)
-  - [QuillCMS/README.md](services/QuillCMS/README.md)
-  - [comprehension/README.md](services/QuillLessonsServer/README.md)
-  - [comprehension/README.md](services/QuillLMS/README.md)
-- **packages**. Packages can be backend Quill apps that serve the front-end, or
-  utilities that are used or have been used in Quill. Some of these packages are
-  generalized so they can be easily used in 3rd party applications.
+Here is a quick overview of the monorepo. Quill.org is powered by a handful of applications. Here are the main ones:
+
+### [QuillLMS (Learning Management System)](services/QuillLMS/README.md)
+
+Quill LMS (Learning Management System) is the main application in the repo (95% of the code in the repo lives here). This is where Quill teachers, students, classes, activities, questions, reports, etc. are all managed.
+
+The Quill LMS is a [Ruby on Rails](https://rubyonrails.org/) application (v4.2). This application is backed by a Postgres database. Note, we've started to use [Rails Engines](https://guides.rubyonrails.org/engines.html) to organize some newer code, so check out the engine code in the [`engines/`](services/QuillLMS/engines/) directory.
+
+Most of the Quill LMS frontend javascript code is written in [React](https://reactjs.org/) and lives in the [`/client`](services/QuillLMS/client) directory. The React code is organized into a few main `bundles` [here](services/QuillLMS/client/app/bundles) based on learning tool and use.
+
+### [QuillCMS](services/QuillCMS/README.md)
+
+The Quill CMS is a small service application to store student responses for analysis. This data is stored separately from the Quill LMS to separate it from data that might have [PII](https://en.wikipedia.org/wiki/Personal_data).
+
+The Quill CMS is a [Ruby on Rails](https://rubyonrails.org/) application (v6.1) that supports a handful of API endpoints. This application is backed by a Postgres Database and has no frontend (html,css,javascript) code (it's purely an API service).
+
+### [QuillLessonsServer](services/QuillLessonsServer/README.md)
+
+QuillLessonsServer is a real-time application that supports our real-time in-classroom product Quill Lessons. It is a [Node.js](https://nodejs.org/en/) application backed by a [RethinkDB](https://rethinkdb.com/) data store. It is an API-only application that makes heavy use of [socket.io](https://socket.io/)
+
+
+### Other
+
+As mentioned above, this repo is most of the code we use day-to-day at Quill. Outside of the main applications, there are some
+- Small javascript libraries live in [packages](packages/).
+- There are some serverless functions in [lambdas](lambdas/) and [services/comprehension/](services/comprehension/).
+- One-off scripts live in [scripts/](scripts/)
 
 ## Getting started
 
-Make sure you've installed the repository hooks and understand the Quill
-universe structure.  Checking out open issues is a great way to get started as
-an open source contributor.
+Checking out open issues is a great way to get started as an open source contributor. Also, if you are just touring the codebase, I'd start with [QuillLMS](services/QuillLMS/README.md).
 
-## Contributing 
+## Contributing
 [contributing guide](CONTRIBUTING.md)
 
-Thanks for your interest in Quill! 
+We also have style guides for [Ruby](https://github.com/empirical-org/ruby) and [Javascript](https://github.com/empirical-org/javascript).
+
+Thanks for your interest in Quill.org!
 
 
