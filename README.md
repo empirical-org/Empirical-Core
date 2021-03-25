@@ -14,7 +14,7 @@ The Quill LMS is a [Ruby on Rails](https://rubyonrails.org/) application (v4.2).
 
 Most of the Quill LMS frontend javascript code is written in [React](https://reactjs.org/) and lives in the [`/client`](services/QuillLMS/client) directory. The React code is organized into a few main `bundles` [here](services/QuillLMS/client/app/bundles) based on learning tool and use.
 
-The frontends for the Quill Learning Tools are contained in the Quill LMS
+The frontends for the Quill Learning Tools are contained in the Quill LMS:
 Learning Tool | Demo | LMS Code
 --|-|--
 Quill Connect  | [demo](https://www.quill.org/tools/connect) | [code](services/QuillLMS/client/app/bundles/Connect)
@@ -36,7 +36,7 @@ QuillLessonsServer is a real-time application that supports our in-classroom pro
 
 ### Other
 
-As mentioned above, this repo is most of the code we use day-to-day at Quill. Outside of the main applications, there are some
+As mentioned above, this repo is most of the code we use day-to-day at Quill. Outside of the main applications, there are some smaller code items:
 - Small javascript libraries live in [packages](packages/).
 - There are some serverless functions in [lambdas](lambdas/) and [services/comprehension/](services/comprehension/).
 - One-off scripts live in [scripts/](scripts/)
