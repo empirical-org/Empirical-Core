@@ -116,6 +116,10 @@ export const DEFAULT_MAX_ATTEMPTS = 5;
 export const FIRST = 'first';
 export const SECOND = 'second';
 
+export const AUTO_ML = 'autoML';
+export const ACTIVE = 'active';
+export const INACTIVE = 'inactive';
+
 export const blankActivity = {
   title: '',
   // flag:'',

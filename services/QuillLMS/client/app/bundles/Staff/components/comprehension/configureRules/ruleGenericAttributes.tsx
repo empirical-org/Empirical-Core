@@ -50,7 +50,9 @@ const RuleGenericAttributes = ({
 
   function onHandleSetRuleType(ruleType: DropdownObjectInterface) { handleSetRuleType(ruleType, setRuleType) }
 
-  function onHandleSetRuleName(e: InputEvent) { handleSetRuleName(e, setRuleName) }
+  function onHandleSetRuleName(e: InputEvent) {
+    handleSetRuleName(e, setRuleName)
+  }
 
   function onHandleSetRuleConceptUID(concept: DropdownObjectInterface) { handleSetRuleConceptUID(concept.value, setRuleConceptUID) }
 

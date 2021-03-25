@@ -80,7 +80,7 @@ exports[`LabelsTable component should render LabelsTable 1`] = `
             className="data-link"
             to={
               Object {
-                "pathname": "/activities/17/semantic-rules/1",
+                "pathname": "/activities/17/semantic-rules/1/1",
                 "state": Object {
                   "rule": Object {
                     "id": 1,
@@ -116,7 +116,7 @@ exports[`LabelsTable component should render LabelsTable 1`] = `
             className="data-link"
             to={
               Object {
-                "pathname": "/activities/17/semantic-rules/2",
+                "pathname": "/activities/17/semantic-rules/1/2",
                 "state": Object {
                   "rule": Object {
                     "id": 2,

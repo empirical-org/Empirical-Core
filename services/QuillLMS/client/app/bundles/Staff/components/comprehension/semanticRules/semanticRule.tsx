@@ -18,8 +18,6 @@ import { RuleInterface, DropdownObjectInterface } from '../../../interfaces/comp
 interface SemanticRuleFormProps {
   activityData?: any,
   activityId?: string,
-  errors: any,
-  handleSetErrors: any,
   isUniversal?: boolean,
   isSemantic?: boolean,
   rule?: RuleInterface,
@@ -30,38 +28,29 @@ interface SemanticRuleFormProps {
   match: any,
 }
 
-const SemanticRuleForm = ({ activityId, errors, handleSetErrors, isSemantic, isUniversal, rule, submitRule, location, history, match }: SemanticRuleFormProps) => {
+const SemanticRuleForm = ({ activityId, isSemantic, isUniversal, rule, submitRule, location, history, match }: SemanticRuleFormProps) => {
   const { params } = match;
   const { promptId } = params;
 
-  let ruleForForm;
-  if(rule && rule.id) {
-    ruleForForm = rule;
-  } else if(location.state && location.state.rule) {
-    ruleForForm = location.state.rule;
-  } else {
-    ruleForForm = blankRule;
-    ruleForForm.rule_type = 'autoML';
-  }
+  const { name, rule_type, id, uid, optimal, plagiarism_text, concept_uid, description, feedbacks, state, label } = rule;
 
-  const initialRuleType = getInitialRuleType({ isUniversal, rule_type: ruleForForm && ruleForForm.rule_type, universalRuleType: null});
-  const initialRuleOptimal = ruleForForm && ruleForForm.optimal ? ruleOptimalOptions[0] : ruleOptimalOptions[1];
-  const initialPlagiarismText = ruleForForm && ruleForForm.plagiarism_text || { text: '' }
-  const initialDescription = ruleForForm && ruleForForm.description || '';
-  const initialFeedbacks = ruleForForm && ruleForForm.feedbacks ? formatInitialFeedbacks(ruleForForm && ruleForForm.feedbacks) : returnInitialFeedback(initialRuleType.value);
-  const initialName = ruleForForm && ruleForForm.name;
-  const initialConceptUID = ruleForForm && ruleForForm.concept_uid;
-  const initialLabel = ruleForForm && ruleForForm.label && ruleForForm.label.name;
-  const ruleLabelStatus = ruleForForm && ruleForForm.state;
+  const initialRuleType = getInitialRuleType({ isUniversal, rule_type, universalRuleType: null});
+  const initialRuleOptimal = optimal ? ruleOptimalOptions[0] : ruleOptimalOptions[1];
+  const initialPlagiarismText = plagiarism_text || { text: '' }
+  const initialDescription = description || '';
+  const initialFeedbacks = feedbacks ? formatInitialFeedbacks(feedbacks) : returnInitialFeedback(initialRuleType.value);
+  const initialLabel = label && label.name;
+  const ruleLabelStatus = state;
 
+  const [errors, setErrors] = React.useState<object>({});
   const [isLoading, setIsLoading] = React.useState<boolean>(false);
   const [plagiarismText, setPlagiarismText] = React.useState<RuleInterface["plagiarism_text"]>(initialPlagiarismText);
   const [regexRules, setRegexRules] = React.useState<object>({});
-  const [ruleConceptUID, setRuleConceptUID] = React.useState<string>(initialConceptUID);
+  const [ruleConceptUID, setRuleConceptUID] = React.useState<string>(concept_uid || '');
   const [ruleDescription, setRuleDescription] = React.useState<string>(initialDescription);
   const [ruleFeedbacks, setRuleFeedbacks] = React.useState<object>(initialFeedbacks);
   const [ruleOptimal, setRuleOptimal] = React.useState<any>(initialRuleOptimal);
-  const [ruleName, setRuleName] = React.useState<string>(initialName);
+  const [ruleName, setRuleName] = React.useState<string>(name || '');
   const [ruleLabelName, setRuleLabelName] = React.useState<string>(initialLabel);
   const [rulePrompts, setRulePrompts] = React.useState<object>({});
   const [rulesCount, setRulesCount] = React.useState<number>(null);
@@ -124,8 +113,8 @@ const SemanticRuleForm = ({ activityId, errors, handleSetErrors, isSemantic, isU
     handleSubmitRule({
       plagiarismText,
       regexRules,
-      rule: ruleForForm,
-      ruleId: location.state && location.state.rule ? location.state.rule.id : null,
+      rule,
+      ruleId: id,
       ruleName,
       ruleLabelName,
       ruleConceptUID,
@@ -136,7 +125,7 @@ const SemanticRuleForm = ({ activityId, errors, handleSetErrors, isSemantic, isU
       rulePromptIds: [promptId],
       rulesCount,
       ruleType,
-      setErrors: handleSetErrors,
+      setErrors,
       submitRule,
       universalRulesCount
     }).then(() => {
@@ -145,7 +134,7 @@ const SemanticRuleForm = ({ activityId, errors, handleSetErrors, isSemantic, isU
   }
 
   function handleDeleteRule() {
-    let ruleId = ruleForForm.id;
+    let ruleId = id.toString();
     if(!ruleId) {
       ruleId = location.state.rule.id;
     }
@@ -160,7 +149,7 @@ const SemanticRuleForm = ({ activityId, errors, handleSetErrors, isSemantic, isU
   const errorsPresent = !!Object.keys(errors).length;
   const cancelLink = (<Link to={`/activities/${activityId}/semantic-rules`}>Cancel</Link>);
 
-  if(!ruleForForm || isLoading) {
+  if(isLoading) {
     return(
       <div className="loading-spinner-container">
         <Spinner />
@@ -184,11 +173,11 @@ const SemanticRuleForm = ({ activityId, errors, handleSetErrors, isSemantic, isU
           isUniversal={isUniversal}
           ruleConceptUID={ruleConceptUID}
           ruleDescription={ruleDescription}
-          ruleID={ruleForForm && ruleForForm.id}
+          ruleID={id}
           ruleName={ruleName}
           ruleOptimal={ruleOptimal}
           ruleType={ruleType}
-          ruleUID={ruleForForm && ruleForForm.uid}
+          ruleUID={uid}
           setRuleConceptUID={setRuleConceptUID}
           setRuleDescription={setRuleDescription}
           setRuleName={setRuleName}
@@ -198,7 +187,7 @@ const SemanticRuleForm = ({ activityId, errors, handleSetErrors, isSemantic, isU
         {isSemantic && <RuleSemanticAttributes
           errors={errors}
           ruleLabelName={ruleLabelName}
-          ruleLabelNameDisabled={ruleForForm && ruleForForm.label && ruleForForm.label.name}
+          ruleLabelNameDisabled={!!(label && label.name)}
           ruleLabelStatus={ruleLabelStatus}
           setRuleLabelName={setRuleLabelName}
         />}

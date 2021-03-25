@@ -2,6 +2,7 @@ import * as React from "react";
 import { EditorState, ContentState } from 'draft-js';
 
 import { validateForm } from '../comprehension';
+import { AUTO_ML, ACTIVE, INACTIVE } from '../../../../constants/comprehension';
 import { InputEvent, DropdownObjectInterface } from '../../interfaces/comprehensionInterfaces';
 import { ruleTypeOptions, universalRuleTypeOptions, ruleHighlightOptions, numericalWordOptions, regexRuleSequenceOptions, regexRuleTypes } from '../../../../constants/comprehension';
 import { TextEditor, DropdownInput } from '../../../Shared/index';
@@ -285,7 +286,7 @@ export const buildRule = ({
     rule_type: ruleType.value,
     suborder: suborder ? suborder : order,
     universal: universal,
-    state: ruleType.value === 'autoML' ? 'inactive' : 'active'
+    state: ruleType.value === AUTO_ML ? INACTIVE : ACTIVE
   };
 
   if(regexRuleTypes.includes(newOrUpdatedRule.rule_type)) {
@@ -305,7 +306,7 @@ export const buildRule = ({
       id: plagiarismText.id,
       text: plagiarismText.text
     };
-  } else if(newOrUpdatedRule.rule_type === 'autoML') {
+  } else if(newOrUpdatedRule.rule_type === AUTO_ML) {
     newOrUpdatedRule.label_attributes = {
       name: ruleLabelName
     };
@@ -316,7 +317,7 @@ export const buildRule = ({
   };
 }
 
-export function handleSubmitRule({
+export async function handleSubmitRule({
   plagiarismText,
   regexRules,
   rule,
@@ -364,19 +365,18 @@ export function handleSubmitRule({
   } else if(ruleType.value === 'plagiarism') {
     keys = keys.concat(['Plagiarism Text', 'First Plagiarism Feedback', 'Second Plagiarism Feedback']);
     state = state.concat([plagiarismText.text, ruleFeedbacks[0].text, ruleFeedbacks[1].text]);
-  } else if(ruleType.value === 'autoML') {
+  } else if(ruleType.value === AUTO_ML) {
     keys.push('Label Name');
     state.push(ruleLabelName);
   }
-  if(!universal && ruleType.value !== 'autoML') {
+  if(!universal && ruleType.value !== AUTO_ML) {
     keys.push('Stem Applied');
     state.push(rulePrompts);
   }
   const validationErrors = validateForm(keys, state);
   if(validationErrors && Object.keys(validationErrors).length) {
-    return setErrors(validationErrors);
+    setErrors(validationErrors);
   } else {
-    setErrors({});
-    return submitRule(newOrUpdatedRule, ruleId);
+    submitRule(newOrUpdatedRule, ruleId);
   }
 }

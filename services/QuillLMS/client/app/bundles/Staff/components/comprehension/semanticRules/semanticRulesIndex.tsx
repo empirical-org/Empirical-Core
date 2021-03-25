@@ -3,12 +3,12 @@ import { useQuery, queryCache } from 'react-query';
 import { NavLink, Redirect, Route, Switch, withRouter } from 'react-router-dom';
 
 import SemanticRulesOverview from './semanticRulesOverview'
-import SemanticRuleForm from './semanticRule';
+import SemanticRuleWrapper from './semanticRuleWrapper';
 import ModelForm from './modelForm';
 import ActivateModelForm from './activateModelForm';
 import Model from './model';
 
-import { ALL, BECAUSE, BUT, SO, blankRule } from '../../../../../constants/comprehension';
+import { ALL, BECAUSE, BUT, SO } from '../../../../../constants/comprehension';
 import { getPromptForComponent } from '../../../helpers/comprehension';
 import { fetchActivity } from '../../../utils/comprehension/activityAPIs';
 import { createRule, updateRule } from '../../../utils/comprehension/ruleAPIs';
@@ -18,8 +18,6 @@ import { RuleInterface } from '../../../interfaces/comprehensionInterfaces';
 const SemanticRulesIndex = ({ history, match, location }) => {
   const { params } = match;
   const { activityId } = params;
-
-  const [errors, setErrors] = React.useState<object>({});
 
   // get cached activity data to pass to ruleForm
   const { data: activityData } = useQuery({
@@ -35,22 +33,17 @@ const SemanticRulesIndex = ({ history, match, location }) => {
     return <h2>{title}</h2>
   }
 
-  function handleSetErrors(errors) {
-    setErrors(errors);
-  }
-
   function handleCreateRule({rule}: {rule: RuleInterface}) {
     createRule(rule).then((response) => {
       const { error, rule } = response;
       if(error) {
-        let updatedErrors = errors;
-        updatedErrors['ruleSetError'] = error;
-        setErrors(updatedErrors);
+        return error;
       }
       // update rules cache to display newly created rule
       queryCache.refetchQueries(`rules-${activityId}`).then(() => {
         history.push(`/activities/${activityId}/semantic-rules/all`);
       });
+      return rule;
     });
   }
 
@@ -58,14 +51,13 @@ const SemanticRulesIndex = ({ history, match, location }) => {
     updateRule(ruleId, rule).then((response) => {
       const { error } = response;
       if(error) {
-        let updatedErrors = errors;
-        updatedErrors['update error'] = error;
-        setErrors(updatedErrors);
+        return error;
       }
       // update rules cache to display newly updated rule
       queryCache.refetchQueries(`rules-${activityId}`).then(() => {
         history.push(`/activities/${activityId}/semantic-rules/all`);
       });
+      return rule;
     });
   }
 
@@ -86,8 +78,6 @@ const SemanticRulesIndex = ({ history, match, location }) => {
   }
   const tabOptions = [ALL, BECAUSE, BUT, SO];
   const showTabs = tabOptions.some(option => location.pathname.includes(option));
-  const blankSemanticRule = blankRule;
-  blankSemanticRule.rule_type = 'autoML';
 
   return(
     <div className="semantic-rules-container">
@@ -127,30 +117,24 @@ const SemanticRulesIndex = ({ history, match, location }) => {
         <Route component={Model} path='/activities/:activityId/semantic-rules/model/:modelId' />
         <Route component={ModelForm} path='/activities/:activityId/semantic-rules/:promptId/add-model' />
         <Route
-          component={() =>
-            (<SemanticRuleForm
+          path='/activities/:activityId/semantic-rules/:promptId/new'
+          render={() =>
+            (<SemanticRuleWrapper
               activityData={activityData && activityData.activity}
-              activityId={activityId}
-              errors={errors}
-              handleSetErrors={handleSetErrors}
               isSemantic={true}
               isUniversal={false}
               submitRule={handleCreateRule}
             />)}
-          path='/activities/:activityId/semantic-rules/:promptId/new'
         />
         <Route
-          component={() =>
-            (<SemanticRuleForm
+          path='/activities/:activityId/semantic-rules/:promptId/:ruleId'
+          render={() =>
+            (<SemanticRuleWrapper
               activityData={activityData && activityData.activity}
-              activityId={activityId}
-              errors={errors}
-              handleSetErrors={handleSetErrors}
               isSemantic={true}
               isUniversal={false}
               submitRule={handleUpdateRule}
             />)}
-          path='/activities/:activityId/semantic-rules/:ruleId'
         />
       </Switch>
     </div>

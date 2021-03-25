@@ -16,11 +16,11 @@ const ActivateModelForm = ({ match }) => {
   const [error, setError] = React.useState(null);
   const [isLoading, setIsLoading] = React.useState(false);
   const [labelsChecked, setLabelsChecked] = React.useState(false);
-  const [existingLabels, setExisitingLabels] = React.useState(null);
+  const [existingLabels, setExistingLabels] = React.useState(null);
   const [modelReady, setModelReady] = React.useState(false);
   const [modelToActivate, setModelToActivate] = React.useState(null);
 
-  // cache ruleSets data for handling rule suborder
+  // cache model data for updates
   const { data: modelData } = useQuery({
     queryKey: [`model-${modelId}`, modelId],
     queryFn: fetchModel
@@ -54,7 +54,7 @@ const ActivateModelForm = ({ match }) => {
       const { name } =  label;
       rulesHash[name] = rule;
     });
-    setExisitingLabels(rulesHash);
+    setExistingLabels(rulesHash);
   }
 
   if(!labelsChecked && existingLabels && modelToActivate) {

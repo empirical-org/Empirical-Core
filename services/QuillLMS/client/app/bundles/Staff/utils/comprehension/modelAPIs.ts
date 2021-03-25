@@ -10,7 +10,10 @@ export const fetchModels = async (key: string, promptId?: any, state?: string) =
     url = url + `?prompt_id=${promptId}&state=${state}`;
   }
   const response = await apiFetch(url);
-  const models = await response.json();
+  let models = await response.json();
+  if(models && models.automl_models) {
+    models = models.automl_models;
+  }
   return { error: handleApiError('Failed to fetch models, please try again.', response), models: models };
 }
 

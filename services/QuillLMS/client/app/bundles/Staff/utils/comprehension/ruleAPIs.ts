@@ -11,7 +11,10 @@ export const fetchRules = async (key: string, activityId: string, promptId?: any
     url = `rules?prompt_id=${promptId}&rule_type=${ruleType}`
   }
   const response = await apiFetch(url);
-  const rules = await response.json();
+  let rules = await response.json();
+  if(rules && rules.rules) {
+    rules = rules.rules;
+  }
   return {
     error: handleApiError('Failed to fetch rules, please refresh the page.', response),
     rules: rules
