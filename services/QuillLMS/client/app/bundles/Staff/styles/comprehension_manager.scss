@@ -162,9 +162,15 @@
     }
     .button-container {
       display: flex;
-      justify-content: flex-end;
+      justify-content: space-between;
       width: 690px;
       padding: 20px 10px 20px 0px;
+      div {
+        display: flex;
+        .quill-button {
+          margin-right: 10px;
+        }
+      }
     }
     .modal {
       display: flex;
