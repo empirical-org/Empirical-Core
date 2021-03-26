@@ -35,6 +35,18 @@ export const apiFetch = fetchDefaults(fetch, comprehensionBaseUrl, headerHash)
 
 export const mainApiFetch = fetchDefaults(fetch, mainBaseUrl, headerHash)
 
+export function getModelsUrl(promptId: string, state: string) {
+  let url = 'automl_models';
+  if(promptId && !state) {
+    url = url + `?prompt_id=${promptId}`;
+  } else if(!promptId && state) {
+    url = url + `?state=${state}`;
+  } else if(promptId && state) {
+    url = url + `?prompt_id=${promptId}&state=${state}`;
+  }
+  return url;
+}
+
 export const getPromptsIcons = (activityData, promptIds: number[]) => {
   if(activityData && activityData.activity && activityData.activity.prompts) {
     const { activity } = activityData;

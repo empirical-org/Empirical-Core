@@ -380,3 +380,15 @@ export async function handleSubmitRule({
     submitRule(newOrUpdatedRule, ruleId);
   }
 }
+
+export function getRulesUrl(activityId: string, promptId: string, ruleType: string) {
+  let url = `activities/${activityId}/rules`;
+  if(promptId && !ruleType) {
+    url = `rules?prompt_id=${promptId}`
+  } else if(!promptId && ruleType) {
+    url = `rules?rule_type=${ruleType}`
+  } else if(promptId && ruleType) {
+    url = `rules?prompt_id=${promptId}&rule_type=${ruleType}`
+  }
+  return url;
+}

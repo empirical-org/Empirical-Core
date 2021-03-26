@@ -1,14 +1,8 @@
-import { handleApiError, apiFetch } from '../../helpers/comprehension';
+import { handleApiError, apiFetch, getModelsUrl } from '../../helpers/comprehension';
 
 export const fetchModels = async (key: string, promptId?: any, state?: string) => {
-  let url = 'automl_models';
-  if(promptId && !state) {
-    url = url + `?prompt_id=${promptId}`;
-  } else if(!promptId && state) {
-    url = url + `?state=${state}`;
-  } else if(promptId && state) {
-    url = url + `?prompt_id=${promptId}&state=${state}`;
-  }
+  const url = getModelsUrl(promptId, state);
+
   const response = await apiFetch(url);
   let models = await response.json();
   if(models && models.automl_models) {

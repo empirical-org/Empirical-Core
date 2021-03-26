@@ -1,5 +1,5 @@
 import * as React from "react";
-import { EditorState, ContentState } from 'draft-js'
+import { EditorState, ContentState } from 'draft-js';
 
 import {
   handleSetRuleConceptUID,
@@ -50,9 +50,7 @@ const RuleGenericAttributes = ({
 
   function onHandleSetRuleType(ruleType: DropdownObjectInterface) { handleSetRuleType(ruleType, setRuleType) }
 
-  function onHandleSetRuleName(e: InputEvent) {
-    handleSetRuleName(e, setRuleName)
-  }
+  function onHandleSetRuleName(e: InputEvent) { handleSetRuleName(e, setRuleName) }
 
   function onHandleSetRuleConceptUID(concept: DropdownObjectInterface) { handleSetRuleConceptUID(concept.value, setRuleConceptUID) }
 
@@ -60,11 +58,19 @@ const RuleGenericAttributes = ({
 
   function onHandleSetRuleDescription(text: string) { handleSetRuleDescription(text, setRuleDescription)}
 
-  const ruleTypeDisabled = ruleID || ruleType.value === 'autoML' ? 'disabled' : '';
-  const options = isUniversal ? universalRuleTypeOptions : ruleTypeOptions;
+  function renderIDorUID(idOrRuleId, type) {
+    return(
+      <section className="label-status-container">
+        <p id="label-status-label">{type}</p>
+        <p id="label-status">{idOrRuleId}</p>
+      </section>
+    );
+  }
 
-  const conceptOptions = concepts.map(c => ({ value: c.uid, label: c.name, }))
-  const selectedConceptOption = conceptOptions.find(co => co.value === ruleConceptUID)
+  const ruleTypeDisabled = (ruleID || ruleType.value === 'autoML') ? 'disabled' : '';
+  const options = isUniversal ? universalRuleTypeOptions : ruleTypeOptions;
+  const conceptOptions = concepts.map(c => ({ value: c.uid, label: c.name, }));
+  const selectedConceptOption = conceptOptions.find(co => co.value === ruleConceptUID);
 
   return(
     <React.Fragment>
@@ -101,14 +107,8 @@ const RuleGenericAttributes = ({
         options={ruleOptimalOptions}
         value={ruleOptimal}
       />
-      {ruleID && <section className="label-status-container">
-        <p id="label-status-label">Rule ID</p>
-        <p id="label-status">{ruleID}</p>
-      </section>}
-      {ruleUID && <section className="label-status-container">
-        <p id="label-status-label">Rule UID</p>
-        <p id="label-status">{ruleUID}</p>
-      </section>}
+      {ruleID && renderIDorUID(ruleID, 'Rule ID')}
+      {ruleUID && renderIDorUID(ruleUID, 'Rule UID')}
       <p className="form-subsection-label">Rule Description</p>
       <TextEditor
         ContentState={ContentState}
