@@ -1,16 +1,16 @@
 import * as React from 'react';
 import { shallow } from 'enzyme';
 
-import ModelsTable from '../semanticRules/modelsTable';
+import LabelsTable from '../semanticRules/labelsTable';
 import { DataTable } from '../../../../Shared/index';
 
-const mockModels = [
-  { id: 1, name: 'model_1', state: 'inactive', created_at: '', older_models: 0, labels: [{ id: 1, name: 'label_1' }] },
-  { id: 2, name: 'model_2', state: 'active', created_at: '', older_models: 1, labels: [{ id: 2, name: 'label_2' }] },
+const mockRules = [
+  { id: 1, name: 'rule_1', state: 'active', optimal: false, label: { id: 1, name: 'label_1' } },
+  { id: 2, name: 'rule_2', state: 'active', optimal: false, label: { id: 2, name: 'label_2' } },
 ]
 jest.mock("react-query", () => ({
   useQuery: jest.fn(() => ({
-    data: { rules: mockModels},
+    data: { rules: mockRules},
     error: null,
     status: "success",
     isFetching: true,
@@ -18,16 +18,17 @@ jest.mock("react-query", () => ({
 }));
 const { firstBy } = jest.requireActual('thenby');
 
+
 describe('LabelsTable component', () => {
   const mockProps = {
     activityId: '17',
     prompt: { id: 1 }
   }
   const container = shallow(
-    <ModelsTable {...mockProps} />
+    <LabelsTable {...mockProps} />
   );
 
-  it('should render ModelsTable', () => {
+  it('should render LabelsTable', () => {
     expect(container).toMatchSnapshot();
   });
   it('should render a DataTable', () => {

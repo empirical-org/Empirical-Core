@@ -2,7 +2,7 @@ import * as React from 'react';
 import { mount } from 'enzyme';
 import { MemoryRouter } from 'react-router-dom';
 
-import SemanticRulesIndex from '../semanticRules/SemanticRulesIndex';
+import SemanticRulesIndex from '../semanticRules/semanticRulesIndex';
 
 const mockActivity = [{ id: 1, title: 'First' }]
 jest.mock("react-query", () => ({
