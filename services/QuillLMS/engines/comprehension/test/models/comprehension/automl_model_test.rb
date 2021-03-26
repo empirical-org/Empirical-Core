@@ -130,6 +130,7 @@ module Comprehension
           name: automl_model.name,
           labels: automl_model.labels,
           state: automl_model.state,
+          created_at: automl_model.created_at,
           prompt_id: automl_model.prompt_id,
           older_models: automl_model.older_models
         }.stringify_keys
