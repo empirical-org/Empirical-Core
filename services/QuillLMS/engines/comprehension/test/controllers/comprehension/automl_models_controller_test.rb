@@ -43,29 +43,6 @@ module Comprehension
 
         end
       end
-
-      context "with filter params" do
-        setup do
-          @prompt1 = create(:comprehension_prompt)
-          @prompt2 = create(:comprehension_prompt)
-
-          @model1 = create(:comprehension_automl_model, prompt_id: @prompt1.id)
-          @model2 = create(:comprehension_automl_model, prompt_id: @prompt1.id)
-          @model3 = create(:comprehension_automl_model, prompt_id: @prompt2.id)
-          @model4 = create(:comprehension_automl_model, prompt_id: @prompt2.id)
-        end
-
-        should 'only get Models for specified prompt id when provided' do
-          get :index, prompt_id: @prompt1.id
-
-          parsed_response = JSON.parse(response.body)
-
-          assert_equal parsed_response.length, 2
-          parsed_response.each do |r|
-            assert r['prompt_ids'].include?(@prompt1.id)
-          end
-        end
-      end
     end
 
     context "create" do

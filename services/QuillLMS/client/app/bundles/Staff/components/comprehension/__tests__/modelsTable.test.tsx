@@ -16,6 +16,9 @@ jest.mock("react-query", () => ({
     isFetching: true,
   })),
 }));
+jest.mock('thenby', () => ({
+  firstBy: jest.fn()
+}));
 
 describe('LabelsTable component', () => {
   const mockProps = {

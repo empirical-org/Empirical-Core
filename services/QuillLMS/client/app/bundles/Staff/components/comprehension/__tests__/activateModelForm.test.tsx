@@ -2,7 +2,7 @@ import * as React from 'react';
 import { mount } from 'enzyme';
 import { MemoryRouter } from 'react-router-dom';
 
-import ActivateModelForm from '../semanticRules/activatemodelForm';
+import ActivateModelForm from '../semanticRules/activateModelForm';
 import { DataTable } from '../../../../Shared/index';
 
 const mockModel = { id: 2, automl_model_id: '378jghai', name: 'Test Model', older_models: 0, labels: [{ id: 1, name: "label_1"}] }
