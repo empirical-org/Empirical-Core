@@ -1,8 +1,8 @@
 require 'rails_helper'
 
 describe StatusesController, type: :controller do
-  describe '#deployment_notification' do 
-    let(:params) do 
+  describe '#deployment_notification' do
+    let(:params) do
       {
         head_long: 'abcdef',
         release: 'v1',
@@ -11,8 +11,8 @@ describe StatusesController, type: :controller do
       }
     end
 
-    context 'upstream 2xx response' do 
-      it 'should render OK with status 201' do 
+    context 'upstream 2xx response' do
+      it 'should render OK with status 201' do
         resp = double
         allow(resp).to receive(:status) { 200 }
         allow(Faraday).to receive(:post).and_return(resp)
@@ -24,8 +24,8 @@ describe StatusesController, type: :controller do
       end
     end
 
-    context 'unhandled faraday exception' do 
-      it 'should return with status 500' do 
+    context 'unhandled faraday exception' do
+      it 'should return with status 500' do
         allow(Faraday).to receive(:post).and_raise('Faraday exception')
 
         expect {
@@ -34,8 +34,8 @@ describe StatusesController, type: :controller do
       end
     end
 
-    context 'upstream non-2xx response' do 
-      it 'should return OK with the upstream status' do 
+    context 'upstream non-2xx response' do
+      it 'should return OK with the upstream status' do
         resp = double
         allow(resp).to receive(:status) { 400 }
         allow(Faraday).to receive(:post).and_return(resp)
