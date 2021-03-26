@@ -41,8 +41,6 @@ gem 'kaminari'
 # OTHER
 gem 'newrelic_rpm'
 gem 'rubyzip'
-gem 'mimemagic', github: 'mimemagicrb/mimemagic', ref: '01f92d86d15d85cfd0f20dabd025dcbd36a8a60f'
-
 
 # WEBSOCKETS
 gem 'pusher'
