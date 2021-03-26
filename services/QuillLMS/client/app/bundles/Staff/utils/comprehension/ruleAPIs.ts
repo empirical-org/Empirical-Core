@@ -1,9 +1,15 @@
 import { RuleInterface } from '../../interfaces/comprehensionInterfaces';
 import { handleApiError, apiFetch } from '../../helpers/comprehension';
+import { getRulesUrl } from '../../helpers/comprehension/ruleHelpers';
 
-export const fetchRules = async (key: string, activityId: string) => {
-  const response = await apiFetch(`activities/${activityId}/rules`);
-  const rules = await response.json();
+export const fetchRules = async (key: string, activityId: string, promptId?: any, ruleType?: string) => {
+  const url = getRulesUrl(activityId, promptId, ruleType)
+
+  const response = await apiFetch(url);
+  let rules = await response.json();
+  if(rules && rules.rules) {
+    rules = rules.rules;
+  }
   return {
     error: handleApiError('Failed to fetch rules, please refresh the page.', response),
     rules: rules
