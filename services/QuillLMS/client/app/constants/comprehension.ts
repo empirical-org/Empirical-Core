@@ -72,7 +72,8 @@ export const ruleTypeOptions = [
   {"value":"rules-based-1","label":"Sentence Structure Regex"},
   {"value":"rules-based-2","label":"Post-Topic Regex"},
   {"value":"rules-based-3","label":"Typo Regex"},
-  {"value":"plagiarism","label":"Plagiarism"}
+  {"value":"plagiarism","label":"Plagiarism"},
+  {"value":"autoML","label":"AutoML Evidence"},
 ];
 
 export const universalRuleTypeOptions = [
@@ -109,10 +110,15 @@ export const ruleOrder = {
 export const BECAUSE = 'because';
 export const BUT = 'but';
 export const SO = 'so';
+export const ALL = 'all';
 export const promptStems = [BECAUSE, BUT, SO];
 export const DEFAULT_MAX_ATTEMPTS = 5;
 export const FIRST = 'first';
 export const SECOND = 'second';
+
+export const AUTO_ML = 'autoML';
+export const ACTIVE = 'active';
+export const INACTIVE = 'inactive';
 
 export const blankActivity = {
   title: '',

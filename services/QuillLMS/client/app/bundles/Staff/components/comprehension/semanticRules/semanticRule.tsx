@@ -1,52 +1,64 @@
 import * as React from "react";
-import { useQuery } from 'react-query';
+import { useQuery, queryCache } from 'react-query';
+import { Link, withRouter } from 'react-router-dom';
 
-import RuleGenericAttributes from './ruleGenericAttributes';
-import RulePlagiarismAttributes from './rulePlagiarismAttributes';
-import RuleRegexAttributes from './ruleRegexAttributes';
-import RulePrompts from './rulePrompts';
-import RuleUniversalAttributes from './ruleUniversalAttributes';
-
-import { fetchRules, fetchUniversalRules } from '../../../utils/comprehension/ruleAPIs';
+import RuleGenericAttributes from '../configureRules/ruleGenericAttributes';
+import RulePlagiarismAttributes from '../configureRules/rulePlagiarismAttributes';
+import RuleSemanticAttributes from '../configureRules/ruleSemanticAttributes';
+import RuleRegexAttributes from '../configureRules/ruleRegexAttributes';
+import RulePrompts from '../configureRules/rulePrompts';
+import RuleUniversalAttributes from '../configureRules/ruleUniversalAttributes';
+import { Spinner, Modal } from '../../../../Shared/index';
+import { deleteRule, fetchRules, fetchUniversalRules } from '../../../utils/comprehension/ruleAPIs';
 import { fetchConcepts, } from '../../../utils/comprehension/conceptAPIs';
-import { formatPrompts } from '../../../helpers/comprehension';
 import { handleSubmitRule, getInitialRuleType, formatInitialFeedbacks, returnInitialFeedback, formatRegexRules } from '../../../helpers/comprehension/ruleHelpers';
-import { ruleOptimalOptions, regexRuleTypes } from '../../../../../constants/comprehension';
-import { ActivityInterface, RuleInterface, DropdownObjectInterface } from '../../../interfaces/comprehensionInterfaces';
+import { ruleOptimalOptions, regexRuleTypes, blankRule } from '../../../../../constants/comprehension';
+import { RuleInterface, DropdownObjectInterface } from '../../../interfaces/comprehensionInterfaces';
 
-interface RuleFormProps {
-  activityData?: ActivityInterface,
+interface SemanticRuleFormProps {
+  activityData?: any,
   activityId?: string,
-  closeModal: (event: React.MouseEvent) => void,
-  isUniversal: boolean,
-  rule: RuleInterface,
-  submitRule: (rule: {rule: RuleInterface}) => void
-  universalRuleType?: string
+  isUniversal?: boolean,
+  isSemantic?: boolean,
+  rule?: RuleInterface,
+  submitRule: any,
+  prompt?: any,
+  history: any,
+  location: any,
+  match: any,
 }
 
-const RuleForm = ({ activityData, activityId, closeModal, isUniversal, rule, submitRule, universalRuleType }: RuleFormProps) => {
+const SemanticRuleForm = ({ activityId, isSemantic, isUniversal, rule, submitRule, location, history, match }: SemanticRuleFormProps) => {
+  const { params } = match;
+  const { promptId } = params;
 
-  const { name, rule_type, id, uid, optimal, plagiarism_text, concept_uid, description, feedbacks } = rule;
-  const initialRuleType = getInitialRuleType({ isUniversal, rule_type, universalRuleType});
+  const { name, rule_type, id, uid, optimal, plagiarism_text, concept_uid, description, feedbacks, state, label } = rule;
+
+  const initialRuleType = getInitialRuleType({ isUniversal, rule_type, universalRuleType: null});
   const initialRuleOptimal = optimal ? ruleOptimalOptions[0] : ruleOptimalOptions[1];
   const initialPlagiarismText = plagiarism_text || { text: '' }
   const initialDescription = description || '';
   const initialFeedbacks = feedbacks ? formatInitialFeedbacks(feedbacks) : returnInitialFeedback(initialRuleType.value);
+  const initialLabel = label && label.name;
+  const ruleLabelStatus = state;
 
   const [errors, setErrors] = React.useState<object>({});
+  const [isLoading, setIsLoading] = React.useState<boolean>(false);
   const [plagiarismText, setPlagiarismText] = React.useState<RuleInterface["plagiarism_text"]>(initialPlagiarismText);
   const [regexRules, setRegexRules] = React.useState<object>({});
-  const [ruleConceptUID, setRuleConceptUID] = React.useState<string>(concept_uid);
+  const [ruleConceptUID, setRuleConceptUID] = React.useState<string>(concept_uid || '');
   const [ruleDescription, setRuleDescription] = React.useState<string>(initialDescription);
   const [ruleFeedbacks, setRuleFeedbacks] = React.useState<object>(initialFeedbacks);
   const [ruleOptimal, setRuleOptimal] = React.useState<any>(initialRuleOptimal);
   const [ruleName, setRuleName] = React.useState<string>(name || '');
+  const [ruleLabelName, setRuleLabelName] = React.useState<string>(initialLabel);
   const [rulePrompts, setRulePrompts] = React.useState<object>({});
   const [rulesCount, setRulesCount] = React.useState<number>(null);
   const [rulesToCreate, setRulesToCreate] = React.useState<object>({});
   const [rulesToDelete, setRulesToDelete] = React.useState<object>({});
   const [rulesToUpdate, setRulesToUpdate] = React.useState<object>({});
   const [ruleType, setRuleType] = React.useState<DropdownObjectInterface>(initialRuleType);
+  const [showDeleteRuleModal, setShowDeleteRuleModal] = React.useState<boolean>(false);
   const [universalRulesCount, setUniversalRulesCount] = React.useState<number>(null);
 
   // cache ruleSets data for handling rule suborder
@@ -64,14 +76,6 @@ const RuleForm = ({ activityData, activityId, closeModal, isUniversal, rule, sub
   });
 
   React.useEffect(() => {
-    formatPrompts({ activityData, rule, setRulePrompts });
-  }, [activityData]);
-
-  React.useEffect(() => {
-    formatRegexRules({ rule, setRegexRules });
-  }, [rule]);
-
-  React.useEffect(() => {
     if(!rulesCount && rulesData && rulesData.rules) {
       const { rules } = rulesData;
       setRulesCount(rules.length);
@@ -82,44 +86,87 @@ const RuleForm = ({ activityData, activityId, closeModal, isUniversal, rule, sub
     }
   }, [rulesData, universalRulesData]);
 
-  // needed for case where user toggles between plagiarism and rules-based rule types for new rules
-  React.useEffect(() => {
-    if(!feedbacks) {
-      const initialFeedbacks = returnInitialFeedback(ruleType.value);
-      setRuleFeedbacks(initialFeedbacks);
-    }
-  }, [ruleType]);
+  function toggleShowDeleteRuleModal() {
+    setShowDeleteRuleModal(!showDeleteRuleModal);
+  }
+
+  function renderDeleteRuleModal() {
+    return(
+      <Modal>
+        <div className="delete-rule-container">
+          <p className="delete-rule-text">Are you sure that you want to delete this rule?</p>
+          <div className="delete-rule-button-container">
+            <button className="quill-button fun primary contained" id="delete-rule-button" onClick={handleDeleteRule} type="button">
+              Delete
+            </button>
+            <button className="quill-button fun primary contained" id="close-rule-modal-button" onClick={toggleShowDeleteRuleModal} type="button">
+              Cancel
+            </button>
+          </div>
+        </div>
+      </Modal>
+    );
+  }
 
   function onHandleSubmitRule() {
+    setIsLoading(true);
     handleSubmitRule({
       plagiarismText,
       regexRules,
       rule,
+      ruleId: id,
       ruleName,
-      ruleId: null,
-      ruleLabelName: null,
+      ruleLabelName,
       ruleConceptUID,
       ruleDescription,
       ruleFeedbacks,
       ruleOptimal,
       rulePrompts,
-      rulePromptIds: null,
+      rulePromptIds: [promptId],
       rulesCount,
       ruleType,
       setErrors,
       submitRule,
       universalRulesCount
+    }).then(() => {
+      setIsLoading(false);
+    });
+  }
+
+  function handleDeleteRule() {
+    let ruleId = id.toString();
+    if(!ruleId) {
+      ruleId = location.state.rule.id;
+    }
+    deleteRule(ruleId).then((response) => {
+      toggleShowDeleteRuleModal();
+      // update ruleSets cache to remove delete ruleSet
+      queryCache.refetchQueries(`rules-${activityId}`);
+      history.push(`/activities/${activityId}/semantic-rules/all`);
     });
   }
 
   const errorsPresent = !!Object.keys(errors).length;
+  const cancelLink = (<Link to={`/activities/${activityId}/semantic-rules`}>Cancel</Link>);
+
+  if(isLoading) {
+    return(
+      <div className="loading-spinner-container">
+        <Spinner />
+      </div>
+    );
+  }
 
   return(
     <div className="rule-form-container">
-      <div className="close-button-container">
-        <button className="quill-button fun primary contained" id="activity-close-button" onClick={closeModal} type="submit">x</button>
-      </div>
-      <form className="rule-form">
+      {showDeleteRuleModal && renderDeleteRuleModal()}
+      <section className="semantic-rule-form-header">
+        <Link className="return-link" to={`/activities/${activityId}/semantic-rules`}>← Return to Semantic Rules Index</Link>
+        <button className="quill-button fun primary contained" id="rule-delete-button" onClick={toggleShowDeleteRuleModal} type="button">
+          Delete
+        </button>
+      </section>
+      <form className="semantic-rule-form">
         <RuleGenericAttributes
           concepts={conceptsData ? conceptsData.concepts : []}
           errors={errors}
@@ -137,6 +184,13 @@ const RuleForm = ({ activityData, activityId, closeModal, isUniversal, rule, sub
           setRuleOptimal={setRuleOptimal}
           setRuleType={setRuleType}
         />
+        {isSemantic && <RuleSemanticAttributes
+          errors={errors}
+          ruleLabelName={ruleLabelName}
+          ruleLabelNameDisabled={!!(label && label.name)}
+          ruleLabelStatus={ruleLabelStatus}
+          setRuleLabelName={setRuleLabelName}
+        />}
         {ruleType && ruleType.value === 'plagiarism' && <RulePlagiarismAttributes
           errors={errors}
           plagiarismFeedbacks={ruleFeedbacks}
@@ -157,12 +211,12 @@ const RuleForm = ({ activityData, activityId, closeModal, isUniversal, rule, sub
           setRulesToDelete={setRulesToDelete}
           setRulesToUpdate={setRulesToUpdate}
         />}
-        {!isUniversal && <RulePrompts
+        {!isUniversal && !isSemantic && <RulePrompts
           errors={errors}
           rulePrompts={rulePrompts}
           setRulePrompts={setRulePrompts}
         />}
-        {isUniversal && <RuleUniversalAttributes
+        {(isUniversal || isSemantic) && <RuleUniversalAttributes
           errors={errors}
           setUniversalFeedback={setRuleFeedbacks}
           universalFeedback={ruleFeedbacks}
@@ -171,16 +225,14 @@ const RuleForm = ({ activityData, activityId, closeModal, isUniversal, rule, sub
           {errorsPresent && <div className="error-message-container">
             <p className="all-errors-message">Please check that all fields have been completed correctly.</p>
           </div>}
-          <button className="quill-button fun primary contained" id="activity-submit-button" onClick={onHandleSubmitRule} type="button">
+          <button className="quill-button fun primary contained" id="rule-submit-button" onClick={onHandleSubmitRule} type="button">
             Submit
           </button>
-          <button className="quill-button fun primary contained" id="activity-cancel-button" onClick={closeModal} type="submit">
-            Cancel
-          </button>
+          <button className="quill-button fun primary contained" id="rule-cancel-button" type="submit">{cancelLink}</button>
         </div>
       </form>
     </div>
   )
 }
 
-export default RuleForm;
+export default withRouter<any, any>(SemanticRuleForm);

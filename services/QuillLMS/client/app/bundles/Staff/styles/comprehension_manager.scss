@@ -4,7 +4,6 @@
   overflow: auto;
   .left-side-menu {
     width: 200px;
-    height: 80vh;
     padding: 20px;
   }
   .modal {
@@ -223,16 +222,19 @@
     }
   }
   .activity-form-container, .rule-form-container {
-    .activity-form , .rule-form {
+    .semantic-rule-form-header {
+      display: flex;
+      justify-content: space-between;
+      a {
+        color: #00c2a2
+      }
+      a:hover {
+        color: #29d8bc;
+      }
+    }
+    .activity-form , .rule-form, .semantic-rule-form {
       padding: 0px 30px 0px 30px;
       max-height: 80vh;
-      .card {
-        max-width: 650px;
-        padding: 10px;
-        border: 1px solid #e0e0e0;
-        border-radius: 6px;
-        margin-top: 20px;
-      }
       .title-input, .course-input, .flag-input, .reading-level-input,
       .reading-score-input, .because-input, .but-input {
         margin-top: 20px;
@@ -314,11 +316,86 @@
       }
     }
   }
-  .rules-container, .rule-container, .turk-sessions-container {
-    padding: 20px;
+  .rules-container, .rule-container, .turk-sessions-container, .semantic-rules-container, .model-container {
     width: 80vw;
+    .semantic-rules-overview-container {
+      .prompt-section {
+        border-top: 2px solid #e0e0e0;
+        border-bottom: 2px solid #e0e0e0;
+        padding: 20px;
+      }
+    }
+    .activate-model-container {
+      .activate-model-section {
+        padding: 20px 0px 20px 0px;
+        .model-activate-table, .missing-labels-table {
+          width: 50vw;
+          .data-table-headers {
+            display: none;
+          }
+        }
+        .label-status-table {
+          width: 50vw;
+          .model-status {
+            display: flex;
+            align-items: center;
+            p {
+              margin: 0px 5px 0px 0px;
+            }
+          }
+        }
+        .missing-labels-table {
+          .data-table-body {
+            .data-table-row {
+              .data-table-row-section:nth-child(2) {
+                color: red;
+                font-weight: bold;
+              }
+            }
+          }
+        }
+        .missing-labels-header {
+          display: flex;
+          align-items: center;
+          button {
+            margin-left: 18px;
+            a {
+              color: white;
+              text-decoration: none;
+            }
+          }
+        }
+        .activation-label {
+          font-size: 12px;
+          font-weight: 600;
+          color: #7f7f7f;
+          margin-top: 15px;
+        }
+      }
+    }
+    .model-form-container {
+      .model-id {
+        width: 300px;
+      }
+      #add-model-button {
+        margin-top: 20px;
+      }
+      .form-subsection-label {
+        font-size: 12px;
+        font-weight: 600;
+        color: #7f7f7f;
+        margin-top: 15px;
+      }
+      .card {
+        max-width: 650px;
+        padding: 10px;
+        border: 1px solid #e0e0e0;
+        border-radius: 6px;
+        margin-top: 20px;
+      }
+    }
     .header-container {
-      margin-bottom: 10px;
+      margin-bottom: 20px;
       width: 900px;
       p {
         font-size: 20px;
@@ -330,15 +407,45 @@
       a:hover {
         color: #29d8bc;
       }
+      h5 {
+        margin: 5px 0px 5px 0px;
+        display: flex;
+        p {
+          margin-left: 5px;
+          font-size: 14px;
+          font-weight: bold;
+        }
+      }
+      .lower-header-container {
+        display: flex;
+        align-items: center;
+        #add-rule-button, #add-model-button {
+          margin-left: 20px;
+          a {
+            color: white;
+            text-decoration: none;
+          }
+        }
+      }
     }
-    .rules-table, .rule-table, .turk-sessions-table {
+    .tabs-container {
+      .tab-option {
+        width: 200px;
+        text-align: center;
+      }
+    }
+    .rules-table, .rule-table, .turk-sessions-table, .semantic-rules-table, .models-table {
       max-width: 100%;
       overflow: scroll;
       .data-table-body{
         max-height: 500px;
         overflow: auto;
         .data-table-row {
+          .data-link {
+            color: #00c2a2;
+          }
           span {
+            text-align: left !important;
             span {
               a {
                 color: #00c2a2;
@@ -355,6 +462,12 @@
             display: none;
           }
         }
+      }
+    }
+    .models-table {
+      .active-row {
+        background-color: #e7fee8;
+        // font-weight: bold;
       }
     }
     .rule-table {
@@ -386,6 +499,25 @@
     }
   }
 
+  .models-container, .semantic-rules-container {
+    padding: 20px 0px 20px 0px;
+  }
+
+  .model-container {
+    .model-form {
+      .text-editor-label, .card {
+        margin-left: 16px;
+      }
+      .card {
+        max-width: 650px;
+        padding: 10px;
+        border: 1px solid #e0e0e0;
+        border-radius: 6px;
+        margin-top: 20px;
+      }
+    }
+  }
+
   .rule-container {
     .delete-rule-container {
       .delete-rule-text {
@@ -402,7 +534,20 @@
     }
   }
   .rule-form-container {
-    .rule-form {
+    .delete-rule-container {
+      .delete-rule-text {
+        padding: 20px;
+      }
+      .delete-rule-button-container {
+        display: flex;
+        justify-content: flex-end;
+        padding: 10px;
+        #delete-rule-button {
+          margin-right: 10px;
+        }
+      }
+    }
+    .rule-form, .semantic-rule-form {
       .rule-type-input {
         &.disabled {
           .dropdown {
@@ -472,6 +617,47 @@
       }
       .add-highlight, .add-feedback-layer {
         margin-top: 15px;
+      }
+    }
+    .semantic-rule-form {
+      margin-top: 20px;
+      padding: 0px;
+      .label-name-input {
+        margin-top: 15px;
+      }
+      .label-explanation {
+        font-style: italic;
+      }
+      .label-status-container {
+        display: flex;
+        align-items: center;
+        margin-top: 20px;
+        #label-status-label {
+          margin-right: 10px;
+          font-size: 12px;
+          font-weight: 600;
+          color: #7f7f7f;
+        }
+        #label-status {
+          font-weight: bold;
+          font-size: 16px;
+        }
+      }
+      .card {
+        max-width: 1000px !important;
+        padding: 10px;
+        border: 1px solid #e0e0e0;
+        border-radius: 6px;
+        margin-top: 20px;
+      }
+      .submit-button-container {
+        #rule-cancel-button {
+          margin-left: 20px;
+          a {
+            color: white;
+            text-decoration: none;
+          }
+        }
       }
     }
   }
@@ -659,9 +845,9 @@
     }
   }
   .return-link {
-    color: #19a08a;
+    color: #00c2a2;
   }
   .return-link:hover {
-    color: #61cfbc;
+    color: #29d8bc;
   }
 }

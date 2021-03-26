@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { mount } from 'enzyme';
 import { MemoryRouter, NavLink } from 'react-router-dom';
+const { firstBy } = jest.requireActual('thenby');
 
 import Activity from '../activity';
 

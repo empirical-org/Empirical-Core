@@ -30,6 +30,10 @@ exports[`RuleGenericAttributes component should render RuleGenericAttributes 1`]
           "label": "Plagiarism",
           "value": "plagiarism",
         },
+        Object {
+          "label": "AutoML Evidence",
+          "value": "autoML",
+        },
       ]
     }
     value={
@@ -83,6 +87,20 @@ exports[`RuleGenericAttributes component should render RuleGenericAttributes 1`]
     }
     value={false}
   />
+  <section
+    className="label-status-container"
+  >
+    <p
+      id="label-status-label"
+    >
+      Rule ID
+    </p>
+    <p
+      id="label-status"
+    >
+      17
+    </p>
+  </section>
   <p
     className="form-subsection-label"
   >
