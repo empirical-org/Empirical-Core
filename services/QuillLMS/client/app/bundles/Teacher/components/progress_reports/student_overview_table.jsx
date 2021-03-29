@@ -4,6 +4,7 @@ import moment from 'moment'
 import gradeColor from '../modules/grade_color.js'
 import notLessonsOrDiagnostic from '../../../../modules/activity_classifications.js'
 import userIsPremium from '../modules/user_is_premium'
+import { Tooltip } from '../../../Shared/index'
 
 export default class extends React.Component {
 
@@ -58,7 +59,7 @@ export default class extends React.Component {
 
   score(row) {
     if (row.completed_at && !notLessonsOrDiagnostic(row.activity_classification_id)) {
-      return {content: 'Not Scored', color: 'blue'}
+      return {content: 'Completed', color: 'blue', tooltip: true}
     } else if (row.percentage) {
       return {
         content: Math.round(row.percentage * 100) + '%',
@@ -82,7 +83,13 @@ export default class extends React.Component {
           <a className={scoreInfo.linkColor} href={`/activity_sessions/anonymous?activity_id=${row.activity_id}`}>{row.name}</a>
         </td>
         <td>{this.completedStatus(row)}</td>
-        <td className={`score ${blurIfNotPremium}`}>{scoreInfo.content}</td>
+        { scoreInfo.tooltip ?
+            <td className={`score ${blurIfNotPremium}`}><Tooltip
+              tooltipText={`This type of activity is not graded.`}
+              tooltipTriggerText={scoreInfo.content}
+            /></td> :
+            <td className={`score ${blurIfNotPremium}`}>{scoreInfo.content}</td>
+        }
         <td className='green-arrow'>{this.greenArrow(row)}</td>
       </tr>
     )
@@ -108,7 +115,10 @@ export default class extends React.Component {
                 <div className={`${blurIfNotPremium}`}>
                   {averageScore
                     ? Math.round(averageScore * 100) + '%'
-                    : 'Not Scored'}
+                    : <Tooltip
+                        tooltipText={`This type of activity is not graded.`}
+                        tooltipTriggerText="N/A"
+                      />}
                 </div>
               </th>
             </tr>

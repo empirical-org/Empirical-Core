@@ -1,6 +1,7 @@
 'use strict';
 import React from 'react'
 import {proficiencyCutoffsAsPercentage} from '../../../../modules/proficiency_cutoffs.js'
+import { Tooltip } from '../../../Shared/index'
 
 export default class extends React.Component {
   render() {
@@ -29,13 +30,18 @@ export default class extends React.Component {
                 <p className="explanation">{`0-${cutOff.nearlyProficient - 1}%`}</p>
               </div>
             </div>
-            <div className="icon">
-              <div className="icon-wrapper icon-blue" />
-              <div className="icons-description-wrapper">
-                <p className="title">Completed</p>
-                <p className="explanation">Not Scored</p>
-              </div>
-            </div>
+            <Tooltip
+              tooltipText={`This type of activity is not graded.`}
+              tooltipTriggerText={
+                <div className="icon">
+                  <div className="icon-wrapper icon-blue" />
+                  <div className="icons-description-wrapper">
+                    <p className="title">Completed</p>
+                    <p className="explanation"><br/></p>
+                  </div>
+                </div>
+              }
+            />
             <div className="icon">
               <div className="icon-wrapper icon-progress">
                 <img className="in-progress-symbol" src="https://assets.quill.org/images/scorebook/blue-circle-sliced.svg" />
