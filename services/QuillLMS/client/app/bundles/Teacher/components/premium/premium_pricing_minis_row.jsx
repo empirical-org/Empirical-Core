@@ -5,6 +5,8 @@ import SchoolPricingMini from './premium_minis/school_pricing_mini.jsx';
 import PremiumConfirmationModal from '../subscriptions/premium_confirmation_modal';
 import PurchaseModal from '../../containers/PurchaseModal';
 
+const handshakeHeartSrc = `${process.env.CDN_URL}/images/icons/handshake-heart.svg`
+
 export default class PremiumPricingMinisRow extends React.Component {
   state = {
     showPremiumConfirmationModal: false,
@@ -77,6 +79,11 @@ export default class PremiumPricingMinisRow extends React.Component {
 
     return (
       <div className="premium-pricing-row text-center">
+        <div className="our-commitment">
+          <img src={handshakeHeartSrc} />
+          <h3>Our commitment</h3>
+          <p>As a nonprofit dedicated to helping students, Quill will always provide 100% of our activities for free.</p>
+        </div>
         <BasicPricingMini
           userIsSignedIn={userIsSignedIn}
         />

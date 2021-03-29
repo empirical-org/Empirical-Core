@@ -32,11 +32,11 @@ export default class PremiumPricingGuide extends React.Component {
   render() {
     return (
       <div>
-        <div className="container" id="premium-pricing-guide">
+        <div className="container premium-page">
           <div className="overview text-center">
             <div className="header">
-              <h1>Pricing Guide</h1>
-              <p>Save time grading and gain actionable insights with Quill Premium.</p>
+              <h1>Compare plan features</h1>
+              <p>Pick a plan that suits your needs.</p>
             </div>
             <PremiumPricingMinisRow {...this.props} />
             <DistrictPricingBox />
