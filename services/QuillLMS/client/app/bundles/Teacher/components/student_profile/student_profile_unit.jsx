@@ -117,11 +117,16 @@ export default class StudentProfileUnit extends React.Component {
     const { activity_classification_id, max_percentage, } = act
     const maxPercentage = Number(max_percentage)
     if (activity_classification_id === DIAGNOSTIC_ACTIVITY_CLASSIFICATION_ID || activity_classification_id === LESSONS_ACTIVITY_CLASSIFICATION_ID) {
-      return (<div className="score"><div className="completed" /><span>
+      return (
         <Tooltip
         tooltipText={`This type of activity is not graded.`}
-        tooltipTriggerText="Completed"
-      /></span></div>)
+        tooltipTriggerText={
+          <div className="score">
+            <div className="completed" />
+            <span>Completed</span>
+          </div>
+        }
+      />)
     }
 
     if (maxPercentage >= PROFICIENT_CUTOFF) {
