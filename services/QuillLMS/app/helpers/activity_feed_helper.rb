@@ -1,12 +1,17 @@
 module ActivityFeedHelper
 
   def data_for_activity_feed(teacher)
-    classroom_ids = teacher.classrooms_teachers.pluck(:classroom_id)
+    classroom_ids = teacher.classrooms_i_teach.map(&:id)
     classroom_unit_ids = ClassroomUnit.where(classroom_id: classroom_ids).pluck(:id)
 
     return [] if classroom_unit_ids.none?
 
-    activity_sessions = ActivitySession.joins(:user, :activity, :classification).select('activity_sessions.id, users.name AS "student_name", activities.name AS "activity_name", activity_classifications.key, percentage, completed_at').where("completed_at IS NOT NULL AND classroom_unit_id = ANY(ARRAY[?])", classroom_unit_ids).order("completed_at DESC").limit(40)
+    activity_sessions = ActivitySession.joins(:user, :activity, :classification)
+      .select('activity_sessions.id, users.name AS "student_name", activities.name AS "activity_name", activity_classifications.key, percentage, completed_at')
+      .where("completed_at IS NOT NULL AND classroom_unit_id = ANY(ARRAY[?])", classroom_unit_ids)
+      .order("completed_at DESC")
+      .limit(40)
+
     activity_sessions.map do |as|
       {
         id: as.id,
@@ -31,6 +36,8 @@ module ActivityFeedHelper
   end
 
   def text_for_completed(completed_at)
+    return '' unless completed_at
+
     now = Time.now().in_time_zone.utc
     diff = (now - completed_at).round.abs
 
@@ -39,11 +46,11 @@ module ActivityFeedHelper
     days = hours / 24
 
     if minutes <= 59
-      "#{minutes} min#{minutes == 1 ? '' : 's'} ago"
+      "#{minutes} #{'min'.pluralize(minutes)} ago"
     elsif hours <= 23
-      "#{hours} hour#{hours == 1 ? '' : 's'} ago"
+      "#{hours} #{'hour'.pluralize(hours)} ago"
     elsif days <= 6
-      "#{days} day#{days == 1 ? '' : 's'} ago"
+      "#{days} #{'day'.pluralize(days)} ago"
     elsif completed_at.year == now.year
       completed_at.strftime("%b #{completed_at.day.ordinalize}")
     else
