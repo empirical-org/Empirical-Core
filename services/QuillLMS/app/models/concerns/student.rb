@@ -57,29 +57,32 @@ module Student
       if old_classroom.owner.id == new_classroom.owner.id
         classroom_units.each do |cu|
           sibling_cu = ClassroomUnit.find_or_create_by(unit_id: cu.unit_id, classroom_id: new_classroom_id)
-          ActivitySession.where(classroom_unit_id: cu.id, user_id: user_id).each do |as|
-            as.update(classroom_unit_id: sibling_cu.id)
-            sibling_cu.assigned_student_ids.push(user_id)
-            sibling_cu.save
-          end
+          sibling_cu.assigned_student_ids.push(user_id)
+          sibling_cu.save
+
+          ActivitySession
+            .where(classroom_unit_id: cu.id, user_id: user_id)
+            .update_all(classroom_unit_id: sibling_cu.id)
+
           hide_extra_activity_sessions(cu.id)
         end
       else
+
         new_unit_name = "#{name}'s Activities from #{old_classroom.name}"
         unit = Unit.create(user_id: new_classroom.owner.id, name: new_unit_name)
-        classroom_units.each do |cu|
-          new_cu = ClassroomUnit.find_or_create_by(unit_id: unit.id, classroom_id: new_classroom_id, assigned_student_ids: [user_id])
+        new_cu = ClassroomUnit.find_or_create_by(unit_id: unit.id, classroom_id: new_classroom_id, assigned_student_ids: [user_id])
 
-          ActivitySession.where(classroom_unit_id: cu.id, user_id: user_id).each do |as|
-            as.update(classroom_unit_id: new_cu.id)
-            UnitActivity.find_or_create_by(unit_id: unit.id, activity_id: as.activity_id)
-          end
+        classroom_units.each do |cu|
+          activity_sessions = ActivitySession.where(classroom_unit_id: cu.id, user_id: user_id)
+          activity_sessions.update_all(classroom_unit_id: new_cu.id)
+
+          activity_ids = activity_sessions.pluck(:activity_id) - unit.unit_activities.pluck(:activity_id)
+          activity_ids.each { |activity_id| UnitActivity.create(unit_id: unit.id, activity_id: activity_id) }
 
           hide_extra_activity_sessions(cu.id)
         end
       end
     end
-
   end
 
   def hide_extra_activity_sessions(classroom_unit_id)

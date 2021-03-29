@@ -11,10 +11,20 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20210219163806) do
+ActiveRecord::Schema.define(version: 20210317200006) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "activities", force: :cascade do |t|
+    t.string  "name"
+    t.integer "activity_classification_id"
+    t.string  "flags",                      default: [], null: false, array: true
+  end
+
+  create_table "activity_classifications", force: :cascade do |t|
+    t.string "key"
+  end
 
   create_table "comprehension_activities", force: :cascade do |t|
     t.string   "title",              limit: 100
@@ -23,6 +33,7 @@ ActiveRecord::Schema.define(version: 20210219163806) do
     t.string   "scored_level",       limit: 100
     t.datetime "created_at",                     null: false
     t.datetime "updated_at",                     null: false
+    t.string   "name"
   end
 
   add_index "comprehension_activities", ["parent_activity_id"], name: "index_comprehension_activities_on_parent_activity_id", using: :btree

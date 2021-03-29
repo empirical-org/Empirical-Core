@@ -6,6 +6,7 @@ export interface ActivityInterface {
   id?: string,
   parent_activity_id?: string,
   title: string,
+  name: string,
   // flag: string,
   scored_level: string,
   target_level: number,
@@ -64,6 +65,11 @@ export interface RuleInterface {
   suborder: number,
   concept_uid: string,
   prompt_ids?: number[],
+  state: string,
+  label?: {
+    id: number,
+    name: string
+  },
   plagiarism_text?: {
     id?: number,
     rule_id?: number,

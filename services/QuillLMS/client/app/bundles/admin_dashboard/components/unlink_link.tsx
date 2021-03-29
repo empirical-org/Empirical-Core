@@ -8,7 +8,8 @@ const unlink = (id, refreshData) => {
 }
 
 const UnlinkLink = ({ id, refreshData }) => {
-  return <a onClick={() => unlink(id, refreshData)}>Unlink From School</a>
+  let linkClass = 'teacher-link';
+  return <a className={linkClass} onClick={() => unlink(id, refreshData)}>Unlink From School</a>
 }
 
 export default UnlinkLink;

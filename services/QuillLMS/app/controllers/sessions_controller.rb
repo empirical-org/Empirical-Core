@@ -48,6 +48,9 @@ class SessionsController < ApplicationController
       render json: {message: 'Did you sign up with Google? If so, please log in with Google using the link above.', type: 'email'}, status: 401
     elsif @user.authenticate(params[:user][:password])
       sign_in(@user)
+
+      session[ApplicationController::KEEP_ME_SIGNED_IN] = params[:keep_me_signed_in]
+
       if session[ApplicationController::POST_AUTH_REDIRECT].present?
         url = session[ApplicationController::POST_AUTH_REDIRECT]
         session.delete(ApplicationController::POST_AUTH_REDIRECT)
@@ -70,7 +73,8 @@ class SessionsController < ApplicationController
     admin_id = session.delete(:admin_id)
     admin = User.find_by_id(admin_id)
     staff_id = session.delete(:staff_id)
-    cookies[:webinar_banner_closed] = { expires: Time.now }
+    cookies[:webinar_banner_recurring_closed] = { expires: Time.now }
+    cookies[:webinar_banner_one_off_closed] = { expires: Time.now }
     cookies[:student_feedback_banner_1_closed] = { expires: Time.now }
     if admin.present? and (admin != current_user)
       sign_out

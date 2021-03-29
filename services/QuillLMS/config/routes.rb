@@ -148,6 +148,7 @@ EmpiricalGrammar::Application.routes.draw do
   get 'teachers/admin_dashboard/district_activity_scores/student_overview' => 'teachers#admin_dashboard'
   get 'teachers/admin_dashboard/district_concept_reports' => 'teachers#admin_dashboard'
   get 'teachers/admin_dashboard/district_standards_reports' => 'teachers#admin_dashboard'
+  post 'teachers/unlink/:teacher_id' => 'teachers#unlink'
   put 'teachers/update_current_user' => 'teachers#update_current_user'
   post 'teachers/unlink/:teacher_id' => 'teachers#unlink'
   get 'teachers/:id/schools/:school_id' => 'teachers#add_school'
@@ -361,6 +362,7 @@ EmpiricalGrammar::Application.routes.draw do
     namespace :v1 do
 
       get 'activities/uids_and_flags' => 'activities#uids_and_flags'
+      get 'rule_feedback_histories' => 'rule_feedback_histories#by_conjunction'
       resources :activities,              except: [:index, :new, :edit]
       resources :activity_flags,          only: [:index]
       resources :activity_sessions,       except: [:index, :new, :edit]
@@ -372,7 +374,11 @@ EmpiricalGrammar::Application.routes.draw do
       resources :standard_levels,                only: [:index]
       resources :standards,                  only: [:index]
       resources :standard_categories,        only: [:index]
-      resources :concepts,                only: [:index, :create]
+      resources :concepts,                only: [:index, :create] do
+        collection do
+          get 'level_zero_concepts_with_lineage'
+        end
+      end
       resources :users,                   only: [:index]
       resources :classroom_units,         only: [] do
         collection do
@@ -534,7 +540,10 @@ EmpiricalGrammar::Application.routes.draw do
         get :edit_subscription
         get :new_subscription
         get :new_admin
+        get :add_existing_user
         post :add_admin_by_email
+        post :add_existing_user_by_email
+        post :unlink
       end
     end
 

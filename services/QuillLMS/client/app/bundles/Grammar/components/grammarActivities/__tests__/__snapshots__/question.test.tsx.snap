@@ -285,6 +285,7 @@ Sentences flow easily when all the actions in a list have the same ending. This 
           disabled={false}
           html=""
           onChange={[Function]}
+          onDrop={[Function]}
           onKeyDown={[Function]}
           placeholder="Type your answer here."
           spellCheck={false}
@@ -301,6 +302,7 @@ Sentences flow easily when all the actions in a list have the same ending. This 
             disabled={false}
             onBlur={[Function]}
             onChange={[Function]}
+            onDrop={[Function]}
             onInput={[Function]}
             onKeyDown={[Function]}
             onKeyUp={[Function]}

@@ -8,7 +8,7 @@ import { ActivityInterface, ActivityRouteProps } from '../../../interfaces/compr
 import { BECAUSE, BUT, SO } from '../../../../../constants/comprehension';
 import SubmissionModal from '../shared/submissionModal';
 // import { flagOptions } from '../../../../../constants/comprehension';
-import { fetchActivity, updateActivity } from '../../../utils/comprehension/activityAPIs';
+import { fetchActivity, updateActivity, archiveParentActivity } from '../../../utils/comprehension/activityAPIs';
 import { promptsByConjunction } from "../../../helpers/comprehension";
 import { DataTable, Error, Modal, Spinner } from '../../../../Shared/index';
 
@@ -27,6 +27,23 @@ const ActivitySettings: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ m
     queryKey: [`activity-${activityId}`, activityId],
     queryFn: fetchActivity
   });
+
+  const handleClickArchiveActivity = () => {
+    if (window.confirm('Are you sure you want to archive? If you archive, it will not be displayed on the "View Activities" page. Please also make sure that the activity has the correct parent activity id, because the parent activity will be archived as well.')) {
+      archiveParentActivity(data.activity.parent_activity_id).then((response) => {
+        const { error } = response;
+        error && setErrorOrSuccessMessage(error);
+        queryCache.refetchQueries(`activity-${activityId}`)
+        if(!error) {
+          setShowEditActivityModal(false);
+          // reset errorOrSuccessMessage in case of subsequent submission
+          setErrorOrSuccessMessage('Activity successfully archived!');
+        }
+        toggleSubmissionModal();
+      });
+
+    }
+  }
 
   const handleUpdateActivity = (activity: ActivityInterface) => {
     updateActivity(activity, activityId).then((response) => {
@@ -122,7 +139,7 @@ const ActivitySettings: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ m
       return [];
     } else {
       // format for DataTable to display labels on left side and values on right
-      const { passages, prompts, title, scored_level, target_level } = activity
+      const { passages, prompts, title, scored_level, target_level, name, } = activity
 
       const passageLength = passages && passages[0] ? `${passages[0].text.split(' ').length} words` : null;
       const formattedPrompts = promptsByConjunction(prompts);
@@ -131,6 +148,10 @@ const ActivitySettings: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ m
       const soText = formattedPrompts && formattedPrompts[SO] ? formattedPrompts[SO].text : null;
 
       const fields = [
+        {
+          label: 'Name',
+          value: name
+        },
         {
           label: 'Title',
           value: title
@@ -208,6 +229,10 @@ const ActivitySettings: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ m
         rows={generalSettingsRows(data)}
       />
       <div className="button-container">
+        <div>
+          <a className="quill-button fun secondary outlined" href={`/comprehension/#/play?uid=${activityId}`} rel="noopener noreferrer" target="_blank">Play Activity</a>
+          {data.activity.parent_activity_id && <button className="quill-button fun secondary outlined" onClick={handleClickArchiveActivity} type="button">Archive Activity</button>}
+        </div>
         <button className="quill-button fun primary contained" id="edit-activity-button" onClick={toggleEditActivityModal} type="submit">Configure</button>
       </div>
     </div>

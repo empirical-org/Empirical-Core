@@ -1,5 +1,5 @@
 import * as React from "react";
-import { EditorState, ContentState } from 'draft-js'
+import { EditorState, ContentState } from 'draft-js';
 
 import {
   handleSetRuleConceptUID,
@@ -17,10 +17,12 @@ interface RuleGenericAttributesProps {
   errors: any,
   ruleConceptUID: string,
   ruleDescription: string,
-  ruleID: number,
+  ruleID?: number,
+  ruleUID?: string,
   ruleName: string,
   ruleOptimal: any,
   ruleType: any,
+  concepts: any[],
   setRuleConceptUID: (ruleConceptUID: string) => void,
   setRuleDescription: (ruleDescription: string) => void,
   setRuleName: (ruleName: string) => void,
@@ -31,9 +33,11 @@ interface RuleGenericAttributesProps {
 const RuleGenericAttributes = ({
   isUniversal,
   errors,
+  concepts,
   ruleConceptUID,
   ruleDescription,
   ruleID,
+  ruleUID,
   ruleName,
   ruleOptimal,
   ruleType,
@@ -48,14 +52,25 @@ const RuleGenericAttributes = ({
 
   function onHandleSetRuleName(e: InputEvent) { handleSetRuleName(e, setRuleName) }
 
-  function onHandleSetRuleConceptUID(e: InputEvent) { handleSetRuleConceptUID(e, setRuleConceptUID) }
+  function onHandleSetRuleConceptUID(concept: DropdownObjectInterface) { handleSetRuleConceptUID(concept.value, setRuleConceptUID) }
 
   function onHandleSetRuleOptimal(ruleOptimal: DropdownObjectInterface) { handleSetRuleOptimal(ruleOptimal, setRuleOptimal) }
 
   function onHandleSetRuleDescription(text: string) { handleSetRuleDescription(text, setRuleDescription)}
 
-  const ruleTypeDisabled = ruleID ? 'disabled' : '';
+  function renderIDorUID(idOrRuleId, type) {
+    return(
+      <section className="label-status-container">
+        <p id="label-status-label">{type}</p>
+        <p id="label-status">{idOrRuleId}</p>
+      </section>
+    );
+  }
+
+  const ruleTypeDisabled = (ruleID || ruleType.value === 'autoML') ? 'disabled' : '';
   const options = isUniversal ? universalRuleTypeOptions : ruleTypeOptions;
+  const conceptOptions = concepts.map(c => ({ value: c.uid, label: c.name, }));
+  const selectedConceptOption = conceptOptions.find(co => co.value === ruleConceptUID);
 
   return(
     <React.Fragment>
@@ -75,12 +90,14 @@ const RuleGenericAttributes = ({
         label="Name"
         value={ruleName}
       />
-      <Input
+      <DropdownInput
         className="concept-uid-input"
         error={errors['Concept UID']}
         handleChange={onHandleSetRuleConceptUID}
-        label="Concept UID"
-        value={ruleConceptUID}
+        isSearchable={true}
+        label="Concept"
+        options={conceptOptions}
+        value={selectedConceptOption}
       />
       <DropdownInput
         className='rule-type-input'
@@ -90,6 +107,8 @@ const RuleGenericAttributes = ({
         options={ruleOptimalOptions}
         value={ruleOptimal}
       />
+      {ruleID && renderIDorUID(ruleID, 'Rule ID')}
+      {ruleUID && renderIDorUID(ruleUID, 'Rule UID')}
       <p className="form-subsection-label">Rule Description</p>
       <TextEditor
         ContentState={ContentState}

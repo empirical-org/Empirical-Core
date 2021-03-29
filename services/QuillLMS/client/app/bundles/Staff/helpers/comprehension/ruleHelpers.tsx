@@ -2,6 +2,7 @@ import * as React from "react";
 import { EditorState, ContentState } from 'draft-js';
 
 import { validateForm } from '../comprehension';
+import { AUTO_ML, ACTIVE, INACTIVE } from '../../../../constants/comprehension';
 import { InputEvent, DropdownObjectInterface } from '../../interfaces/comprehensionInterfaces';
 import { ruleTypeOptions, universalRuleTypeOptions, ruleHighlightOptions, numericalWordOptions, regexRuleSequenceOptions, regexRuleTypes } from '../../../../constants/comprehension';
 import { TextEditor, DropdownInput } from '../../../Shared/index';
@@ -10,9 +11,11 @@ export function handleSetRuleType(ruleType: DropdownObjectInterface, setRuleType
 
 export function handleSetRuleName(e: InputEvent, setRuleName) { setRuleName(e.target.value) };
 
+export function handleSetRuleLabelName(e: InputEvent, setRuleLabelName) { setRuleLabelName(e.target.value) };
+
 export function handleSetRuleOptimal(ruleOptimal: DropdownObjectInterface, setRuleOptimal) { setRuleOptimal(ruleOptimal) };
 
-export function handleSetRuleConceptUID(e: InputEvent, setRuleConceptUID) { setRuleConceptUID(e.target.value) };
+export function handleSetRuleConceptUID(value, setRuleConceptUID) { setRuleConceptUID(value) };
 
 export function handleSetRuleDescription(text: string, setRuleDescription) { setRuleDescription(text) }
 
@@ -258,8 +261,10 @@ export const buildRule = ({
   ruleConceptUID,
   ruleDescription,
   ruleName,
+  ruleLabelName,
   ruleOptimal,
   rulePrompts,
+  rulePromptIds,
   ruleType,
   ruleFeedbacks,
   universalRulesCount
@@ -281,7 +286,7 @@ export const buildRule = ({
     rule_type: ruleType.value,
     suborder: suborder ? suborder : order,
     universal: universal,
-    state: 'active'
+    state: ruleType.value === AUTO_ML ? INACTIVE : ACTIVE
   };
 
   if(regexRuleTypes.includes(newOrUpdatedRule.rule_type)) {
@@ -301,21 +306,29 @@ export const buildRule = ({
       id: plagiarismText.id,
       text: plagiarismText.text
     };
+  } else if(newOrUpdatedRule.rule_type === AUTO_ML) {
+    newOrUpdatedRule.label_attributes = {
+      name: ruleLabelName
+    };
+    newOrUpdatedRule.prompt_ids = rulePromptIds;
   }
   return {
     rule: newOrUpdatedRule
   };
 }
 
-export function handleSubmitRule({
+export async function handleSubmitRule({
   plagiarismText,
   regexRules,
   rule,
   ruleName,
+  ruleId,
+  ruleLabelName,
   ruleConceptUID,
   ruleDescription,
   ruleOptimal,
   rulePrompts,
+  rulePromptIds,
   rulesCount,
   ruleType,
   setErrors,
@@ -328,10 +341,12 @@ export function handleSubmitRule({
     regexRules,
     rule,
     ruleName,
+    ruleLabelName,
     ruleConceptUID,
     ruleDescription,
     ruleOptimal,
     rulePrompts,
+    rulePromptIds,
     rulesCount,
     ruleType,
     ruleFeedbacks,
@@ -350,8 +365,11 @@ export function handleSubmitRule({
   } else if(ruleType.value === 'plagiarism') {
     keys = keys.concat(['Plagiarism Text', 'First Plagiarism Feedback', 'Second Plagiarism Feedback']);
     state = state.concat([plagiarismText.text, ruleFeedbacks[0].text, ruleFeedbacks[1].text]);
+  } else if(ruleType.value === AUTO_ML) {
+    keys.push('Label Name');
+    state.push(ruleLabelName);
   }
-  if(!universal) {
+  if(!universal && ruleType.value !== AUTO_ML) {
     keys.push('Stem Applied');
     state.push(rulePrompts);
   }
@@ -359,6 +377,18 @@ export function handleSubmitRule({
   if(validationErrors && Object.keys(validationErrors).length) {
     setErrors(validationErrors);
   } else {
-    submitRule(newOrUpdatedRule);
+    submitRule(newOrUpdatedRule, ruleId);
   }
+}
+
+export function getRulesUrl(activityId: string, promptId: string, ruleType: string) {
+  let url = `activities/${activityId}/rules`;
+  if(promptId && !ruleType) {
+    url = `rules?prompt_id=${promptId}`
+  } else if(!promptId && ruleType) {
+    url = `rules?rule_type=${ruleType}`
+  } else if(promptId && ruleType) {
+    url = `rules?prompt_id=${promptId}&rule_type=${ruleType}`
+  }
+  return url;
 }

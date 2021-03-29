@@ -13,11 +13,13 @@ describe StatusesController, type: :controller do
 
     context 'upstream 2xx response' do 
       it 'should render OK with status 201' do 
-        VCR.use_cassette('new_relic_deployment_notification') do
-          ENV['NEW_RELIC_APP_ID'] = '638151804'
-          post :deployment_notification, **params
-        end
-        expect(response.status).to eq 201
+        resp = double
+        allow(resp).to receive(:status) { 200 }
+        allow(Faraday).to receive(:post).and_return(resp)
+
+        post :deployment_notification, **params
+
+        expect(response.status).to eq 200
         expect(response.body).to eq 'OK'
       end
     end

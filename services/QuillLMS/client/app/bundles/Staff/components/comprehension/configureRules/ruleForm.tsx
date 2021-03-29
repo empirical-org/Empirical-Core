@@ -8,6 +8,7 @@ import RulePrompts from './rulePrompts';
 import RuleUniversalAttributes from './ruleUniversalAttributes';
 
 import { fetchRules, fetchUniversalRules } from '../../../utils/comprehension/ruleAPIs';
+import { fetchConcepts, } from '../../../utils/comprehension/conceptAPIs';
 import { formatPrompts } from '../../../helpers/comprehension';
 import { handleSubmitRule, getInitialRuleType, formatInitialFeedbacks, returnInitialFeedback, formatRegexRules } from '../../../helpers/comprehension/ruleHelpers';
 import { ruleOptimalOptions, regexRuleTypes } from '../../../../../constants/comprehension';
@@ -25,7 +26,7 @@ interface RuleFormProps {
 
 const RuleForm = ({ activityData, activityId, closeModal, isUniversal, rule, submitRule, universalRuleType }: RuleFormProps) => {
 
-  const { name, rule_type, id, optimal, plagiarism_text, concept_uid, description, feedbacks } = rule;
+  const { name, rule_type, id, uid, optimal, plagiarism_text, concept_uid, description, feedbacks } = rule;
   const initialRuleType = getInitialRuleType({ isUniversal, rule_type, universalRuleType});
   const initialRuleOptimal = optimal ? ruleOptimalOptions[0] : ruleOptimalOptions[1];
   const initialPlagiarismText = plagiarism_text || { text: '' }
@@ -54,8 +55,13 @@ const RuleForm = ({ activityData, activityId, closeModal, isUniversal, rule, sub
     queryFn: fetchRules
   });
 
-    // cache ruleSets data for handling universal rule suborder
-    const { data: universalRulesData } = useQuery("universal-rules", fetchUniversalRules);
+  // cache ruleSets data for handling universal rule suborder
+  const { data: universalRulesData } = useQuery("universal-rules", fetchUniversalRules);
+
+  const { data: conceptsData } = useQuery({
+    queryKey: ['concepts', activityId],
+    queryFn: fetchConcepts
+  });
 
   React.useEffect(() => {
     formatPrompts({ activityData, rule, setRulePrompts });
@@ -90,11 +96,14 @@ const RuleForm = ({ activityData, activityId, closeModal, isUniversal, rule, sub
       regexRules,
       rule,
       ruleName,
+      ruleId: null,
+      ruleLabelName: null,
       ruleConceptUID,
       ruleDescription,
       ruleFeedbacks,
       ruleOptimal,
       rulePrompts,
+      rulePromptIds: null,
       rulesCount,
       ruleType,
       setErrors,
@@ -112,6 +121,7 @@ const RuleForm = ({ activityData, activityId, closeModal, isUniversal, rule, sub
       </div>
       <form className="rule-form">
         <RuleGenericAttributes
+          concepts={conceptsData ? conceptsData.concepts : []}
           errors={errors}
           isUniversal={isUniversal}
           ruleConceptUID={ruleConceptUID}
@@ -120,6 +130,7 @@ const RuleForm = ({ activityData, activityId, closeModal, isUniversal, rule, sub
           ruleName={ruleName}
           ruleOptimal={ruleOptimal}
           ruleType={ruleType}
+          ruleUID={uid}
           setRuleConceptUID={setRuleConceptUID}
           setRuleDescription={setRuleDescription}
           setRuleName={setRuleName}

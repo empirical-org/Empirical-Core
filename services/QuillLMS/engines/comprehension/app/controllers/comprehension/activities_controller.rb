@@ -7,7 +7,7 @@ module Comprehension
 
     # GET /activities.json
     def index
-      @activities = Comprehension::Activity.all
+      @activities = Comprehension::Activity.joins("LEFT JOIN activities ON comprehension_activities.parent_activity_id = activities.id").where("parent_activity_id IS NULL OR NOT 'archived' = ANY(activities.flags)").order(:name)
 
       render json: @activities
     end
@@ -55,6 +55,7 @@ module Comprehension
     private def activity_params
       params.require(:activity).permit(
         :title,
+        :name,
         :parent_activity_id,
         :target_level,
         :scored_level,

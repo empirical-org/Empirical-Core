@@ -70,18 +70,18 @@ describe TeachersController, type: :controller do
     end
 
     describe '#unlink' do
-      it 'unlinks the teacher from the school' do
-        expect(SchoolsUsers.find_by(user_id: teacher.id)).to be
+      it 'unlinks teacher from school' do
+        expect(SchoolsUsers.find_by(user: teacher)).to be
         expect($redis).to receive(:del).with("SERIALIZED_ADMIN_USERS_FOR_#{teacher.id}")
         post :unlink, teacher_id: teacher.id
-        expect(SchoolsUsers.find_by(user_id: teacher.id)).not_to be
+        expect(SchoolsUsers.find_by(user: teacher)).not_to be
       end
 
-      it 'returns an error when the teacher does not have a school' do
-        new_teacher = create(:teacher, school: nil)
-        post :unlink, teacher_id: new_teacher.id
+      it 'returns 400 response if cannot unlink' do
+        user2 = create(:teacher, school: nil)
+        expect(SchoolsUsers.find_by(user: user2)).not_to be
+        post :unlink, teacher_id: user2.id
         expect(response.status).to eq(400)
-        expect(response.body).to include("user is not attached to a school")
       end
     end
 

@@ -8,6 +8,8 @@ import AssignActivityPackBanner from '../assignActivityPackBanner'
 import getAuthToken from '../../modules/get_auth_token';
 import { Input, } from '../../../../Shared/index'
 
+const smallWhiteCheckSrc = `${process.env.CDN_URL}/images/shared/check-small-white.svg`
+
 class LoginFormApp extends React.Component {
   constructor(props) {
     super(props);
@@ -17,6 +19,7 @@ class LoginFormApp extends React.Component {
       password: '',
       errors: {},
       timesSubmitted: 0,
+      keepMeSignedIn: true
     };
   }
 
@@ -66,12 +69,16 @@ class LoginFormApp extends React.Component {
     this.handleSignUpClick(e)
   }
 
+  handleToggleKeepMeSignedIn = () => {
+    this.setState(prevState => ({ keepMeSignedIn: !prevState.keepMeSignedIn, }))
+  }
+
   handleSignUpClick = (e) => {
     window.location.href = '/account/new'
   }
 
   handleSubmit = (e) => {
-    const { timesSubmitted, email, password, } = this.state;
+    const { timesSubmitted, email, password, keepMeSignedIn, } = this.state;
     e.preventDefault();
     request({
       url: `${process.env.DEFAULT_URL}/session/login_through_ajax`,
@@ -81,6 +88,7 @@ class LoginFormApp extends React.Component {
           email,
           password,
         },
+        keep_me_signed_in: keepMeSignedIn,
         authenticity_token: getAuthToken(),
       },
     },
@@ -113,6 +121,17 @@ class LoginFormApp extends React.Component {
       buttonClass += ' disabled';
     }
     return buttonClass;
+  }
+
+  renderKeepMeSignedIn = () => {
+    const { keepMeSignedIn, } = this.state
+    let checkbox
+    if (keepMeSignedIn) {
+      checkbox = <button aria-checked={true} className="quill-checkbox selected focus-on-light" onClick={this.handleToggleKeepMeSignedIn} onKeyDown={this.handleKeyDownOnToggleNewsletter} role="checkbox" type="button"><img alt="check" src={smallWhiteCheckSrc} /></button>
+    } else {
+      checkbox = <button aria-checked={false} aria-label="Unchecked" className="quill-checkbox unselected focus-on-light" onClick={this.handleToggleKeepMeSignedIn} role="checkbox" type="button" />
+    }
+    return <div className="keep-me-signed-in-row">{checkbox} <p>Keep me signed in</p></div>
   }
 
   render() {
@@ -159,6 +178,7 @@ class LoginFormApp extends React.Component {
                     value={password}
                   />
                   <div className="forget-and-show-password">
+                    {this.renderKeepMeSignedIn()}
                     <a className="inline-link" href="/password_reset">Forgot password?</a>
                   </div>
                   <input aria-label="Log in" className={this.submitClass()} name="commit" type="submit" value="Log in" />

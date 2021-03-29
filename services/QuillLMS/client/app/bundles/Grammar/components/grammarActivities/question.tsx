@@ -241,6 +241,8 @@ export class QuestionComponent extends React.Component<QuestionProps, QuestionSt
     }
   }
 
+  handleDrop = (e) => e.preventDefault()
+
   example = (): JSX.Element | string | void => {
     if (this.currentQuestion().rule_description && this.currentQuestion().rule_description.length && this.currentQuestion().rule_description !== "<br/>") {
       return this.currentQuestion().rule_description
@@ -345,6 +347,7 @@ export class QuestionComponent extends React.Component<QuestionProps, QuestionSt
         disabled={!!disabled}
         html={response}
         onChange={this.handleResponseChange}
+        onDrop={this.handleDrop}
         onKeyDown={this.handleKeyDown}
         placeholder="Type your answer here."
         spellCheck={false}
