@@ -6,22 +6,25 @@ import ActivitySettings from './configureSettings/activitySettings';
 import Rules from './configureRules/rules';
 import Rule from './configureRules/rule';
 import TurkSessions from './gatherResponses/turkSessions';
+import SemanticRulesIndex from './semanticRules/semanticRulesIndex';
 
 import { ActivityRouteProps } from '../../interfaces/comprehensionInterfaces';
 
 const Activity: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ match, location, }) => {
-  const { params } = match;
-  return(<React.Fragment>
-    <Navigation location={location} match={match} />
-    <div className="activity-container">
-      <Switch>
-        <Redirect exact from='/activities/:activityId' to='/activities/:activityId/settings' />
-        <Route component={ActivitySettings} path='/activities/:activityId/settings' />
-        <Route component={Rule} path='/activities/:activityId/rules/:ruleId' />
-        <Route component={Rules} path='/activities/:activityId/rules' />
-        <Route component={TurkSessions} path='/activities/:activityId/turk-sessions' />
-      </Switch>
-    </div>
-  </React.Fragment>);
+  return(
+    <React.Fragment>
+      <Navigation location={location} match={match} />
+      <div className="activity-container">
+        <Switch>
+          <Redirect exact from='/activities/:activityId' to='/activities/:activityId/settings' />
+          <Route component={ActivitySettings} path='/activities/:activityId/settings' />
+          <Route component={Rule} path='/activities/:activityId/rules/:ruleId' />
+          <Route component={Rules} path='/activities/:activityId/rules' />
+          <Route component={TurkSessions} path='/activities/:activityId/turk-sessions' />
+          <Route component={SemanticRulesIndex} path='/activities/:activityId/semantic-rules' />
+        </Switch>
+      </div>
+    </React.Fragment>
+  );
 }
 export default withRouter(Activity)

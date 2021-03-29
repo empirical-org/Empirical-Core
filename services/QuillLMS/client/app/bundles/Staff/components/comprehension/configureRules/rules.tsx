@@ -5,7 +5,7 @@ import { queryCache, useQuery } from 'react-query';
 import RuleForm from './ruleForm';
 
 import SubmissionModal from '../shared/submissionModal';
-import { buildErrorMessage, getPromptsIcons, getUniversalIcon } from '../../../helpers/comprehension';
+import { buildErrorMessage, getPromptsIcons, getCheckIcon } from '../../../helpers/comprehension';
 import { ActivityRouteProps, RuleInterface } from '../../../interfaces/comprehensionInterfaces';
 import { BECAUSE, BUT, SO, blankRule } from '../../../../../constants/comprehension';
 import { fetchActivity } from '../../../utils/comprehension/activityAPIs';
@@ -42,7 +42,7 @@ const Rules: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ history, mat
       because_prompt: promptsIcons[BECAUSE],
       but_prompt: promptsIcons[BUT],
       so_prompt: promptsIcons[SO],
-      universal: getUniversalIcon(universal),
+      universal: getCheckIcon(universal),
       suborder: suborder
     }
   });

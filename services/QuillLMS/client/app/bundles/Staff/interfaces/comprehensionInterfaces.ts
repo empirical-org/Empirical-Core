@@ -65,6 +65,11 @@ export interface RuleInterface {
   suborder: number,
   concept_uid: string,
   prompt_ids?: number[],
+  state: string,
+  label?: {
+    id: number,
+    name: string
+  },
   plagiarism_text?: {
     id?: number,
     rule_id?: number,

@@ -1,12 +1,12 @@
 import { ActivityInterface } from '../../interfaces/comprehensionInterfaces';
-import { handleApiError, apiFetch } from '../../helpers/comprehension';
+import { handleApiError, apiFetch, mainApiFetch, } from '../../helpers/comprehension';
 
 export const fetchActivities = async () => {
   let activities: ActivityInterface[];
   const response = await apiFetch('activities');
   activities = await response.json();
-  return { 
-    activities, 
+  return {
+    activities,
     error: handleApiError('Failed to fetch activities, please refresh the page.', response)
   };
 }
@@ -20,10 +20,10 @@ export const fetchActivity = async (key: string, activityId: string) => {
   //   const { flag } = activity
   //   flagObject = { label: flag, value: flag };
   // }
-  return { 
-    activity, 
-    error: handleApiError('Failed to fetch activity, please refresh the page.', response), 
-    // flag: flagObject 
+  return {
+    activity,
+    error: handleApiError('Failed to fetch activity, please refresh the page.', response),
+    // flag: flagObject
   };
 }
 
@@ -41,4 +41,12 @@ export const updateActivity = async (activity: object, activityId: string) => {
     body: JSON.stringify(activity)
   });
   return { error: handleApiError('Failed to update activity, please try again.', response) }
+}
+
+export const archiveParentActivity = async (parentActivityId: string) => {
+  const response = await mainApiFetch(`activities/${parentActivityId}`, {
+    method: 'PUT',
+    body: JSON.stringify({ flags: ['archived'], })
+  });
+  return { error: handleApiError('Failed to archive activity, please try again.', response) }
 }

@@ -7,7 +7,7 @@ module Comprehension
 
     # GET /activities.json
     def index
-      @activities = Comprehension::Activity.all.order(:name)
+      @activities = Comprehension::Activity.joins("LEFT JOIN activities ON comprehension_activities.parent_activity_id = activities.id").where("parent_activity_id IS NULL OR NOT 'archived' = ANY(activities.flags)").order(:name)
 
       render json: @activities
     end
