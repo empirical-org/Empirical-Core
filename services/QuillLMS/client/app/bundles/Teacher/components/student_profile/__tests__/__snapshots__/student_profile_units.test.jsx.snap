@@ -1756,10 +1756,10 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                 },
                 Object {
                   "attribute": "score",
-                  "headerClassName": "score-section",
+                  "headerClassName": "score-section tooltip-section",
                   "name": "Score",
                   "noTooltip": true,
-                  "rowSectionClassName": "score-section",
+                  "rowSectionClassName": "score-section tooltip-section",
                   "width": "144px",
                 },
                 Object {
@@ -1864,7 +1864,7 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                   Activity
                 </button>
                 <button
-                  className="data-table-header score-section"
+                  className="data-table-header score-section tooltip-section"
                   style={
                     Object {
                       "minWidth": "144px",
@@ -1939,7 +1939,7 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                     A, An
                   </span>
                   <span
-                    className="data-table-row-section score-section"
+                    className="data-table-row-section score-section tooltip-section"
                     key="score-9"
                     style={
                       Object {
@@ -2029,7 +2029,7 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                     Age of Exploration: Spices
                   </span>
                   <span
-                    className="data-table-row-section score-section"
+                    className="data-table-row-section score-section tooltip-section"
                     key="score-5"
                     style={
                       Object {
@@ -3867,10 +3867,10 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                 },
                 Object {
                   "attribute": "score",
-                  "headerClassName": "score-section",
+                  "headerClassName": "score-section tooltip-section",
                   "name": "Score",
                   "noTooltip": true,
-                  "rowSectionClassName": "score-section",
+                  "rowSectionClassName": "score-section tooltip-section",
                   "width": "144px",
                 },
                 Object {
@@ -3975,7 +3975,7 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                   Activity
                 </button>
                 <button
-                  className="data-table-header score-section"
+                  className="data-table-header score-section tooltip-section"
                   style={
                     Object {
                       "minWidth": "144px",
@@ -4050,7 +4050,7 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                     A, An
                   </span>
                   <span
-                    className="data-table-row-section score-section"
+                    className="data-table-row-section score-section tooltip-section"
                     key="score-9"
                     style={
                       Object {
@@ -4140,7 +4140,7 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                     Age of Exploration: Spices
                   </span>
                   <span
-                    className="data-table-row-section score-section"
+                    className="data-table-row-section score-section tooltip-section"
                     key="score-5"
                     style={
                       Object {
@@ -6173,10 +6173,10 @@ exports[`StudentProfileUnits component should render all activities and units if
                 },
                 Object {
                   "attribute": "score",
-                  "headerClassName": "score-section",
+                  "headerClassName": "score-section tooltip-section",
                   "name": "Score",
                   "noTooltip": true,
-                  "rowSectionClassName": "score-section",
+                  "rowSectionClassName": "score-section tooltip-section",
                   "width": "144px",
                 },
                 Object {
@@ -6281,7 +6281,7 @@ exports[`StudentProfileUnits component should render all activities and units if
                   Activity
                 </button>
                 <button
-                  className="data-table-header score-section"
+                  className="data-table-header score-section tooltip-section"
                   style={
                     Object {
                       "minWidth": "144px",
@@ -6356,7 +6356,7 @@ exports[`StudentProfileUnits component should render all activities and units if
                     A, An
                   </span>
                   <span
-                    className="data-table-row-section score-section"
+                    className="data-table-row-section score-section tooltip-section"
                     key="score-9"
                     style={
                       Object {
@@ -6446,7 +6446,7 @@ exports[`StudentProfileUnits component should render all activities and units if
                     Age of Exploration: Spices
                   </span>
                   <span
-                    className="data-table-row-section score-section"
+                    className="data-table-row-section score-section tooltip-section"
                     key="score-5"
                     style={
                       Object {
@@ -6988,10 +6988,10 @@ exports[`StudentProfileUnits component should render only completed activities i
                 },
                 Object {
                   "attribute": "score",
-                  "headerClassName": "score-section",
+                  "headerClassName": "score-section tooltip-section",
                   "name": "Score",
                   "noTooltip": true,
-                  "rowSectionClassName": "score-section",
+                  "rowSectionClassName": "score-section tooltip-section",
                   "width": "144px",
                 },
                 Object {
@@ -7096,7 +7096,7 @@ exports[`StudentProfileUnits component should render only completed activities i
                   Activity
                 </button>
                 <button
-                  className="data-table-header score-section"
+                  className="data-table-header score-section tooltip-section"
                   style={
                     Object {
                       "minWidth": "144px",
@@ -7171,7 +7171,7 @@ exports[`StudentProfileUnits component should render only completed activities i
                     A, An
                   </span>
                   <span
-                    className="data-table-row-section score-section"
+                    className="data-table-row-section score-section tooltip-section"
                     key="score-9"
                     style={
                       Object {
@@ -7261,7 +7261,7 @@ exports[`StudentProfileUnits component should render only completed activities i
                     Age of Exploration: Spices
                   </span>
                   <span
-                    className="data-table-row-section score-section"
+                    className="data-table-row-section score-section tooltip-section"
                     key="score-5"
                     style={
                       Object {
@@ -11188,10 +11188,10 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                 },
                 Object {
                   "attribute": "score",
-                  "headerClassName": "score-section",
+                  "headerClassName": "score-section tooltip-section",
                   "name": "Score",
                   "noTooltip": true,
-                  "rowSectionClassName": "score-section",
+                  "rowSectionClassName": "score-section tooltip-section",
                   "width": "144px",
                 },
                 Object {
@@ -11296,7 +11296,7 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                   Activity
                 </button>
                 <button
-                  className="data-table-header score-section"
+                  className="data-table-header score-section tooltip-section"
                   style={
                     Object {
                       "minWidth": "144px",
@@ -11371,7 +11371,7 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                     A, An
                   </span>
                   <span
-                    className="data-table-row-section score-section"
+                    className="data-table-row-section score-section tooltip-section"
                     key="score-9"
                     style={
                       Object {
@@ -11461,7 +11461,7 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                     Age of Exploration: Spices
                   </span>
                   <span
-                    className="data-table-row-section score-section"
+                    className="data-table-row-section score-section tooltip-section"
                     key="score-5"
                     style={
                       Object {
@@ -13494,10 +13494,10 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                 },
                 Object {
                   "attribute": "score",
-                  "headerClassName": "score-section",
+                  "headerClassName": "score-section tooltip-section",
                   "name": "Score",
                   "noTooltip": true,
-                  "rowSectionClassName": "score-section",
+                  "rowSectionClassName": "score-section tooltip-section",
                   "width": "144px",
                 },
                 Object {
@@ -13602,7 +13602,7 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                   Activity
                 </button>
                 <button
-                  className="data-table-header score-section"
+                  className="data-table-header score-section tooltip-section"
                   style={
                     Object {
                       "minWidth": "144px",
@@ -13677,7 +13677,7 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                     A, An
                   </span>
                   <span
-                    className="data-table-row-section score-section"
+                    className="data-table-row-section score-section tooltip-section"
                     key="score-9"
                     style={
                       Object {
@@ -13767,7 +13767,7 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                     Age of Exploration: Spices
                   </span>
                   <span
-                    className="data-table-row-section score-section"
+                    className="data-table-row-section score-section tooltip-section"
                     key="score-5"
                     style={
                       Object {
