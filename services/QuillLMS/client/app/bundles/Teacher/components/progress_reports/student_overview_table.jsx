@@ -59,7 +59,7 @@ export default class extends React.Component {
 
   score(row) {
     if (row.completed_at && !notLessonsOrDiagnostic(row.activity_classification_id)) {
-      return {content: 'Completed', color: 'blue', tooltip: true}
+      return {content: 'Completed', color: 'blue'}
     } else if (row.percentage) {
       return {
         content: Math.round(row.percentage * 100) + '%',
@@ -73,7 +73,6 @@ export default class extends React.Component {
 
   tableRow(row) {
     const scoreInfo = this.score(row);
-    const blurIfNotPremium = this.state.userIsPremium ?  '' : 'non-premium-blur'
     const onClickFunction = row.completed_at ? () => window.location.href = `/teachers/progress_reports/report_from_classroom_unit_activity_and_user/cu/${row.classroom_unit_id}/user/${this.props.studentId}/a/${row.activity_id}` : () => {}
 
     return (
@@ -83,16 +82,29 @@ export default class extends React.Component {
           <a className={scoreInfo.linkColor} href={`/activity_sessions/anonymous?activity_id=${row.activity_id}`}>{row.name}</a>
         </td>
         <td>{this.completedStatus(row)}</td>
-        { scoreInfo.tooltip ?
-            <td className={`score ${blurIfNotPremium}`}><Tooltip
-              tooltipText={`This type of activity is not graded.`}
-              tooltipTriggerText={scoreInfo.content}
-            /></td> :
-            <td className={`score ${blurIfNotPremium}`}>{scoreInfo.content}</td>
-        }
+        {this.scoreContent(scoreInfo)}
         <td className='green-arrow'>{this.greenArrow(row)}</td>
       </tr>
     )
+  }
+
+  scoreContent(scoreInfo) {
+    const blurIfNotPremium = this.state.userIsPremium ?  '' : 'non-premium-blur'
+    const activityUngraded = scoreInfo.content == 'Completed'
+    if (activityUngraded) {
+      return (
+        <td className={`score ${blurIfNotPremium}`}>
+          <Tooltip
+            tooltipText={`This type of activity is not graded.`}
+            tooltipTriggerText={scoreInfo.content}
+          />
+        </td>
+      )
+    } else {
+      return (
+        <td className={`score ${blurIfNotPremium}`}>{scoreInfo.content}</td>
+      )
+    }
   }
 
   unitTable(unit) {
@@ -116,9 +128,9 @@ export default class extends React.Component {
                   {averageScore
                     ? Math.round(averageScore * 100) + '%'
                     : <Tooltip
-                        tooltipText={`This type of activity is not graded.`}
-                        tooltipTriggerText="N/A"
-                      />}
+                      tooltipText={`This type of activity is not graded.`}
+                      tooltipTriggerText="N/A"
+                    />}
                 </div>
               </th>
             </tr>

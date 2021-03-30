@@ -37,7 +37,7 @@ export default class extends React.Component {
                   <div className="icon-wrapper icon-blue" />
                   <div className="icons-description-wrapper">
                     <p className="title">Completed</p>
-                    <p className="explanation"><br/></p>
+                    <p className="explanation"><br /></p>
                   </div>
                 </div>
               }
