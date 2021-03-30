@@ -77,9 +77,13 @@ const Model = ({ match }) => {
     });
   }
 
-  const dataTableFields = [
+  const upperDataTableFields = [
     { name: "", attribute:"field", width: "200px" },
     { name: "", attribute:"value", width: "400px" }
+  ];
+  const lowerDataTableFields = [
+    { name: "Descriptive Label", attribute:"field", width: "200px" },
+    { name: "AutoML Label", attribute:"value", width: "400px" }
   ];
   // const modelNotesStyle = modelNotes && modelNotes.length && modelNotes !== '<br/>' ? 'has-text' : '';
   // const errorsPresent = !!Object.keys(errors).length;
@@ -98,7 +102,7 @@ const Model = ({ match }) => {
       <section className="model-form">
         <DataTable
           className="model-table"
-          headers={dataTableFields}
+          headers={upperDataTableFields}
           rows={upperSectionRows(modelData)}
         />
         {/* <p className={`text-editor-label ${modelNotesStyle}`}>Model Notes</p>
@@ -112,7 +116,7 @@ const Model = ({ match }) => {
         /> */}
         <DataTable
           className="model-table"
-          headers={dataTableFields}
+          headers={lowerDataTableFields}
           rows={lowerSectionRows(modelData)}
         />
       </section>
