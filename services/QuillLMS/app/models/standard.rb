@@ -16,7 +16,7 @@
 #  fk_rails_...  (standard_category_id => standard_categories.id)
 #  fk_rails_...  (standard_level_id => standard_levels.id)
 #
-class Standard < ActiveRecord::Base
+class Standard < ApplicationRecord
   include Uid
 
   belongs_to :standard_level

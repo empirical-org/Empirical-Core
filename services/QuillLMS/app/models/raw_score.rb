@@ -7,7 +7,7 @@
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #
-class RawScore < ActiveRecord::Base
+class RawScore < ApplicationRecord
   validates :name, presence: true
 
   def self.order_by_name

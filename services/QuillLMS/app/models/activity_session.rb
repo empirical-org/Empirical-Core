@@ -37,7 +37,7 @@
 require 'newrelic_rpm'
 require 'new_relic/agent'
 
-class ActivitySession < ActiveRecord::Base
+class ActivitySession < ApplicationRecord
 
   include ::NewRelic::Agent
 

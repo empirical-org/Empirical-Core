@@ -18,7 +18,7 @@
 #  fk_rails_...  (concept_id => concepts.id)
 #  fk_rails_...  (recommendation_id => recommendations.id)
 #
-class Criterion < ActiveRecord::Base
+class Criterion < ApplicationRecord
   belongs_to :recommendation
   belongs_to :concept
   validates :recommendation, :concept, :count, presence: true

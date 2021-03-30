@@ -14,7 +14,7 @@
 #
 #  fk_rails_...  (parent_id => topics.id)
 #
-class Topic < ActiveRecord::Base
+class Topic < ApplicationRecord
   validates :name, presence: true
   validates :visible, :inclusion => { :in => [true, false] } # presence: true doesn't work for booleans because false will fail
   validates_inclusion_of :level, :in => 0..3

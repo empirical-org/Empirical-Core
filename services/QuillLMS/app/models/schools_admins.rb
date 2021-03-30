@@ -14,7 +14,7 @@
 #  index_schools_admins_on_school_id_and_user_id  (school_id,user_id) UNIQUE
 #  index_schools_admins_on_user_id                (user_id)
 #
-class SchoolsAdmins < ActiveRecord::Base
+class SchoolsAdmins < ApplicationRecord
   belongs_to :school
   belongs_to :user
 

@@ -13,7 +13,6 @@
 #  index_referrer_users_on_referral_code  (referral_code) UNIQUE
 #  index_referrer_users_on_user_id        (user_id) UNIQUE
 #
-class ReferrerUser < ActiveRecord::Base
+class ReferrerUser < ApplicationRecord
   belongs_to :user
-
 end

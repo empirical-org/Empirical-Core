@@ -13,7 +13,7 @@
 #
 #  index_checkboxes_on_user_id_and_objective_id  (user_id,objective_id) UNIQUE
 #
-class Checkbox < ActiveRecord::Base
+class Checkbox < ApplicationRecord
   belongs_to :objective
   belongs_to :user
   validates :objective_id, uniqueness: { scope: :user_id, message: "should only be checked once per user" }

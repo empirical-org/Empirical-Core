@@ -22,7 +22,7 @@
 #  fk_rails_...  (classroom_id => classrooms.id)
 #  fk_rails_...  (unit_id => units.id)
 #
-class ClassroomUnit < ActiveRecord::Base
+class ClassroomUnit < ApplicationRecord
   include ::NewRelic::Agent
   include AtomicArrays
 
