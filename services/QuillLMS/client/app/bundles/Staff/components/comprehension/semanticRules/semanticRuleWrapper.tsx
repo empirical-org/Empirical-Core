@@ -20,8 +20,9 @@ const SemanticRuleWrapper = ({ activityData, isSemantic, isUniversal, submitRule
 
   let rule;
   if(!ruleId) {
-    const blankSemanticRule = blankRule;
+    const blankSemanticRule = {...blankRule};
     blankSemanticRule.rule_type = 'autoML';
+    blankSemanticRule.state = 'inactive';
     rule = blankSemanticRule
   } else {
     rule = ruleData && ruleData.rule;
