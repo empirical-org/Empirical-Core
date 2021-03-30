@@ -90,7 +90,7 @@ export default class extends React.Component {
 
   scoreContent(scoreInfo) {
     const blurIfNotPremium = this.state.userIsPremium ?  '' : 'non-premium-blur'
-    const activityUngraded = scoreInfo.content == 'Completed'
+    const activityUngraded = scoreInfo.content === 'Completed'
     if (activityUngraded) {
       return (
         <td className={`score ${blurIfNotPremium}`}>

@@ -86,7 +86,7 @@ export default class ClassroomActivity extends React.Component {
     const averageScore = data.cumulativeScore / data.completedCount;
     if (isNaN(averageScore)) {
       return '—';
-    } else if (data.activityClassificationId == DIAGNOSTIC_ACTIVITY_CLASSIFICATION_ID) {
+    } else if (data.activityClassificationId === DIAGNOSTIC_ACTIVITY_CLASSIFICATION_ID) {
       return (<Tooltip
         tooltipText={`This type of activity is not graded.`}
         tooltipTriggerText="N/A"
