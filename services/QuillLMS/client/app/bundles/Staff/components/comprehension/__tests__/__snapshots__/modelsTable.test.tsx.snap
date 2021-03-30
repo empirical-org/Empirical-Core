@@ -19,7 +19,7 @@ exports[`LabelsTable component should render ModelsTable 1`] = `
         type="submit"
       >
         <Link
-          to="/activities/17/semantic-rules/1/add-model"
+          to="/activities/17/semantic-labels/1/add-model"
         >
           Add Model
         </Link>
@@ -48,8 +48,8 @@ exports[`LabelsTable component should render ModelsTable 1`] = `
           "width": "300px",
         },
         Object {
-          "attribute": "labels",
-          "name": "Labels",
+          "attribute": "label_count",
+          "name": "Label Count",
           "width": "70px",
         },
         Object {
