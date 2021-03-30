@@ -13,7 +13,7 @@ describe InvitationsController, type: :controller do
     # when stub_const is called within a spec.
     # Reference: 
     # https://stackoverflow.com/questions/32563359/stubing-a-model-constant-for-assosiation-undefined-method-relation-delegate-cl
-    Invitation.class 
+    CoteacherClassroomInvitation
     allow(controller).to receive(:current_user) { user }
   end
 
