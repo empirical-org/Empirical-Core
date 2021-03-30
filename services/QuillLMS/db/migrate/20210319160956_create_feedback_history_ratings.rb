@@ -6,5 +6,10 @@ class CreateFeedbackHistoryRatings < ActiveRecord::Migration
       t.references :user, null: false, foreign_key: true
       t.timestamps null: false
     end
+
+    add_index :feedback_history_ratings, 
+      [:user_id, :feedback_history_id], 
+      unique: true, 
+      name: 'feedback_history_ratings_uniqueness'
   end
 end

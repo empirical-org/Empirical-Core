@@ -4999,6 +4999,13 @@ CREATE INDEX email_idx ON public.users USING gin (email public.gin_trgm_ops);
 
 
 --
+-- Name: feedback_history_ratings_uniqueness; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX feedback_history_ratings_uniqueness ON public.feedback_history_ratings USING btree (user_id, feedback_history_id);
+
+
+--
 -- Name: index_act_category_acts_on_act_id_and_act_cat_id; Type: INDEX; Schema: public; Owner: -
 --
 
