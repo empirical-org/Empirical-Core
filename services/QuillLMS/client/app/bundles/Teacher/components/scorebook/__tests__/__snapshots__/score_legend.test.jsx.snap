@@ -70,27 +70,32 @@ exports[`ScoreLegend component should render 1`] = `
         </p>
       </div>
     </div>
-    <div
-      className="icon"
-    >
-      <div
-        className="icon-wrapper icon-blue"
-      />
-      <div
-        className="icons-description-wrapper"
-      >
-        <p
-          className="title"
+    <Tooltip
+      tooltipText="This type of activity is not graded."
+      tooltipTriggerText={
+        <div
+          className="icon"
         >
-          Completed
-        </p>
-        <p
-          className="explanation"
-        >
-          Not Scored
-        </p>
-      </div>
-    </div>
+          <div
+            className="icon-wrapper icon-blue"
+          />
+          <div
+            className="icons-description-wrapper"
+          >
+            <p
+              className="title"
+            >
+              Completed
+            </p>
+            <p
+              className="explanation"
+            >
+              <br />
+            </p>
+          </div>
+        </div>
+      }
+    />
     <div
       className="icon"
     >
