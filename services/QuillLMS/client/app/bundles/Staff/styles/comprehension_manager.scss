@@ -423,7 +423,7 @@
         }
       }
       #add-model-button {
-        margin-top: 15px;
+        margin-top: 5px;
       }
     }
     .tabs-container {
@@ -499,6 +499,13 @@
 
   .models-container, .semantic-labels-container {
     padding: 20px 0px 20px 0px;
+  }
+  .models-container {
+    .header-container {
+      #model-count {
+        margin-top: 12px;
+      }
+    }
   }
 
   .model-container {

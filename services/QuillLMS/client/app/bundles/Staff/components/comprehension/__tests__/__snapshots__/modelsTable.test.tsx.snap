@@ -7,24 +7,26 @@ exports[`LabelsTable component should render ModelsTable 1`] = `
   <section
     className="header-container"
   >
-    <section
-      className="lower-header-container"
+    <h5>
+      Prompt Models
+    </h5>
+    <h5
+      id="model-count"
     >
-      <h5>
-        Prompt Models
-      </h5>
-      <button
-        className="quill-button fun primary contained"
-        id="add-model-button"
-        type="submit"
+      Count: 
+      <p />
+    </h5>
+    <button
+      className="quill-button fun primary contained"
+      id="add-model-button"
+      type="submit"
+    >
+      <Link
+        to="/activities/17/semantic-labels/1/add-model"
       >
-        <Link
-          to="/activities/17/semantic-labels/1/add-model"
-        >
-          Add Model
-        </Link>
-      </button>
-    </section>
+        Add Model
+      </Link>
+    </button>
   </section>
   <DataTable
     averageFontWidth={7}

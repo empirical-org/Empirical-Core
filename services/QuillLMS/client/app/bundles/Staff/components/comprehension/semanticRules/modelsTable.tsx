@@ -61,14 +61,14 @@ const ModelsTable = ({ activityId, prompt }) => {
   ];
 
   const addModelLink = <Link to={`/activities/${activityId}/semantic-labels/${prompt.id}/add-model`}>Add Model</Link>;
+  const count = modelsData && modelsData.models && modelsData.models.length
 
   return(
     <section className="models-container">
       <section className="header-container">
-        <section className="lower-header-container">
-          <h5>Prompt Models</h5>
-          <button className="quill-button fun primary contained" id="add-model-button" type="submit">{addModelLink}</button>
-        </section>
+        <h5>Prompt Models</h5>
+        <h5 id="model-count">Count: <p>{count}</p></h5>
+        <button className="quill-button fun primary contained" id="add-model-button" type="submit">{addModelLink}</button>
       </section>
       <DataTable
         className="models-table"
