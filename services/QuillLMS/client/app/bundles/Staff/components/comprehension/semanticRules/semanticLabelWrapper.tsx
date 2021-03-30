@@ -2,13 +2,13 @@ import * as React from "react";
 import { useQuery } from 'react-query';
 import { withRouter } from 'react-router-dom';
 
-import SemanticRule from './semanticRule';
+import SemanticLabelForm from './semanticLabelForm';
 
 import { blankRule } from '../../../../../constants/comprehension';
 import { fetchRule } from '../../../utils/comprehension/ruleAPIs';
 import { Spinner } from '../../../../Shared/index';
 
-const SemanticRuleWrapper = ({ activityData, isSemantic, isUniversal, submitRule, match }) => {
+const SemanticLabelWrapper = ({ activityData, isSemantic, isUniversal, submitRule, match }) => {
   const { params } = match;
   const { activityId, ruleId } = params;
 
@@ -37,7 +37,7 @@ const SemanticRuleWrapper = ({ activityData, isSemantic, isUniversal, submitRule
   }
 
   return(
-    <SemanticRule
+    <SemanticLabelForm
       activityData={activityData}
       activityId={activityId}
       isSemantic={isSemantic}
@@ -48,4 +48,4 @@ const SemanticRuleWrapper = ({ activityData, isSemantic, isUniversal, submitRule
   );
 }
 
-export default withRouter<any, any>(SemanticRuleWrapper)
+export default withRouter<any, any>(SemanticLabelWrapper)

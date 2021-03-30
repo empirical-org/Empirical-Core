@@ -72,7 +72,7 @@ export const ruleTypeOptions = [
   {"value":"rules-based-2","label":"Post-Topic Regex"},
   {"value":"rules-based-3","label":"Typo Regex"},
   {"value":"plagiarism","label":"Plagiarism"},
-  {"value":"autoML","label":"AutoML Evidence"},
+  {"value":"autoML","label":"AutoML Evidence— AutoML or Semantic"},
 ];
 
 export const universalRuleTypeOptions = [

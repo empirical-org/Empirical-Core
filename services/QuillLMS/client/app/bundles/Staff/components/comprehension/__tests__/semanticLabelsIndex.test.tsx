@@ -2,7 +2,7 @@ import * as React from 'react';
 import { mount } from 'enzyme';
 import { MemoryRouter } from 'react-router-dom';
 
-import SemanticRulesIndex from '../semanticRules/semanticRulesIndex';
+import SemanticLabelsIndex from '../semanticRules/semanticLabelsIndex';
 
 const mockActivity = [{ id: 1, title: 'First' }]
 jest.mock("react-query", () => ({
@@ -27,13 +27,13 @@ const mockProps = {
   }
 }
 
-describe('SemanticRulesIndex component', () => {
+describe('SemanticLabelsIndex component', () => {
   const container = mount(
     <MemoryRouter>
-      <SemanticRulesIndex {...mockProps} />
+      <SemanticLabelsIndex {...mockProps} />
     </MemoryRouter>
   );
-  it('should render SemanticRulesIndex', () => {
-    expect(container.find(SemanticRulesIndex).length).toEqual(1);
+  it('should render SemanticLabelsIndex', () => {
+    expect(container.find(SemanticLabelsIndex).length).toEqual(1);
   });
 });

@@ -94,7 +94,7 @@ const Model = ({ match }) => {
 
   return(
     <div className="model-container">
-      <Link className="return-link" to={{ pathname: `/activities/${activityId}/semantic-rules`, state: 'returned-to-index' }}>← Return to Semantic Rules Index</Link>
+      <Link className="return-link" to={{ pathname: `/activities/${activityId}/semantic-labels`, state: 'returned-to-index' }}>← Return to Semantic Rules Index</Link>
       <section className="model-form">
         <DataTable
           className="model-table"

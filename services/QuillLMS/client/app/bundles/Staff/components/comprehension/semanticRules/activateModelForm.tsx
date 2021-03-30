@@ -205,11 +205,11 @@ const ActivateModelForm = ({ match }) => {
   const activeModelisModelToActivate = activeModel && modelToActivate && activeModel.id === modelToActivate.id;
   const buttonDisabled = !modelReady || activeModelisModelToActivate
   const buttonStyle = buttonDisabled ? 'disabled' : '';
-  const labelLink = <Link to={`/activities/${activityId}/semantic-rules/${promptId}/new`}>Add Label</Link>;
+  const labelLink = <Link to={`/activities/${activityId}/semantic-labels/${promptId}/new`}>Add Label</Link>;
 
   return(
     <div className="activate-model-container">
-      <Link className="return-link" to={{ pathname: `/activities/${activityId}/semantic-rules`, state: 'returned-to-index' }}>← Return to Semantic Rules Index</Link>
+      <Link className="return-link" to={{ pathname: `/activities/${activityId}/semantic-labels`, state: 'returned-to-index' }}>← Return to Semantic Rules Index</Link>
       <section className="activate-model-form">
         <section className="activate-model-section">
           <h4>Model Set To Be Active</h4>

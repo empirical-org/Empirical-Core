@@ -54,9 +54,10 @@ const RuleAttributesSection = ({
 
   function renderFeedbacks(feedbacks) {
     return feedbacks.map((feedback: RuleFeedbackInterface, i: number) => {
+      const disabledStatus = feedbacks.length > 5 ?  'disabled' : '';
       return(
         <React.Fragment key={i}>
-          <p className="form-subsection-label">{`${numericalWordOptions[i]} Revision - Feedback`}</p>
+          <p className="form-subsection-label">{`${numericalWordOptions[i]} Layer Feedback`}</p>
           <TextEditor
             ContentState={ContentState}
             EditorState={EditorState}
@@ -66,7 +67,7 @@ const RuleAttributesSection = ({
             text={universalFeedback[i].text}
           />
           {errors['Universal Feedback'] && errors['Universal Feedback'].length && <p className="error-message">{errors['Universal Feedback'][i]}</p>}
-          <button className="add-highlight quill-button small primary outlined" id={`${i}`} onClick={onHandleAddHighlight} type="button">Add Highlight</button>
+          <button className={`add-highlight quill-button small primary outlined ${disabledStatus}`} disabled={!!disabledStatus} id={`${i}`} onClick={onHandleAddHighlight} type="button">Add Highlight</button>
           {feedback.highlights_attributes && renderHighlights(feedback.highlights_attributes, i, onHandleSetUniversalFeedback)}
         </React.Fragment>
       );

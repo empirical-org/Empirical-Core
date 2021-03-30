@@ -13,6 +13,8 @@ import { InputEvent, DropdownObjectInterface } from '../../../interfaces/compreh
 import { Input, DropdownInput, TextEditor } from '../../../../Shared/index'
 
 interface RuleGenericAttributesProps {
+  autoMLParams?: any,
+  isAutoML?: boolean,
   isUniversal: boolean,
   errors: any,
   ruleConceptUID: string,
@@ -31,6 +33,8 @@ interface RuleGenericAttributesProps {
 }
 
 const RuleGenericAttributes = ({
+  autoMLParams,
+  isAutoML,
   isUniversal,
   errors,
   concepts,
@@ -68,9 +72,14 @@ const RuleGenericAttributes = ({
   }
 
   const ruleTypeDisabled = (ruleID || ruleType.value === 'autoML') ? 'disabled' : '';
-  const options = isUniversal ? universalRuleTypeOptions : ruleTypeOptions;
+  let options = isUniversal ? universalRuleTypeOptions : ruleTypeOptions;
+  if(!isAutoML) {
+    options = options.filter(option => option.value !== 'autoML');
+  }
   const conceptOptions = concepts.map(c => ({ value: c.uid, label: c.name, }));
   const selectedConceptOption = conceptOptions.find(co => co.value === ruleConceptUID);
+  const nameInputLabel = autoMLParams && autoMLParams['label'] ? autoMLParams['label'] : 'Name';
+  const descriptionLabel = autoMLParams && autoMLParams['notes'] ? autoMLParams['notes'] : 'Rule Description';
 
   return(
     <React.Fragment>
@@ -87,7 +96,7 @@ const RuleGenericAttributes = ({
         className="name-input"
         error={errors['Name']}
         handleChange={onHandleSetRuleName}
-        label="Name"
+        label={nameInputLabel}
         value={ruleName}
       />
       <DropdownInput
@@ -109,7 +118,7 @@ const RuleGenericAttributes = ({
       />
       {ruleID && renderIDorUID(ruleID, 'Rule ID')}
       {ruleUID && renderIDorUID(ruleUID, 'Rule UID')}
-      <p className="form-subsection-label">Rule Description</p>
+      <p className="form-subsection-label">{descriptionLabel}</p>
       <TextEditor
         ContentState={ContentState}
         EditorState={EditorState}
