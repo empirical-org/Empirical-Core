@@ -121,6 +121,7 @@ export const INACTIVE = 'inactive';
 
 export const blankActivity = {
   title: '',
+  name: '',
   // flag:'',
   scored_level: '',
   target_level: null,
@@ -130,19 +131,19 @@ export const blankActivity = {
       conjunction: 'because',
       text: '',
       max_attempts: 5,
-      max_attempts_feedback: 'try again.'
+      max_attempts_feedback: 'Nice effort! You worked hard to make your sentence stronger.'
     },
     {
       conjunction: 'but',
       text: '',
       max_attempts: 5,
-      max_attempts_feedback: 'try again.'
+      max_attempts_feedback: 'Nice effort! You worked hard to make your sentence stronger.'
     },
     {
       conjunction: 'so',
       text: '',
       max_attempts: 5,
-      max_attempts_feedback: 'try again.'
+      max_attempts_feedback: 'Nice effort! You worked hard to make your sentence stronger.'
     }
   ]
 }
