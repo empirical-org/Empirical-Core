@@ -32,7 +32,8 @@ require 'rails_helper'
 RSpec.describe FeedbackHistory, type: :model do
 
   context 'associations' do
-    it { should belong_to(:activity_session) }
+    it { should belong_to(:activity_session_feedback_history) }
+    it { should have_one(:activity_session).through(:activity_session_feedback_history) }
     it { should belong_to(:prompt) }
     it { should belong_to(:concept).with_foreign_key(:concept_uid).with_primary_key(:uid) }
   end
@@ -165,6 +166,36 @@ RSpec.describe FeedbackHistory, type: :model do
     it 'should not set prompt_type if prompt_type is provided' do
       fh = FeedbackHistory.create(prompt_id: 1, prompt_type: 'MadeUp')
       assert_equal fh.prompt_type, 'MadeUp'
+    end
+  end
+
+  context 'before_validation: anonymize_activity_session_uid' do
+    before(:each) do
+      @feedback_history = build(:feedback_history)
+    end
+
+    it 'should do nothing if activity_session_uid is not set' do
+      @feedback_history.activity_session_uid = nil
+      @feedback_history.save
+      assert_equal @feedback_history.activity_session_uid, nil
+    end
+
+    it 'should create an ActivitySessionFeedbackHistory record if activity_session_uid is set' do
+      assert_equal ActivitySessionFeedbackHistory.count, 0
+
+      activity_session_uid = SecureRandom.uuid
+      @feedback_history.activity_session_uid = activity_session_uid
+      @feedback_history.save
+      
+      assert_equal ActivitySessionFeedbackHistory.first.activity_session_uid, activity_session_uid
+      assert_equal ActivitySessionFeedbackHistory.count, 1
+    end
+
+    it 'should use the replace the activity_session_uid value with the value from ActivitySessionFeedbackHistory' do
+      activity_session_uid = SecureRandom.uuid
+      @feedback_history.activity_session_uid = activity_session_uid
+      @feedback_history.save
+      assert_equal ActivitySessionFeedbackHistory.get_feedback_history_session_uid(activity_session_uid), @feedback_history.activity_session_uid
     end
   end
 end

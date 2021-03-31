@@ -46,9 +46,11 @@ class FeedbackHistory < ActiveRecord::Base
     OPINION = "opinion"
   ]
 
+  before_create :anonymize_activity_session_uid
   before_validation :confirm_prompt_type, on: :create
 
-  belongs_to :activity_session, foreign_key: :activity_session_uid, primary_key: :uid
+  belongs_to :activity_session_feedback_history, foreign_key: :activity_session_uid, primary_key: :feedback_history_session_uid
+  has_one :activity_session, through: :activity_session_feedback_history
   belongs_to :prompt, polymorphic: true
   belongs_to :concept, foreign_key: :concept_uid, primary_key: :uid
 
@@ -73,7 +75,7 @@ class FeedbackHistory < ActiveRecord::Base
     return {} if concept.blank?
     {
       concept_uid: concept_uid,
-      activity_session_id: activity_session.id,
+      activity_session_id: activity_session&.id,
       activity_classification_id: ActivityClassification.comprehension.id,
       concept_id: concept.id,
       metadata: {
@@ -100,5 +102,9 @@ class FeedbackHistory < ActiveRecord::Base
 
   private def confirm_prompt_type
     self.prompt_type = DEFAULT_PROMPT_TYPE if prompt_id && !prompt_type
+  end
+
+  private def anonymize_activity_session_uid
+    self.activity_session_uid = ActivitySessionFeedbackHistory.get_feedback_history_session_uid(activity_session_uid)
   end
 end
