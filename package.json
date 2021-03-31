@@ -33,7 +33,7 @@
     }
   },
   "lint-staged": {
-    "*.{jsssx}": "npm run eslint:staged_files"
+    "*.{jsstsx}": "npm run eslint:staged_files"
   },
   "repository": {
     "type": "git",
