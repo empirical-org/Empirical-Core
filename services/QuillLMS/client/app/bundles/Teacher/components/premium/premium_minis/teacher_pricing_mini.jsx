@@ -20,7 +20,7 @@ export default class TeacherPricingMini extends React.Component {
     const { userIsEligibleForTrial, userIsSignedIn, } = this.props
 
     if (userIsEligibleForTrial || !userIsSignedIn) {
-      return <button className="quill-button medium secondary outlined" onClick={this.handleClickStartTrial} type="button">Start free trial</button>;
+      return <button className="quill-button medium secondary outlined focus-on-light" onClick={this.handleClickStartTrial} type="button">Start free trial</button>;
     }
   };
 
@@ -45,36 +45,22 @@ export default class TeacherPricingMini extends React.Component {
   };
 
   purchaseButton = () => {
-    return <button className="quill-button contained medium primary" id="purchase-btn" onClick={this.handleClickGetStarted} type="button">Get started</button>;
+    return <button className="quill-button contained medium primary focus-on-light" id="purchase-btn" onClick={this.handleClickGetStarted} type="button">Buy now</button>;
   };
 
   render() {
     return (
       <div className="pricing-mini">
-        <header className="pricing-mini-header squash">
-          <div className="img-holder">
-            <img alt="Presentation board" className="presentation-board" src={`${process.env.CDN_URL}/images/shared/presentation-board.svg`} />
-          </div>
-        </header>
         <section className="pricing-info">
           <h2>Teacher Premium</h2>
           <div className="premium-rates">
             <h3>$80</h3>
-            <h4>Per year</h4>
+            <p>Per year</p>
           </div>
           <div className="premium-button-container">
-            {this.purchaseButton()}
             {this.beginTrialButton()}
+            {this.purchaseButton()}
           </div>
-          <ul className="text-left">
-            <li className="semibold">Everything in Basic</li>
-            <li>Reports on concept mastery and Common Core Standards</li>
-            <li>Download and print reports</li>
-            <li>Priority Support</li>
-          </ul>
-        </section>
-        <section className="learn-more">
-          <a href="#teacher-premium">Learn more</a>
         </section>
       </div>
     );

@@ -78,25 +78,29 @@ export default class PremiumPricingMinisRow extends React.Component {
     } = this.state
 
     return (
-      <div className="premium-pricing-row text-center">
+      <React.Fragment>
         <div className="our-commitment">
           <img src={handshakeHeartSrc} />
           <h3>Our commitment</h3>
           <p>As a nonprofit dedicated to helping students, Quill will always provide 100% of our activities for free.</p>
         </div>
-        <BasicPricingMini
-          userIsSignedIn={userIsSignedIn}
-        />
-        <TeacherPricingMini
-          {...this.props}
-          hidePurchaseModal={this.hidePurchaseModal}
-          showPurchaseModal={this.showPurchaseModal}
-          userIsSignedIn={userIsSignedIn}
-        />
-        <SchoolPricingMini />
+        <div className="pricing-minis-container">
+          <div className="pricing-minis">
+            <BasicPricingMini
+              userIsSignedIn={userIsSignedIn}
+            />
+            <TeacherPricingMini
+              {...this.props}
+              hidePurchaseModal={this.hidePurchaseModal}
+              showPurchaseModal={this.showPurchaseModal}
+              userIsSignedIn={userIsSignedIn}
+            />
+            <SchoolPricingMini />
+          </div>
+        </div>
         {this.renderPremiumConfirmationModal()}
         {this.renderPurchaseModal()}
-      </div>
+      </React.Fragment>
     );
   }
 }
