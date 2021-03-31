@@ -2,8 +2,8 @@
 -- PostgreSQL database dump
 --
 
--- Dumped from database version 10.15
--- Dumped by pg_dump version 10.15
+-- Dumped from database version 10.16
+-- Dumped by pg_dump version 10.16
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -450,6 +450,37 @@ CREATE SEQUENCE public.activity_classifications_id_seq
 --
 
 ALTER SEQUENCE public.activity_classifications_id_seq OWNED BY public.activity_classifications.id;
+
+
+--
+-- Name: activity_session_feedback_histories; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.activity_session_feedback_histories (
+    id integer NOT NULL,
+    activity_session_uid character varying,
+    feedback_history_session_uid character varying
+);
+
+
+--
+-- Name: activity_session_feedback_histories_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.activity_session_feedback_histories_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: activity_session_feedback_histories_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.activity_session_feedback_histories_id_seq OWNED BY public.activity_session_feedback_histories.id;
 
 
 --
@@ -1117,7 +1148,8 @@ CREATE TABLE public.comprehension_activities (
     target_level smallint,
     scored_level character varying(100),
     created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL
+    updated_at timestamp without time zone NOT NULL,
+    name character varying
 );
 
 
@@ -1139,6 +1171,42 @@ CREATE SEQUENCE public.comprehension_activities_id_seq
 --
 
 ALTER SEQUENCE public.comprehension_activities_id_seq OWNED BY public.comprehension_activities.id;
+
+
+--
+-- Name: comprehension_automl_models; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.comprehension_automl_models (
+    id integer NOT NULL,
+    automl_model_id character varying NOT NULL,
+    name character varying NOT NULL,
+    labels character varying[] DEFAULT '{}'::character varying[],
+    prompt_id integer,
+    state character varying NOT NULL,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: comprehension_automl_models_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.comprehension_automl_models_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: comprehension_automl_models_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.comprehension_automl_models_id_seq OWNED BY public.comprehension_automl_models.id;
 
 
 --
@@ -1212,6 +1280,39 @@ ALTER SEQUENCE public.comprehension_highlights_id_seq OWNED BY public.comprehens
 
 
 --
+-- Name: comprehension_labels; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.comprehension_labels (
+    id integer NOT NULL,
+    name character varying NOT NULL,
+    rule_id integer NOT NULL,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: comprehension_labels_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.comprehension_labels_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: comprehension_labels_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.comprehension_labels_id_seq OWNED BY public.comprehension_labels.id;
+
+
+--
 -- Name: comprehension_passages; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -1220,7 +1321,9 @@ CREATE TABLE public.comprehension_passages (
     activity_id integer,
     text text,
     created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL
+    updated_at timestamp without time zone NOT NULL,
+    image_link character varying,
+    image_alt_text character varying DEFAULT ''::character varying
 );
 
 
@@ -1245,6 +1348,39 @@ ALTER SEQUENCE public.comprehension_passages_id_seq OWNED BY public.comprehensio
 
 
 --
+-- Name: comprehension_plagiarism_texts; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.comprehension_plagiarism_texts (
+    id integer NOT NULL,
+    rule_id integer NOT NULL,
+    text character varying NOT NULL,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: comprehension_plagiarism_texts_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.comprehension_plagiarism_texts_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: comprehension_plagiarism_texts_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.comprehension_plagiarism_texts_id_seq OWNED BY public.comprehension_plagiarism_texts.id;
+
+
+--
 -- Name: comprehension_prompts; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -1256,10 +1392,7 @@ CREATE TABLE public.comprehension_prompts (
     text character varying,
     max_attempts_feedback text,
     created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL,
-    plagiarism_text text,
-    plagiarism_first_feedback text,
-    plagiarism_second_feedback text
+    updated_at timestamp without time zone NOT NULL
 );
 
 
@@ -1281,37 +1414,6 @@ CREATE SEQUENCE public.comprehension_prompts_id_seq
 --
 
 ALTER SEQUENCE public.comprehension_prompts_id_seq OWNED BY public.comprehension_prompts.id;
-
-
---
--- Name: comprehension_prompts_rule_sets; Type: TABLE; Schema: public; Owner: -
---
-
-CREATE TABLE public.comprehension_prompts_rule_sets (
-    id integer NOT NULL,
-    prompt_id integer,
-    rule_set_id integer
-);
-
-
---
--- Name: comprehension_prompts_rule_sets_id_seq; Type: SEQUENCE; Schema: public; Owner: -
---
-
-CREATE SEQUENCE public.comprehension_prompts_rule_sets_id_seq
-    AS integer
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
---
--- Name: comprehension_prompts_rule_sets_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
---
-
-ALTER SEQUENCE public.comprehension_prompts_rule_sets_id_seq OWNED BY public.comprehension_prompts_rule_sets.id;
 
 
 --
@@ -1353,11 +1455,12 @@ ALTER SEQUENCE public.comprehension_prompts_rules_id_seq OWNED BY public.compreh
 
 CREATE TABLE public.comprehension_regex_rules (
     id integer NOT NULL,
-    rule_set_id integer,
     regex_text character varying(200),
     case_sensitive boolean,
     created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL
+    updated_at timestamp without time zone NOT NULL,
+    rule_id integer,
+    sequence_type text DEFAULT 'incorrect'::text NOT NULL
 );
 
 
@@ -1382,42 +1485,6 @@ ALTER SEQUENCE public.comprehension_regex_rules_id_seq OWNED BY public.comprehen
 
 
 --
--- Name: comprehension_rule_sets; Type: TABLE; Schema: public; Owner: -
---
-
-CREATE TABLE public.comprehension_rule_sets (
-    id integer NOT NULL,
-    activity_id integer,
-    prompt_id integer,
-    name character varying,
-    feedback character varying,
-    priority integer,
-    created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL
-);
-
-
---
--- Name: comprehension_rule_sets_id_seq; Type: SEQUENCE; Schema: public; Owner: -
---
-
-CREATE SEQUENCE public.comprehension_rule_sets_id_seq
-    AS integer
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
---
--- Name: comprehension_rule_sets_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
---
-
-ALTER SEQUENCE public.comprehension_rule_sets_id_seq OWNED BY public.comprehension_rule_sets.id;
-
-
---
 -- Name: comprehension_rules; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -1429,10 +1496,11 @@ CREATE TABLE public.comprehension_rules (
     universal boolean NOT NULL,
     rule_type character varying NOT NULL,
     optimal boolean NOT NULL,
-    suborder integer,
-    concept_uid character varying NOT NULL,
+    suborder text,
+    concept_uid character varying,
     created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL
+    updated_at timestamp without time zone NOT NULL,
+    state character varying NOT NULL
 );
 
 
@@ -1896,7 +1964,8 @@ CREATE TABLE public.feedback_histories (
     "time" timestamp without time zone NOT NULL,
     metadata jsonb,
     created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL
+    updated_at timestamp without time zone NOT NULL,
+    rule_uid character varying
 );
 
 
@@ -2915,6 +2984,40 @@ ALTER SEQUENCE public.standards_id_seq OWNED BY public.standards.id;
 
 
 --
+-- Name: student_feedback_responses; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.student_feedback_responses (
+    id integer NOT NULL,
+    question text DEFAULT ''::text,
+    response text DEFAULT ''::text,
+    grade_levels character varying[] DEFAULT '{}'::character varying[],
+    created_at timestamp without time zone,
+    updated_at timestamp without time zone
+);
+
+
+--
+-- Name: student_feedback_responses_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.student_feedback_responses_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: student_feedback_responses_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.student_feedback_responses_id_seq OWNED BY public.student_feedback_responses.id;
+
+
+--
 -- Name: students_classrooms; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -3505,6 +3608,13 @@ ALTER TABLE ONLY public.activity_classifications ALTER COLUMN id SET DEFAULT nex
 
 
 --
+-- Name: activity_session_feedback_histories id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.activity_session_feedback_histories ALTER COLUMN id SET DEFAULT nextval('public.activity_session_feedback_histories_id_seq'::regclass);
+
+
+--
 -- Name: activity_sessions id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -3638,6 +3748,13 @@ ALTER TABLE ONLY public.comprehension_activities ALTER COLUMN id SET DEFAULT nex
 
 
 --
+-- Name: comprehension_automl_models id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.comprehension_automl_models ALTER COLUMN id SET DEFAULT nextval('public.comprehension_automl_models_id_seq'::regclass);
+
+
+--
 -- Name: comprehension_feedbacks id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -3652,6 +3769,13 @@ ALTER TABLE ONLY public.comprehension_highlights ALTER COLUMN id SET DEFAULT nex
 
 
 --
+-- Name: comprehension_labels id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.comprehension_labels ALTER COLUMN id SET DEFAULT nextval('public.comprehension_labels_id_seq'::regclass);
+
+
+--
 -- Name: comprehension_passages id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -3659,17 +3783,17 @@ ALTER TABLE ONLY public.comprehension_passages ALTER COLUMN id SET DEFAULT nextv
 
 
 --
+-- Name: comprehension_plagiarism_texts id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.comprehension_plagiarism_texts ALTER COLUMN id SET DEFAULT nextval('public.comprehension_plagiarism_texts_id_seq'::regclass);
+
+
+--
 -- Name: comprehension_prompts id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.comprehension_prompts ALTER COLUMN id SET DEFAULT nextval('public.comprehension_prompts_id_seq'::regclass);
-
-
---
--- Name: comprehension_prompts_rule_sets id; Type: DEFAULT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.comprehension_prompts_rule_sets ALTER COLUMN id SET DEFAULT nextval('public.comprehension_prompts_rule_sets_id_seq'::regclass);
 
 
 --
@@ -3684,13 +3808,6 @@ ALTER TABLE ONLY public.comprehension_prompts_rules ALTER COLUMN id SET DEFAULT 
 --
 
 ALTER TABLE ONLY public.comprehension_regex_rules ALTER COLUMN id SET DEFAULT nextval('public.comprehension_regex_rules_id_seq'::regclass);
-
-
---
--- Name: comprehension_rule_sets id; Type: DEFAULT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.comprehension_rule_sets ALTER COLUMN id SET DEFAULT nextval('public.comprehension_rule_sets_id_seq'::regclass);
 
 
 --
@@ -3988,6 +4105,13 @@ ALTER TABLE ONLY public.standards ALTER COLUMN id SET DEFAULT nextval('public.st
 
 
 --
+-- Name: student_feedback_responses id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.student_feedback_responses ALTER COLUMN id SET DEFAULT nextval('public.student_feedback_responses_id_seq'::regclass);
+
+
+--
 -- Name: students_classrooms id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -4138,6 +4262,14 @@ ALTER TABLE ONLY public.activity_category_activities
 
 ALTER TABLE ONLY public.activity_classifications
     ADD CONSTRAINT activity_classifications_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: activity_session_feedback_histories activity_session_feedback_histories_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.activity_session_feedback_histories
+    ADD CONSTRAINT activity_session_feedback_histories_pkey PRIMARY KEY (id);
 
 
 --
@@ -4293,6 +4425,14 @@ ALTER TABLE ONLY public.comprehension_activities
 
 
 --
+-- Name: comprehension_automl_models comprehension_automl_models_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.comprehension_automl_models
+    ADD CONSTRAINT comprehension_automl_models_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: comprehension_feedbacks comprehension_feedbacks_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -4309,6 +4449,14 @@ ALTER TABLE ONLY public.comprehension_highlights
 
 
 --
+-- Name: comprehension_labels comprehension_labels_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.comprehension_labels
+    ADD CONSTRAINT comprehension_labels_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: comprehension_passages comprehension_passages_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -4317,19 +4465,19 @@ ALTER TABLE ONLY public.comprehension_passages
 
 
 --
+-- Name: comprehension_plagiarism_texts comprehension_plagiarism_texts_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.comprehension_plagiarism_texts
+    ADD CONSTRAINT comprehension_plagiarism_texts_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: comprehension_prompts comprehension_prompts_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.comprehension_prompts
     ADD CONSTRAINT comprehension_prompts_pkey PRIMARY KEY (id);
-
-
---
--- Name: comprehension_prompts_rule_sets comprehension_prompts_rule_sets_pkey; Type: CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.comprehension_prompts_rule_sets
-    ADD CONSTRAINT comprehension_prompts_rule_sets_pkey PRIMARY KEY (id);
 
 
 --
@@ -4346,14 +4494,6 @@ ALTER TABLE ONLY public.comprehension_prompts_rules
 
 ALTER TABLE ONLY public.comprehension_regex_rules
     ADD CONSTRAINT comprehension_regex_rules_pkey PRIMARY KEY (id);
-
-
---
--- Name: comprehension_rule_sets comprehension_rule_sets_pkey; Type: CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.comprehension_rule_sets
-    ADD CONSTRAINT comprehension_rule_sets_pkey PRIMARY KEY (id);
 
 
 --
@@ -4693,6 +4833,14 @@ ALTER TABLE ONLY public.standards
 
 
 --
+-- Name: student_feedback_responses student_feedback_responses_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.student_feedback_responses
+    ADD CONSTRAINT student_feedback_responses_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: students_classrooms students_classrooms_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -4894,6 +5042,20 @@ CREATE UNIQUE INDEX index_activities_on_uid ON public.activities USING btree (ui
 --
 
 CREATE UNIQUE INDEX index_activity_classifications_on_uid ON public.activity_classifications USING btree (uid);
+
+
+--
+-- Name: index_activity_sess_fb_histories_on_activity_session_uid; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_activity_sess_fb_histories_on_activity_session_uid ON public.activity_session_feedback_histories USING btree (activity_session_uid);
+
+
+--
+-- Name: index_activity_sess_fb_histories_on_feedback_history_uid; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_activity_sess_fb_histories_on_feedback_history_uid ON public.activity_session_feedback_histories USING btree (feedback_history_session_uid);
 
 
 --
@@ -5233,24 +5395,17 @@ CREATE INDEX index_comprehension_passages_on_activity_id ON public.comprehension
 
 
 --
+-- Name: index_comprehension_plagiarism_texts_on_rule_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_comprehension_plagiarism_texts_on_rule_id ON public.comprehension_plagiarism_texts USING btree (rule_id);
+
+
+--
 -- Name: index_comprehension_prompts_on_activity_id; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX index_comprehension_prompts_on_activity_id ON public.comprehension_prompts USING btree (activity_id);
-
-
---
--- Name: index_comprehension_prompts_rule_sets_on_prompt_id; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_comprehension_prompts_rule_sets_on_prompt_id ON public.comprehension_prompts_rule_sets USING btree (prompt_id);
-
-
---
--- Name: index_comprehension_prompts_rule_sets_on_rule_set_id; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_comprehension_prompts_rule_sets_on_rule_set_id ON public.comprehension_prompts_rule_sets USING btree (rule_set_id);
 
 
 --
@@ -5268,24 +5423,10 @@ CREATE INDEX index_comprehension_prompts_rules_on_rule_id ON public.comprehensio
 
 
 --
--- Name: index_comprehension_regex_rules_on_rule_set_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_comprehension_regex_rules_on_rule_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_comprehension_regex_rules_on_rule_set_id ON public.comprehension_regex_rules USING btree (rule_set_id);
-
-
---
--- Name: index_comprehension_rule_sets_on_activity_id; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_comprehension_rule_sets_on_activity_id ON public.comprehension_rule_sets USING btree (activity_id);
-
-
---
--- Name: index_comprehension_rule_sets_on_prompt_id; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_comprehension_rule_sets_on_prompt_id ON public.comprehension_rule_sets USING btree (prompt_id);
+CREATE INDEX index_comprehension_regex_rules_on_rule_id ON public.comprehension_regex_rules USING btree (rule_id);
 
 
 --
@@ -5447,6 +5588,13 @@ CREATE INDEX index_feedback_histories_on_concept_uid ON public.feedback_historie
 --
 
 CREATE INDEX index_feedback_histories_on_prompt_type_and_id ON public.feedback_histories USING btree (prompt_type, prompt_id);
+
+
+--
+-- Name: index_feedback_histories_on_rule_uid; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_feedback_histories_on_rule_uid ON public.feedback_histories USING btree (rule_uid);
 
 
 --
@@ -6182,6 +6330,14 @@ ALTER TABLE ONLY public.activities
 
 
 --
+-- Name: comprehension_automl_models fk_rails_35c32f80fc; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.comprehension_automl_models
+    ADD CONSTRAINT fk_rails_35c32f80fc FOREIGN KEY (prompt_id) REFERENCES public.comprehension_prompts(id);
+
+
+--
 -- Name: classroom_units fk_rails_3e1ff09783; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -6227,6 +6383,14 @@ ALTER TABLE ONLY public.activity_topics
 
 ALTER TABLE ONLY public.topics
     ADD CONSTRAINT fk_rails_5f3c091f12 FOREIGN KEY (parent_id) REFERENCES public.topics(id);
+
+
+--
+-- Name: comprehension_labels fk_rails_6112e49a74; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.comprehension_labels
+    ADD CONSTRAINT fk_rails_6112e49a74 FOREIGN KEY (rule_id) REFERENCES public.comprehension_rules(id) ON DELETE CASCADE;
 
 
 --
@@ -6334,6 +6498,14 @@ ALTER TABLE ONLY public.classroom_unit_activity_states
 
 
 --
+-- Name: comprehension_plagiarism_texts fk_rails_bcd03e8630; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.comprehension_plagiarism_texts
+    ADD CONSTRAINT fk_rails_bcd03e8630 FOREIGN KEY (rule_id) REFERENCES public.comprehension_rules(id) ON DELETE CASCADE;
+
+
+--
 -- Name: standards fk_rails_c84477fd6e; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -6379,6 +6551,14 @@ ALTER TABLE ONLY public.sales_contacts
 
 ALTER TABLE ONLY public.recommendations
     ADD CONSTRAINT fk_rails_dc326309ed FOREIGN KEY (activity_id) REFERENCES public.activities(id);
+
+
+--
+-- Name: comprehension_regex_rules fk_rails_dd1bb7c35b; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.comprehension_regex_rules
+    ADD CONSTRAINT fk_rails_dd1bb7c35b FOREIGN KEY (rule_id) REFERENCES public.comprehension_rules(id) ON DELETE CASCADE;
 
 
 --
@@ -7171,6 +7351,35 @@ INSERT INTO schema_migrations (version) VALUES ('20210121213613');
 
 INSERT INTO schema_migrations (version) VALUES ('20210122150843');
 
+INSERT INTO schema_migrations (version) VALUES ('20210122172552');
+
 INSERT INTO schema_migrations (version) VALUES ('20210122195721');
 
-INSERT INTO schema_migrations (version) VALUES ('20210122150843');
+INSERT INTO schema_migrations (version) VALUES ('20210128152452');
+
+INSERT INTO schema_migrations (version) VALUES ('20210128174648');
+
+INSERT INTO schema_migrations (version) VALUES ('20210202210617');
+
+INSERT INTO schema_migrations (version) VALUES ('20210203214036');
+
+INSERT INTO schema_migrations (version) VALUES ('20210216195544');
+
+INSERT INTO schema_migrations (version) VALUES ('20210219164011');
+
+INSERT INTO schema_migrations (version) VALUES ('20210219185502');
+
+INSERT INTO schema_migrations (version) VALUES ('20210222201347');
+
+INSERT INTO schema_migrations (version) VALUES ('20210224165328');
+
+INSERT INTO schema_migrations (version) VALUES ('20210224165329');
+
+INSERT INTO schema_migrations (version) VALUES ('20210224165330');
+
+INSERT INTO schema_migrations (version) VALUES ('20210311173333');
+
+INSERT INTO schema_migrations (version) VALUES ('20210316161120');
+
+INSERT INTO schema_migrations (version) VALUES ('20210330160626');
+
