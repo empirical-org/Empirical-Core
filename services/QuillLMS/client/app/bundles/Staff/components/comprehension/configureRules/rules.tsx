@@ -4,8 +4,7 @@ import { queryCache, useQuery } from 'react-query';
 
 import RuleForm from './ruleForm';
 
-import SubmissionModal from '../shared/submissionModal';
-import { buildErrorMessage, getPromptsIcons, getCheckIcon } from '../../../helpers/comprehension';
+import { getPromptsIcons, getCheckIcon } from '../../../helpers/comprehension';
 import { ActivityRouteProps, RuleInterface } from '../../../interfaces/comprehensionInterfaces';
 import { BECAUSE, BUT, SO, blankRule } from '../../../../../constants/comprehension';
 import { fetchActivity } from '../../../utils/comprehension/activityAPIs';
@@ -16,8 +15,7 @@ const Rules: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ history, mat
   const { params } = match;
   const { activityId } = params;
   const [showAddRuleModal, setShowAddRuleModal] = React.useState<boolean>(false);
-  const [showSubmissionModal, setShowSubmissionModal] = React.useState<boolean>(false);
-  const [errors, setErrors] = React.useState<object>({});
+  const [errors, setErrors] = React.useState<string[]>([]);
 
   // cache rules data for updates
   const { data: rulesData } = useQuery({
@@ -49,27 +47,22 @@ const Rules: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ history, mat
 
   const submitRule = ({rule}: {rule: RuleInterface}) => {
     createRule(rule).then((response) => {
-      const { error, rule } = response;
-      if(error) {
-        let updatedErrors = errors;
-        updatedErrors['ruleSetError'] = error;
-        setErrors(updatedErrors);
-      }
-      // update ruleSets cache to display newly created ruleSet
-      queryCache.refetchQueries(`rules-${activityId}`);
-      history.push(`/activities/${activityId}/rules/${rule.id}`);
+      const { errors, rule } = response;
+      if(errors.length) {
+        setErrors(errors);
+      } else {
+        setErrors([]);
+        // update ruleSets cache to display newly created ruleSet
+        queryCache.refetchQueries(`rules-${activityId}`);
+        history.push(`/activities/${activityId}/rules/${rule.id}`);
 
-      toggleAddRuleModal();
-      toggleSubmissionModal();
+        toggleAddRuleModal();
+      }
     });
   }
 
   const toggleAddRuleModal = () => {
     setShowAddRuleModal(!showAddRuleModal);
-  }
-
-  const toggleSubmissionModal = () => {
-    setShowSubmissionModal(!showSubmissionModal);
   }
 
   const renderRuleForm = () => {
@@ -80,19 +73,12 @@ const Rules: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ history, mat
           activityId={activityId}
           closeModal={toggleAddRuleModal}
           isUniversal={false}
+          requestErrors={errors}
           rule={blankRule}
           submitRule={submitRule}
         />
       </Modal>
     );
-  }
-
-  const renderSubmissionModal = () => {
-    let message = 'Rule set successfully created!';
-    if(Object.keys(errors).length) {
-      message = buildErrorMessage(errors);
-    }
-    return <SubmissionModal close={toggleSubmissionModal} message={message} />;
   }
 
   if(!rulesData) {
@@ -124,7 +110,6 @@ const Rules: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ history, mat
   return(
     <div className="rules-container">
       {showAddRuleModal && renderRuleForm()}
-      {showSubmissionModal && renderSubmissionModal()}
       <div className="header-container">
         <h2>Rules</h2>
       </div>

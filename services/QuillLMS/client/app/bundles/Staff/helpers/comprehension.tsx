@@ -280,6 +280,17 @@ export const handleApiError = (errorMessage: string, response: any) => {
   return error;
 }
 
+export const handleRequestError = async (errors: object, response: any) => {
+  let errorsArray = [];
+  const { status } = response;
+  if(requestFailed(status) && errors) {
+    Object.keys(errors).forEach(key => {
+      errorsArray.push(errors[key]);
+    })
+  }
+  return errorsArray;
+}
+
 export const getCsrfToken = () => {
   const token = document.querySelector('meta[name="csrf-token"]')
   if (token) { return token.getAttribute('content') }

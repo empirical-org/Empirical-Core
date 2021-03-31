@@ -19,12 +19,13 @@ interface RuleFormProps {
   activityId?: string,
   closeModal: (event: React.MouseEvent) => void,
   isUniversal: boolean,
+  requestErrors: string[],
   rule: RuleInterface,
   submitRule: (rule: {rule: RuleInterface}) => void
   universalRuleType?: string
 }
 
-const RuleForm = ({ activityData, activityId, closeModal, isUniversal, rule, submitRule, universalRuleType }: RuleFormProps) => {
+const RuleForm = ({ activityData, activityId, closeModal, isUniversal, requestErrors,  rule, submitRule, universalRuleType }: RuleFormProps) => {
 
   const { name, rule_type, id, uid, optimal, plagiarism_text, concept_uid, description, feedbacks } = rule;
   const initialRuleType = getInitialRuleType({ isUniversal, rule_type, universalRuleType});
@@ -112,7 +113,26 @@ const RuleForm = ({ activityData, activityId, closeModal, isUniversal, rule, sub
     });
   }
 
-  const errorsPresent = !!Object.keys(errors).length;
+  function renderErrorsContainer(formErrorsPresent: boolean) {
+    if(formErrorsPresent) {
+      return(
+        <div className="error-message-container">
+          <p className="all-errors-message">Please check that all fields have been completed correctly.</p>
+        </div>
+      );
+    }
+    return(
+      <div className="error-message-container">
+        {requestErrors.map((error, i) => {
+          return <p className="all-errors-message" key={i}>{error}</p>
+        })}
+      </div>
+    )
+  }
+
+  const formErrorsPresent = !!Object.keys(errors).length;
+  const requestErrorsPresent = !!(requestErrors && requestErrors.length);
+  const showErrorsContainer = formErrorsPresent || requestErrorsPresent
 
   return(
     <div className="rule-form-container">
@@ -168,9 +188,7 @@ const RuleForm = ({ activityData, activityId, closeModal, isUniversal, rule, sub
           universalFeedback={ruleFeedbacks}
         />}
         <div className="submit-button-container">
-          {errorsPresent && <div className="error-message-container">
-            <p className="all-errors-message">Please check that all fields have been completed correctly.</p>
-          </div>}
+          {showErrorsContainer && renderErrorsContainer(formErrorsPresent)}
           <button className="quill-button fun primary contained" id="activity-submit-button" onClick={onHandleSubmitRule} type="button">
             Submit
           </button>

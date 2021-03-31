@@ -377,6 +377,7 @@ export async function handleSubmitRule({
   if(validationErrors && Object.keys(validationErrors).length) {
     setErrors(validationErrors);
   } else {
+    setErrors({});
     submitRule(newOrUpdatedRule, ruleId);
   }
 }

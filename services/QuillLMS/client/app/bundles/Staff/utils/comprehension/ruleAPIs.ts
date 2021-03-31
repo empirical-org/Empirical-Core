@@ -1,5 +1,5 @@
 import { RuleInterface } from '../../interfaces/comprehensionInterfaces';
-import { handleApiError, apiFetch } from '../../helpers/comprehension';
+import { handleApiError, apiFetch, handleRequestError } from '../../helpers/comprehension';
 import { getRulesUrl } from '../../helpers/comprehension/ruleHelpers';
 
 export const fetchRules = async (key: string, activityId: string, promptId?: any, ruleType?: string) => {
@@ -50,7 +50,9 @@ export const createRule = async (rule: RuleInterface) => {
     body: JSON.stringify({ rule })
   });
   const newRule = await response.json();
-  return { error: handleApiError('Failed to create rule, please try again.', response), rule: newRule };
+  const { errors } = newRule;
+  const returnedErrors = await handleRequestError(errors, response);
+  return { errors: returnedErrors, rule: newRule };
 }
 
 export const updateRule = async (ruleId: number, rule: RuleInterface) => {
