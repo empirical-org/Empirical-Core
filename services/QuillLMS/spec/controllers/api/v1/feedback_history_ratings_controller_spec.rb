@@ -9,7 +9,7 @@ RSpec.describe Api::V1::FeedbackHistoryRatingsController, type: :controller do
           f_h = create(:feedback_history)
           user = create(:user)
           valid_attributes = {
-            rating: FeedbackHistoryRating::RATINGS.last,
+            rating: true,
             user_id: user.id,
             feedback_history_id: f_h.id
           }
@@ -27,7 +27,7 @@ RSpec.describe Api::V1::FeedbackHistoryRatingsController, type: :controller do
           f_h = create(:feedback_history)
           user = create(:user)
           valid_attributes = {
-            rating: FeedbackHistoryRating::RATINGS.first,
+            rating: true,
             user_id: user.id,
             feedback_history_id: f_h.id
           }
@@ -39,7 +39,7 @@ RSpec.describe Api::V1::FeedbackHistoryRatingsController, type: :controller do
       end
   
       context "with invalid params" do
-        it "returns a success response (i.e. to display the 'new' template)" do
+        it "should raise ParameterMissing" do
           expect do 
             post :create_or_update, {:feedback_history_rating => {}}
           end.to raise_error(ActionController::ParameterMissing)
