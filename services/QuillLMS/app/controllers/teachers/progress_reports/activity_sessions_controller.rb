@@ -135,11 +135,12 @@ class Teachers::ProgressReports::ActivitySessionsController < Teachers::Progress
       csv_string = CSV.generate do |csv|
         csv << ['Student', 'Date', 'Activity', 'Score', 'Standard', 'Tool']
         activity_sessions.map do |session|
+          score = (session['percentage'].to_f == -1.0 ? 'Completed' : "#{session['percentage'].to_f*100}%")
           csv << [
             session['student_name'],
             session['visual_date'],
             session['activity_name'],
-            "#{session['percentage'].to_f*100}%",
+            score,
             session['standard'],
             session['activity_classification_name']
           ]
