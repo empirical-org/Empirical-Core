@@ -21,6 +21,9 @@ export default (
     action: SessionAction
 ) => {
     switch (action.type) {
+      case ActionTypes.SET_ACTIVITY_SESSION_ID:
+        const { sessionID, } = action
+        return Object.assign({}, currentState, { sessionID: sessionID });
       case ActionTypes.RECORD_FEEDBACK:
         const { promptID, feedbackObj, } = action
         const submittedResponsesForPrompt = currentState.submittedResponses[promptID] || []
