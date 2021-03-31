@@ -62,6 +62,12 @@ module.exports = merge(config, {
           'sass-loader',
           'postcss-loader'
         ],
+      },
+      {
+        test: /\.ts?$/,
+        use: [
+          { loader: 'ts-loader', options: { transpileOnly: true } }
+        ],
       }
     ],
   },

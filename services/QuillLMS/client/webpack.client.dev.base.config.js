@@ -11,7 +11,7 @@ const defaultUrl = process.env.DEFAULT_URL;
 const cdnUrl = process.env.CDN_URL;
 const grammarUrl = process.env.QUILL_GRAMMAR_URL || 'http://localhost:3000/grammar/#';
 const lessonsWebsocketsUrl = process.env.LESSONS_WEBSOCKETS_URL || 'http://localhost:3200';
-const quillCmsUrl = process.env.QUILL_CMS || 'http://localhost:3100';
+const quillCmsUrl = process.env.QUILL_CMS || 'https://quillcms-production.us-east-1.elasticbeanstalk.com';
 const { join, } = require('path');
 const webpackConfigLoader = require('react-on-rails/webpackConfigLoader');
 
