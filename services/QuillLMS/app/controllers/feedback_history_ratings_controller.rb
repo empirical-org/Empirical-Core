@@ -1,10 +1,10 @@
-class Api::V1::FeedbackHistoryRatingsController < ApplicationController
+class FeedbackHistoryRatingsController < ApplicationController
   before_action :set_feedback_history_rating, only: [:show, :edit, :update, :destroy]
   skip_before_action :verify_authenticity_token
 
   def create_or_update
     rating = FeedbackHistoryRating.find_or_create_by(
-      user_id: feedback_history_rating_params["user_id"], 
+      user_id: current_user.id, 
       feedback_history_id: feedback_history_rating_params["feedback_history_id"]
     )
     rating.rating = feedback_history_rating_params["rating"]
@@ -18,6 +18,6 @@ class Api::V1::FeedbackHistoryRatingsController < ApplicationController
   end
 
   private def feedback_history_rating_params
-    params.require(:feedback_history_rating).permit([:user_id, :rating, :feedback_history_id])
+    params.require(:feedback_history_rating).permit([:rating, :feedback_history_id])
   end
 end

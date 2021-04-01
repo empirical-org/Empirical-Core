@@ -345,7 +345,7 @@ EmpiricalGrammar::Application.routes.draw do
   get '/classrooms_teachers/specific_coteacher_info/:coteacher_id', to: 'classrooms_teachers#specific_coteacher_info'
   delete '/classrooms_teachers/destroy/:classroom_id', to: 'classrooms_teachers#destroy'
 
-
+  put 'feedback_history_rating' => 'feedback_history_ratings#create_or_update'
 
   resources :coteacher_classroom_invitations, only: [:destroy] do
     collection do
@@ -360,7 +360,6 @@ EmpiricalGrammar::Application.routes.draw do
   # API routes
   namespace :api do
     namespace :v1 do
-      put 'feedback_history_rating' => 'feedback_history_ratings#create_or_update'
       get 'activities/uids_and_flags' => 'activities#uids_and_flags'
       get 'rule_feedback_histories' => 'rule_feedback_histories#by_conjunction'
       resources :activities,              except: [:index, :new, :edit]

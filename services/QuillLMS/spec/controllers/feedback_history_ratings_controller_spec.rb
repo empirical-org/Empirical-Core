@@ -1,19 +1,23 @@
 require 'rails_helper'
 
-RSpec.describe Api::V1::FeedbackHistoryRatingsController, type: :controller do
+RSpec.describe FeedbackHistoryRatingsController, type: :controller do
+
+  let(:user) {create(:user)}
+  before do
+    allow(controller).to receive(:current_user) { user }
+  end
 
   describe "PUT #create_or_update" do
     context 'updating a record' do 
       context 'with valid params' do 
         it 'should update an existing record' do 
           f_h = create(:feedback_history)
-          user = create(:user)
+          
           valid_attributes = {
             rating: true,
-            user_id: user.id,
             feedback_history_id: f_h.id
           }
-          create(:feedback_history_rating, **valid_attributes)
+          create(:feedback_history_rating, **valid_attributes.merge(user_id: user.id))
           expect {
             post :create_or_update, {:feedback_history_rating => valid_attributes}
           }.to change(FeedbackHistoryRating, :count).by(0)
@@ -28,7 +32,6 @@ RSpec.describe Api::V1::FeedbackHistoryRatingsController, type: :controller do
           user = create(:user)
           valid_attributes = {
             rating: true,
-            user_id: user.id,
             feedback_history_id: f_h.id
           }
   
