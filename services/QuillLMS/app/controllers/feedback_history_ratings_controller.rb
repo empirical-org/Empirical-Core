@@ -6,9 +6,12 @@ class FeedbackHistoryRatingsController < ApplicationController
     rating = FeedbackHistoryRating.find_or_create_by(
       user_id: current_user.id, 
       feedback_history_id: feedback_history_rating_params["feedback_history_id"]
-    )
+    ) do |record|
+      record.rating = true # necessary to avoid triggering the DB uniqueness constraint
+    end
+
     rating.rating = feedback_history_rating_params["rating"]
-    
+
     if rating.valid?
       rating.save!
       render(json: {status: 200})

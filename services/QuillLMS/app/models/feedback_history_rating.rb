@@ -3,7 +3,7 @@
 # Table name: feedback_history_ratings
 #
 #  id                  :integer          not null, primary key
-#  rating              :boolean
+#  rating              :boolean          not null
 #  created_at          :datetime         not null
 #  updated_at          :datetime         not null
 #  feedback_history_id :integer          not null

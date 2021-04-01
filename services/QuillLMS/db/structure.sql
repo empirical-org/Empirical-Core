@@ -1964,7 +1964,7 @@ ALTER SEQUENCE public.feedback_histories_id_seq OWNED BY public.feedback_histori
 
 CREATE TABLE public.feedback_history_ratings (
     id integer NOT NULL,
-    rating boolean,
+    rating boolean NOT NULL,
     feedback_history_id integer NOT NULL,
     user_id integer NOT NULL,
     created_at timestamp without time zone NOT NULL,

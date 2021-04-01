@@ -13,14 +13,22 @@ RSpec.describe FeedbackHistoryRatingsController, type: :controller do
         it 'should update an existing record' do 
           f_h = create(:feedback_history)
           
-          valid_attributes = {
+          f_h_r = create(:feedback_history_rating, {
+            user_id: user.id,
             rating: true,
             feedback_history_id: f_h.id
-          }
-          create(:feedback_history_rating, **valid_attributes.merge(user_id: user.id))
-          expect {
-            post :create_or_update, {:feedback_history_rating => valid_attributes}
-          }.to change(FeedbackHistoryRating, :count).by(0)
+          })
+
+          expect do
+            post :create_or_update, {:feedback_history_rating => {
+              rating: false,
+              feedback_history_id: f_h.id              
+            }}
+          end.to change(FeedbackHistoryRating, :count).by(0)
+          expect(FeedbackHistoryRating.find_by(
+            user_id: user.id, 
+            feedback_history_id: f_h.id
+          ).rating).to eq false
         end
       end
     end
