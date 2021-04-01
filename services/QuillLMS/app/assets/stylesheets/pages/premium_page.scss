@@ -118,7 +118,6 @@ li.premium-tab > a:hover {
 
   .our-commitment {
     max-width: 360px;
-    margin-right: 17px;
     padding: 0px 16px;
     display: inline-flex;
     border-radius: 8px;
@@ -475,6 +474,7 @@ li.premium-tab > a:hover {
     }
 
     .our-commitment {
+      margin-right: 17px;
       top: 52px;
       left: 0px;
       position: relative;
@@ -549,11 +549,22 @@ li.premium-tab > a:hover {
       }
     }
 
+    .individual-features-table-container {
+      display: none;
+    }
+
   }
 }
 
 @media (max-width: 991px) {
   .premium-page {
+    padding-left: 10px;
+    padding-right: 10px;
+
+    .container {
+      padding-left: 0px;
+      padding-right: 0px;
+    }
 
     .overview .header {
       margin-bottom: 80px;
@@ -603,5 +614,47 @@ li.premium-tab > a:hover {
         margin-bottom: 32px;
       }
     }
+
+    .individual-features-table-container {
+      border-top: 1px solid #e0e0e0;
+
+      .interactive-wrapper {
+        font-size: 14px;
+        font-weight: 600;
+        color: #5c5c5c;
+        margin: 14px;
+      }
+
+      .header-row {
+        border-top: 1px solid #e0e0e0;
+        padding: 32px 16px 8px;
+        text-align: left;
+        h3 {
+          font-size: 16px;
+          font-weight: 600;
+          line-height: 1.38;
+          color: #262626;
+        }
+      }
+
+      .label-and-tooltip {
+        display: flex;
+        padding: 16px;
+        justify-content: space-between;
+        border-top: 1px solid #e0e0e0;
+        text-align: left;
+        .quill-tooltip-trigger {
+          width: 16px;
+          margin-left: 16px;
+        }
+      }
+
+      &.is-open {
+        .interactive-wrapper img {
+          transform: rotate(180deg)
+        }
+      }
+    }
+
   }
 }

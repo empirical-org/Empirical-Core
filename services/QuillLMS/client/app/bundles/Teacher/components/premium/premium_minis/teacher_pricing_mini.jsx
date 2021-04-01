@@ -1,4 +1,7 @@
 import React from 'react';
+
+import IndividualFeaturesTable from './individual_features_table'
+
 import PleaseLoginModal from '../please_login_modal.jsx';
 import Stripe from '../../modules/stripe/charge.js';
 
@@ -49,6 +52,7 @@ export default class TeacherPricingMini extends React.Component {
   };
 
   render() {
+    const { premiumFeatureData, } = this.props
     return (
       <div className="pricing-mini">
         <section className="pricing-info">
@@ -62,6 +66,7 @@ export default class TeacherPricingMini extends React.Component {
             {this.purchaseButton()}
           </div>
         </section>
+        <IndividualFeaturesTable premiumFeatureData={premiumFeatureData} type="teacher" />
       </div>
     );
   }
