@@ -22,13 +22,13 @@ const LabelsTable = ({ activityId, prompt }) => {
     const formattedRows = rulesData.rules.map(rule => {
       const { name, id, state, optimal, label } = rule;
       const ruleLink = (
-        <Link className="data-link" to={{ pathname: `/activities/${activityId}/semantic-rules/${prompt.id}/${id}`, state: { rule: rule } }}>View</Link>
+        <Link className="data-link" to={{ pathname: `/activities/${activityId}/semantic-labels/${prompt.id}/${id}`, state: { rule: rule } }}>View</Link>
       );
       const isActive = state === 'active';
       return {
         id: id,
-        name: name,
-        label_name: label && label.name,
+        descriptive_label: name,
+        automl_label: label && label.name,
         state_for_sort: state,
         state: getCheckIcon(isActive),
         optimal: getCheckIcon(optimal),
@@ -48,26 +48,23 @@ const LabelsTable = ({ activityId, prompt }) => {
 
   const dataTableFields = [
     { name: "Rule ID", attribute:"id", width: "70px" },
-    { name: "Rule Name", attribute:"name", width: "400px" },
-    { name: "Label Name", attribute:"label_name", width: "150px" },
-    { name: "Rule/Label Active?", attribute:"state", width: "150px" },
+    { name: "Descriptive Label", attribute:"descriptive_label", width: "400px" },
+    { name: "AutoML Label", attribute:"automl_label", width: "150px" },
+    { name: "Active?", attribute:"state", width: "150px" },
     { name: "Optimal?", attribute:"optimal", width: "70px" },
     { name: "", attribute:"edit", width: "70px" }
   ];
-  const addRuleLink = <Link to={`/activities/${activityId}/semantic-rules/${prompt.id}/new`}>Add Rule/Label</Link>;
+  const addRuleLink = <Link to={`/activities/${activityId}/semantic-labels/${prompt.id}/new`}>Add Label</Link>;
 
   return(
-    <section className="semantic-rules-container">
+    <section className="semantic-labels-container">
       <section className="header-container">
-        <h5>Semantic Rules/Label: <p>{prompt.conjunction}</p></h5>
+        <h5>Semantic Labels: <p>{prompt.conjunction}</p></h5>
         <h5>Prompt ID: <p>{prompt.id}</p></h5>
-        <section className="lower-header-container">
-          <h5>Prompt Labelset</h5>
-          <button className="quill-button fun primary contained" id="add-rule-button" type="submit">{addRuleLink}</button>
-        </section>
+        <button className="quill-button fun primary contained" id="add-rule-button" type="submit">{addRuleLink}</button>
       </section>
       <DataTable
-        className="semantic-rules-table"
+        className="semantic-labels-table"
         headers={dataTableFields}
         rows={getFormattedRows()}
       />

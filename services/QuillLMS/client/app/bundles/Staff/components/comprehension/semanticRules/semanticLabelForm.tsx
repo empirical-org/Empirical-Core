@@ -15,7 +15,7 @@ import { handleSubmitRule, getInitialRuleType, formatInitialFeedbacks, returnIni
 import { ruleOptimalOptions, regexRuleTypes, blankRule } from '../../../../../constants/comprehension';
 import { RuleInterface, DropdownObjectInterface } from '../../../interfaces/comprehensionInterfaces';
 
-interface SemanticRuleFormProps {
+interface SemanticLabelFormProps {
   activityData?: any,
   activityId?: string,
   isUniversal?: boolean,
@@ -28,7 +28,7 @@ interface SemanticRuleFormProps {
   match: any,
 }
 
-const SemanticRuleForm = ({ activityId, isSemantic, isUniversal, rule, submitRule, location, history, match }: SemanticRuleFormProps) => {
+const SemanticLabelForm = ({ activityId, isSemantic, isUniversal, rule, submitRule, location, history, match }: SemanticLabelFormProps) => {
   const { params } = match;
   const { promptId } = params;
 
@@ -142,12 +142,17 @@ const SemanticRuleForm = ({ activityId, isSemantic, isUniversal, rule, submitRul
       toggleShowDeleteRuleModal();
       // update ruleSets cache to remove delete ruleSet
       queryCache.refetchQueries(`rules-${activityId}`);
-      history.push(`/activities/${activityId}/semantic-rules/all`);
+      history.push(`/activities/${activityId}/semantic-labels/all`);
     });
   }
 
   const errorsPresent = !!Object.keys(errors).length;
-  const cancelLink = (<Link to={`/activities/${activityId}/semantic-rules`}>Cancel</Link>);
+  const cancelLink = (<Link to={`/activities/${activityId}/semantic-labels`}>Cancel</Link>);
+  const autoMLParams = {
+    label: 'Descriptive Label',
+    notes: 'Label Notes',
+    layerFeedback: 'First Layer Feedback'
+  }
 
   if(isLoading) {
     return(
@@ -161,15 +166,17 @@ const SemanticRuleForm = ({ activityId, isSemantic, isUniversal, rule, submitRul
     <div className="rule-form-container">
       {showDeleteRuleModal && renderDeleteRuleModal()}
       <section className="semantic-rule-form-header">
-        <Link className="return-link" to={`/activities/${activityId}/semantic-rules`}>← Return to Semantic Rules Index</Link>
+        <Link className="return-link" to={`/activities/${activityId}/semantic-labels`}>← Return to Semantic Rules Index</Link>
         <button className="quill-button fun primary contained" id="rule-delete-button" onClick={toggleShowDeleteRuleModal} type="button">
           Delete
         </button>
       </section>
       <form className="semantic-rule-form">
         <RuleGenericAttributes
+          autoMLParams={autoMLParams}
           concepts={conceptsData ? conceptsData.concepts : []}
           errors={errors}
+          isAutoML={true}
           isUniversal={isUniversal}
           ruleConceptUID={ruleConceptUID}
           ruleDescription={ruleDescription}
@@ -235,4 +242,4 @@ const SemanticRuleForm = ({ activityId, isSemantic, isUniversal, rule, submitRul
   )
 }
 
-export default withRouter<any, any>(SemanticRuleForm);
+export default withRouter<any, any>(SemanticLabelForm);
