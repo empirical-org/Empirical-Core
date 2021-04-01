@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { shallow } from 'enzyme';
 
-import SemanticRulesOverview from '../semanticRules/semanticRulesOverview';
+import SemanticLabelsOverview from '../semanticRules/semanticLabelsOverview';
 import LabelsTable from '../semanticRules/labelsTable';
 import ModelsTable from '../semanticRules/modelsTable';
 
@@ -10,10 +10,10 @@ const mockProps = {
   prompts: [{ id: 1 }, { id: 2 }, { id: 3 }]
 };
 
-describe('SemanticRulesOverview component', () => {
-  const container = shallow(<SemanticRulesOverview {...mockProps} />);
+describe('SemanticLabelsOverview component', () => {
+  const container = shallow(<SemanticLabelsOverview {...mockProps} />);
 
-  it('should render SemanticRulesOverview', () => {
+  it('should render SemanticLabelsOverview', () => {
     expect(container).toMatchSnapshot();
   });
 

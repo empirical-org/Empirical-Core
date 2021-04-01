@@ -29,12 +29,13 @@ const RuleSemanticAttributes = ({
         disabled={ruleLabelNameDisabled}
         error={errors['Label Name']}
         handleChange={onHandleSetRuleLabelName}
-        label="Label Name"
+        label="AutoML Label"
         value={ruleLabelName}
       />
       <p className="label-explanation">Label requirements: name must be unique (prompt cannot have duplicate label names), labels cannot contain spaces; maximum of 32 characters.</p>
+      <p className="label-explanation">Once the Label Name is submitted, it cannot be edited.</p>
       <section className="label-status-container">
-        <p id="label-status-label">Label/Rule Status</p>
+        <p id="label-status-label">Label Status</p>
         <p id="label-status">{ruleLabelStatus}</p>
       </section>
     </React.Fragment>

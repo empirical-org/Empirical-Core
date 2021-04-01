@@ -128,17 +128,15 @@ const Rules: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ history, mat
       <div className="header-container">
         <h2>Rules</h2>
       </div>
+      <button className="quill-button fun primary contained" id="add-rule-button" onClick={toggleAddRuleModal} type="submit">
+          Add Rule
+      </button>
       <DataTable
         className="rules-table"
         defaultSortAttribute="name"
         headers={dataTableFields}
         rows={formattedRows ? formattedRows : []}
       />
-      <div className="button-container">
-        <button className="quill-button fun primary contained" id="add-rule-button" onClick={toggleAddRuleModal} type="submit">
-          Add Rule
-        </button>
-      </div>
     </div>
   );
 }

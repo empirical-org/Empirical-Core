@@ -6,7 +6,7 @@ import ActivitySettings from './configureSettings/activitySettings';
 import Rules from './configureRules/rules';
 import Rule from './configureRules/rule';
 import TurkSessions from './gatherResponses/turkSessions';
-import SemanticRulesIndex from './semanticRules/semanticRulesIndex';
+import SemanticLabelsIndex from './semanticRules/semanticLabelsIndex';
 
 import { ActivityRouteProps } from '../../interfaces/comprehensionInterfaces';
 
@@ -21,7 +21,7 @@ const Activity: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ match, lo
           <Route component={Rule} path='/activities/:activityId/rules/:ruleId' />
           <Route component={Rules} path='/activities/:activityId/rules' />
           <Route component={TurkSessions} path='/activities/:activityId/turk-sessions' />
-          <Route component={SemanticRulesIndex} path='/activities/:activityId/semantic-rules' />
+          <Route component={SemanticLabelsIndex} path='/activities/:activityId/semantic-labels' />
         </Switch>
       </div>
     </React.Fragment>
