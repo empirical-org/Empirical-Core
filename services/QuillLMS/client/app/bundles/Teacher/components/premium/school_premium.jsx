@@ -40,19 +40,19 @@ const actionableFeaturesAndSupport = (
     <div className="premium-features-row">
       <PremiumFeature
         header="Teacher reports"
-        imageAlt="TODO"
+        imageAlt="Example dashboard showing multiple teacher reports"
         imageSrc={teacherReportsSrc}
         text="Access each classroom’s Quill Premium reports. Print and download progress reports on concepts and standards mastered."
       />
       <PremiumFeature
         header="School administrator dashboard"
-        imageAlt="TODO"
+        imageAlt="Example school dashboard showing multiple teacher dashboards with student results"
         imageSrc={schoolDashboardSrc}
         text="Access each teacher’s Premium account to assign activities, manage rosters and view data. Access school-level reports to see rolled up data at the school level."
       />
       <PremiumFeature
         header="School-wide educator support"
-        imageAlt="TODO"
+        imageAlt="A school with a person giving a presentation and another person teaching"
         imageSrc={schoolSupportSrc}
         text="Access customized training and professional development webinars, instructional coaching sessions, and individualized reporting, all provided by our dedicated School Partnerships team."
       />
@@ -67,57 +67,57 @@ const professionalDevelopmentSessions = (
     <div className="premium-features-row">
       <PremiumFeature
         header="Leveraging Quill Diagnostics"
-        imageAlt="TODO"
+        imageAlt="A student focusing on his laptop while working on Quill Diagnostic"
         imageSrc={studentCompletingDiagnosticSrc}
         popular={true}
         text="Explore best practices for strategically incorporating the diagnostic recommendations to support student writing goals while also learning how to create supportive learning structures where students feel empowered."
       />
       <PremiumFeature
         header="Backwards planning"
-        imageAlt="TODO"
+        imageAlt="A photograph of the book, Writing for Understanding"
         imageSrc={backwardsPlanningSrc}
         popular={true}
         text="Leaning on key tenets from Writing for Understanding, teachers will unpack the knowledge and understanding required in an upcoming writing assignment and then strategically embed Quill activities into their unit plan to help students achieve the assignment's writing goals."
       />
       <PremiumFeature
         header="Data reporting & student work"
-        imageAlt="TODO"
+        imageAlt="A person typing on a laptop with a Quill Premium report on the screen"
         imageSrc={premiumReportLaptopSrc}
         text="We apply a research-based cycle of data inquiry to Quill's student data reports. Time will be dedicated for teachers to independently analyze their Quill data thus far and, together, explore how their findings can inform future instructional decisions and strategies."
       />
       <PremiumFeature
         header="Quill Lessons implementation tips"
-        imageAlt="TODO"
+        imageAlt="Arrows pointing to a teacher presenting a Quill Lesson"
         imageSrc={quillLessonsTeacherSrc}
         text="Quill Lessons is our interactive writing tool that helps teachers lead students through live grammar lessons. In this session, we explore various implementation ideas, as well as tips and guidance, to allow teachers to get the most out of this feature-packed tool."
       />
       <PremiumFeature
         header="Whole group discussion"
-        imageAlt="TODO"
+        imageAlt="Two students helping each other on one laptop"
         imageSrc={studentsHelpingEachOtherSrc}
         text="This session explores the conditions necessary for skills to transfer from the Quill platform to authentic writing. We consider strategies that use whole group micro-discussions to support this transfer."
       />
       <PremiumFeature
         header="Supporting English Language Learners"
-        imageAlt="TODO"
+        imageAlt="An ELL student typing on a laptop"
         imageSrc={englishLanguageLearnSrc}
         text="Explore Quill’s content created specifically for English Language Learners and learn  strategies to utilize these resources to support students’ written language acquisition."
       />
       <PremiumFeature
         header="Supporting students with IEPs"
-        imageAlt="TODO"
+        imageAlt="A teacher and a student practicing sign language"
         imageSrc={studentTeacherSignLanguageSrc}
         text="Learn how to make modifications to Quill’s learning plans for your students with IEPs,  provide targeted support, and track students’ growth and progress."
       />
       <PremiumFeature
         header="Improving sentence fluency"
-        imageAlt="TODO"
+        imageAlt="A teacher pointing to a student's paper while the student writes"
         imageSrc={studentTeacherWritingSrc}
         text="Explore ways to expand the work students do on the Quill platform to improve their sentence fluency in their writing beyond Quill."
       />
       <PremiumFeature
         header="Empowering student writers"
-        imageAlt="TODO"
+        imageAlt="A student smiling"
         imageSrc={studentHighlightedSrc}
         text="Explore various ways to encourage an increase in students’ writing self-efficacy using Quill’s tools, beyond extrinsic carrot and stick approaches."
       />
@@ -160,21 +160,21 @@ const coachingTeam = (
     <div className="premium-features-row">
       <PremiumFeature
         header="Erika Parker-Havens"
-        imageAlt="TODO"
+        imageAlt="Photograph of Quill's coach, Erika"
         imageSrc={erikaSrc}
         subheader={[<span key="years">13 years in Education</span>, <span key="title">Former MS English teacher and Academic Dean</span>]}
         text="Expert in culturally responsive teaching practices, writing in the content areas and helping teachers practically use tools to facilitate learning through writing"
       />
       <PremiumFeature
         header="Shannon Browne"
-        imageAlt="TODO"
+        imageAlt="Photograph of Quill's coach, Shannon"
         imageSrc={shannonSrc}
         subheader={[<span key="years">13 years in Education</span>, <span key="title">Former HS English Teacher and Director of Instruction</span>]}
         text="Expert in data-informed instructional strategies and prioritizing the needs of special populations in writing practice routines"
       />
       <PremiumFeature
         header="Sherry Lewkowicz"
-        imageAlt="TODO"
+        imageAlt="Photograph of Quill's coach, Sherry"
         imageSrc={sherrySrc}
         subheader={[<span key="years">14 years in Education</span>, <span key="title">Former AP English Literature teacher</span>]}
         text="Expert in writing instruction best practices and helping teachers incorporate those best practices into their teaching"
@@ -188,7 +188,7 @@ const SchoolPremium = () => {
     <div className='container premium-features school text-center' id="school-premium">
       <section className='premium-features-header'>
         <div className="img-holder">
-          <img alt="Presentation board" src={blueSchoolCircleSrc} />
+          <img alt="Illustration of a blue and gray school with a blue flag" src={blueSchoolCircleSrc} />
         </div>
         <h1>School and District Premium</h1>
         <p>We offer School Premium site licenses that provide access for all teachers at a school to both our free and teacher premium features. In addition, we offer school-wide professional development, administrative oversight and reporting, and individualized, ongoing support from our School Partnerships team.</p>
