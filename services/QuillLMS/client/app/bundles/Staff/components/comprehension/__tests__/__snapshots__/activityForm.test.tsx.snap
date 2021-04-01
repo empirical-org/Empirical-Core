@@ -79,7 +79,7 @@ exports[`Activity Form component should render Activities 1`] = `
       text="..."
     />
     <p
-      className="text-editor-label "
+      className="text-editor-label has-text"
     >
       Max Attempts Feedback
     </p>
@@ -88,7 +88,7 @@ exports[`Activity Form component should render Activities 1`] = `
       EditorState={[Function]}
       handleTextChange={[Function]}
       key="max-attempt-feedback"
-      text=""
+      text="Nice effort! You worked hard to make your sentence stronger."
     />
     <PromptsForm
       activityBecausePrompt={

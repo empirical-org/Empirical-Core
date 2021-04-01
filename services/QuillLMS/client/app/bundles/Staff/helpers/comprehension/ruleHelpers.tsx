@@ -1,5 +1,6 @@
 import * as React from "react";
 import { EditorState, ContentState } from 'draft-js';
+import stripHtml from "string-strip-html";
 
 import { validateForm } from '../comprehension';
 import { AUTO_ML, ACTIVE, INACTIVE } from '../../../../constants/comprehension';
@@ -304,7 +305,7 @@ export const buildRule = ({
   } else if(newOrUpdatedRule.rule_type === 'plagiarism') {
     newOrUpdatedRule.plagiarism_text_attributes = {
       id: plagiarismText.id,
-      text: plagiarismText.text
+      text: stripHtml(plagiarismText.text)
     };
   } else if(newOrUpdatedRule.rule_type === AUTO_ML) {
     newOrUpdatedRule.label_attributes = {

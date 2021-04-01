@@ -19,17 +19,17 @@ const ModelsTable = ({ activityId, prompt }) => {
       const formattedRows = modelsData.models.map(model => {
         const { id, created_at, name, older_models, labels, state } = model;
         const viewLink = (
-          <Link className="data-link" to={`/activities/${activityId}/semantic-rules/model/${id}`}>View</Link>
+          <Link className="data-link" to={`/activities/${activityId}/semantic-labels/model/${id}`}>View</Link>
         );
         const activateLink = (
-          <Link className="data-link" to={`/activities/${activityId}/semantic-rules/${prompt.id}/model/${id}/activate`}>Activate</Link>
+          <Link className="data-link" to={`/activities/${activityId}/semantic-labels/${prompt.id}/model/${id}/activate`}>Activate</Link>
         );
         return {
           id: id,
           created_at: moment(created_at).format('MM/DD/YY'),
           version: older_models + 1,
           name: name,
-          labels: `${labels.length} labels`,
+          label_count: `${labels.length} labels`,
           status: state,
           view: viewLink,
           activate: activateLink,
@@ -54,21 +54,21 @@ const ModelsTable = ({ activityId, prompt }) => {
     { name: "Version", attribute:"version", width: "70px" },
     { name: "Model Name", attribute:"name", width: "300px" },
     // { name: "Model Notes", attribute:"", width: "200px" },
-    { name: "Labels", attribute:"labels", width: "70px" },
+    { name: "Label Count", attribute:"label_count", width: "70px" },
     { name: "Status", attribute:"status", width: "70px" },
     { name: "", attribute:"view", width: "100px" },
     { name: "", attribute:"activate", width: "150px" }
   ];
 
-  const addModelLink = <Link to={`/activities/${activityId}/semantic-rules/${prompt.id}/add-model`}>Add Model</Link>;
+  const addModelLink = <Link to={`/activities/${activityId}/semantic-labels/${prompt.id}/add-model`}>Add Model</Link>;
+  const count = modelsData && modelsData.models && modelsData.models.length
 
   return(
     <section className="models-container">
       <section className="header-container">
-        <section className="lower-header-container">
-          <h5>Prompt Models</h5>
-          <button className="quill-button fun primary contained" id="add-model-button" type="submit">{addModelLink}</button>
-        </section>
+        <h5>Prompt Models</h5>
+        <h5 id="model-count">Count: <p>{count}</p></h5>
+        <button className="quill-button fun primary contained" id="add-model-button" type="submit">{addModelLink}</button>
       </section>
       <DataTable
         className="models-table"

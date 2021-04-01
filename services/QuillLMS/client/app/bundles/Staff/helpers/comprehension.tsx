@@ -104,6 +104,8 @@ export const buildActivity = ({
 }) => {
   // const { label } = activityFlag;
   const prompts = [activityBecausePrompt, activityButPrompt, activitySoPrompt];
+  const maxFeedback = activityMaxFeedback || 'Nice effort! You worked hard to make your sentence stronger.';
+  prompts.forEach(prompt => prompt.max_attempts_feedback = maxFeedback);
   return {
     activity: {
       name: activityName,

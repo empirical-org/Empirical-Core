@@ -8,7 +8,7 @@ import RulePrompts from '../configureRules/rulePrompts';
 
 jest.mock('../../../helpers/comprehension/ruleHelpers', () => ({
   getInitialRuleType: jest.fn().mockImplementation(() => {
-    return { value: 'rules-based', label: 'Regex' }
+    return { value: 'rules-based-1', label: 'Sentence Structure Regex' }
    }),
   formatInitialFeedbacks: jest.fn().mockImplementation(() => {
     return [{
@@ -23,7 +23,7 @@ jest.mock('../../../helpers/comprehension/ruleHelpers', () => ({
 
 const mockRule = {
   id: 1,
-  rule_type: 'regex' ,
+  rule_type: 'rules-based-1' ,
   name: 'remove all instances of "it contains methane"',
   universal: false,
   optimal: false,
