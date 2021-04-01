@@ -1,5 +1,5 @@
 import { RuleInterface } from '../../interfaces/comprehensionInterfaces';
-import { handleApiError, apiFetch, handleRequestError } from '../../helpers/comprehension';
+import { handleApiError, apiFetch, handleRequestError, requestFailed } from '../../helpers/comprehension';
 import { getRulesUrl } from '../../helpers/comprehension/ruleHelpers';
 
 export const fetchRules = async (key: string, activityId: string, promptId?: any, ruleType?: string) => {
@@ -41,7 +41,15 @@ export const deleteRule = async (ruleId: string) => {
   const response = await apiFetch(`rules/${ruleId}`, {
     method: 'DELETE'
   });
-  return { error: handleApiError('Failed to delete rule, please try again.', response)};
+  const { status } = response;
+
+  if(requestFailed(status)) {
+    const ruleToDelete = await response.json();
+    const { errors } = ruleToDelete;
+    const returnedErrors = await handleRequestError(errors, response);
+    return { errors: returnedErrors };
+  }
+  return { errors: [] };
 }
 
 export const createRule = async (rule: RuleInterface) => {
@@ -60,5 +68,13 @@ export const updateRule = async (ruleId: number, rule: RuleInterface) => {
     method: 'PUT',
     body: JSON.stringify({ rule })
   });
-  return { error: handleApiError('Failed to update rule, please try again.', response) };
+  const { status } = response;
+
+  if(requestFailed(status)) {
+    const updatedRule = await response.json();
+    const { errors } = updatedRule;
+    const returnedErrors = await handleRequestError(errors, response);
+    return { errors: returnedErrors };
+  }
+  return { errors: [] };
 }

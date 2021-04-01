@@ -31,17 +31,18 @@ const Rules: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ history, mat
 
   const formattedRows = rulesData && rulesData.rules && rulesData.rules.map(rule => {
     const { name, id, rule_type, universal, suborder, prompt_ids } = rule;
-    const ruleLink = (<Link to={`/activities/${activityId}/rules/${id}`}>{name}</Link>);
+    const ruleLink = (<Link to={`/activities/${activityId}/rules/${id}`}>View</Link>);
     const promptsIcons = getPromptsIcons(activityData, prompt_ids);
     return {
       id: `${activityId}-${id}`,
       type: rule_type,
-      name: ruleLink,
+      name: name,
       because_prompt: promptsIcons[BECAUSE],
       but_prompt: promptsIcons[BUT],
       so_prompt: promptsIcons[SO],
       universal: getCheckIcon(universal),
-      suborder: suborder
+      suborder: suborder,
+      view: ruleLink
     }
   });
 
@@ -105,6 +106,7 @@ const Rules: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ history, mat
     { name: "So", attribute:"so_prompt", width: "70px" },
     { name: "Universal?", attribute:"universal", width: "70px" },
     { name: "Sub Order", attribute:"suborder", width: "70px" },
+    { name: "", attribute:"view", width: "70px" },
   ];
 
   return(
