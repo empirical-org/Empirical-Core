@@ -30,28 +30,28 @@ const Row = ({ label, tooltipText, basic, teacher, school, }) => (
   </div>
 )
 
-const writingTools = (
+const writingTools = ({ independentPracticeActivityCount, lessonsActivityCount, diagnosticActivityCount, }) => (
   <React.Fragment>
     <div className="header-row">
       <h4>Writing tools</h4>
     </div>
     <Row
       basic={true}
-      label="640+ independent practice activities"
+      label={`${independentPracticeActivityCount} independent practice activities`}
       school={true}
       teacher={true}
       tooltipText="Researched-backed, 10-15 minute writing and grammar practice"
     />
     <Row
       basic={true}
-      label="9 diagnostic activities"
+      label={`${diagnosticActivityCount} diagnostic assessments`}
       school={true}
       teacher={true}
       tooltipText="Baseline assessments that build custom writing practice pathways"
     />
     <Row
       basic={true}
-      label="50+ collaborative full-class lessons"
+      label={`${lessonsActivityCount} collaborative full-class lessons`}
       school={true}
       teacher={true}
       tooltipText="Interactive, teacher-led learning experiences"
@@ -214,9 +214,9 @@ const professionalDevelopmentAndSupport = (
   </React.Fragment>
 )
 
-const PremiumFeaturesTable = () => (
+const PremiumFeaturesTable = ({ independentPracticeActivityCount, lessonsActivityCount, diagnosticActivityCount, }) => (
   <section className="premium-features-table">
-    {writingTools}
+    {writingTools({ independentPracticeActivityCount, lessonsActivityCount, diagnosticActivityCount, })}
     {dataReports}
     {rostering}
     {professionalDevelopmentAndSupport}

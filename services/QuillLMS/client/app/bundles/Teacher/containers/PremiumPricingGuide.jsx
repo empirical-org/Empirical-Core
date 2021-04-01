@@ -31,6 +31,7 @@ export default class PremiumPricingGuide extends React.Component {
   };
 
   render() {
+    const { diagnosticActivityCount, lessonsActivityCount, independentPracticeActivityCount, } = this.props
     return (
       <div>
         <div className="container premium-page">
@@ -40,8 +41,11 @@ export default class PremiumPricingGuide extends React.Component {
               <p>Pick a plan that suits your needs.</p>
             </div>
             <PremiumPricingMinisRow {...this.props} />
-            <PremiumFeaturesTable />
-
+            <PremiumFeaturesTable
+              diagnosticActivityCount={diagnosticActivityCount}
+              independentPracticeActivityCount={independentPracticeActivityCount}
+              lessonsActivityCount={lessonsActivityCount}
+            />
           </div>
 
           <div className="features text-center">
