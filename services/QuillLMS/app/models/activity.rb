@@ -236,7 +236,7 @@ class Activity < ActiveRecord::Base
   end
 
   def comprehension_url_helper(initial_params)
-    base_url = "#{classification.module_url}"
+    base_url = classification.module_url.to_s
     # Rename "student" to "session" because it's called "student" in all tools other than Comprehension
     initial_params[:session] = initial_params.delete :student if initial_params[:student]
     initial_params[:uid] = Comprehension::Activity.find_by(parent_activity_id: id).id
