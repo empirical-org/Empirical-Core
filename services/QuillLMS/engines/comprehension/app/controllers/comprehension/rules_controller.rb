@@ -24,7 +24,7 @@ module Comprehension
       if @rule.save
         render json: @rule, status: :created
       else
-        render json: @rule.errors, status: :unprocessable_entity
+        render json: { errors: @rule.errors }, status: :unprocessable_entity
       end
     end
 

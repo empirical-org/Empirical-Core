@@ -120,11 +120,9 @@ const Rule = ({ history, match }) => {
 
   const handleDeleteRule = () => {
     deleteRule(ruleId).then((response) => {
-      const { error } = response;
-      if(error) {
-        let updatedErrors = errors;
-        updatedErrors['delete error'] = error;
-        setErrors(updatedErrors);
+      const { errors } = response;
+      if(errors) {
+        setErrors(errors);
       } else {
         // update ruleSets cache to remove delete ruleSet
         queryCache.refetchQueries(`rules-${activityId}`);

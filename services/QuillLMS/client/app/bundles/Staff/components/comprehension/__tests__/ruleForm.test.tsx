@@ -28,6 +28,7 @@ const mockRule = {
   universal: false,
   optimal: false,
   suborder: 0,
+  state: 'active',
   concept_uid: 'a34qreadbgt6',
   prompt_ids: [1, 2],
   feedbacks: [
@@ -50,12 +51,14 @@ const mockRule = {
 const mockProps = {
   rule: mockRule,
   activityData: {
+    name: 'test',
     title: 'test',
     scored_level: '7',
     target_level: 7
   },
   activityId : '1',
   closeModal: jest.fn(),
+  requestErrors: [],
   submitRule: jest.fn(),
   isUniversal: false
 };

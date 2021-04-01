@@ -394,3 +394,20 @@ export function getRulesUrl(activityId: string, promptId: string, ruleType: stri
   }
   return url;
 }
+
+export function renderErrorsContainer(formErrorsPresent: boolean, requestErrors: string[]) {
+  if(formErrorsPresent) {
+    return(
+      <div className="error-message-container">
+        <p className="all-errors-message">Please check that all fields have been completed correctly.</p>
+      </div>
+    );
+  }
+  return(
+    <div className="error-message-container">
+      {requestErrors.map((error, i) => {
+        return <p className="all-errors-message" key={i}>{error}</p>
+      })}
+    </div>
+  )
+}

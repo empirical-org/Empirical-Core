@@ -10,7 +10,7 @@ import RuleUniversalAttributes from './ruleUniversalAttributes';
 import { fetchRules, fetchUniversalRules } from '../../../utils/comprehension/ruleAPIs';
 import { fetchConcepts, } from '../../../utils/comprehension/conceptAPIs';
 import { formatPrompts } from '../../../helpers/comprehension';
-import { handleSubmitRule, getInitialRuleType, formatInitialFeedbacks, returnInitialFeedback, formatRegexRules } from '../../../helpers/comprehension/ruleHelpers';
+import { handleSubmitRule, getInitialRuleType, formatInitialFeedbacks, returnInitialFeedback, formatRegexRules, renderErrorsContainer } from '../../../helpers/comprehension/ruleHelpers';
 import { ruleOptimalOptions, regexRuleTypes } from '../../../../../constants/comprehension';
 import { ActivityInterface, RuleInterface, DropdownObjectInterface } from '../../../interfaces/comprehensionInterfaces';
 
@@ -113,23 +113,6 @@ const RuleForm = ({ activityData, activityId, closeModal, isUniversal, requestEr
     });
   }
 
-  function renderErrorsContainer(formErrorsPresent: boolean) {
-    if(formErrorsPresent) {
-      return(
-        <div className="error-message-container">
-          <p className="all-errors-message">Please check that all fields have been completed correctly.</p>
-        </div>
-      );
-    }
-    return(
-      <div className="error-message-container">
-        {requestErrors.map((error, i) => {
-          return <p className="all-errors-message" key={i}>{error}</p>
-        })}
-      </div>
-    )
-  }
-
   const formErrorsPresent = !!Object.keys(errors).length;
   const requestErrorsPresent = !!(requestErrors && requestErrors.length);
   const showErrorsContainer = formErrorsPresent || requestErrorsPresent
@@ -188,7 +171,7 @@ const RuleForm = ({ activityData, activityId, closeModal, isUniversal, requestEr
           universalFeedback={ruleFeedbacks}
         />}
         <div className="submit-button-container">
-          {showErrorsContainer && renderErrorsContainer(formErrorsPresent)}
+          {showErrorsContainer && renderErrorsContainer(formErrorsPresent, requestErrors)}
           <button className="quill-button fun primary contained" id="activity-submit-button" onClick={onHandleSubmitRule} type="button">
             Submit
           </button>

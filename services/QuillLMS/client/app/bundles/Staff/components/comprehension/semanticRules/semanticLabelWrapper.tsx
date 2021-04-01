@@ -8,7 +8,7 @@ import { blankRule } from '../../../../../constants/comprehension';
 import { fetchRule } from '../../../utils/comprehension/ruleAPIs';
 import { Spinner } from '../../../../Shared/index';
 
-const SemanticLabelWrapper = ({ activityData, isSemantic, isUniversal, submitRule, match }) => {
+const SemanticLabelWrapper = ({ activityData, isSemantic, isUniversal, requestErrors, submitRule, match }) => {
   const { params } = match;
   const { activityId, ruleId } = params;
 
@@ -42,6 +42,7 @@ const SemanticLabelWrapper = ({ activityData, isSemantic, isUniversal, submitRul
       activityId={activityId}
       isSemantic={isSemantic}
       isUniversal={isUniversal}
+      requestErrors={requestErrors}
       rule={rule}
       submitRule={submitRule}
     />
