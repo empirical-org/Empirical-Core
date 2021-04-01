@@ -18,13 +18,18 @@ const studentTeacherSignLanguageSrc = `${baseImageLink}/student-teacher-sign-lan
 const studentTeacherWritingSrc = `${baseImageLink}/student-teacher-writing@2x.png`
 const studentHighlightedSrc = `${baseImageLink}/student-highlighted@2x.png`
 
-const PremiumFeature = ({ imageSrc, imageAlt, header, text, popular}) => (
+const erikaSrc = `${baseImageLink}/coach-erika@2x.png`
+const shannonSrc = `${baseImageLink}/coach-shannon@2x.png`
+const sherrySrc = `${baseImageLink}/coach-sherry@2x.png`
+
+const PremiumFeature = ({ imageSrc, imageAlt, header, text, popular, subheader, }) => (
   <div className="premium-feature">
     <div className="image-wrapper">
       <img alt={imageAlt} src={imageSrc} />
       {popular && <span className="popular-tag">Popular</span>}
     </div>
     <h4>{header}</h4>
+    {subheader}
     <p>{text}</p>
   </div>
 )
@@ -120,6 +125,64 @@ const professionalDevelopmentSessions = (
   </section>
 )
 
+const oneOnOneCoaching = (
+  <section>
+    <h3>One-on-one coaching sessions with our Senior Instructional Coaches</h3>
+    <p>Once per quarter, teachers are invited to schedule 1:1 coaching sessions to work directly with a senior instructional coach on Quill&#39;s team. These sessions enable teachers to solve issues, learn how reports, .... The coach and the teacher are looking at the Quill dashboard and leave the coaching session with more confidence in the tool.</p>
+    <div className="premium-features-row">
+      <div className="testimonial long">
+        <p>Totally personalized! I told the Quill coach my background and what my familiarity with Quill was, and she was able to walk me through exactly what I needed. Also appreciate that she could show me with her screen, walking through my classes with me.</p>
+        <span>Teacher, Glacier View Junior High School</span>
+      </div>
+      <div className="testimonial">
+        <p>I appreciated the time given to analyze our own data while in the training.</p>
+        <span>Teacher, Meeting Street Elementary at Burns</span>
+      </div>
+      <div className="testimonial">
+        <p>Our Quill coach is a really engaging facilitator! I appreciated her expertise and the built-in work time.</p>
+        <span>Director of Academics, Thurgood Marshall</span>
+      </div>
+      <div className="testimonial">
+        <p>I appreciated the facilitator&#39;s responsiveness to the needs specific to our network. I also appreciate the thoughtfulness of applying Quill remotely.</p>
+        <span>Administrator, Mastery Charter Schools</span>
+      </div>
+      <div className="testimonial">
+        <p>Our Quill coach was very knowledgeable and friendly. I felt as though I could ask her anything and there would be no judgement!!</p>
+        <span>Teacher, Union High School</span>
+      </div>
+    </div>
+  </section>
+)
+
+const coachingTeam = (
+  <section>
+    <h3>Meet the coaching team</h3>
+    <div className="premium-features-row">
+      <PremiumFeature
+        header="Erika Parker-Havens"
+        imageAlt="TODO"
+        imageSrc={erikaSrc}
+        subheader={[<span key="years">13 years in Education</span>, <span key="title">Former MS English teacher and Academic Dean</span>]}
+        text="Expert in culturally responsive teaching practices, writing in the content areas and helping teachers practically use tools to facilitate learning through writing"
+      />
+      <PremiumFeature
+        header="Shannon Browne"
+        imageAlt="TODO"
+        imageSrc={shannonSrc}
+        subheader={[<span key="years">13 years in Education</span>, <span key="title">Former HS English Teacher and Director of Instruction</span>]}
+        text="Expert in data-informed instructional strategies and prioritizing the needs of special populations in writing practice routines"
+      />
+      <PremiumFeature
+        header="Sherry Lewkowicz"
+        imageAlt="TODO"
+        imageSrc={sherrySrc}
+        subheader={[<span key="years">14 years in Education</span>, <span key="title">Former AP English Literature teacher</span>]}
+        text="Expert in writing instruction best practices and helping teachers incorporate those best practices into their teaching"
+      />
+    </div>
+  </section>
+)
+
 const SchoolPremium = () => {
   return(
     <div className='container premium-features school text-center' id="school-premium">
@@ -133,6 +196,8 @@ const SchoolPremium = () => {
       <div className='premium-features-body'>
         {actionableFeaturesAndSupport}
         {professionalDevelopmentSessions}
+        {oneOnOneCoaching}
+        {coachingTeam}
       </div>
     </div>
   );

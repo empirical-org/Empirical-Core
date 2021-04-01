@@ -1,11 +1,12 @@
 import React from 'react';
+
+import QuestionsAndAnswers from './QuestionsAndAnswers.tsx'
+
 import PremiumPricingMinisRow from '../components/premium/premium_pricing_minis_row.jsx';
-import TeacherTestimonial from '../components/premium/teacher_testimonial.jsx';
 import SubscriberLogos from '../components/premium/subscriber_logos.jsx';
 import DistrictPricingBox from '../components/premium/district_pricing_box.jsx';
 import SchoolPremium from '../components/premium/school_premium.jsx';
 import PremiumFeaturesTable from '../components/premium/premium_features_table.tsx'
-import QuestionsAndAnswers from './QuestionsAndAnswers.tsx'
 
 export default class PremiumPricingGuide extends React.Component {
   subscribers = () => {
@@ -45,11 +46,8 @@ export default class PremiumPricingGuide extends React.Component {
 
           <div className="features text-center">
             <SchoolPremium />
+            <SubscriberLogos subscribers={this.subscribers()} />
           </div>
-
-          <SubscriberLogos subscribers={this.subscribers()} />
-          <TeacherTestimonial />
-
           <QuestionsAndAnswers
             questionsAndAnswersFile="premium"
             supportLink="https://support.quill.org/quill-premium"
