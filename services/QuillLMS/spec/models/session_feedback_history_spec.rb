@@ -45,6 +45,21 @@ RSpec.describe SessionFeedbackHistory, type: :model do
       assert_equal responses.length, 1
       assert_equal responses[0].session_uid, @session1_uid
     end
+
+    it 'should identify a session as incomplete if not all prompts have optimal feedback or too many attempts' do
+      assert_equal SessionFeedbackHistory.list_by_activity_session[0].complete, false
+    end
+
+    it 'should identify a session as complete if all prompts have an optimal response in feedback history' do
+      assert_equal SessionFeedbackHistory.list_by_activity_session[1].complete, true
+    end
+
+    it 'should identify a session as complete if all prompts have optimal responses or too many attempts' do
+    create(:feedback_history, activity_session_uid: @session2_uid, prompt_id: @because_prompt2.id, attempt: 3, optimal: true)
+      5.times {|i| create(:feedback_history, activity_session_uid: @session2_uid, prompt_id: @but_prompt2.id, attempt: i + 1, optimal: false) }
+      5.times {|i| create(:feedback_history, activity_session_uid: @session2_uid, prompt_id: @so_prompt2.id, attempt: i + 1, optimal: false) }
+      assert_equal SessionFeedbackHistory.list_by_activity_session[0].complete, true
+    end
   end
 
   context '#serialize_list_by_activity_session' do
