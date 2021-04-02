@@ -282,13 +282,12 @@ export const handleApiError = (errorMessage: string, response: any) => {
   return error;
 }
 
-export const handleRequestError = async (errors: object, response: any) => {
+export const handleRequestErrors = async (errors: object) => {
   let errorsArray = [];
-  const { status } = response;
-  if(requestFailed(status) && errors) {
+  if(errors) {
     Object.keys(errors).forEach(key => {
-      errorsArray.push(errors[key]);
-    })
+      errorsArray.push(`${key}: ${errors[key]}`);
+    });
   }
   return errorsArray;
 }
