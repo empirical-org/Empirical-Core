@@ -23,14 +23,16 @@ const Row = ({ label, tooltipText, basic, teacher, school, }) => (
   </div>
 )
 
-const premiumFeaturesComponents = ({ independentPracticeActivityCount, lessonsActivityCount, diagnosticActivityCount, }) => premiumFeatures({ independentPracticeActivityCount, lessonsActivityCount, diagnosticActivityCount, }).map(section => (
-  <React.Fragment key={section.header}>
-    <div className="header-row">
-      <h4>{section.header}</h4>
-    </div>
-    {section.features.map(feature => <Row key={feature.label} {...feature} />)}
-  </React.Fragment>
-))
+const premiumFeaturesComponents = ({ independentPracticeActivityCount, lessonsActivityCount, diagnosticActivityCount, }) => premiumFeatures({ independentPracticeActivityCount, lessonsActivityCount, diagnosticActivityCount, }).map(section =>
+  (
+    <React.Fragment key={section.header}>
+      <div className="header-row">
+        <h4>{section.header}</h4>
+      </div>
+      {section.features.map(feature => <Row key={feature.label} {...feature} />)}
+    </React.Fragment>
+  )
+)
 
 const PremiumFeaturesTable = ({ independentPracticeActivityCount, lessonsActivityCount, diagnosticActivityCount, }) => (
   <section className="premium-features-table">
