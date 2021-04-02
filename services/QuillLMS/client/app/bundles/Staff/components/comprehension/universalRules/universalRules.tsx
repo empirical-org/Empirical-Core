@@ -2,11 +2,9 @@ import * as React from "react";
 import { Link } from 'react-router-dom';
 import { queryCache, useQuery } from 'react-query';
 
-import SubmissionModal from '../shared/submissionModal';
 import Navigation from '../navigation'
 import { createRule, fetchUniversalRules } from '../../../utils/comprehension/ruleAPIs';
 import RuleForm from '../configureRules/ruleForm';
-import { buildErrorMessage } from '../../../helpers/comprehension';
 import { blankUniversalRule, universalRuleTypeOptions, ruleOrder} from '../../../../../constants/comprehension';
 import { RuleInterface } from '../../../interfaces/comprehensionInterfaces';
 import { Error, Spinner, DropdownInput, DataTable, Modal } from '../../../../Shared/index';
@@ -21,8 +19,7 @@ const UniversalRulesIndex = ({ location, match }) => {
   const [ruleOrderUpdated, setRuleOrderUpdated] = React.useState<boolean>(false);
   const [rulesUpdated, setRulesUpdated] = React.useState<boolean>(false);
   const [showAddRuleModal, setShowAddRuleModal] = React.useState<boolean>(false);
-  const [showSubmissionModal, setShowSubmissionModal] = React.useState<boolean>(false);
-  const [errors, setErrors] = React.useState<object>({});
+  const [errors, setErrors] = React.useState<string[]>([]);
 
   // cache ruleSets data for handling universal rule suborder
   const { data: rules } = useQuery("universal-rules", fetchUniversalRules);
@@ -86,26 +83,20 @@ const UniversalRulesIndex = ({ location, match }) => {
 
   const submitRule = ({rule}: {rule: RuleInterface}) => {
     createRule(rule).then((response) => {
-      const { error, rule } = response;
-      if(error) {
-        let updatedErrors = errors;
-        updatedErrors['ruleSetError'] = error;
-        setErrors(updatedErrors);
+      const { errors, rule } = response;
+      if(errors.length) {
+        setErrors(errors);
+      } else {
+        toggleAddRuleModal();
+        queryCache.refetchQueries(`universal-rules`).then(() => {
+          handleUpdateRulesList(rule);
+        });
       }
-      toggleAddRuleModal();
-      queryCache.refetchQueries(`universal-rules`).then(() => {
-        handleUpdateRulesList(rule);
-        toggleSubmissionModal();
-      });
     });
   }
 
   const toggleAddRuleModal = () => {
     setShowAddRuleModal(!showAddRuleModal);
-  }
-
-  const toggleSubmissionModal = () => {
-    setShowSubmissionModal(!showSubmissionModal);
   }
 
   const renderRuleForm = () => {
@@ -115,20 +106,13 @@ const UniversalRulesIndex = ({ location, match }) => {
         <RuleForm
           closeModal={toggleAddRuleModal}
           isUniversal={true}
+          requestErrors={errors}
           rule={blankRule}
           submitRule={submitRule}
           universalRuleType={ruleType.value}
         />
       </Modal>
     );
-  }
-
-  const renderSubmissionModal = () => {
-    let message = 'Universal rule successfully created!';
-    if(Object.keys(errors).length) {
-      message = buildErrorMessage(errors);
-    }
-    return <SubmissionModal close={toggleSubmissionModal} message={message} />;
   }
 
   const rulesNotReadyForRender = rules && rules.universalRules && rules.universalRules.length && !Object.keys(rulesHash).length && rulesList && !rulesList.length;
@@ -167,7 +151,6 @@ const UniversalRulesIndex = ({ location, match }) => {
       <Navigation location={location} match={match} />
       <div className="universal-rules-index-container">
         {showAddRuleModal && renderRuleForm()}
-        {showSubmissionModal && renderSubmissionModal()}
         <h2>Universal Rules Index</h2>
         <section className="top-section">
           <DropdownInput
