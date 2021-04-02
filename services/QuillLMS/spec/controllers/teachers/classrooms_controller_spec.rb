@@ -22,6 +22,9 @@ describe Teachers::ClassroomsController, type: :controller do
   describe 'create students' do
     let(:teacher) { create(:teacher) }
     let(:classroom) { create(:classroom) }
+    let!(:classrooms_teacher) do
+      create(:classrooms_teacher, user_id: teacher.id, classroom: classroom)
+    end
 
     before do
       session[:user_id] = teacher.id
@@ -55,7 +58,7 @@ describe Teachers::ClassroomsController, type: :controller do
       it 'should not allow a teacher to modify a classroom' do 
         unauthorized_teacher = create(:teacher)
         unauthorized_student = { name: 'Fake Kid', password: 'Kid', username: "fake.kid@aol.com"}
-
+        allow(controller).to receive(:current_user) { unauthorized_teacher }
         post :create_students, classroom_id: classroom.id, students: [unauthorized_student], classroom: {}
 
         expect(response).to redirect_to(new_session_path)
@@ -84,30 +87,44 @@ describe Teachers::ClassroomsController, type: :controller do
   end
 
   describe '#transfer_ownership' do
-    let!(:classroom)         { create(:classroom) }
-    let!(:owner)             { classroom.owner }
-    let!(:valid_coteacher)   { create(:coteacher_classrooms_teacher, classroom: classroom).user }
+    let!(:current_owner) { create(:teacher, name: 'joe smith') }
+    let!(:subsequent_owner) { create(:teacher, name: 'betty jones') }
+    let!(:classroom) { Classroom.create(name: 'a_class') }
+    # Why not use a factory above? Because the classroom factory has a callback that creates
+    # associations which break these specs
+    let!(:classrooms_teacher) do
+      create(:classrooms_teacher, 
+              user_id: current_owner.id, 
+              classroom: classroom, 
+              role: ClassroomsTeacher::ROLE_TYPES[:owner])
+      create(:classrooms_teacher, 
+              user_id: subsequent_owner.id, 
+              classroom: classroom, 
+              role: ClassroomsTeacher::ROLE_TYPES[:coteacher])
+    end
+
     let!(:unaffiliated_user) { create(:teacher) }
 
     it 'does not allow transferring a classroom not owned by current user' do
       session[:user_id] = unaffiliated_user.id
-      post :transfer_ownership, id: classroom.id, requested_new_owner_id: valid_coteacher.id
+      post :transfer_ownership, id: classroom.id, requested_new_owner_id: subsequent_owner.id
       expect(response.status).to eq(303)
-      expect(classroom.owner).to eq(owner)
+      expect(classroom.owner).to eq(current_owner)
     end
 
     it 'does not allow transferring a classroom to a teacher who is not already a coteacher' do
-      session[:user_id] = owner.id
+      session[:user_id] = current_owner.id
       post :transfer_ownership, id: classroom.id, requested_new_owner_id: unaffiliated_user.id
-      expect(classroom.owner).to eq(owner)
+      expect(classroom.owner).to eq(current_owner)
     end
 
     it 'transfers ownership to a coteacher' do
-      session[:user_id] = owner.id
-      post :transfer_ownership, id: classroom.id, requested_new_owner_id: valid_coteacher.id
-      expect(classroom.owner).to eq(valid_coteacher)
+      session[:user_id] = current_owner.id
+      post :transfer_ownership, id: classroom.id, requested_new_owner_id: subsequent_owner.id
+      
+      expect(classroom.owner).to eq(subsequent_owner)
       expect(classroom.coteachers.length).to eq(1)
-      expect(classroom.coteachers.first).to eq(owner)
+      expect(classroom.coteachers.first).to eq(current_owner)
     end
 
     context 'segment IO tracking' do
@@ -119,12 +136,12 @@ describe Teachers::ClassroomsController, type: :controller do
 
       it 'should track the ownership transfer' do
         expect(analyzer).to receive(:track_with_attributes).with(
-          owner,
+          current_owner,
           SegmentIo::BackgroundEvents::TRANSFER_OWNERSHIP,
-          { properties: { new_owner_id: valid_coteacher.id.to_s } }
+          { properties: { new_owner_id: subsequent_owner.id.to_s } }
         )
-        session[:user_id] = owner.id
-        post :transfer_ownership, id: classroom.id, requested_new_owner_id: valid_coteacher.id
+        session[:user_id] = current_owner.id
+        post :transfer_ownership, id: classroom.id, requested_new_owner_id: subsequent_owner.id
       end
     end
   end
@@ -192,8 +209,11 @@ describe Teachers::ClassroomsController, type: :controller do
   end
 
   describe '#update' do
-    let!(:classroom) { create(:classroom) }
-    let(:teacher) { classroom.owner }
+    let(:teacher) { create(:teacher) }
+    let(:classroom) { create(:classroom) }
+    let!(:classrooms_teacher) do
+      create(:classrooms_teacher, user_id: teacher.id, classroom: classroom)
+    end
 
     before do
       allow(controller).to receive(:current_user) { teacher }
@@ -207,14 +227,18 @@ describe Teachers::ClassroomsController, type: :controller do
   end
 
   describe '#destroy' do
-    let!(:classroom) { create(:classroom) }
-    let(:teacher) { classroom.owner }
-
+    let(:teacher) { create(:teacher) }
+    let(:classroom) { create(:classroom) }
+    let!(:classrooms_teacher) do
+      create(:classrooms_teacher, user_id: teacher.id, classroom: classroom)
+    end
+    
     before do
       allow(controller).to receive(:current_user) { teacher }
     end
 
     it 'should destroy the given classroom' do
+
       delete :destroy, id: classroom.id
       expect{Classroom.find classroom.id}.to raise_exception ActiveRecord::RecordNotFound
       expect(response).to redirect_to teachers_classrooms_path
