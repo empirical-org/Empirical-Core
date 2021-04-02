@@ -108,7 +108,7 @@ const Rule = ({ history, match }) => {
   const handleSubmitRule = ({rule}: {rule: RuleInterface}) => {
     updateRule(ruleId, rule).then((response) => {
       const { errors } = response;
-      if(errors.length) {
+      if(errors && errors.length) {
         setErrors(errors);
       } else {
         // update rule cache to display newly updated rule
@@ -121,7 +121,7 @@ const Rule = ({ history, match }) => {
   const handleDeleteRule = () => {
     deleteRule(ruleId).then((response) => {
       const { errors } = response;
-      if(errors) {
+      if(errors && errors.length) {
         setErrors(errors);
       } else {
         // update ruleSets cache to remove delete ruleSet

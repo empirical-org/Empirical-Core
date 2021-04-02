@@ -35,7 +35,7 @@ module Comprehension
       begin
         Regexp.new(regex_text)
       rescue RegexpError => e
-        rule.errors.add(:invalid_regex, "#{e}")
+        rule.errors.add(:invalid_regex, e.to_s)
         false
       end
     end

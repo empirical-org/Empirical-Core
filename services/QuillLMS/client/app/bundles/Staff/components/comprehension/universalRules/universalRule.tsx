@@ -5,8 +5,6 @@ import stripHtml from "string-strip-html";
 
 import Navigation from '../navigation'
 import RuleForm from '../configureRules/ruleForm';
-import SubmissionModal from '../shared/submissionModal';
-import { buildErrorMessage } from '../../../helpers/comprehension';
 import { updateRule, deleteRule, fetchRule } from '../../../utils/comprehension/ruleAPIs';
 import { RuleInterface } from '../../../interfaces/comprehensionInterfaces';
 import { DataTable, Error, Modal, Spinner } from '../../../../Shared/index';
@@ -83,7 +81,7 @@ const UniversalRule = ({ history, location, match }) => {
   const handleSubmitRule = ({rule}: {rule: RuleInterface}) => {
     updateRule(ruleId, rule).then((response) => {
       const { errors } = response;
-      if(errors.length) {
+      if(errors && errors.length) {
         setErrors(errors);
       } else {
         // update rule caches to display newly updated rule
@@ -97,7 +95,7 @@ const UniversalRule = ({ history, location, match }) => {
   const handleDeleteRule = () => {
     deleteRule(ruleId).then((response) => {
       const { errors } = response;
-      if(errors.length) {
+      if(errors && errors.length) {
         setErrors(errors);
       } else {
         toggleShowDeleteRuleModal();

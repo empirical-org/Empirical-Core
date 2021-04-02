@@ -49,7 +49,7 @@ const Rules: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ history, mat
   const submitRule = ({rule}: {rule: RuleInterface}) => {
     createRule(rule).then((response) => {
       const { errors, rule } = response;
-      if(errors.length) {
+      if(errors && errors.length) {
         setErrors(errors);
       } else {
         setErrors([]);

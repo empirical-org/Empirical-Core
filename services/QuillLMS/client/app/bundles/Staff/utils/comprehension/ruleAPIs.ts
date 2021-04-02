@@ -63,7 +63,7 @@ export const createRule = async (rule: RuleInterface) => {
     const returnedErrors = await handleRequestErrors(newRuleOrErrors);
     return { errors: returnedErrors, rule: null };
   }
-  return { errors: null, rule: newRuleOrErrors };
+  return { errors: [], rule: newRuleOrErrors };
 }
 
 export const updateRule = async (ruleId: number, rule: RuleInterface) => {

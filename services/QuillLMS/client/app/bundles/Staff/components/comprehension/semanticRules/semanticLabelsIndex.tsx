@@ -38,7 +38,7 @@ const SemanticLabelsIndex = ({ history, match, location }) => {
   function handleCreateRule({rule}: {rule: RuleInterface}) {
     createRule(rule).then((response) => {
       const { errors, rule } = response;
-      if(errors.length) {
+      if(errors && errors.length) {
         setErrors(errors);
       } else {
         // update rules cache to display newly created rule
@@ -53,7 +53,7 @@ const SemanticLabelsIndex = ({ history, match, location }) => {
   function handleUpdateRule({rule}: {rule: RuleInterface}, ruleId) {
     updateRule(ruleId, rule).then((response) => {
       const { errors } = response;
-      if(errors.length) {
+      if(errors && errors.length) {
         setErrors(errors);
       } else {
         // update rules cache to display newly updated rule

@@ -101,7 +101,7 @@ export function handleDeleteRegexRule({ e, regexRules, rulesToDelete, setRulesTo
   setRegexRules(updatedRules);
 }
 
-const getSequenceType = (sequenceType) => {
+export const getSequenceType = (sequenceType) => {
   if(sequenceType) {
     return regexRuleSequenceOptions.filter(option => option.value === sequenceType)[0];
   }
