@@ -1,27 +1,26 @@
 source 'https://rubygems.org'
 
-ruby '2.6.6'
+ruby File.read('.ruby-version').strip
 
 # CORE DEPS
-gem 'rails', '=4.2.11.3'
+gem 'rails', '= 5.0.7'
 gem 'puma', '~> 3.12'
 
 # EARLY TO APPLY TO OTHER GEMS
-gem 'dotenv-rails'
+gem 'dotenv-rails', '2.6.0'
 
 # DB/MODEL
 gem 'pg', '0.18.4'
 gem 'ancestry'
 gem 'ransack'
 gem 'ranked-model'
-gem 'postgres_ext'
-gem "rails_admin", "~> 1.4.2"
+gem 'rails_admin'
 gem 'bulk_insert'
 gem 'atomic_arrays'
 
 # USER AUTH, ETC
 gem 'bcrypt'
-gem "doorkeeper", ">= 4.2.0"
+gem 'doorkeeper', '>= 4.2.0'
 gem 'omniauth'
 gem 'omniauth-google-oauth2', '0.6.0'
 gem 'omniauth-clever'
@@ -31,9 +30,7 @@ gem 'rack-attack'
 
 # EMAIL
 gem 'premailer-rails'
-# if you have trouble installing nokogiri on a mac,
-# try uninstalling nokogiri, running `xcode-select --install`, and then `bundle install` once more
-gem "nokogiri", ">= 1.10.4"
+gem 'nokogiri'
 
 # VALIDATIONS
 gem 'validates_email_format_of'
@@ -42,7 +39,7 @@ gem 'validates_email_format_of'
 gem 'responders'
 
 # UPLOADS
-gem "aws-sdk-s3", "~> 1.48"
+gem 'aws-sdk-s3', '~> 1.48'
 gem 'carrierwave', '~> 1.0'
 gem 'fog-aws'
 
@@ -56,7 +53,7 @@ gem 'global'
 gem 'google-api-client', '0.8.6'
 gem 'faraday_middleware'
 gem 'newrelic_rpm'
-gem 'pointpin', '~> 1.0.0' #IP-GEOLOCATION
+gem 'pointpin'
 gem 'stripe'
 gem 'prawn'
 gem 'prawn-table'
@@ -66,11 +63,22 @@ gem 'ttfunk'
 gem 'scout_apm'
 gem 'rubyzip'
 gem 'httparty'
-gem 'intercom', '~> 3.5.23'
+gem 'intercom'
 gem 'haversine'
 gem 'configs'
+gem 'awesome_print'
+gem 'rb-readline'
 
-# Engines
+# Memory profiling
+gem 'puma_worker_killer'
+
+# SECURITY
+gem 'sqreen'
+
+# temp for migrations
+gem 'paperclip'
+
+# ENGINES
 gem 'comprehension', path: 'engines/comprehension'
 
 # WEBSOCKETS
@@ -82,9 +90,8 @@ gem 'redcarpet'
 gem 'addressable'
 
 # QUEUE/CACHE
-source "https://gems.contribsys.com/" do
-  gem 'sidekiq-pro'
-end
+source("https://gems.contribsys.com/") { gem 'sidekiq-pro' }
+
 gem 'sidekiq-retries', require: false
 gem 'redis', '3.3.5'
 gem 'redis-namespace'
@@ -100,10 +107,10 @@ gem 'jbuilder'
 gem 'active_link_to'
 
 # METRICS
-gem 'analytics-ruby', '~> 2.0.0', :require => 'segment/analytics'
+gem 'analytics-ruby', '~> 2.0.0', require: 'segment/analytics'
 
 # API
-gem 'active_model_serializers', '~> 0.9.0'
+gem 'active_model_serializers'
 gem 'graphql'
 
 # UI HELPERS
@@ -112,12 +119,10 @@ gem 'sass-rails'
 gem 'bootstrap-sass', '~> 3.4.1'
 gem 'sassc-rails', '>= 2.1.0'
 
-gem 'coffee-rails'
 gem 'jquery-rails'
 gem 'jquery-ui-rails'
 
 gem 'slim-rails'
-gem 'haml-rails'
 
 gem 'es5-shim-rails'
 # Use the exact gem version to match npm version of react-on-rails
@@ -126,11 +131,11 @@ gem 'webpacker', '~> 3.0.0'
 
 # ASSET/UI
 gem 'therubyracer', require: false
-gem 'uglifier',     require: false
+gem 'uglifier', require: false
 gem 'kaminari'
 
 # MIDDLEWARE
-gem 'rack-cache', '~> 1.6.1', require: 'rack/cache'
+gem 'rack-cache', require: 'rack/cache'
 gem 'rack-cors', require: 'rack/cors'
 gem 'rack-host-redirect'
 gem 'rack-affiliates', '= 0.4.0'
@@ -145,8 +150,7 @@ gem 'clever-ruby', '~> 2.0.1'
 group :production, :staging do
   gem 'rails_autoscale_agent'
   gem 'rails_12factor'
-  gem 'lograge' # for making logs more dense
-  # gem 'rack-timeout'
+  gem 'lograge'
 end
 
 group :development do
@@ -161,10 +165,7 @@ group :development do
   gem 'annotate'
 end
 
-gem 'awesome_print'
-
 group :test, :development do
-  gem 'quiet_assets'
   gem 'parallel_tests'
   gem 'pry', '~> 0.12.2'
   gem 'pry-rails'
@@ -177,7 +178,7 @@ group :test, :development do
   gem 'fuubar', '~> 2.0.0.rc1'
   gem 'timecop'
   gem 'database_cleaner'
-  gem 'byebug', '8.2.1' # getting errors on mac yosemite when trying to install 8.2.2
+  gem 'byebug', '8.2.1'
   gem 'guard'
   gem 'guard-rspec'
   gem 'guard-shell'
@@ -185,6 +186,7 @@ group :test, :development do
   gem 'rspec-retry'
   gem 'rspec-redis_helper'
   gem 'brakeman', '= 4.1.1'
+  gem 'graphiql-rails'
 end
 
 group :test, :development, :cypress do
@@ -205,14 +207,3 @@ group :test do
   gem 'codecov'
   gem 'fakeredis', '~> 0.7.0'
 end
-
-# Memory profiling
-gem 'puma_worker_killer'
-gem 'sqreen'
-
-# temp for migrations
-gem 'paperclip'
-
-gem 'rb-readline'
-
-gem 'graphiql-rails', group: :development

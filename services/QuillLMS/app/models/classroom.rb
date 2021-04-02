@@ -96,7 +96,7 @@ class Classroom < ActiveRecord::Base
   def unique_standard_count_array
     filters = {}
     best_activity_sessions = ProgressReports::Standards::ActivitySession.new(owner).results(filters)
-    ActivitySession.from_cte('best_activity_sessions', best_activity_sessions)
+    ActivitySession.with(best_activity_sessions: best_activity_sessions)
       .select("COUNT(DISTINCT(activities.standard_id)) as standard_count")
       .joins('JOIN activities ON activities.id = best_activity_sessions.activity_id')
       .joins('JOIN classroom_units ON classroom_units.id = best_activity_sessions.classroom_unit_id')

@@ -20,7 +20,4 @@ gem 'byebug', group: [:development, :test]
 group :test do
   gem 'minitest-stub_any_instance'
   gem 'pry', '~> 0.13.1'
-  gem 'rails-controller-testing'
-  gem 'shoulda'
-  gem 'shoulda-matchers', '~> 2.0'
 end
