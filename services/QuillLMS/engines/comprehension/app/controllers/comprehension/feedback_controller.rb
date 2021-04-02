@@ -27,6 +27,11 @@ module Comprehension
       render json: automl_check.feedback_object
     end
 
+    def spelling 
+      spelling_check = Comprehension::SpellingCheck.new(@entry, @prompt)
+      render json: spelling_check.feedback_object
+    end 
+
     private def set_params
       @entry = params[:entry]
       begin
