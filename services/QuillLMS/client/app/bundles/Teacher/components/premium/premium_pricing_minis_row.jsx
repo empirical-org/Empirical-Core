@@ -17,7 +17,21 @@ export default class PremiumPricingMinisRow extends React.Component {
     subscriptionType: null,
     subscriptionStatus: null,
     userIsSignedIn: !!Number(document.getElementById('current-user-id').getAttribute('content')),
+    isScrolled: false
   };
+
+  componentDidMount() {
+    window.addEventListener('scroll', this.listenScrollEvent)
+  }
+
+  listenScrollEvent = e => {
+    const { isScrolled, } = this.state
+    if (window.scrollY > 337 && !isScrolled) {
+      this.setState({isScrolled: true})
+    } else if (window.scrollY < 337 && isScrolled) {
+      this.setState({isScrolled: false})
+    }
+  }
 
   hidePremiumConfirmationModal = () => {
     this.setState({ showPremiumConfirmationModal: false, });
@@ -78,6 +92,7 @@ export default class PremiumPricingMinisRow extends React.Component {
       userIsSignedIn,
       subscriptionStatus,
       subscriptionType,
+      isScrolled,
     } = this.state
 
     const premiumFeatureData = premiumFeatures({ diagnosticActivityCount, lessonsActivityCount, independentPracticeActivityCount,})
@@ -89,7 +104,7 @@ export default class PremiumPricingMinisRow extends React.Component {
           <h3>Our commitment</h3>
           <p>As a nonprofit dedicated to helping students, Quill will always provide 100% of our activities for free.</p>
         </div>
-        <div className="pricing-minis-container">
+        <div className={`pricing-minis-container ${isScrolled ? 'show-shadow': ''}`}>
           <div className="pricing-minis">
             <BasicPricingMini
               premiumFeatureData={premiumFeatureData}

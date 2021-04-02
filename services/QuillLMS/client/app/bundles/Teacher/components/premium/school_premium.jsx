@@ -26,7 +26,7 @@ const PremiumFeature = ({ imageSrc, imageAlt, header, text, popular, subheader, 
   <div className="premium-feature">
     <div className="image-wrapper">
       <img alt={imageAlt} src={imageSrc} />
-      {popular && <span className="popular-tag">Popular</span>}
+      {popular && <div className="popular-tag"><span className="popular-tag-background" /><span className="popular-tag-text">Popular</span></div>}
     </div>
     <h4>{header}</h4>
     {subheader}

@@ -152,7 +152,9 @@ li.premium-tab > a:hover {
       align-items: center;
       .quill-button {
         width: 100%;
-        margin-bottom: 16px;
+        &:not(.primary) {
+          margin-bottom: 16px;
+        }
       }
     }
     .promo-tab {
@@ -178,7 +180,7 @@ li.premium-tab > a:hover {
     }
     h2 {
       font-size: 20px;
-      height: 40px;
+      height: 52px;
       margin: 0 0 24px;
       font-weight: bold;
       display: flex;
@@ -376,17 +378,24 @@ li.premium-tab > a:hover {
           position: absolute;
           width: 56px;
           height: 18px;
-          padding: 1px 6px;
-          opacity: 0.65;
-          border-radius: 4px;
-          backdrop-filter: blur(10px);
-          background-color: #000000;
           bottom: 8px;
           left: 8px;
-          font-size: 12px;
-          font-weight: 600;
-          line-height: 1.33;
-          color: #ffffff;
+          .popular-tag-background {
+            opacity: 0.65;
+            backdrop-filter: blur(10px);
+            background-color: #000000;
+            border-radius: 4px;
+            height: 100%;
+          }
+          .popular-tag-text {
+            font-size: 12px;
+            font-weight: 600;
+            line-height: 1.33;
+            color: #ffffff;
+            position: absolute;
+            top: 2px;
+            left: 6px;
+          }
         }
       }
     }
@@ -475,7 +484,7 @@ li.premium-tab > a:hover {
 
     .our-commitment {
       margin-right: 17px;
-      top: 52px;
+      top: 45px;
       left: 0px;
       position: relative;
       z-index: 4;
@@ -497,15 +506,17 @@ li.premium-tab > a:hover {
         border-radius: 8px 0px;
         z-index: 4;
       }
-      &::after, &:after {
-        opacity: 0.07;
-        background-image: linear-gradient(to bottom, #000000, #00000000 99%);
-      }
       &::before, &:before {
         border-top: 1px solid #e0e0e0;
         border-left: 1px solid #e0e0e0;
         position: absolute;
         bottom: 0px;
+      }
+      &.show-shadow {
+        &::after, &:after {
+          opacity: 0.07;
+          background-image: linear-gradient(to bottom, #000000, #00000000 99%);
+        }
       }
     }
 
@@ -646,6 +657,9 @@ li.premium-tab > a:hover {
         .quill-tooltip-trigger {
           width: 16px;
           margin-left: 16px;
+        }
+        .quill-tooltip {
+          text-align: left;
         }
       }
 

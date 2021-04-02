@@ -4,7 +4,6 @@ import QuestionsAndAnswers from './QuestionsAndAnswers.tsx'
 
 import PremiumPricingMinisRow from '../components/premium/premium_pricing_minis_row.jsx';
 import SubscriberLogos from '../components/premium/subscriber_logos.jsx';
-import DistrictPricingBox from '../components/premium/district_pricing_box.jsx';
 import SchoolPremium from '../components/premium/school_premium.jsx';
 import PremiumFeaturesTable from '../components/premium/premium_features_table.tsx'
 
