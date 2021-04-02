@@ -2,9 +2,7 @@ class Api::V1::SessionFeedbackHistoriesController < Api::ApiController
   # GET /feedback_histories.json?page=1&activity_id=33
   def index
     options = {}
-    options[:activity_id] = params[:activity_id] if params[:activity_id]
-    options[:page] = params[:page].to_i if params[:page]
-    records = SessionFeedbackHistory.list_by_activity_session(options)
+    records = SessionFeedbackHistory.list_by_activity_session(**params.permit(:page, :activity_id).symbolize_keys)
 
     count = FeedbackHistory.select(:activity_session_uid).distinct.count
 

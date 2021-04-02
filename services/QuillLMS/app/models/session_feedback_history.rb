@@ -4,6 +4,7 @@ class SessionFeedbackHistory
   DEFAULT_PAGE_SIZE = 25
 
   def self.list_by_activity_session(activity_id: nil, page: 1, page_size: DEFAULT_PAGE_SIZE)
+    page = page.to_i
     query = FeedbackHistory.select('feedback_histories.activity_session_uid AS session_uid, min(feedback_histories.time) as start_date, comprehension_prompts.activity_id, max(because_feedback.attempt) AS because_attempts, max(but_feedback.attempt) AS but_attempts, max(so_feedback.attempt) AS so_attempts, (bool_or(because_feedback.optimal)::integer & bool_or(but_feedback.optimal)::integer & bool_or(so_feedback.optimal)::integer)::boolean AS complete')
       .joins("LEFT OUTER JOIN comprehension_prompts ON feedback_histories.prompt_id = comprehension_prompts.id")
       .joins("LEFT OUTER JOIN feedback_histories AS because_feedback ON feedback_histories.id = because_feedback.id AND comprehension_prompts.conjunction = 'because'")
