@@ -2,8 +2,8 @@ module Associators::StudentsToClassrooms
 
   def self.run(student, classroom)
     @@classroom = classroom
-    if legit_classroom && legit_teacher && (student&.role == 'student')
-      @@classroom.update(updated_at: Time.now)
+    if legit_classroom && legit_teacher && (student&.role == 'student') # && current_user is within classroom.teachers
+      @@classroom.update(updated_at: Time.now) # remove?
       sc = StudentsClassrooms.unscoped.find_or_initialize_by(student_id: student.id, classroom_id: classroom[:id])
       if sc.new_record?
         sc.visible = true

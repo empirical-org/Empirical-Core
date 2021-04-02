@@ -51,7 +51,17 @@ describe Teachers::ClassroomsController, type: :controller do
       expect(User.find_by_username_or_email("good.kid1@#{classroom.code}")).to be
     end
 
+    context 'current_user is not the classroom owner' do 
+      it 'should not allow a teacher to modify a classroom' do 
+        unauthorized_teacher = create(:teacher)
+        unauthorized_student = { name: 'Fake Kid', password: 'Kid', username: "fake.kid@aol.com"}
 
+        post :create_students, classroom_id: classroom.id, students: [unauthorized_student], classroom: {}
+
+        expect(response).to redirect_to(new_session_path)
+        expect(User.find_by(name: 'Fake Kid')).to be nil
+      end
+    end
   end
 
   describe 'creating a login pdf' do

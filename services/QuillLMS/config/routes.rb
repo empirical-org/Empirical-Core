@@ -274,11 +274,11 @@ EmpiricalGrammar::Application.routes.draw do
     resources :classrooms, only: [:index, :new, :create, :update, :destroy] do
       post :create_students
       post :remove_students
+      get :regenerate_code
       put :import_google_students, controller: 'classroom_manager', action: 'import_google_students'
       collection do
         get :archived, action: 'index', as: :archived
         get :classrooms_i_teach
-        get :regenerate_code
         get :archived_classroom_manager_data, controller: "classroom_manager", action: 'archived_classroom_manager_data'
         get :manage_archived_classrooms, controller: "classroom_manager", action: 'manage_archived_classrooms'
         get :lesson_planner, controller: "classroom_manager", action: 'lesson_planner', path: 'activity_planner'

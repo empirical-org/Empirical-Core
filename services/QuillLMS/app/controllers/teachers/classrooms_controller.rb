@@ -3,7 +3,7 @@ class Teachers::ClassroomsController < ApplicationController
   before_filter :teacher!
   # The excepted/only methods below are ones that should be accessible to coteachers.
   # TODO This authing could probably be refactored.
-  before_filter :authorize_owner!, except: [:scores, :units, :scorebook, :generate_login_pdf]
+  before_filter :authorize_owner!, except: [:scores, :units, :scorebook, :generate_login_pdf, :regenerate_code]
   before_filter :authorize_teacher!, only: [:scores, :units, :scorebook, :generate_login_pdf]
 
   INDEX = 'index'
@@ -226,9 +226,11 @@ class Teachers::ClassroomsController < ApplicationController
   end
 
   def authorize_owner!
-    return unless params[:id].present?
-    @classroom = Classroom.find(params[:id])
-    classroom_owner!(@classroom.id)
+    classroom_id = block_given? ? yield : params[:id]
+    return auth_failed unless classroom_id.present?
+    classroom = Classroom.find_by(classroom_id)
+    return auth_failed unless classroom
+    classroom_owner!(classroom.id)
   end
 
   def authorize_teacher!
