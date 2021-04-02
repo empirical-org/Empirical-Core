@@ -10,6 +10,9 @@ jest.mock('../../../helpers/comprehension/ruleHelpers', () => ({
   getInitialRuleType: jest.fn().mockImplementation(() => {
     return { value: 'rules-based-1', label: 'Sentence Structure Regex' }
    }),
+  renderErrorsContainer: jest.fn().mockImplementation(() => {
+    return <strong>error!</strong>
+  }),
   formatInitialFeedbacks: jest.fn().mockImplementation(() => {
     return [{
       id: 7,
@@ -64,7 +67,7 @@ const mockProps = {
 };
 
 describe('RuleForm component', () => {
-  const container = shallow(<RuleForm {...mockProps} />);
+  let container = shallow(<RuleForm {...mockProps} />);
 
   it('should render RuleForm', () => {
     expect(container).toMatchSnapshot();
@@ -79,5 +82,10 @@ describe('RuleForm component', () => {
     container.find('#activity-close-button').simulate('click');
     container.find('#activity-cancel-button').simulate('click');
     expect(mockProps.closeModal).toHaveBeenCalledTimes(2);
+  });
+  it('displays request errors if prop is present', () => {
+    mockProps.requestErrors = ['feedback.text: text is too short'];
+    container = shallow(<RuleForm {...mockProps} />);
+    expect(container.find('strong').length).toEqual(1);
   });
 });
