@@ -96,7 +96,11 @@ class FeedbackHistory < ActiveRecord::Base
   end
 
   def serialize_by_activity_session
-   serializable_hash(only: [:session_uid, :start_date, :activity_id, :because_attempts, :but_attempts, :so_attempts, :complete], include: [])
+   serializable_hash(only: [:session_uid, :start_date, :activity_id, :because_attempts, :but_attempts, :so_attempts, :complete], include: []).symbolize_keys
+  end
+
+  def serialize_by_activity_session_detail
+   serializable_hash(only: [:entry, :feedback_text, :feedback_type, :optimal, :used], include: []).symbolize_keys
   end
 
   def self.batch_create(param_array)
@@ -140,43 +144,11 @@ class FeedbackHistory < ActiveRecord::Base
     histories = FeedbackHistory.where(activity_session_uid: activity_session_uid).all
 
     output = history.serialize_by_activity_session
-    output[:prompts] = []
-
-    because_attempts, because_complete = serialize_conjunction_feedback_history(histories, 'because')
-    but_attempts, but_complete = serialize_conjunction_feedback_history(histories, 'but')
-    so_attempts, so_complete = serialize_conjunction_feedback_history(histories, 'so')
-
-    output[:prompts].push(because_attempts) if because_attempts[:prompt_id]
-    output[:prompts].push(but_attempts) if but_attempts[:prompt_id]
-    output[:prompts].push(so_attempts) if so_attempts[:prompt_id]
-
-    output
-  end
-
-  private_class_method def self.serialize_conjunction_feedback_history(feedback_histories, conjunction=nil)
-    feedback_histories = feedback_histories.filter { |h| h.prompt&.conjunction == conjunction } if conjunction
-
-    conjunction_prompt = {
-      prompt_id: feedback_histories.first&.prompt_id,
-      conjunction: feedback_histories.first&.prompt&.conjunction,
-      attempts: {}
-    }
-
-    feedback_histories.each do |feedback_history|
-      conjunction_prompt[:attempts][feedback_history.attempt] ||= []
-      conjunction_prompt[:attempts][feedback_history.attempt].push({
-        used: feedback_history.used,
-        entry: feedback_history.entry,
-        feedback_text: feedback_history.feedback_text,
-        feedback_type: feedback_history.feedback_type,
-        optimal: feedback_history.optimal
-      })
-    end
-
-    complete = conjunction_prompt[:attempts].values.any? do |attempt|
-      attempt.any? { |entry| entry[:optimal] && entry[:used] }
-    end
-
-    [conjunction_prompt, complete]
+    prompt_groups = histories.group_by { |h| h&.prompt&.conjunction }.map { |k,v| [k, {prompt_id: v.first.prompt_id, attempts: v}] }.to_h.symbolize_keys
+    attempt_groups = prompt_groups.map { |k,v| [k, v[:attempts].group_by(&:attempt).map { |k2,v2| [k2, v2.map(&:serialize_by_activity_session_detail)] }.to_h] }.to_h.symbolize_keys
+    prompt_groups.each { |k,_| prompt_groups[k][:attempts] = attempt_groups[k] }
+    
+    output[:prompts] = prompt_groups
+    output.symbolize_keys
   end
 end

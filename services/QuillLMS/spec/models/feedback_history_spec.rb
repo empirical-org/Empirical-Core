@@ -262,51 +262,48 @@ RSpec.describe FeedbackHistory, type: :model do
         assert_equal payload[:session_uid], @first_session_feedback1.activity_session_uid
         assert_equal payload[:activity_id], @activity1.id
         assert_equal payload[:complete], true
- 
-        assert_equal payload[:prompts][0][:prompt_id], @because_prompt1.id
-        assert_equal payload[:prompts][0][:conjunction], @because_prompt1.conjunction
+
+        assert_equal payload[:prompts][:because][:prompt_id], @because_prompt1.id
   
-        assert_equal payload[:prompts][0][:attempts][1][0][:used], @first_session_feedback1.used
-        assert_equal payload[:prompts][0][:attempts][1][0][:entry], @first_session_feedback1.entry
-        assert_equal payload[:prompts][0][:attempts][1][0][:feedback_text], @first_session_feedback1.feedback_text
-        assert_equal payload[:prompts][0][:attempts][1][0][:feedback_type], @first_session_feedback1.feedback_type
-        assert_equal payload[:prompts][0][:attempts][1][0][:optimal], @first_session_feedback1.optimal
+        assert_equal payload[:prompts][:because][:attempts][1][0][:used], @first_session_feedback1.used
+        assert_equal payload[:prompts][:because][:attempts][1][0][:entry], @first_session_feedback1.entry
+        assert_equal payload[:prompts][:because][:attempts][1][0][:feedback_text], @first_session_feedback1.feedback_text
+        assert_equal payload[:prompts][:because][:attempts][1][0][:feedback_type], @first_session_feedback1.feedback_type
+        assert_equal payload[:prompts][:because][:attempts][1][0][:optimal], @first_session_feedback1.optimal
   
-        assert_equal payload[:prompts][0][:attempts][2][0][:used], @first_session_feedback2.used
-        assert_equal payload[:prompts][0][:attempts][2][0][:entry], @first_session_feedback2.entry
-        assert_equal payload[:prompts][0][:attempts][2][0][:feedback_text], @first_session_feedback2.feedback_text
-        assert_equal payload[:prompts][0][:attempts][2][0][:feedback_type], @first_session_feedback2.feedback_type
-        assert_equal payload[:prompts][0][:attempts][2][0][:optimal], @first_session_feedback2.optimal
+        assert_equal payload[:prompts][:because][:attempts][2][0][:used], @first_session_feedback2.used
+        assert_equal payload[:prompts][:because][:attempts][2][0][:entry], @first_session_feedback2.entry
+        assert_equal payload[:prompts][:because][:attempts][2][0][:feedback_text], @first_session_feedback2.feedback_text
+        assert_equal payload[:prompts][:because][:attempts][2][0][:feedback_type], @first_session_feedback2.feedback_type
+        assert_equal payload[:prompts][:because][:attempts][2][0][:optimal], @first_session_feedback2.optimal
   
-        assert_equal payload[:prompts][1][:prompt_id], @but_prompt1.id
-        assert_equal payload[:prompts][1][:conjunction], @but_prompt1.conjunction
+        assert_equal payload[:prompts][:but][:prompt_id], @but_prompt1.id
   
-        assert_equal payload[:prompts][1][:attempts][1][0][:used], @first_session_feedback3.used
-        assert_equal payload[:prompts][1][:attempts][1][0][:entry], @first_session_feedback3.entry
-        assert_equal payload[:prompts][1][:attempts][1][0][:feedback_text], @first_session_feedback3.feedback_text
-        assert_equal payload[:prompts][1][:attempts][1][0][:feedback_type], @first_session_feedback3.feedback_type
-        assert_equal payload[:prompts][1][:attempts][1][0][:optimal], @first_session_feedback3.optimal
+        assert_equal payload[:prompts][:but][:attempts][1][0][:used], @first_session_feedback3.used
+        assert_equal payload[:prompts][:but][:attempts][1][0][:entry], @first_session_feedback3.entry
+        assert_equal payload[:prompts][:but][:attempts][1][0][:feedback_text], @first_session_feedback3.feedback_text
+        assert_equal payload[:prompts][:but][:attempts][1][0][:feedback_type], @first_session_feedback3.feedback_type
+        assert_equal payload[:prompts][:but][:attempts][1][0][:optimal], @first_session_feedback3.optimal
   
-        assert_equal payload[:prompts][2][:prompt_id], @so_prompt1.id
-        assert_equal payload[:prompts][2][:conjunction], @so_prompt1.conjunction
+        assert_equal payload[:prompts][:so][:prompt_id], @so_prompt1.id
   
-        assert_equal payload[:prompts][2][:attempts][1][0][:used], @first_session_feedback4.used
-        assert_equal payload[:prompts][2][:attempts][1][0][:entry], @first_session_feedback4.entry
-        assert_equal payload[:prompts][2][:attempts][1][0][:feedback_text], @first_session_feedback4.feedback_text
-        assert_equal payload[:prompts][2][:attempts][1][0][:feedback_type], @first_session_feedback4.feedback_type
-        assert_equal payload[:prompts][2][:attempts][1][0][:optimal], @first_session_feedback4.optimal
+        assert_equal payload[:prompts][:so][:attempts][1][0][:used], @first_session_feedback4.used
+        assert_equal payload[:prompts][:so][:attempts][1][0][:entry], @first_session_feedback4.entry
+        assert_equal payload[:prompts][:so][:attempts][1][0][:feedback_text], @first_session_feedback4.feedback_text
+        assert_equal payload[:prompts][:so][:attempts][1][0][:feedback_type], @first_session_feedback4.feedback_type
+        assert_equal payload[:prompts][:so][:attempts][1][0][:optimal], @first_session_feedback4.optimal
   
-        assert_equal payload[:prompts][2][:attempts][2][0][:used], @first_session_feedback5.used
-        assert_equal payload[:prompts][2][:attempts][2][0][:entry], @first_session_feedback5.entry
-        assert_equal payload[:prompts][2][:attempts][2][0][:feedback_text], @first_session_feedback5.feedback_text
-        assert_equal payload[:prompts][2][:attempts][2][0][:feedback_type], @first_session_feedback5.feedback_type
-        assert_equal payload[:prompts][2][:attempts][2][0][:optimal], @first_session_feedback5.optimal
+        assert_equal payload[:prompts][:so][:attempts][2][0][:used], @first_session_feedback5.used
+        assert_equal payload[:prompts][:so][:attempts][2][0][:entry], @first_session_feedback5.entry
+        assert_equal payload[:prompts][:so][:attempts][2][0][:feedback_text], @first_session_feedback5.feedback_text
+        assert_equal payload[:prompts][:so][:attempts][2][0][:feedback_type], @first_session_feedback5.feedback_type
+        assert_equal payload[:prompts][:so][:attempts][2][0][:optimal], @first_session_feedback5.optimal
   
-        assert_equal payload[:prompts][2][:attempts][3][0][:used], @first_session_feedback6.used
-        assert_equal payload[:prompts][2][:attempts][3][0][:entry], @first_session_feedback6.entry
-        assert_equal payload[:prompts][2][:attempts][3][0][:feedback_text], @first_session_feedback6.feedback_text
-        assert_equal payload[:prompts][2][:attempts][3][0][:feedback_type], @first_session_feedback6.feedback_type
-        assert_equal payload[:prompts][2][:attempts][3][0][:optimal], @first_session_feedback6.optimal
+        assert_equal payload[:prompts][:so][:attempts][3][0][:used], @first_session_feedback6.used
+        assert_equal payload[:prompts][:so][:attempts][3][0][:entry], @first_session_feedback6.entry
+        assert_equal payload[:prompts][:so][:attempts][3][0][:feedback_text], @first_session_feedback6.feedback_text
+        assert_equal payload[:prompts][:so][:attempts][3][0][:feedback_type], @first_session_feedback6.feedback_type
+        assert_equal payload[:prompts][:so][:attempts][3][0][:optimal], @first_session_feedback6.optimal
       end
     end
   end
