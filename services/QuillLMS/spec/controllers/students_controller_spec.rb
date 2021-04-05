@@ -2,7 +2,7 @@ require 'rails_helper'
 
 
 describe StudentsController do
-  it { should use_before_filter :authorize! }
+  it { should use_before_action :authorize! }
 
   let(:user) { create(:user) }
 
