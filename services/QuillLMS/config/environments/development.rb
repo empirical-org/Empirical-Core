@@ -45,9 +45,6 @@ EmpiricalGrammar::Application.configure do
   # number of complex assets.
   config.assets.debug = true
 
-
-
-
   config.sass.line_comments = true
   config.sass.line_numbers = true
   config.sass.debug_info = true
@@ -56,7 +53,6 @@ EmpiricalGrammar::Application.configure do
 
   # Image Uploads (see paperclip gem)
   Paperclip.options[:command_path] = "/usr/local/bin/"
-
 
   config.after_initialize do
     Bullet.enable = true
