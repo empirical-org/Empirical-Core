@@ -6,14 +6,14 @@ import ClassOverview from '../components/dashboard/class_overview';
 import MyClasses from '../components/dashboard/my_classes';
 import TeacherCenter from '../components/dashboard/teacher_center.tsx';
 import DashboardFooter from '../components/dashboard/dashboard_footer';
-import ExploreActivitiesModal from '../components/dashboard/explore_activities_modal'
+import WelcomeModal from '../components/dashboard/welcome_modal'
 
 export default class Dashboard extends React.Component {
   constructor(props) {
     super(props)
 
     this.state = {
-      showExploreActivitiesModal: props.mustSeeModal,
+      showWelcomeModal: props.mustSeeModal,
       classrooms: null,
       hasPremium: null,
       notifications: [],
@@ -62,8 +62,8 @@ export default class Dashboard extends React.Component {
     })
   };
 
-  closeExploreActivitiesModal = () => {
-    this.setState({ showExploreActivitiesModal: false, })
+  closeWelcomeModal = () => {
+    this.setState({ showWelcomeModal: false, })
   }
 
   hasClasses() {
@@ -72,10 +72,10 @@ export default class Dashboard extends React.Component {
     }
   }
 
-  renderExploreActivitiesModal() {
-    if (this.state.showExploreActivitiesModal) {
-      return (<ExploreActivitiesModal
-        cancel={this.closeExploreActivitiesModal}
+  renderWelcomeModal() {
+    if (this.state.showWelcomeModal) {
+      return (<WelcomeModal
+        close={this.closeWelcomeModal}
       />)
     }
   }
@@ -86,7 +86,7 @@ export default class Dashboard extends React.Component {
     return (
       <div id="dashboard">
         <Snackbar text={snackbarCopy} visible={showSnackbar} />
-        {this.renderExploreActivitiesModal()}
+        {this.renderWelcomeModal()}
         <ClassOverview
           data={this.state.performanceQuery}
           flag={JSON.parse(user).flag}
