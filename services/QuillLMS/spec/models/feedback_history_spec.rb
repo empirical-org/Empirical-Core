@@ -256,13 +256,13 @@ RSpec.describe FeedbackHistory, type: :model do
   
     context '#serialize_detail_by_activity_session' do
       it 'should build the expeted payload' do
-        payload = FeedbackHistory.serialize_detail_by_activity_session(@session1_uid)
-  
-        assert_equal payload[:start_date], @first_session_feedback1.time.iso8601
+        payload = FeedbackHistory.serialize_detail_by_activity_session(@session1_uid).symbolize_keys
+
+        assert_equal payload[:start_date].to_json, @first_session_feedback1.time.to_json
         assert_equal payload[:session_uid], @first_session_feedback1.activity_session_uid
         assert_equal payload[:activity_id], @activity1.id
-        assert_equal payload[:session_completed], true
-  
+        assert_equal payload[:complete], true
+ 
         assert_equal payload[:prompts][0][:prompt_id], @because_prompt1.id
         assert_equal payload[:prompts][0][:conjunction], @because_prompt1.conjunction
   

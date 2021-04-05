@@ -96,7 +96,7 @@ class FeedbackHistory < ActiveRecord::Base
   end
 
   def serialize_by_activity_session
-   serializable_hash(only: [:session_uid, :start_date, :activity_id, :because_attempts, :but_attempts, :so_attempts, :complete])
+   serializable_hash(only: [:session_uid, :start_date, :activity_id, :because_attempts, :but_attempts, :so_attempts, :complete], include: [])
   end
 
   def self.batch_create(param_array)
@@ -134,38 +134,17 @@ class FeedbackHistory < ActiveRecord::Base
     query
   end
 
-  def self.serialize_list_by_activity_session(results)
-    results.map do |r|
-      {
-        session_uid: r.session_uid,
-        start_date: r.start_date.iso8601,
-        activity_id: r.activity_id,
-        because_attempts: r.because_attempts || 0,
-        but_attempts: r.but_attempts || 0,
-        so_attempts: r.so_attempts || 0,
-        complete: r.complete || false
-      }
-    end
-  end
-
   def self.serialize_detail_by_activity_session(activity_session_uid)
+    history = FeedbackHistory.list_by_activity_session.where(activity_session_uid: activity_session_uid).first
+    return nil unless history
     histories = FeedbackHistory.where(activity_session_uid: activity_session_uid).all
 
-    return nil if histories.empty?
+    output = history.serialize_by_activity_session
+    output[:prompts] = []
 
-    start_date = histories.first&.time
-    activity_id = histories.first&.prompt&.activity_id
     because_attempts, because_complete = serialize_conjunction_feedback_history(histories, 'because')
     but_attempts, but_complete = serialize_conjunction_feedback_history(histories, 'but')
     so_attempts, so_complete = serialize_conjunction_feedback_history(histories, 'so')
-
-    output = {
-      start_date: start_date&.iso8601,
-      session_uid: activity_session_uid,
-      activity_id: activity_id,
-      session_completed: because_complete && but_complete && so_complete,
-      prompts: []
-    }
 
     output[:prompts].push(because_attempts) if because_attempts[:prompt_id]
     output[:prompts].push(but_attempts) if but_attempts[:prompt_id]
