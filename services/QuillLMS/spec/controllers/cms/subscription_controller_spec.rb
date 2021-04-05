@@ -12,7 +12,13 @@ describe Cms::SubscriptionsController do
     let(:subscription) { build(:subscription) }
 
     it 'should create the subscription' do
-      post :create, school_or_user_id: school.id, school_or_user: "school", subscription: subscription.attributes
+      post :create,
+       params: { 
+         school_or_user_id: school.id, 
+         school_or_user: "school", 
+         subscription: subscription.attributes 
+       }
+
       expect(school.reload.subscriptions.last.expiration).to eq subscription.expiration
       expect(school.reload.subscriptions.last.recurring).to eq subscription.recurring
       expect(school.reload.subscriptions.last.payment_method).to eq subscription.payment_method
@@ -22,8 +28,16 @@ describe Cms::SubscriptionsController do
     it 'should change current subscription to non-recurring' do
       subscription = create(:subscription, recurring: true)
       create(:school_subscription, school: school, subscription: subscription)
-      new_subscription = Subscription.new(start_date: Subscription.redemption_start_date(school), expiration: Subscription.redemption_start_date(school) + 1.year)
-      post :create, school_or_user_id: school.id, school_or_user: "school", subscription: new_subscription.attributes
+      start_date = Subscription.redemption_start_date(school)
+      new_subscription = Subscription.new(start_date: start_date, expiration: start_date + 1.year)
+
+      post :create,
+        params: { 
+          school_or_user_id: school.id, 
+          school_or_user: "school", 
+          subscription: new_subscription.attributes 
+        }
+
       expect(subscription.reload.recurring).to eq(false)
     end
   end
@@ -32,7 +46,7 @@ describe Cms::SubscriptionsController do
     let!(:subscription) { create(:subscription) }
 
     it 'should update the given subscription' do
-      post :update, id: subscription.id, subscription: { payment_amount: 100 }
+      post :update, params: { id: subscription.id, subscription: { payment_amount: 100 } }
       expect(subscription.reload.payment_amount).to eq 100
     end
   end

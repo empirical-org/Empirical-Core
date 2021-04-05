@@ -6,7 +6,7 @@ describe Dashboard, redis: true do
   let(:classroom_with_no_activities) {create(:classroom)}
   let(:teacher_with_no_activities) {classroom_with_no_activities.owner}
 
-  before(:each) do
+  before do
     stub_const("Dashboard::SUFFICIENT_DATA_AMOUNT", 3)
     stub_const("Dashboard::RESULT_LIMITS", 2)
     $redis.redis.flushdb

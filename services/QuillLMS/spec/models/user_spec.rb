@@ -754,7 +754,8 @@ describe User, type: :model do
     let!(:auth_credential) { create(:auth_credential, user: user) }
     let!(:activity_sessions) { user.activity_sessions }
     let!(:classroom_units) { ClassroomUnit.where("? = ANY (assigned_student_ids)", user.id) }
-    before(:each) { user.clear_data }
+
+    before { user.clear_data }
 
     it "changes the user's email to one that is not personally identiable" do
       expect(user.email).to eq("deleted_user_#{user.id}@example.com")
@@ -1154,7 +1155,7 @@ describe User, type: :model do
       let(:name) { 'SingleName' }
       let(:user) { User.new(name: name) }
 
-      before(:each) { user.name = name }
+      before { user.name = name }
 
       it 'returns "name, name"' do
         expect(sort_name).to eq "#{name}, #{name}"

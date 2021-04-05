@@ -43,9 +43,7 @@ shared_examples "an api request" do
       end
 
       context "meta node" do
-        before(:each) do
-          @meta = @parsed_body['meta']
-        end
+        before { @meta = @parsed_body['meta'] }
 
         it "has a status attribute" do
           expect(@meta.keys).to include('status')

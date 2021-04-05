@@ -117,9 +117,7 @@ describe Teachers::ClassroomUnitsController, type: :controller do
 
   context "without user" do
 
-    before(:each) do
-      allow(controller).to receive(:current_user) { nil }
-    end
+    before { allow(controller).to receive(:current_user) { nil } }
 
     describe '#launch_lesson' do
 

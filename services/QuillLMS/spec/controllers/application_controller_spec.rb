@@ -5,9 +5,7 @@ describe ApplicationController, type: :controller do
 
   describe "#user_inactive_for_too_long?" do
 
-    before(:each) do
-      ApplicationController.send(:public, *ApplicationController.protected_instance_methods)
-    end
+    before { ApplicationController.send(:public, *ApplicationController.protected_instance_methods) }
 
     context "when KEEP_ME_SIGNED_IN is true" do
 

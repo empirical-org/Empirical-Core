@@ -16,7 +16,7 @@ describe AccountsController, type: :controller do
     end
 
     it 'should kick off the background job, set the session values and variables' do
-      get :new, redirect: "www.test.com"
+      get :new, params: { redirect: "www.test.com" }
       expect(session[:role]).to eq 'something'
       expect(session[:post_sign_up_redirect]).to eq "www.test.com"
       expect(assigns(:teacher_from_google_signup)).to eq false
@@ -27,17 +27,17 @@ describe AccountsController, type: :controller do
   describe '#role' do
     context 'when role is student or teacher' do
       it 'should set the js_file and role in session' do
-        post :role, role: "student"
+        post :role, params: { role: "student" }
         expect(session[:role]).to eq "student"
 
-        post :role, role: "teacher"
+        post :role, params: { role: "teacher" }
         expect(session[:role]).to eq "teacher"
       end
     end
 
     context 'when role is not student or teacher' do
       it 'should set the js file but not the role in session' do
-        post :role, role: "not student or teacher"
+        post :role, params: { role: "not student or teacher" }
         expect(session[:role]).to eq nil
       end
     end
@@ -60,12 +60,29 @@ describe AccountsController, type: :controller do
 
         it 'should kick off the account creation callback' do
           expect(callbacks).to receive(:call)
-          post :create, user: { classcode: "code", email: "test@test.com", password: "test123", role: "student" }
+          post :create, 
+            params: { 
+              user:  { 
+                classcode: "code",
+                email: "test@test.com", 
+                password: "test123", 
+                role: "student" 
+              } 
+            }
         end
 
         it 'should subscribe the user to the newsletter' do
           expect_any_instance_of(User).to receive(:subscribe_to_newsletter)
-          post :create, user: { classcode: "code", email: "test@test.com", password: "test123", role: "teacher", send_newsletter: true }
+          post :create, 
+            params: {
+              user: { 
+                classcode: "code",
+                email: "test@test.com",
+                password: "test123",
+                role: "teacher",
+                send_newsletter: true 
+              }
+            }
         end
 
         context 'when user is a teacher and affliate tag present' do
@@ -78,7 +95,15 @@ describe AccountsController, type: :controller do
             end
 
             it 'should create the referralsuser' do
-              post :create, user: { email: "test@test.com", password: "test123", role: "teacher" }
+              post :create,
+                params: { 
+                  user: { 
+                    email: "test@test.com",
+                    password: "test123",
+                    role: "teacher" 
+                  }
+                }
+                
               new_user = User.find_by_email("test@test.com")
               expect(ReferralsUser.find_by_user_id(user.id).present?).to eq true
               expect(ReferralsUser.find_by_referred_user_id(new_user.id).present?).to eq true
@@ -87,27 +112,39 @@ describe AccountsController, type: :controller do
         end
 
         context 'when post sign up redirect present' do
-          before do
-            session[:post_sign_up_redirect] = "www.test.com"
-          end
+          before { session[:post_sign_up_redirect] = "www.test.com" }
 
           it 'should render the json' do
-            post :create, user: { classcode: "code", email: "test@test.com", password: "test123", role: "student" }
-            expect(response.body).to eq({
-              redirect: "www.test.com"
-            }.to_json)
+            post :create, 
+              params: { 
+                user: {
+                  classcode: "code",
+                  email: "test@test.com",
+                  password: "test123",
+                  role: "student" 
+                }
+              }
+
+            expect(response.body).to eq({redirect: "www.test.com"}.to_json)
             expect(session[:post_sign_up_redirect]).to eq nil
           end
         end
 
         context 'when post sign up redirect not present' do
           context 'when user has outstanding coteacher invitation' do
-            before do
-              allow_any_instance_of(User).to receive(:has_outstanding_coteacher_invitation?) { true }
-            end
+            before { allow_any_instance_of(User).to receive(:has_outstanding_coteacher_invitation?) { true } }
 
             it 'should render the teachers classroom path json' do
-              post :create, user: { classcode: "code", email: "test@test.com", password: "test123", role: "student" }
+              post :create, 
+                params: {
+                  user: {
+                    classcode: "code",
+                    email: "test@test.com",
+                    password: "test123",
+                    role: "student" 
+                  }
+                }
+
               expect(response.body).to eq({redirect: teachers_classrooms_path}.to_json)
             end
           end
@@ -117,7 +154,15 @@ describe AccountsController, type: :controller do
 
       context 'when user is not saved' do
         it 'should render the errors json' do
-          post :create, user: { classcode: "code", email: "test", role: "user" }
+          post :create, 
+            params: {
+              user: { 
+                classcode: "code", 
+                email: "test", 
+                role: "user" 
+              }
+            }
+
           expect(response.status).to eq 422
           expect(response.body).to eq({errors: {email: ["Enter a valid email"]}}.to_json)
         end
@@ -128,14 +173,14 @@ describe AccountsController, type: :controller do
   describe '#update' do
     context 'user got updated' do
       it 'should redirect to updated_account_path' do
-        post :update, user: { email: "new@email.com" }
+        post :update, params: { user: { email: "new@email.com" } }
         expect(response).to redirect_to root_path
       end
     end
 
     context 'user did not get updated' do
       it 'should render accounts edit' do
-        post :update, user: { email: "new" }
+        post :update, params: { user: { email: "new" } }
         expect(response).to render_template "accounts/edit"
       end
     end

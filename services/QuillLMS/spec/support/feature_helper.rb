@@ -1,7 +1,7 @@
 shared_context :when_signed_in_as_a_student do
   let(:vinnie) { create :student }
 
-  before(:each) { sign_in_user vinnie }
+  before { sign_in_user vinnie }
 end
 
 shared_examples_for :requires_sign_in do

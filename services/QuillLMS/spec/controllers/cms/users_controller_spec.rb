@@ -31,7 +31,7 @@ describe Cms::UsersController do
   describe '#search' do
 
     it 'should search for the users' do
-      get :search, user_flag: "auditor"
+      get :search, params: { user_flag: "auditor" }
       expect(response.body).to eq({numberOfPages: 0, userSearchQueryResults: [], userSearchQuery: {user_flag: "auditor"}}.to_json)
       expect(ChangeLog.last.action).to eq(ChangeLog::USER_ACTIONS[:search])
       expect(ChangeLog.last.explanation).to include('auditor')
@@ -43,7 +43,7 @@ describe Cms::UsersController do
       classroom.teachers = [teacher]
       student = create(:student, classrooms: [classroom])
       class_code = classroom.code
-      get :search, class_code: class_code
+      get :search, params: { class_code: class_code }
       expect(JSON.parse(response.body)).to eq({"numberOfPages"=> 1, "userSearchQueryResults"=>
         [{
           "name"=> teacher.name,
@@ -75,7 +75,7 @@ describe Cms::UsersController do
     let!(:school) { create(:school) }
 
     it 'should create the school users and kick of the syn sales contact worker' do
-      post :create_with_school, user: new_user.attributes.merge({password: "test123"}), school_id: school.id
+      post :create_with_school, params: { user: new_user.attributes.merge(password: "test123"), school_id: school.id }
       expect(SchoolsUsers.last.school_id).to eq school.id
       expect(response).to redirect_to cms_school_path(school.id)
     end
@@ -95,7 +95,7 @@ describe Cms::UsersController do
     let(:another_user) { create(:user) }
 
     it 'should log when an admin visit the user admin page' do
-      get :show, id: another_user.id
+      get :show, params: { id: another_user.id }
       expect(ChangeLog.last.action).to eq(ChangeLog::USER_ACTIONS[:show])
       expect(ChangeLog.last.changed_record_id).to eq(another_user.id)
     end
@@ -105,7 +105,7 @@ describe Cms::UsersController do
     let(:new_user) { build(:user) }
 
     it 'should create the user with the given params' do
-      post :create, user: new_user.attributes.merge({password: "test123"})
+      post :create, params: { user: new_user.attributes.merge(password: "test123") }
       expect(response).to redirect_to cms_users_path
       expect(User.last.email).to eq new_user.email
       expect(User.last.role).to eq new_user.role
@@ -116,7 +116,7 @@ describe Cms::UsersController do
     let(:another_user) { create(:user) }
 
     it 'should set the user id in session' do
-      put :sign_in, id: another_user.id
+      put :sign_in, params: { id: another_user.id }
       expect(session[:staff_id]).to eq user.id
       expect(ChangeLog.last.action).to eq(ChangeLog::USER_ACTIONS[:sign_in])
       expect(ChangeLog.last.changed_record_id).to eq(another_user.id)
@@ -132,7 +132,7 @@ describe Cms::UsersController do
     end
 
     it 'should create a new schoolsadmin for the user given' do
-      put :make_admin, school_id: school.id, user_id: non_admin.id
+      put :make_admin, params: { school_id: school.id, user_id: non_admin.id }
       expect(SchoolsAdmins.last.school_id).to eq school.id
       expect(SchoolsAdmins.last.user_id).to eq non_admin.id
       expect(response).to redirect_to 'http://example.com'
@@ -149,7 +149,7 @@ describe Cms::UsersController do
     end
 
     it 'should destroy the schoolsadmins' do
-      put :remove_admin, user_id: admin.id, school_id: school.id
+      put :remove_admin, params: { user_id: admin.id, school_id: school.id }
       expect{SchoolsAdmins.find(schools_admin.id)}.to raise_exception ActiveRecord::RecordNotFound
       expect(response).to redirect_to "http://example.com"
     end
@@ -158,7 +158,7 @@ describe Cms::UsersController do
   describe '#edit' do
     let!(:another_user) { create(:user) }
     it 'should log when admin visits the edit page' do
-      get :edit, id: another_user.id
+      get :edit, params: { id: another_user.id }
       expect(ChangeLog.last.action).to eq(ChangeLog::USER_ACTIONS[:edit])
       expect(ChangeLog.last.changed_record_id).to eq(another_user.id)
     end
@@ -168,7 +168,7 @@ describe Cms::UsersController do
     let!(:another_user) { create(:user) }
 
     it 'should assign the subscription' do
-      get :edit_subscription, id: another_user.id
+      get :edit_subscription, params: { id: another_user.id }
       expect(assigns(:subscription)).to eq another_user.subscription
     end
   end
@@ -181,7 +181,7 @@ describe Cms::UsersController do
 
     describe 'when there is no existing subscription' do
       it 'should create a new subscription that starts today and ends at the promotional expiration date' do
-        get :new_subscription, id: user_with_no_subscription.id
+        get :new_subscription, params: { id: user_with_no_subscription.id }
         expect(assigns(:subscription).start_date).to eq Date.today
         expect(assigns(:subscription).expiration).to eq Subscription.promotional_dates[:expiration]
       end
@@ -189,7 +189,7 @@ describe Cms::UsersController do
 
     describe 'when there is an existing subscription' do
       it 'should create a new subscription with starting after the current subscription ends' do
-        get :new_subscription, id: another_user.id
+        get :new_subscription, params: { id: another_user.id }
         expect(assigns(:subscription).start_date).to eq subscription.expiration
         expect(assigns(:subscription).expiration).to eq subscription.expiration + 1.year
       end
@@ -200,7 +200,7 @@ describe Cms::UsersController do
     let!(:another_user) { create(:user) }
 
     it 'should update the attributes for the given user and update change_log' do
-      post :update, id: another_user.id, user: { email: "new@test.com", flags: ["purchaser"] }
+      post :update, params: { id: another_user.id, user: { email: "new@test.com", flags: ["purchaser"] } }
       expect(another_user.reload.email).to eq "new@test.com"
       expect(response).to redirect_to cms_users_path
       expect(ChangeLog.last.action).to eq(ChangeLog::USER_ACTIONS[:update])
@@ -214,20 +214,10 @@ describe Cms::UsersController do
 
     it 'should clear the data' do
       expect_any_instance_of(User).to receive(:clear_data)
-      put :clear_data, id: another_user.id
+      put :clear_data, params: { id: another_user.id } 
       expect(response).to redirect_to cms_users_path
     end
   end
-
-  # no route for this action
-  # describe '#destroy' do
-  #   let!(:another_user) { create(:user) }
-  #
-  #   it 'should destroy the given user' do
-  #     delete :destoy, id: another_user.id
-  #     expect{User.find another_user.id}.to raise_exception ActiveRecord::RecordNotFound
-  #   end
-  # end
 
   describe '#complete_sales_stage' do
     let!(:another_user) { create(:user) }
@@ -240,7 +230,7 @@ describe Cms::UsersController do
     it 'should create the sales contact updater' do
       expect(UpdateSalesContact).to receive(:new).with(another_user.id, "2", user)
       expect(updater).to receive(:call)
-      post :complete_sales_stage, id: another_user.id, stage_number: 2
+      post :complete_sales_stage, params: { id: another_user.id, stage_number: 2 }
       expect(flash[:success]).to eq "Stage marked completed"
       expect(response).to redirect_to cms_user_path(another_user.id)
     end

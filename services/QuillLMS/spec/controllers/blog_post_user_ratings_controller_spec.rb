@@ -6,9 +6,7 @@ RSpec.describe BlogPostUserRatingsController, type: :controller do
     let(:teacher) { create(:teacher) }
 
     context 'when a user is logged in' do
-      before(:each) do
-        session[:user_id] = teacher.id
-      end
+      before { session[:user_id] = teacher.id }
 
       it 'should create a new rating' do
         post :create, user_id: teacher.id, blog_post_id: blog_post.id, rating: 2

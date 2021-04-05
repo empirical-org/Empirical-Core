@@ -8,58 +8,14 @@ describe TeachersController, type: :controller do
     let!(:co_taught_classroom) {create(:classroom, :with_no_teacher)}
     let!(:co_taught_classrooms_teacher) {create(:classrooms_teacher, classroom: co_taught_classroom, user: teacher, role: 'coteacher')}
 
-    before do
-      allow(controller).to receive(:current_user) { teacher }
-    end
-
-  # describe '#create' do
-  #   let!(:school) { create(:school) }
-  #
-  #   context 'when schools admins is found' do
-  #     let!(:schools_admins) { create(:schools_admins, school: school, user: teacher) }
-  #
-  #     context 'when teacher is found' do
-  #       context 'when schools users exists' do
-  #         let!(:schools_users) { create(:schools_users, user: teacher, school: school) }
-  #
-  #         it 'should render the teacher is already registered to school' do
-  #           post :create, id: school.id, teacher: { first_name: "some_name", last_name: "last_name", email: teacher.email }
-  #           expect(response.body).to eq({message: "some_name last_name is already registered to #{school.name}"})
-  #         end
-  #       end
-  #
-  #       context 'when school users do not exist' do
-  #         it 'should render that email has been sent to teacher and kick off join school email worker' do
-  #           expect(JoinSchoolEmailWorker).to receive(:perform_async).with(teacher.id, school.id)
-  #           post :create, id: school.id, teacher: { first_name: "some_name", last_name: "last_name", email: teacher.email }
-  #           expect(response.body).to eq({message: "An email has been sent to #{teacher.email}"}.to_json)
-  #         end
-  #       end
-  #     end
-  #
-  #     context 'when teacher is not found'  do
-  #       it 'should create a new teacher and jointhem to the school' do
-  #         expect(AccountCreatedEmailWorker).to receive(:perform_async)
-  #         post :create, id: school.id, teacher: { first_name: "some_name", last_name: "last_name", email: "test@email.com" }
-  #         expect(response.body).to eq({message: "An email has been to test@email.com asking them to set up their account."}.to_json)
-  #       end
-  #     end
-  #   end
-  #
-  #   context 'when schools admins is not found' do
-  #     it 'should render something went wrong' do
-  #       post :create, id: school.id, teacher: { first_name: "some_name", last_name: "last_name", email: "test@email.com" }
-  #       expect(response.body).to eq( {errors: 'Something went wrong. If this problem persists, please contact us at hello@quill.org'}.to_json)
-  #       expect(response.code).to eq"422"
-  #     end
-  #   end
-  # end
+    before { allow(controller).to receive(:current_user) { teacher } }
 
     describe '#admin_dashboard' do
       it 'render admin dashboard' do
         get :admin_dashboard
         expect(response).to redirect_to profile_path
       end
+
       it 'render admin dashboard' do
         user = create(:user)
         user.schools_admins.create
@@ -73,14 +29,14 @@ describe TeachersController, type: :controller do
       it 'unlinks teacher from school' do
         expect(SchoolsUsers.find_by(user: teacher)).to be
         expect($redis).to receive(:del).with("SERIALIZED_ADMIN_USERS_FOR_#{teacher.id}")
-        post :unlink, teacher_id: teacher.id
+        post :unlink, params: { teacher_id: teacher.id }
         expect(SchoolsUsers.find_by(user: teacher)).not_to be
       end
 
       it 'returns 400 response if cannot unlink' do
         user2 = create(:teacher, school: nil)
         expect(SchoolsUsers.find_by(user: user2)).not_to be
-        post :unlink, teacher_id: user2.id
+        post :unlink, params: { teacher_id: user2.id }
         expect(response.status).to eq(400)
       end
     end
@@ -93,7 +49,6 @@ describe TeachersController, type: :controller do
     end
 
     describe '#classrooms_i_teach_with_students' do
-
       it 'returns the classrooms with students of the current user' do
         get :classrooms_i_teach_with_students
         teacher.classrooms_i_teach_with_students.each do |classroom|
@@ -207,9 +162,7 @@ describe TeachersController, type: :controller do
 
   context "without user" do
 
-    before(:each) do
-      allow(controller).to receive(:current_user) { nil }
-    end
+    before { allow(controller).to receive(:current_user) { nil } }
 
     describe '#classrooms_i_teach_with_lessons' do
 

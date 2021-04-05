@@ -89,7 +89,7 @@ RSpec.configure do |config|
   end
 
   # most examples
-  config.before(:each) do
+  config.before do
     DatabaseCleaner.strategy = :transaction
     DatabaseCleaner.start
     SegmentAnalytics.backend = FakeSegmentBackend.new
@@ -101,9 +101,7 @@ RSpec.configure do |config|
   # end
 
 
-  config.after(:each) do
-    DatabaseCleaner.clean
-  end
+  config.after { DatabaseCleaner.clean }
 
   config.infer_spec_type_from_file_location!
 
