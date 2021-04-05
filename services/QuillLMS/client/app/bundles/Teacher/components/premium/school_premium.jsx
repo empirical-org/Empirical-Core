@@ -128,7 +128,7 @@ const professionalDevelopmentSessions = (
 const oneOnOneCoaching = (
   <section>
     <h3>One-on-one coaching sessions with our Senior Instructional Coaches</h3>
-    <p>Once per quarter, teachers are invited to schedule 1:1 coaching sessions to work directly with a senior instructional coach on Quill&#39;s team. These sessions enable teachers to solve issues, learn how reports, .... The coach and the teacher are looking at the Quill dashboard and leave the coaching session with more confidence in the tool.</p>
+    <p>Once per quarter, teachers are invited to schedule 1:1 coaching sessions to work directly with a senior instructional coach on Quill&#39;s team. Our sessions empower teachers to solve issues, learn how to analyze reports, and support curriculum implementation. By reviewing their Quill dashboard with the coach, teachers will leave the session with more confidence in our tool.</p>
     <div className="premium-features-row">
       <div className="testimonial long">
         <p>Totally personalized! I told the Quill coach my background and what my familiarity with Quill was, and she was able to walk me through exactly what I needed. Also appreciate that she could show me with her screen, walking through my classes with me.</p>

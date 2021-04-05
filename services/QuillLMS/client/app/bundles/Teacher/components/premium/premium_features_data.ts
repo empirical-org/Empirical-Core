@@ -47,7 +47,7 @@ export const premiumFeatures = ({ independentPracticeActivityCount, diagnosticAc
         label: "Diagnostics report",
         school: true,
         teacher: true,
-        tooltipText: "TODO",
+        tooltipText: "Diagnostic data breakdowns and personalized writing practice plans based on student performance",
       },
       {
         label: "Activity scores report",
