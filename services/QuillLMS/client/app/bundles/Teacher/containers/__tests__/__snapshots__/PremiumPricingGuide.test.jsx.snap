@@ -3,8 +3,7 @@
 exports[`PremiumPricingGuide container should render 1`] = `
 <div>
   <div
-    className="container"
-    id="premium-pricing-guide"
+    className="container premium-page"
   >
     <div
       className="overview text-center"
@@ -13,108 +12,114 @@ exports[`PremiumPricingGuide container should render 1`] = `
         className="header"
       >
         <h1>
-          Pricing Guide
+          Compare plan features
         </h1>
         <p>
-          Save time grading and gain actionable insights with Quill Premium.
+          Pick a plan that suits your needs.
         </p>
       </div>
-      <PremiumPricingMinisRow />
-      <DistrictPricingBox />
+      <PremiumPricingMinisRow
+        diagnosticActivityCount={9}
+        independentPracticeActivityCount={400}
+        lessonsActivityCount={50}
+      />
+      <PremiumFeaturesTable
+        diagnosticActivityCount={9}
+        independentPracticeActivityCount={400}
+        lessonsActivityCount={50}
+      />
     </div>
     <div
       className="features text-center"
     >
-      <TeacherPremium />
       <SchoolPremium />
+      <SubscriberLogos
+        subscribers={
+          Array [
+            Object {
+              "id": "achievement-first",
+              "name": "Achievement first school logo",
+              "source": "/images/subscribers/1_achievement.png",
+            },
+            Object {
+              "id": "kipp-sf",
+              "name": "KIPP: SF school logo",
+              "source": "/images/subscribers/2_kipp_sf.png",
+            },
+            Object {
+              "id": "kipp-dc",
+              "name": "KIPP: DC school logo",
+              "source": "/images/subscribers/3_kipp_dc.png",
+            },
+            Object {
+              "id": "kipp-la",
+              "name": "KIPP: LA school logo",
+              "source": "/images/subscribers/4_kipp_la.png",
+            },
+            Object {
+              "id": "rocketship",
+              "name": "Rocketship school logo",
+              "source": "/images/subscribers/5_kipp_rocketship.png",
+            },
+            Object {
+              "id": "houston",
+              "name": "Houston Independent School District logo",
+              "source": "/images/subscribers/6_houston.png",
+            },
+            Object {
+              "id": "desmoines",
+              "name": "Des Moines Public Schools logo",
+              "source": "/images/subscribers/7_desmoines.png",
+            },
+            Object {
+              "id": "richmond",
+              "name": "Richmond Virginia Public Schools logo",
+              "source": "/images/subscribers/8_richmond.png",
+            },
+            Object {
+              "id": "putnam",
+              "name": "Putnam County Board of Education logo",
+              "source": "/images/subscribers/9_putnam.png",
+            },
+            Object {
+              "id": "elizabeth",
+              "name": "Elizabeth Public Schools logo",
+              "source": "/images/subscribers/10_elizabeth.png",
+            },
+            Object {
+              "id": "thurston",
+              "name": "North Thurston Public Schools logo",
+              "source": "/images/subscribers/11_thurston.png",
+            },
+            Object {
+              "id": "lead",
+              "name": "Lead Public Schools logo",
+              "source": "/images/subscribers/12_lead.png",
+            },
+            Object {
+              "id": "trinity",
+              "name": "Trinity Episcopal School logo",
+              "source": "/images/subscribers/13_trinity.png",
+            },
+            Object {
+              "id": "kuemper",
+              "name": "Kuemper school logo",
+              "source": "/images/subscribers/14_kuemper.png",
+            },
+            Object {
+              "id": "jordan",
+              "name": "Jordan School District logo",
+              "source": "/images/subscribers/15_jodan.png",
+            },
+            Object {
+              "id": "princeton",
+              "name": "Princeton Public Schools logo",
+              "source": "/images/subscribers/16_princeton.png",
+            },
+          ]
+        }
+      />
     </div>
-    <SubscriberLogos
-      subscribers={
-        Array [
-          Object {
-            "id": "achievement-first",
-            "name": "Achievement first school logo",
-            "source": "/images/subscribers/1_achievement.png",
-          },
-          Object {
-            "id": "kipp-sf",
-            "name": "KIPP: SF school logo",
-            "source": "/images/subscribers/2_kipp_sf.png",
-          },
-          Object {
-            "id": "kipp-dc",
-            "name": "KIPP: DC school logo",
-            "source": "/images/subscribers/3_kipp_dc.png",
-          },
-          Object {
-            "id": "kipp-la",
-            "name": "KIPP: LA school logo",
-            "source": "/images/subscribers/4_kipp_la.png",
-          },
-          Object {
-            "id": "rocketship",
-            "name": "Rocketship school logo",
-            "source": "/images/subscribers/5_kipp_rocketship.png",
-          },
-          Object {
-            "id": "houston",
-            "name": "Houston Independent School District logo",
-            "source": "/images/subscribers/6_houston.png",
-          },
-          Object {
-            "id": "desmoines",
-            "name": "Des Moines Public Schools logo",
-            "source": "/images/subscribers/7_desmoines.png",
-          },
-          Object {
-            "id": "richmond",
-            "name": "Richmond Virginia Public Schools logo",
-            "source": "/images/subscribers/8_richmond.png",
-          },
-          Object {
-            "id": "putnam",
-            "name": "Putnam County Board of Education logo",
-            "source": "/images/subscribers/9_putnam.png",
-          },
-          Object {
-            "id": "elizabeth",
-            "name": "Elizabeth Public Schools logo",
-            "source": "/images/subscribers/10_elizabeth.png",
-          },
-          Object {
-            "id": "thurston",
-            "name": "North Thurston Public Schools logo",
-            "source": "/images/subscribers/11_thurston.png",
-          },
-          Object {
-            "id": "lead",
-            "name": "Lead Public Schools logo",
-            "source": "/images/subscribers/12_lead.png",
-          },
-          Object {
-            "id": "trinity",
-            "name": "Trinity Episcopal School logo",
-            "source": "/images/subscribers/13_trinity.png",
-          },
-          Object {
-            "id": "kuemper",
-            "name": "Kuemper school logo",
-            "source": "/images/subscribers/14_kuemper.png",
-          },
-          Object {
-            "id": "jordan",
-            "name": "Jordan School District logo",
-            "source": "/images/subscribers/15_jodan.png",
-          },
-          Object {
-            "id": "princeton",
-            "name": "Princeton Public Schools logo",
-            "source": "/images/subscribers/16_princeton.png",
-          },
-        ]
-      }
-    />
-    <TeacherTestimonial />
     <QuestionsAndAnswers
       questionsAndAnswersFile="premium"
       supportLink="https://support.quill.org/quill-premium"
