@@ -252,9 +252,9 @@ class Activity < ActiveRecord::Base
   end
 
   def module_url_helper(initial_params)
-    return connect_url_helper(initial_params) if ['diagnostic', 'connect'].include?(classification.key)
-    return lesson_url_helper if classification.key == 'lessons'
-    return comprehension_url_helper(initial_params) if classification.key == 'comprehension'
+    return connect_url_helper(initial_params) if [ActivityClassification::DIAGNOSTIC_KEY, ActivityClassification::CONNECT_KEY].include?(classification.key)
+    return lesson_url_helper if classification.key == ActivityClassification::LESSONS_KEY
+    return comprehension_url_helper(initial_params) if classification.key == ActivityClassification::COMPREHENSION_KEY
 
     @url = Addressable::URI.parse(classification.module_url)
     params = (@url.query_values || {})
