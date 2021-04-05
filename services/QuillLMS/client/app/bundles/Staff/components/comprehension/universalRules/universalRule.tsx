@@ -84,6 +84,7 @@ const UniversalRule = ({ history, location, match }) => {
       if(errors && errors.length) {
         setErrors(errors);
       } else {
+        setErrors([]);
         // update rule caches to display newly updated rule
         queryCache.refetchQueries(`rule-${ruleId}`);
         queryCache.refetchQueries('universal-rules');
@@ -98,6 +99,7 @@ const UniversalRule = ({ history, location, match }) => {
       if(errors && errors.length) {
         setErrors(errors);
       } else {
+        setErrors([]);
         toggleShowDeleteRuleModal();
         queryCache.refetchQueries('universal-rules').then(() => {
           history.push({

@@ -41,6 +41,7 @@ const SemanticLabelsIndex = ({ history, match, location }) => {
       if(errors && errors.length) {
         setErrors(errors);
       } else {
+        setErrors([]);
         // update rules cache to display newly created rule
         queryCache.refetchQueries(`rules-${activityId}`).then(() => {
           history.push(`/activities/${activityId}/semantic-labels/all`);
@@ -56,6 +57,7 @@ const SemanticLabelsIndex = ({ history, match, location }) => {
       if(errors && errors.length) {
         setErrors(errors);
       } else {
+        setErrors([]);
         // update rules cache to display newly updated rule
         queryCache.refetchQueries(`rules-${activityId}`).then(() => {
           history.push(`/activities/${activityId}/semantic-labels/all`);

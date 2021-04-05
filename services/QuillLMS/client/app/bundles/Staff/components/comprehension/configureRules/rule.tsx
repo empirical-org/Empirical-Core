@@ -111,6 +111,7 @@ const Rule = ({ history, match }) => {
       if(errors && errors.length) {
         setErrors(errors);
       } else {
+        setErrors([]);
         // update rule cache to display newly updated rule
         queryCache.refetchQueries(`rule-${ruleId}`);
         toggleShowEditRuleModal();
@@ -124,6 +125,7 @@ const Rule = ({ history, match }) => {
       if(errors && errors.length) {
         setErrors(errors);
       } else {
+        setErrors([]);
         // update ruleSets cache to remove delete ruleSet
         queryCache.refetchQueries(`rules-${activityId}`);
         history.push(`/activities/${activityId}/rules`);

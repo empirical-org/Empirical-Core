@@ -155,7 +155,7 @@ module Comprehension
         parsed_response = JSON.parse(response.body)
 
         assert_equal 422, response.code.to_i
-        assert parsed_response['errors'][0].include?("Invalid regex")
+        assert parsed_response['invalid_regex'].include?("Invalid regex")
       end
 
       should "create a valid record with plagiarism_text attributes" do

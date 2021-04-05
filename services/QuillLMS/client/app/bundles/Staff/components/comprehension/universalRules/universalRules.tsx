@@ -87,6 +87,7 @@ const UniversalRulesIndex = ({ location, match }) => {
       if(errors && errors.length) {
         setErrors(errors);
       } else {
+        setErrors([]);
         toggleAddRuleModal();
         queryCache.refetchQueries(`universal-rules`).then(() => {
           handleUpdateRulesList(rule);
