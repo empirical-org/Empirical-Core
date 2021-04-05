@@ -1,35 +1,6 @@
 # A specific aggregation pattern for FeedbackHistory records centered around
 # `activity_session_uid`
 class SessionFeedbackHistory
-  DEFAULT_PAGE_SIZE = 25
-
-  def self.list_by_activity_session(activity_id: nil, page: 1, page_size: DEFAULT_PAGE_SIZE)
-    query = FeedbackHistory.select(%{
-        feedback_histories.activity_session_uid AS session_uid,
-        MIN(feedback_histories.time) AS start_date,
-        comprehension_prompts.activity_id,
-        COUNT(CASE WHEN comprehension_prompts.conjunction = 'because' THEN 1 END) AS because_attempts,
-        COUNT(CASE WHEN comprehension_prompts.conjunction = 'but' THEN 1 END) AS but_attempts,
-        COUNT(CASE WHEN comprehension_prompts.conjunction = 'so' THEN 1 END) AS so_attempts,
-        (
-          ((COUNT(CASE WHEN comprehension_prompts.conjunction = 'because' AND feedback_histories.optimal THEN 1 END) = 1) OR
-            (COUNT(CASE WHEN comprehension_prompts.conjunction = 'because' THEN 1 END) = MAX(CASE WHEN comprehension_prompts.conjunction = 'because' THEN comprehension_prompts.max_attempts END))) AND
-          ((COUNT(CASE WHEN comprehension_prompts.conjunction = 'but' AND feedback_histories.optimal THEN 1 END) = 1) OR
-            (COUNT(CASE WHEN comprehension_prompts.conjunction = 'but' THEN 1 END) = MAX(CASE WHEN comprehension_prompts.conjunction = 'but' THEN comprehension_prompts.max_attempts END))) AND
-          ((COUNT(CASE WHEN comprehension_prompts.conjunction = 'so' AND feedback_histories.optimal THEN 1 END) = 1) OR
-            (COUNT(CASE WHEN comprehension_prompts.conjunction = 'so' THEN 1 END) = MAX(CASE WHEN comprehension_prompts.conjunction = 'so' THEN comprehension_prompts.max_attempts END)))
-        ) AS complete
-      })
-      .joins("LEFT OUTER JOIN comprehension_prompts ON feedback_histories.prompt_id = comprehension_prompts.id")
-      .where(used: true)
-      .group(:activity_session_uid, :activity_id)
-      .order('start_date DESC')
-    query = query.where(comprehension_prompts: {activity_id: activity_id.to_i}) if activity_id
-    query = query.limit(page_size)
-    query = query.offset((page.to_i - 1) * page_size.to_i) if page && page.to_i > 1
-    query
-  end
-
   def self.serialize_list_by_activity_session(results)
     results.map do |r|
       {

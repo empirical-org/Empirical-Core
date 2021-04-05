@@ -27,48 +27,48 @@ RSpec.describe SessionFeedbackHistory, type: :model do
 
   context '#list_by_activity_session' do
     it 'should identify two records when there are two unique activity_session_uids' do
-      assert_equal SessionFeedbackHistory.list_by_activity_session.length, 2
+      assert_equal FeedbackHistory.list_by_activity_session.length, 2
     end
 
     it 'should sort newest first' do
-      assert_equal SessionFeedbackHistory.list_by_activity_session[0].session_uid, @session2_uid
+      assert_equal FeedbackHistory.list_by_activity_session[0].session_uid, @session2_uid
     end
 
     it 'should only return enough items as specified via page_size' do
-      responses = SessionFeedbackHistory.list_by_activity_session(page_size: 1)
+      responses = FeedbackHistory.list_by_activity_session(page_size: 1)
       assert_equal responses.length, 1
       assert_equal responses[0].session_uid, @session2_uid
     end
 
     it 'should skip pages when specified via page' do
-      responses = SessionFeedbackHistory.list_by_activity_session(page: 2, page_size: 1)
+      responses = FeedbackHistory.list_by_activity_session(page: 2, page_size: 1)
       assert_equal responses.length, 1
       assert_equal responses[0].session_uid, @session1_uid
     end
 
     it 'should identify a session as incomplete if not all prompts have optimal feedback or too many attempts' do
-      assert_equal SessionFeedbackHistory.list_by_activity_session[0].complete, false
+      assert_equal FeedbackHistory.list_by_activity_session[0].complete, false
     end
 
     it 'should identify a session as complete if all prompts have an optimal response in feedback history' do
-      assert_equal SessionFeedbackHistory.list_by_activity_session[1].complete, true
+      assert_equal FeedbackHistory.list_by_activity_session[1].complete, true
     end
 
     it 'should identify a session as complete if all prompts have optimal responses or too many attempts' do
     create(:feedback_history, activity_session_uid: @session2_uid, prompt_id: @because_prompt2.id, attempt: 3, optimal: true)
       5.times {|i| create(:feedback_history, activity_session_uid: @session2_uid, prompt_id: @but_prompt2.id, attempt: i + 1, optimal: false) }
       5.times {|i| create(:feedback_history, activity_session_uid: @session2_uid, prompt_id: @so_prompt2.id, attempt: i + 1, optimal: false) }
-      assert_equal SessionFeedbackHistory.list_by_activity_session[0].complete, true
+      assert_equal FeedbackHistory.list_by_activity_session[0].complete, true
     end
   end
 
   context '#serialize_list_by_activity_session' do
     it 'should take the query from #list_by_activity_session and return a shaped payload' do
-      responses = SessionFeedbackHistory.list_by_activity_session
-      assert_equal SessionFeedbackHistory.serialize_list_by_activity_session(responses), [
+      responses = FeedbackHistory.list_by_activity_session
+      assert_equal responses.map { |r| r.serialize_by_activity_session }.to_json, [
         {
           session_uid: @session2_uid,
-          start_date: @second_session_feedback.created_at.iso8601,
+          start_date: @second_session_feedback.time.iso8601(3),
           activity_id: @activity2.id,
           because_attempts: 2,
           but_attempts: 0,
@@ -76,14 +76,14 @@ RSpec.describe SessionFeedbackHistory, type: :model do
           complete: false
         }, {
           session_uid: @session1_uid,
-          start_date: @first_session_feedback1.created_at.iso8601,
+          start_date: @first_session_feedback1.time.iso8601(3),
           activity_id: @activity1.id,
           because_attempts: 2,
           but_attempts: 1,
           so_attempts: 3,
           complete: true
         }
-      ]
+      ].to_json
     end
   end
 

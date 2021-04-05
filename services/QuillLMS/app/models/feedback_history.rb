@@ -28,6 +28,7 @@
 #
 class FeedbackHistory < ActiveRecord::Base
   CONCEPT_UID_LENGTH = 22
+  DEFAULT_PAGE_SIZE = 25
   DEFAULT_PROMPT_TYPE = "Comprehension::Prompt"
   MIN_ATTEMPT = 1
   MAX_ATTEMPT = 5
@@ -94,11 +95,42 @@ class FeedbackHistory < ActiveRecord::Base
     ))
   end
 
+  def serialize_by_activity_session
+   serializable_hash(only: [:session_uid, :start_date, :activity_id, :because_attempts, :but_attempts, :so_attempts, :complete])
+  end
+
   def self.batch_create(param_array)
     param_array.map { |params| create(params) }
   end
 
   private def confirm_prompt_type
     self.prompt_type = DEFAULT_PROMPT_TYPE if prompt_id && !prompt_type
+  end
+
+  def self.list_by_activity_session(activity_id: nil, page: 1, page_size: DEFAULT_PAGE_SIZE)
+    query = select(%{
+        feedback_histories.activity_session_uid AS session_uid,
+        MIN(feedback_histories.time) AS start_date,
+        comprehension_prompts.activity_id,
+        COUNT(CASE WHEN comprehension_prompts.conjunction = 'because' THEN 1 END) AS because_attempts,
+        COUNT(CASE WHEN comprehension_prompts.conjunction = 'but' THEN 1 END) AS but_attempts,
+        COUNT(CASE WHEN comprehension_prompts.conjunction = 'so' THEN 1 END) AS so_attempts,
+        (
+          ((COUNT(CASE WHEN comprehension_prompts.conjunction = 'because' AND feedback_histories.optimal THEN 1 END) = 1) OR
+            (COUNT(CASE WHEN comprehension_prompts.conjunction = 'because' THEN 1 END) = MAX(CASE WHEN comprehension_prompts.conjunction = 'because' THEN comprehension_prompts.max_attempts END))) AND
+          ((COUNT(CASE WHEN comprehension_prompts.conjunction = 'but' AND feedback_histories.optimal THEN 1 END) = 1) OR
+            (COUNT(CASE WHEN comprehension_prompts.conjunction = 'but' THEN 1 END) = MAX(CASE WHEN comprehension_prompts.conjunction = 'but' THEN comprehension_prompts.max_attempts END))) AND
+          ((COUNT(CASE WHEN comprehension_prompts.conjunction = 'so' AND feedback_histories.optimal THEN 1 END) = 1) OR
+            (COUNT(CASE WHEN comprehension_prompts.conjunction = 'so' THEN 1 END) = MAX(CASE WHEN comprehension_prompts.conjunction = 'so' THEN comprehension_prompts.max_attempts END)))
+        ) AS complete
+      })
+      .joins("LEFT OUTER JOIN comprehension_prompts ON feedback_histories.prompt_id = comprehension_prompts.id")
+      .where(used: true)
+      .group(:activity_session_uid, :activity_id)
+      .order('start_date DESC')
+    query = query.where(comprehension_prompts: {activity_id: activity_id.to_i}) if activity_id
+    query = query.limit(page_size)
+    query = query.offset((page.to_i - 1) * page_size.to_i) if page && page.to_i > 1
+    query
   end
 end
