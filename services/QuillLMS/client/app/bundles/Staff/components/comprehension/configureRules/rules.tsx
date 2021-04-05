@@ -36,12 +36,12 @@ const Rules: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ history, mat
     return {
       id: `${activityId}-${id}`,
       type: rule_type,
-      name: name,
+      name,
       because_prompt: promptsIcons[BECAUSE],
       but_prompt: promptsIcons[BUT],
       so_prompt: promptsIcons[SO],
       universal: getCheckIcon(universal),
-      suborder: suborder,
+      suborder,
       view: ruleLink
     }
   });
