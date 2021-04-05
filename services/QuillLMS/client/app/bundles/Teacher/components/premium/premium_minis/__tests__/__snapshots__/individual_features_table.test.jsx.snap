@@ -51,7 +51,7 @@ exports[`IndividualFeaturesTable container should render for each type 1`] = `
             "label": "Diagnostics report",
             "school": true,
             "teacher": true,
-            "tooltipText": "TODO",
+            "tooltipText": "Diagnostic data breakdowns and personalized writing practice plans based on student performance",
           },
           Object {
             "label": "Activity scores report",
@@ -248,7 +248,7 @@ exports[`IndividualFeaturesTable container should render for each type 2`] = `
             "label": "Diagnostics report",
             "school": true,
             "teacher": true,
-            "tooltipText": "TODO",
+            "tooltipText": "Diagnostic data breakdowns and personalized writing practice plans based on student performance",
           },
           Object {
             "label": "Activity scores report",
@@ -445,7 +445,7 @@ exports[`IndividualFeaturesTable container should render for each type 3`] = `
             "label": "Diagnostics report",
             "school": true,
             "teacher": true,
-            "tooltipText": "TODO",
+            "tooltipText": "Diagnostic data breakdowns and personalized writing practice plans based on student performance",
           },
           Object {
             "label": "Activity scores report",
