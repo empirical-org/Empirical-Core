@@ -94,7 +94,7 @@ describe Api::V1::SessionFeedbackHistoriesController, type: :controller do
       parsed_response = JSON.parse(response.body)
 
       assert_equal 200, response.code.to_i
-      assert_equal parsed_response, SessionFeedbackHistory.serialize_detail_by_activity_session(@feedback_history.activity_session_uid).stringify_keys
+      assert_equal parsed_response, FeedbackHistory.serialize_detail_by_activity_session(@feedback_history.activity_session_uid).stringify_keys
     end
 
     it "should raise if not found (to be handled by parent app)" do

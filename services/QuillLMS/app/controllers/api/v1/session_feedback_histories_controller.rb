@@ -17,7 +17,7 @@ class Api::V1::SessionFeedbackHistoriesController < Api::ApiController
   # GET /feedback_histories/1.json
   def show
     activity_session_uid = params[:id]
-    results = SessionFeedbackHistory.serialize_detail_by_activity_session(activity_session_uid)
+    results = FeedbackHistory.serialize_detail_by_activity_session(activity_session_uid)
     if results
       render json: results
     else
