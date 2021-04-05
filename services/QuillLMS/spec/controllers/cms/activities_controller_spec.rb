@@ -13,18 +13,19 @@ describe Cms::ActivitiesController, type: :controller do
   let(:activity_category) { create(:activity_category) }
   let(:standard) { create(:standard) }
 
-  before do
-    allow(controller).to receive(:current_user) { user }
-  end
+  before { allow(controller).to receive(:current_user) { user } }
 
   describe '#index' do
-    before do
-      allow_any_instance_of(ActivityClassification).to receive(:activities) { activities }
-    end
+    before { allow_any_instance_of(ActivityClassification).to receive(:activities) { activities } }
 
     context 'when flag is archive' do
       it 'should set the flag and activities' do
-        get :index, activity_classification_id: classification.id, flag: :archive
+        get :index,
+          params: { 
+            activity_classification_id: classification.id, 
+            flag: :archive
+          }
+
         expect(assigns(:flag)).to eq :archived
         expect(assigns(:activities)).to eq "flagged set"
       end
@@ -32,7 +33,7 @@ describe Cms::ActivitiesController, type: :controller do
 
     context 'when flag is production' do
       it 'should set the flag and activities' do
-        get :index, activity_classification_id: classification.id
+        get :index, params: { activity_classification_id: classification.id }
         expect(assigns(:flag)).to eq :production
         expect(assigns(:activities)).to eq "production set"
       end
@@ -82,7 +83,14 @@ describe Cms::ActivitiesController, type: :controller do
       selected_attributes[:topic_ids] = [topic.id]
       selected_attributes[:content_partner_ids] = [content_partner.id]
       selected_attributes[:activity_category_ids] = [activity_category.id]
-      post :create, activity_classification_id: classification.id, activity: selected_attributes, format: :json
+
+      post :create,
+        params: { 
+          activity_classification_id: classification.id, 
+          activity: selected_attributes
+        },
+        format: :json
+
       created_activity = Activity.find_by_name('Unique Name')
       expect(created_activity).to be
       expect(created_activity.topics).to eq([topic])
@@ -116,7 +124,14 @@ describe Cms::ActivitiesController, type: :controller do
       selected_attributes[:activity_category_ids] = [activity_category.id]
       selected_attributes[:standard_id] = standard.id
       selected_attributes[:raw_score_id] = raw_score.id
-      put :update, id: activity.id, activity_classification_id: classification.id, activity: selected_attributes
+
+      put :update,
+        params: {
+          id: activity.id, 
+          activity_classification_id: classification.id, 
+          activity: selected_attributes
+        }
+
       updated_activity = Activity.find_by_name('Unique Name')
       expect(updated_activity.id).to eq activity.id
       expect(updated_activity.topics.to_a).to eq([topic])

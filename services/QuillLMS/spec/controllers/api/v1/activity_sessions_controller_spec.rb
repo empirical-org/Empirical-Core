@@ -1,8 +1,6 @@
 require 'rails_helper'
 
 describe Api::V1::ActivitySessionsController, type: :controller do
-
-
   describe '#update' do
     let(:token) { double :acceptable? => true, resource_owner_id: user.id }
     let(:user) { create(:student) }
@@ -18,13 +16,14 @@ describe Api::V1::ActivitySessionsController, type: :controller do
       expect(NotifyOfCompletedActivity).to receive(:new)
         .with(@activity_session)
         .and_return(service_instance)
+
       expect(service_instance).to receive(:call)
 
       put :update, id: @activity_session.uid, state: 'finished'
     end
 
     context 'default behavior' do
-      include_context "calling the api"
+      include_context 'calling api with doorkeeper bypass'
 
       before do
         subject
@@ -211,7 +210,8 @@ describe Api::V1::ActivitySessionsController, type: :controller do
   end
 
   describe '#destoy' do
-    include_context "calling the api" #bypass doorkeeper
+    include_context 'calling api with doorkeeper bypass'
+
     let!(:session) { create(:proofreader_activity_session) }
 
     it 'destroys the activity session' do

@@ -1,7 +1,6 @@
 require 'active_support/inflector'
 
-shared_context "calling the api" do
-
+shared_context "calling api with doorkeeper bypass" do
   let(:user) { create(:user) }
   let(:token) { double :acceptable? => true }
 
@@ -32,11 +31,8 @@ shared_examples "a simple api request" do
   end
 end
 
-
-
 shared_examples "an api request" do
   context "has standard response items" do
-
     describe "root nodes" do
       it "has a meta attribute" do
         expect(@parsed_body.keys).to include('meta')
@@ -56,9 +52,7 @@ shared_examples "an api request" do
         it "has a errors attribute" do
           expect(@meta.keys).to include('errors')
         end
-
       end
-
     end
   end
 end

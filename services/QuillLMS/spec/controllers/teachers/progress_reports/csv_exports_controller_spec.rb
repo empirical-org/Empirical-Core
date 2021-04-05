@@ -6,27 +6,25 @@ describe Teachers::ProgressReports::CsvExportsController, type: :controller do
   describe 'POST #create' do
     let(:export_type) { 'activity_sessions' }
     let(:filters) { { unit_id: '123' } }
+
     subject do
-      post :create, {
-        report_url: "/teachers/progress_reports/standards/classrooms/#{classroom_one.id}/students",
-        csv_export: {
-          export_type: export_type,
-          filters: filters,
+      post :create, 
+        params: {
+          report_url: "/teachers/progress_reports/standards/classrooms/#{classroom_one.id}/students",
+          csv_export: {
+            export_type: export_type,
+            filters: filters,
+          }
         }
-      }
     end
 
     context 'when authenticated as a teacher' do
-      before do
-        session[:user_id] = teacher.id
-      end
+      before { session[:user_id] = teacher.id }
 
       let(:response_json) { JSON.parse(response.body)['csv_export'] }
 
       it 'creates a CSV export with the specified type' do
-        expect {
-          subject
-        }.to change(CsvExport, :count).by(1)
+        expect { subject }.to change(CsvExport, :count).by(1)
         expect(response_json['export_type']).to eq(export_type)
 
         expect(response_json['teacher_id']).to eq(teacher.id)
@@ -44,9 +42,7 @@ describe Teachers::ProgressReports::CsvExportsController, type: :controller do
       end
 
       it 'kicks off a background job to email generate/email the CSV' do
-        expect {
-          subject
-        }.to change(CsvExportWorker.jobs, :size).by(1)
+        expect { subject }.to change(CsvExportWorker.jobs, :size).by(1)
       end
 
       context 'with nested export params' do
@@ -62,9 +58,7 @@ describe Teachers::ProgressReports::CsvExportsController, type: :controller do
         let(:export_type) { 'foobar' }
 
         it 'responds with an error' do
-          expect {
-            subject
-          }.to_not change(CsvExport, :count)
+          expect { subject }.to_not change(CsvExport, :count)
           expect(response.status).to eq(422)
         end
       end

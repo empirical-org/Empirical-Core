@@ -12,12 +12,26 @@ describe 'Sign in', type: :request do
 
   describe 'POST /session' do
     it 'creates with valid attributes' do
-      post '/session', user: {email: 'student@quill.org', password: '12345'}
+      post '/session', 
+        params: { 
+          user: {
+            email: 'student@quill.org', 
+            password: '12345'
+          }
+        }
+
       expect(response).to redirect_to(profile_path)
     end
 
     it 'does not create with invalid attributes' do
-      post '/session', user: {email: 'student@quill.org', password: 'wrong'}
+      post '/session', 
+        params: {
+          user: {
+            email: 'student@quill.org', 
+            password: 'wrong'
+          }
+        }
+
       expect(response).to_not redirect_to(profile_path)
     end
   end

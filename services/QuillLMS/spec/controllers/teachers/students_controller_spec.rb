@@ -5,15 +5,26 @@ describe Teachers::StudentsController, type: :controller do
     let(:classroom) { create(:classroom) }
     let(:teacher) { classroom.owner }
 
-    before do
-      session[:user_id] = teacher.id # sign in, is there a better way to do this in test?
+    before { session[:user_id] = teacher.id }
+    
+    let(:http_request) do
+      post :create, 
+        params: {
+          classroom_id: classroom.id,
+          user: { 
+            first_name: 'Joe', 
+            last_name: 'Bob'
+          }
+        }
     end
 
     it 'kicks off a background job' do
-      expect {
-        post :create, classroom_id: classroom.id, user: {first_name: 'Joe', last_name: 'Bob'}
-        expect(response.status).to eq(200) # Success
-      }.to change(StudentJoinedClassroomWorker.jobs, :size).by(1)
+      expect { http_request }.to change(StudentJoinedClassroomWorker.jobs, :size).by(1)
+    end
+    
+    it 'is successful' do
+      http_request
+      expect(response.status).to eq(200)
     end
   end
 end
