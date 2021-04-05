@@ -116,6 +116,40 @@ describe Teachers::ClassroomManagerController, type: :controller do
           expect(assigns(:show_diagnostic_banner)).to eq false
         end
       end
+
+      describe 'checkboxes' do
+        let!(:explore_our_library) { create(:explore_our_library) }
+        let!(:explore_our_diagnostics) { create(:explore_our_diagnostics) }
+
+        context 'on the base assign route' do
+
+          it 'should create the Explore our library checkbox for the current user' do
+            get :assign
+            expect(Checkbox.find_by(objective_id: explore_our_library.id, user_id: user.id)).to be
+          end
+
+          it 'should not create the Explore our diagnostics checkbox for the current user' do
+            get :assign
+            expect(Checkbox.find_by(objective_id: explore_our_diagnostics.id, user_id: user.id)).not_to be
+          end
+
+        end
+
+        context 'on the /assign/diagnostic route' do
+
+          it 'should create the Explore our library checkbox for the current user' do
+            get :assign, { tab: 'diagnostic' }
+            expect(Checkbox.find_by(objective_id: explore_our_library.id, user_id: user.id)).to be
+          end
+
+          it 'should create the Explore our diagnostics checkbox for the current user' do
+            get :assign, { tab: 'diagnostic' }
+            expect(Checkbox.find_by(objective_id: explore_our_diagnostics.id, user_id: user.id)).to be
+          end
+
+        end
+
+      end
     end
   end
 
@@ -234,6 +268,11 @@ describe Teachers::ClassroomManagerController, type: :controller do
     let(:blog_post1) { create(:blog_post, featured_order_number: 0)}
     let(:blog_post2) { create(:blog_post, featured_order_number: 1)}
     let(:blog_post3) { create(:blog_post, featured_order_number: 2)}
+    let!(:create_a_classroom) { create(:create_a_classroom)}
+    let!(:add_students) { create(:add_students)}
+    let!(:explore_our_library) { create(:explore_our_library)}
+    let!(:explore_our_diagnostics) { create(:explore_our_diagnostics)}
+    let!(:create_a_classroom_checkbox) { create(:checkbox, user: teacher, objective: create_a_classroom)}
 
     before do
       allow(controller).to receive(:current_user) { teacher }
@@ -245,7 +284,32 @@ describe Teachers::ClassroomManagerController, type: :controller do
     it 'should set the featured_blog_posts variable to the array of featured blog posts' do
       get :dashboard
       expect(assigns(:featured_blog_posts)).to eq [blog_post1, blog_post2, blog_post3]
+    end
 
+    it 'should set the onboarding_checklist variable to an array of objects with values' do
+      get :dashboard
+      expect(assigns(:objective_checklist)).to eq ([
+        {
+          name: create_a_classroom.name,
+          checked: true,
+          link: create_a_classroom.action_url
+        },
+        {
+          name: add_students.name,
+          checked: false,
+          link: add_students.action_url
+        },
+        {
+          name: explore_our_library.name,
+          checked: false,
+          link: explore_our_library.action_url
+        },
+        {
+          name: explore_our_diagnostics.name,
+          checked: false,
+          link: explore_our_diagnostics.action_url
+        }
+      ])
     end
   end
 

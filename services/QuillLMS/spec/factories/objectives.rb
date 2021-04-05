@@ -25,7 +25,7 @@ FactoryBot.define do
     # exact replicas of them here. This is bad practice and should be changed.
 
     factory :create_a_classroom do
-      name              { 'Create a Classroom' }
+      name              { Objective::CREATE_A_CLASSROOM }
       help_info         { 'http://support.quill.org/knowledgebase/articles/369605' }
       section           'Getting Started'
       action_url        { '/teachers/classrooms?modal=create-a-class' }
@@ -33,11 +33,27 @@ FactoryBot.define do
     end
 
     factory :add_students do
-      name              { 'Add Students' }
+      name              Objective::ADD_STUDENTS
       help_info         { 'http://support.quill.org/knowledgebase/articles/369608' }
       section           'Getting Started'
       action_url        { '/teachers/classrooms' }
       section_placement { 2 }
+    end
+
+    factory :explore_our_library do
+      name              Objective::EXPLORE_OUR_LIBRARY
+      help_info         ''
+      section           'Getting Started'
+      action_url        '/assign'
+      section_placement 3
+    end
+
+    factory :explore_our_diagnostics do
+      name              Objective::EXPLORE_OUR_DIAGNOSTICS
+      help_info         ''
+      section           'Getting Started'
+      action_url        '/assign/diagnostic'
+      section_placement 3
     end
 
     factory :assign_featured_activity_pack do

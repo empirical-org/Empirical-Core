@@ -46,7 +46,7 @@ class StudentsClassrooms < ActiveRecord::Base
 
   def checkbox
     if classroom
-      find_or_create_checkbox('Add Students', classroom.owner)
+      find_or_create_checkbox(Objective::ADD_STUDENTS, classroom.owner)
     end
   end
 
