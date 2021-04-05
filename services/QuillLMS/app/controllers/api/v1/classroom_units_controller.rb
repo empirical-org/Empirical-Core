@@ -1,6 +1,6 @@
 class Api::V1::ClassroomUnitsController < Api::ApiController
   include QuillAuthentication
-  before_filter :authorize!
+  before_action :authorize!
 
   def student_names
     activity          = Activity.find_by(uid: params[:activity_id])

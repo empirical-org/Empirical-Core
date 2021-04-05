@@ -1,7 +1,7 @@
 class PagesController < ApplicationController
   include HTTParty
   include PagesHelper
-  before_filter :determine_js_file, :determine_flag
+  before_action :determine_js_file, :determine_flag
   layout :determine_layout
 
   NUMBER_OF_SENTENCES = "NUMBER_OF_SENTENCES"

@@ -1,8 +1,8 @@
 require 'rails_helper'
 
 describe PagesController do
-  it { should use_before_filter :determine_js_file }
-  it { should use_before_filter :determine_flag }
+  it { should use_before_action :determine_js_file }
+  it { should use_before_action :determine_flag }
 
   # no route for this action
   # describe '#home' do

@@ -1,7 +1,7 @@
 class ActivitiesController < ApplicationController
   before_action :activity, only: [:update]
-  before_filter :set_activity_by_lesson_id, only: [:preview_lesson]
-  before_filter :set_activity, only: [:supporting_info, :customize_lesson, :name_and_id, :last_unit_template]
+  before_action :set_activity_by_lesson_id, only: [:preview_lesson]
+  before_action :set_activity, only: [:supporting_info, :customize_lesson, :name_and_id, :last_unit_template]
 
   DIAGNOSTIC = 'diagnostic'
 

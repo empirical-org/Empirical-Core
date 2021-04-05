@@ -1,8 +1,8 @@
 class Cms::ActivitiesController < Cms::CmsController
-  before_filter :find_classification
-  before_filter :set_activity, only: [:update, :destroy, :edit]
-  before_filter :set_style_and_javascript_file, only: [:new, :edit]
-  before_filter :set_raw_score_options_and_grade_band_hash, only: [:new, :edit]
+  before_action :find_classification
+  before_action :set_activity, only: [:update, :destroy, :edit]
+  before_action :set_style_and_javascript_file, only: [:new, :edit]
+  before_action :set_raw_score_options_and_grade_band_hash, only: [:new, :edit]
 
   def index
     @flag = params[:flag].to_s.to_sym.presence || :production

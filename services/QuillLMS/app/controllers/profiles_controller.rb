@@ -1,5 +1,5 @@
 class ProfilesController < ApplicationController
-  before_filter :signed_in!
+  before_action :signed_in!
 
   def show
     @user = current_user

@@ -1,7 +1,7 @@
 class AccountsController < ApplicationController
-  before_filter :signed_in!, only: [:edit, :update]
-  before_filter :set_cache_buster, only: [:new]
-  before_filter :set_user, only: [:create]
+  before_action :signed_in!, only: [:edit, :update]
+  before_action :set_cache_buster, only: [:new]
+  before_action :set_user, only: [:create]
 
   def new
     if params[:redirect]

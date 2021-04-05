@@ -1,5 +1,5 @@
 class Cms::SchoolsController < Cms::CmsController
-  before_filter :signed_in!
+  before_action :signed_in!
 
   before_action :text_search_inputs, only: [:index, :search]
   before_action :set_school, only: [

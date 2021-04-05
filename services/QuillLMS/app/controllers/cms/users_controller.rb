@@ -1,5 +1,5 @@
 class Cms::UsersController < Cms::CmsController
-  before_filter :signed_in!
+  before_action :signed_in!
   before_action :set_flags
   before_action :set_user, only: [:show, :edit, :show_json, :update, :destroy, :edit_subscription, :new_subscription, :complete_sales_stage]
   before_action :set_search_inputs, only: [:index, :search]

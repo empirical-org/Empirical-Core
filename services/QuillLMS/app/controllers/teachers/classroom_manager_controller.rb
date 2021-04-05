@@ -1,11 +1,11 @@
 class Teachers::ClassroomManagerController < ApplicationController
 
   respond_to :json, :html
-  before_filter :teacher_or_public_activity_packs, except: [:unset_preview_as_student]
+  before_action :teacher_or_public_activity_packs, except: [:unset_preview_as_student]
   # WARNING: these filter methods check against classroom_id, not id.
-  before_filter :authorize_owner!, except: [:scores, :scorebook, :lesson_planner, :preview_as_student, :unset_preview_as_student, :activity_feed]
-  before_filter :authorize_teacher!, only: [:scores, :scorebook, :lesson_planner]
-  before_filter :set_alternative_schools, only: [:my_account, :update_my_account, :update_my_password]
+  before_action :authorize_owner!, except: [:scores, :scorebook, :lesson_planner, :preview_as_student, :unset_preview_as_student, :activity_feed]
+  before_action :authorize_teacher!, only: [:scores, :scorebook, :lesson_planner]
+  before_action :set_alternative_schools, only: [:my_account, :update_my_account, :update_my_password]
   include ScorebookHelper
   include ActivityFeedHelper
   include QuillAuthentication
