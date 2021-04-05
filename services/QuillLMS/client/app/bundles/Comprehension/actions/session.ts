@@ -17,6 +17,12 @@ interface GetFeedbackArguments {
   callback: Function
 }
 
+export const setSessionId = (sessionID: string) => {
+  return (dispatch: Function) => {
+    dispatch({ type: ActionTypes.SET_ACTIVITY_SESSION_ID, sessionID });
+  }
+}
+
 export const getFeedback = (args: GetFeedbackArguments) => {
   const { sessionID, activityUID, entry, promptID, promptText, attempt, previousFeedback, callback, } = args
   return (dispatch: Function) => {
