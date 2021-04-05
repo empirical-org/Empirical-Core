@@ -79,7 +79,7 @@ class Teachers::ClassroomManagerController < ApplicationController
       checkbox = Checkbox.find_by(objective: objective, user: current_user)
       {
         name: name,
-        checked: !!checkbox,
+        checked: checkbox.present?,
         link: objective.action_url
       }
     end

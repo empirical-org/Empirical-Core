@@ -20,8 +20,8 @@ class Checkbox < ActiveRecord::Base
   after_create :track_onboarding_checklist_analytics
 
   def track_onboarding_checklist_analytics
-    return if Objective::ONBOARDING_CHECKLIST_NAMES.none? (objective.name)
-    
+    return if Objective::ONBOARDING_CHECKLIST_NAMES.none?(objective.name)
+
     OnboardingChecklistAnalyticsWorker.perform_async(user_id)
   end
 
