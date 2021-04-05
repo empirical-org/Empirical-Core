@@ -16,7 +16,7 @@ class GoogleTranslateSynthetic
   TYPE_TEST = 'TEST'
   TEST_PERCENTAGE = 0.10
   CSV_END_MATCH = /\.csv\z/
-  SYNTHETIC_CSV = '_with_synthetic.csv'
+  SYNTHETIC_CSV = '_with_synthetic_detail.csv'
   TRAIN_CSV = '_training.csv'
 
 
@@ -83,11 +83,16 @@ class GoogleTranslateSynthetic
 
     synthetics.fetch_results
 
-    translations_to_csv(output_file_path, synthetics.results)
+    synthetics.results_to_csv(output_file_path)
   end
 
+  # input file is a csv with two columns and no header: text, label
+  # pass in file paths, e.g. /Users/yourname/Desktop/
   def self.generate_training_export(input_file_path, languages: TRAIN_LANGUAGES.keys)
     raise if languages.size > 4
+
+    output_csv = input_file_path.gsub(CSV_END_MATCH, SYNTHETIC_CSV)
+    output_training_csv = input_file_path.gsub(CSV_END_MATCH, TRAIN_CSV)
 
     texts_and_labels = CSV.open(input_file_path).to_a
 
@@ -95,11 +100,11 @@ class GoogleTranslateSynthetic
 
     synthetics.fetch_results
 
-    translations_to_csv(input_file_path.gsub(CSV_END_MATCH, SYNTHETIC_CSV), synthetics.results)
-    translations_to_automl_csv(input_file_path.gsub(CSV_END_MATCH, TRAIN_CSV), synthetics.results)
+    synthetics.results_to_csv(output_csv)
+    synthetics.results_to_training_csv(output_training_csv)
   end
 
-  def self.translations_to_automl_csv(file_path, results)
+  def results_to_training_csv(file_path)
     data = []
     results.each do |result|
       data << TrainRow.new(text: result.original, label: result.label, synthetic: false, type: nil)
@@ -128,7 +133,7 @@ class GoogleTranslateSynthetic
     end
   end
 
-  def self.translations_to_csv(file_path, results)
+  def results_to_csv(file_path)
     CSV.open(file_path, "w") do |csv|
       csv << ['Text', 'Label', 'Original', 'Changed?', 'Language']
       results.each do |result|
@@ -140,7 +145,7 @@ class GoogleTranslateSynthetic
     end
   end
 
-  private_class_method def self.type_list(count: , test_count:)
+  private def type_list(count: , test_count:)
     [
       Array.new(test_count, TYPE_TEST),
       Array.new(test_count, TYPE_VALIDATION),
