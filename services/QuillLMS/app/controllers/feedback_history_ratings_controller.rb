@@ -3,12 +3,10 @@ class FeedbackHistoryRatingsController < ApplicationController
   skip_before_action :verify_authenticity_token
 
   def create_or_update
-    rating = FeedbackHistoryRating.find_or_create_by(
+    rating = FeedbackHistoryRating.find_or_initialize_by(
       user_id: current_user.id, 
       feedback_history_id: feedback_history_rating_params["feedback_history_id"]
-    ) do |record|
-      record.rating = true # necessary to avoid triggering the DB uniqueness constraint
-    end
+    )
 
     rating.rating = feedback_history_rating_params["rating"]
 
