@@ -15,6 +15,10 @@ class GoogleTranslateSynthetic
   TYPE_VALIDATION = 'VALIDATION'
   TYPE_TEST = 'TEST'
   TEST_PERCENTAGE = 0.10
+  CSV_END_MATCH = /\.csv\z/
+  SYNTHETIC_CSV = '_with_synthetic.csv'
+  TRAIN_CSV = '_training.csv'
+
 
 
   # NB, there is a V3, but that throws errors with our current Google Integration
@@ -79,18 +83,10 @@ class GoogleTranslateSynthetic
 
     synthetics.fetch_results
 
-    CSV.open(output_file_path, "w") do |csv|
-      csv << ['Text', 'Label', 'Original', 'Changed?', 'Language']
-      synthetics.results.each do |result|
-          csv << [result.original, result.label,'','', 'original']
-        result.translations.each do |language, new_text|
-          csv << [new_text, result.label, result.original, new_text == result.original ? 'no_change' : '', DEFAULT_LANGUAGES[language] || language]
-        end
-      end
-    end
+    translations_to_csv(output_file_path, synthetics.results)
   end
 
-  def self.generate_training_export(input_file_path, output_file_path, languages: TRAIN_LANGUAGES.keys)
+  def self.generate_training_export(input_file_path, languages: TRAIN_LANGUAGES.keys)
     raise if languages.size > 4
 
     texts_and_labels = CSV.open(input_file_path).to_a
@@ -99,8 +95,13 @@ class GoogleTranslateSynthetic
 
     synthetics.fetch_results
 
+    translations_to_csv(input_file_path.gsub(CSV_END_MATCH, SYNTHETIC_CSV), synthetics.results)
+    translations_to_automl_csv(input_file_path.gsub(CSV_END_MATCH, TRAIN_CSV), synthetics.results)
+  end
+
+  def self.translations_to_automl_csv(file_path, results)
     data = []
-    synthetics.results.each do |result|
+    results.each do |result|
       data << TrainRow.new(text: result.original, label: result.label, synthetic: false, type: nil)
       result.translations.each do |_, new_text|
         data << TrainRow.new(text: new_text, label: result.label, synthetic: true, type: TYPE_TRAIN)
@@ -122,8 +123,20 @@ class GoogleTranslateSynthetic
       train_row.type = original_types.shift
     end
 
-    CSV.open(output_file_path, "w") do |csv|
+    CSV.open(file_path, "w") do |csv|
       uniq_data.each {|row| csv << row.to_a }
+    end
+  end
+
+  def self.translations_to_csv(file_path, results)
+    CSV.open(file_path, "w") do |csv|
+      csv << ['Text', 'Label', 'Original', 'Changed?', 'Language']
+      results.each do |result|
+          csv << [result.original, result.label,'','', 'original']
+        result.translations.each do |language, new_text|
+          csv << [new_text, result.label, result.original, new_text == result.original ? 'no_change' : '', DEFAULT_LANGUAGES[language] || language]
+        end
+      end
     end
   end
 
