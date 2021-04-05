@@ -44,4 +44,20 @@ class ActivityClassification < ActiveRecord::Base
     find_by_key COMPREHENSION_KEY
   end
 
+  def self.lessons
+    find_by_key LESSONS_KEY
+  end
+
+  def self.proofreader
+    find_by_key PROOFREADER_KEY
+  end
+
+  def self.grammar
+    find_by_key GRAMMAR_KEY
+  end
+
+  def self.connect
+    find_by_key CONNECT_KEY
+  end
+
 end
