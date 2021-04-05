@@ -15,5 +15,5 @@ class ContentPartner < ActiveRecord::Base
 
   validates :name, presence: true
 
-  after_commit 'Activity.clear_activity_search_cache'
+  after_commit { Activity.clear_activity_search_cache }
 end
