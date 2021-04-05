@@ -3,10 +3,11 @@ class Teachers::ClassroomManagerController < ApplicationController
   respond_to :json, :html
   before_filter :teacher_or_public_activity_packs, except: [:unset_preview_as_student]
   # WARNING: these filter methods check against classroom_id, not id.
-  before_filter :authorize_owner!, except: [:scores, :scorebook, :lesson_planner, :preview_as_student, :unset_preview_as_student]
+  before_filter :authorize_owner!, except: [:scores, :scorebook, :lesson_planner, :preview_as_student, :unset_preview_as_student, :activity_feed]
   before_filter :authorize_teacher!, only: [:scores, :scorebook, :lesson_planner]
   before_filter :set_alternative_schools, only: [:my_account, :update_my_account, :update_my_password]
   include ScorebookHelper
+  include ActivityFeedHelper
   include QuillAuthentication
 
   MY_ACCOUNT = 'my_account'
@@ -198,6 +199,10 @@ class Teachers::ClassroomManagerController < ApplicationController
     self.preview_student_id= nil
     return redirect_to params[:redirect] if params[:redirect]
     redirect_to '/profile'
+  end
+
+  def activity_feed
+    render json: { data: data_for_activity_feed(current_user) }
   end
 
   private

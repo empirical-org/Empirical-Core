@@ -5,7 +5,7 @@ import ModelsTable from './modelsTable';
 
 import { Spinner } from '../../../../Shared/index';
 
-const SemanticRulesOverview = ({ activityId, prompts }) => {
+const SemanticLabelsOverview = ({ activityId, prompts }) => {
 
 function renderPrompts() {
   return prompts.map(prompt => {
@@ -27,10 +27,10 @@ function renderPrompts() {
   }
 
   return(
-    <div className="semantic-rules-overview-container">
+    <div className="semantic-labels-overview-container">
       {renderPrompts()}
     </div>
   );
 }
 
-export default SemanticRulesOverview
+export default SemanticLabelsOverview

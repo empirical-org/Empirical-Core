@@ -11,10 +11,6 @@ exports[`RuleGenericAttributes component should render RuleGenericAttributes 1`]
     options={
       Array [
         Object {
-          "label": "Regex",
-          "value": "rules-based",
-        },
-        Object {
           "label": "Sentence Structure Regex",
           "value": "rules-based-1",
         },
@@ -29,10 +25,6 @@ exports[`RuleGenericAttributes component should render RuleGenericAttributes 1`]
         Object {
           "label": "Plagiarism",
           "value": "plagiarism",
-        },
-        Object {
-          "label": "AutoML Evidence",
-          "value": "autoML",
         },
       ]
     }

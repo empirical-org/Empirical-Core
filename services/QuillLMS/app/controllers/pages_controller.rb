@@ -482,6 +482,10 @@ class PagesController < ApplicationController
     @style_file = ApplicationController::DIAGNOSTIC
   end
 
+  def administrator
+    @title = 'Administrator'
+  end
+
   private
 
   def determine_layout

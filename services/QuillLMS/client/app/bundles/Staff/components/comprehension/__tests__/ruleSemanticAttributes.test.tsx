@@ -23,6 +23,6 @@ describe('RuleSemanticAttributes component', () => {
     // Input: Rule label name
     // p tag: Rule label status
     expect(container.find(Input).length).toEqual(1);
-    expect(container.find('p').at(2).props().children).toEqual(mockProps.ruleLabelStatus);
+    expect(container.find('p').at(3).props().children).toEqual(mockProps.ruleLabelStatus);
   });
 });

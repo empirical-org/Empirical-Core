@@ -6,6 +6,13 @@
     width: 200px;
     padding: 20px;
   }
+  .card {
+    max-width: 650px;
+    padding: 10px;
+    border: 1px solid #e0e0e0;
+    border-radius: 6px;
+    margin-top: 20px;
+  }
   .modal {
     display: flex;
     .modal-container {
@@ -316,9 +323,9 @@
       }
     }
   }
-  .rules-container, .rule-container, .turk-sessions-container, .semantic-rules-container, .model-container {
+  .rules-container, .rule-container, .turk-sessions-container, .semantic-labels-container, .model-container {
     width: 80vw;
-    .semantic-rules-overview-container {
+    .semantic-labels-overview-container {
       .prompt-section {
         border-top: 2px solid #e0e0e0;
         border-bottom: 2px solid #e0e0e0;
@@ -386,13 +393,6 @@
         color: #7f7f7f;
         margin-top: 15px;
       }
-      .card {
-        max-width: 650px;
-        padding: 10px;
-        border: 1px solid #e0e0e0;
-        border-radius: 6px;
-        margin-top: 20px;
-      }
     }
     .header-container {
       margin-bottom: 20px;
@@ -416,16 +416,14 @@
           font-weight: bold;
         }
       }
-      .lower-header-container {
-        display: flex;
-        align-items: center;
-        #add-rule-button, #add-model-button {
-          margin-left: 20px;
-          a {
-            color: white;
-            text-decoration: none;
-          }
+      #add-rule-button, #add-model-button {
+        a {
+          color: white;
+          text-decoration: none;
         }
+      }
+      #add-model-button {
+        margin-top: 5px;
       }
     }
     .tabs-container {
@@ -434,7 +432,7 @@
         text-align: center;
       }
     }
-    .rules-table, .rule-table, .turk-sessions-table, .semantic-rules-table, .models-table {
+    .rules-table, .rule-table, .turk-sessions-table, .semantic-labels-table, .models-table {
       max-width: 100%;
       overflow: scroll;
       .data-table-body{
@@ -499,21 +497,21 @@
     }
   }
 
-  .models-container, .semantic-rules-container {
+  .models-container, .semantic-labels-container {
     padding: 20px 0px 20px 0px;
+  }
+  .models-container {
+    .header-container {
+      #model-count {
+        margin-top: 12px;
+      }
+    }
   }
 
   .model-container {
     .model-form {
       .text-editor-label, .card {
         margin-left: 16px;
-      }
-      .card {
-        max-width: 650px;
-        padding: 10px;
-        border: 1px solid #e0e0e0;
-        border-radius: 6px;
-        margin-top: 20px;
       }
     }
   }
