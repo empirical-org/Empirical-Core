@@ -17,9 +17,40 @@ interface GetFeedbackArguments {
   callback: Function
 }
 
+interface SaveActiveActivitySessionArguments {
+  sessionID: string,
+  submittedResponses: { [key: string]: FeedbackObject[] }|{},
+  activeStep: number,
+  completedSteps: number[],
+  callback: Function
+}
+
 export const setSessionId = (sessionID: string) => {
   return (dispatch: Function) => {
     dispatch({ type: ActionTypes.SET_ACTIVITY_SESSION_ID, sessionID });
+  }
+}
+
+export const saveActiveActivitySession = (args: SaveActiveActivitySessionArguments) => {
+  const { sessionID, submittedResponses, activeStep, completedSteps, callback, } = args
+  return (dispatch: Function) => {
+    const activeActivitySessionUrl = `${process.env.DEFAULT_URL}/api/v1/active_activity_sessions/${sessionID}`
+
+    const requestObject = {
+      url: activeActivitySessionUrl,
+      body: {
+        active_activity_session: {
+          submittedResponses,
+          activeStep,
+          completedSteps
+        }
+      },
+      json: true,
+    }
+
+    request.put(requestObject, (e, r, body) => {
+      if (callback) callback()
+    })
   }
 }
 

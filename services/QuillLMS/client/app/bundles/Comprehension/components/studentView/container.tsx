@@ -9,7 +9,7 @@ import LoadingSpinner from '../shared/loadingSpinner'
 import { getActivity } from "../../actions/activities";
 import { TrackAnalyticsEvent } from "../../actions/analytics";
 import { Events } from '../../modules/analytics'
-import { getFeedback, setSessionId } from '../../actions/session'
+import { getFeedback, saveActiveActivitySession, setSessionId } from '../../actions/session'
 import { ActivitiesReducerState } from '../../reducers/activitiesReducer'
 import { SessionReducerState } from '../../reducers/sessionReducer'
 import getParameterByName from '../../helpers/getParameterByName';
@@ -127,7 +127,7 @@ export class StudentViewContainer extends React.Component<StudentViewContainerPr
         promptText,
         attempt,
         previousFeedback,
-        callback: this.scrollToHighlight
+        callback: this.submitResponseCallback
       }
       dispatch(getFeedback(args))
     }
@@ -165,7 +165,6 @@ export class StudentViewContainer extends React.Component<StudentViewContainerPr
   }
 
   trackCurrentPromptStartedEvent = () => {
-    //console.log('current prompt started event')
     const { dispatch, } = this.props
 
     const trackingParams = this.getCurrentStepDataForEventTracking()
@@ -268,6 +267,20 @@ export class StudentViewContainer extends React.Component<StudentViewContainerPr
       const scrollContainer = document.getElementsByClassName("read-passage-container")[0]
       scrollContainer.scrollTo(0, el.offsetTop - additionalTopOffset)
     }
+  }
+
+  submitResponseCallback = () => {
+    const { dispatch, session, } = this.props
+    const { sessionID, submittedResponses, } = session
+    const { activeStep, completedSteps, } = this.state
+    const args = {
+      sessionID,
+      submittedResponses,
+      activeStep,
+      completedSteps,
+    }
+    dispatch(saveActiveActivitySession(args))
+    this.scrollToHighlight()
   }
 
   scrollToStepOnMobile = (ref: string) => {
