@@ -35,6 +35,7 @@
         "text": "Isini-save na ngayon ang iyong mga resulta. Awtomatiko kang ire-redirect kapag na save na ang mga ito."
     },
     "instructions": {
+        "Fill in each blank with one of the choices. You can leave one empty.": "Punan ang bawat blangko ng isa sa mga pagpipilian. Pwede mong iwang blangko ang isa.",
         "Fill in the blank with one of the choices.": "Punan ang patlang ng isa sa mga pagpipilian.",
         "Fill in each blank with one of the choices.": "Punan ang bawat patlang ng isa sa mga pagpipilian.",
         "Fill in the blanks with one word each.": "Punan ang mga patlang ng tig-isang salita.",
@@ -42,6 +43,9 @@
         "Use the joining word to combine the sentences into one sentence.": "Gamitin ang salita para pagsamahin ang mga pangungusap at gawing isang pangungusap."
     },
     "cues": {
+        "type one": "type one / mag-type ng isa",
+        "type two or three": "type two or three / mag-type ng dalawa o tatlo",
+        "type three": "type three / mag-type ng tatlo",
         "choose one": "choose one / pumili ng isa",
         "choose three": "choose three / pumili ng tatlo",
         "choose two or three" : "choose two or three / pumili ng dalawa o tatlo",
