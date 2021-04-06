@@ -274,6 +274,7 @@ EmpiricalGrammar::Application.routes.draw do
     resources :classrooms, only: [:index, :new, :create, :update, :destroy] do
       post :create_students
       post :remove_students
+      
       put :import_google_students, controller: 'classroom_manager', action: 'import_google_students'
       collection do
         get :archived, action: 'index', as: :archived
