@@ -7,6 +7,7 @@ import MyClasses from '../components/dashboard/my_classes';
 import TeacherCenter from '../components/dashboard/teacher_center.tsx';
 import DashboardFooter from '../components/dashboard/dashboard_footer';
 import WelcomeModal from '../components/dashboard/welcome_modal'
+import OnboardingChecklist from '../components/dashboard/onboarding_checklist'
 
 export default class Dashboard extends React.Component {
   constructor(props) {
@@ -35,7 +36,15 @@ export default class Dashboard extends React.Component {
     }
   }
 
+  everyObjectiveChecked = () => {
+    const { onboardingChecklist, } = this.props
+
+    return onboardingChecklist.every(obj => obj.checked)
+  }
+
   getNecessaryData = () => {
+    if (!this.everyObjectiveChecked()) { return }
+
     this.ajax = {};
     this.ajax.classRoomRequest = requestGet('/teachers/classrooms/classroom_mini', (result) => {
       this.setState({ classrooms: result.classes, });
@@ -82,7 +91,15 @@ export default class Dashboard extends React.Component {
 
   render() {
     const { snackbarCopy, showSnackbar, } = this.state
-    const { user, featuredBlogPosts, } = this.props
+    const { user, featuredBlogPosts, onboardingChecklist, firstName, } = this.props
+
+    if (!this.everyObjectiveChecked()) {
+      return (<div className="dashboard">
+        {this.renderWelcomeModal()}
+        <OnboardingChecklist firstName={firstName} onboardingChecklist={onboardingChecklist} />
+      </div>)
+    }
+
     return (
       <div id="dashboard">
         <Snackbar text={snackbarCopy} visible={showSnackbar} />

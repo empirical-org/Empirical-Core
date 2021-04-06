@@ -84,3 +84,7 @@ export {
   getDisplayedText,
   renderPreviewFeedback
 } from './libs/index'
+
+export {
+  bigCheckIcon
+} from './images/index'
