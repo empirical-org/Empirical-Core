@@ -35,6 +35,7 @@
         "text": "نتایج شما اکنون ذخیره می شود. پس از ذخیره به صورت خودکار هدایت می شوید."
     },
     "instructions": {
+        "Fill in each blank with one of the choices. You can leave one empty.": "در هر خانه خالی با یکی از انتخاب ها پر کنید. شما می توانید یک خانه خالی را ترک کنید.",
         "Fill in the blank with one of the choices.": "بایکی از گزینه ها خانه خالی را پورکنید",
         "Fill in each blank with one of the choices.": " بایکی از گزینه ها هرخانه خالی راپورنماید",
         "Fill in the blanks with one word each.": "هرخانه خالی رابایک کلمه پورکنید",
@@ -42,6 +43,9 @@
         "Use the joining word to combine the sentences into one sentence.": "برای ترکیب جملات با یک جمله از کلمه وصل کردن استفاده کنید"
     },
     "cues": {
+        "type one": "type one / یک تایپ کنید",
+        "type two or three": "type two or three / دو یا سه تایپ کنید",
+        "type three": "type three / سه تایپ کنید",
         "choose one": "choose one / یکی راانتخاب کن",
         "choose three": "choose three / سه تا انتخاب کن",
         "choose two or three" : "choose two or three / دویا سه تا انتخاب کن",
