@@ -52,7 +52,7 @@ class Teachers::ClassroomsController < ApplicationController
       student = Creators::StudentCreator.create_student(s, classroom.id)
       Associators::StudentsToClassrooms.run(student, classroom)
     end
-    render json: { students: classroom.students } unless performed?
+    render json: { students: classroom.students }
   end
 
   def remove_students
