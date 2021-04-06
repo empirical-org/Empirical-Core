@@ -35,6 +35,7 @@
         "text": "ตอนนี้ได้ทำการบันทึกผลคะแนนของคุณไว้แล้ว จะมีการนำทางคุณโดยอัตโนมัติเมื่อได้บันทึกผลคะแนนแล้ว"
     },
     "instructions": {
+        "Fill in each blank with one of the choices. You can leave one empty.": "เติมในแต่ละช่องว่างโดยใช้หนึ่งในตัวเลือกเหล่านี้ คุณสามารถเว้นว่างได้หนึ่งช่อง",
         "Fill in the blank with one of the choices.": "เติมคำในช่องว่างด้วยคำที่มีให้เลือก",
         "Fill in each blank with one of the choices.": "เติมคำในช่องว่างในแต่ละช่องด้วยคำที่มีให้เลือก",
         "Fill in the blanks with one word each.": "เติมคำในช่องว่างในแต่ละช่องด้วยคำหนึ่งคำ",
@@ -42,6 +43,9 @@
         "Use the joining word to combine the sentences into one sentence.": "ใช้คำเชื่อมเพื่อรวมประโยคให้เป็นประโยคเดียว"
     },
     "cues": {
+        "type one": "type one / พิมพ์หนึ่งคำ",
+        "type two or three": "type two or three / พิมพ์สองหรือสามคำ",
+        "type three": "type three / พิมพ์สามคำ",
         "choose one": "choose one / เลือกหนึ่งคำ",
         "choose three": "choose three / เลือกสามคำ",
         "choose two or three" : "choose two or three / เลือกสองหรือสามคำ",

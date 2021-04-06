@@ -28,6 +28,13 @@ const instructions = {
   'combine-sentences-with-joining-words-instructions': 'Combine the sentences. Use one of the joining words.',
 };
 
+const cues = {
+  "choose one": "choose one / 1つ選ぶ",
+  "choose three": "choose three / 3つ選ぶ",
+  "choose two or three" : "choose two or three / 2つまたは3つ選ぶ",
+  "joining word": "joining word / 単語の結合"
+};
+
 const scaffolds = {
   'joining word cues single': 'joining word',
   'joining word cues multiple': 'joining words',
@@ -39,6 +46,7 @@ const englishTranslation = {
   ...titleCards,
   ...buttonText,
   ...scaffolds,
+  //...cues,
 };
 
 export default englishTranslation;
