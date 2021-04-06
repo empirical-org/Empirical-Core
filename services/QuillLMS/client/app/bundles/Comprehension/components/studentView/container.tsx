@@ -9,7 +9,7 @@ import LoadingSpinner from '../shared/loadingSpinner'
 import { getActivity } from "../../actions/activities";
 import { TrackAnalyticsEvent } from "../../actions/analytics";
 import { Events } from '../../modules/analytics'
-import { getFeedback } from '../../actions/session'
+import { getFeedback, setSessionId } from '../../actions/session'
 import { ActivitiesReducerState } from '../../reducers/activitiesReducer'
 import { SessionReducerState } from '../../reducers/sessionReducer'
 import getParameterByName from '../../helpers/getParameterByName';
@@ -64,6 +64,10 @@ export class StudentViewContainer extends React.Component<StudentViewContainerPr
 
   componentDidMount() {
     const { dispatch, session, isTurk } = this.props
+    const sessionFromUrl = this.specifiedActivitySessionUID()
+    if (sessionFromUrl) {
+      dispatch(setSessionId(sessionFromUrl));
+    }
     const { sessionID, } = session
     const activityUID = this.activityUID()
 
@@ -91,14 +95,22 @@ export class StudentViewContainer extends React.Component<StudentViewContainerPr
 
   onMobile = () => window.innerWidth < 1100
 
-  activityUID = () => {
+  getUrlParam = (paramName: string) => {
     const { location, isTurk } = this.props
     if(isTurk) {
-      return getParameterByName('uid', window.location.href)
+      return getParameterByName(paramName, window.location.href)
     }
     const { search, } = location
     if (!search) { return }
-    return queryString.parse(search).uid
+    return queryString.parse(search)[paramName]
+  }
+
+  activityUID = () => {
+    return this.getUrlParam('uid')
+  }
+
+  specifiedActivitySessionUID = () => {
+    return this.getUrlParam('session')
   }
 
   submitResponse = (entry: string, promptID: string, promptText: string, attempt: number) => {
