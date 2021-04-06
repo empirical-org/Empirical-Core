@@ -3,6 +3,7 @@ import * as React from "react";
 import { DropdownInput, Input } from '../../../../Shared/index';
 import { regexRuleSequenceOptions } from '../../../../../constants/comprehension';
 import { DropdownObjectInterface } from '../../../interfaces/comprehensionInterfaces';
+import { getSequenceType } from "../../../helpers/comprehension/ruleHelpers";
 
 interface RegexRulesProps {
   errors: {},
@@ -13,9 +14,20 @@ interface RegexRulesProps {
   regexRules: {}
 }
 const RegexRules = ({ errors, handleAddRegexInput, handleDeleteRegexRule, handleSetRegexRule, handleSetRegexRuleSequence, regexRules }: RegexRulesProps) => {
-  const renderRegexRules = () => {
+
+  function getInitialSequenceType (regexRule) {
+    if(typeof regexRule.sequence_type === 'string') {
+      return getSequenceType(regexRule.sequence_type);
+    } else if(regexRule.sequence_type) {
+      return regexRule.sequence_type;
+    }
+    return regexRuleSequenceOptions[0];
+  }
+
+  function renderRegexRules() {
     const regexRuleKeys = Object.keys(regexRules);
     return !!regexRuleKeys.length && regexRuleKeys.map((ruleKey, i) => {
+      const sequenceType = getInitialSequenceType(regexRules[ruleKey]);
       return(
         <div className="regex-rule-container" key={`regex-rule-container-${i}`}>
           <div className="regex-input-container">
@@ -35,7 +47,7 @@ const RegexRules = ({ errors, handleAddRegexInput, handleDeleteRegexRule, handle
                 isSearchable={true}
                 label="Sequence Type"
                 options={regexRuleSequenceOptions}
-                value={regexRules[ruleKey].sequence_type || regexRuleSequenceOptions[0]}
+                value={sequenceType}
               />
               <label className="case-sensitive-label" htmlFor={`regex-case-sensitive-${i}`}>
                 Case Sensitive?

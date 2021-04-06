@@ -282,6 +282,16 @@ export const handleApiError = (errorMessage: string, response: any) => {
   return error;
 }
 
+export const handleRequestErrors = async (errors: object) => {
+  let errorsArray = [];
+  if(errors) {
+    Object.keys(errors).forEach(key => {
+      errorsArray.push(`${key}: ${errors[key]}`);
+    });
+  }
+  return errorsArray;
+}
+
 export const getCsrfToken = () => {
   const token = document.querySelector('meta[name="csrf-token"]')
   if (token) { return token.getAttribute('content') }

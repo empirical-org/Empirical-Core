@@ -167,6 +167,7 @@ export const blankUniversalRule = {
   rule_type: '',
   optimal: false,
   suborder: 0,
+  state: 'active',
   concept_uid: 'Kr8PdUfXnU0L7RrGpY4uqg',
   feedbacks: [
     {

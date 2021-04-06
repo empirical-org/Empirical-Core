@@ -101,7 +101,7 @@ export function handleDeleteRegexRule({ e, regexRules, rulesToDelete, setRulesTo
   setRegexRules(updatedRules);
 }
 
-const getSequenceType = (sequenceType) => {
+export const getSequenceType = (sequenceType) => {
   if(sequenceType) {
     return regexRuleSequenceOptions.filter(option => option.value === sequenceType)[0];
   }
@@ -378,6 +378,7 @@ export async function handleSubmitRule({
   if(validationErrors && Object.keys(validationErrors).length) {
     setErrors(validationErrors);
   } else {
+    setErrors({});
     submitRule(newOrUpdatedRule, ruleId);
   }
 }
@@ -392,4 +393,21 @@ export function getRulesUrl(activityId: string, promptId: string, ruleType: stri
     url = `rules?prompt_id=${promptId}&rule_type=${ruleType}`
   }
   return url;
+}
+
+export function renderErrorsContainer(formErrorsPresent: boolean, requestErrors: string[]) {
+  if(formErrorsPresent) {
+    return(
+      <div className="error-message-container">
+        <p className="all-errors-message">Please check that all fields have been completed correctly.</p>
+      </div>
+    );
+  }
+  return(
+    <div className="error-message-container">
+      {requestErrors.map((error, i) => {
+        return <p className="all-errors-message" key={i}>{error}</p>
+      })}
+    </div>
+  )
 }
