@@ -67,7 +67,7 @@ describe SubscriptionsController do
                recurring: false 
             }
           }
-        }
+
         expect(user.reload.subscriptions.last.account_type).to eq "some_type"
         expect(user.reload.subscriptions.last.recurring).to eq false
       end
@@ -90,18 +90,13 @@ describe SubscriptionsController do
   end
 
   context "without user" do
-
     before { allow(controller).to receive(:current_user) { nil } }
 
     describe '#index' do
-
       it 'should redirect to login' do
         get :index
-
         response.should redirect_to '/session/new'
       end
     end
-
   end
-
 end

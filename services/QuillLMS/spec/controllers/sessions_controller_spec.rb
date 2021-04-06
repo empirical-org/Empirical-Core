@@ -86,17 +86,18 @@ describe SessionsController, type: :controller do
         post :login_through_ajax, 
           params: {
             user: { 
-              email: "test@whatever.com" }
+              email: "test@whatever.com" 
+            }
           }, 
           format: :json
 
-        expect(response.body).to eq({message: 'An account with this email or username does not exist. Try again.', type: 'email'}.to_json)
+        expect(response.body)
+          .to eq({message: 'An account with this email or username does not exist. Try again.', type: 'email'}.to_json)
       end
     end
 
     context 'when user has signed up with google' do
       before { allow_any_instance_of(User).to receive(:signed_up_with_google) { true } }
-      end
 
       it 'should report login failiure' do
         post :login_through_ajax, 
@@ -176,10 +177,11 @@ describe SessionsController, type: :controller do
               user: { 
                 email: user.email, 
                 password: "test123" 
-              }, 
-              format: :json
+              }
+            },
+            format: :json
 
-          expect(response.body).to eq({redirect: '/subscriptions'}.to_json)
+            expect(response.body).to eq({redirect: '/subscriptions'}.to_json)
         end
       end
 
@@ -245,7 +247,7 @@ describe SessionsController, type: :controller do
     it 'should set the js file, role in session  and post auth redirect in session' do
       session[:role] = "something"
       session[ApplicationController::POST_AUTH_REDIRECT] = "something else"
-      get :new, redirect: root_path
+      get :new, params: { redirect: root_path }
       expect(assigns(:js_file)).to eq "login"
       expect(session[:role]).to eq nil
       expect(session[ApplicationController::POST_AUTH_REDIRECT]).to eq root_path
@@ -255,7 +257,7 @@ describe SessionsController, type: :controller do
   describe '#set post_auth_redirect' do
     it 'should save the post_auth_redirect param to the session' do
       url = "/blah"
-      get :set_post_auth_redirect, post_auth_redirect: url
+      get :set_post_auth_redirect, params: { post_auth_redirect: url }
       expect(session[ApplicationController::POST_AUTH_REDIRECT]).to eq url
     end
   end

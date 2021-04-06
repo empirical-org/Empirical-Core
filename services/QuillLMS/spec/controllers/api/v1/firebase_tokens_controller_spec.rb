@@ -67,7 +67,7 @@ describe Api::V1::FirebaseTokensController, type: :controller do
 
     def subject
       post :create_for_connect, 
-        params: { "json" => { "app" => 'foobar' }.to_json }
+        params: { "json" => { "app" => 'foobar' }.to_json },
         format: :json
     end
 

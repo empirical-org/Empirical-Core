@@ -44,7 +44,12 @@ describe Cms::ActivitiesController, type: :controller do
     let!(:activity) { create(:activity, classification: classification) }
 
     it 'should find the activity' do
-      get :edit, activity_classification_id: classification.id, id: activity.id
+      get :edit,
+        params: { 
+          activity_classification_id: classification.id, 
+          id: activity.id
+        }
+
       activity_hash = {
         'id' => activity.id,
         'name' => activity.name,
