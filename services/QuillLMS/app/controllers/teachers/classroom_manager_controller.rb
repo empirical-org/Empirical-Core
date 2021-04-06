@@ -74,15 +74,8 @@ class Teachers::ClassroomManagerController < ApplicationController
       UserMilestone.find_or_create_by(user_id: current_user.id, milestone_id: welcome_milestone.id)
     end
 
-    @objective_checklist = Objective::ONBOARDING_CHECKLIST_NAMES.map do |name|
-      objective = Objective.find_by_name(name)
-      checkbox = Checkbox.find_by(objective: objective, user: current_user)
-      {
-        name: name,
-        checked: checkbox.present?,
-        link: objective.action_url
-      }
-    end
+    @objective_checklist = generate_onboarding_checklist
+    @first_name = current_user.first_name
 
   end
 
@@ -219,6 +212,24 @@ class Teachers::ClassroomManagerController < ApplicationController
 
   def activity_feed
     render json: { data: data_for_activity_feed(current_user) }
+  end
+
+  private def generate_onboarding_checklist
+    Objective::ONBOARDING_CHECKLIST_NAMES.map do |name|
+      objective = Objective.find_by_name(name)
+      checkbox = Checkbox.find_by(objective: objective, user: current_user)
+
+      # handles case where user has been using Quill since before we introduced the new objectives
+      if objective && !checkbox && [Objective::EXPLORE_OUR_LIBRARY, Objective::EXPLORE_OUR_DIAGNOSTICS].include?(name) && current_user.units&.any?
+        checkbox = Checkbox.create(objective: objective, user: current_user)
+      end
+
+      {
+        name: name,
+        checked: checkbox.present?,
+        link: objective&.action_url
+      }
+    end
   end
 
   private

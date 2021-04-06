@@ -286,30 +286,67 @@ describe Teachers::ClassroomManagerController, type: :controller do
       expect(assigns(:featured_blog_posts)).to eq [blog_post1, blog_post2, blog_post3]
     end
 
-    it 'should set the onboarding_checklist variable to an array of objects with values' do
-      get :dashboard
-      expect(assigns(:objective_checklist)).to eq ([
-        {
-          name: create_a_classroom.name,
-          checked: true,
-          link: create_a_classroom.action_url
-        },
-        {
-          name: add_students.name,
-          checked: false,
-          link: add_students.action_url
-        },
-        {
-          name: explore_our_library.name,
-          checked: false,
-          link: explore_our_library.action_url
-        },
-        {
-          name: explore_our_diagnostics.name,
-          checked: false,
-          link: explore_our_diagnostics.action_url
-        }
-      ])
+    describe 'onboarding checklist' do
+
+      it 'should set the onboarding_checklist variable to an array of objects with values' do
+        get :dashboard
+        expect(assigns(:objective_checklist)).to eq ([
+          {
+            name: create_a_classroom.name,
+            checked: true,
+            link: create_a_classroom.action_url
+          },
+          {
+            name: add_students.name,
+            checked: false,
+            link: add_students.action_url
+          },
+          {
+            name: explore_our_library.name,
+            checked: false,
+            link: explore_our_library.action_url
+          },
+          {
+            name: explore_our_diagnostics.name,
+            checked: false,
+            link: explore_our_diagnostics.action_url
+          }
+        ])
+      end
+
+      context 'when the user does not have existing checkboxes for the latter two objectives but has assigned units' do
+
+        it 'should create the relevant checkboxes and reflect that in the onboarding checklist array' do
+          create(:unit, user_id: teacher.id)
+          get :dashboard
+          expect(Checkbox.find_by(objective: explore_our_library, user: teacher)).to be
+          expect(Checkbox.find_by(objective: explore_our_diagnostics, user: teacher)).to be
+          expect(assigns(:objective_checklist)).to eq ([
+            {
+              name: create_a_classroom.name,
+              checked: true,
+              link: create_a_classroom.action_url
+            },
+            {
+              name: add_students.name,
+              checked: false,
+              link: add_students.action_url
+            },
+            {
+              name: explore_our_library.name,
+              checked: true,
+              link: explore_our_library.action_url
+            },
+            {
+              name: explore_our_diagnostics.name,
+              checked: true,
+              link: explore_our_diagnostics.action_url
+            }
+          ])
+        end
+        
+      end
+
     end
   end
 
