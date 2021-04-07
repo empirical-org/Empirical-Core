@@ -845,7 +845,7 @@ DEPENDENCIES
   rails (= 5.0.7)
   rails-controller-testing
   rails_12factor
-  rails_admin
+  rails_admin (~> 1.4.3)
   rails_autoscale_agent
   ranked-model
   ransack
