@@ -3,7 +3,6 @@ import React from 'react';
 import { shallow } from 'enzyme';
 
 import Dashboard from '../dashboard.jsx';
-
 import ClassOverview from '../../components/dashboard/class_overview'
 import MyClasses from '../../components/dashboard/my_classes'
 import TeacherCenter from '../../components/dashboard/teacher_center'
@@ -12,6 +11,28 @@ import DashboardFooter from '../../components/dashboard/dashboard_footer'
 describe('dashboard container', () => {
   const wrapper = shallow(
     <Dashboard
+      onboardingChecklist={[
+        {
+          name: "Create a class",
+          checked: true,
+          link: "/teachers/classrooms?modal=create-a-class"
+        },
+        {
+          name: "Add students",
+          checked: true,
+          link: "/teachers/classrooms"
+        },
+        {
+          name: "Explore our library",
+          checked: true,
+          link: "/assign"
+        },
+        {
+          name: "Explore our diagnostics",
+          checked: true,
+          link: "/assign/diagnostic"
+        }
+      ]}
       user={'{"name":"George Costanza","flag":"bosco"}'}
     />
   );
