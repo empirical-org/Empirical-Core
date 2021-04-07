@@ -862,7 +862,7 @@ DEPENDENCIES
   rack-host-redirect
   rails (= 4.2.11.3)
   rails_12factor
-  rails_admin (~> 1.4.2)
+  rails_admin (~> 1.4.3)
   rails_autoscale_agent
   ranked-model
   ransack
