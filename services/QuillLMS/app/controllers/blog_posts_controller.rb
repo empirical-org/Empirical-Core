@@ -40,7 +40,7 @@ class BlogPostsController < ApplicationController
     @query = params[:query]
     if params[:query].blank?
       flash[:error] = 'Oops! Please enter a search query.'
-      return redirect_to :back
+      return redirect_back(fallback_location: search_blog_posts_path)
     end
     @blog_posts = ActiveRecord::Base.connection.execute("
       SELECT slug, preview_card_content

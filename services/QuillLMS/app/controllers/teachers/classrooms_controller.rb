@@ -125,7 +125,7 @@ class Teachers::ClassroomsController < ApplicationController
     @classroom = Classroom.find(params[:id])
     if @classroom.students.empty?
       flash[:info] = 'You can print a sheet with student logins once you add students.'
-      return redirect_to :back
+      redirect_back(fallback_location: dashboard_teachers_classrooms_path)
     end
     respond_to do |format|
       format.pdf do

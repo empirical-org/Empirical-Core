@@ -22,7 +22,7 @@ class Teachers::ClassroomUnitsController < ApplicationController
     )
     rescue ActiveRecord::StatementInvalid
       flash.now[:error] = "We cannot launch this lesson. If the problem persists, please contact support."
-      redirect_to :back
+      redirect_back(fallback_location: dashboard_teachers_classrooms_path)
       return
     end
 
@@ -36,7 +36,7 @@ class Teachers::ClassroomUnitsController < ApplicationController
         redirect_to lesson_url(lesson) and return
       else
         flash.now[:error] = "We cannot launch this lesson. If the problem persists, please contact support."
-        redirect_to :back
+        redirect_back(fallback_location: dashboard_teachers_classrooms_path)
       end
     else
       redirect_to "#{ENV['DEFAULT_URL']}/tutorials/lessons?url=#{URI.encode_www_form_component(launch_lesson_url)}" and return

@@ -43,7 +43,7 @@ class Cms::UsersController < Cms::CmsController
       redirect_to cms_school_path(school_id_param)
     else
       flash[:error] = 'Did not save.'
-      redirect_to :back
+      redirect_back(fallback_location: cms_school_path(school_id_param))
     end
   end
 
@@ -61,7 +61,7 @@ class Cms::UsersController < Cms::CmsController
       redirect_to cms_users_path
     else
       flash[:error] = 'Did not save.'
-      redirect_to :back
+      redirect_back(fallback_location: cms_users_path)
     end
   end
 
@@ -76,14 +76,14 @@ class Cms::UsersController < Cms::CmsController
     admin.school_id = params[:school_id]
     admin.user_id = params[:user_id]
     flash[:error] = 'Something went wrong.' unless admin.save
-    redirect_to :back
+    redirect_back(fallback_location: cms_users_path)
   end
 
   def remove_admin
     admin = SchoolsAdmins.find_by(user_id: params[:user_id], school_id: params[:school_id])
     flash[:error] = 'Something went wrong.' unless admin.destroy
     flash[:success] = 'Success! 🎉'
-    redirect_to :back
+    redirect_back(fallback_location: cms_users_path)
   end
 
   def edit
@@ -299,6 +299,7 @@ class Cms::UsersController < Cms::CmsController
   private def log_search
     log_change(params[:action].to_sym, nil, "Search term: #{user_query_params}")
   end
+
 
   private def log_attribute_change
     previous_user_params = User.where(:id => @user.id).select(:name, :email, :username, :title, :role, :classcode, :flags).first.as_json

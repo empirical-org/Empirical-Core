@@ -11,7 +11,7 @@ class Cms::AnnouncementsController < Cms::CmsController
       redirect_to cms_announcements_path
     else
       flash[:error] = 'Rut roh. Something has gone awry! 😭'
-      redirect_to :back
+      redirect_back(fallback_location: new_cms_announcement_path)
     end
   end
 
