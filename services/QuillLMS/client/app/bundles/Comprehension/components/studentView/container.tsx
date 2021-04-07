@@ -1,6 +1,7 @@
 import * as React from "react";
 import queryString from 'query-string';
 import { connect } from "react-redux";
+import * as _ from 'underscore'
 
 import PromptStep from './promptStep'
 import StepLink from './stepLink'
@@ -374,8 +375,8 @@ export class StudentViewContainer extends React.Component<StudentViewContainerPr
     const { currentActivity, } = activities
     const { submittedResponses, } = session
     if (!currentActivity) return
-
-    const steps =  currentActivity.prompts.map((prompt, i) => {
+    const filteredSteps = _.sortBy( currentActivity.prompts, 'id' );
+    const steps =  filteredSteps.map((prompt, i) => {
       // using i + 2 because the READ_PASSAGE_STEP is 1, so the first item in the set of prompts will always be 2
       const stepNumber = i + 2
       const everyOtherStepCompleted = completedSteps.filter(s => s !== stepNumber).length === 3
