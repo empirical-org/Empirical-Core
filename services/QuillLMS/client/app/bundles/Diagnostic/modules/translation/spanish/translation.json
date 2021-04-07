@@ -35,6 +35,7 @@
         "text": "Tus resultados se están guardando ahora. Serás redirigido automáticamente cuando se guarden."
     },
     "instructions": {
+        "Fill in each blank with one of the choices. You can leave one empty.": "Rellena cada espacio con una de las opciones. Puedes dejar uno vacío.",
         "Fill in the blank with one of the choices.": "Rellena el espacio en blanco con una de las opciones.",
         "Fill in each blank with one of the choices.": "Rellena cada espacio en blanco con una de las opciones.",
         "Fill in the blanks with one word each.": "Rellena los espacios en blanco con una palabra en cada uno.",
@@ -42,6 +43,9 @@
         "Use the joining word to combine the sentences into one sentence.": "Utiliza la palabra de unión para combinar las oraciones en una sola oración."
     },
     "cues": {
+        "type one": "type one / Escribe una",
+        "type two or three": "type two or three / Escribe dos o tres",
+        "type three": "type three / Escribe tres",
         "choose one": "choose one / elige una",
         "choose three": "choose three / elige tres",
         "choose two or three" : "choose two or three / elige dos o tres",

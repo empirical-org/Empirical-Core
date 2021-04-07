@@ -35,6 +35,7 @@
         "text": "現在、結果を保存しています。保存が完了すると、自動的に移動します。"
     },
     "instructions": {
+        "Fill in each blank with one of the choices. You can leave one empty.": "選択肢の中から正しいものを１つ選び、それぞれの空欄を埋めて下さい。空欄のままにしておいて良いものが１つあります。",
         "Fill in the blank with one of the choices.": "選んだ単語の1語を空欄に記入してください。",
         "Fill in each blank with one of the choices.": "各空欄に選んだ単語のうちの1語を記入してください。",
         "Fill in the blanks with one word each.": "半分終わりました！その調子で頑張りましょう",
@@ -42,6 +43,9 @@
         "Use the joining word to combine the sentences into one sentence.": "空欄に1語づつ単語を記入してください。１つの空欄は何も記入せずにそのままにすることができます"
     },
     "cues": {
+        "type one": "type one / １つ入力して下さい",
+        "type two or three": "type two or three / ２つ、又は３つ入力して下さい",
+        "type three": "type three / ３つ入力して下さい",
         "choose one": "choose one / 1つ選ぶ",
         "choose three": "choose three / 3つ選ぶ",
         "choose two or three" : "choose two or three / 2つまたは3つ選ぶ",
