@@ -21,25 +21,25 @@ describe Api::V1::ProgressReportsController, type: :controller do
   context '#student_overview_data' do
     it 'should not allow access if no teacher classroom relationship exists' do
       session[:user_id] = unaffiliated_teacher.id
-      get :student_overview_data, student_id: student.id, classroom_id: classroom.id
+      get :student_overview_data, params: { student_id: student.id, classroom_id: classroom.id }
       expect(response).to redirect_to new_session_path
     end
 
     it 'should not allow access if student is not in classroom' do
       session[:user_id] = teacher.id
-      get :student_overview_data, student_id: unaffiliated_student.id, classroom_id: classroom.id
+      get :student_overview_data, params: { student_id: unaffiliated_student.id, classroom_id: classroom.id }
       expect(response).to redirect_to new_session_path
     end
 
     it 'should not allow access if teacher is admin but not admin of that school' do
       session[:user_id] = admin.id
-      get :student_overview_data, student_id: student.id, classroom_id: classroom.id
+      get :student_overview_data, params: { student_id: student.id, classroom_id: classroom.id }
       expect(response).to redirect_to new_session_path
     end
 
     it 'should return appropriate data' do
       session[:user_id] = teacher.id
-      get :student_overview_data, student_id: student.id, classroom_id: classroom.id
+      get :student_overview_data, params: { student_id: student.id, classroom_id: classroom.id }
       expect(response.body).to eq({
         report_data: ProgressReports::StudentOverview.results(classroom.id, student.id),
         student_data: {
