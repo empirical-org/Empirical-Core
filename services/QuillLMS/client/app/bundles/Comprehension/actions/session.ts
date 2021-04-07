@@ -26,7 +26,8 @@ export const setSessionId = (sessionID: string) => {
 export const getFeedback = (args: GetFeedbackArguments) => {
   const { sessionID, activityUID, entry, promptID, promptText, attempt, previousFeedback, callback, } = args
   return (dispatch: Function) => {
-    const feedbackURL = 'https://us-central1-comprehension-247816.cloudfunctions.net/comprehension-endpoint-go'
+    // const feedbackURL = 'https://us-central1-comprehension-247816.cloudfunctions.net/comprehension-endpoint-go'
+    const feedbackURL = 'https://staging2.quill.org/api/v1/comprehension/feedback/automl.json'
     const promptRegex = new RegExp(`^${promptText}`)
     const entryWithoutStem = entry.replace(promptRegex, "").trim()
     const mostRecentFeedback = previousFeedback.slice(-1)[0] || {}
