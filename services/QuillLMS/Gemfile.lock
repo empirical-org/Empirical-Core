@@ -1,3 +1,13 @@
+GIT
+  remote: https://github.com/kmurph73/ctes_in_my_pg.git
+  revision: 660b6dbc8618deb93397ead06a757871be46c7ae
+  ref: 660b6db
+  specs:
+    ctes_in_my_pg (0.1.0)
+      activerecord (>= 5.0.0)
+      arel (>= 7.0.0)
+      pg
+
 PATH
   remote: engines/comprehension
   specs:
@@ -780,6 +790,7 @@ DEPENDENCIES
   codecov
   comprehension!
   configs
+  ctes_in_my_pg!
   cypress-on-rails (~> 1.0)
   database_cleaner
   doorkeeper (>= 4.2.0)

@@ -17,6 +17,7 @@ gem 'ranked-model'
 gem 'rails_admin', "~> 1.4.3"
 gem 'bulk_insert'
 gem 'atomic_arrays'
+gem 'ctes_in_my_pg', github: 'kmurph73/ctes_in_my_pg', ref: '660b6db'
 
 # USER AUTH, ETC
 gem 'bcrypt'
