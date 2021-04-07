@@ -14,34 +14,35 @@ module Comprehension
     end
 
     def feedback_object
-      return render json: { error_message: bing_response['error']['message'] }, status: 400 if bing_response['error']
-      feedback_obj = {
-        feedback: ALL_CORRECT_FEEDBACK,
+      return {} if error.present?
+      {
+        feedback: optimal? ? ALL_CORRECT_FEEDBACK : INCORRECT_FEEDBACK,
         feedback_type: FEEDBACK_TYPE,
-        optimal: true,
+        optimal: optimal?,
         response_id: '',
         entry: @entry,
         concept_uid: SPELLING_CONCEPT_UID,
         rule_uid: '',
-        highlight: []
+        highlight: optimal? ? [] : misspelled.map {|m| { type: RESPONSE_TYPE, id: nil, text: m['token']}}
       }
+    end
 
-      misspelled = bing_response['flaggedTokens']
-      if !misspelled.empty?
-        feedback_obj.update(
-          feedback: INCORRECT_FEEDBACK,
-          optimal: false,
-          highlight: misspelled.map {|m| { type: RESPONSE_TYPE, id: nil, text: m['token']}}
-        )
-      end
+    def error
+      bing_response['error'] ? bing_response['error']['message'] : nil
+    end
 
-      feedback_obj
+    private def optimal?
+      misspelled.empty?
+    end
+
+    private def misspelled
+      bing_response['flaggedTokens']
     end
 
     private def bing_response
       @response ||= HTTParty.get("#{BING_API_URL}",
         headers: {
-          "Ocp-Apim-Subscription-Key": 'bcf0cf91e16b4454a583761d643908f1'
+          "Ocp-Apim-Subscription-Key": ENV['OCP-APIM-SUBSCRIPTION-KEY']
         },
         query: {
           text: @entry,
