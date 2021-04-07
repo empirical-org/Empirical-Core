@@ -1,6 +1,7 @@
 import * as React from "react";
 import queryString from 'query-string';
 import { connect } from "react-redux";
+import stripHtml from "string-strip-html";
 
 import PromptStep from './promptStep'
 import StepLink from './stepLink'
@@ -316,9 +317,10 @@ export class StudentViewContainer extends React.Component<StudentViewContainerPr
       passages = passages.map((passage: Passage) => {
         let formattedPassage = passage;
         const { text } = passage;
+        const strippedText = stripHtml(hl.text);
         const passageBeforeCharacterStart = text.substring(0, characterStart)
         const passageAfterCharacterStart = text.substring(characterStart)
-        const highlightedPassageAfterCharacterStart = passageAfterCharacterStart.replace(hl.text, `<span class="passage-highlight">${hl.text}</span>`)
+        const highlightedPassageAfterCharacterStart = passageAfterCharacterStart.replace(strippedText, `<span class="passage-highlight">${strippedText}</span>`)
         formattedPassage.text = `${passageBeforeCharacterStart}${highlightedPassageAfterCharacterStart}`
         return formattedPassage
       })
