@@ -4,7 +4,7 @@ class Api::V1::TitleCardsController < Api::ApiController
   before_action :title_card_by_uid, only: [:show, :update, :destroy]
 
   def index
-    render(json: TitleCard.where(title_card_type: @title_card_type.to_s).as_json || {title_cards:[]})
+    render(json: TitleCard.where(title_card_type: @title_card_type.to_s).as_json)
   end
 
   def show

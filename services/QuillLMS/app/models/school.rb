@@ -123,7 +123,9 @@ class School < ActiveRecord::Base
   end
 
   def students
-    User.joins(student_in_classroom: {teachers: :school}).where(schools: {id: id}).uniq
+    User.joins(student_in_classroom: {teachers: :school})
+      .where(schools: {id: id})
+      .distinct
   end
 
   def self.school_year_start(time)

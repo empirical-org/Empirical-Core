@@ -302,19 +302,15 @@ class Cms::UsersController < Cms::CmsController
 
 
   private def log_attribute_change
-    previous_user_params = User.where(:id => @user.id).select(:name, :email, :username, :title, :role, :classcode, :flags).first.as_json
+    old_params = @user.attributes.slice('name', 'email', 'username', 'title', 'role', 'classcode', 'flags')
+    new_params = user_params.to_h
+    
+    new_params[:password].present? ? new_params.store('password', nil) : new_params.delete('password')
+    new_params.delete('password_confirmation')
 
-    #omit password field if password not filled in
-    if user_params[:password].blank?
-      new_user_params = user_params.except("password", "password_confirmation")
-    else
-      new_user_params = user_params.except("password_confirmation")
-    end
-
-    difference = Hash[new_user_params.to_a - previous_user_params.to_a]
+    difference = Hash[new_params.to_a - old_params.to_a]
     difference.each_key do |field|
-      new_value = field == 'password' ? nil : difference[field]
-      log_change(params[:action].to_sym, @user.id.to_s, nil, field, previous_user_params[field], new_value)
+      log_change(params[:action].to_sym, @user.id.to_s, nil, field, old_params[field], difference[field])
     end
   end
 
