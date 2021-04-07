@@ -9,7 +9,10 @@ import LoadingSpinner from '../shared/loadingSpinner'
 import { getActivity } from "../../actions/activities";
 import { TrackAnalyticsEvent } from "../../actions/analytics";
 import { Events } from '../../modules/analytics'
-import { getFeedback, saveActiveActivitySession, setSessionId } from '../../actions/session'
+import { fetchActiveActivitySession,
+         getFeedback,
+         saveActiveActivitySession,
+         setSessionId } from '../../actions/session'
 import { ActivitiesReducerState } from '../../reducers/activitiesReducer'
 import { SessionReducerState } from '../../reducers/sessionReducer'
 import getParameterByName from '../../helpers/getParameterByName';
@@ -64,16 +67,25 @@ export class StudentViewContainer extends React.Component<StudentViewContainerPr
 
   componentDidMount() {
     const { dispatch, session, isTurk } = this.props
+    const activityUID = this.activityUID()
     const sessionFromUrl = this.specifiedActivitySessionUID()
     if (sessionFromUrl) {
       dispatch(setSessionId(sessionFromUrl));
-    }
-    const { sessionID, } = session
-    const activityUID = this.activityUID()
-
-    if (activityUID) {
-      dispatch(getActivity(sessionID, activityUID))
-      isTurk && this.handlePostTurkSession(sessionID);
+      const fetchActiveActivitySessionArgs = {
+        sessionID: sessionFromUrl,
+        activityUID: activityUID,
+        callback: this.loadPreviousSession
+      }
+      dispatch(getActivity(sessionFromUrl, activityUID))
+        .then(() => {
+          dispatch(fetchActiveActivitySession(fetchActiveActivitySessionArgs))
+        })
+    } else {
+      if (activityUID) {
+        const { sessionID, } = session
+        dispatch(getActivity(sessionID, activityUID))
+        isTurk && this.handlePostTurkSession(sessionID);
+      }
     }
 
     window.addEventListener('keydown', this.handleKeyDown)
@@ -111,6 +123,12 @@ export class StudentViewContainer extends React.Component<StudentViewContainerPr
 
   specifiedActivitySessionUID = () => {
     return this.getUrlParam('session')
+  }
+
+  loadPreviousSession = (data: object) => {
+    const { activeStep, completedSteps, } = data
+    this.setState({ completedSteps })
+    this.activateStep(activeStep, null, true)
   }
 
   submitResponse = (entry: string, promptID: string, promptText: string, attempt: number) => {
@@ -197,14 +215,14 @@ export class StudentViewContainer extends React.Component<StudentViewContainerPr
     }
   }
 
-  activateStep = (step?: number, callback?: Function) => {
+  activateStep = (step?: number, callback?: Function, skipTracking?: boolean) => {
     const { activeStep, completedSteps, } = this.state
     // don't activate a step if it's already active
     if (activeStep == step) return
     // don't activate steps before Done reading button has been clicked
     if (step && step > 1 && !completedSteps.includes(READ_PASSAGE_STEP)) return
     this.setState({ activeStep: step, }, () => {
-      this.trackCurrentPromptStartedEvent()
+      if (!skipTracking) this.trackCurrentPromptStartedEvent()
       if (callback) { callback() }
     })
   }
