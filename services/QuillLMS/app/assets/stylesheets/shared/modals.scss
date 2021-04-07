@@ -490,6 +490,11 @@
   transform: translate(-50%, -50%);
   position: fixed !important;
   text-align: left;
+  p {
+    line-height: 1.57;
+    color: #646464;
+    margin-bottom: 32px;
+  }
   .checkboxes {
     margin-bottom: 32px;
     .checkbox-row {
@@ -559,9 +564,9 @@
   .welcome-modal-text {
     margin-top: 16px;
     margin-bottom: 40px;
-    font-size: 14px;
-    line-height: 1.43;
-    color: #5c5c5c;
+    p {
+      color: #5c5c5c;
+    }
   }
   img {
     margin-left: 24px;
