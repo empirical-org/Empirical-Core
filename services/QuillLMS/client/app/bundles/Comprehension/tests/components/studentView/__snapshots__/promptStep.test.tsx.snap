@@ -580,9 +580,9 @@ exports[`PromptStep component active state when a suboptimal response has been s
             className="editor suboptimal"
             disabled={false}
             handleTextChange={[Function]}
-            html="<p>Governments should make voting compulsory <u>because</u>&nbsp;</p>"
+            html="<p>Governments should make voting compulsory <u>because</u>&nbsp;Governments should make voting compulsory, so that more voices are heard in elections.</p>"
             innerRef={[Function]}
-            isResettable={false}
+            isResettable={true}
             promptText="Governments should make voting compulsory because"
             resetText={[Function]}
             stripHtml={[Function]}
@@ -594,7 +594,7 @@ exports[`PromptStep component active state when a suboptimal response has been s
                 className="editor suboptimal"
                 data-gramm={false}
                 disabled={false}
-                html="<p>Governments should make voting compulsory <u>because</u>&nbsp;</p>"
+                html="<p>Governments should make voting compulsory <u>because</u>&nbsp;Governments should make voting compulsory, so that more voices are heard in elections.</p>"
                 innerRef={[Function]}
                 onChange={[Function]}
                 spellCheck={false}
@@ -604,7 +604,7 @@ exports[`PromptStep component active state when a suboptimal response has been s
                   contentEditable={true}
                   dangerouslySetInnerHTML={
                     Object {
-                      "__html": "<p>Governments should make voting compulsory <u>because</u>&nbsp;</p>",
+                      "__html": "<p>Governments should make voting compulsory <u>because</u>&nbsp;Governments should make voting compulsory, so that more voices are heard in elections.</p>",
                     }
                   }
                   data-gramm={false}
@@ -618,34 +618,24 @@ exports[`PromptStep component active state when a suboptimal response has been s
                 />
               </ContentEditable>
               <button
-                className="disabled clear-button"
+                className="clear-button"
+                onClick={[Function]}
                 type="button"
               >
                 <img
                   alt="circle with an x in it"
                   className="clear"
-                  src="undefined/images/icons/clear-disabled.svg"
+                  src="undefined/images/icons/clear-enabled.svg"
                 />
                 Clear response
               </button>
             </div>
           </EditorContainer>
           <button
-            className="quill-button disabled"
+            className="quill-button"
             onClick={[Function]}
             type="button"
           >
-            <ButtonLoadingSpinner>
-              <span
-                className="button-loading-spinner-container"
-              >
-                <img
-                  alt="spinning circle to indicate loading"
-                  className="button-loading-spinner"
-                  src="undefined/images/shared/assigner_still_gray.png"
-                />
-              </span>
-            </ButtonLoadingSpinner>
             <span>
               Get new feedback
             </span>
@@ -1222,9 +1212,9 @@ exports[`PromptStep component active state when an optimal response has been sub
             className="editor optimal disabled"
             disabled={true}
             handleTextChange={[Function]}
-            html="<p>Governments should make voting compulsory <u>because</u>&nbsp;</p>"
+            html="<p>Governments should make voting compulsory <u>because</u>&nbsp;Governments should make voting compulsory, so that the elected government represents the majority of the population.</p>"
             innerRef={[Function]}
-            isResettable={false}
+            isResettable={true}
             promptText="Governments should make voting compulsory because"
             resetText={[Function]}
             stripHtml={[Function]}
@@ -1236,7 +1226,7 @@ exports[`PromptStep component active state when an optimal response has been sub
                 className="editor optimal disabled"
                 data-gramm={false}
                 disabled={true}
-                html="<p>Governments should make voting compulsory <u>because</u>&nbsp;</p>"
+                html="<p>Governments should make voting compulsory <u>because</u>&nbsp;Governments should make voting compulsory, so that the elected government represents the majority of the population.</p>"
                 innerRef={[Function]}
                 onChange={[Function]}
                 spellCheck={false}
@@ -1246,7 +1236,7 @@ exports[`PromptStep component active state when an optimal response has been sub
                   contentEditable={false}
                   dangerouslySetInnerHTML={
                     Object {
-                      "__html": "<p>Governments should make voting compulsory <u>because</u>&nbsp;</p>",
+                      "__html": "<p>Governments should make voting compulsory <u>because</u>&nbsp;Governments should make voting compulsory, so that the elected government represents the majority of the population.</p>",
                     }
                   }
                   data-gramm={false}
@@ -1266,17 +1256,6 @@ exports[`PromptStep component active state when an optimal response has been sub
             onClick={[Function]}
             type="button"
           >
-            <ButtonLoadingSpinner>
-              <span
-                className="button-loading-spinner-container"
-              >
-                <img
-                  alt="spinning circle to indicate loading"
-                  className="button-loading-spinner"
-                  src="undefined/images/shared/assigner_still_gray.png"
-                />
-              </span>
-            </ButtonLoadingSpinner>
             <span>
               Start next sentence
             </span>
@@ -1479,9 +1458,9 @@ exports[`PromptStep component active state when the max attempts have been reach
             className="editor suboptimal disabled"
             disabled={true}
             handleTextChange={[Function]}
-            html="<p>Governments should make voting compulsory <u>because</u>&nbsp;</p>"
+            html="<p>Governments should make voting compulsory <u>because</u>&nbsp;Governments should make voting compulsory, so that more voices are heard in elections.</p>"
             innerRef={[Function]}
-            isResettable={false}
+            isResettable={true}
             promptText="Governments should make voting compulsory because"
             resetText={[Function]}
             stripHtml={[Function]}
@@ -1493,7 +1472,7 @@ exports[`PromptStep component active state when the max attempts have been reach
                 className="editor suboptimal disabled"
                 data-gramm={false}
                 disabled={true}
-                html="<p>Governments should make voting compulsory <u>because</u>&nbsp;</p>"
+                html="<p>Governments should make voting compulsory <u>because</u>&nbsp;Governments should make voting compulsory, so that more voices are heard in elections.</p>"
                 innerRef={[Function]}
                 onChange={[Function]}
                 spellCheck={false}
@@ -1503,7 +1482,7 @@ exports[`PromptStep component active state when the max attempts have been reach
                   contentEditable={false}
                   dangerouslySetInnerHTML={
                     Object {
-                      "__html": "<p>Governments should make voting compulsory <u>because</u>&nbsp;</p>",
+                      "__html": "<p>Governments should make voting compulsory <u>because</u>&nbsp;Governments should make voting compulsory, so that more voices are heard in elections.</p>",
                     }
                   }
                   data-gramm={false}
@@ -1523,17 +1502,6 @@ exports[`PromptStep component active state when the max attempts have been reach
             onClick={[Function]}
             type="button"
           >
-            <ButtonLoadingSpinner>
-              <span
-                className="button-loading-spinner-container"
-              >
-                <img
-                  alt="spinning circle to indicate loading"
-                  className="button-loading-spinner"
-                  src="undefined/images/shared/assigner_still_gray.png"
-                />
-              </span>
-            </ButtonLoadingSpinner>
             <span>
               Start next sentence
             </span>
@@ -1738,9 +1706,9 @@ exports[`PromptStep component active state when the max attempts have been reach
             className="editor optimal disabled"
             disabled={true}
             handleTextChange={[Function]}
-            html="<p>Governments should make voting compulsory <u>because</u>&nbsp;</p>"
+            html="<p>Governments should make voting compulsory <u>because</u>&nbsp;Governments should make voting compulsory, so that the elected government represents the majority of the population.</p>"
             innerRef={[Function]}
-            isResettable={false}
+            isResettable={true}
             promptText="Governments should make voting compulsory because"
             resetText={[Function]}
             stripHtml={[Function]}
@@ -1752,7 +1720,7 @@ exports[`PromptStep component active state when the max attempts have been reach
                 className="editor optimal disabled"
                 data-gramm={false}
                 disabled={true}
-                html="<p>Governments should make voting compulsory <u>because</u>&nbsp;</p>"
+                html="<p>Governments should make voting compulsory <u>because</u>&nbsp;Governments should make voting compulsory, so that the elected government represents the majority of the population.</p>"
                 innerRef={[Function]}
                 onChange={[Function]}
                 spellCheck={false}
@@ -1762,7 +1730,7 @@ exports[`PromptStep component active state when the max attempts have been reach
                   contentEditable={false}
                   dangerouslySetInnerHTML={
                     Object {
-                      "__html": "<p>Governments should make voting compulsory <u>because</u>&nbsp;</p>",
+                      "__html": "<p>Governments should make voting compulsory <u>because</u>&nbsp;Governments should make voting compulsory, so that the elected government represents the majority of the population.</p>",
                     }
                   }
                   data-gramm={false}
@@ -1782,17 +1750,6 @@ exports[`PromptStep component active state when the max attempts have been reach
             onClick={[Function]}
             type="button"
           >
-            <ButtonLoadingSpinner>
-              <span
-                className="button-loading-spinner-container"
-              >
-                <img
-                  alt="spinning circle to indicate loading"
-                  className="button-loading-spinner"
-                  src="undefined/images/shared/assigner_still_gray.png"
-                />
-              </span>
-            </ButtonLoadingSpinner>
             <span>
               Done
             </span>
