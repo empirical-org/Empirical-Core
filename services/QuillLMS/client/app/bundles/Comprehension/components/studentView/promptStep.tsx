@@ -40,7 +40,7 @@ export default class PromptStep extends React.Component<PromptStepProps, PromptS
 
     this.state = {
       html: this.formattedPrompt(submittedResponses),
-      numberOfSubmissions: submittedResponses.length || 0,
+      numberOfSubmissions: submittedResponses.length,
       customFeedback: null,
       customFeedbackKey: null
     };
@@ -64,9 +64,13 @@ export default class PromptStep extends React.Component<PromptStepProps, PromptS
   formattedPrompt = (submittedResponses?: Array<string>) => {
     if (submittedResponses && submittedResponses.length) {
       const lastSubmission = submittedResponses[submittedResponses.length - 1]
-      const = formattedText = this.formatHtmlForEditorContainer(lastSubmission.entry, true)
+      const formattedText = this.formatHtmlForEditorContainer(lastSubmission.entry, true)
       return formattedText.htmlWithBolding
     }
+    return this.formattedStem()
+  }
+
+  formattedStem = () => {
     const { prompt, } = this.props
     const { text } = prompt
     return `<p>${this.allButLastWord(text)} <u>${this.lastWord(text)}</u>&nbsp;</p>`
@@ -110,7 +114,7 @@ export default class PromptStep extends React.Component<PromptStepProps, PromptS
   }
 
   htmlStrippedPrompt = (escapeRegexCharacters=false) => {
-    const strippedPrompt = this.formattedPrompt().replace(/<p>|<\/p>|<br>/g, '')
+    const strippedPrompt = this.formattedStem().replace(/<p>|<\/p>|<br>/g, '')
     if (escapeRegexCharacters) {
       return strippedPrompt.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'); // $& means the whole matched string
     }
@@ -186,7 +190,7 @@ export default class PromptStep extends React.Component<PromptStepProps, PromptS
   }
 
   resetText = () => {
-    const html = this.formattedPrompt()
+    const html = this.formattedStem()
     this.setState({ html }, () => this.editor.innerHTML = html)
   }
 

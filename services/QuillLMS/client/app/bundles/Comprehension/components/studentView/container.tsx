@@ -11,8 +11,8 @@ import { TrackAnalyticsEvent } from "../../actions/analytics";
 import { Events } from '../../modules/analytics'
 import { fetchActiveActivitySession,
          getFeedback,
-         saveActiveActivitySession,
-         setSessionId } from '../../actions/session'
+         processUnfetchableSession,
+         saveActiveActivitySession } from '../../actions/session'
 import { ActivitiesReducerState } from '../../reducers/activitiesReducer'
 import { SessionReducerState } from '../../reducers/sessionReducer'
 import getParameterByName from '../../helpers/getParameterByName';
@@ -70,7 +70,6 @@ export class StudentViewContainer extends React.Component<StudentViewContainerPr
     const activityUID = this.activityUID()
     const sessionFromUrl = this.specifiedActivitySessionUID()
     if (sessionFromUrl) {
-      dispatch(setSessionId(sessionFromUrl));
       const fetchActiveActivitySessionArgs = {
         sessionID: sessionFromUrl,
         activityUID: activityUID,
@@ -84,6 +83,7 @@ export class StudentViewContainer extends React.Component<StudentViewContainerPr
       if (activityUID) {
         const { sessionID, } = session
         dispatch(getActivity(sessionID, activityUID))
+        dispatch(processUnfetchableSession(sessionID));
         isTurk && this.handlePostTurkSession(sessionID);
       }
     }
@@ -403,8 +403,8 @@ export class StudentViewContainer extends React.Component<StudentViewContainerPr
     const { activities, session, } = this.props
     const { activeStep, completedSteps } = this.state
     const { currentActivity, } = activities
-    const { submittedResponses, } = session
-    if (!currentActivity) return
+    const { submittedResponses, hasReceivedData, } = session
+    if (!currentActivity || !hasReceivedData) return
 
     const steps =  currentActivity.prompts.map((prompt, i) => {
       // using i + 2 because the READ_PASSAGE_STEP is 1, so the first item in the set of prompts will always be 2

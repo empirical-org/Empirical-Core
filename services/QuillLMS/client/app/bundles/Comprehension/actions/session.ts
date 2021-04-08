@@ -31,16 +31,17 @@ interface SaveActiveActivitySessionArguments {
   callback: Function
 }
 
-export const setSessionId = (sessionID: string) => {
+export const processUnfetchableSession = () => {
   return (dispatch: Function) => {
-    dispatch({ type: ActionTypes.SET_ACTIVITY_SESSION_ID, sessionID });
+      dispatch({ type: ActionTypes.SESION_HAS_NO_DATA })
   }
 }
 
-export const fetchActiveActivitySession = (args: FetchActiveActivitySessionArguments) => {
-  const { sessionID, activityUID, callback, } = args
+export const fetchActiveActivitySession = ({ sessionID, activityUID, callback, }: FetchActiveActivitySessionArguments) => {
   return (dispatch: Function) => {
     const activeActivitySessionUrl = `${process.env.DEFAULT_URL}/api/v1/active_activity_sessions/${sessionID}`
+
+    dispatch({ type: ActionTypes.SET_ACTIVITY_SESSION_ID, sessionID });
 
     const requestObject = {
       url: activeActivitySessionUrl,
@@ -48,7 +49,10 @@ export const fetchActiveActivitySession = (args: FetchActiveActivitySessionArgum
     }
 
     request.get(requestObject, (e, r, body) => {
-      if (r.statusCode < 200 || r.statusCode >= 300) return
+      if (r.statusCode < 200 || r.statusCode >= 300) {
+        dispatch({ type: ActionTypes.SESION_HAS_NO_DATA })
+        return
+      }
       const { submittedResponses, } = body
       dispatch({ type: ActionTypes.SET_SUBMITTED_RESPONSES, submittedResponses });
       if (callback) callback(body)
@@ -56,8 +60,7 @@ export const fetchActiveActivitySession = (args: FetchActiveActivitySessionArgum
   }
 }
 
-export const saveActiveActivitySession = (args: SaveActiveActivitySessionArguments) => {
-  const { sessionID, submittedResponses, activeStep, completedSteps, callback, } = args
+export const saveActiveActivitySession = ({ sessionID, submittedResponses, activeStep, completedSteps, callback, }: SaveActiveActivitySessionArguments) => {
   return (dispatch: Function) => {
     const activeActivitySessionUrl = `${process.env.DEFAULT_URL}/api/v1/active_activity_sessions/${sessionID}`
 
