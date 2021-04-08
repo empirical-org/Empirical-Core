@@ -374,8 +374,9 @@ export class StudentViewContainer extends React.Component<StudentViewContainerPr
     const { currentActivity, } = activities
     const { submittedResponses, } = session
     if (!currentActivity) return
-
-    const steps =  currentActivity.prompts.map((prompt, i) => {
+    // sort by conjunctions in alphabetical order: because, but, so
+    const filteredSteps = currentActivity.prompts.sort((a, b) => a.conjunction.localeCompare(b.conjunction));
+    const steps =  filteredSteps.map((prompt, i) => {
       // using i + 2 because the READ_PASSAGE_STEP is 1, so the first item in the set of prompts will always be 2
       const stepNumber = i + 2
       const everyOtherStepCompleted = completedSteps.filter(s => s !== stepNumber).length === 3

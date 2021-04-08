@@ -30,7 +30,7 @@ interface PromptStepState {
 
 const RESPONSE = 'response'
 
-export default class PromptStep extends React.Component<PromptStepProps, PromptStepState> {
+export class PromptStep extends React.Component<PromptStepProps, PromptStepState> {
   private editor: any // eslint-disable-line react/sort-comp
 
   constructor(props: PromptStepProps) {
@@ -327,3 +327,5 @@ export default class PromptStep extends React.Component<PromptStepProps, PromptS
     </div>)
   }
 }
+
+export default PromptStep
