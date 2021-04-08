@@ -1,7 +1,6 @@
 import * as React from "react";
 import queryString from 'query-string';
 import { connect } from "react-redux";
-import * as _ from 'underscore'
 
 import PromptStep from './promptStep'
 import StepLink from './stepLink'
@@ -376,7 +375,7 @@ export class StudentViewContainer extends React.Component<StudentViewContainerPr
     const { submittedResponses, } = session
     if (!currentActivity) return
     // sort by conjunctions in alphabetical order: because, but, so
-    const filteredSteps = _.sortBy( currentActivity.prompts, 'conjunction' );
+    const filteredSteps = currentActivity.prompts.sort((a, b) => a.conjunction.localeCompare(b.conjunction));
     const steps =  filteredSteps.map((prompt, i) => {
       // using i + 2 because the READ_PASSAGE_STEP is 1, so the first item in the set of prompts will always be 2
       const stepNumber = i + 2

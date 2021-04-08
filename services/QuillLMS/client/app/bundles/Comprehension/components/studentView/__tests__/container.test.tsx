@@ -4,7 +4,29 @@ import { shallow } from 'enzyme';
 import { StudentViewContainer } from '../container';
 import { PromptStep } from '../promptStep';
 
-describe('TurkerView Component', () => {
+describe('StudentViewContainer Component', () => {
+  const prompts = [
+  {
+    conjunction: "so",
+    id: 21,
+    max_attempts: 5,
+    max_attempts_feedback: "<p>Nice effort! You made some good revisions.",
+    text: "Plastic bag reduction laws are beneficial so"
+  },
+  {
+    conjunction: "but",
+    id: 20,
+    max_attempts: 5,
+    max_attempts_feedback: "<p>Nice effort! You made some good revisions.",
+    text: "Plastic bag reduction laws are beneficial, but"
+  },
+  {
+    conjunction: "because",
+    id: 19,
+    max_attempts: 5,
+    max_attempts_feedback: "<p>Nice effort! You made some good revisions.",
+    text: "Plastic bag reduction laws are beneficial because"
+  }];
   const mockProps = {
     dispatch: jest.fn(),
     activities: {
@@ -20,25 +42,7 @@ describe('TurkerView Component', () => {
           image_link: null,
           text: "<p>How often do you use plastic bags?"
         }],
-        prompts: [{
-          conjunction: "so",
-          id: 21,
-          max_attempts: 5,
-          max_attempts_feedback: "<p>Nice effort! You made some good revisions.",
-          text: "Plastic bag reduction laws are beneficial so"
-        }, {
-          conjunction: "but",
-          id: 20,
-          max_attempts: 5,
-          max_attempts_feedback: "<p>Nice effort! You made some good revisions.",
-          text: "Plastic bag reduction laws are beneficial, but"
-        }, {
-          conjunction: "because",
-          id: 19,
-          max_attempts: 5,
-          max_attempts_feedback: "<p>Nice effort! You made some good revisions.",
-          text: "Plastic bag reduction laws are beneficial because"
-        }],
+        prompts: [...prompts],
         scored_level: "",
         target_level: 4,
         title: "Should Our Use of Plastic Bags be Regulated?"
@@ -64,9 +68,6 @@ describe('TurkerView Component', () => {
     expect(component).toMatchSnapshot();
   });
   it('should render prompts in correct order', () => {
-    const { activities } = mockProps;
-    const { currentActivity } = activities;
-    const { prompts } = currentActivity;
     expect(component.find(PromptStep).at(0).props().prompt).toEqual(prompts[2])
     expect(component.find(PromptStep).at(1).props().prompt).toEqual(prompts[1])
     expect(component.find(PromptStep).at(2).props().prompt).toEqual(prompts[0])
