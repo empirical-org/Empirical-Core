@@ -20,9 +20,9 @@ interface LessonFormProps {
   submit: Function;
   concepts: ConceptReducerState;
   stateSpecificClass?: string;
-  currentValues?: LessonFormState|null;
-  lesson: LessonFormState|null;
-  returnToView: (e) => void;
+  currentValues?: LessonFormState;
+  lesson?: LessonFormState;
+  returnToView: (e?) => void;
 }
 
 class LessonForm extends React.Component<LessonFormProps, LessonFormState> {
@@ -46,6 +46,11 @@ class LessonForm extends React.Component<LessonFormProps, LessonFormState> {
     this.handleFlagSelect = this.handleFlagSelect.bind(this)
     this.toggleUnderline = this.toggleUnderline.bind(this)
     this.handlePassageChange = this.handlePassageChange.bind(this)
+  }
+
+  componentWillUnmount() {
+    const { returnToView } = this.props;
+    returnToView();
   }
 
   submit() {

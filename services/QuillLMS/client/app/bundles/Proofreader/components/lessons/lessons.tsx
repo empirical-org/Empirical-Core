@@ -1,20 +1,21 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
-import * as actions from '../../actions/proofreaderActivities';
 import _ from 'underscore';
 
-import LinkListItem from '../shared/linkListItem'
 import EditLessonForm from './lessonForm';
-import { ProofreaderActivityState } from '../../reducers/proofreaderActivitiesReducer'
+
+import * as actions from '../../actions/proofreaderActivities';
+import LinkListItem from '../shared/linkListItem'
 import { ProofreaderActivity } from '../../interfaces/proofreaderActivities'
-import {
-  Modal,
-  FlagDropdown
-} from '../../../Shared/index';
+import { FlagDropdown } from '../../../Shared/index';
 
 interface LessonsProps {
   dispatch: Function;
-  lessons: ProofreaderActivityState;
+  lessons: {
+    data: any;
+    newLessonModalOpen: boolean;
+    submittingnew: boolean;
+  };
 }
 
 interface LessonsState {
@@ -22,33 +23,25 @@ interface LessonsState {
 }
 
 class Lessons extends React.Component<LessonsProps, LessonsState> {
-  constructor(props: LessonsProps) {
-    super(props)
+  state = { lessonFlags: 'production' }
 
-    this.state = {
-      lessonFlags: 'production'
-    }
-
-    this.createNew = this.createNew.bind(this)
-    this.submitNewLesson = this.submitNewLesson.bind(this)
-    this.renderLessons = this.renderLessons.bind(this)
-    this.handleSelect = this.handleSelect.bind(this)
+  handleToggle = () => {
+    const { dispatch } = this.props;
+    dispatch(actions.toggleNewLessonModal());
   }
 
-  createNew() {
-    this.props.dispatch(actions.toggleNewLessonModal());
+  submitNewLesson = (data: ProofreaderActivity) => {
+    const { dispatch } = this.props;
+    dispatch(actions.submitNewLesson(data));
   }
 
-  submitNewLesson(data: ProofreaderActivity) {
-    this.props.dispatch(actions.submitNewLesson(data));
-    // this.props.dispatch(actions.toggleNewLessonModal())
-  }
-
-  renderLessons() {
-    const { data, } = this.props.lessons;
+  renderLessons = () => {
+    const { lessonFlags } = this.state;
+    const { lessons } = this.props;
+    const { data } = lessons;
     let keys = _.keys(data);
-    if (this.state.lessonFlags !== 'All Flags') {
-      keys = keys.filter((key: string) => data[key].flag === this.state.lessonFlags);
+    if (lessonFlags !== 'All Flags') {
+      keys = keys.filter((key: string) => data[key].flag === lessonFlags);
     }
     return keys.sort((a, b) => {
       const aTitle = data[a].title
@@ -69,23 +62,26 @@ class Lessons extends React.Component<LessonsProps, LessonsState> {
     ));
   }
 
-  handleSelect(e) {
+  onHandleSelect = (e) => {
     this.setState({ lessonFlags: e.target.value, });
   }
 
   render() {
-    const stateSpecificClass = this.props.lessons.submittingnew ? 'is-loading' : '';
-    if (this.props.lessons.newLessonModalOpen) {
+    const { lessonFlags } = this.state;
+    const { lessons } = this.props;
+    const { newLessonModalOpen, submittingnew } = lessons;
+    const stateSpecificClass = submittingnew ? 'is-loading' : '';
+    if (newLessonModalOpen) {
       return (
-        <EditLessonForm stateSpecificClass={stateSpecificClass} submit={this.submitNewLesson} returnToView={this.createNew}/>
+        <EditLessonForm returnToView={this.handleToggle} stateSpecificClass={stateSpecificClass} submit={this.submitNewLesson} />
       );
     }
     return (
       <section className="section">
         <div className="container">
-          <h1 className="title"><button className="button is-primary" onClick={this.createNew}>Create New Activity</button></h1>
+          <h1 className="title"><button className="button is-primary" onClick={this.handleToggle} type="button">Create New Activity</button></h1>
           <div style={{display: 'inline-block'}}>
-            <FlagDropdown flag={this.state.lessonFlags} handleFlagChange={this.handleSelect} isLessons={true} />
+            <FlagDropdown flag={lessonFlags} handleFlagChange={this.onHandleSelect} isLessons={true} />
           </div>
           <div className="columns">
             <div className="column">
