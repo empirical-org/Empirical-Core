@@ -126,26 +126,26 @@ RSpec.describe FeedbackHistory, type: :model do
       @valid_fh_params = {
         activity_session_uid: SecureRandom.uuid,
         attempt: 1,
-	entry: 'This is the student entry',
-	feedback_text: 'This is the feedback text',
-	feedback_type: 'semantic',
-	optimal: false,
-	time: Time.now,
-	used: true
+        entry: 'This is the student entry',
+        feedback_text: 'This is the feedback text',
+        feedback_type: 'autoML',
+        optimal: false,
+        time: Time.now,
+        used: true
       }
       @invalid_fh_params = {}
     end
 
     it 'should save and return if all creations are valid' do
         assert_equal FeedbackHistory.count, 0
-	FeedbackHistory.batch_create([@valid_fh_params, @valid_fh_params, @valid_fh_params])
-	assert_equal FeedbackHistory.count, 3
+        FeedbackHistory.batch_create([@valid_fh_params, @valid_fh_params, @valid_fh_params])
+        assert_equal FeedbackHistory.count, 3
     end
 
     it 'should save any valid records if, but not any valid ones' do
         assert_equal FeedbackHistory.count, 0
-	results = FeedbackHistory.batch_create([@invalid_fh_params, @valid_fh_params])
-	assert_equal FeedbackHistory.count, 1
+        results = FeedbackHistory.batch_create([@invalid_fh_params, @valid_fh_params])
+        assert_equal FeedbackHistory.count, 1
         assert results[0].errors[:entry].include?("can't be blank")
         assert results[1].valid?
     end
