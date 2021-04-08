@@ -33,6 +33,14 @@ class RuleFeedbackHistory
                 .feedbacks
                 .min_by {|f| f.order}.text
         end
+
+        #rules = rules_sql_result.includes(:feedback_histories)
+        
+        rule_feedbacks = Comprehension::Rule.includes(:feedbacks).where(uid: rules_sql_result.map(&:rules_uid)) 
+        rules_sql_result.each do |r|
+            r.first_feedback = rule_feedbacks.find_by(uid: r.rules_uid).feedbacks.sort_by {|f| f.order}.first.text
+        end
+
     end
 
     def self.format_sql_results(relations)
