@@ -42,7 +42,7 @@ RSpec.describe RuleFeedbackHistory, type: :model do
       expected = {
         api_name: 'autoML',
         rule_order: "1", 
-        feedback_first_layer: 'To Be Implemented', 
+        first_feedback: nil, 
         rule_name: 'so_rule1',
         pct_strong: 0, 
         scored_responses: 0,

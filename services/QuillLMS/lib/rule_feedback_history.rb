@@ -31,7 +31,7 @@ class RuleFeedbackHistory
         rules_sql_result.each do |r|
             r.first_feedback = rule_feedbacks.find_by(uid: r.rules_uid)
                 .feedbacks
-                .min_by {|f| f.order}
+                .min_by {|f| f.order}.text
         end
     end
 
