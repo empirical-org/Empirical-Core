@@ -1,0 +1,21 @@
+.post-checklist-container {
+  .activity-feed {
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    display: flex;
+    border-radius: 8px;
+    border: solid 1px #e0e0e0;
+    &.empty {
+      height: 1112px;
+      h2 {
+        margin: 24px 0px 16px;
+      }
+      p {
+        max-width: 336px;
+        text-align: center;
+        color: #5c5c5c;
+      }
+    }
+  }
+}

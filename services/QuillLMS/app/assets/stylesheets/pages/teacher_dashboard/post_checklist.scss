@@ -1,0 +1,46 @@
+.post-checklist-container {
+  max-width: 1072px;
+  width: 100%;
+  margin: auto;
+  display: flex;
+  section {
+    border-bottom: none;
+    padding: 0px;
+  }
+  h2 {
+    color: #262626;
+  }
+  main, aside {
+    width: 100%;
+  }
+  aside {
+    max-width: 336px;
+    margin-left: 32px;
+    h2 {
+      font-size: 16px;
+      line-height: 1.38;
+      border-bottom: 1px solid #e0e0e0;
+      padding-bottom: 8px;
+      margin-left: 16px;
+      margin-right: 16px;
+    }
+    section {
+      border-radius: 8px;
+      border: solid 1px #e0e0e0;
+      margin-bottom: 32px;
+      padding: 16px 0px 8px;
+    }
+    a:hover, &:focus {
+      text-decoration: none;
+      background-color: #f5f5f5;
+    }
+  }
+  main {
+    h2 {
+      font-size: 16px;
+      line-height: 1.38;
+      border-bottom: 1px solid #e0e0e0;
+      padding-bottom: 8px;
+    }
+  }
+}

@@ -86,5 +86,12 @@ export {
 } from './libs/index'
 
 export {
-  bigCheckIcon
+  bigCheckIcon,
+  searchMapIcon,
+  clipboardCheckIcon,
+  tableCheckIcon,
+  accountViewIcon,
+  giftIcon,
+  groupAccountIcon,
+  googleClassroomIcon,
 } from './images/index'
