@@ -47,11 +47,11 @@ class FeedbackHistory < ActiveRecord::Base
   ]
 
   before_validation :confirm_prompt_type, on: :create
-
+  has_many :feedback_history_ratings
   belongs_to :activity_session, foreign_key: :activity_session_uid, primary_key: :uid
   belongs_to :prompt, polymorphic: true
   belongs_to :concept, foreign_key: :concept_uid, primary_key: :uid
-
+  belongs_to :rule, class_name: Comprehension::Rule,  foreign_key: :rule_uid
   validates :activity_session_uid, presence: true
   validates :concept_uid, allow_blank: true, length: {is: CONCEPT_UID_LENGTH}
   validates :attempt, presence: true,
