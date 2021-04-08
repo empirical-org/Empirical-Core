@@ -21,7 +21,7 @@ const (
 	post_topic_regex_api         = "https://www.quill.org/api/v1/comprehension/feedback/regex/rules-based-2.json"
 	typo_regex_api               = "https://www.quill.org/api/v1/comprehension/feedback/regex/rules-based-3.json"
 	spell_check_local            = "https://us-central1-comprehension-247816.cloudfunctions.net/spell-check-cloud-function"
-	spell_check_bing             = "https://us-central1-comprehension-247816.cloudfunctions.net/bing-API-spell-check"
+	spell_check_bing             = "https://www.quill.org/api/v1/comprehension/feedback/spelling.json"
 	batch_feedback_history_url   = "https://www.quill.org/api/v1/feedback_histories/batch.json"
 	automl_index                 = 3
 )
