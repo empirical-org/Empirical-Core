@@ -6,10 +6,10 @@ import OnboardingChecklist from '../components/dashboard/onboarding_checklist'
 import ActivityFeed from '../components/dashboard/activity_feed'
 import HandyActions from '../components/dashboard/handy_actions'
 import DailyTinyTip from '../components/dashboard/daily_tiny_tip'
+import TeacherCenterHighlights from '../components/dashboard/teacher_center_highlights'
+import CollegeBoard from '../components/dashboard/college_board'
 
-const collegeBoardQuillLogoSrc = `${process.env.CDN_URL}/images/pages/dashboard/logo-quill-collegeboard.svg`
-
-const Dashboard = ({ onboardingChecklist, firstName, mustSeeModal, linkedToClever, }) => {
+const Dashboard = ({ onboardingChecklist, firstName, mustSeeModal, linkedToClever, featuredBlogPosts, }) => {
   const [showWelcomeModal, setShowWelcomeModal] = React.useState(mustSeeModal)
   const [activityFeed, setActivityFeed] = React.useState(mustSeeModal)
 
@@ -31,6 +31,8 @@ const Dashboard = ({ onboardingChecklist, firstName, mustSeeModal, linkedToCleve
       <aside>
         <HandyActions linkedToClever={linkedToClever} />
         <DailyTinyTip />
+        <TeacherCenterHighlights featuredBlogPosts={featuredBlogPosts} />
+        <CollegeBoard />
       </aside>
     </div>
   </div>)

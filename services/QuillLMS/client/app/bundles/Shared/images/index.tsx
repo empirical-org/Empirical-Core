@@ -37,3 +37,13 @@ export const googleClassroomIcon = {
   src: `${process.env.CDN_URL}/images/icons/icons-google-classroom.svg`,
   alt: "Google Classroom icon"
 }
+
+export const helpIcon = {
+  src: `${process.env.CDN_URL}/images/icons/icons-help.svg`,
+  alt: "Question mark icon"
+}
+
+export const arrowPointingRightIcon = {
+  src: `${process.env.CDN_URL}/images/icons/icons-arrow-back.svg`,
+  alt: "Arrow pointing right icon"
+}

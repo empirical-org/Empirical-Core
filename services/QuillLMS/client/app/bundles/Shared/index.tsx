@@ -94,4 +94,6 @@ export {
   giftIcon,
   groupAccountIcon,
   googleClassroomIcon,
+  helpIcon,
+  arrowPointingRightIcon,
 } from './images/index'
