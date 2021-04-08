@@ -24,14 +24,10 @@ class RuleFeedbackHistory
     end
 
     def self.postprocessing(rules_sql_result)
-
-        #rules = rules_sql_result.includes(:feedback_histories)
-        
         rule_feedbacks = Comprehension::Rule.includes(:feedbacks).where(uid: rules_sql_result.map(&:rules_uid)) 
         rules_sql_result.each do |r|
             r.first_feedback = rule_feedbacks.find_by(uid: r.rules_uid).feedbacks.sort_by {|f| f.order}.first.text
         end
-
     end
 
     def self.format_sql_results(relations)
@@ -40,7 +36,7 @@ class RuleFeedbackHistory
                 rule_uid: r.rules_uid,
                 api_name: r.rule_type,
                 rule_order: r.rule_suborder,
-                first_feedback: r.first_feeddback,
+                first_feedback: r.first_feedback,
                 rule_description: r.rule_description,
                 rule_name: r.rule_name,
                 pct_strong: 0, # TODO: to be implemented

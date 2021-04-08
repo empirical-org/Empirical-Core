@@ -84,7 +84,6 @@ RSpec.describe RuleFeedbackHistory, type: :model do
       post_result = RuleFeedbackHistory.postprocessing(sql_result)
 
       expect(post_result.first.first_feedback).to eq f1.text
-
     end
   end
 
