@@ -32,7 +32,7 @@ module Comprehension
           automl_check = Comprehension::AutomlCheck.new(entry, @prompt)
           assert_equal automl_check.feedback_object, {
             feedback: @feedback.text,
-            feedback_type: 'semantic',
+            feedback_type: 'autoML',
             optimal: @rule.optimal,
             response_id: '',
             entry: entry,
