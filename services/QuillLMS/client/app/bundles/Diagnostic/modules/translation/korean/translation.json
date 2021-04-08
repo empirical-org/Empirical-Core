@@ -35,6 +35,7 @@
         "text": "결과가 저장되었습니다. 결과가 저장되면 자동으로 리디렉션 됩니다."
     },
     "instructions": {
+        "Fill in each blank with one of the choices. You can leave one empty.": "각 빈칸에 선택한 단어를 하나 기재하세요. 빈칸으로 남겨 놓아도 좋습니다.",
         "Fill in the blank with one of the choices.": "하나를 선택하여 빈칸을 채우세요.",
         "Fill in each blank with one of the choices.": "하나를 선택하여 각 빈칸을 채우세요.",
         "Fill in the blanks with one word each.": "한 단어씩 기입하여 빈칸을 채우세요.",
@@ -42,6 +43,9 @@
         "Use the joining word to combine the sentences into one sentence.": "연결 단어를 이용하여 여러 문장을 한 문장으로 결합하여 주세요."
     },
     "cues": {
+        "type one": "type one / 하나를 기재하세요",
+        "type two or three": "type two or three / 하나 또는 둘을 기재하세요",
+        "type three": "type three / 셋을 기재하세요",
         "choose one": "choose one / 하나를 선택하세요",
         "choose three": "choose three / 셋을 선택하세요",
         "choose two or three" : "choose two or three / 둘이나 셋을 택하세요",

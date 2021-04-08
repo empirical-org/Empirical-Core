@@ -41,7 +41,7 @@ class FeedbackHistory < ActiveRecord::Base
     RULES_BASED_ONE = "rules-based-1",
     RULES_BASED_TWO = "rules-based-2",
     RULES_BASED_THREE = "rules-based-3",
-    SEMANTIC = "semantic",
+    AUTO_ML = "autoML",
     SPELLING = "spelling",
     OPINION = "opinion"
   ]

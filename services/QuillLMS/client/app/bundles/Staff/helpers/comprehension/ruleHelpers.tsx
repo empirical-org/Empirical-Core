@@ -270,7 +270,7 @@ export const buildRule = ({
   ruleFeedbacks,
   universalRulesCount
 }) => {
-  const { suborder, universal } =  rule;
+  const { suborder, universal, state } =  rule;
   const promptIds = [];
   Object.keys(rulePrompts).forEach(key => {
     rulePrompts[key].checked && promptIds.push(rulePrompts[key].id);
@@ -287,7 +287,7 @@ export const buildRule = ({
     rule_type: ruleType.value,
     suborder: suborder ? suborder : order,
     universal: universal,
-    state: ruleType.value === AUTO_ML ? INACTIVE : ACTIVE
+    state
   };
 
   if(regexRuleTypes.includes(newOrUpdatedRule.rule_type)) {

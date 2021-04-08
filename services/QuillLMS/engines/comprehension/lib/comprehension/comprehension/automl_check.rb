@@ -22,7 +22,7 @@ module Comprehension
       end
       {
         feedback: feedback.text,
-        feedback_type: 'semantic',
+        feedback_type: Rule::TYPE_AUTOML,
         optimal: matched_rule.optimal,
         response_id: '',
         entry: @entry,

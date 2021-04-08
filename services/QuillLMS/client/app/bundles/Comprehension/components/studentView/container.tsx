@@ -1,6 +1,7 @@
 import * as React from "react";
 import queryString from 'query-string';
 import { connect } from "react-redux";
+import stripHtml from "string-strip-html";
 
 import PromptStep from './promptStep'
 import StepLink from './stepLink'
@@ -347,9 +348,10 @@ export class StudentViewContainer extends React.Component<StudentViewContainerPr
       passages = passages.map((passage: Passage) => {
         let formattedPassage = passage;
         const { text } = passage;
+        const strippedText = stripHtml(hl.text);
         const passageBeforeCharacterStart = text.substring(0, characterStart)
         const passageAfterCharacterStart = text.substring(characterStart)
-        const highlightedPassageAfterCharacterStart = passageAfterCharacterStart.replace(hl.text, `<span class="passage-highlight">${hl.text}</span>`)
+        const highlightedPassageAfterCharacterStart = passageAfterCharacterStart.replace(strippedText, `<span class="passage-highlight">${strippedText}</span>`)
         formattedPassage.text = `${passageBeforeCharacterStart}${highlightedPassageAfterCharacterStart}`
         return formattedPassage
       })
@@ -406,7 +408,9 @@ export class StudentViewContainer extends React.Component<StudentViewContainerPr
     const { submittedResponses, hasReceivedData, } = session
     if (!currentActivity || !hasReceivedData) return
 
-    const steps =  currentActivity.prompts.map((prompt, i) => {
+    // sort by conjunctions in alphabetical order: because, but, so
+    const filteredSteps = currentActivity.prompts.sort((a, b) => a.conjunction.localeCompare(b.conjunction));
+    const steps =  filteredSteps.map((prompt, i) => {
       // using i + 2 because the READ_PASSAGE_STEP is 1, so the first item in the set of prompts will always be 2
       const stepNumber = i + 2
       const everyOtherStepCompleted = completedSteps.filter(s => s !== stepNumber).length === 3
