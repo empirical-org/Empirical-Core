@@ -21,7 +21,7 @@ describe StudentsController do
     end
 
     it 'should find the classroom and set flash' do
-      get :index, joined: "success", classroom: classroom.id
+      get :index, params: { joined: "success", classroom: classroom.id }
       expect(flash["join-class-notification"]).to eq "You have joined #{classroom.name} 🎉🎊"
     end
   end
@@ -29,12 +29,10 @@ describe StudentsController do
   describe '#join_classroom' do
     let(:student) { create(:student) }
 
-    before do
-      allow(controller).to receive(:current_user) { student }
-    end
+    before { allow(controller).to receive(:current_user) { student } }
 
     it 'should redirect for an invalid class_code' do
-      get :join_classroom, classcode: 'nonsense_doesnt_exist'
+      get :join_classroom, params: { classcode: 'nonsense_doesnt_exist' }
 
       expect(response).to redirect_to '/classes'
       expect(flash[:error]).to match("Oops! There is no class with the code nonsense_doesnt_exist. Ask your teacher for help.")
@@ -42,7 +40,7 @@ describe StudentsController do
 
     it 'should redirect for a valid class_code' do
       classroom = create(:classroom, code: 'existing_code')
-      get :join_classroom, classcode: classroom.code
+      get :join_classroom, params: { classcode: classroom.code }
 
       expect(response).to redirect_to "/classrooms/#{classroom.id}?joined=success"
     end
@@ -100,8 +98,14 @@ describe StudentsController do
   describe '#update_account' do
     let!(:user) { create(:user, name: "Maya Angelou", email: 'maya_angelou_demo@quill.org', username: "maya-angelou", role: "student") }
     let!(:second_user) { create(:user, name: "Harvey Milk", email: 'harvey@quill.org', username: "harvey-milk", role: "student") }
+
     it 'should update the name, email and username' do
-      put :update_account, {email: "pablo@quill.org", username: "pabllo-vittar", name: "Pabllo Vittar"}
+      put :update_account, 
+        params: {
+          email: "pablo@quill.org", 
+          username: "pabllo-vittar", 
+          name: "Pabllo Vittar"
+        }
       expect(user.reload.email).to eq "pablo@quill.org"
       expect(user.reload.username).to eq "pabllo-vittar"
       expect(user.reload.name).to eq "Pabllo Vittar"
