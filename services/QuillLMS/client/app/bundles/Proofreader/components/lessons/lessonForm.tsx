@@ -22,6 +22,7 @@ interface LessonFormProps {
   stateSpecificClass?: string;
   currentValues?: LessonFormState|null;
   lesson: LessonFormState|null;
+  returnToView: (e) => void;
 }
 
 class LessonForm extends React.Component<LessonFormProps, LessonFormState> {
@@ -62,7 +63,7 @@ class LessonForm extends React.Component<LessonFormProps, LessonFormState> {
   }
 
   handleStateChange(key: string, event: React.ChangeEvent<{value: string}>) {
-    const changes: LessonFormState = {};
+    const changes: LessonFormState | object = {};
     changes[key] = event.target.value;
     this.setState(changes);
   }
@@ -84,9 +85,14 @@ class LessonForm extends React.Component<LessonFormProps, LessonFormState> {
   }
   //
   render() {
-    const addOrEdit = this.props.currentValues ? 'Edit' : 'Add'
+    const { currentValues, returnToView } = this.props;
+    const addOrEdit = currentValues ? 'Edit' : 'Add';
+    const buttonText = currentValues ? 'Return To Activity' : 'Return To Activities';
     return (
       <div className="box">
+        <div className="button-container">
+          <button className="quill-button fun primary contained" onClick={returnToView}>{buttonText}</button>
+        </div>
         <h4 className="title">{addOrEdit} Activity</h4>
         <p className="control">
           <label className="label">Name</label>

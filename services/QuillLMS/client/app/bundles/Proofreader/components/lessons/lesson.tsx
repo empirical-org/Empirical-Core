@@ -36,7 +36,6 @@ class Lesson extends React.Component<LessonProps> {
     this.cancelEditingLesson = this.cancelEditingLesson.bind(this)
     this.saveLessonEdits = this.saveLessonEdits.bind(this)
     this.editLesson = this.editLesson.bind(this)
-    this.renderEditLessonForm = this.renderEditLessonForm.bind(this)
   }
 
   componentDidMount() {
@@ -61,38 +60,6 @@ class Lesson extends React.Component<LessonProps> {
       return data[lessonID]
     }
   }
-
-  // renderQuestionsForLesson():Array<JSX.Element>|JSX.Element {
-  //   const questionsForLesson = this.questionsForLesson();
-  //   if (questionsForLesson) {
-  //     const conceptIds: {[key:string]: Array<JSX.Element>} = {}
-  //     questionsForLesson.forEach((question: Question) => {
-  //       const { prompt, key, concept_uid} = question
-  //       const displayName = prompt || 'No question prompt';
-  //       const questionLink = <li key={key}><Link to={`/admin/questions/${question.key}`}>{displayName.replace(/(<([^>]+)>)/ig, '').replace(/&nbsp;/ig, '')}</Link></li>
-  //       if (conceptIds[concept_uid]) {
-  //         conceptIds[concept_uid].push(questionLink)
-  //       } else {
-  //         conceptIds[concept_uid] = [questionLink]
-  //       }
-  //     });
-  //     const conceptSections:Array<JSX.Element> = []
-  //     const lesson = this.lesson()
-  //     Object.keys(conceptIds).forEach(conceptId => {
-  //       const lessonConcept = lesson ? lesson.concepts[conceptId] : null
-  //       const quantity = lessonConcept ? lessonConcept.quantity : null
-  //       const concept = this.props.concepts.data[0] ? this.props.concepts.data[0].find(c => c.uid === conceptId) : null
-  //       const quantitySpan = <span style={{ fontStyle: 'italic' }}>{quantity} {quantity === 1 ? 'Question' : 'Questions'} Chosen at Random</span>
-  //       conceptSections.push(<br/>)
-  //       conceptSections.push(<h3>{concept ? concept.displayName : null} - {quantitySpan}</h3>)
-  //       conceptSections.push(<ul>{conceptIds[conceptId]}</ul>)
-  //     })
-  //     return conceptSections
-  //   }
-  //   return (
-  //     <ul>No questions</ul>
-  //   );
-  // }
 
   deleteLesson(): void {
     const lessonID: string|undefined = this.props.match.params.lessonID;
@@ -122,25 +89,6 @@ class Lesson extends React.Component<LessonProps> {
     }
   }
 
-  renderEditLessonForm(): JSX.Element|void {
-    const { data, states } = this.props.lessons
-    const lessonID: string|undefined = this.props.match.params.lessonID;
-    if (lessonID) {
-      const lesson = data ? data[lessonID] : null
-      if (lesson && states && states[lessonID] === ActionTypes.EDITING_LESSON) {
-        return (
-          <Modal close={this.cancelEditingLesson}>
-            <EditLessonForm
-              currentValues={lesson}
-              lesson={lesson}
-              submit={this.saveLessonEdits}
-            />
-          </Modal>
-        );
-      }
-    }
-  }
-
   renderActivity() {
     const lessonID: string|undefined = this.props.match.params.lessonID;
     return (<div style={{marginTop: '50px', border: '1px solid black', paddingBottom: '50px'}}>
@@ -149,14 +97,24 @@ class Lesson extends React.Component<LessonProps> {
   }
 
   render() {
-    const { data, } = this.props.lessons
+    const { data, states } = this.props.lessons
     const lessonID: string|undefined = this.props.match.params.lessonID;
     if (data && lessonID && data[lessonID]) {
+      const lesson = data[lessonID];
+      if(states && states[lessonID] === ActionTypes.EDITING_LESSON) {
+        return(
+          <EditLessonForm
+            currentValues={lesson}
+            lesson={lesson}
+            returnToView={this.cancelEditingLesson}
+            submit={this.saveLessonEdits}
+          />
+        );
+      }
       return (
-        <div>
+        <div className="lesson-container">
           <Link to={'/admin/lessons'}>Return to All Activities</Link>
           <br />
-          {this.renderEditLessonForm()}
           <div style={{display: 'flex', justifyContent: 'space-between'}}>
             <h4 className="title">{data[lessonID].title}</h4>
             <h6 className="subtitle" style={{ color: 'rgb(0, 194, 162)', paddingRight: '20px' }}>Flag: {data[lessonID].flag}</h6>

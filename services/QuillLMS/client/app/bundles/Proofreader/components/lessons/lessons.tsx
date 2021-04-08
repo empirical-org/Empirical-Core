@@ -32,7 +32,6 @@ class Lessons extends React.Component<LessonsProps, LessonsState> {
     this.createNew = this.createNew.bind(this)
     this.submitNewLesson = this.submitNewLesson.bind(this)
     this.renderLessons = this.renderLessons.bind(this)
-    this.renderModal = this.renderModal.bind(this)
     this.handleSelect = this.handleSelect.bind(this)
   }
 
@@ -70,27 +69,21 @@ class Lessons extends React.Component<LessonsProps, LessonsState> {
     ));
   }
 
-  renderModal() {
-    const stateSpecificClass = this.props.lessons.submittingnew ? 'is-loading' : '';
-    if (this.props.lessons.newLessonModalOpen) {
-      return (
-        <Modal close={this.createNew}>
-          <EditLessonForm stateSpecificClass={stateSpecificClass} submit={this.submitNewLesson} />
-        </Modal>
-      );
-    }
-  }
-
   handleSelect(e) {
     this.setState({ lessonFlags: e.target.value, });
   }
 
   render() {
+    const stateSpecificClass = this.props.lessons.submittingnew ? 'is-loading' : '';
+    if (this.props.lessons.newLessonModalOpen) {
+      return (
+        <EditLessonForm stateSpecificClass={stateSpecificClass} submit={this.submitNewLesson} returnToView={this.createNew}/>
+      );
+    }
     return (
       <section className="section">
         <div className="container">
           <h1 className="title"><button className="button is-primary" onClick={this.createNew}>Create New Activity</button></h1>
-          { this.renderModal() }
           <div style={{display: 'inline-block'}}>
             <FlagDropdown flag={this.state.lessonFlags} handleFlagChange={this.handleSelect} isLessons={true} />
           </div>
