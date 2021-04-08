@@ -28,7 +28,7 @@ class SegmentAnalytics
   end
 
   def track_activity_assignment(teacher_id, activity_id)
-    activity = Activity.find(activity_id)
+    activity = Activity.find_by(id: activity_id) || Activity.find_by(uid: activity_id)
 
     # properties here get used by Heap
     track({
@@ -124,7 +124,7 @@ class SegmentAnalytics
   end
 
   def track_previewed_activity(user_id, activity_id)
-    activity = Activity.find_by_id(activity_id) || Activity.find_by_uid(activity_id)
+    activity = Activity.find_by(id: activity_id) || Activity.find_by(uid: activity_id)
 
     track({
       user_id: user_id,
