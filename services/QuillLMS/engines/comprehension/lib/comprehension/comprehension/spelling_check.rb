@@ -44,9 +44,9 @@ module Comprehension
     end
 
     private def bing_response
-      @response ||= HTTParty.get("#{BING_API_URL}",
+      @response ||= HTTParty.get(BING_API_URL.to_s,
         headers: {
-          "Ocp-Apim-Subscription-Key": 'bcf0cf91e16b4454a583761d643908f1'
+          "Ocp-Apim-Subscription-Key": ENV['OCP-APIM-SUBSCRIPTION-KEY']
         },
         query: {
           text: @entry,
