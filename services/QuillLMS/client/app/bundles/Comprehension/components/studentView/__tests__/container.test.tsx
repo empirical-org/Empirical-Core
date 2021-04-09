@@ -49,6 +49,7 @@ describe('StudentViewContainer Component', () => {
       }
     },
     session: {
+      hasReceivedData: true,
       sessionID: 'test',
       submittedResponses: {
         19: null,
