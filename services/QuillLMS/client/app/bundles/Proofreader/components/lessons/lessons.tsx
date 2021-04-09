@@ -25,9 +25,11 @@ interface LessonsState {
 class Lessons extends React.Component<LessonsProps, LessonsState> {
   state = { lessonFlags: 'production' }
 
-  handleToggle = () => {
-    const { dispatch } = this.props;
-    dispatch(actions.toggleNewLessonModal());
+  handleToggle = (e) => {
+    if(e) {
+      const { dispatch } = this.props;
+      dispatch(actions.toggleNewLessonModal());
+    }
   }
 
   submitNewLesson = (data: ProofreaderActivity) => {

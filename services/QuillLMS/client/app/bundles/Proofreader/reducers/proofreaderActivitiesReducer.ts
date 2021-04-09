@@ -1,4 +1,5 @@
 import { Action } from "redux";
+
 import { ActionTypes } from "../actions/actionTypes";
 import { ProofreaderActivity, ProofreaderActivities } from '../interfaces/proofreaderActivities'
 
@@ -8,12 +9,13 @@ export interface ProofreaderActivityState {
   data: ProofreaderActivities;
   error?: string;
   states: {[key: string]: string}
+  newLessonModalOpen?: boolean
 }
 
-type ProofreaderActivityAction = Action & { data: ProofreaderActivity } & { cid: string }
+type ProofreaderActivityAction = Action & { data: ProofreaderActivity } & { cid: string } & { showForm: boolean }
 
 export default (
-    currentState = {hasreceiveddata: false, states: {}},
+    currentState = { hasreceiveddata: false, states: {}, newLessonModalOpen: false },
     action: ProofreaderActivityAction,
     data: {}
 ) => {
@@ -29,7 +31,7 @@ export default (
             return Object.assign({}, currentState, { error: 'No activities found.'})
         case ActionTypes.TOGGLE_NEW_LESSON_MODAL:
             return Object.assign({}, currentState, {
-                newLessonModalOpen: !currentState.newLessonModalOpen
+                newLessonModalOpen: action.showForm !== undefined ? action.showForm : !currentState.newLessonModalOpen
             });
         case ActionTypes.AWAIT_NEW_LESSON_RESPONSE:
             return Object.assign({}, currentState, {

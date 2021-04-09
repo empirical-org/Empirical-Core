@@ -1,6 +1,8 @@
 import * as _ from 'lodash'
 import { push } from 'react-router-redux';
+
 import { ActionTypes } from './actionTypes'
+
 import { ProofreaderPassageApi } from '../lib/proofreader_activities_api'
 import { ProofreaderActivities } from '../interfaces/proofreaderActivities'
 
@@ -29,8 +31,8 @@ export const getActivity = (activityUID: string) => {
   }
 }
 
-export const toggleNewLessonModal = () => {
-  return { type: ActionTypes.TOGGLE_NEW_LESSON_MODAL, };
+export const toggleNewLessonModal = (value?: boolean) => {
+  return { type: ActionTypes.TOGGLE_NEW_LESSON_MODAL, showForm: value };
 }
 
 export const submitNewLesson = (content: ProofreaderActivity) => {
