@@ -112,7 +112,8 @@ class FeedbackHistory < ActiveRecord::Base
   end
 
   def self.list_by_activity_session(activity_id: nil, page: 1, page_size: DEFAULT_PAGE_SIZE)
-    query = select(<<-SQL
+    query = select(
+      <<-SQL
         feedback_histories.activity_session_uid AS session_uid,
         MIN(feedback_histories.time) AS start_date,
         comprehension_prompts.activity_id,
@@ -145,9 +146,10 @@ class FeedbackHistory < ActiveRecord::Base
     histories = FeedbackHistory.where(activity_session_uid: activity_session_uid).all
 
     output = history.serialize_by_activity_session
-    prompt_groups = histories.group_by do |history|
-      history&.prompt&.conjunction
-    end.map do |conjunction, attempts|
+    prompt_groups = histories.group_by do |h|
+      h&.prompt&.conjunction
+    end
+    prompt_groups = prompt_groups.map do |conjunction, attempts|
       [conjunction, {prompt_id: attempts.first.prompt_id, attempts: attempts}]
     end.to_h.symbolize_keys
 
