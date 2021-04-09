@@ -23,12 +23,16 @@ module Comprehension
         entry: @entry,
         concept_uid: SPELLING_CONCEPT_UID,
         rule_uid: '',
-        highlight: optimal? ? [] : misspelled.map {|m| { type: RESPONSE_TYPE, id: nil, text: m['token']}}
+        highlight: optimal? ? [] : highlight
       }
     end
 
     def error
       bing_response['error'] ? bing_response['error']['message'] : nil
+    end
+
+    private def highlight
+      misspelled.map {|m| { type: RESPONSE_TYPE, id: nil, text: m['token']}}
     end
 
     private def optimal?

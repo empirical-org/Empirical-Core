@@ -24,6 +24,8 @@
 #
 # Indexes
 #
+#  activity_sessions_classroom_unit_id_idx           (classroom_unit_id)
+#  activity_sessions_uid_key                         (uid) UNIQUE
 #  index_activity_sessions_on_activity_id            (activity_id)
 #  index_activity_sessions_on_classroom_activity_id  (classroom_activity_id)
 #  index_activity_sessions_on_classroom_unit_id      (classroom_unit_id)
