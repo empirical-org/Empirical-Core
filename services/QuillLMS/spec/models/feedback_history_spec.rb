@@ -32,8 +32,8 @@ require 'rails_helper'
 RSpec.describe FeedbackHistory, type: :model do
 
   context 'associations' do
-    it { should belong_to(:activity_session_feedback_history) }
-    it { should have_one(:activity_session).through(:activity_session_feedback_history) }
+    it { should belong_to(:feedback_session) }
+    it { should have_one(:activity_session).through(:feedback_session) }
     it { should belong_to(:prompt) }
     it { should belong_to(:concept).with_foreign_key(:concept_uid).with_primary_key(:uid) }
   end
@@ -180,23 +180,23 @@ RSpec.describe FeedbackHistory, type: :model do
       expect(@feedback_history.session_uid).to eq(nil)
     end
 
-    it 'should create an ActivitySessionFeedbackHistory record if session_uid is set' do
-      expect(ActivitySessionFeedbackHistory.count).to eq(0)
+    it 'should create an FeedbackSession record if session_uid is set' do
+      expect(FeedbackSession.count).to eq(0)
 
       activity_session_uid = 'fake-activity-session-uid'
       @feedback_history.session_uid = activity_session_uid
       @feedback_history.save
       @feedback_history.valid?
       
-      expect(ActivitySessionFeedbackHistory.first.activity_session_uid).to eq(activity_session_uid)
-      expect(ActivitySessionFeedbackHistory.count).to eq(1)
+      expect(FeedbackSession.first.activity_session_uid).to eq(activity_session_uid)
+      expect(FeedbackSession.count).to eq(1)
     end
 
-    it 'should use the replace the session_uid value with the value from ActivitySessionFeedbackHistory' do
+    it 'should use the replace the session_uid value with the value from FeedbackSession' do
       session_uid = SecureRandom.uuid
       @feedback_history.session_uid = session_uid
       @feedback_history.save
-      expect(ActivitySessionFeedbackHistory.get_feedback_session_uid(session_uid)).to eq(@feedback_history.session_uid)
+      expect(FeedbackSession.get_uid_for_activity_session(session_uid)).to eq(@feedback_history.session_uid)
     end
   end
 end

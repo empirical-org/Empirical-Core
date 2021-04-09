@@ -453,37 +453,6 @@ ALTER SEQUENCE public.activity_classifications_id_seq OWNED BY public.activity_c
 
 
 --
--- Name: activity_session_feedback_histories; Type: TABLE; Schema: public; Owner: -
---
-
-CREATE TABLE public.activity_session_feedback_histories (
-    id integer NOT NULL,
-    activity_session_uid character varying,
-    feedback_session_uid character varying
-);
-
-
---
--- Name: activity_session_feedback_histories_id_seq; Type: SEQUENCE; Schema: public; Owner: -
---
-
-CREATE SEQUENCE public.activity_session_feedback_histories_id_seq
-    AS integer
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
---
--- Name: activity_session_feedback_histories_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
---
-
-ALTER SEQUENCE public.activity_session_feedback_histories_id_seq OWNED BY public.activity_session_feedback_histories.id;
-
-
---
 -- Name: activity_sessions; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -2021,6 +1990,37 @@ CREATE SEQUENCE public.feedback_history_ratings_id_seq
 --
 
 ALTER SEQUENCE public.feedback_history_ratings_id_seq OWNED BY public.feedback_history_ratings.id;
+
+
+--
+-- Name: feedback_sessions; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.feedback_sessions (
+    id integer NOT NULL,
+    activity_session_uid character varying,
+    uid character varying
+);
+
+
+--
+-- Name: feedback_sessions_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.feedback_sessions_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: feedback_sessions_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.feedback_sessions_id_seq OWNED BY public.feedback_sessions.id;
 
 
 --
@@ -3642,13 +3642,6 @@ ALTER TABLE ONLY public.activity_classifications ALTER COLUMN id SET DEFAULT nex
 
 
 --
--- Name: activity_session_feedback_histories id; Type: DEFAULT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.activity_session_feedback_histories ALTER COLUMN id SET DEFAULT nextval('public.activity_session_feedback_histories_id_seq'::regclass);
-
-
---
 -- Name: activity_sessions id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -3947,6 +3940,13 @@ ALTER TABLE ONLY public.feedback_histories ALTER COLUMN id SET DEFAULT nextval('
 --
 
 ALTER TABLE ONLY public.feedback_history_ratings ALTER COLUMN id SET DEFAULT nextval('public.feedback_history_ratings_id_seq'::regclass);
+
+
+--
+-- Name: feedback_sessions id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.feedback_sessions ALTER COLUMN id SET DEFAULT nextval('public.feedback_sessions_id_seq'::regclass);
 
 
 --
@@ -4306,14 +4306,6 @@ ALTER TABLE ONLY public.activity_classifications
 
 
 --
--- Name: activity_session_feedback_histories activity_session_feedback_histories_pkey; Type: CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.activity_session_feedback_histories
-    ADD CONSTRAINT activity_session_feedback_histories_pkey PRIMARY KEY (id);
-
-
---
 -- Name: activity_sessions activity_sessions_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -4655,6 +4647,14 @@ ALTER TABLE ONLY public.feedback_histories
 
 ALTER TABLE ONLY public.feedback_history_ratings
     ADD CONSTRAINT feedback_history_ratings_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: feedback_sessions feedback_sessions_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.feedback_sessions
+    ADD CONSTRAINT feedback_sessions_pkey PRIMARY KEY (id);
 
 
 --
@@ -5098,20 +5098,6 @@ CREATE UNIQUE INDEX index_activities_on_uid ON public.activities USING btree (ui
 --
 
 CREATE UNIQUE INDEX index_activity_classifications_on_uid ON public.activity_classifications USING btree (uid);
-
-
---
--- Name: index_activity_sess_fb_histories_on_activity_session_uid; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE UNIQUE INDEX index_activity_sess_fb_histories_on_activity_session_uid ON public.activity_session_feedback_histories USING btree (activity_session_uid);
-
-
---
--- Name: index_activity_sess_fb_histories_on_feedback_session_uid; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE UNIQUE INDEX index_activity_sess_fb_histories_on_feedback_session_uid ON public.activity_session_feedback_histories USING btree (feedback_session_uid);
 
 
 --
@@ -5651,6 +5637,20 @@ CREATE INDEX index_feedback_histories_on_rule_uid ON public.feedback_histories U
 --
 
 CREATE INDEX index_feedback_histories_on_session_uid ON public.feedback_histories USING btree (session_uid);
+
+
+--
+-- Name: index_feedback_sessions_on_activity_session_uid; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_feedback_sessions_on_activity_session_uid ON public.feedback_sessions USING btree (activity_session_uid);
+
+
+--
+-- Name: index_feedback_sessions_on_uid; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_feedback_sessions_on_uid ON public.feedback_sessions USING btree (uid);
 
 
 --

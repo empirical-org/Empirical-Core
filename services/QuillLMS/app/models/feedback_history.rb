@@ -49,8 +49,8 @@ class FeedbackHistory < ActiveRecord::Base
   before_create :anonymize_session_uid
   before_validation :confirm_prompt_type, on: :create
 
-  belongs_to :activity_session_feedback_history, foreign_key: :session_uid, primary_key: :feedback_session_uid
-  has_one :activity_session, through: :activity_session_feedback_history
+  belongs_to :feedback_session, foreign_key: :session_uid, primary_key: :uid
+  has_one :activity_session, through: :feedback_session
   belongs_to :prompt, polymorphic: true
   belongs_to :concept, foreign_key: :concept_uid, primary_key: :uid
 
@@ -105,6 +105,6 @@ class FeedbackHistory < ActiveRecord::Base
   end
 
   private def anonymize_session_uid
-    self.session_uid = ActivitySessionFeedbackHistory.get_feedback_session_uid(session_uid)
+    self.session_uid = FeedbackSession.get_uid_for_activity_session(session_uid)
   end
 end

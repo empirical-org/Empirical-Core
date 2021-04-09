@@ -45,8 +45,8 @@ class ActivitySession < ActiveRecord::Base
   include Concepts
 
   default_scope { where(visible: true)}
-  has_many :activity_session_feedback_history, foreign_key: :activity_session_uid, primary_key: :uid
-  has_many :feedback_histories, through: :activity_session_feedback_history
+  has_many :feedback_sessions, foreign_key: :activity_session_uid, primary_key: :uid
+  has_many :feedback_histories, through: :feedback_sessions
   belongs_to :classroom_unit
   belongs_to :activity
   has_one :classroom, through: :classroom_unit

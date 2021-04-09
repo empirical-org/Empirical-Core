@@ -1,10 +1,10 @@
 class CreateActivitySessionFeedbackHistory < ActiveRecord::Migration
   def change
-    create_table :activity_session_feedback_histories do |t|
+    create_table :feedback_sessions do |t|
       t.string :activity_session_uid
-      t.index :activity_session_uid, unique: true, name: :index_activity_sess_fb_histories_on_activity_session_uid
-      t.string :feedback_session_uid
-      t.index :feedback_session_uid, unique: true, name: :index_activity_sess_fb_histories_on_feedback_session_uid
+      t.index :activity_session_uid, unique: true
+      t.string :uid
+      t.index :uid, unique: true
     end
   end
 end
