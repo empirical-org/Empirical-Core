@@ -112,7 +112,7 @@ class FeedbackHistory < ActiveRecord::Base
   end
 
   def self.list_by_activity_session(activity_id: nil, page: 1, page_size: DEFAULT_PAGE_SIZE)
-    query = select(%{
+    query = select(<<-SQL
         feedback_histories.activity_session_uid AS session_uid,
         MIN(feedback_histories.time) AS start_date,
         comprehension_prompts.activity_id,
@@ -127,7 +127,8 @@ class FeedbackHistory < ActiveRecord::Base
           ((COUNT(CASE WHEN comprehension_prompts.conjunction = 'so' AND feedback_histories.optimal THEN 1 END) = 1) OR
             (COUNT(CASE WHEN comprehension_prompts.conjunction = 'so' THEN 1 END) = MAX(CASE WHEN comprehension_prompts.conjunction = 'so' THEN comprehension_prompts.max_attempts END)))
         ) AS complete
-      })
+      SQL
+      )
       .joins("LEFT OUTER JOIN comprehension_prompts ON feedback_histories.prompt_id = comprehension_prompts.id")
       .where(used: true)
       .group(:activity_session_uid, :activity_id)
@@ -144,9 +145,21 @@ class FeedbackHistory < ActiveRecord::Base
     histories = FeedbackHistory.where(activity_session_uid: activity_session_uid).all
 
     output = history.serialize_by_activity_session
-    prompt_groups = histories.group_by { |h| h&.prompt&.conjunction }.map { |k,v| [k, {prompt_id: v.first.prompt_id, attempts: v}] }.to_h.symbolize_keys
-    attempt_groups = prompt_groups.map { |k,v| [k, v[:attempts].group_by(&:attempt).map { |k2,v2| [k2, v2.map(&:serialize_by_activity_session_detail)] }.to_h] }.to_h.symbolize_keys
-    prompt_groups.each { |k,_| prompt_groups[k][:attempts] = attempt_groups[k] }
+    prompt_groups = histories.group_by do |history|
+      history&.prompt&.conjunction
+    end.map do |conjunction, attempts|
+      [conjunction, {prompt_id: attempts.first.prompt_id, attempts: attempts}]
+    end.to_h.symbolize_keys
+
+    attempt_groups = prompt_groups.map do |conjunction, detail|
+      [conjunction, detail[:attempts].group_by(&:attempt).map do |attempt_number, attempt|
+        [attempt_number, attempt.map(&:serialize_by_activity_session_detail)]
+      end.to_h]
+    end.to_h.symbolize_keys
+
+    prompt_groups.each do |conjunction, _|
+      prompt_groups[conjunction][:attempts] = attempt_groups[conjunction]
+    end
     
     output[:prompts] = prompt_groups
     output.symbolize_keys
