@@ -7,13 +7,6 @@ module Comprehension
     context '#feedback_object' do
       should 'return appropriate feedback attributes if there is a spelling error' do
         stub_request(:get, "https://api.cognitive.microsoft.com/bing/v7.0/SpellCheck?mode=proof&text=there%20is%20a%20spelin%20error%20here")
-        .with(
-          headers: {
-          'Accept'=>'*/*',
-          'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3',
-          'Ocp-Apim-Subscription-Key'=>ENV['OCP-APIM-SUBSCRIPTION-KEY'],
-          'User-Agent'=>'Ruby'
-          })
         .to_return(status: 200, body: {flaggedTokens: [{token: 'spelin'}]}.to_json, headers: {})
 
         entry = "there is a spelin error here"
@@ -30,13 +23,6 @@ module Comprehension
 
       should 'return appropriate feedback attributes if there is no spelling error' do
         stub_request(:get, "https://api.cognitive.microsoft.com/bing/v7.0/SpellCheck?mode=proof&text=there%20is%20no%20spelling%20error%20here")
-        .with(
-          headers: {
-          'Accept'=>'*/*',
-          'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3',
-          'Ocp-Apim-Subscription-Key'=>ENV['OCP-APIM-SUBSCRIPTION-KEY'],
-          'User-Agent'=>'Ruby'
-          })
         .to_return(status: 200, body: {flaggedTokens: {}}.to_json, headers: {})
 
         entry = "there is no spelling error here"
@@ -52,13 +38,6 @@ module Comprehension
 
       should 'return appropriate error if the endpoint returns an error' do
         stub_request(:get, "https://api.cognitive.microsoft.com/bing/v7.0/SpellCheck?mode=proof&text=there%20is%20no%20spelling%20error%20here")
-        .with(
-          headers: {
-          'Accept'=>'*/*',
-          'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3',
-          'Ocp-Apim-Subscription-Key'=>ENV['OCP-APIM-SUBSCRIPTION-KEY'],
-          'User-Agent'=>'Ruby'
-          })
         .to_return(status: 200, body: {error: {message: "There's a problem here"}}.to_json, headers: {})
         entry = "there is no spelling error here"
         spelling_check = Comprehension::SpellingCheck.new(entry)
