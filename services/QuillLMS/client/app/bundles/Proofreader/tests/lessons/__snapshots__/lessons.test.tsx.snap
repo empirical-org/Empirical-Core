@@ -1,249 +1,78 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Lessons Component should match snapshot 1`] = `
-<MemoryRouter>
-  <Router
-    history={
-      Object {
-        "action": "POP",
-        "block": [Function],
-        "canGo": [Function],
-        "createHref": [Function],
-        "entries": Array [
-          Object {
-            "hash": "",
-            "key": "8n9y6i",
-            "pathname": "/",
-            "search": "",
-            "state": undefined,
-          },
-        ],
-        "go": [Function],
-        "goBack": [Function],
-        "goForward": [Function],
-        "index": 0,
-        "length": 1,
-        "listen": [Function],
-        "location": Object {
-          "hash": "",
-          "key": "8n9y6i",
-          "pathname": "/",
-          "search": "",
-          "state": undefined,
-        },
-        "push": [Function],
-        "replace": [Function],
-      }
-    }
+<section
+  className="section"
+>
+  <div
+    className="container"
   >
-    <Lessons
-      concepts={
+    <h1
+      className="title"
+    >
+      <button
+        className="button is-primary"
+        onClick={[Function]}
+        type="button"
+      >
+        Create New Activity
+      </button>
+    </h1>
+    <div
+      style={
         Object {
-          "data": null,
-          "hasreceiveddata": false,
-          "states": null,
-          "submittingnew": false,
-        }
-      }
-      dispatch={[MockFunction]}
-      history={Object {}}
-      lessons={
-        Object {
-          "data": Object {
-            "17": Object {
-              "flag": "production",
-              "title": "Activity 1",
-            },
-            "18": Object {
-              "flag": "production",
-              "title": "Activity 2",
-            },
-            "19": Object {
-              "flag": "production",
-              "title": "Activity 3",
-            },
-          },
-          "hasreceiveddata": true,
-          "showLessonForm": false,
-          "states": Object {},
-          "submittingnew": false,
-        }
-      }
-      location={Object {}}
-      match={
-        Object {
-          "params": Object {},
+          "display": "inline-block",
         }
       }
     >
-      <section
-        className="section"
+      <FlagDropdown
+        flag="production"
+        handleFlagChange={[Function]}
+        isLessons={true}
+      />
+    </div>
+    <div
+      className="columns"
+    >
+      <div
+        className="column"
       >
-        <div
-          className="container"
+        <aside
+          className="menu"
         >
-          <h1
-            className="title"
+          <p
+            className="menu-label"
           >
-            <button
-              className="button is-primary"
-              onClick={[Function]}
-              type="button"
-            >
-              Create New Activity
-            </button>
-          </h1>
-          <div
-            style={
-              Object {
-                "display": "inline-block",
-              }
-            }
+            Activities
+          </p>
+          <ul
+            className="menu-list"
           >
-            <FlagDropdown
-              flag="production"
-              handleFlagChange={[Function]}
-              isLessons={true}
-            >
-              <p
-                className="control"
-              >
-                <span
-                  className="select"
-                >
-                  <select
-                    defaultValue="production"
-                    onChange={[Function]}
-                  >
-                    <option
-                      value="All Flags"
-                    >
-                      All Flags
-                    </option>
-                    <option
-                      value="alpha"
-                    >
-                      alpha
-                    </option>
-                    <option
-                      value="beta"
-                    >
-                      beta
-                    </option>
-                    <option
-                      value="production"
-                    >
-                      production
-                    </option>
-                    <option
-                      value="archived"
-                    >
-                      archived
-                    </option>
-                  </select>
-                </span>
-              </p>
-            </FlagDropdown>
-          </div>
-          <div
-            className="columns"
-          >
-            <div
-              className="column"
-            >
-              <aside
-                className="menu"
-              >
-                <p
-                  className="menu-label"
-                >
-                  Activities
-                </p>
-                <ul
-                  className="menu-list"
-                >
-                  <Component
-                    activeClassName="is-active"
-                    basePath="lessons"
-                    itemKey="17"
-                    key="17"
-                    text="Activity 1"
-                  >
-                    <li>
-                      <Link
-                        to="/admin/lessons/17/"
-                      >
-                        <LinkAnchor
-                          href="/admin/lessons/17/"
-                          navigate={[Function]}
-                        >
-                          <a
-                            href="/admin/lessons/17/"
-                            onClick={[Function]}
-                          >
-                            Activity 1
-                          </a>
-                        </LinkAnchor>
-                      </Link>
-                    </li>
-                  </Component>
-                  <Component
-                    activeClassName="is-active"
-                    basePath="lessons"
-                    itemKey="18"
-                    key="18"
-                    text="Activity 2"
-                  >
-                    <li>
-                      <Link
-                        to="/admin/lessons/18/"
-                      >
-                        <LinkAnchor
-                          href="/admin/lessons/18/"
-                          navigate={[Function]}
-                        >
-                          <a
-                            href="/admin/lessons/18/"
-                            onClick={[Function]}
-                          >
-                            Activity 2
-                          </a>
-                        </LinkAnchor>
-                      </Link>
-                    </li>
-                  </Component>
-                  <Component
-                    activeClassName="is-active"
-                    basePath="lessons"
-                    itemKey="19"
-                    key="19"
-                    text="Activity 3"
-                  >
-                    <li>
-                      <Link
-                        to="/admin/lessons/19/"
-                      >
-                        <LinkAnchor
-                          href="/admin/lessons/19/"
-                          navigate={[Function]}
-                        >
-                          <a
-                            href="/admin/lessons/19/"
-                            onClick={[Function]}
-                          >
-                            Activity 3
-                          </a>
-                        </LinkAnchor>
-                      </Link>
-                    </li>
-                  </Component>
-                </ul>
-              </aside>
-            </div>
-          </div>
-        </div>
-      </section>
-    </Lessons>
-  </Router>
-</MemoryRouter>
+            <Component
+              activeClassName="is-active"
+              basePath="lessons"
+              itemKey="17"
+              key="17"
+              text="Activity 1"
+            />
+            <Component
+              activeClassName="is-active"
+              basePath="lessons"
+              itemKey="18"
+              key="18"
+              text="Activity 2"
+            />
+            <Component
+              activeClassName="is-active"
+              basePath="lessons"
+              itemKey="19"
+              key="19"
+              text="Activity 3"
+            />
+          </ul>
+        </aside>
+      </div>
+    </div>
+  </div>
+</section>
 `;

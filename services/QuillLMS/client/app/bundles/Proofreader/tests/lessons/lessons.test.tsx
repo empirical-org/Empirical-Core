@@ -1,6 +1,5 @@
 import * as React from 'react';
-import { mount, shallow } from 'enzyme';
-import { MemoryRouter } from 'react-router-dom';
+import { shallow } from 'enzyme';
 
 import { Lessons } from '../../components/lessons/lessons';
 import LinkListItem from '../../components/shared/linkListItem'
@@ -46,11 +45,7 @@ describe('Lessons Component', () => {
       params: {}
     }
   }
-  let component = mount(
-    <MemoryRouter>
-      <Lessons {...mockProps} />
-    </MemoryRouter>
-  );
+  let component = shallow(<Lessons {...mockProps} />);
 
   it('should match snapshot', () => {
     expect(component).toMatchSnapshot();
