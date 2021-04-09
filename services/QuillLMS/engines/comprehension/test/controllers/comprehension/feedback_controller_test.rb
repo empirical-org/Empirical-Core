@@ -1,4 +1,5 @@
 require 'test_helper'
+require 'webmock/minitest'
 
 module Comprehension
   class FeedbackControllerTest < ActionController::TestCase
@@ -87,6 +88,28 @@ module Comprehension
             }.stringify_keys
           end
         end
+      end
+    end
+
+    context '#spelling' do
+      should 'return correct spelling feedback when endpoint returns 200' do
+        stub_request(:get, "https://api.cognitive.microsoft.com/bing/v7.0/SpellCheck?mode=proof&text=test%20spelin%20error")
+        .to_return(status: 200, body: {flaggedTokens: [{token: 'spelin'}]}.to_json, headers: {})
+
+        post 'spelling', entry: "test spelin error", prompt_id: @prompt.id, session_id: 1, previous_feedback: []
+        parsed_response = JSON.parse(response.body)
+        assert_equal response.status, 200
+        assert_equal parsed_response["optimal"], false
+      end
+
+      should 'return 500 if there is an error on the bing API' do
+        stub_request(:get, "https://api.cognitive.microsoft.com/bing/v7.0/SpellCheck?mode=proof&text=there%20is%20no%20spelling%20error%20here")
+        .to_return(status: 200, body: {error: {message: "There's a problem here"}}.to_json, headers: {})
+
+        post 'spelling', entry: "there is no spelling error here", prompt_id: @prompt.id, session_id: 1, previous_feedback: []
+        parsed_response = JSON.parse(response.body)
+        assert_equal response.status, 500
+        assert_equal parsed_response["error"], "There's a problem here"
       end
     end
   end

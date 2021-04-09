@@ -14,6 +14,7 @@ Comprehension::Engine.routes.draw do
     post :automl
     post :plagiarism
     post 'regex/:rule_type' => :regex
+    post :spelling
   end
   resources :rules, only: [:index, :show, :create, :update, :destroy]
   resources :turking_round_activity_sessions, only: [:index, :show, :create, :update, :destroy]
