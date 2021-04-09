@@ -55,13 +55,13 @@ class AdminContainer extends React.Component<AdminContainerProps> {
               General
             </p>
             <ul className="menu-list">
-              <TabLink activeClassName="is-active" dispatch={dispatch} to='/admin/lessons'>Proofreader Activities</TabLink>
+              <TabLink dispatch={dispatch} to='/admin/lessons'>Proofreader Activities</TabLink>
             </ul>
             <p className="menu-label">
               Supporting
             </p>
             <ul className="menu-list">
-              <TabLink activeClassName="is-active" dispatch={dispatch} to='/admin/concepts'>Concepts</TabLink>
+              <TabLink dispatch={dispatch} to='/admin/concepts'>Concepts</TabLink>
             </ul>
           </aside>
           <div className="admin-container">

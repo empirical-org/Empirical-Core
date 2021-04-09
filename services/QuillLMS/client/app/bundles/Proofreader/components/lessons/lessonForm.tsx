@@ -25,7 +25,7 @@ interface LessonFormProps {
   returnToView: (e) => void;
 }
 
-class LessonForm extends React.Component<LessonFormProps, LessonFormState> {
+export class LessonForm extends React.Component<LessonFormProps, LessonFormState> {
 
   constructor(props: LessonFormProps) {
     super(props)

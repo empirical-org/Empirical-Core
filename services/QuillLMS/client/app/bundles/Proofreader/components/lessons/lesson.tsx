@@ -18,7 +18,7 @@ interface LessonProps {
   concepts: ConceptReducerState;
 }
 
-class Lesson extends React.Component<LessonProps> {
+export class Lesson extends React.Component<LessonProps> {
 
   componentDidMount() {
     window.scrollTo(0, 0)

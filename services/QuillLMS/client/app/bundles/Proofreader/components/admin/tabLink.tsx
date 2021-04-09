@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 
 import * as actions from '../../actions/proofreaderActivities';
 
@@ -11,7 +11,7 @@ const TabLink = ({ dispatch, to, children}) => {
   }
   return(
     <li>
-      <Link activeClassName="is-active" onClick={handleClick} to={to}>{children}</Link>
+      <NavLink activeClassName="is-active" onClick={handleClick} to={to}>{children}</NavLink>
     </li>
   )
 };

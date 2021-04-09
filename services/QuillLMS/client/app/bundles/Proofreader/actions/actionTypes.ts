@@ -1,5 +1,3 @@
-import { Action } from "redux";
-
 export const ActionTypes = {
     // INIT STORE
     INIT_STORE: 'INIT_STORE',
@@ -19,9 +17,6 @@ export const ActionTypes = {
     SUBMITTING_LESSON: 'SUBMITTING_LESSON',
 
     // QUESTIONS
-    // RECEIVE_QUESTION_DATA: 'RECEIVE_QUESTION_DATA',
-    // NO_QUESTIONS_FOUND: 'NO_QUESTIONS_FOUND',
-    // GO_T0_NEXT_QUESTION: 'GO_T0_NEXT_QUESTION',
     SUBMIT_EDIT: 'SUBMIT_RESPONSE',
 
     // SESSIONS
@@ -36,4 +31,3 @@ export const ActionTypes = {
     DISPLAY_MESSAGE: 'DISPLAY_MESSAGE',
     CLEAR_DISPLAY_MESSAGE_AND_ERROR: 'CLEAR_DISPLAY_MESSAGE_AND_ERROR',
 };
-//

@@ -4,7 +4,7 @@ import { push } from 'react-router-redux';
 import { ActionTypes } from './actionTypes'
 
 import { ProofreaderPassageApi } from '../lib/proofreader_activities_api'
-import { ProofreaderActivities } from '../interfaces/proofreaderActivities'
+import { ProofreaderActivity } from '../interfaces/proofreaderActivities'
 
 export const startListeningToActivities = () => {
   return (dispatch: Function) => {

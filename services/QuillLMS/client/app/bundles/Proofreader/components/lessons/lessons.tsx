@@ -22,7 +22,7 @@ interface LessonsState {
   lessonFlags: string;
 }
 
-class Lessons extends React.Component<LessonsProps, LessonsState> {
+export class Lessons extends React.Component<LessonsProps, LessonsState> {
   state = { lessonFlags: 'production' }
 
   handleToggle = (e) => {
