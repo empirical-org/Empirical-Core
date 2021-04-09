@@ -31,8 +31,8 @@ export const getActivity = (activityUID: string) => {
   }
 }
 
-export const toggleNewLessonModal = (value?: boolean) => {
-  return { type: ActionTypes.TOGGLE_NEW_LESSON_MODAL, showForm: value };
+export const toggleLessonForm = (value?: boolean) => {
+  return { type: ActionTypes.TOGGLE_LESSON_FORM, showForm: value };
 }
 
 export const submitNewLesson = (content: ProofreaderActivity) => {

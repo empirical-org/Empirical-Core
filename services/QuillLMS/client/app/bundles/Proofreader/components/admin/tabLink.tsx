@@ -6,7 +6,7 @@ import * as actions from '../../actions/proofreaderActivities';
 const TabLink = ({ dispatch, to, children}) => {
   function handleClick (e) {
     if(e) {
-      dispatch(actions.toggleNewLessonModal(false));
+      dispatch(actions.toggleLessonForm(false));
     }
   }
   return(

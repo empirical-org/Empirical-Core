@@ -13,7 +13,7 @@ interface LessonsProps {
   dispatch: Function;
   lessons: {
     data: any;
-    newLessonModalOpen: boolean;
+    showLessonForm: boolean;
     submittingnew: boolean;
   };
 }
@@ -28,7 +28,7 @@ class Lessons extends React.Component<LessonsProps, LessonsState> {
   handleToggle = (e) => {
     if(e) {
       const { dispatch } = this.props;
-      dispatch(actions.toggleNewLessonModal());
+      dispatch(actions.toggleLessonForm());
     }
   }
 
@@ -71,9 +71,9 @@ class Lessons extends React.Component<LessonsProps, LessonsState> {
   render() {
     const { lessonFlags } = this.state;
     const { lessons } = this.props;
-    const { newLessonModalOpen, submittingnew } = lessons;
+    const { showLessonForm, submittingnew } = lessons;
     const stateSpecificClass = submittingnew ? 'is-loading' : '';
-    if (newLessonModalOpen) {
+    if (showLessonForm) {
       return (
         <EditLessonForm returnToView={this.handleToggle} stateSpecificClass={stateSpecificClass} submit={this.submitNewLesson} />
       );

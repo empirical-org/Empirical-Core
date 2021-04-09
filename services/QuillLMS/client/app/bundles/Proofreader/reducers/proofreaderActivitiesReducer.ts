@@ -9,13 +9,13 @@ export interface ProofreaderActivityState {
   data: ProofreaderActivities;
   error?: string;
   states: {[key: string]: string}
-  newLessonModalOpen?: boolean
+  showLessonForm?: boolean
 }
 
 type ProofreaderActivityAction = Action & { data: ProofreaderActivity } & { cid: string } & { showForm: boolean }
 
 export default (
-    currentState = { hasreceiveddata: false, states: {}, newLessonModalOpen: false },
+    currentState = { hasreceiveddata: false, states: {}, showLessonForm: false },
     action: ProofreaderActivityAction,
     data: {}
 ) => {
@@ -29,9 +29,9 @@ export default (
           return Object.assign({}, currentState, { data: action.data}, {hasreceiveddata: true})
         case ActionTypes.NO_PROOFREADER_ACTIVITIES_FOUND:
             return Object.assign({}, currentState, { error: 'No activities found.'})
-        case ActionTypes.TOGGLE_NEW_LESSON_MODAL:
+        case ActionTypes.TOGGLE_LESSON_FORM:
             return Object.assign({}, currentState, {
-                newLessonModalOpen: action.showForm !== undefined ? action.showForm : !currentState.newLessonModalOpen
+                showLessonForm: action.showForm !== undefined ? action.showForm : !currentState.showLessonForm
             });
         case ActionTypes.AWAIT_NEW_LESSON_RESPONSE:
             return Object.assign({}, currentState, {
@@ -40,7 +40,7 @@ export default (
         case ActionTypes.RECEIVE_NEW_LESSON_RESPONSE:
             return Object.assign({}, currentState, {
                 submittingnew: false,
-                newLessonModalOpen: false
+                showLessonForm: false
             });
         case ActionTypes.START_LESSON_EDIT:
             statesObj[action.cid] = ActionTypes.EDITING_LESSON
