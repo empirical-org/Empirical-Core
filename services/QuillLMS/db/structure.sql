@@ -459,7 +459,7 @@ ALTER SEQUENCE public.activity_classifications_id_seq OWNED BY public.activity_c
 CREATE TABLE public.activity_session_feedback_histories (
     id integer NOT NULL,
     activity_session_uid character varying,
-    feedback_history_session_uid character varying
+    feedback_session_uid character varying
 );
 
 
@@ -1951,7 +1951,7 @@ CREATE TABLE public.districts_users (
 
 CREATE TABLE public.feedback_histories (
     id integer NOT NULL,
-    activity_session_uid text,
+    session_uid text,
     prompt_id integer,
     prompt_type character varying,
     concept_uid text,
@@ -1987,6 +1987,40 @@ CREATE SEQUENCE public.feedback_histories_id_seq
 --
 
 ALTER SEQUENCE public.feedback_histories_id_seq OWNED BY public.feedback_histories.id;
+
+
+--
+-- Name: feedback_history_ratings; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.feedback_history_ratings (
+    id integer NOT NULL,
+    rating boolean NOT NULL,
+    feedback_history_id integer NOT NULL,
+    user_id integer NOT NULL,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: feedback_history_ratings_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.feedback_history_ratings_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: feedback_history_ratings_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.feedback_history_ratings_id_seq OWNED BY public.feedback_history_ratings.id;
 
 
 --
@@ -3909,6 +3943,13 @@ ALTER TABLE ONLY public.feedback_histories ALTER COLUMN id SET DEFAULT nextval('
 
 
 --
+-- Name: feedback_history_ratings id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.feedback_history_ratings ALTER COLUMN id SET DEFAULT nextval('public.feedback_history_ratings_id_seq'::regclass);
+
+
+--
 -- Name: file_uploads id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -4609,6 +4650,14 @@ ALTER TABLE ONLY public.feedback_histories
 
 
 --
+-- Name: feedback_history_ratings feedback_history_ratings_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.feedback_history_ratings
+    ADD CONSTRAINT feedback_history_ratings_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: file_uploads file_uploads_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -4996,6 +5045,13 @@ CREATE INDEX email_idx ON public.users USING gin (email public.gin_trgm_ops);
 
 
 --
+-- Name: feedback_history_ratings_uniqueness; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX feedback_history_ratings_uniqueness ON public.feedback_history_ratings USING btree (user_id, feedback_history_id);
+
+
+--
 -- Name: index_act_category_acts_on_act_id_and_act_cat_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -5052,10 +5108,10 @@ CREATE UNIQUE INDEX index_activity_sess_fb_histories_on_activity_session_uid ON 
 
 
 --
--- Name: index_activity_sess_fb_histories_on_feedback_history_uid; Type: INDEX; Schema: public; Owner: -
+-- Name: index_activity_sess_fb_histories_on_feedback_session_uid; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE UNIQUE INDEX index_activity_sess_fb_histories_on_feedback_history_uid ON public.activity_session_feedback_histories USING btree (feedback_history_session_uid);
+CREATE UNIQUE INDEX index_activity_sess_fb_histories_on_feedback_session_uid ON public.activity_session_feedback_histories USING btree (feedback_session_uid);
 
 
 --
@@ -5570,13 +5626,6 @@ CREATE INDEX index_districts_users_on_user_id ON public.districts_users USING bt
 
 
 --
--- Name: index_feedback_histories_on_activity_session_uid; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_feedback_histories_on_activity_session_uid ON public.feedback_histories USING btree (activity_session_uid);
-
-
---
 -- Name: index_feedback_histories_on_concept_uid; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -5595,6 +5644,13 @@ CREATE INDEX index_feedback_histories_on_prompt_type_and_id ON public.feedback_h
 --
 
 CREATE INDEX index_feedback_histories_on_rule_uid ON public.feedback_histories USING btree (rule_uid);
+
+
+--
+-- Name: index_feedback_histories_on_session_uid; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_feedback_histories_on_session_uid ON public.feedback_histories USING btree (session_uid);
 
 
 --
@@ -6375,6 +6431,14 @@ ALTER TABLE ONLY public.unit_activities
 
 ALTER TABLE ONLY public.activity_topics
     ADD CONSTRAINT fk_rails_4c47083518 FOREIGN KEY (topic_id) REFERENCES public.topics(id);
+
+
+--
+-- Name: feedback_history_ratings fk_rails_54039a8fd0; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.feedback_history_ratings
+    ADD CONSTRAINT fk_rails_54039a8fd0 FOREIGN KEY (user_id) REFERENCES public.users(id);
 
 
 --
@@ -7381,5 +7445,9 @@ INSERT INTO schema_migrations (version) VALUES ('20210311173333');
 
 INSERT INTO schema_migrations (version) VALUES ('20210316161120');
 
+INSERT INTO schema_migrations (version) VALUES ('20210319160956');
+
 INSERT INTO schema_migrations (version) VALUES ('20210330160626');
+
+INSERT INTO schema_migrations (version) VALUES ('20210409161449');
 
