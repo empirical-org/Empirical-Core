@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 
 const baseImageUrl = `${process.env.CDN_URL}/images/pages/dashboard/daily_tiny_tips`
 
@@ -78,7 +78,7 @@ const dailyTinyTips = [
 ]
 
 function dailyTip() {
-  const now = new Date();
+  const now = new Date(Date.now()); // equivalent to just `new Date()` and easier to stub for tests
   const start = new Date(now.getFullYear(), 0, 0);
   const diff = now - start;
   const oneDay = 1000 * 60 * 60 * 24;
