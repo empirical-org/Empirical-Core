@@ -632,7 +632,7 @@ exports[`PromptStep component active state when a suboptimal response has been s
             </div>
           </EditorContainer>
           <button
-            className="quill-button"
+            className="quill-button disabled"
             onClick={[Function]}
             type="button"
           >
@@ -704,11 +704,25 @@ exports[`PromptStep component active state when a suboptimal response has been s
                 transitionName="fade"
               >
                 <div
-                  style={Object {}}
+                  style={
+                    Object {
+                      "overflow": "hidden",
+                      "position": "relative",
+                    }
+                  }
                 >
                   <span
                     key="1"
-                    style={null}
+                    style={
+                      Object {
+                        "bottom": 0,
+                        "left": 0,
+                        "position": "absolute",
+                        "right": 0,
+                        "top": 0,
+                        "userSelect": "none",
+                      }
+                    }
                   >
                     <CSSTransitionGroupChild
                       appear={true}
@@ -1324,11 +1338,25 @@ exports[`PromptStep component active state when an optimal response has been sub
                 transitionName="fade"
               >
                 <div
-                  style={Object {}}
+                  style={
+                    Object {
+                      "overflow": "hidden",
+                      "position": "relative",
+                    }
+                  }
                 >
                   <span
                     key="1"
-                    style={null}
+                    style={
+                      Object {
+                        "bottom": 0,
+                        "left": 0,
+                        "position": "absolute",
+                        "right": 0,
+                        "top": 0,
+                        "userSelect": "none",
+                      }
+                    }
                   >
                     <CSSTransitionGroupChild
                       appear={true}
