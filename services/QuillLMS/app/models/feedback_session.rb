@@ -27,7 +27,7 @@ class FeedbackSession < ActiveRecord::Base
   end
 
   def self.get_uid_for_activity_session(activity_session_uid)
-    self.find_or_create_by(activity_session_uid: activity_session_uid) do |item|
+    find_or_create_by(activity_session_uid: activity_session_uid) do |item|
       item.uid = SecureRandom.uuid if !item.uid
     end.uid
   end
