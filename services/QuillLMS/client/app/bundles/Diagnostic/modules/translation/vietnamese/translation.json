@@ -35,6 +35,7 @@
         "text": "Kết quả của bạn đang được lưu. Bạn sẽ được tự động chuyển hướng sau khi lưu xong kết quả."
     },
     "instructions": {
+        "Fill in each blank with one of the choices. You can leave one empty.": "Chọn một từ và điền vào chỗ trống. Bạn có thể chừa lại một chỗ trống.",
         "Fill in the blank with one of the choices.": "Điền vào chỗ trống với một trong các lựa chọn.",
         "Fill in each blank with one of the choices.": "Điền vào mỗi chỗ trống với một trong các lựa chọn.",
         "Fill in the blanks with one word each.": "Điền mỗi chỗ trống một từ.",
@@ -42,6 +43,9 @@
         "Use the joining word to combine the sentences into one sentence.": "Sử dụng từ nối để kết hợp các câu thành một câu."
     },
     "cues": {
+        "type one": "type one / nhập một từ",
+        "type two or three": "type two or three / nhập hai hoặc ba từ",
+        "type three": "type three / nhập ba từ",
         "choose one": "choose one / chọn một",
         "choose three": "choose three / chọn ba",
         "choose two or three" : " choose two or three / chọn hai hoặc ba",

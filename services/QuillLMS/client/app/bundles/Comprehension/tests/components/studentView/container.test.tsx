@@ -34,7 +34,7 @@ const dispatch = () => {}
 describe('StudentViewContainer component', () => {
   describe('when the activity has loaded', () => {
     const activitiesReducer = { hasReceivedData: true, currentActivity: activityOne}
-    const sessionReducer = { submittedResponses: [], sessionID: 'MockSessionID' }
+    const sessionReducer = { submittedResponses: [], sessionID: 'MockSessionID', hasReceivedData: true }
     const wrapper = mount(<StudentViewContainer
       activities={activitiesReducer}
       dispatch={dispatch}

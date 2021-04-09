@@ -1,5 +1,6 @@
 import * as React from "react";
 import { EditorState, ContentState } from 'draft-js';
+import stripHtml from "string-strip-html";
 
 import { validateForm } from '../comprehension';
 import { AUTO_ML, ACTIVE, INACTIVE } from '../../../../constants/comprehension';
@@ -100,7 +101,7 @@ export function handleDeleteRegexRule({ e, regexRules, rulesToDelete, setRulesTo
   setRegexRules(updatedRules);
 }
 
-const getSequenceType = (sequenceType) => {
+export const getSequenceType = (sequenceType) => {
   if(sequenceType) {
     return regexRuleSequenceOptions.filter(option => option.value === sequenceType)[0];
   }
@@ -269,7 +270,7 @@ export const buildRule = ({
   ruleFeedbacks,
   universalRulesCount
 }) => {
-  const { suborder, universal } =  rule;
+  const { suborder, universal, state } =  rule;
   const promptIds = [];
   Object.keys(rulePrompts).forEach(key => {
     rulePrompts[key].checked && promptIds.push(rulePrompts[key].id);
@@ -286,7 +287,7 @@ export const buildRule = ({
     rule_type: ruleType.value,
     suborder: suborder ? suborder : order,
     universal: universal,
-    state: ruleType.value === AUTO_ML ? INACTIVE : ACTIVE
+    state
   };
 
   if(regexRuleTypes.includes(newOrUpdatedRule.rule_type)) {
@@ -304,7 +305,7 @@ export const buildRule = ({
   } else if(newOrUpdatedRule.rule_type === 'plagiarism') {
     newOrUpdatedRule.plagiarism_text_attributes = {
       id: plagiarismText.id,
-      text: plagiarismText.text
+      text: stripHtml(plagiarismText.text)
     };
   } else if(newOrUpdatedRule.rule_type === AUTO_ML) {
     newOrUpdatedRule.label_attributes = {
@@ -377,6 +378,7 @@ export async function handleSubmitRule({
   if(validationErrors && Object.keys(validationErrors).length) {
     setErrors(validationErrors);
   } else {
+    setErrors({});
     submitRule(newOrUpdatedRule, ruleId);
   }
 }
@@ -391,4 +393,21 @@ export function getRulesUrl(activityId: string, promptId: string, ruleType: stri
     url = `rules?prompt_id=${promptId}&rule_type=${ruleType}`
   }
   return url;
+}
+
+export function renderErrorsContainer(formErrorsPresent: boolean, requestErrors: string[]) {
+  if(formErrorsPresent) {
+    return(
+      <div className="error-message-container">
+        <p className="all-errors-message">Please check that all fields have been completed correctly.</p>
+      </div>
+    );
+  }
+  return(
+    <div className="error-message-container">
+      {requestErrors.map((error, i) => {
+        return <p className="all-errors-message" key={i}>{error}</p>
+      })}
+    </div>
+  )
 }

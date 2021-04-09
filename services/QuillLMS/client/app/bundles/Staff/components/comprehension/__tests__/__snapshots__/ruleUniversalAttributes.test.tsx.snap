@@ -5,7 +5,7 @@ exports[`RuleUniversalAttributes component should render RuleUniversalAttributes
   <p
     className="form-subsection-label"
   >
-    First Revision - Feedback
+    First Layer Feedback
   </p>
   <TextEditor
     ContentState={[Function]}
@@ -15,7 +15,8 @@ exports[`RuleUniversalAttributes component should render RuleUniversalAttributes
     text="test universal feedback"
   />
   <button
-    className="add-highlight quill-button small primary outlined"
+    className="add-highlight quill-button small primary outlined "
+    disabled={false}
     id="0"
     onClick={[Function]}
     type="button"
@@ -115,7 +116,7 @@ exports[`RuleUniversalAttributes component should render RuleUniversalAttributes
   <p
     className="form-subsection-label"
   >
-    Second Revision - Feedback
+    Second Layer Feedback
   </p>
   <TextEditor
     ContentState={[Function]}
@@ -125,7 +126,8 @@ exports[`RuleUniversalAttributes component should render RuleUniversalAttributes
     text="test universal feedback"
   />
   <button
-    className="add-highlight quill-button small primary outlined"
+    className="add-highlight quill-button small primary outlined "
+    disabled={false}
     id="1"
     onClick={[Function]}
     type="button"

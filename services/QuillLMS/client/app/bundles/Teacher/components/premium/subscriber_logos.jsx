@@ -15,7 +15,7 @@ export default class SubscriberLogos extends React.Component {
   render() {
     return (
       <div className='logo-group container'>
-        <h2>Trusted by Some of the Best Schools</h2>
+        <h3>Trusted by some of the best schools</h3>
         <div className='logo-group-wrapper'>
           {this.mapLogos()}
         </div>

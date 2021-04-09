@@ -35,13 +35,17 @@
         "text": "现在正在保存你的结果。保存后，你会被自动重定向。"
     },
     "instructions": {
+        "Fill in each blank with one of the choices. You can leave one empty.": "在每个空格中填入一个选择。你可以将其中一个留空。",
         "Fill in the blank with one of the choices.": "用其中一个选项填写空格。",
         "Fill in each blank with one of the choices.": "用其中一个选项填写每个空格。",
         "Fill in the blanks with one word each.": "每个空格填写一个词语。",
-        "Fill in the blanks with one word each. You can leave one empty.": "每个空格填写一个词语。你可以留下一处空白",
+        "Fill in the blanks with one word each. You can leave one empty.": "每个空格填写一个词语。你可以留下一处空白。",
         "Use the joining word to combine the sentences into one sentence.": "用连接词把几个句子组合成一个句子。"
     },
     "cues": {
+        "type one": "type one / 键入一个",
+        "type two or three": "type two or three / 键入两个或三个",
+        "type three": "type three / 键入三个",
         "choose one": "choose one / 选择一个",
         "choose three": "choose three / 选择三个",
         "choose two or three" : "choose two or three / 选择两个或三个",

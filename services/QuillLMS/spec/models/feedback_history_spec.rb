@@ -127,12 +127,12 @@ RSpec.describe FeedbackHistory, type: :model do
       @valid_fh_params = {
         session_uid: SecureRandom.uuid,
         attempt: 1,
-	entry: 'This is the student entry',
-	feedback_text: 'This is the feedback text',
-	feedback_type: 'semantic',
-	optimal: false,
-	time: Time.now,
-	used: true
+        entry: 'This is the student entry',
+        feedback_text: 'This is the feedback text',
+        feedback_type: 'autoML',
+        optimal: false,
+        time: Time.now,
+        used: true
       }
       @invalid_fh_params = {}
     end

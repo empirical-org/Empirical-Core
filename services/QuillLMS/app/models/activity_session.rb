@@ -49,6 +49,7 @@ class ActivitySession < ActiveRecord::Base
   has_many :feedback_histories, through: :feedback_sessions
   belongs_to :classroom_unit
   belongs_to :activity
+  has_one :classification, through: :activity
   has_one :classroom, through: :classroom_unit
   has_one :unit, through: :classroom_unit
   has_many :concept_results
@@ -101,6 +102,7 @@ class ActivitySession < ActiveRecord::Base
   PROFICIENT = 'Proficient'
   NEARLY_PROFICIENT = 'Nearly proficient'
   NOT_YET_PROFICIENT = 'Not yet proficient'
+  COMPLETED = 'Completed'
   FINISHED_STATE = 'finished'
 
   def self.paginate(current_page, per_page)

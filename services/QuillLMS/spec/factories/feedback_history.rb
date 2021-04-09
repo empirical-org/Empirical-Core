@@ -5,7 +5,7 @@ FactoryBot.define do
     attempt { 1 }
     entry { "This is what the student submitted." }
     feedback_text { "This is the feedback the student got." }
-    feedback_type { "semantic" }
+    feedback_type { "autoML" }
     optimal { true }
     used { true }
     time { DateTime.now }

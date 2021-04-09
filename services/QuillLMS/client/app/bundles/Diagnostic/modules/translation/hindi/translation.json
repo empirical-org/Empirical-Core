@@ -35,6 +35,7 @@
         "text": "अब आपके परिणाम सहेजे जा रहे हैं। आपके परिणाम सहेजे जाने के बाद आपको स्वचालित रूप से पुनर्निर्देशित कर दिया जाएगा।"
     },
     "instructions": {
+        "Fill in each blank with one of the choices. You can leave one empty.": "हर एक रिक्त स्थान को किसी एक विकल्प से भरें। आप एक को खाली छोड़ सकते हैं।",
         "Fill in the blank with one of the choices.": "किसी एक विकल्प के साथ रिक्त स्थान भरें।",
         "Fill in each blank with one of the choices.": "प्रत्येक रिक्त स्थान को किसी एक विकल्प के साथ भरें।",
         "Fill in the blanks with one word each.": "प्रत्येक शब्द के साथ रिक्त स्थान भरें।",
@@ -42,6 +43,9 @@
         "Use the joining word to combine the sentences into one sentence.": "वाक्यों को मिलाकर एक वाक्य बनाने के लिए जोड़ने वाले शब्द का उपयोग करें।"
     },
     "cues": {
+        "type one": "type one / एक टाइप करें",
+        "type three": "type three / तीन टाइप करें",
+        "type two or three": "type two or three / दो या तीन टाइप करें",
         "choose one": "choose one / एक चुनो",
         "choose three": "choose three / तीन चुनें",
         "choose two or three" : "choose two or three / दो या तीन का चयन करें",

@@ -32,7 +32,7 @@ const ModelForm = ({ history, match }) => {
           setErrors(updatedErrors);
           setIsLoading(false);
         } else {
-          history.push(`/activities/${activityId}/semantic-rules/model/${model.id}`);
+          history.push(`/activities/${activityId}/semantic-labels/model/${model.id}`);
         }
       });
     }
@@ -48,7 +48,7 @@ const ModelForm = ({ history, match }) => {
 
   return(
     <div className="model-form-container">
-      <Link className="return-link" to={{ pathname: `/activities/${activityId}/semantic-rules`, state: 'returned-to-index' }}>← Return to Semantic Rules Index</Link>
+      <Link className="return-link" to={{ pathname: `/activities/${activityId}/semantic-labels`, state: 'returned-to-index' }}>← Return to Semantic Rules Index</Link>
       <Input
         className="model-id"
         error={errors['Model ID']}

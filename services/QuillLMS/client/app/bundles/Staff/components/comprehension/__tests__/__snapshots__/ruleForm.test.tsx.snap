@@ -35,8 +35,8 @@ exports[`RuleForm component should render RuleForm 1`] = `
       }
       ruleType={
         Object {
-          "label": "Regex",
-          "value": "rules-based",
+          "label": "Sentence Structure Regex",
+          "value": "rules-based-1",
         }
       }
       setRuleConceptUID={[Function]}

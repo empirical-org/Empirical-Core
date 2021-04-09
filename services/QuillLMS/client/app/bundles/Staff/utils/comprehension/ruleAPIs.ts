@@ -1,5 +1,5 @@
 import { RuleInterface } from '../../interfaces/comprehensionInterfaces';
-import { handleApiError, apiFetch } from '../../helpers/comprehension';
+import { handleApiError, apiFetch, handleRequestErrors, requestFailed } from '../../helpers/comprehension';
 import { getRulesUrl } from '../../helpers/comprehension/ruleHelpers';
 
 export const fetchRules = async (key: string, activityId: string, promptId?: any, ruleType?: string) => {
@@ -41,7 +41,14 @@ export const deleteRule = async (ruleId: string) => {
   const response = await apiFetch(`rules/${ruleId}`, {
     method: 'DELETE'
   });
-  return { error: handleApiError('Failed to delete rule, please try again.', response)};
+  const { status } = response;
+
+  if(requestFailed(status)) {
+    const errors = await response.json();
+    const returnedErrors = await handleRequestErrors(errors);
+    return { errors: returnedErrors };
+  }
+  return { errors: [] };
 }
 
 export const createRule = async (rule: RuleInterface) => {
@@ -49,8 +56,14 @@ export const createRule = async (rule: RuleInterface) => {
     method: 'POST',
     body: JSON.stringify({ rule })
   });
-  const newRule = await response.json();
-  return { error: handleApiError('Failed to create rule, please try again.', response), rule: newRule };
+  const { status } = response;
+  const newRuleOrErrors = await response.json();
+
+  if(requestFailed(status)) {
+    const returnedErrors = await handleRequestErrors(newRuleOrErrors);
+    return { errors: returnedErrors, rule: null };
+  }
+  return { errors: [], rule: newRuleOrErrors };
 }
 
 export const updateRule = async (ruleId: number, rule: RuleInterface) => {
@@ -58,5 +71,12 @@ export const updateRule = async (ruleId: number, rule: RuleInterface) => {
     method: 'PUT',
     body: JSON.stringify({ rule })
   });
-  return { error: handleApiError('Failed to update rule, please try again.', response) };
+  const { status } = response;
+
+  if(requestFailed(status)) {
+    const errors = await response.json();
+    const returnedErrors = await handleRequestErrors(errors);
+    return { errors: returnedErrors };
+  }
+  return { errors: [] };
 }
