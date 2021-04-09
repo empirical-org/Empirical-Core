@@ -18,4 +18,9 @@ describe('The correct function', () => {
         const correctWord = correct(dictionary, "mspeled");;
         assert.equal(correctWord, 'mspeled');
     });
+
+    it('Should find a capitalized word if the dictionary contains it.', () => {
+        const correctWord = correct(dictionary, "Ethiopia");;
+        assert.equal(correctWord, 'Ethiopia');
+    });
 });

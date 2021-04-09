@@ -104,6 +104,8 @@ export const buildActivity = ({
 }) => {
   // const { label } = activityFlag;
   const prompts = [activityBecausePrompt, activityButPrompt, activitySoPrompt];
+  const maxFeedback = activityMaxFeedback || 'Nice effort! You worked hard to make your sentence stronger.';
+  prompts.forEach(prompt => prompt.max_attempts_feedback = maxFeedback);
   return {
     activity: {
       name: activityName,
@@ -278,6 +280,16 @@ export const handleApiError = (errorMessage: string, response: any) => {
     error = errorMessage;
   }
   return error;
+}
+
+export const handleRequestErrors = async (errors: object) => {
+  let errorsArray = [];
+  if(errors) {
+    Object.keys(errors).forEach(key => {
+      errorsArray.push(`${key}: ${errors[key]}`);
+    });
+  }
+  return errorsArray;
 }
 
 export const getCsrfToken = () => {

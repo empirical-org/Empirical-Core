@@ -30,7 +30,7 @@ interface PromptStepState {
 
 const RESPONSE = 'response'
 
-export default class PromptStep extends React.Component<PromptStepProps, PromptStepState> {
+export class PromptStep extends React.Component<PromptStepProps, PromptStepState> {
   private editor: any // eslint-disable-line react/sort-comp
 
   constructor(props: PromptStepProps) {
@@ -57,7 +57,7 @@ export default class PromptStep extends React.Component<PromptStepProps, PromptS
     return submittedResponses.map(r => r.entry).concat(text)
   }
 
-  stripHtml = (html: string) => html.replace(/<p>|<\/p>|<u>|<\/u>|<b>|<\/b>/g, '').replace(/&nbsp;/g, ' ')
+  stripHtml = (html: string) => html.replace(/<p>|<\/p>|<u>|<\/u>|<b>|<\/b>|<br>|<br\/>/g, '').replace(/&nbsp;/g, ' ')
 
   formattedPrompt = () => {
     const { prompt, } = this.props
@@ -327,3 +327,5 @@ export default class PromptStep extends React.Component<PromptStepProps, PromptS
     </div>)
   }
 }
+
+export default PromptStep

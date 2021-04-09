@@ -35,6 +35,7 @@
         "text": "Deine Ergebnisse werden jetzt gespeichert. Sobald diese gespeichert sind, wirst du automatisch weitergeleitet."
     },
     "instructions": {
+        "Fill in each blank with one of the choices. You can leave one empty.": "Fülle jede Lücke mit einem der Wörter aus. Du kannst eine Lücke leer lassen.",
         "Fill in the blank with one of the choices.": "Fülle die Lücken mit einer der möglichen Optionen aus.",
         "Fill in each blank with one of the choices.": "Fülle jede Lücke mit einer der möglichen Optionen aus.",
         "Fill in the blanks with one word each.": "Fülle die Lücken mit je einem Wort aus.",
@@ -42,6 +43,9 @@
         "Use the joining word to combine the sentences into one sentence.": "Benutze das Verbindungswort, um Sätze zu einem einzigen Satz zu verbinden."
     },
     "cues": {
+        "type one": "type one / tippe ein",
+        "type two or three": "type two or three / tippe zwei oder drei",
+        "type three": "type three / tippe drei",
         "choose one": "choose one / wähle eins",
         "choose three": "choose three / wähle drei",
         "choose two or three" : "choose two or three / wähle zwei oder drei",

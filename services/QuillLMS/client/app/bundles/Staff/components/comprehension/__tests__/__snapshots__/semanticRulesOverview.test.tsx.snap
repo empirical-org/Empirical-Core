@@ -1,8 +1,8 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`SemanticRulesOverview component should render SemanticRulesOverview 1`] = `
+exports[`SemanticLabelsOverview component should render SemanticLabelsOverview 1`] = `
 <div
-  className="semantic-rules-overview-container"
+  className="semantic-labels-overview-container"
 >
   <section
     className="prompt-section"

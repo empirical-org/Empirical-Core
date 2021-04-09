@@ -1,29 +1,30 @@
+
 package endpoint
 
 import (
 	"bytes"
 	"crypto/tls"
-	"encoding/json"
-	"fmt"
-	"io/ioutil"
 	"net/http"
-	"net/http/httputil"
+	"encoding/json"
+	"io/ioutil"
+	"fmt"
 	"sync"
 	"time"
+	"net/http/httputil"
 )
 
 const (
-	automl_api                   = "https://www.quill.org/api/v1/comprehension/feedback/automl.json"
-	grammar_check_api            = "https://grammar-api.ue.r.appspot.com"
-	opinion_check_api            = "https://opinion-api.ue.r.appspot.com/"
-	plagiarism_api               = "https://www.quill.org/api/v1/comprehension/feedback/plagiarism.json"
+	automl_api = "https://www.quill.org/api/v1/comprehension/feedback/automl.json"
+	grammar_check_api = "https://grammar-api.ue.r.appspot.com"
+	opinion_check_api = "https://opinion-api.ue.r.appspot.com/"
+	plagiarism_api = "https://www.quill.org/api/v1/comprehension/feedback/plagiarism.json"
 	sentence_structure_regex_api = "https://www.quill.org/api/v1/comprehension/feedback/regex/rules-based-1.json"
-	post_topic_regex_api         = "https://www.quill.org/api/v1/comprehension/feedback/regex/rules-based-2.json"
-	typo_regex_api               = "https://www.quill.org/api/v1/comprehension/feedback/regex/rules-based-3.json"
-	spell_check_local            = "https://us-central1-comprehension-247816.cloudfunctions.net/spell-check-cloud-function"
-	spell_check_bing             = "https://www.quill.org/api/v1/comprehension/feedback/spelling.json"
-	batch_feedback_history_url   = "https://www.quill.org/api/v1/feedback_histories/batch.json"
-	automl_index                 = 3
+	post_topic_regex_api = "https://www.quill.org/api/v1/comprehension/feedback/regex/rules-based-2.json"
+	typo_regex_api = "https://www.quill.org/api/v1/comprehension/feedback/regex/rules-based-3.json"
+	spell_check_local = "https://us-central1-comprehension-247816.cloudfunctions.net/spell-check-cloud-function"
+	spell_check_bing = "https://www.quill.org/api/v1/comprehension/feedback/spelling.json"
+	batch_feedback_history_url = "https://www.quill.org/api/v1/feedback_histories/batch.json"
+	automl_index = 3
 )
 
 var wg sync.WaitGroup
@@ -41,19 +42,20 @@ var urls = [...]string{
 
 // you can't use const for structs, so this is the closest thing we can get for this value
 var default_api_response = APIResponse{
-	Feedback:      "Thank you for your response.",
+	Feedback: "Thank you for your response.",
 	Feedback_type: "semantic",
-	Optimal:       true,
+	Optimal: true,
 }
 
 // TODO: This is a temporary replacement `http` that allows us to bypass SSL security checks
-var client = &http.Client{
-	Transport: &http.Transport{
+var client = &http.Client {
+	Transport: &http.Transport {
 		TLSClientConfig: &tls.Config{InsecureSkipVerify: true},
 	},
 }
 
-func Endpoint(responseWriter http.ResponseWriter, request *http.Request) map[int]InternalAPIResponse {
+
+func Endpoint(responseWriter http.ResponseWriter, request *http.Request) {
 	// need this for javascript cors requests
 	// https://cloud.google.com/functions/docs/writing/http#functions_http_cors-go
 	if request.Method == http.MethodOptions {
@@ -62,7 +64,7 @@ func Endpoint(responseWriter http.ResponseWriter, request *http.Request) map[int
 		responseWriter.Header().Set("Access-Control-Allow-Headers", "Content-Type")
 		responseWriter.Header().Set("Access-Control-Max-Age", "3600")
 		responseWriter.WriteHeader(http.StatusNoContent)
-		return make(map[int]InternalAPIResponse)
+		return
 	}
 
 	requestDump, err := httputil.DumpRequest(request, true)
@@ -72,11 +74,10 @@ func Endpoint(responseWriter http.ResponseWriter, request *http.Request) map[int
 	fmt.Println(string(requestDump))
 
 	request_body, err := ioutil.ReadAll(request.Body)
-
 	if err != nil {
 		//TODO make this response in the same format maybe?
 		http.Error(responseWriter, err.Error(), http.StatusInternalServerError)
-		return make(map[int]InternalAPIResponse)
+		return
 	}
 
 	results := map[int]InternalAPIResponse{}
@@ -116,11 +117,7 @@ func Endpoint(responseWriter http.ResponseWriter, request *http.Request) map[int
 	// TODO convert the 'feedback' bytes and combine with incoming_params bytes
 	// instead of transforming from bytes to object, combining, and then converting back to bytes
 	if err := json.NewDecoder(bytes.NewReader(request_body)).Decode(&request_object); err != nil {
-		return make(map[int]InternalAPIResponse)
-	}
-
-	if len(request_object.Previous_feedback) < 1 {
-		request_object.Previous_feedback = make([]string, 0)
+		return
 	}
 
 	go batchRecordFeedback(request_object, results)
@@ -130,9 +127,7 @@ func Endpoint(responseWriter http.ResponseWriter, request *http.Request) map[int
 	json.NewEncoder(responseWriter).Encode(returnable_result)
 
 	wg.Wait()
-	return results
 }
-
 // returns a typle of results index and that should be returned.
 func processResults(results map[int]InternalAPIResponse, length int) (int, bool) {
 	for i := 0; i < len(results); i++ {
@@ -151,25 +146,15 @@ func processResults(results map[int]InternalAPIResponse, length int) (int, bool)
 	return automl_index, all_correct
 }
 
-func getAPIResponse(url string, priority int, json_params []byte, c chan InternalAPIResponse) {
+func getAPIResponse(url string, priority int, json_params [] byte, c chan InternalAPIResponse) {
 	// response_json, err := http.Post(url, "application/json", bytes.NewReader(json_params))
 
 	// TODO For now, just swallow any errors from this, but we'd want to report errors.
 	// TODO: Replace "client" with "http" when we remove the segment above
-	response_json, err := client.Post(url, "application/json", bytes.NewReader(json_params))
+	response_json, err := client.Post(url, "application/json",  bytes.NewReader(json_params))
 
 	if err != nil {
-		c <- InternalAPIResponse{
-			Url:        url,
-			StatusCode: response_json.StatusCode,
-			Priority:   priority,
-			Error:      true,
-			APIResponse: APIResponse{
-				Feedback:      "There was an error hitting the API",
-				Feedback_type: "API Error",
-				Optimal:       false,
-			},
-		}
+		c <- InternalAPIResponse{Priority: priority, Error: true, APIResponse: APIResponse{Feedback: "There was an error hitting the API", Feedback_type: "API Error", Optimal: false}}
 		return
 	}
 
@@ -177,22 +162,11 @@ func getAPIResponse(url string, priority int, json_params []byte, c chan Interna
 
 	if err := json.NewDecoder(response_json.Body).Decode(&result); err != nil {
 		// TODO might want to think about what this should be.
-		c <- InternalAPIResponse{
-			Url:        url,
-			StatusCode: response_json.StatusCode,
-			Priority:   priority,
-			Error:      true,
-			APIResponse: APIResponse{
-				Feedback:      "There was an JSON error" + err.Error(),
-				Feedback_type: "API Error",
-				Labels:        url,
-				Optimal:       false,
-			},
-		}
+		c <- InternalAPIResponse{Priority: priority, Error: true, APIResponse: APIResponse{Feedback: "There was an JSON error" + err.Error(), Feedback_type: "API Error", Labels: url, Optimal: false}}
 		return
 	}
 
-	c <- InternalAPIResponse{Url: url, StatusCode: response_json.StatusCode, Priority: priority, Error: false, APIResponse: result}
+	c <- InternalAPIResponse{Priority: priority, Error: false, APIResponse: result}
 }
 
 func identifyUsedFeedbackIndex(feedbacks map[int]InternalAPIResponse) int {
@@ -214,19 +188,19 @@ func identifyUsedFeedbackIndex(feedbacks map[int]InternalAPIResponse) int {
 func buildFeedbackHistory(request_object APIRequest, feedback InternalAPIResponse, used bool, time_received time.Time) FeedbackHistory {
 	return FeedbackHistory{
 		Activity_session_uid: request_object.Session_id,
-		Prompt_id:            request_object.Prompt_id,
-		Concept_uid:          feedback.APIResponse.Concept_uid,
-		Attempt:              request_object.Attempt,
-		Entry:                request_object.Entry,
-		Feedback_text:        feedback.APIResponse.Feedback,
-		Feedback_type:        feedback.APIResponse.Feedback_type,
-		Optimal:              feedback.APIResponse.Optimal,
-		Used:                 used,
-		Time:                 time_received,
-		Rule_uid:             feedback.APIResponse.Rule_uid,
+		Prompt_id: request_object.Prompt_id,
+		Concept_uid: feedback.APIResponse.Concept_uid,
+		Attempt: request_object.Attempt,
+		Entry: request_object.Entry,
+		Feedback_text: feedback.APIResponse.Feedback,
+		Feedback_type: feedback.APIResponse.Feedback_type,
+		Optimal: feedback.APIResponse.Optimal,
+		Used: used,
+		Time: time_received,
+		Rule_uid: feedback.APIResponse.Rule_uid,
 		Metadata: FeedbackHistoryMetadata{
-			Highlight:   feedback.APIResponse.Highlight,
-			Labels:      feedback.APIResponse.Labels,
+			Highlight: feedback.APIResponse.Highlight,
+			Labels: feedback.APIResponse.Labels,
 			Response_id: feedback.APIResponse.Response_id,
 		},
 	}
@@ -236,7 +210,7 @@ func buildBatchFeedbackHistories(request_object APIRequest, feedbacks map[int]In
 	feedback_histories := []FeedbackHistory{}
 	used_key := identifyUsedFeedbackIndex(feedbacks)
 	for key, feedback := range feedbacks {
-		if !feedback.Error {
+		if !feedback.Error{
 			feedback_histories = append(feedback_histories, buildFeedbackHistory(request_object, feedback, used_key == key, time_received))
 		} else if key == automl_index {
 			fallback_feedback := InternalAPIResponse{APIResponse: default_api_response}
@@ -244,7 +218,7 @@ func buildBatchFeedbackHistories(request_object APIRequest, feedbacks map[int]In
 		}
 	}
 
-	return BatchHistoriesAPIRequest{
+	return BatchHistoriesAPIRequest {
 		Feedback_histories: feedback_histories,
 	}, nil
 }
@@ -262,64 +236,61 @@ func batchRecordFeedback(incoming_params APIRequest, feedbacks map[int]InternalA
 
 	// TODO For now, just swallow any errors from this, but we'd want to report errors.
 	// TODO: Replace "client" with "http" when we remove the segment above
-	client.Post(batch_feedback_history_url, "application/json", bytes.NewBuffer(histories_json))
+	client.Post(batch_feedback_history_url, "application/json",  bytes.NewBuffer(histories_json))
 }
 
 type APIRequest struct {
-	Entry             string   `json:"entry"`
-	Prompt_text       string   `json:"prompt_text"`
-	Prompt_id         int      `json:"prompt_id"`
-	Session_id        string   `json:"session_id"`
-	Attempt           int      `json:"attempt"`
-	Previous_feedback []string `json:"previous_feedback"`
+	Entry string `json:"entry"`
+	Prompt_text string `json:"prompt_text"`
+	Prompt_id int `json:"prompt_id"`
+	Session_id string `json:"session_id"`
+	Attempt int `json:"attempt"`
 }
 
 type APIResponse struct {
-	Concept_uid   string      `json:"concept_uid"`
-	Feedback      string      `json:"feedback"`
-	Feedback_type string      `json:"feedback_type"`
-	Optimal       bool        `json:"optimal"`
-	Response_id   string      `json:"response_id"`
-	Highlight     []Highlight `json:"highlight"`
-	Labels        string      `json:"labels,omitempty"`
-	Rule_uid      string      `json:"rule_uid"`
+	Concept_uid string `json:"concept_uid"`
+	Feedback string `json:"feedback"`
+	Feedback_type string `json:"feedback_type"`
+	Optimal bool `json:"optimal"`
+	Response_id string `json:"response_id"`
+	Highlight []Highlight `json:"highlight"`
+	Labels string `json:"labels,omitempty"`
+	Rule_uid string `json:"rule_uid"`
 }
 
 type Highlight struct {
-	Type      string `json:"type"`
-	Id        int    `json:"id,omitempty"`
-	Text      string `json:"text"`
-	Category  string `json:"category"`
-	Character int    `json:"character,omitempty"`
+	Type string `json:"type"`
+	Id int `json:"id,omitempty"`
+	Text string `json:"text"`
+	Category string `json:"category"`
+	Character int `json:"character,omitempty"`
 }
 
 type InternalAPIResponse struct {
-	Priority    int
+	Priority int
 	APIResponse APIResponse
-	Error       bool
-	StatusCode  int
-	Url         string
+	Error bool
 }
 
 type FeedbackHistoryMetadata struct {
-	Highlight   []Highlight `json:"highlight"`
-	Labels      string      `json:"labels,omitempty"`
-	Response_id string      `json:"response_id"`
+	Highlight []Highlight `json:"highlight"`
+	Labels string `json:"labels,omitempty"`
+	Response_id string `json:"response_id"`
 }
 
 type FeedbackHistory struct {
-	Activity_session_uid string                  `json:"activity_session_uid"`
-	Prompt_id            int                     `json:"prompt_id"`
-	Concept_uid          string                  `json:"concept_uid"`
-	Attempt              int                     `json:"attempt"`
-	Entry                string                  `json:"entry"`
-	Feedback_text        string                  `json:"feedback_text"`
-	Feedback_type        string                  `json:"feedback_type"`
-	Optimal              bool                    `json:"optimal"`
-	Used                 bool                    `json:"used"`
-	Time                 time.Time               `json:"time"`
-	Metadata             FeedbackHistoryMetadata `json:"metadata"`
-	Rule_uid             string                  `json:"rule_uid"`
+	Activity_session_uid string `json:"activity_session_uid"`
+	Prompt_id int `json:"prompt_id"`
+	Concept_uid string `json:"concept_uid"`
+	Attempt int `json:"attempt"`
+	Entry string `json:"entry"`
+	Feedback_text string `json:"feedback_text"`
+	Feedback_type string `json:"feedback_type"`
+	Optimal bool `json:"optimal"`
+	Used bool `json:"used"`
+	Time time.Time `json:"time"`
+	Metadata FeedbackHistoryMetadata `json:"metadata"`
+	Rule_uid string `json:"rule_uid"`
 }
 
 type BatchHistoriesAPIRequest struct {

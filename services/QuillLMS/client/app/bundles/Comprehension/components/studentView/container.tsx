@@ -1,6 +1,7 @@
 import * as React from "react";
 import queryString from 'query-string';
 import { connect } from "react-redux";
+import stripHtml from "string-strip-html";
 
 import PromptStep from './promptStep'
 import StepLink from './stepLink'
@@ -9,7 +10,7 @@ import LoadingSpinner from '../shared/loadingSpinner'
 import { getActivity } from "../../actions/activities";
 import { TrackAnalyticsEvent } from "../../actions/analytics";
 import { Events } from '../../modules/analytics'
-import { getFeedback } from '../../actions/session'
+import { getFeedback, setSessionId } from '../../actions/session'
 import { ActivitiesReducerState } from '../../reducers/activitiesReducer'
 import { SessionReducerState } from '../../reducers/sessionReducer'
 import getParameterByName from '../../helpers/getParameterByName';
@@ -64,6 +65,10 @@ export class StudentViewContainer extends React.Component<StudentViewContainerPr
 
   componentDidMount() {
     const { dispatch, session, isTurk } = this.props
+    const sessionFromUrl = this.specifiedActivitySessionUID()
+    if (sessionFromUrl) {
+      dispatch(setSessionId(sessionFromUrl));
+    }
     const { sessionID, } = session
     const activityUID = this.activityUID()
 
@@ -91,14 +96,22 @@ export class StudentViewContainer extends React.Component<StudentViewContainerPr
 
   onMobile = () => window.innerWidth < 1100
 
-  activityUID = () => {
+  getUrlParam = (paramName: string) => {
     const { location, isTurk } = this.props
     if(isTurk) {
-      return getParameterByName('uid', window.location.href)
+      return getParameterByName(paramName, window.location.href)
     }
     const { search, } = location
     if (!search) { return }
-    return queryString.parse(search).uid
+    return queryString.parse(search)[paramName]
+  }
+
+  activityUID = () => {
+    return this.getUrlParam('uid')
+  }
+
+  specifiedActivitySessionUID = () => {
+    return this.getUrlParam('session')
   }
 
   submitResponse = (entry: string, promptID: string, promptText: string, attempt: number) => {
@@ -304,9 +317,10 @@ export class StudentViewContainer extends React.Component<StudentViewContainerPr
       passages = passages.map((passage: Passage) => {
         let formattedPassage = passage;
         const { text } = passage;
+        const strippedText = stripHtml(hl.text);
         const passageBeforeCharacterStart = text.substring(0, characterStart)
         const passageAfterCharacterStart = text.substring(characterStart)
-        const highlightedPassageAfterCharacterStart = passageAfterCharacterStart.replace(hl.text, `<span class="passage-highlight">${hl.text}</span>`)
+        const highlightedPassageAfterCharacterStart = passageAfterCharacterStart.replace(strippedText, `<span class="passage-highlight">${strippedText}</span>`)
         formattedPassage.text = `${passageBeforeCharacterStart}${highlightedPassageAfterCharacterStart}`
         return formattedPassage
       })
@@ -362,8 +376,9 @@ export class StudentViewContainer extends React.Component<StudentViewContainerPr
     const { currentActivity, } = activities
     const { submittedResponses, } = session
     if (!currentActivity) return
-
-    const steps =  currentActivity.prompts.map((prompt, i) => {
+    // sort by conjunctions in alphabetical order: because, but, so
+    const filteredSteps = currentActivity.prompts.sort((a, b) => a.conjunction.localeCompare(b.conjunction));
+    const steps =  filteredSteps.map((prompt, i) => {
       // using i + 2 because the READ_PASSAGE_STEP is 1, so the first item in the set of prompts will always be 2
       const stepNumber = i + 2
       const everyOtherStepCompleted = completedSteps.filter(s => s !== stepNumber).length === 3
