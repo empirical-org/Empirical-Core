@@ -6,7 +6,7 @@ module Comprehension
     def initialize(entry, prompt, previous_feedback=[])
       @entry = entry
       @prompt = prompt
-      @automl_model = prompt&.automl_models.where(state: AutomlModel::STATE_ACTIVE).first
+      @automl_model = prompt&.automl_models&.where(state: AutomlModel::STATE_ACTIVE)&.first
       @previous_feedback = previous_feedback
     end
 
