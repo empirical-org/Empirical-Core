@@ -164,5 +164,28 @@ RSpec.describe RuleFeedbackHistory, type: :model do
 
   end
 
+  describe '#generate_rulewise_report' do 
+    it 'should render feedback histories' do 
+      so_rule1 = rule_factory { { name: 'so_rule1', rule_type: 'autoML'} } 
+      unused_rule = rule_factory { { name: 'unused', rule_type: 'autoML'} } 
+
+      f_h1 = create(:feedback_history, rule_uid: so_rule1.uid)
+      f_h2 = create(:feedback_history, rule_uid: so_rule1.uid)
+      f_h3 = create(:feedback_history, rule_uid: unused_rule.uid)
+
+      result = RuleFeedbackHistory.generate_rulewise_report(so_rule1.uid)
+
+      expect(result.keys.length).to eq 1
+      expect(result.keys.first.to_s).to eq so_rule1.uid 
+      
+      responses = result[so_rule1.uid.to_sym][:responses]
+
+      response_ids = responses.map {|r| r[:response_id]}
+      expect(
+        Set[*response_ids] == Set[f_h1.id, f_h2.id]
+      ).to be true
+      
+    end
+  end
 
 end

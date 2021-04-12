@@ -11,7 +11,14 @@ describe Api::V1::RuleFeedbackHistoriesController, type: :controller do
             {"rule_feedback_histories"=>[]}
         )
     end
+  end
 
+  describe '#rule_detail' do 
+    it 'should return successfully' do 
+      get :rule_feedback_history, rule_uid: 1
+      expect(response.status).to eq 200
+      expect(JSON.parse(response.body)).to eq({})
+    end
   end
   
 end
