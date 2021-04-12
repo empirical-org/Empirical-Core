@@ -26,6 +26,30 @@ class RuleFeedbackHistory
         rules = Comprehension::Rule.find_by_sql(sql)
     end
 
+    def self.feedback_history_to_json(fh)
+        {
+            response_id: fh.id,
+            datetime: fh.updated_at,
+            entry: fh.entry,
+            highlight: fh.metadata.class == Hash ? fh.metadata['highlight'] : '',
+            view_session_url: 'Not yet available'
+        }
+    end
+
+    def self.generate_rulewise_report(rule_uid)
+        feedback_histories = FeedbackHistory.where(rule_uid: rule_uid)
+        response_jsons = []
+        feedback_histories.each do |fh|
+            response_jsons.append(feedback_history_to_json(fh))
+        end
+
+        {
+            "#{rule_uid}": {
+                responses: response_jsons
+            }
+        }
+    end
+
     def self.postprocessing(rules_sql_result)
         rules_sql_result.each do |r| 
             
