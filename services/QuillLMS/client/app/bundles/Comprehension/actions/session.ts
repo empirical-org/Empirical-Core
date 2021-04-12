@@ -17,9 +17,68 @@ interface GetFeedbackArguments {
   callback: Function
 }
 
-export const setSessionId = (sessionID: string) => {
+interface FetchActiveActivitySessionArguments {
+  sessionID: string,
+  activityUID: string,
+  callback: Function
+}
+
+interface SaveActiveActivitySessionArguments {
+  sessionID: string,
+  submittedResponses: { [key: string]: FeedbackObject[] }|{},
+  activeStep: number,
+  completedSteps: number[],
+  callback: Function
+}
+
+export const processUnfetchableSession = () => {
   return (dispatch: Function) => {
+      dispatch({ type: ActionTypes.SESION_HAS_NO_DATA })
+  }
+}
+
+export const fetchActiveActivitySession = ({ sessionID, activityUID, callback, }: FetchActiveActivitySessionArguments) => {
+  return (dispatch: Function) => {
+    const activeActivitySessionUrl = `${process.env.DEFAULT_URL}/api/v1/active_activity_sessions/${sessionID}`
+
     dispatch({ type: ActionTypes.SET_ACTIVITY_SESSION_ID, sessionID });
+
+    const requestObject = {
+      url: activeActivitySessionUrl,
+      json: true,
+    }
+
+    request.get(requestObject, (e, r, body) => {
+      if (r.statusCode < 200 || r.statusCode >= 300) {
+        dispatch({ type: ActionTypes.SESION_HAS_NO_DATA })
+        return
+      }
+      const { submittedResponses, } = body
+      dispatch({ type: ActionTypes.SET_SUBMITTED_RESPONSES, submittedResponses });
+      if (callback) callback(body)
+    })
+  }
+}
+
+export const saveActiveActivitySession = ({ sessionID, submittedResponses, activeStep, completedSteps, callback, }: SaveActiveActivitySessionArguments) => {
+  return (dispatch: Function) => {
+    const activeActivitySessionUrl = `${process.env.DEFAULT_URL}/api/v1/active_activity_sessions/${sessionID}`
+
+    const requestObject = {
+      url: activeActivitySessionUrl,
+      body: {
+        active_activity_session: {
+          submittedResponses,
+          activeStep,
+          completedSteps
+        }
+      },
+      json: true,
+    }
+
+    request.put(requestObject, (e, r, body) => {
+      if (callback) callback()
+    })
   }
 }
 
