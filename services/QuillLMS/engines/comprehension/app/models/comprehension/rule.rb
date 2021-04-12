@@ -31,7 +31,6 @@ module Comprehension
     has_many :prompts_rules, inverse_of: :rule
     has_many :prompts, through: :prompts_rules, inverse_of: :rules
     has_many :regex_rules, inverse_of: :rule, dependent: :destroy
-    has_many :feedback_histories, class_name: FeedbackHistory
 
     accepts_nested_attributes_for :plagiarism_text
     accepts_nested_attributes_for :feedbacks
