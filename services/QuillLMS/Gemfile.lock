@@ -719,6 +719,8 @@ GEM
     terminal-notifier-guard (1.7.0)
     terrapin (0.6.0)
       climate_control (>= 0.0.3, < 1.0)
+    test_after_commit (1.2.2)
+      activerecord (>= 3.2, < 5.0)
     therubyracer (0.12.3)
       libv8 (~> 3.16.14.15)
       ref
@@ -891,6 +893,7 @@ DEPENDENCIES
   sqreen
   stripe
   terminal-notifier-guard
+  test_after_commit
   therubyracer
   time_difference
   timecop
