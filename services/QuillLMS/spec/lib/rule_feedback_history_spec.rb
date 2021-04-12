@@ -44,9 +44,9 @@ RSpec.describe RuleFeedbackHistory, type: :model do
         rule_order: "1", 
         first_feedback: "", 
         rule_name: 'so_rule1',
-        pct_strong: 0, 
+        pct_strong: "0%", 
         scored_responses: 0,
-        pct_scored: 0          
+        pct_scored: "0%"          
       }
 
       expect(expected <= report.first).to be true

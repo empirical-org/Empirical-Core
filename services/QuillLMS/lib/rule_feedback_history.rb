@@ -32,8 +32,8 @@ class RuleFeedbackHistory
             feedback_histories = FeedbackHistory
                 .where(id: r.feedback_histories_id_array).includes(:feedback_history_ratings)
 
-            total_scored = feedback_histories.reduce(0) do |memo, n|
-                memo + n.feedback_history_ratings.count
+            total_scored = feedback_histories.reduce(0) do |memo, feedback_history|
+                memo + feedback_history.feedback_history_ratings.count
             end
 
             if total_scored == 0 
@@ -67,6 +67,10 @@ class RuleFeedbackHistory
         rules_sql_result
     end
 
+    def self.format_pct(a_float)
+        "#{(a_float * 100).round(2)}%"
+    end
+
     def self.format_sql_results(relations)
         relations.map do |r|
             {
@@ -77,9 +81,9 @@ class RuleFeedbackHistory
                 rule_description: r.rule_description,
                 rule_name: r.rule_name,
                 total_responses: r.total_responses,
-                pct_strong: r.pct_strong, 
+                pct_strong: format_pct(r.pct_strong), 
                 scored_responses: r.scored_responses_count, # may want to rename for clarity
-                pct_scored: r.pct_scored
+                pct_scored: format_pct(r.pct_scored)
             }
 
         end
