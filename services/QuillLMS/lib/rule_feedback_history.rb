@@ -2,7 +2,7 @@ class RuleFeedbackHistory
     def self.generate_report(conjunction:, activity_id:)
         sql_result = exec_query(conjunction: conjunction, activity_id: activity_id)
         postprocessed = postprocessing(sql_result)
-        format_sql_results(sql_result)
+        format_sql_results(postprocessed)
     end
 
     def self.exec_query(conjunction:, activity_id:)
