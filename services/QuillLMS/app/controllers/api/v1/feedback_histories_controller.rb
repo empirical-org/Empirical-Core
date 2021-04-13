@@ -99,7 +99,7 @@ class Api::V1::FeedbackHistoriesController < Api::ApiController
     # We've changed the name of the model param in FeedbackHistory, but don't (currently)
     # want to go back and change every single Feedback API in our stack to use a new signature.
     # This swap allows us to maintain the current API while making the new code work.
-    params_hash[:session_uid] = params_hash.delete(:activity_session_uid)
+    params_hash[:feedback_session_uid] = params_hash.delete(:activity_session_uid)
     params_hash
   end
 end

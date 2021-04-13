@@ -2,29 +2,29 @@
 #
 # Table name: feedback_histories
 #
-#  id            :integer          not null, primary key
-#  attempt       :integer          not null
-#  concept_uid   :text
-#  entry         :text             not null
-#  feedback_text :text
-#  feedback_type :text             not null
-#  metadata      :jsonb
-#  optimal       :boolean          not null
-#  prompt_type   :string
-#  rule_uid      :string
-#  session_uid   :text
-#  time          :datetime         not null
-#  used          :boolean          not null
-#  created_at    :datetime         not null
-#  updated_at    :datetime         not null
-#  prompt_id     :integer
+#  id                   :integer          not null, primary key
+#  attempt              :integer          not null
+#  concept_uid          :text
+#  entry                :text             not null
+#  feedback_session_uid :text
+#  feedback_text        :text
+#  feedback_type        :text             not null
+#  metadata             :jsonb
+#  optimal              :boolean          not null
+#  prompt_type          :string
+#  rule_uid             :string
+#  time                 :datetime         not null
+#  used                 :boolean          not null
+#  created_at           :datetime         not null
+#  updated_at           :datetime         not null
+#  prompt_id            :integer
 #
 # Indexes
 #
-#  index_feedback_histories_on_concept_uid         (concept_uid)
-#  index_feedback_histories_on_prompt_type_and_id  (prompt_type,prompt_id)
-#  index_feedback_histories_on_rule_uid            (rule_uid)
-#  index_feedback_histories_on_session_uid         (session_uid)
+#  index_feedback_histories_on_concept_uid           (concept_uid)
+#  index_feedback_histories_on_feedback_session_uid  (feedback_session_uid)
+#  index_feedback_histories_on_prompt_type_and_id    (prompt_type,prompt_id)
+#  index_feedback_histories_on_rule_uid              (rule_uid)
 #
 require 'rails_helper'
 
@@ -39,7 +39,7 @@ RSpec.describe FeedbackHistory, type: :model do
   end
 
   context 'validations' do
-    it { should validate_presence_of(:session_uid) }
+    it { should validate_presence_of(:feedback_session_uid) }
 
     it { should validate_presence_of(:attempt) }
     it do
@@ -74,7 +74,7 @@ RSpec.describe FeedbackHistory, type: :model do
       @activity = create(:comprehension_activity)
       @activity_session = create(:activity_session, activity_id: @activity.id)
       @concept = create(:concept)
-      @feedback_history = create(:feedback_history, session_uid: @activity_session.uid, concept: @concept, prompt: @prompt)
+      @feedback_history = create(:feedback_history, feedback_session_uid: @activity_session.uid, concept: @concept, prompt: @prompt)
     end
 
     it 'should fill out hash with all fields' do
@@ -88,7 +88,7 @@ RSpec.describe FeedbackHistory, type: :model do
     end
 
     it 'should return empty hash when there is no concept' do
-      feedback_history = create(:feedback_history, session_uid: @activity_session.uid, concept: nil, prompt: @prompt)
+      feedback_history = create(:feedback_history, feedback_session_uid: @activity_session.uid, concept: nil, prompt: @prompt)
       concept_results_hash = feedback_history.concept_results_hash
 
       expect(concept_results_hash).to eq({})
@@ -105,7 +105,7 @@ RSpec.describe FeedbackHistory, type: :model do
       json_hash = @feedback_history.as_json
 
       expect(json_hash['id']).to eq(@feedback_history.id)
-      expect(json_hash['session_uid']).to eq(@feedback_history.session_uid)
+      expect(json_hash['feedback_session_uid']).to eq(@feedback_history.feedback_session_uid)
       expect(json_hash['concept_uid']).to eq(@feedback_history.concept_uid)
       expect(json_hash['attempt']).to eq(@feedback_history.attempt)
       expect(json_hash['entry']).to eq(@feedback_history.entry)
@@ -125,7 +125,7 @@ RSpec.describe FeedbackHistory, type: :model do
   context 'batch_create' do
     setup do
       @valid_fh_params = {
-        session_uid: SecureRandom.uuid,
+        feedback_session_uid: SecureRandom.uuid,
         attempt: 1,
         entry: 'This is the student entry',
         feedback_text: 'This is the feedback text',
@@ -174,17 +174,17 @@ RSpec.describe FeedbackHistory, type: :model do
       @feedback_history = build(:feedback_history)
     end
 
-    it 'should do nothing if session_uid is not set' do
-      @feedback_history.session_uid = nil
+    it 'should do nothing if feedback_session_uid is not set' do
+      @feedback_history.feedback_session_uid = nil
       @feedback_history.save
-      expect(@feedback_history.session_uid).to eq(nil)
+      expect(@feedback_history.feedback_session_uid).to eq(nil)
     end
 
-    it 'should create an FeedbackSession record if session_uid is set' do
+    it 'should create an FeedbackSession record if feedback_session_uid is set' do
       expect(FeedbackSession.count).to eq(0)
 
       activity_session_uid = 'fake-activity-session-uid'
-      @feedback_history.session_uid = activity_session_uid
+      @feedback_history.feedback_session_uid = activity_session_uid
       @feedback_history.save
       @feedback_history.valid?
       
@@ -192,11 +192,11 @@ RSpec.describe FeedbackHistory, type: :model do
       expect(FeedbackSession.count).to eq(1)
     end
 
-    it 'should use the replace the session_uid value with the value from FeedbackSession' do
-      session_uid = SecureRandom.uuid
-      @feedback_history.session_uid = session_uid
+    it 'should use the replace the feedback_session_uid value with the value from FeedbackSession' do
+      feedback_session_uid = SecureRandom.uuid
+      @feedback_history.feedback_session_uid = feedback_session_uid
       @feedback_history.save
-      expect(FeedbackSession.get_uid_for_activity_session(session_uid)).to eq(@feedback_history.session_uid)
+      expect(FeedbackSession.get_uid_for_activity_session(feedback_session_uid)).to eq(@feedback_history.feedback_session_uid)
     end
   end
 end

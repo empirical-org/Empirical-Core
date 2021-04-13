@@ -102,7 +102,7 @@ describe Api::V1::FeedbackHistoriesController, type: :controller do
 
       assert_equal 422, response.code.to_i
       assert_equal parsed_response['feedback_histories'][0], {}
-      assert parsed_response['feedback_histories'][1]['session_uid'].include?("can't be blank")
+      assert parsed_response['feedback_histories'][1]['feedback_session_uid'].include?("can't be blank")
       assert_equal 1, FeedbackHistory.count
     end
 

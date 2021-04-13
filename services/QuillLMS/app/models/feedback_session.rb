@@ -13,7 +13,7 @@
 #
 class FeedbackSession < ActiveRecord::Base
   has_one :activity_session, foreign_key: :uid, primary_key: :activity_session_uid
-  has_many :feedback_history, foreign_key: :session_uid, primary_key: :uid
+  has_many :feedback_history, foreign_key: :feedback_session_uid, primary_key: :uid
 
   validates :activity_session_uid, presence: true, uniqueness: true
   validates :uid, presence: true, uniqueness: true

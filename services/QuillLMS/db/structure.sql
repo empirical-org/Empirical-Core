@@ -1424,8 +1424,8 @@ ALTER SEQUENCE public.comprehension_prompts_rules_id_seq OWNED BY public.compreh
 
 CREATE TABLE public.comprehension_regex_rules (
     id integer NOT NULL,
-    regex_text character varying(200) NOT NULL,
-    case_sensitive boolean NOT NULL,
+    regex_text character varying(200),
+    case_sensitive boolean,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
     rule_id integer,
@@ -1920,7 +1920,7 @@ CREATE TABLE public.districts_users (
 
 CREATE TABLE public.feedback_histories (
     id integer NOT NULL,
-    session_uid text,
+    feedback_session_uid text,
     prompt_id integer,
     prompt_type character varying,
     concept_uid text,
@@ -5619,6 +5619,13 @@ CREATE INDEX index_feedback_histories_on_concept_uid ON public.feedback_historie
 
 
 --
+-- Name: index_feedback_histories_on_feedback_session_uid; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_feedback_histories_on_feedback_session_uid ON public.feedback_histories USING btree (feedback_session_uid);
+
+
+--
 -- Name: index_feedback_histories_on_prompt_type_and_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -5633,13 +5640,6 @@ CREATE INDEX index_feedback_histories_on_rule_uid ON public.feedback_histories U
 
 
 --
--- Name: index_feedback_histories_on_session_uid; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_feedback_histories_on_session_uid ON public.feedback_histories USING btree (session_uid);
-
-
---
 -- Name: index_feedback_sessions_on_activity_session_uid; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -5651,13 +5651,6 @@ CREATE UNIQUE INDEX index_feedback_sessions_on_activity_session_uid ON public.fe
 --
 
 CREATE UNIQUE INDEX index_feedback_sessions_on_uid ON public.feedback_sessions USING btree (uid);
-
-
---
--- Name: index_feedback_histories_on_rule_uid; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_feedback_histories_on_rule_uid ON public.feedback_histories USING btree (rule_uid);
 
 
 --
@@ -7457,3 +7450,4 @@ INSERT INTO schema_migrations (version) VALUES ('20210319160956');
 INSERT INTO schema_migrations (version) VALUES ('20210330160626');
 
 INSERT INTO schema_migrations (version) VALUES ('20210409161449');
+
