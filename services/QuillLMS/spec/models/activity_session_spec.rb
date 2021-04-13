@@ -966,31 +966,31 @@ end
 
     it 'should calculate score' do
       activity_session = create(:activity_session, state: 'finished', activity_id: @activity.id)
-      feedback_history = create(:feedback_history, attempt: 4, prompt: @prompt, session_uid: activity_session.uid)
+      feedback_history = create(:feedback_history, attempt: 4, prompt: @prompt, feedback_session_uid: activity_session.uid)
       activity_session.save
       expect(activity_session.percentage).to eq(0.25)
     end
 
     it 'should only factor in the feedback history with maximum attempts' do
       activity_session = create(:activity_session, state: 'finished', activity_id: @activity.id)
-      feedback_history = create(:feedback_history, attempt: 4, prompt: @prompt, session_uid: activity_session.uid)
-      feedback_history_max = create(:feedback_history, attempt: 5, prompt: @prompt, session_uid: activity_session.uid)
+      feedback_history = create(:feedback_history, attempt: 4, prompt: @prompt, feedback_session_uid: activity_session.uid)
+      feedback_history_max = create(:feedback_history, attempt: 5, prompt: @prompt, feedback_session_uid: activity_session.uid)
       activity_session.save
       expect(activity_session.percentage).to eq(0)
     end
 
     it 'should average scores for more than one prompt' do
       activity_session = create(:activity_session, state: 'finished', activity_id: @activity.id)
-      feedback_history_prompt_one = create(:feedback_history, attempt: 1, prompt: @prompt, session_uid: activity_session.uid)
-      feedback_history_prompt_two = create(:feedback_history, attempt: 3, prompt: @prompt_two, session_uid: activity_session.uid)
+      feedback_history_prompt_one = create(:feedback_history, attempt: 1, prompt: @prompt, feedback_session_uid: activity_session.uid)
+      feedback_history_prompt_two = create(:feedback_history, attempt: 3, prompt: @prompt_two, feedback_session_uid: activity_session.uid)
       activity_session.save
       expect(activity_session.percentage).to eq(0.75)
     end
 
     it 'should ignore unused feedback histories' do
       activity_session = create(:activity_session, state: 'finished', activity_id: @activity.id)
-      feedback_history = create(:feedback_history, attempt: 2, prompt: @prompt, session_uid: activity_session.uid)
-      feedback_history = create(:feedback_history, attempt: 4, prompt: @prompt, session_uid: activity_session.uid, used: false)
+      feedback_history = create(:feedback_history, attempt: 2, prompt: @prompt, feedback_session_uid: activity_session.uid)
+      feedback_history = create(:feedback_history, attempt: 4, prompt: @prompt, feedback_session_uid: activity_session.uid, used: false)
       activity_session.save
       expect(activity_session.percentage).to eq(0.75)
     end
