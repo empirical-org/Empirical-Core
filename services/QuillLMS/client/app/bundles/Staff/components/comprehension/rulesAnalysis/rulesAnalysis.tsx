@@ -44,10 +44,10 @@ const RulesAnalysis: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ hist
   const formattedRows = selectedPrompt && ruleFeedbackHistory && ruleFeedbackHistory.ruleFeedbackHistories && ruleFeedbackHistory.ruleFeedbackHistories.filter(rule => {
     return selectedRuleType.value === DEFAULT_RULE_TYPE || rule.api_name === selectedRuleType.value
   }).map(rule => {
-    const { rule_name, uid, api_name, rule_order, rule_description, pct_strong, pct_scored, total_responses, scored_responses, feedback_first_layer, } = rule;
+    const { rule_name, rule_uid, api_name, rule_order, rule_description, pct_strong, pct_scored, total_responses, scored_responses, first_feedback, } = rule;
     const apiOrder = ruleOrder[api_name]
     return {
-      uid,
+      rule_uid,
       className: apiOrder % 2 === 0 ? 'even' : 'odd',
       apiOrder,
       apiName: api_name,
@@ -59,8 +59,8 @@ const RulesAnalysis: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ hist
       percentageScored: pct_scored,
       activityId,
       description: rule_description,
-      firstLayerFeedback: feedback_first_layer,
-      handleClick: () => window.location.href = `/cms/comprehension#/activities/${activityId}/rules-analysis/${uid}`
+      firstLayerFeedback: first_feedback,
+      handleClick: () => window.location.href = `/cms/comprehension#/activities/${activityId}/rules-analysis/${rule_uid}`
     }
   }).sort(firstBy('apiOrder').thenBy('ruleOrder'));
 
@@ -69,57 +69,57 @@ const RulesAnalysis: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ hist
       expander: true,
       Header: () => '',
       width: 65,
-      Expander: ({ isExpanded, ...props }) =>
-        (<div className={`${props.original.className} expand-cell`}>+</div>),
+      Expander: ({ isExpanded, ...data }) =>
+        (<div className={`${data.original.className} expand-cell`}>+</div>),
     },
     {
       Header: "API Name",
       accessor: "apiName",
       key: "apiName",
       width: 150,
-      Cell: (props) => (<button className={props.original.className} onClick={props.original.handleClick}>{props.original.apiName}</button>),
+      Cell: (data) => (<button className={data.original.className} onClick={data.original.handleClick} type="button">{data.original.apiName}</button>),
     },
     {
       Header: "Rule Order",
       accessor: "ruleOrder",
       key: "ruleOrder",
       width: 100,
-      Cell: (props) => (<button className={props.original.className} onClick={props.original.handleClick}>{props.original.ruleOrder}</button>),
+      Cell: (data) => (<button className={data.original.className} onClick={data.original.handleClick} type="button">{data.original.ruleOrder}</button>),
     },
     {
       Header: "Rule",
       accessor: "rule",
       key: "rule",
       minWidth: 700,
-      Cell: (props) => (<button className={props.original.className} onClick={props.original.handleClick}>{props.original.rule}</button>),
+      Cell: (data) => (<button className={data.original.className} onClick={data.original.handleClick} type="button">{data.original.rule}</button>),
     },
     {
       Header: "% Strong",
       accessor: "percentageStrong",
       key: "percentageStrong",
       width: 150,
-      Cell: (props) => (<button className={props.original.className} onClick={props.original.handleClick}>{props.original.percentageStrong}</button>),
+      Cell: (data) => (<button className={data.original.className} onClick={data.original.handleClick} type="button">{data.original.percentageStrong}</button>),
     },
     {
       Header: "Total Responses",
       accessor: "totalResponses",
       key: "totalResponses",
       width: 150,
-      Cell: (props) => (<button className={props.original.className} onClick={props.original.handleClick}>{props.original.totalResponses}</button>),
+      Cell: (data) => (<button className={data.original.className} onClick={data.original.handleClick} type="button">{data.original.totalResponses}</button>),
     },
     {
       Header: "Scored Responses",
       accessor: "scoredResponses",
       key: "scoredResponses",
       width: 150,
-      Cell: (props) => (<button className={props.original.className} onClick={props.original.handleClick}>{props.original.scoredResponses}</button>),
+      Cell: (data) => (<button className={data.original.className} onClick={data.original.handleClick} type="button">{data.original.scoredResponses}</button>),
     },
     {
       Header: "% Scored",
       accessor: "percentageScored",
       key: "percentageScored",
       width: 150,
-      Cell: (props) => (<button className={props.original.className} onClick={props.original.handleClick}>{props.original.percentageScored}</button>),
+      Cell: (data) => (<button className={data.original.className} onClick={data.original.handleClick} type="button">{data.original.percentageScored}</button>),
     },
   ];
 

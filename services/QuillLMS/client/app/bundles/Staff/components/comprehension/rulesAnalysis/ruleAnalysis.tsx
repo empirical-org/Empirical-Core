@@ -5,12 +5,10 @@ import stripHtml from "string-strip-html";
 import moment from 'moment';
 import ReactTable from 'react-table';
 
-import { responseData, } from './responseData'
-
 import { fetchRule } from '../../../utils/comprehension/ruleAPIs';
 import { fetchActivity } from '../../../utils/comprehension/activityAPIs';
-import { fetchResponses } from '../../../utils/comprehension/responseAPIs';
-import { editFeedbackHistory } from '../../../utils/comprehension/feedbackHistoryAPIs';
+import { fetchRuleFeedbackHistoriesByRule } from '../../../utils/comprehension/ruleFeedbackHistoryAPIs';
+import { createOrUpdateFeedbackHistoryRating } from '../../../utils/comprehension/feedbackHistoryRatingAPIs';
 import { DataTable, Error, Spinner } from '../../../../Shared/index';
 
 const ALL = 'All'
@@ -34,10 +32,10 @@ const RuleAnalysis = ({ history, match }) => {
     queryFn: fetchActivity
   });
 
-  // const { data: responseData } = useQuery({
-  //   queryKey: [`responses-for-activity-${activityId}-rule-${ruleId}`, activityId, ruleId],
-  //   queryFn: fetchResponses
-  // })
+  const { data: ruleFeedbackHistoryData } = useQuery({
+    queryKey: [`rule-feedback-histories-by-rule-${ruleId}`, ruleId],
+    queryFn: fetchRuleFeedbackHistoriesByRule
+  })
 
   function handleFilterChange(e) { setFilter(e.target.value) }
 
@@ -54,8 +52,8 @@ const RuleAnalysis = ({ history, match }) => {
    async function makeWeak(response) { updateFeedbackHistoryStrength(response.response_id, false) }
 
    async function updateFeedbackHistoryStrength(responseId, strong) {
-     editFeedbackHistory(responseId, { strength: strong, }).then((response) => {
-       queryCache.refetchQueries(`responses-for-activity-${activityId}-rule-${ruleId}`);
+     createOrUpdateFeedbackHistoryRating({ rating: strong, feedback_history_id: responseId}).then((response) => {
+       queryCache.refetchQueries(`rule-feedback-histories-by-rule-${ruleId}`);
      });
    }
 
@@ -100,7 +98,7 @@ const RuleAnalysis = ({ history, match }) => {
         },
         {
           label: 'Responses',
-          value: responseData && responseData.responses ? responseData.responses.length : 0
+          value: ruleFeedbackHistoryData && ruleFeedbackHistoryData.responses ? ruleFeedbackHistoryData.responses.length : 0
         }
       ];
       return fields.map((field, i) => {
@@ -120,8 +118,9 @@ const RuleAnalysis = ({ history, match }) => {
     { name: "", attribute:"value", width: "1000px" }
   ];
 
-  const responseRows = ({ responses, }) => {
-    if (!activityData && !responseData) { return [] }
+  const responseRows = (data) => {
+    if (!activityData || !data) { return [] }
+    const { responses, } = data
     return responses.filter(filterResponses).map(r => {
       const formattedResponse = {...r}
       const highlightedEntry = r.entry.replace(r.highlight, `<strong>${r.highlight}</strong>`)
@@ -162,7 +161,7 @@ const RuleAnalysis = ({ history, match }) => {
     }
   ]
 
-  if(!ruleData) {
+  if(!ruleData || !activityData || !ruleFeedbackHistoryData) {
     return(
       <div className="loading-spinner-container">
         <Spinner />
@@ -212,8 +211,8 @@ const RuleAnalysis = ({ history, match }) => {
       <ReactTable
         className="responses-table"
         columns={responseHeaders}
-        data={responseRows(responseData)}
-        defaultPageSize={responseRows(responseData).length < 100 ? responseRows(responseData).length : 100}
+        data={responseRows(ruleFeedbackHistoryData)}
+        defaultPageSize={responseRows(ruleFeedbackHistoryData).length < 100 ? responseRows(ruleFeedbackHistoryData).length : 100}
         showPagination={true}
       />
     </div>
