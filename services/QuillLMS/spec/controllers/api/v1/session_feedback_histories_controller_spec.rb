@@ -7,13 +7,13 @@ describe Api::V1::SessionFeedbackHistoriesController, type: :controller do
 
       parsed_response = JSON.parse(response.body)
 
-      assert_response :success
-      assert_equal parsed_response, {
+      expect(response).to have_http_status(200)
+      expect(parsed_response).to eq({
         total_pages: 0,
         total_activity_sessions: 0,
         current_page: 1,
         activity_sessions: []
-      }.stringify_keys
+      }.stringify_keys)
     end
 
     context 'with feedback_history' do
@@ -25,22 +25,23 @@ describe Api::V1::SessionFeedbackHistoriesController, type: :controller do
 
         parsed_response = JSON.parse(response.body)
 
-        assert_response :success
-        assert_equal parsed_response['activity_sessions'].length, 2
+        expect(response).to have_http_status(200)
+        expect(parsed_response['activity_sessions'].length).to eq(2)
       end
 
       context 'pagination' do
         setup do
-          30.times { create(:feedback_history) }
+          stub_const('FeedbackHistory::DEFAULT_PAGE_SIZE', 2)
+          3.times { create(:feedback_history) }
         end
 
-        it "should return 25 records at a tine" do
+        it "should return 2 records at a time" do
           get :index
 
           parsed_response = JSON.parse(response.body)
 
-          assert_response :success
-          assert_equal parsed_response['activity_sessions'].length, 25
+          expect(response).to have_http_status(200)
+          expect(parsed_response['activity_sessions'].length).to eq(2)
         end
 
         it "should skip pages if specified" do
@@ -48,8 +49,8 @@ describe Api::V1::SessionFeedbackHistoriesController, type: :controller do
 
           parsed_response = JSON.parse(response.body)
 
-          assert_response :success
-          assert_equal parsed_response['activity_sessions'].length, 5
+          expect(response).to have_http_status(200)
+          expect(parsed_response['activity_sessions'].length).to eq(1)
         end
       end
 
@@ -66,8 +67,8 @@ describe Api::V1::SessionFeedbackHistoriesController, type: :controller do
 
           parsed_response = JSON.parse(response.body)
 
-          assert_response :success
-          assert_equal parsed_response['activity_sessions'].length, 10
+          expect(response).to have_http_status(200)
+          expect(parsed_response['activity_sessions'].length).to eq(10)
         end
 
         it 'should retrieve all items if no activity_id is specified' do
@@ -75,8 +76,8 @@ describe Api::V1::SessionFeedbackHistoriesController, type: :controller do
 
           parsed_response = JSON.parse(response.body)
 
-          assert_response :success
-          assert_equal parsed_response['activity_sessions'].length, 20
+          expect(response).to have_http_status(200)
+          expect(parsed_response['activity_sessions'].length).to eq(20)
 
         end
       end
@@ -93,14 +94,14 @@ describe Api::V1::SessionFeedbackHistoriesController, type: :controller do
 
       parsed_response = JSON.parse(response.body)
 
-      assert_equal 200, response.code.to_i
-      assert_equal parsed_response.to_json, FeedbackHistory.serialize_detail_by_activity_session(@feedback_history.activity_session_uid).to_json
+      expect(200).to eq(response.code.to_i)
+      expect(parsed_response.to_json).to eq(FeedbackHistory.serialize_detail_by_activity_session(@feedback_history.activity_session_uid).to_json)
     end
 
     it "should raise if not found (to be handled by parent app)" do
       get :show, id: 99999
-      assert_equal 404, response.status
-      assert response.body.include?("The resource you were looking for does not exist")
+      expect(404).to eq(response.status)
+      expect(response.body.include?("The resource you were looking for does not exist")).to be
     end
   end
 end
