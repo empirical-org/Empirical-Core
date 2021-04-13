@@ -283,7 +283,13 @@ export class DataTable extends React.Component<DataTableProps, DataTableState> {
     const { headers, } = this.props
     const rowClassName = `data-table-row ${row.checked ? 'checked' : ''} ${row.className || ''}`
     const rowSections = headers.map(header => this.renderRowSection(row, header))
-    return <div className={rowClassName} key={String(row.id)}>{this.renderRowCheckbox(row)}{this.renderRowDragHandle(row)}{rowSections}{this.renderRowRemoveIcon(row)}{this.renderActions(row)}</div>
+    const rowContent = <React.Fragment>{this.renderRowCheckbox(row)}{this.renderRowDragHandle(row)}{rowSections}{this.renderRowRemoveIcon(row)}{this.renderActions(row)}</React.Fragment>
+
+    if (row.link) {
+      return <a className={rowClassName} href={row.link} key={String(row.id)}>{rowContent}</a>
+    }
+
+    return <div className={rowClassName} key={String(row.id)}>{rowContent}</div>
   }
 
   renderRows() {

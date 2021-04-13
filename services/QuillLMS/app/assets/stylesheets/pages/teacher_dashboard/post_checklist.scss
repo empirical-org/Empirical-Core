@@ -12,10 +12,10 @@
   }
   main, aside {
     width: 100%;
-    margin: 0px 16px;
   }
   aside {
     max-width: 336px;
+    margin-left: 32px;
     h2 {
       font-size: 16px;
       line-height: 1.38;
@@ -35,13 +35,7 @@
     }
   }
   main {
-    max-width: 768px;
-    h2 {
-      font-size: 16px;
-      line-height: 1.38;
-      border-bottom: 1px solid #e0e0e0;
-      padding-bottom: 8px;
-    }
+    max-width: 736px;
   }
   @media (max-width: 1103px) {
     aside {

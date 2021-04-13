@@ -8,8 +8,14 @@ import HandyActions from '../components/dashboard/handy_actions'
 import DailyTinyTip from '../components/dashboard/daily_tiny_tip'
 import TeacherCenterHighlights from '../components/dashboard/teacher_center_highlights'
 import CollegeBoard from '../components/dashboard/college_board'
+import useWindowSize from '../../Shared/hooks/useWindowSize'
+
+const MAX_VIEW_WIDTH_FOR_MOBILE = 1103
 
 const Dashboard = ({ onboardingChecklist, firstName, mustSeeModal, linkedToClever, featuredBlogPosts, }) => {
+  const size = useWindowSize();
+  const onMobile = () => size.width <= MAX_VIEW_WIDTH_FOR_MOBILE
+
   const [showWelcomeModal, setShowWelcomeModal] = React.useState(mustSeeModal)
   const [activityFeed, setActivityFeed] = React.useState(mustSeeModal)
 
@@ -26,7 +32,7 @@ const Dashboard = ({ onboardingChecklist, firstName, mustSeeModal, linkedToCleve
   return (<div className="dashboard">
     <div className="post-checklist-container">
       <main>
-        <ActivityFeed />
+        <ActivityFeed onMobile={onMobile} />
       </main>
       <aside>
         <HandyActions linkedToClever={linkedToClever} />

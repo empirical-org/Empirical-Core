@@ -96,4 +96,5 @@ export {
   googleClassroomIcon,
   helpIcon,
   arrowPointingRightIcon,
+  expandIcon
 } from './images/index'
