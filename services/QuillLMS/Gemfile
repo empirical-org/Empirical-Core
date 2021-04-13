@@ -204,6 +204,9 @@ group :test do
   gem 'simplecov-json', require: false
   gem 'codecov'
   gem 'fakeredis', '~> 0.7.0'
+
+  # Remove this gem after upgrading to Rails 5
+  gem 'test_after_commit'
 end
 
 # Memory profiling

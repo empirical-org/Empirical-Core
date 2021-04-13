@@ -187,9 +187,9 @@ const ActivateModelForm = ({ match }) => {
 
 
   const labelStatusDataTableFields = [
-    { name: "Prompt Label", attribute:"label_name", width: "200px" },
-    { name: "Model Status", attribute:"model_status", width: "200px" },
-    { name: "Active Status", attribute:"status", width: "200px" }
+    { name: "AutoML Label", attribute:"label_name", width: "200px" },
+    { name: "Present in internal tool?", attribute:"model_status", width: "200px" },
+    { name: "Active in AutoML model?", attribute:"status", width: "200px" }
   ];
 
   if((!modelData && !modelsData) || isLoading) {
@@ -205,14 +205,14 @@ const ActivateModelForm = ({ match }) => {
   const activeModelisModelToActivate = activeModel && modelToActivate && activeModel.id === modelToActivate.id;
   const buttonDisabled = !modelReady || activeModelisModelToActivate
   const buttonStyle = buttonDisabled ? 'disabled' : '';
-  const labelLink = <Link to={`/activities/${activityId}/semantic-rules/${promptId}/new`}>Add Label</Link>;
+  const labelLink = <Link to={`/activities/${activityId}/semantic-labels/${promptId}/new`}>Add Label</Link>;
 
   return(
     <div className="activate-model-container">
-      <Link className="return-link" to={{ pathname: `/activities/${activityId}/semantic-rules`, state: 'returned-to-index' }}>← Return to Semantic Rules Index</Link>
+      <Link className="return-link" to={{ pathname: `/activities/${activityId}/semantic-labels`, state: 'returned-to-index' }}>← Return to Semantic Rules Index</Link>
       <section className="activate-model-form">
         <section className="activate-model-section">
-          <h4>Model Set To Be Active</h4>
+          <h4>New Model</h4>
           {modelToActivate && <DataTable
             className="model-activate-table"
             headers={dataTableFields}
@@ -220,7 +220,7 @@ const ActivateModelForm = ({ match }) => {
           />}
         </section>
         <section className="activate-model-section">
-          <h4>Current Model Active</h4>
+          <h4>Current Active Model</h4>
           {activeModel && <DataTable
             className="model-activate-table"
             headers={dataTableFields}
@@ -230,7 +230,7 @@ const ActivateModelForm = ({ match }) => {
         </section>
         <section className="activate-model-section">
           <section className="missing-labels-header">
-            <h4>Missing Labels from Model</h4>
+            <h4>Missing Labels</h4>
             <button className="quill-button fun primary contained" id="add-rule-button" type="submit">{labelLink}</button>
           </section>
           {showMissingLabelsTable && <section>
@@ -245,7 +245,7 @@ const ActivateModelForm = ({ match }) => {
           {activeModelisModelToActivate && <p className="activation-label">Model is already active.</p>}
         </section>
         <section className="activate-model-section">
-          <h4>Label Changes</h4>
+          <h4>Label Status</h4>
           {showLabelStatusTable && <DataTable
             className="label-status-table"
             headers={labelStatusDataTableFields}

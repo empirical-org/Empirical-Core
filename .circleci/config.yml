@@ -62,7 +62,7 @@ jobs:
     working_directory: ~/Empirical-Core
     parallelism: 3
     docker:
-      - image: circleci/node:8.11.3
+      - image: circleci/node:erbium
     steps:
       - checkout
 
@@ -265,7 +265,7 @@ jobs:
   node_lint:
     working_directory: ~/Empirical-Core
     docker:
-      - image: circleci/node:8.11.3
+      - image: circleci/node:erbium
     steps:
       - checkout
       - run:

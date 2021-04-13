@@ -10,7 +10,7 @@ describe ErrorAnalytics do
 
   describe '#track_500' do
     it 'should track the error 500 event' do
-      expect(analyzer).to receive(:track).with(nil, { event: SegmentIo::BackgroundEvents::ERROR_500, anonymous_id: "secure_random" })
+      expect(analyzer).to receive(:track).with({ event: SegmentIo::BackgroundEvents::ERROR_500, anonymous_id: "secure_random" })
       subject.track_500
     end
   end

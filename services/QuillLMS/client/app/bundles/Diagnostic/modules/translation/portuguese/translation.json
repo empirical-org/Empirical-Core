@@ -35,6 +35,7 @@
         "text": "Seus resultados estão sendo salvos agora. Assim que seus resultados forem salvos, você será redirecionado automaticamente."
     },
     "instructions": {
+        "Fill in each blank with one of the choices. You can leave one empty.": "Preencha cada lacuna com uma das opções. Você pode deixar uma em branco.",
         "Fill in the blank with one of the choices.": "Escreva uma das opções escolhidas no espaço em branco.",
         "Fill in each blank with one of the choices.": "Preencha cada espaço em branco com uma das opções escolhidas.",
         "Fill in the blanks with one word each.": "Preencha cada espaço em branco com uma palavra.",
@@ -42,6 +43,9 @@
         "Use the joining word to combine the sentences into one sentence.": "Use a palavra de ligação para combinar as frases e formar uma frase só."
     },
     "cues": {
+        "type one": "type one / digite uma",
+        "type two or three": "type two or three / digite duas ou três",
+        "type three": "type three / digite três",
         "choose one": "choose one / escolha uma",
         "choose three": "choose three / escolha três",
         "choose two or three" : "choose two or three / escolha duas ou três",

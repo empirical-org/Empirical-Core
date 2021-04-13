@@ -38,7 +38,7 @@ describe Api::V1::FeedbackHistoriesController, type: :controller do
       post :create, feedback_history: { activity_session_uid: '1', attempt: 1, optimal: false, used: true,
                                         time: DateTime.now, entry: 'This is the entry provided by the student',
                                         feedback_text: 'This is the feedback provided by the algorithm',
-                                        feedback_type: 'semantic', metadata: {foo: 'bar'} }
+                                        feedback_type: 'autoML', metadata: {foo: 'bar'} }
 
       parsed_response = JSON.parse(response.body)
 
@@ -53,7 +53,7 @@ describe Api::V1::FeedbackHistoriesController, type: :controller do
       post :create, feedback_history: { activity_session_uid: '1', attempt: 1, optimal: false, used: true,
                                         time: DateTime.now, entry: 'This is the entry provided by the student',
                                         feedback_text: 'This is the feedback provided by the algorithm',
-                                        feedback_type: 'semantic', metadata: {foo: 'bar'}, prompt_id: prompt.id }
+                                        feedback_type: 'autoML', metadata: {foo: 'bar'}, prompt_id: prompt.id }
 
       parsed_response = JSON.parse(response.body)
 
@@ -78,11 +78,11 @@ describe Api::V1::FeedbackHistoriesController, type: :controller do
       post :batch, feedback_histories: [{ activity_session_uid: '1', attempt: 1, optimal: false, used: true,
                                           time: DateTime.now, entry: 'This is the entry provided by the student',
                                           feedback_text: 'This is the feedback provided by the algorithm',
-                                          feedback_type: 'semantic', metadata: {highlight: [], response_id: "0", rule_uid: ""} },
+                                          feedback_type: 'autoML', metadata: {highlight: [], response_id: "0", rule_uid: ""} },
                                         { activity_session_uid: '1', attempt: 1, optimal: false, used: true,
                                           time: DateTime.now, entry: 'This is the entry provided by the student',
                                           feedback_text: 'This is the feedback provided by the algorithm',
-                                          feedback_type: 'semantic', metadata: {foo: 'bar'} }]
+                                          feedback_type: 'autoML', metadata: {foo: 'bar'} }]
 
       expect(201).to eq(response.code.to_i)
       expect(2).to eq(FeedbackHistory.count)
@@ -92,11 +92,11 @@ describe Api::V1::FeedbackHistoriesController, type: :controller do
       post :batch, feedback_histories: [{ activity_session_uid: '1', attempt: 1, optimal: false, used: true,
                                           time: DateTime.now, entry: 'This is the entry provided by the student',
                                           feedback_text: 'This is the feedback provided by the algorithm',
-                                          feedback_type: 'semantic', metadata: {foo: 'bar'} },
+                                          feedback_type: 'autoML', metadata: {foo: 'bar'} },
                                         { attempt: 1, optimal: false, used: true,
                                           time: DateTime.now, entry: 'This is the entry provided by the student',
                                           feedback_text: 'This is the feedback provided by the algorithm',
-                                          feedback_type: 'semantic', metadata: {foo: 'bar'} }]
+                                          feedback_type: 'autoML', metadata: {foo: 'bar'} }]
 
       parsed_response = JSON.parse(response.body)
 
@@ -135,7 +135,7 @@ describe Api::V1::FeedbackHistoriesController, type: :controller do
       @feedback_history.save
 
       get :show, id: @feedback_history.id
-      
+
       parsed_response = JSON.parse(response.body)
       
       expect(200).to eq(response.code.to_i)

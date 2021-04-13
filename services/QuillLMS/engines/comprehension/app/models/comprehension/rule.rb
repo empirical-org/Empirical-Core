@@ -1,5 +1,6 @@
 module Comprehension
   class Rule < ActiveRecord::Base
+    attr_accessor :first_feedback
     MAX_NAME_LENGTH = 250
     ALLOWED_BOOLEANS = [true, false]
     STATES = [

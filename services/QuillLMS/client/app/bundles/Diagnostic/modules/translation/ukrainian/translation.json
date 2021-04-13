@@ -35,6 +35,7 @@
         "text": "Зараз ваші результати зберігаються. Вас буде перенаправлено автоматично, як тільки їх буде збережено."
     },
     "instructions": {
+        "Fill in each blank with one of the choices. You can leave one empty.": "Заповніть кожен пробіл одним із варіантів. Один пробіл можна залишити порожнім.",
         "Fill in the blank with one of the choices.": "Заповніть пробіл одним із запропонованих варіантів.",
         "Fill in each blank with one of the choices.": "Заповніть кожен пробіл одним із запропонованих варіантів.",
         "Fill in the blanks with one word each.": "Заповніть кожен із пробілів одним словом.",
@@ -42,6 +43,9 @@
         "Use the joining word to combine the sentences into one sentence.": "Використовуйте сполучне слово, щоб з’єднати кілька речень в одне."
     },
     "cues": {
+        "type one": "type one / напишіть один",
+        "type two or three": "type two or three / напишіть два або три",
+        "type three": "type three / напишіть три",
         "choose one": "choose one / Виберіть одне",
         "choose three": "choose three / Виберіть три",
         "choose two or three" : "choose two or three / Виберіть два або три",

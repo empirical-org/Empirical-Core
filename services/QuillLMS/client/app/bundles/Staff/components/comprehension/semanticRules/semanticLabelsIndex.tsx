@@ -2,8 +2,8 @@ import * as React from "react";
 import { useQuery, queryCache } from 'react-query';
 import { NavLink, Redirect, Route, Switch, withRouter } from 'react-router-dom';
 
-import SemanticRulesOverview from './semanticRulesOverview'
-import SemanticRuleWrapper from './semanticRuleWrapper';
+import SemanticLabelsOverview from './semanticLabelsOverview'
+import SemanticLabelWrapper from './semanticLabelWrapper';
 import ModelForm from './modelForm';
 import ActivateModelForm from './activateModelForm';
 import Model from './model';
@@ -15,9 +15,11 @@ import { createRule, updateRule } from '../../../utils/comprehension/ruleAPIs';
 import { Error, Spinner } from '../../../../Shared/index';
 import { RuleInterface } from '../../../interfaces/comprehensionInterfaces';
 
-const SemanticRulesIndex = ({ history, match, location }) => {
+const SemanticLabelsIndex = ({ history, match, location }) => {
   const { params } = match;
   const { activityId } = params;
+
+  const [errors, setErrors] = React.useState<string[]>([]);
 
   // get cached activity data to pass to ruleForm
   const { data: activityData } = useQuery({
@@ -35,28 +37,32 @@ const SemanticRulesIndex = ({ history, match, location }) => {
 
   function handleCreateRule({rule}: {rule: RuleInterface}) {
     createRule(rule).then((response) => {
-      const { error, rule } = response;
-      if(error) {
-        return error;
+      const { errors, rule } = response;
+      if(errors && errors.length) {
+        setErrors(errors);
+      } else {
+        setErrors([]);
+        // update rules cache to display newly created rule
+        queryCache.refetchQueries(`rules-${activityId}`).then(() => {
+          history.push(`/activities/${activityId}/semantic-labels/all`);
+        });
       }
-      // update rules cache to display newly created rule
-      queryCache.refetchQueries(`rules-${activityId}`).then(() => {
-        history.push(`/activities/${activityId}/semantic-rules/all`);
-      });
       return rule;
     });
   }
 
   function handleUpdateRule({rule}: {rule: RuleInterface}, ruleId) {
     updateRule(ruleId, rule).then((response) => {
-      const { error } = response;
-      if(error) {
-        return error;
+      const { errors } = response;
+      if(errors && errors.length) {
+        setErrors(errors);
+      } else {
+        setErrors([]);
+        // update rules cache to display newly updated rule
+        queryCache.refetchQueries(`rules-${activityId}`).then(() => {
+          history.push(`/activities/${activityId}/semantic-labels/all`);
+        });
       }
-      // update rules cache to display newly updated rule
-      queryCache.refetchQueries(`rules-${activityId}`).then(() => {
-        history.push(`/activities/${activityId}/semantic-rules/all`);
-      });
       return rule;
     });
   }
@@ -80,59 +86,61 @@ const SemanticRulesIndex = ({ history, match, location }) => {
   const showTabs = tabOptions.some(option => location.pathname.includes(option));
 
   return(
-    <div className="semantic-rules-container">
+    <div className="semantic-labels-container">
       <div className="header-container">
         {activityData && renderTitle(activityData)}
       </div>
       {showTabs && <div className="tabs-container">
-        <NavLink activeClassName="is-active" to={`/activities/${activityId}/semantic-rules/all`}>
+        <NavLink activeClassName="is-active" to={`/activities/${activityId}/semantic-labels/all`}>
           <div className="tab-option">
             All
           </div>
         </NavLink>
-        <NavLink activeClassName="is-active" to={`/activities/${activityId}/semantic-rules/because`}>
+        <NavLink activeClassName="is-active" to={`/activities/${activityId}/semantic-labels/because`}>
           <div className="tab-option">
             Because
           </div>
         </NavLink>
-        <NavLink activeClassName="is-active" to={`/activities/${activityId}/semantic-rules/but`}>
+        <NavLink activeClassName="is-active" to={`/activities/${activityId}/semantic-labels/but`}>
           <div className="tab-option">
             But
           </div>
         </NavLink>
-        <NavLink activeClassName="is-active" to={`/activities/${activityId}/semantic-rules/so`}>
+        <NavLink activeClassName="is-active" to={`/activities/${activityId}/semantic-labels/so`}>
           <div className="tab-option">
             So
           </div>
         </NavLink>
       </div>}
       <Switch>
-        <Redirect exact from='/activities/:activityId/semantic-rules' to='/activities/:activityId/semantic-rules/all' />
+        <Redirect exact from='/activities/:activityId/semantic-labels' to='/activities/:activityId/semantic-labels/all' />
         {/* eslint-disable react/jsx-no-bind */}
-        <Route component={() => <SemanticRulesOverview activityId={activityId} prompts={getPromptForComponent(activityData, ALL)} />} path='/activities/:activityId/semantic-rules/all' />
-        <Route component={() => <SemanticRulesOverview activityId={activityId} prompts={getPromptForComponent(activityData, BECAUSE)} />} path='/activities/:activityId/semantic-rules/because' />
-        <Route component={() => <SemanticRulesOverview activityId={activityId} prompts={getPromptForComponent(activityData, BUT)} />} path='/activities/:activityId/semantic-rules/but' />
-        <Route component={() => <SemanticRulesOverview activityId={activityId} prompts={getPromptForComponent(activityData, SO)} />} path='/activities/:activityId/semantic-rules/so' />
-        <Route component={ActivateModelForm} path='/activities/:activityId/semantic-rules/:promptId/model/:modelId/activate' />
-        <Route component={Model} path='/activities/:activityId/semantic-rules/model/:modelId' />
-        <Route component={ModelForm} path='/activities/:activityId/semantic-rules/:promptId/add-model' />
+        <Route component={() => <SemanticLabelsOverview activityId={activityId} prompts={getPromptForComponent(activityData, ALL)} />} path='/activities/:activityId/semantic-labels/all' />
+        <Route component={() => <SemanticLabelsOverview activityId={activityId} prompts={getPromptForComponent(activityData, BECAUSE)} />} path='/activities/:activityId/semantic-labels/because' />
+        <Route component={() => <SemanticLabelsOverview activityId={activityId} prompts={getPromptForComponent(activityData, BUT)} />} path='/activities/:activityId/semantic-labels/but' />
+        <Route component={() => <SemanticLabelsOverview activityId={activityId} prompts={getPromptForComponent(activityData, SO)} />} path='/activities/:activityId/semantic-labels/so' />
+        <Route component={ActivateModelForm} path='/activities/:activityId/semantic-labels/:promptId/model/:modelId/activate' />
+        <Route component={Model} path='/activities/:activityId/semantic-labels/model/:modelId' />
+        <Route component={ModelForm} path='/activities/:activityId/semantic-labels/:promptId/add-model' />
         <Route
-          path='/activities/:activityId/semantic-rules/:promptId/new'
+          path='/activities/:activityId/semantic-labels/:promptId/new'
           render={() =>
-            (<SemanticRuleWrapper
+            (<SemanticLabelWrapper
               activityData={activityData && activityData.activity}
               isSemantic={true}
               isUniversal={false}
+              requestErrors={errors}
               submitRule={handleCreateRule}
             />)}
         />
         <Route
-          path='/activities/:activityId/semantic-rules/:promptId/:ruleId'
+          path='/activities/:activityId/semantic-labels/:promptId/:ruleId'
           render={() =>
-            (<SemanticRuleWrapper
+            (<SemanticLabelWrapper
               activityData={activityData && activityData.activity}
               isSemantic={true}
               isUniversal={false}
+              requestErrors={errors}
               submitRule={handleUpdateRule}
             />)}
         />
@@ -141,4 +149,4 @@ const SemanticRulesIndex = ({ history, match, location }) => {
   );
 }
 
-export default withRouter(SemanticRulesIndex)
+export default withRouter(SemanticLabelsIndex)
