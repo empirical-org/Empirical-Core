@@ -10,7 +10,7 @@ import RuleUniversalAttributes from './ruleUniversalAttributes';
 import { fetchRules, fetchUniversalRules } from '../../../utils/comprehension/ruleAPIs';
 import { fetchConcepts, } from '../../../utils/comprehension/conceptAPIs';
 import { formatPrompts } from '../../../helpers/comprehension';
-import { handleSubmitRule, getInitialRuleType, formatInitialFeedbacks, returnInitialFeedback, formatRegexRules } from '../../../helpers/comprehension/ruleHelpers';
+import { handleSubmitRule, getInitialRuleType, formatInitialFeedbacks, returnInitialFeedback, formatRegexRules, renderErrorsContainer } from '../../../helpers/comprehension/ruleHelpers';
 import { ruleOptimalOptions, regexRuleTypes } from '../../../../../constants/comprehension';
 import { ActivityInterface, RuleInterface, DropdownObjectInterface } from '../../../interfaces/comprehensionInterfaces';
 
@@ -19,14 +19,15 @@ interface RuleFormProps {
   activityId?: string,
   closeModal: (event: React.MouseEvent) => void,
   isUniversal: boolean,
+  requestErrors: string[],
   rule: RuleInterface,
   submitRule: (rule: {rule: RuleInterface}) => void
   universalRuleType?: string
 }
 
-const RuleForm = ({ activityData, activityId, closeModal, isUniversal, rule, submitRule, universalRuleType }: RuleFormProps) => {
+const RuleForm = ({ activityData, activityId, closeModal, isUniversal, requestErrors,  rule, submitRule, universalRuleType }: RuleFormProps) => {
 
-  const { name, rule_type, id, optimal, plagiarism_text, concept_uid, description, feedbacks } = rule;
+  const { name, rule_type, id, uid, optimal, plagiarism_text, concept_uid, description, feedbacks } = rule;
   const initialRuleType = getInitialRuleType({ isUniversal, rule_type, universalRuleType});
   const initialRuleOptimal = optimal ? ruleOptimalOptions[0] : ruleOptimalOptions[1];
   const initialPlagiarismText = plagiarism_text || { text: '' }
@@ -96,11 +97,14 @@ const RuleForm = ({ activityData, activityId, closeModal, isUniversal, rule, sub
       regexRules,
       rule,
       ruleName,
+      ruleId: null,
+      ruleLabelName: null,
       ruleConceptUID,
       ruleDescription,
       ruleFeedbacks,
       ruleOptimal,
       rulePrompts,
+      rulePromptIds: null,
       rulesCount,
       ruleType,
       setErrors,
@@ -109,7 +113,9 @@ const RuleForm = ({ activityData, activityId, closeModal, isUniversal, rule, sub
     });
   }
 
-  const errorsPresent = !!Object.keys(errors).length;
+  const formErrorsPresent = !!Object.keys(errors).length;
+  const requestErrorsPresent = !!(requestErrors && requestErrors.length);
+  const showErrorsContainer = formErrorsPresent || requestErrorsPresent
 
   return(
     <div className="rule-form-container">
@@ -127,6 +133,7 @@ const RuleForm = ({ activityData, activityId, closeModal, isUniversal, rule, sub
           ruleName={ruleName}
           ruleOptimal={ruleOptimal}
           ruleType={ruleType}
+          ruleUID={uid}
           setRuleConceptUID={setRuleConceptUID}
           setRuleDescription={setRuleDescription}
           setRuleName={setRuleName}
@@ -164,9 +171,7 @@ const RuleForm = ({ activityData, activityId, closeModal, isUniversal, rule, sub
           universalFeedback={ruleFeedbacks}
         />}
         <div className="submit-button-container">
-          {errorsPresent && <div className="error-message-container">
-            <p className="all-errors-message">Please check that all fields have been completed correctly.</p>
-          </div>}
+          {showErrorsContainer && renderErrorsContainer(formErrorsPresent, requestErrors)}
           <button className="quill-button fun primary contained" id="activity-submit-button" onClick={onHandleSubmitRule} type="button">
             Submit
           </button>

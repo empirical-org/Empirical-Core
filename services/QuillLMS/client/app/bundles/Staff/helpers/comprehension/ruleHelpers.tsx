@@ -1,7 +1,9 @@
 import * as React from "react";
 import { EditorState, ContentState } from 'draft-js';
+import stripHtml from "string-strip-html";
 
 import { validateForm } from '../comprehension';
+import { AUTO_ML, ACTIVE, INACTIVE } from '../../../../constants/comprehension';
 import { InputEvent, DropdownObjectInterface } from '../../interfaces/comprehensionInterfaces';
 import { ruleTypeOptions, universalRuleTypeOptions, ruleHighlightOptions, numericalWordOptions, regexRuleSequenceOptions, regexRuleTypes } from '../../../../constants/comprehension';
 import { TextEditor, DropdownInput } from '../../../Shared/index';
@@ -9,6 +11,8 @@ import { TextEditor, DropdownInput } from '../../../Shared/index';
 export function handleSetRuleType(ruleType: DropdownObjectInterface, setRuleType) { setRuleType(ruleType) };
 
 export function handleSetRuleName(e: InputEvent, setRuleName) { setRuleName(e.target.value) };
+
+export function handleSetRuleLabelName(e: InputEvent, setRuleLabelName) { setRuleLabelName(e.target.value) };
 
 export function handleSetRuleOptimal(ruleOptimal: DropdownObjectInterface, setRuleOptimal) { setRuleOptimal(ruleOptimal) };
 
@@ -97,7 +101,7 @@ export function handleDeleteRegexRule({ e, regexRules, rulesToDelete, setRulesTo
   setRegexRules(updatedRules);
 }
 
-const getSequenceType = (sequenceType) => {
+export const getSequenceType = (sequenceType) => {
   if(sequenceType) {
     return regexRuleSequenceOptions.filter(option => option.value === sequenceType)[0];
   }
@@ -258,13 +262,15 @@ export const buildRule = ({
   ruleConceptUID,
   ruleDescription,
   ruleName,
+  ruleLabelName,
   ruleOptimal,
   rulePrompts,
+  rulePromptIds,
   ruleType,
   ruleFeedbacks,
   universalRulesCount
 }) => {
-  const { suborder, universal } =  rule;
+  const { suborder, universal, state } =  rule;
   const promptIds = [];
   Object.keys(rulePrompts).forEach(key => {
     rulePrompts[key].checked && promptIds.push(rulePrompts[key].id);
@@ -281,7 +287,7 @@ export const buildRule = ({
     rule_type: ruleType.value,
     suborder: suborder ? suborder : order,
     universal: universal,
-    state: 'active'
+    state
   };
 
   if(regexRuleTypes.includes(newOrUpdatedRule.rule_type)) {
@@ -299,23 +305,31 @@ export const buildRule = ({
   } else if(newOrUpdatedRule.rule_type === 'plagiarism') {
     newOrUpdatedRule.plagiarism_text_attributes = {
       id: plagiarismText.id,
-      text: plagiarismText.text
+      text: stripHtml(plagiarismText.text)
     };
+  } else if(newOrUpdatedRule.rule_type === AUTO_ML) {
+    newOrUpdatedRule.label_attributes = {
+      name: ruleLabelName
+    };
+    newOrUpdatedRule.prompt_ids = rulePromptIds;
   }
   return {
     rule: newOrUpdatedRule
   };
 }
 
-export function handleSubmitRule({
+export async function handleSubmitRule({
   plagiarismText,
   regexRules,
   rule,
   ruleName,
+  ruleId,
+  ruleLabelName,
   ruleConceptUID,
   ruleDescription,
   ruleOptimal,
   rulePrompts,
+  rulePromptIds,
   rulesCount,
   ruleType,
   setErrors,
@@ -328,10 +342,12 @@ export function handleSubmitRule({
     regexRules,
     rule,
     ruleName,
+    ruleLabelName,
     ruleConceptUID,
     ruleDescription,
     ruleOptimal,
     rulePrompts,
+    rulePromptIds,
     rulesCount,
     ruleType,
     ruleFeedbacks,
@@ -350,8 +366,11 @@ export function handleSubmitRule({
   } else if(ruleType.value === 'plagiarism') {
     keys = keys.concat(['Plagiarism Text', 'First Plagiarism Feedback', 'Second Plagiarism Feedback']);
     state = state.concat([plagiarismText.text, ruleFeedbacks[0].text, ruleFeedbacks[1].text]);
+  } else if(ruleType.value === AUTO_ML) {
+    keys.push('Label Name');
+    state.push(ruleLabelName);
   }
-  if(!universal) {
+  if(!universal && ruleType.value !== AUTO_ML) {
     keys.push('Stem Applied');
     state.push(rulePrompts);
   }
@@ -359,6 +378,36 @@ export function handleSubmitRule({
   if(validationErrors && Object.keys(validationErrors).length) {
     setErrors(validationErrors);
   } else {
-    submitRule(newOrUpdatedRule);
+    setErrors({});
+    submitRule(newOrUpdatedRule, ruleId);
   }
+}
+
+export function getRulesUrl(activityId: string, promptId: string, ruleType: string) {
+  let url = `activities/${activityId}/rules`;
+  if(promptId && !ruleType) {
+    url = `rules?prompt_id=${promptId}`
+  } else if(!promptId && ruleType) {
+    url = `rules?rule_type=${ruleType}`
+  } else if(promptId && ruleType) {
+    url = `rules?prompt_id=${promptId}&rule_type=${ruleType}`
+  }
+  return url;
+}
+
+export function renderErrorsContainer(formErrorsPresent: boolean, requestErrors: string[]) {
+  if(formErrorsPresent) {
+    return(
+      <div className="error-message-container">
+        <p className="all-errors-message">Please check that all fields have been completed correctly.</p>
+      </div>
+    );
+  }
+  return(
+    <div className="error-message-container">
+      {requestErrors.map((error, i) => {
+        return <p className="all-errors-message" key={i}>{error}</p>
+      })}
+    </div>
+  )
 }

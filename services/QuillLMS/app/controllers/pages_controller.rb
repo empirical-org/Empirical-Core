@@ -418,6 +418,10 @@ class PagesController < ApplicationController
     @user_belongs_to_school_that_has_paid = current_user&.school ? Subscription.school_or_user_has_ever_paid?(current_user&.school) : false
     @last_four = current_user&.last_four
 
+    @diagnostic_activity_count = Activity.where(classification: ActivityClassification.diagnostic, flags: ['production']).count
+    @lessons_activity_count = Activity.where(classification: ActivityClassification.lessons, flags: ['production']).count
+    @independent_practice_activity_count = Activity.where(classification: [ActivityClassification.connect, ActivityClassification.grammar, ActivityClassification.proofreader], flags: ['production']).count
+
     @title = 'Premium'
   end
 
@@ -476,6 +480,10 @@ class PagesController < ApplicationController
   def diagnostic
     allow_iframe
     @style_file = ApplicationController::DIAGNOSTIC
+  end
+
+  def administrator
+    @title = 'Administrator'
   end
 
   private

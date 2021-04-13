@@ -30,7 +30,7 @@ module Comprehension
           assert_response :success
           assert_equal Array, parsed_response.class
           refute parsed_response.empty?
-      
+
           assert_equal @automl_model.automl_model_id, parsed_response.first['automl_model_id']
 
           assert_equal @automl_model.name, parsed_response.first['name']
@@ -60,7 +60,7 @@ module Comprehension
         parsed_response = JSON.parse(response.body)
 
         assert_equal 201, response.code.to_i
-    
+
         assert_equal @automl_model.automl_model_id, parsed_response['automl_model_id']
 
         assert_equal @automl_model.name, parsed_response['name']
@@ -114,7 +114,7 @@ module Comprehension
         parsed_response = JSON.parse(response.body)
 
         assert_equal 200, response.code.to_i
-    
+
         assert_equal @automl_model.automl_model_id, parsed_response['automl_model_id']
 
         assert_equal @automl_model.name, parsed_response['name']
@@ -149,7 +149,7 @@ module Comprehension
         assert_equal 204, response.code.to_i
 
         @automl_model.reload
-    
+
         assert_equal new_prompt_id, @automl_model.prompt_id
       end
 

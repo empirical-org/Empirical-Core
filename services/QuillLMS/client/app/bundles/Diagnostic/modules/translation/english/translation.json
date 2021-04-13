@@ -7,6 +7,9 @@
         "submit": "Submit"
     },
     "cues": {
+        "type one": "type one",
+        "type three": "type three",
+        "type two or three": "type two or three",
         "choose one": "choose one",
         "choose three": "choose three",
         "choose two or three" : "choose two or three",

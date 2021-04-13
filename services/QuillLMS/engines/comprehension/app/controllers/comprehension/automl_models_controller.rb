@@ -1,10 +1,13 @@
 module Comprehension
   class AutomlModelsController < ApplicationController
+    skip_before_action :verify_authenticity_token
     before_action :set_automl_model, only: [:show, :update, :activate, :destroy]
 
     # GET /automl_models.json
     def index
       @automl_models = Comprehension::AutomlModel.all
+      @automl_models = @automl_models.where(prompt_id: params[:prompt_id]) if params[:prompt_id]
+      @automl_models = @automl_models.where(state: params[:state]) if params[:state]
 
       render json: @automl_models
     end

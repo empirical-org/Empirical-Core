@@ -65,14 +65,14 @@ export const readingLevelOptions = [
   },
 ];
 
-export const regexRuleTypes = ["rules-based", "rules-based-1", "rules-based-2", "rules-based-3"];
+export const regexRuleTypes = ["rules-based-1", "rules-based-2", "rules-based-3"];
 
 export const ruleTypeOptions = [
-  {"value":"rules-based","label":"Regex"},
   {"value":"rules-based-1","label":"Sentence Structure Regex"},
   {"value":"rules-based-2","label":"Post-Topic Regex"},
   {"value":"rules-based-3","label":"Typo Regex"},
-  {"value":"plagiarism","label":"Plagiarism"}
+  {"value":"plagiarism","label":"Plagiarism"},
+  {"value":"autoML","label":"AutoML"},
 ];
 
 export const universalRuleTypeOptions = [
@@ -109,13 +109,19 @@ export const ruleOrder = {
 export const BECAUSE = 'because';
 export const BUT = 'but';
 export const SO = 'so';
+export const ALL = 'all';
 export const promptStems = [BECAUSE, BUT, SO];
 export const DEFAULT_MAX_ATTEMPTS = 5;
 export const FIRST = 'first';
 export const SECOND = 'second';
 
+export const AUTO_ML = 'autoML';
+export const ACTIVE = 'active';
+export const INACTIVE = 'inactive';
+
 export const blankActivity = {
   title: '',
+  name: '',
   // flag:'',
   scored_level: '',
   target_level: null,
@@ -125,19 +131,19 @@ export const blankActivity = {
       conjunction: 'because',
       text: '',
       max_attempts: 5,
-      max_attempts_feedback: 'try again.'
+      max_attempts_feedback: 'Nice effort! You worked hard to make your sentence stronger.'
     },
     {
       conjunction: 'but',
       text: '',
       max_attempts: 5,
-      max_attempts_feedback: 'try again.'
+      max_attempts_feedback: 'Nice effort! You worked hard to make your sentence stronger.'
     },
     {
       conjunction: 'so',
       text: '',
       max_attempts: 5,
-      max_attempts_feedback: 'try again.'
+      max_attempts_feedback: 'Nice effort! You worked hard to make your sentence stronger.'
     }
   ]
 }
@@ -148,6 +154,7 @@ export const blankRule = {
   universal: false,
   rule_type: '',
   optimal: false,
+  state: 'active',
   suborder: 0,
   concept_uid: 'Kr8PdUfXnU0L7RrGpY4uqg',
   prompt_ids: []
@@ -160,6 +167,7 @@ export const blankUniversalRule = {
   rule_type: '',
   optimal: false,
   suborder: 0,
+  state: 'active',
   concept_uid: 'Kr8PdUfXnU0L7RrGpY4uqg',
   feedbacks: [
     {

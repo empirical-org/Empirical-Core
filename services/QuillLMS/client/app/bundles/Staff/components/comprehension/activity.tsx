@@ -8,6 +8,7 @@ import Rule from './configureRules/rule';
 import RulesAnalysis from './rulesAnalysis/rulesAnalysis';
 import RuleAnalysis from './rulesAnalysis/ruleAnalysis';
 import TurkSessions from './gatherResponses/turkSessions';
+import SemanticLabelsIndex from './semanticRules/semanticLabelsIndex';
 
 import { ActivityRouteProps } from '../../interfaces/comprehensionInterfaces';
 
@@ -24,6 +25,7 @@ const Activity: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ match, lo
         <Route component={RuleAnalysis} path='/activities/:activityId/rules-analysis/:ruleId' />
         <Route component={RulesAnalysis} path='/activities/:activityId/rules-analysis' />
         <Route component={TurkSessions} path='/activities/:activityId/turk-sessions' />
+        <Route component={SemanticLabelsIndex} path='/activities/:activityId/semantic-labels' />
       </Switch>
     </div>
   </React.Fragment>);

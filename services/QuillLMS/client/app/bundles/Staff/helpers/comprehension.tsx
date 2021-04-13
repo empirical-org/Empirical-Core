@@ -17,7 +17,8 @@ import {
 } from '../../../constants/comprehension';
 import { PromptInterface } from '../interfaces/comprehensionInterfaces'
 
-const quillCheckmark = 'https://assets.quill.org/images/icons/check-circle-small.svg';
+const quillCheckmark = `/images/green_check.svg`;
+const quillX = '/images/red_x.svg';
 const mainBaseUrl = `${process.env.DEFAULT_URL}/api/v1/`;
 const comprehensionBaseUrl = `${mainBaseUrl}comprehension/`;
 const fetchDefaults = require("fetch-defaults");
@@ -33,6 +34,18 @@ const headerHash = {
 export const apiFetch = fetchDefaults(fetch, comprehensionBaseUrl, headerHash)
 
 export const mainApiFetch = fetchDefaults(fetch, mainBaseUrl, headerHash)
+
+export function getModelsUrl(promptId: string, state: string) {
+  let url = 'automl_models';
+  if(promptId && !state) {
+    url = url + `?prompt_id=${promptId}`;
+  } else if(!promptId && state) {
+    url = url + `?state=${state}`;
+  } else if(promptId && state) {
+    url = url + `?prompt_id=${promptId}&state=${state}`;
+  }
+  return url;
+}
 
 export const getPromptsIcons = (activityData, promptIds: number[]) => {
   if(activityData && activityData.activity && activityData.activity.prompts) {
@@ -53,13 +66,20 @@ export const getPromptsIcons = (activityData, promptIds: number[]) => {
   return {};
 }
 
-export const getUniversalIcon = (universal: boolean) => {
-  if(universal) {
+export const getCheckIcon = (value: boolean) => {
+  if(value) {
     return (<img alt="quill-circle-checkmark" src={quillCheckmark} />)
   } else {
-    return (<div />);
+    return (<img alt="quill-circle-checkmark" src={quillX} />);
   }
 }
+// export const getXIcon = (value: boolean) => {
+//   if(value) {
+//     return (<img alt="quill-circle-checkmark" src={quillX} />)
+//   } else {
+//     return (<div />);
+//   }
+// }
 
 export const buildBlankPrompt = (conjunction: string) => {
   return {
@@ -84,6 +104,8 @@ export const buildActivity = ({
 }) => {
   // const { label } = activityFlag;
   const prompts = [activityBecausePrompt, activityButPrompt, activitySoPrompt];
+  const maxFeedback = activityMaxFeedback || 'Nice effort! You worked hard to make your sentence stronger.';
+  prompts.forEach(prompt => prompt.max_attempts_feedback = maxFeedback);
   return {
     activity: {
       name: activityName,
@@ -123,6 +145,18 @@ export const promptsByConjunction = (prompts: PromptInterface[]) => {
   const formattedPrompts = {};
   prompts && prompts.map((prompt: PromptInterface) => formattedPrompts[prompt.conjunction] = prompt);
   return formattedPrompts;
+}
+
+export function getPromptForComponent(activityData: any, key: string) {
+  if(!activityData || activityData && !activityData.activity) {
+    return null;
+  }
+  const { activity } = activityData;
+  const { prompts } = activity;
+  const promptsHash = {};
+  prompts.forEach(prompt => promptsHash[prompt.conjunction] = [prompt]);
+  promptsHash['all'] = [promptsHash[BECAUSE][0], promptsHash[BUT][0], promptsHash[SO][0]];
+  return promptsHash[key];
 }
 
 export function getActivityPrompt({
@@ -246,6 +280,16 @@ export const handleApiError = (errorMessage: string, response: any) => {
     error = errorMessage;
   }
   return error;
+}
+
+export const handleRequestErrors = async (errors: object) => {
+  let errorsArray = [];
+  if(errors) {
+    Object.keys(errors).forEach(key => {
+      errorsArray.push(`${key}: ${errors[key]}`);
+    });
+  }
+  return errorsArray;
 }
 
 export const getCsrfToken = () => {

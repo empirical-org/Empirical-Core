@@ -11,7 +11,7 @@ from ..utils import construct_feedback_payload
 from ..utils import construct_highlight_payload
 
 
-FEEDBACK_TYPE = 'semantic'
+FEEDBACK_TYPE = 'autoML'
 
 
 class MLFeedbackView(ApiView):

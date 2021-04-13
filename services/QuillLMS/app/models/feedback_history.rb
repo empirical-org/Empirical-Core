@@ -41,13 +41,13 @@ class FeedbackHistory < ActiveRecord::Base
     RULES_BASED_ONE = "rules-based-1",
     RULES_BASED_TWO = "rules-based-2",
     RULES_BASED_THREE = "rules-based-3",
-    SEMANTIC = "semantic",
+    AUTO_ML = "autoML",
     SPELLING = "spelling",
     OPINION = "opinion"
   ]
 
   before_validation :confirm_prompt_type, on: :create
-
+  has_many :feedback_history_ratings
   belongs_to :activity_session, foreign_key: :activity_session_uid, primary_key: :uid
   belongs_to :prompt, polymorphic: true
   belongs_to :concept, foreign_key: :concept_uid, primary_key: :uid

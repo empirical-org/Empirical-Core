@@ -35,6 +35,7 @@
         "text": "يتم حفظ نتائجك الآن. سيتم إعادة توجيهك تلقائيًا بمجرد حفظها."
     },
     "instructions": {
+        "Fill in each blank with one of the choices. You can leave one empty.": "املأ كل فراغ باختيار واحد من بين الخيارات. يمكنك ترك فراغ واحد بدون ملء.",
         "Fill in the blank with one of the choices.": "املأ الفراغ بأحد الخيارات.",
         "Fill in each blank with one of the choices.": "املأ كل فراغ بأحد الخيارات.",
         "Fill in the blanks with one word each.": "املأ الفراغات بكلمة واحدة لكل منها.",
@@ -42,6 +43,9 @@
         "Use the joining word to combine the sentences into one sentence.": "استخدم كلمة الربط لدمج الجمل في جملة واحدة."
     },
     "cues": {
+        "type one": "type one / اكتب واحدة",
+        "type two or three": "type two or three / اكتب اثنتين أو ثلاث",
+        "type three": "type three / اكتب ثلاث",
         "choose one": "choose one / اختر واحدًا",
         "choose three": "choose three / اختر ثلاثة",
         "choose two or three" : "choose two or three / اختر اثنين أو ثلاثة",

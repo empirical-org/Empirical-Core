@@ -31,13 +31,18 @@ interface ActivityFormProps {
 
 const ActivityForm = ({ activity, closeModal, submitActivity }: ActivityFormProps) => {
 
-  const { parent_activity_id, passages, prompts, scored_level, target_level, title, name, } = activity;
+  const { parent_activity_id, passages, prompts, prompt_attributes, scored_level, target_level, title, name, } = activity;
   // const formattedFlag = flag ? { label: flag, value: flag } : flagOptions[0];
   const formattedScoredLevel = scored_level || '';
   const formattedTargetLevel = target_level ? target_level.toString() : '';
   const formattedParentActivityId = parent_activity_id ? parent_activity_id.toString() : '';
   const formattedPassage = passages && passages.length ? passages : [{ text: ''}];
-  const formattedMaxFeedback = prompts && prompts[0] && prompts[0].max_attempts_feedback ? prompts[0].max_attempts_feedback : '';
+  let formattedMaxFeedback;
+  if(prompts && prompts[0] && prompts[0].max_attempts_feedback) {
+    formattedMaxFeedback = prompts[0].max_attempts_feedback
+  } else {
+    formattedMaxFeedback = 'Nice effort! You worked hard to make your sentence stronger.';
+  }
   const formattedPrompts = promptsByConjunction(prompts);
   const becausePrompt = formattedPrompts && formattedPrompts[BECAUSE] ? formattedPrompts[BECAUSE] : buildBlankPrompt(BECAUSE);
   const butPrompt = formattedPrompts && formattedPrompts[BUT] ? formattedPrompts[BUT] : buildBlankPrompt(BUT);

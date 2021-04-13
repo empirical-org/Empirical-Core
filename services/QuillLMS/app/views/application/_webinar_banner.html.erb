@@ -1,31 +1,60 @@
 <% current_time_on_east_coast = Time.now.in_time_zone('America/New_York') %>
-<% still_doing_webinars = current_time_on_east_coast > Date.parse("20210103") && current_time_on_east_coast < Date.parse("20210330") %>
+<% still_doing_webinars = current_time_on_east_coast > Date.parse("20210103") && current_time_on_east_coast < Date.parse("20210520") %>
 
 <% if (still_doing_webinars && (!current_user || current_user.teacher?)) %>
-  <% banner = WebinarBanner.new(current_time_on_east_coast) %>
-  <% if banner.show? && (current_user&.subscription || banner.title != WebinarBanner::OFFICE_HOURS_TITLE) %>
-    <div class="banner" id="webinar-banner">
+  <% recurring_banner = RecurringBanner.new(current_time_on_east_coast) %>
+  <% if recurring_banner.show?(current_user&.subscription&.account_type) %>
+    <div class="banner" id="webinar-banner-recurring">
       <div class="content-container">
         <img alt="Video player with play symbol" class="banner-icon" src=<%= "#{ENV['CDN_URL']}/images/icons/live-stream.svg" %>>
-        <p><%=banner.title.html_safe %> <a href=<%= banner.link %> rel="noopener noreferrer" target="_blank"><%= banner.link_display_text.html_safe %></a></p>
-        <img alt="White X" id="close-webinar-banner" src=<%= "#{ENV['CDN_URL']}/images/icons/close-white.svg" %>>
+        <p><%=recurring_banner.title.html_safe %> <a href=<%= recurring_banner.link %> rel="noopener noreferrer" target="_blank"><%= recurring_banner.link_display_text.html_safe %></a></p>
+        <img alt="White X" id="close-webinar-banner-recurring" src=<%= "#{ENV['CDN_URL']}/images/icons/close-white.svg" %>>
       </div>
     </div>
 
     <script>
       window.addEventListener('load', function(e) {
-        if (document.cookie.indexOf('webinar_banner_closed=1') === -1) {
-          document.getElementById('webinar-banner').style.display = 'block';
+        if (document.cookie.indexOf('webinar_banner_recurring_closed=1') === -1) {
+          document.getElementById('webinar-banner-recurring').style.display = 'block';
         }
       });
 
-      document.getElementById('close-webinar-banner').addEventListener('click', function(e) {
+      document.getElementById('close-webinar-banner-recurring').addEventListener('click', function(e) {
           e.preventDefault();
-          document.getElementById('webinar-banner').style.display = 'none';
+          document.getElementById('webinar-banner-recurring').style.display = 'none';
           let date = new Date();
           // set the cookie to expire at the start of the next hour so we can show the next webinar
           date.setHours(date.getHours() + 1,0,0);
-          document.cookie = `webinar_banner_closed=1; expires=${date.toGMTString()}; path=/`;
+          document.cookie = `webinar_banner_recurring_closed=1; expires=${date.toGMTString()}; path=/`;
+      }, false);
+
+    </script>
+  <% end %>
+
+  <% one_off_banner = OneOffBanner.new(current_time_on_east_coast) %>
+  <% if one_off_banner.show?(current_user&.subscription&.account_type) %>
+    <div class="banner" id="webinar-banner-one-off">
+      <div class="content-container">
+        <img alt="Video player with play symbol" class="banner-icon" src=<%= "#{ENV['CDN_URL']}/images/icons/live-stream.svg" %>>
+        <p><%=one_off_banner.title.html_safe %> <a href=<%= one_off_banner.link %> rel="noopener noreferrer" target="_blank"><%= one_off_banner.link_display_text.html_safe %></a></p>
+        <img alt="White X" id="close-webinar-banner-one-off" src=<%= "#{ENV['CDN_URL']}/images/icons/close-white.svg" %>>
+      </div>
+    </div>
+
+    <script>
+      window.addEventListener('load', function(e) {
+        if (document.cookie.indexOf('webinar_banner_one_off_closed=1') === -1) {
+          document.getElementById('webinar-banner-one-off').style.display = 'block';
+        }
+      });
+
+      document.getElementById('close-webinar-banner-one-off').addEventListener('click', function(e) {
+          e.preventDefault();
+          document.getElementById('webinar-banner-one-off').style.display = 'none';
+          let date = new Date();
+          // set the cookie to expire at the start of the next hour so we can show the next webinar
+          date.setHours(date.getHours() + 1,0,0);
+          document.cookie = `webinar_banner_one_off_closed=1; expires=${date.toGMTString()}; path=/`;
       }, false);
 
     </script>

@@ -35,6 +35,7 @@
         "text": "Vos résultats sont en cours d’enregistrement. Vous serez automatiquement redirigé à la fin du processus de sauvegarde."
     },
     "instructions": {
+        "Fill in each blank with one of the choices. You can leave one empty.": "Remplis chaque blanc avec l'un des choix proposés. Tu peux en laisser un vide.",
         "Fill in the blank with one of the choices.": "Remplissez le trou avec l’un des mots proposés.",
         "Fill in each blank with one of the choices.": "Remplissez les trous avec l’un des mots proposés.",
         "Fill in the blanks with one word each.": "Remplissez les trous avec un mot.",
@@ -42,6 +43,9 @@
         "Use the joining word to combine the sentences into one sentence.": "Utilisez le mot de liaison indiqué pour combiner les phrases et en former une seule."
     },
     "cues": {
+        "type one": "type one / tape un mot",
+        "type two or three": "type two or three / tape deux ou trois mots",
+        "type three": "type three / tape trois mots",
         "choose one": "choose one / choisissez-en un",
         "choose three": "choose three / choisissez-en trois",
         "choose two or three" : "choose two or three / choisissez-en deux ou trois",

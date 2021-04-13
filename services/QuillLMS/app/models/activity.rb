@@ -222,16 +222,28 @@ class Activity < ActiveRecord::Base
   end
 
   def lesson_url_helper
-    base = classification.module_url
-    lesson = uid + '?'
-    classroom_unit_id = @activity_session.classroom_unit.id.to_s
-    student_id = @activity_session.uid
-    url = base + lesson + 'classroom_unit_id=' + classroom_unit_id + '&student=' + student_id
-    @url = Addressable::URI.parse(url)
+    base_url = "#{classification.module_url}#{uid}"
+    initial_params = {
+      classroom_unit_id: @activity_session.classroom_unit.id.to_s,
+      student: @activity_session.uid
+    }
+    construct_redirect_url(base_url, initial_params)
   end
 
   def connect_url_helper(initial_params)
     base_url = "#{classification.module_url}#{uid}"
+    construct_redirect_url(base_url, initial_params)
+  end
+
+  def comprehension_url_helper(initial_params)
+    base_url = classification.module_url.to_s
+    # Rename "student" to "session" because it's called "student" in all tools other than Comprehension
+    initial_params[:session] = initial_params.delete :student if initial_params[:student]
+    initial_params[:uid] = Comprehension::Activity.find_by(parent_activity_id: id).id
+    construct_redirect_url(base_url, initial_params)
+  end
+
+  def construct_redirect_url(base_url, initial_params)
     @url = Addressable::URI.parse(base_url)
     params = (@url.query_values || {})
     params.merge!(initial_params)
@@ -240,8 +252,9 @@ class Activity < ActiveRecord::Base
   end
 
   def module_url_helper(initial_params)
-    return connect_url_helper(initial_params) if ['diagnostic', 'connect'].include?(classification.key)
-    return lesson_url_helper if classification.key == 'lessons'
+    return connect_url_helper(initial_params) if [ActivityClassification::DIAGNOSTIC_KEY, ActivityClassification::CONNECT_KEY].include?(classification.key)
+    return lesson_url_helper if classification.key == ActivityClassification::LESSONS_KEY
+    return comprehension_url_helper(initial_params) if classification.key == ActivityClassification::COMPREHENSION_KEY
 
     @url = Addressable::URI.parse(classification.module_url)
     params = (@url.query_values || {})

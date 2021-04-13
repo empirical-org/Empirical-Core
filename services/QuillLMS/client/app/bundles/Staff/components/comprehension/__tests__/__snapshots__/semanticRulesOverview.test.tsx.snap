@@ -1,0 +1,71 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SemanticLabelsOverview component should render SemanticLabelsOverview 1`] = `
+<div
+  className="semantic-labels-overview-container"
+>
+  <section
+    className="prompt-section"
+    key="1"
+  >
+    <LabelsTable
+      activityId="17"
+      prompt={
+        Object {
+          "id": 1,
+        }
+      }
+    />
+    <ModelsTable
+      activityId="17"
+      prompt={
+        Object {
+          "id": 1,
+        }
+      }
+    />
+  </section>
+  <section
+    className="prompt-section"
+    key="2"
+  >
+    <LabelsTable
+      activityId="17"
+      prompt={
+        Object {
+          "id": 2,
+        }
+      }
+    />
+    <ModelsTable
+      activityId="17"
+      prompt={
+        Object {
+          "id": 2,
+        }
+      }
+    />
+  </section>
+  <section
+    className="prompt-section"
+    key="3"
+  >
+    <LabelsTable
+      activityId="17"
+      prompt={
+        Object {
+          "id": 3,
+        }
+      }
+    />
+    <ModelsTable
+      activityId="17"
+      prompt={
+        Object {
+          "id": 3,
+        }
+      }
+    />
+  </section>
+</div>
+`;

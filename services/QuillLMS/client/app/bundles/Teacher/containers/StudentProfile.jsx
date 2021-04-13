@@ -15,7 +15,7 @@ import {
   handleClassroomClick,
   updateActiveClassworkTab
 } from '../../../actions/student_profile';
-import { ALL_ACTIVITIES, TO_DO_ACTIVITIES, COMPLETED_ACTIVITIES, } from '../../../constants/student_profile'
+import { TO_DO_ACTIVITIES, COMPLETED_ACTIVITIES, } from '../../../constants/student_profile'
 
 
 class StudentProfile extends React.Component {
@@ -64,7 +64,7 @@ class StudentProfile extends React.Component {
       history.push(newUrl);
       handleClassroomClick(classroomId);
       fetchStudentProfile(classroomId);
-      updateActiveClassworkTab(ALL_ACTIVITIES)
+      updateActiveClassworkTab(TO_DO_ACTIVITIES)
     }
   }
 
