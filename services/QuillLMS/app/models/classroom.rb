@@ -145,16 +145,15 @@ class Classroom < ActiveRecord::Base
   end
 
   def hide_appropriate_classroom_units
-    # on commit callback that checks if archived
-    if visible == false
-      hide_all_classroom_units
-    end
+    hide_all_classroom_units unless visible
   end
 
   def hide_all_classroom_units
     ActivitySession.where(classroom_unit: classroom_units).update_all(visible: false)
     classroom_units.update_all(visible: false)
-    SetTeacherLessonCache.perform_async(owner.id)
+    return if owner.nil?
+    
+    SetTeacherLessonCache.perform_async(owner.id) 
     ids = Unit.find_by_sql("
       SELECT unit.id FROM units unit
       LEFT JOIN classroom_units as cu ON cu.unit_id = unit.id AND cu.visible = true

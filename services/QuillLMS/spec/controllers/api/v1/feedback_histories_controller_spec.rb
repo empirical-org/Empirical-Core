@@ -7,9 +7,9 @@ describe Api::V1::FeedbackHistoriesController, type: :controller do
 
       parsed_response = JSON.parse(response.body)['feedback_histories']
 
-      assert_response :success
-      assert_equal Array, parsed_response.class
-      assert parsed_response.empty?
+      expect(response).to have_http_status(200)
+      expect(Array).to eq(parsed_response.class)
+      expect(parsed_response.empty?).to be
     end
 
     context 'with feedback_history' do
@@ -23,12 +23,12 @@ describe Api::V1::FeedbackHistoriesController, type: :controller do
 
         parsed_response = JSON.parse(response.body)['feedback_histories']
 
-        assert_response :success
-        assert_equal Array, parsed_response.class
+        expect(response).to have_http_status(200)
+        expect(Array).to eq(parsed_response.class)
         refute parsed_response.empty?
 
-        assert_equal "This is the first entry in history", parsed_response.first['entry']
-        assert_equal "This is the second entry in history", parsed_response.last['entry']
+        expect("This is the first entry in history").to eq(parsed_response.first['entry'])
+        expect("This is the second entry in history").to eq(parsed_response.last['entry'])
       end
     end
   end
@@ -42,9 +42,9 @@ describe Api::V1::FeedbackHistoriesController, type: :controller do
 
       parsed_response = JSON.parse(response.body)
 
-      assert_equal 201, response.code.to_i
-      assert_equal "This is the entry provided by the student", parsed_response['entry']
-      assert_equal 1, FeedbackHistory.count
+      expect(201).to eq(response.code.to_i)
+      expect("This is the entry provided by the student").to eq(parsed_response['entry'])
+      expect(1).to eq(FeedbackHistory.count)
     end
 
     it "should set prompt_type to Comprehension::Prompt if prompt_id is provided" do
@@ -57,9 +57,9 @@ describe Api::V1::FeedbackHistoriesController, type: :controller do
 
       parsed_response = JSON.parse(response.body)
 
-      assert_equal 201, response.code.to_i
-      assert_equal 1, FeedbackHistory.count
-      assert_equal "Comprehension::Prompt", FeedbackHistory.find(parsed_response['id']).prompt_type
+      expect(201).to eq(response.code.to_i)
+      expect(1).to eq(FeedbackHistory.count)
+      expect("Comprehension::Prompt").to eq(FeedbackHistory.find(parsed_response['id']).prompt_type)
     end
 
     it "should not create an invalid record and return errors as json" do
@@ -67,9 +67,9 @@ describe Api::V1::FeedbackHistoriesController, type: :controller do
 
       parsed_response = JSON.parse(response.body)
 
-      assert_equal 422, response.code.to_i
-      assert parsed_response['entry'].include?("can't be blank")
-      assert_equal 0, Activity.count
+      expect(422).to eq(response.code.to_i)
+      expect(parsed_response['entry'].include?("can't be blank")).to be
+      expect(0).to eq(Activity.count)
     end
   end
 
@@ -84,8 +84,8 @@ describe Api::V1::FeedbackHistoriesController, type: :controller do
                                           feedback_text: 'This is the feedback provided by the algorithm',
                                           feedback_type: 'autoML', metadata: {foo: 'bar'} }]
 
-      assert_equal 201, response.code.to_i
-      assert_equal 2, FeedbackHistory.count
+      expect(201).to eq(response.code.to_i)
+      expect(2).to eq(FeedbackHistory.count)
     end
 
     it "should not create valid records if one is invalid record but return errors as json" do
@@ -100,10 +100,10 @@ describe Api::V1::FeedbackHistoriesController, type: :controller do
 
       parsed_response = JSON.parse(response.body)
 
-      assert_equal 422, response.code.to_i
-      assert_equal parsed_response['feedback_histories'][0], {}
-      assert parsed_response['feedback_histories'][1]['feedback_session_uid'].include?("can't be blank")
-      assert_equal 1, FeedbackHistory.count
+      expect(422).to eq(response.code.to_i)
+      expect(parsed_response['feedback_histories'][0]).to eq({})
+      expect(parsed_response['feedback_histories'][1]['feedback_session_uid'].include?("can't be blank")).to be
+      expect(1).to eq(FeedbackHistory.count)
     end
 
   end
@@ -118,14 +118,14 @@ describe Api::V1::FeedbackHistoriesController, type: :controller do
 
       parsed_response = JSON.parse(response.body)
 
-      assert_equal 200, response.code.to_i
-      assert_equal "This is the first entry in history", parsed_response['entry']
+      expect(200).to eq(response.code.to_i)
+      expect("This is the first entry in history").to eq(parsed_response['entry'])
     end
 
     it "should raise if not found (to be handled by parent app)" do
       get :show, id: 99999
-      assert_equal 404, response.status
-      assert response.body.include?("The resource you were looking for does not exist")
+      expect(404).to eq(response.status)
+      expect(response.body.include?("The resource you were looking for does not exist")).to be
     end
 
     it "should attach include prompt model if attached" do
@@ -137,9 +137,9 @@ describe Api::V1::FeedbackHistoriesController, type: :controller do
       get :show, id: @feedback_history.id
 
       parsed_response = JSON.parse(response.body)
-
-      assert_equal 200, response.code.to_i
-      assert_equal prompt.as_json, parsed_response['prompt']
+      
+      expect(200).to eq(response.code.to_i)
+      expect(prompt.as_json).to eq(parsed_response['prompt'])
     end
   end
 
@@ -151,12 +151,12 @@ describe Api::V1::FeedbackHistoriesController, type: :controller do
     it "should update record if valid, return nothing" do
       put :update, id: @feedback_history.id, feedback_history: { entry: 'This is the new student entry which is different' }
 
-      assert_equal "", response.body
-      assert_equal 204, response.code.to_i
+      expect("").to eq(response.body)
+      expect(204).to eq(response.code.to_i)
 
       @feedback_history.reload
 
-      assert_equal "This is the new student entry which is different", @feedback_history.entry
+      expect("This is the new student entry which is different").to eq(@feedback_history.entry)
     end
 
     it "should not update record and return errors as json" do
@@ -164,8 +164,8 @@ describe Api::V1::FeedbackHistoriesController, type: :controller do
 
       parsed_response = JSON.parse(response.body)
 
-      assert_equal 422, response.code.to_i
-      assert parsed_response['entry'].include?("is too short (minimum is 5 characters)")
+      expect(422).to eq(response.code.to_i)
+      expect(parsed_response['entry'].include?("is too short (minimum is 5 characters)")).to be
     end
   end
 
@@ -177,10 +177,10 @@ describe Api::V1::FeedbackHistoriesController, type: :controller do
     it "should destroy record at id" do
       delete :destroy, id: @feedback_history.id
 
-      assert_equal "", response.body
-      assert_equal 204, response.code.to_i
-      assert @feedback_history.id # still in test memory
-      assert_nil FeedbackHistory.find_by_id(@feedback_history.id) # not in DB.
+      expect("").to eq(response.body)
+      expect(204).to eq(response.code.to_i)
+      expect(@feedback_history.id).to be # still in test memory
+      expect(FeedbackHistory.find_by_id(@feedback_history.id)).to be_nil # not in DB.
     end
   end
 end

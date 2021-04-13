@@ -1,12 +1,14 @@
 import React from 'react';
 import _ from 'underscore';
+
 import StudentProfileUnit from './student_profile_unit.jsx';
 import PinnedActivityModal from './pinned_activity_modal'
 import PreviewActivityModal from './preview_activity_modal'
 import PinnedActivityBar from './pinned_activity_bar'
+
 import LoadingIndicator from '../shared/loading_indicator'
 import activityLaunchLink from '../modules/generate_activity_launch_link.js';
-import { ALL_ACTIVITIES, TO_DO_ACTIVITIES, COMPLETED_ACTIVITIES, } from '../../../../constants/student_profile'
+import { TO_DO_ACTIVITIES, COMPLETED_ACTIVITIES, } from '../../../../constants/student_profile'
 
 const clipboardSrc = `${process.env.CDN_URL}/images/illustrations/clipboard.svg`
 
@@ -35,7 +37,6 @@ export default class StudentProfileUnits extends React.Component {
       case COMPLETED_ACTIVITIES:
         const unitsWithCompletedActivities = groupedUnits.filter(u => u.complete && u.complete.length)
         return unitsWithCompletedActivities.map(u => ({ complete: u.complete }))
-      case ALL_ACTIVITIES:
       default:
         return groupedUnits
     }
@@ -49,7 +50,6 @@ export default class StudentProfileUnits extends React.Component {
         return this.groupUnits().length ? 'Write on! You’re all finished with your activities.' : 'Nothing to see here yet! Once your teacher assigns activities they will show up here.'
       case COMPLETED_ACTIVITIES:
         return 'Nothing to see here yet! Once you complete an activity it will show up here.'
-      case ALL_ACTIVITIES:
       default:
         return 'Nothing to see here yet! Once your teacher assigns activities they will show up here.'
     }

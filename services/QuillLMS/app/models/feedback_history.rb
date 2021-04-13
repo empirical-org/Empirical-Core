@@ -28,6 +28,7 @@
 #
 class FeedbackHistory < ActiveRecord::Base
   CONCEPT_UID_LENGTH = 22
+  DEFAULT_PAGE_SIZE = 25
   DEFAULT_PROMPT_TYPE = "Comprehension::Prompt"
   MIN_ATTEMPT = 1
   MAX_ATTEMPT = 5
@@ -51,6 +52,7 @@ class FeedbackHistory < ActiveRecord::Base
 
   belongs_to :feedback_session, foreign_key: :feedback_session_uid, primary_key: :uid
   has_one :activity_session, through: :feedback_session
+  has_many :feedback_history_ratings
   belongs_to :prompt, polymorphic: true
   belongs_to :concept, foreign_key: :concept_uid, primary_key: :uid
 
@@ -96,6 +98,14 @@ class FeedbackHistory < ActiveRecord::Base
     ))
   end
 
+  def serialize_by_activity_session
+   serializable_hash(only: [:session_uid, :start_date, :activity_id, :because_attempts, :but_attempts, :so_attempts, :complete], include: []).symbolize_keys
+  end
+
+  def serialize_by_activity_session_detail
+   serializable_hash(only: [:entry, :feedback_text, :feedback_type, :optimal, :used], include: []).symbolize_keys
+  end
+
   def self.batch_create(param_array)
     param_array.map { |params| create(params) }
   end
@@ -106,5 +116,63 @@ class FeedbackHistory < ActiveRecord::Base
 
   private def anonymize_session_uid
     self.feedback_session_uid = FeedbackSession.get_uid_for_activity_session(feedback_session_uid)
+  end
+
+  def self.list_by_activity_session(activity_id: nil, page: 1, page_size: DEFAULT_PAGE_SIZE)
+    query = select(
+      <<-SQL
+        feedback_histories.feedback_session_uid AS session_uid,
+        MIN(feedback_histories.time) AS start_date,
+        comprehension_prompts.activity_id,
+        COUNT(CASE WHEN comprehension_prompts.conjunction = 'because' THEN 1 END) AS because_attempts,
+        COUNT(CASE WHEN comprehension_prompts.conjunction = 'but' THEN 1 END) AS but_attempts,
+        COUNT(CASE WHEN comprehension_prompts.conjunction = 'so' THEN 1 END) AS so_attempts,
+        (
+          CASE WHEN
+            ((COUNT(CASE WHEN comprehension_prompts.conjunction = 'because' AND feedback_histories.optimal THEN 1 END) = 1) OR
+              (COUNT(CASE WHEN comprehension_prompts.conjunction = 'because' THEN 1 END) = MAX(CASE WHEN comprehension_prompts.conjunction = 'because' THEN comprehension_prompts.max_attempts END))) AND
+            ((COUNT(CASE WHEN comprehension_prompts.conjunction = 'but' AND feedback_histories.optimal THEN 1 END) = 1) OR
+              (COUNT(CASE WHEN comprehension_prompts.conjunction = 'but' THEN 1 END) = MAX(CASE WHEN comprehension_prompts.conjunction = 'but' THEN comprehension_prompts.max_attempts END))) AND
+            ((COUNT(CASE WHEN comprehension_prompts.conjunction = 'so' AND feedback_histories.optimal THEN 1 END) = 1) OR
+              (COUNT(CASE WHEN comprehension_prompts.conjunction = 'so' THEN 1 END) = MAX(CASE WHEN comprehension_prompts.conjunction = 'so' THEN comprehension_prompts.max_attempts END)))
+          THEN true ELSE false END
+        ) AS complete
+      SQL
+      )
+      .joins("LEFT OUTER JOIN comprehension_prompts ON feedback_histories.prompt_id = comprehension_prompts.id")
+      .where(used: true)
+      .group(:feedback_session_uid, :activity_id)
+      .order('start_date DESC')
+    query = query.where(comprehension_prompts: {activity_id: activity_id.to_i}) if activity_id
+    query = query.limit(page_size)
+    query = query.offset((page.to_i - 1) * page_size.to_i) if page && page.to_i > 1
+    query
+  end
+
+  def self.serialize_detail_by_activity_session(feedback_session_uid)
+    history = FeedbackHistory.list_by_activity_session.where(feedback_session_uid: feedback_session_uid).first
+    return nil unless history
+    histories = FeedbackHistory.where(feedback_session_uid: feedback_session_uid).all
+
+    output = history.serialize_by_activity_session
+    prompt_groups = histories.group_by do |h|
+      h&.prompt&.conjunction
+    end
+    prompt_groups = prompt_groups.map do |conjunction, attempts|
+      [conjunction, {prompt_id: attempts.first.prompt_id, attempts: attempts}]
+    end.to_h.symbolize_keys
+
+    attempt_groups = prompt_groups.map do |conjunction, detail|
+      [conjunction, detail[:attempts].group_by(&:attempt).map do |attempt_number, attempt|
+        [attempt_number, attempt.map(&:serialize_by_activity_session_detail)]
+      end.to_h]
+    end.to_h.symbolize_keys
+
+    prompt_groups.each do |conjunction, _|
+      prompt_groups[conjunction][:attempts] = attempt_groups[conjunction]
+    end
+    
+    output[:prompts] = prompt_groups
+    output.symbolize_keys
   end
 end

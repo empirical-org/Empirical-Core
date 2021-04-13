@@ -183,12 +183,12 @@ RSpec.describe FeedbackHistory, type: :model do
     it 'should create an FeedbackSession record if feedback_session_uid is set' do
       expect(FeedbackSession.count).to eq(0)
 
-      activity_session_uid = 'fake-activity-session-uid'
-      @feedback_history.feedback_session_uid = activity_session_uid
+      feedback_session_uid = 'fake-activity-session-uid'
+      @feedback_history.feedback_session_uid = feedback_session_uid
       @feedback_history.save
       @feedback_history.valid?
       
-      expect(FeedbackSession.first.activity_session_uid).to eq(activity_session_uid)
+      expect(FeedbackSession.first.uid).to eq(FeedbackSession.get_uid_for_activity_session(feedback_session_uid))
       expect(FeedbackSession.count).to eq(1)
     end
 
@@ -197,6 +197,147 @@ RSpec.describe FeedbackHistory, type: :model do
       @feedback_history.feedback_session_uid = feedback_session_uid
       @feedback_history.save
       expect(FeedbackSession.get_uid_for_activity_session(feedback_session_uid)).to eq(@feedback_history.feedback_session_uid)
+    end
+  end
+
+  context 'Session-aggregate FeedbackHistories' do
+    setup do
+      @activity1 = Comprehension::Activity.create!(name: 'Title_1', title: 'Title 1', parent_activity_id: 1, target_level: 1)
+      @activity2 = Comprehension::Activity.create!(name: 'Title_2', title: 'Title 2', parent_activity_id: 2, target_level: 1)
+      @because_prompt1 = Comprehension::Prompt.create!(activity: @activity1, conjunction: 'because', text: 'Some feedback text', max_attempts_feedback: 'Feedback')
+      @because_prompt2 = Comprehension::Prompt.create!(activity: @activity2, conjunction: 'because', text: 'Some feedback text', max_attempts_feedback: 'Feedback')
+      @but_prompt1 = Comprehension::Prompt.create!(activity: @activity1, conjunction: 'but', text: 'Some feedback text', max_attempts_feedback: 'Feedback')
+      @but_prompt2 = Comprehension::Prompt.create!(activity: @activity2, conjunction: 'but', text: 'Some feedback text', max_attempts_feedback: 'Feedback')
+      @so_prompt1 = Comprehension::Prompt.create!(activity: @activity1, conjunction: 'so', text: 'Some feedback text', max_attempts_feedback: 'Feedback')
+      @so_prompt2 = Comprehension::Prompt.create!(activity: @activity2, conjunction: 'so', text: 'Some feedback text', max_attempts_feedback: 'Feedback')
+
+      @activity_session1_uid = SecureRandom.uuid
+      @feedback_session1_uid = FeedbackSession.get_uid_for_activity_session(@activity_session1_uid)
+      @activity_session2_uid = SecureRandom.uuid
+      @feedback_session2_uid = FeedbackSession.get_uid_for_activity_session(@activity_session2_uid)
+  
+      @first_session_feedback1 = create(:feedback_history, feedback_session_uid: @activity_session1_uid, prompt_id: @because_prompt1.id, optimal: false)
+      @first_session_feedback2 = create(:feedback_history, feedback_session_uid: @activity_session1_uid, prompt_id: @because_prompt1.id, attempt: 2, optimal: true)
+      @first_session_feedback3 = create(:feedback_history, feedback_session_uid: @activity_session1_uid, prompt_id: @but_prompt1.id, optimal: true)
+      @first_session_feedback4 = create(:feedback_history, feedback_session_uid: @activity_session1_uid, prompt_id: @so_prompt1.id, optimal: false)
+      @first_session_feedback5 = create(:feedback_history, feedback_session_uid: @activity_session1_uid, prompt_id: @so_prompt1.id, attempt: 2, optimal: false)
+      @first_session_feedback6 = create(:feedback_history, feedback_session_uid: @activity_session1_uid, prompt_id: @so_prompt1.id, attempt: 3, optimal: true)
+      @second_session_feedback = create(:feedback_history, feedback_session_uid: @activity_session2_uid, prompt_id: @because_prompt2.id, optimal: true)
+      create(:feedback_history, feedback_session_uid: @activity_session2_uid, prompt_id: @because_prompt2.id, attempt: 2, optimal: false)
+    end
+  
+    context '#list_by_activity_session' do
+      it 'should identify two records when there are two unique feedback_session_uids' do
+        expect(FeedbackHistory.list_by_activity_session.length).to eq(2)
+      end
+  
+      it 'should sort newest first' do
+        expect(FeedbackHistory.list_by_activity_session[0].session_uid).to eq(@feedback_session2_uid)
+      end
+  
+      it 'should only return enough items as specified via page_size' do
+        responses = FeedbackHistory.list_by_activity_session(page_size: 1)
+        expect(responses.length).to eq(1)
+        expect(responses[0].session_uid).to eq(@feedback_session2_uid)
+      end
+  
+      it 'should skip pages when specified via page' do
+        responses = FeedbackHistory.list_by_activity_session(page: 2, page_size: 1)
+        expect(responses.length).to eq(1)
+        expect(responses[0].session_uid).to eq(@feedback_session1_uid)
+      end
+  
+      it 'should identify a session as incomplete if not all prompts have optimal feedback or too many attempts' do
+        expect(FeedbackHistory.list_by_activity_session[0].complete).to eq(false)
+      end
+  
+      it 'should identify a session as complete if all prompts have an optimal response in feedback history' do
+        expect(FeedbackHistory.list_by_activity_session[1].complete).to eq(true)
+      end
+  
+      it 'should identify a session as complete if all prompts have optimal responses or too many attempts' do
+        5.times {|i| create(:feedback_history, feedback_session_uid: @activity_session2_uid, prompt_id: @but_prompt2.id, attempt: i + 1, optimal: false) }
+        5.times {|i| create(:feedback_history, feedback_session_uid: @activity_session2_uid, prompt_id: @so_prompt2.id, attempt: i + 1, optimal: false) }
+        expect(FeedbackHistory.list_by_activity_session[0].complete).to be
+      end
+    end
+  
+    context '#serialize_list_by_activity_session' do
+      it 'should take the query from #list_by_activity_session and return a shaped payload' do
+        responses = FeedbackHistory.list_by_activity_session
+        expect(responses.map { |r| r.serialize_by_activity_session }.to_json).to eq([
+          {
+            session_uid: @feedback_session2_uid,
+            start_date: @second_session_feedback.time.iso8601(3),
+            activity_id: @activity2.id,
+            because_attempts: 2,
+            but_attempts: 0,
+            so_attempts: 0,
+            complete: false
+          }, {
+            session_uid: @feedback_session1_uid,
+            start_date: @first_session_feedback1.time.iso8601(3),
+            activity_id: @activity1.id,
+            because_attempts: 2,
+            but_attempts: 1,
+            so_attempts: 3,
+            complete: true
+          }
+        ].to_json)
+      end
+    end
+  
+    context '#serialize_detail_by_activity_session' do
+      it 'should build the expeted payload' do
+        payload = FeedbackHistory.serialize_detail_by_activity_session(@feedback_session1_uid).symbolize_keys
+
+        expect(payload[:start_date].to_json).to eq(@first_session_feedback1.time.to_json)
+        expect(payload[:session_uid]).to eq(@first_session_feedback1.feedback_session_uid)
+        expect(payload[:activity_id]).to eq(@activity1.id)
+        expect(payload[:complete]).to eq(true)
+
+        expect(payload[:prompts][:because][:prompt_id]).to eq(@because_prompt1.id)
+  
+        expect(payload[:prompts][:because][:attempts][1][0][:used]).to eq(@first_session_feedback1.used)
+        expect(payload[:prompts][:because][:attempts][1][0][:entry]).to eq(@first_session_feedback1.entry)
+        expect(payload[:prompts][:because][:attempts][1][0][:feedback_text]).to eq(@first_session_feedback1.feedback_text)
+        expect(payload[:prompts][:because][:attempts][1][0][:feedback_type]).to eq(@first_session_feedback1.feedback_type)
+        expect(payload[:prompts][:because][:attempts][1][0][:optimal]).to eq(@first_session_feedback1.optimal)
+  
+        expect(payload[:prompts][:because][:attempts][2][0][:used]).to eq(@first_session_feedback2.used)
+        expect(payload[:prompts][:because][:attempts][2][0][:entry]).to eq(@first_session_feedback2.entry)
+        expect(payload[:prompts][:because][:attempts][2][0][:feedback_text]).to eq(@first_session_feedback2.feedback_text)
+        expect(payload[:prompts][:because][:attempts][2][0][:feedback_type]).to eq(@first_session_feedback2.feedback_type)
+        expect(payload[:prompts][:because][:attempts][2][0][:optimal]).to eq(@first_session_feedback2.optimal)
+  
+        expect(payload[:prompts][:but][:prompt_id]).to eq(@but_prompt1.id)
+  
+        expect(payload[:prompts][:but][:attempts][1][0][:used]).to eq(@first_session_feedback3.used)
+        expect(payload[:prompts][:but][:attempts][1][0][:entry]).to eq(@first_session_feedback3.entry)
+        expect(payload[:prompts][:but][:attempts][1][0][:feedback_text]).to eq(@first_session_feedback3.feedback_text)
+        expect(payload[:prompts][:but][:attempts][1][0][:feedback_type]).to eq(@first_session_feedback3.feedback_type)
+        expect(payload[:prompts][:but][:attempts][1][0][:optimal]).to eq(@first_session_feedback3.optimal)
+  
+        expect(payload[:prompts][:so][:prompt_id]).to eq(@so_prompt1.id)
+  
+        expect(payload[:prompts][:so][:attempts][1][0][:used]).to eq(@first_session_feedback4.used)
+        expect(payload[:prompts][:so][:attempts][1][0][:entry]).to eq(@first_session_feedback4.entry)
+        expect(payload[:prompts][:so][:attempts][1][0][:feedback_text]).to eq(@first_session_feedback4.feedback_text)
+        expect(payload[:prompts][:so][:attempts][1][0][:feedback_type]).to eq(@first_session_feedback4.feedback_type)
+        expect(payload[:prompts][:so][:attempts][1][0][:optimal]).to eq(@first_session_feedback4.optimal)
+  
+        expect(payload[:prompts][:so][:attempts][2][0][:used]).to eq(@first_session_feedback5.used)
+        expect(payload[:prompts][:so][:attempts][2][0][:entry]).to eq(@first_session_feedback5.entry)
+        expect(payload[:prompts][:so][:attempts][2][0][:feedback_text]).to eq(@first_session_feedback5.feedback_text)
+        expect(payload[:prompts][:so][:attempts][2][0][:feedback_type]).to eq(@first_session_feedback5.feedback_type)
+        expect(payload[:prompts][:so][:attempts][2][0][:optimal]).to eq(@first_session_feedback5.optimal)
+  
+        expect(payload[:prompts][:so][:attempts][3][0][:used]).to eq(@first_session_feedback6.used)
+        expect(payload[:prompts][:so][:attempts][3][0][:entry]).to eq(@first_session_feedback6.entry)
+        expect(payload[:prompts][:so][:attempts][3][0][:feedback_text]).to eq(@first_session_feedback6.feedback_text)
+        expect(payload[:prompts][:so][:attempts][3][0][:feedback_type]).to eq(@first_session_feedback6.feedback_type)
+        expect(payload[:prompts][:so][:attempts][3][0][:optimal]).to eq(@first_session_feedback6.optimal)
+      end
     end
   end
 end
