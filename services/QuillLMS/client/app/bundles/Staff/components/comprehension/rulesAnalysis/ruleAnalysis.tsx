@@ -8,6 +8,7 @@ import ReactTable from 'react-table';
 import { fetchRule } from '../../../utils/comprehension/ruleAPIs';
 import { fetchActivity } from '../../../utils/comprehension/activityAPIs';
 import { fetchRuleFeedbackHistoriesByRule } from '../../../utils/comprehension/ruleFeedbackHistoryAPIs';
+import { fetchConcepts, } from '../../../utils/comprehension/conceptAPIs';
 import { createOrUpdateFeedbackHistoryRating } from '../../../utils/comprehension/feedbackHistoryRatingAPIs';
 import { DataTable, Error, Spinner } from '../../../../Shared/index';
 
@@ -21,7 +22,11 @@ const RuleAnalysis = ({ history, match }) => {
 
   const [filter, setFilter] = React.useState(ALL)
 
-  // cache rule data
+  const { data: conceptsData } = useQuery({
+    queryKey: ['concepts', ruleId],
+    queryFn: fetchConcepts
+  });
+
   const { data: ruleData } = useQuery({
     queryKey: [`rule-${ruleId}`, ruleId],
     queryFn: fetchRule
@@ -62,7 +67,11 @@ const RuleAnalysis = ({ history, match }) => {
       return [];
     } else {
       // format for DataTable to display labels on left side and values on right
-      const { description, feedbacks, name, rule_type, level_zero_concept_name, level_one_concept_name, level_two_concept_name, } = rule;
+      const { description, feedbacks, name, rule_type, concept_uid, } = rule;
+
+      const selectedConcept = conceptsData.concepts.find(c => c.uid === concept_uid);
+      const selectedConceptNameArray = selectedConcept ? selectedConcept.name.split(' | ') : []
+
       const fields = [
         {
           label: 'API Name',
@@ -78,15 +87,15 @@ const RuleAnalysis = ({ history, match }) => {
         },
         {
           label: 'Concept - Level 0',
-          value: level_zero_concept_name
+          value: selectedConceptNameArray[2]
         },
         {
           label: 'Concept - Level 1',
-          value: level_one_concept_name
+          value: selectedConceptNameArray[1]
         },
         {
           label: 'Concept - Level 2',
-          value: level_two_concept_name
+          value: selectedConceptNameArray[0]
         },
         {
           label: 'Feedback - 1st Attempt',
@@ -161,7 +170,7 @@ const RuleAnalysis = ({ history, match }) => {
     }
   ]
 
-  if(!ruleData || !activityData || !ruleFeedbackHistoryData) {
+  if(!ruleData || !activityData || !ruleFeedbackHistoryData || !conceptsData) {
     return(
       <div className="loading-spinner-container">
         <Spinner />
