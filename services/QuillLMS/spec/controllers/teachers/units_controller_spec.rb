@@ -4,29 +4,35 @@ describe Teachers::UnitsController, type: :controller do
   it { should use_before_filter :teacher! }
   it { should use_before_filter :authorize! }
 
-  let!(:student) {create(:student)}
+  let!(:student) { create(:student) }
   let!(:classroom) { create(:classroom) }
-  let!(:students_classrooms) { create(:students_classrooms, classroom: classroom, student: student)}
+  let!(:students_classrooms) { create(:students_classrooms, classroom: classroom, student: student) }
   let!(:teacher) { classroom.owner }
-  let!(:unit) {create(:unit, user: teacher)}
-  let!(:unit2) {create(:unit, user: teacher)}
-  let!(:classroom_unit) { create(:classroom_unit,
-    unit: unit,
-    classroom: classroom,
-    assigned_student_ids: [student.id]
-  )}
-  let!(:diagnostic) { create(:diagnostic) }
-  let!(:diagnostic_activity) { create(:diagnostic_activity)}
-  let!(:unit_activity) { create(:unit_activity, unit: unit, activity: diagnostic_activity, due_date: Time.now )}
-  let!(:completed_activity_session) { create(:activity_session, user: student, activity: diagnostic_activity, classroom_unit: classroom_unit)}
-
-  before do
-    session[:user_id] = teacher.id
+  let!(:unit) { create(:unit, user: teacher) }
+  let!(:unit2) { create(:unit, user: teacher) }
+  let!(:classroom_unit) do
+    create(
+      :classroom_unit,
+      unit: unit,
+      classroom: classroom,
+      assigned_student_ids: [student.id]
+    )
   end
 
+  let!(:diagnostic) { create(:diagnostic) }
+  let!(:diagnostic_activity) { create(:diagnostic_activity) }
+  let!(:unit_activity) { create(:unit_activity, unit: unit, activity: diagnostic_activity, due_date: Time.now ) }
+
+  let!(:completed_activity_session) do
+     create(:activity_session, user: student, activity: diagnostic_activity, classroom_unit: classroom_unit)
+  end
+
+  before { session[:user_id] = teacher.id }
+
   describe '#create' do
+    before { create(:auth_credential, user: teacher) }
+
     it 'kicks off a background job' do
-      create(:auth_credential, user: teacher)
       expect {
         post(:create,
           classroom_id: classroom.id,
@@ -72,7 +78,10 @@ describe Teachers::UnitsController, type: :controller do
       end
 
       it 'should render the correct json' do
-        get :lesson_info_for_activity, activity_id: activities.first.id, format: :json
+        get :lesson_info_for_activity, 
+          params: { activity_id: activities.first.id }, 
+          format: :json
+
         expect(response.body).to eq({
           classroom_units: activities,
           activity_name: Activity.select('name').where("id = #{activities.first.id}")

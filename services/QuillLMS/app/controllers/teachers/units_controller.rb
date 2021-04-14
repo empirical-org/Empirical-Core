@@ -7,20 +7,10 @@ class Teachers::UnitsController < ApplicationController
   before_filter :authorize!
 
   def create
-    if params[:unit][:create]
-      params[:unit][:classrooms] = JSON.parse(params[:unit][:classrooms])
-      params[:unit][:activities] = JSON.parse(params[:unit][:activities])
-    end
-    units_with_same_name = units_with_same_name_by_current_user(params[:unit][:name], current_user.id)
-    includes_ell_starter_diagnostic = params[:unit][:activities].include?({"id"=>1161})
-    if units_with_same_name.any?
-      Units::Updater.run(units_with_same_name.first.id, params[:unit][:activities], params[:unit][:classrooms], current_user.id)
-    else
-      Units::Creator.run(current_user, params[:unit][:name], params[:unit][:activities], params[:unit][:classrooms], params[:unit][:unit_template_id], current_user.id)
-    end
-    if includes_ell_starter_diagnostic
-      ELLStarterDiagnosticEmailJob.perform_async(current_user.first_name, current_user.email)
-    end
+    preprocess_create_array_params
+    create_or_update_units
+    send_ell_starter_diagnostic_email
+
     render json: {id: Unit.where(user: current_user).last.id}
   end
 
@@ -31,7 +21,7 @@ class Teachers::UnitsController < ApplicationController
 
   def last_assigned_unit_id
     response = { id: Unit.where(user: current_user).last&.id }
-    response = response.merge({ referral_code: current_user.referral_code }) if current_user && current_user.teacher?
+    response = response.merge({ referral_code: current_user.referral_code }) if current_user&.teacher?
     render json: response.to_json
   end
 
@@ -177,7 +167,14 @@ class Teachers::UnitsController < ApplicationController
   end
 
   private def unit_params
-    params.require(:unit).permit(:id, :create, :name, classrooms: [:id, :all_students, student_ids: []], activities: [:id, :due_date])
+    params.require(:unit)
+      .permit(
+        :id,
+        :create,
+        :name,
+        classrooms: [:id, :all_students, student_ids: []],
+        activities: [:id, :due_date]
+      )
   end
 
   private def authorize!
@@ -332,4 +329,54 @@ class Teachers::UnitsController < ApplicationController
     assignments
   end
 
+  private def create_or_update_units
+    if units_with_same_name_by_current_user(params[:unit][:name], current_user.id).any?
+      Units::Updater.run(
+        units_with_same_name.first.id,
+        params[:unit][:activities],
+        params[:unit][:classrooms],
+        current_user.id
+      )
+    else
+      Units::Creator.run(
+        current_user,
+        params[:unit][:name],
+        params[:unit][:activities],
+        params[:unit][:classrooms],
+        params[:unit][:unit_template_id],
+        current_user.id
+      )
+    end
+  end
+
+  private def initialize_empty_array_params
+    params[:unit][:activities] ||= []
+    params[:unit][:classrooms] ||= []
+  end
+
+  private def preprocess_create_array_params
+    initialize_empty_array_params
+    return unless params.dig(:unit, :create)
+
+    parse_unit_activities_params
+    parse_unit_classrooms_params
+  end
+
+  private def parse_unit_activities_params
+    return unless params.dig(:unit, :activities)&.is_a?(String)
+
+    params[:unit][:activities] = JSON.parse(params[:unit][:activities])
+  end
+
+  private def parse_unit_classrooms_params
+    return unless params.dig(:unit, :classrooms)&.is_a?(String)
+
+    params[:unit][:classrooms] = JSON.parse(params[:unit][:classrooms])
+  end
+
+  private def send_ell_starter_diagnostic_email
+    return unless params.dig(:unit, :activities)&.include?({ "id" => Activity::ELL_STARTER_DIAGNOSTIC_ID })
+
+    ELLStarterDiagnosticEmailJob.perform_async(current_user.first_name, current_user.email)
+  end
 end
