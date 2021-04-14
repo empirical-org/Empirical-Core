@@ -436,6 +436,8 @@
         max-height: 500px;
         overflow: auto;
         .data-table-row {
+          height: auto;
+          padding: 12px;
           .data-link {
             color: #00c2a2;
           }
