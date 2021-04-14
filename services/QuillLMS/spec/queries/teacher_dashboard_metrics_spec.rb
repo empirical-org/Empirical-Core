@@ -15,19 +15,19 @@ describe TeacherDashboardMetrics do
     today = Date.today
     july_second_of_this_year = Date.parse("02-07-#{today.year}")
     last_july_second = today.month > 7 ? july_second_of_this_year : july_second_of_this_year - 1.year
-    older_classroom_unit_1 = ClassroomUnit.create(classroom_id: classroom1.id, assigned_student_ids: classroom1.students.ids, created_at: last_july_second, unit: unit1)
-    older_classroom_unit_2 = ClassroomUnit.create(classroom_id: classroom2.id, assigned_student_ids: classroom2.students.ids, created_at: last_july_second, unit: unit1)
-    newer_classroom_unit_1 = ClassroomUnit.create(classroom_id: classroom1.id, assigned_student_ids: classroom1.students.ids, created_at: today, unit: unit2)
-    newer_classroom_unit_2 = ClassroomUnit.create(classroom_id: classroom2.id, assigned_student_ids: classroom2.students.ids, created_at: today, unit: unit2)
-    ActivitySession.create(user: classroom1.students.first, classroom_unit: older_classroom_unit_1, completed_at: last_july_second, activity: UnitActivity.first.activity)
-    ActivitySession.create(user: classroom2.students.first, classroom_unit: older_classroom_unit_2, completed_at: last_july_second, activity: UnitActivity.first.activity)
-    ActivitySession.create(user: classroom2.students.last, classroom_unit: older_classroom_unit_2, completed_at: last_july_second, activity: UnitActivity.first.activity)
-    ActivitySession.create(user: classroom1.students.first, classroom_unit: older_classroom_unit_1, completed_at: last_july_second, activity: UnitActivity.last.activity)
-    ActivitySession.create(user: classroom2.students.first, classroom_unit: older_classroom_unit_2, completed_at: last_july_second, activity: UnitActivity.last.activity)
-    ActivitySession.create(user: classroom2.students.last, classroom_unit: older_classroom_unit_2, completed_at: last_july_second, activity: UnitActivity.last.activity)
-    ActivitySession.create(user: classroom1.students.first, classroom_unit: newer_classroom_unit_1, completed_at: today, activity: UnitActivity.first.activity)
-    ActivitySession.create(user: classroom2.students.first, classroom_unit: newer_classroom_unit_2, completed_at: today, activity: UnitActivity.first.activity)
-    ActivitySession.create(user: classroom2.students.last, classroom_unit: newer_classroom_unit_2, completed_at: today, activity: UnitActivity.first.activity)
+    older_classroom_unit1 = ClassroomUnit.create(classroom_id: classroom1.id, assigned_student_ids: classroom1.students.ids, created_at: last_july_second, unit: unit1)
+    older_classroom_unit2 = ClassroomUnit.create(classroom_id: classroom2.id, assigned_student_ids: classroom2.students.ids, created_at: last_july_second, unit: unit1)
+    newer_classroom_unit1 = ClassroomUnit.create(classroom_id: classroom1.id, assigned_student_ids: classroom1.students.ids, created_at: today, unit: unit2)
+    newer_classroom_unit2 = ClassroomUnit.create(classroom_id: classroom2.id, assigned_student_ids: classroom2.students.ids, created_at: today, unit: unit2)
+    ActivitySession.create(user: classroom1.students.first, classroom_unit: older_classroom_unit1, completed_at: last_july_second, activity: UnitActivity.first.activity)
+    ActivitySession.create(user: classroom2.students.first, classroom_unit: older_classroom_unit2, completed_at: last_july_second, activity: UnitActivity.first.activity)
+    ActivitySession.create(user: classroom2.students.last, classroom_unit: older_classroom_unit2, completed_at: last_july_second, activity: UnitActivity.first.activity)
+    ActivitySession.create(user: classroom1.students.first, classroom_unit: older_classroom_unit1, completed_at: last_july_second, activity: UnitActivity.last.activity)
+    ActivitySession.create(user: classroom2.students.first, classroom_unit: older_classroom_unit2, completed_at: last_july_second, activity: UnitActivity.last.activity)
+    ActivitySession.create(user: classroom2.students.last, classroom_unit: older_classroom_unit2, completed_at: last_july_second, activity: UnitActivity.last.activity)
+    ActivitySession.create(user: classroom1.students.first, classroom_unit: newer_classroom_unit1, completed_at: today, activity: UnitActivity.first.activity)
+    ActivitySession.create(user: classroom2.students.first, classroom_unit: newer_classroom_unit2, completed_at: today, activity: UnitActivity.first.activity)
+    ActivitySession.create(user: classroom2.students.last, classroom_unit: newer_classroom_unit2, completed_at: today, activity: UnitActivity.first.activity)
   end
 
   describe '#queries' do
