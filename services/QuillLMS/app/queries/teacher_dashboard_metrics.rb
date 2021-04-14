@@ -44,7 +44,7 @@ class TeacherDashboardMetrics
   end
 
   private def july_first_of_this_year
-    @july_first_of_this_year = Date.parse("01-07-#{today.year}")
+    @july_first_of_this_year ||= Date.parse("01-07-#{today.year}")
   end
 
   private def last_july_first
