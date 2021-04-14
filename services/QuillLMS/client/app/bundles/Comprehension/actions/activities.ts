@@ -6,7 +6,7 @@ import { TrackAnalyticsEvent } from './analytics'
 import { Events } from '../modules/analytics'
 
 export const getActivity = (sessionID: string, activityUID: string) => {
-  return (dispatch: Function) => {
+  return async (dispatch: Function) => {
     dispatch(TrackAnalyticsEvent(Events.COMPREHENSION_ACTIVITY_STARTED, {
       activityID: activityUID,
       sessionID: sessionID
@@ -14,7 +14,7 @@ export const getActivity = (sessionID: string, activityUID: string) => {
 
     const activityUrl = `${process.env.DEFAULT_URL}/api/v1/comprehension/activities/${activityUID}`
 
-    request.get(activityUrl, (e, r, body) => {
+    await request.get(activityUrl, (e, r, body) => {
       const activity = JSON.parse(body)
       if (activity) {
         dispatch({ type: ActionTypes.RECEIVE_ACTIVITY_DATA, data: activity, });

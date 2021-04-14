@@ -5,19 +5,18 @@ import stripHtml from "string-strip-html";
 
 import Navigation from '../navigation'
 import RuleForm from '../configureRules/ruleForm';
-import SubmissionModal from '../shared/submissionModal';
-import { buildErrorMessage } from '../../../helpers/comprehension';
 import { updateRule, deleteRule, fetchRule } from '../../../utils/comprehension/ruleAPIs';
 import { RuleInterface } from '../../../interfaces/comprehensionInterfaces';
 import { DataTable, Error, Modal, Spinner } from '../../../../Shared/index';
+import { renderErrorsContainer } from "../../../helpers/comprehension/ruleHelpers";
 
 const UniversalRule = ({ history, location, match }) => {
   const { params } = match;
   const { ruleId } = params;
+
   const [showDeleteRuleModal, setShowDeleteRuleModal] = React.useState<boolean>(false);
   const [showEditRuleModal, setShowEditRuleModal] = React.useState<boolean>(false);
-  const [showSubmissionModal, setShowSubmissionModal] = React.useState<boolean>(false);
-  const [errors, setErrors] = React.useState<object>({});
+  const [errors, setErrors] = React.useState<string[]>([]);
 
   // cache rule data
   const { data: ruleData } = useQuery({
@@ -31,10 +30,6 @@ const UniversalRule = ({ history, location, match }) => {
 
   const toggleShowDeleteRuleModal = () => {
     setShowDeleteRuleModal(!showDeleteRuleModal);
-  }
-
-  const toggleSubmissionModal = () => {
-    setShowSubmissionModal(!showSubmissionModal);
   }
 
   function handleAttributesFields(feedbacks) {
@@ -85,38 +80,32 @@ const UniversalRule = ({ history, location, match }) => {
 
   const handleSubmitRule = ({rule}: {rule: RuleInterface}) => {
     updateRule(ruleId, rule).then((response) => {
-      const { error } = response;
-      if(error) {
-        let updatedErrors = errors;
-        updatedErrors['update error'] = error;
-        setErrors(updatedErrors);
+      const { errors } = response;
+      if(errors && errors.length) {
+        setErrors(errors);
+      } else {
+        setErrors([]);
+        // update rule caches to display newly updated rule
+        queryCache.refetchQueries(`rule-${ruleId}`);
+        queryCache.refetchQueries('universal-rules');
+        toggleShowEditRuleModal();
       }
-      // update rule caches to display newly updated rule
-      queryCache.refetchQueries(`rule-${ruleId}`);
-      queryCache.refetchQueries('universal-rules');
     });
-
-    toggleShowEditRuleModal();
-    toggleSubmissionModal();
   }
 
   const handleDeleteRule = () => {
     deleteRule(ruleId).then((response) => {
-      const { error } = response;
-      if(error) {
-        let updatedErrors = errors;
-        updatedErrors['delete error'] = error;
-        setErrors(updatedErrors);
-      }
-      queryCache.refetchQueries('universal-rules');
-      toggleShowDeleteRuleModal();
-
-      if(Object.keys(errors).length) {
-        toggleSubmissionModal();
+      const { errors } = response;
+      if(errors && errors.length) {
+        setErrors(errors);
       } else {
-        history.push({
-          pathname: '/universal-rules',
-          state: 'rule-deleted'
+        setErrors([]);
+        toggleShowDeleteRuleModal();
+        queryCache.refetchQueries('universal-rules').then(() => {
+          history.push({
+            pathname: '/universal-rules',
+            state: { ruleDeleted: true }
+          });
         });
       }
     });
@@ -128,6 +117,7 @@ const UniversalRule = ({ history, location, match }) => {
         <RuleForm
           closeModal={toggleShowEditRuleModal}
           isUniversal={true}
+          requestErrors={errors}
           rule={ruleData && ruleData.rule}
           submitRule={handleSubmitRule}
         />
@@ -148,17 +138,10 @@ const UniversalRule = ({ history, location, match }) => {
               Cancel
             </button>
           </div>
+          {errors && renderErrorsContainer(false, errors)}
         </div>
       </Modal>
     )
-  }
-
-  const renderSubmissionModal = () => {
-    let message = 'Rule successfully updated!';
-    if(Object.keys(errors).length) {
-      message = buildErrorMessage(errors);
-    }
-    return <SubmissionModal close={toggleSubmissionModal} message={message} />;
   }
 
   // The header labels felt redundant so passing empty strings and hiding header display
@@ -192,7 +175,6 @@ const UniversalRule = ({ history, location, match }) => {
       <div className="universal-rule-container">
         {showDeleteRuleModal && renderDeleteRuleModal()}
         {showEditRuleModal && renderRuleForm()}
-        {showSubmissionModal && renderSubmissionModal()}
         <div className="header-container">
           <h2>Universal Rule</h2>
           <Link to={{ pathname: "/universal-rules", state: 'returned-to-index' }}>← Return to Universal Rules Index</Link>

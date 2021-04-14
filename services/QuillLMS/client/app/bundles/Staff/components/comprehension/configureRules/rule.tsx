@@ -1,15 +1,15 @@
 import * as React from "react";
 import { queryCache, useQuery } from 'react-query';
+import { Link } from 'react-router-dom';
 import stripHtml from "string-strip-html";
 
 import RuleForm from './ruleForm';
 
-import { buildErrorMessage, getPromptsIcons } from '../../../helpers/comprehension';
+import { getPromptsIcons } from '../../../helpers/comprehension';
 import { BECAUSE, BUT, SO } from '../../../../../constants/comprehension';
 import { updateRule, deleteRule, fetchRule } from '../../../utils/comprehension/ruleAPIs';
 import { RuleInterface } from '../../../interfaces/comprehensionInterfaces';
 import { fetchActivity } from '../../../utils/comprehension/activityAPIs';
-import SubmissionModal from '../shared/submissionModal';
 import { DataTable, Error, Modal, Spinner } from '../../../../Shared/index';
 
 const Rule = ({ history, match }) => {
@@ -17,8 +17,7 @@ const Rule = ({ history, match }) => {
   const { activityId, ruleId } = params;
   const [showDeleteRuleModal, setShowDeleteRuleModal] = React.useState<boolean>(false);
   const [showEditRuleModal, setShowEditRuleModal] = React.useState<boolean>(false);
-  const [showSubmissionModal, setShowSubmissionModal] = React.useState<boolean>(false);
-  const [errors, setErrors] = React.useState<object>({});
+  const [errors, setErrors] = React.useState<string[]>([]);
 
   // get cached activity data to pass to ruleForm
   const { data: activityData } = useQuery({
@@ -38,10 +37,6 @@ const Rule = ({ history, match }) => {
 
   const toggleShowDeleteRuleModal = () => {
     setShowDeleteRuleModal(!showDeleteRuleModal);
-  }
-
-  const toggleSubmissionModal = () => {
-    setShowSubmissionModal(!showSubmissionModal);
   }
 
   function handleAttributesFields(feedbacks, plagiarism_text) {
@@ -112,36 +107,29 @@ const Rule = ({ history, match }) => {
 
   const handleSubmitRule = ({rule}: {rule: RuleInterface}) => {
     updateRule(ruleId, rule).then((response) => {
-      const { error } = response;
-      if(error) {
-        let updatedErrors = errors;
-        updatedErrors['update error'] = error;
-        setErrors(updatedErrors);
+      const { errors } = response;
+      if(errors && errors.length) {
+        setErrors(errors);
+      } else {
+        setErrors([]);
+        // update rule cache to display newly updated rule
+        queryCache.refetchQueries(`rule-${ruleId}`);
+        toggleShowEditRuleModal();
       }
-      // update rule cache to display newly updated rule
-      queryCache.refetchQueries(`rule-${ruleId}`);
     });
-
-    toggleShowEditRuleModal();
-    toggleSubmissionModal();
   }
 
   const handleDeleteRule = () => {
     deleteRule(ruleId).then((response) => {
-      const { error } = response;
-      if(error) {
-        let updatedErrors = errors;
-        updatedErrors['delete error'] = error;
-        setErrors(updatedErrors);
-      }
-      toggleShowDeleteRuleModal();
-
-      if(Object.keys(errors).length) {
-        toggleSubmissionModal();
+      const { errors } = response;
+      if(errors && errors.length) {
+        setErrors(errors);
       } else {
+        setErrors([]);
         // update ruleSets cache to remove delete ruleSet
         queryCache.refetchQueries(`rules-${activityId}`);
         history.push(`/activities/${activityId}/rules`);
+        toggleShowDeleteRuleModal();
       }
     });
   }
@@ -154,6 +142,7 @@ const Rule = ({ history, match }) => {
           activityId={activityId}
           closeModal={toggleShowEditRuleModal}
           isUniversal={false}
+          requestErrors={errors}
           rule={ruleData && ruleData.rule}
           submitRule={handleSubmitRule}
         />
@@ -177,14 +166,6 @@ const Rule = ({ history, match }) => {
         </div>
       </Modal>
     )
-  }
-
-  const renderSubmissionModal = () => {
-    let message = 'Rule successfully updated!';
-    if(Object.keys(errors).length) {
-      message = buildErrorMessage(errors);
-    }
-    return <SubmissionModal close={toggleSubmissionModal} message={message} />;
   }
 
   // The header labels felt redundant so passing empty strings and hiding header display
@@ -213,9 +194,9 @@ const Rule = ({ history, match }) => {
     <div className="rule-container">
       {showDeleteRuleModal && renderDeleteRuleModal()}
       {showEditRuleModal && renderRuleForm()}
-      {showSubmissionModal && renderSubmissionModal()}
       <div className="header-container">
-        <p>Rule</p>
+        <h2>Rule</h2>
+        <Link to={`/activities/${activityId}/rules`}>← Return to Rules Index</Link>
       </div>
       <DataTable
         className="rule-table"

@@ -32,6 +32,10 @@
     align-items: center;
     flex-direction: column;
     height: 100%;
+    .header-image {
+      height: auto;
+      max-width: 100%;
+    }
     .passage p {
       margin-bottom: 40px;
     }

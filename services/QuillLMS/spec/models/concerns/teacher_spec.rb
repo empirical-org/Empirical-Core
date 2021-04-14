@@ -273,6 +273,28 @@ describe User, type: :model do
       end
     end
 
+    describe '#unlink' do
+      let!(:bronx_teacher) { create(:teacher_with_school) }
+
+      context 'when the teacher is linked to a school' do
+        it 'unlinks the teacher' do
+          expect(bronx_teacher.reload.school).to be
+          bronx_teacher.unlink
+          expect(bronx_teacher.reload.school).not_to be
+        end
+
+        it 'unlinks the teacher from school subscriptions' do
+          subscription = create(:subscription)
+          school = bronx_teacher.reload.school
+          create(:school_subscription, subscription_id: subscription.id, school_id: school.id)
+          bronx_teacher.updated_school(school)
+          expect(bronx_teacher.reload.subscriptions).not_to be_empty
+          bronx_teacher.unlink
+          expect(bronx_teacher.reload.subscriptions).to be_empty
+        end
+      end
+    end
+
     describe '#updated_school' do
       let!(:queens_teacher_2) { create(:teacher) }
       let!(:queens_subscription) { create(:subscription) }
@@ -293,6 +315,14 @@ describe User, type: :model do
           expect(queens_teacher.subscription).to eq(teacher_subscription)
           queens_school_sub.destroy
           queens_teacher.updated_school(queens_school.id)
+          expect(queens_teacher.subscription).to eq(teacher_subscription)
+        end
+      end
+
+      context 'when the school is empty' do
+        it 'does nothing to the teachers personal subscription' do
+          expect(queens_teacher.subscription).to eq(teacher_subscription)
+          queens_teacher.updated_school(nil)
           expect(queens_teacher.subscription).to eq(teacher_subscription)
         end
       end

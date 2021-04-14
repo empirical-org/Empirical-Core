@@ -14,6 +14,14 @@ exports[`RuleRegexAttributes component should render RuleRegexAttributes 1`] = `
     key="regex-feedback"
     text="test regex feedback"
   />
+  <button
+    className="add-highlight quill-button small primary outlined"
+    id="0"
+    onClick={[Function]}
+    type="button"
+  >
+    Add Highlight
+  </button>
   <p
     className="form-subsection-label"
     id="regex-rules-label"
@@ -25,6 +33,7 @@ exports[`RuleRegexAttributes component should render RuleRegexAttributes 1`] = `
     handleAddRegexInput={[Function]}
     handleDeleteRegexRule={[Function]}
     handleSetRegexRule={[Function]}
+    handleSetRegexRuleSequence={[Function]}
     regexRules={
       Array [
         Object {

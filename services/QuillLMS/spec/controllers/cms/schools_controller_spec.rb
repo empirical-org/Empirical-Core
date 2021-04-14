@@ -182,13 +182,25 @@ describe Cms::SchoolsController do
 
   describe '#new_subscription' do
     let!(:school) { create(:school) }
+    let!(:school_with_no_subscription) { create(:school) }
     let!(:subscription) { create(:subscription)}
     let!(:school_subscription) { create(:school_subscription, school: school, subscription: subscription) }
 
-    it 'should create a new subscription with starting after the current subscription ends' do
-      get :new_subscription, id: school.id
-      expect(assigns(:subscription).start_date).to eq subscription.expiration
-      expect(assigns(:subscription).expiration).to eq subscription.expiration + 1.year
+
+    describe 'when there is no existing subscription' do
+      it 'should create a new subscription that starts today and ends at the promotional expiration date' do
+        get :new_subscription, id: school_with_no_subscription.id
+        expect(assigns(:subscription).start_date).to eq Date.today
+        expect(assigns(:subscription).expiration).to eq Subscription.promotional_dates[:expiration]
+      end
+    end
+
+    describe 'when there is an existing subscription' do
+      it 'should create a new subscription with starting after the current subscription ends' do
+        get :new_subscription, id: school.id
+        expect(assigns(:subscription).start_date).to eq subscription.expiration
+        expect(assigns(:subscription).expiration).to eq subscription.expiration + 1.year
+      end
     end
   end
 
@@ -202,6 +214,45 @@ describe Cms::SchoolsController do
       expect(response).to redirect_to cms_school_path(school.id)
       expect(SchoolsAdmins.last.user).to eq another_user
       expect(SchoolsAdmins.last.school).to eq school
+    end
+  end
+
+  describe '#add_existing_user_by_email' do
+    let!(:another_user) { create(:user, role: 'teacher') }
+    let!(:school) { create(:school) }
+    before(:each) do
+      request.env['HTTP_REFERER'] = 'quill.org'
+    end
+
+    it 'should create the schools users and redirect to cms school path' do
+      post :add_existing_user_by_email, email_address: another_user.email, id: school.id
+      expect(flash[:success]).to eq "Yay! It worked! 🎉"
+      expect(response).to redirect_to cms_school_path(school.id)
+      expect(SchoolsUsers.last.user).to eq another_user
+      expect(SchoolsUsers.last.school).to eq school
+      expect(another_user.reload.school).to eq school
+    end
+
+    it 'should not create the schools users and redirect to cms school path if email is invalid' do
+      post :add_existing_user_by_email, email_address: 'random-invalid-email', id: school.id
+      expect(flash[:error]).to eq "It didn't work! Make sure the email you typed is correct."
+    end
+  end
+
+  describe '#unlink' do
+    let!(:school) { create(:school)}
+    let!(:another_user) { create(:user, school: school)}
+    before(:each) do
+      request.env['HTTP_REFERER'] = cms_school_path(school.id)
+    end
+
+    it 'should unlink the user and redirect to cms school path' do
+      expect(SchoolsUsers.find_by(user: another_user.id, school: school)).to be
+      post :unlink, teacher_id: another_user.id, id: school.id
+      expect(flash[:success]).to eq "Yay! It worked! 🎉"
+      expect(response).to redirect_to cms_school_path(school.id)
+      expect(SchoolsUsers.find_by(user: another_user.id, school: school)).not_to be
+      expect(another_user.reload.school).to eq nil
     end
   end
 end

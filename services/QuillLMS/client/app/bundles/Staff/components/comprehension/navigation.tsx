@@ -74,8 +74,8 @@ const Navigation = ({ location, match }) => {
         <NavLink activeClassName="is-active" to={`/activities/${activityId}/turk-sessions`}>
           Collect Turk Responses
         </NavLink>
-        <NavLink activeClassName="is-active" to={`/activities/${activityId}/semantic-rules-and-models`}>
-          Semantic Rules + Models
+        <NavLink activeClassName="is-active" to={`/activities/${activityId}/semantic-labels`}>
+          Semantic Labels
         </NavLink>
         <NavLink activeClassName="is-active" to={`/activities/${activityId}/regex-rules`}>
           RegEx Rules
@@ -113,7 +113,7 @@ const Navigation = ({ location, match }) => {
         <button className={`create-activity-button ${showCreateActivityModal ? 'is-active' :''}`} onClick={toggleCreateActivityModal} type="submit">
           Create New Activity
         </button>
-        <NavLink activeClassName='is-active' to="/universal-rules">
+        <NavLink activeClassName={!showCreateActivityModal ? 'is-active' :''} to="/universal-rules">
           View Universal Rules
         </NavLink>
       </ul>

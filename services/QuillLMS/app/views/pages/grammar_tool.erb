@@ -6,14 +6,19 @@
 </section>
 <div class="tool-container grammar-tool-page">
 
-    <section class='bg-purple tool-hero text-center'>
+    <section class='bg-purple tool-hero text-center tool-section'>
       <h1 class="q-h1">
           <img class="tool-page-icon lazyload" data-src='/images/quill_grammar_white.svg'>Quill Grammar
       </h1>
       <p class='description'>
         Quill Grammar has over 150 sentence writing activities to help your students practice basic grammar skills, from comma placement to parallel structure. Our activities are designed to be completed in 10 minutes so you have the freedom to use them in the way that works best for your classroom.
       </p>
-      <a href='/activity_sessions/anonymous?activity_id=110' target="_blank" class="q-button cta-button bg-white text-purple">Try Quill Grammar Now</a>
+      <section class="tool-ctas grammar-tool">
+        <a href='/activity_sessions/anonymous?activity_id=110' target="_blank" class="q-button cta-button bg-white text-purple">Try a sample activity</a>
+        <% if current_user&.teacher? %>
+          <a href='/assign/activity-library?activityClassificationFilters[]=sentence' class="q-button text-white learn-more-button">Assign</a>
+        <% end %>
+      </section>
     </section>
 
     <section class="tool-animation-section " id="overview">

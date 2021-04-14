@@ -11,11 +11,14 @@ import {
   SO,
   activityFormKeys,
   TITLE,
+  NAME,
   SCORED_READING_LEVEL,
   TARGET_READING_LEVEL,
   PARENT_ACTIVITY_ID,
   MAX_ATTEMPTS_FEEDBACK,
-  PASSAGE
+  PASSAGE,
+  IMAGE_LINK,
+  IMAGE_ALT_TEXT
 } from '../../../../../constants/comprehension';
 import { ActivityInterface, PromptInterface, PassagesInterface, InputEvent } from '../../../interfaces/comprehensionInterfaces';
 import { Input, TextEditor, } from '../../../../Shared/index'
@@ -28,19 +31,25 @@ interface ActivityFormProps {
 
 const ActivityForm = ({ activity, closeModal, submitActivity }: ActivityFormProps) => {
 
-  const { parent_activity_id, passages, prompts, scored_level, target_level, title } = activity;
+  const { parent_activity_id, passages, prompts, prompt_attributes, scored_level, target_level, title, name, } = activity;
   // const formattedFlag = flag ? { label: flag, value: flag } : flagOptions[0];
   const formattedScoredLevel = scored_level || '';
   const formattedTargetLevel = target_level ? target_level.toString() : '';
   const formattedParentActivityId = parent_activity_id ? parent_activity_id.toString() : '';
   const formattedPassage = passages && passages.length ? passages : [{ text: ''}];
-  const formattedMaxFeedback = prompts && prompts[0] && prompts[0].max_attempts_feedback ? prompts[0].max_attempts_feedback : '';
+  let formattedMaxFeedback;
+  if(prompts && prompts[0] && prompts[0].max_attempts_feedback) {
+    formattedMaxFeedback = prompts[0].max_attempts_feedback
+  } else {
+    formattedMaxFeedback = 'Nice effort! You worked hard to make your sentence stronger.';
+  }
   const formattedPrompts = promptsByConjunction(prompts);
   const becausePrompt = formattedPrompts && formattedPrompts[BECAUSE] ? formattedPrompts[BECAUSE] : buildBlankPrompt(BECAUSE);
   const butPrompt = formattedPrompts && formattedPrompts[BUT] ? formattedPrompts[BUT] : buildBlankPrompt(BUT);
   const soPrompt = formattedPrompts && formattedPrompts[SO] ? formattedPrompts[SO] : buildBlankPrompt(SO);
 
   const [activityTitle, setActivityTitle] = React.useState<string>(title || '');
+  const [activityName, setActivityName] = React.useState<string>(name || '');
   // const [activityFlag, setActivityFlag] = React.useState<FlagInterface>(formattedFlag);
   const [activityScoredReadingLevel, setActivityScoredReadingLevel] = React.useState<string>(formattedScoredLevel);
   const [activityTargetReadingLevel, setActivityTargetReadingLevel] = React.useState<string>(formattedTargetLevel);
@@ -54,6 +63,8 @@ const ActivityForm = ({ activity, closeModal, submitActivity }: ActivityFormProp
 
   function handleSetActivityTitle(e: InputEvent){ setActivityTitle(e.target.value) };
 
+  function handleSetActivityName(e: InputEvent){ setActivityName(e.target.value) };
+
   // const handleSetActivityFlag = (flag: FlagInterface) => { setActivityFlag(flag) };
 
   function handleSetActivityMaxFeedback(text: string){ setActivityMaxFeedback(text) };
@@ -64,9 +75,15 @@ const ActivityForm = ({ activity, closeModal, submitActivity }: ActivityFormProp
 
   function handleSetActivityParentActivityId(e: InputEvent){ setActivityParentActivityId(e.target.value) };
 
-  function handleSetActivityPassages(text: string){
+  function handleSetImageLink(e: InputEvent){ handleSetActivityPassages('image_link', e.target.value) };
+
+  function handleSetImageAltText(e: InputEvent){ handleSetActivityPassages('image_alt_text', e.target.value) };
+
+  function handleSetPassageText(text: string) { handleSetActivityPassages('text', text)}
+
+  function handleSetActivityPassages(key, value){
     const updatedPassages = [...activityPassages];
-    updatedPassages[0].text = text;
+    updatedPassages[0][key] = value;
     setActivityPassages(updatedPassages)
    };
 
@@ -81,6 +98,7 @@ const ActivityForm = ({ activity, closeModal, submitActivity }: ActivityFormProp
 
   function handleSubmitActivity(){
     const activityObject = buildActivity({
+      activityName,
       activityTitle,
       activityScoredReadingLevel,
       activityTargetReadingLevel,
@@ -93,6 +111,7 @@ const ActivityForm = ({ activity, closeModal, submitActivity }: ActivityFormProp
     });
     const state = [
       activityTitle,
+      activityName,
       activityScoredReadingLevel,
       activityTargetReadingLevel,
       activityParentActivityId,
@@ -100,7 +119,9 @@ const ActivityForm = ({ activity, closeModal, submitActivity }: ActivityFormProp
       activityMaxFeedback,
       activityBecausePrompt.text,
       activityButPrompt.text,
-      activitySoPrompt.text
+      activitySoPrompt.text,
+      activityPassages[0].image_link,
+      activityPassages[0].image_alt_text
     ];
     const validationErrors = validateForm(activityFormKeys, state);
     if(validationErrors && Object.keys(validationErrors).length !== 0) {
@@ -120,10 +141,17 @@ const ActivityForm = ({ activity, closeModal, submitActivity }: ActivityFormProp
       </div>
       <form className="activity-form">
         <Input
+          className="name-input"
+          error={errors[NAME]}
+          handleChange={handleSetActivityName}
+          label="Activity Name"
+          value={activityName}
+        />
+        <Input
           className="title-input"
           error={errors[TITLE]}
           handleChange={handleSetActivityTitle}
-          label="Title"
+          label="Passage Title"
           value={activityTitle}
         />
         {/* <DropdownInput
@@ -155,16 +183,30 @@ const ActivityForm = ({ activity, closeModal, submitActivity }: ActivityFormProp
           label="Parent Activity ID"
           value={activityParentActivityId}
         />
+        <Input
+          className="image-link-input"
+          error={errors[IMAGE_LINK]}
+          handleChange={handleSetImageLink}
+          label="Image Link"
+          value={activityPassages[0].image_link}
+        />
+        <Input
+          className="image-alt-text-input"
+          error={errors[IMAGE_ALT_TEXT]}
+          handleChange={handleSetImageAltText}
+          label="Image Alt Text"
+          value={activityPassages[0].image_alt_text}
+        />
         <p className={`text-editor-label ${passageLabelStyle}`}>Passage</p>
         <TextEditor
           ContentState={ContentState}
           EditorState={EditorState}
-          handleTextChange={handleSetActivityPassages}
+          handleTextChange={handleSetPassageText}
           key="passage-description"
           text={activityPassages[0].text}
         />
         {errors[PASSAGE] && <p className="error-message">{errors[PASSAGE]}</p>}
-        <p className={`text-editor-label ${maxAttemptStyle}`}>Max Attemps Feedback</p>
+        <p className={`text-editor-label ${maxAttemptStyle}`}>Max Attempts Feedback</p>
         <TextEditor
           ContentState={ContentState}
           EditorState={EditorState}

@@ -1,18 +1,22 @@
 import * as React from "react";
 import { EditorState, ContentState } from 'draft-js';
+import stripHtml from "string-strip-html";
 
 import { validateForm } from '../comprehension';
+import { AUTO_ML, ACTIVE, INACTIVE } from '../../../../constants/comprehension';
 import { InputEvent, DropdownObjectInterface } from '../../interfaces/comprehensionInterfaces';
-import { ruleTypeOptions, universalRuleTypeOptions, ruleHighlightOptions, numericalWordOptions } from '../../../../constants/comprehension';
+import { ruleTypeOptions, universalRuleTypeOptions, ruleHighlightOptions, numericalWordOptions, regexRuleSequenceOptions, regexRuleTypes } from '../../../../constants/comprehension';
 import { TextEditor, DropdownInput } from '../../../Shared/index';
 
 export function handleSetRuleType(ruleType: DropdownObjectInterface, setRuleType) { setRuleType(ruleType) };
 
 export function handleSetRuleName(e: InputEvent, setRuleName) { setRuleName(e.target.value) };
 
+export function handleSetRuleLabelName(e: InputEvent, setRuleLabelName) { setRuleLabelName(e.target.value) };
+
 export function handleSetRuleOptimal(ruleOptimal: DropdownObjectInterface, setRuleOptimal) { setRuleOptimal(ruleOptimal) };
 
-export function handleSetRuleConceptUID(e: InputEvent, setRuleConceptUID) { setRuleConceptUID(e.target.value) };
+export function handleSetRuleConceptUID(value, setRuleConceptUID) { setRuleConceptUID(value) };
 
 export function handleSetRuleDescription(text: string, setRuleDescription) { setRuleDescription(text) }
 
@@ -20,33 +24,6 @@ export function handleSetPlagiarismText(text: string, plagiarismText, setPlagiar
   const plagiarismTextObject = {...plagiarismText};
   plagiarismTextObject.text = text;
   setPlagiarismText(plagiarismTextObject)
-}
-
-export function handleSetFirstPlagiarismFeedback(text: string, firstPlagiarismFeedback, setFirstPlagiarismFeedback) {
-  const feedback = {...firstPlagiarismFeedback};
-  if(!feedback.order) {
-    feedback.order = 0;
-  }
-  feedback.text = text;
-  setFirstPlagiarismFeedback(feedback)
-}
-
-export function handleSetSecondPlagiarismFeedback(text: string, secondPlagiarismFeedback, setSecondPlagiarismFeedback) {
-  const feedback = {...secondPlagiarismFeedback};
-  if(!feedback.order) {
-    feedback.order = 1;
-  }
-  feedback.text = text;
-  setSecondPlagiarismFeedback(feedback)
-}
-
-export function handleSetRegexFeedback(text: string, regexFeedback, setRegexFeedback) {
-  const feedback = {...regexFeedback};
-  if(!feedback.order) {
-    feedback.order = 0;
-  }
-  feedback.text = text;
-  setRegexFeedback(feedback)
 }
 
 export function handleRulePromptChange(e: InputEvent, rulePrompts, setRulePrompts) {
@@ -60,6 +37,12 @@ export function handleRulePromptChange(e: InputEvent, rulePrompts, setRulePrompt
   };
   setRulePrompts(updatedPrompts);
 };
+
+export function handleSetRegexRuleSequence({ option, ruleKey, regexRules, setRegexRules }) {
+  const updatedRules = {...regexRules};
+  updatedRules[ruleKey].sequence_type = option;
+  setRegexRules(updatedRules);
+}
 
 export function handleSetRegexRule({
   e,
@@ -118,6 +101,29 @@ export function handleDeleteRegexRule({ e, regexRules, rulesToDelete, setRulesTo
   setRegexRules(updatedRules);
 }
 
+export const getSequenceType = (sequenceType) => {
+  if(sequenceType) {
+    return regexRuleSequenceOptions.filter(option => option.value === sequenceType)[0];
+  }
+  return null;
+}
+
+export const formatRegexRules = ({ rule, setRegexRules }) => {
+  let formatted = {};
+  rule && rule.regex_rules && rule.regex_rules.map((rule, i) => {
+    const { case_sensitive, id, regex_text, sequence_type } = rule;
+    const regexRuleSequenceType = getSequenceType(sequence_type);
+    const formattedRule = {
+      id: id,
+      case_sensitive: case_sensitive,
+      regex_text: regex_text,
+      sequence_type: regexRuleSequenceType
+    }
+    formatted[`regex-rule-${i}`] = formattedRule;
+  });
+  setRegexRules(formatted);
+}
+
 export function handleSetFeedback({
     text,
     feedback,
@@ -153,7 +159,8 @@ export function renderHighlights(highlights, i, changeHandler) {
     // this is an update for existing rule, convert to object for DropdownInput value
     if(highlight.highlight_type && typeof highlight.highlight_type === 'string') {
       const { highlight_type } = highlight;
-      highlightTypeValue = { label: highlight_type, value: highlight_type };
+      const label = highlight_type[0].toUpperCase() + highlight_type.slice(1).toLowerCase();
+      highlightTypeValue = { label: label, value: highlight_type };
     } else if(highlight.highlight_type && highlight.highlight_type.value) {
       const { highlight_type } = highlight;
       highlightTypeValue = highlight_type;
@@ -166,7 +173,7 @@ export function renderHighlights(highlights, i, changeHandler) {
           // eslint-disable-next-line
           handleChange={(e) => changeHandler(e, i, j, 'highlight type')}
           isSearchable={true}
-          label="Optimal?"
+          label="Highlight Type"
           options={ruleHighlightOptions}
           value={highlightTypeValue}
         />
@@ -194,43 +201,14 @@ export function getInitialRuleType({ isUniversal, rule_type, universalRuleType }
   }
 }
 
-export const formatFeedbacks = ({ rule, ruleType, setFirstPlagiarismFeedback, setSecondPlagiarismFeedback, setRegexFeedback }) => {
-  if(rule && rule.feedbacks && Object.keys(rule.feedbacks).length) {
-    const { feedbacks } =  rule;
-    if(ruleType && ruleType.value === 'plagiarism') {
-      const formattedFirstFeedback = {
-        id: feedbacks[0].id,
-        order: 0,
-        description: feedbacks[0].description,
-        text: feedbacks[0].text
-      }
-      const formattedSecondFeedback = {
-        id: feedbacks[1].id,
-        order: 1,
-        description: feedbacks[1].description,
-        text: feedbacks[1].text
-      }
-      setFirstPlagiarismFeedback(formattedFirstFeedback);
-      setSecondPlagiarismFeedback(formattedSecondFeedback);
-    }
-    else if(ruleType && ruleType.value === 'rules-based') {
-      const formattedFeedback = {
-        id: feedbacks[0].id,
-        order: 0,
-        description: feedbacks[0].description,
-        text: feedbacks[0].text
-      }
-      setRegexFeedback(formattedFeedback);
-    }
-  } else {
-    // creating new rule, set all to empty break tag in case user switches between rule types
-    setFirstPlagiarismFeedback({ text: '<br/>'});
-    setSecondPlagiarismFeedback({ text: '<br/>'});
-    setRegexFeedback({ text: '<br/>'});
+export const returnInitialFeedback = (ruleType: string) => {
+  if(ruleType === 'plagiarism') {
+    return [{ text: '', order: 0, highlights_attributes: [] }, { text: '', order: 1, highlights_attributes: [] }];
   }
+  return [{ text: '', order: 0, highlights_attributes: [] }];
 }
 
-export const formatInitialUniversalFeedback = (feedbacks) => {
+export const formatInitialFeedbacks = (feedbacks) => {
   return feedbacks.map(feedback => {
     const { id, description, order, text, highlights } = feedback;
     const formattedFeedback = {
@@ -254,7 +232,7 @@ export const formatInitialUniversalFeedback = (feedbacks) => {
   });
 }
 
-const formatUniversalFeedback = (feedbacks) => {
+const buildFeedbacks = (feedbacks) => {
   return feedbacks.map(feedback => {
     const formattedFeedback = {...feedback};
     const formattedHighlights = feedback.highlights_attributes.map(highlight => {
@@ -276,34 +254,23 @@ const formatUniversalFeedback = (feedbacks) => {
   });
 }
 
-const buildFeedbacks = ({ ruleType, regexFeedback, firstPlagiarismFeedback, secondPlagiarismFeedback, universalFeedback }) => {
-  if(ruleType.value === 'rules-based') {
-    return [regexFeedback];
-  } else if(ruleType.value === 'plagiarism') {
-    return [firstPlagiarismFeedback, secondPlagiarismFeedback];
-  } else {
-    return formatUniversalFeedback(universalFeedback);
-  }
-}
-
 export const buildRule = ({
-  firstPlagiarismFeedback,
   plagiarismText,
-  regexFeedback,
   regexRules,
   rule,
   rulesCount,
   ruleConceptUID,
   ruleDescription,
   ruleName,
+  ruleLabelName,
   ruleOptimal,
   rulePrompts,
+  rulePromptIds,
   ruleType,
-  secondPlagiarismFeedback,
-  universalFeedback,
+  ruleFeedbacks,
   universalRulesCount
 }) => {
-  const { suborder, universal } =  rule;
+  const { suborder, universal, state } =  rule;
   const promptIds = [];
   Object.keys(rulePrompts).forEach(key => {
     rulePrompts[key].checked && promptIds.push(rulePrompts[key].id);
@@ -313,90 +280,97 @@ export const buildRule = ({
   let newOrUpdatedRule: any = {
     concept_uid: ruleConceptUID,
     description: ruleDescription,
-    feedbacks_attributes: buildFeedbacks({
-      ruleType,
-      regexFeedback,
-      firstPlagiarismFeedback,
-      secondPlagiarismFeedback,
-      universalFeedback
-    }),
+    feedbacks_attributes: buildFeedbacks(ruleFeedbacks),
     name: ruleName,
     optimal: !!ruleOptimal.value,
     prompt_ids: promptIds,
     rule_type: ruleType.value,
     suborder: suborder ? suborder : order,
-    universal: universal
+    universal: universal,
+    state
   };
 
-  if(newOrUpdatedRule.rule_type === 'rules-based') {
-    const rules = [];
+  if(regexRuleTypes.includes(newOrUpdatedRule.rule_type)) {
+    let rules = [];
     Object.keys(regexRules).forEach(key => {
       rules.push(regexRules[key]);
+    });
+    // format from DropdownInput option
+    rules = rules.map(rule => {
+      // choose default Incorrect option for case where user doesn't change dropdown option
+      rule.sequence_type = rule.sequence_type && rule.sequence_type.value ? rule.sequence_type.value : regexRuleSequenceOptions[0].value;
+      return rule;
     });
     newOrUpdatedRule.regex_rules_attributes = rules;
   } else if(newOrUpdatedRule.rule_type === 'plagiarism') {
     newOrUpdatedRule.plagiarism_text_attributes = {
       id: plagiarismText.id,
-      text: plagiarismText.text
+      text: stripHtml(plagiarismText.text)
     };
+  } else if(newOrUpdatedRule.rule_type === AUTO_ML) {
+    newOrUpdatedRule.label_attributes = {
+      name: ruleLabelName
+    };
+    newOrUpdatedRule.prompt_ids = rulePromptIds;
   }
-
   return {
     rule: newOrUpdatedRule
   };
 }
 
-export function handleSubmitRule({
+export async function handleSubmitRule({
   plagiarismText,
-  firstPlagiarismFeedback,
-  regexFeedback,
   regexRules,
   rule,
   ruleName,
+  ruleId,
+  ruleLabelName,
   ruleConceptUID,
   ruleDescription,
   ruleOptimal,
   rulePrompts,
+  rulePromptIds,
   rulesCount,
   ruleType,
-  secondPlagiarismFeedback,
   setErrors,
   submitRule,
-  universalFeedback,
+  ruleFeedbacks,
   universalRulesCount
 }) {
   const newOrUpdatedRule = buildRule({
     plagiarismText,
-    firstPlagiarismFeedback,
-    regexFeedback,
     regexRules,
     rule,
     ruleName,
+    ruleLabelName,
     ruleConceptUID,
     ruleDescription,
     ruleOptimal,
     rulePrompts,
+    rulePromptIds,
     rulesCount,
     ruleType,
-    secondPlagiarismFeedback,
-    universalFeedback,
+    ruleFeedbacks,
     universalRulesCount
   });
   const { universal } = rule;
   let keys: string[] = ['Name', 'Concept UID'];
   let state: any[] = [ruleName, ruleConceptUID];
-  if(ruleType.value === 'rules-based') {
+  if(regexRuleTypes.includes(ruleType.value)) {
     keys.push('Regex Feedback');
-    state.push(regexFeedback.text);
+    state.push(ruleFeedbacks[0].text);
     Object.keys(regexRules).map((key, i) => {
       keys.push(`Regex rule ${i + 1}`);
       state.push(regexRules[key].regex_text);
     });
   } else if(ruleType.value === 'plagiarism') {
     keys = keys.concat(['Plagiarism Text', 'First Plagiarism Feedback', 'Second Plagiarism Feedback']);
-    state = state.concat([plagiarismText.text, firstPlagiarismFeedback.text, secondPlagiarismFeedback.text]);
+    state = state.concat([plagiarismText.text, ruleFeedbacks[0].text, ruleFeedbacks[1].text]);
+  } else if(ruleType.value === AUTO_ML) {
+    keys.push('Label Name');
+    state.push(ruleLabelName);
   }
-  if(!universal) {
+  if(!universal && ruleType.value !== AUTO_ML) {
     keys.push('Stem Applied');
     state.push(rulePrompts);
   }
@@ -404,6 +378,36 @@ export function handleSubmitRule({
   if(validationErrors && Object.keys(validationErrors).length) {
     setErrors(validationErrors);
   } else {
-    submitRule(newOrUpdatedRule);
+    setErrors({});
+    submitRule(newOrUpdatedRule, ruleId);
   }
+}
+
+export function getRulesUrl(activityId: string, promptId: string, ruleType: string) {
+  let url = `activities/${activityId}/rules`;
+  if(promptId && !ruleType) {
+    url = `rules?prompt_id=${promptId}`
+  } else if(!promptId && ruleType) {
+    url = `rules?rule_type=${ruleType}`
+  } else if(promptId && ruleType) {
+    url = `rules?prompt_id=${promptId}&rule_type=${ruleType}`
+  }
+  return url;
+}
+
+export function renderErrorsContainer(formErrorsPresent: boolean, requestErrors: string[]) {
+  if(formErrorsPresent) {
+    return(
+      <div className="error-message-container">
+        <p className="all-errors-message">Please check that all fields have been completed correctly.</p>
+      </div>
+    );
+  }
+  return(
+    <div className="error-message-container">
+      {requestErrors.map((error, i) => {
+        return <p className="all-errors-message" key={i}>{error}</p>
+      })}
+    </div>
+  )
 }

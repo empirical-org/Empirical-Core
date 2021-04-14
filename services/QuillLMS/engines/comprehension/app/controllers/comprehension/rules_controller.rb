@@ -5,9 +5,11 @@ module Comprehension
 
     # GET /rules.json
     def index
-      @rules = Comprehension::Rule.all
+      @rules = Comprehension::Rule
+      @rules = @rules.joins(:prompts_rules).where(comprehension_prompts_rules: {prompt_id: params[:prompt_id]}) if params[:prompt_id]
+      @rules = @rules.where(rule_type: params[:rule_type]) if params[:rule_type]
 
-      render json: @rules
+      render json: @rules.all
     end
 
     # GET /rules/1.json
@@ -47,10 +49,11 @@ module Comprehension
     end
 
     private def rule_params
-      params.require(:rule).permit(:name, :description, :universal, :rule_type, :optimal, :suborder, :concept_uid,
+      params.require(:rule).permit(:name, :description, :universal, :rule_type, :optimal, :state, :suborder, :concept_uid,
          prompt_ids: [],
          plagiarism_text_attributes: [:id, :text],
-         regex_rules_attributes: [:id, :regex_text, :case_sensitive],
+         regex_rules_attributes: [:id, :regex_text, :case_sensitive, :sequence_type],
+         label_attributes: [:id, :name, :state],
          feedbacks_attributes: [:id, :text, :description, :order, highlights_attributes: [:id, :text, :highlight_type, :starting_index]]
       )
     end

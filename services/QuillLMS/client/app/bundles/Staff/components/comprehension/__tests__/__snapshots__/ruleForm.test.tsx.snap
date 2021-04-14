@@ -20,6 +20,7 @@ exports[`RuleForm component should render RuleForm 1`] = `
     className="rule-form"
   >
     <RuleGenericAttributes
+      concepts={Array []}
       errors={Object {}}
       isUniversal={false}
       ruleConceptUID="a34qreadbgt6"
@@ -34,8 +35,8 @@ exports[`RuleForm component should render RuleForm 1`] = `
       }
       ruleType={
         Object {
-          "label": "Regex",
-          "value": "rules-based",
+          "label": "Sentence Structure Regex",
+          "value": "rules-based-1",
         }
       }
       setRuleConceptUID={[Function]}
@@ -46,7 +47,17 @@ exports[`RuleForm component should render RuleForm 1`] = `
     />
     <RuleRegexAttributes
       errors={Object {}}
-      regexFeedback={null}
+      regexFeedback={
+        Array [
+          Object {
+            "description": null,
+            "highlights_attributes": Array [],
+            "id": 7,
+            "order": 0,
+            "text": "Revise your work. Delete the phrase \\"it contains methane\\" because it repeats the first part of the sentence",
+          },
+        ]
+      }
       regexRules={Object {}}
       rulesToCreate={Object {}}
       rulesToDelete={Object {}}

@@ -8,7 +8,7 @@ module Comprehension
       should validate_presence_of(:text)
       should validate_length_of(:text)
         .is_at_least(1)
-        .is_at_most(500)
+        .is_at_most(5000)
       should validate_presence_of(:highlight_type)
       should validate_inclusion_of(:highlight_type)
         .in_array(Comprehension::Highlight::TYPES)

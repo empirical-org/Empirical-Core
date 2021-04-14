@@ -361,6 +361,56 @@ describe TeacherFixController do
     end
   end
 
+  describe '#merge_activity_packs' do
+    let!(:user) {create(:user)}
+    let!(:classroom) {create(:classroom)}
+    let!(:unit1) {create(:unit, user: user, classrooms: [classroom])}
+    let!(:unit2) {create(:unit, user: user, classrooms: [classroom])}
+
+    context 'when one or more unit IDs are missing' do
+      it 'should not merge activity packs' do
+        expect(TeacherFixes).to_not receive(:merge_two_units)
+        post :merge_activity_packs, from_activity_pack_id: unit1.id
+        expect(response.body).to eq({error: "Please specify an activity pack ID."}.to_json)
+      end
+    end
+
+    context 'when one or more unit IDs are invalid' do
+      it 'should not merge activity packs' do
+        expect(TeacherFixes).to_not receive(:merge_two_units)
+        post :merge_activity_packs, from_activity_pack_id: unit1.id, to_activity_pack_id: 1000000000000
+        expect(response.body).to eq({error: "The second activity pack ID is invalid."}.to_json)
+      end
+    end
+
+    context 'when the activity packs have different users' do
+      it 'should not merge activity packs' do
+        another_user = create(:user)
+        unit3 = create(:unit, user: another_user)
+        expect(TeacherFixes).to_not receive(:merge_two_units)
+        post :merge_activity_packs, from_activity_pack_id: unit1.id, to_activity_pack_id: unit3.id
+        expect(response.body).to eq({error: "The two activity packs must belong to the same teacher."}.to_json)
+      end
+    end
+
+    context 'when the activity packs have different classrooms' do
+      it 'should not merge activity packs' do
+        another_classroom = create(:classroom)
+        unit3 = create(:unit, user: user, classrooms: [another_classroom])
+        expect(TeacherFixes).to_not receive(:merge_two_units)
+        post :merge_activity_packs, from_activity_pack_id: unit1.id, to_activity_pack_id: unit3.id
+        expect(response.body).to eq({error: "The two activity packs must be assigned to the same classroom."}.to_json)
+      end
+    end
+
+    context 'when both activity packs are valid' do
+      it 'should merge the activity packs' do
+        expect(TeacherFixes).to receive(:merge_two_units).with(unit1, unit2)
+        post :merge_activity_packs, from_activity_pack_id: unit1.id, to_activity_pack_id: unit2.id
+      end
+    end
+  end
+
   describe '#merge_two_classrooms' do
     context 'when first classrooms exists' do
       let!(:classroom) { create(:classroom) }

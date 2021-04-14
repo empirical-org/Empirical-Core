@@ -9,7 +9,7 @@ import { Link } from 'react-router-dom';
 //   className?: string;
 // }
 
-const LinkListItem = (props: any) => (
+export const LinkListItem = (props: any) => (
   <li>
     <Link
       className={props.className}

@@ -21,9 +21,16 @@ exports[`Activity Form component should render Activities 1`] = `
   >
     <Input
       autoComplete="on"
+      className="name-input"
+      handleChange={[Function]}
+      label="Activity Name"
+      value=""
+    />
+    <Input
+      autoComplete="on"
       className="title-input"
       handleChange={[Function]}
-      label="Title"
+      label="Passage Title"
       value="Could Capybaras Create Chaos?"
     />
     <Input
@@ -47,6 +54,18 @@ exports[`Activity Form component should render Activities 1`] = `
       label="Parent Activity ID"
       value="17"
     />
+    <Input
+      autoComplete="on"
+      className="image-link-input"
+      handleChange={[Function]}
+      label="Image Link"
+    />
+    <Input
+      autoComplete="on"
+      className="image-alt-text-input"
+      handleChange={[Function]}
+      label="Image Alt Text"
+    />
     <p
       className="text-editor-label has-text"
     >
@@ -60,16 +79,16 @@ exports[`Activity Form component should render Activities 1`] = `
       text="..."
     />
     <p
-      className="text-editor-label "
+      className="text-editor-label has-text"
     >
-      Max Attemps Feedback
+      Max Attempts Feedback
     </p>
     <TextEditor
       ContentState={[Function]}
       EditorState={[Function]}
       handleTextChange={[Function]}
       key="max-attempt-feedback"
-      text=""
+      text="Nice effort! You worked hard to make your sentence stronger."
     />
     <PromptsForm
       activityBecausePrompt={

@@ -23,7 +23,7 @@ class Cms::UsersController < Cms::CmsController
     user_search_query = user_query_params
     user_search_query_results = user_query(user_query_params)
     user_search_query_results ||= []
-    number_of_pages = (number_of_users_matched / USERS_PER_PAGE).ceil
+    number_of_pages = (user_search_query_results.size / USERS_PER_PAGE).ceil
     render json: {numberOfPages: number_of_pages, userSearchQueryResults: user_search_query_results, userSearchQuery: user_search_query}
   end
 
@@ -94,7 +94,7 @@ class Cms::UsersController < Cms::CmsController
   end
 
   def new_subscription
-    @subscription = Subscription.new(start_date: Subscription.redemption_start_date(@user), expiration: Subscription.redemption_start_date(@user) + 1.year)
+    @subscription = Subscription.new(start_date: Subscription.redemption_start_date(@user), expiration: Subscription.default_expiration_date(@user))
   end
 
   def update
@@ -151,7 +151,7 @@ class Cms::UsersController < Cms::CmsController
   end
 
   def user_query_params
-    params.permit(@text_search_inputs.map(&:to_sym) + default_params + [:page, :user_role, :user_flag, :sort, :sort_direction, :user_premium_status])
+    params.permit(@text_search_inputs.map(&:to_sym) + default_params + [:page, :user_role, :user_flag, :sort, :sort_direction, :user_premium_status, :class_code])
   end
 
   def user_query(params)
@@ -173,7 +173,7 @@ class Cms::UsersController < Cms::CmsController
     # ADJUST THE PAGINATION QUERY STRING AS WELL.
     #
     ActiveRecord::Base.connection.execute("
-      SELECT
+      SELECT DISTINCT
       	users.name AS name,
       	users.email AS email,
       	users.role AS role,
@@ -189,6 +189,7 @@ class Cms::UsersController < Cms::CmsController
       AND user_subscriptions.created_at = (SELECT MAX(user_subscriptions.created_at) FROM user_subscriptions WHERE user_subscriptions.user_id = users.id)
       LEFT JOIN subscriptions ON user_subscriptions.subscription_id = subscriptions.id
       #{where_query_string_builder}
+      #{class_code_string_builder}
       #{order_by_query_string}
       #{pagination_query_string}
     ").to_a
@@ -242,6 +243,20 @@ class Cms::UsersController < Cms::CmsController
     end
   end
 
+  def class_code_string_builder
+    class_code = user_query_params["class_code"]
+    if class_code.present?
+      sanitized_class_code = ActiveRecord::Base.sanitize(class_code)
+      query = """AND users.id IN
+        (( SELECT user_id FROM classrooms_teachers
+        JOIN classrooms ON classrooms.id = classrooms_teachers.classroom_id
+        WHERE classrooms.code = #{sanitized_class_code}) UNION
+        ( SELECT student_id FROM students_classrooms
+        JOIN classrooms ON classrooms.id = students_classrooms.classroom_id
+        WHERE classrooms.code = #{sanitized_class_code}))"""
+    end
+  end
+
   def pagination_query_string
     page = [user_query_params[:page].to_i - 1, 0].max
     "LIMIT #{USERS_PER_PAGE} OFFSET #{USERS_PER_PAGE * page}"
@@ -257,21 +272,8 @@ class Cms::UsersController < Cms::CmsController
     end
   end
 
-  def number_of_users_matched
-    ActiveRecord::Base.connection.execute("
-      SELECT
-      	COUNT(users.id) AS count
-      FROM users
-      LEFT JOIN schools_users ON users.id = schools_users.user_id
-      LEFT JOIN schools ON schools_users.school_id = schools.id
-      LEFT JOIN user_subscriptions ON users.id = user_subscriptions.user_id
-      LEFT JOIN subscriptions ON user_subscriptions.subscription_id = subscriptions.id
-      #{where_query_string_builder}
-    ").to_a[0]['count'].to_i
-  end
-
   def set_search_inputs
-    @text_search_inputs = ['user_name', 'user_username', 'user_email', 'user_ip', 'school_name']
+    @text_search_inputs = ['user_name', 'user_username', 'user_email', 'user_ip', 'school_name', 'class_code']
     @school_premium_types = Subscription.account_types
     @user_role_types = User::ROLES
     @all_search_inputs = @text_search_inputs + ['user_premium_status', 'user_role', 'page', 'user_flag']

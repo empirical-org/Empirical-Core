@@ -14,27 +14,30 @@ import (
 )
 
 const (
-	automl_api = "https://comprehension-247816.appspot.com/feedback/ml"
-	//automl_api = "https://www.quill.org/comprehension/ml_feedback.json"
+	automl_api = "https://www.quill.org/api/v1/comprehension/feedback/automl.json"
 	grammar_check_api = "https://grammar-api.ue.r.appspot.com"
 	opinion_check_api = "https://opinion-api.ue.r.appspot.com/"
 	plagiarism_api = "https://www.quill.org/api/v1/comprehension/feedback/plagiarism.json"
-	regex_rules_api = "https://www.quill.org/api/v1/comprehension/feedback/regex.json"
-	spell_check_local = "https://us-central1-comprehension-247816.cloudfunctions.net/spell-check-cloud-function"
-	spell_check_bing = "https://us-central1-comprehension-247816.cloudfunctions.net/bing-API-spell-check"
-	batch_feedback_history_url = "https://www.quill.org/api/v1/feedback_histories/batch.json"
-	automl_index = 2
+	sentence_structure_regex_api = "https://www.quill.org/api/v1/comprehension/feedback/regex/rules-based-1.json"
+	post_topic_regex_api         = "https://www.quill.org/api/v1/comprehension/feedback/regex/rules-based-2.json"
+	typo_regex_api               = "https://www.quill.org/api/v1/comprehension/feedback/regex/rules-based-3.json"
+	spell_check_local            = "https://us-central1-comprehension-247816.cloudfunctions.net/spell-check-cloud-function"
+	spell_check_bing             = "https://www.quill.org/api/v1/comprehension/feedback/spelling.json"
+	batch_feedback_history_url   = "https://www.quill.org/api/v1/feedback_histories/batch.json"
+	automl_index                 = 3
 )
 
 var wg sync.WaitGroup
 
 var urls = [...]string{
+	sentence_structure_regex_api,
 	opinion_check_api,
 	plagiarism_api,
 	automl_api,
-	regex_rules_api,
+	post_topic_regex_api,
 	grammar_check_api,
 	spell_check_bing,
+	typo_regex_api,
 }
 
 // you can't use const for structs, so this is the closest thing we can get for this value
@@ -171,6 +174,11 @@ func identifyUsedFeedbackIndex(feedbacks map[int]InternalAPIResponse) int {
 		if !feedback.Error && !feedback.APIResponse.Optimal {
 			return key
 		}
+	}
+	// If none of the feedbacks are non-optimal, check to see if automl is feedback
+	// is not optimal and not in error.  Because if it so, that's the feedback we'll use
+	if !feedbacks[automl_index].Error && feedbacks[automl_index].APIResponse.Optimal {
+		return automl_index
 	}
 	// We use -1 as the return value if we couldn't find an index since
 	// it should correspond to no index

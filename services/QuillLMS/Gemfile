@@ -143,6 +143,7 @@ gem 'rack-heartbeat'
 gem 'clever-ruby', '~> 2.0.1'
 
 group :production, :staging do
+  gem 'rails_autoscale_agent'
   gem 'rails_12factor'
   gem 'lograge' # for making logs more dense
   # gem 'rack-timeout'
@@ -165,7 +166,7 @@ gem 'awesome_print'
 group :test, :development do
   gem 'quiet_assets'
   gem 'parallel_tests'
-  gem 'pry'
+  gem 'pry', '~> 0.12.2'
   gem 'pry-rails'
   gem 'pry-remote'
   gem 'pry-stack_explorer'
@@ -203,6 +204,9 @@ group :test do
   gem 'simplecov-json', require: false
   gem 'codecov'
   gem 'fakeredis', '~> 0.7.0'
+
+  # Remove this gem after upgrading to Rails 5
+  gem 'test_after_commit'
 end
 
 # Memory profiling

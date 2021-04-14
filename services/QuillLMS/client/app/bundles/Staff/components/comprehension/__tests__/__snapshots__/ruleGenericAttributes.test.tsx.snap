@@ -11,8 +11,16 @@ exports[`RuleGenericAttributes component should render RuleGenericAttributes 1`]
     options={
       Array [
         Object {
-          "label": "Regex",
-          "value": "rules-based",
+          "label": "Sentence Structure Regex",
+          "value": "rules-based-1",
+        },
+        Object {
+          "label": "Post-Topic Regex",
+          "value": "rules-based-2",
+        },
+        Object {
+          "label": "Typo Regex",
+          "value": "rules-based-3",
         },
         Object {
           "label": "Plagiarism",
@@ -34,12 +42,23 @@ exports[`RuleGenericAttributes component should render RuleGenericAttributes 1`]
     label="Name"
     value="generic rule 17"
   />
-  <Input
-    autoComplete="on"
+  <DropdownInput
     className="concept-uid-input"
     handleChange={[Function]}
-    label="Concept UID"
-    value="test-id"
+    isSearchable={true}
+    label="Concept"
+    options={
+      Array [
+        Object {
+          "label": "A | Concept | Name",
+          "value": "blah",
+        },
+        Object {
+          "label": "Another | Concept | Name",
+          "value": "blahblah",
+        },
+      ]
+    }
   />
   <DropdownInput
     className="rule-type-input"
@@ -60,6 +79,20 @@ exports[`RuleGenericAttributes component should render RuleGenericAttributes 1`]
     }
     value={false}
   />
+  <section
+    className="label-status-container"
+  >
+    <p
+      id="label-status-label"
+    >
+      Rule ID
+    </p>
+    <p
+      id="label-status"
+    >
+      17
+    </p>
+  </section>
   <p
     className="form-subsection-label"
   >

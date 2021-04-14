@@ -1,11 +1,11 @@
 import React from 'react';
 import { mount, } from 'enzyme';
 
-import StudentProfileUnits from '../student_profile_units';
-import StudentProfileUnit from '../student_profile_unit';
 import { activities } from './test_data'
 
-import { ALL_ACTIVITIES, TO_DO_ACTIVITIES, COMPLETED_ACTIVITIES, } from '../../../../../constants/student_profile'
+import StudentProfileUnits from '../student_profile_units';
+import StudentProfileUnit from '../student_profile_unit';
+import { TO_DO_ACTIVITIES, COMPLETED_ACTIVITIES, } from '../../../../../constants/student_profile'
 
 describe('StudentProfileUnits component', () => {
 
@@ -24,20 +24,6 @@ describe('StudentProfileUnits component', () => {
     expect(wrapper.find(StudentProfileUnit).at(0).props().data.incomplete[1].unit_name).toBe('Same ID');
     expect(wrapper.find(StudentProfileUnit).at(1).props().data.incomplete[0].unit_name).toBe('Different');
   });
-
-  it('should render all activities and units if the active tab is all activities', () => {
-    const wrapper = mount(<StudentProfileUnits
-      activeClassworkTab={ALL_ACTIVITIES}
-      data={activities}
-      teacherName="Emilia F"
-    />)
-
-    const uniqueUnitIds = Array.from(new Set(activities.map(act => act.unit_id)))
-
-    expect(wrapper).toMatchSnapshot()
-    expect(wrapper.find(StudentProfileUnit).length).toBe(uniqueUnitIds.length)
-    expect(wrapper.find('.data-table-row').length).toBe(activities.length)
-  })
 
   it('should render only incomplete activities if the active tab is to-do activities', () => {
     const incompleteActivities = activities.filter(act => !act.max_percentage)
@@ -71,7 +57,7 @@ describe('StudentProfileUnits component', () => {
 
   it('should render the pinned activity bar if there is a pinned activity', () => {
     const wrapper = mount(<StudentProfileUnits
-      activeClassworkTab={ALL_ACTIVITIES}
+      activeClassworkTab={TO_DO_ACTIVITIES}
       data={activities}
       teacherName="Emilia F"
     />)
@@ -82,7 +68,7 @@ describe('StudentProfileUnits component', () => {
 
   it('should render the pinned activity modal if there is a pinned activity', () => {
     const wrapper = mount(<StudentProfileUnits
-      activeClassworkTab={ALL_ACTIVITIES}
+      activeClassworkTab={TO_DO_ACTIVITIES}
       data={activities}
       teacherName="Emilia F"
     />)
@@ -93,7 +79,7 @@ describe('StudentProfileUnits component', () => {
 
   it('should not render the pinned activity modal if there is no pinned activity', () => {
     const wrapper = mount(<StudentProfileUnits
-      activeClassworkTab={ALL_ACTIVITIES}
+      activeClassworkTab={TO_DO_ACTIVITIES}
       data={activities.filter(act => act.pinned === 'f')}
       teacherName="Emilia F"
     />)
@@ -104,7 +90,7 @@ describe('StudentProfileUnits component', () => {
 
   it('should not render the pinned activity modal if there is no pinned activity', () => {
     const wrapper = mount(<StudentProfileUnits
-      activeClassworkTab={ALL_ACTIVITIES}
+      activeClassworkTab={TO_DO_ACTIVITIES}
       data={activities.filter(act => act.pinned === 'f')}
       teacherName="Emilia F"
     />)

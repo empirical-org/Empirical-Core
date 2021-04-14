@@ -1,7 +1,7 @@
 FactoryBot.define do
   factory :comprehension_activity, class: 'Comprehension::Activity' do
-    title { "MyString" }
-    sequence(:parent_activity_id)
+    sequence(:title) {|n| "MyString #{n}" }
+    sequence(:name) {|n| "MyString #{n}" }
     target_level { 1 }
   end
 end

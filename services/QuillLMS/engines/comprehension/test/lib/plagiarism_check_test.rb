@@ -29,7 +29,7 @@ module Comprehension
         entry = "these are some response words to plagiarize"
         passage = "it is always bad to plagiarize"
         feedback = "this is some standard plagiarism feedback"
-        optimal_rule = create(:comprehension_rule, rule_type: 'Plagiarism', optimal: true)
+        optimal_rule = create(:comprehension_rule, rule_type: 'plagiarism', optimal: true)
         plagiarism_check = Comprehension::PlagiarismCheck.new(entry, passage, feedback, @rule)
         feedback = plagiarism_check.feedback_object
         assert feedback[:feedback], Comprehension::PlagiarismCheck::ALL_CORRECT_FEEDBACK

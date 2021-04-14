@@ -99,6 +99,17 @@
     background-color: white;
     .college-board-activities-section {
       padding: 80px 0px 40px 0px;
+      .college-board-activity-tag {
+        border-radius: 6px;
+        border: solid 1px #e2c447;
+        background-color: #fdf1be;
+        font-size: 16px;
+        font-weight: 600;
+        color: black;
+        text-align: center;
+        padding: 3px 16px 3px 16px;
+        margin: 0px 3px 0px 3px;
+      }
       .header {
         display: flex;
         flex-direction: column;
@@ -131,23 +142,14 @@
           color: black;
           margin-right: 10px;
         }
-        .college-board-activity-tag {
-          border-radius: 6px;
-          border: solid 1px #e2c447;
-          background-color: #fdf1be;
-          font-size: 16px;
-          font-weight: 600;
-          color: black;
-          text-align: center;
-          padding: 3px 16px 3px 16px;
-          margin: 0px 3px 0px 3px;
-        }
       }
       .activity-container {
         margin-bottom: 20px;
         border-radius: 6px;
         border: solid 1px #e0e0e0;
         padding-top: 20px;
+        display: flex;
+        flex-direction: column;
         .activity-header-container {
           display: flex;
           align-items: baseline;
@@ -211,6 +213,10 @@
               font-weight: bold;
               color: black;
               padding-bottom: 8px;
+              display: flex;
+              span {
+                margin-right: 16px;
+              }
             }
             .unit-sub-header-container {
               display: flex;

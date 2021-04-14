@@ -8,18 +8,17 @@ import { ActivityInterface } from '../../interfaces/comprehensionInterfaces';
 import { fetchActivities } from '../../utils/comprehension/activityAPIs';
 import { DataTable, Error, Spinner } from '../../../Shared/index';
 
-const Activities = ({ location, match, type }) => {
+const Activities = ({ location, match }) => {
 
   // cache activity data for updates
   const { data } = useQuery("activities", fetchActivities);
 
   const formattedRows = data && data.activities && data.activities.map((activity: ActivityInterface) => {
-    const { id,  title } = activity;
-    const link = type === 'sessions' ? `/activity-sessions/${id}` : `/activities/${id}`
-    const activityLink = (<Link to={link}>{title}</Link>);
+    const { id,  name, } = activity;
+    const activityLink = (<Link to={`/activities/${id}`}>{name}</Link>);
     return {
       id,
-      title: activityLink
+      name: activityLink
     }
   });
 
@@ -43,7 +42,7 @@ const Activities = ({ location, match, type }) => {
   }
 
   const dataTableFields = [
-    { name: "Title", attribute:"title", width: "900px" }
+    { name: "Name", attribute:"name", width: "900px" }
   ];
 
   return(<React.Fragment>
@@ -51,7 +50,7 @@ const Activities = ({ location, match, type }) => {
     <div className="activities-container">
       <DataTable
         className="activities-table"
-        defaultSortAttribute="title"
+        defaultSortAttribute="name"
         headers={dataTableFields}
         rows={formattedRows ? formattedRows : []}
       />

@@ -65,9 +65,14 @@ export const readingLevelOptions = [
   },
 ];
 
+export const regexRuleTypes = ["rules-based-1", "rules-based-2", "rules-based-3"];
+
 export const ruleTypeOptions = [
-  {"value":"rules-based","label":"Regex"},
-  {"value":"plagiarism","label":"Plagiarism"}
+  {"value":"rules-based-1","label":"Sentence Structure Regex"},
+  {"value":"rules-based-2","label":"Post-Topic Regex"},
+  {"value":"rules-based-3","label":"Typo Regex"},
+  {"value":"plagiarism","label":"Plagiarism"},
+  {"value":"autoML","label":"AutoML"},
 ];
 
 export const universalRuleTypeOptions = [
@@ -87,6 +92,11 @@ export const ruleOptimalOptions = [
   {"value":"","label":"Sub-Optimal"}
 ];
 
+export const regexRuleSequenceOptions = [
+  {"value":"incorrect","label":"Incorrect"},
+  {"value":"required","label":"Required"}
+];
+
 export const ruleOrder = {
   'AutoML': 1,
   'Grammar': 2,
@@ -99,6 +109,7 @@ export const ruleOrder = {
 export const BECAUSE = 'because';
 export const BUT = 'but';
 export const SO = 'so';
+export const ALL = 'all';
 export const promptStems = [BECAUSE, BUT, SO];
 export const DEFAULT_MAX_ATTEMPTS = 5;
 export const FIRST = 'first';
@@ -132,9 +143,13 @@ export const PROMPT_HEADER_LABELS = {
   "but": 'But Responses',
   "so": 'So Responses',
 }
+export const AUTO_ML = 'autoML';
+export const ACTIVE = 'active';
+export const INACTIVE = 'inactive';
 
 export const blankActivity = {
   title: '',
+  name: '',
   // flag:'',
   scored_level: '',
   target_level: null,
@@ -144,28 +159,28 @@ export const blankActivity = {
       conjunction: 'because',
       text: '',
       max_attempts: 5,
-      max_attempts_feedback: 'try again.',
       plagiarism_text: '',
       plagiarism_first_feedback: '',
-      plagiarism_second_feedback: ''
+      plagiarism_second_feedback: '',
+      max_attempts_feedback: 'Nice effort! You worked hard to make your sentence stronger.'
     },
     {
       conjunction: 'but',
       text: '',
       max_attempts: 5,
-      max_attempts_feedback: 'try again.',
       plagiarism_text: '',
       plagiarism_first_feedback: '',
-      plagiarism_second_feedback: ''
+      plagiarism_second_feedback: '',
+      max_attempts_feedback: 'Nice effort! You worked hard to make your sentence stronger.'
     },
     {
       conjunction: 'so',
       text: '',
       max_attempts: 5,
-      max_attempts_feedback: 'try again.',
       plagiarism_text: '',
       plagiarism_first_feedback: '',
-      plagiarism_second_feedback: ''
+      plagiarism_second_feedback: '',
+      max_attempts_feedback: 'Nice effort! You worked hard to make your sentence stronger.'
     }
   ]
 }
@@ -176,6 +191,7 @@ export const blankRule = {
   universal: false,
   rule_type: '',
   optimal: false,
+  state: 'active',
   suborder: 0,
   concept_uid: 'Kr8PdUfXnU0L7RrGpY4uqg',
   prompt_ids: []
@@ -188,6 +204,7 @@ export const blankUniversalRule = {
   rule_type: '',
   optimal: false,
   suborder: 0,
+  state: 'active',
   concept_uid: 'Kr8PdUfXnU0L7RrGpY4uqg',
   feedbacks: [
     {
@@ -199,6 +216,7 @@ export const blankUniversalRule = {
 }
 
 export const TITLE = 'Title';
+export const NAME = 'Name';
 export const SCORED_READING_LEVEL = 'Scored reading level';
 export const TARGET_READING_LEVEL = 'Target reading level';
 export const PARENT_ACTIVITY_ID = 'Parent activity ID'
@@ -207,8 +225,11 @@ export const MAX_ATTEMPTS_FEEDBACK = 'Max attempts feedback';
 export const BECAUSE_STEM = 'Because stem';
 export const BUT_STEM = 'But stem';
 export const SO_STEM = 'So stem';
+export const IMAGE_LINK = 'Image link'
+export const IMAGE_ALT_TEXT = 'Image alt text'
 
 export const activityFormKeys = [
+  NAME,
   TITLE,
   SCORED_READING_LEVEL,
   TARGET_READING_LEVEL,
@@ -217,7 +238,9 @@ export const activityFormKeys = [
   MAX_ATTEMPTS_FEEDBACK,
   BECAUSE_STEM,
   BUT_STEM,
-  SO_STEM
+  SO_STEM,
+  IMAGE_LINK,
+  IMAGE_ALT_TEXT,
 ];
 
 export const MINIMUM_READING_LEVEL = 4;

@@ -30,15 +30,17 @@ interface PromptStepState {
 
 const RESPONSE = 'response'
 
-export default class PromptStep extends React.Component<PromptStepProps, PromptStepState> {
+export class PromptStep extends React.Component<PromptStepProps, PromptStepState> {
   private editor: any // eslint-disable-line react/sort-comp
 
   constructor(props: PromptStepProps) {
     super(props)
 
+    const { submittedResponses, } = this.props
+
     this.state = {
-      html: this.formattedPrompt(),
-      numberOfSubmissions: 0,
+      html: this.formattedPrompt(submittedResponses),
+      numberOfSubmissions: submittedResponses.length,
       customFeedback: null,
       customFeedbackKey: null
     };
@@ -57,9 +59,18 @@ export default class PromptStep extends React.Component<PromptStepProps, PromptS
     return submittedResponses.map(r => r.entry).concat(text)
   }
 
-  stripHtml = (html: string) => html.replace(/<p>|<\/p>|<u>|<\/u>|<b>|<\/b>/g, '').replace(/&nbsp;/g, ' ')
+  stripHtml = (html: string) => html.replace(/<p>|<\/p>|<u>|<\/u>|<b>|<\/b>|<br>|<br\/>/g, '').replace(/&nbsp;/g, ' ')
 
-  formattedPrompt = () => {
+  formattedPrompt = (submittedResponses?: Array<string>) => {
+    if (submittedResponses && submittedResponses.length) {
+      const lastSubmission = submittedResponses[submittedResponses.length - 1]
+      const formattedText = this.formatHtmlForEditorContainer(lastSubmission.entry, true)
+      return formattedText.htmlWithBolding
+    }
+    return this.formattedStem()
+  }
+
+  formattedStem = () => {
     const { prompt, } = this.props
     const { text } = prompt
     return `<p>${this.allButLastWord(text)} <u>${this.lastWord(text)}</u>&nbsp;</p>`
@@ -70,8 +81,7 @@ export default class PromptStep extends React.Component<PromptStepProps, PromptS
   lastWord = (str: string) => str.substring(str.lastIndexOf(' ') + 1)
 
   textWithoutStem = (text: string) => {
-    const formattedPrompt = this.formattedPrompt().replace(/<p>|<\/p>|<br>/g, '')
-    const regex = new RegExp(`^${formattedPrompt}`)
+    const regex = this.promptAsRegex()
     return text.replace(regex, '')
   }
 
@@ -103,12 +113,21 @@ export default class PromptStep extends React.Component<PromptStepProps, PromptS
     return newString
   }
 
+  htmlStrippedPrompt = (escapeRegexCharacters=false) => {
+    const strippedPrompt = this.formattedStem().replace(/<p>|<\/p>|<br>/g, '')
+    if (escapeRegexCharacters) {
+      return strippedPrompt.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'); // $& means the whole matched string
+    }
+    return strippedPrompt
+  }
+
+  promptAsRegex = () => new RegExp(`^${this.htmlStrippedPrompt(true)}`)
+
   onTextChange = (e) => {
     const { html, } = this.state
     const { value, } = e.target
     const text = value.replace(/<b>|<\/b>|<p>|<\/p>|<br>/g, '')
-    const formattedPrompt = this.formattedPrompt().replace(/<p>|<\/p>|<br>/g, '')
-    const regex = new RegExp(`^${formattedPrompt}`)
+    const regex = this.promptAsRegex()
     const caretPosition = EditCaretPositioning.saveSelection(this.editor)
     if (text.match(regex)) {
       this.setState({ html: value, }, () => EditCaretPositioning.restoreSelection(this.editor, caretPosition))
@@ -120,13 +139,13 @@ export default class PromptStep extends React.Component<PromptStepProps, PromptS
 
       // handles case where change is only in the formatted prompt part
       if (splitSubmission.length > 1) {
-        const newValue = `${formattedPrompt}${splitSubmission[1]}`
+        const newValue = `${this.htmlStrippedPrompt()}${splitSubmission[1]}`
         this.setState({ html: newValue}, () => {
           this.editor.innerHTML = newValue
         })
       // student overwrote or deleted both part of their submission and the formatted prompt and the solution is much more complicated
       } else {
-        const formattedPromptWordArray = formattedPrompt.split(' ')
+        const formattedPromptWordArray = this.htmlStrippedPrompt().split(' ')
         const textWordArray = text.replace(/&nbsp;/g, ' ').split(' ')
 
         // if the user has tried to edit part of the original prompt, we find the words in their submission that are different from the original prompt
@@ -171,7 +190,7 @@ export default class PromptStep extends React.Component<PromptStepProps, PromptS
   }
 
   resetText = () => {
-    const html = this.formattedPrompt()
+    const html = this.formattedStem()
     this.setState({ html }, () => this.editor.innerHTML = html)
   }
 
@@ -204,6 +223,17 @@ export default class PromptStep extends React.Component<PromptStepProps, PromptS
     const { completeStep, stepNumber, } = this.props
 
     completeStep(stepNumber)
+  }
+
+  formatHtmlForEditorContainer = (html: string, active: boolean) => {
+    const { prompt, } = this.props
+    const text = html.replace(/<b>|<\/b>|<p>|<\/p>|<br>|<u>|<\/u>/g, '').replace('&nbsp;', '')
+    const textWithoutStem = text.replace(prompt.text, '').trim()
+    const spaceAtEnd = text.match(/\s$/m) ? '&nbsp;' : ''
+    return {
+      htmlWithBolding: active ? `<p>${this.htmlStrippedPrompt()}${this.formatStudentResponse(textWithoutStem)}${spaceAtEnd}</p>` : `<p>${textWithoutStem}</p>`,
+      rawTextWithoutStem: textWithoutStem
+    }
   }
 
   renderButton = () => {
@@ -257,19 +287,15 @@ export default class PromptStep extends React.Component<PromptStepProps, PromptS
       className += ' suboptimal'
     }
 
-    const text = html.replace(/<b>|<\/b>|<p>|<\/p>|<br>/g, '')
-    const formattedPrompt = this.formattedPrompt().replace(/<p>|<\/p>|<br>/g, '')
-    const regex = new RegExp(`^${formattedPrompt}`)
-    const textWithoutStem = text.replace(regex, '')
-    const spaceAtEnd = text.match(/\s$/m) ? '&nbsp;' : ''
-    const htmlWithBolding = active ? `<p>${formattedPrompt}${this.formatStudentResponse(textWithoutStem)}${spaceAtEnd}</p>` : `<p>${textWithoutStem}</p>`
+    const formattedText = this.formatHtmlForEditorContainer(html, active)
+
     return (<EditorContainer
       className={className}
       disabled={disabled}
       handleTextChange={this.onTextChange}
-      html={htmlWithBolding}
+      html={formattedText.htmlWithBolding}
       innerRef={this.setEditorRef}
-      isResettable={!!textWithoutStem.length}
+      isResettable={!!formattedText.rawTextWithoutStem.length}
       promptText={prompt.text}
       resetText={this.resetText}
       stripHtml={this.stripHtml}
@@ -320,3 +346,5 @@ export default class PromptStep extends React.Component<PromptStepProps, PromptS
     </div>)
   }
 }
+
+export default PromptStep

@@ -312,11 +312,11 @@ module Teacher
   end
 
   def updated_school(school_id)
-    school = School.find(school_id)
+    school = School.find_by(id: school_id)
     if subscription && subscription.school_subscriptions.any? && !has_matching_subscription?(id, school&.subscription&.id)
       # then they were previously in a school with a subscription, so we destroy the relationship
       UserSubscription.find_by(user_id: id, subscription_id: subscription.id).destroy
-    elsif self&.subscription&.account_type == "Purchase Missing School"
+    elsif school && self&.subscription&.account_type == "Purchase Missing School"
       SchoolSubscription.create(school_id: school_id, subscription_id: subscription.id)
     end
     if school && school.subscription
@@ -365,6 +365,12 @@ module Teacher
     else
       nil
     end
+  end
+
+  def unlink
+    self.school = nil
+    updated_school(nil)
+    save
   end
 
   def premium_updated_or_created_today?

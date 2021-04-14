@@ -10,21 +10,42 @@ import {
   MINIMUM_READING_LEVEL,
   MAXIMUM_READING_LEVEL,
   TARGET_READING_LEVEL,
-  SCORED_READING_LEVEL
+  PARENT_ACTIVITY_ID,
+  SCORED_READING_LEVEL,
+  IMAGE_LINK,
+  IMAGE_ALT_TEXT
 } from '../../../constants/comprehension';
 import { PromptInterface } from '../interfaces/comprehensionInterfaces'
 
-const quillCheckmark = 'https://assets.quill.org/images/icons/check-circle-small.svg';
-const baseUrl = `${process.env.DEFAULT_URL}/api/v1/comprehension/`;
+const quillCheckmark = `/images/green_check.svg`;
+const quillX = '/images/red_x.svg';
+const mainBaseUrl = `${process.env.DEFAULT_URL}/api/v1/`;
+const comprehensionBaseUrl = `${mainBaseUrl}comprehension/`;
 const fetchDefaults = require("fetch-defaults");
 
-export const apiFetch = fetchDefaults(fetch, baseUrl, {
+const headerHash = {
   headers: {
     "Accept": "application/JSON",
     "Content-Type": "application/json",
     "X-CSRF-Token": localStorage.getItem('csrfToken')
   }
-})
+}
+
+export const apiFetch = fetchDefaults(fetch, comprehensionBaseUrl, headerHash)
+
+export const mainApiFetch = fetchDefaults(fetch, mainBaseUrl, headerHash)
+
+export function getModelsUrl(promptId: string, state: string) {
+  let url = 'automl_models';
+  if(promptId && !state) {
+    url = url + `?prompt_id=${promptId}`;
+  } else if(!promptId && state) {
+    url = url + `?state=${state}`;
+  } else if(promptId && state) {
+    url = url + `?prompt_id=${promptId}&state=${state}`;
+  }
+  return url;
+}
 
 export const getPromptsIcons = (activityData, promptIds: number[]) => {
   if(activityData && activityData.activity && activityData.activity.prompts) {
@@ -45,13 +66,20 @@ export const getPromptsIcons = (activityData, promptIds: number[]) => {
   return {};
 }
 
-export const getUniversalIcon = (universal: boolean) => {
-  if(universal) {
+export const getCheckIcon = (value: boolean) => {
+  if(value) {
     return (<img alt="quill-circle-checkmark" src={quillCheckmark} />)
   } else {
-    return (<div />);
+    return (<img alt="quill-circle-checkmark" src={quillX} />);
   }
 }
+// export const getXIcon = (value: boolean) => {
+//   if(value) {
+//     return (<img alt="quill-circle-checkmark" src={quillX} />)
+//   } else {
+//     return (<div />);
+//   }
+// }
 
 export const buildBlankPrompt = (conjunction: string) => {
   return {
@@ -66,6 +94,7 @@ export const buildBlankPrompt = (conjunction: string) => {
 }
 
 export const buildActivity = ({
+  activityName,
   activityTitle,
   activityScoredReadingLevel,
   activityTargetReadingLevel,
@@ -78,8 +107,11 @@ export const buildActivity = ({
 }) => {
   // const { label } = activityFlag;
   const prompts = [activityBecausePrompt, activityButPrompt, activitySoPrompt];
+  const maxFeedback = activityMaxFeedback || 'Nice effort! You worked hard to make your sentence stronger.';
+  prompts.forEach(prompt => prompt.max_attempts_feedback = maxFeedback);
   return {
     activity: {
+      name: activityName,
       title: activityTitle,
       parent_activity_id: parseInt(activityParentActivityId),
       // flag: label,
@@ -112,24 +144,22 @@ export const formatPrompts = ({ activityData, rule, setRulePrompts }) => {
   setRulePrompts(formatted);
 }
 
-export const formatRegexRules = ({ rule, setRegexRules }) => {
-  let formatted = {};
-  rule && rule.regex_rules && rule.regex_rules.map((rule, i) => {
-    const { case_sensitive, id, regex_text } = rule;
-    const formattedRule = {
-      id: id,
-      case_sensitive: case_sensitive,
-      regex_text: regex_text
-    }
-    formatted[`regex-rule-${i}`] = formattedRule;
-  });
-  setRegexRules(formatted);
-}
-
 export const promptsByConjunction = (prompts: PromptInterface[]) => {
   const formattedPrompts = {};
   prompts && prompts.map((prompt: PromptInterface) => formattedPrompts[prompt.conjunction] = prompt);
   return formattedPrompts;
+}
+
+export function getPromptForComponent(activityData: any, key: string) {
+  if(!activityData || activityData && !activityData.activity) {
+    return null;
+  }
+  const { activity } = activityData;
+  const { prompts } = activity;
+  const promptsHash = {};
+  prompts.forEach(prompt => promptsHash[prompt.conjunction] = [prompt]);
+  promptsHash['all'] = [promptsHash[BECAUSE][0], promptsHash[BUT][0], promptsHash[SO][0]];
+  return promptsHash[key];
 }
 
 export function getActivityPrompt({
@@ -210,6 +240,9 @@ export const validateForm = (keys: string[], state: any[]) => {
   let errors = {};
   state.map((value, i) => {
     switch(keys[i]) {
+      case IMAGE_LINK:
+      case IMAGE_ALT_TEXT:
+        break;
       case TARGET_READING_LEVEL:
         const targetError = targetReadingLevelError(value);
         if(targetError) {
@@ -233,6 +266,9 @@ export const validateForm = (keys: string[], state: any[]) => {
           errors[keys[i]] = 'Concept UID cannot be blank. Default for plagiarism rules is "Kr8PdUfXnU0L7RrGpY4uqg"'
         }
         break;
+      case PARENT_ACTIVITY_ID:
+        // this field is not required
+        break;
       default:
         const strippedValue = value && stripHtml(value);
         if(!strippedValue || strippedValue.length === 0) {
@@ -255,6 +291,16 @@ export const handleApiError = (errorMessage: string, response: any) => {
     error = errorMessage;
   }
   return error;
+}
+
+export const handleRequestErrors = async (errors: object) => {
+  let errorsArray = [];
+  if(errors) {
+    Object.keys(errors).forEach(key => {
+      errorsArray.push(`${key}: ${errors[key]}`);
+    });
+  }
+  return errorsArray;
 }
 
 export const getCsrfToken = () => {

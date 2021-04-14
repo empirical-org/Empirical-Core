@@ -10,16 +10,16 @@ const subStrings = [
 ];
 
 const subStringsToText = {
-  ' ,': 'comma',
-  ' .': 'period',
-  ' ;': 'semi-colon',
-  ' !': 'exclamation mark',
-  ' ?': 'question mark',
+  ' ,': 'a comma',
+  ' .': 'a period',
+  ' ;': 'a semi-colon',
+  ' !': 'an exclamation mark',
+  ' ?': 'a question mark',
 };
 
 export function getFeedbackForPunc(punc: string):string {
   const fb = subStringsToText[punc];
-  return `<p>Revise your sentence. You don't need to have a space before a <em>${fb}</em>.</p>`;
+  return `<p>Revise your sentence. You don't need to have a space before ${fb}.</p>`;
 }
 
 export function checkForSpacingError(userString: string):string {

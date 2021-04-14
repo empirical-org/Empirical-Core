@@ -444,7 +444,7 @@ exports[`PreAp component should render when it is not part of the assignment flo
               Some of your students may benefit from more opportunities to practice a skill after they have completed the activities recommended based on their writing skills survey results. In that case, you can assign a second set of independent practice activities: same skills, new content.
               <a
                 className="focus-on-light"
-                href="https://assets.quill.org/documents/additional_practice_packs.pdf"
+                href="https://support.quill.org/en/articles/4579893-how-do-i-assign-additional-practice-packs-for-pre-ap-skills-surveys"
                 rel="noopener noreferrer"
                 target="_blank"
               >
@@ -560,7 +560,9 @@ exports[`PreAp component should render when it is not part of the assignment flo
                     <p
                       className="unit-title"
                     >
-                      Unit 1: Telling Details
+                      <span>
+                        Unit 1: Telling Details
+                      </span>
                     </p>
                     <div
                       className="unit-sub-header-container"
@@ -876,7 +878,9 @@ exports[`PreAp component should render when it is not part of the assignment flo
                     <p
                       className="unit-title"
                     >
-                      Unit 2: Pivotal Words and Phrases
+                      <span>
+                        Unit 2: Pivotal Words and Phrases
+                      </span>
                     </p>
                     <div
                       className="unit-sub-header-container"
@@ -1192,7 +1196,9 @@ exports[`PreAp component should render when it is not part of the assignment flo
                     <p
                       className="unit-title"
                     >
-                      Unit 3: Compelling Evidence
+                      <span>
+                        Unit 3: Compelling Evidence
+                      </span>
                     </p>
                     <div
                       className="unit-sub-header-container"
@@ -1508,7 +1514,9 @@ exports[`PreAp component should render when it is not part of the assignment flo
                     <p
                       className="unit-title"
                     >
-                      Unit 4: Powerful Openings
+                      <span>
+                        Unit 4: Powerful Openings
+                      </span>
                     </p>
                     <div
                       className="unit-sub-header-container"
@@ -2766,7 +2774,7 @@ exports[`PreAp component should render when it is part of the assignment flow 1`
               Some of your students may benefit from more opportunities to practice a skill after they have completed the activities recommended based on their writing skills survey results. In that case, you can assign a second set of independent practice activities: same skills, new content.
               <a
                 className="focus-on-light"
-                href="https://assets.quill.org/documents/additional_practice_packs.pdf"
+                href="https://support.quill.org/en/articles/4579893-how-do-i-assign-additional-practice-packs-for-pre-ap-skills-surveys"
                 rel="noopener noreferrer"
                 target="_blank"
               >
@@ -2883,7 +2891,9 @@ exports[`PreAp component should render when it is part of the assignment flow 1`
                     <p
                       className="unit-title"
                     >
-                      Unit 1: Telling Details
+                      <span>
+                        Unit 1: Telling Details
+                      </span>
                     </p>
                     <div
                       className="unit-sub-header-container"
@@ -3200,7 +3210,9 @@ exports[`PreAp component should render when it is part of the assignment flow 1`
                     <p
                       className="unit-title"
                     >
-                      Unit 2: Pivotal Words and Phrases
+                      <span>
+                        Unit 2: Pivotal Words and Phrases
+                      </span>
                     </p>
                     <div
                       className="unit-sub-header-container"
@@ -3517,7 +3529,9 @@ exports[`PreAp component should render when it is part of the assignment flow 1`
                     <p
                       className="unit-title"
                     >
-                      Unit 3: Compelling Evidence
+                      <span>
+                        Unit 3: Compelling Evidence
+                      </span>
                     </p>
                     <div
                       className="unit-sub-header-container"
@@ -3834,7 +3848,9 @@ exports[`PreAp component should render when it is part of the assignment flow 1`
                     <p
                       className="unit-title"
                     >
-                      Unit 4: Powerful Openings
+                      <span>
+                        Unit 4: Powerful Openings
+                      </span>
                     </p>
                     <div
                       className="unit-sub-header-container"
@@ -4901,7 +4917,7 @@ exports[`PreAp component should render with no units 1`] = `
               Some of your students may benefit from more opportunities to practice a skill after they have completed the activities recommended based on their writing skills survey results. In that case, you can assign a second set of independent practice activities: same skills, new content.
               <a
                 className="focus-on-light"
-                href="https://assets.quill.org/documents/additional_practice_packs.pdf"
+                href="https://support.quill.org/en/articles/4579893-how-do-i-assign-additional-practice-packs-for-pre-ap-skills-surveys"
                 rel="noopener noreferrer"
                 target="_blank"
               >

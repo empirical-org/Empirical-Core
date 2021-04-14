@@ -9,6 +9,8 @@ gemspec
 # your gemspec. These might include edge Rails or gems from your path or
 # Git. Remember to move these dependencies to your gemspec before releasing
 # your gem to rubygems.org.
+gem 'google-cloud-automl'
+gem 'httparty'
 gem 'redis'
 gem 'redis-namespace'
 gem 'redis-rails'
@@ -17,8 +19,10 @@ gem 'redis-rails'
 gem 'byebug', group: [:development, :test]
 
 group :test do
+  gem 'minitest-stub_any_instance'
   gem 'pry', '~> 0.13.1'
   gem 'rails-controller-testing'
   gem 'shoulda'
   gem 'shoulda-matchers', '~> 2.0'
+  gem 'webmock'
 end

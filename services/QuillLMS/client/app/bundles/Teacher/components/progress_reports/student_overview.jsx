@@ -37,8 +37,6 @@ export default class extends React.Component {
     if (children) {
       return children;
     }
-
-    return this.defaultBackButton();
   };
 
   calculateCountAndAverage = () => {
@@ -59,18 +57,6 @@ export default class extends React.Component {
       average = `${Math.round((cumulativeScore / countForAverage) * 100)}%`;
     }
     return { count, average, };
-  };
-
-  defaultBackButton = () => {
-    const imageSrc = 'https://assets.quill.org/images/icons/chevron-dark-green.svg';
-    const previousLocation = this.props.previousLocation ||
-      '/teachers/progress_reports/activities_scores_by_classroom';
-
-    return (
-      <a className="navigate-back" href={previousLocation}>
-        <img alt="" src={imageSrc} /> Back to Activity Scores
-      </a>
-    );
   };
 
   grayAndYellowStat(grayContent, yellowContent, optionalClassName) {

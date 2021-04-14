@@ -27,10 +27,12 @@
       </section>
     <% end %>
 
-    <div class="hiring-blurb">
-      <h3>We're hiring. Join the team!</h3>
-      <a href="/careers" class="quill-button medium outlined secondary">See careers</a>
-    </div>
+    <% if @open_positions%>
+      <div class="hiring-blurb">
+        <h3>We're hiring. Join the team!</h3>
+        <a href="/careers" class="quill-button medium outlined secondary">See careers</a>
+      </div>
+    <% end %>
 
     <% board_and_advisors_info.each do |team_type| %>
       <section>

@@ -148,7 +148,9 @@ EmpiricalGrammar::Application.routes.draw do
   get 'teachers/admin_dashboard/district_activity_scores/student_overview' => 'teachers#admin_dashboard'
   get 'teachers/admin_dashboard/district_concept_reports' => 'teachers#admin_dashboard'
   get 'teachers/admin_dashboard/district_standards_reports' => 'teachers#admin_dashboard'
+  post 'teachers/unlink/:teacher_id' => 'teachers#unlink'
   put 'teachers/update_current_user' => 'teachers#update_current_user'
+  post 'teachers/unlink/:teacher_id' => 'teachers#unlink'
   get 'teachers/:id/schools/:school_id' => 'teachers#add_school'
   get 'teachers/completed_diagnostic_unit_info' => 'teachers#completed_diagnostic_unit_info'
   get 'teachers/diagnostic_info_for_dashboard_mini' => 'teachers#diagnostic_info_for_dashboard_mini'
@@ -214,6 +216,7 @@ EmpiricalGrammar::Application.routes.draw do
       end
     end
 
+    get 'activity_feed', to: 'classroom_manager#activity_feed'
     get 'unset_preview_as_student', to: 'classroom_manager#unset_preview_as_student'
     get 'preview_as_student/:student_id', to: 'classroom_manager#preview_as_student'
     get 'getting_started' => 'classroom_manager#getting_started'
@@ -271,6 +274,7 @@ EmpiricalGrammar::Application.routes.draw do
     resources :classrooms, only: [:index, :new, :create, :update, :destroy] do
       post :create_students
       post :remove_students
+      
       put :import_google_students, controller: 'classroom_manager', action: 'import_google_students'
       collection do
         get :archived, action: 'index', as: :archived
@@ -343,7 +347,7 @@ EmpiricalGrammar::Application.routes.draw do
   get '/classrooms_teachers/specific_coteacher_info/:coteacher_id', to: 'classrooms_teachers#specific_coteacher_info'
   delete '/classrooms_teachers/destroy/:classroom_id', to: 'classrooms_teachers#destroy'
 
-
+  put 'feedback_history_rating' => 'feedback_history_ratings#create_or_update'
 
   resources :coteacher_classroom_invitations, only: [:destroy] do
     collection do
@@ -358,8 +362,8 @@ EmpiricalGrammar::Application.routes.draw do
   # API routes
   namespace :api do
     namespace :v1 do
-
       get 'activities/uids_and_flags' => 'activities#uids_and_flags'
+      get 'rule_feedback_histories' => 'rule_feedback_histories#by_conjunction'
       resources :activities,              except: [:index, :new, :edit]
       resources :activity_flags,          only: [:index]
       resources :activity_sessions,       except: [:index, :new, :edit]
@@ -367,10 +371,15 @@ EmpiricalGrammar::Application.routes.draw do
         post :batch, on: :collection
       end
       resources :lessons_tokens,          only: [:create]
+      resources :session_feedback_histories, only: [:index, :show]
       resources :standard_levels,                only: [:index]
       resources :standards,                  only: [:index]
       resources :standard_categories,        only: [:index]
-      resources :concepts,                only: [:index, :create]
+      resources :concepts,                only: [:index, :create] do
+        collection do
+          get 'level_zero_concepts_with_lineage'
+        end
+      end
       resources :users,                   only: [:index]
       resources :classroom_units,         only: [] do
         collection do
@@ -532,7 +541,10 @@ EmpiricalGrammar::Application.routes.draw do
         get :edit_subscription
         get :new_subscription
         get :new_admin
+        get :add_existing_user
         post :add_admin_by_email
+        post :add_existing_user_by_email
+        post :unlink
       end
     end
 
@@ -586,6 +598,8 @@ EmpiricalGrammar::Application.routes.draw do
     diagnostic
     connect
     preap_units
+    springboard_units
+    administrator
   )
 
   all_pages = other_pages
@@ -624,6 +638,7 @@ EmpiricalGrammar::Application.routes.draw do
   get 'teacher_fix/google_unsync' => 'teacher_fix#index'
   get 'teacher_fix/merge_two_schools' => 'teacher_fix#index'
   get 'teacher_fix/merge_two_classrooms' => 'teacher_fix#index'
+  get 'teacher_fix/merge_activity_packs' => 'teacher_fix#index'
   get 'teacher_fix/delete_last_activity_session' => 'teacher_fix#index'
   get 'teacher_fix/archived_units' => 'teacher_fix#archived_units'
   post 'teacher_fix/recover_classroom_units' => 'teacher_fix#recover_classroom_units'
@@ -636,6 +651,7 @@ EmpiricalGrammar::Application.routes.draw do
   put 'teacher_fix/google_unsync_account' => 'teacher_fix#google_unsync_account'
   post 'teacher_fix/merge_two_schools' => 'teacher_fix#merge_two_schools'
   post 'teacher_fix/merge_two_classrooms' => 'teacher_fix#merge_two_classrooms'
+  post 'teacher_fix/merge_activity_packs' => 'teacher_fix#merge_activity_packs'
   post 'teacher_fix/delete_last_activity_session' => 'teacher_fix#delete_last_activity_session'
 
   get 'activities/section/:section_id', to: redirect('activities/standard_level/%{section_id}')
