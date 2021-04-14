@@ -429,6 +429,11 @@ li.premium-tab > a:hover {
         color: black;
         font-size: 16px;
         padding-bottom: 20px;
+        p {
+          a {
+            color: black;
+          }
+        }
       }
       a {
         text-decoration: underline;

@@ -1,11 +1,11 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
-import { EditorState, ContentState } from 'draft-js'
-import ConceptSelector from '../shared/conceptSelector'
-import TextEditor from '../shared/textEditor'
-import { ProofreaderActivity, Concepts, Concept } from '../../interfaces/proofreaderActivities'
-import { ConceptReducerState } from '../../reducers/conceptsReducer'
-import EditGenerator from './editGenerator'
+import { EditorState, ContentState } from 'draft-js';
+
+import EditGenerator from './editGenerator';
+
+import TextEditor from '../shared/textEditor';
+import { ConceptReducerState } from '../../reducers/conceptsReducer';
 
 interface LessonFormState {
   title: string;
@@ -20,11 +20,13 @@ interface LessonFormProps {
   submit: Function;
   concepts: ConceptReducerState;
   stateSpecificClass?: string;
-  currentValues?: LessonFormState|null;
-  lesson: LessonFormState|null;
+  currentValues?: LessonFormState;
+  lesson?: LessonFormState;
+  returnToView: (e) => void;
 }
 
-class LessonForm extends React.Component<LessonFormProps, LessonFormState> {
+export class LessonForm extends React.Component<LessonFormProps, LessonFormState> {
+
   constructor(props: LessonFormProps) {
     super(props)
 
@@ -38,20 +40,13 @@ class LessonForm extends React.Component<LessonFormProps, LessonFormState> {
       underlineErrorsInProofreader: currentValues ? currentValues.underlineErrorsInProofreader : false,
       readingLevel: currentValues ? currentValues.readingLevel : ''
     }
-
-    this.submit = this.submit.bind(this)
-    this.handleStateChange = this.handleStateChange.bind(this)
-    this.handleDescriptionChange = this.handleDescriptionChange.bind(this)
-    this.handleFlagSelect = this.handleFlagSelect.bind(this)
-    this.toggleUnderline = this.toggleUnderline.bind(this)
-    this.handlePassageChange = this.handlePassageChange.bind(this)
   }
 
-  submit() {
+  handleSubmit = () => {
+    const { submit } = this.props
     const { title, description, flag, passage, underlineErrorsInProofreader, readingLevel } = this.state
     const formattedPassage = passage.replace(/\n/g, '<br/>')
-
-    this.props.submit({
+    submit({
       title,
       description,
       flag,
@@ -61,67 +56,82 @@ class LessonForm extends React.Component<LessonFormProps, LessonFormState> {
     });
   }
 
-  handleStateChange(key: string, event: React.ChangeEvent<{value: string}>) {
-    const changes: LessonFormState = {};
-    changes[key] = event.target.value;
-    this.setState(changes);
+  handleTitleChange = (e: React.ChangeEvent<{value: string}>) => {
+    this.setState({ title: e.target.value, });
   }
 
-  handleFlagSelect(e: React.ChangeEvent<{value: string}>) {
+  handleReadingLevelChange = (e: React.ChangeEvent<{value: string}>) => {
+    this.setState({ readingLevel: e.target.value, });
+  }
+
+  handleFlagSelect = (e: React.ChangeEvent<{value: string}>) => {
     this.setState({ flag: e.target.value, });
   }
 
-  toggleUnderline(e: React.ChangeEvent<HTMLInputElement>) {
-    this.setState({ underlineErrorsInProofreader: !this.state.underlineErrorsInProofreader });
+  handleToggleUnderline = () => {
+    const { underlineErrorsInProofreader } = this.state;
+    this.setState({ underlineErrorsInProofreader: !underlineErrorsInProofreader });
   }
 
-  handleDescriptionChange(e: string) {
+  onHandleDescriptionChange = (e: string) => {
     this.setState({ description: e, });
   }
 
-  handlePassageChange(e) {
+  handlePassageChange = (e: React.ChangeEvent<{value: string}>) => {
     this.setState({ passage: e.target.value, });
   }
-  //
+
   render() {
-    const addOrEdit = this.props.currentValues ? 'Edit' : 'Add'
+    const { currentValues, returnToView, stateSpecificClass } = this.props;
+    const { title, readingLevel, description, flag, underlineErrorsInProofreader, passage } = this.state;
+    const addOrEdit = currentValues ? 'Edit' : 'Add';
+    const buttonText = currentValues ? 'Return To Activity' : 'Return To Activities';
     return (
       <div className="box">
+        <div className="button-container">
+          <button className="quill-button fun primary contained" onClick={returnToView} type="button">{buttonText}</button>
+        </div>
         <h4 className="title">{addOrEdit} Activity</h4>
         <p className="control">
-          <label className="label">Name</label>
+          <label className="label" htmlFor="title-input" id="title-label">Name</label>
           <input
+            aria-labelledby="title-label"
             className="input"
-            onChange={this.handleStateChange.bind(null, 'title')}
+            id="title-input"
+            onChange={this.handleTitleChange}
             placeholder="Text input"
             type="text"
-            value={this.state.title}
+            value={title}
           />
         </p>
         <p className="control">
-          <label className="label">Reading Level</label>
+          <label className="label" htmlFor="reading-level-input" id="reading-level-label">Reading Level</label>
           <input
+            aria-labelledby="reading-level-label"
             className="input"
-            onChange={this.handleStateChange.bind(null, 'readingLevel')}
+            id="reading-level-input"
+            onChange={this.handleReadingLevelChange}
             placeholder="Text input"
             type="text"
-            value={this.state.readingLevel}
+            value={readingLevel}
           />
         </p>
         <p className="control">
-          <label className="label">Description</label>
+          <label className="label" htmlFor="description" id="description-label" >Description</label>
         </p>
         <TextEditor
+          aria-labelledby="description-label"
           ContentState={ContentState}
           EditorState={EditorState}
-          handleTextChange={this.handleDescriptionChange}
-          text={this.state.description || ''}
+          handleTextChange={this.onHandleDescriptionChange}
+          id="description"
+          text={description || ''}
         />
         <br />
         <p className="control">
-          <label className="label">Flag</label>
+          <label className="label" htmlFor="flag-dropdown" id="flag-dropdown-label">Flag</label>
           <span className="select">
-            <select defaultValue={this.state.flag} onChange={this.handleFlagSelect}>
+            <select aria-labelledby="flag-dropdown-label" defaultValue={flag} id="flag-dropdown" onChange={this.handleFlagSelect}>
               <option value="alpha">alpha</option>
               <option value="beta">beta</option>
               <option value="production">production</option>
@@ -130,25 +140,29 @@ class LessonForm extends React.Component<LessonFormProps, LessonFormState> {
           </span>
         </p>
         <p className="control">
-          <label className="label">Show Underlines</label>
+          <label className="label" htmlFor="underlines-input" id="underlines-label" >Show Underlines</label>
           <input
-            checked={this.state.underlineErrorsInProofreader}
+            aria-labelledby="underlines-label"
+            checked={underlineErrorsInProofreader}
+            id="underlines-input"
             name="showUnderlines"
-            onChange={this.toggleUnderline}
+            onChange={this.handleToggleUnderline}
             type="checkbox"
           />
         </p>
         <EditGenerator />
         <p className="control">
-          <label className="label">Passage</label>
+          <label className="label" htmlFor="passage" id="passage-label">Passage</label>
           <textarea
+            aria-labelledby="passage-label"
+            id="passage"
             onChange={this.handlePassageChange}
             style={{minHeight: '100px', border: '1px solid black', padding: '10px', width: '100%'}}
-            value={this.state.passage}
+            value={passage}
           />
         </p>
         <p className="control">
-          <button className={`button is-primary ${this.props.stateSpecificClass}`} onClick={this.submit}>Submit</button>
+          <button className={`button is-primary ${stateSpecificClass}`} onClick={this.handleSubmit} type="submit">Submit</button>
         </p>
       </div>
     );
