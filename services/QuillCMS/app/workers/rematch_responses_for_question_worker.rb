@@ -6,31 +6,40 @@ class RematchResponsesForQuestionWorker
   sidekiq_options retry: 3, queue: SidekiqQueue::LOW
 
   def perform(question_uid, question_type)
-    response_ids_to_reprocess = get_ungraded_responses(question_uid) + get_machine_graded_responses(question_uid)
-    reference_response_ids = get_human_graded_response_ids(question_uid)
-    response_ids_to_reprocess.each do |response_id|
-      RematchResponseWorker.perform_async(response_id, question_type, question_uid, reference_response_ids)
+    human_graded_ids = human_graded_response_ids(question_uid)
+    ungraded = ungraded_responses(question_uid)
+    machine_graded = machine_graded_responses(question_uid)
+
+    schedule_jobs(ungraded, question_type, question_uid, human_graded_ids)
+    schedule_jobs(machine_graded, question_type, question_uid, human_graded_ids)
+  end
+
+  def schedule_jobs(finder, question_type, question_uid, human_graded_response_ids)
+    # use find_each these in batches
+    finder.find_each do |response|
+      RematchResponseWorker.perform_async(response.id, question_type, question_uid, human_graded_response_ids)
     end
   end
 
-  def get_ungraded_response_ids(question_uid)
+  def ungraded_responses(question_uid)
     Response.where(question_uid: question_uid)
             .where(parent_id: nil)
             .where(parent_uid: nil)
             .where(optimal: nil)
-            .pluck(:id)
+            .select(:id)
   end
 
-  def get_machine_graded_responses_ids(question_uid)
+  def machine_graded_responses(question_uid)
     Response.where(question_uid: question_uid)
             .where("responses.parent_id IS NOT NULL OR responses.parent_uid IS NOT NULL")
-            .pluck(:id)
+            .select(:id)
   end
 
-  def get_human_graded_response_ids(question_uid)
+  def human_graded_response_ids(question_uid)
     Response.where(question_uid: question_uid)
             .where.not(optimal: nil)
             .where(parent_id: nil)
             .pluck(:id)
   end
+
 end
