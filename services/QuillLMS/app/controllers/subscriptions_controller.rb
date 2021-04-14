@@ -41,19 +41,17 @@ class SubscriptionsController < ApplicationController
     render json: @subscription
   end
 
-  private
-
-  def subscription_is_associated_with_current_user?
+  private def subscription_is_associated_with_current_user?
     @subscription.users.include?(current_user) || current_user.id == @subscription.purchaser_id
   end
 
-  def subscription_belongs_to_purchaser?
+  private def subscription_belongs_to_purchaser?
     if current_user != @subscription.purchaser
       auth_failed
     end
   end
 
-  def set_index_variables
+  private def set_index_variables
     @subscriptions = current_user.subscriptions
     @premium_credits = current_user.credit_transactions.map {|x| x.serializable_hash(methods: :action)}.compact
     subscription_status
@@ -68,7 +66,7 @@ class SubscriptionsController < ApplicationController
     end
   end
 
-  def subscription_status
+  private def subscription_status
     current_subscription = current_user.subscription
     if current_subscription
       @subscription_status_obj = current_subscription
@@ -86,11 +84,11 @@ class SubscriptionsController < ApplicationController
     @subscription_status = subscription_attributes.merge(attributes_for_front_end)
   end
 
-  def subscription_params
+  private def subscription_params
     params.require(:subscription).permit(:id, :purchaser_id, :expiration, :account_type, :authenticity_token, :recurring)
   end
 
-  def set_subscription
+  private def set_subscription
     @subscription = current_user&.subscriptions&.find(params[:id])
   end
 end

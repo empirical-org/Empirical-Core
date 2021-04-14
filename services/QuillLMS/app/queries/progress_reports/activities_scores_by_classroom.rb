@@ -28,8 +28,6 @@ class ProgressReports::ActivitiesScoresByClassroom
     end
   end
 
-  private
-
   def self.query(classroom_ids)
     <<~SQL
       SELECT classrooms.name AS classroom_name,

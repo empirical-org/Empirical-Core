@@ -10,9 +10,7 @@ class GoogleIntegration::User
     user
   end
 
-  private
-
-  def user
+  private def user
     @user ||= begin
       @user_class.where('google_id = ? OR email = ?', data.google_id&.to_s, data.email&.downcase).first_or_initialize.tap do |user|
         new_attributes = user_params(user)
@@ -25,7 +23,7 @@ class GoogleIntegration::User
     end
   end
 
-  def user_params(user)
+  private def user_params(user)
     @user_params ||= begin
       params = {
         signed_up_with_google:      true,
@@ -43,7 +41,7 @@ class GoogleIntegration::User
     end
   end
 
-  def auth_credential_attributes
+  private def auth_credential_attributes
     {
       provider:      'google',
       refresh_token: data.refresh_token,

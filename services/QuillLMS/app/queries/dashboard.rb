@@ -31,8 +31,6 @@ class Dashboard
 ]
   end
 
-  private
-
   def self.completed_activity_count(user_id)
     ActiveRecord::Base.connection.execute("SELECT COUNT(DISTINCT acts.id) FROM activity_sessions as acts
     #{body_of_sql_search(user_id)}").to_a.first["count"].to_i

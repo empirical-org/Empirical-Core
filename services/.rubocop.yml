@@ -6,8 +6,8 @@ inherit_mode:
 
 AllCops:
   Exclude:
-    - 'QuillLMS/engines/comprehension/test/dummy/**/*'
-    - 'QuillLMS/engines/comprehension/lib/generators/**/*'
+    - "QuillLMS/engines/comprehension/test/dummy/**/*"
+    - "QuillLMS/engines/comprehension/lib/generators/**/*"
 
 Style/ZeroLengthPredicate:
   Enabled: true
@@ -57,12 +57,12 @@ Lint/SafeNavigationChain:
 Naming/AccessorMethodName:
   Enabled: true
   Exclude:
-    - 'QuillLMS/app/models/concerns/teacher.rb'
-    - 'QuillLMS/app/models/subscription.rb'
-    - 'QuillLMS/app/controllers/api/v1/focus_points_controller.rb'
-    - 'QuillLMS/app/controllers/api/v1/incorrect_sequences_controller.rb'
-    - 'QuillLMS/app/controllers/api/v1/questions_controller.rb'
-    - 'QuillLMS/lib/tasks/firebase.rake'
+    - "QuillLMS/app/models/concerns/teacher.rb"
+    - "QuillLMS/app/models/subscription.rb"
+    - "QuillLMS/app/controllers/api/v1/focus_points_controller.rb"
+    - "QuillLMS/app/controllers/api/v1/incorrect_sequences_controller.rb"
+    - "QuillLMS/app/controllers/api/v1/questions_controller.rb"
+    - "QuillLMS/lib/tasks/firebase.rake"
 
 Naming/AsciiIdentifiers:
   Enabled: true
@@ -73,12 +73,12 @@ Naming/ClassAndModuleCamelCase:
 Naming/FileName:
   Enabled: true
   Exclude:
-    - 'QuillLMS/config/initializers/rack-attack.rb'
+    - "QuillLMS/config/initializers/rack-attack.rb"
 
 Naming/MethodName:
   Enabled: true
   Exclude:
-    - 'QuillLMS/app/serializers/lesson_planner/unit_serializer.rb'
+    - "QuillLMS/app/serializers/lesson_planner/unit_serializer.rb"
 
 Naming/VariableNumber:
   Enabled: true
@@ -86,7 +86,7 @@ Naming/VariableNumber:
 Naming/VariableName:
   Enabled: true
   Exclude:
-    - 'QuillLMS/lib/tasks/firebase.rake'
+    - "QuillLMS/lib/tasks/firebase.rake"
 
 Security/Eval:
   Enabled: true
@@ -139,12 +139,12 @@ Style/TernaryParentheses:
 
 Style/RedundantCapitalW:
   Exclude:
-   - 'QuillLMS/config/initializers/sentry.rb'
+    - "QuillLMS/config/initializers/sentry.rb"
   Enabled: true
 
 Style/RedundantSort:
   Exclude:
-   - 'QuillComprehension/app/models/question.rb'
+    - "QuillComprehension/app/models/question.rb"
   Enabled: true
 
 Style/WhileUntilDo:
@@ -166,9 +166,9 @@ Layout/SpaceInLambdaLiteral:
 
 Lint/DuplicateMethods:
   Exclude:
-    - 'QuillLMS/app/models/concerns/teacher.rb'
-    - 'QuillLMS/app/services/create_lessons_token.rb'
-    - 'QuillLMS/app/controllers/api/v1/incorrect_sequences_controller.rb'
+    - "QuillLMS/app/models/concerns/teacher.rb"
+    - "QuillLMS/app/services/create_lessons_token.rb"
+    - "QuillLMS/app/controllers/api/v1/incorrect_sequences_controller.rb"
 
 Lint/ImplicitStringConcatenation:
   Enabled: true
@@ -190,13 +190,13 @@ Style/For:
 
 Style/IdenticalConditionalBranches:
   Exclude:
-    - 'QuillLMS/app/controllers/sessions_controller.rb'
+    - "QuillLMS/app/controllers/sessions_controller.rb"
 
 Style/IfInsideElse:
   Enabled: true
   Exclude:
-    - 'QuillLMS/app/controllers/profiles_controller.rb'
-    - 'QuillLMS/app/models/concerns/public_progress_reports.rb'
+    - "QuillLMS/app/controllers/profiles_controller.rb"
+    - "QuillLMS/app/models/concerns/public_progress_reports.rb"
 
 Style/NonNilCheck:
   Enabled: true
@@ -224,7 +224,7 @@ Style/RedundantSelf:
 
 Style/RescueModifier:
   Exclude:
-    - 'QuillLMS/db/migrate/20140916143956_make_username_downcase.rb'
+    - "QuillLMS/db/migrate/20140916143956_make_username_downcase.rb"
 
 Style/StderrPuts:
   Enabled: true
@@ -241,9 +241,9 @@ Layout/SpaceBeforeComment:
 Lint/AmbiguousBlockAssociation:
   Enabled: true
   Exclude:
-    - 'QuillLMS/spec/models/activity_session_spec.rb'
-    - 'QuillLMS/spec/models/user_spec.rb'
-    - 'QuillLMS/spec/controllers/pages_controller_spec.rb'
+    - "QuillLMS/spec/models/activity_session_spec.rb"
+    - "QuillLMS/spec/models/user_spec.rb"
+    - "QuillLMS/spec/controllers/pages_controller_spec.rb"
 
 Lint/UriEscapeUnescape:
   Enabled: true
@@ -260,8 +260,8 @@ Style/MultipleComparison:
 Layout/ArrayAlignment:
   Enabled: true
   Exclude:
-    - 'QuillCMS/spec/workers/rematch_response_worker_spec.rb'
-    - 'QuillLMS/script/map_concepts_to_activities_across_apps.rb'
+    - "QuillCMS/spec/workers/rematch_response_worker_spec.rb"
+    - "QuillLMS/script/map_concepts_to_activities_across_apps.rb"
 
 Style/NilComparison:
   Enabled: true
@@ -277,10 +277,10 @@ Layout/ElseAlignment:
 Lint/AssignmentInCondition:
   Enabled: true
   Exclude:
-    - 'QuillCMS/lib/tasks/import_from_firebase.rake'
-    - 'QuillCMS/lib/tasks/import_responses_from_csv.rake'
-    - 'QuillLMS/app/models/user.rb'
-    - 'QuillLMS/bin/spring'
+    - "QuillCMS/lib/tasks/import_from_firebase.rake"
+    - "QuillCMS/lib/tasks/import_responses_from_csv.rake"
+    - "QuillLMS/app/models/user.rb"
+    - "QuillLMS/bin/spring"
 
 Metrics/BlockNesting:
   Max: 4
@@ -294,9 +294,9 @@ Style/BlockComments:
 Style/ClassVars:
   Enabled: true
   Exclude:
-    - 'QuillLMS/app/queries/dashboard.rb'
-    - 'QuillLMS/app/services/associators/students_to_classrooms.rb'
-    - 'QuillLMS/app/services/quill_clever.rb'
+    - "QuillLMS/app/queries/dashboard.rb"
+    - "QuillLMS/app/services/associators/students_to_classrooms.rb"
+    - "QuillLMS/app/services/quill_clever.rb"
 
 Style/Lambda:
   Enabled: true
@@ -324,8 +324,8 @@ Metrics/ModuleLength:
   Enabled: true
   Max: 448
   Exclude:
-    - 'QuillLMS/app/models/concerns/teacher.rb'
-    - 'QuillLMS/app/helpers/pages_helper.rb'
+    - "QuillLMS/app/models/concerns/teacher.rb"
+    - "QuillLMS/app/helpers/pages_helper.rb"
 
 Style/AsciiComments:
   Enabled: true
@@ -333,7 +333,7 @@ Style/AsciiComments:
 Layout/MultilineHashBraceLayout:
   Enabled: true
   Exclude:
-    - 'QuillLMS/spec/services/google_integration/classroom/parsers/students_spec.rb'
+    - "QuillLMS/spec/services/google_integration/classroom/parsers/students_spec.rb"
 
 Metrics/ParameterLists:
   Enabled: true
@@ -345,19 +345,19 @@ Style/EmptyElse:
 Style/MixinUsage:
   Enabled: true
   Exclude:
-    - 'QuillCMS/bin/setup'
-    - 'QuillCMS/bin/update'
-    - 'QuillComprehension/bin/setup'
-    - 'QuillComprehension/bin/update'
-    - 'QuillLMS/app/models/concerns/lessons_recommendations.rb'
-    - 'QuillLMS/db/seeds.rb'
-    - 'QuillLMS/spec/controllers/concerns/teacher_fixes_spec.rb'
-    - 'QuillLMS/spec/workers/fast_assign_worker_spec.rb'
+    - "QuillCMS/bin/setup"
+    - "QuillCMS/bin/update"
+    - "QuillComprehension/bin/setup"
+    - "QuillComprehension/bin/update"
+    - "QuillLMS/app/models/concerns/lessons_recommendations.rb"
+    - "QuillLMS/db/seeds.rb"
+    - "QuillLMS/spec/controllers/concerns/teacher_fixes_spec.rb"
+    - "QuillLMS/spec/workers/fast_assign_worker_spec.rb"
 
 Style/RaiseArgs:
   Enabled: true
   Exclude:
-    - 'QuillCMS/app/workers/rematch_response_worker.rb'
+    - "QuillCMS/app/workers/rematch_response_worker.rb"
 
 Style/StringLiteralsInInterpolation:
   Enabled: true
@@ -392,7 +392,7 @@ Layout/EmptyComment:
 Style/FormatStringToken:
   Enabled: true
   Exclude:
-    - 'QuillLMS/config/routes.rb'
+    - "QuillLMS/config/routes.rb"
 
 Style/Proc:
   Enabled: true
@@ -406,8 +406,8 @@ Style/ParenthesesAroundCondition:
 Style/RedundantInterpolation:
   Enabled: true
   Exclude:
-  - 'QuillLMS/config/routes.rb'
-  - 'QuillLMS/spec/cypress/app_commands/factory_bot.rb'
+    - "QuillLMS/config/routes.rb"
+    - "QuillLMS/spec/cypress/app_commands/factory_bot.rb"
 
 Layout/AccessModifierIndentation:
   Enabled: true
@@ -417,3 +417,7 @@ Lint/Void:
 
 Layout/SpaceInsideArrayLiteralBrackets:
   Enabled: true
+
+Style/AccessModifierDeclarations:
+  Enabled: true
+  EnforcedStyle: inline

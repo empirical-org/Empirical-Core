@@ -25,9 +25,7 @@ class Auth::GoogleController < ApplicationController
     redirect_to profile_path
   end
 
-  private
-
-  def follow_google_redirect
+  private def follow_google_redirect
     if session[GOOGLE_REDIRECT]
       redirect_route = session[GOOGLE_REDIRECT]
       session[GOOGLE_REDIRECT] = nil
@@ -35,11 +33,11 @@ class Auth::GoogleController < ApplicationController
     end
   end
 
-  def set_profile
+  private def set_profile
     @profile = GoogleIntegration::Profile.new(request, session)
   end
 
-  def set_user
+  private def set_user
     if non_standard_route_redirect?(session[GOOGLE_REDIRECT])
       if current_user
         user = current_user.update(email: @profile.email)
@@ -63,7 +61,7 @@ class Auth::GoogleController < ApplicationController
     end
   end
 
-  def save_student_from_google_signup
+  private def save_student_from_google_signup
     return unless @user.new_record? && @user.student?
 
     unless @user.save
@@ -71,7 +69,7 @@ class Auth::GoogleController < ApplicationController
     end
   end
 
-  def save_teacher_from_google_signup
+  private def save_teacher_from_google_signup
     return unless @user.new_record? && @user.teacher?
 
     @js_file = 'session'

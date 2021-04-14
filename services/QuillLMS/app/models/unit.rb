@@ -73,9 +73,7 @@ class Unit < ActiveRecord::Base
     end
   end
 
-  private
-
-  def create_any_new_classroom_unit_activity_states
+  private def create_any_new_classroom_unit_activity_states
     lesson_unit_activities = unit_activities.select { |ua| ua.activity.is_lesson? }
     lesson_unit_activities.each do |ua|
       classroom_units.each do |cu|

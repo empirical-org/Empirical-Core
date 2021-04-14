@@ -113,10 +113,7 @@ class SchoolsController < ApplicationController
     r.sub('{','(').sub('}', ')')
   end
 
-
-  private
-
-  def get_prefix_and_zipcode(search)
+  private def get_prefix_and_zipcode(search)
     prefix = ''
     zipcode = nil
     if search.present?
@@ -129,7 +126,7 @@ class SchoolsController < ApplicationController
     [prefix, zipcode]
   end
 
-  def school_params
+  private def school_params
     params.permit(:school_id_or_type, :prefix, :lat, :lng, :limit, :radius, :authenticity_token, :school => {})
   end
 end

@@ -15,20 +15,18 @@ class LessonRecommendationsQuery
     end
   end
 
-  private
-
-  def activity
+  private def activity
     @activity ||= relation.find(activity_id)
   end
 
-  def recommendations
+  private def recommendations
     @recommendations ||= JSON.parse(
       serialized_recommendations,
       symbolize_names: true
     )
   end
 
-  def get_activities(rec_id)
+  private def get_activities(rec_id)
     activities = ActiveRecord::Base.connection.execute("SELECT activities.name, activities.id
       FROM activities
       INNER JOIN activities_unit_templates ON activities.id = activities_unit_templates.activity_id
@@ -42,7 +40,7 @@ class LessonRecommendationsQuery
     end
   end
 
-  def previous_unit_names(classroom_id)
+  private def previous_unit_names(classroom_id)
     ActiveRecord::Base.connection.execute("SELECT DISTINCT unit.name FROM units unit
     LEFT JOIN classroom_units as cu ON cu.unit_id = unit.id
     WHERE cu.classroom_id = #{classroom_id}
@@ -50,13 +48,13 @@ class LessonRecommendationsQuery
     AND unit.visible = true").to_a.map {|e| e['name']}
   end
 
-  def mark_previously_assigned(recs, classroom_id)
+  private def mark_previously_assigned(recs, classroom_id)
     prev_names = previous_unit_names(classroom_id)
     recs.each { |r| r[:previously_assigned] = prev_names.include?(r[:recommendation]) }
     recs
   end
 
-  def serialized_recommendations
+  private def serialized_recommendations
     @serialized_recommendations ||= Jbuilder.new do |json|
       json.array! activity.recommendations.group_lesson do |recommendation|
         json.recommendation recommendation.name

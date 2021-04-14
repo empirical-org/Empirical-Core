@@ -63,22 +63,20 @@ class Cms::RecommendationsController < Cms::CmsController
     redirect_to cms_activity_classification_activity_recommendations_path
   end
 
-  private
-
-  def set_activity_classification
+  private def set_activity_classification
     @activity_classification = ActivityClassification
       .find(params[:activity_classification_id])
   end
 
-  def set_activity
+  private def set_activity
     @activity = Activity.find(params[:activity_id])
   end
 
-  def set_unit_templates
+  private def set_unit_templates
     @unit_templates = UnitTemplate.all
   end
 
-  def next_order_number_for_category
+  private def next_order_number_for_category
     if @activity.recommendations.present? && @activity.recommendations.send(category).present?
       @activity.recommendations.send(category).last.order + 1
     else
@@ -86,13 +84,13 @@ class Cms::RecommendationsController < Cms::CmsController
     end
   end
 
-  def category
+  private def category
     if Recommendation.categories.keys.include? recommendation_params[:category]
       recommendation_params[:category].to_sym
     end
   end
 
-  def recommendation_params
+  private def recommendation_params
     params.require(:recommendation).permit(:name, :unit_template_id, :category)
   end
 end

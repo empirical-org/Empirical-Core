@@ -211,17 +211,15 @@ class Activity < ActiveRecord::Base
     classification&.key == ActivityClassification::DIAGNOSTIC_KEY
   end
 
-  private
-
-  def data_must_be_hash
+  private def data_must_be_hash
     errors.add(:data, "must be a hash") unless data.is_a?(Hash) || data.blank?
   end
 
-  def flag_as_beta
+  private def flag_as_beta
     flag 'beta'
   end
 
-  def lesson_url_helper
+  private def lesson_url_helper
     base_url = "#{classification.module_url}#{uid}"
     initial_params = {
       classroom_unit_id: @activity_session.classroom_unit.id.to_s,
@@ -230,12 +228,12 @@ class Activity < ActiveRecord::Base
     construct_redirect_url(base_url, initial_params)
   end
 
-  def connect_url_helper(initial_params)
+  private def connect_url_helper(initial_params)
     base_url = "#{classification.module_url}#{uid}"
     construct_redirect_url(base_url, initial_params)
   end
 
-  def comprehension_url_helper(initial_params)
+  private def comprehension_url_helper(initial_params)
     base_url = classification.module_url.to_s
     # Rename "student" to "session" because it's called "student" in all tools other than Comprehension
     initial_params[:session] = initial_params.delete :student if initial_params[:student]
@@ -243,7 +241,7 @@ class Activity < ActiveRecord::Base
     construct_redirect_url(base_url, initial_params)
   end
 
-  def construct_redirect_url(base_url, initial_params)
+  private def construct_redirect_url(base_url, initial_params)
     @url = Addressable::URI.parse(base_url)
     params = (@url.query_values || {})
     params.merge!(initial_params)
@@ -251,7 +249,7 @@ class Activity < ActiveRecord::Base
     fix_angular_fragment!
   end
 
-  def module_url_helper(initial_params)
+  private def module_url_helper(initial_params)
     return connect_url_helper(initial_params) if [ActivityClassification::DIAGNOSTIC_KEY, ActivityClassification::CONNECT_KEY].include?(classification.key)
     return lesson_url_helper if classification.key == ActivityClassification::LESSONS_KEY
     return comprehension_url_helper(initial_params) if classification.key == ActivityClassification::COMPREHENSION_KEY
@@ -264,7 +262,7 @@ class Activity < ActiveRecord::Base
     fix_angular_fragment!
   end
 
-  def fix_angular_fragment!
+  private def fix_angular_fragment!
     unless @url.fragment.blank?
       path = @url.path || '/'
       @url.path = "#{@url.path}##{@url.fragment}"
@@ -274,7 +272,7 @@ class Activity < ActiveRecord::Base
     @url
   end
 
-  def validate_question(question)
+  private def validate_question(question)
     if Question.find_by_uid(question[:key]).blank? && TitleCard.find_by_uid(question[:key]).blank?
       errors.add(:question, "Question #{question[:key]} does not exist.")
       return false
@@ -286,11 +284,11 @@ class Activity < ActiveRecord::Base
     return true
   end
 
-  def is_proofreader?
+  private def is_proofreader?
     classification.key == ActivityClassification::PROOFREADER_KEY
   end
 
-  def is_comprehension?
+  private def is_comprehension?
     classification&.key == ActivityClassification::COMPREHENSION_KEY
   end
 end
