@@ -1,0 +1,78 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Lessons Component should match snapshot 1`] = `
+<section
+  className="section"
+>
+  <div
+    className="container"
+  >
+    <h1
+      className="title"
+    >
+      <button
+        className="button is-primary"
+        onClick={[Function]}
+        type="button"
+      >
+        Create New Activity
+      </button>
+    </h1>
+    <div
+      style={
+        Object {
+          "display": "inline-block",
+        }
+      }
+    >
+      <FlagDropdown
+        flag="production"
+        handleFlagChange={[Function]}
+        isLessons={true}
+      />
+    </div>
+    <div
+      className="columns"
+    >
+      <div
+        className="column"
+      >
+        <aside
+          className="menu"
+        >
+          <p
+            className="menu-label"
+          >
+            Activities
+          </p>
+          <ul
+            className="menu-list"
+          >
+            <Component
+              activeClassName="is-active"
+              basePath="lessons"
+              itemKey="17"
+              key="17"
+              text="Activity 1"
+            />
+            <Component
+              activeClassName="is-active"
+              basePath="lessons"
+              itemKey="18"
+              key="18"
+              text="Activity 2"
+            />
+            <Component
+              activeClassName="is-active"
+              basePath="lessons"
+              itemKey="19"
+              key="19"
+              text="Activity 3"
+            />
+          </ul>
+        </aside>
+      </div>
+    </div>
+  </div>
+</section>
+`;
