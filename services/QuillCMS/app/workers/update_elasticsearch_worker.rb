@@ -1,5 +1,6 @@
 class UpdateElasticsearchWorker
   include Sidekiq::Worker
+  sidekiq_options queue: SidekiqQueue::LOW
 
   def perform(start_time_string, end_time_string)
     start_time_object = Time.parse(start_time_string)

@@ -1,5 +1,6 @@
 class CreateOrIncrementResponseWorker
   include Sidekiq::Worker
+  sidekiq_options queue: SidekiqQueue::DEFAULT
 
   def perform(new_vals)
     symbolized_vals = new_vals.symbolize_keys
