@@ -50,3 +50,13 @@ export const archiveParentActivity = async (parentActivityId: string) => {
   });
   return { error: handleApiError('Failed to archive activity, please try again.', response) }
 }
+
+export const fetchActivitySessions = async (key: string, activityId: string, pageNumber: number) => {
+  const response = await mainApiFetch(`session_feedback_histories.json?page=${pageNumber}&activity_id=${activityId}`);
+  const activitySessions = await response.json();
+
+  return {
+    activitySessions,
+    error: handleApiError('Failed to fetch activity sessions, please refresh the page.', response),
+  };
+}

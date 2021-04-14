@@ -4,27 +4,35 @@ import { useQuery } from 'react-query';
 import * as moment from 'moment'
 
 import { DataTable, Error, Spinner, DropdownInput } from '../../../../Shared/index';
-import { fetchActivity } from '../../../utils/comprehension/activityAPIs';
+import { fetchActivity, fetchActivitySessions } from '../../../utils/comprehension/activityAPIs';
+import { DropdownObjectInterface } from '../../../interfaces/comprehensionInterfaces';
 
 const quillCheckmark = 'https://assets.quill.org/images/icons/check-circle-small.svg';
-var sessionsData = require('./sessionsData.json');
 
 const SessionsIndex = ({ match }) => {
   const { params } = match;
   const { activityId } = params;
 
-  const [pageNumber, setPageNumber] = React.useState<object>(null);
-  const [dropdownOptions, setDropdownOptions] = React.useState<object>(null);
-
-  React.useEffect(() => {
-    getDropdownOptions(sessionsData)
-  }, [dropdownOptions]);
+  const [pageNumber, setPageNumber] = React.useState<DropdownObjectInterface>(null);
+  const [dropdownOptions, setDropdownOptions] = React.useState<DropdownObjectInterface[]>(null);
+  const pageNumberForQuery = pageNumber && pageNumber.value ? pageNumber.value : 1;
 
   // cache activity data for updates
-  const { data } = useQuery({
+  const { data: activityData } = useQuery({
     queryKey: [`activity-${activityId}`, activityId],
     queryFn: fetchActivity
   });
+
+  // cache activity sessions data for updates
+  const { data: sessionsData } = useQuery({
+    queryKey: [`activity-${activityId}-sessions`, activityId, pageNumberForQuery],
+    queryFn: fetchActivitySessions
+  });
+
+  React.useEffect(() => {
+    sessionsData && !dropdownOptions && getDropdownOptions(sessionsData)
+  }, [sessionsData]);
+
 
   function handlePageChange(number) {
     setPageNumber(number)
@@ -33,16 +41,20 @@ const SessionsIndex = ({ match }) => {
   function formatSessionsData(activitySessions: any[]) {
     return activitySessions.map(session => {
       const formattedSession = {...session};
-      const { start_date, session_uid, because_responses, but_responses, so_responses, completed } = session;
+      const { start_date, session_uid, because_attempts, but_attempts, so_attempts, complete } = session;
       const dateObject = new Date(start_date);
       const date = moment(dateObject).format("MM/DD/YY");
       const time = moment(dateObject).format("HH:MM A");
-      const total = because_responses + but_responses + so_responses;
+      const total = because_attempts + but_attempts + so_attempts;
+      formattedSession.id = session_uid;
       formattedSession.date = date;
       formattedSession.time = time;
-      formattedSession.total_responses = total;
+      formattedSession.because_attempts = because_attempts;
+      formattedSession.but_attempts = but_attempts;
+      formattedSession.so_attempts = so_attempts;
+      formattedSession.total_attempts = total;
       formattedSession.view_link = <Link to={`/activity-sessions/${activityId}/${session_uid}`}>View</Link>;
-      formattedSession.completed = completed ? <img alt="quill-circle-checkmark" src={quillCheckmark} /> : "";
+      formattedSession.completed = complete ? <img alt="quill-circle-checkmark" src={quillCheckmark} /> : "";
       return formattedSession;
     });
   }
@@ -54,8 +66,9 @@ const SessionsIndex = ({ match }) => {
     if(dropdownOptions) {
       return dropdownOptions;
     }
-    const { current_page, total_pages } = sessionsData;
-    setPageNumber({'value':current_page, 'label':`Page ${current_page}`})
+    const { activitySessions } = sessionsData
+    const { current_page, total_pages } = activitySessions;
+    setPageNumber({'value': current_page, 'label':`Page ${current_page}`})
     const options = [];
     for(let i=1; i <= total_pages; i++) {
       options.push({'value':i, 'label':`Page ${i}`})
@@ -63,7 +76,7 @@ const SessionsIndex = ({ match }) => {
     setDropdownOptions(options);
   }
 
-  if(!data) {
+  if(!sessionsData) {
     return(
       <div className="loading-spinner-container">
         <Spinner />
@@ -71,10 +84,10 @@ const SessionsIndex = ({ match }) => {
     );
   }
 
-  if(data && data.error) {
+  if(sessionsData && sessionsData.error) {
     return(
       <div className="error-container">
-        <Error error={`${data.error}`} />
+        <Error error={`${sessionsData.error}`} />
       </div>
     );
   }
@@ -83,23 +96,23 @@ const SessionsIndex = ({ match }) => {
     { name: "Day", attribute:"date", width: "100px" },
     { name: "Time", attribute:"time", width: "100px" },
     { name: "Session ID", attribute:"session_uid", width: "350px" },
-    { name: "Total Responses", attribute:"total_responses", width: "150px" },
-    { name: "Because", attribute:"because_responses", width: "50px" },
-    { name: "But", attribute:"but_responses", width: "50px" },
-    { name: "So", attribute:"so_responses", width: "50px" },
+    { name: "Total Responses", attribute:"total_attempts", width: "150px" },
+    { name: "Because", attribute:"because_attempts", width: "50px" },
+    { name: "But", attribute:"but_attempts", width: "50px" },
+    { name: "So", attribute:"so_attempts", width: "50px" },
     { name: "Completed?", attribute: "completed", width: "75px"},
     { name: "View", attribute:"view_link", width: "100px" }
   ];
 
-  const { activity } = data;
+  const { activity } = activityData;
   const { title } = activity;
-  const { activity_sessions, total_activity_sessions } = sessionsData
+  const { activitySessions } = sessionsData
+  const { activity_sessions, total_activity_sessions } = activitySessions
 
   return(
     <div className="sessions-index-container">
       <section className="sessions-header">
         <h1>{title}</h1>
-        <Link className="return-link" to="/activity-sessions">← Return to Activities Index</Link>
       </section>
       <section>
         <section className="top-section">
