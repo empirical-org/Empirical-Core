@@ -97,7 +97,7 @@ class Teachers::ClassroomManagerController < ApplicationController
   end
 
   def teacher_dashboard_metrics
-    render json: TeacherDashboardMetrics.queries(current_user)
+    render json: TeacherDashboardMetrics.new(current_user).run
   end
 
   def teacher_guide

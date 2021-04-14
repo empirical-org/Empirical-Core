@@ -32,7 +32,7 @@ describe TeacherDashboardMetrics do
 
   describe '#queries' do
     it 'should return the expected data' do
-      result = TeacherDashboardMetrics.queries(teacher)
+      result = TeacherDashboardMetrics.new(teacher).run
       expect(result[:weekly_assigned_activities_count]).to eq(12)
       expect(result[:yearly_assigned_activities_count]).to eq(21)
       expect(result[:weekly_completed_activities_count]).to eq(3)
