@@ -4,6 +4,12 @@ import { shallow } from 'enzyme';
 import { StudentViewContainer } from '../container';
 import { PromptStep } from '../promptStep';
 
+jest.mock('string-strip-html', () => ({
+  default: jest.fn(() => {
+    return {};
+  })
+}))
+
 describe('StudentViewContainer Component', () => {
   const prompts = [
   {
