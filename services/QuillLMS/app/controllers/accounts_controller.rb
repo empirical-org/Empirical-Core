@@ -69,9 +69,7 @@ class AccountsController < ApplicationController
     @user = current_user
   end
 
-  protected
-
-  def user_params
+  protected def user_params
     params.require(:user).permit(
                                  :account_type,
                                  :classcode,
@@ -84,7 +82,7 @@ class AccountsController < ApplicationController
                                  :username)
   end
 
-  def creation_json
+  protected def creation_json
     if session[:post_sign_up_redirect]
       { redirect: session.delete(:post_sign_up_redirect) }
     elsif @user.has_outstanding_coteacher_invitation?
@@ -94,21 +92,18 @@ class AccountsController < ApplicationController
     end
   end
 
-  def set_user
+  protected def set_user
     @user = User.find_by_id(session[:temporary_user_id]) || User.new
   end
 
-  def trigger_account_creation_callbacks
+  protected def trigger_account_creation_callbacks
     CompleteAccountCreation.new(@user, request.remote_ip).call
   end
 
-  def create_referral_if_teacher_and_referrer
+  protected def create_referral_if_teacher_and_referrer
     if @user.teacher? && request.env['affiliate.tag']
       referrer_user_id = ReferrerUser.find_by(referral_code: request.env['affiliate.tag'])&.user&.id
       ReferralsUser.create(user_id: referrer_user_id, referred_user_id: @user.id) if referrer_user_id
     end
   end
-
-
-
 end

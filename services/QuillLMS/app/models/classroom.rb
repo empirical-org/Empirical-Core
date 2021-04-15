@@ -187,14 +187,12 @@ class Classroom < ActiveRecord::Base
     -1
   end
 
-  private
-
   # Clever integration
-  def clever_classroom
+  private def clever_classroom
     Clever::Section.retrieve(clever_id, teacher.districts.first.token)
   end
 
-  def trigger_analytics_for_classroom_creation
+  private def trigger_analytics_for_classroom_creation
     find_or_create_checkbox('Create a Classroom', owner)
     ClassroomCreationWorker.perform_async(id)
   end

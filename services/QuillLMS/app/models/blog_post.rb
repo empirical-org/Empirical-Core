@@ -129,8 +129,7 @@ class BlogPost < ActiveRecord::Base
     end
   end
 
-  private
-  def generate_slug
+  private def generate_slug
     title = self.title
     slug = title.gsub(/[^a-zA-Z\d\s]/, '').gsub(' ', '-').downcase
 

@@ -32,8 +32,6 @@ module Units::Creator
     create_helper(teacher, unit_template.name, activities_data, classroom_array, unit_template_id, current_user_id)
   end
 
-  private
-
   def self.create_helper(teacher, name, activities_data, classrooms, unit_template_id=nil, current_user_id)
     unit = Unit.create!(
       name: name,

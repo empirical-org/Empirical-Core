@@ -3,8 +3,6 @@ module TeachersData
   # https://dataclips.heroku.com/tympuxntqzshpmngbnbivaectbqm-average-time-per-activity_session?autosave=true
   AVERAGE_TIME_SPENT = 441 # (seconds)  ie interval '7 minutes 21 seconds'
 
-
-
   # num_students
   # num_questions_completd
   # num_time_spent
@@ -40,21 +38,19 @@ module TeachersData
     GROUP BY users.id, number_of_questions_completed")
   end
 
-  private
-
   def self.time_spent
-      "SUM (
-        CASE
-        WHEN (activity_sessions.timespent IS NOT NULL) THEN activity_sessions.timespent
-        WHEN (activity_sessions.started_at IS NULL)
-          OR (activity_sessions.completed_at IS NULL)
-          OR (activity_sessions.completed_at - activity_sessions.started_at < interval '1 minute')
-          OR (activity_sessions.completed_at - activity_sessions.started_at > interval '30 minutes')
-        THEN #{AVERAGE_TIME_SPENT}
-        ELSE
-          EXTRACT (
-            'epoch' FROM (activity_sessions.completed_at - activity_sessions.started_at)
-          )
-        END"
+    "SUM (
+      CASE
+      WHEN (activity_sessions.timespent IS NOT NULL) THEN activity_sessions.timespent
+      WHEN (activity_sessions.started_at IS NULL)
+        OR (activity_sessions.completed_at IS NULL)
+        OR (activity_sessions.completed_at - activity_sessions.started_at < interval '1 minute')
+        OR (activity_sessions.completed_at - activity_sessions.started_at > interval '30 minutes')
+      THEN #{AVERAGE_TIME_SPENT}
+      ELSE
+        EXTRACT (
+          'epoch' FROM (activity_sessions.completed_at - activity_sessions.started_at)
+        )
+      END"
   end
 end

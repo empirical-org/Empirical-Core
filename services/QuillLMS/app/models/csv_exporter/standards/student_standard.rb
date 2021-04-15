@@ -26,9 +26,7 @@ module CsvExporter::Standards
         .results(HashWithIndifferentAccess.new(filters) || {})
     end
 
-    private
-
-    def page_title(filters)
+    private def page_title(filters)
       student = ::User.find(filters[:student_id])
       "Standards: #{student.name}"
     end

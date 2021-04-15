@@ -32,8 +32,6 @@ module CleverIntegration::Requesters
     api_instance(district_token).get_students_for_section(clever_id)
   end
 
-  private
-
   def self.api_instance(district_token=nil)
     config = Clever::Configuration.new
     config.access_token = district_token

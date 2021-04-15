@@ -12,8 +12,6 @@ module CleverIntegration::Parsers::Student
     }
   end
 
-  private
-
   def self.generate_name(first_name, last_name)
     JoinNames.new(first_name, last_name).call
   end

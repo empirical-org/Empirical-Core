@@ -1,5 +1,4 @@
 class AuthorizedTeacherForActivity
-
   def initialize(current_user, activity_session)
     @current_user = current_user
     @activity_session = activity_session
@@ -9,11 +8,11 @@ class AuthorizedTeacherForActivity
     authorized_teacher?
   end
 
-  private
+  attr_reader :activity_session, :current_user
+  private :activity_session
+  private :current_user
 
-  attr_reader :current_user, :activity_session
-
-  def authorized_teacher?
+  private def authorized_teacher?
     activity_session.classroom_unit.classroom.owner == current_user
   end
 end
