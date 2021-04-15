@@ -1,0 +1,20 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ActivityFeed component should render when there are no activities 1`] = `
+<ActivityFeed>
+  <section
+    className="activity-feed empty"
+  >
+    <img
+      alt="Document with a bulleted list illustration"
+      src="undefined/images/pages/dashboard/illustrations-list.svg"
+    />
+    <h2>
+      Activity feed
+    </h2>
+    <p>
+      Once your students complete activities, you’ll be able to see them here.
+    </p>
+  </section>
+</ActivityFeed>
+`;

@@ -4,7 +4,6 @@ import { shallow } from 'enzyme';
 import TeacherCenter from '../teacher_center';
 
 const featuredBlogPosts = [
-
   {
     preview_card_content: "<img class='preview-card-image' src='http://s3.amazonaws.com/quill-image-uploads/uploads/files/Cover__10_.png' />\n    <div class='preview-card-body'>\n       <h3>Getting Started: Navigating the Student Dashboard</h3>\n       <p>A comprehensive overview of Quill's easy-to-navigate student dashboard.</p>\n       <span/>\n    </div>\n    <div class='preview-card-footer'>\n      <p class='author'>by Quill Staff</p>\n    </div>",
     external_link: "",

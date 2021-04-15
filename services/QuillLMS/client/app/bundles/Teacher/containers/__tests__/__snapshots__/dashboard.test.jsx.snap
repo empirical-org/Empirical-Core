@@ -1,0 +1,853 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Dashboard container when all the onboarding items have been checked should render 1`] = `
+<Dashboard
+  featuredBlogPosts={
+    Array [
+      Object {
+        "external_link": "",
+        "id": 415,
+        "slug": "getting-started-navigating-the-student-dashboard",
+        "title": "Navigating the student dashboard",
+        "topic": "Getting started",
+      },
+      Object {
+        "external_link": "",
+        "id": 451,
+        "slug": "best-practices-how-to-use-quill-when-you-dont-have-time-for-the-diagnostic",
+        "title": "How to use Quill when you don't have time for the diagnostic",
+        "topic": "Best Practices",
+      },
+      Object {
+        "external_link": "http://s3.amazonaws.com/quill-image-uploads/uploads/files/Using_Quill_with_Google_Classroom.mp4",
+        "id": 411,
+        "slug": "using-quill-with-google-classroom",
+        "title": "Using Quill with Google Classroom",
+        "topic": "Getting started",
+      },
+    ]
+  }
+  onboardingChecklist={
+    Array [
+      Object {
+        "checked": true,
+        "link": "/teachers/classrooms?modal=create-a-class",
+        "name": "Create a class",
+      },
+      Object {
+        "checked": true,
+        "link": "/teachers/classrooms",
+        "name": "Add students",
+      },
+      Object {
+        "checked": true,
+        "link": "/assign",
+        "name": "Explore our library",
+      },
+      Object {
+        "checked": true,
+        "link": "/assign/diagnostic",
+        "name": "Explore our diagnostics",
+      },
+    ]
+  }
+  user="{\\"name\\":\\"George Costanza\\",\\"flag\\":\\"bosco\\"}"
+>
+  <div
+    className="dashboard"
+  >
+    <div
+      className="post-checklist-container"
+    >
+      <main>
+        <ActivityFeed>
+          <section
+            className="activity-feed empty"
+          >
+            <img
+              alt="Document with a bulleted list illustration"
+              src="undefined/images/pages/dashboard/illustrations-list.svg"
+            />
+            <h2>
+              Activity feed
+            </h2>
+            <p>
+              Once your students complete activities, you’ll be able to see them here.
+            </p>
+          </section>
+        </ActivityFeed>
+      </main>
+      <aside>
+        <HandyActions>
+          <section
+            className="handy-actions"
+          >
+            <h2>
+              Handy actions
+            </h2>
+            <HandyAction
+              icon={
+                Object {
+                  "alt": "Map with a magnifying glass icon",
+                  "src": "undefined/images/icons/icons-map-search.svg",
+                }
+              }
+              link="/assign/activity-library"
+              text="Explore activity library"
+            >
+              <a
+                className="handy-action focus-on-light"
+                href="/assign/activity-library"
+              >
+                <img
+                  alt="Map with a magnifying glass icon"
+                  src="undefined/images/icons/icons-map-search.svg"
+                />
+                <span>
+                  Explore activity library
+                </span>
+              </a>
+            </HandyAction>
+            <HandyAction
+              icon={
+                Object {
+                  "alt": "Clipboard with a checkmark icon",
+                  "src": "undefined/images/icons/icons-clipboard-check.svg",
+                }
+              }
+              link="/assign/diagnostic"
+              text="Assign a diagnostic"
+            >
+              <a
+                className="handy-action focus-on-light"
+                href="/assign/diagnostic"
+              >
+                <img
+                  alt="Clipboard with a checkmark icon"
+                  src="undefined/images/icons/icons-clipboard-check.svg"
+                />
+                <span>
+                  Assign a diagnostic
+                </span>
+              </a>
+            </HandyAction>
+            <HandyAction
+              icon={
+                Object {
+                  "alt": "Table with a checkmark icon",
+                  "src": "undefined/images/icons/icons-table-check.svg",
+                }
+              }
+              link="/teachers/classrooms/scorebook"
+              text="View activity summary report"
+            >
+              <a
+                className="handy-action focus-on-light"
+                href="/teachers/classrooms/scorebook"
+              >
+                <img
+                  alt="Table with a checkmark icon"
+                  src="undefined/images/icons/icons-table-check.svg"
+                />
+                <span>
+                  View activity summary report
+                </span>
+              </a>
+            </HandyAction>
+            <HandyAction
+              icon={
+                Object {
+                  "alt": "Avatar with an eye next to it icon",
+                  "src": "undefined/images/icons/icons-account-view.svg",
+                }
+              }
+              link="/teachers/classrooms"
+              text="View as a student"
+            >
+              <a
+                className="handy-action focus-on-light"
+                href="/teachers/classrooms"
+              >
+                <img
+                  alt="Avatar with an eye next to it icon"
+                  src="undefined/images/icons/icons-account-view.svg"
+                />
+                <span>
+                  View as a student
+                </span>
+              </a>
+            </HandyAction>
+            <HandyAction
+              icon={
+                Object {
+                  "alt": "Gift icon",
+                  "src": "undefined/images/icons/icons-gift.svg",
+                }
+              }
+              link="/referrals"
+              text="Refer a teacher"
+            >
+              <a
+                className="handy-action focus-on-light"
+                href="/referrals"
+              >
+                <img
+                  alt="Gift icon"
+                  src="undefined/images/icons/icons-gift.svg"
+                />
+                <span>
+                  Refer a teacher
+                </span>
+              </a>
+            </HandyAction>
+            <HandyAction
+              icon={
+                Object {
+                  "alt": "Three avatars icon",
+                  "src": "undefined/images/icons/icons-account-group.svg",
+                }
+              }
+              link="/teachers/classrooms/new"
+              text="Add a class"
+            >
+              <a
+                className="handy-action focus-on-light"
+                href="/teachers/classrooms/new"
+              >
+                <img
+                  alt="Three avatars icon"
+                  src="undefined/images/icons/icons-account-group.svg"
+                />
+                <span>
+                  Add a class
+                </span>
+              </a>
+            </HandyAction>
+            <HandyAction
+              icon={
+                Object {
+                  "alt": "Google Classroom icon",
+                  "src": "undefined/images/icons/icons-google-classroom.svg",
+                }
+              }
+              link="/teachers/classrooms"
+              text="Import classes from Google"
+            >
+              <a
+                className="handy-action focus-on-light"
+                href="/teachers/classrooms"
+              >
+                <img
+                  alt="Google Classroom icon"
+                  src="undefined/images/icons/icons-google-classroom.svg"
+                />
+                <span>
+                  Import classes from Google
+                </span>
+              </a>
+            </HandyAction>
+          </section>
+        </HandyActions>
+        <DailyTinyTip>
+          <section
+            className="daily-tiny-tip"
+          >
+            <h2>
+              Daily tiny tip
+            </h2>
+            <a
+              className="focus-on-light"
+              href="https://www.quill.org/teacher-center/tiny-tips-for-teachers-using-quill-as-a-lesson-related-launching-activity"
+            >
+              <span>
+                Using Quill as a Strategic Do Now
+              </span>
+              <img
+                alt="Clock illustration"
+                src="undefined/images/pages/dashboard/daily_tiny_tips/clock.svg"
+              />
+            </a>
+          </section>
+        </DailyTinyTip>
+        <TeacherCenterHighlights
+          featuredBlogPosts={
+            Array [
+              Object {
+                "external_link": "",
+                "id": 415,
+                "slug": "getting-started-navigating-the-student-dashboard",
+                "title": "Navigating the student dashboard",
+                "topic": "Getting started",
+              },
+              Object {
+                "external_link": "",
+                "id": 451,
+                "slug": "best-practices-how-to-use-quill-when-you-dont-have-time-for-the-diagnostic",
+                "title": "How to use Quill when you don't have time for the diagnostic",
+                "topic": "Best Practices",
+              },
+              Object {
+                "external_link": "http://s3.amazonaws.com/quill-image-uploads/uploads/files/Using_Quill_with_Google_Classroom.mp4",
+                "id": 411,
+                "slug": "using-quill-with-google-classroom",
+                "title": "Using Quill with Google Classroom",
+                "topic": "Getting started",
+              },
+            ]
+          }
+        >
+          <section
+            className="teacher-center-highlights"
+          >
+            <h2>
+              Teacher center highlights
+            </h2>
+            <Highlight
+              blogPost={
+                Object {
+                  "external_link": "",
+                  "id": 415,
+                  "slug": "getting-started-navigating-the-student-dashboard",
+                  "title": "Navigating the student dashboard",
+                  "topic": "Getting started",
+                }
+              }
+              key="415"
+            >
+              <a
+                className="highlight focus-on-light"
+                href="/teacher-center/getting-started-navigating-the-student-dashboard"
+              >
+                <h3>
+                  Navigating the student dashboard
+                </h3>
+                <span>
+                  Getting started
+                </span>
+              </a>
+            </Highlight>
+            <Highlight
+              blogPost={
+                Object {
+                  "external_link": "",
+                  "id": 451,
+                  "slug": "best-practices-how-to-use-quill-when-you-dont-have-time-for-the-diagnostic",
+                  "title": "How to use Quill when you don't have time for the diagnostic",
+                  "topic": "Best Practices",
+                }
+              }
+              key="451"
+            >
+              <a
+                className="highlight focus-on-light"
+                href="/teacher-center/best-practices-how-to-use-quill-when-you-dont-have-time-for-the-diagnostic"
+              >
+                <h3>
+                  How to use Quill when you don't have time for the diagnostic
+                </h3>
+                <span>
+                  Best Practices
+                </span>
+              </a>
+            </Highlight>
+            <Highlight
+              blogPost={
+                Object {
+                  "external_link": "http://s3.amazonaws.com/quill-image-uploads/uploads/files/Using_Quill_with_Google_Classroom.mp4",
+                  "id": 411,
+                  "slug": "using-quill-with-google-classroom",
+                  "title": "Using Quill with Google Classroom",
+                  "topic": "Getting started",
+                }
+              }
+              key="411"
+            >
+              <a
+                className="highlight focus-on-light"
+                href="http://s3.amazonaws.com/quill-image-uploads/uploads/files/Using_Quill_with_Google_Classroom.mp4"
+              >
+                <h3>
+                  Using Quill with Google Classroom
+                </h3>
+                <span>
+                  Getting started
+                </span>
+              </a>
+            </Highlight>
+            <a
+              className="see-all-resources focus-on-light"
+              href="/teacher-center"
+            >
+              See all resources
+            </a>
+          </section>
+        </TeacherCenterHighlights>
+        <CollegeBoard>
+          <section
+            className="college-board"
+          >
+            <div
+              className="top-section"
+            >
+              <a
+                className="focus-on-light help-icon"
+                href="/teacher-center/writing-skills-survey-for-ap"
+              >
+                <img
+                  alt="Question mark icon"
+                  src="undefined/images/icons/icons-help.svg"
+                />
+              </a>
+              <img
+                alt="College Board and Quill logos"
+                src="undefined/images/pages/dashboard/logo-quill-collegeboard.svg"
+              />
+            </div>
+            <p>
+              We partnered with the College Board to provide free activities for AP, Pre-AP, and SpringBoard courses.
+            </p>
+            <a
+              className="focus-on-light see-all-activities"
+              href="/assign/college-board"
+            >
+              <span>
+                See all activities
+              </span>
+              <img
+                alt="Arrow pointing right icon"
+                src="undefined/images/icons/icons-arrow-back.svg"
+              />
+            </a>
+          </section>
+        </CollegeBoard>
+      </aside>
+    </div>
+  </div>
+</Dashboard>
+`;
+
+exports[`Dashboard container when none of the onboarding items have been checked should render 1`] = `
+<Dashboard
+  featuredBlogPosts={
+    Array [
+      Object {
+        "external_link": "",
+        "id": 415,
+        "slug": "getting-started-navigating-the-student-dashboard",
+        "title": "Navigating the student dashboard",
+        "topic": "Getting started",
+      },
+      Object {
+        "external_link": "",
+        "id": 451,
+        "slug": "best-practices-how-to-use-quill-when-you-dont-have-time-for-the-diagnostic",
+        "title": "How to use Quill when you don't have time for the diagnostic",
+        "topic": "Best Practices",
+      },
+      Object {
+        "external_link": "http://s3.amazonaws.com/quill-image-uploads/uploads/files/Using_Quill_with_Google_Classroom.mp4",
+        "id": 411,
+        "slug": "using-quill-with-google-classroom",
+        "title": "Using Quill with Google Classroom",
+        "topic": "Getting started",
+      },
+    ]
+  }
+  onboardingChecklist={
+    Array [
+      Object {
+        "checked": true,
+        "link": "/teachers/classrooms?modal=create-a-class",
+        "name": "Create a class",
+      },
+      Object {
+        "checked": true,
+        "link": "/teachers/classrooms",
+        "name": "Add students",
+      },
+      Object {
+        "checked": true,
+        "link": "/assign",
+        "name": "Explore our library",
+      },
+      Object {
+        "checked": true,
+        "link": "/assign/diagnostic",
+        "name": "Explore our diagnostics",
+      },
+    ]
+  }
+  user="{\\"name\\":\\"George Costanza\\",\\"flag\\":\\"bosco\\"}"
+>
+  <div
+    className="dashboard"
+  >
+    <div
+      className="post-checklist-container"
+    >
+      <main>
+        <ActivityFeed>
+          <section
+            className="activity-feed empty"
+          >
+            <img
+              alt="Document with a bulleted list illustration"
+              src="undefined/images/pages/dashboard/illustrations-list.svg"
+            />
+            <h2>
+              Activity feed
+            </h2>
+            <p>
+              Once your students complete activities, you’ll be able to see them here.
+            </p>
+          </section>
+        </ActivityFeed>
+      </main>
+      <aside>
+        <HandyActions>
+          <section
+            className="handy-actions"
+          >
+            <h2>
+              Handy actions
+            </h2>
+            <HandyAction
+              icon={
+                Object {
+                  "alt": "Map with a magnifying glass icon",
+                  "src": "undefined/images/icons/icons-map-search.svg",
+                }
+              }
+              link="/assign/activity-library"
+              text="Explore activity library"
+            >
+              <a
+                className="handy-action focus-on-light"
+                href="/assign/activity-library"
+              >
+                <img
+                  alt="Map with a magnifying glass icon"
+                  src="undefined/images/icons/icons-map-search.svg"
+                />
+                <span>
+                  Explore activity library
+                </span>
+              </a>
+            </HandyAction>
+            <HandyAction
+              icon={
+                Object {
+                  "alt": "Clipboard with a checkmark icon",
+                  "src": "undefined/images/icons/icons-clipboard-check.svg",
+                }
+              }
+              link="/assign/diagnostic"
+              text="Assign a diagnostic"
+            >
+              <a
+                className="handy-action focus-on-light"
+                href="/assign/diagnostic"
+              >
+                <img
+                  alt="Clipboard with a checkmark icon"
+                  src="undefined/images/icons/icons-clipboard-check.svg"
+                />
+                <span>
+                  Assign a diagnostic
+                </span>
+              </a>
+            </HandyAction>
+            <HandyAction
+              icon={
+                Object {
+                  "alt": "Table with a checkmark icon",
+                  "src": "undefined/images/icons/icons-table-check.svg",
+                }
+              }
+              link="/teachers/classrooms/scorebook"
+              text="View activity summary report"
+            >
+              <a
+                className="handy-action focus-on-light"
+                href="/teachers/classrooms/scorebook"
+              >
+                <img
+                  alt="Table with a checkmark icon"
+                  src="undefined/images/icons/icons-table-check.svg"
+                />
+                <span>
+                  View activity summary report
+                </span>
+              </a>
+            </HandyAction>
+            <HandyAction
+              icon={
+                Object {
+                  "alt": "Avatar with an eye next to it icon",
+                  "src": "undefined/images/icons/icons-account-view.svg",
+                }
+              }
+              link="/teachers/classrooms"
+              text="View as a student"
+            >
+              <a
+                className="handy-action focus-on-light"
+                href="/teachers/classrooms"
+              >
+                <img
+                  alt="Avatar with an eye next to it icon"
+                  src="undefined/images/icons/icons-account-view.svg"
+                />
+                <span>
+                  View as a student
+                </span>
+              </a>
+            </HandyAction>
+            <HandyAction
+              icon={
+                Object {
+                  "alt": "Gift icon",
+                  "src": "undefined/images/icons/icons-gift.svg",
+                }
+              }
+              link="/referrals"
+              text="Refer a teacher"
+            >
+              <a
+                className="handy-action focus-on-light"
+                href="/referrals"
+              >
+                <img
+                  alt="Gift icon"
+                  src="undefined/images/icons/icons-gift.svg"
+                />
+                <span>
+                  Refer a teacher
+                </span>
+              </a>
+            </HandyAction>
+            <HandyAction
+              icon={
+                Object {
+                  "alt": "Three avatars icon",
+                  "src": "undefined/images/icons/icons-account-group.svg",
+                }
+              }
+              link="/teachers/classrooms/new"
+              text="Add a class"
+            >
+              <a
+                className="handy-action focus-on-light"
+                href="/teachers/classrooms/new"
+              >
+                <img
+                  alt="Three avatars icon"
+                  src="undefined/images/icons/icons-account-group.svg"
+                />
+                <span>
+                  Add a class
+                </span>
+              </a>
+            </HandyAction>
+            <HandyAction
+              icon={
+                Object {
+                  "alt": "Google Classroom icon",
+                  "src": "undefined/images/icons/icons-google-classroom.svg",
+                }
+              }
+              link="/teachers/classrooms"
+              text="Import classes from Google"
+            >
+              <a
+                className="handy-action focus-on-light"
+                href="/teachers/classrooms"
+              >
+                <img
+                  alt="Google Classroom icon"
+                  src="undefined/images/icons/icons-google-classroom.svg"
+                />
+                <span>
+                  Import classes from Google
+                </span>
+              </a>
+            </HandyAction>
+          </section>
+        </HandyActions>
+        <DailyTinyTip>
+          <section
+            className="daily-tiny-tip"
+          >
+            <h2>
+              Daily tiny tip
+            </h2>
+            <a
+              className="focus-on-light"
+              href="https://www.quill.org/teacher-center/tiny-tips-for-teachers-using-quill-as-a-lesson-related-launching-activity"
+            >
+              <span>
+                Using Quill as a Strategic Do Now
+              </span>
+              <img
+                alt="Clock illustration"
+                src="undefined/images/pages/dashboard/daily_tiny_tips/clock.svg"
+              />
+            </a>
+          </section>
+        </DailyTinyTip>
+        <TeacherCenterHighlights
+          featuredBlogPosts={
+            Array [
+              Object {
+                "external_link": "",
+                "id": 415,
+                "slug": "getting-started-navigating-the-student-dashboard",
+                "title": "Navigating the student dashboard",
+                "topic": "Getting started",
+              },
+              Object {
+                "external_link": "",
+                "id": 451,
+                "slug": "best-practices-how-to-use-quill-when-you-dont-have-time-for-the-diagnostic",
+                "title": "How to use Quill when you don't have time for the diagnostic",
+                "topic": "Best Practices",
+              },
+              Object {
+                "external_link": "http://s3.amazonaws.com/quill-image-uploads/uploads/files/Using_Quill_with_Google_Classroom.mp4",
+                "id": 411,
+                "slug": "using-quill-with-google-classroom",
+                "title": "Using Quill with Google Classroom",
+                "topic": "Getting started",
+              },
+            ]
+          }
+        >
+          <section
+            className="teacher-center-highlights"
+          >
+            <h2>
+              Teacher center highlights
+            </h2>
+            <Highlight
+              blogPost={
+                Object {
+                  "external_link": "",
+                  "id": 415,
+                  "slug": "getting-started-navigating-the-student-dashboard",
+                  "title": "Navigating the student dashboard",
+                  "topic": "Getting started",
+                }
+              }
+              key="415"
+            >
+              <a
+                className="highlight focus-on-light"
+                href="/teacher-center/getting-started-navigating-the-student-dashboard"
+              >
+                <h3>
+                  Navigating the student dashboard
+                </h3>
+                <span>
+                  Getting started
+                </span>
+              </a>
+            </Highlight>
+            <Highlight
+              blogPost={
+                Object {
+                  "external_link": "",
+                  "id": 451,
+                  "slug": "best-practices-how-to-use-quill-when-you-dont-have-time-for-the-diagnostic",
+                  "title": "How to use Quill when you don't have time for the diagnostic",
+                  "topic": "Best Practices",
+                }
+              }
+              key="451"
+            >
+              <a
+                className="highlight focus-on-light"
+                href="/teacher-center/best-practices-how-to-use-quill-when-you-dont-have-time-for-the-diagnostic"
+              >
+                <h3>
+                  How to use Quill when you don't have time for the diagnostic
+                </h3>
+                <span>
+                  Best Practices
+                </span>
+              </a>
+            </Highlight>
+            <Highlight
+              blogPost={
+                Object {
+                  "external_link": "http://s3.amazonaws.com/quill-image-uploads/uploads/files/Using_Quill_with_Google_Classroom.mp4",
+                  "id": 411,
+                  "slug": "using-quill-with-google-classroom",
+                  "title": "Using Quill with Google Classroom",
+                  "topic": "Getting started",
+                }
+              }
+              key="411"
+            >
+              <a
+                className="highlight focus-on-light"
+                href="http://s3.amazonaws.com/quill-image-uploads/uploads/files/Using_Quill_with_Google_Classroom.mp4"
+              >
+                <h3>
+                  Using Quill with Google Classroom
+                </h3>
+                <span>
+                  Getting started
+                </span>
+              </a>
+            </Highlight>
+            <a
+              className="see-all-resources focus-on-light"
+              href="/teacher-center"
+            >
+              See all resources
+            </a>
+          </section>
+        </TeacherCenterHighlights>
+        <CollegeBoard>
+          <section
+            className="college-board"
+          >
+            <div
+              className="top-section"
+            >
+              <a
+                className="focus-on-light help-icon"
+                href="/teacher-center/writing-skills-survey-for-ap"
+              >
+                <img
+                  alt="Question mark icon"
+                  src="undefined/images/icons/icons-help.svg"
+                />
+              </a>
+              <img
+                alt="College Board and Quill logos"
+                src="undefined/images/pages/dashboard/logo-quill-collegeboard.svg"
+              />
+            </div>
+            <p>
+              We partnered with the College Board to provide free activities for AP, Pre-AP, and SpringBoard courses.
+            </p>
+            <a
+              className="focus-on-light see-all-activities"
+              href="/assign/college-board"
+            >
+              <span>
+                See all activities
+              </span>
+              <img
+                alt="Arrow pointing right icon"
+                src="undefined/images/icons/icons-arrow-back.svg"
+              />
+            </a>
+          </section>
+        </CollegeBoard>
+      </aside>
+    </div>
+  </div>
+</Dashboard>
+`;

@@ -10,7 +10,7 @@ import BlogPostIndex from '../components/blog_posts/blog_post_index.jsx';
 import BlogPost from '../components/blog_posts/blog_post.jsx';
 import getAuthToken from '../components/modules/get_auth_token';
 
-const FEATURED_BLOG_POST_LIMIT = 3
+const FEATURED_BLOG_POST_LIMIT = 5
 
 export default class BlogPosts extends React.Component {
   constructor(props) {
