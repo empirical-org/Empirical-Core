@@ -1,87 +1,93 @@
 import 'isomorphic-fetch'
 import React from 'react';
-import { shallow } from 'enzyme';
+import { mount } from 'enzyme';
 
 import Dashboard from '../dashboard.jsx';
-
 import ClassOverview from '../../components/dashboard/class_overview'
 import MyClasses from '../../components/dashboard/my_classes'
 import TeacherCenter from '../../components/dashboard/teacher_center'
 import DashboardFooter from '../../components/dashboard/dashboard_footer'
 
-describe('dashboard container', () => {
-  const wrapper = shallow(
-    <Dashboard
-      user={'{"name":"George Costanza","flag":"bosco"}'}
-    />
-  );
+jest.spyOn(global.Date, 'now').mockImplementation(() =>
+  new Date('2020-04-08T11:01:58.135Z').valueOf()
+);
 
-  it('initial state should match expectations', () => {
-    expect(wrapper.state()).toEqual({
-      classrooms: null,
-      hasPremium: null,
-      notifications: [],
-      performanceQuery: [
-        { header: 'Lowest Performing Students', results: null},
-        { header: 'Difficult Concepts', results: null, }],
-    });
-  });
+const featuredBlogPosts = [
+  {
+    external_link: "",
+    slug: "getting-started-navigating-the-student-dashboard",
+    id: 415,
+    title: 'Navigating the student dashboard',
+    topic: 'Getting started'
+  },
+  {
+    external_link: "",
+    slug: "best-practices-how-to-use-quill-when-you-dont-have-time-for-the-diagnostic",
+    id: 451,
+    title: "How to use Quill when you don't have time for the diagnostic",
+    topic: 'Best Practices'
+  },
+  {
+    external_link: "http://s3.amazonaws.com/quill-image-uploads/uploads/files/Using_Quill_with_Google_Classroom.mp4",
+    slug: "using-quill-with-google-classroom",
+    id: 411,
+    title: 'Using Quill with Google Classroom',
+    topic: 'Getting started'
+  }
+]
 
-  describe('ClassOverview component', () => {
+const onboardingChecklistAllUnchecked = [
+  {
+    name: "Create a class",
+    checked: false,
+    link: "/teachers/classrooms?modal=create-a-class"
+  },
+  {
+    name: "Add students",
+    checked: false,
+    link: "/teachers/classrooms"
+  },
+  {
+    name: "Explore our library",
+    checked: false,
+    link: "/assign"
+  },
+  {
+    name: "Explore our diagnostics",
+    checked: false,
+    link: "/assign/diagnostic"
+  }
+]
+
+const onboardingChecklistAllChecked = onboardingChecklistAllUnchecked.map(item => {
+  item.checked = true
+  return item
+})
+
+describe('Dashboard container', () => {
+  describe('when none of the onboarding items have been checked', () => {
     it('should render', () => {
-      expect(wrapper.find(ClassOverview).exists()).toBe(true);
-    });
+      const wrapper = mount(
+        <Dashboard
+          featuredBlogPosts={featuredBlogPosts}
+          onboardingChecklist={onboardingChecklistAllUnchecked}
+          user={'{"name":"George Costanza","flag":"bosco"}'}
+        />
+      );
+      expect(wrapper).toMatchSnapshot()
+    })
+  })
 
-    it('should pass performanceQuery from state to data prop', () => {
-      wrapper.setState({performanceQuery: () => {return 'foo'}});
-      expect(wrapper.find(ClassOverview).props().data()).toBe('foo');
-      wrapper.setState({performanceQuery: () => {return 'bar'}});
-      expect(wrapper.find(ClassOverview).props().data()).toBe('bar');
-    });
-
-    it('should pass hasPremium from state to premium prop', () => {
-      wrapper.setState({hasPremium: true});
-      expect(wrapper.find(ClassOverview).props().premium).toBe(true);
-      wrapper.setState({hasPremium: false});
-      expect(wrapper.find(ClassOverview).props().premium).toBe(false);
-    });
-
-    it('should pass user flag from props to flag prop', () => {
-      expect(wrapper.find(ClassOverview).props().flag).toBe('bosco');
-    });
-  });
-
-  describe('MyClasses component', () => {
-    it('should render only if there are classrooms in state', () => {
-      expect(wrapper.find(MyClasses).exists()).toBe(false);
-      wrapper.setState({classrooms: [{}]});
-      expect(wrapper.find(MyClasses).exists()).toBe(true);
-    });
-
-    it('should pass classrooms to classList prop', () => {
-      wrapper.setState({classrooms: [{foo: 'bar'}, {bar: 'foo'}]});
-      expect(wrapper.find(MyClasses).props().classList).toHaveLength(2);
-      expect(wrapper.find(MyClasses).props().classList[0].foo).toBe('bar');
-      expect(wrapper.find(MyClasses).props().classList[1].bar).toBe('foo');
-    });
-
-    it('should pass user to user prop', () => {
-      expect(wrapper.find(MyClasses).props().user.name).toBe('George Costanza');
-    });
-  });
-
-  describe('TeacherCenter component', () => {
+  describe('when all the onboarding items have been checked', () => {
     it('should render', () => {
-      expect(wrapper.find(TeacherCenter).exists()).toBe(true);
-    });
-  });
-
-  describe('DashboardFooter component', () => {
-    it('should render', () => {
-      expect(wrapper.find(DashboardFooter).exists()).toBe(true);
-    });
-  });
-
-  //TODO: test componentWillMount and componentWillUnmount after switching to request
-
+      const wrapper = mount(
+        <Dashboard
+          featuredBlogPosts={featuredBlogPosts}
+          onboardingChecklist={onboardingChecklistAllChecked}
+          user={'{"name":"George Costanza","flag":"bosco"}'}
+        />
+      );
+      expect(wrapper).toMatchSnapshot()
+    })
+  })
 });

@@ -42,6 +42,7 @@ module SegmentIo
     TRANSFER_OWNERSHIP ||= 'Teacher transferred ownership of a classroom'
     VIEWED_AS_STUDENT ||= 'Teacher viewed Quill as a student'
     PREVIEWED_ACTIVITY ||= 'Teacher previewed an activity'
+    TEACHER_COMPLETED_ONBOARDING_CHECKLIST ||= 'Teacher completed onboarding checklist'
   end
 
   module Events
