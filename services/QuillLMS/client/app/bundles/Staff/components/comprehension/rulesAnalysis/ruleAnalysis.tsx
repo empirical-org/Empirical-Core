@@ -52,11 +52,11 @@ const RuleAnalysis = ({ history, match }) => {
     return false
   }
 
-   async function makeStrong(response) { updateFeedbackHistoryStrength(response.response_id, true) }
+   async function makeStrong(response) { updateFeedbackHistoryRatingStrength(response.response_id, true) }
 
-   async function makeWeak(response) { updateFeedbackHistoryStrength(response.response_id, false) }
+   async function makeWeak(response) { updateFeedbackHistoryRatingStrength(response.response_id, false) }
 
-   async function updateFeedbackHistoryStrength(responseId, strong) {
+   async function updateFeedbackHistoryRatingStrength(responseId, strong) {
      createOrUpdateFeedbackHistoryRating({ rating: strong, feedback_history_id: responseId}).then((response) => {
        queryCache.refetchQueries(`rule-feedback-histories-by-rule-${ruleId}`);
      });
