@@ -96,6 +96,10 @@ class Teachers::ClassroomManagerController < ApplicationController
     }
   end
 
+  def teacher_dashboard_metrics
+    render json: TeacherDashboardMetrics.new(current_user).run
+  end
+
   def teacher_guide
     @checkbox_data = {
       completed: current_user.checkboxes.map(&:objective_id),

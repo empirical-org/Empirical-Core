@@ -160,6 +160,7 @@ EmpiricalGrammar::Application.routes.draw do
   post 'teachers/classrooms/:class_id/unhide', controller: 'teachers/classrooms', action: 'unhide'
   post 'teachers/classrooms/bulk_archive', controller: 'teachers/classrooms', action: 'bulk_archive'
   get 'teachers/classrooms/:id/student_logins', only: [:pdf], controller: 'teachers/classrooms', action: 'generate_login_pdf', as: :generate_login_pdf, defaults: { format: 'pdf' }
+  get :teacher_dashboard_metrics, controller: 'classroom_manager', action: 'teacher_dashboard_metrics'
 
   namespace :teachers do
 
@@ -274,7 +275,7 @@ EmpiricalGrammar::Application.routes.draw do
     resources :classrooms, only: [:index, :new, :create, :update, :destroy] do
       post :create_students
       post :remove_students
-      
+
       put :import_google_students, controller: 'classroom_manager', action: 'import_google_students'
       collection do
         get :archived, action: 'index', as: :archived
