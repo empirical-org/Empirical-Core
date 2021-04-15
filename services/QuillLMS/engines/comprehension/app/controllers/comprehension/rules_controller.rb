@@ -45,7 +45,7 @@ module Comprehension
     end
 
     private def set_rule
-      @rule = Comprehension::Rule.find_by_uid(params[:id]) || Comprehension::Rule.find_by_id(params[:id])
+      @rule = Comprehension::Rule.find_by_uid(params[:id]) || Comprehension::Rule.find(params[:id])
     end
 
     private def rule_params
