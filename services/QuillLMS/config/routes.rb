@@ -364,6 +364,8 @@ EmpiricalGrammar::Application.routes.draw do
     namespace :v1 do
       get 'activities/uids_and_flags' => 'activities#uids_and_flags'
       get 'rule_feedback_histories' => 'rule_feedback_histories#by_conjunction'
+      get 'rule_feedback_history/:rule_uid' => 'rule_feedback_histories#rule_detail'
+
       resources :activities,              except: [:index, :new, :edit]
       resources :activity_flags,          only: [:index]
       resources :activity_sessions,       except: [:index, :new, :edit]
@@ -371,6 +373,7 @@ EmpiricalGrammar::Application.routes.draw do
         post :batch, on: :collection
       end
       resources :lessons_tokens,          only: [:create]
+      resources :session_feedback_histories, only: [:index, :show]
       resources :standard_levels,                only: [:index]
       resources :standards,                  only: [:index]
       resources :standard_categories,        only: [:index]

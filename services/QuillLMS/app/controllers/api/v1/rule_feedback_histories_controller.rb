@@ -10,4 +10,10 @@ class Api::V1::RuleFeedbackHistoriesController < Api::ApiController
         render(json: report)
     end
 
+    def rule_detail
+        raise ArgumentError unless params.include?('rule_uid')
+        report = RuleFeedbackHistory.generate_rulewise_report(params['rule_uid'])
+        render(json: report)
+    end
+
 end
