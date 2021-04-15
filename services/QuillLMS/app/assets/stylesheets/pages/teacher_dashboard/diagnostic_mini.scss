@@ -1,0 +1,33 @@
+.diagnostic-mini {
+  .data-table {
+    overflow: visible;
+  }
+
+  .data-table .data-table-header {
+    font-weight: 600;
+  }
+
+  .completed-row-section {
+    text-align: right !important;
+  }
+
+  .recommendations-header, .recommendations-row-section {
+    margin-right: 0px;
+  }
+
+  .recommendations-row-section {
+    a {
+      display: flex;
+      align-items: center;
+      img {
+        margin-right: 4px;
+      }
+    }
+  }
+}
+
+// .quill-tooltip:not(.visible) {
+//   opacity: 0;
+//   transition: opacity 0s;
+//   height: 0px;
+// }

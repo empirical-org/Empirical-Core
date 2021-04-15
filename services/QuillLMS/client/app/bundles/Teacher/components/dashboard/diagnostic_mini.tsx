@@ -1,9 +1,10 @@
 import * as React from 'react';
 import _ from 'underscore';
 
-import { DataTable } from '../../../Shared/index'
-
+import { DataTable, helpIcon, fileChartIcon, expandIcon, } from '../../../Shared/index'
 import { requestGet } from '../../../../modules/request/index.js';
+
+const INITIAL_MAX = 5
 
 interface Diagnostic {
   classroom_name: string,
@@ -18,23 +19,24 @@ interface Diagnostic {
 interface DiagnosticMiniState {
   loading: boolean;
   diagnostics: Array<Diagnostic>;
+  showAll: boolean;
 }
 
 const headers = [
   {
     name: 'Diagnostic',
     attribute: 'diagnostic',
-    width: '186px'
+    width: '230px'
   },
   {
     name: 'Class',
     attribute: 'class',
-    width: '186px'
+    width: '180px'
   },
   {
     name: 'Completed',
     attribute: 'completed',
-    width: '61px',
+    width: '62px',
     rowSectionClassName: "completed-row-section"
   },
   {
@@ -47,24 +49,42 @@ const headers = [
   }
 ]
 
-const assignDiagnosticMini = () => {
-  return (
-    <div className="mini_container results-overview-mini-container col-md-4 col-sm-5 text-center">
-      <div className="mini_content diagnostic-mini assign-diagnostic">
-        <div className="gray-underline">
-          <h3>Assign a Diagnostic</h3>
-        </div>
-
-        <img alt="" src={`${process.env.CDN_URL}/images/shared/new_diagnostic.svg`} />
-        <p>See which skills students need to work on and get recommended learning&nbsp;plans.</p>
-        <a className="bg-quillgreen text-white" href='/assign/diagnostic'>Assign Diagnostic</a>
-      </div>
+const MobileRecommendationRow = ({ row, }) => {
+  const {
+    diagnostic,
+    recommendationsHref,
+  } = row
+  return (<div className="mobile-data-row">
+    <div className="top-row">
+      <span>{diagnostic}</span>
+      <a className="focus-on-light" href={recommendationsHref}>View</a>
     </div>
-  );
+  </div>)
 }
 
-const generateRows = (diagnostics) => {
-  return diagnostics.map(diagnostic => {
+const DiagnosticMini = ({passedDiagnostics, onMobile, }) => {
+  const [loading, setLoading] = React.useState<DiagnosticMiniState>(!passedDiagnostics);
+  const [diagnostics, setDiagnostics] = React.useState<DiagnosticMiniState>(passedDiagnostics || []);
+  const [showAll, setShowAll] = React.useState<DiagnosticMiniState>(false);
+
+  React.useEffect(() => {
+    getDiagnostics();
+  }, []);
+
+  function getDiagnostics() {
+    requestGet('/teachers/diagnostic_info_for_dashboard_mini',
+      (data) => {
+        setDiagnostics(data.units);
+        setLoading(false)
+      }
+    )
+  }
+
+  function handleShowMoreClick() { setShowAll(true) }
+
+  if (loading || !diagnostics.length) { return <span /> }
+
+  const rows = diagnostics.slice(0, showAll ? diagnostics.length : INITIAL_MAX).map(diagnostic => {
     const {
       classroom_name,
       activity_name,
@@ -80,44 +100,21 @@ const generateRows = (diagnostics) => {
       class: classroom_name,
       diagnostic: activity_name,
       completed: `${completed_count} of ${assigned_count}`,
-      recommendations: <a className="quill-button fun primary outlined" href={recommendationsHref}>View</a>
+      recommendations: <a className="focus-on-light" href={recommendationsHref}><img alt={fileChartIcon.alt} src={fileChartIcon.src} /><span>View</span></a>,
+      recommendationsHref,
     }
   })
-}
 
-const DiagnosticMini = ({passedDiagnostics}) => {
-  const [loading, setLoading] = React.useState<DiagnosticMiniState>(!passedDiagnostics);
-  const [diagnostics, setDiagnostics] = React.useState<DiagnosticMiniState>(passedDiagnostics || []);
+  const dataDisplay = onMobile ? rows.map(r => <MobileRecommendationRow key={r.id} row={r} />) : <DataTable headers={headers} rows={rows} />
 
-  React.useEffect(() => {
-    getDiagnostics();
-  }, []);
-
-  const getDiagnostics = () => {
-    requestGet('/teachers/diagnostic_info_for_dashboard_mini',
-      (data) => {
-        setDiagnostics(data.units);
-        setLoading(false)
-      }
-    )
-  }
-
-  if (loading) { return <span /> }
-  if (!loading && !diagnostics.length) { return assignDiagnosticMini() }
-
-  return (<section className="mini_container results-overview-mini-container col-md-8 col-sm-10 text-center" id="recently-assigned-diagnostics-card">
-    <section className="inner-container">
-      <header className="header-container flex-row space-between vertically-centered">
-        <h3>Recently Assigned Diagnostics</h3>
-        <a href="/teachers/progress_reports/diagnostic_reports/#/diagnostics">View All {diagnostics.length > 1 ? diagnostics.length : ''} Diagnostic Reports</a>
-      </header>
-      <DataTable
-        headers={headers}
-        rows={generateRows(diagnostics)}
-      />
-    </section>
+  return (<section className="diagnostic-mini">
+    <header>
+      <h2>Diagnostic recommendations</h2>
+      <a href="https://app.intercom.com/a/apps/v2ms5bl3/articles/articles/5014101/show"><img alt={helpIcon.alt} src={helpIcon.src} /></a>
+    </header>
+    {dataDisplay}
+    {diagnostics.length > INITIAL_MAX && !showAll && <button className="bottom-button focus-on-light interactive-wrapper" onClick={handleShowMoreClick} type="button">Show more <img alt={expandIcon.alt} src={expandIcon.src} /></button>}
   </section>)
-
 }
 
 export default DiagnosticMini

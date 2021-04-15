@@ -3,6 +3,7 @@ import React from 'react';
 import { requestGet } from '../../../modules/request';
 import WelcomeModal from '../components/dashboard/welcome_modal'
 import OnboardingChecklist from '../components/dashboard/onboarding_checklist'
+import DiagnosticMini from '../components/dashboard/diagnostic_mini'
 import ActivityFeed from '../components/dashboard/activity_feed'
 import HandyActions from '../components/dashboard/handy_actions'
 import DailyTinyTip from '../components/dashboard/daily_tiny_tip'
@@ -32,7 +33,8 @@ const Dashboard = ({ onboardingChecklist, firstName, mustSeeModal, linkedToCleve
   return (<div className="dashboard">
     <div className="post-checklist-container">
       <main>
-        <ActivityFeed onMobile={onMobile} />
+        <DiagnosticMini onMobile={onMobile()} />
+        <ActivityFeed onMobile={onMobile()} />
       </main>
       <aside>
         <HandyActions linkedToClever={linkedToClever} />

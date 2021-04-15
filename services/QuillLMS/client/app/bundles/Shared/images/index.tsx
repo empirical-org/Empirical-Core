@@ -52,3 +52,8 @@ export const expandIcon = {
   src: `${process.env.CDN_URL}/images/icons/expand.svg`,
   alt: ''
 }
+
+export const fileChartIcon = {
+  src: `${process.env.CDN_URL}/images/icons/icons-file-chart.svg`,
+  alt: 'File with a chart icon'
+}

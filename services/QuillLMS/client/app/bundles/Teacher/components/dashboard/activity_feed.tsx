@@ -39,7 +39,7 @@ const MobileActivityRow = ({ row, }) => {
     link,
     completed,
   } = row
-  return (<a className="mobile-activity-row focus-on-light" href={link}>
+  return (<a className="mobile-data-row focus-on-light" href={link}>
     <div className="top-row">
       <span>{studentName}</span>
       <span>{completed}</span>

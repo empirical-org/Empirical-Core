@@ -1,11 +1,4 @@
 .post-checklist-container .activity-feed {
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-  display: flex;
-  border-radius: 8px;
-  border: solid 1px #e0e0e0;
-  width: 100%;
   &.empty {
     height: 1112px;
     h2 {
@@ -28,58 +21,10 @@
       line-height: 1.3;
       width: 100%;
     }
-    .data-table {
-      padding: 0px 20px;
+    .completed-section {
+      margin-right: 0px;
+      text-overflow: initial;
       overflow: visible;
-      .data-table-row, .data-table-headers {
-        padding: 0px 8px 0px 0px;
-        &:hover, &:focus {
-          text-decoration: none;
-        }
-      }
-      .completed-section {
-        margin-right: 0px;
-        text-overflow: initial;
-        overflow: visible;
-      }
-    }
-    .bottom-button {
-      display: flex;
-      width: 100%;
-      border-top: 1px solid #e0e0e0;
-      justify-content: center;
-      padding: 14px;
-      font-weight: 600;
-      color: #5c5c5c;
-      align-items: center;
-      img {
-        margin-left: 4px;
-      }
-      &:focus, &:hover {
-        text-decoration: none;
-        background-color: #f5f5f5;
-      }
-    }
-  }
-  .mobile-activity-row {
-    width: calc(100% - 40px);
-    border-top: 1px solid #e0e0e0;
-    padding: 14px 8px;
-    div {
-      margin-bottom: 8px;
-      color: #262626;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-    }
-    .top-row {
-      display: flex;
-      justify-content: space-between;
-      span:first-of-type {
-        overflow: hidden;
-        margin-right: 20px;
-        text-overflow: ellipsis;
-      }
     }
   }
   .score-tag {
