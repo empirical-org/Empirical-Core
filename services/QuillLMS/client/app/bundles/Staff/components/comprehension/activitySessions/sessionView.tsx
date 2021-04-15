@@ -6,23 +6,27 @@ import PromptTable from './promptTable';
 import SessionOverview from './sessionOverview';
 
 import { Error, Spinner } from '../../../../Shared/index';
-import { fetchActivity } from '../../../utils/comprehension/activityAPIs';
+import { fetchActivity, fetchActivitySession } from '../../../utils/comprehension/activityAPIs';
 import { getPromptForActivitySession } from "../../../helpers/comprehension";
-
-var sessionData = require('./sessionData.json');
-
+import { BECAUSE, BUT, SO } from '../../../../../constants/comprehension';
 
 const SessionView = ({ match }) => {
   const { params } = match;
-  const { activityId } = params;
+  const { activityId, sessionId } = params;
 
   // cache activity data for updates
-  const { data } = useQuery({
+  const { data: activityData } = useQuery({
     queryKey: [`activity-${activityId}`, activityId],
     queryFn: fetchActivity
   });
 
-  if(!data) {
+  // cache session data for updates
+  const { data: sessionData } = useQuery({
+    queryKey: [`activity-${activityId}-session-${sessionId}`, sessionId],
+    queryFn: fetchActivitySession
+  });
+
+  if(!sessionData) {
     return(
       <div className="loading-spinner-container">
         <Spinner />
@@ -30,56 +34,57 @@ const SessionView = ({ match }) => {
     );
   }
 
-  if(data && data.error) {
+  if(sessionData && sessionData.error) {
     return(
       <div className="error-container">
-        <Error error={`${data.error}`} />
+        <Error error={`${sessionData.error}`} />
       </div>
     );
   }
 
-  const { activity } = data;
+  const { activity } = activityData;
   const { title } = activity;
-  const { session_uid } = sessionData;
+  const { activitySession } = sessionData;
+  const { session_uid } = activitySession;
 
   return(
     <div className="session-view-container">
       <section className="sessions-header">
         <h1>{title}</h1>
-        <Link className="return-link" to={`/activity-sessions/${activityId}`}>← Return to Sessions Index</Link>
+        <Link className="return-link" to={`/activities/${activityId}/activity-sessions`}>← Return to Sessions Index</Link>
       </section>
       <div className="tabs-container">
-        <NavLink activeClassName="is-active" to={`/activity-sessions/${activityId}/${session_uid}/overview`}>
+        <NavLink activeClassName="is-active" to={`/activities/${activityId}/activity-sessions/${session_uid}/overview`}>
           <div className="tab-option">
             Session Overview
           </div>
         </NavLink>
-        <NavLink activeClassName="is-active" to={`/activity-sessions/${activityId}/${session_uid}/because-responses`}>
+        <NavLink activeClassName="is-active" to={`/activities/${activityId}/activity-sessions/${session_uid}/because-responses`}>
           <div className="tab-option">
             Because Responses
           </div>
         </NavLink>
-        <NavLink activeClassName="is-active" to={`/activity-sessions/${activityId}/${session_uid}/but-responses`}>
+        <NavLink activeClassName="is-active" to={`/activities/${activityId}/activity-sessions/${session_uid}/but-responses`}>
           <div className="tab-option">
             But Responses
           </div>
         </NavLink>
-        <NavLink activeClassName="is-active" to={`/activity-sessions/${activityId}/${session_uid}/so-responses`}>
+        <NavLink activeClassName="is-active" to={`/activities/${activityId}/activity-sessions/${session_uid}/so-responses`}>
           <div className="tab-option">
             So Responses
           </div>
         </NavLink>
       </div>
       <Switch>
-        <Redirect exact from='/activity-sessions/:activityId/:sessionId' to='/activity-sessions/:activityId/:sessionId/overview' />
+        <Redirect exact from='/activities/:activityId/activity-sessions/:sessionId' to='/activities/:activityId/activity-sessions/:sessionId/overview' />
         {/* eslint-disable-next-line react/jsx-no-bind */}
-        <Route component={() => <SessionOverview activity={activity} sessionData={sessionData} />} path='/activity-sessions/:activityId/:sessionId/overview' />
+        <Route component={() => <SessionOverview activity={activity} sessionData={sessionData} />} path='/activities/:activityId/activity-sessions/:sessionId/overview' />
         {/* eslint-disable-next-line react/jsx-no-bind */}
-        <Route component={() => <PromptTable activity={activity} prompt={getPromptForActivitySession(sessionData, 0)} />} path='/activity-sessions/:activityId/:sessionId/because-responses' />
+        <Route component={() => <PromptTable activity={activity} prompt={getPromptForActivitySession(sessionData, BECAUSE)} />} path='/activities/:activityId/activity-sessions/:sessionId/because-responses' />
         {/* eslint-disable-next-line react/jsx-no-bind */}
-        <Route component={() => <PromptTable activity={activity} prompt={getPromptForActivitySession(sessionData, 1)} />} path='/activity-sessions/:activityId/:sessionId/but-responses' />
+        <Route component={() => <PromptTable activity={activity} prompt={getPromptForActivitySession(sessionData, BUT)} />} path='/activities/:activityId/activity-sessions/:sessionId/but-responses' />
         {/* eslint-disable-next-line react/jsx-no-bind */}
-        <Route component={() => <PromptTable activity={activity} prompt={getPromptForActivitySession(sessionData, 2)} />} path='/activity-sessions/:activityId/:sessionId/so-responses' />
+        <Route component={() => <PromptTable activity={activity} prompt={getPromptForActivitySession(sessionData, SO)} />} path='/activities/:activityId/activity-sessions/:sessionId/so-responses' />
       </Switch>
     </div>
   );

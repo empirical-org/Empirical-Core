@@ -53,7 +53,7 @@ const SessionsIndex = ({ match }) => {
       formattedSession.but_attempts = but_attempts;
       formattedSession.so_attempts = so_attempts;
       formattedSession.total_attempts = total;
-      formattedSession.view_link = <Link to={`/activity-sessions/${activityId}/${session_uid}`}>View</Link>;
+      formattedSession.view_link = <Link className="data-link" to={`/activities/${activityId}/activity-sessions/${session_uid}/overview`}>View</Link>;
       formattedSession.completed = complete ? <img alt="quill-circle-checkmark" src={quillCheckmark} /> : "";
       return formattedSession;
     });
@@ -101,7 +101,7 @@ const SessionsIndex = ({ match }) => {
     { name: "But", attribute:"but_attempts", width: "50px" },
     { name: "So", attribute:"so_attempts", width: "50px" },
     { name: "Completed?", attribute: "completed", width: "75px"},
-    { name: "View", attribute:"view_link", width: "100px" }
+    { name: "", attribute:"view_link", width: "100px" }
   ];
 
   const { activity } = activityData;

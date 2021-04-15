@@ -1,9 +1,16 @@
 import * as React from "react";
+import stripHtml from "string-strip-html";
 
 import { DataTable, Spinner } from '../../../../Shared/index';
 import { PROMPT_ATTEMPTS_FEEDBACK_LABELS, PROMPT_HEADER_LABELS } from '../../../../../constants/comprehension';
+import { ActivityInterface, PromptInterface } from "../../../interfaces/comprehensionInterfaces";
 
-const SessionsIndex = ({ activity, prompt, showHeader }) => {
+interface PromptTableProps {
+  activity: ActivityInterface;
+  prompt: PromptInterface;
+  showHeader?: boolean;
+}
+const PromptTable = ({ activity, prompt, showHeader }: PromptTableProps) => {
 
 
   function formatFirstTableData(prompt: any) {
@@ -38,8 +45,9 @@ const SessionsIndex = ({ activity, prompt, showHeader }) => {
     const matchedPrompt = prompts.filter(prompt => prompt.id === prompt_id)[0];
     const keys = attempts && Object.keys(attempts);
     const rows = [];
-    keys.map((key: any, i: number) => {
-      const attempt = attempts[key][0];
+    keys.map(key => {
+      const filteredAttempt = attempts[key].filter(attempt => attempt.used)[0];
+      const attempt = filteredAttempt || attempts[key][0];
       const { entry, feedback_text, feedback_type, optimal } = attempt;
       const { attemptLabel, feedbackLabel } = PROMPT_ATTEMPTS_FEEDBACK_LABELS[key];
       const attemptObject: any = {};
@@ -50,7 +58,7 @@ const SessionsIndex = ({ activity, prompt, showHeader }) => {
         <p className="entry">{entry}</p>
       </div>);
       feedbackObject.status = feedbackLabel;
-      feedbackObject.results = feedback_text;
+      feedbackObject.results = stripHtml(feedback_text);
       feedbackObject.feedback = feedback_type;
       feedbackObject.className = optimal ? 'optimal' : 'sub-optimal'
       rows.push(attemptObject);
@@ -67,6 +75,18 @@ const SessionsIndex = ({ activity, prompt, showHeader }) => {
     );
   }
 
+  if(prompt && prompt.text === 'none') {
+    const { conjunction, text } = prompt;
+    return(
+      <section className="prompt-table-container">
+        <section className="attempts-section">
+          <p className="attempts-label">{PROMPT_HEADER_LABELS[conjunction]}</p>
+          <p className="attempts-value">{text}</p>
+        </section>
+      </section>
+    );
+  }
+
   const dataTableFields = [
     { name: "Status", attribute:"status", width: "100px" },
     { name: "Results", attribute:"results", width: "500px" },
@@ -79,7 +99,7 @@ const SessionsIndex = ({ activity, prompt, showHeader }) => {
 
   return(
     <section className="prompt-table-container">
-      {showHeader && <h2>{PROMPT_HEADER_LABELS[conjunction]}</h2>}
+      {showHeader && <h3>{PROMPT_HEADER_LABELS[conjunction]}</h3>}
       <section className="attempts-section">
         <p className="attempts-label">{attemptsLabel}</p>
         <p className="attempts-value">{attemptsValue}</p>
@@ -97,4 +117,4 @@ const SessionsIndex = ({ activity, prompt, showHeader }) => {
   );
 }
 
-export default SessionsIndex
+export default PromptTable;

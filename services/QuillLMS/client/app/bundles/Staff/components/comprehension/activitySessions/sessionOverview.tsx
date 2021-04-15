@@ -5,16 +5,17 @@ import PromptTable from './promptTable';
 
 import { DataTable, Error, Spinner } from '../../../../Shared/index';
 import { getPromptForActivitySession } from "../../../helpers/comprehension";
+import { BECAUSE, BUT, SO } from '../../../../../constants/comprehension';
 
 const SessionOverview = ({ activity, sessionData }) => {
 
-  function sessionRows(sessionData: any) {
-    if(!sessionData) {
+  function sessionRows({ activitySession }) {
+    if(!activitySession) {
       return [];
     } else {
       // format for DataTable to display labels on left side and values on right
-      const { start_date, prompts, session_completed, session_uid } = sessionData;
-      const totalResponses = getTotalResponses(prompts);
+      const { start_date, completed, session_uid, because_attempts, but_attempts, so_attempts } = activitySession;
+      const totalResponses = because_attempts + but_attempts + so_attempts;
       const dateObject = new Date(start_date);
       const date = moment(dateObject).format("MM/DD/YY HH:MM A");
 
@@ -29,7 +30,7 @@ const SessionOverview = ({ activity, sessionData }) => {
         },
         {
           label: 'Session Complete?',
-          value: session_completed ? 'True' : 'False'
+          value: completed ? 'True' : 'False'
         },
         {
           label: 'Total Responses',
@@ -46,16 +47,6 @@ const SessionOverview = ({ activity, sessionData }) => {
       });
     }
   }
-
-  function getTotalResponses(prompts: any[]) {
-    let total = 0;
-    prompts && prompts.forEach((prompt: any) => {
-      const { attempts } = prompt;
-      total += Object.keys(attempts).length;
-    });
-    return total;
-  }
-
 
   if(!sessionData) {
     return(
@@ -86,9 +77,9 @@ const SessionOverview = ({ activity, sessionData }) => {
         headers={dataTableFields}
         rows={sessionRows(sessionData)}
       />
-      <PromptTable activity={activity} prompt={getPromptForActivitySession(sessionData, 0)} showHeader={true} />
-      <PromptTable activity={activity} prompt={getPromptForActivitySession(sessionData, 1)} showHeader={true} />
-      <PromptTable activity={activity} prompt={getPromptForActivitySession(sessionData, 2)} showHeader={true} />
+      <PromptTable activity={activity} prompt={getPromptForActivitySession(sessionData, BECAUSE)} showHeader={true} />
+      <PromptTable activity={activity} prompt={getPromptForActivitySession(sessionData, BUT)} showHeader={true} />
+      <PromptTable activity={activity} prompt={getPromptForActivitySession(sessionData, SO)} showHeader={true} />
     </div>
   );
 }

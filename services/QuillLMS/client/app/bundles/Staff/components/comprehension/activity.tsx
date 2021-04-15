@@ -7,12 +7,12 @@ import Rules from './configureRules/rules';
 import Rule from './configureRules/rule';
 import TurkSessions from './gatherResponses/turkSessions';
 import SessionsIndex from './activitySessions/sessionsIndex';
+import SessionView from './activitySessions/sessionView';
 import SemanticLabelsIndex from './semanticRules/semanticLabelsIndex';
 
 import { ActivityRouteProps } from '../../interfaces/comprehensionInterfaces';
 
 const Activity: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ match, location, }) => {
-  const { params } = match;
   return(
     <React.Fragment>
       <Navigation location={location} match={match} />
@@ -23,6 +23,7 @@ const Activity: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ match, lo
           <Route component={Rule} path='/activities/:activityId/rules/:ruleId' />
           <Route component={Rules} path='/activities/:activityId/rules' />
           <Route component={TurkSessions} path='/activities/:activityId/turk-sessions' />
+          <Route component={SessionView} path='/activities/:activityId/activity-sessions/:sessionId' />
           <Route component={SessionsIndex} path='/activities/:activityId/activity-sessions' />
           <Route component={SemanticLabelsIndex} path='/activities/:activityId/semantic-labels' />
         </Switch>

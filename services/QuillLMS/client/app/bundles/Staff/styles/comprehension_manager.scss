@@ -84,7 +84,6 @@
     align-items: center;
     width: 70vw;
     padding-top: 20px;
-    border-right: 1px solid lightgray;
     .activities-table, .tabs-container {
       align-self: flex-start;
       .data-table-body{
@@ -104,8 +103,8 @@
       }
     }
     .spinner-container {
-      width: 100px;
-      height: 100px;
+      // width: 100px;
+      // height: 100px;
     }
   }
   .activity-container {
@@ -139,8 +138,6 @@
         }
       }
     }
-    width: 70vw;
-    border-right: 1px solid lightgray;
   }
   .activity-settings-container {
     display: flex;
@@ -437,9 +434,6 @@
         max-height: 500px;
         overflow: auto;
         .data-table-row {
-          .data-link {
-            color: #00c2a2;
-          }
           span {
             text-align: left !important;
             span {
@@ -495,7 +489,7 @@
     }
   }
 
-  .models-container, .semantic-labels-container {
+  .models-container {
     padding: 20px 0px 20px 0px;
   }
   .models-container {
@@ -842,13 +836,12 @@
   }
   .sessions-index-container, .session-view-container {
     width: 80vw;
-    padding-left: 24px;
     .session-view-container {
       margin-top: 30px
     }
     .sessions-header {
-      border-bottom: 1px solid lightgray;;
-      padding: 40px 0px 20px 0px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid lightgray;
       h1 {
         font-weight: 300;
       }
@@ -978,10 +971,10 @@
       }
     }
   }
-  .return-link {
+  .return-link, .data-link {
     color: #00c2a2;
   }
-  .return-link:hover {
+  .return-link:hover, .data-link:hover {
     color: #29d8bc;
   }
 }

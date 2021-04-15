@@ -209,12 +209,21 @@ export function getActivityPromptSetter({
   return updatePrompt;
 };
 
-export function getPromptForActivitySession(sessionData: any, index: number) {
+export function getPromptForActivitySession(sessionData: any, conjunction: string) {
   if(!sessionData) {
     return null;
   }
-  const { prompts } = sessionData;
-  return prompts[index];
+  const { activitySession } = sessionData;
+  const { prompts } = activitySession;
+  if(prompts[conjunction]) {
+    const prompt = prompts[conjunction];
+    prompt.conjunction = conjunction;
+    return prompt;
+  }
+  return {
+    conjunction,
+    text: 'none'
+  }
 }
 
 const targetReadingLevelError = (value: string) => {

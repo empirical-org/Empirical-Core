@@ -60,3 +60,13 @@ export const fetchActivitySessions = async (key: string, activityId: string, pag
     error: handleApiError('Failed to fetch activity sessions, please refresh the page.', response),
   };
 }
+
+export const fetchActivitySession = async (key: string, sessionId: string) => {
+  const response = await mainApiFetch(`session_feedback_histories/${sessionId}`);
+  const activitySession = await response.json();
+
+  return {
+    activitySession,
+    error: handleApiError('Failed to fetch activity sessions, please refresh the page.', response),
+  };
+}
