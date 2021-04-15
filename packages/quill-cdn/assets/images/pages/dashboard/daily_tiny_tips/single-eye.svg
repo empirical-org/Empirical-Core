@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="72px" height="72px" viewBox="0 0 72 72" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>single-eye</title>
+    <defs>
+        <path d="M21.0000029,26 C8.60742,26 0.50684,14.06299 0.16797,13.55469 C-0.05566,13.21973 -0.05566,12.78369 0.16602,12.44824 C0.50195,11.93994 8.54297,0 21.0000029,0 C33.39258,0 41.49316,11.93701 41.83203,12.44531 C42.05664,12.78222 42.05566,13.22168 41.83008,13.55761 C41.48828,14.06592 33.3291,26 21.0000029,26 Z" id="path-1"></path>
+        <filter x="-15.5%" y="-21.2%" width="131.0%" height="150.0%" filterUnits="objectBoundingBox" id="filter-2">
+            <feOffset dx="0" dy="1" in="SourceAlpha" result="shadowOffsetOuter1"></feOffset>
+            <feGaussianBlur stdDeviation="2" in="shadowOffsetOuter1" result="shadowBlurOuter1"></feGaussianBlur>
+            <feColorMatrix values="0 0 0 0 0.153158466   0 0 0 0 0.372819541   0 0 0 0 0.348412755  0 0 0 0.37839236 0" type="matrix" in="shadowBlurOuter1"></feColorMatrix>
+        </filter>
+    </defs>
+    <g id="------↳-Home" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Artboard" transform="translate(-1249.000000, -223.000000)">
+            <g id="single-eye" transform="translate(1249.000000, 223.000000)">
+                <rect id="Rectangle" fill="#E1F3F1" x="0" y="0" width="72" height="72" rx="8"></rect>
+                <g id="eye" transform="translate(15.000000, 23.000000)" fill-rule="nonzero">
+                    <g id="Path">
+                        <use fill="black" fill-opacity="1" filter="url(#filter-2)" xlink:href="#path-1"></use>
+                        <use fill="#FFFFFF" xlink:href="#path-1"></use>
+                    </g>
+                    <circle id="Oval" fill="#A67C52" cx="21" cy="11" r="9"></circle>
+                    <circle id="Oval" fill="#444444" cx="21" cy="11" r="5"></circle>
+                    <circle id="Oval" fill="#FFFFFF" cx="17.5" cy="8.5" r="2.5"></circle>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>
