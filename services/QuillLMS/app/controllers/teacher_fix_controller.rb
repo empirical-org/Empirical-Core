@@ -225,13 +225,11 @@ class TeacherFixController < ApplicationController
     render json: {}, status: 200
   end
 
-  private
-
-  def set_user
+  private def set_user
     @user = User.find_by_username_or_email(params['teacher_identifier'])
   end
 
-  def archived_units_for_user
+  private def archived_units_for_user
     @archived_units ||= Unit.unscoped.where(visible: false, user_id: @user.id).map do |unit|
       unit = unit.attributes
       unit['shared_name'] = Unit.find_by(user_id: unit['user_id'], name: unit['name']).present?

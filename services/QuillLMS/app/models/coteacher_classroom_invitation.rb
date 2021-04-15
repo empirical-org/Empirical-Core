@@ -25,15 +25,13 @@ class CoteacherClassroomInvitation < ActiveRecord::Base
 
   MAX_COTEACHER_INVITATIONS_PER_CLASS = 50
 
-  private
-
-  def update_parent_invitation
+  private def update_parent_invitation
     unless CoteacherClassroomInvitation.exists?(invitation_id: invitation_id)
       Invitation.find(invitation_id).update(archived: true)
     end
   end
 
-  def prevent_saving_if_classrooms_teacher_association_exists
+  private def prevent_saving_if_classrooms_teacher_association_exists
     classrooms_teachers = ActiveRecord::Base.connection.execute("
       SELECT 1
       FROM invitations
@@ -47,7 +45,7 @@ class CoteacherClassroomInvitation < ActiveRecord::Base
     return false if classrooms_teachers.any?
   end
 
-  def trigger_analytics
+  private def trigger_analytics
     invitation = self.invitation
     UserMilestone.find_or_create_by(user_id: invitation.inviter_id, milestone_id: Milestone.find_or_create_by(name: Milestone::TYPES[:invite_a_coteacher]).id)
     Analyzer.new.track_with_attributes(
@@ -57,7 +55,7 @@ class CoteacherClassroomInvitation < ActiveRecord::Base
     )
   end
 
-  def validate_invitation_limit
+  private def validate_invitation_limit
     # In order to avoid letting people use our platform to spam folks,
     # we want to put some limits on the number of invitations a user can issue.
     # One of those limits is a cap on invitations per classroom

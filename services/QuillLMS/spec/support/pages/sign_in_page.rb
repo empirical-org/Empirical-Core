@@ -23,7 +23,6 @@ class SignInPage < Page
     click_button 'Login'
   end
 
-  private
-
   BASE_PATH = '/session'
+  private_constant :BASE_PATH
 end

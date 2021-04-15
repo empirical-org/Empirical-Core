@@ -29,15 +29,13 @@ class ClassroomsTeacher < ActiveRecord::Base
     user
   end
 
-  private
-
-  def delete_classroom_minis_cache_for_each_teacher_of_this_classroom
+  private def delete_classroom_minis_cache_for_each_teacher_of_this_classroom
     Classroom.unscoped.find(classroom_id).teachers.ids.each do |id|
       $redis.del("user_id:#{id}_classroom_minis")
     end
   end
 
-  def reset_lessons_cache_for_teacher
+  private def reset_lessons_cache_for_teacher
     ResetLessonCacheWorker.perform_async(user_id)
   end
 

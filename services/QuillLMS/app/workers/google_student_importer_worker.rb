@@ -19,17 +19,15 @@ class GoogleStudentImporterWorker
     end
   end
 
-  private
-
-  def google_client(teacher)
+  private def google_client(teacher)
     GoogleIntegration::Client.new(teacher).create
   end
 
-  def google_students_requester
+  private def google_students_requester
     GoogleIntegration::Classroom::Requesters::Students
   end
 
-  def google_students_creator
+  private def google_students_creator
     GoogleIntegration::Classroom::Creators::Students
   end
 end

@@ -121,8 +121,7 @@ class Teachers::ProgressReports::DiagnosticReportsController < Teachers::Progres
       render json: {diagnosticStatus: diagnostic_status}
     end
 
-  private
-    def create_or_update_selected_packs
+    private def create_or_update_selected_packs
       if params[:whole_class]
         $redis.set("user_id:#{current_user.id}_lesson_diagnostic_recommendations_start_time", Time.now)
         return render json: {}, status: 401 unless current_user.classrooms_i_teach.map(&:id).include?(params[:classroom_id].to_i)
@@ -152,7 +151,7 @@ class Teachers::ProgressReports::DiagnosticReportsController < Teachers::Progres
       end
     end
 
-    def authorize_teacher!
+    private def authorize_teacher!
       classroom_teacher!(params[:classroom_id])
     end
 

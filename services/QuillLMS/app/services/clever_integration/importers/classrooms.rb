@@ -9,8 +9,6 @@ module CleverIntegration::Importers::Classrooms
     updated_classrooms
   end
 
-  private
-
   def self.fetch_clever_teacher(teacher_clever_id, district_token)
     CleverIntegration::Requesters.sections_for_teacher(teacher_clever_id, district_token)
   end

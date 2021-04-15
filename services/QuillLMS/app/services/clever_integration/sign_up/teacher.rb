@@ -13,8 +13,6 @@ module CleverIntegration::SignUp::Teacher
     end
   end
 
-  private
-
   def self.library_integration(auth_hash)
     CleverIntegration::Importers::Library.run(auth_hash)
   end

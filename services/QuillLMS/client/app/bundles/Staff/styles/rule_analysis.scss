@@ -1,0 +1,31 @@
+.rule-analysis-container {
+  .data-table {
+    margin: 20px 0px;
+  }
+
+  .responses-table {
+    margin-top: 20px;
+  }
+
+  .rt-td, .rt-th {
+    white-space: pre-wrap;
+  }
+
+  .-odd {
+    background-color: #eee;
+  }
+  .-even {
+    background-color: white;
+  }
+
+  .strength-button {
+    margin-right: 8px;
+    background-color: white;
+    &.strong {
+      background-color: green;
+    }
+    &.weak {
+      background-color: red;
+    }
+  }
+}

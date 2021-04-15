@@ -152,13 +152,11 @@ class SegmentAnalytics
     backend.identify(identify_params(user))
   end
 
-  private
-
-  def anonymous_uid
+  private def anonymous_uid
     SecureRandom.urlsafe_base64
   end
 
-  def integration_rules(user_id)
+  private def integration_rules(user_id)
     user = User.find_by_id(user_id)
 
     {
@@ -168,7 +166,7 @@ class SegmentAnalytics
   end
 
 
-  def identify_params(user)
+  private def identify_params(user)
     {
       user_id: user.id,
       traits: {
@@ -180,11 +178,11 @@ class SegmentAnalytics
     }
   end
 
-  def user_traits(user)
+  private def user_traits(user)
     SegmentAnalyticsUserSerializer.new(user).as_json(root: false)
   end
 
-  def activity_info_for_tracking(activity)
+  private def activity_info_for_tracking(activity)
     {
       activity_name: activity.name,
       tool_name: activity.classification.name.split(' ')[1]

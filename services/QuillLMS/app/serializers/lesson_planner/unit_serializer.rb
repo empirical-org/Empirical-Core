@@ -1,15 +1,13 @@
 class LessonPlanner::UnitSerializer < ActiveModel::Serializer
   attributes :id, :name, :selectedActivities, :classrooms, :dueDates
 
-  private
-
-  def selectedActivities
+  private def selectedActivities
     object.activities.uniq.map do |activity|
       ActivitySerializer.new(activity, root: false).as_json
     end
   end
 
-  def classrooms
+  private def classrooms
     first_classroom_unit = object.classroom_units.first
     if first_classroom_unit.nil?
       c = []
@@ -25,7 +23,7 @@ class LessonPlanner::UnitSerializer < ActiveModel::Serializer
     scd
   end
 
-  def unselectedClassroomData(classrooms)
+  private def unselectedClassroomData(classrooms)
     classrooms.map do |classroom|
       students = classroom.students.map do |student|
         { id: student.id, name: student.name, isSelected: false }
@@ -38,7 +36,7 @@ class LessonPlanner::UnitSerializer < ActiveModel::Serializer
     end
   end
 
-  def selectedClassroomData
+  private def selectedClassroomData
     object.classroom_units.map do |classroom_unit|
       {
         classroom: classroom_unit.classroom,
@@ -50,7 +48,7 @@ class LessonPlanner::UnitSerializer < ActiveModel::Serializer
     end
   end
 
-  def students_result(students, assigned_student_ids)
+  private def students_result(students, assigned_student_ids)
     if assigned_student_ids.empty?
       all_students_selected(students)
     else
@@ -59,20 +57,20 @@ class LessonPlanner::UnitSerializer < ActiveModel::Serializer
   end
 
 
-  def all_students_selected(students)
+  private def all_students_selected(students)
     students.map do |student|
       {id: student.id, name: student.name, isSelected: true}
     end
   end
 
-  def select_certain_students(students, assigned_student_ids)
+  private def select_certain_students(students, assigned_student_ids)
     students.map do |student|
       is_selected = assigned_student_ids.include?(student.id)
       {id: student.id, name: student.name, isSelected: is_selected}
     end
   end
 
-  def dueDates
+  private def dueDates
     object.reload.unit_activities.uniq(&:activity).each_with_object({}) do |unit_activity, acc|
       acc[unit_activity.activity.id] = unit_activity.formatted_due_date
     end

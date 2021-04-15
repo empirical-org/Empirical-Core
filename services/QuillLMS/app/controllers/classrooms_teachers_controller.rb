@@ -36,20 +36,17 @@ class ClassroomsTeachersController < ApplicationController
     render json: {message: 'Deletion Succeeded!'}
   end
 
-  private
-
-  def multi_classroom_auth
+  private def multi_classroom_auth
     @classrooms = params[:classrooms]
     uniqued_classroom_ids = @classrooms[:negative_classroom_ids].concat(@classrooms[:positive_classroom_ids]).uniq
     ClassroomsTeacher.where(user_id: current_user.id, classroom_id: uniqued_classroom_ids, role: 'owner').length == uniqued_classroom_ids.length
   end
 
-  def edit_info_for_specific_teacher(selected_teacher_id)
+  private def edit_info_for_specific_teacher(selected_teacher_id)
     {
       is_coteacher: current_user.classrooms_i_own_that_a_specific_user_coteaches_with_me(selected_teacher_id).map(&:id),
       invited_to_coteach: current_user.classroom_ids_i_have_invited_a_specific_teacher_to_coteach(selected_teacher_id)
     }
   end
-
 
 end
