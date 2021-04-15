@@ -62,7 +62,6 @@ Naming/AccessorMethodName:
     - "QuillLMS/app/controllers/api/v1/focus_points_controller.rb"
     - "QuillLMS/app/controllers/api/v1/incorrect_sequences_controller.rb"
     - "QuillLMS/app/controllers/api/v1/questions_controller.rb"
-    - "QuillLMS/lib/tasks/firebase.rake"
 
 Naming/AsciiIdentifiers:
   Enabled: true
@@ -85,8 +84,6 @@ Naming/VariableNumber:
 
 Naming/VariableName:
   Enabled: true
-  Exclude:
-    - "QuillLMS/lib/tasks/firebase.rake"
 
 Security/Eval:
   Enabled: true
