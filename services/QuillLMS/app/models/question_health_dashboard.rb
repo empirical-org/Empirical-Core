@@ -61,7 +61,7 @@ class QuestionHealthDashboard
           WHERE activity_id=#{@activity_id} LIMIT #{MAX_SESSIONS_VIEWED}
         ) act_s
         ON cr.activity_session_id = act_s.id
-        WHERE cr.metadata::json->>'questionNumber' = '#{@question_number.to_s}'
+        WHERE cr.metadata::json->>'questionNumber' = '#{@question_number}'
         GROUP BY cr.metadata::json->>'questionNumber',
           cr.metadata::json->>'attemptNumber',
           cr.metadata::json->>'correct'
