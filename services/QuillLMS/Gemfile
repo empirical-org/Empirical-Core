@@ -206,6 +206,7 @@ group :test do
   gem 'codecov'
   gem 'fakeredis', '~> 0.7.0'
   gem 'rails-controller-testing'
+  gem 'super_diff', require: false
 
   # Remove this gem after upgrading to Rails 5
   gem 'test_after_commit'
