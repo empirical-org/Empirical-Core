@@ -9,8 +9,6 @@ module CleverIntegration::Importers::Students
     students
   end
 
-  private
-
   def self.import_students_for_single_classroom(classroom, district_token)
     clever_section = fetch_clever_section(classroom.clever_id, district_token)
     students_response = clever_section.data

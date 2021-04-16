@@ -27,9 +27,7 @@ class Api::V1::ConceptsController < Api::ApiController
     render json: { concepts: concepts }.to_json
   end
 
-  private
-
-  def concept_params
+  private def concept_params
     params.require(:concept).permit(:name, :parent_uid)
   end
 end

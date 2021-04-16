@@ -473,9 +473,7 @@ class ActivitySession < ActiveRecord::Base
     ((completed_at - started_at)/60).round
   end
 
-  private
-
-  def correctly_assigned
+  private def correctly_assigned
     if classroom_unit && (classroom_unit.validate_assigned_student(user_id) == false)
       begin
         raise 'Student was not assigned this activity'
@@ -522,7 +520,7 @@ class ActivitySession < ActiveRecord::Base
     end
   end
 
-  def trigger_events
+  private def trigger_events
     should_async = state_changed?
 
     yield # http://stackoverflow.com/questions/4998553/rails-around-callbacks
@@ -534,21 +532,21 @@ class ActivitySession < ActiveRecord::Base
     end
   end
 
-  def set_state
+  private def set_state
     self.state ||= 'unstarted'
     self.data ||= {}
   end
 
-  def set_activity_id
+  private def set_activity_id
     self.activity_id = unit_activity.try(:activity_id) if activity_id.nil?
   end
 
-  def set_completed_at
+  private def set_completed_at
     return true if state != 'finished'
     self.completed_at ||= Time.current
   end
 
-  def update_milestones
+  private def update_milestones
     # we check to see if it is finished because the only milestone we're checking for is the copleted idagnostic.
     # at a later date, we might have to update this check in case we want a milestone for sessions being assigned
     # or started.

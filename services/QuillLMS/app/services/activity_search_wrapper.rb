@@ -35,19 +35,17 @@ class ActivitySearchWrapper
     activity_search_json
   end
 
-  private
-
-  def custom_search_results
+  private def custom_search_results
     activity_search
     activity_categories_classifications_standards_and_standard_level
     formatted_search_results
   end
 
-  def activity_search
+  private def activity_search
     @activities = ActivitySearch.search(@flag)
   end
 
-  def formatted_search_results
+  private def formatted_search_results
     unique_activities_array = []
     @activities.each do |a|
       activity_id = a['activity_id'].to_i
@@ -88,7 +86,7 @@ class ActivitySearchWrapper
     @activities = unique_activities_array
   end
 
-  def activity_categories_classifications_standards_and_standard_level
+  private def activity_categories_classifications_standards_and_standard_level
     standard_level_ids = []
     activity_classification_ids = []
     @activities.each do |a|
@@ -101,7 +99,7 @@ class ActivitySearchWrapper
     @standard_levels = StandardLevel.where(id: standard_level_ids.uniq)
   end
 
-  def activity_classifications
+  private def activity_classifications
     if @activity_classification_ids.any?
       activity_classifications = ActiveRecord::Base.connection.execute("SELECT ac.key, ac.id, ac.order_number FROM activity_classifications AS ac WHERE ac.id = ANY(array#{@activity_classification_ids})").to_a
       activity_classification_details = activity_classifications.map do |ac|
@@ -119,7 +117,7 @@ class ActivitySearchWrapper
     end
   end
 
-  def classification_hash(classification_id)
+  private def classification_hash(classification_id)
     case classification_id
     when 1
       h = {

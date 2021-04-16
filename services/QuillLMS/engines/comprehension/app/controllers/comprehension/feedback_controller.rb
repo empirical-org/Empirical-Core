@@ -3,7 +3,7 @@ module Comprehension
 
   class FeedbackController < ApplicationController
     skip_before_action :verify_authenticity_token
-    before_action :set_params, only: [:automl, :plagiarism, :regex]
+    before_action :set_params, only: [:automl, :plagiarism, :regex, :spelling]
 
     def plagiarism
       rule = @prompt.rules&.find_by(rule_type: Comprehension::Rule::TYPE_PLAGIARISM)
@@ -24,7 +24,15 @@ module Comprehension
 
     def automl
       automl_check = Comprehension::AutomlCheck.new(@entry, @prompt, @previous_feedback)
-      render json: automl_check.feedback_object
+      feedback_object = automl_check.feedback_object
+      return render :body => nil, :status => 404 unless feedback_object
+      render json: feedback_object
+    end
+
+    def spelling
+      spelling_check = Comprehension::SpellingCheck.new(@entry)
+      return render :body => {:error => spelling_check.error }.to_json, :status => 500 if spelling_check.error.present?
+      render json: spelling_check.feedback_object
     end
 
     private def set_params

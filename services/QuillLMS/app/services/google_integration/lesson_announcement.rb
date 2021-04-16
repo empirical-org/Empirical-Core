@@ -25,9 +25,7 @@ class GoogleIntegration::LessonAnnouncement
     nil
   end
 
-  private
-
-  def request
+  private def request
     client.execute(
       api_method: api_method,
       parameters: {
@@ -38,7 +36,7 @@ class GoogleIntegration::LessonAnnouncement
     )
   end
 
-  def handle_response(&request)
+  private def handle_response(&request)
     response = request.call
     body = JSON.parse(response.body, symbolize_names: true)
     raise(GoogleApiError, body) if response.status != 200
@@ -49,7 +47,7 @@ class GoogleIntegration::LessonAnnouncement
     end
   end
 
-  def body
+  private def body
     if individual_students?
       base_body.merge(individual_students_body)
     else
@@ -57,25 +55,25 @@ class GoogleIntegration::LessonAnnouncement
     end
   end
 
-  def base_body
+  private def base_body
     {
       text: announcement_text
     }
   end
 
-  def classroom
+  private def classroom
     classroom_unit.classroom
   end
 
-  def user
+  private def user
     classroom.owner
   end
 
-  def google_course_id
+  private def google_course_id
     classroom.google_classroom_id
   end
 
-  def announcement_text
+  private def announcement_text
     activity_url  = ActivitySession.generate_activity_url(
       classroom_unit.id,
       unit_activity.activity.id
@@ -85,12 +83,12 @@ class GoogleIntegration::LessonAnnouncement
     "New Activity: #{activity_name} #{activity_url}"
   end
 
-  def individual_students?
+  private def individual_students?
     classroom_unit.assigned_student_ids.any? &&
     !classroom_unit.assign_on_join
   end
 
-  def individual_students_body
+  private def individual_students_body
     {
       assigneeMode: "INDIVIDUAL_STUDENTS",
       individualStudentsOptions: {
@@ -99,21 +97,21 @@ class GoogleIntegration::LessonAnnouncement
     }
   end
 
-  def assigned_student_ids_as_google_ids
+  private def assigned_student_ids_as_google_ids
     User.where(id: classroom_unit.assigned_student_ids)
       .pluck(:google_id)
       .compact
   end
 
-  def client
+  private def client
     @client ||= GoogleIntegration::Client.new(user).create
   end
 
-  def api_method
+  private def api_method
     client.discovered_api('classroom', 'v1').courses.announcements.create
   end
 
-  def can_post_to_google_classroom?
+  private def can_post_to_google_classroom?
     classroom.google_classroom_id.present? && classroom.owner.post_google_classroom_assignments
   end
 end

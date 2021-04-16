@@ -46,13 +46,11 @@ class Cms::UnitTemplatesController < Cms::CmsController
     render json: {}
   end
 
-  private
-
-  def set_unit_template
+  private def set_unit_template
     @unit_template = UnitTemplate.find(params[:id])
   end
 
-  def unit_template_params
+  private def unit_template_params
     params.require(:unit_template)
             .permit(:id,
                     :authenticity_token,

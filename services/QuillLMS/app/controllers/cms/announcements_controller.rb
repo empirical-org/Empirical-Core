@@ -30,8 +30,7 @@ class Cms::AnnouncementsController < Cms::CmsController
     redirect_to cms_announcements_path
   end
 
-  private
-  def announcement_params
+  private def announcement_params
     params.require(:announcement).permit(:announcement_type, :link, :text, :start, :end)
   end
 end

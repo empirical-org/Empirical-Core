@@ -28,7 +28,7 @@ const ModelsTable = ({ activityId, prompt }) => {
           id: id,
           created_at: moment(created_at).format('MM/DD/YY'),
           version: older_models + 1,
-          name: name,
+          name,
           label_count: `${labels.length} labels`,
           status: state,
           view: viewLink,

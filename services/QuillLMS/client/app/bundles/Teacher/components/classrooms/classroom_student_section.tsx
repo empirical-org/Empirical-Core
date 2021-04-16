@@ -1,14 +1,14 @@
 import * as React from 'react'
 import moment from 'moment'
 
-import { DropdownInput, DataTable } from '../../../Shared/index'
-
 import EditStudentAccountModal from './edit_student_account_modal'
 import ResetStudentPasswordModal from './reset_student_password_modal'
 import MergeStudentAccountsModal from './merge_student_accounts_modal'
 import MoveStudentsModal from './move_students_modal'
 import RemoveStudentsModal from './remove_students_modal'
+
 import ViewAsStudentModal from '../shared/view_as_student_modal'
+import { DropdownInput, DataTable } from '../../../Shared/index'
 
 const emptyDeskSrc = `${process.env.CDN_URL}/images/illustrations/empty-desks.svg`
 const bulbSrc = `${process.env.CDN_URL}/images/illustrations/bulb.svg`
@@ -172,6 +172,12 @@ export default class ClassroomStudentSection extends React.Component<ClassroomSt
     }
   }
 
+  handleSuccess = (successMessage) => {
+    const { onSuccess, } = this.props
+    this.setState({ selectedStudentIds: [], })
+    onSuccess(successMessage)
+  }
+
   checkRow = (id) => {
     const { selectedStudentIds } = this.state
     const newSelectedStudentIds = selectedStudentIds.concat(id)
@@ -250,68 +256,68 @@ export default class ClassroomStudentSection extends React.Component<ClassroomSt
   }
 
   renderEditStudentAccountModal = () => {
-    const { classroom, onSuccess } = this.props
+    const { classroom, } = this.props
     const { showModal, studentIdsForModal } = this.state
     if (showModal === modalNames.editStudentAccountModal && studentIdsForModal.length === 1) {
       const student = classroom.students.find(s => s.id === studentIdsForModal[0])
       return (<EditStudentAccountModal
         classroom={classroom}
         close={this.closeModal}
-        onSuccess={onSuccess}
+        onSuccess={this.handleSuccess}
         student={student}
       />)
     }
   }
 
   renderResetStudentPasswordModal = () => {
-    const { classroom, onSuccess } = this.props
+    const { classroom, } = this.props
     const { showModal, studentIdsForModal } = this.state
     if (showModal === modalNames.resetStudentPasswordModal && studentIdsForModal.length === 1) {
       const student = classroom.students.find(s => s.id === studentIdsForModal[0])
       return (<ResetStudentPasswordModal
         classroom={classroom}
         close={this.closeModal}
-        onSuccess={onSuccess}
+        onSuccess={this.handleSuccess}
         student={student}
       />)
     }
   }
 
   renderMergeStudentAccountsModal = () => {
-    const { classroom, onSuccess } = this.props
+    const { classroom, } = this.props
     const { showModal, studentIdsForModal } = this.state
     if (showModal === modalNames.mergeStudentAccountsModal) {
       return (<MergeStudentAccountsModal
         classroom={classroom}
         close={this.closeModal}
-        onSuccess={onSuccess}
+        onSuccess={this.handleSuccess}
         selectedStudentIds={studentIdsForModal}
       />)
     }
   }
 
   renderMoveStudentsModal = () => {
-    const { classroom, onSuccess, classrooms, } = this.props
+    const { classroom, classrooms, } = this.props
     const { showModal, studentIdsForModal } = this.state
     if (showModal === modalNames.moveStudentsModal) {
       return (<MoveStudentsModal
         classroom={classroom}
         classrooms={classrooms}
         close={this.closeModal}
-        onSuccess={onSuccess}
+        onSuccess={this.handleSuccess}
         selectedStudentIds={studentIdsForModal}
       />)
     }
   }
 
   renderRemoveStudentsModal = () => {
-    const { classroom, onSuccess, } = this.props
+    const { classroom, } = this.props
     const { showModal, studentIdsForModal } = this.state
     if (showModal === modalNames.removeStudentsModal) {
       return (<RemoveStudentsModal
         classroom={classroom}
         close={this.closeModal}
-        onSuccess={onSuccess}
+        onSuccess={this.handleSuccess}
         selectedStudentIds={studentIdsForModal}
       />)
     }
@@ -336,6 +342,7 @@ export default class ClassroomStudentSection extends React.Component<ClassroomSt
 
     const anySelectedStudentsAreGoogleOrClever = selectedStudentIds.some(id => {
       const student = classroom.students.find(s => s.id === id)
+      if (!student) { return false }
       return student.google_id || student.clever_id
     })
 

@@ -6,10 +6,7 @@ class Profile::Mobile::ActivitySessionsByUnit
     prepare_json(grouped_sessions)
   end
 
-
-  private
-
-  def student_profile_data_sql(classroom_id=nil, student_id=nil)
+  private def student_profile_data_sql(classroom_id=nil, student_id=nil)
     ActiveRecord::Base.connection.execute("SELECT unit.name,
     activity.uid as uid,
      activity.name,
@@ -48,7 +45,7 @@ class Profile::Mobile::ActivitySessionsByUnit
     ORDER BY pinned DESC, locked ASC, max_percentage DESC, ua.due_date ASC, unit.created_at ASC, ua.id ASC").to_a
   end
 
-  def prepare_json(grouped_sessions)
+  private def prepare_json(grouped_sessions)
     # update grouped sessions so it only has an array of
     # the pertinent details for each act sesh
     grouped_sessions.each do |unit_name, activity_sessions|
@@ -65,9 +62,7 @@ class Profile::Mobile::ActivitySessionsByUnit
     end
   end
 
-  def group_by_unit(all)
+  private def group_by_unit(all)
     all.select{|s| s["unit_name"].present?}.group_by{|s| s["unit_name"]}
   end
-
-
 end

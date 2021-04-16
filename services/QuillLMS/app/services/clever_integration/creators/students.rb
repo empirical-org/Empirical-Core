@@ -8,8 +8,6 @@ module CleverIntegration::Creators::Students
     students
   end
 
-  private
-
   def self.create_student(parsed_student_response)
     if parsed_student_response[:email].present?
       student = User.find_by(email: parsed_student_response[:email])

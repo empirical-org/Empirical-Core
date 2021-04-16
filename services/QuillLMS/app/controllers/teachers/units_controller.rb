@@ -165,9 +165,7 @@ class Teachers::UnitsController < ApplicationController
     render json: {cumulative_score: cumulative_score, completed_count: completed_count}
   end
 
-  private
-
-  def lessons_with_current_user_and_activity
+  private def lessons_with_current_user_and_activity
     ActiveRecord::Base.connection.execute("
       SELECT classroom_units.id from classroom_units
         LEFT JOIN classrooms_teachers ON classrooms_teachers.classroom_id = classroom_units.classroom_id
@@ -178,11 +176,11 @@ class Teachers::UnitsController < ApplicationController
           AND classroom_units.visible is TRUE").to_a
   end
 
-  def unit_params
+  private def unit_params
     params.require(:unit).permit(:id, :create, :name, classrooms: [:id, :all_students, student_ids: []], activities: [:id, :due_date])
   end
 
-  def authorize!
+  private def authorize!
     if params[:id]
       @unit = Unit.find_by(id: params[:id])
       if @unit.nil?
@@ -193,18 +191,18 @@ class Teachers::UnitsController < ApplicationController
     end
   end
 
-  def formatted_classrooms_data(unit_id)
+  private def formatted_classrooms_data(unit_id)
     # potential refactor into SQL
     cus = ClassroomUnit.where(unit_id: unit_id).select(:classroom_id, :assigned_student_ids)
     one_cu_per_classroom =  cus.group_by{|class_unit| class_unit[:classroom_id] }.values.map{ |cu| cu.first }
     one_cu_per_classroom.map{|cu| {id: cu.classroom_id, student_ids: cu.assigned_student_ids}}
   end
 
-  def units(report)
+  private def units(report)
     units_i_teach_own_or_coteach('teach', report, false)
   end
 
-  def units_i_teach_own_or_coteach(teach_own_or_coteach, report, lessons)
+  private def units_i_teach_own_or_coteach(teach_own_or_coteach, report, lessons)
     # returns an empty array if teach_own_or_coteach_classrooms_array is empty
     teach_own_or_coteach_classrooms_array = current_user.send("classrooms_i_#{teach_own_or_coteach}").map(&:id)
     if teach_own_or_coteach_classrooms_array.any?
@@ -280,7 +278,7 @@ class Teachers::UnitsController < ApplicationController
     end
   end
 
-  def diagnostic_unit_records
+  private def diagnostic_unit_records
     diagnostic_activity_ids = ActivityClassification.find_by_key('diagnostic').activity_ids
     records = ClassroomsTeacher.select("
       classrooms.name AS classroom_name,
@@ -316,7 +314,7 @@ class Teachers::UnitsController < ApplicationController
     end
   end
 
-  def diagnostic_assignments
+  private def diagnostic_assignments
     assignments = []
     diagnostic_unit_records.each do |r|
       index_of_extant_activity = assignments.find_index { |a| a['id'] == r['activity_id'] }

@@ -16,8 +16,7 @@ class Author < ActiveRecord::Base
     avatar.blank? ? DEFAULT_AVATAR_URL : avatar
   end
 
-  private
-  def delete_relevant_caches
+  private def delete_relevant_caches
     UnitTemplate.delete_all_caches
   end
 end

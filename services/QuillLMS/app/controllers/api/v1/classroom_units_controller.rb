@@ -108,14 +108,12 @@ class Api::V1::ClassroomUnitsController < Api::ApiController
     render json: {teacher_ids: teacher_ids_h || {}}
   end
 
-  private
-
-  def authorize!
+  private def authorize!
     classroom_unit = ClassroomUnit.find(params[:classroom_unit_id])
     classroom_teacher!(classroom_unit&.classroom&.id)
   end
 
-  def assigned_students(activity_sessions)
+  private def assigned_students(activity_sessions)
     assigned_student_hash = {}
     assigned_student_ids_hash = {}
 

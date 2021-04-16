@@ -8,11 +8,10 @@ class SplitName
     split_name
   end
 
-  private
-
   attr_reader :name
+  private :name
 
-  def split_name
+  private def split_name
     if name.nil?
       first_name = nil
       last_name = nil

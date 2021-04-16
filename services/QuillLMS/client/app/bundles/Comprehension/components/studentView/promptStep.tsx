@@ -30,15 +30,17 @@ interface PromptStepState {
 
 const RESPONSE = 'response'
 
-export default class PromptStep extends React.Component<PromptStepProps, PromptStepState> {
+export class PromptStep extends React.Component<PromptStepProps, PromptStepState> {
   private editor: any // eslint-disable-line react/sort-comp
 
   constructor(props: PromptStepProps) {
     super(props)
 
+    const { submittedResponses, } = this.props
+
     this.state = {
-      html: this.formattedPrompt(),
-      numberOfSubmissions: 0,
+      html: this.formattedPrompt(submittedResponses),
+      numberOfSubmissions: submittedResponses.length,
       customFeedback: null,
       customFeedbackKey: null
     };
@@ -59,7 +61,16 @@ export default class PromptStep extends React.Component<PromptStepProps, PromptS
 
   stripHtml = (html: string) => html.replace(/<p>|<\/p>|<u>|<\/u>|<b>|<\/b>|<br>|<br\/>/g, '').replace(/&nbsp;/g, ' ')
 
-  formattedPrompt = () => {
+  formattedPrompt = (submittedResponses?: Array<string>) => {
+    if (submittedResponses && submittedResponses.length) {
+      const lastSubmission = submittedResponses[submittedResponses.length - 1]
+      const formattedText = this.formatHtmlForEditorContainer(lastSubmission.entry, true)
+      return formattedText.htmlWithBolding
+    }
+    return this.formattedStem()
+  }
+
+  formattedStem = () => {
     const { prompt, } = this.props
     const { text } = prompt
     return `<p>${this.allButLastWord(text)} <u>${this.lastWord(text)}</u>&nbsp;</p>`
@@ -103,7 +114,7 @@ export default class PromptStep extends React.Component<PromptStepProps, PromptS
   }
 
   htmlStrippedPrompt = (escapeRegexCharacters=false) => {
-    const strippedPrompt = this.formattedPrompt().replace(/<p>|<\/p>|<br>/g, '')
+    const strippedPrompt = this.formattedStem().replace(/<p>|<\/p>|<br>/g, '')
     if (escapeRegexCharacters) {
       return strippedPrompt.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'); // $& means the whole matched string
     }
@@ -179,7 +190,7 @@ export default class PromptStep extends React.Component<PromptStepProps, PromptS
   }
 
   resetText = () => {
-    const html = this.formattedPrompt()
+    const html = this.formattedStem()
     this.setState({ html }, () => this.editor.innerHTML = html)
   }
 
@@ -212,6 +223,17 @@ export default class PromptStep extends React.Component<PromptStepProps, PromptS
     const { completeStep, stepNumber, } = this.props
 
     completeStep(stepNumber)
+  }
+
+  formatHtmlForEditorContainer = (html: string, active: boolean) => {
+    const { prompt, } = this.props
+    const text = html.replace(/<b>|<\/b>|<p>|<\/p>|<br>|<u>|<\/u>/g, '').replace('&nbsp;', '')
+    const textWithoutStem = text.replace(prompt.text, '').trim()
+    const spaceAtEnd = text.match(/\s$/m) ? '&nbsp;' : ''
+    return {
+      htmlWithBolding: active ? `<p>${this.htmlStrippedPrompt()}${this.formatStudentResponse(textWithoutStem)}${spaceAtEnd}</p>` : `<p>${textWithoutStem}</p>`,
+      rawTextWithoutStem: textWithoutStem
+    }
   }
 
   renderButton = () => {
@@ -265,18 +287,15 @@ export default class PromptStep extends React.Component<PromptStepProps, PromptS
       className += ' suboptimal'
     }
 
-    const text = html.replace(/<b>|<\/b>|<p>|<\/p>|<br>/g, '')
-    const regex = this.promptAsRegex()
-    const textWithoutStem = text.replace(regex, '')
-    const spaceAtEnd = text.match(/\s$/m) ? '&nbsp;' : ''
-    const htmlWithBolding = active ? `<p>${this.htmlStrippedPrompt()}${this.formatStudentResponse(textWithoutStem)}${spaceAtEnd}</p>` : `<p>${textWithoutStem}</p>`
+    const formattedText = this.formatHtmlForEditorContainer(html, active)
+
     return (<EditorContainer
       className={className}
       disabled={disabled}
       handleTextChange={this.onTextChange}
-      html={htmlWithBolding}
+      html={formattedText.htmlWithBolding}
       innerRef={this.setEditorRef}
-      isResettable={!!textWithoutStem.length}
+      isResettable={!!formattedText.rawTextWithoutStem.length}
       promptText={prompt.text}
       resetText={this.resetText}
       stripHtml={this.stripHtml}
@@ -327,3 +346,5 @@ export default class PromptStep extends React.Component<PromptStepProps, PromptS
     </div>)
   }
 }
+
+export default PromptStep

@@ -11,7 +11,7 @@ import RuleUniversalAttributes from '../configureRules/ruleUniversalAttributes';
 import { Spinner, Modal } from '../../../../Shared/index';
 import { deleteRule, fetchRules, fetchUniversalRules } from '../../../utils/comprehension/ruleAPIs';
 import { fetchConcepts, } from '../../../utils/comprehension/conceptAPIs';
-import { handleSubmitRule, getInitialRuleType, formatInitialFeedbacks, returnInitialFeedback, formatRegexRules } from '../../../helpers/comprehension/ruleHelpers';
+import { handleSubmitRule, getInitialRuleType, formatInitialFeedbacks, returnInitialFeedback, renderErrorsContainer } from '../../../helpers/comprehension/ruleHelpers';
 import { ruleOptimalOptions, regexRuleTypes, blankRule } from '../../../../../constants/comprehension';
 import { RuleInterface, DropdownObjectInterface } from '../../../interfaces/comprehensionInterfaces';
 
@@ -20,6 +20,7 @@ interface SemanticLabelFormProps {
   activityId?: string,
   isUniversal?: boolean,
   isSemantic?: boolean,
+  requestErrors: string[],
   rule?: RuleInterface,
   submitRule: any,
   prompt?: any,
@@ -28,7 +29,7 @@ interface SemanticLabelFormProps {
   match: any,
 }
 
-const SemanticLabelForm = ({ activityId, isSemantic, isUniversal, rule, submitRule, location, history, match }: SemanticLabelFormProps) => {
+const SemanticLabelForm = ({ activityId, isSemantic, isUniversal, requestErrors, rule, submitRule, location, history, match }: SemanticLabelFormProps) => {
   const { params } = match;
   const { promptId } = params;
 
@@ -162,6 +163,10 @@ const SemanticLabelForm = ({ activityId, isSemantic, isUniversal, rule, submitRu
     );
   }
 
+  const formErrorsPresent = !!Object.keys(errors).length;
+  const requestErrorsPresent = !!(requestErrors && requestErrors.length);
+  const showErrorsContainer = formErrorsPresent || requestErrorsPresent
+
   return(
     <div className="rule-form-container">
       {showDeleteRuleModal && renderDeleteRuleModal()}
@@ -229,9 +234,7 @@ const SemanticLabelForm = ({ activityId, isSemantic, isUniversal, rule, submitRu
           universalFeedback={ruleFeedbacks}
         />}
         <div className="submit-button-container">
-          {errorsPresent && <div className="error-message-container">
-            <p className="all-errors-message">Please check that all fields have been completed correctly.</p>
-          </div>}
+          {showErrorsContainer && renderErrorsContainer(formErrorsPresent, requestErrors)}
           <button className="quill-button fun primary contained" id="rule-submit-button" onClick={onHandleSubmitRule} type="button">
             Submit
           </button>

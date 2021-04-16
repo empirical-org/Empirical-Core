@@ -145,16 +145,15 @@ class Classroom < ActiveRecord::Base
   end
 
   def hide_appropriate_classroom_units
-    # on commit callback that checks if archived
-    if visible == false
-      hide_all_classroom_units
-    end
+    hide_all_classroom_units unless visible
   end
 
   def hide_all_classroom_units
     ActivitySession.where(classroom_unit: classroom_units).update_all(visible: false)
     classroom_units.update_all(visible: false)
-    SetTeacherLessonCache.perform_async(owner.id)
+    return if owner.nil?
+    
+    SetTeacherLessonCache.perform_async(owner.id) 
     ids = Unit.find_by_sql("
       SELECT unit.id FROM units unit
       LEFT JOIN classroom_units as cu ON cu.unit_id = unit.id AND cu.visible = true
@@ -188,14 +187,12 @@ class Classroom < ActiveRecord::Base
     -1
   end
 
-  private
-
   # Clever integration
-  def clever_classroom
+  private def clever_classroom
     Clever::Section.retrieve(clever_id, teacher.districts.first.token)
   end
 
-  def trigger_analytics_for_classroom_creation
+  private def trigger_analytics_for_classroom_creation
     classrooms_teachers.each { |ct| find_or_create_checkbox(Objective::CREATE_A_CLASSROOM, ct.user) }
     ClassroomCreationWorker.perform_async(id)
   end

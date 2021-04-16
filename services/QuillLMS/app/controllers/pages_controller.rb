@@ -486,9 +486,7 @@ class PagesController < ApplicationController
     @title = 'Administrator'
   end
 
-  private
-
-  def determine_layout
+  private def determine_layout
     case action_name
     when 'home'
       'home'
@@ -499,7 +497,7 @@ class PagesController < ApplicationController
     end
   end
 
-  def determine_js_file
+  private def determine_js_file
     case action_name
     when 'partners', 'mission', 'faq', 'impact', 'team', 'tos', 'media_kit', 'media', 'faq', 'privacy', 'map', 'teacher-center', 'news', 'stats', 'activities'
       @js_file = 'public'
@@ -522,29 +520,28 @@ class PagesController < ApplicationController
     end
   end
 
-  def determine_flag
+  private def determine_flag
     case action_name
     when 'grammar_tool', 'connect_tool', 'diagnostic_tool', 'proofreader_tool', 'lessons_tool'
       @beta_flag = current_user && current_user&.testing_flag == 'beta'
     end
   end
 
-  def add_cards(list_response)
+  private def add_cards(list_response)
     list_response.each{|list| list["cards"] = HTTParty.get("https://api.trello.com/1/lists/#{list['id']}/cards/?fields=name,url")}
     list_response
   end
 
-  def set_just_logged_out_flag
+  private def set_just_logged_out_flag
     session.delete(SessionsController::CLEAR_ANALYTICS_SESSION_KEY)
     @logging_user_out = true
   end
 
-  def check_should_clear_segment_identity
+  private def check_should_clear_segment_identity
     return true if session.key?(SessionsController::CLEAR_ANALYTICS_SESSION_KEY)
   end
 
-  def allow_iframe
+  private def allow_iframe
     response.headers.delete "X-Frame-Options"
   end
-
 end

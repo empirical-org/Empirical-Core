@@ -6,12 +6,12 @@ module Comprehension
     def initialize(entry, prompt, previous_feedback=[])
       @entry = entry
       @prompt = prompt
-      @automl_model = prompt.automl_models.where(state: AutomlModel::STATE_ACTIVE).first
+      @automl_model = prompt&.automl_models&.where(state: AutomlModel::STATE_ACTIVE)&.first
       @previous_feedback = previous_feedback
     end
 
     def feedback_object
-      return nil unless matched_rule
+      return unless matched_rule
       feedback = matched_rule.determine_feedback_from_history(@previous_feedback)
       highlight = feedback.highlights.map do |h|
         {
@@ -22,7 +22,7 @@ module Comprehension
       end
       {
         feedback: feedback.text,
-        feedback_type: 'semantic',
+        feedback_type: Rule::TYPE_AUTOML,
         optimal: matched_rule.optimal,
         response_id: '',
         entry: @entry,
@@ -37,6 +37,7 @@ module Comprehension
     end
 
     private def fetch_matched_rule
+      return unless @automl_model
       google_automl_label = @automl_model.fetch_automl_label(@entry)
       @prompt.rules.joins(:label).find_by(comprehension_labels: {name: google_automl_label})
     end
