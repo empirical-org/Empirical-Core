@@ -12,14 +12,14 @@ class ActivityHealthDashboard
     correct_attempts_times_students = attempt_data.select { |a| a["correct"] == '1' }.map {|b| b["number_of_attempts"].to_i * b["number_of_students"].to_i}.inject(0){|sum,x| sum + x }
     fifth_attempts = attempt_data.select { |a| a["number_of_attempts"] == '5'}.sum{ |b| b["number_of_students"].to_i }&.to_f || 0
     total_attempts = attempt_data.select { |a| a["number_of_attempts"] == '1' }&.sum { |b| b["number_of_students"].to_i }&.to_f || 0
-    ((fifth_attempts * 5 + correct_attempts_times_students) / total_attempts).round(2)
+    total_attempts.zero? ? 0 : ((fifth_attempts * 5 + correct_attempts_times_students) / total_attempts).round(2)
   end
 
   def percent_reached_optimal_for_question
     optimal_obj = attempt_data.select { |a| a["correct"] == '1' }
-    optimal_count = optimal_obj.present? ? optimal_obj.sum {|opt| opt["number_of_students"].to_i } : 0
+    optimal_count = optimal_obj.any? ? optimal_obj.sum {|opt| opt["number_of_students"].to_i } : 0
     total_attempts = attempt_data.select { |a| a["number_of_attempts"] == '1' }&.sum { |b| b["number_of_students"].to_i }&.to_f || 0
-    ((optimal_count / total_attempts) * 100).round(2)
+    total_attempts.zero? ? 0 : ((optimal_count / total_attempts) * 100).round(2)
   end
 
   def cms_dashboard_stats
