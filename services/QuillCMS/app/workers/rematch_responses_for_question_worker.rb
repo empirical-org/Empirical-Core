@@ -10,14 +10,21 @@ class RematchResponsesForQuestionWorker
     ungraded = ungraded_responses(question_uid)
     machine_graded = machine_graded_responses(question_uid)
 
-    schedule_jobs(ungraded, question_type, question_uid, human_graded_ids)
-    schedule_jobs(machine_graded, question_type, question_uid, human_graded_ids)
+    question_hash = retrieve_question(question_uid)
+
+    schedule_jobs(ungraded, question_type, question_hash, human_graded_ids)
+    schedule_jobs(machine_graded, question_type, question_hash, human_graded_ids)
   end
 
-  def schedule_jobs(finder, question_type, question_uid, human_graded_response_ids)
+  def schedule_jobs(finder, question_type, question_hash, human_graded_response_ids)
     # use find_each these in batches
     finder.find_each do |response|
-      RematchResponseWorker.perform_async(response.id, question_type, question_uid, human_graded_response_ids)
+      RematchResponseWorker.perform_async(
+        response.id,
+        question_type,
+        question_hash,
+        human_graded_response_ids
+      )
     end
   end
 
@@ -42,4 +49,12 @@ class RematchResponsesForQuestionWorker
             .pluck(:id)
   end
 
+  def retrieve_question(question_uid)
+    response = HTTParty.get("#{ENV['LMS_URL']}/api/v1/questions/#{question_uid}.json")
+
+    raise if response.code != 200
+
+    response[:key] = question_uid
+    response.stringify_keys
+  end
 end
