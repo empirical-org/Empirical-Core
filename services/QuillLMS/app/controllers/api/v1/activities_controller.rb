@@ -90,7 +90,7 @@ class Api::V1::ActivitiesController < Api::ApiController
   def question_health
     questions = @activity.data["questions"]
     tool = CLASSIFICATION_TO_TOOL[ActivityClassification.find(@activity.activity_classification_id).key.to_sym]
-    questions.each_with_index.map { |q, i|
+    questions_arr = questions.each_with_index.map { |q, i|
       question_number = i + 1
       question = Question.find_by(uid: q["key"])
       data = question.data
@@ -101,13 +101,13 @@ class Api::V1::ActivitiesController < Api::ApiController
         flag: data["flag"],
         number_of_incorrect_sequences: data["incorrectSequences"].length,
         number_of_focus_points: data["focusPoints"].length,
-        percent_unmatched_ten_submissions: health_dashboard.cms_dashboard_stats["percent_common_unmatched"],
+        percent_common_unmatched: health_dashboard.cms_dashboard_stats["percent_common_unmatched"],
         percent_specified_algorithms: health_dashboard.cms_dashboard_stats["percent_specified_algos"],
         difficulty: health_dashboard.average_attempts_for_question,
         percent_reached_optimal: health_dashboard.percent_reached_optimal_for_question
       }
     }
-    render json: questions
+    render json: {question_health: questions_arr}
   end
 
   private

@@ -396,7 +396,7 @@ EmpiricalGrammar::Application.routes.draw do
       resources :title_cards,             except: [:destroy]
       get 'activities/:id/follow_up_activity_name_and_supporting_info' => 'activities#follow_up_activity_name_and_supporting_info'
       get 'activities/:id/supporting_info' => 'activities#supporting_info'
-      get 'activities/:id/question_health' => 'activities#question_health', format: :json
+      get 'activities/:id/question_health' => 'activities#question_health'
       get 'classroom_activities/student_names' => 'classroom_units#student_names'
       put 'classroom_activities/finish_lesson' => 'classroom_units#finish_lesson'
       put 'classroom_activities/unpin_and_lock_activity' => 'classroom_units#unpin_and_lock_activity'
