@@ -1,4 +1,4 @@
-class ActivityHealthDashboard
+class QuestionHealthDashboard
   MAX_SESSIONS_VIEWED = 500
 
   def initialize(activity_id, question_number, question_uid)

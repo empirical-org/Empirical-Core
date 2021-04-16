@@ -94,7 +94,7 @@ class Api::V1::ActivitiesController < Api::ApiController
       question_number = i + 1
       question = Question.find_by(uid: q["key"])
       data = question.data
-      health_dashboard = ActivityHealthDashboard.new(@activity.id, question_number, question.uid)
+      health_dashboard = QuestionHealthDashboard.new(@activity.id, question_number, question.uid)
       {
         url: ENV['DEFAULT_URL'].to_s + "/" + tool + "/#/admin/questions/" + question.uid + "/responses",
         text: data["prompt"],
