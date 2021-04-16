@@ -105,13 +105,10 @@ class UnitTemplate < ActiveRecord::Base
     $redis.del('private_unit_templates')
   end
 
-  private
-
-  def delete_relevant_caches
+  private def delete_relevant_caches
     $redis.del("unit_template_id:#{id}_serialized", "#{flag || 'production'}_unit_templates")
     yield
     $redis.del("unit_template_id:#{id}_serialized", "#{flag || 'production'}_unit_templates")
   end
-
 
 end

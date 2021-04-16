@@ -22,8 +22,6 @@ module Units::Updater
     update_helper(unit_id, activities_data, classrooms_data, current_user_id || teacher_id)
   end
 
-  private
-
   def self.matching_or_new_classroom_unit(classroom, extant_classroom_units, new_cus, hidden_cus_ids, unit_id, concatenate_extant_student_ids)
     classroom_id = classroom[:id].to_i || classroom['id'].to_i
     matching_cu = extant_classroom_units.find{|cu| cu.classroom_id == classroom_id}

@@ -17,8 +17,6 @@ module CleverIntegration::Parsers::Teacher
     end
   end
 
-  private
-
   def self.generate_name(first_name, last_name)
     JoinNames.new(first_name, last_name).call
   end

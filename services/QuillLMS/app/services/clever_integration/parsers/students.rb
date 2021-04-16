@@ -7,8 +7,6 @@ module CleverIntegration::Parsers::Students
     parsed_response
   end
 
-  private
-
   def self.parse_student(student_response)
     CleverIntegration::Parsers::Student.run(student_response.data)
   end

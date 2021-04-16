@@ -50,9 +50,7 @@ class Types::UserType < Types::BaseObject
     ActivitySession.where(user_id: object.id, activity_id: 413, state: "finished").any?
   end
 
-  private
-
-  def get_recommended_units(concept_result_scores)
+  private def get_recommended_units(concept_result_scores)
     units = []
     recommendations = Recommendation.where(activity_id: 413, category: 0).map do |activity_pack_recommendation|
       activity_pack_recommendation.criteria.each do |req|
@@ -70,13 +68,13 @@ class Types::UserType < Types::BaseObject
     units
   end
 
-  def get_acts_from_recommended_units(units)
+  private def get_acts_from_recommended_units(units)
     units.map do |actpackid|
       UnitTemplate.find(actpackid).activities.map(&:id)
     end
   end
 
-  def concept_results_by_count activity_session
+  private def concept_results_by_count activity_session
     hash = Hash.new { |h, k| h[k] = Hash.new { |j, l| j[l] = 0 } }
     activity_session.concept_results.each do |concept_result|
       hash[concept_result.concept.uid]["correct"] += concept_result["metadata"]["correct"]

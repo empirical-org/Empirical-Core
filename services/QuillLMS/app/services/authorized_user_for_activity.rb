@@ -9,11 +9,11 @@ class AuthorizedUserForActivity
     authorized_user?
   end
 
-  private
+  attr_reader :activity_session, :current_user
+  private :activity_session
+  private :current_user
 
-  attr_reader :current_user, :activity_session
-
-  def authorized_user?
+  private def authorized_user?
     if current_user.present? && current_user.staff?
       return true
     end

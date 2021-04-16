@@ -30,9 +30,7 @@ module CsvExporter::Standards
         .results(HashWithIndifferentAccess.new(filters) || {})
     end
 
-    private
-
-    def page_title(filters)
+    private def page_title(filters)
       classroom = ::Classroom.find(filters[:classroom_id])
       "Standards by Class: #{classroom.name}"
     end

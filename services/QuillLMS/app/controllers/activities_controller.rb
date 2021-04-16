@@ -58,29 +58,27 @@ class ActivitiesController < ApplicationController
     redirect_to "#{@activity.classification_form_url}customize/#{@activity.uid}"
   end
 
-  protected
-
-  def set_activity
+  protected def set_activity
     @activity = Activity.find_by(uid: params[:id]) || Activity.find_by(id: params[:id])
   end
 
-  def set_activity_by_lesson_id
+  protected def set_activity_by_lesson_id
     @activity = Activity.find_by_id_or_uid(params[:lesson_id])
   end
 
-  def user_completed_view_lessons_tutorial?
+  protected def user_completed_view_lessons_tutorial?
     !!Milestone.find_by(name: 'View Lessons Tutorial').users.include?(current_user)
   end
 
-  def preview_url
+  protected def preview_url
     @url ||= "#{@activity.classification_form_url}teach/class-lessons/#{@activity.uid}/preview"
   end
 
-  def activity
+  protected def activity
     @activity ||= Activity.find_by_id_or_uid(params[:id])
   end
 
-  def search_params
+  protected def search_params
     params.require(:search).permit([:search_query, {sort: [:field, :asc_or_desc]},  {filters: [:field, :selected]}])
   end
 

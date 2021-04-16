@@ -6,8 +6,6 @@ module GoogleIntegration::Classroom::Student
     classrooms.each { |c| join_classroom(user, c)}
   end
 
-  private
-
   def self.join_classroom(user, classroom)
     Associators::StudentsToClassrooms.run(user, classroom)
   end

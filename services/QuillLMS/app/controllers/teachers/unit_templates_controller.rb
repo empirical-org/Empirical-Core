@@ -58,13 +58,11 @@ class Teachers::UnitTemplatesController < ApplicationController
     }
   end
 
-  private
-
-  def is_teacher?
+  private def is_teacher?
     @is_teacher = (current_user && current_user.role == 'teacher')
   end
 
-  def redirect_to_public_index_if_no_unit_template_found
+  private def redirect_to_public_index_if_no_unit_template_found
     begin
       @unit_template = UnitTemplate.find(params[:id])
     rescue ActiveRecord::RecordNotFound
@@ -72,36 +70,36 @@ class Teachers::UnitTemplatesController < ApplicationController
     end
   end
 
-  def format_unit_template(ut_id)
+  private def format_unit_template(ut_id)
     formatted_unit_template = get_formatted_unit_template_for_profile(ut_id)
     formatted_unit_template[:non_authenticated] = !is_teacher?
     formatted_unit_template
   end
 
-  def current_user_testing_flag
+  private def current_user_testing_flag
     if current_user.present?
       current_user.testing_flag
     end
   end
 
-  def related_models_flag
+  private def related_models_flag
     current_user_testing_flag || "production"
   end
 
-  def unit_templates_by_user_testing_flag
+  private def unit_templates_by_user_testing_flag
     UnitTemplate.user_scope(related_models_flag)
     .includes(:author, :unit_template_category)
     .order(:order_number)
     .map{ |ut| ut.get_cached_serialized_unit_template }
   end
 
-  def cached_formatted_unit_templates
+  private def cached_formatted_unit_templates
     ut_cache_name = "#{related_models_flag}_unit_templates"
     cached = $redis.get(ut_cache_name)
     set_cache_if_necessary_and_return(cached, ut_cache_name)
   end
 
-  def set_cache_if_necessary_and_return(cached, ut_cache_name)
+  private def set_cache_if_necessary_and_return(cached, ut_cache_name)
     ut_cache = cached.nil? || cached&.blank? ? nil : JSON.parse(cached)
     if ut_cache
       ut_cache
@@ -112,7 +110,7 @@ class Teachers::UnitTemplatesController < ApplicationController
     end
   end
 
-  def get_formatted_unit_template_for_profile(id)
+  private def get_formatted_unit_template_for_profile(id)
     # TODO: remove this where and replace with find, and then figure out why there is a map
     ut = UnitTemplate.includes(:author, :unit_template_category).find id
     ut.get_cached_serialized_unit_template('profile')

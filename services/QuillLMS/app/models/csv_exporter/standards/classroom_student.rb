@@ -32,9 +32,7 @@ module CsvExporter
         ::ProgressReports::Standards::Student.new(teacher).results(filters)
       end
 
-      private
-
-      def page_title(filters)
+      private def page_title(filters)
         classroom = ::Classroom.find(filters[:classroom_id])
         "Standards by Student: #{classroom.name}"
       end

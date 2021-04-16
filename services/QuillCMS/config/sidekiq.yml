@@ -1,4 +1,4 @@
-:concurrency: 1
+:concurrency: <%= ENV.fetch("SIDEKIQ_WORKERS") { 4 } %>
 :queues:
   - default
   - low

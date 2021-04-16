@@ -24,7 +24,9 @@ module Comprehension
 
     def automl
       automl_check = Comprehension::AutomlCheck.new(@entry, @prompt, @previous_feedback)
-      render json: automl_check.feedback_object
+      feedback_object = automl_check.feedback_object
+      return render :body => nil, :status => 404 unless feedback_object
+      render json: feedback_object
     end
 
     def spelling

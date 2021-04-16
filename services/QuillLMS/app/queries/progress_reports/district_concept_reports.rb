@@ -12,9 +12,7 @@ class ProgressReports::DistrictConceptReports
     ActiveRecord::Base.connection.execute(query).to_a
   end
 
-  private
-
-  def query
+  private def query
     <<~SQL
       WITH results AS (
       SELECT

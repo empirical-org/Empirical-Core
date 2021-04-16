@@ -10,13 +10,11 @@ class GradesController < ApplicationController
     render json: {concept_results: tooltip_query, scores: tooltip_scores_query}.to_json
   end
 
-  private
-
-  def tooltip_params
+  private def tooltip_params
     params.permit(:classroom_unit_id, :user_id, :completed, :activity_id)
   end
 
-  def tooltip_query
+  private def tooltip_query
     # TODO(upgrade) Use ActiveRecord::Sanitization.sanitize_sql_for_conditions
     if tooltip_params['completed']
       ActiveRecord::Base.connection.execute(
@@ -40,7 +38,7 @@ class GradesController < ApplicationController
     end
   end
 
-  def tooltip_scores_query
+  private def tooltip_scores_query
     # activity_sessions.completed_at + INTERVAL '#{current_user.utc_offset} seconds' AS completed_at
     ActiveRecord::Base.connection.execute(
       "SELECT activity_sessions.percentage,
@@ -55,7 +53,7 @@ class GradesController < ApplicationController
       ").to_a
   end
 
-  def authorize!
+  private def authorize!
     return unless params[:classroom_unit_id].present?
     classroom_unit = ClassroomUnit.includes(:classroom).find(params[:classroom_unit_id])
     classroom_teacher!(classroom_unit.classroom_id)

@@ -26,8 +26,7 @@ class Cms::ImagesController < Cms::CmsController
   def update
   end
 
-  private
-  def directory
+  private def directory
     credentials = {
       provider: 'AWS',
       aws_access_key_id: ENV['AWS_UPLOADS_ACCESS_KEY_ID'],

@@ -80,15 +80,14 @@ class ReferralsUser < ActiveRecord::Base
     ").to_a.map(&:values).flatten
   end
 
-  private
-  def trigger_invited_event
+  private def trigger_invited_event
     # Unlike other analytics events, we want to track this event with respect
     # to the referrer, not the current user, because we are attempting to
     # measure the referrer's referring activity and not the current user's.
     ReferrerAnalytics.new.track_referral_invited(referrer, referred_user.id)
   end
 
-  def trigger_activated_event
+  private def trigger_activated_event
     # Unlike other analytics events, we want to track this event with respect
     # to the referrer, not the current user, because we are attempting to
     # measure the referrer's referring activity and not the current user's.

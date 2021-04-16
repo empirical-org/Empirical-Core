@@ -161,9 +161,7 @@ class Teachers::ClassroomsController < ApplicationController
     render json: {}
   end
 
-  private
-
-  def format_coteacher_invitations_for_index
+  private def format_coteacher_invitations_for_index
     coteacher_invitations = CoteacherClassroomInvitation.includes(invitation: :inviter).joins(:invitation, :classroom).where(invitations: {invitee_email: current_user.email}, classrooms: { visible: true})
     coteacher_invitations.map do |coteacher_invitation|
       coteacher_invitation_obj = coteacher_invitation.attributes
@@ -174,7 +172,7 @@ class Teachers::ClassroomsController < ApplicationController
     end
   end
 
-  def format_classrooms_for_index
+  private def format_classrooms_for_index
     classrooms = Classroom.unscoped.order(created_at: :desc).joins(:classrooms_teachers).where(classrooms_teachers: {user_id: current_user.id})
     classrooms.compact.map do |classroom|
       classroom_obj = classroom.attributes
@@ -186,7 +184,7 @@ class Teachers::ClassroomsController < ApplicationController
     end.compact
   end
 
-  def format_students_for_classroom(classroom)
+  private def format_students_for_classroom(classroom)
     sorted_students = classroom.students.sort_by { |s| s.last_name }
     # create a hash of the form {user_id: count}
     activity_counts_by_student = ActivitySession
@@ -203,7 +201,7 @@ class Teachers::ClassroomsController < ApplicationController
     end
   end
 
-  def format_pending_coteachers_for_classroom(classroom)
+  private def format_pending_coteachers_for_classroom(classroom)
     coteacher_invitations = CoteacherClassroomInvitation.where(classroom_id: classroom.id)
     coteacher_invitations.map do |cci|
       {
@@ -217,7 +215,7 @@ class Teachers::ClassroomsController < ApplicationController
     end
   end
 
-  def format_teachers_for_classroom(classroom)
+  private def format_teachers_for_classroom(classroom)
     classroom.classrooms_teachers.compact.map do |ct|
       teacher = ct.user&.attributes
       teacher[:classroom_relation] = ct.role
@@ -226,15 +224,15 @@ class Teachers::ClassroomsController < ApplicationController
     end.compact
   end
 
-  def create_students_params
+  private def create_students_params
     params.permit(:classroom_id, :students => [:name, :username, :password, :account_type], :classroom => classroom_params)
   end
 
-  def classroom_params
+  private def classroom_params
     params[:classroom].permit(:name, :code, :grade)
   end
 
-  def authorize_owner!
+  private def authorize_owner!
     classroom_id = block_given? ? yield : params[:id]
     return auth_failed unless classroom_id.present?
     classroom = Classroom.find_by(id: classroom_id)
@@ -242,7 +240,7 @@ class Teachers::ClassroomsController < ApplicationController
     classroom_owner!(classroom.id)
   end
 
-  def authorize_teacher!
+  private def authorize_teacher!
     return unless params[:id].present?
     classroom_teacher!(params[:id])
   end

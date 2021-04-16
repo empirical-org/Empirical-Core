@@ -46,13 +46,11 @@ class Cms::BlogPostsController < Cms::CmsController
     render json: {}
   end
 
-  private
-
-  def authors
+  private def authors
     @authors = Author.all.select('name', 'id')
   end
 
-  def blog_post_params
+  private def blog_post_params
     params.require(:blog_post)
             .permit(:id,
                     :body,
@@ -73,11 +71,11 @@ class Cms::BlogPostsController < Cms::CmsController
                   )
   end
 
-  def set_blog_post
+  private def set_blog_post
     @blog_post = BlogPost.find(params[:id])
   end
 
-  def topics
+  private def topics
     @topics = BlogPost::TOPICS
     @student_topics = BlogPost::STUDENT_TOPICS
   end

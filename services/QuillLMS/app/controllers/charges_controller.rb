@@ -26,9 +26,7 @@ class ChargesController < ApplicationController
     render json: {new_subscription: new_sub}
   end
 
-  private
-
-  def create_customer_and_update_user
+  private def create_customer_and_update_user
     customer_id = Stripe::Customer.create(
       :description => "premium",
       :source  => params[:source][:id],
@@ -38,7 +36,7 @@ class ChargesController < ApplicationController
     current_user.update(stripe_customer_id: customer_id)
   end
 
-  def update_card_helper
+  private def update_card_helper
     customer_id = current_user.stripe_customer_id
     customer = Stripe::Customer.retrieve(customer_id)
     new_card = customer.sources.create(source: params[:source][:id])

@@ -45,7 +45,8 @@ module Comprehension
     end
 
     private def set_rule
-      @rule = Comprehension::Rule.find(params[:id])
+      # warning - the id param is getting used as both an id and a uid, which is an antipattern
+      @rule = Comprehension::Rule.find_by_uid(params[:id]) || Comprehension::Rule.find(params[:id])
     end
 
     private def rule_params
