@@ -52,7 +52,7 @@ class RematchResponsesForQuestionWorker
             .where.not(optimal: nil)
             .where(parent_id: nil)
             .pluck(:id)
-            .sort() # sorting to make tests idempotent
+            .sort # sorting to make tests idempotent
   end
 
   def retrieve_question(question_uid)
