@@ -37,7 +37,7 @@ then
     git checkout production
     git pull origin production
     git stash apply
-  if
+  fi
 
   # Slack deploy start
   sh ../../scripts/post_slack_deploy.sh $app_name $1 $current_branch false
@@ -45,6 +45,7 @@ then
   eb deploy ${EB_ENVIRONMENT_NAME} --label `git rev-parse HEAD`
   open "https://rpm.newrelic.com/accounts/2639113/applications/548895592"
   eb console ${EB_ENVIRONMENT_NAME}
+
 else
     echo "Ok, we won't deploy. Have a good day!"
 fi
