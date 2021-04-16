@@ -23,7 +23,6 @@ const PromptTable = ({ activity, prompt, showHeader }: PromptTableProps) => {
       const usedAttempts = [];
       keys.forEach(key => {
         attempts[key].forEach((attempt: any) => {
-          // only get
           if(attempt.used) {
             usedAttempts.push(attempt);
           }
