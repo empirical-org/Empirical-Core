@@ -6,14 +6,16 @@ class RematchResponsesForQuestionWorker
   sidekiq_options retry: 3, queue: SidekiqQueue::LOW
 
   def perform(question_uid, question_type)
-    human_graded_ids = human_graded_response_ids(question_uid)
-    ungraded = ungraded_responses(question_uid)
-    machine_graded = machine_graded_responses(question_uid)
+    ActiveRecord::Base.connected_to(role: :reading) do
+      human_graded_ids = human_graded_response_ids(question_uid)
+      ungraded = ungraded_responses(question_uid)
+      machine_graded = machine_graded_responses(question_uid)
 
-    question_hash = retrieve_question(question_uid)
+      question_hash = retrieve_question(question_uid)
 
-    schedule_jobs(ungraded, question_type, question_hash, human_graded_ids)
-    schedule_jobs(machine_graded, question_type, question_hash, human_graded_ids)
+      schedule_jobs(ungraded, question_type, question_hash, human_graded_ids)
+      schedule_jobs(machine_graded, question_type, question_hash, human_graded_ids)
+    end
   end
 
   def schedule_jobs(finder, question_type, question_hash, human_graded_response_ids)

@@ -19,8 +19,10 @@ class RematchResponseWorker
 
   def perform(response_id, question_type, question_hash, reference_response_ids)
     response = Response.find_by(id: response_id)
+    return unless response
 
     reference_responses = Response.where(id: reference_response_ids).to_a
+
     rematch_response(response, question_type, question_hash, reference_responses)
   end
 
