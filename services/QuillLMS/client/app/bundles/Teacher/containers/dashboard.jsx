@@ -9,6 +9,7 @@ import HandyActions from '../components/dashboard/handy_actions'
 import DailyTinyTip from '../components/dashboard/daily_tiny_tip'
 import TeacherCenterHighlights from '../components/dashboard/teacher_center_highlights'
 import CollegeBoard from '../components/dashboard/college_board'
+import KeyMetrics from '../components/dashboard/key_metrics'
 import useWindowSize from '../../Shared/hooks/useWindowSize'
 
 const MAX_VIEW_WIDTH_FOR_MOBILE = 1103
@@ -33,6 +34,7 @@ const Dashboard = ({ onboardingChecklist, firstName, mustSeeModal, linkedToCleve
   return (<div className="dashboard">
     <div className="post-checklist-container">
       <main>
+        <KeyMetrics firstName={firstName} />
         <DiagnosticMini onMobile={onMobile()} />
         <ActivityFeed onMobile={onMobile()} />
       </main>

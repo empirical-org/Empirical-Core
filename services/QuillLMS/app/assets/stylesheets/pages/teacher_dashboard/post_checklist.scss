@@ -50,12 +50,20 @@
       header {
         padding: 20px 20px 8px;
         width: 100%;
-        display: flex;
-        align-items: center;
         h2 {
           font-size: 20px;
           line-height: 1.3;
-          margin-right: 8px;
+          span {
+            white-space: pre-wrap;
+          }
+          .no-break {
+            white-space: nowrap;
+            display: inline-flex;
+            align-items: center;
+          }
+          a {
+            margin-left: 8px;
+          }
         }
       }
       .data-table {
@@ -114,17 +122,6 @@
       max-width: 100%;
       section header {
         margin-bottom: 24px;
-      }
-    }
-  }
-  @media (max-width: 365px) {
-    main section header {
-      align-items: flex-end;
-      h2 {
-        width: min-content;
-      }
-      a {
-        margin-bottom: 4px;
       }
     }
   }

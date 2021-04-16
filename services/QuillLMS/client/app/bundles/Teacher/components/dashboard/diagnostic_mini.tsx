@@ -109,8 +109,13 @@ const DiagnosticMini = ({passedDiagnostics, onMobile, }) => {
 
   return (<section className="diagnostic-mini">
     <header>
-      <h2>Diagnostic recommendations</h2>
-      <a href="https://app.intercom.com/a/apps/v2ms5bl3/articles/articles/5014101/show"><img alt={helpIcon.alt} src={helpIcon.src} /></a>
+      <h2>
+        <span>Diagnostic </span>
+        <span className="no-break">
+          <span>recommendations</span>
+          <a className="focus-on-light" href="https://app.intercom.com/a/apps/v2ms5bl3/articles/articles/5014101/show"><img alt={helpIcon.alt} src={helpIcon.src} /></a>
+        </span>
+      </h2>
     </header>
     {dataDisplay}
     {diagnostics.length > INITIAL_MAX && !showAll && <button className="bottom-button focus-on-light interactive-wrapper" onClick={handleShowMoreClick} type="button">Show more <img alt={expandIcon.alt} src={expandIcon.src} /></button>}
