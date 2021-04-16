@@ -7,23 +7,39 @@ class ActivityHealthDashboard
     @question_uid = question_uid
   end
 
-  # TODO a bunch of nil and error checkign here for different edge cases, cleaner injection methods
   def average_attempts_for_question
-    correct_attempts_times_students = attempt_data.select { |a| a["correct"] == '1' }.map {|b| b["number_of_attempts"].to_i * b["number_of_students"].to_i}.inject(0){|sum,x| sum + x }
-    fifth_attempts = attempt_data.select { |a| a["number_of_attempts"] == '5'}.sum{ |b| b["number_of_students"].to_i }&.to_f || 0
-    total_attempts = attempt_data.select { |a| a["number_of_attempts"] == '1' }&.sum { |b| b["number_of_students"].to_i }&.to_f || 0
-    total_attempts.zero? ? 0 : ((fifth_attempts * 5 + correct_attempts_times_students) / total_attempts).round(2)
+    failed_attempts = attempt_data.select { |a| a["number_of_attempts"] == '5' && a["correct"] == '0'}
+    correct_attempts = attempt_data.select { |a| a["correct"] == '1' }
+
+    all_first_attempts = attempt_data.select { |a| a["number_of_attempts"] == '1' }
+    total_count = total_students(all_first_attempts)
+
+    correct_attempts_times_students = attempts_times_students(correct_attempts).sum
+    failed_attempts_times_students = attempts_times_students(failed_attempts).sum
+
+    total_count.zero? ? 0 : ((failed_attempts_times_students + correct_attempts_times_students) / total_count).round(2)
   end
 
   def percent_reached_optimal_for_question
-    optimal_obj = attempt_data.select { |a| a["correct"] == '1' }
-    optimal_count = optimal_obj.any? ? optimal_obj.sum {|opt| opt["number_of_students"].to_i } : 0
-    total_attempts = attempt_data.select { |a| a["number_of_attempts"] == '1' }&.sum { |b| b["number_of_students"].to_i }&.to_f || 0
-    total_attempts.zero? ? 0 : ((optimal_count / total_attempts) * 100).round(2)
+    optimal_attempts = attempt_data.select { |a| a["correct"] == '1' }
+    all_first_attempts = attempt_data.select { |a| a["number_of_attempts"] == '1' }
+
+    optimal_count = total_students(optimal_attempts)
+    total_count = total_students(all_first_attempts)
+
+    total_count.zero? ? 0 : ((optimal_count / total_count) * 100).round(2)
   end
 
   def cms_dashboard_stats
     JSON.parse(cms_data.body)
+  end
+
+  private def total_students(hash)
+    hash&.sum { |h| h["number_of_students"].to_i }&.to_f || 0
+  end
+
+  private def attempts_times_students(hash)
+    hash&.map { |h| h["number_of_attempts"].to_i * h["number_of_students"].to_i} || 0
   end
 
   private def cms_data
