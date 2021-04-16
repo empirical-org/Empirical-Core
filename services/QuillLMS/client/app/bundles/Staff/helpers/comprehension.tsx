@@ -75,23 +75,13 @@ export const getCheckIcon = (value: boolean) => {
     return (<img alt="quill-circle-checkmark" src={quillX} />);
   }
 }
-// export const getXIcon = (value: boolean) => {
-//   if(value) {
-//     return (<img alt="quill-circle-checkmark" src={quillX} />)
-//   } else {
-//     return (<div />);
-//   }
-// }
 
 export const buildBlankPrompt = (conjunction: string) => {
   return {
     conjunction: conjunction,
     text: '',
     max_attempts: DEFAULT_MAX_ATTEMPTS,
-    max_attempts_feedback: '',
-    plagiarism_text: '',
-    plagiarism_first_feedback: '',
-    plagiarism_second_feedback: ''
+    max_attempts_feedback: ''
   }
 }
 
