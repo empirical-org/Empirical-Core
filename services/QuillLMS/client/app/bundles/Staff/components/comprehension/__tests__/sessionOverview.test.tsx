@@ -5,7 +5,7 @@ import { createMemoryHistory, createLocation } from 'history';
 
 import SessionOverview from '../activitySessions/sessionOverview';
 
-var sessionData = require('../activitySessions/sessionData.json');
+const sessionData = require('./mockData/sessionData.json');
 
 const mockProps = {
   match: {

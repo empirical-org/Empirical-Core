@@ -4,7 +4,6 @@ exports[`PromptTable component should render PromptTable 1`] = `
 <section
   className="prompt-table-container"
 >
-  <h2 />
   <section
     className="attempts-section"
   >
@@ -71,7 +70,7 @@ exports[`PromptTable component should render PromptTable 1`] = `
         Object {
           "className": "sub-optimal",
           "feedback": "",
-          "results": "",
+          "results": undefined,
           "status": "1st Feedback",
         },
       ]

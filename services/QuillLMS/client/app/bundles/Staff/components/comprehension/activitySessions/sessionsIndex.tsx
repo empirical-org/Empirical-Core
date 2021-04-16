@@ -33,7 +33,6 @@ const SessionsIndex = ({ match }) => {
     sessionsData && !dropdownOptions && getDropdownOptions(sessionsData)
   }, [sessionsData]);
 
-
   function handlePageChange(number) {
     setPageNumber(number)
   }

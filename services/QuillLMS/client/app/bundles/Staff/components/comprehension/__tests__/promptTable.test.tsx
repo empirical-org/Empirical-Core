@@ -4,9 +4,17 @@ import { shallow } from 'enzyme';
 
 import PromptTable from '../activitySessions/promptTable';
 
+jest.mock('string-strip-html', () => ({
+  default: jest.fn()
+}));
+
 const mockProps = {
   activity: {
-    prompts: [{id: 1}]
+    title: 'Test Activity',
+    name: 'Test Name',
+    scored_level: '7',
+    target_level: 7,
+    prompts: [{id: 1, conjunction: 'because', text: 'test', max_attempts: 5, max_attempts_feedback: 'good try!'}]
   },
   prompt: {
     attempts: {
@@ -16,9 +24,13 @@ const mockProps = {
         feedback_type: '',
         optimal: false
       }]
-    }
+    },
+    conjunction: 'because',
+    text: 'test',
+    max_attempts: 5,
+    max_attempts_feedback: 'good try!'
   },
-  showHeader: {}
+  showHeader: false
 }
 
 describe('PromptTable component', () => {
