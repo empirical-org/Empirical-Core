@@ -22,7 +22,7 @@ class RematchResponsesForQuestionWorker
   end
 
   def schedule_jobs(finder, question_type, question_hash, human_graded_response_ids)
-    # use find_each these in batches
+    # use find_each to pull these in batches
     finder.find_each do |response|
       RematchResponseWorker.perform_async(
         response.id,
