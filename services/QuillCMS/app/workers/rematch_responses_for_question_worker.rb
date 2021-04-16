@@ -8,6 +8,9 @@ class RematchResponsesForQuestionWorker
   def perform(question_uid, question_type)
     ActiveRecord::Base.connected_to(role: :reading) do
       human_graded_ids = human_graded_response_ids(question_uid)
+
+      return if human_graded_ids.empty?
+
       ungraded = ungraded_responses(question_uid)
       machine_graded = machine_graded_responses(question_uid)
 
