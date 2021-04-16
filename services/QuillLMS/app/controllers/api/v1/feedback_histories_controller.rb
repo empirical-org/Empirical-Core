@@ -15,7 +15,7 @@ class Api::V1::FeedbackHistoriesController < Api::ApiController
 
   # POST /feedback_histories.json
   def create
-    @feedback_history = FeedbackHistory.new(rename_activity_session_uid_params_key(feedback_history_params))
+    @feedback_history = FeedbackHistory.new(feedback_history_params)
 
     if @feedback_history.save
       render json: @feedback_history, status: :created
@@ -26,7 +26,7 @@ class Api::V1::FeedbackHistoriesController < Api::ApiController
 
   # POST /feedback_histories/batch.json
   def batch
-    records = FeedbackHistory.batch_create(batch_feedback_history_params.map{ |payload| rename_activity_session_uid_params_key(payload) })
+    records = FeedbackHistory.batch_create(batch_feedback_history_params)
     if records.length && records.all? { |r| r.valid? }
       head :created
     else
@@ -57,7 +57,7 @@ class Api::V1::FeedbackHistoriesController < Api::ApiController
 
   private def feedback_history_params
     params.require(:feedback_history).permit(
-      :activity_session_uid,
+      :feedback_session_uid,
       :prompt_id,
       :concept_uid,
       :attempt,
@@ -76,7 +76,7 @@ class Api::V1::FeedbackHistoriesController < Api::ApiController
     # Note: nested params MUST be permitted last in any list
     params.permit(
       feedback_histories: [
-        :activity_session_uid,
+        :feedback_session_uid,
         :prompt_id,
         :concept_uid,
         :attempt,
@@ -93,13 +93,5 @@ class Api::V1::FeedbackHistoriesController < Api::ApiController
         ]
       ]
     )[:feedback_histories]
-  end
-
-  private def rename_activity_session_uid_params_key(params_hash)
-    # We've changed the name of the model param in FeedbackHistory, but don't (currently)
-    # want to go back and change every single Feedback API in our stack to use a new signature.
-    # This swap allows us to maintain the current API while making the new code work.
-    params_hash[:feedback_session_uid] = params_hash.delete(:activity_session_uid)
-    params_hash
   end
 end

@@ -35,7 +35,7 @@ describe Api::V1::FeedbackHistoriesController, type: :controller do
 
   context "create" do
     it "should create a valid record and return it as json" do
-      post :create, feedback_history: { activity_session_uid: '1', attempt: 1, optimal: false, used: true,
+      post :create, feedback_history: { feedback_session_uid: '1', attempt: 1, optimal: false, used: true,
                                         time: DateTime.now, entry: 'This is the entry provided by the student',
                                         feedback_text: 'This is the feedback provided by the algorithm',
                                         feedback_type: 'autoML', metadata: {foo: 'bar'} }
@@ -50,7 +50,7 @@ describe Api::V1::FeedbackHistoriesController, type: :controller do
     it "should set prompt_type to Comprehension::Prompt if prompt_id is provided" do
       activity = Comprehension::Activity.create(target_level: 1, title: 'Test Activity Title')
       prompt = Comprehension::Prompt.create(activity: activity, text: 'Test prompt text', conjunction: 'but')
-      post :create, feedback_history: { activity_session_uid: '1', attempt: 1, optimal: false, used: true,
+      post :create, feedback_history: { feedback_session_uid: '1', attempt: 1, optimal: false, used: true,
                                         time: DateTime.now, entry: 'This is the entry provided by the student',
                                         feedback_text: 'This is the feedback provided by the algorithm',
                                         feedback_type: 'autoML', metadata: {foo: 'bar'}, prompt_id: prompt.id }
@@ -75,11 +75,11 @@ describe Api::V1::FeedbackHistoriesController, type: :controller do
 
   context "batch" do
     it "should create valid records and return them as json" do
-      post :batch, feedback_histories: [{ activity_session_uid: '1', attempt: 1, optimal: false, used: true,
+      post :batch, feedback_histories: [{ feedback_session_uid: '1', attempt: 1, optimal: false, used: true,
                                           time: DateTime.now, entry: 'This is the entry provided by the student',
                                           feedback_text: 'This is the feedback provided by the algorithm',
                                           feedback_type: 'autoML', metadata: {highlight: [], response_id: "0", rule_uid: ""} },
-                                        { activity_session_uid: '1', attempt: 1, optimal: false, used: true,
+                                        { feedback_session_uid: '1', attempt: 1, optimal: false, used: true,
                                           time: DateTime.now, entry: 'This is the entry provided by the student',
                                           feedback_text: 'This is the feedback provided by the algorithm',
                                           feedback_type: 'autoML', metadata: {foo: 'bar'} }]
@@ -89,7 +89,7 @@ describe Api::V1::FeedbackHistoriesController, type: :controller do
     end
 
     it "should not create valid records if one is invalid record but return errors as json" do
-      post :batch, feedback_histories: [{ activity_session_uid: '1', attempt: 1, optimal: false, used: true,
+      post :batch, feedback_histories: [{ feedback_session_uid: '1', attempt: 1, optimal: false, used: true,
                                           time: DateTime.now, entry: 'This is the entry provided by the student',
                                           feedback_text: 'This is the feedback provided by the algorithm',
                                           feedback_type: 'autoML', metadata: {foo: 'bar'} },
