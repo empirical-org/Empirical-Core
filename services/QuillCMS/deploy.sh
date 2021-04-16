@@ -17,9 +17,16 @@ case $1 in
     exit 1
 esac
 
-# Slack deploy start
-sh ../../scripts/post_slack_deploy.sh $app_name $1 $current_branch false
+echo "******* CMS DEPLOY - AWS ELASTIC BEANSTALK *******"
+read -r -p "Deploy branch '$current_branch' to CMS '$1' environment on AWS Elastic Beanstalk? [y/N]" response
+if [[ "$response" =~ ^([y])$ ]]
+then
+  # Slack deploy start
+  sh ../../scripts/post_slack_deploy.sh $app_name $1 $current_branch false
 
-eb deploy ${EB_ENVIRONMENT_NAME} --label `git rev-parse HEAD`
-open "https://rpm.newrelic.com/accounts/2639113/applications/548895592"
-open "https://console.aws.amazon.com/elasticbeanstalk/home?region=us-east-1#/environment/dashboard?applicationName=${app_name}&environmentId=${EB_ENVIRONMENT_ID}"
+  eb deploy ${EB_ENVIRONMENT_NAME} --label `git rev-parse HEAD`
+  open "https://rpm.newrelic.com/accounts/2639113/applications/548895592"
+  open "https://console.aws.amazon.com/elasticbeanstalk/home?region=us-east-1#/environment/dashboard?applicationName=${app_name}&environmentId=${EB_ENVIRONMENT_ID}"
+else
+    echo "Ok, we won't deploy. Have a good day!"
+fi
