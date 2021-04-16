@@ -15,14 +15,16 @@ RSpec.describe AdminQuestionDashboard do
     let!(:response_5) { create(:response, question_uid: question_uid, optimal: true, count: 20)}
 
     it "provides the correct question dashboard data" do
-      expect(AdminQuestionDashboard.health(question_uid)[:percent_common_unmatched]).to eq(20)
-      expect(AdminQuestionDashboard.health(question_uid)[:percent_specified_algos]).to eq(40)
+      question_dashboard = AdminQuestionDashboard.new(question_uid)
+      expect(question_dashboard.health[:percent_common_unmatched]).to eq(20)
+      expect(question_dashboard.health[:percent_specified_algos]).to eq(40)
     end
 
     it "provides the correct question dashboard data when there are no responses" do
       random_uid = SecureRandom.uuid
-      expect(AdminQuestionDashboard.health(random_uid)[:percent_common_unmatched]).to eq(0)
-      expect(AdminQuestionDashboard.health(random_uid)[:percent_specified_algos]).to eq(0)
+      question_dashboard = AdminQuestionDashboard.new(random_uid)
+      expect(question_dashboard.health[:percent_common_unmatched]).to eq(0)
+      expect(question_dashboard.health[:percent_specified_algos]).to eq(0)
     end
   end
 end

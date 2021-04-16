@@ -95,7 +95,8 @@ class ResponsesController < ApplicationController
   end
 
   def question_dashboard
-    render json: AdminQuestionDashboard.health(params[:question_uid])
+    admin_question_dashboard = AdminQuestionDashboard.new(params[:question_uid])
+    render json: admin_question_dashboard.health
   end
 
   def incorrect_sequences
