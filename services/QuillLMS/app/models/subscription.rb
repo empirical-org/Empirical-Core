@@ -276,21 +276,19 @@ class Subscription < ActiveRecord::Base
     start_date: Date.today}
   end
 
-  protected
-
-  def charge_user_for_teacher_premium
+  protected def charge_user_for_teacher_premium
     if purchaser && purchaser.stripe_customer_id
       Stripe::Charge.create(amount: TEACHER_PRICE, currency: 'usd', customer: purchaser.stripe_customer_id)
     end
   end
 
-  def charge_user_for_school_premium(school)
+  protected def charge_user_for_school_premium(school)
     if purchaser && purchaser.stripe_customer_id
       Stripe::Charge.create(amount: SCHOOL_FIRST_PURCHASE_PRICE, currency: 'usd', customer: purchaser.stripe_customer_id)
     end
   end
 
-  def charge_user
+  protected def charge_user
     if purchaser && purchaser.stripe_customer_id
       begin
         Stripe::Charge.create(amount: renewal_price, currency: 'usd', customer: purchaser.stripe_customer_id)
@@ -331,7 +329,7 @@ class Subscription < ActiveRecord::Base
     {expiration: Date.today + CB_LIFETIME_DURATION, start_date: Date.today}
   end
 
-  def report_to_new_relic(error)
+  protected def report_to_new_relic(error)
     begin
       raise error
     rescue => e
@@ -339,7 +337,7 @@ class Subscription < ActiveRecord::Base
     end
   end
 
-  def set_null_start_date_to_today
+  protected def set_null_start_date_to_today
     if !start_date
       self.start_date = Date.today
     end

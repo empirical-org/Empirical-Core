@@ -13,8 +13,6 @@ class Page
     new
   end
 
-  protected
-
   def self.has_checkbutton(value_method, element_method, locator)
     # e.g.,
     #   has_checkbutton :accept_terms?,
@@ -73,8 +71,6 @@ class Page
   def fill(field, value)
     field.set value if value.present?
   end
-
-  private
 
   def self.module_eval_str(line_no, str)
     module_eval(str, __FILE__, line_no)

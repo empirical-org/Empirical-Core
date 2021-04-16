@@ -25,9 +25,7 @@ class FirebaseApp < ActiveRecord::Base
     JWT.encode(payload, private_key, "RS256")
   end
 
-  private
-
-  def create_payload(user)
+  private def create_payload(user)
     user_id = user.present? ? user.id.to_s : 'anonymous'
     payload = {uid: "custom:#{user_id}"}
 
@@ -45,7 +43,7 @@ class FirebaseApp < ActiveRecord::Base
     payload
   end
 
-  def create_connect_payload(user)
+  private def create_connect_payload(user)
     user_id = user.present? ? user.id.to_s : 'anonymous'
     now_seconds = Time.now.to_i
     payload = {
@@ -72,7 +70,7 @@ class FirebaseApp < ActiveRecord::Base
     payload
   end
 
-  def token_generator
+  private def token_generator
     @generator ||= Firebase::FirebaseTokenGenerator.new(secret)
   end
 end

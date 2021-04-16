@@ -77,12 +77,11 @@ class BlogPostsController < ApplicationController
     end
   end
 
-  private
-  def set_announcement
+  private def set_announcement
     @announcement = Announcement.current_webinar_announcement
   end
 
-  def set_role
+  private def set_role
     @role = current_user ? current_user.role : nil
   end
 end

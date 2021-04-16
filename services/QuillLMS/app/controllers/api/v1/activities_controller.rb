@@ -4,12 +4,10 @@ class Api::V1::ActivitiesController < Api::ApiController
   before_action :doorkeeper_authorize!, only: [:create, :update, :destroy], unless: :staff?
   before_action :find_activity, except: [:index, :create, :uids_and_flags, :published_edition]
 
-  # GET
   def show
     render json: @activity, meta: {status: 'success', message: nil, errors: nil}, serializer: ActivitySerializer
   end
 
-  # PATCH, PUT
   def update
     if @activity.update(activity_params)
       @status = :success
@@ -23,7 +21,6 @@ class Api::V1::ActivitiesController < Api::ApiController
 
   end
 
-  # POST
   def create
     activity = Activity.new(activity_params)
     activity.owner=(current_user) if activity.ownable?
@@ -44,7 +41,6 @@ class Api::V1::ActivitiesController < Api::ApiController
       serializer: ActivitySerializer
   end
 
-  # DELETE
   def destroy
     if @activity.destroy!
       render json: Activity.new, meta: {status: 'success', message: "Activity Destroy Successful", errors: nil}, serializer: ActivitySerializer
@@ -85,14 +81,12 @@ class Api::V1::ActivitiesController < Api::ApiController
     render json: {}
   end
 
-  private
-
-  def find_activity
+  private def find_activity
     @activity = Activity.find_by_uid(params[:id]) || Activity.find_by_id(params[:id])
     raise ActiveRecord::RecordNotFound unless @activity
   end
 
-  def activity_params
+  private def activity_params
     params.delete(:access_token)
     params.delete(:activity) # read only and therefore static
     @data = params.delete(:data) # the thing likely to be persisted

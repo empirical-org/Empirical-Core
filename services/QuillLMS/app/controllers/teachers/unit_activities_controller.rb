@@ -27,9 +27,7 @@ class Teachers::UnitActivitiesController < ApplicationController
     render json: {}
   end
 
-  private
-
-  def set_activity_session
+  private def set_activity_session
     activity_ids = @unit_activities.map(&:activity_id).flatten.uniq
     classroom_unit_ids = []
     @unit_activities.each do |ua|
@@ -38,18 +36,18 @@ class Teachers::UnitActivitiesController < ApplicationController
     @activity_sessions = ActivitySession.where(activity: activity_ids, classroom_unit: classroom_unit_ids.flatten.uniq)
   end
 
-  def set_unit_activities
+  private def set_unit_activities
     @unit_activities = UnitActivity.where(activity: @unit_activity.activity, unit: @unit_activity.unit)
   end
 
-  def authorize!
+  private def authorize!
     @unit_activity = UnitActivity.find params[:id]
     if @unit_activity && @unit_activity.unit && @unit_activity.unit.classrooms && !@unit_activity.unit.classrooms.find { |c| c.teacher_ids.include?(current_user.id) }
       auth_failed
     end
   end
 
-  def unit_activity_params
+  private def unit_activity_params
     params[:unit_activity].permit(:due_date, :due_date_string, :unit_id)
   end
 end

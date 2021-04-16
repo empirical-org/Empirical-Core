@@ -14,12 +14,10 @@ module GoogleIntegration::Classroom::Parsers::Courses
     end
   end
 
-  private
-
   def self.parse_courses_for_teacher(course_response, user, student_requester)
     courses = []
     if course_response[:courses] && course_response[:courses].any?
-      existing_google_classroom_ids = self.existing_google_classroom_ids(user)
+      existing_google_classroom_ids = existing_google_classroom_ids(user)
       course_response[:courses].each do |course|
         already_imported = already_imported?(course, existing_google_classroom_ids)
         if already_imported

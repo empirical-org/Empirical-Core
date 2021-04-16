@@ -51,9 +51,7 @@ class Cms::ActivitiesController < Cms::CmsController
     redirect_to cms_activities_path
   end
 
-  protected
-
-  def format_activity_for_activity_form(activity)
+  protected def format_activity_for_activity_form(activity)
     formatted_activity = activity.attributes.slice(
       'id',
       'name',
@@ -72,26 +70,26 @@ class Cms::ActivitiesController < Cms::CmsController
     formatted_activity
   end
 
-  def set_activity
+  protected def set_activity
     @activity = @activity_classification.activities.find(params[:id])
   end
 
-  def find_classification
+  protected def find_classification
     @activity_classification = ActivityClassification.find_by_id!(params[:activity_classification_id])
   end
 
-  def set_raw_score_options_and_grade_band_hash
+  protected def set_raw_score_options_and_grade_band_hash
     @raw_score_options = RawScore.order_by_name
     @grade_band_hash = {}
     @raw_score_options.each { |rs| @grade_band_hash[rs.name] = rs.readability_grade_level(@activity_classification.id) }
   end
 
-  def set_style_and_javascript_file
+  protected def set_style_and_javascript_file
     @js_file = 'staff'
     @style_file = 'staff'
   end
 
-  def activity_params
+  protected def activity_params
     params.require(:activity).permit(:name,
                                      :description,
                                      :uid,

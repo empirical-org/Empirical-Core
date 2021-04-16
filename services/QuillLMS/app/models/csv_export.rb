@@ -59,9 +59,7 @@ class CsvExport < ActiveRecord::Base
     save!
   end
 
-  private
-
-  def csv_exporter
+  private def csv_exporter
     @exporter ||=
       case export_type.to_sym
       when :activity_sessions
@@ -81,7 +79,7 @@ class CsvExport < ActiveRecord::Base
       end
   end
 
-  def csv_basename
+  private def csv_basename
     "csv_#{teacher_id}_#{export_type}"
   end
 end

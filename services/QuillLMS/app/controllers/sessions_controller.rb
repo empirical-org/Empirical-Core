@@ -128,9 +128,7 @@ class SessionsController < ApplicationController
     redirect_to profile_path
   end
 
-  private
-
-  def report_that_route_is_still_in_use
+  private def report_that_route_is_still_in_use
     begin
       raise 'sessions/create original route still being called here'
     rescue => e

@@ -209,9 +209,7 @@ class Teachers::ClassroomManagerController < ApplicationController
     render json: { data: data_for_activity_feed(current_user) }
   end
 
-  private
-
-  def set_classroom_variables
+  private def set_classroom_variables
     @tab = params[:tab]
     @grade = params[:grade]
     @students = current_user.students.any?
@@ -225,7 +223,7 @@ class Teachers::ClassroomManagerController < ApplicationController
   end
 
 
-  def classroom_with_students_json(classrooms)
+  private def classroom_with_students_json(classrooms)
     {
         classrooms_and_their_students: classrooms.map { |classroom|
           classroom_json(classroom)
@@ -233,11 +231,11 @@ class Teachers::ClassroomManagerController < ApplicationController
     }
   end
 
-  def classroom_json(classroom)
+  private def classroom_json(classroom)
     {  classroom: classroom, students: classroom.students.sort_by(&:sorting_name)}
   end
 
-  def invited_classrooms
+  private def invited_classrooms
     ActiveRecord::Base.connection.execute("
         SELECT coteacher_classroom_invitations.id AS classroom_invitation_id, users.name AS inviter_name, classrooms.name AS classroom_name, TRUE AS invitation
         FROM invitations
@@ -248,7 +246,7 @@ class Teachers::ClassroomManagerController < ApplicationController
       ").to_a
   end
 
-  def active_and_inactive_classrooms_hash
+  private def active_and_inactive_classrooms_hash
     classrooms = {}
     classrooms[:active] = invited_classrooms
     classrooms[:inactive] = []
@@ -263,7 +261,7 @@ class Teachers::ClassroomManagerController < ApplicationController
     classrooms
   end
 
-  def classrooms_with_data
+  private def classrooms_with_data
     ActiveRecord::Base.connection.execute(
       "SELECT classrooms.id, classrooms.id AS value, classrooms.name from classrooms_teachers AS ct
       JOIN classrooms ON ct.classroom_id = classrooms.id AND classrooms.visible = TRUE
@@ -271,20 +269,19 @@ class Teachers::ClassroomManagerController < ApplicationController
     ).to_a
   end
 
-
-  def authorize_owner!
+  private def authorize_owner!
     if params[:classroom_id]
       classroom_owner!(params[:classroom_id])
     end
   end
 
-  def authorize_teacher!
+  private def authorize_teacher!
     if params[:classroom_id]
       classroom_teacher!(params[:classroom_id])
     end
   end
 
-  def teacher_or_public_activity_packs
+  private def teacher_or_public_activity_packs
     if !current_user && request.path.include?('featured-activity-packs')
       if params[:category]
         redirect_to "/activities/packs?category=#{params[:category]}"
@@ -300,7 +297,7 @@ class Teachers::ClassroomManagerController < ApplicationController
     end
   end
 
-  def set_alternative_schools
+  private def set_alternative_schools
     @alternative_schools = School.where(name: School::ALTERNATIVE_SCHOOL_NAMES)
     @alternative_schools_name_map = School::ALTERNATIVE_SCHOOLS_DISPLAY_NAME_MAP
   end

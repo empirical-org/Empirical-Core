@@ -74,9 +74,8 @@ class ClassroomUnit < ActiveRecord::Base
     update(assigned_student_ids: new_assigned_student_ids, assign_on_join: false)
   end
 
-  private
 
-  def hide_unassigned_activity_sessions
+  private def hide_unassigned_activity_sessions
     #validate or hides any other related activity sessions
     if activity_sessions.present?
       activity_sessions.each do |as|
@@ -92,11 +91,11 @@ class ClassroomUnit < ActiveRecord::Base
     end
   end
 
-  def hide_all_activity_sessions
+  private def hide_all_activity_sessions
     activity_sessions.update_all(visible: false)
   end
 
-  def hide_appropriate_activity_sessions
+  private def hide_appropriate_activity_sessions
     # on save callback that checks if archived
     if visible == false
       hide_all_activity_sessions
@@ -105,7 +104,7 @@ class ClassroomUnit < ActiveRecord::Base
     hide_unassigned_activity_sessions
   end
 
-  def check_for_assign_on_join_and_update_students_array_if_true
+  private def check_for_assign_on_join_and_update_students_array_if_true
     student_ids = StudentsClassrooms.where(classroom_id: classroom_id).pluck(:student_id)
     if assigned_student_ids&.any? && !assign_on_join && assigned_student_ids.length >= student_ids.length
       # then maybe it should be assign on join, so we do a more thorough check

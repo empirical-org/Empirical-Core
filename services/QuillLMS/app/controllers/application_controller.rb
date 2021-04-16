@@ -119,28 +119,26 @@ class ApplicationController < ActionController::Base
     )
   end
 
-  protected
-
-  def set_vary_header
+  protected def set_vary_header
      response.headers['Vary'] = 'Accept'
   end
 
-  def set_cache_buster
+  protected def set_cache_buster
     response.headers["Cache-Control"] = "no-cache, no-store, max-age=0, must-revalidate"
     response.headers["Pragma"] = "no-cache"
     response.headers["Expires"] = "Fri, 01 Jan 1990 00:00:00 GMT"
   end
 
-  def set_raven_context
+  protected def set_raven_context
     Raven.user_context(id: session[:current_user_id])
     Raven.extra_context(params: params.to_unsafe_h, url: request.url)
   end
 
-  def stick_to_leader_db
+  protected def stick_to_leader_db
     ActiveRecord::Base.connection.stick_to_master!
   end
 
-  def confirm_valid_session
+  protected def confirm_valid_session
     # Don't do anything if there's no authorized user or session
     return if !current_user || !session
     # if user is staff, logout if last_sign_in was more than 4 hours ago
@@ -167,7 +165,7 @@ class ApplicationController < ActionController::Base
     return reset_session if current_user.google_id && current_user.auth_credential && Time.now > (current_user.auth_credential.created_at + 5.months)
   end
 
-  def user_inactive_for_too_long?
+  protected def user_inactive_for_too_long?
     return false if session[KEEP_ME_SIGNED_IN] || current_user.google_id || current_user.clever_id
 
     seconds_in_day = 86400
@@ -179,7 +177,7 @@ class ApplicationController < ActionController::Base
     [days_since_last_active, days_since_last_sign_in].min >= max_inactivity
   end
 
-  def time_diff(timestamp)
+  protected def time_diff(timestamp)
     now = Time.now().in_time_zone.utc
 
     diff = now - timestamp
