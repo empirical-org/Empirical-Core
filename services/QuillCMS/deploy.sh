@@ -18,7 +18,7 @@ case $1 in
 esac
 
 echo "******* CMS DEPLOY - AWS ELASTIC BEANSTALK *******"
-read -r -p "Deploy branch '$current_branch' to CMS '$1' environment on AWS Elastic Beanstalk? [y/N]" response
+read -r -p "Deploy *local* branch '$current_branch' to CMS '$1' environment on AWS Elastic Beanstalk? [y/N]" response
 if [[ "$response" =~ ^([y])$ ]]
 then
   # Slack deploy start
