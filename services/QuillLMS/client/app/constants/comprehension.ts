@@ -159,27 +159,18 @@ export const blankActivity = {
       conjunction: 'because',
       text: '',
       max_attempts: 5,
-      plagiarism_text: '',
-      plagiarism_first_feedback: '',
-      plagiarism_second_feedback: '',
       max_attempts_feedback: 'Nice effort! You worked hard to make your sentence stronger.'
     },
     {
       conjunction: 'but',
       text: '',
       max_attempts: 5,
-      plagiarism_text: '',
-      plagiarism_first_feedback: '',
-      plagiarism_second_feedback: '',
       max_attempts_feedback: 'Nice effort! You worked hard to make your sentence stronger.'
     },
     {
       conjunction: 'so',
       text: '',
       max_attempts: 5,
-      plagiarism_text: '',
-      plagiarism_first_feedback: '',
-      plagiarism_second_feedback: '',
       max_attempts_feedback: 'Nice effort! You worked hard to make your sentence stronger.'
     }
   ]
