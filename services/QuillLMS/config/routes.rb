@@ -274,7 +274,7 @@ EmpiricalGrammar::Application.routes.draw do
     resources :classrooms, only: [:index, :new, :create, :update, :destroy] do
       post :create_students
       post :remove_students
-      
+
       put :import_google_students, controller: 'classroom_manager', action: 'import_google_students'
       collection do
         get :archived, action: 'index', as: :archived
@@ -396,6 +396,7 @@ EmpiricalGrammar::Application.routes.draw do
       resources :title_cards,             except: [:destroy]
       get 'activities/:id/follow_up_activity_name_and_supporting_info' => 'activities#follow_up_activity_name_and_supporting_info'
       get 'activities/:id/supporting_info' => 'activities#supporting_info'
+      get 'activities/:id/question_health' => 'activities#question_health', format: :json
       get 'classroom_activities/student_names' => 'classroom_units#student_names'
       put 'classroom_activities/finish_lesson' => 'classroom_units#finish_lesson'
       put 'classroom_activities/unpin_and_lock_activity' => 'classroom_units#unpin_and_lock_activity'
@@ -707,6 +708,7 @@ EmpiricalGrammar::Application.routes.draw do
   get 'customize/:id' => 'activities#customize_lesson'
   get 'preview_lesson/:lesson_id' => 'activities#preview_lesson'
   get 'activities/:id/supporting_info' => 'activities#supporting_info'
+  get 'activities/:id/question_health' => 'activities#question_health'
   get 'activities/:id/name_and_id' => 'activities#name_and_id'
   get 'activities/:id/last_unit_template' => 'activities#last_unit_template'
 

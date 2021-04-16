@@ -1,6 +1,8 @@
 class Api::V1::ActivitiesController < Api::ApiController
   include QuillAuthentication
 
+  CLASSIFICATION_TO_TOOL = {"connect": "connect", "sentence": "grammar"}
+
   before_action :doorkeeper_authorize!, only: [:create, :update, :destroy], unless: :staff?
   before_action :find_activity, except: [:index, :create, :uids_and_flags, :published_edition]
 
@@ -83,6 +85,29 @@ class Api::V1::ActivitiesController < Api::ApiController
       UserMilestone.create(milestone_id: milestone.id, user_id: current_user.id)
     end
     render json: {}
+  end
+
+  def question_health
+    questions = @activity.data["questions"]
+    tool = CLASSIFICATION_TO_TOOL[ActivityClassification.find(@activity.activity_classification_id).key.to_sym]
+    questions.each_with_index.map { |q, i|
+      question_number = i + 1
+      question = Question.find_by(uid: q["key"])
+      data = question.data
+      health_dashboard = ActivityHealthDashboard.new(@activity.id, question_number, question.uid)
+      {
+        url: ENV['DEFAULT_URL'].to_s + "/" + tool + "/#/admin/questions/" + question.uid + "/responses",
+        text: data["prompt"],
+        flag: data["flag"],
+        number_of_incorrect_sequences: data["incorrectSequences"].length,
+        number_of_focus_points: data["focusPoints"].length,
+        percent_unmatched_ten_submissions: health_dashboard.cms_dashboard_stats["percent_common_unmatched"],
+        percent_specified_algorithms: health_dashboard.cms_dashboard_stats["percent_specified_algos"],
+        difficulty: health_dashboard.average_attempts_for_question,
+        percent_reached_optimal: health_dashboard.percent_reached_optimal_for_question
+      }
+    }
+    render json: questions
   end
 
   private
