@@ -29,6 +29,7 @@ const mockProps = {
   handleAddRegexInput: jest.fn(),
   handleDeleteRegexRule: jest.fn(),
   handleSetRegexRule: jest.fn(),
+  handleSetRegexRuleSequence: jest.fn(),
   regexRules: mockRegexRules
 };
 

@@ -430,6 +430,8 @@
         max-height: 500px;
         overflow: auto;
         .data-table-row {
+          height: auto;
+          padding: 12px;
           span {
             text-align: left !important;
             span {

@@ -24,6 +24,12 @@ jest.mock('../../../actions/activities', () => ({
   getActivity: mockGetActivity
 }))
 
+jest.mock('string-strip-html', () => ({
+  default: jest.fn(() => {
+    return {};
+  })
+}))
+
 import { StudentViewContainer } from '../../../components/studentView/container'
 import LoadingSpinner from '../../../components/shared/loadingSpinner'
 import PromptStep from '../../../components/studentView/promptStep'
@@ -52,6 +58,12 @@ describe('StudentViewContainer component', () => {
     it('should render a promptStep for each prompt in the activity', () => {
       expect(wrapper.find(PromptStep).length).toBe(activityOne.prompts.length)
     })
+
+    it('should render prompts in correct order', () => {
+      expect(wrapper.find(PromptStep).at(0).props().prompt.conjunction).toEqual('because')
+      expect(wrapper.find(PromptStep).at(1).props().prompt.conjunction).toEqual('but')
+      expect(wrapper.find(PromptStep).at(2).props().prompt.conjunction).toEqual('so')
+    });
 
     it('should track a COMPREHENSION_ACTIVITY_STARTED event', () => {
       expect(mockGetActivity).toHaveBeenCalledWith(sessionReducer.sessionID, activityOne.activity_id)
