@@ -57,3 +57,23 @@ export const fileChartIcon = {
   src: `${process.env.CDN_URL}/images/icons/icons-file-chart.svg`,
   alt: 'File with a chart icon'
 }
+
+export const fileDownloadIcon = {
+  src: `${process.env.CDN_URL}/images/icons/icons-file-download.svg`,
+  alt: 'File with a download icon'
+}
+
+export const horizontalDotsIcon = {
+  src: `${process.env.CDN_URL}/images/icons/icons-more-horizontal.svg`,
+  alt: 'Three horizontal dots icon'
+}
+
+export const playBoxIcon = {
+  src: `${process.env.CDN_URL}/images/icons/icons-play-box.svg`,
+  alt: 'Square play button icon'
+}
+
+export const previewIcon = {
+  src: `${process.env.CDN_URL}/images/icons/icons-preview.svg`,
+  alt: 'Eye icon'
+}

@@ -28,6 +28,10 @@ const activeHeaders = [
     width: '124px',
     name: 'Synced',
     attribute: 'synced'
+  }, {
+    name: 'Actions',
+    attribute: 'actions',
+    isActions: true
   }
 ]
 

@@ -98,4 +98,8 @@ export {
   arrowPointingRightIcon,
   expandIcon,
   fileChartIcon,
+  fileDownloadIcon,
+  horizontalDotsIcon,
+  playBoxIcon,
+  previewIcon,
 } from './images/index'

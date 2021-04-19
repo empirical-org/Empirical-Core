@@ -154,6 +154,7 @@ EmpiricalGrammar::Application.routes.draw do
   get 'teachers/:id/schools/:school_id' => 'teachers#add_school'
   get 'teachers/completed_diagnostic_unit_info' => 'teachers#completed_diagnostic_unit_info'
   get 'teachers/diagnostic_info_for_dashboard_mini' => 'teachers#diagnostic_info_for_dashboard_mini'
+  get 'teachers/lessons_info_for_dashboard_mini' => 'teachers#lessons_info_for_dashboard_mini'
   get 'teachers/classrooms_i_teach_with_students' => 'teachers#classrooms_i_teach_with_students'
   get 'teachers/classrooms_i_own_with_students' => 'teachers#classrooms_i_own_with_students'
   get 'teachers/classrooms_i_teach_with_lessons' => 'teachers#classrooms_i_teach_with_lessons'

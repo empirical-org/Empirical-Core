@@ -66,13 +66,39 @@
           }
         }
       }
+
       .data-table {
+        overflow: visible;
         padding: 0px 20px;
         overflow: visible;
+
         .data-table-row, .data-table-headers {
           padding: 0px 8px;
         }
       }
+
+      .data-table .data-table-header {
+        font-weight: 600;
+      }
+
+      .last-header, .last-row-section {
+        margin-right: 0px;
+      }
+
+      .last-row-section, .actions-section {
+        overflow: visible;
+      }
+
+      .last-row-section {
+        a {
+          display: flex;
+          align-items: center;
+          img {
+            margin-right: 4px;
+          }
+        }
+      }
+
       .bottom-button {
         display: flex;
         width: 100%;
@@ -104,9 +130,14 @@
           display: flex;
           justify-content: space-between;
           span:first-of-type {
-            overflow: hidden;
             margin-right: 20px;
             text-overflow: ellipsis;
+            -webkit-line-clamp: 2;
+            display: -webkit-box;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            max-height: 40px;
+            white-space: pre-wrap;
           }
         }
       }
