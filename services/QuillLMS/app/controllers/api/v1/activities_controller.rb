@@ -1,7 +1,7 @@
 class Api::V1::ActivitiesController < Api::ApiController
   include QuillAuthentication
 
-  CLASSIFICATION_TO_TOOL = {"connect": "connect", "sentence": "grammar"}
+  CLASSIFICATION_TO_TOOL = {connect: "connect", sentence: "grammar"}
 
   before_action :doorkeeper_authorize!, only: [:create, :update, :destroy], unless: :staff?
   before_action :find_activity, except: [:index, :create, :uids_and_flags, :published_edition]
@@ -86,26 +86,14 @@ class Api::V1::ActivitiesController < Api::ApiController
   def question_health
     questions = @activity.data["questions"]
     tool = CLASSIFICATION_TO_TOOL[ActivityClassification.find(@activity.activity_classification_id).key.to_sym]
-    questions_arr = questions.each_with_index.map { |q, i|
-      question_number = i + 1
+    questions_arr = questions.each.with_index(1).map do |q, question_number|
       question = Question.find_by(uid: q["key"])
-      data = question.data
-      health_dashboard = QuestionHealthDashboard.new(@activity.id, question_number, question.uid)
-      {
-        url: ENV['DEFAULT_URL'].to_s + "/" + tool + "/#/admin/questions/" + question.uid + "/responses",
-        text: data["prompt"],
-        flag: data["flag"],
-        number_of_incorrect_sequences: data["incorrectSequences"].length,
-        number_of_focus_points: data["focusPoints"].length,
-        percent_common_unmatched: health_dashboard.cms_dashboard_stats["percent_common_unmatched"],
-        percent_specified_algorithms: health_dashboard.cms_dashboard_stats["percent_specified_algos"],
-        difficulty: health_dashboard.average_attempts_for_question,
-        percent_reached_optimal: health_dashboard.percent_reached_optimal_for_question
-      }
-    }
+      return {} if !question.present?
+      QuestionHealthObj.new(@activity, question, question_number, tool).run
+    end
     render json: {question_health: questions_arr}
   end
-  
+
   private def find_activity
     @activity = Activity.find_by_uid(params[:id]) || Activity.find_by_id(params[:id])
     raise ActiveRecord::RecordNotFound unless @activity
