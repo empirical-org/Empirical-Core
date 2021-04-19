@@ -39,21 +39,23 @@ const SessionsIndex = ({ match }) => {
 
   function formatSessionsData(activitySessions: any[]) {
     return activitySessions.map(session => {
-      const formattedSession = {...session};
       const { start_date, session_uid, because_attempts, but_attempts, so_attempts, complete } = session;
       const dateObject = new Date(start_date);
       const date = moment(dateObject).format("MM/DD/YY");
       const time = moment(dateObject).format("HH:MM A");
       const total = because_attempts + but_attempts + so_attempts;
-      formattedSession.id = session_uid;
-      formattedSession.date = date;
-      formattedSession.time = time;
-      formattedSession.because_attempts = because_attempts;
-      formattedSession.but_attempts = but_attempts;
-      formattedSession.so_attempts = so_attempts;
-      formattedSession.total_attempts = total;
-      formattedSession.view_link = <Link className="data-link" to={`/activities/${activityId}/activity-sessions/${session_uid}/overview`}>View</Link>;
-      formattedSession.completed = complete ? <img alt="quill-circle-checkmark" src={quillCheckmark} /> : "";
+      const formattedSession = {
+        ...session,
+        id: session_uid,
+        date: date,
+        time: time,
+        because_attempts: because_attempts,
+        but_attempts: but_attempts,
+        so_attempts: so_attempts,
+        total_attempts: total,
+        view_link: <Link className="data-link" to={`/activities/${activityId}/activity-sessions/${session_uid}/overview`}>View</Link>,
+        completed: complete ? <img alt="quill-circle-checkmark" src={quillCheckmark} /> : ""
+      };
       return formattedSession;
     });
   }

@@ -2,7 +2,7 @@ import * as React from "react";
 import stripHtml from "string-strip-html";
 
 import { DataTable, Spinner } from '../../../../Shared/index';
-import { PROMPT_ATTEMPTS_FEEDBACK_LABELS, PROMPT_HEADER_LABELS } from '../../../../../constants/comprehension';
+import { PROMPT_ATTEMPTS_FEEDBACK_LABELS, PROMPT_HEADER_LABELS, DEFAULT_MAX_ATTEMPTS, NONE } from '../../../../../constants/comprehension';
 import { ActivityInterface, PromptInterface } from "../../../interfaces/comprehensionInterfaces";
 
 interface PromptTableProps {
@@ -17,7 +17,7 @@ const PromptTable = ({ activity, prompt, showHeader }: PromptTableProps) => {
     const { attempts } = prompt;
     const keys = attempts && Object.keys(attempts);
     let completed: boolean;
-    if(keys.length === 5) {
+    if(keys && keys.length === DEFAULT_MAX_ATTEMPTS) {
       completed = true;
     } else {
       const usedAttempts = [];
@@ -28,7 +28,7 @@ const PromptTable = ({ activity, prompt, showHeader }: PromptTableProps) => {
           }
         });
       });
-      completed = !!usedAttempts.some((attempt) => attempt.optimal);
+      completed = usedAttempts.some((attempt) => attempt.optimal);
     }
     return {
       attemptsLabel: 'Attempts',
@@ -41,7 +41,7 @@ const PromptTable = ({ activity, prompt, showHeader }: PromptTableProps) => {
   function formatFeedbackData(prompt: any) {
     const { attempts, prompt_id } = prompt;
     const { prompts } = activity;
-    const matchedPrompt = prompts.filter(prompt => prompt.id === prompt_id)[0];
+    const matchedPrompt = prompts.filter(p => p.id === prompt_id)[0];
     const keys = attempts && Object.keys(attempts);
     const rows = [];
     keys.map(key => {
@@ -49,17 +49,21 @@ const PromptTable = ({ activity, prompt, showHeader }: PromptTableProps) => {
       const attempt = filteredAttempt || attempts[key][0];
       const { entry, feedback_text, feedback_type, optimal } = attempt;
       const { attemptLabel, feedbackLabel } = PROMPT_ATTEMPTS_FEEDBACK_LABELS[key];
-      const attemptObject: any = {};
-      const feedbackObject: any = {};
-      attemptObject.status = attemptLabel;
-      attemptObject.results = (<div>
-        <b>{matchedPrompt && matchedPrompt.text}</b>
-        <p className="entry">{entry}</p>
-      </div>);
-      feedbackObject.status = feedbackLabel;
-      feedbackObject.results = stripHtml(feedback_text);
-      feedbackObject.feedback = feedback_type;
-      feedbackObject.className = optimal ? 'optimal' : 'sub-optimal'
+      const attemptObject: any = {
+        status: attemptLabel,
+        results: (
+          <div>
+            <b>{matchedPrompt && matchedPrompt.text}</b>
+            <p className="entry">{entry}</p>
+          </div>
+        )
+      };
+      const feedbackObject: any = {
+        status: feedbackLabel,
+        results: stripHtml(feedback_text),
+        feedback: feedback_type,
+        className: optimal ? 'optimal' : 'sub-optimal'
+      };
       rows.push(attemptObject);
       rows.push(feedbackObject);
     });
@@ -74,7 +78,7 @@ const PromptTable = ({ activity, prompt, showHeader }: PromptTableProps) => {
     );
   }
 
-  if(prompt && prompt.text === 'none') {
+  if(prompt && prompt.text === NONE) {
     const { conjunction, text } = prompt;
     return(
       <section className="prompt-table-container">

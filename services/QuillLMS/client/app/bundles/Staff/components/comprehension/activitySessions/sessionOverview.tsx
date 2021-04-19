@@ -12,40 +12,39 @@ const SessionOverview = ({ activity, sessionData }) => {
   function sessionRows({ activitySession }) {
     if(!activitySession) {
       return [];
-    } else {
-      // format for DataTable to display labels on left side and values on right
-      const { start_date, completed, session_uid, because_attempts, but_attempts, so_attempts } = activitySession;
-      const totalResponses = because_attempts + but_attempts + so_attempts;
-      const dateObject = new Date(start_date);
-      const date = moment(dateObject).format("MM/DD/YY HH:MM A");
-
-      const fields = [
-        {
-          label: 'Activity Session',
-          value: session_uid
-        },
-        {
-          label: 'Time Started',
-          value: date
-        },
-        {
-          label: 'Session Complete?',
-          value: completed ? 'True' : 'False'
-        },
-        {
-          label: 'Total Responses',
-          value: totalResponses
-        }
-      ];
-      return fields.map((field, i) => {
-        const { label, value } = field
-        return {
-          id: `${field}-${i}`,
-          field: label,
-          value
-        }
-      });
     }
+    // format for DataTable to display labels on left side and values on right
+    const { start_date, completed, session_uid, because_attempts, but_attempts, so_attempts } = activitySession;
+    const totalResponses = because_attempts + but_attempts + so_attempts;
+    const dateObject = new Date(start_date);
+    const date = moment(dateObject).format("MM/DD/YY HH:MM A");
+
+    const fields = [
+      {
+        label: 'Activity Session',
+        value: session_uid
+      },
+      {
+        label: 'Time Started',
+        value: date
+      },
+      {
+        label: 'Session Complete?',
+        value: completed ? 'True' : 'False'
+      },
+      {
+        label: 'Total Responses',
+        value: totalResponses
+      }
+    ];
+    return fields.map((field, i) => {
+      const { label, value } = field
+      return {
+        id: `${field}-${i}`,
+        field: label,
+        value
+      }
+    });
   }
 
   if(!sessionData) {
@@ -59,7 +58,7 @@ const SessionOverview = ({ activity, sessionData }) => {
   if(sessionData && sessionData.error) {
     return(
       <div className="error-container">
-        <Error error={`${sessionData.error}`} />
+        <Error error={sessionData.error} />
       </div>
     );
   }
