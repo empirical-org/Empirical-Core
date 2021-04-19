@@ -36,21 +36,19 @@ class StudentsClassrooms < ActiveRecord::Base
     ArchiveStudentAssociationsForClassroomWorker.perform_async(student_id, classroom_id)
   end
 
-  private
-
-  def run_associator
+  private def run_associator
     if student && classroom && visible
       Associators::StudentsToClassrooms.run(student, classroom)
     end
   end
 
-  def checkbox
+  private def checkbox
     if classroom
       find_or_create_checkbox('Add Students', classroom.owner)
     end
   end
 
-  def invalidate_classroom_minis
+  private def invalidate_classroom_minis
     if classroom.owner.present?
       $redis.del("user_id:#{classroom.owner.id}_classroom_minis")
     end

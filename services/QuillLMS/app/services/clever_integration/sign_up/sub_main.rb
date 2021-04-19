@@ -16,8 +16,6 @@ module CleverIntegration::SignUp::SubMain
     result
   end
 
-  private
-
   def self.district(auth_hash)
     CleverIntegration::SignUp::CleverDistrict.run(auth_hash)
   end

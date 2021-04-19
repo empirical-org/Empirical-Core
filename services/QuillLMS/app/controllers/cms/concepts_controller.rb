@@ -31,8 +31,7 @@ class Cms::ConceptsController < Cms::CmsController
     end
   end
 
-  private
-  def concept_params
+  private def concept_params
     params.require(:concept).permit(:name, :parent_id)
   end
 end

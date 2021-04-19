@@ -1,0 +1,49 @@
+.rules-analysis-container {
+  .dropdowns {
+    margin: 20px 0px;
+    min-height: 58px;
+    display: flex;
+  }
+
+  .dropdown-container {
+    max-width: 600px;
+    width: 100%;
+    margin-right: 40px;
+  }
+
+  .rt-table {
+    .rt-th {
+      border-bottom: 1px solid #eee;
+    }
+    .more-info {
+      padding: 10px;
+    }
+    .expand-cell {
+      font-size: 30px;
+      text-align: center;
+    }
+    .rt-td {
+      padding: 0px;
+      border-right: none;
+      white-space: pre-wrap;
+    }
+    button {
+      height: 100%;
+      width: 100%;
+      border: none;
+      padding: 7px 10px;
+      text-align: left;
+      background-color: white;
+    }
+  }
+
+  &.show-colored-rows {
+    .even {
+      background-color: #eee;
+    }
+    .odd {
+      background-color: white;
+    }
+  }
+
+}

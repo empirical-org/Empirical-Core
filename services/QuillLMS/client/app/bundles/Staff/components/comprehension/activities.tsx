@@ -8,7 +8,7 @@ import { ActivityInterface } from '../../interfaces/comprehensionInterfaces';
 import { fetchActivities } from '../../utils/comprehension/activityAPIs';
 import { DataTable, Error, Spinner } from '../../../Shared/index';
 
-const Activities = ({ location, match, }) => {
+const Activities = ({ location, match }) => {
 
   // cache activity data for updates
   const { data } = useQuery("activities", fetchActivities);

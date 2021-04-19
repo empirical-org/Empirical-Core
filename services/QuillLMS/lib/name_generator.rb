@@ -6,9 +6,7 @@ module NameGenerator
 
   extend self
 
-  private
-
-  def sample file
+  private def sample file
     File.readlines(Rails.root.join('db', file)).sample.strip
   end
 end
