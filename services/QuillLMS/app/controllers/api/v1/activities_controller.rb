@@ -88,7 +88,7 @@ class Api::V1::ActivitiesController < Api::ApiController
     tool = CLASSIFICATION_TO_TOOL[ActivityClassification.find(@activity.activity_classification_id).key.to_sym]
     questions_arr = questions.each.with_index(1).map do |q, question_number|
       question = Question.find_by(uid: q["key"])
-      question_obj = (question.present? ? QuestionHealthObj.new(@activity, question, question_number, tool).run : {})
+      question.present? ? QuestionHealthObj.new(@activity, question, question_number, tool).run : {}
     end
     render json: {question_health: questions_arr}
   end
