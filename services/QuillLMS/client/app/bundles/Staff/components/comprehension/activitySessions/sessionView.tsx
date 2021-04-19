@@ -37,7 +37,7 @@ const SessionView = ({ match }) => {
   if(sessionData && sessionData.error) {
     return(
       <div className="error-container">
-        <Error error={`${sessionData.error}`} />
+        <Error error={sessionData.error} />
       </div>
     );
   }

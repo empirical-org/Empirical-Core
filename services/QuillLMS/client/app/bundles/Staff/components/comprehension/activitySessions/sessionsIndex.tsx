@@ -88,7 +88,7 @@ const SessionsIndex = ({ match }) => {
   if(sessionsData && sessionsData.error) {
     return(
       <div className="error-container">
-        <Error error={`${sessionsData.error}`} />
+        <Error error={sessionsData.error} />
       </div>
     );
   }
