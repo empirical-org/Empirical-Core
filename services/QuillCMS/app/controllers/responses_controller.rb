@@ -94,6 +94,11 @@ class ResponsesController < ApplicationController
     render json: optimality_counts_of_question(params[:question_uid])
   end
 
+  def question_dashboard
+    admin_question_dashboard = AdminQuestionDashboard.new(params[:question_uid])
+    render json: admin_question_dashboard.health
+  end
+
   def incorrect_sequences
     render json: IncorrectSequenceCalculator.incorrect_sequences_for_question(params[:question_uid])
   end
