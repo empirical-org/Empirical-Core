@@ -1,14 +1,4 @@
 module ResponseAggregator
-  DASHBOARD_ALGOS = [
-    "Words Out of Order Hint",
-    "Missing Word Hint",
-    "Flexible Missing Word Hint",
-    "Modified Word Hint",
-    "Flexible Modified Word Hint",
-    "Additional Word Hint",
-    "Flexible Additional Word Hint",
-    "Required Words Hint"
-  ]
 
   def health_of_question_obj(question_uid)
     total_number_of_responses = Response.where(question_uid: question_uid).count
@@ -41,6 +31,7 @@ module ResponseAggregator
       "Unmatched": unmatched
     }
   end
+
   # Human optimal = optimal:  true, parent_id: nil
   # Human suboptimal = optimal:  false, parent_id: nil
   # algo optimal = optimal:  true, parent_id: !nil
