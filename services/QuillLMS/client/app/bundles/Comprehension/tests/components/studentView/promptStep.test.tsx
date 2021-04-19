@@ -10,7 +10,7 @@ import { TOO_LONG_FEEDBACK, TOO_SHORT_FEEDBACK, MULTIPLE_SENTENCES_FEEDBACK, PRO
 
 
 
-const prompt = activityOne.prompts[0]
+const prompt = activityOne.prompts[2]
 
 const defaultProps = {
   active: false,

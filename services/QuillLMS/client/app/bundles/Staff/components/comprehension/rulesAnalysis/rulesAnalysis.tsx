@@ -4,13 +4,18 @@ import { useQuery } from 'react-query';
 import { firstBy } from "thenby";
 import ReactTable from 'react-table';
 
-import { ActivityRouteProps } from '../../../interfaces/comprehensionInterfaces';
+import { ActivityRouteProps, PromptInterface } from '../../../interfaces/comprehensionInterfaces';
 import { ruleOrder } from '../../../../../constants/comprehension';
 import { fetchActivity } from '../../../utils/comprehension/activityAPIs';
 import { fetchRuleFeedbackHistories } from '../../../utils/comprehension/ruleFeedbackHistoryAPIs';
 import { DropdownInput, } from '../../../../Shared/index';
 
 const DEFAULT_RULE_TYPE = 'All Rules'
+
+interface PromptOption extends PromptInterface {
+  value?: number;
+  label?: string;
+}
 
 const MoreInfo = (row) => {
   return (<div className="more-info">
@@ -124,7 +129,7 @@ const RulesAnalysis: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ hist
   ];
 
   const promptOptions = activityData && activityData.activity.prompts.map(p => {
-    const promptOption = {...p}
+    const promptOption: PromptOption = {...p}
     promptOption.label = p.text.replace(p.conjunction, `<b>${p.conjunction}</b>`)
     promptOption.value = p.id
     return promptOption
