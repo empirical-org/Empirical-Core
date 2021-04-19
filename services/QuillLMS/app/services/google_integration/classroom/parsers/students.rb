@@ -25,8 +25,6 @@ module GoogleIntegration::Classroom::Parsers::Students
     end
   end
 
-  private
-
   def self.parse_hash(hash)
     profile_data = hash['profile']
     {

@@ -38,9 +38,7 @@ class Cms::ActivityClassificationsController < Cms::CmsController
     render json: {}
   end
 
-  protected
-
-  def activity_classification_params
+  protected def activity_classification_params
     params.require(:activity_classification).permit(:name,
                                                     :key,
                                                     :form_url,
@@ -56,7 +54,7 @@ class Cms::ActivityClassificationsController < Cms::CmsController
                                                     :updated_at)
   end
 
-  def filtered_activity_classification_params
+  protected def filtered_activity_classification_params
     activity_classification_params.except(:id, :created_at, :updated_at)
   end
 end

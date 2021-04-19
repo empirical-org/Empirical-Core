@@ -621,8 +621,7 @@ class User < ActiveRecord::Base
     ).call
   end
 
-  private
-  def validate_flags
+  private def validate_flags
     # ensures there are no items in the flags array that are not in the VALID_FLAGS const
     invalid_flags = flags - VALID_FLAGS
     if invalid_flags.any?
@@ -630,36 +629,36 @@ class User < ActiveRecord::Base
     end
   end
 
-  def prep_authentication_terms
+  private def prep_authentication_terms
     self.email = email.downcase unless email.blank?
     self.username= username.downcase unless username.blank?
   end
 
-  def check_for_school
+  private def check_for_school
     if school
       find_or_create_checkbox('Add School', self)
     end
   end
 
   # Clever integration
-  def clever_user
+  private def clever_user
     klass = "Clever::#{role.capitalize}".constantize
     @clever_user ||= klass.retrieve(clever_id, districts.first.token)
   end
 
   # validation filters
-  def email_required_or_present?
+  private def email_required_or_present?
     email_required? or email.present?
   end
 
-  def email_required?
+  private def email_required?
     return false if clever_id
     return false if role.temporary?
     return true if teacher?
     false
   end
 
-  def clever_id_present_and_has_changed?
+  private def clever_id_present_and_has_changed?
     return false if !clever_id
     return true if !id
 
@@ -667,23 +666,23 @@ class User < ActiveRecord::Base
     extant_user.clever_id != clever_id
   end
 
-  def requires_password?
+  private def requires_password?
     return false if clever_id
     return false if signed_up_with_google
     permanent? && new_record?
   end
 
   # FIXME: may not be being called anywhere
-  def password?
+  private def password?
     password.present?
   end
 
-  def get_class_code(classroom_id)
+  private def get_class_code(classroom_id)
     return 'student' if classroom_id.nil?
     Classroom.find(classroom_id).code
   end
 
-  def update_invitee_email_address
+  private def update_invitee_email_address
     Invitation.where(invitee_email: email_was).update_all(invitee_email: email)
   end
 end

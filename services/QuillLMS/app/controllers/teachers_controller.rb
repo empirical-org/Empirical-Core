@@ -151,9 +151,8 @@ class TeachersController < ApplicationController
     render json: { units: units }
   end
 
-  private
 
-  def teacher_params
+  private def teacher_params
     params.require(:teacher).permit(:admin_id, :first_name, :last_name, :email)
            .merge({role: 'teacher'})
 

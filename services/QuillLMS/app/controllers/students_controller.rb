@@ -92,13 +92,11 @@ class StudentsController < ApplicationController
     end
   end
 
-  private
-
-  def authorize!
+  private def authorize!
     auth_failed unless current_user
   end
 
-  def redirect_to_profile
+  private def redirect_to_profile
     @current_user = current_user
     classroom_id = params["classroom"]
     if classroom_id && (Classroom.find_by(id: classroom_id).nil? || StudentsClassrooms.find_by(student_id: @current_user.id, classroom_id: classroom_id).nil?)
@@ -108,7 +106,7 @@ class StudentsController < ApplicationController
     end
   end
 
-  def student_params
+  private def student_params
     params.permit(:name, :email, :username, :authenticity_token, student: [:name, :email, :username])
   end
 

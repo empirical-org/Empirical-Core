@@ -1,8 +1,7 @@
 module Concepts
+  extend ActiveSupport::Concern
 
   # This groups all concept results by question type, then groups them by concept for the reports page
-
-  extend ActiveSupport::Concern
   def all_concept_stats(activity_session)
     return '' unless activity_session.present?
     @concepts = activity_session.concepts
@@ -10,14 +9,12 @@ module Concepts
     organize_by_type
   end
 
-  private
-
-  def human_readable_question_type question_type
+  private def human_readable_question_type question_type
     # return question_type with '-' changed to space, and each word capitalized, or just return 'Results'
     question_type ? question_type.gsub('-',' ').split.map(&:capitalize).join(' ') : 'Results'
   end
 
-  def organize_by_type
+  private def organize_by_type
     hash_object = Hash.new {|h,k| h[k] = [] }
     @concepts.map do |concept|
       @concept_results_by_question_type.map do |cr|
@@ -31,7 +28,7 @@ module Concepts
   end
 
   # TODO: These stats should all be pre-calculated and cached
-  def stats_for_concept(concept, concept_results)
+  private def stats_for_concept(concept, concept_results)
     correct_count = 0
     incorrect_count = 0
     concept_results.each do |result|

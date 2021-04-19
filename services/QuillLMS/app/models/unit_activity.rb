@@ -82,15 +82,13 @@ class UnitActivity < ActiveRecord::Base
     end
   end
 
-  private
-
-  def hide_appropriate_activity_sessions
+  private def hide_appropriate_activity_sessions
     if visible == false
       hide_all_activity_sessions
     end
   end
 
-  def hide_all_activity_sessions
+  private def hide_all_activity_sessions
     if unit && unit.classroom_units
       unit.classroom_units.each do |cu|
         cu.activity_sessions.each do |as|

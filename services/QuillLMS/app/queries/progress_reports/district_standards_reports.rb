@@ -17,9 +17,7 @@ class ProgressReports::DistrictStandardsReports
     end
   end
 
-  private
-
-  def query(user_ids)
+  private def query(user_ids)
     <<~SQL
       WITH final_activity_sessions AS (
         SELECT activity_sessions.*, activities.standard_id FROM activity_sessions
@@ -51,7 +49,7 @@ class ProgressReports::DistrictStandardsReports
     SQL
   end
 
-  def user_ids(admin_id)
+  private def user_ids(admin_id)
     user_id_query = <<~SQL
       SELECT schools_users.user_id FROM users as researcher
         JOIN schools_admins ON schools_admins.user_id = researcher.id

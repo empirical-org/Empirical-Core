@@ -56,8 +56,6 @@ class SignUpPage < Page
     click_button('Sign Up')
   end
 
-  private
-
   def self.path
     "#{submit_target_path}/new"
   end

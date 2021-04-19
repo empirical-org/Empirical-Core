@@ -68,6 +68,16 @@ module Comprehension
     end
 
     context "#automl" do
+      should "return 404 if prompt id does not exist" do
+        post 'automl', entry: 'some text', prompt_id: @prompt.id + 1000, session_id: 1, previous_feedback: []
+        assert_equal response.status, 404
+      end
+
+      should "return 404 if prompt has no associated automl_model" do
+        post 'automl', entry: 'some text', prompt_id: @prompt.id, session_id: 1, previous_feedback: []
+        assert_equal response.status, 404
+      end
+
       should 'return feedback payloads based on the lib matched_rule value' do
         entry = 'entry'
 

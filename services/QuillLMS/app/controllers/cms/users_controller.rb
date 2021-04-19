@@ -127,34 +127,31 @@ class Cms::UsersController < Cms::CmsController
     redirect_to cms_user_path(@user.id)
   end
 
-
-  protected
-
-  def set_flags
+  protected def set_flags
     @valid_flags = User::VALID_FLAGS
   end
 
-  def set_user
+  protected def set_user
     @user = User
       .includes(sales_contact: { stages: [:user, :sales_stage_type] })
       .order('sales_stage_types.order ASC')
       .find(params[:id])
   end
 
-  def school_id_param
+  protected def school_id_param
     params[:school_id].to_i
   end
 
-  def user_params
+  protected def user_params
     params.require(:user).permit([:name, :email, :username, :title, :role, :classcode, :password, :password_confirmation, :flags =>[]] + default_params
     )
   end
 
-  def user_query_params
+  protected def user_query_params
     params.permit(@text_search_inputs.map(&:to_sym) + default_params + [:page, :user_role, :user_flag, :sort, :sort_direction, :user_premium_status, :class_code])
   end
 
-  def user_query(params)
+  protected def user_query(params)
     # This should return an array of hashes that look like this:
     # [
     #   {
@@ -195,7 +192,7 @@ class Cms::UsersController < Cms::CmsController
     ").to_a
   end
 
-  def where_query_string_builder
+  protected def where_query_string_builder
     not_temporary = "users.role != 'temporary'"
     conditions = [not_temporary]
     @all_search_inputs.each do |param|
@@ -207,7 +204,7 @@ class Cms::UsersController < Cms::CmsController
     "WHERE #{conditions.reject(&:nil?).join(' AND ')}"
   end
 
-  def where_query_string_clause_for(param, param_value)
+  protected def where_query_string_clause_for(param, param_value)
     # Potential params by which to search:
     # User name: users.name
     # User role: users.role
@@ -243,7 +240,7 @@ class Cms::UsersController < Cms::CmsController
     end
   end
 
-  def class_code_string_builder
+  protected def class_code_string_builder
     class_code = user_query_params["class_code"]
     if class_code.present?
       sanitized_class_code = ActiveRecord::Base.sanitize(class_code)
@@ -257,12 +254,12 @@ class Cms::UsersController < Cms::CmsController
     end
   end
 
-  def pagination_query_string
+  protected def pagination_query_string
     page = [user_query_params[:page].to_i - 1, 0].max
     "LIMIT #{USERS_PER_PAGE} OFFSET #{USERS_PER_PAGE * page}"
   end
 
-  def order_by_query_string
+  protected def order_by_query_string
     sort = user_query_params[:sort]
     sort_direction = user_query_params[:sort_direction]
     if sort && sort_direction && sort != 'undefined' && sort_direction != 'undefined'
@@ -272,19 +269,19 @@ class Cms::UsersController < Cms::CmsController
     end
   end
 
-  def set_search_inputs
+  protected def set_search_inputs
     @text_search_inputs = ['user_name', 'user_username', 'user_email', 'user_ip', 'school_name', 'class_code']
     @school_premium_types = Subscription.account_types
     @user_role_types = User::ROLES
     @all_search_inputs = @text_search_inputs + ['user_premium_status', 'user_role', 'page', 'user_flag']
   end
 
-  def filter_zeroes_from_checkboxes
+  protected def filter_zeroes_from_checkboxes
     # checkboxes pass back '0' when unchecked -- we only want the attributes that are checked
     params[:user][:flags] = user_params[:flags] - ["0"]
   end
 
-  def subscription_params
+  protected def subscription_params
     params.permit([:id, :payment_method, :payment_amount, :purchaser_email, :premium_status, :start_date => [:day, :month, :year], :expiration_date => [:day, :month, :year]] + default_params)
   end
 

@@ -151,27 +151,25 @@ class Cms::SchoolsController < Cms::CmsController
     end
   end
 
-  private
-
-  def set_school
+  private def set_school
     @school = School.find params[:id]
   end
 
-  def text_search_inputs
+  private def text_search_inputs
     # These are the text input fields, but they are not all of the fields in the form.
     @text_search_inputs = ['school_name', 'school_city', 'school_state', 'school_zip', 'district_name']
     @school_premium_types = Subscription.account_types
   end
 
-  def all_search_inputs
+  private def all_search_inputs
     @text_search_inputs.map(&:to_sym) + [:sort, :sort_direction, :page, :search_schools_with_zero_teachers, :premium_status]
   end
 
-  def school_query_params
+  private def school_query_params
     params.permit(default_params + all_search_inputs)
   end
 
-  def school_query(params)
+  private def school_query(params)
     # This should return an array of hashes that look like this:
     # [
     #   {
@@ -221,7 +219,7 @@ class Cms::SchoolsController < Cms::CmsController
     end
   end
 
-  def having_string
+  private def having_string
     # We have to use HAVING here instead of including this in the WHERE query
     # builder because we're doing an aggregation here. This will merely filter
     # the results at the end.
@@ -230,7 +228,7 @@ class Cms::SchoolsController < Cms::CmsController
     end
   end
 
-  def where_query_string_builder
+  private def where_query_string_builder
     conditions = []
     # This converts all of the search inputs into strings so we can iterate
     # over them and grab the value from params. The weird ternary here is in
@@ -245,7 +243,7 @@ class Cms::SchoolsController < Cms::CmsController
     "WHERE #{conditions.join(' AND ')}" unless conditions.empty?
   end
 
-  def where_query_string_clause_for(param, param_value)
+  private def where_query_string_clause_for(param, param_value)
     # Potential params by which to search:
     # School name: schools.name
     # School city: schools.city or schools.mail_city
@@ -274,12 +272,12 @@ class Cms::SchoolsController < Cms::CmsController
     end
   end
 
-  def pagination_query_string
+  private def pagination_query_string
     page = [school_query_params[:page].to_i - 1, 0].max
     "LIMIT #{SCHOOLS_PER_PAGE} OFFSET #{SCHOOLS_PER_PAGE * page}"
   end
 
-  def number_of_schools_matched
+  private def number_of_schools_matched
     ActiveRecord::Base.connection.execute("
       SELECT count(*) as count FROM
         (SELECT
@@ -295,7 +293,7 @@ class Cms::SchoolsController < Cms::CmsController
     ").to_a[0]['count'].to_i
   end
 
-  def order_by_query_string
+  private def order_by_query_string
     sort = school_query_params[:sort]
     sort_direction = school_query_params[:sort_direction]
     if sort && sort_direction && sort != 'undefined' && sort_direction != 'undefined'
@@ -305,11 +303,11 @@ class Cms::SchoolsController < Cms::CmsController
     end
   end
 
-  def edit_or_add_school_params
+  private def edit_or_add_school_params
     params.require(:school).permit(:id, editable_school_attributes.values)
   end
 
-  def editable_school_attributes
+  private def editable_school_attributes
     {
       'School Name' => :name,
       'School City' => :city,
@@ -321,11 +319,11 @@ class Cms::SchoolsController < Cms::CmsController
     }
   end
 
-  def subscription_params
+  private def subscription_params
     params.permit([:id, :premium_status, :expiration_date => [:day, :month, :year]] + default_params)
   end
 
-  def teacher_search_query_for_school(school_id)
+  private def teacher_search_query_for_school(school_id)
     Cms::TeacherSearchQuery.new(school_id).run
   end
 end

@@ -11,20 +11,19 @@ class NotifyOfCompletedActivity
     handle_invalid_notification { notify_all! }
   end
 
-  private
-
   attr_reader :activity_session
+  private :activity_session
 
-  def notify_all!
+  private def notify_all!
     notify_student!
     notify_teachers!
   end
 
-  def notify_student!
+  private def notify_student!
     Notification.create!(text: "#{activity.name} completed", user: student)
   end
 
-  def notify_teachers!
+  private def notify_teachers!
     teachers    = activity_session.teachers
     report_path = activity_student_report_path(activity_session)
 
@@ -37,20 +36,20 @@ class NotifyOfCompletedActivity
     end
   end
 
-  def student
+  private def student
     @student ||= activity_session.user
   end
 
-  def activity
+  private def activity
     @activity ||= activity_session.activity
   end
 
-  def should_notify?
+  private def should_notify?
     state_change = activity_session.previous_changes['state']
     state_change.present? && state_change.last == 'finished'
   end
 
-  def handle_invalid_notification(&block)
+  private def handle_invalid_notification(&block)
     begin
       ActiveRecord::Base.transaction { block.call }
 

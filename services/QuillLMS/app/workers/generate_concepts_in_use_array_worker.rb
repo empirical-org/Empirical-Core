@@ -23,27 +23,25 @@ class GenerateConceptsInUseArrayWorker
     run_individual_concept_workers
   end
   
-  private
-  
-  def question_response(question_type)
+  private def question_response(question_type)
     HTTParty
       .get("https://www.quill.org/api/v1/questions?question_type=#{question_type}")
       .parsed_response
       .to_json
   end
 
-  def run_individual_concept_workers
+  private def run_individual_concept_workers
     Concept.visible_level_zero_concept_ids.each do |id|
       GetConceptsInUseIndividualConceptWorker.perform_async(id)
     end
   end
   
-  def set_concepts_in_use
+  private def set_concepts_in_use
     $redis.set("CONCEPTS_IN_USE", CONCEPTS_IN_USE)
     $redis.set("NUMBER_OF_CONCEPTS_IN_USE_LAST_SET", Time.now)
   end
   
-  def set_question_types
+  private def set_question_types
     REDIS_KEY_QUESTION_TYPES.each_pair do |redis_key, question_type|
       $redis.set(redis_key, question_response(question_type))
     end

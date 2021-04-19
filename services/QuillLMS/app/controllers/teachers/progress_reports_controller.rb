@@ -37,19 +37,17 @@ class Teachers::ProgressReportsController < ApplicationController
     render 'student_overview'
   end
 
-  private
-
-  def authorize!
+  private def authorize!
     return if current_user.try(:teacher?)
     auth_failed
   end
 
-  def switch_current_user user
+  private def switch_current_user user
     sign_out if current_user
     sign_in user
   end
 
-  def set_admin_user
+  private def set_admin_user
     @admin_user = User.find_by(email: teacher_email) ||
       Demo::CreateAdminReport.new(
         admin_demo_name,
@@ -58,19 +56,19 @@ class Teachers::ProgressReportsController < ApplicationController
       ).call
   end
 
-  def teacher_email
+  private def teacher_email
     "hello+demoadmin-#{email_safe_school_name}@quill.org"
   end
 
-  def email_safe_school_name
+  private def email_safe_school_name
     admin_demo_name.gsub(/^a-zA-Z\d/, '').gsub(/\s/, '').downcase
   end
 
-  def admin_demo_name
+  private def admin_demo_name
     @name ||= params[:name] || 'Admin Demo School'
   end
 
-  def set_user
+  private def set_user
     @user = User.find_by_email "hello+#{demo_name}@quill.org"
     if @user.nil?
       recreate_demo
@@ -78,7 +76,7 @@ class Teachers::ProgressReportsController < ApplicationController
     end
   end
 
-  def set_ap_user
+  private def set_ap_user
     @ap_user = User.find_by_email "hello+#{demo_name}+ap@quill.org"
     if @ap_user.nil?
       Demo::ReportDemoAPCreator.create_demo(demo_name)
@@ -86,11 +84,11 @@ class Teachers::ProgressReportsController < ApplicationController
     end
   end
 
-  def demo_name
+  private def demo_name
     params[:name].present? ? params[:name] : "demoteacher"
   end
 
-  def demo_redirect_path
+  private def demo_redirect_path
     if params[:name] == 'demoaccount'
       teachers_progress_reports_concepts_students_path
     elsif params[:name] == 'admin_demo'
@@ -100,7 +98,7 @@ class Teachers::ProgressReportsController < ApplicationController
     end
   end
 
-  def recreate_demo
+  private def recreate_demo
     Demo::ReportDemoDestroyer.destroy_demo(demo_name)
     Demo::ReportDemoCreator.create_demo(demo_name)
   end

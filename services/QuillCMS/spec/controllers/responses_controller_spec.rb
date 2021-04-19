@@ -19,46 +19,46 @@ RSpec.describe ResponsesController, type: :controller do
     get_ids(array&.select { |r| r['parent_id'].nil?})
   end
 
-  describe "#count_affected_by_incorrect_sequences" do 
-    before(:each) do 
+  describe "#count_affected_by_incorrect_sequences" do
+    before(:each) do
       create(:response, question_uid: '123', text: "some words", optimal: nil)
       create(:response, question_uid: '123', text: "matchyword some words", optimal: nil)
       create(:response, question_uid: '123', text: "some matchyword words", optimal: nil)
     end
 
-    it 'should enumerate matching responses' do 
+    it 'should enumerate matching responses' do
       post :count_affected_by_incorrect_sequences, params: {
         "data" => {
-          "used_sequences"=>[], 
+          "used_sequences"=>[],
           "selected_sequences"=>["matchyword", ""]
-          }, 
-          "question_uid"=>'123', 
+          },
+          "question_uid"=>'123',
           "response"=>{}
       }
       matched_count = JSON.parse(response.body)["matchedCount"]
       expect(matched_count).to eq 2
     end
 
-    it 'should enumerate matching responses with && delimited input' do 
+    it 'should enumerate matching responses with && delimited input' do
       post :count_affected_by_incorrect_sequences, params: {
         "data" => {
-          "used_sequences"=>[], 
+          "used_sequences"=>[],
           "selected_sequences"=>["matchyword&&some", ""]
-          }, 
-          "question_uid"=>'123', 
+          },
+          "question_uid"=>'123',
           "response"=>{}
       }
       matched_count = JSON.parse(response.body)["matchedCount"]
       expect(matched_count).to eq 2
     end
 
-    it 'should not match when sequences are already used' do 
+    it 'should not match when sequences are already used' do
       post :count_affected_by_incorrect_sequences, params: {
         "data" => {
-          "used_sequences"=>['matchyword'], 
+          "used_sequences"=>['matchyword'],
           "selected_sequences"=>["matchy&&word", ""]
-          }, 
-          "question_uid"=>'123', 
+          },
+          "question_uid"=>'123',
           "response"=>{}
       }
       matched_count = JSON.parse(response.body)["matchedCount"]
@@ -222,11 +222,11 @@ end
     end
 
     let!(:question_uid) { SecureRandom.uuid}
-    let!(:response_1) { create(:response, question_uid: question_uid, parent_id: nil, optimal: nil, count: 20)}
-    let!(:response_2) { create(:response, question_uid: question_uid, parent_id: nil, optimal: false, author: "Modified Word Hint", count: 20)}
-    let!(:response_3) { create(:response, question_uid: question_uid, parent_id: nil, optimal: false, author: "Required Words Hint", count: 20)}
-    let!(:response_4) { create(:response, question_uid: question_uid, parent_id: nil, optimal: false, author: "Spelling Hint", count: 20)}
-    let!(:response_5) { create(:response, question_uid: question_uid, parent_id: nil, optimal: true, count: 20)}
+    let!(:response_1) { create(:response, question_uid: question_uid, optimal: nil, count: 20)}
+    let!(:response_2) { create(:response, question_uid: question_uid, optimal: false, author: "Modified Word Hint", count: 20)}
+    let!(:response_3) { create(:response, question_uid: question_uid, optimal: false, author: "Required Words Hint", count: 20)}
+    let!(:response_4) { create(:response, question_uid: question_uid, optimal: false, author: "Spelling Hint", count: 20)}
+    let!(:response_5) { create(:response, question_uid: question_uid, optimal: true, count: 20)}
 
     it 'gets question dashboard data' do
       get :question_dashboard, params: { question_uid: question_uid}
