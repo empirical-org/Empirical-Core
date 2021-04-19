@@ -1276,8 +1276,17 @@ exports[`TurkSessions component should render TurkSessions 1`] = `
         <div
           className="data-table-body"
         >
-          <div
+          <a
             className="data-table-row  "
+            href={
+              <a
+                href="undefined/comprehension/#/turk?uid=17&id=1"
+                rel="noopener noreferrer"
+                target="_blank"
+              >
+                undefined/comprehension/#/turk?uid=17&id=1
+              </a>
+            }
             key="17-1"
           >
             <span
@@ -1557,7 +1566,7 @@ exports[`TurkSessions component should render TurkSessions 1`] = `
             <span
               className="removable data-table-row-section"
             />
-          </div>
+          </a>
         </div>
       </div>
     </DataTable>

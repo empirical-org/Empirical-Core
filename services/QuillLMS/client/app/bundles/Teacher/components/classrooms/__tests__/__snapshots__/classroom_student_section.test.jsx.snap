@@ -118,6 +118,11 @@ exports[`ClassroomStudentSection component with students should render 1`] = `
           "name": "Synced",
           "width": "124px",
         },
+        Object {
+          "attribute": "actions",
+          "isActions": true,
+          "name": "Actions",
+        },
       ]
     }
     rows={

@@ -60,7 +60,7 @@ const ActivityFeed = ({ onMobile, }) => {
   function getActivityFeed() {
     requestGet('/teachers/activity_feed',
       (response) => {
-        setActivityFeed(response.data.concat(response.data));
+        setActivityFeed(response.data);
       }
     )
   }
