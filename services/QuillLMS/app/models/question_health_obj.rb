@@ -1,7 +1,7 @@
 class QuestionHealthObj
   QUESTION_TYPE_TO_URL = {
     :connect_sentence_combining => 'questions',
-    :connect_sentencec_fragments => 'sentence-fragments',
+    :connect_sentence_fragments => 'sentence-fragments',
     :connect_fill_in_blanks => 'fill-in-the-blanks',
     :grammar => 'questions'
   }
