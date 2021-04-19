@@ -120,10 +120,72 @@ describe TeachersController, type: :controller do
       end
     end
 
+    describe '#lessons_info_for_dashboard_mini' do
+      let!(:lessons) { create(:lesson_classification) }
+      let!(:lesson_activity1) { create(:lesson_activity) }
+      let!(:lesson_activity2) { create(:lesson_activity) }
+
+      context 'the teacher has not assigned any lessons' do
+        it 'returns an empty array' do
+          get :lessons_info_for_dashboard_mini
+          expect(response.body).to eq({ units: [] }.to_json)
+        end
+      end
+
+      context 'the teacher has assigned a lesson that has been finished' do
+        let!(:unit) { create(:unit) }
+        let!(:classroom) { create(:classroom_with_a_couple_students) }
+        let!(:classroom_teacher) { create(:classrooms_teacher, classroom: classroom, user: teacher) }
+        let!(:classroom_unit) { create(:classroom_unit, classroom: classroom, unit: unit, assigned_student_ids: classroom.students.ids)}
+        let!(:unit_activity) { create(:unit_activity, unit: unit, activity: lesson_activity1)}
+        let!(:classroom_unit_activity_state) { create(:classroom_unit_activity_state, unit_activity: unit_activity, classroom_unit: classroom_unit, completed: true)}
+
+        it 'returns an empty array' do
+          get :lessons_info_for_dashboard_mini
+          expect(response.body).to eq({ units: [] }.to_json)
+        end
+      end
+
+      context 'the teacher has assigned lessons that have not been finished' do
+        let!(:unit) { create(:unit) }
+        let!(:classroom) { create(:classroom_with_a_couple_students) }
+        let!(:classroom_teacher) { create(:classrooms_teacher, classroom: classroom, user: teacher) }
+        let!(:classroom_unit) { create(:classroom_unit, classroom: classroom, unit: unit, assigned_student_ids: classroom.students.ids)}
+        let!(:unit_activity1) { create(:unit_activity, unit: unit, activity: lesson_activity1)}
+        let!(:unit_activity2) { create(:unit_activity, unit: unit, activity: lesson_activity2)}
+        let!(:classroom_unit_activity_state1) { create(:classroom_unit_activity_state, unit_activity: unit_activity1, classroom_unit: classroom_unit, completed: false)}
+        let!(:classroom_unit_activity_state2) { create(:classroom_unit_activity_state, unit_activity: unit_activity2, classroom_unit: classroom_unit, completed: false)}
+
+        it 'returns an array with both lessons activities in it in reverse order of creation' do
+          get :lessons_info_for_dashboard_mini
+          expect(response.body).to eq({ units: [
+            {
+              classroom_name: classroom.name,
+              activity_name: lesson_activity2.name,
+              activity_id: lesson_activity2.id,
+              classroom_unit_id: classroom_unit.id,
+              classroom_id: classroom.id,
+              supporting_info: lesson_activity2.supporting_info
+            },
+            {
+              classroom_name: classroom.name,
+              activity_name: lesson_activity1.name,
+              activity_id: lesson_activity1.id,
+              classroom_unit_id: classroom_unit.id,
+              classroom_id: classroom.id,
+              supporting_info: lesson_activity1.supporting_info
+            }
+          ]
+        }.to_json)
+        end
+      end
+
+    end
+
     describe '#diagnostic_info_for_dashboard_mini' do
       let!(:diagnostic) { create(:diagnostic) }
-      let!(:diagnostic_activity_1) { create(:diagnostic_activity) }
-      let!(:diagnostic_activity_2) { create(:diagnostic_activity) }
+      let!(:diagnostic_activity1) { create(:diagnostic_activity) }
+      let!(:diagnostic_activity2) { create(:diagnostic_activity) }
 
       context 'the teacher has not assigned any diagnostics' do
         it 'returns an empty array' do
@@ -137,8 +199,8 @@ describe TeachersController, type: :controller do
         let!(:classroom) { create(:classroom_with_a_couple_students) }
         let!(:classroom_teacher) { create(:classrooms_teacher, classroom: classroom, user: teacher) }
         let!(:classroom_unit) { create(:classroom_unit, classroom: classroom, unit: unit, assigned_student_ids: classroom.students.ids)}
-        let!(:unit_activity_1) { create(:unit_activity, unit: unit, activity: diagnostic_activity_1)}
-        let!(:unit_activity_2) { create(:unit_activity, unit: unit, activity: diagnostic_activity_2)}
+        let!(:unit_activity1) { create(:unit_activity, unit: unit, activity: diagnostic_activity1)}
+        let!(:unit_activity2) { create(:unit_activity, unit: unit, activity: diagnostic_activity2)}
 
         it 'returns a row for each diagnostic' do
           get :diagnostic_info_for_dashboard_mini
@@ -147,8 +209,8 @@ describe TeachersController, type: :controller do
               assigned_count: classroom.students.ids.length,
               completed_count: 0,
               classroom_name: classroom.name,
-              activity_name: diagnostic_activity_2.name,
-              activity_id: diagnostic_activity_2.id,
+              activity_name: diagnostic_activity2.name,
+              activity_id: diagnostic_activity2.id,
               unit_id: unit.id,
               classroom_id: classroom.id
             },
@@ -156,8 +218,8 @@ describe TeachersController, type: :controller do
               assigned_count: classroom.students.ids.length,
               completed_count: 0,
               classroom_name: classroom.name,
-              activity_name: diagnostic_activity_1.name,
-              activity_id: diagnostic_activity_1.id,
+              activity_name: diagnostic_activity1.name,
+              activity_id: diagnostic_activity1.id,
               unit_id: unit.id,
               classroom_id: classroom.id
             }
@@ -171,10 +233,10 @@ describe TeachersController, type: :controller do
         let!(:classroom) { create(:classroom_with_a_couple_students) }
         let!(:classroom_teacher) { create(:classrooms_teacher, classroom: classroom, user: teacher) }
         let!(:classroom_unit) { create(:classroom_unit, classroom: classroom, unit: unit, assigned_student_ids: classroom.students.ids)}
-        let!(:unit_activity_1) { create(:unit_activity, unit: unit, activity: diagnostic_activity_1)}
-        let!(:unit_activity_2) { create(:unit_activity, unit: unit, activity: diagnostic_activity_2)}
-        let!(:activity_session_1) { create(:activity_session, user: classroom.students[0], classroom_unit: classroom_unit, activity: unit_activity_1.activity)}
-        let!(:activity_session_2) { create(:activity_session, user: classroom.students[1], classroom_unit: classroom_unit, activity: unit_activity_2.activity)}
+        let!(:unit_activity1) { create(:unit_activity, unit: unit, activity: diagnostic_activity1)}
+        let!(:unit_activity2) { create(:unit_activity, unit: unit, activity: diagnostic_activity2)}
+        let!(:activity_session1) { create(:activity_session, user: classroom.students[0], classroom_unit: classroom_unit, activity: unit_activity1.activity)}
+        let!(:activity_session2) { create(:activity_session, user: classroom.students[1], classroom_unit: classroom_unit, activity: unit_activity2.activity)}
 
         it 'returns a row for each diagnostic' do
           get :diagnostic_info_for_dashboard_mini
@@ -183,8 +245,8 @@ describe TeachersController, type: :controller do
               assigned_count: classroom.students.ids.length,
               completed_count: 1,
               classroom_name: classroom.name,
-              activity_name: diagnostic_activity_2.name,
-              activity_id: diagnostic_activity_2.id,
+              activity_name: diagnostic_activity2.name,
+              activity_id: diagnostic_activity2.id,
               unit_id: unit.id,
               classroom_id: classroom.id
             },
@@ -192,8 +254,8 @@ describe TeachersController, type: :controller do
               assigned_count: classroom.students.ids.length,
               completed_count: 1,
               classroom_name: classroom.name,
-              activity_name: diagnostic_activity_1.name,
-              activity_id: diagnostic_activity_1.id,
+              activity_name: diagnostic_activity1.name,
+              activity_id: diagnostic_activity1.id,
               unit_id: unit.id,
               classroom_id: classroom.id
             }
