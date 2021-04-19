@@ -31,7 +31,7 @@ exports[`SessionOverview component should render SessionOverview 1`] = `
         Object {
           "field": "Time Started",
           "id": "[object Object]-1",
-          "value": "04/19/21 12:04 PM",
+          "value": "Invalid date",
         },
         Object {
           "field": "Session Complete?",
