@@ -140,8 +140,6 @@ GEM
     configs (1.4.0)
       activesupport (> 3.0)
     connection_pool (2.2.3)
-    coolline (0.5.0)
-      unicode_utils (~> 1.4)
     crack (0.4.3)
       safe_yaml (~> 1.0.0)
     crass (1.0.6)
@@ -456,8 +454,6 @@ GEM
     pry (0.12.2)
       coderay (~> 1.1.0)
       method_source (~> 0.9.0)
-    pry-coolline (0.2.5)
-      coolline (~> 0.5)
     pry-rails (0.3.9)
       pry (>= 0.10.4)
     pry-remote (0.1.8)
@@ -742,7 +738,6 @@ GEM
       tzinfo (>= 1.0.0)
     uglifier (4.1.20)
       execjs (>= 0.3.0, < 3)
-    unicode_utils (1.4.0)
     uniform_notifier (1.12.1)
     validates_email_format_of (1.6.3)
       i18n
@@ -841,7 +836,6 @@ DEPENDENCIES
   prawn-table
   premailer-rails
   pry (~> 0.12.2)
-  pry-coolline
   pry-rails
   pry-remote
   pry-rescue

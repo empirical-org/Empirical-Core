@@ -170,7 +170,6 @@ group :test, :development do
   gem 'pry-rails'
   gem 'pry-remote'
   gem 'pry-stack_explorer'
-  gem 'pry-coolline'
   gem 'pry-rescue'
   gem 'rspec-rails', '~> 3.7.2'
   gem 'factory_bot_rails', '~> 4.8.2', require: false
