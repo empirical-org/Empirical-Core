@@ -43,7 +43,7 @@ class RematchResponsesForQuestionWorker
 
   def machine_graded_responses(question_uid)
     Response.where(question_uid: question_uid)
-            .where("responses.parent_id IS NOT NULL OR responses.parent_uid IS NOT NULL")
+            .where.not(parent_id: nil, parent_uid: nil)
             .select(:id)
   end
 
