@@ -94,7 +94,7 @@ const Navigation = ({ location, match }) => {
         <NavLink activeClassName="is-active" to={`/activities/${activityId}/stats`}>
           Activity Stats
         </NavLink>
-        <NavLink activeClassName="is-active" to={`/activities/${activityId}/sessions`}>
+        <NavLink activeClassName="is-active" to={`/activities/${activityId}/activity-sessions`}>
           View Sessions
         </NavLink>
         <NavLink activeClassName="is-active" to={`/activities/${activityId}/rules-analysis`}>

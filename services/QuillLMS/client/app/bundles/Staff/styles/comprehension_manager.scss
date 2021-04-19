@@ -50,7 +50,6 @@
       font-size: 11px;
       letter-spacing: 1px;
       margin-bottom: 5px;
-      text-transform: uppercase;
     }
     .menu-list {
       display: flex;
@@ -85,7 +84,6 @@
     align-items: center;
     width: 70vw;
     padding-top: 20px;
-    border-right: 1px solid lightgray;
     .activities-table, .tabs-container {
       align-self: flex-start;
       .data-table-body{
@@ -103,10 +101,6 @@
           }
         }
       }
-    }
-    .spinner-container {
-      width: 100px;
-      height: 100px;
     }
   }
   .activity-container {
@@ -436,9 +430,6 @@
         max-height: 500px;
         overflow: auto;
         .data-table-row {
-          .data-link {
-            color: #00c2a2;
-          }
           span {
             text-align: left !important;
             span {
@@ -494,7 +485,7 @@
     }
   }
 
-  .models-container, .semantic-labels-container {
+  .models-container {
     padding: 20px 0px 20px 0px;
   }
   .models-container {
@@ -839,10 +830,147 @@
       padding: 20px;
     }
   }
-  .return-link {
+  .sessions-index-container, .session-view-container {
+    width: 80vw;
+    .session-view-container {
+      margin-top: 30px
+    }
+    .sessions-header {
+      padding-bottom: 12px;
+      border-bottom: 1px solid lightgray;
+      h1 {
+        font-weight: 300;
+      }
+    }
+    .top-section {
+      display: flex;
+      .total-container {
+        display: flex;
+        align-items: center;
+        margin: 30px 30px 0px 0px;
+        padding-left: 16px;
+        .total-label {
+          margin-right: 30px;
+        }
+        .total-value {
+          border: 1px solid lightgray;
+          padding: 3px 7px;
+        }
+      }
+      .dropdown-container {
+        .dropdown {
+          .dropdown__control {
+            display: flex;
+          }
+        }
+      }
+    }
+    .activity-sessions-table {
+      overflow-y: auto;
+      overflow-x: hidden;
+      .data-table-body {
+        .data-table-row {
+          span:nth-of-type(4), span:nth-of-type(5), span:nth-of-type(6), span:nth-of-type(7) {
+            text-align: left !important;
+          }
+        }
+      }
+    }
+    .session-overview-table {
+      margin: 30px 0px 30px 0px;
+      border: 1px solid lightgray;
+      max-width: 700px;
+      .data-table-headers {
+        display: none;
+      }
+      .data-table-body {
+        .data-table-row {
+          span:nth-of-type(1) {
+            font-weight: 600;
+          }
+        }
+      }
+    }
+    .prompt-table-container {
+      margin-top: 30px;
+      .attempts-section, .completed-section {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        max-width: 250px;
+        border: 1px solid lightgray;
+        padding: 10px 0px 10px 18px;
+        margin-bottom: 20px;
+        p {
+          margin-bottom: 0px;
+        }
+        .attempts-label, .completed-label {
+          font-weight: 600;
+        }
+        .attempts-value, .completed-value {
+          margin-right: 20px;
+        }
+      }
+      .attempts-feedback-table {
+        margin-bottom: 20px;
+        border: 1px solid lightgray;
+        .data-table-body {
+          // .data-table-row:nth-child(odd) {
+          //   background-color: #ffbcbc;
+          // }
+          .data-table-row {
+            &.optimal {
+              background-color:  #a7efa7
+            }
+            &.sub-optimal {
+              background-color:  #ffbcbc;
+            }
+          }
+          .data-table-row {
+            height: auto;
+            padding: 10px 16px;
+            span {
+              div {
+                .entry {
+                  margin-bottom: 0px;
+                  white-space: break-spaces !important;
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+  .tabs-container {
+    display: flex;
+    width: 100%;
+    justify-content: space-around;
+    background-color: #f8f8f8;
+    a {
+      color: black;
+    }
+    .tab-option {
+      margin-top: 5px;
+      padding: 10px;
+    }
+    .is-active {
+      color: #19a08a;
+      text-decoration: none;
+      .tab-option {
+        border-top: 1px solid lightgray;
+        border-right: 1px solid lightgray;
+        border-left: 1px solid lightgray;
+        border-top-right-radius: 10px;
+        border-top-left-radius: 10px;
+        background-color: white;
+      }
+    }
+  }
+  .return-link, .data-link {
     color: #00c2a2;
   }
-  .return-link:hover {
+  .return-link:hover, .data-link:hover {
     color: #29d8bc;
   }
 }

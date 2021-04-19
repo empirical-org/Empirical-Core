@@ -1,0 +1,80 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SessionOverview component should render SessionOverview 1`] = `
+<div
+  className="session-overview-container"
+>
+  <DataTable
+    averageFontWidth={7}
+    className="session-overview-table"
+    headers={
+      Array [
+        Object {
+          "attribute": "field",
+          "name": "",
+          "width": "200px",
+        },
+        Object {
+          "attribute": "value",
+          "name": "",
+          "width": "400px",
+        },
+      ]
+    }
+    rows={
+      Array [
+        Object {
+          "field": "Activity Session",
+          "id": "[object Object]-0",
+          "value": "6c90e707-835c-44c4-80d4-4cab039ec5bc",
+        },
+        Object {
+          "field": "Time Started",
+          "id": "[object Object]-1",
+          "value": "Invalid date",
+        },
+        Object {
+          "field": "Session Complete?",
+          "id": "[object Object]-2",
+          "value": "False",
+        },
+        Object {
+          "field": "Total Responses",
+          "id": "[object Object]-3",
+          "value": NaN,
+        },
+      ]
+    }
+  />
+  <PromptTable
+    activity={Object {}}
+    prompt={
+      Object {
+        "conjunction": "because",
+        "text": "none",
+      }
+    }
+    showHeader={true}
+  />
+  <PromptTable
+    activity={Object {}}
+    prompt={
+      Object {
+        "conjunction": "but",
+        "text": "none",
+      }
+    }
+    showHeader={true}
+  />
+  <PromptTable
+    activity={Object {}}
+    prompt={
+      Object {
+        "conjunction": "so",
+        "text": "none",
+      }
+    }
+    showHeader={true}
+  />
+</div>
+`;
