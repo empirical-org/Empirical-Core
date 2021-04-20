@@ -69,7 +69,7 @@ class Api::V1::ActivitySessionsController < Api::ApiController
     if @concept_results
       concept_results_to_save = @concept_results.map{ |c| concept_results_hash(c) }.reject(&:empty?)
     elsif @activity_session.activity.uses_feedback_history?
-      histories = FeedbackHistory.used.where(activity_session_uid: @activity_session.uid)
+      histories = @activity_session.feedback_histories.used
       concept_results_to_save = histories.map(&:concept_results_hash).reject(&:empty?)
     end
     ConceptResult.bulk_insert(values: concept_results_to_save)

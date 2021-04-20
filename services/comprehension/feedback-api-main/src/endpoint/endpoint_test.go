@@ -224,7 +224,7 @@ func TestBuildFeedbackHistory(t *testing.T) {
 
 	result := buildFeedbackHistory(request_object, feedback, used, time_received)
 	expected := FeedbackHistory {
-		Activity_session_uid: request_object.Session_id,
+		Feedback_session_uid: request_object.Session_id,
 		Prompt_id: request_object.Prompt_id,
 		Concept_uid: feedback.APIResponse.Concept_uid,
 		Attempt: request_object.Attempt,
@@ -262,7 +262,7 @@ func TestBuildBatchFeedbackHistories(t *testing.T) {
 	expected := BatchHistoriesAPIRequest {
 		Feedback_histories: []FeedbackHistory{
 			FeedbackHistory {
-				Activity_session_uid: api_request.Session_id,
+				Feedback_session_uid: api_request.Session_id,
 				Prompt_id: api_request.Prompt_id,
 				Concept_uid: results[0].APIResponse.Concept_uid,
 				Attempt: api_request.Attempt,
@@ -275,7 +275,7 @@ func TestBuildBatchFeedbackHistories(t *testing.T) {
 				Metadata: FeedbackHistoryMetadata { Labels: results[0].APIResponse.Labels },
 			},
 			FeedbackHistory {
-				Activity_session_uid: api_request.Session_id,
+				Feedback_session_uid: api_request.Session_id,
 				Prompt_id: api_request.Prompt_id,
 				Concept_uid: results[2].APIResponse.Concept_uid,
 				Attempt: api_request.Attempt,
@@ -288,7 +288,7 @@ func TestBuildBatchFeedbackHistories(t *testing.T) {
 				Metadata: FeedbackHistoryMetadata { Labels: results[2].APIResponse.Labels },
 			},
 			FeedbackHistory {
-				Activity_session_uid: api_request.Session_id,
+				Feedback_session_uid: api_request.Session_id,
 				Prompt_id: api_request.Prompt_id,
 				Concept_uid: default_api_response.Concept_uid,
 				Attempt: api_request.Attempt,
