@@ -1,4 +1,6 @@
-RSpec.shared_context "routing url helpers" do
+RSpec::ROUTING_URL_HELPERS = "routing url helpers".freeze
+
+RSpec.shared_context RSpec::ROUTING_URL_HELPERS do
   include Rails.application.routes.url_helpers
 
   def default_url_options

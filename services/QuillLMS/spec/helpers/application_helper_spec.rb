@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 describe ApplicationHelper do
-  include_context 'routing url helpers'
+  include_context RSpec::ROUTING_URL_HELPERS
 
   describe "#combine" do
     it 'should add the arrays' do
