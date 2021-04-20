@@ -43,7 +43,7 @@ var urls = [...]string{
 // you can't use const for structs, so this is the closest thing we can get for this value
 var default_api_response = APIResponse{
 	Feedback: "Thank you for your response.",
-	Feedback_type: "semantic",
+	Feedback_type: "autoML",
 	Optimal: true,
 }
 

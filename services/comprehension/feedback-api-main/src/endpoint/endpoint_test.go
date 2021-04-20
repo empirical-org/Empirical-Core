@@ -39,7 +39,7 @@ func TestPublishMessage(t *testing.T) {
 		t.Errorf("The response was not optimal.")
 	}
 
-	if r.Feedback_type != "semantic" {
+	if r.Feedback_type != "autoML" {
 		t.Errorf("The wrong feedback type was returned: %v", r.Feedback_type)
 	}
 }
@@ -71,7 +71,7 @@ func TestDefaultFeedbackFallback(t *testing.T) {
 		t.Errorf("The response was not optimal.")
 	}
 
-	if r.Feedback_type != "semantic" {
+	if r.Feedback_type != "autoML" {
 		t.Errorf("The wrong feedback type was returned: %v", r.Feedback_type)
 	}
 }
