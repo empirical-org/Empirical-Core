@@ -62,7 +62,6 @@ class ActivitySession < ActiveRecord::Base
 
   before_create :set_state
   before_save   :set_completed_at, :set_activity_id
-  before_save   :set_score_from_feedback_history, if: [:finished?, :uses_feedback_history?]
 
   after_save    :determine_if_final_score, :update_milestones
 

@@ -10,7 +10,8 @@ import LoadingSpinner from '../shared/loadingSpinner'
 import { getActivity } from "../../actions/activities";
 import { TrackAnalyticsEvent } from "../../actions/analytics";
 import { Events } from '../../modules/analytics'
-import { fetchActiveActivitySession,
+import { completeActivitySession,
+         fetchActiveActivitySession,
          getFeedback,
          processUnfetchableSession,
          saveActiveActivitySession } from '../../actions/session'
@@ -41,6 +42,13 @@ interface StudentViewContainerState {
 
 const READ_PASSAGE_STEP = 1
 const ALL_STEPS = [READ_PASSAGE_STEP, 2, 3, 4]
+const ATTEMPTS_TO_SCORE = {
+  1: 1.0,
+  2: 0.75,
+  3: 0.5,
+  4: 0.25,
+  5: 0.0
+}
 
 export class StudentViewContainer extends React.Component<StudentViewContainerProps, StudentViewContainerState> {
   private step1: any // eslint-disable-line react/sort-comp
@@ -104,6 +112,59 @@ export class StudentViewContainer extends React.Component<StudentViewContainerPr
         alert(`${error}`);
       }
     });
+  }
+
+  defaultHandleFinishActivity = () => {
+    this.specifiedActivitySessionUID();
+    // We only post completed sessions if we had one specified when the activity loaded
+    if (!this.specifiedActivitySessionUID()) return
+    const { dispatch, session, } = this.props
+    const { sessionID, } = session
+    const conceptResults = this.generateConceptResults()
+    const percentage = this.calculatePercentage()
+    dispatch(completeActivitySession(sessionID, percentage, conceptResults))
+  }
+
+  calculatePercentage = () => {
+    const { session, } = this.props
+    const { submittedResponses, } = session
+    const attemptCounts = Object.values(submittedResponses).map((responses) => ATTEMPTS_TO_SCORE[responses.length])
+    return attemptCounts.reduce((total, value) => total + value) / attemptCounts.length
+  }
+
+  generateConceptResults = () => {
+    const { activities, session, } = this.props
+    const { currentActivity, } = activities
+    const { submittedResponses, } = session
+
+    const conjunctionToQuestionNumber = {
+      because: 1,
+      but: 2,
+      so: 3
+    }
+
+    const conceptResults = []
+
+    for (const [promptID, responses] of Object.entries(submittedResponses)) {
+      const prompt = Object.values(currentActivity.prompts).filter((prompt) => prompt.id == promptID)[0]
+      responses.forEach((response, index) => {
+        const attempt = index + 1
+        conceptResults.push({
+          concept_uid: response.concept_uid,
+          question_type: 'comprehension',
+          metadata: {
+            answer: response.entry,
+            attemptNumber: attempt,
+            correct: response.optimal,
+            directions: 'Complete this sentence',
+            prompt: prompt.text,
+            questionNumber: conjunctionToQuestionNumber[prompt.conjunction],
+            questionScore: ATTEMPTS_TO_SCORE[responses.length],
+          }
+        })
+      })
+    }
+    return conceptResults
   }
 
   onMobile = () => window.innerWidth < 1100
@@ -210,10 +271,8 @@ export class StudentViewContainer extends React.Component<StudentViewContainerPr
     dispatch(TrackAnalyticsEvent(Events.COMPREHENSION_ACTIVITY_COMPLETED, {
       activityID,
       sessionID,
-    }))
-    if(isTurk) {
-      handleFinishActivity();
-    }
+    }));
+    (handleFinishActivity) ? handleFinishActivity() : this.defaultHandleFinishActivity()
   }
 
   activateStep = (step?: number, callback?: Function, skipTracking?: boolean) => {
@@ -466,7 +525,7 @@ export class StudentViewContainer extends React.Component<StudentViewContainerPr
     </div>)
   }
 
-  renderCompletedView() {
+  renderCompletedView = () => {
     return (<div className="activity-completed">
       <img alt="Party hat with confetti coming out" src={tadaSrc} />
       <h1>Activity Complete!</h1>
@@ -474,7 +533,7 @@ export class StudentViewContainer extends React.Component<StudentViewContainerPr
     </div>)
   }
 
-  render() {
+  render = () => {
     const { activities, } = this.props
     const { showFocusState, completedSteps, } = this.state
 
