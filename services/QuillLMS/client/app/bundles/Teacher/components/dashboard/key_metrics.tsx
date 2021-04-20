@@ -1,6 +1,5 @@
 import * as React from 'react'
 
-import { requestGet } from '../../../../modules/request/index.js';
 import { helpIcon, DropdownInput, } from '../../../Shared/index'
 
 const KEY_METRICS_TIMEFRAME = 'keyMetricsTimeframe'
@@ -14,31 +13,14 @@ const KeyMetric = ({ number, label, }) => (
   </div>
 )
 
-const KeyMetrics = ({ firstName, }) => {
-  const [metrics, setMetrics] = React.useState(null)
-  const [loading, setLoading] = React.useState(true);
+const KeyMetrics = ({ firstName, metrics, }) => {
   const [selectedTimeframe, setSelectedTimeframe] = React.useState(window.localStorage.getItem(KEY_METRICS_TIMEFRAME) || YEARLY)
-
-  React.useEffect(() => {
-    getMetrics();
-  }, []);
 
   React.useEffect(() => {
     window.localStorage.setItem(KEY_METRICS_TIMEFRAME, selectedTimeframe)
   }, [selectedTimeframe])
 
-  function getMetrics() {
-    requestGet('/teacher_dashboard_metrics',
-      (data) => {
-        setMetrics(data);
-        setLoading(false)
-      }
-    )
-  }
-
   function onChangeSelectedTimeframe(e) { setSelectedTimeframe(e.value) }
-
-  if (loading) { return <span /> }
 
   const timeframeOptions = [{ label: 'Yearly', value: YEARLY }, { label: 'Weekly', value: WEEKLY }]
   const selectedTimeframeOption = timeframeOptions.find(opt => opt.value === selectedTimeframe)

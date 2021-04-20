@@ -3,6 +3,10 @@
   width: 100%;
   margin: auto;
   display: flex;
+  &.loading {
+    height: 100vh;
+    justify-content: center;
+  }
   a:hover, a:focus {
     text-decoration: none;
   }

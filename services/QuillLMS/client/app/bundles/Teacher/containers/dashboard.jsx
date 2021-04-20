@@ -12,6 +12,7 @@ import TeacherCenterHighlights from '../components/dashboard/teacher_center_high
 import CollegeBoard from '../components/dashboard/college_board'
 import KeyMetrics from '../components/dashboard/key_metrics'
 import useWindowSize from '../../Shared/hooks/useWindowSize'
+import { Spinner, } from '../../Shared/index'
 
 const MAX_VIEW_WIDTH_FOR_MOBILE = 1103
 
@@ -20,7 +21,6 @@ const Dashboard = ({ onboardingChecklist, firstName, mustSeeModal, linkedToCleve
   const onMobile = () => size.width <= MAX_VIEW_WIDTH_FOR_MOBILE
 
   const [showWelcomeModal, setShowWelcomeModal] = React.useState(mustSeeModal)
-  const [activityFeed, setActivityFeed] = React.useState(mustSeeModal)
 
   function closeWelcomeModal() { setShowWelcomeModal(false) }
 
@@ -31,14 +31,72 @@ const Dashboard = ({ onboardingChecklist, firstName, mustSeeModal, linkedToCleve
     </div>)
   }
 
+  const [metrics, setMetrics] = React.useState(null)
+  const [diagnostics, setDiagnostics] = React.useState(null);
+  const [lessons, setLessons] = React.useState(null);
+  const [activityFeed, setActivityFeed] = React.useState(null)
+  const [loading, setLoading] = React.useState(true);
+
+  React.useEffect(() => {
+    getMetrics();
+    getDiagnostics()
+    getLessons()
+    getActivityFeed()
+  }, []);
+
+  React.useEffect(() => {
+    if (metrics && diagnostics && lessons && activityFeed && loading) {
+      setLoading(false)
+    }
+  }, [metrics, diagnostics, lessons, activityFeed])
+
+  function getMetrics() {
+    requestGet('/teacher_dashboard_metrics',
+      (data) => {
+        setMetrics(data);
+      }
+    )
+  }
+
+  function getDiagnostics() {
+    requestGet('/teachers/diagnostic_info_for_dashboard_mini',
+      (data) => {
+        setDiagnostics(data.units);
+      }
+    )
+  }
+
+  function getLessons() {
+    requestGet('/teachers/lessons_info_for_dashboard_mini',
+      (data) => {
+        setLessons(data.units);
+      }
+    )
+  }
+
+  function getActivityFeed() {
+    requestGet('/teachers/activity_feed',
+      (response) => {
+        setActivityFeed(response.data);
+      }
+    )
+  }
+
+  if (loading) {
+    return (<div className="dashboard">
+      <div className="post-checklist-container loading">
+        <Spinner />
+      </div>
+    </div>)
+  }
 
   return (<div className="dashboard">
     <div className="post-checklist-container">
       <main>
-        <KeyMetrics firstName={firstName} />
-        <DiagnosticMini onMobile={onMobile()} />
-        <LessonsMini onMobile={onMobile()} />
-        <ActivityFeed onMobile={onMobile()} />
+        <KeyMetrics firstName={firstName} metrics={metrics} />
+        <DiagnosticMini diagnostics={diagnostics} onMobile={onMobile()} />
+        <LessonsMini lessons={lessons} onMobile={onMobile()} />
+        <ActivityFeed activityFeed={activityFeed} onMobile={onMobile()} />
       </main>
       <aside>
         <HandyActions linkedToClever={linkedToClever} />

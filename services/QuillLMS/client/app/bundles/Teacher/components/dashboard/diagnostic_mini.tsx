@@ -2,7 +2,6 @@ import * as React from 'react';
 import _ from 'underscore';
 
 import { DataTable, helpIcon, fileChartIcon, expandIcon, } from '../../../Shared/index'
-import { requestGet } from '../../../../modules/request/index.js';
 
 const INITIAL_MAX = 5
 
@@ -64,27 +63,12 @@ const MobileRecommendationRow = ({ row, }) => {
   </div>)
 }
 
-const DiagnosticMini = ({passedDiagnostics, onMobile, }) => {
-  const [loading, setLoading] = React.useState<DiagnosticMiniState>(!passedDiagnostics);
-  const [diagnostics, setDiagnostics] = React.useState<DiagnosticMiniState>(passedDiagnostics || []);
+const DiagnosticMini = ({diagnostics, onMobile, }) => {
   const [showAll, setShowAll] = React.useState<DiagnosticMiniState>(false);
-
-  React.useEffect(() => {
-    getDiagnostics();
-  }, []);
-
-  function getDiagnostics() {
-    requestGet('/teachers/diagnostic_info_for_dashboard_mini',
-      (data) => {
-        setDiagnostics(data.units);
-        setLoading(false)
-      }
-    )
-  }
 
   function handleShowMoreClick() { setShowAll(true) }
 
-  if (loading || !diagnostics.length) { return <span /> }
+  if (!diagnostics.length) { return <span /> }
 
   const rows = diagnostics.slice(0, showAll ? diagnostics.length : INITIAL_MAX).map(diagnostic => {
     const {

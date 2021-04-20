@@ -10,7 +10,6 @@ import {
   playBoxIcon,
   previewIcon,
 } from '../../../Shared/index'
-import { requestGet } from '../../../../modules/request/index.js';
 
 const INITIAL_MAX = 5
 
@@ -71,27 +70,12 @@ const MobileLessonRow = ({ row, }) => {
   </div>)
 }
 
-const LessonsMini = ({passedLessonss, onMobile, }) => {
-  const [loading, setLoading] = React.useState<LessonsMiniState>(!passedLessonss);
-  const [lessons, setLessons] = React.useState<LessonsMiniState>(passedLessonss || []);
+const LessonsMini = ({ lessons, onMobile, }) => {
   const [showAll, setShowAll] = React.useState<LessonsMiniState>(false);
-
-  React.useEffect(() => {
-    getLessonss();
-  }, []);
-
-  function getLessonss() {
-    requestGet('/teachers/lessons_info_for_dashboard_mini',
-      (data) => {
-        setLessons(data.units);
-        setLoading(false)
-      }
-    )
-  }
 
   function handleShowMoreClick() { setShowAll(true) }
 
-  if (loading || !lessons.length) { return <span /> }
+  if (!lessons.length) { return <span /> }
 
   const rows = lessons.slice(0, showAll ? lessons.length : INITIAL_MAX).map(lesson => {
     const {

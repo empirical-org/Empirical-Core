@@ -49,21 +49,8 @@ const MobileActivityRow = ({ row, }) => {
   </a>)
 }
 
-const ActivityFeed = ({ onMobile, }) => {
-  const [activityFeed, setActivityFeed] = React.useState([])
+const ActivityFeed = ({ onMobile, activityFeed, }) => {
   const [showAll, setShowAll] = React.useState(false)
-
-  React.useEffect(() => {
-    getActivityFeed()
-  }, []);
-
-  function getActivityFeed() {
-    requestGet('/teachers/activity_feed',
-      (response) => {
-        setActivityFeed(response.data);
-      }
-    )
-  }
 
   function handleShowMoreClick() { setShowAll(true) }
 
