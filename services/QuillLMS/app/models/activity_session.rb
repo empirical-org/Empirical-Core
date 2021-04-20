@@ -253,20 +253,6 @@ class ActivitySession < ActiveRecord::Base
     activity&.uses_feedback_history?
   end
 
-  def set_score_from_feedback_history
-    max_attempts_per_prompt = feedback_histories.used.group(:prompt_id).maximum(:attempt)
-    return if max_attempts_per_prompt.empty?
-
-    # the math here expresses the score chart translating number of attempts to score:
-    # 1 attempt => 1
-    # 2 attempts => 0.75
-    # 3 attempts => 0.5
-    # 4 attempts => 0.25
-    # 5 attempts => 0
-    calculated_score = max_attempts_per_prompt.sum { |m| 1.25 - 0.25 * m[1] }
-    self.percentage = ((calculated_score / max_attempts_per_prompt.size) * 100).round / 100.0
-  end
-
   def start
     return if state != 'unstarted'
     self.started_at ||= Time.current
