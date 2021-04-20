@@ -160,6 +160,7 @@ EmpiricalGrammar::Application.routes.draw do
   post 'teachers/classrooms/:class_id/unhide', controller: 'teachers/classrooms', action: 'unhide'
   post 'teachers/classrooms/bulk_archive', controller: 'teachers/classrooms', action: 'bulk_archive'
   get 'teachers/classrooms/:id/student_logins', only: [:pdf], controller: 'teachers/classrooms', action: 'generate_login_pdf', as: :generate_login_pdf, defaults: { format: 'pdf' }
+  get :teacher_dashboard_metrics, controller: 'classroom_manager', action: 'teacher_dashboard_metrics'
 
   namespace :teachers do
 
@@ -274,7 +275,7 @@ EmpiricalGrammar::Application.routes.draw do
     resources :classrooms, only: [:index, :new, :create, :update, :destroy] do
       post :create_students
       post :remove_students
-      
+
       put :import_google_students, controller: 'classroom_manager', action: 'import_google_students'
       collection do
         get :archived, action: 'index', as: :archived
@@ -364,6 +365,8 @@ EmpiricalGrammar::Application.routes.draw do
     namespace :v1 do
       get 'activities/uids_and_flags' => 'activities#uids_and_flags'
       get 'rule_feedback_histories' => 'rule_feedback_histories#by_conjunction'
+      get 'rule_feedback_history/:rule_uid' => 'rule_feedback_histories#rule_detail'
+
       resources :activities,              except: [:index, :new, :edit]
       resources :activity_flags,          only: [:index]
       resources :activity_sessions,       except: [:index, :new, :edit]
@@ -397,6 +400,7 @@ EmpiricalGrammar::Application.routes.draw do
       resources :title_cards,             except: [:destroy]
       get 'activities/:id/follow_up_activity_name_and_supporting_info' => 'activities#follow_up_activity_name_and_supporting_info'
       get 'activities/:id/supporting_info' => 'activities#supporting_info'
+      get 'activities/:id/question_health' => 'activities#question_health'
       get 'classroom_activities/student_names' => 'classroom_units#student_names'
       put 'classroom_activities/finish_lesson' => 'classroom_units#finish_lesson'
       put 'classroom_activities/unpin_and_lock_activity' => 'classroom_units#unpin_and_lock_activity'

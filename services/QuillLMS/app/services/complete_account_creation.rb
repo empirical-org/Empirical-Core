@@ -11,7 +11,7 @@ class CompleteAccountCreation
     true
   end
 
-  private
-
   attr_reader :user, :ip
+  private :user
+  private :ip
 end

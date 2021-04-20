@@ -94,6 +94,11 @@ class ResponsesController < ApplicationController
     render json: optimality_counts_of_question(params[:question_uid])
   end
 
+  def question_dashboard
+    admin_question_dashboard = AdminQuestionDashboard.new(params[:question_uid])
+    render json: admin_question_dashboard.health
+  end
+
   def incorrect_sequences
     render json: IncorrectSequenceCalculator.incorrect_sequences_for_question(params[:question_uid])
   end
@@ -191,97 +196,96 @@ class ResponsesController < ApplicationController
     Response.__elasticsearch__.import query: -> { where("question_uid = ? AND updated_at >= ?", question_uid, Time.zone.now.beginning_of_day) }
   end
 
-  private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_response
-      @response = Response.find_by_id_or_uid(params[:id])
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  private def set_response
+    @response = Response.find_by_id_or_uid(params[:id])
+  end
 
-    def search_params
-      params.require(:search).permit(
-        :pageNumber,
-        :text,
-        :excludeMisspellings,
-        filters: {},
-        sort: {}
-      )
-    end
+  private def search_params
+    params.require(:search).permit(
+      :pageNumber,
+      :text,
+      :excludeMisspellings,
+      filters: {},
+      sort: {}
+    )
+  end
 
-    # Only allow a trusted parameter "white list" through.
-    def response_params
-      params.require(:response).permit(
-        :id,
-        :uid,
-        :parent_id,
-        :parent_uid,
-        :question_uid,
-        :author,
-        :text,
-        :feedback,
-        :count,
-        :first_attempt_count,
-        :is_first_attempt,
-        :child_count,
-        :optimal,
-        :weak,
-        :created_at,
-        :updated_at,
-        :search,
-        :spelling_error,
-        :concept_results,
-        concept_results: {}
-      )
-    end
+  # Only allow a trusted parameter "white list" through.
+  private def response_params
+    params.require(:response).permit(
+      :id,
+      :uid,
+      :parent_id,
+      :parent_uid,
+      :question_uid,
+      :author,
+      :text,
+      :feedback,
+      :count,
+      :first_attempt_count,
+      :is_first_attempt,
+      :child_count,
+      :optimal,
+      :weak,
+      :created_at,
+      :updated_at,
+      :search,
+      :spelling_error,
+      :concept_results,
+      concept_results: {}
+    )
+  end
 
-    def params_for_create
-      params.require(:response).permit(
-        :id,
-        :uid,
-        :parent_id,
-        :parent_uid,
-        :question_uid,
-        :author,
-        :text,
-        :feedback,
-        :count,
-        :first_attempt_count,
-        :child_count,
-        :optimal,
-        :weak,
-        :spelling_error,
-        concept_results: {}
-      )
-    end
+  private def params_for_create
+    params.require(:response).permit(
+      :id,
+      :uid,
+      :parent_id,
+      :parent_uid,
+      :question_uid,
+      :author,
+      :text,
+      :feedback,
+      :count,
+      :first_attempt_count,
+      :child_count,
+      :optimal,
+      :weak,
+      :spelling_error,
+      concept_results: {}
+    )
+  end
 
-    def params_for_count_affected_by_incorrect_sequences
-      params.require(:data).permit!
-    end
+  private def params_for_count_affected_by_incorrect_sequences
+    params.require(:data).permit!
+  end
 
-    def params_for_count_affected_by_focus_points
-      params.require(:data).permit!
-    end
+  private def params_for_count_affected_by_focus_points
+    params.require(:data).permit!
+  end
 
-    def concept_results_to_boolean(concept_results)
-      new_concept_results = {}
-      concept_results.each do |key, val|
-        if val.respond_to?(:keys)
-          new_concept_results[val['conceptUID']] = val['correct'] == 'true' || val == true
-        else
-          new_concept_results[key] = ['true', true].include?(val)
-        end
+  private def concept_results_to_boolean(concept_results)
+    new_concept_results = {}
+    concept_results.each do |key, val|
+      if val.respond_to?(:keys)
+        new_concept_results[val['conceptUID']] = val['correct'] == 'true' || val == true
+      else
+        new_concept_results[key] = ['true', true].include?(val)
       end
-      new_concept_results
     end
+    new_concept_results
+  end
 
-    def transformed_new_vals(response_params)
-      new_vals = response_params
-      if new_vals[:concept_results]
-        if new_vals[:concept_results].empty?
-          new_vals[:concept_results] = nil
-        else
-          new_vals[:concept_results] = concept_results_to_boolean(new_vals[:concept_results])
-        end
+  private def transformed_new_vals(response_params)
+    new_vals = response_params
+    if new_vals[:concept_results]
+      if new_vals[:concept_results].empty?
+        new_vals[:concept_results] = nil
+      else
+        new_vals[:concept_results] = concept_results_to_boolean(new_vals[:concept_results])
       end
-      new_vals
     end
+    new_vals
+  end
 end

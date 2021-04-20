@@ -44,15 +44,14 @@ class ClassroomUnitActivityState < ActiveRecord::Base
     update_lessons_cache(self)
   end
 
-  private
 
-  def lock_if_lesson
+  private def lock_if_lesson
     if unit_activity.activity.is_lesson?
       update(locked: true)
     end
   end
 
-  def not_duplicate
+  private def not_duplicate
     cua = ClassroomUnitActivityState.find_by(
       classroom_unit_id: classroom_unit_id,
       unit_activity_id: unit_activity_id
@@ -73,7 +72,7 @@ class ClassroomUnitActivityState < ActiveRecord::Base
     end
   end
 
-  def handle_pinning
+  private def handle_pinning
     if pinned == true
       if visible == false
         # unpin ca before archiving
@@ -89,7 +88,7 @@ class ClassroomUnitActivityState < ActiveRecord::Base
     end
   end
 
-  def only_one_pinned
+  private def only_one_pinned
     if pinned
       classroom = classroom_unit.classroom
       classroom_unit_ids = classroom.classroom_units.ids.flatten

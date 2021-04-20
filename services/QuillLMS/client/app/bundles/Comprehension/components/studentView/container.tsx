@@ -378,6 +378,12 @@ export class StudentViewContainer extends React.Component<StudentViewContainerPr
     })
   }
 
+  removeSpansFromPassages = (passages) => {
+    return passages.map(passage => {
+      return stripHtml(passage, { onlyStripTags: ['span'] })
+    })
+  }
+
   formatHtmlForPassage = () => {
     const { activeStep, } = this.state
     const { activities, session, } = this.props
@@ -387,6 +393,7 @@ export class StudentViewContainer extends React.Component<StudentViewContainerPr
 
     let passages: any[] = currentActivity.passages
     const passagesWithPTags = this.addPTagsToPassages(passages)
+    const passagesWithoutSpanTags = this.removeSpansFromPassages(passagesWithPTags);
 
     if (!activeStep || activeStep === READ_PASSAGE_STEP) { return passagesWithPTags }
 
@@ -394,11 +401,13 @@ export class StudentViewContainer extends React.Component<StudentViewContainerPr
     const activePromptId = currentActivity.prompts[promptIndex].id
     const submittedResponsesForActivePrompt = session.submittedResponses[activePromptId]
 
-    if (!(submittedResponsesForActivePrompt && submittedResponsesForActivePrompt.length)) { return passagesWithPTags }
+    // we return the unhighlighted text when an active response has no submissions with highlights
+    if (!(submittedResponsesForActivePrompt && submittedResponsesForActivePrompt.length)) { return passagesWithoutSpanTags }
 
     const lastSubmittedResponse = submittedResponsesForActivePrompt[submittedResponsesForActivePrompt.length - 1]
 
-    if (!lastSubmittedResponse.highlight) { return passagesWithPTags }
+    if (!lastSubmittedResponse.highlight) { return passagesWithoutSpanTags }
+
 
     const passageHighlights = lastSubmittedResponse.highlight.filter(hl => hl.type === "passage")
 
@@ -407,15 +416,16 @@ export class StudentViewContainer extends React.Component<StudentViewContainerPr
       passages = passages.map((passage: Passage) => {
         let formattedPassage = passage;
         const { text } = passage;
+        // we want to remove any highlights returned from inactive prompts
+        const formattedPassageText = stripHtml(text, { onlyStripTags: ['span'] });
         const strippedText = stripHtml(hl.text);
-        const passageBeforeCharacterStart = text.substring(0, characterStart)
-        const passageAfterCharacterStart = text.substring(characterStart)
+        const passageBeforeCharacterStart = formattedPassageText.substring(0, characterStart)
+        const passageAfterCharacterStart = formattedPassageText.substring(characterStart)
         const highlightedPassageAfterCharacterStart = passageAfterCharacterStart.replace(strippedText, `<span class="passage-highlight">${strippedText}</span>`)
         formattedPassage.text = `${passageBeforeCharacterStart}${highlightedPassageAfterCharacterStart}`
         return formattedPassage
       })
     })
-
     return this.addPTagsToPassages(passages)
   }
 

@@ -541,9 +541,7 @@ module Teacher
       .select("assigned_student_ids, activities.id, unit_activities.created_at")
   end
 
-  private
-
-  def base_sql_for_teacher_classrooms(only_visible_classrooms=true)
+  private def base_sql_for_teacher_classrooms(only_visible_classrooms=true)
     base = "SELECT classrooms.* from classrooms_teachers AS ct
     JOIN classrooms ON ct.classroom_id = classrooms.id #{only_visible_classrooms ? ' AND classrooms.visible = TRUE' : nil}
     WHERE ct.user_id = #{id}"

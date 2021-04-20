@@ -7,8 +7,6 @@ module GoogleIntegration::Classroom::Creators::Students
     students.compact
   end
 
-  private
-
   def self.students_requester_and_parser(students_requester)
     lambda do |course_id|
       response = students_requester.call(course_id)

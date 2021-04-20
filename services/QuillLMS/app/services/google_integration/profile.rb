@@ -37,19 +37,17 @@ class GoogleIntegration::Profile
     omniauth_data.info if omniauth_data.present?
   end
 
-  private
-
-  def expiration_in_epoch_time
+  private def expiration_in_epoch_time
     if credentials.present?
       credentials.expires_at || credentials.expires_in
     end
   end
 
-  def credentials
+  private def credentials
     omniauth_data.credentials if omniauth_data.present?
   end
 
-  def omniauth_data
+  private def omniauth_data
     @request.env['omniauth.auth']
   end
 end

@@ -74,15 +74,13 @@ class Api::V1::ProgressReportsController < Api::ApiController
     render json: data
   end
 
-  private
-
-  def authorize!
+  private def authorize!
     return if current_user&.admin? && authorize_admin
 
     authorize_classroom_and_student_teacher_relationship!
   end
 
-  def authorize_admin
+  private def authorize_admin
     teacher_ids = Classroom.find(params[:classroom_id].to_i).teachers.pluck(:id)
     teachers = User.joins(administered_schools: :schools_users)
       .where('schools_users.user_id IN (?)', teacher_ids)
@@ -91,7 +89,7 @@ class Api::V1::ProgressReportsController < Api::ApiController
     teachers.count > 0
   end
 
-  def authorize_classroom_and_student_teacher_relationship!
+  private def authorize_classroom_and_student_teacher_relationship!
     classroom_id = params[:classroom_id].to_i
     student_id   = params[:student_id].to_i
     student_classrooms = StudentsClassrooms.find_by(

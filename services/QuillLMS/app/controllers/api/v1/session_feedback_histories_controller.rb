@@ -3,7 +3,7 @@ class Api::V1::SessionFeedbackHistoriesController < Api::ApiController
   def index
     records = FeedbackHistory.list_by_activity_session(**params.permit(:page, :activity_id).symbolize_keys)
 
-    count = FeedbackHistory.select(:activity_session_uid).distinct.count
+    count = FeedbackHistory.select(:feedback_session_uid).distinct.count
 
     render json: {
       total_pages: (count / FeedbackHistory::DEFAULT_PAGE_SIZE.to_f).ceil,
@@ -15,8 +15,8 @@ class Api::V1::SessionFeedbackHistoriesController < Api::ApiController
 
   # GET /feedback_histories/1.json
   def show
-    activity_session_uid = params[:id]
-    results = FeedbackHistory.serialize_detail_by_activity_session(activity_session_uid)
+    feedback_session_uid = params[:id]
+    results = FeedbackHistory.serialize_detail_by_activity_session(feedback_session_uid)
     if results
       render json: results
     else

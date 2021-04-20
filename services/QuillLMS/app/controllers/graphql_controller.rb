@@ -13,10 +13,8 @@ class GraphqlController < ApplicationController
     render json: result
   end
 
-  private
-
   # Handle form data, JSON body, or a blank value
-  def ensure_hash(ambiguous_param)
+  private def ensure_hash(ambiguous_param)
     case ambiguous_param
     when String
       if ambiguous_param.present?
@@ -33,7 +31,7 @@ class GraphqlController < ApplicationController
     end
   end
 
-  def current_user
+  private def current_user
     begin
       if session[:user_id]
         @current_user ||= User.find(session[:user_id])

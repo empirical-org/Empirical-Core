@@ -13,16 +13,14 @@ class ProgressReports::DistrictActivityScores
     end
   end
 
-  private
-
-  def classroom_ids_for_admin
+  private def classroom_ids_for_admin
     Classroom.joins(teachers: { school: :admins })
       .where('schools_admins.user_id = ?', admin_id)
       .pluck(:id)
       .join(', ')
   end
 
-  def query
+  private def query
     <<~SQL
       SELECT classrooms.name AS classroom_name,
         students.id AS student_id,
