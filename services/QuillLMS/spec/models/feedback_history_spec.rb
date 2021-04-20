@@ -3,10 +3,10 @@
 # Table name: feedback_histories
 #
 #  id                   :integer          not null, primary key
-#  activity_session_uid :text
 #  attempt              :integer          not null
 #  concept_uid          :text
 #  entry                :text             not null
+#  feedback_session_uid :text
 #  feedback_text        :text
 #  feedback_type        :text             not null
 #  metadata             :jsonb
@@ -21,8 +21,8 @@
 #
 # Indexes
 #
-#  index_feedback_histories_on_activity_session_uid  (activity_session_uid)
 #  index_feedback_histories_on_concept_uid           (concept_uid)
+#  index_feedback_histories_on_feedback_session_uid  (feedback_session_uid)
 #  index_feedback_histories_on_prompt_type_and_id    (prompt_type,prompt_id)
 #  index_feedback_histories_on_rule_uid              (rule_uid)
 #
@@ -32,13 +32,14 @@ require 'rails_helper'
 RSpec.describe FeedbackHistory, type: :model do
 
   context 'associations' do
-    it { should belong_to(:activity_session) }
+    it { should belong_to(:feedback_session) }
+    it { should have_one(:activity_session).through(:feedback_session) }
     it { should belong_to(:prompt) }
     it { should belong_to(:concept).with_foreign_key(:concept_uid).with_primary_key(:uid) }
   end
 
   context 'validations' do
-    it { should validate_presence_of(:activity_session_uid) }
+    it { should validate_presence_of(:feedback_session_uid) }
 
     it { should validate_presence_of(:attempt) }
     it do
@@ -73,7 +74,7 @@ RSpec.describe FeedbackHistory, type: :model do
       @activity = create(:comprehension_activity)
       @activity_session = create(:activity_session, activity_id: @activity.id)
       @concept = create(:concept)
-      @feedback_history = create(:feedback_history, activity_session_uid: @activity_session.uid, concept: @concept, prompt: @prompt)
+      @feedback_history = create(:feedback_history, feedback_session_uid: @activity_session.uid, concept: @concept, prompt: @prompt)
     end
 
     it 'should fill out hash with all fields' do
@@ -87,7 +88,7 @@ RSpec.describe FeedbackHistory, type: :model do
     end
 
     it 'should return empty hash when there is no concept' do
-      feedback_history = create(:feedback_history, activity_session_uid: @activity_session.uid, concept: nil, prompt: @prompt)
+      feedback_history = create(:feedback_history, feedback_session_uid: @activity_session.uid, concept: nil, prompt: @prompt)
       concept_results_hash = feedback_history.concept_results_hash
 
       expect(concept_results_hash).to eq({})
@@ -104,7 +105,7 @@ RSpec.describe FeedbackHistory, type: :model do
       json_hash = @feedback_history.as_json
 
       expect(json_hash['id']).to eq(@feedback_history.id)
-      expect(json_hash['activity_session_uid']).to eq(@feedback_history.activity_session_uid)
+      expect(json_hash['feedback_session_uid']).to eq(@feedback_history.feedback_session_uid)
       expect(json_hash['concept_uid']).to eq(@feedback_history.concept_uid)
       expect(json_hash['attempt']).to eq(@feedback_history.attempt)
       expect(json_hash['entry']).to eq(@feedback_history.entry)
@@ -124,7 +125,7 @@ RSpec.describe FeedbackHistory, type: :model do
   context 'batch_create' do
     setup do
       @valid_fh_params = {
-        activity_session_uid: SecureRandom.uuid,
+        feedback_session_uid: SecureRandom.uuid,
         attempt: 1,
         entry: 'This is the student entry',
         feedback_text: 'This is the feedback text',
@@ -159,12 +160,43 @@ RSpec.describe FeedbackHistory, type: :model do
 
     it 'should not set prompt_type if there is no prompt_id' do
       fh = FeedbackHistory.create
-      refute fh.prompt_type
+      expect(fh.prompt_type).not_to be
     end
 
     it 'should not set prompt_type if prompt_type is provided' do
       fh = FeedbackHistory.create(prompt_id: 1, prompt_type: 'MadeUp')
       expect(fh.prompt_type).to eq('MadeUp')
+    end
+  end
+
+  context 'before_validation: anonymize_session_uid' do
+    before(:each) do
+      @feedback_history = build(:feedback_history)
+    end
+
+    it 'should do nothing if feedback_session_uid is not set' do
+      @feedback_history.feedback_session_uid = nil
+      @feedback_history.save
+      expect(@feedback_history.feedback_session_uid).to eq(nil)
+    end
+
+    it 'should create an FeedbackSession record if feedback_session_uid is set' do
+      expect(FeedbackSession.count).to eq(0)
+
+      feedback_session_uid = 'fake-activity-session-uid'
+      @feedback_history.feedback_session_uid = feedback_session_uid
+      @feedback_history.save
+      @feedback_history.valid?
+      
+      expect(FeedbackSession.first.uid).to eq(FeedbackSession.get_uid_for_activity_session(feedback_session_uid))
+      expect(FeedbackSession.count).to eq(1)
+    end
+
+    it 'should use the replace the feedback_session_uid value with the value from FeedbackSession' do
+      feedback_session_uid = SecureRandom.uuid
+      @feedback_history.feedback_session_uid = feedback_session_uid
+      @feedback_history.save
+      expect(FeedbackSession.get_uid_for_activity_session(feedback_session_uid)).to eq(@feedback_history.feedback_session_uid)
     end
   end
 
@@ -178,39 +210,41 @@ RSpec.describe FeedbackHistory, type: :model do
       @but_prompt2 = Comprehension::Prompt.create!(activity: @activity2, conjunction: 'but', text: 'Some feedback text', max_attempts_feedback: 'Feedback')
       @so_prompt1 = Comprehension::Prompt.create!(activity: @activity1, conjunction: 'so', text: 'Some feedback text', max_attempts_feedback: 'Feedback')
       @so_prompt2 = Comprehension::Prompt.create!(activity: @activity2, conjunction: 'so', text: 'Some feedback text', max_attempts_feedback: 'Feedback')
+
+      @activity_session1_uid = SecureRandom.uuid
+      @feedback_session1_uid = FeedbackSession.get_uid_for_activity_session(@activity_session1_uid)
+      @activity_session2_uid = SecureRandom.uuid
+      @feedback_session2_uid = FeedbackSession.get_uid_for_activity_session(@activity_session2_uid)
   
-      @session1_uid = SecureRandom.uuid
-      @session2_uid = SecureRandom.uuid
-  
-      @first_session_feedback1 = create(:feedback_history, activity_session_uid: @session1_uid, prompt_id: @because_prompt1.id, optimal: false)
-      @first_session_feedback2 = create(:feedback_history, activity_session_uid: @session1_uid, prompt_id: @because_prompt1.id, attempt: 2, optimal: true)
-      @first_session_feedback3 = create(:feedback_history, activity_session_uid: @session1_uid, prompt_id: @but_prompt1.id, optimal: true)
-      @first_session_feedback4 = create(:feedback_history, activity_session_uid: @session1_uid, prompt_id: @so_prompt1.id, optimal: false)
-      @first_session_feedback5 = create(:feedback_history, activity_session_uid: @session1_uid, prompt_id: @so_prompt1.id, attempt: 2, optimal: false)
-      @first_session_feedback6 = create(:feedback_history, activity_session_uid: @session1_uid, prompt_id: @so_prompt1.id, attempt: 3, optimal: true)
-      @second_session_feedback = create(:feedback_history, activity_session_uid: @session2_uid, prompt_id: @because_prompt2.id, optimal: false)
-      create(:feedback_history, activity_session_uid: @session2_uid, prompt_id: @because_prompt2.id, attempt: 2, optimal: false)
+      @first_session_feedback1 = create(:feedback_history, feedback_session_uid: @activity_session1_uid, prompt_id: @because_prompt1.id, optimal: false)
+      @first_session_feedback2 = create(:feedback_history, feedback_session_uid: @activity_session1_uid, prompt_id: @because_prompt1.id, attempt: 2, optimal: true)
+      @first_session_feedback3 = create(:feedback_history, feedback_session_uid: @activity_session1_uid, prompt_id: @but_prompt1.id, optimal: true)
+      @first_session_feedback4 = create(:feedback_history, feedback_session_uid: @activity_session1_uid, prompt_id: @so_prompt1.id, optimal: false)
+      @first_session_feedback5 = create(:feedback_history, feedback_session_uid: @activity_session1_uid, prompt_id: @so_prompt1.id, attempt: 2, optimal: false)
+      @first_session_feedback6 = create(:feedback_history, feedback_session_uid: @activity_session1_uid, prompt_id: @so_prompt1.id, attempt: 3, optimal: true)
+      @second_session_feedback = create(:feedback_history, feedback_session_uid: @activity_session2_uid, prompt_id: @because_prompt2.id, optimal: true)
+      create(:feedback_history, feedback_session_uid: @activity_session2_uid, prompt_id: @because_prompt2.id, attempt: 2, optimal: false)
     end
   
     context '#list_by_activity_session' do
-      it 'should identify two records when there are two unique activity_session_uids' do
+      it 'should identify two records when there are two unique feedback_session_uids' do
         expect(FeedbackHistory.list_by_activity_session.length).to eq(2)
       end
   
       it 'should sort newest first' do
-        expect(FeedbackHistory.list_by_activity_session[0].session_uid).to eq(@session2_uid)
+        expect(FeedbackHistory.list_by_activity_session[0].session_uid).to eq(@feedback_session2_uid)
       end
   
       it 'should only return enough items as specified via page_size' do
         responses = FeedbackHistory.list_by_activity_session(page_size: 1)
         expect(responses.length).to eq(1)
-        expect(responses[0].session_uid).to eq(@session2_uid)
+        expect(responses[0].session_uid).to eq(@feedback_session2_uid)
       end
   
       it 'should skip pages when specified via page' do
         responses = FeedbackHistory.list_by_activity_session(page: 2, page_size: 1)
         expect(responses.length).to eq(1)
-        expect(responses[0].session_uid).to eq(@session1_uid)
+        expect(responses[0].session_uid).to eq(@feedback_session1_uid)
       end
   
       it 'should identify a session as incomplete if not all prompts have optimal feedback or too many attempts' do
@@ -222,10 +256,9 @@ RSpec.describe FeedbackHistory, type: :model do
       end
   
       it 'should identify a session as complete if all prompts have optimal responses or too many attempts' do
-      create(:feedback_history, activity_session_uid: @session2_uid, prompt_id: @because_prompt2.id, attempt: 3, optimal: true)
-        5.times {|i| create(:feedback_history, activity_session_uid: @session2_uid, prompt_id: @but_prompt2.id, attempt: i + 1, optimal: false) }
-        5.times {|i| create(:feedback_history, activity_session_uid: @session2_uid, prompt_id: @so_prompt2.id, attempt: i + 1, optimal: false) }
-        expect(FeedbackHistory.list_by_activity_session[0].complete).to eq(true)
+        5.times {|i| create(:feedback_history, feedback_session_uid: @activity_session2_uid, prompt_id: @but_prompt2.id, attempt: i + 1, optimal: false) }
+        5.times {|i| create(:feedback_history, feedback_session_uid: @activity_session2_uid, prompt_id: @so_prompt2.id, attempt: i + 1, optimal: false) }
+        expect(FeedbackHistory.list_by_activity_session[0].complete).to be
       end
     end
   
@@ -234,7 +267,7 @@ RSpec.describe FeedbackHistory, type: :model do
         responses = FeedbackHistory.list_by_activity_session
         expect(responses.map { |r| r.serialize_by_activity_session }.to_json).to eq([
           {
-            session_uid: @session2_uid,
+            session_uid: @feedback_session2_uid,
             start_date: @second_session_feedback.time.iso8601(3),
             activity_id: @activity2.id,
             because_attempts: 2,
@@ -242,7 +275,7 @@ RSpec.describe FeedbackHistory, type: :model do
             so_attempts: 0,
             complete: false
           }, {
-            session_uid: @session1_uid,
+            session_uid: @feedback_session1_uid,
             start_date: @first_session_feedback1.time.iso8601(3),
             activity_id: @activity1.id,
             because_attempts: 2,
@@ -256,10 +289,10 @@ RSpec.describe FeedbackHistory, type: :model do
   
     context '#serialize_detail_by_activity_session' do
       it 'should build the expeted payload' do
-        payload = FeedbackHistory.serialize_detail_by_activity_session(@session1_uid).symbolize_keys
+        payload = FeedbackHistory.serialize_detail_by_activity_session(@feedback_session1_uid).symbolize_keys
 
         expect(payload[:start_date].to_json).to eq(@first_session_feedback1.time.to_json)
-        expect(payload[:session_uid]).to eq(@first_session_feedback1.activity_session_uid)
+        expect(payload[:session_uid]).to eq(@first_session_feedback1.feedback_session_uid)
         expect(payload[:activity_id]).to eq(@activity1.id)
         expect(payload[:complete]).to eq(true)
 
