@@ -133,7 +133,7 @@ class TeachersController < ApplicationController
       .joins("JOIN classroom_units ON classroom_units.classroom_id = classrooms.id AND classroom_units.visible")
       .joins("JOIN unit_activities ON unit_activities.unit_id = classroom_units.unit_id AND unit_activities.activity_id IN (#{lessons_activity_ids.join(',')}) AND unit_activities.visible")
       .joins("JOIN activities ON unit_activities.activity_id = activities.id")
-      .joins("LEFT JOIN classroom_unit_activity_states ON classroom_unit_activity_states.classroom_unit_id = classroom_units.id AND classroom_unit_activity_states.unit_activity_id = unit_activities.id AND completed = FALSE")
+      .joins("JOIN classroom_unit_activity_states ON classroom_unit_activity_states.classroom_unit_id = classroom_units.id AND classroom_unit_activity_states.unit_activity_id = unit_activities.id AND completed = FALSE")
       .group("classrooms.name, activities.name, activities.id, activities.supporting_info, classroom_units.unit_id, classroom_units.id, classrooms.id, classroom_units.assigned_student_ids, classroom_units.created_at, unit_activities.created_at")
       .order("greatest(classroom_units.created_at, unit_activities.created_at) DESC")
       units = records.map do |r|

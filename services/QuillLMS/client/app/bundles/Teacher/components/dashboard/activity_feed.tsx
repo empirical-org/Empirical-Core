@@ -88,7 +88,11 @@ const ActivityFeed = ({ onMobile, }) => {
     </section>)
   }
 
-  const bottomButton = activityFeed.length > INITIAL_MAX && !showAll ? <button className="bottom-button focus-on-light interactive-wrapper" onClick={handleShowMoreClick} type="button">Show more <img alt={expandIcon.alt} src={expandIcon.src} /></button> : <a className="bottom-button focus-on-light interactive-wrapper" href="/teachers/classrooms/scorebook">See all activities</a>
+  let bottomButton
+  if (activityFeed.length > INITIAL_MAX) {
+    bottomButton = showAll ? <a className="bottom-button focus-on-light interactive-wrapper" href="/teachers/classrooms/scorebook">See all activities</a> : <button className="bottom-button focus-on-light interactive-wrapper" onClick={handleShowMoreClick} type="button">Show more <img alt={expandIcon.alt} src={expandIcon.src} /></button>
+  }
+
   const dataDisplay = onMobile ? rows.map(r => <MobileActivityRow key={r.id} row={r} />) : <DataTable headers={headers} rows={rows} />
 
   return (<section className="activity-feed populated">

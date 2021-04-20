@@ -1,12 +1,10 @@
 .post-checklist-container .activity-feed {
   &.empty {
-    height: 1112px;
+    padding: 20px 0px;
     h2 {
       margin: 24px 0px 16px;
-      border-bottom: 1px solid #e0e0e0;
       font-size: 16px;
       line-height: 1.38;
-      padding-bottom: 8px;
     }
     p {
       max-width: 336px;
@@ -44,14 +42,6 @@
     }
   }
   @media (max-width: 1103px) {
-    &.empty {
-      height: min-content;
-      padding: 20px;
-      h2 {
-        padding-bottom: 0px;
-        border-bottom: none;
-      }
-    }
     &.populated {
       h2 {
         margin-bottom: 24px;

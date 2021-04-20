@@ -43,6 +43,9 @@ const KeyMetrics = ({ firstName, }) => {
   const timeframeOptions = [{ label: 'Yearly', value: YEARLY }, { label: 'Weekly', value: WEEKLY }]
   const selectedTimeframeOption = timeframeOptions.find(opt => opt.value === selectedTimeframe)
 
+  const assignedActivitiesCount = metrics[`${selectedTimeframe}_assigned_activities_count`]
+  const completedActivitiesCount = metrics[`${selectedTimeframe}_completed_activities_count`]
+
   return (<section className="key-metrics">
     <header>
       <h2>
@@ -57,8 +60,8 @@ const KeyMetrics = ({ firstName, }) => {
       />
     </header>
     <div className="key-metrics-wrapper">
-      <KeyMetric label="Activities assigned" number={metrics[`${selectedTimeframe}_assigned_activities_count`]} />
-      <KeyMetric label="Activities completed" number={metrics[`${selectedTimeframe}_completed_activities_count`]} />
+      <KeyMetric label={`${assignedActivitiesCount === 1 ? 'Activity' : 'Activities'} assigned`} number={assignedActivitiesCount} />
+      <KeyMetric label={`${completedActivitiesCount === 1 ? 'Activity' : 'Activities'} completed`} number={completedActivitiesCount} />
     </div>
   </section>)
 
