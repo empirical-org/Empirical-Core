@@ -88,7 +88,7 @@ exports[`ClassroomStudentSection component with students should render 1`] = `
       Array [
         Object {
           "label": "View as student",
-          "value": [Function],
+          "value": undefined,
         },
         Object {
           "label": "Remove from class",

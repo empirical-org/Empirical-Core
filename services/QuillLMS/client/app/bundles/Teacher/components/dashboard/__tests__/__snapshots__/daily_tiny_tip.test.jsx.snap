@@ -11,6 +11,8 @@ exports[`DailyTinyTip component should render 1`] = `
     <a
       className="focus-on-light"
       href="https://www.quill.org/teacher-center/tiny-tips-for-teachers-using-quill-as-a-lesson-related-launching-activity"
+      rel="noopener noreferrer"
+      target="_blank"
     >
       <span>
         Using Quill as a Strategic Do Now

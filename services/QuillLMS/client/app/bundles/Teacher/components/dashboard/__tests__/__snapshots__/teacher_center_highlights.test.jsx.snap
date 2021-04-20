@@ -49,6 +49,8 @@ exports[`TeacherCenterHighlights component should render 1`] = `
       <a
         className="highlight focus-on-light"
         href="/teacher-center/getting-started-navigating-the-student-dashboard"
+        rel="noopener noreferrer"
+        target="_blank"
       >
         <h3>
           Navigating the student dashboard
@@ -73,6 +75,8 @@ exports[`TeacherCenterHighlights component should render 1`] = `
       <a
         className="highlight focus-on-light"
         href="/teacher-center/best-practices-how-to-use-quill-when-you-dont-have-time-for-the-diagnostic"
+        rel="noopener noreferrer"
+        target="_blank"
       >
         <h3>
           How to use Quill when you don't have time for the diagnostic
@@ -97,6 +101,8 @@ exports[`TeacherCenterHighlights component should render 1`] = `
       <a
         className="highlight focus-on-light"
         href="http://s3.amazonaws.com/quill-image-uploads/uploads/files/Using_Quill_with_Google_Classroom.mp4"
+        rel="noopener noreferrer"
+        target="_blank"
       >
         <h3>
           Using Quill with Google Classroom
@@ -109,6 +115,8 @@ exports[`TeacherCenterHighlights component should render 1`] = `
     <a
       className="see-all-resources focus-on-light"
       href="/teacher-center"
+      rel="noopener noreferrer"
+      target="_blank"
     >
       See all resources
     </a>
