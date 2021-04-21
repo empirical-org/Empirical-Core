@@ -106,6 +106,23 @@ class FeedbackHistory < ActiveRecord::Base
    serializable_hash(only: [:entry, :feedback_text, :feedback_type, :optimal, :used], include: []).symbolize_keys
   end
 
+  def rule_violation_repititions?
+    histories_from_same_session.where(rule_uid: rule_uid)
+      .where('attempt < ?', attempt)
+      .count > 0
+  end
+
+  def rule_violation_consecutive_repititions?
+    histories_from_same_session.where(rule_uid: rule_uid)
+      .where(attempt: attempt - 1)
+      .count > 0
+  end
+
+  private def histories_from_same_session
+    FeedbackHistory.where(feedback_session_uid: feedback_session_uid, prompt_id: prompt_id, used: true)
+      .where.not(id: id)
+  end
+
   def self.batch_create(param_array)
     param_array.map { |params| create(params) }
   end

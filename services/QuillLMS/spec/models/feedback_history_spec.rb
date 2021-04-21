@@ -200,6 +200,83 @@ RSpec.describe FeedbackHistory, type: :model do
     end
   end
 
+  context '#rule_violation_repitions?' do
+    it 'should be true if an earlier FeedbackHistory has the same rule_uid' do
+      session_uid = SecureRandom.uuid
+      rule_uid = SecureRandom.uuid
+      fh1 = create(:feedback_history, feedback_session_uid: session_uid, rule_uid: rule_uid, attempt: 1)
+      fh2 = create(:feedback_history, feedback_session_uid: session_uid, rule_uid: rule_uid, attempt: 2)
+
+      expect(fh2.rule_violation_repititions?).to be(true)
+    end
+
+    it 'should be true if a non-consecutive attempt has the same rule_uid' do
+      session_uid = SecureRandom.uuid
+      rule_uid = SecureRandom.uuid
+      fh1 = create(:feedback_history, feedback_session_uid: session_uid, rule_uid: rule_uid, attempt: 1)
+      fh2 = create(:feedback_history, feedback_session_uid: session_uid, attempt: 2)
+      fh3 = create(:feedback_history, feedback_session_uid: session_uid, rule_uid: rule_uid, attempt: 3)
+
+      expect(fh3.rule_violation_repititions?).to be(true)
+    end
+
+    it 'should be false if a later FeedbackHistory has the same rule_uid' do
+      session_uid = SecureRandom.uuid
+      rule_uid = SecureRandom.uuid
+      fh1 = create(:feedback_history, feedback_session_uid: session_uid, rule_uid: rule_uid, attempt: 1)
+      fh2 = create(:feedback_history, feedback_session_uid: session_uid, rule_uid: rule_uid, attempt: 2)
+
+      expect(fh1.rule_violation_repititions?).to be(false)
+    end
+
+    it 'should be false if a FeedbackHistory has the same rule_uid but a different session_uid' do
+      session_uid = SecureRandom.uuid
+      fh1 = create(:feedback_history, feedback_session_uid: session_uid, attempt: 1)
+      fh2 = create(:feedback_history, feedback_session_uid: session_uid, attempt: 2)
+
+      expect(fh1.rule_violation_repititions?).to be(false)
+    end
+  end
+
+  context '#rule_violation_consecutive_repititions?' do
+    it 'should be true if a consecutive earlier FeedbackHistory has the same rule_uid' do
+      session_uid = SecureRandom.uuid
+      rule_uid = SecureRandom.uuid
+      fh1 = create(:feedback_history, feedback_session_uid: session_uid, rule_uid: rule_uid, attempt: 1)
+      fh2 = create(:feedback_history, feedback_session_uid: session_uid, rule_uid: rule_uid, attempt: 2)
+
+      expect(fh2.rule_violation_consecutive_repititions?).to be(true)
+    end
+
+    it 'should be true if a non-consecutive attempt has the same rule_uid' do
+      session_uid = SecureRandom.uuid
+      rule_uid = SecureRandom.uuid
+      fh1 = create(:feedback_history, feedback_session_uid: session_uid, rule_uid: rule_uid, attempt: 1)
+      fh2 = create(:feedback_history, feedback_session_uid: session_uid, attempt: 2)
+      fh3 = create(:feedback_history, feedback_session_uid: session_uid, rule_uid: rule_uid, attempt: 3)
+
+      expect(fh3.rule_violation_consecutive_repititions?).to be(false)
+    end
+
+    it 'should be false if a later FeedbackHistory has the same rule_uid' do
+      session_uid = SecureRandom.uuid
+      rule_uid = SecureRandom.uuid
+      fh1 = create(:feedback_history, feedback_session_uid: session_uid, rule_uid: rule_uid, attempt: 1)
+      fh2 = create(:feedback_history, feedback_session_uid: session_uid, rule_uid: rule_uid, attempt: 2)
+
+      expect(fh1.rule_violation_consecutive_repititions?).to be(false)
+    end
+
+    it 'should be false if a FeedbackHistory has the same rule_uid but a different session_uid' do
+      session_uid = SecureRandom.uuid
+      fh1 = create(:feedback_history, feedback_session_uid: session_uid, attempt: 1)
+      fh2 = create(:feedback_history, feedback_session_uid: session_uid, attempt: 2)
+
+      expect(fh1.rule_violation_consecutive_repititions?).to be(false)
+    end
+
+  end
+
   context 'Session-aggregate FeedbackHistories' do
     setup do
       @activity1 = Comprehension::Activity.create!(name: 'Title_1', title: 'Title 1', parent_activity_id: 1, target_level: 1)
