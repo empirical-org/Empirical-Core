@@ -161,7 +161,8 @@ func TestAutoMLIndex(t *testing.T) {
 }
 
 func TestIdentifyUsedFeedbackIndex(t *testing.T) {
-	usable_response := InternalAPIResponse { Error: false, APIResponse: APIResponse { Concept_uid: "test_concept", Feedback: "Feedback text: optimal", Feedback_type: "type1", Optimal: false, Labels: "test_label" } }
+	usable_used_response := InternalAPIResponse { Error: false, APIResponse: APIResponse { Concept_uid: "test_concept", Feedback: "Feedback text: optimal", Feedback_type: "type1", Optimal: false, Labels: "test_label" } }
+	usable_unused_response := InternalAPIResponse { Error: false, APIResponse: APIResponse { Concept_uid: "test_concept", Feedback: "Feedback text: optimal", Feedback_type: "type1", Optimal: false, Labels: "test_label" } }
 	error_response := InternalAPIResponse { Error: true, APIResponse: APIResponse { Concept_uid: "test_concept", Feedback: "Feedback text: optimal", Feedback_type: "type1", Optimal: false, Labels: "test_label" } }
 	optimal_response := InternalAPIResponse { Error: false, APIResponse: APIResponse { Concept_uid: "test_concept", Feedback: "Feedback text: optimal", Feedback_type: "type1", Optimal: true, Labels: "test_label" } }
 
@@ -174,14 +175,15 @@ func TestIdentifyUsedFeedbackIndex(t *testing.T) {
 
 	feedbacks[0] = error_response
 	feedbacks[1] = optimal_response
-	feedbacks[2] = usable_response
+	feedbacks[2] = usable_used_response
+	feedbacks[3] = usable_unused_response
 
 	result = identifyUsedFeedbackIndex(feedbacks)
 	if result != 2 {
 		t.Errorf("Should have identified 2 for unfound used feedback, but got %d", result)
 	}
 
-	for i := 0; i <= automl_index; i++ {
+	for i := 0; i < len(feedbacks); i++ {
 		feedbacks[i] = optimal_response
 	}
 

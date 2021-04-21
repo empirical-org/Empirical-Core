@@ -170,9 +170,10 @@ func getAPIResponse(url string, priority int, json_params [] byte, c chan Intern
 }
 
 func identifyUsedFeedbackIndex(feedbacks map[int]InternalAPIResponse) int {
-	for key, feedback := range feedbacks {
+	for i := 0; i < len(feedbacks); i++ {
+		feedback := feedbacks[i]
 		if !feedback.Error && !feedback.APIResponse.Optimal {
-			return key
+			return i
 		}
 	}
 	// If none of the feedbacks are non-optimal, check to see if automl is feedback
