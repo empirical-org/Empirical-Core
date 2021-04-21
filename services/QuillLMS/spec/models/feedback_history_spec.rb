@@ -171,7 +171,7 @@ RSpec.describe FeedbackHistory, type: :model do
     end
   end
 
-  context 'before_validation: anonymize_session_uid' do
+  context 'before_create: anonymize_session_uid' do
     before(:each) do
       @feedback_history = build(:feedback_history)
     end
@@ -199,6 +199,18 @@ RSpec.describe FeedbackHistory, type: :model do
       @feedback_history.feedback_session_uid = feedback_session_uid
       @feedback_history.save
       expect(FeedbackSession.get_uid_for_activity_session(feedback_session_uid)).to eq(@feedback_history.feedback_session_uid)
+    end
+  end
+
+  context 'after_create' do
+    before(:each) do
+      @feedback_history = build(:feedback_history)
+    end
+
+    it 'should trigger a SetFeedbackHistoryFlagsWorker call' do
+      @feedback_history.id = 1000
+      expect(SetFeedbackHistoryFlagsWorker).to receive(:perform_async).with(@feedback_history.id)
+      @feedback_history.save
     end
   end
 
