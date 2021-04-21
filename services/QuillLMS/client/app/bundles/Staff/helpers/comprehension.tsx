@@ -75,13 +75,6 @@ export const getCheckIcon = (value: boolean) => {
     return (<img alt="quill-circle-checkmark" src={quillX} />);
   }
 }
-// export const getXIcon = (value: boolean) => {
-//   if(value) {
-//     return (<img alt="quill-circle-checkmark" src={quillX} />)
-//   } else {
-//     return (<div />);
-//   }
-// }
 
 export const buildBlankPrompt = (conjunction: string) => {
   return {
@@ -206,6 +199,23 @@ export function getActivityPromptSetter({
   }
   return updatePrompt;
 };
+
+export function getPromptForActivitySession(sessionData: any, conjunction: string) {
+  if(!sessionData) {
+    return null;
+  }
+  const { activitySession } = sessionData;
+  const { prompts } = activitySession;
+  if(prompts[conjunction]) {
+    const prompt = prompts[conjunction];
+    prompt.conjunction = conjunction;
+    return prompt;
+  }
+  return {
+    conjunction,
+    text: 'none'
+  }
+}
 
 const targetReadingLevelError = (value: string) => {
   if(!value) {

@@ -45,6 +45,8 @@ class ActivitySession < ActiveRecord::Base
   include Concepts
 
   default_scope { where(visible: true)}
+  has_many :feedback_sessions, foreign_key: :activity_session_uid, primary_key: :uid
+  has_many :feedback_histories, through: :feedback_sessions
   belongs_to :classroom_unit
   belongs_to :activity
   has_one :classification, through: :activity
@@ -253,7 +255,7 @@ class ActivitySession < ActiveRecord::Base
   end
 
   def set_score_from_feedback_history
-    max_attempts_per_prompt = FeedbackHistory.used.where(activity_session_uid: uid).group(:prompt_id).maximum(:attempt)
+    max_attempts_per_prompt = feedback_histories.used.group(:prompt_id).maximum(:attempt)
     return if max_attempts_per_prompt.empty?
 
     # the math here expresses the score chart translating number of attempts to score:

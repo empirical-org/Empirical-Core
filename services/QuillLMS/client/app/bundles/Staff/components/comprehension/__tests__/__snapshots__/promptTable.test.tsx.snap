@@ -1,0 +1,80 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`PromptTable component should render PromptTable 1`] = `
+<section
+  className="prompt-table-container"
+>
+  <section
+    className="attempts-section"
+  >
+    <p
+      className="attempts-label"
+    >
+      Attempts
+    </p>
+    <p
+      className="attempts-value"
+    >
+      1
+    </p>
+  </section>
+  <section
+    className="completed-section"
+  >
+    <p
+      className="completed-label"
+    >
+      Completed
+    </p>
+    <p
+      className="completed-value"
+    >
+      False
+    </p>
+  </section>
+  <DataTable
+    averageFontWidth={7}
+    className="attempts-feedback-table"
+    headers={
+      Array [
+        Object {
+          "attribute": "status",
+          "name": "Status",
+          "width": "100px",
+        },
+        Object {
+          "attribute": "results",
+          "name": "Results",
+          "width": "500px",
+        },
+        Object {
+          "attribute": "feedback",
+          "name": "Feedback Type",
+          "width": "100px",
+        },
+      ]
+    }
+    rows={
+      Array [
+        Object {
+          "results": <div>
+            <b />
+            <p
+              className="entry"
+            >
+              
+            </p>
+          </div>,
+          "status": "1st Attempt",
+        },
+        Object {
+          "className": "sub-optimal",
+          "feedback": "",
+          "results": undefined,
+          "status": "1st Feedback",
+        },
+      ]
+    }
+  />
+</section>
+`;

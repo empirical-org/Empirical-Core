@@ -90,12 +90,12 @@ describe Api::V1::SessionFeedbackHistoriesController, type: :controller do
     end
 
     it "should return json if found" do
-      get :show, id: @feedback_history.activity_session_uid
+      get :show, id: @feedback_history.feedback_session_uid
 
       parsed_response = JSON.parse(response.body)
 
       expect(200).to eq(response.code.to_i)
-      expect(parsed_response.to_json).to eq(FeedbackHistory.serialize_detail_by_activity_session(@feedback_history.activity_session_uid).to_json)
+      expect(parsed_response.to_json).to eq(FeedbackHistory.serialize_detail_by_activity_session(@feedback_history.feedback_session_uid).to_json)
     end
 
     it "should raise if not found (to be handled by parent app)" do
