@@ -5,7 +5,7 @@ MAX_RETRIES = 3
 
 class RematchResponseWorker
   include Sidekiq::Worker
-  sidekiq_options retry: 3
+  sidekiq_options retry: 3, queue: SidekiqQueue::LOW
 
   DEFAULT_PARAMS_HASH = {
     'parent_id' => nil,
@@ -17,17 +17,17 @@ class RematchResponseWorker
     'spelling_error' => false
   }.freeze
 
-  def perform(response_id, question_type, question_uid, reference_response_ids)
+  def perform(response_id, question_type, question_hash, reference_response_ids)
     response = Response.find_by(id: response_id)
-    question = retrieve_question(question_uid)
-    return unless question
+    return unless response
 
     reference_responses = Response.where(id: reference_response_ids).to_a
-    rematch_response(response, question_type, question, reference_responses)
+
+    rematch_response(response, question_type, question_hash, reference_responses)
   end
 
-  def rematch_response(response, question_type, question, reference_responses)
-    lambda_payload = construct_lambda_payload(response, question_type, question, reference_responses)
+  def rematch_response(response, question_type, question_hash, reference_responses)
+    lambda_payload = construct_lambda_payload(response, question_type, question_hash, reference_responses)
     updated_response = call_lambda_http_endpoint(lambda_payload)
     return unless updated_response.present?
 
@@ -40,11 +40,11 @@ class RematchResponseWorker
     DEFAULT_PARAMS_HASH.merge(params)
   end
 
-  def construct_lambda_payload(response, question_type, question, reference_responses)
+  def construct_lambda_payload(response, question_type, question_hash, reference_responses)
     {
       response: response,
       type: question_type,
-      question: question,
+      question: question_hash,
       referenceResponses: reference_responses
     }
   end
@@ -60,16 +60,9 @@ class RematchResponseWorker
     end
 
     if resp.code != '200'
-      raise Net::HTTPError.new("Got a non-200 response trying to rematch #{lambda_payload[:response][:id]}", resp.code)
+      raise Net::HTTPError.new("Got a #{resp.code} response trying to rematch #{lambda_payload[:response][:id]}", resp.code)
     end
 
     JSON.parse(resp.body)
-  end
-
-  def retrieve_question(question_uid)
-    response = HTTParty.get("#{ENV['LMS_URL']}/api/v1/questions/#{question_uid}.json")
-    puts response.code
-    response[:key] = question_uid
-    response.stringify_keys
   end
 end

@@ -6,15 +6,19 @@ describe RematchResponsesForQuestionWorker do
   describe '#perform' do
     question_uid = 'FAKE_UID'
     question_type = 'FAKE_TYPE'
-    let(:response1) { create(:response) }
-    let(:response2) { create(:response, id: 2) }
-    let(:reference_responses) { [response1.id, response2.id] }
+    question_hash = {'some_key': 'some value'}
+
+    let!(:graded_response) { create(:response, question_uid: question_uid, optimal: true) }
+    let!(:graded_response2) { create(:response, question_uid: question_uid, optimal: false) }
+    let(:ungraded_response) { create(:response, question_uid: question_uid, optimal: nil) }
+    let(:machine_response) { create(:response, question_uid: question_uid, optimal: nil, parent_id: graded_response.id) }
+
+
     it 'should load rematch-eligible responses and enqueue them' do
-      expect(subject).to receive(:get_ungraded_responses).with(question_uid).and_return([response1])
-      expect(subject).to receive(:get_machine_graded_responses).with(question_uid).and_return([response2])
-      expect(subject).to receive(:get_human_graded_response_ids).with(question_uid).and_return([response1.id, response2.id])
-      expect(RematchResponseWorker).to receive(:perform_async).with(response1.id, question_type, question_uid, reference_responses).ordered
-      expect(RematchResponseWorker).to receive(:perform_async).with(response2.id, question_type, question_uid, reference_responses).ordered
+      expect(subject).to receive(:retrieve_question).with(question_uid).and_return(question_hash)
+      expect(RematchResponseWorker).to receive(:perform_async).with(ungraded_response.id, question_type, question_hash, [graded_response.id, graded_response2.id]).once
+      expect(RematchResponseWorker).to receive(:perform_async).with(machine_response.id, question_type, question_hash, [graded_response.id, graded_response2.id]).once
+
       subject.perform(question_uid, question_type)
     end
   end

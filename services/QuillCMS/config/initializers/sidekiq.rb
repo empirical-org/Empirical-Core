@@ -8,3 +8,12 @@ end
 Sidekiq.configure_client do |config|
   config.redis = { url: sidekiq_url }
 end
+
+
+module SidekiqQueue
+  # QUEUE DEFINITIONS
+  DEFAULT = 'default'
+  # LOW: Jobs that might be long-running that we don't want to clog up the main workers
+  # and that can be delayed.
+  LOW = 'low'
+end
