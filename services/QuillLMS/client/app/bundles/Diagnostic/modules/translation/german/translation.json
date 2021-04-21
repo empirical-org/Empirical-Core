@@ -6,15 +6,23 @@
         "resume": "Continue / Weiter",
         "submit": "Submit / Einreichen"
     },
-    "intro": {
-        "header": "Quill Platzdeckchen-Methode (Placemat)",
-        "text": "Du stehst kurz davor, 22 Fragen über das Schreiben von Sätzen zu beantworten. Einige der Fragen könnten sich auf Dinge beziehen, die du noch nicht gelernt hast – das ist in Ordnung! Beantworte sie einfach, so gut du kannst. Vergiss nicht, die Anweisungen für jede Frage sorgfältig zu lesen! Sobald du fertig bist, wird Quill einen Lernplan für dich erstellen."
-    },
     "ELL Starter Fill in the Blank": {
         "header": "Fülle die Lücken aus",
         "text": "Jeder Satz in diesem Abschnitt hat eine, zwei oder drei Lücken. Du kannst entweder jede Lücke mit einem der Wörter aus der Liste ausfüllen oder die Lücke leer lassen, falls kein Wort benötigt wird. Gib die Wörter, die du ausgewählt hast, in die Felder ein. Vergiss nicht, deine Rechtschreibung zu überprüfen! Lass uns loslegen!"
     },
+    "ELL Intermediate Fill in the Blank": {
+        "header": "Fülle die Lücke aus",
+        "text": "In diesem Abschnitt hat jeder Satz eine, zwei, drei oder vier Lücken. Du füllst jede Lücke mit einem der Wörter aus der Liste aus. Bei einigen Fragen kannst du ein Wort aus der Liste in zwei Lücken einsetzen. Tippe die gewählten Wörter in die Kästchen ein. Denke dabei an die Rechtschreibung! Fangen wir an!"
+    },
+    "ELL Advanced Fill in the Blank": {
+        "header": "Fülle die Lücke aus",
+        "text": "Bisher, gut gemacht! In diesem Abschnitt hat jeder Satz eine, zwei, drei oder vier Lücken. Wenn es mehrere Lücken gibt, dann tippe jedes Wort nur ein Mal ein. Fangen wir an!"
+    },
     "ELL Starter Halfway": {
+        "header": "Du bist schon halbwegs fertig!",
+        "text": "Großartige Arbeit, mach weiter so!"
+    },
+    "ELL Halfway": {
         "header": "Du bist schon halbwegs fertig!",
         "text": "Großartige Arbeit, mach weiter so!"
     },
@@ -25,6 +33,14 @@
     "ELL Starter Sentence Combining": {
         "header": "Sätze kombinieren",
         "text": "Du bist fast fertig! Es sind nur noch 3 Fragen übrig. In diesem Abschnitt wirst du mehrere Sätze zu einem einzigen Satz kombinieren. Dafür wirst du ein Verbindungswort erhalten. Denke daran, dass ein Satz nur einen Punkt hat. Du hast das hier im Griff!"
+    },
+    "ELL Intermediate Sentences": {
+        "header": "Sätze schreiben",
+        "text": "Gut gemacht! Es sind nur noch zwei Fragen übrig. Beim nächsten Abschnitt geht es um die Zukunftsform. Schreibe den ganzen Satz für beide Fragen. Fangen wir an."
+    },
+    "ELL Advanced Sentences": {
+        "header": "Tätigkeitsworte in Sätzen",
+        "text": "Schreibe für jede Frage in diesem Abschnitt den ganzen Satz. Ändere die Form des Wortes, das unterstrichen ist, damit es zum restlichen Satz passt. Denke dabei an die Rechtschreibung!! Fangen wir an!"
     },
     "End: You Did it!": {
         "header": "Du hast es geschafft!",
@@ -40,10 +56,17 @@
         "Fill in each blank with one of the choices.": "Fülle jede Lücke mit einer der möglichen Optionen aus.",
         "Fill in the blanks with one word each.": "Fülle die Lücken mit je einem Wort aus.",
         "Fill in the blanks with one word each. You can leave one empty.": "Fülle die Lücken mit je einem Wort aus oder lasse sie leer.",
+        "Fill in each blank with one of the choices. You may use one word more than once. There is more than one right answer.": "Fülle die Lücken mit einer der möglichen Optionen aus.",
+        "Fill in the blanks. Use each word once.": "Füllen Sie die Lücken aus. Verwenden Sie jedes Wort einmal.",
+        "Rewrite the sentence. Correct the underlined action word so it is in future tense.": "Schreibe den Satz um. Korrigiere das unterstrichene Tätigkeitswort, damit es in der Zukunftsform steht.",
+        "Rewrite the sentence. Correct the underlined action word so it is in the right tense to match the rest of the sentence.": "Schreibe den Satz um. Korrigiere das unterstrichene Tätigkeitswort, damit es in der richtigen Zeitform steht und zum restlichen Satz passt.",
+        "Rewrite the sentence. Correct the underlined words so they are in future tense.": "Schreibe den Satz um. Korrigiere die unterstrichenen Tätigkeitsworte, damit sie in der Zukunftsform stehen.",
+        "Respond to the question. Fill in the blank with one of the choices.": "Antworte auf die Frage. Fülle die Lücke mit einem der Wörter aus.",
         "Use the joining word to combine the sentences into one sentence.": "Benutze das Verbindungswort, um Sätze zu einem einzigen Satz zu verbinden."
     },
     "cues": {
         "type one": "type one / tippe ein",
+        "type one in each blank": "tippe ein in jede Lücke",
         "type two or three": "type two or three / tippe zwei oder drei",
         "type three": "type three / tippe drei",
         "choose one": "choose one / wähle eins",

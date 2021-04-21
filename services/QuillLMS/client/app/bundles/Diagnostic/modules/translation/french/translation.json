@@ -6,15 +6,23 @@
         "resume": "Resume / Continuer",
         "submit": "Submit / Envoyer"
     },
-    "intro": {
-        "header": "Activité de placement Quill",
-        "text": "Vous allez répondre à 22 questions sur l’écriture des phrases. Certaines de ces questions peuvent concerner des choses que vous n’avez pas encore apprises. Ce n’est pas grave ! Répondez-y simplement le mieux possible. N’oubliez pas de lire attentivement les instructions pour chaque question ! Lorsque vous aurez terminé, Quill créera un programme d’apprentissage spécialement pour vous."
-    },
     "ELL Starter Fill in the Blank": {
         "header": "Remplissez les trous",
         "text": "Dans cette section, chaque phrase comportera un, deux ou trois trous. Vous pouvez remplir chaque trou avec un des mots de la liste, mais il peut arriver que vous deviez le laisser vide. Saisissez les mots que vous avez choisis dans les cases. N’oubliez pas de vérifier votre orthographe ! C’est parti !"
     },
+    "ELL Intermediate Fill in the Blank": {
+        "header": "Boucher les trous",
+        "text": "Dans cette section, chaque phrase comportera un, deux, trois ou quatre blancs. Tu rempliras chaque blanc avec l'un des mots de la liste. Pour certaines questions, tu peux utiliser un mot de la liste à deux endroits. Tape les mots que tu as choisis dans les cases. N'oublie pas de vérifier ton orthographe ! C'est parti !"
+    },
+    "ELL Advanced Fill in the Blank": {
+        "header": "Boucher les trous",
+        "text": "Bon travail jusqu'à présent ! Dans cette section, chaque phrase comportera un, deux, trois ou quatre blancs. Lorsqu'il y a plusieurs blancs, ne tape chaque mot qu'une seule fois. C'est parti !"
+    },
     "ELL Starter Halfway": {
+        "header": "Vous en êtes à la moitié !",
+        "text": "Continuez !"
+    },
+    "ELL Halfway": {
         "header": "Vous en êtes à la moitié !",
         "text": "Continuez !"
     },
@@ -25,6 +33,14 @@
     "ELL Starter Sentence Combining": {
         "header": "Combinaison de phrases",
         "text": "Vous avez presque terminé ! Il ne vous reste que 3 questions. Dans cette section, vous allez combiner des phrases pour en créer une seule. Vous devrez utiliser le mot de liaison indiqué. N’oubliez pas qu’une phrase ne contient qu’un seul point. Vous allez y arriver !"
+    },
+    "ELL Intermediate Sentences": {
+        "header": "Rédiger des phrases",
+        "text": "Beau travail ! Il ne te reste que deux questions.  La section suivante porte sur le futur. Écris la phrase entière pour les deux questions. À toi de jouer."
+    },
+    "ELL Advanced Sentences": {
+        "header": "Verbes d'action dans des phrases",
+        "text": "Pour chaque question de cette section, écris la phrase entière. Change la forme du mot souligné pour qu'il corresponde au reste de la phrase. Fais bien attention à ton orthographe ! C'est parti !"
     },
     "End: You Did it!": {
         "header": "Bien joué !",
@@ -40,10 +56,17 @@
         "Fill in each blank with one of the choices.": "Remplissez les trous avec l’un des mots proposés.",
         "Fill in the blanks with one word each.": "Remplissez les trous avec un mot.",
         "Fill in the blanks with one word each. You can leave one empty.": "Remplissez les trous avec un mot. Vous pouvez en laissez un vide ou tous les remplir.",
+        "Fill in each blank with one of the choices. You may use one word more than once. There is more than one right answer.": "Remplis chaque blanc avec l'un des choix proposés. Tu peux utiliser un mot plus d'une fois. Il n'y a pas qu'une seule réponse.",
+        "Fill in the blanks. Use each word once.": "Remplissez les espaces vides. Utilisez chaque mot une seule fois.",
+        "Rewrite the sentence. Correct the underlined action word so it is in future tense.": "Réécris la phrase. Corrige le verbe d'action souligné pour qu'il soit au futur.",
+        "Rewrite the sentence. Correct the underlined action word so it is in the right tense to match the rest of the sentence.": "phrase.",
+        "Rewrite the sentence. Correct the underlined words so they are in future tense.": "Réécris la phrase. Corrige les mots soulignés pour qu'ils soient au futur.",
+        "Respond to the question. Fill in the blank with one of the choices.": "Réponds à la question. Remplis le blanc avec l'un des choix proposés.",
         "Use the joining word to combine the sentences into one sentence.": "Utilisez le mot de liaison indiqué pour combiner les phrases et en former une seule."
     },
     "cues": {
         "type one": "type one / tape un mot",
+        "type one in each blank": "tape un mot dans chaque blanc",
         "type two or three": "type two or three / tape deux ou trois mots",
         "type three": "type three / tape trois mots",
         "choose one": "choose one / choisissez-en un",

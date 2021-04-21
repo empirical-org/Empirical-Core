@@ -6,15 +6,23 @@
         "resume": "Continue / Ipagpatuloy",
         "submit": "Submit / I-submit"
     },
-    "intro": {
-        "header": "Placement Activity ng Quill",
-        "text": "May sasagutin ka ngayon na 22 tanong sa pagsusulat ng pangungusap. Ang ilan sa mga tanong ay maaaring tungkol sa mga bagay na hindi mo pa alam—pero okay lang iyon! Sagutan lang ang mga iyon sa abot ng kaya mo. Huwag kalimutang basahin ang mga tagubilin para sa bawat tanong! Kapag tapos ka na, gagawa ang Quill ng isang learning plan para lang sa iyo."
-    },
     "ELL Starter Fill in the Blank": {
         "header": "Punan ang mga Patlang",
         "text": "Sa bahaging ito, ang bawat pangungusap ay may isa, dalawa, o tatlong patlang. Pupunan mo ang bawat patlang ng isang salita mula sa listahan, o iiwan itong blangko kung walang salita na kailangan. I-type sa mga kahon ang mga salitang napili mo. Tandaan, i-check ang spelling! Simulan na natin!"
     },
+    "ELL Intermediate Fill in the Blank": {
+        "header": "Punan ang Blangko",
+        "text": "Sa seksyong ito, bawat pangungusap ay magkakaroon ng isa, dalawa, tatlo, o apat na blangko. Pupunan mo ang bawat blangko ng isa sa mga salita mula sa listahan. Para sa ilang tanong, pwede mong gamitin sa dalawang blangko ang isang salita mula sa listahan. I-type ang mga salitang pinili mo papunta sa mga kahon. Alalahaning tingnan ang iyong pagbaybay. Tara magsimula na tayo!"
+    },
+    "ELL Advanced Fill in the Blank": {
+        "header": "Punan ang Blangko",
+        "text": "Mahusay na trabaho sa ngayon! Sa seksyong ito, bawat pangungusap ay magkakaroon ng isa, dalawa, tatlo, o apat na blangko. Kapag may maraming blangko, i-type lang ang bawat salita nang isang beses. Tara magsimula na tayo!"
+    },
     "ELL Starter Halfway": {
+        "header": "Halos nasa kalahati ka na!",
+        "text": "Ituloy mo lang, magaling!"
+    },
+    "ELL Halfway": {
         "header": "Halos nasa kalahati ka na!",
         "text": "Ituloy mo lang, magaling!"
     },
@@ -25,6 +33,14 @@
     "ELL Starter Sentence Combining": {
         "header": "Pagsamahin ang Pangungusap",
         "text": "Halos tapos ka na! May 3 tanong na lang. Sa bahaging ito, pagsasamahin mo ang mga pangungusap at gagawing isang pangungusap. Bibigyan ka ng salitang gagamitin mo para pagsamahin ang mga iyon. Tandaan na ang isang pangungusap ay may isang tuldok lang. Madali lang iyan!"
+    },
+    "ELL Intermediate Sentences": {
+        "header": "Pagsulat ng mga Pangungusap",
+        "text": "Magaling! Mayroon ka na lang dalawang tanong na natitira. Ang susunod na seksyong ito ay tungkol sa panahunang panghinaharap. Isulat ang buong pangungusap para sa parehong tanong. Tara gawin natin ito."
+    },
+    "ELL Advanced Sentences": {
+        "header": "Mga Salitang Kilos sa mga Pangungusap",
+        "text": "Para sa bawat tanong sa seksyong ito, isulat ang buong pangungusap. Baguhin ang anyo ng may salungguhit na salita para gawin itong tumutugma sa natitirang bahagi ng pangungusap. Alalahaning tingnan ang iyong pagbaybay! Tara magsimula na tayo!"
     },
     "End: You Did it!": {
         "header": "Nagawa mo!",
@@ -40,10 +56,17 @@
         "Fill in each blank with one of the choices.": "Punan ang bawat patlang ng isa sa mga pagpipilian.",
         "Fill in the blanks with one word each.": "Punan ang mga patlang ng tig-isang salita.",
         "Fill in the blanks with one word each. You can leave one empty.": "Punan ang mga patlang ng tig-isang salita. Maaari mo ring iwang blanko ang isa.",
+        "Fill in each blank with one of the choices. You may use one word more than once. There is more than one right answer.": "Punan ang bawat blangko ng isa sa mga pagpipilian. Maaari mong gamitin ang isang salita nang higit sa isang beses. May higit sa isang tamang sagot.",
+        "Fill in the blanks. Use each word once.": "Punan ang mga blangko. Gamitin ang bawat salita nang isang beses.",
+        "Rewrite the sentence. Correct the underlined action word so it is in future tense.": "Isulat muli ang pangungusap. Itama ang may salungguhit na salitang kilos nang sa gayon ay nasa panahunang panghinaharap ito.",
+        "Rewrite the sentence. Correct the underlined action word so it is in the right tense to match the rest of the sentence.": "Isulat muli ang pangungusap. Itama ang may salungguhit na salitang kilos nang sa gayon ay nasa tamang panahunan ito para tumugma sa natitirang bahagi ng pangungusap.",
+        "Rewrite the sentence. Correct the underlined words so they are in future tense.": "Isulat muli ang pangungusap. Itama ang mga may salungguhit na salita nang sa gayon ay nasa panahunang panghihinarap ang mga ito.",
+        "Respond to the question. Fill in the blank with one of the choices.": "Sumagot sa tanong. Punan ang blangko ng isa sa mga pagpipilian.",
         "Use the joining word to combine the sentences into one sentence.": "Gamitin ang salita para pagsamahin ang mga pangungusap at gawing isang pangungusap."
     },
     "cues": {
         "type one": "type one / mag-type ng isa",
+        "type one in each blank": "mag-type ng isa sa bawat blangko",
         "type two or three": "type two or three / mag-type ng dalawa o tatlo",
         "type three": "type three / mag-type ng tatlo",
         "choose one": "choose one / pumili ng isa",

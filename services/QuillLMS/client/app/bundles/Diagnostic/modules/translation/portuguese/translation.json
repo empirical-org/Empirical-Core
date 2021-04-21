@@ -6,15 +6,23 @@
         "resume": "Continue",
         "submit": "Submit / Enviar"
     },
-    "intro": {
-        "header": "Atividade de Colocação da Quill",
-        "text": "Você agora deverá responder 22 perguntas sobre como escrever frases. Algumas das perguntas podem ser sobre coisas que você ainda não aprendeu - tudo bem! Você só precisa responder da melhor maneira que puder. Não se esqueça de ler cuidadosamente as instruções para cada pergunta! Quando terminar, a Quill criará um plano de aprendizagem só para você."
-    },
     "ELL Starter Fill in the Blank": {
         "header": "Preencha os espaços em branco",
         "text": "Nesta seção, cada frase poderá ter um, dois ou três espaços em branco. Você deverá preencher cada espaço em branco com uma das palavras da lista; ou, se nenhuma palavra for necessária, deixe o espaço em branco vazio. Digite nas caixas as palavras que você escolher. Lembre-se de verificar a ortografia! Vamos começar!"
     },
+    "ELL Intermediate Fill in the Blank": {
+        "header": "Preencha a lacuna",
+        "text": "Nesta parte, cada frase terá uma, duas, três ou quatro lacunas. Você vai preencher cada uma delas com uma das palavras da lista. Para algumas questões, você pode usar uma palavra da lista em duas lacunas. Digite as palavras escolhidas nas caixas. Não se esqueça de conferir a ortografia! Vamos começar!"
+    },
+    "ELL Advanced Fill in the Blank": {
+        "header": "Preencha a lacuna",
+        "text": "Bom trabalho até agora! Nesta parte, cada frase terá uma, duas, três ou quatro lacunas. Quando houver várias lacunas, digite cada palavra apenas uma vez. Vamos começar!"
+    },
     "ELL Starter Halfway": {
+        "header": "Você já está no meio do caminho!",
+        "text": "Continue, você está indo muito bem!"
+    },
+    "ELL Halfway": {
         "header": "Você já está no meio do caminho!",
         "text": "Continue, você está indo muito bem!"
     },
@@ -25,6 +33,14 @@
     "ELL Starter Sentence Combining": {
         "header": "Combinação de frases",
         "text": "Você está quase acabando! Só faltam 3 perguntas. Nesta seção, você deverá combinar frases para formar uma nova frase. Você receberá uma palavra de ligação que poderá usar. Lembre-se que uma frase só tem um ponto final. Você entendeu!"
+    },
+    "ELL Intermediate Sentences": {
+        "header": "Escrita de frases",
+        "text": "Muito bem! Só faltam duas questões. Esta próxima parte é sobre o tempo futuro. Escreva a frase inteira para ambas as questões. Vamos lá."
+    },
+    "ELL Advanced Sentences": {
+        "header": "Palavras de ação em frases",
+        "text": "Para cada questão desta parte, escreva a frase inteira. Modifique a forma da palavra sublinhada para que ela corresponda ao restante da frase. Não se esqueça de conferir a ortografia! Vamos começar!"
     },
     "End: You Did it!": {
         "header": "Você conseguiu!",
@@ -40,10 +56,17 @@
         "Fill in each blank with one of the choices.": "Preencha cada espaço em branco com uma das opções escolhidas.",
         "Fill in the blanks with one word each.": "Preencha cada espaço em branco com uma palavra.",
         "Fill in the blanks with one word each. You can leave one empty.": "Preencha cada espaço em branco com uma palavra. Você pode deixar um espaço vazio.",
+        "Fill in each blank with one of the choices. You may use one word more than once. There is more than one right answer.": "Preencha cada lacuna com uma das opções. Você pode usar uma palavra mais de uma vez. Há mais de uma resposta correta.",
+        "Fill in the blanks. Use each word once.": "Preencha os espaços em branco. Use cada palavra só uma vez.",
+        "Rewrite the sentence. Correct the underlined action word so it is in future tense.": "Reescreva a frase. Corrija a palavra de ação sublinhada para que fique no tempo futuro.",
+        "Rewrite the sentence. Correct the underlined action word so it is in the right tense to match the rest of the sentence.": "Reescreva a frase. Corrija a palavra de ação sublinhada para que fique no tempo correto para corresponder ao resto da frase.",
+        "Rewrite the sentence. Correct the underlined words so they are in future tense.": "Reescreva a frase. Corrija as palavras sublinhadas para que fiquem no tempo futuro.",
+        "Respond to the question. Fill in the blank with one of the choices.": "Responda à questão. Preencha a lacuna com uma das opções.",
         "Use the joining word to combine the sentences into one sentence.": "Use a palavra de ligação para combinar as frases e formar uma frase só."
     },
     "cues": {
         "type one": "type one / digite uma",
+        "type one in each blank": "digite uma em cada lacuna",
         "type two or three": "type two or three / digite duas ou três",
         "type three": "type three / digite três",
         "choose one": "choose one / escolha uma",
