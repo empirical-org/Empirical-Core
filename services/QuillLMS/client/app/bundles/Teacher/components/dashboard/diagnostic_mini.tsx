@@ -99,7 +99,7 @@ const DiagnosticMini = ({diagnostics, onMobile, }) => {
         <span>Diagnostic </span>
         <span className="no-break">
           <span>recommendations</span>
-          <a className="focus-on-light" href="https://app.intercom.com/a/apps/v2ms5bl3/articles/articles/5014101/show"><img alt={helpIcon.alt} src={helpIcon.src} /></a>
+          <a className="focus-on-light" href="https://support.quill.org/en/articles/5014101-how-does-the-diagnostic-recommendations-section-on-the-teacher-home-page-work" rel="noopener noreferrer" target="_blank"><img alt={helpIcon.alt} src={helpIcon.src} /></a>
         </span>
       </h2>
     </header>

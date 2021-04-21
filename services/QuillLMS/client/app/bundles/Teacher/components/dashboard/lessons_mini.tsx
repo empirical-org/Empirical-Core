@@ -116,7 +116,7 @@ const LessonsMini = ({ lessons, onMobile, }) => {
         <span>Present a live </span>
         <span className="no-break">
           <span>lesson</span>
-          <a className="focus-on-light" href="https://app.intercom.com/a/apps/v2ms5bl3/articles/articles/5014101/show"><img alt={helpIcon.alt} src={helpIcon.src} /></a>
+          <a className="focus-on-light" href="https://app.intercom.com/a/apps/v2ms5bl3/articles/articles/5014101/show" rel="noopener noreferrer" target="_blank"><img alt={helpIcon.alt} src={helpIcon.src} /></a>
         </span>
       </h2>
     </header>

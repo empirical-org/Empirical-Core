@@ -32,7 +32,7 @@ const KeyMetrics = ({ firstName, metrics, }) => {
     <header>
       <h2>
         <span>{firstName}, here&#39;s your {selectedTimeframe} </span>
-        <span className="no-break"><span>summary</span><a className="focus-on-light" href="https://app.intercom.com/a/apps/v2ms5bl3/articles/articles/5014089/show"><img alt={helpIcon.alt} src={helpIcon.src} /></a></span>
+        <span className="no-break"><span>summary</span><a className="focus-on-light" href="https://support.quill.org/en/articles/5014089-how-are-the-metrics-on-the-teacher-home-page-calculated" rel="noopener noreferrer" target="_blank"><img alt={helpIcon.alt} src={helpIcon.src} /></a></span>
       </h2>
       <DropdownInput
         handleChange={onChangeSelectedTimeframe}
