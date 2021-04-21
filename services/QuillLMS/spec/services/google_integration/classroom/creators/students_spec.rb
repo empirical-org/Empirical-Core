@@ -10,7 +10,7 @@ describe 'GoogleIntegration::Classroom::Creators::Students' do
   let!(:classroom) { create(:classroom) }
   let!(:classrooms) { [classroom] }
 
-  let!(:students_requester) {
+  let!(:students_requester) do
     lambda do |course_id|
       x = [{
           "profile": {
@@ -35,15 +35,15 @@ describe 'GoogleIntegration::Classroom::Creators::Students' do
       }]
       body = JSON.parse(x.to_json)
     end
-  }
+  end
 
   context 'no students have been previously created' do
-    let!(:expected) {
+    let!(:expected) do
       [
         { name: 'Test1_s1 S1', email: 'test1_s1@gedu.demo.rockerz.xyz'},
         { name: 'Test1_s2 S2', email: 'test1_s2@gedu.demo.rockerz.xyz'}
       ]
-    }
+    end
 
     it 'creates all the students' do
       expect(subject(classrooms, students_requester)).to eq(expected)
