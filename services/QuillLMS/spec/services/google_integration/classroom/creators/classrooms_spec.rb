@@ -28,19 +28,4 @@ describe 'GoogleIntegration::Classroom::Creators::Classrooms' do
       expect(subject(teacher, courses)).to eq(expected)
     end
   end
-
-  context 'a classroom already exists for one of the courses' do
-    let!(:extant) {
-      create(:classroom, google_classroom_id: 1)
-    }
-
-    let!(:expected) {
-      [{name: 'class2', google_classroom_id: 2}]
-    }
-
-    xit 'produces 1 classroom' do
-      pending("Syncing Google classrooms needs extra state management")
-      expect(subject(teacher, courses)).to eq(expected)
-    end
-  end
 end

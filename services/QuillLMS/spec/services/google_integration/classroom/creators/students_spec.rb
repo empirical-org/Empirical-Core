@@ -49,19 +49,4 @@ describe 'GoogleIntegration::Classroom::Creators::Students' do
       expect(subject(classrooms, students_requester)).to eq(expected)
     end
   end
-
-
-  context 'activities have been assigned to the classroom in the past' do
-
-    def subject
-      GoogleIntegration::Classroom::Creators::Students.run(classrooms, students_requester)
-    end
-
-    let!(:activity) { create(:activity) }
-    let!(:classroom_activity) { create(:classroom_activity, classroom: classroom, activity: activity, assign_on_join: true) }
-
-    xit 'assigns those activities to the new students' do
-      expect(classroom_activity.assigned_student_ids.length).to eq(subject.count)
-    end
-  end
 end
