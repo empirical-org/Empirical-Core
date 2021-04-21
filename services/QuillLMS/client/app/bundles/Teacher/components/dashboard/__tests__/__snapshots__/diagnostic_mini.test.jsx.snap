@@ -1,22 +1,8 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`DiagnosticMini component should render when it is done loading and there are no diagnostics 1`] = `
+exports[`DiagnosticMini component not on mobile should render when there are diagnostics 1`] = `
 <DiagnosticMini
-  passedDiagnostics={Array []}
->
-  <span />
-</DiagnosticMini>
-`;
-
-exports[`DiagnosticMini component should render when it is loading 1`] = `
-<DiagnosticMini>
-  <span />
-</DiagnosticMini>
-`;
-
-exports[`DiagnosticMini component should render when there are diagnostics 1`] = `
-<DiagnosticMini
-  passedDiagnostics={
+  diagnostics={
     Array [
       Object {
         "activity_id": 447,
@@ -173,6 +159,7 @@ exports[`DiagnosticMini component should render when there are diagnostics 1`] =
       },
     ]
   }
+  onMobile={false}
 >
   <section
     className="diagnostic-mini"
@@ -190,7 +177,9 @@ exports[`DiagnosticMini component should render when there are diagnostics 1`] =
           </span>
           <a
             className="focus-on-light"
-            href="https://app.intercom.com/a/apps/v2ms5bl3/articles/articles/5014101/show"
+            href="https://support.quill.org/en/articles/5014101-how-does-the-diagnostic-recommendations-section-on-the-teacher-home-page-work"
+            rel="noopener noreferrer"
+            target="_blank"
           >
             <img
               alt="Question mark icon"
@@ -886,5 +875,452 @@ exports[`DiagnosticMini component should render when there are diagnostics 1`] =
       />
     </button>
   </section>
+</DiagnosticMini>
+`;
+
+exports[`DiagnosticMini component not on mobile should render when there are no diagnostics 1`] = `
+<DiagnosticMini
+  diagnostics={Array []}
+  onMobile={false}
+>
+  <span />
+</DiagnosticMini>
+`;
+
+exports[`DiagnosticMini component on mobile should render when there are diagnostics 1`] = `
+<DiagnosticMini
+  diagnostics={
+    Array [
+      Object {
+        "activity_id": 447,
+        "activity_name": "ELL Diagnostic",
+        "assigned_count": 5,
+        "classroom_id": 484134,
+        "classroom_name": "Quill Classroom Extremely Long So Long SUper Duper",
+        "completed_count": 0,
+        "unit_id": 826269,
+      },
+      Object {
+        "activity_id": 447,
+        "activity_name": "ELL Diagnostic",
+        "assigned_count": 0,
+        "classroom_id": 484135,
+        "classroom_name": "A New Class",
+        "completed_count": 0,
+        "unit_id": 826269,
+      },
+      Object {
+        "activity_id": 849,
+        "activity_name": "Starter Diagnostic",
+        "assigned_count": 5,
+        "classroom_id": 484134,
+        "classroom_name": "Quill Classroom Extremely Long So Long SUper Duper",
+        "completed_count": 5,
+        "unit_id": 826268,
+      },
+      Object {
+        "activity_id": 849,
+        "activity_name": "Starter Diagnostic",
+        "assigned_count": 5,
+        "classroom_id": 484134,
+        "classroom_name": "Quill Classroom Extremely Long So Long SUper Duper",
+        "completed_count": 0,
+        "unit_id": 826269,
+      },
+      Object {
+        "activity_id": 849,
+        "activity_name": "Starter Diagnostic",
+        "assigned_count": 0,
+        "classroom_id": 484135,
+        "classroom_name": "A New Class",
+        "completed_count": 0,
+        "unit_id": 826269,
+      },
+      Object {
+        "activity_id": 850,
+        "activity_name": "Intermediate Diagnostic",
+        "assigned_count": 5,
+        "classroom_id": 484134,
+        "classroom_name": "Quill Classroom Extremely Long So Long SUper Duper",
+        "completed_count": 0,
+        "unit_id": 826269,
+      },
+      Object {
+        "activity_id": 850,
+        "activity_name": "Intermediate Diagnostic",
+        "assigned_count": 0,
+        "classroom_id": 484135,
+        "classroom_name": "A New Class",
+        "completed_count": 0,
+        "unit_id": 826269,
+      },
+      Object {
+        "activity_id": 888,
+        "activity_name": "Advanced Diagnostic",
+        "assigned_count": 5,
+        "classroom_id": 484134,
+        "classroom_name": "Quill Classroom Extremely Long So Long SUper Duper",
+        "completed_count": 0,
+        "unit_id": 826269,
+      },
+      Object {
+        "activity_id": 888,
+        "activity_name": "Advanced Diagnostic",
+        "assigned_count": 0,
+        "classroom_id": 484135,
+        "classroom_name": "A New Class",
+        "completed_count": 0,
+        "unit_id": 826269,
+      },
+      Object {
+        "activity_id": 992,
+        "activity_name": "AP® Writing Skills Survey",
+        "assigned_count": 5,
+        "classroom_id": 484134,
+        "classroom_name": "Quill Classroom Extremely Long So Long SUper Duper",
+        "completed_count": 0,
+        "unit_id": 826269,
+      },
+      Object {
+        "activity_id": 992,
+        "activity_name": "AP® Writing Skills Survey",
+        "assigned_count": 0,
+        "classroom_id": 484135,
+        "classroom_name": "A New Class",
+        "completed_count": 0,
+        "unit_id": 826269,
+      },
+      Object {
+        "activity_id": 1161,
+        "activity_name": "ELL Starter Diagnostic",
+        "assigned_count": 5,
+        "classroom_id": 484134,
+        "classroom_name": "Quill Classroom Extremely Long So Long SUper Duper",
+        "completed_count": 0,
+        "unit_id": 826269,
+      },
+      Object {
+        "activity_id": 1161,
+        "activity_name": "ELL Starter Diagnostic",
+        "assigned_count": 0,
+        "classroom_id": 484135,
+        "classroom_name": "A New Class",
+        "completed_count": 0,
+        "unit_id": 826269,
+      },
+      Object {
+        "activity_id": 1229,
+        "activity_name": "Pre-AP® Writing Skills Survey 1: Basics of Sentence Patterns",
+        "assigned_count": 5,
+        "classroom_id": 484134,
+        "classroom_name": "Quill Classroom Extremely Long So Long SUper Duper",
+        "completed_count": 0,
+        "unit_id": 826269,
+      },
+      Object {
+        "activity_id": 1229,
+        "activity_name": "Pre-AP® Writing Skills Survey 1: Basics of Sentence Patterns",
+        "assigned_count": 0,
+        "classroom_id": 484135,
+        "classroom_name": "A New Class",
+        "completed_count": 0,
+        "unit_id": 826269,
+      },
+      Object {
+        "activity_id": 1230,
+        "activity_name": "Pre-AP® Writing Skills Survey 2: Tools for Sentence Expansion",
+        "assigned_count": 5,
+        "classroom_id": 484134,
+        "classroom_name": "Quill Classroom Extremely Long So Long SUper Duper",
+        "completed_count": 0,
+        "unit_id": 826269,
+      },
+      Object {
+        "activity_id": 1230,
+        "activity_name": "Pre-AP® Writing Skills Survey 2: Tools for Sentence Expansion",
+        "assigned_count": 0,
+        "classroom_id": 484135,
+        "classroom_name": "A New Class",
+        "completed_count": 0,
+        "unit_id": 826269,
+      },
+    ]
+  }
+  onMobile={true}
+>
+  <section
+    className="diagnostic-mini"
+  >
+    <header>
+      <h2>
+        <span>
+          Diagnostic 
+        </span>
+        <span
+          className="no-break"
+        >
+          <span>
+            recommendations
+          </span>
+          <a
+            className="focus-on-light"
+            href="https://support.quill.org/en/articles/5014101-how-does-the-diagnostic-recommendations-section-on-the-teacher-home-page-work"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            <img
+              alt="Question mark icon"
+              src="undefined/images/icons/icons-help.svg"
+            />
+          </a>
+        </span>
+      </h2>
+    </header>
+    <MobileRecommendationRow
+      key="447-484134-826269"
+      row={
+        Object {
+          "classroom": "Quill Classroom Extremely Long So Long SUper Duper",
+          "completed": "0 of 5",
+          "diagnostic": "ELL Diagnostic",
+          "id": "447-484134-826269",
+          "recommendations": <a
+            className="focus-on-light"
+            href="/teachers/progress_reports/diagnostic_reports#/u/826269/a/447/c/484134/recommendations"
+          >
+            <img
+              alt="File with a chart icon"
+              src="undefined/images/icons/icons-file-chart.svg"
+            />
+            <span>
+              View
+            </span>
+          </a>,
+          "recommendationsHref": "/teachers/progress_reports/diagnostic_reports#/u/826269/a/447/c/484134/recommendations",
+        }
+      }
+    >
+      <div
+        className="mobile-data-row"
+      >
+        <div
+          className="top-row"
+        >
+          <span>
+            ELL Diagnostic
+          </span>
+          <a
+            className="focus-on-light"
+            href="/teachers/progress_reports/diagnostic_reports#/u/826269/a/447/c/484134/recommendations"
+          >
+            View
+          </a>
+        </div>
+        <div>
+          Quill Classroom Extremely Long So Long SUper Duper
+        </div>
+      </div>
+    </MobileRecommendationRow>
+    <MobileRecommendationRow
+      key="447-484135-826269"
+      row={
+        Object {
+          "classroom": "A New Class",
+          "completed": "0 of 0",
+          "diagnostic": "ELL Diagnostic",
+          "id": "447-484135-826269",
+          "recommendations": <a
+            className="focus-on-light"
+            href="/teachers/progress_reports/diagnostic_reports#/u/826269/a/447/c/484135/recommendations"
+          >
+            <img
+              alt="File with a chart icon"
+              src="undefined/images/icons/icons-file-chart.svg"
+            />
+            <span>
+              View
+            </span>
+          </a>,
+          "recommendationsHref": "/teachers/progress_reports/diagnostic_reports#/u/826269/a/447/c/484135/recommendations",
+        }
+      }
+    >
+      <div
+        className="mobile-data-row"
+      >
+        <div
+          className="top-row"
+        >
+          <span>
+            ELL Diagnostic
+          </span>
+          <a
+            className="focus-on-light"
+            href="/teachers/progress_reports/diagnostic_reports#/u/826269/a/447/c/484135/recommendations"
+          >
+            View
+          </a>
+        </div>
+        <div>
+          A New Class
+        </div>
+      </div>
+    </MobileRecommendationRow>
+    <MobileRecommendationRow
+      key="849-484134-826268"
+      row={
+        Object {
+          "classroom": "Quill Classroom Extremely Long So Long SUper Duper",
+          "completed": "5 of 5",
+          "diagnostic": "Starter Diagnostic",
+          "id": "849-484134-826268",
+          "recommendations": <a
+            className="focus-on-light"
+            href="/teachers/progress_reports/diagnostic_reports#/u/826268/a/849/c/484134/recommendations"
+          >
+            <img
+              alt="File with a chart icon"
+              src="undefined/images/icons/icons-file-chart.svg"
+            />
+            <span>
+              View
+            </span>
+          </a>,
+          "recommendationsHref": "/teachers/progress_reports/diagnostic_reports#/u/826268/a/849/c/484134/recommendations",
+        }
+      }
+    >
+      <div
+        className="mobile-data-row"
+      >
+        <div
+          className="top-row"
+        >
+          <span>
+            Starter Diagnostic
+          </span>
+          <a
+            className="focus-on-light"
+            href="/teachers/progress_reports/diagnostic_reports#/u/826268/a/849/c/484134/recommendations"
+          >
+            View
+          </a>
+        </div>
+        <div>
+          Quill Classroom Extremely Long So Long SUper Duper
+        </div>
+      </div>
+    </MobileRecommendationRow>
+    <MobileRecommendationRow
+      key="849-484134-826269"
+      row={
+        Object {
+          "classroom": "Quill Classroom Extremely Long So Long SUper Duper",
+          "completed": "0 of 5",
+          "diagnostic": "Starter Diagnostic",
+          "id": "849-484134-826269",
+          "recommendations": <a
+            className="focus-on-light"
+            href="/teachers/progress_reports/diagnostic_reports#/u/826269/a/849/c/484134/recommendations"
+          >
+            <img
+              alt="File with a chart icon"
+              src="undefined/images/icons/icons-file-chart.svg"
+            />
+            <span>
+              View
+            </span>
+          </a>,
+          "recommendationsHref": "/teachers/progress_reports/diagnostic_reports#/u/826269/a/849/c/484134/recommendations",
+        }
+      }
+    >
+      <div
+        className="mobile-data-row"
+      >
+        <div
+          className="top-row"
+        >
+          <span>
+            Starter Diagnostic
+          </span>
+          <a
+            className="focus-on-light"
+            href="/teachers/progress_reports/diagnostic_reports#/u/826269/a/849/c/484134/recommendations"
+          >
+            View
+          </a>
+        </div>
+        <div>
+          Quill Classroom Extremely Long So Long SUper Duper
+        </div>
+      </div>
+    </MobileRecommendationRow>
+    <MobileRecommendationRow
+      key="849-484135-826269"
+      row={
+        Object {
+          "classroom": "A New Class",
+          "completed": "0 of 0",
+          "diagnostic": "Starter Diagnostic",
+          "id": "849-484135-826269",
+          "recommendations": <a
+            className="focus-on-light"
+            href="/teachers/progress_reports/diagnostic_reports#/u/826269/a/849/c/484135/recommendations"
+          >
+            <img
+              alt="File with a chart icon"
+              src="undefined/images/icons/icons-file-chart.svg"
+            />
+            <span>
+              View
+            </span>
+          </a>,
+          "recommendationsHref": "/teachers/progress_reports/diagnostic_reports#/u/826269/a/849/c/484135/recommendations",
+        }
+      }
+    >
+      <div
+        className="mobile-data-row"
+      >
+        <div
+          className="top-row"
+        >
+          <span>
+            Starter Diagnostic
+          </span>
+          <a
+            className="focus-on-light"
+            href="/teachers/progress_reports/diagnostic_reports#/u/826269/a/849/c/484135/recommendations"
+          >
+            View
+          </a>
+        </div>
+        <div>
+          A New Class
+        </div>
+      </div>
+    </MobileRecommendationRow>
+    <button
+      className="bottom-button focus-on-light interactive-wrapper"
+      onClick={[Function]}
+      type="button"
+    >
+      Show more 
+      <img
+        alt=""
+        src="undefined/images/icons/expand.svg"
+      />
+    </button>
+  </section>
+</DiagnosticMini>
+`;
+
+exports[`DiagnosticMini component on mobile should render when there are no diagnostics 1`] = `
+<DiagnosticMini
+  diagnostics={Array []}
+  onMobile={true}
+>
+  <span />
 </DiagnosticMini>
 `;

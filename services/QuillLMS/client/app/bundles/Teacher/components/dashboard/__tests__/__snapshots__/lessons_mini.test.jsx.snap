@@ -1,0 +1,1902 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`LessonsMini component not on mobile should render when there are lessons 1`] = `
+<LessonsMini
+  lessons={
+    Array [
+      Object {
+        "activity_id": 649,
+        "activity_name": "Advanced Combining: Complex Sentences with Modifiers",
+        "classroom_id": 1,
+        "classroom_name": "Quill Classroom",
+        "classroom_unit_id": 92,
+        "supporting_info": "https://assets.quill.org/documents/quill_lessons_pdf/advanced_combining_modifiers/lesson2_complex_sentences_with_modifiers.pdf",
+      },
+      Object {
+        "activity_id": 563,
+        "activity_name": "Lesson 1: And, Or, But, So",
+        "classroom_id": 6,
+        "classroom_name": "New Class",
+        "classroom_unit_id": 91,
+        "supporting_info": "https://assets.quill.org/documents/quill_lessons_pdf/compound_sentences/lesson1_and_or_but_so.pdf",
+      },
+      Object {
+        "activity_id": 829,
+        "activity_name": "Complex Sentences Overview",
+        "classroom_id": 6,
+        "classroom_name": "New Class",
+        "classroom_unit_id": 91,
+        "supporting_info": "https://assets.quill.org/documents/quill_lessons_pdf/pronounproblems/lesson_1_complex_sentences_and_their_uses.pdf",
+      },
+      Object {
+        "activity_id": 566,
+        "activity_name": "Lesson 1: Conjunctions of Time (After, Until, Before, etc.)",
+        "classroom_id": 6,
+        "classroom_name": "New Class",
+        "classroom_unit_id": 91,
+        "supporting_info": "https://assets.quill.org/documents/quill_lessons_pdf/complex_sentences/lesson1_conjunctions_of_time_after_until_before.pdf",
+      },
+      Object {
+        "activity_id": 568,
+        "activity_name": "Lesson 1: Compound Objects and Predicates",
+        "classroom_id": 6,
+        "classroom_name": "New Class",
+        "classroom_unit_id": 91,
+        "supporting_info": "https://assets.quill.org/documents/quill_lessons_pdf/compound_subjects_objects_and_predicates/lesson1_compound_objects_predicates.pdf",
+      },
+      Object {
+        "activity_id": 570,
+        "activity_name": "Lesson 1: Participial Phrases ",
+        "classroom_id": 6,
+        "classroom_name": "New Class",
+        "classroom_unit_id": 91,
+        "supporting_info": "https://assets.quill.org/documents/quill_lessons_pdf/participial_phrases/lesson1_participial_phrases.pdf",
+      },
+      Object {
+        "activity_id": 575,
+        "activity_name": "Lesson 2: Compound Subjects",
+        "classroom_id": 6,
+        "classroom_name": "New Class",
+        "classroom_unit_id": 91,
+        "supporting_info": "https://assets.quill.org/documents/quill_lessons_pdf/compound_subjects_objects_and_predicates/lesson2_compound_subjects.pdf",
+      },
+      Object {
+        "activity_id": 576,
+        "activity_name": "Lesson 2: Conjunctions of Opposition (Although, etc.)",
+        "classroom_id": 6,
+        "classroom_name": "New Class",
+        "classroom_unit_id": 91,
+        "supporting_info": "https://assets.quill.org/documents/quill_lessons_pdf/complex_sentences/lesson2_conjunctions_of _opposition_although_etc.pdf ",
+      },
+      Object {
+        "activity_id": 577,
+        "activity_name": "Lesson 2: Participial Phrases Review",
+        "classroom_id": 6,
+        "classroom_name": "New Class",
+        "classroom_unit_id": 91,
+        "supporting_info": "https://assets.quill.org/documents/quill_lessons_pdf/participial_phrases/lesson2_participial_phrases_review.pdf",
+      },
+      Object {
+        "activity_id": 578,
+        "activity_name": "Lesson 3: Compound Subjects, Objects, and Predicates Review",
+        "classroom_id": 6,
+        "classroom_name": "New Class",
+        "classroom_unit_id": 91,
+        "supporting_info": "https://assets.quill.org/documents/quill_lessons_pdf/compound_subjects_objects_and_predicates/lesson3_compound_subjects_objects_predicates_review.pdf",
+      },
+      Object {
+        "activity_id": 579,
+        "activity_name": "Lesson 4: Subordinating Conjunctions Review ",
+        "classroom_id": 6,
+        "classroom_name": "New Class",
+        "classroom_unit_id": 91,
+        "supporting_info": "https://assets.quill.org/documents/quill_lessons_pdf/complex_sentences/lesson4_subordinating_conjunctions_review.pdf",
+      },
+      Object {
+        "activity_id": 580,
+        "activity_name": "Lesson 3: Conjunctions of Cause and Effect (Because, Since)",
+        "classroom_id": 6,
+        "classroom_name": "New Class",
+        "classroom_unit_id": 91,
+        "supporting_info": "https://assets.quill.org/documents/quill_lessons_pdf/complex_sentences/lesson3_conjunctions_of_cause_and_effect_because_ since.pdf",
+      },
+      Object {
+        "activity_id": 581,
+        "activity_name": "Lesson 2: And, Or, But, So Review",
+        "classroom_id": 6,
+        "classroom_name": "New Class",
+        "classroom_unit_id": 91,
+        "supporting_info": "https://assets.quill.org/documents/quill_lessons_pdf/compound_sentences/lesson2_and_or_but_so_review.pdf",
+      },
+      Object {
+        "activity_id": 649,
+        "activity_name": "Advanced Combining: Complex Sentences with Modifiers",
+        "classroom_id": 6,
+        "classroom_name": "New Class",
+        "classroom_unit_id": 91,
+        "supporting_info": "https://assets.quill.org/documents/quill_lessons_pdf/advanced_combining_modifiers/lesson2_complex_sentences_with_modifiers.pdf",
+      },
+      Object {
+        "activity_id": 649,
+        "activity_name": "Advanced Combining: Complex Sentences with Modifiers",
+        "classroom_id": 1,
+        "classroom_name": "Quill Classroom",
+        "classroom_unit_id": 90,
+        "supporting_info": "https://assets.quill.org/documents/quill_lessons_pdf/advanced_combining_modifiers/lesson2_complex_sentences_with_modifiers.pdf",
+      },
+      Object {
+        "activity_id": 563,
+        "activity_name": "Lesson 1: And, Or, But, So",
+        "classroom_id": 1,
+        "classroom_name": "Quill Classroom",
+        "classroom_unit_id": 90,
+        "supporting_info": "https://assets.quill.org/documents/quill_lessons_pdf/compound_sentences/lesson1_and_or_but_so.pdf",
+      },
+      Object {
+        "activity_id": 578,
+        "activity_name": "Lesson 3: Compound Subjects, Objects, and Predicates Review",
+        "classroom_id": 1,
+        "classroom_name": "Quill Classroom",
+        "classroom_unit_id": 90,
+        "supporting_info": "https://assets.quill.org/documents/quill_lessons_pdf/compound_subjects_objects_and_predicates/lesson3_compound_subjects_objects_predicates_review.pdf",
+      },
+      Object {
+        "activity_id": 575,
+        "activity_name": "Lesson 2: Compound Subjects",
+        "classroom_id": 1,
+        "classroom_name": "Quill Classroom",
+        "classroom_unit_id": 90,
+        "supporting_info": "https://assets.quill.org/documents/quill_lessons_pdf/compound_subjects_objects_and_predicates/lesson2_compound_subjects.pdf",
+      },
+      Object {
+        "activity_id": 829,
+        "activity_name": "Complex Sentences Overview",
+        "classroom_id": 1,
+        "classroom_name": "Quill Classroom",
+        "classroom_unit_id": 90,
+        "supporting_info": "https://assets.quill.org/documents/quill_lessons_pdf/pronounproblems/lesson_1_complex_sentences_and_their_uses.pdf",
+      },
+      Object {
+        "activity_id": 576,
+        "activity_name": "Lesson 2: Conjunctions of Opposition (Although, etc.)",
+        "classroom_id": 1,
+        "classroom_name": "Quill Classroom",
+        "classroom_unit_id": 90,
+        "supporting_info": "https://assets.quill.org/documents/quill_lessons_pdf/complex_sentences/lesson2_conjunctions_of _opposition_although_etc.pdf ",
+      },
+      Object {
+        "activity_id": 577,
+        "activity_name": "Lesson 2: Participial Phrases Review",
+        "classroom_id": 1,
+        "classroom_name": "Quill Classroom",
+        "classroom_unit_id": 90,
+        "supporting_info": "https://assets.quill.org/documents/quill_lessons_pdf/participial_phrases/lesson2_participial_phrases_review.pdf",
+      },
+      Object {
+        "activity_id": 579,
+        "activity_name": "Lesson 4: Subordinating Conjunctions Review ",
+        "classroom_id": 1,
+        "classroom_name": "Quill Classroom",
+        "classroom_unit_id": 90,
+        "supporting_info": "https://assets.quill.org/documents/quill_lessons_pdf/complex_sentences/lesson4_subordinating_conjunctions_review.pdf",
+      },
+      Object {
+        "activity_id": 566,
+        "activity_name": "Lesson 1: Conjunctions of Time (After, Until, Before, etc.)",
+        "classroom_id": 1,
+        "classroom_name": "Quill Classroom",
+        "classroom_unit_id": 90,
+        "supporting_info": "https://assets.quill.org/documents/quill_lessons_pdf/complex_sentences/lesson1_conjunctions_of_time_after_until_before.pdf",
+      },
+      Object {
+        "activity_id": 580,
+        "activity_name": "Lesson 3: Conjunctions of Cause and Effect (Because, Since)",
+        "classroom_id": 1,
+        "classroom_name": "Quill Classroom",
+        "classroom_unit_id": 90,
+        "supporting_info": "https://assets.quill.org/documents/quill_lessons_pdf/complex_sentences/lesson3_conjunctions_of_cause_and_effect_because_ since.pdf",
+      },
+      Object {
+        "activity_id": 568,
+        "activity_name": "Lesson 1: Compound Objects and Predicates",
+        "classroom_id": 1,
+        "classroom_name": "Quill Classroom",
+        "classroom_unit_id": 90,
+        "supporting_info": "https://assets.quill.org/documents/quill_lessons_pdf/compound_subjects_objects_and_predicates/lesson1_compound_objects_predicates.pdf",
+      },
+      Object {
+        "activity_id": 570,
+        "activity_name": "Lesson 1: Participial Phrases ",
+        "classroom_id": 1,
+        "classroom_name": "Quill Classroom",
+        "classroom_unit_id": 90,
+        "supporting_info": "https://assets.quill.org/documents/quill_lessons_pdf/participial_phrases/lesson1_participial_phrases.pdf",
+      },
+      Object {
+        "activity_id": 581,
+        "activity_name": "Lesson 2: And, Or, But, So Review",
+        "classroom_id": 1,
+        "classroom_name": "Quill Classroom",
+        "classroom_unit_id": 90,
+        "supporting_info": "https://assets.quill.org/documents/quill_lessons_pdf/compound_sentences/lesson2_and_or_but_so_review.pdf",
+      },
+      Object {
+        "activity_id": 565,
+        "activity_name": "Lesson 1: Adverbs ",
+        "classroom_id": 1,
+        "classroom_name": "Quill Classroom",
+        "classroom_unit_id": 83,
+        "supporting_info": "https://assets.quill.org/documents/quill_lessons_pdf/adverbs/lesson1_adverbs.pdf",
+      },
+      Object {
+        "activity_id": 574,
+        "activity_name": "Lesson 2: Adverbs Review",
+        "classroom_id": 1,
+        "classroom_name": "Quill Classroom",
+        "classroom_unit_id": 83,
+        "supporting_info": "https://assets.quill.org/documents/quill_lessons_pdf/adverbs/lesson2_adverbs_review.pdf",
+      },
+      Object {
+        "activity_id": 655,
+        "activity_name": "Lesson 2: Using In, At, and On to Show Location",
+        "classroom_id": 1,
+        "classroom_name": "Quill Classroom",
+        "classroom_unit_id": 68,
+        "supporting_info": "https://assets.quill.org/documents/quill_lessons_pdf/prepositions/lesson2_using_in_at_and_on_to_show_location.pdf",
+      },
+      Object {
+        "activity_id": 654,
+        "activity_name": "Lesson 1: Using In, At, and On to Show Time",
+        "classroom_id": 1,
+        "classroom_name": "Quill Classroom",
+        "classroom_unit_id": 68,
+        "supporting_info": "https://assets.quill.org/documents/quill_lessons_pdf/prepositions/lesson1_using_in_at_and_on_to_show_time.pdf",
+      },
+    ]
+  }
+  onMobile={false}
+>
+  <section
+    className="lessons-mini"
+  >
+    <header>
+      <h2>
+        <span>
+          Present a live 
+        </span>
+        <span
+          className="no-break"
+        >
+          <span>
+            lesson
+          </span>
+          <a
+            className="focus-on-light"
+            href="https://app.intercom.com/a/apps/v2ms5bl3/articles/articles/5014101/show"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            <img
+              alt="Question mark icon"
+              src="undefined/images/icons/icons-help.svg"
+            />
+          </a>
+        </span>
+      </h2>
+    </header>
+    <DataTable
+      averageFontWidth={7}
+      headers={
+        Array [
+          Object {
+            "attribute": "lesson",
+            "name": "Quill Lesson",
+            "width": "289px",
+          },
+          Object {
+            "attribute": "classroom",
+            "name": "Class",
+            "width": "180px",
+          },
+          Object {
+            "attribute": "actions",
+            "isActions": true,
+            "name": "More",
+          },
+          Object {
+            "attribute": "present",
+            "headerClassName": "last-header",
+            "name": "Present",
+            "noTooltip": true,
+            "rowSectionClassName": "last-row-section",
+            "width": "78px",
+          },
+        ]
+      }
+      rows={
+        Array [
+          Object {
+            "actions": Array [
+              Object {
+                "element": <a
+                  className="action focus-on-light"
+                  href="/preview_lesson/649"
+                >
+                  <img
+                    alt="Eye icon"
+                    src="undefined/images/icons/icons-preview.svg"
+                  />
+                  <span>
+                    Preview
+                  </span>
+                </a>,
+              },
+              Object {
+                "element": <a
+                  className="action focus-on-light"
+                  href="/customize/649"
+                >
+                  <img
+                    alt="File with a chart icon"
+                    src="undefined/images/icons/icons-file-chart.svg"
+                  />
+                  <span>
+                    Customize
+                  </span>
+                </a>,
+              },
+              Object {
+                "element": <a
+                  className="action focus-on-light"
+                  href="/activities/649/supporting_info"
+                >
+                  <img
+                    alt="File with a download icon"
+                    src="undefined/images/icons/icons-file-download.svg"
+                  />
+                  <span>
+                    Download lesson plan
+                  </span>
+                </a>,
+              },
+            ],
+            "classroom": "Quill Classroom",
+            "id": "649-1-undefined",
+            "lesson": "Advanced Combining: Complex Sentences with Modifiers",
+            "present": <a
+              className="focus-on-light"
+              href="/teachers/classroom_units/92/launch_lesson/649"
+            >
+              <img
+                alt="Square play button icon"
+                src="undefined/images/icons/icons-play-box.svg"
+              />
+              <span>
+                Present
+              </span>
+            </a>,
+            "presentHref": "/teachers/classroom_units/92/launch_lesson/649",
+          },
+          Object {
+            "actions": Array [
+              Object {
+                "element": <a
+                  className="action focus-on-light"
+                  href="/preview_lesson/563"
+                >
+                  <img
+                    alt="Eye icon"
+                    src="undefined/images/icons/icons-preview.svg"
+                  />
+                  <span>
+                    Preview
+                  </span>
+                </a>,
+              },
+              Object {
+                "element": <a
+                  className="action focus-on-light"
+                  href="/customize/563"
+                >
+                  <img
+                    alt="File with a chart icon"
+                    src="undefined/images/icons/icons-file-chart.svg"
+                  />
+                  <span>
+                    Customize
+                  </span>
+                </a>,
+              },
+              Object {
+                "element": <a
+                  className="action focus-on-light"
+                  href="/activities/563/supporting_info"
+                >
+                  <img
+                    alt="File with a download icon"
+                    src="undefined/images/icons/icons-file-download.svg"
+                  />
+                  <span>
+                    Download lesson plan
+                  </span>
+                </a>,
+              },
+            ],
+            "classroom": "New Class",
+            "id": "563-6-undefined",
+            "lesson": "Lesson 1: And, Or, But, So",
+            "present": <a
+              className="focus-on-light"
+              href="/teachers/classroom_units/91/launch_lesson/563"
+            >
+              <img
+                alt="Square play button icon"
+                src="undefined/images/icons/icons-play-box.svg"
+              />
+              <span>
+                Present
+              </span>
+            </a>,
+            "presentHref": "/teachers/classroom_units/91/launch_lesson/563",
+          },
+          Object {
+            "actions": Array [
+              Object {
+                "element": <a
+                  className="action focus-on-light"
+                  href="/preview_lesson/829"
+                >
+                  <img
+                    alt="Eye icon"
+                    src="undefined/images/icons/icons-preview.svg"
+                  />
+                  <span>
+                    Preview
+                  </span>
+                </a>,
+              },
+              Object {
+                "element": <a
+                  className="action focus-on-light"
+                  href="/customize/829"
+                >
+                  <img
+                    alt="File with a chart icon"
+                    src="undefined/images/icons/icons-file-chart.svg"
+                  />
+                  <span>
+                    Customize
+                  </span>
+                </a>,
+              },
+              Object {
+                "element": <a
+                  className="action focus-on-light"
+                  href="/activities/829/supporting_info"
+                >
+                  <img
+                    alt="File with a download icon"
+                    src="undefined/images/icons/icons-file-download.svg"
+                  />
+                  <span>
+                    Download lesson plan
+                  </span>
+                </a>,
+              },
+            ],
+            "classroom": "New Class",
+            "id": "829-6-undefined",
+            "lesson": "Complex Sentences Overview",
+            "present": <a
+              className="focus-on-light"
+              href="/teachers/classroom_units/91/launch_lesson/829"
+            >
+              <img
+                alt="Square play button icon"
+                src="undefined/images/icons/icons-play-box.svg"
+              />
+              <span>
+                Present
+              </span>
+            </a>,
+            "presentHref": "/teachers/classroom_units/91/launch_lesson/829",
+          },
+          Object {
+            "actions": Array [
+              Object {
+                "element": <a
+                  className="action focus-on-light"
+                  href="/preview_lesson/566"
+                >
+                  <img
+                    alt="Eye icon"
+                    src="undefined/images/icons/icons-preview.svg"
+                  />
+                  <span>
+                    Preview
+                  </span>
+                </a>,
+              },
+              Object {
+                "element": <a
+                  className="action focus-on-light"
+                  href="/customize/566"
+                >
+                  <img
+                    alt="File with a chart icon"
+                    src="undefined/images/icons/icons-file-chart.svg"
+                  />
+                  <span>
+                    Customize
+                  </span>
+                </a>,
+              },
+              Object {
+                "element": <a
+                  className="action focus-on-light"
+                  href="/activities/566/supporting_info"
+                >
+                  <img
+                    alt="File with a download icon"
+                    src="undefined/images/icons/icons-file-download.svg"
+                  />
+                  <span>
+                    Download lesson plan
+                  </span>
+                </a>,
+              },
+            ],
+            "classroom": "New Class",
+            "id": "566-6-undefined",
+            "lesson": "Lesson 1: Conjunctions of Time (After, Until, Before, etc.)",
+            "present": <a
+              className="focus-on-light"
+              href="/teachers/classroom_units/91/launch_lesson/566"
+            >
+              <img
+                alt="Square play button icon"
+                src="undefined/images/icons/icons-play-box.svg"
+              />
+              <span>
+                Present
+              </span>
+            </a>,
+            "presentHref": "/teachers/classroom_units/91/launch_lesson/566",
+          },
+          Object {
+            "actions": Array [
+              Object {
+                "element": <a
+                  className="action focus-on-light"
+                  href="/preview_lesson/568"
+                >
+                  <img
+                    alt="Eye icon"
+                    src="undefined/images/icons/icons-preview.svg"
+                  />
+                  <span>
+                    Preview
+                  </span>
+                </a>,
+              },
+              Object {
+                "element": <a
+                  className="action focus-on-light"
+                  href="/customize/568"
+                >
+                  <img
+                    alt="File with a chart icon"
+                    src="undefined/images/icons/icons-file-chart.svg"
+                  />
+                  <span>
+                    Customize
+                  </span>
+                </a>,
+              },
+              Object {
+                "element": <a
+                  className="action focus-on-light"
+                  href="/activities/568/supporting_info"
+                >
+                  <img
+                    alt="File with a download icon"
+                    src="undefined/images/icons/icons-file-download.svg"
+                  />
+                  <span>
+                    Download lesson plan
+                  </span>
+                </a>,
+              },
+            ],
+            "classroom": "New Class",
+            "id": "568-6-undefined",
+            "lesson": "Lesson 1: Compound Objects and Predicates",
+            "present": <a
+              className="focus-on-light"
+              href="/teachers/classroom_units/91/launch_lesson/568"
+            >
+              <img
+                alt="Square play button icon"
+                src="undefined/images/icons/icons-play-box.svg"
+              />
+              <span>
+                Present
+              </span>
+            </a>,
+            "presentHref": "/teachers/classroom_units/91/launch_lesson/568",
+          },
+        ]
+      }
+      showActions={true}
+    >
+      <div
+        className="data-table undefined"
+      >
+        <div
+          className="data-table-headers"
+        >
+          <button
+            className="data-table-header undefined"
+            style={
+              Object {
+                "minWidth": "289px",
+                "textAlign": "left",
+                "width": "289px",
+              }
+            }
+            tabIndex={-1}
+            type="button"
+          >
+            Quill Lesson
+          </button>
+          <button
+            className="data-table-header undefined"
+            style={
+              Object {
+                "minWidth": "180px",
+                "textAlign": "left",
+                "width": "180px",
+              }
+            }
+            tabIndex={-1}
+            type="button"
+          >
+            Class
+          </button>
+          <span
+            className="data-table-header actions-header"
+          >
+            More
+          </span>
+          <button
+            className="data-table-header last-header"
+            style={
+              Object {
+                "minWidth": "78px",
+                "textAlign": "left",
+                "width": "78px",
+              }
+            }
+            tabIndex={-1}
+            type="button"
+          >
+            Present
+          </button>
+        </div>
+        <div
+          className="data-table-body"
+        >
+          <div
+            className="data-table-row  "
+            key="649-1-undefined"
+          >
+            <Tooltip
+              key="lesson-649-1-undefined"
+              tooltipText="Advanced Combining: Complex Sentences with Modifiers"
+              tooltipTriggerStyle={
+                Object {
+                  "minWidth": "289px",
+                  "textAlign": "left",
+                  "width": "289px",
+                }
+              }
+              tooltipTriggerText="Advanced Combining: Complex Sentences with Modifiers"
+              tooltipTriggerTextClass="data-table-row-section undefined"
+              tooltipTriggerTextStyle={
+                Object {
+                  "minWidth": "289px",
+                  "textAlign": "left",
+                  "width": "289px",
+                }
+              }
+            >
+              <span
+                className="quill-tooltip-trigger"
+                style={
+                  Object {
+                    "minWidth": "289px",
+                    "textAlign": "left",
+                    "width": "289px",
+                  }
+                }
+              >
+                <span
+                  className="data-table-row-section undefined"
+                  onMouseEnter={[Function]}
+                  onMouseLeave={[Function]}
+                  style={
+                    Object {
+                      "minWidth": "289px",
+                      "textAlign": "left",
+                      "width": "289px",
+                    }
+                  }
+                >
+                  Advanced Combining: Complex Sentences with Modifiers
+                </span>
+                <span
+                  className="quill-tooltip-wrapper"
+                >
+                  <span
+                    className="quill-tooltip"
+                  />
+                </span>
+              </span>
+            </Tooltip>
+            <span
+              className="data-table-row-section undefined"
+              key="classroom-649-1-undefined"
+              style={
+                Object {
+                  "minWidth": "180px",
+                  "textAlign": "left",
+                  "width": "180px",
+                }
+              }
+            >
+              Quill Classroom
+            </span>
+            <span
+              className="data-table-row-section actions-section"
+            >
+              <button
+                className="quill-button actions-button focus-on-light"
+                onClick={[Function]}
+                type="button"
+              >
+                <img
+                  alt="ellipses"
+                  src="https://assets.quill.org/images/icons/more-horizontal.svg"
+                />
+              </button>
+            </span>
+            <span
+              className="data-table-row-section last-row-section"
+              key="present-649-1-undefined"
+              style={
+                Object {
+                  "minWidth": "78px",
+                  "textAlign": "left",
+                  "width": "78px",
+                }
+              }
+            >
+              <a
+                className="focus-on-light"
+                href="/teachers/classroom_units/92/launch_lesson/649"
+              >
+                <img
+                  alt="Square play button icon"
+                  src="undefined/images/icons/icons-play-box.svg"
+                />
+                <span>
+                  Present
+                </span>
+              </a>
+            </span>
+            <span
+              className="removable data-table-row-section"
+            />
+          </div>
+          <div
+            className="data-table-row  "
+            key="563-6-undefined"
+          >
+            <span
+              className="data-table-row-section undefined"
+              key="lesson-563-6-undefined"
+              style={
+                Object {
+                  "minWidth": "289px",
+                  "textAlign": "left",
+                  "width": "289px",
+                }
+              }
+            >
+              Lesson 1: And, Or, But, So
+            </span>
+            <span
+              className="data-table-row-section undefined"
+              key="classroom-563-6-undefined"
+              style={
+                Object {
+                  "minWidth": "180px",
+                  "textAlign": "left",
+                  "width": "180px",
+                }
+              }
+            >
+              New Class
+            </span>
+            <span
+              className="data-table-row-section actions-section"
+            >
+              <button
+                className="quill-button actions-button focus-on-light"
+                onClick={[Function]}
+                type="button"
+              >
+                <img
+                  alt="ellipses"
+                  src="https://assets.quill.org/images/icons/more-horizontal.svg"
+                />
+              </button>
+            </span>
+            <span
+              className="data-table-row-section last-row-section"
+              key="present-563-6-undefined"
+              style={
+                Object {
+                  "minWidth": "78px",
+                  "textAlign": "left",
+                  "width": "78px",
+                }
+              }
+            >
+              <a
+                className="focus-on-light"
+                href="/teachers/classroom_units/91/launch_lesson/563"
+              >
+                <img
+                  alt="Square play button icon"
+                  src="undefined/images/icons/icons-play-box.svg"
+                />
+                <span>
+                  Present
+                </span>
+              </a>
+            </span>
+            <span
+              className="removable data-table-row-section"
+            />
+          </div>
+          <div
+            className="data-table-row  "
+            key="829-6-undefined"
+          >
+            <span
+              className="data-table-row-section undefined"
+              key="lesson-829-6-undefined"
+              style={
+                Object {
+                  "minWidth": "289px",
+                  "textAlign": "left",
+                  "width": "289px",
+                }
+              }
+            >
+              Complex Sentences Overview
+            </span>
+            <span
+              className="data-table-row-section undefined"
+              key="classroom-829-6-undefined"
+              style={
+                Object {
+                  "minWidth": "180px",
+                  "textAlign": "left",
+                  "width": "180px",
+                }
+              }
+            >
+              New Class
+            </span>
+            <span
+              className="data-table-row-section actions-section"
+            >
+              <button
+                className="quill-button actions-button focus-on-light"
+                onClick={[Function]}
+                type="button"
+              >
+                <img
+                  alt="ellipses"
+                  src="https://assets.quill.org/images/icons/more-horizontal.svg"
+                />
+              </button>
+            </span>
+            <span
+              className="data-table-row-section last-row-section"
+              key="present-829-6-undefined"
+              style={
+                Object {
+                  "minWidth": "78px",
+                  "textAlign": "left",
+                  "width": "78px",
+                }
+              }
+            >
+              <a
+                className="focus-on-light"
+                href="/teachers/classroom_units/91/launch_lesson/829"
+              >
+                <img
+                  alt="Square play button icon"
+                  src="undefined/images/icons/icons-play-box.svg"
+                />
+                <span>
+                  Present
+                </span>
+              </a>
+            </span>
+            <span
+              className="removable data-table-row-section"
+            />
+          </div>
+          <div
+            className="data-table-row  "
+            key="566-6-undefined"
+          >
+            <Tooltip
+              key="lesson-566-6-undefined"
+              tooltipText="Lesson 1: Conjunctions of Time (After, Until, Before, etc.)"
+              tooltipTriggerStyle={
+                Object {
+                  "minWidth": "289px",
+                  "textAlign": "left",
+                  "width": "289px",
+                }
+              }
+              tooltipTriggerText="Lesson 1: Conjunctions of Time (After, Until, Before, etc.)"
+              tooltipTriggerTextClass="data-table-row-section undefined"
+              tooltipTriggerTextStyle={
+                Object {
+                  "minWidth": "289px",
+                  "textAlign": "left",
+                  "width": "289px",
+                }
+              }
+            >
+              <span
+                className="quill-tooltip-trigger"
+                style={
+                  Object {
+                    "minWidth": "289px",
+                    "textAlign": "left",
+                    "width": "289px",
+                  }
+                }
+              >
+                <span
+                  className="data-table-row-section undefined"
+                  onMouseEnter={[Function]}
+                  onMouseLeave={[Function]}
+                  style={
+                    Object {
+                      "minWidth": "289px",
+                      "textAlign": "left",
+                      "width": "289px",
+                    }
+                  }
+                >
+                  Lesson 1: Conjunctions of Time (After, Until, Before, etc.)
+                </span>
+                <span
+                  className="quill-tooltip-wrapper"
+                >
+                  <span
+                    className="quill-tooltip"
+                  />
+                </span>
+              </span>
+            </Tooltip>
+            <span
+              className="data-table-row-section undefined"
+              key="classroom-566-6-undefined"
+              style={
+                Object {
+                  "minWidth": "180px",
+                  "textAlign": "left",
+                  "width": "180px",
+                }
+              }
+            >
+              New Class
+            </span>
+            <span
+              className="data-table-row-section actions-section"
+            >
+              <button
+                className="quill-button actions-button focus-on-light"
+                onClick={[Function]}
+                type="button"
+              >
+                <img
+                  alt="ellipses"
+                  src="https://assets.quill.org/images/icons/more-horizontal.svg"
+                />
+              </button>
+            </span>
+            <span
+              className="data-table-row-section last-row-section"
+              key="present-566-6-undefined"
+              style={
+                Object {
+                  "minWidth": "78px",
+                  "textAlign": "left",
+                  "width": "78px",
+                }
+              }
+            >
+              <a
+                className="focus-on-light"
+                href="/teachers/classroom_units/91/launch_lesson/566"
+              >
+                <img
+                  alt="Square play button icon"
+                  src="undefined/images/icons/icons-play-box.svg"
+                />
+                <span>
+                  Present
+                </span>
+              </a>
+            </span>
+            <span
+              className="removable data-table-row-section"
+            />
+          </div>
+          <div
+            className="data-table-row  "
+            key="568-6-undefined"
+          >
+            <span
+              className="data-table-row-section undefined"
+              key="lesson-568-6-undefined"
+              style={
+                Object {
+                  "minWidth": "289px",
+                  "textAlign": "left",
+                  "width": "289px",
+                }
+              }
+            >
+              Lesson 1: Compound Objects and Predicates
+            </span>
+            <span
+              className="data-table-row-section undefined"
+              key="classroom-568-6-undefined"
+              style={
+                Object {
+                  "minWidth": "180px",
+                  "textAlign": "left",
+                  "width": "180px",
+                }
+              }
+            >
+              New Class
+            </span>
+            <span
+              className="data-table-row-section actions-section"
+            >
+              <button
+                className="quill-button actions-button focus-on-light"
+                onClick={[Function]}
+                type="button"
+              >
+                <img
+                  alt="ellipses"
+                  src="https://assets.quill.org/images/icons/more-horizontal.svg"
+                />
+              </button>
+            </span>
+            <span
+              className="data-table-row-section last-row-section"
+              key="present-568-6-undefined"
+              style={
+                Object {
+                  "minWidth": "78px",
+                  "textAlign": "left",
+                  "width": "78px",
+                }
+              }
+            >
+              <a
+                className="focus-on-light"
+                href="/teachers/classroom_units/91/launch_lesson/568"
+              >
+                <img
+                  alt="Square play button icon"
+                  src="undefined/images/icons/icons-play-box.svg"
+                />
+                <span>
+                  Present
+                </span>
+              </a>
+            </span>
+            <span
+              className="removable data-table-row-section"
+            />
+          </div>
+        </div>
+      </div>
+    </DataTable>
+    <button
+      className="bottom-button focus-on-light interactive-wrapper"
+      onClick={[Function]}
+      type="button"
+    >
+      Show more 
+      <img
+        alt=""
+        src="undefined/images/icons/expand.svg"
+      />
+    </button>
+  </section>
+</LessonsMini>
+`;
+
+exports[`LessonsMini component not on mobile should render when there are no lessons 1`] = `
+<LessonsMini
+  lessons={Array []}
+  onMobile={false}
+>
+  <span />
+</LessonsMini>
+`;
+
+exports[`LessonsMini component on mobile should render when there are lessons 1`] = `
+<LessonsMini
+  lessons={
+    Array [
+      Object {
+        "activity_id": 649,
+        "activity_name": "Advanced Combining: Complex Sentences with Modifiers",
+        "classroom_id": 1,
+        "classroom_name": "Quill Classroom",
+        "classroom_unit_id": 92,
+        "supporting_info": "https://assets.quill.org/documents/quill_lessons_pdf/advanced_combining_modifiers/lesson2_complex_sentences_with_modifiers.pdf",
+      },
+      Object {
+        "activity_id": 563,
+        "activity_name": "Lesson 1: And, Or, But, So",
+        "classroom_id": 6,
+        "classroom_name": "New Class",
+        "classroom_unit_id": 91,
+        "supporting_info": "https://assets.quill.org/documents/quill_lessons_pdf/compound_sentences/lesson1_and_or_but_so.pdf",
+      },
+      Object {
+        "activity_id": 829,
+        "activity_name": "Complex Sentences Overview",
+        "classroom_id": 6,
+        "classroom_name": "New Class",
+        "classroom_unit_id": 91,
+        "supporting_info": "https://assets.quill.org/documents/quill_lessons_pdf/pronounproblems/lesson_1_complex_sentences_and_their_uses.pdf",
+      },
+      Object {
+        "activity_id": 566,
+        "activity_name": "Lesson 1: Conjunctions of Time (After, Until, Before, etc.)",
+        "classroom_id": 6,
+        "classroom_name": "New Class",
+        "classroom_unit_id": 91,
+        "supporting_info": "https://assets.quill.org/documents/quill_lessons_pdf/complex_sentences/lesson1_conjunctions_of_time_after_until_before.pdf",
+      },
+      Object {
+        "activity_id": 568,
+        "activity_name": "Lesson 1: Compound Objects and Predicates",
+        "classroom_id": 6,
+        "classroom_name": "New Class",
+        "classroom_unit_id": 91,
+        "supporting_info": "https://assets.quill.org/documents/quill_lessons_pdf/compound_subjects_objects_and_predicates/lesson1_compound_objects_predicates.pdf",
+      },
+      Object {
+        "activity_id": 570,
+        "activity_name": "Lesson 1: Participial Phrases ",
+        "classroom_id": 6,
+        "classroom_name": "New Class",
+        "classroom_unit_id": 91,
+        "supporting_info": "https://assets.quill.org/documents/quill_lessons_pdf/participial_phrases/lesson1_participial_phrases.pdf",
+      },
+      Object {
+        "activity_id": 575,
+        "activity_name": "Lesson 2: Compound Subjects",
+        "classroom_id": 6,
+        "classroom_name": "New Class",
+        "classroom_unit_id": 91,
+        "supporting_info": "https://assets.quill.org/documents/quill_lessons_pdf/compound_subjects_objects_and_predicates/lesson2_compound_subjects.pdf",
+      },
+      Object {
+        "activity_id": 576,
+        "activity_name": "Lesson 2: Conjunctions of Opposition (Although, etc.)",
+        "classroom_id": 6,
+        "classroom_name": "New Class",
+        "classroom_unit_id": 91,
+        "supporting_info": "https://assets.quill.org/documents/quill_lessons_pdf/complex_sentences/lesson2_conjunctions_of _opposition_although_etc.pdf ",
+      },
+      Object {
+        "activity_id": 577,
+        "activity_name": "Lesson 2: Participial Phrases Review",
+        "classroom_id": 6,
+        "classroom_name": "New Class",
+        "classroom_unit_id": 91,
+        "supporting_info": "https://assets.quill.org/documents/quill_lessons_pdf/participial_phrases/lesson2_participial_phrases_review.pdf",
+      },
+      Object {
+        "activity_id": 578,
+        "activity_name": "Lesson 3: Compound Subjects, Objects, and Predicates Review",
+        "classroom_id": 6,
+        "classroom_name": "New Class",
+        "classroom_unit_id": 91,
+        "supporting_info": "https://assets.quill.org/documents/quill_lessons_pdf/compound_subjects_objects_and_predicates/lesson3_compound_subjects_objects_predicates_review.pdf",
+      },
+      Object {
+        "activity_id": 579,
+        "activity_name": "Lesson 4: Subordinating Conjunctions Review ",
+        "classroom_id": 6,
+        "classroom_name": "New Class",
+        "classroom_unit_id": 91,
+        "supporting_info": "https://assets.quill.org/documents/quill_lessons_pdf/complex_sentences/lesson4_subordinating_conjunctions_review.pdf",
+      },
+      Object {
+        "activity_id": 580,
+        "activity_name": "Lesson 3: Conjunctions of Cause and Effect (Because, Since)",
+        "classroom_id": 6,
+        "classroom_name": "New Class",
+        "classroom_unit_id": 91,
+        "supporting_info": "https://assets.quill.org/documents/quill_lessons_pdf/complex_sentences/lesson3_conjunctions_of_cause_and_effect_because_ since.pdf",
+      },
+      Object {
+        "activity_id": 581,
+        "activity_name": "Lesson 2: And, Or, But, So Review",
+        "classroom_id": 6,
+        "classroom_name": "New Class",
+        "classroom_unit_id": 91,
+        "supporting_info": "https://assets.quill.org/documents/quill_lessons_pdf/compound_sentences/lesson2_and_or_but_so_review.pdf",
+      },
+      Object {
+        "activity_id": 649,
+        "activity_name": "Advanced Combining: Complex Sentences with Modifiers",
+        "classroom_id": 6,
+        "classroom_name": "New Class",
+        "classroom_unit_id": 91,
+        "supporting_info": "https://assets.quill.org/documents/quill_lessons_pdf/advanced_combining_modifiers/lesson2_complex_sentences_with_modifiers.pdf",
+      },
+      Object {
+        "activity_id": 649,
+        "activity_name": "Advanced Combining: Complex Sentences with Modifiers",
+        "classroom_id": 1,
+        "classroom_name": "Quill Classroom",
+        "classroom_unit_id": 90,
+        "supporting_info": "https://assets.quill.org/documents/quill_lessons_pdf/advanced_combining_modifiers/lesson2_complex_sentences_with_modifiers.pdf",
+      },
+      Object {
+        "activity_id": 563,
+        "activity_name": "Lesson 1: And, Or, But, So",
+        "classroom_id": 1,
+        "classroom_name": "Quill Classroom",
+        "classroom_unit_id": 90,
+        "supporting_info": "https://assets.quill.org/documents/quill_lessons_pdf/compound_sentences/lesson1_and_or_but_so.pdf",
+      },
+      Object {
+        "activity_id": 578,
+        "activity_name": "Lesson 3: Compound Subjects, Objects, and Predicates Review",
+        "classroom_id": 1,
+        "classroom_name": "Quill Classroom",
+        "classroom_unit_id": 90,
+        "supporting_info": "https://assets.quill.org/documents/quill_lessons_pdf/compound_subjects_objects_and_predicates/lesson3_compound_subjects_objects_predicates_review.pdf",
+      },
+      Object {
+        "activity_id": 575,
+        "activity_name": "Lesson 2: Compound Subjects",
+        "classroom_id": 1,
+        "classroom_name": "Quill Classroom",
+        "classroom_unit_id": 90,
+        "supporting_info": "https://assets.quill.org/documents/quill_lessons_pdf/compound_subjects_objects_and_predicates/lesson2_compound_subjects.pdf",
+      },
+      Object {
+        "activity_id": 829,
+        "activity_name": "Complex Sentences Overview",
+        "classroom_id": 1,
+        "classroom_name": "Quill Classroom",
+        "classroom_unit_id": 90,
+        "supporting_info": "https://assets.quill.org/documents/quill_lessons_pdf/pronounproblems/lesson_1_complex_sentences_and_their_uses.pdf",
+      },
+      Object {
+        "activity_id": 576,
+        "activity_name": "Lesson 2: Conjunctions of Opposition (Although, etc.)",
+        "classroom_id": 1,
+        "classroom_name": "Quill Classroom",
+        "classroom_unit_id": 90,
+        "supporting_info": "https://assets.quill.org/documents/quill_lessons_pdf/complex_sentences/lesson2_conjunctions_of _opposition_although_etc.pdf ",
+      },
+      Object {
+        "activity_id": 577,
+        "activity_name": "Lesson 2: Participial Phrases Review",
+        "classroom_id": 1,
+        "classroom_name": "Quill Classroom",
+        "classroom_unit_id": 90,
+        "supporting_info": "https://assets.quill.org/documents/quill_lessons_pdf/participial_phrases/lesson2_participial_phrases_review.pdf",
+      },
+      Object {
+        "activity_id": 579,
+        "activity_name": "Lesson 4: Subordinating Conjunctions Review ",
+        "classroom_id": 1,
+        "classroom_name": "Quill Classroom",
+        "classroom_unit_id": 90,
+        "supporting_info": "https://assets.quill.org/documents/quill_lessons_pdf/complex_sentences/lesson4_subordinating_conjunctions_review.pdf",
+      },
+      Object {
+        "activity_id": 566,
+        "activity_name": "Lesson 1: Conjunctions of Time (After, Until, Before, etc.)",
+        "classroom_id": 1,
+        "classroom_name": "Quill Classroom",
+        "classroom_unit_id": 90,
+        "supporting_info": "https://assets.quill.org/documents/quill_lessons_pdf/complex_sentences/lesson1_conjunctions_of_time_after_until_before.pdf",
+      },
+      Object {
+        "activity_id": 580,
+        "activity_name": "Lesson 3: Conjunctions of Cause and Effect (Because, Since)",
+        "classroom_id": 1,
+        "classroom_name": "Quill Classroom",
+        "classroom_unit_id": 90,
+        "supporting_info": "https://assets.quill.org/documents/quill_lessons_pdf/complex_sentences/lesson3_conjunctions_of_cause_and_effect_because_ since.pdf",
+      },
+      Object {
+        "activity_id": 568,
+        "activity_name": "Lesson 1: Compound Objects and Predicates",
+        "classroom_id": 1,
+        "classroom_name": "Quill Classroom",
+        "classroom_unit_id": 90,
+        "supporting_info": "https://assets.quill.org/documents/quill_lessons_pdf/compound_subjects_objects_and_predicates/lesson1_compound_objects_predicates.pdf",
+      },
+      Object {
+        "activity_id": 570,
+        "activity_name": "Lesson 1: Participial Phrases ",
+        "classroom_id": 1,
+        "classroom_name": "Quill Classroom",
+        "classroom_unit_id": 90,
+        "supporting_info": "https://assets.quill.org/documents/quill_lessons_pdf/participial_phrases/lesson1_participial_phrases.pdf",
+      },
+      Object {
+        "activity_id": 581,
+        "activity_name": "Lesson 2: And, Or, But, So Review",
+        "classroom_id": 1,
+        "classroom_name": "Quill Classroom",
+        "classroom_unit_id": 90,
+        "supporting_info": "https://assets.quill.org/documents/quill_lessons_pdf/compound_sentences/lesson2_and_or_but_so_review.pdf",
+      },
+      Object {
+        "activity_id": 565,
+        "activity_name": "Lesson 1: Adverbs ",
+        "classroom_id": 1,
+        "classroom_name": "Quill Classroom",
+        "classroom_unit_id": 83,
+        "supporting_info": "https://assets.quill.org/documents/quill_lessons_pdf/adverbs/lesson1_adverbs.pdf",
+      },
+      Object {
+        "activity_id": 574,
+        "activity_name": "Lesson 2: Adverbs Review",
+        "classroom_id": 1,
+        "classroom_name": "Quill Classroom",
+        "classroom_unit_id": 83,
+        "supporting_info": "https://assets.quill.org/documents/quill_lessons_pdf/adverbs/lesson2_adverbs_review.pdf",
+      },
+      Object {
+        "activity_id": 655,
+        "activity_name": "Lesson 2: Using In, At, and On to Show Location",
+        "classroom_id": 1,
+        "classroom_name": "Quill Classroom",
+        "classroom_unit_id": 68,
+        "supporting_info": "https://assets.quill.org/documents/quill_lessons_pdf/prepositions/lesson2_using_in_at_and_on_to_show_location.pdf",
+      },
+      Object {
+        "activity_id": 654,
+        "activity_name": "Lesson 1: Using In, At, and On to Show Time",
+        "classroom_id": 1,
+        "classroom_name": "Quill Classroom",
+        "classroom_unit_id": 68,
+        "supporting_info": "https://assets.quill.org/documents/quill_lessons_pdf/prepositions/lesson1_using_in_at_and_on_to_show_time.pdf",
+      },
+    ]
+  }
+  onMobile={true}
+>
+  <section
+    className="lessons-mini"
+  >
+    <header>
+      <h2>
+        <span>
+          Present a live 
+        </span>
+        <span
+          className="no-break"
+        >
+          <span>
+            lesson
+          </span>
+          <a
+            className="focus-on-light"
+            href="https://app.intercom.com/a/apps/v2ms5bl3/articles/articles/5014101/show"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            <img
+              alt="Question mark icon"
+              src="undefined/images/icons/icons-help.svg"
+            />
+          </a>
+        </span>
+      </h2>
+    </header>
+    <MobileLessonRow
+      key="649-1-undefined"
+      row={
+        Object {
+          "actions": Array [
+            Object {
+              "element": <a
+                className="action focus-on-light"
+                href="/preview_lesson/649"
+              >
+                <img
+                  alt="Eye icon"
+                  src="undefined/images/icons/icons-preview.svg"
+                />
+                <span>
+                  Preview
+                </span>
+              </a>,
+            },
+            Object {
+              "element": <a
+                className="action focus-on-light"
+                href="/customize/649"
+              >
+                <img
+                  alt="File with a chart icon"
+                  src="undefined/images/icons/icons-file-chart.svg"
+                />
+                <span>
+                  Customize
+                </span>
+              </a>,
+            },
+            Object {
+              "element": <a
+                className="action focus-on-light"
+                href="/activities/649/supporting_info"
+              >
+                <img
+                  alt="File with a download icon"
+                  src="undefined/images/icons/icons-file-download.svg"
+                />
+                <span>
+                  Download lesson plan
+                </span>
+              </a>,
+            },
+          ],
+          "classroom": "Quill Classroom",
+          "id": "649-1-undefined",
+          "lesson": "Advanced Combining: Complex Sentences with Modifiers",
+          "present": <a
+            className="focus-on-light"
+            href="/teachers/classroom_units/92/launch_lesson/649"
+          >
+            <img
+              alt="Square play button icon"
+              src="undefined/images/icons/icons-play-box.svg"
+            />
+            <span>
+              Present
+            </span>
+          </a>,
+          "presentHref": "/teachers/classroom_units/92/launch_lesson/649",
+        }
+      }
+    >
+      <div
+        className="mobile-data-row"
+      >
+        <div
+          className="top-row"
+        >
+          <span>
+            Advanced Combining: Complex Sentences with Modifiers
+          </span>
+          <a
+            className="focus-on-light"
+            href="/teachers/classroom_units/92/launch_lesson/649"
+          >
+            Present
+          </a>
+        </div>
+        <div>
+          Quill Classroom
+        </div>
+      </div>
+    </MobileLessonRow>
+    <MobileLessonRow
+      key="563-6-undefined"
+      row={
+        Object {
+          "actions": Array [
+            Object {
+              "element": <a
+                className="action focus-on-light"
+                href="/preview_lesson/563"
+              >
+                <img
+                  alt="Eye icon"
+                  src="undefined/images/icons/icons-preview.svg"
+                />
+                <span>
+                  Preview
+                </span>
+              </a>,
+            },
+            Object {
+              "element": <a
+                className="action focus-on-light"
+                href="/customize/563"
+              >
+                <img
+                  alt="File with a chart icon"
+                  src="undefined/images/icons/icons-file-chart.svg"
+                />
+                <span>
+                  Customize
+                </span>
+              </a>,
+            },
+            Object {
+              "element": <a
+                className="action focus-on-light"
+                href="/activities/563/supporting_info"
+              >
+                <img
+                  alt="File with a download icon"
+                  src="undefined/images/icons/icons-file-download.svg"
+                />
+                <span>
+                  Download lesson plan
+                </span>
+              </a>,
+            },
+          ],
+          "classroom": "New Class",
+          "id": "563-6-undefined",
+          "lesson": "Lesson 1: And, Or, But, So",
+          "present": <a
+            className="focus-on-light"
+            href="/teachers/classroom_units/91/launch_lesson/563"
+          >
+            <img
+              alt="Square play button icon"
+              src="undefined/images/icons/icons-play-box.svg"
+            />
+            <span>
+              Present
+            </span>
+          </a>,
+          "presentHref": "/teachers/classroom_units/91/launch_lesson/563",
+        }
+      }
+    >
+      <div
+        className="mobile-data-row"
+      >
+        <div
+          className="top-row"
+        >
+          <span>
+            Lesson 1: And, Or, But, So
+          </span>
+          <a
+            className="focus-on-light"
+            href="/teachers/classroom_units/91/launch_lesson/563"
+          >
+            Present
+          </a>
+        </div>
+        <div>
+          New Class
+        </div>
+      </div>
+    </MobileLessonRow>
+    <MobileLessonRow
+      key="829-6-undefined"
+      row={
+        Object {
+          "actions": Array [
+            Object {
+              "element": <a
+                className="action focus-on-light"
+                href="/preview_lesson/829"
+              >
+                <img
+                  alt="Eye icon"
+                  src="undefined/images/icons/icons-preview.svg"
+                />
+                <span>
+                  Preview
+                </span>
+              </a>,
+            },
+            Object {
+              "element": <a
+                className="action focus-on-light"
+                href="/customize/829"
+              >
+                <img
+                  alt="File with a chart icon"
+                  src="undefined/images/icons/icons-file-chart.svg"
+                />
+                <span>
+                  Customize
+                </span>
+              </a>,
+            },
+            Object {
+              "element": <a
+                className="action focus-on-light"
+                href="/activities/829/supporting_info"
+              >
+                <img
+                  alt="File with a download icon"
+                  src="undefined/images/icons/icons-file-download.svg"
+                />
+                <span>
+                  Download lesson plan
+                </span>
+              </a>,
+            },
+          ],
+          "classroom": "New Class",
+          "id": "829-6-undefined",
+          "lesson": "Complex Sentences Overview",
+          "present": <a
+            className="focus-on-light"
+            href="/teachers/classroom_units/91/launch_lesson/829"
+          >
+            <img
+              alt="Square play button icon"
+              src="undefined/images/icons/icons-play-box.svg"
+            />
+            <span>
+              Present
+            </span>
+          </a>,
+          "presentHref": "/teachers/classroom_units/91/launch_lesson/829",
+        }
+      }
+    >
+      <div
+        className="mobile-data-row"
+      >
+        <div
+          className="top-row"
+        >
+          <span>
+            Complex Sentences Overview
+          </span>
+          <a
+            className="focus-on-light"
+            href="/teachers/classroom_units/91/launch_lesson/829"
+          >
+            Present
+          </a>
+        </div>
+        <div>
+          New Class
+        </div>
+      </div>
+    </MobileLessonRow>
+    <MobileLessonRow
+      key="566-6-undefined"
+      row={
+        Object {
+          "actions": Array [
+            Object {
+              "element": <a
+                className="action focus-on-light"
+                href="/preview_lesson/566"
+              >
+                <img
+                  alt="Eye icon"
+                  src="undefined/images/icons/icons-preview.svg"
+                />
+                <span>
+                  Preview
+                </span>
+              </a>,
+            },
+            Object {
+              "element": <a
+                className="action focus-on-light"
+                href="/customize/566"
+              >
+                <img
+                  alt="File with a chart icon"
+                  src="undefined/images/icons/icons-file-chart.svg"
+                />
+                <span>
+                  Customize
+                </span>
+              </a>,
+            },
+            Object {
+              "element": <a
+                className="action focus-on-light"
+                href="/activities/566/supporting_info"
+              >
+                <img
+                  alt="File with a download icon"
+                  src="undefined/images/icons/icons-file-download.svg"
+                />
+                <span>
+                  Download lesson plan
+                </span>
+              </a>,
+            },
+          ],
+          "classroom": "New Class",
+          "id": "566-6-undefined",
+          "lesson": "Lesson 1: Conjunctions of Time (After, Until, Before, etc.)",
+          "present": <a
+            className="focus-on-light"
+            href="/teachers/classroom_units/91/launch_lesson/566"
+          >
+            <img
+              alt="Square play button icon"
+              src="undefined/images/icons/icons-play-box.svg"
+            />
+            <span>
+              Present
+            </span>
+          </a>,
+          "presentHref": "/teachers/classroom_units/91/launch_lesson/566",
+        }
+      }
+    >
+      <div
+        className="mobile-data-row"
+      >
+        <div
+          className="top-row"
+        >
+          <span>
+            Lesson 1: Conjunctions of Time (After, Until, Before, etc.)
+          </span>
+          <a
+            className="focus-on-light"
+            href="/teachers/classroom_units/91/launch_lesson/566"
+          >
+            Present
+          </a>
+        </div>
+        <div>
+          New Class
+        </div>
+      </div>
+    </MobileLessonRow>
+    <MobileLessonRow
+      key="568-6-undefined"
+      row={
+        Object {
+          "actions": Array [
+            Object {
+              "element": <a
+                className="action focus-on-light"
+                href="/preview_lesson/568"
+              >
+                <img
+                  alt="Eye icon"
+                  src="undefined/images/icons/icons-preview.svg"
+                />
+                <span>
+                  Preview
+                </span>
+              </a>,
+            },
+            Object {
+              "element": <a
+                className="action focus-on-light"
+                href="/customize/568"
+              >
+                <img
+                  alt="File with a chart icon"
+                  src="undefined/images/icons/icons-file-chart.svg"
+                />
+                <span>
+                  Customize
+                </span>
+              </a>,
+            },
+            Object {
+              "element": <a
+                className="action focus-on-light"
+                href="/activities/568/supporting_info"
+              >
+                <img
+                  alt="File with a download icon"
+                  src="undefined/images/icons/icons-file-download.svg"
+                />
+                <span>
+                  Download lesson plan
+                </span>
+              </a>,
+            },
+          ],
+          "classroom": "New Class",
+          "id": "568-6-undefined",
+          "lesson": "Lesson 1: Compound Objects and Predicates",
+          "present": <a
+            className="focus-on-light"
+            href="/teachers/classroom_units/91/launch_lesson/568"
+          >
+            <img
+              alt="Square play button icon"
+              src="undefined/images/icons/icons-play-box.svg"
+            />
+            <span>
+              Present
+            </span>
+          </a>,
+          "presentHref": "/teachers/classroom_units/91/launch_lesson/568",
+        }
+      }
+    >
+      <div
+        className="mobile-data-row"
+      >
+        <div
+          className="top-row"
+        >
+          <span>
+            Lesson 1: Compound Objects and Predicates
+          </span>
+          <a
+            className="focus-on-light"
+            href="/teachers/classroom_units/91/launch_lesson/568"
+          >
+            Present
+          </a>
+        </div>
+        <div>
+          New Class
+        </div>
+      </div>
+    </MobileLessonRow>
+    <button
+      className="bottom-button focus-on-light interactive-wrapper"
+      onClick={[Function]}
+      type="button"
+    >
+      Show more 
+      <img
+        alt=""
+        src="undefined/images/icons/expand.svg"
+      />
+    </button>
+  </section>
+</LessonsMini>
+`;
+
+exports[`LessonsMini component on mobile should render when there are no lessons 1`] = `
+<LessonsMini
+  lessons={Array []}
+  onMobile={true}
+>
+  <span />
+</LessonsMini>
+`;
