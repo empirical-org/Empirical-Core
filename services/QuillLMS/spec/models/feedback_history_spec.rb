@@ -36,6 +36,8 @@ RSpec.describe FeedbackHistory, type: :model do
     it { should have_one(:activity_session).through(:feedback_session) }
     it { should belong_to(:prompt) }
     it { should belong_to(:concept).with_foreign_key(:concept_uid).with_primary_key(:uid) }
+    it { should have_many(:feedback_history_ratings) }
+    it { should have_many(:feedback_history_flags) }
   end
 
   context 'validations' do

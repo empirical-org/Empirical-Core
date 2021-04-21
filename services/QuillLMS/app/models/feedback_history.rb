@@ -53,6 +53,7 @@ class FeedbackHistory < ActiveRecord::Base
   belongs_to :feedback_session, foreign_key: :feedback_session_uid, primary_key: :uid
   has_one :activity_session, through: :feedback_session
   has_many :feedback_history_ratings
+  has_many :feedback_history_flags
   belongs_to :prompt, polymorphic: true
   belongs_to :concept, foreign_key: :concept_uid, primary_key: :uid
 
