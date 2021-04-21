@@ -101,7 +101,7 @@ class FeedbackHistory < ActiveRecord::Base
   end
 
   def serialize_by_activity_session
-   serializable_hash(only: [:session_uid, :start_date, :activity_id, :because_attempts, :but_attempts, :so_attempts, :complete], include: []).symbolize_keys
+   serializable_hash(only: [:session_uid, :start_date, :activity_id, :flags, :because_attempts, :but_attempts, :so_attempts, :complete], include: []).symbolize_keys
   end
 
   def serialize_by_activity_session_detail
@@ -143,6 +143,7 @@ class FeedbackHistory < ActiveRecord::Base
         feedback_histories.feedback_session_uid AS session_uid,
         MIN(feedback_histories.time) AS start_date,
         comprehension_prompts.activity_id,
+        ARRAY_REMOVE(ARRAY_AGG(DISTINCT feedback_history_flags.flag), NULL) AS flags,
         COUNT(CASE WHEN comprehension_prompts.conjunction = 'because' THEN 1 END) AS because_attempts,
         COUNT(CASE WHEN comprehension_prompts.conjunction = 'but' THEN 1 END) AS but_attempts,
         COUNT(CASE WHEN comprehension_prompts.conjunction = 'so' THEN 1 END) AS so_attempts,
@@ -158,6 +159,7 @@ class FeedbackHistory < ActiveRecord::Base
         ) AS complete
       SQL
       )
+      .joins("LEFT OUTER JOIN feedback_history_flags ON feedback_histories.id = feedback_history_flags.feedback_history_id")
       .joins("LEFT OUTER JOIN comprehension_prompts ON feedback_histories.prompt_id = comprehension_prompts.id")
       .where(used: true)
       .group(:feedback_session_uid, :activity_id)

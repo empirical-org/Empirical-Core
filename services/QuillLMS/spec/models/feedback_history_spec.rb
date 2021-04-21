@@ -315,6 +315,7 @@ RSpec.describe FeedbackHistory, type: :model do
       @first_session_feedback6 = create(:feedback_history, feedback_session_uid: @activity_session1_uid, prompt_id: @so_prompt1.id, attempt: 3, optimal: true)
       @second_session_feedback = create(:feedback_history, feedback_session_uid: @activity_session2_uid, prompt_id: @because_prompt2.id, optimal: true)
       create(:feedback_history, feedback_session_uid: @activity_session2_uid, prompt_id: @because_prompt2.id, attempt: 2, optimal: false)
+      create(:feedback_history_flag, feedback_history: @first_session_feedback1, flag: FeedbackHistoryFlag::FLAG_REPEATED_RULE_CONSECUTIVE)
     end
   
     context '#list_by_activity_session' do
@@ -356,11 +357,13 @@ RSpec.describe FeedbackHistory, type: :model do
     context '#serialize_list_by_activity_session' do
       it 'should take the query from #list_by_activity_session and return a shaped payload' do
         responses = FeedbackHistory.list_by_activity_session
+        RSpec::Support::ObjectFormatter.default_instance.max_formatted_output_length = 10000
         expect(responses.map { |r| r.serialize_by_activity_session }.to_json).to eq([
           {
             session_uid: @feedback_session2_uid,
             start_date: @second_session_feedback.time.iso8601(3),
             activity_id: @activity2.id,
+            flags: [],
             because_attempts: 2,
             but_attempts: 0,
             so_attempts: 0,
@@ -369,6 +372,7 @@ RSpec.describe FeedbackHistory, type: :model do
             session_uid: @feedback_session1_uid,
             start_date: @first_session_feedback1.time.iso8601(3),
             activity_id: @activity1.id,
+            flags: [FeedbackHistoryFlag::FLAG_REPEATED_RULE_CONSECUTIVE],
             because_attempts: 2,
             but_attempts: 1,
             so_attempts: 3,
