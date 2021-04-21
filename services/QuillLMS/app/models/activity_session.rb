@@ -45,6 +45,8 @@ class ActivitySession < ActiveRecord::Base
   include Concepts
 
   default_scope { where(visible: true)}
+  has_many :feedback_sessions, foreign_key: :activity_session_uid, primary_key: :uid
+  has_many :feedback_histories, through: :feedback_sessions
   belongs_to :classroom_unit
   belongs_to :activity
   has_one :classification, through: :activity
@@ -253,7 +255,7 @@ class ActivitySession < ActiveRecord::Base
   end
 
   def set_score_from_feedback_history
-    max_attempts_per_prompt = FeedbackHistory.used.where(activity_session_uid: uid).group(:prompt_id).maximum(:attempt)
+    max_attempts_per_prompt = feedback_histories.used.group(:prompt_id).maximum(:attempt)
     return if max_attempts_per_prompt.empty?
 
     # the math here expresses the score chart translating number of attempts to score:
@@ -473,9 +475,7 @@ class ActivitySession < ActiveRecord::Base
     ((completed_at - started_at)/60).round
   end
 
-  private
-
-  def correctly_assigned
+  private def correctly_assigned
     if classroom_unit && (classroom_unit.validate_assigned_student(user_id) == false)
       begin
         raise 'Student was not assigned this activity'
@@ -522,7 +522,7 @@ class ActivitySession < ActiveRecord::Base
     end
   end
 
-  def trigger_events
+  private def trigger_events
     should_async = state_changed?
 
     yield # http://stackoverflow.com/questions/4998553/rails-around-callbacks
@@ -534,21 +534,21 @@ class ActivitySession < ActiveRecord::Base
     end
   end
 
-  def set_state
+  private def set_state
     self.state ||= 'unstarted'
     self.data ||= {}
   end
 
-  def set_activity_id
+  private def set_activity_id
     self.activity_id = unit_activity.try(:activity_id) if activity_id.nil?
   end
 
-  def set_completed_at
+  private def set_completed_at
     return true if state != 'finished'
     self.completed_at ||= Time.current
   end
 
-  def update_milestones
+  private def update_milestones
     # we check to see if it is finished because the only milestone we're checking for is the copleted idagnostic.
     # at a later date, we might have to update this check in case we want a milestone for sessions being assigned
     # or started.

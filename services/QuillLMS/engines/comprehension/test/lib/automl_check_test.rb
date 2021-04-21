@@ -26,13 +26,19 @@ module Comprehension
         end
       end
 
+      should 'return nil if there is no automl_model associated with the provided prompt' do
+        @automl_model.destroy
+        automl_check = Comprehension::AutomlCheck.new("entry", @prompt)
+        assert_equal automl_check.feedback_object, nil
+      end
+
       should 'return the feedback payload when there is a label match' do
         AutomlModel.stub_any_instance(:fetch_automl_label, @label.name) do
           entry = 'entry'
           automl_check = Comprehension::AutomlCheck.new(entry, @prompt)
           assert_equal automl_check.feedback_object, {
             feedback: @feedback.text,
-            feedback_type: 'semantic',
+            feedback_type: 'autoML',
             optimal: @rule.optimal,
             response_id: '',
             entry: entry,

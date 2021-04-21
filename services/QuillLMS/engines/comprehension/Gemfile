@@ -10,6 +10,7 @@ gemspec
 # Git. Remember to move these dependencies to your gemspec before releasing
 # your gem to rubygems.org.
 gem 'google-cloud-automl'
+gem 'httparty'
 gem 'redis'
 gem 'redis-namespace'
 gem 'redis-rails'
@@ -23,4 +24,5 @@ group :test do
   gem 'rails-controller-testing'
   gem 'shoulda'
   gem 'shoulda-matchers', '~> 2.0'
+  gem 'webmock'
 end

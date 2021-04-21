@@ -114,7 +114,36 @@ export const promptStems = [BECAUSE, BUT, SO];
 export const DEFAULT_MAX_ATTEMPTS = 5;
 export const FIRST = 'first';
 export const SECOND = 'second';
+export const NONE = 'none';
 
+export const PROMPT_ATTEMPTS_FEEDBACK_LABELS = {
+  "1": {
+    attemptLabel: '1st Attempt',
+    feedbackLabel: '1st Feedback',
+  },
+  "2": {
+    attemptLabel: '2nd Attempt',
+    feedbackLabel: '2nd Feedback',
+  },
+  "3": {
+    attemptLabel: '3rd Attempt',
+    feedbackLabel: '3rd Feedback',
+  },
+  "4": {
+    attemptLabel: '4th Attempt',
+    feedbackLabel: '4th Feedback',
+  },
+  "5": {
+    attemptLabel: '5th Attempt',
+    feedbackLabel: '5th Feedback',
+  }
+}
+
+export const PROMPT_HEADER_LABELS = {
+  "because": 'Because Responses',
+  "but": 'But Responses',
+  "so": 'So Responses',
+}
 export const AUTO_ML = 'autoML';
 export const ACTIVE = 'active';
 export const INACTIVE = 'inactive';
@@ -167,6 +196,7 @@ export const blankUniversalRule = {
   rule_type: '',
   optimal: false,
   suborder: 0,
+  state: 'active',
   concept_uid: 'Kr8PdUfXnU0L7RrGpY4uqg',
   feedbacks: [
     {

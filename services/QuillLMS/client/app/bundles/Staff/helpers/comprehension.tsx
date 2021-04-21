@@ -19,8 +19,8 @@ import { PromptInterface } from '../interfaces/comprehensionInterfaces'
 
 const quillCheckmark = `/images/green_check.svg`;
 const quillX = '/images/red_x.svg';
-const mainBaseUrl = `${process.env.DEFAULT_URL}/api/v1/`;
-const comprehensionBaseUrl = `${mainBaseUrl}comprehension/`;
+const mainApiBaseUrl = `${process.env.DEFAULT_URL}/api/v1/`;
+const comprehensionBaseUrl = `${mainApiBaseUrl}comprehension/`;
 const fetchDefaults = require("fetch-defaults");
 
 const headerHash = {
@@ -33,7 +33,9 @@ const headerHash = {
 
 export const apiFetch = fetchDefaults(fetch, comprehensionBaseUrl, headerHash)
 
-export const mainApiFetch = fetchDefaults(fetch, mainBaseUrl, headerHash)
+export const mainApiFetch = fetchDefaults(fetch, mainApiBaseUrl, headerHash)
+
+export const mainFetch = fetchDefaults(fetch, process.env.DEFAULT_URL, headerHash)
 
 export function getModelsUrl(promptId: string, state: string) {
   let url = 'automl_models';
@@ -73,13 +75,6 @@ export const getCheckIcon = (value: boolean) => {
     return (<img alt="quill-circle-checkmark" src={quillX} />);
   }
 }
-// export const getXIcon = (value: boolean) => {
-//   if(value) {
-//     return (<img alt="quill-circle-checkmark" src={quillX} />)
-//   } else {
-//     return (<div />);
-//   }
-// }
 
 export const buildBlankPrompt = (conjunction: string) => {
   return {
@@ -205,6 +200,23 @@ export function getActivityPromptSetter({
   return updatePrompt;
 };
 
+export function getPromptForActivitySession(sessionData: any, conjunction: string) {
+  if(!sessionData) {
+    return null;
+  }
+  const { activitySession } = sessionData;
+  const { prompts } = activitySession;
+  if(prompts[conjunction]) {
+    const prompt = prompts[conjunction];
+    prompt.conjunction = conjunction;
+    return prompt;
+  }
+  return {
+    conjunction,
+    text: 'none'
+  }
+}
+
 const targetReadingLevelError = (value: string) => {
   if(!value) {
     return `${TARGET_READING_LEVEL} must be a number between 4 and 12, and cannot be blank.`
@@ -280,6 +292,16 @@ export const handleApiError = (errorMessage: string, response: any) => {
     error = errorMessage;
   }
   return error;
+}
+
+export const handleRequestErrors = async (errors: object) => {
+  let errorsArray = [];
+  if(errors) {
+    Object.keys(errors).forEach(key => {
+      errorsArray.push(`${key}: ${errors[key]}`);
+    });
+  }
+  return errorsArray;
 }
 
 export const getCsrfToken = () => {

@@ -10,7 +10,7 @@ import { TOO_LONG_FEEDBACK, TOO_SHORT_FEEDBACK, MULTIPLE_SENTENCES_FEEDBACK, PRO
 
 
 
-const prompt = activityOne.prompts[0]
+const prompt = activityOne.prompts[2]
 
 const defaultProps = {
   active: false,
@@ -267,6 +267,8 @@ describe('PromptStep component', () => {
         submittedResponses={submittedResponses}
       />)
 
+      wrapper.setState({ html: optimalSubmittedResponse.entry })
+
       it('matches snapshot', () => {
         expect(toJson(wrapper)).toMatchSnapshot()
       })
@@ -290,6 +292,8 @@ describe('PromptStep component', () => {
         className="step active"
         submittedResponses={submittedResponses}
       />)
+
+      wrapper.setState({ html: suboptimalSubmittedResponse.entry })
 
       it('matches snapshot', () => {
         expect(toJson(wrapper)).toMatchSnapshot()

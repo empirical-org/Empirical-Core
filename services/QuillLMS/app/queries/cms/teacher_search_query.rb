@@ -28,8 +28,8 @@ class Cms::TeacherSearchQuery
     ").to_a
   end
 
-  private
   attr_reader :school_id
+  private :school_id
 
   # This query return an array of hashes that look like this:
   # [

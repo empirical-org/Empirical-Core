@@ -35,6 +35,7 @@
         "text": "آپ کے نتائج ابھی محفوظ ہو رہے ہیں۔ ایک بار جب وہ محفوظ ہوجائیں گے تو آپ کو خود بخود ری ڈائریکٹ کردیا جائے گا۔"
     },
     "instructions": {
+        "Fill in each blank with one of the choices. You can leave one empty.": "انتخابات میں سے کسی ایک سے ہر خالی جگہ پر کریں۔ آپ کسی ایک کو خالی چھوڑ سکتے ہیں۔",
         "Fill in the blank with one of the choices.": "کسی ایک انتخاب میں خالی جگہ پر کریں۔",
         "Fill in each blank with one of the choices.": "کسی ایک انتخاب میں ہر خالی جگہ کو بھریں۔",
         "Fill in the blanks with one word each.": "ایک ایک لفظ کے ساتھ خالی جگہیں بھریں۔",
@@ -42,6 +43,9 @@
         "Use the joining word to combine the sentences into one sentence.": "جملے کو ایک جملے میں جوڑنے کے لئے شامل ہونے والے لفظ کا استعمال کریں۔"
     },
     "cues": {
+        "type one": "type one / ایک درج کریں",
+        "type two or three": "type two or three / دو یا تین درج کریں",
+        "type three": "type three / تین درج کریں",
         "choose one": "choose one / ایک کا انتخاب کریں",
         "choose three": "choose three / تین کا انتخاب کریں",
         "choose two or three" : "choose two or three / دو یا تین کا انتخاب کریں",

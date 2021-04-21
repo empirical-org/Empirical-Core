@@ -133,7 +133,7 @@ describe 'SegmentAnalytics' do
     let(:student) { create(:student) }
 
     it 'sends events to Intercom when the user is a teacher' do
-      analytics.track(teacher, {})
+      analytics.track({user_id: teacher.id})
       expect(identify_calls.size).to eq(0)
       expect(track_calls.size).to eq(1)
       expect(track_calls[0][:integrations]).to eq({
@@ -143,7 +143,17 @@ describe 'SegmentAnalytics' do
     end
 
     it 'does not send events to Intercom when user is not a teacher' do
-      analytics.track(student, {})
+      analytics.track({user_id: student.id})
+      expect(identify_calls.size).to eq(0)
+      expect(track_calls.size).to eq(1)
+      expect(track_calls[0][:integrations]).to eq({
+        all: true,
+        Intercom: false
+      })
+    end
+
+    it 'does not send events to Intercom when user_id is not present' do
+      analytics.track({})
       expect(identify_calls.size).to eq(0)
       expect(track_calls.size).to eq(1)
       expect(track_calls[0][:integrations]).to eq({

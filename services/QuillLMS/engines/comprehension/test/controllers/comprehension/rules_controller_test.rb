@@ -155,7 +155,7 @@ module Comprehension
         parsed_response = JSON.parse(response.body)
 
         assert_equal 422, response.code.to_i
-        assert parsed_response['errors'][0].include?("Invalid regex")
+        assert parsed_response['invalid_regex'][0].include?("end pattern with unmatched parenthesis")
       end
 
       should "create a valid record with plagiarism_text attributes" do
@@ -292,8 +292,32 @@ module Comprehension
         @rule = create(:comprehension_rule)
       end
 
-      should "return json if found" do
+      should "return json if found by id" do
         get :show, id: @rule.id
+
+        parsed_response = JSON.parse(response.body)
+
+        assert_equal 200, response.code.to_i
+        assert_equal @rule.uid, parsed_response['uid']
+
+        assert_equal @rule.name, parsed_response['name']
+
+        assert_equal @rule.description, parsed_response['description']
+
+        assert_equal @rule.universal, parsed_response['universal']
+
+        assert_equal @rule.rule_type, parsed_response['rule_type']
+
+        assert_equal @rule.optimal, parsed_response['optimal']
+
+        assert_equal @rule.suborder, parsed_response['suborder']
+
+        assert_equal @rule.concept_uid, parsed_response['concept_uid']
+
+      end
+
+      should "return json if found by uid" do
+        get :show, id: @rule.uid
 
         parsed_response = JSON.parse(response.body)
 
@@ -416,7 +440,7 @@ module Comprehension
         parsed_response = JSON.parse(response.body)
 
         assert_equal 422, response.code.to_i
-        assert parsed_response['errors'][0].include?("Invalid regex")
+        assert parsed_response['invalid_regex'][0].include?("end pattern with unmatched parenthesis")
       end
 
     end

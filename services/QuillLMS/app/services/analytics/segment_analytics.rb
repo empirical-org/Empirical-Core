@@ -21,19 +21,17 @@ class SegmentAnalytics
     # make sure that event name is written as a string in the pattern of
     # those in app/services/analytics/segment_io.rb
     # i.e. "BUILD_YOUR_OWN_ACTIVITY_PACK"
-    user = User.find(user_id)
-    track(user, {
+    track({
        user_id: user_id,
        event: "SegmentIo::BackgroundEvents::#{event_name}".constantize
       })
   end
 
   def track_activity_assignment(teacher_id, activity_id)
-    user = User.find(teacher_id)
-    activity = Activity.find(activity_id)
+    activity = Activity.find_by(id: activity_id) || Activity.find_by(uid: activity_id)
 
     # properties here get used by Heap
-    track(user, {
+    track({
       user_id: teacher_id,
       event: SegmentIo::BackgroundEvents::ACTIVITY_ASSIGNMENT,
       properties: activity_info_for_tracking(activity)
@@ -41,7 +39,7 @@ class SegmentAnalytics
 
     # this event is for Vitally, which does not show properties
     if Activity.diagnostic_activity_ids.include?(activity_id)
-      track(user, {
+      track({
         user_id: teacher_id,
         event: "#{SegmentIo::BackgroundEvents::DIAGNOSTIC_ASSIGNMENT} | #{activity.name}"
       })
@@ -49,10 +47,9 @@ class SegmentAnalytics
   end
 
   def track_activity_pack_assignment(teacher_id, unit_id)
-    user = User.find(teacher_id)
-    unit = Unit.find(unit_id)
+    unit = Unit.find_by_id(unit_id)
 
-    if unit.unit_template_id
+    if unit&.unit_template_id
       if unit.activities.all? { |a| Activity.diagnostic_activity_ids.include?(a.id) }
         activity_pack_type = 'Diagnostic'
       else
@@ -66,12 +63,12 @@ class SegmentAnalytics
     activity_pack_name_string = unit&.unit_template&.name ? " | #{unit&.unit_template&.name}" : ''
 
     # first event is for Vitally, which does not show properties
-    track(user, {
+    track({
       user_id: teacher_id,
       event: "#{SegmentIo::BackgroundEvents::ACTIVITY_PACK_ASSIGNMENT} | #{activity_pack_type}#{activity_pack_name_string}"
     })
     # second event is for Heap, which does
-    track(user, {
+    track({
       user_id: teacher_id,
       event: SegmentIo::BackgroundEvents::ACTIVITY_PACK_ASSIGNMENT,
       properties: {
@@ -82,34 +79,32 @@ class SegmentAnalytics
   end
 
   def track_activity_completion(user, student_id, activity)
-    track(user, {
-      user_id: user.id,
+    track({
+      user_id: user&.id,
       event: SegmentIo::BackgroundEvents::ACTIVITY_COMPLETION,
       properties: activity_info_for_tracking(activity).merge({student_id: student_id})
     })
   end
 
   def track_classroom_creation(classroom)
-    user = User.find(classroom&.owner&.id)
     # first event is for Vitally, which does not show properties
-    track(user, {
+    track({
       user_id: classroom&.owner&.id,
       event: "#{SegmentIo::BackgroundEvents::CLASSROOM_CREATION} | #{classroom.classroom_type_for_segment}"
     })
     # second event is for Heap, which does
-    track(user, {
+    track({
       user_id: classroom&.owner&.id,
       event: SegmentIo::BackgroundEvents::CLASSROOM_CREATION,
       properties: {
-        classroom_type: classroom.classroom_type_for_segment,
-        classroom_grade: classroom.grade_as_integer >= 0 ? classroom.grade_as_integer : nil
+        classroom_type: classroom&.classroom_type_for_segment,
+        classroom_grade: classroom && classroom.grade_as_integer >= 0 ? classroom.grade_as_integer : nil
       }
     })
   end
 
   def track_activity_search(user_id, search_query)
-    user = User.find(user_id)
-    track(user, {
+    track({
       user_id: user_id,
       event: SegmentIo::BackgroundEvents::ACTIVITY_SEARCH,
       properties: {
@@ -119,8 +114,7 @@ class SegmentAnalytics
   end
 
   def track_student_login_pdf_download(user_id, classroom_id)
-    user = User.find(user_id)
-    track(user, {
+    track({
       user_id: user_id,
       event: SegmentIo::BackgroundEvents::STUDENT_LOGIN_PDF_DOWNLOAD,
       properties: {
@@ -130,66 +124,65 @@ class SegmentAnalytics
   end
 
   def track_previewed_activity(user_id, activity_id)
-    user = User.find(user_id)
-    activity = Activity.find(activity_id)
-    track(user, {
+    activity = Activity.find_by(id: activity_id) || Activity.find_by(uid: activity_id)
+
+    track({
       user_id: user_id,
       event: SegmentIo::BackgroundEvents::PREVIEWED_ACTIVITY,
       properties: {
-        activity_name: activity.name,
+        activity_name: activity&.name,
         tool_name: activity&.classification&.name
       }
     })
 
   end
 
-  def track(user, options)
-    if backend.present?
-      options[:integrations] = integration_rules(user)
-      backend.track(options)
-    end
+  def track(options)
+    return unless backend.present?
+
+    options[:integrations] = integration_rules(options[:user_id])
+    backend.track(options)
   end
 
 
   def identify(user)
-    if backend.present? && user&.teacher?
-      backend.identify(identify_params(user))
-    end
+    return unless backend.present?
+    return unless user&.teacher?
+
+    backend.identify(identify_params(user))
   end
 
-  private
-
-  def anonymous_uid
+  private def anonymous_uid
     SecureRandom.urlsafe_base64
   end
 
-  def integration_rules(user)
-    should_send_data = (user&.role == 'teacher')
-    integrations = {
+  private def integration_rules(user_id)
+    user = User.find_by_id(user_id)
+
+    {
      all: true,
-     Intercom: should_send_data
+     Intercom: (user&.role == 'teacher')
     }
-    integrations
   end
 
 
-  def identify_params(user)
-    params = {
+  private def identify_params(user)
+    {
       user_id: user.id,
       traits: {
         premium_state: user.premium_state,
         premium_type: user.subscription&.account_type,
         auditor: user.auditor?
       },
-      integrations: integration_rules(user)
+      integrations: integration_rules(user.id)
     }
   end
 
-  def user_traits(user)
+  private def user_traits(user)
     SegmentAnalyticsUserSerializer.new(user).as_json(root: false)
   end
 
-  def activity_info_for_tracking(activity)
+  private def activity_info_for_tracking(activity)
     {
       activity_name: activity.name,
       tool_name: activity.classification.name.split(' ')[1]

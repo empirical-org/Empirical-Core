@@ -19,6 +19,8 @@ const SemanticLabelsIndex = ({ history, match, location }) => {
   const { params } = match;
   const { activityId } = params;
 
+  const [errors, setErrors] = React.useState<string[]>([]);
+
   // get cached activity data to pass to ruleForm
   const { data: activityData } = useQuery({
     queryKey: [`activity-${activityId}`, activityId],
@@ -35,28 +37,32 @@ const SemanticLabelsIndex = ({ history, match, location }) => {
 
   function handleCreateRule({rule}: {rule: RuleInterface}) {
     createRule(rule).then((response) => {
-      const { error, rule } = response;
-      if(error) {
-        return error;
+      const { errors, rule } = response;
+      if(errors && errors.length) {
+        setErrors(errors);
+      } else {
+        setErrors([]);
+        // update rules cache to display newly created rule
+        queryCache.refetchQueries(`rules-${activityId}`).then(() => {
+          history.push(`/activities/${activityId}/semantic-labels/all`);
+        });
       }
-      // update rules cache to display newly created rule
-      queryCache.refetchQueries(`rules-${activityId}`).then(() => {
-        history.push(`/activities/${activityId}/semantic-labels/all`);
-      });
       return rule;
     });
   }
 
   function handleUpdateRule({rule}: {rule: RuleInterface}, ruleId) {
     updateRule(ruleId, rule).then((response) => {
-      const { error } = response;
-      if(error) {
-        return error;
+      const { errors } = response;
+      if(errors && errors.length) {
+        setErrors(errors);
+      } else {
+        setErrors([]);
+        // update rules cache to display newly updated rule
+        queryCache.refetchQueries(`rules-${activityId}`).then(() => {
+          history.push(`/activities/${activityId}/semantic-labels/all`);
+        });
       }
-      // update rules cache to display newly updated rule
-      queryCache.refetchQueries(`rules-${activityId}`).then(() => {
-        history.push(`/activities/${activityId}/semantic-labels/all`);
-      });
       return rule;
     });
   }
@@ -123,6 +129,7 @@ const SemanticLabelsIndex = ({ history, match, location }) => {
               activityData={activityData && activityData.activity}
               isSemantic={true}
               isUniversal={false}
+              requestErrors={errors}
               submitRule={handleCreateRule}
             />)}
         />
@@ -133,6 +140,7 @@ const SemanticLabelsIndex = ({ history, match, location }) => {
               activityData={activityData && activityData.activity}
               isSemantic={true}
               isUniversal={false}
+              requestErrors={errors}
               submitRule={handleUpdateRule}
             />)}
         />

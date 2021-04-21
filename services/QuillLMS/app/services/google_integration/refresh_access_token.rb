@@ -38,13 +38,11 @@ class GoogleIntegration::RefreshAccessToken
     end
   end
 
-  private
-
-  def make_request
+  private def make_request
     @http_client.post(TOKEN_ENDPOINT, refresh_token_options)
   end
 
-  def handle_response(response)
+  private def handle_response(response)
     if response.code == 200
       store_credentials(response)
     else
@@ -55,7 +53,7 @@ class GoogleIntegration::RefreshAccessToken
     end
   end
 
-  def store_credentials(response)
+  private def store_credentials(response)
     data       = response.parsed_response
     attributes = parse_attributes(data)
 
@@ -67,7 +65,7 @@ class GoogleIntegration::RefreshAccessToken
     end
   end
 
-  def parse_attributes(data)
+  private def parse_attributes(data)
     {}.tap do |attributes|
       if data['access_token'].present?
         attributes[:access_token] = data['access_token']
@@ -83,26 +81,26 @@ class GoogleIntegration::RefreshAccessToken
     end
   end
 
-  def refresh_token
+  private def refresh_token
     current_credentials.refresh_token
   end
 
-  def current_credentials
+  private def current_credentials
     @current_credentials ||= @user.auth_credential
   end
 
-  def should_refresh?
+  private def should_refresh?
     current_credentials && (current_credentials.expires_at.nil? ||
       Time.now > current_credentials.expires_at
     )
   end
 
-  def token_too_old_to_refresh?
+  private def token_too_old_to_refresh?
     return false if current_credentials.expires_at.nil?
     Time.now - 6.months >= current_credentials.expires_at
   end
 
-  def refresh_token_options
+  private def refresh_token_options
     {
       body: {
         client_id: ENV["GOOGLE_CLIENT_ID"],

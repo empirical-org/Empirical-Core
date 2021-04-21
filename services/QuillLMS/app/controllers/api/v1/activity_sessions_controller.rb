@@ -5,12 +5,10 @@ class Api::V1::ActivitySessionsController < Api::ApiController
   before_action :strip_access_token_from_request
   before_action :transform_incoming_request, only: [:update, :create]
 
-  # GET
   def show
     render json: @activity_session, meta: {status: 'success', message: nil, errors: nil}, serializer: ActivitySessionSerializer
   end
 
-  # PATCH, PUT
   def update
     # FIXME: ignore id because it's related to inconsistency between
     # naming - id in app and uid here
@@ -30,9 +28,8 @@ class Api::V1::ActivitySessionsController < Api::ApiController
 
     render json: @activity_session, meta: {message: message, errors: @errors || []}, status: status, serializer: ActivitySessionSerializer
   end
-  # POST
-  def create
 
+  def create
     @activity_session = ActivitySession.new(activity_session_params.except(:id, :concept_results))
     crs = @activity_session.concept_results
     @activity_session.user = current_user if current_user
@@ -54,7 +51,6 @@ class Api::V1::ActivitySessionsController < Api::ApiController
     render json: @activity_session, meta: {status: @status, message: @message, errors: @activity_session.errors}, serializer: ActivitySessionSerializer
   end
 
-  # DELETE
   def destroy
     if @activity_session.destroy!
       render json: ActivitySession.new, meta:
@@ -67,36 +63,30 @@ class Api::V1::ActivitySessionsController < Api::ApiController
     end
   end
 
-  private
-
-  def handle_concept_results
+  private def handle_concept_results
     return if !@concept_results && !@activity_session.activity.uses_feedback_history?
 
     if @concept_results
       concept_results_to_save = @concept_results.map{ |c| concept_results_hash(c) }.reject(&:empty?)
     elsif @activity_session.activity.uses_feedback_history?
-      histories = FeedbackHistory.used.where(activity_session_uid: @activity_session.uid)
+      histories = @activity_session.feedback_histories.used
       concept_results_to_save = histories.map(&:concept_results_hash).reject(&:empty?)
     end
     ConceptResult.bulk_insert(values: concept_results_to_save)
   end
 
-  def concept_results_hash(concept_result)
+  private def concept_results_hash(concept_result)
     concept = Concept.find_by(uid: concept_result["concept_uid"])
     return {} if concept.blank?
 
     concept_result.merge(concept_id: concept.id, activity_session_id: @activity_session.id)
   end
 
-  def find_activity_session
-    # if current_user
-    #   @activity_session = current_user.activity_sessions.find_by_uid!(params[:id])
-    # else
+  private def find_activity_session
     @activity_session = ActivitySession.unscoped.find_by_uid!(params[:id])
-    # end
   end
 
-  def activity_session_params
+  private def activity_session_params
     params.delete(:activity_session)
     @data = params.delete(:data)
     params.permit(:id,
@@ -114,7 +104,7 @@ class Api::V1::ActivitySessionsController < Api::ApiController
       .merge(timespent: @activity_session&.timespent)
   end
 
-  def transform_incoming_request
+  private def transform_incoming_request
     if params[:concept_results].present?
       @concept_results = params.delete(:concept_results)
     else
@@ -122,7 +112,7 @@ class Api::V1::ActivitySessionsController < Api::ApiController
     end
   end
 
-  def strip_access_token_from_request
+  private def strip_access_token_from_request
     params.delete(:access_token)
   end
 end

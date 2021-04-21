@@ -117,7 +117,7 @@ describe Api::V1::ActivitySessionsController, type: :controller do
         @activity_session = create(:activity_session, activity: @activity, state: 'started', user: user, completed_at: nil)
         @activity_session.concept_results.destroy_all
         @concept = create(:concept)
-        @feedback_history = create(:feedback_history, concept_uid: @concept.uid, activity_session_uid: @activity_session.uid, prompt: @prompt)
+        @feedback_history = create(:feedback_history, concept_uid: @concept.uid, feedback_session_uid: @activity_session.uid, prompt: @prompt)
         subject
         @parsed_body = JSON.parse(response.body)
       end

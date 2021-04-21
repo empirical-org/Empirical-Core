@@ -1,6 +1,7 @@
 import * as React from "react";
 import queryString from 'query-string';
 import { connect } from "react-redux";
+import stripHtml from "string-strip-html";
 
 import PromptStep from './promptStep'
 import StepLink from './stepLink'
@@ -9,7 +10,10 @@ import LoadingSpinner from '../shared/loadingSpinner'
 import { getActivity } from "../../actions/activities";
 import { TrackAnalyticsEvent } from "../../actions/analytics";
 import { Events } from '../../modules/analytics'
-import { getFeedback } from '../../actions/session'
+import { fetchActiveActivitySession,
+         getFeedback,
+         processUnfetchableSession,
+         saveActiveActivitySession } from '../../actions/session'
 import { ActivitiesReducerState } from '../../reducers/activitiesReducer'
 import { SessionReducerState } from '../../reducers/sessionReducer'
 import getParameterByName from '../../helpers/getParameterByName';
@@ -64,12 +68,25 @@ export class StudentViewContainer extends React.Component<StudentViewContainerPr
 
   componentDidMount() {
     const { dispatch, session, isTurk } = this.props
-    const { sessionID, } = session
     const activityUID = this.activityUID()
-
-    if (activityUID) {
-      dispatch(getActivity(sessionID, activityUID))
-      isTurk && this.handlePostTurkSession(sessionID);
+    const sessionFromUrl = this.specifiedActivitySessionUID()
+    if (sessionFromUrl) {
+      const fetchActiveActivitySessionArgs = {
+        sessionID: sessionFromUrl,
+        activityUID: activityUID,
+        callback: this.loadPreviousSession
+      }
+      dispatch(getActivity(sessionFromUrl, activityUID))
+        .then(() => {
+          dispatch(fetchActiveActivitySession(fetchActiveActivitySessionArgs))
+        })
+    } else {
+      if (activityUID) {
+        const { sessionID, } = session
+        dispatch(getActivity(sessionID, activityUID))
+        dispatch(processUnfetchableSession(sessionID));
+        isTurk && this.handlePostTurkSession(sessionID);
+      }
     }
 
     window.addEventListener('keydown', this.handleKeyDown)
@@ -91,14 +108,28 @@ export class StudentViewContainer extends React.Component<StudentViewContainerPr
 
   onMobile = () => window.innerWidth < 1100
 
-  activityUID = () => {
+  getUrlParam = (paramName: string) => {
     const { location, isTurk } = this.props
     if(isTurk) {
-      return getParameterByName('uid', window.location.href)
+      return getParameterByName(paramName, window.location.href)
     }
     const { search, } = location
     if (!search) { return }
-    return queryString.parse(search).uid
+    return queryString.parse(search)[paramName]
+  }
+
+  activityUID = () => {
+    return this.getUrlParam('uid')
+  }
+
+  specifiedActivitySessionUID = () => {
+    return this.getUrlParam('session')
+  }
+
+  loadPreviousSession = (data: object) => {
+    const { activeStep, completedSteps, } = data
+    this.setState({ completedSteps })
+    this.activateStep(activeStep, null, true)
   }
 
   submitResponse = (entry: string, promptID: string, promptText: string, attempt: number) => {
@@ -115,7 +146,7 @@ export class StudentViewContainer extends React.Component<StudentViewContainerPr
         promptText,
         attempt,
         previousFeedback,
-        callback: this.scrollToHighlight
+        callback: this.submitResponseCallback
       }
       dispatch(getFeedback(args))
     }
@@ -153,7 +184,6 @@ export class StudentViewContainer extends React.Component<StudentViewContainerPr
   }
 
   trackCurrentPromptStartedEvent = () => {
-    //console.log('current prompt started event')
     const { dispatch, } = this.props
 
     const trackingParams = this.getCurrentStepDataForEventTracking()
@@ -186,14 +216,14 @@ export class StudentViewContainer extends React.Component<StudentViewContainerPr
     }
   }
 
-  activateStep = (step?: number, callback?: Function) => {
+  activateStep = (step?: number, callback?: Function, skipTracking?: boolean) => {
     const { activeStep, completedSteps, } = this.state
     // don't activate a step if it's already active
     if (activeStep == step) return
     // don't activate steps before Done reading button has been clicked
     if (step && step > 1 && !completedSteps.includes(READ_PASSAGE_STEP)) return
     this.setState({ activeStep: step, }, () => {
-      this.trackCurrentPromptStartedEvent()
+      if (!skipTracking) this.trackCurrentPromptStartedEvent()
       if (callback) { callback() }
     })
   }
@@ -258,6 +288,20 @@ export class StudentViewContainer extends React.Component<StudentViewContainerPr
     }
   }
 
+  submitResponseCallback = () => {
+    const { dispatch, session, } = this.props
+    const { sessionID, submittedResponses, } = session
+    const { activeStep, completedSteps, } = this.state
+    const args = {
+      sessionID,
+      submittedResponses,
+      activeStep,
+      completedSteps,
+    }
+    dispatch(saveActiveActivitySession(args))
+    this.scrollToHighlight()
+  }
+
   scrollToStepOnMobile = (ref: string) => {
     this[ref].scrollIntoView(false)
   }
@@ -275,6 +319,12 @@ export class StudentViewContainer extends React.Component<StudentViewContainerPr
     })
   }
 
+  removeSpansFromPassages = (passages) => {
+    return passages.map(passage => {
+      return stripHtml(passage, { onlyStripTags: ['span'] })
+    })
+  }
+
   formatHtmlForPassage = () => {
     const { activeStep, } = this.state
     const { activities, session, } = this.props
@@ -284,6 +334,7 @@ export class StudentViewContainer extends React.Component<StudentViewContainerPr
 
     let passages: any[] = currentActivity.passages
     const passagesWithPTags = this.addPTagsToPassages(passages)
+    const passagesWithoutSpanTags = this.removeSpansFromPassages(passagesWithPTags);
 
     if (!activeStep || activeStep === READ_PASSAGE_STEP) { return passagesWithPTags }
 
@@ -291,11 +342,13 @@ export class StudentViewContainer extends React.Component<StudentViewContainerPr
     const activePromptId = currentActivity.prompts[promptIndex].id
     const submittedResponsesForActivePrompt = session.submittedResponses[activePromptId]
 
-    if (!(submittedResponsesForActivePrompt && submittedResponsesForActivePrompt.length)) { return passagesWithPTags }
+    // we return the unhighlighted text when an active response has no submissions with highlights
+    if (!(submittedResponsesForActivePrompt && submittedResponsesForActivePrompt.length)) { return passagesWithoutSpanTags }
 
     const lastSubmittedResponse = submittedResponsesForActivePrompt[submittedResponsesForActivePrompt.length - 1]
 
-    if (!lastSubmittedResponse.highlight) { return passagesWithPTags }
+    if (!lastSubmittedResponse.highlight) { return passagesWithoutSpanTags }
+
 
     const passageHighlights = lastSubmittedResponse.highlight.filter(hl => hl.type === "passage")
 
@@ -304,14 +357,16 @@ export class StudentViewContainer extends React.Component<StudentViewContainerPr
       passages = passages.map((passage: Passage) => {
         let formattedPassage = passage;
         const { text } = passage;
-        const passageBeforeCharacterStart = text.substring(0, characterStart)
-        const passageAfterCharacterStart = text.substring(characterStart)
-        const highlightedPassageAfterCharacterStart = passageAfterCharacterStart.replace(hl.text, `<span class="passage-highlight">${hl.text}</span>`)
+        // we want to remove any highlights returned from inactive prompts
+        const formattedPassageText = stripHtml(text, { onlyStripTags: ['span'] });
+        const strippedText = stripHtml(hl.text);
+        const passageBeforeCharacterStart = formattedPassageText.substring(0, characterStart)
+        const passageAfterCharacterStart = formattedPassageText.substring(characterStart)
+        const highlightedPassageAfterCharacterStart = passageAfterCharacterStart.replace(strippedText, `<span class="passage-highlight">${strippedText}</span>`)
         formattedPassage.text = `${passageBeforeCharacterStart}${highlightedPassageAfterCharacterStart}`
         return formattedPassage
       })
     })
-
     return this.addPTagsToPassages(passages)
   }
 
@@ -360,10 +415,12 @@ export class StudentViewContainer extends React.Component<StudentViewContainerPr
     const { activities, session, } = this.props
     const { activeStep, completedSteps } = this.state
     const { currentActivity, } = activities
-    const { submittedResponses, } = session
-    if (!currentActivity) return
+    const { submittedResponses, hasReceivedData, } = session
+    if (!currentActivity || !hasReceivedData) return
 
-    const steps =  currentActivity.prompts.map((prompt, i) => {
+    // sort by conjunctions in alphabetical order: because, but, so
+    const filteredSteps = currentActivity.prompts.sort((a, b) => a.conjunction.localeCompare(b.conjunction));
+    const steps =  filteredSteps.map((prompt, i) => {
       // using i + 2 because the READ_PASSAGE_STEP is 1, so the first item in the set of prompts will always be 2
       const stepNumber = i + 2
       const everyOtherStepCompleted = completedSteps.filter(s => s !== stepNumber).length === 3

@@ -31,7 +31,6 @@ module ResponseAggregator
       "Unmatched": unmatched
     }
   end
-
   # Human optimal = optimal:  true, parent_id: nil
   # Human suboptimal = optimal:  false, parent_id: nil
   # algo optimal = optimal:  true, parent_id: !nil

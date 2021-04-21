@@ -11,26 +11,26 @@ class CreateLessonsToken
     create_token
   end
 
-  private
-
   attr_reader :user, :classroom_unit_id
+  private :user
+  private :classroom_unit_id
 
-  def create_token
+  private def create_token
     JWT.encode(payload, private_key, 'RS256')
   end
 
-  def payload
+  private def payload
     {
       data: data,
       exp: exp
     }
   end
 
-  def exp
+  private def exp
     Time.now.to_i + 365 * 24 * 3600
   end
 
-  def data
+  private def data
     {
       user_id:               user_id,
       role:                  user_role,
@@ -38,7 +38,7 @@ class CreateLessonsToken
     }
   end
 
-  def user_id
+  private def user_id
     if user.present?
       user.id
     else
@@ -46,7 +46,7 @@ class CreateLessonsToken
     end
   end
 
-  def user_role
+  private def user_role
     if user.present?
       user.role
     else
@@ -54,7 +54,7 @@ class CreateLessonsToken
     end
   end
 
-  def classroom_unit_id
+  private def classroom_unit_id
     if valid_classroom_unit?
       classroom_unit.id
     else
@@ -62,23 +62,23 @@ class CreateLessonsToken
     end
   end
 
-  def valid_classroom_unit?
+  private def valid_classroom_unit?
     classroom_unit.present? && (student_assigned? || teachers_activity?)
   end
 
-  def student_assigned?
+  private def student_assigned?
     classroom_unit.assigned_student_ids.include? user_id
   end
 
-  def teachers_activity?
+  private def teachers_activity?
     classroom_unit&.classroom&.teachers&.pluck(:id)&.include? user_id
   end
 
-  def classroom_unit
+  private def classroom_unit
     @classroom_unit ||= ClassroomUnit.find_by(id: @classroom_unit_id)
   end
 
-  def private_key
+  private def private_key
     @private_key ||= OpenSSL::PKey::RSA.new(ENV['LESSONS_PRIVATE_KEY'])
   end
 end

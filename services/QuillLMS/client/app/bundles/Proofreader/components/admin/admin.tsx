@@ -1,12 +1,14 @@
 import * as React from 'react';
 import { Route, Switch, withRouter, RouteComponentProps } from "react-router-dom";
 import { connect } from 'react-redux';
+
+import TabLink from './tabLink'
+
 import * as proofreaderActivitiesActions from '../../actions/proofreaderActivities'
 import * as conceptsActions from '../../actions/concepts'
 import Lessons from '../lessons/lessons'
 import Lesson from '../lessons/lesson'
 import Concepts from '../concepts/concepts'
-import TabLink from './tabLink'
 
 const usersEndpoint = `${process.env.DEFAULT_URL}/api/v1/users.json`;
 const newSessionEndpoint = `${process.env.DEFAULT_URL}/session/new`;
@@ -44,7 +46,7 @@ class AdminContainer extends React.Component<AdminContainerProps> {
   }
 
   render() {
-    const { children, } = this.props
+    const { children, dispatch } = this.props
     return (
       <div style={{ display: 'flex', backgroundColor: "white", height: '100vw' }}>
         <section className="section is-fullheight" style={{ display: 'flex', flexDirection: 'row', paddingTop: 0, paddingBottom: 0, }}>
@@ -53,13 +55,13 @@ class AdminContainer extends React.Component<AdminContainerProps> {
               General
             </p>
             <ul className="menu-list">
-              <TabLink activeClassName="is-active" to='/admin/lessons'>Proofreader Activities</TabLink>
+              <TabLink dispatch={dispatch} to='/admin/lessons'>Proofreader Activities</TabLink>
             </ul>
             <p className="menu-label">
               Supporting
             </p>
             <ul className="menu-list">
-              <TabLink activeClassName="is-active" to='/admin/concepts'>Concepts</TabLink>
+              <TabLink dispatch={dispatch} to='/admin/concepts'>Concepts</TabLink>
             </ul>
           </aside>
           <div className="admin-container">
