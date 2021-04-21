@@ -175,8 +175,7 @@ describe TeachersController, type: :controller do
               classroom_id: classroom.id,
               supporting_info: lesson_activity1.supporting_info
             }
-          ]
-        }.to_json)
+          ]}.to_json)
         end
       end
 
