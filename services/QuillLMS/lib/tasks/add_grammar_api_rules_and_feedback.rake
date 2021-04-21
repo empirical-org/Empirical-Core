@@ -2,30 +2,43 @@ namespace :grammar_api_rules_and_feedback do
     desc 'data migration for grammar-api specific rules and feedback'
     task :insert => :environment do
         rules_csv = CSV.parse(File.read('lib/data/rules.csv'), headers: true)
-        valid_grammar_rules = rules_csv.select do |r| 
-            r['Module'] == 'Grammar API' && r['Rule UID'].present? 
+        valid_rules = rules_csv.select do |r| 
+            ['Grammar API', 'Opinion API'].include?(r['Module']) && r['Rule UID'].present? 
         end
 
         ActiveRecord::Base.transaction do 
-            valid_grammar_rules.each do |r|
-                created_rule = Comprehension::Rule.create!(
-                    uid: r['Rule UID'],
+            valid_rules.each do |r|
+                created_rule = Comprehension::Rule.find_or_initialize_by(uid: r['Rule UID'])
+                created_rule.attributes = {
                     name: r['Rule'],
                     description: r['Rule Description'],
                     universal: true,
-                    rule_type: 'grammar',
+                    rule_type: r['Module'] == 'Grammar API' ? 'grammar' : 'opinion',
                     optimal: false,
-                    suborder: 1,
+                    suborder: r['Overall Rule Priority'],
                     state: 'active',
-                )
-                Comprehension::Feedback.create!(
+                }
+                created_rule.save!
+
+                # rubocop:disable all
+                feedback_text = 
+                    if r['Feedback - Revised'].respond_to?(:length) && r['Feedback - Revised'].length > Comprehension::Feedback::MIN_FEEDBACK_LENGTH
+                        r['Feedback - Revised']
+                    else 
+                        'Feedback not specified.'
+                    end
+                # rubocop:enable all
+
+                feedback = Comprehension::Feedback.find_or_initialize_by(
                     rule_id: created_rule.id,
-                    text: 'lorem ipsum',
                     order: 1
                 )
+
+                feedback.text = feedback_text
+                feedback.save!
             end
         end
-  
-   end
-  end
+
+    end
+end
   
