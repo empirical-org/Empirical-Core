@@ -15,15 +15,16 @@ namespace :grammar_api_rules_and_feedback do
                     universal: true,
                     rule_type: r['Module'] == 'Grammar API' ? 'grammar' : 'opinion',
                     optimal: false,
-                    suborder: r['Overall Rule Priority'],
+                    suborder: r['Rule Suborder'],
                     state: 'active',
                 }
                 created_rule.save!
 
                 # rubocop:disable all
                 feedback_text = 
-                    if r['Feedback - Revised'].respond_to?(:length) && r['Feedback - Revised'].length > Comprehension::Feedback::MIN_FEEDBACK_LENGTH
-                        r['Feedback - Revised']
+                    if r['Feedback V3 [HM 4/21]'].respond_to?(:length) 
+                        && r['Feedback V3 [HM 4/21]'].length > Comprehension::Feedback::MIN_FEEDBACK_LENGTH
+                        r['Feedback V3 [HM 4/21]']
                     else 
                         'Feedback not specified.'
                     end
