@@ -6,6 +6,8 @@ namespace :grammar_api_rules_and_feedback do
             ['Grammar API', 'Opinion API'].include?(r['Module']) && r['Rule UID'].present? 
         end
 
+        all_prompts = Comprehension::Prompt.all
+
         ActiveRecord::Base.transaction do 
             valid_rules.each do |r|
                 created_rule = Comprehension::Rule.find_or_initialize_by(uid: r['Rule UID'])
@@ -27,6 +29,14 @@ namespace :grammar_api_rules_and_feedback do
                 )
 
                 feedback.save!
+
+                all_prompts.each do |p|
+                    p_r = Comprehension::PromptsRule.find_or_initialize_by(
+                        prompt_id: p.id, rule_id: created_rule.id
+                    )
+                    p_r.save!
+                end
+
             end
         end
 
