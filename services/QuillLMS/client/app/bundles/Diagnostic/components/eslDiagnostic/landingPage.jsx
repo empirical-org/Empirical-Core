@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { ResumeOrBeginButton } from '../../../Shared/index';
-import { ENGLISH, rightToLeftLanguages, languageDataV2} from '../../modules/translation/languagePageInfo';
+import { ENGLISH, rightToLeftLanguages, languageData, languageDataV2} from '../../modules/translation/languagePageInfo';
 
 export class LandingPage extends React.Component {
 
@@ -19,7 +19,8 @@ export class LandingPage extends React.Component {
 
   renderLandingPageText = (language) => {
     const { diagnosticID } = this.props;
-    const landingPageInfo = languageDataV2[language].intro[diagnosticID];
+    const langData = diagnosticID === 'ell' ? languageData : languageDataV2;
+    const landingPageInfo = langData[language].intro[diagnosticID];
     const { header, firstLine, secondLine, thirdLine } = landingPageInfo;
     const textClass = rightToLeftLanguages.includes(language) ? 'right-to-left' : '';
     // right to left languages only have one line, the first
