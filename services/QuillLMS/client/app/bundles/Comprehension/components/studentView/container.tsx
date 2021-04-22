@@ -109,7 +109,6 @@ export class StudentViewContainer extends React.Component<StudentViewContainerPr
   }
 
   defaultHandleFinishActivity = () => {
-    this.specifiedActivitySessionUID();
     // We only post completed sessions if we had one specified when the activity loaded
     if (!this.specifiedActivitySessionUID()) return
     const { activities, dispatch, session, } = this.props
