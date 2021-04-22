@@ -15,6 +15,7 @@ import { completeActivitySession,
          getFeedback,
          processUnfetchableSession,
          saveActiveActivitySession } from '../../actions/session'
+import { calculatePercentage, generateConceptResults, } from '../../libs/conceptResults'
 import { ActivitiesReducerState } from '../../reducers/activitiesReducer'
 import { SessionReducerState } from '../../reducers/sessionReducer'
 import getParameterByName from '../../helpers/getParameterByName';
@@ -42,13 +43,6 @@ interface StudentViewContainerState {
 
 const READ_PASSAGE_STEP = 1
 const ALL_STEPS = [READ_PASSAGE_STEP, 2, 3, 4]
-const ATTEMPTS_TO_SCORE = {
-  1: 1.0,
-  2: 0.75,
-  3: 0.5,
-  4: 0.25,
-  5: 0.0
-}
 
 export class StudentViewContainer extends React.Component<StudentViewContainerProps, StudentViewContainerState> {
   private step1: any // eslint-disable-line react/sort-comp
@@ -118,53 +112,12 @@ export class StudentViewContainer extends React.Component<StudentViewContainerPr
     this.specifiedActivitySessionUID();
     // We only post completed sessions if we had one specified when the activity loaded
     if (!this.specifiedActivitySessionUID()) return
-    const { dispatch, session, } = this.props
-    const { sessionID, } = session
-    const conceptResults = this.generateConceptResults()
-    const percentage = this.calculatePercentage()
-    dispatch(completeActivitySession(sessionID, percentage, conceptResults))
-  }
-
-  calculatePercentage = () => {
-    const { session, } = this.props
-    const { submittedResponses, } = session
-    const attemptCounts = Object.values(submittedResponses).map((responses) => ATTEMPTS_TO_SCORE[responses.length])
-    return attemptCounts.reduce((total, value) => total + value) / attemptCounts.length
-  }
-
-  generateConceptResults = () => {
-    const { activities, session, } = this.props
+    const { activities, dispatch, session, } = this.props
+    const { sessionID, submittedResponses, } = session
     const { currentActivity, } = activities
-    const { submittedResponses, } = session
-
-    const conjunctionToQuestionNumber = {
-      because: 1,
-      but: 2,
-      so: 3
-    }
-
-    const conceptResults = []
-
-    for (const [promptID, responses] of Object.entries(submittedResponses)) {
-      const prompt = Object.values(currentActivity.prompts).filter((prompt) => prompt.id == promptID)[0]
-      responses.forEach((response, index) => {
-        const attempt = index + 1
-        conceptResults.push({
-          concept_uid: response.concept_uid,
-          question_type: 'comprehension',
-          metadata: {
-            answer: response.entry,
-            attemptNumber: attempt,
-            correct: response.optimal,
-            directions: 'Complete this sentence',
-            prompt: prompt.text,
-            questionNumber: conjunctionToQuestionNumber[prompt.conjunction],
-            questionScore: ATTEMPTS_TO_SCORE[responses.length],
-          }
-        })
-      })
-    }
-    return conceptResults
+    const percentage = calculatePercentage(submittedResponses)
+    const conceptResults = generateConceptResults(currentActivity, submittedResponses)
+    dispatch(completeActivitySession(sessionID, percentage, conceptResults))
   }
 
   onMobile = () => window.innerWidth < 1100
