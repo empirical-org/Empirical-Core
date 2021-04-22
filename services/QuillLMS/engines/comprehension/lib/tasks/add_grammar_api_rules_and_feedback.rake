@@ -1,7 +1,7 @@
 namespace :grammar_api_rules_and_feedback do
     desc 'data migration for grammar-api specific rules and feedback'
     task :insert => :environment do
-        rules_csv = CSV.parse(File.read('lib/data/rules.csv'), headers: true)
+        rules_csv = CSV.parse(File.read('engines/comprehension/lib/tasks/rules.csv'), headers: true)
         valid_rules = rules_csv.select do |r| 
             ['Grammar API', 'Opinion API'].include?(r['Module']) && r['Rule UID'].present? 
         end
@@ -20,22 +20,12 @@ namespace :grammar_api_rules_and_feedback do
                 }
                 created_rule.save!
 
-                # rubocop:disable all
-                feedback_text = 
-                    if r['Feedback V3 [HM 4/21]'].respond_to?(:length) 
-                        && r['Feedback V3 [HM 4/21]'].length > Comprehension::Feedback::MIN_FEEDBACK_LENGTH
-                        r['Feedback V3 [HM 4/21]']
-                    else 
-                        'Feedback not specified.'
-                    end
-                # rubocop:enable all
-
                 feedback = Comprehension::Feedback.find_or_initialize_by(
                     rule_id: created_rule.id,
-                    order: 1
+                    order: 1,
+                    text: r['Feedback V3 [HM 4/21]']
                 )
 
-                feedback.text = feedback_text
                 feedback.save!
             end
         end
