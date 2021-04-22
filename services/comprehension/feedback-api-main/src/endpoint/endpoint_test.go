@@ -39,7 +39,7 @@ func TestPublishMessage(t *testing.T) {
 		t.Errorf("The response was not optimal.")
 	}
 
-	if r.Feedback_type != "semantic" {
+	if r.Feedback_type != "autoML" {
 		t.Errorf("The wrong feedback type was returned: %v", r.Feedback_type)
 	}
 }
@@ -71,7 +71,7 @@ func TestDefaultFeedbackFallback(t *testing.T) {
 		t.Errorf("The response was not optimal.")
 	}
 
-	if r.Feedback_type != "semantic" {
+	if r.Feedback_type != "autoML" {
 		t.Errorf("The wrong feedback type was returned: %v", r.Feedback_type)
 	}
 }
@@ -161,7 +161,8 @@ func TestAutoMLIndex(t *testing.T) {
 }
 
 func TestIdentifyUsedFeedbackIndex(t *testing.T) {
-	usable_response := InternalAPIResponse { Error: false, APIResponse: APIResponse { Concept_uid: "test_concept", Feedback: "Feedback text: optimal", Feedback_type: "type1", Optimal: false, Labels: "test_label" } }
+	usable_used_response := InternalAPIResponse { Error: false, APIResponse: APIResponse { Concept_uid: "test_concept", Feedback: "Feedback text: optimal", Feedback_type: "type1", Optimal: false, Labels: "test_label" } }
+	usable_unused_response := InternalAPIResponse { Error: false, APIResponse: APIResponse { Concept_uid: "test_concept", Feedback: "Feedback text: optimal", Feedback_type: "type1", Optimal: false, Labels: "test_label" } }
 	error_response := InternalAPIResponse { Error: true, APIResponse: APIResponse { Concept_uid: "test_concept", Feedback: "Feedback text: optimal", Feedback_type: "type1", Optimal: false, Labels: "test_label" } }
 	optimal_response := InternalAPIResponse { Error: false, APIResponse: APIResponse { Concept_uid: "test_concept", Feedback: "Feedback text: optimal", Feedback_type: "type1", Optimal: true, Labels: "test_label" } }
 
@@ -174,14 +175,15 @@ func TestIdentifyUsedFeedbackIndex(t *testing.T) {
 
 	feedbacks[0] = error_response
 	feedbacks[1] = optimal_response
-	feedbacks[2] = usable_response
+	feedbacks[2] = usable_used_response
+	feedbacks[3] = usable_unused_response
 
 	result = identifyUsedFeedbackIndex(feedbacks)
 	if result != 2 {
 		t.Errorf("Should have identified 2 for unfound used feedback, but got %d", result)
 	}
 
-	for i := 0; i <= automl_index; i++ {
+	for i := 0; i < len(feedbacks); i++ {
 		feedbacks[i] = optimal_response
 	}
 
@@ -224,7 +226,7 @@ func TestBuildFeedbackHistory(t *testing.T) {
 
 	result := buildFeedbackHistory(request_object, feedback, used, time_received)
 	expected := FeedbackHistory {
-		Activity_session_uid: request_object.Session_id,
+		Feedback_session_uid: request_object.Session_id,
 		Prompt_id: request_object.Prompt_id,
 		Concept_uid: feedback.APIResponse.Concept_uid,
 		Attempt: request_object.Attempt,
@@ -262,7 +264,7 @@ func TestBuildBatchFeedbackHistories(t *testing.T) {
 	expected := BatchHistoriesAPIRequest {
 		Feedback_histories: []FeedbackHistory{
 			FeedbackHistory {
-				Activity_session_uid: api_request.Session_id,
+				Feedback_session_uid: api_request.Session_id,
 				Prompt_id: api_request.Prompt_id,
 				Concept_uid: results[0].APIResponse.Concept_uid,
 				Attempt: api_request.Attempt,
@@ -275,7 +277,7 @@ func TestBuildBatchFeedbackHistories(t *testing.T) {
 				Metadata: FeedbackHistoryMetadata { Labels: results[0].APIResponse.Labels },
 			},
 			FeedbackHistory {
-				Activity_session_uid: api_request.Session_id,
+				Feedback_session_uid: api_request.Session_id,
 				Prompt_id: api_request.Prompt_id,
 				Concept_uid: results[2].APIResponse.Concept_uid,
 				Attempt: api_request.Attempt,
@@ -288,7 +290,7 @@ func TestBuildBatchFeedbackHistories(t *testing.T) {
 				Metadata: FeedbackHistoryMetadata { Labels: results[2].APIResponse.Labels },
 			},
 			FeedbackHistory {
-				Activity_session_uid: api_request.Session_id,
+				Feedback_session_uid: api_request.Session_id,
 				Prompt_id: api_request.Prompt_id,
 				Concept_uid: default_api_response.Concept_uid,
 				Attempt: api_request.Attempt,

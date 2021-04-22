@@ -1,6 +1,8 @@
 class Api::V1::ActivitiesController < Api::ApiController
   include QuillAuthentication
 
+  CLASSIFICATION_TO_TOOL = {:connect => "connect", :sentence => "grammar"}
+
   before_action :doorkeeper_authorize!, only: [:create, :update, :destroy], unless: :staff?
   before_action :find_activity, except: [:index, :create, :uids_and_flags, :published_edition]
 
@@ -79,6 +81,16 @@ class Api::V1::ActivitiesController < Api::ApiController
       UserMilestone.create(milestone_id: milestone.id, user_id: current_user.id)
     end
     render json: {}
+  end
+
+  def question_health
+    questions = @activity.data["questions"]
+    tool = CLASSIFICATION_TO_TOOL[ActivityClassification.find(@activity.activity_classification_id).key.to_sym]
+    questions_arr = questions.each.with_index(1).map do |q, question_number|
+      question = Question.find_by(uid: q["key"])
+      question.present? ? QuestionHealthObj.new(@activity, question, question_number, tool).run : {}
+    end
+    render json: {question_health: questions_arr}
   end
 
   private def find_activity

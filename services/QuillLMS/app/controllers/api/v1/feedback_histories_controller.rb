@@ -57,7 +57,7 @@ class Api::V1::FeedbackHistoriesController < Api::ApiController
 
   private def feedback_history_params
     params.require(:feedback_history).permit(
-      :activity_session_uid,
+      :feedback_session_uid,
       :prompt_id,
       :concept_uid,
       :attempt,
@@ -76,7 +76,7 @@ class Api::V1::FeedbackHistoriesController < Api::ApiController
     # Note: nested params MUST be permitted last in any list
     params.permit(
       feedback_histories: [
-        :activity_session_uid,
+        :feedback_session_uid,
         :prompt_id,
         :concept_uid,
         :attempt,
