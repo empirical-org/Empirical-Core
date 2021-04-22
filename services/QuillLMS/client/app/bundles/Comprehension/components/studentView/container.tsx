@@ -10,10 +10,12 @@ import LoadingSpinner from '../shared/loadingSpinner'
 import { getActivity } from "../../actions/activities";
 import { TrackAnalyticsEvent } from "../../actions/analytics";
 import { Events } from '../../modules/analytics'
-import { fetchActiveActivitySession,
+import { completeActivitySession,
+         fetchActiveActivitySession,
          getFeedback,
          processUnfetchableSession,
          saveActiveActivitySession } from '../../actions/session'
+import { calculatePercentage, generateConceptResults, } from '../../libs/conceptResults'
 import { ActivitiesReducerState } from '../../reducers/activitiesReducer'
 import { SessionReducerState } from '../../reducers/sessionReducer'
 import getParameterByName from '../../helpers/getParameterByName';
@@ -104,6 +106,17 @@ export class StudentViewContainer extends React.Component<StudentViewContainerPr
         alert(`${error}`);
       }
     });
+  }
+
+  defaultHandleFinishActivity = () => {
+    // We only post completed sessions if we had one specified when the activity loaded
+    if (!this.specifiedActivitySessionUID()) return
+    const { activities, dispatch, session, } = this.props
+    const { sessionID, submittedResponses, } = session
+    const { currentActivity, } = activities
+    const percentage = calculatePercentage(submittedResponses)
+    const conceptResults = generateConceptResults(currentActivity, submittedResponses)
+    dispatch(completeActivitySession(sessionID, percentage, conceptResults))
   }
 
   onMobile = () => window.innerWidth < 1100
@@ -210,10 +223,8 @@ export class StudentViewContainer extends React.Component<StudentViewContainerPr
     dispatch(TrackAnalyticsEvent(Events.COMPREHENSION_ACTIVITY_COMPLETED, {
       activityID,
       sessionID,
-    }))
-    if(isTurk) {
-      handleFinishActivity();
-    }
+    }));
+    (handleFinishActivity) ? handleFinishActivity() : this.defaultHandleFinishActivity()
   }
 
   activateStep = (step?: number, callback?: Function, skipTracking?: boolean) => {
@@ -476,7 +487,7 @@ export class StudentViewContainer extends React.Component<StudentViewContainerPr
     </div>)
   }
 
-  renderCompletedView() {
+  renderCompletedView = () => {
     return (<div className="activity-completed">
       <img alt="Party hat with confetti coming out" src={tadaSrc} />
       <h1>Activity Complete!</h1>
@@ -484,7 +495,7 @@ export class StudentViewContainer extends React.Component<StudentViewContainerPr
     </div>)
   }
 
-  render() {
+  render = () => {
     const { activities, } = this.props
     const { showFocusState, completedSteps, } = this.state
 
