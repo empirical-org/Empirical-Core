@@ -30,6 +30,7 @@ export interface PartialResponse {
   first_attempt_count?: number|null,
   child_count?: number|null,
   concept_results?: Array<ConceptResult>|null,
+  conceptResults?: Array<ConceptResult>|null,
   created_at?: string,
   id?: number,
   key?: string,
