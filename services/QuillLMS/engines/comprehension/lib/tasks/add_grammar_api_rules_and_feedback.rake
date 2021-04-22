@@ -22,7 +22,7 @@ namespace :grammar_api_rules_and_feedback do
 
                 feedback = Comprehension::Feedback.find_or_initialize_by(
                     rule_id: created_rule.id,
-                    order: 1,
+                    order: 0,
                     text: r['Feedback V3 [HM 4/21]']
                 )
 
