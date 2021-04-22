@@ -272,7 +272,7 @@ exports[`LessonsMini component not on mobile should render when there are lesson
           </span>
           <a
             className="focus-on-light"
-            href="https://app.intercom.com/a/apps/v2ms5bl3/articles/articles/5014101/show"
+            href="https://support.quill.org/en/articles/5014099-how-does-the-present-a-live-lesson-section-on-the-teacher-home-page-work"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -1425,7 +1425,7 @@ exports[`LessonsMini component on mobile should render when there are lessons 1`
           </span>
           <a
             className="focus-on-light"
-            href="https://app.intercom.com/a/apps/v2ms5bl3/articles/articles/5014101/show"
+            href="https://support.quill.org/en/articles/5014099-how-does-the-present-a-live-lesson-section-on-the-teacher-home-page-work"
             rel="noopener noreferrer"
             target="_blank"
           >
