@@ -3,10 +3,6 @@ import React from 'react';
 import { mount } from 'enzyme';
 
 import Dashboard from '../dashboard.jsx';
-import ClassOverview from '../../components/dashboard/class_overview'
-import MyClasses from '../../components/dashboard/my_classes'
-import TeacherCenter from '../../components/dashboard/teacher_center'
-import DashboardFooter from '../../components/dashboard/dashboard_footer'
 
 jest.spyOn(global.Date, 'now').mockImplementation(() =>
   new Date('2020-04-08T11:01:58.135Z').valueOf()
