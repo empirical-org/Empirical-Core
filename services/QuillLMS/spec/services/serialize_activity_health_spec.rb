@@ -65,7 +65,7 @@ describe 'SerializeActivityHealth' do
 
   it 'calcualtes the average length of time to finish the activity' do
     data = SerializeActivityHealth.new(activity).data
-    expect(data[:avg_mins_to_complete]).to eq(11.67)
+    expect(data[:avg_completion_time]).to eq(11.67)
   end
 
 end
