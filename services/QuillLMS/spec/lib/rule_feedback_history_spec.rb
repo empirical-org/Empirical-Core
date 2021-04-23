@@ -27,7 +27,6 @@ RSpec.describe RuleFeedbackHistory, type: :model do
     
       # rules
       so_rule1 = rule_factory { { name: 'so_rule1', rule_type: 'autoML'} } 
-      because_rule1 = rule_factory { {name: 'because_rule1'} } 
 
       # feedbacks
       create(:feedback_history, rule_uid: so_rule1.uid)
@@ -61,7 +60,6 @@ RSpec.describe RuleFeedbackHistory, type: :model do
     
       # rules
       so_rule1 = rule_factory { { name: 'so_rule1', rule_type: 'autoML'} } 
-      because_rule1 = rule_factory { {name: 'because_rule1'} } 
 
       #feedbacks
       f3 = Comprehension::Feedback.create!(rule_id: so_rule1.id, order: 3, text: 'lorem ipsum dolor 3')
@@ -91,7 +89,6 @@ RSpec.describe RuleFeedbackHistory, type: :model do
       
         # rules
         so_rule1 = rule_factory { { name: 'so_rule1', rule_type: 'autoML'} } 
-        because_rule1 = rule_factory { {name: 'because_rule1'} } 
   
         #feedbacks
         f3 = Comprehension::Feedback.create!(rule_id: so_rule1.id, order: 3, text: 'lorem ipsum dolor 3')
