@@ -12,6 +12,7 @@ module Comprehension
     has_many :prompts_rules
     has_many :rules, through: :prompts_rules, inverse_of: :prompts
 
+    after_create :assign_universal_rules
     before_validation :downcase_conjunction
     before_validation :set_max_attempts, on: :create
 
@@ -33,6 +34,15 @@ module Comprehension
 
     private def set_max_attempts
       self.max_attempts = max_attempts || DEFAULT_MAX_ATTEMPTS
+    end
+
+    private def assign_universal_rules
+      Rule.where(universal: true).all.each do |rule|
+        unless rules.include?(rule)
+          self.rules.append(rule)
+        end
+      end
+      save!
     end
   end
 end
