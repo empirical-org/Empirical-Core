@@ -207,6 +207,8 @@ class ResponseComponent extends React.Component {
   }
 
   rematchAllResponses() {
+    this.setState({enableRematchAllButton: false});
+
     const pageNumber = 1;
     const callback = (done) => {
       if (done) {
@@ -394,7 +396,7 @@ class ResponseComponent extends React.Component {
     if (this.props.admin) {
       const text = this.state.progress ? `${this.state.progress}%` : 'Rematch Responses';
 
-      return (<button className="button is-outlined is-danger" disabled={!this.state.enableRematchAllButton} onClick={this.setState({enableRematchAllButton: false}) && this.rematchAllResponses} style={{ float: 'right', }} type="button">{text}</button>);
+      return (<button className="button is-outlined is-danger" disabled={!this.state.enableRematchAllButton} onClick={this.rematchAllResponses} style={{ float: 'right', }} type="button">{text}</button>);
     }
   }
 
