@@ -24,12 +24,14 @@ class Question < ActiveRecord::Base
     TYPE_DIAGNOSTIC_FILL_IN_BLANKS = 'diagnostic_fill_in_blanks',
     TYPE_GRAMMAR_QUESTION = 'grammar'
   ]
-  validates :data, presence: true
-  validates :question_type, presence: true, inclusion: {in: TYPES}
-  validates :uid, presence: true, uniqueness: true
-  validate :data_must_be_hash
 
-  after_save :expire_all_questions_cache
+  FLAGS = [
+    FLAG_PRODUCTION = 'production',
+    FLAG_ALPHA = 'alpha',
+    FLAG_BETA = 'beta',
+    FLAG_ARCHIVED = 'archived'
+  ]
+  LIVE_FLAGS = [FLAG_PRODUCTION, FLAG_ALPHA, FLAG_BETA]
 
   # mapping extracted from Grammar,Connect,Diagnostic rematching.ts
   REMATCH_TYPE_MAPPING = {
@@ -41,6 +43,15 @@ class Question < ActiveRecord::Base
     TYPE_DIAGNOSTIC_FILL_IN_BLANKS => 'diagnostic_fillInBlankQuestions',
     TYPE_GRAMMAR_QUESTION => 'grammar_questions',
   }
+
+  validates :data, presence: true
+  validates :question_type, presence: true, inclusion: {in: TYPES}
+  validates :uid, presence: true, uniqueness: true
+  validate :data_must_be_hash
+
+  after_save :expire_all_questions_cache
+
+  scope :live, -> {where("data->>'flag' IN (?)", LIVE_FLAGS)}
 
   def as_json(options=nil)
     data
