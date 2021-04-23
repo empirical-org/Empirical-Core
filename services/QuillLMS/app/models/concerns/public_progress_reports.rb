@@ -285,13 +285,16 @@ module PublicProgressReports
       teacher_id = classroom.owner.id
       diagnostic = Activity.find(activity_id)
       assigned_recommendations = RecommendationsQuery.new(diagnostic.id).activity_recommendations.map do |rec|
-        # one unit per teacher with this name.
-        unit = Unit.find_by(user_id: teacher_id, unit_template_id: rec[:activityPackId], visible: true)
+        # teachers may rename and reassign activity packs so we check all
+        units = Unit.where(user_id: teacher_id, unit_template_id: rec[:activityPackId], visible: true)
         if !unit
-          unit = Unit.find_by(user_id: teacher_id, name: UnitTemplate.find_by_id(rec[:activityPackId]).name, visible: true)
+          units = Unit.where(user_id: teacher_id, name: UnitTemplate.find_by_id(rec[:activityPackId]).name, visible: true)
         end
-        student_ids = ClassroomUnit.find_by(unit: unit, classroom: classroom, visible: true).try(:assigned_student_ids) || []
-        return_value_for_recommendation(student_ids, rec)
+        student_ids = []
+        units.each do |unit|
+          student_ids.concat(ClassroomUnit.find_by(unit: unit, classroom: classroom, visible: true).try(:assigned_student_ids) || [])
+        end
+        return_value_for_recommendation(student_ids.uniq, rec)
       end
       recommended_lesson_activity_ids = LessonRecommendationsQuery.new(diagnostic.id)
         .activity_recommendations
