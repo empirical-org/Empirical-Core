@@ -10,7 +10,7 @@ class RematchAllQuestionsJob
     Question.live.select(:id, :uid, :question_type).find_each do |question|
       HTTParty.post(
         REMATCH_URL,
-        body: {type: question.rematch_type, id: question.uid}.to_json,
+        body: {type: question.rematch_type, uid: question.uid}.to_json,
         headers: JSON_HEADERS
       )
     end
