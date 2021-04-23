@@ -6,8 +6,8 @@
 #  activity_categories     :string           is an Array
 #  activity_packs          :string           is an Array
 #  avg_common_unmatched    :float
-#  avg_completion_time     :time
 #  avg_difficulty          :float
+#  avg_mins_to_complete    :float
 #  content_partners        :string           is an Array
 #  diagnostics             :string           is an Array
 #  name                    :string

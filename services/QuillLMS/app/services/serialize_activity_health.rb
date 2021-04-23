@@ -20,7 +20,7 @@ class SerializeActivityHealth
       recent_assignments: recent_assignments,
       diagnostics: diagnostics,
       activity_packs: @activity.units.pluck(:name),
-      avg_completion_time: avg_mins_to_complete,
+      avg_mins_to_complete: avg_mins_to_complete,
       avg_difficulty: (prompt_data.map {|p| p[:difficulty] }.sum(0.0) / prompt_data.size).round(2),
       avg_common_unmatched: (prompt_data.map {|p| p[:percent_common_unmatched] }.sum(0.0) / prompt_data.size).round(2),
       standard_dev_difficulty: standard_deviation(prompt_data.map {|p| p[:difficulty] }),
