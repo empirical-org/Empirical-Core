@@ -39,7 +39,7 @@ module Comprehension
     private def assign_universal_rules
       Rule.where(universal: true).all.each do |rule|
         unless rules.include?(rule)
-          self.rules.append(rule)
+          rules.append(rule)
         end
       end
       save!
