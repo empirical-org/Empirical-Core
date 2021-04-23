@@ -25,13 +25,13 @@ describe RematchAllQuestionsJob, type: :worker do
 
     expect(HTTParty).to receive(:post).with(
       "test_url",
-      body: {type: 'questions', id: 'prod_question'}.to_json,
+      body: {type: 'questions', uid: 'prod_question'}.to_json,
       headers:  {'Content-Type' => 'application/json', 'Accept' => 'application/json'}
     ).once
 
     expect(HTTParty).to receive(:post).with(
       "test_url",
-      body: {type: 'questions', id: 'beta_question'}.to_json,
+      body: {type: 'questions', uid: 'beta_question'}.to_json,
       headers:  {'Content-Type' => 'application/json', 'Accept' => 'application/json'}
     ).once
 
