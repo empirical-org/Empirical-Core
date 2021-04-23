@@ -24,13 +24,13 @@ export class LandingPage extends React.Component {
     const { header, firstLine, secondLine, thirdLine } = landingPageInfo;
     const textClass = rightToLeftLanguages.includes(language) ? 'right-to-left' : '';
     // right to left languages only have one line, the first
-    const showLine = textClass === '';
+    const isLeftToRight = textClass === '';
     return(
       <div className="intro-container">
         <h1 className={textClass}>{header}</h1>
         <p className={textClass}>{firstLine}</p>
-        {showLine && <p>{secondLine}</p>}
-        {showLine && <p>{thirdLine}</p>}
+        {isLeftToRight && <p>{secondLine}</p>}
+        {isLeftToRight && <p>{thirdLine}</p>}
       </div>
     )
   }
