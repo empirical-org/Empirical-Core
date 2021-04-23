@@ -31,6 +31,17 @@ class Question < ActiveRecord::Base
 
   after_save :expire_all_questions_cache
 
+  # mapping extracted from Grammar,Connect,Diagnostic rematching.ts
+  REMATCH_TYPE_MAPPING = {
+    TYPE_CONNECT_SENTENCE_COMBINING => 'questions',
+    TYPE_CONNECT_SENTENCE_FRAGMENTS => 'sentenceFragments',
+    TYPE_CONNECT_FILL_IN_BLANKS => 'fillInBlankQuestions',
+    TYPE_DIAGNOSTIC_SENTENCE_COMBINING => 'diagnostic_questions',
+    TYPE_DIAGNOSTIC_SENTENCE_FRAGMENTS => 'diagnostic_sentenceFragments',
+    TYPE_DIAGNOSTIC_FILL_IN_BLANKS => 'diagnostic_fillInBlankQuestions',
+    TYPE_GRAMMAR_QUESTION => 'grammar_questions',
+  }
+
   def as_json(options=nil)
     data
   end
@@ -101,6 +112,11 @@ class Question < ActiveRecord::Base
       data['incorrectSequences'].delete(incorrect_sequence_id)
     end
     save
+  end
+
+  # this attribute is used by the CMS's Rematch All process
+  def rematch_type
+    REMATCH_TYPE_MAPPING.fetch(question_type)
   end
 
   private def expire_all_questions_cache
