@@ -287,7 +287,7 @@ module PublicProgressReports
       assigned_recommendations = RecommendationsQuery.new(diagnostic.id).activity_recommendations.map do |rec|
         # teachers may rename and reassign activity packs so we check all
         units = Unit.where(user_id: teacher_id, unit_template_id: rec[:activityPackId], visible: true)
-        if !unit
+        if !units
           units = Unit.where(user_id: teacher_id, name: UnitTemplate.find_by_id(rec[:activityPackId]).name, visible: true)
         end
         student_ids = []
