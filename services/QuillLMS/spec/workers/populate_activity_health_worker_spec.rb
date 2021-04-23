@@ -46,5 +46,14 @@ describe PopulateActivityHealthWorker do
       expect(activity_health.tool).to eq("connect")
       expect(activity_health.avg_difficulty).to eq(1.84)
     end
+
+    it 'should create new Prompt Health objects' do
+      subject.perform(activity.id)
+      expect(PromptHealth.count).to eq(2)
+      expect(PromptHealth.first.text).to eq(question.data["prompt"])
+      expect(PromptHealth.first.percent_common_unmatched).to eq(50)
+      expect(PromptHealth.second.text).to eq(another_question.data["prompt"])
+      expect(PromptHealth.second.percent_common_unmatched).to eq(100)
+    end
   end
 end
