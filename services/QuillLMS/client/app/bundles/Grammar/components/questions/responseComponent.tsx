@@ -46,6 +46,7 @@ class ResponseComponent extends React.Component {
       selectedResponses: [],
       health: {},
       gradeBreakdown: {},
+      enableRematchAllButton: true,
     };
 
     this.getHealth = this.getHealth.bind(this)
@@ -389,11 +390,11 @@ class ResponseComponent extends React.Component {
 
   renderRematchAllButton() {
     const { filters } = this.props
-    let disabled = filters.numberOfResponses > 1000
+
     if (this.props.admin) {
       const text = this.state.progress ? `${this.state.progress}%` : 'Rematch Responses';
 
-      return (<button className="button is-outlined is-danger" disabled={disabled} onClick={this.rematchAllResponses} style={{ float: 'right', }} type="button">{text}</button>);
+      return (<button className="button is-outlined is-danger" disabled={!this.state.enableRematchAllButton} onClick={this.setState({enableRematchAllButton: false}) && this.rematchAllResponses} style={{ float: 'right', }} type="button">{text}</button>);
     }
   }
 
