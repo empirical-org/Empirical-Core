@@ -140,7 +140,31 @@ module Comprehension
         @regex_rule_two= create(:comprehension_regex_rule, rule: @rule, regex_text: "you need this sequence", sequence_type: 'required')
         assert @rule.regex_is_passing?('you need this sequence and I do have it')
       end
+    end
 
+    context '#after_create' do
+      context '#assign_to_all_prompts' do
+        should 'assign newly created rule to all prompts if the rule is universal' do
+          prompt = create(:comprehension_prompt)
+          rule = create(:comprehension_rule, universal: true)
+          assert_equal prompt.rules.length, 1
+          assert rule.prompts.include?(prompt)
+        end
+
+        should 'not assign newly created rule to all prompts if the rule is not universal' do
+          prompt = create(:comprehension_prompt)
+          rule = create(:comprehension_rule, universal: false)
+          assert_equal prompt.rules.length, 0
+          refute rule.prompts.include?(prompt)
+        end
+
+        should 'not assign newly created rules to prompts that somehow already have them assigned' do
+          prompt = create(:comprehension_prompt)
+          rule = create(:comprehension_rule, universal: true, prompts: [prompt])
+          assert_equal prompt.rules.length, 1
+          assert rule.prompts.include?(prompt)
+        end
+      end
     end
   end
 end
