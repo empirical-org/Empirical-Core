@@ -33,10 +33,6 @@ RSpec.describe RuleFeedbackHistory, type: :model do
       create(:feedback_history, rule_uid: so_rule1.uid)
       create(:feedback_history, rule_uid: so_rule1.uid)
 
-      # prompts rules
-      Comprehension::PromptsRule.create!(prompt: so_prompt1, rule: so_rule1)
-      Comprehension::PromptsRule.create!(prompt: because_prompt1, rule: because_rule1)
-
       report = RuleFeedbackHistory.generate_report(conjunction: 'so', activity_id: activity1.id)
 
       expected = {
@@ -76,10 +72,6 @@ RSpec.describe RuleFeedbackHistory, type: :model do
       create(:feedback_history, rule_uid: so_rule1.uid)
       create(:feedback_history, rule_uid: so_rule1.uid)
 
-      # prompts rules
-      Comprehension::PromptsRule.create!(prompt: so_prompt1, rule: so_rule1)
-      Comprehension::PromptsRule.create!(prompt: because_prompt1, rule: because_rule1)
-
       sql_result = RuleFeedbackHistory.exec_query(conjunction: 'so', activity_id: activity1.id)
       post_result = RuleFeedbackHistory.postprocessing(sql_result)
 
@@ -115,10 +107,6 @@ RSpec.describe RuleFeedbackHistory, type: :model do
         f_rating_1b = FeedbackHistoryRating.create!(feedback_history_id: f_h1.id, user_id: user2.id, rating: false)
         f_rating_2a = FeedbackHistoryRating.create!(feedback_history_id: f_h2.id, user_id: user1.id, rating: true)
   
-        # prompts rules
-        Comprehension::PromptsRule.create!(prompt: so_prompt1, rule: so_rule1)
-        Comprehension::PromptsRule.create!(prompt: because_prompt1, rule: because_rule1)
-  
         sql_result = RuleFeedbackHistory.exec_query(conjunction: 'so', activity_id: activity1.id)
         post_result = RuleFeedbackHistory.postprocessing(sql_result)
         
@@ -142,15 +130,10 @@ RSpec.describe RuleFeedbackHistory, type: :model do
     
       # rules
       so_rule1 = rule_factory { { name: 'so_rule1', rule_type: 'autoML'} } 
-      because_rule1 = rule_factory { {name: 'because_rule1'} } 
 
       # feedbacks
       create(:feedback_history, rule_uid: so_rule1.uid)
       create(:feedback_history, rule_uid: so_rule1.uid)
-
-      # prompts rules
-      Comprehension::PromptsRule.create!(prompt: so_prompt1, rule: so_rule1)
-      Comprehension::PromptsRule.create!(prompt: because_prompt1, rule: because_rule1)
 
       sql_result = RuleFeedbackHistory.exec_query(conjunction: 'so', activity_id: activity1.id)
 
