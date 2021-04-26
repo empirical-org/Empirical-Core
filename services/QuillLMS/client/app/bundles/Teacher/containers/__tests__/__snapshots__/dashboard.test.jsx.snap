@@ -1,0 +1,157 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Dashboard container when all the onboarding items have been checked should render 1`] = `
+<Dashboard
+  featuredBlogPosts={
+    Array [
+      Object {
+        "external_link": "",
+        "id": 415,
+        "slug": "getting-started-navigating-the-student-dashboard",
+        "title": "Navigating the student dashboard",
+        "topic": "Getting started",
+      },
+      Object {
+        "external_link": "",
+        "id": 451,
+        "slug": "best-practices-how-to-use-quill-when-you-dont-have-time-for-the-diagnostic",
+        "title": "How to use Quill when you don't have time for the diagnostic",
+        "topic": "Best Practices",
+      },
+      Object {
+        "external_link": "http://s3.amazonaws.com/quill-image-uploads/uploads/files/Using_Quill_with_Google_Classroom.mp4",
+        "id": 411,
+        "slug": "using-quill-with-google-classroom",
+        "title": "Using Quill with Google Classroom",
+        "topic": "Getting started",
+      },
+    ]
+  }
+  onboardingChecklist={
+    Array [
+      Object {
+        "checked": true,
+        "link": "/teachers/classrooms?modal=create-a-class",
+        "name": "Create a class",
+      },
+      Object {
+        "checked": true,
+        "link": "/teachers/classrooms",
+        "name": "Add students",
+      },
+      Object {
+        "checked": true,
+        "link": "/assign",
+        "name": "Explore our library",
+      },
+      Object {
+        "checked": true,
+        "link": "/assign/diagnostic",
+        "name": "Explore our diagnostics",
+      },
+    ]
+  }
+  user="{\\"name\\":\\"George Costanza\\",\\"flag\\":\\"bosco\\"}"
+>
+  <div
+    className="dashboard"
+  >
+    <div
+      className="post-checklist-container loading"
+    >
+      <Spinner>
+        <div
+          className="loading-spinner"
+        >
+          <div
+            className="spinner-container"
+          >
+            <img
+              className="spinner"
+              src="https://assets.quill.org/images/icons/loader_still.svg"
+            />
+          </div>
+        </div>
+      </Spinner>
+    </div>
+  </div>
+</Dashboard>
+`;
+
+exports[`Dashboard container when none of the onboarding items have been checked should render 1`] = `
+<Dashboard
+  featuredBlogPosts={
+    Array [
+      Object {
+        "external_link": "",
+        "id": 415,
+        "slug": "getting-started-navigating-the-student-dashboard",
+        "title": "Navigating the student dashboard",
+        "topic": "Getting started",
+      },
+      Object {
+        "external_link": "",
+        "id": 451,
+        "slug": "best-practices-how-to-use-quill-when-you-dont-have-time-for-the-diagnostic",
+        "title": "How to use Quill when you don't have time for the diagnostic",
+        "topic": "Best Practices",
+      },
+      Object {
+        "external_link": "http://s3.amazonaws.com/quill-image-uploads/uploads/files/Using_Quill_with_Google_Classroom.mp4",
+        "id": 411,
+        "slug": "using-quill-with-google-classroom",
+        "title": "Using Quill with Google Classroom",
+        "topic": "Getting started",
+      },
+    ]
+  }
+  onboardingChecklist={
+    Array [
+      Object {
+        "checked": true,
+        "link": "/teachers/classrooms?modal=create-a-class",
+        "name": "Create a class",
+      },
+      Object {
+        "checked": true,
+        "link": "/teachers/classrooms",
+        "name": "Add students",
+      },
+      Object {
+        "checked": true,
+        "link": "/assign",
+        "name": "Explore our library",
+      },
+      Object {
+        "checked": true,
+        "link": "/assign/diagnostic",
+        "name": "Explore our diagnostics",
+      },
+    ]
+  }
+  user="{\\"name\\":\\"George Costanza\\",\\"flag\\":\\"bosco\\"}"
+>
+  <div
+    className="dashboard"
+  >
+    <div
+      className="post-checklist-container loading"
+    >
+      <Spinner>
+        <div
+          className="loading-spinner"
+        >
+          <div
+            className="spinner-container"
+          >
+            <img
+              className="spinner"
+              src="https://assets.quill.org/images/icons/loader_still.svg"
+            />
+          </div>
+        </div>
+      </Spinner>
+    </div>
+  </div>
+</Dashboard>
+`;

@@ -26,6 +26,7 @@ interface ClassroomProps {
   unarchiveClass?: (event) => void;
   inviteStudents?: (event) => void;
   importGoogleClassroomStudents?: (event) => void;
+  viewAsStudent?: (event) => void;
   onSuccess: (event) => void;
 }
 
@@ -174,6 +175,7 @@ export default class Classroom extends React.Component<ClassroomProps, Classroom
       classrooms,
       isOwnedByCurrentUser,
       importGoogleClassroomStudents,
+      viewAsStudent,
     } = this.props
     const sharedProps = {
       user,
@@ -188,6 +190,7 @@ export default class Classroom extends React.Component<ClassroomProps, Classroom
         {...sharedProps}
         importGoogleClassroomStudents={importGoogleClassroomStudents}
         inviteStudents={inviteStudents}
+        viewAsStudent={viewAsStudent}
       />
       <ClassroomTeacherSection
         {...sharedProps}

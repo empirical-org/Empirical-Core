@@ -6,8 +6,8 @@ module ActivityFeedHelper
 
     return [] if classroom_unit_ids.none?
 
-    activity_sessions = ActivitySession.joins(:user, :activity, :classification)
-      .select('activity_sessions.id, users.name AS "student_name", activities.name AS "activity_name", activity_classifications.key, percentage, completed_at')
+    activity_sessions = ActivitySession.joins(:user, :activity, :classification, :classroom_unit)
+      .select('activity_sessions.id, users.name AS "student_name", activities.name AS "activity_name", activity_classifications.key, percentage, completed_at, classroom_units.unit_id, classroom_units.classroom_id, activity_sessions.user_id, activity_sessions.activity_id')
       .where("completed_at IS NOT NULL AND classroom_unit_id = ANY(ARRAY[?])", classroom_unit_ids)
       .order("completed_at DESC")
       .limit(40)
@@ -17,6 +17,10 @@ module ActivityFeedHelper
         id: as.id,
         student_name: as.student_name,
         activity_name: as.activity_name,
+        unit_id: as.unit_id,
+        classroom_id: as.classroom_id,
+        user_id: as.user_id,
+        activity_id: as.activity_id,
         score: text_for_score(as.key, as.percentage),
         completed: text_for_completed(as.completed_at)
       }

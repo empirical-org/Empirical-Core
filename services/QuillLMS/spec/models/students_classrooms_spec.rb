@@ -44,7 +44,7 @@ describe StudentsClassrooms, type: :model, redis: true do
       let(:students_classrooms) { build(:students_classrooms) }
 
       it 'should find or create a checkbox' do
-        expect(students_classrooms).to receive(:find_or_create_checkbox).with('Add Students', students_classrooms.classroom.owner)
+        expect(students_classrooms).to receive(:find_or_create_checkbox).with(Objective::ADD_STUDENTS, students_classrooms.classroom.owner)
         students_classrooms.save
       end
     end

@@ -84,3 +84,22 @@ export {
   getDisplayedText,
   renderPreviewFeedback
 } from './libs/index'
+
+export {
+  bigCheckIcon,
+  searchMapIcon,
+  clipboardCheckIcon,
+  tableCheckIcon,
+  accountViewIcon,
+  giftIcon,
+  groupAccountIcon,
+  googleClassroomIcon,
+  helpIcon,
+  arrowPointingRightIcon,
+  expandIcon,
+  fileChartIcon,
+  fileDownloadIcon,
+  horizontalDotsIcon,
+  playBoxIcon,
+  previewIcon,
+} from './images/index'
