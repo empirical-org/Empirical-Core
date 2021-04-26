@@ -18,8 +18,9 @@ const springBoardWritingSkillsSrc = `${process.env.CDN_URL}/images/college_board
 const STARTER_DIAGNOSTIC = 'Starter Diagnostic'
 const INTERMEDIATE_DIAGNOSTIC = 'Intermediate Diagnostic'
 const ADVANCED_DIAGNOSTIC = 'Advanced Diagnostic'
-const ELL_DIAGNOSTIC = 'ELL Diagnostic 2: Developing and Expanding'
-const ELL_STARTER_DIAGNOSTIC = 'ELL Diagnostic 1: Entering and Emerging'
+const ELL_STARTER_DIAGNOSTIC = 'ELL Starter Diagnostic'
+const ELL_INTERMEDIATE_DIAGNOSTIC = 'ELL Intermediate Diagnostic'
+const ELL_ADVANCED_DIAGNOSTIC = 'ELL Advanced Diagnostic'
 const PRE_AP_WRITINGS_SKILLS_1 = 'Pre-AP Writing Skills Survey 1'
 const PRE_AP_WRITINGS_SKILLS_2 = 'Pre-AP Writing Skills Survey 2'
 const AP_WRITINGS_SKILLS = 'AP Writing Skills Survey'
@@ -28,8 +29,9 @@ const SPRING_BOARD_WRITINGS_SKILLS = 'SpringBoard Writing Skills Survey'
 const STARTER_DIAGNOSTIC_ACTIVITY_ID = 849
 const INTERMEDIATE_DIAGNOSTIC_ACTIVITY_ID = 850
 const ADVANCED_DIAGNOSTIC_ACTIVITY_ID = 888
-const ELL_DIAGNOSTIC_ACTIVITY_ID = 447
 const ELL_STARTER_DIAGNOSTIC_ACTIVITY_ID = 1161
+const ELL_INTERMEDIATE_DIAGNOSTIC_ACTIVITY_ID = 1568
+const ELL_ADVANCED_DIAGNOSTIC_ACTIVITY_ID = 1590
 const PRE_AP_WRITINGS_SKILLS_1_ACTIVITY_ID = 1229
 const PRE_AP_WRITINGS_SKILLS_2_ACTIVITY_ID = 1230
 const AP_WRITINGS_SKILLS_ACTIVITY_ID = 992
@@ -95,15 +97,27 @@ const minis = ({ history }) => [
   />),
   (<AssignmentCard
     bodyArray={[
-      { key: 'What', text: 'Subject-verb agreement, verb tense, adjectives, adverbs, articles, prepositions, compound and complex sentences, and capitalization', },
-      { key: 'When', text: 'Your students are English language learners at the developing, expanding, or bridging stages of language proficiency.', }
+      { key: 'What', text: 'Subject-verb agreement, possessives, prepositions, future tense, articles, and intermediate questions.', },
+      { key: 'When', text: 'Your students are English language learners who have a foundational understanding of basic English grammar but need more practice with certain concepts.', }
     ]}
-    buttonLink={`/activity_sessions/anonymous?activity_id=${ELL_DIAGNOSTIC_ACTIVITY_ID}`}
+    buttonLink={`/activity_sessions/anonymous?activity_id=${ELL_INTERMEDIATE_DIAGNOSTIC_ACTIVITY_ID}`}
     buttonText="Preview"
-    header={ELL_DIAGNOSTIC}
+    header={ELL_INTERMEDIATE_DIAGNOSTIC}
     imgAlt="page with writing that says ELL in the corner"
     imgSrc={ellDiagnosticSrc}
-    selectCard={() => selectCard(history, ELL_DIAGNOSTIC, encodeURIComponent([ELL_DIAGNOSTIC_ACTIVITY_ID].toString()), constants.ELL_DIAGNOSTIC_UNIT_TEMPLATE_ID)}
+    selectCard={() => selectCard(history, ELL_INTERMEDIATE_DIAGNOSTIC, encodeURIComponent([ELL_INTERMEDIATE_DIAGNOSTIC_ACTIVITY_ID].toString()), constants.ELL_INTERMEDIATE_DIAGNOSTIC_UNIT_TEMPLATE_ID)}
+  />),
+  (<AssignmentCard
+    bodyArray={[
+      { key: 'What', text: 'Regular and irregular past tense, progressive tenses, phrasal verbs, choosing between prepositions, responding to questions, and commonly confused words', },
+      { key: 'When', text: 'When: Your students are English language learners who need practice with more difficult ELL skills before moving on to the Starter Diagnostic.', }
+    ]}
+    buttonLink={`/activity_sessions/anonymous?activity_id=${ELL_ADVANCED_DIAGNOSTIC_ACTIVITY_ID}`}
+    buttonText="Preview"
+    header={ELL_ADVANCED_DIAGNOSTIC}
+    imgAlt="page with writing that says ELL in the corner"
+    imgSrc={ellDiagnosticSrc}
+    selectCard={() => selectCard(history, ELL_ADVANCED_DIAGNOSTIC, encodeURIComponent([ELL_ADVANCED_DIAGNOSTIC_ACTIVITY_ID].toString()), constants.ELL_ADVANCED_DIAGNOSTIC_UNIT_TEMPLATE_ID)}
   />),
   (<AssignmentCard
     bodyArray={[
