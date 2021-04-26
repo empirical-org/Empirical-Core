@@ -56,6 +56,17 @@ describe 'SerializeActivityHealth' do
     expect(data[:recent_assignments]).to eq(2)
   end
 
+  it 'returns nil for recent_assignments if the last assignment was less than 3 months ago' do
+    UnitActivity.where(activity: activity).destroy_all
+    unit = create(:unit)
+    create(:classroom_unit, unit: unit, created_at: Date.today - 1.month)
+    create(:unit_activity, unit: unit, activity: activity)
+    create(:classroom_unit, unit: unit, created_at: Date.today - 1.day)
+    create(:classroom_unit, unit: unit, created_at: Date.today - 1.day)
+    data = SerializeActivityHealth.new(activity).data
+    expect(data[:recent_assignments]).to eq(nil)
+  end
+
   it 'calculates averages and standard deviation using prompt data' do
     data = SerializeActivityHealth.new(activity).data
     expect(data[:avg_common_unmatched]).to eq(75)
@@ -63,9 +74,26 @@ describe 'SerializeActivityHealth' do
     expect(data[:standard_dev_difficulty]).to eq(0.84)
   end
 
-  it 'calcualtes the average length of time to finish the activity' do
+  it 'calculates the average length of time to finish the activity' do
     data = SerializeActivityHealth.new(activity).data
     expect(data[:avg_mins_to_complete]).to eq(11.67)
+  end
+
+  it 'calculates the data without nil erroring for a brand new activity with no assignments or attributes' do
+    new_activity = create(:activity, activity_classification_id: connect.id)
+    new_activity.update(activity_categories: [], content_partners: [], units: [])
+    new_activity.save
+
+    data = SerializeActivityHealth.new(new_activity).data
+    expect(data[:activity_categories]).to eq([])
+    expect(data[:content_partners]).to eq([])
+    expect(data[:recent_assignments]).to eq(nil)
+    expect(data[:diagnostics]).to eq([])
+    expect(data[:activity_packs]).to eq([])
+    expect(data[:avg_mins_to_complete]).to eq(nil)
+    expect(data[:avg_difficulty]).to eq(nil)
+    expect(data[:avg_common_unmatched]).to eq(nil)
+    expect(data[:standard_dev_difficulty]).to eq(nil)
   end
 
 end
