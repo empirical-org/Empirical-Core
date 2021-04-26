@@ -1,92 +1,6 @@
-export const languages = ['english', 'arabic', 'chinese', 'french', 'hindi', 'spanish', 'vietnamese'];
-export const languagesV2 = ['english', 'chinese', 'hindi', 'spanish', 'french', 'arabic', 'russian', 'portuguese', 'urdu', 'german', 'japanese', 'korean', 'vietnamese', 'thai', 'ukrainian', 'tagalog', 'dari'];
+export const languages = ['english', 'chinese', 'hindi', 'spanish', 'french', 'arabic', 'russian', 'portuguese', 'urdu', 'german', 'japanese', 'korean', 'vietnamese', 'thai', 'ukrainian', 'tagalog', 'dari'];
 export const rightToLeftLanguages = ['arabic', 'urdu', 'dari'];
 export const ENGLISH = 'english';
-
-export const languageData = {
-    'english': {
-        flag: 'https://assets.quill.org/images/flags/usa.png',
-        label: 'English',
-        intro: {
-            'ell': {
-                header: 'Quill Placement Activity',
-                firstLine: 'You’re about to answer 22 questions on writing sentences.',
-                secondLine: 'Some of the questions might be about things you haven’t learned yet—that’s okay! Just answer them as best as you can. Don’t forget to read the instructions carefully for each question!',
-                thirdLine: 'Once you’re finished, Quill will create a learning plan just for you.',
-            }
-        }
-    },
-    'arabic': {
-        flag: 'https://assets.quill.org/images/flags/egypt.png',
-        label: 'العربية',
-        intro: {
-            'ell': {
-                header: 'نشاط تحديد المستوى في Quill',
-                firstLine: 'أنت على وشك الإجابة على 22 سؤالًا حول كتابة جمل. قد تكون بعض الأسئلة حول أشياء لم تتعلمها بعد – لا بأس! فقط أجب بأفضل طريقة ممكنة. لا تنس قراءة التعليمات بعناية لكل سؤال! بمجرد الانتهاء، ستقوم Quill بإنشاء خطة تعليمية لك فقط.'
-            }
-        }
-    },
-    'chinese': {
-        flag: 'https://assets.quill.org/images/flags/china.png',
-        label: '中文',
-        intro: {
-            'ell': {
-                header: 'Quill安置活动',
-                firstLine: '你将要回答22个关于编写句子的问题。',
-                secondLine: '有些问题可能与你还没学过的东西有关——没关系！尽你所能地回答他们。不要忘记仔细阅读每个问题的说明！',
-                thirdLine: '在你完成后，Quill会为你制定一份学习计划。',
-            }
-        }
-    },
-    'french': {
-        flag: 'https://assets.quill.org/images/flags/france.png',
-        label: 'Français',
-        intro: {
-            'ell': {
-                header: 'Activité de placement Quill',
-                firstLine: 'Vous allez répondre à 22 questions sur l’écriture des phrases. ',
-                secondLine: 'Certaines de ces questions peuvent concerner des choses que vous n’avez pas encore apprises. Ce n’est pas grave ! Répondez-y simplement le mieux possible. N’oubliez pas de lire attentivement les instructions pour chaque question ! ',
-                thirdLine: 'Lorsque vous aurez terminé, Quill créera un programme d’apprentissage spécialement pour vous.',
-            }
-        }
-    },
-    'hindi': {
-        flag: 'https://assets.quill.org/images/flags/india.png',
-        label: 'हिंदी',
-        intro: {
-            'ell': {
-                header: 'Quill स्थापन गतिविधि',
-                firstLine: 'आप वाक्य लिखने से संबंधित 22 प्रश्नों के उत्तर देने जा रहे हैं। ',
-                secondLine: 'कुछ प्रश्न उन चीजों के बारे में हो सकते हैं जिन्हें आपने अभी तक नहीं सीखा है—ठीक है! बस अपनी समझ के अनुसार उनका सर्वश्रेष्ठ उत्तर दें। प्रत्येक प्रश्न के लिए निर्देशों को ध्यान से पढ़ना न भूलें! ',
-                thirdLine: 'निर्देश पढ़ लेने के बाद, Quill आपके लिए एक सीखने की योजना बनाएगा।',
-            }
-        }
-    },
-    'spanish': {
-        flag: 'https://assets.quill.org/images/flags/spain.png',
-        label: 'Español',
-        intro: {
-            'ell': {
-                header: 'Actividad de emplazamiento de Quill',
-                firstLine: 'Vas a responder 22 preguntas sobre cómo escribir oraciones. ',
-                secondLine: 'cosas que aún no has aprendido, ¡pero no pasa nada! Solo respóndelas lo mejor que puedas. ¡No olvides leer las instrucciones con cuidado para cada pregunta! ',
-                thirdLine: 'Cuando hayas terminado, Quill creará un plan de aprendizaje solo para ti.',
-            }
-        }
-    },
-    'vietnamese': {
-        flag: 'https://assets.quill.org/images/flags/vietnam.png',
-        label: 'Tiếng Việt',
-        intro: {
-            'ell': {
-                header: 'Hoạt động Sắp xếp Quill',
-                firstLine: 'Bạn sắp trả lời 22 câu hỏi về việc viết câu. ',
-                secondLine: 'Một số câu hỏi có thể là về những điều bạn chưa được học—không sao cả. Bạn chỉ cần trả lời tốt nhất có thể. Đừng quên đọc hướng dẫn cẩn thận cho mỗi câu hỏi nhé!',
-                thirdLine: 'Khi bạn đã hoàn thành, Quill sẽ tạo một kế hoạch học tập dành riêng cho bạn.',
-            }
-        }
-    }
-}
 
 /*
     ELL Starter: -LyFRZvbHAmooTTIIVE2
@@ -94,7 +8,7 @@ export const languageData = {
     ELL Advanced Diagnostic: 4e848241-ca31-4eb5-90e2-0ecba6304521
 */
 
-export const languageDataV2 = {
+export const languageData = {
     'english': {
         flag: 'https://assets.quill.org/images/flags/usa.png',
         label: 'English',

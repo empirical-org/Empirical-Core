@@ -372,13 +372,9 @@ export class ELLStudentDiagnostic extends React.Component {
   }
 
   renderFooter = () => {
-    const { match } = this.props;
-    const { params } = match;
-    const { diagnosticID } = params;
     if (!this.language()) { return }
 
     return (<Footer
-      diagnosticID={diagnosticID}
       handleClickOpenMobileLanguageMenu={this.onClickOpenMobileLanguageMenu}
       language={this.language()}
       updateLanguage={this.updateLanguage}
