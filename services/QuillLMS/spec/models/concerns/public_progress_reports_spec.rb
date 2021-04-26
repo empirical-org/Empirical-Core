@@ -73,11 +73,13 @@ describe PublicProgressReports, type: :model do
   end
 
   describe "#generate_recommendations_for_classroom" do
-    let!(:unit) { create(:unit) }
+    let!(:unit_template1) { create(:unit_template) }
+    let!(:unit1) { create(:unit, unit_template_id: unit_template1.id) }
+    let!(:unit2) { create(:unit, unit_template_id: unit_template1.id) }
     let!(:classroom) { create(:classroom) }
     let!(:diagnostic) { create(:diagnostic) }
     let!(:diagnostic_activity) { create(:diagnostic_activity) }
-    let!(:unit_activity) { create(:unit_activity, activity: diagnostic_activity, unit: unit)}
+    let!(:unit_activity) { create(:unit_activity, activity: diagnostic_activity, unit: unit1)}
     let!(:student_not_in_class) { create(:student) }
     let!(:student_1) { create(:student) }
     let!(:student_2) { create(:student) }
@@ -85,11 +87,11 @@ describe PublicProgressReports, type: :model do
     let!(:students_classrooms_1) { create(:students_classrooms, classroom: classroom, student: student_1)}
     let!(:students_classrooms_2) { create(:students_classrooms, classroom: classroom, student: student_2)}
     let!(:students_classrooms_3) { create(:students_classrooms, classroom: classroom, student: student_3)}
-    let!(:classroom_unit_1) { create(:classroom_unit, classroom: classroom, unit: unit, assigned_student_ids: [student_1.id, student_2.id] )}
+    let!(:classroom_unit_1) { create(:classroom_unit, classroom: classroom, unit: unit1, assigned_student_ids: [student_1.id, student_2.id] )}
 
     it 'will only return students who are in the class and have their ids in the assigned array' do
       instance = FakeReports.new
-      recommendations = instance.generate_recommendations_for_classroom(unit.id, classroom.id, diagnostic_activity.id)
+      recommendations = instance.generate_recommendations_for_classroom(unit1.id, classroom.id, diagnostic_activity.id)
       expect(recommendations[:students].find { |s| s[:id] == student_1.id}).to be
       expect(recommendations[:students].find { |s| s[:id] == student_2.id}).to be
       expect(recommendations[:students].find { |s| s[:id] == student_3.id}).not_to be
