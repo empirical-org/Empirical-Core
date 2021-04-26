@@ -74,7 +74,7 @@ exports[`Ap component should render when it is not part of the assignment flow 1
               Sentence-Level Writing Practice
             </h2>
             <p>
-              Identify which sentence-level skills your students need to practice with the AP Writing Skills Surveys. Then, assign activities recommended for each student based on their survey responses so they can practice and improve their proficiency with those skills.
+              Identify which sentence-level skills your students need to practice with the AP Writing Skills Survey. Then, assign activities recommended for each student based on their survey responses so they can practice and improve their proficiency with those skills.
             </p>
           </div>
         </div>
@@ -82,7 +82,7 @@ exports[`Ap component should render when it is not part of the assignment flow 1
           className="activities-subheader"
         >
           <h2>
-            AP Writing Skills Surveys
+            AP Writing Skills Survey
           </h2>
           <div
             className="college-board-activity-tag"
@@ -1370,7 +1370,7 @@ exports[`Ap component should render when it is part of the assignment flow 1`] =
               Sentence-Level Writing Practice
             </h2>
             <p>
-              Identify which sentence-level skills your students need to practice with the AP Writing Skills Surveys. Then, assign activities recommended for each student based on their survey responses so they can practice and improve their proficiency with those skills.
+              Identify which sentence-level skills your students need to practice with the AP Writing Skills Survey. Then, assign activities recommended for each student based on their survey responses so they can practice and improve their proficiency with those skills.
             </p>
           </div>
         </div>
@@ -1378,7 +1378,7 @@ exports[`Ap component should render when it is part of the assignment flow 1`] =
           className="activities-subheader"
         >
           <h2>
-            AP Writing Skills Surveys
+            AP Writing Skills Survey
           </h2>
           <div
             className="college-board-activity-tag"
