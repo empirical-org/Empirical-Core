@@ -856,7 +856,7 @@ end
 
     it 'returns a url including the default url' do
       expect(ActivitySession.generate_activity_url(classroom_unit.id, activity.id))
-        .to include('http://cooolsville.edu')
+        .to include(ENV["DEFAULT_URL"])
     end
 
     it 'returns a url including the classroom unit id' do
