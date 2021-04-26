@@ -12,7 +12,7 @@ interface OnboardingChecklistItemInterface {
 
 const OnboardingChecklistItem = ({ checked, name, link, }: OnboardingChecklistItemInterface) => {
   const checkmark = checked ? <img alt={bigCheckIcon.alt} className="big-check checked" src={bigCheckIcon.src} /> : <div className="big-check unchecked" />
-  const itemClassName = checked ? "onboarding-checklist-item completed" : "onboarding-checklist-item"
+  let itemClassName = checked ? "onboarding-checklist-item completed" : "onboarding-checklist-item"
   if (link) {
     itemClassName += ' focus-on-light'
     return <a className={itemClassName} href={link}>{checkmark}<span>{name}</span></a>
