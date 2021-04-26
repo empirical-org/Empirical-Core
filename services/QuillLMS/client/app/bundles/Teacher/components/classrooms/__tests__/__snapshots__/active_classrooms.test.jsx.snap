@@ -791,6 +791,7 @@ exports[`ActiveClassrooms component with classrooms should render with classroom
           "username": null,
         }
       }
+      viewAsStudent={[Function]}
     />
     <Classroom
       archiveClass={[Function]}
@@ -1146,6 +1147,7 @@ exports[`ActiveClassrooms component with classrooms should render with classroom
           "username": null,
         }
       }
+      viewAsStudent={[Function]}
     />
     <Classroom
       archiveClass={[Function]}
@@ -1558,6 +1560,7 @@ exports[`ActiveClassrooms component with classrooms should render with classroom
           "username": null,
         }
       }
+      viewAsStudent={[Function]}
     />
   </div>
 </div>

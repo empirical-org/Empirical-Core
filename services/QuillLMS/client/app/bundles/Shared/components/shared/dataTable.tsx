@@ -62,7 +62,7 @@ interface DataTableState {
 }
 
 export class DataTable extends React.Component<DataTableProps, DataTableState> {
-  private selectedStudentActions: any  // eslint-disable-line react/sort-comp
+  private selectedActions: any  // eslint-disable-line react/sort-comp
   static defaultProps: { averageFontWidth: number }  // eslint-disable-line react/sort-comp
 
   constructor(props) {
@@ -83,7 +83,7 @@ export class DataTable extends React.Component<DataTableProps, DataTableState> {
   }
 
   handleClick = (e) => {
-    if (this.selectedStudentActions && !this.selectedStudentActions.contains(e.target)) {
+    if (this.selectedActions && !this.selectedActions.contains(e.target)) {
       this.setState({ rowWithActionsOpen: null })
     }
   }
@@ -154,11 +154,11 @@ export class DataTable extends React.Component<DataTableProps, DataTableState> {
     return <span className={`${dataTableHeaderClassName} reorder-header`}>Order</span>
   }
 
-  renderActionsHeader() {
+  renderActionsHeader(header) {
     const { showActions } = this.props
     if (!showActions) { return null }
 
-    return <span className={`${dataTableHeaderClassName} actions-header`}>Actions</span>
+    return <span className={`${dataTableHeaderClassName} actions-header`}>{header.name || 'Actions'}</span>
   }
 
   renderRowCheckbox(row) {
@@ -194,9 +194,12 @@ export class DataTable extends React.Component<DataTableProps, DataTableState> {
   }
 
   renderOpenActions(row) {
-    const rowActions = row.actions.map(act => <button className="action" key={act.action} onClick={() => this.clickAction(act.action, row.id)} type="button">{act.name}</button>)
+    const rowActions = row.actions.map(act => {
+      if (act.element) { return act.element }
+      return <button className="action focus-on-light" key={act.action} onClick={() => this.clickAction(act.action, row.id)} type="button">{act.name}</button>
+    })
 
-    return (<div className="actions-menu-container" ref={node => this.selectedStudentActions = node}>
+    return (<div className="actions-menu-container" ref={node => this.selectedActions = node}>
       <div className="actions-menu">
         {rowActions}
       </div>
@@ -205,7 +208,7 @@ export class DataTable extends React.Component<DataTableProps, DataTableState> {
 
   renderClosedActions(row) {
     return (<button
-      className="quill-button actions-button"
+      className="quill-button actions-button focus-on-light"
       onClick={() => this.setState({ rowWithActionsOpen: row.id })}
       type="button"
     >
@@ -214,6 +217,8 @@ export class DataTable extends React.Component<DataTableProps, DataTableState> {
   }
 
   renderHeader(header) {
+    if (header.isActions) { return this.renderActionsHeader(header) }
+
     const { sortAscending, } = this.state
     let sortArrow, onClick
     let tabIndex = -1
@@ -241,10 +246,12 @@ export class DataTable extends React.Component<DataTableProps, DataTableState> {
   renderHeaders() {
     const { headers, } = this.props
     const headerItems = headers.map(header => this.renderHeader(header))
-    return <div className="data-table-headers">{this.renderHeaderCheckbox()}{this.renderHeaderForOrder()}{headerItems}{this.renderHeaderForRemoval()}{this.renderActionsHeader()}</div>
+    return <div className="data-table-headers">{this.renderHeaderCheckbox()}{this.renderHeaderForOrder()}{headerItems}{this.renderHeaderForRemoval()}</div>
   }
 
   renderRowSection(row, header) {
+    if (header.isActions) { return this.renderActions(row) }
+
     const { averageFontWidth, } = this.props
     let style: React.CSSProperties = { width: `${header.width}`, minWidth: `${header.width}`, textAlign: `${this.attributeAlignment(header.attribute)}` as CSS.TextAlignProperty }
     const sectionText = row[header.attribute]
@@ -283,7 +290,13 @@ export class DataTable extends React.Component<DataTableProps, DataTableState> {
     const { headers, } = this.props
     const rowClassName = `data-table-row ${row.checked ? 'checked' : ''} ${row.className || ''}`
     const rowSections = headers.map(header => this.renderRowSection(row, header))
-    return <div className={rowClassName} key={String(row.id)}>{this.renderRowCheckbox(row)}{this.renderRowDragHandle(row)}{rowSections}{this.renderRowRemoveIcon(row)}{this.renderActions(row)}</div>
+    const rowContent = <React.Fragment>{this.renderRowCheckbox(row)}{this.renderRowDragHandle(row)}{rowSections}{this.renderRowRemoveIcon(row)}</React.Fragment>
+
+    if (row.link) {
+      return <a className={rowClassName} href={row.link} key={String(row.id)}>{rowContent}</a>
+    }
+
+    return <div className={rowClassName} key={String(row.id)}>{rowContent}</div>
   }
 
   renderRows() {

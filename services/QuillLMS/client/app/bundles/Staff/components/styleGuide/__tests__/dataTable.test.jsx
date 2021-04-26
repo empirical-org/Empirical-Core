@@ -51,6 +51,25 @@ const headers3 = [
     attribute: 'activities',
     width: '77px',
     isSortable: true
+  },
+]
+
+const headers4 = [
+  {
+    name: 'Name',
+    attribute: 'name',
+    width: '126px'
+  },
+  {
+    name: 'Activities',
+    attribute: 'activities',
+    width: '77px',
+    isSortable: true
+  },
+  {
+    name: 'Actions',
+    attribute: 'actions',
+    isActions: true
   }
 ]
 
@@ -199,7 +218,7 @@ describe('DataTable component', () => {
     const wrapper = shallow(
       <DataTable
         defaultSortAttribute='activities'
-        headers={headers3}
+        headers={headers4}
         rows={rows3}
       />
     )
@@ -238,14 +257,14 @@ describe('DataTable component', () => {
   describe('with actions', () => {
     const wrapper = shallow(
       <DataTable
-        headers={headers3}
+        headers={headers4}
         rows={rows4}
         showActions={true}
       />
     )
 
-    it('should render a header for each header in props, plus one for the actions', () => {
-      expect(wrapper.find('.data-table-header').length).toBe(headers3.length + 1)
+    it('should render a header for each header in props', () => {
+      expect(wrapper.find('.data-table-header').length).toBe(headers4.length)
     })
 
     it('should render a header with the text Actions', () => {
