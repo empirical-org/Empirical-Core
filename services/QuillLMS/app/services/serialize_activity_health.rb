@@ -29,6 +29,8 @@ class SerializeActivityHealth
 
   def prompt_data
     questions = @activity.data["questions"]
+    return [] if !questions.present?
+
     @questions_arr ||= questions.each.with_index(1).map do |q, question_number|
       question = Question.find_by(uid: q["key"])
       question.present? ? QuestionHealthObj.new(@activity, question, question_number, tool).run : {}
