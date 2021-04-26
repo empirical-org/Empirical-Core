@@ -1493,836 +1493,7 @@ exports[`ActivityTable component renders if the current user created the unit 1`
               <div
                 className="data-table-row  "
               >
-                <span
-                  className="reorder-section data-table-row-section"
-                >
-                  <sortableHandle />
-                </span>
-                <span
-                  className="data-table-row-section tool-and-name-section"
-                  style={
-                    Object {
-                      "minWidth": "637px",
-                      "textAlign": "left",
-                      "width": "637px",
-                    }
-                  }
-                >
-                  <a
-                    className="interactive-wrapper focus-on-light"
-                    href="/activity_sessions/anonymous?activity_id=438"
-                    id="tool-and-name-section-7543552"
-                  >
-                    <span
-                      className="tool-icon-wrapper"
-                    >
-                      <img
-                        alt="Target representing Quill Connect"
-                        src="undefined/images/icons/connect-forest-green.svg"
-                      />
-                    </span>
-                    <a
-                      href="/activity_sessions/anonymous?activity_id=438"
-                      tabIndex={-1}
-                    >
-                      Adverbs of Manner 1 (Starter)
-                    </a>
-                  </a>
-                </span>
-                <span
-                  className="data-table-row-section due-date-picker"
-                  style={
-                    Object {
-                      "minWidth": "120px",
-                      "textAlign": "left",
-                      "width": "120px",
-                    }
-                  }
-                >
-                  <withStyles(SingleDatePicker)
-                    anchorDirection="left"
-                    appendToBody={false}
-                    block={false}
-                    calendarInfoPosition="bottom"
-                    customCloseIcon={null}
-                    customInputIcon={
-                      <img
-                        alt="dropdown indicator"
-                        src="https://assets.quill.org/images/icons/dropdown.svg"
-                        style={null}
-                      />
-                    }
-                    date={null}
-                    dayPickerNavigationInlineStyles={null}
-                    daySize={39}
-                    disableScroll={false}
-                    disabled={false}
-                    displayFormat={[Function]}
-                    enableOutsideDays={false}
-                    firstDayOfWeek={null}
-                    focused={false}
-                    hideKeyboardShortcutsPanel={false}
-                    horizontalMargin={0}
-                    horizontalMonthPadding={13}
-                    id="7543552-date-picker"
-                    initialVisibleMonth={null}
-                    inputIconPosition="after"
-                    isDayBlocked={[Function]}
-                    isDayHighlighted={[Function]}
-                    isOutsideRange={[Function]}
-                    isRTL={false}
-                    keepFocusOnInput={false}
-                    keepOpenOnDateSelect={false}
-                    monthFormat="MMMM YYYY"
-                    navNext="›"
-                    navPosition="navPositionTop"
-                    navPrev="‹"
-                    noBorder={false}
-                    numberOfMonths={1}
-                    onClose={[Function]}
-                    onDateChange={[Function]}
-                    onFocusChange={[Function]}
-                    onNextMonthClick={[Function]}
-                    onPrevMonthClick={[Function]}
-                    openDirection="down"
-                    orientation="horizontal"
-                    phrases={
-                      Object {
-                        "calendarLabel": "Calendar",
-                        "chooseAvailableDate": [Function],
-                        "clearDate": "Clear Date",
-                        "closeDatePicker": "Close",
-                        "dateIsSelected": [Function],
-                        "dateIsUnavailable": [Function],
-                        "enterKey": "Enter key",
-                        "escape": "Escape key",
-                        "hideKeyboardShortcutsPanel": "Close the shortcuts panel.",
-                        "homeEnd": "Home and end keys",
-                        "jumpToNextMonth": "Move forward to switch to the next month.",
-                        "jumpToPrevMonth": "Move backward to switch to the previous month.",
-                        "keyboardBackwardNavigationInstructions": "Navigate backward to interact with the calendar and select a date. Press the question mark key to get the keyboard shortcuts for changing dates.",
-                        "keyboardForwardNavigationInstructions": "Navigate forward to interact with the calendar and select a date. Press the question mark key to get the keyboard shortcuts for changing dates.",
-                        "keyboardShortcuts": "Keyboard Shortcuts",
-                        "leftArrowRightArrow": "Right and left arrow keys",
-                        "moveFocusByOneDay": "Move backward (left) and forward (right) by one day.",
-                        "moveFocusByOneMonth": "Switch months.",
-                        "moveFocusByOneWeek": "Move backward (up) and forward (down) by one week.",
-                        "moveFocustoStartAndEndOfWeek": "Go to the first or last day of a week.",
-                        "openThisPanel": "Open this panel.",
-                        "pageUpPageDown": "page up and page down keys",
-                        "questionMark": "Question mark",
-                        "returnFocusToInput": "Return to the date input field.",
-                        "roleDescription": "datepicker",
-                        "selectFocusedDate": "Select the date in focus.",
-                        "showKeyboardShortcutsPanel": "Open the keyboard shortcuts panel.",
-                        "upArrowDownArrow": "up and down arrow keys",
-                      }
-                    }
-                    placeholder="No due date"
-                    readOnly={false}
-                    regular={false}
-                    renderCalendarInfo={null}
-                    renderDayContents={null}
-                    renderMonthElement={null}
-                    renderMonthText={null}
-                    renderNavNextButton={null}
-                    renderNavPrevButton={null}
-                    renderWeekHeaderElement={null}
-                    reopenPickerOnClearDate={false}
-                    required={false}
-                    screenReaderInputMessage=""
-                    showClearDate={false}
-                    showDefaultInputIcon={false}
-                    small={false}
-                    verticalHeight={null}
-                    verticalSpacing={22}
-                    weekDayFormat="dd"
-                    withFullScreenPortal={false}
-                    withPortal={false}
-                  />
-                </span>
-                <button
-                  className="removable data-table-row-section focus-on-light"
-                  id="remove-button-7543552"
-                  onClick={[Function]}
-                  type="button"
-                >
-                  <img
-                    alt="x"
-                    src="https://assets.quill.org/images/icons/remove.svg"
-                  />
-                </button>
-              </div>,
-              <div
-                className="data-table-row  "
-              >
-                <span
-                  className="reorder-section data-table-row-section"
-                >
-                  <sortableHandle />
-                </span>
-                <span
-                  className="data-table-row-section tool-and-name-section"
-                  style={
-                    Object {
-                      "minWidth": "637px",
-                      "textAlign": "left",
-                      "width": "637px",
-                    }
-                  }
-                >
-                  <a
-                    className="interactive-wrapper focus-on-light"
-                    href="/activity_sessions/anonymous?activity_id=441"
-                    id="tool-and-name-section-7543553"
-                  >
-                    <span
-                      className="tool-icon-wrapper"
-                    >
-                      <img
-                        alt="Target representing Quill Connect"
-                        src="undefined/images/icons/connect-forest-green.svg"
-                      />
-                    </span>
-                    <a
-                      href="/activity_sessions/anonymous?activity_id=441"
-                      tabIndex={-1}
-                    >
-                      Adverbs of Manner (Intermediate)
-                    </a>
-                  </a>
-                </span>
-                <span
-                  className="data-table-row-section due-date-picker"
-                  style={
-                    Object {
-                      "minWidth": "120px",
-                      "textAlign": "left",
-                      "width": "120px",
-                    }
-                  }
-                >
-                  <withStyles(SingleDatePicker)
-                    anchorDirection="left"
-                    appendToBody={false}
-                    block={false}
-                    calendarInfoPosition="bottom"
-                    customCloseIcon={null}
-                    customInputIcon={
-                      <img
-                        alt="dropdown indicator"
-                        src="https://assets.quill.org/images/icons/dropdown.svg"
-                        style={null}
-                      />
-                    }
-                    date={null}
-                    dayPickerNavigationInlineStyles={null}
-                    daySize={39}
-                    disableScroll={false}
-                    disabled={false}
-                    displayFormat={[Function]}
-                    enableOutsideDays={false}
-                    firstDayOfWeek={null}
-                    focused={false}
-                    hideKeyboardShortcutsPanel={false}
-                    horizontalMargin={0}
-                    horizontalMonthPadding={13}
-                    id="7543553-date-picker"
-                    initialVisibleMonth={null}
-                    inputIconPosition="after"
-                    isDayBlocked={[Function]}
-                    isDayHighlighted={[Function]}
-                    isOutsideRange={[Function]}
-                    isRTL={false}
-                    keepFocusOnInput={false}
-                    keepOpenOnDateSelect={false}
-                    monthFormat="MMMM YYYY"
-                    navNext="›"
-                    navPosition="navPositionTop"
-                    navPrev="‹"
-                    noBorder={false}
-                    numberOfMonths={1}
-                    onClose={[Function]}
-                    onDateChange={[Function]}
-                    onFocusChange={[Function]}
-                    onNextMonthClick={[Function]}
-                    onPrevMonthClick={[Function]}
-                    openDirection="down"
-                    orientation="horizontal"
-                    phrases={
-                      Object {
-                        "calendarLabel": "Calendar",
-                        "chooseAvailableDate": [Function],
-                        "clearDate": "Clear Date",
-                        "closeDatePicker": "Close",
-                        "dateIsSelected": [Function],
-                        "dateIsUnavailable": [Function],
-                        "enterKey": "Enter key",
-                        "escape": "Escape key",
-                        "hideKeyboardShortcutsPanel": "Close the shortcuts panel.",
-                        "homeEnd": "Home and end keys",
-                        "jumpToNextMonth": "Move forward to switch to the next month.",
-                        "jumpToPrevMonth": "Move backward to switch to the previous month.",
-                        "keyboardBackwardNavigationInstructions": "Navigate backward to interact with the calendar and select a date. Press the question mark key to get the keyboard shortcuts for changing dates.",
-                        "keyboardForwardNavigationInstructions": "Navigate forward to interact with the calendar and select a date. Press the question mark key to get the keyboard shortcuts for changing dates.",
-                        "keyboardShortcuts": "Keyboard Shortcuts",
-                        "leftArrowRightArrow": "Right and left arrow keys",
-                        "moveFocusByOneDay": "Move backward (left) and forward (right) by one day.",
-                        "moveFocusByOneMonth": "Switch months.",
-                        "moveFocusByOneWeek": "Move backward (up) and forward (down) by one week.",
-                        "moveFocustoStartAndEndOfWeek": "Go to the first or last day of a week.",
-                        "openThisPanel": "Open this panel.",
-                        "pageUpPageDown": "page up and page down keys",
-                        "questionMark": "Question mark",
-                        "returnFocusToInput": "Return to the date input field.",
-                        "roleDescription": "datepicker",
-                        "selectFocusedDate": "Select the date in focus.",
-                        "showKeyboardShortcutsPanel": "Open the keyboard shortcuts panel.",
-                        "upArrowDownArrow": "up and down arrow keys",
-                      }
-                    }
-                    placeholder="No due date"
-                    readOnly={false}
-                    regular={false}
-                    renderCalendarInfo={null}
-                    renderDayContents={null}
-                    renderMonthElement={null}
-                    renderMonthText={null}
-                    renderNavNextButton={null}
-                    renderNavPrevButton={null}
-                    renderWeekHeaderElement={null}
-                    reopenPickerOnClearDate={false}
-                    required={false}
-                    screenReaderInputMessage=""
-                    showClearDate={false}
-                    showDefaultInputIcon={false}
-                    small={false}
-                    verticalHeight={null}
-                    verticalSpacing={22}
-                    weekDayFormat="dd"
-                    withFullScreenPortal={false}
-                    withPortal={false}
-                  />
-                </span>
-                <button
-                  className="removable data-table-row-section focus-on-light"
-                  id="remove-button-7543553"
-                  onClick={[Function]}
-                  type="button"
-                >
-                  <img
-                    alt="x"
-                    src="https://assets.quill.org/images/icons/remove.svg"
-                  />
-                </button>
-              </div>,
-              <div
-                className="data-table-row  "
-              >
-                <span
-                  className="reorder-section data-table-row-section"
-                >
-                  <sortableHandle />
-                </span>
-                <span
-                  className="data-table-row-section tool-and-name-section"
-                  style={
-                    Object {
-                      "minWidth": "637px",
-                      "textAlign": "left",
-                      "width": "637px",
-                    }
-                  }
-                >
-                  <a
-                    className="interactive-wrapper focus-on-light"
-                    href="/activity_sessions/anonymous?activity_id=775"
-                    id="tool-and-name-section-7543554"
-                  >
-                    <span
-                      className="tool-icon-wrapper"
-                    >
-                      <img
-                        alt="Target representing Quill Connect"
-                        src="undefined/images/icons/connect-forest-green.svg"
-                      />
-                    </span>
-                    <a
-                      href="/activity_sessions/anonymous?activity_id=775"
-                      tabIndex={-1}
-                    >
-                      Adjectives and Adverbs (Starter)
-                    </a>
-                  </a>
-                </span>
-                <span
-                  className="data-table-row-section due-date-picker"
-                  style={
-                    Object {
-                      "minWidth": "120px",
-                      "textAlign": "left",
-                      "width": "120px",
-                    }
-                  }
-                >
-                  <withStyles(SingleDatePicker)
-                    anchorDirection="left"
-                    appendToBody={false}
-                    block={false}
-                    calendarInfoPosition="bottom"
-                    customCloseIcon={null}
-                    customInputIcon={
-                      <img
-                        alt="dropdown indicator"
-                        src="https://assets.quill.org/images/icons/dropdown.svg"
-                        style={null}
-                      />
-                    }
-                    date={null}
-                    dayPickerNavigationInlineStyles={null}
-                    daySize={39}
-                    disableScroll={false}
-                    disabled={false}
-                    displayFormat={[Function]}
-                    enableOutsideDays={false}
-                    firstDayOfWeek={null}
-                    focused={false}
-                    hideKeyboardShortcutsPanel={false}
-                    horizontalMargin={0}
-                    horizontalMonthPadding={13}
-                    id="7543554-date-picker"
-                    initialVisibleMonth={null}
-                    inputIconPosition="after"
-                    isDayBlocked={[Function]}
-                    isDayHighlighted={[Function]}
-                    isOutsideRange={[Function]}
-                    isRTL={false}
-                    keepFocusOnInput={false}
-                    keepOpenOnDateSelect={false}
-                    monthFormat="MMMM YYYY"
-                    navNext="›"
-                    navPosition="navPositionTop"
-                    navPrev="‹"
-                    noBorder={false}
-                    numberOfMonths={1}
-                    onClose={[Function]}
-                    onDateChange={[Function]}
-                    onFocusChange={[Function]}
-                    onNextMonthClick={[Function]}
-                    onPrevMonthClick={[Function]}
-                    openDirection="down"
-                    orientation="horizontal"
-                    phrases={
-                      Object {
-                        "calendarLabel": "Calendar",
-                        "chooseAvailableDate": [Function],
-                        "clearDate": "Clear Date",
-                        "closeDatePicker": "Close",
-                        "dateIsSelected": [Function],
-                        "dateIsUnavailable": [Function],
-                        "enterKey": "Enter key",
-                        "escape": "Escape key",
-                        "hideKeyboardShortcutsPanel": "Close the shortcuts panel.",
-                        "homeEnd": "Home and end keys",
-                        "jumpToNextMonth": "Move forward to switch to the next month.",
-                        "jumpToPrevMonth": "Move backward to switch to the previous month.",
-                        "keyboardBackwardNavigationInstructions": "Navigate backward to interact with the calendar and select a date. Press the question mark key to get the keyboard shortcuts for changing dates.",
-                        "keyboardForwardNavigationInstructions": "Navigate forward to interact with the calendar and select a date. Press the question mark key to get the keyboard shortcuts for changing dates.",
-                        "keyboardShortcuts": "Keyboard Shortcuts",
-                        "leftArrowRightArrow": "Right and left arrow keys",
-                        "moveFocusByOneDay": "Move backward (left) and forward (right) by one day.",
-                        "moveFocusByOneMonth": "Switch months.",
-                        "moveFocusByOneWeek": "Move backward (up) and forward (down) by one week.",
-                        "moveFocustoStartAndEndOfWeek": "Go to the first or last day of a week.",
-                        "openThisPanel": "Open this panel.",
-                        "pageUpPageDown": "page up and page down keys",
-                        "questionMark": "Question mark",
-                        "returnFocusToInput": "Return to the date input field.",
-                        "roleDescription": "datepicker",
-                        "selectFocusedDate": "Select the date in focus.",
-                        "showKeyboardShortcutsPanel": "Open the keyboard shortcuts panel.",
-                        "upArrowDownArrow": "up and down arrow keys",
-                      }
-                    }
-                    placeholder="No due date"
-                    readOnly={false}
-                    regular={false}
-                    renderCalendarInfo={null}
-                    renderDayContents={null}
-                    renderMonthElement={null}
-                    renderMonthText={null}
-                    renderNavNextButton={null}
-                    renderNavPrevButton={null}
-                    renderWeekHeaderElement={null}
-                    reopenPickerOnClearDate={false}
-                    required={false}
-                    screenReaderInputMessage=""
-                    showClearDate={false}
-                    showDefaultInputIcon={false}
-                    small={false}
-                    verticalHeight={null}
-                    verticalSpacing={22}
-                    weekDayFormat="dd"
-                    withFullScreenPortal={false}
-                    withPortal={false}
-                  />
-                </span>
-                <button
-                  className="removable data-table-row-section focus-on-light"
-                  id="remove-button-7543554"
-                  onClick={[Function]}
-                  type="button"
-                >
-                  <img
-                    alt="x"
-                    src="https://assets.quill.org/images/icons/remove.svg"
-                  />
-                </button>
-              </div>,
-              <div
-                className="data-table-row  "
-              >
-                <span
-                  className="reorder-section data-table-row-section"
-                >
-                  <sortableHandle />
-                </span>
-                <span
-                  className="data-table-row-section tool-and-name-section"
-                  style={
-                    Object {
-                      "minWidth": "637px",
-                      "textAlign": "left",
-                      "width": "637px",
-                    }
-                  }
-                >
-                  <a
-                    className="interactive-wrapper focus-on-light"
-                    href="/activity_sessions/anonymous?activity_id=844"
-                    id="tool-and-name-section-7543555"
-                  >
-                    <span
-                      className="tool-icon-wrapper"
-                    >
-                      <img
-                        alt="Target representing Quill Connect"
-                        src="undefined/images/icons/connect-forest-green.svg"
-                      />
-                    </span>
-                    <a
-                      href="/activity_sessions/anonymous?activity_id=844"
-                      tabIndex={-1}
-                    >
-                      Adjectives vs. Adverbs
-                    </a>
-                  </a>
-                </span>
-                <span
-                  className="data-table-row-section due-date-picker"
-                  style={
-                    Object {
-                      "minWidth": "120px",
-                      "textAlign": "left",
-                      "width": "120px",
-                    }
-                  }
-                >
-                  <withStyles(SingleDatePicker)
-                    anchorDirection="left"
-                    appendToBody={false}
-                    block={false}
-                    calendarInfoPosition="bottom"
-                    customCloseIcon={null}
-                    customInputIcon={
-                      <img
-                        alt="dropdown indicator"
-                        src="https://assets.quill.org/images/icons/dropdown.svg"
-                        style={null}
-                      />
-                    }
-                    date={null}
-                    dayPickerNavigationInlineStyles={null}
-                    daySize={39}
-                    disableScroll={false}
-                    disabled={false}
-                    displayFormat={[Function]}
-                    enableOutsideDays={false}
-                    firstDayOfWeek={null}
-                    focused={false}
-                    hideKeyboardShortcutsPanel={false}
-                    horizontalMargin={0}
-                    horizontalMonthPadding={13}
-                    id="7543555-date-picker"
-                    initialVisibleMonth={null}
-                    inputIconPosition="after"
-                    isDayBlocked={[Function]}
-                    isDayHighlighted={[Function]}
-                    isOutsideRange={[Function]}
-                    isRTL={false}
-                    keepFocusOnInput={false}
-                    keepOpenOnDateSelect={false}
-                    monthFormat="MMMM YYYY"
-                    navNext="›"
-                    navPosition="navPositionTop"
-                    navPrev="‹"
-                    noBorder={false}
-                    numberOfMonths={1}
-                    onClose={[Function]}
-                    onDateChange={[Function]}
-                    onFocusChange={[Function]}
-                    onNextMonthClick={[Function]}
-                    onPrevMonthClick={[Function]}
-                    openDirection="down"
-                    orientation="horizontal"
-                    phrases={
-                      Object {
-                        "calendarLabel": "Calendar",
-                        "chooseAvailableDate": [Function],
-                        "clearDate": "Clear Date",
-                        "closeDatePicker": "Close",
-                        "dateIsSelected": [Function],
-                        "dateIsUnavailable": [Function],
-                        "enterKey": "Enter key",
-                        "escape": "Escape key",
-                        "hideKeyboardShortcutsPanel": "Close the shortcuts panel.",
-                        "homeEnd": "Home and end keys",
-                        "jumpToNextMonth": "Move forward to switch to the next month.",
-                        "jumpToPrevMonth": "Move backward to switch to the previous month.",
-                        "keyboardBackwardNavigationInstructions": "Navigate backward to interact with the calendar and select a date. Press the question mark key to get the keyboard shortcuts for changing dates.",
-                        "keyboardForwardNavigationInstructions": "Navigate forward to interact with the calendar and select a date. Press the question mark key to get the keyboard shortcuts for changing dates.",
-                        "keyboardShortcuts": "Keyboard Shortcuts",
-                        "leftArrowRightArrow": "Right and left arrow keys",
-                        "moveFocusByOneDay": "Move backward (left) and forward (right) by one day.",
-                        "moveFocusByOneMonth": "Switch months.",
-                        "moveFocusByOneWeek": "Move backward (up) and forward (down) by one week.",
-                        "moveFocustoStartAndEndOfWeek": "Go to the first or last day of a week.",
-                        "openThisPanel": "Open this panel.",
-                        "pageUpPageDown": "page up and page down keys",
-                        "questionMark": "Question mark",
-                        "returnFocusToInput": "Return to the date input field.",
-                        "roleDescription": "datepicker",
-                        "selectFocusedDate": "Select the date in focus.",
-                        "showKeyboardShortcutsPanel": "Open the keyboard shortcuts panel.",
-                        "upArrowDownArrow": "up and down arrow keys",
-                      }
-                    }
-                    placeholder="No due date"
-                    readOnly={false}
-                    regular={false}
-                    renderCalendarInfo={null}
-                    renderDayContents={null}
-                    renderMonthElement={null}
-                    renderMonthText={null}
-                    renderNavNextButton={null}
-                    renderNavPrevButton={null}
-                    renderWeekHeaderElement={null}
-                    reopenPickerOnClearDate={false}
-                    required={false}
-                    screenReaderInputMessage=""
-                    showClearDate={false}
-                    showDefaultInputIcon={false}
-                    small={false}
-                    verticalHeight={null}
-                    verticalSpacing={22}
-                    weekDayFormat="dd"
-                    withFullScreenPortal={false}
-                    withPortal={false}
-                  />
-                </span>
-                <button
-                  className="removable data-table-row-section focus-on-light"
-                  id="remove-button-7543555"
-                  onClick={[Function]}
-                  type="button"
-                >
-                  <img
-                    alt="x"
-                    src="https://assets.quill.org/images/icons/remove.svg"
-                  />
-                </button>
-              </div>,
-              <div
-                className="data-table-row  "
-              >
-                <span
-                  className="reorder-section data-table-row-section"
-                >
-                  <sortableHandle />
-                </span>
-                <span
-                  className="data-table-row-section tool-and-name-section"
-                  style={
-                    Object {
-                      "minWidth": "637px",
-                      "textAlign": "left",
-                      "width": "637px",
-                    }
-                  }
-                >
-                  <a
-                    className="interactive-wrapper focus-on-light"
-                    href="/activity_sessions/anonymous?activity_id=846"
-                    id="tool-and-name-section-7543556"
-                  >
-                    <span
-                      className="tool-icon-wrapper"
-                    >
-                      <img
-                        alt="Target representing Quill Connect"
-                        src="undefined/images/icons/connect-forest-green.svg"
-                      />
-                    </span>
-                    <a
-                      href="/activity_sessions/anonymous?activity_id=846"
-                      tabIndex={-1}
-                    >
-                      Adjectives, Adverbs, and Prepositional Phrases 1
-                    </a>
-                  </a>
-                </span>
-                <span
-                  className="data-table-row-section due-date-picker"
-                  style={
-                    Object {
-                      "minWidth": "120px",
-                      "textAlign": "left",
-                      "width": "120px",
-                    }
-                  }
-                >
-                  <withStyles(SingleDatePicker)
-                    anchorDirection="left"
-                    appendToBody={false}
-                    block={false}
-                    calendarInfoPosition="bottom"
-                    customCloseIcon={null}
-                    customInputIcon={
-                      <img
-                        alt="dropdown indicator"
-                        src="https://assets.quill.org/images/icons/dropdown.svg"
-                        style={null}
-                      />
-                    }
-                    date={null}
-                    dayPickerNavigationInlineStyles={null}
-                    daySize={39}
-                    disableScroll={false}
-                    disabled={false}
-                    displayFormat={[Function]}
-                    enableOutsideDays={false}
-                    firstDayOfWeek={null}
-                    focused={false}
-                    hideKeyboardShortcutsPanel={false}
-                    horizontalMargin={0}
-                    horizontalMonthPadding={13}
-                    id="7543556-date-picker"
-                    initialVisibleMonth={null}
-                    inputIconPosition="after"
-                    isDayBlocked={[Function]}
-                    isDayHighlighted={[Function]}
-                    isOutsideRange={[Function]}
-                    isRTL={false}
-                    keepFocusOnInput={false}
-                    keepOpenOnDateSelect={false}
-                    monthFormat="MMMM YYYY"
-                    navNext="›"
-                    navPosition="navPositionTop"
-                    navPrev="‹"
-                    noBorder={false}
-                    numberOfMonths={1}
-                    onClose={[Function]}
-                    onDateChange={[Function]}
-                    onFocusChange={[Function]}
-                    onNextMonthClick={[Function]}
-                    onPrevMonthClick={[Function]}
-                    openDirection="down"
-                    orientation="horizontal"
-                    phrases={
-                      Object {
-                        "calendarLabel": "Calendar",
-                        "chooseAvailableDate": [Function],
-                        "clearDate": "Clear Date",
-                        "closeDatePicker": "Close",
-                        "dateIsSelected": [Function],
-                        "dateIsUnavailable": [Function],
-                        "enterKey": "Enter key",
-                        "escape": "Escape key",
-                        "hideKeyboardShortcutsPanel": "Close the shortcuts panel.",
-                        "homeEnd": "Home and end keys",
-                        "jumpToNextMonth": "Move forward to switch to the next month.",
-                        "jumpToPrevMonth": "Move backward to switch to the previous month.",
-                        "keyboardBackwardNavigationInstructions": "Navigate backward to interact with the calendar and select a date. Press the question mark key to get the keyboard shortcuts for changing dates.",
-                        "keyboardForwardNavigationInstructions": "Navigate forward to interact with the calendar and select a date. Press the question mark key to get the keyboard shortcuts for changing dates.",
-                        "keyboardShortcuts": "Keyboard Shortcuts",
-                        "leftArrowRightArrow": "Right and left arrow keys",
-                        "moveFocusByOneDay": "Move backward (left) and forward (right) by one day.",
-                        "moveFocusByOneMonth": "Switch months.",
-                        "moveFocusByOneWeek": "Move backward (up) and forward (down) by one week.",
-                        "moveFocustoStartAndEndOfWeek": "Go to the first or last day of a week.",
-                        "openThisPanel": "Open this panel.",
-                        "pageUpPageDown": "page up and page down keys",
-                        "questionMark": "Question mark",
-                        "returnFocusToInput": "Return to the date input field.",
-                        "roleDescription": "datepicker",
-                        "selectFocusedDate": "Select the date in focus.",
-                        "showKeyboardShortcutsPanel": "Open the keyboard shortcuts panel.",
-                        "upArrowDownArrow": "up and down arrow keys",
-                      }
-                    }
-                    placeholder="No due date"
-                    readOnly={false}
-                    regular={false}
-                    renderCalendarInfo={null}
-                    renderDayContents={null}
-                    renderMonthElement={null}
-                    renderMonthText={null}
-                    renderNavNextButton={null}
-                    renderNavPrevButton={null}
-                    renderWeekHeaderElement={null}
-                    reopenPickerOnClearDate={false}
-                    required={false}
-                    screenReaderInputMessage=""
-                    showClearDate={false}
-                    showDefaultInputIcon={false}
-                    small={false}
-                    verticalHeight={null}
-                    verticalSpacing={22}
-                    weekDayFormat="dd"
-                    withFullScreenPortal={false}
-                    withPortal={false}
-                  />
-                </span>
-                <button
-                  className="removable data-table-row-section focus-on-light"
-                  id="remove-button-7543556"
-                  onClick={[Function]}
-                  type="button"
-                >
-                  <img
-                    alt="x"
-                    src="https://assets.quill.org/images/icons/remove.svg"
-                  />
-                </button>
-              </div>,
-            ]
-          }
-          helperClass="sortable-data-table-row"
-          sortCallback={[Function]}
-          useDragHandle={true}
-        >
-          <sortableList
-            axis="y"
-            disableAutoscroll={false}
-            distance={2}
-            getHelperDimensions={[Function]}
-            helperClass="sortable-data-table-row"
-            hideSortableGhost={true}
-            items={
-              Array [
-                <div
-                  className="data-table-row  "
-                >
+                <React.Fragment>
                   <span
                     className="reorder-section data-table-row-section"
                   >
@@ -2482,10 +1653,12 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                       src="https://assets.quill.org/images/icons/remove.svg"
                     />
                   </button>
-                </div>,
-                <div
-                  className="data-table-row  "
-                >
+                </React.Fragment>
+              </div>,
+              <div
+                className="data-table-row  "
+              >
+                <React.Fragment>
                   <span
                     className="reorder-section data-table-row-section"
                   >
@@ -2645,10 +1818,12 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                       src="https://assets.quill.org/images/icons/remove.svg"
                     />
                   </button>
-                </div>,
-                <div
-                  className="data-table-row  "
-                >
+                </React.Fragment>
+              </div>,
+              <div
+                className="data-table-row  "
+              >
+                <React.Fragment>
                   <span
                     className="reorder-section data-table-row-section"
                   >
@@ -2808,10 +1983,12 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                       src="https://assets.quill.org/images/icons/remove.svg"
                     />
                   </button>
-                </div>,
-                <div
-                  className="data-table-row  "
-                >
+                </React.Fragment>
+              </div>,
+              <div
+                className="data-table-row  "
+              >
+                <React.Fragment>
                   <span
                     className="reorder-section data-table-row-section"
                   >
@@ -2971,10 +2148,12 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                       src="https://assets.quill.org/images/icons/remove.svg"
                     />
                   </button>
-                </div>,
-                <div
-                  className="data-table-row  "
-                >
+                </React.Fragment>
+              </div>,
+              <div
+                className="data-table-row  "
+              >
+                <React.Fragment>
                   <span
                     className="reorder-section data-table-row-section"
                   >
@@ -3134,47 +2313,27 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                       src="https://assets.quill.org/images/icons/remove.svg"
                     />
                   </button>
-                </div>,
-              ]
-            }
-            keyCodes={
-              Object {
-                "cancel": Array [
-                  27,
-                ],
-                "down": Array [
-                  40,
-                  39,
-                ],
-                "drop": Array [
-                  32,
-                ],
-                "lift": Array [
-                  32,
-                ],
-                "up": Array [
-                  38,
-                  37,
-                ],
-              }
-            }
-            lockOffset="50%"
-            lockToContainerEdges={false}
-            onSortEnd={[Function]}
-            onSortMove={[Function]}
-            pressDelay={0}
-            pressThreshold={5}
-            shouldCancelStart={[Function]}
-            transitionDuration={300}
-            useDragHandle={true}
-            useWindowAsScrollContainer={false}
-          >
-            <Component
-              items={
-                Array [
-                  <div
-                    className="data-table-row  "
-                  >
+                </React.Fragment>
+              </div>,
+            ]
+          }
+          helperClass="sortable-data-table-row"
+          sortCallback={[Function]}
+          useDragHandle={true}
+        >
+          <sortableList
+            axis="y"
+            disableAutoscroll={false}
+            distance={2}
+            getHelperDimensions={[Function]}
+            helperClass="sortable-data-table-row"
+            hideSortableGhost={true}
+            items={
+              Array [
+                <div
+                  className="data-table-row  "
+                >
+                  <React.Fragment>
                     <span
                       className="reorder-section data-table-row-section"
                     >
@@ -3334,10 +2493,12 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                         src="https://assets.quill.org/images/icons/remove.svg"
                       />
                     </button>
-                  </div>,
-                  <div
-                    className="data-table-row  "
-                  >
+                  </React.Fragment>
+                </div>,
+                <div
+                  className="data-table-row  "
+                >
+                  <React.Fragment>
                     <span
                       className="reorder-section data-table-row-section"
                     >
@@ -3497,10 +2658,12 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                         src="https://assets.quill.org/images/icons/remove.svg"
                       />
                     </button>
-                  </div>,
-                  <div
-                    className="data-table-row  "
-                  >
+                  </React.Fragment>
+                </div>,
+                <div
+                  className="data-table-row  "
+                >
+                  <React.Fragment>
                     <span
                       className="reorder-section data-table-row-section"
                     >
@@ -3660,10 +2823,12 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                         src="https://assets.quill.org/images/icons/remove.svg"
                       />
                     </button>
-                  </div>,
-                  <div
-                    className="data-table-row  "
-                  >
+                  </React.Fragment>
+                </div>,
+                <div
+                  className="data-table-row  "
+                >
+                  <React.Fragment>
                     <span
                       className="reorder-section data-table-row-section"
                     >
@@ -3823,10 +2988,12 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                         src="https://assets.quill.org/images/icons/remove.svg"
                       />
                     </button>
-                  </div>,
-                  <div
-                    className="data-table-row  "
-                  >
+                  </React.Fragment>
+                </div>,
+                <div
+                  className="data-table-row  "
+                >
+                  <React.Fragment>
                     <span
                       className="reorder-section data-table-row-section"
                     >
@@ -3986,21 +3153,49 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                         src="https://assets.quill.org/images/icons/remove.svg"
                       />
                     </button>
-                  </div>,
-                ]
+                  </React.Fragment>
+                </div>,
+              ]
+            }
+            keyCodes={
+              Object {
+                "cancel": Array [
+                  27,
+                ],
+                "down": Array [
+                  40,
+                  39,
+                ],
+                "drop": Array [
+                  32,
+                ],
+                "lift": Array [
+                  32,
+                ],
+                "up": Array [
+                  38,
+                  37,
+                ],
               }
-            >
-              <div
-                className="list sortable-list"
-              >
-                <sortableElement
-                  collection={0}
-                  index={0}
-                  key="0"
-                  value={
-                    <div
-                      className="data-table-row  "
-                    >
+            }
+            lockOffset="50%"
+            lockToContainerEdges={false}
+            onSortEnd={[Function]}
+            onSortMove={[Function]}
+            pressDelay={0}
+            pressThreshold={5}
+            shouldCancelStart={[Function]}
+            transitionDuration={300}
+            useDragHandle={true}
+            useWindowAsScrollContainer={false}
+          >
+            <Component
+              items={
+                Array [
+                  <div
+                    className="data-table-row  "
+                  >
+                    <React.Fragment>
                       <span
                         className="reorder-section data-table-row-section"
                       >
@@ -4160,14 +3355,683 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                           src="https://assets.quill.org/images/icons/remove.svg"
                         />
                       </button>
-                    </div>
-                  }
-                >
-                  <Component
-                    value={
-                      <div
-                        className="data-table-row  "
+                    </React.Fragment>
+                  </div>,
+                  <div
+                    className="data-table-row  "
+                  >
+                    <React.Fragment>
+                      <span
+                        className="reorder-section data-table-row-section"
                       >
+                        <sortableHandle />
+                      </span>
+                      <span
+                        className="data-table-row-section tool-and-name-section"
+                        style={
+                          Object {
+                            "minWidth": "637px",
+                            "textAlign": "left",
+                            "width": "637px",
+                          }
+                        }
+                      >
+                        <a
+                          className="interactive-wrapper focus-on-light"
+                          href="/activity_sessions/anonymous?activity_id=441"
+                          id="tool-and-name-section-7543553"
+                        >
+                          <span
+                            className="tool-icon-wrapper"
+                          >
+                            <img
+                              alt="Target representing Quill Connect"
+                              src="undefined/images/icons/connect-forest-green.svg"
+                            />
+                          </span>
+                          <a
+                            href="/activity_sessions/anonymous?activity_id=441"
+                            tabIndex={-1}
+                          >
+                            Adverbs of Manner (Intermediate)
+                          </a>
+                        </a>
+                      </span>
+                      <span
+                        className="data-table-row-section due-date-picker"
+                        style={
+                          Object {
+                            "minWidth": "120px",
+                            "textAlign": "left",
+                            "width": "120px",
+                          }
+                        }
+                      >
+                        <withStyles(SingleDatePicker)
+                          anchorDirection="left"
+                          appendToBody={false}
+                          block={false}
+                          calendarInfoPosition="bottom"
+                          customCloseIcon={null}
+                          customInputIcon={
+                            <img
+                              alt="dropdown indicator"
+                              src="https://assets.quill.org/images/icons/dropdown.svg"
+                              style={null}
+                            />
+                          }
+                          date={null}
+                          dayPickerNavigationInlineStyles={null}
+                          daySize={39}
+                          disableScroll={false}
+                          disabled={false}
+                          displayFormat={[Function]}
+                          enableOutsideDays={false}
+                          firstDayOfWeek={null}
+                          focused={false}
+                          hideKeyboardShortcutsPanel={false}
+                          horizontalMargin={0}
+                          horizontalMonthPadding={13}
+                          id="7543553-date-picker"
+                          initialVisibleMonth={null}
+                          inputIconPosition="after"
+                          isDayBlocked={[Function]}
+                          isDayHighlighted={[Function]}
+                          isOutsideRange={[Function]}
+                          isRTL={false}
+                          keepFocusOnInput={false}
+                          keepOpenOnDateSelect={false}
+                          monthFormat="MMMM YYYY"
+                          navNext="›"
+                          navPosition="navPositionTop"
+                          navPrev="‹"
+                          noBorder={false}
+                          numberOfMonths={1}
+                          onClose={[Function]}
+                          onDateChange={[Function]}
+                          onFocusChange={[Function]}
+                          onNextMonthClick={[Function]}
+                          onPrevMonthClick={[Function]}
+                          openDirection="down"
+                          orientation="horizontal"
+                          phrases={
+                            Object {
+                              "calendarLabel": "Calendar",
+                              "chooseAvailableDate": [Function],
+                              "clearDate": "Clear Date",
+                              "closeDatePicker": "Close",
+                              "dateIsSelected": [Function],
+                              "dateIsUnavailable": [Function],
+                              "enterKey": "Enter key",
+                              "escape": "Escape key",
+                              "hideKeyboardShortcutsPanel": "Close the shortcuts panel.",
+                              "homeEnd": "Home and end keys",
+                              "jumpToNextMonth": "Move forward to switch to the next month.",
+                              "jumpToPrevMonth": "Move backward to switch to the previous month.",
+                              "keyboardBackwardNavigationInstructions": "Navigate backward to interact with the calendar and select a date. Press the question mark key to get the keyboard shortcuts for changing dates.",
+                              "keyboardForwardNavigationInstructions": "Navigate forward to interact with the calendar and select a date. Press the question mark key to get the keyboard shortcuts for changing dates.",
+                              "keyboardShortcuts": "Keyboard Shortcuts",
+                              "leftArrowRightArrow": "Right and left arrow keys",
+                              "moveFocusByOneDay": "Move backward (left) and forward (right) by one day.",
+                              "moveFocusByOneMonth": "Switch months.",
+                              "moveFocusByOneWeek": "Move backward (up) and forward (down) by one week.",
+                              "moveFocustoStartAndEndOfWeek": "Go to the first or last day of a week.",
+                              "openThisPanel": "Open this panel.",
+                              "pageUpPageDown": "page up and page down keys",
+                              "questionMark": "Question mark",
+                              "returnFocusToInput": "Return to the date input field.",
+                              "roleDescription": "datepicker",
+                              "selectFocusedDate": "Select the date in focus.",
+                              "showKeyboardShortcutsPanel": "Open the keyboard shortcuts panel.",
+                              "upArrowDownArrow": "up and down arrow keys",
+                            }
+                          }
+                          placeholder="No due date"
+                          readOnly={false}
+                          regular={false}
+                          renderCalendarInfo={null}
+                          renderDayContents={null}
+                          renderMonthElement={null}
+                          renderMonthText={null}
+                          renderNavNextButton={null}
+                          renderNavPrevButton={null}
+                          renderWeekHeaderElement={null}
+                          reopenPickerOnClearDate={false}
+                          required={false}
+                          screenReaderInputMessage=""
+                          showClearDate={false}
+                          showDefaultInputIcon={false}
+                          small={false}
+                          verticalHeight={null}
+                          verticalSpacing={22}
+                          weekDayFormat="dd"
+                          withFullScreenPortal={false}
+                          withPortal={false}
+                        />
+                      </span>
+                      <button
+                        className="removable data-table-row-section focus-on-light"
+                        id="remove-button-7543553"
+                        onClick={[Function]}
+                        type="button"
+                      >
+                        <img
+                          alt="x"
+                          src="https://assets.quill.org/images/icons/remove.svg"
+                        />
+                      </button>
+                    </React.Fragment>
+                  </div>,
+                  <div
+                    className="data-table-row  "
+                  >
+                    <React.Fragment>
+                      <span
+                        className="reorder-section data-table-row-section"
+                      >
+                        <sortableHandle />
+                      </span>
+                      <span
+                        className="data-table-row-section tool-and-name-section"
+                        style={
+                          Object {
+                            "minWidth": "637px",
+                            "textAlign": "left",
+                            "width": "637px",
+                          }
+                        }
+                      >
+                        <a
+                          className="interactive-wrapper focus-on-light"
+                          href="/activity_sessions/anonymous?activity_id=775"
+                          id="tool-and-name-section-7543554"
+                        >
+                          <span
+                            className="tool-icon-wrapper"
+                          >
+                            <img
+                              alt="Target representing Quill Connect"
+                              src="undefined/images/icons/connect-forest-green.svg"
+                            />
+                          </span>
+                          <a
+                            href="/activity_sessions/anonymous?activity_id=775"
+                            tabIndex={-1}
+                          >
+                            Adjectives and Adverbs (Starter)
+                          </a>
+                        </a>
+                      </span>
+                      <span
+                        className="data-table-row-section due-date-picker"
+                        style={
+                          Object {
+                            "minWidth": "120px",
+                            "textAlign": "left",
+                            "width": "120px",
+                          }
+                        }
+                      >
+                        <withStyles(SingleDatePicker)
+                          anchorDirection="left"
+                          appendToBody={false}
+                          block={false}
+                          calendarInfoPosition="bottom"
+                          customCloseIcon={null}
+                          customInputIcon={
+                            <img
+                              alt="dropdown indicator"
+                              src="https://assets.quill.org/images/icons/dropdown.svg"
+                              style={null}
+                            />
+                          }
+                          date={null}
+                          dayPickerNavigationInlineStyles={null}
+                          daySize={39}
+                          disableScroll={false}
+                          disabled={false}
+                          displayFormat={[Function]}
+                          enableOutsideDays={false}
+                          firstDayOfWeek={null}
+                          focused={false}
+                          hideKeyboardShortcutsPanel={false}
+                          horizontalMargin={0}
+                          horizontalMonthPadding={13}
+                          id="7543554-date-picker"
+                          initialVisibleMonth={null}
+                          inputIconPosition="after"
+                          isDayBlocked={[Function]}
+                          isDayHighlighted={[Function]}
+                          isOutsideRange={[Function]}
+                          isRTL={false}
+                          keepFocusOnInput={false}
+                          keepOpenOnDateSelect={false}
+                          monthFormat="MMMM YYYY"
+                          navNext="›"
+                          navPosition="navPositionTop"
+                          navPrev="‹"
+                          noBorder={false}
+                          numberOfMonths={1}
+                          onClose={[Function]}
+                          onDateChange={[Function]}
+                          onFocusChange={[Function]}
+                          onNextMonthClick={[Function]}
+                          onPrevMonthClick={[Function]}
+                          openDirection="down"
+                          orientation="horizontal"
+                          phrases={
+                            Object {
+                              "calendarLabel": "Calendar",
+                              "chooseAvailableDate": [Function],
+                              "clearDate": "Clear Date",
+                              "closeDatePicker": "Close",
+                              "dateIsSelected": [Function],
+                              "dateIsUnavailable": [Function],
+                              "enterKey": "Enter key",
+                              "escape": "Escape key",
+                              "hideKeyboardShortcutsPanel": "Close the shortcuts panel.",
+                              "homeEnd": "Home and end keys",
+                              "jumpToNextMonth": "Move forward to switch to the next month.",
+                              "jumpToPrevMonth": "Move backward to switch to the previous month.",
+                              "keyboardBackwardNavigationInstructions": "Navigate backward to interact with the calendar and select a date. Press the question mark key to get the keyboard shortcuts for changing dates.",
+                              "keyboardForwardNavigationInstructions": "Navigate forward to interact with the calendar and select a date. Press the question mark key to get the keyboard shortcuts for changing dates.",
+                              "keyboardShortcuts": "Keyboard Shortcuts",
+                              "leftArrowRightArrow": "Right and left arrow keys",
+                              "moveFocusByOneDay": "Move backward (left) and forward (right) by one day.",
+                              "moveFocusByOneMonth": "Switch months.",
+                              "moveFocusByOneWeek": "Move backward (up) and forward (down) by one week.",
+                              "moveFocustoStartAndEndOfWeek": "Go to the first or last day of a week.",
+                              "openThisPanel": "Open this panel.",
+                              "pageUpPageDown": "page up and page down keys",
+                              "questionMark": "Question mark",
+                              "returnFocusToInput": "Return to the date input field.",
+                              "roleDescription": "datepicker",
+                              "selectFocusedDate": "Select the date in focus.",
+                              "showKeyboardShortcutsPanel": "Open the keyboard shortcuts panel.",
+                              "upArrowDownArrow": "up and down arrow keys",
+                            }
+                          }
+                          placeholder="No due date"
+                          readOnly={false}
+                          regular={false}
+                          renderCalendarInfo={null}
+                          renderDayContents={null}
+                          renderMonthElement={null}
+                          renderMonthText={null}
+                          renderNavNextButton={null}
+                          renderNavPrevButton={null}
+                          renderWeekHeaderElement={null}
+                          reopenPickerOnClearDate={false}
+                          required={false}
+                          screenReaderInputMessage=""
+                          showClearDate={false}
+                          showDefaultInputIcon={false}
+                          small={false}
+                          verticalHeight={null}
+                          verticalSpacing={22}
+                          weekDayFormat="dd"
+                          withFullScreenPortal={false}
+                          withPortal={false}
+                        />
+                      </span>
+                      <button
+                        className="removable data-table-row-section focus-on-light"
+                        id="remove-button-7543554"
+                        onClick={[Function]}
+                        type="button"
+                      >
+                        <img
+                          alt="x"
+                          src="https://assets.quill.org/images/icons/remove.svg"
+                        />
+                      </button>
+                    </React.Fragment>
+                  </div>,
+                  <div
+                    className="data-table-row  "
+                  >
+                    <React.Fragment>
+                      <span
+                        className="reorder-section data-table-row-section"
+                      >
+                        <sortableHandle />
+                      </span>
+                      <span
+                        className="data-table-row-section tool-and-name-section"
+                        style={
+                          Object {
+                            "minWidth": "637px",
+                            "textAlign": "left",
+                            "width": "637px",
+                          }
+                        }
+                      >
+                        <a
+                          className="interactive-wrapper focus-on-light"
+                          href="/activity_sessions/anonymous?activity_id=844"
+                          id="tool-and-name-section-7543555"
+                        >
+                          <span
+                            className="tool-icon-wrapper"
+                          >
+                            <img
+                              alt="Target representing Quill Connect"
+                              src="undefined/images/icons/connect-forest-green.svg"
+                            />
+                          </span>
+                          <a
+                            href="/activity_sessions/anonymous?activity_id=844"
+                            tabIndex={-1}
+                          >
+                            Adjectives vs. Adverbs
+                          </a>
+                        </a>
+                      </span>
+                      <span
+                        className="data-table-row-section due-date-picker"
+                        style={
+                          Object {
+                            "minWidth": "120px",
+                            "textAlign": "left",
+                            "width": "120px",
+                          }
+                        }
+                      >
+                        <withStyles(SingleDatePicker)
+                          anchorDirection="left"
+                          appendToBody={false}
+                          block={false}
+                          calendarInfoPosition="bottom"
+                          customCloseIcon={null}
+                          customInputIcon={
+                            <img
+                              alt="dropdown indicator"
+                              src="https://assets.quill.org/images/icons/dropdown.svg"
+                              style={null}
+                            />
+                          }
+                          date={null}
+                          dayPickerNavigationInlineStyles={null}
+                          daySize={39}
+                          disableScroll={false}
+                          disabled={false}
+                          displayFormat={[Function]}
+                          enableOutsideDays={false}
+                          firstDayOfWeek={null}
+                          focused={false}
+                          hideKeyboardShortcutsPanel={false}
+                          horizontalMargin={0}
+                          horizontalMonthPadding={13}
+                          id="7543555-date-picker"
+                          initialVisibleMonth={null}
+                          inputIconPosition="after"
+                          isDayBlocked={[Function]}
+                          isDayHighlighted={[Function]}
+                          isOutsideRange={[Function]}
+                          isRTL={false}
+                          keepFocusOnInput={false}
+                          keepOpenOnDateSelect={false}
+                          monthFormat="MMMM YYYY"
+                          navNext="›"
+                          navPosition="navPositionTop"
+                          navPrev="‹"
+                          noBorder={false}
+                          numberOfMonths={1}
+                          onClose={[Function]}
+                          onDateChange={[Function]}
+                          onFocusChange={[Function]}
+                          onNextMonthClick={[Function]}
+                          onPrevMonthClick={[Function]}
+                          openDirection="down"
+                          orientation="horizontal"
+                          phrases={
+                            Object {
+                              "calendarLabel": "Calendar",
+                              "chooseAvailableDate": [Function],
+                              "clearDate": "Clear Date",
+                              "closeDatePicker": "Close",
+                              "dateIsSelected": [Function],
+                              "dateIsUnavailable": [Function],
+                              "enterKey": "Enter key",
+                              "escape": "Escape key",
+                              "hideKeyboardShortcutsPanel": "Close the shortcuts panel.",
+                              "homeEnd": "Home and end keys",
+                              "jumpToNextMonth": "Move forward to switch to the next month.",
+                              "jumpToPrevMonth": "Move backward to switch to the previous month.",
+                              "keyboardBackwardNavigationInstructions": "Navigate backward to interact with the calendar and select a date. Press the question mark key to get the keyboard shortcuts for changing dates.",
+                              "keyboardForwardNavigationInstructions": "Navigate forward to interact with the calendar and select a date. Press the question mark key to get the keyboard shortcuts for changing dates.",
+                              "keyboardShortcuts": "Keyboard Shortcuts",
+                              "leftArrowRightArrow": "Right and left arrow keys",
+                              "moveFocusByOneDay": "Move backward (left) and forward (right) by one day.",
+                              "moveFocusByOneMonth": "Switch months.",
+                              "moveFocusByOneWeek": "Move backward (up) and forward (down) by one week.",
+                              "moveFocustoStartAndEndOfWeek": "Go to the first or last day of a week.",
+                              "openThisPanel": "Open this panel.",
+                              "pageUpPageDown": "page up and page down keys",
+                              "questionMark": "Question mark",
+                              "returnFocusToInput": "Return to the date input field.",
+                              "roleDescription": "datepicker",
+                              "selectFocusedDate": "Select the date in focus.",
+                              "showKeyboardShortcutsPanel": "Open the keyboard shortcuts panel.",
+                              "upArrowDownArrow": "up and down arrow keys",
+                            }
+                          }
+                          placeholder="No due date"
+                          readOnly={false}
+                          regular={false}
+                          renderCalendarInfo={null}
+                          renderDayContents={null}
+                          renderMonthElement={null}
+                          renderMonthText={null}
+                          renderNavNextButton={null}
+                          renderNavPrevButton={null}
+                          renderWeekHeaderElement={null}
+                          reopenPickerOnClearDate={false}
+                          required={false}
+                          screenReaderInputMessage=""
+                          showClearDate={false}
+                          showDefaultInputIcon={false}
+                          small={false}
+                          verticalHeight={null}
+                          verticalSpacing={22}
+                          weekDayFormat="dd"
+                          withFullScreenPortal={false}
+                          withPortal={false}
+                        />
+                      </span>
+                      <button
+                        className="removable data-table-row-section focus-on-light"
+                        id="remove-button-7543555"
+                        onClick={[Function]}
+                        type="button"
+                      >
+                        <img
+                          alt="x"
+                          src="https://assets.quill.org/images/icons/remove.svg"
+                        />
+                      </button>
+                    </React.Fragment>
+                  </div>,
+                  <div
+                    className="data-table-row  "
+                  >
+                    <React.Fragment>
+                      <span
+                        className="reorder-section data-table-row-section"
+                      >
+                        <sortableHandle />
+                      </span>
+                      <span
+                        className="data-table-row-section tool-and-name-section"
+                        style={
+                          Object {
+                            "minWidth": "637px",
+                            "textAlign": "left",
+                            "width": "637px",
+                          }
+                        }
+                      >
+                        <a
+                          className="interactive-wrapper focus-on-light"
+                          href="/activity_sessions/anonymous?activity_id=846"
+                          id="tool-and-name-section-7543556"
+                        >
+                          <span
+                            className="tool-icon-wrapper"
+                          >
+                            <img
+                              alt="Target representing Quill Connect"
+                              src="undefined/images/icons/connect-forest-green.svg"
+                            />
+                          </span>
+                          <a
+                            href="/activity_sessions/anonymous?activity_id=846"
+                            tabIndex={-1}
+                          >
+                            Adjectives, Adverbs, and Prepositional Phrases 1
+                          </a>
+                        </a>
+                      </span>
+                      <span
+                        className="data-table-row-section due-date-picker"
+                        style={
+                          Object {
+                            "minWidth": "120px",
+                            "textAlign": "left",
+                            "width": "120px",
+                          }
+                        }
+                      >
+                        <withStyles(SingleDatePicker)
+                          anchorDirection="left"
+                          appendToBody={false}
+                          block={false}
+                          calendarInfoPosition="bottom"
+                          customCloseIcon={null}
+                          customInputIcon={
+                            <img
+                              alt="dropdown indicator"
+                              src="https://assets.quill.org/images/icons/dropdown.svg"
+                              style={null}
+                            />
+                          }
+                          date={null}
+                          dayPickerNavigationInlineStyles={null}
+                          daySize={39}
+                          disableScroll={false}
+                          disabled={false}
+                          displayFormat={[Function]}
+                          enableOutsideDays={false}
+                          firstDayOfWeek={null}
+                          focused={false}
+                          hideKeyboardShortcutsPanel={false}
+                          horizontalMargin={0}
+                          horizontalMonthPadding={13}
+                          id="7543556-date-picker"
+                          initialVisibleMonth={null}
+                          inputIconPosition="after"
+                          isDayBlocked={[Function]}
+                          isDayHighlighted={[Function]}
+                          isOutsideRange={[Function]}
+                          isRTL={false}
+                          keepFocusOnInput={false}
+                          keepOpenOnDateSelect={false}
+                          monthFormat="MMMM YYYY"
+                          navNext="›"
+                          navPosition="navPositionTop"
+                          navPrev="‹"
+                          noBorder={false}
+                          numberOfMonths={1}
+                          onClose={[Function]}
+                          onDateChange={[Function]}
+                          onFocusChange={[Function]}
+                          onNextMonthClick={[Function]}
+                          onPrevMonthClick={[Function]}
+                          openDirection="down"
+                          orientation="horizontal"
+                          phrases={
+                            Object {
+                              "calendarLabel": "Calendar",
+                              "chooseAvailableDate": [Function],
+                              "clearDate": "Clear Date",
+                              "closeDatePicker": "Close",
+                              "dateIsSelected": [Function],
+                              "dateIsUnavailable": [Function],
+                              "enterKey": "Enter key",
+                              "escape": "Escape key",
+                              "hideKeyboardShortcutsPanel": "Close the shortcuts panel.",
+                              "homeEnd": "Home and end keys",
+                              "jumpToNextMonth": "Move forward to switch to the next month.",
+                              "jumpToPrevMonth": "Move backward to switch to the previous month.",
+                              "keyboardBackwardNavigationInstructions": "Navigate backward to interact with the calendar and select a date. Press the question mark key to get the keyboard shortcuts for changing dates.",
+                              "keyboardForwardNavigationInstructions": "Navigate forward to interact with the calendar and select a date. Press the question mark key to get the keyboard shortcuts for changing dates.",
+                              "keyboardShortcuts": "Keyboard Shortcuts",
+                              "leftArrowRightArrow": "Right and left arrow keys",
+                              "moveFocusByOneDay": "Move backward (left) and forward (right) by one day.",
+                              "moveFocusByOneMonth": "Switch months.",
+                              "moveFocusByOneWeek": "Move backward (up) and forward (down) by one week.",
+                              "moveFocustoStartAndEndOfWeek": "Go to the first or last day of a week.",
+                              "openThisPanel": "Open this panel.",
+                              "pageUpPageDown": "page up and page down keys",
+                              "questionMark": "Question mark",
+                              "returnFocusToInput": "Return to the date input field.",
+                              "roleDescription": "datepicker",
+                              "selectFocusedDate": "Select the date in focus.",
+                              "showKeyboardShortcutsPanel": "Open the keyboard shortcuts panel.",
+                              "upArrowDownArrow": "up and down arrow keys",
+                            }
+                          }
+                          placeholder="No due date"
+                          readOnly={false}
+                          regular={false}
+                          renderCalendarInfo={null}
+                          renderDayContents={null}
+                          renderMonthElement={null}
+                          renderMonthText={null}
+                          renderNavNextButton={null}
+                          renderNavPrevButton={null}
+                          renderWeekHeaderElement={null}
+                          reopenPickerOnClearDate={false}
+                          required={false}
+                          screenReaderInputMessage=""
+                          showClearDate={false}
+                          showDefaultInputIcon={false}
+                          small={false}
+                          verticalHeight={null}
+                          verticalSpacing={22}
+                          weekDayFormat="dd"
+                          withFullScreenPortal={false}
+                          withPortal={false}
+                        />
+                      </span>
+                      <button
+                        className="removable data-table-row-section focus-on-light"
+                        id="remove-button-7543556"
+                        onClick={[Function]}
+                        type="button"
+                      >
+                        <img
+                          alt="x"
+                          src="https://assets.quill.org/images/icons/remove.svg"
+                        />
+                      </button>
+                    </React.Fragment>
+                  </div>,
+                ]
+              }
+            >
+              <div
+                className="list sortable-list"
+              >
+                <sortableElement
+                  collection={0}
+                  index={0}
+                  key="0"
+                  value={
+                    <div
+                      className="data-table-row  "
+                    >
+                      <React.Fragment>
                         <span
                           className="reorder-section data-table-row-section"
                         >
@@ -4327,6 +4191,176 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                             src="https://assets.quill.org/images/icons/remove.svg"
                           />
                         </button>
+                      </React.Fragment>
+                    </div>
+                  }
+                >
+                  <Component
+                    value={
+                      <div
+                        className="data-table-row  "
+                      >
+                        <React.Fragment>
+                          <span
+                            className="reorder-section data-table-row-section"
+                          >
+                            <sortableHandle />
+                          </span>
+                          <span
+                            className="data-table-row-section tool-and-name-section"
+                            style={
+                              Object {
+                                "minWidth": "637px",
+                                "textAlign": "left",
+                                "width": "637px",
+                              }
+                            }
+                          >
+                            <a
+                              className="interactive-wrapper focus-on-light"
+                              href="/activity_sessions/anonymous?activity_id=438"
+                              id="tool-and-name-section-7543552"
+                            >
+                              <span
+                                className="tool-icon-wrapper"
+                              >
+                                <img
+                                  alt="Target representing Quill Connect"
+                                  src="undefined/images/icons/connect-forest-green.svg"
+                                />
+                              </span>
+                              <a
+                                href="/activity_sessions/anonymous?activity_id=438"
+                                tabIndex={-1}
+                              >
+                                Adverbs of Manner 1 (Starter)
+                              </a>
+                            </a>
+                          </span>
+                          <span
+                            className="data-table-row-section due-date-picker"
+                            style={
+                              Object {
+                                "minWidth": "120px",
+                                "textAlign": "left",
+                                "width": "120px",
+                              }
+                            }
+                          >
+                            <withStyles(SingleDatePicker)
+                              anchorDirection="left"
+                              appendToBody={false}
+                              block={false}
+                              calendarInfoPosition="bottom"
+                              customCloseIcon={null}
+                              customInputIcon={
+                                <img
+                                  alt="dropdown indicator"
+                                  src="https://assets.quill.org/images/icons/dropdown.svg"
+                                  style={null}
+                                />
+                              }
+                              date={null}
+                              dayPickerNavigationInlineStyles={null}
+                              daySize={39}
+                              disableScroll={false}
+                              disabled={false}
+                              displayFormat={[Function]}
+                              enableOutsideDays={false}
+                              firstDayOfWeek={null}
+                              focused={false}
+                              hideKeyboardShortcutsPanel={false}
+                              horizontalMargin={0}
+                              horizontalMonthPadding={13}
+                              id="7543552-date-picker"
+                              initialVisibleMonth={null}
+                              inputIconPosition="after"
+                              isDayBlocked={[Function]}
+                              isDayHighlighted={[Function]}
+                              isOutsideRange={[Function]}
+                              isRTL={false}
+                              keepFocusOnInput={false}
+                              keepOpenOnDateSelect={false}
+                              monthFormat="MMMM YYYY"
+                              navNext="›"
+                              navPosition="navPositionTop"
+                              navPrev="‹"
+                              noBorder={false}
+                              numberOfMonths={1}
+                              onClose={[Function]}
+                              onDateChange={[Function]}
+                              onFocusChange={[Function]}
+                              onNextMonthClick={[Function]}
+                              onPrevMonthClick={[Function]}
+                              openDirection="down"
+                              orientation="horizontal"
+                              phrases={
+                                Object {
+                                  "calendarLabel": "Calendar",
+                                  "chooseAvailableDate": [Function],
+                                  "clearDate": "Clear Date",
+                                  "closeDatePicker": "Close",
+                                  "dateIsSelected": [Function],
+                                  "dateIsUnavailable": [Function],
+                                  "enterKey": "Enter key",
+                                  "escape": "Escape key",
+                                  "hideKeyboardShortcutsPanel": "Close the shortcuts panel.",
+                                  "homeEnd": "Home and end keys",
+                                  "jumpToNextMonth": "Move forward to switch to the next month.",
+                                  "jumpToPrevMonth": "Move backward to switch to the previous month.",
+                                  "keyboardBackwardNavigationInstructions": "Navigate backward to interact with the calendar and select a date. Press the question mark key to get the keyboard shortcuts for changing dates.",
+                                  "keyboardForwardNavigationInstructions": "Navigate forward to interact with the calendar and select a date. Press the question mark key to get the keyboard shortcuts for changing dates.",
+                                  "keyboardShortcuts": "Keyboard Shortcuts",
+                                  "leftArrowRightArrow": "Right and left arrow keys",
+                                  "moveFocusByOneDay": "Move backward (left) and forward (right) by one day.",
+                                  "moveFocusByOneMonth": "Switch months.",
+                                  "moveFocusByOneWeek": "Move backward (up) and forward (down) by one week.",
+                                  "moveFocustoStartAndEndOfWeek": "Go to the first or last day of a week.",
+                                  "openThisPanel": "Open this panel.",
+                                  "pageUpPageDown": "page up and page down keys",
+                                  "questionMark": "Question mark",
+                                  "returnFocusToInput": "Return to the date input field.",
+                                  "roleDescription": "datepicker",
+                                  "selectFocusedDate": "Select the date in focus.",
+                                  "showKeyboardShortcutsPanel": "Open the keyboard shortcuts panel.",
+                                  "upArrowDownArrow": "up and down arrow keys",
+                                }
+                              }
+                              placeholder="No due date"
+                              readOnly={false}
+                              regular={false}
+                              renderCalendarInfo={null}
+                              renderDayContents={null}
+                              renderMonthElement={null}
+                              renderMonthText={null}
+                              renderNavNextButton={null}
+                              renderNavPrevButton={null}
+                              renderWeekHeaderElement={null}
+                              reopenPickerOnClearDate={false}
+                              required={false}
+                              screenReaderInputMessage=""
+                              showClearDate={false}
+                              showDefaultInputIcon={false}
+                              small={false}
+                              verticalHeight={null}
+                              verticalSpacing={22}
+                              weekDayFormat="dd"
+                              withFullScreenPortal={false}
+                              withPortal={false}
+                            />
+                          </span>
+                          <button
+                            className="removable data-table-row-section focus-on-light"
+                            id="remove-button-7543552"
+                            onClick={[Function]}
+                            type="button"
+                          >
+                            <img
+                              alt="x"
+                              src="https://assets.quill.org/images/icons/remove.svg"
+                            />
+                          </button>
+                        </React.Fragment>
                       </div>
                     }
                   >
@@ -5522,173 +5556,7 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                     <div
                       className="data-table-row  "
                     >
-                      <span
-                        className="reorder-section data-table-row-section"
-                      >
-                        <sortableHandle />
-                      </span>
-                      <span
-                        className="data-table-row-section tool-and-name-section"
-                        style={
-                          Object {
-                            "minWidth": "637px",
-                            "textAlign": "left",
-                            "width": "637px",
-                          }
-                        }
-                      >
-                        <a
-                          className="interactive-wrapper focus-on-light"
-                          href="/activity_sessions/anonymous?activity_id=441"
-                          id="tool-and-name-section-7543553"
-                        >
-                          <span
-                            className="tool-icon-wrapper"
-                          >
-                            <img
-                              alt="Target representing Quill Connect"
-                              src="undefined/images/icons/connect-forest-green.svg"
-                            />
-                          </span>
-                          <a
-                            href="/activity_sessions/anonymous?activity_id=441"
-                            tabIndex={-1}
-                          >
-                            Adverbs of Manner (Intermediate)
-                          </a>
-                        </a>
-                      </span>
-                      <span
-                        className="data-table-row-section due-date-picker"
-                        style={
-                          Object {
-                            "minWidth": "120px",
-                            "textAlign": "left",
-                            "width": "120px",
-                          }
-                        }
-                      >
-                        <withStyles(SingleDatePicker)
-                          anchorDirection="left"
-                          appendToBody={false}
-                          block={false}
-                          calendarInfoPosition="bottom"
-                          customCloseIcon={null}
-                          customInputIcon={
-                            <img
-                              alt="dropdown indicator"
-                              src="https://assets.quill.org/images/icons/dropdown.svg"
-                              style={null}
-                            />
-                          }
-                          date={null}
-                          dayPickerNavigationInlineStyles={null}
-                          daySize={39}
-                          disableScroll={false}
-                          disabled={false}
-                          displayFormat={[Function]}
-                          enableOutsideDays={false}
-                          firstDayOfWeek={null}
-                          focused={false}
-                          hideKeyboardShortcutsPanel={false}
-                          horizontalMargin={0}
-                          horizontalMonthPadding={13}
-                          id="7543553-date-picker"
-                          initialVisibleMonth={null}
-                          inputIconPosition="after"
-                          isDayBlocked={[Function]}
-                          isDayHighlighted={[Function]}
-                          isOutsideRange={[Function]}
-                          isRTL={false}
-                          keepFocusOnInput={false}
-                          keepOpenOnDateSelect={false}
-                          monthFormat="MMMM YYYY"
-                          navNext="›"
-                          navPosition="navPositionTop"
-                          navPrev="‹"
-                          noBorder={false}
-                          numberOfMonths={1}
-                          onClose={[Function]}
-                          onDateChange={[Function]}
-                          onFocusChange={[Function]}
-                          onNextMonthClick={[Function]}
-                          onPrevMonthClick={[Function]}
-                          openDirection="down"
-                          orientation="horizontal"
-                          phrases={
-                            Object {
-                              "calendarLabel": "Calendar",
-                              "chooseAvailableDate": [Function],
-                              "clearDate": "Clear Date",
-                              "closeDatePicker": "Close",
-                              "dateIsSelected": [Function],
-                              "dateIsUnavailable": [Function],
-                              "enterKey": "Enter key",
-                              "escape": "Escape key",
-                              "hideKeyboardShortcutsPanel": "Close the shortcuts panel.",
-                              "homeEnd": "Home and end keys",
-                              "jumpToNextMonth": "Move forward to switch to the next month.",
-                              "jumpToPrevMonth": "Move backward to switch to the previous month.",
-                              "keyboardBackwardNavigationInstructions": "Navigate backward to interact with the calendar and select a date. Press the question mark key to get the keyboard shortcuts for changing dates.",
-                              "keyboardForwardNavigationInstructions": "Navigate forward to interact with the calendar and select a date. Press the question mark key to get the keyboard shortcuts for changing dates.",
-                              "keyboardShortcuts": "Keyboard Shortcuts",
-                              "leftArrowRightArrow": "Right and left arrow keys",
-                              "moveFocusByOneDay": "Move backward (left) and forward (right) by one day.",
-                              "moveFocusByOneMonth": "Switch months.",
-                              "moveFocusByOneWeek": "Move backward (up) and forward (down) by one week.",
-                              "moveFocustoStartAndEndOfWeek": "Go to the first or last day of a week.",
-                              "openThisPanel": "Open this panel.",
-                              "pageUpPageDown": "page up and page down keys",
-                              "questionMark": "Question mark",
-                              "returnFocusToInput": "Return to the date input field.",
-                              "roleDescription": "datepicker",
-                              "selectFocusedDate": "Select the date in focus.",
-                              "showKeyboardShortcutsPanel": "Open the keyboard shortcuts panel.",
-                              "upArrowDownArrow": "up and down arrow keys",
-                            }
-                          }
-                          placeholder="No due date"
-                          readOnly={false}
-                          regular={false}
-                          renderCalendarInfo={null}
-                          renderDayContents={null}
-                          renderMonthElement={null}
-                          renderMonthText={null}
-                          renderNavNextButton={null}
-                          renderNavPrevButton={null}
-                          renderWeekHeaderElement={null}
-                          reopenPickerOnClearDate={false}
-                          required={false}
-                          screenReaderInputMessage=""
-                          showClearDate={false}
-                          showDefaultInputIcon={false}
-                          small={false}
-                          verticalHeight={null}
-                          verticalSpacing={22}
-                          weekDayFormat="dd"
-                          withFullScreenPortal={false}
-                          withPortal={false}
-                        />
-                      </span>
-                      <button
-                        className="removable data-table-row-section focus-on-light"
-                        id="remove-button-7543553"
-                        onClick={[Function]}
-                        type="button"
-                      >
-                        <img
-                          alt="x"
-                          src="https://assets.quill.org/images/icons/remove.svg"
-                        />
-                      </button>
-                    </div>
-                  }
-                >
-                  <Component
-                    value={
-                      <div
-                        className="data-table-row  "
-                      >
+                      <React.Fragment>
                         <span
                           className="reorder-section data-table-row-section"
                         >
@@ -5848,6 +5716,176 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                             src="https://assets.quill.org/images/icons/remove.svg"
                           />
                         </button>
+                      </React.Fragment>
+                    </div>
+                  }
+                >
+                  <Component
+                    value={
+                      <div
+                        className="data-table-row  "
+                      >
+                        <React.Fragment>
+                          <span
+                            className="reorder-section data-table-row-section"
+                          >
+                            <sortableHandle />
+                          </span>
+                          <span
+                            className="data-table-row-section tool-and-name-section"
+                            style={
+                              Object {
+                                "minWidth": "637px",
+                                "textAlign": "left",
+                                "width": "637px",
+                              }
+                            }
+                          >
+                            <a
+                              className="interactive-wrapper focus-on-light"
+                              href="/activity_sessions/anonymous?activity_id=441"
+                              id="tool-and-name-section-7543553"
+                            >
+                              <span
+                                className="tool-icon-wrapper"
+                              >
+                                <img
+                                  alt="Target representing Quill Connect"
+                                  src="undefined/images/icons/connect-forest-green.svg"
+                                />
+                              </span>
+                              <a
+                                href="/activity_sessions/anonymous?activity_id=441"
+                                tabIndex={-1}
+                              >
+                                Adverbs of Manner (Intermediate)
+                              </a>
+                            </a>
+                          </span>
+                          <span
+                            className="data-table-row-section due-date-picker"
+                            style={
+                              Object {
+                                "minWidth": "120px",
+                                "textAlign": "left",
+                                "width": "120px",
+                              }
+                            }
+                          >
+                            <withStyles(SingleDatePicker)
+                              anchorDirection="left"
+                              appendToBody={false}
+                              block={false}
+                              calendarInfoPosition="bottom"
+                              customCloseIcon={null}
+                              customInputIcon={
+                                <img
+                                  alt="dropdown indicator"
+                                  src="https://assets.quill.org/images/icons/dropdown.svg"
+                                  style={null}
+                                />
+                              }
+                              date={null}
+                              dayPickerNavigationInlineStyles={null}
+                              daySize={39}
+                              disableScroll={false}
+                              disabled={false}
+                              displayFormat={[Function]}
+                              enableOutsideDays={false}
+                              firstDayOfWeek={null}
+                              focused={false}
+                              hideKeyboardShortcutsPanel={false}
+                              horizontalMargin={0}
+                              horizontalMonthPadding={13}
+                              id="7543553-date-picker"
+                              initialVisibleMonth={null}
+                              inputIconPosition="after"
+                              isDayBlocked={[Function]}
+                              isDayHighlighted={[Function]}
+                              isOutsideRange={[Function]}
+                              isRTL={false}
+                              keepFocusOnInput={false}
+                              keepOpenOnDateSelect={false}
+                              monthFormat="MMMM YYYY"
+                              navNext="›"
+                              navPosition="navPositionTop"
+                              navPrev="‹"
+                              noBorder={false}
+                              numberOfMonths={1}
+                              onClose={[Function]}
+                              onDateChange={[Function]}
+                              onFocusChange={[Function]}
+                              onNextMonthClick={[Function]}
+                              onPrevMonthClick={[Function]}
+                              openDirection="down"
+                              orientation="horizontal"
+                              phrases={
+                                Object {
+                                  "calendarLabel": "Calendar",
+                                  "chooseAvailableDate": [Function],
+                                  "clearDate": "Clear Date",
+                                  "closeDatePicker": "Close",
+                                  "dateIsSelected": [Function],
+                                  "dateIsUnavailable": [Function],
+                                  "enterKey": "Enter key",
+                                  "escape": "Escape key",
+                                  "hideKeyboardShortcutsPanel": "Close the shortcuts panel.",
+                                  "homeEnd": "Home and end keys",
+                                  "jumpToNextMonth": "Move forward to switch to the next month.",
+                                  "jumpToPrevMonth": "Move backward to switch to the previous month.",
+                                  "keyboardBackwardNavigationInstructions": "Navigate backward to interact with the calendar and select a date. Press the question mark key to get the keyboard shortcuts for changing dates.",
+                                  "keyboardForwardNavigationInstructions": "Navigate forward to interact with the calendar and select a date. Press the question mark key to get the keyboard shortcuts for changing dates.",
+                                  "keyboardShortcuts": "Keyboard Shortcuts",
+                                  "leftArrowRightArrow": "Right and left arrow keys",
+                                  "moveFocusByOneDay": "Move backward (left) and forward (right) by one day.",
+                                  "moveFocusByOneMonth": "Switch months.",
+                                  "moveFocusByOneWeek": "Move backward (up) and forward (down) by one week.",
+                                  "moveFocustoStartAndEndOfWeek": "Go to the first or last day of a week.",
+                                  "openThisPanel": "Open this panel.",
+                                  "pageUpPageDown": "page up and page down keys",
+                                  "questionMark": "Question mark",
+                                  "returnFocusToInput": "Return to the date input field.",
+                                  "roleDescription": "datepicker",
+                                  "selectFocusedDate": "Select the date in focus.",
+                                  "showKeyboardShortcutsPanel": "Open the keyboard shortcuts panel.",
+                                  "upArrowDownArrow": "up and down arrow keys",
+                                }
+                              }
+                              placeholder="No due date"
+                              readOnly={false}
+                              regular={false}
+                              renderCalendarInfo={null}
+                              renderDayContents={null}
+                              renderMonthElement={null}
+                              renderMonthText={null}
+                              renderNavNextButton={null}
+                              renderNavPrevButton={null}
+                              renderWeekHeaderElement={null}
+                              reopenPickerOnClearDate={false}
+                              required={false}
+                              screenReaderInputMessage=""
+                              showClearDate={false}
+                              showDefaultInputIcon={false}
+                              small={false}
+                              verticalHeight={null}
+                              verticalSpacing={22}
+                              weekDayFormat="dd"
+                              withFullScreenPortal={false}
+                              withPortal={false}
+                            />
+                          </span>
+                          <button
+                            className="removable data-table-row-section focus-on-light"
+                            id="remove-button-7543553"
+                            onClick={[Function]}
+                            type="button"
+                          >
+                            <img
+                              alt="x"
+                              src="https://assets.quill.org/images/icons/remove.svg"
+                            />
+                          </button>
+                        </React.Fragment>
                       </div>
                     }
                   >
@@ -7043,173 +7081,7 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                     <div
                       className="data-table-row  "
                     >
-                      <span
-                        className="reorder-section data-table-row-section"
-                      >
-                        <sortableHandle />
-                      </span>
-                      <span
-                        className="data-table-row-section tool-and-name-section"
-                        style={
-                          Object {
-                            "minWidth": "637px",
-                            "textAlign": "left",
-                            "width": "637px",
-                          }
-                        }
-                      >
-                        <a
-                          className="interactive-wrapper focus-on-light"
-                          href="/activity_sessions/anonymous?activity_id=775"
-                          id="tool-and-name-section-7543554"
-                        >
-                          <span
-                            className="tool-icon-wrapper"
-                          >
-                            <img
-                              alt="Target representing Quill Connect"
-                              src="undefined/images/icons/connect-forest-green.svg"
-                            />
-                          </span>
-                          <a
-                            href="/activity_sessions/anonymous?activity_id=775"
-                            tabIndex={-1}
-                          >
-                            Adjectives and Adverbs (Starter)
-                          </a>
-                        </a>
-                      </span>
-                      <span
-                        className="data-table-row-section due-date-picker"
-                        style={
-                          Object {
-                            "minWidth": "120px",
-                            "textAlign": "left",
-                            "width": "120px",
-                          }
-                        }
-                      >
-                        <withStyles(SingleDatePicker)
-                          anchorDirection="left"
-                          appendToBody={false}
-                          block={false}
-                          calendarInfoPosition="bottom"
-                          customCloseIcon={null}
-                          customInputIcon={
-                            <img
-                              alt="dropdown indicator"
-                              src="https://assets.quill.org/images/icons/dropdown.svg"
-                              style={null}
-                            />
-                          }
-                          date={null}
-                          dayPickerNavigationInlineStyles={null}
-                          daySize={39}
-                          disableScroll={false}
-                          disabled={false}
-                          displayFormat={[Function]}
-                          enableOutsideDays={false}
-                          firstDayOfWeek={null}
-                          focused={false}
-                          hideKeyboardShortcutsPanel={false}
-                          horizontalMargin={0}
-                          horizontalMonthPadding={13}
-                          id="7543554-date-picker"
-                          initialVisibleMonth={null}
-                          inputIconPosition="after"
-                          isDayBlocked={[Function]}
-                          isDayHighlighted={[Function]}
-                          isOutsideRange={[Function]}
-                          isRTL={false}
-                          keepFocusOnInput={false}
-                          keepOpenOnDateSelect={false}
-                          monthFormat="MMMM YYYY"
-                          navNext="›"
-                          navPosition="navPositionTop"
-                          navPrev="‹"
-                          noBorder={false}
-                          numberOfMonths={1}
-                          onClose={[Function]}
-                          onDateChange={[Function]}
-                          onFocusChange={[Function]}
-                          onNextMonthClick={[Function]}
-                          onPrevMonthClick={[Function]}
-                          openDirection="down"
-                          orientation="horizontal"
-                          phrases={
-                            Object {
-                              "calendarLabel": "Calendar",
-                              "chooseAvailableDate": [Function],
-                              "clearDate": "Clear Date",
-                              "closeDatePicker": "Close",
-                              "dateIsSelected": [Function],
-                              "dateIsUnavailable": [Function],
-                              "enterKey": "Enter key",
-                              "escape": "Escape key",
-                              "hideKeyboardShortcutsPanel": "Close the shortcuts panel.",
-                              "homeEnd": "Home and end keys",
-                              "jumpToNextMonth": "Move forward to switch to the next month.",
-                              "jumpToPrevMonth": "Move backward to switch to the previous month.",
-                              "keyboardBackwardNavigationInstructions": "Navigate backward to interact with the calendar and select a date. Press the question mark key to get the keyboard shortcuts for changing dates.",
-                              "keyboardForwardNavigationInstructions": "Navigate forward to interact with the calendar and select a date. Press the question mark key to get the keyboard shortcuts for changing dates.",
-                              "keyboardShortcuts": "Keyboard Shortcuts",
-                              "leftArrowRightArrow": "Right and left arrow keys",
-                              "moveFocusByOneDay": "Move backward (left) and forward (right) by one day.",
-                              "moveFocusByOneMonth": "Switch months.",
-                              "moveFocusByOneWeek": "Move backward (up) and forward (down) by one week.",
-                              "moveFocustoStartAndEndOfWeek": "Go to the first or last day of a week.",
-                              "openThisPanel": "Open this panel.",
-                              "pageUpPageDown": "page up and page down keys",
-                              "questionMark": "Question mark",
-                              "returnFocusToInput": "Return to the date input field.",
-                              "roleDescription": "datepicker",
-                              "selectFocusedDate": "Select the date in focus.",
-                              "showKeyboardShortcutsPanel": "Open the keyboard shortcuts panel.",
-                              "upArrowDownArrow": "up and down arrow keys",
-                            }
-                          }
-                          placeholder="No due date"
-                          readOnly={false}
-                          regular={false}
-                          renderCalendarInfo={null}
-                          renderDayContents={null}
-                          renderMonthElement={null}
-                          renderMonthText={null}
-                          renderNavNextButton={null}
-                          renderNavPrevButton={null}
-                          renderWeekHeaderElement={null}
-                          reopenPickerOnClearDate={false}
-                          required={false}
-                          screenReaderInputMessage=""
-                          showClearDate={false}
-                          showDefaultInputIcon={false}
-                          small={false}
-                          verticalHeight={null}
-                          verticalSpacing={22}
-                          weekDayFormat="dd"
-                          withFullScreenPortal={false}
-                          withPortal={false}
-                        />
-                      </span>
-                      <button
-                        className="removable data-table-row-section focus-on-light"
-                        id="remove-button-7543554"
-                        onClick={[Function]}
-                        type="button"
-                      >
-                        <img
-                          alt="x"
-                          src="https://assets.quill.org/images/icons/remove.svg"
-                        />
-                      </button>
-                    </div>
-                  }
-                >
-                  <Component
-                    value={
-                      <div
-                        className="data-table-row  "
-                      >
+                      <React.Fragment>
                         <span
                           className="reorder-section data-table-row-section"
                         >
@@ -7369,6 +7241,176 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                             src="https://assets.quill.org/images/icons/remove.svg"
                           />
                         </button>
+                      </React.Fragment>
+                    </div>
+                  }
+                >
+                  <Component
+                    value={
+                      <div
+                        className="data-table-row  "
+                      >
+                        <React.Fragment>
+                          <span
+                            className="reorder-section data-table-row-section"
+                          >
+                            <sortableHandle />
+                          </span>
+                          <span
+                            className="data-table-row-section tool-and-name-section"
+                            style={
+                              Object {
+                                "minWidth": "637px",
+                                "textAlign": "left",
+                                "width": "637px",
+                              }
+                            }
+                          >
+                            <a
+                              className="interactive-wrapper focus-on-light"
+                              href="/activity_sessions/anonymous?activity_id=775"
+                              id="tool-and-name-section-7543554"
+                            >
+                              <span
+                                className="tool-icon-wrapper"
+                              >
+                                <img
+                                  alt="Target representing Quill Connect"
+                                  src="undefined/images/icons/connect-forest-green.svg"
+                                />
+                              </span>
+                              <a
+                                href="/activity_sessions/anonymous?activity_id=775"
+                                tabIndex={-1}
+                              >
+                                Adjectives and Adverbs (Starter)
+                              </a>
+                            </a>
+                          </span>
+                          <span
+                            className="data-table-row-section due-date-picker"
+                            style={
+                              Object {
+                                "minWidth": "120px",
+                                "textAlign": "left",
+                                "width": "120px",
+                              }
+                            }
+                          >
+                            <withStyles(SingleDatePicker)
+                              anchorDirection="left"
+                              appendToBody={false}
+                              block={false}
+                              calendarInfoPosition="bottom"
+                              customCloseIcon={null}
+                              customInputIcon={
+                                <img
+                                  alt="dropdown indicator"
+                                  src="https://assets.quill.org/images/icons/dropdown.svg"
+                                  style={null}
+                                />
+                              }
+                              date={null}
+                              dayPickerNavigationInlineStyles={null}
+                              daySize={39}
+                              disableScroll={false}
+                              disabled={false}
+                              displayFormat={[Function]}
+                              enableOutsideDays={false}
+                              firstDayOfWeek={null}
+                              focused={false}
+                              hideKeyboardShortcutsPanel={false}
+                              horizontalMargin={0}
+                              horizontalMonthPadding={13}
+                              id="7543554-date-picker"
+                              initialVisibleMonth={null}
+                              inputIconPosition="after"
+                              isDayBlocked={[Function]}
+                              isDayHighlighted={[Function]}
+                              isOutsideRange={[Function]}
+                              isRTL={false}
+                              keepFocusOnInput={false}
+                              keepOpenOnDateSelect={false}
+                              monthFormat="MMMM YYYY"
+                              navNext="›"
+                              navPosition="navPositionTop"
+                              navPrev="‹"
+                              noBorder={false}
+                              numberOfMonths={1}
+                              onClose={[Function]}
+                              onDateChange={[Function]}
+                              onFocusChange={[Function]}
+                              onNextMonthClick={[Function]}
+                              onPrevMonthClick={[Function]}
+                              openDirection="down"
+                              orientation="horizontal"
+                              phrases={
+                                Object {
+                                  "calendarLabel": "Calendar",
+                                  "chooseAvailableDate": [Function],
+                                  "clearDate": "Clear Date",
+                                  "closeDatePicker": "Close",
+                                  "dateIsSelected": [Function],
+                                  "dateIsUnavailable": [Function],
+                                  "enterKey": "Enter key",
+                                  "escape": "Escape key",
+                                  "hideKeyboardShortcutsPanel": "Close the shortcuts panel.",
+                                  "homeEnd": "Home and end keys",
+                                  "jumpToNextMonth": "Move forward to switch to the next month.",
+                                  "jumpToPrevMonth": "Move backward to switch to the previous month.",
+                                  "keyboardBackwardNavigationInstructions": "Navigate backward to interact with the calendar and select a date. Press the question mark key to get the keyboard shortcuts for changing dates.",
+                                  "keyboardForwardNavigationInstructions": "Navigate forward to interact with the calendar and select a date. Press the question mark key to get the keyboard shortcuts for changing dates.",
+                                  "keyboardShortcuts": "Keyboard Shortcuts",
+                                  "leftArrowRightArrow": "Right and left arrow keys",
+                                  "moveFocusByOneDay": "Move backward (left) and forward (right) by one day.",
+                                  "moveFocusByOneMonth": "Switch months.",
+                                  "moveFocusByOneWeek": "Move backward (up) and forward (down) by one week.",
+                                  "moveFocustoStartAndEndOfWeek": "Go to the first or last day of a week.",
+                                  "openThisPanel": "Open this panel.",
+                                  "pageUpPageDown": "page up and page down keys",
+                                  "questionMark": "Question mark",
+                                  "returnFocusToInput": "Return to the date input field.",
+                                  "roleDescription": "datepicker",
+                                  "selectFocusedDate": "Select the date in focus.",
+                                  "showKeyboardShortcutsPanel": "Open the keyboard shortcuts panel.",
+                                  "upArrowDownArrow": "up and down arrow keys",
+                                }
+                              }
+                              placeholder="No due date"
+                              readOnly={false}
+                              regular={false}
+                              renderCalendarInfo={null}
+                              renderDayContents={null}
+                              renderMonthElement={null}
+                              renderMonthText={null}
+                              renderNavNextButton={null}
+                              renderNavPrevButton={null}
+                              renderWeekHeaderElement={null}
+                              reopenPickerOnClearDate={false}
+                              required={false}
+                              screenReaderInputMessage=""
+                              showClearDate={false}
+                              showDefaultInputIcon={false}
+                              small={false}
+                              verticalHeight={null}
+                              verticalSpacing={22}
+                              weekDayFormat="dd"
+                              withFullScreenPortal={false}
+                              withPortal={false}
+                            />
+                          </span>
+                          <button
+                            className="removable data-table-row-section focus-on-light"
+                            id="remove-button-7543554"
+                            onClick={[Function]}
+                            type="button"
+                          >
+                            <img
+                              alt="x"
+                              src="https://assets.quill.org/images/icons/remove.svg"
+                            />
+                          </button>
+                        </React.Fragment>
                       </div>
                     }
                   >
@@ -8564,173 +8606,7 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                     <div
                       className="data-table-row  "
                     >
-                      <span
-                        className="reorder-section data-table-row-section"
-                      >
-                        <sortableHandle />
-                      </span>
-                      <span
-                        className="data-table-row-section tool-and-name-section"
-                        style={
-                          Object {
-                            "minWidth": "637px",
-                            "textAlign": "left",
-                            "width": "637px",
-                          }
-                        }
-                      >
-                        <a
-                          className="interactive-wrapper focus-on-light"
-                          href="/activity_sessions/anonymous?activity_id=844"
-                          id="tool-and-name-section-7543555"
-                        >
-                          <span
-                            className="tool-icon-wrapper"
-                          >
-                            <img
-                              alt="Target representing Quill Connect"
-                              src="undefined/images/icons/connect-forest-green.svg"
-                            />
-                          </span>
-                          <a
-                            href="/activity_sessions/anonymous?activity_id=844"
-                            tabIndex={-1}
-                          >
-                            Adjectives vs. Adverbs
-                          </a>
-                        </a>
-                      </span>
-                      <span
-                        className="data-table-row-section due-date-picker"
-                        style={
-                          Object {
-                            "minWidth": "120px",
-                            "textAlign": "left",
-                            "width": "120px",
-                          }
-                        }
-                      >
-                        <withStyles(SingleDatePicker)
-                          anchorDirection="left"
-                          appendToBody={false}
-                          block={false}
-                          calendarInfoPosition="bottom"
-                          customCloseIcon={null}
-                          customInputIcon={
-                            <img
-                              alt="dropdown indicator"
-                              src="https://assets.quill.org/images/icons/dropdown.svg"
-                              style={null}
-                            />
-                          }
-                          date={null}
-                          dayPickerNavigationInlineStyles={null}
-                          daySize={39}
-                          disableScroll={false}
-                          disabled={false}
-                          displayFormat={[Function]}
-                          enableOutsideDays={false}
-                          firstDayOfWeek={null}
-                          focused={false}
-                          hideKeyboardShortcutsPanel={false}
-                          horizontalMargin={0}
-                          horizontalMonthPadding={13}
-                          id="7543555-date-picker"
-                          initialVisibleMonth={null}
-                          inputIconPosition="after"
-                          isDayBlocked={[Function]}
-                          isDayHighlighted={[Function]}
-                          isOutsideRange={[Function]}
-                          isRTL={false}
-                          keepFocusOnInput={false}
-                          keepOpenOnDateSelect={false}
-                          monthFormat="MMMM YYYY"
-                          navNext="›"
-                          navPosition="navPositionTop"
-                          navPrev="‹"
-                          noBorder={false}
-                          numberOfMonths={1}
-                          onClose={[Function]}
-                          onDateChange={[Function]}
-                          onFocusChange={[Function]}
-                          onNextMonthClick={[Function]}
-                          onPrevMonthClick={[Function]}
-                          openDirection="down"
-                          orientation="horizontal"
-                          phrases={
-                            Object {
-                              "calendarLabel": "Calendar",
-                              "chooseAvailableDate": [Function],
-                              "clearDate": "Clear Date",
-                              "closeDatePicker": "Close",
-                              "dateIsSelected": [Function],
-                              "dateIsUnavailable": [Function],
-                              "enterKey": "Enter key",
-                              "escape": "Escape key",
-                              "hideKeyboardShortcutsPanel": "Close the shortcuts panel.",
-                              "homeEnd": "Home and end keys",
-                              "jumpToNextMonth": "Move forward to switch to the next month.",
-                              "jumpToPrevMonth": "Move backward to switch to the previous month.",
-                              "keyboardBackwardNavigationInstructions": "Navigate backward to interact with the calendar and select a date. Press the question mark key to get the keyboard shortcuts for changing dates.",
-                              "keyboardForwardNavigationInstructions": "Navigate forward to interact with the calendar and select a date. Press the question mark key to get the keyboard shortcuts for changing dates.",
-                              "keyboardShortcuts": "Keyboard Shortcuts",
-                              "leftArrowRightArrow": "Right and left arrow keys",
-                              "moveFocusByOneDay": "Move backward (left) and forward (right) by one day.",
-                              "moveFocusByOneMonth": "Switch months.",
-                              "moveFocusByOneWeek": "Move backward (up) and forward (down) by one week.",
-                              "moveFocustoStartAndEndOfWeek": "Go to the first or last day of a week.",
-                              "openThisPanel": "Open this panel.",
-                              "pageUpPageDown": "page up and page down keys",
-                              "questionMark": "Question mark",
-                              "returnFocusToInput": "Return to the date input field.",
-                              "roleDescription": "datepicker",
-                              "selectFocusedDate": "Select the date in focus.",
-                              "showKeyboardShortcutsPanel": "Open the keyboard shortcuts panel.",
-                              "upArrowDownArrow": "up and down arrow keys",
-                            }
-                          }
-                          placeholder="No due date"
-                          readOnly={false}
-                          regular={false}
-                          renderCalendarInfo={null}
-                          renderDayContents={null}
-                          renderMonthElement={null}
-                          renderMonthText={null}
-                          renderNavNextButton={null}
-                          renderNavPrevButton={null}
-                          renderWeekHeaderElement={null}
-                          reopenPickerOnClearDate={false}
-                          required={false}
-                          screenReaderInputMessage=""
-                          showClearDate={false}
-                          showDefaultInputIcon={false}
-                          small={false}
-                          verticalHeight={null}
-                          verticalSpacing={22}
-                          weekDayFormat="dd"
-                          withFullScreenPortal={false}
-                          withPortal={false}
-                        />
-                      </span>
-                      <button
-                        className="removable data-table-row-section focus-on-light"
-                        id="remove-button-7543555"
-                        onClick={[Function]}
-                        type="button"
-                      >
-                        <img
-                          alt="x"
-                          src="https://assets.quill.org/images/icons/remove.svg"
-                        />
-                      </button>
-                    </div>
-                  }
-                >
-                  <Component
-                    value={
-                      <div
-                        className="data-table-row  "
-                      >
+                      <React.Fragment>
                         <span
                           className="reorder-section data-table-row-section"
                         >
@@ -8890,6 +8766,176 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                             src="https://assets.quill.org/images/icons/remove.svg"
                           />
                         </button>
+                      </React.Fragment>
+                    </div>
+                  }
+                >
+                  <Component
+                    value={
+                      <div
+                        className="data-table-row  "
+                      >
+                        <React.Fragment>
+                          <span
+                            className="reorder-section data-table-row-section"
+                          >
+                            <sortableHandle />
+                          </span>
+                          <span
+                            className="data-table-row-section tool-and-name-section"
+                            style={
+                              Object {
+                                "minWidth": "637px",
+                                "textAlign": "left",
+                                "width": "637px",
+                              }
+                            }
+                          >
+                            <a
+                              className="interactive-wrapper focus-on-light"
+                              href="/activity_sessions/anonymous?activity_id=844"
+                              id="tool-and-name-section-7543555"
+                            >
+                              <span
+                                className="tool-icon-wrapper"
+                              >
+                                <img
+                                  alt="Target representing Quill Connect"
+                                  src="undefined/images/icons/connect-forest-green.svg"
+                                />
+                              </span>
+                              <a
+                                href="/activity_sessions/anonymous?activity_id=844"
+                                tabIndex={-1}
+                              >
+                                Adjectives vs. Adverbs
+                              </a>
+                            </a>
+                          </span>
+                          <span
+                            className="data-table-row-section due-date-picker"
+                            style={
+                              Object {
+                                "minWidth": "120px",
+                                "textAlign": "left",
+                                "width": "120px",
+                              }
+                            }
+                          >
+                            <withStyles(SingleDatePicker)
+                              anchorDirection="left"
+                              appendToBody={false}
+                              block={false}
+                              calendarInfoPosition="bottom"
+                              customCloseIcon={null}
+                              customInputIcon={
+                                <img
+                                  alt="dropdown indicator"
+                                  src="https://assets.quill.org/images/icons/dropdown.svg"
+                                  style={null}
+                                />
+                              }
+                              date={null}
+                              dayPickerNavigationInlineStyles={null}
+                              daySize={39}
+                              disableScroll={false}
+                              disabled={false}
+                              displayFormat={[Function]}
+                              enableOutsideDays={false}
+                              firstDayOfWeek={null}
+                              focused={false}
+                              hideKeyboardShortcutsPanel={false}
+                              horizontalMargin={0}
+                              horizontalMonthPadding={13}
+                              id="7543555-date-picker"
+                              initialVisibleMonth={null}
+                              inputIconPosition="after"
+                              isDayBlocked={[Function]}
+                              isDayHighlighted={[Function]}
+                              isOutsideRange={[Function]}
+                              isRTL={false}
+                              keepFocusOnInput={false}
+                              keepOpenOnDateSelect={false}
+                              monthFormat="MMMM YYYY"
+                              navNext="›"
+                              navPosition="navPositionTop"
+                              navPrev="‹"
+                              noBorder={false}
+                              numberOfMonths={1}
+                              onClose={[Function]}
+                              onDateChange={[Function]}
+                              onFocusChange={[Function]}
+                              onNextMonthClick={[Function]}
+                              onPrevMonthClick={[Function]}
+                              openDirection="down"
+                              orientation="horizontal"
+                              phrases={
+                                Object {
+                                  "calendarLabel": "Calendar",
+                                  "chooseAvailableDate": [Function],
+                                  "clearDate": "Clear Date",
+                                  "closeDatePicker": "Close",
+                                  "dateIsSelected": [Function],
+                                  "dateIsUnavailable": [Function],
+                                  "enterKey": "Enter key",
+                                  "escape": "Escape key",
+                                  "hideKeyboardShortcutsPanel": "Close the shortcuts panel.",
+                                  "homeEnd": "Home and end keys",
+                                  "jumpToNextMonth": "Move forward to switch to the next month.",
+                                  "jumpToPrevMonth": "Move backward to switch to the previous month.",
+                                  "keyboardBackwardNavigationInstructions": "Navigate backward to interact with the calendar and select a date. Press the question mark key to get the keyboard shortcuts for changing dates.",
+                                  "keyboardForwardNavigationInstructions": "Navigate forward to interact with the calendar and select a date. Press the question mark key to get the keyboard shortcuts for changing dates.",
+                                  "keyboardShortcuts": "Keyboard Shortcuts",
+                                  "leftArrowRightArrow": "Right and left arrow keys",
+                                  "moveFocusByOneDay": "Move backward (left) and forward (right) by one day.",
+                                  "moveFocusByOneMonth": "Switch months.",
+                                  "moveFocusByOneWeek": "Move backward (up) and forward (down) by one week.",
+                                  "moveFocustoStartAndEndOfWeek": "Go to the first or last day of a week.",
+                                  "openThisPanel": "Open this panel.",
+                                  "pageUpPageDown": "page up and page down keys",
+                                  "questionMark": "Question mark",
+                                  "returnFocusToInput": "Return to the date input field.",
+                                  "roleDescription": "datepicker",
+                                  "selectFocusedDate": "Select the date in focus.",
+                                  "showKeyboardShortcutsPanel": "Open the keyboard shortcuts panel.",
+                                  "upArrowDownArrow": "up and down arrow keys",
+                                }
+                              }
+                              placeholder="No due date"
+                              readOnly={false}
+                              regular={false}
+                              renderCalendarInfo={null}
+                              renderDayContents={null}
+                              renderMonthElement={null}
+                              renderMonthText={null}
+                              renderNavNextButton={null}
+                              renderNavPrevButton={null}
+                              renderWeekHeaderElement={null}
+                              reopenPickerOnClearDate={false}
+                              required={false}
+                              screenReaderInputMessage=""
+                              showClearDate={false}
+                              showDefaultInputIcon={false}
+                              small={false}
+                              verticalHeight={null}
+                              verticalSpacing={22}
+                              weekDayFormat="dd"
+                              withFullScreenPortal={false}
+                              withPortal={false}
+                            />
+                          </span>
+                          <button
+                            className="removable data-table-row-section focus-on-light"
+                            id="remove-button-7543555"
+                            onClick={[Function]}
+                            type="button"
+                          >
+                            <img
+                              alt="x"
+                              src="https://assets.quill.org/images/icons/remove.svg"
+                            />
+                          </button>
+                        </React.Fragment>
                       </div>
                     }
                   >
@@ -10085,173 +10131,7 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                     <div
                       className="data-table-row  "
                     >
-                      <span
-                        className="reorder-section data-table-row-section"
-                      >
-                        <sortableHandle />
-                      </span>
-                      <span
-                        className="data-table-row-section tool-and-name-section"
-                        style={
-                          Object {
-                            "minWidth": "637px",
-                            "textAlign": "left",
-                            "width": "637px",
-                          }
-                        }
-                      >
-                        <a
-                          className="interactive-wrapper focus-on-light"
-                          href="/activity_sessions/anonymous?activity_id=846"
-                          id="tool-and-name-section-7543556"
-                        >
-                          <span
-                            className="tool-icon-wrapper"
-                          >
-                            <img
-                              alt="Target representing Quill Connect"
-                              src="undefined/images/icons/connect-forest-green.svg"
-                            />
-                          </span>
-                          <a
-                            href="/activity_sessions/anonymous?activity_id=846"
-                            tabIndex={-1}
-                          >
-                            Adjectives, Adverbs, and Prepositional Phrases 1
-                          </a>
-                        </a>
-                      </span>
-                      <span
-                        className="data-table-row-section due-date-picker"
-                        style={
-                          Object {
-                            "minWidth": "120px",
-                            "textAlign": "left",
-                            "width": "120px",
-                          }
-                        }
-                      >
-                        <withStyles(SingleDatePicker)
-                          anchorDirection="left"
-                          appendToBody={false}
-                          block={false}
-                          calendarInfoPosition="bottom"
-                          customCloseIcon={null}
-                          customInputIcon={
-                            <img
-                              alt="dropdown indicator"
-                              src="https://assets.quill.org/images/icons/dropdown.svg"
-                              style={null}
-                            />
-                          }
-                          date={null}
-                          dayPickerNavigationInlineStyles={null}
-                          daySize={39}
-                          disableScroll={false}
-                          disabled={false}
-                          displayFormat={[Function]}
-                          enableOutsideDays={false}
-                          firstDayOfWeek={null}
-                          focused={false}
-                          hideKeyboardShortcutsPanel={false}
-                          horizontalMargin={0}
-                          horizontalMonthPadding={13}
-                          id="7543556-date-picker"
-                          initialVisibleMonth={null}
-                          inputIconPosition="after"
-                          isDayBlocked={[Function]}
-                          isDayHighlighted={[Function]}
-                          isOutsideRange={[Function]}
-                          isRTL={false}
-                          keepFocusOnInput={false}
-                          keepOpenOnDateSelect={false}
-                          monthFormat="MMMM YYYY"
-                          navNext="›"
-                          navPosition="navPositionTop"
-                          navPrev="‹"
-                          noBorder={false}
-                          numberOfMonths={1}
-                          onClose={[Function]}
-                          onDateChange={[Function]}
-                          onFocusChange={[Function]}
-                          onNextMonthClick={[Function]}
-                          onPrevMonthClick={[Function]}
-                          openDirection="down"
-                          orientation="horizontal"
-                          phrases={
-                            Object {
-                              "calendarLabel": "Calendar",
-                              "chooseAvailableDate": [Function],
-                              "clearDate": "Clear Date",
-                              "closeDatePicker": "Close",
-                              "dateIsSelected": [Function],
-                              "dateIsUnavailable": [Function],
-                              "enterKey": "Enter key",
-                              "escape": "Escape key",
-                              "hideKeyboardShortcutsPanel": "Close the shortcuts panel.",
-                              "homeEnd": "Home and end keys",
-                              "jumpToNextMonth": "Move forward to switch to the next month.",
-                              "jumpToPrevMonth": "Move backward to switch to the previous month.",
-                              "keyboardBackwardNavigationInstructions": "Navigate backward to interact with the calendar and select a date. Press the question mark key to get the keyboard shortcuts for changing dates.",
-                              "keyboardForwardNavigationInstructions": "Navigate forward to interact with the calendar and select a date. Press the question mark key to get the keyboard shortcuts for changing dates.",
-                              "keyboardShortcuts": "Keyboard Shortcuts",
-                              "leftArrowRightArrow": "Right and left arrow keys",
-                              "moveFocusByOneDay": "Move backward (left) and forward (right) by one day.",
-                              "moveFocusByOneMonth": "Switch months.",
-                              "moveFocusByOneWeek": "Move backward (up) and forward (down) by one week.",
-                              "moveFocustoStartAndEndOfWeek": "Go to the first or last day of a week.",
-                              "openThisPanel": "Open this panel.",
-                              "pageUpPageDown": "page up and page down keys",
-                              "questionMark": "Question mark",
-                              "returnFocusToInput": "Return to the date input field.",
-                              "roleDescription": "datepicker",
-                              "selectFocusedDate": "Select the date in focus.",
-                              "showKeyboardShortcutsPanel": "Open the keyboard shortcuts panel.",
-                              "upArrowDownArrow": "up and down arrow keys",
-                            }
-                          }
-                          placeholder="No due date"
-                          readOnly={false}
-                          regular={false}
-                          renderCalendarInfo={null}
-                          renderDayContents={null}
-                          renderMonthElement={null}
-                          renderMonthText={null}
-                          renderNavNextButton={null}
-                          renderNavPrevButton={null}
-                          renderWeekHeaderElement={null}
-                          reopenPickerOnClearDate={false}
-                          required={false}
-                          screenReaderInputMessage=""
-                          showClearDate={false}
-                          showDefaultInputIcon={false}
-                          small={false}
-                          verticalHeight={null}
-                          verticalSpacing={22}
-                          weekDayFormat="dd"
-                          withFullScreenPortal={false}
-                          withPortal={false}
-                        />
-                      </span>
-                      <button
-                        className="removable data-table-row-section focus-on-light"
-                        id="remove-button-7543556"
-                        onClick={[Function]}
-                        type="button"
-                      >
-                        <img
-                          alt="x"
-                          src="https://assets.quill.org/images/icons/remove.svg"
-                        />
-                      </button>
-                    </div>
-                  }
-                >
-                  <Component
-                    value={
-                      <div
-                        className="data-table-row  "
-                      >
+                      <React.Fragment>
                         <span
                           className="reorder-section data-table-row-section"
                         >
@@ -10411,6 +10291,176 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                             src="https://assets.quill.org/images/icons/remove.svg"
                           />
                         </button>
+                      </React.Fragment>
+                    </div>
+                  }
+                >
+                  <Component
+                    value={
+                      <div
+                        className="data-table-row  "
+                      >
+                        <React.Fragment>
+                          <span
+                            className="reorder-section data-table-row-section"
+                          >
+                            <sortableHandle />
+                          </span>
+                          <span
+                            className="data-table-row-section tool-and-name-section"
+                            style={
+                              Object {
+                                "minWidth": "637px",
+                                "textAlign": "left",
+                                "width": "637px",
+                              }
+                            }
+                          >
+                            <a
+                              className="interactive-wrapper focus-on-light"
+                              href="/activity_sessions/anonymous?activity_id=846"
+                              id="tool-and-name-section-7543556"
+                            >
+                              <span
+                                className="tool-icon-wrapper"
+                              >
+                                <img
+                                  alt="Target representing Quill Connect"
+                                  src="undefined/images/icons/connect-forest-green.svg"
+                                />
+                              </span>
+                              <a
+                                href="/activity_sessions/anonymous?activity_id=846"
+                                tabIndex={-1}
+                              >
+                                Adjectives, Adverbs, and Prepositional Phrases 1
+                              </a>
+                            </a>
+                          </span>
+                          <span
+                            className="data-table-row-section due-date-picker"
+                            style={
+                              Object {
+                                "minWidth": "120px",
+                                "textAlign": "left",
+                                "width": "120px",
+                              }
+                            }
+                          >
+                            <withStyles(SingleDatePicker)
+                              anchorDirection="left"
+                              appendToBody={false}
+                              block={false}
+                              calendarInfoPosition="bottom"
+                              customCloseIcon={null}
+                              customInputIcon={
+                                <img
+                                  alt="dropdown indicator"
+                                  src="https://assets.quill.org/images/icons/dropdown.svg"
+                                  style={null}
+                                />
+                              }
+                              date={null}
+                              dayPickerNavigationInlineStyles={null}
+                              daySize={39}
+                              disableScroll={false}
+                              disabled={false}
+                              displayFormat={[Function]}
+                              enableOutsideDays={false}
+                              firstDayOfWeek={null}
+                              focused={false}
+                              hideKeyboardShortcutsPanel={false}
+                              horizontalMargin={0}
+                              horizontalMonthPadding={13}
+                              id="7543556-date-picker"
+                              initialVisibleMonth={null}
+                              inputIconPosition="after"
+                              isDayBlocked={[Function]}
+                              isDayHighlighted={[Function]}
+                              isOutsideRange={[Function]}
+                              isRTL={false}
+                              keepFocusOnInput={false}
+                              keepOpenOnDateSelect={false}
+                              monthFormat="MMMM YYYY"
+                              navNext="›"
+                              navPosition="navPositionTop"
+                              navPrev="‹"
+                              noBorder={false}
+                              numberOfMonths={1}
+                              onClose={[Function]}
+                              onDateChange={[Function]}
+                              onFocusChange={[Function]}
+                              onNextMonthClick={[Function]}
+                              onPrevMonthClick={[Function]}
+                              openDirection="down"
+                              orientation="horizontal"
+                              phrases={
+                                Object {
+                                  "calendarLabel": "Calendar",
+                                  "chooseAvailableDate": [Function],
+                                  "clearDate": "Clear Date",
+                                  "closeDatePicker": "Close",
+                                  "dateIsSelected": [Function],
+                                  "dateIsUnavailable": [Function],
+                                  "enterKey": "Enter key",
+                                  "escape": "Escape key",
+                                  "hideKeyboardShortcutsPanel": "Close the shortcuts panel.",
+                                  "homeEnd": "Home and end keys",
+                                  "jumpToNextMonth": "Move forward to switch to the next month.",
+                                  "jumpToPrevMonth": "Move backward to switch to the previous month.",
+                                  "keyboardBackwardNavigationInstructions": "Navigate backward to interact with the calendar and select a date. Press the question mark key to get the keyboard shortcuts for changing dates.",
+                                  "keyboardForwardNavigationInstructions": "Navigate forward to interact with the calendar and select a date. Press the question mark key to get the keyboard shortcuts for changing dates.",
+                                  "keyboardShortcuts": "Keyboard Shortcuts",
+                                  "leftArrowRightArrow": "Right and left arrow keys",
+                                  "moveFocusByOneDay": "Move backward (left) and forward (right) by one day.",
+                                  "moveFocusByOneMonth": "Switch months.",
+                                  "moveFocusByOneWeek": "Move backward (up) and forward (down) by one week.",
+                                  "moveFocustoStartAndEndOfWeek": "Go to the first or last day of a week.",
+                                  "openThisPanel": "Open this panel.",
+                                  "pageUpPageDown": "page up and page down keys",
+                                  "questionMark": "Question mark",
+                                  "returnFocusToInput": "Return to the date input field.",
+                                  "roleDescription": "datepicker",
+                                  "selectFocusedDate": "Select the date in focus.",
+                                  "showKeyboardShortcutsPanel": "Open the keyboard shortcuts panel.",
+                                  "upArrowDownArrow": "up and down arrow keys",
+                                }
+                              }
+                              placeholder="No due date"
+                              readOnly={false}
+                              regular={false}
+                              renderCalendarInfo={null}
+                              renderDayContents={null}
+                              renderMonthElement={null}
+                              renderMonthText={null}
+                              renderNavNextButton={null}
+                              renderNavPrevButton={null}
+                              renderWeekHeaderElement={null}
+                              reopenPickerOnClearDate={false}
+                              required={false}
+                              screenReaderInputMessage=""
+                              showClearDate={false}
+                              showDefaultInputIcon={false}
+                              small={false}
+                              verticalHeight={null}
+                              verticalSpacing={22}
+                              weekDayFormat="dd"
+                              withFullScreenPortal={false}
+                              withPortal={false}
+                            />
+                          </span>
+                          <button
+                            className="removable data-table-row-section focus-on-light"
+                            id="remove-button-7543556"
+                            onClick={[Function]}
+                            type="button"
+                          >
+                            <img
+                              alt="x"
+                              src="https://assets.quill.org/images/icons/remove.svg"
+                            />
+                          </button>
+                        </React.Fragment>
                       </div>
                     }
                   >

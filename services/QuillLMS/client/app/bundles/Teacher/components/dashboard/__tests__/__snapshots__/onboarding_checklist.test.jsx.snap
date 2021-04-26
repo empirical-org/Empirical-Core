@@ -1,0 +1,152 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`OnboardingChecklist component should render 1`] = `
+<OnboardingChecklist
+  firstName="Emilia"
+  onboardingChecklist={
+    Array [
+      Object {
+        "checked": true,
+        "link": "/teachers/classrooms?modal=create-a-class",
+        "name": "Create a class",
+      },
+      Object {
+        "checked": false,
+        "link": "/teachers/classrooms",
+        "name": "Add students",
+      },
+      Object {
+        "checked": true,
+        "link": "/assign",
+        "name": "Explore our library",
+      },
+      Object {
+        "checked": true,
+        "link": "/assign/diagnostic",
+        "name": "Explore our diagnostics",
+      },
+    ]
+  }
+>
+  <div
+    className="onboarding-checklist-container"
+  >
+    <div
+      className="onboarding-checklist-body"
+    >
+      <h1>
+        Welcome, 
+        Emilia
+        !
+      </h1>
+      <p>
+        Follow these steps to get the ball rolling.
+      </p>
+      <div
+        className="onboarding-checklist"
+      >
+        <OnboardingChecklistItem
+          checked={true}
+          name="Be inspired by a teacher growing up, and become one yourself"
+        >
+          <div
+            className="onboarding-checklist-item completed"
+          >
+            <img
+              alt="White checkmark in green circle"
+              className="big-check checked"
+              src="undefined/images/icons/icons-check-big.svg"
+            />
+            <span>
+              Be inspired by a teacher growing up, and become one yourself
+            </span>
+          </div>
+        </OnboardingChecklistItem>
+        <OnboardingChecklistItem
+          checked={true}
+          key="Create a class"
+          link="/teachers/classrooms?modal=create-a-class"
+          name="Create a class"
+        >
+          <a
+            className="onboarding-checklist-item completed focus-on-light"
+            href="/teachers/classrooms?modal=create-a-class"
+          >
+            <img
+              alt="White checkmark in green circle"
+              className="big-check checked"
+              src="undefined/images/icons/icons-check-big.svg"
+            />
+            <span>
+              Create a class
+            </span>
+          </a>
+        </OnboardingChecklistItem>
+        <OnboardingChecklistItem
+          checked={false}
+          key="Add students"
+          link="/teachers/classrooms"
+          name="Add students"
+        >
+          <a
+            className="onboarding-checklist-item focus-on-light"
+            href="/teachers/classrooms"
+          >
+            <div
+              className="big-check unchecked"
+            />
+            <span>
+              Add students
+            </span>
+          </a>
+        </OnboardingChecklistItem>
+        <OnboardingChecklistItem
+          checked={true}
+          key="Explore our library"
+          link="/assign"
+          name="Explore our library"
+        >
+          <a
+            className="onboarding-checklist-item completed focus-on-light"
+            href="/assign"
+          >
+            <img
+              alt="White checkmark in green circle"
+              className="big-check checked"
+              src="undefined/images/icons/icons-check-big.svg"
+            />
+            <span>
+              Explore our library
+            </span>
+          </a>
+        </OnboardingChecklistItem>
+        <OnboardingChecklistItem
+          checked={true}
+          key="Explore our diagnostics"
+          link="/assign/diagnostic"
+          name="Explore our diagnostics"
+        >
+          <a
+            className="onboarding-checklist-item completed focus-on-light"
+            href="/assign/diagnostic"
+          >
+            <img
+              alt="White checkmark in green circle"
+              className="big-check checked"
+              src="undefined/images/icons/icons-check-big.svg"
+            />
+            <span>
+              Explore our diagnostics
+            </span>
+          </a>
+        </OnboardingChecklistItem>
+      </div>
+    </div>
+    <img
+      alt="Woman holding a check mark up to an oversized checklist"
+      className="illustration"
+      src="undefined/images/pages/dashboard/person-with-checklist.svg"
+    />
+  </div>
+</OnboardingChecklist>
+`;

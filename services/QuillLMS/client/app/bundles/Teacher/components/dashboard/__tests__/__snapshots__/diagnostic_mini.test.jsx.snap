@@ -1,49 +1,8 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`DiagnosticMini component should render when it is done loading and there are no diagnostics 1`] = `
+exports[`DiagnosticMini component not on mobile should render when there are diagnostics 1`] = `
 <DiagnosticMini
-  passedDiagnostics={Array []}
->
-  <div
-    className="mini_container results-overview-mini-container col-md-4 col-sm-5 text-center"
-  >
-    <div
-      className="mini_content diagnostic-mini assign-diagnostic"
-    >
-      <div
-        className="gray-underline"
-      >
-        <h3>
-          Assign a Diagnostic
-        </h3>
-      </div>
-      <img
-        alt=""
-        src="undefined/images/shared/new_diagnostic.svg"
-      />
-      <p>
-        See which skills students need to work on and get recommended learning plans.
-      </p>
-      <a
-        className="bg-quillgreen text-white"
-        href="/assign/diagnostic"
-      >
-        Assign Diagnostic
-      </a>
-    </div>
-  </div>
-</DiagnosticMini>
-`;
-
-exports[`DiagnosticMini component should render when it is loading 1`] = `
-<DiagnosticMini>
-  <span />
-</DiagnosticMini>
-`;
-
-exports[`DiagnosticMini component should render when there are diagnostics 1`] = `
-<DiagnosticMini
-  passedDiagnostics={
+  diagnostics={
     Array [
       Object {
         "activity_id": 447,
@@ -200,317 +159,318 @@ exports[`DiagnosticMini component should render when there are diagnostics 1`] =
       },
     ]
   }
+  onMobile={false}
 >
   <section
-    className="mini_container results-overview-mini-container col-md-8 col-sm-10 text-center"
-    id="recently-assigned-diagnostics-card"
+    className="diagnostic-mini"
   >
-    <section
-      className="inner-container"
-    >
-      <header
-        className="header-container flex-row space-between vertically-centered"
-      >
-        <h3>
-          Recently Assigned Diagnostics
-        </h3>
-        <a
-          href="/teachers/progress_reports/diagnostic_reports/#/diagnostics"
+    <header>
+      <h2>
+        <span>
+          Diagnostic 
+        </span>
+        <span
+          className="no-break"
         >
-          View All 
-          17
-           Diagnostic Reports
-        </a>
-      </header>
-      <DataTable
-        averageFontWidth={7}
-        headers={
-          Array [
-            Object {
-              "attribute": "diagnostic",
-              "name": "Diagnostic",
-              "width": "186px",
-            },
-            Object {
-              "attribute": "class",
-              "name": "Class",
-              "width": "186px",
-            },
-            Object {
-              "attribute": "completed",
-              "name": "Completed",
-              "rowSectionClassName": "completed-row-section",
-              "width": "61px",
-            },
-            Object {
-              "attribute": "recommendations",
-              "headerClassName": "recommendations-header",
-              "name": "Recommendations",
-              "noTooltip": true,
-              "rowSectionClassName": "recommendations-row-section",
-              "width": "104px",
-            },
-          ]
-        }
-        rows={
-          Array [
-            Object {
-              "class": "Quill Classroom Extremely Long So Long SUper Duper",
-              "completed": "0 of 5",
-              "diagnostic": "ELL Diagnostic",
-              "id": "447-484134-826269",
-              "recommendations": <a
-                className="quill-button fun primary outlined"
-                href="/teachers/progress_reports/diagnostic_reports#/u/826269/a/447/c/484134/recommendations"
-              >
+          <span>
+            recommendations
+          </span>
+          <a
+            className="focus-on-light"
+            href="https://support.quill.org/en/articles/5014101-how-does-the-diagnostic-recommendations-section-on-the-teacher-home-page-work"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            <img
+              alt="Question mark icon"
+              src="undefined/images/icons/icons-help.svg"
+            />
+          </a>
+        </span>
+      </h2>
+    </header>
+    <DataTable
+      averageFontWidth={7}
+      headers={
+        Array [
+          Object {
+            "attribute": "diagnostic",
+            "name": "Diagnostic",
+            "width": "230px",
+          },
+          Object {
+            "attribute": "classroom",
+            "name": "Class",
+            "width": "180px",
+          },
+          Object {
+            "attribute": "completed",
+            "name": "Completed",
+            "rowSectionClassName": "completed-row-section",
+            "width": "62px",
+          },
+          Object {
+            "attribute": "recommendations",
+            "headerClassName": "last-header",
+            "name": "Recommendations",
+            "noTooltip": true,
+            "rowSectionClassName": "last-row-section",
+            "width": "104px",
+          },
+        ]
+      }
+      rows={
+        Array [
+          Object {
+            "classroom": "Quill Classroom Extremely Long So Long SUper Duper",
+            "completed": "0 of 5",
+            "diagnostic": "ELL Diagnostic",
+            "id": "447-484134-826269",
+            "recommendations": <a
+              className="focus-on-light"
+              href="/teachers/progress_reports/diagnostic_reports#/u/826269/a/447/c/484134/recommendations"
+            >
+              <img
+                alt="File with a chart icon"
+                src="undefined/images/icons/icons-file-chart.svg"
+              />
+              <span>
                 View
-              </a>,
-            },
-            Object {
-              "class": "A New Class",
-              "completed": "0 of 0",
-              "diagnostic": "ELL Diagnostic",
-              "id": "447-484135-826269",
-              "recommendations": <a
-                className="quill-button fun primary outlined"
-                href="/teachers/progress_reports/diagnostic_reports#/u/826269/a/447/c/484135/recommendations"
-              >
+              </span>
+            </a>,
+            "recommendationsHref": "/teachers/progress_reports/diagnostic_reports#/u/826269/a/447/c/484134/recommendations",
+          },
+          Object {
+            "classroom": "A New Class",
+            "completed": "0 of 0",
+            "diagnostic": "ELL Diagnostic",
+            "id": "447-484135-826269",
+            "recommendations": <a
+              className="focus-on-light"
+              href="/teachers/progress_reports/diagnostic_reports#/u/826269/a/447/c/484135/recommendations"
+            >
+              <img
+                alt="File with a chart icon"
+                src="undefined/images/icons/icons-file-chart.svg"
+              />
+              <span>
                 View
-              </a>,
-            },
-            Object {
-              "class": "Quill Classroom Extremely Long So Long SUper Duper",
-              "completed": "5 of 5",
-              "diagnostic": "Starter Diagnostic",
-              "id": "849-484134-826268",
-              "recommendations": <a
-                className="quill-button fun primary outlined"
-                href="/teachers/progress_reports/diagnostic_reports#/u/826268/a/849/c/484134/recommendations"
-              >
+              </span>
+            </a>,
+            "recommendationsHref": "/teachers/progress_reports/diagnostic_reports#/u/826269/a/447/c/484135/recommendations",
+          },
+          Object {
+            "classroom": "Quill Classroom Extremely Long So Long SUper Duper",
+            "completed": "5 of 5",
+            "diagnostic": "Starter Diagnostic",
+            "id": "849-484134-826268",
+            "recommendations": <a
+              className="focus-on-light"
+              href="/teachers/progress_reports/diagnostic_reports#/u/826268/a/849/c/484134/recommendations"
+            >
+              <img
+                alt="File with a chart icon"
+                src="undefined/images/icons/icons-file-chart.svg"
+              />
+              <span>
                 View
-              </a>,
-            },
-            Object {
-              "class": "Quill Classroom Extremely Long So Long SUper Duper",
-              "completed": "0 of 5",
-              "diagnostic": "Starter Diagnostic",
-              "id": "849-484134-826269",
-              "recommendations": <a
-                className="quill-button fun primary outlined"
-                href="/teachers/progress_reports/diagnostic_reports#/u/826269/a/849/c/484134/recommendations"
-              >
+              </span>
+            </a>,
+            "recommendationsHref": "/teachers/progress_reports/diagnostic_reports#/u/826268/a/849/c/484134/recommendations",
+          },
+          Object {
+            "classroom": "Quill Classroom Extremely Long So Long SUper Duper",
+            "completed": "0 of 5",
+            "diagnostic": "Starter Diagnostic",
+            "id": "849-484134-826269",
+            "recommendations": <a
+              className="focus-on-light"
+              href="/teachers/progress_reports/diagnostic_reports#/u/826269/a/849/c/484134/recommendations"
+            >
+              <img
+                alt="File with a chart icon"
+                src="undefined/images/icons/icons-file-chart.svg"
+              />
+              <span>
                 View
-              </a>,
-            },
-            Object {
-              "class": "A New Class",
-              "completed": "0 of 0",
-              "diagnostic": "Starter Diagnostic",
-              "id": "849-484135-826269",
-              "recommendations": <a
-                className="quill-button fun primary outlined"
-                href="/teachers/progress_reports/diagnostic_reports#/u/826269/a/849/c/484135/recommendations"
-              >
+              </span>
+            </a>,
+            "recommendationsHref": "/teachers/progress_reports/diagnostic_reports#/u/826269/a/849/c/484134/recommendations",
+          },
+          Object {
+            "classroom": "A New Class",
+            "completed": "0 of 0",
+            "diagnostic": "Starter Diagnostic",
+            "id": "849-484135-826269",
+            "recommendations": <a
+              className="focus-on-light"
+              href="/teachers/progress_reports/diagnostic_reports#/u/826269/a/849/c/484135/recommendations"
+            >
+              <img
+                alt="File with a chart icon"
+                src="undefined/images/icons/icons-file-chart.svg"
+              />
+              <span>
                 View
-              </a>,
-            },
-            Object {
-              "class": "Quill Classroom Extremely Long So Long SUper Duper",
-              "completed": "0 of 5",
-              "diagnostic": "Intermediate Diagnostic",
-              "id": "850-484134-826269",
-              "recommendations": <a
-                className="quill-button fun primary outlined"
-                href="/teachers/progress_reports/diagnostic_reports#/u/826269/a/850/c/484134/recommendations"
-              >
-                View
-              </a>,
-            },
-            Object {
-              "class": "A New Class",
-              "completed": "0 of 0",
-              "diagnostic": "Intermediate Diagnostic",
-              "id": "850-484135-826269",
-              "recommendations": <a
-                className="quill-button fun primary outlined"
-                href="/teachers/progress_reports/diagnostic_reports#/u/826269/a/850/c/484135/recommendations"
-              >
-                View
-              </a>,
-            },
-            Object {
-              "class": "Quill Classroom Extremely Long So Long SUper Duper",
-              "completed": "0 of 5",
-              "diagnostic": "Advanced Diagnostic",
-              "id": "888-484134-826269",
-              "recommendations": <a
-                className="quill-button fun primary outlined"
-                href="/teachers/progress_reports/diagnostic_reports#/u/826269/a/888/c/484134/recommendations"
-              >
-                View
-              </a>,
-            },
-            Object {
-              "class": "A New Class",
-              "completed": "0 of 0",
-              "diagnostic": "Advanced Diagnostic",
-              "id": "888-484135-826269",
-              "recommendations": <a
-                className="quill-button fun primary outlined"
-                href="/teachers/progress_reports/diagnostic_reports#/u/826269/a/888/c/484135/recommendations"
-              >
-                View
-              </a>,
-            },
-            Object {
-              "class": "Quill Classroom Extremely Long So Long SUper Duper",
-              "completed": "0 of 5",
-              "diagnostic": "AP® Writing Skills Survey",
-              "id": "992-484134-826269",
-              "recommendations": <a
-                className="quill-button fun primary outlined"
-                href="/teachers/progress_reports/diagnostic_reports#/u/826269/a/992/c/484134/recommendations"
-              >
-                View
-              </a>,
-            },
-            Object {
-              "class": "A New Class",
-              "completed": "0 of 0",
-              "diagnostic": "AP® Writing Skills Survey",
-              "id": "992-484135-826269",
-              "recommendations": <a
-                className="quill-button fun primary outlined"
-                href="/teachers/progress_reports/diagnostic_reports#/u/826269/a/992/c/484135/recommendations"
-              >
-                View
-              </a>,
-            },
-            Object {
-              "class": "Quill Classroom Extremely Long So Long SUper Duper",
-              "completed": "0 of 5",
-              "diagnostic": "ELL Starter Diagnostic",
-              "id": "1161-484134-826269",
-              "recommendations": <a
-                className="quill-button fun primary outlined"
-                href="/teachers/progress_reports/diagnostic_reports#/u/826269/a/1161/c/484134/recommendations"
-              >
-                View
-              </a>,
-            },
-            Object {
-              "class": "A New Class",
-              "completed": "0 of 0",
-              "diagnostic": "ELL Starter Diagnostic",
-              "id": "1161-484135-826269",
-              "recommendations": <a
-                className="quill-button fun primary outlined"
-                href="/teachers/progress_reports/diagnostic_reports#/u/826269/a/1161/c/484135/recommendations"
-              >
-                View
-              </a>,
-            },
-            Object {
-              "class": "Quill Classroom Extremely Long So Long SUper Duper",
-              "completed": "0 of 5",
-              "diagnostic": "Pre-AP® Writing Skills Survey 1: Basics of Sentence Patterns",
-              "id": "1229-484134-826269",
-              "recommendations": <a
-                className="quill-button fun primary outlined"
-                href="/teachers/progress_reports/diagnostic_reports#/u/826269/a/1229/c/484134/recommendations"
-              >
-                View
-              </a>,
-            },
-            Object {
-              "class": "A New Class",
-              "completed": "0 of 0",
-              "diagnostic": "Pre-AP® Writing Skills Survey 1: Basics of Sentence Patterns",
-              "id": "1229-484135-826269",
-              "recommendations": <a
-                className="quill-button fun primary outlined"
-                href="/teachers/progress_reports/diagnostic_reports#/u/826269/a/1229/c/484135/recommendations"
-              >
-                View
-              </a>,
-            },
-            Object {
-              "class": "Quill Classroom Extremely Long So Long SUper Duper",
-              "completed": "0 of 5",
-              "diagnostic": "Pre-AP® Writing Skills Survey 2: Tools for Sentence Expansion",
-              "id": "1230-484134-826269",
-              "recommendations": <a
-                className="quill-button fun primary outlined"
-                href="/teachers/progress_reports/diagnostic_reports#/u/826269/a/1230/c/484134/recommendations"
-              >
-                View
-              </a>,
-            },
-            Object {
-              "class": "A New Class",
-              "completed": "0 of 0",
-              "diagnostic": "Pre-AP® Writing Skills Survey 2: Tools for Sentence Expansion",
-              "id": "1230-484135-826269",
-              "recommendations": <a
-                className="quill-button fun primary outlined"
-                href="/teachers/progress_reports/diagnostic_reports#/u/826269/a/1230/c/484135/recommendations"
-              >
-                View
-              </a>,
-            },
-          ]
-        }
+              </span>
+            </a>,
+            "recommendationsHref": "/teachers/progress_reports/diagnostic_reports#/u/826269/a/849/c/484135/recommendations",
+          },
+        ]
+      }
+    >
+      <div
+        className="data-table undefined"
       >
         <div
-          className="data-table undefined"
+          className="data-table-headers"
+        >
+          <button
+            className="data-table-header undefined"
+            style={
+              Object {
+                "minWidth": "230px",
+                "textAlign": "left",
+                "width": "230px",
+              }
+            }
+            tabIndex={-1}
+            type="button"
+          >
+            Diagnostic
+          </button>
+          <button
+            className="data-table-header undefined"
+            style={
+              Object {
+                "minWidth": "180px",
+                "textAlign": "left",
+                "width": "180px",
+              }
+            }
+            tabIndex={-1}
+            type="button"
+          >
+            Class
+          </button>
+          <button
+            className="data-table-header undefined"
+            style={
+              Object {
+                "minWidth": "62px",
+                "textAlign": "left",
+                "width": "62px",
+              }
+            }
+            tabIndex={-1}
+            type="button"
+          >
+            Completed
+          </button>
+          <button
+            className="data-table-header last-header"
+            style={
+              Object {
+                "minWidth": "104px",
+                "textAlign": "left",
+                "width": "104px",
+              }
+            }
+            tabIndex={-1}
+            type="button"
+          >
+            Recommendations
+          </button>
+        </div>
+        <div
+          className="data-table-body"
         >
           <div
-            className="data-table-headers"
+            className="data-table-row  "
+            key="447-484134-826269"
           >
-            <button
-              className="data-table-header undefined"
+            <span
+              className="data-table-row-section undefined"
+              key="diagnostic-447-484134-826269"
               style={
                 Object {
-                  "minWidth": "186px",
+                  "minWidth": "230px",
                   "textAlign": "left",
-                  "width": "186px",
+                  "width": "230px",
                 }
               }
-              tabIndex={-1}
-              type="button"
             >
-              Diagnostic
-            </button>
-            <button
-              className="data-table-header undefined"
+              ELL Diagnostic
+            </span>
+            <Tooltip
+              key="classroom-447-484134-826269"
+              tooltipText="Quill Classroom Extremely Long So Long SUper Duper"
+              tooltipTriggerStyle={
+                Object {
+                  "minWidth": "180px",
+                  "textAlign": "left",
+                  "width": "180px",
+                }
+              }
+              tooltipTriggerText="Quill Classroom Extremely Long So Long SUper Duper"
+              tooltipTriggerTextClass="data-table-row-section undefined"
+              tooltipTriggerTextStyle={
+                Object {
+                  "minWidth": "180px",
+                  "textAlign": "left",
+                  "width": "180px",
+                }
+              }
+            >
+              <span
+                className="quill-tooltip-trigger"
+                style={
+                  Object {
+                    "minWidth": "180px",
+                    "textAlign": "left",
+                    "width": "180px",
+                  }
+                }
+              >
+                <span
+                  className="data-table-row-section undefined"
+                  onMouseEnter={[Function]}
+                  onMouseLeave={[Function]}
+                  style={
+                    Object {
+                      "minWidth": "180px",
+                      "textAlign": "left",
+                      "width": "180px",
+                    }
+                  }
+                >
+                  Quill Classroom Extremely Long So Long SUper Duper
+                </span>
+                <span
+                  className="quill-tooltip-wrapper"
+                >
+                  <span
+                    className="quill-tooltip"
+                  />
+                </span>
+              </span>
+            </Tooltip>
+            <span
+              className="data-table-row-section completed-row-section"
+              key="completed-447-484134-826269"
               style={
                 Object {
-                  "minWidth": "186px",
+                  "minWidth": "62px",
                   "textAlign": "left",
-                  "width": "186px",
+                  "width": "62px",
                 }
               }
-              tabIndex={-1}
-              type="button"
             >
-              Class
-            </button>
-            <button
-              className="data-table-header undefined"
-              style={
-                Object {
-                  "minWidth": "61px",
-                  "textAlign": "left",
-                  "width": "61px",
-                }
-              }
-              tabIndex={-1}
-              type="button"
-            >
-              Completed
-            </button>
-            <button
-              className="data-table-header recommendations-header"
+              0 of 5
+            </span>
+            <span
+              className="data-table-row-section last-row-section"
+              key="recommendations-447-484134-826269"
               style={
                 Object {
                   "minWidth": "104px",
@@ -518,1644 +478,849 @@ exports[`DiagnosticMini component should render when there are diagnostics 1`] =
                   "width": "104px",
                 }
               }
-              tabIndex={-1}
-              type="button"
             >
-              Recommendations
-            </button>
+              <a
+                className="focus-on-light"
+                href="/teachers/progress_reports/diagnostic_reports#/u/826269/a/447/c/484134/recommendations"
+              >
+                <img
+                  alt="File with a chart icon"
+                  src="undefined/images/icons/icons-file-chart.svg"
+                />
+                <span>
+                  View
+                </span>
+              </a>
+            </span>
+            <span
+              className="removable data-table-row-section"
+            />
           </div>
           <div
-            className="data-table-body"
+            className="data-table-row  "
+            key="447-484135-826269"
           >
-            <div
-              className="data-table-row  "
-              key="447-484134-826269"
+            <span
+              className="data-table-row-section undefined"
+              key="diagnostic-447-484135-826269"
+              style={
+                Object {
+                  "minWidth": "230px",
+                  "textAlign": "left",
+                  "width": "230px",
+                }
+              }
+            >
+              ELL Diagnostic
+            </span>
+            <span
+              className="data-table-row-section undefined"
+              key="classroom-447-484135-826269"
+              style={
+                Object {
+                  "minWidth": "180px",
+                  "textAlign": "left",
+                  "width": "180px",
+                }
+              }
+            >
+              A New Class
+            </span>
+            <span
+              className="data-table-row-section completed-row-section"
+              key="completed-447-484135-826269"
+              style={
+                Object {
+                  "minWidth": "62px",
+                  "textAlign": "left",
+                  "width": "62px",
+                }
+              }
+            >
+              0 of 0
+            </span>
+            <span
+              className="data-table-row-section last-row-section"
+              key="recommendations-447-484135-826269"
+              style={
+                Object {
+                  "minWidth": "104px",
+                  "textAlign": "left",
+                  "width": "104px",
+                }
+              }
+            >
+              <a
+                className="focus-on-light"
+                href="/teachers/progress_reports/diagnostic_reports#/u/826269/a/447/c/484135/recommendations"
+              >
+                <img
+                  alt="File with a chart icon"
+                  src="undefined/images/icons/icons-file-chart.svg"
+                />
+                <span>
+                  View
+                </span>
+              </a>
+            </span>
+            <span
+              className="removable data-table-row-section"
+            />
+          </div>
+          <div
+            className="data-table-row  "
+            key="849-484134-826268"
+          >
+            <span
+              className="data-table-row-section undefined"
+              key="diagnostic-849-484134-826268"
+              style={
+                Object {
+                  "minWidth": "230px",
+                  "textAlign": "left",
+                  "width": "230px",
+                }
+              }
+            >
+              Starter Diagnostic
+            </span>
+            <Tooltip
+              key="classroom-849-484134-826268"
+              tooltipText="Quill Classroom Extremely Long So Long SUper Duper"
+              tooltipTriggerStyle={
+                Object {
+                  "minWidth": "180px",
+                  "textAlign": "left",
+                  "width": "180px",
+                }
+              }
+              tooltipTriggerText="Quill Classroom Extremely Long So Long SUper Duper"
+              tooltipTriggerTextClass="data-table-row-section undefined"
+              tooltipTriggerTextStyle={
+                Object {
+                  "minWidth": "180px",
+                  "textAlign": "left",
+                  "width": "180px",
+                }
+              }
             >
               <span
-                className="data-table-row-section undefined"
-                key="diagnostic-447-484134-826269"
+                className="quill-tooltip-trigger"
                 style={
                   Object {
-                    "minWidth": "186px",
+                    "minWidth": "180px",
                     "textAlign": "left",
-                    "width": "186px",
-                  }
-                }
-              >
-                ELL Diagnostic
-              </span>
-              <Tooltip
-                key="class-447-484134-826269"
-                tooltipText="Quill Classroom Extremely Long So Long SUper Duper"
-                tooltipTriggerStyle={
-                  Object {
-                    "minWidth": "186px",
-                    "textAlign": "left",
-                    "width": "186px",
-                  }
-                }
-                tooltipTriggerText="Quill Classroom Extremely Long So Long SUper Duper"
-                tooltipTriggerTextClass="data-table-row-section undefined"
-                tooltipTriggerTextStyle={
-                  Object {
-                    "minWidth": "186px",
-                    "textAlign": "left",
-                    "width": "186px",
+                    "width": "180px",
                   }
                 }
               >
                 <span
-                  className="quill-tooltip-trigger"
+                  className="data-table-row-section undefined"
+                  onMouseEnter={[Function]}
+                  onMouseLeave={[Function]}
                   style={
                     Object {
-                      "minWidth": "186px",
+                      "minWidth": "180px",
                       "textAlign": "left",
-                      "width": "186px",
+                      "width": "180px",
                     }
                   }
                 >
-                  <span
-                    className="data-table-row-section undefined"
-                    onMouseEnter={[Function]}
-                    onMouseLeave={[Function]}
-                    style={
-                      Object {
-                        "minWidth": "186px",
-                        "textAlign": "left",
-                        "width": "186px",
-                      }
-                    }
-                  >
-                    Quill Classroom Extremely Long So Long SUper Duper
-                  </span>
-                  <span
-                    className="quill-tooltip-wrapper"
-                  >
-                    <span
-                      className="quill-tooltip"
-                    />
-                  </span>
+                  Quill Classroom Extremely Long So Long SUper Duper
                 </span>
-              </Tooltip>
-              <span
-                className="data-table-row-section completed-row-section"
-                key="completed-447-484134-826269"
-                style={
-                  Object {
-                    "minWidth": "61px",
-                    "textAlign": "left",
-                    "width": "61px",
-                  }
-                }
-              >
-                0 of 5
-              </span>
-              <span
-                className="data-table-row-section recommendations-row-section"
-                key="recommendations-447-484134-826269"
-                style={
-                  Object {
-                    "minWidth": "104px",
-                    "textAlign": "left",
-                    "width": "104px",
-                  }
-                }
-              >
-                <a
-                  className="quill-button fun primary outlined"
-                  href="/teachers/progress_reports/diagnostic_reports#/u/826269/a/447/c/484134/recommendations"
+                <span
+                  className="quill-tooltip-wrapper"
                 >
-                  View
-                </a>
+                  <span
+                    className="quill-tooltip"
+                  />
+                </span>
               </span>
-              <span
-                className="removable data-table-row-section"
-              />
-            </div>
-            <div
-              className="data-table-row  "
-              key="447-484135-826269"
+            </Tooltip>
+            <span
+              className="data-table-row-section completed-row-section"
+              key="completed-849-484134-826268"
+              style={
+                Object {
+                  "minWidth": "62px",
+                  "textAlign": "left",
+                  "width": "62px",
+                }
+              }
+            >
+              5 of 5
+            </span>
+            <span
+              className="data-table-row-section last-row-section"
+              key="recommendations-849-484134-826268"
+              style={
+                Object {
+                  "minWidth": "104px",
+                  "textAlign": "left",
+                  "width": "104px",
+                }
+              }
+            >
+              <a
+                className="focus-on-light"
+                href="/teachers/progress_reports/diagnostic_reports#/u/826268/a/849/c/484134/recommendations"
+              >
+                <img
+                  alt="File with a chart icon"
+                  src="undefined/images/icons/icons-file-chart.svg"
+                />
+                <span>
+                  View
+                </span>
+              </a>
+            </span>
+            <span
+              className="removable data-table-row-section"
+            />
+          </div>
+          <div
+            className="data-table-row  "
+            key="849-484134-826269"
+          >
+            <span
+              className="data-table-row-section undefined"
+              key="diagnostic-849-484134-826269"
+              style={
+                Object {
+                  "minWidth": "230px",
+                  "textAlign": "left",
+                  "width": "230px",
+                }
+              }
+            >
+              Starter Diagnostic
+            </span>
+            <Tooltip
+              key="classroom-849-484134-826269"
+              tooltipText="Quill Classroom Extremely Long So Long SUper Duper"
+              tooltipTriggerStyle={
+                Object {
+                  "minWidth": "180px",
+                  "textAlign": "left",
+                  "width": "180px",
+                }
+              }
+              tooltipTriggerText="Quill Classroom Extremely Long So Long SUper Duper"
+              tooltipTriggerTextClass="data-table-row-section undefined"
+              tooltipTriggerTextStyle={
+                Object {
+                  "minWidth": "180px",
+                  "textAlign": "left",
+                  "width": "180px",
+                }
+              }
             >
               <span
-                className="data-table-row-section undefined"
-                key="diagnostic-447-484135-826269"
+                className="quill-tooltip-trigger"
                 style={
                   Object {
-                    "minWidth": "186px",
+                    "minWidth": "180px",
                     "textAlign": "left",
-                    "width": "186px",
-                  }
-                }
-              >
-                ELL Diagnostic
-              </span>
-              <span
-                className="data-table-row-section undefined"
-                key="class-447-484135-826269"
-                style={
-                  Object {
-                    "minWidth": "186px",
-                    "textAlign": "left",
-                    "width": "186px",
-                  }
-                }
-              >
-                A New Class
-              </span>
-              <span
-                className="data-table-row-section completed-row-section"
-                key="completed-447-484135-826269"
-                style={
-                  Object {
-                    "minWidth": "61px",
-                    "textAlign": "left",
-                    "width": "61px",
-                  }
-                }
-              >
-                0 of 0
-              </span>
-              <span
-                className="data-table-row-section recommendations-row-section"
-                key="recommendations-447-484135-826269"
-                style={
-                  Object {
-                    "minWidth": "104px",
-                    "textAlign": "left",
-                    "width": "104px",
-                  }
-                }
-              >
-                <a
-                  className="quill-button fun primary outlined"
-                  href="/teachers/progress_reports/diagnostic_reports#/u/826269/a/447/c/484135/recommendations"
-                >
-                  View
-                </a>
-              </span>
-              <span
-                className="removable data-table-row-section"
-              />
-            </div>
-            <div
-              className="data-table-row  "
-              key="849-484134-826268"
-            >
-              <span
-                className="data-table-row-section undefined"
-                key="diagnostic-849-484134-826268"
-                style={
-                  Object {
-                    "minWidth": "186px",
-                    "textAlign": "left",
-                    "width": "186px",
-                  }
-                }
-              >
-                Starter Diagnostic
-              </span>
-              <Tooltip
-                key="class-849-484134-826268"
-                tooltipText="Quill Classroom Extremely Long So Long SUper Duper"
-                tooltipTriggerStyle={
-                  Object {
-                    "minWidth": "186px",
-                    "textAlign": "left",
-                    "width": "186px",
-                  }
-                }
-                tooltipTriggerText="Quill Classroom Extremely Long So Long SUper Duper"
-                tooltipTriggerTextClass="data-table-row-section undefined"
-                tooltipTriggerTextStyle={
-                  Object {
-                    "minWidth": "186px",
-                    "textAlign": "left",
-                    "width": "186px",
+                    "width": "180px",
                   }
                 }
               >
                 <span
-                  className="quill-tooltip-trigger"
+                  className="data-table-row-section undefined"
+                  onMouseEnter={[Function]}
+                  onMouseLeave={[Function]}
                   style={
                     Object {
-                      "minWidth": "186px",
+                      "minWidth": "180px",
                       "textAlign": "left",
-                      "width": "186px",
+                      "width": "180px",
                     }
                   }
                 >
-                  <span
-                    className="data-table-row-section undefined"
-                    onMouseEnter={[Function]}
-                    onMouseLeave={[Function]}
-                    style={
-                      Object {
-                        "minWidth": "186px",
-                        "textAlign": "left",
-                        "width": "186px",
-                      }
-                    }
-                  >
-                    Quill Classroom Extremely Long So Long SUper Duper
-                  </span>
-                  <span
-                    className="quill-tooltip-wrapper"
-                  >
-                    <span
-                      className="quill-tooltip"
-                    />
-                  </span>
+                  Quill Classroom Extremely Long So Long SUper Duper
                 </span>
-              </Tooltip>
-              <span
-                className="data-table-row-section completed-row-section"
-                key="completed-849-484134-826268"
-                style={
-                  Object {
-                    "minWidth": "61px",
-                    "textAlign": "left",
-                    "width": "61px",
-                  }
-                }
-              >
-                5 of 5
-              </span>
-              <span
-                className="data-table-row-section recommendations-row-section"
-                key="recommendations-849-484134-826268"
-                style={
-                  Object {
-                    "minWidth": "104px",
-                    "textAlign": "left",
-                    "width": "104px",
-                  }
-                }
-              >
-                <a
-                  className="quill-button fun primary outlined"
-                  href="/teachers/progress_reports/diagnostic_reports#/u/826268/a/849/c/484134/recommendations"
-                >
-                  View
-                </a>
-              </span>
-              <span
-                className="removable data-table-row-section"
-              />
-            </div>
-            <div
-              className="data-table-row  "
-              key="849-484134-826269"
-            >
-              <span
-                className="data-table-row-section undefined"
-                key="diagnostic-849-484134-826269"
-                style={
-                  Object {
-                    "minWidth": "186px",
-                    "textAlign": "left",
-                    "width": "186px",
-                  }
-                }
-              >
-                Starter Diagnostic
-              </span>
-              <Tooltip
-                key="class-849-484134-826269"
-                tooltipText="Quill Classroom Extremely Long So Long SUper Duper"
-                tooltipTriggerStyle={
-                  Object {
-                    "minWidth": "186px",
-                    "textAlign": "left",
-                    "width": "186px",
-                  }
-                }
-                tooltipTriggerText="Quill Classroom Extremely Long So Long SUper Duper"
-                tooltipTriggerTextClass="data-table-row-section undefined"
-                tooltipTriggerTextStyle={
-                  Object {
-                    "minWidth": "186px",
-                    "textAlign": "left",
-                    "width": "186px",
-                  }
-                }
-              >
                 <span
-                  className="quill-tooltip-trigger"
-                  style={
-                    Object {
-                      "minWidth": "186px",
-                      "textAlign": "left",
-                      "width": "186px",
-                    }
-                  }
+                  className="quill-tooltip-wrapper"
                 >
                   <span
-                    className="data-table-row-section undefined"
-                    onMouseEnter={[Function]}
-                    onMouseLeave={[Function]}
-                    style={
-                      Object {
-                        "minWidth": "186px",
-                        "textAlign": "left",
-                        "width": "186px",
-                      }
-                    }
-                  >
-                    Quill Classroom Extremely Long So Long SUper Duper
-                  </span>
-                  <span
-                    className="quill-tooltip-wrapper"
-                  >
-                    <span
-                      className="quill-tooltip"
-                    />
-                  </span>
+                    className="quill-tooltip"
+                  />
                 </span>
-              </Tooltip>
-              <span
-                className="data-table-row-section completed-row-section"
-                key="completed-849-484134-826269"
-                style={
-                  Object {
-                    "minWidth": "61px",
-                    "textAlign": "left",
-                    "width": "61px",
-                  }
-                }
-              >
-                0 of 5
               </span>
-              <span
-                className="data-table-row-section recommendations-row-section"
-                key="recommendations-849-484134-826269"
-                style={
-                  Object {
-                    "minWidth": "104px",
-                    "textAlign": "left",
-                    "width": "104px",
-                  }
+            </Tooltip>
+            <span
+              className="data-table-row-section completed-row-section"
+              key="completed-849-484134-826269"
+              style={
+                Object {
+                  "minWidth": "62px",
+                  "textAlign": "left",
+                  "width": "62px",
                 }
-              >
-                <a
-                  className="quill-button fun primary outlined"
-                  href="/teachers/progress_reports/diagnostic_reports#/u/826269/a/849/c/484134/recommendations"
-                >
-                  View
-                </a>
-              </span>
-              <span
-                className="removable data-table-row-section"
-              />
-            </div>
-            <div
-              className="data-table-row  "
-              key="849-484135-826269"
+              }
             >
-              <span
-                className="data-table-row-section undefined"
-                key="diagnostic-849-484135-826269"
-                style={
-                  Object {
-                    "minWidth": "186px",
-                    "textAlign": "left",
-                    "width": "186px",
-                  }
+              0 of 5
+            </span>
+            <span
+              className="data-table-row-section last-row-section"
+              key="recommendations-849-484134-826269"
+              style={
+                Object {
+                  "minWidth": "104px",
+                  "textAlign": "left",
+                  "width": "104px",
                 }
-              >
-                Starter Diagnostic
-              </span>
-              <span
-                className="data-table-row-section undefined"
-                key="class-849-484135-826269"
-                style={
-                  Object {
-                    "minWidth": "186px",
-                    "textAlign": "left",
-                    "width": "186px",
-                  }
-                }
-              >
-                A New Class
-              </span>
-              <span
-                className="data-table-row-section completed-row-section"
-                key="completed-849-484135-826269"
-                style={
-                  Object {
-                    "minWidth": "61px",
-                    "textAlign": "left",
-                    "width": "61px",
-                  }
-                }
-              >
-                0 of 0
-              </span>
-              <span
-                className="data-table-row-section recommendations-row-section"
-                key="recommendations-849-484135-826269"
-                style={
-                  Object {
-                    "minWidth": "104px",
-                    "textAlign": "left",
-                    "width": "104px",
-                  }
-                }
-              >
-                <a
-                  className="quill-button fun primary outlined"
-                  href="/teachers/progress_reports/diagnostic_reports#/u/826269/a/849/c/484135/recommendations"
-                >
-                  View
-                </a>
-              </span>
-              <span
-                className="removable data-table-row-section"
-              />
-            </div>
-            <div
-              className="data-table-row  "
-              key="850-484134-826269"
+              }
             >
-              <span
-                className="data-table-row-section undefined"
-                key="diagnostic-850-484134-826269"
-                style={
-                  Object {
-                    "minWidth": "186px",
-                    "textAlign": "left",
-                    "width": "186px",
-                  }
-                }
+              <a
+                className="focus-on-light"
+                href="/teachers/progress_reports/diagnostic_reports#/u/826269/a/849/c/484134/recommendations"
               >
-                Intermediate Diagnostic
-              </span>
-              <Tooltip
-                key="class-850-484134-826269"
-                tooltipText="Quill Classroom Extremely Long So Long SUper Duper"
-                tooltipTriggerStyle={
-                  Object {
-                    "minWidth": "186px",
-                    "textAlign": "left",
-                    "width": "186px",
-                  }
-                }
-                tooltipTriggerText="Quill Classroom Extremely Long So Long SUper Duper"
-                tooltipTriggerTextClass="data-table-row-section undefined"
-                tooltipTriggerTextStyle={
-                  Object {
-                    "minWidth": "186px",
-                    "textAlign": "left",
-                    "width": "186px",
-                  }
-                }
-              >
-                <span
-                  className="quill-tooltip-trigger"
-                  style={
-                    Object {
-                      "minWidth": "186px",
-                      "textAlign": "left",
-                      "width": "186px",
-                    }
-                  }
-                >
-                  <span
-                    className="data-table-row-section undefined"
-                    onMouseEnter={[Function]}
-                    onMouseLeave={[Function]}
-                    style={
-                      Object {
-                        "minWidth": "186px",
-                        "textAlign": "left",
-                        "width": "186px",
-                      }
-                    }
-                  >
-                    Quill Classroom Extremely Long So Long SUper Duper
-                  </span>
-                  <span
-                    className="quill-tooltip-wrapper"
-                  >
-                    <span
-                      className="quill-tooltip"
-                    />
-                  </span>
+                <img
+                  alt="File with a chart icon"
+                  src="undefined/images/icons/icons-file-chart.svg"
+                />
+                <span>
+                  View
                 </span>
-              </Tooltip>
-              <span
-                className="data-table-row-section completed-row-section"
-                key="completed-850-484134-826269"
-                style={
-                  Object {
-                    "minWidth": "61px",
-                    "textAlign": "left",
-                    "width": "61px",
-                  }
+              </a>
+            </span>
+            <span
+              className="removable data-table-row-section"
+            />
+          </div>
+          <div
+            className="data-table-row  "
+            key="849-484135-826269"
+          >
+            <span
+              className="data-table-row-section undefined"
+              key="diagnostic-849-484135-826269"
+              style={
+                Object {
+                  "minWidth": "230px",
+                  "textAlign": "left",
+                  "width": "230px",
                 }
-              >
-                0 of 5
-              </span>
-              <span
-                className="data-table-row-section recommendations-row-section"
-                key="recommendations-850-484134-826269"
-                style={
-                  Object {
-                    "minWidth": "104px",
-                    "textAlign": "left",
-                    "width": "104px",
-                  }
-                }
-              >
-                <a
-                  className="quill-button fun primary outlined"
-                  href="/teachers/progress_reports/diagnostic_reports#/u/826269/a/850/c/484134/recommendations"
-                >
-                  View
-                </a>
-              </span>
-              <span
-                className="removable data-table-row-section"
-              />
-            </div>
-            <div
-              className="data-table-row  "
-              key="850-484135-826269"
+              }
             >
-              <span
-                className="data-table-row-section undefined"
-                key="diagnostic-850-484135-826269"
-                style={
-                  Object {
-                    "minWidth": "186px",
-                    "textAlign": "left",
-                    "width": "186px",
-                  }
+              Starter Diagnostic
+            </span>
+            <span
+              className="data-table-row-section undefined"
+              key="classroom-849-484135-826269"
+              style={
+                Object {
+                  "minWidth": "180px",
+                  "textAlign": "left",
+                  "width": "180px",
                 }
-              >
-                Intermediate Diagnostic
-              </span>
-              <span
-                className="data-table-row-section undefined"
-                key="class-850-484135-826269"
-                style={
-                  Object {
-                    "minWidth": "186px",
-                    "textAlign": "left",
-                    "width": "186px",
-                  }
-                }
-              >
-                A New Class
-              </span>
-              <span
-                className="data-table-row-section completed-row-section"
-                key="completed-850-484135-826269"
-                style={
-                  Object {
-                    "minWidth": "61px",
-                    "textAlign": "left",
-                    "width": "61px",
-                  }
-                }
-              >
-                0 of 0
-              </span>
-              <span
-                className="data-table-row-section recommendations-row-section"
-                key="recommendations-850-484135-826269"
-                style={
-                  Object {
-                    "minWidth": "104px",
-                    "textAlign": "left",
-                    "width": "104px",
-                  }
-                }
-              >
-                <a
-                  className="quill-button fun primary outlined"
-                  href="/teachers/progress_reports/diagnostic_reports#/u/826269/a/850/c/484135/recommendations"
-                >
-                  View
-                </a>
-              </span>
-              <span
-                className="removable data-table-row-section"
-              />
-            </div>
-            <div
-              className="data-table-row  "
-              key="888-484134-826269"
+              }
             >
-              <span
-                className="data-table-row-section undefined"
-                key="diagnostic-888-484134-826269"
-                style={
-                  Object {
-                    "minWidth": "186px",
-                    "textAlign": "left",
-                    "width": "186px",
-                  }
+              A New Class
+            </span>
+            <span
+              className="data-table-row-section completed-row-section"
+              key="completed-849-484135-826269"
+              style={
+                Object {
+                  "minWidth": "62px",
+                  "textAlign": "left",
+                  "width": "62px",
                 }
+              }
+            >
+              0 of 0
+            </span>
+            <span
+              className="data-table-row-section last-row-section"
+              key="recommendations-849-484135-826269"
+              style={
+                Object {
+                  "minWidth": "104px",
+                  "textAlign": "left",
+                  "width": "104px",
+                }
+              }
+            >
+              <a
+                className="focus-on-light"
+                href="/teachers/progress_reports/diagnostic_reports#/u/826269/a/849/c/484135/recommendations"
               >
-                Advanced Diagnostic
-              </span>
-              <Tooltip
-                key="class-888-484134-826269"
-                tooltipText="Quill Classroom Extremely Long So Long SUper Duper"
-                tooltipTriggerStyle={
-                  Object {
-                    "minWidth": "186px",
-                    "textAlign": "left",
-                    "width": "186px",
-                  }
-                }
-                tooltipTriggerText="Quill Classroom Extremely Long So Long SUper Duper"
-                tooltipTriggerTextClass="data-table-row-section undefined"
-                tooltipTriggerTextStyle={
-                  Object {
-                    "minWidth": "186px",
-                    "textAlign": "left",
-                    "width": "186px",
-                  }
-                }
-              >
-                <span
-                  className="quill-tooltip-trigger"
-                  style={
-                    Object {
-                      "minWidth": "186px",
-                      "textAlign": "left",
-                      "width": "186px",
-                    }
-                  }
-                >
-                  <span
-                    className="data-table-row-section undefined"
-                    onMouseEnter={[Function]}
-                    onMouseLeave={[Function]}
-                    style={
-                      Object {
-                        "minWidth": "186px",
-                        "textAlign": "left",
-                        "width": "186px",
-                      }
-                    }
-                  >
-                    Quill Classroom Extremely Long So Long SUper Duper
-                  </span>
-                  <span
-                    className="quill-tooltip-wrapper"
-                  >
-                    <span
-                      className="quill-tooltip"
-                    />
-                  </span>
+                <img
+                  alt="File with a chart icon"
+                  src="undefined/images/icons/icons-file-chart.svg"
+                />
+                <span>
+                  View
                 </span>
-              </Tooltip>
-              <span
-                className="data-table-row-section completed-row-section"
-                key="completed-888-484134-826269"
-                style={
-                  Object {
-                    "minWidth": "61px",
-                    "textAlign": "left",
-                    "width": "61px",
-                  }
-                }
-              >
-                0 of 5
-              </span>
-              <span
-                className="data-table-row-section recommendations-row-section"
-                key="recommendations-888-484134-826269"
-                style={
-                  Object {
-                    "minWidth": "104px",
-                    "textAlign": "left",
-                    "width": "104px",
-                  }
-                }
-              >
-                <a
-                  className="quill-button fun primary outlined"
-                  href="/teachers/progress_reports/diagnostic_reports#/u/826269/a/888/c/484134/recommendations"
-                >
-                  View
-                </a>
-              </span>
-              <span
-                className="removable data-table-row-section"
-              />
-            </div>
-            <div
-              className="data-table-row  "
-              key="888-484135-826269"
-            >
-              <span
-                className="data-table-row-section undefined"
-                key="diagnostic-888-484135-826269"
-                style={
-                  Object {
-                    "minWidth": "186px",
-                    "textAlign": "left",
-                    "width": "186px",
-                  }
-                }
-              >
-                Advanced Diagnostic
-              </span>
-              <span
-                className="data-table-row-section undefined"
-                key="class-888-484135-826269"
-                style={
-                  Object {
-                    "minWidth": "186px",
-                    "textAlign": "left",
-                    "width": "186px",
-                  }
-                }
-              >
-                A New Class
-              </span>
-              <span
-                className="data-table-row-section completed-row-section"
-                key="completed-888-484135-826269"
-                style={
-                  Object {
-                    "minWidth": "61px",
-                    "textAlign": "left",
-                    "width": "61px",
-                  }
-                }
-              >
-                0 of 0
-              </span>
-              <span
-                className="data-table-row-section recommendations-row-section"
-                key="recommendations-888-484135-826269"
-                style={
-                  Object {
-                    "minWidth": "104px",
-                    "textAlign": "left",
-                    "width": "104px",
-                  }
-                }
-              >
-                <a
-                  className="quill-button fun primary outlined"
-                  href="/teachers/progress_reports/diagnostic_reports#/u/826269/a/888/c/484135/recommendations"
-                >
-                  View
-                </a>
-              </span>
-              <span
-                className="removable data-table-row-section"
-              />
-            </div>
-            <div
-              className="data-table-row  "
-              key="992-484134-826269"
-            >
-              <span
-                className="data-table-row-section undefined"
-                key="diagnostic-992-484134-826269"
-                style={
-                  Object {
-                    "minWidth": "186px",
-                    "textAlign": "left",
-                    "width": "186px",
-                  }
-                }
-              >
-                AP® Writing Skills Survey
-              </span>
-              <Tooltip
-                key="class-992-484134-826269"
-                tooltipText="Quill Classroom Extremely Long So Long SUper Duper"
-                tooltipTriggerStyle={
-                  Object {
-                    "minWidth": "186px",
-                    "textAlign": "left",
-                    "width": "186px",
-                  }
-                }
-                tooltipTriggerText="Quill Classroom Extremely Long So Long SUper Duper"
-                tooltipTriggerTextClass="data-table-row-section undefined"
-                tooltipTriggerTextStyle={
-                  Object {
-                    "minWidth": "186px",
-                    "textAlign": "left",
-                    "width": "186px",
-                  }
-                }
-              >
-                <span
-                  className="quill-tooltip-trigger"
-                  style={
-                    Object {
-                      "minWidth": "186px",
-                      "textAlign": "left",
-                      "width": "186px",
-                    }
-                  }
-                >
-                  <span
-                    className="data-table-row-section undefined"
-                    onMouseEnter={[Function]}
-                    onMouseLeave={[Function]}
-                    style={
-                      Object {
-                        "minWidth": "186px",
-                        "textAlign": "left",
-                        "width": "186px",
-                      }
-                    }
-                  >
-                    Quill Classroom Extremely Long So Long SUper Duper
-                  </span>
-                  <span
-                    className="quill-tooltip-wrapper"
-                  >
-                    <span
-                      className="quill-tooltip"
-                    />
-                  </span>
-                </span>
-              </Tooltip>
-              <span
-                className="data-table-row-section completed-row-section"
-                key="completed-992-484134-826269"
-                style={
-                  Object {
-                    "minWidth": "61px",
-                    "textAlign": "left",
-                    "width": "61px",
-                  }
-                }
-              >
-                0 of 5
-              </span>
-              <span
-                className="data-table-row-section recommendations-row-section"
-                key="recommendations-992-484134-826269"
-                style={
-                  Object {
-                    "minWidth": "104px",
-                    "textAlign": "left",
-                    "width": "104px",
-                  }
-                }
-              >
-                <a
-                  className="quill-button fun primary outlined"
-                  href="/teachers/progress_reports/diagnostic_reports#/u/826269/a/992/c/484134/recommendations"
-                >
-                  View
-                </a>
-              </span>
-              <span
-                className="removable data-table-row-section"
-              />
-            </div>
-            <div
-              className="data-table-row  "
-              key="992-484135-826269"
-            >
-              <span
-                className="data-table-row-section undefined"
-                key="diagnostic-992-484135-826269"
-                style={
-                  Object {
-                    "minWidth": "186px",
-                    "textAlign": "left",
-                    "width": "186px",
-                  }
-                }
-              >
-                AP® Writing Skills Survey
-              </span>
-              <span
-                className="data-table-row-section undefined"
-                key="class-992-484135-826269"
-                style={
-                  Object {
-                    "minWidth": "186px",
-                    "textAlign": "left",
-                    "width": "186px",
-                  }
-                }
-              >
-                A New Class
-              </span>
-              <span
-                className="data-table-row-section completed-row-section"
-                key="completed-992-484135-826269"
-                style={
-                  Object {
-                    "minWidth": "61px",
-                    "textAlign": "left",
-                    "width": "61px",
-                  }
-                }
-              >
-                0 of 0
-              </span>
-              <span
-                className="data-table-row-section recommendations-row-section"
-                key="recommendations-992-484135-826269"
-                style={
-                  Object {
-                    "minWidth": "104px",
-                    "textAlign": "left",
-                    "width": "104px",
-                  }
-                }
-              >
-                <a
-                  className="quill-button fun primary outlined"
-                  href="/teachers/progress_reports/diagnostic_reports#/u/826269/a/992/c/484135/recommendations"
-                >
-                  View
-                </a>
-              </span>
-              <span
-                className="removable data-table-row-section"
-              />
-            </div>
-            <div
-              className="data-table-row  "
-              key="1161-484134-826269"
-            >
-              <span
-                className="data-table-row-section undefined"
-                key="diagnostic-1161-484134-826269"
-                style={
-                  Object {
-                    "minWidth": "186px",
-                    "textAlign": "left",
-                    "width": "186px",
-                  }
-                }
-              >
-                ELL Starter Diagnostic
-              </span>
-              <Tooltip
-                key="class-1161-484134-826269"
-                tooltipText="Quill Classroom Extremely Long So Long SUper Duper"
-                tooltipTriggerStyle={
-                  Object {
-                    "minWidth": "186px",
-                    "textAlign": "left",
-                    "width": "186px",
-                  }
-                }
-                tooltipTriggerText="Quill Classroom Extremely Long So Long SUper Duper"
-                tooltipTriggerTextClass="data-table-row-section undefined"
-                tooltipTriggerTextStyle={
-                  Object {
-                    "minWidth": "186px",
-                    "textAlign": "left",
-                    "width": "186px",
-                  }
-                }
-              >
-                <span
-                  className="quill-tooltip-trigger"
-                  style={
-                    Object {
-                      "minWidth": "186px",
-                      "textAlign": "left",
-                      "width": "186px",
-                    }
-                  }
-                >
-                  <span
-                    className="data-table-row-section undefined"
-                    onMouseEnter={[Function]}
-                    onMouseLeave={[Function]}
-                    style={
-                      Object {
-                        "minWidth": "186px",
-                        "textAlign": "left",
-                        "width": "186px",
-                      }
-                    }
-                  >
-                    Quill Classroom Extremely Long So Long SUper Duper
-                  </span>
-                  <span
-                    className="quill-tooltip-wrapper"
-                  >
-                    <span
-                      className="quill-tooltip"
-                    />
-                  </span>
-                </span>
-              </Tooltip>
-              <span
-                className="data-table-row-section completed-row-section"
-                key="completed-1161-484134-826269"
-                style={
-                  Object {
-                    "minWidth": "61px",
-                    "textAlign": "left",
-                    "width": "61px",
-                  }
-                }
-              >
-                0 of 5
-              </span>
-              <span
-                className="data-table-row-section recommendations-row-section"
-                key="recommendations-1161-484134-826269"
-                style={
-                  Object {
-                    "minWidth": "104px",
-                    "textAlign": "left",
-                    "width": "104px",
-                  }
-                }
-              >
-                <a
-                  className="quill-button fun primary outlined"
-                  href="/teachers/progress_reports/diagnostic_reports#/u/826269/a/1161/c/484134/recommendations"
-                >
-                  View
-                </a>
-              </span>
-              <span
-                className="removable data-table-row-section"
-              />
-            </div>
-            <div
-              className="data-table-row  "
-              key="1161-484135-826269"
-            >
-              <span
-                className="data-table-row-section undefined"
-                key="diagnostic-1161-484135-826269"
-                style={
-                  Object {
-                    "minWidth": "186px",
-                    "textAlign": "left",
-                    "width": "186px",
-                  }
-                }
-              >
-                ELL Starter Diagnostic
-              </span>
-              <span
-                className="data-table-row-section undefined"
-                key="class-1161-484135-826269"
-                style={
-                  Object {
-                    "minWidth": "186px",
-                    "textAlign": "left",
-                    "width": "186px",
-                  }
-                }
-              >
-                A New Class
-              </span>
-              <span
-                className="data-table-row-section completed-row-section"
-                key="completed-1161-484135-826269"
-                style={
-                  Object {
-                    "minWidth": "61px",
-                    "textAlign": "left",
-                    "width": "61px",
-                  }
-                }
-              >
-                0 of 0
-              </span>
-              <span
-                className="data-table-row-section recommendations-row-section"
-                key="recommendations-1161-484135-826269"
-                style={
-                  Object {
-                    "minWidth": "104px",
-                    "textAlign": "left",
-                    "width": "104px",
-                  }
-                }
-              >
-                <a
-                  className="quill-button fun primary outlined"
-                  href="/teachers/progress_reports/diagnostic_reports#/u/826269/a/1161/c/484135/recommendations"
-                >
-                  View
-                </a>
-              </span>
-              <span
-                className="removable data-table-row-section"
-              />
-            </div>
-            <div
-              className="data-table-row  "
-              key="1229-484134-826269"
-            >
-              <Tooltip
-                key="diagnostic-1229-484134-826269"
-                tooltipText="Pre-AP® Writing Skills Survey 1: Basics of Sentence Patterns"
-                tooltipTriggerStyle={
-                  Object {
-                    "minWidth": "186px",
-                    "textAlign": "left",
-                    "width": "186px",
-                  }
-                }
-                tooltipTriggerText="Pre-AP® Writing Skills Survey 1: Basics of Sentence Patterns"
-                tooltipTriggerTextClass="data-table-row-section undefined"
-                tooltipTriggerTextStyle={
-                  Object {
-                    "minWidth": "186px",
-                    "textAlign": "left",
-                    "width": "186px",
-                  }
-                }
-              >
-                <span
-                  className="quill-tooltip-trigger"
-                  style={
-                    Object {
-                      "minWidth": "186px",
-                      "textAlign": "left",
-                      "width": "186px",
-                    }
-                  }
-                >
-                  <span
-                    className="data-table-row-section undefined"
-                    onMouseEnter={[Function]}
-                    onMouseLeave={[Function]}
-                    style={
-                      Object {
-                        "minWidth": "186px",
-                        "textAlign": "left",
-                        "width": "186px",
-                      }
-                    }
-                  >
-                    Pre-AP® Writing Skills Survey 1: Basics of Sentence Patterns
-                  </span>
-                  <span
-                    className="quill-tooltip-wrapper"
-                  >
-                    <span
-                      className="quill-tooltip"
-                    />
-                  </span>
-                </span>
-              </Tooltip>
-              <Tooltip
-                key="class-1229-484134-826269"
-                tooltipText="Quill Classroom Extremely Long So Long SUper Duper"
-                tooltipTriggerStyle={
-                  Object {
-                    "minWidth": "186px",
-                    "textAlign": "left",
-                    "width": "186px",
-                  }
-                }
-                tooltipTriggerText="Quill Classroom Extremely Long So Long SUper Duper"
-                tooltipTriggerTextClass="data-table-row-section undefined"
-                tooltipTriggerTextStyle={
-                  Object {
-                    "minWidth": "186px",
-                    "textAlign": "left",
-                    "width": "186px",
-                  }
-                }
-              >
-                <span
-                  className="quill-tooltip-trigger"
-                  style={
-                    Object {
-                      "minWidth": "186px",
-                      "textAlign": "left",
-                      "width": "186px",
-                    }
-                  }
-                >
-                  <span
-                    className="data-table-row-section undefined"
-                    onMouseEnter={[Function]}
-                    onMouseLeave={[Function]}
-                    style={
-                      Object {
-                        "minWidth": "186px",
-                        "textAlign": "left",
-                        "width": "186px",
-                      }
-                    }
-                  >
-                    Quill Classroom Extremely Long So Long SUper Duper
-                  </span>
-                  <span
-                    className="quill-tooltip-wrapper"
-                  >
-                    <span
-                      className="quill-tooltip"
-                    />
-                  </span>
-                </span>
-              </Tooltip>
-              <span
-                className="data-table-row-section completed-row-section"
-                key="completed-1229-484134-826269"
-                style={
-                  Object {
-                    "minWidth": "61px",
-                    "textAlign": "left",
-                    "width": "61px",
-                  }
-                }
-              >
-                0 of 5
-              </span>
-              <span
-                className="data-table-row-section recommendations-row-section"
-                key="recommendations-1229-484134-826269"
-                style={
-                  Object {
-                    "minWidth": "104px",
-                    "textAlign": "left",
-                    "width": "104px",
-                  }
-                }
-              >
-                <a
-                  className="quill-button fun primary outlined"
-                  href="/teachers/progress_reports/diagnostic_reports#/u/826269/a/1229/c/484134/recommendations"
-                >
-                  View
-                </a>
-              </span>
-              <span
-                className="removable data-table-row-section"
-              />
-            </div>
-            <div
-              className="data-table-row  "
-              key="1229-484135-826269"
-            >
-              <Tooltip
-                key="diagnostic-1229-484135-826269"
-                tooltipText="Pre-AP® Writing Skills Survey 1: Basics of Sentence Patterns"
-                tooltipTriggerStyle={
-                  Object {
-                    "minWidth": "186px",
-                    "textAlign": "left",
-                    "width": "186px",
-                  }
-                }
-                tooltipTriggerText="Pre-AP® Writing Skills Survey 1: Basics of Sentence Patterns"
-                tooltipTriggerTextClass="data-table-row-section undefined"
-                tooltipTriggerTextStyle={
-                  Object {
-                    "minWidth": "186px",
-                    "textAlign": "left",
-                    "width": "186px",
-                  }
-                }
-              >
-                <span
-                  className="quill-tooltip-trigger"
-                  style={
-                    Object {
-                      "minWidth": "186px",
-                      "textAlign": "left",
-                      "width": "186px",
-                    }
-                  }
-                >
-                  <span
-                    className="data-table-row-section undefined"
-                    onMouseEnter={[Function]}
-                    onMouseLeave={[Function]}
-                    style={
-                      Object {
-                        "minWidth": "186px",
-                        "textAlign": "left",
-                        "width": "186px",
-                      }
-                    }
-                  >
-                    Pre-AP® Writing Skills Survey 1: Basics of Sentence Patterns
-                  </span>
-                  <span
-                    className="quill-tooltip-wrapper"
-                  >
-                    <span
-                      className="quill-tooltip"
-                    />
-                  </span>
-                </span>
-              </Tooltip>
-              <span
-                className="data-table-row-section undefined"
-                key="class-1229-484135-826269"
-                style={
-                  Object {
-                    "minWidth": "186px",
-                    "textAlign": "left",
-                    "width": "186px",
-                  }
-                }
-              >
-                A New Class
-              </span>
-              <span
-                className="data-table-row-section completed-row-section"
-                key="completed-1229-484135-826269"
-                style={
-                  Object {
-                    "minWidth": "61px",
-                    "textAlign": "left",
-                    "width": "61px",
-                  }
-                }
-              >
-                0 of 0
-              </span>
-              <span
-                className="data-table-row-section recommendations-row-section"
-                key="recommendations-1229-484135-826269"
-                style={
-                  Object {
-                    "minWidth": "104px",
-                    "textAlign": "left",
-                    "width": "104px",
-                  }
-                }
-              >
-                <a
-                  className="quill-button fun primary outlined"
-                  href="/teachers/progress_reports/diagnostic_reports#/u/826269/a/1229/c/484135/recommendations"
-                >
-                  View
-                </a>
-              </span>
-              <span
-                className="removable data-table-row-section"
-              />
-            </div>
-            <div
-              className="data-table-row  "
-              key="1230-484134-826269"
-            >
-              <Tooltip
-                key="diagnostic-1230-484134-826269"
-                tooltipText="Pre-AP® Writing Skills Survey 2: Tools for Sentence Expansion"
-                tooltipTriggerStyle={
-                  Object {
-                    "minWidth": "186px",
-                    "textAlign": "left",
-                    "width": "186px",
-                  }
-                }
-                tooltipTriggerText="Pre-AP® Writing Skills Survey 2: Tools for Sentence Expansion"
-                tooltipTriggerTextClass="data-table-row-section undefined"
-                tooltipTriggerTextStyle={
-                  Object {
-                    "minWidth": "186px",
-                    "textAlign": "left",
-                    "width": "186px",
-                  }
-                }
-              >
-                <span
-                  className="quill-tooltip-trigger"
-                  style={
-                    Object {
-                      "minWidth": "186px",
-                      "textAlign": "left",
-                      "width": "186px",
-                    }
-                  }
-                >
-                  <span
-                    className="data-table-row-section undefined"
-                    onMouseEnter={[Function]}
-                    onMouseLeave={[Function]}
-                    style={
-                      Object {
-                        "minWidth": "186px",
-                        "textAlign": "left",
-                        "width": "186px",
-                      }
-                    }
-                  >
-                    Pre-AP® Writing Skills Survey 2: Tools for Sentence Expansion
-                  </span>
-                  <span
-                    className="quill-tooltip-wrapper"
-                  >
-                    <span
-                      className="quill-tooltip"
-                    />
-                  </span>
-                </span>
-              </Tooltip>
-              <Tooltip
-                key="class-1230-484134-826269"
-                tooltipText="Quill Classroom Extremely Long So Long SUper Duper"
-                tooltipTriggerStyle={
-                  Object {
-                    "minWidth": "186px",
-                    "textAlign": "left",
-                    "width": "186px",
-                  }
-                }
-                tooltipTriggerText="Quill Classroom Extremely Long So Long SUper Duper"
-                tooltipTriggerTextClass="data-table-row-section undefined"
-                tooltipTriggerTextStyle={
-                  Object {
-                    "minWidth": "186px",
-                    "textAlign": "left",
-                    "width": "186px",
-                  }
-                }
-              >
-                <span
-                  className="quill-tooltip-trigger"
-                  style={
-                    Object {
-                      "minWidth": "186px",
-                      "textAlign": "left",
-                      "width": "186px",
-                    }
-                  }
-                >
-                  <span
-                    className="data-table-row-section undefined"
-                    onMouseEnter={[Function]}
-                    onMouseLeave={[Function]}
-                    style={
-                      Object {
-                        "minWidth": "186px",
-                        "textAlign": "left",
-                        "width": "186px",
-                      }
-                    }
-                  >
-                    Quill Classroom Extremely Long So Long SUper Duper
-                  </span>
-                  <span
-                    className="quill-tooltip-wrapper"
-                  >
-                    <span
-                      className="quill-tooltip"
-                    />
-                  </span>
-                </span>
-              </Tooltip>
-              <span
-                className="data-table-row-section completed-row-section"
-                key="completed-1230-484134-826269"
-                style={
-                  Object {
-                    "minWidth": "61px",
-                    "textAlign": "left",
-                    "width": "61px",
-                  }
-                }
-              >
-                0 of 5
-              </span>
-              <span
-                className="data-table-row-section recommendations-row-section"
-                key="recommendations-1230-484134-826269"
-                style={
-                  Object {
-                    "minWidth": "104px",
-                    "textAlign": "left",
-                    "width": "104px",
-                  }
-                }
-              >
-                <a
-                  className="quill-button fun primary outlined"
-                  href="/teachers/progress_reports/diagnostic_reports#/u/826269/a/1230/c/484134/recommendations"
-                >
-                  View
-                </a>
-              </span>
-              <span
-                className="removable data-table-row-section"
-              />
-            </div>
-            <div
-              className="data-table-row  "
-              key="1230-484135-826269"
-            >
-              <Tooltip
-                key="diagnostic-1230-484135-826269"
-                tooltipText="Pre-AP® Writing Skills Survey 2: Tools for Sentence Expansion"
-                tooltipTriggerStyle={
-                  Object {
-                    "minWidth": "186px",
-                    "textAlign": "left",
-                    "width": "186px",
-                  }
-                }
-                tooltipTriggerText="Pre-AP® Writing Skills Survey 2: Tools for Sentence Expansion"
-                tooltipTriggerTextClass="data-table-row-section undefined"
-                tooltipTriggerTextStyle={
-                  Object {
-                    "minWidth": "186px",
-                    "textAlign": "left",
-                    "width": "186px",
-                  }
-                }
-              >
-                <span
-                  className="quill-tooltip-trigger"
-                  style={
-                    Object {
-                      "minWidth": "186px",
-                      "textAlign": "left",
-                      "width": "186px",
-                    }
-                  }
-                >
-                  <span
-                    className="data-table-row-section undefined"
-                    onMouseEnter={[Function]}
-                    onMouseLeave={[Function]}
-                    style={
-                      Object {
-                        "minWidth": "186px",
-                        "textAlign": "left",
-                        "width": "186px",
-                      }
-                    }
-                  >
-                    Pre-AP® Writing Skills Survey 2: Tools for Sentence Expansion
-                  </span>
-                  <span
-                    className="quill-tooltip-wrapper"
-                  >
-                    <span
-                      className="quill-tooltip"
-                    />
-                  </span>
-                </span>
-              </Tooltip>
-              <span
-                className="data-table-row-section undefined"
-                key="class-1230-484135-826269"
-                style={
-                  Object {
-                    "minWidth": "186px",
-                    "textAlign": "left",
-                    "width": "186px",
-                  }
-                }
-              >
-                A New Class
-              </span>
-              <span
-                className="data-table-row-section completed-row-section"
-                key="completed-1230-484135-826269"
-                style={
-                  Object {
-                    "minWidth": "61px",
-                    "textAlign": "left",
-                    "width": "61px",
-                  }
-                }
-              >
-                0 of 0
-              </span>
-              <span
-                className="data-table-row-section recommendations-row-section"
-                key="recommendations-1230-484135-826269"
-                style={
-                  Object {
-                    "minWidth": "104px",
-                    "textAlign": "left",
-                    "width": "104px",
-                  }
-                }
-              >
-                <a
-                  className="quill-button fun primary outlined"
-                  href="/teachers/progress_reports/diagnostic_reports#/u/826269/a/1230/c/484135/recommendations"
-                >
-                  View
-                </a>
-              </span>
-              <span
-                className="removable data-table-row-section"
-              />
-            </div>
+              </a>
+            </span>
+            <span
+              className="removable data-table-row-section"
+            />
           </div>
         </div>
-      </DataTable>
-    </section>
+      </div>
+    </DataTable>
+    <button
+      className="bottom-button focus-on-light interactive-wrapper"
+      onClick={[Function]}
+      type="button"
+    >
+      Show more 
+      <img
+        alt=""
+        src="undefined/images/icons/expand.svg"
+      />
+    </button>
   </section>
+</DiagnosticMini>
+`;
+
+exports[`DiagnosticMini component not on mobile should render when there are no diagnostics 1`] = `
+<DiagnosticMini
+  diagnostics={Array []}
+  onMobile={false}
+>
+  <span />
+</DiagnosticMini>
+`;
+
+exports[`DiagnosticMini component on mobile should render when there are diagnostics 1`] = `
+<DiagnosticMini
+  diagnostics={
+    Array [
+      Object {
+        "activity_id": 447,
+        "activity_name": "ELL Diagnostic",
+        "assigned_count": 5,
+        "classroom_id": 484134,
+        "classroom_name": "Quill Classroom Extremely Long So Long SUper Duper",
+        "completed_count": 0,
+        "unit_id": 826269,
+      },
+      Object {
+        "activity_id": 447,
+        "activity_name": "ELL Diagnostic",
+        "assigned_count": 0,
+        "classroom_id": 484135,
+        "classroom_name": "A New Class",
+        "completed_count": 0,
+        "unit_id": 826269,
+      },
+      Object {
+        "activity_id": 849,
+        "activity_name": "Starter Diagnostic",
+        "assigned_count": 5,
+        "classroom_id": 484134,
+        "classroom_name": "Quill Classroom Extremely Long So Long SUper Duper",
+        "completed_count": 5,
+        "unit_id": 826268,
+      },
+      Object {
+        "activity_id": 849,
+        "activity_name": "Starter Diagnostic",
+        "assigned_count": 5,
+        "classroom_id": 484134,
+        "classroom_name": "Quill Classroom Extremely Long So Long SUper Duper",
+        "completed_count": 0,
+        "unit_id": 826269,
+      },
+      Object {
+        "activity_id": 849,
+        "activity_name": "Starter Diagnostic",
+        "assigned_count": 0,
+        "classroom_id": 484135,
+        "classroom_name": "A New Class",
+        "completed_count": 0,
+        "unit_id": 826269,
+      },
+      Object {
+        "activity_id": 850,
+        "activity_name": "Intermediate Diagnostic",
+        "assigned_count": 5,
+        "classroom_id": 484134,
+        "classroom_name": "Quill Classroom Extremely Long So Long SUper Duper",
+        "completed_count": 0,
+        "unit_id": 826269,
+      },
+      Object {
+        "activity_id": 850,
+        "activity_name": "Intermediate Diagnostic",
+        "assigned_count": 0,
+        "classroom_id": 484135,
+        "classroom_name": "A New Class",
+        "completed_count": 0,
+        "unit_id": 826269,
+      },
+      Object {
+        "activity_id": 888,
+        "activity_name": "Advanced Diagnostic",
+        "assigned_count": 5,
+        "classroom_id": 484134,
+        "classroom_name": "Quill Classroom Extremely Long So Long SUper Duper",
+        "completed_count": 0,
+        "unit_id": 826269,
+      },
+      Object {
+        "activity_id": 888,
+        "activity_name": "Advanced Diagnostic",
+        "assigned_count": 0,
+        "classroom_id": 484135,
+        "classroom_name": "A New Class",
+        "completed_count": 0,
+        "unit_id": 826269,
+      },
+      Object {
+        "activity_id": 992,
+        "activity_name": "AP® Writing Skills Survey",
+        "assigned_count": 5,
+        "classroom_id": 484134,
+        "classroom_name": "Quill Classroom Extremely Long So Long SUper Duper",
+        "completed_count": 0,
+        "unit_id": 826269,
+      },
+      Object {
+        "activity_id": 992,
+        "activity_name": "AP® Writing Skills Survey",
+        "assigned_count": 0,
+        "classroom_id": 484135,
+        "classroom_name": "A New Class",
+        "completed_count": 0,
+        "unit_id": 826269,
+      },
+      Object {
+        "activity_id": 1161,
+        "activity_name": "ELL Starter Diagnostic",
+        "assigned_count": 5,
+        "classroom_id": 484134,
+        "classroom_name": "Quill Classroom Extremely Long So Long SUper Duper",
+        "completed_count": 0,
+        "unit_id": 826269,
+      },
+      Object {
+        "activity_id": 1161,
+        "activity_name": "ELL Starter Diagnostic",
+        "assigned_count": 0,
+        "classroom_id": 484135,
+        "classroom_name": "A New Class",
+        "completed_count": 0,
+        "unit_id": 826269,
+      },
+      Object {
+        "activity_id": 1229,
+        "activity_name": "Pre-AP® Writing Skills Survey 1: Basics of Sentence Patterns",
+        "assigned_count": 5,
+        "classroom_id": 484134,
+        "classroom_name": "Quill Classroom Extremely Long So Long SUper Duper",
+        "completed_count": 0,
+        "unit_id": 826269,
+      },
+      Object {
+        "activity_id": 1229,
+        "activity_name": "Pre-AP® Writing Skills Survey 1: Basics of Sentence Patterns",
+        "assigned_count": 0,
+        "classroom_id": 484135,
+        "classroom_name": "A New Class",
+        "completed_count": 0,
+        "unit_id": 826269,
+      },
+      Object {
+        "activity_id": 1230,
+        "activity_name": "Pre-AP® Writing Skills Survey 2: Tools for Sentence Expansion",
+        "assigned_count": 5,
+        "classroom_id": 484134,
+        "classroom_name": "Quill Classroom Extremely Long So Long SUper Duper",
+        "completed_count": 0,
+        "unit_id": 826269,
+      },
+      Object {
+        "activity_id": 1230,
+        "activity_name": "Pre-AP® Writing Skills Survey 2: Tools for Sentence Expansion",
+        "assigned_count": 0,
+        "classroom_id": 484135,
+        "classroom_name": "A New Class",
+        "completed_count": 0,
+        "unit_id": 826269,
+      },
+    ]
+  }
+  onMobile={true}
+>
+  <section
+    className="diagnostic-mini"
+  >
+    <header>
+      <h2>
+        <span>
+          Diagnostic 
+        </span>
+        <span
+          className="no-break"
+        >
+          <span>
+            recommendations
+          </span>
+          <a
+            className="focus-on-light"
+            href="https://support.quill.org/en/articles/5014101-how-does-the-diagnostic-recommendations-section-on-the-teacher-home-page-work"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            <img
+              alt="Question mark icon"
+              src="undefined/images/icons/icons-help.svg"
+            />
+          </a>
+        </span>
+      </h2>
+    </header>
+    <MobileRecommendationRow
+      key="447-484134-826269"
+      row={
+        Object {
+          "classroom": "Quill Classroom Extremely Long So Long SUper Duper",
+          "completed": "0 of 5",
+          "diagnostic": "ELL Diagnostic",
+          "id": "447-484134-826269",
+          "recommendations": <a
+            className="focus-on-light"
+            href="/teachers/progress_reports/diagnostic_reports#/u/826269/a/447/c/484134/recommendations"
+          >
+            <img
+              alt="File with a chart icon"
+              src="undefined/images/icons/icons-file-chart.svg"
+            />
+            <span>
+              View
+            </span>
+          </a>,
+          "recommendationsHref": "/teachers/progress_reports/diagnostic_reports#/u/826269/a/447/c/484134/recommendations",
+        }
+      }
+    >
+      <div
+        className="mobile-data-row"
+      >
+        <div
+          className="top-row"
+        >
+          <span>
+            ELL Diagnostic
+          </span>
+          <a
+            className="focus-on-light"
+            href="/teachers/progress_reports/diagnostic_reports#/u/826269/a/447/c/484134/recommendations"
+          >
+            View
+          </a>
+        </div>
+        <div>
+          Quill Classroom Extremely Long So Long SUper Duper
+        </div>
+      </div>
+    </MobileRecommendationRow>
+    <MobileRecommendationRow
+      key="447-484135-826269"
+      row={
+        Object {
+          "classroom": "A New Class",
+          "completed": "0 of 0",
+          "diagnostic": "ELL Diagnostic",
+          "id": "447-484135-826269",
+          "recommendations": <a
+            className="focus-on-light"
+            href="/teachers/progress_reports/diagnostic_reports#/u/826269/a/447/c/484135/recommendations"
+          >
+            <img
+              alt="File with a chart icon"
+              src="undefined/images/icons/icons-file-chart.svg"
+            />
+            <span>
+              View
+            </span>
+          </a>,
+          "recommendationsHref": "/teachers/progress_reports/diagnostic_reports#/u/826269/a/447/c/484135/recommendations",
+        }
+      }
+    >
+      <div
+        className="mobile-data-row"
+      >
+        <div
+          className="top-row"
+        >
+          <span>
+            ELL Diagnostic
+          </span>
+          <a
+            className="focus-on-light"
+            href="/teachers/progress_reports/diagnostic_reports#/u/826269/a/447/c/484135/recommendations"
+          >
+            View
+          </a>
+        </div>
+        <div>
+          A New Class
+        </div>
+      </div>
+    </MobileRecommendationRow>
+    <MobileRecommendationRow
+      key="849-484134-826268"
+      row={
+        Object {
+          "classroom": "Quill Classroom Extremely Long So Long SUper Duper",
+          "completed": "5 of 5",
+          "diagnostic": "Starter Diagnostic",
+          "id": "849-484134-826268",
+          "recommendations": <a
+            className="focus-on-light"
+            href="/teachers/progress_reports/diagnostic_reports#/u/826268/a/849/c/484134/recommendations"
+          >
+            <img
+              alt="File with a chart icon"
+              src="undefined/images/icons/icons-file-chart.svg"
+            />
+            <span>
+              View
+            </span>
+          </a>,
+          "recommendationsHref": "/teachers/progress_reports/diagnostic_reports#/u/826268/a/849/c/484134/recommendations",
+        }
+      }
+    >
+      <div
+        className="mobile-data-row"
+      >
+        <div
+          className="top-row"
+        >
+          <span>
+            Starter Diagnostic
+          </span>
+          <a
+            className="focus-on-light"
+            href="/teachers/progress_reports/diagnostic_reports#/u/826268/a/849/c/484134/recommendations"
+          >
+            View
+          </a>
+        </div>
+        <div>
+          Quill Classroom Extremely Long So Long SUper Duper
+        </div>
+      </div>
+    </MobileRecommendationRow>
+    <MobileRecommendationRow
+      key="849-484134-826269"
+      row={
+        Object {
+          "classroom": "Quill Classroom Extremely Long So Long SUper Duper",
+          "completed": "0 of 5",
+          "diagnostic": "Starter Diagnostic",
+          "id": "849-484134-826269",
+          "recommendations": <a
+            className="focus-on-light"
+            href="/teachers/progress_reports/diagnostic_reports#/u/826269/a/849/c/484134/recommendations"
+          >
+            <img
+              alt="File with a chart icon"
+              src="undefined/images/icons/icons-file-chart.svg"
+            />
+            <span>
+              View
+            </span>
+          </a>,
+          "recommendationsHref": "/teachers/progress_reports/diagnostic_reports#/u/826269/a/849/c/484134/recommendations",
+        }
+      }
+    >
+      <div
+        className="mobile-data-row"
+      >
+        <div
+          className="top-row"
+        >
+          <span>
+            Starter Diagnostic
+          </span>
+          <a
+            className="focus-on-light"
+            href="/teachers/progress_reports/diagnostic_reports#/u/826269/a/849/c/484134/recommendations"
+          >
+            View
+          </a>
+        </div>
+        <div>
+          Quill Classroom Extremely Long So Long SUper Duper
+        </div>
+      </div>
+    </MobileRecommendationRow>
+    <MobileRecommendationRow
+      key="849-484135-826269"
+      row={
+        Object {
+          "classroom": "A New Class",
+          "completed": "0 of 0",
+          "diagnostic": "Starter Diagnostic",
+          "id": "849-484135-826269",
+          "recommendations": <a
+            className="focus-on-light"
+            href="/teachers/progress_reports/diagnostic_reports#/u/826269/a/849/c/484135/recommendations"
+          >
+            <img
+              alt="File with a chart icon"
+              src="undefined/images/icons/icons-file-chart.svg"
+            />
+            <span>
+              View
+            </span>
+          </a>,
+          "recommendationsHref": "/teachers/progress_reports/diagnostic_reports#/u/826269/a/849/c/484135/recommendations",
+        }
+      }
+    >
+      <div
+        className="mobile-data-row"
+      >
+        <div
+          className="top-row"
+        >
+          <span>
+            Starter Diagnostic
+          </span>
+          <a
+            className="focus-on-light"
+            href="/teachers/progress_reports/diagnostic_reports#/u/826269/a/849/c/484135/recommendations"
+          >
+            View
+          </a>
+        </div>
+        <div>
+          A New Class
+        </div>
+      </div>
+    </MobileRecommendationRow>
+    <button
+      className="bottom-button focus-on-light interactive-wrapper"
+      onClick={[Function]}
+      type="button"
+    >
+      Show more 
+      <img
+        alt=""
+        src="undefined/images/icons/expand.svg"
+      />
+    </button>
+  </section>
+</DiagnosticMini>
+`;
+
+exports[`DiagnosticMini component on mobile should render when there are no diagnostics 1`] = `
+<DiagnosticMini
+  diagnostics={Array []}
+  onMobile={true}
+>
+  <span />
 </DiagnosticMini>
 `;
