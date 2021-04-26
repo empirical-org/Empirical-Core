@@ -661,7 +661,7 @@ exports[`SpringBoard component should render when it is not part of the assignme
             </div>
             <a
               className="quill-button medium primary outlined view-button focus-on-light"
-              href="/activities/packs/34"
+              href="/activities/packs/undefined"
               rel="noopener noreferrer"
               target="_blank"
             >
@@ -3163,7 +3163,7 @@ exports[`SpringBoard component should render when it is part of the assignment f
             </div>
             <a
               className="quill-button medium primary outlined view-button focus-on-light"
-              href="/assign/featured-activity-packs/34?college-board=springboard"
+              href="/assign/featured-activity-packs/undefined?college-board=springboard"
               rel="noopener noreferrer"
               target=""
             >
