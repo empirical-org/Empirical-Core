@@ -52,6 +52,7 @@ class ResponseComponent extends React.Component {
       selectedResponses: [],
       health: {},
       gradeBreakdown: {},
+      enableRematchAllButton: true,
     };
   }
 
@@ -275,6 +276,7 @@ class ResponseComponent extends React.Component {
   };
 
   rematchAllResponses = () => {
+    this.setState({enableRematchAllButton: false});
     const pageNumber = 1;
     const callback = (done) => {
       if (done) {
@@ -438,12 +440,13 @@ class ResponseComponent extends React.Component {
   };
 
   renderRematchAllButton = () => {
-    const { filters } = this.props
-    let disabled = filters.numberOfResponses > 1000
-    if (this.props.admin) {
-      const text = this.state.progress ? `${this.state.progress}%` : 'Rematch Responses';
+    const { filters, admin } = this.props;
+    const { progress, enableRematchAllButton } = this.state;
 
-      return (<button className="button is-outlined is-danger" disabled={disabled} onClick={this.rematchAllResponses} style={{ float: 'right', }} type="button">{text}</button>);
+    if (admin) {
+      const text = progress ? `${progress}%` : 'Rematch Responses';
+
+      return (<button className="button is-outlined is-danger" disabled={!enableRematchAllButton} onClick={this.rematchAllResponses} style={{ float: 'right', }} type="button">{text}</button>);
     }
   };
 

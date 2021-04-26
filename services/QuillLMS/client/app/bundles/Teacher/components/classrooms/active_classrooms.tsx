@@ -13,8 +13,10 @@ import GoogleClassroomEmailModal from './google_classroom_email_modal'
 import GoogleClassroomsEmptyModal from './google_classrooms_empty_modal'
 import Classroom from './classroom'
 import CoteacherInvitation from './coteacher_invitation'
+
 import ButtonLoadingIndicator from '../shared/button_loading_indicator'
 import BulkArchiveClassesBanner from '../shared/bulk_archive_classes_banner'
+import ViewAsStudentModal from '../shared/view_as_student_modal'
 
 import { requestGet } from '../../../../modules/request/index.js';
 
@@ -47,6 +49,7 @@ export const importGoogleClassroomsModal = 'importGoogleClassroomsModal'
 export const importGoogleClassroomStudentsModal = 'importGoogleClassroomStudentsModal'
 export const googleClassroomEmailModal = 'googleClassroomEmailModal'
 export const googleClassroomsEmptyModal = 'googleClassroomsEmptyModal'
+export const viewAsStudentModal = 'viewAsStudentModal'
 
 export default class ActiveClassrooms extends React.Component<ActiveClassroomsProps, ActiveClassroomsState> {
   constructor(props) {
@@ -88,6 +91,8 @@ export default class ActiveClassrooms extends React.Component<ActiveClassroomsPr
       this.clickImportGoogleClassrooms()
     } else if (modal === 'invite-students') {
       showModal = inviteStudentsModal
+    } else if (modal === 'view-as-student') {
+      showModal = viewAsStudentModal
     }
 
     if (showModal || selectedClassroomId) {
@@ -182,6 +187,14 @@ export default class ActiveClassrooms extends React.Component<ActiveClassroomsPr
     })
   }
 
+  viewAsStudent = (id=null) => {
+    if (id) {
+      window.location.href = `/teachers/preview_as_student/${id}`
+    } else {
+      this.openModal(viewAsStudentModal)
+    }
+  }
+
   renderSnackbar() {
     const { showSnackbar, snackbarCopy, } = this.state
     return <Snackbar text={snackbarCopy} visible={showSnackbar} />
@@ -224,6 +237,7 @@ export default class ActiveClassrooms extends React.Component<ActiveClassroomsPr
           renameClass={() => this.openModal(renameClassModal)}
           selected={classroom.id === this.state.selectedClassroomId}
           user={user}
+          viewAsStudent={this.viewAsStudent}
         />)
       })
       return (<div className="active-classes">
@@ -350,6 +364,19 @@ export default class ActiveClassrooms extends React.Component<ActiveClassroomsPr
     </button>)
   }
 
+  renderViewAsStudentModal = () => {
+    const { selectedClassroomId, classrooms, } = this.state
+    const { showModal, } = this.state
+    if (showModal === viewAsStudentModal) {
+      return (<ViewAsStudentModal
+        classrooms={classrooms}
+        close={this.closeModal}
+        defaultClassroomId={selectedClassroomId}
+        handleViewClick={this.viewAsStudent}
+      />)
+    }
+  }
+
   render() {
     const { user, } = this.props
     const { classrooms, } = this.state
@@ -367,6 +394,7 @@ export default class ActiveClassrooms extends React.Component<ActiveClassroomsPr
       {this.renderImportGoogleClassroomStudentsModal()}
       {this.renderGoogleClassroomEmailModal()}
       {this.renderGoogleClassroomsEmptyModal()}
+      {this.renderViewAsStudentModal()}
       {this.renderSnackbar()}
       <div className="header">
         <h1>Active Classes</h1>

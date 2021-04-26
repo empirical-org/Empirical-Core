@@ -1,0 +1,1888 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ActivityFeed component not on mobile should render when there are activities 1`] = `
+<ActivityFeed
+  activityFeed={
+    Array [
+      Object {
+        "activity_id": 810,
+        "activity_name": "Subject and Object Pronoun Agreement 1",
+        "classroom_id": 1,
+        "completed": "Mar 5th",
+        "id": 33,
+        "score": "Not yet proficient",
+        "student_name": "Angie Thomas",
+        "unit_id": 76,
+        "user_id": 7,
+      },
+      Object {
+        "activity_id": 885,
+        "activity_name": "Capitalize Names of People and the Pronoun \\"I\\"",
+        "classroom_id": 1,
+        "completed": "Mar 5th",
+        "id": 32,
+        "score": "Proficient",
+        "student_name": "Angie Thomas",
+        "unit_id": 49,
+        "user_id": 7,
+      },
+      Object {
+        "activity_id": 804,
+        "activity_name": "Capitalize Names of People 1",
+        "classroom_id": 1,
+        "completed": "Mar 5th",
+        "id": 29,
+        "score": "Proficient",
+        "student_name": "Angie Thomas",
+        "unit_id": 49,
+        "user_id": 7,
+      },
+      Object {
+        "activity_id": 802,
+        "activity_name": "Capitalize Geographic Names 1",
+        "classroom_id": 1,
+        "completed": "Mar 5th",
+        "id": 28,
+        "score": "Nearly proficient",
+        "student_name": "Angie Thomas",
+        "unit_id": 49,
+        "user_id": 7,
+      },
+      Object {
+        "activity_id": 808,
+        "activity_name": "Plural vs. Possessive Nouns 1",
+        "classroom_id": 1,
+        "completed": "Mar 5th",
+        "id": 27,
+        "score": "Proficient",
+        "student_name": "Angie Thomas",
+        "unit_id": 75,
+        "user_id": 7,
+      },
+      Object {
+        "activity_id": 801,
+        "activity_name": "Capitalize Holidays and Dates 1",
+        "classroom_id": 1,
+        "completed": "Mar 5th",
+        "id": 26,
+        "score": "Nearly proficient",
+        "student_name": "Angie Thomas",
+        "unit_id": 49,
+        "user_id": 7,
+      },
+      Object {
+        "activity_id": 181,
+        "activity_name": "Capitalize Holidays and Geographic Names",
+        "classroom_id": 1,
+        "completed": "Mar 5th",
+        "id": 25,
+        "score": "Proficient",
+        "student_name": "Angie Thomas",
+        "unit_id": 49,
+        "user_id": 7,
+      },
+      Object {
+        "activity_id": 849,
+        "activity_name": "Starter Diagnostic",
+        "classroom_id": 6,
+        "completed": "Mar 4th",
+        "id": 24,
+        "score": "Completed",
+        "student_name": "Angie Thomas",
+        "unit_id": 85,
+        "user_id": 7,
+      },
+      Object {
+        "activity_id": 849,
+        "activity_name": "Starter Diagnostic",
+        "classroom_id": 1,
+        "completed": "Mar 3rd",
+        "id": 23,
+        "score": "Completed",
+        "student_name": "Angie Thomas",
+        "unit_id": 85,
+        "user_id": 7,
+      },
+      Object {
+        "activity_id": 849,
+        "activity_name": "Starter Diagnostic",
+        "classroom_id": 1,
+        "completed": "Dec 1st, 2020",
+        "id": 3,
+        "score": "Completed",
+        "student_name": "Tahereh Mafi",
+        "unit_id": 4,
+        "user_id": 6,
+      },
+      Object {
+        "activity_id": 849,
+        "activity_name": "Starter Diagnostic",
+        "classroom_id": 1,
+        "completed": "Dec 1st, 2020",
+        "id": 2,
+        "score": "Completed",
+        "student_name": "Angie Thomas",
+        "unit_id": 4,
+        "user_id": 7,
+      },
+    ]
+  }
+  onMobile={false}
+>
+  <section
+    className="activity-feed populated"
+  >
+    <h2>
+      Activity feed
+    </h2>
+    <DataTable
+      averageFontWidth={7}
+      headers={
+        Array [
+          Object {
+            "attribute": "studentName",
+            "name": "Student",
+            "width": "125px",
+          },
+          Object {
+            "attribute": "activityName",
+            "name": "Activity",
+            "width": "245px",
+          },
+          Object {
+            "attribute": "scoreTag",
+            "name": "Score",
+            "width": "124px",
+          },
+          Object {
+            "attribute": "completed",
+            "headerClassName": "completed-section",
+            "name": "Completed",
+            "noTooltip": true,
+            "rowSectionClassName": "completed-section",
+            "width": "84px",
+          },
+        ]
+      }
+      rows={
+        Array [
+          Object {
+            "activityName": "Subject and Object Pronoun Agreement 1",
+            "className": "focus-on-light",
+            "completed": "Mar 5th",
+            "id": 33,
+            "link": "/teachers/progress_reports/diagnostic_reports#/u/76/a/810/c/1/student_report/7",
+            "scoreTag": <span
+              className="score-tag not-yet-proficient"
+            >
+              Not yet proficient
+            </span>,
+            "studentName": "Angie Thomas",
+          },
+          Object {
+            "activityName": "Capitalize Names of People and the Pronoun \\"I\\"",
+            "className": "focus-on-light",
+            "completed": "Mar 5th",
+            "id": 32,
+            "link": "/teachers/progress_reports/diagnostic_reports#/u/49/a/885/c/1/student_report/7",
+            "scoreTag": <span
+              className="score-tag proficient"
+            >
+              Proficient
+            </span>,
+            "studentName": "Angie Thomas",
+          },
+          Object {
+            "activityName": "Capitalize Names of People 1",
+            "className": "focus-on-light",
+            "completed": "Mar 5th",
+            "id": 29,
+            "link": "/teachers/progress_reports/diagnostic_reports#/u/49/a/804/c/1/student_report/7",
+            "scoreTag": <span
+              className="score-tag proficient"
+            >
+              Proficient
+            </span>,
+            "studentName": "Angie Thomas",
+          },
+          Object {
+            "activityName": "Capitalize Geographic Names 1",
+            "className": "focus-on-light",
+            "completed": "Mar 5th",
+            "id": 28,
+            "link": "/teachers/progress_reports/diagnostic_reports#/u/49/a/802/c/1/student_report/7",
+            "scoreTag": <span
+              className="score-tag nearly-proficient"
+            >
+              Nearly proficient
+            </span>,
+            "studentName": "Angie Thomas",
+          },
+          Object {
+            "activityName": "Plural vs. Possessive Nouns 1",
+            "className": "focus-on-light",
+            "completed": "Mar 5th",
+            "id": 27,
+            "link": "/teachers/progress_reports/diagnostic_reports#/u/75/a/808/c/1/student_report/7",
+            "scoreTag": <span
+              className="score-tag proficient"
+            >
+              Proficient
+            </span>,
+            "studentName": "Angie Thomas",
+          },
+          Object {
+            "activityName": "Capitalize Holidays and Dates 1",
+            "className": "focus-on-light",
+            "completed": "Mar 5th",
+            "id": 26,
+            "link": "/teachers/progress_reports/diagnostic_reports#/u/49/a/801/c/1/student_report/7",
+            "scoreTag": <span
+              className="score-tag nearly-proficient"
+            >
+              Nearly proficient
+            </span>,
+            "studentName": "Angie Thomas",
+          },
+          Object {
+            "activityName": "Capitalize Holidays and Geographic Names",
+            "className": "focus-on-light",
+            "completed": "Mar 5th",
+            "id": 25,
+            "link": "/teachers/progress_reports/diagnostic_reports#/u/49/a/181/c/1/student_report/7",
+            "scoreTag": <span
+              className="score-tag proficient"
+            >
+              Proficient
+            </span>,
+            "studentName": "Angie Thomas",
+          },
+          Object {
+            "activityName": "Starter Diagnostic",
+            "className": "focus-on-light",
+            "completed": "Mar 4th",
+            "id": 24,
+            "link": "/teachers/progress_reports/diagnostic_reports#/u/85/a/849/c/6/student_report/7",
+            "scoreTag": <span
+              className="score-tag completed"
+            >
+              Completed
+            </span>,
+            "studentName": "Angie Thomas",
+          },
+          Object {
+            "activityName": "Starter Diagnostic",
+            "className": "focus-on-light",
+            "completed": "Mar 3rd",
+            "id": 23,
+            "link": "/teachers/progress_reports/diagnostic_reports#/u/85/a/849/c/1/student_report/7",
+            "scoreTag": <span
+              className="score-tag completed"
+            >
+              Completed
+            </span>,
+            "studentName": "Angie Thomas",
+          },
+          Object {
+            "activityName": "Starter Diagnostic",
+            "className": "focus-on-light",
+            "completed": "Dec 1st, 2020",
+            "id": 3,
+            "link": "/teachers/progress_reports/diagnostic_reports#/u/4/a/849/c/1/student_report/6",
+            "scoreTag": <span
+              className="score-tag completed"
+            >
+              Completed
+            </span>,
+            "studentName": "Tahereh Mafi",
+          },
+          Object {
+            "activityName": "Starter Diagnostic",
+            "className": "focus-on-light",
+            "completed": "Dec 1st, 2020",
+            "id": 2,
+            "link": "/teachers/progress_reports/diagnostic_reports#/u/4/a/849/c/1/student_report/7",
+            "scoreTag": <span
+              className="score-tag completed"
+            >
+              Completed
+            </span>,
+            "studentName": "Angie Thomas",
+          },
+        ]
+      }
+    >
+      <div
+        className="data-table undefined"
+      >
+        <div
+          className="data-table-headers"
+        >
+          <button
+            className="data-table-header undefined"
+            style={
+              Object {
+                "minWidth": "125px",
+                "textAlign": "left",
+                "width": "125px",
+              }
+            }
+            tabIndex={-1}
+            type="button"
+          >
+            Student
+          </button>
+          <button
+            className="data-table-header undefined"
+            style={
+              Object {
+                "minWidth": "245px",
+                "textAlign": "left",
+                "width": "245px",
+              }
+            }
+            tabIndex={-1}
+            type="button"
+          >
+            Activity
+          </button>
+          <button
+            className="data-table-header undefined"
+            style={
+              Object {
+                "minWidth": "124px",
+                "textAlign": "left",
+                "width": "124px",
+              }
+            }
+            tabIndex={-1}
+            type="button"
+          >
+            Score
+          </button>
+          <button
+            className="data-table-header completed-section"
+            style={
+              Object {
+                "minWidth": "84px",
+                "textAlign": "left",
+                "width": "84px",
+              }
+            }
+            tabIndex={-1}
+            type="button"
+          >
+            Completed
+          </button>
+        </div>
+        <div
+          className="data-table-body"
+        >
+          <a
+            className="data-table-row  focus-on-light"
+            href="/teachers/progress_reports/diagnostic_reports#/u/76/a/810/c/1/student_report/7"
+            key="33"
+          >
+            <span
+              className="data-table-row-section undefined"
+              key="studentName-33"
+              style={
+                Object {
+                  "minWidth": "125px",
+                  "textAlign": "left",
+                  "width": "125px",
+                }
+              }
+            >
+              Angie Thomas
+            </span>
+            <Tooltip
+              key="activityName-33"
+              tooltipText="Subject and Object Pronoun Agreement 1"
+              tooltipTriggerStyle={
+                Object {
+                  "minWidth": "245px",
+                  "textAlign": "left",
+                  "width": "245px",
+                }
+              }
+              tooltipTriggerText="Subject and Object Pronoun Agreement 1"
+              tooltipTriggerTextClass="data-table-row-section undefined"
+              tooltipTriggerTextStyle={
+                Object {
+                  "minWidth": "245px",
+                  "textAlign": "left",
+                  "width": "245px",
+                }
+              }
+            >
+              <span
+                className="quill-tooltip-trigger"
+                style={
+                  Object {
+                    "minWidth": "245px",
+                    "textAlign": "left",
+                    "width": "245px",
+                  }
+                }
+              >
+                <span
+                  className="data-table-row-section undefined"
+                  onMouseEnter={[Function]}
+                  onMouseLeave={[Function]}
+                  style={
+                    Object {
+                      "minWidth": "245px",
+                      "textAlign": "left",
+                      "width": "245px",
+                    }
+                  }
+                >
+                  Subject and Object Pronoun Agreement 1
+                </span>
+                <span
+                  className="quill-tooltip-wrapper"
+                >
+                  <span
+                    className="quill-tooltip"
+                  />
+                </span>
+              </span>
+            </Tooltip>
+            <span
+              className="data-table-row-section undefined"
+              key="scoreTag-33"
+              style={
+                Object {
+                  "minWidth": "124px",
+                  "textAlign": "left",
+                  "width": "124px",
+                }
+              }
+            >
+              <span
+                className="score-tag not-yet-proficient"
+              >
+                Not yet proficient
+              </span>
+            </span>
+            <span
+              className="data-table-row-section completed-section"
+              key="completed-33"
+              style={
+                Object {
+                  "minWidth": "84px",
+                  "textAlign": "left",
+                  "width": "84px",
+                }
+              }
+            >
+              Mar 5th
+            </span>
+            <span
+              className="removable data-table-row-section"
+            />
+          </a>
+          <a
+            className="data-table-row  focus-on-light"
+            href="/teachers/progress_reports/diagnostic_reports#/u/49/a/885/c/1/student_report/7"
+            key="32"
+          >
+            <span
+              className="data-table-row-section undefined"
+              key="studentName-32"
+              style={
+                Object {
+                  "minWidth": "125px",
+                  "textAlign": "left",
+                  "width": "125px",
+                }
+              }
+            >
+              Angie Thomas
+            </span>
+            <Tooltip
+              key="activityName-32"
+              tooltipText="Capitalize Names of People and the Pronoun \\"I\\""
+              tooltipTriggerStyle={
+                Object {
+                  "minWidth": "245px",
+                  "textAlign": "left",
+                  "width": "245px",
+                }
+              }
+              tooltipTriggerText="Capitalize Names of People and the Pronoun \\"I\\""
+              tooltipTriggerTextClass="data-table-row-section undefined"
+              tooltipTriggerTextStyle={
+                Object {
+                  "minWidth": "245px",
+                  "textAlign": "left",
+                  "width": "245px",
+                }
+              }
+            >
+              <span
+                className="quill-tooltip-trigger"
+                style={
+                  Object {
+                    "minWidth": "245px",
+                    "textAlign": "left",
+                    "width": "245px",
+                  }
+                }
+              >
+                <span
+                  className="data-table-row-section undefined"
+                  onMouseEnter={[Function]}
+                  onMouseLeave={[Function]}
+                  style={
+                    Object {
+                      "minWidth": "245px",
+                      "textAlign": "left",
+                      "width": "245px",
+                    }
+                  }
+                >
+                  Capitalize Names of People and the Pronoun "I"
+                </span>
+                <span
+                  className="quill-tooltip-wrapper"
+                >
+                  <span
+                    className="quill-tooltip"
+                  />
+                </span>
+              </span>
+            </Tooltip>
+            <span
+              className="data-table-row-section undefined"
+              key="scoreTag-32"
+              style={
+                Object {
+                  "minWidth": "124px",
+                  "textAlign": "left",
+                  "width": "124px",
+                }
+              }
+            >
+              <span
+                className="score-tag proficient"
+              >
+                Proficient
+              </span>
+            </span>
+            <span
+              className="data-table-row-section completed-section"
+              key="completed-32"
+              style={
+                Object {
+                  "minWidth": "84px",
+                  "textAlign": "left",
+                  "width": "84px",
+                }
+              }
+            >
+              Mar 5th
+            </span>
+            <span
+              className="removable data-table-row-section"
+            />
+          </a>
+          <a
+            className="data-table-row  focus-on-light"
+            href="/teachers/progress_reports/diagnostic_reports#/u/49/a/804/c/1/student_report/7"
+            key="29"
+          >
+            <span
+              className="data-table-row-section undefined"
+              key="studentName-29"
+              style={
+                Object {
+                  "minWidth": "125px",
+                  "textAlign": "left",
+                  "width": "125px",
+                }
+              }
+            >
+              Angie Thomas
+            </span>
+            <span
+              className="data-table-row-section undefined"
+              key="activityName-29"
+              style={
+                Object {
+                  "minWidth": "245px",
+                  "textAlign": "left",
+                  "width": "245px",
+                }
+              }
+            >
+              Capitalize Names of People 1
+            </span>
+            <span
+              className="data-table-row-section undefined"
+              key="scoreTag-29"
+              style={
+                Object {
+                  "minWidth": "124px",
+                  "textAlign": "left",
+                  "width": "124px",
+                }
+              }
+            >
+              <span
+                className="score-tag proficient"
+              >
+                Proficient
+              </span>
+            </span>
+            <span
+              className="data-table-row-section completed-section"
+              key="completed-29"
+              style={
+                Object {
+                  "minWidth": "84px",
+                  "textAlign": "left",
+                  "width": "84px",
+                }
+              }
+            >
+              Mar 5th
+            </span>
+            <span
+              className="removable data-table-row-section"
+            />
+          </a>
+          <a
+            className="data-table-row  focus-on-light"
+            href="/teachers/progress_reports/diagnostic_reports#/u/49/a/802/c/1/student_report/7"
+            key="28"
+          >
+            <span
+              className="data-table-row-section undefined"
+              key="studentName-28"
+              style={
+                Object {
+                  "minWidth": "125px",
+                  "textAlign": "left",
+                  "width": "125px",
+                }
+              }
+            >
+              Angie Thomas
+            </span>
+            <span
+              className="data-table-row-section undefined"
+              key="activityName-28"
+              style={
+                Object {
+                  "minWidth": "245px",
+                  "textAlign": "left",
+                  "width": "245px",
+                }
+              }
+            >
+              Capitalize Geographic Names 1
+            </span>
+            <span
+              className="data-table-row-section undefined"
+              key="scoreTag-28"
+              style={
+                Object {
+                  "minWidth": "124px",
+                  "textAlign": "left",
+                  "width": "124px",
+                }
+              }
+            >
+              <span
+                className="score-tag nearly-proficient"
+              >
+                Nearly proficient
+              </span>
+            </span>
+            <span
+              className="data-table-row-section completed-section"
+              key="completed-28"
+              style={
+                Object {
+                  "minWidth": "84px",
+                  "textAlign": "left",
+                  "width": "84px",
+                }
+              }
+            >
+              Mar 5th
+            </span>
+            <span
+              className="removable data-table-row-section"
+            />
+          </a>
+          <a
+            className="data-table-row  focus-on-light"
+            href="/teachers/progress_reports/diagnostic_reports#/u/75/a/808/c/1/student_report/7"
+            key="27"
+          >
+            <span
+              className="data-table-row-section undefined"
+              key="studentName-27"
+              style={
+                Object {
+                  "minWidth": "125px",
+                  "textAlign": "left",
+                  "width": "125px",
+                }
+              }
+            >
+              Angie Thomas
+            </span>
+            <span
+              className="data-table-row-section undefined"
+              key="activityName-27"
+              style={
+                Object {
+                  "minWidth": "245px",
+                  "textAlign": "left",
+                  "width": "245px",
+                }
+              }
+            >
+              Plural vs. Possessive Nouns 1
+            </span>
+            <span
+              className="data-table-row-section undefined"
+              key="scoreTag-27"
+              style={
+                Object {
+                  "minWidth": "124px",
+                  "textAlign": "left",
+                  "width": "124px",
+                }
+              }
+            >
+              <span
+                className="score-tag proficient"
+              >
+                Proficient
+              </span>
+            </span>
+            <span
+              className="data-table-row-section completed-section"
+              key="completed-27"
+              style={
+                Object {
+                  "minWidth": "84px",
+                  "textAlign": "left",
+                  "width": "84px",
+                }
+              }
+            >
+              Mar 5th
+            </span>
+            <span
+              className="removable data-table-row-section"
+            />
+          </a>
+          <a
+            className="data-table-row  focus-on-light"
+            href="/teachers/progress_reports/diagnostic_reports#/u/49/a/801/c/1/student_report/7"
+            key="26"
+          >
+            <span
+              className="data-table-row-section undefined"
+              key="studentName-26"
+              style={
+                Object {
+                  "minWidth": "125px",
+                  "textAlign": "left",
+                  "width": "125px",
+                }
+              }
+            >
+              Angie Thomas
+            </span>
+            <span
+              className="data-table-row-section undefined"
+              key="activityName-26"
+              style={
+                Object {
+                  "minWidth": "245px",
+                  "textAlign": "left",
+                  "width": "245px",
+                }
+              }
+            >
+              Capitalize Holidays and Dates 1
+            </span>
+            <span
+              className="data-table-row-section undefined"
+              key="scoreTag-26"
+              style={
+                Object {
+                  "minWidth": "124px",
+                  "textAlign": "left",
+                  "width": "124px",
+                }
+              }
+            >
+              <span
+                className="score-tag nearly-proficient"
+              >
+                Nearly proficient
+              </span>
+            </span>
+            <span
+              className="data-table-row-section completed-section"
+              key="completed-26"
+              style={
+                Object {
+                  "minWidth": "84px",
+                  "textAlign": "left",
+                  "width": "84px",
+                }
+              }
+            >
+              Mar 5th
+            </span>
+            <span
+              className="removable data-table-row-section"
+            />
+          </a>
+          <a
+            className="data-table-row  focus-on-light"
+            href="/teachers/progress_reports/diagnostic_reports#/u/49/a/181/c/1/student_report/7"
+            key="25"
+          >
+            <span
+              className="data-table-row-section undefined"
+              key="studentName-25"
+              style={
+                Object {
+                  "minWidth": "125px",
+                  "textAlign": "left",
+                  "width": "125px",
+                }
+              }
+            >
+              Angie Thomas
+            </span>
+            <Tooltip
+              key="activityName-25"
+              tooltipText="Capitalize Holidays and Geographic Names"
+              tooltipTriggerStyle={
+                Object {
+                  "minWidth": "245px",
+                  "textAlign": "left",
+                  "width": "245px",
+                }
+              }
+              tooltipTriggerText="Capitalize Holidays and Geographic Names"
+              tooltipTriggerTextClass="data-table-row-section undefined"
+              tooltipTriggerTextStyle={
+                Object {
+                  "minWidth": "245px",
+                  "textAlign": "left",
+                  "width": "245px",
+                }
+              }
+            >
+              <span
+                className="quill-tooltip-trigger"
+                style={
+                  Object {
+                    "minWidth": "245px",
+                    "textAlign": "left",
+                    "width": "245px",
+                  }
+                }
+              >
+                <span
+                  className="data-table-row-section undefined"
+                  onMouseEnter={[Function]}
+                  onMouseLeave={[Function]}
+                  style={
+                    Object {
+                      "minWidth": "245px",
+                      "textAlign": "left",
+                      "width": "245px",
+                    }
+                  }
+                >
+                  Capitalize Holidays and Geographic Names
+                </span>
+                <span
+                  className="quill-tooltip-wrapper"
+                >
+                  <span
+                    className="quill-tooltip"
+                  />
+                </span>
+              </span>
+            </Tooltip>
+            <span
+              className="data-table-row-section undefined"
+              key="scoreTag-25"
+              style={
+                Object {
+                  "minWidth": "124px",
+                  "textAlign": "left",
+                  "width": "124px",
+                }
+              }
+            >
+              <span
+                className="score-tag proficient"
+              >
+                Proficient
+              </span>
+            </span>
+            <span
+              className="data-table-row-section completed-section"
+              key="completed-25"
+              style={
+                Object {
+                  "minWidth": "84px",
+                  "textAlign": "left",
+                  "width": "84px",
+                }
+              }
+            >
+              Mar 5th
+            </span>
+            <span
+              className="removable data-table-row-section"
+            />
+          </a>
+          <a
+            className="data-table-row  focus-on-light"
+            href="/teachers/progress_reports/diagnostic_reports#/u/85/a/849/c/6/student_report/7"
+            key="24"
+          >
+            <span
+              className="data-table-row-section undefined"
+              key="studentName-24"
+              style={
+                Object {
+                  "minWidth": "125px",
+                  "textAlign": "left",
+                  "width": "125px",
+                }
+              }
+            >
+              Angie Thomas
+            </span>
+            <span
+              className="data-table-row-section undefined"
+              key="activityName-24"
+              style={
+                Object {
+                  "minWidth": "245px",
+                  "textAlign": "left",
+                  "width": "245px",
+                }
+              }
+            >
+              Starter Diagnostic
+            </span>
+            <span
+              className="data-table-row-section undefined"
+              key="scoreTag-24"
+              style={
+                Object {
+                  "minWidth": "124px",
+                  "textAlign": "left",
+                  "width": "124px",
+                }
+              }
+            >
+              <span
+                className="score-tag completed"
+              >
+                Completed
+              </span>
+            </span>
+            <span
+              className="data-table-row-section completed-section"
+              key="completed-24"
+              style={
+                Object {
+                  "minWidth": "84px",
+                  "textAlign": "left",
+                  "width": "84px",
+                }
+              }
+            >
+              Mar 4th
+            </span>
+            <span
+              className="removable data-table-row-section"
+            />
+          </a>
+          <a
+            className="data-table-row  focus-on-light"
+            href="/teachers/progress_reports/diagnostic_reports#/u/85/a/849/c/1/student_report/7"
+            key="23"
+          >
+            <span
+              className="data-table-row-section undefined"
+              key="studentName-23"
+              style={
+                Object {
+                  "minWidth": "125px",
+                  "textAlign": "left",
+                  "width": "125px",
+                }
+              }
+            >
+              Angie Thomas
+            </span>
+            <span
+              className="data-table-row-section undefined"
+              key="activityName-23"
+              style={
+                Object {
+                  "minWidth": "245px",
+                  "textAlign": "left",
+                  "width": "245px",
+                }
+              }
+            >
+              Starter Diagnostic
+            </span>
+            <span
+              className="data-table-row-section undefined"
+              key="scoreTag-23"
+              style={
+                Object {
+                  "minWidth": "124px",
+                  "textAlign": "left",
+                  "width": "124px",
+                }
+              }
+            >
+              <span
+                className="score-tag completed"
+              >
+                Completed
+              </span>
+            </span>
+            <span
+              className="data-table-row-section completed-section"
+              key="completed-23"
+              style={
+                Object {
+                  "minWidth": "84px",
+                  "textAlign": "left",
+                  "width": "84px",
+                }
+              }
+            >
+              Mar 3rd
+            </span>
+            <span
+              className="removable data-table-row-section"
+            />
+          </a>
+          <a
+            className="data-table-row  focus-on-light"
+            href="/teachers/progress_reports/diagnostic_reports#/u/4/a/849/c/1/student_report/6"
+            key="3"
+          >
+            <span
+              className="data-table-row-section undefined"
+              key="studentName-3"
+              style={
+                Object {
+                  "minWidth": "125px",
+                  "textAlign": "left",
+                  "width": "125px",
+                }
+              }
+            >
+              Tahereh Mafi
+            </span>
+            <span
+              className="data-table-row-section undefined"
+              key="activityName-3"
+              style={
+                Object {
+                  "minWidth": "245px",
+                  "textAlign": "left",
+                  "width": "245px",
+                }
+              }
+            >
+              Starter Diagnostic
+            </span>
+            <span
+              className="data-table-row-section undefined"
+              key="scoreTag-3"
+              style={
+                Object {
+                  "minWidth": "124px",
+                  "textAlign": "left",
+                  "width": "124px",
+                }
+              }
+            >
+              <span
+                className="score-tag completed"
+              >
+                Completed
+              </span>
+            </span>
+            <span
+              className="data-table-row-section completed-section"
+              key="completed-3"
+              style={
+                Object {
+                  "minWidth": "84px",
+                  "textAlign": "left",
+                  "width": "84px",
+                }
+              }
+            >
+              Dec 1st, 2020
+            </span>
+            <span
+              className="removable data-table-row-section"
+            />
+          </a>
+          <a
+            className="data-table-row  focus-on-light"
+            href="/teachers/progress_reports/diagnostic_reports#/u/4/a/849/c/1/student_report/7"
+            key="2"
+          >
+            <span
+              className="data-table-row-section undefined"
+              key="studentName-2"
+              style={
+                Object {
+                  "minWidth": "125px",
+                  "textAlign": "left",
+                  "width": "125px",
+                }
+              }
+            >
+              Angie Thomas
+            </span>
+            <span
+              className="data-table-row-section undefined"
+              key="activityName-2"
+              style={
+                Object {
+                  "minWidth": "245px",
+                  "textAlign": "left",
+                  "width": "245px",
+                }
+              }
+            >
+              Starter Diagnostic
+            </span>
+            <span
+              className="data-table-row-section undefined"
+              key="scoreTag-2"
+              style={
+                Object {
+                  "minWidth": "124px",
+                  "textAlign": "left",
+                  "width": "124px",
+                }
+              }
+            >
+              <span
+                className="score-tag completed"
+              >
+                Completed
+              </span>
+            </span>
+            <span
+              className="data-table-row-section completed-section"
+              key="completed-2"
+              style={
+                Object {
+                  "minWidth": "84px",
+                  "textAlign": "left",
+                  "width": "84px",
+                }
+              }
+            >
+              Dec 1st, 2020
+            </span>
+            <span
+              className="removable data-table-row-section"
+            />
+          </a>
+        </div>
+      </div>
+    </DataTable>
+  </section>
+</ActivityFeed>
+`;
+
+exports[`ActivityFeed component not on mobile should render when there are no activities 1`] = `
+<ActivityFeed
+  activityFeed={Array []}
+  onMobile={false}
+>
+  <section
+    className="activity-feed empty"
+  >
+    <img
+      alt="Document with a bulleted list illustration"
+      src="undefined/images/pages/dashboard/illustrations-list.svg"
+    />
+    <h2>
+      Activity feed
+    </h2>
+    <p>
+      Once your students complete activities, you’ll be able to see them here.
+    </p>
+  </section>
+</ActivityFeed>
+`;
+
+exports[`ActivityFeed component on mobile should render when there are activities 1`] = `
+<ActivityFeed
+  activityFeed={
+    Array [
+      Object {
+        "activity_id": 810,
+        "activity_name": "Subject and Object Pronoun Agreement 1",
+        "classroom_id": 1,
+        "completed": "Mar 5th",
+        "id": 33,
+        "score": "Not yet proficient",
+        "student_name": "Angie Thomas",
+        "unit_id": 76,
+        "user_id": 7,
+      },
+      Object {
+        "activity_id": 885,
+        "activity_name": "Capitalize Names of People and the Pronoun \\"I\\"",
+        "classroom_id": 1,
+        "completed": "Mar 5th",
+        "id": 32,
+        "score": "Proficient",
+        "student_name": "Angie Thomas",
+        "unit_id": 49,
+        "user_id": 7,
+      },
+      Object {
+        "activity_id": 804,
+        "activity_name": "Capitalize Names of People 1",
+        "classroom_id": 1,
+        "completed": "Mar 5th",
+        "id": 29,
+        "score": "Proficient",
+        "student_name": "Angie Thomas",
+        "unit_id": 49,
+        "user_id": 7,
+      },
+      Object {
+        "activity_id": 802,
+        "activity_name": "Capitalize Geographic Names 1",
+        "classroom_id": 1,
+        "completed": "Mar 5th",
+        "id": 28,
+        "score": "Nearly proficient",
+        "student_name": "Angie Thomas",
+        "unit_id": 49,
+        "user_id": 7,
+      },
+      Object {
+        "activity_id": 808,
+        "activity_name": "Plural vs. Possessive Nouns 1",
+        "classroom_id": 1,
+        "completed": "Mar 5th",
+        "id": 27,
+        "score": "Proficient",
+        "student_name": "Angie Thomas",
+        "unit_id": 75,
+        "user_id": 7,
+      },
+      Object {
+        "activity_id": 801,
+        "activity_name": "Capitalize Holidays and Dates 1",
+        "classroom_id": 1,
+        "completed": "Mar 5th",
+        "id": 26,
+        "score": "Nearly proficient",
+        "student_name": "Angie Thomas",
+        "unit_id": 49,
+        "user_id": 7,
+      },
+      Object {
+        "activity_id": 181,
+        "activity_name": "Capitalize Holidays and Geographic Names",
+        "classroom_id": 1,
+        "completed": "Mar 5th",
+        "id": 25,
+        "score": "Proficient",
+        "student_name": "Angie Thomas",
+        "unit_id": 49,
+        "user_id": 7,
+      },
+      Object {
+        "activity_id": 849,
+        "activity_name": "Starter Diagnostic",
+        "classroom_id": 6,
+        "completed": "Mar 4th",
+        "id": 24,
+        "score": "Completed",
+        "student_name": "Angie Thomas",
+        "unit_id": 85,
+        "user_id": 7,
+      },
+      Object {
+        "activity_id": 849,
+        "activity_name": "Starter Diagnostic",
+        "classroom_id": 1,
+        "completed": "Mar 3rd",
+        "id": 23,
+        "score": "Completed",
+        "student_name": "Angie Thomas",
+        "unit_id": 85,
+        "user_id": 7,
+      },
+      Object {
+        "activity_id": 849,
+        "activity_name": "Starter Diagnostic",
+        "classroom_id": 1,
+        "completed": "Dec 1st, 2020",
+        "id": 3,
+        "score": "Completed",
+        "student_name": "Tahereh Mafi",
+        "unit_id": 4,
+        "user_id": 6,
+      },
+      Object {
+        "activity_id": 849,
+        "activity_name": "Starter Diagnostic",
+        "classroom_id": 1,
+        "completed": "Dec 1st, 2020",
+        "id": 2,
+        "score": "Completed",
+        "student_name": "Angie Thomas",
+        "unit_id": 4,
+        "user_id": 7,
+      },
+    ]
+  }
+  onMobile={true}
+>
+  <section
+    className="activity-feed populated"
+  >
+    <h2>
+      Activity feed
+    </h2>
+    <MobileActivityRow
+      key="33"
+      row={
+        Object {
+          "activityName": "Subject and Object Pronoun Agreement 1",
+          "className": "focus-on-light",
+          "completed": "Mar 5th",
+          "id": 33,
+          "link": "/teachers/progress_reports/diagnostic_reports#/u/76/a/810/c/1/student_report/7",
+          "scoreTag": <span
+            className="score-tag not-yet-proficient"
+          >
+            Not yet proficient
+          </span>,
+          "studentName": "Angie Thomas",
+        }
+      }
+    >
+      <a
+        className="mobile-data-row focus-on-light"
+        href="/teachers/progress_reports/diagnostic_reports#/u/76/a/810/c/1/student_report/7"
+      >
+        <div
+          className="top-row"
+        >
+          <span>
+            Angie Thomas
+          </span>
+          <span>
+            Mar 5th
+          </span>
+        </div>
+        <div>
+          Subject and Object Pronoun Agreement 1
+        </div>
+        <div>
+          <span
+            className="score-tag not-yet-proficient"
+          >
+            Not yet proficient
+          </span>
+        </div>
+      </a>
+    </MobileActivityRow>
+    <MobileActivityRow
+      key="32"
+      row={
+        Object {
+          "activityName": "Capitalize Names of People and the Pronoun \\"I\\"",
+          "className": "focus-on-light",
+          "completed": "Mar 5th",
+          "id": 32,
+          "link": "/teachers/progress_reports/diagnostic_reports#/u/49/a/885/c/1/student_report/7",
+          "scoreTag": <span
+            className="score-tag proficient"
+          >
+            Proficient
+          </span>,
+          "studentName": "Angie Thomas",
+        }
+      }
+    >
+      <a
+        className="mobile-data-row focus-on-light"
+        href="/teachers/progress_reports/diagnostic_reports#/u/49/a/885/c/1/student_report/7"
+      >
+        <div
+          className="top-row"
+        >
+          <span>
+            Angie Thomas
+          </span>
+          <span>
+            Mar 5th
+          </span>
+        </div>
+        <div>
+          Capitalize Names of People and the Pronoun "I"
+        </div>
+        <div>
+          <span
+            className="score-tag proficient"
+          >
+            Proficient
+          </span>
+        </div>
+      </a>
+    </MobileActivityRow>
+    <MobileActivityRow
+      key="29"
+      row={
+        Object {
+          "activityName": "Capitalize Names of People 1",
+          "className": "focus-on-light",
+          "completed": "Mar 5th",
+          "id": 29,
+          "link": "/teachers/progress_reports/diagnostic_reports#/u/49/a/804/c/1/student_report/7",
+          "scoreTag": <span
+            className="score-tag proficient"
+          >
+            Proficient
+          </span>,
+          "studentName": "Angie Thomas",
+        }
+      }
+    >
+      <a
+        className="mobile-data-row focus-on-light"
+        href="/teachers/progress_reports/diagnostic_reports#/u/49/a/804/c/1/student_report/7"
+      >
+        <div
+          className="top-row"
+        >
+          <span>
+            Angie Thomas
+          </span>
+          <span>
+            Mar 5th
+          </span>
+        </div>
+        <div>
+          Capitalize Names of People 1
+        </div>
+        <div>
+          <span
+            className="score-tag proficient"
+          >
+            Proficient
+          </span>
+        </div>
+      </a>
+    </MobileActivityRow>
+    <MobileActivityRow
+      key="28"
+      row={
+        Object {
+          "activityName": "Capitalize Geographic Names 1",
+          "className": "focus-on-light",
+          "completed": "Mar 5th",
+          "id": 28,
+          "link": "/teachers/progress_reports/diagnostic_reports#/u/49/a/802/c/1/student_report/7",
+          "scoreTag": <span
+            className="score-tag nearly-proficient"
+          >
+            Nearly proficient
+          </span>,
+          "studentName": "Angie Thomas",
+        }
+      }
+    >
+      <a
+        className="mobile-data-row focus-on-light"
+        href="/teachers/progress_reports/diagnostic_reports#/u/49/a/802/c/1/student_report/7"
+      >
+        <div
+          className="top-row"
+        >
+          <span>
+            Angie Thomas
+          </span>
+          <span>
+            Mar 5th
+          </span>
+        </div>
+        <div>
+          Capitalize Geographic Names 1
+        </div>
+        <div>
+          <span
+            className="score-tag nearly-proficient"
+          >
+            Nearly proficient
+          </span>
+        </div>
+      </a>
+    </MobileActivityRow>
+    <MobileActivityRow
+      key="27"
+      row={
+        Object {
+          "activityName": "Plural vs. Possessive Nouns 1",
+          "className": "focus-on-light",
+          "completed": "Mar 5th",
+          "id": 27,
+          "link": "/teachers/progress_reports/diagnostic_reports#/u/75/a/808/c/1/student_report/7",
+          "scoreTag": <span
+            className="score-tag proficient"
+          >
+            Proficient
+          </span>,
+          "studentName": "Angie Thomas",
+        }
+      }
+    >
+      <a
+        className="mobile-data-row focus-on-light"
+        href="/teachers/progress_reports/diagnostic_reports#/u/75/a/808/c/1/student_report/7"
+      >
+        <div
+          className="top-row"
+        >
+          <span>
+            Angie Thomas
+          </span>
+          <span>
+            Mar 5th
+          </span>
+        </div>
+        <div>
+          Plural vs. Possessive Nouns 1
+        </div>
+        <div>
+          <span
+            className="score-tag proficient"
+          >
+            Proficient
+          </span>
+        </div>
+      </a>
+    </MobileActivityRow>
+    <MobileActivityRow
+      key="26"
+      row={
+        Object {
+          "activityName": "Capitalize Holidays and Dates 1",
+          "className": "focus-on-light",
+          "completed": "Mar 5th",
+          "id": 26,
+          "link": "/teachers/progress_reports/diagnostic_reports#/u/49/a/801/c/1/student_report/7",
+          "scoreTag": <span
+            className="score-tag nearly-proficient"
+          >
+            Nearly proficient
+          </span>,
+          "studentName": "Angie Thomas",
+        }
+      }
+    >
+      <a
+        className="mobile-data-row focus-on-light"
+        href="/teachers/progress_reports/diagnostic_reports#/u/49/a/801/c/1/student_report/7"
+      >
+        <div
+          className="top-row"
+        >
+          <span>
+            Angie Thomas
+          </span>
+          <span>
+            Mar 5th
+          </span>
+        </div>
+        <div>
+          Capitalize Holidays and Dates 1
+        </div>
+        <div>
+          <span
+            className="score-tag nearly-proficient"
+          >
+            Nearly proficient
+          </span>
+        </div>
+      </a>
+    </MobileActivityRow>
+    <MobileActivityRow
+      key="25"
+      row={
+        Object {
+          "activityName": "Capitalize Holidays and Geographic Names",
+          "className": "focus-on-light",
+          "completed": "Mar 5th",
+          "id": 25,
+          "link": "/teachers/progress_reports/diagnostic_reports#/u/49/a/181/c/1/student_report/7",
+          "scoreTag": <span
+            className="score-tag proficient"
+          >
+            Proficient
+          </span>,
+          "studentName": "Angie Thomas",
+        }
+      }
+    >
+      <a
+        className="mobile-data-row focus-on-light"
+        href="/teachers/progress_reports/diagnostic_reports#/u/49/a/181/c/1/student_report/7"
+      >
+        <div
+          className="top-row"
+        >
+          <span>
+            Angie Thomas
+          </span>
+          <span>
+            Mar 5th
+          </span>
+        </div>
+        <div>
+          Capitalize Holidays and Geographic Names
+        </div>
+        <div>
+          <span
+            className="score-tag proficient"
+          >
+            Proficient
+          </span>
+        </div>
+      </a>
+    </MobileActivityRow>
+    <MobileActivityRow
+      key="24"
+      row={
+        Object {
+          "activityName": "Starter Diagnostic",
+          "className": "focus-on-light",
+          "completed": "Mar 4th",
+          "id": 24,
+          "link": "/teachers/progress_reports/diagnostic_reports#/u/85/a/849/c/6/student_report/7",
+          "scoreTag": <span
+            className="score-tag completed"
+          >
+            Completed
+          </span>,
+          "studentName": "Angie Thomas",
+        }
+      }
+    >
+      <a
+        className="mobile-data-row focus-on-light"
+        href="/teachers/progress_reports/diagnostic_reports#/u/85/a/849/c/6/student_report/7"
+      >
+        <div
+          className="top-row"
+        >
+          <span>
+            Angie Thomas
+          </span>
+          <span>
+            Mar 4th
+          </span>
+        </div>
+        <div>
+          Starter Diagnostic
+        </div>
+        <div>
+          <span
+            className="score-tag completed"
+          >
+            Completed
+          </span>
+        </div>
+      </a>
+    </MobileActivityRow>
+    <MobileActivityRow
+      key="23"
+      row={
+        Object {
+          "activityName": "Starter Diagnostic",
+          "className": "focus-on-light",
+          "completed": "Mar 3rd",
+          "id": 23,
+          "link": "/teachers/progress_reports/diagnostic_reports#/u/85/a/849/c/1/student_report/7",
+          "scoreTag": <span
+            className="score-tag completed"
+          >
+            Completed
+          </span>,
+          "studentName": "Angie Thomas",
+        }
+      }
+    >
+      <a
+        className="mobile-data-row focus-on-light"
+        href="/teachers/progress_reports/diagnostic_reports#/u/85/a/849/c/1/student_report/7"
+      >
+        <div
+          className="top-row"
+        >
+          <span>
+            Angie Thomas
+          </span>
+          <span>
+            Mar 3rd
+          </span>
+        </div>
+        <div>
+          Starter Diagnostic
+        </div>
+        <div>
+          <span
+            className="score-tag completed"
+          >
+            Completed
+          </span>
+        </div>
+      </a>
+    </MobileActivityRow>
+    <MobileActivityRow
+      key="3"
+      row={
+        Object {
+          "activityName": "Starter Diagnostic",
+          "className": "focus-on-light",
+          "completed": "Dec 1st, 2020",
+          "id": 3,
+          "link": "/teachers/progress_reports/diagnostic_reports#/u/4/a/849/c/1/student_report/6",
+          "scoreTag": <span
+            className="score-tag completed"
+          >
+            Completed
+          </span>,
+          "studentName": "Tahereh Mafi",
+        }
+      }
+    >
+      <a
+        className="mobile-data-row focus-on-light"
+        href="/teachers/progress_reports/diagnostic_reports#/u/4/a/849/c/1/student_report/6"
+      >
+        <div
+          className="top-row"
+        >
+          <span>
+            Tahereh Mafi
+          </span>
+          <span>
+            Dec 1st, 2020
+          </span>
+        </div>
+        <div>
+          Starter Diagnostic
+        </div>
+        <div>
+          <span
+            className="score-tag completed"
+          >
+            Completed
+          </span>
+        </div>
+      </a>
+    </MobileActivityRow>
+    <MobileActivityRow
+      key="2"
+      row={
+        Object {
+          "activityName": "Starter Diagnostic",
+          "className": "focus-on-light",
+          "completed": "Dec 1st, 2020",
+          "id": 2,
+          "link": "/teachers/progress_reports/diagnostic_reports#/u/4/a/849/c/1/student_report/7",
+          "scoreTag": <span
+            className="score-tag completed"
+          >
+            Completed
+          </span>,
+          "studentName": "Angie Thomas",
+        }
+      }
+    >
+      <a
+        className="mobile-data-row focus-on-light"
+        href="/teachers/progress_reports/diagnostic_reports#/u/4/a/849/c/1/student_report/7"
+      >
+        <div
+          className="top-row"
+        >
+          <span>
+            Angie Thomas
+          </span>
+          <span>
+            Dec 1st, 2020
+          </span>
+        </div>
+        <div>
+          Starter Diagnostic
+        </div>
+        <div>
+          <span
+            className="score-tag completed"
+          >
+            Completed
+          </span>
+        </div>
+      </a>
+    </MobileActivityRow>
+  </section>
+</ActivityFeed>
+`;
+
+exports[`ActivityFeed component on mobile should render when there are no activities 1`] = `
+<ActivityFeed
+  activityFeed={Array []}
+  onMobile={true}
+>
+  <section
+    className="activity-feed empty"
+  >
+    <img
+      alt="Document with a bulleted list illustration"
+      src="undefined/images/pages/dashboard/illustrations-list.svg"
+    />
+    <h2>
+      Activity feed
+    </h2>
+    <p>
+      Once your students complete activities, you’ll be able to see them here.
+    </p>
+  </section>
+</ActivityFeed>
+`;

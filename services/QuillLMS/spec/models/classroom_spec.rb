@@ -223,6 +223,7 @@ describe Classroom, type: :model do
     it 'should find or create checkbox' do
       classroom = build(:classroom)
       expect(classroom).to receive(:find_or_create_checkbox)
+      classroom.classrooms_teachers.build(user_id: teacher.id, role: 'owner')
       classroom.save
       classroom.run_callbacks(:commit)
     end
