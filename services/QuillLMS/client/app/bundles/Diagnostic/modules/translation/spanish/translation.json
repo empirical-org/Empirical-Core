@@ -10,11 +10,15 @@
         "header": "Rellena el espacio en blanco",
         "text": "En esta sección, cada oración tendrá uno, dos o tres espacios en blanco. Rellenarás cada espacio en blanco con una de las palabras de la lista o lo dejarás en blanco si no se necesita ninguna palabra. Escribe las palabras que elijas en los cuadros. ¡Recuerda revisar tu ortografía! ¡Empecemos!"
     },
-    "ELL Intermediate Fill in the Blank": {
+    "ELL Starter Fill in the Blanks": {
+        "header": "Rellena el espacio en blanco",
+        "text": "En esta sección, cada oración tendrá uno, dos o tres espacios en blanco. Rellenarás cada espacio en blanco con una de las palabras de la lista o lo dejarás en blanco si no se necesita ninguna palabra. Escribe las palabras que elijas en los cuadros. ¡Recuerda revisar tu ortografía! ¡Empecemos!"
+    },
+    "ELL Intermediate Fill in the Blanks": {
         "header": "Rellena los espacios en blanco",
         "text": "En esta sección, cada oración tendrá uno, dos, tres o cuatro espacios en blanco. Tienes que rellenar cada espacio con una de las palabras de la lista. Para algunas preguntas, puedes usar una palabra de la lista en dos espacios. Escribe las palabras que escojas dentro de los cuadros de texto. ¡No te olvides de comprobar la ortografía! ¡Empecemos!"
     },
-    "ELL Advanced Fill in the Blank": {
+    "ELL Advanced Fill in the Blanks": {
         "header": "Rellena los espacios en blanco",
         "text": "¡Bien, hasta ahora! En esta sección, cada oración tendrá uno, dos, tres o cuatro espacios en blanco. Cuando haya varios espacios en blanco, escribe cada palabra una sola vez. ¡Empecemos!"
     },

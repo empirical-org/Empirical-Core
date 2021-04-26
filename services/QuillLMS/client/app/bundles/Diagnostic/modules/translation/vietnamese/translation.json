@@ -10,11 +10,15 @@
         "header": "Điền vào chỗ trống",
         "text": "Trong phần này, mỗi câu sẽ có một, hai hoặc ba chỗ trống. Bạn sẽ điền vào mỗi chỗ trống bằng một trong những từ trong danh sách, hoặc bạn sẽ để trống nếu không cần từ nào. Nhập các từ bạn chọn vào các ô. Đừng quên kiểm tra chính tả nhé! Bắt đầu nào!"
     },
-    "ELL Intermediate Fill in the Blank": {
+    "ELL Starter Fill in the Blanks": {
+        "header": "Điền vào chỗ trống",
+        "text": "Trong phần này, mỗi câu sẽ có một, hai hoặc ba chỗ trống. Bạn sẽ điền vào mỗi chỗ trống bằng một trong những từ trong danh sách, hoặc bạn sẽ để trống nếu không cần từ nào. Nhập các từ bạn chọn vào các ô. Đừng quên kiểm tra chính tả nhé! Bắt đầu nào!"
+    },
+    "ELL Intermediate Fill in the Blanks": {
         "header": "Điền vào chỗ trống",
         "text": "Trong phần này, mỗi câu sẽ có một, hai, ba hoặc bốn chỗ trống. Bạn sẽ điền mỗi chỗ trống bằng một trong các từ có trong danh sách. Đối với một số câu hỏi, bạn có thể sử dụng một từ trong danh sách để điền vào hai chỗ trống. Nhập từ bạn chọn vào ô. Nhớ kiểm tra chính tả! Bắt đầu nào!"
     },
-    "ELL Advanced Fill in the Blank": {
+    "ELL Advanced Fill in the Blanks": {
         "header": "Điền vào chỗ trống",
         "text": "Bạn đã làm rất tốt!  Trong phần này, mỗi câu sẽ có một, hai, ba hoặc bốn chỗ trống. Khi có nhiều chỗ trống, mỗi lần chỉ nhập một từ. Bắt đầu nào!"
     },

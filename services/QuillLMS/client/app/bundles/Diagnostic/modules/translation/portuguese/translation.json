@@ -10,11 +10,15 @@
         "header": "Preencha os espaços em branco",
         "text": "Nesta seção, cada frase poderá ter um, dois ou três espaços em branco. Você deverá preencher cada espaço em branco com uma das palavras da lista; ou, se nenhuma palavra for necessária, deixe o espaço em branco vazio. Digite nas caixas as palavras que você escolher. Lembre-se de verificar a ortografia! Vamos começar!"
     },
-    "ELL Intermediate Fill in the Blank": {
+    "ELL Starter Fill in the Blanks": {
+        "header": "Preencha os espaços em branco",
+        "text": "Nesta seção, cada frase poderá ter um, dois ou três espaços em branco. Você deverá preencher cada espaço em branco com uma das palavras da lista; ou, se nenhuma palavra for necessária, deixe o espaço em branco vazio. Digite nas caixas as palavras que você escolher. Lembre-se de verificar a ortografia! Vamos começar!"
+    },
+    "ELL Intermediate Fill in the Blanks": {
         "header": "Preencha a lacuna",
         "text": "Nesta parte, cada frase terá uma, duas, três ou quatro lacunas. Você vai preencher cada uma delas com uma das palavras da lista. Para algumas questões, você pode usar uma palavra da lista em duas lacunas. Digite as palavras escolhidas nas caixas. Não se esqueça de conferir a ortografia! Vamos começar!"
     },
-    "ELL Advanced Fill in the Blank": {
+    "ELL Advanced Fill in the Blanks": {
         "header": "Preencha a lacuna",
         "text": "Bom trabalho até agora! Nesta parte, cada frase terá uma, duas, três ou quatro lacunas. Quando houver várias lacunas, digite cada palavra apenas uma vez. Vamos começar!"
     },

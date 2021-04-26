@@ -10,11 +10,15 @@
         "header": "Fülle die Lücken aus",
         "text": "Jeder Satz in diesem Abschnitt hat eine, zwei oder drei Lücken. Du kannst entweder jede Lücke mit einem der Wörter aus der Liste ausfüllen oder die Lücke leer lassen, falls kein Wort benötigt wird. Gib die Wörter, die du ausgewählt hast, in die Felder ein. Vergiss nicht, deine Rechtschreibung zu überprüfen! Lass uns loslegen!"
     },
-    "ELL Intermediate Fill in the Blank": {
+    "ELL Starter Fill in the Blanks": {
+        "header": "Fülle die Lücken aus",
+        "text": "Jeder Satz in diesem Abschnitt hat eine, zwei oder drei Lücken. Du kannst entweder jede Lücke mit einem der Wörter aus der Liste ausfüllen oder die Lücke leer lassen, falls kein Wort benötigt wird. Gib die Wörter, die du ausgewählt hast, in die Felder ein. Vergiss nicht, deine Rechtschreibung zu überprüfen! Lass uns loslegen!"
+    },
+    "ELL Intermediate Fill in the Blanks": {
         "header": "Fülle die Lücke aus",
         "text": "In diesem Abschnitt hat jeder Satz eine, zwei, drei oder vier Lücken. Du füllst jede Lücke mit einem der Wörter aus der Liste aus. Bei einigen Fragen kannst du ein Wort aus der Liste in zwei Lücken einsetzen. Tippe die gewählten Wörter in die Kästchen ein. Denke dabei an die Rechtschreibung! Fangen wir an!"
     },
-    "ELL Advanced Fill in the Blank": {
+    "ELL Advanced Fill in the Blanks": {
         "header": "Fülle die Lücke aus",
         "text": "Bisher, gut gemacht! In diesem Abschnitt hat jeder Satz eine, zwei, drei oder vier Lücken. Wenn es mehrere Lücken gibt, dann tippe jedes Wort nur ein Mal ein. Fangen wir an!"
     },

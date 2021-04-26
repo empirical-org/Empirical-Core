@@ -10,11 +10,15 @@
         "header": "Remplissez les trous",
         "text": "Dans cette section, chaque phrase comportera un, deux ou trois trous. Vous pouvez remplir chaque trou avec un des mots de la liste, mais il peut arriver que vous deviez le laisser vide. Saisissez les mots que vous avez choisis dans les cases. N’oubliez pas de vérifier votre orthographe ! C’est parti !"
     },
-    "ELL Intermediate Fill in the Blank": {
+    "ELL Starter Fill in the Blanks": {
+        "header": "Remplissez les trous",
+        "text": "Dans cette section, chaque phrase comportera un, deux ou trois trous. Vous pouvez remplir chaque trou avec un des mots de la liste, mais il peut arriver que vous deviez le laisser vide. Saisissez les mots que vous avez choisis dans les cases. N’oubliez pas de vérifier votre orthographe ! C’est parti !"
+    },
+    "ELL Intermediate Fill in the Blanks": {
         "header": "Boucher les trous",
         "text": "Dans cette section, chaque phrase comportera un, deux, trois ou quatre blancs. Tu rempliras chaque blanc avec l'un des mots de la liste. Pour certaines questions, tu peux utiliser un mot de la liste à deux endroits. Tape les mots que tu as choisis dans les cases. N'oublie pas de vérifier ton orthographe ! C'est parti !"
     },
-    "ELL Advanced Fill in the Blank": {
+    "ELL Advanced Fill in the Blanks": {
         "header": "Boucher les trous",
         "text": "Bon travail jusqu'à présent ! Dans cette section, chaque phrase comportera un, deux, trois ou quatre blancs. Lorsqu'il y a plusieurs blancs, ne tape chaque mot qu'une seule fois. C'est parti !"
     },

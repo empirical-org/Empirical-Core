@@ -10,11 +10,15 @@
         "header": "Punan ang mga Patlang",
         "text": "Sa bahaging ito, ang bawat pangungusap ay may isa, dalawa, o tatlong patlang. Pupunan mo ang bawat patlang ng isang salita mula sa listahan, o iiwan itong blangko kung walang salita na kailangan. I-type sa mga kahon ang mga salitang napili mo. Tandaan, i-check ang spelling! Simulan na natin!"
     },
-    "ELL Intermediate Fill in the Blank": {
+    "ELL Starter Fill in the Blanks": {
+        "header": "Punan ang mga Patlang",
+        "text": "Sa bahaging ito, ang bawat pangungusap ay may isa, dalawa, o tatlong patlang. Pupunan mo ang bawat patlang ng isang salita mula sa listahan, o iiwan itong blangko kung walang salita na kailangan. I-type sa mga kahon ang mga salitang napili mo. Tandaan, i-check ang spelling! Simulan na natin!"
+    },
+    "ELL Intermediate Fill in the Blanks": {
         "header": "Punan ang Blangko",
         "text": "Sa seksyong ito, bawat pangungusap ay magkakaroon ng isa, dalawa, tatlo, o apat na blangko. Pupunan mo ang bawat blangko ng isa sa mga salita mula sa listahan. Para sa ilang tanong, pwede mong gamitin sa dalawang blangko ang isang salita mula sa listahan. I-type ang mga salitang pinili mo papunta sa mga kahon. Alalahaning tingnan ang iyong pagbaybay. Tara magsimula na tayo!"
     },
-    "ELL Advanced Fill in the Blank": {
+    "ELL Advanced Fill in the Blanks": {
         "header": "Punan ang Blangko",
         "text": "Mahusay na trabaho sa ngayon! Sa seksyong ito, bawat pangungusap ay magkakaroon ng isa, dalawa, tatlo, o apat na blangko. Kapag may maraming blangko, i-type lang ang bawat salita nang isang beses. Tara magsimula na tayo!"
     },
