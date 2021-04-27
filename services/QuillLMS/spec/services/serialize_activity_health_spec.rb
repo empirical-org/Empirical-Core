@@ -42,7 +42,7 @@ describe 'SerializeActivityHealth' do
     expect(data[:activity_categories]).to eq(activity.activity_categories.pluck(:name))
     expect(data[:content_partners]).to eq([content_partner.name])
     expect(data[:tool]).to eq("connect")
-    expect(data[:activity_packs]).to eq(activity.units.pluck(:name))
+    expect(data[:activity_packs]).to eq(activity.unit_templates.pluck(:name))
     expect(data[:diagnostics]).to eq([diagnostic.name])
   end
 
