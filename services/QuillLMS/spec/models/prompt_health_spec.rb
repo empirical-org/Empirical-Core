@@ -24,7 +24,7 @@ describe PromptHealth, type: :model, redis: true do
 
   it { should belong_to(:activity_health)}
 
-  it { should validate_inclusion_of(:flag).in_array(Flags::FLAGS)}
+  it { should validate_inclusion_of(:flag).in_array(PromptHealth::FLAGS)}
   it { should validate_numericality_of(:incorrect_sequences).is_greater_than_or_equal_to(0)}
   it { should validate_numericality_of(:focus_points).is_greater_than_or_equal_to(0)}
   it { should validate_inclusion_of(:percent_common_unmatched).in_range(0..100)}
