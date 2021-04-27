@@ -43,6 +43,7 @@ describe PopulateActivityHealthWorker do
       activity_health = ActivityHealth.first
       expect(activity_health.name).to eq(activity.name)
       expect(activity_health.url).to eq("https://quill.org/connect/#/admin/lessons/#{activity.uid}")
+      expect(activity_health.flag).to eq(activity.flag.to_s)
       expect(activity_health.tool).to eq("connect")
       expect(activity_health.avg_difficulty).to eq(1.84)
     end

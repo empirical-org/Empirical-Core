@@ -38,6 +38,7 @@ describe 'SerializeActivityHealth' do
     data = SerializeActivityHealth.new(activity).data
     expect(data[:name]).to eq(activity.name)
     expect(data[:url]).to eq("https://quill.org/connect/#/admin/lessons/#{activity.uid}")
+    expect(data[:flag]).to eq(activity.flag.to_s)
     expect(data[:activity_categories]).to eq(activity.activity_categories.pluck(:name))
     expect(data[:content_partners]).to eq([content_partner.name])
     expect(data[:tool]).to eq("connect")
