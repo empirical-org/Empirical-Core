@@ -86,10 +86,18 @@ export class PromptStep extends React.Component<PromptStepProps, PromptStepState
   }
 
   formatStudentResponse = (str: string) => {
+    const { prompt, } = this.props
     const lastSubmittedResponse = this.lastSubmittedResponse()
-    if (!(lastSubmittedResponse && lastSubmittedResponse.highlight && lastSubmittedResponse.highlight.filter(hl => hl.type === RESPONSE).length)) {
+
+    if (!lastSubmittedResponse || !lastSubmittedResponse.highlight || !lastSubmittedResponse.entry) { return str }
+
+    const thereAreResponseHighlights = lastSubmittedResponse.highlight.filter(hl => hl.type === RESPONSE).length
+    const lastSubmittedResponseWithoutStem = lastSubmittedResponse.entry.replace(prompt.text, '').trim()
+
+    if (lastSubmittedResponseWithoutStem !== str || !thereAreResponseHighlights) {
       return str
     }
+
     let wordsToFormat = lastSubmittedResponse.highlight.filter(hl => hl.type === RESPONSE).map(hl => hl.text)
     wordsToFormat = wordsToFormat.length === 1 ? wordsToFormat[0] : wordsToFormat
     if (lastSubmittedResponse.feedback_type == 'plagiarism') {
