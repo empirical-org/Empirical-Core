@@ -14,10 +14,11 @@ class SerializeActivityHealth
     {
       name: @activity.name,
       url: "#{ENV['DEFAULT_URL']}/#{tool}/#/admin/lessons/#{@activity.uid}",
+      flag: @activity.flag.to_s,
       activity_categories: @activity.activity_categories.pluck(:name),
       content_partners: @activity.content_partners.pluck(:name),
       tool: tool,
-      recent_assignments: recent_assignments,
+      recent_plays: recent_plays,
       diagnostics: diagnostics,
       activity_packs: @activity.units.pluck(:name),
       avg_mins_to_complete: avg_mins_to_complete,
@@ -50,10 +51,9 @@ class SerializeActivityHealth
     all_session_lengths.empty? ? nil : (all_session_lengths.reduce(:+).to_f / all_session_lengths.size).round(2)
   end
 
-  # how do we want to calculate this?
-  private def recent_assignments
+  private def recent_plays
     if !@activity.classroom_units.empty? && @activity.classroom_units.order(:created_at).first.created_at <= Date.today - 3.months
-      @activity.classroom_units.where("classroom_units.created_at >= ?", Date.today - 3.months).count
+      ActivitySession.where("started_at >= ?", Date.today - 3.months).where(state: "finished", activity_id: @activity.id).count
     else
       nil
     end

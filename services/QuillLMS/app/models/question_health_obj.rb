@@ -22,10 +22,10 @@ class QuestionHealthObj
       flag: data["flag"],
       incorrect_sequences: data["incorrectSequences"]&.length,
       focus_points: data["focusPoints"]&.length,
-      percent_common_unmatched: health_dashboard.cms_dashboard_stats["percent_common_unmatched"],
-      percent_specified_algorithms: health_dashboard.cms_dashboard_stats["percent_specified_algos"],
-      difficulty: health_dashboard.average_attempts_for_question,
-      percent_reached_optimal: health_dashboard.percent_reached_optimal_for_question
+      percent_common_unmatched: health_dashboard.cms_dashboard_stats["percent_common_unmatched"].round(2),
+      percent_specified_algorithms: health_dashboard.cms_dashboard_stats["percent_specified_algos"].round(2),
+      difficulty: health_dashboard.average_attempts_for_question.round(2),
+      percent_reached_optimal: health_dashboard.percent_reached_optimal_for_question.round(2)
     }
   end
 

@@ -1,11 +1,16 @@
 class PopulateAllActivityHealthsWorker
   include Sidekiq::Worker
-  RELEVENT_ACTIVITY_CLASSIFICATION_IDS = [2, 5]
-  RELEVENT_FLAGS = ["production"]
 
   def perform
-    ActivityHealth.destroy_all!
-    Activity.where(flags: RELEVENT_FLAGS, activity_classification_id: RELEVENT_ACTIVITY_CLASSIFICATION_IDS).each do |act|
+    ActivityHealth.destroy_all
+    # execute this command to start primary key indices back from 1
+    ActiveRecord::Base.connection.execute("TRUNCATE activity_healths RESTART IDENTITY CASCADE")
+
+    relevent_classifications = [
+      ActivityClassification.find_by_key(ActivityClassification::CONNECT_KEY)&.id,
+      ActivityClassification.find_by_key(ActivityClassification::GRAMMAR_KEY)&.id
+    ]
+    Activity.where(activity_classification_id: relevent_classifications).each do |act|
       PopulateActivityHealthWorker.perform_async(act.id)
     end
   end
