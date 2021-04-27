@@ -10,13 +10,9 @@ import {
 } from '../../actions/responses.js';
 const icon = `${process.env.CDN_URL}/images/icons/direction.svg`
 import updateResponseResource from '../renderForQuestions/updateResponseResource.js';
-import translations from '../../libs/translations/index.js';
-import translationMap from '../../libs/translations/ellQuestionMapper.js';
-import { ENGLISH, rightToLeftLanguages } from '../../modules/translation/languagePageInfo';
 import { hashToCollection, Feedback, getLatestAttempt, renderPreviewFeedback, getDisplayedText } from '../../../Shared/index'
 
 const key = ''; // enables this component to be used by both play/sentence-fragments and play/diagnostic
-const availableLanguages = ['arabic', 'spanish', 'french', 'chinese', 'hindi', 'vietnamese'];
 
 class PlaySentenceFragment extends React.Component {
   constructor(props) {
@@ -38,32 +34,9 @@ class PlaySentenceFragment extends React.Component {
   }
 
   getInstructionText = () => {
-    const { language, question } = this.props;
+    const { question } = this.props;
     const { instructions } = question;
-    const textKey = translationMap[this.getQuestion().key];
-    let text = translations.english[textKey];
-    if (language !== ENGLISH  && availableLanguages.includes(language)) {
-      const textClass = rightToLeftLanguages.includes(language) ? 'right-to-left' : '';
-      const additionalText = translations[language][textKey] ? translations[language][textKey] : '';
-      if(additionalText) {
-        text += `<br/><br/><span class="${textClass}">${additionalText}</span>`;
-      }
-    }
-    text = !text && instructions ? instructions : text;
-    if(text) {
-      return (<p dangerouslySetInnerHTML={{ __html: text, }} />);
-    } else {
-      return null;
-    }
-  }
-
-  getChoiceHTML = () => {
-    const { language, } = this.props;
-    let text = translations.english['sentence-fragment-complete-vs-incomplete-button-choice-instructions'];
-    if (language !== ENGLISH && availableLanguages.includes(language)) {
-      text += `<br/><br/>${translations[language]['sentence-fragment-complete-vs-incomplete-button-choice-instructions']}`;
-    }
-    return text;
+    return <p dangerouslySetInnerHTML={{ __html: instructions, }} />;
   }
 
   choosingSentenceOrFragment = () => {
@@ -105,13 +78,10 @@ class PlaySentenceFragment extends React.Component {
   }
 
   getSentenceOrFragmentButtons = () => {
-    const { language } = this.props;
-    const completeText = language !== ENGLISH && availableLanguages.includes(language) ? `Complete / ${translations[language]['sentence fragment complete button']}` : 'Complete';
-    const incompleteText = language !== ENGLISH && availableLanguages.includes(language) ? `Incomplete / ${translations[language]['sentence fragment incomplete button']}` : 'Incomplete';
     return (
       <div className="sf-button-group">
-        <button className="button sf-button focus-on-light" onClick={this.handleClickCompleteSentence} type="button" value="Sentence">{completeText}</button>
-        <button className="button sf-button focus-on-light" onClick={this.handleClickIncompleteSentence} type="button" value="Fragment">{incompleteText}</button>
+        <button className="button sf-button focus-on-light" onClick={this.handleClickCompleteSentence} type="button" value="Sentence">Complete</button>
+        <button className="button sf-button focus-on-light" onClick={this.handleClickIncompleteSentence} type="button" value="Fragment">Incomplete</button>
       </div>
     );
   }
@@ -164,7 +134,7 @@ class PlaySentenceFragment extends React.Component {
           <ReactTransition transitionLeave transitionLeaveTimeout={2000} transitionName='sentence-fragment-buttons'>
             <div className="feedback-row">
               <img alt="Directions Icon" className="info" src={icon} style={{ marginTop: 3, alignSelf: 'flex-start', }} />
-              <p dangerouslySetInnerHTML={{ __html: this.getChoiceHTML(), }} />
+              <p>Is this a complete or an incomplete sentence?</p>
             </div>
             {this.getSentenceOrFragmentButtons()}
           </ReactTransition>
@@ -172,15 +142,6 @@ class PlaySentenceFragment extends React.Component {
       );
     }
     return (<div />);
-  }
-
-  getSubmitButtonText = () => {
-    const { language, } = this.props
-    let text = translations.english['submit button text'];
-    if (language !== ENGLISH && availableLanguages.includes(language)) {
-      text += ` / ${translations[language]['submit button text']}`;
-    }
-    return text;
   }
 
   renderFeedback = () => {
@@ -209,9 +170,9 @@ class PlaySentenceFragment extends React.Component {
     // HARDCODED
     let button
     if(!responses || (previewMode && latestAttempt)) {
-      button = <button className="quill-button focus-on-light large primary contained disabled" type="button">{this.getSubmitButtonText()}</button>;
+      button = <button className="quill-button focus-on-light large primary contained disabled" type="button">Submit</button>;
     } else {
-      button = <button className="quill-button focus-on-light large primary contained" onClick={this.handleResponseSubmission} type="button">{this.getSubmitButtonText()}</button>;
+      button = <button className="quill-button focus-on-light large primary contained" onClick={this.handleResponseSubmission} type="button">Submit</button>;
     }
 
     if (!this.choosingSentenceOrFragment()) {

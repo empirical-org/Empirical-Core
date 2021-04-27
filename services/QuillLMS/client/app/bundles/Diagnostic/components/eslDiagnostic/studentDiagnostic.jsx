@@ -222,7 +222,6 @@ export class ELLStudentDiagnostic extends React.Component {
         <PlayTitleCard
           currentKey={playDiagnostic.currentQuestion.data.key}
           data={playDiagnostic.currentQuestion.data}
-          diagnosticID={diagnosticID}
           dispatch={dispatch}
           handleContinueClick={this.nextQuestionWithoutSaving}
           isLastQuestion={isLastQuestion}
