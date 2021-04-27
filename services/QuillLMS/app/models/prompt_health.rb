@@ -19,10 +19,11 @@
 #  fk_rails_...  (activity_health_id => activity_healths.id) ON DELETE => cascade
 #
 class PromptHealth < ActiveRecord::Base
+  FLAGS = %w(production archived alpha beta private)
 
   belongs_to :activity_health
 
-  validates :flag, inclusion: { in: Flags::FLAGS, allow_nil: true}
+  validates :flag, inclusion: { in: FLAGS, allow_nil: true}
   validates :incorrect_sequences, numericality: { greater_than_or_equal_to: 0, allow_nil: true }
   validates :focus_points, numericality: { greater_than_or_equal_to: 0, allow_nil: true }
   validates :percent_common_unmatched, inclusion: { in: 0..100, allow_nil: true }

@@ -19,11 +19,12 @@
 #
 class ActivityHealth < ActiveRecord::Base
   ALLOWED_TOOLS = %w(connect grammar)
+  FLAGS = %w(production archived alpha beta private)
 
   has_many :prompt_healths
 
   validates :tool, inclusion: { in: ALLOWED_TOOLS, allow_nil: true}
-  validates :flag, inclusion: { in: Flags::FLAGS, allow_nil: true}
+  validates :flag, inclusion: { in: FLAGS, allow_nil: true}
   validates :recent_plays, numericality: { greater_than_or_equal_to: 0, allow_nil: true }
   validates :avg_difficulty, inclusion: { in: 0..5, allow_nil: true }
 end
