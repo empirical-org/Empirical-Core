@@ -435,9 +435,9 @@ export class ELLStudentDiagnostic extends React.Component {
     } else {
       component = (<LanguagePage
         begin={this.startActivity}
-        diagnosticID={diagnosticID}
         dispatch={dispatch}
         previewMode={previewMode}
+        questionCount={playDiagnostic.questionSet && playDiagnostic.questionSet.length}
         setLanguage={this.updateLanguage}
       />);
     }

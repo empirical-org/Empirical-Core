@@ -19,8 +19,7 @@ export class LanguagePage extends React.Component {
   }
 
   render() {
-    const { diagnosticID } = this.props;
-    const questionCount = diagnosticID === '-LyFRZvbHAmooTTIIVE2' ? '22' : '23';
+    const { questionCount } = this.props;
     return (
       <div className="language-page">
         <div className="introductory-text">

@@ -1,6 +1,22 @@
-export const languages = ['english', 'chinese', 'hindi', 'spanish', 'french', 'arabic', 'russian', 'portuguese', 'urdu', 'german', 'japanese', 'korean', 'vietnamese', 'thai', 'ukrainian', 'tagalog', 'dari'];
-export const rightToLeftLanguages = ['arabic', 'urdu', 'dari'];
 export const ENGLISH = 'english';
+export const CHINESE = 'chinese';
+export const HINDI = 'hindi';
+export const SPANISH = 'spanish';
+export const FRENCH = 'french';
+export const ARABIC = 'arabic';
+export const RUSSIAN = 'russian';
+export const PORTUGUESE = 'portuguese';
+export const URDU = 'urdu';
+export const GERMAN = 'german';
+export const JAPANESE = 'japanese';
+export const KOREAN = 'korean';
+export const VIETNAMESE = 'vietnamese';
+export const THAI = 'thai';
+export const UKRAINIAN = 'ukrainian';
+export const TAGALOG = 'tagalog';
+export const DARI = 'dari';
+export const languages = [ENGLISH, CHINESE, HINDI, SPANISH, FRENCH, ARABIC, RUSSIAN, PORTUGUESE, URDU, GERMAN, JAPANESE, KOREAN, VIETNAMESE, THAI, UKRAINIAN, TAGALOG, DARI];
+export const rightToLeftLanguages = [ARABIC, URDU, DARI];
 
 /*
     ELL Starter: -LyFRZvbHAmooTTIIVE2
@@ -9,7 +25,7 @@ export const ENGLISH = 'english';
 */
 
 export const languageData = {
-    'english': {
+    [ENGLISH]: {
         flag: 'https://assets.quill.org/images/flags/usa.png',
         label: 'English',
         intro: {
@@ -33,7 +49,7 @@ export const languageData = {
             }
         }
     },
-    'chinese': {
+    [CHINESE]: {
         flag: 'https://assets.quill.org/images/flags/china.png',
         label: '中文',
         intro: {
@@ -57,7 +73,7 @@ export const languageData = {
             }
         }
     },
-    'hindi': {
+    [HINDI]: {
         flag: 'https://assets.quill.org/images/flags/india.png',
         label: 'हिंदी',
         intro: {
@@ -81,7 +97,7 @@ export const languageData = {
             }
         }
     },
-    'spanish': {
+    [SPANISH]: {
         flag: 'https://assets.quill.org/images/flags/spain.png',
         label: 'Español',
         intro: {
@@ -105,7 +121,7 @@ export const languageData = {
             }
         }
     },
-    'french': {
+    [FRENCH]: {
         flag: 'https://assets.quill.org/images/flags/france.png',
         label: 'Français',
         intro: {
@@ -129,7 +145,7 @@ export const languageData = {
             }
         }
     },
-    'arabic': {
+    [ARABIC]: {
         flag: 'https://assets.quill.org/images/flags/egypt.png',
         label: 'العربية',
         intro: {
@@ -147,7 +163,7 @@ export const languageData = {
             }
         }
     },
-    'russian': {
+    [RUSSIAN]: {
         flag: 'https://assets.quill.org/images/flags/russia.png',
         label: 'Русский',
         intro: {
@@ -171,7 +187,7 @@ export const languageData = {
             }
         }
     },
-    'portuguese': {
+    [PORTUGUESE]: {
         flag: 'https://assets.quill.org/images/flags/brazil.png',
         label: 'Português',
         intro: {
@@ -195,7 +211,7 @@ export const languageData = {
             }
         }
     },
-    'urdu': {
+    [URDU]: {
         flag: 'https://assets.quill.org/images/flags/pakistan.png',
         label: 'اردو',
         intro: {
@@ -213,7 +229,7 @@ export const languageData = {
             }
         }
     },
-    'german': {
+    [GERMAN]: {
         flag: 'https://assets.quill.org/images/flags/germany.png',
         label: 'Deutsche',
         intro: {
@@ -237,7 +253,7 @@ export const languageData = {
             }
         }
     },
-    'japanese': {
+    [JAPANESE]: {
         flag: 'https://assets.quill.org/images/flags/japan.png',
         label: '日本語',
         intro: {
@@ -261,7 +277,7 @@ export const languageData = {
             }
         }
     },
-    'korean': {
+    [KOREAN]: {
         flag: 'https://assets.quill.org/images/flags/south_korea.png',
         label: '한국어',
         intro: {
@@ -285,7 +301,7 @@ export const languageData = {
             }
         }
     },
-    'vietnamese': {
+    [VIETNAMESE]: {
         flag: 'https://assets.quill.org/images/flags/vietnam.png',
         label: 'Tiếng Việt',
         intro: {
@@ -309,7 +325,7 @@ export const languageData = {
             }
         }
     },
-    'thai': {
+    [THAI]: {
         flag: 'https://assets.quill.org/images/flags/thailand.png',
         label: 'ไทย',
         intro: {
@@ -333,7 +349,7 @@ export const languageData = {
             }
         }
     },
-    'ukrainian': {
+    [UKRAINIAN]: {
         flag: 'https://assets.quill.org/images/flags/ukraine.png',
         label: 'Українська',
         intro: {
@@ -357,7 +373,7 @@ export const languageData = {
             }
         }
     },
-    'tagalog': {
+    [TAGALOG]: {
         flag: 'https://assets.quill.org/images/flags/philippines.png',
         label: 'Tagalog',
         intro: {
@@ -381,7 +397,7 @@ export const languageData = {
             }
         }
     },
-    'dari': {
+    [DARI]: {
         flag: 'https://assets.quill.org/images/flags/afghanistan.png',
         label: 'درى',
         intro: {
