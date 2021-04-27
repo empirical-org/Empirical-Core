@@ -97,7 +97,7 @@ const minis = ({ history }) => [
   />),
   (<AssignmentCard
     bodyArray={[
-      { key: 'What', text: 'Subject-verb agreement, possessives, prepositions, future tense, articles, and intermediate questions.', },
+      { key: 'What', text: 'Subject-verb agreement, possessives, prepositions, future tense, articles, and intermediate questions', },
       { key: 'When', text: 'Your students are English language learners who have a foundational understanding of basic English grammar but need more practice with certain concepts.', }
     ]}
     buttonLink={`/activity_sessions/anonymous?activity_id=${ELL_INTERMEDIATE_DIAGNOSTIC_ACTIVITY_ID}`}
@@ -110,7 +110,7 @@ const minis = ({ history }) => [
   (<AssignmentCard
     bodyArray={[
       { key: 'What', text: 'Regular and irregular past tense, progressive tenses, phrasal verbs, choosing between prepositions, responding to questions, and commonly confused words', },
-      { key: 'When', text: 'When: Your students are English language learners who need practice with more difficult ELL skills before moving on to the Starter Diagnostic.', }
+      { key: 'When', text: 'Your students are English language learners who need practice with more difficult ELL skills before moving on to the Starter Diagnostic.', }
     ]}
     buttonLink={`/activity_sessions/anonymous?activity_id=${ELL_ADVANCED_DIAGNOSTIC_ACTIVITY_ID}`}
     buttonText="Preview"

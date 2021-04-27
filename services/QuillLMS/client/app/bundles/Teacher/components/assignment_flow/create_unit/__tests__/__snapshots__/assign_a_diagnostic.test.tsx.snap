@@ -100,7 +100,7 @@ exports[`AssignADiagnostic component should render 1`] = `
           Array [
             Object {
               "key": "What",
-              "text": "Subject-verb agreement, possessives, prepositions, future tense, articles, and intermediate questions.",
+              "text": "Subject-verb agreement, possessives, prepositions, future tense, articles, and intermediate questions",
             },
             Object {
               "key": "When",
@@ -124,7 +124,7 @@ exports[`AssignADiagnostic component should render 1`] = `
             },
             Object {
               "key": "When",
-              "text": "When: Your students are English language learners who need practice with more difficult ELL skills before moving on to the Starter Diagnostic.",
+              "text": "Your students are English language learners who need practice with more difficult ELL skills before moving on to the Starter Diagnostic.",
             },
           ]
         }
