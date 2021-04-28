@@ -6,15 +6,27 @@
         "resume": "Resume / Seguir",
         "submit": "Submit / Enviar"
     },
-    "intro": {
-        "header": "Actividad de emplazamiento de Quill",
-        "text": "Vas a responder 22 preguntas sobre cómo escribir oraciones. Algunas de las preguntas podrían ser sobre cosas que aún no has aprendido, ¡pero no pasa nada! Solo respóndelas lo mejor que puedas. ¡No olvides leer las instrucciones con cuidado para cada pregunta! Cuando hayas terminado, Quill creará un plan de aprendizaje solo para ti."
-    },
     "ELL Starter Fill in the Blank": {
         "header": "Rellena el espacio en blanco",
         "text": "En esta sección, cada oración tendrá uno, dos o tres espacios en blanco. Rellenarás cada espacio en blanco con una de las palabras de la lista o lo dejarás en blanco si no se necesita ninguna palabra. Escribe las palabras que elijas en los cuadros. ¡Recuerda revisar tu ortografía! ¡Empecemos!"
     },
+    "ELL Starter Fill in the Blanks": {
+        "header": "Rellena el espacio en blanco",
+        "text": "En esta sección, cada oración tendrá uno, dos o tres espacios en blanco. Rellenarás cada espacio en blanco con una de las palabras de la lista o lo dejarás en blanco si no se necesita ninguna palabra. Escribe las palabras que elijas en los cuadros. ¡Recuerda revisar tu ortografía! ¡Empecemos!"
+    },
+    "ELL Intermediate Fill in the Blanks": {
+        "header": "Rellena los espacios en blanco",
+        "text": "En esta sección, cada oración tendrá uno, dos, tres o cuatro espacios en blanco. Tienes que rellenar cada espacio con una de las palabras de la lista. Para algunas preguntas, puedes usar una palabra de la lista en dos espacios. Escribe las palabras que escojas dentro de los cuadros de texto. ¡No te olvides de comprobar la ortografía! ¡Empecemos!"
+    },
+    "ELL Advanced Fill in the Blanks": {
+        "header": "Rellena los espacios en blanco",
+        "text": "¡Bien, hasta ahora! En esta sección, cada oración tendrá uno, dos, tres o cuatro espacios en blanco. Cuando haya varios espacios en blanco, escribe cada palabra una sola vez. ¡Empecemos!"
+    },
     "ELL Starter Halfway": {
+        "header": "¡Estás a medio camino!",
+        "text": "¡Continúa con el buen trabajo!"
+    },
+    "ELL Halfway": {
         "header": "¡Estás a medio camino!",
         "text": "¡Continúa con el buen trabajo!"
     },
@@ -25,6 +37,14 @@
     "ELL Starter Sentence Combining": {
         "header": "Combinación de oraciones",
         "text": "¡Ya casi has terminado! Solo quedan 3 preguntas. En esta sección, combinarás varias oraciones en una sola oración. Te proporcionarán una palabra de unión para que la utilices. Recuerda que una oración solo tiene un punto. ¡Puedes hacerlo!"
+    },
+    "ELL Intermediate Sentences": {
+        "header": "Escribir oraciones",
+        "text": "¡Buen trabajo! Solo te faltan dos preguntas. Esta sección trata sobre el tiempo verbal de futuro. Escribe la oración completa para ambas preguntas. Manos a la obra."
+    },
+    "ELL Advanced Sentences": {
+        "header": "Verbos en las oraciones",
+        "text": "Escribe la oración completa para cada pregunta de esta sección. Cambia la forma de la palabra subrayada para que cuadre con el resto de la oración. ¡No te olvides de comprobar la ortografía! ¡Empecemos!"
     },
     "End: You Did it!": {
         "header": "¡Lo lograste!",
@@ -40,10 +60,17 @@
         "Fill in each blank with one of the choices.": "Rellena cada espacio en blanco con una de las opciones.",
         "Fill in the blanks with one word each.": "Rellena los espacios en blanco con una palabra en cada uno.",
         "Fill in the blanks with one word each. You can leave one empty.": "Rellena los espacios en blanco con una palabra en cada uno. Puedes dejar uno vacío.",
+        "Fill in each blank with one of the choices. You may use one word more than once. There is more than one right answer.": "Rellena cada espacio con una de las opciones. Puedes usar una palabra más de una vez. Hay más de una respuesta correcta.",
+        "Fill in the blanks. Use each word once.": "Rellena los huecos. Utiliza cada palabra solo una vez.",
+        "Rewrite the sentence. Correct the underlined action word so it is in future tense.": "Rescribe la oración. Corrige el verbo subrayado para que esté en futuro.",
+        "Rewrite the sentence. Correct the underlined action word so it is in the right tense to match the rest of the sentence.": "Rescribe la oración. Corrige el verbo subrayado para que esté en el tiempo verbal correcto y cuadre con el resto de la oración.",
+        "Rewrite the sentence. Correct the underlined words so they are in future tense.": "Rescribe la oración. Corrige las palabras subrayadas para que estén en futuro.",
+        "Respond to the question. Fill in the blank with one of the choices.": "Responde a la pregunta. Rellena el espacio con una de las opciones.",
         "Use the joining word to combine the sentences into one sentence.": "Utiliza la palabra de unión para combinar las oraciones en una sola oración."
     },
     "cues": {
         "type one": "type one / Escribe una",
+        "type one in each blank": "Escribe una en cada espacio",
         "type two or three": "type two or three / Escribe dos o tres",
         "type three": "type three / Escribe tres",
         "choose one": "choose one / elige una",

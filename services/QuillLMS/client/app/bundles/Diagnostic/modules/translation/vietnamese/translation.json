@@ -6,15 +6,27 @@
         "resume": "Resume / Tiếp tục",
         "submit": "Submit / Gửi"
     },
-    "intro": {
-        "header": "Hoạt động Sắp xếp Quill",
-        "text": "Bạn sắp trả lời 22 câu hỏi về việc viết câu. Một số câu hỏi có thể là về những điều bạn chưa được học—không sao cả. Bạn chỉ cần trả lời tốt nhất có thể. Đừng quên đọc hướng dẫn cẩn thận cho mỗi câu hỏi nhé! Khi bạn đã hoàn thành, Quill sẽ tạo một kế hoạch học tập dành riêng cho bạn."
-    },
     "ELL Starter Fill in the Blank": {
         "header": "Điền vào chỗ trống",
         "text": "Trong phần này, mỗi câu sẽ có một, hai hoặc ba chỗ trống. Bạn sẽ điền vào mỗi chỗ trống bằng một trong những từ trong danh sách, hoặc bạn sẽ để trống nếu không cần từ nào. Nhập các từ bạn chọn vào các ô. Đừng quên kiểm tra chính tả nhé! Bắt đầu nào!"
     },
+    "ELL Starter Fill in the Blanks": {
+        "header": "Điền vào chỗ trống",
+        "text": "Trong phần này, mỗi câu sẽ có một, hai hoặc ba chỗ trống. Bạn sẽ điền vào mỗi chỗ trống bằng một trong những từ trong danh sách, hoặc bạn sẽ để trống nếu không cần từ nào. Nhập các từ bạn chọn vào các ô. Đừng quên kiểm tra chính tả nhé! Bắt đầu nào!"
+    },
+    "ELL Intermediate Fill in the Blanks": {
+        "header": "Điền vào chỗ trống",
+        "text": "Trong phần này, mỗi câu sẽ có một, hai, ba hoặc bốn chỗ trống. Bạn sẽ điền mỗi chỗ trống bằng một trong các từ có trong danh sách. Đối với một số câu hỏi, bạn có thể sử dụng một từ trong danh sách để điền vào hai chỗ trống. Nhập từ bạn chọn vào ô. Nhớ kiểm tra chính tả! Bắt đầu nào!"
+    },
+    "ELL Advanced Fill in the Blanks": {
+        "header": "Điền vào chỗ trống",
+        "text": "Bạn đã làm rất tốt!  Trong phần này, mỗi câu sẽ có một, hai, ba hoặc bốn chỗ trống. Khi có nhiều chỗ trống, mỗi lần chỉ nhập một từ. Bắt đầu nào!"
+    },
     "ELL Starter Halfway": {
+        "header": "Bạn đã đi được nửa chặng đường rồi!",
+        "text": "Cứ phát huy nhé!"
+    },
+    "ELL Halfway": {
         "header": "Bạn đã đi được nửa chặng đường rồi!",
         "text": "Cứ phát huy nhé!"
     },
@@ -25,6 +37,14 @@
     "ELL Starter Sentence Combining": {
         "header": "Kết hợp câu",
         "text": "Bạn sắp xong rồi! Chỉ còn 3 câu hỏi nữa thôi. Trong phần này, bạn sẽ kết hợp các câu thành một câu. Bạn sẽ được cung cấp một nối để sử dụng. Hãy nhớ rằng một câu chỉ có một dấu chấm câu. Bạn sẽ thành công!"
+    },
+    "ELL Intermediate Sentences": {
+        "header": "Viết câu",
+        "text": "Tốt lắm! Bạn chỉ còn lại hai câu hỏi. Phần tiếp theo liên quan tới thì tương lai. Viết câu hoàn chỉnh cho cả hai câu hỏi. Bắt đầu thôi."
+    },
+    "ELL Advanced Sentences": {
+        "header": "Các từ chỉ hành động trong câu",
+        "text": "Đối với mỗi câu hỏi trong phần này, hãy viết một câu hoàn chỉnh. Thay đổi hình thái của từ được gạch dưới để phù hợp với phần còn lại của câu. Nhớ kiểm tra chính tả! Bắt đầu nào!"
     },
     "End: You Did it!": {
         "header": "Bạn đã làm được!",
@@ -40,10 +60,17 @@
         "Fill in each blank with one of the choices.": "Điền vào mỗi chỗ trống với một trong các lựa chọn.",
         "Fill in the blanks with one word each.": "Điền mỗi chỗ trống một từ.",
         "Fill in the blanks with one word each. You can leave one empty.": "Điền mỗi chỗ trống một từ. Bạn có thể để trống một chỗ.",
+        "Fill in each blank with one of the choices. You may use one word more than once. There is more than one right answer.": "Chọn một từ và điền vào chỗ trống. Bạn có thể sử dụng một từ nhiều lần. Có nhiều hơn một câu trả lời đúng.",
+        "Fill in the blanks. Use each word once.": "Điền vào chỗ trống. Sử dụng mỗi từ một lần.",
+        "Rewrite the sentence. Correct the underlined action word so it is in future tense.": "Viết lại câu. Sửa từ chỉ hành động được gạch dưới để từ đó thuộc thì tương lai.",
+        "Rewrite the sentence. Correct the underlined action word so it is in the right tense to match the rest of the sentence.": "Viết lại câu. Sửa lại từ chỉ hành động được gạch dưới để thì của từ đó phù hợp với phần còn lại của câu.",
+        "Rewrite the sentence. Correct the underlined words so they are in future tense.": "Viết lại câu. Sửa lại các từ được gạch dưới để các từ đó thuộc thì tương lai.",
+        "Respond to the question. Fill in the blank with one of the choices.": "Trả lời câu hỏi. Chọn một từ và điền vào chỗ trống.",
         "Use the joining word to combine the sentences into one sentence.": "Sử dụng từ nối để kết hợp các câu thành một câu."
     },
     "cues": {
         "type one": "type one / nhập một từ",
+        "type one in each blank": "nhập một từ vào mỗi chỗ trống",
         "type two or three": "type two or three / nhập hai hoặc ba từ",
         "type three": "type three / nhập ba từ",
         "choose one": "choose one / chọn một",

@@ -9,7 +9,7 @@ describe QuestionHealthDashboard, type: :model do
   let!(:concept_result_1) { create(:concept_result, activity_session: activity_session_1, metadata: {questionNumber: 1, questionScore: 1}.to_json)}
   let!(:concept_result_2) { create(:concept_result, activity_session: activity_session_2, metadata: {questionNumber: 1, questionScore: 0.75}.to_json)}
   let!(:concept_result_3) { create(:concept_result, activity_session: activity_session_3, metadata: {questionNumber: 1, questionScore: 0}.to_json)}
-  let!(:concept_result_9) { create(:concept_result, activity_session: activity_session_1, metadata: {questionNumber: 2, questionScore: 1}.to_json)}
+  let!(:concept_result_4) { create(:concept_result, activity_session: activity_session_1, metadata: {questionNumber: 2, questionScore: 1}.to_json)}
 
   describe '#percent_reached_optimal_for_question' do
     it 'calculates the percent of question plays that resulted in an optimal response' do

@@ -141,8 +141,9 @@ export const getFeedback = (args: GetFeedbackArguments) => {
     }));
 
     request.post(requestObject, (e, r, body) => {
-      const { feedback, feedback_type, optimal, response_id, highlight, labels, } = body
+      const { concept_uid, feedback, feedback_type, optimal, response_id, highlight, labels, } = body
       const feedbackObj: FeedbackObject = {
+        concept_uid,
         entry,
         feedback,
         feedback_type,
