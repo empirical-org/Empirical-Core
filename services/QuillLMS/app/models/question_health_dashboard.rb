@@ -1,5 +1,7 @@
 class QuestionHealthDashboard
   MAX_SESSIONS_VIEWED = 500
+  Y_INTERCEPT = 5
+  SLOPE = 4
 
   def initialize(activity_id, question_number, question_uid)
     @activity_id = activity_id
@@ -27,7 +29,7 @@ class QuestionHealthDashboard
   end
 
   private def score_to_attempts(score)
-    5 - 4 * score
+    Y_INTERCEPT - SLOPE * score
   end
 
   private def cms_data
@@ -35,25 +37,23 @@ class QuestionHealthDashboard
   end
 
   private def attempt_data
-    @attempt_data ||= begin
-      query = <<-SQL
-        SELECT
-        cr.metadata::json->>'questionScore' AS score,
+    query = <<-SQL
+      SELECT
+      cr.metadata::json->>'questionScore' AS score,
+      cr.activity_session_id
+      FROM concept_results cr
+      INNER JOIN (
+        SELECT *
+        FROM activity_sessions
+        WHERE activity_id=#{@activity_id} LIMIT #{MAX_SESSIONS_VIEWED}
+      ) act_s
+      ON cr.activity_session_id = act_s.id
+      WHERE cr.metadata::json->>'questionNumber' = '#{@question_number}'
+      GROUP BY
+        cr.metadata::json->>'questionScore',
         cr.activity_session_id
-        FROM concept_results cr
-        INNER JOIN (
-          SELECT *
-          FROM activity_sessions
-          WHERE activity_id=#{@activity_id} LIMIT #{MAX_SESSIONS_VIEWED}
-        ) act_s
-        ON cr.activity_session_id = act_s.id
-        WHERE cr.metadata::json->>'questionNumber' = '#{@question_number}'
-        GROUP BY
-          cr.metadata::json->>'questionScore',
-          cr.activity_session_id
-      SQL
-      ActiveRecord::Base.connection.execute(query).to_a
-    end
+    SQL
+    @attempt_data ||= ActiveRecord::Base.connection.execute(query).to_a
   end
 
 end
