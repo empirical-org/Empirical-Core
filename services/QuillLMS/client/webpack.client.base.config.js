@@ -5,7 +5,10 @@ const CompressionPlugin = require('compression-webpack-plugin');
 
 const devBuild = process.env.RAILS_ENV === 'development';
 const railsEnv = process.env.RAILS_ENV || process.env.NODE_ENV
-const goFanoutUrl = 'https://us-central1-comprehension-247816.cloudfunctions.net/comprehension-endpoint-go'
+
+const goStagingUrl = 'https://us-central1-comprehension-247816.cloudfunctions.net/comprehension-fanout-staging'
+const goProdUrl = 'https://us-central1-comprehension-247816.cloudfunctions.net/comprehension-endpoint-go'
+const goFanoutUrl = process.env.RAILS_ENV === 'staging' ? goStagingUrl : goProdUrl
 const pusherKey = process.env.PUSHER_KEY;
 const defaultUrl = process.env.DEFAULT_URL;
 const cdnUrl = process.env.CDN_URL;
