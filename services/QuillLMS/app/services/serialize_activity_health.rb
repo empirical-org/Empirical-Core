@@ -9,7 +9,6 @@ class SerializeActivityHealth
     @activity = activity
   end
 
-  # wht precision do we want these numbers
   def data
     {
       name: @activity.name,
