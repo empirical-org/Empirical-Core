@@ -9,12 +9,12 @@ class QuestionHealthDashboard
 
   def average_attempts_for_question
     all_attempts = attempt_data.count.to_f
-    avg_score = attempt_data&.sum { |h| h["correct"].to_f } / all_attempts
+    avg_score = attempt_data&.sum { |h| h["score"].to_f } / all_attempts
     all_attempts.zero? ? 0 : score_to_attempts(avg_score).round(2)
   end
 
   def percent_reached_optimal_for_question
-    failed_attempts = attempt_data.select { |a| a["correct"] == '0' }.count.to_f
+    failed_attempts = attempt_data.select { |a| a["score"] == '0' }.count.to_f
     all_attempts = attempt_data.count.to_f
 
     successful_attempts = all_attempts - failed_attempts
@@ -38,7 +38,7 @@ class QuestionHealthDashboard
     @attempt_data ||= begin
       query = <<-SQL
         SELECT
-        cr.metadata::json->>'questionScore' AS correct,
+        cr.metadata::json->>'questionScore' AS score,
         cr.activity_session_id
         FROM concept_results cr
         INNER JOIN (
