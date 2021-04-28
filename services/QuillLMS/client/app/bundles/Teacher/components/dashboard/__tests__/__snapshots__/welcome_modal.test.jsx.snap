@@ -31,6 +31,7 @@ exports[`WelcomeModal component should render WelcomeModal 1`] = `
       </div>
       <button
         className="quill-button contained primary medium"
+        type="button"
       >
         Let's go!
       </button>
