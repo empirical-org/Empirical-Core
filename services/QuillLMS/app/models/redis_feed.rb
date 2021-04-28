@@ -31,12 +31,13 @@ class RedisFeed
   # add identifiers to a redis array, limit to a certain size
   def add(id)
     $redis.lpush(redis_key, id)
-    $redis.ltrim(redis_key, 0, limit)
+    $redis.ltrim(redis_key, 0, limit - 1)
     callback_on_add(id)
   end
 
+  # returns an array of strings
   def ids
-    $redis.lrange(redis_key, 0, limit)
+    $redis.lrange(redis_key, 0, limit - 1)
   end
 
   # Methods defined by subclass
