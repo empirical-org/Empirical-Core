@@ -8,38 +8,26 @@ class QuestionHealthDashboard
   end
 
   def average_attempts_for_question
-    failed_attempts = attempt_data.select { |a| a["number_of_attempts"] == '5' && a["correct"] == '0'}
-    correct_attempts = attempt_data.select { |a| a["correct"] == '1' }
-
-    all_first_attempts = attempt_data.select { |a| a["number_of_attempts"] == '1' }
-    total_count = total_students(all_first_attempts)
-
-    correct_attempts_times_students = attempts_times_students(correct_attempts).sum
-    failed_attempts_times_students = attempts_times_students(failed_attempts).sum
-
-    total_count.zero? ? 0 : ((failed_attempts_times_students + correct_attempts_times_students) / total_count).round(2)
+    all_attempts = attempt_data.count.to_f
+    avg_score = attempt_data.sum { |h| h["score"].to_f } / all_attempts
+    all_attempts.zero? ? 0 : score_to_attempts(avg_score).round(2)
   end
 
   def percent_reached_optimal_for_question
-    optimal_attempts = attempt_data.select { |a| a["correct"] == '1' }
-    all_first_attempts = attempt_data.select { |a| a["number_of_attempts"] == '1' }
+    failed_attempts = attempt_data.select { |a| a["score"] == '0' }.count.to_f
+    all_attempts = attempt_data.count.to_f
 
-    optimal_count = total_students(optimal_attempts)
-    total_count = total_students(all_first_attempts)
+    successful_attempts = all_attempts - failed_attempts
 
-    total_count.zero? ? 0 : ((optimal_count / total_count) * 100).round(2)
+    all_attempts.zero? ? 0 : ((successful_attempts / all_attempts) * 100).round(2)
   end
 
   def cms_dashboard_stats
     JSON.parse(cms_data.body)
   end
 
-  private def total_students(hash)
-    hash&.sum { |h| h["number_of_students"].to_i }&.to_f || 0
-  end
-
-  private def attempts_times_students(hash)
-    hash&.map { |h| h["number_of_attempts"].to_i * h["number_of_students"].to_i} || 0
+  private def score_to_attempts(score)
+    5 - 4 * score
   end
 
   private def cms_data
@@ -50,10 +38,8 @@ class QuestionHealthDashboard
     @attempt_data ||= begin
       query = <<-SQL
         SELECT
-        cr.metadata::json->>'questionNumber' AS question,
-        cr.metadata::json->>'attemptNumber' AS number_of_attempts,
-        cr.metadata::json->>'correct' AS correct,
-        COUNT(cr.metadata::json->>'attemptNumber') AS number_of_students
+        cr.metadata::json->>'questionScore' AS score,
+        cr.activity_session_id
         FROM concept_results cr
         INNER JOIN (
           SELECT *
@@ -62,10 +48,9 @@ class QuestionHealthDashboard
         ) act_s
         ON cr.activity_session_id = act_s.id
         WHERE cr.metadata::json->>'questionNumber' = '#{@question_number}'
-        GROUP BY cr.metadata::json->>'questionNumber',
-          cr.metadata::json->>'attemptNumber',
-          cr.metadata::json->>'correct'
-        ORDER BY number_of_attempts
+        GROUP BY
+          cr.metadata::json->>'questionScore',
+          cr.activity_session_id
       SQL
       ActiveRecord::Base.connection.execute(query).to_a
     end
