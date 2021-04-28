@@ -57,4 +57,9 @@ class RedisFeed
   def callback_on_add(id)
     # Can be optionally defined by subclass
   end
+
+  # used for testing
+  private def delete_all
+    $redis.del(redis_key)
+  end
 end

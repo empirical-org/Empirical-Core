@@ -11,16 +11,11 @@ describe RedisFeed, type: :model do
         def hydrate(ids:)
           ids.map {|id| {id: id.to_s } }
         end
-
-        def delete_all
-          $redis.del(redis_key)
-        end
       end
     end
 
     before(:each) do
-      test_feed_class.new(1).delete_all
-
+      test_feed_class.new(1).send(:delete_all)
     end
 
     context "basic API methods" do
@@ -50,7 +45,7 @@ describe RedisFeed, type: :model do
       end
 
       it 'should have a different store for each key' do
-        test_feed_class.new(2).delete_all
+        test_feed_class.new(2).send(:delete_all)
         test_feed_class.add(1, 17)
         test_feed_class.add(2, 18)
 
@@ -83,7 +78,7 @@ describe RedisFeed, type: :model do
     end
 
     before(:each) do
-      test_feed_class_with_callback.new(1).delete_all
+      test_feed_class_with_callback.new(1).send(:delete_all)
     end
 
     context "callbacks" do

@@ -17,7 +17,8 @@ class TeacherActivityFeed < RedisFeed
       .includes(:user, :activity, :classification, :classroom_unit)
       .where(id: ids)
 
-    sessions.map do |session|
+    # purposely avoiding the SQL sort on the large activity_sessions table
+    sessions.sort_by(&:completed_at).reverse.map do |session|
       {
         id: session.id,
         student_name: session.user.name,
