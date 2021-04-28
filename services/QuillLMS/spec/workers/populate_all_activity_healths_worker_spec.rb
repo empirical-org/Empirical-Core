@@ -5,7 +5,7 @@ describe PopulateAllActivityHealthsWorker do
 
   describe '#perform' do
 
-    it 'should track began teacher premium' do
+    it 'should kick off populate activity health worker jobs' do
       connect = create(:activity_classification, key: "connect")
       activity = create(:activity, activity_classification_id: connect.id)
       activity_two = create(:activity, activity_classification_id: connect.id)

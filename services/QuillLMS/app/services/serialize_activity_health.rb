@@ -1,7 +1,7 @@
 class SerializeActivityHealth
   CLASSIFICATION_TO_TOOL = {
-    :connect => "connect",
-    :sentence => "grammar"
+    connect: "connect",
+    sentence: "grammar"
   }
   MAX_SESSIONS_VIEWED = 500
 
