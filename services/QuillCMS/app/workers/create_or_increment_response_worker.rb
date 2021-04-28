@@ -15,8 +15,9 @@ class CreateOrIncrementResponseWorker
       # Elasticsearch will reject them.  But we don't want to retry indexing
       # those, so we rescue the exception and do make sure AdminUpdates run.
       # The data should persist to the DB safely.
-      rescue Elasticsearch::Transport::Transport::Errors::BadRequest
+      rescue Elasticsearch::Transport::Transport::Errors::BadRequest => e
         AdminUpdates.run(response.question_uid)
+        NewRelic::Agent.notice_error(e)
       end
     else
       increment_counts(response, symbolized_vals)
