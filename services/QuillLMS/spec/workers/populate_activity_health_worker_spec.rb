@@ -18,15 +18,10 @@ describe PopulateActivityHealthWorker do
     let!(:sample_unit) { create(:unit, unit_template: unit_template)}
     let!(:unit_activity) { create(:unit_activity, unit: sample_unit, activity: activity)}
     let!(:recommendation) { create(:recommendation, activity: diagnostic, unit_template: unit_template)}
-    let!(:concept_result_1) { create(:concept_result, activity_session: activity_session_1, metadata: {correct: 1, questionNumber: 1, attemptNumber: 1}.to_json)}
-    let!(:concept_result_2) { create(:concept_result, activity_session: activity_session_2, metadata: {correct: 0, questionNumber: 1, attemptNumber: 1}.to_json)}
-    let!(:concept_result_3) { create(:concept_result, activity_session: activity_session_3, metadata: {correct: 0, questionNumber: 1, attemptNumber: 1}.to_json)}
-    let!(:concept_result_4) { create(:concept_result, activity_session: activity_session_2, metadata: {correct: 1, questionNumber: 1, attemptNumber: 2}.to_json)}
-    let!(:concept_result_5) { create(:concept_result, activity_session: activity_session_3, metadata: {correct: 0, questionNumber: 1, attemptNumber: 2}.to_json)}
-    let!(:concept_result_6) { create(:concept_result, activity_session: activity_session_3, metadata: {correct: 0, questionNumber: 1, attemptNumber: 3}.to_json)}
-    let!(:concept_result_7) { create(:concept_result, activity_session: activity_session_3, metadata: {correct: 0, questionNumber: 1, attemptNumber: 4}.to_json)}
-    let!(:concept_result_8) { create(:concept_result, activity_session: activity_session_3, metadata: {correct: 0, questionNumber: 1, attemptNumber: 5}.to_json)}
-    let!(:concept_result_9) { create(:concept_result, activity_session: activity_session_1, metadata: {correct: 1, questionNumber: 2, attemptNumber: 1}.to_json)}
+    let!(:concept_result_1) { create(:concept_result, activity_session: activity_session_1, metadata: {questionNumber: 1, questionScore: 1}.to_json)}
+    let!(:concept_result_2) { create(:concept_result, activity_session: activity_session_2, metadata: {questionNumber: 1, questionScore: 0.75}.to_json)}
+    let!(:concept_result_3) { create(:concept_result, activity_session: activity_session_3, metadata: {questionNumber: 1, questionScore: 0}.to_json)}
+    let!(:concept_result_4) { create(:concept_result, activity_session: activity_session_1, metadata: {questionNumber: 2, questionScore: 1}.to_json)}
 
     before do
       ENV['DEFAULT_URL'] = 'https://quill.org'
