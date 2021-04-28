@@ -11,6 +11,7 @@ import TurkSessions from './gatherResponses/turkSessions';
 import SessionsIndex from './activitySessions/sessionsIndex';
 import SessionView from './activitySessions/sessionView';
 import SemanticLabelsIndex from './semanticRules/semanticLabelsIndex';
+import RegexRulesIndex from './regexRules/regexRulesIndex';
 
 import { ActivityRouteProps } from '../../interfaces/comprehensionInterfaces';
 
@@ -30,6 +31,7 @@ const Activity: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ match, lo
           <Route component={SessionView} path='/activities/:activityId/activity-sessions/:sessionId' />
           <Route component={SessionsIndex} path='/activities/:activityId/activity-sessions' />
           <Route component={SemanticLabelsIndex} path='/activities/:activityId/semantic-labels' />
+          <Route component={RegexRulesIndex} path='/activities/:activityId/regex-rules' />
         </Switch>
       </div>
     </React.Fragment>
