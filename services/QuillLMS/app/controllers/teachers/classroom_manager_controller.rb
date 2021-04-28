@@ -8,7 +8,6 @@ class Teachers::ClassroomManagerController < ApplicationController
   before_filter :authorize_teacher!, only: [:scores, :scorebook, :lesson_planner]
   before_filter :set_alternative_schools, only: [:my_account, :update_my_account, :update_my_password]
   include ScorebookHelper
-  include ActivityFeedHelper
   include QuillAuthentication
 
   MY_ACCOUNT = 'my_account'

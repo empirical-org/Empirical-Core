@@ -1,9 +1,6 @@
 require 'rails_helper'
 
 describe Teachers::ClassroomManagerController, type: :controller do
-
-  include ActivityFeedHelper
-
   it { should use_before_filter :teacher_or_public_activity_packs }
   it { should use_before_filter :authorize_owner! }
   it { should use_before_filter :authorize_teacher! }
@@ -344,7 +341,7 @@ describe Teachers::ClassroomManagerController, type: :controller do
             }
           ])
         end
-        
+
       end
 
     end
@@ -589,15 +586,19 @@ describe Teachers::ClassroomManagerController, type: :controller do
   end
 
   describe '#activity_feed' do
-    let!(:teacher) { create(:teacher) }
+    let!(:activity_session) {create(:activity_session, completed_at: Time.now) }
+    let!(:teacher) { activity_session.teachers.first }
 
     before do
       allow(controller).to receive(:current_user) { teacher }
     end
 
-    it 'will respond with the data from the activity feed helper' do
+    it 'will respond with the data from the TeacherActivityFeed of a completed activity_session' do
       get :activity_feed
-      expect(response.body).to eq ({ data: data_for_activity_feed(teacher) }.to_json)
+
+      json = JSON.parse(response.body)
+
+      expect(json['data'].first['id']).to eq (activity_session.id)
     end
 
   end
