@@ -9,7 +9,7 @@ class QuestionHealthDashboard
 
   def average_attempts_for_question
     all_attempts = attempt_data.count.to_f
-    avg_score = attempt_data&.sum { |h| h["score"].to_f } / all_attempts
+    avg_score = attempt_data.sum { |h| h["score"].to_f } / all_attempts
     all_attempts.zero? ? 0 : score_to_attempts(avg_score).round(2)
   end
 
