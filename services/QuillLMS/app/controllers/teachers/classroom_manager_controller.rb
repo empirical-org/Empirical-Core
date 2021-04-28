@@ -215,7 +215,7 @@ class Teachers::ClassroomManagerController < ApplicationController
   end
 
   def activity_feed
-    render json: { data: data_for_activity_feed(current_user) }
+    render json: { data: TeacherActivityFeed.get(current_user.id) }
   end
 
   private def generate_onboarding_checklist

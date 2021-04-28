@@ -66,6 +66,7 @@ class ActivitySession < ActiveRecord::Base
   before_save   :set_completed_at, :set_activity_id
 
   after_save    :determine_if_final_score, :update_milestones
+  after_save :record_teacher_activity_feed, if: [:completed_at_changed?, :completed?]
 
   after_commit :invalidate_activity_session_count_if_completed
 
@@ -548,5 +549,9 @@ class ActivitySession < ActiveRecord::Base
 
   def self.has_a_started_session?(activity_id_or_ids, classroom_unit_id_or_ids)
     !!ActivitySession.find_by(classroom_unit_id: classroom_unit_id_or_ids, activity_id: activity_id_or_ids, state: "started")
+  end
+
+  private def record_teacher_activity_feed
+    teachers.each { |teacher| TeacherActivityFeed.add(teacher.id, id) }
   end
 end
