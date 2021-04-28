@@ -47,7 +47,7 @@ class FeedbackHistory < ActiveRecord::Base
     OPINION = "opinion"
   ]
 
-  after_create { SetFeedbackHistoryFlagsWorker.perform_async(self.id) }
+  after_create { SetFeedbackHistoryFlagsWorker.perform_async(id) }
   before_create :anonymize_session_uid
   before_validation :confirm_prompt_type, on: :create
 
