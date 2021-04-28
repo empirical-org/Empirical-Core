@@ -75,6 +75,10 @@ class FeedbackHistory < ActiveRecord::Base
 
   scope :used,  -> { where(used: true) }
 
+  def readonly?
+    !new_record?
+  end
+
   def concept_results_hash
     return {} if concept.blank?
     {

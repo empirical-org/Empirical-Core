@@ -70,6 +70,18 @@ RSpec.describe FeedbackHistory, type: :model do
     it { should validate_presence_of(:time) }
   end
 
+  context '#readonly?' do
+    it 'should return false if the object has not been persisted to the db yet' do
+      history = build(:feedback_history)
+      expect(history.readonly?).to be(false)
+    end
+
+    it 'should return true if the object has been persisted to the db already' do
+      history = create(:feedback_history)
+      expect(history.readonly?).to be(true)
+    end
+  end
+
   context 'concept results hash' do
     setup do
       @prompt = Comprehension::Prompt.create(text: 'Test test test text')
