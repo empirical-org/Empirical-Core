@@ -517,6 +517,8 @@ GEM
       bundler (>= 1.3.0, < 2.0)
       railties (= 4.2.11.3)
       sprockets-rails
+    rails-controller-testing (0.0.3)
+      rails (>= 4.2)
     rails-deprecated_sanitizer (1.0.3)
       activesupport (>= 4.2.0.alpha)
     rails-dom-testing (1.0.9)
@@ -861,6 +863,7 @@ DEPENDENCIES
   rack-heartbeat
   rack-host-redirect
   rails (= 4.2.11.3)
+  rails-controller-testing
   rails_12factor
   rails_admin (~> 1.4.2)
   rails_autoscale_agent
