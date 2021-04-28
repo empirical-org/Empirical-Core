@@ -2,6 +2,8 @@ class PagesController < ApplicationController
   include HTTParty
   include PagesHelper
   before_filter :determine_js_file, :determine_flag
+  before_action :set_root_url
+
   layout :determine_layout
 
   NUMBER_OF_SENTENCES = "NUMBER_OF_SENTENCES"
@@ -543,5 +545,9 @@ class PagesController < ApplicationController
 
   private def allow_iframe
     response.headers.delete "X-Frame-Options"
+  end
+  
+  private def set_root_url
+    @root_url = root_url
   end
 end
