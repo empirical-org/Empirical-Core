@@ -24,12 +24,34 @@ class Question < ActiveRecord::Base
     TYPE_DIAGNOSTIC_FILL_IN_BLANKS = 'diagnostic_fill_in_blanks',
     TYPE_GRAMMAR_QUESTION = 'grammar'
   ]
+
+  FLAGS = [
+    FLAG_PRODUCTION = 'production',
+    FLAG_ALPHA = 'alpha',
+    FLAG_BETA = 'beta',
+    FLAG_ARCHIVED = 'archived'
+  ]
+  LIVE_FLAGS = [FLAG_PRODUCTION, FLAG_ALPHA, FLAG_BETA]
+
+  # mapping extracted from Grammar,Connect,Diagnostic rematching.ts
+  REMATCH_TYPE_MAPPING = {
+    TYPE_CONNECT_SENTENCE_COMBINING => 'questions',
+    TYPE_CONNECT_SENTENCE_FRAGMENTS => 'sentenceFragments',
+    TYPE_CONNECT_FILL_IN_BLANKS => 'fillInBlankQuestions',
+    TYPE_DIAGNOSTIC_SENTENCE_COMBINING => 'diagnostic_questions',
+    TYPE_DIAGNOSTIC_SENTENCE_FRAGMENTS => 'diagnostic_sentenceFragments',
+    TYPE_DIAGNOSTIC_FILL_IN_BLANKS => 'diagnostic_fillInBlankQuestions',
+    TYPE_GRAMMAR_QUESTION => 'grammar_questions',
+  }
+
   validates :data, presence: true
   validates :question_type, presence: true, inclusion: {in: TYPES}
   validates :uid, presence: true, uniqueness: true
   validate :data_must_be_hash
 
   after_save :expire_all_questions_cache
+
+  scope :live, -> {where("data->>'flag' IN (?)", LIVE_FLAGS)}
 
   def as_json(options=nil)
     data
@@ -101,6 +123,11 @@ class Question < ActiveRecord::Base
       data['incorrectSequences'].delete(incorrect_sequence_id)
     end
     save
+  end
+
+  # this attribute is used by the CMS's Rematch All process
+  def rematch_type
+    REMATCH_TYPE_MAPPING.fetch(question_type)
   end
 
   private def expire_all_questions_cache

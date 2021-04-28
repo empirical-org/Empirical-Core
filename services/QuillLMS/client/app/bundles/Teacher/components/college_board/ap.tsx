@@ -37,11 +37,11 @@ const Ap = ({ isPartOfAssignmentFlow, }: ApContainerProps) => {
           <img alt="Illustration of a pencil drawing a line" src="https://assets.quill.org/images/college_board/sentence-writing-pencil.svg" />
           <div className="text-container">
             <h2>Sentence-Level Writing Practice</h2>
-            <p>Identify which sentence-level skills your students need to practice with the AP Writing Skills Surveys. Then, assign activities recommended for each student based on their survey responses so they can practice and improve their proficiency with those skills.</p>
+            <p>Identify which sentence-level skills your students need to practice with the AP Writing Skills Survey. Then, assign activities recommended for each student based on their survey responses so they can practice and improve their proficiency with those skills.</p>
           </div>
         </div>
         <div className="activities-subheader">
-          <h2>AP Writing Skills Surveys</h2>
+          <h2>AP Writing Skills Survey</h2>
           <div className="college-board-activity-tag">For All AP students</div>
         </div>
         <div className="activity-container">

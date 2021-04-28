@@ -22,13 +22,18 @@ module Comprehension
         response_id: '',
         entry: @entry,
         concept_uid: SPELLING_CONCEPT_UID,
-        rule_uid: '',
+        rule_uid: spelling_rule&.uid || '',
         highlight: optimal? ? [] : highlight
       }
     end
 
     def error
       bing_response['error'] ? bing_response['error']['message'] : nil
+    end
+
+    private def spelling_rule
+      return @spelling_rule if @spelling_rule
+      @spelling_rule = Rule.where(rule_type: Rule::TYPE_SPELLING).first
     end
 
     private def highlight

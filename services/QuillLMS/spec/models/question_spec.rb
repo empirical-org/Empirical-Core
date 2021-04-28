@@ -260,4 +260,19 @@ RSpec.describe Question, type: :model do
       expect($redis.get(key)).to be_nil
     end
   end
+
+  describe 'rematch_type' do
+    it 'should be valid for each question_type' do
+      Question::TYPES.each do |type|
+        question = build(:question, question_type: type)
+        question.rematch_type
+      end
+    end
+
+    it 'should raise for an invalid type' do
+      question = build(:question, question_type: 'non-existent key')
+
+      expect {question.rematch_type }.to raise_error(KeyError)
+    end
+  end
 end

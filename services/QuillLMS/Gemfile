@@ -172,6 +172,7 @@ group :test, :development do
   gem 'pry-stack_explorer'
   gem 'pry-coolline'
   gem 'pry-rescue'
+  gem 'pry-byebug'
   gem 'rspec-rails', '~> 3.7.2'
   gem 'factory_bot_rails', '~> 4.8.2', require: false
   gem 'fuubar', '~> 2.0.0.rc1'

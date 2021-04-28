@@ -1,4 +1,5 @@
 export interface FeedbackObject {
+  concept_uid: string,
   feedback: string,
   feedback_type: string,
   optimal: boolean,

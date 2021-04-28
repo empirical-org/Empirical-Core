@@ -6,15 +6,27 @@
         "resume": "Continue / 続行",
         "submit": "Submit / 送信"
     },
-    "intro": {
-        "header": "Quillクラス分けアクティビティ",
-        "text": "作文についての22問の質問に答えます。質問には、学習していない事柄についてのものもありますが、心配は不要です！単にベストを尽くして回答すれば結構です！必ず各質問の説明を注意深く読んでください。回答を終えたら、Quillであなたに最適な学習プランが作成されます。"
-    },
     "ELL Starter Fill in the Blank": {
         "header": "空欄を埋めます",
         "text": "このセクションには、各文に1つから3つの空欄があります。各空欄にリスト内の単語から1つ選んで記入するか、単語を記入する必要がない場合は記入せずそのままにします。選んだ単語を四角の中に記入します。綴りのチェックを忘れないでください！さあ、始めましょう！"
     },
+    "ELL Starter Fill in the Blanks": {
+        "header": "空欄を埋めます",
+        "text": "このセクションには、各文に1つから3つの空欄があります。各空欄にリスト内の単語から1つ選んで記入するか、単語を記入する必要がない場合は記入せずそのままにします。選んだ単語を四角の中に記入します。綴りのチェックを忘れないでください！さあ、始めましょう！"
+    },
+    "ELL Intermediate Fill in the Blanks": {
+        "header": "空欄を埋めて下さい。",
+        "text": "このセクションでは、それぞれの文章には１つ、２つ、３つ、又は４つの空欄があります。 リストの中から１つの単語を選び、それぞれの空欄に記入して下さい。いくつかの問題の中には、１つの単語を２つの空欄に使用することができます。 選択した単語を空欄に入力して下さい。スペルチェックをすることを忘れずに！ さあ、始めましょう！"
+    },
+    "ELL Advanced Fill in the Blanks": {
+        "header": "空欄を埋めて下さい。",
+        "text": "お疲れ様でした！ このセクションでは、それぞれの文章には１つ、２つ、３つ、又は４つの空欄があります。 空欄が複数ある場合には、各単語は１回のみ使用できます。 さあ、始めましょう！"
+    },
     "ELL Starter Halfway": {
+        "header": "半分終わりました！",
+        "text": "その調子で頑張りましょう！"
+    },
+    "ELL Halfway": {
         "header": "半分終わりました！",
         "text": "その調子で頑張りましょう！"
     },
@@ -25,6 +37,14 @@
     "ELL Starter Sentence Combining": {
         "header": "文章の結合",
         "text": "あと少しで終了です！残りわずか3問です。このセクションでは、複数の文章を1つの文章に結合します。結合に使う接続語句が与えられます。文章には終止符を1つしか使うことができないので忘れないようにしてください。大丈夫ですよ！"
+    },
+    "ELL Intermediate Sentences": {
+        "header": "文章を書く事。",
+        "text": "お疲れ様でした！あとは２つの質問を残すのみです。 次のセクションは、未来形についてです。 両方の質問に対し、全文を書いて下さい。 さあ、やってみましょう！"
+    },
+    "ELL Advanced Sentences": {
+        "header": "文章の中での動作を表す単語",
+        "text": "このセクションでの各質問は、全文を書くことです。 正しい文章になるように、アンダーラインが引かれている単語の形を書き換えて下さい。 スペルチェックを忘れずに！ さあ、始めましょう！"
     },
     "End: You Did it!": {
         "header": "よくできました！",
@@ -40,10 +60,17 @@
         "Fill in each blank with one of the choices.": "各空欄に選んだ単語のうちの1語を記入してください。",
         "Fill in the blanks with one word each.": "半分終わりました！その調子で頑張りましょう",
         "Fill in the blanks with one word each. You can leave one empty.": "空欄に1語づつ単語を記入してください。",
+        "Fill in each blank with one of the choices. You may use one word more than once. There is more than one right answer.": "選択肢の中から正しいものを１つ選び、それぞれの空欄に記入して下さい。一つの単語を何度でも使えます。 正解は複数あります。",
+        "Fill in the blanks. Use each word once.": "空欄に記入してください。各単語を1回使用してください。",
+        "Rewrite the sentence. Correct the underlined action word so it is in future tense.": "文章を書き換えて下さい。未来形になるように、アンダーラインが引かれている動作を表す単語を正しい形に書き換えて下さい。",
+        "Rewrite the sentence. Correct the underlined action word so it is in the right tense to match the rest of the sentence.": "文章を書き換えて下さい。アンダーラインが引かれた動作を表す単語を正しい形にして、文章が正しい時制になるようにして下さい。",
+        "Rewrite the sentence. Correct the underlined words so they are in future tense.": "文章を書き換えて下さい。未来形になるように、アンダーラインが引かれている単語を正しい形に書き換えて下さい。",
+        "Respond to the question. Fill in the blank with one of the choices.": "質問に答えて下さい。正しい単語を１つ選び、空欄を埋めて下さい。",
         "Use the joining word to combine the sentences into one sentence.": "空欄に1語づつ単語を記入してください。１つの空欄は何も記入せずにそのままにすることができます"
     },
     "cues": {
         "type one": "type one / １つ入力して下さい",
+        "type one in each blank": "それぞれの空欄に１つ入力して下さい。",
         "type two or three": "type two or three / ２つ、又は３つ入力して下さい",
         "type three": "type three / ３つ入力して下さい",
         "choose one": "choose one / 1つ選ぶ",

@@ -193,7 +193,7 @@ class Classroom < ActiveRecord::Base
   end
 
   private def trigger_analytics_for_classroom_creation
-    find_or_create_checkbox('Create a Classroom', owner)
+    classrooms_teachers.each { |ct| find_or_create_checkbox(Objective::CREATE_A_CLASSROOM, ct.user) }
     ClassroomCreationWorker.perform_async(id)
   end
 

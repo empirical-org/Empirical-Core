@@ -88,7 +88,7 @@ exports[`ClassroomStudentSection component with students should render 1`] = `
       Array [
         Object {
           "label": "View as student",
-          "value": [Function],
+          "value": undefined,
         },
         Object {
           "label": "Remove from class",
@@ -117,6 +117,11 @@ exports[`ClassroomStudentSection component with students should render 1`] = `
           "attribute": "synced",
           "name": "Synced",
           "width": "124px",
+        },
+        Object {
+          "attribute": "actions",
+          "isActions": true,
+          "name": "Actions",
         },
       ]
     }
