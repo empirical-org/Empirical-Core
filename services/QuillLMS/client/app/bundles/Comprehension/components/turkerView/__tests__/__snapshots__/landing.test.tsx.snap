@@ -8,7 +8,7 @@ exports[`TurkLanding Component should match snapshot 1`] = `
     className="turk-landing-header-container"
   >
     <h1>
-      Quill Activity - Beta Testing of New Content
+      Amazon Mechanical Turk Task
     </h1>
     <p>
       You are completing a reading and writing activity. Your responses will be used to develop our system so that millions of students around the world can improve their reading and writing skills.
@@ -23,7 +23,11 @@ exports[`TurkLanding Component should match snapshot 1`] = `
     <div
       className="bolded"
     >
-      You should:
+      In order to accurately complete the HIT for payment, you 
+      <p>
+        must
+      </p>
+       do the following:
     </div>
     <ul>
       <li>
@@ -108,6 +112,11 @@ exports[`TurkLanding Component should match snapshot 1`] = `
         </p>
       </li>
     </ul>
+    <p
+      className="bolded"
+    >
+      By following these directions, you will be provided with a code to input in order to be paid for the HIT.
+    </p>
   </section>
   <section
     className="button-container"
