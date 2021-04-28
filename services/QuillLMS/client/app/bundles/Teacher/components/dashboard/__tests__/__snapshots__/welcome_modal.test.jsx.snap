@@ -7,6 +7,12 @@ exports[`WelcomeModal component should render WelcomeModal 1`] = `
   <div
     className="modal-background"
   />
+  <Component
+    height={900}
+    numberOfPieces={700}
+    recycle={false}
+    width={600}
+  />
   <div
     className="welcome-modal quill-modal"
   >
