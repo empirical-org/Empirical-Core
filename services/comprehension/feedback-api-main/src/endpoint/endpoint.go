@@ -14,6 +14,8 @@ import (
 	"net/http/httputil"
 )
 
+var automl_index = 3
+
 var wg sync.WaitGroup
 
 // you can't use const for structs, so this is the closest thing we can get for this value
@@ -30,28 +32,35 @@ var client = &http.Client {
 	},
 }
 
-func AssembleUrls() ([]string) {
+func GetBatchFeedbackHistoryUrl() (string) {
+	lms_domain := GetLMSDomain()
+	return fmt.Sprintf("%s/api/v1/feedback_histories/batch.json", lms_domain)
+}
+
+func GetLMSDomain() (string) {
 	var maybe_domain = os.Getenv("lms_domain")
 
-	if len(maybe_domain) == 0 {
-		const lms_domain = "https://www.quill.org"
-	} else {
-		const lms_domain = maybe_domain
-	}
+	var lms_domain = "https://www.quill.org"
 
-	
-	const (
-		automl_api = fmt.Sprintf("%v/api/v1/comprehension/feedback/automl.json", lms_domain)
+	if len(maybe_domain) > 0 {
+		lms_domain = maybe_domain
+	}
+	return lms_domain
+}
+
+func AssembleUrls() ([8]string) {
+	lms_domain := GetLMSDomain()
+
+	var (
+		automl_api = fmt.Sprintf("%s/api/v1/comprehension/feedback/automl.json", lms_domain)
+		plagiarism_api = fmt.Sprintf("%s/api/v1/comprehension/feedback/plagiarism.json", lms_domain)
+		sentence_structure_regex_api = fmt.Sprintf("%s/api/v1/comprehension/feedback/regex/rules-based-1.json", lms_domain)
+		post_topic_regex_api         = fmt.Sprintf("%s/api/v1/comprehension/feedback/regex/rules-based-2.json", lms_domain)
+		typo_regex_api               = fmt.Sprintf("%s/api/v1/comprehension/feedback/regex/rules-based-3.json", lms_domain)
+		spell_check_bing             = fmt.Sprintf("%s/api/v1/comprehension/feedback/spelling.json", lms_domain)		
+
 		grammar_check_api = "https://grammar-api.ue.r.appspot.com"
-		opinion_check_api = "https://opinion-api.ue.r.appspot.com/"
-		plagiarism_api = fmt.Sprintf("%v/api/v1/comprehension/feedback/plagiarism.json", lms_domain)
-		sentence_structure_regex_api = fmt.Sprintf("%v/api/v1/comprehension/feedback/regex/rules-based-1.json", lms_domain)
-		post_topic_regex_api         = fmt.Sprintf("%v/api/v1/comprehension/feedback/regex/rules-based-2.json", lms_domain)
-		typo_regex_api               = fmt.Sprintf("%v/api/v1/comprehension/feedback/regex/rules-based-3.json", lms_domain)
-		spell_check_local            = "https://us-central1-comprehension-247816.cloudfunctions.net/spell-check-cloud-function"
-		spell_check_bing             = fmt.Sprintf("%v/api/v1/comprehension/feedback/spelling.json", lms_domain)
-		batch_feedback_history_url   = fmt.Sprintf("%v/api/v1/feedback_histories/batch.json", lms_domain)
-		automl_index                 = 3
+		opinion_check_api = "https://opinion-api.ue.r.appspot.com/"	
 	)
 
 	var urls = [...]string{
@@ -66,11 +75,10 @@ func AssembleUrls() ([]string) {
 	}
 
 	return urls
-	
 }
 
 func Endpoint(responseWriter http.ResponseWriter, request *http.Request) {
-	const urls = AssembleUrls()
+	urls := AssembleUrls()
 	// need this for javascript cors requests
 	// https://cloud.google.com/functions/docs/writing/http#functions_http_cors-go
 	if request.Method == http.MethodOptions {
@@ -135,7 +143,7 @@ func Endpoint(responseWriter http.ResponseWriter, request *http.Request) {
 		return
 	}
 
-	go batchRecordFeedback(request_object, results)
+	go batchRecordFeedback(request_object, results, GetBatchFeedbackHistoryUrl())
 
 	responseWriter.Header().Set("Access-Control-Allow-Origin", "*")
 	responseWriter.Header().Set("Content-Type", "application/json")
@@ -222,7 +230,11 @@ func buildFeedbackHistory(request_object APIRequest, feedback InternalAPIRespons
 	}
 }
 
-func buildBatchFeedbackHistories(request_object APIRequest, feedbacks map[int]InternalAPIResponse, time_received time.Time) (BatchHistoriesAPIRequest, error) {
+func buildBatchFeedbackHistories(
+	request_object APIRequest, 
+	feedbacks map[int]InternalAPIResponse, 
+	time_received time.Time,
+	) (BatchHistoriesAPIRequest, error) {
 	feedback_histories := []FeedbackHistory{}
 	used_key := identifyUsedFeedbackIndex(feedbacks)
 	for key, feedback := range feedbacks {
@@ -239,7 +251,7 @@ func buildBatchFeedbackHistories(request_object APIRequest, feedbacks map[int]In
 	}, nil
 }
 
-func batchRecordFeedback(incoming_params APIRequest, feedbacks map[int]InternalAPIResponse) {
+func batchRecordFeedback(incoming_params APIRequest, feedbacks map[int]InternalAPIResponse, batch_feedback_history_url string) {
 	defer wg.Done() // mark task as done in WaitGroup on return
 
 	histories, err := buildBatchFeedbackHistories(incoming_params, feedbacks, time.Now())
