@@ -10,35 +10,11 @@ import (
 	"fmt"
 	"sync"
 	"time"
+	"os"
 	"net/http/httputil"
 )
 
-const (
-	automl_api = "https://www.quill.org/api/v1/comprehension/feedback/automl.json"
-	grammar_check_api = "https://grammar-api.ue.r.appspot.com"
-	opinion_check_api = "https://opinion-api.ue.r.appspot.com/"
-	plagiarism_api = "https://www.quill.org/api/v1/comprehension/feedback/plagiarism.json"
-	sentence_structure_regex_api = "https://www.quill.org/api/v1/comprehension/feedback/regex/rules-based-1.json"
-	post_topic_regex_api         = "https://www.quill.org/api/v1/comprehension/feedback/regex/rules-based-2.json"
-	typo_regex_api               = "https://www.quill.org/api/v1/comprehension/feedback/regex/rules-based-3.json"
-	spell_check_local            = "https://us-central1-comprehension-247816.cloudfunctions.net/spell-check-cloud-function"
-	spell_check_bing             = "https://www.quill.org/api/v1/comprehension/feedback/spelling.json"
-	batch_feedback_history_url   = "https://www.quill.org/api/v1/feedback_histories/batch.json"
-	automl_index                 = 3
-)
-
 var wg sync.WaitGroup
-
-var urls = [...]string{
-	sentence_structure_regex_api,
-	opinion_check_api,
-	plagiarism_api,
-	automl_api,
-	post_topic_regex_api,
-	grammar_check_api,
-	spell_check_bing,
-	typo_regex_api,
-}
 
 // you can't use const for structs, so this is the closest thing we can get for this value
 var default_api_response = APIResponse{
@@ -54,8 +30,47 @@ var client = &http.Client {
 	},
 }
 
+func AssembleUrls() ([]string) {
+	var maybe_domain = os.Getenv("lms_domain")
+
+	if len(maybe_domain) == 0 {
+		const lms_domain = "https://www.quill.org"
+	} else {
+		const lms_domain = maybe_domain
+	}
+
+	
+	const (
+		automl_api = fmt.Sprintf("%v/api/v1/comprehension/feedback/automl.json", lms_domain)
+		grammar_check_api = "https://grammar-api.ue.r.appspot.com"
+		opinion_check_api = "https://opinion-api.ue.r.appspot.com/"
+		plagiarism_api = fmt.Sprintf("%v/api/v1/comprehension/feedback/plagiarism.json", lms_domain)
+		sentence_structure_regex_api = fmt.Sprintf("%v/api/v1/comprehension/feedback/regex/rules-based-1.json", lms_domain)
+		post_topic_regex_api         = fmt.Sprintf("%v/api/v1/comprehension/feedback/regex/rules-based-2.json", lms_domain)
+		typo_regex_api               = fmt.Sprintf("%v/api/v1/comprehension/feedback/regex/rules-based-3.json", lms_domain)
+		spell_check_local            = "https://us-central1-comprehension-247816.cloudfunctions.net/spell-check-cloud-function"
+		spell_check_bing             = fmt.Sprintf("%v/api/v1/comprehension/feedback/spelling.json", lms_domain)
+		batch_feedback_history_url   = fmt.Sprintf("%v/api/v1/feedback_histories/batch.json", lms_domain)
+		automl_index                 = 3
+	)
+
+	var urls = [...]string{
+		sentence_structure_regex_api,
+		opinion_check_api,
+		plagiarism_api,
+		automl_api,
+		post_topic_regex_api,
+		grammar_check_api,
+		spell_check_bing,
+		typo_regex_api,
+	}
+
+	return urls
+	
+}
 
 func Endpoint(responseWriter http.ResponseWriter, request *http.Request) {
+	const urls = AssembleUrls()
 	// need this for javascript cors requests
 	// https://cloud.google.com/functions/docs/writing/http#functions_http_cors-go
 	if request.Method == http.MethodOptions {
