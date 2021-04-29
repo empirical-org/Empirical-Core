@@ -328,6 +328,22 @@
       .no-rules-section {
         padding-top: 20px;
       }
+      .regex-text-container {
+        display: flex;
+        flex-wrap: wrap;
+        .regex-text-object {
+          padding: 4px;
+          margin: 4px 4px;
+          border-radius: 4px;
+          font-weight: bold;
+          &.required {
+            background-color: #bcddff;
+          }
+          &.incorrect {
+            background-color: #ffbcbc;
+          }
+        }
+      }
     }
     .activate-model-container {
       .activate-model-section {
@@ -487,6 +503,12 @@
       width: 900px;
       #edit-rule-button, #delete-rule-button {
         margin-right: 10px;
+      }
+    }
+    .regex-index-table {
+      .data-table-row-section {
+        word-wrap: break-word;
+        white-space: normal;
       }
     }
   }

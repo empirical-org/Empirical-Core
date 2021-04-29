@@ -2,10 +2,9 @@ import * as React from "react";
 import { Link, RouteComponentProps } from 'react-router-dom'
 import { useQuery } from 'react-query';
 import { firstBy } from 'thenby';
-import stripHtml from "string-strip-html";
 
 import { getPromptsIcons } from '../../../helpers/comprehension';
-import { ActivityRouteProps, RuleInterface } from '../../../interfaces/comprehensionInterfaces';
+import { ActivityRouteProps, RuleInterface, RegexRuleInterface } from '../../../interfaces/comprehensionInterfaces';
 import { BECAUSE, BUT, SO } from '../../../../../constants/comprehension';
 import { fetchRules } from '../../../utils/comprehension/ruleAPIs';
 import { fetchActivity } from '../../../utils/comprehension/activityAPIs';
@@ -39,19 +38,20 @@ const RegexRulesIndex: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ ma
     queryFn: fetchRules
   });
 
-  function getFormattedRows(rulesData) {
+  function getFormattedRows(rulesData: { rules: RuleInterface[]}) {
     if(!(rulesData && rulesData.rules && rulesData.rules.length)) {
       return [];
     }
     const formattedRows = rulesData && rulesData.rules && rulesData.rules.map((rule: RuleInterface) => {
-      const { name, id, description, suborder, prompt_ids } = rule;
-      const ruleLink = (<Link to={`/activities/${activityId}/rules/${id}`}>View</Link>);
+      const { name, id, regex_rules, suborder, prompt_ids } = rule;
+      const ruleLink = (<Link to={`/activities/${activityId}/regex-rules/${id}`}>View</Link>);
       const promptsIcons = getPromptsIcons(activityData, prompt_ids);
       return {
         id: `${activityId}-${id}`,
         priority: typeof suborder === 'string' ? parseInt(suborder) : suborder,
         name,
-        description: description ? stripHtml(description) : '',
+        incorrect_sequence: renderRegexTags(regex_rules, 'incorrect'),
+        required_sequence: renderRegexTags(regex_rules, 'required'),
         because_prompt: promptsIcons[BECAUSE],
         but_prompt: promptsIcons[BUT],
         so_prompt: promptsIcons[SO],
@@ -59,6 +59,17 @@ const RegexRulesIndex: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ ma
       }
     });
     return formattedRows.sort(firstBy('priority').thenBy('id'));
+  }
+
+  function renderRegexTags(regexRules: RegexRuleInterface[], sequenceType: string) {
+    const regexRulesByType = regexRules.filter(rule => rule.sequence_type === sequenceType);
+    return(
+      <div className="regex-text-container">
+        {regexRulesByType.map((rule: RegexRuleInterface) => {
+          return <div className={`regex-text-object ${sequenceType}`} key={rule.id}>{rule.regex_text}</div>
+        })}
+      </div>
+    );
   }
 
   function renderTable(rows: any[], ruleType: string) {
@@ -71,7 +82,7 @@ const RegexRulesIndex: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ ma
     }
     return(
       <DataTable
-        className="rules-table"
+        className="rules-table regex-index-table"
         defaultSortAttribute="name"
         headers={dataTableFields}
         rows={rows}
@@ -108,17 +119,18 @@ const RegexRulesIndex: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ ma
   }
 
   const dataTableFields = [
-    { name: "Priority", attribute:"priority", width: "100px" },
-    { name: "Rule Name", attribute:"name", width: "400px" },
-    { name: "Rule Description", attribute:"description", width: "400px" },
-    { name: "Because", attribute:"because_prompt", width: "70px" },
-    { name: "But", attribute:"but_prompt", width: "70px" },
-    { name: "So", attribute:"so_prompt", width: "70px" },
-    { name: "", attribute:"view", width: "70px" },
+    { name: "Priority", attribute:"priority", width: "50px" },
+    { name: "Rule Name", attribute:"name", width: "300px" },
+    { name: "Required Sequence", attribute:"required_sequence", width: "250px" },
+    { name: "Incorrect Sequence", attribute:"incorrect_sequence", width: "250px" },
+    { name: "Because", attribute:"because_prompt", width: "50px" },
+    { name: "But", attribute:"but_prompt", width: "50px" },
+    { name: "So", attribute:"so_prompt", width: "50px" },
+    { name: "", attribute:"view", width: "50px" },
   ];
-  const addRulesBased1Link = <Link to={`/activities/${activityId}/regex-rules/new`}>Add Sentence Structure Regex</Link>;
-  const addRulesBased2Link = <Link to={`/activities/${activityId}/regex-rules/new`}>Add Post-Topic Regex</Link>;
-  const addRulesBased3Link = <Link to={`/activities/${activityId}/regex-rules/new`}>Add Typo Regex</Link>;
+  const addRulesBased1Link = <Link to={`/activities/${activityId}/regex-rules/new`}>Add Sentence Structure Regex Rule</Link>;
+  const addRulesBased2Link = <Link to={`/activities/${activityId}/regex-rules/new`}>Add Post-Topic Regex Rule</Link>;
+  const addRulesBased3Link = <Link to={`/activities/${activityId}/regex-rules/new`}>Add Typo Regex Rule</Link>;
   const rulesBased1Rows = getFormattedRows(rulesBased1Data);
   const rulesBased2Rows = getFormattedRows(rulesBased2Data);
   const rulesBased3Rows = getFormattedRows(rulesBased3Data);

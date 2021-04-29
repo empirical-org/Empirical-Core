@@ -27,8 +27,10 @@ export interface PromptInterface {
 
 export interface RegexRuleInterface {
   id?: number,
+  rule_id?: number,
   regex_text: string,
-  case_sensitive: boolean
+  case_sensitive: boolean,
+  sequence_type: string
 }
 
 export interface FlagInterface {
@@ -76,17 +78,8 @@ export interface RuleInterface {
     rule_id?: number,
     text: string
   }
-  regex_rules?: {
-    id: number,
-    rule_id: number,
-    regex_text: string,
-    case_sensitive: boolean
-  }[]
-  regex_rules_attributes?: {
-    id: number,
-    regex_text: string,
-    case_sensitive: boolean
-  }[]
+  regex_rules?: RegexRuleInterface[]
+  regex_rules_attributes?: RegexRuleInterface[]
   feedbacks?: {
     id?: number,
     rule_id?: number,
