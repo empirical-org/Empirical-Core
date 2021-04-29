@@ -3,7 +3,7 @@ import { EditorState, ContentState } from 'draft-js';
 
 import {
   handleSetRuleConceptUID,
-  handleSetRuleDescription,
+  handleSetRuleNote,
   handleSetRuleName,
   handleSetRuleOptimal,
   handleSetRuleType,
@@ -18,7 +18,7 @@ interface RuleGenericAttributesProps {
   isUniversal: boolean,
   errors: any,
   ruleConceptUID: string,
-  ruleDescription: string,
+  ruleNote: string,
   ruleID?: number,
   ruleUID?: string,
   ruleName: string,
@@ -26,7 +26,7 @@ interface RuleGenericAttributesProps {
   ruleType: any,
   concepts: any[],
   setRuleConceptUID: (ruleConceptUID: string) => void,
-  setRuleDescription: (ruleDescription: string) => void,
+  setRuleNote: (ruleNote: string) => void,
   setRuleName: (ruleName: string) => void,
   setRuleOptimal: (ruleOptimal: DropdownObjectInterface) => void,
   setRuleType: (ruleType: DropdownObjectInterface) => void
@@ -39,14 +39,14 @@ const RuleGenericAttributes = ({
   errors,
   concepts,
   ruleConceptUID,
-  ruleDescription,
+  ruleNote,
   ruleID,
   ruleUID,
   ruleName,
   ruleOptimal,
   ruleType,
   setRuleConceptUID,
-  setRuleDescription,
+  setRuleNote,
   setRuleName,
   setRuleOptimal,
   setRuleType
@@ -60,7 +60,7 @@ const RuleGenericAttributes = ({
 
   function onHandleSetRuleOptimal(ruleOptimal: DropdownObjectInterface) { handleSetRuleOptimal(ruleOptimal, setRuleOptimal) }
 
-  function onHandleSetRuleDescription(text: string) { handleSetRuleDescription(text, setRuleDescription)}
+  function onHandleSetRuleNote(text: string) { handleSetRuleNote(text, setRuleNote)}
 
   function renderIDorUID(idOrRuleId, type) {
     return(
@@ -79,7 +79,7 @@ const RuleGenericAttributes = ({
   const conceptOptions = concepts.map(c => ({ value: c.uid, label: c.name, }));
   const selectedConceptOption = conceptOptions.find(co => co.value === ruleConceptUID);
   const nameInputLabel = autoMLParams && autoMLParams['label'] ? autoMLParams['label'] : 'Name';
-  const descriptionLabel = autoMLParams && autoMLParams['notes'] ? autoMLParams['notes'] : 'Rule Description';
+  const noteLabel = autoMLParams && autoMLParams['notes'] ? autoMLParams['notes'] : 'Rule Note';
 
   return(
     <React.Fragment>
@@ -118,13 +118,13 @@ const RuleGenericAttributes = ({
       />
       {ruleID && renderIDorUID(ruleID, 'Rule ID')}
       {ruleUID && renderIDorUID(ruleUID, 'Rule UID')}
-      <p className="form-subsection-label">{descriptionLabel}</p>
+      <p className="form-subsection-label">{noteLabel}</p>
       <TextEditor
         ContentState={ContentState}
         EditorState={EditorState}
-        handleTextChange={onHandleSetRuleDescription}
-        key="rule-description"
-        text={ruleDescription}
+        handleTextChange={onHandleSetRuleNote}
+        key="rule-note"
+        text={ruleNote}
       />
     </React.Fragment>
   )
