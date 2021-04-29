@@ -4,14 +4,19 @@ import { useQuery } from 'react-query';
 import { firstBy } from 'thenby';
 
 import { fetchRules } from '../../../utils/comprehension/ruleAPIs';
+import { fetchActivity } from '../../../utils/comprehension/activityAPIs';
 import { DataTable, Spinner } from '../../../../Shared/index';
 import { getCheckIcon } from '../../../helpers/comprehension';
 
-const LabelsTable = ({ activityId, prompt }) => {
+const SemanticRulesCheatSheet = ({ history, match, location, }) => {
+  const { params } = match;
+  const { activityId } = params;
+  const { promptId } = params;
 
+  // get cached activity data to pass to ruleForm
   const { data: rulesData } = useQuery({
     // cache rules data for updates
-    queryKey: [`rules-${activityId}`, activityId, prompt.id, 'autoML'],
+    queryKey: [`rules-${activityId}-${promptId}`, activityId, promptId, 'autoML'],
     queryFn: fetchRules
   });
 
@@ -20,9 +25,10 @@ const LabelsTable = ({ activityId, prompt }) => {
       return [];
     }
     const formattedRows = rulesData.rules.map(rule => {
+      debugger;
       const { name, id, state, optimal, label } = rule;
       const ruleLink = (
-        <Link className="data-link" to={{ pathname: `/activities/${activityId}/semantic-labels/${prompt.id}/${id}`, state: { rule: rule } }}>View</Link>
+        <Link className="data-link" to={{ pathname: `/activities/${activityId}/semantic-labels/${promptId}/${id}`, state: { rule: rule } }}>View</Link>
       );
       const isActive = state === 'active';
       return {
@@ -54,14 +60,12 @@ const LabelsTable = ({ activityId, prompt }) => {
     { name: "Optimal?", attribute:"optimal", width: "70px" },
     { name: "", attribute:"edit", width: "70px" }
   ];
-  const addRuleLink = <Link className="quill-button fun primary contained" id="add-rule-button" to={`/activities/${activityId}/semantic-labels/${prompt.id}/new`}>Add Label</Link>;
-  const semanticRulesCheatSheetLink = <Link className="quill-button fun secondary outlined" rel="noopener noreferrer" target="_blank" to={`/activities/${activityId}/semantic-labels/${prompt.id}/semantic-rules-cheat-sheet`} >Semantic Rules Cheat Sheet</Link>;
+  const addRuleLink = <Link className="quill-button fun primary contained" id="add-rule-button" to={`/activities/${activityId}/semantic-labels/${promptId}/new`}>Add Label</Link>;
+  const semanticRulesCheatSheetLink = <Link className="quill-button fun secondary outlined" rel="noopener noreferrer" target="_blank" to={`/activities/${activityId}/semantic-labels/${promptId}/semantic-rules-cheat-sheet`} >Semantic Rules Cheat Sheet</Link>;
 
   return(
     <section className="semantic-labels-container">
       <section className="header-container">
-        <h5>Semantic Labels: <p>{prompt.conjunction}</p></h5>
-        <h5>Prompt ID: <p>{prompt.id}</p></h5>
         <div className="button-wrapper">
           {addRuleLink}
           {semanticRulesCheatSheetLink}
@@ -76,4 +80,4 @@ const LabelsTable = ({ activityId, prompt }) => {
   );
 }
 
-export default LabelsTable
+export default SemanticRulesCheatSheet
