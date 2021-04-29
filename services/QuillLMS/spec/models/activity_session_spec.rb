@@ -958,19 +958,27 @@ end
 
 
   describe "#teacher_activity_feed" do
-    it "should create a teacher_activity_feed item once on completed." do
-      activity_session = create(:activity_session, completed_at: nil)
-      teacher = activity_session.teachers.first
+    let(:activity_session) { create(:activity_session, :unstarted) }
+    let(:teacher) {activity_session.teachers.first}
+
+    it "should create a teacher_activity_feed item only ONCE on completed." do
+      teacher_feed = TeacherActivityFeed.get(teacher.id)
+
+      expect(teacher_feed.size).to eq(0)
 
       activity_session.update(completed_at: Time.now)
-      activity_session.save
-      activity_session.save
 
-      teacher = activity_session.teachers.first
       teacher_feed = TeacherActivityFeed.get(teacher.id)
 
       expect(teacher_feed.size).to eq(1)
       expect(teacher_feed.first[:id]).to eq(activity_session.id)
+
+      activity_session.update(percentage: 0.88)
+
+      teacher_feed = TeacherActivityFeed.get(teacher.id)
+
+      # another update shouldn't add another record
+      expect(teacher_feed.size).to eq(1)
     end
   end
 end

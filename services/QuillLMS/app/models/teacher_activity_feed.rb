@@ -40,6 +40,8 @@ class TeacherActivityFeed < RedisFeed
   end
 
   private def text_for_score(key, percentage)
+    return '' unless percentage
+
     if [ActivityClassification::DIAGNOSTIC_KEY, ActivityClassification::LESSONS_KEY].include?(key)
       ActivitySession::COMPLETED
     elsif percentage >= ProficiencyEvaluator.proficiency_cutoff
