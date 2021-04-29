@@ -17,11 +17,9 @@ describe PopulateAllActivityHealthsWorker do
     end
 
     it 'should truncate the table each time the job is run' do
-      activity_health = ActivityHealth.create
+      ActivityHealth.create
       expect(ActivityHealth.count).to eq(1)
-      activity = create(:activity)
-      activity_two = create(:activity)
-      activity_three = create(:activity)
+      create_list(:activity, 3)
 
       subject.perform
       expect(ActivityHealth.count).to eq(0)

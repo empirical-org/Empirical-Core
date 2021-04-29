@@ -45,9 +45,9 @@ class SerializeActivityHealth
     all_session_lengths = ActivitySession
       .where(activity: @activity, state: "finished")
       .last(MAX_SESSIONS_VIEWED)
-      .map { |a| a.completed_at && a.started_at ? (a.completed_at - a.started_at)/60: 0 }
+      .map(&:minutes_to_complete)
       .reject{ |b| b==0 }
-    all_session_lengths.empty? ? nil : (all_session_lengths.reduce(:+).to_f / all_session_lengths.size).round(2)
+    all_session_lengths.empty? ? nil : (all_session_lengths.sum.to_f / all_session_lengths.size).round(2)
   end
 
   private def recent_plays
