@@ -59,7 +59,7 @@ const UniversalRule = ({ history, location, match }) => {
         value: name
       },
       {
-        label: 'Note',
+        label: 'Rule Note',
         value: note && stripHtml(note)
       },
       {

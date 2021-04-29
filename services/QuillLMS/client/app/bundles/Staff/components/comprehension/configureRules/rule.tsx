@@ -75,7 +75,7 @@ const Rule = ({ history, match }) => {
           value: name
         },
         {
-          label: 'Note',
+          label: 'Rule Note',
           value: note ? stripHtml(note) : ''
         }
       ];
