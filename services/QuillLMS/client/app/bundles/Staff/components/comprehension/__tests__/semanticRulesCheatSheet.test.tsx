@@ -1,8 +1,7 @@
 import * as React from 'react';
-import { shallow } from 'enzyme';
+import { mount } from 'enzyme';
 
-import LabelsTable from '../semanticRules/labelsTable';
-import { DataTable } from '../../../../Shared/index';
+import SemanticRulesCheatSheet from '../semanticRules/semanticRulesCheatSheet';
 
 const mockRules = [
   { id: 1, name: 'rule_1', state: 'active', optimal: false, label: { id: 1, name: 'label_1' } },
@@ -17,16 +16,16 @@ jest.mock("react-query", () => ({
   })),
 }));
 
-describe('LabelsTable component', () => {
+describe('SemanticRulesCheatSheet component', () => {
   const mockProps = {
     activityId: '17',
     prompt: { id: 1 }
   }
-  const container = shallow(
-    <LabelsTable {...mockProps} />
+  const container = mount(
+    <SemanticRulesCheatSheet {...mockProps} />
   );
 
-  it('should render LabelsTable', () => {
+  it('should render SemanticRulesCheatSheet', () => {
     expect(container).toMatchSnapshot();
   });
   it('should render a DataTable', () => {

@@ -35,7 +35,7 @@ const SemanticRulesCheatSheet = ({ match, }) => {
       return {
         id: id,
         name: <div dangerouslySetInnerHTML={{ __html: name }} />,
-        firstLayerFeedback: <div dangerouslySetInnerHTML={{ __html: feedbacks[0] }} />,
+        firstLayerFeedback: <div dangerouslySetInnerHTML={{ __html: feedbacks[0].text }} />,
         note: <div dangerouslySetInnerHTML={{ __html: note }} />,
         edit: ruleLink
       }
@@ -54,7 +54,7 @@ const SemanticRulesCheatSheet = ({ match, }) => {
   const dataTableFields = [
     { name: "Rule Name", attribute:"name", noTooltip: true, width: "200px" },
     { name: "Rule Notes", attribute:"note", noTooltip: true, width: "300px" },
-    { name: "Rule Feedback - 1st Layer", attribute:"note", noTooltip: true, width: "300px" },
+    { name: "Rule Feedback - 1st Layer", attribute:"firstLayerFeedback", noTooltip: true, width: "300px" },
     { name: "", attribute:"edit", width: "70px" }
   ];
 

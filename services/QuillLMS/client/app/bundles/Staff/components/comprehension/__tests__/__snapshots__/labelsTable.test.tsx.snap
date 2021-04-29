@@ -17,17 +17,25 @@ exports[`LabelsTable component should render LabelsTable 1`] = `
         1
       </p>
     </h5>
-    <button
-      className="quill-button fun primary contained"
-      id="add-rule-button"
-      type="submit"
+    <div
+      className="button-wrapper"
     >
       <Link
+        className="quill-button fun primary contained"
+        id="add-rule-button"
         to="/activities/17/semantic-labels/1/new"
       >
         Add Label
       </Link>
-    </button>
+      <Link
+        className="quill-button fun secondary outlined"
+        rel="noopener noreferrer"
+        target="_blank"
+        to="/activities/17/semantic-labels/1/semantic-rules-cheat-sheet"
+      >
+        Semantic Rules Cheat Sheet
+      </Link>
+    </div>
   </section>
   <DataTable
     averageFontWidth={7}
