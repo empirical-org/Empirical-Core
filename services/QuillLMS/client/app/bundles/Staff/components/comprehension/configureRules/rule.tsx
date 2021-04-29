@@ -62,7 +62,7 @@ const Rule = ({ history, match }) => {
       return [];
     } else {
       // format for DataTable to display labels on left side and values on right
-      const { description, feedbacks, name, prompt_ids, rule_type, plagiarism_text } = rule;
+      const { note, feedbacks, name, prompt_ids, rule_type, plagiarism_text } = rule;
       const promptsIcons = getPromptsIcons(activityData, prompt_ids);
       const attributesFields = handleAttributesFields(feedbacks, plagiarism_text);
       const firstFields = [
@@ -75,8 +75,8 @@ const Rule = ({ history, match }) => {
           value: name
         },
         {
-          label: 'Description',
-          value: description ? stripHtml(description) : ''
+          label: 'Rule Note',
+          value: note ? stripHtml(note) : ''
         }
       ];
       const lastFields = [

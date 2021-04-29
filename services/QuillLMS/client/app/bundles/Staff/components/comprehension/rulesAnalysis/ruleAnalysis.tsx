@@ -67,7 +67,7 @@ const RuleAnalysis = ({ history, match }) => {
       return [];
     } else {
       // format for DataTable to display labels on left side and values on right
-      const { description, feedbacks, name, rule_type, concept_uid, } = rule;
+      const { note, feedbacks, name, rule_type, concept_uid, } = rule;
 
       const selectedConcept = conceptsData.concepts.find(c => c.uid === concept_uid);
       const selectedConceptNameArray = selectedConcept ? selectedConcept.name.split(' | ') : []
@@ -82,8 +82,8 @@ const RuleAnalysis = ({ history, match }) => {
           value: name
         },
         {
-          label: 'Rule Description',
-          value: description ? stripHtml(description) : ''
+          label: 'Rule Note',
+          value: note ? stripHtml(note) : ''
         },
         {
           label: 'Concept - Level 0',

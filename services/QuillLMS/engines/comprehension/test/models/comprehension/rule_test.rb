@@ -56,7 +56,7 @@ module Comprehension
         assert_equal json_hash['id'], @rule.id
         assert_equal json_hash['uid'], @rule.uid
         assert_equal json_hash['name'], @rule.name
-        assert_equal json_hash['description'], @rule.description
+        assert_equal json_hash['note'], @rule.note
         assert_equal json_hash['universal'], @rule.universal
         assert_equal json_hash['rule_type'], @rule.rule_type
         assert_equal json_hash['optimal'], @rule.optimal
