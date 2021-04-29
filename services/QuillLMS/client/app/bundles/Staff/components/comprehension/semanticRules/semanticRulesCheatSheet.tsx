@@ -30,7 +30,7 @@ const SemanticRulesCheatSheet = ({ match, }) => {
     const formattedRows = rulesData.rules.map(rule => {
       const { name, id, feedbacks, note, } = rule;
       const ruleLink = (
-        <Link className="data-link" rel="noopener noreferrer" target="_blank" to={{ pathname: `/activities/${activityId}/semantic-labels/${promptId}/${id}`, state: { rule: rule } }}>Edit Rule</Link>
+        <Link className="quill-button fun contained primary" rel="noopener noreferrer" target="_blank" to={{ pathname: `/activities/${activityId}/semantic-labels/${promptId}/${id}`, state: { rule: rule } }}>Edit Rule</Link>
       );
       return {
         id: id,
@@ -55,7 +55,7 @@ const SemanticRulesCheatSheet = ({ match, }) => {
     { name: "Rule Name", attribute:"name", noTooltip: true, width: "200px" },
     { name: "Rule Notes", attribute:"note", noTooltip: true, width: "300px" },
     { name: "Rule Feedback - 1st Layer", attribute:"firstLayerFeedback", noTooltip: true, width: "300px" },
-    { name: "", attribute:"edit", width: "70px" }
+    { name: "", attribute:"edit", width: "70px", noTooltip: true }
   ];
 
   const prompt = activityData.activity.prompts.find(p => String(p.id) === promptId)
