@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import stripHtml from "string-strip-html";
 import moment from 'moment';
 import ReactTable from 'react-table';
+import qs from 'qs'
 
 import { fetchRule } from '../../../utils/comprehension/ruleAPIs';
 import { fetchActivity } from '../../../utils/comprehension/activityAPIs';
@@ -186,6 +187,8 @@ const RuleAnalysis = ({ history, match }) => {
     );
   }
 
+  const promptId = qs.parse(history.location.search.replace('?', '')).prompt_id
+
   return(
     <div className="rule-analysis-container">
       <div className="header-container">
@@ -196,7 +199,10 @@ const RuleAnalysis = ({ history, match }) => {
         headers={ruleHeaders}
         rows={ruleRows(ruleData)}
       />
-      <Link className="quill-button medium contained primary" to={`/activities/${activityId}/rules/${ruleData.rule.id}`}>Edit Rule Feedback</Link>
+      <div className="button-wrapper">
+        <Link className="quill-button medium contained primary" to={`/activities/${activityId}/rules/${ruleData.rule.id}`}>Edit Rule Feedback</Link>
+        <Link className="quill-button medium secondary outlined" rel="noopener noreferrer" target="_blank" to={`/activities/${activityId}/semantic-labels/${promptId}/semantic-rules-cheat-sheet`} >Semantic Rules Cheat Sheet</Link>;
+      </div>
       <div className="radio-options">
         <div className="radio">
           <label id={ALL}>

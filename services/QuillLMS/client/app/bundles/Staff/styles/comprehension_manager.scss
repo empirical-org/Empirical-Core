@@ -322,6 +322,17 @@
   }
   .rules-container, .rule-container, .turk-sessions-container, .semantic-labels-container, .model-container {
     width: 80vw;
+    .semantic-rules-cheat-sheet {
+      .data-table-row {
+        height: min-content;
+        padding-top: 8px;
+        padding-bottom: 8px;
+      }
+      .data-table-row-section {
+        white-space: pre-wrap;
+        overflow: visible;
+      }
+    }
     .semantic-labels-overview-container {
       .prompt-section {
         border-top: 2px solid #e0e0e0;
