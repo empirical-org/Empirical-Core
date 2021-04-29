@@ -19,6 +19,7 @@ interface RuleGenericAttributesProps {
   errors: any,
   ruleConceptUID: string,
   ruleDescription: string,
+  ruleTypeDisabled: boolean,
   ruleID?: number,
   ruleUID?: string,
   ruleName: string,
@@ -45,6 +46,7 @@ const RuleGenericAttributes = ({
   ruleName,
   ruleOptimal,
   ruleType,
+  ruleTypeDisabled,
   setRuleConceptUID,
   setRuleDescription,
   setRuleName,
@@ -71,7 +73,6 @@ const RuleGenericAttributes = ({
     );
   }
 
-  const ruleTypeDisabled = (ruleID || ruleType.value === 'autoML') ? 'disabled' : '';
   let options = isUniversal ? universalRuleTypeOptions : ruleTypeOptions;
   if(!isAutoML) {
     options = options.filter(option => option.value !== 'autoML');
@@ -84,7 +85,7 @@ const RuleGenericAttributes = ({
   return(
     <React.Fragment>
       <DropdownInput
-        className={`rule-type-input ${ruleTypeDisabled}`}
+        className={`rule-type-input ${ruleTypeDisabled ? 'disabled' : ''}`}
         disabled={!!ruleTypeDisabled}
         handleChange={onHandleSetRuleType}
         isSearchable={true}

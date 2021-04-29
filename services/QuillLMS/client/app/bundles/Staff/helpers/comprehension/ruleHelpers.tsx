@@ -395,6 +395,29 @@ export function getRulesUrl(activityId: string, promptId: string, ruleType: stri
   return url;
 }
 
+export function getReturnLinkRuleType(ruleType) {
+  if(!ruleType) {
+    return 'rules';
+  }
+  const { value } = ruleType
+  if(regexRuleTypes.includes(value)) {
+    return 'regex-rules';
+  }
+  return 'rules';
+}
+
+export function getReturnLinkLabel(ruleType) {
+  let label = '← Return to ';
+  if(!ruleType) {
+    return label + 'Rules Index';
+  }
+  const { value } = ruleType
+  if(regexRuleTypes.includes(value)) {
+    return label + 'Regex Rules Index';
+  }
+  return label + 'Rules Index';
+}
+
 export function renderErrorsContainer(formErrorsPresent: boolean, requestErrors: string[]) {
   if(formErrorsPresent) {
     return(

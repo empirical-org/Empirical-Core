@@ -133,6 +133,7 @@ const RuleForm = ({ activityData, activityId, closeModal, isUniversal, requestEr
           ruleName={ruleName}
           ruleOptimal={ruleOptimal}
           ruleType={ruleType}
+          ruleTypeDisabled={false}
           ruleUID={uid}
           setRuleConceptUID={setRuleConceptUID}
           setRuleDescription={setRuleDescription}

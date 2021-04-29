@@ -128,18 +128,15 @@ const RegexRulesIndex: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ ma
     { name: "So", attribute:"so_prompt", width: "50px" },
     { name: "", attribute:"view", width: "50px" },
   ];
-  const addRulesBased1Link = <Link to={`/activities/${activityId}/regex-rules/new`}>Add Sentence Structure Regex Rule</Link>;
-  const addRulesBased2Link = <Link to={`/activities/${activityId}/regex-rules/new`}>Add Post-Topic Regex Rule</Link>;
-  const addRulesBased3Link = <Link to={`/activities/${activityId}/regex-rules/new`}>Add Typo Regex Rule</Link>;
+  const addRulesBased1Link = <Link to={{ pathname: `/activities/${activityId}/regex-rules/new`, state: { ruleType: 'rules-based-1' }}}>Add Sentence Structure Regex Rule</Link>;
+  const addRulesBased2Link = <Link to={{ pathname: `/activities/${activityId}/regex-rules/new`, state: { ruleType: 'rules-based-2' }}}>Add Post-Topic Regex Rule</Link>;
+  const addRulesBased3Link = <Link to={{ pathname: `/activities/${activityId}/regex-rules/new`, state: { ruleType: 'rules-based-3' }}}>Add Typo Regex Rule</Link>;
   const rulesBased1Rows = getFormattedRows(rulesBased1Data);
   const rulesBased2Rows = getFormattedRows(rulesBased2Data);
   const rulesBased3Rows = getFormattedRows(rulesBased3Data);
 
   return(
     <div className="rules-container">
-      <div className="header-container">
-        <h2>Regex Rules</h2>
-      </div>
       <section className="rules-based-section">
         <button className="quill-button fun primary contained add-rule-button" type="submit">{addRulesBased1Link}</button>
         {renderTable(rulesBased1Rows, 'Sentence Struture')}
