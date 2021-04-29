@@ -12,7 +12,7 @@
 class RedisFeed
   attr_reader :redis_key, :key_id
 
-  class NotImplementedError < StandardError; end;
+  class NotImplementedError < StandardError; end
 
   def initialize(key_id)
     @key_id = key_id
@@ -42,16 +42,16 @@ class RedisFeed
 
   # Methods defined by subclass
   def key
-    raise NotImplementedError.new
+    raise NotImplementedError
   end
 
   # should return an array of hash objects
   def hydrate(ids:)
-    raise NotImplementedError.new
+    raise NotImplementedError
   end
 
   def limit
-    raise NotImplementedError.new
+    raise NotImplementedError
   end
 
   def callback_on_add(id)

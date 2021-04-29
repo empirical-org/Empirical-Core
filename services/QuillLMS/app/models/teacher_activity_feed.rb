@@ -35,7 +35,7 @@ class TeacherActivityFeed < RedisFeed
 
   # PUSHER_EVENT = 'teacher-activity-feed'
   def callback_on_add(id)
-    # TODO add pusher code for real time updates
+    # TODO: add pusher code for real time updates
     # PusherTrigger.run(key_id, PUSHER_EVENT, hydrate(ids: id).first)
   end
 

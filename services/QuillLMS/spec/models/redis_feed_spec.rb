@@ -1,6 +1,7 @@
 require 'rails_helper'
 
 describe RedisFeed, type: :model do
+  # rubocop:disable Style/SingleLineMethods
   describe "redis feed model without callback" do
 
     let(:test_feed_class) do
@@ -90,4 +91,5 @@ describe RedisFeed, type: :model do
       end
     end
   end
+  # rubocop:enable Style/SingleLineMethods
 end
