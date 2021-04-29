@@ -54,6 +54,7 @@
     "levenshtein": "^1.0.5",
     "localforage": "^1.8.1",
     "lodash": "^4.17.19",
+    "match-sorter": "^6.3.0",
     "mini-css-extract-plugin": "^0.7.0",
     "mockdate": "^2.0.1",
     "moment": "^2.14.1",
