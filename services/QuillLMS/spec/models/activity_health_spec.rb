@@ -4,7 +4,7 @@
 #
 #  id                      :integer          not null, primary key
 #  activity_categories     :string           is an Array
-#  activity_packs          :string           is an Array
+#  activity_packs          :jsonb
 #  avg_common_unmatched    :float
 #  avg_difficulty          :float
 #  avg_mins_to_complete    :float

@@ -41,6 +41,7 @@ describe PopulateActivityHealthWorker do
       expect(activity_health.flag).to eq(activity.flag.to_s)
       expect(activity_health.tool).to eq("connect")
       expect(activity_health.avg_difficulty).to eq(1.84)
+      expect(activity_health.activity_packs[0]["name"]).to eq(activity.unit_templates[0].name)
     end
 
     it 'should create new Prompt Health objects' do
