@@ -7,21 +7,21 @@ class RuleFeedbackHistory
 
     def self.exec_query(conjunction:, activity_id:)
         sql = <<~SQL
-          select rules.uid as rules_uid, 
+          select rules.uid as rules_uid,
             MAX(feedback_histories.id),
-            MAX(prompts.activity_id) as activity_id, 
-            MAX(rules.rule_type) as rule_type, 
+            MAX(prompts.activity_id) as activity_id,
+            MAX(rules.rule_type) as rule_type,
             MAX(rules.suborder) as rule_suborder,
-            MAX(rules.name) as rule_name, 
-            MAX(rules.description) as rule_description, 
+            MAX(rules.name) as rule_name,
+            MAX(rules.note) as rule_note, 
             ARRAY_AGG(feedback_histories.id) as feedback_histories_id_array
 
-          FROM comprehension_rules as rules 
-          INNER JOIN comprehension_prompts_rules as prompts_rules ON rules.id = prompts_rules.rule_id 
-          INNER JOIN comprehension_prompts as prompts ON prompts_rules.prompt_id = prompts.id 
+          FROM comprehension_rules as rules
+          INNER JOIN comprehension_prompts_rules as prompts_rules ON rules.id = prompts_rules.rule_id
+          INNER JOIN comprehension_prompts as prompts ON prompts_rules.prompt_id = prompts.id
           LEFT JOIN feedback_histories ON feedback_histories.rule_uid = rules.uid
           WHERE prompts.conjunction = '#{conjunction}' AND activity_id = '#{activity_id}'
-          GROUP BY rules_uid 
+          GROUP BY rules_uid
         SQL
         rules = Comprehension::Rule.find_by_sql(sql)
     end
@@ -52,8 +52,8 @@ class RuleFeedbackHistory
     end
 
     def self.postprocessing(rules_sql_result)
-        rules_sql_result.each do |r| 
-            
+        rules_sql_result.each do |r|
+
             feedback_histories = FeedbackHistory
                 .where(id: r.feedback_histories_id_array).includes(:feedback_history_ratings)
 
@@ -61,11 +61,11 @@ class RuleFeedbackHistory
                 memo + feedback_history.feedback_history_ratings.count
             end
 
-            if total_scored == 0 
+            if total_scored == 0
                 total_strong = 0
                 r.define_singleton_method(:pct_strong) { 0 }
                 r.define_singleton_method(:pct_scored) { 0 }
-            else 
+            else
                 total_strong = feedback_histories.reduce(0) do |memo, n|
                     memo + n.feedback_history_ratings.filter(&:rating).count
                 end
@@ -78,11 +78,11 @@ class RuleFeedbackHistory
 
             r.define_singleton_method(:scored_responses_count) { total_scored }
             r.define_singleton_method(:total_responses) { feedback_histories.count }
-        end 
+        end
 
         rule_feedbacks = Comprehension::Rule
             .includes(:feedbacks)
-            .where(uid: rules_sql_result.map(&:rules_uid)) 
+            .where(uid: rules_sql_result.map(&:rules_uid))
 
         rules_sql_result.each do |r|
             feedbacks = rule_feedbacks.find_by(uid: r.rules_uid).feedbacks
@@ -103,10 +103,10 @@ class RuleFeedbackHistory
                 api_name: r.rule_type,
                 rule_order: r.rule_suborder,
                 first_feedback: r.first_feedback,
-                rule_description: r.rule_description,
+                rule_note: r.rule_note,
                 rule_name: r.rule_name,
                 total_responses: r.total_responses,
-                pct_strong: format_pct(r.pct_strong), 
+                pct_strong: format_pct(r.pct_strong),
                 scored_responses: r.scored_responses_count, # may want to rename for clarity
                 pct_scored: format_pct(r.pct_scored)
             }
