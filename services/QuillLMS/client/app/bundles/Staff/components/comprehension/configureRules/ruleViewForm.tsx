@@ -13,7 +13,7 @@ import { deleteRule, fetchRules, fetchUniversalRules } from '../../../utils/comp
 import { fetchConcepts, } from '../../../utils/comprehension/conceptAPIs';
 import { formatPrompts } from '../../../helpers/comprehension';
 import { handleSubmitRule, getInitialRuleType, formatInitialFeedbacks, returnInitialFeedback, renderErrorsContainer, formatRegexRules, getReturnLinkRuleType, getReturnLinkLabel } from '../../../helpers/comprehension/ruleHelpers';
-import { ruleOptimalOptions, regexRuleTypes, blankRule } from '../../../../../constants/comprehension';
+import { ruleOptimalOptions, regexRuleTypes } from '../../../../../constants/comprehension';
 import { RuleInterface, DropdownObjectInterface } from '../../../interfaces/comprehensionInterfaces';
 
 interface RuleViewFormProps {
