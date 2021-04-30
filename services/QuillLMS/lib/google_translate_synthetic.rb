@@ -44,7 +44,7 @@ class GoogleTranslateSynthetic
   # Throttling to 100 sentences at a time.
   BATCH_SIZE = 100
 
-  attr_reader :results, :languages, :test_percent, :data_count
+  attr_reader :results, :languages, :test_percent, :data_count, :labels
 
   # params:
   # texts_and_labels: [['text', 'label_5'],['text', 'label_1'],...]
@@ -61,8 +61,7 @@ class GoogleTranslateSynthetic
 
     @data_count = clean_text_and_labels.size
 
-    labels = clean_text_and_labels.map(&:last).uniq
-
+    @labels = clean_text_and_labels.map(&:last).uniq
 
     # assign results with no TEST,VALIDATION,TRAIN type
     @results = clean_text_and_labels.map do |text_and_label|
@@ -164,6 +163,7 @@ class GoogleTranslateSynthetic
     synthetics = GoogleTranslateSynthetic.new(texts_and_labels, languages: languages, test_percent: test_percent)
 
     raise unless synthetics.language_count_and_percent_valid?
+    raise unless synthetics.label_minimums_valid?
 
     synthetics.fetch_results
 
@@ -205,5 +205,13 @@ class GoogleTranslateSynthetic
     total_size = (test_percent * 2) + training_size
 
     (test_percent / total_size) >= MIN_AUTOML_TEST_PERCENT
+  end
+
+  def label_minimums_valid?
+    labels.all? do |label|
+      results.count {|r| r.label == label && r.type == TYPE_VALIDATION } >= MIN_TEST_PER_LABEL &&
+      results.count {|r| r.label == label && r.type == TYPE_TEST } >= MIN_TEST_PER_LABEL &&
+      results.count {|r| r.label == label && r.type == TYPE_TRAIN } >= MIN_TRAIN_PER_LABEL
+    end
   end
 end
