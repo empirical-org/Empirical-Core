@@ -424,6 +424,12 @@
   background-color: #000;
 }
 
+.welcome-modal-container {
+  canvas {
+    position: fixed !important;
+  }
+}
+
 .quill-modal {
   border-radius: 6px;
   background-color: #ffffff;
