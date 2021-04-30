@@ -60,6 +60,22 @@ const Navigation = ({ location, match }) => {
     return <SubmissionModal close={toggleSubmissionModal} message={message} />;
   }
 
+  let rulesAnalysisSubLinks
+
+  if (location.pathname.includes('rules-analysis')) {
+    rulesAnalysisSubLinks = (<React.Fragment>
+      <NavLink activeClassName="is-active" className="sublink" to={`/activities/${activityId}/rules-analysis/because`}>
+        Because
+      </NavLink>
+      <NavLink activeClassName="is-active" className="sublink" to={`/activities/${activityId}/rules-analysis/but`}>
+        But
+      </NavLink>
+      <NavLink activeClassName="is-active" className="sublink" to={`/activities/${activityId}/rules-analysis/so`}>
+        So
+      </NavLink>
+    </React.Fragment>)
+  }
+
   let activityEditorAndResults
 
   if (activityId) {
@@ -100,6 +116,7 @@ const Navigation = ({ location, match }) => {
         <NavLink activeClassName="is-active" to={`/activities/${activityId}/rules-analysis`}>
           Rules Analysis
         </NavLink>
+        {rulesAnalysisSubLinks}
       </ul>
     </React.Fragment>)
   }

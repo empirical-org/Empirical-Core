@@ -15,7 +15,6 @@ exports[`RulesAnalysis component should render RulesAnalysis 1`] = `
       label="Select Prompt"
       options={Array []}
       usesCustomOption={true}
-      value={null}
     />
     <DropdownInput
       handleChange={[Function]}
