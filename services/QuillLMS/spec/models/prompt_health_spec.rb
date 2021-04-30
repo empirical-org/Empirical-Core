@@ -33,8 +33,8 @@ describe PromptHealth, type: :model, redis: true do
   it { should validate_inclusion_of(:difficulty).in_range(0..5)}
 
   context '#serializable_hash' do
-    should 'serialize into the expected shape' do
-      prompt_health = PromptHealth.create
+    it 'serialize into the expected shape' do
+      prompt_health = create(:prompt_health)
       assert_equal prompt_health.serializable_hash, {
         id: prompt_health.id,
         text: prompt_health.text,

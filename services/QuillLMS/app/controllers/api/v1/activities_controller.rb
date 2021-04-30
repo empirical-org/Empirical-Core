@@ -84,7 +84,7 @@ class Api::V1::ActivitiesController < Api::ApiController
   end
 
   def activities_health
-    render ActivityHealth.all.as_json
+    render json: {activities_health: ActivityHealth.all.as_json}
   end
 
   def question_health
