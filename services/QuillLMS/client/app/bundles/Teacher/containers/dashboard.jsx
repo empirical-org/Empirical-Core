@@ -26,7 +26,7 @@ const Dashboard = ({ onboardingChecklist, firstName, mustSeeModal, linkedToCleve
 
   if (!onboardingChecklist.every(obj => obj.checked)) {
     return (<div className="dashboard">
-      {showWelcomeModal && <WelcomeModal close={closeWelcomeModal} />}
+      {showWelcomeModal && <WelcomeModal close={closeWelcomeModal} size={size} />}
       <OnboardingChecklist firstName={firstName} onboardingChecklist={onboardingChecklist} />
     </div>)
   }
