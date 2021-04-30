@@ -19,6 +19,8 @@ class GoogleTranslateSynthetic
   SYNTHETIC_CSV = '_with_synthetic_detail.csv'
   TRAIN_CSV = '_training.csv'
   MIN_AUTOML_TEST_PERCENT = 0.05
+  MIN_TEST_PER_LABEL = 10
+  MIN_TRAIN_PER_LABEL = 50
 
   # NB, there is a V3, but that throws errors with our current Google Integration
   TRANSLATOR = Google::Cloud::Translate.new(version: :v2)
@@ -42,24 +44,68 @@ class GoogleTranslateSynthetic
   # Throttling to 100 sentences at a time.
   BATCH_SIZE = 100
 
-  attr_reader :results, :languages, :test_percent
+  attr_reader :results, :languages, :test_percent, :data_count
 
   # params:
   # texts_and_labels: [['text', 'label_5'],['text', 'label_1'],...]
   # languages: [:es, :ja, ...]
+  # test_percent: float. What percent should be used for both the test and validation set
+  # Passing 0.2 will use 20% for testing, 20% for validation and 60% for training
   def initialize(texts_and_labels, languages: TRAIN_LANGUAGES.keys, test_percent: 0.2)
     @languages = languages
     @test_percent = test_percent
 
-    types = type_list(count: texts_and_labels.size).shuffle
+    clean_text_and_labels = texts_and_labels
+      .keep_if(&:last) # remove blank labels
+      .uniq(&:first) # remove duplicate texts
 
-    @results = texts_and_labels.map.with_index do |text_and_label, index|
+    @data_count = clean_text_and_labels.size
+
+    labels = clean_text_and_labels.map(&:last).uniq
+
+
+    # assign results with no TEST,VALIDATION,TRAIN type
+    @results = clean_text_and_labels.map do |text_and_label|
       SyntheticResult.new(
         text: text_and_label.first,
         label: text_and_label.last,
-        translations: {},
-        type: types[index]
+        translations: {}
       )
+    end
+
+    # assign TEST and VALIDATION types to each label to ensure minimum per label
+    labels.each do |label|
+      results_sample = @results
+        .select {|r| r.label == label }
+        .sample(MIN_TEST_PER_LABEL * 2)
+
+      # ensure minimum-sized TEST and VALIDATION sets per label
+      results_sample.each.with_index do |result, index|
+        result.type = index.odd? ? TYPE_TEST : TYPE_VALIDATION
+      end
+
+      results_sample = @results
+        .select {|r| r.label == label && r.type.nil? }
+        .sample(MIN_TRAIN_PER_LABEL)
+
+      # ensure minimum-sized TRAIN set per label
+      results_sample.each do |result|
+        result.type = TYPE_TRAIN
+      end
+    end
+
+    assigned_tests = MIN_TEST_PER_LABEL * labels.size
+    assigned_train = MIN_TRAIN_PER_LABEL * labels.size
+
+    remaining_types = [
+      Array.new(test_count - assigned_tests, TYPE_TEST),
+      Array.new(test_count - assigned_tests, TYPE_VALIDATION),
+      Array.new(train_count - assigned_train, TYPE_TRAIN)
+    ].flatten.shuffle
+
+    # assign rest of empty types
+    @results.select {|r| r.type.nil?}.each.with_index do |result, index|
+      result.type = remaining_types[index]
     end
   end
 
@@ -83,6 +129,14 @@ class GoogleTranslateSynthetic
     end
   end
 
+  def train_count
+    data_count - (test_count * 2)
+  end
+
+  def test_count
+    (data_count * test_percent).ceil
+  end
+
   # input file is a csv with two columns and no header: text, label
   # pass in file paths, e.g. /Users/yourname/Desktop/
   def self.generate_from_file(input_file_path, output_file_path, languages: DEFAULT_LANGUAGES.keys)
@@ -97,6 +151,7 @@ class GoogleTranslateSynthetic
 
   # input file is a csv with two columns and no header: text, label
   # pass in file paths, e.g. /Users/yourname/Desktop/
+  # GoogleTranslateSynthetic.generate_training_export('/Users/danieldrabik/Desktop/surge_barriers_v5B_but.csv')
   def self.generate_training_export(input_file_path, languages: TRAIN_LANGUAGES.keys, test_percent: 0.2)
 
     output_csv = input_file_path.gsub(CSV_END_MATCH, SYNTHETIC_CSV)
@@ -150,15 +205,5 @@ class GoogleTranslateSynthetic
     total_size = (test_percent * 2) + training_size
 
     (test_percent / total_size) >= MIN_AUTOML_TEST_PERCENT
-  end
-
-  private def type_list(count:)
-    test_count = (count * test_percent).ceil
-
-    [
-      Array.new(test_count, TYPE_TEST),
-      Array.new(test_count, TYPE_VALIDATION),
-      Array.new(count - (test_count * 2), TYPE_TRAIN)
-    ].flatten
   end
 end
