@@ -55,6 +55,11 @@ const RulesAnalysis: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ hist
     setPromptBasedOnActivity()
   }, [promptConjunction])
 
+  React.useEffect(() => {
+    if (!selectedPrompt) { return }
+    history.push(`/activities/${activityId}/rules-analysis/${selectedPrompt.conjunction}`)
+  }, [selectedPrompt])
+
   function setPromptBasedOnActivity() {
     if (!activityData || !promptConjunction) { return }
 
