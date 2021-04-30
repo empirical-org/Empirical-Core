@@ -7,6 +7,7 @@ import _ from 'underscore'
 
 import LoadingSpinner from '../shared/loading_indicator.jsx'
 import { sort, sortByList } from '../../../../modules/sortingMethods.js'
+import { FlagDropdown } from '../../../Shared/index'
 import { selectColumnFilter } from '../../../../modules/filteringMethods.js'
 
 class ActivityHealth extends React.Component<ComponentProps, any> {
@@ -14,7 +15,8 @@ class ActivityHealth extends React.Component<ComponentProps, any> {
   state = {
     loadingTableData: true,
     activityId: '',
-    dataResults: []
+    dataResults: [],
+    activityHealthFlags: "All Flags"
   };
 
   componentDidMount() {
@@ -243,10 +245,14 @@ class ActivityHealth extends React.Component<ComponentProps, any> {
     let tableOrEmptyMessage
 
     if (dataResults.length) {
+      let filteredData = dataResults;
+      if (this.state.activityHealthFlags !== 'All Flags') {
+        filteredData = filteredData.filter(data => data.flag === this.state.activityHealthFlags)
+      }
       tableOrEmptyMessage = (<ReactTable
         className='progress-report has-green-arrow'
         columns={this.columnDefinitions()}
-        data={dataResults}
+        data={filteredData}
         defaultPageSize={Math.min(dataResults.length, 25)}
         defaultSorted={[{id: 'name', desc: false}]}
         filterable
@@ -260,7 +266,7 @@ class ActivityHealth extends React.Component<ComponentProps, any> {
         showPaginationTop={false}
       />)
     } else {
-      tableOrEmptyMessage = "Prompt data for this question could not be found. Refresh to try again."
+      tableOrEmptyMessage = "Activity Health data could not be found. Refresh to try again, or contact the engineering team."
     }
       return (
         <div>
@@ -269,9 +275,16 @@ class ActivityHealth extends React.Component<ComponentProps, any> {
       )
   }
 
+  handleSelect = (e) => {
+    this.setState({ activityHealthFlags: e.target.value, });
+  }
+
   render() {
     return (
       <section className="section">
+        <div style={{display: 'inline-block'}}>
+          <FlagDropdown flag={this.state.activityHealthFlags} handleFlagChange={this.handleSelect} isLessons={true} />
+        </div>
         <div className="admin-container">
           <p className="menu-label">Activity Health</p>
           {this.renderTable()}
