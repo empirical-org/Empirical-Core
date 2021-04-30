@@ -236,4 +236,18 @@ end
       expect(JSON.parse(response.body)['percent_specified_algos']).to eq(40)
     end
   end
+
+  describe 'rematch_all_responses_for_question' do
+    it 'queues a job without delay as default' do
+      expect(RematchResponsesForQuestionWorker).to receive(:perform_in).with(0, '123', 'some_type')
+
+      post :rematch_all_responses_for_question, params: { uid: '123', type: 'some_type'}
+    end
+
+    it 'queues a job without delay when passed in' do
+      expect(RematchResponsesForQuestionWorker).to receive(:perform_in).with('999', '123', 'some_type')
+
+      post :rematch_all_responses_for_question, params: { uid: '123', type: 'some_type', delay: '999'}
+    end
+  end
 end
