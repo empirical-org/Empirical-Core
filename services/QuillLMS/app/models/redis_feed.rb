@@ -28,6 +28,10 @@ class RedisFeed
     feed.hydrate(ids: feed.ids)
   end
 
+  def self.reset!(key_id)
+    new(key_id).reset!
+  end
+
   # add identifiers to a redis array, limit to a certain size
   def add(id)
     $redis.lpush(redis_key, id)
@@ -38,6 +42,12 @@ class RedisFeed
   # returns an array of strings
   def ids
     $redis.lrange(redis_key, 0, limit - 1)
+  end
+
+  def reset!
+    temp_ids = ids
+    $redis.ltrim(redis_key, 0, 0)
+    temp_ids
   end
 
   # Methods defined by subclass
