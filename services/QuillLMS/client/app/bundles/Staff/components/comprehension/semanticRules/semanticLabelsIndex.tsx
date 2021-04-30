@@ -32,8 +32,8 @@ const SemanticLabelsIndex = ({ history, match, location }) => {
     if(!activity) {
       return;
     }
-    const { title } = activity;
-    return <h2>{title}</h2>
+    const { name } = activity;
+    return <h2>{name}</h2>
   }
 
   function handleCreateRule({rule}: {rule: RuleInterface}) {

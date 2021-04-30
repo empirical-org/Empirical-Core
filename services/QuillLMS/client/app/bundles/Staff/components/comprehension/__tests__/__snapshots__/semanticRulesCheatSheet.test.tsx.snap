@@ -7,10 +7,13 @@ exports[`SemanticRulesCheatSheet component should render SemanticRulesCheatSheet
   <h3>
     Semantic Rules Cheat Sheet
   </h3>
-  <h4>
-    Prompt: 
-    1
-  </h4>
+  <h4
+    dangerouslySetInnerHTML={
+      Object {
+        "__html": "Prompt: 1",
+      }
+    }
+  />
   <DataTable
     averageFontWidth={7}
     className="semantic-rules-cheat-sheet"

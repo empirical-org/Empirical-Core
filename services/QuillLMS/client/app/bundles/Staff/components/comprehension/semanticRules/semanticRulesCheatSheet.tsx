@@ -62,7 +62,7 @@ const SemanticRulesCheatSheet = ({ match, }) => {
   return(
     <section className="semantic-labels-container">
       <h3>Semantic Rules Cheat Sheet</h3>
-      <h4>Prompt: {prompt.text}</h4>
+      <h4 dangerouslySetInnerHTML={{ __html: `Prompt: ${prompt.text.replace(prompt.conjunction, `<b>${prompt.conjunction}</b>`)}`}} />
       <DataTable
         className="semantic-rules-cheat-sheet"
         headers={dataTableFields}
