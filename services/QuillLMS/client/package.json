@@ -229,6 +229,7 @@
     ],
     "setupFiles": [
       "<rootDir>/setupTests.ts",
+      "<rootDir>/setEnvVars.js",
       "jest-localstorage-mock"
     ]
   }
