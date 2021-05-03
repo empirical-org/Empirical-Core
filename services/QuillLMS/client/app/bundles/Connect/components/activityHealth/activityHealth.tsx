@@ -10,6 +10,9 @@ import { sort, sortByList } from '../../../../modules/sortingMethods.js'
 import { FlagDropdown } from '../../../Shared/index'
 import { selectColumnFilter } from '../../../../modules/filteringMethods.js'
 
+const recentPlaysText = "Number of plays in the last 3 months if the activity's first play was more than 3 months ago"
+
+
 class ActivityHealth extends React.Component<ComponentProps, any> {
 
   state = {
@@ -32,6 +35,7 @@ class ActivityHealth extends React.Component<ComponentProps, any> {
   }
 
   columnDefinitions() {
+    let activityPackUrl = `${process.env.DEFAULT_URL}/cms/unit_templates/`
     return [
       {
         Header: 'Name',
@@ -89,7 +93,7 @@ class ActivityHealth extends React.Component<ComponentProps, any> {
         Cell: props => props.value
       },
       {
-        Header: 'Recent Plays',
+        Header: "Recent Plays",
         accessor: 'recent_plays',
         filterMethod: (filter, row) => {
           let value = filter.value
@@ -174,7 +178,7 @@ class ActivityHealth extends React.Component<ComponentProps, any> {
           <div>
             {
             row.original['activity_packs'].map((ap) => (
-              <div><a href='quill.org/unit_templates/${ap.id}'>{ap.name}</a></div>
+              <div><a href={activityPackUrl + ap.id}>{ap.name}</a></div>
             ))
             }
           </div>
@@ -364,7 +368,7 @@ class ActivityHealth extends React.Component<ComponentProps, any> {
         filteredData = filteredData.filter(data => data.flag === this.state.activityHealthFlags)
       }
       tableOrEmptyMessage = (<ReactTable
-        className='progress-report has-green-arrow'
+        className='records-table'
         columns={this.columnDefinitions()}
         data={filteredData}
         defaultPageSize={dataResults.length}
@@ -401,7 +405,9 @@ class ActivityHealth extends React.Component<ComponentProps, any> {
         </div>
         <div className="large-admin-container">
           <p className="menu-label">Activity Health</p>
+          <div className="standard-columns">
           {this.renderTable()}
+          </div>
         </div>
       </section>
     )
