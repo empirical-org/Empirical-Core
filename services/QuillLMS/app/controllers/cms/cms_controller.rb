@@ -1,5 +1,5 @@
 class Cms::CmsController < ApplicationController
-  before_filter :staff!
+  before_action :staff!
 
   private def subscription_data
     if !@school && !@user && @subscription.schools.any?
