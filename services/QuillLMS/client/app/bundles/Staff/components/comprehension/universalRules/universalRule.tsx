@@ -47,7 +47,7 @@ const UniversalRule = ({ history, location, match }) => {
       return [];
     }
     // format for DataTable to display labels on left side and values on right
-    const { feedbacks, name, rule_type, description, suborder, } = rule;
+    const { feedbacks, name, rule_type, note, suborder, } = rule;
     const attributesFields = handleAttributesFields(feedbacks);
     const firstFields = [
       {
@@ -59,8 +59,8 @@ const UniversalRule = ({ history, location, match }) => {
         value: name
       },
       {
-        label: 'Description',
-        value: description && stripHtml(description)
+        label: 'Rule Note',
+        value: note && stripHtml(note)
       },
       {
         label: 'Order',

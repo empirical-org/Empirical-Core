@@ -27,4 +27,16 @@ class ActivityHealth < ActiveRecord::Base
   validates :flag, inclusion: { in: FLAGS, allow_nil: true}
   validates :recent_plays, numericality: { greater_than_or_equal_to: 0, allow_nil: true }
   validates :avg_difficulty, inclusion: { in: 0..5, allow_nil: true }
+
+  def serializable_hash(options = nil)
+    options ||= {}
+
+    super(options.reverse_merge(
+      only: [:id, :name, :url, :activity_categories, :content_partners,
+             :tool, :diagnostics, :avg_difficulty, :avg_common_unmatched,
+             :standard_dev_difficulty, :recent_plays, :avg_mins_to_complete,
+             :flag, :activity_packs],
+      include: [:prompt_healths]
+    ))
+  end
 end

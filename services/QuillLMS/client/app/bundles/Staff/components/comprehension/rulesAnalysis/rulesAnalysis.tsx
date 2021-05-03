@@ -19,7 +19,7 @@ interface PromptOption extends PromptInterface {
 
 const MoreInfo = (row) => {
   return (<div className="more-info">
-    <p><strong>Rule Description:</strong> <span dangerouslySetInnerHTML={{ __html: row.original.description || "N/A" }} /></p>
+    <p><strong>Rule Note:</strong> <span dangerouslySetInnerHTML={{ __html: row.original.note || "N/A" }} /></p>
     <p><strong>First Layer Feedback:</strong> <span dangerouslySetInnerHTML={{ __html: row.original.firstLayerFeedback || "N/A" }} /></p>
   </div>)
 }
@@ -49,7 +49,7 @@ const RulesAnalysis: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ hist
   const formattedRows = selectedPrompt && ruleFeedbackHistory && ruleFeedbackHistory.ruleFeedbackHistories && ruleFeedbackHistory.ruleFeedbackHistories.filter(rule => {
     return selectedRuleType.value === DEFAULT_RULE_TYPE || rule.api_name.toLowerCase() === selectedRuleType.value.toLowerCase()
   }).map(rule => {
-    const { rule_name, rule_uid, api_name, rule_order, rule_description, pct_strong, pct_scored, total_responses, scored_responses, first_feedback, } = rule;
+    const { rule_name, rule_uid, api_name, rule_order, note, pct_strong, pct_scored, total_responses, scored_responses, first_feedback, } = rule;
     const apiOrder = ruleOrder[api_name]
     return {
       rule_uid,
@@ -63,7 +63,7 @@ const RulesAnalysis: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ hist
       scoredResponses: scored_responses,
       percentageScored: pct_scored,
       activityId,
-      description: rule_description,
+      note,
       firstLayerFeedback: first_feedback,
       handleClick: () => window.location.href = `/cms/comprehension#/activities/${activityId}/rules-analysis/${rule_uid}`
     }

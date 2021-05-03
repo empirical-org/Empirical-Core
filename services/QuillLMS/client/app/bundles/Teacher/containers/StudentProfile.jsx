@@ -1,6 +1,7 @@
 import React from 'react';
 import Pusher from 'pusher-js';
 import { connect } from 'react-redux';
+import qs from 'qs'
 
 import NotificationFeed  from '../components/student_profile/notification_feed';
 import StudentProfileUnits from '../components/student_profile/student_profile_units.jsx';
@@ -16,7 +17,6 @@ import {
   updateActiveClassworkTab
 } from '../../../actions/student_profile';
 import { TO_DO_ACTIVITIES, COMPLETED_ACTIVITIES, } from '../../../constants/student_profile'
-
 
 class StudentProfile extends React.Component {
   componentDidMount() {
@@ -43,17 +43,30 @@ class StudentProfile extends React.Component {
     }
   }
 
-  UNSAFE_componentWillReceiveProps(nextProps) {
-    const { selectedClassroomId, history, student, } = this.props
-    if (nextProps.selectedClassroomId && nextProps.selectedClassroomId !== selectedClassroomId) {
-      if (!window.location.href.includes(nextProps.selectedClassroomId)) {
-        history.push(`classrooms/${nextProps.selectedClassroomId}`);
+  componentDidUpdate(prevProps, prevState) {
+    const { selectedClassroomId, history, student, scores, loading, } = this.props
+
+    if (selectedClassroomId && selectedClassroomId !== prevProps.selectedClassroomId) {
+      if (!window.location.href.includes(selectedClassroomId)) {
+        history.push(`classrooms/${selectedClassroomId}`);
       }
     }
 
-    if (student !== nextProps.student) {
-      this.initializePusher(nextProps)
+    if (student !== prevProps.student) {
+      this.initializePusher(this.props)
     }
+
+    if (scores && !prevProps.scores && !loading) {
+      const focusedUnitId = this.parsedQueryParams().unit_id
+      const element = document.getElementById(focusedUnitId)
+      const elementTop = element ? element.getBoundingClientRect().top : 0
+      window.scrollTo(0, window.pageYOffset + elementTop - 70)
+    }
+  }
+
+  parsedQueryParams = () => {
+    const { history, } = this.props
+    return qs.parse(history.location.search.replace('?', ''))
   }
 
   handleClassroomTabClick = (classroomId) => {
@@ -108,6 +121,7 @@ class StudentProfile extends React.Component {
       scores,
       activeClassworkTab,
       isBeingPreviewed,
+      history,
     } = this.props;
 
     if (loading) { return <LoadingIndicator /> }
@@ -136,6 +150,7 @@ class StudentProfile extends React.Component {
           isBeingPreviewed={isBeingPreviewed}
           loading={loading}
           nextActivitySession={nextActivitySession}
+          selectedUnitId={this.parsedQueryParams().unit_id}
           teacherName={student.classroom.teacher.name}
         />
       </div>
