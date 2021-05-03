@@ -119,7 +119,7 @@ export default class StudentProfileUnit extends React.Component {
     if (activity_classification_id === DIAGNOSTIC_ACTIVITY_CLASSIFICATION_ID || activity_classification_id === LESSONS_ACTIVITY_CLASSIFICATION_ID) {
       return (
         <Tooltip
-          tooltipText={`This type of activity is not graded.`}
+          tooltipText="This type of activity is not graded."
           tooltipTriggerText={
             <div className="score">
               <div className="completed" />
@@ -207,8 +207,9 @@ export default class StudentProfileUnit extends React.Component {
   }
 
   render() {
-    const { unitName, } = this.props
-    return (<div className="student-profile-unit">
+    const { unitName, id, isSelectedUnit, } = this.props
+    const className = isSelectedUnit ? "student-profile-unit selected-unit" : "student-profile-unit"
+    return (<div className={className} id={id}>
       <div className="unit-name">
         <h2>{unitName}</h2>
       </div>

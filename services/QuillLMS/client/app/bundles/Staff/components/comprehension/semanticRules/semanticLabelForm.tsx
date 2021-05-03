@@ -33,12 +33,12 @@ const SemanticLabelForm = ({ activityId, isSemantic, isUniversal, requestErrors,
   const { params } = match;
   const { promptId } = params;
 
-  const { name, rule_type, id, uid, optimal, plagiarism_text, concept_uid, description, feedbacks, state, label } = rule;
+  const { name, rule_type, id, uid, optimal, plagiarism_text, concept_uid, note, feedbacks, state, label } = rule;
 
   const initialRuleType = getInitialRuleType({ isUniversal, rule_type, universalRuleType: null});
   const initialRuleOptimal = optimal ? ruleOptimalOptions[0] : ruleOptimalOptions[1];
   const initialPlagiarismText = plagiarism_text || { text: '' }
-  const initialDescription = description || '';
+  const initialNote = note || '';
   const initialFeedbacks = feedbacks ? formatInitialFeedbacks(feedbacks) : returnInitialFeedback(initialRuleType.value);
   const initialLabel = label && label.name;
   const ruleLabelStatus = state;
@@ -48,7 +48,7 @@ const SemanticLabelForm = ({ activityId, isSemantic, isUniversal, requestErrors,
   const [plagiarismText, setPlagiarismText] = React.useState<RuleInterface["plagiarism_text"]>(initialPlagiarismText);
   const [regexRules, setRegexRules] = React.useState<object>({});
   const [ruleConceptUID, setRuleConceptUID] = React.useState<string>(concept_uid || '');
-  const [ruleDescription, setRuleDescription] = React.useState<string>(initialDescription);
+  const [ruleNote, setRuleNote] = React.useState<string>(initialNote);
   const [ruleFeedbacks, setRuleFeedbacks] = React.useState<object>(initialFeedbacks);
   const [ruleOptimal, setRuleOptimal] = React.useState<any>(initialRuleOptimal);
   const [ruleName, setRuleName] = React.useState<string>(name || '');
@@ -119,7 +119,7 @@ const SemanticLabelForm = ({ activityId, isSemantic, isUniversal, requestErrors,
       ruleName,
       ruleLabelName,
       ruleConceptUID,
-      ruleDescription,
+      ruleNote,
       ruleFeedbacks,
       ruleOptimal,
       rulePrompts,
@@ -184,16 +184,16 @@ const SemanticLabelForm = ({ activityId, isSemantic, isUniversal, requestErrors,
           isAutoML={true}
           isUniversal={isUniversal}
           ruleConceptUID={ruleConceptUID}
-          ruleDescription={ruleDescription}
           ruleID={id}
           ruleName={ruleName}
+          ruleNote={ruleNote}
           ruleOptimal={ruleOptimal}
           ruleType={ruleType}
           ruleTypeDisabled={true}
           ruleUID={uid}
           setRuleConceptUID={setRuleConceptUID}
-          setRuleDescription={setRuleDescription}
           setRuleName={setRuleName}
+          setRuleNote={setRuleNote}
           setRuleOptimal={setRuleOptimal}
           setRuleType={setRuleType}
         />

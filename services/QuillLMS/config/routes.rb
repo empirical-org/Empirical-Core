@@ -365,6 +365,7 @@ EmpiricalGrammar::Application.routes.draw do
   namespace :api do
     namespace :v1 do
       get 'activities/uids_and_flags' => 'activities#uids_and_flags'
+      get 'activities/activities_health' => 'activities#activities_health'
       get 'rule_feedback_histories' => 'rule_feedback_histories#by_conjunction'
       get 'rule_feedback_history/:rule_uid' => 'rule_feedback_histories#rule_detail'
 

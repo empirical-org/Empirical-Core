@@ -32,4 +32,22 @@ describe PromptHealth, type: :model, redis: true do
   it { should validate_inclusion_of(:percent_reached_optimal).in_range(0..100)}
   it { should validate_inclusion_of(:difficulty).in_range(0..5)}
 
+  context '#serializable_hash' do
+    it 'serialize into the expected shape' do
+      prompt_health = create(:prompt_health)
+      expect(prompt_health.serializable_hash).to eq({
+        id: prompt_health.id,
+        text: prompt_health.text,
+        url: prompt_health.url,
+        flag: prompt_health.flag,
+        incorrect_sequences: prompt_health.incorrect_sequences,
+        focus_points: prompt_health.focus_points,
+        percent_common_unmatched: prompt_health.percent_common_unmatched,
+        percent_specified_algorithms: prompt_health.percent_specified_algorithms,
+        difficulty: prompt_health.difficulty,
+        percent_reached_optimal: prompt_health.percent_reached_optimal
+      }.stringify_keys)
+    end
+  end
+
 end

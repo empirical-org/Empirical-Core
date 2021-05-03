@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20210317200006) do
+ActiveRecord::Schema.define(version: 20210429144611) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -131,7 +131,7 @@ ActiveRecord::Schema.define(version: 20210317200006) do
   create_table "comprehension_rules", force: :cascade do |t|
     t.string   "uid",         null: false
     t.string   "name",        null: false
-    t.string   "description"
+    t.string   "note"
     t.boolean  "universal",   null: false
     t.string   "rule_type",   null: false
     t.boolean  "optimal",     null: false

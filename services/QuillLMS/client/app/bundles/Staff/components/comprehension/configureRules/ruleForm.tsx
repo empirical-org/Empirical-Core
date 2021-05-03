@@ -27,18 +27,18 @@ interface RuleFormProps {
 
 const RuleForm = ({ activityData, activityId, closeModal, isUniversal, requestErrors,  rule, submitRule, universalRuleType }: RuleFormProps) => {
 
-  const { name, rule_type, id, uid, optimal, plagiarism_text, concept_uid, description, feedbacks } = rule;
+  const { name, rule_type, id, uid, optimal, plagiarism_text, concept_uid, note, feedbacks } = rule;
   const initialRuleType = getInitialRuleType({ isUniversal, rule_type, universalRuleType});
   const initialRuleOptimal = optimal ? ruleOptimalOptions[0] : ruleOptimalOptions[1];
   const initialPlagiarismText = plagiarism_text || { text: '' }
-  const initialDescription = description || '';
+  const initialNote = note || '';
   const initialFeedbacks = feedbacks ? formatInitialFeedbacks(feedbacks) : returnInitialFeedback(initialRuleType.value);
 
   const [errors, setErrors] = React.useState<object>({});
   const [plagiarismText, setPlagiarismText] = React.useState<RuleInterface["plagiarism_text"]>(initialPlagiarismText);
   const [regexRules, setRegexRules] = React.useState<object>({});
   const [ruleConceptUID, setRuleConceptUID] = React.useState<string>(concept_uid);
-  const [ruleDescription, setRuleDescription] = React.useState<string>(initialDescription);
+  const [ruleNote, setRuleNote] = React.useState<string>(initialNote);
   const [ruleFeedbacks, setRuleFeedbacks] = React.useState<object>(initialFeedbacks);
   const [ruleOptimal, setRuleOptimal] = React.useState<any>(initialRuleOptimal);
   const [ruleName, setRuleName] = React.useState<string>(name || '');
@@ -100,7 +100,7 @@ const RuleForm = ({ activityData, activityId, closeModal, isUniversal, requestEr
       ruleId: null,
       ruleLabelName: null,
       ruleConceptUID,
-      ruleDescription,
+      ruleNote,
       ruleFeedbacks,
       ruleOptimal,
       rulePrompts,
@@ -128,16 +128,16 @@ const RuleForm = ({ activityData, activityId, closeModal, isUniversal, requestEr
           errors={errors}
           isUniversal={isUniversal}
           ruleConceptUID={ruleConceptUID}
-          ruleDescription={ruleDescription}
           ruleID={id}
           ruleName={ruleName}
+          ruleNote={ruleNote}
           ruleOptimal={ruleOptimal}
           ruleType={ruleType}
           ruleTypeDisabled={false}
           ruleUID={uid}
           setRuleConceptUID={setRuleConceptUID}
-          setRuleDescription={setRuleDescription}
           setRuleName={setRuleName}
+          setRuleNote={setRuleNote}
           setRuleOptimal={setRuleOptimal}
           setRuleType={setRuleType}
         />
