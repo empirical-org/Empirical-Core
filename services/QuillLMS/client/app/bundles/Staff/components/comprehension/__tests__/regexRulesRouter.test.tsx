@@ -2,7 +2,7 @@ import * as React from 'react';
 import { mount } from 'enzyme';
 import { MemoryRouter } from 'react-router-dom';
 
-import RegexRulesRouter from '../regexRules/RegexRulesRouter';
+import RegexRulesRouter from '../regexRules/regexRulesRouter';
 
 const mockActivity = [{ id: 1, title: 'First' }]
 jest.mock("react-query", () => ({
