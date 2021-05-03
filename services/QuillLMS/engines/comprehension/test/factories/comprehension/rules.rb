@@ -2,7 +2,7 @@ FactoryBot.define do
   factory :comprehension_rule, class: 'Comprehension::Rule' do
     uid { SecureRandom.uuid }
     name { "Test Rule" }
-    description { "This rule is a test" }
+    note { "This rule is a test" }
     universal { false }
     rule_type { "plagiarism" }
     optimal { false }
