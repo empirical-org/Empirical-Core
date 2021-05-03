@@ -35,7 +35,7 @@ describe PromptHealth, type: :model, redis: true do
   context '#serializable_hash' do
     it 'serialize into the expected shape' do
       prompt_health = create(:prompt_health)
-      assert_equal prompt_health.serializable_hash, {
+      expect(prompt_health.serializable_hash).to eq({
         id: prompt_health.id,
         text: prompt_health.text,
         url: prompt_health.url,
@@ -46,7 +46,7 @@ describe PromptHealth, type: :model, redis: true do
         percent_specified_algorithms: prompt_health.percent_specified_algorithms,
         difficulty: prompt_health.difficulty,
         percent_reached_optimal: prompt_health.percent_reached_optimal
-      }.stringify_keys
+      }.stringify_keys)
     end
   end
 

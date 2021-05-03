@@ -3,11 +3,11 @@ FactoryBot.define do
     text                          "this is some test prompt text"
     url                           "test-url.org/test"
     flag                          "alpha"
-    incorrect_sequences           1
-    focus_points                  9
-    percent_common_unmatched      30.44
-    percent_specified_algorithms  20.99
-    difficulty                    2.22
-    percent_reached_optimal       80.44
+    incorrect_sequences           {rand(0..10)}
+    focus_points                  {rand(0..10)}
+    percent_common_unmatched      {rand(0.0..100.0)}
+    percent_specified_algorithms  {rand(0.0..100.0)}
+    difficulty                    {rand(0.0..5.0)}
+    percent_reached_optimal       {rand(0.0..100.0)}
   end
 end

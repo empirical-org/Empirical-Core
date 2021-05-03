@@ -32,7 +32,7 @@ describe ActivityHealth, type: :model, redis: true do
     it 'serialize into the expected shape' do
       prompt_health = create(:prompt_health)
       activity_health = create(:activity_health, prompt_healths: [prompt_health])
-      assert_equal activity_health.serializable_hash, {
+      expect(activity_health.serializable_hash).to eq({
         id: activity_health.id,
         name: activity_health.name,
         url: activity_health.url,
@@ -48,7 +48,7 @@ describe ActivityHealth, type: :model, redis: true do
         flag: activity_health.flag,
         activity_packs: activity_health.activity_packs,
         prompt_healths: activity_health.prompt_healths.as_json
-      }.stringify_keys
+      }.stringify_keys)
     end
   end
 
