@@ -13,7 +13,6 @@ jest.mock("react-query", () => ({
     isFetching: true,
   })),
 }));
-const { firstBy } = jest.requireActual('thenby');
 
 const mockRules = [
   { id: 1, name: 'rule_1', state: 'active', optimal: false, label: { id: 1, name: 'label_1' } },

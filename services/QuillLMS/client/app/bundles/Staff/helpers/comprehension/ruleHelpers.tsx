@@ -6,7 +6,7 @@ import { validateForm } from '../comprehension';
 import { AUTO_ML, PLAGIARISM } from '../../../../constants/comprehension';
 import { InputEvent, DropdownObjectInterface } from '../../interfaces/comprehensionInterfaces';
 import { ruleTypeOptions, universalRuleTypeOptions, ruleHighlightOptions, numericalWordOptions, regexRuleSequenceOptions, regexRuleTypes } from '../../../../constants/comprehension';
-import { TextEditor, DropdownInput } from '../../../Shared/index';
+import { TextEditor, DropdownInput, Modal } from '../../../Shared/index';
 
 export function handleSetRuleType(ruleType: DropdownObjectInterface, setRuleType) { setRuleType(ruleType) };
 
@@ -374,7 +374,7 @@ export async function handleSubmitRule({
     keys.push('Stem Applied');
     state.push(rulePrompts);
   }
-  const validationErrors = validateForm(keys, state);
+  const validationErrors = validateForm(keys, state, ruleType.value);
   if(validationErrors && Object.keys(validationErrors).length) {
     setErrors(validationErrors);
   } else {
@@ -437,4 +437,22 @@ export function renderErrorsContainer(formErrorsPresent: boolean, requestErrors:
       })}
     </div>
   )
+}
+
+export function renderDeleteRuleModal(handleDeleteRule, toggleShowDeleteRuleModal) {
+  return(
+    <Modal>
+      <div className="delete-rule-container">
+        <p className="delete-rule-text">Are you sure that you want to delete this rule?</p>
+        <div className="delete-rule-button-container">
+          <button className="quill-button fun primary contained" id="delete-rule-button" onClick={handleDeleteRule} type="button">
+            Delete
+          </button>
+          <button className="quill-button fun primary contained" id="close-rule-modal-button" onClick={toggleShowDeleteRuleModal} type="button">
+            Cancel
+          </button>
+        </div>
+      </div>
+    </Modal>
+  );
 }

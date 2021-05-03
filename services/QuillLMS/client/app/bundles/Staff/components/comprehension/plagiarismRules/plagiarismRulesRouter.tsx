@@ -93,6 +93,7 @@ const PlagiarismRulesRouter = ({ history, match }) => {
               isSemantic={false}
               isUniversal={false}
               requestErrors={errors}
+              rulePromptsDisabled={true}
               ruleTypeDisabled={true}
               submitRule={handleCreateRule}
             />)}
@@ -105,6 +106,7 @@ const PlagiarismRulesRouter = ({ history, match }) => {
               isSemantic={false}
               isUniversal={false}
               requestErrors={errors}
+              rulePromptsDisabled={true}
               ruleTypeDisabled={true}
               submitRule={handleUpdateRule}
             />)}
