@@ -13,7 +13,7 @@ import { deleteRule, fetchRules, fetchUniversalRules } from '../../../utils/comp
 import { fetchConcepts, } from '../../../utils/comprehension/conceptAPIs';
 import { formatPrompts } from '../../../helpers/comprehension';
 import { handleSubmitRule, getInitialRuleType, formatInitialFeedbacks, returnInitialFeedback, renderErrorsContainer, formatRegexRules, getReturnLinkRuleType, getReturnLinkLabel } from '../../../helpers/comprehension/ruleHelpers';
-import { ruleOptimalOptions, regexRuleTypes } from '../../../../../constants/comprehension';
+import { ruleOptimalOptions, regexRuleTypes, PLAGIARISM } from '../../../../../constants/comprehension';
 import { RuleInterface, DropdownObjectInterface } from '../../../interfaces/comprehensionInterfaces';
 
 interface RuleViewFormProps {
@@ -35,12 +35,12 @@ const RuleViewForm = ({ activityData, activityId, isSemantic, isUniversal, reque
   const { params } = match;
   const { promptId } = params;
 
-  const { name, rule_type, id, uid, optimal, plagiarism_text, concept_uid, description, feedbacks, state, label } = rule;
+  const { name, rule_type, id, uid, optimal, plagiarism_text, concept_uid, note, feedbacks, state, label } = rule;
 
   const initialRuleType = getInitialRuleType({ isUniversal, rule_type, universalRuleType: null});
   const initialRuleOptimal = optimal ? ruleOptimalOptions[0] : ruleOptimalOptions[1];
   const initialPlagiarismText = plagiarism_text || { text: '' }
-  const initialDescription = description || '';
+  const initalNote = note || '';
   const initialFeedbacks = feedbacks ? formatInitialFeedbacks(feedbacks) : returnInitialFeedback(initialRuleType.value);
   const initialLabel = label && label.name;
   const ruleLabelStatus = state;
@@ -50,7 +50,7 @@ const RuleViewForm = ({ activityData, activityId, isSemantic, isUniversal, reque
   const [plagiarismText, setPlagiarismText] = React.useState<RuleInterface["plagiarism_text"]>(initialPlagiarismText);
   const [regexRules, setRegexRules] = React.useState<object>({});
   const [ruleConceptUID, setRuleConceptUID] = React.useState<string>(concept_uid || '');
-  const [ruleDescription, setRuleDescription] = React.useState<string>(initialDescription);
+  const [ruleNote, setRuleNote] = React.useState<string>(initalNote);
   const [ruleFeedbacks, setRuleFeedbacks] = React.useState<object>(initialFeedbacks);
   const [ruleOptimal, setRuleOptimal] = React.useState<any>(initialRuleOptimal);
   const [ruleName, setRuleName] = React.useState<string>(name || '');
@@ -129,7 +129,7 @@ const RuleViewForm = ({ activityData, activityId, isSemantic, isUniversal, reque
       ruleName,
       ruleLabelName,
       ruleConceptUID,
-      ruleDescription,
+      ruleNote,
       ruleFeedbacks,
       ruleOptimal,
       rulePrompts,
@@ -196,16 +196,16 @@ const RuleViewForm = ({ activityData, activityId, isSemantic, isUniversal, reque
           isAutoML={true}
           isUniversal={isUniversal}
           ruleConceptUID={ruleConceptUID}
-          ruleDescription={ruleDescription}
           ruleID={id}
           ruleName={ruleName}
+          ruleNote={ruleNote}
           ruleOptimal={ruleOptimal}
           ruleType={ruleType}
           ruleTypeDisabled={ruleTypeDisabled}
           ruleUID={uid}
           setRuleConceptUID={setRuleConceptUID}
-          setRuleDescription={setRuleDescription}
           setRuleName={setRuleName}
+          setRuleNote={setRuleNote}
           setRuleOptimal={setRuleOptimal}
           setRuleType={setRuleType}
         />
@@ -216,7 +216,7 @@ const RuleViewForm = ({ activityData, activityId, isSemantic, isUniversal, reque
           ruleLabelStatus={ruleLabelStatus}
           setRuleLabelName={setRuleLabelName}
         />}
-        {ruleType && ruleType.value === 'plagiarism' && <RulePlagiarismAttributes
+        {ruleType && ruleType.value === PLAGIARISM && <RulePlagiarismAttributes
           errors={errors}
           plagiarismFeedbacks={ruleFeedbacks}
           plagiarismText={plagiarismText}

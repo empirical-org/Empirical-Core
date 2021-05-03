@@ -11,7 +11,7 @@ import { fetchRules, fetchUniversalRules } from '../../../utils/comprehension/ru
 import { fetchConcepts, } from '../../../utils/comprehension/conceptAPIs';
 import { formatPrompts } from '../../../helpers/comprehension';
 import { handleSubmitRule, getInitialRuleType, formatInitialFeedbacks, returnInitialFeedback, formatRegexRules, renderErrorsContainer } from '../../../helpers/comprehension/ruleHelpers';
-import { ruleOptimalOptions, regexRuleTypes } from '../../../../../constants/comprehension';
+import { ruleOptimalOptions, regexRuleTypes, PLAGIARISM } from '../../../../../constants/comprehension';
 import { ActivityInterface, RuleInterface, DropdownObjectInterface } from '../../../interfaces/comprehensionInterfaces';
 
 interface RuleFormProps {
@@ -141,7 +141,7 @@ const RuleForm = ({ activityData, activityId, closeModal, isUniversal, requestEr
           setRuleOptimal={setRuleOptimal}
           setRuleType={setRuleType}
         />
-        {ruleType && ruleType.value === 'plagiarism' && <RulePlagiarismAttributes
+        {ruleType && ruleType.value === PLAGIARISM && <RulePlagiarismAttributes
           errors={errors}
           plagiarismFeedbacks={ruleFeedbacks}
           plagiarismText={plagiarismText}

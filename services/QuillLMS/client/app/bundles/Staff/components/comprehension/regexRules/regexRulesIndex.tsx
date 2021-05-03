@@ -22,19 +22,19 @@ const RegexRulesIndex: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ ma
 
   const { data: rulesBased1Data } = useQuery({
     // cache rules data for updates
-    queryKey: [`rules-${activityId}`, activityId, null, 'rules-based-1'],
+    queryKey: [`rules-${activityId}-regex-sentence-structure`, activityId, null, 'rules-based-1'],
     queryFn: fetchRules
   });
 
   const { data: rulesBased2Data } = useQuery({
     // cache rules data for updates
-    queryKey: [`rules-${activityId}`, activityId, null, 'rules-based-2'],
+    queryKey: [`rules-${activityId}-regex-post-topic`, activityId, null, 'rules-based-2'],
     queryFn: fetchRules
   });
 
   const { data: rulesBased3Data } = useQuery({
     // cache rules data for updates
-    queryKey: [`rules-${activityId}`, activityId, null, 'rules-based-3'],
+    queryKey: [`rules-${activityId}-regex-typo`, activityId, null, 'rules-based-3'],
     queryFn: fetchRules
   });
 
@@ -139,7 +139,7 @@ const RegexRulesIndex: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ ma
     <div className="rules-container">
       <section className="rules-based-section">
         <button className="quill-button fun primary contained add-rule-button" type="submit">{addRulesBased1Link}</button>
-        {renderTable(rulesBased1Rows, 'Sentence Struture')}
+        {renderTable(rulesBased1Rows, 'Sentence Structure')}
       </section>
       <section className="rules-based-section">
         <button className="quill-button fun primary contained add-rule-button" type="submit">{addRulesBased2Link}</button>

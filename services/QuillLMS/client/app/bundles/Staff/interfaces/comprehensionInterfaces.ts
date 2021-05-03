@@ -61,7 +61,7 @@ export interface RuleInterface {
   id?: number,
   uid?: string,
   name: string,
-  description?: string,
+  note?: string,
   universal: boolean,
   rule_type: string,
   optimal: boolean,
