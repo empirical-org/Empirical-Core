@@ -60,6 +60,16 @@ describe 'SerializeActivityHealth' do
     expect(data[:recent_plays]).to eq(nil)
   end
 
+  it 'returns without erroring if some activity sessions have nil minutes to complete' do
+    UnitActivity.where(activity: activity).destroy_all
+    unit = create(:unit)
+    create(:classroom_unit, unit: unit, created_at: Date.today - 1.year)
+    create(:unit_activity, unit: unit, activity: activity)
+    create(:activity_session, activity: activity, state: "finished", started_at: nil, completed_at: nil)
+    data = SerializeActivityHealth.new(activity).data
+    expect(data[:recent_plays]).to eq(2)
+  end
+
   it 'calculates averages and standard deviation using prompt data' do
     data = SerializeActivityHealth.new(activity).data
     expect(data[:avg_common_unmatched]).to eq(75)
