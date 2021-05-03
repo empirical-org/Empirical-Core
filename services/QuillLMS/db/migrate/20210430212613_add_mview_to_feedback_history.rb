@@ -6,7 +6,7 @@ class AddMviewToFeedbackHistory < ActiveRecord::Migration
       GROUP BY rule_uid;
       
 
-      CREATE INDEX index_feedback_histories_on_rule_uid_grouped 
+      CREATE UNIQUE INDEX index_feedback_histories_on_rule_uid_grouped 
       ON public.feedback_histories_grouped_by_rule_uid USING btree (rule_uid);
     SQL
 
