@@ -1,6 +1,11 @@
 require 'rails_helper'
 
 RSpec.describe RuleFeedbackHistory, type: :model do
+  before do 
+    # This is for CircleCI
+    ActiveRecord::Base.refresh_materialized_view('feedback_histories_grouped_by_rule_uid')
+  end
+
   def rule_factory(&hash_block) 
     Comprehension::Rule.create!(
       {
