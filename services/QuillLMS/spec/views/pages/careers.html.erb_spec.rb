@@ -1,11 +1,13 @@
 require 'rails_helper'
 
 describe "pages/careers.html.erb", type: :view do
+  include_context 'routing url helpers'
+
   it "displays all the widgets" do
     assign(:open_positions, PagesController::OPEN_POSITIONS)
 
     render
 
-    rendered.should match("Our mission")
+    expect(rendered).to match("Our mission")
   end
 end
