@@ -31,7 +31,7 @@ const RulesAnalysis: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ hist
 
   const ruleTypeValues = [DEFAULT_RULE_TYPE].concat(Object.keys(ruleOrder))
   const ruleTypeOptions = ruleTypeValues.map(val => ({ label: val, value: val, }))
-  const ruleTypeFromUrl = qs.parse(history.location.search.replace('?', '')).selected_rule_type || DEFAULT_RULE_TYPE
+  const ruleTypeFromUrl = (history.location && qs.parse(history.location.search.replace('?', '')).selected_rule_type) || DEFAULT_RULE_TYPE
 
   const selectedRuleTypeOption = ruleTypeOptions.find(opt => opt.value === ruleTypeFromUrl)
 
