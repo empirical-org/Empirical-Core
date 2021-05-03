@@ -4,7 +4,7 @@ class Api::V1::ActivitiesController < Api::ApiController
   CLASSIFICATION_TO_TOOL = {:connect => "connect", :sentence => "grammar"}
 
   before_action :doorkeeper_authorize!, only: [:create, :update, :destroy], unless: :staff?
-  before_action :find_activity, except: [:index, :create, :uids_and_flags, :published_edition]
+  before_action :find_activity, except: [:index, :create, :uids_and_flags, :published_edition, :activities_health]
 
   def show
     render json: @activity, meta: {status: 'success', message: nil, errors: nil}, serializer: ActivitySerializer
@@ -81,6 +81,10 @@ class Api::V1::ActivitiesController < Api::ApiController
       UserMilestone.create(milestone_id: milestone.id, user_id: current_user.id)
     end
     render json: {}
+  end
+
+  def activities_health
+    render json: {activities_health: ActivityHealth.all.as_json}
   end
 
   def question_health
