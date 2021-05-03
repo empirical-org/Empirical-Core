@@ -9,21 +9,11 @@ import LoadingSpinner from '../shared/loading_indicator.jsx'
 class PromptHealth extends React.Component<ComponentProps, any> {
 
   state = {
-    loadingTableData: true,
-    activityId: '',
-    dataResults: []
+
   };
 
-  componentDidMount() {
-    this.fetchQuestionData();
-  }
-
   renderTable() {
-    const { loadingTableData } = this.state
-    if(loadingTableData) {
-      return <LoadingSpinner />
-    }
-    return (this.tableOrEmptyMessage())
+    return this.tableOrEmptyMessage()
   }
 
   columnDefinitions() {
@@ -43,13 +33,13 @@ class PromptHealth extends React.Component<ComponentProps, any> {
       },
       {
         Header: 'Incorrect Sequences',
-        accessor: 'number_of_incorrect_sequences',
+        accessor: 'incorrect_sequences',
         resizeable: false,
         Cell: props => props.value
       },
       {
         Header: 'Focus Points',
-        accessor: 'number_of_focus_points',
+        accessor: 'focus_points',
         resizeable: false,
         Cell: props => props.value,
         maxWidth: 90
@@ -85,47 +75,29 @@ class PromptHealth extends React.Component<ComponentProps, any> {
     ];
   }
 
-  fetchQuestionData() {
-    const { activityId } = this.state
-    this.setState({ loadingNewTableData: true });
-    request.get({
-      // url: `${process.env.DEFAULT_URL}/api/v1/activities/${activityId}/question_health`
-      url: 'https://cissy-test-endpoint.free.beeceptor.com/',
-    }, (e, r, body) => {
-      let newState = {}
-      if (e || r.statusCode != 200) {
-        newState = {
-          loadingTableData: false,
-          dataResults: [],
-        }
-      } else {
-        const data = JSON.parse(body);
-        newState = {
-          loadingTableData: false,
-          dataResults: data.question_health,
-        };
-      }
-
-      this.setState(newState);
-    });
-  }
-
   tableOrEmptyMessage() {
-    const { dataResults } = this.state
+    const { dataResults } = this.props
     let tableOrEmptyMessage
+    const styles = {
+      margin: '15px',
+      padding: '15px',
+      backgroundColor: 'darkgray',
+      color: 'white'
+    }
 
     if (dataResults.length) {
       tableOrEmptyMessage = (<ReactTable
-        className='progress-report'
+        className='prompt-health-report'
         columns={this.columnDefinitions()}
         data={dataResults}
-        defaultPageSize={Math.min(dataResults.length, 25)}
+        defaultPageSize={dataResults.length}
         loading={false}
         manual={true}
         pages={1}
         resizable={false}
         showPageSizeOptions={false}
         showPagination={false}
+        style={styles}
       />)
     } else {
       tableOrEmptyMessage = "Prompt data for this question could not be found. Refresh to try again."
@@ -138,14 +110,7 @@ class PromptHealth extends React.Component<ComponentProps, any> {
   }
 
   render() {
-    return (
-      <section className="section">
-        <div className="admin-container">
-          <p className="menu-label">Activity Health</p>
-          {this.renderTable()}
-        </div>
-      </section>
-    )
+    return this.renderTable()
   }
 }
 

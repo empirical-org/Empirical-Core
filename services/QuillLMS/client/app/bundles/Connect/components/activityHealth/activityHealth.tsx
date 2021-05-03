@@ -8,6 +8,7 @@ import _ from 'underscore'
 import LoadingSpinner from '../shared/loading_indicator.jsx'
 import { sort, sortByList } from '../../../../modules/sortingMethods.js'
 import { FlagDropdown } from '../../../Shared/index'
+import PromptHealth from './promptHealth'
 import { selectColumnFilter } from '../../../../modules/filteringMethods.js'
 
 const recentPlaysText = "Number of plays in the last 3 months if the activity's first play was more than 3 months ago"
@@ -178,7 +179,7 @@ class ActivityHealth extends React.Component<ComponentProps, any> {
           <div>
             {
             row.original['activity_packs'].map((ap) => (
-              <div><a href={activityPackUrl + ap.id}>{ap.name}</a></div>
+              <div>{ap.name}</div>
             ))
             }
           </div>
@@ -187,7 +188,7 @@ class ActivityHealth extends React.Component<ComponentProps, any> {
       },
       {
         Header: 'Average Time Spent',
-        accessor: 'avg_completion_time',
+        accessor: 'avg_mins_to_complete',
         filterMethod: (filter, row) => {
           let splitStr = filter.value.split("-")
           if (!isNaN(parseFloat(splitStr[0])) && !isNaN(parseFloat(splitStr[1]))) {
@@ -259,7 +260,7 @@ class ActivityHealth extends React.Component<ComponentProps, any> {
       },
       {
         Header: 'Standard Deviation Difficulty',
-        accessor: 'std_dev_difficulty',
+        accessor: 'standard_dev_difficulty',
         filterMethod: (filter, row) => {
           let splitStr = filter.value.split("-")
           if (!isNaN(parseFloat(splitStr[0])) && !isNaN(parseFloat(splitStr[1]))) {
@@ -337,7 +338,7 @@ class ActivityHealth extends React.Component<ComponentProps, any> {
     this.setState({ loadingNewTableData: true });
     request.get({
       // url: `${process.env.DEFAULT_URL}/api/v1/activities/${activityId}/question_health`
-      url: 'https://cissy-test-endpoint.free.beeceptor.com/',
+      url: 'https://run.mocky.io/v3/1aad6948-30d6-4f7f-9590-5790e89ced83',
     }, (e, r, body) => {
       let newState = {}
       if (e || r.statusCode != 200) {
@@ -350,7 +351,7 @@ class ActivityHealth extends React.Component<ComponentProps, any> {
         console.log(data)
         newState = {
           loadingTableData: false,
-          dataResults: data.activity_health,
+          dataResults: data.activities_health,
         };
       }
 
@@ -382,6 +383,13 @@ class ActivityHealth extends React.Component<ComponentProps, any> {
         showPagination={false}
         showPaginationBottom={false}
         showPaginationTop={false}
+        SubComponent={row => {
+          console.log(row.original.prompt_healths)
+          return (
+            <PromptHealth
+            dataResults={row.original.prompt_healths}/>
+          );
+        }}
       />)
     } else {
       tableOrEmptyMessage = "Activity Health data could not be found. Refresh to try again, or contact the engineering team."
