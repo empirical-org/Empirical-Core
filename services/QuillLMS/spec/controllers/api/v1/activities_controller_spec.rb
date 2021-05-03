@@ -197,6 +197,69 @@ describe Api::V1::ActivitiesController, type: :controller do
     end
   end
 
+  describe '#question_health' do
+    let!(:connect) { create(:activity_classification, key: ActivityClassification::CONNECT_KEY) }
+    let!(:question) { create(:question)}
+    let!(:activity) { create(:activity, activity_classification_id: connect.id) }
+    let!(:activity_session_1) { create(:activity_session, activity: activity) }
+    let!(:activity_session_2) { create(:activity_session, activity: activity) }
+    let!(:activity_session_3) { create(:activity_session, activity: activity) }
+    let!(:concept_result_1) { create(:concept_result, activity_session: activity_session_1, metadata: {questionNumber: 1, questionScore: 1}.to_json)}
+    let!(:concept_result_2) { create(:concept_result, activity_session: activity_session_2, metadata: {questionNumber: 1, questionScore: 0.75}.to_json)}
+    let!(:concept_result_3) { create(:concept_result, activity_session: activity_session_3, metadata: {questionNumber: 1, questionScore: 0}.to_json)}
+
+    before do
+      ENV['DEFAULT_URL'] = 'https://quill.org'
+      ENV['CMS_URL'] = 'https://cms.quill.org'
+      stub_request(:get, "#{ENV['CMS_URL']}/questions/#{question.uid}/question_dashboard_data")
+        .to_return(status: 200, body: { percent_common_unmatched: 50,  percent_specified_algos: 75}.to_json, headers: {})
+    end
+
+    it 'should return a list of all questions and their health' do
+      activity.update(data: {questions: [{key: question.uid}]}.to_json)
+      get :question_health, id: activity.id, format: :json
+
+      response_obj = JSON.parse(response.body)["question_health"]
+      expect(response_obj[0]["url"]).to eq("https://quill.org/connect/#/admin/questions/#{question.uid}/responses")
+      expect(response_obj[0]["text"]).to eq(question.data['prompt'])
+      expect(response_obj[0]["flag"]).to eq(question.data['flag'])
+      expect(response_obj[0]["incorrect_sequences"]).to eq(question.data["incorrectSequences"].length)
+      expect(response_obj[0]["focus_points"]).to eq(question.data["focusPoints"].length)
+      expect(response_obj[0]["percent_common_unmatched"]).to eq(50)
+      expect(response_obj[0]["percent_specified_algorithms"]).to eq(75)
+      expect(response_obj[0]["difficulty"]).to eq(2.67)
+      expect(response_obj[0]["percent_reached_optimal"]).to eq(66.67)
+    end
+
+    it 'returns empty hashes if questions do not exist' do
+      activity.update(data: {questions: [{key: question.uid}, {key: SecureRandom.uuid}]}.to_json)
+      get :question_health, id: activity.id, format: :json
+      expect(response.status).to eq(200)
+      response_obj = JSON.parse(response.body)["question_health"]
+      expect(response_obj[1]).to eq({})
+    end
+  end
+
+  describe '#activities_health' do
+    let!(:prompt_health) { create(:prompt_health)}
+    let!(:activity_health) {create(:activity_health, prompt_healths: [prompt_health])}
+
+    it 'should return a list of all activity healths with associated prompt health' do
+      get :activities_health
+      expect(response.status).to eq(200)
+      response_obj = JSON.parse(response.body)["activities_health"]
+      expect(response_obj[0]).to eq(ActivityHealth.first.as_json)
+    end
+
+    it 'should return an empty list if no activity healths exist' do
+      ActivityHealth.destroy_all
+      get :activities_health
+      expect(response.status).to eq(200)
+      response_obj = JSON.parse(response.body)["activities_health"]
+      expect(response_obj).to eq([])
+    end
+  end
+
   context 'when not authenticated via OAuth' do
     it 'POST #create returns 401 Unauthorized' do
       post :create, format: :json

@@ -429,6 +429,7 @@ export class ELLStudentDiagnostic extends React.Component {
     } else if (playDiagnostic.language && !previewMode) {
       component = (<LandingPage
         begin={this.startActivity}
+        diagnosticID={diagnosticID}
         landingPageHtml={this.landingPageHtml()}
         language={this.language()}
         resumeActivity={this.resumeSession}

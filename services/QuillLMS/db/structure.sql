@@ -2,8 +2,8 @@
 -- PostgreSQL database dump
 --
 
--- Dumped from database version 10.15
--- Dumped by pg_dump version 10.15
+-- Dumped from database version 10.16
+-- Dumped by pg_dump version 10.16
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -1424,8 +1424,8 @@ ALTER SEQUENCE public.comprehension_prompts_rules_id_seq OWNED BY public.compreh
 
 CREATE TABLE public.comprehension_regex_rules (
     id integer NOT NULL,
-    regex_text character varying(200) NOT NULL,
-    case_sensitive boolean NOT NULL,
+    regex_text character varying(200),
+    case_sensitive boolean,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
     rule_id integer,
@@ -1920,7 +1920,7 @@ CREATE TABLE public.districts_users (
 
 CREATE TABLE public.feedback_histories (
     id integer NOT NULL,
-    activity_session_uid text,
+    feedback_session_uid text,
     prompt_id integer,
     prompt_type character varying,
     concept_uid text,
@@ -1990,6 +1990,37 @@ CREATE SEQUENCE public.feedback_history_ratings_id_seq
 --
 
 ALTER SEQUENCE public.feedback_history_ratings_id_seq OWNED BY public.feedback_history_ratings.id;
+
+
+--
+-- Name: feedback_sessions; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.feedback_sessions (
+    id integer NOT NULL,
+    activity_session_uid character varying,
+    uid character varying
+);
+
+
+--
+-- Name: feedback_sessions_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.feedback_sessions_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: feedback_sessions_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.feedback_sessions_id_seq OWNED BY public.feedback_sessions.id;
 
 
 --
@@ -3912,6 +3943,13 @@ ALTER TABLE ONLY public.feedback_history_ratings ALTER COLUMN id SET DEFAULT nex
 
 
 --
+-- Name: feedback_sessions id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.feedback_sessions ALTER COLUMN id SET DEFAULT nextval('public.feedback_sessions_id_seq'::regclass);
+
+
+--
 -- Name: file_uploads id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -4609,6 +4647,14 @@ ALTER TABLE ONLY public.feedback_histories
 
 ALTER TABLE ONLY public.feedback_history_ratings
     ADD CONSTRAINT feedback_history_ratings_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: feedback_sessions feedback_sessions_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.feedback_sessions
+    ADD CONSTRAINT feedback_sessions_pkey PRIMARY KEY (id);
 
 
 --
@@ -5566,17 +5612,17 @@ CREATE INDEX index_districts_users_on_user_id ON public.districts_users USING bt
 
 
 --
--- Name: index_feedback_histories_on_activity_session_uid; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_feedback_histories_on_activity_session_uid ON public.feedback_histories USING btree (activity_session_uid);
-
-
---
 -- Name: index_feedback_histories_on_concept_uid; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX index_feedback_histories_on_concept_uid ON public.feedback_histories USING btree (concept_uid);
+
+
+--
+-- Name: index_feedback_histories_on_feedback_session_uid; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_feedback_histories_on_feedback_session_uid ON public.feedback_histories USING btree (feedback_session_uid);
 
 
 --
@@ -5591,6 +5637,20 @@ CREATE INDEX index_feedback_histories_on_prompt_type_and_id ON public.feedback_h
 --
 
 CREATE INDEX index_feedback_histories_on_rule_uid ON public.feedback_histories USING btree (rule_uid);
+
+
+--
+-- Name: index_feedback_sessions_on_activity_session_uid; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_feedback_sessions_on_activity_session_uid ON public.feedback_sessions USING btree (activity_session_uid);
+
+
+--
+-- Name: index_feedback_sessions_on_uid; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_feedback_sessions_on_uid ON public.feedback_sessions USING btree (uid);
 
 
 --
@@ -7386,4 +7446,8 @@ INSERT INTO schema_migrations (version) VALUES ('20210311173333');
 INSERT INTO schema_migrations (version) VALUES ('20210316161120');
 
 INSERT INTO schema_migrations (version) VALUES ('20210319160956');
+
+INSERT INTO schema_migrations (version) VALUES ('20210330160626');
+
+INSERT INTO schema_migrations (version) VALUES ('20210409161449');
 

@@ -1,102 +1,110 @@
 import React from 'react';
-import { Snackbar, defaultSnackbarTimeout } from '../../Shared/index'
 
 import { requestGet } from '../../../modules/request';
-import ClassOverview from '../components/dashboard/class_overview';
-import MyClasses from '../components/dashboard/my_classes';
-import TeacherCenter from '../components/dashboard/teacher_center.tsx';
-import DashboardFooter from '../components/dashboard/dashboard_footer';
-import ExploreActivitiesModal from '../components/dashboard/explore_activities_modal'
+import WelcomeModal from '../components/dashboard/welcome_modal'
+import OnboardingChecklist from '../components/dashboard/onboarding_checklist'
+import DiagnosticMini from '../components/dashboard/diagnostic_mini'
+import LessonsMini from '../components/dashboard/lessons_mini'
+import ActivityFeed from '../components/dashboard/activity_feed'
+import HandyActions from '../components/dashboard/handy_actions'
+import DailyTinyTip from '../components/dashboard/daily_tiny_tip'
+import TeacherCenterHighlights from '../components/dashboard/teacher_center_highlights'
+import CollegeBoard from '../components/dashboard/college_board'
+import KeyMetrics from '../components/dashboard/key_metrics'
+import useWindowSize from '../../Shared/hooks/useWindowSize'
+import { Spinner, } from '../../Shared/index'
 
-export default class Dashboard extends React.Component {
-  constructor(props) {
-    super(props)
+const MAX_VIEW_WIDTH_FOR_MOBILE = 1103
 
-    this.state = {
-      showExploreActivitiesModal: props.mustSeeModal,
-      classrooms: null,
-      hasPremium: null,
-      notifications: [],
-      performanceQuery: [
-        { header: 'Lowest Performing Students', results: null, },
-        { header: 'Difficult Concepts', results: null, }
-      ],
-    }
+const Dashboard = ({ onboardingChecklist, firstName, mustSeeModal, linkedToClever, featuredBlogPosts, }) => {
+  const size = useWindowSize();
+  const onMobile = () => size.width <= MAX_VIEW_WIDTH_FOR_MOBILE
 
-    this.getNecessaryData()
+  const [showWelcomeModal, setShowWelcomeModal] = React.useState(mustSeeModal)
+
+  function closeWelcomeModal() { setShowWelcomeModal(false) }
+
+  if (!onboardingChecklist.every(obj => obj.checked)) {
+    return (<div className="dashboard">
+      {showWelcomeModal && <WelcomeModal close={closeWelcomeModal} size={size} />}
+      <OnboardingChecklist firstName={firstName} onboardingChecklist={onboardingChecklist} />
+    </div>)
   }
 
-  componentWillUnmount() {
-    const ajaxCalls = this.ajax;
-    for (const key in ajaxCalls) {
-      if (ajaxCalls.hasOwnProperty(key)) {
-        ajaxCalls[key].abort();
+  const [metrics, setMetrics] = React.useState(null)
+  const [diagnostics, setDiagnostics] = React.useState(null);
+  const [lessons, setLessons] = React.useState(null);
+  const [activityFeed, setActivityFeed] = React.useState(null)
+  const [loading, setLoading] = React.useState(true);
+
+  React.useEffect(() => {
+    getMetrics();
+    getDiagnostics()
+    getLessons()
+  }, []);
+
+  React.useEffect(() => {
+    if (metrics && diagnostics && lessons && loading) {
+      setLoading(false)
+    }
+  }, [metrics, diagnostics, lessons, activityFeed])
+
+  function getMetrics() {
+    requestGet('/teacher_dashboard_metrics',
+      (data) => {
+        setMetrics(data);
       }
-    }
+    )
   }
 
-  getNecessaryData = () => {
-    this.ajax = {};
-    this.ajax.classRoomRequest = requestGet('/teachers/classrooms/classroom_mini', (result) => {
-      this.setState({ classrooms: result.classes, });
-    });
-    this.ajax.premiumRequest = requestGet('/teachers/classrooms/premium', (result) => {
-      this.setState({ hasPremium: result.hasPremium, });
-    });
-    this.ajax.performanceQuery = requestGet('/teachers/classrooms/dashboard_query', (result) => {
-      this.setState({ performanceQuery: result.performanceQuery, });
-    });
-    this.ajax.notificationsQuery = requestGet('/teachers/classrooms/notifications', (results) => {
-      this.setState({ notifications: results })
-    })
+  function getDiagnostics() {
+    requestGet('/teachers/diagnostic_info_for_dashboard_mini',
+      (data) => {
+        setDiagnostics(data.units);
+      }
+    )
   }
 
-  onSuccess = (snackbarCopy) => {
-    this.getNecessaryData()
-    this.showSnackbar(snackbarCopy)
+  function getLessons() {
+    requestGet('/teachers/lessons_info_for_dashboard_mini',
+      (data) => {
+        setLessons(data.units);
+      }
+    )
   }
 
-  showSnackbar = snackbarCopy => {
-    this.setState({ showSnackbar: true, snackbarCopy }, () => {
-      setTimeout(() => this.setState({ showSnackbar: false, }), defaultSnackbarTimeout)
-    })
-  };
-
-  closeExploreActivitiesModal = () => {
-    this.setState({ showExploreActivitiesModal: false, })
+  function getActivityFeed() {
+    requestGet('/teachers/activity_feed',
+      (response) => {
+        setActivityFeed(response.data);
+      }
+    )
   }
 
-  hasClasses() {
-    if (this.state.classrooms) {
-      return (<MyClasses classList={this.state.classrooms} onSuccess={this.onSuccess} user={JSON.parse(this.props.user)} />);
-    }
-  }
-
-  renderExploreActivitiesModal() {
-    if (this.state.showExploreActivitiesModal) {
-      return (<ExploreActivitiesModal
-        cancel={this.closeExploreActivitiesModal}
-      />)
-    }
-  }
-
-  render() {
-    const { snackbarCopy, showSnackbar, } = this.state
-    const { user, featuredBlogPosts, } = this.props
-    return (
-      <div id="dashboard">
-        <Snackbar text={snackbarCopy} visible={showSnackbar} />
-        {this.renderExploreActivitiesModal()}
-        <ClassOverview
-          data={this.state.performanceQuery}
-          flag={JSON.parse(user).flag}
-          notifications={this.state.notifications}
-          premium={this.state.hasPremium}
-        />
-        {this.hasClasses()}
-        <TeacherCenter featuredBlogPosts={featuredBlogPosts} />
-        <DashboardFooter />
+  if (loading) {
+    return (<div className="dashboard">
+      <div className="post-checklist-container loading">
+        <Spinner />
       </div>
-    );
+    </div>)
   }
+
+  return (<div className="dashboard">
+    <div className="post-checklist-container">
+      <main>
+        <KeyMetrics firstName={firstName} metrics={metrics} />
+        <DiagnosticMini diagnostics={diagnostics} onMobile={onMobile()} />
+        <LessonsMini lessons={lessons} onMobile={onMobile()} />
+      </main>
+      <aside>
+        <HandyActions linkedToClever={linkedToClever} />
+        <DailyTinyTip />
+        <TeacherCenterHighlights featuredBlogPosts={featuredBlogPosts} />
+        <CollegeBoard />
+      </aside>
+    </div>
+  </div>)
+
 }
+
+export default Dashboard

@@ -23,6 +23,8 @@ module Comprehension
       'rules-based-3': 'Typo Regex',
       'plagiarism': 'Plagiarism'
     }
+
+    after_create :assign_to_all_prompts, if: :universal
     before_validation :assign_uid_if_missing
 
     has_many :feedbacks, inverse_of: :rule, dependent: :destroy
@@ -49,7 +51,7 @@ module Comprehension
       options ||= {}
 
       super(options.reverse_merge(
-        only: [:id, :uid, :name, :description, :universal, :rule_type, :optimal, :state, :suborder, :concept_uid, :prompt_ids],
+        only: [:id, :uid, :name, :note, :universal, :rule_type, :optimal, :state, :suborder, :concept_uid, :prompt_ids],
         include: [:plagiarism_text, :feedbacks, :label, :regex_rules],
         methods: [:prompt_ids, :display_name]
       ))
@@ -75,6 +77,15 @@ module Comprehension
 
     private def assign_uid_if_missing
       self.uid ||= SecureRandom.uuid
+    end
+
+    private def assign_to_all_prompts
+      Prompt.all.each do |prompt|
+        unless prompts.include?(prompt)
+          prompts.append(prompt)
+        end
+      end
+      save!
     end
   end
 end

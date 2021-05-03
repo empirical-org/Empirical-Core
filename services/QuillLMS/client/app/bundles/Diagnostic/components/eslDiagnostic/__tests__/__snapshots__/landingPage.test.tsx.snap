@@ -1,0 +1,32 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`LandingPage Component should match snapshot 1`] = `
+<div
+  className="landing-page"
+>
+  <div
+    className="intro-container"
+  >
+    <h1
+      className=""
+    >
+      Quill Placement Activity
+    </h1>
+    <p
+      className=""
+    >
+      You’re about to answer 22 questions on writing sentences.
+    </p>
+    <p>
+      Some of the questions might be about things you haven’t learned yet—that’s okay! Just answer them as best as you can. Don’t forget to read the instructions carefully for each question!
+    </p>
+    <p>
+      Once you’re finished, Quill will create a learning plan just for you.
+    </p>
+  </div>
+  <ResumeOrBeginButton
+    onClickFn={[Function]}
+    text={<span />}
+  />
+</div>
+`;

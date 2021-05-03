@@ -43,7 +43,7 @@ var urls = [...]string{
 // you can't use const for structs, so this is the closest thing we can get for this value
 var default_api_response = APIResponse{
 	Feedback: "Thank you for your response.",
-	Feedback_type: "semantic",
+	Feedback_type: "autoML",
 	Optimal: true,
 }
 
@@ -170,9 +170,10 @@ func getAPIResponse(url string, priority int, json_params [] byte, c chan Intern
 }
 
 func identifyUsedFeedbackIndex(feedbacks map[int]InternalAPIResponse) int {
-	for key, feedback := range feedbacks {
+	for i := 0; i < len(feedbacks); i++ {
+		feedback := feedbacks[i]
 		if !feedback.Error && !feedback.APIResponse.Optimal {
-			return key
+			return i
 		}
 	}
 	// If none of the feedbacks are non-optimal, check to see if automl is feedback
@@ -187,7 +188,7 @@ func identifyUsedFeedbackIndex(feedbacks map[int]InternalAPIResponse) int {
 
 func buildFeedbackHistory(request_object APIRequest, feedback InternalAPIResponse, used bool, time_received time.Time) FeedbackHistory {
 	return FeedbackHistory{
-		Activity_session_uid: request_object.Session_id,
+		Feedback_session_uid: request_object.Session_id,
 		Prompt_id: request_object.Prompt_id,
 		Concept_uid: feedback.APIResponse.Concept_uid,
 		Attempt: request_object.Attempt,
@@ -279,7 +280,7 @@ type FeedbackHistoryMetadata struct {
 }
 
 type FeedbackHistory struct {
-	Activity_session_uid string `json:"activity_session_uid"`
+	Feedback_session_uid string `json:"feedback_session_uid"`
 	Prompt_id int `json:"prompt_id"`
 	Concept_uid string `json:"concept_uid"`
 	Attempt int `json:"attempt"`

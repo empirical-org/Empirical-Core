@@ -7,7 +7,6 @@ import MergeStudentAccountsModal from './merge_student_accounts_modal'
 import MoveStudentsModal from './move_students_modal'
 import RemoveStudentsModal from './remove_students_modal'
 
-import ViewAsStudentModal from '../shared/view_as_student_modal'
 import { DropdownInput, DataTable } from '../../../Shared/index'
 
 const emptyDeskSrc = `${process.env.CDN_URL}/images/illustrations/empty-desks.svg`
@@ -28,6 +27,10 @@ const activeHeaders = [
     width: '124px',
     name: 'Synced',
     attribute: 'synced'
+  }, {
+    name: 'Actions',
+    attribute: 'actions',
+    isActions: true
   }
 ]
 
@@ -53,7 +56,6 @@ enum modalNames {
   mergeStudentAccountsModal = 'mergeStudentAccountsModal',
   moveStudentsModal = 'moveStudentsModal',
   removeStudentsModal = 'removeStudentsModal',
-  viewAsStudentModal = 'viewAsStudentModal'
 }
 
 interface ClassroomStudentSectionProps {
@@ -64,12 +66,13 @@ interface ClassroomStudentSectionProps {
   onSuccess: (event) => void;
   inviteStudents?: (event) => void;
   importGoogleClassroomStudents?: (event) => void;
+  viewAsStudent?: (event) => void;
 }
 
 interface ClassroomStudentSectionState {
   selectedStudentIds: Array<string|number>;
   studentIdsForModal: Array<string|number>;
-  showModal?: modalNames.editStudentAccountModal|modalNames.resetStudentPasswordModal|modalNames.mergeStudentAccountsModal|modalNames.moveStudentsModal|modalNames.removeStudentsModal|modalNames.viewAsStudentModal;
+  showModal?: modalNames.editStudentAccountModal|modalNames.resetStudentPasswordModal|modalNames.mergeStudentAccountsModal|modalNames.moveStudentsModal|modalNames.removeStudentsModal;
 }
 
 export default class ClassroomStudentSection extends React.Component<ClassroomStudentSectionProps, ClassroomStudentSectionState> {
@@ -93,6 +96,7 @@ export default class ClassroomStudentSection extends React.Component<ClassroomSt
   }
 
   individualStudentActions = () => {
+    const { viewAsStudent, } = this.props
     return {
       editAccount: {
         name: 'Edit account',
@@ -116,12 +120,13 @@ export default class ClassroomStudentSection extends React.Component<ClassroomSt
       },
       viewAsStudent: {
         name: 'View as student',
-        action: (id) => this.viewAsStudent(id)
+        action: (id) => viewAsStudent(id)
       }
     }
   }
 
   dropdownActions = () => {
+    const { viewAsStudent, } = this.props
     return {
       editAccount: {
         label: 'Edit account',
@@ -145,7 +150,7 @@ export default class ClassroomStudentSection extends React.Component<ClassroomSt
       },
       viewAsStudent: {
         label: 'View as student',
-        value: this.viewAsStudent
+        value: viewAsStudent
       }
     }
   }
@@ -200,9 +205,9 @@ export default class ClassroomStudentSection extends React.Component<ClassroomSt
     this.setState({ selectedStudentIds: [] })
   }
 
-  handleClickViewAsStudentButton = () => this.viewAsStudent()
+  handleClickViewAsStudentButton = () => this.props.viewAsStudent()
 
-  onClickViewAsIndividualStudent = (id: string|number) => this.viewAsStudent(id)
+  onClickViewAsIndividualStudent = (id: string|number) => this.props.viewAsStudent(id)
 
   selectAction = (action) => {
     action.value()
@@ -241,14 +246,6 @@ export default class ClassroomStudentSection extends React.Component<ClassroomSt
     // we will show the remove student from class dropdown option when any number of students are selected
     const studentIds = id ? [id] : selectedStudentIds
     this.setState( { showModal: modalNames.removeStudentsModal, studentIdsForModal: studentIds })
-  }
-
-  viewAsStudent = (id=null) => {
-    if (id) {
-      window.location.href = `/teachers/preview_as_student/${id}`
-    } else {
-      this.setState({ showModal: modalNames.viewAsStudentModal })
-    }
   }
 
   closeModal = () => {
@@ -319,19 +316,6 @@ export default class ClassroomStudentSection extends React.Component<ClassroomSt
         close={this.closeModal}
         onSuccess={this.handleSuccess}
         selectedStudentIds={studentIdsForModal}
-      />)
-    }
-  }
-
-  renderViewAsStudentModal = () => {
-    const { classroom, classrooms, } = this.props
-    const { showModal, } = this.state
-    if (showModal === modalNames.viewAsStudentModal) {
-      return (<ViewAsStudentModal
-        classrooms={classrooms}
-        close={this.closeModal}
-        defaultClassroomId={classroom.id}
-        handleViewClick={this.onClickViewAsIndividualStudent}
       />)
     }
   }
@@ -505,7 +489,6 @@ export default class ClassroomStudentSection extends React.Component<ClassroomSt
         {this.renderMergeStudentAccountsModal()}
         {this.renderMoveStudentsModal()}
         {this.renderRemoveStudentsModal()}
-        {this.renderViewAsStudentModal()}
         <div className="students-section-header with-students">
           <h3>Students</h3>
           {this.renderStudentHeaderButtons()}

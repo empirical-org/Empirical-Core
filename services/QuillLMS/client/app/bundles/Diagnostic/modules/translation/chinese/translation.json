@@ -6,15 +6,27 @@
         "resume": "Resume / 继续",
         "submit": "Submit / 提交"
     },
-    "intro": {
-        "header": "Quill安置活动",
-        "text": "你将要回答22个关于编写句子的问题。有些问题可能与你还没学过的东西有关——没关系！尽你所能地回答他们。不要忘记仔细阅读每个问题的说明！在你完成后，Quill会为你制定一份学习计划。"
-    },
     "ELL Starter Fill in the Blank": {
         "header": "填空",
         "text": "在本节中，每个句子会有一个、两个或三个空格。你要用列表中的其中一个词语填写每个空格，或者如果不需要词语，则将空格留空。请在框中输入你选择的词语。记得检查你的拼写！我们开始吧！"
     },
+    "ELL Starter Fill in the Blanks": {
+        "header": "填空",
+        "text": "在本节中，每个句子会有一个、两个或三个空格。你要用列表中的其中一个词语填写每个空格，或者如果不需要词语，则将空格留空。请在框中输入你选择的词语。记得检查你的拼写！我们开始吧！"
+    },
+    "ELL Intermediate Fill in the Blanks": {
+        "header": "填空题",
+        "text": "在这一节，每个句子中有一个、两个、三个或四个空格。你要用列表中的一个单词来填充每个空格。在一些问题中，可以用列表中的一个单词来填充两个空格。在空格中键入你选择的单词。记住检查你的拼写！我们开始吧！"
+    },
+    "ELL Advanced Fill in the Blanks": {
+        "header": "填空题",
+        "text": "到目前为止都做得很好！在这一节，每个句子中有一个、两个、三个或四个空格。空格超过一个时，每个单词只键入一次。我们开始吧！"
+    },
     "ELL Starter Halfway": {
+        "header": "你已经完成一半了！",
+        "text": "继续努力吧！"
+    },
+    "ELL Halfway": {
         "header": "你已经完成一半了！",
         "text": "继续努力吧！"
     },
@@ -25,6 +37,14 @@
     "ELL Starter Sentence Combining": {
         "header": "句子组合",
         "text": "你即将大功告成！只剩三个问题了。在本节中，你要把几个句子组合成一个句子。会给你一个连接词来使用。请记住，一个句子只有一个句号。你肯定没问题的！"
+    },
+    "ELL Intermediate Sentences": {
+        "header": "写句子",
+        "text": "做得好！你只剩下两个问题了。下一节是关于将来时态的。为这两个问题撰写完整的句子。我们开始吧。"
+    },
+    "ELL Advanced Sentences": {
+        "header": "句子中的动作单词",
+        "text": "为本节中的每个问题撰写完整的句子。改变带下划线的单词的形式，使其与句子的其余部分匹配。记住检查你的拼写！我们开始吧。"
     },
     "End: You Did it!": {
         "header": "你完成了！",
@@ -40,10 +60,17 @@
         "Fill in each blank with one of the choices.": "用其中一个选项填写每个空格。",
         "Fill in the blanks with one word each.": "每个空格填写一个词语。",
         "Fill in the blanks with one word each. You can leave one empty.": "每个空格填写一个词语。你可以留下一处空白。",
+        "Fill in each blank with one of the choices. You may use one word more than once. There is more than one right answer.": "在每个空格中填入一个选择。一个单词可以使用多于一次。正确答案不止一个。",
+        "Fill in the blanks. Use each word once.": "填空。每个单词使用一次。",
+        "Rewrite the sentence. Correct the underlined action word so it is in future tense.": "改写句子。改正带下划线的动作单词，使其成为将来时态。",
+        "Rewrite the sentence. Correct the underlined action word so it is in the right tense to match the rest of the sentence.": "改写句子。改正带下划线的动作单词，使其具有与句子其余部分匹配的正确时态。",
+        "Rewrite the sentence. Correct the underlined words so they are in future tense.": "改写句子。改正带下划线的单词，使其成为将来时态。",
+        "Respond to the question. Fill in the blank with one of the choices.": "回答问题。在空格中填入一个选择。",
         "Use the joining word to combine the sentences into one sentence.": "用连接词把几个句子组合成一个句子。"
     },
     "cues": {
         "type one": "type one / 键入一个",
+        "type one in each blank": "type one in each blank  / 在每个空格中键入一个",
         "type two or three": "type two or three / 键入两个或三个",
         "type three": "type three / 键入三个",
         "choose one": "choose one / 选择一个",

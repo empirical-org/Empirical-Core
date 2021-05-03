@@ -17,6 +17,13 @@ interface GetFeedbackArguments {
   callback: Function
 }
 
+interface CompleteActivitySessionArguments {
+  sessionID: string,
+  percentage: number,
+  conceptResults: any[],
+  callback: Function
+}
+
 interface FetchActiveActivitySessionArguments {
   sessionID: string,
   activityUID: string,
@@ -29,6 +36,25 @@ interface SaveActiveActivitySessionArguments {
   activeStep: number,
   completedSteps: number[],
   callback: Function
+}
+
+export const completeActivitySession = (sessionID, percentage, conceptResults, callback) => {
+  return (dispatch: Function) => {
+    const activitySessionUrl = `${process.env.DEFAULT_URL}/api/v1/activity_sessions/${sessionID}`
+    const requestObject = {
+      url: activitySessionUrl,
+      body: {
+        state: 'finished',
+        percentage,
+        concept_results: conceptResults
+      },
+      json: true,
+    }
+
+    request.put(requestObject, (e, r, body) => {
+      if (callback) callback()
+    })
+  }
 }
 
 export const processUnfetchableSession = () => {
@@ -85,7 +111,8 @@ export const saveActiveActivitySession = ({ sessionID, submittedResponses, activ
 export const getFeedback = (args: GetFeedbackArguments) => {
   const { sessionID, activityUID, entry, promptID, promptText, attempt, previousFeedback, callback, } = args
   return (dispatch: Function) => {
-    const feedbackURL = 'https://us-central1-comprehension-247816.cloudfunctions.net/comprehension-endpoint-go'
+    const feedbackURL = `${process.env.GOLANG_FANOUT_URL}`
+
     const promptRegex = new RegExp(`^${promptText}`)
     const entryWithoutStem = entry.replace(promptRegex, "").trim()
     const mostRecentFeedback = previousFeedback.slice(-1)[0] || {}
@@ -115,8 +142,9 @@ export const getFeedback = (args: GetFeedbackArguments) => {
     }));
 
     request.post(requestObject, (e, r, body) => {
-      const { feedback, feedback_type, optimal, response_id, highlight, labels, } = body
+      const { concept_uid, feedback, feedback_type, optimal, response_id, highlight, labels, } = body
       const feedbackObj: FeedbackObject = {
+        concept_uid,
         entry,
         feedback,
         feedback_type,

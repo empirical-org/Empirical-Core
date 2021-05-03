@@ -109,45 +109,6 @@ describe Api::V1::ActivitySessionsController, type: :controller do
         expect(@activity_session.concept_results).to eq([])
       end
     end
-
-    context 'when the activity session uses feedback history' do
-      before do
-        @activity = create(:comprehension_activity)
-        @prompt = Comprehension::Prompt.create(text: 'Test test test text', activity: @activity, conjunction: "but")
-        @activity_session = create(:activity_session, activity: @activity, state: 'started', user: user, completed_at: nil)
-        @activity_session.concept_results.destroy_all
-        @concept = create(:concept)
-        @feedback_history = create(:feedback_history, concept_uid: @concept.uid, activity_session_uid: @activity_session.uid, prompt: @prompt)
-        subject
-        @parsed_body = JSON.parse(response.body)
-      end
-
-      def subject
-        # FIXME: URL Parameter should be called uid, not id, because that is confusing
-        put :update, id: @activity_session.uid, state: 'finished'
-      end
-
-      it 'responds with 200' do
-        expect(response.status).to eq(200)
-      end
-
-      it 'responds with the updated activity session that has a set score' do
-        expect(@parsed_body['activity_session']['uid']).to eq(@activity_session.uid)
-        expect(@parsed_body['activity_session']['percentage']).to eq(1.0)
-      end
-
-      it 'stores the concept results' do
-        @activity_session.reload
-        expect(@activity_session.concept_results.size).to eq(1)
-      end
-
-      it 'saves the arbitrary metadata for the results' do
-        @activity_session.reload
-        concept_hash = {"correct"=>1, "answer"=>@feedback_history.entry, "feedback_type"=>@feedback_history.feedback_type}
-        expect(@activity_session.concept_results.find{|x| x.metadata == concept_hash}).to be
-      end
-
-    end
   end
 
   describe '#show' do

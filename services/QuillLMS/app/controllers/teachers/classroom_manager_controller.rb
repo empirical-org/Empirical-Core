@@ -1,11 +1,12 @@
 class Teachers::ClassroomManagerController < ApplicationController
+  include CheckboxCallback
 
   respond_to :json, :html
-  before_filter :teacher_or_public_activity_packs, except: [:unset_preview_as_student]
+  before_action :teacher_or_public_activity_packs, except: [:unset_preview_as_student]
   # WARNING: these filter methods check against classroom_id, not id.
-  before_filter :authorize_owner!, except: [:scores, :scorebook, :lesson_planner, :preview_as_student, :unset_preview_as_student, :activity_feed]
-  before_filter :authorize_teacher!, only: [:scores, :scorebook, :lesson_planner]
-  before_filter :set_alternative_schools, only: [:my_account, :update_my_account, :update_my_password]
+  before_action :authorize_owner!, except: [:scores, :scorebook, :lesson_planner, :preview_as_student, :unset_preview_as_student, :activity_feed]
+  before_action :authorize_teacher!, only: [:scores, :scorebook, :lesson_planner]
+  before_action :set_alternative_schools, only: [:my_account, :update_my_account, :update_my_password]
   include ScorebookHelper
   include ActivityFeedHelper
   include QuillAuthentication
@@ -27,6 +28,10 @@ class Teachers::ClassroomManagerController < ApplicationController
     diagnostic_ids = Activity.diagnostic_activity_ids
     @show_diagnostic_banner = !UserMilestone.find_by(milestone_id: acknowledge_diagnostic_banner_milestone&.id, user_id: current_user&.id) && current_user&.unit_activities&.where(activity_id: diagnostic_ids)&.none?
     @show_lessons_banner = !UserMilestone.find_by(milestone_id: acknowledge_lessons_banner_milestone&.id, user_id: current_user&.id) && current_user&.classroom_unit_activity_states&.where(completed: true)&.none?
+    find_or_create_checkbox(Objective::EXPLORE_OUR_LIBRARY, current_user)
+    if params[:tab] == 'diagnostic'
+      find_or_create_checkbox(Objective::EXPLORE_OUR_DIAGNOSTICS, current_user)
+    end
   end
 
   def generic_add_students
@@ -62,12 +67,16 @@ class Teachers::ClassroomManagerController < ApplicationController
         redirect_to teachers_admin_dashboard_path
       end
     end
-    explore_activities_milestone = Milestone.find_by_name(Milestone::TYPES[:see_explore_activities_modal])
-    @must_see_modal = !UserMilestone.find_by(milestone_id: explore_activities_milestone&.id, user_id: current_user&.id) && Unit.unscoped.find_by_user_id(current_user&.id).nil?
+    welcome_milestone = Milestone.find_by_name(Milestone::TYPES[:see_welcome_modal])
+    @must_see_modal = !UserMilestone.find_by(milestone_id: welcome_milestone&.id, user_id: current_user&.id) && Unit.unscoped.find_by_user_id(current_user&.id).nil?
     @featured_blog_posts = BlogPost.where.not(featured_order_number: nil).order(:featured_order_number)
-    if @must_see_modal && current_user && explore_activities_milestone
-      UserMilestone.find_or_create_by(user_id: current_user.id, milestone_id: explore_activities_milestone.id)
+    if @must_see_modal && current_user && welcome_milestone
+      UserMilestone.find_or_create_by(user_id: current_user.id, milestone_id: welcome_milestone.id)
     end
+
+    @objective_checklist = generate_onboarding_checklist
+    @first_name = current_user.first_name
+
   end
 
   def students_list
@@ -207,6 +216,24 @@ class Teachers::ClassroomManagerController < ApplicationController
 
   def activity_feed
     render json: { data: data_for_activity_feed(current_user) }
+  end
+
+  private def generate_onboarding_checklist
+    Objective::ONBOARDING_CHECKLIST_NAMES.map do |name|
+      objective = Objective.find_by_name(name)
+      checkbox = Checkbox.find_by(objective: objective, user: current_user)
+
+      # handles case where user has been using Quill since before we introduced the new objectives
+      if objective && !checkbox && [Objective::EXPLORE_OUR_LIBRARY, Objective::EXPLORE_OUR_DIAGNOSTICS].include?(name) && current_user.units&.any?
+        checkbox = Checkbox.create(objective: objective, user: current_user)
+      end
+
+      {
+        name: name,
+        checked: checkbox.present?,
+        link: objective&.action_url
+      }
+    end
   end
 
   private def set_classroom_variables

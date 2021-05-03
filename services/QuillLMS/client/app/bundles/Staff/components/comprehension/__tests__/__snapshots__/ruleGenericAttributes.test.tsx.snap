@@ -96,13 +96,13 @@ exports[`RuleGenericAttributes component should render RuleGenericAttributes 1`]
   <p
     className="form-subsection-label"
   >
-    Rule Description
+    Rule Note
   </p>
   <TextEditor
     ContentState={[Function]}
     EditorState={[Function]}
     handleTextChange={[Function]}
-    key="rule-description"
+    key="rule-note"
     text="test description"
   />
 </Fragment>

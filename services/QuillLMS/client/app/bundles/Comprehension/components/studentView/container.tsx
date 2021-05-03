@@ -10,10 +10,12 @@ import LoadingSpinner from '../shared/loadingSpinner'
 import { getActivity } from "../../actions/activities";
 import { TrackAnalyticsEvent } from "../../actions/analytics";
 import { Events } from '../../modules/analytics'
-import { fetchActiveActivitySession,
+import { completeActivitySession,
+         fetchActiveActivitySession,
          getFeedback,
          processUnfetchableSession,
          saveActiveActivitySession } from '../../actions/session'
+import { calculatePercentage, generateConceptResults, } from '../../libs/conceptResults'
 import { ActivitiesReducerState } from '../../reducers/activitiesReducer'
 import { SessionReducerState } from '../../reducers/sessionReducer'
 import getParameterByName from '../../helpers/getParameterByName';
@@ -104,6 +106,17 @@ export class StudentViewContainer extends React.Component<StudentViewContainerPr
         alert(`${error}`);
       }
     });
+  }
+
+  defaultHandleFinishActivity = () => {
+    // We only post completed sessions if we had one specified when the activity loaded
+    if (!this.specifiedActivitySessionUID()) return
+    const { activities, dispatch, session, } = this.props
+    const { sessionID, submittedResponses, } = session
+    const { currentActivity, } = activities
+    const percentage = calculatePercentage(submittedResponses)
+    const conceptResults = generateConceptResults(currentActivity, submittedResponses)
+    dispatch(completeActivitySession(sessionID, percentage, conceptResults))
   }
 
   onMobile = () => window.innerWidth < 1100
@@ -210,10 +223,8 @@ export class StudentViewContainer extends React.Component<StudentViewContainerPr
     dispatch(TrackAnalyticsEvent(Events.COMPREHENSION_ACTIVITY_COMPLETED, {
       activityID,
       sessionID,
-    }))
-    if(isTurk) {
-      handleFinishActivity();
-    }
+    }));
+    (handleFinishActivity) ? handleFinishActivity() : this.defaultHandleFinishActivity()
   }
 
   activateStep = (step?: number, callback?: Function, skipTracking?: boolean) => {
@@ -319,6 +330,12 @@ export class StudentViewContainer extends React.Component<StudentViewContainerPr
     })
   }
 
+  removeSpansFromPassages = (passages) => {
+    return passages.map(passage => {
+      return stripHtml(passage, { onlyStripTags: ['span'] })
+    })
+  }
+
   formatHtmlForPassage = () => {
     const { activeStep, } = this.state
     const { activities, session, } = this.props
@@ -328,6 +345,7 @@ export class StudentViewContainer extends React.Component<StudentViewContainerPr
 
     let passages: any[] = currentActivity.passages
     const passagesWithPTags = this.addPTagsToPassages(passages)
+    const passagesWithoutSpanTags = this.removeSpansFromPassages(passagesWithPTags);
 
     if (!activeStep || activeStep === READ_PASSAGE_STEP) { return passagesWithPTags }
 
@@ -335,11 +353,12 @@ export class StudentViewContainer extends React.Component<StudentViewContainerPr
     const activePromptId = currentActivity.prompts[promptIndex].id
     const submittedResponsesForActivePrompt = session.submittedResponses[activePromptId]
 
-    if (!(submittedResponsesForActivePrompt && submittedResponsesForActivePrompt.length)) { return passagesWithPTags }
+    // we return the unhighlighted text when an active response has no submissions with highlights
+    if (!(submittedResponsesForActivePrompt && submittedResponsesForActivePrompt.length)) { return passagesWithoutSpanTags }
 
     const lastSubmittedResponse = submittedResponsesForActivePrompt[submittedResponsesForActivePrompt.length - 1]
 
-    if (!lastSubmittedResponse.highlight) { return passagesWithPTags }
+    if (!lastSubmittedResponse.highlight || (lastSubmittedResponse.highlight && !lastSubmittedResponse.highlight.length)) { return passagesWithoutSpanTags }
 
     const passageHighlights = lastSubmittedResponse.highlight.filter(hl => hl.type === "passage")
 
@@ -348,15 +367,16 @@ export class StudentViewContainer extends React.Component<StudentViewContainerPr
       passages = passages.map((passage: Passage) => {
         let formattedPassage = passage;
         const { text } = passage;
+        // we want to remove any highlights returned from inactive prompts
+        const formattedPassageText = stripHtml(text, { onlyStripTags: ['span'] });
         const strippedText = stripHtml(hl.text);
-        const passageBeforeCharacterStart = text.substring(0, characterStart)
-        const passageAfterCharacterStart = text.substring(characterStart)
+        const passageBeforeCharacterStart = formattedPassageText.substring(0, characterStart)
+        const passageAfterCharacterStart = formattedPassageText.substring(characterStart)
         const highlightedPassageAfterCharacterStart = passageAfterCharacterStart.replace(strippedText, `<span class="passage-highlight">${strippedText}</span>`)
         formattedPassage.text = `${passageBeforeCharacterStart}${highlightedPassageAfterCharacterStart}`
         return formattedPassage
       })
     })
-
     return this.addPTagsToPassages(passages)
   }
 
@@ -466,7 +486,7 @@ export class StudentViewContainer extends React.Component<StudentViewContainerPr
     </div>)
   }
 
-  renderCompletedView() {
+  renderCompletedView = () => {
     return (<div className="activity-completed">
       <img alt="Party hat with confetti coming out" src={tadaSrc} />
       <h1>Activity Complete!</h1>
@@ -474,7 +494,7 @@ export class StudentViewContainer extends React.Component<StudentViewContainerPr
     </div>)
   }
 
-  render() {
+  render = () => {
     const { activities, } = this.props
     const { showFocusState, completedSteps, } = this.state
 

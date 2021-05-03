@@ -64,12 +64,13 @@
     "promise-polyfill": "^6.1.0",
     "pusher-js": "^5.0.1",
     "query-string": "^6.13.6",
-    "quill-marking-logic": "0.14.6",
+    "quill-marking-logic": "0.14.7",
     "quill-string-normalizer": "0.0.9",
     "raven-js": "^3.17.0",
     "react": "^16.13.1",
     "react-addons-css-transition-group": "^15.6.2",
     "react-apollo": "^2.1.9",
+    "react-confetti": "^6.0.1",
     "react-contenteditable": "^3.3.4",
     "react-copy-to-clipboard": "^5.0.1",
     "react-css-transition-replace": "^4.0.2",
@@ -230,6 +231,7 @@
     ],
     "setupFiles": [
       "<rootDir>/setupTests.ts",
+      "<rootDir>/setEnvVars.js",
       "jest-localstorage-mock"
     ]
   }

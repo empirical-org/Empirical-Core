@@ -18,7 +18,7 @@ export function handleSetRuleOptimal(ruleOptimal: DropdownObjectInterface, setRu
 
 export function handleSetRuleConceptUID(value, setRuleConceptUID) { setRuleConceptUID(value) };
 
-export function handleSetRuleDescription(text: string, setRuleDescription) { setRuleDescription(text) }
+export function handleSetRuleNote(text: string, setRuleNote) { setRuleNote(text) }
 
 export function handleSetPlagiarismText(text: string, plagiarismText, setPlagiarismText) {
   const plagiarismTextObject = {...plagiarismText};
@@ -260,7 +260,7 @@ export const buildRule = ({
   rule,
   rulesCount,
   ruleConceptUID,
-  ruleDescription,
+  ruleNote,
   ruleName,
   ruleLabelName,
   ruleOptimal,
@@ -279,7 +279,7 @@ export const buildRule = ({
 
   let newOrUpdatedRule: any = {
     concept_uid: ruleConceptUID,
-    description: ruleDescription,
+    note: ruleNote,
     feedbacks_attributes: buildFeedbacks(ruleFeedbacks),
     name: ruleName,
     optimal: !!ruleOptimal.value,
@@ -326,7 +326,7 @@ export async function handleSubmitRule({
   ruleId,
   ruleLabelName,
   ruleConceptUID,
-  ruleDescription,
+  ruleNote,
   ruleOptimal,
   rulePrompts,
   rulePromptIds,
@@ -344,7 +344,7 @@ export async function handleSubmitRule({
     ruleName,
     ruleLabelName,
     ruleConceptUID,
-    ruleDescription,
+    ruleNote,
     ruleOptimal,
     rulePrompts,
     rulePromptIds,

@@ -1,6 +1,7 @@
 import React from 'react';
+
 import { ResumeOrBeginButton } from '../../../Shared/index';
-import { ENGLISH, rightToLeftLanguages } from '../../modules/translation/languagePageInfo';
+import { ENGLISH, rightToLeftLanguages, languageData, languageDataV2} from '../../modules/translation/languagePageInfo';
 
 export class LandingPage extends React.Component {
 
@@ -16,20 +17,30 @@ export class LandingPage extends React.Component {
     return <ResumeOrBeginButton onClickFn={onClickFn} text={text} />
   }
 
-  render() {
-    const { language, translate } = this.props;
+  renderLandingPageText = (language) => {
+    const { diagnosticID } = this.props;
+    const langData = diagnosticID === 'ell' ? languageData : languageDataV2;
+    const landingPageInfo = langData[language].intro[diagnosticID];
+    const { header, firstLine, secondLine, thirdLine } = landingPageInfo;
     const textClass = rightToLeftLanguages.includes(language) ? 'right-to-left' : '';
+    // right to left languages only have one line, the first
+    const isLeftToRight = textClass === '';
+    return(
+      <div className="intro-container">
+        <h1 className={textClass}>{header}</h1>
+        <p className={textClass}>{firstLine}</p>
+        {isLeftToRight && <p>{secondLine}</p>}
+        {isLeftToRight && <p>{thirdLine}</p>}
+      </div>
+    )
+  }
+
+  render() {
+    const { language } = this.props;
     return (
       <div className="landing-page">
-        <div className="intro-container">
-          <h1>Quill Placement Activity</h1>
-          <p>You&apos;re about to answer 22 questions about writing sentences. Don&apos;t worry, it&apos;s not a test. It&apos;s just to figure out what you know.</p>
-          <p>Some of the questions might be about things you haven&apos;t learned yet — that&apos;s okay! Just answer them as best as you can. Once you&apos;re finished, Quill will create a learning plan just for you!</p>
-        </div>
-        {language !== ENGLISH && <div>
-          <h1 className={textClass}>{translate('intro^header')}</h1>
-          <p className={textClass}>{translate('intro^text')}</p>
-        </div>}
+        {this.renderLandingPageText(ENGLISH)}
+        {language !== ENGLISH && this.renderLandingPageText(language)}
         {this.renderButton()}
       </div>
     );

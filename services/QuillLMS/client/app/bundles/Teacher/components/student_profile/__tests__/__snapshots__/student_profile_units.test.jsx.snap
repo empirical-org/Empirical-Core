@@ -355,12 +355,15 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
           ],
         }
       }
+      id="16"
+      isSelectedUnit={false}
       key="16"
       onShowPreviewModal={[Function]}
       unitName="Basic Fragments Group Lessons"
     >
       <div
         className="student-profile-unit"
+        id="16"
       >
         <div
           className="unit-name"
@@ -899,12 +902,15 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
           ],
         }
       }
+      id="7"
+      isSelectedUnit={false}
       key="7"
       onShowPreviewModal={[Function]}
       unitName="History: Age of Exploration"
     >
       <div
         className="student-profile-unit"
+        id="7"
       >
         <div
           className="unit-name"
@@ -2054,12 +2060,15 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
           ],
         }
       }
+      id="16"
+      isSelectedUnit={false}
       key="16"
       onShowPreviewModal={[Function]}
       unitName="Basic Fragments Group Lessons"
     >
       <div
         className="student-profile-unit"
+        id="16"
       >
         <div
           className="unit-name"
@@ -2598,12 +2607,15 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
           ],
         }
       }
+      id="7"
+      isSelectedUnit={false}
       key="7"
       onShowPreviewModal={[Function]}
       unitName="History: Age of Exploration"
     >
       <div
         className="student-profile-unit"
+        id="7"
       >
         <div
           className="unit-name"
@@ -3825,12 +3837,15 @@ exports[`StudentProfileUnits component should render only completed activities i
           ],
         }
       }
+      id="7"
+      isSelectedUnit={false}
       key="7"
       onShowPreviewModal={[Function]}
       unitName="History: Age of Exploration"
     >
       <div
         className="student-profile-unit"
+        id="7"
       >
         <div
           className="unit-name"
@@ -4682,12 +4697,15 @@ exports[`StudentProfileUnits component should render only incomplete activities 
           ],
         }
       }
+      id="16"
+      isSelectedUnit={false}
       key="16"
       onShowPreviewModal={[Function]}
       unitName="Basic Fragments Group Lessons"
     >
       <div
         className="student-profile-unit"
+        id="16"
       >
         <div
           className="unit-name"
@@ -5307,12 +5325,15 @@ exports[`StudentProfileUnits component should render only incomplete activities 
           ],
         }
       }
+      id="7"
+      isSelectedUnit={false}
       key="7"
       onShowPreviewModal={[Function]}
       unitName="History: Age of Exploration"
     >
       <div
         className="student-profile-unit"
+        id="7"
       >
         <div
           className="unit-name"
@@ -6576,12 +6597,15 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
           ],
         }
       }
+      id="16"
+      isSelectedUnit={false}
       key="16"
       onShowPreviewModal={[Function]}
       unitName="Basic Fragments Group Lessons"
     >
       <div
         className="student-profile-unit"
+        id="16"
       >
         <div
           className="unit-name"
@@ -7201,12 +7225,15 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
           ],
         }
       }
+      id="7"
+      isSelectedUnit={false}
       key="7"
       onShowPreviewModal={[Function]}
       unitName="History: Age of Exploration"
     >
       <div
         className="student-profile-unit"
+        id="7"
       >
         <div
           className="unit-name"
@@ -8470,12 +8497,15 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
           ],
         }
       }
+      id="16"
+      isSelectedUnit={false}
       key="16"
       onShowPreviewModal={[Function]}
       unitName="Basic Fragments Group Lessons"
     >
       <div
         className="student-profile-unit"
+        id="16"
       >
         <div
           className="unit-name"
@@ -9095,12 +9125,15 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
           ],
         }
       }
+      id="7"
+      isSelectedUnit={false}
       key="7"
       onShowPreviewModal={[Function]}
       unitName="History: Age of Exploration"
     >
       <div
         className="student-profile-unit"
+        id="7"
       >
         <div
           className="unit-name"

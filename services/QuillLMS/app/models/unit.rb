@@ -73,6 +73,16 @@ class Unit < ActiveRecord::Base
     end
   end
 
+  def self.create_with_incremented_name(user_id:, name: )
+    unit = Unit.create(user_id: user_id, name: name)
+    return unit if unit.persisted?
+    (2..20).each do |counter|
+      unit = Unit.create(user_id: user_id, name: "#{name} #{counter}")
+      return unit if unit.persisted?
+    end
+    false
+  end
+
   private def create_any_new_classroom_unit_activity_states
     lesson_unit_activities = unit_activities.select { |ua| ua.activity.is_lesson? }
     lesson_unit_activities.each do |ua|

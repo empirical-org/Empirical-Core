@@ -79,6 +79,17 @@ describe 'Student Concern', type: :model do
       expect(new_ca.classroom).to eq(classroom2)
       expect(new_ca.assigned_student_ids).to include(student1.id)
     end
+
+    it 'should not raise error when moving to unit that has a naming collision' do 
+      new_unit_name = "#{student1.name}'s Activities from #{classroom.name}"
+      same_named_unit = Unit.create!(name: new_unit_name, user_id: classroom2.owner.id)
+      
+      student1.move_activity_sessions(classroom, classroom2)
+      started.reload
+      new_ca = started.classroom_unit
+      expect(new_ca.classroom).to eq(classroom2)
+      expect(new_ca.assigned_student_ids).to include(student1.id)
+    end
   end
 
   describe("#merge_student_account") do

@@ -18,7 +18,7 @@ class Milestone < ActiveRecord::Base
   TYPES = {
     refer_an_active_teacher: 'Refer an Active Teacher',
     invite_a_coteacher: 'Invite a Co-Teacher',
-    see_explore_activities_modal: 'See Explore Activities Modal',
+    see_welcome_modal: 'See Welcome Modal',
     acknowledge_diagnostic_banner: 'Acknowledge Diagnostic Banner',
     acknowledge_lessons_banner: 'Acknowledge Lessons Banner'
   }
