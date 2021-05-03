@@ -1,5 +1,5 @@
 class Cms::AnnouncementsController < Cms::CmsController
-  before_filter :signed_in!
+  before_action :signed_in!
 
   def index
     @announcements = Announcement.all

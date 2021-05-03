@@ -69,6 +69,7 @@
     "react": "^16.13.1",
     "react-addons-css-transition-group": "^15.6.2",
     "react-apollo": "^2.1.9",
+    "react-confetti": "^6.0.1",
     "react-contenteditable": "^3.3.4",
     "react-copy-to-clipboard": "^5.0.1",
     "react-css-transition-replace": "^4.0.2",
@@ -229,6 +230,7 @@
     ],
     "setupFiles": [
       "<rootDir>/setupTests.ts",
+      "<rootDir>/setEnvVars.js",
       "jest-localstorage-mock"
     ]
   }

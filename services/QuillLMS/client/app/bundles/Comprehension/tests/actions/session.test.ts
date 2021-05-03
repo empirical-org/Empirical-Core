@@ -57,7 +57,7 @@ describe('Session actions', () => {
 
     it('makes a POST request to the feedback API', () => {
       const expectedRequest = {
-        url: `https://us-central1-comprehension-247816.cloudfunctions.net/comprehension-endpoint-go`,
+        url: process.env.GOLANG_FANOUT_URL,
         body: {
           prompt_id: mockPromptID,
           prompt_text: mockPromptText,
