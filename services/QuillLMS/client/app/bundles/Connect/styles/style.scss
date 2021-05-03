@@ -366,6 +366,16 @@ textarea.submission {
     }
 }
 
+.large-admin-container {
+  width: 100%;
+  padding: 15;
+  height: calc(100vh - 30px);
+  overflow-y: auto;
+    .select {
+      display: block !important;
+    }
+}
+
 .wf-loading {
   visibility: hidden;
 }

@@ -91,15 +91,31 @@ class ActivityHealth extends React.Component<ComponentProps, any> {
       {
         Header: 'Recent Plays',
         accessor: 'recent_plays',
-        filterMethod: (filter, row, third, fourth) => {
-          console.log(filter.value)
-          console.log(row)
-          console.log(third)
-          console.log(fourth)
-          if (filter.box === "min") {
-            return row[filter.id] >= filter.value
+        filterMethod: (filter, row) => {
+          let value = filter.value
+          if (value.includes("-")) {
+            let splitStr = filter.value.split("-")
+            if (!isNaN(parseFloat(splitStr[0])) && !isNaN(parseFloat(splitStr[1]))) {
+              return row[filter.id] >= splitStr[0] && row[filter.id] <= splitStr[1];
+            } else {
+              return true;
+            }
+          } else if (value.includes(">")) {
+            let splitStr = filter.value.split(">")
+            if (!isNaN(parseFloat(splitStr[1]))) {
+              return row[filter.id] > splitStr[1]
+            } else {
+              return true;
+            }
+          } else if (value.includes("<")) {
+            let splitStr = filter.value.split("<")
+            if (!isNaN(parseFloat(splitStr[1]))) {
+              return row[filter.id] < splitStr[1]
+            } else {
+              return true;
+            }
           } else {
-            return row[filter.id] <= filter.value
+            return true;
           }
         },
         Filter: ({ filter, onChange }) =>
@@ -109,29 +125,15 @@ class ActivityHealth extends React.Component<ComponentProps, any> {
           }}
         >
           <input
-            value={filter || ''}
-            type="number"
+            value={filter ? filter.value : ''}
+            type="text"
             onChange={e =>
-              onChange({value: parseInt(e.target.value), box: "min"})
+              onChange(e.target.value)
             }
-            placeholder={`Min (0)`}
+            placeholder={`0-5, >1, <1`}
             style={{
-              width: '70px',
+              width: '100px',
               marginRight: '0.5rem',
-            }}
-          />
-          to
-          <input
-            value={filter || ''}
-            type="number"
-            onChange={e => {
-              const val = e.target.value
-              onChange((old = []) => [old[0], val ? parseInt(val, 10) : undefined])
-            }}
-            placeholder={`Max (10000)`}
-            style={{
-              width: '70px',
-              marginLeft: '0.5rem',
             }}
           />
         </div>
@@ -180,8 +182,36 @@ class ActivityHealth extends React.Component<ComponentProps, any> {
         maxWidth: 150
       },
       {
-        Header: 'Average Time to Complete',
+        Header: 'Average Time Spent',
         accessor: 'avg_completion_time',
+        filterMethod: (filter, row) => {
+          let splitStr = filter.value.split("-")
+          if (!isNaN(parseFloat(splitStr[0])) && !isNaN(parseFloat(splitStr[1]))) {
+            return row[filter.id] >= splitStr[0] && row[filter.id] <= splitStr[1];
+          } else {
+            return true;
+          }
+        },
+        Filter: ({ filter, onChange }) =>
+        <div
+          style={{
+            display: 'flex',
+          }}
+        >
+          <input
+            value={filter ? filter.value : ''}
+            type="text"
+            onChange={e =>
+              onChange(e.target.value)
+            }
+            placeholder={`e.g. 0-30`}
+            style={{
+              width: '100px',
+              marginRight: '0.5rem',
+            }}
+          />
+        </div>
+        ,
         resizeable: false,
         sortMethod: sort,
         Cell: props => props.value,
@@ -190,6 +220,34 @@ class ActivityHealth extends React.Component<ComponentProps, any> {
       {
         Header: 'Average Difficulty',
         accessor: 'avg_difficulty',
+        filterMethod: (filter, row) => {
+          let splitStr = filter.value.split("-")
+          if (!isNaN(parseFloat(splitStr[0])) && !isNaN(parseFloat(splitStr[1]))) {
+            return row[filter.id] >= splitStr[0] && row[filter.id] <= splitStr[1];
+          } else {
+            return true;
+          }
+        },
+        Filter: ({ filter, onChange }) =>
+        <div
+          style={{
+            display: 'flex',
+          }}
+        >
+          <input
+            value={filter ? filter.value : ''}
+            type="text"
+            onChange={e =>
+              onChange(e.target.value)
+            }
+            placeholder={`e.g. 0-5`}
+            style={{
+              width: '100px',
+              marginRight: '0.5rem',
+            }}
+          />
+        </div>
+        ,
         resizeable: false,
         sortMethod: sort,
         Cell: props => props.value,
@@ -198,6 +256,34 @@ class ActivityHealth extends React.Component<ComponentProps, any> {
       {
         Header: 'Standard Deviation Difficulty',
         accessor: 'std_dev_difficulty',
+        filterMethod: (filter, row) => {
+          let splitStr = filter.value.split("-")
+          if (!isNaN(parseFloat(splitStr[0])) && !isNaN(parseFloat(splitStr[1]))) {
+            return row[filter.id] >= splitStr[0] && row[filter.id] <= splitStr[1];
+          } else {
+            return true;
+          }
+        },
+        Filter: ({ filter, onChange }) =>
+        <div
+          style={{
+            display: 'flex',
+          }}
+        >
+          <input
+            value={filter ? filter.value : ''}
+            type="text"
+            onChange={e =>
+              onChange(e.target.value)
+            }
+            placeholder={`e.g. 0-5`}
+            style={{
+              width: '100px',
+              marginRight: '0.5rem',
+            }}
+          />
+        </div>
+        ,
         resizeable: false,
         sortMethod: sort,
         Cell: props => props.value,
@@ -206,6 +292,34 @@ class ActivityHealth extends React.Component<ComponentProps, any> {
       {
         Header: 'Average Common Unmatched',
         accessor: 'avg_common_unmatched',
+        filterMethod: (filter, row) => {
+          let splitStr = filter.value.split("-")
+          if (!isNaN(parseFloat(splitStr[0])) && !isNaN(parseFloat(splitStr[1]))) {
+            return row[filter.id] >= splitStr[0] && row[filter.id] <= splitStr[1];
+          } else {
+            return true;
+          }
+        },
+        Filter: ({ filter, onChange }) =>
+        <div
+          style={{
+            display: 'flex',
+          }}
+        >
+          <input
+            value={filter ? filter.value : ''}
+            type="text"
+            onChange={e =>
+              onChange(e.target.value)
+            }
+            placeholder={`e.g. 0-100`}
+            style={{
+              width: '100px',
+              marginRight: '0.5rem',
+            }}
+          />
+        </div>
+        ,
         resizeable: false,
         sortMethod: sort,
         Cell: props => props.value,
@@ -253,7 +367,7 @@ class ActivityHealth extends React.Component<ComponentProps, any> {
         className='progress-report has-green-arrow'
         columns={this.columnDefinitions()}
         data={filteredData}
-        defaultPageSize={Math.min(dataResults.length, 25)}
+        defaultPageSize={dataResults.length}
         defaultSorted={[{id: 'name', desc: false}]}
         filterable
         defaultFilterMethod={(filter, row) =>
@@ -285,7 +399,7 @@ class ActivityHealth extends React.Component<ComponentProps, any> {
         <div style={{display: 'inline-block'}}>
           <FlagDropdown flag={this.state.activityHealthFlags} handleFlagChange={this.handleSelect} isLessons={true} />
         </div>
-        <div className="admin-container">
+        <div className="large-admin-container">
           <p className="menu-label">Activity Health</p>
           {this.renderTable()}
         </div>
