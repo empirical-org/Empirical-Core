@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 describe Cms::UsersController do
-  it { should use_before_filter :signed_in! }
+  it { should use_before_action :signed_in! }
   it { should use_before_action :set_flags }
   it { should use_before_action :set_user }
   it { should use_before_action :set_search_inputs }
