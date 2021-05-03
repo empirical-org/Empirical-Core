@@ -240,6 +240,26 @@ describe Api::V1::ActivitiesController, type: :controller do
     end
   end
 
+  describe '#activities_health' do
+    let!(:prompt_health) { create(:prompt_health)}
+    let!(:activity_health) {create(:activity_health, prompt_healths: [prompt_health])}
+
+    it 'should return a list of all activity healths with associated prompt health' do
+      get :activities_health
+      expect(response.status).to eq(200)
+      response_obj = JSON.parse(response.body)["activities_health"]
+      expect(response_obj[0]).to eq(ActivityHealth.first.as_json)
+    end
+
+    it 'should return an empty list if no activity healths exist' do
+      ActivityHealth.destroy_all
+      get :activities_health
+      expect(response.status).to eq(200)
+      response_obj = JSON.parse(response.body)["activities_health"]
+      expect(response_obj).to eq([])
+    end
+  end
+
   context 'when not authenticated via OAuth' do
     it 'POST #create returns 401 Unauthorized' do
       post :create, format: :json
