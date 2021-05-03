@@ -1,10 +1,26 @@
 .rule-analysis-container {
   .data-table {
     margin: 20px 0px;
+    .data-table-row {
+      height: min-content;
+      padding-top: 8px;
+      padding-bottom: 8px;
+    }
+    .data-table-row-section {
+      white-space: pre-wrap;
+      overflow: visible;
+    }
   }
 
   .responses-table {
     margin-top: 20px;
+    height: 100vh;
+    .prompt-text span {
+      text-decoration: underline;
+    }
+    .rt-th {
+      text-align: left;
+    }
   }
 
   .rt-td, .rt-th {

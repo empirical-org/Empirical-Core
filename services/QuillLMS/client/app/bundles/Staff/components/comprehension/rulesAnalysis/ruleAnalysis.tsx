@@ -1,7 +1,6 @@
 import * as React from "react";
 import { queryCache, useQuery } from 'react-query';
 import { Link } from 'react-router-dom';
-import stripHtml from "string-strip-html";
 import moment from 'moment';
 import ReactTable from 'react-table';
 
@@ -41,6 +40,8 @@ const RuleAnalysis = ({ history, match }) => {
     queryKey: [`rule-feedback-histories-by-rule-${ruleId}`, ruleId],
     queryFn: fetchRuleFeedbackHistoriesByRule
   })
+
+  const prompt = activityData ? activityData.activity.prompts.find(prompt => prompt.conjunction === promptConjunction) : {}
 
   function handleFilterChange(e) { setFilter(e.target.value) }
 
@@ -83,7 +84,7 @@ const RuleAnalysis = ({ history, match }) => {
         },
         {
           label: 'Rule Note',
-          value: note ? stripHtml(note) : ''
+          value: note ? <div dangerouslySetInnerHTML={{ __html: note }} /> : ''
         },
         {
           label: 'Concept - Level 0',
@@ -99,11 +100,11 @@ const RuleAnalysis = ({ history, match }) => {
         },
         {
           label: 'Feedback - 1st Attempt',
-          value: feedbacks[0] ? feedbacks[0].text : null
+          value: feedbacks[0] ? <div dangerouslySetInnerHTML={{ __html: feedbacks[0].text }} /> : null
         },
         {
           label: 'Feedback - 2nd Attempt',
-          value: feedbacks[1] ? feedbacks[1].text : null
+          value: feedbacks[1] ? <div dangerouslySetInnerHTML={{ __html: feedbacks[1].text }} /> : null
         },
         {
           label: 'Responses',
@@ -124,7 +125,7 @@ const RuleAnalysis = ({ history, match }) => {
   // The header labels felt redundant so passing empty strings and hiding header display
   const ruleHeaders = [
     { name: "", attribute:"field", width: "180px" },
-    { name: "", attribute:"value", width: "1000px" }
+    { name: "", attribute:"value", width: "750px" }
   ];
 
   const responseRows = (data) => {
@@ -151,7 +152,7 @@ const RuleAnalysis = ({ history, match }) => {
       width: 100
     },
     {
-      Header: activityData ? activityData.activity.prompts[0].text.replace(activityData.activity.prompts[0].conjunction, '') : '', // necessary because sometimes the conjunction is part of the prompt and sometimes it isn't
+      Header: prompt && prompt.text ? <b className="prompt-text" dangerouslySetInnerHTML={{ __html: prompt.text.replace(prompt.conjunction, `<span>${prompt.conjunction}</span>`)}} /> : '',
       accessor: "response",
       width: 600,
       sortMethod: (a, b) => (a.key.localeCompare(b.key)),
@@ -186,8 +187,6 @@ const RuleAnalysis = ({ history, match }) => {
     );
   }
 
-  const promptId = activityData.activity.prompts.find(prompt => prompt.conjunction === promptConjunction).id
-
   return(
     <div className="rule-analysis-container">
       <div className="header-container">
@@ -199,8 +198,8 @@ const RuleAnalysis = ({ history, match }) => {
         rows={ruleRows(ruleData)}
       />
       <div className="button-wrapper">
-        <Link className="quill-button medium contained primary" to={`/activities/${activityId}/rules/${ruleData.rule.id}`}>Edit Rule Feedback</Link>
-        <Link className="quill-button medium secondary outlined" rel="noopener noreferrer" target="_blank" to={`/activities/${activityId}/semantic-labels/${promptId}/semantic-rules-cheat-sheet`} >Semantic Rules Cheat Sheet</Link>;
+        <Link className="quill-button medium contained primary" to={`/activities/${activityId}/rules/${ruleData.rule.id}`}>Edit Rule Notes/Properties</Link>
+        <Link className="quill-button medium secondary outlined" rel="noopener noreferrer" target="_blank" to={`/activities/${activityId}/semantic-labels/${prompt.id}/semantic-rules-cheat-sheet`} >Semantic Rules Cheat Sheet</Link>;
       </div>
       <div className="radio-options">
         <div className="radio">
