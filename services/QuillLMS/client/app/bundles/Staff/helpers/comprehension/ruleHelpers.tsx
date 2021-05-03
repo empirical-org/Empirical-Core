@@ -402,6 +402,8 @@ export function getReturnLinkRuleType(ruleType) {
   const { value } = ruleType
   if(regexRuleTypes.includes(value)) {
     return 'regex-rules';
+  } else if(value === 'plagiarism') {
+    return 'plagiarism-rules';
   }
   return 'rules';
 }
@@ -414,6 +416,8 @@ export function getReturnLinkLabel(ruleType) {
   const { value } = ruleType
   if(regexRuleTypes.includes(value)) {
     return label + 'Regex Rules Index';
+  } else if(value === 'plagiarism') {
+    return label + 'Plagiarism Rules Index';
   }
   return label + 'Rules Index';
 }
