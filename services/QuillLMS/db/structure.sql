@@ -463,13 +463,14 @@ CREATE TABLE public.activity_healths (
     activity_categories character varying[],
     content_partners character varying[],
     tool character varying,
-    recent_assignments integer,
+    recent_plays integer,
     diagnostics character varying[],
-    activity_packs character varying[],
-    avg_completion_time time without time zone,
     avg_difficulty double precision,
     avg_common_unmatched double precision,
-    standard_dev_difficulty double precision
+    standard_dev_difficulty double precision,
+    avg_mins_to_complete double precision,
+    flag character varying,
+    activity_packs jsonb
 );
 
 
@@ -7591,6 +7592,8 @@ INSERT INTO schema_migrations (version) VALUES ('20210409161449');
 INSERT INTO schema_migrations (version) VALUES ('20210421190032');
 
 INSERT INTO schema_migrations (version) VALUES ('20210421191605');
+
+INSERT INTO schema_migrations (version) VALUES ('20210423165423');
 
 INSERT INTO schema_migrations (version) VALUES ('20210429151331');
 
