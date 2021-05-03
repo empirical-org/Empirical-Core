@@ -1980,6 +1980,18 @@ CREATE TABLE public.feedback_histories (
 
 
 --
+-- Name: feedback_histories_grouped_by_rule_uid; Type: MATERIALIZED VIEW; Schema: public; Owner: -
+--
+
+CREATE MATERIALIZED VIEW public.feedback_histories_grouped_by_rule_uid AS
+ SELECT array_agg(feedback_histories.id) AS feedback_history_ids,
+    feedback_histories.rule_uid
+   FROM public.feedback_histories
+  GROUP BY feedback_histories.rule_uid
+  WITH NO DATA;
+
+
+--
 -- Name: feedback_histories_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
@@ -5750,6 +5762,13 @@ CREATE INDEX index_feedback_histories_on_rule_uid ON public.feedback_histories U
 
 
 --
+-- Name: index_feedback_histories_on_rule_uid_grouped; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_feedback_histories_on_rule_uid_grouped ON public.feedback_histories_grouped_by_rule_uid USING btree (rule_uid);
+
+
+--
 -- Name: index_feedback_sessions_on_activity_session_uid; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -7574,4 +7593,6 @@ INSERT INTO schema_migrations (version) VALUES ('20210421190032');
 INSERT INTO schema_migrations (version) VALUES ('20210421191605');
 
 INSERT INTO schema_migrations (version) VALUES ('20210429151331');
+
+INSERT INTO schema_migrations (version) VALUES ('20210430212613');
 
