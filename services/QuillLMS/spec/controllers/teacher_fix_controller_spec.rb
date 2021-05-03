@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 describe TeacherFixController do
-  it { should use_before_filter :staff! }
+  it { should use_before_action :staff! }
 
   let(:staff) { create(:staff) }
 
