@@ -1229,9 +1229,6 @@ describe User, type: :model do
     end
   end
 
-  it 'does not care about all the validation stuff when the user is temporary'
-  it 'disallows regular assignment of roles that are restricted'
-
   describe '#generate_referrer_id' do
     it 'creates ReferrerUser with the correct referrer code when a teacher is created' do
       referrer_users = ReferrerUser.count
