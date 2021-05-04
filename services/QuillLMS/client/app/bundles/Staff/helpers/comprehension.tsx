@@ -258,12 +258,11 @@ export const validateForm = (keys: string[], state: any[], ruleType?: string) =>
         }
         break;
       case "Stem Applied":
-        const stemApplied = Object.keys(value).some(stem => value[stem].checked);
-        const length = Object.keys(value).length;
-        if(!stemApplied) {
+        const stemsApplied = Object.keys(value).filter(stem => value[stem].checked);
+        if(!stemsApplied.length) {
           errors[keys[i]] = 'You must select at least one stem.';
         }
-        if(ruleType && ruleType === PLAGIARISM && length > 1) {
+        if(ruleType && ruleType === PLAGIARISM && stemsApplied.length > 1) {
           errors[keys[i]] = 'You can only select one stem.';
         }
         break;
