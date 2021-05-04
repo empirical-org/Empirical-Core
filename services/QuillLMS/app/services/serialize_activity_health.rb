@@ -4,6 +4,7 @@ class SerializeActivityHealth
     sentence: "grammar"
   }
   MAX_SESSIONS_VIEWED = 500
+  PRODUCTION_FLAG = "production"
 
   def initialize(activity)
     @activity = activity
@@ -19,7 +20,7 @@ class SerializeActivityHealth
       tool: tool,
       recent_plays: recent_plays,
       diagnostics: diagnostics.sort,
-      activity_packs: @activity.unit_templates.map {|ut| { id: ut.id, name: ut.name}},
+      activity_packs: @activity.unit_templates.where(flag: PRODUCTION_FLAG).map {|ut| { id: ut.id, name: ut.name}},
       avg_mins_to_complete: avg_mins_to_complete,
       avg_difficulty: average(prompt_data, :difficulty),
       avg_common_unmatched: average(prompt_data, :percent_common_unmatched),
