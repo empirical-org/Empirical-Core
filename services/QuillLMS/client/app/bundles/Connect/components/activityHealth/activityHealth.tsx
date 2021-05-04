@@ -34,7 +34,6 @@ class ActivityHealth extends React.Component<ComponentProps, any> {
   }
 
   renderTable() {
-    console.log("re rendeirng table")
     const { loadingTableData } = this.state
     if(loadingTableData) {
       return <LoadingSpinner />
@@ -53,7 +52,7 @@ class ActivityHealth extends React.Component<ComponentProps, any> {
         resizeable: true,
         minWidth: 200,
         sortMethod: sort,
-        Cell: cell => (<a href={cell.original.url}>{cell.original.name}</a>)
+        Cell: cell => (<a href={cell.original.url} target="_blank">{cell.original.name}</a>)
       },
       {
         Header: 'Activity Categories',
@@ -340,7 +339,7 @@ class ActivityHealth extends React.Component<ComponentProps, any> {
   }
 
   fetchQuestionData() {
-    this.setState({ loadingNewTableData: true });
+    this.setState({ loadingNewTableData: true }, () => (console.log("setting loadingNewTableData")));
     request.get({
       url: 'https://www.quill.org/api/v1/activities/activities_health.json',
     }, (e, r, body) => {
@@ -359,7 +358,7 @@ class ActivityHealth extends React.Component<ComponentProps, any> {
         };
       }
 
-      this.setState(newState);
+      this.setState(newState, () => (console.log("setting fetchedData")));
     });
   }
 
@@ -380,7 +379,8 @@ class ActivityHealth extends React.Component<ComponentProps, any> {
     });
     this.setState({ dataToDownload: clonedData }, () => {
        // click the CSVLink component to trigger the CSV download
-       this.csvLink.link.click()
+       this.csvLink.link.click();
+       console.log("setting data to download")
     })
   }
 
@@ -392,6 +392,7 @@ class ActivityHealth extends React.Component<ComponentProps, any> {
     if (fetchedData) {
       let dataToUse = this.getFilteredData()
       tableOrEmptyMessage = (<ReactTable ref={(r) => this.reactTable = r}
+        autoResetExpanded={false}
         className='records-table'
         columns={this.columnDefinitions()}
         data={dataToUse}
@@ -429,18 +430,18 @@ class ActivityHealth extends React.Component<ComponentProps, any> {
     let filteredByFlags = activityHealthFlags === 'All Flags' ? fetchedData : fetchedData.filter(data => data.flag === activityHealthFlags)
     let filteredByFlagsAndPrompt = filteredByFlags.filter(value => {
       return (
-        value.prompt_healths.map(x => x.text).some(y => stripHtml(y).toLowerCase().includes(searchInput.toLowerCase()))
+        value.prompt_healths.map(x => x.text || '').some(y => stripHtml(y).toLowerCase().includes(searchInput.toLowerCase()))
       );
     })
     return filteredByFlagsAndPrompt
   }
 
   handleSelect = (e) => {
-    this.setState({ activityHealthFlags: e.target.value, })
+    this.setState({ activityHealthFlags: e.target.value, }, () => (console.log("setting flags")))
   }
 
   handleSearch = (e) => {
-    this.setState({ searchInput: e.target.value })
+    this.setState({ searchInput: e.target.value }, () => (console.log("setting search input")))
   }
 
   render() {
