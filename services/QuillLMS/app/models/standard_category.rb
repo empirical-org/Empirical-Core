@@ -21,5 +21,5 @@ class StandardCategory < ActiveRecord::Base
 
   accepts_nested_attributes_for :change_logs
 
-  after_commit 'Activity.clear_activity_search_cache'
+  after_commit { Activity.clear_activity_search_cache }
 end
