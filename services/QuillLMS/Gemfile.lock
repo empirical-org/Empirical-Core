@@ -62,6 +62,7 @@ GEM
     arel (6.0.4)
     atomic_arrays (1.1.0)
       activerecord (>= 4.0)
+    attr_extras (6.2.4)
     autoparse (0.3.3)
       addressable (>= 2.3.1)
       extlib (>= 0.9.15)
@@ -407,6 +408,7 @@ GEM
     omniauth-oauth2 (1.5.0)
       oauth2 (~> 1.1)
       omniauth (~> 1.2)
+    optimist (3.0.1)
     os (1.1.1)
     paperclip (6.1.0)
       activemodel (>= 4.2.0)
@@ -418,6 +420,8 @@ GEM
     parallel_tests (2.28.0)
       parallel
     parslet (1.8.2)
+    patience_diff (1.2.0)
+      optimist (~> 3.0)
     pdf-core (0.7.0)
     pdf-inspector (1.3.0)
       pdf-reader (>= 1.0, < 3.0.a)
@@ -517,6 +521,8 @@ GEM
       bundler (>= 1.3.0, < 2.0)
       railties (= 4.2.11.3)
       sprockets-rails
+    rails-controller-testing (0.0.3)
+      rails (>= 4.2)
     rails-deprecated_sanitizer (1.0.3)
       activesupport (>= 4.2.0.alpha)
     rails-dom-testing (1.0.9)
@@ -718,7 +724,11 @@ GEM
     sqreen-kit (0.2.1)
       sqreen-backport (~> 0.1.0)
     stripe (5.30.0)
-    temple (0.8.1)
+    super_diff (0.6.1)
+      attr_extras (>= 6.2.4)
+      diff-lcs
+      patience_diff
+    temple (0.8.2)
     terminal-notifier-guard (1.7.0)
     terrapin (0.6.0)
       climate_control (>= 0.0.3, < 1.0)
@@ -861,6 +871,7 @@ DEPENDENCIES
   rack-heartbeat
   rack-host-redirect
   rails (= 4.2.11.3)
+  rails-controller-testing
   rails_12factor
   rails_admin (~> 1.4.2)
   rails_autoscale_agent
@@ -896,6 +907,7 @@ DEPENDENCIES
   spring-commands-rspec
   sqreen
   stripe
+  super_diff
   terminal-notifier-guard
   test_after_commit
   therubyracer

@@ -120,15 +120,5 @@ describe BlogPostsController, type: :controller do
       get :search, query: query
       expect(assigns(:blog_posts)).to eq([])
     end
-
-    xit 'should return posts that match the query' do
-      # TODO: figure out how to test this effectively and consistently
-      blog_posts
-      get :search, query: BlogPost.second.tsv.split(' ').first.gsub("'",'').gsub(/:.*$/,'')
-      expect(assigns(:blog_posts)).to eq([{
-        'slug' => BlogPost.second.slug,
-        'preview_card_content' => BlogPost.second.preview_card_content
-      }])
-    end
   end
 end

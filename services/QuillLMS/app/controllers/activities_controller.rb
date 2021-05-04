@@ -12,7 +12,7 @@ class ActivitiesController < ApplicationController
   end
 
   def count
-    @count = Activity.where(flags: [:production]).count
+    @count = Activity.where(flags: '{production}').count
     render json: {count: @count}
   end
 
