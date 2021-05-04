@@ -10,6 +10,7 @@ import (
 	"reflect"
 	"strings"
 	"time"
+	"os"
 )
 
 func TestPublishMessage(t *testing.T) {
@@ -157,6 +158,21 @@ func TestFirstResponseErrorLaterNonOptimal(t *testing.T) {
 func TestAutoMLIndex(t *testing.T) {
 	if "https://www.quill.org/api/v1/comprehension/feedback/automl.json" != AssembleUrls()[automl_index] {
 		t.Errorf("automl_index does not match automl_api")
+	}
+}
+
+func TestGetLMSDomainDefault(t *testing.T) {
+	result := GetLMSDomain();
+	if result != "https://www.quill.org" {
+		t.Errorf("Unexpected domain value.")
+	}
+}
+
+func TestGetLMSDomainOverride(t *testing.T) {
+	os.Setenv("lms_domain", "staging.quill.org")
+	result := GetLMSDomain();
+	if result != "staging.quill.org" {
+		t.Errorf("Unexpected domain value.")
 	}
 }
 

@@ -14,7 +14,7 @@ import (
 	"net/http/httputil"
 )
 
-var automl_index = 3
+const automl_index = 3
 
 var wg sync.WaitGroup
 
