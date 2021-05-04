@@ -13,7 +13,7 @@ class RuleFeedbackHistory
             MAX(rules.rule_type) as rule_type,
             MAX(rules.suborder) as rule_suborder,
             MAX(rules.name) as rule_name,
-            MAX(rules.note) as rule_note, 
+            MAX(rules.note) as rule_note,
             ARRAY_AGG(feedback_histories.id) as feedback_histories_id_array
 
           FROM comprehension_rules as rules
@@ -33,11 +33,12 @@ class RuleFeedbackHistory
             entry: f_h.entry,
             highlight: f_h.metadata.class == Hash ? f_h.metadata['highlight'] : '',
             view_session_url: 'Not yet available',
-            strength: f_h.feedback_history_ratings.order(updated_at: :desc).first&.rating
+            strength: f_h.feedback_history_ratings.where(user_id: @current_user&.id).first&.rating
         }
     end
 
-    def self.generate_rulewise_report(rule_uid)
+    def self.generate_rulewise_report(rule_uid, current_user)
+        @current_user = current_user
         feedback_histories = FeedbackHistory.where(rule_uid: rule_uid)
         response_jsons = []
         feedback_histories.each do |f_h|

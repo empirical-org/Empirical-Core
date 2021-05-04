@@ -19,6 +19,7 @@ const RuleAnalysis = ({ history, match }) => {
   const { params } = match;
   const { activityId, ruleId, promptConjunction } = params;
 
+  const [responses, setResponses] = React.useState([])
   const [filter, setFilter] = React.useState(ALL)
 
   const { data: conceptsData } = useQuery({
@@ -43,6 +44,11 @@ const RuleAnalysis = ({ history, match }) => {
 
   const prompt = activityData ? activityData.activity.prompts.find(prompt => prompt.conjunction === promptConjunction) : {}
 
+  React.useEffect(() => {
+    if (!ruleFeedbackHistoryData) { return }
+    setResponses(ruleFeedbackHistoryData.responses)
+  }, [ruleFeedbackHistoryData])
+
   function handleFilterChange(e) { setFilter(e.target.value) }
 
   function filterResponses(r) {
@@ -53,12 +59,18 @@ const RuleAnalysis = ({ history, match }) => {
     return false
   }
 
-   async function makeStrong(response) { updateFeedbackHistoryRatingStrength(response.response_id, true) }
+   async function toggleStrength(response) { updateFeedbackHistoryRatingStrength(response.response_id, response.rating === true ? null : true) }
 
-   async function makeWeak(response) { updateFeedbackHistoryRatingStrength(response.response_id, false) }
+   async function toggleWeakness(response) { updateFeedbackHistoryRatingStrength(response.response_id, response.rating === false ? null : false) }
 
-   async function updateFeedbackHistoryRatingStrength(responseId, strong) {
-     createOrUpdateFeedbackHistoryRating({ rating: strong, feedback_history_id: responseId}).then((response) => {
+   async function updateFeedbackHistoryRatingStrength(responseId, rating) {
+     const indexOfResponseToChange = responses.findIndex(r => r.id === responseId)
+     const responseToChange = responses[indexOfResponseToChange]
+     responseToChange.rating = rating
+     const newResponses = [...responses]
+     newResponses[indexOfResponseToChange] = responseToChange
+     setResponses(newResponses)
+     createOrUpdateFeedbackHistoryRating({ rating, feedback_history_id: responseId}).then((response) => {
        queryCache.refetchQueries(`rule-feedback-histories-by-rule-${ruleId}`);
      });
    }
@@ -128,14 +140,13 @@ const RuleAnalysis = ({ history, match }) => {
     { name: "", attribute:"value", width: "750px" }
   ];
 
-  const responseRows = (data) => {
-    if (!activityData || !data) { return [] }
-    const { responses, } = data
+  const responseRows = () => {
+    if (!activityData || !responses) { return [] }
     return responses.filter(filterResponses).map(r => {
       const formattedResponse = {...r}
       const highlightedEntry = r.entry.replace(r.highlight, `<strong>${r.highlight}</strong>`)
-      const strongButton = <button className={r.strength === true ? 'strength-button strong' : 'strength-button'} onClick={() => makeStrong(r)} type="button">Strong</button>
-      const weakButton = <button className={r.strength === false ? 'strength-button weak' : 'strength-button'} onClick={() => makeWeak(r)} type="button">Weak</button>
+      const strongButton = <button className={r.strength === true ? 'strength-button strong' : 'strength-button'} onClick={() => toggleStrength(r)} type="button">Strong</button>
+      const weakButton = <button className={r.strength === false ? 'strength-button weak' : 'strength-button'} onClick={() => toggleWeakness(r)} type="button">Weak</button>
 
       formattedResponse.response = <span dangerouslySetInnerHTML={{ __html: highlightedEntry }} key={r.entry} />
       formattedResponse.datetime = moment(r.datetime).format('MM/DD/YYYY')
@@ -155,9 +166,7 @@ const RuleAnalysis = ({ history, match }) => {
       Header: prompt && prompt.text ? <b className="prompt-text" dangerouslySetInnerHTML={{ __html: prompt.text.replace(prompt.conjunction, `<span>${prompt.conjunction}</span>`)}} /> : '',
       accessor: "response",
       width: 600,
-      sortMethod: (a, b) => (a.key.localeCompare(b.key)),
-      filterMethod: (filter, row) => (row.response.key.includes(filter.value)),
-      filterable: true
+      sortMethod: (a, b) => (a.key.localeCompare(b.key))
     },
     {
       Header: "Highlighted Output",
@@ -171,7 +180,7 @@ const RuleAnalysis = ({ history, match }) => {
     }
   ]
 
-  if(!ruleData || !activityData || !ruleFeedbackHistoryData || !conceptsData) {
+  if(!ruleData || !activityData || !responses || !conceptsData) {
     return(
       <div className="loading-spinner-container">
         <Spinner />
@@ -224,8 +233,8 @@ const RuleAnalysis = ({ history, match }) => {
       <ReactTable
         className="responses-table"
         columns={responseHeaders}
-        data={responseRows(ruleFeedbackHistoryData)}
-        defaultPageSize={responseRows(ruleFeedbackHistoryData).length < 100 ? responseRows(ruleFeedbackHistoryData).length : 100}
+        data={responseRows()}
+        defaultPageSize={responseRows().length < 100 ? responseRows().length : 100}
         showPagination={true}
       />
     </div>

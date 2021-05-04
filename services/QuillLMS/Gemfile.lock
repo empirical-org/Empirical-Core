@@ -427,7 +427,7 @@ GEM
       hashery (~> 2.0)
       ruby-rc4
       ttfunk
-    pg (0.18.4)
+    pg (0.21.0)
     pg_array_parser (0.0.9)
     pointpin (1.0.1)
       faraday
@@ -836,7 +836,7 @@ DEPENDENCIES
   parslet
   pdf-core
   pdf-inspector
-  pg (= 0.18.4)
+  pg (~> 0.15)
   pointpin (~> 1.0.0)
   poltergeist
   postgres_ext

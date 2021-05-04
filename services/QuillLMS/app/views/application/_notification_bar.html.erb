@@ -2,7 +2,7 @@
 <% if ENV['NOTIFICATION_BAR_SHOWING'].to_s.downcase == "true" %>
   <div class="notification-bar google-issue">
     <p>
-      <%= ENV['NOTIFICATION_BAR_TEXT'] %>
+      <%= ENV['NOTIFICATION_BAR_TEXT'].html_safe %>
     </p>
   </div>
 <% end %>
