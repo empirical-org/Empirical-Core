@@ -11,17 +11,19 @@ import RuleUniversalAttributes from '../configureRules/ruleUniversalAttributes';
 import { Spinner, Modal } from '../../../../Shared/index';
 import { deleteRule, fetchRules, fetchUniversalRules } from '../../../utils/comprehension/ruleAPIs';
 import { fetchConcepts, } from '../../../utils/comprehension/conceptAPIs';
-import { handleSubmitRule, getInitialRuleType, formatInitialFeedbacks, returnInitialFeedback, renderErrorsContainer } from '../../../helpers/comprehension/ruleHelpers';
+import { formatPrompts } from '../../../helpers/comprehension';
+import { handleSubmitRule, getInitialRuleType, formatInitialFeedbacks, returnInitialFeedback, renderErrorsContainer, formatRegexRules, getReturnLinkRuleType, getReturnLinkLabel } from '../../../helpers/comprehension/ruleHelpers';
 import { ruleOptimalOptions, regexRuleTypes, PLAGIARISM } from '../../../../../constants/comprehension';
 import { RuleInterface, DropdownObjectInterface } from '../../../interfaces/comprehensionInterfaces';
 
-interface SemanticLabelFormProps {
+interface RuleViewFormProps {
   activityData?: any,
   activityId?: string,
   isUniversal?: boolean,
   isSemantic?: boolean,
   requestErrors: string[],
   rule?: RuleInterface,
+  ruleTypeDisabled: boolean,
   submitRule: any,
   prompt?: any,
   history: any,
@@ -29,7 +31,7 @@ interface SemanticLabelFormProps {
   match: any,
 }
 
-const SemanticLabelForm = ({ activityId, isSemantic, isUniversal, requestErrors, rule, submitRule, location, history, match }: SemanticLabelFormProps) => {
+const RuleViewForm = ({ activityData, activityId, isSemantic, isUniversal, requestErrors, rule, ruleTypeDisabled, submitRule, location, history, match }: RuleViewFormProps) => {
   const { params } = match;
   const { promptId } = params;
 
@@ -38,7 +40,7 @@ const SemanticLabelForm = ({ activityId, isSemantic, isUniversal, requestErrors,
   const initialRuleType = getInitialRuleType({ isUniversal, rule_type, universalRuleType: null});
   const initialRuleOptimal = optimal ? ruleOptimalOptions[0] : ruleOptimalOptions[1];
   const initialPlagiarismText = plagiarism_text || { text: '' }
-  const initialNote = note || '';
+  const initalNote = note || '';
   const initialFeedbacks = feedbacks ? formatInitialFeedbacks(feedbacks) : returnInitialFeedback(initialRuleType.value);
   const initialLabel = label && label.name;
   const ruleLabelStatus = state;
@@ -48,7 +50,7 @@ const SemanticLabelForm = ({ activityId, isSemantic, isUniversal, requestErrors,
   const [plagiarismText, setPlagiarismText] = React.useState<RuleInterface["plagiarism_text"]>(initialPlagiarismText);
   const [regexRules, setRegexRules] = React.useState<object>({});
   const [ruleConceptUID, setRuleConceptUID] = React.useState<string>(concept_uid || '');
-  const [ruleNote, setRuleNote] = React.useState<string>(initialNote);
+  const [ruleNote, setRuleNote] = React.useState<string>(initalNote);
   const [ruleFeedbacks, setRuleFeedbacks] = React.useState<object>(initialFeedbacks);
   const [ruleOptimal, setRuleOptimal] = React.useState<any>(initialRuleOptimal);
   const [ruleName, setRuleName] = React.useState<string>(name || '');
@@ -75,6 +77,14 @@ const SemanticLabelForm = ({ activityId, isSemantic, isUniversal, requestErrors,
     queryKey: ['concepts', activityId],
     queryFn: fetchConcepts
   });
+
+  React.useEffect(() => {
+    formatPrompts({ activityData, rule, setRulePrompts });
+  }, [activityData]);
+
+  React.useEffect(() => {
+    formatRegexRules({ rule, setRegexRules });
+  }, [rule]);
 
   React.useEffect(() => {
     if(!rulesCount && rulesData && rulesData.rules) {
@@ -134,6 +144,9 @@ const SemanticLabelForm = ({ activityId, isSemantic, isUniversal, requestErrors,
     });
   }
 
+  const returnLinkRuleType = getReturnLinkRuleType(ruleType);
+  const returnLinkLabel = getReturnLinkLabel(ruleType);
+
   function handleDeleteRule() {
     let ruleId = id.toString();
     if(!ruleId) {
@@ -143,12 +156,11 @@ const SemanticLabelForm = ({ activityId, isSemantic, isUniversal, requestErrors,
       toggleShowDeleteRuleModal();
       // update ruleSets cache to remove delete ruleSet
       queryCache.refetchQueries(`rules-${activityId}`);
-      history.push(`/activities/${activityId}/semantic-labels/all`);
+      history.push(`/activities/${activityId}/${returnLinkRuleType}`);
     });
   }
 
-  const errorsPresent = !!Object.keys(errors).length;
-  const cancelLink = (<Link to={`/activities/${activityId}/semantic-labels`}>Cancel</Link>);
+  const cancelLink = (<Link to={`/activities/${activityId}/${returnLinkRuleType}`}>Cancel</Link>);
   const autoMLParams = {
     label: 'Descriptive Label',
     notes: 'Label Notes',
@@ -165,13 +177,13 @@ const SemanticLabelForm = ({ activityId, isSemantic, isUniversal, requestErrors,
 
   const formErrorsPresent = !!Object.keys(errors).length;
   const requestErrorsPresent = !!(requestErrors && requestErrors.length);
-  const showErrorsContainer = formErrorsPresent || requestErrorsPresent
+  const showErrorsContainer = formErrorsPresent || requestErrorsPresent;
 
   return(
     <div className="rule-form-container">
       {showDeleteRuleModal && renderDeleteRuleModal()}
       <section className="semantic-rule-form-header">
-        <Link className="return-link" to={`/activities/${activityId}/semantic-labels`}>← Return to Semantic Rules Index</Link>
+        <Link className="return-link" to={`/activities/${activityId}/${returnLinkRuleType}`}>{returnLinkLabel}</Link>
         <button className="quill-button fun primary contained" id="rule-delete-button" onClick={toggleShowDeleteRuleModal} type="button">
           Delete
         </button>
@@ -189,7 +201,7 @@ const SemanticLabelForm = ({ activityId, isSemantic, isUniversal, requestErrors,
           ruleNote={ruleNote}
           ruleOptimal={ruleOptimal}
           ruleType={ruleType}
-          ruleTypeDisabled={true}
+          ruleTypeDisabled={ruleTypeDisabled}
           ruleUID={uid}
           setRuleConceptUID={setRuleConceptUID}
           setRuleName={setRuleName}
@@ -246,4 +258,4 @@ const SemanticLabelForm = ({ activityId, isSemantic, isUniversal, requestErrors,
   )
 }
 
-export default withRouter<any, any>(SemanticLabelForm);
+export default withRouter<any, any>(RuleViewForm);

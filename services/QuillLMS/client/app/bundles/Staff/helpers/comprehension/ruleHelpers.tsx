@@ -3,7 +3,7 @@ import { EditorState, ContentState } from 'draft-js';
 import stripHtml from "string-strip-html";
 
 import { validateForm } from '../comprehension';
-import { AUTO_ML, ACTIVE, INACTIVE } from '../../../../constants/comprehension';
+import { AUTO_ML, PLAGIARISM } from '../../../../constants/comprehension';
 import { InputEvent, DropdownObjectInterface } from '../../interfaces/comprehensionInterfaces';
 import { ruleTypeOptions, universalRuleTypeOptions, ruleHighlightOptions, numericalWordOptions, regexRuleSequenceOptions, regexRuleTypes } from '../../../../constants/comprehension';
 import { TextEditor, DropdownInput } from '../../../Shared/index';
@@ -202,7 +202,7 @@ export function getInitialRuleType({ isUniversal, rule_type, universalRuleType }
 }
 
 export const returnInitialFeedback = (ruleType: string) => {
-  if(ruleType === 'plagiarism') {
+  if(ruleType === PLAGIARISM) {
     return [{ text: '', order: 0, highlights_attributes: [] }, { text: '', order: 1, highlights_attributes: [] }];
   }
   return [{ text: '', order: 0, highlights_attributes: [] }];
@@ -302,7 +302,7 @@ export const buildRule = ({
       return rule;
     });
     newOrUpdatedRule.regex_rules_attributes = rules;
-  } else if(newOrUpdatedRule.rule_type === 'plagiarism') {
+  } else if(newOrUpdatedRule.rule_type === PLAGIARISM) {
     newOrUpdatedRule.plagiarism_text_attributes = {
       id: plagiarismText.id,
       text: stripHtml(plagiarismText.text)
@@ -363,7 +363,7 @@ export async function handleSubmitRule({
       keys.push(`Regex rule ${i + 1}`);
       state.push(regexRules[key].regex_text);
     });
-  } else if(ruleType.value === 'plagiarism') {
+  } else if(ruleType.value === PLAGIARISM) {
     keys = keys.concat(['Plagiarism Text', 'First Plagiarism Feedback', 'Second Plagiarism Feedback']);
     state = state.concat([plagiarismText.text, ruleFeedbacks[0].text, ruleFeedbacks[1].text]);
   } else if(ruleType.value === AUTO_ML) {
@@ -393,6 +393,29 @@ export function getRulesUrl(activityId: string, promptId: string, ruleType: stri
     url = `rules?prompt_id=${promptId}&rule_type=${ruleType}`
   }
   return url;
+}
+
+export function getReturnLinkRuleType(ruleType) {
+  if(!ruleType) {
+    return 'rules';
+  }
+  const { value } = ruleType
+  if(regexRuleTypes.includes(value)) {
+    return 'regex-rules';
+  }
+  return 'rules';
+}
+
+export function getReturnLinkLabel(ruleType) {
+  let label = '← Return to ';
+  if(!ruleType) {
+    return label + 'Rules Index';
+  }
+  const { value } = ruleType
+  if(regexRuleTypes.includes(value)) {
+    return label + 'Regex Rules Index';
+  }
+  return label + 'Rules Index';
 }
 
 export function renderErrorsContainer(formErrorsPresent: boolean, requestErrors: string[]) {

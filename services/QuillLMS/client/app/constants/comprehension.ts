@@ -115,6 +115,7 @@ export const DEFAULT_MAX_ATTEMPTS = 5;
 export const FIRST = 'first';
 export const SECOND = 'second';
 export const NONE = 'none';
+export const PLAGIARISM = 'plagiarism';
 
 export const PROMPT_ATTEMPTS_FEEDBACK_LABELS = {
   "1": {

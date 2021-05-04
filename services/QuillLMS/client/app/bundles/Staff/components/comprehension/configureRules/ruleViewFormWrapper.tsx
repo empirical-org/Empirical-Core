@@ -2,14 +2,15 @@ import * as React from "react";
 import { useQuery } from 'react-query';
 import { withRouter } from 'react-router-dom';
 
-import SemanticLabelForm from './semanticLabelForm';
+import RuleViewForm from './ruleViewForm';
 
 import { RuleInterface } from '../../../interfaces/comprehensionInterfaces';
 import { blankRule } from '../../../../../constants/comprehension';
 import { fetchRule } from '../../../utils/comprehension/ruleAPIs';
 import { Spinner } from '../../../../Shared/index';
 
-const SemanticLabelWrapper = ({ activityData, isSemantic, isUniversal, requestErrors, submitRule, match }) => {
+const RuleViewFormWrapper = ({ activityData, isSemantic, isUniversal, location, requestErrors, ruleTypeDisabled, submitRule, match }) => {
+  const { state } = location;
   const { params } = match;
   const { activityId, ruleId } = params;
 
@@ -22,10 +23,10 @@ const SemanticLabelWrapper = ({ activityData, isSemantic, isUniversal, requestEr
   let rule: RuleInterface;
 
   if(!ruleId) {
-    const blankSemanticRule = {...blankRule};
-    blankSemanticRule.rule_type = 'autoML';
-    blankSemanticRule.state = 'inactive';
-    rule = blankSemanticRule
+    const ruleType = state && state.ruleType;
+    const ruleToBeCreated = {...blankRule};
+    ruleToBeCreated.rule_type = ruleType;
+    rule = ruleToBeCreated
   } else {
     rule = ruleData && ruleData.rule;
   }
@@ -39,16 +40,17 @@ const SemanticLabelWrapper = ({ activityData, isSemantic, isUniversal, requestEr
   }
 
   return(
-    <SemanticLabelForm
+    <RuleViewForm
       activityData={activityData}
       activityId={activityId}
       isSemantic={isSemantic}
       isUniversal={isUniversal}
       requestErrors={requestErrors}
       rule={rule}
+      ruleTypeDisabled={ruleTypeDisabled}
       submitRule={submitRule}
     />
   );
 }
 
-export default withRouter<any, any>(SemanticLabelWrapper)
+export default withRouter<any, any>(RuleViewFormWrapper)
