@@ -5,10 +5,11 @@ exports[`PlagiarismRulesIndex component should render PlagiarismRulesIndex 1`] =
   className="rules-container"
 >
   <section
-    className="rules-based-section"
+    className="plagiarism-section"
+    id="first-plagiarism-section"
   >
     <button
-      className="quill-button fun primary contained add-rule-button"
+      className="quill-button fun primary contained add-rule-button disabled"
       type="submit"
     >
       <Link
@@ -24,19 +25,24 @@ exports[`PlagiarismRulesIndex component should render PlagiarismRulesIndex 1`] =
         Add Plagiarism Rule
       </Link>
     </button>
+    <p
+      className="one-rule-warning"
+    >
+      There can only be one plagiarism rule per conjunction. Please click "View" below if you would like to update the plagiarized text.
+    </p>
     <section
       className="no-rules-section"
     >
       <p>
-        No because plagiarism rule.
+        Click the button above to add a plagiarism rule.
       </p>
     </section>
   </section>
   <section
-    className="rules-based-section"
+    className="plagiarism-section"
   >
     <button
-      className="quill-button fun primary contained add-rule-button"
+      className="quill-button fun primary contained add-rule-button disabled"
       type="submit"
     >
       <Link
@@ -52,19 +58,24 @@ exports[`PlagiarismRulesIndex component should render PlagiarismRulesIndex 1`] =
         Add Plagiarism Rule
       </Link>
     </button>
+    <p
+      className="one-rule-warning"
+    >
+      There can only be one plagiarism rule per conjunction. Please click "View" below if you would like to update the plagiarized text.
+    </p>
     <section
       className="no-rules-section"
     >
       <p>
-        No but plagiarism rule.
+        Click the button above to add a plagiarism rule.
       </p>
     </section>
   </section>
   <section
-    className="rules-based-section"
+    className="plagiarism-section"
   >
     <button
-      className="quill-button fun primary contained add-rule-button"
+      className="quill-button fun primary contained add-rule-button disabled"
       type="submit"
     >
       <Link
@@ -80,11 +91,16 @@ exports[`PlagiarismRulesIndex component should render PlagiarismRulesIndex 1`] =
         Add Plagiarism Rule
       </Link>
     </button>
+    <p
+      className="one-rule-warning"
+    >
+      There can only be one plagiarism rule per conjunction. Please click "View" below if you would like to update the plagiarized text.
+    </p>
     <section
       className="no-rules-section"
     >
       <p>
-        No so plagiarism rule.
+        Click the button above to add a plagiarism rule.
       </p>
     </section>
   </section>

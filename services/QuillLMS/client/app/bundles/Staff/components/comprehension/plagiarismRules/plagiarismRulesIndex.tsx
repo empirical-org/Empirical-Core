@@ -40,7 +40,8 @@ const PlagiarismRulesIndex: React.FC<RouteComponentProps<ActivityRouteProps>> = 
     if(!(rulePrompts && rulesData && rulesData.rules && rulesData.rules.length)) {
       return [];
     }
-    const filteredRule = rulesData.rules.filter(rule => rule.prompt_ids[0] === rulePrompts[conjunction].id)[0];
+    const { rules } = rulesData;
+    const filteredRule = getFilteredRule(rules, rulePrompts, conjunction);
     if(!filteredRule) {
       return [];
     }
@@ -78,22 +79,38 @@ const PlagiarismRulesIndex: React.FC<RouteComponentProps<ActivityRouteProps>> = 
     })
   }
 
-  function renderTable(rows: any[], conjunction: string) {
+  function renderTable(rows: any[]) {
     if(rows && !rows.length) {
       return(
         <section className="no-rules-section">
-          <p>{`No ${conjunction} plagiarism rule.`}</p>
+          <p>Click the button above to add a plagiarism rule.</p>
         </section>
       );
     }
     return(
       <DataTable
-        className="rules-table regex-index-table"
+        className="rules-table plagiarism-index-table"
         defaultSortAttribute="name"
         headers={dataTableFields}
         rows={rows}
       />
     );
+  }
+
+  function getFilteredRule(rules: RuleInterface[], rulePrompts: any, conjunction: string) {
+    return rules.filter(rule => rule.prompt_ids[0] === rulePrompts[conjunction].id)[0];
+  }
+
+  function getButtonClass(conjunction: string) {
+    if(!(rulePrompts && plagiarismRulesData && plagiarismRulesData.rules)) {
+      return 'disabled';
+    }
+    const { rules } = plagiarismRulesData;
+    const filteredRule = getFilteredRule(rules, rulePrompts, conjunction);
+    if(filteredRule) {
+      return 'disabled';
+    }
+    return '';
   }
 
   function getAddRuleLink(conjunction: string) {
@@ -130,27 +147,33 @@ const PlagiarismRulesIndex: React.FC<RouteComponentProps<ActivityRouteProps>> = 
     { name: "", attribute:"field", width: "200px" },
     { name: "", attribute:"value", width: "400px" }
   ];
-  const addRuleLink = <Link to={{ pathname: `/activities/${activityId}/plagiarism-rules/new`, state: { ruleType: 'plagiarism' }}}>Add Plagiarism Rule</Link>;
   const becauseRuleLink = getAddRuleLink(BECAUSE);
   const butRuleLink = getAddRuleLink(BUT);
   const soRuleLink = getAddRuleLink(SO);
   const becausePlagiarismRule = getFormattedRows(plagiarismRulesData, BECAUSE);
   const butPlagiarismRule = getFormattedRows(plagiarismRulesData, BUT);
   const soPlagiarismRule = getFormattedRows(plagiarismRulesData, SO);
+  const becauseDisabled = getButtonClass(BECAUSE);
+  const butDisabled = getButtonClass(BUT);
+  const soDisabled = getButtonClass(SO);
+  const oneRuleWarning = 'There can only be one plagiarism rule per conjunction. Please click "View" below if you would like to update the plagiarized text.'
 
   return(
     <div className="rules-container">
-      <section className="rules-based-section">
-        <button className="quill-button fun primary contained add-rule-button" type="submit">{becauseRuleLink}</button>
-        {renderTable(becausePlagiarismRule, BECAUSE)}
+      <section className="plagiarism-section" id="first-plagiarism-section">
+        <button className={`quill-button fun primary contained add-rule-button ${becauseDisabled}`} type="submit">{becauseRuleLink}</button>
+        {becauseDisabled && <p className="one-rule-warning">{oneRuleWarning}</p>}
+        {renderTable(becausePlagiarismRule)}
       </section>
-      <section className="rules-based-section">
-        <button className="quill-button fun primary contained add-rule-button" type="submit">{butRuleLink}</button>
-        {renderTable(butPlagiarismRule, BUT)}
+      <section className="plagiarism-section">
+        <button className={`quill-button fun primary contained add-rule-button ${butDisabled}`} type="submit">{butRuleLink}</button>
+        {butDisabled && <p className="one-rule-warning">{oneRuleWarning}</p>}
+        {renderTable(butPlagiarismRule)}
       </section>
-      <section className="rules-based-section">
-        <button className="quill-button fun primary contained add-rule-button" type="submit">{soRuleLink}</button>
-        {renderTable(soPlagiarismRule, SO)}
+      <section className="plagiarism-section">
+        <button className={`quill-button fun primary contained add-rule-button ${soDisabled}`} type="submit">{soRuleLink}</button>
+        {soDisabled && <p className="one-rule-warning">{oneRuleWarning}</p>}
+        {renderTable(soPlagiarismRule)}
       </section>
     </div>
   );

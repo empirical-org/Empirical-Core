@@ -72,6 +72,7 @@ exports[`RuleForm component should render RuleForm 1`] = `
     <RulePrompts
       errors={Object {}}
       rulePrompts={Object {}}
+      rulePromptsDisabled={false}
       setRulePrompts={[Function]}
     />
     <div
