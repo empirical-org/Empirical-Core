@@ -2,6 +2,7 @@ import * as React from 'react'
 import ReactTable from 'react-table'
 import 'react-table/react-table.css';
 import request from 'request'
+import stripHtml from "string-strip-html";
 import _ from 'underscore'
 
 import LoadingSpinner from '../shared/loading_indicator.jsx'
@@ -22,55 +23,50 @@ class PromptHealth extends React.Component<ComponentProps, any> {
         Header: 'Text',
         accessor: 'text',
         resizeable: true,
-        minWidth: 200,
-        Cell: cell => (<a href={cell.original.url}>{cell.original.text}</a>)
+        minWidth: 400,
+        Cell: cell => (<a href={cell.original.url} style={{color: 'mediumSeaGreen'}}>{stripHtml(cell.original.text)}</a>)
       },
       {
         Header: 'Flag',
         accessor: 'flag',
-        resizeable: false,
+        resizeable: true,
         Cell: props => props.value
       },
       {
         Header: 'Incorrect Sequences',
         accessor: 'incorrect_sequences',
-        resizeable: false,
+        resizeable: true,
         Cell: props => props.value
       },
       {
         Header: 'Focus Points',
         accessor: 'focus_points',
-        resizeable: false,
-        Cell: props => props.value,
-        maxWidth: 90
+        resizeable: true,
+        Cell: props => props.value
       },
       {
         Header: 'Percent Common Unmatched',
         accessor: 'percent_common_unmatched',
-        resizeable: false,
-        Cell: props => props.value,
-        maxWidth: 90
+        resizeable: true,
+        Cell: props => props.value
       },
       {
         Header: 'Percent Specified Algorithms',
         accessor: 'percent_specified_algorithms',
-        resizeable: false,
-        Cell: props => props.value,
-        maxWidth: 150
+        resizeable: true,
+        Cell: props => props.value
       },
       {
         Header: 'Difficulty',
         accessor: 'difficulty',
-        resizeable: false,
-        Cell: props => props.value,
-        maxWidth: 150
+        resizeable: true,
+        Cell: props => props.value
       },
       {
         Header: 'Percent Optimal',
         accessor: 'percent_reached_optimal',
-        resizeable: false,
-        Cell: props => props.value,
-        maxWidth: 150
+        resizeable: true,
+        Cell: props => props.value
       }
     ];
   }
@@ -81,8 +77,8 @@ class PromptHealth extends React.Component<ComponentProps, any> {
     const styles = {
       margin: '15px',
       padding: '15px',
-      backgroundColor: 'darkgray',
-      color: 'white'
+      backgroundColor: 'lightgray',
+      borderRadius: '5px'
     }
 
     if (dataResults.length) {
@@ -92,9 +88,7 @@ class PromptHealth extends React.Component<ComponentProps, any> {
         data={dataResults}
         defaultPageSize={dataResults.length}
         loading={false}
-        manual={true}
         pages={1}
-        resizable={false}
         showPageSizeOptions={false}
         showPagination={false}
         style={styles}
@@ -110,7 +104,11 @@ class PromptHealth extends React.Component<ComponentProps, any> {
   }
 
   render() {
-    return this.renderTable()
+    return (
+      <div className="standard-columns">
+        {this.renderTable()}
+      </div>
+    )
   }
 }
 

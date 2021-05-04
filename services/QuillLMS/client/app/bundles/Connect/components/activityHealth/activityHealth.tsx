@@ -4,12 +4,16 @@ import { matchSorter } from 'match-sorter';
 import 'react-table/react-table.css';
 import request from 'request'
 import _ from 'underscore'
+import stripHtml from "string-strip-html"
+import { CSVLink } from 'react-csv'
 
 import LoadingSpinner from '../shared/loading_indicator.jsx'
 import { sort, sortByList } from '../../../../modules/sortingMethods.js'
 import { FlagDropdown } from '../../../Shared/index'
 import PromptHealth from './promptHealth'
 import { selectColumnFilter } from '../../../../modules/filteringMethods.js'
+import { getDataFromTree } from 'react-apollo';
+import activity from '../../../Staff/components/comprehension/activity.js';
 
 const recentPlaysText = "Number of plays in the last 3 months if the activity's first play was more than 3 months ago"
 
@@ -19,8 +23,10 @@ class ActivityHealth extends React.Component<ComponentProps, any> {
   state = {
     loadingTableData: true,
     activityId: '',
-    dataResults: [],
-    activityHealthFlags: "All Flags"
+    fetchedData: [],
+    activityHealthFlags: "All Flags",
+    searchInput: "",
+    dataToDownload: []
   };
 
   componentDidMount() {
@@ -28,6 +34,7 @@ class ActivityHealth extends React.Component<ComponentProps, any> {
   }
 
   renderTable() {
+    console.log("re rendeirng table")
     const { loadingTableData } = this.state
     if(loadingTableData) {
       return <LoadingSpinner />
@@ -36,7 +43,6 @@ class ActivityHealth extends React.Component<ComponentProps, any> {
   }
 
   columnDefinitions() {
-    let activityPackUrl = `${process.env.DEFAULT_URL}/cms/unit_templates/`
     return [
       {
         Header: 'Name',
@@ -334,11 +340,9 @@ class ActivityHealth extends React.Component<ComponentProps, any> {
   }
 
   fetchQuestionData() {
-    const { activityId } = this.state
     this.setState({ loadingNewTableData: true });
     request.get({
-      // url: `${process.env.DEFAULT_URL}/api/v1/activities/${activityId}/question_health`
-      url: 'https://run.mocky.io/v3/1aad6948-30d6-4f7f-9590-5790e89ced83',
+      url: 'https://www.quill.org/api/v1/activities/activities_health.json',
     }, (e, r, body) => {
       let newState = {}
       if (e || r.statusCode != 200) {
@@ -351,7 +355,7 @@ class ActivityHealth extends React.Component<ComponentProps, any> {
         console.log(data)
         newState = {
           loadingTableData: false,
-          dataResults: data.activities_health,
+          fetchedData: data.activities_health
         };
       }
 
@@ -359,20 +363,39 @@ class ActivityHealth extends React.Component<ComponentProps, any> {
     });
   }
 
+  download = (event) => {
+    const currentRecords = this.reactTable.getResolvedState().sortedData;
+    var data_to_download = []
+    for (var index = 0; index < currentRecords.length; index++) {
+       let record_to_download = {}
+       let columns = this.columnDefinitions()
+       for(var colIndex = 0; colIndex < columns.length ; colIndex ++) {
+          record_to_download[columns[colIndex].Header] = currentRecords[index][columns[colIndex].accessor]
+       }
+       data_to_download.push(record_to_download)
+    }
+    let clonedData = JSON.parse(JSON.stringify(data_to_download));
+    clonedData.forEach(item=> {
+      item["Activity Packs"] = item["Activity Packs"].map(v => v.name)
+    });
+    this.setState({ dataToDownload: clonedData }, () => {
+       // click the CSVLink component to trigger the CSV download
+       this.csvLink.link.click()
+    })
+  }
+
   tableOrEmptyMessage() {
-    const { dataResults } = this.state
+    const { fetchedData } = this.state
+
     let tableOrEmptyMessage
 
-    if (dataResults.length) {
-      let filteredData = dataResults;
-      if (this.state.activityHealthFlags !== 'All Flags') {
-        filteredData = filteredData.filter(data => data.flag === this.state.activityHealthFlags)
-      }
-      tableOrEmptyMessage = (<ReactTable
+    if (fetchedData) {
+      let dataToUse = this.getFilteredData()
+      tableOrEmptyMessage = (<ReactTable ref={(r) => this.reactTable = r}
         className='records-table'
         columns={this.columnDefinitions()}
-        data={filteredData}
-        defaultPageSize={dataResults.length}
+        data={dataToUse}
+        defaultPageSize={dataToUse.length}
         defaultSorted={[{id: 'name', desc: false}]}
         filterable
         defaultFilterMethod={(filter, row) =>
@@ -401,18 +424,78 @@ class ActivityHealth extends React.Component<ComponentProps, any> {
       )
   }
 
+  getFilteredData() {
+    const { fetchedData, activityHealthFlags, searchInput } = this.state
+    let filteredByFlags = activityHealthFlags === 'All Flags' ? fetchedData : fetchedData.filter(data => data.flag === activityHealthFlags)
+    let filteredByFlagsAndPrompt = filteredByFlags.filter(value => {
+      return (
+        value.prompt_healths.map(x => x.text).some(y => stripHtml(y).toLowerCase().includes(searchInput.toLowerCase()))
+      );
+    })
+    return filteredByFlagsAndPrompt
+  }
+
   handleSelect = (e) => {
-    this.setState({ activityHealthFlags: e.target.value, });
+    this.setState({ activityHealthFlags: e.target.value, })
+  }
+
+  handleSearch = (e) => {
+    this.setState({ searchInput: e.target.value })
   }
 
   render() {
+    const { searchInput } = this.state
     return (
       <section className="section">
-        <div style={{display: 'inline-block'}}>
+        <div style={{display: 'inline-block', width: '100%'}}>
+        <div style={{display: 'inline-block', marginLeft: '10px', float: 'left'}}>
           <FlagDropdown flag={this.state.activityHealthFlags} handleFlagChange={this.handleSelect} isLessons={true} />
+          <input
+          name="searchInput"
+          value={searchInput || ""}
+          placeholder="Search by prompt"
+          onChange={this.handleSearch}
+          style={{border: "1px solid rgba(0,0,0,0.1)",
+            background: "#fff",
+            padding: "5px 7px",
+            fontSize: "inherit",
+            borderRadius: "3px",
+            fontWeight: "normal",
+            outlineWidth: "0",
+            marginTop: "10px",
+            width: "700px"}}
+        />
         </div>
+        <div>
+        <div style = {{
+          display: "inline-block",
+          float: "right",
+          border: "1px solid rgba(0,0,0,0.1)",
+          background: "#fff",
+          padding: "5px 7px",
+          fontSize: "inherit",
+          borderRadius: "3px",
+          fontWeight: "normal",
+          outlineWidth: "0",
+          cursor: 'pointer'
+        }
+        }>
+        <button style={{cursor: 'pointer'}}onClick={this.download}>
+            Download CSV
+        </button>
+        </div>
+        <div>
+        <CSVLink
+          data={this.state.dataToDownload}
+          filename="activity_health_report"
+          ref={(r) => this.csvLink = r}
+          target="_blank" />
+        </div>
+
+        </div>
+        </div>
+
         <div className="large-admin-container">
-          <p className="menu-label">Activity Health</p>
           <div className="standard-columns">
           {this.renderTable()}
           </div>
