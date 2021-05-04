@@ -137,11 +137,6 @@ RSpec.describe RuleFeedbackHistory, type: :model do
       expect(sql_result.count).to eq 1
       expect(sql_result.first.rule_type).to eq 'autoML'
     end
-
-    xit 'should only return results related to the specified activity' do 
-    end
-
-
   end
 
   describe '#generate_rulewise_report' do 

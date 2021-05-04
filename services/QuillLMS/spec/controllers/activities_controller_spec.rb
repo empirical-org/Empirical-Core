@@ -7,31 +7,6 @@ describe ActivitiesController, type: :controller, redis: true do
     session[:user_id] = student.id
   end
 
-  describe 'GET #search' do
-    let(:activity) { create(:activity) }
-    let(:activity_session) { create(:activity_session,
-                                    activity: activity,
-                                    state: 'unstarted',
-                                    user: student) }
-    let!(:activity1) { create(:activity, flags: ['production']) }
-    let!(:activity2) { create(:activity, flags: ['production']) }
-    let(:parsed_body) { JSON.parse(response.body) }
-
-    # This feature is currently being overhauled, and this test will become
-    # obsolete anyway. Not going to waste dev time fixing it at this point.
-    skip 'returns activities' do
-      get :search, ( {"search"=>
-              {"search_query"=>"",
-               "filters"=>
-                {"0"=>{"field"=>"standard_level", "selected"=>""},
-                 "1"=>{"field"=>"activity_category", "selected"=>""},
-                 "2"=>{"field"=>"activity_classification", "selected"=>""}}},
-             "controller"=>"activities",
-             "action"=>"search"})
-      expect(parsed_body['activities'].length).to eq(2)
-    end
-  end
-
   describe '#count' do
     let!(:activity) { create(:activity, flags: [:production]) }
     let!(:activity1) { create(:activity, flags: [:production]) }
@@ -81,16 +56,6 @@ describe ActivitiesController, type: :controller, redis: true do
       end
     end
   end
-
-  # this throws missing template supporting_info error dont know whyg
-  # describe '#supporting_info' do
-  #   let!(:activity) { create(:activity) }
-  #
-  #   it 'should redirect to the supporting info' do
-  #     get :supporting_info, id: activity.id, format: :pdf
-  #     expect(response).to redirect_to activity.supporting_info
-  #   end
-  # end
 
   describe '#customize_lesson' do
     let!(:activity) { create(:activity) }
