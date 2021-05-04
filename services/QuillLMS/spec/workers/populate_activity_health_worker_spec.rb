@@ -13,7 +13,7 @@ describe PopulateActivityHealthWorker do
     let!(:activity_session_2) { create(:activity_session, activity: activity, started_at: DateTime.new(2021,1,2,4,0,0), completed_at: DateTime.new(2021,1,2,4,10,0)) }
     let!(:activity_session_3) { create(:activity_session, activity: activity, started_at: DateTime.new(2021,1,3,4,0,0), completed_at: DateTime.new(2021,1,3,4,20,0)) }
     let!(:diagnostic) { create(:diagnostic_activity)}
-    let!(:unit_template) { create(:unit_template)}
+    let!(:unit_template) { create(:unit_template, flag: "production")}
     let!(:activities_unit_template) { create(:activities_unit_template, unit_template: unit_template, activity: activity)}
     let!(:sample_unit) { create(:unit, unit_template: unit_template)}
     let!(:unit_activity) { create(:unit_activity, unit: sample_unit, activity: activity)}
