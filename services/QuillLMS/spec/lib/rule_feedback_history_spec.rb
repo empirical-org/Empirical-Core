@@ -1,6 +1,11 @@
 require 'rails_helper'
 
 RSpec.describe RuleFeedbackHistory, type: :model do
+  before do 
+    # This is for CircleCI. Note that this refresh is NOT concurrent.
+    ActiveRecord::Base.refresh_materialized_view('feedback_histories_grouped_by_rule_uid', false)
+  end
+
   def rule_factory(&hash_block) 
     Comprehension::Rule.create!(
       {
@@ -104,9 +109,11 @@ RSpec.describe RuleFeedbackHistory, type: :model do
         f_rating_1b = FeedbackHistoryRating.create!(feedback_history_id: f_h1.id, user_id: user2.id, rating: false)
         f_rating_2a = FeedbackHistoryRating.create!(feedback_history_id: f_h2.id, user_id: user1.id, rating: true)
   
+        ActiveRecord::Base.refresh_materialized_view('feedback_histories_grouped_by_rule_uid')
+        
         sql_result = RuleFeedbackHistory.exec_query(conjunction: 'so', activity_id: activity1.id)
         post_result = RuleFeedbackHistory.postprocessing(sql_result)
-        
+
         first_row = post_result.first 
         expect(first_row.scored_responses_count).to eq 3
         expect(first_row.total_responses).to eq 2
