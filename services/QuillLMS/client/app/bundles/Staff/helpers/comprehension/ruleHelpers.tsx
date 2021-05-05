@@ -7,6 +7,7 @@ import { AUTO_ML, PLAGIARISM } from '../../../../constants/comprehension';
 import { InputEvent, DropdownObjectInterface } from '../../interfaces/comprehensionInterfaces';
 import { ruleTypeOptions, universalRuleTypeOptions, ruleHighlightOptions, numericalWordOptions, regexRuleSequenceOptions, regexRuleTypes } from '../../../../constants/comprehension';
 import { TextEditor, DropdownInput } from '../../../Shared/index';
+import activity from "../../components/comprehension/activity";
 
 export function handleSetRuleType(ruleType: DropdownObjectInterface, setRuleType) { setRuleType(ruleType) };
 
@@ -384,13 +385,15 @@ export async function handleSubmitRule({
 }
 
 export function getRulesUrl(activityId: string, promptId: string, ruleType: string) {
-  let url = `activities/${activityId}/rules`;
-  if(promptId && !ruleType) {
-    url = `rules?prompt_id=${promptId}`
+  const url = `activities/${activityId}/rules`;
+  if(activityId) {
+    return url;
+  } else if(promptId && !ruleType) {
+    return `rules?prompt_id=${promptId}`
   } else if(!promptId && ruleType) {
-    url = `rules?rule_type=${ruleType}`
+    return `rules?rule_type=${ruleType}`
   } else if(promptId && ruleType) {
-    url = `rules?prompt_id=${promptId}&rule_type=${ruleType}`
+    return `rules?prompt_id=${promptId}&rule_type=${ruleType}`
   }
   return url;
 }
@@ -416,6 +419,18 @@ export function getReturnLinkLabel(ruleType) {
     return label + 'Regex Rules Index';
   }
   return label + 'Rules Index';
+}
+
+export function getPromptIdString(prompts) {
+  let promptIdString = '';
+  prompts.forEach((prompt, i) => {
+    if(i !== prompts.length - 1) {
+      promptIdString += `${prompt.id},`
+    } else {
+      promptIdString += `${prompt.id}`
+    }
+  });
+  return promptIdString;
 }
 
 export function renderErrorsContainer(formErrorsPresent: boolean, requestErrors: string[]) {

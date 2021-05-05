@@ -62,6 +62,7 @@ module Comprehension
           @rule2 = create(:comprehension_rule, prompts: [@prompt1], rule_type: Rule::TYPE_GRAMMAR)
           @rule3 = create(:comprehension_rule, prompts: [@prompt2], rule_type: Rule::TYPE_AUTOML)
           @rule4 = create(:comprehension_rule, prompts: [@prompt2], rule_type: Rule::TYPE_GRAMMAR)
+          @rule5 = create(:comprehension_rule, prompts: [@prompt1, @prompt2], rule_type: Rule:: TYPE_REGEX_ONE)
         end
 
         should 'only get Rules for specified prompt when provided' do
@@ -69,10 +70,18 @@ module Comprehension
 
           parsed_response = JSON.parse(response.body)
 
-          assert_equal parsed_response.length, 2
+          assert_equal parsed_response.length, 3
           parsed_response.each do |r|
             assert r['prompt_ids'].include?(@prompt1.id)
           end
+        end
+
+        should 'only get unique Rules for specified prompts when provided' do
+          get :index, prompt_id: "#{@prompt1.id}, #{@prompt2.id}"
+
+          parsed_response = JSON.parse(response.body)
+
+          assert_equal parsed_response.length, 5
         end
 
         should 'only get Rules for specified rule type when provided' do

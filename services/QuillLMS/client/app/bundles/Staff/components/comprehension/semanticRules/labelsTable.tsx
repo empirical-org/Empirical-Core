@@ -11,7 +11,7 @@ const LabelsTable = ({ activityId, prompt }) => {
 
   const { data: rulesData } = useQuery({
     // cache rules data for updates
-    queryKey: [`rules-${activityId}`, activityId, prompt.id, 'autoML'],
+    queryKey: [`rules-${activityId}`, null, prompt.id, 'autoML'],
     queryFn: fetchRules
   });
 
