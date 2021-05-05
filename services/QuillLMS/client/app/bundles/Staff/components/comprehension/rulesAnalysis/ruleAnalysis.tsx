@@ -4,7 +4,6 @@ import { Link } from 'react-router-dom';
 import stripHtml from "string-strip-html";
 import moment from 'moment';
 import ReactTable from 'react-table';
-import qs from 'qs'
 
 import { fetchRule } from '../../../utils/comprehension/ruleAPIs';
 import { fetchActivity } from '../../../utils/comprehension/activityAPIs';
@@ -19,7 +18,7 @@ const UNSCORED = 'Unscored'
 
 const RuleAnalysis = ({ history, match }) => {
   const { params } = match;
-  const { activityId, ruleId } = params;
+  const { activityId, ruleId, promptConjunction } = params;
 
   const [filter, setFilter] = React.useState(ALL)
 
@@ -187,7 +186,7 @@ const RuleAnalysis = ({ history, match }) => {
     );
   }
 
-  const promptId = qs.parse(history.location.search.replace('?', '')).prompt_id
+  const promptId = activityData.activity.prompts.find(prompt => prompt.conjunction === promptConjunction).id
 
   return(
     <div className="rule-analysis-container">
