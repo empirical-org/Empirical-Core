@@ -1,7 +1,7 @@
 class Api::V1::TitleCardsController < Api::ApiController
   wrap_parameters format: [:json]
   before_action :retrieve_title_card_type, only: [:index, :create]
-  before_filter :title_card_by_uid, only: [:show, :update, :destroy]
+  before_action :title_card_by_uid, only: [:show, :update, :destroy]
 
   def index
     render(json: TitleCard.where(title_card_type: @title_card_type.to_s).as_json || {title_cards:[]})

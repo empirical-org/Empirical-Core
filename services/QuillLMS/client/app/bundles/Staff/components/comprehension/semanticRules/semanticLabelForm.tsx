@@ -12,7 +12,7 @@ import { Spinner, Modal } from '../../../../Shared/index';
 import { deleteRule, fetchRules, fetchUniversalRules } from '../../../utils/comprehension/ruleAPIs';
 import { fetchConcepts, } from '../../../utils/comprehension/conceptAPIs';
 import { handleSubmitRule, getInitialRuleType, formatInitialFeedbacks, returnInitialFeedback, renderErrorsContainer } from '../../../helpers/comprehension/ruleHelpers';
-import { ruleOptimalOptions, regexRuleTypes, blankRule } from '../../../../../constants/comprehension';
+import { ruleOptimalOptions, regexRuleTypes, PLAGIARISM } from '../../../../../constants/comprehension';
 import { RuleInterface, DropdownObjectInterface } from '../../../interfaces/comprehensionInterfaces';
 
 interface SemanticLabelFormProps {
@@ -189,6 +189,7 @@ const SemanticLabelForm = ({ activityId, isSemantic, isUniversal, requestErrors,
           ruleNote={ruleNote}
           ruleOptimal={ruleOptimal}
           ruleType={ruleType}
+          ruleTypeDisabled={true}
           ruleUID={uid}
           setRuleConceptUID={setRuleConceptUID}
           setRuleName={setRuleName}
@@ -203,7 +204,7 @@ const SemanticLabelForm = ({ activityId, isSemantic, isUniversal, requestErrors,
           ruleLabelStatus={ruleLabelStatus}
           setRuleLabelName={setRuleLabelName}
         />}
-        {ruleType && ruleType.value === 'plagiarism' && <RulePlagiarismAttributes
+        {ruleType && ruleType.value === PLAGIARISM && <RulePlagiarismAttributes
           errors={errors}
           plagiarismFeedbacks={ruleFeedbacks}
           plagiarismText={plagiarismText}

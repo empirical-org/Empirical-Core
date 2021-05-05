@@ -204,14 +204,9 @@ describe Api::V1::ActivitiesController, type: :controller do
     let!(:activity_session_1) { create(:activity_session, activity: activity) }
     let!(:activity_session_2) { create(:activity_session, activity: activity) }
     let!(:activity_session_3) { create(:activity_session, activity: activity) }
-    let!(:concept_result_1) { create(:concept_result, activity_session: activity_session_1, metadata: {correct: 1, questionNumber: 1, attemptNumber: 1}.to_json)}
-    let!(:concept_result_2) { create(:concept_result, activity_session: activity_session_2, metadata: {correct: 0, questionNumber: 1, attemptNumber: 1}.to_json)}
-    let!(:concept_result_3) { create(:concept_result, activity_session: activity_session_3, metadata: {correct: 0, questionNumber: 1, attemptNumber: 1}.to_json)}
-    let!(:concept_result_4) { create(:concept_result, activity_session: activity_session_2, metadata: {correct: 1, questionNumber: 1, attemptNumber: 2}.to_json)}
-    let!(:concept_result_5) { create(:concept_result, activity_session: activity_session_3, metadata: {correct: 0, questionNumber: 1, attemptNumber: 2}.to_json)}
-    let!(:concept_result_6) { create(:concept_result, activity_session: activity_session_3, metadata: {correct: 0, questionNumber: 1, attemptNumber: 3}.to_json)}
-    let!(:concept_result_7) { create(:concept_result, activity_session: activity_session_3, metadata: {correct: 0, questionNumber: 1, attemptNumber: 4}.to_json)}
-    let!(:concept_result_8) { create(:concept_result, activity_session: activity_session_3, metadata: {correct: 0, questionNumber: 1, attemptNumber: 5}.to_json)}
+    let!(:concept_result_1) { create(:concept_result, activity_session: activity_session_1, metadata: {questionNumber: 1, questionScore: 1}.to_json)}
+    let!(:concept_result_2) { create(:concept_result, activity_session: activity_session_2, metadata: {questionNumber: 1, questionScore: 0.75}.to_json)}
+    let!(:concept_result_3) { create(:concept_result, activity_session: activity_session_3, metadata: {questionNumber: 1, questionScore: 0}.to_json)}
 
     before do
       ENV['DEFAULT_URL'] = 'https://quill.org'
@@ -228,8 +223,8 @@ describe Api::V1::ActivitiesController, type: :controller do
       expect(response_obj[0]["url"]).to eq("https://quill.org/connect/#/admin/questions/#{question.uid}/responses")
       expect(response_obj[0]["text"]).to eq(question.data['prompt'])
       expect(response_obj[0]["flag"]).to eq(question.data['flag'])
-      expect(response_obj[0]["number_of_incorrect_sequences"]).to eq(question.data["incorrectSequences"].length)
-      expect(response_obj[0]["number_of_focus_points"]).to eq(question.data["focusPoints"].length)
+      expect(response_obj[0]["incorrect_sequences"]).to eq(question.data["incorrectSequences"].length)
+      expect(response_obj[0]["focus_points"]).to eq(question.data["focusPoints"].length)
       expect(response_obj[0]["percent_common_unmatched"]).to eq(50)
       expect(response_obj[0]["percent_specified_algorithms"]).to eq(75)
       expect(response_obj[0]["difficulty"]).to eq(2.67)
@@ -242,6 +237,26 @@ describe Api::V1::ActivitiesController, type: :controller do
       expect(response.status).to eq(200)
       response_obj = JSON.parse(response.body)["question_health"]
       expect(response_obj[1]).to eq({})
+    end
+  end
+
+  describe '#activities_health' do
+    let!(:prompt_health) { create(:prompt_health)}
+    let!(:activity_health) {create(:activity_health, prompt_healths: [prompt_health])}
+
+    it 'should return a list of all activity healths with associated prompt health' do
+      get :activities_health
+      expect(response.status).to eq(200)
+      response_obj = JSON.parse(response.body)["activities_health"]
+      expect(response_obj[0]).to eq(ActivityHealth.first.as_json)
+    end
+
+    it 'should return an empty list if no activity healths exist' do
+      ActivityHealth.destroy_all
+      get :activities_health
+      expect(response.status).to eq(200)
+      response_obj = JSON.parse(response.body)["activities_health"]
+      expect(response_obj).to eq([])
     end
   end
 

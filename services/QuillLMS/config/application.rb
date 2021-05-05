@@ -69,7 +69,7 @@ module EmpiricalGrammar
     config.middleware.use Rack::Attack
     config.middleware.use Rack::Affiliates, { param: 'referral_code' }
 
-    config.middleware.insert_before 0, "Rack::Cors" do
+    config.middleware.insert_before 0, Rack::Cors do
       allow do
         origins 'quill.org', %r{https://(.)*.quill.org}, /localhost:.*/, /127.0.0.1:.*/
         resource '/api/*', headers: :any, methods: [:get, :post, :patch, :put, :delete, :options], credentials: true

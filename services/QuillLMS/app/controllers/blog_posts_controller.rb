@@ -1,8 +1,7 @@
 class BlogPostsController < ApplicationController
   before_action :set_announcement, only: [:index, :show, :show_topic]
   before_action :set_role
-
-  skip_before_action :stick_to_leader_db, only: [:index, :show]
+  before_action :set_root_url
 
   def index
     topic_names = BlogPost::TEACHER_TOPICS
@@ -83,5 +82,9 @@ class BlogPostsController < ApplicationController
 
   private def set_role
     @role = current_user ? current_user.role : nil
+  end
+
+  private def set_root_url
+    @root_url = root_url
   end
 end

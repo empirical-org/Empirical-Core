@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 describe Cms::SchoolsController do
-  it { should use_before_filter :signed_in! }
+  it { should use_before_action :signed_in! }
   it { should use_before_action :text_search_inputs }
   it { should use_before_action :set_school }
   it { should use_before_action :subscription_data }
@@ -48,49 +48,6 @@ describe Cms::SchoolsController do
 
   describe '#show' do
     let!(:school) { create(:school) }
-
-    context 'render views' do
-      render_views
-      xit 'handle teachers who are admins but have no user_id' do
-
-        allow_any_instance_of(Cms::TeacherSearchQuery).to receive(:run) do
-          [
-            {"teacher_name"=>"Cathy",
-              "number_students"=>"119",
-              "number_activities_completed"=>"3927",
-              "last_active"=>"Jan 08, 2021",
-              "user_id"=>nil, "admin_id"=>1}
-          ]
-        end
-
-        get :show, id: school.id
-        expect(assigns(:subscription)).to eq school.subscription
-        expect(assigns(:school_subscription_info)).to eq({
-         'School Premium Type' => school&.subscription&.account_type,
-         'Expiration' => school&.subscription&.expiration&.strftime('%b %d, %Y')
-        })
-        expect(assigns(:school)).to eq({
-         'Name' => school.name,
-         'City' => school.city || school.mail_city,
-         'State' => school.state || school.mail_state,
-         'ZIP' => school.zipcode || school.mail_zipcode,
-         'District' => school.leanm,
-         'Free and Reduced Price Lunch' => "#{school.free_lunches}%",
-         'NCES ID' => school.nces_id,
-         'PPIN' => school.ppin
-        })
-
-        expect(assigns(:admins)).to eq(SchoolsAdmins.includes(:user).where(school_id: school.id).map do |admin|
-          {
-              name: admin.user.name,
-              email: admin.user.email,
-              school_id: admin.school_id,
-              user_id: admin.user_id
-          }
-          end
-        )
-      end
-    end
 
     it 'should assign the correct values' do
       allow_any_instance_of(Cms::TeacherSearchQuery).to receive(:run) { "teacher data" }

@@ -1,5 +1,5 @@
 class Api::V1::IncorrectSequencesController < Api::ApiController
-  before_filter :get_question_by_uid
+  before_action :get_question_by_uid
 
   def index
     render_all_incorrect_sequences

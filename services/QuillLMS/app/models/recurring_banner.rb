@@ -6,13 +6,13 @@ class RecurringBanner < WebinarBanner
   # RECURRING have the key format DayOfWeek-Hour
 
   WEBINARS = {
-    '1-16' => {
-      title: "Quill 101 is live now!",
-      link_display_text: "Register and join.",
-      link: "#{ZOOM_URL}/WN_a4Z1_Zs6RSGUWwr_t0V18Q",
-      subscription_only: false,
-      second_or_fourth_only: false
-    },
+    #'1-16' => {
+    #  title: "Quill 101 is live now!",
+    #  link_display_text: "Register and join.",
+    #  link: "#{ZOOM_URL}/WN_a4Z1_Zs6RSGUWwr_t0V18Q",
+    #  subscription_only: false,
+    #  second_or_fourth_only: false
+    #},
     '3-10' => {
       title: OFFICE_HOURS_TITLE,
       link_display_text: "Click here to join",

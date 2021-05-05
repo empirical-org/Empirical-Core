@@ -39,6 +39,7 @@ exports[`RuleForm component should render RuleForm 1`] = `
           "value": "rules-based-1",
         }
       }
+      ruleTypeDisabled={false}
       setRuleConceptUID={[Function]}
       setRuleName={[Function]}
       setRuleNote={[Function]}

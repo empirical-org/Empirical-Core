@@ -15,7 +15,7 @@ gem 'ancestry'
 gem 'ransack'
 gem 'ranked-model'
 gem 'postgres_ext'
-gem "rails_admin", "~> 1.4.2"
+gem 'rails_admin', '~> 1.4.3'
 gem 'bulk_insert'
 gem 'atomic_arrays'
 
@@ -205,6 +205,8 @@ group :test do
   gem 'simplecov-json', require: false
   gem 'codecov'
   gem 'fakeredis', '~> 0.7.0'
+  gem 'rails-controller-testing'
+  gem 'super_diff', require: false
 
   # Remove this gem after upgrading to Rails 5
   gem 'test_after_commit'

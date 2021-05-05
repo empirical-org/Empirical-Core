@@ -1,5 +1,5 @@
 class Cms::UsersController < Cms::CmsController
-  before_filter :signed_in!
+  before_action :signed_in!
   before_action :set_flags
   before_action :set_user, only: [:show, :edit, :show_json, :update, :destroy, :edit_subscription, :new_subscription, :complete_sales_stage]
   before_action :set_search_inputs, only: [:index, :search]
@@ -277,6 +277,8 @@ class Cms::UsersController < Cms::CmsController
   end
 
   protected def filter_zeroes_from_checkboxes
+    return unless params.dig(:user, :flags)
+
     # checkboxes pass back '0' when unchecked -- we only want the attributes that are checked
     params[:user][:flags] = user_params[:flags] - ["0"]
   end

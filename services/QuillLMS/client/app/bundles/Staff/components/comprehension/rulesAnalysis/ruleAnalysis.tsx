@@ -211,6 +211,8 @@ const RuleAnalysis = ({ history, match }) => {
     );
   }
 
+  const promptId = activityData.activity.prompts.find(prompt => prompt.conjunction === promptConjunction).id
+
   return(
     <div className="rule-analysis-container">
       <div className="header-container">

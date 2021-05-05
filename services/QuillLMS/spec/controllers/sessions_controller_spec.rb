@@ -1,8 +1,8 @@
 require 'rails_helper'
 
 describe SessionsController, type: :controller do
-  it { should use_before_filter :signed_in! }
-  it { should use_before_filter :set_cache_buster }
+  it { should use_before_action :signed_in! }
+  it { should use_before_action :set_cache_buster }
 
   describe '#create' do
     let!(:user) { create(:user) }
