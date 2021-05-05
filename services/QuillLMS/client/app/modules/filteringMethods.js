@@ -30,3 +30,31 @@ export function selectColumnFilter({
     </select>
   )
 }
+
+export function filterNumbers(filter, row) {
+  let value = filter.value
+  if (value.includes("-")) {
+    let splitStr = filter.value.split("-")
+    if (!isNaN(parseFloat(splitStr[0])) && !isNaN(parseFloat(splitStr[1]))) {
+      return row[filter.id] >= splitStr[0] && row[filter.id] <= splitStr[1];
+    } else {
+      return true;
+    }
+  } else if (value.includes(">")) {
+    let splitStr = filter.value.split(">")
+    if (!isNaN(parseFloat(splitStr[1]))) {
+      return row[filter.id] > splitStr[1]
+    } else {
+      return true;
+    }
+  } else if (value.includes("<")) {
+    let splitStr = filter.value.split("<")
+    if (!isNaN(parseFloat(splitStr[1]))) {
+      return row[filter.id] < splitStr[1]
+    } else {
+      return true;
+    }
+  } else {
+    return true;
+  }
+}

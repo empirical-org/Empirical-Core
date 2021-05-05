@@ -105,6 +105,7 @@ class PromptHealth extends React.Component<ComponentProps, any> {
   }
 
   render() {
+    console.log("re rendering")
     return (
       <div className="standard-columns">
         {this.renderTable()}

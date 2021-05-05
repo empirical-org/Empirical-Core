@@ -11,7 +11,7 @@ import LoadingSpinner from '../shared/loading_indicator.jsx'
 import { sort, sortByList } from '../../../../modules/sortingMethods.js'
 import { FlagDropdown } from '../../../Shared/index'
 import PromptHealth from './promptHealth'
-import { selectColumnFilter } from '../../../../modules/filteringMethods.js'
+import { filterNumbers } from '../../../../modules/filteringMethods.js'
 import { getDataFromTree } from 'react-apollo';
 import activity from '../../../Staff/components/comprehension/activity.js';
 
@@ -28,6 +28,13 @@ class ActivityHealth extends React.Component<ComponentProps, any> {
     searchInput: "",
     dataToDownload: []
   };
+
+  shouldComponentUpdate(nextProps, nextState){
+    console.log(nextState)
+    console.log(this.state)
+    console.log(this.state == nextState)
+    return !(this.state == nextState)// equals() is your implementation
+  }
 
   componentDidMount() {
     this.fetchQuestionData();
@@ -101,33 +108,7 @@ class ActivityHealth extends React.Component<ComponentProps, any> {
       {
         Header: "Recent Plays",
         accessor: 'recent_plays',
-        filterMethod: (filter, row) => {
-          let value = filter.value
-          if (value.includes("-")) {
-            let splitStr = filter.value.split("-")
-            if (!isNaN(parseFloat(splitStr[0])) && !isNaN(parseFloat(splitStr[1]))) {
-              return row[filter.id] >= splitStr[0] && row[filter.id] <= splitStr[1];
-            } else {
-              return true;
-            }
-          } else if (value.includes(">")) {
-            let splitStr = filter.value.split(">")
-            if (!isNaN(parseFloat(splitStr[1]))) {
-              return row[filter.id] > splitStr[1]
-            } else {
-              return true;
-            }
-          } else if (value.includes("<")) {
-            let splitStr = filter.value.split("<")
-            if (!isNaN(parseFloat(splitStr[1]))) {
-              return row[filter.id] < splitStr[1]
-            } else {
-              return true;
-            }
-          } else {
-            return true;
-          }
-        },
+        filterMethod: filterNumbers,
         Filter: ({ filter, onChange }) =>
         <div
           style={{
@@ -194,14 +175,7 @@ class ActivityHealth extends React.Component<ComponentProps, any> {
       {
         Header: 'Average Time Spent',
         accessor: 'avg_mins_to_complete',
-        filterMethod: (filter, row) => {
-          let splitStr = filter.value.split("-")
-          if (!isNaN(parseFloat(splitStr[0])) && !isNaN(parseFloat(splitStr[1]))) {
-            return row[filter.id] >= splitStr[0] && row[filter.id] <= splitStr[1];
-          } else {
-            return true;
-          }
-        },
+        filterMethod: filterNumbers,
         Filter: ({ filter, onChange }) =>
         <div
           style={{
@@ -214,7 +188,7 @@ class ActivityHealth extends React.Component<ComponentProps, any> {
             onChange={e =>
               onChange(e.target.value)
             }
-            placeholder={`e.g. 0-30`}
+            placeholder={`e.g. 1-5, >5, <5`}
             style={{
               width: '100px',
               marginRight: '0.5rem',
@@ -230,14 +204,7 @@ class ActivityHealth extends React.Component<ComponentProps, any> {
       {
         Header: 'Average Difficulty',
         accessor: 'avg_difficulty',
-        filterMethod: (filter, row) => {
-          let splitStr = filter.value.split("-")
-          if (!isNaN(parseFloat(splitStr[0])) && !isNaN(parseFloat(splitStr[1]))) {
-            return row[filter.id] >= splitStr[0] && row[filter.id] <= splitStr[1];
-          } else {
-            return true;
-          }
-        },
+        filterMethod: filterNumbers,
         Filter: ({ filter, onChange }) =>
         <div
           style={{
@@ -250,7 +217,7 @@ class ActivityHealth extends React.Component<ComponentProps, any> {
             onChange={e =>
               onChange(e.target.value)
             }
-            placeholder={`e.g. 0-5`}
+            placeholder={`e.g. 0-5, >5, <5`}
             style={{
               width: '100px',
               marginRight: '0.5rem',
@@ -266,14 +233,7 @@ class ActivityHealth extends React.Component<ComponentProps, any> {
       {
         Header: 'Standard Deviation Difficulty',
         accessor: 'standard_dev_difficulty',
-        filterMethod: (filter, row) => {
-          let splitStr = filter.value.split("-")
-          if (!isNaN(parseFloat(splitStr[0])) && !isNaN(parseFloat(splitStr[1]))) {
-            return row[filter.id] >= splitStr[0] && row[filter.id] <= splitStr[1];
-          } else {
-            return true;
-          }
-        },
+        filterMethod: filterNumbers,
         Filter: ({ filter, onChange }) =>
         <div
           style={{
@@ -286,7 +246,7 @@ class ActivityHealth extends React.Component<ComponentProps, any> {
             onChange={e =>
               onChange(e.target.value)
             }
-            placeholder={`e.g. 0-5`}
+            placeholder={`e.g. 0-5, >5, <5`}
             style={{
               width: '100px',
               marginRight: '0.5rem',
@@ -302,14 +262,7 @@ class ActivityHealth extends React.Component<ComponentProps, any> {
       {
         Header: 'Average Common Unmatched',
         accessor: 'avg_common_unmatched',
-        filterMethod: (filter, row) => {
-          let splitStr = filter.value.split("-")
-          if (!isNaN(parseFloat(splitStr[0])) && !isNaN(parseFloat(splitStr[1]))) {
-            return row[filter.id] >= splitStr[0] && row[filter.id] <= splitStr[1];
-          } else {
-            return true;
-          }
-        },
+        filterMethod: filterNumbers,
         Filter: ({ filter, onChange }) =>
         <div
           style={{
@@ -322,7 +275,7 @@ class ActivityHealth extends React.Component<ComponentProps, any> {
             onChange={e =>
               onChange(e.target.value)
             }
-            placeholder={`e.g. 0-100`}
+            placeholder={`e.g. 0-100, <10, >10`}
             style={{
               width: '100px',
               marginRight: '0.5rem',
@@ -351,7 +304,6 @@ class ActivityHealth extends React.Component<ComponentProps, any> {
         }
       } else {
         const data = JSON.parse(body);
-        console.log(data)
         newState = {
           loadingTableData: false,
           fetchedData: data.activities_health
@@ -385,6 +337,7 @@ class ActivityHealth extends React.Component<ComponentProps, any> {
   }
 
   tableOrEmptyMessage() {
+    console.log(" re rendering table")
     const { fetchedData } = this.state
 
     let tableOrEmptyMessage
