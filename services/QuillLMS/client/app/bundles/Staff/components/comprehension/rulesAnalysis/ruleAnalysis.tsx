@@ -17,11 +17,16 @@ const UNSCORED = 'Unscored'
 
 const RuleAnalysis = ({ history, match }) => {
   const { params } = match;
-  const { activityId, ruleId, promptConjunction } = params;
+  const { activityId, ruleId, promptConjunction, promptId } = params;
 
   const [responses, setResponses] = React.useState(null)
   const [filter, setFilter] = React.useState(ALL)
   const [search, setSearch] = React.useState('')
+
+  const { data: activityData } = useQuery({
+    queryKey: [`activity-${activityId}`, activityId],
+    queryFn: fetchActivity
+  });
 
   const { data: conceptsData } = useQuery({
     queryKey: ['concepts', ruleId],
@@ -33,13 +38,8 @@ const RuleAnalysis = ({ history, match }) => {
     queryFn: fetchRule
   });
 
-  const { data: activityData } = useQuery({
-    queryKey: [`activity-${activityId}`, activityId],
-    queryFn: fetchActivity
-  });
-
   const { data: ruleFeedbackHistoryData } = useQuery({
-    queryKey: [`rule-feedback-histories-by-rule-${ruleId}`, ruleId],
+    queryKey: [`rule-feedback-histories-by-rule-${ruleId}-${promptId}`, ruleId, promptId],
     queryFn: fetchRuleFeedbackHistoriesByRule
   })
 
@@ -210,8 +210,6 @@ const RuleAnalysis = ({ history, match }) => {
       </div>
     );
   }
-
-  const promptId = activityData.activity.prompts.find(prompt => prompt.conjunction === promptConjunction).id
 
   return(
     <div className="rule-analysis-container">
