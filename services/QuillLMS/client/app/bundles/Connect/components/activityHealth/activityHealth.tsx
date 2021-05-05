@@ -6,12 +6,14 @@ import request from 'request'
 import _ from 'underscore'
 import stripHtml from "string-strip-html"
 import { CSVLink } from 'react-csv'
+import { connect } from 'react-redux';
 
 import LoadingSpinner from '../shared/loading_indicator.jsx'
 import { sort, sortByList } from '../../../../modules/sortingMethods.js'
 import { FlagDropdown } from '../../../Shared/index'
 import PromptHealth from './promptHealth'
 import { filterNumbers } from '../../../../modules/filteringMethods.js'
+import actions from '../../actions/activityHealth'
 import { getDataFromTree } from 'react-apollo';
 import activity from '../../../Staff/components/comprehension/activity.js';
 
@@ -22,9 +24,9 @@ class ActivityHealth extends React.Component<ComponentProps, any> {
 
   state = {
     loadingTableData: true,
+    flag: 'All Flags',
     activityId: '',
     fetchedData: [],
-    activityHealthFlags: "All Flags",
     searchInput: "",
     dataToDownload: []
   };
@@ -379,8 +381,11 @@ class ActivityHealth extends React.Component<ComponentProps, any> {
   }
 
   getFilteredData() {
-    const { fetchedData, activityHealthFlags, searchInput } = this.state
-    let filteredByFlags = activityHealthFlags === 'All Flags' ? fetchedData : fetchedData.filter(data => data.flag === activityHealthFlags)
+    const { activityHealth } = this.props
+    const flag = activityHealth.flag
+    console.log(flag)
+    const { fetchedData, searchInput } = this.state
+    let filteredByFlags = flag === 'All Flags' ? fetchedData : fetchedData.filter(data => data.flag === flag)
     let filteredByFlagsAndPrompt = filteredByFlags.filter(value => {
       return (
         value.prompt_healths.map(x => x.text || '').some(y => stripHtml(y).toLowerCase().includes(searchInput.toLowerCase()))
@@ -390,7 +395,9 @@ class ActivityHealth extends React.Component<ComponentProps, any> {
   }
 
   handleSelect = (e) => {
-    this.setState({ activityHealthFlags: e.target.value, }, () => (console.log("setting flags")))
+    const { dispatch } = this.props
+    dispatch(actions.setFlag(e.target.value))
+    this.setState({flag: e.target.value})
   }
 
   handleSearch = (e) => {
@@ -398,12 +405,13 @@ class ActivityHealth extends React.Component<ComponentProps, any> {
   }
 
   render() {
+    const { activityHealth } = this.props
     const { searchInput } = this.state
     return (
       <section className="section">
         <div style={{display: 'inline-block', width: '100%'}}>
         <div style={{display: 'inline-block', marginLeft: '10px', float: 'left'}}>
-          <FlagDropdown flag={this.state.activityHealthFlags} handleFlagChange={this.handleSelect} isLessons={true} />
+          <FlagDropdown flag={activityHealth.flag} handleFlagChange={this.handleSelect} isLessons={true} />
           <input
           name="searchInput"
           value={searchInput || ""}
@@ -459,4 +467,10 @@ class ActivityHealth extends React.Component<ComponentProps, any> {
   }
 }
 
-export default ActivityHealth
+function select(state) {
+  return {
+    activityHealth: state.activityHealth
+  };
+}
+
+export default connect(select)(ActivityHealth)
