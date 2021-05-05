@@ -494,6 +494,7 @@
       }
     }
     .models-table {
+      margin-bottom: 8px;
       .active-row {
         background-color: #e7fee8;
         // font-weight: bold;
@@ -539,8 +540,8 @@
   }
   .models-container {
     .header-container {
-      #model-count {
-        margin-top: 12px;
+      h2 {
+        font-weight: 600;
       }
     }
   }

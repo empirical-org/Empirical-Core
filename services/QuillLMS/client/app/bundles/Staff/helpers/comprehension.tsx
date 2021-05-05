@@ -304,6 +304,10 @@ export const handleRequestErrors = async (errors: object) => {
   return errorsArray;
 }
 
+export function titleCase(string: string){
+  return string[0].toUpperCase() + string.slice(1).toLowerCase();
+}
+
 export const getCsrfToken = () => {
   const token = document.querySelector('meta[name="csrf-token"]')
   if (token) { return token.getAttribute('content') }
