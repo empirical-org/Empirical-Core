@@ -50,6 +50,22 @@ class ActivityHealth extends React.Component<ComponentProps, any> {
     return (this.tableOrEmptyMessage())
   }
 
+  thousands_separators = (num) =>
+  {
+    if (!num) return ""
+    var num_parts = num.toString().split(".");
+    num_parts[0] = num_parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    return num_parts.join(".");
+  }
+
+  badge = (tool) => {
+    if (tool === 'connect') {
+      return (<div className="btn btn-connect">c</div>)
+    } else {
+      return (<div className="btn btn-grammar">g</div>)
+    }
+  }
+
   columnDefinitions() {
     return [
       {
@@ -61,7 +77,8 @@ class ActivityHealth extends React.Component<ComponentProps, any> {
         resizeable: true,
         minWidth: 200,
         sortMethod: sort,
-        Cell: cell => (<a href={cell.original.url} target="_blank">{cell.original.name}</a>)
+        Cell: cell => (<a href={cell.original.url} target="_blank">{cell.original.name}</a>),
+        style: { 'whiteSpace': 'unset' }
       },
       {
         Header: 'Activity Categories',
@@ -105,10 +122,32 @@ class ActivityHealth extends React.Component<ComponentProps, any> {
         resizeable: false,
         sortMethod: sort,
         minWidth: 90,
-        Cell: props => props.value
+        Cell: props => this.badge(props.value)
       },
       {
-        Header: "Recent Plays",
+        Header: 'Diagnostics',
+        accessor: 'diagnostics',
+        filterMethod: (filter, rows) =>
+                    matchSorter(rows, filter.value, { keys: ["diagnostics"] }),
+        filterAll: true,
+        resizeable: false,
+        sortMethod: sortByList,
+        Cell: (row) => (
+          <div>
+            {
+            row.original['diagnostics'].map((diagnostic, index) => {
+              if (!diagnostic) return "";
+              else if (index != row.original['diagnostics'].length - 1) return <div>{diagnostic},</div>
+              else return <div>{diagnostic}</div>
+            }
+            )
+            }
+          </div>
+        ),
+        minWidth: 180
+      },
+      {
+        Header: "Plays in Last 3 Months",
         accessor: 'recent_plays',
         filterMethod: filterNumbers,
         Filter: ({ filter, onChange }) =>
@@ -133,26 +172,7 @@ class ActivityHealth extends React.Component<ComponentProps, any> {
         ,
         resizeable: false,
         sortMethod: sort,
-        Cell: props => props.value,
-        maxWidth: 90
-      },
-      {
-        Header: 'Diagnostics',
-        accessor: 'diagnostics',
-        filterMethod: (filter, rows) =>
-                    matchSorter(rows, filter.value, { keys: ["diagnostics"] }),
-        filterAll: true,
-        resizeable: false,
-        sortMethod: sortByList,
-        Cell: (row) => (
-          <div>
-            {
-            row.original['diagnostics'].map((diagnostic) => (
-              <div>{diagnostic}</div>
-            ))
-            }
-          </div>
-        ),
+        Cell: props => this.thousands_separators(props.value),
         maxWidth: 90
       },
       {
@@ -166,42 +186,16 @@ class ActivityHealth extends React.Component<ComponentProps, any> {
         Cell: (row) => (
           <div>
             {
-            row.original['activity_packs'].map((ap) => (
-              <div>{ap.name}</div>
-            ))
+            row.original['activity_packs'].map((ap, index) => {
+              if (!ap.name) return "";
+              else if (index != row.original['activity_packs'].length - 1) return <div>{ap.name},</div>
+              else return <div>{ap.name}</div>
+            }
+            )
             }
           </div>
         ),
-        maxWidth: 150
-      },
-      {
-        Header: 'Average Time Spent',
-        accessor: 'avg_mins_to_complete',
-        filterMethod: filterNumbers,
-        Filter: ({ filter, onChange }) =>
-        <div
-          style={{
-            display: 'flex',
-          }}
-        >
-          <input
-            value={filter ? filter.value : ''}
-            type="text"
-            onChange={e =>
-              onChange(e.target.value)
-            }
-            placeholder={`e.g. 1-5, >5, <5`}
-            style={{
-              width: '100px',
-              marginRight: '0.5rem',
-            }}
-          />
-        </div>
-        ,
-        resizeable: false,
-        sortMethod: sort,
-        Cell: props => props.value,
-        maxWidth: 150
+        minWidth: 180
       },
       {
         Header: 'Average Difficulty',
@@ -362,6 +356,9 @@ class ActivityHealth extends React.Component<ComponentProps, any> {
         showPagination={false}
         showPaginationBottom={false}
         showPaginationTop={false}
+        style={{
+          height: "600px"
+        }}
         SubComponent={row => {
           console.log(row.original.prompt_healths)
           return (
