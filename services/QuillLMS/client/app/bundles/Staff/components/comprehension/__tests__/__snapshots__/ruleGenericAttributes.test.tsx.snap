@@ -3,8 +3,8 @@
 exports[`RuleGenericAttributes component should render RuleGenericAttributes 1`] = `
 <Fragment>
   <DropdownInput
-    className="rule-type-input disabled"
-    disabled={true}
+    className="rule-type-input "
+    disabled={false}
     handleChange={[Function]}
     isSearchable={true}
     label="Rule Type"

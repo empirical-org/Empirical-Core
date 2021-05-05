@@ -4,6 +4,7 @@ import { withRouter } from 'react-router-dom';
 
 import SemanticLabelForm from './semanticLabelForm';
 
+import { RuleInterface } from '../../../interfaces/comprehensionInterfaces';
 import { blankRule } from '../../../../../constants/comprehension';
 import { fetchRule } from '../../../utils/comprehension/ruleAPIs';
 import { Spinner } from '../../../../Shared/index';
@@ -18,7 +19,8 @@ const SemanticLabelWrapper = ({ activityData, isSemantic, isUniversal, requestEr
     queryFn: fetchRule
   });
 
-  let rule;
+  let rule: RuleInterface;
+
   if(!ruleId) {
     const blankSemanticRule = {...blankRule};
     blankSemanticRule.rule_type = 'autoML';

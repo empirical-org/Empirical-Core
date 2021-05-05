@@ -69,7 +69,11 @@ module Student
       else
         new_unit_name = "#{name}'s Activities from #{old_classroom.name}"
         unit = Unit.create_with_incremented_name(user_id: new_classroom.owner.id, name: new_unit_name)
-        new_cu = ClassroomUnit.find_or_create_by(unit_id: unit.id, classroom_id: new_classroom_id, assigned_student_ids: [user_id])
+        new_cu = ClassroomUnit.find_or_create_by(
+          unit_id: unit.id,
+          classroom_id: new_classroom_id,
+          assigned_student_ids: [user_id]
+        )
 
         classroom_units.each do |cu|
           activity_sessions = ActivitySession.where(classroom_unit_id: cu.id, user_id: user_id)
