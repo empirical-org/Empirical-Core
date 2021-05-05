@@ -9,7 +9,7 @@ import { fetchActivity } from '../../../utils/comprehension/activityAPIs';
 import { fetchRuleFeedbackHistoriesByRule } from '../../../utils/comprehension/ruleFeedbackHistoryAPIs';
 import { fetchConcepts, } from '../../../utils/comprehension/conceptAPIs';
 import { createOrUpdateFeedbackHistoryRating } from '../../../utils/comprehension/feedbackHistoryRatingAPIs';
-import { DataTable, Error, Spinner } from '../../../../Shared/index';
+import { DataTable, Error, Spinner, Input, Tooltip, } from '../../../../Shared/index';
 
 const ALL = 'All'
 const SCORED = 'Scored'
@@ -19,8 +19,9 @@ const RuleAnalysis = ({ history, match }) => {
   const { params } = match;
   const { activityId, ruleId, promptConjunction } = params;
 
-  const [responses, setResponses] = React.useState([])
+  const [responses, setResponses] = React.useState(null)
   const [filter, setFilter] = React.useState(ALL)
+  const [search, setSearch] = React.useState('')
 
   const { data: conceptsData } = useQuery({
     queryKey: ['concepts', ruleId],
@@ -51,7 +52,9 @@ const RuleAnalysis = ({ history, match }) => {
 
   function handleFilterChange(e) { setFilter(e.target.value) }
 
-  function filterResponses(r) {
+  function onSearchChange(e) { setSearch(e.target.value) }
+
+  function filterResponsesByScored(r) {
     if (filter === ALL) { return true }
     if (filter === SCORED && r.strength !== null) { return true }
     if (filter === UNSCORED && r.strength === null) { return true }
@@ -59,14 +62,20 @@ const RuleAnalysis = ({ history, match }) => {
     return false
   }
 
-   async function toggleStrength(response) { updateFeedbackHistoryRatingStrength(response.response_id, response.rating === true ? null : true) }
+  function filterResponsesBySearch(r) {
+    if (search.length) { return new RegExp(search, 'i').test(r.entry) }
 
-   async function toggleWeakness(response) { updateFeedbackHistoryRatingStrength(response.response_id, response.rating === false ? null : false) }
+    return true
+  }
+
+   async function toggleStrength(response) { updateFeedbackHistoryRatingStrength(response.response_id, response.strength === true ? null : true) }
+
+   async function toggleWeakness(response) { updateFeedbackHistoryRatingStrength(response.response_id, response.strength === false ? null : false) }
 
    async function updateFeedbackHistoryRatingStrength(responseId, rating) {
-     const indexOfResponseToChange = responses.findIndex(r => r.id === responseId)
+     const indexOfResponseToChange = responses.findIndex(r => r.response_id === responseId)
      const responseToChange = responses[indexOfResponseToChange]
-     responseToChange.rating = rating
+     responseToChange.strength = rating
      const newResponses = [...responses]
      newResponses[indexOfResponseToChange] = responseToChange
      setResponses(newResponses)
@@ -142,13 +151,19 @@ const RuleAnalysis = ({ history, match }) => {
 
   const responseRows = () => {
     if (!activityData || !responses) { return [] }
-    return responses.filter(filterResponses).map(r => {
+    return responses.filter(filterResponsesByScored).filter(filterResponsesBySearch).map(r => {
       const formattedResponse = {...r}
       const highlightedEntry = r.entry.replace(r.highlight, `<strong>${r.highlight}</strong>`)
       const strongButton = <button className={r.strength === true ? 'strength-button strong' : 'strength-button'} onClick={() => toggleStrength(r)} type="button">Strong</button>
       const weakButton = <button className={r.strength === false ? 'strength-button weak' : 'strength-button'} onClick={() => toggleWeakness(r)} type="button">Weak</button>
 
-      formattedResponse.response = <span dangerouslySetInnerHTML={{ __html: highlightedEntry }} key={r.entry} />
+      const tooltip = (<Tooltip
+        key={r.entry}
+        tooltipText={`<div><b>Feedback:</b><p>${ruleData.rule.feedbacks[0].text}</p><br /><b>Notes:</b><p>${ruleData.rule.note}</p></div>`}
+        tooltipTriggerText={<span dangerouslySetInnerHTML={{ __html: highlightedEntry }} key={r.entry} />}
+      />)
+
+      formattedResponse.response = tooltip
       formattedResponse.datetime = moment(r.datetime).format('MM/DD/YYYY')
       formattedResponse.strengthButtons = (<div className="strength-buttons">{strongButton}{weakButton}</div>)
 
@@ -185,7 +200,7 @@ const RuleAnalysis = ({ history, match }) => {
       <div className="loading-spinner-container">
         <Spinner />
       </div>
-    );
+    )
   }
 
   if(ruleData.error) {
@@ -208,7 +223,7 @@ const RuleAnalysis = ({ history, match }) => {
       />
       <div className="button-wrapper">
         <Link className="quill-button medium contained primary" to={`/activities/${activityId}/rules/${ruleData.rule.id}`}>Edit Rule Notes/Properties</Link>
-        <Link className="quill-button medium secondary outlined" rel="noopener noreferrer" target="_blank" to={`/activities/${activityId}/semantic-labels/${prompt.id}/semantic-rules-cheat-sheet`} >Semantic Rules Cheat Sheet</Link>;
+        <Link className="quill-button medium secondary outlined" rel="noopener noreferrer" target="_blank" to={`/activities/${activityId}/semantic-labels/${prompt.id}/semantic-rules-cheat-sheet`} >Semantic Rules Cheat Sheet</Link>
       </div>
       <div className="radio-options">
         <div className="radio">
@@ -230,6 +245,12 @@ const RuleAnalysis = ({ history, match }) => {
           </label>
         </div>
       </div>
+      <Input
+        handleChange={onSearchChange}
+        label='Search by text or regex'
+        type='text'
+        value={search}
+      />
       <ReactTable
         className="responses-table"
         columns={responseHeaders}
