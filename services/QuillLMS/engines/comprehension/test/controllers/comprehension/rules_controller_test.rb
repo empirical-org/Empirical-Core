@@ -100,6 +100,7 @@ module Comprehension
 
     context "create" do
       setup do
+        @prompt = create(:comprehension_prompt)
         @rule = build(:comprehension_rule)
       end
 
@@ -171,8 +172,7 @@ module Comprehension
               universal: @rule.universal,
               plagiarism_text_attributes: {
                 text: plagiarism_text
-              },
-              prompt_ids: [17]
+              }
             }
 
         parsed_response = JSON.parse(response.body)
@@ -181,12 +181,13 @@ module Comprehension
       end
 
       should "return an error if plagiarism rule already exists for prompt" do
-        post :create, rule: { concept_uid: @rule.uid, note: @rule.note, name: @rule.name, optimal: @rule.optimal, suborder: 1, rule_type: Rule::TYPE_PLAGIARISM, universal: false, state: Rule::STATE_ACTIVE, prompt_ids: [17]}
+        plagiarism_rule = create(:comprehension_rule, prompt_ids: [@prompt.id], rule_type: Rule::TYPE_PLAGIARISM)
+        post :create, rule: { concept_uid: @rule.uid, note: @rule.note, name: @rule.name, optimal: @rule.optimal, suborder: 1, rule_type: Rule::TYPE_PLAGIARISM, universal: false, state: Rule::STATE_ACTIVE, prompt_ids: [@prompt.id]}
 
         parsed_response = JSON.parse(response.body)
 
         assert_equal 422, response.code.to_i
-        assert parsed_response['prompts'][0].include?("prompt 17 already has a plagiarism rule")
+        assert parsed_response['prompts'][0].include?("prompt #{@prompt.id} already has a plagiarism rule")
       end
 
       should "create nested feedback record when present in params" do
