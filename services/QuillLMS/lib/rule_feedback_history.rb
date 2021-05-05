@@ -7,7 +7,7 @@ class RuleFeedbackHistory
 
     def self.exec_query(conjunction:, activity_id:)
         sql = <<~SQL
-          select rules.uid as rules_uid, 
+          select rules.uid as rules_uid,
           feedback_histories.feedback_history_ids as feedback_histories_id_array,
             prompts.activity_id as activity_id,
             rules.rule_type as rule_type,
@@ -30,12 +30,11 @@ class RuleFeedbackHistory
             entry: f_h.entry,
             highlight: f_h.metadata.class == Hash ? f_h.metadata['highlight'] : '',
             view_session_url: 'Not yet available',
-            strength: f_h.feedback_history_ratings.where(user_id: @current_user&.id).first&.rating
+            strength: f_h.feedback_history_ratings.first&.rating
         }
     end
 
-    def self.generate_rulewise_report(rule_uid, current_user)
-        @current_user = current_user
+    def self.generate_rulewise_report(rule_uid)
         feedback_histories = FeedbackHistory.where(rule_uid: rule_uid)
         response_jsons = []
         feedback_histories.each do |f_h|

@@ -10,10 +10,7 @@ class FeedbackHistoryRatingsController < ApplicationController
 
     rating.rating = feedback_history_rating_params["rating"]
 
-    if rating.rating.nil?
-      rating.destroy!
-      render(json: {status: 200})
-    elsif rating.valid?
+    if rating.valid?
       rating.save!
       render(json: {status: 200})
     else
