@@ -30,7 +30,7 @@ class RuleFeedbackHistory
             entry: f_h.entry,
             highlight: f_h.metadata.class == Hash ? f_h.metadata['highlight'] : '',
             view_session_url: 'Not yet available',
-            strength: f_h.feedback_history_ratings.first&.rating
+            strength: f_h.feedback_history_ratings.order(updated_at: :desc).first&.rating
         }
     end
 
