@@ -3,6 +3,7 @@ import { RouteComponentProps } from 'react-router-dom'
 import { useQuery } from 'react-query';
 import { firstBy } from "thenby";
 import ReactTable from 'react-table';
+import qs from 'qs';
 
 import { ActivityRouteProps, PromptInterface } from '../../../interfaces/comprehensionInterfaces';
 import { ruleOrder } from '../../../../../constants/comprehension';
@@ -26,13 +27,19 @@ const MoreInfo = (row) => {
 
 const RulesAnalysis: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ history, match }) => {
   const { params } = match;
-  const { activityId } = params;
+  const { activityId, promptConjunction, } = params;
+
+  const ruleTypeValues = [DEFAULT_RULE_TYPE].concat(Object.keys(ruleOrder))
+  const ruleTypeOptions = ruleTypeValues.map(val => ({ label: val, value: val, }))
+  const ruleTypeFromUrl = (history.location && qs.parse(history.location.search.replace('?', '')).selected_rule_type) || DEFAULT_RULE_TYPE
+
+  const selectedRuleTypeOption = ruleTypeOptions.find(opt => opt.value === ruleTypeFromUrl)
 
   const [selectedPrompt, setSelectedPrompt] = React.useState(null)
-  const [selectedRuleType, setSelectedRuleType] = React.useState({ label: DEFAULT_RULE_TYPE, value: DEFAULT_RULE_TYPE })
+  const [selectedRuleType, setSelectedRuleType] = React.useState(selectedRuleTypeOption)
   const [sorted, setSorted] = React.useState([])
 
-  const selectedConjunction = selectedPrompt ? selectedPrompt.conjunction : null
+  const selectedConjunction = selectedPrompt ? selectedPrompt.conjunction : promptConjunction
   // cache rules data for updates
   const { data: ruleFeedbackHistory } = useQuery({
     queryKey: [`rule-feedback-history-by-conjunction-${selectedConjunction}-and-activity-${activityId}`, activityId, selectedConjunction],
@@ -45,6 +52,36 @@ const RulesAnalysis: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ hist
     queryFn: fetchActivity
   });
 
+  React.useEffect(() => {
+    if (selectedPrompt) { return }
+
+    setPromptBasedOnActivity()
+  }, [activityData])
+
+  React.useEffect(() => {
+    setPromptBasedOnActivity()
+  }, [promptConjunction])
+
+  React.useEffect(() => {
+    if (!selectedPrompt && !selectedRuleType || !activityData) { return }
+    let url = `/activities/${activityId}/rules-analysis`
+    if (selectedPrompt) {
+      url += `/${selectedPrompt.conjunction}`
+    }
+
+    if (selectedRuleType) {
+      url += `?selected_rule_type=${selectedRuleType.value}`
+    }
+
+    history.push(url)
+  }, [selectedPrompt, selectedRuleType])
+
+  function setPromptBasedOnActivity() {
+    if (!activityData || !promptConjunction) { return }
+
+    const prompt = activityData.activity.prompts.find(prompt => prompt.conjunction === promptConjunction)
+    setSelectedPrompt(prompt)
+  }
 
   const formattedRows = selectedPrompt && ruleFeedbackHistory && ruleFeedbackHistory.ruleFeedbackHistories && ruleFeedbackHistory.ruleFeedbackHistories.filter(rule => {
     return selectedRuleType.value === DEFAULT_RULE_TYPE || rule.api_name.toLowerCase() === selectedRuleType.value.toLowerCase()
@@ -65,7 +102,7 @@ const RulesAnalysis: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ hist
       activityId,
       note,
       firstLayerFeedback: first_feedback,
-      handleClick: () => window.location.href = `/cms/comprehension#/activities/${activityId}/rules-analysis/${rule_uid}`
+      handleClick: () => window.location.href = `/cms/comprehension#/activities/${activityId}/rules-analysis/${selectedPrompt.conjunction}/rule/${rule_uid}`
     }
   }).sort(firstBy('apiOrder').thenBy('ruleOrder'));
 
@@ -135,9 +172,7 @@ const RulesAnalysis: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ hist
     return promptOption
   })
 
-  const ruleTypeValues = [DEFAULT_RULE_TYPE].concat(Object.keys(ruleOrder))
-
-  const ruleTypeOptions = ruleTypeValues.map(val => ({ label: val, value: val, }))
+  const selectedPromptOption = promptOptions && selectedPrompt && promptOptions.find(po => po.value === selectedPrompt.id)
 
   const containerClassName = sorted.length ? "rules-analysis-container" : "rules-analysis-container show-colored-rows"
 
@@ -150,7 +185,7 @@ const RulesAnalysis: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ hist
           label="Select Prompt"
           options={promptOptions || []}
           usesCustomOption={true}
-          value={selectedPrompt}
+          value={selectedPromptOption}
         />
         <DropdownInput
           handleChange={setSelectedRuleType}

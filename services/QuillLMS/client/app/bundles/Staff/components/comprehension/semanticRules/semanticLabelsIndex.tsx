@@ -4,6 +4,7 @@ import { NavLink, Redirect, Route, Switch, withRouter } from 'react-router-dom';
 
 import SemanticLabelsOverview from './semanticLabelsOverview'
 import SemanticLabelWrapper from './semanticLabelWrapper';
+import SemanticRulesCheatSheet from './semanticRulesCheatSheet'
 import ModelForm from './modelForm';
 import ActivateModelForm from './activateModelForm';
 import Model from './model';
@@ -31,8 +32,8 @@ const SemanticLabelsIndex = ({ history, match, location }) => {
     if(!activity) {
       return;
     }
-    const { title } = activity;
-    return <h2>{title}</h2>
+    const { name } = activity;
+    return <h2>{name}</h2>
   }
 
   function handleCreateRule({rule}: {rule: RuleInterface}) {
@@ -119,6 +120,7 @@ const SemanticLabelsIndex = ({ history, match, location }) => {
         <Route component={() => <SemanticLabelsOverview activityId={activityId} prompts={getPromptForComponent(activityData, BECAUSE)} />} path='/activities/:activityId/semantic-labels/because' />
         <Route component={() => <SemanticLabelsOverview activityId={activityId} prompts={getPromptForComponent(activityData, BUT)} />} path='/activities/:activityId/semantic-labels/but' />
         <Route component={() => <SemanticLabelsOverview activityId={activityId} prompts={getPromptForComponent(activityData, SO)} />} path='/activities/:activityId/semantic-labels/so' />
+        <Route component={SemanticRulesCheatSheet} path='/activities/:activityId/semantic-labels/:promptId/semantic-rules-cheat-sheet' />
         <Route component={ActivateModelForm} path='/activities/:activityId/semantic-labels/:promptId/model/:modelId/activate' />
         <Route component={Model} path='/activities/:activityId/semantic-labels/model/:modelId' />
         <Route component={ModelForm} path='/activities/:activityId/semantic-labels/:promptId/add-model' />
