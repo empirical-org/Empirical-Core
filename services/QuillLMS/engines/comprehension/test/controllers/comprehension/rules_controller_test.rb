@@ -62,6 +62,7 @@ module Comprehension
           @rule2 = create(:comprehension_rule, prompts: [@prompt1], rule_type: Rule::TYPE_GRAMMAR)
           @rule3 = create(:comprehension_rule, prompts: [@prompt2], rule_type: Rule::TYPE_AUTOML)
           @rule4 = create(:comprehension_rule, prompts: [@prompt2], rule_type: Rule::TYPE_GRAMMAR)
+          @rule5 = create(:comprehension_rule, prompts: [@prompt1, @prompt2], rule_type: Rule:: TYPE_REGEX_ONE)
         end
 
         should 'only get Rules for specified prompt when provided' do
@@ -69,10 +70,18 @@ module Comprehension
 
           parsed_response = JSON.parse(response.body)
 
-          assert_equal parsed_response.length, 2
+          assert_equal parsed_response.length, 3
           parsed_response.each do |r|
             assert r['prompt_ids'].include?(@prompt1.id)
           end
+        end
+
+        should 'only get unique Rules for specified prompts when provided' do
+          get :index, prompt_id: "#{@prompt1.id}, #{@prompt2.id}"
+
+          parsed_response = JSON.parse(response.body)
+
+          assert_equal parsed_response.length, 5
         end
 
         should 'only get Rules for specified rule type when provided' do
@@ -100,6 +109,7 @@ module Comprehension
 
     context "create" do
       setup do
+        @prompt = create(:comprehension_prompt)
         @rule = build(:comprehension_rule)
       end
 
@@ -177,6 +187,16 @@ module Comprehension
         parsed_response = JSON.parse(response.body)
         assert_equal @rule.name, parsed_response['name']
         assert_equal plagiarism_text, parsed_response['plagiarism_text']['text']
+      end
+
+      should "return an error if plagiarism rule already exists for prompt" do
+        plagiarism_rule = create(:comprehension_rule, prompt_ids: [@prompt.id], rule_type: Rule::TYPE_PLAGIARISM)
+        post :create, rule: { concept_uid: @rule.uid, note: @rule.note, name: @rule.name, optimal: @rule.optimal, suborder: 1, rule_type: Rule::TYPE_PLAGIARISM, universal: false, state: Rule::STATE_ACTIVE, prompt_ids: [@prompt.id]}
+
+        parsed_response = JSON.parse(response.body)
+
+        assert_equal 422, response.code.to_i
+        assert parsed_response['prompts'][0].include?("prompt #{@prompt.id} already has a plagiarism rule")
       end
 
       should "create nested feedback record when present in params" do

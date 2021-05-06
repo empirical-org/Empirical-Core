@@ -12,6 +12,7 @@ import SessionsIndex from './activitySessions/sessionsIndex';
 import SessionView from './activitySessions/sessionView';
 import SemanticLabelsIndex from './semanticRules/semanticLabelsIndex';
 import RegexRulesRouter from './regexRules/regexRulesRouter';
+import PlagiarismRulesRouter from './plagiarismRules/plagiarismRulesRouter';
 
 import { ActivityRouteProps } from '../../interfaces/comprehensionInterfaces';
 
@@ -33,6 +34,7 @@ const Activity: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ match, lo
           <Route component={SessionsIndex} path='/activities/:activityId/activity-sessions' />
           <Route component={SemanticLabelsIndex} path='/activities/:activityId/semantic-labels' />
           <Route component={RegexRulesRouter} path='/activities/:activityId/regex-rules' />
+          <Route component={PlagiarismRulesRouter} path='/activities/:activityId/plagiarism-rules' />
         </Switch>
       </div>
     </React.Fragment>

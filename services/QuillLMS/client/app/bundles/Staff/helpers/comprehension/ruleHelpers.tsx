@@ -6,7 +6,7 @@ import { validateForm } from '../comprehension';
 import { AUTO_ML, PLAGIARISM } from '../../../../constants/comprehension';
 import { InputEvent, DropdownObjectInterface } from '../../interfaces/comprehensionInterfaces';
 import { ruleTypeOptions, universalRuleTypeOptions, ruleHighlightOptions, numericalWordOptions, regexRuleSequenceOptions, regexRuleTypes } from '../../../../constants/comprehension';
-import { TextEditor, DropdownInput } from '../../../Shared/index';
+import { TextEditor, DropdownInput, Modal } from '../../../Shared/index';
 
 export function handleSetRuleType(ruleType: DropdownObjectInterface, setRuleType) { setRuleType(ruleType) };
 
@@ -374,7 +374,7 @@ export async function handleSubmitRule({
     keys.push('Stem Applied');
     state.push(rulePrompts);
   }
-  const validationErrors = validateForm(keys, state);
+  const validationErrors = validateForm(keys, state, ruleType.value);
   if(validationErrors && Object.keys(validationErrors).length) {
     setErrors(validationErrors);
   } else {
@@ -384,13 +384,15 @@ export async function handleSubmitRule({
 }
 
 export function getRulesUrl(activityId: string, promptId: string, ruleType: string) {
-  let url = `activities/${activityId}/rules`;
-  if(promptId && !ruleType) {
-    url = `rules?prompt_id=${promptId}`
+  const url = `activities/${activityId}/rules`;
+  if(activityId) {
+    return url;
+  } else if(promptId && !ruleType) {
+    return `rules?prompt_id=${promptId}`
   } else if(!promptId && ruleType) {
-    url = `rules?rule_type=${ruleType}`
+    return `rules?rule_type=${ruleType}`
   } else if(promptId && ruleType) {
-    url = `rules?prompt_id=${promptId}&rule_type=${ruleType}`
+    return `rules?prompt_id=${promptId}&rule_type=${ruleType}`
   }
   return url;
 }
@@ -402,6 +404,8 @@ export function getReturnLinkRuleType(ruleType) {
   const { value } = ruleType
   if(regexRuleTypes.includes(value)) {
     return 'regex-rules';
+  } else if(value === PLAGIARISM) {
+    return 'plagiarism-rules';
   }
   return 'rules';
 }
@@ -414,8 +418,22 @@ export function getReturnLinkLabel(ruleType) {
   const { value } = ruleType
   if(regexRuleTypes.includes(value)) {
     return label + 'Regex Rules Index';
+  } else if(value === PLAGIARISM) {
+    return label + 'Plagiarism Rules Index';
   }
   return label + 'Rules Index';
+}
+
+export function getPromptIdString(prompts) {
+  let promptIdString = '';
+  prompts.forEach((prompt, i) => {
+    if(i !== prompts.length - 1) {
+      promptIdString += `${prompt.id},`
+    } else {
+      promptIdString += `${prompt.id}`
+    }
+  });
+  return promptIdString;
 }
 
 export function renderErrorsContainer(formErrorsPresent: boolean, requestErrors: string[]) {
@@ -433,4 +451,22 @@ export function renderErrorsContainer(formErrorsPresent: boolean, requestErrors:
       })}
     </div>
   )
+}
+
+export function renderDeleteRuleModal(handleDeleteRule, toggleShowDeleteRuleModal) {
+  return(
+    <Modal>
+      <div className="delete-rule-container">
+        <p className="delete-rule-text">Are you sure that you want to delete this rule?</p>
+        <div className="delete-rule-button-container">
+          <button className="quill-button fun primary contained" id="delete-rule-button" onClick={handleDeleteRule} type="button">
+            Delete
+          </button>
+          <button className="quill-button fun primary contained" id="close-rule-modal-button" onClick={toggleShowDeleteRuleModal} type="button">
+            Cancel
+          </button>
+        </div>
+      </div>
+    </Modal>
+  );
 }
