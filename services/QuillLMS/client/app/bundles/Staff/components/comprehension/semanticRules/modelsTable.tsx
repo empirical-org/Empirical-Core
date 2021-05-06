@@ -66,7 +66,7 @@ const ModelsTable = ({ activityId, prompt }) => {
   return(
     <section className="models-container">
       <section className="header-container">
-        <h2>{`${titleCase(prompt.conjunction)} Model (${prompt.id})`}</h2>
+        <h2>{`${titleCase(prompt.conjunction)} Model (Prompt ID: ${prompt.id})`}</h2>
       </section>
       <DataTable
         className="models-table"
