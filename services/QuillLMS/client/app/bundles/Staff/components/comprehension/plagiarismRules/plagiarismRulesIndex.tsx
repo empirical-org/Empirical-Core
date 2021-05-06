@@ -4,6 +4,7 @@ import { useQuery } from 'react-query';
 import stripHtml from "string-strip-html";
 
 import { promptsByConjunction, titleCase } from "../../../helpers/comprehension";
+import { getPromptIdString } from '../../../helpers/comprehension/ruleHelpers';
 import { ActivityRouteProps, RuleInterface } from '../../../interfaces/comprehensionInterfaces';
 import { BECAUSE, BUT, SO,  PLAGIARISM } from '../../../../../constants/comprehension';
 import { fetchRules } from '../../../utils/comprehension/ruleAPIs';
@@ -15,6 +16,7 @@ const PlagiarismRulesIndex: React.FC<RouteComponentProps<ActivityRouteProps>> = 
   const { activityId } = params;
 
   const [rulePrompts, setRulePrompts] = React.useState<object>(null);
+  const [promptIds, setPromptIds] = React.useState<string>(null);
 
   // get cached activity data to pass to rule
   const { data: activityData } = useQuery({
@@ -22,9 +24,17 @@ const PlagiarismRulesIndex: React.FC<RouteComponentProps<ActivityRouteProps>> = 
     queryFn: fetchActivity
   });
 
+  React.useEffect(() => {
+    if(!promptIds && activityData && activityData.activity) {
+      const { prompts } = activityData.activity;
+      const promptIdString = getPromptIdString(prompts);
+      setPromptIds(promptIdString);
+    }
+  }, [activityData]);
+
   const { data: plagiarismRulesData } = useQuery({
     // cache rules data for updates
-    queryKey: [`rules-${activityId}`, activityId, null, PLAGIARISM],
+    queryKey: [`rules-${activityId}`, null, promptIds, PLAGIARISM],
     queryFn: fetchRules
   });
 
@@ -54,7 +64,7 @@ const PlagiarismRulesIndex: React.FC<RouteComponentProps<ActivityRouteProps>> = 
     let fields: any = [
       {
         label: 'Plagiarism Text',
-        value: plagiarism_text.text
+        value: plagiarism_text ? plagiarism_text.text : ''
       }
     ];
     fields = fields.concat(feedbacksSection);
