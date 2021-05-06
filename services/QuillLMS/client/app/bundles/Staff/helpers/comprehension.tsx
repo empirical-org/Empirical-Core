@@ -13,7 +13,8 @@ import {
   PARENT_ACTIVITY_ID,
   SCORED_READING_LEVEL,
   IMAGE_LINK,
-  IMAGE_ALT_TEXT
+  IMAGE_ALT_TEXT,
+  PLAGIARISM
 } from '../../../constants/comprehension';
 import { PromptInterface } from '../interfaces/comprehensionInterfaces'
 
@@ -237,7 +238,7 @@ const scoredReadingLevelError = (value: string) => {
   }
 }
 
-export const validateForm = (keys: string[], state: any[]) => {
+export const validateForm = (keys: string[], state: any[], ruleType?: string) => {
   let errors = {};
   state.map((value, i) => {
     switch(keys[i]) {
@@ -257,9 +258,12 @@ export const validateForm = (keys: string[], state: any[]) => {
         }
         break;
       case "Stem Applied":
-        const stemApplied = Object.keys(value).some(stem => value[stem].checked);
-        if(!stemApplied) {
+        const stemsApplied = Object.keys(value).filter(stem => value[stem].checked);
+        if(!stemsApplied.length) {
           errors[keys[i]] = 'You must select at least one stem.';
+        }
+        if(ruleType && ruleType === PLAGIARISM && stemsApplied.length > 1) {
+          errors[keys[i]] = 'You can only select one stem.';
         }
         break;
       case "Concept UID":

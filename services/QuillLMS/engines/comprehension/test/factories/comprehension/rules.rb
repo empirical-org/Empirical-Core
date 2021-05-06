@@ -4,7 +4,7 @@ FactoryBot.define do
     name { "Test Rule" }
     note { "This rule is a test" }
     universal { false }
-    rule_type { "plagiarism" }
+    rule_type { "rules-based-1" }
     optimal { false }
     state { Comprehension::Rule::STATE_INACTIVE }
     suborder { 1 }

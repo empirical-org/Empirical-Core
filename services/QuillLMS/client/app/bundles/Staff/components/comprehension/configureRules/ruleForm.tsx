@@ -164,6 +164,7 @@ const RuleForm = ({ activityData, activityId, closeModal, isUniversal, requestEr
         {!isUniversal && <RulePrompts
           errors={errors}
           rulePrompts={rulePrompts}
+          rulePromptsDisabled={false}
           setRulePrompts={setRulePrompts}
         />}
         {isUniversal && <RuleUniversalAttributes

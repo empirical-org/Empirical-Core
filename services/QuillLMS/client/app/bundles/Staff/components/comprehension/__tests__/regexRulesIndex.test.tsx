@@ -9,7 +9,7 @@ import 'whatwg-fetch';
 
 jest.mock("react-query", () => ({
   useQuery: jest.fn(() => ({
-    data: { rules: mockRules},
+    data: { rules: mockRules },
     error: null,
     status: "success",
     isFetching: true,

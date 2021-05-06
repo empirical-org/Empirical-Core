@@ -1,8 +1,7 @@
 import * as React from 'react';
 import { shallow } from 'enzyme';
 
-import { mockRule } from './data';
-
+import { mockRule } from '../__mocks__/data';
 import RuleForm from '../configureRules/ruleForm';
 import RuleGenericAttributes from '../configureRules/ruleGenericAttributes';
 import RuleRegexAttributes from '../configureRules/ruleRegexAttributes';

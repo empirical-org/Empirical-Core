@@ -343,7 +343,7 @@
         padding: 0px 20px 20px 20px;
       }
     }
-    .rules-based-section {
+    .rules-based-section, .plagiarism-section {
       margin-bottom: 40px;
       .no-rules-section {
         padding-top: 20px;
@@ -364,6 +364,14 @@
           }
         }
       }
+      .one-rule-warning {
+        margin: 8px 0px 8px 0px;
+        font-style: italic;
+        color: #5b5b5b;
+      }
+    }
+    #first-plagiarism-section {
+      margin-top: 20px;
     }
     .activate-model-container {
       .activate-model-section {
@@ -530,6 +538,11 @@
       .data-table-row-section {
         word-wrap: break-word;
         white-space: normal;
+      }
+    }
+    .plagiarism-index-table {
+      .data-table-headers {
+        display: none;
       }
     }
   }
