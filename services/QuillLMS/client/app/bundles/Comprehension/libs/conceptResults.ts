@@ -32,7 +32,7 @@ export const generateConceptResults = (currentActivity, submittedResponses) => {
         metadata: {
           answer: response.entry,
           attemptNumber: attempt,
-          correct: response.optimal,
+          correct: response.optimal ? 1 : 0,
           directions: (attempt == 1) ? COMPREHENSION_DIRECTIONS : responses[index - 1].feedback,
           prompt: prompt.text,
           questionNumber: conjunctionToQuestionNumber[prompt.conjunction],
