@@ -33,7 +33,7 @@ export const generateConceptResults = (currentActivity, submittedResponses) => {
           answer: response.entry,
           attemptNumber: attempt,
           correct: response.optimal,
-          directions: COMPREHENSION_DIRECTIONS,
+          directions: (attempt == 1) ? COMPREHENSION_DIRECTIONS : responses[index - 1].feedback,
           prompt: prompt.text,
           questionNumber: conjunctionToQuestionNumber[prompt.conjunction],
           questionScore: ATTEMPTS_TO_SCORE[responses.length],

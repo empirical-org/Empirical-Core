@@ -143,7 +143,7 @@ export const expectedPayload = {
         "answer":"Type an answer, but some response may be provided.",
         "attemptNumber":2,
         "correct":true,
-        "directions":"Complete this sentence",
+        "directions":"Remember, for this activity, avoid giving your opinion—your thoughts, feelings, or suggestions. Rewrite your response without the word must, and make sure that your response expresses an idea from the text.",
         "prompt":"Type an answer, but",
         "questionNumber":2,
         "questionScore":0.75
@@ -169,7 +169,7 @@ export const expectedPayload = {
         "answer":"Type an answer, so some response shud be provided.",
         "attemptNumber":2,
         "correct":true,
-        "directions":"Complete this sentence",
+        "directions":"Remember, for this activity, avoid giving your opinion—your thoughts, feelings, or suggestions. Rewrite your response without the word should, and make sure that your response expresses an idea from the text.",
         "prompt":"Type an answer, so",
         "questionNumber":3,
         "questionScore":0.75
