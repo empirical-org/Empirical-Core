@@ -24,7 +24,7 @@ exports[`Activity Form component should render Activities 1`] = `
       className="name-input"
       handleChange={[Function]}
       label="Activity Name"
-      value=""
+      value="Could Capybaras Create Chaos? [student testing]"
     />
     <Input
       autoComplete="on"

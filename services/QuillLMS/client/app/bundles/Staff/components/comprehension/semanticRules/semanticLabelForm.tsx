@@ -227,6 +227,7 @@ const SemanticLabelForm = ({ activityId, isSemantic, isUniversal, requestErrors,
         {!isUniversal && !isSemantic && <RulePrompts
           errors={errors}
           rulePrompts={rulePrompts}
+          rulePromptsDisabled={false}
           setRulePrompts={setRulePrompts}
         />}
         {(isUniversal || isSemantic) && <RuleUniversalAttributes

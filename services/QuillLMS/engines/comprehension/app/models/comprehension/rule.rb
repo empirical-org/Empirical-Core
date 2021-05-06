@@ -26,6 +26,7 @@ module Comprehension
 
     after_create :assign_to_all_prompts, if: :universal
     before_validation :assign_uid_if_missing
+    validate :one_plagiarism_per_prompt, on: :create
 
     has_many :feedbacks, inverse_of: :rule, dependent: :destroy
     has_one :plagiarism_text, inverse_of: :rule, dependent: :destroy
@@ -86,6 +87,12 @@ module Comprehension
         end
       end
       save!
+    end
+
+    private def one_plagiarism_per_prompt
+      prompts.each do |prompt|
+        errors.add(:prompts, "prompt #{prompt.id} already has a plagiarism rule") if prompt.rules.where(rule_type: TYPE_PLAGIARISM).first&.id
+      end
     end
   end
 end
