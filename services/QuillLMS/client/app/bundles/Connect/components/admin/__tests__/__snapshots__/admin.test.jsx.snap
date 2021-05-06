@@ -1,0 +1,1582 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`adminContainer component should render with lessons sidebar when url contains lesson-view 1`] = `
+<Provider
+  store={
+    Object {
+      "dispatch": [Function],
+      "getState": [Function],
+      "replaceReducer": [Function],
+      "subscribe": [Function],
+      Symbol(observable): [Function],
+    }
+  }
+>
+  <MemoryRouter
+    initialEntries={
+      Array [
+        "/admin/lesson-view/lessonID/questions/questionID",
+      ]
+    }
+    keyLength={0}
+  >
+    <Router
+      history={
+        Object {
+          "action": "POP",
+          "block": [Function],
+          "canGo": [Function],
+          "createHref": [Function],
+          "entries": Array [
+            Object {
+              "hash": "",
+              "pathname": "/admin/lesson-view/lessonID/questions/questionID",
+              "search": "",
+              "state": undefined,
+            },
+          ],
+          "go": [Function],
+          "goBack": [Function],
+          "goForward": [Function],
+          "index": 0,
+          "length": 1,
+          "listen": [Function],
+          "location": Object {
+            "hash": "",
+            "pathname": "/admin/lesson-view/lessonID/questions/questionID",
+            "search": "",
+            "state": undefined,
+          },
+          "push": [Function],
+          "replace": [Function],
+        }
+      }
+    >
+      <withRouter(Connect(adminContainer))>
+        <Connect(adminContainer)
+          history={
+            Object {
+              "action": "POP",
+              "block": [Function],
+              "canGo": [Function],
+              "createHref": [Function],
+              "entries": Array [
+                Object {
+                  "hash": "",
+                  "pathname": "/admin/lesson-view/lessonID/questions/questionID",
+                  "search": "",
+                  "state": undefined,
+                },
+              ],
+              "go": [Function],
+              "goBack": [Function],
+              "goForward": [Function],
+              "index": 0,
+              "length": 1,
+              "listen": [Function],
+              "location": Object {
+                "hash": "",
+                "pathname": "/admin/lesson-view/lessonID/questions/questionID",
+                "search": "",
+                "state": undefined,
+              },
+              "push": [Function],
+              "replace": [Function],
+            }
+          }
+          location={
+            Object {
+              "hash": "",
+              "pathname": "/admin/lesson-view/lessonID/questions/questionID",
+              "search": "",
+              "state": undefined,
+            }
+          }
+          match={
+            Object {
+              "isExact": false,
+              "params": Object {},
+              "path": "/",
+              "url": "/",
+            }
+          }
+        >
+          <adminContainer
+            dispatch={[Function]}
+            history={
+              Object {
+                "action": "POP",
+                "block": [Function],
+                "canGo": [Function],
+                "createHref": [Function],
+                "entries": Array [
+                  Object {
+                    "hash": "",
+                    "pathname": "/admin/lesson-view/lessonID/questions/questionID",
+                    "search": "",
+                    "state": undefined,
+                  },
+                ],
+                "go": [Function],
+                "goBack": [Function],
+                "goForward": [Function],
+                "index": 0,
+                "length": 1,
+                "listen": [Function],
+                "location": Object {
+                  "hash": "",
+                  "pathname": "/admin/lesson-view/lessonID/questions/questionID",
+                  "search": "",
+                  "state": undefined,
+                },
+                "push": [Function],
+                "replace": [Function],
+              }
+            }
+            location={
+              Object {
+                "hash": "",
+                "pathname": "/admin/lesson-view/lessonID/questions/questionID",
+                "search": "",
+                "state": undefined,
+              }
+            }
+            match={
+              Object {
+                "isExact": false,
+                "params": Object {},
+                "path": "/",
+                "url": "/",
+              }
+            }
+          >
+            <div
+              className="main-admin-container"
+            >
+              <Switch>
+                <Route
+                  component={[Function]}
+                  computedMatch={
+                    Object {
+                      "isExact": false,
+                      "params": Object {},
+                      "path": "/admin/lesson-view",
+                      "url": "/admin/lesson-view",
+                    }
+                  }
+                  location={
+                    Object {
+                      "hash": "",
+                      "pathname": "/admin/lesson-view/lessonID/questions/questionID",
+                      "search": "",
+                      "state": undefined,
+                    }
+                  }
+                  path="/admin/lesson-view"
+                >
+                  <withRouter(AdminLesson)
+                    history={
+                      Object {
+                        "action": "POP",
+                        "block": [Function],
+                        "canGo": [Function],
+                        "createHref": [Function],
+                        "entries": Array [
+                          Object {
+                            "hash": "",
+                            "pathname": "/admin/lesson-view/lessonID/questions/questionID",
+                            "search": "",
+                            "state": undefined,
+                          },
+                        ],
+                        "go": [Function],
+                        "goBack": [Function],
+                        "goForward": [Function],
+                        "index": 0,
+                        "length": 1,
+                        "listen": [Function],
+                        "location": Object {
+                          "hash": "",
+                          "pathname": "/admin/lesson-view/lessonID/questions/questionID",
+                          "search": "",
+                          "state": undefined,
+                        },
+                        "push": [Function],
+                        "replace": [Function],
+                      }
+                    }
+                    location={
+                      Object {
+                        "hash": "",
+                        "pathname": "/admin/lesson-view/lessonID/questions/questionID",
+                        "search": "",
+                        "state": undefined,
+                      }
+                    }
+                    match={
+                      Object {
+                        "isExact": false,
+                        "params": Object {},
+                        "path": "/admin/lesson-view",
+                        "url": "/admin/lesson-view",
+                      }
+                    }
+                  >
+                    <AdminLesson
+                      history={
+                        Object {
+                          "action": "POP",
+                          "block": [Function],
+                          "canGo": [Function],
+                          "createHref": [Function],
+                          "entries": Array [
+                            Object {
+                              "hash": "",
+                              "pathname": "/admin/lesson-view/lessonID/questions/questionID",
+                              "search": "",
+                              "state": undefined,
+                            },
+                          ],
+                          "go": [Function],
+                          "goBack": [Function],
+                          "goForward": [Function],
+                          "index": 0,
+                          "length": 1,
+                          "listen": [Function],
+                          "location": Object {
+                            "hash": "",
+                            "pathname": "/admin/lesson-view/lessonID/questions/questionID",
+                            "search": "",
+                            "state": undefined,
+                          },
+                          "push": [Function],
+                          "replace": [Function],
+                        }
+                      }
+                      location={
+                        Object {
+                          "hash": "",
+                          "pathname": "/admin/lesson-view/lessonID/questions/questionID",
+                          "search": "",
+                          "state": undefined,
+                        }
+                      }
+                      match={
+                        Object {
+                          "isExact": false,
+                          "params": Object {},
+                          "path": "/admin/lesson-view",
+                          "url": "/admin/lesson-view",
+                        }
+                      }
+                    >
+                      <div
+                        style={
+                          Object {
+                            "display": "flex",
+                            "width": "100%",
+                          }
+                        }
+                      >
+                        <Switch>
+                          <Route
+                            component={[Function]}
+                            computedMatch={
+                              Object {
+                                "isExact": true,
+                                "params": Object {
+                                  "lessonID": "lessonID",
+                                  "questionID": "questionID",
+                                },
+                                "path": "/admin/lesson-view/:lessonID/questions/:questionID",
+                                "url": "/admin/lesson-view/lessonID/questions/questionID",
+                              }
+                            }
+                            location={
+                              Object {
+                                "hash": "",
+                                "pathname": "/admin/lesson-view/lessonID/questions/questionID",
+                                "search": "",
+                                "state": undefined,
+                              }
+                            }
+                            path="/admin/lesson-view/:lessonID/questions/:questionID"
+                          >
+                            <AdminLessonSidebar
+                              history={
+                                Object {
+                                  "action": "POP",
+                                  "block": [Function],
+                                  "canGo": [Function],
+                                  "createHref": [Function],
+                                  "entries": Array [
+                                    Object {
+                                      "hash": "",
+                                      "pathname": "/admin/lesson-view/lessonID/questions/questionID",
+                                      "search": "",
+                                      "state": undefined,
+                                    },
+                                  ],
+                                  "go": [Function],
+                                  "goBack": [Function],
+                                  "goForward": [Function],
+                                  "index": 0,
+                                  "length": 1,
+                                  "listen": [Function],
+                                  "location": Object {
+                                    "hash": "",
+                                    "pathname": "/admin/lesson-view/lessonID/questions/questionID",
+                                    "search": "",
+                                    "state": undefined,
+                                  },
+                                  "push": [Function],
+                                  "replace": [Function],
+                                }
+                              }
+                              location={
+                                Object {
+                                  "hash": "",
+                                  "pathname": "/admin/lesson-view/lessonID/questions/questionID",
+                                  "search": "",
+                                  "state": undefined,
+                                }
+                              }
+                              match={
+                                Object {
+                                  "isExact": true,
+                                  "params": Object {
+                                    "lessonID": "lessonID",
+                                    "questionID": "questionID",
+                                  },
+                                  "path": "/admin/lesson-view/:lessonID/questions/:questionID",
+                                  "url": "/admin/lesson-view/lessonID/questions/questionID",
+                                }
+                              }
+                            >
+                              <section
+                                className="section is-fullheight lesson-sidebar-section"
+                              >
+                                <aside
+                                  className="menu lesson-sidebar"
+                                >
+                                  <Connect(Lesson)
+                                    isSidebar={true}
+                                    location={
+                                      Location {
+                                        "assign": [Function],
+                                        "hash": "",
+                                        "host": "localhost",
+                                        "hostname": "localhost",
+                                        "href": "http://localhost/",
+                                        "origin": "http://localhost",
+                                        "pathname": "/",
+                                        "port": "",
+                                        "protocol": "http:",
+                                        "reload": [Function],
+                                        "replace": [Function],
+                                        "search": "",
+                                        "toString": [Function],
+                                      }
+                                    }
+                                    match={
+                                      Object {
+                                        "isExact": true,
+                                        "params": Object {
+                                          "lessonID": "lessonID",
+                                          "questionID": "questionID",
+                                        },
+                                        "path": "/admin/lesson-view/:lessonID/questions/:questionID",
+                                        "url": "/admin/lesson-view/lessonID/questions/questionID",
+                                      }
+                                    }
+                                  >
+                                    <Lesson
+                                      dispatch={[Function]}
+                                      fillInBlank={
+                                        Object {
+                                          "data": Object {},
+                                          "hasreceiveddata": false,
+                                          "states": Object {},
+                                          "submittingnew": false,
+                                        }
+                                      }
+                                      isSidebar={true}
+                                      lessons={
+                                        Object {
+                                          "data": Object {},
+                                          "flag": "alpha",
+                                          "hasreceiveddata": false,
+                                          "states": Object {},
+                                          "submittingnew": false,
+                                        }
+                                      }
+                                      location={
+                                        Location {
+                                          "assign": [Function],
+                                          "hash": "",
+                                          "host": "localhost",
+                                          "hostname": "localhost",
+                                          "href": "http://localhost/",
+                                          "origin": "http://localhost",
+                                          "pathname": "/",
+                                          "port": "",
+                                          "protocol": "http:",
+                                          "reload": [Function],
+                                          "replace": [Function],
+                                          "search": "",
+                                          "toString": [Function],
+                                        }
+                                      }
+                                      match={
+                                        Object {
+                                          "isExact": true,
+                                          "params": Object {
+                                            "lessonID": "lessonID",
+                                            "questionID": "questionID",
+                                          },
+                                          "path": "/admin/lesson-view/:lessonID/questions/:questionID",
+                                          "url": "/admin/lesson-view/lessonID/questions/questionID",
+                                        }
+                                      }
+                                      questions={
+                                        Object {
+                                          "data": Object {},
+                                          "hasreceiveddata": false,
+                                          "states": Object {},
+                                          "submittingnew": false,
+                                        }
+                                      }
+                                      routing={
+                                        Object {
+                                          "locationBeforeTransitions": null,
+                                        }
+                                      }
+                                      sentenceFragments={
+                                        Object {
+                                          "data": Object {},
+                                          "hasreceiveddata": false,
+                                          "states": Object {},
+                                          "submittingnew": false,
+                                        }
+                                      }
+                                      titleCards={
+                                        Object {
+                                          "data": Object {},
+                                          "hasreceiveddata": false,
+                                        }
+                                      }
+                                    >
+                                      <p>
+                                        Loading...
+                                      </p>
+                                    </Lesson>
+                                  </Connect(Lesson)>
+                                </aside>
+                              </section>
+                            </AdminLessonSidebar>
+                          </Route>
+                        </Switch>
+                        <Switch>
+                          <Route
+                            component={[Function]}
+                            computedMatch={
+                              Object {
+                                "isExact": true,
+                                "params": Object {
+                                  "lessonID": "lessonID",
+                                  "questionID": "questionID",
+                                },
+                                "path": "/admin/lesson-view/:lessonID/questions/:questionID",
+                                "url": "/admin/lesson-view/lessonID/questions/questionID",
+                              }
+                            }
+                            location={
+                              Object {
+                                "hash": "",
+                                "pathname": "/admin/lesson-view/lessonID/questions/questionID",
+                                "search": "",
+                                "state": undefined,
+                              }
+                            }
+                            path="/admin/lesson-view/:lessonID/questions/:questionID"
+                          >
+                            <withRouter(Connect(Question))
+                              history={
+                                Object {
+                                  "action": "POP",
+                                  "block": [Function],
+                                  "canGo": [Function],
+                                  "createHref": [Function],
+                                  "entries": Array [
+                                    Object {
+                                      "hash": "",
+                                      "pathname": "/admin/lesson-view/lessonID/questions/questionID",
+                                      "search": "",
+                                      "state": undefined,
+                                    },
+                                  ],
+                                  "go": [Function],
+                                  "goBack": [Function],
+                                  "goForward": [Function],
+                                  "index": 0,
+                                  "length": 1,
+                                  "listen": [Function],
+                                  "location": Object {
+                                    "hash": "",
+                                    "pathname": "/admin/lesson-view/lessonID/questions/questionID",
+                                    "search": "",
+                                    "state": undefined,
+                                  },
+                                  "push": [Function],
+                                  "replace": [Function],
+                                }
+                              }
+                              location={
+                                Object {
+                                  "hash": "",
+                                  "pathname": "/admin/lesson-view/lessonID/questions/questionID",
+                                  "search": "",
+                                  "state": undefined,
+                                }
+                              }
+                              match={
+                                Object {
+                                  "isExact": true,
+                                  "params": Object {
+                                    "lessonID": "lessonID",
+                                    "questionID": "questionID",
+                                  },
+                                  "path": "/admin/lesson-view/:lessonID/questions/:questionID",
+                                  "url": "/admin/lesson-view/lessonID/questions/questionID",
+                                }
+                              }
+                            >
+                              <Connect(Question)
+                                history={
+                                  Object {
+                                    "action": "POP",
+                                    "block": [Function],
+                                    "canGo": [Function],
+                                    "createHref": [Function],
+                                    "entries": Array [
+                                      Object {
+                                        "hash": "",
+                                        "pathname": "/admin/lesson-view/lessonID/questions/questionID",
+                                        "search": "",
+                                        "state": undefined,
+                                      },
+                                    ],
+                                    "go": [Function],
+                                    "goBack": [Function],
+                                    "goForward": [Function],
+                                    "index": 0,
+                                    "length": 1,
+                                    "listen": [Function],
+                                    "location": Object {
+                                      "hash": "",
+                                      "pathname": "/admin/lesson-view/lessonID/questions/questionID",
+                                      "search": "",
+                                      "state": undefined,
+                                    },
+                                    "push": [Function],
+                                    "replace": [Function],
+                                  }
+                                }
+                                location={
+                                  Object {
+                                    "hash": "",
+                                    "pathname": "/admin/lesson-view/lessonID/questions/questionID",
+                                    "search": "",
+                                    "state": undefined,
+                                  }
+                                }
+                                match={
+                                  Object {
+                                    "isExact": true,
+                                    "params": Object {
+                                      "lessonID": "lessonID",
+                                      "questionID": "questionID",
+                                    },
+                                    "path": "/admin/lesson-view/:lessonID/questions/:questionID",
+                                    "url": "/admin/lesson-view/lessonID/questions/questionID",
+                                  }
+                                }
+                              >
+                                <Question
+                                  concepts={
+                                    Object {
+                                      "data": Object {},
+                                      "hasreceiveddata": false,
+                                      "states": Object {},
+                                      "submittingnew": false,
+                                    }
+                                  }
+                                  dispatch={[Function]}
+                                  history={
+                                    Object {
+                                      "action": "POP",
+                                      "block": [Function],
+                                      "canGo": [Function],
+                                      "createHref": [Function],
+                                      "entries": Array [
+                                        Object {
+                                          "hash": "",
+                                          "pathname": "/admin/lesson-view/lessonID/questions/questionID",
+                                          "search": "",
+                                          "state": undefined,
+                                        },
+                                      ],
+                                      "go": [Function],
+                                      "goBack": [Function],
+                                      "goForward": [Function],
+                                      "index": 0,
+                                      "length": 1,
+                                      "listen": [Function],
+                                      "location": Object {
+                                        "hash": "",
+                                        "pathname": "/admin/lesson-view/lessonID/questions/questionID",
+                                        "search": "",
+                                        "state": undefined,
+                                      },
+                                      "push": [Function],
+                                      "replace": [Function],
+                                    }
+                                  }
+                                  itemLevels={
+                                    Object {
+                                      "data": Object {},
+                                      "hasreceiveddata": false,
+                                      "states": Object {},
+                                      "submittingnew": false,
+                                    }
+                                  }
+                                  location={
+                                    Object {
+                                      "hash": "",
+                                      "pathname": "/admin/lesson-view/lessonID/questions/questionID",
+                                      "search": "",
+                                      "state": undefined,
+                                    }
+                                  }
+                                  massEdit={
+                                    Object {
+                                      "numSelectedResponses": 0,
+                                      "selectedResponses": Array [],
+                                    }
+                                  }
+                                  match={
+                                    Object {
+                                      "isExact": true,
+                                      "params": Object {
+                                        "lessonID": "lessonID",
+                                        "questionID": "questionID",
+                                      },
+                                      "path": "/admin/lesson-view/:lessonID/questions/:questionID",
+                                      "url": "/admin/lesson-view/lessonID/questions/questionID",
+                                    }
+                                  }
+                                  questions={
+                                    Object {
+                                      "data": Object {},
+                                      "hasreceiveddata": false,
+                                      "states": Object {},
+                                      "submittingnew": false,
+                                    }
+                                  }
+                                  routing={
+                                    Object {
+                                      "locationBeforeTransitions": null,
+                                    }
+                                  }
+                                >
+                                  <p>
+                                    Loading...
+                                  </p>
+                                </Question>
+                              </Connect(Question)>
+                            </withRouter(Connect(Question))>
+                          </Route>
+                        </Switch>
+                      </div>
+                    </AdminLesson>
+                  </withRouter(AdminLesson)>
+                </Route>
+              </Switch>
+              <Switch />
+            </div>
+          </adminContainer>
+        </Connect(adminContainer)>
+      </withRouter(Connect(adminContainer))>
+    </Router>
+  </MemoryRouter>
+</Provider>
+`;
+
+exports[`adminContainer component should render with main sidebar when url does not contain lesson-view 1`] = `
+<Provider
+  store={
+    Object {
+      "dispatch": [Function],
+      "getState": [Function],
+      "replaceReducer": [Function],
+      "subscribe": [Function],
+      Symbol(observable): [Function],
+    }
+  }
+>
+  <MemoryRouter
+    initialEntries={
+      Array [
+        "/admin/lessons",
+      ]
+    }
+    keyLength={0}
+  >
+    <Router
+      history={
+        Object {
+          "action": "POP",
+          "block": [Function],
+          "canGo": [Function],
+          "createHref": [Function],
+          "entries": Array [
+            Object {
+              "hash": "",
+              "pathname": "/admin/lessons",
+              "search": "",
+              "state": undefined,
+            },
+          ],
+          "go": [Function],
+          "goBack": [Function],
+          "goForward": [Function],
+          "index": 0,
+          "length": 1,
+          "listen": [Function],
+          "location": Object {
+            "hash": "",
+            "pathname": "/admin/lessons",
+            "search": "",
+            "state": undefined,
+          },
+          "push": [Function],
+          "replace": [Function],
+        }
+      }
+    >
+      <withRouter(Connect(adminContainer))>
+        <Connect(adminContainer)
+          history={
+            Object {
+              "action": "POP",
+              "block": [Function],
+              "canGo": [Function],
+              "createHref": [Function],
+              "entries": Array [
+                Object {
+                  "hash": "",
+                  "pathname": "/admin/lessons",
+                  "search": "",
+                  "state": undefined,
+                },
+              ],
+              "go": [Function],
+              "goBack": [Function],
+              "goForward": [Function],
+              "index": 0,
+              "length": 1,
+              "listen": [Function],
+              "location": Object {
+                "hash": "",
+                "pathname": "/admin/lessons",
+                "search": "",
+                "state": undefined,
+              },
+              "push": [Function],
+              "replace": [Function],
+            }
+          }
+          location={
+            Object {
+              "hash": "",
+              "pathname": "/admin/lessons",
+              "search": "",
+              "state": undefined,
+            }
+          }
+          match={
+            Object {
+              "isExact": false,
+              "params": Object {},
+              "path": "/",
+              "url": "/",
+            }
+          }
+        >
+          <adminContainer
+            dispatch={[Function]}
+            history={
+              Object {
+                "action": "POP",
+                "block": [Function],
+                "canGo": [Function],
+                "createHref": [Function],
+                "entries": Array [
+                  Object {
+                    "hash": "",
+                    "pathname": "/admin/lessons",
+                    "search": "",
+                    "state": undefined,
+                  },
+                ],
+                "go": [Function],
+                "goBack": [Function],
+                "goForward": [Function],
+                "index": 0,
+                "length": 1,
+                "listen": [Function],
+                "location": Object {
+                  "hash": "",
+                  "pathname": "/admin/lessons",
+                  "search": "",
+                  "state": undefined,
+                },
+                "push": [Function],
+                "replace": [Function],
+              }
+            }
+            location={
+              Object {
+                "hash": "",
+                "pathname": "/admin/lessons",
+                "search": "",
+                "state": undefined,
+              }
+            }
+            match={
+              Object {
+                "isExact": false,
+                "params": Object {},
+                "path": "/",
+                "url": "/",
+              }
+            }
+          >
+            <div
+              className="main-admin-container"
+            >
+              <Switch>
+                <Route
+                  component={[Function]}
+                  computedMatch={
+                    Object {
+                      "isExact": false,
+                      "params": Object {},
+                      "path": "/admin",
+                      "url": "/admin",
+                    }
+                  }
+                  location={
+                    Object {
+                      "hash": "",
+                      "pathname": "/admin/lessons",
+                      "search": "",
+                      "state": undefined,
+                    }
+                  }
+                  path="/admin"
+                >
+                  <AdminMainSidebar
+                    history={
+                      Object {
+                        "action": "POP",
+                        "block": [Function],
+                        "canGo": [Function],
+                        "createHref": [Function],
+                        "entries": Array [
+                          Object {
+                            "hash": "",
+                            "pathname": "/admin/lessons",
+                            "search": "",
+                            "state": undefined,
+                          },
+                        ],
+                        "go": [Function],
+                        "goBack": [Function],
+                        "goForward": [Function],
+                        "index": 0,
+                        "length": 1,
+                        "listen": [Function],
+                        "location": Object {
+                          "hash": "",
+                          "pathname": "/admin/lessons",
+                          "search": "",
+                          "state": undefined,
+                        },
+                        "push": [Function],
+                        "replace": [Function],
+                      }
+                    }
+                    location={
+                      Object {
+                        "hash": "",
+                        "pathname": "/admin/lessons",
+                        "search": "",
+                        "state": undefined,
+                      }
+                    }
+                    match={
+                      Object {
+                        "isExact": false,
+                        "params": Object {},
+                        "path": "/admin",
+                        "url": "/admin",
+                      }
+                    }
+                  >
+                    <section
+                      className="main-admin-section section is-fullheight"
+                    >
+                      <aside
+                        className="admin-menu"
+                      >
+                        <p
+                          className="menu-label"
+                        >
+                          General
+                        </p>
+                        <ul
+                          className="menu-list"
+                        >
+                          <TabLink
+                            activeClassName="is-active"
+                            to="/admin/lessons"
+                          >
+                            <li>
+                              <NavLink
+                                activeClassName="is-active"
+                                to="/admin/lessons"
+                              >
+                                <Link
+                                  aria-current="page"
+                                  className="is-active"
+                                  style={Object {}}
+                                  to={
+                                    Object {
+                                      "hash": "",
+                                      "pathname": "/admin/lessons",
+                                      "search": "",
+                                      "state": null,
+                                    }
+                                  }
+                                >
+                                  <LinkAnchor
+                                    aria-current="page"
+                                    className="is-active"
+                                    href="/admin/lessons"
+                                    navigate={[Function]}
+                                    style={Object {}}
+                                  >
+                                    <a
+                                      aria-current="page"
+                                      className="is-active"
+                                      href="/admin/lessons"
+                                      onClick={[Function]}
+                                      style={Object {}}
+                                    >
+                                      Activities
+                                    </a>
+                                  </LinkAnchor>
+                                </Link>
+                              </NavLink>
+                            </li>
+                          </TabLink>
+                        </ul>
+                        <p
+                          className="menu-label"
+                        >
+                          Questions
+                        </p>
+                        <ul
+                          className="menu-list"
+                        >
+                          <TabLink
+                            activeClassName="is-active"
+                            to="/admin/questions"
+                          >
+                            <li>
+                              <NavLink
+                                activeClassName="is-active"
+                                to="/admin/questions"
+                              >
+                                <Link
+                                  aria-current={null}
+                                  to={
+                                    Object {
+                                      "hash": "",
+                                      "pathname": "/admin/questions",
+                                      "search": "",
+                                      "state": null,
+                                    }
+                                  }
+                                >
+                                  <LinkAnchor
+                                    aria-current={null}
+                                    href="/admin/questions"
+                                    navigate={[Function]}
+                                  >
+                                    <a
+                                      aria-current={null}
+                                      href="/admin/questions"
+                                      onClick={[Function]}
+                                    >
+                                      Sentence Combining
+                                    </a>
+                                  </LinkAnchor>
+                                </Link>
+                              </NavLink>
+                            </li>
+                          </TabLink>
+                          <TabLink
+                            activeClassName="is-active"
+                            to="/admin/sentence-fragments"
+                          >
+                            <li>
+                              <NavLink
+                                activeClassName="is-active"
+                                to="/admin/sentence-fragments"
+                              >
+                                <Link
+                                  aria-current={null}
+                                  to={
+                                    Object {
+                                      "hash": "",
+                                      "pathname": "/admin/sentence-fragments",
+                                      "search": "",
+                                      "state": null,
+                                    }
+                                  }
+                                >
+                                  <LinkAnchor
+                                    aria-current={null}
+                                    href="/admin/sentence-fragments"
+                                    navigate={[Function]}
+                                  >
+                                    <a
+                                      aria-current={null}
+                                      href="/admin/sentence-fragments"
+                                      onClick={[Function]}
+                                    >
+                                      Sentence Fragments
+                                    </a>
+                                  </LinkAnchor>
+                                </Link>
+                              </NavLink>
+                            </li>
+                          </TabLink>
+                          <TabLink
+                            activeClassName="is-active"
+                            to="/admin/fill-in-the-blanks"
+                          >
+                            <li>
+                              <NavLink
+                                activeClassName="is-active"
+                                to="/admin/fill-in-the-blanks"
+                              >
+                                <Link
+                                  aria-current={null}
+                                  to={
+                                    Object {
+                                      "hash": "",
+                                      "pathname": "/admin/fill-in-the-blanks",
+                                      "search": "",
+                                      "state": null,
+                                    }
+                                  }
+                                >
+                                  <LinkAnchor
+                                    aria-current={null}
+                                    href="/admin/fill-in-the-blanks"
+                                    navigate={[Function]}
+                                  >
+                                    <a
+                                      aria-current={null}
+                                      href="/admin/fill-in-the-blanks"
+                                      onClick={[Function]}
+                                    >
+                                      Fill In The Blanks
+                                    </a>
+                                  </LinkAnchor>
+                                </Link>
+                              </NavLink>
+                            </li>
+                          </TabLink>
+                        </ul>
+                        <p
+                          className="menu-label"
+                        >
+                          Supporting
+                        </p>
+                        <ul
+                          className="menu-list"
+                        >
+                          <TabLink
+                            activeClassName="is-active"
+                            to="/admin/concepts"
+                          >
+                            <li>
+                              <NavLink
+                                activeClassName="is-active"
+                                to="/admin/concepts"
+                              >
+                                <Link
+                                  aria-current={null}
+                                  to={
+                                    Object {
+                                      "hash": "",
+                                      "pathname": "/admin/concepts",
+                                      "search": "",
+                                      "state": null,
+                                    }
+                                  }
+                                >
+                                  <LinkAnchor
+                                    aria-current={null}
+                                    href="/admin/concepts"
+                                    navigate={[Function]}
+                                  >
+                                    <a
+                                      aria-current={null}
+                                      href="/admin/concepts"
+                                      onClick={[Function]}
+                                    >
+                                      Concepts
+                                    </a>
+                                  </LinkAnchor>
+                                </Link>
+                              </NavLink>
+                            </li>
+                          </TabLink>
+                          <TabLink
+                            activeClassName="is-active"
+                            to="/admin/concepts-feedback"
+                          >
+                            <li>
+                              <NavLink
+                                activeClassName="is-active"
+                                to="/admin/concepts-feedback"
+                              >
+                                <Link
+                                  aria-current={null}
+                                  to={
+                                    Object {
+                                      "hash": "",
+                                      "pathname": "/admin/concepts-feedback",
+                                      "search": "",
+                                      "state": null,
+                                    }
+                                  }
+                                >
+                                  <LinkAnchor
+                                    aria-current={null}
+                                    href="/admin/concepts-feedback"
+                                    navigate={[Function]}
+                                  >
+                                    <a
+                                      aria-current={null}
+                                      href="/admin/concepts-feedback"
+                                      onClick={[Function]}
+                                    >
+                                      Concept Feedback
+                                    </a>
+                                  </LinkAnchor>
+                                </Link>
+                              </NavLink>
+                            </li>
+                          </TabLink>
+                        </ul>
+                        <p
+                          className="menu-label"
+                        >
+                          Title Cards
+                        </p>
+                        <ul
+                          className="menu-list"
+                        >
+                          <TabLink
+                            activeClassName="is-active"
+                            to="/admin/title-cards"
+                          >
+                            <li>
+                              <NavLink
+                                activeClassName="is-active"
+                                to="/admin/title-cards"
+                              >
+                                <Link
+                                  aria-current={null}
+                                  to={
+                                    Object {
+                                      "hash": "",
+                                      "pathname": "/admin/title-cards",
+                                      "search": "",
+                                      "state": null,
+                                    }
+                                  }
+                                >
+                                  <LinkAnchor
+                                    aria-current={null}
+                                    href="/admin/title-cards"
+                                    navigate={[Function]}
+                                  >
+                                    <a
+                                      aria-current={null}
+                                      href="/admin/title-cards"
+                                      onClick={[Function]}
+                                    >
+                                      Title Cards
+                                    </a>
+                                  </LinkAnchor>
+                                </Link>
+                              </NavLink>
+                            </li>
+                          </TabLink>
+                        </ul>
+                        <p
+                          className="menu-label"
+                        >
+                          Activity Health
+                        </p>
+                        <ul
+                          className="menu-list"
+                        >
+                          <TabLink
+                            activeClassName="is-active"
+                            to="/admin/activity-health"
+                          >
+                            <li>
+                              <NavLink
+                                activeClassName="is-active"
+                                to="/admin/activity-health"
+                              >
+                                <Link
+                                  aria-current={null}
+                                  to={
+                                    Object {
+                                      "hash": "",
+                                      "pathname": "/admin/activity-health",
+                                      "search": "",
+                                      "state": null,
+                                    }
+                                  }
+                                >
+                                  <LinkAnchor
+                                    aria-current={null}
+                                    href="/admin/activity-health"
+                                    navigate={[Function]}
+                                  >
+                                    <a
+                                      aria-current={null}
+                                      href="/admin/activity-health"
+                                      onClick={[Function]}
+                                    >
+                                      Activity Health
+                                    </a>
+                                  </LinkAnchor>
+                                </Link>
+                              </NavLink>
+                            </li>
+                          </TabLink>
+                        </ul>
+                      </aside>
+                    </section>
+                  </AdminMainSidebar>
+                </Route>
+              </Switch>
+              <Switch>
+                <Route
+                  component={[Function]}
+                  computedMatch={
+                    Object {
+                      "isExact": true,
+                      "params": Object {},
+                      "path": "/admin/lessons",
+                      "url": "/admin/lessons",
+                    }
+                  }
+                  location={
+                    Object {
+                      "hash": "",
+                      "pathname": "/admin/lessons",
+                      "search": "",
+                      "state": undefined,
+                    }
+                  }
+                  path="/admin/lessons"
+                >
+                  <Connect(Lessons)
+                    history={
+                      Object {
+                        "action": "POP",
+                        "block": [Function],
+                        "canGo": [Function],
+                        "createHref": [Function],
+                        "entries": Array [
+                          Object {
+                            "hash": "",
+                            "pathname": "/admin/lessons",
+                            "search": "",
+                            "state": undefined,
+                          },
+                        ],
+                        "go": [Function],
+                        "goBack": [Function],
+                        "goForward": [Function],
+                        "index": 0,
+                        "length": 1,
+                        "listen": [Function],
+                        "location": Object {
+                          "hash": "",
+                          "pathname": "/admin/lessons",
+                          "search": "",
+                          "state": undefined,
+                        },
+                        "push": [Function],
+                        "replace": [Function],
+                      }
+                    }
+                    location={
+                      Object {
+                        "hash": "",
+                        "pathname": "/admin/lessons",
+                        "search": "",
+                        "state": undefined,
+                      }
+                    }
+                    match={
+                      Object {
+                        "isExact": true,
+                        "params": Object {},
+                        "path": "/admin/lessons",
+                        "url": "/admin/lessons",
+                      }
+                    }
+                  >
+                    <Lessons
+                      dispatch={[Function]}
+                      fillInBlank={
+                        Object {
+                          "data": Object {},
+                          "hasreceiveddata": false,
+                          "states": Object {},
+                          "submittingnew": false,
+                        }
+                      }
+                      history={
+                        Object {
+                          "action": "POP",
+                          "block": [Function],
+                          "canGo": [Function],
+                          "createHref": [Function],
+                          "entries": Array [
+                            Object {
+                              "hash": "",
+                              "pathname": "/admin/lessons",
+                              "search": "",
+                              "state": undefined,
+                            },
+                          ],
+                          "go": [Function],
+                          "goBack": [Function],
+                          "goForward": [Function],
+                          "index": 0,
+                          "length": 1,
+                          "listen": [Function],
+                          "location": Object {
+                            "hash": "",
+                            "pathname": "/admin/lessons",
+                            "search": "",
+                            "state": undefined,
+                          },
+                          "push": [Function],
+                          "replace": [Function],
+                        }
+                      }
+                      lessons={
+                        Object {
+                          "data": Object {},
+                          "flag": "alpha",
+                          "hasreceiveddata": false,
+                          "states": Object {},
+                          "submittingnew": false,
+                        }
+                      }
+                      location={
+                        Object {
+                          "hash": "",
+                          "pathname": "/admin/lessons",
+                          "search": "",
+                          "state": undefined,
+                        }
+                      }
+                      match={
+                        Object {
+                          "isExact": true,
+                          "params": Object {},
+                          "path": "/admin/lessons",
+                          "url": "/admin/lessons",
+                        }
+                      }
+                      questions={
+                        Object {
+                          "data": Object {},
+                          "hasreceiveddata": false,
+                          "states": Object {},
+                          "submittingnew": false,
+                        }
+                      }
+                      routing={
+                        Object {
+                          "locationBeforeTransitions": null,
+                        }
+                      }
+                      sentenceFragments={
+                        Object {
+                          "data": Object {},
+                          "hasreceiveddata": false,
+                          "states": Object {},
+                          "submittingnew": false,
+                        }
+                      }
+                      titleCards={
+                        Object {
+                          "data": Object {},
+                          "hasreceiveddata": false,
+                        }
+                      }
+                    >
+                      <section
+                        className="section"
+                      >
+                        <div
+                          className="container"
+                        >
+                          <h1
+                            className="title"
+                          >
+                            <button
+                              className="button is-primary"
+                              onClick={[Function]}
+                            >
+                              Create New Activity
+                            </button>
+                          </h1>
+                          <div
+                            style={
+                              Object {
+                                "display": "inline-block",
+                              }
+                            }
+                          >
+                            <FlagDropdown
+                              flag="alpha"
+                              handleFlagChange={[Function]}
+                              isLessons={true}
+                            >
+                              <p
+                                className="control"
+                              >
+                                <span
+                                  className="select"
+                                >
+                                  <select
+                                    defaultValue="alpha"
+                                    onChange={[Function]}
+                                  >
+                                    <option
+                                      value="All Flags"
+                                    >
+                                      All Flags
+                                    </option>
+                                    <option
+                                      value="alpha"
+                                    >
+                                      alpha
+                                    </option>
+                                    <option
+                                      value="beta"
+                                    >
+                                      beta
+                                    </option>
+                                    <option
+                                      value="production"
+                                    >
+                                      production
+                                    </option>
+                                    <option
+                                      value="archived"
+                                    >
+                                      archived
+                                    </option>
+                                  </select>
+                                </span>
+                              </p>
+                            </FlagDropdown>
+                          </div>
+                          <ArchivedButton
+                            lessons={true}
+                            showOnlyArchived={false}
+                            toggleShowArchived={[Function]}
+                          >
+                            <div
+                              style={
+                                Object {
+                                  "display": "inline-block",
+                                }
+                              }
+                            >
+                              <label
+                                className="panel-checkbox toggle"
+                              >
+                                <span
+                                  className="tag"
+                                  onClick={[Function]}
+                                >
+                                  Activities With Archived Questions
+                                </span>
+                              </label>
+                            </div>
+                          </ArchivedButton>
+                          <div
+                            className="columns"
+                          >
+                            <div
+                              className="column"
+                            >
+                              <aside
+                                className="menu"
+                              >
+                                <p
+                                  className="menu-label"
+                                >
+                                  Activities
+                                </p>
+                                <ul
+                                  className="menu-list activities-list"
+                                />
+                              </aside>
+                            </div>
+                          </div>
+                        </div>
+                      </section>
+                    </Lessons>
+                  </Connect(Lessons)>
+                </Route>
+              </Switch>
+            </div>
+          </adminContainer>
+        </Connect(adminContainer)>
+      </withRouter(Connect(adminContainer))>
+    </Router>
+  </MemoryRouter>
+</Provider>
+`;

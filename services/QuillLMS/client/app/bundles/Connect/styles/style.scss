@@ -366,72 +366,6 @@ textarea.submission {
     }
 }
 
-.large-admin-container {
-  width: 100%;
-  padding: 15;
-  height: calc(100vh - 30px);
-  overflow-y: auto;
-    .select {
-      display: block !important;
-    }
-  .ReactTable .rt-thead .rt-th {
-    white-space: unset;
-  }
-  .ReactTable .rt-tbody .rt-td {
-    white-space: unset;
-  }
-  .ReactTable .rt-thead .rt-tr {
-    background-color: #F0F0F0;
-  }
-}
-
-.prompt-react-table {
-  .rt-th {
-    background-color: lightgray;
-  }
-}
-
-.btn-connect {
-  color: black;
-  background-color: #fce473;
-  border-color: #fce473;
-  display: inline-block;
-  font-weight: 400;
-  text-align: center;
-  white-space: nowrap;
-  vertical-align: middle;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-  border: 1px solid transparent;
-  padding: 5px 10px;
-  font-size: 1rem;
-  line-height: 1;
-  border-radius: .25rem;
-  transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
-}
-
-.btn-grammar {
-  color: #fff;
-  background-color: teal;
-  border-color: teal;
-  display: inline-block;
-  font-weight: 400;
-  text-align: center;
-  white-space: nowrap;
-  vertical-align: middle;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-  border: 1px solid transparent;
-  padding: 5px 10px;
-  font-size: 1rem;
-  line-height: 1;
-  border-radius: .25rem;
-}
-
 .wf-loading {
   visibility: hidden;
 }
@@ -596,4 +530,93 @@ textarea.submission {
 .sider-container {
   background-color: white;
   width: 360px;
+}
+
+.activity-health-filters {
+  display: inline-block;
+  width: 100%;
+
+  .search-box {
+    border: 1px solid rgba(0,0,0,0.1);
+    background-color: #fff;
+    padding: 5px 7px;
+    font-size: inherit;
+    border-radius: 3px;
+    font-weight: normal;
+    outline-width: 0;
+    margin-top: 10px;
+    width: 700px;
+  }
+
+  .csv-download-button {
+    display: inline-block;
+    float: right;
+    border: 1px solid rgba(0,0,0,0.1);
+    background: #fff;
+    padding: 5px 7px;
+    font-size: inherit;
+    border-radius: 3px;
+    font-weight: normal;
+    outline-width: 0;
+    cursor: pointer;
+  }
+}
+
+.activity-health-table {
+  width: 100%;
+  padding: 15px;
+  height: calc(100vh - 30px);
+  overflow-y: auto;
+    .select {
+      display: block !important;
+    }
+  .ReactTable .rt-thead .rt-th {
+    white-space: unset;
+  }
+  .ReactTable .rt-tbody .rt-td {
+    white-space: unset;
+  }
+  .ReactTable .rt-thead .rt-tr {
+    background-color: #F0F0F0;
+  }
+}
+
+.prompt-health-table {
+  margin: 15px;
+  padding: 15px;
+  background-color: lightgray;
+  border-radius: 5px;
+  .rt-th {
+    background-color: lightgray;
+  }
+}
+
+.badge {
+  display: inline-block;
+  font-weight: 400;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: middle;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  border: 1px solid transparent;
+  padding: 5px 10px;
+  font-size: 1rem;
+  line-height: 1;
+  border-radius: .25rem;
+  transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+}
+
+.connect-badge {
+  color: black;
+  background-color: #fce473;
+  border-color: #fce473;
+}
+
+.grammar-badge {
+  color: #fff;
+  background-color: teal;
+  border-color: teal;
 }

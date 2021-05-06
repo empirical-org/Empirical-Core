@@ -14,56 +14,41 @@ import { FlagDropdown } from '../../../Shared/index'
 import PromptHealth from './promptHealth'
 import { filterNumbers } from '../../../../modules/filteringMethods.js'
 import actions from '../../actions/activityHealth'
-import { getDataFromTree } from 'react-apollo';
-import activity from '../../../Staff/components/comprehension/activity.js';
 
-const recentPlaysText = "Number of plays in the last 3 months if the activity's first play was more than 3 months ago"
+const CONNECT_TOOL = "connect"
+const ACTIVITY_HEALTHS_URL = `${process.env.DEFAULT_URL}/api/v1/activities/activities_health.json`
 
+interface ActivityHealthProps {
+  dispatch: Function;
+  activityHealth: {
+    flag: string;
+  }
+}
 
-class ActivityHealth extends React.Component<ComponentProps, any> {
+interface ActivityHealthState {
+  loadingTableData: boolean;
+  flag: string;
+  fetchedData: Array<Object>;
+  promptSearchInput: string;
+  dataToDownload: Array<Object>;
+}
+
+class ActivityHealth extends React.Component<ActivityHealthProps, ActivityHealthState> {
 
   state = {
     loadingTableData: true,
-    flag: 'All Flags',
-    activityId: '',
+    flag: '',
     fetchedData: [],
-    searchInput: "",
+    promptSearchInput: "",
     dataToDownload: []
   };
 
   shouldComponentUpdate(nextProps, nextState){
-    console.log(nextState)
-    console.log(this.state)
-    console.log(this.state == nextState)
-    return !(this.state == nextState)// equals() is your implementation
+    return !(this.state == nextState)
   }
 
   componentDidMount() {
     this.fetchQuestionData();
-  }
-
-  renderTable() {
-    const { loadingTableData } = this.state
-    if(loadingTableData) {
-      return <LoadingSpinner />
-    }
-    return (this.tableOrEmptyMessage())
-  }
-
-  thousands_separators = (num) =>
-  {
-    if (!num) return ""
-    var num_parts = num.toString().split(".");
-    num_parts[0] = num_parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-    return num_parts.join(".");
-  }
-
-  badge = (tool) => {
-    if (tool === 'connect') {
-      return (<div className="btn btn-connect">c</div>)
-    } else {
-      return (<div className="btn btn-grammar">g</div>)
-    }
   }
 
   columnDefinitions() {
@@ -72,13 +57,12 @@ class ActivityHealth extends React.Component<ComponentProps, any> {
         Header: 'Name',
         accessor: 'name',
         filterMethod: (filter, rows) =>
-                    matchSorter(rows, filter.value, { keys: ["name"] }),
+                    matchSorter(rows, filter.value, { keys: ["name"]}),
         filterAll: true,
         resizeable: true,
         minWidth: 200,
         sortMethod: sort,
-        Cell: cell => (<a href={cell.original.url} target="_blank">{cell.original.name}</a>),
-        style: { 'whiteSpace': 'unset' }
+        Cell: cell => (<a href={cell.original.url} target="_blank">{cell.original.name}</a>)
       },
       {
         Header: 'Activity Categories',
@@ -86,14 +70,15 @@ class ActivityHealth extends React.Component<ComponentProps, any> {
         filterMethod: (filter, rows) =>
                     matchSorter(rows, filter.value, { keys: ["activity_categories"] }),
         filterAll: true,
-        resizeable: false,
+        resizeable: true,
         sortMethod: sortByList,
         Cell: (row) => (
           <div>
             {
+            row.original['activity_categories'] ?
             row.original['activity_categories'].map((ap) => (
               <div>{ap}</div>
-            ))
+            )) : ''
             }
           </div>
         )
@@ -119,10 +104,10 @@ class ActivityHealth extends React.Component<ComponentProps, any> {
             <option value="connect">Connect</option>
             <option value="grammar">Grammar</option>
           </select>,
-        resizeable: false,
+        resizeable: true,
         sortMethod: sort,
         minWidth: 90,
-        Cell: props => this.badge(props.value)
+        Cell: props => this.getToolBadge(props.value)
       },
       {
         Header: 'Diagnostics',
@@ -130,17 +115,18 @@ class ActivityHealth extends React.Component<ComponentProps, any> {
         filterMethod: (filter, rows) =>
                     matchSorter(rows, filter.value, { keys: ["diagnostics"] }),
         filterAll: true,
-        resizeable: false,
+        resizeable: true,
         sortMethod: sortByList,
         Cell: (row) => (
           <div>
             {
+            row.original['diagnostics'] ?
             row.original['diagnostics'].map((diagnostic, index) => {
               if (!diagnostic) return "";
               else if (index != row.original['diagnostics'].length - 1) return <div>{diagnostic},</div>
               else return <div>{diagnostic}</div>
             }
-            )
+            ) : ''
             }
           </div>
         ),
@@ -151,11 +137,7 @@ class ActivityHealth extends React.Component<ComponentProps, any> {
         accessor: 'recent_plays',
         filterMethod: filterNumbers,
         Filter: ({ filter, onChange }) =>
-        <div
-          style={{
-            display: 'flex',
-          }}
-        >
+        <div style={{ display: 'flex' }}>
           <input
             value={filter ? filter.value : ''}
             type="text"
@@ -163,16 +145,13 @@ class ActivityHealth extends React.Component<ComponentProps, any> {
               onChange(e.target.value)
             }
             placeholder={`0-5, >1, <1`}
-            style={{
-              width: '100px',
-              marginRight: '0.5rem',
-            }}
+            style={{width: '100px', marginRight: '0.5rem'}}
           />
         </div>
         ,
-        resizeable: false,
+        resizeable: true,
         sortMethod: sort,
-        Cell: props => this.thousands_separators(props.value),
+        Cell: props => this.addCommasToThousands(props.value),
         maxWidth: 90
       },
       {
@@ -181,17 +160,18 @@ class ActivityHealth extends React.Component<ComponentProps, any> {
         filterMethod: (filter, rows) =>
               matchSorter(rows, filter.value, { keys: ["activity_packs.*.name"] }),
         filterAll: true,
-        resizeable: false,
+        resizeable: true,
         sortMethod: sortByList,
         Cell: (row) => (
           <div>
             {
+            row.original['activity_packs'] ?
             row.original['activity_packs'].map((ap, index) => {
               if (!ap.name) return "";
               else if (index != row.original['activity_packs'].length - 1) return <div>{ap.name},</div>
               else return <div>{ap.name}</div>
             }
-            )
+            ) : ''
             }
           </div>
         ),
@@ -221,7 +201,7 @@ class ActivityHealth extends React.Component<ComponentProps, any> {
           />
         </div>
         ,
-        resizeable: false,
+        resizeable: true,
         sortMethod: sort,
         Cell: props => props.value,
         maxWidth: 150
@@ -250,7 +230,7 @@ class ActivityHealth extends React.Component<ComponentProps, any> {
           />
         </div>
         ,
-        resizeable: false,
+        resizeable: true,
         sortMethod: sort,
         Cell: props => props.value,
         maxWidth: 150
@@ -279,7 +259,7 @@ class ActivityHealth extends React.Component<ComponentProps, any> {
           />
         </div>
         ,
-        resizeable: false,
+        resizeable: true,
         sortMethod: sort,
         Cell: props => props.value,
         maxWidth: 150
@@ -287,10 +267,61 @@ class ActivityHealth extends React.Component<ComponentProps, any> {
     ];
   }
 
+  addCommasToThousands = (num) =>
+  {
+    if (!num) return ""
+    var num_parts = num.toString().split(".");
+    num_parts[0] = num_parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    return num_parts.join(".");
+  }
+
+  getToolBadge = (tool) => {
+    if (tool === CONNECT_TOOL) {
+      return (<div className="badge connect-badge">c</div>)
+    } else {
+      return (<div className="badge grammar-badge">g</div>)
+    }
+  }
+
+  formatTableForCSV = (e) => {
+    const currentRecords = this.reactTable.getResolvedState().sortedData
+    const columns = this.columnDefinitions()
+    let dataToDownload = []
+    for (var index = 0; index < currentRecords.length; index++) {
+       let recordToDownload = {}
+       for(var colIndex = 0; colIndex < columns.length ; colIndex ++) {
+          recordToDownload[columns[colIndex].Header] = currentRecords[index][columns[colIndex].accessor]
+       }
+       dataToDownload.push(recordToDownload)
+    }
+
+    // Map Activity Packs to strings because JSON objects dont display in CSVs
+    let clonedDataToDownload = JSON.parse(JSON.stringify(dataToDownload));
+    clonedDataToDownload.forEach(item=> {
+      item["Activity Packs"] = item["Activity Packs"] ? item["Activity Packs"].map(v => v.name) : ''
+    });
+
+    this.setState({ dataToDownload: clonedDataToDownload }, () => {
+       this.csvLink.link.click();
+    })
+  }
+
+  handleFlagChange = (e) => {
+    const { dispatch } = this.props
+    dispatch(actions.setFlag(e.target.value))
+
+    // this is a dummy action, we dont use the state value but we need to trigger a re-render
+    this.setState({flag: e.target.value})
+  }
+
+  handleSearchByPrompt = (e) => {
+    this.setState({ promptSearchInput: e.target.value })
+  }
+
   fetchQuestionData() {
-    this.setState({ loadingNewTableData: true }, () => (console.log("setting loadingNewTableData")));
+    this.setState({ loadingTableData: true })
     request.get({
-      url: 'https://www.quill.org/api/v1/activities/activities_health.json',
+      url: ACTIVITY_HEALTHS_URL,
     }, (e, r, body) => {
       let newState = {}
       if (e || r.statusCode != 200) {
@@ -305,35 +336,24 @@ class ActivityHealth extends React.Component<ComponentProps, any> {
           fetchedData: data.activities_health
         };
       }
-
-      this.setState(newState, () => (console.log("setting fetchedData")));
+      this.setState(newState)
     });
   }
 
-  download = (event) => {
-    const currentRecords = this.reactTable.getResolvedState().sortedData;
-    var data_to_download = []
-    for (var index = 0; index < currentRecords.length; index++) {
-       let record_to_download = {}
-       let columns = this.columnDefinitions()
-       for(var colIndex = 0; colIndex < columns.length ; colIndex ++) {
-          record_to_download[columns[colIndex].Header] = currentRecords[index][columns[colIndex].accessor]
-       }
-       data_to_download.push(record_to_download)
-    }
-    let clonedData = JSON.parse(JSON.stringify(data_to_download));
-    clonedData.forEach(item=> {
-      item["Activity Packs"] = item["Activity Packs"].map(v => v.name)
-    });
-    this.setState({ dataToDownload: clonedData }, () => {
-       // click the CSVLink component to trigger the CSV download
-       this.csvLink.link.click();
-       console.log("setting data to download")
+  getFilteredData() {
+    const { activityHealth } = this.props
+    const { fetchedData, promptSearchInput } = this.state
+
+    let filteredData = activityHealth.flag === 'All Flags' ? fetchedData : fetchedData.filter(data => data.flag === activityHealth.flag)
+    filteredData = filteredData.filter(value => {
+      return (
+        value.prompt_healths && value.prompt_healths.map(x => x.text || '').some(y => stripHtml(y).toLowerCase().includes(promptSearchInput.toLowerCase()))
+      );
     })
+    return filteredData
   }
 
   tableOrEmptyMessage() {
-    console.log(" re rendering table")
     const { fetchedData } = this.state
 
     let tableOrEmptyMessage
@@ -341,7 +361,6 @@ class ActivityHealth extends React.Component<ComponentProps, any> {
     if (fetchedData) {
       let dataToUse = this.getFilteredData()
       tableOrEmptyMessage = (<ReactTable ref={(r) => this.reactTable = r}
-        autoResetExpanded={false}
         className='records-table'
         columns={this.columnDefinitions()}
         data={dataToUse}
@@ -356,11 +375,8 @@ class ActivityHealth extends React.Component<ComponentProps, any> {
         showPagination={false}
         showPaginationBottom={false}
         showPaginationTop={false}
-        style={{
-          height: "600px"
-        }}
+        style={{height: "600px"}}
         SubComponent={row => {
-          console.log(row.original.prompt_healths)
           return (
             <PromptHealth
             dataResults={row.original.prompt_healths}/>
@@ -377,69 +393,33 @@ class ActivityHealth extends React.Component<ComponentProps, any> {
       )
   }
 
-  getFilteredData() {
-    const { activityHealth } = this.props
-    const flag = activityHealth.flag
-    console.log(flag)
-    const { fetchedData, searchInput } = this.state
-    let filteredByFlags = flag === 'All Flags' ? fetchedData : fetchedData.filter(data => data.flag === flag)
-    let filteredByFlagsAndPrompt = filteredByFlags.filter(value => {
-      return (
-        value.prompt_healths.map(x => x.text || '').some(y => stripHtml(y).toLowerCase().includes(searchInput.toLowerCase()))
-      );
-    })
-    return filteredByFlagsAndPrompt
-  }
-
-  handleSelect = (e) => {
-    const { dispatch } = this.props
-    dispatch(actions.setFlag(e.target.value))
-    this.setState({flag: e.target.value})
-  }
-
-  handleSearch = (e) => {
-    this.setState({ searchInput: e.target.value }, () => (console.log("setting search input")))
+  renderTable() {
+    const { loadingTableData } = this.state
+    if(loadingTableData) {
+      return <LoadingSpinner />
+    }
+    return (this.tableOrEmptyMessage())
   }
 
   render() {
     const { activityHealth } = this.props
-    const { searchInput } = this.state
+    const { promptSearchInput } = this.state
     return (
       <section className="section">
-        <div style={{display: 'inline-block', width: '100%'}}>
+        <div className="activity-health-filters">
         <div style={{display: 'inline-block', marginLeft: '10px', float: 'left'}}>
-          <FlagDropdown flag={activityHealth.flag} handleFlagChange={this.handleSelect} isLessons={true} />
+          <FlagDropdown flag={activityHealth.flag} handleFlagChange={this.handleFlagChange} isLessons={true} />
           <input
+          className="search-box"
           name="searchInput"
-          value={searchInput || ""}
+          value={promptSearchInput || ""}
           placeholder="Search by prompt"
-          onChange={this.handleSearch}
-          style={{border: "1px solid rgba(0,0,0,0.1)",
-            background: "#fff",
-            padding: "5px 7px",
-            fontSize: "inherit",
-            borderRadius: "3px",
-            fontWeight: "normal",
-            outlineWidth: "0",
-            marginTop: "10px",
-            width: "700px"}}
+          onChange={this.handleSearchByPrompt}
         />
         </div>
         <div>
-        <div style = {{
-          display: "inline-block",
-          float: "right",
-          border: "1px solid rgba(0,0,0,0.1)",
-          background: "#fff",
-          padding: "5px 7px",
-          fontSize: "inherit",
-          borderRadius: "3px",
-          fontWeight: "normal",
-          outlineWidth: "0",
-          cursor: 'pointer'
-        }
-        }>
-        <button style={{cursor: 'pointer'}}onClick={this.download}>
+        <div className="csv-download-button">
+        <button style={{cursor: 'pointer'}} onClick={this.formatTableForCSV}>
             Download CSV
         </button>
         </div>
@@ -454,7 +434,7 @@ class ActivityHealth extends React.Component<ComponentProps, any> {
         </div>
         </div>
 
-        <div className="large-admin-container">
+        <div className="activity-health-table">
           <div className="standard-columns">
           {this.renderTable()}
           </div>

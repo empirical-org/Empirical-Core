@@ -1,17 +1,17 @@
 import * as React from 'react'
 import ReactTable from 'react-table'
 import 'react-table/react-table.css';
-import request from 'request'
 import stripHtml from "string-strip-html";
 import _ from 'underscore'
 
-import LoadingSpinner from '../shared/loading_indicator.jsx'
+interface PromptHealthProps {
+  dataResults: Array<Object>;
+}
 
-class PromptHealth extends React.Component<ComponentProps, any> {
+interface PromptHealthState {
+}
 
-  state = {
-
-  };
+class PromptHealth extends React.Component<PromptHealthProps, PromptHealthState> {
 
   renderTable() {
     return this.tableOrEmptyMessage()
@@ -64,7 +64,7 @@ class PromptHealth extends React.Component<ComponentProps, any> {
         Cell: props => props.value
       },
       {
-        Header: 'Percent Optimal',
+        Header: 'Percent Reached Optimal',
         accessor: 'percent_reached_optimal',
         resizeable: true,
         Cell: props => props.value
@@ -75,16 +75,10 @@ class PromptHealth extends React.Component<ComponentProps, any> {
   tableOrEmptyMessage() {
     const { dataResults } = this.props
     let tableOrEmptyMessage
-    const styles = {
-      margin: '15px',
-      padding: '15px',
-      backgroundColor: 'lightgray',
-      borderRadius: '5px'
-    }
 
     if (dataResults.length) {
       tableOrEmptyMessage = (<ReactTable
-        className='prompt-react-table'
+        className='prompt-health-table'
         columns={this.columnDefinitions()}
         collapseOnDataChange={false}
         data={dataResults}
@@ -93,7 +87,6 @@ class PromptHealth extends React.Component<ComponentProps, any> {
         pages={1}
         showPageSizeOptions={false}
         showPagination={false}
-        style={styles}
       />)
     } else {
       tableOrEmptyMessage = "Prompt data for this question could not be found. Refresh to try again."
@@ -106,7 +99,6 @@ class PromptHealth extends React.Component<ComponentProps, any> {
   }
 
   render() {
-    console.log("re rendering")
     return (
       <div className="standard-columns">
         {this.renderTable()}
