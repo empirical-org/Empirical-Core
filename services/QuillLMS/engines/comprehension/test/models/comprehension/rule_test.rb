@@ -146,7 +146,7 @@ module Comprehension
       setup do
         @prompt1 = create(:comprehension_prompt)
         @prompt2 = create(:comprehension_prompt)
-        @plagiarism_rule = create(:comprehension_rule, rule_type: Rule::TYPE_PLAGIARISM, prompt_ids:[@prompt1.id])
+        @plagiarism_rule = create(:comprehension_rule, rule_type: Rule::TYPE_PLAGIARISM, prompt_ids: [@prompt1.id])
       end
 
       should 'creates plagiarism rule if first rule for prompt' do
@@ -154,12 +154,12 @@ module Comprehension
       end
 
       should 'does not create plagiarism rule if plagiarism rule already exists for prompt' do
-        invalid_plagiarism_rule = build(:comprehension_rule, rule_type: Rule::TYPE_PLAGIARISM, prompt_ids:[@prompt1.id])
+        invalid_plagiarism_rule = build(:comprehension_rule, rule_type: Rule::TYPE_PLAGIARISM, prompt_ids: [@prompt1.id])
         assert !invalid_plagiarism_rule.valid?
       end
 
       should 'creates subsequent plagiarism rule for different prompt' do
-        second_plagiarism_rule = build(:comprehension_rule, rule_type: Rule::TYPE_PLAGIARISM, prompt_ids:[@prompt2.id])
+        second_plagiarism_rule = build(:comprehension_rule, rule_type: Rule::TYPE_PLAGIARISM, prompt_ids: [@prompt2.id])
         assert second_plagiarism_rule.valid?
       end
     end
