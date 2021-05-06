@@ -11,7 +11,7 @@ const LabelsTable = ({ activityId, prompt }) => {
 
   const { data: rulesData } = useQuery({
     // cache rules data for updates
-    queryKey: [`rules-${activityId}`, activityId, prompt.id, 'autoML'],
+    queryKey: [`rules-${activityId}`, null, prompt.id, 'autoML'],
     queryFn: fetchRules
   });
 
@@ -54,14 +54,18 @@ const LabelsTable = ({ activityId, prompt }) => {
     { name: "Optimal?", attribute:"optimal", width: "70px" },
     { name: "", attribute:"edit", width: "70px" }
   ];
-  const addRuleLink = <Link to={`/activities/${activityId}/semantic-labels/${prompt.id}/new`}>Add Label</Link>;
+  const addRuleLink = <Link className="quill-button fun primary contained" id="add-rule-button" to={`/activities/${activityId}/semantic-labels/${prompt.id}/new`}>Add Label</Link>;
+  const semanticRulesCheatSheetLink = <Link className="quill-button fun secondary outlined" rel="noopener noreferrer" target="_blank" to={`/activities/${activityId}/semantic-labels/${prompt.id}/semantic-rules-cheat-sheet`} >Semantic Rules Cheat Sheet</Link>;
 
   return(
     <section className="semantic-labels-container">
       <section className="header-container">
         <h5>Semantic Labels: <p>{prompt.conjunction}</p></h5>
         <h5>Prompt ID: <p>{prompt.id}</p></h5>
-        <button className="quill-button fun primary contained" id="add-rule-button" type="submit">{addRuleLink}</button>
+        <div className="button-wrapper">
+          {addRuleLink}
+          {semanticRulesCheatSheetLink}
+        </div>
       </section>
       <DataTable
         className="semantic-labels-table"

@@ -26,7 +26,8 @@ const Activity: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ match, lo
           <Route component={ActivitySettings} path='/activities/:activityId/settings' />
           <Route component={Rule} path='/activities/:activityId/rules/:ruleId' />
           <Route component={Rules} path='/activities/:activityId/rules' />
-          <Route component={RuleAnalysis} path='/activities/:activityId/rules-analysis/:ruleId' />
+          <Route component={RuleAnalysis} path='/activities/:activityId/rules-analysis/:promptConjunction/rule/:ruleId' />
+          <Route component={RulesAnalysis} path='/activities/:activityId/rules-analysis/:promptConjunction' />
           <Route component={RulesAnalysis} path='/activities/:activityId/rules-analysis' />
           <Route component={TurkSessions} path='/activities/:activityId/turk-sessions' />
           <Route component={SessionView} path='/activities/:activityId/activity-sessions/:sessionId' />

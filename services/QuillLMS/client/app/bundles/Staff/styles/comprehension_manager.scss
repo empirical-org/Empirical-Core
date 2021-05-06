@@ -2,6 +2,12 @@
   display: flex;
   border-bottom: 1px solid lightgray;
   overflow: auto;
+  .button-wrapper {
+    display: flex;
+    .quill-button {
+      margin-right: 10px;
+    }
+  }
   .left-side-menu {
     width: 200px;
     padding: 20px;
@@ -60,6 +66,10 @@
         color: #5b5b5b;
         text-decoration: none;
         border-radius: 6px;
+      }
+      .sublink {
+        margin-left: 20px;
+        margin-top: 4px;
       }
       a:hover, .create-activity-button:hover {
         background-color: lightgray;
@@ -316,6 +326,17 @@
   }
   .rules-container, .rule-container, .turk-sessions-container, .semantic-labels-container, .model-container {
     width: 80vw;
+    .semantic-rules-cheat-sheet {
+      .data-table-row {
+        height: min-content;
+        padding-top: 8px;
+        padding-bottom: 8px;
+      }
+      .data-table-row-section {
+        white-space: pre-wrap;
+        overflow: visible;
+      }
+    }
     .semantic-labels-overview-container {
       .prompt-section {
         border-top: 2px solid #e0e0e0;
@@ -422,11 +443,11 @@
         font-size: 20px;
         font-weight: bold;
       }
-      a {
-        color: #00c2a2
-      }
-      a:hover {
-        color: #29d8bc;
+      a:not(.quill-button) {
+        color: #00c2a2;
+        &:hover {
+          color: #29d8bc;
+        }
       }
       h5 {
         margin: 5px 0px 5px 0px;
