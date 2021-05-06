@@ -1,9 +1,8 @@
 import * as React from 'react';
 import { shallow } from 'enzyme';
 import { Provider } from 'react-redux';
+
 import createStore from '../../utils/configureStore';
-
-
 import ActivityHealth from '../activityHealth/activityHealth';
 import 'whatwg-fetch';
 
@@ -24,7 +23,7 @@ describe('ActivityHealth component', () => {
         <ActivityHealth {...mockProps} />
       </Provider>
     );
-    wrapper.instance().fetchQuestionData = jest.fn();
+    wrapper.instance().fetchActivityHealthData = jest.fn();
     expect(wrapper).toMatchSnapshot();
   });
 });

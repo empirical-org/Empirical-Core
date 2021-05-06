@@ -24,7 +24,7 @@ class PromptHealth extends React.Component<PromptHealthProps, PromptHealthState>
         accessor: 'text',
         resizeable: true,
         minWidth: 400,
-        Cell: cell => (<a href={cell.original.url} style={{color: 'mediumSeaGreen'}} target="_blank">{stripHtml(cell.original.text)}</a>),
+        Cell: cell => (<a href={cell.original.url} rel="noopener noreferrer" style={{color: 'mediumSeaGreen'}} target="_blank">{stripHtml(cell.original.text)}</a>),
         style: { 'whiteSpace': 'unset' }
       },
       {
@@ -79,8 +79,8 @@ class PromptHealth extends React.Component<PromptHealthProps, PromptHealthState>
     if (dataResults.length) {
       tableOrEmptyMessage = (<ReactTable
         className='prompt-health-table'
-        columns={this.columnDefinitions()}
         collapseOnDataChange={false}
+        columns={this.columnDefinitions()}
         data={dataResults}
         defaultPageSize={dataResults.length}
         loading={false}

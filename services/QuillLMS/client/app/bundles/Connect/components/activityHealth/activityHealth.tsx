@@ -8,10 +8,12 @@ import stripHtml from "string-strip-html"
 import { CSVLink } from 'react-csv'
 import { connect } from 'react-redux';
 
+import PromptHealth from './promptHealth'
+import NumberFilterInput from './numberFilterInput'
+
 import LoadingSpinner from '../shared/loading_indicator.jsx'
 import { sort, sortByList } from '../../../../modules/sortingMethods.js'
 import { FlagDropdown } from '../../../Shared/index'
-import PromptHealth from './promptHealth'
 import { filterNumbers } from '../../../../modules/filteringMethods.js'
 import actions from '../../actions/activityHealth'
 
@@ -43,12 +45,12 @@ class ActivityHealth extends React.Component<ActivityHealthProps, ActivityHealth
     dataToDownload: []
   };
 
-  shouldComponentUpdate(nextProps, nextState){
-    return !(this.state == nextState)
+  componentDidMount() {
+    this.fetchActivityHealthData();
   }
 
-  componentDidMount() {
-    this.fetchQuestionData();
+  shouldComponentUpdate(nextProps, nextState){
+    return !(this.state == nextState)
   }
 
   columnDefinitions() {
@@ -62,7 +64,7 @@ class ActivityHealth extends React.Component<ActivityHealthProps, ActivityHealth
         resizeable: true,
         minWidth: 200,
         sortMethod: sort,
-        Cell: cell => (<a href={cell.original.url} target="_blank">{cell.original.name}</a>)
+        Cell: cell => (<a href={cell.original.url} rel="noopener noreferrer" target="_blank">{cell.original.name}</a>)
       },
       {
         Header: 'Activity Categories',
@@ -77,7 +79,7 @@ class ActivityHealth extends React.Component<ActivityHealthProps, ActivityHealth
             {
             row.original['activity_categories'] ?
             row.original['activity_categories'].map((ap) => (
-              <div>{ap}</div>
+              <div key={ap}>{ap}</div>
             )) : ''
             }
           </div>
@@ -94,7 +96,7 @@ class ActivityHealth extends React.Component<ActivityHealthProps, ActivityHealth
             return row[filter.id] === filter.value
           }
         },
-        Filter: ({ filter, onChange }) =>
+        Filter: ({ filter, onChange }) => (
           <select
             onChange={event => onChange(event.target.value)}
             style={{ width: "100%" }}
@@ -103,7 +105,8 @@ class ActivityHealth extends React.Component<ActivityHealthProps, ActivityHealth
             <option value="all">All</option>
             <option value="connect">Connect</option>
             <option value="grammar">Grammar</option>
-          </select>,
+          </select>
+        ),
         resizeable: true,
         sortMethod: sort,
         minWidth: 90,
@@ -123,8 +126,8 @@ class ActivityHealth extends React.Component<ActivityHealthProps, ActivityHealth
             row.original['diagnostics'] ?
             row.original['diagnostics'].map((diagnostic, index) => {
               if (!diagnostic) return "";
-              else if (index != row.original['diagnostics'].length - 1) return <div>{diagnostic},</div>
-              else return <div>{diagnostic}</div>
+              else if (index != row.original['diagnostics'].length - 1) return <div key={diagnostic}>{diagnostic},</div>
+              else return <div key={diagnostic}>{diagnostic}</div>
             }
             ) : ''
             }
@@ -137,18 +140,13 @@ class ActivityHealth extends React.Component<ActivityHealthProps, ActivityHealth
         accessor: 'recent_plays',
         filterMethod: filterNumbers,
         Filter: ({ filter, onChange }) =>
-        <div style={{ display: 'flex' }}>
-          <input
-            value={filter ? filter.value : ''}
-            type="text"
-            onChange={e =>
-              onChange(e.target.value)
-            }
-            placeholder={`0-5, >1, <1`}
-            style={{width: '100px', marginRight: '0.5rem'}}
-          />
-        </div>
-        ,
+          (
+            <NumberFilterInput
+              filter={filter}
+              handleChange={onChange}
+              label="Filter for recent plays"
+            />
+          ),
         resizeable: true,
         sortMethod: sort,
         Cell: props => this.addCommasToThousands(props.value),
@@ -168,8 +166,8 @@ class ActivityHealth extends React.Component<ActivityHealthProps, ActivityHealth
             row.original['activity_packs'] ?
             row.original['activity_packs'].map((ap, index) => {
               if (!ap.name) return "";
-              else if (index != row.original['activity_packs'].length - 1) return <div>{ap.name},</div>
-              else return <div>{ap.name}</div>
+              else if (index != row.original['activity_packs'].length - 1) return <div key={ap.id}>{ap.name},</div>
+              else return <div key={ap.id}>{ap.name}</div>
             }
             ) : ''
             }
@@ -182,25 +180,13 @@ class ActivityHealth extends React.Component<ActivityHealthProps, ActivityHealth
         accessor: 'avg_difficulty',
         filterMethod: filterNumbers,
         Filter: ({ filter, onChange }) =>
-        <div
-          style={{
-            display: 'flex',
-          }}
-        >
-          <input
-            value={filter ? filter.value : ''}
-            type="text"
-            onChange={e =>
-              onChange(e.target.value)
-            }
-            placeholder={`e.g. 0-5, >5, <5`}
-            style={{
-              width: '100px',
-              marginRight: '0.5rem',
-            }}
+        (
+          <NumberFilterInput
+            filter={filter}
+            handleChange={onChange}
+            label="Filter for average difficulty"
           />
-        </div>
-        ,
+        ),
         resizeable: true,
         sortMethod: sort,
         Cell: props => props.value,
@@ -211,25 +197,13 @@ class ActivityHealth extends React.Component<ActivityHealthProps, ActivityHealth
         accessor: 'standard_dev_difficulty',
         filterMethod: filterNumbers,
         Filter: ({ filter, onChange }) =>
-        <div
-          style={{
-            display: 'flex',
-          }}
-        >
-          <input
-            value={filter ? filter.value : ''}
-            type="text"
-            onChange={e =>
-              onChange(e.target.value)
-            }
-            placeholder={`e.g. 0-5, >5, <5`}
-            style={{
-              width: '100px',
-              marginRight: '0.5rem',
-            }}
+        (
+          <NumberFilterInput
+            filter={filter}
+            handleChange={onChange}
+            label="Filter for recent plays"
           />
-        </div>
-        ,
+        ),
         resizeable: true,
         sortMethod: sort,
         Cell: props => props.value,
@@ -240,25 +214,13 @@ class ActivityHealth extends React.Component<ActivityHealthProps, ActivityHealth
         accessor: 'avg_common_unmatched',
         filterMethod: filterNumbers,
         Filter: ({ filter, onChange }) =>
-        <div
-          style={{
-            display: 'flex',
-          }}
-        >
-          <input
-            value={filter ? filter.value : ''}
-            type="text"
-            onChange={e =>
-              onChange(e.target.value)
-            }
-            placeholder={`e.g. 0-100, <10, >10`}
-            style={{
-              width: '100px',
-              marginRight: '0.5rem',
-            }}
+        (
+          <NumberFilterInput
+            filter={filter}
+            handleChange={onChange}
+            label="Filter for avg common unmatched"
           />
-        </div>
-        ,
+        ),
         resizeable: true,
         sortMethod: sort,
         Cell: props => props.value,
@@ -318,7 +280,7 @@ class ActivityHealth extends React.Component<ActivityHealthProps, ActivityHealth
     this.setState({ promptSearchInput: e.target.value })
   }
 
-  fetchQuestionData() {
+  fetchActivityHealthData() {
     this.setState({ loadingTableData: true })
     request.get({
       url: ACTIVITY_HEALTHS_URL,
@@ -360,26 +322,26 @@ class ActivityHealth extends React.Component<ActivityHealthProps, ActivityHealth
 
     if (fetchedData) {
       let dataToUse = this.getFilteredData()
-      tableOrEmptyMessage = (<ReactTable ref={(r) => this.reactTable = r}
+      tableOrEmptyMessage = (<ReactTable
         className='records-table'
         columns={this.columnDefinitions()}
         data={dataToUse}
+        defaultFilterMethod={(filter, row) =>
+          String(row[filter.id]) === filter.value}
         defaultPageSize={dataToUse.length}
         defaultSorted={[{id: 'name', desc: false}]}
         filterable
-        defaultFilterMethod={(filter, row) =>
-          String(row[filter.id]) === filter.value}
         loading={false}
         pages={1}
+        ref={(r) => this.reactTable = r}
         showPageSizeOptions={false}
         showPagination={false}
-        showPaginationBottom={false}
-        showPaginationTop={false}
         style={{height: "600px"}}
         SubComponent={row => {
           return (
             <PromptHealth
-            dataResults={row.original.prompt_healths}/>
+              dataResults={row.original.prompt_healths}
+            />
           );
         }}
       />)
@@ -403,40 +365,42 @@ class ActivityHealth extends React.Component<ActivityHealthProps, ActivityHealth
 
   render() {
     const { activityHealth } = this.props
-    const { promptSearchInput } = this.state
+    const { promptSearchInput, dataToDownload } = this.state
     return (
       <section className="section">
         <div className="activity-health-filters">
-        <div style={{display: 'inline-block', marginLeft: '10px', float: 'left'}}>
-          <FlagDropdown flag={activityHealth.flag} handleFlagChange={this.handleFlagChange} isLessons={true} />
-          <input
-          className="search-box"
-          name="searchInput"
-          value={promptSearchInput || ""}
-          placeholder="Search by prompt"
-          onChange={this.handleSearchByPrompt}
-        />
-        </div>
-        <div>
-        <div className="csv-download-button">
-        <button style={{cursor: 'pointer'}} onClick={this.formatTableForCSV}>
-            Download CSV
-        </button>
-        </div>
-        <div>
-        <CSVLink
-          data={this.state.dataToDownload}
-          filename="activity_health_report"
-          ref={(r) => this.csvLink = r}
-          target="_blank" />
-        </div>
-
-        </div>
+          <div style={{display: 'inline-block', marginLeft: '10px', float: 'left'}}>
+            <FlagDropdown flag={activityHealth.flag} handleFlagChange={this.handleFlagChange} isLessons={true} />
+            <input
+              aria-label="Search by prompt"
+              className="search-box"
+              name="searchInput"
+              onChange={this.handleSearchByPrompt}
+              placeholder="Search by prompt"
+              value={promptSearchInput || ""}
+            />
+          </div>
+          <div>
+            <div className="csv-download-button">
+              <button onClick={this.formatTableForCSV} style={{cursor: 'pointer'}} type="button">
+                  Download CSV
+              </button>
+            </div>
+            <div>
+              <CSVLink
+                data={dataToDownload}
+                filename="activity_health_report"
+                ref={(r) => this.csvLink = r}
+                rel="noopener noreferrer"
+                target="_blank"
+              />
+            </div>
+          </div>
         </div>
 
         <div className="activity-health-table">
           <div className="standard-columns">
-          {this.renderTable()}
+            {this.renderTable()}
           </div>
         </div>
       </section>
