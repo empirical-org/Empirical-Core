@@ -131,7 +131,7 @@ GEM
     nokogiri (1.10.9)
       mini_portile2 (~> 2.4.0)
     os (1.1.1)
-    pg (0.21.0)
+    pg (0.18.4)
     pry (0.13.1)
       coderay (~> 1.1)
       method_source (~> 1.0)
@@ -224,7 +224,7 @@ DEPENDENCIES
   google-cloud-automl
   httparty
   minitest-stub_any_instance
-  pg (~> 0.15)
+  pg (= 0.18.4)
   pry (~> 0.13.1)
   rails-controller-testing
   redis
