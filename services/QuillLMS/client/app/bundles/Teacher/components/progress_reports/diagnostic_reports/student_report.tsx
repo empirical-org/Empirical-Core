@@ -49,7 +49,7 @@ export class StudentReport extends React.Component<RouteComponentProps, StudentR
     const studentData = this.selectedStudent(students);
     const concept_results = _.sortBy(studentData.concept_results, 'question_number')
     return concept_results.map((question: QuestionData, index: number) => {
-      if (studentData.activity_classification === 'connect' || studentData.activity_classification === 'sentence') {
+      if (studentData.activity_classification === 'connect' || studentData.activity_classification === 'sentence' || studentData.activity_classification === 'comprehension') {
         return <ConnectStudentReportBox boxNumber={index + 1} key={index} questionData={question} />
       }
       return <StudentReportBox boxNumber={index + 1} key={index} questionData={question} />
