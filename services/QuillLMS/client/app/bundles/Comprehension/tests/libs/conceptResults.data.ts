@@ -116,7 +116,7 @@ export const expectedPayload = {
       "metadata":{
         "answer":"Type an answer because some response may be provided.",
         "attemptNumber":1,
-        "correct":true,
+        "correct":1,
         "directions":"Complete this sentence",
         "prompt":"Type an answer because",
         "questionNumber":1,
@@ -129,7 +129,7 @@ export const expectedPayload = {
       "metadata":{
         "answer":"Type an answer, but some response must be provided.",
         "attemptNumber":1,
-        "correct":false,
+        "correct":0,
         "directions":"Complete this sentence",
         "prompt":"Type an answer, but",
         "questionNumber":2,
@@ -142,7 +142,7 @@ export const expectedPayload = {
       "metadata":{
         "answer":"Type an answer, but some response may be provided.",
         "attemptNumber":2,
-        "correct":true,
+        "correct":1,
         "directions":"Remember, for this activity, avoid giving your opinion—your thoughts, feelings, or suggestions. Rewrite your response without the word must, and make sure that your response expresses an idea from the text.",
         "prompt":"Type an answer, but",
         "questionNumber":2,
@@ -155,7 +155,7 @@ export const expectedPayload = {
       "metadata":{
         "answer":"Type an answer, so some response should be provided.",
         "attemptNumber":1,
-        "correct":false,
+        "correct":0,
         "directions":"Complete this sentence",
         "prompt":"Type an answer, so",
         "questionNumber":3,
@@ -168,7 +168,7 @@ export const expectedPayload = {
       "metadata":{
         "answer":"Type an answer, so some response shud be provided.",
         "attemptNumber":2,
-        "correct":true,
+        "correct":1,
         "directions":"Remember, for this activity, avoid giving your opinion—your thoughts, feelings, or suggestions. Rewrite your response without the word should, and make sure that your response expresses an idea from the text.",
         "prompt":"Type an answer, so",
         "questionNumber":3,
