@@ -12,7 +12,7 @@ describe('PromptHealth component', () => {
 
   it('should render PromptHealth', () => {
     const wrapper = shallow(
-        <PromptHealth {...mockProps} />
+      <PromptHealth {...mockProps} />
     );
     expect(wrapper).toMatchSnapshot();
   });
