@@ -19,6 +19,8 @@ import actions from '../../actions/activityHealth'
 
 const CONNECT_TOOL = "connect"
 const ACTIVITY_HEALTHS_URL = `${process.env.DEFAULT_URL}/api/v1/activities/activities_health.json`
+const ALL_FLAGS = "All Flags"
+const NO_DATA_FOUND_MESSAGE = "Activity Health data could not be found. Refresh to try again, or contact the engineering team."
 
 interface ActivityHealthProps {
   dispatch: Function;
@@ -50,7 +52,7 @@ class ActivityHealth extends React.Component<ActivityHealthProps, ActivityHealth
   }
 
   shouldComponentUpdate(nextProps, nextState){
-    return !(this.state == nextState)
+    return !(this.state === nextState)
   }
 
   columnDefinitions() {
@@ -77,10 +79,10 @@ class ActivityHealth extends React.Component<ActivityHealthProps, ActivityHealth
         Cell: (row) => (
           <div>
             {
-            row.original['activity_categories'] ?
-            row.original['activity_categories'].map((ap) => (
-              <div key={ap}>{ap}</div>
-            )) : ''
+              row.original['activity_categories'] ?
+              row.original['activity_categories'].map((ap) => (
+                <div key={ap}>{ap}</div>
+              )) : ''
             }
           </div>
         )
@@ -123,13 +125,12 @@ class ActivityHealth extends React.Component<ActivityHealthProps, ActivityHealth
         Cell: (row) => (
           <div>
             {
-            row.original['diagnostics'] ?
-            row.original['diagnostics'].map((diagnostic, index) => {
-              if (!diagnostic) return "";
-              else if (index != row.original['diagnostics'].length - 1) return <div key={diagnostic}>{diagnostic},</div>
-              else return <div key={diagnostic}>{diagnostic}</div>
-            }
-            ) : ''
+              row.original['diagnostics'] ?
+              row.original['diagnostics'].map((diagnostic, index) => {
+                if (!diagnostic) return "";
+                else if (index != row.original['diagnostics'].length - 1) return <div key={diagnostic}>{diagnostic},</div>
+                else return <div key={diagnostic}>{diagnostic}</div>
+              }) : ''
             }
           </div>
         ),
@@ -163,13 +164,12 @@ class ActivityHealth extends React.Component<ActivityHealthProps, ActivityHealth
         Cell: (row) => (
           <div>
             {
-            row.original['activity_packs'] ?
-            row.original['activity_packs'].map((ap, index) => {
-              if (!ap.name) return "";
-              else if (index != row.original['activity_packs'].length - 1) return <div key={ap.id}>{ap.name},</div>
-              else return <div key={ap.id}>{ap.name}</div>
-            }
-            ) : ''
+              row.original['activity_packs'] ?
+              row.original['activity_packs'].map((ap, index) => {
+                if (!ap.name) return "";
+                else if (index != row.original['activity_packs'].length - 1) return <div key={ap.id}>{ap.name},</div>
+                else return <div key={ap.id}>{ap.name}</div>
+              }) : ''
             }
           </div>
         ),
@@ -306,7 +306,7 @@ class ActivityHealth extends React.Component<ActivityHealthProps, ActivityHealth
     const { activityHealth } = this.props
     const { fetchedData, promptSearchInput } = this.state
 
-    let filteredData = activityHealth.flag === 'All Flags' ? fetchedData : fetchedData.filter(data => data.flag === activityHealth.flag)
+    let filteredData = activityHealth.flag === ALL_FLAGS ? fetchedData : fetchedData.filter(data => data.flag === activityHealth.flag)
     filteredData = filteredData.filter(value => {
       return (
         value.prompt_healths && value.prompt_healths.map(x => x.text || '').some(y => stripHtml(y).toLowerCase().includes(promptSearchInput.toLowerCase()))
@@ -346,7 +346,7 @@ class ActivityHealth extends React.Component<ActivityHealthProps, ActivityHealth
         }}
       />)
     } else {
-      tableOrEmptyMessage = "Activity Health data could not be found. Refresh to try again, or contact the engineering team."
+      tableOrEmptyMessage = NO_DATA_FOUND_MESSAGE
     }
       return (
         <div>

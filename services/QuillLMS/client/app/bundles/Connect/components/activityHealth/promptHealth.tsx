@@ -11,6 +11,8 @@ interface PromptHealthProps {
 interface PromptHealthState {
 }
 
+const NO_DATA_FOUND_MESSAGE = "Prompt data for this question could not be found. Refresh to try again."
+
 class PromptHealth extends React.Component<PromptHealthProps, PromptHealthState> {
 
   renderTable() {
@@ -89,7 +91,7 @@ class PromptHealth extends React.Component<PromptHealthProps, PromptHealthState>
         showPagination={false}
       />)
     } else {
-      tableOrEmptyMessage = "Prompt data for this question could not be found. Refresh to try again."
+      tableOrEmptyMessage = NO_DATA_FOUND_MESSAGE
     }
       return (
         <div>

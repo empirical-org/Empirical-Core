@@ -12,7 +12,6 @@ export default function (currentstate, action) {
   let newstate;
   switch (action.type) {
     case C.SET_ACTIVITY_HEALTH_FLAG:
-      console.log("setting activity health flag in reducer")
       return Object.assign({},currentstate,{
         flag: action.flag
       });

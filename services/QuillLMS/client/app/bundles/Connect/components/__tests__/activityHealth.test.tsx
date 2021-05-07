@@ -16,7 +16,6 @@ const mockProps = {
 describe('ActivityHealth component', () => {
   const store = createStore();
 
-
   it('should render ActivityHealth', () => {
     const wrapper = shallow(
       <Provider store={store}>
