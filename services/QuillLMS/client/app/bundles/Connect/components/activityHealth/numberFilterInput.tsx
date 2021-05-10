@@ -8,13 +8,8 @@ interface NumberFilterInputProps {
   }
 }
 
-interface NumberFilterInputState {
-}
-
-export default class NumberFilterInput extends React.Component<NumberFilterInputProps, NumberFilterInputState> {
-  render() {
-    const { handleChange, label, filter } = this.props
-		return (
+export const NumberFilterInput: React<NumberFilterInputProps> = ({ handleChange, label, filter }) => {
+  return (
   <div style={{ display: 'flex' }}>
     <input
       aria-label={label}
@@ -25,6 +20,5 @@ export default class NumberFilterInput extends React.Component<NumberFilterInput
       type="text"
     />
   </div>
-		);
-	}
+  );
 }

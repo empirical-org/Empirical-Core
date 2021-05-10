@@ -9,7 +9,7 @@ import { CSVLink } from 'react-csv'
 import { connect } from 'react-redux';
 
 import PromptHealth from './promptHealth'
-import NumberFilterInput from './numberFilterInput'
+import { NumberFilterInput } from './numberFilterInput'
 
 import LoadingSpinner from '../shared/loading_indicator.jsx'
 import { sort, sortByList } from '../../../../modules/sortingMethods.js'
@@ -18,7 +18,7 @@ import { filterNumbers } from '../../../../modules/filteringMethods.js'
 import actions from '../../actions/activityHealth'
 
 const CONNECT_TOOL = "connect"
-const ACTIVITY_HEALTHS_URL = `${process.env.DEFAULT_URL}/api/v1/activities/activities_health.json`
+const ACTIVITY_HEALTHS_URL = `https://cissy-test-endpoint.free.beeceptor.com`
 const ALL_FLAGS = "All Flags"
 const NO_DATA_FOUND_MESSAGE = "Activity Health data could not be found. Refresh to try again, or contact the engineering team."
 
@@ -35,6 +35,14 @@ interface ActivityHealthState {
   fetchedData: Array<Object>;
   promptSearchInput: string;
   dataToDownload: Array<Object>;
+}
+
+function addCommasToThousands(num)
+{
+  if (!num) return ""
+  var num_parts = num.toString().split(".");
+  num_parts[0] = num_parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+  return num_parts.join(".");
 }
 
 class ActivityHealth extends React.Component<ActivityHealthProps, ActivityHealthState> {
@@ -91,12 +99,8 @@ class ActivityHealth extends React.Component<ActivityHealthProps, ActivityHealth
         Header: 'Tool',
         accessor: 'tool',
         filterMethod: (filter, row) => {
-          if (filter.value === "all") {
-            return true;
-          }
-          else {
-            return row[filter.id] === filter.value
-          }
+          if (filter.value === "all") { return true }
+          return row[filter.id] === filter.value
         },
         Filter: ({ filter, onChange }) => (
           <select
@@ -150,7 +154,7 @@ class ActivityHealth extends React.Component<ActivityHealthProps, ActivityHealth
           ),
         resizeable: true,
         sortMethod: sort,
-        Cell: props => this.addCommasToThousands(props.value),
+        Cell: props => addCommasToThousands(props.value),
         maxWidth: 90
       },
       {
@@ -168,7 +172,7 @@ class ActivityHealth extends React.Component<ActivityHealthProps, ActivityHealth
               row.original['activity_packs'].map((ap, index) => {
                 if (!ap.name) return "";
                 else if (index != row.original['activity_packs'].length - 1) return <div key={ap.id}>{ap.name},</div>
-                else return <div key={ap.id}>{ap.name}</div>
+                return <div key={ap.id}>{ap.name}</div>
               }) : ''
             }
           </div>
@@ -229,29 +233,20 @@ class ActivityHealth extends React.Component<ActivityHealthProps, ActivityHealth
     ];
   }
 
-  addCommasToThousands = (num) =>
-  {
-    if (!num) return ""
-    var num_parts = num.toString().split(".");
-    num_parts[0] = num_parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-    return num_parts.join(".");
-  }
-
   getToolBadge = (tool) => {
     if (tool === CONNECT_TOOL) {
       return (<div className="badge connect-badge">c</div>)
-    } else {
-      return (<div className="badge grammar-badge">g</div>)
     }
+    return (<div className="badge grammar-badge">g</div>)
   }
 
   formatTableForCSV = (e) => {
     const currentRecords = this.reactTable.getResolvedState().sortedData
     const columns = this.columnDefinitions()
     let dataToDownload = []
-    for (var index = 0; index < currentRecords.length; index++) {
+    for (let index = 0; index < currentRecords.length; index++) {
        let recordToDownload = {}
-       for(var colIndex = 0; colIndex < columns.length ; colIndex ++) {
+       for(let colIndex = 0; colIndex < columns.length ; colIndex ++) {
           recordToDownload[columns[colIndex].Header] = currentRecords[index][columns[colIndex].accessor]
        }
        dataToDownload.push(recordToDownload)
