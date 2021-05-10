@@ -59,19 +59,15 @@ const LabelsTable = ({ activityId, prompt }) => {
 
   return(
     <section className="semantic-labels-container">
-      <section className="header-container">
-        <h5>Semantic Labels: <p>{prompt.conjunction}</p></h5>
-        <h5>Prompt ID: <p>{prompt.id}</p></h5>
-        <div className="button-wrapper">
-          {addRuleLink}
-          {semanticRulesCheatSheetLink}
-        </div>
-      </section>
       <DataTable
         className="semantic-labels-table"
         headers={dataTableFields}
         rows={getFormattedRows()}
       />
+      <div className="button-wrapper">
+        {addRuleLink}
+        {semanticRulesCheatSheetLink}
+      </div>
     </section>
   );
 }

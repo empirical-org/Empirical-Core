@@ -1,6 +1,6 @@
 import * as React from "react";
 import { useQuery, queryCache } from 'react-query';
-import { NavLink, Redirect, Route, Switch, withRouter } from 'react-router-dom';
+import { Redirect, Route, Switch, withRouter } from 'react-router-dom';
 
 import SemanticLabelsOverview from './semanticLabelsOverview'
 import SemanticLabelWrapper from './semanticLabelWrapper';
@@ -16,7 +16,7 @@ import { createRule, updateRule } from '../../../utils/comprehension/ruleAPIs';
 import { Error, Spinner } from '../../../../Shared/index';
 import { RuleInterface } from '../../../interfaces/comprehensionInterfaces';
 
-const SemanticLabelsIndex = ({ history, match, location }) => {
+const SemanticLabelsIndex = ({ history, match }) => {
   const { params } = match;
   const { activityId } = params;
 
@@ -83,36 +83,12 @@ const SemanticLabelsIndex = ({ history, match, location }) => {
       </div>
     );
   }
-  const tabOptions = [ALL, BECAUSE, BUT, SO];
-  const showTabs = tabOptions.some(option => location.pathname.includes(option));
 
   return(
     <div className="semantic-labels-container">
       <div className="header-container">
         {activityData && renderTitle(activityData)}
       </div>
-      {showTabs && <div className="tabs-container">
-        <NavLink activeClassName="is-active" to={`/activities/${activityId}/semantic-labels/all`}>
-          <div className="tab-option">
-            All
-          </div>
-        </NavLink>
-        <NavLink activeClassName="is-active" to={`/activities/${activityId}/semantic-labels/because`}>
-          <div className="tab-option">
-            Because
-          </div>
-        </NavLink>
-        <NavLink activeClassName="is-active" to={`/activities/${activityId}/semantic-labels/but`}>
-          <div className="tab-option">
-            But
-          </div>
-        </NavLink>
-        <NavLink activeClassName="is-active" to={`/activities/${activityId}/semantic-labels/so`}>
-          <div className="tab-option">
-            So
-          </div>
-        </NavLink>
-      </div>}
       <Switch>
         <Redirect exact from='/activities/:activityId/semantic-labels' to='/activities/:activityId/semantic-labels/all' />
         {/* eslint-disable react/jsx-no-bind */}
