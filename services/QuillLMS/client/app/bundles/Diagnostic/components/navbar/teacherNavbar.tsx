@@ -44,7 +44,7 @@ export const TeacherNavbar = ({ dispatch, diagnosticID, languageMenuOpen, previe
       <div className="activity-navbar-content">
         <div className="mobile-student-language-menu">
           <h2>Choose a directions language</h2>
-          <LanguageOptions diagnosticID={diagnosticID} dispatch={dispatch} />
+          <LanguageOptions dispatch={dispatch} />
         </div>
       </div>
     </div>

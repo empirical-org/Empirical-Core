@@ -70,7 +70,7 @@
     },
     "cues": {
         "type one": "type one / พิมพ์หนึ่งคำ",
-        "type one in each blank": "พิมพ์หนึ่งคำในแต่ละช่องว่าง",
+        "type one in each blank": "type one in each blank / พิมพ์หนึ่งคำในแต่ละช่องว่าง",
         "type two or three": "type two or three / พิมพ์สองหรือสามคำ",
         "type three": "type three / พิมพ์สามคำ",
         "choose one": "choose one / เลือกหนึ่งคำ",

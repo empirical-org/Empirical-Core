@@ -1,5 +1,6 @@
 import React from 'react';
 import { mount } from 'enzyme';
+
 import LandingPage from '../landingPage';
 
 // TODO: add mocking of translate to simulate translation in tests
@@ -9,7 +10,7 @@ describe('LandingPage component', () => {
     it('should render begin button', () => {
       const wrapper = mount(
         <LandingPage
-          diagnosticID="ell"
+          diagnosticID="-LyFRZvbHAmooTTIIVE2"
           language='spanish'
           translate={jest.fn()}
         />
@@ -22,7 +23,7 @@ describe('LandingPage component', () => {
       const wrapper = mount(
         <LandingPage
           begin={mockBegin}
-          diagnosticID="ell"
+          diagnosticID="-LyFRZvbHAmooTTIIVE2"
           language='spanish'
           translate={jest.fn()}
         />
@@ -36,7 +37,7 @@ describe('LandingPage component', () => {
     it('should render continue button', () => {
       const wrapper = mount(
         <LandingPage
-          diagnosticID="ell"
+          diagnosticID="-LyFRZvbHAmooTTIIVE2"
           language='spanish'
           session='anything'
           translate={jest.fn()}
@@ -49,7 +50,7 @@ describe('LandingPage component', () => {
       const mockResumeActivity = jest.fn();
       const wrapper = mount(
         <LandingPage
-          diagnosticID="ell"
+          diagnosticID="-LyFRZvbHAmooTTIIVE2"
           language='spanish'
           resumeActivity={mockResumeActivity}
           session='anything'
