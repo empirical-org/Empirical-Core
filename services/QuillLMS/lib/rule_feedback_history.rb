@@ -7,7 +7,7 @@ class RuleFeedbackHistory
 
     def self.exec_query(conjunction:, activity_id:)
         sql = <<~SQL
-          select rules.uid as rules_uid, 
+          select rules.uid as rules_uid,
           feedback_histories.feedback_history_ids as feedback_histories_id_array,
             prompts.activity_id as activity_id,
             rules.rule_type as rule_type,

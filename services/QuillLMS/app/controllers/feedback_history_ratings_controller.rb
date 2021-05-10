@@ -4,7 +4,7 @@ class FeedbackHistoryRatingsController < ApplicationController
 
   def create_or_update
     rating = FeedbackHistoryRating.find_or_initialize_by(
-      user_id: current_user.id, 
+      user_id: current_user.id,
       feedback_history_id: feedback_history_rating_params["feedback_history_id"]
     )
 
