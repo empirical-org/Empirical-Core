@@ -3,7 +3,7 @@ source 'https://rubygems.org'
 ruby '2.6.6'
 
 # CORE DEPS
-gem 'rails', '=4.2.11.3'
+gem 'rails', '5.0.7'
 gem 'puma', '~> 3.12'
 
 # EARLY TO APPLY TO OTHER GEMS
@@ -163,7 +163,6 @@ end
 gem 'awesome_print'
 
 group :test, :development do
-  gem 'quiet_assets'
   gem 'parallel_tests'
   gem 'pry', '~> 0.12.2'
   gem 'pry-rails'
@@ -206,9 +205,6 @@ group :test do
   gem 'fakeredis', '~> 0.7.0'
   gem 'rails-controller-testing'
   gem 'super_diff', require: false
-
-  # Remove this gem after upgrading to Rails 5
-  gem 'test_after_commit'
 end
 
 # Memory profiling
