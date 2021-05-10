@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`LanguageOptions component should render correct languages for ELL Diagnostic 1 1`] = `
+exports[`LanguageOptions component should render correct languages for ELL Diagnostics 1`] = `
 Array [
   <button
     className="language-button"
@@ -255,116 +255,6 @@ Array [
     />
     <span>
       درى
-    </span>
-  </button>,
-]
-`;
-
-exports[`LanguageOptions component should render correct languages for ELL Diagnostic 2 1`] = `
-Array [
-  <button
-    className="language-button"
-    key="english-button"
-    onClick={[Function]}
-    type="button"
-    value="english"
-  >
-    <img
-      alt="english flag"
-      src="https://assets.quill.org/images/flags/usa.png"
-    />
-    <span>
-      English
-    </span>
-  </button>,
-  <button
-    className="language-button"
-    key="arabic-button"
-    onClick={[Function]}
-    type="button"
-    value="arabic"
-  >
-    <img
-      alt="arabic flag"
-      src="https://assets.quill.org/images/flags/egypt.png"
-    />
-    <span>
-      العربية
-    </span>
-  </button>,
-  <button
-    className="language-button"
-    key="chinese-button"
-    onClick={[Function]}
-    type="button"
-    value="chinese"
-  >
-    <img
-      alt="chinese flag"
-      src="https://assets.quill.org/images/flags/china.png"
-    />
-    <span>
-      中文
-    </span>
-  </button>,
-  <button
-    className="language-button"
-    key="french-button"
-    onClick={[Function]}
-    type="button"
-    value="french"
-  >
-    <img
-      alt="french flag"
-      src="https://assets.quill.org/images/flags/france.png"
-    />
-    <span>
-      Français
-    </span>
-  </button>,
-  <button
-    className="language-button"
-    key="hindi-button"
-    onClick={[Function]}
-    type="button"
-    value="hindi"
-  >
-    <img
-      alt="hindi flag"
-      src="https://assets.quill.org/images/flags/india.png"
-    />
-    <span>
-      हिंदी
-    </span>
-  </button>,
-  <button
-    className="language-button"
-    key="spanish-button"
-    onClick={[Function]}
-    type="button"
-    value="spanish"
-  >
-    <img
-      alt="spanish flag"
-      src="https://assets.quill.org/images/flags/spain.png"
-    />
-    <span>
-      Español
-    </span>
-  </button>,
-  <button
-    className="language-button"
-    key="vietnamese-button"
-    onClick={[Function]}
-    type="button"
-    value="vietnamese"
-  >
-    <img
-      alt="vietnamese flag"
-      src="https://assets.quill.org/images/flags/vietnam.png"
-    />
-    <span>
-      Tiếng Việt
     </span>
   </button>,
 ]
