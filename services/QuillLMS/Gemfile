@@ -74,6 +74,7 @@ gem 'comprehension', path: 'engines/comprehension'
 
 # WEBSOCKETS
 gem 'pusher'
+gem 'websocket-driver', '0.6.5'
 
 # PARSING
 gem 'parslet'
