@@ -7,52 +7,52 @@ RSpec.describe 'Response model multi-db configuration checks', type: :request do
 
   before { allow(Pusher::Client).to receive(:new) { double(:client, trigger: true) } }
   before { allow_any_instance_of(ResponseSearch).to receive(:search_responses).and_return({}) }
-  before { allow(RematchResponsesForQuestionWorker).to receive(:perform_async) }
+  before { allow(RematchResponsesForQuestionWorker).to receive(:perform_in) }
   before { allow(CreateOrIncrementResponseWorker).to receive(:perform_async) }
 
   before { http_request }
 
   context 'GET' do
     let(:http_request) { get url }
-    
+
     describe 'responses#show' do
       let(:url) { "/responses/#{q_response.id}" }
 
       it { should_only_read_from_replica }
     end
-    
+
     describe 'responses#responses_for_question' do
       let(:url) { "/questions/#{question_uid}/responses"}
 
       it { should_only_read_from_replica }
     end
-    
+
     describe 'responses#multiple_choice_options' do
       let(:url) { "/questions/#{question_uid}/multiple_choice_options" }
 
       it { should_only_read_from_replica }
     end
-    
+
     describe 'responses#health_of_question' do
       let(:url) { "/questions/#{question_uid}/health" }
 
       it { should_only_read_from_replica }
     end
-    
+
     describe 'responses#incorrect_sequences' do
       let(:url) { "/responses/#{question_uid}/incorrect_sequences" }
 
       it { should_only_read_from_replica }
     end
-    
+
     describe 'responses#grade_breakdown' do
       let(:url) { "/questions/#{question_uid}/grade_breakdown" }
-      
+
       it { should_only_read_from_replica }
     end
   end
 
-  context 'POST' do 
+  context 'POST' do
     let(:http_request) { post url, params: params }
 
     describe 'responses#create' do
@@ -68,7 +68,7 @@ RSpec.describe 'Response model multi-db configuration checks', type: :request do
 
       it { should_only_write_to_primary }
     end
-    
+
     describe 'responses#delete_many' do
      let(:params) { { ids: [q_response.id] } }
      let(:url) { '/responses/mass_edit/delete_many' }
@@ -82,14 +82,14 @@ RSpec.describe 'Response model multi-db configuration checks', type: :request do
 
       it { should_only_write_to_primary }
     end
-    
+
     describe 'responses#count_affected_by_focus_points' do
       let(:params) { { question_uid: question_uid, data: { selected_sequences: ['1234']}} }
       let(:url) { "/responses/#{question_uid}/focus_point_affected_count" }
 
       it { should_only_write_to_primary }
     end
-    
+
     describe 'responses#search' do
       let(:search_params) { { pageNumber: 1, text: '1234', sort: { column: :text} } }
 
@@ -105,14 +105,14 @@ RSpec.describe 'Response model multi-db configuration checks', type: :request do
 
       it { should_only_write_to_primary }
     end
-    
+
     describe 'responses#clone_responses' do
       let(:params) { { original_question_uid: question_uid, new_question_uid: question_uid} }
       let(:url) { '/responses/clone_responses' }
 
       it { should_only_write_to_primary }
     end
-    
+
     describe 'responses#create_or_increment' do
       let(:params) { { response: attributes_for(:response) } }
       let(:url) { '/responses/create_or_increment' }
@@ -127,17 +127,17 @@ RSpec.describe 'Response model multi-db configuration checks', type: :request do
       it { should_only_write_to_primary }
     end
   end
-  
+
   context 'PUT' do
     let(:http_request) { put url, params: params }
-    
+
     describe 'responses#update' do
       let(:params) { { response: attributes_for(:response) } }
       let(:url) { "/responses/#{q_response.id}" }
 
       it { should_only_write_to_primary }
     end
-    
+
     describe 'responses#edit_many' do
       let(:params) { { updated_attribute: { text: 'new text' } } }
       let(:url) { '/responses/mass_edit/edit_many' }
@@ -159,7 +159,7 @@ RSpec.describe 'Response model multi-db configuration checks', type: :request do
       it { should_only_write_to_primary }
     end
   end
-  
+
   context 'PATCH' do
     let(:http_request) { patch url, params: params }
 
@@ -170,21 +170,21 @@ RSpec.describe 'Response model multi-db configuration checks', type: :request do
       it { should_only_write_to_primary }
     end
   end
-  
+
   context 'DELETE' do
     let(:http_request) { delete url }
-    
+
     describe 'responses#destroy' do
       let(:url) { "/responses/#{q_response.id}" }
 
       it { should_only_write_to_primary }
     end
   end
-  
+
   def should_only_read_from_replica
     expect(db_selection_methods).to eq [:read_from_replica]
   end
-  
+
   def should_only_write_to_primary
     expect(db_selection_methods).to eq [:write_to_primary]
   end
