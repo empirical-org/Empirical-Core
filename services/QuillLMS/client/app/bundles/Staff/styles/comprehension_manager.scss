@@ -340,8 +340,7 @@
     .semantic-labels-overview-container {
       .prompt-section {
         border-top: 2px solid #e0e0e0;
-        border-bottom: 2px solid #e0e0e0;
-        padding: 20px;
+        padding: 0px 20px 20px 20px;
       }
     }
     .rules-based-section, .plagiarism-section {
@@ -502,6 +501,7 @@
       }
     }
     .models-table {
+      margin-bottom: 8px;
       .active-row {
         background-color: #e7fee8;
         // font-weight: bold;
@@ -552,8 +552,8 @@
   }
   .models-container {
     .header-container {
-      #model-count {
-        margin-top: 12px;
+      h2 {
+        font-weight: 600;
       }
     }
   }

@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom'
 import { useQuery } from 'react-query';
 import { firstBy } from 'thenby';
 
+import { titleCase } from '../../../helpers/comprehension';
 import { fetchModels } from '../../../utils/comprehension/modelAPIs';
 import { DataTable, Spinner } from '../../../../Shared/index';
 
@@ -61,14 +62,11 @@ const ModelsTable = ({ activityId, prompt }) => {
   ];
 
   const addModelLink = <Link className="quill-button fun primary contained" to={`/activities/${activityId}/semantic-labels/${prompt.id}/add-model`}>Add Model</Link>;
-  const count = modelsData && modelsData.models && modelsData.models.length
 
   return(
     <section className="models-container">
       <section className="header-container">
-        <h5>Prompt Models</h5>
-        <h5 id="model-count">Count: <p>{count}</p></h5>
-        {addModelLink}
+        <h2>{`${titleCase(prompt.conjunction)} Model (Prompt ID: ${prompt.id})`}</h2>
       </section>
       <DataTable
         className="models-table"
@@ -76,6 +74,7 @@ const ModelsTable = ({ activityId, prompt }) => {
         headers={dataTableFields}
         rows={getFormattedRows()}
       />
+      {addModelLink}
     </section>
   );
 }

@@ -4,39 +4,6 @@ exports[`LabelsTable component should render LabelsTable 1`] = `
 <section
   className="semantic-labels-container"
 >
-  <section
-    className="header-container"
-  >
-    <h5>
-      Semantic Labels: 
-      <p />
-    </h5>
-    <h5>
-      Prompt ID: 
-      <p>
-        1
-      </p>
-    </h5>
-    <div
-      className="button-wrapper"
-    >
-      <Link
-        className="quill-button fun primary contained"
-        id="add-rule-button"
-        to="/activities/17/semantic-labels/1/new"
-      >
-        Add Label
-      </Link>
-      <Link
-        className="quill-button fun secondary outlined"
-        rel="noopener noreferrer"
-        target="_blank"
-        to="/activities/17/semantic-labels/1/semantic-rules-cheat-sheet"
-      >
-        Semantic Rules Cheat Sheet
-      </Link>
-    </div>
-  </section>
   <DataTable
     averageFontWidth={7}
     className="semantic-labels-table"
@@ -151,5 +118,24 @@ exports[`LabelsTable component should render LabelsTable 1`] = `
       ]
     }
   />
+  <div
+    className="button-wrapper"
+  >
+    <Link
+      className="quill-button fun primary contained"
+      id="add-rule-button"
+      to="/activities/17/semantic-labels/1/new"
+    >
+      Add Label
+    </Link>
+    <Link
+      className="quill-button fun secondary outlined"
+      rel="noopener noreferrer"
+      target="_blank"
+      to="/activities/17/semantic-labels/1/semantic-rules-cheat-sheet"
+    >
+      Semantic Rules Cheat Sheet
+    </Link>
+  </div>
 </section>
 `;

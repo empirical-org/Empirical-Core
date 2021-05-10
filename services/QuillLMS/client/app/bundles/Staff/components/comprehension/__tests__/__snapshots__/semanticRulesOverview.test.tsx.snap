@@ -8,7 +8,7 @@ exports[`SemanticLabelsOverview component should render SemanticLabelsOverview 1
     className="prompt-section"
     key="1"
   >
-    <LabelsTable
+    <ModelsTable
       activityId="17"
       prompt={
         Object {
@@ -16,7 +16,7 @@ exports[`SemanticLabelsOverview component should render SemanticLabelsOverview 1
         }
       }
     />
-    <ModelsTable
+    <LabelsTable
       activityId="17"
       prompt={
         Object {
@@ -29,7 +29,7 @@ exports[`SemanticLabelsOverview component should render SemanticLabelsOverview 1
     className="prompt-section"
     key="2"
   >
-    <LabelsTable
+    <ModelsTable
       activityId="17"
       prompt={
         Object {
@@ -37,7 +37,7 @@ exports[`SemanticLabelsOverview component should render SemanticLabelsOverview 1
         }
       }
     />
-    <ModelsTable
+    <LabelsTable
       activityId="17"
       prompt={
         Object {
@@ -50,7 +50,7 @@ exports[`SemanticLabelsOverview component should render SemanticLabelsOverview 1
     className="prompt-section"
     key="3"
   >
-    <LabelsTable
+    <ModelsTable
       activityId="17"
       prompt={
         Object {
@@ -58,7 +58,7 @@ exports[`SemanticLabelsOverview component should render SemanticLabelsOverview 1
         }
       }
     />
-    <ModelsTable
+    <LabelsTable
       activityId="17"
       prompt={
         Object {
