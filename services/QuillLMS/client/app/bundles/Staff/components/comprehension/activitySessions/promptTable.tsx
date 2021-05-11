@@ -47,6 +47,7 @@ const PromptTable = ({ activity, prompt, showHeader }: PromptTableProps) => {
     keys.map(key => {
       const filteredAttempt = attempts[key].filter(attempt => attempt.used)[0];
       const attempt = filteredAttempt || attempts[key][0];
+      console.log("🚀 ~ file: promptTable.tsx ~ line 50 ~ formatFeedbackData ~ attempt", attempt)
       const { entry, feedback_text, feedback_type, optimal } = attempt;
       const { attemptLabel, feedbackLabel } = PROMPT_ATTEMPTS_FEEDBACK_LABELS[key];
       const attemptObject: any = {
