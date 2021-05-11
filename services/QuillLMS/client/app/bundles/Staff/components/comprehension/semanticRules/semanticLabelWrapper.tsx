@@ -5,13 +5,13 @@ import { withRouter } from 'react-router-dom';
 import SemanticLabelForm from './semanticLabelForm';
 
 import { RuleInterface } from '../../../interfaces/comprehensionInterfaces';
-import { blankRule } from '../../../../../constants/comprehension';
+import { blankRule, DEFAULT_CONCEPT_UIDS } from '../../../../../constants/comprehension';
 import { fetchRule } from '../../../utils/comprehension/ruleAPIs';
 import { Spinner } from '../../../../Shared/index';
 
 const SemanticLabelWrapper = ({ activityData, isSemantic, isUniversal, requestErrors, submitRule, match }) => {
   const { params } = match;
-  const { activityId, ruleId } = params;
+  const { activityId, ruleId, promptId, } = params;
 
   // cache rule data
   const { data: ruleData } = useQuery({
@@ -19,12 +19,15 @@ const SemanticLabelWrapper = ({ activityData, isSemantic, isUniversal, requestEr
     queryFn: fetchRule
   });
 
+  const prompt = activityData.prompts.find(p => String(p.id) === promptId)
+
   let rule: RuleInterface;
 
   if(!ruleId) {
     const blankSemanticRule = {...blankRule};
     blankSemanticRule.rule_type = 'autoML';
     blankSemanticRule.state = 'inactive';
+    blankSemanticRule.concept_uid = DEFAULT_CONCEPT_UIDS[prompt.conjunction]
     rule = blankSemanticRule
   } else {
     rule = ruleData && ruleData.rule;
