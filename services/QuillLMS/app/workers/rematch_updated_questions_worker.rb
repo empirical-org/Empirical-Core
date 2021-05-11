@@ -5,7 +5,7 @@ class RematchUpdatedQuestionsWorker
 
   REMATCH_URL = "#{ENV['CMS_URL']}/responses/rematch_all"
   JSON_HEADERS = {'Content-Type' => 'application/json', 'Accept' => 'application/json'}
-  DELAY_PER_QUESTION = 3.minutes.to_i
+  DELAY_PER_QUESTION = 5.minutes.to_i
 
   def perform(start_time = Time.zone.now - 1.day, end_time = Time.zone.now, delay =  DELAY_PER_QUESTION)
     questions = Question
