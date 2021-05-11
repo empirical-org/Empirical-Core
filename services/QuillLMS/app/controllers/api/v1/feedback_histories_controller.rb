@@ -1,5 +1,5 @@
 class Api::V1::FeedbackHistoriesController < Api::ApiController
-  before_action :set_feedback_history, only: [:show, :update, :destroy]
+  before_action :set_feedback_history, only: [:show]
 
   # GET /feedback_histories.json
   def index
@@ -32,23 +32,6 @@ class Api::V1::FeedbackHistoriesController < Api::ApiController
     else
       render json: {feedback_histories: records.map { |r| r.errors }}, status: :unprocessable_entity
     end
-  end
-
-  # PATCH/PUT /feedback_histories/1.json
-  def update
-    @feedback_history.update(feedback_history_params)
-
-    if @feedback_history.save
-      head :no_content
-    else
-      render json: @feedback_history.errors, status: :unprocessable_entity
-    end
-  end
-
-  # DELETE /feedback_histories/1.json
-  def destroy
-    @feedback_history.destroy
-    head :no_content
   end
 
   private def set_feedback_history

@@ -131,56 +131,16 @@ describe Api::V1::FeedbackHistoriesController, type: :controller do
     it "should attach include prompt model if attached" do
       activity = Comprehension::Activity.create(target_level: 1, title: 'Test Activity Title')
       prompt = Comprehension::Prompt.create(activity: activity, text: 'Test prompt text', conjunction: 'but')
-      @feedback_history.prompt = prompt
-      @feedback_history.save
+      feedback_history = build(:feedback_history)
+      feedback_history.prompt = prompt
+      feedback_history.save
 
-      get :show, id: @feedback_history.id
+      get :show, id: feedback_history.id
 
       parsed_response = JSON.parse(response.body)
       
       expect(200).to eq(response.code.to_i)
       expect(prompt.as_json).to eq(parsed_response['prompt'])
-    end
-  end
-
-  context "update" do
-    setup do
-      @feedback_history = create(:feedback_history)
-    end
-
-    it "should update record if valid, return nothing" do
-      put :update, id: @feedback_history.id, feedback_history: { entry: 'This is the new student entry which is different' }
-
-      expect("").to eq(response.body)
-      expect(204).to eq(response.code.to_i)
-
-      @feedback_history.reload
-
-      expect("This is the new student entry which is different").to eq(@feedback_history.entry)
-    end
-
-    it "should not update record and return errors as json" do
-      put :update, id: @feedback_history.id, feedback_history: { entry: '<5' }
-
-      parsed_response = JSON.parse(response.body)
-
-      expect(422).to eq(response.code.to_i)
-      expect(parsed_response['entry'].include?("is too short (minimum is 5 characters)")).to be
-    end
-  end
-
-  context 'destroy' do
-    setup do
-      @feedback_history = create(:feedback_history)
-    end
-
-    it "should destroy record at id" do
-      delete :destroy, id: @feedback_history.id
-
-      expect("").to eq(response.body)
-      expect(204).to eq(response.code.to_i)
-      expect(@feedback_history.id).to be # still in test memory
-      expect(FeedbackHistory.find_by_id(@feedback_history.id)).to be_nil # not in DB.
     end
   end
 end
