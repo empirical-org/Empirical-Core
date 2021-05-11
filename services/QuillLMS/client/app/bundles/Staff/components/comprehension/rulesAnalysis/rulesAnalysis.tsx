@@ -4,6 +4,7 @@ import { useQuery } from 'react-query';
 import { firstBy } from "thenby";
 import ReactTable from 'react-table';
 import qs from 'qs';
+import _ from 'lodash'
 
 import { ActivityRouteProps, PromptInterface } from '../../../interfaces/comprehensionInterfaces';
 import { ruleOrder } from '../../../../../constants/comprehension';
@@ -86,7 +87,7 @@ const RulesAnalysis: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ hist
   const formattedRows = selectedPrompt && ruleFeedbackHistory && ruleFeedbackHistory.ruleFeedbackHistories && ruleFeedbackHistory.ruleFeedbackHistories.filter(rule => {
     return selectedRuleType.value === DEFAULT_RULE_TYPE || rule.api_name.toLowerCase() === selectedRuleType.value.toLowerCase()
   }).map(rule => {
-    const { rule_name, rule_uid, api_name, rule_order, note, pct_strong, pct_scored, total_responses, scored_responses, first_feedback, } = rule;
+    const { rule_name, rule_uid, api_name, rule_order, note, total_responses, scored_responses, first_feedback, } = rule;
     const apiOrder = ruleOrder[api_name]
     return {
       rule_uid,
@@ -95,10 +96,8 @@ const RulesAnalysis: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ hist
       apiName: api_name,
       ruleOrder: Number(rule_order),
       rule: rule_name,
-      percentageStrong: pct_strong,
       totalResponses: total_responses,
       scoredResponses: scored_responses,
-      percentageScored: pct_scored,
       activityId,
       note,
       firstLayerFeedback: first_feedback,
@@ -126,27 +125,26 @@ const RulesAnalysis: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ hist
       accessor: "ruleOrder",
       key: "ruleOrder",
       width: 100,
+      aggregate: vals => '',
+      Aggregated: (row) => (<span />),
       Cell: (data) => (<button className={data.original.className} onClick={data.original.handleClick} type="button">{data.original.ruleOrder}</button>),
     },
     {
       Header: "Rule",
       accessor: "rule",
       key: "rule",
-      minWidth: 700,
+      minWidth: 300,
+      aggregate: vals => '',
+      Aggregated: (row) => (<span />),
       Cell: (data) => (<button className={data.original.className} onClick={data.original.handleClick} type="button">{data.original.rule}</button>),
-    },
-    {
-      Header: "% Strong",
-      accessor: "percentageStrong",
-      key: "percentageStrong",
-      width: 150,
-      Cell: (data) => (<button className={data.original.className} onClick={data.original.handleClick} type="button">{data.original.percentageStrong}</button>),
     },
     {
       Header: "Total Responses",
       accessor: "totalResponses",
       key: "totalResponses",
       width: 150,
+      aggregate: vals => _.sum(vals),
+      Aggregated: (row) => (<span>{row.value}</span>),
       Cell: (data) => (<button className={data.original.className} onClick={data.original.handleClick} type="button">{data.original.totalResponses}</button>),
     },
     {
@@ -154,15 +152,19 @@ const RulesAnalysis: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ hist
       accessor: "scoredResponses",
       key: "scoredResponses",
       width: 150,
-      Cell: (data) => (<button className={data.original.className} onClick={data.original.handleClick} type="button">{data.original.scoredResponses}</button>),
-    },
-    {
-      Header: "% Scored",
-      accessor: "percentageScored",
-      key: "percentageScored",
-      width: 150,
-      Cell: (data) => (<button className={data.original.className} onClick={data.original.handleClick} type="button">{data.original.percentageScored}</button>),
-    },
+      aggregate: (values, rows) => {
+        const totalScoredResponses = _.sum(values)
+        const totalTotalResponses = _.sum(rows.map(r => r.totalResponses))
+        const percentageTotalScoredResponses = _.round(totalScoredResponses/totalTotalResponses, 3)
+        return { totalScoredResponses, percentageTotalScoredResponses, }
+      },
+      Aggregated: (row) => (<span>{row.value.percentageTotalScoredResponses}% ({row.value.totalScoredResponses})</span>),
+      Cell: (data) => {
+        const { className, handleClick, scoredResponses, totalResponses, } = data.original
+        const percentageOfScoredResponses = _.round(scoredResponses/(totalResponses || 1), 3)
+        return (<button className={className} onClick={handleClick} type="button">{percentageOfScoredResponses}% ({scoredResponses})</button>)
+      },
+    }
   ];
 
   const promptOptions = activityData && activityData.activity.prompts.map(p => {
@@ -200,6 +202,7 @@ const RulesAnalysis: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ hist
         data={formattedRows ? formattedRows : []}
         defaultPageSize={formattedRows.length}
         onSortedChange={setSorted}
+        pivotBy={["apiName"]}
         showPagination={false}
         sorted={sorted}
         SubComponent={MoreInfo}
