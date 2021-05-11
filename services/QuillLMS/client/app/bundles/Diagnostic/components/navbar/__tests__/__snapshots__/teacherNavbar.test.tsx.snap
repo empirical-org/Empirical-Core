@@ -63,7 +63,6 @@ exports[`TeacherNavbar renders when the language menu is open 1`] = `
         Choose a directions language
       </h2>
       <Component
-        diagnosticID="bacana-banana"
         dispatch={[Function]}
       />
     </div>

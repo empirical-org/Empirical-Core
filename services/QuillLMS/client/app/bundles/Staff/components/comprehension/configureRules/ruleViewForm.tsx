@@ -8,11 +8,11 @@ import RuleSemanticAttributes from '../configureRules/ruleSemanticAttributes';
 import RuleRegexAttributes from '../configureRules/ruleRegexAttributes';
 import RulePrompts from '../configureRules/rulePrompts';
 import RuleUniversalAttributes from '../configureRules/ruleUniversalAttributes';
-import { Spinner, Modal } from '../../../../Shared/index';
+import { Spinner } from '../../../../Shared/index';
 import { deleteRule, fetchRules, fetchUniversalRules } from '../../../utils/comprehension/ruleAPIs';
 import { fetchConcepts, } from '../../../utils/comprehension/conceptAPIs';
 import { formatPrompts } from '../../../helpers/comprehension';
-import { handleSubmitRule, getInitialRuleType, formatInitialFeedbacks, returnInitialFeedback, renderErrorsContainer, formatRegexRules, getReturnLinkRuleType, getReturnLinkLabel } from '../../../helpers/comprehension/ruleHelpers';
+import { handleSubmitRule, getInitialRuleType, formatInitialFeedbacks, returnInitialFeedback, renderErrorsContainer, formatRegexRules, getReturnLinkRuleType, getReturnLinkLabel, renderDeleteRuleModal } from '../../../helpers/comprehension/ruleHelpers';
 import { ruleOptimalOptions, regexRuleTypes, PLAGIARISM } from '../../../../../constants/comprehension';
 import { RuleInterface, DropdownObjectInterface } from '../../../interfaces/comprehensionInterfaces';
 
@@ -23,6 +23,7 @@ interface RuleViewFormProps {
   isSemantic?: boolean,
   requestErrors: string[],
   rule?: RuleInterface,
+  rulePromptsDisabled: boolean,
   ruleTypeDisabled: boolean,
   submitRule: any,
   prompt?: any,
@@ -31,7 +32,20 @@ interface RuleViewFormProps {
   match: any,
 }
 
-const RuleViewForm = ({ activityData, activityId, isSemantic, isUniversal, requestErrors, rule, ruleTypeDisabled, submitRule, location, history, match }: RuleViewFormProps) => {
+const RuleViewForm = ({
+  activityData,
+  activityId,
+  isSemantic,
+  isUniversal,
+  requestErrors,
+  rule,
+  rulePromptsDisabled,
+  ruleTypeDisabled,
+  submitRule,
+  location,
+  history,
+  match
+}: RuleViewFormProps) => {
   const { params } = match;
   const { promptId } = params;
 
@@ -101,24 +115,6 @@ const RuleViewForm = ({ activityData, activityId, isSemantic, isUniversal, reque
     setShowDeleteRuleModal(!showDeleteRuleModal);
   }
 
-  function renderDeleteRuleModal() {
-    return(
-      <Modal>
-        <div className="delete-rule-container">
-          <p className="delete-rule-text">Are you sure that you want to delete this rule?</p>
-          <div className="delete-rule-button-container">
-            <button className="quill-button fun primary contained" id="delete-rule-button" onClick={handleDeleteRule} type="button">
-              Delete
-            </button>
-            <button className="quill-button fun primary contained" id="close-rule-modal-button" onClick={toggleShowDeleteRuleModal} type="button">
-              Cancel
-            </button>
-          </div>
-        </div>
-      </Modal>
-    );
-  }
-
   function onHandleSubmitRule() {
     setIsLoading(true);
     handleSubmitRule({
@@ -181,7 +177,7 @@ const RuleViewForm = ({ activityData, activityId, isSemantic, isUniversal, reque
 
   return(
     <div className="rule-form-container">
-      {showDeleteRuleModal && renderDeleteRuleModal()}
+      {showDeleteRuleModal && renderDeleteRuleModal(handleDeleteRule, toggleShowDeleteRuleModal)}
       <section className="semantic-rule-form-header">
         <Link className="return-link" to={`/activities/${activityId}/${returnLinkRuleType}`}>{returnLinkLabel}</Link>
         <button className="quill-button fun primary contained" id="rule-delete-button" onClick={toggleShowDeleteRuleModal} type="button">
@@ -239,6 +235,7 @@ const RuleViewForm = ({ activityData, activityId, isSemantic, isUniversal, reque
         {!isUniversal && !isSemantic && <RulePrompts
           errors={errors}
           rulePrompts={rulePrompts}
+          rulePromptsDisabled={rulePromptsDisabled}
           setRulePrompts={setRulePrompts}
         />}
         {(isUniversal || isSemantic) && <RuleUniversalAttributes

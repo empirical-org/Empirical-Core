@@ -691,10 +691,6 @@ GEM
     simplecov-json (0.2)
       json
       simplecov
-    sinatra (1.4.8)
-      rack (~> 1.5)
-      rack-protection (~> 1.4)
-      tilt (>= 1.3, < 3)
     slim (4.0.1)
       temple (>= 0.7.6, < 0.9)
       tilt (>= 2.0.6, < 2.1)
@@ -873,7 +869,7 @@ DEPENDENCIES
   rails (= 4.2.11.3)
   rails-controller-testing
   rails_12factor
-  rails_admin (~> 1.4.2)
+  rails_admin (~> 1.4.3)
   rails_autoscale_agent
   ranked-model
   ransack
@@ -901,7 +897,6 @@ DEPENDENCIES
   sidekiq-retries
   simplecov
   simplecov-json
-  sinatra (>= 1.3.0)
   slim-rails
   spring
   spring-commands-rspec

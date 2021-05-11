@@ -36,6 +36,8 @@ RSpec.describe FeedbackHistory, type: :model do
     it { should have_one(:activity_session).through(:feedback_session) }
     it { should belong_to(:prompt) }
     it { should belong_to(:concept).with_foreign_key(:concept_uid).with_primary_key(:uid) }
+    it { should have_many(:feedback_history_ratings) }
+    it { should have_many(:feedback_history_flags) }
   end
 
   context 'validations' do
@@ -66,6 +68,18 @@ RSpec.describe FeedbackHistory, type: :model do
     it { should allow_value(false).for(:used) }
 
     it { should validate_presence_of(:time) }
+  end
+
+  context '#readonly?' do
+    it 'should return false if the object has not been persisted to the db yet' do
+      history = build(:feedback_history)
+      expect(history.readonly?).to be(false)
+    end
+
+    it 'should return true if the object has been persisted to the db already' do
+      history = create(:feedback_history)
+      expect(history.readonly?).to be(true)
+    end
   end
 
   context 'concept results hash' do
@@ -169,7 +183,7 @@ RSpec.describe FeedbackHistory, type: :model do
     end
   end
 
-  context 'before_validation: anonymize_session_uid' do
+  context 'before_create: anonymize_session_uid' do
     before(:each) do
       @feedback_history = build(:feedback_history)
     end
@@ -200,6 +214,95 @@ RSpec.describe FeedbackHistory, type: :model do
     end
   end
 
+  context 'after_create' do
+    before(:each) do
+      @feedback_history = build(:feedback_history)
+    end
+
+    it 'should trigger a SetFeedbackHistoryFlagsWorker call' do
+      @feedback_history.id = 1000
+      expect(SetFeedbackHistoryFlagsWorker).to receive(:perform_async).with(@feedback_history.id)
+      @feedback_history.save
+    end
+  end
+
+  context '#rule_violation_repitions?' do
+    it 'should be true if an earlier FeedbackHistory has the same rule_uid' do
+      session_uid = SecureRandom.uuid
+      rule_uid = SecureRandom.uuid
+      fh1 = create(:feedback_history, feedback_session_uid: session_uid, rule_uid: rule_uid, attempt: 1)
+      fh2 = create(:feedback_history, feedback_session_uid: session_uid, rule_uid: rule_uid, attempt: 2)
+
+      expect(fh2.rule_violation_repititions?).to be(true)
+    end
+
+    it 'should be true if a non-consecutive attempt has the same rule_uid' do
+      session_uid = SecureRandom.uuid
+      rule_uid = SecureRandom.uuid
+      fh1 = create(:feedback_history, feedback_session_uid: session_uid, rule_uid: rule_uid, attempt: 1)
+      fh2 = create(:feedback_history, feedback_session_uid: session_uid, attempt: 2)
+      fh3 = create(:feedback_history, feedback_session_uid: session_uid, rule_uid: rule_uid, attempt: 3)
+
+      expect(fh3.rule_violation_repititions?).to be(true)
+    end
+
+    it 'should be false if a later FeedbackHistory has the same rule_uid' do
+      session_uid = SecureRandom.uuid
+      rule_uid = SecureRandom.uuid
+      fh1 = create(:feedback_history, feedback_session_uid: session_uid, rule_uid: rule_uid, attempt: 1)
+      fh2 = create(:feedback_history, feedback_session_uid: session_uid, rule_uid: rule_uid, attempt: 2)
+
+      expect(fh1.rule_violation_repititions?).to be(false)
+    end
+
+    it 'should be false if a FeedbackHistory has the same rule_uid but a different session_uid' do
+      session_uid = SecureRandom.uuid
+      fh1 = create(:feedback_history, feedback_session_uid: session_uid, attempt: 1)
+      fh2 = create(:feedback_history, feedback_session_uid: session_uid, attempt: 2)
+
+      expect(fh1.rule_violation_repititions?).to be(false)
+    end
+  end
+
+  context '#rule_violation_consecutive_repititions?' do
+    it 'should be true if a consecutive earlier FeedbackHistory has the same rule_uid' do
+      session_uid = SecureRandom.uuid
+      rule_uid = SecureRandom.uuid
+      fh1 = create(:feedback_history, feedback_session_uid: session_uid, rule_uid: rule_uid, attempt: 1)
+      fh2 = create(:feedback_history, feedback_session_uid: session_uid, rule_uid: rule_uid, attempt: 2)
+
+      expect(fh2.rule_violation_consecutive_repititions?).to be(true)
+    end
+
+    it 'should be true if a non-consecutive attempt has the same rule_uid' do
+      session_uid = SecureRandom.uuid
+      rule_uid = SecureRandom.uuid
+      fh1 = create(:feedback_history, feedback_session_uid: session_uid, rule_uid: rule_uid, attempt: 1)
+      fh2 = create(:feedback_history, feedback_session_uid: session_uid, attempt: 2)
+      fh3 = create(:feedback_history, feedback_session_uid: session_uid, rule_uid: rule_uid, attempt: 3)
+
+      expect(fh3.rule_violation_consecutive_repititions?).to be(false)
+    end
+
+    it 'should be false if a later FeedbackHistory has the same rule_uid' do
+      session_uid = SecureRandom.uuid
+      rule_uid = SecureRandom.uuid
+      fh1 = create(:feedback_history, feedback_session_uid: session_uid, rule_uid: rule_uid, attempt: 1)
+      fh2 = create(:feedback_history, feedback_session_uid: session_uid, rule_uid: rule_uid, attempt: 2)
+
+      expect(fh1.rule_violation_consecutive_repititions?).to be(false)
+    end
+
+    it 'should be false if a FeedbackHistory has the same rule_uid but a different session_uid' do
+      session_uid = SecureRandom.uuid
+      fh1 = create(:feedback_history, feedback_session_uid: session_uid, attempt: 1)
+      fh2 = create(:feedback_history, feedback_session_uid: session_uid, attempt: 2)
+
+      expect(fh1.rule_violation_consecutive_repititions?).to be(false)
+    end
+
+  end
+
   context 'Session-aggregate FeedbackHistories' do
     setup do
       @activity1 = Comprehension::Activity.create!(name: 'Title_1', title: 'Title 1', parent_activity_id: 1, target_level: 1)
@@ -224,6 +327,7 @@ RSpec.describe FeedbackHistory, type: :model do
       @first_session_feedback6 = create(:feedback_history, feedback_session_uid: @activity_session1_uid, prompt_id: @so_prompt1.id, attempt: 3, optimal: true)
       @second_session_feedback = create(:feedback_history, feedback_session_uid: @activity_session2_uid, prompt_id: @because_prompt2.id, optimal: true)
       create(:feedback_history, feedback_session_uid: @activity_session2_uid, prompt_id: @because_prompt2.id, attempt: 2, optimal: false)
+      create(:feedback_history_flag, feedback_history: @first_session_feedback1, flag: FeedbackHistoryFlag::FLAG_REPEATED_RULE_CONSECUTIVE)
     end
   
     context '#list_by_activity_session' do
@@ -265,11 +369,13 @@ RSpec.describe FeedbackHistory, type: :model do
     context '#serialize_list_by_activity_session' do
       it 'should take the query from #list_by_activity_session and return a shaped payload' do
         responses = FeedbackHistory.list_by_activity_session
+        RSpec::Support::ObjectFormatter.default_instance.max_formatted_output_length = 10000
         expect(responses.map { |r| r.serialize_by_activity_session }.to_json).to eq([
           {
             session_uid: @feedback_session2_uid,
             start_date: @second_session_feedback.time.iso8601(3),
             activity_id: @activity2.id,
+            flags: [],
             because_attempts: 2,
             but_attempts: 0,
             so_attempts: 0,
@@ -278,6 +384,7 @@ RSpec.describe FeedbackHistory, type: :model do
             session_uid: @feedback_session1_uid,
             start_date: @first_session_feedback1.time.iso8601(3),
             activity_id: @activity1.id,
+            flags: [FeedbackHistoryFlag::FLAG_REPEATED_RULE_CONSECUTIVE],
             because_attempts: 2,
             but_attempts: 1,
             so_attempts: 3,

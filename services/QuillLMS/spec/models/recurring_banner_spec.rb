@@ -33,11 +33,11 @@ describe RecurringBanner, type: :model do
     expect(banner.title).to eq(nil)
   end
 
-  #it "does return true for show? when the key does have an associated webinar" do
-  #  time =  DateTime.new(2021,1,4,16,1,0)
-  #  banner = RecurringBanner.new(time)
-  #  expect(banner.show?(true)).to eq(true)
-  #end
+  it "does return true for show? when the key does have an associated webinar" do
+    time =  DateTime.new(2021,1,4,16,1,0)
+    banner = RecurringBanner.new(time)
+    expect(banner.show?(true)).to eq(true)
+  end
 
   it "does not return true for show? when the key falls on a skipped day" do
     time =  DateTime.new(2021,1,18,16,1,0)
@@ -45,11 +45,11 @@ describe RecurringBanner, type: :model do
     expect(banner.show?(true)).to eq(false)
   end
 
-  #it "does return correct link and title when the key does have an associated recurring webinar" do
-  #  time =  DateTime.new(2021,1,4,16,1,0)
-  #  banner = RecurringBanner.new(time)
-  #  expect(banner.title).to eq("Quill 101 is live now!")
-  #  expect(banner.link).to eq("https://quill-org.zoom.us/webinar/register/WN_a4Z1_Zs6RSGUWwr_t0V18Q")
-  #end
+  it "does return correct link and title when the key does have an associated recurring webinar" do
+    time =  DateTime.new(2021,1,4,16,1,0)
+    banner = RecurringBanner.new(time)
+    expect(banner.title).to eq("Quill 101 is live now!")
+    expect(banner.link).to eq("https://quill-org.zoom.us/webinar/register/WN_a4Z1_Zs6RSGUWwr_t0V18Q")
+  end
 
 end

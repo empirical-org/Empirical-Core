@@ -2,6 +2,12 @@
   display: flex;
   border-bottom: 1px solid lightgray;
   overflow: auto;
+  .button-wrapper {
+    display: flex;
+    .quill-button {
+      margin-right: 10px;
+    }
+  }
   .left-side-menu {
     width: 200px;
     padding: 20px;
@@ -60,6 +66,10 @@
         color: #5b5b5b;
         text-decoration: none;
         border-radius: 6px;
+      }
+      .sublink {
+        margin-left: 20px;
+        margin-top: 4px;
       }
       a:hover, .create-activity-button:hover {
         background-color: lightgray;
@@ -316,14 +326,24 @@
   }
   .rules-container, .rule-container, .turk-sessions-container, .semantic-labels-container, .model-container {
     width: 80vw;
+    .semantic-rules-cheat-sheet {
+      .data-table-row {
+        height: min-content;
+        padding-top: 8px;
+        padding-bottom: 8px;
+      }
+      .data-table-row-section {
+        white-space: pre-wrap;
+        overflow: visible;
+      }
+    }
     .semantic-labels-overview-container {
       .prompt-section {
         border-top: 2px solid #e0e0e0;
-        border-bottom: 2px solid #e0e0e0;
-        padding: 20px;
+        padding: 0px 20px 20px 20px;
       }
     }
-    .rules-based-section {
+    .rules-based-section, .plagiarism-section {
       margin-bottom: 40px;
       .no-rules-section {
         padding-top: 20px;
@@ -344,6 +364,14 @@
           }
         }
       }
+      .one-rule-warning {
+        margin: 8px 0px 8px 0px;
+        font-style: italic;
+        color: #5b5b5b;
+      }
+    }
+    #first-plagiarism-section {
+      margin-top: 20px;
     }
     .activate-model-container {
       .activate-model-section {
@@ -414,11 +442,11 @@
         font-size: 20px;
         font-weight: bold;
       }
-      a {
-        color: #00c2a2
-      }
-      a:hover {
-        color: #29d8bc;
+      a:not(.quill-button) {
+        color: #00c2a2;
+        &:hover {
+          color: #29d8bc;
+        }
       }
       h5 {
         margin: 5px 0px 5px 0px;
@@ -473,6 +501,7 @@
       }
     }
     .models-table {
+      margin-bottom: 8px;
       .active-row {
         background-color: #e7fee8;
         // font-weight: bold;
@@ -486,6 +515,12 @@
       }
       .data-table-row-section {
         white-space: pre-wrap;
+        overflow: visible;
+      }
+      .data-table-row {
+        height: min-content;
+        padding-top: 8px;
+        padding-bottom: 8px;
       }
       .data-table-row:nth-of-type(1) {
         height: 80px;
@@ -511,6 +546,11 @@
         white-space: normal;
       }
     }
+    .plagiarism-index-table {
+      .data-table-headers {
+        display: none;
+      }
+    }
   }
 
   .models-container {
@@ -518,8 +558,8 @@
   }
   .models-container {
     .header-container {
-      #model-count {
-        margin-top: 12px;
+      h2 {
+        font-weight: 600;
       }
     }
   }

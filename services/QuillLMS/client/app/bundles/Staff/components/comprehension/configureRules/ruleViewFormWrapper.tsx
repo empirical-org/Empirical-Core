@@ -9,7 +9,7 @@ import { blankRule } from '../../../../../constants/comprehension';
 import { fetchRule } from '../../../utils/comprehension/ruleAPIs';
 import { Spinner } from '../../../../Shared/index';
 
-const RuleViewFormWrapper = ({ activityData, isSemantic, isUniversal, location, requestErrors, ruleTypeDisabled, submitRule, match }) => {
+const RuleViewFormWrapper = ({ activityData, isSemantic, isUniversal, location, requestErrors, rulePromptsDisabled, ruleTypeDisabled, submitRule, match }) => {
   const { state } = location;
   const { params } = match;
   const { activityId, ruleId } = params;
@@ -24,8 +24,14 @@ const RuleViewFormWrapper = ({ activityData, isSemantic, isUniversal, location, 
 
   if(!ruleId) {
     const ruleType = state && state.ruleType;
+    const promptIds = state && state.promptIds;
     const ruleToBeCreated = {...blankRule};
-    ruleToBeCreated.rule_type = ruleType;
+    if(ruleType) {
+      ruleToBeCreated.rule_type = ruleType;
+    }
+    if(promptIds) {
+      ruleToBeCreated.prompt_ids = promptIds;
+    }
     rule = ruleToBeCreated
   } else {
     rule = ruleData && ruleData.rule;
@@ -47,6 +53,7 @@ const RuleViewFormWrapper = ({ activityData, isSemantic, isUniversal, location, 
       isUniversal={isUniversal}
       requestErrors={requestErrors}
       rule={rule}
+      rulePromptsDisabled={rulePromptsDisabled}
       ruleTypeDisabled={ruleTypeDisabled}
       submitRule={submitRule}
     />

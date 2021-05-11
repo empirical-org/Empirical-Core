@@ -76,7 +76,7 @@ const Rule = ({ history, match }) => {
         },
         {
           label: 'Rule Note',
-          value: note ? stripHtml(note) : ''
+          value: note ? <div dangerouslySetInnerHTML={{ __html: note }} /> : ''
         }
       ];
       const lastFields = [

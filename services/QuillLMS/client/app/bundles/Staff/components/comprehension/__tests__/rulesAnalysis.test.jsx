@@ -5,6 +5,13 @@ import { createMemoryHistory, createLocation } from 'history';
 import RulesAnalysis from '../rulesAnalysis/rulesAnalysis';
 import 'whatwg-fetch';
 
+jest.mock('qs', () => ({
+    default: {
+      parse: jest.fn(() => ({}))
+    }
+  })
+)
+
 const mockProps = {
   match: {
     params: {

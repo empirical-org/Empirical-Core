@@ -47,12 +47,14 @@ class FeedbackHistory < ActiveRecord::Base
     OPINION = "opinion"
   ]
 
+  after_create { SetFeedbackHistoryFlagsWorker.perform_async(id) }
   before_create :anonymize_session_uid
   before_validation :confirm_prompt_type, on: :create
 
   belongs_to :feedback_session, foreign_key: :feedback_session_uid, primary_key: :uid
   has_one :activity_session, through: :feedback_session
   has_many :feedback_history_ratings
+  has_many :feedback_history_flags
   belongs_to :prompt, polymorphic: true
   belongs_to :concept, foreign_key: :concept_uid, primary_key: :uid
 
@@ -72,6 +74,10 @@ class FeedbackHistory < ActiveRecord::Base
   validates :used, inclusion: { in: [true, false] }
 
   scope :used,  -> { where(used: true) }
+
+  def readonly?
+    !new_record?
+  end
 
   def concept_results_hash
     return {} if concept.blank?
@@ -99,11 +105,28 @@ class FeedbackHistory < ActiveRecord::Base
   end
 
   def serialize_by_activity_session
-   serializable_hash(only: [:session_uid, :start_date, :activity_id, :because_attempts, :but_attempts, :so_attempts, :complete], include: []).symbolize_keys
+   serializable_hash(only: [:session_uid, :start_date, :activity_id, :flags, :because_attempts, :but_attempts, :so_attempts, :complete], include: []).symbolize_keys
   end
 
   def serialize_by_activity_session_detail
    serializable_hash(only: [:entry, :feedback_text, :feedback_type, :optimal, :used], include: []).symbolize_keys
+  end
+
+  def rule_violation_repititions?
+    histories_from_same_session.where(rule_uid: rule_uid)
+      .where('attempt < ?', attempt)
+      .count > 0
+  end
+
+  def rule_violation_consecutive_repititions?
+    histories_from_same_session.where(rule_uid: rule_uid)
+      .where(attempt: attempt - 1)
+      .count > 0
+  end
+
+  private def histories_from_same_session
+    FeedbackHistory.where(feedback_session_uid: feedback_session_uid, prompt_id: prompt_id, used: true)
+      .where.not(id: id)
   end
 
   def self.batch_create(param_array)
@@ -124,6 +147,7 @@ class FeedbackHistory < ActiveRecord::Base
         feedback_histories.feedback_session_uid AS session_uid,
         MIN(feedback_histories.time) AS start_date,
         comprehension_prompts.activity_id,
+        ARRAY_REMOVE(ARRAY_AGG(DISTINCT feedback_history_flags.flag), NULL) AS flags,
         COUNT(CASE WHEN comprehension_prompts.conjunction = 'because' THEN 1 END) AS because_attempts,
         COUNT(CASE WHEN comprehension_prompts.conjunction = 'but' THEN 1 END) AS but_attempts,
         COUNT(CASE WHEN comprehension_prompts.conjunction = 'so' THEN 1 END) AS so_attempts,
@@ -139,6 +163,7 @@ class FeedbackHistory < ActiveRecord::Base
         ) AS complete
       SQL
       )
+      .joins("LEFT OUTER JOIN feedback_history_flags ON feedback_histories.id = feedback_history_flags.feedback_history_id")
       .joins("LEFT OUTER JOIN comprehension_prompts ON feedback_histories.prompt_id = comprehension_prompts.id")
       .where(used: true)
       .group(:feedback_session_uid, :activity_id)
