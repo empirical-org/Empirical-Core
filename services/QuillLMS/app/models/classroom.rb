@@ -95,9 +95,12 @@ class Classroom < ActiveRecord::Base
 
   def unique_standard_count_array
     filters = {}
-    best_activity_sessions = ProgressReports::Standards::ActivitySession.new(owner).results(filters)
-    ActivitySession.from_cte('best_activity_sessions', best_activity_sessions)
+    best_activity_sessions_query = ProgressReports::Standards::ActivitySession.new(owner).results(filters).to_sql
+    best_activity_sessions = "( #{best_activity_sessions_query} ) AS best_activity_sessions"
+
+    ActivitySession
       .select("COUNT(DISTINCT(activities.standard_id)) as standard_count")
+      .joins("JOIN #{best_activity_sessions} ON activity_sessions.id = best_activity_sessions.id")
       .joins('JOIN activities ON activities.id = best_activity_sessions.activity_id')
       .joins('JOIN classroom_units ON classroom_units.id = best_activity_sessions.classroom_unit_id')
       .where('classroom_units.classroom_id = ?', id)
@@ -152,8 +155,8 @@ class Classroom < ActiveRecord::Base
     ActivitySession.where(classroom_unit: classroom_units).update_all(visible: false)
     classroom_units.update_all(visible: false)
     return if owner.nil?
-    
-    SetTeacherLessonCache.perform_async(owner.id) 
+
+    SetTeacherLessonCache.perform_async(owner.id)
     ids = Unit.find_by_sql("
       SELECT unit.id FROM units unit
       LEFT JOIN classroom_units as cu ON cu.unit_id = unit.id AND cu.visible = true
