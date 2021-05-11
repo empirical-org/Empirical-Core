@@ -5,7 +5,7 @@ class UpdateComprehensionRuleSuborderTypeToInteger < ActiveRecord::Migration
   end
 
   Comprehension::Rule.all.each do |rule|
-    if rule.suborder != nil
+    if !rule.suborder.nil?
       rule.suborder = rule.suborder.to_i
       rule.save!
     end
