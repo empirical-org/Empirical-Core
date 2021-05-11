@@ -14,6 +14,8 @@ import { DataTable, Error, Spinner, Input, Tooltip, } from '../../../../Shared/i
 const ALL = 'All'
 const SCORED = 'Scored'
 const UNSCORED = 'Unscored'
+const STRONG = 'Strong'
+const WEAK = 'Weak'
 
 const RuleAnalysis = ({ history, match }) => {
   const { params } = match;
@@ -58,6 +60,8 @@ const RuleAnalysis = ({ history, match }) => {
     if (filter === ALL) { return true }
     if (filter === SCORED && r.strength !== null) { return true }
     if (filter === UNSCORED && r.strength === null) { return true }
+    if (filter === STRONG && r.strength === true) { return true }
+    if (filter === WEAK && r.strength === false) { return true }
 
     return false
   }
@@ -244,6 +248,18 @@ const RuleAnalysis = ({ history, match }) => {
           <label id={UNSCORED}>
             <input aria-labelledby={UNSCORED} checked={filter === UNSCORED} onChange={handleFilterChange} type="radio" value={UNSCORED} />
             Show only unscored responses
+          </label>
+        </div>
+        <div className="radio">
+          <label id={STRONG}>
+            <input aria-labelledby={STRONG} checked={filter === STRONG} onChange={handleFilterChange} type="radio" value={STRONG} />
+            Show only strong responses
+          </label>
+        </div>
+        <div className="radio">
+          <label id={WEAK}>
+            <input aria-labelledby={WEAK} checked={filter === WEAK} onChange={handleFilterChange} type="radio" value={WEAK} />
+            Show only weak responses
           </label>
         </div>
       </div>
