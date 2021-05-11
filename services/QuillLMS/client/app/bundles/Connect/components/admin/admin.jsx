@@ -1,6 +1,10 @@
 import React from 'react';
 import { Redirect, Route, Switch, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
+
+import AdminLesson from './adminLesson.jsx'
+
+import ActivityHealth from '../activityHealth/activityHealth';
 import conceptActions from '../../actions/concepts';
 import conceptsFeedbackActions from '../../actions/concepts-feedback';
 import questionActions from '../../actions/questions';
@@ -8,7 +12,6 @@ import fillInBlankActions from '../../actions/fillInBlank';
 import sentenceFragmentActions from '../../actions/sentenceFragments';
 import titleCardActions from '../../actions/titleCards.ts';
 import AdminMainSidebar from '../../components/admin/adminMainSidebar.jsx'
-import AdminLesson from './adminLesson.jsx'
 import ConceptsFeedback from '../feedback/concepts-feedback.jsx';
 import ConceptFeedback from '../feedback/concept-feedback.jsx';
 import Concepts from '../concepts/concepts.jsx';
@@ -83,6 +86,7 @@ class adminContainer extends React.Component {
           <Route component={TitleCardForm} path='/admin/title-cards/new' />
           <Route component={ShowTitleCard} path='/admin/title-cards/:titleCardID' />
           <Route component={TitleCards} path='/admin/title-cards' />
+          <Route component={ActivityHealth} path='/admin/activity-health' />
           <Route component={FillInBlankQuestion} path='/admin/fill-in-the-blanks/:questionID' />
           <Route component={TestFillInBlankQuestionContainer} path='/admin/fill-in-the-blanks/test' />
           <Route component={FillInBlankQuestions} path='/admin/fill-in-the-blanks' />
