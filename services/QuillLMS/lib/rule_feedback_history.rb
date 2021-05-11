@@ -52,7 +52,7 @@ class RuleFeedbackHistory
         rules_sql_result.each do |r|
 
             feedback_histories = FeedbackHistory
-                .where(id: r.feedback_histories_id_array).includes(:feedback_history_ratings)
+                .where(id: r.feedback_histories_id_array).includes(:feedback_history_ratings).includes(:feedback_history_flags)
 
             total_scored = feedback_histories.reduce(0) do |memo, feedback_history|
                 memo + feedback_history.feedback_history_ratings.count
