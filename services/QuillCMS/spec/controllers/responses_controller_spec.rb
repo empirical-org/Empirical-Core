@@ -244,7 +244,7 @@ end
       post :rematch_all_responses_for_question, params: { uid: '123', type: 'some_type'}
     end
 
-    it 'queues a job without delay when passed in' do
+    it 'queues a job with delay when delay is passed in' do
       expect(RematchResponsesForQuestionWorker).to receive(:perform_in).with('999', '123', 'some_type')
 
       post :rematch_all_responses_for_question, params: { uid: '123', type: 'some_type', delay: '999'}
