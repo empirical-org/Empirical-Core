@@ -1,5 +1,6 @@
 import * as React from "react";
 import stripHtml from "string-strip-html";
+import { Link } from 'react-router-dom';
 
 import { DataTable, Spinner } from '../../../../Shared/index';
 import { PROMPT_ATTEMPTS_FEEDBACK_LABELS, PROMPT_HEADER_LABELS, DEFAULT_MAX_ATTEMPTS, NONE } from '../../../../../constants/comprehension';
@@ -40,28 +41,40 @@ const PromptTable = ({ activity, prompt, showHeader }: PromptTableProps) => {
 
   function formatFeedbackData(prompt: any) {
     const { attempts, prompt_id } = prompt;
-    const { prompts } = activity;
+    const { id, prompts } = activity;
     const matchedPrompt = prompts.filter(p => p.id === prompt_id)[0];
     const keys = attempts && Object.keys(attempts);
     const rows = [];
-    keys.map(key => {
+    keys.map((key, i) => {
       const filteredAttempt = attempts[key].filter(attempt => attempt.used)[0];
       const attempt = filteredAttempt || attempts[key][0];
-      const { entry, feedback_text, feedback_type, optimal } = attempt;
+      const { entry, feedback_text, feedback_type, optimal, rule_uid } = attempt;
       const { attemptLabel, feedbackLabel } = PROMPT_ATTEMPTS_FEEDBACK_LABELS[key];
+      const promptText = matchedPrompt && matchedPrompt.text;
+      const promptConjunction = matchedPrompt && matchedPrompt.conjunction;
       const attemptObject: any = {
+        id: `${rule_uid}:${i}:attempt`,
         status: attemptLabel,
         results: (
           <div>
-            <b>{matchedPrompt && matchedPrompt.text}</b>
+            <b>{promptText}</b>
             <p className="entry">{entry}</p>
           </div>
         )
       };
+      const feedbackLink = (
+        <Link
+          className="data-link"
+          rel="noopener noreferrer"
+          target="_blank"
+          to={`/activities/${id}/rules-analysis/${promptConjunction}/rule/${rule_uid}/prompt/${prompt_id}`}
+        >{feedback_type}</Link>
+      );
       const feedbackObject: any = {
+        id: `${rule_uid}:${i}:feedback`,
         status: feedbackLabel,
         results: stripHtml(feedback_text),
-        feedback: feedback_type,
+        feedback: feedbackLink,
         className: optimal ? 'optimal' : 'sub-optimal'
       };
       rows.push(attemptObject);
@@ -92,7 +105,7 @@ const PromptTable = ({ activity, prompt, showHeader }: PromptTableProps) => {
 
   const dataTableFields = [
     { name: "Status", attribute:"status", width: "100px" },
-    { name: "Results", attribute:"results", width: "500px" },
+    { name: "Results", attribute:"results", width: "800px" },
     { name: "Feedback Type", attribute:"feedback", width: "100px" }
   ];
 

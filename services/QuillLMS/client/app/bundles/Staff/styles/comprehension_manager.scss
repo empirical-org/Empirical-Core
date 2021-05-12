@@ -994,6 +994,10 @@
           .data-table-row {
             height: auto;
             padding: 10px 16px;
+            .data-table-row-section {
+              word-wrap: break-word;
+              white-space: normal;
+            }
             span {
               div {
                 .entry {
