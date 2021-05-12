@@ -204,9 +204,17 @@ describe Api::V1::ActivitiesController, type: :controller do
     let!(:activity_session_1) { create(:activity_session, activity: activity) }
     let!(:activity_session_2) { create(:activity_session, activity: activity) }
     let!(:activity_session_3) { create(:activity_session, activity: activity) }
-    let!(:concept_result_1) { create(:concept_result, activity_session: activity_session_1, metadata: {questionNumber: 1, questionScore: 1}.to_json)}
-    let!(:concept_result_2) { create(:concept_result, activity_session: activity_session_2, metadata: {questionNumber: 1, questionScore: 0.75}.to_json)}
-    let!(:concept_result_3) { create(:concept_result, activity_session: activity_session_3, metadata: {questionNumber: 1, questionScore: 0}.to_json)}
+    let!(:concept_result_1) do
+      create(:concept_result, activity_session: activity_session_1, metadata: {questionNumber: 1, questionScore: 1})
+    end
+
+    let!(:concept_result_2) do
+       create(:concept_result, activity_session: activity_session_2, metadata: {questionNumber: 1, questionScore: 0.75})
+    end
+
+    let!(:concept_result_3) do
+       create(:concept_result, activity_session: activity_session_3, metadata: {questionNumber: 1, questionScore: 0})
+    end
 
     before do
       ENV['DEFAULT_URL'] = 'https://quill.org'

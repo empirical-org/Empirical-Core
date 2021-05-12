@@ -109,7 +109,7 @@ class FeedbackHistory < ActiveRecord::Base
   end
 
   def serialize_by_activity_session_detail
-   serializable_hash(only: [:entry, :feedback_text, :feedback_type, :optimal, :used], include: []).symbolize_keys
+   serializable_hash(only: [:entry, :feedback_text, :feedback_type, :optimal, :used, :rule_uid], include: []).symbolize_keys
   end
 
   def rule_violation_repititions?
@@ -196,7 +196,7 @@ class FeedbackHistory < ActiveRecord::Base
     prompt_groups.each do |conjunction, _|
       prompt_groups[conjunction][:attempts] = attempt_groups[conjunction]
     end
-    
+
     output[:prompts] = prompt_groups
     output.symbolize_keys
   end
