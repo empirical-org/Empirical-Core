@@ -67,21 +67,22 @@ RSpec.describe PromptFeedbackHistory, type: :model do
       processed = PromptFeedbackHistory.promptwise_postprocessing(result)
       expect(processed == {
         1 => {
-          :optimal_final_attempts=>1,
-          :session_count=>1,
-          :total_responses=>2,
-          :final_attempt_pct_optimal=>1.0,
-          :final_attempt_pct_not_optimal=>0.0,
-          :display_name=>"lorem ipsum1"
+          optimal_final_attempts: 1,
+          session_count: 1,
+          total_responses: 2,
+          final_attempt_pct_optimal: 1.0,
+          final_attempt_pct_not_optimal: 0.0,
+          display_name: "lorem ipsum1"
         },
-       2 => {
-         :optimal_final_attempts=>0,
-         :session_count=>1,
-         :total_responses=>2,
-         :final_attempt_pct_optimal=>0.0,
-         :final_attempt_pct_not_optimal=>1.0,
-         :display_name=>"lorem ipsum2"}
-       }).to be true
+        2 => {
+          optimal_final_attempts: 0,
+          session_count: 1,
+          total_responses: 2,
+          final_attempt_pct_optimal: 0.0,
+          final_attempt_pct_not_optimal: 1.0,
+          display_name: "lorem ipsum2"
+        }
+      }).to be true
 
     end
 

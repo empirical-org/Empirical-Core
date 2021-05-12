@@ -1,18 +1,18 @@
 class PromptFeedbackHistory
 
     def self.run(activity_id)
-        self.promptwise_postprocessing self.promptwise_sessions(activity_id)
+        promptwise_postprocessing promptwise_sessions(activity_id)
     end
-    
+
     def self.promptwise_sessions(activity_id)
         activity_sessions = ActivitySession.where(activity_id: activity_id).includes(:feedback_sessions)
         feedback_session_uids = activity_sessions.reduce([]) {|memo, a_s| memo.concat a_s.feedback_sessions.pluck(:uid)}
 
         sql = <<~SQL 
-        SELECT prompt_id, feedback_session_uid, count(*) as session_count, bool_or(optimal) as at_least_one_optimal, MAX(attempt) as attempt_cardinal
-        FROM feedback_histories
-        WHERE feedback_session_uid IN (#{feedback_session_uids.map{|e| "'#{e}'"}.join(',')})
-        GROUP BY prompt_id, feedback_session_uid
+          SELECT prompt_id, feedback_session_uid, count(*) as session_count, bool_or(optimal) as at_least_one_optimal, MAX(attempt) as attempt_cardinal
+          FROM feedback_histories
+          WHERE feedback_session_uid IN (#{feedback_session_uids.map{|e| "'#{e}'"}.join(',')})
+          GROUP BY prompt_id, feedback_session_uid
         SQL
         FeedbackHistory.find_by_sql(sql)
     end
@@ -44,11 +44,11 @@ class PromptFeedbackHistory
             prompt_hash[prompt_id][:session_count] += 1
 
             prompt_hash[prompt_id][:final_attempt_pct_optimal] = \
-                prompt_hash[prompt_id][:optimal_final_attempts] / prompt_hash[prompt_id][:session_count].to_f      
+              prompt_hash[prompt_id][:optimal_final_attempts] / prompt_hash[prompt_id][:session_count].to_f      
 
             prompt_hash[prompt_id][:final_attempt_pct_not_optimal] = \
-                (prompt_hash[prompt_id][:session_count] - prompt_hash[prompt_id][:optimal_final_attempts]) / prompt_hash[prompt_id][:session_count].to_f 
-           end
+              (prompt_hash[prompt_id][:session_count] - prompt_hash[prompt_id][:optimal_final_attempts]) / prompt_hash[prompt_id][:session_count].to_f 
+        end
         prompt_hash
     end
 end
