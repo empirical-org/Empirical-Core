@@ -11,6 +11,12 @@
     margin-right: 40px;
   }
 
+  .ReactTable .rt-thead .rt-resizable-header-content {
+    overflow: visible;
+    white-space: pre-wrap;
+    text-align: left;
+  }
+
   .rt-table {
     .rt-th {
       border-bottom: 1px solid #eee;
