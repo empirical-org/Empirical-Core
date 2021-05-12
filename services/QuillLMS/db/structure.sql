@@ -2,8 +2,8 @@
 -- PostgreSQL database dump
 --
 
--- Dumped from database version 10.15
--- Dumped by pg_dump version 10.15
+-- Dumped from database version 10.16
+-- Dumped by pg_dump version 10.16
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -1507,10 +1507,11 @@ CREATE TABLE public.comprehension_rules (
     universal boolean NOT NULL,
     rule_type character varying NOT NULL,
     optimal boolean NOT NULL,
-    suborder text,
-    concept_uid character varying,
+    suborder integer,
+    concept_uid character varying NOT NULL,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
+    sequence_type character varying,
     state character varying NOT NULL
 );
 
@@ -2018,7 +2019,7 @@ ALTER SEQUENCE public.feedback_histories_id_seq OWNED BY public.feedback_histori
 
 CREATE TABLE public.feedback_history_ratings (
     id integer NOT NULL,
-    rating boolean NOT NULL,
+    rating boolean,
     feedback_history_id integer NOT NULL,
     user_id integer NOT NULL,
     created_at timestamp without time zone NOT NULL,
@@ -7598,4 +7599,8 @@ INSERT INTO schema_migrations (version) VALUES ('20210423165423');
 INSERT INTO schema_migrations (version) VALUES ('20210429151331');
 
 INSERT INTO schema_migrations (version) VALUES ('20210430212613');
+
+INSERT INTO schema_migrations (version) VALUES ('20210505150457');
+
+INSERT INTO schema_migrations (version) VALUES ('20210511161300');
 

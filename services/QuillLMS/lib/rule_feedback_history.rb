@@ -34,8 +34,8 @@ class RuleFeedbackHistory
         }
     end
 
-    def self.generate_rulewise_report(rule_uid)
-        feedback_histories = FeedbackHistory.where(rule_uid: rule_uid)
+    def self.generate_rulewise_report(rule_uid:, prompt_id: )
+        feedback_histories = FeedbackHistory.where(rule_uid: rule_uid, prompt_id: prompt_id)
         response_jsons = []
         feedback_histories.each do |f_h|
             response_jsons.append(feedback_history_to_json(f_h))

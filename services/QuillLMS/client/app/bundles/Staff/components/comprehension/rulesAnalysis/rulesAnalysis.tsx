@@ -101,7 +101,7 @@ const RulesAnalysis: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ hist
       activityId,
       note,
       firstLayerFeedback: first_feedback,
-      handleClick: () => window.location.href = `/cms/comprehension#/activities/${activityId}/rules-analysis/${selectedPrompt.conjunction}/rule/${rule_uid}`
+      handleClick: () => window.location.href = `/cms/comprehension#/activities/${activityId}/rules-analysis/${selectedPrompt.conjunction}/rule/${rule_uid}/prompt/${selectedPrompt.id}`
     }
   }).sort(firstBy('apiOrder').thenBy('ruleOrder'));
 

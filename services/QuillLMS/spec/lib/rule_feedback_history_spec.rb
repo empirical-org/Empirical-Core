@@ -161,11 +161,13 @@ RSpec.describe RuleFeedbackHistory, type: :model do
       so_rule1 = rule_factory { { name: 'so_rule1', rule_type: 'autoML'} }
       unused_rule = rule_factory { { name: 'unused', rule_type: 'autoML'} }
 
-      f_h1 = create(:feedback_history, rule_uid: so_rule1.uid)
-      f_h2 = create(:feedback_history, rule_uid: so_rule1.uid)
-      f_h3 = create(:feedback_history, rule_uid: unused_rule.uid)
+      f_h1 = create(:feedback_history, rule_uid: so_rule1.uid, prompt_id: 1)
+      f_h2 = create(:feedback_history, rule_uid: so_rule1.uid, prompt_id: 1)
+      f_h3 = create(:feedback_history, rule_uid: unused_rule.uid, prompt_id: 1)
 
-      result = RuleFeedbackHistory.generate_rulewise_report(so_rule1.uid)
+      result = RuleFeedbackHistory.generate_rulewise_report(
+        rule_uid: so_rule1.uid, 
+        prompt_id: 1)
 
       expect(result.keys.length).to eq 1
       expect(result.keys.first.to_s).to eq so_rule1.uid
@@ -179,18 +181,44 @@ RSpec.describe RuleFeedbackHistory, type: :model do
 
     end
 
-    it 'should display the most recent feedback history rating, if it exists' do
-      so_rule1 = rule_factory { { name: 'so_rule1', rule_type: 'autoML'} }
-      unused_rule = rule_factory { { name: 'unused', rule_type: 'autoML'} }
+    it 'should filter feedback histories by prompt id' do 
+      so_rule1 = rule_factory { { name: 'so_rule1', rule_type: 'autoML'} } 
+      unused_rule = rule_factory { { name: 'unused', rule_type: 'autoML'} } 
+
+      f_h1 = create(:feedback_history, rule_uid: so_rule1.uid)
+      f_h2 = create(:feedback_history, rule_uid: so_rule1.uid, prompt_id: 1)
+      f_h3 = create(:feedback_history, rule_uid: unused_rule.uid)
+
+      result = RuleFeedbackHistory.generate_rulewise_report(
+        rule_uid: so_rule1.uid, 
+        prompt_id: 1
+      )
+
+      expect(result.keys.length).to eq 1
+      expect(result.keys.first.to_s).to eq so_rule1.uid 
+      
+      responses = result[so_rule1.uid.to_sym][:responses]
+
+      response_ids = responses.map {|r| r[:response_id]}
+      expect(
+        Set[*response_ids] == Set[f_h2.id]
+      ).to be true
+ 
+    end
+
+
+    it 'should display the most recent feedback history rating, if it exists' do 
+      so_rule1 = rule_factory { { name: 'so_rule1', rule_type: 'autoML'} } 
+      unused_rule = rule_factory { { name: 'unused', rule_type: 'autoML'} } 
 
       # users
       user1 = create(:user)
       user2 = create(:user)
 
       # feedback histories
-      f_h1 = create(:feedback_history, rule_uid: so_rule1.uid)
-      f_h2 = create(:feedback_history, rule_uid: so_rule1.uid)
-      f_h3 = create(:feedback_history, rule_uid: unused_rule.uid)
+      f_h1 = create(:feedback_history, rule_uid: so_rule1.uid, prompt_id: 1)
+      f_h2 = create(:feedback_history, rule_uid: so_rule1.uid, prompt_id: 1)
+      f_h3 = create(:feedback_history, rule_uid: unused_rule.uid, prompt_id: 1)
 
       # feedback history ratings
       f_h_r1_old = FeedbackHistoryRating.create!(
@@ -205,7 +233,9 @@ RSpec.describe RuleFeedbackHistory, type: :model do
         rating: true,
         updated_at: Time.now
       )
-      result = RuleFeedbackHistory.generate_rulewise_report(so_rule1.uid)
+      result = RuleFeedbackHistory.generate_rulewise_report(
+        rule_uid: so_rule1.uid,
+        prompt_id: 1)
 
       expect(result.keys.length).to eq 1
       expect(result.keys.first.to_s).to eq so_rule1.uid
