@@ -52,6 +52,7 @@ class Question < ActiveRecord::Base
   after_save :expire_all_questions_cache
 
   scope :live, -> {where("data->>'flag' IN (?)", LIVE_FLAGS)}
+  scope :production, -> {where("data->>'flag' = ?", FLAG_PRODUCTION)}
 
   def as_json(options=nil)
     data
