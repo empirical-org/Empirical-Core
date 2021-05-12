@@ -40,20 +40,16 @@ RSpec.describe RuleFeedbackHistory, type: :model do
       report = RuleFeedbackHistory.generate_report(conjunction: 'so', activity_id: activity1.id)
 
       expected = {
-        api_name: so_rule1.rule_type,
-        rule_order: so_rule1.suborder,
-        first_feedback: '',
-        rule_name: so_rule1.name,
-        rule_note: so_rule1.note,
-        rule_uid: so_rule1.uid,
-        strong_responses: 0,
-        total_responses: 0,
-        weak_responses: 0,
-        repeated_consecutive_responses: 0,
-        repeated_non_consecutive_responses: 0,
+        api_name: 'autoML',
+        rule_order: 1,
+        first_feedback: "",
+        rule_name: 'so_rule1',
+        pct_strong: "0%",
+        scored_responses: 0,
+        pct_scored: "0%"
       }
 
-      expect(expected).to eq(report.first)
+      expect(expected <= report.first).to be true
 
     end
   end
@@ -112,11 +108,6 @@ RSpec.describe RuleFeedbackHistory, type: :model do
         f_rating_1a = FeedbackHistoryRating.create!(feedback_history_id: f_h1.id, user_id: user1.id, rating: true)
         f_rating_1b = FeedbackHistoryRating.create!(feedback_history_id: f_h1.id, user_id: user2.id, rating: false)
         f_rating_2a = FeedbackHistoryRating.create!(feedback_history_id: f_h2.id, user_id: user1.id, rating: true)
-        f_rating_2b = FeedbackHistoryRating.create!(feedback_history_id: f_h2.id, user_id: user2.id, rating: nil)
-
-        #feedback flags
-        flag_consecutive = create(:feedback_history_flag, feedback_history_id: f_h1.id, flag: FeedbackHistoryFlag::FLAG_REPEATED_RULE_CONSECUTIVE)
-        flag_non_consecutive = create(:feedback_history_flag, feedback_history_id: f_h1.id, flag: FeedbackHistoryFlag::FLAG_REPEATED_RULE_NON_CONSECUTIVE)
 
         ActiveRecord::Base.refresh_materialized_view('feedback_histories_grouped_by_rule_uid')
 
@@ -124,11 +115,10 @@ RSpec.describe RuleFeedbackHistory, type: :model do
         post_result = RuleFeedbackHistory.postprocessing(sql_result)
 
         first_row = post_result.first
+        expect(first_row.scored_responses_count).to eq 3
         expect(first_row.total_responses).to eq 2
-        expect(first_row.total_strong).to eq 2
-        expect(first_row.total_weak).to eq 1
-        expect(first_row.repeated_non_consecutive).to eq 1
-        expect(first_row.repeated_consecutive).to eq 1
+        expect(first_row.pct_strong).to eq 0.6666666666666666
+        expect(first_row.pct_scored).to eq 1.0
 
     end
   end
