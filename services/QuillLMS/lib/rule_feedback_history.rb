@@ -65,7 +65,7 @@ class RuleFeedbackHistory
             if total_scored > 0
                 feedback_histories.each do |history|
                   total_strong += 1 if history.feedback_history_ratings.any?(&:rating)
-                  total_weak += 1 if history.feedback_history_ratings.any? { |hr| !hr.rating }
+                  total_weak += 1 if history.feedback_history_ratings.any? { |hr| hr.rating == false }
                   repeated_consecutive += 1 if history.feedback_history_flags.any? { |f| f.flag == FeedbackHistoryFlag::FLAG_REPEATED_RULE_CONSECUTIVE }
                   repeated_non_consecutive += 1 if history.feedback_history_flags.any? { |f| f.flag == FeedbackHistoryFlag::FLAG_REPEATED_RULE_NON_CONSECUTIVE }
                 end
@@ -76,7 +76,6 @@ class RuleFeedbackHistory
             r.define_singleton_method(:repeated_consecutive) { repeated_consecutive }
             r.define_singleton_method(:repeated_non_consecutive) { repeated_non_consecutive }
 
-            r.define_singleton_method(:scored_responses_count) { total_scored }
             r.define_singleton_method(:total_responses) { feedback_histories.count }
         end
 
