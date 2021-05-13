@@ -464,5 +464,20 @@ RSpec.describe FeedbackHistory, type: :model do
         expect(payload[:prompts][:so][:attempts][3][0][:most_recent_rating]).to eq(@first_session_feedback6.most_recent_rating)
       end
     end
+    context '#most_recent_rating' do
+      setup do
+        @prompt = Comprehension::Prompt.create(text: 'Test text')
+        @feedback_history = create(:feedback_history, prompt: @prompt)
+        @user1 = create(:user)
+        @user2 = create(:user)
+      end
+      it 'should return the most recent FeedbackHistoryRating rating' do
+        params1 = { user_id: @user1.id, feedback_history_id: @feedback_history.id, rating: false }
+        params2 = { user_id: @user2.id, feedback_history_id: @feedback_history.id, rating: true }
+        rating1 = create(:feedback_history_rating, params1)
+        rating2 = create(:feedback_history_rating, params2)
+        expect(@feedback_history.most_recent_rating).to eq true
+      end
+    end
   end
 end
