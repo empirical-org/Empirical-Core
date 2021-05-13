@@ -432,7 +432,6 @@ GEM
       ruby-rc4
       ttfunk
     pg (0.18.4)
-    pg_array_parser (0.0.9)
     pointpin (1.0.1)
       faraday
       hashie
@@ -441,10 +440,6 @@ GEM
       capybara (>= 2.1, < 4)
       cliver (~> 0.3.1)
       websocket-driver (>= 0.2.0)
-    postgres_ext (3.0.1)
-      activerecord (~> 4.0)
-      arel (>= 4.0.1)
-      pg_array_parser (~> 0.0.9)
     prawn (2.2.2)
       pdf-core (~> 0.7.0)
       ttfunk (~> 1.5)
@@ -845,7 +840,6 @@ DEPENDENCIES
   pg (= 0.18.4)
   pointpin (~> 1.0.0)
   poltergeist
-  postgres_ext
   prawn
   prawn-table
   premailer-rails
