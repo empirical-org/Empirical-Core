@@ -19,6 +19,17 @@ interface PromptOption extends PromptInterface {
   label?: string;
 }
 
+const standardizedAPIName = {
+  'autoML': 'AutoML',
+  'grammar': 'Grammar',
+  'opinion': 'Opinion',
+  'plagiarism': 'Plagiarism',
+  'rules-based-1': 'Regex',
+  'rules-based-2': 'Regex',
+  'rules-based-3': 'Regex',
+  'spelling': 'Spelling'
+}
+
 const MoreInfo = (row) => {
   return (<div className="more-info">
     <p><strong>Rule Note:</strong> <span dangerouslySetInnerHTML={{ __html: row.original.note || "N/A" }} /></p>
@@ -85,10 +96,10 @@ const RulesAnalysis: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ hist
   }
 
   const formattedRows = selectedPrompt && ruleFeedbackHistory && ruleFeedbackHistory.ruleFeedbackHistories && ruleFeedbackHistory.ruleFeedbackHistories.filter(rule => {
-    return selectedRuleType.value === DEFAULT_RULE_TYPE || rule.api_name.toLowerCase() === selectedRuleType.value.toLowerCase()
+    return selectedRuleType.value === DEFAULT_RULE_TYPE || standardizedAPIName[rule.api_name] === selectedRuleType.value
   }).map(rule => {
     const { rule_name, rule_uid, api_name, rule_order, note, total_responses, strong_responses, weak_responses, first_feedback, repeated_consecutive_responses, repeated_non_consecutive_responses } = rule;
-    const apiOrder = ruleOrder[api_name]
+    const apiOrder = ruleOrder[standardizedAPIName[api_name]] || Object.keys(ruleOrder).length
     return {
       rule_uid,
       className: apiOrder % 2 === 0 ? 'even' : 'odd',
@@ -122,6 +133,7 @@ const RulesAnalysis: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ hist
       accessor: "apiName",
       key: "apiName",
       width: 150,
+      sortMethod: (a, b) => ruleOrder[standardizedAPIName[b]] - ruleOrder[standardizedAPIName[a]],
       Cell: (data) => (<button className={data.original.className} onClick={data.original.handleClick} type="button">{data.original.apiName}</button>),
     },
     {
@@ -155,7 +167,7 @@ const RulesAnalysis: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ hist
       Header: "Rule Repeated: Consecutive",
       accessor: "repeatedConsecutiveResponses",
       key: "repeatedConsecutiveResponses",
-      width: 100,
+      width: 125,
       sortMethod: (a, b) => b.percentageTotalRepeatedConsecutiveResponses - a.percentageTotalRepeatedConsecutiveResponses,
       aggregate: (values, rows) => {
         const totalRepeatedConsecutiveResponses = _.sum(values)
@@ -174,7 +186,7 @@ const RulesAnalysis: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ hist
       Header: "Rule Repeated: Non-Consecutive",
       accessor: "repeatedNonConsecutiveResponses",
       key: "repeatedNonConsecutiveResponses",
-      width: 100,
+      width: 125,
       sortMethod: (a, b) => b.percentageTotalRepeatedNonConsecutiveResponses - a.percentageTotalRepeatedNonConsecutiveResponses,
       aggregate: (values, rows) => {
         const totalRepeatedNonConsecutiveResponses = _.sum(values)
@@ -216,8 +228,8 @@ const RulesAnalysis: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ hist
       sortMethod: (a, b) => b.percentageTotalStrongResponses - a.percentageTotalStrongResponses,
       aggregate: (values, rows) => {
         const totalStrongResponses = _.sum(values)
-        const totalTotalResponses = _.sum(rows.map(r => r.totalResponses))
-        const percentageTotalStrongResponses = _.round(totalStrongResponses/totalTotalResponses, 3)
+        const totalScoredResponses = _.sum(rows.map(r => r.scoredResponses)) || 1
+        const percentageTotalStrongResponses = _.round(totalStrongResponses/totalScoredResponses, 3)
         return { totalStrongResponses, percentageTotalStrongResponses, }
       },
       Aggregated: (row) => (<span>{row.value.percentageTotalStrongResponses}% ({row.value.totalStrongResponses})</span>),
@@ -235,8 +247,8 @@ const RulesAnalysis: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ hist
       sortMethod: (a, b) => b.percentageTotalWeakResponses - a.percentageTotalWeakResponses,
       aggregate: (values, rows) => {
         const totalWeakResponses = _.sum(values)
-        const totalTotalResponses = _.sum(rows.map(r => r.totalResponses))
-        const percentageTotalWeakResponses = _.round(totalWeakResponses/totalTotalResponses, 3)
+        const totalScoredResponses = _.sum(rows.map(r => r.scoredResponses)) || 1
+        const percentageTotalWeakResponses = _.round(totalWeakResponses/totalScoredResponses, 3)
         return { totalWeakResponses, percentageTotalWeakResponses, }
       },
       Aggregated: (row) => (<span>{row.value.percentageTotalWeakResponses}% ({row.value.totalWeakResponses})</span>),
