@@ -112,6 +112,7 @@ RSpec.describe RuleFeedbackHistory, type: :model do
         f_rating_1a = FeedbackHistoryRating.create!(feedback_history_id: f_h1.id, user_id: user1.id, rating: true)
         f_rating_1b = FeedbackHistoryRating.create!(feedback_history_id: f_h1.id, user_id: user2.id, rating: false)
         f_rating_2a = FeedbackHistoryRating.create!(feedback_history_id: f_h2.id, user_id: user1.id, rating: true)
+        f_rating_2b = FeedbackHistoryRating.create!(feedback_history_id: f_h2.id, user_id: user2.id, rating: nil)
 
         #feedback flags
         flag_consecutive = create(:feedback_history_flag, feedback_history_id: f_h1.id, flag: FeedbackHistoryFlag::FLAG_REPEATED_RULE_CONSECUTIVE)
@@ -123,7 +124,6 @@ RSpec.describe RuleFeedbackHistory, type: :model do
         post_result = RuleFeedbackHistory.postprocessing(sql_result)
 
         first_row = post_result.first
-        expect(first_row.scored_responses_count).to eq 3
         expect(first_row.total_responses).to eq 2
         expect(first_row.total_strong).to eq 2
         expect(first_row.total_weak).to eq 1
