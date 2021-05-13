@@ -7,7 +7,6 @@ import qs from 'qs';
 import _ from 'lodash'
 
 import { ActivityRouteProps, PromptInterface } from '../../../interfaces/comprehensionInterfaces';
-import { ruleOrder } from '../../../../../constants/comprehension';
 import { fetchActivity } from '../../../utils/comprehension/activityAPIs';
 import { fetchRuleFeedbackHistories } from '../../../utils/comprehension/ruleFeedbackHistoryAPIs';
 import { DropdownInput, } from '../../../../Shared/index';
@@ -19,15 +18,15 @@ interface PromptOption extends PromptInterface {
   label?: string;
 }
 
-const standardizedAPIName = {
-  'autoML': 'AutoML',
-  'grammar': 'Grammar',
-  'opinion': 'Opinion',
-  'plagiarism': 'Plagiarism',
-  'rules-based-1': 'Regex',
-  'rules-based-2': 'Regex',
-  'rules-based-3': 'Regex',
-  'spelling': 'Spelling'
+const apiOrderLookup = {
+  'rules-based-1': 1,
+  'opinion': 2,
+  'plagiarism': 3,
+  'autoML': 4,
+  'rules-based-2': 5,
+  'grammar': 6,
+  'spelling': 7,
+  'rules-based-3': 8,
 }
 
 const MoreInfo = (row) => {
@@ -41,7 +40,7 @@ const RulesAnalysis: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ hist
   const { params } = match;
   const { activityId, promptConjunction, } = params;
 
-  const ruleTypeValues = [DEFAULT_RULE_TYPE].concat(Object.keys(ruleOrder))
+  const ruleTypeValues = [DEFAULT_RULE_TYPE].concat(Object.keys(apiOrderLookup))
   const ruleTypeOptions = ruleTypeValues.map(val => ({ label: val, value: val, }))
   const ruleTypeFromUrl = (history.location && qs.parse(history.location.search.replace('?', '')).selected_rule_type) || DEFAULT_RULE_TYPE
 
@@ -96,10 +95,10 @@ const RulesAnalysis: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ hist
   }
 
   const formattedRows = selectedPrompt && ruleFeedbackHistory && ruleFeedbackHistory.ruleFeedbackHistories && ruleFeedbackHistory.ruleFeedbackHistories.filter(rule => {
-    return selectedRuleType.value === DEFAULT_RULE_TYPE || standardizedAPIName[rule.api_name] === selectedRuleType.value
+    return selectedRuleType.value === DEFAULT_RULE_TYPE || rule.api_name === selectedRuleType.value
   }).map(rule => {
     const { rule_name, rule_uid, api_name, rule_order, note, total_responses, strong_responses, weak_responses, first_feedback, repeated_consecutive_responses, repeated_non_consecutive_responses } = rule;
-    const apiOrder = ruleOrder[standardizedAPIName[api_name]] || Object.keys(ruleOrder).length
+    const apiOrder = apiOrderLookup[api_name] || Object.keys(apiOrderLookup).length
     return {
       rule_uid,
       className: apiOrder % 2 === 0 ? 'even' : 'odd',
@@ -116,7 +115,7 @@ const RulesAnalysis: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ hist
       activityId,
       note,
       firstLayerFeedback: first_feedback,
-      handleClick: () => window.location.href = `/cms/comprehension#/activities/${activityId}/rules-analysis/${selectedPrompt.conjunction}/rule/${rule_uid}/prompt/${selectedPrompt.id}`
+      handleClick: () => window.open(`/cms/comprehension#/activities/${activityId}/rules-analysis/${selectedPrompt.conjunction}/rule/${rule_uid}/prompt/${selectedPrompt.id}`, '_blank')
     }
   }).sort(firstBy('apiOrder').thenBy('ruleOrder'));
 
@@ -133,7 +132,7 @@ const RulesAnalysis: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ hist
       accessor: "apiName",
       key: "apiName",
       width: 150,
-      sortMethod: (a, b) => ruleOrder[standardizedAPIName[b]] - ruleOrder[standardizedAPIName[a]],
+      sortMethod: (a, b) => apiOrderLookup[b] - apiOrderLookup[a],
       Cell: (data) => (<button className={data.original.className} onClick={data.original.handleClick} type="button">{data.original.apiName}</button>),
     },
     {
@@ -172,13 +171,13 @@ const RulesAnalysis: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ hist
       aggregate: (values, rows) => {
         const totalRepeatedConsecutiveResponses = _.sum(values)
         const totalTotalResponses = _.sum(rows.map(r => r.totalResponses))
-        const percentageTotalRepeatedConsecutiveResponses = _.round(totalRepeatedConsecutiveResponses/totalTotalResponses, 3)
+        const percentageTotalRepeatedConsecutiveResponses = _.round(totalRepeatedConsecutiveResponses/totalTotalResponses, 3) * 100
         return { totalRepeatedConsecutiveResponses, percentageTotalRepeatedConsecutiveResponses, }
       },
       Aggregated: (row) => (<span>{row.value.percentageTotalRepeatedConsecutiveResponses}% ({row.value.totalRepeatedConsecutiveResponses})</span>),
       Cell: (data) => {
         const { className, handleClick, repeatedConsecutiveResponses, totalResponses, } = data.original
-        const percentageOfRepeatedConsecutiveResponses = _.round(repeatedConsecutiveResponses/(totalResponses || 1), 3)
+        const percentageOfRepeatedConsecutiveResponses = _.round(repeatedConsecutiveResponses/(totalResponses || 1), 3) * 100
         return (<button className={className} onClick={handleClick} type="button">{percentageOfRepeatedConsecutiveResponses}% ({repeatedConsecutiveResponses})</button>)
       },
     },
@@ -191,13 +190,13 @@ const RulesAnalysis: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ hist
       aggregate: (values, rows) => {
         const totalRepeatedNonConsecutiveResponses = _.sum(values)
         const totalTotalResponses = _.sum(rows.map(r => r.totalResponses))
-        const percentageTotalRepeatedNonConsecutiveResponses = _.round(totalRepeatedNonConsecutiveResponses/totalTotalResponses, 3)
+        const percentageTotalRepeatedNonConsecutiveResponses = _.round(totalRepeatedNonConsecutiveResponses/totalTotalResponses, 3) * 100
         return { totalRepeatedNonConsecutiveResponses, percentageTotalRepeatedNonConsecutiveResponses, }
       },
       Aggregated: (row) => (<span>{row.value.percentageTotalRepeatedNonConsecutiveResponses}% ({row.value.totalRepeatedNonConsecutiveResponses})</span>),
       Cell: (data) => {
         const { className, handleClick, repeatedNonConsecutiveResponses, totalResponses, } = data.original
-        const percentageOfRepeatedNonConsecutiveResponses = _.round(repeatedNonConsecutiveResponses/(totalResponses || 1), 3)
+        const percentageOfRepeatedNonConsecutiveResponses = _.round(repeatedNonConsecutiveResponses/(totalResponses || 1), 3) * 100
         return (<button className={className} onClick={handleClick} type="button">{percentageOfRepeatedNonConsecutiveResponses}% ({repeatedNonConsecutiveResponses})</button>)
       },
     },
@@ -210,13 +209,13 @@ const RulesAnalysis: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ hist
       aggregate: (values, rows) => {
         const totalScoredResponses = _.sum(values)
         const totalTotalResponses = _.sum(rows.map(r => r.totalResponses))
-        const percentageTotalScoredResponses = _.round(totalScoredResponses/totalTotalResponses, 3)
+        const percentageTotalScoredResponses = _.round(totalScoredResponses/totalTotalResponses, 3) * 100
         return { totalScoredResponses, percentageTotalScoredResponses, }
       },
       Aggregated: (row) => (<span>{row.value.percentageTotalScoredResponses}% ({row.value.totalScoredResponses})</span>),
       Cell: (data) => {
         const { className, handleClick, scoredResponses, totalResponses, } = data.original
-        const percentageOfScoredResponses = _.round(scoredResponses/(totalResponses || 1), 3)
+        const percentageOfScoredResponses = _.round(scoredResponses/(totalResponses || 1), 3) * 100
         return (<button className={className} onClick={handleClick} type="button">{percentageOfScoredResponses}% ({scoredResponses})</button>)
       },
     },
@@ -229,13 +228,13 @@ const RulesAnalysis: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ hist
       aggregate: (values, rows) => {
         const totalStrongResponses = _.sum(values)
         const totalScoredResponses = _.sum(rows.map(r => r.scoredResponses)) || 1
-        const percentageTotalStrongResponses = _.round(totalStrongResponses/totalScoredResponses, 3)
+        const percentageTotalStrongResponses = _.round(totalStrongResponses/totalScoredResponses, 3) * 100
         return { totalStrongResponses, percentageTotalStrongResponses, }
       },
       Aggregated: (row) => (<span>{row.value.percentageTotalStrongResponses}% ({row.value.totalStrongResponses})</span>),
       Cell: (data) => {
         const { className, handleClick, strongResponses, totalResponses, } = data.original
-        const percentageOfStrongResponses = _.round(strongResponses/(totalResponses || 1), 3)
+        const percentageOfStrongResponses = _.round(strongResponses/(totalResponses || 1), 3) * 100
         return (<button className={className} onClick={handleClick} type="button">{percentageOfStrongResponses}% ({strongResponses})</button>)
       },
     },
@@ -248,13 +247,13 @@ const RulesAnalysis: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ hist
       aggregate: (values, rows) => {
         const totalWeakResponses = _.sum(values)
         const totalScoredResponses = _.sum(rows.map(r => r.scoredResponses)) || 1
-        const percentageTotalWeakResponses = _.round(totalWeakResponses/totalScoredResponses, 3)
+        const percentageTotalWeakResponses = _.round(totalWeakResponses/totalScoredResponses, 3) * 100
         return { totalWeakResponses, percentageTotalWeakResponses, }
       },
       Aggregated: (row) => (<span>{row.value.percentageTotalWeakResponses}% ({row.value.totalWeakResponses})</span>),
       Cell: (data) => {
         const { className, handleClick, weakResponses, totalResponses, } = data.original
-        const percentageOfWeakResponses = _.round(weakResponses/(totalResponses || 1), 3)
+        const percentageOfWeakResponses = _.round(weakResponses/(totalResponses || 1), 3) * 100
         return (<button className={className} onClick={handleClick} type="button">{percentageOfWeakResponses}% ({weakResponses})</button>)
       },
     },
