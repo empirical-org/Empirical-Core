@@ -14,10 +14,8 @@ class IncorrectSequencesContainer extends Component {
     const questionType = window.location.href.includes('sentence-fragments') ? 'sentenceFragments' : 'questions'
     const questionTypeLink = questionType === 'sentenceFragments' ? 'sentence-fragments' : 'questions'
     const actionFile = questionType === 'sentenceFragments' ? sentenceFragmentActions : questionActions
-    const match = props.match
-    const incorrectSequences = this.getSequences(questionType, match, props)
-    console.log("setting state to incorrect sequences")
-    console.log(incorrectSequences)
+    const question = props[questionType].data[props.match.params.questionID]
+    const incorrectSequences = this.getSequences(question)
 
     this.state = { questionType, actionFile, questionTypeLink, incorrectSequences };
   }
@@ -33,18 +31,8 @@ class IncorrectSequencesContainer extends Component {
     }
   }
 
-  getQuestion = (questionType, match, props) => {
-    const { params } = match
-    const { questionID } = params
-    console.log(questionID)
-    console.log(questionType)
-    console.log(props)
-    return props[questionType].data[questionID];
-  }
-
-  getSequences = (questionType, match, props) => {
-    const sequences = this.getQuestion(questionType, match, props).incorrectSequences;
-    console.log(sequences)
+  getSequences = (question) => {
+    const sequences = question.incorrectSequences;
     if(sequences && sequences.length) {
       return sequences.filter(incorrectSequence => incorrectSequence)
     } else {
@@ -53,13 +41,13 @@ class IncorrectSequencesContainer extends Component {
   }
 
   deleteConceptResult = (conceptResultKey, sequenceKey) => {
-    const { actionFile, questionType } = this.state
+    const { actionFile, incorrectSequences } = this.state
     const { submitEditedIncorrectSequence } = actionFile
     const { dispatch, match } = this.props
     const { params } = match
     const { questionID } = params
     if (confirm('⚠️ Are you sure you want to delete this? 😱')) {
-      const data = this.getSequences(questionType, match, this.props)[sequenceKey];
+      const data = incorrectSequences[sequenceKey];
       delete data.conceptResults[conceptResultKey];
       dispatch(submitEditedIncorrectSequence(questionID, data, sequenceKey));
     }
@@ -77,29 +65,26 @@ class IncorrectSequencesContainer extends Component {
   };
 
   sortCallback = sortInfo => {
-    const { actionFile, questionType } = this.state
+    const { actionFile, incorrectSequences } = this.state
     const { updateIncorrectSequences } = actionFile
     const { dispatch, match } = this.props
     const { params } = match
     const { questionID } = params
-    const incorrectSequences = this.getSequences(questionType, match, this.props)
     const newOrder = sortInfo.filter(item => item).map(item => item.key);
     const newIncorrectSequences = newOrder.map((key) => incorrectSequences[key])
     dispatch(updateIncorrectSequences(questionID, newIncorrectSequences));
   };
 
-  submitSequenceForm = (data, sequence) => {
+  saveSequence = (key) => {
     const { actionFile } = this.state
-    const { submitEditedIncorrectSequence, submitNewIncorrectSequence } = actionFile
+    const { submitEditedIncorrectSequence } = actionFile
     const { dispatch, match } = this.props
     const { params } = match
     const { questionID } = params
+    const { incorrectSequences } = this.state
+    let data = incorrectSequences[key]
     delete data.conceptResults.null;
-    if (sequence) {
-      dispatch(submitEditedIncorrectSequence(questionID, data, sequence));
-    } else {
-      dispatch(submitNewIncorrectSequence(questionID, data));
-    }
+    dispatch(submitEditedIncorrectSequence(questionID, data, key));
   };
 
   renderConceptResults = (concepts, sequenceKey) => {
@@ -117,15 +102,10 @@ class IncorrectSequencesContainer extends Component {
   }
 
   renderSequenceList = () => {
-    const { questionTypeLink, incorrectSequences } = this.state
+    const { incorrectSequences } = this.state
     const { match } = this.props
-    const { params } = match
-    const { questionID } = params
-    console.log("sequences")
-    console.log(this.state.incorrectSequences)
 
-    const components = _.mapObject(incorrectSequences, (val, key, other) => {
-      console.log(other)
+    const components = _.mapObject(incorrectSequences, (val, key) => {
       if (val.text) {
         return (
           <div className="card is-fullwidth has-bottom-margin" key={key}>
@@ -152,10 +132,6 @@ class IncorrectSequencesContainer extends Component {
     return <SortableList data={_.values(components)} key={_.values(components).length} sortCallback={this.sortCallback} />;
   }
 
-  renderTagsForSequence = (sequenceString) => {
-    return sequenceString.split('|||').map((seq, index) => (<span className="tag is-medium is-light" key={`seq${index}`} style={{ margin: '3px', }}>{seq}</span>));
-  }
-
   handleChange = (e, key) => {
     const { incorrectSequences } = this.state
     let value = e.target.value;
@@ -168,15 +144,12 @@ class IncorrectSequencesContainer extends Component {
   renderTextInputFields = (sequenceString, key) => {
     let className = `input regex-inline-edit regex-${key}`
     return sequenceString.split(/\|{3}(?!\|)/).map(text => (
-      <input className={className} onChange={(e) => this.handleChange(e, key)} style={{ marginBottom: 5, }} type="text" value={text || ''} />
+      <input className={className} onBlur={(e) => this.saveSequence(key)} onChange={(e) => this.handleChange(e, key)} style={{ marginBottom: 5, minWidth: `${(text.length + 1) * 8}px`}} type="text" value={text || ''} />
     ));
   }
 
   render() {
-    const { questionTypeLink } = this.state
     const { match } = this.props
-    const { params } = match
-    const { questionID } = params
     return (
       <div>
         <div className="has-top-margin">
