@@ -179,8 +179,8 @@ const RuleAnalysis = ({ history, match }) => {
     return responses.filter(filterResponsesByScored).filter(filterResponsesBySearch).map(r => {
       const formattedResponse = {...r}
       const highlightedEntry = r.entry.replace(r.highlight, `<strong>${r.highlight}</strong>`)
-      const strongButton = <button className={r.strength === true ? 'strength-button strong' : 'strength-button'} onClick={() => toggleStrength(r)} type="button">Strong</button>
-      const weakButton = <button className={r.strength === false ? 'strength-button weak' : 'strength-button'} onClick={() => toggleWeakness(r)} type="button">Weak</button>
+      const strongButton = <button className={r.strength === true ? 'strength-button strong' : 'strength-button'} onClick={() => toggleStrength(r)} tabIndex={-1} type="button">Strong</button> // curriculum developers want to be able to skip these when tab navigating
+      const weakButton = <button className={r.strength === false ? 'strength-button weak' : 'strength-button'} onClick={() => toggleWeakness(r)} tabIndex={-1} type="button">Weak</button> // curriculum developers want to be able to skip these when tab navigating
 
       const tooltip = (<Tooltip
         key={r.entry}
