@@ -233,8 +233,8 @@ const RulesAnalysis: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ hist
       },
       Aggregated: (row) => (<span>{row.value.percentageTotalStrongResponses}% ({row.value.totalStrongResponses})</span>),
       Cell: (data) => {
-        const { className, handleClick, strongResponses, totalResponses, } = data.original
-        const percentageOfStrongResponses = _.round(strongResponses/(totalResponses || 1), 3) * 100
+        const { className, handleClick, strongResponses, scoredResponses, } = data.original
+        const percentageOfStrongResponses = _.round(strongResponses/(scoredResponses || 1), 3) * 100
         return (<button className={className} onClick={handleClick} type="button">{percentageOfStrongResponses}% ({strongResponses})</button>)
       },
     },
@@ -252,8 +252,8 @@ const RulesAnalysis: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ hist
       },
       Aggregated: (row) => (<span>{row.value.percentageTotalWeakResponses}% ({row.value.totalWeakResponses})</span>),
       Cell: (data) => {
-        const { className, handleClick, weakResponses, totalResponses, } = data.original
-        const percentageOfWeakResponses = _.round(weakResponses/(totalResponses || 1), 3) * 100
+        const { className, handleClick, weakResponses, scoredResponses, } = data.original
+        const percentageOfWeakResponses = _.round(weakResponses/(scoredResponses || 1), 3) * 100
         return (<button className={className} onClick={handleClick} type="button">{percentageOfWeakResponses}% ({weakResponses})</button>)
       },
     },
