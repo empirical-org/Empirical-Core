@@ -113,7 +113,7 @@ class FeedbackHistory < ActiveRecord::Base
   end
 
   def most_recent_rating
-    feedback_history_rating.order(updated_at: :desc).first&.rating
+    feedback_history_ratings.order(updated_at: :desc).first&.rating
   end
 
   def rule_violation_repititions?
