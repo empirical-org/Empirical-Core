@@ -109,7 +109,11 @@ class FeedbackHistory < ActiveRecord::Base
   end
 
   def serialize_by_activity_session_detail
-   serializable_hash(only: [:entry, :feedback_text, :feedback_type, :optimal, :used, :rule_uid], include: []).symbolize_keys
+   serializable_hash(only: [:id, :entry, :feedback_text, :feedback_type, :optimal, :used, :rule_uid], include: [], methods: [:most_recent_rating]).symbolize_keys
+  end
+
+  def most_recent_rating
+    feedback_history_rating.order(updated_at: :desc).first&.rating
   end
 
   def rule_violation_repititions?
