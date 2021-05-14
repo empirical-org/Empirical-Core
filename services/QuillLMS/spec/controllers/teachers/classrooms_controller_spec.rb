@@ -54,8 +54,8 @@ describe Teachers::ClassroomsController, type: :controller do
       expect(User.find_by_username_or_email("good.kid1@#{classroom.code}")).to be
     end
 
-    context 'current_user is not the classroom owner' do 
-      it 'should not allow a teacher to modify a classroom' do 
+    context 'current_user is not the classroom owner' do
+      it 'should not allow a teacher to modify a classroom' do
         unauthorized_teacher = create(:teacher)
         unauthorized_student = { name: 'Fake Kid', password: 'Kid', username: "fake.kid@aol.com"}
         allow(controller).to receive(:current_user) { unauthorized_teacher }
@@ -68,20 +68,18 @@ describe Teachers::ClassroomsController, type: :controller do
   end
 
   describe 'creating a login pdf' do
-
     let(:teacher) { create(:teacher) }
     let(:different_classroom) { create(:classroom) }
     let(:different_teacher) { different_classroom.owner }
 
-    before do
-      session[:user_id] = teacher.id
-    end
+    before { session[:user_id] = teacher.id }
 
     it 'does not allow teacher unauthorized access to other PDFs' do
-      get :generate_login_pdf, id: different_classroom.id
-      # expected result is a redirect away from the download page
-      # because the teacher in question should not be able to access
-      # student login information of a class that is not theirs
+      get :generate_login_pdf,
+        id: different_classroom.id,
+        format: :pdf,
+        only: [:pdf]
+
       expect(response.status).to eq(303)
     end
   end
@@ -93,13 +91,13 @@ describe Teachers::ClassroomsController, type: :controller do
     # Why not use a factory above? Because the classroom factory has a callback that creates
     # associations which break these specs
     let!(:classrooms_teacher) do
-      create(:classrooms_teacher, 
-              user_id: current_owner.id, 
-              classroom: classroom, 
+      create(:classrooms_teacher,
+              user_id: current_owner.id,
+              classroom: classroom,
               role: ClassroomsTeacher::ROLE_TYPES[:owner])
-      create(:classrooms_teacher, 
-              user_id: subsequent_owner.id, 
-              classroom: classroom, 
+      create(:classrooms_teacher,
+              user_id: subsequent_owner.id,
+              classroom: classroom,
               role: ClassroomsTeacher::ROLE_TYPES[:coteacher])
     end
 
@@ -121,7 +119,7 @@ describe Teachers::ClassroomsController, type: :controller do
     it 'transfers ownership to a coteacher' do
       session[:user_id] = current_owner.id
       post :transfer_ownership, id: classroom.id, requested_new_owner_id: subsequent_owner.id
-      
+
       expect(classroom.owner).to eq(subsequent_owner)
       expect(classroom.coteachers.length).to eq(1)
       expect(classroom.coteachers.first).to eq(current_owner)
@@ -232,7 +230,7 @@ describe Teachers::ClassroomsController, type: :controller do
     let!(:classrooms_teacher) do
       create(:classrooms_teacher, user_id: teacher.id, classroom: classroom)
     end
-    
+
     before do
       allow(controller).to receive(:current_user) { teacher }
     end
