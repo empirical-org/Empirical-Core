@@ -6,7 +6,7 @@ class PromptFeedbackHistory
 
     def self.promptwise_sessions(activity_id)
         activity_sessions = ActivitySession.where(activity_id: activity_id).includes(:feedback_sessions)
-        feedback_session_uids = activity_sessions.reduce([]) {|memo, a_s| memo.concat a_s.feedback_sessions.pluck(:uid)}
+        feedback_session_uids = activity_sessions.reduce([]) {|memo, a_s| memo.concat(a_s.feedback_sessions.pluck(:uid))}
 
         sql = <<~SQL 
           SELECT prompt_id, feedback_session_uid, count(*) as session_count, bool_or(optimal) as at_least_one_optimal, MAX(attempt) as attempt_cardinal
