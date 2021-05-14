@@ -109,8 +109,6 @@ RSpec.describe FeedbackHistoryRatingsController, type: :controller do
       ).rating).to eq false
     end
 
-    end
-
 
   end
 
