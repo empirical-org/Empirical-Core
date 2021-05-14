@@ -464,9 +464,9 @@ describe User, type: :model do
             teacher_role: ClassroomsTeacher.find_by(user_id: teacher.id, classroom_id: classroom.id).role,
             created_at: classroom.created_at,
             grade: classroom.grade
-          }
+          }.stringify_keys
         end
-        expect(teacher.classroom_minis_info).to match_array(sanitize_hash_array_for_comparison_with_redis(expected_response))
+        expect(teacher.classroom_minis_info).to match_array(expected_response)
       end
     end
 
