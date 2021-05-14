@@ -1,7 +1,7 @@
 import * as React from 'react'
 import * as moment from 'moment'
 
-import { Tooltip } from '../../../Shared/index'
+import { Tooltip, helpIcon, } from '../../../Shared/index'
 
 import ClassroomStudentSection from './classroom_student_section'
 import ClassroomTeacherSection from './classroom_teacher_section'
@@ -72,15 +72,15 @@ export default class Classroom extends React.Component<ClassroomProps, Classroom
     const { code, google_classroom_id, clever_id, } = classroom
     if (google_classroom_id) {
       return (<Tooltip
-        tooltipText={`Add students by syncing with Google Classroom. Experiencing sync issues? You can add students with the class code '${code}'`}
-        tooltipTriggerText="Class code: N/A"
+        tooltipText={`Class code: <b>${code}</b><br/><br/>The easiest way for your students to join your class is through Google Classroom. However, if your students are not syncing, try the class code.`}
+        tooltipTriggerText={<div className="text-and-icon-wrapper"><span>Class code:&nbsp;</span><img alt={helpIcon.alt} src={helpIcon.src} /></div>}
       />)
     }
 
     if (clever_id) {
       return (<Tooltip
-        tooltipText={`Add students through Clever. Experiencing sync issues? You can add students with the class code '${code}'`}
-        tooltipTriggerText="Class code: N/A"
+        tooltipText={`Class code: <b>${code}</b><br/><br/>The easiest way for your students to join your class is through Clever. However, if your students are not syncing, try the class code.`}
+        tooltipTriggerText={<div className="text-and-icon-wrapper"><span>Class code:&nbsp;</span><img alt={helpIcon.alt} src={helpIcon.src} /></div>}
       />)
     }
 

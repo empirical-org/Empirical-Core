@@ -27,6 +27,10 @@ const activeHeaders = [
     width: '52px',
     name: 'Status',
     attribute: 'status'
+  }, {
+    name: 'Actions',
+    attribute: 'actions',
+    isActions: true
   }
 ]
 
