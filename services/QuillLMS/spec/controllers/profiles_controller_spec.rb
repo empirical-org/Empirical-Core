@@ -173,11 +173,11 @@ describe ProfilesController, type: :controller do
           get :student_profile_data
           scores = JSON.parse(response.body)['scores']
           single_unit_scores = scores.select { |item| item['unit_id'] == units[0].id }
-          max_percentages = single_unit_scores.map { |score| score['max_percentage'] }
+          max_percentages = single_unit_scores.map { |score| score['max_percentage'] }.compact
           expect(max_percentages).to eq(max_percentages.sort.reverse)
         end
 
-        it 'respects assigned "order_number" when there are no pins or locks and all acticities belong to the same unit and have the same level of completion' do
+        it 'respects assigned "order_number" when there are no pins or locks and all activities belong to the same unit and have the same level of completion' do
           classroom_unit_activity_states.each do |activity_state|
             activity_state.pinned = false
             activity_state.locked = false
