@@ -54,24 +54,25 @@ class IncorrectSequencesContainer extends Component {
   }
 
   deleteSequence = sequenceID => {
-    const { actionFile } = this.state
+    const { actionFile, incorrectSequences } = this.state
     const { deleteIncorrectSequence } = actionFile
     const { dispatch, match } = this.props
     const { params } = match
     const { questionID } = params
     if (confirm('⚠️ Are you sure you want to delete this? 😱')) {
       dispatch(deleteIncorrectSequence(questionID, sequenceID));
+      delete incorrectSequences[sequenceID];
+      this.setState({incorrectSequences: incorrectSequences})
     }
   };
 
   sortCallback = sortInfo => {
     const { actionFile, incorrectSequences } = this.state
     const { updateIncorrectSequences } = actionFile
-    const { dispatch, match } = this.props
-    const { params } = match
-    const { questionID } = params
+    const { dispatch } = this.props
     const newOrder = sortInfo.filter(item => item).map(item => item.key);
     const newIncorrectSequences = newOrder.map((key) => incorrectSequences[key])
+    this.setState({incorrectSequences: newIncorrectSequences})
     dispatch(updateIncorrectSequences(questionID, newIncorrectSequences));
   };
 
