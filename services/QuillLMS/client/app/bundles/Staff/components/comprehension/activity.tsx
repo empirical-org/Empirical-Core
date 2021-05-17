@@ -6,6 +6,7 @@ import ActivitySettings from './configureSettings/activitySettings';
 import Rules from './configureRules/rules';
 import Rule from './configureRules/rule';
 import RulesAnalysis from './rulesAnalysis/rulesAnalysis';
+import ActivityStats from './activityStats/activityStats';
 import RuleAnalysis from './rulesAnalysis/ruleAnalysis';
 import TurkSessions from './gatherResponses/turkSessions';
 import SessionsIndex from './activitySessions/sessionsIndex';
@@ -26,6 +27,7 @@ const Activity: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ match, lo
           <Route component={ActivitySettings} path='/activities/:activityId/settings' />
           <Route component={Rule} path='/activities/:activityId/rules/:ruleId' />
           <Route component={Rules} path='/activities/:activityId/rules' />
+          <Route component={ActivityStats} path='/activities/:activityId/stats' />
           <Route component={RuleAnalysis} path='/activities/:activityId/rules-analysis/:promptConjunction/rule/:ruleId/prompt/:promptId' />
           <Route component={RulesAnalysis} path='/activities/:activityId/rules-analysis/:promptConjunction' />
           <Route component={RulesAnalysis} path='/activities/:activityId/rules-analysis' />
