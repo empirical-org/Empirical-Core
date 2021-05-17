@@ -411,6 +411,8 @@ RSpec.describe FeedbackHistory, type: :model do
         expect(payload[:prompts][:because][:attempts][1][0][:feedback_type]).to eq(@first_session_feedback1.feedback_type)
         expect(payload[:prompts][:because][:attempts][1][0][:optimal]).to eq(@first_session_feedback1.optimal)
         expect(payload[:prompts][:because][:attempts][1][0][:rule_uid]).to eq(@first_session_feedback1.rule_uid)
+        expect(payload[:prompts][:because][:attempts][1][0][:id]).to eq(@first_session_feedback1.id)
+        expect(payload[:prompts][:because][:attempts][1][0][:most_recent_rating]).to eq(@first_session_feedback1.most_recent_rating)
 
         expect(payload[:prompts][:because][:attempts][2][0][:used]).to eq(@first_session_feedback2.used)
         expect(payload[:prompts][:because][:attempts][2][0][:entry]).to eq(@first_session_feedback2.entry)
@@ -418,6 +420,8 @@ RSpec.describe FeedbackHistory, type: :model do
         expect(payload[:prompts][:because][:attempts][2][0][:feedback_type]).to eq(@first_session_feedback2.feedback_type)
         expect(payload[:prompts][:because][:attempts][2][0][:optimal]).to eq(@first_session_feedback2.optimal)
         expect(payload[:prompts][:because][:attempts][2][0][:rule_uid]).to eq(@first_session_feedback2.rule_uid)
+        expect(payload[:prompts][:because][:attempts][2][0][:id]).to eq(@first_session_feedback2.id)
+        expect(payload[:prompts][:because][:attempts][2][0][:most_recent_rating]).to eq(@first_session_feedback2.most_recent_rating)
 
         expect(payload[:prompts][:but][:prompt_id]).to eq(@but_prompt1.id)
 
@@ -427,6 +431,8 @@ RSpec.describe FeedbackHistory, type: :model do
         expect(payload[:prompts][:but][:attempts][1][0][:feedback_type]).to eq(@first_session_feedback3.feedback_type)
         expect(payload[:prompts][:but][:attempts][1][0][:optimal]).to eq(@first_session_feedback3.optimal)
         expect(payload[:prompts][:but][:attempts][1][0][:rule_uid]).to eq(@first_session_feedback3.rule_uid)
+        expect(payload[:prompts][:but][:attempts][1][0][:id]).to eq(@first_session_feedback3.id)
+        expect(payload[:prompts][:but][:attempts][1][0][:most_recent_rating]).to eq(@first_session_feedback3.most_recent_rating)
 
         expect(payload[:prompts][:so][:prompt_id]).to eq(@so_prompt1.id)
 
@@ -436,6 +442,8 @@ RSpec.describe FeedbackHistory, type: :model do
         expect(payload[:prompts][:so][:attempts][1][0][:feedback_type]).to eq(@first_session_feedback4.feedback_type)
         expect(payload[:prompts][:so][:attempts][1][0][:optimal]).to eq(@first_session_feedback4.optimal)
         expect(payload[:prompts][:so][:attempts][1][0][:rule_uid]).to eq(@first_session_feedback4.rule_uid)
+        expect(payload[:prompts][:so][:attempts][1][0][:id]).to eq(@first_session_feedback4.id)
+        expect(payload[:prompts][:so][:attempts][1][0][:most_recent_rating]).to eq(@first_session_feedback4.most_recent_rating)
 
         expect(payload[:prompts][:so][:attempts][2][0][:used]).to eq(@first_session_feedback5.used)
         expect(payload[:prompts][:so][:attempts][2][0][:entry]).to eq(@first_session_feedback5.entry)
@@ -443,6 +451,8 @@ RSpec.describe FeedbackHistory, type: :model do
         expect(payload[:prompts][:so][:attempts][2][0][:feedback_type]).to eq(@first_session_feedback5.feedback_type)
         expect(payload[:prompts][:so][:attempts][2][0][:optimal]).to eq(@first_session_feedback5.optimal)
         expect(payload[:prompts][:so][:attempts][2][0][:rule_uid]).to eq(@first_session_feedback5.rule_uid)
+        expect(payload[:prompts][:so][:attempts][2][0][:id]).to eq(@first_session_feedback5.id)
+        expect(payload[:prompts][:so][:attempts][2][0][:most_recent_rating]).to eq(@first_session_feedback5.most_recent_rating)
 
         expect(payload[:prompts][:so][:attempts][3][0][:used]).to eq(@first_session_feedback6.used)
         expect(payload[:prompts][:so][:attempts][3][0][:entry]).to eq(@first_session_feedback6.entry)
@@ -450,6 +460,23 @@ RSpec.describe FeedbackHistory, type: :model do
         expect(payload[:prompts][:so][:attempts][3][0][:feedback_type]).to eq(@first_session_feedback6.feedback_type)
         expect(payload[:prompts][:so][:attempts][3][0][:optimal]).to eq(@first_session_feedback6.optimal)
         expect(payload[:prompts][:so][:attempts][3][0][:rule_uid]).to eq(@first_session_feedback6.rule_uid)
+        expect(payload[:prompts][:so][:attempts][3][0][:id]).to eq(@first_session_feedback6.id)
+        expect(payload[:prompts][:so][:attempts][3][0][:most_recent_rating]).to eq(@first_session_feedback6.most_recent_rating)
+      end
+    end
+    context '#most_recent_rating' do
+      setup do
+        @prompt = Comprehension::Prompt.create(text: 'Test text')
+        @feedback_history = create(:feedback_history, prompt: @prompt)
+        @user1 = create(:user)
+        @user2 = create(:user)
+      end
+      it 'should return the most recent FeedbackHistoryRating rating' do
+        params1 = { user_id: @user1.id, feedback_history_id: @feedback_history.id, rating: false }
+        params2 = { user_id: @user2.id, feedback_history_id: @feedback_history.id, rating: true }
+        rating1 = create(:feedback_history_rating, params1)
+        rating2 = create(:feedback_history_rating, params2)
+        expect(@feedback_history.most_recent_rating).to eq true
       end
     end
   end
