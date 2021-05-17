@@ -17,20 +17,19 @@ describe ProgressReports::DistrictConceptReports do
 
     it 'should return the correct results' do
       correct = concept_result.metadata["correct"]
-      incorrect = (ConceptResult.count - correct).to_s
-      percentage = (correct/ConceptResult.count.to_f*100).floor.to_s
+      incorrect = (ConceptResult.count - correct)
+      percentage = (correct / ConceptResult.count.to_f*100).floor
       expect(subject.results).to eq(
         [{
           school_name: school.name,
           teacher_name: teacher.name,
           classroom_name: classroom.name,
           student_name: student.name,
-          correct: correct.to_s,
+          correct: correct,
           incorrect: incorrect,
           percentage: percentage,
         }.stringify_keys]
       )
     end
-
   end
 end

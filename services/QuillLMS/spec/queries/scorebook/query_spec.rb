@@ -30,7 +30,7 @@ describe 'ScorebookQuery' do
 
   it 'returns a completed activity that is a final scores' do
     results = Scorebook::Query.run(classroom.id)
-    expect(results.map{|res| res["id"]}).to include(activity_session2.id.to_s)
+    expect(results.map{|res| res["id"]}).to include(activity_session2.id)
   end
 
   describe 'support date constraints' do
@@ -38,7 +38,7 @@ describe 'ScorebookQuery' do
       begin_date = activity_session1.completed_at - 1.days
       end_date = activity_session1.completed_at + 1.days
       results = Scorebook::Query.run(classroom.id, 1, nil, begin_date.to_s, end_date.to_s)
-      expect(results.map{|res| res['id']}).to include(activity_session1.id.to_s)
+      expect(results.map{|res| res['id']}).to include(activity_session1.id)
     end
 
     it 'does not return activities completed after the specified end date' do
@@ -73,7 +73,7 @@ describe 'ScorebookQuery' do
         begin_date = (activity_session1.reload.completed_at).to_date.to_s
         end_date = begin_date
         results = Scorebook::Query.run(classroom.id, 1, nil, begin_date, end_date, offset)
-        expect(results.find{|res| res['id'] == activity_session2.id.to_s}).to be
+        expect(results.find { |res| res['id'] == activity_session2.id }).to be
         expect(results.length).to eq(1)
       end
     end

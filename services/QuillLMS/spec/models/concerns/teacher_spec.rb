@@ -61,7 +61,14 @@ describe User, type: :model do
       it 'returns an array with classrooms, email addresses, and names if a user owns classrooms teachers' do
         ct = create(:classrooms_teacher, classroom: classroom, role: 'coteacher')
         coteacher = ct.user
-        expect(teacher.classrooms_i_own_that_have_coteachers).to eq(["name"=> ct.classroom.name, "coteacher_name"=> coteacher.name, "coteacher_email"=>coteacher.email, "coteacher_id"=>coteacher.id.to_s])
+        expect(teacher.classrooms_i_own_that_have_coteachers).to eq(
+          [
+            "name"=> ct.classroom.name,
+            "coteacher_name"=> coteacher.name,
+            "coteacher_email"=>coteacher.email,
+            "coteacher_id"=>coteacher.id
+          ]
+        )
       end
     end
 
@@ -77,9 +84,6 @@ describe User, type: :model do
         expect(teacher.classrooms_i_own_that_have_pending_coteacher_invitations).to eq(["name"=> coteacher_classroom_invitation.classroom.name, "coteacher_email"=>coteacher_classroom_invitation.invitation.invitee_email])
       end
     end
-
-
-
 
     describe '#classroom_ids_i_have_invited_a_specific_teacher_to_coteach' do
       it "returns an empty array if the user does not have any open invitations with the specified coteacher" do
@@ -134,12 +138,12 @@ describe User, type: :model do
       let!(:pending_coteacher_invitation) {create(:pending_coteacher_invitation, inviter_id: teacher.id, invitee_email: co_taught_classrooms_teacher.user.email)}
       let!(:coteacher_classroom_invitation) {create(:coteacher_classroom_invitation, invitation_id: pending_coteacher_invitation.id)}
       it "returns all the cotaught classrooms" do
-        cotaught_classroom_ids = Set.new(teacher.classrooms_i_coteach.map{|c| c.id.to_s})
+        cotaught_classroom_ids = Set.new(teacher.classrooms_i_coteach.map{|c| c.id })
         expect(teacher.classroom_ids_i_coteach_or_have_a_pending_invitation_to_coteach.superset?(cotaught_classroom_ids)).to be
       end
 
       it "returns all pending invitation to coteach classrooms" do
-        expect(teacher.classroom_ids_i_coteach_or_have_a_pending_invitation_to_coteach.member?(coteacher_classroom_invitation.classroom_id.to_s)).to be
+        expect(teacher.classroom_ids_i_coteach_or_have_a_pending_invitation_to_coteach.member?(coteacher_classroom_invitation.classroom_id)).to be
       end
     end
 

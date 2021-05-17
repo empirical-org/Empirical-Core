@@ -53,7 +53,7 @@ describe Cms::UsersController do
           "last_sign_in"=> nil,
           "school"=> nil,
           "school_id"=> nil,
-          "id"=> teacher.id.to_s
+          "id"=> teacher.id
          },
          {
           "name" => student.name,
@@ -63,7 +63,7 @@ describe Cms::UsersController do
           "last_sign_in" => nil,
           "school" => nil,
           "school_id" => nil,
-          "id" => student.id.to_s
+          "id" => student.id
          }], "userSearchQuery"=> {"class_code"=> class_code}})
       expect(ChangeLog.last.action).to eq(ChangeLog::USER_ACTIONS[:search])
       expect(ChangeLog.last.explanation).to include('class_code')

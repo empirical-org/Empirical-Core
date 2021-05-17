@@ -10,8 +10,6 @@ module SanitizationHelper
       hash.map do |key, value|
         # Convert true and false to 't' and 'f'
         value = value.to_s.first if value.in? [true, false]
-        # Convert numeric values to strings
-        value = value.to_s if value.is_a? Numeric
         # Convert Times to have the right level of fidelity, and strip trailing zeroes
         value = value.strftime('%Y-%m-%d %T.%6N').gsub(/0*$/, '') if value.is_a? Time
         [key.to_s, value]

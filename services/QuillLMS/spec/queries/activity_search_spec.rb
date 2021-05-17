@@ -14,27 +14,27 @@ describe ActivitySearch do
     let!(:activity_topic) { create(:activity_topic, topic: topic, activity: activity)}
 
     it 'should get the correct attributes based on the flag given' do
-      expect(described_class.search("beta").first).to eq(
+      expect(described_class.search("beta").first).to include(
         {
           "activity_name" => activity.name,
           "activity_description" => activity.description ,
           "activity_flag" => "{beta,production}",
-          "activity_id" => activity.id.to_s,
+          "activity_id" => activity.id,
           "activity_uid" => activity.uid,
-          "activity_category_id" => activity_category.id.to_s,
+          "activity_category_id" => activity_category.id,
           "activity_category_name" => activity_category.name,
-          "standard_level_id" => standard_level.id.to_s,
+          "standard_level_id" => standard_level.id,
           "standard_level_name" => standard_level.name,
           "standard_name" => standard.name,
-          "topic_id" => topic.id.to_s,
-          "topic_level" => topic.level.to_s,
+          "topic_id" => topic.id,
+          "topic_level" => topic.level,
           "topic_name" => topic.name,
-          "topic_parent_id" => topic.parent_id ? topic.parent_id.to_s : topic.parent_id,
+          "topic_parent_id" => topic.parent_id,
           "content_partner_description" => content_partner.description,
-          "content_partner_id" => content_partner.id.to_s,
+          "content_partner_id" => content_partner.id,
           "content_partner_name" => content_partner.name,
-          "order_number" => activity_category_activity.order_number.to_s,
-          "classification_id" => activity_classification.id.to_s
+          "order_number" => activity_category_activity.order_number,
+          "classification_id" => activity_classification.id
         }
       )
     end

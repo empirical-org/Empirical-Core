@@ -85,19 +85,23 @@ describe UnitTemplate, redis: true, type: :model do
     let(:json) {
       {
         activities: [{
-          id: activity.id.to_s,
+          id: activity.id,
           name: activity.name,
           description: activity.description,
           standard_level_name: activity.standard_level.name,
           standard: {
-            id: activity.standard.id.to_s,
+            id: activity.standard.id,
             name: activity.standard.name,
             standard_category: {
-              id: activity.standard.standard_category.id.to_s,
+              id: activity.standard.standard_category.id,
               name: activity.standard.standard_category.name
             }
           },
-          classification: {key: activity.classification.key, id: activity.classification.id.to_s, name: activity.classification.name }
+          classification: {
+            key: activity.classification.key,
+            id: activity.classification.id,
+            name: activity.classification.name
+          }
         }],
         activity_info: nil,
         author: {

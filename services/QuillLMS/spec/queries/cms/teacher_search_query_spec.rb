@@ -5,7 +5,7 @@ describe Cms::TeacherSearchQuery do
     Timecop.freeze
   end
 
-  after do 
+  after do
     Timecop.return
   end
 
@@ -27,17 +27,16 @@ describe Cms::TeacherSearchQuery do
       output = subject.run
       expected = {
         teacher_name: user.name,
-        number_classrooms: "1",
-        number_students: "1",
-        number_activities_completed: "1",
+        number_classrooms: 1,
+        number_students: 1,
+        number_activities_completed: 1,
         last_active: (todays_date).strftime("%b %d,\u00A0%Y"),
         subscription: subscription.account_type,
-        user_id: user.id.to_s,
-        admin_id: schools_admins.id.to_s
-        }
-      expect(output).to eql(
-        [expected.stringify_keys]
-      )
+        user_id: user.id,
+        admin_id: schools_admins.id
+      }
+
+      expect(output).to eql([expected.stringify_keys])
     end
   end
 end
