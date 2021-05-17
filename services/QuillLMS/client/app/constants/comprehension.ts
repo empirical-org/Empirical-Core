@@ -252,3 +252,11 @@ export const numericalWordOptions = {
   3: 'Fourth',
   4: 'Fifth'
 }
+
+export const FEEDBACK = 'feedback'
+export const HIGHLIGHT_TEXT = 'highlight text'
+export const HIGHLIGHT_ADDITION = 'highlight addition'
+export const HIGHLIGHT_REMOVAL = 'highlight removal'
+export const HIGHLIGHT_TYPE = 'highlight type'
+export const FEEDBACK_LAYER_ADDITION = 'feedback layer addition'
+export const FEEDBACK_LAYER_REMOVAL = 'feedback layer removal'
