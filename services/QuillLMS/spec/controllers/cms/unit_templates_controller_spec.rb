@@ -24,7 +24,7 @@ describe Cms::UnitTemplatesController, type: :controller do
     let(:template) { build(:unit_template) }
 
     it 'should create the unit template category with the given params' do
-      post :create, unit_template: template.attributes
+      post :create, params: { unit_template: template.attributes }, as: :json
       expect(UnitTemplate.last.name).to eq template.name
       expect(UnitTemplate.last.flag).to eq template.flag
       expect(UnitTemplate.last.order_number).to eq template.order_number

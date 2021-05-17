@@ -59,19 +59,37 @@ describe TeacherFixController do
     let!(:session2) { create(:activity_session, classroom_unit_id: activity.id) }
 
     it 'should change the names of given units' do
-      post :unarchive_units, changed_names: [[unit.id, "new name"]], unit_ids: [unit.id, unit1.id, unit2.id]
+      post :unarchive_units,
+        params: {
+          changed_names: [[unit.id, "new name"]],
+          unit_ids: [unit.id, unit1.id, unit2.id]
+        },
+        as: :json
+
       expect(unit.reload.name).to eq "new name"
     end
 
     it 'should make all the units visible' do
-      post :unarchive_units, changed_names: [], unit_ids: [unit.id, unit1.id, unit2.id]
+      post :unarchive_units,
+        params: {
+          changed_names: [],
+          unit_ids: [unit.id, unit1.id, unit2.id]
+        },
+        as: :json
+
       expect(unit.reload.visible).to eq true
       expect(unit1.reload.visible).to eq true
       expect(unit2.reload.visible).to eq true
     end
 
     it 'should mark all the activity sessions visible' do
-      post :unarchive_units, changed_names: [], unit_ids: [unit.id, unit1.id, unit2.id]
+      post :unarchive_units,
+        params: {
+          changed_names: [],
+          unit_ids: [unit.id, unit1.id, unit2.id]
+        },
+        as: :json
+
       expect(activity.reload.visible).to eq true
       expect(activity1.reload.visible).to eq true
       expect(activity2.reload.visible).to eq true

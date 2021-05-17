@@ -29,7 +29,7 @@ describe Cms::BlogPostsController, type: :controller do
     let(:bpost) { build(:blog_post) }
 
     it 'should create the blog post with the params given' do
-      post :create, blog_post: bpost.attributes
+      post :create, params: { blog_post: bpost.attributes }, as: :json
       expect(BlogPost.last.body).to eq bpost.body
       expect(BlogPost.last.title).to eq bpost.title
       expect(BlogPost.last.topic).to eq bpost.topic
