@@ -144,9 +144,16 @@
         line-height: 1.57;
         color: #646464;
         margin-right: 8px;
+        .text-and-icon-wrapper {
+          display: inline-flex;
+          align-items: center;
+        }
         &.bullet {
           color: #bdbdbd;
         }
+      }
+      .quill-tooltip b {
+        text-decoration: underline;
       }
     }
     .class-settings, .students-section {

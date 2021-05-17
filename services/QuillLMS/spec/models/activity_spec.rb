@@ -401,9 +401,12 @@ describe Activity, type: :model, redis: true do
       old_length = activity.data["questions"].length
       question_obj = {"key": question.uid, "questionType": "questions"}
       activity.add_question(question_obj)
-      expect(activity.data["questions"].length).to eq(old_length+1)
-      expect(activity.data["questions"][-1][:key]).to eq(question.uid)
-      expect(activity.data["questions"][-1][:questionType]).to eq("questions")
+      questions = activity.data["questions"]
+      last_question = questions.last.symbolize_keys
+
+      expect(questions.length).to eq(old_length + 1)
+      expect(last_question[:key]).to eq(question.uid)
+      expect(last_question[:questionType]).to eq("questions")
     end
 
     it 'should throw error if the question does not exist' do

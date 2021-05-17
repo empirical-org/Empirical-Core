@@ -31,9 +31,9 @@ class UnitTemplate < ActiveRecord::Base
   has_many :recommendations, dependent: :destroy
   serialize :grades, Array
 
-  validates :flag,                  inclusion: { in: %w(archived alpha beta production private),
-                                    message: "%<value>s is not a valid flag" }, :allow_nil => true
-
+  validates :flag,
+    inclusion: { in: %w(archived alpha beta production private) },
+    allow_nil: true
 
   scope :production, -> {where("unit_templates.flag IN('production') OR unit_templates.flag IS null")}
   scope :beta_user, -> { where("unit_templates.flag IN('production','beta') OR unit_templates.flag IS null")}
