@@ -26,28 +26,36 @@ exports[`RulesAnalysis component should render RulesAnalysis 1`] = `
             "value": "All Rules",
           },
           Object {
-            "label": "AutoML",
-            "value": "AutoML",
+            "label": "rules-based-1",
+            "value": "rules-based-1",
           },
           Object {
-            "label": "Grammar",
-            "value": "Grammar",
+            "label": "opinion",
+            "value": "opinion",
           },
           Object {
-            "label": "Opinion",
-            "value": "Opinion",
+            "label": "plagiarism",
+            "value": "plagiarism",
           },
           Object {
-            "label": "Plagiarism",
-            "value": "Plagiarism",
+            "label": "autoML",
+            "value": "autoML",
           },
           Object {
-            "label": "Regex",
-            "value": "Regex",
+            "label": "rules-based-2",
+            "value": "rules-based-2",
           },
           Object {
-            "label": "Spelling",
-            "value": "Spelling",
+            "label": "grammar",
+            "value": "grammar",
+          },
+          Object {
+            "label": "spelling",
+            "value": "spelling",
+          },
+          Object {
+            "label": "rules-based-3",
+            "value": "rules-based-3",
           },
         ]
       }
