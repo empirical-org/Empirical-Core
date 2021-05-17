@@ -155,9 +155,9 @@ class FeedbackHistory < ActiveRecord::Base
         COUNT(CASE WHEN comprehension_prompts.conjunction = 'because' THEN 1 END) AS because_attempts,
         COUNT(CASE WHEN comprehension_prompts.conjunction = 'but' THEN 1 END) AS but_attempts,
         COUNT(CASE WHEN comprehension_prompts.conjunction = 'so' THEN 1 END) AS so_attempts,
-        COUNT(CASE WHEN feedback_histories.feedback_history_ratings.rating IS NOT NULL THEN 1 END) AS scored_count,
-        COUNT(CASE WHEN feedback_histories.feedback_history_ratings.rating = false THEN 1 END) AS weak_count,
-        COUNT(CASE WHEN feedback_histories.feedback_history_ratings.rating = true THEN 1 END) AS strong_count,
+        COUNT(CASE WHEN feedback_history_ratings.rating IS NOT NULL THEN 1 END) AS scored_count,
+        COUNT(CASE WHEN feedback_history_ratings.rating = false THEN 1 END) AS weak_count,
+        COUNT(CASE WHEN feedback_history_ratings.rating = true THEN 1 END) AS strong_count,
         (
           CASE WHEN
             ((COUNT(CASE WHEN comprehension_prompts.conjunction = 'because' AND feedback_histories.optimal THEN 1 END) = 1) OR
