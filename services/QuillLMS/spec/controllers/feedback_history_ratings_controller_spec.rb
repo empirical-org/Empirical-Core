@@ -89,7 +89,6 @@ RSpec.describe FeedbackHistoryRatingsController, type: :controller do
     it "should create or update all relevant records" do
       f_h1 = create(:feedback_history)
       f_h2 = create(:feedback_history)
-      user = create(:user)
 
       f_h_r = create(:feedback_history_rating, {
         user_id: user.id,
@@ -105,7 +104,7 @@ RSpec.describe FeedbackHistoryRatingsController, type: :controller do
       end.to change(FeedbackHistoryRating, :count).by(1)
       expect(FeedbackHistoryRating.find_by(
         user_id: user.id,
-        feedback_history_id: f_h.id
+        feedback_history_id: f_h2.id
       ).rating).to eq false
     end
 

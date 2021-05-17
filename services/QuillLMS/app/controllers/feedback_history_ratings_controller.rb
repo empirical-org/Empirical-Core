@@ -3,7 +3,7 @@ class FeedbackHistoryRatingsController < ApplicationController
   skip_before_action :verify_authenticity_token
 
   def create_or_update
-    rating = create_or_update_feedback_history_rating(feedback_history_rating_params["feedback_history_id"])
+    rating = create_or_update_feedback_history_rating(feedback_history_rating_params["feedback_history_id"], feedback_history_rating_params["rating"])
 
     if rating.valid?
       rating.save!
@@ -15,7 +15,7 @@ class FeedbackHistoryRatingsController < ApplicationController
 
   def mass_mark
     params[:feedback_history_ids].each do |id|
-      rating = create_or_update_feedback_history_rating(id)
+      rating = create_or_update_feedback_history_rating(id, params["rating"])
       if rating.valid?
         rating.save!
       else
@@ -25,13 +25,13 @@ class FeedbackHistoryRatingsController < ApplicationController
     render(json: {status: 200})
   end
 
-  private def create_or_update_feedback_history_rating(id)
+  private def create_or_update_feedback_history_rating(id, value)
     rating = FeedbackHistoryRating.find_or_initialize_by(
       user_id: current_user.id,
       feedback_history_id: id
     )
 
-    rating.rating = feedback_history_rating_params["rating"]
+    rating.rating = value
     rating
   end
 
