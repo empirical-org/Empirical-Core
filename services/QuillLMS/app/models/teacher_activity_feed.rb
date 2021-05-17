@@ -1,7 +1,7 @@
 # Usage: TeacherActivityFeed.add(teacher_id, activity_session_id)
 # Usage: TeacherActivityFeed.get(teacher_id)
 class TeacherActivityFeed < RedisFeed
-  KEY = 'teacher-'
+  KEY = 'teacher-activity-feed-'
   LIMIT = 40
 
   def key
