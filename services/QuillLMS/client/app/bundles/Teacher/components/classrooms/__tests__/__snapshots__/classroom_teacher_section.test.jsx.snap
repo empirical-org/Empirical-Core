@@ -41,6 +41,11 @@ exports[`ClassroomTeacherSection component should render 1`] = `
           "name": "Status",
           "width": "52px",
         },
+        Object {
+          "attribute": "actions",
+          "isActions": true,
+          "name": "Actions",
+        },
       ]
     }
     rows={
