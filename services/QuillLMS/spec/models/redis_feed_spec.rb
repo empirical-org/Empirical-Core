@@ -28,6 +28,12 @@ describe RedisFeed, type: :model do
         expect(test_feed_class.get(1)).to eq([{id: "word"}, {id: "19"}, {id: "17"}])
       end
 
+      it 'should store an array of stings as multiple entries' do
+        test_feed_class.add(1, [17, "19", "word"])
+
+        expect(test_feed_class.get(1)).to eq([{id: "word"}, {id: "19"}, {id: "17"}])
+      end
+
       it 'should add and retrieve hydrated records in reverse order of addition' do
         test_feed_class.add(1, 17)
         test_feed_class.add(1, 19)

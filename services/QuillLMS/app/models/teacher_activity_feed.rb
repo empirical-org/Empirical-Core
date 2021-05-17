@@ -34,9 +34,11 @@ class TeacherActivityFeed < RedisFeed
   end
 
   # PUSHER_EVENT = 'teacher-activity-feed'
-  def callback_on_add(id)
+  def callback_on_add(id_or_ids)
     # TODO: add pusher code for real time updates
-    # PusherTrigger.run(key_id, PUSHER_EVENT, hydrate(ids: id).first)
+    # hydrate(ids: id_or_ids).each do |session_hash|
+    #   PusherTrigger.run(key_id, PUSHER_EVENT, session_hash)
+    # end
   end
 
   private def text_for_score(key, percentage)
