@@ -47,8 +47,8 @@ const SessionsIndex = ({ match }) => {
       const formattedSession = {
         ...session,
         id: session_uid,
-        date: date,
-        time: time,
+        session_uid: session_uid ? session_uid.substring(0,6) : '',
+        time: `${date} ${time}`,
         because_attempts: because_attempts,
         but_attempts: but_attempts,
         so_attempts: so_attempts,
@@ -94,13 +94,15 @@ const SessionsIndex = ({ match }) => {
   }
 
   const dataTableFields = [
-    { name: "Day", attribute:"date", width: "100px" },
-    { name: "Time", attribute:"time", width: "100px" },
-    { name: "Session ID", attribute:"session_uid", width: "350px" },
-    { name: "Total Responses", attribute:"total_attempts", width: "150px" },
+    { name: "Date | Time", attribute:"time", width: "150px" },
+    { name: "Session ID", attribute:"session_uid", width: "100px" },
+    { name: "Total Responses", attribute:"total_attempts", width: "100px" },
     { name: "Because", attribute:"because_attempts", width: "50px" },
     { name: "But", attribute:"but_attempts", width: "50px" },
     { name: "So", attribute:"so_attempts", width: "50px" },
+    { name: "Scored", attribute:"scored", width: "50px" },
+    { name: "Weak", attribute:"weak", width: "50px" },
+    { name: "Strong", attribute:"strong", width: "50px" },
     { name: "Completed?", attribute: "completed", width: "75px"},
     { name: "", attribute:"view_link", width: "100px" }
   ];

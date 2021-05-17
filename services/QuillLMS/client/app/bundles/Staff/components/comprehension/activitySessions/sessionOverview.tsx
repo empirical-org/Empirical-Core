@@ -6,6 +6,7 @@ import PromptTable from './promptTable';
 import { DataTable, Error, Spinner } from '../../../../Shared/index';
 import { getPromptForActivitySession } from "../../../helpers/comprehension";
 import { BECAUSE, BUT, SO } from '../../../../../constants/comprehension';
+import { session } from "../../../../Grammar/components/grammarActivities/__tests__/data";
 
 const SessionOverview = ({ activity, sessionData }) => {
 
@@ -69,6 +70,8 @@ const SessionOverview = ({ activity, sessionData }) => {
     { name: "", attribute:"value", width: "400px" }
   ];
 
+  const sessionId = sessionData && sessionData.activitySession ? sessionData.activitySession.session_uid : null;
+
   return(
     <div className="session-overview-container">
       <DataTable
@@ -76,9 +79,9 @@ const SessionOverview = ({ activity, sessionData }) => {
         headers={dataTableFields}
         rows={sessionRows(sessionData)}
       />
-      <PromptTable activity={activity} prompt={getPromptForActivitySession(sessionData, BECAUSE)} showHeader={true} />
-      <PromptTable activity={activity} prompt={getPromptForActivitySession(sessionData, BUT)} showHeader={true} />
-      <PromptTable activity={activity} prompt={getPromptForActivitySession(sessionData, SO)} showHeader={true} />
+      <PromptTable activity={activity} prompt={getPromptForActivitySession(sessionData, BECAUSE)} sessionId={sessionId} showHeader={true} />
+      <PromptTable activity={activity} prompt={getPromptForActivitySession(sessionData, BUT)} sessionId={sessionId} showHeader={true} />
+      <PromptTable activity={activity} prompt={getPromptForActivitySession(sessionData, SO)} sessionId={sessionId} showHeader={true} />
     </div>
   );
 }

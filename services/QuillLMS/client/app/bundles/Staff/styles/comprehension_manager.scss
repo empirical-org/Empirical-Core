@@ -938,7 +938,7 @@
       overflow-x: hidden;
       .data-table-body {
         .data-table-row {
-          span:nth-of-type(4), span:nth-of-type(5), span:nth-of-type(6), span:nth-of-type(7) {
+          span:nth-of-type(3), span:nth-of-type(4), span:nth-of-type(5), span:nth-of-type(6) {
             text-align: left !important;
           }
         }
@@ -1046,6 +1046,19 @@
     a {
       color: white;
       text-decoration: none;
+    }
+  }
+  .strength-buttons {
+    display: flex;
+    .strength-button {
+      margin-right: 8px;
+      background-color: white;
+      &.strong {
+        background-color: green;
+      }
+      &.weak {
+        background-color: red;
+      }
     }
   }
 }

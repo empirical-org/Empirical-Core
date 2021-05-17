@@ -1,7 +1,9 @@
 import * as React from "react";
 import stripHtml from "string-strip-html";
 import { Link } from 'react-router-dom';
+import { queryCache } from 'react-query';
 
+import { createOrUpdateFeedbackHistoryRating } from '../../../utils/comprehension/feedbackHistoryRatingAPIs';
 import { DataTable, Spinner } from '../../../../Shared/index';
 import { PROMPT_ATTEMPTS_FEEDBACK_LABELS, PROMPT_HEADER_LABELS, DEFAULT_MAX_ATTEMPTS, NONE } from '../../../../../constants/comprehension';
 import { ActivityInterface, PromptInterface } from "../../../interfaces/comprehensionInterfaces";
@@ -9,9 +11,10 @@ import { ActivityInterface, PromptInterface } from "../../../interfaces/comprehe
 interface PromptTableProps {
   activity: ActivityInterface;
   prompt: PromptInterface;
+  sessionId: string;
   showHeader?: boolean;
 }
-const PromptTable = ({ activity, prompt, showHeader }: PromptTableProps) => {
+const PromptTable = ({ activity, prompt, showHeader, sessionId }: PromptTableProps) => {
 
 
   function formatFirstTableData(prompt: any) {
@@ -39,6 +42,26 @@ const PromptTable = ({ activity, prompt, showHeader }: PromptTableProps) => {
     }
   }
 
+  async function toggleStrength(attempt) { updateFeedbackHistoryRatingStrength(attempt.id, attempt.most_recent_rating === true ? null : true) }
+
+  async function toggleWeakness(attempt) { updateFeedbackHistoryRatingStrength(attempt.id, attempt.most_recent_rating === false ? null : false) }
+
+  async function updateFeedbackHistoryRatingStrength(responseId, rating) {
+    createOrUpdateFeedbackHistoryRating({ rating, feedback_history_id: responseId}).then((response) => {
+      queryCache.refetchQueries(`activity-${activity.id}-session-${sessionId}`);
+    });
+  }
+
+  function getStrongWeakButtons(attempt: any) {
+    const { most_recent_rating } = attempt;
+    return(
+      <div className="strength-buttons">
+        <button className={most_recent_rating ? 'strength-button strong' : 'strength-button'} onClick={() => toggleStrength(attempt)} type="button">Strong</button>
+        <button className={most_recent_rating === false ? 'strength-button weak' : 'strength-button'} onClick={() => toggleWeakness(attempt)} type="button">Weak</button>
+      </div>
+    );
+  }
+
   function formatFeedbackData(prompt: any) {
     const { attempts, prompt_id } = prompt;
     const { id, prompts } = activity;
@@ -62,19 +85,21 @@ const PromptTable = ({ activity, prompt, showHeader }: PromptTableProps) => {
           </div>
         )
       };
+      const feedbackLinkLabel = `${feedback_type}:${rule_uid ? rule_uid.substring(0,6) : ''}`
       const feedbackLink = (
         <Link
           className="data-link"
           rel="noopener noreferrer"
           target="_blank"
           to={`/activities/${id}/rules-analysis/${promptConjunction}/rule/${rule_uid}/prompt/${prompt_id}`}
-        >{feedback_type}</Link>
+        >{feedbackLinkLabel}</Link>
       );
       const feedbackObject: any = {
         id: `${rule_uid}:${i}:feedback`,
         status: feedbackLabel,
         results: stripHtml(feedback_text),
         feedback: feedbackLink,
+        buttons: getStrongWeakButtons(attempt),
         className: optimal ? 'optimal' : 'sub-optimal'
       };
       rows.push(attemptObject);
@@ -106,7 +131,8 @@ const PromptTable = ({ activity, prompt, showHeader }: PromptTableProps) => {
   const dataTableFields = [
     { name: "Status", attribute:"status", width: "100px" },
     { name: "Results", attribute:"results", width: "800px" },
-    { name: "Feedback Type", attribute:"feedback", width: "100px" }
+    { name: "Feedback Type", attribute:"feedback", width: "120px" },
+    { name: "", attribute:"buttons", width: "120px" }
   ];
 
   const { conjunction } = prompt;
