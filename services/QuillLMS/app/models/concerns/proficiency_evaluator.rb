@@ -36,6 +36,6 @@ module ProficiencyEvaluator
   end
 
   def self.cutoffs_hash
-    JSON.parse(File.read(Rails.root.join('lib', 'proficiency_cutoffs.json')))
+    JSON.parse(File.read(Rails.root.join('app', 'lib', 'proficiency_cutoffs.json')))
   end
 end
