@@ -107,8 +107,8 @@ class ProfilesController < ApplicationController
     # the order in which the the query returns these.
     can_display_next_activity = begin
       @act_sesh_records.any? &&
-      @act_sesh_records.first['locked'] == 'f' &&
-      @act_sesh_records.first['marked_complete'] == 'f' &&
+      @act_sesh_records.first['locked'] == false &&
+      @act_sesh_records.first['marked_complete'] == false &&
       !@act_sesh_records.first['max_percentage']
     end
 

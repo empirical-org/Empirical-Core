@@ -135,7 +135,7 @@ describe ProfilesController, type: :controller do
         it 'sorts pinned activities to the front' do
           get :student_profile_data
           scores = JSON.parse(response.body)['scores']
-          pinned_flags = scores.map { |score| score['pinned'] }
+          pinned_flags = scores.map { |score| score['pinned'].to_s }
           expect(pinned_flags).to eq(pinned_flags.sort.reverse)
         end
 
@@ -146,7 +146,7 @@ describe ProfilesController, type: :controller do
           end
           get :student_profile_data
           scores = JSON.parse(response.body)['scores']
-          locked_flags = scores.map { |score| score['locked'] }
+          locked_flags = scores.map { |score| score['locked'].to_s }
           expect(locked_flags).to eq(locked_flags.sort)
         end
 
@@ -220,13 +220,13 @@ describe ProfilesController, type: :controller do
                 'unit_created_at' => unit.created_at,
                 'unit_name' => unit.name,
                 'ca_id' => classroom_unit.id,
-                'marked_complete' => 'f',
+                'marked_complete' => false,
                 'activity_id' => activity.id,
                 'act_sesh_updated_at' => activity_session&.updated_at,
                 'due_date' => unit_activity.due_date,
                 'unit_activity_created_at' => classroom_unit.created_at,
-                'locked' => unit_activity.classroom_unit_activity_states[0].locked ? 't' : 'f',
-                'pinned' => unit_activity.classroom_unit_activity_states[0].pinned ? 't' : 'f',
+                'locked' => unit_activity.classroom_unit_activity_states[0].locked,
+                'pinned' => unit_activity.classroom_unit_activity_states[0].pinned,
                 'max_percentage' => activity_session&.percentage,
                 'resume_link' => activity_session&.state == 'started' ? 1 : 0
               }
@@ -236,12 +236,13 @@ describe ProfilesController, type: :controller do
           # This sort emulates the sort we are doing in the student_profile_data_sql method.
           sorted_scores = scores_array.sort { |a, b|
             [
-              b['pinned'], a['locked'], a['unit_created_at'], b['max_percentage'].nil? ? 1.01 : b['max_percentage'], a['order_number'], a['unit_activity_created_at']
+              b['pinned'].to_s, a['locked'].to_s, a['unit_created_at'], a['max_percentage'] || 1.01, a['order_number'], a['unit_activity_created_at']
             ] <=> [
-              a['pinned'], b['locked'], b['unit_created_at'], a['max_percentage'].nil? ? 1.01 : a['max_percentage'], b['order_number'], b['unit_activity_created_at']
+              a['pinned'].to_s, b['locked'].to_s, b['unit_created_at'], b['max_percentage'] || 1.01, b['order_number'], b['unit_activity_created_at']
             ]
           }
-          expect(scores).to eq(sanitize_hash_array_for_comparison_with_sql(sorted_scores))
+
+          expect(scores).to eq sanitize_hash_array_for_comparison_with_sql(sorted_scores)
         end
 
         it 'returns next activity session' do
