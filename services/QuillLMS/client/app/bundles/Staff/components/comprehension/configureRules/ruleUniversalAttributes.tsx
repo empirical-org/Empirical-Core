@@ -99,7 +99,7 @@ const RuleAttributesSection = ({
           {feedback.highlights_attributes && renderHighlights(feedback.highlights_attributes, i, onHandleSetUniversalFeedback)}
           <div className="button-wrapper">
             <button className={`add-highlight quill-button small primary outlined ${disabledStatus}`} disabled={!!disabledStatus} onClick={onHandleAddHighlight} type="button" value={`${i}`}>Add Highlight</button>
-            {feedback.highlights_attributes.length ? <button className="remove-highlight quill-button small secondary outlined" onClick={onHandleRemoveHighlight} type="button" value={`${i}`}>Remove Highlight</button> : null}
+            {feedback.highlights_attributes && feedback.highlights_attributes.length ? <button className="remove-highlight quill-button small secondary outlined" onClick={onHandleRemoveHighlight} type="button" value={`${i}`}>Remove Highlight</button> : null}
           </div>
         </React.Fragment>
       );
