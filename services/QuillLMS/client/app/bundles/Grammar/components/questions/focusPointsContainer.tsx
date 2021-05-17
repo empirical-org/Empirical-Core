@@ -13,33 +13,32 @@ export class FocusPointsContainer extends React.Component {
     this.sortCallback = this.sortCallback.bind(this);
     this.updatefpOrder = this.updatefpOrder.bind(this);
 
-    this.state = { fpOrderedIds: null };
+    const question = this.props.questions.data[this.props.match.params.questionID]
+    const focusPoints = this.getFocusPoints(question)
+
+    this.state = { fpOrderedIds: null, focusPoints: focusPoints };
   }
 
-  getQuestion() {
-    return this.props.questions.data[this.props.match.params.questionID];
-  }
-
-  getFocusPoints() {
-    return this.getQuestion().focusPoints;
+  getFocusPoints(question) {
+    return question.focusPoints;
   }
 
   deleteFocusPoint(focusPointID) {
+    const { focusPoints } = this.state
     if (confirm('⚠️ Are you sure you want to delete this? 😱')) {
       this.props.dispatch(questionActions.deleteFocusPoint(this.props.match.params.questionID, focusPointID));
+      delete focusPoints[focusPointID]
+      this.setState({focusPoints: focusPoints})
     }
   }
 
   deleteConceptResult(conceptResultKey, focusPointKey) {
+    const { focusPoints } = this.state
     if (confirm('⚠️ Are you sure you want to delete this? 😱')) {
-      const data = this.getFocusPoints()[focusPointKey];
+      const data = focusPoints[focusPointKey];
       delete data.conceptResults[conceptResultKey];
       this.props.dispatch(questionActions.submitEditedFocusPoint(this.props.match.params.questionID, data, focusPointKey));
     }
-  }
-
-  renderTagsForFocusPoint(focusPointString) {
-    return focusPointString.split('|||').map((fp, index) => (<span className="tag is-medium is-light" key={`fp${index}`} style={{ margin: '3px', }}>{fp}</span>));
   }
 
   renderConceptResults(concepts, focusPointKey) {
@@ -57,13 +56,24 @@ export class FocusPointsContainer extends React.Component {
   }
   //
   fPsortedByOrder() {
+    const { focusPoints } = this.state
     if (this.state.fpOrderedIds) {
-      const focusPoints = hashToCollection(this.getFocusPoints())
-      return this.state.fpOrderedIds.map(id => focusPoints.find(fp => fp.key === id))
+      const focusPointsCollection = hashToCollection(focusPoints)
+      return this.state.fpOrderedIds.map(id => focusPointsCollection.find(fp => fp.key === id))
     } else {
-      return hashToCollection(this.getFocusPoints()).sort((a, b) => a.order - b.order);
+      return hashToCollection(focusPoints).sort((a, b) => a.order - b.order);
     }
   }
+
+  saveFocusPoint = (key) => {
+    const { dispatch, match } = this.props
+    const { params } = match
+    const { questionID } = params
+    const { focusPoints } = this.state
+    let data = focusPoints[key]
+    delete data.conceptResults.null;
+    dispatch(questionActions.submitEditedFocusPoint(questionID, data, key));
+  };
 
   renderFocusPointsList() {
     const components = this.fPsortedByOrder().map((fp) => {
@@ -72,7 +82,7 @@ export class FocusPointsContainer extends React.Component {
           <div className="card is-fullwidth has-bottom-margin" key={fp.key}>
             <header className="card-header">
               <p className="card-header-title" style={{ display: 'inline-block', }}>
-                {this.renderTagsForFocusPoint(fp.text)}
+                {this.renderTextInputFields(fp.text, fp.key)}
               </p>
               <p className="card-header-icon">
                 {fp.order}
@@ -93,14 +103,31 @@ export class FocusPointsContainer extends React.Component {
     return <SortableList data={_.values(components)} key={_.values(components).length} sortCallback={this.sortCallback} />;
   }
 
+  handleChange = (e, key) => {
+    const { focusPoints } = this.state
+    let value = e.target.value;
+    let className = `regex-${key}`
+    value = `${Array.from(document.getElementsByClassName(className)).map(i => i.value).filter(val => val !== '').join('|||')}`;
+    focusPoints[key].text = value;
+    this.setState({focusPoints: focusPoints})
+  }
+
+  renderTextInputFields = (sequenceString, key) => {
+    let className = `input regex-inline-edit regex-${key}`
+    return sequenceString.split(/\|{3}(?!\|)/).map(text => (
+      <input className={className} onBlur={(e) => this.saveFocusPoint(key)} onChange={(e) => this.handleChange(e, key)} style={{ marginBottom: 5, minWidth: `${(text.length + 1) * 8}px`}} type="text" value={text || ''} />
+    ));
+  }
+
   sortCallback(sortInfo) {
     const fpOrderedIds = sortInfo.map(item => item.key);
     this.setState({ fpOrderedIds, });
   }
 
   updatefpOrder() {
+    const { focusPoints } = this.state
     if (this.state.fpOrderedIds) {
-      const focusPoints = this.getFocusPoints();
+      const focusPoints = focusPoints;
       const newFp = {};
       this.state.fpOrderedIds.forEach((id, index) => {
         const fp = Object.assign({}, focusPoints[id]);
@@ -108,6 +135,7 @@ export class FocusPointsContainer extends React.Component {
         newFp[id] = fp;
       });
       this.props.dispatch(questionActions.submitBatchEditedFocusPoint(this.props.match.params.questionID, newFp));
+      this.setState({ focusPoints: newFp})
       alert('saved!');
     } else {
       alert('no changes to focus points have been made');

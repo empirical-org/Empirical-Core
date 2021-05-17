@@ -4,41 +4,50 @@ import _ from 'underscore';
 import * as questionActions from '../../actions/questions';
 
 import { SortableList, } from '../../../Shared/index';
+import dispatch from '../../../Comprehension/__mocks__/dispatch';
 
 class IncorrectSequencesContainer extends React.Component {
+
+  constructor(props) {
+    super();
+
+    const question = this.props.questions.data[this.props.match.params.questionID]
+    this.state = { incorrectSequences: question.incorrectSequences }
+  }
 
   UNSAFE_componentWillMount() {
     const { dispatch, match, } = this.props
     dispatch(questionActions.getUsedSequences(match.params.questionID))
   }
 
-  getQuestion() {
-    const { match, questions, } = this.props
-    return questions.data[match.params.questionID];
-  }
-
-  getSequences() {
-    return this.getQuestion().incorrectSequences;
-  }
-
   deleteSequence = (sequenceID: string) => {
+    const { incorrectSequences } = this.state
     const { dispatch, match, } = this.props
     if (confirm('⚠️ Are you sure you want to delete this? 😱')) {
       dispatch(questionActions.deleteIncorrectSequence(match.params.questionID, sequenceID));
+      delete incorrectSequences[sequenceID]
+      this.setState({ incorrectSequences: incorrectSequences})
     }
+  }
+
+  saveSequence = (sequenceID: string) => {
+    const { incorrectSequences } = this.state
+    const { match, dispatch } = this.props
+    const { params } = match
+    const { questionID } = params
+    let data = incorrectSequences[sequenceID]
+    delete data.conceptResults.null;
+    dispatch(questionActions.submitEditedIncorrectSequence(questionID, data, sequenceID))
   }
 
   deleteConceptResult(conceptResultKey: string, sequenceKey: string) {
     const { dispatch, match, } = this.props
+    const { incorrectSequences } = this.state
     if (confirm('⚠️ Are you sure you want to delete this? 😱')) {
-      const data = this.getSequences()[sequenceKey];
+      const data = incorrectSequences[sequenceKey];
       delete data.conceptResults[conceptResultKey];
       dispatch(questionActions.submitEditedIncorrectSequence(match.params.questionID, data, sequenceKey));
     }
-  }
-
-  renderTagsForSequence(sequenceString: string) {
-    return sequenceString.split('|||').map((seq, index) => (<span className="tag is-medium is-light" key={`seq${index}`} style={{ margin: '3px', }}>{seq}</span>));
   }
 
   renderConceptResults(concepts, sequenceKey: string) {
@@ -55,6 +64,22 @@ class IncorrectSequencesContainer extends React.Component {
     }
   }
 
+  handleChange = (e, key) => {
+    const { incorrectSequences } = this.state
+    let value = e.target.value;
+    let className = `regex-${key}`
+    value = `${Array.from(document.getElementsByClassName(className)).map(i => i.value).filter(val => val !== '').join('|||')}`;
+    incorrectSequences[key].text = value;
+    this.setState({incorrectSequences: incorrectSequences})
+  }
+
+  renderTextInputFields = (sequenceString, key) => {
+    let className = `input regex-inline-edit regex-${key}`
+    return sequenceString.split(/\|{3}(?!\|)/).map(text => (
+      <input className={className} onBlur={(e) => this.saveSequence(key)} onChange={(e) => this.handleChange(e, key)} style={{ marginBottom: 5, minWidth: `${(text.length + 1) * 8}px`}} type="text" value={text || ''} />
+    ));
+  }
+
   handleDeleteConceptResult = (key, sequenceKey) => {
     this.deleteConceptResult(key, sequenceKey)
   }
@@ -64,13 +89,14 @@ class IncorrectSequencesContainer extends React.Component {
   }
 
   renderSequenceList() {
-    const { match, } = this.props
-    const components = _.mapObject(this.getSequences(), (val, key) => {
+    const { incorrectSequences } = this.state
+    const { match } = this.props
+    const components = _.mapObject(incorrectSequences, (val, key) => {
       const onClickDelete = () => { this.handleDeleteSequence(key) }
       return (<div className="card is-fullwidth has-bottom-margin" key={key}>
         <header className="card-header">
           <p className="card-header-title" style={{ display: 'inline-block', }}>
-            {this.renderTagsForSequence(val.text)}
+            {this.renderTextInputFields(val.text, key)}
           </p>
           <p className="card-header-icon">
             {val.order}
@@ -90,11 +116,12 @@ class IncorrectSequencesContainer extends React.Component {
   }
 
   sortCallback = (sortInfo) => {
+    const { incorrectSequences } = this.state
     const { dispatch, match, } = this.props
-    const incorrectSequences = this.getSequences()
     const newOrder = sortInfo.map(item => item.key);
     const newIncorrectSequences = newOrder.map((key) => incorrectSequences[key])
     dispatch(questionActions.updateIncorrectSequences(match.params.questionID, newIncorrectSequences))
+    this.setState({incorrectSequences: newIncorrectSequences})
   }
 
   render() {
