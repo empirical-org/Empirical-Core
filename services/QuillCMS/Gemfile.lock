@@ -169,7 +169,8 @@ GEM
       method_source (~> 0.8.1)
       slop (~> 3.4)
     public_suffix (4.0.6)
-    puma (3.12.6)
+    puma (4.3.8)
+      nio4r (~> 2.0)
     pusher (1.4.3)
       httpclient (~> 2.8)
       multi_json (~> 1.15)
@@ -296,7 +297,7 @@ DEPENDENCIES
   newrelic_rpm
   pg (~> 1.2)
   pry
-  puma (~> 3.12.6)
+  puma (~> 4.3.8)
   pusher
   rack-cors
   rails (~> 6.1)
