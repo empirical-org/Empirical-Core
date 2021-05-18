@@ -162,6 +162,11 @@ module Comprehension
         second_plagiarism_rule = build(:comprehension_rule, rule_type: Rule::TYPE_PLAGIARISM, prompt_ids: [@prompt2.id])
         assert second_plagiarism_rule.valid?
       end
+
+      should 'create a different type of rule if it is not plagiarism' do
+        valid_automl_rule = build(:comprehension_rule, rule_type: Rule::TYPE_AUTOML, prompt_ids: [@prompt1.id])
+        assert valid_automl_rule.valid?
+      end
     end
 
     context '#after_create' do
