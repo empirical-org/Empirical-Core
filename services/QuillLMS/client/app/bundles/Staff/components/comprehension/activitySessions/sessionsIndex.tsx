@@ -98,11 +98,11 @@ const SessionsIndex = ({ match }) => {
     { name: "Session ID", attribute:"session_uid", width: "100px" },
     { name: "Total Responses", attribute:"total_attempts", width: "100px" },
     { name: "Because", attribute:"because_attempts", width: "50px" },
-    { name: "But", attribute:"but_attempts", width: "50px" },
-    { name: "So", attribute:"so_attempts", width: "50px" },
-    { name: "Scored", attribute:"scored", width: "50px" },
-    { name: "Weak", attribute:"weak", width: "50px" },
-    { name: "Strong", attribute:"strong", width: "50px" },
+    { name: "But", attribute:"but_attempts", width: "20px" },
+    { name: "So", attribute:"so_attempts", width: "20px" },
+    { name: "Scored", attribute:"scored_count", width: "40px" },
+    { name: "Weak", attribute:"weak_count", width: "40px" },
+    { name: "Strong", attribute:"strong_count", width: "40px" },
     { name: "Completed?", attribute: "completed", width: "75px"},
     { name: "", attribute:"view_link", width: "100px" }
   ];
@@ -118,6 +118,7 @@ const SessionsIndex = ({ match }) => {
         <h1>{title}</h1>
       </section>
       <section>
+        <p className="link-info-blurb">If you want to look up an individual activity session, plug the activity session ID into this url and it will load: https://www.quill.org/cms/comprehension#/activities/activityID/sessionID</p>
         <section className="top-section">
           <section className="total-container">
             <p className="total-label">Total</p>
