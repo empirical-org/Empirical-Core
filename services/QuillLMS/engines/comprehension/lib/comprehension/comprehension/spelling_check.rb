@@ -37,7 +37,7 @@ module Comprehension
 
     private def spelling_rule
       return @spelling_rule if @spelling_rule
-      @spelling_rule = Rule.where(rule_type: FEEDBACK_TYPE).first
+      @spelling_rule ||= Rule.where(rule_type: FEEDBACK_TYPE).first
     end
 
     private def highlight
