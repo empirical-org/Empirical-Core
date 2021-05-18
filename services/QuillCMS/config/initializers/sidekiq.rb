@@ -12,6 +12,7 @@ end
 
 module SidekiqQueue
   # QUEUE DEFINITIONS
+  CRITICAL = 'critical'
   DEFAULT = 'default'
   # LOW: Jobs that might be long-running that we don't want to clog up the main workers
   # and that can be delayed.
