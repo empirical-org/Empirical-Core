@@ -26,7 +26,7 @@ module Comprehension
 
     after_create :assign_to_all_prompts, if: :universal
     before_validation :assign_uid_if_missing
-    validate :one_plagiarism_per_prompt, on: :create
+    validate :one_plagiarism_per_prompt, on: :create, if: :is_plagiarism?
 
     has_many :feedbacks, inverse_of: :rule, dependent: :destroy
     has_one :plagiarism_text, inverse_of: :rule, dependent: :destroy
@@ -74,6 +74,10 @@ module Comprehension
 
     def display_name
       DISPLAY_NAMES[rule_type.to_sym] || rule_type
+    end
+
+    private def is_plagiarism?
+      rule_type == TYPE_PLAGIARISM
     end
 
     private def assign_uid_if_missing
