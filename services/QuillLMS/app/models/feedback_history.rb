@@ -105,7 +105,7 @@ class FeedbackHistory < ActiveRecord::Base
   end
 
   def serialize_by_activity_session
-   serializable_hash(only: [:session_uid, :start_date, :activity_id, :flags, :because_attempts, :but_attempts, :so_attempts, :complete], include: []).symbolize_keys
+   serializable_hash(only: [:session_uid, :start_date, :activity_id, :flags, :because_attempts, :but_attempts, :so_attempts, :scored_count, :weak_count, :strong_count, :complete], include: []).symbolize_keys
   end
 
   def serialize_by_activity_session_detail
@@ -155,6 +155,9 @@ class FeedbackHistory < ActiveRecord::Base
         COUNT(CASE WHEN comprehension_prompts.conjunction = 'because' THEN 1 END) AS because_attempts,
         COUNT(CASE WHEN comprehension_prompts.conjunction = 'but' THEN 1 END) AS but_attempts,
         COUNT(CASE WHEN comprehension_prompts.conjunction = 'so' THEN 1 END) AS so_attempts,
+        COUNT(CASE WHEN feedback_history_ratings.rating IS NOT NULL THEN 1 END) AS scored_count,
+        COUNT(CASE WHEN feedback_history_ratings.rating = false THEN 1 END) AS weak_count,
+        COUNT(CASE WHEN feedback_history_ratings.rating = true THEN 1 END) AS strong_count,
         (
           CASE WHEN
             ((COUNT(CASE WHEN comprehension_prompts.conjunction = 'because' AND feedback_histories.optimal THEN 1 END) = 1) OR
@@ -169,6 +172,7 @@ class FeedbackHistory < ActiveRecord::Base
       )
       .joins("LEFT OUTER JOIN feedback_history_flags ON feedback_histories.id = feedback_history_flags.feedback_history_id")
       .joins("LEFT OUTER JOIN comprehension_prompts ON feedback_histories.prompt_id = comprehension_prompts.id")
+      .joins("LEFT OUTER JOIN feedback_history_ratings ON feedback_histories.id = feedback_history_ratings.feedback_history_id")
       .where(used: true)
       .group(:feedback_session_uid, :activity_id)
       .order('start_date DESC')
