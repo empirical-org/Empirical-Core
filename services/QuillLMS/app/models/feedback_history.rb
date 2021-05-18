@@ -172,6 +172,7 @@ class FeedbackHistory < ActiveRecord::Base
       )
       .joins("LEFT OUTER JOIN feedback_history_flags ON feedback_histories.id = feedback_history_flags.feedback_history_id")
       .joins("LEFT OUTER JOIN comprehension_prompts ON feedback_histories.prompt_id = comprehension_prompts.id")
+      .joins("LEFT OUTER JOIN feedback_history_ratings ON feedback_histories.id = feedback_history_ratings.feedback_history_id")
       .where(used: true)
       .group(:feedback_session_uid, :activity_id)
       .order('start_date DESC')

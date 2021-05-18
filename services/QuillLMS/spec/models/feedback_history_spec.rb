@@ -319,6 +319,7 @@ RSpec.describe FeedbackHistory, type: :model do
       @activity_session2_uid = SecureRandom.uuid
       @feedback_session2_uid = FeedbackSession.get_uid_for_activity_session(@activity_session2_uid)
 
+      @user = create(:user)
       @first_session_feedback1 = create(:feedback_history, feedback_session_uid: @activity_session1_uid, prompt_id: @because_prompt1.id, optimal: false)
       @first_session_feedback2 = create(:feedback_history, feedback_session_uid: @activity_session1_uid, prompt_id: @because_prompt1.id, attempt: 2, optimal: true)
       @first_session_feedback3 = create(:feedback_history, feedback_session_uid: @activity_session1_uid, prompt_id: @but_prompt1.id, optimal: true)
@@ -328,6 +329,8 @@ RSpec.describe FeedbackHistory, type: :model do
       @second_session_feedback = create(:feedback_history, feedback_session_uid: @activity_session2_uid, prompt_id: @because_prompt2.id, optimal: true)
       create(:feedback_history, feedback_session_uid: @activity_session2_uid, prompt_id: @because_prompt2.id, attempt: 2, optimal: false)
       create(:feedback_history_flag, feedback_history: @first_session_feedback1, flag: FeedbackHistoryFlag::FLAG_REPEATED_RULE_CONSECUTIVE)
+      create(:feedback_history_rating, user_id: @user.id, rating: true, feedback_history_id: @first_session_feedback3.id)
+      create(:feedback_history_rating, user_id: @user.id, rating: false, feedback_history_id: @first_session_feedback4.id)
     end
 
     context '#list_by_activity_session' do
@@ -379,6 +382,9 @@ RSpec.describe FeedbackHistory, type: :model do
             because_attempts: 2,
             but_attempts: 0,
             so_attempts: 0,
+            scored_count: 0,
+            weak_count: 0,
+            strong_count: 0,
             complete: false
           }, {
             session_uid: @feedback_session1_uid,
@@ -388,6 +394,9 @@ RSpec.describe FeedbackHistory, type: :model do
             because_attempts: 2,
             but_attempts: 1,
             so_attempts: 3,
+            scored_count: 2,
+            weak_count: 1,
+            strong_count: 1,
             complete: true
           }
         ].to_json)
