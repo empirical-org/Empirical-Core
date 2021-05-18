@@ -376,7 +376,7 @@ GEM
       nokogiri (~> 1)
       rake
     mini_mime (1.0.2)
-    mini_portile2 (2.4.0)
+    mini_portile2 (2.5.1)
     minisyntax (0.2.5)
     minitest (5.14.4)
     multi_json (1.15.0)
@@ -385,8 +385,9 @@ GEM
     nenv (0.3.0)
     nested_form (0.3.2)
     newrelic_rpm (6.0.0.351)
-    nokogiri (1.10.10)
-      mini_portile2 (~> 2.4.0)
+    nokogiri (1.11.4)
+      mini_portile2 (~> 2.5.0)
+      racc (~> 1.4)
     notiffany (0.1.1)
       nenv (~> 0.1)
       shellany (~> 0.0)
@@ -483,6 +484,7 @@ GEM
     pusher-signature (0.1.8)
     quiet_assets (1.1.0)
       railties (>= 3.1, < 5.0)
+    racc (1.5.2)
     rack (1.6.13)
     rack-affiliates (0.4.0)
       rack
