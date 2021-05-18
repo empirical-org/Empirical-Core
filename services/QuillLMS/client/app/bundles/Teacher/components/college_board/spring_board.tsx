@@ -175,7 +175,7 @@ const SpringBoard = ({ isPartOfAssignmentFlow, units, }: SpringBoardProps) => {
               <p className="activity-header springboard-sub-header" id="writing-skills-survey-1">ELL Skills Survey 2: Developing and Expanding</p>
               <div className="college-board-activity-tag">For SpringBoard 6-12</div>
             </div>
-            <a className="quill-button medium primary outlined view-button focus-on-light" href={generateLink({isPartOfAssignmentFlow, unitTemplateId: constants.ELL_DIAGNOSTIC_UNIT_TEMPLATE_ID, slug: constants.SPRING_BOARD_SLUG })} rel="noopener noreferrer" target={isPartOfAssignmentFlow ? '' : "_blank"}>View</a>
+            <a className="quill-button medium primary outlined view-button focus-on-light" href={generateLink({isPartOfAssignmentFlow, unitTemplateId: constants.ELL_INTERMEDIATE_DIAGNOSTIC_UNIT_TEMPLATE_ID, slug: constants.SPRING_BOARD_SLUG })} rel="noopener noreferrer" target={isPartOfAssignmentFlow ? '' : "_blank"}>View</a>
           </div>
           <div className="activity-text-container">
             <p className="activity-sub-text">Students complete a twenty-two-item placement activity. Directions can be shown in English only, or shown in both English and another selected language.</p>
