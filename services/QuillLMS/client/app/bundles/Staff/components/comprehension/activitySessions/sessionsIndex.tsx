@@ -38,7 +38,6 @@ const SessionsIndex = ({ match }) => {
   }
 
   function formatSessionsData(activitySessions: any[]) {
-    console.log("🚀 ~ file: sessionsIndex.tsx ~ line 41 ~ formatSessionsData ~ activitySessions", activitySessions)
     return activitySessions.map(session => {
       const { start_date, session_uid, because_attempts, but_attempts, so_attempts, complete } = session;
       const dateObject = new Date(start_date);

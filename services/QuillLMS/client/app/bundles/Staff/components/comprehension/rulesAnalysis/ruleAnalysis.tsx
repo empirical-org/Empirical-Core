@@ -156,7 +156,6 @@ const RuleAnalysis = ({ history, match }) => {
   const responseRows = () => {
     if (!activityData || !responses) { return [] }
     return responses.filter(filterResponsesByScored).filter(filterResponsesBySearch).map(r => {
-    console.log("🚀 ~ file: ruleAnalysis.tsx ~ line 159 ~ responseRows ~ responses", responses)
       const formattedResponse = {...r}
       const highlightedEntry = r.entry.replace(r.highlight, `<strong>${r.highlight}</strong>`)
       const strongButton = <button className={r.strength === true ? 'strength-button strong' : 'strength-button'} onClick={() => toggleStrength(r)} type="button">Strong</button>
