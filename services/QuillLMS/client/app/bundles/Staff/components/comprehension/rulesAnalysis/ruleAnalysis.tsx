@@ -46,7 +46,7 @@ const RuleAnalysis = ({ history, match }) => {
   })
 
   const prompt = activityData ? activityData.activity.prompts.find(prompt => prompt.conjunction === promptConjunction) : {}
-
+  
   React.useEffect(() => {
     if (!ruleFeedbackHistoryData) { return }
     setResponses(ruleFeedbackHistoryData.responses)
@@ -170,6 +170,7 @@ const RuleAnalysis = ({ history, match }) => {
       formattedResponse.response = tooltip
       formattedResponse.datetime = moment(r.datetime).format('MM/DD/YYYY')
       formattedResponse.strengthButtons = (<div className="strength-buttons">{strongButton}{weakButton}</div>)
+      formattedResponse.highlight = r.highlight
 
       return formattedResponse
     })
