@@ -7,6 +7,7 @@ ActiveRecord::Migrator.migrations_paths << File.expand_path('../../db/migrate', 
 require "rails/test_help"
 require "minitest/autorun"
 require "minitest/stub_any_instance"
+require "shoulda"
 
 # Filter out Minitest backtrace while allowing backtrace from other libraries
 # to be shown.
@@ -25,6 +26,13 @@ end
 require 'factory_bot_rails'
 class ActiveSupport::TestCase
   include FactoryBot::Syntax::Methods
+end
+
+Shoulda::Matchers.configure do |config|
+  config.integrate do |with|
+    with.test_framework :minitest
+    with.library :rails
+  end
 end
 
 if RUBY_VERSION>='2.6.0'
