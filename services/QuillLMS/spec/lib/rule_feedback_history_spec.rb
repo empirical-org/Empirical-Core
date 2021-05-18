@@ -20,7 +20,7 @@ RSpec.describe RuleFeedbackHistory, type: :model do
       }.merge(yield)
     )
   end
-
+ 
   describe '#generate_report' do
     it 'should format' do
       # activities

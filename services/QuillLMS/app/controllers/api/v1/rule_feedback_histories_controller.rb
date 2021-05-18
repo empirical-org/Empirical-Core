@@ -17,4 +17,9 @@ class Api::V1::RuleFeedbackHistoriesController < Api::ApiController
         render(json: report)
     end
 
+    def prompt_health
+        raise ArgumentError unless params.include?('activity_id')
+        report = PromptFeedbackHistory.run(params['activity_id'])
+        render(json: report)
+    end
 end
