@@ -1,0 +1,10 @@
+.activity-stats-container {
+  .ReactTable .rt-thead .rt-resizable-header-content, .rt-td {
+    overflow: visible;
+    white-space: pre-wrap;
+    text-align: left;
+  }
+  .prompt-text {
+    font-style: italic;
+  }
+}

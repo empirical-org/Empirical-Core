@@ -16,19 +16,22 @@ const ActivityStats: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ hist
   const { params } = match;
   const { activityId, } = params;
 
-  // cache rules data for updates
-  const { data: promptHealth } = useQuery({
-    queryKey: [`prompt-health-by-activity-${activityId}`, activityId],
-    queryFn: fetchPromptHealth
-  });
-
   // get cached activity data to pass to rule
   const { data: activityData } = useQuery({
     queryKey: [`activity-${activityId}`, activityId],
     queryFn: fetchActivity
   });
 
-  const formattedRows = promptHealth && promptHealth.prompts.map(prompt => {
+  const parentActivityId = activityData && activityData.activity && activityData.activity.parent_activity_id
+
+  // cache rules data for updates
+  const { data: promptHealth } = useQuery({
+    queryKey: [`prompt-health-by-activity-${parentActivityId}`, parentActivityId],
+    queryFn: fetchPromptHealth
+  });
+
+
+  const formattedRows = promptHealth && promptHealth.prompts && Object.values(promptHealth.prompts).map(prompt => {
     const {
       optimal_final_attempts,
       not_optimal_final_attempts,
@@ -65,14 +68,14 @@ const ActivityStats: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ hist
     },
     {
       Header: 'Final Attempt: Optimal | Sub-Optimal',
-      accessor: "sessionCount",
-      key: "sessionCount",
+      accessor: "finalAttemptData",
+      key: "finalAttemptData",
     }
   ];
 
   return(
     <div className="activity-stats-container">
-      <h1>ActivityStats</h1>
+      <h1>Activity Stats</h1>
       {formattedRows && (<ReactTable
         className="activity-stats-table"
         columns={dataTableFields}
