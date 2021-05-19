@@ -4,7 +4,10 @@ class Rack::Attack
 
   Rack::Attack.throttle('limit logins per email', limit: 20, period: 10.minutes) do |req|
     if req.path == '/session/login_through_ajax' && req.post?
-      params = JSON.parse( req.body.read )
+      # Important to use req.body.string here and not req.body.read,
+      # since .read flushes the StringIO object (results in empty params hitting the controller)
+      # https://ruby-doc.org/stdlib-2.6.4/libdoc/stringio/rdoc/StringIO.html
+      params = JSON.parse( req.body.string )
       params['user']['email'].to_s.downcase.gsub(/\s+/, "")
     end
   end
