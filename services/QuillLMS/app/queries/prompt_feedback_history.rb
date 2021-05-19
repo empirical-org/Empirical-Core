@@ -6,7 +6,12 @@ class PromptFeedbackHistory
 
     def self.promptwise_sessions(activity_id)
         sql = <<~SQL 
-          SELECT prompt_id, feedback_session_uid, count(*) as session_count, bool_or(optimal) as at_least_one_optimal, MAX(attempt) as attempt_cardinal
+          SELECT prompt_id, feedback_session_uid, 
+            count(*) as session_count, 
+            bool_or(optimal) as at_least_one_optimal, 
+            MAX(attempt) as attempt_cardinal,
+            ARRAY_AGG(rule_uid) as rule_uids,
+            ARRAY_AGG(attempt) as attempts
           FROM feedback_histories
           JOIN comprehension_prompts
             ON feedback_histories.prompt_id = comprehension_prompts.id
@@ -18,7 +23,7 @@ class PromptFeedbackHistory
 
     def self.promptwise_postprocessing(grouped_feedback_histories)
         prompt_hash = {}
-
+        
         prompts = Comprehension::Prompt.where(id: grouped_feedback_histories.map(&:prompt_id))
    
         grouped_feedback_histories.each do |prompt_session|
@@ -32,11 +37,14 @@ class PromptFeedbackHistory
                 final_attempt_pct_not_optimal: 0.0,
                 avg_attempts_to_optimal: 0.0,
                 optimal_attempt_array: [],
-                display_name: ''
+                display_name: '',
+                num_repeated_attempts_for_same_rule: 0
             }
-
             prompt_hash[prompt_id][:display_name] = prompts.find(prompt_id).text
-
+            if has_consecutive_repeated_rule?(prompt_session.attempts, prompt_session.rule_uids)
+              prompt_hash[prompt_id][:num_repeated_attempts_for_same_rule] += 1
+            end 
+            
             if prompt_session.at_least_one_optimal
               prompt_hash[prompt_id][:optimal_final_attempts] += 1
               prompt_hash[prompt_id][:optimal_attempt_array].append prompt_session.attempt_cardinal
@@ -64,5 +72,16 @@ class PromptFeedbackHistory
       end
 
       prompt_hash
+    end
+
+    def self.has_consecutive_repeated_rule?(attempts_array, rule_array)
+      attempts_rule_uids = attempts_array.zip(rule_array).sort{|a, b| a.first <=> b.first }
+
+      (0...attempts_rule_uids.length-1).each do |idx|
+        if attempts_rule_uids[idx].last == attempts_rule_uids[idx+1].last 
+          return true
+        end 
+      end 
+      return false
     end
 end

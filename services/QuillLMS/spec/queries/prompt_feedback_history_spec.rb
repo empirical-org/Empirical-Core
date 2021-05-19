@@ -23,7 +23,7 @@ RSpec.describe PromptFeedbackHistory, type: :model do
       f_h2 = create(:feedback_history, attempt: 2, optimal: true, prompt_id: prompt1.id, feedback_session_uid: session_uid1)
       f_h3 = create(:feedback_history, attempt: 1, optimal: false, prompt_id: prompt2.id, feedback_session_uid: session_uid2)
       f_h4 = create(:feedback_history, attempt: 2, optimal: false, prompt_id: prompt2.id, feedback_session_uid: session_uid2)
-      f_h4 = create(:feedback_history, prompt_id: prompt3.id, feedback_session_uid: session_uid3)
+      f_h5 = create(:feedback_history, prompt_id: prompt3.id, feedback_session_uid: session_uid3)
 
       result = PromptFeedbackHistory.promptwise_sessions(main_activity.id)
 
@@ -36,6 +36,26 @@ RSpec.describe PromptFeedbackHistory, type: :model do
 
   end
 
+  describe '#has_consecutive_repeated_rule' do 
+    it 'should calculate correctly' do 
+      expect( 
+        PromptFeedbackHistory.has_consecutive_repeated_rule?([1,2,3,4], %w(a b c d))
+      ).to eq false
+
+      expect( 
+        PromptFeedbackHistory.has_consecutive_repeated_rule?([], [])
+      ).to eq false
+
+      expect( 
+        PromptFeedbackHistory.has_consecutive_repeated_rule?([1,2,3,4], %w(a b c c))
+      ).to eq true
+
+      expect( 
+        PromptFeedbackHistory.has_consecutive_repeated_rule?([1,2,3,4,5], %w(a a b c c))
+      ).to eq true
+    end
+  end
+  
   describe '#promptwise_postprocessing' do 
     it 'should format' do 
       main_activity = create(:activity)
@@ -65,11 +85,11 @@ RSpec.describe PromptFeedbackHistory, type: :model do
       f_h2 = create(:feedback_history, feedback_session_uid: as1.uid, attempt: 2, optimal: true, prompt_id: 1)
       f_h3 = create(:feedback_history, feedback_session_uid: as2.uid, attempt: 1, optimal: false, prompt_id: 2)
       f_h4 = create(:feedback_history, feedback_session_uid: as2.uid, attempt: 2, optimal: false, prompt_id: 2)
-      f_h4 = create(:feedback_history, feedback_session_uid: as3.uid, prompt_id: 3)
+      f_h5 = create(:feedback_history, feedback_session_uid: as3.uid, prompt_id: 3)
 
       result = PromptFeedbackHistory.promptwise_sessions(main_activity.id)
       processed = PromptFeedbackHistory.promptwise_postprocessing(result)
- 
+
       expect(processed == {
         1 => {
           optimal_final_attempts: 1.0,
@@ -79,7 +99,8 @@ RSpec.describe PromptFeedbackHistory, type: :model do
           final_attempt_pct_not_optimal: 0.0,
           display_name: "lorem ipsum1",
           optimal_attempt_array: [2],
-          avg_attempts_to_optimal: 2.0
+          avg_attempts_to_optimal: 2.0,
+          num_repeated_attempts_for_same_rule: 0
         },
         2 => {
           optimal_final_attempts: 0.0,
@@ -89,7 +110,8 @@ RSpec.describe PromptFeedbackHistory, type: :model do
           final_attempt_pct_not_optimal: 1.0,
           display_name: "lorem ipsum2",
           optimal_attempt_array: [],
-          avg_attempts_to_optimal: 0.0
+          avg_attempts_to_optimal: 0.0,
+          num_repeated_attempts_for_same_rule: 0
         }
       }).to be true
 
