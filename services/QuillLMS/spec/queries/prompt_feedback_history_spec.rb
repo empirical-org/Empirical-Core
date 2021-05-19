@@ -100,7 +100,8 @@ RSpec.describe PromptFeedbackHistory, type: :model do
           display_name: "lorem ipsum1",
           optimal_attempt_array: [2],
           avg_attempts_to_optimal: 2.0,
-          num_repeated_attempts_for_same_rule: 0
+          num_consecutive_repeated_attempts_for_same_rule: 0.0,
+          num_non_consecutive_repeated_attempts_for_same_rule: 0.0
         },
         2 => {
           optimal_final_attempts: 0.0,
@@ -111,7 +112,8 @@ RSpec.describe PromptFeedbackHistory, type: :model do
           display_name: "lorem ipsum2",
           optimal_attempt_array: [],
           avg_attempts_to_optimal: 0.0,
-          num_repeated_attempts_for_same_rule: 0
+          num_consecutive_repeated_attempts_for_same_rule: 0.0,
+          num_non_consecutive_repeated_attempts_for_same_rule: 0.0
         }
       }).to be true
 

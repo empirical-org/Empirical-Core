@@ -38,13 +38,18 @@ class PromptFeedbackHistory
                 avg_attempts_to_optimal: 0.0,
                 optimal_attempt_array: [],
                 display_name: '',
-                num_repeated_attempts_for_same_rule: 0
+                num_consecutive_repeated_attempts_for_same_rule: 0,
+                num_non_consecutive_repeated_attempts_for_same_rule: 0
             }
             prompt_hash[prompt_id][:display_name] = prompts.find(prompt_id).text
             if has_consecutive_repeated_rule?(prompt_session.attempts, prompt_session.rule_uids)
-              prompt_hash[prompt_id][:num_repeated_attempts_for_same_rule] += 1
+              prompt_hash[prompt_id][:num_consecutive_repeated_attempts_for_same_rule] += 1
             end 
-            
+
+            if has_non_consecutive_repeated_rule?(prompt_session.rule_uids)
+              prompt_hash[prompt_id][:num_non_consecutive_repeated_attempts_for_same_rule] += 1
+            end 
+
             if prompt_session.at_least_one_optimal
               prompt_hash[prompt_id][:optimal_final_attempts] += 1
               prompt_hash[prompt_id][:optimal_attempt_array].append prompt_session.attempt_cardinal
@@ -64,6 +69,10 @@ class PromptFeedbackHistory
           prompt_hash[k][:avg_attempts_to_optimal] = v[:optimal_attempt_array].sum / v[:optimal_final_attempts].to_f
         end
 
+        prompt_hash[k][:num_consecutive_repeated_attempts_for_same_rule] = \
+          v[:num_consecutive_repeated_attempts_for_same_rule] / v[:session_count].to_f
+        prompt_hash[k][:num_non_consecutive_repeated_attempts_for_same_rule] = \
+          v[:num_non_consecutive_repeated_attempts_for_same_rule] / v[:session_count].to_f
         prompt_hash[k][:final_attempt_pct_optimal] = \
           prompt_hash[k][:optimal_final_attempts] / prompt_hash[k][:session_count].to_f      
 
@@ -72,6 +81,10 @@ class PromptFeedbackHistory
       end
 
       prompt_hash
+    end
+
+    def self.has_non_consecutive_repeated_rule?(rule_array)
+      rule_array.uniq.count != rule_array.count
     end
 
     def self.has_consecutive_repeated_rule?(attempts_array, rule_array)
