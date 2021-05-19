@@ -14,7 +14,7 @@ class FeedbackHistoryRatingsController < ApplicationController
   end
 
   def mass_mark
-    ratings = params[:feedback_history_ids].map { |id| create_or_update_feedback_history_rating(id, params["rating"]) }
+    ratings = mass_mark_params[:feedback_history_ids].map { |id| create_or_update_feedback_history_rating(id, mass_mark_params["rating"]) }
 
     if ratings.all? { |r| r.valid? }
       ratings.each { |r| r.save! }
@@ -36,5 +36,9 @@ class FeedbackHistoryRatingsController < ApplicationController
 
   private def feedback_history_rating_params
     params.require(:feedback_history_rating).permit([:rating, :feedback_history_id])
+  end
+
+  private def mass_mark_params
+    params.permit([:rating, :feedback_history_ids])
   end
 end
