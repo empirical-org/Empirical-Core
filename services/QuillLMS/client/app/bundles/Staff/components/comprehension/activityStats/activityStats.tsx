@@ -9,7 +9,7 @@ import _ from 'lodash'
 import { ActivityRouteProps, PromptInterface } from '../../../interfaces/comprehensionInterfaces';
 import { fetchActivity } from '../../../utils/comprehension/activityAPIs';
 import { fetchPromptHealth } from '../../../utils/comprehension/ruleFeedbackHistoryAPIs';
-import { DropdownInput, } from '../../../../Shared/index';
+import { DropdownInput, Spinner, } from '../../../../Shared/index';
 
 
 const ActivityStats: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ history, match }) => {
@@ -22,11 +22,9 @@ const ActivityStats: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ hist
     queryFn: fetchActivity
   });
 
-  const parentActivityId = activityData && activityData.activity && activityData.activity.parent_activity_id
-
   // cache rules data for updates
   const { data: promptHealth } = useQuery({
-    queryKey: [`prompt-health-by-activity-${parentActivityId}`, parentActivityId],
+    queryKey: [`prompt-health-by-activity-${activityId}`, activityId],
     queryFn: fetchPromptHealth
   });
 
@@ -72,6 +70,10 @@ const ActivityStats: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ hist
       key: "finalAttemptData",
     }
   ];
+
+  if (!formattedRows) {
+    return <Spinner />
+  }
 
   return(
     <div className="activity-stats-container">
