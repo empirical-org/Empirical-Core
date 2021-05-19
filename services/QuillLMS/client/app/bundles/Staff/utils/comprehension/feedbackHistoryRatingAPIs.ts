@@ -15,5 +15,5 @@ export const massCreateOrUpdateFeedbackHistoryRating = async (data) => {
     method: 'PUT',
     body: JSON.stringify(data)
   });
-  return { error: handleApiError('Failed to edit feedback history, please try again.', response) };
+  return { error: handleApiError(response.error_messages, response) };
 }

@@ -14,13 +14,12 @@ class FeedbackHistoryRatingsController < ApplicationController
   end
 
   def mass_mark
-    params[:feedback_history_ids].each do |id|
-      rating = create_or_update_feedback_history_rating(id, params["rating"])
-      if rating.valid?
-        rating.save!
-      else
-        return render(json: {status: 406, message: rating.errors})
-      end
+    ratings = params[:feedback_history_ids].map { |id| create_or_update_feedback_history_rating(id, params["rating"]) }
+
+    if ratings.all? { |r| r.valid? }
+      ratings.each { |r| r.save! }
+    else
+      render json: {error_messages: records.map { |r| r.errors }.join('; ')}, status: :unprocessable_entity
     end
     render(json: {status: 200})
   end
