@@ -1,11 +1,14 @@
 import * as React from "react";
+import ReactTable from 'react-table';
 import { Link } from 'react-router-dom';
 import { useQuery } from 'react-query';
-import * as moment from 'moment'
+import * as moment from 'moment';
+import { firstBy } from 'thenby';
 
-import { DataTable, Error, Spinner, DropdownInput } from '../../../../Shared/index';
+import { Error, Spinner, DropdownInput } from '../../../../Shared/index';
 import { fetchActivity, fetchActivitySessions } from '../../../utils/comprehension/activityAPIs';
 import { DropdownObjectInterface } from '../../../interfaces/comprehensionInterfaces';
+import { activitySessionIndexResponseHeaders } from '../../../../../constants/comprehension';
 
 const quillCheckmark = 'https://assets.quill.org/images/icons/check-circle-small.svg';
 
@@ -15,6 +18,7 @@ const SessionsIndex = ({ match }) => {
 
   const [pageNumber, setPageNumber] = React.useState<DropdownObjectInterface>(null);
   const [dropdownOptions, setDropdownOptions] = React.useState<DropdownObjectInterface[]>(null);
+  const [rowData, setRowData] = React.useState<any[]>([]);
   const pageNumberForQuery = pageNumber && pageNumber.value ? pageNumber.value : 1;
 
   // cache activity data for updates
@@ -33,31 +37,21 @@ const SessionsIndex = ({ match }) => {
     sessionsData && !dropdownOptions && getDropdownOptions(sessionsData)
   }, [sessionsData]);
 
-  function handlePageChange(number) {
-    setPageNumber(number)
-  }
+  React.useEffect(() => {
+    if(sessionsData && sessionsData.activitySessions && sessionsData.activitySessions.activity_sessions && !rowData.length) {
+      const { activitySessions } = sessionsData;
+      const { activity_sessions } = activitySessions;
+      const rows = formatSessionsData(activity_sessions)
+      setRowData(rows);
+    }
+  }, [sessionsData]);
 
-  function formatSessionsData(activitySessions: any[]) {
-    return activitySessions.map(session => {
-      const { start_date, session_uid, because_attempts, but_attempts, so_attempts, complete } = session;
-      const dateObject = new Date(start_date);
-      const date = moment(dateObject).format("MM/DD/YY");
-      const time = moment(dateObject).format("HH:MM A");
-      const total = because_attempts + but_attempts + so_attempts;
-      const formattedSession = {
-        ...session,
-        id: session_uid,
-        session_uid: session_uid ? session_uid.substring(0,6) : '',
-        time: `${date} ${time}`,
-        because_attempts: because_attempts,
-        but_attempts: but_attempts,
-        so_attempts: so_attempts,
-        total_attempts: total,
-        view_link: <Link className="data-link" to={`/activities/${activityId}/activity-sessions/${session_uid}/overview`}>View</Link>,
-        completed: complete ? <img alt="quill-circle-checkmark" src={quillCheckmark} /> : ""
-      };
-      return formattedSession;
-    });
+  function handleDataUpdate(activity_sessions, state) {
+    const { sorted } = state;
+    const sortInfo = sorted[0];
+    const rows = formatSessionsData(activity_sessions);
+    const sortedRows = filteredAndSortedSessions(rows, sortInfo)
+    setRowData(sortedRows);
   }
 
   function getDropdownOptions(sessionsData) {
@@ -77,6 +71,53 @@ const SessionsIndex = ({ match }) => {
     setDropdownOptions(options);
   }
 
+  function handlePageChange(number) {
+    setPageNumber(number);
+  }
+
+  function getSortedRows({ activitySessions, id, directionOfSort }) {
+    const columnOptions  = ['total_attempts', 'because_attempts', 'but_attempts', 'so_attempts'];
+    if(columnOptions.includes(id)) {
+      return activitySessions.sort(firstBy(id, { direction: directionOfSort }).thenBy('datetime, desc'));
+    }
+    return activitySessions.sort(firstBy(id, { direction: directionOfSort }));
+  }
+
+  function filteredAndSortedSessions(activitySessions: any[], sortInfo?: any) {
+    if(sortInfo) {
+      const { id, desc } = sortInfo;
+      // we have this reversed so that the first click will sort from highest to lowest by default
+      const directionOfSort = desc ? `asc` : 'desc';
+      const sorted = getSortedRows({ activitySessions, id, directionOfSort });
+      return sorted;
+    } else {
+      return activitySessions;
+    }
+  }
+
+  function formatSessionsData(activitySessions: any[]) {
+    return activitySessions.map(session => {
+      const { start_date, session_uid, because_attempts, but_attempts, so_attempts, complete } = session;
+      const dateObject = new Date(start_date);
+      const date = moment(dateObject).format("MM/DD/YY");
+      const time = moment(dateObject).format("HH:MM A");
+      const total = because_attempts + but_attempts + so_attempts;
+      const formattedSession = {
+        ...session,
+        id: session_uid,
+        session_uid: session_uid ? session_uid.substring(0,6) : '',
+        datetime: `${date} ${time}`,
+        because_attempts: because_attempts,
+        but_attempts: but_attempts,
+        so_attempts: so_attempts,
+        total_attempts: total,
+        view_link: <Link className="data-link" rel="noopener noreferrer" target="_blank" to={`/activities/${activityId}/activity-sessions/${session_uid}/overview`}>View</Link>,
+        completed: complete ? <img alt="quill-circle-checkmark" src={quillCheckmark} /> : ""
+      };
+      return formattedSession;
+    });
+  }
+
   if(!sessionsData) {
     return(
       <div className="loading-spinner-container">
@@ -93,24 +134,10 @@ const SessionsIndex = ({ match }) => {
     );
   }
 
-  const dataTableFields = [
-    { name: "Date | Time", attribute:"time", width: "150px" },
-    { name: "Session ID", attribute:"session_uid", width: "100px" },
-    { name: "Total Responses", attribute:"total_attempts", width: "100px" },
-    { name: "Because", attribute:"because_attempts", width: "50px" },
-    { name: "But", attribute:"but_attempts", width: "20px" },
-    { name: "So", attribute:"so_attempts", width: "20px" },
-    { name: "Scored", attribute:"scored_count", width: "40px" },
-    { name: "Weak", attribute:"weak_count", width: "40px" },
-    { name: "Strong", attribute:"strong_count", width: "40px" },
-    { name: "Completed?", attribute: "completed", width: "75px"},
-    { name: "", attribute:"view_link", width: "100px" }
-  ];
-
   const { activity } = activityData;
   const { title } = activity;
-  const { activitySessions } = sessionsData
-  const { activity_sessions, total_activity_sessions } = activitySessions
+  const { activitySessions } = sessionsData;
+  const { total_activity_sessions, activity_sessions } = activitySessions;
 
   return(
     <div className="sessions-index-container">
@@ -132,10 +159,15 @@ const SessionsIndex = ({ match }) => {
             value={pageNumber}
           />
         </section>
-        <DataTable
+        <ReactTable
           className="activity-sessions-table"
-          headers={dataTableFields}
-          rows={formatSessionsData(activity_sessions)}
+          columns={activitySessionIndexResponseHeaders}
+          data={rowData}
+          defaultPageSize={rowData.length < 100 ? rowData.length : 100}
+          manual
+          /* eslint-disable-next-line react/jsx-no-bind */
+          onFetchData={(state) => handleDataUpdate(activity_sessions, state)}
+          showPagination={false}
         />
       </section>
     </div>
