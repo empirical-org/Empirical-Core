@@ -51,6 +51,7 @@ class TextEditor extends React.Component <any, any> {
   }
 
   render() {
+    const { handleBlur } = this.props
     const { richButtonsPlugin, } = this.state
     const {
       // inline buttons
@@ -76,6 +77,7 @@ class TextEditor extends React.Component <any, any> {
             <Editor
               blockRenderMap={customRenderMap}
               editorState={this.state.text}
+              onBlur={handleBlur}
               onChange={this.handleTextChange}
               plugins={[richButtonsPlugin]}
             />

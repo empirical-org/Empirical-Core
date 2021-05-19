@@ -2,8 +2,10 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 import _ from 'underscore';
-import { SortableList } from '../../../Shared/index';
+import { EditorState, ContentState } from 'draft-js'
 
+import { TextEditor } from '../../../Shared/index';
+import { SortableList } from '../../../Shared/index';
 import questionActions from '../../actions/questions';
 import sentenceFragmentActions from '../../actions/sentenceFragments';
 
@@ -69,24 +71,88 @@ class IncorrectSequencesContainer extends Component {
   sortCallback = sortInfo => {
     const { actionFile, incorrectSequences } = this.state
     const { updateIncorrectSequences } = actionFile
-    const { dispatch } = this.props
+    const { dispatch, match } = this.props
+    const { params } = match
+    const { questionID } = params
     const newOrder = sortInfo.filter(item => item).map(item => item.key);
     const newIncorrectSequences = newOrder.map((key) => incorrectSequences[key])
     this.setState({incorrectSequences: newIncorrectSequences})
     dispatch(updateIncorrectSequences(questionID, newIncorrectSequences));
   };
 
-  saveSequence = (key) => {
+  saveSequence = (e, key) => {
+    console.log("blurred")
     const { actionFile } = this.state
-    const { submitEditedIncorrectSequence } = actionFile
+    const { submitEditedIncorrectSequence, deleteIncorrectSequence } = actionFile
     const { dispatch, match } = this.props
     const { params } = match
     const { questionID } = params
     const { incorrectSequences } = this.state
-    let data = incorrectSequences[key]
+    const filteredSequences = this.removeEmptySequences(incorrectSequences)
+    let data = filteredSequences[key]
     delete data.conceptResults.null;
-    dispatch(submitEditedIncorrectSequence(questionID, data, key));
+    if (data.text === '') {
+      delete filteredSequences[key]
+      dispatch(deleteIncorrectSequence(questionID, key));
+    } else {
+      dispatch(submitEditedIncorrectSequence(questionID, data, key));
+    }
+    console.log("filtered")
+    console.log(filteredSequences)
+    this.setState({incorrectSequences: filteredSequences})
   };
+
+  removeEmptySequences = (sequences) => {
+    return _.mapObject(sequences, (val) => (
+      Object.assign({}, val, {
+        text: val.text.split(/\|{3}(?!\|)/).filter(val => val !== '').join('|||')
+      })
+      )
+    );
+  }
+
+  addNewSequence = (e, key) => {
+    const { incorrectSequences } = this.state
+    const className = `regex-${key}`
+    const value = `${Array.from(document.getElementsByClassName(className)).map(i => i.value).filter(val => val !== '').join('|||')}|||`;
+    incorrectSequences[key].text = value;
+    this.setState({incorrectSequences: incorrectSequences})
+  }
+
+  handleChange = (e, key) => {
+    const { actionFile } = this.state
+    const { deleteIncorrectSequence } = actionFile
+    const { dispatch, match } = this.props
+    const { params } = match
+    const { questionID } = params
+    const { incorrectSequences } = this.state
+    let value = e.target.value;
+    const className = `regex-${key}`
+    value = `${Array.from(document.getElementsByClassName(className)).map(i => i.value).filter(val => val !== '').join('|||')}`;
+    console.log(value)
+    if (value === '') {
+      if (!confirm("Deleting this regex will delete the whole incorrect sequence. Are you sure you want that?")) {
+        return
+      } else {
+        delete incorrectSequences[key]
+        this.setState({incorrectSequences: incorrectSequences})
+        dispatch(deleteIncorrectSequence(questionID, key));
+      }
+    } else {
+      incorrectSequences[key].text = value;
+      this.setState({incorrectSequences: incorrectSequences})
+    }
+  }
+
+  handleFeedbackChange = (e, key) => {
+    const { incorrectSequences } = this.state
+    incorrectSequences[key].feedback = e
+    this.setState({incorrectSequences: incorrectSequences})
+  }
+
+  inputElement = (className, text, key) => {
+    return <input className={className} onBlur={(e) => this.saveSequence(e, key)} onChange={(e) => this.handleChange(e, key)} style={{ marginBottom: 5, minWidth: `${(text.length + 1) * 8}px`}} type="text" value={text || ''} />
+  }
 
   renderConceptResults = (concepts, sequenceKey) => {
     if (concepts) {
@@ -107,45 +173,45 @@ class IncorrectSequencesContainer extends Component {
     const { match } = this.props
 
     const components = _.mapObject(incorrectSequences, (val, key) => {
-      if (val.text) {
-        return (
-          <div className="card is-fullwidth has-bottom-margin" key={key}>
-            <header className="card-header">
-              <p className="card-header-title" style={{ display: 'inline-block', }}>
-                {this.renderTextInputFields(val.text, key)}
-              </p>
-              <p className="card-header-icon">
-                {val.order}
-              </p>
-            </header>
-            <div className="card-content">
-              <p className="control title is-4" dangerouslySetInnerHTML={{ __html: '<strong>Feedback</strong>: ' + val.feedback, }} />
-              {this.renderConceptResults(val.conceptResults, key)}
-            </div>
-            <footer className="card-footer">
-              <NavLink className="card-footer-item" to={`${match.url}/${key}/edit`}>Edit</NavLink>
-              <a className="card-footer-item" onClick={() => this.deleteSequence(key)}>Delete</a>
-            </footer>
+      return (
+        <div className="card is-fullwidth has-bottom-margin" key={key}>
+          <header className="card-header">
+            <p className="card-header-title" style={{ display: 'inline-block', }}>
+              {this.renderTextInputFields(val.text, key)}
+              <button className="add-regex-button" onClick={(e) => this.addNewSequence(e, key)} type="button">+</button>
+            </p>
+            <p className="card-header-icon">
+              {val.order}
+            </p>
+          </header>
+          <div className="card-content">
+            <label className="label" htmlFor="feedback" style={{ marginTop: 10, }}>Feedback</label>
+            <TextEditor
+              ContentState={ContentState}
+              EditorState={EditorState}
+              handleBlur={(e) => this.saveSequence(e, key)}
+              handleTextChange={(e) => this.handleFeedbackChange(e, key)}
+              key="feedback"
+              text={val.feedback}
+            />
+            <br />
+            {this.renderConceptResults(val.conceptResults, key)}
           </div>
-        )
-      }
+          <footer className="card-footer">
+            <NavLink className="card-footer-item" to={`${match.url}/${key}/edit`}>Edit</NavLink>
+            <a className="card-footer-item" onClick={() => this.deleteSequence(key)}>Delete</a>
+          </footer>
+        </div>
+      )
     });
     return <SortableList data={_.values(components)} key={_.values(components).length} sortCallback={this.sortCallback} />;
   }
 
-  handleChange = (e, key) => {
-    const { incorrectSequences } = this.state
-    let value = e.target.value;
-    let className = `regex-${key}`
-    value = `${Array.from(document.getElementsByClassName(className)).map(i => i.value).filter(val => val !== '').join('|||')}`;
-    incorrectSequences[key].text = value;
-    this.setState({incorrectSequences: incorrectSequences})
-  }
-
   renderTextInputFields = (sequenceString, key) => {
-    let className = `input regex-inline-edit regex-${key}`
+    const className = `input regex-inline-edit regex-${key}`
+    if (sequenceString === '') return this.inputElement(className, '', key)
     return sequenceString.split(/\|{3}(?!\|)/).map(text => (
-      <input className={className} onBlur={(e) => this.saveSequence(key)} onChange={(e) => this.handleChange(e, key)} style={{ marginBottom: 5, minWidth: `${(text.length + 1) * 8}px`}} type="text" value={text || ''} />
+      this.inputElement(className, text, key)
     ));
   }
 
