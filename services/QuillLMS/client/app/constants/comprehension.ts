@@ -97,6 +97,15 @@ export const regexRuleSequenceOptions = [
   {"value":"required","label":"Required"}
 ];
 
+export const activitySessionFilterOptions = [
+  {"value":"all","label":"Show all sessions"},
+  {"value":"scored","label":"Show only scored sessions"},
+  {"value":"unscored","label":"Show only unscored sessions"},
+  {"value":"weak","label":"Show sessions with weak responses"},
+  {"value":"complete","label":"Show complete sessions"},
+  {"value":"incomplete","label":"Show incomplete sessions"}
+];
+
 export const ruleOrder = {
   'AutoML': 1,
   'Grammar': 2,

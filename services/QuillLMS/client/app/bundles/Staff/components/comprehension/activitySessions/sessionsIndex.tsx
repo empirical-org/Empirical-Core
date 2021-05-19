@@ -8,7 +8,7 @@ import { firstBy } from 'thenby';
 import { Error, Spinner, DropdownInput } from '../../../../Shared/index';
 import { fetchActivity, fetchActivitySessions } from '../../../utils/comprehension/activityAPIs';
 import { DropdownObjectInterface } from '../../../interfaces/comprehensionInterfaces';
-import { activitySessionIndexResponseHeaders } from '../../../../../constants/comprehension';
+import { activitySessionIndexResponseHeaders, activitySessionFilterOptions } from '../../../../../constants/comprehension';
 
 const quillCheckmark = 'https://assets.quill.org/images/icons/check-circle-small.svg';
 
@@ -17,8 +17,10 @@ const SessionsIndex = ({ match }) => {
   const { activityId } = params;
 
   const [pageNumber, setPageNumber] = React.useState<DropdownObjectInterface>(null);
-  const [dropdownOptions, setDropdownOptions] = React.useState<DropdownObjectInterface[]>(null);
+  const [pageDropdownOptions, setPageDropdownOptions] = React.useState<DropdownObjectInterface[]>(null);
+  const [filterOption, setFilterOption] = React.useState<DropdownObjectInterface>(activitySessionFilterOptions[0]);
   const [rowData, setRowData] = React.useState<any[]>([]);
+  const [sortInfo, setSortInfo] = React.useState<any>(null);
   const pageNumberForQuery = pageNumber && pageNumber.value ? pageNumber.value : 1;
 
   // cache activity data for updates
@@ -34,7 +36,7 @@ const SessionsIndex = ({ match }) => {
   });
 
   React.useEffect(() => {
-    sessionsData && !dropdownOptions && getDropdownOptions(sessionsData)
+    sessionsData && !pageDropdownOptions && getPageDropdownOptions(sessionsData);
   }, [sessionsData]);
 
   React.useEffect(() => {
@@ -46,20 +48,48 @@ const SessionsIndex = ({ match }) => {
     }
   }, [sessionsData]);
 
+  function getFilteredRows(filter: string, activitySessions: any) {
+    switch (filter) {
+      case 'all':
+        return activitySessions;
+      case 'scored':
+        return activitySessions.filter(row => row.scored_count > 0);
+      case 'unscored':
+        return activitySessions.filter(row => row.scored_count === 0);
+      case 'weak':
+        return activitySessions.filter(row => row.weak_count > 0);
+      case 'complete':
+        return activitySessions.filter(row => row.complete);
+      case 'incomplete':
+        return activitySessions.filter(row => !row.complete);
+      default:
+        return activitySessions;
+    }
+  }
+
+  function handleFilterOptionChange(option, activitySessions) {
+    const { value } = option;
+    const formattedRows = formatSessionsData(activitySessions);
+    const sortedRows = sortedSessions(formattedRows, sortInfo)
+    const filteredRows = getFilteredRows(value, sortedRows);
+    setFilterOption(option);
+    setRowData(filteredRows);
+  }
+
   function handleDataUpdate(activity_sessions, state) {
     const { sorted } = state;
     const sortInfo = sorted[0];
     const rows = formatSessionsData(activity_sessions);
-    const sortedRows = filteredAndSortedSessions(rows, sortInfo)
+    const sortedRows = sortedSessions(rows, sortInfo)
     setRowData(sortedRows);
   }
 
-  function getDropdownOptions(sessionsData) {
+  function getPageDropdownOptions(sessionsData) {
     if(!sessionsData) {
       return null;
     }
-    if(dropdownOptions) {
-      return dropdownOptions;
+    if(pageDropdownOptions) {
+      return pageDropdownOptions;
     }
     const { activitySessions } = sessionsData
     const { current_page, total_pages } = activitySessions;
@@ -68,7 +98,7 @@ const SessionsIndex = ({ match }) => {
     for(let i=1; i <= total_pages; i++) {
       options.push({'value':i, 'label':`Page ${i}`})
     }
-    setDropdownOptions(options);
+    setPageDropdownOptions(options);
   }
 
   function handlePageChange(number) {
@@ -83,8 +113,9 @@ const SessionsIndex = ({ match }) => {
     return activitySessions.sort(firstBy(id, { direction: directionOfSort }));
   }
 
-  function filteredAndSortedSessions(activitySessions: any[], sortInfo?: any) {
+  function sortedSessions(activitySessions: any[], sortInfo?: any) {
     if(sortInfo) {
+      setSortInfo(sortInfo);
       const { id, desc } = sortInfo;
       // we have this reversed so that the first click will sort from highest to lowest by default
       const directionOfSort = desc ? `asc` : 'desc';
@@ -155,8 +186,16 @@ const SessionsIndex = ({ match }) => {
             handleChange={handlePageChange}
             isSearchable={false}
             label=""
-            options={dropdownOptions}
+            options={pageDropdownOptions}
             value={pageNumber}
+          />
+          <DropdownInput
+            /* eslint-disable-next-line react/jsx-no-bind */
+            handleChange={(option) => handleFilterOptionChange(option, activity_sessions)}
+            isSearchable={false}
+            label=""
+            options={activitySessionFilterOptions}
+            value={filterOption}
           />
         </section>
         <ReactTable
