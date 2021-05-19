@@ -39,6 +39,6 @@ class FeedbackHistoryRatingsController < ApplicationController
   end
 
   private def mass_mark_params
-    params.permit([:rating, :feedback_history_ids])
+    params.permit([:rating, feedback_history_ids: []])
   end
 end
