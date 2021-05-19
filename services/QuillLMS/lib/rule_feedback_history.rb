@@ -29,7 +29,7 @@ class RuleFeedbackHistory
             datetime: f_h.updated_at,
             entry: f_h.entry,
             highlight: f_h.metadata.class == Hash ? f_h.metadata['highlight'] : '',
-            view_session_url: 'Not yet available',
+            session_uid: f_h.feedback_session_uid,
             strength: f_h.feedback_history_ratings.order(updated_at: :desc).first&.rating
         }
     end
@@ -52,28 +52,30 @@ class RuleFeedbackHistory
         rules_sql_result.each do |r|
 
             feedback_histories = FeedbackHistory
-                .where(id: r.feedback_histories_id_array).includes(:feedback_history_ratings)
+                .where(id: r.feedback_histories_id_array).includes(:feedback_history_ratings).includes(:feedback_history_flags)
 
             total_scored = feedback_histories.reduce(0) do |memo, feedback_history|
                 memo + feedback_history.feedback_history_ratings.count
             end
 
-            if total_scored == 0
-                total_strong = 0
-                r.define_singleton_method(:pct_strong) { 0 }
-                r.define_singleton_method(:pct_scored) { 0 }
-            else
-                total_strong = feedback_histories.reduce(0) do |memo, n|
-                    memo + n.feedback_history_ratings.filter(&:rating).count
+            total_strong = 0
+            total_weak = 0
+            repeated_consecutive = 0
+            repeated_non_consecutive = 0
+            if total_scored > 0
+                feedback_histories.each do |history|
+                  total_strong += 1 if history.feedback_history_ratings.any?(&:rating)
+                  total_weak += 1 if history.feedback_history_ratings.any? { |hr| hr.rating == false }
+                  repeated_consecutive += 1 if history.feedback_history_flags.any? { |f| f.flag == FeedbackHistoryFlag::FLAG_REPEATED_RULE_CONSECUTIVE }
+                  repeated_non_consecutive += 1 if history.feedback_history_flags.any? { |f| f.flag == FeedbackHistoryFlag::FLAG_REPEATED_RULE_NON_CONSECUTIVE }
                 end
 
-                r.define_singleton_method(:pct_strong) { total_strong/total_scored.to_f }
-                # note: pct_scored may be over counting since the original spec may not
-                # account for one feedback history having more than one score.
-                r.define_singleton_method(:pct_scored) { total_scored/total_scored.to_f }
             end
+            r.define_singleton_method(:total_strong) { total_strong }
+            r.define_singleton_method(:total_weak) { total_weak }
+            r.define_singleton_method(:repeated_consecutive) { repeated_consecutive }
+            r.define_singleton_method(:repeated_non_consecutive) { repeated_non_consecutive }
 
-            r.define_singleton_method(:scored_responses_count) { total_scored }
             r.define_singleton_method(:total_responses) { feedback_histories.count }
         end
 
@@ -89,10 +91,6 @@ class RuleFeedbackHistory
         rules_sql_result
     end
 
-    def self.format_pct(a_float)
-        "#{(a_float * 100).round(2)}%"
-    end
-
     def self.format_sql_results(relations)
         relations.map do |r|
             {
@@ -103,9 +101,10 @@ class RuleFeedbackHistory
                 rule_note: r.rule_note,
                 rule_name: r.rule_name,
                 total_responses: r.total_responses,
-                pct_strong: format_pct(r.pct_strong),
-                scored_responses: r.scored_responses_count, # may want to rename for clarity
-                pct_scored: format_pct(r.pct_scored)
+                strong_responses: r.total_strong,
+                weak_responses: r.total_weak,
+                repeated_consecutive_responses: r.repeated_consecutive,
+                repeated_non_consecutive_responses: r.repeated_non_consecutive,
             }
 
         end
