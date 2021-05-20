@@ -36,48 +36,48 @@ RSpec.describe PromptFeedbackHistory, type: :model do
 
   end
 
-  describe '#has_consecutive_repeated_rule?' do 
+  describe '#consecutive_repeated_rule?' do 
     it 'should calculate correctly' do 
       expect( 
-        PromptFeedbackHistory.has_consecutive_repeated_rule?([1,2,3,4], %w(a b c d))
+        PromptFeedbackHistory.consecutive_repeated_rule?([1,2,3,4], %w(a b c d))
       ).to eq false
 
       expect( 
-        PromptFeedbackHistory.has_consecutive_repeated_rule?([], [])
+        PromptFeedbackHistory.consecutive_repeated_rule?([], [])
       ).to eq false
 
       expect( 
-        PromptFeedbackHistory.has_consecutive_repeated_rule?([1,2,3,4], %w(a b c c))
+        PromptFeedbackHistory.consecutive_repeated_rule?([1,2,3,4], %w(a b c c))
       ).to eq true
 
       expect( 
-        PromptFeedbackHistory.has_consecutive_repeated_rule?([1,2,3,4,5], %w(a a b c c))
+        PromptFeedbackHistory.consecutive_repeated_rule?([1,2,3,4,5], %w(a a b c c))
       ).to eq true
     end
   end
 
-  describe '#has_non_consecutive_repeated_rule?' do 
+  describe '#non_consecutive_repeated_rule?' do 
     it 'should calculate correctly' do 
       expect( 
-        PromptFeedbackHistory.has_non_consecutive_repeated_rule?([1,2,3,4], %w(a b c d))
+        PromptFeedbackHistory.non_consecutive_repeated_rule?([1,2,3,4], %w(a b c d))
       ).to eq false
 
       expect( 
-        PromptFeedbackHistory.has_non_consecutive_repeated_rule?([1,2,3,4], %w(a b c a))
+        PromptFeedbackHistory.non_consecutive_repeated_rule?([1,2,3,4], %w(a b c a))
       ).to eq true
     end 
 
     it 'should ignore consecutive repeats' do 
       expect( 
-        PromptFeedbackHistory.has_non_consecutive_repeated_rule?([1,2,3,4], %w(a a c d))
+        PromptFeedbackHistory.non_consecutive_repeated_rule?([1,2,3,4], %w(a a c d))
       ).to eq false
 
       expect( 
-        PromptFeedbackHistory.has_non_consecutive_repeated_rule?([1,2,3,4], %w(a a a d))
+        PromptFeedbackHistory.non_consecutive_repeated_rule?([1,2,3,4], %w(a a a d))
       ).to eq false
 
       expect( 
-        PromptFeedbackHistory.has_non_consecutive_repeated_rule?([1,2,3,4,5], %w(a a c d c))
+        PromptFeedbackHistory.non_consecutive_repeated_rule?([1,2,3,4,5], %w(a a c d c))
       ).to eq true
     end
   end

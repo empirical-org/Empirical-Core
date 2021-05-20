@@ -64,11 +64,11 @@ class PromptFeedbackHistory
               prompt_hash[prompt_id][:num_first_attempt_not_optimal] += 1 
             end
 
-            if has_consecutive_repeated_rule?(prompt_session.attempts, prompt_session.rule_uids)
+            if consecutive_repeated_rule?(prompt_session.attempts, prompt_session.rule_uids)
               prompt_hash[prompt_id][:num_consecutive_repeated_attempts_for_same_rule] += 1
             end 
 
-            if has_non_consecutive_repeated_rule?(prompt_session.attempts, prompt_session.rule_uids)
+            if non_consecutive_repeated_rule?(prompt_session.attempts, prompt_session.rule_uids)
               prompt_hash[prompt_id][:num_non_consecutive_repeated_attempts_for_same_rule] += 1
             end 
 
@@ -110,8 +110,8 @@ class PromptFeedbackHistory
         prompt_hash[k][:pct_first_attempt_optimal] = v[:num_first_attempt_optimal] / session_count
         prompt_hash[k][:pct_first_attempt_not_optimal] = v[:num_first_attempt_not_optimal] / session_count
         
-        v.delete_if {|k,v| k == :optimal_attempt_array}
-        v.delete_if {|k,v| k == :num_first_attempt_optimal}
+        v.delete_if {|key,val| k == :optimal_attempt_array}
+        v.delete_if {|key,val| k == :num_first_attempt_optimal}
       end
 
       prompt_hash
@@ -122,7 +122,7 @@ class PromptFeedbackHistory
       attempts_rule_uids.first.last 
     end
 
-    def self.has_non_consecutive_repeated_rule?(attempts_array, rule_array)
+    def self.non_consecutive_repeated_rule?(attempts_array, rule_array)
       return false unless rule_array.uniq.count != rule_array.count
       attempts_rule_uids = attempts_array.zip(rule_array).sort{|a, b| a.first <=> b.first }
       consecutive_repeats_removed = []
@@ -136,7 +136,7 @@ class PromptFeedbackHistory
       consecutive_repeats_removed.length != consecutive_repeats_removed.uniq.length
     end
 
-    def self.has_consecutive_repeated_rule?(attempts_array, rule_array)
+    def self.consecutive_repeated_rule?(attempts_array, rule_array)
       return false unless rule_array.uniq.count != rule_array.count
       attempts_rule_uids = attempts_array.zip(rule_array).sort{|a, b| a.first <=> b.first }
 
