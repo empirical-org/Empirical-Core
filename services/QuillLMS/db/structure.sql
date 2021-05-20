@@ -2,8 +2,8 @@
 -- PostgreSQL database dump
 --
 
--- Dumped from database version 10.16
--- Dumped by pg_dump version 10.16
+-- Dumped from database version 10.15
+-- Dumped by pg_dump version 10.15
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -1508,10 +1508,9 @@ CREATE TABLE public.comprehension_rules (
     rule_type character varying NOT NULL,
     optimal boolean NOT NULL,
     suborder integer,
-    concept_uid character varying NOT NULL,
+    concept_uid character varying,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
-    sequence_type character varying,
     state character varying NOT NULL
 );
 
@@ -2011,6 +2010,39 @@ CREATE SEQUENCE public.feedback_histories_id_seq
 --
 
 ALTER SEQUENCE public.feedback_histories_id_seq OWNED BY public.feedback_histories.id;
+
+
+--
+-- Name: feedback_history_flags; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.feedback_history_flags (
+    id integer NOT NULL,
+    feedback_history_id integer NOT NULL,
+    flag character varying NOT NULL,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: feedback_history_flags_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.feedback_history_flags_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: feedback_history_flags_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.feedback_history_flags_id_seq OWNED BY public.feedback_history_flags.id;
 
 
 --
@@ -4037,6 +4069,13 @@ ALTER TABLE ONLY public.feedback_histories ALTER COLUMN id SET DEFAULT nextval('
 
 
 --
+-- Name: feedback_history_flags id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.feedback_history_flags ALTER COLUMN id SET DEFAULT nextval('public.feedback_history_flags_id_seq'::regclass);
+
+
+--
 -- Name: feedback_history_ratings id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -4755,6 +4794,14 @@ ALTER TABLE ONLY public.districts
 
 ALTER TABLE ONLY public.feedback_histories
     ADD CONSTRAINT feedback_histories_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: feedback_history_flags feedback_history_flags_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.feedback_history_flags
+    ADD CONSTRAINT feedback_history_flags_pkey PRIMARY KEY (id);
 
 
 --
@@ -7590,6 +7637,8 @@ INSERT INTO schema_migrations (version) VALUES ('20210330160626');
 
 INSERT INTO schema_migrations (version) VALUES ('20210409161449');
 
+INSERT INTO schema_migrations (version) VALUES ('20210421181107');
+
 INSERT INTO schema_migrations (version) VALUES ('20210421190032');
 
 INSERT INTO schema_migrations (version) VALUES ('20210421191605');
@@ -7603,4 +7652,8 @@ INSERT INTO schema_migrations (version) VALUES ('20210430212613');
 INSERT INTO schema_migrations (version) VALUES ('20210505150457');
 
 INSERT INTO schema_migrations (version) VALUES ('20210511161300');
+
+INSERT INTO schema_migrations (version) VALUES ('20210518151248');
+
+INSERT INTO schema_migrations (version) VALUES ('20210518162719');
 
