@@ -8,18 +8,22 @@ RSpec.describe PromptFeedbackHistory, type: :model do
   
   describe '#promptwise_sessions' do 
     it 'should aggregate rows correctly' do 
-      main_activity = create(:activity)
-      unused_activity = create(:activity)
+      main_activity = Comprehension::Activity.create!(name: 'Title_1', title: 'Title 1', parent_activity_id: 1, target_level: 1)
+      unused_activity = Comprehension::Activity.create!(name: 'Title_2', title: 'Title 2', parent_activity_id: 2, target_level: 1)
 
-      as1 = create(:activity_session, activity_id: main_activity.id)
-      as2 = create(:activity_session, activity_id: main_activity.id)
-      as3 = create(:activity_session, activity_id: unused_activity.id)
+      prompt1 = Comprehension::Prompt.create!(activity: main_activity, conjunction: 'because', text: 'Some feedback text', max_attempts_feedback: 'Feedback')
+      prompt2 = Comprehension::Prompt.create!(activity: main_activity, conjunction: 'because', text: 'Some feedback text', max_attempts_feedback: 'Feedback')
+      prompt3 = Comprehension::Prompt.create!(activity: unused_activity, conjunction: 'because', text: 'Some feedback text', max_attempts_feedback: 'Feedback')
 
-      f_h1 = create(:feedback_history, feedback_session_uid: as1.uid, attempt: 1, optimal: false, prompt_id: 1)
-      f_h2 = create(:feedback_history, feedback_session_uid: as1.uid, attempt: 2, optimal: true, prompt_id: 1)
-      f_h3 = create(:feedback_history, feedback_session_uid: as2.uid, attempt: 1, optimal: false, prompt_id: 2)
-      f_h4 = create(:feedback_history, feedback_session_uid: as2.uid, attempt: 2, optimal: false, prompt_id: 2)
-      f_h4 = create(:feedback_history, feedback_session_uid: as3.uid, prompt_id: 3)
+      session_uid1 = SecureRandom.uuid
+      session_uid2 = SecureRandom.uuid
+      session_uid3 = SecureRandom.uuid
+
+      f_h1 = create(:feedback_history, attempt: 1, optimal: false, prompt_id: prompt1.id, feedback_session_uid: session_uid1)
+      f_h2 = create(:feedback_history, attempt: 2, optimal: true, prompt_id: prompt1.id, feedback_session_uid: session_uid1)
+      f_h3 = create(:feedback_history, attempt: 1, optimal: false, prompt_id: prompt2.id, feedback_session_uid: session_uid2)
+      f_h4 = create(:feedback_history, attempt: 2, optimal: false, prompt_id: prompt2.id, feedback_session_uid: session_uid2)
+      f_h4 = create(:feedback_history, prompt_id: prompt3.id, feedback_session_uid: session_uid3)
 
       result = PromptFeedbackHistory.promptwise_sessions(main_activity.id)
 
