@@ -68,7 +68,7 @@ class PromptFeedbackHistory
               prompt_hash[prompt_id][:num_consecutive_repeated_attempts_for_same_rule] += 1
             end 
 
-            if has_non_consecutive_repeated_rule?(prompt_session.rule_uids)
+            if has_non_consecutive_repeated_rule?(prompt_session.attempts, prompt_session.rule_uids)
               prompt_hash[prompt_id][:num_non_consecutive_repeated_attempts_for_same_rule] += 1
             end 
 
@@ -95,11 +95,11 @@ class PromptFeedbackHistory
           prompt_hash[k][:avg_attempts_to_optimal] = v[:optimal_attempt_array].sum / v[:num_final_attempt_optimal].to_f
         end
 
-         prompt_hash[k][:num_consecutive_repeated_attempts_for_same_rule] = \
-          v[:num_consecutive_repeated_attempts_for_same_rule] / v[:session_count].to_f
+        prompt_hash[k][:pct_consecutive_repeated_attempts_for_same_rule] = \
+          v[:num_consecutive_repeated_attempts_for_same_rule] / session_count
 
-        prompt_hash[k][:num_non_consecutive_repeated_attempts_for_same_rule] = \
-          v[:num_non_consecutive_repeated_attempts_for_same_rule] / v[:session_count].to_f
+        prompt_hash[k][:pct_non_consecutive_repeated_attempts_for_same_rule] = \
+          v[:num_non_consecutive_repeated_attempts_for_same_rule] / session_count
 
         prompt_hash[k][:pct_final_attempt_optimal] = \
           prompt_hash[k][:num_final_attempt_optimal] / session_count      
@@ -122,11 +122,22 @@ class PromptFeedbackHistory
       attempts_rule_uids.first.last 
     end
 
-    def self.has_non_consecutive_repeated_rule?(rule_array)
-      rule_array.uniq.count != rule_array.count
+    def self.has_non_consecutive_repeated_rule?(attempts_array, rule_array)
+      return false unless rule_array.uniq.count != rule_array.count
+      attempts_rule_uids = attempts_array.zip(rule_array).sort{|a, b| a.first <=> b.first }
+      consecutive_repeats_removed = []
+      (0...attempts_rule_uids.length-1).each do |idx|
+        if attempts_rule_uids[idx].last != attempts_rule_uids[idx+1].last 
+          consecutive_repeats_removed.append attempts_rule_uids[idx].last
+        end
+      end 
+      consecutive_repeats_removed.append(attempts_rule_uids.last.last)
+
+      consecutive_repeats_removed.length != consecutive_repeats_removed.uniq.length
     end
 
     def self.has_consecutive_repeated_rule?(attempts_array, rule_array)
+      return false unless rule_array.uniq.count != rule_array.count
       attempts_rule_uids = attempts_array.zip(rule_array).sort{|a, b| a.first <=> b.first }
 
       (0...attempts_rule_uids.length-1).each do |idx|

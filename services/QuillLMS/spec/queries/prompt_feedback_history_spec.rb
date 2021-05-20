@@ -36,7 +36,7 @@ RSpec.describe PromptFeedbackHistory, type: :model do
 
   end
 
-  describe '#has_consecutive_repeated_rule' do 
+  describe '#has_consecutive_repeated_rule?' do 
     it 'should calculate correctly' do 
       expect( 
         PromptFeedbackHistory.has_consecutive_repeated_rule?([1,2,3,4], %w(a b c d))
@@ -52,6 +52,32 @@ RSpec.describe PromptFeedbackHistory, type: :model do
 
       expect( 
         PromptFeedbackHistory.has_consecutive_repeated_rule?([1,2,3,4,5], %w(a a b c c))
+      ).to eq true
+    end
+  end
+
+  describe '#has_non_consecutive_repeated_rule?' do 
+    it 'should calculate correctly' do 
+      expect( 
+        PromptFeedbackHistory.has_non_consecutive_repeated_rule?([1,2,3,4], %w(a b c d))
+      ).to eq false
+
+      expect( 
+        PromptFeedbackHistory.has_non_consecutive_repeated_rule?([1,2,3,4], %w(a b c a))
+      ).to eq true
+    end 
+
+    it 'should ignore consecutive repeats' do 
+      expect( 
+        PromptFeedbackHistory.has_non_consecutive_repeated_rule?([1,2,3,4], %w(a a c d))
+      ).to eq false
+
+      expect( 
+        PromptFeedbackHistory.has_non_consecutive_repeated_rule?([1,2,3,4], %w(a a a d))
+      ).to eq false
+
+      expect( 
+        PromptFeedbackHistory.has_non_consecutive_repeated_rule?([1,2,3,4,5], %w(a a c d c))
       ).to eq true
     end
   end
@@ -144,7 +170,25 @@ RSpec.describe PromptFeedbackHistory, type: :model do
           pct_first_attempt_optimal: 0.0,
           pct_first_attempt_not_optimal: 1.0
         })
+    end
 
+    it 'should format consecutive repeated attempts' do 
+      f_h1 = create(:feedback_history, feedback_session_uid: as1.uid, attempt: 1, optimal: false, prompt_id: 1, rule_uid: 1)
+      f_h2 = create(:feedback_history, feedback_session_uid: as1.uid, attempt: 2, optimal: true, prompt_id: 1, rule_uid: 2)
+      f_h3 = create(:feedback_history, feedback_session_uid: as2.uid, attempt: 1, optimal: false, prompt_id: 2, rule_uid: 1)
+      f_h4 = create(:feedback_history, feedback_session_uid: as2.uid, attempt: 2, optimal: false, prompt_id: 2, rule_uid: 1)
+
+      result = PromptFeedbackHistory.promptwise_sessions(main_activity.id)
+      processed = PromptFeedbackHistory.promptwise_postprocessing(result)
+
+      second_prompt = processed[:"2"]
+
+      expect(second_prompt).to include(
+        {
+          pct_consecutive_repeated_attempts_for_same_rule: 1.0,
+          pct_non_consecutive_repeated_attempts_for_same_rule: 0.0,
+
+        })
     end
 
   end
