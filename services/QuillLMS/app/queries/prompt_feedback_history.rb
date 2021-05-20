@@ -11,7 +11,9 @@ class PromptFeedbackHistory
             bool_or(optimal) as at_least_one_optimal, 
             MAX(attempt) as attempt_cardinal,
             ARRAY_AGG(rule_uid) as rule_uids,
-            ARRAY_AGG(attempt) as attempts
+            -- assumes that multiple ARRAY_AGG functions process data in the same sequence
+            ARRAY_AGG(attempt) as attempts,
+            ARRAY_AGG(optimal) as optimals
           FROM feedback_histories
           JOIN comprehension_prompts
             ON feedback_histories.prompt_id = comprehension_prompts.id
@@ -39,12 +41,20 @@ class PromptFeedbackHistory
                 optimal_attempt_array: [],
                 display_name: '',
                 num_consecutive_repeated_attempts_for_same_rule: 0,
-                num_non_consecutive_repeated_attempts_for_same_rule: 0
+                num_non_consecutive_repeated_attempts_for_same_rule: 0,
+                num_first_attempt_optimal: 0
             }
             prompt_hash[prompt_id][:display_name] = prompts.find(prompt_id).text
+
+            if first_attempt_optimal?(prompt_session.attempts, prompt_session.optimals)
+              prompt_hash[prompt_id][:num_first_attempt_optimal] += 1
+            end
+
             if has_consecutive_repeated_rule?(prompt_session.attempts, prompt_session.rule_uids)
               prompt_hash[prompt_id][:num_consecutive_repeated_attempts_for_same_rule] += 1
             end 
+
+            
 
             if has_non_consecutive_repeated_rule?(prompt_session.rule_uids)
               prompt_hash[prompt_id][:num_non_consecutive_repeated_attempts_for_same_rule] += 1
@@ -62,6 +72,7 @@ class PromptFeedbackHistory
     end
 
     def self.apply_summations(prompt_hash)
+      #binding.pry
       prompt_hash.each do |k,v|
         if v[:optimal_final_attempts] == 0
           prompt_hash[k][:avg_attempts_to_optimal] = 0.0
@@ -71,16 +82,30 @@ class PromptFeedbackHistory
 
         prompt_hash[k][:num_consecutive_repeated_attempts_for_same_rule] = \
           v[:num_consecutive_repeated_attempts_for_same_rule] / v[:session_count].to_f
+
         prompt_hash[k][:num_non_consecutive_repeated_attempts_for_same_rule] = \
           v[:num_non_consecutive_repeated_attempts_for_same_rule] / v[:session_count].to_f
+
         prompt_hash[k][:final_attempt_pct_optimal] = \
           prompt_hash[k][:optimal_final_attempts] / prompt_hash[k][:session_count].to_f      
 
         prompt_hash[k][:final_attempt_pct_not_optimal] = \
           (prompt_hash[k][:session_count] - prompt_hash[k][:optimal_final_attempts]) / prompt_hash[k][:session_count].to_f 
+
+        prompt_hash[k][:pct_first_attempt_optimal] = v[:num_first_attempt_optimal] / prompt_hash[k][:session_count].to_f
+        prompt_hash[k][:pct_first_attempt_suboptimal] = (prompt_hash[k][:session_count] - v[:num_first_attempt_optimal]) / prompt_hash[k][:session_count].to_f
+        
+        v.delete_if {|k,v| k == :optimal_attempt_array}
+        v.delete_if {|k,v| k == :num_first_attempt_optimal}
+
       end
 
       prompt_hash
+    end
+
+    def self.first_attempt_optimal?(attempts_array, optimals_array)
+      attempts_rule_uids = attempts_array.zip(optimals_array).sort{|a, b| a.first <=> b.first } 
+      attempts_rule_uids.first.last 
     end
 
     def self.has_non_consecutive_repeated_rule?(rule_array)

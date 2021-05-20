@@ -56,6 +56,18 @@ RSpec.describe PromptFeedbackHistory, type: :model do
     end
   end
   
+  describe '#first_attempt_optimal?' do 
+    it 'should return true' do 
+      expect(
+        PromptFeedbackHistory.first_attempt_optimal?([1], [true])
+      ).to be true
+      
+      expect(
+        PromptFeedbackHistory.first_attempt_optimal?([2, 1], [true, false])
+      ).to be false
+    end
+  end
+
   describe '#promptwise_postprocessing' do 
     it 'should format' do 
       main_activity = create(:activity)
@@ -89,8 +101,8 @@ RSpec.describe PromptFeedbackHistory, type: :model do
 
       result = PromptFeedbackHistory.promptwise_sessions(main_activity.id)
       processed = PromptFeedbackHistory.promptwise_postprocessing(result)
-
-      expect(processed == {
+      #binding.pry
+      expect(processed).to include(
         1 => {
           optimal_final_attempts: 1.0,
           session_count: 1.0,
@@ -98,11 +110,13 @@ RSpec.describe PromptFeedbackHistory, type: :model do
           final_attempt_pct_optimal: 1.0,
           final_attempt_pct_not_optimal: 0.0,
           display_name: "lorem ipsum1",
-          optimal_attempt_array: [2],
           avg_attempts_to_optimal: 2.0,
           num_consecutive_repeated_attempts_for_same_rule: 0.0,
-          num_non_consecutive_repeated_attempts_for_same_rule: 0.0
-        },
+          num_non_consecutive_repeated_attempts_for_same_rule: 0.0,
+          pct_first_attempt_optimal: 0.0,
+          pct_first_attempt_suboptimal: 1.0
+      })
+      expect(processed).to include(
         2 => {
           optimal_final_attempts: 0.0,
           session_count: 1.0,
@@ -110,12 +124,12 @@ RSpec.describe PromptFeedbackHistory, type: :model do
           final_attempt_pct_optimal: 0.0,
           final_attempt_pct_not_optimal: 1.0,
           display_name: "lorem ipsum2",
-          optimal_attempt_array: [],
           avg_attempts_to_optimal: 0.0,
           num_consecutive_repeated_attempts_for_same_rule: 0.0,
-          num_non_consecutive_repeated_attempts_for_same_rule: 0.0
-        }
-      }).to be true
+          num_non_consecutive_repeated_attempts_for_same_rule: 0.0,
+          pct_first_attempt_optimal: 0.0,
+          pct_first_attempt_suboptimal: 1.0
+      })
 
     end
 
