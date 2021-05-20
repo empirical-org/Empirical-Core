@@ -69,30 +69,35 @@ RSpec.describe PromptFeedbackHistory, type: :model do
   end
 
   describe '#promptwise_postprocessing' do 
-    it 'should format' do 
-      main_activity = create(:activity)
-      unused_activity = create(:activity)
 
-      p1 = Comprehension::Prompt.create!(
+    let(:main_activity) { create(:activity) }
+    let(:unused_activity) { create(:activity) }
+
+    let!(:p1) do
+      Comprehension::Prompt.create!(
         id: 1,
         activity: main_activity,
         text: 'lorem ipsum1',
         conjunction: Comprehension::Prompt::CONJUNCTIONS.first,
         max_attempts: 5
       )
+    end
 
-      p2 = Comprehension::Prompt.create!(
+    let!(:p2) do 
+        Comprehension::Prompt.create!(
         id: 2,
         activity: main_activity,
         text: 'lorem ipsum2',
         conjunction: Comprehension::Prompt::CONJUNCTIONS.first,
         max_attempts: 5
-      )
+        )
+    end
 
-      as1 = create(:activity_session, activity_id: main_activity.id)
-      as2 = create(:activity_session, activity_id: main_activity.id)
-      as3 = create(:activity_session, activity_id: unused_activity.id)
+    let!(:as1) { create(:activity_session, activity_id: main_activity.id) }
+    let!(:as2) { create(:activity_session, activity_id: main_activity.id) }
+    let!(:as3) { create(:activity_session, activity_id: unused_activity.id) }
 
+    it 'should format' do 
       f_h1 = create(:feedback_history, feedback_session_uid: as1.uid, attempt: 1, optimal: false, prompt_id: 1)
       f_h2 = create(:feedback_history, feedback_session_uid: as1.uid, attempt: 2, optimal: true, prompt_id: 1)
       f_h3 = create(:feedback_history, feedback_session_uid: as2.uid, attempt: 1, optimal: false, prompt_id: 2)
@@ -101,7 +106,7 @@ RSpec.describe PromptFeedbackHistory, type: :model do
 
       result = PromptFeedbackHistory.promptwise_sessions(main_activity.id)
       processed = PromptFeedbackHistory.promptwise_postprocessing(result)
-      #binding.pry
+
       expect(processed).to include(
         1 => {
           optimal_final_attempts: 1.0,
@@ -132,6 +137,8 @@ RSpec.describe PromptFeedbackHistory, type: :model do
       })
 
     end
+
+
 
   end
 
