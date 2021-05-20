@@ -85,4 +85,30 @@ RSpec.describe FeedbackHistoryRatingsController, type: :controller do
 
   end
 
+  describe "PUT #mass_mark" do
+    it "should create or update all relevant records" do
+      f_h1 = create(:feedback_history)
+      f_h2 = create(:feedback_history)
+
+      f_h_r = create(:feedback_history_rating, {
+        user_id: user.id,
+        rating: true,
+        feedback_history_id: f_h1.id
+      })
+
+      expect do
+        post :mass_mark, {
+          rating: false,
+          feedback_history_ids: [f_h1.id, f_h2.id]
+        }
+      end.to change(FeedbackHistoryRating, :count).by(1)
+      expect(FeedbackHistoryRating.find_by(
+        user_id: user.id,
+        feedback_history_id: f_h2.id
+      ).rating).to eq false
+    end
+
+
+  end
+
 end

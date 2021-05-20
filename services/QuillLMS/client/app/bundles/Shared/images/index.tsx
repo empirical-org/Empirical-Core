@@ -77,3 +77,8 @@ export const previewIcon = {
   src: `${process.env.CDN_URL}/images/icons/icons-preview.svg`,
   alt: 'Eye icon'
 }
+
+export const smallWhiteCheckIcon = {
+  src: `${process.env.CDN_URL}/images/shared/check-small-white.svg`,
+  alt: 'Check icon'
+}
