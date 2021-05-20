@@ -34,7 +34,7 @@ const ActivateModelForm = ({ match }) => {
 
   const { data: rulesData } = useQuery({
     // cache rules data for updates
-    queryKey: [`rules-${activityId}`, activityId, promptId, 'autoML'],
+    queryKey: [`rules-${activityId}`, null, promptId, 'autoML'],
     queryFn: fetchRules
   });
 
