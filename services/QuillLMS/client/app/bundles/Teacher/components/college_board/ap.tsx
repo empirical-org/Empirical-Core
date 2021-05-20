@@ -1,7 +1,7 @@
 import * as React from 'react';
 
 import QuestionsAndAnswers from '../../containers/QuestionsAndAnswers';
-import { AP_SLUG, AP_WRITINGS_SKILLS_UNIT_TEMPLATE_ID } from '../assignment_flow/assignmentFlowConstants';
+import { AP_SLUG, AP_WRITINGS_SKILLS_UNIT_TEMPLATE_ID, ELL_STARTER_DIAGNOSTIC_UNIT_TEMPLATE_ID, ELL_INTERMEDIATE_DIAGNOSTIC_UNIT_TEMPLATE_ID, ELL_ADVANCED_DIAGNOSTIC_UNIT_TEMPLATE_ID } from '../assignment_flow/assignmentFlowConstants';
 import { generateLink, getStartedButton } from '../../helpers/collegeBoard';
 import { scrollToTop } from '../../hooks/scrollToTop';
 
@@ -37,12 +37,11 @@ const Ap = ({ isPartOfAssignmentFlow, }: ApContainerProps) => {
           <img alt="Illustration of a pencil drawing a line" src="https://assets.quill.org/images/college_board/sentence-writing-pencil.svg" />
           <div className="text-container">
             <h2>Sentence-Level Writing Practice</h2>
-            <p>Identify which sentence-level skills your students need to practice with the AP Writing Skills Survey. Then, assign activities recommended for each student based on their survey responses so they can practice and improve their proficiency with those skills.</p>
+            <p>Identify which sentence-level skills your students need to practice with a skills survey. Then, assign activities recommended for each student based on their responses so they can practice and improve their proficiency with those skills.</p>
           </div>
         </div>
         <div className="activities-subheader">
           <h2>AP Writing Skills Survey</h2>
-          <div className="college-board-activity-tag">For All AP students</div>
         </div>
         <div className="activity-container">
           <div className="activity-header-container">
@@ -53,6 +52,43 @@ const Ap = ({ isPartOfAssignmentFlow, }: ApContainerProps) => {
             <p className="activity-sub-text">Students complete a seventeen-item survey to gauge their understanding of key writing skills that are essential to successful AP- and SAT-level writing. After students complete the survey, Quill will automatically recommend up to seven activity packs for each student based on their needs. Each pack contains a series of activities that each take about 15 minutes to complete and provide scaffolded, sequenced practice with one of the skills covered by the survey.</p>
             <p className="activity-sub-header">Skills</p>
             <p className="activity-sub-text">Complex Sentences; relative clauses; appositive phrases; participial phrases; parallel structure; compound-complex sentences; advanced combining</p>
+          </div>
+        </div>
+        <div className="activities-subheader" id="ell-subheader">
+          <h2>ELL Writing Skills Surveys</h2>
+          <p>If you have ELLs in your courses, you may want to consider assigning them an ELL Skills Surveys before assigning them a writing skills survey.</p>
+        </div>
+        <div className="activity-container">
+          <div className="activity-header-container">
+            <p className="activity-header" id="writing-skills-survey">ELL Starter Skills Surveys</p>
+            <a className="quill-button medium primary outlined view-button focus-on-light" href={generateLink({ isPartOfAssignmentFlow, unitTemplateId: ELL_STARTER_DIAGNOSTIC_UNIT_TEMPLATE_ID, slug: AP_SLUG })} rel="noopener noreferrer" target={isPartOfAssignmentFlow ? '' : "_blank"}>View</a>
+          </div>
+          <div className="activity-text-container">
+            <p className="activity-sub-text">ELL students complete a 22 item survey to gauge their mastery of foundational English grammar. This survey is most appropriate for students who are in the Entering or Emerging WIDA levels. After students complete the survey, Quill will automatically recommend up to five activity packs for each student based on their needs. Each pack contains a series of activities that each take about 15 minutes to complete and provide scaffolded, sequenced practice with one of the skills covered by the survey.</p>
+            <p className="activity-sub-header">Skills</p>
+            <p className="activity-sub-text">Simple verb conjugation; articles; simple subject-verb agreement; simple word order; singular and plural nouns; adjective placement</p>
+          </div>
+        </div>
+        <div className="activity-container">
+          <div className="activity-header-container">
+            <p className="activity-header" id="writing-skills-survey">ELL Intermediate Skills Surveys</p>
+            <a className="quill-button medium primary outlined view-button focus-on-light" href={generateLink({ isPartOfAssignmentFlow, unitTemplateId: ELL_INTERMEDIATE_DIAGNOSTIC_UNIT_TEMPLATE_ID, slug: AP_SLUG })} rel="noopener noreferrer" target={isPartOfAssignmentFlow ? '' : "_blank"}>View</a>
+          </div>
+          <div className="activity-text-container">
+            <p className="activity-sub-text">ELL students complete a 23 item survey to gauge their mastery of English grammar. This survey is most appropriate for students who are in the Emerging or Developing WIDA levels. After students complete the survey, Quill will automatically recommend up to six activity packs for each student based on their needs. Each pack contains a series of activities that each take about 15 minutes to complete and provide scaffolded, sequenced practice with one of the skills covered by the survey.</p>
+            <p className="activity-sub-header">Skills</p>
+            <p className="activity-sub-text">Subject-verb agreement; singular possessive nouns; possessive pronouns; prepositions; future tense; articles; intermediate questions</p>
+          </div>
+        </div>
+        <div className="activity-container">
+          <div className="activity-header-container">
+            <p className="activity-header" id="writing-skills-survey">ELL Advanced Skills Surveys</p>
+            <a className="quill-button medium primary outlined view-button focus-on-light" href={generateLink({ isPartOfAssignmentFlow, unitTemplateId: ELL_ADVANCED_DIAGNOSTIC_UNIT_TEMPLATE_ID, slug: AP_SLUG })} rel="noopener noreferrer" target={isPartOfAssignmentFlow ? '' : "_blank"}>View</a>
+          </div>
+          <div className="activity-text-container">
+            <p className="activity-sub-text">ELL students complete a 23 item survey to gauge their mastery of English grammar, specifically in areas that are challenging for non-native English speakers. This survey is most appropriate for students who are in the Developing or Expanding WIDA levels. After students complete the survey, Quill will automatically recommend up to five activity packs for each student based on their needs. Each pack contains a series of activities that each take about 15 minutes to complete and provide scaffolded, sequenced practice with one of the skills covered by the survey.</p>
+            <p className="activity-sub-header">Skills</p>
+            <p className="activity-sub-text">Regular and irregular past tense; progressive tenses; phrasal verbs; choosing between prepositions; responding to questions; commonly confused words</p>
           </div>
         </div>
       </div>

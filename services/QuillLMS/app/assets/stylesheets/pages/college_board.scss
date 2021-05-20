@@ -143,6 +143,16 @@
           margin-right: 10px;
         }
       }
+      #ell-subheader {
+        flex-direction: column;
+        align-items: flex-start;
+        h2 {
+          margin-bottom: 8px;
+        }
+        p {
+          max-width: 735px;
+        }
+      }
       .activity-container {
         margin-bottom: 20px;
         border-radius: 6px;

@@ -2,8 +2,20 @@ import React from 'react'
 
 const ap = () => [
   {
+    question: 'What is Quill.org?',
+    answer: <p>Quill is a writing tool that provides over 700 writing, grammar, and proofreading activities designed to engage students in the writing process. Quill provides practice in many areas of sentence writing, from comma placement and subject-verb agreement to the use of conjunctions to convey complex relationships between ideas. In the Quill Connect tool, students practice writing different types of sentences using the evidence-based strategy of sentence combining. Students receive specific, targeted feedback on their writing that they can use to revise their work. Through these activities, students practice writing a variety of sophisticated sentences and practice conveying complex ideas in clear, succinct, and grammatically strong ways. Most activities are designed to be completed in 10-15 minutes so that you have the freedom to use them in the way that works best for your classroom.</p>
+  },
+  {
+    question: 'For which AP courses is this practice most relevant?',
+    answer:<p>Students in any AP course can benefit from the practice recommended by Quill&apos;s AP Writing Skills Survey, but the practice is probably of greatest interest to teachers of AP English Language and Composition and AP English Literature and Composition.</p>
+  },
+  {
     question: 'What is the AP Writing Skills Survey?',
     answer: <p>The AP Writing Skills Survey is a survey with 17 questions on a range of writing skills. The questions ask students to combine sentences, sometimes with a direction to use a specific strategy, and sometimes without any direction (other than to combine).</p>
+  },
+  {
+    question: 'Is a writing skills survey different than a diagnostic?',
+    answer: <p>Quill&apos;s writing skills surveys can be used in lieu of Quill&apos;s general diagnostics. For example, an AP teacher would likely assign the AP Writing Skills Survey in lieu of the Advanced Diagnostic. Keep in mind, however, that teachers may want ELL students in AP courses to begin with one of the ELL Diagnostics instead of a writing skills survey. <a href="ttps://support.quill.org/en/articles/2554430-what-are-the-differences-between-the-various-diagnostic-assessments">This article explains the differences between Quill’s various diagnostics and surveys in more depth</a></p>
   },
   {
     question: 'What does the Survey assess?',
@@ -12,10 +24,6 @@ const ap = () => [
   {
     question: 'Who developed the AP Writing Skills Survey?',
     answer: <p className="college-board-q-and-a-text">Quill.org worked with the <a href="https://www.collegeboard.org/">College Board</a> to develop this Survey and the AP Writing Practice activity packs that will be recommended based on your students&apos; performance.</p>
-  },
-  {
-    question: 'Who is the Survey for?',
-    answer: <p>The Survey was designed for students in <a href="https://apcentral.collegeboard.org/courses/ap-course-audit/explore-by-role/teachers">Advanced Placement</a> courses. Please note, however, that students&apos; performance on the Survey will only be recorded if it is assigned to them by their teacher.</p>
   },
   {
     question: 'How long does the Survey take?',
@@ -52,12 +60,11 @@ const ap = () => [
     answer: <p>Yes! From anywhere and at any time! Again though, please note that recommendations of the AP Writing Packs are generated after students complete the AP Writing Skills Survey. Please also note that students&apos; performance on the AP Writing Practice packs will only be recorded if they are assigned to them by their teacher.</p>
   },
   {
-    question: 'How many activities are in each AP Writing Practice pack and how long will it take students to complete them?',
+    question: 'How many activities are in each AP Writing Practice pack?',
     answer: (
       <div>
-        <p className="college-board-q-and-a-text">All of the above packs contain between 4 and 7 activities, each of which are designed to take between 10 and 15 minutes each.</p>
-        <p className="college-board-q-and-a-text">The only exception is the <a href="https://www.quill.org/activities/packs/142">AP Writing - Advanced Combining pack</a>, which contains 15 activities. This pack contains more activities than the others as it was designed to serve as a large bank of activities for students who perform well on the Survey and don’t get a lot of recommendations. This way, you can still assign these students activities, which are quite challenging and will sustain them for a while. These are great for students who have had success with individual practice of strategies covered in the Survey, and would benefit from an opportunity to apply those strategies in combining activities without suggestions or direction.</p>
-        <p className="college-board-q-and-a-text">Teacher Tip: When you select a recommended pack, you can <a href="https://support.quill.org/en/articles/1137376-can-i-remove-activities-or-assignments-from-my-activity-packs">remove any activities within it</a>. And once it&apos;s assigned, you can add activities to the pack as well.</p>
+        <p className="college-board-q-and-a-text">Each AP recommended pack* contains between 4 and 7 activities, each of which are designed to take between 10 and 15 minutes each.</p>
+        <p className="college-board-q-and-a-text">Please note that the activities in the <a href="https://www.quill.org/activities/packs/142">AP Writing - Advanced Combining pack</a> are different as they are all uncued, meaning the feedback does not direct students to combine in a particular way. These are great for students who are ready to apply the strategies covered in the survey without suggestions or direction.</p>
       </div>
     )
   },
@@ -79,8 +86,14 @@ const ap = () => [
     answer: <p>Quill has a variety of reports to help you track your students&apos; performance and progress. In the <a href="https://support.quill.org/en/articles/1140159-how-does-the-activity-summary-work">Activity Summary report</a>, you can quickly see which activities your students have completed, along with color-coded icons indicating their proficiency with each activity. Quill has several other reports as well. <a href="https://s3.amazonaws.com/quill-image-uploads/uploads/files/Quill_Reports_Cheat_Sheet_Updated04_08_20.pdf">This Cheat Sheet</a> shows you which report to go to for particular information, and <a href="https://s3.amazonaws.com/quill-image-uploads/uploads/files/Getting_Started_-_Student_Data_Reports__Basic_.mp4">this video</a> will walk you through interpreting and utilizing three of Quill&apos;s student data reports.</p>
   },
   {
-    question: 'How many AP Writing Practice packs should I assign to my students?',
-    answer: <p>You can assign all the recommended practice at once, or you can pick and choose the ones that best fit your instructional and students’ needs. Since most of the AP Writing Practice packs contain between 4 and 7 activities, we suggest expecting students to complete about 1 pack a week. <a href="https://support.quill.org/en/articles/1065187-how-can-i-assign-activities-in-a-specific-order">This article</a> explains how you can use deadlines to help students pace themselves.</p>
+    question: 'How many AP Writing Practice packs should I assign to my students and how long will it take them to complete a pack?',
+    answer: (
+      <div>
+        <p>You can assign all the recommended packs in one click, or you can pick and choose, revisiting the recommendations report to assign more packs as needed.</p>
+        <p>As Quill was designed to be a supplementary tool with each activity taking approximately 10-15 minutes, students are ideally completing an activity at least 1-2 times per week (at most completing one activity per day). Since each AP recommended pack contains between 4 and 7 activities, teachers generally expect a recommended pack to be completed in 1-2 weeks. Of course, students may need more or less time depending on the amount of activities in the pack, their level of difficulty, and students&apos; level of proficiency.</p>
+        <p><a href="https://support.quill.org/en/articles/1065187-can-i-assign-activities-in-a-specific-order">This article</a> explains how you can use deadlines to help students pace themselves.</p>
+      </div>
+    )
   },
   {
     question: 'If my students have been using Quill for a while, will they encounter activities in the AP Writing Practice packs that they have completed before?',
@@ -103,12 +116,10 @@ const ap = () => [
     question: 'What if I still have questions?',
     answer: (
       <div>
-        <p className="college-board-q-and-a-text"><strong><a href="https://www.quill.org/teacher-center">Teacher Center:</a></strong> Browse additional resources and more information about how to use Quill.</p>
-        <p className="college-board-q-and-a-text"><strong>Quill Support:</strong> Email <a href="mailto:support@quill.org">support@quill.org</a> (Be sure to mention that you’re an AP teacher!</p>
-        <p className="college-board-q-and-a-text"><strong>Quill Support Chat:</strong> While you’re on Quill.org, you can use the chat bubble in the lower right side of your screen to connect with a member of the Quill support team. (Again, be sure to mention that you’re an AP teacher!)</p>
-        <p className="college-board-q-and-a-text"><strong>Quill Instructional Coach:</strong> You can reach out directly to Sherry Lewkowicz, one of our Senior Instructional Coaches focused on Quill’s work with the College Board, at <a href="mailto:sherry@quill.org">sherry@quill.org</a> (Again, be sure to mention that you’re an AP teacher!)</p>
-        <p className="college-board-q-and-a-text"><strong>Quill Phone Number:</strong> (510) 671-0222</p>
-        <p className="college-board-q-and-a-text">We are always happy to help!</p>
+        <p>We are here for you! The following resources are available:</p>
+        <p className="college-board-q-and-a-text"><strong>Quill Instructional Coach:</strong> You can reach out directly to Sherry Lewkowicz, Quill&apos;s coach dedicated to supporting College Board teachers, at <a href="mailto:sherry@quill.org">sherry@quill.org</a> Be sure to mention the course(s) you teach.</p>
+        <p className="college-board-q-and-a-text"><strong><a href="https://www.quill.org/teacher-center">Teacher Center:</a></strong> The place to go for all things best practice and implementation!</p>
+        <p className="college-board-q-and-a-text"><strong>Support:</strong> Having a technical issue? Email <a href="mailto:support@quill.org">support@quill.org</a> or use the chat in the lower right corner of Quill to connect with a member of the Quill support team.</p>
         <p className="college-board-q-and-a-text">AP® is a registered trademark of the College Board.</p>
       </div>
     )
