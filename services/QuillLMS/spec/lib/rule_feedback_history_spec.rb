@@ -107,7 +107,7 @@ RSpec.describe RuleFeedbackHistory, type: :model do
         # feedback_histories
         f_h1 = create(:feedback_history, rule_uid: so_rule1.uid, entry: "f_h1 lorem")
         f_h2 = create(:feedback_history, rule_uid: so_rule1.uid, entry: "f_h2 ipsum")
-
+        
         #feedback ratings
         f_rating_1a = FeedbackHistoryRating.create!(feedback_history_id: f_h1.id, user_id: user1.id, rating: true)
         f_rating_1b = FeedbackHistoryRating.create!(feedback_history_id: f_h1.id, user_id: user2.id, rating: false)
@@ -164,7 +164,7 @@ RSpec.describe RuleFeedbackHistory, type: :model do
       f_h1 = create(:feedback_history, rule_uid: so_rule1.uid, prompt_id: 1)
       f_h2 = create(:feedback_history, rule_uid: so_rule1.uid, prompt_id: 1)
       f_h3 = create(:feedback_history, rule_uid: unused_rule.uid, prompt_id: 1)
-
+      
       result = RuleFeedbackHistory.generate_rulewise_report(
         rule_uid: so_rule1.uid,
         prompt_id: 1)
@@ -181,13 +181,14 @@ RSpec.describe RuleFeedbackHistory, type: :model do
 
     end
 
-    it 'should filter feedback histories by prompt id' do
-      so_rule1 = rule_factory { { name: 'so_rule1', rule_type: 'autoML'} }
-      unused_rule = rule_factory { { name: 'unused', rule_type: 'autoML'} }
+    it 'should filter feedback histories by prompt id and used=true' do 
+      so_rule1 = rule_factory { { name: 'so_rule1', rule_type: 'autoML'} } 
+      unused_rule = rule_factory { { name: 'unused', rule_type: 'autoML'} } 
 
       f_h1 = create(:feedback_history, rule_uid: so_rule1.uid)
       f_h2 = create(:feedback_history, rule_uid: so_rule1.uid, prompt_id: 1)
       f_h3 = create(:feedback_history, rule_uid: unused_rule.uid)
+      f_h4 = create(:feedback_history, rule_uid: so_rule1.uid, prompt_id: 1, used: false)
 
       result = RuleFeedbackHistory.generate_rulewise_report(
         rule_uid: so_rule1.uid,
@@ -205,11 +206,10 @@ RSpec.describe RuleFeedbackHistory, type: :model do
       ).to be true
 
     end
-
-
-    it 'should display the most recent feedback history rating, if it exists' do
-      so_rule1 = rule_factory { { name: 'so_rule1', rule_type: 'autoML'} }
-      unused_rule = rule_factory { { name: 'unused', rule_type: 'autoML'} }
+    
+    it 'should display the most recent feedback history rating, if it exists' do 
+      so_rule1 = rule_factory { { name: 'so_rule1', rule_type: 'autoML'} } 
+      unused_rule = rule_factory { { name: 'unused', rule_type: 'autoML'} } 
 
       # users
       user1 = create(:user)
