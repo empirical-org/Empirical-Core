@@ -1,4 +1,4 @@
-import proficiency_cutoffs from '../../../app/lib/data/proficiency_cutoffs.json';
+import proficiency_cutoffs from '../../../lib/proficiency_cutoffs.json';
 
 export function proficiencyCutoffsAsPercentage() {
   return (
