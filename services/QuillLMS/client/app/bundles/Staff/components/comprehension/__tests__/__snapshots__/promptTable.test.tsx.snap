@@ -45,18 +45,24 @@ exports[`PromptTable component should render PromptTable 1`] = `
         Object {
           "attribute": "results",
           "name": "Results",
-          "width": "500px",
+          "width": "800px",
         },
         Object {
           "attribute": "feedback",
           "name": "Feedback Type",
-          "width": "100px",
+          "width": "120px",
+        },
+        Object {
+          "attribute": "buttons",
+          "name": "",
+          "width": "120px",
         },
       ]
     }
     rows={
       Array [
         Object {
+          "id": "undefined:0:attempt",
           "results": <div>
             <b />
             <p
@@ -68,8 +74,34 @@ exports[`PromptTable component should render PromptTable 1`] = `
           "status": "1st Attempt",
         },
         Object {
+          "buttons": <div
+            className="strength-buttons"
+          >
+            <button
+              className="strength-button"
+              onClick={[Function]}
+              type="button"
+            >
+              Strong
+            </button>
+            <button
+              className="strength-button"
+              onClick={[Function]}
+              type="button"
+            >
+              Weak
+            </button>
+          </div>,
           "className": "sub-optimal",
-          "feedback": "",
+          "feedback": <ForwardRef
+            className="data-link"
+            rel="noopener noreferrer"
+            target="_blank"
+            to="/activities/undefined/rules-analysis/undefined/rule/undefined/prompt/undefined"
+          >
+            :
+          </ForwardRef>,
+          "id": "undefined:0:feedback",
           "results": undefined,
           "status": "1st Feedback",
         },

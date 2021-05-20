@@ -30,13 +30,19 @@ const mockProps = {
     max_attempts: 5,
     max_attempts_feedback: 'good try!'
   },
-  showHeader: false
+  showHeader: false,
+  sessionId: '3q7dvhjhas'
 }
 
 describe('PromptTable component', () => {
   const container = shallow(<PromptTable {...mockProps} />);
 
   it('should render PromptTable', () => {
+    const attributes = ['status', 'results', 'feedback', 'buttons']
     expect(container).toMatchSnapshot();
+    container.find('DataTable').props().headers.forEach((header, i) => {
+      const { attribute } = header;
+      expect(attributes[i]).toEqual(attribute);
+    })
   });
 });
