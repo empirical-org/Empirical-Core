@@ -20,7 +20,7 @@ RSpec.describe RuleFeedbackHistory, type: :model do
       }.merge(yield)
     )
   end
-
+ 
   describe '#generate_report' do
     it 'should format' do
       # activities
@@ -166,7 +166,7 @@ RSpec.describe RuleFeedbackHistory, type: :model do
       f_h3 = create(:feedback_history, rule_uid: unused_rule.uid, prompt_id: 1)
 
       result = RuleFeedbackHistory.generate_rulewise_report(
-        rule_uid: so_rule1.uid, 
+        rule_uid: so_rule1.uid,
         prompt_id: 1)
 
       expect(result.keys.length).to eq 1
@@ -181,35 +181,35 @@ RSpec.describe RuleFeedbackHistory, type: :model do
 
     end
 
-    it 'should filter feedback histories by prompt id' do 
-      so_rule1 = rule_factory { { name: 'so_rule1', rule_type: 'autoML'} } 
-      unused_rule = rule_factory { { name: 'unused', rule_type: 'autoML'} } 
+    it 'should filter feedback histories by prompt id' do
+      so_rule1 = rule_factory { { name: 'so_rule1', rule_type: 'autoML'} }
+      unused_rule = rule_factory { { name: 'unused', rule_type: 'autoML'} }
 
       f_h1 = create(:feedback_history, rule_uid: so_rule1.uid)
       f_h2 = create(:feedback_history, rule_uid: so_rule1.uid, prompt_id: 1)
       f_h3 = create(:feedback_history, rule_uid: unused_rule.uid)
 
       result = RuleFeedbackHistory.generate_rulewise_report(
-        rule_uid: so_rule1.uid, 
+        rule_uid: so_rule1.uid,
         prompt_id: 1
       )
 
       expect(result.keys.length).to eq 1
-      expect(result.keys.first.to_s).to eq so_rule1.uid 
-      
+      expect(result.keys.first.to_s).to eq so_rule1.uid
+
       responses = result[so_rule1.uid.to_sym][:responses]
 
       response_ids = responses.map {|r| r[:response_id]}
       expect(
         Set[*response_ids] == Set[f_h2.id]
       ).to be true
- 
+
     end
 
 
-    it 'should display the most recent feedback history rating, if it exists' do 
-      so_rule1 = rule_factory { { name: 'so_rule1', rule_type: 'autoML'} } 
-      unused_rule = rule_factory { { name: 'unused', rule_type: 'autoML'} } 
+    it 'should display the most recent feedback history rating, if it exists' do
+      so_rule1 = rule_factory { { name: 'so_rule1', rule_type: 'autoML'} }
+      unused_rule = rule_factory { { name: 'unused', rule_type: 'autoML'} }
 
       # users
       user1 = create(:user)
@@ -246,6 +246,23 @@ RSpec.describe RuleFeedbackHistory, type: :model do
 
       expect(rated_response[:strength]).to eq true
 
+    end
+  end
+
+  describe '#feedback_history_to_json' do
+    it 'should render feedback history to json object' do
+      so_rule = rule_factory { { name: 'so_rule', rule_type: 'autoML'} }
+      f_h = create(:feedback_history, rule_uid: so_rule.uid, prompt_id: 1)
+      result = RuleFeedbackHistory.feedback_history_to_json(f_h)
+      expected = {
+        response_id: f_h.id,
+        datetime: f_h.updated_at,
+        entry: f_h.entry,
+        highlight: f_h.metadata.class == Hash ? f_h.metadata['highlight'] : '',
+        session_uid: f_h.feedback_session_uid,
+        strength: f_h.feedback_history_ratings.order(updated_at: :desc).first&.rating
+      }
+      expect(result).to eq expected
     end
   end
 

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20210429144611) do
+ActiveRecord::Schema.define(version: 20210511160025) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -135,7 +135,7 @@ ActiveRecord::Schema.define(version: 20210429144611) do
     t.boolean  "universal",   null: false
     t.string   "rule_type",   null: false
     t.boolean  "optimal",     null: false
-    t.text     "suborder"
+    t.integer  "suborder"
     t.string   "concept_uid"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
