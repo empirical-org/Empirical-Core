@@ -29,40 +29,54 @@ class PromptFeedbackHistory
         prompts = Comprehension::Prompt.where(id: grouped_feedback_histories.map(&:prompt_id))
    
         grouped_feedback_histories.each do |prompt_session|
-            prompt_id = prompt_session.prompt_id
+            prompt_id = prompt_session.prompt_id.to_s.to_sym
 
             prompt_hash[prompt_id] ||= {
-                optimal_final_attempts: 0.0, 
+
                 total_responses: 0.0,
                 session_count: 0.0, 
-                final_attempt_pct_optimal: 0.0,
-                final_attempt_pct_not_optimal: 0.0,
-                avg_attempts_to_optimal: 0.0,
                 optimal_attempt_array: [],
                 display_name: '',
-                num_consecutive_repeated_attempts_for_same_rule: 0,
-                num_non_consecutive_repeated_attempts_for_same_rule: 0,
-                num_first_attempt_optimal: 0
+
+                pct_final_attempt_optimal: 0.0,
+                pct_final_attempt_not_optimal: 0.0,
+                num_final_attempt_optimal: 0.0,
+                num_final_attempt_not_optimal: 0.0,
+
+                avg_attempts_to_optimal: 0.0,
+
+                num_consecutive_repeated_attempts_for_same_rule: 0.0,
+                num_non_consecutive_repeated_attempts_for_same_rule: 0.0,
+                pct_consecutive_repeated_attempts_for_same_rule: 0.0,
+                pct_non_consecutive_repeated_attempts_for_same_rule: 0.0,
+
+                num_first_attempt_optimal: 0.0,
+                num_first_attempt_not_optimal: 0.0,
+                pct_first_attempt_optimal: 0.0,
+                pct_first_attempt_not_optimal: 0.0
             }
-            prompt_hash[prompt_id][:display_name] = prompts.find(prompt_id).text
+
+            prompt_hash[prompt_id][:display_name] = prompts.find(prompt_session.prompt_id).text
 
             if first_attempt_optimal?(prompt_session.attempts, prompt_session.optimals)
               prompt_hash[prompt_id][:num_first_attempt_optimal] += 1
+            else 
+              prompt_hash[prompt_id][:num_first_attempt_not_optimal] += 1 
             end
 
             if has_consecutive_repeated_rule?(prompt_session.attempts, prompt_session.rule_uids)
               prompt_hash[prompt_id][:num_consecutive_repeated_attempts_for_same_rule] += 1
             end 
 
-            
-
             if has_non_consecutive_repeated_rule?(prompt_session.rule_uids)
               prompt_hash[prompt_id][:num_non_consecutive_repeated_attempts_for_same_rule] += 1
             end 
 
             if prompt_session.at_least_one_optimal
-              prompt_hash[prompt_id][:optimal_final_attempts] += 1
+              prompt_hash[prompt_id][:num_final_attempt_optimal] += 1
               prompt_hash[prompt_id][:optimal_attempt_array].append prompt_session.attempt_cardinal
+            else 
+              prompt_hash[prompt_id][:num_final_attempt_not_optimal] += 1
             end
 
             prompt_hash[prompt_id][:total_responses] += prompt_session.session_count
@@ -72,32 +86,32 @@ class PromptFeedbackHistory
     end
 
     def self.apply_summations(prompt_hash)
-      #binding.pry
       prompt_hash.each do |k,v|
-        if v[:optimal_final_attempts] == 0
+        session_count = prompt_hash[k][:session_count].to_f
+
+        if v[:num_final_attempt_optimal] == 0
           prompt_hash[k][:avg_attempts_to_optimal] = 0.0
         else 
-          prompt_hash[k][:avg_attempts_to_optimal] = v[:optimal_attempt_array].sum / v[:optimal_final_attempts].to_f
+          prompt_hash[k][:avg_attempts_to_optimal] = v[:optimal_attempt_array].sum / v[:num_final_attempt_optimal].to_f
         end
 
-        prompt_hash[k][:num_consecutive_repeated_attempts_for_same_rule] = \
+         prompt_hash[k][:num_consecutive_repeated_attempts_for_same_rule] = \
           v[:num_consecutive_repeated_attempts_for_same_rule] / v[:session_count].to_f
 
         prompt_hash[k][:num_non_consecutive_repeated_attempts_for_same_rule] = \
           v[:num_non_consecutive_repeated_attempts_for_same_rule] / v[:session_count].to_f
 
-        prompt_hash[k][:final_attempt_pct_optimal] = \
-          prompt_hash[k][:optimal_final_attempts] / prompt_hash[k][:session_count].to_f      
+        prompt_hash[k][:pct_final_attempt_optimal] = \
+          prompt_hash[k][:num_final_attempt_optimal] / session_count      
 
-        prompt_hash[k][:final_attempt_pct_not_optimal] = \
-          (prompt_hash[k][:session_count] - prompt_hash[k][:optimal_final_attempts]) / prompt_hash[k][:session_count].to_f 
-
-        prompt_hash[k][:pct_first_attempt_optimal] = v[:num_first_attempt_optimal] / prompt_hash[k][:session_count].to_f
-        prompt_hash[k][:pct_first_attempt_suboptimal] = (prompt_hash[k][:session_count] - v[:num_first_attempt_optimal]) / prompt_hash[k][:session_count].to_f
+        prompt_hash[k][:pct_final_attempt_not_optimal] = \
+          prompt_hash[k][:num_final_attempt_not_optimal] / session_count
+          
+        prompt_hash[k][:pct_first_attempt_optimal] = v[:num_first_attempt_optimal] / session_count
+        prompt_hash[k][:pct_first_attempt_not_optimal] = v[:num_first_attempt_not_optimal] / session_count
         
         v.delete_if {|k,v| k == :optimal_attempt_array}
         v.delete_if {|k,v| k == :num_first_attempt_optimal}
-
       end
 
       prompt_hash

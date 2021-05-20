@@ -107,39 +107,45 @@ RSpec.describe PromptFeedbackHistory, type: :model do
       result = PromptFeedbackHistory.promptwise_sessions(main_activity.id)
       processed = PromptFeedbackHistory.promptwise_postprocessing(result)
 
-      expect(processed).to include(
-        1 => {
-          optimal_final_attempts: 1.0,
-          session_count: 1.0,
+      first_prompt = processed[:"1"]
+      second_prompt = processed[:"2"]
+
+      expect(first_prompt).to include(
+        {
           total_responses: 2.0,
-          final_attempt_pct_optimal: 1.0,
-          final_attempt_pct_not_optimal: 0.0,
+          session_count: 1.0,
           display_name: "lorem ipsum1",
+
+          pct_final_attempt_optimal: 1.0,
+          pct_final_attempt_not_optimal: 0.0,
+
           avg_attempts_to_optimal: 2.0,
-          num_consecutive_repeated_attempts_for_same_rule: 0.0,
-          num_non_consecutive_repeated_attempts_for_same_rule: 0.0,
+
+          pct_consecutive_repeated_attempts_for_same_rule: 0.0,
+          pct_non_consecutive_repeated_attempts_for_same_rule: 0.0,
+
           pct_first_attempt_optimal: 0.0,
-          pct_first_attempt_suboptimal: 1.0
-      })
-      expect(processed).to include(
-        2 => {
-          optimal_final_attempts: 0.0,
-          session_count: 1.0,
+          pct_first_attempt_not_optimal: 1.0
+        })
+      expect(second_prompt).to include(
+        {
           total_responses: 2.0,
-          final_attempt_pct_optimal: 0.0,
-          final_attempt_pct_not_optimal: 1.0,
+          session_count: 1.0,
           display_name: "lorem ipsum2",
+
+          pct_final_attempt_optimal: 0.0,
+          pct_final_attempt_not_optimal: 1.0,
+
           avg_attempts_to_optimal: 0.0,
-          num_consecutive_repeated_attempts_for_same_rule: 0.0,
-          num_non_consecutive_repeated_attempts_for_same_rule: 0.0,
+
+          pct_consecutive_repeated_attempts_for_same_rule: 0.0,
+          pct_non_consecutive_repeated_attempts_for_same_rule: 0.0,
+
           pct_first_attempt_optimal: 0.0,
-          pct_first_attempt_suboptimal: 1.0
-      })
+          pct_first_attempt_not_optimal: 1.0
+        })
 
     end
 
-
-
   end
-
 end
