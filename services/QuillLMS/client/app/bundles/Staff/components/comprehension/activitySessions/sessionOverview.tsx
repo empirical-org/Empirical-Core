@@ -6,7 +6,6 @@ import PromptTable from './promptTable';
 import { DataTable, Error, Spinner } from '../../../../Shared/index';
 import { getPromptForActivitySession } from "../../../helpers/comprehension";
 import { BECAUSE, BUT, SO } from '../../../../../constants/comprehension';
-import { session } from "../../../../Grammar/components/grammarActivities/__tests__/data";
 
 const SessionOverview = ({ activity, sessionData }) => {
 
