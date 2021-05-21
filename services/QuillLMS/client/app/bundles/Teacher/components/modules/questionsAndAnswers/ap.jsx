@@ -6,24 +6,16 @@ const ap = () => [
     answer: <p>Quill is a writing tool that provides over 700 writing, grammar, and proofreading activities designed to engage students in the writing process. Quill provides practice in many areas of sentence writing, from comma placement and subject-verb agreement to the use of conjunctions to convey complex relationships between ideas. In the Quill Connect tool, students practice writing different types of sentences using the evidence-based strategy of sentence combining. Students receive specific, targeted feedback on their writing that they can use to revise their work. Through these activities, students practice writing a variety of sophisticated sentences and practice conveying complex ideas in clear, succinct, and grammatically strong ways. Most activities are designed to be completed in 10-15 minutes so that you have the freedom to use them in the way that works best for your classroom.</p>
   },
   {
-    question: 'For which AP courses is this practice most relevant?',
-    answer:<p>Students in any AP course can benefit from the practice recommended by Quill&apos;s AP Writing Skills Survey, but the practice is probably of greatest interest to teachers of AP English Language and Composition and AP English Literature and Composition.</p>
-  },
-  {
     question: 'What is the AP Writing Skills Survey?',
     answer: <p>The AP Writing Skills Survey is a survey with 17 questions on a range of writing skills. The questions ask students to combine sentences, sometimes with a direction to use a specific strategy, and sometimes without any direction (other than to combine).</p>
   },
   {
+    question: 'For which AP courses is this practice most relevant?',
+    answer:<p>Students in any AP course can benefit from the practice recommended by Quill&apos;s AP Writing Skills Survey, but the practice is probably of greatest interest to teachers of AP English Language and Composition and AP English Literature and Composition.</p>
+  },
+  {
     question: 'Is a writing skills survey different than a diagnostic?',
     answer: <p>Quill&apos;s writing skills surveys can be used in lieu of Quill&apos;s general diagnostics. For example, an AP teacher would likely assign the AP Writing Skills Survey in lieu of the Advanced Diagnostic. Keep in mind, however, that teachers may want ELL students in AP courses to begin with one of the ELL Diagnostics instead of a writing skills survey. <a href="ttps://support.quill.org/en/articles/2554430-what-are-the-differences-between-the-various-diagnostic-assessments" rel="noopener noreferrer" target="_blank">This article explains the differences between Quill’s various diagnostics and surveys in more depth</a></p>
-  },
-  {
-    question: 'What does the Survey assess?',
-    answer: <p>The Survey assesses students’ proficiency in constructing sentences with relative clauses, appositive phrases, participial phrases, and parallel structure, as well as their general ability to do advanced sentence combining, and to write complex and compound-complex sentences.</p>
-  },
-  {
-    question: 'Who developed the AP Writing Skills Survey?',
-    answer: <p className="college-board-q-and-a-text">Quill.org worked with the <a href="https://www.collegeboard.org/" rel="noopener noreferrer" target="_blank">College Board</a> to develop this Survey and the AP Writing Practice activity packs that will be recommended based on your students&apos; performance.</p>
   },
   {
     question: 'How long does the Survey take?',

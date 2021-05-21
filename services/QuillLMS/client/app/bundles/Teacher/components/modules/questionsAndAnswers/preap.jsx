@@ -37,6 +37,28 @@ const preap = () => [
     )
   },
   {
+    question: 'Is a writing skills survey different than a diagnostic?',
+    answer: <p>Quill&apos;s writing skills surveys can be used in lieu of Quill&apos;s general diagnostics. For example, an AP teacher would likely assign the AP Writing Skills Survey in lieu of the Advanced Diagnostic. Keep in mind, however, that teachers may want ELL students in Pre-AP, AP, or SpringBoard courses to begin with one of the ELL Diagnostics instead of a writing skills survey. <a href="https://support.quill.org/en/articles/2554430-what-are-the-differences-between-the-various-diagnostic-assessments" rel="noopener noreferrer" target="_blank">This article explains the differences between Quill’s various diagnostics and surveys in more depth</a>.</p>
+  },
+  {
+    question: 'How many activities are in each Pre-AP Writing Practice pack?',
+    answer: <p>Each Pre-AP recommended pack contains between 4 and 7 activities, each of which are designed to take between 10 and 15 minutes each. There are also additional practice packs for students who finish the Pre-AP recommended packs: same skills, new content. <a href="https://support.quill.org/en/articles/4579893-how-do-i-assign-additional-practice-packs-for-pre-ap-skills-surveys" rel="noopener noreferrer" target="_blank">Learn how to find and assign those here.</a></p>
+  },
+  {
+    question: 'How many Pre-AP Writing Practice packs should I assign to my students and how long will it take them to complete a pack?',
+    answer: (
+      <div>
+        <p>You can assign all the recommended packs in one click, or you can pick and choose, revisiting the recommendations report to assign more packs as needed.</p>
+        <p>In general, we&apos;ve found that students make progress when they are completing 2-4 activities on Quill per week. Since each Pre-AP recommended pack contains between 4 and 7 activities, teachers generally expect a recommended pack to be completed in 1-2 weeks. Of course, students may need more or less time depending on the amount of activities in the pack, their level of difficulty, and students&apos; level of proficiency. </p>
+        <p><a href="https://support.quill.org/en/articles/1065187-can-i-assign-activities-in-a-specific-order" rel="noopener noreferrer" target="_blank">This article</a> explains how you can use deadlines to help students pace themselves. </p>
+      </div>
+    )
+  },
+  {
+    question: "Where can I track my students' completion of and performance on Quill activities?",
+    answer: <p>Quill has a variety of reports to help you track your students&apos; performance and progress. In the <a href="https://support.quill.org/en/articles/1140159-how-does-the-activity-summary-work" rel="noopener noreferrer" target="_blank">Activity Summary report</a>, you can quickly see which activities your students have completed, along with color-coded icons indicating proficiency. Quill has several other reports as well. <a href="http://s3.amazonaws.com/quill-image-uploads/uploads/files/Quill_Reports_Cheat_Sheet_Updated04_08_20.pdf" rel="noopener noreferrer" target="_blank">This cheat sheet</a> shows you which report to go to for particular information, and <a href="http://s3.amazonaws.com/quill-image-uploads/uploads/files/Getting_Started_-_Student_Data_Reports__Basic_.mp4" rel="noopener noreferrer" target="_blank">this video will walk you through 3 of Quill&apos;s student data reports</a>.</p>
+  },
+  {
     question: 'What tools does Quill.org offer?',
     answer: (
       <div>
@@ -67,42 +89,20 @@ const preap = () => [
     )
   },
   {
-    question: 'Is a writing skills survey different than a diagnostic?',
-    answer: <p>Quill&apos;s writing skills surveys can be used in lieu of Quill&apos;s general diagnostics. For example, an AP teacher would likely assign the AP Writing Skills Survey in lieu of the Advanced Diagnostic. Keep in mind, however, that teachers may want ELL students in Pre-AP, AP, or SpringBoard courses to begin with one of the ELL Diagnostics instead of a writing skills survey. <a href="https://support.quill.org/en/articles/2554430-what-are-the-differences-between-the-various-diagnostic-assessments" rel="noopener noreferrer" target="_blank">This article explains the differences between Quill’s various diagnostics and surveys in more depth</a>.</p>
+    question: 'I see there are passage-aligned activities for Pre-AP English I. Are there passage-aligned activities for other Pre-AP courses?',
+    answer: <p>Unfortunately, at this time, there are no sentence combining activities aligned to texts in Pre-AP courses other than English I. If you would like to see activities like these for another course, please us know <a href="https://quillorg.canny.io/content-feedback" rel="noopener noreferrer" target="_blank">here</a>!</p>
   },
   {
-    question: 'How many activities are in each Pre-AP Writing Practice pack?',
-    answer: <p>Each Pre-AP recommended pack contains between 4 and 7 activities, each of which are designed to take between 10 and 15 minutes each. There are also additional practice packs for students who finish the Pre-AP recommended packs: same skills, new content. <a href="https://support.quill.org/en/articles/4579893-how-do-i-assign-additional-practice-packs-for-pre-ap-skills-surveys" rel="noopener noreferrer" target="_blank">Learn how to find and assign those here.</a></p>
-  },
-  {
-    question: 'How many Pre-AP Writing Practice packs should I assign to my students and how long will it take them to complete a pack?',
+    question: 'What if I still have questions?',
     answer: (
       <div>
-        <p>You can assign all the recommended packs in one click, or you can pick and choose, revisiting the recommendations report to assign more packs as needed.</p>
-        <p>In general, we&apos;ve found that students make progress when they are completing 2-4 activities on Quill per week. Since each Pre-AP recommended pack contains between 4 and 7 activities, teachers generally expect a recommended pack to be completed in 1-2 weeks. Of course, students may need more or less time depending on the amount of activities in the pack, their level of difficulty, and students&apos; level of proficiency. </p>
-        <p><a href="https://support.quill.org/en/articles/1065187-can-i-assign-activities-in-a-specific-order" rel="noopener noreferrer" target="_blank">This article</a> explains how you can use deadlines to help students pace themselves. </p>
+        <p>We are here for you! The following resources are available:</p>
+        <p className="college-board-q-and-a-text"><strong>Quill Instructional Coach:</strong> You can reach out directly to Sherry Lewkowicz, Quill&apos;s coach dedicated to supporting College Board teachers, at <a href="mailto:sherry@quill.org">sherry@quill.org</a> Be sure to mention the course(s) you teach.</p>
+        <p className="college-board-q-and-a-text"><strong><a href="https://www.quill.org/teacher-center" rel="noopener noreferrer" target="_blank">Teacher Center:</a></strong> The place to go for all things best practice and implementation!</p>
+        <p className="college-board-q-and-a-text"><strong>Support:</strong> Having a technical issue? Email <a href="mailto:support@quill.org">support@quill.org</a> or use the chat in the lower right corner of Quill to connect with a member of the Quill support team.</p>
       </div>
     )
-    },
-    {
-      question: 'I see there are passage-aligned activities for Pre-AP English I. Are there passage-aligned activities for other Pre-AP courses?',
-      answer: <p>Unfortunately, at this time, there are no sentence combining activities aligned to texts in Pre-AP courses other than English I. If you would like to see activities like these for another course, please us know <a href="https://quillorg.canny.io/content-feedback" rel="noopener noreferrer" target="_blank">here</a>!</p>
-    },
-    {
-      question: "Where can I track my students' completion of and performance on Quill activities?",
-      answer: <p>Quill has a variety of reports to help you track your students&apos; performance and progress. In the <a href="https://support.quill.org/en/articles/1140159-how-does-the-activity-summary-work" rel="noopener noreferrer" target="_blank">Activity Summary report</a>, you can quickly see which activities your students have completed, along with color-coded icons indicating proficiency. Quill has several other reports as well. <a href="http://s3.amazonaws.com/quill-image-uploads/uploads/files/Quill_Reports_Cheat_Sheet_Updated04_08_20.pdf" rel="noopener noreferrer" target="_blank">This cheat sheet</a> shows you which report to go to for particular information, and <a href="http://s3.amazonaws.com/quill-image-uploads/uploads/files/Getting_Started_-_Student_Data_Reports__Basic_.mp4" rel="noopener noreferrer" target="_blank">this video will walk you through 3 of Quill&apos;s student data reports</a>.</p>
-    },
-    {
-      question: 'What if I still have questions?',
-      answer: (
-        <div>
-          <p>We are here for you! The following resources are available:</p>
-          <p className="college-board-q-and-a-text"><strong>Quill Instructional Coach:</strong> You can reach out directly to Sherry Lewkowicz, Quill&apos;s coach dedicated to supporting College Board teachers, at <a href="mailto:sherry@quill.org">sherry@quill.org</a> Be sure to mention the course(s) you teach.</p>
-          <p className="college-board-q-and-a-text"><strong><a href="https://www.quill.org/teacher-center" rel="noopener noreferrer" target="_blank">Teacher Center:</a></strong> The place to go for all things best practice and implementation!</p>
-          <p className="college-board-q-and-a-text"><strong>Support:</strong> Having a technical issue? Email <a href="mailto:support@quill.org">support@quill.org</a> or use the chat in the lower right corner of Quill to connect with a member of the Quill support team.</p>
-        </div>
-      )
-   },
+  },
 ]
 
 export default preap

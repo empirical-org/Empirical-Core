@@ -54,7 +54,7 @@ const SpringBoard = ({ isPartOfAssignmentFlow, units, }: SpringBoardProps) => {
           <img alt="Illustration of a pencil drawing a line" src="https://assets.quill.org/images/college_board/sentence-writing-pencil.svg" />
           <div className="text-container">
             <h2>Sentence-Level Writing Practice</h2>
-            <p>Identify which sentence-level skills from your students&apos; SpringBoard course need to be practiced with a custom-designed writing skills survey aligned to skills covered in their texts. After students complete a survey, Quill will automatically recommend a series of activity packs for each student based on their needs. Each pack contains four to six activities that each take about 15 minutes to complete and provide scaffolded, sequenced practice on one of the skills addressed in the survey.</p>
+            <p>Identify which sentence-level skills your students need to practice with a skills survey. Then, assign activities recommended for each student based on their responses so they can practice and improve their proficiency with those skills.</p>
           </div>
         </div>
         <div className="activities-subheader">
@@ -69,7 +69,7 @@ const SpringBoard = ({ isPartOfAssignmentFlow, units, }: SpringBoardProps) => {
             <a className="quill-button medium primary outlined view-button focus-on-light" href={generateLink({isPartOfAssignmentFlow, unitTemplateId: constants.SPRING_BOARD_SKILLS_UNIT_TEMPLATE_ID, slug: constants.SPRING_BOARD_SLUG })} rel="noopener noreferrer" target={isPartOfAssignmentFlow ? '' : "_blank"}>View</a>
           </div>
           <div className="activity-text-container">
-            <p className="activity-sub-text">Students complete a twenty-five-item survey to gauge their understanding of key writing skills, fundamental grammatical elements, common editing mistakes, and compound/complex sentence constructions. The skills addressed in this survey are aligned to the grammar instruction featured in the SpringBoard Language and Writer’s Craft and Language Checkpoint lesson components. </p>
+            <p className="activity-sub-text">Students complete a 25 item survey to gauge their understanding of key writing skills, fundamental grammatical elements, common editing mistakes, and compound/complex sentence constructions. The skills addressed in this survey are aligned to the grammar instruction featured in the SpringBoard Language and Writer’s Craft and Language Checkpoint lesson components. </p>
             <p className="activity-sub-header">Skills</p>
             <p className="activity-sub-text">Subject-verb agreement; pronoun-antecedent agreement; compound subjects, objects and predicates; coordinating conjunctions in compound sentences; subordinating conjunctions; prepositional phrases; verb tense; subject and object pronouns; commonly confused words</p>
           </div>
@@ -83,7 +83,7 @@ const SpringBoard = ({ isPartOfAssignmentFlow, units, }: SpringBoardProps) => {
             <a className="quill-button medium primary outlined view-button focus-on-light" href={generateLink({isPartOfAssignmentFlow, unitTemplateId: constants.PRE_AP_WRITINGS_SKILLS_1_UNIT_TEMPLATE_ID, slug: constants.SPRING_BOARD_SLUG })} rel="noopener noreferrer" target={isPartOfAssignmentFlow ? '' : "_blank"}>View</a>
           </div>
           <div className="activity-text-container">
-            <p className="activity-sub-text">Students complete a twelve-item survey to gauge their understanding of key writing skills, fundamental grammatical elements, and compound/complex sentence constructions. The skills addressed in this survey are aligned to the Pre-AP English High School Course Framework for English 1 and English 2. </p>
+            <p className="activity-sub-text">Students complete a 12 item survey their understanding of key writing skills, fundamental grammatical elements, and compound/complex sentence constructions. The skills addressed in this survey are aligned to the Pre-AP English High School Course Framework for English 1 and English 2. </p>
             <p className="activity-sub-header">Skills</p>
             <p className="activity-sub-text">Subject-verb agreement; pronoun-antecedent agreement; compound subjects, objects and predicates; coordinating conjunctions in compound sentences; subordinating conjunctions</p>
           </div>
@@ -97,7 +97,7 @@ const SpringBoard = ({ isPartOfAssignmentFlow, units, }: SpringBoardProps) => {
             <a className="quill-button medium primary outlined view-button focus-on-light" href={generateLink({isPartOfAssignmentFlow, unitTemplateId: constants.PRE_AP_WRITINGS_SKILLS_2_UNIT_TEMPLATE_ID, slug: constants.SPRING_BOARD_SLUG })} rel="noopener noreferrer" target={isPartOfAssignmentFlow ? '' : "_blank"}>View</a>
           </div>
           <div className="activity-text-container">
-            <p className="activity-sub-text">Students complete a twelve-item survey to gauge their understanding of key writing skills, focusing on constructions for expanding sentences with description and detail. The skills addressed in this survey are aligned to the Pre-AP English High School Course Framework for English 1 and English 2.</p>
+            <p className="activity-sub-text">Students complete a 12 item survey their understanding of key writing skills, focusing on constructions for expanding sentences with description and detail. The skills addressed in this survey are aligned to the Pre-AP English High School Course Framework for English 1 and English 2.</p>
             <p className="activity-sub-header">Skills</p>
             <p className="activity-sub-text">Conjunctive adverbs; appositive phrases; relative clauses; participial phrases; parallel structure</p>
           </div>
@@ -111,7 +111,7 @@ const SpringBoard = ({ isPartOfAssignmentFlow, units, }: SpringBoardProps) => {
             <a className="quill-button medium primary outlined view-button focus-on-light" href={generateLink({isPartOfAssignmentFlow, unitTemplateId: constants.AP_WRITINGS_SKILLS_UNIT_TEMPLATE_ID, slug: constants.SPRING_BOARD_SLUG })} rel="noopener noreferrer" target={isPartOfAssignmentFlow ? '' : "_blank"}>View</a>
           </div>
           <div className="activity-text-container">
-            <p className="activity-sub-text">Students complete a seventeen-item survey to gauge their understanding of key writing skills that are essential to successful AP- and SAT-level writing.</p>
+            <p className="activity-sub-text">Students complete a 17 item survey to gauge their understanding of key writing skills that are essential to successful AP- and SAT-level writing.</p>
             <p className="activity-sub-header">Skills</p>
             <p className="activity-sub-text">Complex Sentences; relative clauses; appositive phrases; participial phrases; parallel structure; compound-complex sentences; advanced combining</p>
           </div>
@@ -152,35 +152,41 @@ const SpringBoard = ({ isPartOfAssignmentFlow, units, }: SpringBoardProps) => {
             <p>In addition to the above writing skills surveys, Quill.org also offers dedicated skills surveys for English Language Learners (ELLs). There are two separate skills surveys: one for students in WIDA&apos;s Entering and Emerging stages of language proficiency, and one for students in WIDA&apos;s Developing and Expanding stages.</p>
           </div>
         </div>
-        <div className="activities-subheader">
-          <h2 id="ell-header">ELL Skills Surveys</h2>
+        <div className="activities-subheader" id="ell-subheader">
+          <h2>ELL Writing Skills Surveys</h2>
+          <p>If you have ELLs in your courses, you may want to consider assigning them an ELL Skills Surveys before assigning them a writing skills survey.</p>
         </div>
         <div className="activity-container">
           <div className="activity-header-container">
-            <div className="activity-header-left-container">
-              <p className="activity-header springboard-sub-header" id="writing-skills-survey-1">ELL Skills Survey 1: Entering and Emerging</p>
-              <div className="college-board-activity-tag">For SpringBoard 6-12</div>
-            </div>
-            <a className="quill-button medium primary outlined view-button focus-on-light" href={generateLink({isPartOfAssignmentFlow, unitTemplateId: constants.ELL_STARTER_DIAGNOSTIC_UNIT_TEMPLATE_ID, slug: constants.SPRING_BOARD_SLUG })} rel="noopener noreferrer" target={isPartOfAssignmentFlow ? '' : "_blank"}>View</a>
+            <p className="activity-header" id="writing-skills-survey">ELL Starter Skills Surveys</p>
+            <a className="quill-button medium primary outlined view-button focus-on-light" href={generateLink({ isPartOfAssignmentFlow, unitTemplateId: constants.ELL_STARTER_DIAGNOSTIC_UNIT_TEMPLATE_ID, slug: constants.SPRING_BOARD_SLUG })} rel="noopener noreferrer" target={isPartOfAssignmentFlow ? '' : "_blank"}>View</a>
           </div>
           <div className="activity-text-container">
-            <p className="activity-sub-text">Students complete a twenty-two-item placement activity. Directions can be shown in English only, or shown in both English and another selected language.</p>
+            <p className="activity-sub-text">ELL students complete a 22 item survey to gauge their mastery of foundational English grammar. This survey is most appropriate for students who are in the Entering or Emerging WIDA levels. After students complete the survey, Quill will automatically recommend up to five activity packs for each student based on their needs. Each pack contains a series of activities that each take about 15 minutes to complete and provide scaffolded, sequenced practice with one of the skills covered by the survey.</p>
             <p className="activity-sub-header">Skills</p>
-            <p className="activity-sub-text">Simple verb conjugation; articles; subject-verb agreement; simple word order; singular and plural nouns; adjective placement</p>
+            <p className="activity-sub-text">Simple verb conjugation; articles; simple subject-verb agreement; simple word order; singular and plural nouns; adjective placement</p>
           </div>
         </div>
         <div className="activity-container">
           <div className="activity-header-container">
-            <div className="activity-header-left-container">
-              <p className="activity-header springboard-sub-header" id="writing-skills-survey-1">ELL Skills Survey 2: Developing and Expanding</p>
-              <div className="college-board-activity-tag">For SpringBoard 6-12</div>
-            </div>
-            <a className="quill-button medium primary outlined view-button focus-on-light" href={generateLink({isPartOfAssignmentFlow, unitTemplateId: constants.ELL_INTERMEDIATE_DIAGNOSTIC_UNIT_TEMPLATE_ID, slug: constants.SPRING_BOARD_SLUG })} rel="noopener noreferrer" target={isPartOfAssignmentFlow ? '' : "_blank"}>View</a>
+            <p className="activity-header" id="writing-skills-survey">ELL Intermediate Skills Surveys</p>
+            <a className="quill-button medium primary outlined view-button focus-on-light" href={generateLink({ isPartOfAssignmentFlow, unitTemplateId: constants.ELL_INTERMEDIATE_DIAGNOSTIC_UNIT_TEMPLATE_ID, slug: constants.SPRING_BOARD_SLUG })} rel="noopener noreferrer" target={isPartOfAssignmentFlow ? '' : "_blank"}>View</a>
           </div>
           <div className="activity-text-container">
-            <p className="activity-sub-text">Students complete a twenty-two-item placement activity. Directions can be shown in English only, or shown in both English and another selected language.</p>
+            <p className="activity-sub-text">ELL students complete a 23 item survey to gauge their mastery of English grammar. This survey is most appropriate for students who are in the Emerging or Developing WIDA levels. After students complete the survey, Quill will automatically recommend up to six activity packs for each student based on their needs. Each pack contains a series of activities that each take about 15 minutes to complete and provide scaffolded, sequenced practice with one of the skills covered by the survey.</p>
             <p className="activity-sub-header">Skills</p>
-            <p className="activity-sub-text">Fragments; articles; verb tense; adjectives; adverbs; prepositions; compound subjects, objects, and predicates; compound sentences; complex sentences</p>
+            <p className="activity-sub-text">Subject-verb agreement; singular possessive nouns; possessive pronouns; prepositions; future tense; articles; intermediate questions</p>
+          </div>
+        </div>
+        <div className="activity-container">
+          <div className="activity-header-container">
+            <p className="activity-header" id="writing-skills-survey">ELL Advanced Skills Surveys</p>
+            <a className="quill-button medium primary outlined view-button focus-on-light" href={generateLink({ isPartOfAssignmentFlow, unitTemplateId: constants.ELL_ADVANCED_DIAGNOSTIC_UNIT_TEMPLATE_ID, slug: constants.SPRING_BOARD_SLUG })} rel="noopener noreferrer" target={isPartOfAssignmentFlow ? '' : "_blank"}>View</a>
+          </div>
+          <div className="activity-text-container">
+            <p className="activity-sub-text">ELL students complete a 23 item survey to gauge their mastery of English grammar, specifically in areas that are challenging for non-native English speakers. This survey is most appropriate for students who are in the Developing or Expanding WIDA levels. After students complete the survey, Quill will automatically recommend up to five activity packs for each student based on their needs. Each pack contains a series of activities that each take about 15 minutes to complete and provide scaffolded, sequenced practice with one of the skills covered by the survey.</p>
+            <p className="activity-sub-header">Skills</p>
+            <p className="activity-sub-text">Regular and irregular past tense; progressive tenses; phrasal verbs; choosing between prepositions; responding to questions; commonly confused words</p>
           </div>
         </div>
       </div>

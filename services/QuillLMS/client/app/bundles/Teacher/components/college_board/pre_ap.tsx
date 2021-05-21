@@ -63,8 +63,8 @@ const PreAp = ({ units, isPartOfAssignmentFlow, }: PreApContainerProps) => {
           <div className="activity-header-container">
             <div className="tags-container">
               <p className="activity-header" id="writing-skills-survey-1">Pre-AP Writing Skills Survey 1: Basic of Sentence Patterns</p>
-              <div className="pre-ap-activity-tag">For Pre-AP English 1</div>
-              <div className="pre-ap-activity-tag">For Pre-AP English 2</div>
+              <div className="college-board-activity-tag">For Pre-AP English 1</div>
+              <div className="college-board-activity-tag">For Pre-AP English 2</div>
             </div>
             <a className="quill-button medium primary outlined view-button focus-on-light" href={generateLink({ isPartOfAssignmentFlow, unitTemplateId: PRE_AP_WRITINGS_SKILLS_1_UNIT_TEMPLATE_ID, slug: PRE_AP_SLUG })} rel="noopener noreferrer" target={isPartOfAssignmentFlow ? '' : "_blank"}>View</a>
           </div>
@@ -78,8 +78,8 @@ const PreAp = ({ units, isPartOfAssignmentFlow, }: PreApContainerProps) => {
           <div className="activity-header-container">
             <div className="tags-container">
               <p className="activity-header" id="writing-skills-survey-2">Pre-AP Writing Skills Survey 2: Tools for Sentence Expansion</p>
-              <div className="pre-ap-activity-tag">For Pre-AP English 1</div>
-              <div className="pre-ap-activity-tag">For Pre-AP English 2</div>
+              <div className="college-board-activity-tag">For Pre-AP English 1</div>
+              <div className="college-board-activity-tag">For Pre-AP English 2</div>
             </div>
             <a className="quill-button medium primary outlined view-button focus-on-light" href={generateLink({ isPartOfAssignmentFlow, unitTemplateId: PRE_AP_WRITINGS_SKILLS_2_UNIT_TEMPLATE_ID, slug: PRE_AP_SLUG })} rel="noopener noreferrer" target={isPartOfAssignmentFlow ? '' : "_blank"}>View</a>
           </div>
