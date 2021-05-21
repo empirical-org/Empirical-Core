@@ -10,8 +10,10 @@ const grammarSrc = `${process.env.CDN_URL}/images/icons/tool-grammar-gray.svg`
 const proofreaderSrc = `${process.env.CDN_URL}/images/icons/tool-proofreader-gray.svg`
 const lessonsSrc = `${process.env.CDN_URL}/images/icons/tool-lessons-gray.svg`
 
-const LESSONS_ACTIVITY_CLASSIFICATION_ID = "6"
-const DIAGNOSTIC_ACTIVITY_CLASSIFICATION_ID = "4"
+const LESSONS_ACTIVITY_CLASSIFICATION_NAME = "Quill Lessons"
+const DIAGNOSTIC_ACTIVITY_CLASSIFICATION_NAME = "Quill Diagnostic"
+const COMPREHENSION_ACTIVITY_CLASSIFICATION_NAME = "Quill Comprehension"
+const UNGRADED_ACTIVITY_CLASSIFICATIONS = [LESSONS_ACTIVITY_CLASSIFICATION_NAME, DIAGNOSTIC_ACTIVITY_CLASSIFICATION_NAME, COMPREHENSION_ACTIVITY_CLASSIFICATION_NAME]
 const PROFICIENT_CUTOFF = 0.8
 const NEARLY_PROFICIENT_CUTOFF = 0.6
 
@@ -114,9 +116,9 @@ export default class StudentProfileUnit extends React.Component {
   }
 
   score = (act) => {
-    const { activity_classification_id, max_percentage, } = act
+    const { activity_classification_name, max_percentage, } = act
     const maxPercentage = Number(max_percentage)
-    if (activity_classification_id === DIAGNOSTIC_ACTIVITY_CLASSIFICATION_ID || activity_classification_id === LESSONS_ACTIVITY_CLASSIFICATION_ID) {
+    if (UNGRADED_ACTIVITY_CLASSIFICATIONS.includes(activity_classification_name)) {
       return (
         <Tooltip
           tooltipText="This type of activity is not graded."
