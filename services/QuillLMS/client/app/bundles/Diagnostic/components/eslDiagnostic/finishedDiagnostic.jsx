@@ -1,6 +1,5 @@
 import React from 'react';
 import { Spinner } from '../../../Shared/index';
-import translations from '../../libs/translations/index.js';
 import { ENGLISH, rightToLeftLanguages } from '../../modules/translation/languagePageInfo';
 
 export class FinishedDiagnostic extends React.Component {
@@ -8,16 +7,6 @@ export class FinishedDiagnostic extends React.Component {
   componentDidMount() {
     const { saveToLMS } = this.props;
     saveToLMS();
-  }
-
-  getCompletedPageHTML() {
-    const { language } = this.props;
-    let html = translations.english['completion page'];
-    if (language !== ENGLISH) {
-      const textClass = rightToLeftLanguages.includes(language) ? 'right-to-left arabic-title-div' : '';
-      html += `<br/><div class="${textClass}">${translations[language]['completion page']}</div>`;
-    }
-    return html;
   }
 
   renderSavedIndicator() {
@@ -58,25 +47,21 @@ export class FinishedDiagnostic extends React.Component {
   }
 
   renderContent = () => {
-    const { diagnosticID, language, translate } = this.props;
+    const { language, translate } = this.props;
+    const textClass = rightToLeftLanguages.includes(language) ? 'right-to-left' : '';
 
-    if(diagnosticID === 'ell') {
-      return <div dangerouslySetInnerHTML={{ __html: this.getCompletedPageHTML() }} />;
-    } else {
-      const textClass = rightToLeftLanguages.includes(language) ? 'right-to-left' : '';
-      return(
-        <div>
-          <div className="landing-page-html">
-            <h1>You've completed the Quill Placement Activity</h1>
-            <p>Your results are being saved now. You'll be redirected automatically once they are saved.</p>
-          </div>
-          {language !== ENGLISH && <div className={`landing-page-html ${textClass}`}>
-            <h1>{translate('completedDiagnostic^header')}</h1>
-            <p>{translate('completedDiagnostic^text')}</p>
-          </div>}
+    return(
+      <div>
+        <div className="landing-page-html">
+          <h1>You've completed the Quill Placement Activity</h1>
+          <p>Your results are being saved now. You'll be redirected automatically once they are saved.</p>
         </div>
-      );
-    }
+        {language !== ENGLISH && <div className={`landing-page-html ${textClass}`}>
+          <h1>{translate('completedDiagnostic^header')}</h1>
+          <p>{translate('completedDiagnostic^text')}</p>
+        </div>}
+      </div>
+    );
   }
 
   render() {

@@ -4,7 +4,19 @@ describe 'SerializeActivityHealth' do
   let!(:question) { create(:question)}
   let!(:another_question) { create(:question)}
   let!(:connect) { create(:activity_classification, key: ActivityClassification::CONNECT_KEY) }
-  let!(:activity) { create(:activity, activity_classification_id: connect.id, data: {questions: [{key: question.uid},{key: another_question.uid}]}.to_json) }
+
+  let!(:activity) do
+    create(:activity,
+      activity_classification_id: connect.id,
+      data: {
+        questions: [
+          {key: question.uid},
+          {key: another_question.uid}
+        ]
+      }
+    )
+  end
+
   let!(:content_partner) { create(:content_partner, activities: [activity])}
   let!(:start_time) { Time.now - 1.day }
   let!(:activity_session_1) { create(:activity_session, activity: activity, state: "finished", started_at: DateTime.new(2021,1,1,4,0,0), completed_at: DateTime.new(2021,1,1,4,5,0)) }
@@ -18,10 +30,46 @@ describe 'SerializeActivityHealth' do
   let!(:sample_unit) { create(:unit, unit_template: unit_template)}
   let!(:unit_activity) { create(:unit_activity, unit: sample_unit, activity: activity)}
   let!(:recommendation) { create(:recommendation, activity: diagnostic, unit_template: unit_template)}
-  let!(:concept_result_1) { create(:concept_result, activity_session: activity_session_1, metadata: {questionNumber: 1, questionScore: 1}.to_json)}
-  let!(:concept_result_2) { create(:concept_result, activity_session: activity_session_2, metadata: {questionNumber: 1, questionScore: 0.75}.to_json)}
-  let!(:concept_result_3) { create(:concept_result, activity_session: activity_session_3, metadata: {questionNumber: 1, questionScore: 0}.to_json)}
-  let!(:concept_result_4) { create(:concept_result, activity_session: activity_session_1, metadata: {questionNumber: 2, questionScore: 1}.to_json)}
+
+  let!(:concept_result_1) do
+     create(:concept_result,
+      activity_session: activity_session_1,
+      metadata: {
+        questionNumber: 1,
+        questionScore: 1
+      }
+    )
+  end
+
+  let!(:concept_result_2) do
+    create(:concept_result,
+      activity_session: activity_session_2,
+      metadata: {
+        questionNumber: 1,
+        questionScore: 0.75
+      }
+    )
+  end
+
+  let!(:concept_result_3) do
+    create(:concept_result,
+      activity_session: activity_session_3,
+      metadata: {
+        questionNumber: 1,
+        questionScore: 0
+      }
+    )
+  end
+
+  let!(:concept_result_4) do
+    create(:concept_result,
+      activity_session: activity_session_1,
+      metadata: {
+        questionNumber: 2,
+        questionScore: 1
+      }
+    )
+  end
 
   before do
     ENV['DEFAULT_URL'] = 'https://quill.org'

@@ -208,6 +208,12 @@ export const blankUniversalRule = {
   ]
 }
 
+export const DEFAULT_CONCEPT_UIDS = {
+  because: 'qkjnIjFfXdTuKO7FgPzsIg', // Academic Writing | Using Evidence Appropriately | Using Precise Evidence to Illustrate a Cause
+  but: 'KwspxuelfGZQCq7yX6ThPQ', // Academic Writing | Using Evidence Appropriately | Using Precise Evidence to Illustrate a Contrast
+  so: 'IBdOFpAWi42LgfXvcz0scQ' // Academic Writing | Using Evidence Appropriately | Using Precise Evidence to Illustrate a Consequence
+}
+
 export const TITLE = 'Title';
 export const NAME = 'Name';
 export const SCORED_READING_LEVEL = 'Scored reading level';

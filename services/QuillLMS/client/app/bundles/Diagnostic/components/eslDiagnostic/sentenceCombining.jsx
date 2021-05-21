@@ -12,8 +12,6 @@ import RenderQuestionFeedback from '../renderForQuestions/feedbackStatements.jsx
 import RenderQuestionCues from '../renderForQuestions/cues.tsx';
 import { submitResponse, } from '../../actions/diagnostics.js';
 import { getGradedResponsesWithCallback } from '../../actions/responses.js';
-import translations from '../../libs/translations/index.js';
-import translationMap from '../../libs/translations/ellQuestionMapper.js';
 import { ENGLISH, rightToLeftLanguages } from '../../modules/translation/languagePageInfo';
 import { Feedback, SentenceFragments, getLatestAttempt, renderPreviewFeedback, getDisplayedText } from '../../../Shared/index';
 
@@ -52,29 +50,22 @@ class ELLSentenceCombining extends React.Component {
   }
 
   getInstructionText = () => {
-    const { diagnosticID, language, translate } = this.props;
+    const { language, translate } = this.props;
     const question = this.getQuestion();
-    const { instructions } = question;
-    const textKey = translationMap[question.key];
-    let text = instructions ? instructions : translations.english[textKey];
-    if(!language || language == ENGLISH) {
-      return <p dangerouslySetInnerHTML={{ __html: text, }} />;
-    } else if (language && diagnosticID === 'ell') {
-      const textClass = rightToLeftLanguages.includes(language) ? 'right-to-left' : '';
-      text += `<br/><br/><span class="${textClass}">${translations[language][textKey]}</span>`;
-      return <p dangerouslySetInnerHTML={{ __html: text, }} />;
-    } else {
-      const textClass = rightToLeftLanguages.includes(language) ? 'right-to-left' : '';
-      const text = `instructions^${instructions}`;
-      const translationPresent = language !== ENGLISH;
-      return(
-        <div>
-          <p>{instructions}</p>
-          {translationPresent && <br />}
-          {translationPresent && <p className={textClass}>{translate(text)}</p>}
-        </div>
-      );
+    const instructions = (question.instructions && question.instructions !== '') ? question.instructions : 'Combine the sentences into one sentence.';
+    if(!language || language === ENGLISH) {
+      return <p dangerouslySetInnerHTML={{ __html: instructions, }} />;
     }
+    const textClass = rightToLeftLanguages.includes(language) ? 'right-to-left' : '';
+    const text = `instructions^${instructions}`;
+    const translationPresent = language !== ENGLISH;
+    return(
+      <div>
+        <p>{instructions}</p>
+        {translationPresent && <br />}
+        {translationPresent && <p className={textClass}>{translate(text)}</p>}
+      </div>
+    );
   }
 
   getResponses = () => {
@@ -222,15 +213,6 @@ class ELLSentenceCombining extends React.Component {
     }
   }
 
-  getSubmitButtonText = () => {
-    const { language, } = this.props
-    let text = translations.english['submit button text'];
-    if (language !== english) {
-      text += ` / ${translations[language]['submit button text']}`;
-    }
-    return text;
-  }
-
   renderError = () => {
     const { error, } = this.state
     if (!error) { return }
@@ -263,14 +245,13 @@ class ELLSentenceCombining extends React.Component {
     const { previewMode, question } = this.props;
     const { key } = question;
     const latestAttempt = getLatestAttempt(question.attempts);
-    const instructions = (question.instructions && question.instructions !== '') ? question.instructions : 'Combine the sentences into one sentence.';
-
+    const instructions = this.getInstructionText();
     if(previewMode && latestAttempt && latestAttempt.response) {
       return renderPreviewFeedback(latestAttempt);
     }
     return(
       <Feedback
-        feedback={(<p>{instructions}</p>)}
+        feedback={instructions}
         feedbackType="default"
         key={key}
       />

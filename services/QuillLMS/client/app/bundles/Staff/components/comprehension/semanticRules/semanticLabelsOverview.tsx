@@ -11,8 +11,8 @@ function renderPrompts() {
   return prompts.map(prompt => {
     return(
       <section className="prompt-section" key={prompt.id}>
-        <LabelsTable activityId={activityId} prompt={prompt} />
         <ModelsTable activityId={activityId} prompt={prompt} />
+        <LabelsTable activityId={activityId} prompt={prompt} />
       </section>
     )
   });

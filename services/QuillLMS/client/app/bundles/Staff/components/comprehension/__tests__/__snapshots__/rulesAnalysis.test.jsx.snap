@@ -1,0 +1,71 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`RulesAnalysis component should render RulesAnalysis 1`] = `
+<div
+  className="rules-analysis-container show-colored-rows"
+>
+  <h1>
+    Rules Analysis
+  </h1>
+  <div
+    className="dropdowns"
+  >
+    <DropdownInput
+      handleChange={[Function]}
+      label="Select Prompt"
+      options={Array []}
+      usesCustomOption={true}
+    />
+    <DropdownInput
+      handleChange={[Function]}
+      label="Select Rule Type"
+      options={
+        Array [
+          Object {
+            "label": "All Rules",
+            "value": "All Rules",
+          },
+          Object {
+            "label": "rules-based-1",
+            "value": "rules-based-1",
+          },
+          Object {
+            "label": "opinion",
+            "value": "opinion",
+          },
+          Object {
+            "label": "plagiarism",
+            "value": "plagiarism",
+          },
+          Object {
+            "label": "autoML",
+            "value": "autoML",
+          },
+          Object {
+            "label": "rules-based-2",
+            "value": "rules-based-2",
+          },
+          Object {
+            "label": "grammar",
+            "value": "grammar",
+          },
+          Object {
+            "label": "spelling",
+            "value": "spelling",
+          },
+          Object {
+            "label": "rules-based-3",
+            "value": "rules-based-3",
+          },
+        ]
+      }
+      value={
+        Object {
+          "label": "All Rules",
+          "value": "All Rules",
+        }
+      }
+    />
+  </div>
+</div>
+`;

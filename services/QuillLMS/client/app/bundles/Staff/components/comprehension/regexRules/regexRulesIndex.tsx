@@ -4,6 +4,7 @@ import { useQuery } from 'react-query';
 import { firstBy } from 'thenby';
 
 import { getPromptsIcons } from '../../../helpers/comprehension';
+import { getPromptIdString } from '../../../helpers/comprehension/ruleHelpers';
 import { ActivityRouteProps, RuleInterface, RegexRuleInterface } from '../../../interfaces/comprehensionInterfaces';
 import { BECAUSE, BUT, SO } from '../../../../../constants/comprehension';
 import { fetchRules } from '../../../utils/comprehension/ruleAPIs';
@@ -14,27 +15,37 @@ const RegexRulesIndex: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ ma
   const { params } = match;
   const { activityId } = params;
 
-    // get cached activity data to pass to rule
-    const { data: activityData } = useQuery({
-      queryKey: [`activity-${activityId}`, activityId],
-      queryFn: fetchActivity
-    });
+  const [promptIds, setPromptIds] = React.useState<string>(null);
+
+  // get cached activity data to pass to rule
+  const { data: activityData } = useQuery({
+    queryKey: [`activity-${activityId}`, activityId],
+    queryFn: fetchActivity
+  });
+
+  React.useEffect(() => {
+    if(!promptIds && activityData && activityData.activity) {
+      const { prompts } = activityData.activity;
+      const promptIdString = getPromptIdString(prompts);
+      setPromptIds(promptIdString);
+    }
+  }, [activityData]);
 
   const { data: rulesBased1Data } = useQuery({
     // cache rules data for updates
-    queryKey: [`rules-${activityId}-regex-sentence-structure`, activityId, null, 'rules-based-1'],
+    queryKey: [`rules-${activityId}-regex-sentence-structure`, null, promptIds, 'rules-based-1'],
     queryFn: fetchRules
   });
 
   const { data: rulesBased2Data } = useQuery({
     // cache rules data for updates
-    queryKey: [`rules-${activityId}-regex-post-topic`, activityId, null, 'rules-based-2'],
+    queryKey: [`rules-${activityId}-regex-post-topic`, null, promptIds, 'rules-based-2'],
     queryFn: fetchRules
   });
 
   const { data: rulesBased3Data } = useQuery({
     // cache rules data for updates
-    queryKey: [`rules-${activityId}-regex-typo`, activityId, null, 'rules-based-3'],
+    queryKey: [`rules-${activityId}-regex-typo`, null, promptIds, 'rules-based-3'],
     queryFn: fetchRules
   });
 

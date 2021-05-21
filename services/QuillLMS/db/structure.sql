@@ -453,6 +453,48 @@ ALTER SEQUENCE public.activity_classifications_id_seq OWNED BY public.activity_c
 
 
 --
+-- Name: activity_healths; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.activity_healths (
+    id integer NOT NULL,
+    name character varying,
+    url character varying,
+    activity_categories character varying[],
+    content_partners character varying[],
+    tool character varying,
+    recent_plays integer,
+    diagnostics character varying[],
+    avg_difficulty double precision,
+    avg_common_unmatched double precision,
+    standard_dev_difficulty double precision,
+    avg_mins_to_complete double precision,
+    flag character varying,
+    activity_packs jsonb
+);
+
+
+--
+-- Name: activity_healths_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.activity_healths_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: activity_healths_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.activity_healths_id_seq OWNED BY public.activity_healths.id;
+
+
+--
 -- Name: activity_sessions; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -1424,8 +1466,8 @@ ALTER SEQUENCE public.comprehension_prompts_rules_id_seq OWNED BY public.compreh
 
 CREATE TABLE public.comprehension_regex_rules (
     id integer NOT NULL,
-    regex_text character varying(200),
-    case_sensitive boolean,
+    regex_text character varying(200) NOT NULL,
+    case_sensitive boolean NOT NULL,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
     rule_id integer,
@@ -1461,14 +1503,15 @@ CREATE TABLE public.comprehension_rules (
     id integer NOT NULL,
     uid character varying NOT NULL,
     name character varying NOT NULL,
-    description character varying,
+    note character varying,
     universal boolean NOT NULL,
     rule_type character varying NOT NULL,
     optimal boolean NOT NULL,
-    suborder text,
-    concept_uid character varying,
+    suborder integer,
+    concept_uid character varying NOT NULL,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
+    sequence_type character varying,
     state character varying NOT NULL
 );
 
@@ -1939,6 +1982,18 @@ CREATE TABLE public.feedback_histories (
 
 
 --
+-- Name: feedback_histories_grouped_by_rule_uid; Type: MATERIALIZED VIEW; Schema: public; Owner: -
+--
+
+CREATE MATERIALIZED VIEW public.feedback_histories_grouped_by_rule_uid AS
+ SELECT array_agg(feedback_histories.id) AS feedback_history_ids,
+    feedback_histories.rule_uid
+   FROM public.feedback_histories
+  GROUP BY feedback_histories.rule_uid
+  WITH NO DATA;
+
+
+--
 -- Name: feedback_histories_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
@@ -1964,7 +2019,7 @@ ALTER SEQUENCE public.feedback_histories_id_seq OWNED BY public.feedback_histori
 
 CREATE TABLE public.feedback_history_ratings (
     id integer NOT NULL,
-    rating boolean NOT NULL,
+    rating boolean,
     feedback_history_id integer NOT NULL,
     user_id integer NOT NULL,
     created_at timestamp without time zone NOT NULL,
@@ -2473,6 +2528,45 @@ CREATE SEQUENCE public.partner_contents_id_seq
 --
 
 ALTER SEQUENCE public.partner_contents_id_seq OWNED BY public.partner_contents.id;
+
+
+--
+-- Name: prompt_healths; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.prompt_healths (
+    id integer NOT NULL,
+    text character varying,
+    url character varying,
+    flag character varying,
+    incorrect_sequences integer,
+    focus_points integer,
+    percent_common_unmatched double precision,
+    percent_specified_algorithms double precision,
+    difficulty double precision,
+    percent_reached_optimal double precision,
+    activity_health_id integer
+);
+
+
+--
+-- Name: prompt_healths_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.prompt_healths_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: prompt_healths_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.prompt_healths_id_seq OWNED BY public.prompt_healths.id;
 
 
 --
@@ -3642,6 +3736,13 @@ ALTER TABLE ONLY public.activity_classifications ALTER COLUMN id SET DEFAULT nex
 
 
 --
+-- Name: activity_healths id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.activity_healths ALTER COLUMN id SET DEFAULT nextval('public.activity_healths_id_seq'::regclass);
+
+
+--
 -- Name: activity_sessions id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -4041,6 +4142,13 @@ ALTER TABLE ONLY public.partner_contents ALTER COLUMN id SET DEFAULT nextval('pu
 
 
 --
+-- Name: prompt_healths id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.prompt_healths ALTER COLUMN id SET DEFAULT nextval('public.prompt_healths_id_seq'::regclass);
+
+
+--
 -- Name: questions id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -4303,6 +4411,14 @@ ALTER TABLE ONLY public.activity_category_activities
 
 ALTER TABLE ONLY public.activity_classifications
     ADD CONSTRAINT activity_classifications_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: activity_healths activity_healths_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.activity_healths
+    ADD CONSTRAINT activity_healths_pkey PRIMARY KEY (id);
 
 
 --
@@ -4759,6 +4875,14 @@ ALTER TABLE ONLY public.page_areas
 
 ALTER TABLE ONLY public.partner_contents
     ADD CONSTRAINT partner_contents_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: prompt_healths prompt_healths_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.prompt_healths
+    ADD CONSTRAINT prompt_healths_pkey PRIMARY KEY (id);
 
 
 --
@@ -5640,6 +5764,13 @@ CREATE INDEX index_feedback_histories_on_rule_uid ON public.feedback_histories U
 
 
 --
+-- Name: index_feedback_histories_on_rule_uid_grouped; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_feedback_histories_on_rule_uid_grouped ON public.feedback_histories_grouped_by_rule_uid USING btree (rule_uid);
+
+
+--
 -- Name: index_feedback_sessions_on_activity_session_uid; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -6431,6 +6562,14 @@ ALTER TABLE ONLY public.unit_activities
 
 ALTER TABLE ONLY public.activity_topics
     ADD CONSTRAINT fk_rails_4c47083518 FOREIGN KEY (topic_id) REFERENCES public.topics(id);
+
+
+--
+-- Name: prompt_healths fk_rails_538824b31c; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.prompt_healths
+    ADD CONSTRAINT fk_rails_538824b31c FOREIGN KEY (activity_health_id) REFERENCES public.activity_healths(id) ON DELETE CASCADE;
 
 
 --
@@ -7450,4 +7589,18 @@ INSERT INTO schema_migrations (version) VALUES ('20210319160956');
 INSERT INTO schema_migrations (version) VALUES ('20210330160626');
 
 INSERT INTO schema_migrations (version) VALUES ('20210409161449');
+
+INSERT INTO schema_migrations (version) VALUES ('20210421190032');
+
+INSERT INTO schema_migrations (version) VALUES ('20210421191605');
+
+INSERT INTO schema_migrations (version) VALUES ('20210423165423');
+
+INSERT INTO schema_migrations (version) VALUES ('20210429151331');
+
+INSERT INTO schema_migrations (version) VALUES ('20210430212613');
+
+INSERT INTO schema_migrations (version) VALUES ('20210505150457');
+
+INSERT INTO schema_migrations (version) VALUES ('20210511161300');
 

@@ -350,6 +350,7 @@ EmpiricalGrammar::Application.routes.draw do
   delete '/classrooms_teachers/destroy/:classroom_id', to: 'classrooms_teachers#destroy'
 
   put 'feedback_history_rating' => 'feedback_history_ratings#create_or_update'
+  put 'feedback_history_rating/mass_mark' => 'feedback_history_ratings#mass_mark'
 
   resources :coteacher_classroom_invitations, only: [:destroy] do
     collection do
@@ -368,11 +369,12 @@ EmpiricalGrammar::Application.routes.draw do
       get 'activities/activities_health' => 'activities#activities_health'
       get 'rule_feedback_histories' => 'rule_feedback_histories#by_conjunction'
       get 'rule_feedback_history/:rule_uid' => 'rule_feedback_histories#rule_detail'
+      get 'prompt_health/:activity_id' => 'rule_feedback_histories#prompt_health'
 
       resources :activities,              except: [:index, :new, :edit]
       resources :activity_flags,          only: [:index]
       resources :activity_sessions,       except: [:index, :new, :edit]
-      resources :feedback_histories,      only: [:index, :show, :create, :update, :destroy] do
+      resources :feedback_histories,      only: [:index, :show, :create] do
         post :batch, on: :collection
       end
       resources :lessons_tokens,          only: [:create]

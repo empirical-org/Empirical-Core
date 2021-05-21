@@ -2,8 +2,8 @@ module Comprehension
   class SpellingCheck
 
     ALL_CORRECT_FEEDBACK = 'Correct spelling!'
-    INCORRECT_FEEDBACK = 'Try again. There may be a spelling mistake.'
-    FEEDBACK_TYPE = 'spelling'
+    FALLBACK_INCORRECT_FEEDBACK = 'Update the spelling of the bolded word.'
+    FEEDBACK_TYPE = Rule::TYPE_SPELLING
     RESPONSE_TYPE = 'response'
     BING_API_URL = 'https://api.cognitive.microsoft.com/bing/v7.0/SpellCheck'
     SPELLING_CONCEPT_UID = 'H-2lrblngQAQ8_s-ctye4g'
@@ -16,7 +16,7 @@ module Comprehension
     def feedback_object
       return {} if error.present?
       {
-        feedback: optimal? ? ALL_CORRECT_FEEDBACK : INCORRECT_FEEDBACK,
+        feedback: optimal? ? ALL_CORRECT_FEEDBACK : non_optimal_feedback_string,
         feedback_type: FEEDBACK_TYPE,
         optimal: optimal?,
         response_id: '',
@@ -27,13 +27,17 @@ module Comprehension
       }
     end
 
+    def non_optimal_feedback_string
+      spelling_rule&.feedbacks&.first&.text || FALLBACK_INCORRECT_FEEDBACK
+    end
+
     def error
       bing_response['error'] ? bing_response['error']['message'] : nil
     end
 
     private def spelling_rule
       return @spelling_rule if @spelling_rule
-      @spelling_rule = Rule.where(rule_type: Rule::TYPE_SPELLING).first
+      @spelling_rule ||= Rule.where(rule_type: FEEDBACK_TYPE).first
     end
 
     private def highlight

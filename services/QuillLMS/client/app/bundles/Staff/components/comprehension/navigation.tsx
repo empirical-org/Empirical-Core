@@ -60,6 +60,37 @@ const Navigation = ({ location, match }) => {
     return <SubmissionModal close={toggleSubmissionModal} message={message} />;
   }
 
+  let rulesAnalysisSubLinks
+  let semanticLabelsSubLinks
+
+  if (pathname.includes('rules-analysis')) {
+    rulesAnalysisSubLinks = (<React.Fragment>
+      <NavLink activeClassName="is-active" className="sublink" to={`/activities/${activityId}/rules-analysis/because`}>
+        Because
+      </NavLink>
+      <NavLink activeClassName="is-active" className="sublink" to={`/activities/${activityId}/rules-analysis/but`}>
+        But
+      </NavLink>
+      <NavLink activeClassName="is-active" className="sublink" to={`/activities/${activityId}/rules-analysis/so`}>
+        So
+      </NavLink>
+    </React.Fragment>)
+  }
+
+  if (pathname.includes('semantic-labels')) {
+    semanticLabelsSubLinks = (<React.Fragment>
+      <NavLink activeClassName="is-active" className="sublink" to={`/activities/${activityId}/semantic-labels/because`}>
+        Because
+      </NavLink>
+      <NavLink activeClassName="is-active" className="sublink" to={`/activities/${activityId}/semantic-labels/but`}>
+        But
+      </NavLink>
+      <NavLink activeClassName="is-active" className="sublink" to={`/activities/${activityId}/semantic-labels/so`}>
+        So
+      </NavLink>
+    </React.Fragment>)
+  }
+
   let activityEditorAndResults
 
   if (activityId) {
@@ -77,6 +108,7 @@ const Navigation = ({ location, match }) => {
         <NavLink activeClassName="is-active" to={`/activities/${activityId}/semantic-labels`}>
           Semantic Labels
         </NavLink>
+        {semanticLabelsSubLinks}
         <NavLink activeClassName="is-active" to={`/activities/${activityId}/regex-rules`}>
           RegEx Rules
         </NavLink>
@@ -100,6 +132,7 @@ const Navigation = ({ location, match }) => {
         <NavLink activeClassName="is-active" to={`/activities/${activityId}/rules-analysis`}>
           Rules Analysis
         </NavLink>
+        {rulesAnalysisSubLinks}
       </ul>
     </React.Fragment>)
   }
