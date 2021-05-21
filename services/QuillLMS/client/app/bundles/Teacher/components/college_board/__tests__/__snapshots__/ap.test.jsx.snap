@@ -74,7 +74,7 @@ exports[`Ap component should render when it is not part of the assignment flow 1
               Sentence-Level Writing Practice
             </h2>
             <p>
-              Identify which sentence-level skills your students need to practice with the AP Writing Skills Survey. Then, assign activities recommended for each student based on their survey responses so they can practice and improve their proficiency with those skills.
+              Identify which sentence-level skills your students need to practice with a skills survey. Then, assign activities recommended for each student based on their responses so they can practice and improve their proficiency with those skills.
             </p>
           </div>
         </div>
@@ -84,11 +84,6 @@ exports[`Ap component should render when it is not part of the assignment flow 1
           <h2>
             AP Writing Skills Survey
           </h2>
-          <div
-            className="college-board-activity-tag"
-          >
-            For All AP students
-          </div>
         </div>
         <div
           className="activity-container"
@@ -117,7 +112,7 @@ exports[`Ap component should render when it is not part of the assignment flow 1
             <p
               className="activity-sub-text"
             >
-              Students complete a seventeen-item survey to gauge their understanding of key writing skills that are essential to successful AP- and SAT-level writing. After students complete the survey, Quill will automatically recommend up to seven activity packs for each student based on their needs. Each pack contains a series of activities that each take about 15 minutes to complete and provide scaffolded, sequenced practice with one of the skills covered by the survey.
+              Students complete a 17 item survey to gauge their understanding of key writing skills that are essential to successful AP- and SAT-level writing. After students complete the survey, Quill will automatically recommend up to seven activity packs for each student based on their needs. Each pack contains a series of activities that each take about 15 minutes to complete and provide scaffolded, sequenced practice with one of the skills covered by the survey.
             </p>
             <p
               className="activity-sub-header"
@@ -128,6 +123,140 @@ exports[`Ap component should render when it is not part of the assignment flow 1
               className="activity-sub-text"
             >
               Complex Sentences; relative clauses; appositive phrases; participial phrases; parallel structure; compound-complex sentences; advanced combining
+            </p>
+          </div>
+        </div>
+        <div
+          className="activities-subheader"
+          id="ell-subheader"
+        >
+          <h2>
+            ELL Writing Skills Surveys
+          </h2>
+          <p>
+            If you have ELLs in your courses, you may want to consider assigning them an ELL Skills Surveys before assigning them a writing skills survey.
+          </p>
+        </div>
+        <div
+          className="activity-container"
+        >
+          <div
+            className="activity-header-container"
+          >
+            <p
+              className="activity-header"
+              id="writing-skills-survey"
+            >
+              ELL Starter Skills Surveys
+            </p>
+            <a
+              className="quill-button medium primary outlined view-button focus-on-light"
+              href="/activities/packs/154"
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+              View
+            </a>
+          </div>
+          <div
+            className="activity-text-container"
+          >
+            <p
+              className="activity-sub-text"
+            >
+              ELL students complete a 22 item survey to gauge their mastery of foundational English grammar. This survey is most appropriate for students who are in the Entering or Emerging WIDA levels. After students complete the survey, Quill will automatically recommend up to five activity packs for each student based on their needs. Each pack contains a series of activities that each take about 15 minutes to complete and provide scaffolded, sequenced practice with one of the skills covered by the survey.
+            </p>
+            <p
+              className="activity-sub-header"
+            >
+              Skills
+            </p>
+            <p
+              className="activity-sub-text"
+            >
+              Simple verb conjugation; articles; simple subject-verb agreement; simple word order; singular and plural nouns; adjective placement
+            </p>
+          </div>
+        </div>
+        <div
+          className="activity-container"
+        >
+          <div
+            className="activity-header-container"
+          >
+            <p
+              className="activity-header"
+              id="writing-skills-survey"
+            >
+              ELL Intermediate Skills Surveys
+            </p>
+            <a
+              className="quill-button medium primary outlined view-button focus-on-light"
+              href="/activities/packs/299"
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+              View
+            </a>
+          </div>
+          <div
+            className="activity-text-container"
+          >
+            <p
+              className="activity-sub-text"
+            >
+              ELL students complete a 23 item survey to gauge their mastery of English grammar. This survey is most appropriate for students who are in the Emerging or Developing WIDA levels. After students complete the survey, Quill will automatically recommend up to six activity packs for each student based on their needs. Each pack contains a series of activities that each take about 15 minutes to complete and provide scaffolded, sequenced practice with one of the skills covered by the survey.
+            </p>
+            <p
+              className="activity-sub-header"
+            >
+              Skills
+            </p>
+            <p
+              className="activity-sub-text"
+            >
+              Subject-verb agreement; singular possessive nouns; possessive pronouns; prepositions; future tense; articles; intermediate questions
+            </p>
+          </div>
+        </div>
+        <div
+          className="activity-container"
+        >
+          <div
+            className="activity-header-container"
+          >
+            <p
+              className="activity-header"
+              id="writing-skills-survey"
+            >
+              ELL Advanced Skills Surveys
+            </p>
+            <a
+              className="quill-button medium primary outlined view-button focus-on-light"
+              href="/activities/packs/300"
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+              View
+            </a>
+          </div>
+          <div
+            className="activity-text-container"
+          >
+            <p
+              className="activity-sub-text"
+            >
+              ELL students complete a 23 item survey to gauge their mastery of English grammar, specifically in areas that are challenging for non-native English speakers. This survey is most appropriate for students who are in the Developing or Expanding WIDA levels. After students complete the survey, Quill will automatically recommend up to five activity packs for each student based on their needs. Each pack contains a series of activities that each take about 15 minutes to complete and provide scaffolded, sequenced practice with one of the skills covered by the survey.
+            </p>
+            <p
+              className="activity-sub-header"
+            >
+              Skills
+            </p>
+            <p
+              className="activity-sub-text"
+            >
+              Regular and irregular past tense; progressive tenses; phrasal verbs; choosing between prepositions; responding to questions; commonly confused words
             </p>
           </div>
         </div>
@@ -272,6 +401,48 @@ exports[`Ap component should render when it is not part of the assignment flow 1
             qa={
               Object {
                 "answer": <p>
+                  Quill is a writing tool that provides over 700 writing, grammar, and proofreading activities designed to engage students in the writing process. Quill provides practice in many areas of sentence writing, from comma placement and subject-verb agreement to the use of conjunctions to convey complex relationships between ideas. In the Quill Connect tool, students practice writing different types of sentences using the evidence-based strategy of sentence combining. Students receive specific, targeted feedback on their writing that they can use to revise their work. Through these activities, students practice writing a variety of sophisticated sentences and practice conveying complex ideas in clear, succinct, and grammatically strong ways. Most activities are designed to be completed in 10-15 minutes so that you have the freedom to use them in the way that works best for your classroom.
+                </p>,
+                "question": "What is Quill.org?",
+              }
+            }
+            questionsAndAnswersFile="ap"
+          >
+            <div
+              className="qa-section"
+            >
+              <div
+                className="qa"
+              >
+                <button
+                  className="question"
+                  onClick={[Function]}
+                  tabIndex={-1}
+                  type="button"
+                >
+                  What is Quill.org?
+                </button>
+              </div>
+              <div>
+                <button
+                  className="expand-collapse-button focus-on-light"
+                  onClick={[Function]}
+                  onKeyPress={[Function]}
+                  type="button"
+                >
+                  <img
+                    alt="expand-and-collapse"
+                    src="undefined/images/shared/expand.svg"
+                  />
+                </button>
+              </div>
+            </div>
+          </QuestionAndAnswer>
+          <QuestionAndAnswer
+            key="1"
+            qa={
+              Object {
+                "answer": <p>
                   The AP Writing Skills Survey is a survey with 17 questions on a range of writing skills. The questions ask students to combine sentences, sometimes with a direction to use a specific strategy, and sometimes without any direction (other than to combine).
                 </p>,
                 "question": "What is the AP Writing Skills Survey?",
@@ -310,63 +481,13 @@ exports[`Ap component should render when it is not part of the assignment flow 1
             </div>
           </QuestionAndAnswer>
           <QuestionAndAnswer
-            key="1"
-            qa={
-              Object {
-                "answer": <p>
-                  The Survey assesses students’ proficiency in constructing sentences with relative clauses, appositive phrases, participial phrases, and parallel structure, as well as their general ability to do advanced sentence combining, and to write complex and compound-complex sentences.
-                </p>,
-                "question": "What does the Survey assess?",
-              }
-            }
-            questionsAndAnswersFile="ap"
-          >
-            <div
-              className="qa-section"
-            >
-              <div
-                className="qa"
-              >
-                <button
-                  className="question"
-                  onClick={[Function]}
-                  tabIndex={-1}
-                  type="button"
-                >
-                  What does the Survey assess?
-                </button>
-              </div>
-              <div>
-                <button
-                  className="expand-collapse-button focus-on-light"
-                  onClick={[Function]}
-                  onKeyPress={[Function]}
-                  type="button"
-                >
-                  <img
-                    alt="expand-and-collapse"
-                    src="undefined/images/shared/expand.svg"
-                  />
-                </button>
-              </div>
-            </div>
-          </QuestionAndAnswer>
-          <QuestionAndAnswer
             key="2"
             qa={
               Object {
-                "answer": <p
-                  className="college-board-q-and-a-text"
-                >
-                  Quill.org worked with the 
-                  <a
-                    href="https://www.collegeboard.org/"
-                  >
-                    College Board
-                  </a>
-                   to develop this Survey and the AP Writing Practice activity packs that will be recommended based on your students' performance.
+                "answer": <p>
+                  Students in any AP course can benefit from the practice recommended by Quill's AP Writing Skills Survey, but the practice is probably of greatest interest to teachers of AP English Language and Composition and AP English Literature and Composition.
                 </p>,
-                "question": "Who developed the AP Writing Skills Survey?",
+                "question": "For which AP courses is this practice most relevant?",
               }
             }
             questionsAndAnswersFile="ap"
@@ -383,7 +504,7 @@ exports[`Ap component should render when it is not part of the assignment flow 1
                   tabIndex={-1}
                   type="button"
                 >
-                  Who developed the AP Writing Skills Survey?
+                  For which AP courses is this practice most relevant?
                 </button>
               </div>
               <div>
@@ -406,15 +527,16 @@ exports[`Ap component should render when it is not part of the assignment flow 1
             qa={
               Object {
                 "answer": <p>
-                  The Survey was designed for students in 
+                  Quill's writing skills surveys can be used in lieu of Quill's general diagnostics. For example, an AP teacher would likely assign the AP Writing Skills Survey in lieu of the Advanced Diagnostic. Keep in mind, however, that teachers may want ELL students in AP courses to begin with one of the ELL Diagnostics instead of a writing skills survey. 
                   <a
-                    href="https://apcentral.collegeboard.org/courses/ap-course-audit/explore-by-role/teachers"
+                    href="ttps://support.quill.org/en/articles/2554430-what-are-the-differences-between-the-various-diagnostic-assessments"
+                    rel="noopener noreferrer"
+                    target="_blank"
                   >
-                    Advanced Placement
+                    This article explains the differences between Quill’s various diagnostics and surveys in more depth
                   </a>
-                   courses. Please note, however, that students' performance on the Survey will only be recorded if it is assigned to them by their teacher.
                 </p>,
-                "question": "Who is the Survey for?",
+                "question": "Is a writing skills survey different than a diagnostic?",
               }
             }
             questionsAndAnswersFile="ap"
@@ -431,7 +553,7 @@ exports[`Ap component should render when it is not part of the assignment flow 1
                   tabIndex={-1}
                   type="button"
                 >
-                  Who is the Survey for?
+                  Is a writing skills survey different than a diagnostic?
                 </button>
               </div>
               <div>
@@ -573,6 +695,8 @@ exports[`Ap component should render when it is not part of the assignment flow 1
                     AP Writing Practice - 
                     <a
                       href="https://www.quill.org/activities/packs/139"
+                      rel="noopener noreferrer"
+                      target="_blank"
                     >
                       Complex Sentences
                     </a>
@@ -588,6 +712,8 @@ exports[`Ap component should render when it is not part of the assignment flow 1
                     AP Writing Practice - 
                     <a
                       href="https://www.quill.org/activities/packs/140"
+                      rel="noopener noreferrer"
+                      target="_blank"
                     >
                       Relative Clauses
                     </a>
@@ -603,6 +729,8 @@ exports[`Ap component should render when it is not part of the assignment flow 1
                     AP Writing Practice - 
                     <a
                       href="https://www.quill.org/activities/packs/143"
+                      rel="noopener noreferrer"
+                      target="_blank"
                     >
                       Appositive Phrases
                     </a>
@@ -618,6 +746,8 @@ exports[`Ap component should render when it is not part of the assignment flow 1
                     AP Writing Practice - 
                     <a
                       href="https://www.quill.org/activities/packs/144"
+                      rel="noopener noreferrer"
+                      target="_blank"
                     >
                       Participial Phrases
                     </a>
@@ -633,6 +763,8 @@ exports[`Ap component should render when it is not part of the assignment flow 1
                     AP Writing Practice - 
                     <a
                       href="https://www.quill.org/activities/packs/192"
+                      rel="noopener noreferrer"
+                      target="_blank"
                     >
                       Parallel Structure
                     </a>
@@ -648,6 +780,8 @@ exports[`Ap component should render when it is not part of the assignment flow 1
                     AP Writing Practice - 
                     <a
                       href="https://www.quill.org/activities/packs/141"
+                      rel="noopener noreferrer"
+                      target="_blank"
                     >
                       Compound-Complex Sentences
                     </a>
@@ -663,6 +797,8 @@ exports[`Ap component should render when it is not part of the assignment flow 1
                     AP Writing Practice - 
                     <a
                       href="https://www.quill.org/activities/packs/142"
+                      rel="noopener noreferrer"
+                      target="_blank"
                     >
                       Advanced Combining
                     </a>
@@ -758,32 +894,23 @@ exports[`Ap component should render when it is not part of the assignment flow 1
                   <p
                     className="college-board-q-and-a-text"
                   >
-                    All of the above packs contain between 4 and 7 activities, each of which are designed to take between 10 and 15 minutes each.
+                    Each AP recommended pack* contains between 4 and 7 activities, each of which are designed to take between 10 and 15 minutes each.
                   </p>
                   <p
                     className="college-board-q-and-a-text"
                   >
-                    The only exception is the 
+                    Please note that the activities in the 
                     <a
                       href="https://www.quill.org/activities/packs/142"
+                      rel="noopener noreferrer"
+                      target="_blank"
                     >
                       AP Writing - Advanced Combining pack
                     </a>
-                    , which contains 15 activities. This pack contains more activities than the others as it was designed to serve as a large bank of activities for students who perform well on the Survey and don’t get a lot of recommendations. This way, you can still assign these students activities, which are quite challenging and will sustain them for a while. These are great for students who have had success with individual practice of strategies covered in the Survey, and would benefit from an opportunity to apply those strategies in combining activities without suggestions or direction.
-                  </p>
-                  <p
-                    className="college-board-q-and-a-text"
-                  >
-                    Teacher Tip: When you select a recommended pack, you can 
-                    <a
-                      href="https://support.quill.org/en/articles/1137376-can-i-remove-activities-or-assignments-from-my-activity-packs"
-                    >
-                      remove any activities within it
-                    </a>
-                    . And once it's assigned, you can add activities to the pack as well.
+                     are different as they are all uncued, meaning the feedback does not direct students to combine in a particular way. These are great for students who are ready to apply the strategies covered in the survey without suggestions or direction.
                   </p>
                 </div>,
-                "question": "How many activities are in each AP Writing Practice pack and how long will it take students to complete them?",
+                "question": "How many activities are in each AP Writing Practice pack?",
               }
             }
             questionsAndAnswersFile="ap"
@@ -800,7 +927,7 @@ exports[`Ap component should render when it is not part of the assignment flow 1
                   tabIndex={-1}
                   type="button"
                 >
-                  How many activities are in each AP Writing Practice pack and how long will it take students to complete them?
+                  How many activities are in each AP Writing Practice pack?
                 </button>
               </div>
               <div>
@@ -917,18 +1044,24 @@ exports[`Ap component should render when it is not part of the assignment flow 1
                   Quill has a variety of reports to help you track your students' performance and progress. In the 
                   <a
                     href="https://support.quill.org/en/articles/1140159-how-does-the-activity-summary-work"
+                    rel="noopener noreferrer"
+                    target="_blank"
                   >
                     Activity Summary report
                   </a>
                   , you can quickly see which activities your students have completed, along with color-coded icons indicating their proficiency with each activity. Quill has several other reports as well. 
                   <a
                     href="https://s3.amazonaws.com/quill-image-uploads/uploads/files/Quill_Reports_Cheat_Sheet_Updated04_08_20.pdf"
+                    rel="noopener noreferrer"
+                    target="_blank"
                   >
                     This Cheat Sheet
                   </a>
                    shows you which report to go to for particular information, and 
                   <a
                     href="https://s3.amazonaws.com/quill-image-uploads/uploads/files/Getting_Started_-_Student_Data_Reports__Basic_.mp4"
+                    rel="noopener noreferrer"
+                    target="_blank"
                   >
                     this video
                   </a>
@@ -973,16 +1106,25 @@ exports[`Ap component should render when it is not part of the assignment flow 1
             key="12"
             qa={
               Object {
-                "answer": <p>
-                  You can assign all the recommended practice at once, or you can pick and choose the ones that best fit your instructional and students’ needs. Since most of the AP Writing Practice packs contain between 4 and 7 activities, we suggest expecting students to complete about 1 pack a week. 
-                  <a
-                    href="https://support.quill.org/en/articles/1065187-how-can-i-assign-activities-in-a-specific-order"
-                  >
-                    This article
-                  </a>
-                   explains how you can use deadlines to help students pace themselves.
-                </p>,
-                "question": "How many AP Writing Practice packs should I assign to my students?",
+                "answer": <div>
+                  <p>
+                    You can assign all the recommended packs in one click, or you can pick and choose, revisiting the recommendations report to assign more packs as needed.
+                  </p>
+                  <p>
+                    As Quill was designed to be a supplementary tool with each activity taking approximately 10-15 minutes, students are ideally completing an activity at least 1-2 times per week (at most completing one activity per day). Since each AP recommended pack contains between 4 and 7 activities, teachers generally expect a recommended pack to be completed in 1-2 weeks. Of course, students may need more or less time depending on the amount of activities in the pack, their level of difficulty, and students' level of proficiency.
+                  </p>
+                  <p>
+                    <a
+                      href="https://support.quill.org/en/articles/1065187-can-i-assign-activities-in-a-specific-order"
+                      rel="noopener noreferrer"
+                      target="_blank"
+                    >
+                      This article
+                    </a>
+                     explains how you can use deadlines to help students pace themselves.
+                  </p>
+                </div>,
+                "question": "How many AP Writing Practice packs should I assign to my students and how long will it take them to complete a pack?",
               }
             }
             questionsAndAnswersFile="ap"
@@ -999,7 +1141,7 @@ exports[`Ap component should render when it is not part of the assignment flow 1
                   tabIndex={-1}
                   type="button"
                 >
-                  How many AP Writing Practice packs should I assign to my students?
+                  How many AP Writing Practice packs should I assign to my students and how long will it take them to complete a pack?
                 </button>
               </div>
               <div>
@@ -1067,18 +1209,24 @@ exports[`Ap component should render when it is not part of the assignment flow 1
                   Yes! Quill offers 
                   <a
                     href="https://support.quill.org/en/articles/1327607-what-are-each-of-the-different-quill-tools"
+                    rel="noopener noreferrer"
+                    target="_blank"
                   >
                     5 different tools
                   </a>
                    with more than 600 writing, grammar, and proofreading activities designed to engage students in the writing process. 
                   <a
                     href="https://support.quill.org/en/articles/1049944-how-do-i-assign-a-featured-activity-pack"
+                    rel="noopener noreferrer"
+                    target="_blank"
                   >
                     This article
                   </a>
                    will show you how to explore and assign Quill’s featured activity packs, and 
                   <a
                     href="https://support.quill.org/en/articles/1049954-how-do-i-create-and-assign-a-new-activity-pack"
+                    rel="noopener noreferrer"
+                    target="_blank"
                   >
                     this article
                   </a>
@@ -1130,6 +1278,8 @@ exports[`Ap component should render when it is not part of the assignment flow 1
                     It is recommended that you and your students create free accounts on Quill.org. Creating an account will give you access to the Survey and its recommended practice. Creating an account also allows you to track your students’ progress and view data reports. You can create an account by visiting the 
                     <a
                       href="https://www.quill.org/account/new"
+                      rel="noopener noreferrer"
+                      target="_blank"
                     >
                       Quill sign-up page
                     </a>
@@ -1141,6 +1291,8 @@ exports[`Ap component should render when it is not part of the assignment flow 1
                     If you do not want to create an account, you or your students can complete the Survey 
                     <a
                       href="https://quill.org/diagnostic/#/play/diagnostic/-L_wPCxbrT6toCb1fnYR?anonymous=true"
+                      rel="noopener noreferrer"
+                      target="_blank"
                     >
                       here
                     </a>
@@ -1187,39 +1339,8 @@ exports[`Ap component should render when it is not part of the assignment flow 1
             qa={
               Object {
                 "answer": <div>
-                  <p
-                    className="college-board-q-and-a-text"
-                  >
-                    <strong>
-                      <a
-                        href="https://www.quill.org/teacher-center"
-                      >
-                        Teacher Center:
-                      </a>
-                    </strong>
-                     Browse additional resources and more information about how to use Quill.
-                  </p>
-                  <p
-                    className="college-board-q-and-a-text"
-                  >
-                    <strong>
-                      Quill Support:
-                    </strong>
-                     Email 
-                    <a
-                      href="mailto:support@quill.org"
-                    >
-                      support@quill.org
-                    </a>
-                     (Be sure to mention that you’re an AP teacher!
-                  </p>
-                  <p
-                    className="college-board-q-and-a-text"
-                  >
-                    <strong>
-                      Quill Support Chat:
-                    </strong>
-                     While you’re on Quill.org, you can use the chat bubble in the lower right side of your screen to connect with a member of the Quill support team. (Again, be sure to mention that you’re an AP teacher!)
+                  <p>
+                    We are here for you! The following resources are available:
                   </p>
                   <p
                     className="college-board-q-and-a-text"
@@ -1227,26 +1348,41 @@ exports[`Ap component should render when it is not part of the assignment flow 1
                     <strong>
                       Quill Instructional Coach:
                     </strong>
-                     You can reach out directly to Sherry Lewkowicz, one of our Senior Instructional Coaches focused on Quill’s work with the College Board, at 
+                     You can reach out directly to Sherry Lewkowicz, Quill's coach dedicated to supporting College Board teachers, at 
                     <a
                       href="mailto:sherry@quill.org"
                     >
                       sherry@quill.org
                     </a>
-                     (Again, be sure to mention that you’re an AP teacher!)
+                     Be sure to mention the course(s) you teach.
                   </p>
                   <p
                     className="college-board-q-and-a-text"
                   >
                     <strong>
-                      Quill Phone Number:
+                      <a
+                        href="https://www.quill.org/teacher-center"
+                        rel="noopener noreferrer"
+                        target="_blank"
+                      >
+                        Teacher Center:
+                      </a>
                     </strong>
-                     (510) 671-0222
+                     The place to go for all things best practice and implementation!
                   </p>
                   <p
                     className="college-board-q-and-a-text"
                   >
-                    We are always happy to help!
+                    <strong>
+                      Support:
+                    </strong>
+                     Having a technical issue? Email 
+                    <a
+                      href="mailto:support@quill.org"
+                    >
+                      support@quill.org
+                    </a>
+                     or use the chat in the lower right corner of Quill to connect with a member of the Quill support team.
                   </p>
                   <p
                     className="college-board-q-and-a-text"
@@ -1370,7 +1506,7 @@ exports[`Ap component should render when it is part of the assignment flow 1`] =
               Sentence-Level Writing Practice
             </h2>
             <p>
-              Identify which sentence-level skills your students need to practice with the AP Writing Skills Survey. Then, assign activities recommended for each student based on their survey responses so they can practice and improve their proficiency with those skills.
+              Identify which sentence-level skills your students need to practice with a skills survey. Then, assign activities recommended for each student based on their responses so they can practice and improve their proficiency with those skills.
             </p>
           </div>
         </div>
@@ -1380,11 +1516,6 @@ exports[`Ap component should render when it is part of the assignment flow 1`] =
           <h2>
             AP Writing Skills Survey
           </h2>
-          <div
-            className="college-board-activity-tag"
-          >
-            For All AP students
-          </div>
         </div>
         <div
           className="activity-container"
@@ -1413,7 +1544,7 @@ exports[`Ap component should render when it is part of the assignment flow 1`] =
             <p
               className="activity-sub-text"
             >
-              Students complete a seventeen-item survey to gauge their understanding of key writing skills that are essential to successful AP- and SAT-level writing. After students complete the survey, Quill will automatically recommend up to seven activity packs for each student based on their needs. Each pack contains a series of activities that each take about 15 minutes to complete and provide scaffolded, sequenced practice with one of the skills covered by the survey.
+              Students complete a 17 item survey to gauge their understanding of key writing skills that are essential to successful AP- and SAT-level writing. After students complete the survey, Quill will automatically recommend up to seven activity packs for each student based on their needs. Each pack contains a series of activities that each take about 15 minutes to complete and provide scaffolded, sequenced practice with one of the skills covered by the survey.
             </p>
             <p
               className="activity-sub-header"
@@ -1424,6 +1555,140 @@ exports[`Ap component should render when it is part of the assignment flow 1`] =
               className="activity-sub-text"
             >
               Complex Sentences; relative clauses; appositive phrases; participial phrases; parallel structure; compound-complex sentences; advanced combining
+            </p>
+          </div>
+        </div>
+        <div
+          className="activities-subheader"
+          id="ell-subheader"
+        >
+          <h2>
+            ELL Writing Skills Surveys
+          </h2>
+          <p>
+            If you have ELLs in your courses, you may want to consider assigning them an ELL Skills Surveys before assigning them a writing skills survey.
+          </p>
+        </div>
+        <div
+          className="activity-container"
+        >
+          <div
+            className="activity-header-container"
+          >
+            <p
+              className="activity-header"
+              id="writing-skills-survey"
+            >
+              ELL Starter Skills Surveys
+            </p>
+            <a
+              className="quill-button medium primary outlined view-button focus-on-light"
+              href="/assign/featured-activity-packs/154?college-board=ap"
+              rel="noopener noreferrer"
+              target=""
+            >
+              View
+            </a>
+          </div>
+          <div
+            className="activity-text-container"
+          >
+            <p
+              className="activity-sub-text"
+            >
+              ELL students complete a 22 item survey to gauge their mastery of foundational English grammar. This survey is most appropriate for students who are in the Entering or Emerging WIDA levels. After students complete the survey, Quill will automatically recommend up to five activity packs for each student based on their needs. Each pack contains a series of activities that each take about 15 minutes to complete and provide scaffolded, sequenced practice with one of the skills covered by the survey.
+            </p>
+            <p
+              className="activity-sub-header"
+            >
+              Skills
+            </p>
+            <p
+              className="activity-sub-text"
+            >
+              Simple verb conjugation; articles; simple subject-verb agreement; simple word order; singular and plural nouns; adjective placement
+            </p>
+          </div>
+        </div>
+        <div
+          className="activity-container"
+        >
+          <div
+            className="activity-header-container"
+          >
+            <p
+              className="activity-header"
+              id="writing-skills-survey"
+            >
+              ELL Intermediate Skills Surveys
+            </p>
+            <a
+              className="quill-button medium primary outlined view-button focus-on-light"
+              href="/assign/featured-activity-packs/299?college-board=ap"
+              rel="noopener noreferrer"
+              target=""
+            >
+              View
+            </a>
+          </div>
+          <div
+            className="activity-text-container"
+          >
+            <p
+              className="activity-sub-text"
+            >
+              ELL students complete a 23 item survey to gauge their mastery of English grammar. This survey is most appropriate for students who are in the Emerging or Developing WIDA levels. After students complete the survey, Quill will automatically recommend up to six activity packs for each student based on their needs. Each pack contains a series of activities that each take about 15 minutes to complete and provide scaffolded, sequenced practice with one of the skills covered by the survey.
+            </p>
+            <p
+              className="activity-sub-header"
+            >
+              Skills
+            </p>
+            <p
+              className="activity-sub-text"
+            >
+              Subject-verb agreement; singular possessive nouns; possessive pronouns; prepositions; future tense; articles; intermediate questions
+            </p>
+          </div>
+        </div>
+        <div
+          className="activity-container"
+        >
+          <div
+            className="activity-header-container"
+          >
+            <p
+              className="activity-header"
+              id="writing-skills-survey"
+            >
+              ELL Advanced Skills Surveys
+            </p>
+            <a
+              className="quill-button medium primary outlined view-button focus-on-light"
+              href="/assign/featured-activity-packs/300?college-board=ap"
+              rel="noopener noreferrer"
+              target=""
+            >
+              View
+            </a>
+          </div>
+          <div
+            className="activity-text-container"
+          >
+            <p
+              className="activity-sub-text"
+            >
+              ELL students complete a 23 item survey to gauge their mastery of English grammar, specifically in areas that are challenging for non-native English speakers. This survey is most appropriate for students who are in the Developing or Expanding WIDA levels. After students complete the survey, Quill will automatically recommend up to five activity packs for each student based on their needs. Each pack contains a series of activities that each take about 15 minutes to complete and provide scaffolded, sequenced practice with one of the skills covered by the survey.
+            </p>
+            <p
+              className="activity-sub-header"
+            >
+              Skills
+            </p>
+            <p
+              className="activity-sub-text"
+            >
+              Regular and irregular past tense; progressive tenses; phrasal verbs; choosing between prepositions; responding to questions; commonly confused words
             </p>
           </div>
         </div>
@@ -1568,6 +1833,48 @@ exports[`Ap component should render when it is part of the assignment flow 1`] =
             qa={
               Object {
                 "answer": <p>
+                  Quill is a writing tool that provides over 700 writing, grammar, and proofreading activities designed to engage students in the writing process. Quill provides practice in many areas of sentence writing, from comma placement and subject-verb agreement to the use of conjunctions to convey complex relationships between ideas. In the Quill Connect tool, students practice writing different types of sentences using the evidence-based strategy of sentence combining. Students receive specific, targeted feedback on their writing that they can use to revise their work. Through these activities, students practice writing a variety of sophisticated sentences and practice conveying complex ideas in clear, succinct, and grammatically strong ways. Most activities are designed to be completed in 10-15 minutes so that you have the freedom to use them in the way that works best for your classroom.
+                </p>,
+                "question": "What is Quill.org?",
+              }
+            }
+            questionsAndAnswersFile="ap"
+          >
+            <div
+              className="qa-section"
+            >
+              <div
+                className="qa"
+              >
+                <button
+                  className="question"
+                  onClick={[Function]}
+                  tabIndex={-1}
+                  type="button"
+                >
+                  What is Quill.org?
+                </button>
+              </div>
+              <div>
+                <button
+                  className="expand-collapse-button focus-on-light"
+                  onClick={[Function]}
+                  onKeyPress={[Function]}
+                  type="button"
+                >
+                  <img
+                    alt="expand-and-collapse"
+                    src="undefined/images/shared/expand.svg"
+                  />
+                </button>
+              </div>
+            </div>
+          </QuestionAndAnswer>
+          <QuestionAndAnswer
+            key="1"
+            qa={
+              Object {
+                "answer": <p>
                   The AP Writing Skills Survey is a survey with 17 questions on a range of writing skills. The questions ask students to combine sentences, sometimes with a direction to use a specific strategy, and sometimes without any direction (other than to combine).
                 </p>,
                 "question": "What is the AP Writing Skills Survey?",
@@ -1606,63 +1913,13 @@ exports[`Ap component should render when it is part of the assignment flow 1`] =
             </div>
           </QuestionAndAnswer>
           <QuestionAndAnswer
-            key="1"
-            qa={
-              Object {
-                "answer": <p>
-                  The Survey assesses students’ proficiency in constructing sentences with relative clauses, appositive phrases, participial phrases, and parallel structure, as well as their general ability to do advanced sentence combining, and to write complex and compound-complex sentences.
-                </p>,
-                "question": "What does the Survey assess?",
-              }
-            }
-            questionsAndAnswersFile="ap"
-          >
-            <div
-              className="qa-section"
-            >
-              <div
-                className="qa"
-              >
-                <button
-                  className="question"
-                  onClick={[Function]}
-                  tabIndex={-1}
-                  type="button"
-                >
-                  What does the Survey assess?
-                </button>
-              </div>
-              <div>
-                <button
-                  className="expand-collapse-button focus-on-light"
-                  onClick={[Function]}
-                  onKeyPress={[Function]}
-                  type="button"
-                >
-                  <img
-                    alt="expand-and-collapse"
-                    src="undefined/images/shared/expand.svg"
-                  />
-                </button>
-              </div>
-            </div>
-          </QuestionAndAnswer>
-          <QuestionAndAnswer
             key="2"
             qa={
               Object {
-                "answer": <p
-                  className="college-board-q-and-a-text"
-                >
-                  Quill.org worked with the 
-                  <a
-                    href="https://www.collegeboard.org/"
-                  >
-                    College Board
-                  </a>
-                   to develop this Survey and the AP Writing Practice activity packs that will be recommended based on your students' performance.
+                "answer": <p>
+                  Students in any AP course can benefit from the practice recommended by Quill's AP Writing Skills Survey, but the practice is probably of greatest interest to teachers of AP English Language and Composition and AP English Literature and Composition.
                 </p>,
-                "question": "Who developed the AP Writing Skills Survey?",
+                "question": "For which AP courses is this practice most relevant?",
               }
             }
             questionsAndAnswersFile="ap"
@@ -1679,7 +1936,7 @@ exports[`Ap component should render when it is part of the assignment flow 1`] =
                   tabIndex={-1}
                   type="button"
                 >
-                  Who developed the AP Writing Skills Survey?
+                  For which AP courses is this practice most relevant?
                 </button>
               </div>
               <div>
@@ -1702,15 +1959,16 @@ exports[`Ap component should render when it is part of the assignment flow 1`] =
             qa={
               Object {
                 "answer": <p>
-                  The Survey was designed for students in 
+                  Quill's writing skills surveys can be used in lieu of Quill's general diagnostics. For example, an AP teacher would likely assign the AP Writing Skills Survey in lieu of the Advanced Diagnostic. Keep in mind, however, that teachers may want ELL students in AP courses to begin with one of the ELL Diagnostics instead of a writing skills survey. 
                   <a
-                    href="https://apcentral.collegeboard.org/courses/ap-course-audit/explore-by-role/teachers"
+                    href="ttps://support.quill.org/en/articles/2554430-what-are-the-differences-between-the-various-diagnostic-assessments"
+                    rel="noopener noreferrer"
+                    target="_blank"
                   >
-                    Advanced Placement
+                    This article explains the differences between Quill’s various diagnostics and surveys in more depth
                   </a>
-                   courses. Please note, however, that students' performance on the Survey will only be recorded if it is assigned to them by their teacher.
                 </p>,
-                "question": "Who is the Survey for?",
+                "question": "Is a writing skills survey different than a diagnostic?",
               }
             }
             questionsAndAnswersFile="ap"
@@ -1727,7 +1985,7 @@ exports[`Ap component should render when it is part of the assignment flow 1`] =
                   tabIndex={-1}
                   type="button"
                 >
-                  Who is the Survey for?
+                  Is a writing skills survey different than a diagnostic?
                 </button>
               </div>
               <div>
@@ -1869,6 +2127,8 @@ exports[`Ap component should render when it is part of the assignment flow 1`] =
                     AP Writing Practice - 
                     <a
                       href="https://www.quill.org/activities/packs/139"
+                      rel="noopener noreferrer"
+                      target="_blank"
                     >
                       Complex Sentences
                     </a>
@@ -1884,6 +2144,8 @@ exports[`Ap component should render when it is part of the assignment flow 1`] =
                     AP Writing Practice - 
                     <a
                       href="https://www.quill.org/activities/packs/140"
+                      rel="noopener noreferrer"
+                      target="_blank"
                     >
                       Relative Clauses
                     </a>
@@ -1899,6 +2161,8 @@ exports[`Ap component should render when it is part of the assignment flow 1`] =
                     AP Writing Practice - 
                     <a
                       href="https://www.quill.org/activities/packs/143"
+                      rel="noopener noreferrer"
+                      target="_blank"
                     >
                       Appositive Phrases
                     </a>
@@ -1914,6 +2178,8 @@ exports[`Ap component should render when it is part of the assignment flow 1`] =
                     AP Writing Practice - 
                     <a
                       href="https://www.quill.org/activities/packs/144"
+                      rel="noopener noreferrer"
+                      target="_blank"
                     >
                       Participial Phrases
                     </a>
@@ -1929,6 +2195,8 @@ exports[`Ap component should render when it is part of the assignment flow 1`] =
                     AP Writing Practice - 
                     <a
                       href="https://www.quill.org/activities/packs/192"
+                      rel="noopener noreferrer"
+                      target="_blank"
                     >
                       Parallel Structure
                     </a>
@@ -1944,6 +2212,8 @@ exports[`Ap component should render when it is part of the assignment flow 1`] =
                     AP Writing Practice - 
                     <a
                       href="https://www.quill.org/activities/packs/141"
+                      rel="noopener noreferrer"
+                      target="_blank"
                     >
                       Compound-Complex Sentences
                     </a>
@@ -1959,6 +2229,8 @@ exports[`Ap component should render when it is part of the assignment flow 1`] =
                     AP Writing Practice - 
                     <a
                       href="https://www.quill.org/activities/packs/142"
+                      rel="noopener noreferrer"
+                      target="_blank"
                     >
                       Advanced Combining
                     </a>
@@ -2054,32 +2326,23 @@ exports[`Ap component should render when it is part of the assignment flow 1`] =
                   <p
                     className="college-board-q-and-a-text"
                   >
-                    All of the above packs contain between 4 and 7 activities, each of which are designed to take between 10 and 15 minutes each.
+                    Each AP recommended pack* contains between 4 and 7 activities, each of which are designed to take between 10 and 15 minutes each.
                   </p>
                   <p
                     className="college-board-q-and-a-text"
                   >
-                    The only exception is the 
+                    Please note that the activities in the 
                     <a
                       href="https://www.quill.org/activities/packs/142"
+                      rel="noopener noreferrer"
+                      target="_blank"
                     >
                       AP Writing - Advanced Combining pack
                     </a>
-                    , which contains 15 activities. This pack contains more activities than the others as it was designed to serve as a large bank of activities for students who perform well on the Survey and don’t get a lot of recommendations. This way, you can still assign these students activities, which are quite challenging and will sustain them for a while. These are great for students who have had success with individual practice of strategies covered in the Survey, and would benefit from an opportunity to apply those strategies in combining activities without suggestions or direction.
-                  </p>
-                  <p
-                    className="college-board-q-and-a-text"
-                  >
-                    Teacher Tip: When you select a recommended pack, you can 
-                    <a
-                      href="https://support.quill.org/en/articles/1137376-can-i-remove-activities-or-assignments-from-my-activity-packs"
-                    >
-                      remove any activities within it
-                    </a>
-                    . And once it's assigned, you can add activities to the pack as well.
+                     are different as they are all uncued, meaning the feedback does not direct students to combine in a particular way. These are great for students who are ready to apply the strategies covered in the survey without suggestions or direction.
                   </p>
                 </div>,
-                "question": "How many activities are in each AP Writing Practice pack and how long will it take students to complete them?",
+                "question": "How many activities are in each AP Writing Practice pack?",
               }
             }
             questionsAndAnswersFile="ap"
@@ -2096,7 +2359,7 @@ exports[`Ap component should render when it is part of the assignment flow 1`] =
                   tabIndex={-1}
                   type="button"
                 >
-                  How many activities are in each AP Writing Practice pack and how long will it take students to complete them?
+                  How many activities are in each AP Writing Practice pack?
                 </button>
               </div>
               <div>
@@ -2213,18 +2476,24 @@ exports[`Ap component should render when it is part of the assignment flow 1`] =
                   Quill has a variety of reports to help you track your students' performance and progress. In the 
                   <a
                     href="https://support.quill.org/en/articles/1140159-how-does-the-activity-summary-work"
+                    rel="noopener noreferrer"
+                    target="_blank"
                   >
                     Activity Summary report
                   </a>
                   , you can quickly see which activities your students have completed, along with color-coded icons indicating their proficiency with each activity. Quill has several other reports as well. 
                   <a
                     href="https://s3.amazonaws.com/quill-image-uploads/uploads/files/Quill_Reports_Cheat_Sheet_Updated04_08_20.pdf"
+                    rel="noopener noreferrer"
+                    target="_blank"
                   >
                     This Cheat Sheet
                   </a>
                    shows you which report to go to for particular information, and 
                   <a
                     href="https://s3.amazonaws.com/quill-image-uploads/uploads/files/Getting_Started_-_Student_Data_Reports__Basic_.mp4"
+                    rel="noopener noreferrer"
+                    target="_blank"
                   >
                     this video
                   </a>
@@ -2269,16 +2538,25 @@ exports[`Ap component should render when it is part of the assignment flow 1`] =
             key="12"
             qa={
               Object {
-                "answer": <p>
-                  You can assign all the recommended practice at once, or you can pick and choose the ones that best fit your instructional and students’ needs. Since most of the AP Writing Practice packs contain between 4 and 7 activities, we suggest expecting students to complete about 1 pack a week. 
-                  <a
-                    href="https://support.quill.org/en/articles/1065187-how-can-i-assign-activities-in-a-specific-order"
-                  >
-                    This article
-                  </a>
-                   explains how you can use deadlines to help students pace themselves.
-                </p>,
-                "question": "How many AP Writing Practice packs should I assign to my students?",
+                "answer": <div>
+                  <p>
+                    You can assign all the recommended packs in one click, or you can pick and choose, revisiting the recommendations report to assign more packs as needed.
+                  </p>
+                  <p>
+                    As Quill was designed to be a supplementary tool with each activity taking approximately 10-15 minutes, students are ideally completing an activity at least 1-2 times per week (at most completing one activity per day). Since each AP recommended pack contains between 4 and 7 activities, teachers generally expect a recommended pack to be completed in 1-2 weeks. Of course, students may need more or less time depending on the amount of activities in the pack, their level of difficulty, and students' level of proficiency.
+                  </p>
+                  <p>
+                    <a
+                      href="https://support.quill.org/en/articles/1065187-can-i-assign-activities-in-a-specific-order"
+                      rel="noopener noreferrer"
+                      target="_blank"
+                    >
+                      This article
+                    </a>
+                     explains how you can use deadlines to help students pace themselves.
+                  </p>
+                </div>,
+                "question": "How many AP Writing Practice packs should I assign to my students and how long will it take them to complete a pack?",
               }
             }
             questionsAndAnswersFile="ap"
@@ -2295,7 +2573,7 @@ exports[`Ap component should render when it is part of the assignment flow 1`] =
                   tabIndex={-1}
                   type="button"
                 >
-                  How many AP Writing Practice packs should I assign to my students?
+                  How many AP Writing Practice packs should I assign to my students and how long will it take them to complete a pack?
                 </button>
               </div>
               <div>
@@ -2363,18 +2641,24 @@ exports[`Ap component should render when it is part of the assignment flow 1`] =
                   Yes! Quill offers 
                   <a
                     href="https://support.quill.org/en/articles/1327607-what-are-each-of-the-different-quill-tools"
+                    rel="noopener noreferrer"
+                    target="_blank"
                   >
                     5 different tools
                   </a>
                    with more than 600 writing, grammar, and proofreading activities designed to engage students in the writing process. 
                   <a
                     href="https://support.quill.org/en/articles/1049944-how-do-i-assign-a-featured-activity-pack"
+                    rel="noopener noreferrer"
+                    target="_blank"
                   >
                     This article
                   </a>
                    will show you how to explore and assign Quill’s featured activity packs, and 
                   <a
                     href="https://support.quill.org/en/articles/1049954-how-do-i-create-and-assign-a-new-activity-pack"
+                    rel="noopener noreferrer"
+                    target="_blank"
                   >
                     this article
                   </a>
@@ -2426,6 +2710,8 @@ exports[`Ap component should render when it is part of the assignment flow 1`] =
                     It is recommended that you and your students create free accounts on Quill.org. Creating an account will give you access to the Survey and its recommended practice. Creating an account also allows you to track your students’ progress and view data reports. You can create an account by visiting the 
                     <a
                       href="https://www.quill.org/account/new"
+                      rel="noopener noreferrer"
+                      target="_blank"
                     >
                       Quill sign-up page
                     </a>
@@ -2437,6 +2723,8 @@ exports[`Ap component should render when it is part of the assignment flow 1`] =
                     If you do not want to create an account, you or your students can complete the Survey 
                     <a
                       href="https://quill.org/diagnostic/#/play/diagnostic/-L_wPCxbrT6toCb1fnYR?anonymous=true"
+                      rel="noopener noreferrer"
+                      target="_blank"
                     >
                       here
                     </a>
@@ -2483,39 +2771,8 @@ exports[`Ap component should render when it is part of the assignment flow 1`] =
             qa={
               Object {
                 "answer": <div>
-                  <p
-                    className="college-board-q-and-a-text"
-                  >
-                    <strong>
-                      <a
-                        href="https://www.quill.org/teacher-center"
-                      >
-                        Teacher Center:
-                      </a>
-                    </strong>
-                     Browse additional resources and more information about how to use Quill.
-                  </p>
-                  <p
-                    className="college-board-q-and-a-text"
-                  >
-                    <strong>
-                      Quill Support:
-                    </strong>
-                     Email 
-                    <a
-                      href="mailto:support@quill.org"
-                    >
-                      support@quill.org
-                    </a>
-                     (Be sure to mention that you’re an AP teacher!
-                  </p>
-                  <p
-                    className="college-board-q-and-a-text"
-                  >
-                    <strong>
-                      Quill Support Chat:
-                    </strong>
-                     While you’re on Quill.org, you can use the chat bubble in the lower right side of your screen to connect with a member of the Quill support team. (Again, be sure to mention that you’re an AP teacher!)
+                  <p>
+                    We are here for you! The following resources are available:
                   </p>
                   <p
                     className="college-board-q-and-a-text"
@@ -2523,26 +2780,41 @@ exports[`Ap component should render when it is part of the assignment flow 1`] =
                     <strong>
                       Quill Instructional Coach:
                     </strong>
-                     You can reach out directly to Sherry Lewkowicz, one of our Senior Instructional Coaches focused on Quill’s work with the College Board, at 
+                     You can reach out directly to Sherry Lewkowicz, Quill's coach dedicated to supporting College Board teachers, at 
                     <a
                       href="mailto:sherry@quill.org"
                     >
                       sherry@quill.org
                     </a>
-                     (Again, be sure to mention that you’re an AP teacher!)
+                     Be sure to mention the course(s) you teach.
                   </p>
                   <p
                     className="college-board-q-and-a-text"
                   >
                     <strong>
-                      Quill Phone Number:
+                      <a
+                        href="https://www.quill.org/teacher-center"
+                        rel="noopener noreferrer"
+                        target="_blank"
+                      >
+                        Teacher Center:
+                      </a>
                     </strong>
-                     (510) 671-0222
+                     The place to go for all things best practice and implementation!
                   </p>
                   <p
                     className="college-board-q-and-a-text"
                   >
-                    We are always happy to help!
+                    <strong>
+                      Support:
+                    </strong>
+                     Having a technical issue? Email 
+                    <a
+                      href="mailto:support@quill.org"
+                    >
+                      support@quill.org
+                    </a>
+                     or use the chat in the lower right corner of Quill to connect with a member of the Quill support team.
                   </p>
                   <p
                     className="college-board-q-and-a-text"

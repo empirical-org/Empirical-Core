@@ -267,7 +267,7 @@ exports[`PreAp component should render when it is not part of the assignment flo
               Sentence-Level Writing Practice
             </h2>
             <p>
-              Identify which sentence-level skills from the course framework your students need to practice with two different Pre-AP Writing Skills Surveys. Then, assign up to 40 targeted writing activities so students can practice and improve their proficiency with those skills.
+              Identify which sentence-level skills your students need to practice with a skills survey. Then, assign activities recommended for each student based on their responses so they can practice and improve their proficiency with those skills.
             </p>
           </div>
         </div>
@@ -277,16 +277,6 @@ exports[`PreAp component should render when it is not part of the assignment flo
           <h2>
             Pre-AP Writing Skills Surveys
           </h2>
-          <div
-            className="college-board-activity-tag"
-          >
-            For Pre-AP English 1
-          </div>
-          <div
-            className="college-board-activity-tag"
-          >
-            For Pre-AP English 2
-          </div>
         </div>
         <div
           className="activity-container"
@@ -294,12 +284,26 @@ exports[`PreAp component should render when it is not part of the assignment flo
           <div
             className="activity-header-container"
           >
-            <p
-              className="activity-header"
-              id="writing-skills-survey-1"
+            <div
+              className="tags-container"
             >
-              Pre-AP Writing Skills Survey 1: Basic of Sentence Patterns
-            </p>
+              <p
+                className="activity-header"
+                id="writing-skills-survey-1"
+              >
+                Pre-AP Writing Skills Survey 1: Basic of Sentence Patterns
+              </p>
+              <div
+                className="college-board-activity-tag"
+              >
+                For Pre-AP English 1
+              </div>
+              <div
+                className="college-board-activity-tag"
+              >
+                For Pre-AP English 2
+              </div>
+            </div>
             <a
               className="quill-button medium primary outlined view-button focus-on-light"
               href="/activities/packs/194"
@@ -315,7 +319,7 @@ exports[`PreAp component should render when it is not part of the assignment flo
             <p
               className="activity-sub-text"
             >
-              Students complete a twelve-item survey to gauge their understanding of key writing skills, fundamental grammatical elements, and compound/complex sentence constructions. After students complete the survey, Quill will automatically recommend up to five activity packs for each student based on their needs. Each pack contains four to six activities that each take about 15 minutes to complete and provide scaffolded, sequenced practice on one of the five skills addressed in the survey.
+              Students complete a 12 item survey their understanding of key writing skills, fundamental grammatical elements, and compound/complex sentence constructions. After students complete the survey, Quill will automatically recommend up to five activity packs for each student based on their needs. Each pack contains four to six activities that each take about 15 minutes to complete and provide scaffolded, sequenced practice on one of the five skills addressed in the survey.
             </p>
             <p
               className="activity-sub-header"
@@ -335,12 +339,26 @@ exports[`PreAp component should render when it is not part of the assignment flo
           <div
             className="activity-header-container"
           >
-            <p
-              className="activity-header"
-              id="writing-skills-survey-2"
+            <div
+              className="tags-container"
             >
-              Pre-AP Writing Skills Survey 2: Tools for Sentence Expansion
-            </p>
+              <p
+                className="activity-header"
+                id="writing-skills-survey-2"
+              >
+                Pre-AP Writing Skills Survey 2: Tools for Sentence Expansion
+              </p>
+              <div
+                className="college-board-activity-tag"
+              >
+                For Pre-AP English 1
+              </div>
+              <div
+                className="college-board-activity-tag"
+              >
+                For Pre-AP English 2
+              </div>
+            </div>
             <a
               className="quill-button medium primary outlined view-button focus-on-light"
               href="/activities/packs/195"
@@ -356,7 +374,7 @@ exports[`PreAp component should render when it is not part of the assignment flo
             <p
               className="activity-sub-text"
             >
-              Students complete a twelve-item survey to gauge their understanding of key writing skills, focusing on constructions for expanding sentences with description and detail. After students complete the survey, Quill will automatically recommend up to five activity packs for each student based on their needs. Each pack contains four to six activities that each take about 15 minutes to complete and provide scaffolded, sequenced practice on one of the five skills addressed in the survey.
+              Students complete a 12 item survey their understanding of key writing skills, focusing on constructions for expanding sentences with description and detail. After students complete the survey, Quill will automatically recommend up to five activity packs for each student based on their needs. Each pack contains four to six activities that each take about 15 minutes to complete and provide scaffolded, sequenced practice on one of the five skills addressed in the survey.
             </p>
             <p
               className="activity-sub-header"
@@ -367,6 +385,140 @@ exports[`PreAp component should render when it is not part of the assignment flo
               className="activity-sub-text"
             >
               Conjunctive adverbs; appositive phrases; relative clauses; participial phrases; parallel structure
+            </p>
+          </div>
+        </div>
+        <div
+          className="activities-subheader"
+          id="ell-subheader"
+        >
+          <h2>
+            ELL Writing Skills Surveys
+          </h2>
+          <p>
+            If you have ELLs in your courses, you may want to consider assigning them an ELL Skills Surveys before assigning them a writing skills survey.
+          </p>
+        </div>
+        <div
+          className="activity-container"
+        >
+          <div
+            className="activity-header-container"
+          >
+            <p
+              className="activity-header"
+              id="writing-skills-survey"
+            >
+              ELL Starter Skills Surveys
+            </p>
+            <a
+              className="quill-button medium primary outlined view-button focus-on-light"
+              href="/activities/packs/154"
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+              View
+            </a>
+          </div>
+          <div
+            className="activity-text-container"
+          >
+            <p
+              className="activity-sub-text"
+            >
+              ELL students complete a 22 item survey to gauge their mastery of foundational English grammar. This survey is most appropriate for students who are in the Entering or Emerging WIDA levels. After students complete the survey, Quill will automatically recommend up to five activity packs for each student based on their needs. Each pack contains a series of activities that each take about 15 minutes to complete and provide scaffolded, sequenced practice with one of the skills covered by the survey.
+            </p>
+            <p
+              className="activity-sub-header"
+            >
+              Skills
+            </p>
+            <p
+              className="activity-sub-text"
+            >
+              Simple verb conjugation; articles; simple subject-verb agreement; simple word order; singular and plural nouns; adjective placement
+            </p>
+          </div>
+        </div>
+        <div
+          className="activity-container"
+        >
+          <div
+            className="activity-header-container"
+          >
+            <p
+              className="activity-header"
+              id="writing-skills-survey"
+            >
+              ELL Intermediate Skills Surveys
+            </p>
+            <a
+              className="quill-button medium primary outlined view-button focus-on-light"
+              href="/activities/packs/299"
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+              View
+            </a>
+          </div>
+          <div
+            className="activity-text-container"
+          >
+            <p
+              className="activity-sub-text"
+            >
+              ELL students complete a 23 item survey to gauge their mastery of English grammar. This survey is most appropriate for students who are in the Emerging or Developing WIDA levels. After students complete the survey, Quill will automatically recommend up to six activity packs for each student based on their needs. Each pack contains a series of activities that each take about 15 minutes to complete and provide scaffolded, sequenced practice with one of the skills covered by the survey.
+            </p>
+            <p
+              className="activity-sub-header"
+            >
+              Skills
+            </p>
+            <p
+              className="activity-sub-text"
+            >
+              Subject-verb agreement; singular possessive nouns; possessive pronouns; prepositions; future tense; articles; intermediate questions
+            </p>
+          </div>
+        </div>
+        <div
+          className="activity-container"
+        >
+          <div
+            className="activity-header-container"
+          >
+            <p
+              className="activity-header"
+              id="writing-skills-survey"
+            >
+              ELL Advanced Skills Surveys
+            </p>
+            <a
+              className="quill-button medium primary outlined view-button focus-on-light"
+              href="/activities/packs/300"
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+              View
+            </a>
+          </div>
+          <div
+            className="activity-text-container"
+          >
+            <p
+              className="activity-sub-text"
+            >
+              ELL students complete a 23 item survey to gauge their mastery of English grammar, specifically in areas that are challenging for non-native English speakers. This survey is most appropriate for students who are in the Developing or Expanding WIDA levels. After students complete the survey, Quill will automatically recommend up to five activity packs for each student based on their needs. Each pack contains a series of activities that each take about 15 minutes to complete and provide scaffolded, sequenced practice with one of the skills covered by the survey.
+            </p>
+            <p
+              className="activity-sub-header"
+            >
+              Skills
+            </p>
+            <p
+              className="activity-sub-text"
+            >
+              Regular and irregular past tense; progressive tenses; phrasal verbs; choosing between prepositions; responding to questions; commonly confused words
             </p>
           </div>
         </div>
@@ -397,7 +549,7 @@ exports[`PreAp component should render when it is not part of the assignment flo
             <p
               className="info-blurb-text"
             >
-              Each twelve-item Pre-AP Writing Skills Survey covers five of the ten key grammar skills from the English 1 and English 2 course frameworks. Each survey helps identify which of the five skills your students need to practice most.
+              Each 12 item Pre-AP Writing Skills Survey covers five of the ten key grammar skills from the English 1 and English 2 course frameworks. Each survey helps identify which of the five skills your students need to practice most.
             </p>
           </div>
         </div>
@@ -475,7 +627,7 @@ exports[`PreAp component should render when it is not part of the assignment flo
               Passage-Aligned Activities
             </h2>
             <p>
-              Twenty custom sentence-combining activities, each one aligned to a unique Pre-AP English 1 text to give your students the opportunity to practice their sentence construction skills in context.
+              20 custom sentence-combining activities, each one aligned to a unique Pre-AP English 1 text to give your students the opportunity to practice their sentence construction skills in context.
             </p>
           </div>
         </div>
@@ -2076,6 +2228,8 @@ exports[`PreAp component should render when it is not part of the assignment flo
                     It is recommended that you and your students create free accounts on Quill.org. Creating an account will give you access to the two skills surveys and recommended practice; creating an account also allows you to track your students’ progress and view data reports. You can create an account by visiting the Quill 
                     <a
                       href="https://www.quill.org/sign-up/teacher"
+                      rel="noopener noreferrer"
+                      target="_blank"
                     >
                       sign-up page
                     </a>
@@ -2131,11 +2285,233 @@ exports[`PreAp component should render when it is not part of the assignment flo
             key="4"
             qa={
               Object {
+                "answer": <p>
+                  Quill's writing skills surveys can be used in lieu of Quill's general diagnostics. For example, an AP teacher would likely assign the AP Writing Skills Survey in lieu of the Advanced Diagnostic. Keep in mind, however, that teachers may want ELL students in Pre-AP, AP, or SpringBoard courses to begin with one of the ELL Diagnostics instead of a writing skills survey. 
+                  <a
+                    href="https://support.quill.org/en/articles/2554430-what-are-the-differences-between-the-various-diagnostic-assessments"
+                    rel="noopener noreferrer"
+                    target="_blank"
+                  >
+                    This article explains the differences between Quill’s various diagnostics and surveys in more depth
+                  </a>
+                  .
+                </p>,
+                "question": "Is a writing skills survey different than a diagnostic?",
+              }
+            }
+            questionsAndAnswersFile="preap"
+          >
+            <div
+              className="qa-section"
+            >
+              <div
+                className="qa"
+              >
+                <button
+                  className="question"
+                  onClick={[Function]}
+                  tabIndex={-1}
+                  type="button"
+                >
+                  Is a writing skills survey different than a diagnostic?
+                </button>
+              </div>
+              <div>
+                <button
+                  className="expand-collapse-button focus-on-light"
+                  onClick={[Function]}
+                  onKeyPress={[Function]}
+                  type="button"
+                >
+                  <img
+                    alt="expand-and-collapse"
+                    src="undefined/images/shared/expand.svg"
+                  />
+                </button>
+              </div>
+            </div>
+          </QuestionAndAnswer>
+          <QuestionAndAnswer
+            key="5"
+            qa={
+              Object {
+                "answer": <p>
+                  Each Pre-AP recommended pack contains between 4 and 7 activities, each of which are designed to take between 10 and 15 minutes each. There are also additional practice packs for students who finish the Pre-AP recommended packs: same skills, new content. 
+                  <a
+                    href="https://support.quill.org/en/articles/4579893-how-do-i-assign-additional-practice-packs-for-pre-ap-skills-surveys"
+                    rel="noopener noreferrer"
+                    target="_blank"
+                  >
+                    Learn how to find and assign those here.
+                  </a>
+                </p>,
+                "question": "How many activities are in each Pre-AP Writing Practice pack?",
+              }
+            }
+            questionsAndAnswersFile="preap"
+          >
+            <div
+              className="qa-section"
+            >
+              <div
+                className="qa"
+              >
+                <button
+                  className="question"
+                  onClick={[Function]}
+                  tabIndex={-1}
+                  type="button"
+                >
+                  How many activities are in each Pre-AP Writing Practice pack?
+                </button>
+              </div>
+              <div>
+                <button
+                  className="expand-collapse-button focus-on-light"
+                  onClick={[Function]}
+                  onKeyPress={[Function]}
+                  type="button"
+                >
+                  <img
+                    alt="expand-and-collapse"
+                    src="undefined/images/shared/expand.svg"
+                  />
+                </button>
+              </div>
+            </div>
+          </QuestionAndAnswer>
+          <QuestionAndAnswer
+            key="6"
+            qa={
+              Object {
+                "answer": <div>
+                  <p>
+                    You can assign all the recommended packs in one click, or you can pick and choose, revisiting the recommendations report to assign more packs as needed.
+                  </p>
+                  <p>
+                    In general, we've found that students make progress when they are completing 2-4 activities on Quill per week. Since each Pre-AP recommended pack contains between 4 and 7 activities, teachers generally expect a recommended pack to be completed in 1-2 weeks. Of course, students may need more or less time depending on the amount of activities in the pack, their level of difficulty, and students' level of proficiency. 
+                  </p>
+                  <p>
+                    <a
+                      href="https://support.quill.org/en/articles/1065187-can-i-assign-activities-in-a-specific-order"
+                      rel="noopener noreferrer"
+                      target="_blank"
+                    >
+                      This article
+                    </a>
+                     explains how you can use deadlines to help students pace themselves. 
+                  </p>
+                </div>,
+                "question": "How many Pre-AP Writing Practice packs should I assign to my students and how long will it take them to complete a pack?",
+              }
+            }
+            questionsAndAnswersFile="preap"
+          >
+            <div
+              className="qa-section"
+            >
+              <div
+                className="qa"
+              >
+                <button
+                  className="question"
+                  onClick={[Function]}
+                  tabIndex={-1}
+                  type="button"
+                >
+                  How many Pre-AP Writing Practice packs should I assign to my students and how long will it take them to complete a pack?
+                </button>
+              </div>
+              <div>
+                <button
+                  className="expand-collapse-button focus-on-light"
+                  onClick={[Function]}
+                  onKeyPress={[Function]}
+                  type="button"
+                >
+                  <img
+                    alt="expand-and-collapse"
+                    src="undefined/images/shared/expand.svg"
+                  />
+                </button>
+              </div>
+            </div>
+          </QuestionAndAnswer>
+          <QuestionAndAnswer
+            key="7"
+            qa={
+              Object {
+                "answer": <p>
+                  Quill has a variety of reports to help you track your students' performance and progress. In the 
+                  <a
+                    href="https://support.quill.org/en/articles/1140159-how-does-the-activity-summary-work"
+                    rel="noopener noreferrer"
+                    target="_blank"
+                  >
+                    Activity Summary report
+                  </a>
+                  , you can quickly see which activities your students have completed, along with color-coded icons indicating proficiency. Quill has several other reports as well. 
+                  <a
+                    href="http://s3.amazonaws.com/quill-image-uploads/uploads/files/Quill_Reports_Cheat_Sheet_Updated04_08_20.pdf"
+                    rel="noopener noreferrer"
+                    target="_blank"
+                  >
+                    This cheat sheet
+                  </a>
+                   shows you which report to go to for particular information, and 
+                  <a
+                    href="http://s3.amazonaws.com/quill-image-uploads/uploads/files/Getting_Started_-_Student_Data_Reports__Basic_.mp4"
+                    rel="noopener noreferrer"
+                    target="_blank"
+                  >
+                    this video will walk you through 3 of Quill's student data reports
+                  </a>
+                  .
+                </p>,
+                "question": "Where can I track my students' completion of and performance on Quill activities?",
+              }
+            }
+            questionsAndAnswersFile="preap"
+          >
+            <div
+              className="qa-section"
+            >
+              <div
+                className="qa"
+              >
+                <button
+                  className="question"
+                  onClick={[Function]}
+                  tabIndex={-1}
+                  type="button"
+                >
+                  Where can I track my students' completion of and performance on Quill activities?
+                </button>
+              </div>
+              <div>
+                <button
+                  className="expand-collapse-button focus-on-light"
+                  onClick={[Function]}
+                  onKeyPress={[Function]}
+                  type="button"
+                >
+                  <img
+                    alt="expand-and-collapse"
+                    src="undefined/images/shared/expand.svg"
+                  />
+                </button>
+              </div>
+            </div>
+          </QuestionAndAnswer>
+          <QuestionAndAnswer
+            key="8"
+            qa={
+              Object {
                 "answer": <div>
                   <p
                     className="college-board-q-and-a-text"
                   >
-                    The skills surveys function similarly to the Quill Diagnostic tool. The activities linked throughout the English 1 lessons and the activities that are recommended based on the students’ skills survey results will be from the Quill Connect sentence combining tool. If you decide to create a free account on Quill.org, you will be able to assign additional activities from any of the five tools listed below.
+                    If you create a free account on Quill.org, you will be able to assign additional activities from any of Quill’s 5 tools:
                   </p>
                   <ul>
                     <li>
@@ -2145,7 +2521,7 @@ exports[`PreAp component should render when it is not part of the assignment flo
                       <p
                         className="college-board-q-and-a-text"
                       >
-                        Students combine multiple ideas into a single sentence using the evidence-based strategy of sentence combining. Students then receive instant feedback designed to help them improve the clarity and precision of their sentences while also reinforcing accurate usage and mechanics.
+                        Students combine multiple ideas into a single sentence using the evidence-based strategy of sentence combining. Students receive instant feedback. *Note*: All activities recommended based on survey results are in Quill Connect.
                       </p>
                     </li>
                     <li>
@@ -2155,7 +2531,7 @@ exports[`PreAp component should render when it is not part of the assignment flo
                       <p
                         className="college-board-q-and-a-text"
                       >
-                        Students practice basic grammar skills, from using correct capitalization to recognizing and correcting commonly confused words.
+                        Students practice basic grammar skills, from using correct capitalization to correcting commonly confused words.
                       </p>
                     </li>
                     <li>
@@ -2165,7 +2541,7 @@ exports[`PreAp component should render when it is not part of the assignment flo
                       <p
                         className="college-board-q-and-a-text"
                       >
-                        Students practice their editing skills by proofreading passages embedded with errors. Students receive personalized follow-up activities based on their results.
+                        Students practice editing skills by correcting errors in passages. Students receive personalized follow-up activities based on their results.
                       </p>
                     </li>
                     <li>
@@ -2175,7 +2551,7 @@ exports[`PreAp component should render when it is not part of the assignment flo
                       <p
                         className="college-board-q-and-a-text"
                       >
-                        Teachers lead whole-class writing instruction with complete lesson plans and activities. Teachers control interactive slides that contain a mini lesson and guided practice. Teachers can model writing strategies in real-time, present prompts to which students can respond on their own devices, and then anonymously display student responses for discussion. Each Quill Lessons activity provides a lesson plan, writing prompts, discussion topics, and a follow-up independent practice activity. Teachers can also customize any lesson by adding their own prompts and examples.
+                        Teachers lead whole-class writing instruction. Teachers control interactive slides that contain a mini-lesson and guided practice. Teachers can model writing strategies in real-time, present prompts to which students can respond, and then anonymously display student responses for discussion. Each Quill Lessons activity provides a lesson plan, writing prompts, discussion topics, and a follow-up independent practice activity. Teachers can also customize any lesson.
                       </p>
                     </li>
                     <li>
@@ -2185,7 +2561,7 @@ exports[`PreAp component should render when it is not part of the assignment flo
                       <p
                         className="college-board-q-and-a-text"
                       >
-                        Students complete an activity designed to help teachers quickly determine which skills students need to work on. After students complete a Quill Diagnostic activity, Quill recommends a set of writing activities for students based on their results. Teachers can easily view and assign the recommended sequence of activities and track their students’ progress. As mentioned above, the skills surveys have been developed as customized tools based on the Pre-AP English High School Course Framework. Therefore, the skills surveys can be used in lieu of the general Quill Diagnostic activities.
+                        Students complete an activity designed to help teachers determine which skills students need to work on. After students complete a Quill Diagnostic activity, Quill recommends writing activities for students based on their results. *Note*: The writing skills surveys can be used in lieu of general Quill diagnostics.
                       </p>
                     </li>
                   </ul>
@@ -2226,70 +2602,21 @@ exports[`PreAp component should render when it is not part of the assignment flo
             </div>
           </QuestionAndAnswer>
           <QuestionAndAnswer
-            key="5"
+            key="9"
             qa={
               Object {
-                "answer": <div>
-                  <p
-                    className="college-board-q-and-a-text"
+                "answer": <p>
+                  Unfortunately, at this time, there are no sentence combining activities aligned to texts in Pre-AP courses other than English I. If you would like to see activities like these for another course, please us know 
+                  <a
+                    href="https://quillorg.canny.io/content-feedback"
+                    rel="noopener noreferrer"
+                    target="_blank"
                   >
-                    Visit our teacher center for additional resources and more information about how to use Quill: 
-                    <a
-                      className="focus-on-light"
-                      href="https://www.quill.org/teacher-center"
-                    >
-                      https://www.quill.org/teacher-center
-                    </a>
-                    . You can also reach out to either one of your Quill representatives via email. We're always happy to help!
-                  </p>
-                  <p
-                    className="college-board-block"
-                  >
-                    Quill Representatives:
-                  </p>
-                  <div
-                    className="college-board-block"
-                  >
-                    <p>
-                      Christina Collins-Berry
-                    </p>
-                    <p>
-                      Managing Director of Partnerships
-                    </p>
-                    <p>
-                      christina@quill.org
-                    </p>
-                  </div>
-                  <div
-                    className="college-board-block"
-                  >
-                    <p>
-                      Sherry Lewkowicz
-                    </p>
-                    <p>
-                      Senior Instructional Coach
-                    </p>
-                    <p>
-                      sherry@quill.org
-                    </p>
-                  </div>
-                  <p
-                    className="college-board-block"
-                  >
-                    Quill Support: support@quill.org (include your current Pre-AP teacher status in email)
-                  </p>
-                  <p
-                    className="college-board-block"
-                  >
-                    Quill phone number: (510) 671-0222
-                  </p>
-                  <p
-                    className="college-board-block"
-                  >
-                    Quill Support Chat: While you’re on Quill.org, you can use the chat bubble in the lower right side of your screen to connect with a member of the Quill support team. Be sure to mention that you’re a Pre-AP teacher when you reach out using this method.
-                  </p>
-                </div>,
-                "question": "What if I have a question about Quill.org? ",
+                    here
+                  </a>
+                  !
+                </p>,
+                "question": "I see there are passage-aligned activities for Pre-AP English I. Are there passage-aligned activities for other Pre-AP courses?",
               }
             }
             questionsAndAnswersFile="preap"
@@ -2306,7 +2633,93 @@ exports[`PreAp component should render when it is not part of the assignment flo
                   tabIndex={-1}
                   type="button"
                 >
-                  What if I have a question about Quill.org? 
+                  I see there are passage-aligned activities for Pre-AP English I. Are there passage-aligned activities for other Pre-AP courses?
+                </button>
+              </div>
+              <div>
+                <button
+                  className="expand-collapse-button focus-on-light"
+                  onClick={[Function]}
+                  onKeyPress={[Function]}
+                  type="button"
+                >
+                  <img
+                    alt="expand-and-collapse"
+                    src="undefined/images/shared/expand.svg"
+                  />
+                </button>
+              </div>
+            </div>
+          </QuestionAndAnswer>
+          <QuestionAndAnswer
+            key="10"
+            qa={
+              Object {
+                "answer": <div>
+                  <p>
+                    We are here for you! The following resources are available:
+                  </p>
+                  <p
+                    className="college-board-q-and-a-text"
+                  >
+                    <strong>
+                      Quill Instructional Coach:
+                    </strong>
+                     You can reach out directly to Sherry Lewkowicz, Quill's coach dedicated to supporting College Board teachers, at 
+                    <a
+                      href="mailto:sherry@quill.org"
+                    >
+                      sherry@quill.org
+                    </a>
+                     Be sure to mention the course(s) you teach.
+                  </p>
+                  <p
+                    className="college-board-q-and-a-text"
+                  >
+                    <strong>
+                      <a
+                        href="https://www.quill.org/teacher-center"
+                        rel="noopener noreferrer"
+                        target="_blank"
+                      >
+                        Teacher Center:
+                      </a>
+                    </strong>
+                     The place to go for all things best practice and implementation!
+                  </p>
+                  <p
+                    className="college-board-q-and-a-text"
+                  >
+                    <strong>
+                      Support:
+                    </strong>
+                     Having a technical issue? Email 
+                    <a
+                      href="mailto:support@quill.org"
+                    >
+                      support@quill.org
+                    </a>
+                     or use the chat in the lower right corner of Quill to connect with a member of the Quill support team.
+                  </p>
+                </div>,
+                "question": "What if I still have questions?",
+              }
+            }
+            questionsAndAnswersFile="preap"
+          >
+            <div
+              className="qa-section"
+            >
+              <div
+                className="qa"
+              >
+                <button
+                  className="question"
+                  onClick={[Function]}
+                  tabIndex={-1}
+                  type="button"
+                >
+                  What if I still have questions?
                 </button>
               </div>
               <div>
@@ -2597,7 +3010,7 @@ exports[`PreAp component should render when it is part of the assignment flow 1`
               Sentence-Level Writing Practice
             </h2>
             <p>
-              Identify which sentence-level skills from the course framework your students need to practice with two different Pre-AP Writing Skills Surveys. Then, assign up to 40 targeted writing activities so students can practice and improve their proficiency with those skills.
+              Identify which sentence-level skills your students need to practice with a skills survey. Then, assign activities recommended for each student based on their responses so they can practice and improve their proficiency with those skills.
             </p>
           </div>
         </div>
@@ -2607,16 +3020,6 @@ exports[`PreAp component should render when it is part of the assignment flow 1`
           <h2>
             Pre-AP Writing Skills Surveys
           </h2>
-          <div
-            className="college-board-activity-tag"
-          >
-            For Pre-AP English 1
-          </div>
-          <div
-            className="college-board-activity-tag"
-          >
-            For Pre-AP English 2
-          </div>
         </div>
         <div
           className="activity-container"
@@ -2624,12 +3027,26 @@ exports[`PreAp component should render when it is part of the assignment flow 1`
           <div
             className="activity-header-container"
           >
-            <p
-              className="activity-header"
-              id="writing-skills-survey-1"
+            <div
+              className="tags-container"
             >
-              Pre-AP Writing Skills Survey 1: Basic of Sentence Patterns
-            </p>
+              <p
+                className="activity-header"
+                id="writing-skills-survey-1"
+              >
+                Pre-AP Writing Skills Survey 1: Basic of Sentence Patterns
+              </p>
+              <div
+                className="college-board-activity-tag"
+              >
+                For Pre-AP English 1
+              </div>
+              <div
+                className="college-board-activity-tag"
+              >
+                For Pre-AP English 2
+              </div>
+            </div>
             <a
               className="quill-button medium primary outlined view-button focus-on-light"
               href="/assign/featured-activity-packs/194?college-board=pre-ap"
@@ -2645,7 +3062,7 @@ exports[`PreAp component should render when it is part of the assignment flow 1`
             <p
               className="activity-sub-text"
             >
-              Students complete a twelve-item survey to gauge their understanding of key writing skills, fundamental grammatical elements, and compound/complex sentence constructions. After students complete the survey, Quill will automatically recommend up to five activity packs for each student based on their needs. Each pack contains four to six activities that each take about 15 minutes to complete and provide scaffolded, sequenced practice on one of the five skills addressed in the survey.
+              Students complete a 12 item survey their understanding of key writing skills, fundamental grammatical elements, and compound/complex sentence constructions. After students complete the survey, Quill will automatically recommend up to five activity packs for each student based on their needs. Each pack contains four to six activities that each take about 15 minutes to complete and provide scaffolded, sequenced practice on one of the five skills addressed in the survey.
             </p>
             <p
               className="activity-sub-header"
@@ -2665,12 +3082,26 @@ exports[`PreAp component should render when it is part of the assignment flow 1`
           <div
             className="activity-header-container"
           >
-            <p
-              className="activity-header"
-              id="writing-skills-survey-2"
+            <div
+              className="tags-container"
             >
-              Pre-AP Writing Skills Survey 2: Tools for Sentence Expansion
-            </p>
+              <p
+                className="activity-header"
+                id="writing-skills-survey-2"
+              >
+                Pre-AP Writing Skills Survey 2: Tools for Sentence Expansion
+              </p>
+              <div
+                className="college-board-activity-tag"
+              >
+                For Pre-AP English 1
+              </div>
+              <div
+                className="college-board-activity-tag"
+              >
+                For Pre-AP English 2
+              </div>
+            </div>
             <a
               className="quill-button medium primary outlined view-button focus-on-light"
               href="/assign/featured-activity-packs/195?college-board=pre-ap"
@@ -2686,7 +3117,7 @@ exports[`PreAp component should render when it is part of the assignment flow 1`
             <p
               className="activity-sub-text"
             >
-              Students complete a twelve-item survey to gauge their understanding of key writing skills, focusing on constructions for expanding sentences with description and detail. After students complete the survey, Quill will automatically recommend up to five activity packs for each student based on their needs. Each pack contains four to six activities that each take about 15 minutes to complete and provide scaffolded, sequenced practice on one of the five skills addressed in the survey.
+              Students complete a 12 item survey their understanding of key writing skills, focusing on constructions for expanding sentences with description and detail. After students complete the survey, Quill will automatically recommend up to five activity packs for each student based on their needs. Each pack contains four to six activities that each take about 15 minutes to complete and provide scaffolded, sequenced practice on one of the five skills addressed in the survey.
             </p>
             <p
               className="activity-sub-header"
@@ -2697,6 +3128,140 @@ exports[`PreAp component should render when it is part of the assignment flow 1`
               className="activity-sub-text"
             >
               Conjunctive adverbs; appositive phrases; relative clauses; participial phrases; parallel structure
+            </p>
+          </div>
+        </div>
+        <div
+          className="activities-subheader"
+          id="ell-subheader"
+        >
+          <h2>
+            ELL Writing Skills Surveys
+          </h2>
+          <p>
+            If you have ELLs in your courses, you may want to consider assigning them an ELL Skills Surveys before assigning them a writing skills survey.
+          </p>
+        </div>
+        <div
+          className="activity-container"
+        >
+          <div
+            className="activity-header-container"
+          >
+            <p
+              className="activity-header"
+              id="writing-skills-survey"
+            >
+              ELL Starter Skills Surveys
+            </p>
+            <a
+              className="quill-button medium primary outlined view-button focus-on-light"
+              href="/assign/featured-activity-packs/154?college-board=pre-ap"
+              rel="noopener noreferrer"
+              target=""
+            >
+              View
+            </a>
+          </div>
+          <div
+            className="activity-text-container"
+          >
+            <p
+              className="activity-sub-text"
+            >
+              ELL students complete a 22 item survey to gauge their mastery of foundational English grammar. This survey is most appropriate for students who are in the Entering or Emerging WIDA levels. After students complete the survey, Quill will automatically recommend up to five activity packs for each student based on their needs. Each pack contains a series of activities that each take about 15 minutes to complete and provide scaffolded, sequenced practice with one of the skills covered by the survey.
+            </p>
+            <p
+              className="activity-sub-header"
+            >
+              Skills
+            </p>
+            <p
+              className="activity-sub-text"
+            >
+              Simple verb conjugation; articles; simple subject-verb agreement; simple word order; singular and plural nouns; adjective placement
+            </p>
+          </div>
+        </div>
+        <div
+          className="activity-container"
+        >
+          <div
+            className="activity-header-container"
+          >
+            <p
+              className="activity-header"
+              id="writing-skills-survey"
+            >
+              ELL Intermediate Skills Surveys
+            </p>
+            <a
+              className="quill-button medium primary outlined view-button focus-on-light"
+              href="/assign/featured-activity-packs/299?college-board=pre-ap"
+              rel="noopener noreferrer"
+              target=""
+            >
+              View
+            </a>
+          </div>
+          <div
+            className="activity-text-container"
+          >
+            <p
+              className="activity-sub-text"
+            >
+              ELL students complete a 23 item survey to gauge their mastery of English grammar. This survey is most appropriate for students who are in the Emerging or Developing WIDA levels. After students complete the survey, Quill will automatically recommend up to six activity packs for each student based on their needs. Each pack contains a series of activities that each take about 15 minutes to complete and provide scaffolded, sequenced practice with one of the skills covered by the survey.
+            </p>
+            <p
+              className="activity-sub-header"
+            >
+              Skills
+            </p>
+            <p
+              className="activity-sub-text"
+            >
+              Subject-verb agreement; singular possessive nouns; possessive pronouns; prepositions; future tense; articles; intermediate questions
+            </p>
+          </div>
+        </div>
+        <div
+          className="activity-container"
+        >
+          <div
+            className="activity-header-container"
+          >
+            <p
+              className="activity-header"
+              id="writing-skills-survey"
+            >
+              ELL Advanced Skills Surveys
+            </p>
+            <a
+              className="quill-button medium primary outlined view-button focus-on-light"
+              href="/assign/featured-activity-packs/300?college-board=pre-ap"
+              rel="noopener noreferrer"
+              target=""
+            >
+              View
+            </a>
+          </div>
+          <div
+            className="activity-text-container"
+          >
+            <p
+              className="activity-sub-text"
+            >
+              ELL students complete a 23 item survey to gauge their mastery of English grammar, specifically in areas that are challenging for non-native English speakers. This survey is most appropriate for students who are in the Developing or Expanding WIDA levels. After students complete the survey, Quill will automatically recommend up to five activity packs for each student based on their needs. Each pack contains a series of activities that each take about 15 minutes to complete and provide scaffolded, sequenced practice with one of the skills covered by the survey.
+            </p>
+            <p
+              className="activity-sub-header"
+            >
+              Skills
+            </p>
+            <p
+              className="activity-sub-text"
+            >
+              Regular and irregular past tense; progressive tenses; phrasal verbs; choosing between prepositions; responding to questions; commonly confused words
             </p>
           </div>
         </div>
@@ -2727,7 +3292,7 @@ exports[`PreAp component should render when it is part of the assignment flow 1`
             <p
               className="info-blurb-text"
             >
-              Each twelve-item Pre-AP Writing Skills Survey covers five of the ten key grammar skills from the English 1 and English 2 course frameworks. Each survey helps identify which of the five skills your students need to practice most.
+              Each 12 item Pre-AP Writing Skills Survey covers five of the ten key grammar skills from the English 1 and English 2 course frameworks. Each survey helps identify which of the five skills your students need to practice most.
             </p>
           </div>
         </div>
@@ -2805,7 +3370,7 @@ exports[`PreAp component should render when it is part of the assignment flow 1`
               Passage-Aligned Activities
             </h2>
             <p>
-              Twenty custom sentence-combining activities, each one aligned to a unique Pre-AP English 1 text to give your students the opportunity to practice their sentence construction skills in context.
+              20 custom sentence-combining activities, each one aligned to a unique Pre-AP English 1 text to give your students the opportunity to practice their sentence construction skills in context.
             </p>
           </div>
         </div>
@@ -4410,6 +4975,8 @@ exports[`PreAp component should render when it is part of the assignment flow 1`
                     It is recommended that you and your students create free accounts on Quill.org. Creating an account will give you access to the two skills surveys and recommended practice; creating an account also allows you to track your students’ progress and view data reports. You can create an account by visiting the Quill 
                     <a
                       href="https://www.quill.org/sign-up/teacher"
+                      rel="noopener noreferrer"
+                      target="_blank"
                     >
                       sign-up page
                     </a>
@@ -4465,11 +5032,233 @@ exports[`PreAp component should render when it is part of the assignment flow 1`
             key="4"
             qa={
               Object {
+                "answer": <p>
+                  Quill's writing skills surveys can be used in lieu of Quill's general diagnostics. For example, an AP teacher would likely assign the AP Writing Skills Survey in lieu of the Advanced Diagnostic. Keep in mind, however, that teachers may want ELL students in Pre-AP, AP, or SpringBoard courses to begin with one of the ELL Diagnostics instead of a writing skills survey. 
+                  <a
+                    href="https://support.quill.org/en/articles/2554430-what-are-the-differences-between-the-various-diagnostic-assessments"
+                    rel="noopener noreferrer"
+                    target="_blank"
+                  >
+                    This article explains the differences between Quill’s various diagnostics and surveys in more depth
+                  </a>
+                  .
+                </p>,
+                "question": "Is a writing skills survey different than a diagnostic?",
+              }
+            }
+            questionsAndAnswersFile="preap"
+          >
+            <div
+              className="qa-section"
+            >
+              <div
+                className="qa"
+              >
+                <button
+                  className="question"
+                  onClick={[Function]}
+                  tabIndex={-1}
+                  type="button"
+                >
+                  Is a writing skills survey different than a diagnostic?
+                </button>
+              </div>
+              <div>
+                <button
+                  className="expand-collapse-button focus-on-light"
+                  onClick={[Function]}
+                  onKeyPress={[Function]}
+                  type="button"
+                >
+                  <img
+                    alt="expand-and-collapse"
+                    src="undefined/images/shared/expand.svg"
+                  />
+                </button>
+              </div>
+            </div>
+          </QuestionAndAnswer>
+          <QuestionAndAnswer
+            key="5"
+            qa={
+              Object {
+                "answer": <p>
+                  Each Pre-AP recommended pack contains between 4 and 7 activities, each of which are designed to take between 10 and 15 minutes each. There are also additional practice packs for students who finish the Pre-AP recommended packs: same skills, new content. 
+                  <a
+                    href="https://support.quill.org/en/articles/4579893-how-do-i-assign-additional-practice-packs-for-pre-ap-skills-surveys"
+                    rel="noopener noreferrer"
+                    target="_blank"
+                  >
+                    Learn how to find and assign those here.
+                  </a>
+                </p>,
+                "question": "How many activities are in each Pre-AP Writing Practice pack?",
+              }
+            }
+            questionsAndAnswersFile="preap"
+          >
+            <div
+              className="qa-section"
+            >
+              <div
+                className="qa"
+              >
+                <button
+                  className="question"
+                  onClick={[Function]}
+                  tabIndex={-1}
+                  type="button"
+                >
+                  How many activities are in each Pre-AP Writing Practice pack?
+                </button>
+              </div>
+              <div>
+                <button
+                  className="expand-collapse-button focus-on-light"
+                  onClick={[Function]}
+                  onKeyPress={[Function]}
+                  type="button"
+                >
+                  <img
+                    alt="expand-and-collapse"
+                    src="undefined/images/shared/expand.svg"
+                  />
+                </button>
+              </div>
+            </div>
+          </QuestionAndAnswer>
+          <QuestionAndAnswer
+            key="6"
+            qa={
+              Object {
+                "answer": <div>
+                  <p>
+                    You can assign all the recommended packs in one click, or you can pick and choose, revisiting the recommendations report to assign more packs as needed.
+                  </p>
+                  <p>
+                    In general, we've found that students make progress when they are completing 2-4 activities on Quill per week. Since each Pre-AP recommended pack contains between 4 and 7 activities, teachers generally expect a recommended pack to be completed in 1-2 weeks. Of course, students may need more or less time depending on the amount of activities in the pack, their level of difficulty, and students' level of proficiency. 
+                  </p>
+                  <p>
+                    <a
+                      href="https://support.quill.org/en/articles/1065187-can-i-assign-activities-in-a-specific-order"
+                      rel="noopener noreferrer"
+                      target="_blank"
+                    >
+                      This article
+                    </a>
+                     explains how you can use deadlines to help students pace themselves. 
+                  </p>
+                </div>,
+                "question": "How many Pre-AP Writing Practice packs should I assign to my students and how long will it take them to complete a pack?",
+              }
+            }
+            questionsAndAnswersFile="preap"
+          >
+            <div
+              className="qa-section"
+            >
+              <div
+                className="qa"
+              >
+                <button
+                  className="question"
+                  onClick={[Function]}
+                  tabIndex={-1}
+                  type="button"
+                >
+                  How many Pre-AP Writing Practice packs should I assign to my students and how long will it take them to complete a pack?
+                </button>
+              </div>
+              <div>
+                <button
+                  className="expand-collapse-button focus-on-light"
+                  onClick={[Function]}
+                  onKeyPress={[Function]}
+                  type="button"
+                >
+                  <img
+                    alt="expand-and-collapse"
+                    src="undefined/images/shared/expand.svg"
+                  />
+                </button>
+              </div>
+            </div>
+          </QuestionAndAnswer>
+          <QuestionAndAnswer
+            key="7"
+            qa={
+              Object {
+                "answer": <p>
+                  Quill has a variety of reports to help you track your students' performance and progress. In the 
+                  <a
+                    href="https://support.quill.org/en/articles/1140159-how-does-the-activity-summary-work"
+                    rel="noopener noreferrer"
+                    target="_blank"
+                  >
+                    Activity Summary report
+                  </a>
+                  , you can quickly see which activities your students have completed, along with color-coded icons indicating proficiency. Quill has several other reports as well. 
+                  <a
+                    href="http://s3.amazonaws.com/quill-image-uploads/uploads/files/Quill_Reports_Cheat_Sheet_Updated04_08_20.pdf"
+                    rel="noopener noreferrer"
+                    target="_blank"
+                  >
+                    This cheat sheet
+                  </a>
+                   shows you which report to go to for particular information, and 
+                  <a
+                    href="http://s3.amazonaws.com/quill-image-uploads/uploads/files/Getting_Started_-_Student_Data_Reports__Basic_.mp4"
+                    rel="noopener noreferrer"
+                    target="_blank"
+                  >
+                    this video will walk you through 3 of Quill's student data reports
+                  </a>
+                  .
+                </p>,
+                "question": "Where can I track my students' completion of and performance on Quill activities?",
+              }
+            }
+            questionsAndAnswersFile="preap"
+          >
+            <div
+              className="qa-section"
+            >
+              <div
+                className="qa"
+              >
+                <button
+                  className="question"
+                  onClick={[Function]}
+                  tabIndex={-1}
+                  type="button"
+                >
+                  Where can I track my students' completion of and performance on Quill activities?
+                </button>
+              </div>
+              <div>
+                <button
+                  className="expand-collapse-button focus-on-light"
+                  onClick={[Function]}
+                  onKeyPress={[Function]}
+                  type="button"
+                >
+                  <img
+                    alt="expand-and-collapse"
+                    src="undefined/images/shared/expand.svg"
+                  />
+                </button>
+              </div>
+            </div>
+          </QuestionAndAnswer>
+          <QuestionAndAnswer
+            key="8"
+            qa={
+              Object {
                 "answer": <div>
                   <p
                     className="college-board-q-and-a-text"
                   >
-                    The skills surveys function similarly to the Quill Diagnostic tool. The activities linked throughout the English 1 lessons and the activities that are recommended based on the students’ skills survey results will be from the Quill Connect sentence combining tool. If you decide to create a free account on Quill.org, you will be able to assign additional activities from any of the five tools listed below.
+                    If you create a free account on Quill.org, you will be able to assign additional activities from any of Quill’s 5 tools:
                   </p>
                   <ul>
                     <li>
@@ -4479,7 +5268,7 @@ exports[`PreAp component should render when it is part of the assignment flow 1`
                       <p
                         className="college-board-q-and-a-text"
                       >
-                        Students combine multiple ideas into a single sentence using the evidence-based strategy of sentence combining. Students then receive instant feedback designed to help them improve the clarity and precision of their sentences while also reinforcing accurate usage and mechanics.
+                        Students combine multiple ideas into a single sentence using the evidence-based strategy of sentence combining. Students receive instant feedback. *Note*: All activities recommended based on survey results are in Quill Connect.
                       </p>
                     </li>
                     <li>
@@ -4489,7 +5278,7 @@ exports[`PreAp component should render when it is part of the assignment flow 1`
                       <p
                         className="college-board-q-and-a-text"
                       >
-                        Students practice basic grammar skills, from using correct capitalization to recognizing and correcting commonly confused words.
+                        Students practice basic grammar skills, from using correct capitalization to correcting commonly confused words.
                       </p>
                     </li>
                     <li>
@@ -4499,7 +5288,7 @@ exports[`PreAp component should render when it is part of the assignment flow 1`
                       <p
                         className="college-board-q-and-a-text"
                       >
-                        Students practice their editing skills by proofreading passages embedded with errors. Students receive personalized follow-up activities based on their results.
+                        Students practice editing skills by correcting errors in passages. Students receive personalized follow-up activities based on their results.
                       </p>
                     </li>
                     <li>
@@ -4509,7 +5298,7 @@ exports[`PreAp component should render when it is part of the assignment flow 1`
                       <p
                         className="college-board-q-and-a-text"
                       >
-                        Teachers lead whole-class writing instruction with complete lesson plans and activities. Teachers control interactive slides that contain a mini lesson and guided practice. Teachers can model writing strategies in real-time, present prompts to which students can respond on their own devices, and then anonymously display student responses for discussion. Each Quill Lessons activity provides a lesson plan, writing prompts, discussion topics, and a follow-up independent practice activity. Teachers can also customize any lesson by adding their own prompts and examples.
+                        Teachers lead whole-class writing instruction. Teachers control interactive slides that contain a mini-lesson and guided practice. Teachers can model writing strategies in real-time, present prompts to which students can respond, and then anonymously display student responses for discussion. Each Quill Lessons activity provides a lesson plan, writing prompts, discussion topics, and a follow-up independent practice activity. Teachers can also customize any lesson.
                       </p>
                     </li>
                     <li>
@@ -4519,7 +5308,7 @@ exports[`PreAp component should render when it is part of the assignment flow 1`
                       <p
                         className="college-board-q-and-a-text"
                       >
-                        Students complete an activity designed to help teachers quickly determine which skills students need to work on. After students complete a Quill Diagnostic activity, Quill recommends a set of writing activities for students based on their results. Teachers can easily view and assign the recommended sequence of activities and track their students’ progress. As mentioned above, the skills surveys have been developed as customized tools based on the Pre-AP English High School Course Framework. Therefore, the skills surveys can be used in lieu of the general Quill Diagnostic activities.
+                        Students complete an activity designed to help teachers determine which skills students need to work on. After students complete a Quill Diagnostic activity, Quill recommends writing activities for students based on their results. *Note*: The writing skills surveys can be used in lieu of general Quill diagnostics.
                       </p>
                     </li>
                   </ul>
@@ -4560,70 +5349,21 @@ exports[`PreAp component should render when it is part of the assignment flow 1`
             </div>
           </QuestionAndAnswer>
           <QuestionAndAnswer
-            key="5"
+            key="9"
             qa={
               Object {
-                "answer": <div>
-                  <p
-                    className="college-board-q-and-a-text"
+                "answer": <p>
+                  Unfortunately, at this time, there are no sentence combining activities aligned to texts in Pre-AP courses other than English I. If you would like to see activities like these for another course, please us know 
+                  <a
+                    href="https://quillorg.canny.io/content-feedback"
+                    rel="noopener noreferrer"
+                    target="_blank"
                   >
-                    Visit our teacher center for additional resources and more information about how to use Quill: 
-                    <a
-                      className="focus-on-light"
-                      href="https://www.quill.org/teacher-center"
-                    >
-                      https://www.quill.org/teacher-center
-                    </a>
-                    . You can also reach out to either one of your Quill representatives via email. We're always happy to help!
-                  </p>
-                  <p
-                    className="college-board-block"
-                  >
-                    Quill Representatives:
-                  </p>
-                  <div
-                    className="college-board-block"
-                  >
-                    <p>
-                      Christina Collins-Berry
-                    </p>
-                    <p>
-                      Managing Director of Partnerships
-                    </p>
-                    <p>
-                      christina@quill.org
-                    </p>
-                  </div>
-                  <div
-                    className="college-board-block"
-                  >
-                    <p>
-                      Sherry Lewkowicz
-                    </p>
-                    <p>
-                      Senior Instructional Coach
-                    </p>
-                    <p>
-                      sherry@quill.org
-                    </p>
-                  </div>
-                  <p
-                    className="college-board-block"
-                  >
-                    Quill Support: support@quill.org (include your current Pre-AP teacher status in email)
-                  </p>
-                  <p
-                    className="college-board-block"
-                  >
-                    Quill phone number: (510) 671-0222
-                  </p>
-                  <p
-                    className="college-board-block"
-                  >
-                    Quill Support Chat: While you’re on Quill.org, you can use the chat bubble in the lower right side of your screen to connect with a member of the Quill support team. Be sure to mention that you’re a Pre-AP teacher when you reach out using this method.
-                  </p>
-                </div>,
-                "question": "What if I have a question about Quill.org? ",
+                    here
+                  </a>
+                  !
+                </p>,
+                "question": "I see there are passage-aligned activities for Pre-AP English I. Are there passage-aligned activities for other Pre-AP courses?",
               }
             }
             questionsAndAnswersFile="preap"
@@ -4640,7 +5380,93 @@ exports[`PreAp component should render when it is part of the assignment flow 1`
                   tabIndex={-1}
                   type="button"
                 >
-                  What if I have a question about Quill.org? 
+                  I see there are passage-aligned activities for Pre-AP English I. Are there passage-aligned activities for other Pre-AP courses?
+                </button>
+              </div>
+              <div>
+                <button
+                  className="expand-collapse-button focus-on-light"
+                  onClick={[Function]}
+                  onKeyPress={[Function]}
+                  type="button"
+                >
+                  <img
+                    alt="expand-and-collapse"
+                    src="undefined/images/shared/expand.svg"
+                  />
+                </button>
+              </div>
+            </div>
+          </QuestionAndAnswer>
+          <QuestionAndAnswer
+            key="10"
+            qa={
+              Object {
+                "answer": <div>
+                  <p>
+                    We are here for you! The following resources are available:
+                  </p>
+                  <p
+                    className="college-board-q-and-a-text"
+                  >
+                    <strong>
+                      Quill Instructional Coach:
+                    </strong>
+                     You can reach out directly to Sherry Lewkowicz, Quill's coach dedicated to supporting College Board teachers, at 
+                    <a
+                      href="mailto:sherry@quill.org"
+                    >
+                      sherry@quill.org
+                    </a>
+                     Be sure to mention the course(s) you teach.
+                  </p>
+                  <p
+                    className="college-board-q-and-a-text"
+                  >
+                    <strong>
+                      <a
+                        href="https://www.quill.org/teacher-center"
+                        rel="noopener noreferrer"
+                        target="_blank"
+                      >
+                        Teacher Center:
+                      </a>
+                    </strong>
+                     The place to go for all things best practice and implementation!
+                  </p>
+                  <p
+                    className="college-board-q-and-a-text"
+                  >
+                    <strong>
+                      Support:
+                    </strong>
+                     Having a technical issue? Email 
+                    <a
+                      href="mailto:support@quill.org"
+                    >
+                      support@quill.org
+                    </a>
+                     or use the chat in the lower right corner of Quill to connect with a member of the Quill support team.
+                  </p>
+                </div>,
+                "question": "What if I still have questions?",
+              }
+            }
+            questionsAndAnswersFile="preap"
+          >
+            <div
+              className="qa-section"
+            >
+              <div
+                className="qa"
+              >
+                <button
+                  className="question"
+                  onClick={[Function]}
+                  tabIndex={-1}
+                  type="button"
+                >
+                  What if I still have questions?
                 </button>
               </div>
               <div>
@@ -4740,7 +5566,7 @@ exports[`PreAp component should render with no units 1`] = `
               Sentence-Level Writing Practice
             </h2>
             <p>
-              Identify which sentence-level skills from the course framework your students need to practice with two different Pre-AP Writing Skills Surveys. Then, assign up to 40 targeted writing activities so students can practice and improve their proficiency with those skills.
+              Identify which sentence-level skills your students need to practice with a skills survey. Then, assign activities recommended for each student based on their responses so they can practice and improve their proficiency with those skills.
             </p>
           </div>
         </div>
@@ -4750,16 +5576,6 @@ exports[`PreAp component should render with no units 1`] = `
           <h2>
             Pre-AP Writing Skills Surveys
           </h2>
-          <div
-            className="college-board-activity-tag"
-          >
-            For Pre-AP English 1
-          </div>
-          <div
-            className="college-board-activity-tag"
-          >
-            For Pre-AP English 2
-          </div>
         </div>
         <div
           className="activity-container"
@@ -4767,12 +5583,26 @@ exports[`PreAp component should render with no units 1`] = `
           <div
             className="activity-header-container"
           >
-            <p
-              className="activity-header"
-              id="writing-skills-survey-1"
+            <div
+              className="tags-container"
             >
-              Pre-AP Writing Skills Survey 1: Basic of Sentence Patterns
-            </p>
+              <p
+                className="activity-header"
+                id="writing-skills-survey-1"
+              >
+                Pre-AP Writing Skills Survey 1: Basic of Sentence Patterns
+              </p>
+              <div
+                className="college-board-activity-tag"
+              >
+                For Pre-AP English 1
+              </div>
+              <div
+                className="college-board-activity-tag"
+              >
+                For Pre-AP English 2
+              </div>
+            </div>
             <a
               className="quill-button medium primary outlined view-button focus-on-light"
               href="/assign/featured-activity-packs/194?college-board=pre-ap"
@@ -4788,7 +5618,7 @@ exports[`PreAp component should render with no units 1`] = `
             <p
               className="activity-sub-text"
             >
-              Students complete a twelve-item survey to gauge their understanding of key writing skills, fundamental grammatical elements, and compound/complex sentence constructions. After students complete the survey, Quill will automatically recommend up to five activity packs for each student based on their needs. Each pack contains four to six activities that each take about 15 minutes to complete and provide scaffolded, sequenced practice on one of the five skills addressed in the survey.
+              Students complete a 12 item survey their understanding of key writing skills, fundamental grammatical elements, and compound/complex sentence constructions. After students complete the survey, Quill will automatically recommend up to five activity packs for each student based on their needs. Each pack contains four to six activities that each take about 15 minutes to complete and provide scaffolded, sequenced practice on one of the five skills addressed in the survey.
             </p>
             <p
               className="activity-sub-header"
@@ -4808,12 +5638,26 @@ exports[`PreAp component should render with no units 1`] = `
           <div
             className="activity-header-container"
           >
-            <p
-              className="activity-header"
-              id="writing-skills-survey-2"
+            <div
+              className="tags-container"
             >
-              Pre-AP Writing Skills Survey 2: Tools for Sentence Expansion
-            </p>
+              <p
+                className="activity-header"
+                id="writing-skills-survey-2"
+              >
+                Pre-AP Writing Skills Survey 2: Tools for Sentence Expansion
+              </p>
+              <div
+                className="college-board-activity-tag"
+              >
+                For Pre-AP English 1
+              </div>
+              <div
+                className="college-board-activity-tag"
+              >
+                For Pre-AP English 2
+              </div>
+            </div>
             <a
               className="quill-button medium primary outlined view-button focus-on-light"
               href="/assign/featured-activity-packs/195?college-board=pre-ap"
@@ -4829,7 +5673,7 @@ exports[`PreAp component should render with no units 1`] = `
             <p
               className="activity-sub-text"
             >
-              Students complete a twelve-item survey to gauge their understanding of key writing skills, focusing on constructions for expanding sentences with description and detail. After students complete the survey, Quill will automatically recommend up to five activity packs for each student based on their needs. Each pack contains four to six activities that each take about 15 minutes to complete and provide scaffolded, sequenced practice on one of the five skills addressed in the survey.
+              Students complete a 12 item survey their understanding of key writing skills, focusing on constructions for expanding sentences with description and detail. After students complete the survey, Quill will automatically recommend up to five activity packs for each student based on their needs. Each pack contains four to six activities that each take about 15 minutes to complete and provide scaffolded, sequenced practice on one of the five skills addressed in the survey.
             </p>
             <p
               className="activity-sub-header"
@@ -4840,6 +5684,140 @@ exports[`PreAp component should render with no units 1`] = `
               className="activity-sub-text"
             >
               Conjunctive adverbs; appositive phrases; relative clauses; participial phrases; parallel structure
+            </p>
+          </div>
+        </div>
+        <div
+          className="activities-subheader"
+          id="ell-subheader"
+        >
+          <h2>
+            ELL Writing Skills Surveys
+          </h2>
+          <p>
+            If you have ELLs in your courses, you may want to consider assigning them an ELL Skills Surveys before assigning them a writing skills survey.
+          </p>
+        </div>
+        <div
+          className="activity-container"
+        >
+          <div
+            className="activity-header-container"
+          >
+            <p
+              className="activity-header"
+              id="writing-skills-survey"
+            >
+              ELL Starter Skills Surveys
+            </p>
+            <a
+              className="quill-button medium primary outlined view-button focus-on-light"
+              href="/assign/featured-activity-packs/154?college-board=pre-ap"
+              rel="noopener noreferrer"
+              target=""
+            >
+              View
+            </a>
+          </div>
+          <div
+            className="activity-text-container"
+          >
+            <p
+              className="activity-sub-text"
+            >
+              ELL students complete a 22 item survey to gauge their mastery of foundational English grammar. This survey is most appropriate for students who are in the Entering or Emerging WIDA levels. After students complete the survey, Quill will automatically recommend up to five activity packs for each student based on their needs. Each pack contains a series of activities that each take about 15 minutes to complete and provide scaffolded, sequenced practice with one of the skills covered by the survey.
+            </p>
+            <p
+              className="activity-sub-header"
+            >
+              Skills
+            </p>
+            <p
+              className="activity-sub-text"
+            >
+              Simple verb conjugation; articles; simple subject-verb agreement; simple word order; singular and plural nouns; adjective placement
+            </p>
+          </div>
+        </div>
+        <div
+          className="activity-container"
+        >
+          <div
+            className="activity-header-container"
+          >
+            <p
+              className="activity-header"
+              id="writing-skills-survey"
+            >
+              ELL Intermediate Skills Surveys
+            </p>
+            <a
+              className="quill-button medium primary outlined view-button focus-on-light"
+              href="/assign/featured-activity-packs/299?college-board=pre-ap"
+              rel="noopener noreferrer"
+              target=""
+            >
+              View
+            </a>
+          </div>
+          <div
+            className="activity-text-container"
+          >
+            <p
+              className="activity-sub-text"
+            >
+              ELL students complete a 23 item survey to gauge their mastery of English grammar. This survey is most appropriate for students who are in the Emerging or Developing WIDA levels. After students complete the survey, Quill will automatically recommend up to six activity packs for each student based on their needs. Each pack contains a series of activities that each take about 15 minutes to complete and provide scaffolded, sequenced practice with one of the skills covered by the survey.
+            </p>
+            <p
+              className="activity-sub-header"
+            >
+              Skills
+            </p>
+            <p
+              className="activity-sub-text"
+            >
+              Subject-verb agreement; singular possessive nouns; possessive pronouns; prepositions; future tense; articles; intermediate questions
+            </p>
+          </div>
+        </div>
+        <div
+          className="activity-container"
+        >
+          <div
+            className="activity-header-container"
+          >
+            <p
+              className="activity-header"
+              id="writing-skills-survey"
+            >
+              ELL Advanced Skills Surveys
+            </p>
+            <a
+              className="quill-button medium primary outlined view-button focus-on-light"
+              href="/assign/featured-activity-packs/300?college-board=pre-ap"
+              rel="noopener noreferrer"
+              target=""
+            >
+              View
+            </a>
+          </div>
+          <div
+            className="activity-text-container"
+          >
+            <p
+              className="activity-sub-text"
+            >
+              ELL students complete a 23 item survey to gauge their mastery of English grammar, specifically in areas that are challenging for non-native English speakers. This survey is most appropriate for students who are in the Developing or Expanding WIDA levels. After students complete the survey, Quill will automatically recommend up to five activity packs for each student based on their needs. Each pack contains a series of activities that each take about 15 minutes to complete and provide scaffolded, sequenced practice with one of the skills covered by the survey.
+            </p>
+            <p
+              className="activity-sub-header"
+            >
+              Skills
+            </p>
+            <p
+              className="activity-sub-text"
+            >
+              Regular and irregular past tense; progressive tenses; phrasal verbs; choosing between prepositions; responding to questions; commonly confused words
             </p>
           </div>
         </div>
@@ -4870,7 +5848,7 @@ exports[`PreAp component should render with no units 1`] = `
             <p
               className="info-blurb-text"
             >
-              Each twelve-item Pre-AP Writing Skills Survey covers five of the ten key grammar skills from the English 1 and English 2 course frameworks. Each survey helps identify which of the five skills your students need to practice most.
+              Each 12 item Pre-AP Writing Skills Survey covers five of the ten key grammar skills from the English 1 and English 2 course frameworks. Each survey helps identify which of the five skills your students need to practice most.
             </p>
           </div>
         </div>
@@ -4948,7 +5926,7 @@ exports[`PreAp component should render with no units 1`] = `
               Passage-Aligned Activities
             </h2>
             <p>
-              Twenty custom sentence-combining activities, each one aligned to a unique Pre-AP English 1 text to give your students the opportunity to practice their sentence construction skills in context.
+              20 custom sentence-combining activities, each one aligned to a unique Pre-AP English 1 text to give your students the opportunity to practice their sentence construction skills in context.
             </p>
           </div>
         </div>
@@ -5276,6 +6254,8 @@ exports[`PreAp component should render with no units 1`] = `
                     It is recommended that you and your students create free accounts on Quill.org. Creating an account will give you access to the two skills surveys and recommended practice; creating an account also allows you to track your students’ progress and view data reports. You can create an account by visiting the Quill 
                     <a
                       href="https://www.quill.org/sign-up/teacher"
+                      rel="noopener noreferrer"
+                      target="_blank"
                     >
                       sign-up page
                     </a>
@@ -5331,11 +6311,233 @@ exports[`PreAp component should render with no units 1`] = `
             key="4"
             qa={
               Object {
+                "answer": <p>
+                  Quill's writing skills surveys can be used in lieu of Quill's general diagnostics. For example, an AP teacher would likely assign the AP Writing Skills Survey in lieu of the Advanced Diagnostic. Keep in mind, however, that teachers may want ELL students in Pre-AP, AP, or SpringBoard courses to begin with one of the ELL Diagnostics instead of a writing skills survey. 
+                  <a
+                    href="https://support.quill.org/en/articles/2554430-what-are-the-differences-between-the-various-diagnostic-assessments"
+                    rel="noopener noreferrer"
+                    target="_blank"
+                  >
+                    This article explains the differences between Quill’s various diagnostics and surveys in more depth
+                  </a>
+                  .
+                </p>,
+                "question": "Is a writing skills survey different than a diagnostic?",
+              }
+            }
+            questionsAndAnswersFile="preap"
+          >
+            <div
+              className="qa-section"
+            >
+              <div
+                className="qa"
+              >
+                <button
+                  className="question"
+                  onClick={[Function]}
+                  tabIndex={-1}
+                  type="button"
+                >
+                  Is a writing skills survey different than a diagnostic?
+                </button>
+              </div>
+              <div>
+                <button
+                  className="expand-collapse-button focus-on-light"
+                  onClick={[Function]}
+                  onKeyPress={[Function]}
+                  type="button"
+                >
+                  <img
+                    alt="expand-and-collapse"
+                    src="undefined/images/shared/expand.svg"
+                  />
+                </button>
+              </div>
+            </div>
+          </QuestionAndAnswer>
+          <QuestionAndAnswer
+            key="5"
+            qa={
+              Object {
+                "answer": <p>
+                  Each Pre-AP recommended pack contains between 4 and 7 activities, each of which are designed to take between 10 and 15 minutes each. There are also additional practice packs for students who finish the Pre-AP recommended packs: same skills, new content. 
+                  <a
+                    href="https://support.quill.org/en/articles/4579893-how-do-i-assign-additional-practice-packs-for-pre-ap-skills-surveys"
+                    rel="noopener noreferrer"
+                    target="_blank"
+                  >
+                    Learn how to find and assign those here.
+                  </a>
+                </p>,
+                "question": "How many activities are in each Pre-AP Writing Practice pack?",
+              }
+            }
+            questionsAndAnswersFile="preap"
+          >
+            <div
+              className="qa-section"
+            >
+              <div
+                className="qa"
+              >
+                <button
+                  className="question"
+                  onClick={[Function]}
+                  tabIndex={-1}
+                  type="button"
+                >
+                  How many activities are in each Pre-AP Writing Practice pack?
+                </button>
+              </div>
+              <div>
+                <button
+                  className="expand-collapse-button focus-on-light"
+                  onClick={[Function]}
+                  onKeyPress={[Function]}
+                  type="button"
+                >
+                  <img
+                    alt="expand-and-collapse"
+                    src="undefined/images/shared/expand.svg"
+                  />
+                </button>
+              </div>
+            </div>
+          </QuestionAndAnswer>
+          <QuestionAndAnswer
+            key="6"
+            qa={
+              Object {
+                "answer": <div>
+                  <p>
+                    You can assign all the recommended packs in one click, or you can pick and choose, revisiting the recommendations report to assign more packs as needed.
+                  </p>
+                  <p>
+                    In general, we've found that students make progress when they are completing 2-4 activities on Quill per week. Since each Pre-AP recommended pack contains between 4 and 7 activities, teachers generally expect a recommended pack to be completed in 1-2 weeks. Of course, students may need more or less time depending on the amount of activities in the pack, their level of difficulty, and students' level of proficiency. 
+                  </p>
+                  <p>
+                    <a
+                      href="https://support.quill.org/en/articles/1065187-can-i-assign-activities-in-a-specific-order"
+                      rel="noopener noreferrer"
+                      target="_blank"
+                    >
+                      This article
+                    </a>
+                     explains how you can use deadlines to help students pace themselves. 
+                  </p>
+                </div>,
+                "question": "How many Pre-AP Writing Practice packs should I assign to my students and how long will it take them to complete a pack?",
+              }
+            }
+            questionsAndAnswersFile="preap"
+          >
+            <div
+              className="qa-section"
+            >
+              <div
+                className="qa"
+              >
+                <button
+                  className="question"
+                  onClick={[Function]}
+                  tabIndex={-1}
+                  type="button"
+                >
+                  How many Pre-AP Writing Practice packs should I assign to my students and how long will it take them to complete a pack?
+                </button>
+              </div>
+              <div>
+                <button
+                  className="expand-collapse-button focus-on-light"
+                  onClick={[Function]}
+                  onKeyPress={[Function]}
+                  type="button"
+                >
+                  <img
+                    alt="expand-and-collapse"
+                    src="undefined/images/shared/expand.svg"
+                  />
+                </button>
+              </div>
+            </div>
+          </QuestionAndAnswer>
+          <QuestionAndAnswer
+            key="7"
+            qa={
+              Object {
+                "answer": <p>
+                  Quill has a variety of reports to help you track your students' performance and progress. In the 
+                  <a
+                    href="https://support.quill.org/en/articles/1140159-how-does-the-activity-summary-work"
+                    rel="noopener noreferrer"
+                    target="_blank"
+                  >
+                    Activity Summary report
+                  </a>
+                  , you can quickly see which activities your students have completed, along with color-coded icons indicating proficiency. Quill has several other reports as well. 
+                  <a
+                    href="http://s3.amazonaws.com/quill-image-uploads/uploads/files/Quill_Reports_Cheat_Sheet_Updated04_08_20.pdf"
+                    rel="noopener noreferrer"
+                    target="_blank"
+                  >
+                    This cheat sheet
+                  </a>
+                   shows you which report to go to for particular information, and 
+                  <a
+                    href="http://s3.amazonaws.com/quill-image-uploads/uploads/files/Getting_Started_-_Student_Data_Reports__Basic_.mp4"
+                    rel="noopener noreferrer"
+                    target="_blank"
+                  >
+                    this video will walk you through 3 of Quill's student data reports
+                  </a>
+                  .
+                </p>,
+                "question": "Where can I track my students' completion of and performance on Quill activities?",
+              }
+            }
+            questionsAndAnswersFile="preap"
+          >
+            <div
+              className="qa-section"
+            >
+              <div
+                className="qa"
+              >
+                <button
+                  className="question"
+                  onClick={[Function]}
+                  tabIndex={-1}
+                  type="button"
+                >
+                  Where can I track my students' completion of and performance on Quill activities?
+                </button>
+              </div>
+              <div>
+                <button
+                  className="expand-collapse-button focus-on-light"
+                  onClick={[Function]}
+                  onKeyPress={[Function]}
+                  type="button"
+                >
+                  <img
+                    alt="expand-and-collapse"
+                    src="undefined/images/shared/expand.svg"
+                  />
+                </button>
+              </div>
+            </div>
+          </QuestionAndAnswer>
+          <QuestionAndAnswer
+            key="8"
+            qa={
+              Object {
                 "answer": <div>
                   <p
                     className="college-board-q-and-a-text"
                   >
-                    The skills surveys function similarly to the Quill Diagnostic tool. The activities linked throughout the English 1 lessons and the activities that are recommended based on the students’ skills survey results will be from the Quill Connect sentence combining tool. If you decide to create a free account on Quill.org, you will be able to assign additional activities from any of the five tools listed below.
+                    If you create a free account on Quill.org, you will be able to assign additional activities from any of Quill’s 5 tools:
                   </p>
                   <ul>
                     <li>
@@ -5345,7 +6547,7 @@ exports[`PreAp component should render with no units 1`] = `
                       <p
                         className="college-board-q-and-a-text"
                       >
-                        Students combine multiple ideas into a single sentence using the evidence-based strategy of sentence combining. Students then receive instant feedback designed to help them improve the clarity and precision of their sentences while also reinforcing accurate usage and mechanics.
+                        Students combine multiple ideas into a single sentence using the evidence-based strategy of sentence combining. Students receive instant feedback. *Note*: All activities recommended based on survey results are in Quill Connect.
                       </p>
                     </li>
                     <li>
@@ -5355,7 +6557,7 @@ exports[`PreAp component should render with no units 1`] = `
                       <p
                         className="college-board-q-and-a-text"
                       >
-                        Students practice basic grammar skills, from using correct capitalization to recognizing and correcting commonly confused words.
+                        Students practice basic grammar skills, from using correct capitalization to correcting commonly confused words.
                       </p>
                     </li>
                     <li>
@@ -5365,7 +6567,7 @@ exports[`PreAp component should render with no units 1`] = `
                       <p
                         className="college-board-q-and-a-text"
                       >
-                        Students practice their editing skills by proofreading passages embedded with errors. Students receive personalized follow-up activities based on their results.
+                        Students practice editing skills by correcting errors in passages. Students receive personalized follow-up activities based on their results.
                       </p>
                     </li>
                     <li>
@@ -5375,7 +6577,7 @@ exports[`PreAp component should render with no units 1`] = `
                       <p
                         className="college-board-q-and-a-text"
                       >
-                        Teachers lead whole-class writing instruction with complete lesson plans and activities. Teachers control interactive slides that contain a mini lesson and guided practice. Teachers can model writing strategies in real-time, present prompts to which students can respond on their own devices, and then anonymously display student responses for discussion. Each Quill Lessons activity provides a lesson plan, writing prompts, discussion topics, and a follow-up independent practice activity. Teachers can also customize any lesson by adding their own prompts and examples.
+                        Teachers lead whole-class writing instruction. Teachers control interactive slides that contain a mini-lesson and guided practice. Teachers can model writing strategies in real-time, present prompts to which students can respond, and then anonymously display student responses for discussion. Each Quill Lessons activity provides a lesson plan, writing prompts, discussion topics, and a follow-up independent practice activity. Teachers can also customize any lesson.
                       </p>
                     </li>
                     <li>
@@ -5385,7 +6587,7 @@ exports[`PreAp component should render with no units 1`] = `
                       <p
                         className="college-board-q-and-a-text"
                       >
-                        Students complete an activity designed to help teachers quickly determine which skills students need to work on. After students complete a Quill Diagnostic activity, Quill recommends a set of writing activities for students based on their results. Teachers can easily view and assign the recommended sequence of activities and track their students’ progress. As mentioned above, the skills surveys have been developed as customized tools based on the Pre-AP English High School Course Framework. Therefore, the skills surveys can be used in lieu of the general Quill Diagnostic activities.
+                        Students complete an activity designed to help teachers determine which skills students need to work on. After students complete a Quill Diagnostic activity, Quill recommends writing activities for students based on their results. *Note*: The writing skills surveys can be used in lieu of general Quill diagnostics.
                       </p>
                     </li>
                   </ul>
@@ -5426,70 +6628,21 @@ exports[`PreAp component should render with no units 1`] = `
             </div>
           </QuestionAndAnswer>
           <QuestionAndAnswer
-            key="5"
+            key="9"
             qa={
               Object {
-                "answer": <div>
-                  <p
-                    className="college-board-q-and-a-text"
+                "answer": <p>
+                  Unfortunately, at this time, there are no sentence combining activities aligned to texts in Pre-AP courses other than English I. If you would like to see activities like these for another course, please us know 
+                  <a
+                    href="https://quillorg.canny.io/content-feedback"
+                    rel="noopener noreferrer"
+                    target="_blank"
                   >
-                    Visit our teacher center for additional resources and more information about how to use Quill: 
-                    <a
-                      className="focus-on-light"
-                      href="https://www.quill.org/teacher-center"
-                    >
-                      https://www.quill.org/teacher-center
-                    </a>
-                    . You can also reach out to either one of your Quill representatives via email. We're always happy to help!
-                  </p>
-                  <p
-                    className="college-board-block"
-                  >
-                    Quill Representatives:
-                  </p>
-                  <div
-                    className="college-board-block"
-                  >
-                    <p>
-                      Christina Collins-Berry
-                    </p>
-                    <p>
-                      Managing Director of Partnerships
-                    </p>
-                    <p>
-                      christina@quill.org
-                    </p>
-                  </div>
-                  <div
-                    className="college-board-block"
-                  >
-                    <p>
-                      Sherry Lewkowicz
-                    </p>
-                    <p>
-                      Senior Instructional Coach
-                    </p>
-                    <p>
-                      sherry@quill.org
-                    </p>
-                  </div>
-                  <p
-                    className="college-board-block"
-                  >
-                    Quill Support: support@quill.org (include your current Pre-AP teacher status in email)
-                  </p>
-                  <p
-                    className="college-board-block"
-                  >
-                    Quill phone number: (510) 671-0222
-                  </p>
-                  <p
-                    className="college-board-block"
-                  >
-                    Quill Support Chat: While you’re on Quill.org, you can use the chat bubble in the lower right side of your screen to connect with a member of the Quill support team. Be sure to mention that you’re a Pre-AP teacher when you reach out using this method.
-                  </p>
-                </div>,
-                "question": "What if I have a question about Quill.org? ",
+                    here
+                  </a>
+                  !
+                </p>,
+                "question": "I see there are passage-aligned activities for Pre-AP English I. Are there passage-aligned activities for other Pre-AP courses?",
               }
             }
             questionsAndAnswersFile="preap"
@@ -5506,7 +6659,93 @@ exports[`PreAp component should render with no units 1`] = `
                   tabIndex={-1}
                   type="button"
                 >
-                  What if I have a question about Quill.org? 
+                  I see there are passage-aligned activities for Pre-AP English I. Are there passage-aligned activities for other Pre-AP courses?
+                </button>
+              </div>
+              <div>
+                <button
+                  className="expand-collapse-button focus-on-light"
+                  onClick={[Function]}
+                  onKeyPress={[Function]}
+                  type="button"
+                >
+                  <img
+                    alt="expand-and-collapse"
+                    src="undefined/images/shared/expand.svg"
+                  />
+                </button>
+              </div>
+            </div>
+          </QuestionAndAnswer>
+          <QuestionAndAnswer
+            key="10"
+            qa={
+              Object {
+                "answer": <div>
+                  <p>
+                    We are here for you! The following resources are available:
+                  </p>
+                  <p
+                    className="college-board-q-and-a-text"
+                  >
+                    <strong>
+                      Quill Instructional Coach:
+                    </strong>
+                     You can reach out directly to Sherry Lewkowicz, Quill's coach dedicated to supporting College Board teachers, at 
+                    <a
+                      href="mailto:sherry@quill.org"
+                    >
+                      sherry@quill.org
+                    </a>
+                     Be sure to mention the course(s) you teach.
+                  </p>
+                  <p
+                    className="college-board-q-and-a-text"
+                  >
+                    <strong>
+                      <a
+                        href="https://www.quill.org/teacher-center"
+                        rel="noopener noreferrer"
+                        target="_blank"
+                      >
+                        Teacher Center:
+                      </a>
+                    </strong>
+                     The place to go for all things best practice and implementation!
+                  </p>
+                  <p
+                    className="college-board-q-and-a-text"
+                  >
+                    <strong>
+                      Support:
+                    </strong>
+                     Having a technical issue? Email 
+                    <a
+                      href="mailto:support@quill.org"
+                    >
+                      support@quill.org
+                    </a>
+                     or use the chat in the lower right corner of Quill to connect with a member of the Quill support team.
+                  </p>
+                </div>,
+                "question": "What if I still have questions?",
+              }
+            }
+            questionsAndAnswersFile="preap"
+          >
+            <div
+              className="qa-section"
+            >
+              <div
+                className="qa"
+              >
+                <button
+                  className="question"
+                  onClick={[Function]}
+                  tabIndex={-1}
+                  type="button"
+                >
+                  What if I still have questions?
                 </button>
               </div>
               <div>
