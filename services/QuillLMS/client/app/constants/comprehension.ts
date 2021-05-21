@@ -1,4 +1,19 @@
 // TODO: update to reflect the accurate option values
+export const BECAUSE = 'because';
+export const BUT = 'but';
+export const SO = 'so';
+export const ALL = 'all';
+export const promptStems = [BECAUSE, BUT, SO];
+export const DEFAULT_MAX_ATTEMPTS = 5;
+export const FIRST = 'first';
+export const SECOND = 'second';
+export const NONE = 'none';
+export const PLAGIARISM = 'plagiarism';
+export const SCORED =  'scored';
+export const UNSCORED =  'unscored';
+export const WEAK =  'weak';
+export const COMPLETE =  'complete';
+export const INCOMPLETE =  'incomplete';
 
 export const flagOptions = [
   {
@@ -98,12 +113,12 @@ export const regexRuleSequenceOptions = [
 ];
 
 export const activitySessionFilterOptions = [
-  {"value":"all","label":"Show all sessions"},
-  {"value":"scored","label":"Show only scored sessions"},
-  {"value":"unscored","label":"Show only unscored sessions"},
-  {"value":"weak","label":"Show sessions with weak responses"},
-  {"value":"complete","label":"Show complete sessions"},
-  {"value":"incomplete","label":"Show incomplete sessions"}
+  {"value":ALL,"label":"Show all sessions"},
+  {"value":SCORED,"label":"Show only scored sessions"},
+  {"value":UNSCORED,"label":"Show only unscored sessions"},
+  {"value":WEAK,"label":"Show sessions with weak responses"},
+  {"value":COMPLETE,"label":"Show complete sessions"},
+  {"value":INCOMPLETE,"label":"Show incomplete sessions"}
 ];
 
 export const ruleOrder = {
@@ -114,17 +129,6 @@ export const ruleOrder = {
   'Regex': 5,
   'Spelling': 6
 }
-
-export const BECAUSE = 'because';
-export const BUT = 'but';
-export const SO = 'so';
-export const ALL = 'all';
-export const promptStems = [BECAUSE, BUT, SO];
-export const DEFAULT_MAX_ATTEMPTS = 5;
-export const FIRST = 'first';
-export const SECOND = 'second';
-export const NONE = 'none';
-export const PLAGIARISM = 'plagiarism';
 
 export const PROMPT_ATTEMPTS_FEEDBACK_LABELS = {
   "1": {

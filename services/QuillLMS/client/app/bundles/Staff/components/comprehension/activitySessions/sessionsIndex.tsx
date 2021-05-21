@@ -8,7 +8,7 @@ import { firstBy } from 'thenby';
 import { Error, Spinner, DropdownInput } from '../../../../Shared/index';
 import { fetchActivity, fetchActivitySessions } from '../../../utils/comprehension/activityAPIs';
 import { DropdownObjectInterface } from '../../../interfaces/comprehensionInterfaces';
-import { activitySessionIndexResponseHeaders, activitySessionFilterOptions } from '../../../../../constants/comprehension';
+import { ALL, SCORED, UNSCORED, WEAK, COMPLETE, INCOMPLETE, activitySessionIndexResponseHeaders, activitySessionFilterOptions } from '../../../../../constants/comprehension';
 
 const quillCheckmark = 'https://assets.quill.org/images/icons/check-circle-small.svg';
 
@@ -50,17 +50,17 @@ const SessionsIndex = ({ match }) => {
 
   function getFilteredRows(filter: string, activitySessions: any) {
     switch (filter) {
-      case 'all':
+      case ALL:
         return activitySessions;
-      case 'scored':
+      case SCORED:
         return activitySessions.filter(row => row.scored_count > 0);
-      case 'unscored':
+      case UNSCORED:
         return activitySessions.filter(row => row.scored_count === 0);
-      case 'weak':
+      case WEAK:
         return activitySessions.filter(row => row.weak_count > 0);
-      case 'complete':
+      case COMPLETE:
         return activitySessions.filter(row => row.complete);
-      case 'incomplete':
+      case INCOMPLETE:
         return activitySessions.filter(row => !row.complete);
       default:
         return activitySessions;
@@ -176,13 +176,14 @@ const SessionsIndex = ({ match }) => {
         <h1>{title}</h1>
       </section>
       <section>
-        <p className="link-info-blurb">If you want to look up an individual activity session, plug the activity session ID into this url and it will load: https://www.quill.org/cms/comprehension#/activities/activityID/sessionID</p>
+        <p className="link-info-blurb">If you want to look up an individual activity session, plug the activity session ID into this url and it will load: https://www.quill.org/cms/comprehension#/activities/<strong>activityID</strong>/<strong>sessionID</strong></p>
         <section className="top-section">
           <section className="total-container">
             <p className="total-label">Total</p>
             <p className="total-value">{total_activity_sessions}</p>
           </section>
           <DropdownInput
+            className="page-number-dropdown"
             handleChange={handlePageChange}
             isSearchable={false}
             label=""
@@ -190,6 +191,7 @@ const SessionsIndex = ({ match }) => {
             value={pageNumber}
           />
           <DropdownInput
+            className="session-filters-dropdown"
             /* eslint-disable-next-line react/jsx-no-bind */
             handleChange={(option) => handleFilterOptionChange(option, activity_sessions)}
             isSearchable={false}
