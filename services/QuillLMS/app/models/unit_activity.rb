@@ -106,6 +106,7 @@ class UnitActivity < ActiveRecord::Base
       activity.name,
       activity.description,
       activity.repeatable,
+      activity.activity_classification_id,
       activity_classifications.name AS activity_classification_name,
       unit.id AS unit_id,
       ua.id AS ua_id,
