@@ -116,12 +116,10 @@ class IncorrectSequencesContainer extends Component {
     this.setState({incorrectSequences: incorrectSequences})
   }
 
-  handleChange = (e, key) => {
+  handleSequenceChange = (e, key) => {
     const { incorrectSequences } = this.state
-    const inputValue = e.target.value;
     const className = `regex-${key}`
     const value = `${Array.from(document.getElementsByClassName(className)).map(i => i.value).filter(val => val !== '').join('|||')}`;
-    console.log(value)
     if (value === '') {
       if (!confirm("Deleting this regex will delete the whole incorrect sequence. Are you sure you want that?")) {
         return
@@ -138,7 +136,7 @@ class IncorrectSequencesContainer extends Component {
   }
 
   inputElement = (className, text, key) => {
-    return <input className={className} onChange={(e) => this.handleChange(e, key)} style={{ marginBottom: 5, minWidth: `${(text.length + 1) * 8}px`}} type="text" value={text || ''} />
+    return <input className={className} onChange={(e) => this.handleSequenceChange(e, key)} style={{ marginBottom: 5, minWidth: `${(text.length + 1) * 8}px`}} type="text" value={text || ''} />
   }
 
   renderConceptResults = (concepts, sequenceKey) => {

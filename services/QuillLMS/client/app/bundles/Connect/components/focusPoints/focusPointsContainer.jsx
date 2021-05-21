@@ -2,9 +2,11 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 import _ from 'underscore';
+import { EditorState, ContentState } from 'draft-js'
+
+import { TextEditor } from '../../../Shared/index';
 import questionActions from '../../actions/questions';
 import sentenceFragmentActions from '../../actions/sentenceFragments';
-
 import { hashToCollection, SortableList, } from '../../../Shared/index'
 
 export class FocusPointsContainer extends Component {
@@ -65,17 +67,34 @@ export class FocusPointsContainer extends Component {
     this.setState({ fpOrderedIds, });
   };
 
-  saveFocusPoint = (key) => {
+  saveFocusPointsAndFeedback = (key) => {
     const { actionFile } = this.state
-    const { submitEditedFocusPoint } = actionFile
+    const { submitEditedFocusPoint, deleteFocusPoint } = actionFile
     const { dispatch, match } = this.props
     const { params } = match
     const { questionID } = params
     const { focusPoints } = this.state
-    let data = focusPoints[key]
+    const filteredFocusPoints = this.removeEmptyFocusPoints(focusPoints)
+    let data = filteredFocusPoints[key]
     delete data.conceptResults.null;
-    dispatch(submitEditedFocusPoint(questionID, data, key));
+    console.log("dispatching")
+    if (data.text === '') {
+      delete filteredFocusPoints[key]
+      dispatch(deleteFocusPoint(questionID, key));
+    } else {
+      dispatch(submitEditedFocusPoint(questionID, data, key));
+    }
+    this.setState({focusPoints: filteredFocusPoints})
   };
+
+  removeEmptyFocusPoints = (focusPoints) => {
+    return _.mapObject(focusPoints, (val) => (
+      Object.assign({}, val, {
+        text: val.text.split(/\|{3}(?!\|)/).filter(val => val !== '').join('|||')
+      })
+      )
+    );
+  }
 
   updatefpOrder = () => {
     const { actionFile, fpOrderedIds, focusPoints } = this.state
@@ -98,6 +117,33 @@ export class FocusPointsContainer extends Component {
     }
   };
 
+  addNewFocusPoint = (e, key) => {
+    const { focusPoints } = this.state
+    const className = `regex-${key}`
+    const value = `${Array.from(document.getElementsByClassName(className)).map(i => i.value).filter(val => val !== '').join('|||')}|||`;
+    focusPoints[key].text = value;
+    this.setState({focusPoints: focusPoints})
+  }
+
+  handleFocusPointChange = (e, key) => {
+    const { focusPoints } = this.state
+    const className = `regex-${key}`
+    const value = `${Array.from(document.getElementsByClassName(className)).map(i => i.value).filter(val => val !== '').join('|||')}`;
+    if (value === '') {
+      if (!confirm("Deleting this regex will delete the whole incorrect sequence. Are you sure you want that?")) {
+        return
+      }
+    }
+    focusPoints[key].text = value;
+    this.setState({focusPoints: focusPoints})
+  }
+
+  handleFeedbackChange = (e, key) => {
+    const { focusPoints } = this.state
+    focusPoints[key].feedback = e
+    this.setState({focusPoints: focusPoints})
+  }
+
   renderConceptResults = (concepts, focusPointKey) => {
     if (concepts) {
       const components = _.mapObject(concepts, (val, key) => (
@@ -117,45 +163,44 @@ export class FocusPointsContainer extends Component {
     const { params } = match
     const { questionID } = params
     const components = this.fPsortedByOrder().map((fp) => {
-      if (fp.text) {
-        return (
+      return (
           <div className="card is-fullwidth has-bottom-margin" key={fp.key}>
             <header className="card-header">
               <p className="card-header-title" style={{ display: 'inline-block', }}>
                 {this.renderTextInputFields(fp.text, fp.key)}
+                <button className="add-regex-button" onClick={(e) => this.addNewSequence(e, key)} type="button">+</button>
               </p>
               <p className="card-header-icon">
                 {fp.order}
               </p>
             </header>
             <div className="card-content">
-              <p className="control title is-4" dangerouslySetInnerHTML={{ __html: '<strong>Feedback</strong>: ' + fp.feedback, }} />
+              <label className="label" htmlFor="feedback" style={{ marginTop: 10, }}>Feedback</label>
+              <TextEditor
+                ContentState={ContentState}
+                EditorState={EditorState}
+                handleTextChange={(e) => this.handleFeedbackChange(e, fp.key)}
+                key="feedback"
+                text={fp.feedback}
+              />
               {this.renderConceptResults(fp.conceptResults, fp.key)}
             </div>
             <footer className="card-footer">
               <NavLink className="card-footer-item" to={`${match.url}/${fp.key}/edit`}>Edit</NavLink>
               <a className="card-footer-item" onClick={() => this.deleteFocusPoint(fp.key)}>Delete</a>
+              <a className="card-footer-item" onClick={() => this.saveFocusPointsAndFeedback(fp.key)}>Save</a>
             </footer>
           </div>
         );
       }
-    });
+    );
     return <SortableList data={_.values(components)} key={_.values(components).length} sortCallback={this.sortCallback} />;
-  }
-
-  handleChange = (e, key) => {
-    const { focusPoints } = this.state
-    let value = e.target.value;
-    let className = `regex-${key}`
-    value = `${Array.from(document.getElementsByClassName(className)).map(i => i.value).filter(val => val !== '').join('|||')}`;
-    focusPoints[key].text = value;
-    this.setState({focusPoints: focusPoints})
   }
 
   renderTextInputFields = (sequenceString, key) => {
     let className = `input regex-inline-edit regex-${key}`
     return sequenceString.split(/\|{3}(?!\|)/).map(text => (
-      <input className={className} onBlur={(e) => this.saveFocusPoint(key)} onChange={(e) => this.handleChange(e, key)} style={{ marginBottom: 5, minWidth: `${(text.length + 1) * 8}px`}} type="text" value={text || ''} />
+      <input className={className} onChange={(e) => this.handleFocusPointChange(e, key)} style={{ marginBottom: 5, minWidth: `${(text.length + 1) * 8}px`}} type="text" value={text || ''} />
     ));
   }
 
