@@ -135,23 +135,23 @@ RSpec.describe PromptFeedbackHistory, type: :model do
 
       first_prompt = processed[:"1"]
       second_prompt = processed[:"2"]
-
+      
       expect(first_prompt).to include(
         {
           total_responses: 2.0,
           session_count: 1.0,
           display_name: "lorem ipsum1",
 
-          pct_final_attempt_optimal: 1.0,
-          pct_final_attempt_not_optimal: 0.0,
+          num_final_attempt_optimal: 1.0,
+          num_final_attempt_not_optimal: 0.0,
 
           avg_attempts_to_optimal: 2.0,
 
-          pct_consecutive_repeated_attempts_for_same_rule: 0.0,
-          pct_non_consecutive_repeated_attempts_for_same_rule: 0.0,
+          num_sessions_with_consecutive_repeated_rule: 0.0,
+          num_sessions_with_non_consecutive_repeated_rule: 0.0,
 
-          pct_first_attempt_optimal: 0.0,
-          pct_first_attempt_not_optimal: 1.0
+          num_first_attempt_optimal: 0.0,
+          num_first_attempt_not_optimal: 1.0
         })
       expect(second_prompt).to include(
         {
@@ -159,16 +159,16 @@ RSpec.describe PromptFeedbackHistory, type: :model do
           session_count: 1.0,
           display_name: "lorem ipsum2",
 
-          pct_final_attempt_optimal: 0.0,
-          pct_final_attempt_not_optimal: 1.0,
+          num_final_attempt_optimal: 0.0,
+          num_final_attempt_not_optimal: 1.0,
 
           avg_attempts_to_optimal: 0.0,
 
-          pct_consecutive_repeated_attempts_for_same_rule: 0.0,
-          pct_non_consecutive_repeated_attempts_for_same_rule: 0.0,
+          num_sessions_with_consecutive_repeated_rule: 0.0,
+          num_sessions_with_non_consecutive_repeated_rule: 0.0,
 
-          pct_first_attempt_optimal: 0.0,
-          pct_first_attempt_not_optimal: 1.0
+          num_first_attempt_optimal: 0.0,
+          num_first_attempt_not_optimal: 1.0
         })
     end
 
@@ -185,8 +185,8 @@ RSpec.describe PromptFeedbackHistory, type: :model do
 
       expect(second_prompt).to include(
         {
-          pct_consecutive_repeated_attempts_for_same_rule: 1.0,
-          pct_non_consecutive_repeated_attempts_for_same_rule: 0.0,
+          num_sessions_with_consecutive_repeated_rule: 1.0,
+          num_sessions_with_non_consecutive_repeated_rule: 0.0,
 
         })
     end

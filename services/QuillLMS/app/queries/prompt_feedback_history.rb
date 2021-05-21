@@ -38,22 +38,16 @@ class PromptFeedbackHistory
                 optimal_attempt_array: [],
                 display_name: '',
 
-                pct_final_attempt_optimal: 0.0,
-                pct_final_attempt_not_optimal: 0.0,
                 num_final_attempt_optimal: 0.0,
                 num_final_attempt_not_optimal: 0.0,
 
                 avg_attempts_to_optimal: 0.0,
 
-                num_consecutive_repeated_attempts_for_same_rule: 0.0,
-                num_non_consecutive_repeated_attempts_for_same_rule: 0.0,
-                pct_consecutive_repeated_attempts_for_same_rule: 0.0,
-                pct_non_consecutive_repeated_attempts_for_same_rule: 0.0,
+                num_sessions_with_consecutive_repeated_rule: 0.0,
+                num_sessions_with_non_consecutive_repeated_rule: 0.0,
 
                 num_first_attempt_optimal: 0.0,
                 num_first_attempt_not_optimal: 0.0,
-                pct_first_attempt_optimal: 0.0,
-                pct_first_attempt_not_optimal: 0.0
             }
 
             prompt_hash[prompt_id][:display_name] = prompts.find(prompt_session.prompt_id).text
@@ -65,11 +59,11 @@ class PromptFeedbackHistory
             end
 
             if consecutive_repeated_rule?(prompt_session.attempts, prompt_session.rule_uids)
-              prompt_hash[prompt_id][:num_consecutive_repeated_attempts_for_same_rule] += 1
+              prompt_hash[prompt_id][:num_sessions_with_consecutive_repeated_rule] += 1
             end 
 
             if non_consecutive_repeated_rule?(prompt_session.attempts, prompt_session.rule_uids)
-              prompt_hash[prompt_id][:num_non_consecutive_repeated_attempts_for_same_rule] += 1
+              prompt_hash[prompt_id][:num_sessions_with_non_consecutive_repeated_rule] += 1
             end 
 
             if prompt_session.at_least_one_optimal
@@ -95,23 +89,7 @@ class PromptFeedbackHistory
           prompt_hash[k][:avg_attempts_to_optimal] = v[:optimal_attempt_array].sum / v[:num_final_attempt_optimal].to_f
         end
 
-        prompt_hash[k][:pct_consecutive_repeated_attempts_for_same_rule] = \
-          v[:num_consecutive_repeated_attempts_for_same_rule] / session_count
-
-        prompt_hash[k][:pct_non_consecutive_repeated_attempts_for_same_rule] = \
-          v[:num_non_consecutive_repeated_attempts_for_same_rule] / session_count
-
-        prompt_hash[k][:pct_final_attempt_optimal] = \
-          prompt_hash[k][:num_final_attempt_optimal] / session_count      
-
-        prompt_hash[k][:pct_final_attempt_not_optimal] = \
-          prompt_hash[k][:num_final_attempt_not_optimal] / session_count
-          
-        prompt_hash[k][:pct_first_attempt_optimal] = v[:num_first_attempt_optimal] / session_count
-        prompt_hash[k][:pct_first_attempt_not_optimal] = v[:num_first_attempt_not_optimal] / session_count
-        
-        v.delete_if {|key,val| k == :optimal_attempt_array}
-        v.delete_if {|key,val| k == :num_first_attempt_optimal}
+        v.delete_if {|key,val| key == :optimal_attempt_array}
       end
 
       prompt_hash
