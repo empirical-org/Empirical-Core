@@ -15,7 +15,14 @@ exports[`SessionsIndex component should render SessionsIndex 1`] = `
     <p
       className="link-info-blurb"
     >
-      If you want to look up an individual activity session, plug the activity session ID into this url and it will load: https://www.quill.org/cms/comprehension#/activities/activityID/sessionID
+      If you want to look up an individual activity session, plug the activity session ID into this url and it will load: https://www.quill.org/cms/comprehension#/activities/
+      <strong>
+        activityID
+      </strong>
+      /
+      <strong>
+        sessionID
+      </strong>
     </p>
     <section
       className="top-section"
@@ -35,6 +42,7 @@ exports[`SessionsIndex component should render SessionsIndex 1`] = `
         </p>
       </section>
       <DropdownInput
+        className="page-number-dropdown"
         handleChange={[Function]}
         isSearchable={false}
         label=""
@@ -42,6 +50,7 @@ exports[`SessionsIndex component should render SessionsIndex 1`] = `
         value={null}
       />
       <DropdownInput
+        className="session-filters-dropdown"
         handleChange={[Function]}
         isSearchable={false}
         label=""
