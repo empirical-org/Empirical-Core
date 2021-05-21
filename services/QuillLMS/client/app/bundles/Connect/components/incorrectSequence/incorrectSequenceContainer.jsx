@@ -80,8 +80,7 @@ class IncorrectSequencesContainer extends Component {
     dispatch(updateIncorrectSequences(questionID, newIncorrectSequences));
   };
 
-  saveSequence = (e, key) => {
-    console.log("blurred")
+  saveSequencesAndFeedback = (key) => {
     const { actionFile } = this.state
     const { submitEditedIncorrectSequence, deleteIncorrectSequence } = actionFile
     const { dispatch, match } = this.props
@@ -97,8 +96,6 @@ class IncorrectSequencesContainer extends Component {
     } else {
       dispatch(submitEditedIncorrectSequence(questionID, data, key));
     }
-    console.log("filtered")
-    console.log(filteredSequences)
     this.setState({incorrectSequences: filteredSequences})
   };
 
@@ -120,11 +117,6 @@ class IncorrectSequencesContainer extends Component {
   }
 
   handleChange = (e, key) => {
-    const { actionFile } = this.state
-    const { submitEditedIncorrectSequence, deleteIncorrectSequence } = actionFile
-    const { dispatch, match } = this.props
-    const { params } = match
-    const { questionID } = params
     const { incorrectSequences } = this.state
     const inputValue = e.target.value;
     const className = `regex-${key}`
@@ -133,23 +125,10 @@ class IncorrectSequencesContainer extends Component {
     if (value === '') {
       if (!confirm("Deleting this regex will delete the whole incorrect sequence. Are you sure you want that?")) {
         return
-      } else {
-        delete incorrectSequences[key]
-        this.setState({incorrectSequences: incorrectSequences})
-        dispatch(deleteIncorrectSequence(questionID, key));
       }
-    } else if (inputValue === '') {
-      const filteredSequences = this.removeEmptySequences(incorrectSequences)
-      let data = filteredSequences[key]
-      delete data.conceptResults.null;
-      incorrectSequences[key].text = value;
-      this.setState({incorrectSequences: incorrectSequences})
-      dispatch(submitEditedIncorrectSequence(questionID, data, key));
     }
-    else {
-      incorrectSequences[key].text = value;
-      this.setState({incorrectSequences: incorrectSequences})
-    }
+    incorrectSequences[key].text = value;
+    this.setState({incorrectSequences: incorrectSequences})
   }
 
   handleFeedbackChange = (e, key) => {
@@ -159,7 +138,7 @@ class IncorrectSequencesContainer extends Component {
   }
 
   inputElement = (className, text, key) => {
-    return <input className={className} onBlur={(e) => this.saveSequence(e, key)} onChange={(e) => this.handleChange(e, key)} style={{ marginBottom: 5, minWidth: `${(text.length + 1) * 8}px`}} type="text" value={text || ''} />
+    return <input className={className} onChange={(e) => this.handleChange(e, key)} style={{ marginBottom: 5, minWidth: `${(text.length + 1) * 8}px`}} type="text" value={text || ''} />
   }
 
   renderConceptResults = (concepts, sequenceKey) => {
@@ -197,7 +176,6 @@ class IncorrectSequencesContainer extends Component {
             <TextEditor
               ContentState={ContentState}
               EditorState={EditorState}
-              handleBlur={(e) => this.saveSequence(e, key)}
               handleTextChange={(e) => this.handleFeedbackChange(e, key)}
               key="feedback"
               text={val.feedback}
@@ -208,6 +186,7 @@ class IncorrectSequencesContainer extends Component {
           <footer className="card-footer">
             <NavLink className="card-footer-item" to={`${match.url}/${key}/edit`}>Edit</NavLink>
             <a className="card-footer-item" onClick={() => this.deleteSequence(key)}>Delete</a>
+            <a className="card-footer-item" onClick={() => this.saveSequencesAndFeedback(key)}>Save</a>
           </footer>
         </div>
       )
