@@ -49,7 +49,7 @@ const Ap = ({ isPartOfAssignmentFlow, }: ApContainerProps) => {
             <a className="quill-button medium primary outlined view-button focus-on-light" href={generateLink({ isPartOfAssignmentFlow, unitTemplateId: AP_WRITINGS_SKILLS_UNIT_TEMPLATE_ID, slug: AP_SLUG })} rel="noopener noreferrer" target={isPartOfAssignmentFlow ? '' : "_blank"}>View</a>
           </div>
           <div className="activity-text-container">
-            <p className="activity-sub-text">Students complete a seventeen-item survey to gauge their understanding of key writing skills that are essential to successful AP- and SAT-level writing. After students complete the survey, Quill will automatically recommend up to seven activity packs for each student based on their needs. Each pack contains a series of activities that each take about 15 minutes to complete and provide scaffolded, sequenced practice with one of the skills covered by the survey.</p>
+            <p className="activity-sub-text">Students complete a 17 item survey to gauge their understanding of key writing skills that are essential to successful AP- and SAT-level writing. After students complete the survey, Quill will automatically recommend up to seven activity packs for each student based on their needs. Each pack contains a series of activities that each take about 15 minutes to complete and provide scaffolded, sequenced practice with one of the skills covered by the survey.</p>
             <p className="activity-sub-header">Skills</p>
             <p className="activity-sub-text">Complex Sentences; relative clauses; appositive phrases; participial phrases; parallel structure; compound-complex sentences; advanced combining</p>
           </div>

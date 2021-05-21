@@ -110,6 +110,27 @@
         padding: 3px 16px 3px 16px;
         margin: 0px 3px 0px 3px;
       }
+      .activity-header-container {
+        .tags-container {
+          display: flex;
+          .pre-ap-activity-tag {
+            width: 141px;
+            height: 20px;
+            padding: 0 6px 0 0;
+            border-radius: 4px;
+            background-color: #ffeccc;
+            text-align: center;
+            font-size: 14px;
+            font-weight: normal;
+            font-stretch: normal;
+            font-style: normal;
+            line-height: 1.43;
+            letter-spacing: normal;
+            color: #262626;
+            margin: 0px 8px 0px 8px;
+          }
+        }
+      }
       .header {
         display: flex;
         flex-direction: column;
