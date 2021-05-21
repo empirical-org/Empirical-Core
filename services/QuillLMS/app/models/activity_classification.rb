@@ -60,4 +60,9 @@ class ActivityClassification < ActiveRecord::Base
     find_by_key CONNECT_KEY
   end
 
+  def module_url
+    return read_attribute(:module_url) if Rails.env.production?
+
+    "#{ENV['DEFAULT_URL']}#{Addressable::URI.parse(read_attribute(:module_url)).path}"
+  end
 end
