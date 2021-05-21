@@ -121,14 +121,14 @@ class IncorrectSequencesContainer extends Component {
 
   handleChange = (e, key) => {
     const { actionFile } = this.state
-    const { deleteIncorrectSequence } = actionFile
+    const { submitEditedIncorrectSequence, deleteIncorrectSequence } = actionFile
     const { dispatch, match } = this.props
     const { params } = match
     const { questionID } = params
     const { incorrectSequences } = this.state
-    let value = e.target.value;
+    const inputValue = e.target.value;
     const className = `regex-${key}`
-    value = `${Array.from(document.getElementsByClassName(className)).map(i => i.value).filter(val => val !== '').join('|||')}`;
+    const value = `${Array.from(document.getElementsByClassName(className)).map(i => i.value).filter(val => val !== '').join('|||')}`;
     console.log(value)
     if (value === '') {
       if (!confirm("Deleting this regex will delete the whole incorrect sequence. Are you sure you want that?")) {
@@ -138,7 +138,15 @@ class IncorrectSequencesContainer extends Component {
         this.setState({incorrectSequences: incorrectSequences})
         dispatch(deleteIncorrectSequence(questionID, key));
       }
-    } else {
+    } else if (inputValue === '') {
+      const filteredSequences = this.removeEmptySequences(incorrectSequences)
+      let data = filteredSequences[key]
+      delete data.conceptResults.null;
+      incorrectSequences[key].text = value;
+      this.setState({incorrectSequences: incorrectSequences})
+      dispatch(submitEditedIncorrectSequence(questionID, data, key));
+    }
+    else {
       incorrectSequences[key].text = value;
       this.setState({incorrectSequences: incorrectSequences})
     }
