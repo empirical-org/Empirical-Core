@@ -77,7 +77,6 @@ export class FocusPointsContainer extends Component {
     const filteredFocusPoints = this.removeEmptyFocusPoints(focusPoints)
     let data = filteredFocusPoints[key]
     delete data.conceptResults.null;
-    console.log("dispatching")
     if (data.text === '') {
       delete filteredFocusPoints[key]
       dispatch(deleteFocusPoint(questionID, key));
