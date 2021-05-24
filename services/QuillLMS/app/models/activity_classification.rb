@@ -69,7 +69,7 @@ class ActivityClassification < ActiveRecord::Base
   end
 
   private def url_domain_replacer(uri)
-    "#{ENV['DEFAULT_URL']}#{uri_path(uri)}"
+    "#{ENV['DEFAULT_URL']}#{uri.path}#{'?' + uri.query if uri.query}#{'#' + uri.fragment if uri.fragment}"
   end
 
   private def form_uri
@@ -78,9 +78,5 @@ class ActivityClassification < ActiveRecord::Base
 
   private def module_uri
     Addressable::URI.parse(read_attribute(:module_url))
-  end
-
-  private def uri_path(uri)
-    "#{uri.path}#{'?' + uri.query if uri.query}#{'#' + uri.fragment if uri.fragment}"
   end
 end
