@@ -1466,8 +1466,8 @@ ALTER SEQUENCE public.comprehension_prompts_rules_id_seq OWNED BY public.compreh
 
 CREATE TABLE public.comprehension_regex_rules (
     id integer NOT NULL,
-    regex_text character varying(200) NOT NULL,
-    case_sensitive boolean NOT NULL,
+    regex_text character varying(200),
+    case_sensitive boolean,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
     rule_id integer,
@@ -5384,13 +5384,6 @@ CREATE INDEX index_announcements_on_start_and_end ON public.announcements USING 
 
 
 --
--- Name: index_auth_credentials_on_access_token; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_auth_credentials_on_access_token ON public.auth_credentials USING btree (access_token);
-
-
---
 -- Name: index_auth_credentials_on_provider; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -5678,13 +5671,6 @@ CREATE UNIQUE INDEX index_concept_feedbacks_on_uid_and_activity_type ON public.c
 
 
 --
--- Name: index_concept_results_on_activity_classification_id; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_concept_results_on_activity_classification_id ON public.concept_results USING btree (activity_classification_id);
-
-
---
 -- Name: index_concept_results_on_activity_session_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -5696,13 +5682,6 @@ CREATE INDEX index_concept_results_on_activity_session_id ON public.concept_resu
 --
 
 CREATE INDEX index_concept_results_on_concept_id ON public.concept_results USING btree (concept_id);
-
-
---
--- Name: index_concept_results_on_question_type; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_concept_results_on_question_type ON public.concept_results USING btree (question_type);
 
 
 --
@@ -6333,13 +6312,6 @@ CREATE INDEX index_users_on_clever_id ON public.users USING btree (clever_id);
 --
 
 CREATE INDEX index_users_on_email ON public.users USING btree (email);
-
-
---
--- Name: index_users_on_flags; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_users_on_flags ON public.users USING btree (flags);
 
 
 --
@@ -7657,3 +7629,4 @@ INSERT INTO schema_migrations (version) VALUES ('20210518151248');
 
 INSERT INTO schema_migrations (version) VALUES ('20210518162719');
 
+INSERT INTO schema_migrations (version) VALUES ('20210521152206');

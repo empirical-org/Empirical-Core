@@ -11,10 +11,8 @@
 #
 # Indexes
 #
-#  index_concept_results_on_activity_classification_id  (activity_classification_id)
-#  index_concept_results_on_activity_session_id         (activity_session_id)
-#  index_concept_results_on_concept_id                  (concept_id)
-#  index_concept_results_on_question_type               (question_type)
+#  index_concept_results_on_activity_session_id  (activity_session_id)
+#  index_concept_results_on_concept_id           (concept_id)
 #
 # Foreign Keys
 #
