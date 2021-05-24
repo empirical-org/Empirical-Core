@@ -60,4 +60,27 @@ class ActivityClassification < ActiveRecord::Base
     find_by_key CONNECT_KEY
   end
 
+  def form_url
+    url_domain_replacer(form_uri)
+  end
+
+  def module_url
+    url_domain_replacer(module_uri)
+  end
+
+  private def url_domain_replacer(uri)
+    "#{ENV['DEFAULT_URL']}#{uri_path(uri)}"
+  end
+
+  private def form_uri
+    Addressable::URI.parse(read_attribute(:form_url))
+  end
+
+  private def module_uri
+    Addressable::URI.parse(read_attribute(:module_url))
+  end
+
+  private def uri_path(uri)
+    "#{uri.path}#{'?' + uri.query if uri.query}#{'#' + uri.fragment if uri.fragment}"
+  end
 end
