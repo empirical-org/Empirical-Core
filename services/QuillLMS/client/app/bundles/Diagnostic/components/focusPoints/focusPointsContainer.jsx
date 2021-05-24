@@ -184,7 +184,7 @@ export class FocusPointsContainer extends Component {
             {this.renderConceptResults(conceptResults, key)}
           </div>
           <footer className="card-footer">
-            <a className="card-footer-item" href={`/admin/${questionTypeLink}/${questionID}/focus-points/${key}/edit`}>Edit</a>
+            <a className="card-footer-item" href={`/diagnostic/#/admin/${questionTypeLink}/${questionID}/focus-points/${key}/edit`}>Edit</a>
             <a className="card-footer-item" onClick={() => this.deleteFocusPoint(key)}>Delete</a>
             <a className="card-footer-item" onClick={() => this.saveFocusPointsAndFeedback(fp.key)}>Save</a>
           </footer>

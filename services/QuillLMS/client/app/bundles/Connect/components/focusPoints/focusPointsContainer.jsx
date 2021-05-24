@@ -167,7 +167,7 @@ export class FocusPointsContainer extends Component {
             <header className="card-header">
               <p className="card-header-title" style={{ display: 'inline-block', }}>
                 {this.renderTextInputFields(fp.text, fp.key)}
-                <button className="add-regex-button" onClick={(e) => this.addNewSequence(e, key)} type="button">+</button>
+                <button className="add-regex-button" onClick={(e) => this.addNewFocusPoint(e, fp.key)} type="button">+</button>
               </p>
               <p className="card-header-icon">
                 {fp.order}
