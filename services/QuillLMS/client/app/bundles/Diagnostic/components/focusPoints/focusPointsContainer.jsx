@@ -1,9 +1,12 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import _ from 'underscore';
+import { EditorState, ContentState } from 'draft-js'
+
+import { TextEditor } from '../../../Shared/index';
 import questionActions from '../../actions/questions';
 import sentenceFragmentActions from '../../actions/sentenceFragments.ts';
-import { NavLink } from 'react-router-dom';
+
 import { hashToCollection, SortableList, } from '../../../Shared/index'
 
 export class FocusPointsContainer extends Component {
@@ -47,18 +50,32 @@ export class FocusPointsContainer extends Component {
     }
   }
 
-  renderConceptResults = (concepts, focusPointKey) => {
-    if (concepts) {
-      const components = _.mapObject(concepts, (val, key) => (
-        <p className="control sub-title is-6" key={`${val.name}`}>{val.name}
-          {val.correct ? <span className="tag is-small is-success" style={{ marginLeft: 5, }}>Correct</span>
-          : <span className="tag is-small is-danger" style={{ marginLeft: 5, }}>Incorrect</span> }
-          <span className="tag is-small is-warning" onClick={() => this.deleteConceptResult(key, focusPointKey)} style={{ cursor: 'pointer', marginLeft: 5, }}>Delete</span>
-        </p>
-        )
-      );
-      return _.values(components);
+  saveFocusPointsAndFeedback = (key) => {
+    const { actionFile } = this.state
+    const { submitEditedFocusPoint, deleteFocusPoint } = actionFile
+    const { dispatch, match } = this.props
+    const { params } = match
+    const { questionID } = params
+    const { focusPoints } = this.state
+    const filteredFocusPoints = this.removeEmptyFocusPoints(focusPoints)
+    let data = filteredFocusPoints[key]
+    delete data.conceptResults.null;
+    if (data.text === '') {
+      delete filteredFocusPoints[key]
+      dispatch(deleteFocusPoint(questionID, key));
+    } else {
+      dispatch(submitEditedFocusPoint(questionID, data, key));
     }
+    this.setState({focusPoints: filteredFocusPoints})
+  }
+
+  removeEmptyFocusPoints = (focusPoints) => {
+    return _.mapObject(focusPoints, (val) => (
+      Object.assign({}, val, {
+        text: val.text.split(/\|{3}(?!\|)/).filter(val => val !== '').join('|||')
+      })
+      )
+    );
   }
 
   fPsortedByOrder = () => {
@@ -71,65 +88,31 @@ export class FocusPointsContainer extends Component {
     }
   }
 
-  saveFocusPoint = (key) => {
-    const { actionFile } = this.state
-    const { submitEditedFocusPoint } = actionFile
-    const { dispatch, match } = this.props
-    const { params } = match
-    const { questionID } = params
+  addNewFocusPoint = (e, key) => {
     const { focusPoints } = this.state
-    let data = focusPoints[key]
-    delete data.conceptResults.null;
-    dispatch(submitEditedFocusPoint(questionID, data, key));
-  };
-
-  renderFocusPointsList = () => {
-    const { questionTypeLink } = this.state;
-    const { match } = this.props;
-    const { params } = match;
-    const { questionID } = params;
-    const components = this.fPsortedByOrder().map((fp) => {
-      const { conceptResults, feedback, key, order, text } = fp;
-      if (text) {
-        return (
-          <div className="card is-fullwidth has-bottom-margin" key={key}>
-            <header className="card-header">
-              <p className="card-header-title" style={{ display: 'inline-block', }}>
-                {this.renderTextInputFields(text, key)}
-              </p>
-              <p className="card-header-icon">
-                {order}
-              </p>
-            </header>
-            <div className="card-content">
-              <p className="control title is-4" dangerouslySetInnerHTML={{ __html: '<strong>Feedback</strong>: ' + feedback, }} />
-              {this.renderConceptResults(conceptResults, key)}
-            </div>
-            <footer className="card-footer">
-              <NavLink className="card-footer-item" to={`/admin/${questionTypeLink}/${questionID}/focus-points/${key}/edit`}>Edit</NavLink>
-              <a className="card-footer-item" onClick={() => this.deleteFocusPoint(key)}>Delete</a>
-            </footer>
-          </div>
-        );
-      }
-    });
-    return <SortableList data={_.values(components)} key={_.values(components).length} sortCallback={this.sortCallback} />;
-  }
-
-  handleChange = (e, key) => {
-    const { focusPoints } = this.state
-    let value = e.target.value;
-    let className = `regex-${key}`
-    value = `${Array.from(document.getElementsByClassName(className)).map(i => i.value).filter(val => val !== '').join('|||')}`;
+    const className = `regex-${key}`
+    const value = `${Array.from(document.getElementsByClassName(className)).map(i => i.value).filter(val => val !== '').join('|||')}|||`;
     focusPoints[key].text = value;
     this.setState({focusPoints: focusPoints})
   }
 
-  renderTextInputFields = (sequenceString, key) => {
-    let className = `input regex-inline-edit regex-${key}`
-    return sequenceString.split(/\|{3}(?!\|)/).map(text => (
-      <input className={className} onBlur={(e) => this.saveFocusPoint(key)} onChange={(e) => this.handleChange(e, key)} style={{ marginBottom: 5, minWidth: `${(text.length + 1) * 8}px`}} type="text" value={text || ''} />
-    ));
+  handleFocusPointChange = (e, key) => {
+    const { focusPoints } = this.state
+    const className = `regex-${key}`
+    const value = `${Array.from(document.getElementsByClassName(className)).map(i => i.value).filter(val => val !== '').join('|||')}`;
+    if (value === '') {
+      if (!confirm("Deleting this regex will delete the whole incorrect sequence. Are you sure you want that?")) {
+        return
+      }
+    }
+    focusPoints[key].text = value;
+    this.setState({focusPoints: focusPoints})
+  }
+
+  handleFeedbackChange = (e, key) => {
+    const { focusPoints } = this.state
+    focusPoints[key].feedback = e
+    this.setState({focusPoints: focusPoints})
   }
 
   sortCallback = sortInfo => {
@@ -156,6 +139,67 @@ export class FocusPointsContainer extends Component {
       alert('no changes to focus points have been made');
     }
   };
+
+  renderConceptResults = (concepts, focusPointKey) => {
+    if (concepts) {
+      const components = _.mapObject(concepts, (val, key) => (
+        <p className="control sub-title is-6" key={`${val.name}`}>{val.name}
+          {val.correct ? <span className="tag is-small is-success" style={{ marginLeft: 5, }}>Correct</span>
+          : <span className="tag is-small is-danger" style={{ marginLeft: 5, }}>Incorrect</span> }
+          <span className="tag is-small is-warning" onClick={() => this.deleteConceptResult(key, focusPointKey)} style={{ cursor: 'pointer', marginLeft: 5, }}>Delete</span>
+        </p>
+        )
+      );
+      return _.values(components);
+    }
+  }
+
+  renderFocusPointsList = () => {
+    const { questionTypeLink } = this.state;
+    const { match } = this.props;
+    const { params } = match;
+    const { questionID } = params;
+    const components = this.fPsortedByOrder().map((fp) => {
+      const { conceptResults, feedback, key, order, text } = fp;
+      return (
+        <div className="card is-fullwidth has-bottom-margin" key={key}>
+          <header className="card-header">
+            <p className="card-header-title" style={{ display: 'inline-block', }}>
+              {this.renderTextInputFields(text, key)}
+              <button className="add-regex-button" onClick={(e) => this.addNewFocusPoint(e, key)} type="button">+</button>
+            </p>
+            <p className="card-header-icon">
+              {order}
+            </p>
+          </header>
+          <div className="card-content">
+            <label className="label" htmlFor="feedback" style={{ marginTop: 10, }}>Feedback</label>
+              <TextEditor
+                ContentState={ContentState}
+                EditorState={EditorState}
+                handleTextChange={(e) => this.handleFeedbackChange(e, fp.key)}
+                key="feedback"
+                text={fp.feedback}
+              />
+            {this.renderConceptResults(conceptResults, key)}
+          </div>
+          <footer className="card-footer">
+            <a className="card-footer-item" href={`/admin/${questionTypeLink}/${questionID}/focus-points/${key}/edit`}>Edit</a>
+            <a className="card-footer-item" onClick={() => this.deleteFocusPoint(key)}>Delete</a>
+            <a className="card-footer-item" onClick={() => this.saveFocusPointsAndFeedback(fp.key)}>Save</a>
+          </footer>
+        </div>
+      );
+    });
+    return <SortableList data={_.values(components)} key={_.values(components).length} sortCallback={this.sortCallback} />;
+  }
+
+  renderTextInputFields = (sequenceString, key) => {
+    let className = `input regex-inline-edit regex-${key}`
+    return sequenceString.split(/\|{3}(?!\|)/).map(text => (
+      <input className={className} onChange={(e) => this.handleFocusPointChange(e, key)} style={{ marginBottom: 5, minWidth: `${(text.length + 1) * 8}px`}} type="text" value={text || ''} />
+    ));
+  }
 
   renderfPButton = () => {
     const { fpOrderedIds } = this.state;
