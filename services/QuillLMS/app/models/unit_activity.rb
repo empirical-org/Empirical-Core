@@ -107,7 +107,7 @@ class UnitActivity < ActiveRecord::Base
       activity.description,
       activity.repeatable,
       activity.activity_classification_id,
-      activity_classifications.name AS activity_classification_name,
+      activity_classifications.key AS activity_classification_key,
       unit.id AS unit_id,
       ua.id AS ua_id,
       unit.created_at AS unit_created_at,
@@ -138,7 +138,7 @@ class UnitActivity < ActiveRecord::Base
       AND unit.visible = true
       AND ua.visible = true
       AND 'archived' != ANY(activity.flags)
-      GROUP BY unit.id, unit.name, unit.created_at, cu.id, activity.name, activity.activity_classification_id, activity.id, activity.uid, ua.due_date, ua.created_at, unit_activity_id, cuas.completed, cuas.locked, cuas.pinned, ua.id, activity_classifications.name
+      GROUP BY unit.id, unit.name, unit.created_at, cu.id, activity.name, activity.activity_classification_id, activity.id, activity.uid, ua.due_date, ua.created_at, unit_activity_id, cuas.completed, cuas.locked, cuas.pinned, ua.id, activity_classifications.key
 
       ORDER BY pinned DESC, locked ASC, unit.created_at ASC, max_percentage DESC, ua.order_number ASC, ua.due_date ASC, ua.id ASC").to_a
   end
