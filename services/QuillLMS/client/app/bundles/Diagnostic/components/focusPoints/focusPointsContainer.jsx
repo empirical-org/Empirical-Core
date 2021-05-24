@@ -174,13 +174,13 @@ export class FocusPointsContainer extends Component {
           </header>
           <div className="card-content">
             <label className="label" htmlFor="feedback" style={{ marginTop: 10, }}>Feedback</label>
-              <TextEditor
-                ContentState={ContentState}
-                EditorState={EditorState}
-                handleTextChange={(e) => this.handleFeedbackChange(e, fp.key)}
-                key="feedback"
-                text={fp.feedback}
-              />
+            <TextEditor
+              ContentState={ContentState}
+              EditorState={EditorState}
+              handleTextChange={(e) => this.handleFeedbackChange(e, fp.key)}
+              key="feedback"
+              text={fp.feedback}
+            />
             {this.renderConceptResults(conceptResults, key)}
           </div>
           <footer className="card-footer">
