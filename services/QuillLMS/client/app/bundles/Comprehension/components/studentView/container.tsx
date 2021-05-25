@@ -434,10 +434,13 @@ export class StudentViewContainer extends React.Component<StudentViewContainerPr
       // using i + 2 because the READ_PASSAGE_STEP is 1, so the first item in the set of prompts will always be 2
       const stepNumber = i + 2
       const everyOtherStepCompleted = completedSteps.filter(s => s !== stepNumber).length === 3
+      const canBeClicked = completedSteps.includes(stepNumber - 1) || completedSteps.includes(stepNumber) // can click on completed steps or the one after the last completed
+
       return (<PromptStep
         activateStep={this.activateStep}
         active={stepNumber === activeStep}
-        className={`step ${activeStep === stepNumber ? 'active' : ''}`}
+        canBeClicked={canBeClicked}
+        className={`step ${canBeClicked ? 'clickable' : ''} ${activeStep === stepNumber ? 'active' : ''}`}
         completeStep={this.completeStep}
         everyOtherStepCompleted={everyOtherStepCompleted}
         key={stepNumber}
