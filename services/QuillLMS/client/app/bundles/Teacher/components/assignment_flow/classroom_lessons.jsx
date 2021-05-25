@@ -117,14 +117,13 @@ export default class ClassroomLessons extends React.Component {
   parseUnits(data) {
     const { lessonUidsWithEditions, } = this.state
     const parsedUnits = {};
+    console.log(data)
     data.forEach((u) => {
       const {
         number_of_assigned_students,
         class_size,
         class_name,
         unit_id,
-        unit_created_at,
-        unit_name,
         activity_id,
         activity_name,
         activity_uid,
