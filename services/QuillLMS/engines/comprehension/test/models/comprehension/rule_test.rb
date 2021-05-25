@@ -140,6 +140,16 @@ module Comprehension
         @regex_rule_two= create(:comprehension_regex_rule, rule: @rule, regex_text: "you need this sequence", sequence_type: 'required')
         assert @rule.regex_is_passing?('you need this sequence and I do have it')
       end
+
+      should 'be true if rule is NOT case sensitive and entry matches regardless of casing' do
+        @regex_rule_two= create(:comprehension_regex_rule, rule: @rule, regex_text: "you need this sequence", sequence_type: 'required', case_sensitive: false)
+        assert @rule.regex_is_passing?('YOU NEED THIS SEQUENCE AND I DO HAVE IT')
+      end
+
+      should 'be false if rule IS case sensitive and entry does not match casing' do
+        @regex_rule_two= create(:comprehension_regex_rule, rule: @rule, regex_text: "you need this sequence", sequence_type: 'required', case_sensitive: true)
+        assert !@rule.regex_is_passing?('YOU NEED THIS SEQUENCE AND I do not HAVE IT in the right casing')
+      end
     end
 
     context 'one_plagiarism_per_prompt' do

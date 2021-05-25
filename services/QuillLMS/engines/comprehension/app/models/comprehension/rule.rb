@@ -68,12 +68,17 @@ module Comprehension
 
     def regex_is_passing?(entry)
       regex_rules.none? do |regex_rule|
-        regex_rule.sequence_type == RegexRule::TYPE_INCORRECT ? Regexp.new(regex_rule.regex_text).match(entry) : !Regexp.new(regex_rule.regex_text).match(entry)
+        is_matching = match_with_case_sensitive(regex_rule.regex_text, regex_rule.case_sensitive, entry)
+        regex_rule.sequence_type == RegexRule::TYPE_INCORRECT ? is_matching : !is_matching
       end
     end
 
     def display_name
       DISPLAY_NAMES[rule_type.to_sym] || rule_type
+    end
+
+    private def match_with_case_sensitive(regex, is_case_sensitive, text)
+      is_case_sensitive ? Regexp.new(regex).match(text) : Regexp.new(regex, Regexp::IGNORECASE).match(text)
     end
 
     private def plagiarism?
