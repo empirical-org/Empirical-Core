@@ -61,22 +61,10 @@ class ActivityClassification < ActiveRecord::Base
   end
 
   def form_url
-    url_domain_replacer(form_uri)
+    HardcodedDomainRewriter.new(read_attribute(:form_url)).run
   end
 
   def module_url
-    url_domain_replacer(module_uri)
-  end
-
-  private def url_domain_replacer(uri)
-    "#{ENV['DEFAULT_URL']}#{uri.path}#{'?' + uri.query if uri.query}#{'#' + uri.fragment if uri.fragment}"
-  end
-
-  private def form_uri
-    Addressable::URI.parse(read_attribute(:form_url))
-  end
-
-  private def module_uri
-    Addressable::URI.parse(read_attribute(:module_url))
+    HardcodedDomainRewriter.new(read_attribute(:module_url)).run
   end
 end

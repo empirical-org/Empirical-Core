@@ -48,56 +48,22 @@ describe ActivityClassification, type: :model, redis: true do
   end
 
   describe '#form_url' do
-    let(:form_url) { "https://hard-coded-domain.com/#{form_path}" }
+    let(:str) { 'some_path#/tool/-LKX2VhTOrWyUx9?anonymous=true' }
+    let(:form_url) { "https://hard-coded-domain.com/#{str}" }
     let(:activity_classification) { build(:activity_classification, form_url: form_url) }
 
-    context 'simple path' do
-      let(:form_path) { 'some_path/with_subdir' }
-
-      it { should_replace_form_url_hardcoded_domain_with_default_url }
-    end
-
-    context 'with fragment' do
-      let(:form_path) { 'some_path#/tool/-LKX2VhTOrWyUx9?anonymous=true' }
-
-      it { should_replace_form_url_hardcoded_domain_with_default_url }
-    end
-
-    context 'without fragment' do
-      let(:form_path) { 'path_with_no_fragment?anonymous=true' }
-
-      it { should_replace_form_url_hardcoded_domain_with_default_url }
-    end
-
-    def should_replace_form_url_hardcoded_domain_with_default_url
-      expect(activity_classification.form_url).to eq "#{ENV['DEFAULT_URL']}/#{form_path}"
+    it 'uses default url in place of any hardcoded domain value' do
+      expect(activity_classification.form_url).to eq "#{ENV['DEFAULT_URL']}/#{str}"
     end
   end
 
   describe '#module_url' do
-    let(:module_url) { "https://hard-coded-domain.com/#{module_path}" }
+    let(:str) { 'some_path#/tool/-LKX2VhTOrWyUx9?anonymous=true' }
+    let(:module_url) { "https://hard-coded-domain.com/#{str}" }
     let(:activity_classification) { build(:activity_classification, module_url: module_url) }
 
-    context 'simple path' do
-      let(:module_path) { 'some_path/with_segment' }
-
-      it { should_replace_module_url_hardcoded_domain_with_default_url }
-    end
-
-    context 'with fragment' do
-      let(:module_path) { 'some_path#/tool/-LKX2VhTOrWyUx9?anonymous=true' }
-
-      it { should_replace_module_url_hardcoded_domain_with_default_url }
-    end
-
-    context 'without fragment' do
-      let(:module_path) { 'path_with_no_fragment?anonymous=true' }
-
-      it { should_replace_module_url_hardcoded_domain_with_default_url }
-    end
-
-    def should_replace_module_url_hardcoded_domain_with_default_url
-      expect(activity_classification.module_url).to eq "#{ENV['DEFAULT_URL']}/#{module_path}"
+    it 'uses default url in place of any hardcoded domain value' do
+      expect(activity_classification.module_url).to eq "#{ENV['DEFAULT_URL']}/#{str}"
     end
   end
 end
