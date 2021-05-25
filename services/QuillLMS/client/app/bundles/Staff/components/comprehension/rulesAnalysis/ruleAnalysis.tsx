@@ -8,8 +8,8 @@ import { fetchRule } from '../../../utils/comprehension/ruleAPIs';
 import { fetchActivity } from '../../../utils/comprehension/activityAPIs';
 import { fetchRuleFeedbackHistoriesByRule } from '../../../utils/comprehension/ruleFeedbackHistoryAPIs';
 import { fetchConcepts, } from '../../../utils/comprehension/conceptAPIs';
-import { createOrUpdateFeedbackHistoryRating } from '../../../utils/comprehension/feedbackHistoryRatingAPIs';
-import { DataTable, Error, Spinner, Input, Tooltip, } from '../../../../Shared/index';
+import { createOrUpdateFeedbackHistoryRating, massCreateOrUpdateFeedbackHistoryRating, } from '../../../utils/comprehension/feedbackHistoryRatingAPIs';
+import { DataTable, Error, Spinner, Input, Tooltip, smallWhiteCheckIcon, } from '../../../../Shared/index';
 
 const ALL = 'All'
 const SCORED = 'Scored'
@@ -24,6 +24,7 @@ const RuleAnalysis = ({ history, match }) => {
   const [responses, setResponses] = React.useState(null)
   const [filter, setFilter] = React.useState(ALL)
   const [search, setSearch] = React.useState('')
+  const [selectedIds, setSelectedIds] = React.useState([])
 
   const { data: activityData } = useQuery({
     queryKey: [`activity-${activityId}`, activityId],
@@ -67,9 +68,44 @@ const RuleAnalysis = ({ history, match }) => {
   }
 
   function filterResponsesBySearch(r) {
-    if (search.length) { return new RegExp(search, 'i').test(r.entry) }
+    if (search.length) {
+      try {
+        return new RegExp(search, 'i').test(r.entry)
+      } catch (e) {
+        return false
+      }
+    }
 
     return true
+  }
+
+  function selectRow(id) { setSelectedIds(selectedIds.concat(id)) }
+
+  function unselectRow(id) { setSelectedIds(selectedIds.filter(item => item !== id)) }
+
+  async function massMarkStrong() { massMark(true)}
+
+  async function massMarkWeak() { massMark(false)}
+
+  async function massUnmark() { massMark(null)}
+
+  async function massMark(rating) {
+    updateResponseStrengthInState(selectedIds, rating)
+    setSelectedIds([])
+    massCreateOrUpdateFeedbackHistoryRating({ rating, feedback_history_ids: selectedIds}).then((response) => {
+      queryCache.refetchQueries(`rule-feedback-histories-by-rule-${ruleId}`);
+    });
+  }
+
+  function updateResponseStrengthInState(responseIds, rating) {
+    const newResponses = [...responses]
+    responseIds.forEach(id => {
+      const indexOfResponseToChange = responses.findIndex(r => r.response_id === id)
+      const responseToChange = responses[indexOfResponseToChange]
+      responseToChange.strength = rating
+      newResponses[indexOfResponseToChange] = responseToChange
+    })
+    setResponses(newResponses)
   }
 
    async function toggleStrength(response) { updateFeedbackHistoryRatingStrength(response.response_id, response.strength === true ? null : true) }
@@ -77,12 +113,7 @@ const RuleAnalysis = ({ history, match }) => {
    async function toggleWeakness(response) { updateFeedbackHistoryRatingStrength(response.response_id, response.strength === false ? null : false) }
 
    async function updateFeedbackHistoryRatingStrength(responseId, rating) {
-     const indexOfResponseToChange = responses.findIndex(r => r.response_id === responseId)
-     const responseToChange = responses[indexOfResponseToChange]
-     responseToChange.strength = rating
-     const newResponses = [...responses]
-     newResponses[indexOfResponseToChange] = responseToChange
-     setResponses(newResponses)
+     updateResponseStrengthInState([responseId], rating)
      createOrUpdateFeedbackHistoryRating({ rating, feedback_history_id: responseId}).then((response) => {
        queryCache.refetchQueries(`rule-feedback-histories-by-rule-${ruleId}`);
      });
@@ -158,14 +189,22 @@ const RuleAnalysis = ({ history, match }) => {
     return responses.filter(filterResponsesByScored).filter(filterResponsesBySearch).map(r => {
       const formattedResponse = {...r}
       const highlightedEntry = r.entry.replace(r.highlight, `<strong>${r.highlight}</strong>`)
-      const strongButton = <button className={r.strength === true ? 'strength-button strong' : 'strength-button'} onClick={() => toggleStrength(r)} type="button">Strong</button>
-      const weakButton = <button className={r.strength === false ? 'strength-button weak' : 'strength-button'} onClick={() => toggleWeakness(r)} type="button">Weak</button>
+      const strongButton = <button className={r.strength === true ? 'strength-button strong' : 'strength-button'} onClick={() => toggleStrength(r)} tabIndex={-1} type="button">Strong</button> // curriculum developers want to be able to skip these when tab navigating
+      const weakButton = <button className={r.strength === false ? 'strength-button weak' : 'strength-button'} onClick={() => toggleWeakness(r)} tabIndex={-1} type="button">Weak</button> // curriculum developers want to be able to skip these when tab navigating
 
       const tooltip = (<Tooltip
         key={r.entry}
         tooltipText={`<div><b>Feedback:</b><p>${ruleData.rule.feedbacks[0].text}</p><br /><b>Notes:</b><p>${ruleData.rule.note}</p></div>`}
         tooltipTriggerText={<span dangerouslySetInnerHTML={{ __html: highlightedEntry }} key={r.entry} />}
       />)
+
+      if (selectedIds.includes(r.response_id)) {
+        formattedResponse.selected = (<button className="quill-checkbox selected" onClick={() => unselectRow(r.response_id)} type="button">
+          <img alt={smallWhiteCheckIcon.alt} src={smallWhiteCheckIcon.src} />
+        </button>)
+      } else {
+        formattedResponse.selected = <button aria-label="Unchecked checkbox" className="quill-checkbox unselected" onClick={() => selectRow(r.response_id)} type="button" />
+      }
 
       formattedResponse.response = tooltip
       formattedResponse.datetime = moment(r.datetime).format('MM/DD/YYYY')
@@ -176,6 +215,11 @@ const RuleAnalysis = ({ history, match }) => {
   }
 
   const responseHeaders = [
+    {
+      Header: '',
+      accessor: "selected",
+      width: 50
+    },
     {
       Header: "Time",
       accessor: "datetime",
@@ -214,6 +258,9 @@ const RuleAnalysis = ({ history, match }) => {
       </div>
     );
   }
+
+  const massMarkButtonDisabled = !selectedIds.length
+  const massMarkButtonClassName = massMarkButtonDisabled ? "quill-button secondary fun outlined disabled" : "quill-button secondary fun outlined"
 
   return(
     <div className="rule-analysis-container">
@@ -260,6 +307,11 @@ const RuleAnalysis = ({ history, match }) => {
             Show only weak responses
           </label>
         </div>
+      </div>
+      <div className="button-wrapper">
+        <button className={massMarkButtonClassName} disabled={massMarkButtonDisabled} onClick={massMarkStrong} type="button">Mark All Selected As Strong</button>
+        <button className={massMarkButtonClassName} disabled={massMarkButtonDisabled} onClick={massMarkWeak} type="button">Mark All Selected As Weak</button>
+        <button className={massMarkButtonClassName} disabled={massMarkButtonDisabled} onClick={massUnmark} type="button">Unmark All Selected</button>
       </div>
       <Input
         handleChange={onSearchChange}

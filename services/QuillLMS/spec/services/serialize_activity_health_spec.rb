@@ -19,37 +19,14 @@ describe 'SerializeActivityHealth' do
 
   let!(:content_partner) { create(:content_partner, activities: [activity])}
   let!(:start_time) { Time.now - 1.day }
-
-  let!(:activity_session_1) do
-    create(:activity_session,
-      activity: activity,
-      state: "finished",
-      started_at: DateTime.new(2021,1,1,4,0,0),
-      completed_at: DateTime.new(2021,1,1,4,5,0)
-    )
-  end
-
-  let!(:activity_session_2) do
-    create(:activity_session,
-      activity: activity,
-      state: "finished",
-      started_at: start_time,
-      completed_at: start_time + 10.minutes
-    )
-  end
-
-  let!(:activity_session_3) do
-     create(:activity_session,
-      activity: activity,
-      state: "finished",
-      started_at: start_time,
-      completed_at: start_time + 20.minutes
-    )
-  end
-
-  let!(:diagnostic) { create(:diagnostic_activity) }
-  let!(:unit_template) { create(:unit_template) }
-  let!(:activities_unit_template) { create(:activities_unit_template, unit_template: unit_template, activity: activity) }
+  let!(:activity_session_1) { create(:activity_session, activity: activity, state: "finished", started_at: DateTime.new(2021,1,1,4,0,0), completed_at: DateTime.new(2021,1,1,4,5,0)) }
+  let!(:activity_session_2) { create(:activity_session, activity: activity, state: "finished", started_at: start_time, completed_at: start_time + 10.minutes) }
+  let!(:activity_session_3) { create(:activity_session, activity: activity, state: "finished", started_at: start_time, completed_at: start_time + 20.minutes) }
+  let!(:diagnostic) { create(:diagnostic_activity)}
+  let!(:unit_template) { create(:unit_template, flag: "production")}
+  let!(:activities_unit_template) { create(:activities_unit_template, unit_template: unit_template, activity: activity)}
+  let!(:unit_template_2) { create(:unit_template, flag: "archived")}
+  let!(:activities_unit_template_2) { create(:activities_unit_template, unit_template: unit_template_2, activity: activity)}
   let!(:sample_unit) { create(:unit, unit_template: unit_template)}
   let!(:unit_activity) { create(:unit_activity, unit: sample_unit, activity: activity)}
   let!(:recommendation) { create(:recommendation, activity: diagnostic, unit_template: unit_template)}
@@ -111,9 +88,7 @@ describe 'SerializeActivityHealth' do
     expect(data[:activity_categories]).to eq(activity.activity_categories.pluck(:name).sort)
     expect(data[:content_partners]).to eq([content_partner.name])
     expect(data[:tool]).to eq("connect")
-    expect(data[:activity_packs])
-      .to eq(activity.unit_templates.map {|ut| {id: ut.id, name: ut.name}}.sort_by{|h| h[:name]})
-
+    expect(data[:activity_packs]).to eq(activity.unit_templates.where(flag: "production").map {|ut| {id: ut.id, name: ut.name}}.sort_by{|h| h[:name]})
     expect(data[:diagnostics]).to eq([diagnostic.name])
   end
 
