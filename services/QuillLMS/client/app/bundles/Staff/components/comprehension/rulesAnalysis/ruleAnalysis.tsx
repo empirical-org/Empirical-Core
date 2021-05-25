@@ -68,7 +68,13 @@ const RuleAnalysis = ({ history, match }) => {
   }
 
   function filterResponsesBySearch(r) {
-    if (search.length) { return new RegExp(search, 'i').test(r.entry) }
+    if (search.length) {
+      try {
+        return new RegExp(search, 'i').test(r.entry)
+      } catch (e) {
+        return false
+      }
+    }
 
     return true
   }
