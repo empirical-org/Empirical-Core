@@ -18,7 +18,7 @@ const SemanticRulesCheatSheet = ({ match, }) => {
 
   const { data: rulesData } = useQuery({
     // cache rules data for updates
-    queryKey: [`rules-${activityId}-${promptId}`, activityId, promptId, 'autoML'],
+    queryKey: [`rules-${activityId}-${promptId}-autoML`, null, promptId, 'autoML'], // we have an activity id, but passing it to this function will result in the wrong url
     queryFn: fetchRules
   });
 
