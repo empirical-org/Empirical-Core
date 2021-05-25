@@ -54,6 +54,7 @@ exports[`SessionOverview component should render SessionOverview 1`] = `
         "text": "none",
       }
     }
+    sessionId="6c90e707-835c-44c4-80d4-4cab039ec5bc"
     showHeader={true}
   />
   <PromptTable
@@ -64,6 +65,7 @@ exports[`SessionOverview component should render SessionOverview 1`] = `
         "text": "none",
       }
     }
+    sessionId="6c90e707-835c-44c4-80d4-4cab039ec5bc"
     showHeader={true}
   />
   <PromptTable
@@ -74,6 +76,7 @@ exports[`SessionOverview component should render SessionOverview 1`] = `
         "text": "none",
       }
     }
+    sessionId="6c90e707-835c-44c4-80d4-4cab039ec5bc"
     showHeader={true}
   />
 </div>

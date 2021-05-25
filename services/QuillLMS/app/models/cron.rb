@@ -1,7 +1,6 @@
 class Cron
   # Configured in Heroku Scheduler to run every 10 minutes
   def self.interval_10_min
-
   end
 
   # Configured in Heroku Scheduler to run every hour on the XX:30 mark
@@ -21,6 +20,7 @@ class Cron
     RenewExpiringRecurringSubscriptionsWorker.perform_async
     ResetDemoAccountWorker.perform_async
     SyncVitallyWorker.perform_async
+    MaterializedViewRefreshWorker.perform_async
   end
 
   def self.run_saturday

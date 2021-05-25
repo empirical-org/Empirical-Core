@@ -34,7 +34,6 @@
 #  index_users_on_classcode           (classcode)
 #  index_users_on_clever_id           (clever_id)
 #  index_users_on_email               (email)
-#  index_users_on_flags               (flags)
 #  index_users_on_google_id           (google_id)
 #  index_users_on_role                (role)
 #  index_users_on_stripe_customer_id  (stripe_customer_id)

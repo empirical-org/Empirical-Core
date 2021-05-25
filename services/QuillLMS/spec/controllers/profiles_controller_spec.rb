@@ -214,6 +214,7 @@ describe ProfilesController, type: :controller do
                 'description' => activity.description,
                 'repeatable' => activity.repeatable,
                 'activity_classification_id' => activity.activity_classification_id,
+                'activity_classification_key' => activity.classification.key,
                 'unit_id' => unit.id,
                 'ua_id' => unit_activity.id,
                 'order_number' => unit_activity.order_number,
