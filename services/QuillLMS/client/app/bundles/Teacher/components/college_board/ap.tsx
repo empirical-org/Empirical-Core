@@ -1,7 +1,15 @@
 import * as React from 'react';
 
+import ScrollBox from './scrollBox';
+
 import QuestionsAndAnswers from '../../containers/QuestionsAndAnswers';
-import { AP_SLUG, AP_WRITINGS_SKILLS_UNIT_TEMPLATE_ID, ELL_STARTER_DIAGNOSTIC_UNIT_TEMPLATE_ID, ELL_INTERMEDIATE_DIAGNOSTIC_UNIT_TEMPLATE_ID, ELL_ADVANCED_DIAGNOSTIC_UNIT_TEMPLATE_ID } from '../assignment_flow/assignmentFlowConstants';
+import {
+  AP_SLUG,
+  AP_WRITINGS_SKILLS_UNIT_TEMPLATE_ID,
+  ELL_STARTER_DIAGNOSTIC_UNIT_TEMPLATE_ID,
+  ELL_INTERMEDIATE_DIAGNOSTIC_UNIT_TEMPLATE_ID,
+  ELL_ADVANCED_DIAGNOSTIC_UNIT_TEMPLATE_ID,
+} from '../assignment_flow/assignmentFlowConstants';
 import { generateLink, getStartedButton } from '../../helpers/collegeBoard';
 import { scrollToTop } from '../../hooks/scrollToTop';
 
@@ -10,10 +18,34 @@ interface ApContainerProps {
 }
 
 const Ap = ({ isPartOfAssignmentFlow, }: ApContainerProps) => {
+  const writingSkillsRef = React.useRef(null);
+  const feedbackReportsRef = React.useRef(null);
+  const collegeBoardMessageRef = React.useRef(null);
+  const questionAndAnswerRef = React.useRef(null);
+  const scrollSections = [
+    {
+      ref: writingSkillsRef,
+      title: 'Writing Skills Survey',
+      count: 4
+    },
+    {
+      ref: feedbackReportsRef,
+      title: 'Feedback & Reports'
+    },
+    {
+      ref: collegeBoardMessageRef,
+      title: 'Message From College Board'
+    },
+    {
+      ref: questionAndAnswerRef,
+      title: 'Questions and Answers'
+    }
+  ];
 
   isPartOfAssignmentFlow && scrollToTop();
 
   return (<div className="college-board-container">
+    <ScrollBox sections={scrollSections} />
     <div className="section-wrapper">
       <div className="container college-board-header-container">
         <div className="header-left">
@@ -40,7 +72,7 @@ const Ap = ({ isPartOfAssignmentFlow, }: ApContainerProps) => {
             <p>Identify which sentence-level skills your students need to practice with a skills survey. Then, assign activities recommended for each student based on their responses so they can practice and improve their proficiency with those skills.</p>
           </div>
         </div>
-        <div className="activities-subheader">
+        <div className="activities-subheader" ref={writingSkillsRef}>
           <h2>AP Writing Skills Survey</h2>
         </div>
         <div className="activity-container">
@@ -60,40 +92,40 @@ const Ap = ({ isPartOfAssignmentFlow, }: ApContainerProps) => {
         </div>
         <div className="activity-container">
           <div className="activity-header-container">
-            <p className="activity-header" id="writing-skills-survey">ELL Starter Skills Surveys</p>
+            <p className="activity-header" id="writing-skills-survey">ELL Starter Skills Survey</p>
             <a className="quill-button medium primary outlined view-button focus-on-light" href={generateLink({ isPartOfAssignmentFlow, unitTemplateId: ELL_STARTER_DIAGNOSTIC_UNIT_TEMPLATE_ID, slug: AP_SLUG })} rel="noopener noreferrer" target={isPartOfAssignmentFlow ? '' : "_blank"}>View</a>
           </div>
           <div className="activity-text-container">
-            <p className="activity-sub-text">ELL students complete a 22 item survey to gauge their mastery of foundational English grammar. This survey is most appropriate for students who are in the Entering or Emerging <a href="https://wida.wisc.edu/sites/default/files/resource/CanDo-KeyUses-Gr-9-12.pdf" rel="noopener noreferrer" target="_blank">WIDA levels</a>. After students complete the survey, Quill will automatically recommend up to five activity packs for each student based on their needs. Each pack contains a series of activities that each take about 15 minutes to complete and provide scaffolded, sequenced practice with one of the skills covered by the survey.</p>
+            <p className="activity-sub-text">ELL students complete a 22 item survey to gauge their mastery of foundational English grammar. This survey is most appropriate for students who are in the Entering or Emerging <a className="underlined_link" href="https://wida.wisc.edu/sites/default/files/resource/CanDo-KeyUses-Gr-9-12.pdf" rel="noopener noreferrer" target="_blank">WIDA levels</a>. After students complete the survey, Quill will automatically recommend up to five activity packs for each student based on their needs. Each pack contains a series of activities that each take about 15 minutes to complete and provide scaffolded, sequenced practice with one of the skills covered by the survey.</p>
             <p className="activity-sub-header">Skills</p>
             <p className="activity-sub-text">Simple verb conjugation; articles; simple subject-verb agreement; simple word order; singular and plural nouns; adjective placement</p>
           </div>
         </div>
         <div className="activity-container">
           <div className="activity-header-container">
-            <p className="activity-header" id="writing-skills-survey">ELL Intermediate Skills Surveys</p>
+            <p className="activity-header" id="writing-skills-survey">ELL Intermediate Skills Survey</p>
             <a className="quill-button medium primary outlined view-button focus-on-light" href={generateLink({ isPartOfAssignmentFlow, unitTemplateId: ELL_INTERMEDIATE_DIAGNOSTIC_UNIT_TEMPLATE_ID, slug: AP_SLUG })} rel="noopener noreferrer" target={isPartOfAssignmentFlow ? '' : "_blank"}>View</a>
           </div>
           <div className="activity-text-container">
-            <p className="activity-sub-text">ELL students complete a 23 item survey to gauge their mastery of English grammar. This survey is most appropriate for students who are in the Emerging or Developing <a href="https://wida.wisc.edu/sites/default/files/resource/CanDo-KeyUses-Gr-9-12.pdf" rel="noopener noreferrer" target="_blank">WIDA levels</a>. After students complete the survey, Quill will automatically recommend up to six activity packs for each student based on their needs. Each pack contains a series of activities that each take about 15 minutes to complete and provide scaffolded, sequenced practice with one of the skills covered by the survey.</p>
+            <p className="activity-sub-text">ELL students complete a 23 item survey to gauge their mastery of English grammar. This survey is most appropriate for students who are in the Emerging or Developing <a className="underlined_link" href="https://wida.wisc.edu/sites/default/files/resource/CanDo-KeyUses-Gr-9-12.pdf" rel="noopener noreferrer" target="_blank">WIDA levels</a>. After students complete the survey, Quill will automatically recommend up to six activity packs for each student based on their needs. Each pack contains a series of activities that each take about 15 minutes to complete and provide scaffolded, sequenced practice with one of the skills covered by the survey.</p>
             <p className="activity-sub-header">Skills</p>
             <p className="activity-sub-text">Subject-verb agreement; singular possessive nouns; possessive pronouns; prepositions; future tense; articles; intermediate questions</p>
           </div>
         </div>
         <div className="activity-container">
           <div className="activity-header-container">
-            <p className="activity-header" id="writing-skills-survey">ELL Advanced Skills Surveys</p>
+            <p className="activity-header" id="writing-skills-survey">ELL Advanced Skills Survey</p>
             <a className="quill-button medium primary outlined view-button focus-on-light" href={generateLink({ isPartOfAssignmentFlow, unitTemplateId: ELL_ADVANCED_DIAGNOSTIC_UNIT_TEMPLATE_ID, slug: AP_SLUG })} rel="noopener noreferrer" target={isPartOfAssignmentFlow ? '' : "_blank"}>View</a>
           </div>
           <div className="activity-text-container">
-            <p className="activity-sub-text">ELL students complete a 23 item survey to gauge their mastery of English grammar, specifically in areas that are challenging for non-native English speakers. This survey is most appropriate for students who are in the Developing or Expanding <a href="https://wida.wisc.edu/sites/default/files/resource/CanDo-KeyUses-Gr-9-12.pdf" rel="noopener noreferrer" target="_blank">WIDA levels</a>. After students complete the survey, Quill will automatically recommend up to five activity packs for each student based on their needs. Each pack contains a series of activities that each take about 15 minutes to complete and provide scaffolded, sequenced practice with one of the skills covered by the survey.</p>
+            <p className="activity-sub-text">ELL students complete a 23 item survey to gauge their mastery of English grammar, specifically in areas that are challenging for non-native English speakers. This survey is most appropriate for students who are in the Developing or Expanding <a className="underlined_link" href="https://wida.wisc.edu/sites/default/files/resource/CanDo-KeyUses-Gr-9-12.pdf" rel="noopener noreferrer" target="_blank">WIDA levels</a>. After students complete the survey, Quill will automatically recommend up to five activity packs for each student based on their needs. Each pack contains a series of activities that each take about 15 minutes to complete and provide scaffolded, sequenced practice with one of the skills covered by the survey.</p>
             <p className="activity-sub-header">Skills</p>
             <p className="activity-sub-text">Regular and irregular past tense; progressive tenses; phrasal verbs; choosing between prepositions; responding to questions; commonly confused words</p>
           </div>
         </div>
       </div>
     </div>
-    <div className="white-section-wrapper" id="info-blurbs-1-wrapper">
+    <div className="white-section-wrapper" id="info-blurbs-1-wrapper" ref={feedbackReportsRef}>
       <div className="container info-blurbs-section">
         <div className="info-blurb-container">
           <img alt="A recommended activity pack report showing four students being recommended a mixture of activities for relative clauses and participial phrases." src="https://assets.quill.org/images/college_board/ap-recommendations.svg" />
@@ -119,7 +151,7 @@ const Ap = ({ isPartOfAssignmentFlow, }: ApContainerProps) => {
       </div>
     </div>
     <div className="section-wrapper">
-      <div className="container cb-message-container">
+      <div className="container cb-message-container" ref={collegeBoardMessageRef}>
         <p className="cb-message-header">Quill and College Board have partnered to provide students with meaningful practice of their sentence-level writing skills.</p>
         <div className="sub-header-container">
           <p className="cb-message-sub-header">Message from College Board</p>
@@ -134,7 +166,9 @@ const Ap = ({ isPartOfAssignmentFlow, }: ApContainerProps) => {
         </div>
       </div>
     </div>
-    <QuestionsAndAnswers questionsAndAnswersFile="ap" supportLink="" />
+    <div ref={questionAndAnswerRef}>
+      <QuestionsAndAnswers questionsAndAnswersFile="ap" supportLink="" />
+    </div>
   </div>
   )
 }

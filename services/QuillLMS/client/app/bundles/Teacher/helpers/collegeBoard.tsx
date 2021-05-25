@@ -20,3 +20,7 @@ export const getStartedButton = (isPartOfAssignmentFlow: boolean) => {
   }
   return <a className="quill-button large primary contained focus-on-light" href="https://www.quill.org/account/new" rel="noopener noreferrer" target="_blank">Get started</a>;
 }
+
+export const scrollToSection = (ref: React.RefObject<HTMLDivElement>) => {
+  ref.current.scrollIntoView({ behavior: 'smooth' });
+}
