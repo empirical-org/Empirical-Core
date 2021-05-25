@@ -31,19 +31,36 @@ const ActivityStats: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ hist
 
   const formattedRows = promptHealth && promptHealth.prompts && Object.values(promptHealth.prompts).map(prompt => {
     const {
-      optimal_final_attempts,
-      not_optimal_final_attempts,
       session_count,
       total_responses,
-      final_attempt_pct_optimal,
-      final_attempt_pct_not_optimal,
-      display_name
+      display_name,
+      num_final_attempt_optimal,
+      num_final_attempt_not_optimal,
+      avg_attempts_to_optimal,
+      num_sessions_with_consecutive_repeated_rule,
+      num_sessions_with_non_consecutive_repeated_rule,
+      num_first_attempt_optimal,
+      num_first_attempt_not_optimal,
     } = prompt;
+
+    const percentageOptimalFinalAttempt = _.round(num_final_attempt_optimal / session_count * 100, 2)
+    const percentageNotOptimalFinalAttempt = _.round(num_final_attempt_not_optimal / session_count * 100, 2)
+
+    const percentageConsecutiveRepeatedRule = _.round(num_sessions_with_consecutive_repeated_rule / session_count * 100, 2)
+    const percentageNotConsecutiveRepeatedRule = _.round(num_sessions_with_non_consecutive_repeated_rule / session_count * 100, 2)
+
+    const percentageOptimalFirstAttempt = _.round(num_first_attempt_optimal / session_count * 100, 2)
+    const percentageNotOptimalFirstAttempt = _.round(num_first_attempt_not_optimal / session_count * 100, 2)
+
     return {
       promptText: display_name,
       totalResponses: total_responses,
       sessionCount: session_count,
-      finalAttemptData: `${final_attempt_pct_optimal * 100}% (${optimal_final_attempts}) | ${final_attempt_pct_not_optimal * 100}% (${not_optimal_final_attempts})`
+      finalAttemptData: `${percentageOptimalFinalAttempt}% (${num_final_attempt_optimal}) | ${percentageNotOptimalFinalAttempt}% (${num_final_attempt_not_optimal})`,
+      ruleRepeatedConsecutiveData: `${percentageConsecutiveRepeatedRule}% (${num_sessions_with_consecutive_repeated_rule})`,
+      ruleRepeatedNotConsecutiveData:  `${percentageNotConsecutiveRepeatedRule}% (${num_sessions_with_non_consecutive_repeated_rule})`,
+      averageAttemptsToOptimal: _.round(avg_attempts_to_optimal, 2),
+      firstAttemptData: `${percentageOptimalFirstAttempt}% (${num_first_attempt_optimal}) | ${percentageNotOptimalFirstAttempt}% (${num_first_attempt_not_optimal})`,
     }
   })
 
@@ -58,16 +75,43 @@ const ActivityStats: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ hist
       Header: 'Total Responses',
       accessor: "totalResponses",
       key: "totalResponses",
+      width: 80,
     },
     {
       Header: 'Sessions',
       accessor: "sessionCount",
       key: "sessionCount",
+      width: 70,
     },
     {
       Header: 'Final Attempt: Optimal | Sub-Optimal',
       accessor: "finalAttemptData",
       key: "finalAttemptData",
+      width: 160,
+    },
+    {
+      Header: 'Average Attempts to Optimal',
+      accessor: "averageAttemptsToOptimal",
+      key: "averageAttemptsToOptimal",
+      width: 120,
+    },
+    {
+      Header: 'Rule Repeated: Consecutive Attempt',
+      accessor: "ruleRepeatedConsecutiveData",
+      key: "ruleRepeatedConsecutiveData",
+      width: 150,
+    },
+    {
+      Header: 'Rule Repeated: Non-consecutive Attempt',
+      accessor: "ruleRepeatedNotConsecutiveData",
+      key: "ruleRepeatedNotConsecutiveData",
+      width: 150,
+    },
+    {
+      Header: 'First Attempt: Optimal | Sub-Optimal',
+      accessor: "firstAttemptData",
+      key: "firstAttemptData",
+      width: 160,
     }
   ];
 
