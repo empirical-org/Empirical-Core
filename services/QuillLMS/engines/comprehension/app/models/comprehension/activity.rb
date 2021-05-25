@@ -12,6 +12,7 @@ module Comprehension
     has_many :passages, inverse_of: :activity, dependent: :destroy
     has_many :prompts, inverse_of: :activity, dependent: :destroy
     has_many :turking_rounds, inverse_of: :activity
+    has_many :change_logs
     belongs_to :parent_activity, class_name: Comprehension.parent_activity_class
 
     accepts_nested_attributes_for :passages, reject_if: proc { |p| p['text'].blank? }

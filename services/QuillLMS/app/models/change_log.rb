@@ -67,13 +67,41 @@ class ChangeLog < ActiveRecord::Base
     CREATED,
     RENAMED
   ]
+  COMPREHENSION_ACTIVITY_ACTIONS = {
+    create: 'Comprehension Activity - created',
+    delete: 'Comprehension Activity - deleted',
+    update: 'Comprehension Passage Text - updated',
+    create_regex: 'Regex Rule - created',
+    update_regex: 'Regex Rule - updated',
+    delete_regex: 'Regex Rule - deleted'
+  }
+  COMPREHENSION_PROMPT_ACTIONS = [
+    update: 'Comprehension Stem - updated',
+    create_automl: 'AutoML Model - created',
+    activate_automl: 'AutoML Model - activated',
+    deactivate_automl: 'AutoML Model - de-activated',
+    create_semantic: 'Semantic Label - created',
+    delete_semantic: 'Semantic Label - deleted',
+    update_semantic: 'Semantic Label - updated',
+    update_feedback_1: 'Semantic Label First Layer Feedback - updated',
+    add_highlight_1: 'Semantic Label First Layer Feedback Highlight - added',
+    add_highlight_2: 'Semantic Label Second Layer Feedback Highlight - added',
+    create_plagiarism: 'Plagiarism - created',
+    update_plagiarism: 'Plagiarism - updated'
+  ]
+  UNIVERSAL_RULE_ACTIONS = [
+    'Universal Rule - updated'
+  ]
   CHANGED_RECORD_TYPES = [
     'Concept',
     'User',
     'Topic',
     'Standard',
     'StandardLevel',
-    'StandardCategory'
+    'StandardCategory',
+    'Activity',
+    'Prompt',
+    'Universal Rule'
   ]
   USER_ACTIONS = {
     index: 'Visited User Directory',
@@ -87,7 +115,8 @@ class ChangeLog < ActiveRecord::Base
     'Visited User Directory',
     'Searched Users'
   ]
-  ALL_ACTIONS = USER_ACTIONS.values + CONCEPT_ACTIONS + TOPIC_ACTIONS + STANDARD_ACTIONS + STANDARD_CATEGORY_ACTIONS + STANDARD_LEVEL_ACTIONS
+  ALL_ACTIONS = (USER_ACTIONS.values + CONCEPT_ACTIONS + TOPIC_ACTIONS + STANDARD_ACTIONS + STANDARD_CATEGORY_ACTIONS + STANDARD_LEVEL_ACTIONS + UNIVERSAL_RULE_ACTIONS
+                + COMPREHENSION_ACTIVITY_ACTIONS.values + COMPREHENSION_PROMPT_ACTIONS.values)
 
   belongs_to :changed_record, polymorphic: true
   belongs_to :user
@@ -98,7 +127,7 @@ class ChangeLog < ActiveRecord::Base
   validates :changed_record_type, inclusion: CHANGED_RECORD_TYPES
 
   def applies_to_single_record?
-    ['Concept', 'Topic', 'Standard', 'StandardLevel', 'StandardCategory'].include?(changed_record_type) || !(GENERIC_USER_ACTIONS.include?(action))
+    ['Concept', 'Topic', 'Standard', 'StandardLevel', 'StandardCategory', 'Activity', 'Prompt', 'Universal Rule'].include?(changed_record_type) || !(GENERIC_USER_ACTIONS.include?(action))
   end
 
   def record_is_not_being_created_from_cms?
