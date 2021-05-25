@@ -8,11 +8,6 @@ export const ATTEMPTS_TO_SCORE = {
 
 export const COMPREHENSION_DIRECTIONS = 'Complete this sentence'
 
-export const calculatePercentage = (submittedResponses) => {
-  const attemptCounts = Object.values(submittedResponses).map((responses) => ATTEMPTS_TO_SCORE[responses.length])
-  return attemptCounts.reduce((total, value) => total + value) / attemptCounts.length
-}
-
 export const generateConceptResults = (currentActivity, submittedResponses) => {
   const conjunctionToQuestionNumber = {
     because: 1,
