@@ -1,5 +1,5 @@
 # Run Rails without hot reloading (static assets).
-rails: rails s -b 0.0.0.0
+rails: rails s -b 0.0.0.0 -p 3000
 
 worker: bundle exec sidekiq -v -q default -q critical
 reportworker: bundle exec sidekiq -v -q low
