@@ -26,7 +26,7 @@ export default class ScorebookTooltip extends React.Component {
 
   conceptResultsOrLoadingOrNotCompleted = () => {
     const data = this.props.data
-    if (data.marked_complete === 't' && data.completed_attempts === 0) {
+    if (data.marked_complete === true && data.completed_attempts === 0) {
       return <span>This student has missed this lesson. To make up this material, you can assign this lesson again to the students who missed it.</span>
     } else if (!data.percentage) {
       return <span>This activity has not been completed.</span>;

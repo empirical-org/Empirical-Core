@@ -1,10 +1,6 @@
 require 'fileutils'
 
 module SanitizationHelper
-  # This method can be called in any of our tests to convert a hash into a format
-  # that allows it to be compared to a hash we generate from SQL. For example,
-  # SQL will return 'f' instead of false. It's kinda hacky and shouldn't be
-  # trusted in most circumstances. But, it's sufficient for most of our cases.
   def sanitize_hash_array_for_comparison_with_sql(array_of_hashes)
     array_of_hashes.map do |hash|
       hash.map do |key, value|

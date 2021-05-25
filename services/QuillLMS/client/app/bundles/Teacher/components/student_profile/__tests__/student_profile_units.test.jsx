@@ -80,7 +80,7 @@ describe('StudentProfileUnits component', () => {
   it('should not render the pinned activity modal if there is no pinned activity', () => {
     const wrapper = mount(<StudentProfileUnits
       activeClassworkTab={TO_DO_ACTIVITIES}
-      data={activities.filter(act => act.pinned === 'f')}
+      data={activities.filter(act => act.pinned === false)}
       teacherName="Emilia F"
     />)
 
@@ -91,7 +91,7 @@ describe('StudentProfileUnits component', () => {
   it('should not render the pinned activity modal if there is no pinned activity', () => {
     const wrapper = mount(<StudentProfileUnits
       activeClassworkTab={TO_DO_ACTIVITIES}
-      data={activities.filter(act => act.pinned === 'f')}
+      data={activities.filter(act => act.pinned === false)}
       teacherName="Emilia F"
     />)
 

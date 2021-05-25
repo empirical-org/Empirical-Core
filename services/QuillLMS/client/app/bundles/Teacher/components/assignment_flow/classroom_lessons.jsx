@@ -102,7 +102,7 @@ export default class ClassroomLessons extends React.Component {
       studentCount,
       started: started_count > 0,
       hasEditions: hasEditions,
-      ownedByCurrentUser: owned_by_current_user === 't',
+      ownedByCurrentUser: owned_by_current_user === true,
       ownerName: owner_name
     });
     return caObj;
@@ -169,7 +169,7 @@ export default class ClassroomLessons extends React.Component {
           studentCount,
           started: started_count > 0,
           hasEditions: hasEditions,
-          ownedByCurrentUser: owned_by_current_user === 't',
+          ownedByCurrentUser: owned_by_current_user === true,
           ownerName: owner_name
         });
       }

@@ -43,7 +43,7 @@ export default class extends React.Component {
   completedStatus(row) {
     if (row.completed_at) {
       return moment.unix(row.completed_at).format('MM-DD-YYYY')
-    } else if (row.activity_classification_id === '6' && row.is_a_completed_lesson === 't') {
+    } else if (row.activity_classification_id === '6' && row.is_a_completed_lesson === true) {
       return 'Missed Lesson'
     }
     return 'Not Started'

@@ -18,13 +18,13 @@ class Profile::Mobile::ActivitySessionsByUnit
      unit.created_at AS unit_created_at,
      unit.name AS unit_name,
      cu.id AS ca_id,
-     COALESCE(cuas.completed, 'f') AS marked_complete,
+     COALESCE(cuas.completed, false) AS marked_complete,
      ua.activity_id,
      MAX(acts.updated_at) AS act_sesh_updated_at,
      ua.due_date,
      cu.created_at AS unit_activity_created_at,
-     COALESCE(cuas.locked, 'f') AS locked,
-     COALESCE(cuas.pinned, 'f') AS pinned,
+     COALESCE(cuas.locked, false) AS locked,
+     COALESCE(cuas.pinned, false) AS pinned,
      MAX(acts.percentage) AS max_percentage,
      SUM(CASE WHEN acts.state = 'started' THEN 1 ELSE 0 END) AS resume_link
     FROM unit_activities AS ua

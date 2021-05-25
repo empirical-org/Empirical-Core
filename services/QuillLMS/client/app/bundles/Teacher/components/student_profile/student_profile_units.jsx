@@ -124,7 +124,7 @@ export default class StudentProfileUnits extends React.Component {
 
   renderPinnedActivityBar = () => {
     const { data, isBeingPreviewed, } = this.props
-    const pinnedActivity = data.find(act => act.pinned === 't')
+    const pinnedActivity = data.find(act => act.pinned === true)
     if (!pinnedActivity) { return }
 
     const { name, ca_id, activity_id, } = pinnedActivity
@@ -152,7 +152,7 @@ export default class StudentProfileUnits extends React.Component {
   renderPinnedActivityModal = () => {
     const { data, teacherName, isBeingPreviewed, } = this.props
     const { closedPinnedActivityModal, } = this.state
-    const pinnedActivity = data.find(act => act.pinned === 't')
+    const pinnedActivity = data.find(act => act.pinned === true)
     if (isBeingPreviewed || !pinnedActivity || closedPinnedActivityModal) { return }
 
     const { name, ca_id, activity_id, } = pinnedActivity

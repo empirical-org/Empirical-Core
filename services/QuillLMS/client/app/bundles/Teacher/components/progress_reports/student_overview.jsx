@@ -104,7 +104,7 @@ export default class extends React.Component {
         const newRow = _.omit(row, keysToOmit);
         if (notLessonsOrDiagnostic(row.activity_classification_id) && row.percentage) {
           newRow.percentage = `${(newRow.percentage * 100).toString()}%`;
-        } else if ((row.activity_classification_id === '6' && row.is_a_completed_lesson === 't') || row.percentage) {
+        } else if ((row.activity_classification_id === '6' && row.is_a_completed_lesson === true) || row.percentage) {
           newRow.percentage = 'Completed';
         } else {
           newRow.percentage = 'Not Completed';
@@ -116,7 +116,7 @@ export default class extends React.Component {
         newRow['Average Score'] = countAndAverage.average;
         csvReportData.push(newRow);
       });
-      downloadReportOrLoadingIndicator = <CSVDownloadForProgressReport data={csvReportData} preserveCasing={'t'} />;
+      downloadReportOrLoadingIndicator = <CSVDownloadForProgressReport data={csvReportData} preserveCasing={true} />;
     } else {
       downloadReportOrLoadingIndicator = <LoadingSpinner />;
     }

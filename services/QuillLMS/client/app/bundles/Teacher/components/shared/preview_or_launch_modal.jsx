@@ -21,7 +21,7 @@ export default class PreviewOrLaunchModal extends React.Component {
   }
 
   render() {
-    const launchLessonButton = this.props.completed === 'f' ? <a className="bg-quillgreen" href={this.launchLessonLink()}>Launch Lesson</a> : null;
+    const launchLessonButton = this.props.completed === false ? <a className="bg-quillgreen" href={this.launchLessonLink()}>Launch Lesson</a> : null;
     return (
       <div>
         <div className="preview-or-launch-modal-background" />

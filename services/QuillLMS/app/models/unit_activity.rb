@@ -116,9 +116,9 @@ class UnitActivity < ActiveRecord::Base
         ua.activity_id,
         ua.order_number,
         ua.due_date,
-        COALESCE(cuas.completed, 'f') AS marked_complete,
-        COALESCE(cuas.locked, 'f') AS locked,
-        COALESCE(cuas.pinned, 'f') AS pinned,
+        COALESCE(cuas.completed, false) AS marked_complete,
+        COALESCE(cuas.locked, false) AS locked,
+        COALESCE(cuas.pinned, false) AS pinned,
         MAX(acts.updated_at) AS act_sesh_updated_at,
         MAX(acts.percentage) AS max_percentage,
         SUM(CASE WHEN acts.state = 'started' THEN 1 ELSE 0 END) AS resume_link

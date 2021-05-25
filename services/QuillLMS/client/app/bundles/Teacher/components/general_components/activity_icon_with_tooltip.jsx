@@ -91,7 +91,7 @@ export default class ActivityIconWithTooltip extends React.Component {
 
   missedIndicator() {
     const {marked_complete, completed_attempts} = this.props.data
-    if (marked_complete === 't' && completed_attempts === 0) {
+    if (marked_complete === true && completed_attempts === 0) {
       return <img className="missed-indicator" src={`${process.env.CDN_URL}/images/scorebook/missed-lessons-cross.svg`} />
     }
   }

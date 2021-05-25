@@ -113,7 +113,7 @@ export default class ManageUnits extends React.Component {
       activityClassificationId: u.activity_classification_id,
       classroomId: u.classroom_id,
       dueDate: u.due_date ? u.due_date.replace(' ', 'T') : null,
-      ownedByCurrentUser: u.owned_by_current_user === 't',
+      ownedByCurrentUser: u.owned_by_current_user === true,
       ownerName: u.owner_name,
       uaId: u.unit_activity_id,
     });
@@ -144,7 +144,7 @@ export default class ManageUnits extends React.Component {
             classroomId: u.classroom_id,
             createdAt: u.ca_created_at,
             dueDate: u.due_date ? u.due_date.replace(' ', 'T') : null,
-            ownedByCurrentUser: u.owned_by_current_user === 't',
+            ownedByCurrentUser: u.owned_by_current_user === true,
             ownerName: u.owner_name,
             uaId: u.unit_activity_id,
           });
