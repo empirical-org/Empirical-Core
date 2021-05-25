@@ -43,27 +43,28 @@ const PromptTable = ({ activity, prompt, showHeader, sessionId }: PromptTablePro
     }
   }
 
-  async function toggleStrength(attempt) { updateFeedbackHistoryRatingStrength(attempt.id, attempt.most_recent_rating === true ? null : true, STRONG) }
+  async function toggleStrength(attempt) { updateFeedbackHistoryRatingStrength(attempt.id, attempt.most_recent_rating === true ? null : true, `${STRONG}-${attempt.id}`) }
 
-  async function toggleWeakness(attempt) { updateFeedbackHistoryRatingStrength(attempt.id, attempt.most_recent_rating === false ? null : false, WEAK) }
+  async function toggleWeakness(attempt) { updateFeedbackHistoryRatingStrength(attempt.id, attempt.most_recent_rating === false ? null : false, `${WEAK}-${attempt.id}`) }
 
   async function updateFeedbackHistoryRatingStrength(responseId, rating, type) {
     setLoadingType(type);
     createOrUpdateFeedbackHistoryRating({ rating, feedback_history_id: responseId}).then((response) => {
-      queryCache.refetchQueries(`activity-${activity.id}-session-${sessionId}`);
-      setLoadingType(null);
+      queryCache.refetchQueries(`activity-${activity.id}-session-${sessionId}`).then(() => {
+        setLoadingType(null);
+      });
     });
   }
 
   function getStrongWeakButtons(attempt: any) {
-    const { most_recent_rating } = attempt;
+    const { id, most_recent_rating } = attempt;
     return(
       <div className="strength-buttons">
         <button className={most_recent_rating ? 'strength-button strong' : 'strength-button'} onClick={() => toggleStrength(attempt)} type="button">
-          {loadingType === STRONG ? <ButtonLoadingSpinner /> : STRONG}
+          {loadingType === `${STRONG}-${id}` ? <ButtonLoadingSpinner /> : STRONG}
         </button>
         <button className={most_recent_rating === false ? 'strength-button weak' : 'strength-button'} onClick={() => toggleWeakness(attempt)} type="button">
-          {loadingType === WEAK ? <ButtonLoadingSpinner /> : WEAK}
+          {loadingType === `${WEAK}-${id}` ? <ButtonLoadingSpinner /> : WEAK}
         </button>
       </div>
     );

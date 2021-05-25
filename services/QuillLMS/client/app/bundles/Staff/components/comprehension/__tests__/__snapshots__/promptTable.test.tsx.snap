@@ -82,14 +82,14 @@ exports[`PromptTable component should render PromptTable 1`] = `
               onClick={[Function]}
               type="button"
             >
-              Strong
+              strong
             </button>
             <button
               className="strength-button"
               onClick={[Function]}
               type="button"
             >
-              Weak
+              weak
             </button>
           </div>,
           "className": "sub-optimal",
