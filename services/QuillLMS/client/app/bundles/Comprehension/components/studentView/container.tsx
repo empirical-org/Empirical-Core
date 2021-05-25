@@ -416,7 +416,7 @@ export class StudentViewContainer extends React.Component<StudentViewContainerPr
     if (!currentActivity || activeStep !== READ_PASSAGE_STEP) { return }
 
     return (<div className='read-passage-step-container'>
-      <h2>Read the passage</h2>
+      <h2>Read the text.</h2>
       <button className='quill-button large primary contained done-reading-button' onClick={this.handleDoneReadingClick} type="button">Done reading</button>
     </div>)
   }
@@ -450,7 +450,7 @@ export class StudentViewContainer extends React.Component<StudentViewContainerPr
       />)
     })
 
-    const headerCopy = activeStep === READ_PASSAGE_STEP ? 'Then, complete these sentences' : 'Complete these sentences'
+    const headerCopy = activeStep === READ_PASSAGE_STEP ? 'Then, use information from the text to finish the sentence. Remember to put the response in your own\u00A0words.' : 'Use information from the text to finish the sentence. Remember to put the response in your own words.'
 
     return (<div>
       <h2>{headerCopy}</h2>
