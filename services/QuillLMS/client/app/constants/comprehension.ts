@@ -14,6 +14,7 @@ export const UNSCORED =  'unscored';
 export const WEAK =  'weak';
 export const COMPLETE =  'complete';
 export const INCOMPLETE =  'incomplete';
+export const STRONG =  'strong';
 
 export const flagOptions = [
   {

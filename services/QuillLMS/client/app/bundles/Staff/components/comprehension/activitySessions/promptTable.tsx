@@ -4,8 +4,8 @@ import { Link } from 'react-router-dom';
 import { queryCache } from 'react-query';
 
 import { createOrUpdateFeedbackHistoryRating } from '../../../utils/comprehension/feedbackHistoryRatingAPIs';
-import { DataTable, Spinner } from '../../../../Shared/index';
-import { PROMPT_ATTEMPTS_FEEDBACK_LABELS, PROMPT_HEADER_LABELS, DEFAULT_MAX_ATTEMPTS, NONE } from '../../../../../constants/comprehension';
+import { DataTable, Spinner, ButtonLoadingSpinner } from '../../../../Shared/index';
+import { PROMPT_ATTEMPTS_FEEDBACK_LABELS, PROMPT_HEADER_LABELS, DEFAULT_MAX_ATTEMPTS, NONE, STRONG, WEAK } from '../../../../../constants/comprehension';
 import { ActivityInterface, PromptInterface } from "../../../interfaces/comprehensionInterfaces";
 
 interface PromptTableProps {
@@ -16,6 +16,7 @@ interface PromptTableProps {
 }
 const PromptTable = ({ activity, prompt, showHeader, sessionId }: PromptTableProps) => {
 
+  const [loadingType, setLoadingType] = React.useState<string>(null);
 
   function formatFirstTableData(prompt: any) {
     const { attempts } = prompt;
@@ -42,13 +43,15 @@ const PromptTable = ({ activity, prompt, showHeader, sessionId }: PromptTablePro
     }
   }
 
-  async function toggleStrength(attempt) { updateFeedbackHistoryRatingStrength(attempt.id, attempt.most_recent_rating === true ? null : true) }
+  async function toggleStrength(attempt) { updateFeedbackHistoryRatingStrength(attempt.id, attempt.most_recent_rating === true ? null : true, STRONG) }
 
-  async function toggleWeakness(attempt) { updateFeedbackHistoryRatingStrength(attempt.id, attempt.most_recent_rating === false ? null : false) }
+  async function toggleWeakness(attempt) { updateFeedbackHistoryRatingStrength(attempt.id, attempt.most_recent_rating === false ? null : false, WEAK) }
 
-  async function updateFeedbackHistoryRatingStrength(responseId, rating) {
+  async function updateFeedbackHistoryRatingStrength(responseId, rating, type) {
+    setLoadingType(type);
     createOrUpdateFeedbackHistoryRating({ rating, feedback_history_id: responseId}).then((response) => {
       queryCache.refetchQueries(`activity-${activity.id}-session-${sessionId}`);
+      setLoadingType(null);
     });
   }
 
@@ -56,8 +59,12 @@ const PromptTable = ({ activity, prompt, showHeader, sessionId }: PromptTablePro
     const { most_recent_rating } = attempt;
     return(
       <div className="strength-buttons">
-        <button className={most_recent_rating ? 'strength-button strong' : 'strength-button'} onClick={() => toggleStrength(attempt)} type="button">Strong</button>
-        <button className={most_recent_rating === false ? 'strength-button weak' : 'strength-button'} onClick={() => toggleWeakness(attempt)} type="button">Weak</button>
+        <button className={most_recent_rating ? 'strength-button strong' : 'strength-button'} onClick={() => toggleStrength(attempt)} type="button">
+          {loadingType === STRONG ? <ButtonLoadingSpinner /> : STRONG}
+        </button>
+        <button className={most_recent_rating === false ? 'strength-button weak' : 'strength-button'} onClick={() => toggleWeakness(attempt)} type="button">
+          {loadingType === WEAK ? <ButtonLoadingSpinner /> : WEAK}
+        </button>
       </div>
     );
   }
