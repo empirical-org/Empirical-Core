@@ -2,8 +2,8 @@
 -- PostgreSQL database dump
 --
 
--- Dumped from database version 10.16
--- Dumped by pg_dump version 10.16
+-- Dumped from database version 10.15
+-- Dumped by pg_dump version 10.15
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -131,7 +131,7 @@ CREATE FUNCTION public.timespent_question(act_sess integer, question character v
           item timestamp;
         BEGIN
           SELECT created_at INTO as_created_at FROM activity_sessions WHERE id = act_sess;
-          
+
           -- backward compatibility block
           IF as_created_at IS NULL OR as_created_at < timestamp '2013-08-25 00:00:00.000000' THEN
             SELECT SUM(
@@ -146,11 +146,11 @@ CREATE FUNCTION public.timespent_question(act_sess integer, question character v
                       'epoch' FROM (activity_sessions.completed_at - activity_sessions.started_at)
                     )
                 END) INTO time_spent FROM activity_sessions WHERE id = act_sess AND state='finished';
-                
+
                 RETURN COALESCE(time_spent,0);
           END IF;
-          
-          
+
+
           first_item := NULL;
           last_item := NULL;
           max_item := NULL;
@@ -174,11 +174,11 @@ CREATE FUNCTION public.timespent_question(act_sess integer, question character v
 
             END IF;
           END LOOP;
-          
+
           IF max_item IS NOT NULL AND first_item IS NOT NULL THEN
             time_spent := time_spent + EXTRACT( EPOCH FROM max_item - first_item );
           END IF;
-          
+
           RETURN time_spent;
         END;
       $$;
@@ -193,7 +193,7 @@ CREATE FUNCTION public.timespent_student(student integer) RETURNS bigint
     AS $$
         SELECT COALESCE(SUM(time_spent),0) FROM (
           SELECT id,timespent_activity_session(id) AS time_spent FROM activity_sessions
-          WHERE activity_sessions.user_id = student 
+          WHERE activity_sessions.user_id = student
           GROUP BY id) as as_ids;
 
       $$;
@@ -1466,8 +1466,8 @@ ALTER SEQUENCE public.comprehension_prompts_rules_id_seq OWNED BY public.compreh
 
 CREATE TABLE public.comprehension_regex_rules (
     id integer NOT NULL,
-    regex_text character varying(200) NOT NULL,
-    case_sensitive boolean NOT NULL,
+    regex_text character varying(200),
+    case_sensitive boolean,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
     rule_id integer,
@@ -1508,10 +1508,9 @@ CREATE TABLE public.comprehension_rules (
     rule_type character varying NOT NULL,
     optimal boolean NOT NULL,
     suborder integer,
-    concept_uid character varying NOT NULL,
+    concept_uid character varying,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
-    sequence_type character varying,
     state character varying NOT NULL
 );
 
@@ -2011,6 +2010,39 @@ CREATE SEQUENCE public.feedback_histories_id_seq
 --
 
 ALTER SEQUENCE public.feedback_histories_id_seq OWNED BY public.feedback_histories.id;
+
+
+--
+-- Name: feedback_history_flags; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.feedback_history_flags (
+    id integer NOT NULL,
+    feedback_history_id integer NOT NULL,
+    flag character varying NOT NULL,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: feedback_history_flags_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.feedback_history_flags_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: feedback_history_flags_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.feedback_history_flags_id_seq OWNED BY public.feedback_history_flags.id;
 
 
 --
@@ -4037,6 +4069,13 @@ ALTER TABLE ONLY public.feedback_histories ALTER COLUMN id SET DEFAULT nextval('
 
 
 --
+-- Name: feedback_history_flags id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.feedback_history_flags ALTER COLUMN id SET DEFAULT nextval('public.feedback_history_flags_id_seq'::regclass);
+
+
+--
 -- Name: feedback_history_ratings id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -4758,6 +4797,14 @@ ALTER TABLE ONLY public.feedback_histories
 
 
 --
+-- Name: feedback_history_flags feedback_history_flags_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.feedback_history_flags
+    ADD CONSTRAINT feedback_history_flags_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: feedback_history_ratings feedback_history_ratings_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -5337,13 +5384,6 @@ CREATE INDEX index_announcements_on_start_and_end ON public.announcements USING 
 
 
 --
--- Name: index_auth_credentials_on_access_token; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_auth_credentials_on_access_token ON public.auth_credentials USING btree (access_token);
-
-
---
 -- Name: index_auth_credentials_on_provider; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -5631,13 +5671,6 @@ CREATE UNIQUE INDEX index_concept_feedbacks_on_uid_and_activity_type ON public.c
 
 
 --
--- Name: index_concept_results_on_activity_classification_id; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_concept_results_on_activity_classification_id ON public.concept_results USING btree (activity_classification_id);
-
-
---
 -- Name: index_concept_results_on_activity_session_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -5649,13 +5682,6 @@ CREATE INDEX index_concept_results_on_activity_session_id ON public.concept_resu
 --
 
 CREATE INDEX index_concept_results_on_concept_id ON public.concept_results USING btree (concept_id);
-
-
---
--- Name: index_concept_results_on_question_type; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_concept_results_on_question_type ON public.concept_results USING btree (question_type);
 
 
 --
@@ -6286,13 +6312,6 @@ CREATE INDEX index_users_on_clever_id ON public.users USING btree (clever_id);
 --
 
 CREATE INDEX index_users_on_email ON public.users USING btree (email);
-
-
---
--- Name: index_users_on_flags; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_users_on_flags ON public.users USING btree (flags);
 
 
 --
@@ -7590,6 +7609,8 @@ INSERT INTO schema_migrations (version) VALUES ('20210330160626');
 
 INSERT INTO schema_migrations (version) VALUES ('20210409161449');
 
+INSERT INTO schema_migrations (version) VALUES ('20210421181107');
+
 INSERT INTO schema_migrations (version) VALUES ('20210421190032');
 
 INSERT INTO schema_migrations (version) VALUES ('20210421191605');
@@ -7604,3 +7625,8 @@ INSERT INTO schema_migrations (version) VALUES ('20210505150457');
 
 INSERT INTO schema_migrations (version) VALUES ('20210511161300');
 
+INSERT INTO schema_migrations (version) VALUES ('20210518151248');
+
+INSERT INTO schema_migrations (version) VALUES ('20210518162719');
+
+INSERT INTO schema_migrations (version) VALUES ('20210521152206');
