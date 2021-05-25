@@ -4,7 +4,7 @@ import { useQuery } from 'react-query';
 import { firstBy } from "thenby";
 import ReactTable from 'react-table';
 import qs from 'qs';
-import _ from 'lodash'
+import * as _ from 'lodash'
 
 import { ActivityRouteProps, PromptInterface } from '../../../interfaces/comprehensionInterfaces';
 import { fetchActivity } from '../../../utils/comprehension/activityAPIs';
@@ -118,6 +118,8 @@ const ActivityStats: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ hist
   if (!formattedRows) {
     return <Spinner />
   }
+
+  debugger;
 
   return(
     <div className="activity-stats-container">
