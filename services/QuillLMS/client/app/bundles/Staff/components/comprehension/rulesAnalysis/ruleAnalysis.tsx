@@ -209,6 +209,7 @@ const RuleAnalysis = ({ history, match }) => {
       formattedResponse.response = tooltip
       formattedResponse.datetime = moment(r.datetime).format('MM/DD/YYYY')
       formattedResponse.strengthButtons = (<div className="strength-buttons">{strongButton}{weakButton}</div>)
+      formattedResponse.viewSessionLink = <Link className="data-link" rel="noopener noreferrer" target="_blank" to={`/activities/${activityId}/activity-sessions/${r.session_uid}/overview`}>View Session</Link>
 
       return formattedResponse
     })
@@ -240,6 +241,11 @@ const RuleAnalysis = ({ history, match }) => {
       Header: "",
       accessor: "strengthButtons",
       width: 300
+    },
+    {
+      Header: "",
+      accessor: "viewSessionLink",
+      width: 100
     }
   ]
 
