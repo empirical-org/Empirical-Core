@@ -10,8 +10,8 @@ const grammarSrc = `${process.env.CDN_URL}/images/icons/tool-grammar-gray.svg`
 const proofreaderSrc = `${process.env.CDN_URL}/images/icons/tool-proofreader-gray.svg`
 const lessonsSrc = `${process.env.CDN_URL}/images/icons/tool-lessons-gray.svg`
 
-const LESSONS_ACTIVITY_CLASSIFICATION_ID = "6"
-const DIAGNOSTIC_ACTIVITY_CLASSIFICATION_ID = "4"
+const LESSONS_ACTIVITY_CLASSIFICATION_ID = 6
+const DIAGNOSTIC_ACTIVITY_CLASSIFICATION_ID = 4
 const PROFICIENT_CUTOFF = 0.8
 const NEARLY_PROFICIENT_CUTOFF = 0.6
 

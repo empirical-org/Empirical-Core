@@ -82,7 +82,7 @@ export default class ClassroomActivity extends React.Component {
 
   calculateAverageScore = () => {
     const { data, } = this.props
-    const DIAGNOSTIC_ACTIVITY_CLASSIFICATION_ID = '4'
+    const DIAGNOSTIC_ACTIVITY_CLASSIFICATION_ID = 4
     const averageScore = data.cumulativeScore / data.completedCount;
     if (isNaN(averageScore)) {
       return '—';
