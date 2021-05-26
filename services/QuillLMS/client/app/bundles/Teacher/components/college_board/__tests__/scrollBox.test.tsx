@@ -7,7 +7,8 @@ describe('ScrollBox component', () => {
   const mockProps = {
     activeSection: '',
     sections: [{ title: 'one', ref: <div />}, { title: 'two', ref: <div />}, { title: 'three', ref: <div />}],
-    setActiveSection: jest.fn()
+    setActiveSection: jest.fn(),
+    setIsScrollingFromClick: jest.fn()
   }
   const component = shallow(<ScrollBox {...mockProps} />)
   it('should render ScrollBox', () => {

@@ -1,4 +1,5 @@
 import * as React from 'react';
+import VisibilitySensor from 'react-visibility-sensor';
 
 import ScrollBox from './scrollBox';
 
@@ -17,7 +18,10 @@ interface SpringBoardProps {
 
 const SpringBoard = ({ isPartOfAssignmentFlow, units, }: SpringBoardProps) => {
 
+  isPartOfAssignmentFlow && scrollToTop();
+
   const [activeSection, setActiveSection] = React.useState<string>('');
+  const [isScrollingFromClick, setIsScrollingFromClick] = React.useState<boolean>(false);
 
   const writingSkillsRef = React.useRef(null);
   const feedbackReportsRef = React.useRef(null);
@@ -49,8 +53,6 @@ const SpringBoard = ({ isPartOfAssignmentFlow, units, }: SpringBoardProps) => {
     }
   ];
 
-  isPartOfAssignmentFlow && scrollToTop();
-
   const expandableUnits = units.map((u, index) => {
     return (
       <ExpandableUnitSection
@@ -65,8 +67,18 @@ const SpringBoard = ({ isPartOfAssignmentFlow, units, }: SpringBoardProps) => {
     )
   })
 
+  function handleChange(isVisible: boolean, section: string) {
+    if(isVisible && !isScrollingFromClick) {
+      setActiveSection(section);
+    }
+  }
+
+  function handleSetIsScrollingFromClick(value: boolean) {
+    setIsScrollingFromClick(value);
+  }
+
   return (<div className="college-board-container">
-    <ScrollBox activeSection={activeSection} sections={scrollSections} setActiveSection={setActiveSection} />
+    <ScrollBox activeSection={activeSection} sections={scrollSections} setActiveSection={setActiveSection} setIsScrollingFromClick={handleSetIsScrollingFromClick} />
     <div className="section-wrapper">
       <div className="container college-board-header-container">
         <div className="header-left">
@@ -93,9 +105,12 @@ const SpringBoard = ({ isPartOfAssignmentFlow, units, }: SpringBoardProps) => {
             <p>Identify which sentence-level skills your students need to practice with a skills survey. Then, assign activities recommended for each student based on their responses so they can practice and improve their proficiency with those skills.</p>
           </div>
         </div>
-        <div className="activities-subheader" ref={writingSkillsRef}>
-          <h2>Springboard Writing Skills Surveys</h2>
-        </div>
+        {/* eslint-disable-next-line react/jsx-no-bind */}
+        <VisibilitySensor onChange={(isVisible) => handleChange(isVisible, 'Writing Skills Survey')}>
+          <div className="activities-subheader" ref={writingSkillsRef}>
+            <h2>Springboard Writing Skills Surveys</h2>
+          </div>
+        </VisibilitySensor>
         <div className="activity-container">
           <div className="activity-header-container">
             <div className="activity-header-left-container">
@@ -196,13 +211,16 @@ const SpringBoard = ({ isPartOfAssignmentFlow, units, }: SpringBoardProps) => {
     </div>
     <div className="white-section-wrapper" id="info-blurbs-1-wrapper" ref={feedbackReportsRef}>
       <div className="container info-blurbs-section">
-        <div className="info-blurb-container">
-          <img alt="A list of writing concepts: Subject-Verb Agreement, Pronoun-Antecedent Agreement, Compound Subjects, Objects, Predicates, and more." src="https://assets.quill.org/images/college_board/pre-ap-recommendations.svg" />
-          <div className="text-container">
-            <p className="info-blurb-header">Personalized Recommendations</p>
-            <p className="info-blurb-text">After your students complete a SpringBoard 6-8, Pre-AP, AP, or ELL writing skills survey, Quill will use the results to recommend a set of independent practice activities. You can choose to assign all the practice at once, or you can pick and choose the activities that best fit your instructional and students’ needs. As students complete the practice, they’ll receive instant feedback on their writing that guides them through the revising and editing process.</p>
+        {/* eslint-disable-next-line react/jsx-no-bind */}
+        <VisibilitySensor onChange={(isVisible) => handleChange(isVisible, 'Feedback & Reports')}>
+          <div className="info-blurb-container">
+            <img alt="A list of writing concepts: Subject-Verb Agreement, Pronoun-Antecedent Agreement, Compound Subjects, Objects, Predicates, and more." src="https://assets.quill.org/images/college_board/pre-ap-recommendations.svg" />
+            <div className="text-container">
+              <p className="info-blurb-header">Personalized Recommendations</p>
+              <p className="info-blurb-text">After your students complete a SpringBoard 6-8, Pre-AP, AP, or ELL writing skills survey, Quill will use the results to recommend a set of independent practice activities. You can choose to assign all the practice at once, or you can pick and choose the activities that best fit your instructional and students’ needs. As students complete the practice, they’ll receive instant feedback on their writing that guides them through the revising and editing process.</p>
+            </div>
           </div>
-        </div>
+        </VisibilitySensor>
         <div className="info-blurb-container">
           <div className="text-container">
             <p className="info-blurb-header">Writing with Targeted Feedback</p>
@@ -223,10 +241,13 @@ const SpringBoard = ({ isPartOfAssignmentFlow, units, }: SpringBoardProps) => {
       <div className="container college-board-activities-section">
         <div className="header">
           <img alt="Illustration of a book opened" src="https://assets.quill.org/images/college_board/passage-book.svg" />
-          <div className="text-container">
-            <h2>Passage-Aligned Activities</h2>
-            <p>Twenty custom sentence-combining activities, each one aligned to a unique 9th grade SpringBoard ELA text to give your students the opportunity to practice their sentence construction skills in context.</p>
-          </div>
+          {/* eslint-disable-next-line react/jsx-no-bind */}
+          <VisibilitySensor onChange={(isVisible) => handleChange(isVisible, 'Passage-Aligned Activities')}>
+            <div className="text-container">
+              <h2>Passage-Aligned Activities</h2>
+              <p>Twenty custom sentence-combining activities, each one aligned to a unique 9th grade SpringBoard ELA text to give your students the opportunity to practice their sentence construction skills in context.</p>
+            </div>
+          </VisibilitySensor>
         </div>
         <div className="activities-subheader">
           <h2>Passage-Aligned Activities</h2>
@@ -240,7 +261,10 @@ const SpringBoard = ({ isPartOfAssignmentFlow, units, }: SpringBoardProps) => {
     </div>
     <div className="section-wrapper">
       <div className="container cb-message-container" ref={collegeBoardMessageRef}>
-        <p className="cb-message-header">Quill and College Board have partnered to provide students with meaningful practice of their sentence-level writing skills.</p>
+        {/* eslint-disable-next-line react/jsx-no-bind */}
+        <VisibilitySensor onChange={(isVisible) => handleChange(isVisible, 'Message From College Board')}>
+          <p className="cb-message-header">Quill and College Board have partnered to provide students with meaningful practice of their sentence-level writing skills.</p>
+        </VisibilitySensor>
         <div className="sub-header-container">
           <p className="cb-message-sub-header">Message from College Board</p>
         </div>
@@ -255,7 +279,7 @@ const SpringBoard = ({ isPartOfAssignmentFlow, units, }: SpringBoardProps) => {
       </div>
     </div>
     <div ref={questionAndAnswerRef}>
-      <QuestionsAndAnswers questionsAndAnswersFile="springboard" supportLink="" />
+      <QuestionsAndAnswers handleChange={handleChange} questionsAndAnswersFile="springboard" supportLink="" />
     </div>
   </div>
   )

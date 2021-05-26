@@ -1,13 +1,17 @@
 import * as React from 'react';
+import scrollIntoView from 'smooth-scroll-into-view-if-needed'
 
-import { scrollToSection, handleSetActiveSection } from '../../helpers/collegeBoard';
+import { handleSetActiveSection } from '../../helpers/collegeBoard';
 import { ScrollSection } from '../../../../interfaces/collegeBoard';
 
-const ScrollBox = ({ activeSection, sections, setActiveSection }) => {
+const ScrollBox = ({ activeSection, sections, setActiveSection, setIsScrollingFromClick }) => {
 
   function handleClick(ref: React.RefObject<HTMLDivElement>, title: string) {
+    setIsScrollingFromClick(true);
     handleSetActiveSection(title, setActiveSection);
-    scrollToSection(ref);
+    scrollIntoView(ref.current, { behavior: 'smooth' }).then(() => {
+      setIsScrollingFromClick(false);
+    })
   }
 
   return(
@@ -17,7 +21,7 @@ const ScrollBox = ({ activeSection, sections, setActiveSection }) => {
         {sections.map((section: ScrollSection) => {
           const { ref, title, count }  = section;
           const countStyle = !count ?  'hidden' : '';
-          const statusStyle = !title ?  'inactive' : '';
+          const statusStyle = title !== activeSection ?  'inactive' : '';
           const titleStyle = title === activeSection ?  'bolded' : '';
           return(
             /* eslint-disable-next-line react/jsx-no-bind */
