@@ -3,6 +3,7 @@ require "comprehension/engine"
 module Comprehension
   mattr_accessor :parent_activity_class
   mattr_accessor :parent_activity_classification_class
+  mattr_accessor :change_log_class
 
   def self.parent_activity_class
     @@parent_activity_class.constantize
@@ -10,6 +11,10 @@ module Comprehension
 
   def self.parent_activity_classification_class
     @@parent_activity_classification_class.constantize
+  end
+
+  def self.change_log_class
+    @@change_log_class.constantize
   end
 
 end

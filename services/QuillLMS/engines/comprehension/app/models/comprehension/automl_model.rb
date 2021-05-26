@@ -3,6 +3,7 @@ require "google/cloud/automl"
 
 module Comprehension
   class AutomlModel < ActiveRecord::Base
+    include Comprehension::ChangeLog
     MIN_LABELS_LENGTH = 1
     STATES = [
       STATE_ACTIVE = 'active',
@@ -19,6 +20,8 @@ module Comprehension
     validates :labels, presence: true, length: {minimum: MIN_LABELS_LENGTH}
     validates :name, presence: true
     validates :state, inclusion: {in: ['active', 'inactive']}
+
+    after_create :log_creation
 
     def serializable_hash(options = nil)
       options ||= {}
@@ -48,6 +51,7 @@ module Comprehension
           rule.update!(state: Rule::STATE_ACTIVE) if labels.include?(rule.label&.name)
         end
       end
+      log_change(:activate_automl, prompt, nil, nil, nil, id)
       self
     rescue StandardError => e
       raise e unless e.is_a?(ActiveRecord::RecordInvalid)
@@ -112,6 +116,10 @@ module Comprehension
     private def automl_name
       model = automl_client.get_model(name: automl_model_full_id)
       model.display_name
+    end
+
+    private def log_creation
+      log_change(:create_automl, prompt, nil, nil, nil, id)
     end
   end
 end

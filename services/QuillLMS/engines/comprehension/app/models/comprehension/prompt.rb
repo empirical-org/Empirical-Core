@@ -1,5 +1,7 @@
 module Comprehension
   class Prompt < ActiveRecord::Base
+    include Comprehension::ChangeLog
+
     MIN_TEXT_LENGTH = 10
     MAX_TEXT_LENGTH = 255
     CONJUNCTIONS = %w(because but so)
@@ -14,6 +16,7 @@ module Comprehension
     has_many :change_logs
 
     after_create :assign_universal_rules
+    after_save :log_update, if: :text_changed?
     before_validation :downcase_conjunction
     before_validation :set_max_attempts, on: :create
 
@@ -44,6 +47,10 @@ module Comprehension
         end
       end
       save!
+    end
+
+    private def log_update
+      log_change(:update_prompt, self, nil, nil, text_change[0], text_change[1])
     end
   end
 end

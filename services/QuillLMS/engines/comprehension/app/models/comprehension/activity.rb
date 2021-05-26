@@ -1,7 +1,8 @@
 module Comprehension
-  include ChangeLog
 
   class Activity < ActiveRecord::Base
+    include Comprehension::ChangeLog
+
     MIN_TARGET_LEVEL = 1
     MAX_TARGET_LEVEL = 12
     MIN_TITLE_LENGTH = 5

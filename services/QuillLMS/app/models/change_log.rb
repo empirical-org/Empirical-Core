@@ -70,7 +70,7 @@ class ChangeLog < ActiveRecord::Base
   COMPREHENSION_ACTIONS = {
     create_activity: 'Comprehension Activity - created',
     delete_activity: 'Comprehension Activity - deleted',
-    update_activity: 'Comprehension Passage Text - updated',
+    update_passage: 'Comprehension Passage Text - updated',
     create_regex: 'Regex Rule - created',
     update_regex: 'Regex Rule - updated',
     delete_regex: 'Regex Rule - deleted',
