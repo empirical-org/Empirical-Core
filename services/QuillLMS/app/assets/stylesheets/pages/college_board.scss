@@ -556,6 +556,14 @@
             .view-button {
               margin: 0px;
             }
+            .tags-container {
+              display: flex;
+              flex-direction: column;
+              .college-board-activity-tag {
+                margin-left: 0px;
+                margin-bottom: 8px;
+              }
+            }
           }
           .activity-text-container {
             padding: 0px;
@@ -624,6 +632,14 @@
           }
         }
       }
+    }
+  }
+}
+
+@media (max-width: 1024px) {
+  .college-board-container {
+    .scrollbox-container {
+      display: none;
     }
   }
 }
