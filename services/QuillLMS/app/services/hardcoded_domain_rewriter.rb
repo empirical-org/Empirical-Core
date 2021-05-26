@@ -6,11 +6,11 @@ class HardcodedDomainRewriter
   end
 
   def run
-    "#{domain}#{path}#{query}#{fragment}"
+    "#{domain}#{url_path}"
   end
 
   private def domain
-    @domain ||= ENV['DEFAULT_URL']
+    ENV['DEFAULT_URL']
   end
 
   private def fragment
@@ -20,7 +20,7 @@ class HardcodedDomainRewriter
   end
 
   private def path
-    @path ||= uri.path
+    uri.path
   end
 
   private def query
@@ -31,5 +31,9 @@ class HardcodedDomainRewriter
 
   private def uri
     @uri ||= Addressable::URI.parse(url)
+  end
+
+  private def url_path
+    path + query + fragment
   end
 end
