@@ -2,17 +2,17 @@
 #
 # Table name: change_logs
 #
-#  id                  :integer          not null, primary key
-#  action              :string           not null
-#  changed_attribute   :string
-#  changed_record_type :string           not null
-#  explanation         :text
-#  new_value           :text
-#  previous_value      :text
-#  created_at          :datetime
-#  updated_at          :datetime
-#  changed_record_id   :integer
-#  user_id             :integer          not null
+#  id                          :integer          not null, primary key
+#  action                      :string           not null
+#  changed_attribute           :string
+#  changed_record_type         :string           not null
+#  explanation                 :text
+#  new_value                   :text
+#  previous_value              :text
+#  created_at                  :datetime
+#  updated_at                  :datetime
+#  changed_record_id           :integer
+#  user_id                     :integer          not null
 #
 # Indexes
 #
@@ -67,15 +67,13 @@ class ChangeLog < ActiveRecord::Base
     CREATED,
     RENAMED
   ]
-  COMPREHENSION_ACTIVITY_ACTIONS = {
-    create: 'Comprehension Activity - created',
-    delete: 'Comprehension Activity - deleted',
-    update: 'Comprehension Passage Text - updated',
+  COMPREHENSION_ACTIONS = {
+    create_activity: 'Comprehension Activity - created',
+    delete_activity: 'Comprehension Activity - deleted',
+    update_activity: 'Comprehension Passage Text - updated',
     create_regex: 'Regex Rule - created',
     update_regex: 'Regex Rule - updated',
-    delete_regex: 'Regex Rule - deleted'
-  }
-  COMPREHENSION_PROMPT_ACTIONS = [
+    delete_regex: 'Regex Rule - deleted',
     update: 'Comprehension Stem - updated',
     create_automl: 'AutoML Model - created',
     activate_automl: 'AutoML Model - activated',
@@ -87,11 +85,9 @@ class ChangeLog < ActiveRecord::Base
     add_highlight_1: 'Semantic Label First Layer Feedback Highlight - added',
     add_highlight_2: 'Semantic Label Second Layer Feedback Highlight - added',
     create_plagiarism: 'Plagiarism - created',
-    update_plagiarism: 'Plagiarism - updated'
-  ]
-  UNIVERSAL_RULE_ACTIONS = [
-    'Universal Rule - updated'
-  ]
+    update_plagiarism: 'Plagiarism - updated',
+    update_universal: 'Universal Rule - updated'
+  }
   CHANGED_RECORD_TYPES = [
     'Concept',
     'User',
@@ -99,9 +95,9 @@ class ChangeLog < ActiveRecord::Base
     'Standard',
     'StandardLevel',
     'StandardCategory',
-    'Activity',
-    'Prompt',
-    'Universal Rule'
+    'Comprehension::Activity',
+    'Comprehension::Prompt',
+    'Comprehension::Rule'
   ]
   USER_ACTIONS = {
     index: 'Visited User Directory',
@@ -115,8 +111,7 @@ class ChangeLog < ActiveRecord::Base
     'Visited User Directory',
     'Searched Users'
   ]
-  ALL_ACTIONS = (USER_ACTIONS.values + CONCEPT_ACTIONS + TOPIC_ACTIONS + STANDARD_ACTIONS + STANDARD_CATEGORY_ACTIONS + STANDARD_LEVEL_ACTIONS + UNIVERSAL_RULE_ACTIONS
-                + COMPREHENSION_ACTIVITY_ACTIONS.values + COMPREHENSION_PROMPT_ACTIONS.values)
+  ALL_ACTIONS = USER_ACTIONS.values + CONCEPT_ACTIONS + TOPIC_ACTIONS + STANDARD_ACTIONS + STANDARD_CATEGORY_ACTIONS + STANDARD_LEVEL_ACTIONS + COMPREHENSION_ACTIONS.values
 
   belongs_to :changed_record, polymorphic: true
   belongs_to :user
