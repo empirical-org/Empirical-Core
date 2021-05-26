@@ -431,7 +431,7 @@ GEM
       hashery (~> 2.0)
       ruby-rc4
       ttfunk
-    pg (0.18.4)
+    pg (0.19.0)
     pointpin (1.0.1)
       faraday
       hashie
@@ -837,7 +837,7 @@ DEPENDENCIES
   parslet
   pdf-core
   pdf-inspector
-  pg (= 0.18.4)
+  pg (= 0.19.0)
   pointpin (~> 1.0.0)
   poltergeist
   prawn
