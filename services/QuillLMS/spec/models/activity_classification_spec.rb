@@ -47,43 +47,4 @@ describe ActivityClassification, type: :model, redis: true do
     end
   end
 
-  describe '#form_url' do
-    form_urls = %w[
-      https://www.quill.org/comprehension/#/play
-      https://www.quill.org/proofreader/#/play/pf
-      https://www.quill.org/diagnostic/#/play/diagnostic/
-      https://www.quill.org/grammar/#/play/sw/
-      https://www.quill.org/connect/#/play/lesson/
-      https://www.quill.org/lessons/#/
-    ]
-
-    form_urls.each do |form_url|
-      let(:activity_classification) { build(:activity_classification, form_url: form_url) }
-      let(:url_path) { form_url.gsub('https://www.quill.org', '') }
-
-      it 'uses default url in place of any hardcoded domain value' do
-        expect(activity_classification.form_url).to eq "#{ENV['DEFAULT_URL']}#{url_path}"
-      end
-    end
-  end
-
-  describe '#module_url' do
-    module_urls = %w[
-      https://www.quill.org/comprehension/#/play
-      https://www.quill.org/proofreader/#/play/pf
-      https://www.quill.org/diagnostic/#/play/diagnostic/
-      https://www.quill.org/grammar/#/play/sw/
-      https://www.quill.org/connect/#/play/lesson/
-      https://www.quill.org/lessons/#/play/class-lessons/
-    ]
-
-    module_urls.each do |module_url|
-      let(:activity_classification) { build(:activity_classification, module_url: module_url) }
-      let(:url_path) { module_url.gsub('https://www.quill.org', '') }
-
-      it 'uses default url in place of any hardcoded domain value' do
-        expect(activity_classification.module_url).to eq "#{ENV['DEFAULT_URL']}#{url_path}"
-      end
-    end
-  end
 end

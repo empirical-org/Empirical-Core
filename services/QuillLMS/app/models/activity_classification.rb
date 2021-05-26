@@ -60,11 +60,4 @@ class ActivityClassification < ActiveRecord::Base
     find_by_key CONNECT_KEY
   end
 
-  def form_url
-    HardcodedDomainRewriter.new(read_attribute(:form_url)).run
-  end
-
-  def module_url
-    HardcodedDomainRewriter.new(read_attribute(:module_url)).run
-  end
 end
