@@ -12,6 +12,7 @@ interface PromptStepProps {
   className: string,
   everyOtherStepCompleted: boolean;
   submitResponse: Function;
+  moveOnFromStep: (event: any) => void;
   completeStep: (event: any) => void;
   stepNumberComponent: JSX.Element,
   stepNumber: number;
@@ -47,6 +48,16 @@ export class PromptStep extends React.Component<PromptStepProps, PromptStepState
     };
 
     this.editor = React.createRef()
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    const { completeStep, submittedResponses, prompt, stepNumber, } = this.props
+    const { max_attempts, } = prompt
+    if (!submittedResponses || submittedResponses.length === prevProps.submittedResponses.length) { return }
+
+    if (submittedResponses.length === max_attempts || this.lastSubmittedResponse().optimal) {
+      completeStep(stepNumber)
+    }
   }
 
   lastSubmittedResponse = () => {
@@ -228,10 +239,10 @@ export class PromptStep extends React.Component<PromptStepProps, PromptStepState
     activateStep(stepNumber)
   }
 
-  completeStep = () => {
-    const { completeStep, stepNumber, } = this.props
+  moveOnFromStep = () => {
+    const { moveOnFromStep, stepNumber, } = this.props
 
-    completeStep(stepNumber)
+    moveOnFromStep(stepNumber)
   }
 
   formatHtmlForEditorContainer = (html: string, active: boolean) => {
@@ -256,7 +267,7 @@ export class PromptStep extends React.Component<PromptStepProps, PromptStepState
     let className = 'quill-button'
     let onClick = () => this.handleGetFeedbackClick(entry, id, text)
     if (submittedResponses.length === max_attempts || this.lastSubmittedResponse().optimal) {
-      onClick = this.completeStep
+      onClick = this.moveOnFromStep
       buttonCopy = everyOtherStepCompleted ? 'Done' : 'Start next sentence'
     } else if (this.unsubmittableResponses().includes(entry) || awaitingFeedback) {
       className += ' disabled'

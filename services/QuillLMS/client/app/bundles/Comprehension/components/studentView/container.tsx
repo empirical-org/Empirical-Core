@@ -56,7 +56,15 @@ export class StudentViewContainer extends React.Component<StudentViewContainerPr
     this.state = {
       activeStep: READ_PASSAGE_STEP,
       completedSteps: [],
-      showFocusState: false
+      showFocusState: false,
+      startTime: new Date(),
+      isIdle: false,
+      timeTracking: {
+        1: 0,
+        2: 0,
+        3: 0,
+        4: 0
+      }
     }
 
     this.step1 = React.createRef()
@@ -92,11 +100,49 @@ export class StudentViewContainer extends React.Component<StudentViewContainerPr
     }
 
     window.addEventListener('keydown', this.handleKeyDown)
+    window.addEventListener('mousemove', this.resetTimers)
+    window.addEventListener('mousedown', this.resetTimers)
+    window.addEventListener('click', this.resetTimers)
+    window.addEventListener('keypress', this.resetTimers)
+    window.addEventListener('visibilitychange', this.resetTimers)
+    window.addEventListener('beforeunload', this.saveActiveActivitySession)
   }
 
   componentWillUnmount() {
     window.removeEventListener('keydown', this.handleKeyDown)
+    window.removeEventListener('mousemove', this.resetTimers)
+    window.removeEventListener('mousedown', this.resetTimers)
+    window.removeEventListener('click', this.resetTimers)
+    window.removeEventListener('keypress', this.resetTimers)
+    window.removeEventListener('visibilitychange', this.resetTimers)
+    window.removeEventListener('beforeunload', this.saveActiveActivitySession)
   }
+
+  saveActiveActivitySession(e) {
+    debugger;
+    this.resetTimers(e)
+  }
+
+  resetTimers = (e=null) => {
+    this.setState((prevState, props) => {
+      const { activeStep, startTime, timeTracking, isIdle, inactivityTimer, completedSteps, } = prevState
+      if (completedSteps.includes(activeStep)) { return } // don't want to add time if a user is revisiting a previously completed step
+      if (inactivityTimer) { clearTimeout(inactivityTimer) }
+
+      let elapsedTime = Date.now() - startTime
+      if (isIdle) {
+        elapsedTime = 0
+      }
+      const newTimeTracking = {...timeTracking, [activeStep]: timeTracking[activeStep] + elapsedTime}
+      const newInactivityTimer = setTimeout(this.setIdle, 30000);  // time is in milliseconds (1000 is 1 second)
+
+      return { timeTracking: newTimeTracking, isIdle: false, inactivityTimer: newInactivityTimer, startTime: new Date(), }
+    })
+
+    return Promise.resolve(true);
+  }
+
+  setIdle = () => { this.setState({ isIdle: true }) }
 
   handlePostTurkSession = (activitySessionId: string) => {
     const turkingRoundID = getParameterByName('id', window.location.href);
@@ -233,9 +279,12 @@ export class StudentViewContainer extends React.Component<StudentViewContainerPr
     if (activeStep == step) return
     // don't activate steps before Done reading button has been clicked
     if (step && step > 1 && !completedSteps.includes(READ_PASSAGE_STEP)) return
-    this.setState({ activeStep: step, }, () => {
-      if (!skipTracking) this.trackCurrentPromptStartedEvent()
-      if (callback) { callback() }
+
+    this.resetTimers().then(() => {
+      this.setState({ activeStep: step, }, () => {
+        if (!skipTracking) this.trackCurrentPromptStartedEvent()
+        if (callback) { callback() }
+      })
     })
   }
 
@@ -244,17 +293,22 @@ export class StudentViewContainer extends React.Component<StudentViewContainerPr
     const newCompletedSteps = completedSteps.concat(stepNumber)
     const uniqueCompletedSteps = Array.from(new Set(newCompletedSteps))
     this.trackCurrentPromptCompletedEvent()
-    this.setState({ completedSteps: uniqueCompletedSteps }, () => {
-      let nextStep: number|undefined = stepNumber + 1
-      if (nextStep > ALL_STEPS.length || uniqueCompletedSteps.includes(nextStep)) {
-        nextStep = ALL_STEPS.find(s => !uniqueCompletedSteps.includes(s))
-      }
-      if (nextStep) {
-        this.activateStep(nextStep, () => stepNumber !== READ_PASSAGE_STEP ? this.scrollToStep(`step${nextStep}`) : null)
-      } else {
-        this.trackActivityCompletedEvent(); // If there is no next step, the activity is done
-      }
-    })
+    this.setState({ completedSteps: uniqueCompletedSteps })
+
+    return Promise.resolve(true);
+  }
+
+  moveOnFromStep = (stepNumber: number) => {
+    const { completedSteps, } = this.state
+    let nextStep: number|undefined = stepNumber + 1
+    if (nextStep > ALL_STEPS.length || completedSteps.includes(nextStep)) {
+      nextStep = ALL_STEPS.find(s => !completedSteps.includes(s))
+    }
+    if (nextStep) {
+      this.activateStep(nextStep, () => stepNumber !== READ_PASSAGE_STEP ? this.scrollToStep(`step${nextStep}`) : null)
+    } else {
+      this.trackActivityCompletedEvent(); // If there is no next step, the activity is done
+    }
   }
 
   handleKeyDown = (e) => {
@@ -266,7 +320,7 @@ export class StudentViewContainer extends React.Component<StudentViewContainerPr
   }
 
   handleDoneReadingClick = () => {
-    this.completeStep(READ_PASSAGE_STEP);
+    this.completeStep(READ_PASSAGE_STEP).then(() => this.moveOnFromStep(READ_PASSAGE_STEP))
     this.trackPassageReadEvent();
   }
 
@@ -444,6 +498,7 @@ export class StudentViewContainer extends React.Component<StudentViewContainerPr
         completeStep={this.completeStep}
         everyOtherStepCompleted={everyOtherStepCompleted}
         key={stepNumber}
+        moveOnFromStep={this.moveOnFromStep}
         passedRef={(node: JSX.Element) => this[`step${stepNumber}`] = node} // eslint-disable-line react/jsx-no-bind
         prompt={prompt}
         stepNumber={stepNumber}
@@ -470,7 +525,7 @@ export class StudentViewContainer extends React.Component<StudentViewContainerPr
 
     const headerImage = passages[0].image_link && <img alt={passages[0].image_alt_text} className="header-image" src={passages[0].image_link} />
 
-    return (<div className="read-passage-container">
+    return (<div className="read-passage-container" onScroll={this.resetTimers}>
       <div>
         <p className="directions">Read the passage.</p>
         <h1 className="title">{currentActivity.title}</h1>
@@ -481,8 +536,8 @@ export class StudentViewContainer extends React.Component<StudentViewContainerPr
   }
 
   renderSteps = () => {
-    return (<div className="steps-outer-container">
-      <div className="steps-inner-container">
+    return (<div className="steps-outer-container" onScroll={this.resetTimers}>
+      <div className="steps-inner-container" onScroll={this.resetTimers}>
         {this.renderReadPassageStep()}
         {this.renderPromptSteps()}
       </div>
