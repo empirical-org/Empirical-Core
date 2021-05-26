@@ -4,7 +4,7 @@ module Comprehension
     ALL_CORRECT_FEEDBACK = 'All plagiarism checks passed.'
     PASSAGE_TYPE = 'passage'
     ENTRY_TYPE = 'response'
-    MATCH_MINIMUM = 6
+    MATCH_MINIMUM = 10
     OPTIMAL_RULE_KEY = 'optimal_plagiarism_rule_serialized'
     attr_reader :entry, :passage, :nonoptimal_feedback
 

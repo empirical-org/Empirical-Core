@@ -15,6 +15,7 @@ export {
 
 export {
   ArchivedButton,
+  ButtonLoadingSpinner,
   Card,
   CarouselAnimation,
   DataTable,

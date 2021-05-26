@@ -97,7 +97,9 @@ const RuleViewForm = ({
   }, [activityData]);
 
   React.useEffect(() => {
-    formatRegexRules({ rule, setRegexRules });
+    if(rule && rule.regex_rules) {
+      formatRegexRules({ rule, setRegexRules });
+    }
   }, [rule]);
 
   React.useEffect(() => {
