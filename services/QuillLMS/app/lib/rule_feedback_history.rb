@@ -13,11 +13,11 @@ class RuleFeedbackHistory
           comprehension_rules.suborder AS rule_suborder,
           comprehension_rules.name AS rule_name,
           comprehension_rules.note AS rule_note,
-          count(feedback_history_ratings.rating) AS total_responses,
-          count(CASE WHEN feedback_history_ratings.rating = true THEN 1 END) AS total_strong,
-          count(CASE WHEN feedback_history_ratings.rating = false THEN 1 END) AS total_weak,
-          count(CASE WHEN feedback_history_flags.flag = '#{FeedbackHistoryFlag::FLAG_REPEATED_RULE_CONSECUTIVE}' THEN 1 END) AS repeated_consecutive,
-          count(CASE WHEN feedback_history_flags.flag = '#{FeedbackHistoryFlag::FLAG_REPEATED_RULE_NON_CONSECUTIVE}' THEN 1 END) AS repeated_non_consecutive
+          count(DISTINCT CASE WHEN feedback_history_ratings.rating IS NOT NULL THEN feedback_history_ratings.id END) AS total_responses,
+          count(DISTINCT CASE WHEN feedback_history_ratings.rating = true THEN feedback_history_ratings.id END) AS total_strong,
+          count(DISTINCT CASE WHEN feedback_history_ratings.rating = false THEN feedback_history_ratings.id END) AS total_weak,
+          count(DISTINCT CASE WHEN feedback_history_flags.flag = '#{FeedbackHistoryFlag::FLAG_REPEATED_RULE_CONSECUTIVE}' THEN feedback_history_flags.id END) AS repeated_consecutive,
+          count(DISTINCT CASE WHEN feedback_history_flags.flag = '#{FeedbackHistoryFlag::FLAG_REPEATED_RULE_NON_CONSECUTIVE}' THEN feedback_history_flags.id END) AS repeated_non_consecutive
           SELECT
         )
         .joins('INNER JOIN comprehension_prompts_rules as prompts_rules ON comprehension_rules.id = prompts_rules.rule_id')
