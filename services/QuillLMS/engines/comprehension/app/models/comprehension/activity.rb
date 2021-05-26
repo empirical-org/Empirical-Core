@@ -1,4 +1,6 @@
 module Comprehension
+  include ChangeLog
+
   class Activity < ActiveRecord::Base
     MIN_TARGET_LEVEL = 1
     MAX_TARGET_LEVEL = 12
@@ -6,7 +8,9 @@ module Comprehension
     MAX_TITLE_LENGTH = 100
     MAX_SCORED_LEVEL_LENGTH = 100
 
+    after_create :log_creation
     before_destroy :expire_turking_rounds
+    after_destroy :log_deletion
     before_validation :set_parent_activity, on: :create
 
     has_many :passages, inverse_of: :activity, dependent: :destroy
@@ -51,6 +55,14 @@ module Comprehension
 
     private def expire_turking_rounds
       turking_rounds.each(&:expire!)
+    end
+
+    private def log_creation
+      log_change(:create_activity, self)
+    end
+
+    private def log_deletion
+      log_change(:delete_activity, self)
     end
   end
 end
