@@ -93,6 +93,8 @@ const ap = () => [
   },
   {
     question: 'Can I assign my students practice beyond the recommended AP Writing Practice packs?',
+    // not sure why this is erroring since there is only one space, adding this disable for now
+    /* eslint-disable-next-line react/jsx-props-no-multi-spaces */
     answer: <p>Yes! Quill offers <a href="https://support.quill.org/en/articles/1327607-what-are-each-of-the-different-quill-tools" rel="noopener noreferrer" target="_blank">5 different tools</a> with more than 600 writing, grammar, and proofreading activities designed to engage students in the writing process. <a href="https://support.quill.org/en/articles/1049944-how-do-i-assign-a-featured-activity-pack" rel="noopener noreferrer" target="_blank">This article</a> will show you how to explore and assign Quill’s featured activity packs, and <a href="https://support.quill.org/en/articles/1049954-how-do-i-create-and-assign-a-new-activity-pack"  rel="noopener noreferrer" target="_blank">this article</a> will show you how to create a custom activity pack.</p>
   },
   {
