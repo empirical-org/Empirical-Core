@@ -5,15 +5,19 @@ import ScrollBox from './scrollBox';
 import ExpandableUnitSection from '../shared/expandableUnit'
 import QuestionsAndAnswers from '../../containers/QuestionsAndAnswers'
 import { PRE_AP_WRITINGS_SKILLS_1_UNIT_TEMPLATE_ID, PRE_AP_WRITINGS_SKILLS_2_UNIT_TEMPLATE_ID, ELL_STARTER_DIAGNOSTIC_UNIT_TEMPLATE_ID, ELL_INTERMEDIATE_DIAGNOSTIC_UNIT_TEMPLATE_ID, ELL_ADVANCED_DIAGNOSTIC_UNIT_TEMPLATE_ID, PRE_AP_SLUG } from '../assignment_flow/assignmentFlowConstants'
-import { generateLink, getStartedButton } from '../../helpers/collegeBoard';
+import { generateLink, getStartedButton, getActivityCount } from '../../helpers/collegeBoard';
 import { scrollToTop } from '../../hooks/scrollToTop';
+import { PassageAlignedUnit } from '../../../../interfaces/collegeBoard';
 
 interface PreApContainerProps {
   isPartOfAssignmentFlow?: boolean;
-  units?: Array<any>
+  units?: PassageAlignedUnit[]
 }
 
 const PreAp = ({ units, isPartOfAssignmentFlow, }: PreApContainerProps) => {
+
+  const [activeSection, setActiveSection] = React.useState<string>('');
+
   const writingSkillsRef = React.useRef(null);
   const feedbackReportsRef = React.useRef(null);
   const passageAlignedRef = React.useRef(null);
@@ -33,7 +37,7 @@ const PreAp = ({ units, isPartOfAssignmentFlow, }: PreApContainerProps) => {
     {
       ref: passageAlignedRef,
       title: 'Passage-Aligned Activities',
-      count: units.length
+      count: units ? getActivityCount(units) : null
     },
     {
       ref: alignedToPreApRef,
@@ -66,7 +70,7 @@ const PreAp = ({ units, isPartOfAssignmentFlow, }: PreApContainerProps) => {
   });
 
   return (<div className="college-board-container">
-    <ScrollBox sections={scrollSections} />
+    <ScrollBox activeSection={activeSection} sections={scrollSections} setActiveSection={setActiveSection} />
     <div className="section-wrapper">
       <div className="container college-board-header-container">
         <div className="header-left">

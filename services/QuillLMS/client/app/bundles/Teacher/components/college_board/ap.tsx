@@ -18,6 +18,9 @@ interface ApContainerProps {
 }
 
 const Ap = ({ isPartOfAssignmentFlow, }: ApContainerProps) => {
+
+  const [activeSection, setActiveSection] = React.useState<string>('');
+
   const writingSkillsRef = React.useRef(null);
   const feedbackReportsRef = React.useRef(null);
   const collegeBoardMessageRef = React.useRef(null);
@@ -45,7 +48,7 @@ const Ap = ({ isPartOfAssignmentFlow, }: ApContainerProps) => {
   isPartOfAssignmentFlow && scrollToTop();
 
   return (<div className="college-board-container">
-    <ScrollBox sections={scrollSections} />
+    <ScrollBox activeSection={activeSection} sections={scrollSections} setActiveSection={setActiveSection} />
     <div className="section-wrapper">
       <div className="container college-board-header-container">
         <div className="header-left">

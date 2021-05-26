@@ -1,6 +1,7 @@
 import * as React from 'react';
 
 import { AP_SLUG, COLLEGE_BOARD_SLUG, PRE_AP_SLUG, SPRING_BOARD_SLUG} from '../components/assignment_flow/assignmentFlowConstants';
+import { PassageAlignedUnit } from '../../../interfaces/collegeBoard';
 
 export const generateLink = ({ isPartOfAssignmentFlow, unitTemplateId, slug='' }) => {
   const slugTypes = {
@@ -23,4 +24,20 @@ export const getStartedButton = (isPartOfAssignmentFlow: boolean) => {
 
 export const scrollToSection = (ref: React.RefObject<HTMLDivElement>) => {
   ref.current.scrollIntoView({ behavior: 'smooth' });
+}
+
+export const handleSetActiveSection = (section: string, setActiveSection: Function) => {
+  setActiveSection(section);
+}
+
+export const getActivityCount = (units: PassageAlignedUnit[]) => {
+  let count = 0;
+  units.forEach(unit => {
+    unit.learning_cycles.forEach(cycle => {
+      cycle.activities.forEach(activity => {
+        count +=1;
+      });
+    });
+  });
+  return count;
 }

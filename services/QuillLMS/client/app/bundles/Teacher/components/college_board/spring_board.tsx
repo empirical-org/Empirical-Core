@@ -6,15 +6,19 @@ import ExpandableUnitSection from '../shared/expandableUnit'
 import { SPRING_BOARD_SLUG } from '../assignment_flow/assignmentFlowConstants'
 import QuestionsAndAnswers from '../../containers/QuestionsAndAnswers';
 import * as constants from '../assignment_flow/assignmentFlowConstants';
-import { generateLink, getStartedButton } from '../../helpers/collegeBoard';
+import { generateLink, getStartedButton, getActivityCount } from '../../helpers/collegeBoard';
 import { scrollToTop } from '../../hooks/scrollToTop';
+import { PassageAlignedUnit } from '../../../../interfaces/collegeBoard';
 
 interface SpringBoardProps {
   isPartOfAssignmentFlow?: boolean;
-  units?: Array<any>
+  units?: PassageAlignedUnit[]
 }
 
 const SpringBoard = ({ isPartOfAssignmentFlow, units, }: SpringBoardProps) => {
+
+  const [activeSection, setActiveSection] = React.useState<string>('');
+
   const writingSkillsRef = React.useRef(null);
   const feedbackReportsRef = React.useRef(null);
   const passageAlignedRef = React.useRef(null);
@@ -33,7 +37,7 @@ const SpringBoard = ({ isPartOfAssignmentFlow, units, }: SpringBoardProps) => {
     {
       ref: passageAlignedRef,
       title: 'Passage-Aligned Activities',
-      count: units.length
+      count: units ? getActivityCount(units) : null
     },
     {
       ref: collegeBoardMessageRef,
@@ -62,7 +66,7 @@ const SpringBoard = ({ isPartOfAssignmentFlow, units, }: SpringBoardProps) => {
   })
 
   return (<div className="college-board-container">
-    <ScrollBox sections={scrollSections} />
+    <ScrollBox activeSection={activeSection} sections={scrollSections} setActiveSection={setActiveSection} />
     <div className="section-wrapper">
       <div className="container college-board-header-container">
         <div className="header-left">
