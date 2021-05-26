@@ -31,8 +31,8 @@ const SpringBoard = ({ isPartOfAssignmentFlow, units, }: SpringBoardProps) => {
   const scrollSections = [
     {
       ref: writingSkillsRef,
-      title: 'Writing Skills Survey',
-      count: 4
+      title: 'Writing Skills Surveys',
+      count: 7
     },
     {
       ref: feedbackReportsRef,
@@ -126,7 +126,7 @@ const SpringBoard = ({ isPartOfAssignmentFlow, units, }: SpringBoardProps) => {
           </div>
         </div>
         <div className="activities-subheader">
-          <h2>Pre-AP and AP Writing Skills Survey</h2>
+          <h2>Pre-AP and AP Writing Skills Surveys</h2>
         </div>
         <div className="activity-container">
           <div className="activity-header-container">

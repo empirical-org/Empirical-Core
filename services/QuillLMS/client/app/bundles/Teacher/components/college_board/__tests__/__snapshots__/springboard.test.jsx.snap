@@ -203,7 +203,7 @@ exports[`SpringBoard component should render when it is not part of the assignme
       sections={
         Array [
           Object {
-            "count": 4,
+            "count": 7,
             "ref": Object {
               "current": <div
                 class="activities-subheader"
@@ -213,7 +213,7 @@ exports[`SpringBoard component should render when it is not part of the assignme
                 </h2>
               </div>,
             },
-            "title": "Writing Skills Survey",
+            "title": "Writing Skills Surveys",
           },
           Object {
             "ref": Object {
@@ -1724,6 +1724,7 @@ exports[`SpringBoard component should render when it is not part of the assignme
         ]
       }
       setActiveSection={[Function]}
+      setIsScrollingFromClick={[Function]}
     >
       <div
         className="scrollbox-container"
@@ -1738,7 +1739,7 @@ exports[`SpringBoard component should render when it is not part of the assignme
         >
           <button
             className="section-container"
-            key="Writing Skills Survey"
+            key="Writing Skills Surveys"
             onClick={[Function]}
             type="button"
           >
@@ -1746,18 +1747,18 @@ exports[`SpringBoard component should render when it is not part of the assignme
               className="title-container"
             >
               <div
-                className="section-status "
+                className="section-status inactive"
               />
               <p
                 className="section-title "
               >
-                Writing Skills Survey
+                Writing Skills Surveys
               </p>
             </section>
             <p
               className="section-count "
             >
-              4
+              7
             </p>
           </button>
           <button
@@ -1770,7 +1771,7 @@ exports[`SpringBoard component should render when it is not part of the assignme
               className="title-container"
             >
               <div
-                className="section-status "
+                className="section-status inactive"
               />
               <p
                 className="section-title "
@@ -1792,7 +1793,7 @@ exports[`SpringBoard component should render when it is not part of the assignme
               className="title-container"
             >
               <div
-                className="section-status "
+                className="section-status inactive"
               />
               <p
                 className="section-title "
@@ -1816,7 +1817,7 @@ exports[`SpringBoard component should render when it is not part of the assignme
               className="title-container"
             >
               <div
-                className="section-status "
+                className="section-status inactive"
               />
               <p
                 className="section-title "
@@ -1838,7 +1839,7 @@ exports[`SpringBoard component should render when it is not part of the assignme
               className="title-container"
             >
               <div
-                className="section-status "
+                className="section-status inactive"
               />
               <p
                 className="section-title "
@@ -1926,13 +1927,31 @@ exports[`SpringBoard component should render when it is not part of the assignme
             </p>
           </div>
         </div>
-        <div
-          className="activities-subheader"
+        <VisibilitySensor
+          active={true}
+          containment={null}
+          delayedCall={false}
+          intervalCheck={true}
+          intervalDelay={100}
+          minTopValue={0}
+          offset={Object {}}
+          onChange={[Function]}
+          partialVisibility={false}
+          resizeCheck={false}
+          resizeDelay={250}
+          resizeThrottle={-1}
+          scrollCheck={false}
+          scrollDelay={250}
+          scrollThrottle={-1}
         >
-          <h2>
-            Springboard Writing Skills Surveys
-          </h2>
-        </div>
+          <div
+            className="activities-subheader"
+          >
+            <h2>
+              Springboard Writing Skills Surveys
+            </h2>
+          </div>
+        </VisibilitySensor>
         <div
           className="activity-container"
         >
@@ -1987,7 +2006,7 @@ exports[`SpringBoard component should render when it is not part of the assignme
           className="activities-subheader"
         >
           <h2>
-            Pre-AP and AP Writing Skills Survey
+            Pre-AP and AP Writing Skills Surveys
           </h2>
         </div>
         <div
@@ -2310,28 +2329,46 @@ exports[`SpringBoard component should render when it is not part of the assignme
       <div
         className="container info-blurbs-section"
       >
-        <div
-          className="info-blurb-container"
+        <VisibilitySensor
+          active={true}
+          containment={null}
+          delayedCall={false}
+          intervalCheck={true}
+          intervalDelay={100}
+          minTopValue={0}
+          offset={Object {}}
+          onChange={[Function]}
+          partialVisibility={false}
+          resizeCheck={false}
+          resizeDelay={250}
+          resizeThrottle={-1}
+          scrollCheck={false}
+          scrollDelay={250}
+          scrollThrottle={-1}
         >
-          <img
-            alt="A list of writing concepts: Subject-Verb Agreement, Pronoun-Antecedent Agreement, Compound Subjects, Objects, Predicates, and more."
-            src="https://assets.quill.org/images/college_board/pre-ap-recommendations.svg"
-          />
           <div
-            className="text-container"
+            className="info-blurb-container"
           >
-            <p
-              className="info-blurb-header"
+            <img
+              alt="A list of writing concepts: Subject-Verb Agreement, Pronoun-Antecedent Agreement, Compound Subjects, Objects, Predicates, and more."
+              src="https://assets.quill.org/images/college_board/pre-ap-recommendations.svg"
+            />
+            <div
+              className="text-container"
             >
-              Personalized Recommendations
-            </p>
-            <p
-              className="info-blurb-text"
-            >
-              After your students complete a SpringBoard 6-8, Pre-AP, AP, or ELL writing skills survey, Quill will use the results to recommend a set of independent practice activities. You can choose to assign all the practice at once, or you can pick and choose the activities that best fit your instructional and students’ needs. As students complete the practice, they’ll receive instant feedback on their writing that guides them through the revising and editing process.
-            </p>
+              <p
+                className="info-blurb-header"
+              >
+                Personalized Recommendations
+              </p>
+              <p
+                className="info-blurb-text"
+              >
+                After your students complete a SpringBoard 6-8, Pre-AP, AP, or ELL writing skills survey, Quill will use the results to recommend a set of independent practice activities. You can choose to assign all the practice at once, or you can pick and choose the activities that best fit your instructional and students’ needs. As students complete the practice, they’ll receive instant feedback on their writing that guides them through the revising and editing process.
+              </p>
+            </div>
           </div>
-        </div>
+        </VisibilitySensor>
         <div
           className="info-blurb-container"
         >
@@ -2391,16 +2428,34 @@ exports[`SpringBoard component should render when it is not part of the assignme
             alt="Illustration of a book opened"
             src="https://assets.quill.org/images/college_board/passage-book.svg"
           />
-          <div
-            className="text-container"
+          <VisibilitySensor
+            active={true}
+            containment={null}
+            delayedCall={false}
+            intervalCheck={true}
+            intervalDelay={100}
+            minTopValue={0}
+            offset={Object {}}
+            onChange={[Function]}
+            partialVisibility={false}
+            resizeCheck={false}
+            resizeDelay={250}
+            resizeThrottle={-1}
+            scrollCheck={false}
+            scrollDelay={250}
+            scrollThrottle={-1}
           >
-            <h2>
-              Passage-Aligned Activities
-            </h2>
-            <p>
-              Twenty custom sentence-combining activities, each one aligned to a unique 9th grade SpringBoard ELA text to give your students the opportunity to practice their sentence construction skills in context.
-            </p>
-          </div>
+            <div
+              className="text-container"
+            >
+              <h2>
+                Passage-Aligned Activities
+              </h2>
+              <p>
+                Twenty custom sentence-combining activities, each one aligned to a unique 9th grade SpringBoard ELA text to give your students the opportunity to practice their sentence construction skills in context.
+              </p>
+            </div>
+          </VisibilitySensor>
         </div>
         <div
           className="activities-subheader"
@@ -3745,11 +3800,29 @@ exports[`SpringBoard component should render when it is not part of the assignme
       <div
         className="container cb-message-container"
       >
-        <p
-          className="cb-message-header"
+        <VisibilitySensor
+          active={true}
+          containment={null}
+          delayedCall={false}
+          intervalCheck={true}
+          intervalDelay={100}
+          minTopValue={0}
+          offset={Object {}}
+          onChange={[Function]}
+          partialVisibility={false}
+          resizeCheck={false}
+          resizeDelay={250}
+          resizeThrottle={-1}
+          scrollCheck={false}
+          scrollDelay={250}
+          scrollThrottle={-1}
         >
-          Quill and College Board have partnered to provide students with meaningful practice of their sentence-level writing skills.
-        </p>
+          <p
+            className="cb-message-header"
+          >
+            Quill and College Board have partnered to provide students with meaningful practice of their sentence-level writing skills.
+          </p>
+        </VisibilitySensor>
         <div
           className="sub-header-container"
         >
@@ -3787,6 +3860,7 @@ exports[`SpringBoard component should render when it is not part of the assignme
     </div>
     <div>
       <QuestionsAndAnswers
+        handleChange={[Function]}
         questionsAndAnswersFile="springboard"
         supportLink=""
       >
@@ -3796,9 +3870,27 @@ exports[`SpringBoard component should render when it is not part of the assignme
           <div
             className="q-and-a-inner-wrapper"
           >
-            <h1>
-              Questions and Answers
-            </h1>
+            <VisibilitySensor
+              active={true}
+              containment={null}
+              delayedCall={false}
+              intervalCheck={true}
+              intervalDelay={100}
+              minTopValue={0}
+              offset={Object {}}
+              onChange={[Function]}
+              partialVisibility={false}
+              resizeCheck={false}
+              resizeDelay={250}
+              resizeThrottle={-1}
+              scrollCheck={false}
+              scrollDelay={250}
+              scrollThrottle={-1}
+            >
+              <h1>
+                Questions and Answers
+              </h1>
+            </VisibilitySensor>
             <QuestionAndAnswer
               key="0"
               qa={
@@ -4261,7 +4353,11 @@ exports[`SpringBoard component should render when it is not part of the assignme
                         <p
                           className="college-board-q-and-a-text"
                         >
-                          Students complete an activity designed to help teachers determine which skills students need to work on. After students complete a Quill Diagnostic activity, Quill recommends writing activities for students based on their results. *Note*: The writing skills surveys can be used in lieu of general Quill diagnostics.
+                          Students complete an activity designed to help teachers determine which skills students need to work on. After students complete a Quill Diagnostic activity, Quill recommends writing activities for students based on their results. 
+                          <strong>
+                            Note
+                          </strong>
+                          : The writing skills surveys can be used in lieu of general Quill diagnostics.
                         </p>
                       </li>
                     </ul>
@@ -4306,7 +4402,7 @@ exports[`SpringBoard component should render when it is not part of the assignme
               qa={
                 Object {
                   "answer": <p>
-                    Unfortunately, at this time, there are no sentence combining activities aligned to texts in SpringBoard ELA courses other than English I. If you would like to see activities like these for another course, please us know 
+                    Unfortunately, at this time, there are no sentence combining activities aligned to texts in SpringBoard ELA courses other than SpringBoard ELA Grade 9. If you would like to see activities like these for another course, please us know 
                     <a
                       href="https://quillorg.canny.io/content-feedback"
                       rel="noopener noreferrer"
@@ -4356,7 +4452,9 @@ exports[`SpringBoard component should render when it is not part of the assignme
               qa={
                 Object {
                   "answer": <div>
-                    <p>
+                    <p
+                      className="college-board-q-and-a-text"
+                    >
                       We are here for you! The following resources are available:
                     </p>
                     <p
@@ -4371,7 +4469,7 @@ exports[`SpringBoard component should render when it is not part of the assignme
                       >
                         sherry@quill.org
                       </a>
-                       Be sure to mention the course(s) you teach.
+                      . Be sure to mention the course(s) you teach.
                     </p>
                     <p
                       className="college-board-q-and-a-text"
@@ -4660,7 +4758,7 @@ exports[`SpringBoard component should render when it is part of the assignment f
       sections={
         Array [
           Object {
-            "count": 4,
+            "count": 7,
             "ref": Object {
               "current": <div
                 class="activities-subheader"
@@ -4670,7 +4768,7 @@ exports[`SpringBoard component should render when it is part of the assignment f
                 </h2>
               </div>,
             },
-            "title": "Writing Skills Survey",
+            "title": "Writing Skills Surveys",
           },
           Object {
             "ref": Object {
@@ -6181,6 +6279,7 @@ exports[`SpringBoard component should render when it is part of the assignment f
         ]
       }
       setActiveSection={[Function]}
+      setIsScrollingFromClick={[Function]}
     >
       <div
         className="scrollbox-container"
@@ -6195,7 +6294,7 @@ exports[`SpringBoard component should render when it is part of the assignment f
         >
           <button
             className="section-container"
-            key="Writing Skills Survey"
+            key="Writing Skills Surveys"
             onClick={[Function]}
             type="button"
           >
@@ -6203,18 +6302,18 @@ exports[`SpringBoard component should render when it is part of the assignment f
               className="title-container"
             >
               <div
-                className="section-status "
+                className="section-status inactive"
               />
               <p
                 className="section-title "
               >
-                Writing Skills Survey
+                Writing Skills Surveys
               </p>
             </section>
             <p
               className="section-count "
             >
-              4
+              7
             </p>
           </button>
           <button
@@ -6227,7 +6326,7 @@ exports[`SpringBoard component should render when it is part of the assignment f
               className="title-container"
             >
               <div
-                className="section-status "
+                className="section-status inactive"
               />
               <p
                 className="section-title "
@@ -6249,7 +6348,7 @@ exports[`SpringBoard component should render when it is part of the assignment f
               className="title-container"
             >
               <div
-                className="section-status "
+                className="section-status inactive"
               />
               <p
                 className="section-title "
@@ -6273,7 +6372,7 @@ exports[`SpringBoard component should render when it is part of the assignment f
               className="title-container"
             >
               <div
-                className="section-status "
+                className="section-status inactive"
               />
               <p
                 className="section-title "
@@ -6295,7 +6394,7 @@ exports[`SpringBoard component should render when it is part of the assignment f
               className="title-container"
             >
               <div
-                className="section-status "
+                className="section-status inactive"
               />
               <p
                 className="section-title "
@@ -6375,13 +6474,31 @@ exports[`SpringBoard component should render when it is part of the assignment f
             </p>
           </div>
         </div>
-        <div
-          className="activities-subheader"
+        <VisibilitySensor
+          active={true}
+          containment={null}
+          delayedCall={false}
+          intervalCheck={true}
+          intervalDelay={100}
+          minTopValue={0}
+          offset={Object {}}
+          onChange={[Function]}
+          partialVisibility={false}
+          resizeCheck={false}
+          resizeDelay={250}
+          resizeThrottle={-1}
+          scrollCheck={false}
+          scrollDelay={250}
+          scrollThrottle={-1}
         >
-          <h2>
-            Springboard Writing Skills Surveys
-          </h2>
-        </div>
+          <div
+            className="activities-subheader"
+          >
+            <h2>
+              Springboard Writing Skills Surveys
+            </h2>
+          </div>
+        </VisibilitySensor>
         <div
           className="activity-container"
         >
@@ -6436,7 +6553,7 @@ exports[`SpringBoard component should render when it is part of the assignment f
           className="activities-subheader"
         >
           <h2>
-            Pre-AP and AP Writing Skills Survey
+            Pre-AP and AP Writing Skills Surveys
           </h2>
         </div>
         <div
@@ -6759,28 +6876,46 @@ exports[`SpringBoard component should render when it is part of the assignment f
       <div
         className="container info-blurbs-section"
       >
-        <div
-          className="info-blurb-container"
+        <VisibilitySensor
+          active={true}
+          containment={null}
+          delayedCall={false}
+          intervalCheck={true}
+          intervalDelay={100}
+          minTopValue={0}
+          offset={Object {}}
+          onChange={[Function]}
+          partialVisibility={false}
+          resizeCheck={false}
+          resizeDelay={250}
+          resizeThrottle={-1}
+          scrollCheck={false}
+          scrollDelay={250}
+          scrollThrottle={-1}
         >
-          <img
-            alt="A list of writing concepts: Subject-Verb Agreement, Pronoun-Antecedent Agreement, Compound Subjects, Objects, Predicates, and more."
-            src="https://assets.quill.org/images/college_board/pre-ap-recommendations.svg"
-          />
           <div
-            className="text-container"
+            className="info-blurb-container"
           >
-            <p
-              className="info-blurb-header"
+            <img
+              alt="A list of writing concepts: Subject-Verb Agreement, Pronoun-Antecedent Agreement, Compound Subjects, Objects, Predicates, and more."
+              src="https://assets.quill.org/images/college_board/pre-ap-recommendations.svg"
+            />
+            <div
+              className="text-container"
             >
-              Personalized Recommendations
-            </p>
-            <p
-              className="info-blurb-text"
-            >
-              After your students complete a SpringBoard 6-8, Pre-AP, AP, or ELL writing skills survey, Quill will use the results to recommend a set of independent practice activities. You can choose to assign all the practice at once, or you can pick and choose the activities that best fit your instructional and students’ needs. As students complete the practice, they’ll receive instant feedback on their writing that guides them through the revising and editing process.
-            </p>
+              <p
+                className="info-blurb-header"
+              >
+                Personalized Recommendations
+              </p>
+              <p
+                className="info-blurb-text"
+              >
+                After your students complete a SpringBoard 6-8, Pre-AP, AP, or ELL writing skills survey, Quill will use the results to recommend a set of independent practice activities. You can choose to assign all the practice at once, or you can pick and choose the activities that best fit your instructional and students’ needs. As students complete the practice, they’ll receive instant feedback on their writing that guides them through the revising and editing process.
+              </p>
+            </div>
           </div>
-        </div>
+        </VisibilitySensor>
         <div
           className="info-blurb-container"
         >
@@ -6840,16 +6975,34 @@ exports[`SpringBoard component should render when it is part of the assignment f
             alt="Illustration of a book opened"
             src="https://assets.quill.org/images/college_board/passage-book.svg"
           />
-          <div
-            className="text-container"
+          <VisibilitySensor
+            active={true}
+            containment={null}
+            delayedCall={false}
+            intervalCheck={true}
+            intervalDelay={100}
+            minTopValue={0}
+            offset={Object {}}
+            onChange={[Function]}
+            partialVisibility={false}
+            resizeCheck={false}
+            resizeDelay={250}
+            resizeThrottle={-1}
+            scrollCheck={false}
+            scrollDelay={250}
+            scrollThrottle={-1}
           >
-            <h2>
-              Passage-Aligned Activities
-            </h2>
-            <p>
-              Twenty custom sentence-combining activities, each one aligned to a unique 9th grade SpringBoard ELA text to give your students the opportunity to practice their sentence construction skills in context.
-            </p>
-          </div>
+            <div
+              className="text-container"
+            >
+              <h2>
+                Passage-Aligned Activities
+              </h2>
+              <p>
+                Twenty custom sentence-combining activities, each one aligned to a unique 9th grade SpringBoard ELA text to give your students the opportunity to practice their sentence construction skills in context.
+              </p>
+            </div>
+          </VisibilitySensor>
         </div>
         <div
           className="activities-subheader"
@@ -8198,11 +8351,29 @@ exports[`SpringBoard component should render when it is part of the assignment f
       <div
         className="container cb-message-container"
       >
-        <p
-          className="cb-message-header"
+        <VisibilitySensor
+          active={true}
+          containment={null}
+          delayedCall={false}
+          intervalCheck={true}
+          intervalDelay={100}
+          minTopValue={0}
+          offset={Object {}}
+          onChange={[Function]}
+          partialVisibility={false}
+          resizeCheck={false}
+          resizeDelay={250}
+          resizeThrottle={-1}
+          scrollCheck={false}
+          scrollDelay={250}
+          scrollThrottle={-1}
         >
-          Quill and College Board have partnered to provide students with meaningful practice of their sentence-level writing skills.
-        </p>
+          <p
+            className="cb-message-header"
+          >
+            Quill and College Board have partnered to provide students with meaningful practice of their sentence-level writing skills.
+          </p>
+        </VisibilitySensor>
         <div
           className="sub-header-container"
         >
@@ -8240,6 +8411,7 @@ exports[`SpringBoard component should render when it is part of the assignment f
     </div>
     <div>
       <QuestionsAndAnswers
+        handleChange={[Function]}
         questionsAndAnswersFile="springboard"
         supportLink=""
       >
@@ -8249,9 +8421,27 @@ exports[`SpringBoard component should render when it is part of the assignment f
           <div
             className="q-and-a-inner-wrapper"
           >
-            <h1>
-              Questions and Answers
-            </h1>
+            <VisibilitySensor
+              active={true}
+              containment={null}
+              delayedCall={false}
+              intervalCheck={true}
+              intervalDelay={100}
+              minTopValue={0}
+              offset={Object {}}
+              onChange={[Function]}
+              partialVisibility={false}
+              resizeCheck={false}
+              resizeDelay={250}
+              resizeThrottle={-1}
+              scrollCheck={false}
+              scrollDelay={250}
+              scrollThrottle={-1}
+            >
+              <h1>
+                Questions and Answers
+              </h1>
+            </VisibilitySensor>
             <QuestionAndAnswer
               key="0"
               qa={
@@ -8714,7 +8904,11 @@ exports[`SpringBoard component should render when it is part of the assignment f
                         <p
                           className="college-board-q-and-a-text"
                         >
-                          Students complete an activity designed to help teachers determine which skills students need to work on. After students complete a Quill Diagnostic activity, Quill recommends writing activities for students based on their results. *Note*: The writing skills surveys can be used in lieu of general Quill diagnostics.
+                          Students complete an activity designed to help teachers determine which skills students need to work on. After students complete a Quill Diagnostic activity, Quill recommends writing activities for students based on their results. 
+                          <strong>
+                            Note
+                          </strong>
+                          : The writing skills surveys can be used in lieu of general Quill diagnostics.
                         </p>
                       </li>
                     </ul>
@@ -8759,7 +8953,7 @@ exports[`SpringBoard component should render when it is part of the assignment f
               qa={
                 Object {
                   "answer": <p>
-                    Unfortunately, at this time, there are no sentence combining activities aligned to texts in SpringBoard ELA courses other than English I. If you would like to see activities like these for another course, please us know 
+                    Unfortunately, at this time, there are no sentence combining activities aligned to texts in SpringBoard ELA courses other than SpringBoard ELA Grade 9. If you would like to see activities like these for another course, please us know 
                     <a
                       href="https://quillorg.canny.io/content-feedback"
                       rel="noopener noreferrer"
@@ -8809,7 +9003,9 @@ exports[`SpringBoard component should render when it is part of the assignment f
               qa={
                 Object {
                   "answer": <div>
-                    <p>
+                    <p
+                      className="college-board-q-and-a-text"
+                    >
                       We are here for you! The following resources are available:
                     </p>
                     <p
@@ -8824,7 +9020,7 @@ exports[`SpringBoard component should render when it is part of the assignment f
                       >
                         sherry@quill.org
                       </a>
-                       Be sure to mention the course(s) you teach.
+                      . Be sure to mention the course(s) you teach.
                     </p>
                     <p
                       className="college-board-q-and-a-text"

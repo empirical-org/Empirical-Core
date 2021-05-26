@@ -20,7 +20,7 @@ exports[`Ap component should render when it is not part of the assignment flow 1
                 </h2>
               </div>,
             },
-            "title": "Writing Skills Survey",
+            "title": "Writing Skills Surveys",
           },
           Object {
             "ref": Object {
@@ -104,48 +104,11 @@ exports[`Ap component should render when it is not part of the assignment flow 1
           },
           Object {
             "ref": Object {
-              "current": <div
-                class="container cb-message-container"
+              "current": <p
+                class="info-blurb-text"
               >
-                <p
-                  class="cb-message-header"
-                >
-                  Quill and College Board have partnered to provide students with meaningful practice of their sentence-level writing skills.
-                </p>
-                <div
-                  class="sub-header-container"
-                >
-                  <p
-                    class="cb-message-sub-header"
-                  >
-                    Message from College Board
-                  </p>
-                </div>
-                <div
-                  class="quote-container"
-                >
-                  <img
-                    alt="Large left quote"
-                    id="first-quote"
-                    src="https://assets.quill.org/images/college_board/exaggerated-quote-left.svg"
-                  />
-                  <div
-                    class="inner-text-container"
-                  >
-                    <p>
-                      Teaching writing is hard. Even harder can be attempting to pinpoint exactly when we learned how and why to write clearly. That’s why the College Board has worked with Quill.org to ensure that this new, free, comprehensive offering helps students practice targeted sentence construction skills in their writing. Sustained practice and exposure to targeted skills is important to improvement and comfort.
-                    </p>
-                    <p>
-                      Teaching writing may always be hard, but student practice in meaningful skills can make the learning that much clearer. Through this practice, students can begin to own the how and why of their writing.
-                    </p>
-                  </div>
-                  <img
-                    alt="Large right quote"
-                    id="second-quote"
-                    src="https://assets.quill.org/images/college_board/exaggerated-quote-right.svg"
-                  />
-                </div>
-              </div>,
+                You can monitor the progress of your students and continue to identify areas of need and areas of strength through multiple data reports. Use the analysis report to review your students' work sentence-by-sentence, or use the summary report to get a high-level sense of where your students could use some extra support.
+              </p>,
             },
             "title": "Message From College Board",
           },
@@ -618,6 +581,7 @@ exports[`Ap component should render when it is not part of the assignment flow 1
         ]
       }
       setActiveSection={[Function]}
+      setIsScrollingFromClick={[Function]}
     >
       <div
         className="scrollbox-container"
@@ -632,7 +596,7 @@ exports[`Ap component should render when it is not part of the assignment flow 1
         >
           <button
             className="section-container"
-            key="Writing Skills Survey"
+            key="Writing Skills Surveys"
             onClick={[Function]}
             type="button"
           >
@@ -640,12 +604,12 @@ exports[`Ap component should render when it is not part of the assignment flow 1
               className="title-container"
             >
               <div
-                className="section-status "
+                className="section-status inactive"
               />
               <p
                 className="section-title "
               >
-                Writing Skills Survey
+                Writing Skills Surveys
               </p>
             </section>
             <p
@@ -664,7 +628,7 @@ exports[`Ap component should render when it is not part of the assignment flow 1
               className="title-container"
             >
               <div
-                className="section-status "
+                className="section-status inactive"
               />
               <p
                 className="section-title "
@@ -686,7 +650,7 @@ exports[`Ap component should render when it is not part of the assignment flow 1
               className="title-container"
             >
               <div
-                className="section-status "
+                className="section-status inactive"
               />
               <p
                 className="section-title "
@@ -708,7 +672,7 @@ exports[`Ap component should render when it is not part of the assignment flow 1
               className="title-container"
             >
               <div
-                className="section-status "
+                className="section-status inactive"
               />
               <p
                 className="section-title "
@@ -796,13 +760,31 @@ exports[`Ap component should render when it is not part of the assignment flow 1
             </p>
           </div>
         </div>
-        <div
-          className="activities-subheader"
+        <VisibilitySensor
+          active={true}
+          containment={null}
+          delayedCall={false}
+          intervalCheck={true}
+          intervalDelay={100}
+          minTopValue={0}
+          offset={Object {}}
+          onChange={[Function]}
+          partialVisibility={false}
+          resizeCheck={false}
+          resizeDelay={250}
+          resizeThrottle={-1}
+          scrollCheck={false}
+          scrollDelay={250}
+          scrollThrottle={-1}
         >
-          <h2>
-            AP Writing Skills Survey
-          </h2>
-        </div>
+          <div
+            className="activities-subheader"
+          >
+            <h2>
+              AP Writing Skills Survey
+            </h2>
+          </div>
+        </VisibilitySensor>
         <div
           className="activity-container"
         >
@@ -1014,28 +996,46 @@ exports[`Ap component should render when it is not part of the assignment flow 1
       <div
         className="container info-blurbs-section"
       >
-        <div
-          className="info-blurb-container"
+        <VisibilitySensor
+          active={true}
+          containment={null}
+          delayedCall={false}
+          intervalCheck={true}
+          intervalDelay={100}
+          minTopValue={0}
+          offset={Object {}}
+          onChange={[Function]}
+          partialVisibility={false}
+          resizeCheck={false}
+          resizeDelay={250}
+          resizeThrottle={-1}
+          scrollCheck={false}
+          scrollDelay={250}
+          scrollThrottle={-1}
         >
-          <img
-            alt="A recommended activity pack report showing four students being recommended a mixture of activities for relative clauses and participial phrases."
-            src="https://assets.quill.org/images/college_board/ap-recommendations.svg"
-          />
           <div
-            className="text-container"
+            className="info-blurb-container"
           >
-            <p
-              className="info-blurb-header"
+            <img
+              alt="A recommended activity pack report showing four students being recommended a mixture of activities for relative clauses and participial phrases."
+              src="https://assets.quill.org/images/college_board/ap-recommendations.svg"
+            />
+            <div
+              className="text-container"
             >
-              Personalized Recommendations
-            </p>
-            <p
-              className="info-blurb-text"
-            >
-              After students complete the AP Writing Skills Survey, you'll receive recommendations for each student based on their responses and tailored to their individual needs. Each student will be recommended up to 45 sentence combining activities, grouped by concept into seven packs, that provide meaningful, targeted practice. You can assign all the activities with one click, or you can pick and choose.
-            </p>
+              <p
+                className="info-blurb-header"
+              >
+                Personalized Recommendations
+              </p>
+              <p
+                className="info-blurb-text"
+              >
+                After students complete the AP Writing Skills Survey, you'll receive recommendations for each student based on their responses and tailored to their individual needs. Each student will be recommended up to 45 sentence combining activities, grouped by concept into seven packs, that provide meaningful, targeted practice. You can assign all the activities with one click, or you can pick and choose.
+              </p>
+            </div>
           </div>
-        </div>
+        </VisibilitySensor>
         <div
           className="info-blurb-container"
         >
@@ -1088,11 +1088,29 @@ exports[`Ap component should render when it is not part of the assignment flow 1
       <div
         className="container cb-message-container"
       >
-        <p
-          className="cb-message-header"
+        <VisibilitySensor
+          active={true}
+          containment={null}
+          delayedCall={false}
+          intervalCheck={true}
+          intervalDelay={100}
+          minTopValue={0}
+          offset={Object {}}
+          onChange={[Function]}
+          partialVisibility={false}
+          resizeCheck={false}
+          resizeDelay={250}
+          resizeThrottle={-1}
+          scrollCheck={false}
+          scrollDelay={250}
+          scrollThrottle={-1}
         >
-          Quill and College Board have partnered to provide students with meaningful practice of their sentence-level writing skills.
-        </p>
+          <p
+            className="cb-message-header"
+          >
+            Quill and College Board have partnered to provide students with meaningful practice of their sentence-level writing skills.
+          </p>
+        </VisibilitySensor>
         <div
           className="sub-header-container"
         >
@@ -1130,6 +1148,7 @@ exports[`Ap component should render when it is not part of the assignment flow 1
     </div>
     <div>
       <QuestionsAndAnswers
+        handleChange={[Function]}
         questionsAndAnswersFile="ap"
         supportLink=""
       >
@@ -1139,9 +1158,27 @@ exports[`Ap component should render when it is not part of the assignment flow 1
           <div
             className="q-and-a-inner-wrapper"
           >
-            <h1>
-              Questions and Answers
-            </h1>
+            <VisibilitySensor
+              active={true}
+              containment={null}
+              delayedCall={false}
+              intervalCheck={true}
+              intervalDelay={100}
+              minTopValue={0}
+              offset={Object {}}
+              onChange={[Function]}
+              partialVisibility={false}
+              resizeCheck={false}
+              resizeDelay={250}
+              resizeThrottle={-1}
+              scrollCheck={false}
+              scrollDelay={250}
+              scrollThrottle={-1}
+            >
+              <h1>
+                Questions and Answers
+              </h1>
+            </VisibilitySensor>
             <QuestionAndAnswer
               key="0"
               qa={
@@ -1279,7 +1316,7 @@ exports[`Ap component should render when it is not part of the assignment flow 1
                       rel="noopener noreferrer"
                       target="_blank"
                     >
-                      This article explains the differences between Quill’s various diagnostics and surveys in more depth
+                      This article explains the differences between Quill’s various diagnostics and surveys in more depth.
                     </a>
                   </p>,
                   "question": "Is a writing skills survey different than a diagnostic?",
@@ -1645,7 +1682,7 @@ exports[`Ap component should render when it is not part of the assignment flow 1
                     <p
                       className="college-board-q-and-a-text"
                     >
-                      Please note that the activities in the 
+                      *Please note that the activities in the 
                       <a
                         href="https://www.quill.org/activities/packs/142"
                         rel="noopener noreferrer"
@@ -1960,7 +1997,7 @@ exports[`Ap component should render when it is not part of the assignment flow 1
                     >
                       5 different tools
                     </a>
-                     with more than 600 writing, grammar, and proofreading activities designed to engage students in the writing process. 
+                     with more than 700 writing, grammar, and proofreading activities designed to engage students in the writing process. 
                     <a
                       href="https://support.quill.org/en/articles/1049944-how-do-i-assign-a-featured-activity-pack"
                       rel="noopener noreferrer"
@@ -2085,7 +2122,9 @@ exports[`Ap component should render when it is not part of the assignment flow 1
               qa={
                 Object {
                   "answer": <div>
-                    <p>
+                    <p
+                      className="college-board-q-and-a-text"
+                    >
                       We are here for you! The following resources are available:
                     </p>
                     <p
@@ -2100,7 +2139,7 @@ exports[`Ap component should render when it is not part of the assignment flow 1
                       >
                         sherry@quill.org
                       </a>
-                       Be sure to mention the course(s) you teach.
+                      . Be sure to mention the course(s) you teach.
                     </p>
                     <p
                       className="college-board-q-and-a-text"
@@ -2207,7 +2246,7 @@ exports[`Ap component should render when it is part of the assignment flow 1`] =
                 </h2>
               </div>,
             },
-            "title": "Writing Skills Survey",
+            "title": "Writing Skills Surveys",
           },
           Object {
             "ref": Object {
@@ -2291,48 +2330,11 @@ exports[`Ap component should render when it is part of the assignment flow 1`] =
           },
           Object {
             "ref": Object {
-              "current": <div
-                class="container cb-message-container"
+              "current": <p
+                class="info-blurb-text"
               >
-                <p
-                  class="cb-message-header"
-                >
-                  Quill and College Board have partnered to provide students with meaningful practice of their sentence-level writing skills.
-                </p>
-                <div
-                  class="sub-header-container"
-                >
-                  <p
-                    class="cb-message-sub-header"
-                  >
-                    Message from College Board
-                  </p>
-                </div>
-                <div
-                  class="quote-container"
-                >
-                  <img
-                    alt="Large left quote"
-                    id="first-quote"
-                    src="https://assets.quill.org/images/college_board/exaggerated-quote-left.svg"
-                  />
-                  <div
-                    class="inner-text-container"
-                  >
-                    <p>
-                      Teaching writing is hard. Even harder can be attempting to pinpoint exactly when we learned how and why to write clearly. That’s why the College Board has worked with Quill.org to ensure that this new, free, comprehensive offering helps students practice targeted sentence construction skills in their writing. Sustained practice and exposure to targeted skills is important to improvement and comfort.
-                    </p>
-                    <p>
-                      Teaching writing may always be hard, but student practice in meaningful skills can make the learning that much clearer. Through this practice, students can begin to own the how and why of their writing.
-                    </p>
-                  </div>
-                  <img
-                    alt="Large right quote"
-                    id="second-quote"
-                    src="https://assets.quill.org/images/college_board/exaggerated-quote-right.svg"
-                  />
-                </div>
-              </div>,
+                You can monitor the progress of your students and continue to identify areas of need and areas of strength through multiple data reports. Use the analysis report to review your students' work sentence-by-sentence, or use the summary report to get a high-level sense of where your students could use some extra support.
+              </p>,
             },
             "title": "Message From College Board",
           },
@@ -2805,6 +2807,7 @@ exports[`Ap component should render when it is part of the assignment flow 1`] =
         ]
       }
       setActiveSection={[Function]}
+      setIsScrollingFromClick={[Function]}
     >
       <div
         className="scrollbox-container"
@@ -2819,7 +2822,7 @@ exports[`Ap component should render when it is part of the assignment flow 1`] =
         >
           <button
             className="section-container"
-            key="Writing Skills Survey"
+            key="Writing Skills Surveys"
             onClick={[Function]}
             type="button"
           >
@@ -2827,12 +2830,12 @@ exports[`Ap component should render when it is part of the assignment flow 1`] =
               className="title-container"
             >
               <div
-                className="section-status "
+                className="section-status inactive"
               />
               <p
                 className="section-title "
               >
-                Writing Skills Survey
+                Writing Skills Surveys
               </p>
             </section>
             <p
@@ -2851,7 +2854,7 @@ exports[`Ap component should render when it is part of the assignment flow 1`] =
               className="title-container"
             >
               <div
-                className="section-status "
+                className="section-status inactive"
               />
               <p
                 className="section-title "
@@ -2873,7 +2876,7 @@ exports[`Ap component should render when it is part of the assignment flow 1`] =
               className="title-container"
             >
               <div
-                className="section-status "
+                className="section-status inactive"
               />
               <p
                 className="section-title "
@@ -2895,7 +2898,7 @@ exports[`Ap component should render when it is part of the assignment flow 1`] =
               className="title-container"
             >
               <div
-                className="section-status "
+                className="section-status inactive"
               />
               <p
                 className="section-title "
@@ -2975,13 +2978,31 @@ exports[`Ap component should render when it is part of the assignment flow 1`] =
             </p>
           </div>
         </div>
-        <div
-          className="activities-subheader"
+        <VisibilitySensor
+          active={true}
+          containment={null}
+          delayedCall={false}
+          intervalCheck={true}
+          intervalDelay={100}
+          minTopValue={0}
+          offset={Object {}}
+          onChange={[Function]}
+          partialVisibility={false}
+          resizeCheck={false}
+          resizeDelay={250}
+          resizeThrottle={-1}
+          scrollCheck={false}
+          scrollDelay={250}
+          scrollThrottle={-1}
         >
-          <h2>
-            AP Writing Skills Survey
-          </h2>
-        </div>
+          <div
+            className="activities-subheader"
+          >
+            <h2>
+              AP Writing Skills Survey
+            </h2>
+          </div>
+        </VisibilitySensor>
         <div
           className="activity-container"
         >
@@ -3193,28 +3214,46 @@ exports[`Ap component should render when it is part of the assignment flow 1`] =
       <div
         className="container info-blurbs-section"
       >
-        <div
-          className="info-blurb-container"
+        <VisibilitySensor
+          active={true}
+          containment={null}
+          delayedCall={false}
+          intervalCheck={true}
+          intervalDelay={100}
+          minTopValue={0}
+          offset={Object {}}
+          onChange={[Function]}
+          partialVisibility={false}
+          resizeCheck={false}
+          resizeDelay={250}
+          resizeThrottle={-1}
+          scrollCheck={false}
+          scrollDelay={250}
+          scrollThrottle={-1}
         >
-          <img
-            alt="A recommended activity pack report showing four students being recommended a mixture of activities for relative clauses and participial phrases."
-            src="https://assets.quill.org/images/college_board/ap-recommendations.svg"
-          />
           <div
-            className="text-container"
+            className="info-blurb-container"
           >
-            <p
-              className="info-blurb-header"
+            <img
+              alt="A recommended activity pack report showing four students being recommended a mixture of activities for relative clauses and participial phrases."
+              src="https://assets.quill.org/images/college_board/ap-recommendations.svg"
+            />
+            <div
+              className="text-container"
             >
-              Personalized Recommendations
-            </p>
-            <p
-              className="info-blurb-text"
-            >
-              After students complete the AP Writing Skills Survey, you'll receive recommendations for each student based on their responses and tailored to their individual needs. Each student will be recommended up to 45 sentence combining activities, grouped by concept into seven packs, that provide meaningful, targeted practice. You can assign all the activities with one click, or you can pick and choose.
-            </p>
+              <p
+                className="info-blurb-header"
+              >
+                Personalized Recommendations
+              </p>
+              <p
+                className="info-blurb-text"
+              >
+                After students complete the AP Writing Skills Survey, you'll receive recommendations for each student based on their responses and tailored to their individual needs. Each student will be recommended up to 45 sentence combining activities, grouped by concept into seven packs, that provide meaningful, targeted practice. You can assign all the activities with one click, or you can pick and choose.
+              </p>
+            </div>
           </div>
-        </div>
+        </VisibilitySensor>
         <div
           className="info-blurb-container"
         >
@@ -3267,11 +3306,29 @@ exports[`Ap component should render when it is part of the assignment flow 1`] =
       <div
         className="container cb-message-container"
       >
-        <p
-          className="cb-message-header"
+        <VisibilitySensor
+          active={true}
+          containment={null}
+          delayedCall={false}
+          intervalCheck={true}
+          intervalDelay={100}
+          minTopValue={0}
+          offset={Object {}}
+          onChange={[Function]}
+          partialVisibility={false}
+          resizeCheck={false}
+          resizeDelay={250}
+          resizeThrottle={-1}
+          scrollCheck={false}
+          scrollDelay={250}
+          scrollThrottle={-1}
         >
-          Quill and College Board have partnered to provide students with meaningful practice of their sentence-level writing skills.
-        </p>
+          <p
+            className="cb-message-header"
+          >
+            Quill and College Board have partnered to provide students with meaningful practice of their sentence-level writing skills.
+          </p>
+        </VisibilitySensor>
         <div
           className="sub-header-container"
         >
@@ -3309,6 +3366,7 @@ exports[`Ap component should render when it is part of the assignment flow 1`] =
     </div>
     <div>
       <QuestionsAndAnswers
+        handleChange={[Function]}
         questionsAndAnswersFile="ap"
         supportLink=""
       >
@@ -3318,9 +3376,27 @@ exports[`Ap component should render when it is part of the assignment flow 1`] =
           <div
             className="q-and-a-inner-wrapper"
           >
-            <h1>
-              Questions and Answers
-            </h1>
+            <VisibilitySensor
+              active={true}
+              containment={null}
+              delayedCall={false}
+              intervalCheck={true}
+              intervalDelay={100}
+              minTopValue={0}
+              offset={Object {}}
+              onChange={[Function]}
+              partialVisibility={false}
+              resizeCheck={false}
+              resizeDelay={250}
+              resizeThrottle={-1}
+              scrollCheck={false}
+              scrollDelay={250}
+              scrollThrottle={-1}
+            >
+              <h1>
+                Questions and Answers
+              </h1>
+            </VisibilitySensor>
             <QuestionAndAnswer
               key="0"
               qa={
@@ -3458,7 +3534,7 @@ exports[`Ap component should render when it is part of the assignment flow 1`] =
                       rel="noopener noreferrer"
                       target="_blank"
                     >
-                      This article explains the differences between Quill’s various diagnostics and surveys in more depth
+                      This article explains the differences between Quill’s various diagnostics and surveys in more depth.
                     </a>
                   </p>,
                   "question": "Is a writing skills survey different than a diagnostic?",
@@ -3824,7 +3900,7 @@ exports[`Ap component should render when it is part of the assignment flow 1`] =
                     <p
                       className="college-board-q-and-a-text"
                     >
-                      Please note that the activities in the 
+                      *Please note that the activities in the 
                       <a
                         href="https://www.quill.org/activities/packs/142"
                         rel="noopener noreferrer"
@@ -4139,7 +4215,7 @@ exports[`Ap component should render when it is part of the assignment flow 1`] =
                     >
                       5 different tools
                     </a>
-                     with more than 600 writing, grammar, and proofreading activities designed to engage students in the writing process. 
+                     with more than 700 writing, grammar, and proofreading activities designed to engage students in the writing process. 
                     <a
                       href="https://support.quill.org/en/articles/1049944-how-do-i-assign-a-featured-activity-pack"
                       rel="noopener noreferrer"
@@ -4264,7 +4340,9 @@ exports[`Ap component should render when it is part of the assignment flow 1`] =
               qa={
                 Object {
                   "answer": <div>
-                    <p>
+                    <p
+                      className="college-board-q-and-a-text"
+                    >
                       We are here for you! The following resources are available:
                     </p>
                     <p
@@ -4279,7 +4357,7 @@ exports[`Ap component should render when it is part of the assignment flow 1`] =
                       >
                         sherry@quill.org
                       </a>
-                       Be sure to mention the course(s) you teach.
+                      . Be sure to mention the course(s) you teach.
                     </p>
                     <p
                       className="college-board-q-and-a-text"

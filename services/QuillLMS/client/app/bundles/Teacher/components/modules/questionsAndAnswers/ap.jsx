@@ -15,7 +15,7 @@ const ap = () => [
   },
   {
     question: 'Is a writing skills survey different than a diagnostic?',
-    answer: <p>Quill&apos;s writing skills surveys can be used in lieu of Quill&apos;s general diagnostics. For example, an AP teacher would likely assign the AP Writing Skills Survey in lieu of the Advanced Diagnostic. Keep in mind, however, that teachers may want ELL students in AP courses to begin with one of the ELL Diagnostics instead of a writing skills survey. <a href="ttps://support.quill.org/en/articles/2554430-what-are-the-differences-between-the-various-diagnostic-assessments" rel="noopener noreferrer" target="_blank">This article explains the differences between Quill’s various diagnostics and surveys in more depth</a></p>
+    answer: <p>Quill&apos;s writing skills surveys can be used in lieu of Quill&apos;s general diagnostics. For example, an AP teacher would likely assign the AP Writing Skills Survey in lieu of the Advanced Diagnostic. Keep in mind, however, that teachers may want ELL students in AP courses to begin with one of the ELL Diagnostics instead of a writing skills survey. <a href="ttps://support.quill.org/en/articles/2554430-what-are-the-differences-between-the-various-diagnostic-assessments" rel="noopener noreferrer" target="_blank">This article explains the differences between Quill’s various diagnostics and surveys in more depth.</a></p>
   },
   {
     question: 'How long does the Survey take?',
@@ -56,7 +56,7 @@ const ap = () => [
     answer: (
       <div>
         <p className="college-board-q-and-a-text">Each AP recommended pack* contains between 4 and 7 activities, each of which are designed to take between 10 and 15 minutes each.</p>
-        <p className="college-board-q-and-a-text">Please note that the activities in the <a href="https://www.quill.org/activities/packs/142" rel="noopener noreferrer" target="_blank">AP Writing - Advanced Combining pack</a> are different as they are all uncued, meaning the feedback does not direct students to combine in a particular way. These are great for students who are ready to apply the strategies covered in the survey without suggestions or direction.</p>
+        <p className="college-board-q-and-a-text">*Please note that the activities in the <a href="https://www.quill.org/activities/packs/142" rel="noopener noreferrer" target="_blank">AP Writing - Advanced Combining pack</a> are different as they are all uncued, meaning the feedback does not direct students to combine in a particular way. These are great for students who are ready to apply the strategies covered in the survey without suggestions or direction.</p>
       </div>
     )
   },
@@ -93,7 +93,7 @@ const ap = () => [
   },
   {
     question: 'Can I assign my students practice beyond the recommended AP Writing Practice packs?',
-    answer: <p>Yes! Quill offers <a href="https://support.quill.org/en/articles/1327607-what-are-each-of-the-different-quill-tools" rel="noopener noreferrer" target="_blank">5 different tools</a> with more than 600 writing, grammar, and proofreading activities designed to engage students in the writing process. <a href="https://support.quill.org/en/articles/1049944-how-do-i-assign-a-featured-activity-pack" rel="noopener noreferrer" target="_blank">This article</a> will show you how to explore and assign Quill’s featured activity packs, and <a href="https://support.quill.org/en/articles/1049954-how-do-i-create-and-assign-a-new-activity-pack" rel="noopener noreferrer" target="_blank">this article</a> will show you how to create a custom activity pack.</p>
+    answer: <p>Yes! Quill offers <a href="https://support.quill.org/en/articles/1327607-what-are-each-of-the-different-quill-tools" rel="noopener noreferrer" target="_blank">5 different tools</a> with more than 700 writing, grammar, and proofreading activities designed to engage students in the writing process. <a href="https://support.quill.org/en/articles/1049944-how-do-i-assign-a-featured-activity-pack" rel="noopener noreferrer" target="_blank">This article</a> will show you how to explore and assign Quill’s featured activity packs, and <a href="https://support.quill.org/en/articles/1049954-how-do-i-create-and-assign-a-new-activity-pack" rel="noopener noreferrer" target="_blank">this article</a> will show you how to create a custom activity pack.</p>
   },
   {
     question: 'Do I need to create an account on Quill.org to assign the AP Writing Skills Survey?',
@@ -108,8 +108,8 @@ const ap = () => [
     question: 'What if I still have questions?',
     answer: (
       <div>
-        <p>We are here for you! The following resources are available:</p>
-        <p className="college-board-q-and-a-text"><strong>Quill Instructional Coach:</strong> You can reach out directly to Sherry Lewkowicz, Quill&apos;s coach dedicated to supporting College Board teachers, at <a href="mailto:sherry@quill.org">sherry@quill.org</a> Be sure to mention the course(s) you teach.</p>
+        <p className="college-board-q-and-a-text">We are here for you! The following resources are available:</p>
+        <p className="college-board-q-and-a-text"><strong>Quill Instructional Coach:</strong> You can reach out directly to Sherry Lewkowicz, Quill&apos;s coach dedicated to supporting College Board teachers, at <a href="mailto:sherry@quill.org">sherry@quill.org</a>. Be sure to mention the course(s) you teach.</p>
         <p className="college-board-q-and-a-text"><strong><a href="https://www.quill.org/teacher-center" rel="noopener noreferrer" target="_blank">Teacher Center:</a></strong> The place to go for all things best practice and implementation!</p>
         <p className="college-board-q-and-a-text"><strong>Support:</strong> Having a technical issue? Email <a href="mailto:support@quill.org">support@quill.org</a> or use the chat in the lower right corner of Quill to connect with a member of the Quill support team.</p>
         <p className="college-board-q-and-a-text">AP® is a registered trademark of the College Board.</p>

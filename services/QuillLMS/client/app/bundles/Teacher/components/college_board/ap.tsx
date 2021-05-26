@@ -32,7 +32,7 @@ const Ap = ({ isPartOfAssignmentFlow, }: ApContainerProps) => {
   const scrollSections = [
     {
       ref: writingSkillsRef,
-      title: 'Writing Skills Survey',
+      title: 'Writing Skills Surveys',
       count: 4
     },
     {

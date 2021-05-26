@@ -32,7 +32,7 @@ const PreAp = ({ units, isPartOfAssignmentFlow, }: PreApContainerProps) => {
   const scrollSections = [
     {
       ref: writingSkillsRef,
-      title: 'Writing Skills Survey',
+      title: 'Writing Skills Surveys',
       count: 5
     },
     {
@@ -112,7 +112,7 @@ const PreAp = ({ units, isPartOfAssignmentFlow, }: PreApContainerProps) => {
         {/* eslint-disable-next-line react/jsx-no-bind */}
         <VisibilitySensor onChange={(isVisible) => handleChange(isVisible, 'Writing Skills Survey')}>
           <div className="activities-subheader" ref={writingSkillsRef}>
-            <h2>AP Writing Skills Survey</h2>
+            <h2>AP Writing Skills Surveys</h2>
           </div>
         </VisibilitySensor>
         <div className="activity-container">

@@ -22,7 +22,7 @@ exports[`ScrollBox component should render ScrollBox 1`] = `
         className="title-container"
       >
         <div
-          className="section-status "
+          className="section-status inactive"
         />
         <p
           className="section-title "
@@ -44,7 +44,7 @@ exports[`ScrollBox component should render ScrollBox 1`] = `
         className="title-container"
       >
         <div
-          className="section-status "
+          className="section-status inactive"
         />
         <p
           className="section-title "
@@ -66,7 +66,7 @@ exports[`ScrollBox component should render ScrollBox 1`] = `
         className="title-container"
       >
         <div
-          className="section-status "
+          className="section-status inactive"
         />
         <p
           className="section-title "
