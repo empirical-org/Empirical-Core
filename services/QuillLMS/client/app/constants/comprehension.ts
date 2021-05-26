@@ -1,4 +1,20 @@
 // TODO: update to reflect the accurate option values
+export const BECAUSE = 'because';
+export const BUT = 'but';
+export const SO = 'so';
+export const ALL = 'all';
+export const promptStems = [BECAUSE, BUT, SO];
+export const DEFAULT_MAX_ATTEMPTS = 5;
+export const FIRST = 'first';
+export const SECOND = 'second';
+export const NONE = 'none';
+export const PLAGIARISM = 'plagiarism';
+export const SCORED =  'scored';
+export const UNSCORED =  'unscored';
+export const WEAK =  'weak';
+export const COMPLETE =  'complete';
+export const INCOMPLETE =  'incomplete';
+export const STRONG =  'strong';
 
 export const flagOptions = [
   {
@@ -97,6 +113,15 @@ export const regexRuleSequenceOptions = [
   {"value":"required","label":"Required"}
 ];
 
+export const activitySessionFilterOptions = [
+  {"value":ALL,"label":"Show all sessions"},
+  {"value":SCORED,"label":"Show only scored sessions"},
+  {"value":UNSCORED,"label":"Show only unscored sessions"},
+  {"value":WEAK,"label":"Show sessions with weak responses"},
+  {"value":COMPLETE,"label":"Show complete sessions"},
+  {"value":INCOMPLETE,"label":"Show incomplete sessions"}
+];
+
 export const ruleOrder = {
   'AutoML': 1,
   'Grammar': 2,
@@ -105,17 +130,6 @@ export const ruleOrder = {
   'Regex': 5,
   'Spelling': 6
 }
-
-export const BECAUSE = 'because';
-export const BUT = 'but';
-export const SO = 'so';
-export const ALL = 'all';
-export const promptStems = [BECAUSE, BUT, SO];
-export const DEFAULT_MAX_ATTEMPTS = 5;
-export const FIRST = 'first';
-export const SECOND = 'second';
-export const NONE = 'none';
-export const PLAGIARISM = 'plagiarism';
 
 export const PROMPT_ATTEMPTS_FEEDBACK_LABELS = {
   "1": {
@@ -252,3 +266,61 @@ export const numericalWordOptions = {
   3: 'Fourth',
   4: 'Fifth'
 }
+
+export const activitySessionIndexResponseHeaders = [
+  {
+    Header: "Date | Time",
+    accessor: "datetime",
+    width: 150
+  },
+  {
+    Header: "Session ID",
+    accessor: "session_uid",
+    width: 100
+  },
+  {
+    Header: "Total Responses",
+    accessor: "total_attempts",
+    width: 150
+  },
+  {
+    Header: "Because",
+    accessor: "because_attempts",
+    width: 100
+  },
+  {
+    Header: "But",
+    accessor: "but_attempts",
+    width: 100
+  },
+  {
+    Header: "So",
+    accessor: "so_attempts",
+    width: 100
+  },
+  {
+    Header: "Scored",
+    accessor: "scored_count",
+    width: 100
+  },
+  {
+    Header: "Weak",
+    accessor: "weak_count",
+    width: 100
+  },
+  {
+    Header: "Strong",
+    accessor: "strong_count",
+    width: 100
+  },
+  {
+    Header: "Completed?",
+    accessor: "completed",
+    width: 100
+  },
+  {
+    Header: "",
+    accessor: "view_link",
+    width: 100
+  },
+]
