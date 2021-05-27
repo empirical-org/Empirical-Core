@@ -12,15 +12,13 @@ interface PromptStepProps {
   className: string,
   everyOtherStepCompleted: boolean;
   submitResponse: Function;
-  moveOnFromStep: (event: any) => void;
   completeStep: (event: any) => void;
   stepNumberComponent: JSX.Element,
   stepNumber: number;
   activateStep: (event: any) => void;
   prompt: any,
   passedRef: any,
-  submittedResponses: Array<any>,
-  canBeClicked: boolean
+  submittedResponses: Array<any>
 }
 
 interface PromptStepState {
@@ -48,16 +46,6 @@ export class PromptStep extends React.Component<PromptStepProps, PromptStepState
     };
 
     this.editor = React.createRef()
-  }
-
-  componentDidUpdate(prevProps, prevState) {
-    const { completeStep, submittedResponses, prompt, stepNumber, } = this.props
-    const { max_attempts, } = prompt
-    if (!submittedResponses || submittedResponses.length === prevProps.submittedResponses.length) { return }
-
-    if (submittedResponses.length === max_attempts || this.lastSubmittedResponse().optimal) {
-      completeStep(stepNumber)
-    }
   }
 
   lastSubmittedResponse = () => {
@@ -239,10 +227,10 @@ export class PromptStep extends React.Component<PromptStepProps, PromptStepState
     activateStep(stepNumber)
   }
 
-  moveOnFromStep = () => {
-    const { moveOnFromStep, stepNumber, } = this.props
+  completeStep = () => {
+    const { completeStep, stepNumber, } = this.props
 
-    moveOnFromStep(stepNumber)
+    completeStep(stepNumber)
   }
 
   formatHtmlForEditorContainer = (html: string, active: boolean) => {
@@ -267,7 +255,7 @@ export class PromptStep extends React.Component<PromptStepProps, PromptStepState
     let className = 'quill-button'
     let onClick = () => this.handleGetFeedbackClick(entry, id, text)
     if (submittedResponses.length === max_attempts || this.lastSubmittedResponse().optimal) {
-      onClick = this.moveOnFromStep
+      onClick = this.completeStep
       buttonCopy = everyOtherStepCompleted ? 'Done' : 'Start next sentence'
     } else if (this.unsubmittableResponses().includes(entry) || awaitingFeedback) {
       className += ' disabled'
@@ -358,20 +346,11 @@ export class PromptStep extends React.Component<PromptStepProps, PromptStepState
   }
 
   render() {
-    const { className, passedRef, canBeClicked, } = this.props
-    const stepContent = (<div className="step-content">
-      {this.renderActiveContent()}
-    </div>)
-
-    if (canBeClicked) {
-      return (<div className={className} onClick={this.handleStepInteraction} onKeyDown={this.handleStepInteraction} ref={passedRef} role="button" tabIndex={0}>
-        {stepContent}
-      </div>)
-
-    }
-
-    return (<div className={className}>
-      {stepContent}
+    const { className, passedRef, } = this.props
+    return (<div className={className} onClick={this.handleStepInteraction} onKeyDown={this.handleStepInteraction} ref={passedRef} role="button" tabIndex={0}>
+      <div className="step-content">
+        {this.renderActiveContent()}
+      </div>
     </div>)
   }
 }

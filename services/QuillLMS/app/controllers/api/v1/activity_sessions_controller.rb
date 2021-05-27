@@ -1,9 +1,9 @@
 class Api::V1::ActivitySessionsController < Api::ApiController
 
   before_action :doorkeeper_authorize!, only: [:destroy]
+  before_action :transform_incoming_request, only: [:update, :create]
   before_action :find_activity_session, only: [:show, :update, :destroy]
   before_action :strip_access_token_from_request
-  before_action :transform_incoming_request, only: [:update, :create]
 
   def show
     render json: @activity_session, meta: {status: 'success', message: nil, errors: nil}, serializer: ActivitySessionSerializer
@@ -78,7 +78,8 @@ class Api::V1::ActivitySessionsController < Api::ApiController
   end
 
   private def find_activity_session
-    @activity_session = ActivitySession.unscoped.find_by_uid!(params[:id])
+    @activity_session = ActivitySession.unscoped.find_by_uid(params[:id]) || ActivitySession.new(activity_session_params.except(:id, :concept_results))
+    @activity_session.uid = params[:id]
   end
 
   private def activity_session_params
@@ -94,7 +95,9 @@ class Api::V1::ActivitySessionsController < Api::ApiController
                   :activity_uid,
                   :activity_id,
                   :anonymous,
-                  :temporary)
+                  :temporary,
+                  :data
+                )
       .merge(data: @data).reject {|k,v| v.nil? }
       .merge(timespent: @activity_session&.timespent)
   end

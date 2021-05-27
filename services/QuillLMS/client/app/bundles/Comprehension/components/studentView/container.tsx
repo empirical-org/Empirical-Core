@@ -10,11 +10,13 @@ import LoadingSpinner from '../shared/loadingSpinner'
 import { getActivity } from "../../actions/activities";
 import { TrackAnalyticsEvent } from "../../actions/analytics";
 import { Events } from '../../modules/analytics'
-import { completeActivitySession,
-         fetchActiveActivitySession,
-         getFeedback,
-         processUnfetchableSession,
-         saveActiveActivitySession } from '../../actions/session'
+import {
+  completeActivitySession,
+  fetchActiveActivitySession,
+  getFeedback,
+  processUnfetchableSession,
+  saveActiveActivitySession
+} from '../../actions/session'
 import { calculatePercentage, generateConceptResults, } from '../../libs/conceptResults'
 import { ActivitiesReducerState } from '../../reducers/activitiesReducer'
 import { SessionReducerState } from '../../reducers/sessionReducer'
@@ -39,6 +41,7 @@ interface StudentViewContainerState {
   activeStep?: number;
   completedSteps: Array<number>;
   showFocusState: boolean;
+  timeTracking: { [key:number]: number }
 }
 
 const READ_PASSAGE_STEP = 1
@@ -104,8 +107,7 @@ export class StudentViewContainer extends React.Component<StudentViewContainerPr
     window.addEventListener('mousedown', this.resetTimers)
     window.addEventListener('click', this.resetTimers)
     window.addEventListener('keypress', this.resetTimers)
-    window.addEventListener('visibilitychange', this.resetTimers)
-    window.addEventListener('beforeunload', this.saveActiveActivitySession)
+    window.addEventListener('visibilitychange', this.setIdle)
   }
 
   componentWillUnmount() {
@@ -114,13 +116,11 @@ export class StudentViewContainer extends React.Component<StudentViewContainerPr
     window.removeEventListener('mousedown', this.resetTimers)
     window.removeEventListener('click', this.resetTimers)
     window.removeEventListener('keypress', this.resetTimers)
-    window.removeEventListener('visibilitychange', this.resetTimers)
-    window.removeEventListener('beforeunload', this.saveActiveActivitySession)
+    window.removeEventListener('visibilitychange', this.setIdle)
   }
 
-  saveActiveActivitySession(e) {
-    debugger;
-    this.resetTimers(e)
+  saveSessionBeforeUnload(e) {
+    this.resetTimers(e).then(() => this.saveActiveActivitySession)
   }
 
   resetTimers = (e=null) => {
@@ -129,7 +129,7 @@ export class StudentViewContainer extends React.Component<StudentViewContainerPr
       if (completedSteps.includes(activeStep)) { return } // don't want to add time if a user is revisiting a previously completed step
       if (inactivityTimer) { clearTimeout(inactivityTimer) }
 
-      let elapsedTime = Date.now() - startTime
+      let elapsedTime = _.round((Date.now() - startTime) / 1000)
       if (isIdle) {
         elapsedTime = 0
       }
@@ -142,7 +142,7 @@ export class StudentViewContainer extends React.Component<StudentViewContainerPr
     return Promise.resolve(true);
   }
 
-  setIdle = () => { this.setState({ isIdle: true }) }
+  setIdle = () => { this.resetTimers().then(() => this.setState({ isIdle: true })) }
 
   handlePostTurkSession = (activitySessionId: string) => {
     const turkingRoundID = getParameterByName('id', window.location.href);
@@ -156,13 +156,21 @@ export class StudentViewContainer extends React.Component<StudentViewContainerPr
 
   defaultHandleFinishActivity = () => {
     // We only post completed sessions if we had one specified when the activity loaded
-    if (!this.specifiedActivitySessionUID()) return
-    const { activities, dispatch, session, } = this.props
+    const { timeTracking, } = this.state
+    const { activities, dispatch, session, handleFinishActivity, } = this.props
     const { sessionID, submittedResponses, } = session
     const { currentActivity, } = activities
     const percentage = calculatePercentage(submittedResponses)
     const conceptResults = generateConceptResults(currentActivity, submittedResponses)
-    dispatch(completeActivitySession(sessionID, percentage, conceptResults))
+    const data = {
+      time_tracking: {
+        reading: timeTracking[READ_PASSAGE_STEP],
+        because: timeTracking[2],
+        but: timeTracking[3],
+        so: timeTracking[4],
+      }
+    }
+    dispatch(completeActivitySession(sessionID, percentage, conceptResults, data, handleFinishActivity))
   }
 
   onMobile = () => window.innerWidth < 1100
@@ -186,9 +194,17 @@ export class StudentViewContainer extends React.Component<StudentViewContainerPr
   }
 
   loadPreviousSession = (data: object) => {
-    const { activeStep, completedSteps, } = data
-    this.setState({ completedSteps })
-    this.activateStep(activeStep, null, true)
+    const { activeStep, completedSteps, timeTracking, } = this.state
+    const newState = {
+      activeStep: data.activeStep || activeStep,
+      completedSteps: data.completedSteps || completedSteps,
+      timeTracking: data.timeTracking || timeTracking
+    }
+
+    this.setState(newState, () => {
+      const { activeStep, } = this.state
+      this.activateStep(activeStep, null, true)
+    })
   }
 
   submitResponse = (entry: string, promptID: string, promptText: string, attempt: number) => {
@@ -270,7 +286,8 @@ export class StudentViewContainer extends React.Component<StudentViewContainerPr
       activityID,
       sessionID,
     }));
-    (handleFinishActivity) ? handleFinishActivity() : this.defaultHandleFinishActivity()
+
+    this.defaultHandleFinishActivity()
   }
 
   activateStep = (step?: number, callback?: Function, skipTracking?: boolean) => {
@@ -280,11 +297,9 @@ export class StudentViewContainer extends React.Component<StudentViewContainerPr
     // don't activate steps before Done reading button has been clicked
     if (step && step > 1 && !completedSteps.includes(READ_PASSAGE_STEP)) return
 
-    this.resetTimers().then(() => {
-      this.setState({ activeStep: step, }, () => {
-        if (!skipTracking) this.trackCurrentPromptStartedEvent()
-        if (callback) { callback() }
-      })
+    this.setState({ activeStep: step, startTime: new Date(), }, () => {
+      if (!skipTracking) this.trackCurrentPromptStartedEvent()
+      if (callback) { callback() }
     })
   }
 
@@ -293,22 +308,18 @@ export class StudentViewContainer extends React.Component<StudentViewContainerPr
     const newCompletedSteps = completedSteps.concat(stepNumber)
     const uniqueCompletedSteps = Array.from(new Set(newCompletedSteps))
     this.trackCurrentPromptCompletedEvent()
-    this.setState({ completedSteps: uniqueCompletedSteps })
+    this.setState({ completedSteps: uniqueCompletedSteps }, () => {
+      let nextStep: number|undefined = stepNumber + 1
+      if (nextStep > ALL_STEPS.length || uniqueCompletedSteps.includes(nextStep)) {
+        nextStep = ALL_STEPS.find(s => !uniqueCompletedSteps.includes(s))
+      }
 
-    return Promise.resolve(true);
-  }
-
-  moveOnFromStep = (stepNumber: number) => {
-    const { completedSteps, } = this.state
-    let nextStep: number|undefined = stepNumber + 1
-    if (nextStep > ALL_STEPS.length || completedSteps.includes(nextStep)) {
-      nextStep = ALL_STEPS.find(s => !completedSteps.includes(s))
-    }
-    if (nextStep) {
-      this.activateStep(nextStep, () => stepNumber !== READ_PASSAGE_STEP ? this.scrollToStep(`step${nextStep}`) : null)
-    } else {
-      this.trackActivityCompletedEvent(); // If there is no next step, the activity is done
-    }
+      if (nextStep) {
+        this.activateStep(nextStep, () => stepNumber !== READ_PASSAGE_STEP ? this.scrollToStep(`step${nextStep}`) : null)
+      } else {
+        this.trackActivityCompletedEvent(); // If there is no next step, the activity is done
+      }
+    })
   }
 
   handleKeyDown = (e) => {
@@ -320,7 +331,7 @@ export class StudentViewContainer extends React.Component<StudentViewContainerPr
   }
 
   handleDoneReadingClick = () => {
-    this.completeStep(READ_PASSAGE_STEP).then(() => this.moveOnFromStep(READ_PASSAGE_STEP))
+    this.completeStep(READ_PASSAGE_STEP)
     this.trackPassageReadEvent();
   }
 
@@ -353,17 +364,22 @@ export class StudentViewContainer extends React.Component<StudentViewContainerPr
     }
   }
 
-  submitResponseCallback = () => {
+  saveActiveActivitySession = () => {
     const { dispatch, session, } = this.props
     const { sessionID, submittedResponses, } = session
-    const { activeStep, completedSteps, } = this.state
+    const { activeStep, completedSteps, timeTracking, } = this.state
     const args = {
       sessionID,
       submittedResponses,
       activeStep,
       completedSteps,
+      timeTracking,
     }
     dispatch(saveActiveActivitySession(args))
+  }
+
+  submitResponseCallback = () => {
+    this.saveActiveActivitySession()
     this.scrollToHighlight()
   }
 
@@ -498,13 +514,12 @@ export class StudentViewContainer extends React.Component<StudentViewContainerPr
         completeStep={this.completeStep}
         everyOtherStepCompleted={everyOtherStepCompleted}
         key={stepNumber}
-        moveOnFromStep={this.moveOnFromStep}
         passedRef={(node: JSX.Element) => this[`step${stepNumber}`] = node} // eslint-disable-line react/jsx-no-bind
         prompt={prompt}
         stepNumber={stepNumber}
         stepNumberComponent={this.renderStepNumber(stepNumber)}
         submitResponse={this.submitResponse}
-        submittedResponses={submittedResponses[prompt.id] || []}
+        submittedResponses={(submittedResponses && submittedResponses[prompt.id]) || []}
       />)
     })
 
