@@ -2,6 +2,7 @@ import * as React from 'react';
 import VisibilitySensor from 'react-visibility-sensor';
 
 import ScrollBox from './scrollBox';
+import { WRITING_SKILLS_SURVEYS, FEEDBACK_AND_REPORTS, MESSAGE_FROM_COLLEGE_BOARD, QUESTIONS_AND_ANSWERS } from './collegeBoardConstants';
 
 import QuestionsAndAnswers from '../../containers/QuestionsAndAnswers';
 import {
@@ -32,20 +33,20 @@ const Ap = ({ isPartOfAssignmentFlow, }: ApContainerProps) => {
   const scrollSections = [
     {
       ref: writingSkillsRef,
-      title: 'Writing Skills Surveys',
+      title: WRITING_SKILLS_SURVEYS,
       count: 4
     },
     {
       ref: feedbackReportsRef,
-      title: 'Feedback & Reports'
+      title: FEEDBACK_AND_REPORTS
     },
     {
       ref: collegeBoardMessageRef,
-      title: 'Message From College Board'
+      title: MESSAGE_FROM_COLLEGE_BOARD
     },
     {
       ref: questionAndAnswerRef,
-      title: 'Questions and Answers'
+      title: QUESTIONS_AND_ANSWERS
     }
   ];
 
@@ -88,7 +89,7 @@ const Ap = ({ isPartOfAssignmentFlow, }: ApContainerProps) => {
           </div>
         </div>
         {/* eslint-disable-next-line react/jsx-no-bind */}
-        <VisibilitySensor onChange={(isVisible) => handleChange(isVisible, 'Writing Skills Survey')}>
+        <VisibilitySensor onChange={(isVisible) => handleChange(isVisible, WRITING_SKILLS_SURVEYS)}>
           <div className="activities-subheader" ref={writingSkillsRef}>
             <h2>AP Writing Skills Survey</h2>
           </div>
@@ -146,7 +147,7 @@ const Ap = ({ isPartOfAssignmentFlow, }: ApContainerProps) => {
     <div className="white-section-wrapper" id="info-blurbs-1-wrapper" ref={feedbackReportsRef}>
       <div className="container info-blurbs-section">
         {/* eslint-disable-next-line react/jsx-no-bind */}
-        <VisibilitySensor onChange={(isVisible) => handleChange(isVisible, 'Feedback & Reports')}>
+        <VisibilitySensor onChange={(isVisible) => handleChange(isVisible, FEEDBACK_AND_REPORTS)}>
           <div className="info-blurb-container">
             <img alt="A recommended activity pack report showing four students being recommended a mixture of activities for relative clauses and participial phrases." src="https://assets.quill.org/images/college_board/ap-recommendations.svg" />
             <div className="text-container">
@@ -174,7 +175,7 @@ const Ap = ({ isPartOfAssignmentFlow, }: ApContainerProps) => {
     <div className="section-wrapper">
       <div className="container cb-message-container">
         {/* eslint-disable-next-line react/jsx-no-bind */}
-        <VisibilitySensor onChange={(isVisible) => handleChange(isVisible, 'Message From College Board')}>
+        <VisibilitySensor onChange={(isVisible) => handleChange(isVisible, MESSAGE_FROM_COLLEGE_BOARD)}>
           <p className="cb-message-header">Quill and College Board have partnered to provide students with meaningful practice of their sentence-level writing skills.</p>
         </VisibilitySensor>
         <div className="sub-header-container">

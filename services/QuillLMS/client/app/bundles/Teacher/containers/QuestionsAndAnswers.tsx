@@ -8,6 +8,7 @@ import premium from '../components/modules/questionsAndAnswers/premium'
 import preap from '../components/modules/questionsAndAnswers/preap'
 import ap from '../components/modules/questionsAndAnswers/ap'
 import springboard from '../components/modules/questionsAndAnswers/springboard'
+import { QUESTIONS_AND_ANSWERS } from '../components/college_board/collegeBoardConstants';
 
 export interface QuestionsAndAnswersProps {
   questionsAndAnswersFile: string;
@@ -66,7 +67,7 @@ export default class QuestionsAndAnswers extends React.Component<QuestionsAndAns
       <div id="q-and-a">
         <div className="q-and-a-inner-wrapper">
           {/* eslint-disable-next-line react/jsx-no-bind */}
-          <VisibilitySensor onChange={(isVisible) => handleChange(isVisible, 'Questions and Answers')}>
+          <VisibilitySensor onChange={(isVisible) => handleChange(isVisible, QUESTIONS_AND_ANSWERS)}>
             <h1>Questions and Answers</h1>
           </VisibilitySensor>
           {this.renderQuestionsAndAnswers()}

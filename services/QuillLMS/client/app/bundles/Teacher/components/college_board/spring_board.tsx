@@ -2,6 +2,7 @@ import * as React from 'react';
 import VisibilitySensor from 'react-visibility-sensor';
 
 import ScrollBox from './scrollBox';
+import { WRITING_SKILLS_SURVEYS, FEEDBACK_AND_REPORTS, PASSAGE_ALIGNED_ACTIVITIES, MESSAGE_FROM_COLLEGE_BOARD, QUESTIONS_AND_ANSWERS } from './collegeBoardConstants';
 
 import ExpandableUnitSection from '../shared/expandableUnit'
 import { SPRING_BOARD_SLUG } from '../assignment_flow/assignmentFlowConstants'
@@ -31,25 +32,25 @@ const SpringBoard = ({ isPartOfAssignmentFlow, units, }: SpringBoardProps) => {
   const scrollSections = [
     {
       ref: writingSkillsRef,
-      title: 'Writing Skills Surveys',
+      title: WRITING_SKILLS_SURVEYS,
       count: 7
     },
     {
       ref: feedbackReportsRef,
-      title: 'Feedback & Reports'
+      title: FEEDBACK_AND_REPORTS
     },
     {
       ref: passageAlignedRef,
-      title: 'Passage-Aligned Activities',
+      title: PASSAGE_ALIGNED_ACTIVITIES,
       count: units ? getActivityCount(units) : null
     },
     {
       ref: collegeBoardMessageRef,
-      title: 'Message From College Board'
+      title: MESSAGE_FROM_COLLEGE_BOARD
     },
     {
       ref: questionAndAnswerRef,
-      title: 'Questions and Answers'
+      title: QUESTIONS_AND_ANSWERS
     }
   ];
 
@@ -106,7 +107,7 @@ const SpringBoard = ({ isPartOfAssignmentFlow, units, }: SpringBoardProps) => {
           </div>
         </div>
         {/* eslint-disable-next-line react/jsx-no-bind */}
-        <VisibilitySensor onChange={(isVisible) => handleChange(isVisible, 'Writing Skills Survey')}>
+        <VisibilitySensor onChange={(isVisible) => handleChange(isVisible, WRITING_SKILLS_SURVEYS)}>
           <div className="activities-subheader" ref={writingSkillsRef}>
             <h2>Springboard Writing Skills Surveys</h2>
           </div>
@@ -212,7 +213,7 @@ const SpringBoard = ({ isPartOfAssignmentFlow, units, }: SpringBoardProps) => {
     <div className="white-section-wrapper" id="info-blurbs-1-wrapper" ref={feedbackReportsRef}>
       <div className="container info-blurbs-section">
         {/* eslint-disable-next-line react/jsx-no-bind */}
-        <VisibilitySensor onChange={(isVisible) => handleChange(isVisible, 'Feedback & Reports')}>
+        <VisibilitySensor onChange={(isVisible) => handleChange(isVisible, FEEDBACK_AND_REPORTS)}>
           <div className="info-blurb-container">
             <img alt="A list of writing concepts: Subject-Verb Agreement, Pronoun-Antecedent Agreement, Compound Subjects, Objects, Predicates, and more." src="https://assets.quill.org/images/college_board/pre-ap-recommendations.svg" />
             <div className="text-container">
@@ -242,7 +243,7 @@ const SpringBoard = ({ isPartOfAssignmentFlow, units, }: SpringBoardProps) => {
         <div className="header">
           <img alt="Illustration of a book opened" src="https://assets.quill.org/images/college_board/passage-book.svg" />
           {/* eslint-disable-next-line react/jsx-no-bind */}
-          <VisibilitySensor onChange={(isVisible) => handleChange(isVisible, 'Passage-Aligned Activities')}>
+          <VisibilitySensor onChange={(isVisible) => handleChange(isVisible, PASSAGE_ALIGNED_ACTIVITIES)}>
             <div className="text-container">
               <h2>Passage-Aligned Activities</h2>
               <p>Twenty custom sentence-combining activities, each one aligned to a unique 9th grade SpringBoard ELA text to give your students the opportunity to practice their sentence construction skills in context.</p>
@@ -262,7 +263,7 @@ const SpringBoard = ({ isPartOfAssignmentFlow, units, }: SpringBoardProps) => {
     <div className="section-wrapper">
       <div className="container cb-message-container" ref={collegeBoardMessageRef}>
         {/* eslint-disable-next-line react/jsx-no-bind */}
-        <VisibilitySensor onChange={(isVisible) => handleChange(isVisible, 'Message From College Board')}>
+        <VisibilitySensor onChange={(isVisible) => handleChange(isVisible, MESSAGE_FROM_COLLEGE_BOARD)}>
           <p className="cb-message-header">Quill and College Board have partnered to provide students with meaningful practice of their sentence-level writing skills.</p>
         </VisibilitySensor>
         <div className="sub-header-container">

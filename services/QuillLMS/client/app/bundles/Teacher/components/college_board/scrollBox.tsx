@@ -20,9 +20,9 @@ const ScrollBox = ({ activeSection, sections, setActiveSection, setIsScrollingFr
       <section className="sections-container">
         {sections.map((section: ScrollSection) => {
           const { ref, title, count }  = section;
-          const countStyle = !count ?  'hidden' : '';
-          const statusStyle = title !== activeSection ?  'inactive' : '';
-          const titleStyle = title === activeSection ?  'bolded' : '';
+          const countStyle = count ? '' : 'hidden';
+          const statusStyle = title === activeSection ? '' : 'inactive';
+          const titleStyle = title === activeSection ? 'bolded' : '';
           return(
             /* eslint-disable-next-line react/jsx-no-bind */
             <button className="section-container" key={title} onClick={() => handleClick(ref, title)} type="button">
