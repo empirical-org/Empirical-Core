@@ -582,9 +582,10 @@ exports[`Ap component should render when it is not part of the assignment flow 1
       }
       setActiveSection={[Function]}
       setIsScrollingFromClick={[Function]}
+      showScrollBox=""
     >
       <div
-        className="scrollbox-container"
+        className="scrollbox-container "
       >
         <section
           className="header"
@@ -696,21 +697,39 @@ exports[`Ap component should render when it is not part of the assignment flow 1
         <div
           className="header-left"
         >
-          <div
-            className="logo-container"
+          <VisibilitySensor
+            active={true}
+            containment={null}
+            delayedCall={false}
+            intervalCheck={true}
+            intervalDelay={100}
+            minTopValue={0}
+            offset={Object {}}
+            onChange={[Function]}
+            partialVisibility={false}
+            resizeCheck={false}
+            resizeDelay={250}
+            resizeThrottle={-1}
+            scrollCheck={false}
+            scrollDelay={250}
+            scrollThrottle={-1}
           >
-            <img
-              alt="College Board logo"
-              src="https://assets.quill.org/images/college_board/college-board-logo.svg"
-            />
             <div
-              className="divider"
-            />
-            <img
-              alt="Quill logo"
-              src="https://assets.quill.org/images/logos/quill-logo-green.svg"
-            />
-          </div>
+              className="logo-container"
+            >
+              <img
+                alt="College Board logo"
+                src="https://assets.quill.org/images/college_board/college-board-logo.svg"
+              />
+              <div
+                className="divider"
+              />
+              <img
+                alt="Quill logo"
+                src="https://assets.quill.org/images/logos/quill-logo-green.svg"
+              />
+            </div>
+          </VisibilitySensor>
           <div
             className="header-text-container"
           >
@@ -760,6 +779,13 @@ exports[`Ap component should render when it is not part of the assignment flow 1
             </p>
           </div>
         </div>
+        <div
+          className="activities-subheader"
+        >
+          <h2>
+            AP Writing Skills Survey
+          </h2>
+        </div>
         <VisibilitySensor
           active={true}
           containment={null}
@@ -778,54 +804,47 @@ exports[`Ap component should render when it is not part of the assignment flow 1
           scrollThrottle={-1}
         >
           <div
-            className="activities-subheader"
+            className="activity-container"
           >
-            <h2>
-              AP Writing Skills Survey
-            </h2>
+            <div
+              className="activity-header-container"
+            >
+              <p
+                className="activity-header"
+                id="writing-skills-survey"
+              >
+                AP Writing Skills Survey
+              </p>
+              <a
+                className="quill-button medium primary outlined view-button focus-on-light"
+                href="/activities/packs/193"
+                rel="noopener noreferrer"
+                target="_blank"
+              >
+                View
+              </a>
+            </div>
+            <div
+              className="activity-text-container"
+            >
+              <p
+                className="activity-sub-text"
+              >
+                Students complete a 17 item survey to gauge their understanding of key writing skills that are essential to successful AP- and SAT-level writing. After students complete the survey, Quill will automatically recommend up to seven activity packs for each student based on their needs. Each pack contains a series of activities that each take about 15 minutes to complete and provide scaffolded, sequenced practice with one of the skills covered by the survey.
+              </p>
+              <p
+                className="activity-sub-header"
+              >
+                Skills
+              </p>
+              <p
+                className="activity-sub-text"
+              >
+                Complex Sentences; relative clauses; appositive phrases; participial phrases; parallel structure; compound-complex sentences; advanced combining
+              </p>
+            </div>
           </div>
         </VisibilitySensor>
-        <div
-          className="activity-container"
-        >
-          <div
-            className="activity-header-container"
-          >
-            <p
-              className="activity-header"
-              id="writing-skills-survey"
-            >
-              AP Writing Skills Survey
-            </p>
-            <a
-              className="quill-button medium primary outlined view-button focus-on-light"
-              href="/activities/packs/193"
-              rel="noopener noreferrer"
-              target="_blank"
-            >
-              View
-            </a>
-          </div>
-          <div
-            className="activity-text-container"
-          >
-            <p
-              className="activity-sub-text"
-            >
-              Students complete a 17 item survey to gauge their understanding of key writing skills that are essential to successful AP- and SAT-level writing. After students complete the survey, Quill will automatically recommend up to seven activity packs for each student based on their needs. Each pack contains a series of activities that each take about 15 minutes to complete and provide scaffolded, sequenced practice with one of the skills covered by the survey.
-            </p>
-            <p
-              className="activity-sub-header"
-            >
-              Skills
-            </p>
-            <p
-              className="activity-sub-text"
-            >
-              Complex Sentences; relative clauses; appositive phrases; participial phrases; parallel structure; compound-complex sentences; advanced combining
-            </p>
-          </div>
-        </div>
         <div
           className="activities-subheader"
           id="ell-subheader"
@@ -2808,9 +2827,10 @@ exports[`Ap component should render when it is part of the assignment flow 1`] =
       }
       setActiveSection={[Function]}
       setIsScrollingFromClick={[Function]}
+      showScrollBox=""
     >
       <div
-        className="scrollbox-container"
+        className="scrollbox-container "
       >
         <section
           className="header"
@@ -2922,21 +2942,39 @@ exports[`Ap component should render when it is part of the assignment flow 1`] =
         <div
           className="header-left"
         >
-          <div
-            className="logo-container"
+          <VisibilitySensor
+            active={true}
+            containment={null}
+            delayedCall={false}
+            intervalCheck={true}
+            intervalDelay={100}
+            minTopValue={0}
+            offset={Object {}}
+            onChange={[Function]}
+            partialVisibility={false}
+            resizeCheck={false}
+            resizeDelay={250}
+            resizeThrottle={-1}
+            scrollCheck={false}
+            scrollDelay={250}
+            scrollThrottle={-1}
           >
-            <img
-              alt="College Board logo"
-              src="https://assets.quill.org/images/college_board/college-board-logo.svg"
-            />
             <div
-              className="divider"
-            />
-            <img
-              alt="Quill logo"
-              src="https://assets.quill.org/images/logos/quill-logo-green.svg"
-            />
-          </div>
+              className="logo-container"
+            >
+              <img
+                alt="College Board logo"
+                src="https://assets.quill.org/images/college_board/college-board-logo.svg"
+              />
+              <div
+                className="divider"
+              />
+              <img
+                alt="Quill logo"
+                src="https://assets.quill.org/images/logos/quill-logo-green.svg"
+              />
+            </div>
+          </VisibilitySensor>
           <div
             className="header-text-container"
           >
@@ -2978,6 +3016,13 @@ exports[`Ap component should render when it is part of the assignment flow 1`] =
             </p>
           </div>
         </div>
+        <div
+          className="activities-subheader"
+        >
+          <h2>
+            AP Writing Skills Survey
+          </h2>
+        </div>
         <VisibilitySensor
           active={true}
           containment={null}
@@ -2996,54 +3041,47 @@ exports[`Ap component should render when it is part of the assignment flow 1`] =
           scrollThrottle={-1}
         >
           <div
-            className="activities-subheader"
+            className="activity-container"
           >
-            <h2>
-              AP Writing Skills Survey
-            </h2>
+            <div
+              className="activity-header-container"
+            >
+              <p
+                className="activity-header"
+                id="writing-skills-survey"
+              >
+                AP Writing Skills Survey
+              </p>
+              <a
+                className="quill-button medium primary outlined view-button focus-on-light"
+                href="/assign/featured-activity-packs/193?college-board=ap"
+                rel="noopener noreferrer"
+                target=""
+              >
+                View
+              </a>
+            </div>
+            <div
+              className="activity-text-container"
+            >
+              <p
+                className="activity-sub-text"
+              >
+                Students complete a 17 item survey to gauge their understanding of key writing skills that are essential to successful AP- and SAT-level writing. After students complete the survey, Quill will automatically recommend up to seven activity packs for each student based on their needs. Each pack contains a series of activities that each take about 15 minutes to complete and provide scaffolded, sequenced practice with one of the skills covered by the survey.
+              </p>
+              <p
+                className="activity-sub-header"
+              >
+                Skills
+              </p>
+              <p
+                className="activity-sub-text"
+              >
+                Complex Sentences; relative clauses; appositive phrases; participial phrases; parallel structure; compound-complex sentences; advanced combining
+              </p>
+            </div>
           </div>
         </VisibilitySensor>
-        <div
-          className="activity-container"
-        >
-          <div
-            className="activity-header-container"
-          >
-            <p
-              className="activity-header"
-              id="writing-skills-survey"
-            >
-              AP Writing Skills Survey
-            </p>
-            <a
-              className="quill-button medium primary outlined view-button focus-on-light"
-              href="/assign/featured-activity-packs/193?college-board=ap"
-              rel="noopener noreferrer"
-              target=""
-            >
-              View
-            </a>
-          </div>
-          <div
-            className="activity-text-container"
-          >
-            <p
-              className="activity-sub-text"
-            >
-              Students complete a 17 item survey to gauge their understanding of key writing skills that are essential to successful AP- and SAT-level writing. After students complete the survey, Quill will automatically recommend up to seven activity packs for each student based on their needs. Each pack contains a series of activities that each take about 15 minutes to complete and provide scaffolded, sequenced practice with one of the skills covered by the survey.
-            </p>
-            <p
-              className="activity-sub-header"
-            >
-              Skills
-            </p>
-            <p
-              className="activity-sub-text"
-            >
-              Complex Sentences; relative clauses; appositive phrases; participial phrases; parallel structure; compound-complex sentences; advanced combining
-            </p>
-          </div>
-        </div>
         <div
           className="activities-subheader"
           id="ell-subheader"

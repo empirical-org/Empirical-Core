@@ -2,7 +2,7 @@ import * as React from 'react'
 import VisibilitySensor from 'react-visibility-sensor';
 
 import ScrollBox from './scrollBox';
-import { WRITING_SKILLS_SURVEYS, FEEDBACK_AND_REPORTS, PASSAGE_ALIGNED_ACTIVITIES, ALIGNED_TO_PREAP, MESSAGE_FROM_COLLEGE_BOARD, QUESTIONS_AND_ANSWERS } from './collegeBoardConstants';
+import { WRITING_SKILLS_SURVEYS, FEEDBACK_AND_REPORTS, PASSAGE_ALIGNED_ACTIVITIES, ALIGNED_TO_PREAP, MESSAGE_FROM_COLLEGE_BOARD, QUESTIONS_AND_ANSWERS, TOP_SECTION } from './collegeBoardConstants';
 
 import ExpandableUnitSection from '../shared/expandableUnit'
 import QuestionsAndAnswers from '../../containers/QuestionsAndAnswers'
@@ -22,6 +22,7 @@ const PreAp = ({ units, isPartOfAssignmentFlow, }: PreApContainerProps) => {
   isPartOfAssignmentFlow && scrollToTop();
 
   const [activeSection, setActiveSection] = React.useState<string>('');
+  const [showScrollBox, setShowScrollBox] = React.useState<string>('');
   const [isScrollingFromClick, setIsScrollingFromClick] = React.useState<boolean>(false);
 
   const writingSkillsRef = React.useRef(null);
@@ -76,6 +77,11 @@ const PreAp = ({ units, isPartOfAssignmentFlow, }: PreApContainerProps) => {
     if(isVisible && !isScrollingFromClick) {
       setActiveSection(section);
     }
+    if(isVisible && section === WRITING_SKILLS_SURVEYS) {
+      setShowScrollBox('show');
+    } else if(isVisible && section === TOP_SECTION && showScrollBox === 'show') {
+      setShowScrollBox('obscure');
+    }
   }
 
   function handleSetIsScrollingFromClick(value: boolean) {
@@ -83,15 +89,18 @@ const PreAp = ({ units, isPartOfAssignmentFlow, }: PreApContainerProps) => {
   }
 
   return (<div className="college-board-container">
-    <ScrollBox activeSection={activeSection} sections={scrollSections} setActiveSection={setActiveSection} setIsScrollingFromClick={handleSetIsScrollingFromClick} />
+    <ScrollBox activeSection={activeSection} sections={scrollSections} setActiveSection={setActiveSection} setIsScrollingFromClick={handleSetIsScrollingFromClick} showScrollBox={showScrollBox} />
     <div className="section-wrapper">
       <div className="container college-board-header-container">
         <div className="header-left">
-          <div className="logo-container">
-            <img alt="College Board logo" src="https://assets.quill.org/images/college_board/college-board-logo.svg" />
-            <div className="divider" />
-            <img alt="Quill logo" src="https://assets.quill.org/images/logos/quill-logo-green.svg" />
-          </div>
+          {/* eslint-disable-next-line react/jsx-no-bind */}
+          <VisibilitySensor onChange={(isVisible) => handleChange(isVisible, TOP_SECTION)}>
+            <div className="logo-container">
+              <img alt="College Board logo" src="https://assets.quill.org/images/college_board/college-board-logo.svg" />
+              <div className="divider" />
+              <img alt="Quill logo" src="https://assets.quill.org/images/logos/quill-logo-green.svg" />
+            </div>
+          </VisibilitySensor>
           <div className="header-text-container">
             <h1>Official Pre-AP English Practice</h1>
             <p>Free Pre-AP® English writing practice aligned to the Pre-AP English High School Course Framework for the English 1 and English 2 courses with immediate feedback for students and progress reports for you.</p>
@@ -110,27 +119,27 @@ const PreAp = ({ units, isPartOfAssignmentFlow, }: PreApContainerProps) => {
             <p>Identify which sentence-level skills your students need to practice with a skills survey. Then, assign activities recommended for each student based on their responses so they can practice and improve their proficiency with those skills.</p>
           </div>
         </div>
+        <div className="activities-subheader" ref={writingSkillsRef}>
+          <h2>AP Writing Skills Surveys</h2>
+        </div>
         {/* eslint-disable-next-line react/jsx-no-bind */}
         <VisibilitySensor onChange={(isVisible) => handleChange(isVisible, WRITING_SKILLS_SURVEYS)}>
-          <div className="activities-subheader" ref={writingSkillsRef}>
-            <h2>AP Writing Skills Surveys</h2>
+          <div className="activity-container">
+            <div className="activity-header-container">
+              <div className="tags-container">
+                <p className="activity-header" id="writing-skills-survey-1">Pre-AP Writing Skills Survey 1: Basic of Sentence Patterns</p>
+                <div className="college-board-activity-tag">For Pre-AP English 1</div>
+                <div className="college-board-activity-tag">For Pre-AP English 2</div>
+              </div>
+              <a className="quill-button medium primary outlined view-button focus-on-light" href={generateLink({ isPartOfAssignmentFlow, unitTemplateId: PRE_AP_WRITINGS_SKILLS_1_UNIT_TEMPLATE_ID, slug: PRE_AP_SLUG })} rel="noopener noreferrer" target={isPartOfAssignmentFlow ? '' : "_blank"}>View</a>
+            </div>
+            <div className="activity-text-container">
+              <p className="activity-sub-text">Students complete a 12 item survey their understanding of key writing skills, fundamental grammatical elements, and compound/complex sentence constructions. After students complete the survey, Quill will automatically recommend up to five activity packs for each student based on their needs. Each pack contains four to six activities that each take about 15 minutes to complete and provide scaffolded, sequenced practice on one of the five skills addressed in the survey.</p>
+              <p className="activity-sub-header">Skills</p>
+              <p className="activity-sub-text">Subject-verb agreement; pronoun-antecedent agreement; compound subjects, objects and predicates; coordinating conjunctions in compound sentences; subordinating conjunctions</p>
+            </div>
           </div>
         </VisibilitySensor>
-        <div className="activity-container">
-          <div className="activity-header-container">
-            <div className="tags-container">
-              <p className="activity-header" id="writing-skills-survey-1">Pre-AP Writing Skills Survey 1: Basic of Sentence Patterns</p>
-              <div className="college-board-activity-tag">For Pre-AP English 1</div>
-              <div className="college-board-activity-tag">For Pre-AP English 2</div>
-            </div>
-            <a className="quill-button medium primary outlined view-button focus-on-light" href={generateLink({ isPartOfAssignmentFlow, unitTemplateId: PRE_AP_WRITINGS_SKILLS_1_UNIT_TEMPLATE_ID, slug: PRE_AP_SLUG })} rel="noopener noreferrer" target={isPartOfAssignmentFlow ? '' : "_blank"}>View</a>
-          </div>
-          <div className="activity-text-container">
-            <p className="activity-sub-text">Students complete a 12 item survey their understanding of key writing skills, fundamental grammatical elements, and compound/complex sentence constructions. After students complete the survey, Quill will automatically recommend up to five activity packs for each student based on their needs. Each pack contains four to six activities that each take about 15 minutes to complete and provide scaffolded, sequenced practice on one of the five skills addressed in the survey.</p>
-            <p className="activity-sub-header">Skills</p>
-            <p className="activity-sub-text">Subject-verb agreement; pronoun-antecedent agreement; compound subjects, objects and predicates; coordinating conjunctions in compound sentences; subordinating conjunctions</p>
-          </div>
-        </div>
         <div className="activity-container">
           <div className="activity-header-container">
             <div className="tags-container">

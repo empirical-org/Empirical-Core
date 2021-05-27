@@ -2,7 +2,7 @@
 
 exports[`ScrollBox component should render ScrollBox 1`] = `
 <div
-  className="scrollbox-container"
+  className="scrollbox-container undefined"
 >
   <section
     className="header"

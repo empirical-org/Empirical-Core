@@ -2,7 +2,7 @@ import * as React from 'react';
 import VisibilitySensor from 'react-visibility-sensor';
 
 import ScrollBox from './scrollBox';
-import { WRITING_SKILLS_SURVEYS, FEEDBACK_AND_REPORTS, MESSAGE_FROM_COLLEGE_BOARD, QUESTIONS_AND_ANSWERS } from './collegeBoardConstants';
+import { WRITING_SKILLS_SURVEYS, FEEDBACK_AND_REPORTS, MESSAGE_FROM_COLLEGE_BOARD, QUESTIONS_AND_ANSWERS, TOP_SECTION } from './collegeBoardConstants';
 
 import QuestionsAndAnswers from '../../containers/QuestionsAndAnswers';
 import {
@@ -24,6 +24,7 @@ const Ap = ({ isPartOfAssignmentFlow, }: ApContainerProps) => {
   isPartOfAssignmentFlow && scrollToTop();
 
   const [activeSection, setActiveSection] = React.useState<string>('');
+  const [showScrollBox, setShowScrollBox] = React.useState<string>('');
   const [isScrollingFromClick, setIsScrollingFromClick] = React.useState<boolean>(false);
 
   const writingSkillsRef = React.useRef(null);
@@ -54,6 +55,11 @@ const Ap = ({ isPartOfAssignmentFlow, }: ApContainerProps) => {
     if(isVisible && !isScrollingFromClick) {
       setActiveSection(section);
     }
+    if(isVisible && section === WRITING_SKILLS_SURVEYS) {
+      setShowScrollBox('show');
+    } else if(isVisible && section === TOP_SECTION && showScrollBox === 'show') {
+      setShowScrollBox('obscure');
+    }
   }
 
   function handleSetIsScrollingFromClick(value: boolean) {
@@ -61,15 +67,18 @@ const Ap = ({ isPartOfAssignmentFlow, }: ApContainerProps) => {
   }
 
   return (<div className="college-board-container">
-    <ScrollBox activeSection={activeSection} sections={scrollSections} setActiveSection={setActiveSection} setIsScrollingFromClick={handleSetIsScrollingFromClick} />
+    <ScrollBox activeSection={activeSection} sections={scrollSections} setActiveSection={setActiveSection} setIsScrollingFromClick={handleSetIsScrollingFromClick} showScrollBox={showScrollBox} />
     <div className="section-wrapper">
       <div className="container college-board-header-container">
         <div className="header-left">
-          <div className="logo-container">
-            <img alt="College Board logo" src="https://assets.quill.org/images/college_board/college-board-logo.svg" />
-            <div className="divider" />
-            <img alt="Quill logo" src="https://assets.quill.org/images/logos/quill-logo-green.svg" />
-          </div>
+          {/* eslint-disable-next-line react/jsx-no-bind */}
+          <VisibilitySensor onChange={(isVisible) => handleChange(isVisible, TOP_SECTION)}>
+            <div className="logo-container">
+              <img alt="College Board logo" src="https://assets.quill.org/images/college_board/college-board-logo.svg" />
+              <div className="divider" />
+              <img alt="Quill logo" src="https://assets.quill.org/images/logos/quill-logo-green.svg" />
+            </div>
+          </VisibilitySensor>
           <div className="header-text-container">
             <h1>Official AP Writing Practice</h1>
             <p>Free AP® writing practice with comprehensive progress reports for you and immediate feedback for students that guides them towards mastery of sentence-level skills.</p>
@@ -88,23 +97,23 @@ const Ap = ({ isPartOfAssignmentFlow, }: ApContainerProps) => {
             <p>Identify which sentence-level skills your students need to practice with a skills survey. Then, assign activities recommended for each student based on their responses so they can practice and improve their proficiency with those skills.</p>
           </div>
         </div>
+        <div className="activities-subheader" ref={writingSkillsRef}>
+          <h2>AP Writing Skills Survey</h2>
+        </div>
         {/* eslint-disable-next-line react/jsx-no-bind */}
         <VisibilitySensor onChange={(isVisible) => handleChange(isVisible, WRITING_SKILLS_SURVEYS)}>
-          <div className="activities-subheader" ref={writingSkillsRef}>
-            <h2>AP Writing Skills Survey</h2>
+          <div className="activity-container">
+            <div className="activity-header-container">
+              <p className="activity-header" id="writing-skills-survey">AP Writing Skills Survey</p>
+              <a className="quill-button medium primary outlined view-button focus-on-light" href={generateLink({ isPartOfAssignmentFlow, unitTemplateId: AP_WRITINGS_SKILLS_UNIT_TEMPLATE_ID, slug: AP_SLUG })} rel="noopener noreferrer" target={isPartOfAssignmentFlow ? '' : "_blank"}>View</a>
+            </div>
+            <div className="activity-text-container">
+              <p className="activity-sub-text">Students complete a 17 item survey to gauge their understanding of key writing skills that are essential to successful AP- and SAT-level writing. After students complete the survey, Quill will automatically recommend up to seven activity packs for each student based on their needs. Each pack contains a series of activities that each take about 15 minutes to complete and provide scaffolded, sequenced practice with one of the skills covered by the survey.</p>
+              <p className="activity-sub-header">Skills</p>
+              <p className="activity-sub-text">Complex Sentences; relative clauses; appositive phrases; participial phrases; parallel structure; compound-complex sentences; advanced combining</p>
+            </div>
           </div>
         </VisibilitySensor>
-        <div className="activity-container">
-          <div className="activity-header-container">
-            <p className="activity-header" id="writing-skills-survey">AP Writing Skills Survey</p>
-            <a className="quill-button medium primary outlined view-button focus-on-light" href={generateLink({ isPartOfAssignmentFlow, unitTemplateId: AP_WRITINGS_SKILLS_UNIT_TEMPLATE_ID, slug: AP_SLUG })} rel="noopener noreferrer" target={isPartOfAssignmentFlow ? '' : "_blank"}>View</a>
-          </div>
-          <div className="activity-text-container">
-            <p className="activity-sub-text">Students complete a 17 item survey to gauge their understanding of key writing skills that are essential to successful AP- and SAT-level writing. After students complete the survey, Quill will automatically recommend up to seven activity packs for each student based on their needs. Each pack contains a series of activities that each take about 15 minutes to complete and provide scaffolded, sequenced practice with one of the skills covered by the survey.</p>
-            <p className="activity-sub-header">Skills</p>
-            <p className="activity-sub-text">Complex Sentences; relative clauses; appositive phrases; participial phrases; parallel structure; compound-complex sentences; advanced combining</p>
-          </div>
-        </div>
         <div className="activities-subheader" id="ell-subheader">
           <h2>ELL Writing Skills Surveys</h2>
           <p>If you have ELLs in your courses, you may want to consider assigning them an ELL Skills Surveys before assigning them a writing skills survey.</p>

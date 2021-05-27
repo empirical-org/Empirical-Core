@@ -1,6 +1,7 @@
 .college-board-container {
   overflow-y:auto;
   .scrollbox-container {
+    opacity: 0;
     position: fixed;
     background-color: white;
     width: 306px;
@@ -9,6 +10,32 @@
     border-radius: 8px;
     border: solid 1px #e0e0e0;
     z-index: 1;
+    animation-fill-mode: forwards;
+    &.show {
+      animation: fadein 0.8s 1;
+      animation-fill-mode: forwards;
+      @keyframes fadein {
+        0%  {
+          opacity: 0;
+        }
+        100% {
+          opacity: 1;
+        }
+      }
+    }
+    &.obscure {
+      opacity: 1;
+      animation: fadeout 0.8s 1;
+      animation-fill-mode: forwards;
+      @keyframes fadeout {
+        0%  {
+          opacity: 1;
+        }
+        100% {
+          opacity: 0;
+        }
+      }
+    }
     .header {
       font-size: 16px;
       border-bottom: 1px solid #e0e0e0;

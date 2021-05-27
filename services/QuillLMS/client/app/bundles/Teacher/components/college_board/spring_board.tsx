@@ -2,7 +2,7 @@ import * as React from 'react';
 import VisibilitySensor from 'react-visibility-sensor';
 
 import ScrollBox from './scrollBox';
-import { WRITING_SKILLS_SURVEYS, FEEDBACK_AND_REPORTS, PASSAGE_ALIGNED_ACTIVITIES, MESSAGE_FROM_COLLEGE_BOARD, QUESTIONS_AND_ANSWERS } from './collegeBoardConstants';
+import { WRITING_SKILLS_SURVEYS, FEEDBACK_AND_REPORTS, PASSAGE_ALIGNED_ACTIVITIES, MESSAGE_FROM_COLLEGE_BOARD, QUESTIONS_AND_ANSWERS, TOP_SECTION } from './collegeBoardConstants';
 
 import ExpandableUnitSection from '../shared/expandableUnit'
 import { SPRING_BOARD_SLUG } from '../assignment_flow/assignmentFlowConstants'
@@ -22,6 +22,7 @@ const SpringBoard = ({ isPartOfAssignmentFlow, units, }: SpringBoardProps) => {
   isPartOfAssignmentFlow && scrollToTop();
 
   const [activeSection, setActiveSection] = React.useState<string>('');
+  const [showScrollBox, setShowScrollBox] = React.useState<string>('');
   const [isScrollingFromClick, setIsScrollingFromClick] = React.useState<boolean>(false);
 
   const writingSkillsRef = React.useRef(null);
@@ -72,6 +73,11 @@ const SpringBoard = ({ isPartOfAssignmentFlow, units, }: SpringBoardProps) => {
     if(isVisible && !isScrollingFromClick) {
       setActiveSection(section);
     }
+    if(isVisible && section === WRITING_SKILLS_SURVEYS) {
+      setShowScrollBox('show');
+    } else if(isVisible && section === TOP_SECTION && showScrollBox === 'show') {
+      setShowScrollBox('obscure');
+    }
   }
 
   function handleSetIsScrollingFromClick(value: boolean) {
@@ -79,15 +85,18 @@ const SpringBoard = ({ isPartOfAssignmentFlow, units, }: SpringBoardProps) => {
   }
 
   return (<div className="college-board-container">
-    <ScrollBox activeSection={activeSection} sections={scrollSections} setActiveSection={setActiveSection} setIsScrollingFromClick={handleSetIsScrollingFromClick} />
+    <ScrollBox activeSection={activeSection} sections={scrollSections} setActiveSection={setActiveSection} setIsScrollingFromClick={handleSetIsScrollingFromClick} showScrollBox={showScrollBox} />
     <div className="section-wrapper">
       <div className="container college-board-header-container">
         <div className="header-left">
-          <div className="logo-container">
-            <img alt="College Board logo" src="https://assets.quill.org/images/college_board/college-board-logo.svg" />
-            <div className="divider" />
-            <img alt="Quill logo" src="https://assets.quill.org/images/logos/quill-logo-green.svg" />
-          </div>
+          {/* eslint-disable-next-line react/jsx-no-bind */}
+          <VisibilitySensor onChange={(isVisible) => handleChange(isVisible, TOP_SECTION)}>
+            <div className="logo-container">
+              <img alt="College Board logo" src="https://assets.quill.org/images/college_board/college-board-logo.svg" />
+              <div className="divider" />
+              <img alt="Quill logo" src="https://assets.quill.org/images/logos/quill-logo-green.svg" />
+            </div>
+          </VisibilitySensor>
           <div className="header-text-container">
             <h1>Official SpringBoard Writing Practice</h1>
             <p>Free SpringBoard® English writing practice aligned to a variety of skills addressed through SpringBoard Grades 6-8, with immediate feedback for students and progress reports for you. Additional tools for SpringBoard Grades 9-10 and Grades 11-12 as well! Find out more below.</p>
@@ -106,26 +115,26 @@ const SpringBoard = ({ isPartOfAssignmentFlow, units, }: SpringBoardProps) => {
             <p>Identify which sentence-level skills your students need to practice with a skills survey. Then, assign activities recommended for each student based on their responses so they can practice and improve their proficiency with those skills.</p>
           </div>
         </div>
+        <div className="activities-subheader" ref={writingSkillsRef}>
+          <h2>Springboard Writing Skills Surveys</h2>
+        </div>
         {/* eslint-disable-next-line react/jsx-no-bind */}
         <VisibilitySensor onChange={(isVisible) => handleChange(isVisible, WRITING_SKILLS_SURVEYS)}>
-          <div className="activities-subheader" ref={writingSkillsRef}>
-            <h2>Springboard Writing Skills Surveys</h2>
+          <div className="activity-container">
+            <div className="activity-header-container">
+              <div className="activity-header-left-container">
+                <p className="activity-header springboard-sub-header" id="writing-skills-survey-1">SpringBoard Writing Skills Survey</p>
+                <div className="college-board-activity-tag">For SpringBoard 6-8</div>
+              </div>
+              <a className="quill-button medium primary outlined view-button focus-on-light" href={generateLink({isPartOfAssignmentFlow, unitTemplateId: constants.SPRING_BOARD_SKILLS_UNIT_TEMPLATE_ID, slug: constants.SPRING_BOARD_SLUG })} rel="noopener noreferrer" target={isPartOfAssignmentFlow ? '' : "_blank"}>View</a>
+            </div>
+            <div className="activity-text-container">
+              <p className="activity-sub-text">Students complete a 25 item survey to gauge their understanding of key writing skills, fundamental grammatical elements, common editing mistakes, and compound/complex sentence constructions. The skills addressed in this survey are aligned to the grammar instruction featured in the SpringBoard Language and Writer’s Craft and Language Checkpoint lesson components. </p>
+              <p className="activity-sub-header">Skills</p>
+              <p className="activity-sub-text">Subject-verb agreement; pronoun-antecedent agreement; compound subjects, objects and predicates; coordinating conjunctions in compound sentences; subordinating conjunctions; prepositional phrases; verb tense; subject and object pronouns; commonly confused words</p>
+            </div>
           </div>
         </VisibilitySensor>
-        <div className="activity-container">
-          <div className="activity-header-container">
-            <div className="activity-header-left-container">
-              <p className="activity-header springboard-sub-header" id="writing-skills-survey-1">SpringBoard Writing Skills Survey</p>
-              <div className="college-board-activity-tag">For SpringBoard 6-8</div>
-            </div>
-            <a className="quill-button medium primary outlined view-button focus-on-light" href={generateLink({isPartOfAssignmentFlow, unitTemplateId: constants.SPRING_BOARD_SKILLS_UNIT_TEMPLATE_ID, slug: constants.SPRING_BOARD_SLUG })} rel="noopener noreferrer" target={isPartOfAssignmentFlow ? '' : "_blank"}>View</a>
-          </div>
-          <div className="activity-text-container">
-            <p className="activity-sub-text">Students complete a 25 item survey to gauge their understanding of key writing skills, fundamental grammatical elements, common editing mistakes, and compound/complex sentence constructions. The skills addressed in this survey are aligned to the grammar instruction featured in the SpringBoard Language and Writer’s Craft and Language Checkpoint lesson components. </p>
-            <p className="activity-sub-header">Skills</p>
-            <p className="activity-sub-text">Subject-verb agreement; pronoun-antecedent agreement; compound subjects, objects and predicates; coordinating conjunctions in compound sentences; subordinating conjunctions; prepositional phrases; verb tense; subject and object pronouns; commonly confused words</p>
-          </div>
-        </div>
         <div className="activities-subheader">
           <h2>Pre-AP and AP Writing Skills Surveys</h2>
         </div>

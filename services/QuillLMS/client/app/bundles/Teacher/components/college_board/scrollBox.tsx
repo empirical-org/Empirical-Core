@@ -4,7 +4,7 @@ import scrollIntoView from 'smooth-scroll-into-view-if-needed'
 import { handleSetActiveSection } from '../../helpers/collegeBoard';
 import { ScrollSection } from '../../../../interfaces/collegeBoard';
 
-const ScrollBox = ({ activeSection, sections, setActiveSection, setIsScrollingFromClick }) => {
+const ScrollBox = ({ activeSection, showScrollBox, sections, setActiveSection, setIsScrollingFromClick}) => {
 
   function handleClick(ref: React.RefObject<HTMLDivElement>, title: string) {
     setIsScrollingFromClick(true);
@@ -15,7 +15,7 @@ const ScrollBox = ({ activeSection, sections, setActiveSection, setIsScrollingFr
   }
 
   return(
-    <div className="scrollbox-container">
+    <div className={`scrollbox-container ${showScrollBox}`}>
       <section className="header">Scroll to</section>
       <section className="sections-container">
         {sections.map((section: ScrollSection) => {

@@ -1725,9 +1725,10 @@ exports[`SpringBoard component should render when it is not part of the assignme
       }
       setActiveSection={[Function]}
       setIsScrollingFromClick={[Function]}
+      showScrollBox=""
     >
       <div
-        className="scrollbox-container"
+        className="scrollbox-container "
       >
         <section
           className="header"
@@ -1863,21 +1864,39 @@ exports[`SpringBoard component should render when it is not part of the assignme
         <div
           className="header-left"
         >
-          <div
-            className="logo-container"
+          <VisibilitySensor
+            active={true}
+            containment={null}
+            delayedCall={false}
+            intervalCheck={true}
+            intervalDelay={100}
+            minTopValue={0}
+            offset={Object {}}
+            onChange={[Function]}
+            partialVisibility={false}
+            resizeCheck={false}
+            resizeDelay={250}
+            resizeThrottle={-1}
+            scrollCheck={false}
+            scrollDelay={250}
+            scrollThrottle={-1}
           >
-            <img
-              alt="College Board logo"
-              src="https://assets.quill.org/images/college_board/college-board-logo.svg"
-            />
             <div
-              className="divider"
-            />
-            <img
-              alt="Quill logo"
-              src="https://assets.quill.org/images/logos/quill-logo-green.svg"
-            />
-          </div>
+              className="logo-container"
+            >
+              <img
+                alt="College Board logo"
+                src="https://assets.quill.org/images/college_board/college-board-logo.svg"
+              />
+              <div
+                className="divider"
+              />
+              <img
+                alt="Quill logo"
+                src="https://assets.quill.org/images/logos/quill-logo-green.svg"
+              />
+            </div>
+          </VisibilitySensor>
           <div
             className="header-text-container"
           >
@@ -1927,6 +1946,13 @@ exports[`SpringBoard component should render when it is not part of the assignme
             </p>
           </div>
         </div>
+        <div
+          className="activities-subheader"
+        >
+          <h2>
+            Springboard Writing Skills Surveys
+          </h2>
+        </div>
         <VisibilitySensor
           active={true}
           containment={null}
@@ -1945,63 +1971,56 @@ exports[`SpringBoard component should render when it is not part of the assignme
           scrollThrottle={-1}
         >
           <div
-            className="activities-subheader"
-          >
-            <h2>
-              Springboard Writing Skills Surveys
-            </h2>
-          </div>
-        </VisibilitySensor>
-        <div
-          className="activity-container"
-        >
-          <div
-            className="activity-header-container"
+            className="activity-container"
           >
             <div
-              className="activity-header-left-container"
+              className="activity-header-container"
+            >
+              <div
+                className="activity-header-left-container"
+              >
+                <p
+                  className="activity-header springboard-sub-header"
+                  id="writing-skills-survey-1"
+                >
+                  SpringBoard Writing Skills Survey
+                </p>
+                <div
+                  className="college-board-activity-tag"
+                >
+                  For SpringBoard 6-8
+                </div>
+              </div>
+              <a
+                className="quill-button medium primary outlined view-button focus-on-light"
+                href="/activities/packs/253"
+                rel="noopener noreferrer"
+                target="_blank"
+              >
+                View
+              </a>
+            </div>
+            <div
+              className="activity-text-container"
             >
               <p
-                className="activity-header springboard-sub-header"
-                id="writing-skills-survey-1"
+                className="activity-sub-text"
               >
-                SpringBoard Writing Skills Survey
+                Students complete a 25 item survey to gauge their understanding of key writing skills, fundamental grammatical elements, common editing mistakes, and compound/complex sentence constructions. The skills addressed in this survey are aligned to the grammar instruction featured in the SpringBoard Language and Writer’s Craft and Language Checkpoint lesson components. 
               </p>
-              <div
-                className="college-board-activity-tag"
+              <p
+                className="activity-sub-header"
               >
-                For SpringBoard 6-8
-              </div>
+                Skills
+              </p>
+              <p
+                className="activity-sub-text"
+              >
+                Subject-verb agreement; pronoun-antecedent agreement; compound subjects, objects and predicates; coordinating conjunctions in compound sentences; subordinating conjunctions; prepositional phrases; verb tense; subject and object pronouns; commonly confused words
+              </p>
             </div>
-            <a
-              className="quill-button medium primary outlined view-button focus-on-light"
-              href="/activities/packs/253"
-              rel="noopener noreferrer"
-              target="_blank"
-            >
-              View
-            </a>
           </div>
-          <div
-            className="activity-text-container"
-          >
-            <p
-              className="activity-sub-text"
-            >
-              Students complete a 25 item survey to gauge their understanding of key writing skills, fundamental grammatical elements, common editing mistakes, and compound/complex sentence constructions. The skills addressed in this survey are aligned to the grammar instruction featured in the SpringBoard Language and Writer’s Craft and Language Checkpoint lesson components. 
-            </p>
-            <p
-              className="activity-sub-header"
-            >
-              Skills
-            </p>
-            <p
-              className="activity-sub-text"
-            >
-              Subject-verb agreement; pronoun-antecedent agreement; compound subjects, objects and predicates; coordinating conjunctions in compound sentences; subordinating conjunctions; prepositional phrases; verb tense; subject and object pronouns; commonly confused words
-            </p>
-          </div>
-        </div>
+        </VisibilitySensor>
         <div
           className="activities-subheader"
         >
@@ -6280,9 +6299,10 @@ exports[`SpringBoard component should render when it is part of the assignment f
       }
       setActiveSection={[Function]}
       setIsScrollingFromClick={[Function]}
+      showScrollBox=""
     >
       <div
-        className="scrollbox-container"
+        className="scrollbox-container "
       >
         <section
           className="header"
@@ -6418,21 +6438,39 @@ exports[`SpringBoard component should render when it is part of the assignment f
         <div
           className="header-left"
         >
-          <div
-            className="logo-container"
+          <VisibilitySensor
+            active={true}
+            containment={null}
+            delayedCall={false}
+            intervalCheck={true}
+            intervalDelay={100}
+            minTopValue={0}
+            offset={Object {}}
+            onChange={[Function]}
+            partialVisibility={false}
+            resizeCheck={false}
+            resizeDelay={250}
+            resizeThrottle={-1}
+            scrollCheck={false}
+            scrollDelay={250}
+            scrollThrottle={-1}
           >
-            <img
-              alt="College Board logo"
-              src="https://assets.quill.org/images/college_board/college-board-logo.svg"
-            />
             <div
-              className="divider"
-            />
-            <img
-              alt="Quill logo"
-              src="https://assets.quill.org/images/logos/quill-logo-green.svg"
-            />
-          </div>
+              className="logo-container"
+            >
+              <img
+                alt="College Board logo"
+                src="https://assets.quill.org/images/college_board/college-board-logo.svg"
+              />
+              <div
+                className="divider"
+              />
+              <img
+                alt="Quill logo"
+                src="https://assets.quill.org/images/logos/quill-logo-green.svg"
+              />
+            </div>
+          </VisibilitySensor>
           <div
             className="header-text-container"
           >
@@ -6474,6 +6512,13 @@ exports[`SpringBoard component should render when it is part of the assignment f
             </p>
           </div>
         </div>
+        <div
+          className="activities-subheader"
+        >
+          <h2>
+            Springboard Writing Skills Surveys
+          </h2>
+        </div>
         <VisibilitySensor
           active={true}
           containment={null}
@@ -6492,63 +6537,56 @@ exports[`SpringBoard component should render when it is part of the assignment f
           scrollThrottle={-1}
         >
           <div
-            className="activities-subheader"
-          >
-            <h2>
-              Springboard Writing Skills Surveys
-            </h2>
-          </div>
-        </VisibilitySensor>
-        <div
-          className="activity-container"
-        >
-          <div
-            className="activity-header-container"
+            className="activity-container"
           >
             <div
-              className="activity-header-left-container"
+              className="activity-header-container"
+            >
+              <div
+                className="activity-header-left-container"
+              >
+                <p
+                  className="activity-header springboard-sub-header"
+                  id="writing-skills-survey-1"
+                >
+                  SpringBoard Writing Skills Survey
+                </p>
+                <div
+                  className="college-board-activity-tag"
+                >
+                  For SpringBoard 6-8
+                </div>
+              </div>
+              <a
+                className="quill-button medium primary outlined view-button focus-on-light"
+                href="/assign/featured-activity-packs/253?college-board=springboard"
+                rel="noopener noreferrer"
+                target=""
+              >
+                View
+              </a>
+            </div>
+            <div
+              className="activity-text-container"
             >
               <p
-                className="activity-header springboard-sub-header"
-                id="writing-skills-survey-1"
+                className="activity-sub-text"
               >
-                SpringBoard Writing Skills Survey
+                Students complete a 25 item survey to gauge their understanding of key writing skills, fundamental grammatical elements, common editing mistakes, and compound/complex sentence constructions. The skills addressed in this survey are aligned to the grammar instruction featured in the SpringBoard Language and Writer’s Craft and Language Checkpoint lesson components. 
               </p>
-              <div
-                className="college-board-activity-tag"
+              <p
+                className="activity-sub-header"
               >
-                For SpringBoard 6-8
-              </div>
+                Skills
+              </p>
+              <p
+                className="activity-sub-text"
+              >
+                Subject-verb agreement; pronoun-antecedent agreement; compound subjects, objects and predicates; coordinating conjunctions in compound sentences; subordinating conjunctions; prepositional phrases; verb tense; subject and object pronouns; commonly confused words
+              </p>
             </div>
-            <a
-              className="quill-button medium primary outlined view-button focus-on-light"
-              href="/assign/featured-activity-packs/253?college-board=springboard"
-              rel="noopener noreferrer"
-              target=""
-            >
-              View
-            </a>
           </div>
-          <div
-            className="activity-text-container"
-          >
-            <p
-              className="activity-sub-text"
-            >
-              Students complete a 25 item survey to gauge their understanding of key writing skills, fundamental grammatical elements, common editing mistakes, and compound/complex sentence constructions. The skills addressed in this survey are aligned to the grammar instruction featured in the SpringBoard Language and Writer’s Craft and Language Checkpoint lesson components. 
-            </p>
-            <p
-              className="activity-sub-header"
-            >
-              Skills
-            </p>
-            <p
-              className="activity-sub-text"
-            >
-              Subject-verb agreement; pronoun-antecedent agreement; compound subjects, objects and predicates; coordinating conjunctions in compound sentences; subordinating conjunctions; prepositional phrases; verb tense; subject and object pronouns; commonly confused words
-            </p>
-          </div>
-        </div>
+        </VisibilitySensor>
         <div
           className="activities-subheader"
         >
