@@ -55,9 +55,7 @@ const Ap = ({ isPartOfAssignmentFlow, }: ApContainerProps) => {
     if(isVisible && !isScrollingFromClick) {
       setActiveSection(section);
     }
-    if(isVisible && section === WRITING_SKILLS_SURVEYS) {
-      setShowScrollBox('show');
-    } else if(isVisible && section === TOP_SECTION && showScrollBox === 'show') {
+    if(isVisible && section === TOP_SECTION && showScrollBox === 'show') {
       setShowScrollBox('obscure');
     }
   }
@@ -66,8 +64,14 @@ const Ap = ({ isPartOfAssignmentFlow, }: ApContainerProps) => {
     setIsScrollingFromClick(value);
   }
 
-  return (<div className="college-board-container">
-    <ScrollBox activeSection={activeSection} sections={scrollSections} setActiveSection={setActiveSection} setIsScrollingFromClick={handleSetIsScrollingFromClick} showScrollBox={showScrollBox} />
+  function handleScroll() {
+    if(showScrollBox !== 'show')  {
+      setShowScrollBox('show');
+    }
+  }
+
+  {/* eslint-disable-next-line react/jsx-no-bind */}
+  return (<div className="college-board-container" onScroll={() => handleScroll()}>
     <div className="section-wrapper">
       <div className="container college-board-header-container">
         <div className="header-left">
@@ -88,6 +92,7 @@ const Ap = ({ isPartOfAssignmentFlow, }: ApContainerProps) => {
         <img alt="Photograph of a teacher talking to a classroom of high school students" src="https://assets.quill.org/images/college_board/teaching-english-practice.png" />
       </div>
     </div>
+    <ScrollBox activeSection={activeSection} sections={scrollSections} setActiveSection={setActiveSection} setIsScrollingFromClick={handleSetIsScrollingFromClick} showScrollBox={showScrollBox} />
     <div className="white-section-wrapper">
       <div className="container college-board-activities-section">
         <div className="header">

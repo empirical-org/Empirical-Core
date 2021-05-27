@@ -88,8 +88,14 @@ const PreAp = ({ units, isPartOfAssignmentFlow, }: PreApContainerProps) => {
     setIsScrollingFromClick(value);
   }
 
-  return (<div className="college-board-container">
-    <ScrollBox activeSection={activeSection} sections={scrollSections} setActiveSection={setActiveSection} setIsScrollingFromClick={handleSetIsScrollingFromClick} showScrollBox={showScrollBox} />
+  function handleScroll() {
+    if(showScrollBox !== 'show')  {
+      setShowScrollBox('show');
+    }
+  }
+
+  {/* eslint-disable-next-line react/jsx-no-bind */}
+  return (<div className="college-board-container" onScroll={() => handleScroll()}>
     <div className="section-wrapper">
       <div className="container college-board-header-container">
         <div className="header-left">
@@ -110,6 +116,7 @@ const PreAp = ({ units, isPartOfAssignmentFlow, }: PreApContainerProps) => {
         <img alt="Photograph of a teacher talking to a classroom of high school students" src="https://assets.quill.org/images/college_board/teaching-english-practice-2.png" />
       </div>
     </div>
+    <ScrollBox activeSection={activeSection} sections={scrollSections} setActiveSection={setActiveSection} setIsScrollingFromClick={handleSetIsScrollingFromClick} showScrollBox={showScrollBox} />
     <div className="white-section-wrapper">
       <div className="container college-board-activities-section">
         <div className="header">

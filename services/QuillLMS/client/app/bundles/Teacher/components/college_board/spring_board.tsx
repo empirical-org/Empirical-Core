@@ -84,8 +84,14 @@ const SpringBoard = ({ isPartOfAssignmentFlow, units, }: SpringBoardProps) => {
     setIsScrollingFromClick(value);
   }
 
-  return (<div className="college-board-container">
-    <ScrollBox activeSection={activeSection} sections={scrollSections} setActiveSection={setActiveSection} setIsScrollingFromClick={handleSetIsScrollingFromClick} showScrollBox={showScrollBox} />
+  function handleScroll() {
+    if(showScrollBox !== 'show')  {
+      setShowScrollBox('show');
+    }
+  }
+
+  {/* eslint-disable-next-line react/jsx-no-bind */}
+  return (<div className="college-board-container" onScroll={() => handleScroll()}>
     <div className="section-wrapper">
       <div className="container college-board-header-container">
         <div className="header-left">
@@ -106,6 +112,7 @@ const SpringBoard = ({ isPartOfAssignmentFlow, units, }: SpringBoardProps) => {
         <img alt="Photograph of a student standing next to some lockers" src="https://assets.quill.org/images/college_board/student-near-lockers.png" />
       </div>
     </div>
+    <ScrollBox activeSection={activeSection} sections={scrollSections} setActiveSection={setActiveSection} setIsScrollingFromClick={handleSetIsScrollingFromClick} showScrollBox={showScrollBox} />
     <div className="white-section-wrapper">
       <div className="container college-board-activities-section">
         <div className="header">
