@@ -26,6 +26,16 @@ module Comprehension
       ))
     end
 
+    def is_entry_failing?(entry)
+      # for "incorrect" type regex rules, we want to "fail" if they have the regex. for "required" type regex
+      # rules, we want to "fail" when they dont have the regex.
+      sequence_type == TYPE_INCORRECT ? regex_match(entry) : !regex_match(entry)
+    end
+
+    private def regex_match(entry)
+      case_sensitive? ? Regexp.new(regex_text).match(entry) : Regexp.new(regex_text, Regexp::IGNORECASE).match(entry)
+    end
+
     private def set_default_case_sensitivity
       return if case_sensitive.in? CASE_SENSITIVE_ALLOWED_VALUES
       self.case_sensitive = DEFAULT_CASE_SENSITIVITY

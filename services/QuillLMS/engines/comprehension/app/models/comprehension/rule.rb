@@ -68,19 +68,12 @@ module Comprehension
 
     def regex_is_passing?(entry)
       regex_rules.none? do |regex_rule|
-        regex_match = match_with_case_sensitive(regex_rule.regex_text, regex_rule.case_sensitive, entry)
-        # for "incorrect" type regex rules, we want to "fail" if they have the regex. for "required" type regex
-        # rules, we want to "fail" when they dont have the regex.
-        regex_rule.sequence_type == RegexRule::TYPE_INCORRECT ? regex_match : !regex_match
+        regex_rule.is_entry_failing?(entry)
       end
     end
 
     def display_name
       DISPLAY_NAMES[rule_type.to_sym] || rule_type
-    end
-
-    private def match_with_case_sensitive(regex, is_case_sensitive=false, text)
-      is_case_sensitive ? Regexp.new(regex).match(text) : Regexp.new(regex, Regexp::IGNORECASE).match(text)
     end
 
     private def plagiarism?
