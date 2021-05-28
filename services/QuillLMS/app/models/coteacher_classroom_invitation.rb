@@ -32,16 +32,19 @@ class CoteacherClassroomInvitation < ActiveRecord::Base
   end
 
   private def prevent_saving_if_classrooms_teacher_association_exists
-    classrooms_teachers = ActiveRecord::Base.connection.execute("
-      SELECT 1
-      FROM invitations
-      JOIN users
-        ON invitations.invitee_email = users.email
-      JOIN classrooms_teachers
-        ON classrooms_teachers.classroom_id = #{classroom_id}
-        AND classrooms_teachers.user_id = users.id
-      WHERE invitations.id = #{invitation_id};
-    ").to_a
+    classrooms_teachers = RawSqlRunner.execute(
+      <<-SQL
+        SELECT 1
+        FROM invitations
+        JOIN users
+          ON invitations.invitee_email = users.email
+        JOIN classrooms_teachers
+          ON classrooms_teachers.classroom_id = #{classroom_id}
+          AND classrooms_teachers.user_id = users.id
+        WHERE invitations.id = #{invitation_id};
+      SQL
+    ).to_a
+
     return false if classrooms_teachers.any?
   end
 
