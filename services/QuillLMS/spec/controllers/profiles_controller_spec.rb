@@ -72,18 +72,19 @@ describe ProfilesController, type: :controller do
         student = create(:student_in_two_classrooms_with_many_activities)
         session[:user_id] = student.id
         get :students_classrooms_json
+
         student_classrooms = []
         student.classrooms.each do |classroom|
           student_classrooms << {
-            name: classroom.name,
-            teacher: classroom.owner.name,
-            id: classroom.id
+            'name' => classroom.name,
+            'teacher' => classroom.owner.name,
+            'id' => classroom.id
           }
         end
-        expected_response = JSON.parse(response.body)['classrooms']
-        sql_response = sanitize_hash_array_for_comparison_with_sql(student_classrooms)
-        expected_response.each do |response|
-          expect(sql_response).to include(response)
+
+        actual_responses = JSON.parse(response.body)['classrooms']
+        student_classrooms.each do |student_classroom|
+          expect(actual_responses).to include(student_classroom)
         end
       end
     end

@@ -214,7 +214,7 @@ RSpec.describe FeedbackHistory, type: :model do
     end
   end
 
-  context 'after_create' do
+  context 'after_commit, on: :create' do
     before(:each) do
       @feedback_history = build(:feedback_history)
     end
@@ -473,6 +473,7 @@ RSpec.describe FeedbackHistory, type: :model do
         expect(payload[:prompts][:so][:attempts][3][0][:most_recent_rating]).to eq(@first_session_feedback6.most_recent_rating)
       end
     end
+
     context '#most_recent_rating' do
       setup do
         @prompt = Comprehension::Prompt.create(text: 'Test text')
