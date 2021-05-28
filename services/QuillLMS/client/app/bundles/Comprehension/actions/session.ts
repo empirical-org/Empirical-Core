@@ -22,6 +22,7 @@ interface CompleteActivitySessionArguments {
   percentage: number,
   conceptResults: any[],
   timeTracking: { [key: number]: number },
+  activityId: number,
   callback: Function
 }
 
@@ -40,7 +41,7 @@ interface SaveActiveActivitySessionArguments {
   callback: Function
 }
 
-export const completeActivitySession = (sessionID, percentage, conceptResults, data, callback) => {
+export const completeActivitySession = (sessionID, activityId, percentage, conceptResults, data, callback) => {
   return (dispatch: Function) => {
     const activitySessionUrl = `${process.env.DEFAULT_URL}/api/v1/activity_sessions/${sessionID}`
     const requestObject = {
@@ -49,6 +50,7 @@ export const completeActivitySession = (sessionID, percentage, conceptResults, d
         state: 'finished',
         percentage,
         concept_results: conceptResults,
+        activity_id: activityId,
         data
       },
       json: true,

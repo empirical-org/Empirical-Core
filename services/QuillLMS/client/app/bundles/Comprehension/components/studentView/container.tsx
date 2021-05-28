@@ -163,14 +163,14 @@ export class StudentViewContainer extends React.Component<StudentViewContainerPr
     const percentage = calculatePercentage(submittedResponses)
     const conceptResults = generateConceptResults(currentActivity, submittedResponses)
     const data = {
-      time_tracking: {
+      time_tracking: JSON.stringify({
         reading: timeTracking[READ_PASSAGE_STEP],
         because: timeTracking[2],
         but: timeTracking[3],
         so: timeTracking[4],
-      }
+      })
     }
-    dispatch(completeActivitySession(sessionID, percentage, conceptResults, data, handleFinishActivity))
+    dispatch(completeActivitySession(sessionID, currentActivity.parent_activity_id, percentage, conceptResults, data, handleFinishActivity))
   }
 
   onMobile = () => window.innerWidth < 1100
