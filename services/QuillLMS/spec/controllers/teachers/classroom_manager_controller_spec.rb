@@ -249,7 +249,7 @@ describe Teachers::ClassroomManagerController, type: :controller do
 
     before do
       allow(controller).to receive(:current_user) { teacher }
-      allow(ActiveRecord::Base.connection).to receive(:execute).and_return([classroom, classroom1])
+      allow(RawSqlRunner).to receive(:execute).and_return([classroom, classroom1])
       allow(controller).to receive(:classroom_teacher!) { true }
     end
 
@@ -344,7 +344,7 @@ describe Teachers::ClassroomManagerController, type: :controller do
             }
           ])
         end
-        
+
       end
 
     end

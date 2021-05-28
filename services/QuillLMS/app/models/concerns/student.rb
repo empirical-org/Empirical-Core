@@ -24,14 +24,21 @@ module Student
     protected :classroom_unit_score_join
 
     def student_average_score
-      avg_str = ActiveRecord::Base.connection.execute(
-       "select avg(percentage) from activity_sessions
-        join users on activity_sessions.user_id = users.id
-        join activities on activity_sessions.activity_id = activities.id
-        where activities.activity_classification_id != 6
-        and activities.activity_classification_id != 4
-        and users.id = #{id}").to_a[0]['avg']
-      (avg_str.to_f * 100).to_i
+      avg = RawSqlRunner.execute(
+        <<-SQL
+          SELECT AVG(percentage)
+          FROM activity_sessions
+          JOIN users
+            ON activity_sessions.user_id = users.id
+          JOIN activities
+            ON activity_sessions.activity_id = activities.id
+          WHERE activities.activity_classification_id != 6
+            AND activities.activity_classification_id != 4
+            AND users.id = #{id}
+        SQL
+      ).to_a.first['avg']
+
+      (avg * 100).to_i
     end
 
     def move_student_from_one_class_to_another(old_classroom, new_classroom)
