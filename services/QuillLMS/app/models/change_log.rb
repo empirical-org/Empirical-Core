@@ -87,7 +87,8 @@ class ChangeLog < ActiveRecord::Base
     update_highlight_2: 'Semantic Label Second Layer Feedback Highlight - added',
     create_plagiarism: 'Plagiarism - created',
     update_plagiarism: 'Plagiarism - updated',
-    update_universal: 'Universal Rule - updated'
+    update_universal: 'Universal Rule - updated',
+    create_universal: 'Universal Rule - created'
   }
   CHANGED_RECORD_TYPES = [
     'Concept',

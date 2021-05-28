@@ -29,8 +29,11 @@ module Comprehension
 
     after_create :assign_to_all_prompts, if: :universal
     after_create :log_regex_creation, if: :regex?
+    after_create :log_universal_creation, if: :universal?
     after_create :log_plagiarism_creation, if: :plagiarism?
     after_update :log_regex_update, if: :regex?
+    after_update :log_plagiarism_update, if: :plagiarism?
+    after_update :log_universal_update, if: :universal?
     after_destroy :log_regex_deletion, if: :regex?
     before_validation :assign_uid_if_missing
     validate :one_plagiarism_per_prompt, on: :create, if: :plagiarism?
@@ -92,6 +95,10 @@ module Comprehension
       rule_type == TYPE_REGEX_ONE || rule_type == TYPE_REGEX_TWO || rule_type == TYPE_REGEX_THREE
     end
 
+    private def universal?
+      universal
+    end
+
     private def assign_uid_if_missing
       self.uid ||= SecureRandom.uuid
     end
@@ -117,6 +124,12 @@ module Comprehension
       end
     end
 
+    private def log_universal_creation
+      prompts&.each do |prompt|
+        log_change(:create_universal, prompt, nil, nil, nil, "#{name} - #{rule_type}")
+      end
+    end
+
     private def log_plagiarism_creation
       prompts&.each do |prompt|
         log_change(:create_plagiarism, prompt, nil, nil, nil, change_text_plagiarism)
@@ -126,6 +139,18 @@ module Comprehension
     private def log_regex_update
       prompts&.each do |prompt|
         log_change(:update_regex, prompt, nil, nil, change_text_regex(filtered_changes.transform_values {|v| v[0]}), change_text_regex(filtered_changes.transform_values {|v| v[1]}))
+      end
+    end
+
+    private def log_plagiarism_update
+      prompts&.each do |prompt|
+        log_change(:update_plagiarism, prompt, nil, nil, change_text_plagiarism(filtered_changes.transform_values {|v| v[0]}), change_text_regex(filtered_changes.transform_values {|v| v[1]}))
+      end
+    end
+
+    private def log_universal_update
+      prompts&.each do |prompt|
+        log_change(:update_universal, prompt, nil, nil, "#{name} - #{rule_type}\n#{filtered_changes.transform_values {|v| v[0]}}", "#{name} - #{rule_type}\n#{filtered_changes.transform_values {|v| v[1]}}")
       end
     end
 
@@ -143,8 +168,8 @@ module Comprehension
       values.present? ? "#{name} | #{display_name}\n#{values}" : "#{name} | #{display_name}"
     end
 
-    private def change_text_plagiarism
-      "#{name} - #{plagiarism_text.text} - #{feedback.text}"
+    private def change_text_plagiarism(values=nil)
+      values.present? ? "#{name} - #{plagiarism_text.text} - #{feedbacks.first.text}\n#{values}" : "#{name} - #{plagiarism_text.text} - #{feedbacks.first.text}"
     end
   end
 end
