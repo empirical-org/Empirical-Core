@@ -47,7 +47,7 @@ class FeedbackHistory < ActiveRecord::Base
     OPINION = "opinion"
   ]
 
-  after_create { SetFeedbackHistoryFlagsWorker.perform_async(id) }
+  after_commit :initiate_flag_worker, on: :create
   before_create :anonymize_session_uid
   before_validation :confirm_prompt_type, on: :create
 
@@ -126,6 +126,10 @@ class FeedbackHistory < ActiveRecord::Base
     histories_from_same_session.where(rule_uid: rule_uid)
       .where(attempt: attempt - 1)
       .count > 0
+  end
+
+  private def initiate_flag_worker
+    SetFeedbackHistoryFlagsWorker.perform_async(id)
   end
 
   private def histories_from_same_session

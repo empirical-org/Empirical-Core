@@ -169,27 +169,37 @@ class Cms::UsersController < Cms::CmsController
     # NOTE: IF YOU CHANGE THIS QUERY'S CONDITIONS, PLEASE BE SURE TO
     # ADJUST THE PAGINATION QUERY STRING AS WELL.
     #
-    ActiveRecord::Base.connection.execute("
-      SELECT DISTINCT
-      	users.name AS name,
-      	users.email AS email,
-      	users.role AS role,
-      	subscriptions.account_type AS subscription,
-      	TO_CHAR(users.last_sign_in, 'Mon DD, YYYY') AS last_sign_in,
-        schools.name AS school,
-        schools.id AS school_id,
-      	users.id AS id
-      FROM users
-      LEFT JOIN schools_users ON users.id = schools_users.user_id
-      LEFT JOIN schools ON schools_users.school_id = schools.id
-      LEFT JOIN user_subscriptions ON users.id = user_subscriptions.user_id
-      AND user_subscriptions.created_at = (SELECT MAX(user_subscriptions.created_at) FROM user_subscriptions WHERE user_subscriptions.user_id = users.id)
-      LEFT JOIN subscriptions ON user_subscriptions.subscription_id = subscriptions.id
-      #{where_query_string_builder}
-      #{class_code_string_builder}
-      #{order_by_query_string}
-      #{pagination_query_string}
-    ").to_a
+    RawSqlRunner.execute(
+      <<-SQL
+        SELECT DISTINCT
+          users.name AS name,
+          users.email AS email,
+          users.role AS role,
+          subscriptions.account_type AS subscription,
+          TO_CHAR(users.last_sign_in, 'Mon DD, YYYY') AS last_sign_in,
+          schools.name AS school,
+          schools.id AS school_id,
+          users.id AS id
+        FROM users
+        LEFT JOIN schools_users
+          ON users.id = schools_users.user_id
+        LEFT JOIN schools
+          ON schools_users.school_id = schools.id
+        LEFT JOIN user_subscriptions
+          ON users.id = user_subscriptions.user_id
+          AND user_subscriptions.created_at = (
+            SELECT MAX(user_subscriptions.created_at)
+            FROM user_subscriptions
+            WHERE user_subscriptions.user_id = users.id
+          )
+        LEFT JOIN subscriptions
+          ON user_subscriptions.subscription_id = subscriptions.id
+        #{where_query_string_builder}
+        #{class_code_string_builder}
+        #{order_by_query_string}
+        #{pagination_query_string}
+      SQL
+    ).to_a
   end
 
   protected def where_query_string_builder

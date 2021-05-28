@@ -10,14 +10,12 @@ import LoadingSpinner from '../shared/loadingSpinner'
 import { getActivity } from "../../actions/activities";
 import { TrackAnalyticsEvent } from "../../actions/analytics";
 import { Events } from '../../modules/analytics'
-import {
-  completeActivitySession,
-  fetchActiveActivitySession,
-  getFeedback,
-  processUnfetchableSession,
-  saveActiveActivitySession
-} from '../../actions/session'
-import { calculatePercentage, generateConceptResults, } from '../../libs/conceptResults'
+import { completeActivitySession,
+         fetchActiveActivitySession,
+         getFeedback,
+         processUnfetchableSession,
+         saveActiveActivitySession } from '../../actions/session'
+import { generateConceptResults, } from '../../libs/conceptResults'
 import { ActivitiesReducerState } from '../../reducers/activitiesReducer'
 import { SessionReducerState } from '../../reducers/sessionReducer'
 import getParameterByName from '../../helpers/getParameterByName';
@@ -175,7 +173,7 @@ export class StudentViewContainer extends React.Component<StudentViewContainerPr
     const { activities, dispatch, session, handleFinishActivity, } = this.props
     const { sessionID, submittedResponses, } = session
     const { currentActivity, } = activities
-    const percentage = calculatePercentage(submittedResponses)
+    const percentage = null // We always set percentages to "null"
     const conceptResults = generateConceptResults(currentActivity, submittedResponses)
     const data = {
       time_tracking: JSON.stringify({

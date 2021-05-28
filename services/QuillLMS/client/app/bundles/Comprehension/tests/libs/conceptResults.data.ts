@@ -108,7 +108,7 @@ export const currentActivity = {
 
 export const expectedPayload = {
   "state":"finished",
-  "percentage":0.8333333333333334,
+  "percentage":null,
   "concept_results":[
     {
       "concept_uid": "placeholder",
