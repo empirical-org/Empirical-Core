@@ -119,14 +119,29 @@ export class StudentViewContainer extends React.Component<StudentViewContainerPr
     window.removeEventListener('visibilitychange', this.setIdle)
   }
 
-  saveSessionBeforeUnload(e) {
-    this.resetTimers(e).then(() => this.saveActiveActivitySession)
+  outOfAttemptsForActivePrompt = () => {
+    const { activeStep, } = this.state
+    const { session, } = this.props
+    const { submittedResponses, } = session
+    const activePrompt = this.orderedSteps()[activeStep - 2] // subtracting 2 because the READ_PASSAGE_STEP is 1, so the first item in the set of prompts will always be 2
+
+    if (!activePrompt) { return }
+
+    const responsesForPrompt = submittedResponses[activePrompt.id]
+
+    if (!responsesForPrompt) { return }
+
+    const lastAttempt = responsesForPrompt[responsesForPrompt.length - 1]
+
+    return (responsesForPrompt.length === activePrompt.max_attempts) || lastAttempt.optimal
   }
 
   resetTimers = (e=null) => {
     this.setState((prevState, props) => {
       const { activeStep, startTime, timeTracking, isIdle, inactivityTimer, completedSteps, } = prevState
       if (completedSteps.includes(activeStep)) { return } // don't want to add time if a user is revisiting a previously completed step
+      if (this.outOfAttemptsForActivePrompt()) { return }// or if they are finished submitting responses for the current active step
+
       if (inactivityTimer) { clearTimeout(inactivityTimer) }
 
       let elapsedTime = _.round((Date.now() - startTime) / 1000)
@@ -400,6 +415,13 @@ export class StudentViewContainer extends React.Component<StudentViewContainerPr
     })
   }
 
+  orderedSteps = () => {
+    const { activities, } = this.props
+    const { currentActivity, } = activities
+
+    return currentActivity ? currentActivity.prompts.sort((a, b) => a.conjunction.localeCompare(b.conjunction)) : [];
+  }
+
   removeSpansFromPassages = (passages) => {
     return passages.map(passage => {
       return stripHtml(passage, { onlyStripTags: ['span'] })
@@ -499,8 +521,7 @@ export class StudentViewContainer extends React.Component<StudentViewContainerPr
     if (!currentActivity || !hasReceivedData) return
 
     // sort by conjunctions in alphabetical order: because, but, so
-    const filteredSteps = currentActivity.prompts.sort((a, b) => a.conjunction.localeCompare(b.conjunction));
-    const steps =  filteredSteps.map((prompt, i) => {
+    const steps =  this.orderedSteps().map((prompt, i) => {
       // using i + 2 because the READ_PASSAGE_STEP is 1, so the first item in the set of prompts will always be 2
       const stepNumber = i + 2
       const everyOtherStepCompleted = completedSteps.filter(s => s !== stepNumber).length === 3
