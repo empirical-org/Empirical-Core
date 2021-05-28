@@ -29,6 +29,18 @@ const apiOrderLookup = {
   'rules-based-3': 8,
 }
 
+function strongTextClassName(percentage) {
+  if (percentage >= 90) { return 'green' }
+  if (percentage >= 60) { return 'orange' }
+  return 'red'
+}
+
+function weakTextClassName(percentage) {
+  if (percentage <= 10) { return 'green' }
+  if (percentage <= 40) { return 'orange' }
+  return 'red'
+}
+
 const MoreInfo = (row) => {
   return (<div className="more-info">
     <p><strong>Rule Note:</strong> <span dangerouslySetInnerHTML={{ __html: row.original.note || "N/A" }} /></p>
@@ -170,14 +182,14 @@ const RulesAnalysis: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ hist
       sortMethod: (a, b) => b.percentageTotalRepeatedConsecutiveResponses - a.percentageTotalRepeatedConsecutiveResponses,
       aggregate: (values, rows) => {
         const totalRepeatedConsecutiveResponses = _.sum(values)
-        const totalTotalResponses = _.sum(rows.map(r => r.totalResponses))
-        const percentageTotalRepeatedConsecutiveResponses = _.round(totalRepeatedConsecutiveResponses/totalTotalResponses, 3) * 100
+        const totalTotalResponses = _.sum(rows.map(r => r.totalResponses)) || 1
+        const percentageTotalRepeatedConsecutiveResponses = _.round((totalRepeatedConsecutiveResponses/totalTotalResponses) * 100, 1)
         return { totalRepeatedConsecutiveResponses, percentageTotalRepeatedConsecutiveResponses, }
       },
       Aggregated: (row) => (<span>{row.value.percentageTotalRepeatedConsecutiveResponses}% ({row.value.totalRepeatedConsecutiveResponses})</span>),
       Cell: (data) => {
         const { className, handleClick, repeatedConsecutiveResponses, totalResponses, } = data.original
-        const percentageOfRepeatedConsecutiveResponses = _.round(repeatedConsecutiveResponses/(totalResponses || 1), 3) * 100
+        const percentageOfRepeatedConsecutiveResponses = _.round((repeatedConsecutiveResponses/(totalResponses || 1)) * 100, 1)
         return (<button className={className} onClick={handleClick} type="button">{percentageOfRepeatedConsecutiveResponses}% ({repeatedConsecutiveResponses})</button>)
       },
     },
@@ -189,14 +201,14 @@ const RulesAnalysis: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ hist
       sortMethod: (a, b) => b.percentageTotalRepeatedNonConsecutiveResponses - a.percentageTotalRepeatedNonConsecutiveResponses,
       aggregate: (values, rows) => {
         const totalRepeatedNonConsecutiveResponses = _.sum(values)
-        const totalTotalResponses = _.sum(rows.map(r => r.totalResponses))
-        const percentageTotalRepeatedNonConsecutiveResponses = _.round(totalRepeatedNonConsecutiveResponses/totalTotalResponses, 3) * 100
+        const totalTotalResponses = _.sum(rows.map(r => r.totalResponses)) || 1
+        const percentageTotalRepeatedNonConsecutiveResponses = _.round((totalRepeatedNonConsecutiveResponses/totalTotalResponses) * 100, 1)
         return { totalRepeatedNonConsecutiveResponses, percentageTotalRepeatedNonConsecutiveResponses, }
       },
       Aggregated: (row) => (<span>{row.value.percentageTotalRepeatedNonConsecutiveResponses}% ({row.value.totalRepeatedNonConsecutiveResponses})</span>),
       Cell: (data) => {
         const { className, handleClick, repeatedNonConsecutiveResponses, totalResponses, } = data.original
-        const percentageOfRepeatedNonConsecutiveResponses = _.round(repeatedNonConsecutiveResponses/(totalResponses || 1), 3) * 100
+        const percentageOfRepeatedNonConsecutiveResponses = _.round((repeatedNonConsecutiveResponses/(totalResponses || 1)) * 100, 1)
         return (<button className={className} onClick={handleClick} type="button">{percentageOfRepeatedNonConsecutiveResponses}% ({repeatedNonConsecutiveResponses})</button>)
       },
     },
@@ -208,14 +220,14 @@ const RulesAnalysis: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ hist
       sortMethod: (a, b) => b.percentageTotalScoredResponses - a.percentageTotalScoredResponses,
       aggregate: (values, rows) => {
         const totalScoredResponses = _.sum(values)
-        const totalTotalResponses = _.sum(rows.map(r => r.totalResponses))
-        const percentageTotalScoredResponses = _.round(totalScoredResponses/totalTotalResponses, 3) * 100
+        const totalTotalResponses = _.sum(rows.map(r => r.totalResponses)) || 1
+        const percentageTotalScoredResponses = _.round((totalScoredResponses/totalTotalResponses) * 100, 1)
         return { totalScoredResponses, percentageTotalScoredResponses, }
       },
       Aggregated: (row) => (<span>{row.value.percentageTotalScoredResponses}% ({row.value.totalScoredResponses})</span>),
       Cell: (data) => {
         const { className, handleClick, scoredResponses, totalResponses, } = data.original
-        const percentageOfScoredResponses = _.round(scoredResponses/(totalResponses || 1), 3) * 100
+        const percentageOfScoredResponses = _.round((scoredResponses/(totalResponses || 1)) * 100, 1)
         return (<button className={className} onClick={handleClick} type="button">{percentageOfScoredResponses}% ({scoredResponses})</button>)
       },
     },
@@ -228,14 +240,14 @@ const RulesAnalysis: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ hist
       aggregate: (values, rows) => {
         const totalStrongResponses = _.sum(values)
         const totalScoredResponses = _.sum(rows.map(r => r.scoredResponses)) || 1
-        const percentageTotalStrongResponses = _.round(totalStrongResponses/totalScoredResponses, 3) * 100
+        const percentageTotalStrongResponses = _.round((totalStrongResponses/totalScoredResponses) * 100, 1)
         return { totalStrongResponses, percentageTotalStrongResponses, }
       },
-      Aggregated: (row) => (<span>{row.value.percentageTotalStrongResponses}% ({row.value.totalStrongResponses})</span>),
+      Aggregated: (row) => (<span className="gray"><span className={strongTextClassName(row.value.percentageTotalStrongResponses)}>{row.value.percentageTotalStrongResponses}%</span> ({row.value.totalStrongResponses})</span>),
       Cell: (data) => {
         const { className, handleClick, strongResponses, scoredResponses, } = data.original
-        const percentageOfStrongResponses = _.round(strongResponses/(scoredResponses || 1), 3) * 100
-        return (<button className={className} onClick={handleClick} type="button">{percentageOfStrongResponses}% ({strongResponses})</button>)
+        const percentageOfStrongResponses = _.round((strongResponses/(scoredResponses || 1)) * 100, 1)
+        return (<button className={`gray ${className}`} onClick={handleClick} type="button"><span className={strongTextClassName(percentageOfStrongResponses)}>{percentageOfStrongResponses}%</span> ({strongResponses})</button>)
       },
     },
     {
@@ -247,14 +259,14 @@ const RulesAnalysis: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ hist
       aggregate: (values, rows) => {
         const totalWeakResponses = _.sum(values)
         const totalScoredResponses = _.sum(rows.map(r => r.scoredResponses)) || 1
-        const percentageTotalWeakResponses = _.round(totalWeakResponses/totalScoredResponses, 3) * 100
+        const percentageTotalWeakResponses = _.round((totalWeakResponses/totalScoredResponses) * 100, 1)
         return { totalWeakResponses, percentageTotalWeakResponses, }
       },
-      Aggregated: (row) => (<span>{row.value.percentageTotalWeakResponses}% ({row.value.totalWeakResponses})</span>),
+      Aggregated: (row) => (<span className="gray"><span className={weakTextClassName(row.value.percentageTotalWeakResponses)}>{row.value.percentageTotalWeakResponses}%</span> ({row.value.totalWeakResponses})</span>),
       Cell: (data) => {
         const { className, handleClick, weakResponses, scoredResponses, } = data.original
-        const percentageOfWeakResponses = _.round(weakResponses/(scoredResponses || 1), 3) * 100
-        return (<button className={className} onClick={handleClick} type="button">{percentageOfWeakResponses}% ({weakResponses})</button>)
+        const percentageOfWeakResponses = _.round((weakResponses/(scoredResponses || 1)) * 100, 1)
+        return (<button className={`gray ${className}`} onClick={handleClick} type="button"><span className={weakTextClassName(percentageOfWeakResponses)}>{percentageOfWeakResponses}%</span> ({weakResponses})</button>)
       },
     },
   ];
