@@ -1,6 +1,9 @@
 module Comprehension
   class Rule < ActiveRecord::Base
+    include Comprehension::ChangeLog
+
     attr_accessor :first_feedback
+
     MAX_NAME_LENGTH = 250
     ALLOWED_BOOLEANS = [true, false]
     STATES = [
@@ -25,6 +28,10 @@ module Comprehension
     }
 
     after_create :assign_to_all_prompts, if: :universal
+    after_create :log_regex_creation, if: :regex?
+    after_create :log_plagiarism_creation, if: :plagiarism?
+    after_update :log_regex_update, if: :regex?
+    after_destroy :log_regex_deletion, if: :regex?
     before_validation :assign_uid_if_missing
     validate :one_plagiarism_per_prompt, on: :create, if: :plagiarism?
 
@@ -81,6 +88,10 @@ module Comprehension
       rule_type == TYPE_PLAGIARISM
     end
 
+    private def regex?
+      rule_type == TYPE_REGEX_ONE || rule_type == TYPE_REGEX_TWO || rule_type == TYPE_REGEX_THREE
+    end
+
     private def assign_uid_if_missing
       self.uid ||= SecureRandom.uuid
     end
@@ -98,6 +109,42 @@ module Comprehension
       prompts.each do |prompt|
         errors.add(:prompts, "prompt #{prompt.id} already has a plagiarism rule") if prompt.rules.where(rule_type: TYPE_PLAGIARISM).first&.id
       end
+    end
+
+    private def log_regex_creation
+      prompts&.each do |prompt|
+        log_change(:create_regex, prompt, nil, nil, nil, change_text_regex)
+      end
+    end
+
+    private def log_plagiarism_creation
+      prompts&.each do |prompt|
+        log_change(:create_plagiarism, prompt, nil, nil, nil, change_text_plagiarism)
+      end
+    end
+
+    private def log_regex_update
+      prompts&.each do |prompt|
+        log_change(:update_regex, prompt, nil, nil, change_text_regex(filtered_changes.transform_values {|v| v[0]}), change_text_regex(filtered_changes.transform_values {|v| v[1]}))
+      end
+    end
+
+    private def log_regex_deletion
+      prompts&.each do |prompt|
+        log_change(:delete_regex, prompt, nil, nil, change_text_regex, nil)
+      end
+    end
+
+    private def filtered_changes
+      changes.except(:updated_at)
+    end
+
+    private def change_text_regex(values=nil)
+      values.present? ? "#{name} | #{display_name}\n#{values}" : "#{name} | #{display_name}"
+    end
+
+    private def change_text_plagiarism
+      "#{name} - #{plagiarism_text.text} - #{feedback.text}"
     end
   end
 end
