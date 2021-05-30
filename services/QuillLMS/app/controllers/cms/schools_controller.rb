@@ -288,7 +288,7 @@ class Cms::SchoolsController < Cms::CmsController
   private def number_of_schools_matched
     result = RawSqlRunner.execute(
       <<-SQL
-        SELECT count(*) as count
+        SELECT COUNT(*) as count
         FROM (
           SELECT COUNT(schools.id) AS count
           FROM schools
@@ -306,7 +306,8 @@ class Cms::SchoolsController < Cms::CmsController
         ) AS subquery
       SQL
     )
-    result.to_a[0]['count']
+
+    result.to_a[0]['count'].to_i
   end
 
   private def order_by_query_string
