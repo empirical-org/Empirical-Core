@@ -185,7 +185,7 @@ class Teachers::UnitsController < ApplicationController
       @unit = Unit.find_by(id: params[:id])
       if @unit.nil?
         render json: {errors: 'Unit not found'}, status: 422
-      elsif !current_user.affiliated_with_unit(@unit.id)
+      elsif !current_user.affiliated_with_unit?(@unit.id)
         auth_failed
       end
     end

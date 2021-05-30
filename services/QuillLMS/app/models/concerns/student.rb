@@ -165,15 +165,24 @@ module Student
   end
 
   def classrooms_shared_with_other_student(other_student_id, teacher_id=nil)
-    classroom_ids = ActiveRecord::Base.connection.execute("SELECT A.classroom_id
-      FROM students_classrooms A, students_classrooms B
-      WHERE A.student_id = #{ActiveRecord::Base.sanitize(id)}
-      AND B.student_id = #{ActiveRecord::Base.sanitize(other_student_id)}
-      AND A.classroom_id = B.classroom_id").to_a
+    classroom_ids = RawSqlRunner.execute(
+      <<-SQL
+        SELECT A.classroom_id
+        FROM
+          students_classrooms A,
+          students_classrooms B
+        WHERE A.student_id = #{ActiveRecord::Base.sanitize(id)}
+          AND B.student_id = #{ActiveRecord::Base.sanitize(other_student_id)}
+          AND A.classroom_id = B.classroom_id
+      SQL
+    ).to_a
+
     if teacher_id
-      classroom_ids = classroom_ids.select { |classroom_id_hash| Classroom.find(classroom_id_hash['classroom_id']).owner.id == teacher_id}
+      classroom_ids = classroom_ids.select do |classroom_id_hash|
+        Classroom.find(classroom_id_hash['classroom_id']).owner.id == teacher_id
+      end
     end
+
     classroom_ids
   end
-
 end

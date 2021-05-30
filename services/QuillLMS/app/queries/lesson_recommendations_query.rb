@@ -27,25 +27,43 @@ class LessonRecommendationsQuery
   end
 
   private def get_activities(rec_id)
-    activities = ActiveRecord::Base.connection.execute("SELECT activities.name, activities.id
-      FROM activities
-      INNER JOIN activities_unit_templates ON activities.id = activities_unit_templates.activity_id
-      INNER JOIN activity_category_activities ON activities.id = activity_category_activities.activity_id
-      INNER JOIN activity_categories ON activity_categories.id = activity_category_activities.activity_category_id
-      WHERE activities_unit_templates.unit_template_id = #{rec_id}
-      ORDER BY activity_categories.order_number, activity_category_activities.order_number").to_a
+    activities = RawSqlRunner.execute(
+      <<-SQL
+        SELECT
+          activities.name,
+          activities.id
+        FROM activities
+        JOIN activities_unit_templates
+          ON activities.id = activities_unit_templates.activity_id
+        JOIN activity_category_activities
+          ON activities.id = activity_category_activities.activity_id
+        JOIN activity_categories
+          ON activity_categories.id = activity_category_activities.activity_category_id
+        WHERE activities_unit_templates.unit_template_id = #{rec_id}
+        ORDER BY
+          activity_categories.order_number,
+          activity_category_activities.order_number
+      SQL
+    ).to_a
+
     activities.map do |act|
       url = "/activity_sessions/anonymous?activity_id=#{act['id']}"
-      {name: act['name'], url: url}
+      { name: act['name'], url: url }
     end
   end
 
   private def previous_unit_names(classroom_id)
-    ActiveRecord::Base.connection.execute("SELECT DISTINCT unit.name FROM units unit
-    LEFT JOIN classroom_units as cu ON cu.unit_id = unit.id
-    WHERE cu.classroom_id = #{classroom_id}
-    AND cu.visible = true
-    AND unit.visible = true").to_a.map {|e| e['name']}
+    RawSqlRunner.execute(
+      <<-SQL
+        SELECT DISTINCT unit.name
+        FROM units unit
+        LEFT JOIN classroom_units AS cu
+          ON cu.unit_id = unit.id
+        WHERE cu.classroom_id = #{classroom_id}
+          AND cu.visible = true
+          AND unit.visible = true
+      SQL
+    ).to_a.map {|e| e['name']}
   end
 
   private def mark_previously_assigned(recs, classroom_id)

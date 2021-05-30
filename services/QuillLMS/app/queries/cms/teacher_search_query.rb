@@ -4,7 +4,7 @@ class Cms::TeacherSearchQuery
   end
 
   def run
-    ActiveRecord::Base.connection.execute(
+    RawSqlRunner.execute(
       <<-SQL
         SELECT
           users.name AS teacher_name,
