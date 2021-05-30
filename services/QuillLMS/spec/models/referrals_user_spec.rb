@@ -121,7 +121,7 @@ RSpec.describe ReferralsUser, type: :model do
         create(:classroom_unit_with_activity_sessions, classroom_id: classroom_id)
       end
 
-      expect(ReferralsUser.ids_due_for_activation).to eq([referrals_user.id.to_s])
+      expect(ReferralsUser.ids_due_for_activation).to eq([referrals_user.id])
     end
   end
 end
