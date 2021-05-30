@@ -137,21 +137,31 @@ class Teachers::ProgressReports::ActivitySessionsController < Teachers::Progress
         }
       end
     else
-      csv_string = CSV.generate do |csv|
-        csv << ['Student', 'Date', 'Activity', 'Score', 'Standard', 'Tool']
-        activity_sessions.map do |session|
-          score = (session['percentage'] == -1.0 ? 'Completed' : "#{session['percentage'] * 100}%")
-          csv << [
-            session['student_name'],
-            session['visual_date'],
-            session['activity_name'],
-            score,
-            session['standard'],
-            session['activity_classification_name']
-          ]
-        end
+      render text: csv_string(activity_sessions)
+    end
+  end
+
+  private def score(percentage)
+    case percentage
+    when nil then ''
+    when -1 then 'Completed'
+    else "#{percentage * 100}%"
+    end
+  end
+
+  private def csv_string(activity_sessions)
+    CSV.generate do |csv|
+      csv << ['Student', 'Date', 'Activity', 'Score', 'Standard', 'Tool']
+      activity_sessions.map do |session|
+        csv << [
+          session['student_name'],
+          session['visual_date'],
+          session['activity_name'],
+          score(session['percentage']),
+          session['standard'],
+          session['activity_classification_name']
+        ]
       end
-      render text: csv_string
     end
   end
 end
