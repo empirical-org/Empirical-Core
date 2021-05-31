@@ -82,7 +82,7 @@ export default class ClassroomActivity extends React.Component {
 
   calculateAverageScore = () => {
     const { data, } = this.props
-    const DIAGNOSTIC_ACTIVITY_CLASSIFICATION_ID = '4'
+    const DIAGNOSTIC_ACTIVITY_CLASSIFICATION_ID = 4
     const averageScore = data.cumulativeScore / data.completedCount;
     if (isNaN(averageScore)) {
       return '—';
@@ -211,7 +211,7 @@ export default class ClassroomActivity extends React.Component {
 
   lessonCompletedOrLaunch = () => {
     const { data, } = this.props
-    if (data.completed === 't') {
+    if (data.completed) {
       /* eslint-disable react/jsx-no-target-blank */
       return <a className="report-link" href={`/teachers/progress_reports/report_from_classroom_unit_and_activity/${this.classroomUnitId()}/a/${this.activityId()}`} target="_blank">View Report</a>;
       /* eslint-enable react/jsx-no-target-blank */
@@ -293,7 +293,7 @@ export default class ClassroomActivity extends React.Component {
   renderLessonsAction = () => {
     const { data, } = this.props
     if (window.location.pathname.includes('lessons')) {
-      if (data.completed === 't') {
+      if (data.completed) {
         return <p className="lesson-completed"><i className="fas fa-icon fa-check-circle" />Lesson Complete</p>;
       } else if (data.started) {
         const href = `/teachers/classroom_units/${this.classroomUnitId()}/mark_lesson_as_completed/${this.activityId()}`;

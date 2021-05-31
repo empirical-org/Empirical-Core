@@ -92,15 +92,15 @@ export default class StudentProfileUnit extends React.Component {
     const { repeatable, max_percentage, locked, marked_complete, activity_classification_id, resume_link, ca_id, activity_id, } = act
     let linkText = 'Start'
 
-    if (repeatable === 'f' && max_percentage) { return <span /> }
+    if (!repeatable && max_percentage) { return <span /> }
 
-    if (max_percentage === null && marked_complete === 't') { return <span>Missed</span> }
+    if (max_percentage === null && marked_complete) { return <span>Missed</span> }
 
-    if (locked === 't') { return <span className="needs-teacher">Needs teacher</span> }
+    if (locked) { return <span className="needs-teacher">Needs teacher</span> }
 
     if (max_percentage) {
       linkText = 'Replay';
-    } else if (resume_link === '1') {
+    } else if (resume_link === 1) {
       linkText = 'Resume';
     }
 
