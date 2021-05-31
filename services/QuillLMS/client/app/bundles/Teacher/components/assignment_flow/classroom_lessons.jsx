@@ -34,7 +34,7 @@ export default class ClassroomLessons extends React.Component {
     request.get(`${process.env.DEFAULT_URL}/teachers/classrooms_i_teach_with_lessons`, (error, httpStatus, body) => {
       const classrooms = JSON.parse(body).classrooms;
       if (classrooms.length > 0) {
-        this.setState({ classrooms, selectedClassroomId: classroomId || `${classrooms[0].id}`, }, () => this.getAllLessons());
+        this.setState({ classrooms, selectedClassroomId: classroomId || classrooms[0].id, }, () => this.getAllLessons());
       } else {
         this.setState({ empty: true, loaded: true, });
       }
@@ -180,7 +180,7 @@ export default class ClassroomLessons extends React.Component {
   switchClassrooms = (classroom) => {
     const { history, } = this.props
     history.push(`/teachers/classrooms/activity_planner/lessons/${classroom.id}`);
-    this.setState({ selectedClassroomId: `${classroom.id}`, }, () => this.getLessonsForCurrentClass());
+    this.setState({ selectedClassroomId: classroom.id, }, () => this.getLessonsForCurrentClass());
   }
 
   renderEmptyState() {
