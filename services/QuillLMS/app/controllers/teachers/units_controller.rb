@@ -166,14 +166,21 @@ class Teachers::UnitsController < ApplicationController
   end
 
   private def lessons_with_current_user_and_activity
-    ActiveRecord::Base.connection.execute("
-      SELECT classroom_units.id from classroom_units
-        LEFT JOIN classrooms_teachers ON classrooms_teachers.classroom_id = classroom_units.classroom_id
-        JOIN units ON classroom_units.unit_id = units.id
-        JOIN unit_activities ON unit_activities.unit_id = units.id
+    RawSqlRunner.execute(
+      <<-SQL
+        SELECT classroom_units.id
+        FROM classroom_units
+        LEFT JOIN classrooms_teachers
+          ON classrooms_teachers.classroom_id = classroom_units.classroom_id
+        JOIN units
+          ON classroom_units.unit_id = units.id
+        JOIN unit_activities
+          ON unit_activities.unit_id = units.id
         WHERE classrooms_teachers.user_id = #{current_user.id.to_i}
           AND unit_activities.activity_id = #{ActiveRecord::Base.sanitize(params[:activity_id])}
-          AND classroom_units.visible is TRUE").to_a
+          AND classroom_units.visible IS true
+      SQL
+    ).to_a
   end
 
   private def unit_params
@@ -218,61 +225,103 @@ class Teachers::UnitsController < ApplicationController
         lessons = ''
       end
       teach_own_or_coteach_string = "(#{teach_own_or_coteach_classrooms_array.join(', ')})"
-      units = ActiveRecord::Base.connection.execute("SELECT units.name AS unit_name,
-         activities.name AS activity_name,
-         activities.supporting_info AS supporting_info,
-         classrooms.name AS class_name,
-         classrooms.id AS classroom_id,
-         activities.activity_classification_id,
-         ua.order_number,
-         cu.id AS classroom_unit_id,
-         cu.unit_id AS unit_id,
-         array_to_json(cu.assigned_student_ids) AS assigned_student_ids,
-         COUNT(DISTINCT students_classrooms.id) AS class_size,
-         ua.due_date,
-         state.completed,
-         activities.id AS activity_id,
-         activities.uid as activity_uid,
-         #{scores}
-         EXTRACT(EPOCH FROM units.created_at) AS unit_created_at,
-         EXTRACT(EPOCH FROM ua.created_at) AS unit_activity_created_at,
-         #{ActiveRecord::Base.sanitize(teach_own_or_coteach)} AS teach_own_or_coteach,
-         unit_owner.name AS owner_name,
-         ua.id AS unit_activity_id,
-         CASE WHEN unit_owner.id = #{current_user.id} THEN TRUE ELSE FALSE END AS owned_by_current_user,
-         (SELECT COUNT(DISTINCT user_id) FROM activity_sessions WHERE state = 'started' AND classroom_unit_id = cu.id AND activity_sessions.activity_id = activities.id AND activity_sessions.visible) AS started_count
-      FROM units
-        INNER JOIN classroom_units AS cu ON cu.unit_id = units.id
-        INNER JOIN unit_activities AS ua ON ua.unit_id = units.id
-        INNER JOIN activities ON ua.activity_id = activities.id
-        INNER JOIN classrooms ON cu.classroom_id = classrooms.id
-        LEFT JOIN students_classrooms ON students_classrooms.classroom_id = classrooms.id AND students_classrooms.visible
-        LEFT JOIN activity_sessions AS act_sesh ON act_sesh.classroom_unit_id = cu.id AND act_sesh.activity_id = activities.id
-        JOIN users AS unit_owner ON unit_owner.id = units.user_id
-        LEFT JOIN classroom_unit_activity_states AS state
-          ON state.unit_activity_id = ua.id
-          AND state.classroom_unit_id = cu.id
-      WHERE cu.classroom_id IN #{teach_own_or_coteach_string}
-        AND classrooms.visible = true
-        AND units.visible = true
-        AND cu.visible = true
-        AND ua.visible = true
-        #{archived_activities}
-        #{lessons}
-        GROUP BY units.name, units.created_at, cu.id, classrooms.name, classrooms.id, activities.name, activities.activity_classification_id, activities.id, activities.uid, unit_owner.name, unit_owner.id, ua.due_date, ua.created_at, unit_activity_id, state.completed, ua.id
-        #{completed}
-        ORDER BY ua.order_number, unit_activity_id
-        ").to_a
-        units.map do |unit|
-          classroom_student_ids = Classroom.find(unit['classroom_id']).students.ids
-          if unit['assigned_student_ids'] && classroom_student_ids
-            active_assigned_student_ids = JSON.parse(unit['assigned_student_ids']) & classroom_student_ids
-            unit['number_of_assigned_students'] = active_assigned_student_ids.length
-          else
-            unit['number_of_assigned_students'] = 0
-          end
-          unit
+
+      units = RawSqlRunner.execute(
+        <<-SQL
+          SELECT
+            units.name AS unit_name,
+            activities.name AS activity_name,
+            activities.supporting_info AS supporting_info,
+            classrooms.name AS class_name,
+            classrooms.id AS classroom_id,
+            activities.activity_classification_id,
+            ua.order_number,
+            cu.id AS classroom_unit_id,
+            cu.unit_id AS unit_id,
+            array_to_json(cu.assigned_student_ids) AS assigned_student_ids,
+            COUNT(DISTINCT students_classrooms.id) AS class_size,
+            ua.due_date,
+            state.completed,
+            activities.id AS activity_id,
+            activities.uid as activity_uid,
+            #{scores}
+            EXTRACT(EPOCH FROM units.created_at) AS unit_created_at,
+            EXTRACT(EPOCH FROM ua.created_at) AS unit_activity_created_at,
+            #{ActiveRecord::Base.sanitize(teach_own_or_coteach)} AS teach_own_or_coteach,
+            unit_owner.name AS owner_name,
+            ua.id AS unit_activity_id,
+            CASE
+              WHEN unit_owner.id = #{current_user.id} THEN true
+              ELSE false
+            END AS owned_by_current_user,
+            (
+              SELECT COUNT(DISTINCT user_id)
+              FROM activity_sessions
+              WHERE state = 'started'
+                AND classroom_unit_id = cu.id
+                AND activity_sessions.activity_id = activities.id
+                AND activity_sessions.visible
+            ) AS started_count
+          FROM units
+          JOIN classroom_units AS cu
+            ON cu.unit_id = units.id
+          JOIN unit_activities AS ua
+            ON ua.unit_id = units.id
+          JOIN activities
+            ON ua.activity_id = activities.id
+          JOIN classrooms
+            ON cu.classroom_id = classrooms.id
+          LEFT JOIN students_classrooms
+            ON students_classrooms.classroom_id = classrooms.id
+            AND students_classrooms.visible
+          LEFT JOIN activity_sessions AS act_sesh
+            ON act_sesh.classroom_unit_id = cu.id
+            AND act_sesh.activity_id = activities.id
+          JOIN users AS unit_owner
+            ON unit_owner.id = units.user_id
+          LEFT JOIN classroom_unit_activity_states AS state
+            ON state.unit_activity_id = ua.id
+            AND state.classroom_unit_id = cu.id
+          WHERE cu.classroom_id IN #{teach_own_or_coteach_string}
+            AND classrooms.visible = true
+            AND units.visible = true
+            AND cu.visible = true
+            AND ua.visible = true
+            #{archived_activities}
+            #{lessons}
+          GROUP BY
+            units.name,
+            units.created_at,
+            cu.id, classrooms.name,
+            classrooms.id,
+            activities.name,
+            activities.activity_classification_id,
+            activities.id,
+            activities.uid,
+            unit_owner.name,
+            unit_owner.id,
+            ua.due_date,
+            ua.created_at,
+            unit_activity_id,
+            state.completed,
+            ua.id
+            #{completed}
+          ORDER BY
+            ua.order_number,
+            unit_activity_id
+        SQL
+      ).to_a
+
+      units.map do |unit|
+        classroom_student_ids = Classroom.find(unit['classroom_id']).students.ids
+        if unit['assigned_student_ids'] && classroom_student_ids
+          active_assigned_student_ids = JSON.parse(unit['assigned_student_ids']) & classroom_student_ids
+          unit['number_of_assigned_students'] = active_assigned_student_ids.length
+        else
+          unit['number_of_assigned_students'] = 0
         end
+        unit
+      end
     else
       []
     end

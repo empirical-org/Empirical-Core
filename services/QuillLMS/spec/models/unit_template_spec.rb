@@ -122,7 +122,6 @@ describe UnitTemplate, redis: true, type: :model do
           id: category.id
         }
       }.to_json
-
     }
 
     it 'should save the serialized hash to the db and returns it' do
