@@ -18,7 +18,8 @@ interface PromptStepProps {
   activateStep: (event: any) => void;
   prompt: any,
   passedRef: any,
-  submittedResponses: Array<any>
+  submittedResponses: Array<any>,
+  canBeClicked: boolean
 }
 
 interface PromptStepState {
@@ -346,11 +347,20 @@ export class PromptStep extends React.Component<PromptStepProps, PromptStepState
   }
 
   render() {
-    const { className, passedRef, } = this.props
-    return (<div className={className} onClick={this.handleStepInteraction} onKeyDown={this.handleStepInteraction} ref={passedRef} role="button" tabIndex={0}>
-      <div className="step-content">
-        {this.renderActiveContent()}
-      </div>
+    const { className, passedRef, canBeClicked, } = this.props
+    const stepContent = (<div className="step-content">
+      {this.renderActiveContent()}
+    </div>)
+
+    if (canBeClicked) {
+      return (<div className={className} onClick={this.handleStepInteraction} onKeyDown={this.handleStepInteraction} ref={passedRef} role="button" tabIndex={0}>
+        {stepContent}
+      </div>)
+
+    }
+
+    return (<div className={className}>
+      {stepContent}
     </div>)
   }
 }
