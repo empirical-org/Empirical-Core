@@ -19,3 +19,12 @@ export const fetchRuleFeedbackHistoriesByRule = async (key: string, ruleUID: str
     responses: ruleFeedbackHistories[ruleUID].responses
   };
 }
+
+export const fetchPromptHealth = async (key: string, activityId: string) => {
+  const response = await mainApiFetch(`prompt_health/${activityId}`);
+  const promptHealth = await response.json();
+  return {
+    error: handleApiError('Failed to fetch rule feedback histories, please refresh the page.', response),
+    prompts: promptHealth
+  };
+}

@@ -3,7 +3,17 @@ import { EditorState, ContentState } from 'draft-js';
 import stripHtml from "string-strip-html";
 
 import { validateForm } from '../comprehension';
-import { AUTO_ML, PLAGIARISM } from '../../../../constants/comprehension';
+import {
+  AUTO_ML,
+  PLAGIARISM,
+  FEEDBACK,
+  HIGHLIGHT_TEXT,
+  HIGHLIGHT_ADDITION,
+  HIGHLIGHT_REMOVAL,
+  HIGHLIGHT_TYPE,
+  FEEDBACK_LAYER_ADDITION,
+  FEEDBACK_LAYER_REMOVAL,
+} from '../../../../constants/comprehension';
 import { InputEvent, DropdownObjectInterface } from '../../interfaces/comprehensionInterfaces';
 import { ruleTypeOptions, universalRuleTypeOptions, ruleHighlightOptions, numericalWordOptions, regexRuleSequenceOptions, regexRuleTypes } from '../../../../constants/comprehension';
 import { TextEditor, DropdownInput, Modal } from '../../../Shared/index';
@@ -132,23 +142,36 @@ export function handleSetFeedback({
     feedbackIndex,
     highlightIndex
 }) {
-  const updatedFeedback = [...feedback];
-  if(updateType === 'feedback') {
-    updatedFeedback[feedbackIndex].text = text;
-    setFeedback(updatedFeedback);
-  } else if(updateType === 'highlight text') {
-    updatedFeedback[feedbackIndex].highlights_attributes[highlightIndex].text = text;
-    setFeedback(updatedFeedback);
-  } else if(updateType === 'highlight addition') {
-    updatedFeedback[feedbackIndex].highlights_attributes.push({ text: '' });
-  } else if(updateType === 'highlight type') {
-    updatedFeedback[feedbackIndex].highlights_attributes[highlightIndex].highlight_type = text
-  } else if(updateType === 'feedback layer addition') {
-    updatedFeedback.push({
-      text: '',
-      order: feedback.length,
-      highlights_attributes: []
-    });
+  let updatedFeedback = [...feedback];
+  
+  switch(updateType) {
+    case FEEDBACK:
+      updatedFeedback[feedbackIndex].text = text;
+      setFeedback(updatedFeedback);
+      break
+    case HIGHLIGHT_TEXT:
+      updatedFeedback[feedbackIndex].highlights_attributes[highlightIndex].text = text;
+      setFeedback(updatedFeedback);
+      break
+    case HIGHLIGHT_ADDITION:
+      updatedFeedback[feedbackIndex].highlights_attributes.push({ text: '' });
+      break
+    case HIGHLIGHT_REMOVAL:
+      updatedFeedback[feedbackIndex].highlights_attributes = updatedFeedback[feedbackIndex].highlights_attributes.slice(0, -1)
+      break
+    case HIGHLIGHT_TYPE:
+      updatedFeedback[feedbackIndex].highlights_attributes[highlightIndex].highlight_type = text
+      break
+    case FEEDBACK_LAYER_ADDITION:
+      updatedFeedback.push({
+        text: '',
+        order: feedback.length,
+        highlights_attributes: []
+      });
+      break
+    case FEEDBACK_LAYER_REMOVAL:
+      updatedFeedback = updatedFeedback.slice(0, -1)
+      break
   }
   setFeedback(updatedFeedback);
 }
