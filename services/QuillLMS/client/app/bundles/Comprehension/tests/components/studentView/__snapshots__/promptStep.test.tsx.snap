@@ -25,10 +25,6 @@ exports[`PromptStep component active state before any responses have been submit
 >
   <div
     className="step active"
-    onClick={[Function]}
-    onKeyDown={[Function]}
-    role="button"
-    tabIndex={0}
   >
     <div
       className="step-content"
@@ -142,10 +138,6 @@ exports[`PromptStep component active state when a profane response has been subm
 >
   <div
     className="step active"
-    onClick={[Function]}
-    onKeyDown={[Function]}
-    role="button"
-    tabIndex={0}
   >
     <div
       className="step-content"
@@ -343,10 +335,6 @@ exports[`PromptStep component active state when a response with multiple sentenc
 >
   <div
     className="step active"
-    onClick={[Function]}
-    onKeyDown={[Function]}
-    role="button"
-    tabIndex={0}
   >
     <div
       className="step-content"
@@ -554,10 +542,6 @@ exports[`PromptStep component active state when a suboptimal response has been s
 >
   <div
     className="step active"
-    onClick={[Function]}
-    onKeyDown={[Function]}
-    role="button"
-    tabIndex={0}
   >
     <div
       className="step-content"
@@ -788,10 +772,6 @@ exports[`PromptStep component active state when a too-long response has been sub
 >
   <div
     className="step active"
-    onClick={[Function]}
-    onKeyDown={[Function]}
-    role="button"
-    tabIndex={0}
   >
     <div
       className="step-content"
@@ -989,10 +969,6 @@ exports[`PromptStep component active state when a too-short response has been su
 >
   <div
     className="step active"
-    onClick={[Function]}
-    onKeyDown={[Function]}
-    role="button"
-    tabIndex={0}
   >
     <div
       className="step-content"
@@ -1200,10 +1176,6 @@ exports[`PromptStep component active state when an optimal response has been sub
 >
   <div
     className="step active"
-    onClick={[Function]}
-    onKeyDown={[Function]}
-    role="button"
-    tabIndex={0}
   >
     <div
       className="step-content"
@@ -1460,10 +1432,6 @@ exports[`PromptStep component active state when the max attempts have been reach
 >
   <div
     className="step active"
-    onClick={[Function]}
-    onKeyDown={[Function]}
-    role="button"
-    tabIndex={0}
   >
     <div
       className="step-content"
@@ -1708,10 +1676,6 @@ exports[`PromptStep component active state when the max attempts have been reach
 >
   <div
     className="step active"
-    onClick={[Function]}
-    onKeyDown={[Function]}
-    role="button"
-    tabIndex={0}
   >
     <div
       className="step-content"
@@ -1916,10 +1880,6 @@ exports[`PromptStep component inactive state renders 1`] = `
 >
   <div
     className="step"
-    onClick={[Function]}
-    onKeyDown={[Function]}
-    role="button"
-    tabIndex={0}
   >
     <div
       className="step-content"
