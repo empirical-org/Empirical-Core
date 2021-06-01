@@ -143,7 +143,7 @@ class Teachers::ProgressReports::ActivitySessionsController < Teachers::Progress
 
   private def score(percentage)
     case percentage
-    when nil then ''
+    when nil then 0
     when -1 then 'Completed'
     else "#{percentage * 100}%"
     end
