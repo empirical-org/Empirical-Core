@@ -127,7 +127,7 @@ const PreAp = ({ units, isPartOfAssignmentFlow, }: PreApContainerProps) => {
           </div>
         </div>
         <div className="activities-subheader" ref={writingSkillsRef}>
-          <h2>AP Writing Skills Surveys</h2>
+          <h2>Pre-AP Writing Skills Surveys</h2>
         </div>
         {/* eslint-disable-next-line react/jsx-no-bind */}
         <VisibilitySensor onChange={(isVisible) => handleChange(isVisible, WRITING_SKILLS_SURVEYS)}>

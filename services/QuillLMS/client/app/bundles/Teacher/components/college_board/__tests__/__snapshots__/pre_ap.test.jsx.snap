@@ -277,7 +277,7 @@ exports[`PreAp component should render when it is not part of the assignment flo
                 class="activities-subheader"
               >
                 <h2>
-                  AP Writing Skills Surveys
+                  Pre-AP Writing Skills Surveys
                 </h2>
               </div>,
             },
@@ -2190,7 +2190,7 @@ exports[`PreAp component should render when it is not part of the assignment flo
           className="activities-subheader"
         >
           <h2>
-            AP Writing Skills Surveys
+            Pre-AP Writing Skills Surveys
           </h2>
         </div>
         <VisibilitySensor
@@ -5425,7 +5425,7 @@ exports[`PreAp component should render when it is part of the assignment flow 1`
                 class="activities-subheader"
               >
                 <h2>
-                  AP Writing Skills Surveys
+                  Pre-AP Writing Skills Surveys
                 </h2>
               </div>,
             },
@@ -7338,7 +7338,7 @@ exports[`PreAp component should render when it is part of the assignment flow 1`
           className="activities-subheader"
         >
           <h2>
-            AP Writing Skills Surveys
+            Pre-AP Writing Skills Surveys
           </h2>
         </div>
         <VisibilitySensor
@@ -10386,7 +10386,7 @@ exports[`PreAp component should render with no units 1`] = `
                 class="activities-subheader"
               >
                 <h2>
-                  AP Writing Skills Surveys
+                  Pre-AP Writing Skills Surveys
                 </h2>
               </div>,
             },
@@ -11270,7 +11270,7 @@ exports[`PreAp component should render with no units 1`] = `
           className="activities-subheader"
         >
           <h2>
-            AP Writing Skills Surveys
+            Pre-AP Writing Skills Surveys
           </h2>
         </div>
         <VisibilitySensor
