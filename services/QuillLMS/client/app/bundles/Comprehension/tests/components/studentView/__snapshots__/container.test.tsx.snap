@@ -131,6 +131,7 @@ But how can democracies have representative governments unless all or most of th
     </div>
     <div
       className="read-passage-container"
+      onScroll={[Function]}
     >
       <div>
         <p
@@ -157,9 +158,11 @@ But how can democracies have representative governments unless all or most of th
     </div>
     <div
       className="steps-outer-container"
+      onScroll={[Function]}
     >
       <div
         className="steps-inner-container"
+        onScroll={[Function]}
       >
         <div
           className="read-passage-step-container"
