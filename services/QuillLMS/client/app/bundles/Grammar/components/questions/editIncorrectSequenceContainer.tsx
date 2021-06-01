@@ -18,7 +18,7 @@ class EditIncorrectSequencesContainer extends React.Component {
   submitForm = (data, incorrectSequenceID) => {
     delete data.conceptResults.null;
     this.props.dispatch(questionActions.submitEditedIncorrectSequence(this.props.match.params.questionID, data, incorrectSequenceID));
-    window.history.back();
+    setTimeout(() => {window.history.back()}, 2000);
   }
 
   render() {

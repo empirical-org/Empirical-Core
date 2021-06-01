@@ -34,7 +34,7 @@ const SemanticRulesCheatSheet = ({ match, }) => {
       return {
         id: id,
         name: <div dangerouslySetInnerHTML={{ __html: name }} />,
-        firstLayerFeedback: <div dangerouslySetInnerHTML={{ __html: feedbacks[0].text }} />,
+        firstLayerFeedback: <div dangerouslySetInnerHTML={{ __html: feedbacks[0] ? feedbacks[0].text : null }} />,
         note: <div dangerouslySetInnerHTML={{ __html: note }} />,
         edit: ruleLink
       }

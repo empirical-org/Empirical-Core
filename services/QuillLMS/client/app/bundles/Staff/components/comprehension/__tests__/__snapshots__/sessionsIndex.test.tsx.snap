@@ -2,8 +2,291 @@
 
 exports[`SessionsIndex component should render SessionsIndex 1`] = `
 <div
-  className="loading-spinner-container"
+  className="sessions-index-container"
 >
-  <Spinner />
+  <section
+    className="sessions-header"
+  >
+    <h1>
+      merp
+    </h1>
+  </section>
+  <section>
+    <p
+      className="link-info-blurb"
+    >
+      If you want to look up an individual activity session, plug the activity session ID into this url and it will load: https://www.quill.org/cms/comprehension#/activities/
+      <strong>
+        activityID
+      </strong>
+      /
+      <strong>
+        sessionID
+      </strong>
+    </p>
+    <section
+      className="top-section"
+    >
+      <section
+        className="total-container"
+      >
+        <p
+          className="total-label"
+        >
+          Total
+        </p>
+        <p
+          className="total-value"
+        >
+          2
+        </p>
+      </section>
+      <DropdownInput
+        className="page-number-dropdown"
+        handleChange={[Function]}
+        isSearchable={false}
+        label=""
+        options={null}
+        value={null}
+      />
+      <DropdownInput
+        className="session-filters-dropdown"
+        handleChange={[Function]}
+        isSearchable={false}
+        label=""
+        options={
+          Array [
+            Object {
+              "label": "Show all sessions",
+              "value": "all",
+            },
+            Object {
+              "label": "Show only scored sessions",
+              "value": "scored",
+            },
+            Object {
+              "label": "Show only unscored sessions",
+              "value": "unscored",
+            },
+            Object {
+              "label": "Show sessions with weak responses",
+              "value": "weak",
+            },
+            Object {
+              "label": "Show complete sessions",
+              "value": "complete",
+            },
+            Object {
+              "label": "Show incomplete sessions",
+              "value": "incomplete",
+            },
+          ]
+        }
+        value={
+          Object {
+            "label": "Show all sessions",
+            "value": "all",
+          }
+        }
+      />
+    </section>
+    <ReactTable
+      AggregatedComponent={[Function]}
+      ExpanderComponent={[Function]}
+      FilterComponent={[Function]}
+      LoadingComponent={[Function]}
+      NoDataComponent={[Function]}
+      PadRowComponent={[Function]}
+      PaginationComponent={[Function]}
+      PivotValueComponent={[Function]}
+      ResizerComponent={[Function]}
+      TableComponent={[Function]}
+      TbodyComponent={[Function]}
+      TdComponent={[Function]}
+      TfootComponent={[Function]}
+      ThComponent={[Function]}
+      TheadComponent={[Function]}
+      TrComponent={[Function]}
+      TrGroupComponent={[Function]}
+      aggregatedKey="_aggregated"
+      className="activity-sessions-table"
+      collapseOnDataChange={true}
+      collapseOnPageChange={true}
+      collapseOnSortingChange={true}
+      column={
+        Object {
+          "Aggregated": undefined,
+          "Cell": undefined,
+          "Expander": undefined,
+          "Filter": undefined,
+          "Footer": undefined,
+          "Header": undefined,
+          "Pivot": undefined,
+          "PivotValue": undefined,
+          "Placeholder": undefined,
+          "aggregate": undefined,
+          "className": "",
+          "filterAll": false,
+          "filterMethod": undefined,
+          "filterable": undefined,
+          "footerClassName": "",
+          "footerStyle": Object {},
+          "getFooterProps": [Function],
+          "getHeaderProps": [Function],
+          "getProps": [Function],
+          "headerClassName": "",
+          "headerStyle": Object {},
+          "minResizeWidth": 11,
+          "minWidth": 100,
+          "resizable": undefined,
+          "show": true,
+          "sortMethod": undefined,
+          "sortable": undefined,
+          "style": Object {},
+        }
+      }
+      columns={
+        Array [
+          Object {
+            "Header": "Date | Time",
+            "accessor": "datetime",
+            "width": 150,
+          },
+          Object {
+            "Header": "Session ID",
+            "accessor": "session_uid",
+            "width": 100,
+          },
+          Object {
+            "Header": "Total Responses",
+            "accessor": "total_attempts",
+            "width": 150,
+          },
+          Object {
+            "Header": "Because",
+            "accessor": "because_attempts",
+            "width": 100,
+          },
+          Object {
+            "Header": "But",
+            "accessor": "but_attempts",
+            "width": 100,
+          },
+          Object {
+            "Header": "So",
+            "accessor": "so_attempts",
+            "width": 100,
+          },
+          Object {
+            "Header": "Scored",
+            "accessor": "scored_count",
+            "width": 100,
+          },
+          Object {
+            "Header": "Weak",
+            "accessor": "weak_count",
+            "width": 100,
+          },
+          Object {
+            "Header": "Strong",
+            "accessor": "strong_count",
+            "width": 100,
+          },
+          Object {
+            "Header": "Completed?",
+            "accessor": "completed",
+            "width": 100,
+          },
+          Object {
+            "Header": "",
+            "accessor": "view_link",
+            "width": 100,
+          },
+        ]
+      }
+      data={Array []}
+      defaultExpanded={Object {}}
+      defaultFilterMethod={[Function]}
+      defaultFiltered={Array []}
+      defaultPage={0}
+      defaultPageSize={0}
+      defaultResized={Array []}
+      defaultSortDesc={false}
+      defaultSortMethod={[Function]}
+      defaultSorted={Array []}
+      expanderDefaults={
+        Object {
+          "filterable": false,
+          "resizable": false,
+          "sortable": false,
+          "width": 35,
+        }
+      }
+      filterable={false}
+      freezeWhenExpanded={false}
+      getLoadingProps={[Function]}
+      getNoDataProps={[Function]}
+      getPaginationProps={[Function]}
+      getProps={[Function]}
+      getResizerProps={[Function]}
+      getTableProps={[Function]}
+      getTbodyProps={[Function]}
+      getTdProps={[Function]}
+      getTfootProps={[Function]}
+      getTfootTdProps={[Function]}
+      getTfootTrProps={[Function]}
+      getTheadFilterProps={[Function]}
+      getTheadFilterThProps={[Function]}
+      getTheadFilterTrProps={[Function]}
+      getTheadGroupProps={[Function]}
+      getTheadGroupThProps={[Function]}
+      getTheadGroupTrProps={[Function]}
+      getTheadProps={[Function]}
+      getTheadThProps={[Function]}
+      getTheadTrProps={[Function]}
+      getTrGroupProps={[Function]}
+      getTrProps={[Function]}
+      groupedByPivotKey="_groupedByPivot"
+      indexKey="_index"
+      loading={false}
+      loadingText="Loading..."
+      manual={true}
+      multiSort={true}
+      nestingLevelKey="_nestingLevel"
+      nextText="Next"
+      noDataText="No rows found"
+      ofText="of"
+      onFetchData={[Function]}
+      originalKey="_original"
+      pageJumpText="jump to page"
+      pageSizeOptions={
+        Array [
+          5,
+          10,
+          20,
+          25,
+          50,
+          100,
+        ]
+      }
+      pageText="Page"
+      pivotDefaults={Object {}}
+      pivotIDKey="_pivotID"
+      pivotValKey="_pivotVal"
+      previousText="Previous"
+      resizable={true}
+      resolveData={[Function]}
+      rowsSelectorText="rows per page"
+      rowsText="rows"
+      showPageJump={true}
+      showPageSizeOptions={true}
+      showPagination={false}
+      showPaginationBottom={true}
+      showPaginationTop={false}
+      sortable={true}
+      style={Object {}}
+      subRowsKey="_subRows"
+    />
+  </section>
 </div>
 `;

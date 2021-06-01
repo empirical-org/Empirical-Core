@@ -15,6 +15,7 @@ export {
 
 export {
   ArchivedButton,
+  ButtonLoadingSpinner,
   Card,
   CarouselAnimation,
   DataTable,
@@ -102,4 +103,5 @@ export {
   horizontalDotsIcon,
   playBoxIcon,
   previewIcon,
+  smallWhiteCheckIcon,
 } from './images/index'

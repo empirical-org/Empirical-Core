@@ -78,7 +78,7 @@ module QuillAuthentication
   end
 
   def previewing_student_dashboard?
-    !!session[:preview_student_id]
+    !session[:preview_student_id].nil?
   end
 
   def sign_out
@@ -87,7 +87,7 @@ module QuillAuthentication
   end
 
   def signed_in?
-    !!current_user
+    !current_user.nil?
   end
 
   def signed_out?

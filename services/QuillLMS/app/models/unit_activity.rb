@@ -107,6 +107,7 @@ class UnitActivity < ActiveRecord::Base
       activity.description,
       activity.repeatable,
       activity.activity_classification_id,
+      activity_classifications.key AS activity_classification_key,
       unit.id AS unit_id,
       ua.id AS ua_id,
       unit.created_at AS unit_created_at,
@@ -128,6 +129,7 @@ class UnitActivity < ActiveRecord::Base
       LEFT JOIN activity_sessions AS acts ON cu.id = acts.classroom_unit_id AND acts.activity_id = ua.activity_id AND acts.visible = true
       AND acts.user_id = #{user_id.to_i}
       JOIN activities AS activity ON activity.id = ua.activity_id
+      JOIN activity_classifications ON activity.activity_classification_id = activity_classifications.id
       LEFT JOIN classroom_unit_activity_states AS cuas ON ua.id = cuas.unit_activity_id
       AND cu.id = cuas.classroom_unit_id
       WHERE #{user_id.to_i} = ANY (cu.assigned_student_ids::int[])
@@ -136,7 +138,7 @@ class UnitActivity < ActiveRecord::Base
       AND unit.visible = true
       AND ua.visible = true
       AND 'archived' != ANY(activity.flags)
-      GROUP BY unit.id, unit.name, unit.created_at, cu.id, activity.name, activity.activity_classification_id, activity.id, activity.uid, ua.due_date, ua.created_at, unit_activity_id, cuas.completed, cuas.locked, cuas.pinned, ua.id
+      GROUP BY unit.id, unit.name, unit.created_at, cu.id, activity.name, activity.activity_classification_id, activity.id, activity.uid, ua.due_date, ua.created_at, unit_activity_id, cuas.completed, cuas.locked, cuas.pinned, ua.id, activity_classifications.key
 
       ORDER BY pinned DESC, locked ASC, unit.created_at ASC, max_percentage DESC, ua.order_number ASC, ua.due_date ASC, ua.id ASC").to_a
   end

@@ -17,7 +17,7 @@ class EditFocusPointsContainer extends React.Component {
   submitForm(data, focusPointID) {
     delete data.conceptResults.null;
     this.props.dispatch(questionActions.submitEditedFocusPoint(this.props.match.params.questionID, data, focusPointID));
-    window.history.back();
+    setTimeout(() => {window.history.back()}, 2000);
   }
 
   render() {

@@ -46,5 +46,19 @@ module Comprehension
       end
     end
 
+    context '#non_optimal_feedback_string' do
+      should 'use the fallback feedback if there is no spelling Rule with feedback' do
+        spelling_check = Comprehension::SpellingCheck.new('')
+        assert_equal spelling_check.non_optimal_feedback_string, Comprehension::SpellingCheck::FALLBACK_INCORRECT_FEEDBACK
+      end
+
+      should 'use the feedback from the spelling rule if it is available' do
+        rule = create(:comprehension_rule, rule_type: Comprehension::Rule::TYPE_SPELLING)
+        feedback = create(:comprehension_feedback, rule: rule)
+
+        spelling_check = Comprehension::SpellingCheck.new('')
+        assert_equal spelling_check.non_optimal_feedback_string, feedback.text
+      end
+    end
   end
 end

@@ -45,10 +45,8 @@ describe PopulateActivityHealthWorker do
     end
 
     let!(:diagnostic) { create(:diagnostic_activity)}
-    let!(:unit_template) { create(:unit_template)}
-    let!(:activities_unit_template) do
-       create(:activities_unit_template, unit_template: unit_template, activity: activity)
-    end
+    let!(:unit_template) { create(:unit_template, flag: "production")}
+    let!(:activities_unit_template) { create(:activities_unit_template, unit_template: unit_template, activity: activity)}
     let!(:sample_unit) { create(:unit, unit_template: unit_template)}
     let!(:unit_activity) { create(:unit_activity, unit: sample_unit, activity: activity)}
     let!(:recommendation) { create(:recommendation, activity: diagnostic, unit_template: unit_template)}

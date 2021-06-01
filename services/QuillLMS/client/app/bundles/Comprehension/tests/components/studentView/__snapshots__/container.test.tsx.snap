@@ -165,7 +165,7 @@ But how can democracies have representative governments unless all or most of th
           className="read-passage-step-container"
         >
           <h2>
-            Read the passage
+            Read the text.
           </h2>
           <button
             className="quill-button large primary contained done-reading-button"
@@ -177,7 +177,7 @@ But how can democracies have representative governments unless all or most of th
         </div>
         <div>
           <h2>
-            Then, complete these sentences
+            Then, use information from the text to finish the sentence. Remember to put the response in your own words.
           </h2>
           <PromptStep
             activateStep={[Function]}

@@ -1,11 +1,14 @@
 import * as React from "react";
+import ReactTable from 'react-table';
 import { Link } from 'react-router-dom';
 import { useQuery } from 'react-query';
-import * as moment from 'moment'
+import * as moment from 'moment';
+import { firstBy } from 'thenby';
 
-import { DataTable, Error, Spinner, DropdownInput } from '../../../../Shared/index';
+import { Error, Spinner, DropdownInput } from '../../../../Shared/index';
 import { fetchActivity, fetchActivitySessions } from '../../../utils/comprehension/activityAPIs';
 import { DropdownObjectInterface } from '../../../interfaces/comprehensionInterfaces';
+import { ALL, SCORED, UNSCORED, WEAK, COMPLETE, INCOMPLETE, activitySessionIndexResponseHeaders, activitySessionFilterOptions } from '../../../../../constants/comprehension';
 
 const quillCheckmark = 'https://assets.quill.org/images/icons/check-circle-small.svg';
 
@@ -14,7 +17,10 @@ const SessionsIndex = ({ match }) => {
   const { activityId } = params;
 
   const [pageNumber, setPageNumber] = React.useState<DropdownObjectInterface>(null);
-  const [dropdownOptions, setDropdownOptions] = React.useState<DropdownObjectInterface[]>(null);
+  const [pageDropdownOptions, setPageDropdownOptions] = React.useState<DropdownObjectInterface[]>(null);
+  const [filterOption, setFilterOption] = React.useState<DropdownObjectInterface>(activitySessionFilterOptions[0]);
+  const [rowData, setRowData] = React.useState<any[]>([]);
+  const [sortInfo, setSortInfo] = React.useState<any>(null);
   const pageNumberForQuery = pageNumber && pageNumber.value ? pageNumber.value : 1;
 
   // cache activity data for updates
@@ -30,11 +36,94 @@ const SessionsIndex = ({ match }) => {
   });
 
   React.useEffect(() => {
-    sessionsData && !dropdownOptions && getDropdownOptions(sessionsData)
+    sessionsData && !pageDropdownOptions && getPageDropdownOptions(sessionsData);
   }, [sessionsData]);
 
+  React.useEffect(() => {
+    if(sessionsData && sessionsData.activitySessions && sessionsData.activitySessions.activity_sessions && !rowData.length) {
+      const { activitySessions } = sessionsData;
+      const { activity_sessions } = activitySessions;
+      const rows = formatSessionsData(activity_sessions)
+      setRowData(rows);
+    }
+  }, [sessionsData]);
+
+  function getFilteredRows(filter: string, activitySessions: any) {
+    switch (filter) {
+      case ALL:
+        return activitySessions;
+      case SCORED:
+        return activitySessions.filter(row => row.scored_count > 0);
+      case UNSCORED:
+        return activitySessions.filter(row => row.scored_count === 0);
+      case WEAK:
+        return activitySessions.filter(row => row.weak_count > 0);
+      case COMPLETE:
+        return activitySessions.filter(row => row.complete);
+      case INCOMPLETE:
+        return activitySessions.filter(row => !row.complete);
+      default:
+        return activitySessions;
+    }
+  }
+
+  function handleFilterOptionChange(option, activitySessions) {
+    const { value } = option;
+    const formattedRows = formatSessionsData(activitySessions);
+    const sortedRows = sortedSessions(formattedRows, sortInfo)
+    const filteredRows = getFilteredRows(value, sortedRows);
+    setFilterOption(option);
+    setRowData(filteredRows);
+  }
+
+  function handleDataUpdate(activity_sessions, state) {
+    const { sorted } = state;
+    const sortInfo = sorted[0];
+    const rows = formatSessionsData(activity_sessions);
+    const sortedRows = sortedSessions(rows, sortInfo)
+    setRowData(sortedRows);
+  }
+
+  function getPageDropdownOptions(sessionsData) {
+    if(!sessionsData) {
+      return null;
+    }
+    if(pageDropdownOptions) {
+      return pageDropdownOptions;
+    }
+    const { activitySessions } = sessionsData
+    const { current_page, total_pages } = activitySessions;
+    setPageNumber({'value': current_page, 'label':`Page ${current_page}`})
+    const options = [];
+    for(let i=1; i <= total_pages; i++) {
+      options.push({'value':i, 'label':`Page ${i}`})
+    }
+    setPageDropdownOptions(options);
+  }
+
   function handlePageChange(number) {
-    setPageNumber(number)
+    setPageNumber(number);
+  }
+
+  function getSortedRows({ activitySessions, id, directionOfSort }) {
+    const columnOptions  = ['total_attempts', 'because_attempts', 'but_attempts', 'so_attempts'];
+    if(columnOptions.includes(id)) {
+      return activitySessions.sort(firstBy(id, { direction: directionOfSort }).thenBy('datetime, desc'));
+    }
+    return activitySessions.sort(firstBy(id, { direction: directionOfSort }));
+  }
+
+  function sortedSessions(activitySessions: any[], sortInfo?: any) {
+    if(sortInfo) {
+      setSortInfo(sortInfo);
+      const { id, desc } = sortInfo;
+      // we have this reversed so that the first click will sort from highest to lowest by default
+      const directionOfSort = desc ? `asc` : 'desc';
+      const sorted = getSortedRows({ activitySessions, id, directionOfSort });
+      return sorted;
+    } else {
+      return activitySessions;
+    }
   }
 
   function formatSessionsData(activitySessions: any[]) {
@@ -47,34 +136,17 @@ const SessionsIndex = ({ match }) => {
       const formattedSession = {
         ...session,
         id: session_uid,
-        date: date,
-        time: time,
+        session_uid: session_uid ? session_uid.substring(0,6) : '',
+        datetime: `${date} ${time}`,
         because_attempts: because_attempts,
         but_attempts: but_attempts,
         so_attempts: so_attempts,
         total_attempts: total,
-        view_link: <Link className="data-link" to={`/activities/${activityId}/activity-sessions/${session_uid}/overview`}>View</Link>,
+        view_link: <Link className="data-link" rel="noopener noreferrer" target="_blank" to={`/activities/${activityId}/activity-sessions/${session_uid}/overview`}>View</Link>,
         completed: complete ? <img alt="quill-circle-checkmark" src={quillCheckmark} /> : ""
       };
       return formattedSession;
     });
-  }
-
-  function getDropdownOptions(sessionsData) {
-    if(!sessionsData) {
-      return null;
-    }
-    if(dropdownOptions) {
-      return dropdownOptions;
-    }
-    const { activitySessions } = sessionsData
-    const { current_page, total_pages } = activitySessions;
-    setPageNumber({'value': current_page, 'label':`Page ${current_page}`})
-    const options = [];
-    for(let i=1; i <= total_pages; i++) {
-      options.push({'value':i, 'label':`Page ${i}`})
-    }
-    setDropdownOptions(options);
   }
 
   if(!sessionsData) {
@@ -93,22 +165,10 @@ const SessionsIndex = ({ match }) => {
     );
   }
 
-  const dataTableFields = [
-    { name: "Day", attribute:"date", width: "100px" },
-    { name: "Time", attribute:"time", width: "100px" },
-    { name: "Session ID", attribute:"session_uid", width: "350px" },
-    { name: "Total Responses", attribute:"total_attempts", width: "150px" },
-    { name: "Because", attribute:"because_attempts", width: "50px" },
-    { name: "But", attribute:"but_attempts", width: "50px" },
-    { name: "So", attribute:"so_attempts", width: "50px" },
-    { name: "Completed?", attribute: "completed", width: "75px"},
-    { name: "", attribute:"view_link", width: "100px" }
-  ];
-
   const { activity } = activityData;
   const { title } = activity;
-  const { activitySessions } = sessionsData
-  const { activity_sessions, total_activity_sessions } = activitySessions
+  const { activitySessions } = sessionsData;
+  const { total_activity_sessions, activity_sessions } = activitySessions;
 
   return(
     <div className="sessions-index-container">
@@ -116,23 +176,39 @@ const SessionsIndex = ({ match }) => {
         <h1>{title}</h1>
       </section>
       <section>
+        <p className="link-info-blurb">If you want to look up an individual activity session, plug the activity session ID into this url and it will load: https://www.quill.org/cms/comprehension#/activities/<strong>activityID</strong>/<strong>sessionID</strong></p>
         <section className="top-section">
           <section className="total-container">
             <p className="total-label">Total</p>
             <p className="total-value">{total_activity_sessions}</p>
           </section>
           <DropdownInput
+            className="page-number-dropdown"
             handleChange={handlePageChange}
             isSearchable={false}
             label=""
-            options={dropdownOptions}
+            options={pageDropdownOptions}
             value={pageNumber}
           />
+          <DropdownInput
+            className="session-filters-dropdown"
+            /* eslint-disable-next-line react/jsx-no-bind */
+            handleChange={(option) => handleFilterOptionChange(option, activity_sessions)}
+            isSearchable={false}
+            label=""
+            options={activitySessionFilterOptions}
+            value={filterOption}
+          />
         </section>
-        <DataTable
+        <ReactTable
           className="activity-sessions-table"
-          headers={dataTableFields}
-          rows={formatSessionsData(activity_sessions)}
+          columns={activitySessionIndexResponseHeaders}
+          data={rowData}
+          defaultPageSize={rowData.length < 100 ? rowData.length : 100}
+          manual
+          /* eslint-disable-next-line react/jsx-no-bind */
+          onFetchData={(state) => handleDataUpdate(activity_sessions, state)}
+          showPagination={false}
         />
       </section>
     </div>

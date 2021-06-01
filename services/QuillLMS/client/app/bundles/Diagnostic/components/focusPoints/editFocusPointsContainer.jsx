@@ -32,7 +32,7 @@ class EditFocusPointsContainer extends Component {
     const { questionID } = params;
     delete data.conceptResults.null;
     dispatch(actionFile.submitEditedFocusPoint(questionID, data, focusPointID));
-    window.history.back();
+    setTimeout(() => {window.history.back()}, 2000);
   };
 
   render() {

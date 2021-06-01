@@ -137,7 +137,7 @@ class PagesController < ApplicationController
         faqs: [
           {
             question: "I just signed up for Quill. Now what?",
-            answer: "<p>We have a getting started guide <a href='http://community.quill.org/wp-content/uploads/2015/11/Quill-Getting-Started-Guide-for-Teachers.pdf'>here.</a></p>"
+            answer: "<p>We have a getting started guide <a href='https://s3.amazonaws.com/quill-image-uploads/uploads/files/Getting_Started_Guide_for_Teachers_Updated_03_20_2020.pdf'>here.</a></p>"
           },
           {
             question: "How much time should my students spend on Quill?",
