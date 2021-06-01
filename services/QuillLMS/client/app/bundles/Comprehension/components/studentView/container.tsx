@@ -176,12 +176,12 @@ export class StudentViewContainer extends React.Component<StudentViewContainerPr
     const percentage = null // We always set percentages to "null"
     const conceptResults = generateConceptResults(currentActivity, submittedResponses)
     const data = {
-      time_tracking: JSON.stringify({
+      time_tracking: {
         reading: timeTracking[READ_PASSAGE_STEP],
         because: timeTracking[2],
         but: timeTracking[3],
         so: timeTracking[4],
-      })
+      }
     }
     dispatch(completeActivitySession(sessionID, currentActivity.parent_activity_id, percentage, conceptResults, data, handleFinishActivity))
   }
