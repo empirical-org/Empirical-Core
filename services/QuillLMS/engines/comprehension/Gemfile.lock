@@ -3,7 +3,7 @@ PATH
   specs:
     comprehension (0.0.1)
       google-cloud-automl (~> 1.0.2)
-      rails (~> 4.2.11.1)
+      rails (= 4.2.11.3)
 
 GEM
   remote: https://rubygems.org/
