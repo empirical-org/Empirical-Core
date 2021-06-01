@@ -669,8 +669,11 @@
       .rule-highlight-section {
         margin-left: 10px;
       }
-      .add-highlight, .add-feedback-layer {
+      .add-highlight, .add-feedback-layer, .remove-highlight, .remove-feedback-layer {
         margin-top: 15px;
+      }
+      .remove-highlight, .remove-feedback-layer {
+        color: red;
       }
     }
     .semantic-rule-form {

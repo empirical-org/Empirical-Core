@@ -14,14 +14,18 @@ exports[`RuleRegexAttributes component should render RuleRegexAttributes 1`] = `
     key="regex-feedback"
     text="test regex feedback"
   />
-  <button
-    className="add-highlight quill-button small primary outlined"
-    id="0"
-    onClick={[Function]}
-    type="button"
+  <div
+    className="button-wrapper"
   >
-    Add Highlight
-  </button>
+    <button
+      className="add-highlight quill-button small primary outlined"
+      onClick={[Function]}
+      type="button"
+      value="0"
+    >
+      Add Highlight
+    </button>
+  </div>
   <p
     className="form-subsection-label"
     id="regex-rules-label"
