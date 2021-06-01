@@ -8,5 +8,5 @@ namespace :activity_session_timetracking_data do
         as.save
       end
     end
- end
+  end
 end
