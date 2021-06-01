@@ -5,8 +5,10 @@
   max-width: 631px;
   margin-bottom: 10px;
   display: flex;
-  cursor: pointer;
   overflow: hidden;
+  &.clickable {
+    cursor: pointer;
+  }
   &:focus {
     outline: none;
   }

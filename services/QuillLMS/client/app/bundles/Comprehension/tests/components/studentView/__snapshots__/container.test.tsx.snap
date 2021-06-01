@@ -131,6 +131,7 @@ But how can democracies have representative governments unless all or most of th
     </div>
     <div
       className="read-passage-container"
+      onScroll={[Function]}
     >
       <div>
         <p
@@ -157,9 +158,11 @@ But how can democracies have representative governments unless all or most of th
     </div>
     <div
       className="steps-outer-container"
+      onScroll={[Function]}
     >
       <div
         className="steps-inner-container"
+        onScroll={[Function]}
       >
         <div
           className="read-passage-step-container"
@@ -182,7 +185,8 @@ But how can democracies have representative governments unless all or most of th
           <PromptStep
             activateStep={[Function]}
             active={false}
-            className="step "
+            canBeClicked={false}
+            className="step  "
             completeStep={[Function]}
             everyOtherStepCompleted={false}
             key="2"
@@ -210,7 +214,7 @@ But how can democracies have representative governments unless all or most of th
             submittedResponses={Array []}
           >
             <div
-              className="step "
+              className="step  "
               onClick={[Function]}
               onKeyDown={[Function]}
               role="button"
@@ -246,7 +250,8 @@ But how can democracies have representative governments unless all or most of th
           <PromptStep
             activateStep={[Function]}
             active={false}
-            className="step "
+            canBeClicked={false}
+            className="step  "
             completeStep={[Function]}
             everyOtherStepCompleted={false}
             key="3"
@@ -274,7 +279,7 @@ But how can democracies have representative governments unless all or most of th
             submittedResponses={Array []}
           >
             <div
-              className="step "
+              className="step  "
               onClick={[Function]}
               onKeyDown={[Function]}
               role="button"
@@ -310,7 +315,8 @@ But how can democracies have representative governments unless all or most of th
           <PromptStep
             activateStep={[Function]}
             active={false}
-            className="step "
+            canBeClicked={false}
+            className="step  "
             completeStep={[Function]}
             everyOtherStepCompleted={false}
             key="4"
@@ -338,7 +344,7 @@ But how can democracies have representative governments unless all or most of th
             submittedResponses={Array []}
           >
             <div
-              className="step "
+              className="step  "
               onClick={[Function]}
               onKeyDown={[Function]}
               role="button"
