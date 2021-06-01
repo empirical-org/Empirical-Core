@@ -106,7 +106,7 @@ export const buildActivity = ({
     activity: {
       name: activityName,
       title: activityTitle,
-      parent_activity_id: parseInt(activityParentActivityId),
+      parent_activity_id: activityParentActivityId ? parseInt(activityParentActivityId) : null,
       // flag: label,
       scored_level: activityScoredReadingLevel,
       target_level: parseInt(activityTargetReadingLevel),
@@ -271,9 +271,6 @@ export const validateForm = (keys: string[], state: any[], ruleType?: string) =>
           errors[keys[i]] = 'Concept UID cannot be blank. Default for plagiarism rules is "Kr8PdUfXnU0L7RrGpY4uqg"'
         }
         break;
-      case PARENT_ACTIVITY_ID:
-        // this field is not required
-        break;
       default:
         const strippedValue = value && stripHtml(value);
         if(!strippedValue || strippedValue.length === 0) {
@@ -316,3 +313,12 @@ export const getCsrfToken = () => {
   const token = document.querySelector('meta[name="csrf-token"]')
   if (token) { return token.getAttribute('content') }
 };
+
+export const renderIDorUID = (idOrRuleId: string | number, type: string) => {
+  return(
+    <section className="label-status-container">
+      <p id="label-status-label">{type}</p>
+      <p id="label-status">{idOrRuleId}</p>
+    </section>
+  );
+}
