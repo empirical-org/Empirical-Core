@@ -127,7 +127,7 @@ const ActivityStats: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ hist
       {formattedRows && (<ReactTable
         className="activity-stats-table"
         columns={dataTableFields}
-        data={formattedRows ? formattedRows : []}
+        data={formattedRows || []}
         defaultPageSize={formattedRows.length}
         showPagination={false}
       />)}
