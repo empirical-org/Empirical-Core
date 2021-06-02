@@ -63,7 +63,7 @@ class LessonRecommendationsQuery
           AND cu.visible = true
           AND unit.visible = true
       SQL
-    ).to_a.map {|e| e['name']}
+    ).values.flatten
   end
 
   private def mark_previously_assigned(recs, classroom_id)
