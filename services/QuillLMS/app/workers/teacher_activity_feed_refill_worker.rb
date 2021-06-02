@@ -2,7 +2,7 @@
 # and refills it will the teacher's most recent 40 activity sessions
 class TeacherActivityFeedRefillWorker
   include Sidekiq::Worker
-  sidekiq_options queue: 'critical'
+  sidekiq_options queue: SidekiqQueue::DEFAULT
 
   def perform(user_id)
     teacher = User.teacher.find_by(id: user_id)
