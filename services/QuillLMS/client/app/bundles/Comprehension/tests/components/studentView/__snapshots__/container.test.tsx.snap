@@ -215,10 +215,6 @@ But how can democracies have representative governments unless all or most of th
           >
             <div
               className="step  "
-              onClick={[Function]}
-              onKeyDown={[Function]}
-              role="button"
-              tabIndex={0}
             >
               <div
                 className="step-content"
@@ -280,10 +276,6 @@ But how can democracies have representative governments unless all or most of th
           >
             <div
               className="step  "
-              onClick={[Function]}
-              onKeyDown={[Function]}
-              role="button"
-              tabIndex={0}
             >
               <div
                 className="step-content"
@@ -345,10 +337,6 @@ But how can democracies have representative governments unless all or most of th
           >
             <div
               className="step  "
-              onClick={[Function]}
-              onKeyDown={[Function]}
-              role="button"
-              tabIndex={0}
             >
               <div
                 className="step-content"

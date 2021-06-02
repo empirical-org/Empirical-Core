@@ -58,7 +58,7 @@ export class StudentViewContainer extends React.Component<StudentViewContainerPr
       activeStep: READ_PASSAGE_STEP,
       completedSteps: [],
       showFocusState: false,
-      startTime: new Date(),
+      startTime: Date.now(),
       isIdle: false,
       timeTracking: {
         1: 0,
@@ -135,6 +135,7 @@ export class StudentViewContainer extends React.Component<StudentViewContainerPr
   }
 
   resetTimers = (e=null) => {
+    const now = Date.now()
     this.setState((prevState, props) => {
       const { activeStep, startTime, timeTracking, isIdle, inactivityTimer, completedSteps, } = prevState
       if (completedSteps.includes(activeStep)) { return } // don't want to add time if a user is revisiting a previously completed step
@@ -142,14 +143,14 @@ export class StudentViewContainer extends React.Component<StudentViewContainerPr
 
       if (inactivityTimer) { clearTimeout(inactivityTimer) }
 
-      let elapsedTime = _.round((Date.now() - startTime) / 1000)
+      let elapsedTime = _.round((now - startTime) / 1000)
       if (isIdle) {
         elapsedTime = 0
       }
       const newTimeTracking = {...timeTracking, [activeStep]: timeTracking[activeStep] + elapsedTime}
       const newInactivityTimer = setTimeout(this.setIdle, 30000);  // time is in milliseconds (1000 is 1 second)
 
-      return { timeTracking: newTimeTracking, isIdle: false, inactivityTimer: newInactivityTimer, startTime: new Date(), }
+      return { timeTracking: newTimeTracking, isIdle: false, inactivityTimer: newInactivityTimer, startTime: now, }
     })
 
     return Promise.resolve(true);
@@ -311,7 +312,7 @@ export class StudentViewContainer extends React.Component<StudentViewContainerPr
     // don't activate steps before Done reading button has been clicked
     if (step && step > 1 && !completedSteps.includes(READ_PASSAGE_STEP)) return
 
-    this.setState({ activeStep: step, startTime: new Date(), }, () => {
+    this.setState({ activeStep: step, startTime: Date.now(), }, () => {
       if (!skipTracking) this.trackCurrentPromptStartedEvent()
       if (callback) { callback() }
     })

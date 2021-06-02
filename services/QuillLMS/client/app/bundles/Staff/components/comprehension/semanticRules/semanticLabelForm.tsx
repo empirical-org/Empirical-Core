@@ -11,7 +11,8 @@ import RuleUniversalAttributes from '../configureRules/ruleUniversalAttributes';
 import { Spinner, Modal } from '../../../../Shared/index';
 import { deleteRule, fetchRules, fetchUniversalRules } from '../../../utils/comprehension/ruleAPIs';
 import { fetchConcepts, } from '../../../utils/comprehension/conceptAPIs';
-import { handleSubmitRule, getInitialRuleType, formatInitialFeedbacks, returnInitialFeedback, renderErrorsContainer } from '../../../helpers/comprehension/ruleHelpers';
+import { renderErrorsContainer } from '../../../helpers/comprehension';
+import { handleSubmitRule, getInitialRuleType, formatInitialFeedbacks, returnInitialFeedback } from '../../../helpers/comprehension/ruleHelpers';
 import { ruleOptimalOptions, regexRuleTypes, PLAGIARISM } from '../../../../../constants/comprehension';
 import { RuleInterface, DropdownObjectInterface } from '../../../interfaces/comprehensionInterfaces';
 

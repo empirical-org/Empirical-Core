@@ -8,6 +8,7 @@ import {
   handleSetRuleOptimal,
   handleSetRuleType,
 } from '../../../helpers/comprehension/ruleHelpers';
+import { renderIDorUID } from '../../../helpers/comprehension';
 import { ruleTypeOptions, universalRuleTypeOptions, ruleOptimalOptions } from '../../../../../constants/comprehension';
 import { InputEvent, DropdownObjectInterface } from '../../../interfaces/comprehensionInterfaces';
 import { Input, DropdownInput, TextEditor } from '../../../../Shared/index'
@@ -63,15 +64,6 @@ const RuleGenericAttributes = ({
   function onHandleSetRuleOptimal(ruleOptimal: DropdownObjectInterface) { handleSetRuleOptimal(ruleOptimal, setRuleOptimal) }
 
   function onHandleSetRuleNote(text: string) { handleSetRuleNote(text, setRuleNote)}
-
-  function renderIDorUID(idOrRuleId, type) {
-    return(
-      <section className="label-status-container">
-        <p id="label-status-label">{type}</p>
-        <p id="label-status">{idOrRuleId}</p>
-      </section>
-    );
-  }
 
   let options = isUniversal ? universalRuleTypeOptions : ruleTypeOptions;
   if(!isAutoML) {

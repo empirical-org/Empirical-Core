@@ -17,47 +17,49 @@ const Navigation = ({ location, match }) => {
   const { activityId, } = params
   const [showCreateActivityModal, setShowCreateActivityModal] = React.useState<boolean>(false);
   const [showSubmissionModal, setShowSubmissionModal] = React.useState<boolean>(false);
-  const [error, setError] = React.useState<string>('');
+  const [errors, setErrors] = React.useState<string[]>([]);
 
   const csrfToken = getCsrfToken();
   localStorage.setItem('csrfToken', csrfToken);
 
-  const checkOverviewActive = () => {
+  function checkOverviewActive() {
     if(!location) return false;
     return pathname === '/activities' && !showCreateActivityModal;
   }
 
-  const toggleCreateActivityModal = () => {
+  function toggleCreateActivityModal() {
     setShowCreateActivityModal(!showCreateActivityModal);
   }
 
-  const toggleSubmissionModal = () => {
+  function toggleSubmissionModal() {
     setShowSubmissionModal(!showSubmissionModal);
   }
 
-  const submitActivity = (activity: ActivityInterface) => {
+  function submitActivity(activity: ActivityInterface) {
     createActivity(activity).then((response) => {
-      const { error } = response;
-      if(error) setError(error);
-      setShowCreateActivityModal(false);
-      setShowSubmissionModal(true);
-
-      // update activities cache to display newly created activity
-      queryCache.refetchQueries('activities')
+      const { errors } = response;
+      if(errors && errors.length) {
+        setErrors(errors);
+      } else {
+        // update activities cache to display newly created activity
+        queryCache.refetchQueries('activities');
+        setErrors([]);
+        setShowCreateActivityModal(false);
+        setShowSubmissionModal(true);
+      }
     });
   }
 
-  const renderActivityForm = () => {
+  function renderActivityForm() {
     return(
       <Modal>
-        <ActivityForm activity={blankActivity} closeModal={toggleCreateActivityModal} submitActivity={submitActivity} />
+        <ActivityForm activity={blankActivity} closeModal={toggleCreateActivityModal} requestErrors={errors} submitActivity={submitActivity} />
       </Modal>
     );
   }
 
-  const renderSubmissionModal = () => {
-    const message = error ? error : 'Submission successful!';
-    return <SubmissionModal close={toggleSubmissionModal} message={message} />;
+  function renderSubmissionModal () {
+    return <SubmissionModal close={toggleSubmissionModal} message='Submission successful!' />;
   }
 
   let rulesAnalysisSubLinks
