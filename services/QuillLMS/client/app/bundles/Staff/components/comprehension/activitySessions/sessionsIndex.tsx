@@ -4,10 +4,11 @@ import { Link } from 'react-router-dom';
 import { useQuery } from 'react-query';
 import * as moment from 'moment';
 import { firstBy } from 'thenby';
+import DateTimePicker from 'react-datetime-picker';
 
 import { Error, Spinner, DropdownInput } from '../../../../Shared/index';
 import { fetchActivity, fetchActivitySessions } from '../../../utils/comprehension/activityAPIs';
-import { DropdownObjectInterface } from '../../../interfaces/comprehensionInterfaces';
+import { DropdownObjectInterface, ActivitySessionInterface } from '../../../interfaces/comprehensionInterfaces';
 import { ALL, SCORED, UNSCORED, WEAK, COMPLETE, INCOMPLETE, activitySessionIndexResponseHeaders, activitySessionFilterOptions } from '../../../../../constants/comprehension';
 
 const quillCheckmark = 'https://assets.quill.org/images/icons/check-circle-small.svg';
@@ -22,6 +23,8 @@ const SessionsIndex = ({ match }) => {
   const [rowData, setRowData] = React.useState<any[]>([]);
   const [sortInfo, setSortInfo] = React.useState<any>(null);
   const pageNumberForQuery = pageNumber && pageNumber.value ? pageNumber.value : 1;
+  const [startDate, onStartDateChange] = React.useState<Date>(null);
+  const [endDate, onEndDateChange] = React.useState<Date>(null);
 
   // cache activity data for updates
   const { data: activityData } = useQuery({
@@ -48,7 +51,7 @@ const SessionsIndex = ({ match }) => {
     }
   }, [sessionsData]);
 
-  function getFilteredRows(filter: string, activitySessions: any) {
+  function getFilteredRows(filter: string, activitySessions: ActivitySessionInterface[]) {
     switch (filter) {
       case ALL:
         return activitySessions;
@@ -67,7 +70,7 @@ const SessionsIndex = ({ match }) => {
     }
   }
 
-  function handleFilterOptionChange(option, activitySessions) {
+  function handleFilterOptionChange(option: DropdownObjectInterface, activitySessions: ActivitySessionInterface[]) {
     const { value } = option;
     const formattedRows = formatSessionsData(activitySessions);
     const sortedRows = sortedSessions(formattedRows, sortInfo)
@@ -76,7 +79,7 @@ const SessionsIndex = ({ match }) => {
     setRowData(filteredRows);
   }
 
-  function handleDataUpdate(activity_sessions, state) {
+  function handleDataUpdate(activity_sessions: ActivitySessionInterface[], state: { sorted: object[]}) {
     const { sorted } = state;
     const sortInfo = sorted[0];
     const rows = formatSessionsData(activity_sessions);
@@ -113,7 +116,7 @@ const SessionsIndex = ({ match }) => {
     return activitySessions.sort(firstBy(id, { direction: directionOfSort }));
   }
 
-  function sortedSessions(activitySessions: any[], sortInfo?: any) {
+  function sortedSessions(activitySessions: ActivitySessionInterface[], sortInfo?: any) {
     if(sortInfo) {
       setSortInfo(sortInfo);
       const { id, desc } = sortInfo;
@@ -126,7 +129,7 @@ const SessionsIndex = ({ match }) => {
     }
   }
 
-  function formatSessionsData(activitySessions: any[]) {
+  function formatSessionsData(activitySessions: ActivitySessionInterface[]) {
     return activitySessions.map(session => {
       const { start_date, session_uid, because_attempts, but_attempts, so_attempts, complete } = session;
       const dateObject = new Date(start_date);
@@ -199,6 +202,21 @@ const SessionsIndex = ({ match }) => {
             options={activitySessionFilterOptions}
             value={filterOption}
           />
+          <p className="date-picker-label">Start Date:</p>
+          <DateTimePicker
+            ampm={false}
+            format='y-MM-dd HH:mm'
+            onChange={onStartDateChange}
+            value={startDate}
+          />
+          <p className="date-picker-label">End Date (optional):</p>
+          <DateTimePicker
+            ampm={false}
+            format='y-MM-dd HH:mm'
+            onChange={onEndDateChange}
+            value={endDate}
+          />
+          <button className="quill-button fun primary contained" type="submit">Filter</button>
         </section>
         <ReactTable
           className="activity-sessions-table"

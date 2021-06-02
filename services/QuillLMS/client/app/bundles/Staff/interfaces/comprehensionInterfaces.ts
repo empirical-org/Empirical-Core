@@ -101,6 +101,20 @@ export interface RuleFeedbackInterface {
   text: string
 }
 
+export interface ActivitySessionInterface {
+  activity_id: number,
+  because_attempts: number,
+  but_attempts: number,
+  complete: boolean,
+  flags: string[],
+  scored_count: number,
+  session_uid: string,
+  so_attempts: number,
+  start_date: string,
+  strong_count: number,
+  weak_count: number
+}
+
 export interface DropdownObjectInterface {
   value: string,
   label: string
