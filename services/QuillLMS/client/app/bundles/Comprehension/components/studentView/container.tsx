@@ -184,7 +184,8 @@ export class StudentViewContainer extends React.Component<StudentViewContainerPr
         so: timeTracking[4],
       })
     }
-    dispatch(completeActivitySession(sessionID, currentActivity.parent_activity_id, percentage, conceptResults, data, handleFinishActivity))
+    const callback = handleFinishActivity ? handleFinishActivity : window.location.href = '/'
+    dispatch(completeActivitySession(sessionID, currentActivity.parent_activity_id, percentage, conceptResults, data, callback))
   }
 
   onMobile = () => window.innerWidth < 1100
