@@ -35,9 +35,15 @@ describe Dashboard, redis: true do
 
   context 'when it is called' do
     it "sets a cache if none exsits" do
-      expect($redis.keys.length).to eq(0)
+      user_id = teacher_with_sufficient_data.id
+
+      expect($redis.get("user_id:#{user_id}_difficult_concepts")).to be_nil
+      expect($redis.get("user_id:#{user_id}_struggling_students")).to be_nil
+
       Dashboard.queries(teacher_with_sufficient_data)
-      expect($redis.keys.length).to eq(2)
+
+      expect($redis.get("user_id:#{user_id}_difficult_concepts")).not_to be_nil
+      expect($redis.get("user_id:#{user_id}_struggling_students")).not_to be_nil
     end
 
     it "returns a cache if one does exist" do
