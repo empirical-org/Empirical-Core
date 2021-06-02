@@ -14,8 +14,9 @@ class TeacherActivityFeed < RedisFeed
 
   def hydrate(ids:)
     sessions = ActivitySession
-      .includes(:user, :activity, :classification, :classroom_unit)
+      .includes(:user, :classification, :classroom_unit)
       .where(id: ids)
+      .select(:id, :user_id, :classroom_unit_id, :activity_id, :percentage, :completed_at)
 
     # purposely avoiding the SQL sort on the large activity_sessions table
     sessions.sort_by(&:completed_at).reverse.map do |session|
@@ -23,8 +24,8 @@ class TeacherActivityFeed < RedisFeed
         id: session.id,
         student_name: session.user.name,
         activity_name: session.activity.name,
-        unit_id: session.classroom_unit.unit_id,
-        classroom_id: session.classroom_unit.classroom_id,
+        unit_id: session.classroom_unit&.unit_id,
+        classroom_id: session.classroom_unit&.classroom_id,
         user_id: session.user_id,
         activity_id: session.activity_id,
         score: text_for_score(session.classification.key, session.percentage),
