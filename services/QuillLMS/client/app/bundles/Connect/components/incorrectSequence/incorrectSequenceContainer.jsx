@@ -5,7 +5,7 @@ import _ from 'underscore';
 import { EditorState, ContentState } from 'draft-js'
 
 import { TextEditor } from '../../../Shared/index';
-import { SortableList } from '../../../Shared/index';
+import { hashToCollection, SortableList } from '../../../Shared/index';
 import questionActions from '../../actions/questions';
 import sentenceFragmentActions from '../../actions/sentenceFragments';
 
@@ -19,7 +19,7 @@ class IncorrectSequencesContainer extends Component {
     const question = props[questionType].data[props.match.params.questionID]
     const incorrectSequences = this.getSequences(question)
 
-    this.state = { questionType, actionFile, questionTypeLink, incorrectSequences };
+    this.state = { orderedIds: null, questionType, actionFile, questionTypeLink, incorrectSequences };
   }
 
   componentDidMount() {
@@ -68,16 +68,19 @@ class IncorrectSequencesContainer extends Component {
     }
   };
 
+  sequencesSortedByOrder = () => {
+    const { orderedIds, incorrectSequences } = this.state
+    if (orderedIds) {
+      const sequencesCollection = hashToCollection(incorrectSequences)
+      return orderedIds.map(id => sequencesCollection.find(s => s.key === id))
+    } else {
+      return hashToCollection(incorrectSequences).sort((a, b) => a.order - b.order);
+    }
+  }
+
   sortCallback = sortInfo => {
-    const { actionFile, incorrectSequences } = this.state
-    const { updateIncorrectSequences } = actionFile
-    const { dispatch, match } = this.props
-    const { params } = match
-    const { questionID } = params
-    const newOrder = sortInfo.filter(item => item).map(item => item.key);
-    const newIncorrectSequences = newOrder.map((key) => incorrectSequences[key])
-    this.setState({incorrectSequences: newIncorrectSequences})
-    dispatch(updateIncorrectSequences(questionID, newIncorrectSequences));
+    const orderedIds = sortInfo.map(item => item.key);
+    this.setState({ orderedIds, });
   };
 
   saveSequencesAndFeedback = (key) => {
@@ -154,19 +157,18 @@ class IncorrectSequencesContainer extends Component {
   }
 
   renderSequenceList = () => {
-    const { incorrectSequences } = this.state
     const { match } = this.props
 
-    const components = _.mapObject(incorrectSequences, (val, key) => {
+    const components = this.sequencesSortedByOrder().map((s) => {
       return (
-        <div className="card is-fullwidth has-bottom-margin" key={key}>
+        <div className="card is-fullwidth has-bottom-margin" key={s.key}>
           <header className="card-header">
             <p className="card-header-title" style={{ display: 'inline-block', }}>
-              {this.renderTextInputFields(val.text, key)}
-              <button className="add-regex-button" onClick={(e) => this.addNewSequence(e, key)} type="button">+</button>
+              {this.renderTextInputFields(s.text, s.key)}
+              <button className="add-regex-button" onClick={(e) => this.addNewSequence(e, s.key)} type="button">+</button>
             </p>
             <p className="card-header-icon">
-              {val.order}
+              {s.order}
             </p>
           </header>
           <div className="card-content">
@@ -174,17 +176,17 @@ class IncorrectSequencesContainer extends Component {
             <TextEditor
               ContentState={ContentState}
               EditorState={EditorState}
-              handleTextChange={(e) => this.handleFeedbackChange(e, key)}
+              handleTextChange={(e) => this.handleFeedbackChange(e, s.key)}
               key="feedback"
-              text={val.feedback}
+              text={s.feedback}
             />
             <br />
-            {this.renderConceptResults(val.conceptResults, key)}
+            {this.renderConceptResults(s.conceptResults, s.key)}
           </div>
           <footer className="card-footer">
-            <NavLink className="card-footer-item" to={`${match.url}/${key}/edit`}>Edit</NavLink>
-            <a className="card-footer-item" onClick={() => this.deleteSequence(key)}>Delete</a>
-            <a className="card-footer-item" onClick={() => this.saveSequencesAndFeedback(key)}>Save</a>
+            <NavLink className="card-footer-item" to={`${match.url}/${s.key}/edit`}>Edit</NavLink>
+            <a className="card-footer-item" onClick={() => this.deleteSequence(s.key)}>Delete</a>
+            <a className="card-footer-item" onClick={() => this.saveSequencesAndFeedback(s.key)}>Save</a>
           </footer>
         </div>
       )
