@@ -77,6 +77,8 @@ class ActivitySession < ActiveRecord::Base
 
   scope :completed,  -> { where.not(completed_at: nil) }
   scope :incomplete, -> { where(completed_at: nil, is_retry: false) }
+  # this is a default scope, adding this for unscoped use.
+  scope :visible,  -> { where(visible: true) }
 
   scope :for_teacher, lambda { |teacher_id|
     joins(classroom_unit: {classroom: :teachers})
