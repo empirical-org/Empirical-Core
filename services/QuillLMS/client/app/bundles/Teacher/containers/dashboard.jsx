@@ -37,6 +37,7 @@ const Dashboard = ({ onboardingChecklist, firstName, mustSeeModal, linkedToCleve
   const [activityFeed, setActivityFeed] = React.useState(null)
   const [loading, setLoading] = React.useState(true);
 
+  // TODO remove activityFeed from initial deploy (here for testing)
   React.useEffect(() => {
     getMetrics();
     getDiagnostics()
