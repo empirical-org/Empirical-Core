@@ -4,7 +4,7 @@ import { EditorState, ContentState } from 'draft-js';
 import PromptsForm from './promptsForm';
 
 // import { flagOptions } from '../../../../../constants/comprehension'
-import { validateForm, buildActivity, buildBlankPrompt, promptsByConjunction, getActivityPrompt, getActivityPromptSetter, renderIDorUID } from '../../../helpers/comprehension';
+import { validateForm, buildActivity, buildBlankPrompt, promptsByConjunction, getActivityPrompt, getActivityPromptSetter, renderErrorsContainer, renderIDorUID } from '../../../helpers/comprehension';
 import {
   BECAUSE,
   BUT,
@@ -26,10 +26,11 @@ import { Input, TextEditor, } from '../../../../Shared/index'
 interface ActivityFormProps {
   activity: ActivityInterface,
   closeModal: (event: React.MouseEvent) => void,
+  requestErrors: string[],
   submitActivity: (activity: object) => void
 }
 
-const ActivityForm = ({ activity, closeModal, submitActivity }: ActivityFormProps) => {
+const ActivityForm = ({ activity, closeModal, requestErrors, submitActivity }: ActivityFormProps) => {
 
   const { parent_activity_id, passages, prompts, scored_level, target_level, title, name, } = activity;
   // const formattedFlag = flag ? { label: flag, value: flag } : flagOptions[0];
@@ -122,13 +123,17 @@ const ActivityForm = ({ activity, closeModal, submitActivity }: ActivityFormProp
     if(validationErrors && Object.keys(validationErrors).length !== 0) {
       setErrors(validationErrors);
     } else {
+      setErrors({});
       submitActivity(activityObject);
     }
   }
 
-  const errorsPresent = !!Object.keys(errors).length;
+  const formErrorsPresent = !!Object.keys(errors).length;
+  const requestErrorsPresent = !!(requestErrors && requestErrors.length);
+  const showErrorsContainer = formErrorsPresent || requestErrorsPresent;
   const passageLabelStyle = activityPassages[0].text.length  && activityPassages[0].text !== '<br/>' ? 'has-text' : '';
   const maxAttemptStyle = activityMaxFeedback.length && activityMaxFeedback !== '<br/>' ? 'has-text' : '';
+
   return(
     <div className="activity-form-container">
       <div className="close-button-container">
@@ -212,9 +217,7 @@ const ActivityForm = ({ activity, closeModal, submitActivity }: ActivityFormProp
           handleSetPrompt={handleSetPrompt}
         />
         <div className="submit-button-container">
-          {errorsPresent && <div className="error-message-container">
-            <p className="all-errors-message">Please check that all fields have been completed correctly.</p>
-          </div>}
+          {showErrorsContainer && renderErrorsContainer(formErrorsPresent, requestErrors)}
           <button className="quill-button fun primary contained" id="activity-submit-button" onClick={handleSubmitActivity} type="submit">
             Submit
           </button>

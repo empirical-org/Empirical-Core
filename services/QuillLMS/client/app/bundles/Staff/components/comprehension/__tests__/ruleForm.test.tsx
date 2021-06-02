@@ -11,9 +11,6 @@ jest.mock('../../../helpers/comprehension/ruleHelpers', () => ({
   getInitialRuleType: jest.fn().mockImplementation(() => {
     return { value: 'rules-based-1', label: 'Sentence Structure Regex' }
    }),
-  renderErrorsContainer: jest.fn().mockImplementation(() => {
-    return <strong>error!</strong>
-  }),
   formatInitialFeedbacks: jest.fn().mockImplementation(() => {
     return [{
       id: 7,
@@ -22,6 +19,11 @@ jest.mock('../../../helpers/comprehension/ruleHelpers', () => ({
       text: 'Revise your work. Delete the phrase "it contains methane" because it repeats the first part of the sentence',
       highlights_attributes: []
     }];
+  })
+}));
+jest.mock('../../../helpers/comprehension', () => ({
+  renderErrorsContainer: jest.fn().mockImplementation(() => {
+    return <strong>error!</strong>
   })
 }));
 

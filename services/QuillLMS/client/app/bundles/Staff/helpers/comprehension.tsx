@@ -10,7 +10,6 @@ import {
   MINIMUM_READING_LEVEL,
   MAXIMUM_READING_LEVEL,
   TARGET_READING_LEVEL,
-  PARENT_ACTIVITY_ID,
   SCORED_READING_LEVEL,
   IMAGE_LINK,
   IMAGE_ALT_TEXT,
@@ -321,4 +320,21 @@ export const renderIDorUID = (idOrRuleId: string | number, type: string) => {
       <p id="label-status">{idOrRuleId}</p>
     </section>
   );
+}
+
+export function renderErrorsContainer(formErrorsPresent: boolean, requestErrors: string[]) {
+  if(formErrorsPresent) {
+    return(
+      <div className="error-message-container">
+        <p className="all-errors-message">Please check that all fields have been completed correctly.</p>
+      </div>
+    );
+  }
+  return(
+    <div className="error-message-container">
+      {requestErrors.map((error, i) => {
+        return <p className="all-errors-message" key={i}>{error}</p>
+      })}
+    </div>
+  )
 }
