@@ -79,8 +79,13 @@ class IncorrectSequencesContainer extends Component {
   }
 
   sortCallback = sortInfo => {
+    const { actionFile } = this.state
+    const { dispatch, match } = this.props;
+    const { params } = match;
+    const { questionID } = params;
     const orderedIds = sortInfo.map(item => item.key);
     this.setState({ orderedIds, });
+    dispatch(actionFile.updateIncorrectSequences(questionID, this.sequencesSortedByOrder()));
   };
 
   saveSequencesAndFeedback = (key) => {
