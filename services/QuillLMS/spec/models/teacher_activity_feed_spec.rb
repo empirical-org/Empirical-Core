@@ -38,8 +38,7 @@ describe TeacherActivityFeed, type: :model do
     describe '#data_for_activity_feed' do
       it "has all activity sessions completed for that teacher's classroom, in reverse chronological order" do
         activity_session
-          classroom_ids = teacher.classrooms_teachers.pluck(:id)
-          classroom_unit_ids = ClassroomUnit.where(classroom_id: classroom_ids).pluck(:id)
+
         data = TeacherActivityFeed.get(teacher.id)
         expect(data.length).to eq(3)
         expect(data[0][:id]).to eq(activity_session.id)
