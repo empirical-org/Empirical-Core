@@ -5,7 +5,6 @@ module Comprehension
     before { @routes = Engine.routes }
     context 'foo' do 
       it 'should foo' do 
-        binding.pry
       end
     end
     context("index") do
