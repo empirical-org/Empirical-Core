@@ -68,7 +68,7 @@ module Comprehension
 
     def regex_is_passing?(entry)
       regex_rules.none? do |regex_rule|
-        regex_rule.is_entry_failing?(entry)
+        regex_rule.entry_failing?(entry)
       end
     end
 

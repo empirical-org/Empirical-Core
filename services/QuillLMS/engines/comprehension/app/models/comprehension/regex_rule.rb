@@ -26,7 +26,7 @@ module Comprehension
       ))
     end
 
-    def is_entry_failing?(entry)
+    def entry_failing?(entry)
       # for "incorrect" type regex rules, we want to "fail" if they have the regex. for "required" type regex
       # rules, we want to "fail" when they dont have the regex.
       sequence_type == TYPE_INCORRECT ? regex_match(entry) : !regex_match(entry)
