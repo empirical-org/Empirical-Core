@@ -5,7 +5,7 @@ class TeacherActivityFeedRefillWorker
   sidekiq_options queue: 'critical'
 
   def perform(user_id)
-    teacher = Teacher.find(user_id)
+    teacher = User.teacher.find_by(id: user_id)
 
     return unless teacher
 

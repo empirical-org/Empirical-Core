@@ -3,6 +3,16 @@ require 'rails_helper'
 describe TeacherActivityFeedRefillWorker, type: :worker do
   let(:worker) { described_class.new }
 
+  context 'non-teacher' do
+    let(:student) { create(:student) }
+
+    it 'should not reset and refill activity feed' do
+      expect(TeacherActivityFeed).to_not receive(:reset!)
+      expect(TeacherActivityFeed).to_not receive(:add)
+
+      worker.perform(student.id)
+    end
+  end
 
   context 'teacher without any classrooms' do
     let(:teacher) { create(:teacher) }
@@ -42,6 +52,5 @@ describe TeacherActivityFeedRefillWorker, type: :worker do
 
       worker.perform(teacher.id)
     end
-
   end
 end
