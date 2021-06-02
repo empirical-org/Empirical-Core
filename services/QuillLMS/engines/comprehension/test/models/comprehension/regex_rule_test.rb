@@ -36,5 +36,31 @@ module Comprehension
         refute @regex_rule.valid?
       end
     end
+
+    context 'entry_failing?' do
+      setup do
+        @rule = create(:comprehension_rule)
+        @regex_rule = RegexRule.create(rule: @rule, regex_text: '^test', sequence_type: 'required', case_sensitive: false)
+      end
+
+      should 'flag entry as failing if regex does not match and sequence type is required' do
+        assert @regex_rule.entry_failing?('not test passing')
+      end
+
+      should 'flag entry as failing if regex matches and sequence type is incorrect' do
+        @regex_rule.update(sequence_type: 'incorrect')
+        assert @regex_rule.entry_failing?('test regex')
+      end
+
+      should 'flag entry as failing case-insensitive if the regex_rule is case insensitive' do
+        @regex_rule.update(sequence_type: 'incorrect')
+        assert @regex_rule.entry_failing?('TEST REGEX')
+      end
+
+      should 'not flag entry as failing if the regex_rule is case sensitive and the casing does not match' do
+        @regex_rule.update(sequence_type: 'incorrect', case_sensitive: true)
+        refute @regex_rule.entry_failing?('TEST REGEX')
+      end
+    end
   end
 end
