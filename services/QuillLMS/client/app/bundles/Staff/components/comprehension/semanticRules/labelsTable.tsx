@@ -6,12 +6,13 @@ import { firstBy } from 'thenby';
 import { fetchRules } from '../../../utils/comprehension/ruleAPIs';
 import { DataTable, Spinner } from '../../../../Shared/index';
 import { getCheckIcon } from '../../../helpers/comprehension';
+import { AUTO_ML } from '../../../../../constants/comprehension';
 
 const LabelsTable = ({ activityId, prompt }) => {
 
   const { data: rulesData } = useQuery({
     // cache rules data for updates
-    queryKey: [`rules-${activityId}`, null, prompt.id, 'autoML'],
+    queryKey: [`rules-${activityId}-${AUTO_ML}`, null, prompt.id, AUTO_ML],
     queryFn: fetchRules
   });
 

@@ -6,7 +6,7 @@ import { firstBy } from 'thenby';
 import { getPromptsIcons } from '../../../helpers/comprehension';
 import { getPromptIdString } from '../../../helpers/comprehension/ruleHelpers';
 import { ActivityRouteProps, RuleInterface, RegexRuleInterface } from '../../../interfaces/comprehensionInterfaces';
-import { BECAUSE, BUT, SO } from '../../../../../constants/comprehension';
+import { BECAUSE, BUT, SO, RULES_BASED_1, RULES_BASED_2, RULES_BASED_3 } from '../../../../../constants/comprehension';
 import { fetchRules } from '../../../utils/comprehension/ruleAPIs';
 import { fetchActivity } from '../../../utils/comprehension/activityAPIs';
 import { DataTable, Error, Spinner } from '../../../../Shared/index';
@@ -33,19 +33,19 @@ const RegexRulesIndex: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ ma
 
   const { data: rulesBased1Data } = useQuery({
     // cache rules data for updates
-    queryKey: [`rules-${activityId}-regex-sentence-structure`, null, promptIds, 'rules-based-1'],
+    queryKey: [`rules-${activityId}-${RULES_BASED_1}`, null, promptIds, RULES_BASED_1],
     queryFn: fetchRules
   });
 
   const { data: rulesBased2Data } = useQuery({
     // cache rules data for updates
-    queryKey: [`rules-${activityId}-regex-post-topic`, null, promptIds, 'rules-based-2'],
+    queryKey: [`rules-${activityId}-${RULES_BASED_2}`, null, promptIds, RULES_BASED_2],
     queryFn: fetchRules
   });
 
   const { data: rulesBased3Data } = useQuery({
     // cache rules data for updates
-    queryKey: [`rules-${activityId}-regex-typo`, null, promptIds, 'rules-based-3'],
+    queryKey: [`rules-${activityId}-${RULES_BASED_3}`, null, promptIds, RULES_BASED_3],
     queryFn: fetchRules
   });
 
@@ -139,9 +139,9 @@ const RegexRulesIndex: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ ma
     { name: "So", attribute:"so_prompt", width: "50px" },
     { name: "", attribute:"view", width: "50px" },
   ];
-  const addRulesBased1Link = <Link to={{ pathname: `/activities/${activityId}/regex-rules/new`, state: { ruleType: 'rules-based-1' }}}>Add Sentence Structure Regex Rule</Link>;
-  const addRulesBased2Link = <Link to={{ pathname: `/activities/${activityId}/regex-rules/new`, state: { ruleType: 'rules-based-2' }}}>Add Post-Topic Regex Rule</Link>;
-  const addRulesBased3Link = <Link to={{ pathname: `/activities/${activityId}/regex-rules/new`, state: { ruleType: 'rules-based-3' }}}>Add Typo Regex Rule</Link>;
+  const addRulesBased1Link = <Link to={{ pathname: `/activities/${activityId}/regex-rules/new`, state: { ruleType: RULES_BASED_1 }}}>Add Sentence Structure Regex Rule</Link>;
+  const addRulesBased2Link = <Link to={{ pathname: `/activities/${activityId}/regex-rules/new`, state: { ruleType: RULES_BASED_2 }}}>Add Post-Topic Regex Rule</Link>;
+  const addRulesBased3Link = <Link to={{ pathname: `/activities/${activityId}/regex-rules/new`, state: { ruleType: RULES_BASED_3 }}}>Add Typo Regex Rule</Link>;
   const rulesBased1Rows = getFormattedRows(rulesBased1Data);
   const rulesBased2Rows = getFormattedRows(rulesBased2Data);
   const rulesBased3Rows = getFormattedRows(rulesBased3Data);
