@@ -4,7 +4,7 @@ import { EditorState, ContentState } from 'draft-js';
 import PromptsForm from './promptsForm';
 
 // import { flagOptions } from '../../../../../constants/comprehension'
-import { validateForm, buildActivity, buildBlankPrompt, promptsByConjunction, getActivityPrompt, getActivityPromptSetter, renderErrorsContainer } from '../../../helpers/comprehension';
+import { validateForm, buildActivity, buildBlankPrompt, promptsByConjunction, getActivityPrompt, getActivityPromptSetter, renderErrorsContainer, renderIDorUID } from '../../../helpers/comprehension';
 import {
   BECAUSE,
   BUT,
@@ -14,11 +14,11 @@ import {
   NAME,
   SCORED_READING_LEVEL,
   TARGET_READING_LEVEL,
-  PARENT_ACTIVITY_ID,
   MAX_ATTEMPTS_FEEDBACK,
   PASSAGE,
   IMAGE_LINK,
-  IMAGE_ALT_TEXT
+  IMAGE_ALT_TEXT,
+  PARENT_ACTIVITY_ID
 } from '../../../../../constants/comprehension';
 import { ActivityInterface, PromptInterface, PassagesInterface, InputEvent } from '../../../interfaces/comprehensionInterfaces';
 import { Input, TextEditor, } from '../../../../Shared/index'
@@ -32,11 +32,10 @@ interface ActivityFormProps {
 
 const ActivityForm = ({ activity, closeModal, requestErrors, submitActivity }: ActivityFormProps) => {
 
-  const { parent_activity_id, passages, prompts, prompt_attributes, scored_level, target_level, title, name, } = activity;
+  const { parent_activity_id, passages, prompts, scored_level, target_level, title, name, } = activity;
   // const formattedFlag = flag ? { label: flag, value: flag } : flagOptions[0];
   const formattedScoredLevel = scored_level || '';
   const formattedTargetLevel = target_level ? target_level.toString() : '';
-  const formattedParentActivityId = parent_activity_id ? parent_activity_id.toString() : '';
   const formattedPassage = passages && passages.length ? passages : [{ text: ''}];
   let formattedMaxFeedback;
   if(prompts && prompts[0] && prompts[0].max_attempts_feedback) {
@@ -54,7 +53,6 @@ const ActivityForm = ({ activity, closeModal, requestErrors, submitActivity }: A
   // const [activityFlag, setActivityFlag] = React.useState<FlagInterface>(formattedFlag);
   const [activityScoredReadingLevel, setActivityScoredReadingLevel] = React.useState<string>(formattedScoredLevel);
   const [activityTargetReadingLevel, setActivityTargetReadingLevel] = React.useState<string>(formattedTargetLevel);
-  const [activityParentActivityId, setActivityParentActivityId] = React.useState<string>(formattedParentActivityId);
   const [activityPassages, setActivityPassages] = React.useState<PassagesInterface[]>(formattedPassage);
   const [activityMaxFeedback, setActivityMaxFeedback] = React.useState<string>(formattedMaxFeedback)
   const [activityBecausePrompt, setActivityBecausePrompt] = React.useState<PromptInterface>(becausePrompt);
@@ -73,8 +71,6 @@ const ActivityForm = ({ activity, closeModal, requestErrors, submitActivity }: A
   function handleSetActivityScoredReadingLevel(e: InputEvent){ setActivityScoredReadingLevel(e.target.value) };
 
   function handleSetActivityTargetReadingLevel(e: InputEvent){ setActivityTargetReadingLevel(e.target.value) };
-
-  function handleSetActivityParentActivityId(e: InputEvent){ setActivityParentActivityId(e.target.value) };
 
   function handleSetImageLink(e: InputEvent){ handleSetActivityPassages('image_link', e.target.value) };
 
@@ -103,7 +99,7 @@ const ActivityForm = ({ activity, closeModal, requestErrors, submitActivity }: A
       activityTitle,
       activityScoredReadingLevel,
       activityTargetReadingLevel,
-      activityParentActivityId,
+      activityParentActivityId: parent_activity_id,
       activityPassages,
       activityMaxFeedback,
       activityBecausePrompt,
@@ -115,7 +111,6 @@ const ActivityForm = ({ activity, closeModal, requestErrors, submitActivity }: A
       activityName,
       activityScoredReadingLevel,
       activityTargetReadingLevel,
-      activityParentActivityId,
       activityPassages[0].text,
       activityMaxFeedback,
       activityBecausePrompt.text,
@@ -181,13 +176,7 @@ const ActivityForm = ({ activity, closeModal, requestErrors, submitActivity }: A
           label="Target Reading Level"
           value={activityTargetReadingLevel}
         />
-        <Input
-          className="parent-activity-id-input"
-          error={errors[PARENT_ACTIVITY_ID]}
-          handleChange={handleSetActivityParentActivityId}
-          label="Parent Activity ID"
-          value={activityParentActivityId}
-        />
+        {parent_activity_id && renderIDorUID(parent_activity_id, PARENT_ACTIVITY_ID)}
         <Input
           className="image-link-input"
           error={errors[IMAGE_LINK]}
