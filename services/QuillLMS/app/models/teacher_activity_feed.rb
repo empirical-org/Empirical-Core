@@ -13,6 +13,8 @@ class TeacherActivityFeed < RedisFeed
   end
 
   def hydrate(ids:)
+    return [] if ids.empty?
+
     sessions = ActivitySession
       .includes(:user, :classification, :classroom_unit)
       .where(id: ids)
