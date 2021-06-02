@@ -1,5 +1,4 @@
-
-package endpoint
+package main
 
 import (
 	"bytes"
@@ -12,6 +11,7 @@ import (
 	"time"
 	"os"
 	"net/http/httputil"
+	"github.com/gin-gonic/gin"
 )
 
 const automl_index = 3
@@ -57,10 +57,10 @@ func AssembleUrls() ([8]string) {
 		sentence_structure_regex_api = fmt.Sprintf("%s/api/v1/comprehension/feedback/regex/rules-based-1.json", lms_domain)
 		post_topic_regex_api         = fmt.Sprintf("%s/api/v1/comprehension/feedback/regex/rules-based-2.json", lms_domain)
 		typo_regex_api               = fmt.Sprintf("%s/api/v1/comprehension/feedback/regex/rules-based-3.json", lms_domain)
-		spell_check_bing             = fmt.Sprintf("%s/api/v1/comprehension/feedback/spelling.json", lms_domain)		
+		spell_check_bing             = fmt.Sprintf("%s/api/v1/comprehension/feedback/spelling.json", lms_domain)
 
 		grammar_check_api = "https://grammar-api.ue.r.appspot.com"
-		opinion_check_api = "https://opinion-api.ue.r.appspot.com/"	
+		opinion_check_api = "https://opinion-api.ue.r.appspot.com/"
 	)
 
 	var urls = [...]string{
@@ -77,43 +77,33 @@ func AssembleUrls() ([8]string) {
 	return urls
 }
 
-func Endpoint(responseWriter http.ResponseWriter, request *http.Request) {
+func Endpoint(c *gin.Context) {
 	urls := AssembleUrls()
-	// need this for javascript cors requests
-	// https://cloud.google.com/functions/docs/writing/http#functions_http_cors-go
-	if request.Method == http.MethodOptions {
-		responseWriter.Header().Set("Access-Control-Allow-Origin", "*")
-		responseWriter.Header().Set("Access-Control-Allow-Methods", "POST")
-		responseWriter.Header().Set("Access-Control-Allow-Headers", "Content-Type")
-		responseWriter.Header().Set("Access-Control-Max-Age", "3600")
-		responseWriter.WriteHeader(http.StatusNoContent)
-		return
-	}
 
-	requestDump, err := httputil.DumpRequest(request, true)
+	requestDump, err := httputil.DumpRequest(c.Request, true)
 	if err != nil {
 		fmt.Println(err)
 	}
 	fmt.Println(string(requestDump))
 
-	request_body, err := ioutil.ReadAll(request.Body)
+	request_body, err := ioutil.ReadAll(c.Request.Body)
 	if err != nil {
 		//TODO make this response in the same format maybe?
-		http.Error(responseWriter, err.Error(), http.StatusInternalServerError)
+		c.String(http.StatusInternalServerError, err.Error())
 		return
 	}
 
 	results := map[int]InternalAPIResponse{}
 
-	c := make(chan InternalAPIResponse)
+	channel := make(chan InternalAPIResponse)
 
 	for priority, url := range urls {
-		go getAPIResponse(url, priority, request_body, c)
+		go getAPIResponse(url, priority, request_body, channel)
 	}
 
 	var returnable_result APIResponse
 
-	for response := range c {
+	for response := range channel {
 		results[response.Priority] = response
 		return_index, finished := processResults(results, len(urls))
 
@@ -145,9 +135,9 @@ func Endpoint(responseWriter http.ResponseWriter, request *http.Request) {
 
 	go batchRecordFeedback(request_object, results, GetBatchFeedbackHistoryUrl())
 
-	responseWriter.Header().Set("Access-Control-Allow-Origin", "*")
-	responseWriter.Header().Set("Content-Type", "application/json")
-	json.NewEncoder(responseWriter).Encode(returnable_result)
+	c.Header("Access-Control-Allow-Origin", "*")
+	c.Header("Content-Type", "application/json")
+	c.JSON(200, returnable_result)
 
 	wg.Wait()
 }
@@ -231,8 +221,8 @@ func buildFeedbackHistory(request_object APIRequest, feedback InternalAPIRespons
 }
 
 func buildBatchFeedbackHistories(
-	request_object APIRequest, 
-	feedbacks map[int]InternalAPIResponse, 
+	request_object APIRequest,
+	feedbacks map[int]InternalAPIResponse,
 	time_received time.Time,
 	) (BatchHistoriesAPIRequest, error) {
 	feedback_histories := []FeedbackHistory{}

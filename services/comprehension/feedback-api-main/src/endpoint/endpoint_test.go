@@ -1,4 +1,4 @@
-package endpoint
+package main
 
 import (
 	"io/ioutil"
@@ -11,6 +11,7 @@ import (
 	"strings"
 	"time"
 	"os"
+	"github.com/gin-gonic/gin"
 )
 
 func TestPublishMessage(t *testing.T) {
@@ -21,7 +22,10 @@ func TestPublishMessage(t *testing.T) {
 
 	rr := httptest.NewRecorder()
 	req := httptest.NewRequest("POST", "/", json_string)
-	Endpoint(rr, req)
+
+	servrer := gin.Default()
+	servrer.POST("/", Endpoint)
+	servrer.ServeHTTP(rr, req)
 
 	if rr.Code != http.StatusOK {
 		t.Errorf("Endpoint got response code %v, want %v", rr.Code, http.StatusOK)
@@ -53,7 +57,10 @@ func TestDefaultFeedbackFallback(t *testing.T) {
 
 	rr := httptest.NewRecorder()
 	req := httptest.NewRequest("POST", "/", json_string)
-	Endpoint(rr, req)
+
+	servrer := gin.Default()
+	servrer.POST("/", Endpoint)
+	servrer.ServeHTTP(rr, req)
 
 	if rr.Code != http.StatusOK {
 		t.Errorf("Endpoint got response code %v, want %v", rr.Code, http.StatusOK)
