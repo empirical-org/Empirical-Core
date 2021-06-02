@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 describe Cms::AnnouncementsController, type: :controller do
-  it { should use_before_filter :signed_in! }
+  it { should use_before_action :signed_in! }
 
   let(:user) { create(:staff) }
 

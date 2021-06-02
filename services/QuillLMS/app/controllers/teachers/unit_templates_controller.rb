@@ -1,6 +1,7 @@
 class Teachers::UnitTemplatesController < ApplicationController
   before_action :is_teacher?, only: [:show, :index, :count]
   before_action :redirect_to_public_index_if_no_unit_template_found, only: [:show]
+  before_action :set_root_url
 
   include Units
 
@@ -116,4 +117,7 @@ class Teachers::UnitTemplatesController < ApplicationController
     ut.get_cached_serialized_unit_template('profile')
   end
 
+  private def set_root_url
+    @root_url = root_url
+  end
 end

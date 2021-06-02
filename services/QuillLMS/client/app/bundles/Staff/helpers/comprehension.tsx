@@ -10,10 +10,10 @@ import {
   MINIMUM_READING_LEVEL,
   MAXIMUM_READING_LEVEL,
   TARGET_READING_LEVEL,
-  PARENT_ACTIVITY_ID,
   SCORED_READING_LEVEL,
   IMAGE_LINK,
-  IMAGE_ALT_TEXT
+  IMAGE_ALT_TEXT,
+  PLAGIARISM
 } from '../../../constants/comprehension';
 import { PromptInterface } from '../interfaces/comprehensionInterfaces'
 
@@ -105,7 +105,7 @@ export const buildActivity = ({
     activity: {
       name: activityName,
       title: activityTitle,
-      parent_activity_id: parseInt(activityParentActivityId),
+      parent_activity_id: activityParentActivityId ? parseInt(activityParentActivityId) : null,
       // flag: label,
       scored_level: activityScoredReadingLevel,
       target_level: parseInt(activityTargetReadingLevel),
@@ -237,7 +237,7 @@ const scoredReadingLevelError = (value: string) => {
   }
 }
 
-export const validateForm = (keys: string[], state: any[]) => {
+export const validateForm = (keys: string[], state: any[], ruleType?: string) => {
   let errors = {};
   state.map((value, i) => {
     switch(keys[i]) {
@@ -257,18 +257,18 @@ export const validateForm = (keys: string[], state: any[]) => {
         }
         break;
       case "Stem Applied":
-        const stemApplied = Object.keys(value).some(stem => value[stem].checked);
-        if(!stemApplied) {
+        const stemsApplied = Object.keys(value).filter(stem => value[stem].checked);
+        if(!stemsApplied.length) {
           errors[keys[i]] = 'You must select at least one stem.';
+        }
+        if(ruleType && ruleType === PLAGIARISM && stemsApplied.length > 1) {
+          errors[keys[i]] = 'You can only select one stem.';
         }
         break;
       case "Concept UID":
         if(!value) {
           errors[keys[i]] = 'Concept UID cannot be blank. Default for plagiarism rules is "Kr8PdUfXnU0L7RrGpY4uqg"'
         }
-        break;
-      case PARENT_ACTIVITY_ID:
-        // this field is not required
         break;
       default:
         const strippedValue = value && stripHtml(value);
@@ -304,7 +304,37 @@ export const handleRequestErrors = async (errors: object) => {
   return errorsArray;
 }
 
+export function titleCase(string: string){
+  return string[0].toUpperCase() + string.slice(1).toLowerCase();
+}
+
 export const getCsrfToken = () => {
   const token = document.querySelector('meta[name="csrf-token"]')
   if (token) { return token.getAttribute('content') }
 };
+
+export const renderIDorUID = (idOrRuleId: string | number, type: string) => {
+  return(
+    <section className="label-status-container">
+      <p id="label-status-label">{type}</p>
+      <p id="label-status">{idOrRuleId}</p>
+    </section>
+  );
+}
+
+export function renderErrorsContainer(formErrorsPresent: boolean, requestErrors: string[]) {
+  if(formErrorsPresent) {
+    return(
+      <div className="error-message-container">
+        <p className="all-errors-message">Please check that all fields have been completed correctly.</p>
+      </div>
+    );
+  }
+  return(
+    <div className="error-message-container">
+      {requestErrors.map((error, i) => {
+        return <p className="all-errors-message" key={i}>{error}</p>
+      })}
+    </div>
+  )
+}

@@ -1,0 +1,11 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`PromptHealth component should render PromptHealth 1`] = `
+<div
+  className="standard-columns"
+>
+  <div>
+    Prompt data for this question could not be found. Refresh to try again.
+  </div>
+</div>
+`;

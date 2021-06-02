@@ -1,7 +1,7 @@
 class TeacherFixController < ApplicationController
   include TeacherFixes
-  before_filter :staff!
-  before_filter :set_user, only: :archived_units
+  before_action :staff!
+  before_action :set_user, only: :archived_units
 
   def index
   end

@@ -4,8 +4,8 @@ const ManifestPlugin = require('webpack-manifest-plugin');
 
 const devBuild = process.env.RAILS_ENV === 'development';
 const railsEnv = process.env.RAILS_ENV || process.env.NODE_ENV
-const firebaseApiKey = process.env.FIREBASE_API_KEY;
-const firebaseDatabaseUrl = process.env.FIREBASE_DATABASE_URL;
+
+const goFanoutUrl = 'https://us-central1-comprehension-247816.cloudfunctions.net/comprehension-fanout-staging';
 const pusherKey = process.env.PUSHER_KEY;
 const defaultUrl = process.env.DEFAULT_URL;
 const cdnUrl = process.env.CDN_URL;
@@ -22,14 +22,13 @@ const mode = devBuild ? 'development' : 'production';
 const basePlugins = [
   new webpack.DefinePlugin({
     'process.env.RAILS_ENV': JSON.stringify(railsEnv),
-    'process.env.FIREBASE_API_KEY': JSON.stringify(firebaseApiKey),
-    'process.env.FIREBASE_DATABASE_URL': JSON.stringify(firebaseDatabaseUrl),
     'process.env.PUSHER_KEY': JSON.stringify(pusherKey),
     'process.env.DEFAULT_URL': JSON.stringify(defaultUrl),
     'process.env.CDN_URL': JSON.stringify(cdnUrl),
     'process.env.QUILL_GRAMMAR_URL': JSON.stringify(grammarUrl),
     'process.env.LESSONS_WEBSOCKETS_URL': JSON.stringify(lessonsWebsocketsUrl),
     'process.env.QUILL_CMS': JSON.stringify(quillCmsUrl),
+    'process.env.GOLANG_FANOUT_URL': JSON.stringify(goFanoutUrl),
     TRACE_TURBOLINKS: devBuild,
   }),
   new webpack.LoaderOptionsPlugin({

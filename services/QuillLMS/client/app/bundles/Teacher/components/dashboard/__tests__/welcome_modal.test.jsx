@@ -7,7 +7,8 @@ describe('WelcomeModal component', () => {
 
   const wrapper = shallow(
     <WelcomeModal
-      cancel={() => {}}
+      cancel={jest.fn()}
+      size={{ height:  900, width: 600 }}
     />
   );
 

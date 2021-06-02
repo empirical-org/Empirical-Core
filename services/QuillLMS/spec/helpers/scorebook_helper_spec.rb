@@ -72,7 +72,9 @@ describe ScorebookHelper, type: :helper do
 
   describe '#scorebook_path' do
     before do
-      allow(helper).to receive(:scorebook_teachers_classrooms_path) { "path" }
+      without_partial_double_verification do
+        allow(helper).to receive(:scorebook_teachers_classrooms_path) { "path" }
+      end
     end
 
     it 'should give path if teacher has classrooms' do

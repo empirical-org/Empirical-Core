@@ -8,5 +8,7 @@ export interface Question {
     flag?: string,
     instructions: string,
     key: string,
-    prompt: string
+    prompt: string,
+    mediaAlt?: string,
+    mediaURL?: string
 }

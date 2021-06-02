@@ -129,7 +129,7 @@ export class LessonForm extends React.Component<LessonFormProps, LessonFormState
       const questionsList = selectedQuestions.map((question: { key: string, questionType: string }) => {
         const questionObject = this.props[question.questionType].data[question.key]; // eslint-disable-line react/destructuring-assignment
         const prompt = questionObject ? questionObject.prompt : 'Question No Longer Exists';
-        const promptOrTitle = question.questionType === 'titleCards' ? questionObject.title : prompt
+        const promptOrTitle = questionObject && question.questionType === 'titleCards' ? questionObject.title : prompt
         return (<p className="sortable-list-item" defaultValue={question.questionType} key={question.key}>
           {promptOrTitle}
           {'\t\t'}

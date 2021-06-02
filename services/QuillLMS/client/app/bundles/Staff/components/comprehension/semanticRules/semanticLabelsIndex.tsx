@@ -1,9 +1,10 @@
 import * as React from "react";
 import { useQuery, queryCache } from 'react-query';
-import { NavLink, Redirect, Route, Switch, withRouter } from 'react-router-dom';
+import { Redirect, Route, Switch, withRouter } from 'react-router-dom';
 
 import SemanticLabelsOverview from './semanticLabelsOverview'
 import SemanticLabelWrapper from './semanticLabelWrapper';
+import SemanticRulesCheatSheet from './semanticRulesCheatSheet'
 import ModelForm from './modelForm';
 import ActivateModelForm from './activateModelForm';
 import Model from './model';
@@ -15,7 +16,7 @@ import { createRule, updateRule } from '../../../utils/comprehension/ruleAPIs';
 import { Error, Spinner } from '../../../../Shared/index';
 import { RuleInterface } from '../../../interfaces/comprehensionInterfaces';
 
-const SemanticLabelsIndex = ({ history, match, location }) => {
+const SemanticLabelsIndex = ({ history, match }) => {
   const { params } = match;
   const { activityId } = params;
 
@@ -31,8 +32,8 @@ const SemanticLabelsIndex = ({ history, match, location }) => {
     if(!activity) {
       return;
     }
-    const { title } = activity;
-    return <h2>{title}</h2>
+    const { name } = activity;
+    return <h2>{name}</h2>
   }
 
   function handleCreateRule({rule}: {rule: RuleInterface}) {
@@ -82,36 +83,12 @@ const SemanticLabelsIndex = ({ history, match, location }) => {
       </div>
     );
   }
-  const tabOptions = [ALL, BECAUSE, BUT, SO];
-  const showTabs = tabOptions.some(option => location.pathname.includes(option));
 
   return(
     <div className="semantic-labels-container">
       <div className="header-container">
         {activityData && renderTitle(activityData)}
       </div>
-      {showTabs && <div className="tabs-container">
-        <NavLink activeClassName="is-active" to={`/activities/${activityId}/semantic-labels/all`}>
-          <div className="tab-option">
-            All
-          </div>
-        </NavLink>
-        <NavLink activeClassName="is-active" to={`/activities/${activityId}/semantic-labels/because`}>
-          <div className="tab-option">
-            Because
-          </div>
-        </NavLink>
-        <NavLink activeClassName="is-active" to={`/activities/${activityId}/semantic-labels/but`}>
-          <div className="tab-option">
-            But
-          </div>
-        </NavLink>
-        <NavLink activeClassName="is-active" to={`/activities/${activityId}/semantic-labels/so`}>
-          <div className="tab-option">
-            So
-          </div>
-        </NavLink>
-      </div>}
       <Switch>
         <Redirect exact from='/activities/:activityId/semantic-labels' to='/activities/:activityId/semantic-labels/all' />
         {/* eslint-disable react/jsx-no-bind */}
@@ -119,6 +96,7 @@ const SemanticLabelsIndex = ({ history, match, location }) => {
         <Route component={() => <SemanticLabelsOverview activityId={activityId} prompts={getPromptForComponent(activityData, BECAUSE)} />} path='/activities/:activityId/semantic-labels/because' />
         <Route component={() => <SemanticLabelsOverview activityId={activityId} prompts={getPromptForComponent(activityData, BUT)} />} path='/activities/:activityId/semantic-labels/but' />
         <Route component={() => <SemanticLabelsOverview activityId={activityId} prompts={getPromptForComponent(activityData, SO)} />} path='/activities/:activityId/semantic-labels/so' />
+        <Route component={SemanticRulesCheatSheet} path='/activities/:activityId/semantic-labels/:promptId/semantic-rules-cheat-sheet' />
         <Route component={ActivateModelForm} path='/activities/:activityId/semantic-labels/:promptId/model/:modelId/activate' />
         <Route component={Model} path='/activities/:activityId/semantic-labels/model/:modelId' />
         <Route component={ModelForm} path='/activities/:activityId/semantic-labels/:promptId/add-model' />

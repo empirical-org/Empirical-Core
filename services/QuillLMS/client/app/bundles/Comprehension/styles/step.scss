@@ -5,8 +5,10 @@
   max-width: 631px;
   margin-bottom: 10px;
   display: flex;
-  cursor: pointer;
   overflow: hidden;
+  &.clickable {
+    cursor: pointer;
+  }
   &:focus {
     outline: none;
   }
@@ -78,7 +80,10 @@
       line-height: normal;
       p {
         white-space: pre-wrap;
-        margin-top: -5px;
+        margin-top: -3px;
+        p {
+          margin-top: 0px;
+        }
       }
       img {
         margin-right: 12px;

@@ -11,7 +11,7 @@ module Comprehension
       create(:comprehension_regex_rule, regex_text: '^test', rule: @rule_regex)
       create(:comprehension_prompts_rule, rule: @rule, prompt: @prompt)
       create(:comprehension_prompts_rule, rule: @rule_regex, prompt: @prompt)
-      create(:comprehension_plagiarism_text, text: "do not plagiarize this text please", rule: @rule)
+      create(:comprehension_plagiarism_text, text: "do not plagiarize this text please there will be consequences", rule: @rule)
       @first_feedback = create(:comprehension_feedback, text: 'here is our first feedback', rule: @rule, order: 0)
       @second_feedback = create(:comprehension_feedback, text: 'here is our second feedback', rule: @rule, order: 1)
     end
@@ -29,14 +29,14 @@ module Comprehension
       end
 
       should "return successfully when there is plagiarism" do
-        post 'plagiarism', entry: "bla bla bla do not plagiarize this text please", prompt_id: @prompt.id, session_id: 1, previous_feedback: []
+        post 'plagiarism', entry: "bla bla bla do not plagiarize this text please there will be consequences", prompt_id: @prompt.id, session_id: 1, previous_feedback: []
         parsed_response = JSON.parse(response.body)
         assert_equal parsed_response["optimal"], false
-        assert_equal parsed_response["highlight"][0]["text"], "do not plagiarize this text please"
-        assert_equal parsed_response["highlight"][1]["text"], "do not plagiarize this text please"
+        assert_equal parsed_response["highlight"][0]["text"], "do not plagiarize this text please there will be consequences"
+        assert_equal parsed_response["highlight"][1]["text"], "do not plagiarize this text please there will be consequences"
         assert_equal parsed_response["feedback"], @first_feedback.text
 
-        post 'plagiarism', entry: "bla bla bla do not plagiarize this text please", prompt_id: @prompt.id, session_id: 1, previous_feedback: [parsed_response]
+        post 'plagiarism', entry: "bla bla bla do not plagiarize this text please there will be consequences", prompt_id: @prompt.id, session_id: 1, previous_feedback: [parsed_response]
         parsed_response = JSON.parse(response.body)
         assert_equal parsed_response["optimal"], false
         assert_equal parsed_response["feedback"], @second_feedback.text

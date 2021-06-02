@@ -9,7 +9,7 @@ describe('LandingPage Component', () => {
     session: {},
     translate: jest.fn(),
     language: 'english',
-    diagnosticID: 'ell'
+    diagnosticID: '-LyFRZvbHAmooTTIIVE2'
   }
   let component = shallow(<LandingPage {...mockProps} />);
 

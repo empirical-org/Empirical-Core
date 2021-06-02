@@ -21,7 +21,6 @@ class ApplicationController < ActionController::Base
   # before_action :setup_visitor
   before_action :set_raven_context
   before_action :confirm_valid_session
-  # before_action :stick_to_leader_db
 
   def admin!
     return if current_user.try(:admin?)
@@ -132,10 +131,6 @@ class ApplicationController < ActionController::Base
   protected def set_raven_context
     Raven.user_context(id: session[:current_user_id])
     Raven.extra_context(params: params.to_unsafe_h, url: request.url)
-  end
-
-  protected def stick_to_leader_db
-    ActiveRecord::Base.connection.stick_to_master!
   end
 
   protected def confirm_valid_session

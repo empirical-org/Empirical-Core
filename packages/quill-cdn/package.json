@@ -20,5 +20,8 @@
   "homepage": "https://github.com/empirical-org/Quill-CDN#readme",
   "devDependencies": {
     "local-web-server": "^4.0.0"
+  },
+  "dependencies": {
+    "ws": "^7.4.4"
   }
 }

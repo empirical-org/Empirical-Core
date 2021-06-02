@@ -8,11 +8,6 @@ export const ATTEMPTS_TO_SCORE = {
 
 export const COMPREHENSION_DIRECTIONS = 'Complete this sentence'
 
-export const calculatePercentage = (submittedResponses) => {
-  const attemptCounts = Object.values(submittedResponses).map((responses) => ATTEMPTS_TO_SCORE[responses.length])
-  return attemptCounts.reduce((total, value) => total + value) / attemptCounts.length
-}
-
 export const generateConceptResults = (currentActivity, submittedResponses) => {
   const conjunctionToQuestionNumber = {
     because: 1,
@@ -32,8 +27,8 @@ export const generateConceptResults = (currentActivity, submittedResponses) => {
         metadata: {
           answer: response.entry,
           attemptNumber: attempt,
-          correct: response.optimal,
-          directions: COMPREHENSION_DIRECTIONS,
+          correct: response.optimal ? 1 : 0,
+          directions: (attempt == 1) ? COMPREHENSION_DIRECTIONS : responses[index - 1].feedback,
           prompt: prompt.text,
           questionNumber: conjunctionToQuestionNumber[prompt.conjunction],
           questionScore: ATTEMPTS_TO_SCORE[responses.length],

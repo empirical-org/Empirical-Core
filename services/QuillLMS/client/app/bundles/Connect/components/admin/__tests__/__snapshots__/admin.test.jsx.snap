@@ -1241,6 +1241,52 @@ exports[`adminContainer component should render with main sidebar when url does 
                             </li>
                           </TabLink>
                         </ul>
+                        <p
+                          className="menu-label"
+                        >
+                          Activity Health
+                        </p>
+                        <ul
+                          className="menu-list"
+                        >
+                          <TabLink
+                            activeClassName="is-active"
+                            to="/admin/activity-health"
+                          >
+                            <li>
+                              <NavLink
+                                activeClassName="is-active"
+                                to="/admin/activity-health"
+                              >
+                                <Link
+                                  aria-current={null}
+                                  to={
+                                    Object {
+                                      "hash": "",
+                                      "pathname": "/admin/activity-health",
+                                      "search": "",
+                                      "state": null,
+                                    }
+                                  }
+                                >
+                                  <LinkAnchor
+                                    aria-current={null}
+                                    href="/admin/activity-health"
+                                    navigate={[Function]}
+                                  >
+                                    <a
+                                      aria-current={null}
+                                      href="/admin/activity-health"
+                                      onClick={[Function]}
+                                    >
+                                      Activity Health
+                                    </a>
+                                  </LinkAnchor>
+                                </Link>
+                              </NavLink>
+                            </li>
+                          </TabLink>
+                        </ul>
                       </aside>
                     </section>
                   </AdminMainSidebar>

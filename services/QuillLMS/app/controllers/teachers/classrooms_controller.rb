@@ -1,10 +1,10 @@
 class Teachers::ClassroomsController < ApplicationController
   respond_to :json, :html, :pdf
-  before_filter :teacher!
+  before_action :teacher!
   # The excepted/only methods below are ones that should be accessible to coteachers.
   # TODO This authing could probably be refactored.
-  before_filter :authorize_owner!, only: [:update,  :transfer_ownership]
-  before_filter :authorize_teacher!, only: [:scores, :units, :scorebook, :generate_login_pdf]
+  before_action :authorize_owner!, only: [:update,  :transfer_ownership]
+  before_action :authorize_teacher!, only: [:scores, :units, :scorebook, :generate_login_pdf]
 
   INDEX = 'index'
 

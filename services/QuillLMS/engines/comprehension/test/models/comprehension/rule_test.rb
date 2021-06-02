@@ -56,7 +56,7 @@ module Comprehension
         assert_equal json_hash['id'], @rule.id
         assert_equal json_hash['uid'], @rule.uid
         assert_equal json_hash['name'], @rule.name
-        assert_equal json_hash['description'], @rule.description
+        assert_equal json_hash['note'], @rule.note
         assert_equal json_hash['universal'], @rule.universal
         assert_equal json_hash['rule_type'], @rule.rule_type
         assert_equal json_hash['optimal'], @rule.optimal
@@ -139,6 +139,33 @@ module Comprehension
       should 'be true if sequence_type is required and entry matches regex text' do
         @regex_rule_two= create(:comprehension_regex_rule, rule: @rule, regex_text: "you need this sequence", sequence_type: 'required')
         assert @rule.regex_is_passing?('you need this sequence and I do have it')
+      end
+    end
+
+    context 'one_plagiarism_per_prompt' do
+      setup do
+        @prompt1 = create(:comprehension_prompt)
+        @prompt2 = create(:comprehension_prompt)
+        @plagiarism_rule = create(:comprehension_rule, rule_type: Rule::TYPE_PLAGIARISM, prompt_ids: [@prompt1.id])
+      end
+
+      should 'creates plagiarism rule if first rule for prompt' do
+        assert @plagiarism_rule.valid?
+      end
+
+      should 'does not create plagiarism rule if plagiarism rule already exists for prompt' do
+        invalid_plagiarism_rule = build(:comprehension_rule, rule_type: Rule::TYPE_PLAGIARISM, prompt_ids: [@prompt1.id])
+        assert !invalid_plagiarism_rule.valid?
+      end
+
+      should 'creates subsequent plagiarism rule for different prompt' do
+        second_plagiarism_rule = build(:comprehension_rule, rule_type: Rule::TYPE_PLAGIARISM, prompt_ids: [@prompt2.id])
+        assert second_plagiarism_rule.valid?
+      end
+
+      should 'create a different type of rule if it is not plagiarism' do
+        valid_automl_rule = build(:comprehension_rule, rule_type: Rule::TYPE_AUTOML, prompt_ids: [@prompt1.id])
+        assert valid_automl_rule.valid?
       end
     end
 

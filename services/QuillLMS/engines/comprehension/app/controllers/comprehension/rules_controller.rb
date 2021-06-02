@@ -6,10 +6,11 @@ module Comprehension
     # GET /rules.json
     def index
       @rules = Comprehension::Rule
-      @rules = @rules.joins(:prompts_rules).where(comprehension_prompts_rules: {prompt_id: params[:prompt_id]}) if params[:prompt_id]
+      @rules = @rules.joins(:prompts_rules).where(comprehension_prompts_rules: {prompt_id: params[:prompt_id].split(',')}) if params[:prompt_id]
       @rules = @rules.where(rule_type: params[:rule_type]) if params[:rule_type]
 
-      render json: @rules.all
+      # some rules will apply to multiple prompts so we only want to return them once
+      render json: @rules.uniq.all
     end
 
     # GET /rules/1.json
@@ -50,7 +51,7 @@ module Comprehension
     end
 
     private def rule_params
-      params.require(:rule).permit(:name, :description, :universal, :rule_type, :optimal, :state, :suborder, :concept_uid,
+      params.require(:rule).permit(:name, :note, :universal, :rule_type, :optimal, :state, :suborder, :concept_uid,
          prompt_ids: [],
          plagiarism_text_attributes: [:id, :text],
          regex_rules_attributes: [:id, :regex_text, :case_sensitive, :sequence_type],

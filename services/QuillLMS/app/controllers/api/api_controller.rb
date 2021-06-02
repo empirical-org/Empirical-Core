@@ -2,7 +2,7 @@ class Api::ApiController < ActionController::Base
 
   class AccessForbidden < StandardError; end
 
-  before_filter :add_platform_doc_header
+  before_action :add_platform_doc_header
 
   rescue_from ActiveRecord::RecordNotFound do |e|
     not_found

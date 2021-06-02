@@ -3,8 +3,8 @@ class Teachers::UnitsController < ApplicationController
   include UnitQueries
 
   respond_to :json
-  before_filter :teacher!
-  before_filter :authorize!
+  before_action :teacher!
+  before_action :authorize!
 
   def create
     if params[:unit][:create]

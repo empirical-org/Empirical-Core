@@ -1,5 +1,5 @@
 class ProfilesController < ApplicationController
-  before_filter :signed_in!
+  before_action :signed_in!
 
   def show
     @user = current_user
@@ -82,15 +82,26 @@ class ProfilesController < ApplicationController
   end
 
   protected def students_classrooms_with_join_info
-    ActiveRecord::Base.connection.execute(
-    "SELECT classrooms.name AS name, teacher.name AS teacher, classrooms.id AS id FROM classrooms
-      JOIN students_classrooms AS sc ON sc.classroom_id = classrooms.id
-      JOIN classrooms_teachers ON classrooms_teachers.classroom_id = sc.classroom_id AND classrooms_teachers.role = 'owner'
-      JOIN users AS teacher ON teacher.id = classrooms_teachers.user_id
-      WHERE sc.student_id = #{current_user.id}
-      AND classrooms.visible = true
-      AND sc.visible = true
-      ORDER BY sc.created_at DESC").to_a
+    RawSqlRunner.execute(
+      <<-SQL
+        SELECT
+          classrooms.name AS name,
+          teacher.name AS teacher,
+          classrooms.id AS id
+        FROM classrooms
+        JOIN students_classrooms AS sc
+          ON sc.classroom_id = classrooms.id
+        JOIN classrooms_teachers
+          ON classrooms_teachers.classroom_id = sc.classroom_id
+          AND classrooms_teachers.role = 'owner'
+        JOIN users AS teacher
+          ON teacher.id = classrooms_teachers.user_id
+        WHERE sc.student_id = #{current_user.id}
+          AND classrooms.visible = true
+          AND sc.visible = true
+        ORDER BY sc.created_at DESC
+      SQL
+    ).to_a
   end
 
   protected def student_profile_data_sql(classroom_id=nil)

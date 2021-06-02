@@ -14,15 +14,6 @@ exports[`RuleUniversalAttributes component should render RuleUniversalAttributes
     key="universal-feedback"
     text="test universal feedback"
   />
-  <button
-    className="add-highlight quill-button small primary outlined "
-    disabled={false}
-    id="0"
-    onClick={[Function]}
-    type="button"
-  >
-    Add Highlight
-  </button>
   <section
     className="rule-highlight-section"
     key="0"
@@ -113,6 +104,27 @@ exports[`RuleUniversalAttributes component should render RuleUniversalAttributes
       text="passage highlight"
     />
   </section>
+  <div
+    className="button-wrapper"
+  >
+    <button
+      className="add-highlight quill-button small primary outlined "
+      disabled={false}
+      onClick={[Function]}
+      type="button"
+      value="0"
+    >
+      Add Highlight
+    </button>
+    <button
+      className="remove-highlight quill-button small secondary outlined"
+      onClick={[Function]}
+      type="button"
+      value="0"
+    >
+      Remove Highlight
+    </button>
+  </div>
   <p
     className="form-subsection-label"
   >
@@ -125,21 +137,36 @@ exports[`RuleUniversalAttributes component should render RuleUniversalAttributes
     key="universal-feedback"
     text="test universal feedback"
   />
-  <button
-    className="add-highlight quill-button small primary outlined "
-    disabled={false}
-    id="1"
-    onClick={[Function]}
-    type="button"
+  <div
+    className="button-wrapper"
   >
-    Add Highlight
-  </button>
-  <button
-    className="add-feedback-layer quill-button small primary outlined"
-    onClick={[Function]}
-    type="button"
+    <button
+      className="add-highlight quill-button small primary outlined "
+      disabled={false}
+      onClick={[Function]}
+      type="button"
+      value="1"
+    >
+      Add Highlight
+    </button>
+  </div>
+  <div
+    className="button-wrapper"
   >
-    Add Feedback Layer
-  </button>
+    <button
+      className="add-feedback-layer quill-button small primary outlined"
+      onClick={[Function]}
+      type="button"
+    >
+      Add Feedback Layer
+    </button>
+    <button
+      className="remove-highlight quill-button small secondary outlined"
+      onClick={[Function]}
+      type="button"
+    >
+      Remove Feedback Layer
+    </button>
+  </div>
 </Fragment>
 `;

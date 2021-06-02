@@ -90,7 +90,7 @@ exports[`AssignADiagnostic component should render 1`] = `
         }
         buttonLink="/activity_sessions/anonymous?activity_id=1161"
         buttonText="Preview"
-        header="ELL Diagnostic 1: Entering and Emerging"
+        header="ELL Starter Diagnostic"
         imgAlt="page with less writing that says ELL in the corner"
         imgSrc="undefined/images/illustrations/icons-diagnostics-ell-starter.svg"
         selectCard={[Function]}
@@ -100,17 +100,37 @@ exports[`AssignADiagnostic component should render 1`] = `
           Array [
             Object {
               "key": "What",
-              "text": "Subject-verb agreement, verb tense, adjectives, adverbs, articles, prepositions, compound and complex sentences, and capitalization",
+              "text": "Subject-verb agreement, possessives, prepositions, future tense, articles, and intermediate questions",
             },
             Object {
               "key": "When",
-              "text": "Your students are English language learners at the developing, expanding, or bridging stages of language proficiency.",
+              "text": "Your students are English language learners who have a foundational understanding of basic English grammar but need more practice with certain concepts.",
             },
           ]
         }
-        buttonLink="/activity_sessions/anonymous?activity_id=447"
+        buttonLink="/activity_sessions/anonymous?activity_id=1568"
         buttonText="Preview"
-        header="ELL Diagnostic 2: Developing and Expanding"
+        header="ELL Intermediate Diagnostic"
+        imgAlt="page with writing that says ELL in the corner"
+        imgSrc="undefined/images/illustrations/icons-diagnostics-ell-intermediate.svg"
+        selectCard={[Function]}
+      />
+      <AssignmentCard
+        bodyArray={
+          Array [
+            Object {
+              "key": "What",
+              "text": "Regular and irregular past tense, progressive tenses, phrasal verbs, choosing between prepositions, responding to questions, and commonly confused words",
+            },
+            Object {
+              "key": "When",
+              "text": "Your students are English language learners who need practice with more difficult ELL skills before moving on to the Starter Diagnostic.",
+            },
+          ]
+        }
+        buttonLink="/activity_sessions/anonymous?activity_id=1590"
+        buttonText="Preview"
+        header="ELL Advanced Diagnostic"
         imgAlt="page with writing that says ELL in the corner"
         imgSrc="undefined/images/illustrations/icons-diagnostics-ell-intermediate.svg"
         selectCard={[Function]}

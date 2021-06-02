@@ -17,6 +17,7 @@
         .dropdown__value-container {
           display: flex;
           justify-content: flex-end;
+          overflow: visible;
         }
         .dropdown__single-value {
           width: min-content;
@@ -24,7 +25,6 @@
         .dropdown__menu {
           margin-top: -25px;
           width: 140px;
-          margin-left: -70px;
         }
       }
       label {

@@ -24,6 +24,5 @@ Gem::Specification.new do |s|
   s.add_development_dependency 'factory_bot_rails'
   s.add_development_dependency "pg", '0.18.4'
   s.add_development_dependency 'rails-controller-testing'
-  s.add_development_dependency 'shoulda', '~> 3.5'
-  s.add_development_dependency 'shoulda-matchers', '~> 2.0'
+  s.add_development_dependency 'shoulda', '~> 4.0'
 end

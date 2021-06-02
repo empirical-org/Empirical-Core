@@ -7,10 +7,11 @@ import { InputEvent } from '../../../interfaces/comprehensionInterfaces';
 interface RulePromptsProps {
   errors: any,
   rulePrompts: any,
+  rulePromptsDisabled: boolean,
   setRulePrompts: (rulePrompt: any) => void;
 }
 
-const RulePrompts = ({ errors, rulePrompts, setRulePrompts }: RulePromptsProps) => {
+const RulePrompts = ({ errors, rulePrompts, rulePromptsDisabled, setRulePrompts }: RulePromptsProps) => {
 
   function onHandleRulePromptChange(e: InputEvent) { handleRulePromptChange(e, rulePrompts, setRulePrompts) }
 
@@ -27,6 +28,7 @@ const RulePrompts = ({ errors, rulePrompts, setRulePrompts }: RulePromptsProps) 
           <input
             aria-labelledby="stem-label-1"
             checked={becausePrompt && becausePrompt.checked}
+            disabled={rulePromptsDisabled}
             id={becausePrompt && becausePrompt.id}
             name="Because"
             onChange={onHandleRulePromptChange}
@@ -39,6 +41,7 @@ const RulePrompts = ({ errors, rulePrompts, setRulePrompts }: RulePromptsProps) 
           <input
             aria-labelledby="stem-label-2"
             checked={butPrompt && butPrompt.checked}
+            disabled={rulePromptsDisabled}
             id={butPrompt && butPrompt.id}
             name="But"
             onChange={onHandleRulePromptChange}
@@ -51,6 +54,7 @@ const RulePrompts = ({ errors, rulePrompts, setRulePrompts }: RulePromptsProps) 
           <input
             aria-labelledby="stem-label-3"
             checked={soPrompt && soPrompt.checked}
+            disabled={rulePromptsDisabled}
             id={soPrompt && soPrompt.id}
             name="So"
             onChange={onHandleRulePromptChange}

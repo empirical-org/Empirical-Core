@@ -11,7 +11,7 @@ module Comprehension
       should validate_presence_of(:expires_at)
 
       should have_readonly_attribute(:uuid)
-      should validate_uniqueness_of(:uuid)
+      should validate_uniqueness_of(:uuid).case_insensitive
 
       should 'validate presence of uuid on any update call' do
         turking_round = create(:comprehension_turking_round)

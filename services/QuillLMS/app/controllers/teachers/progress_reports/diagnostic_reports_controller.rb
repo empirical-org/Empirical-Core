@@ -3,7 +3,7 @@ class Teachers::ProgressReports::DiagnosticReportsController < Teachers::Progres
     include LessonsRecommendations
     require 'pusher'
 
-    before_filter :authorize_teacher!, only: [:question_view, :students_by_classroom, :recommendations_for_classroom, :lesson_recommendations_for_classroom, :previously_assigned_recommendations]
+    before_action :authorize_teacher!, only: [:question_view, :students_by_classroom, :recommendations_for_classroom, :lesson_recommendations_for_classroom, :previously_assigned_recommendations]
 
     def show
         @classroom_id = current_user.classrooms_i_teach&.last&.id || nil

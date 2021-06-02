@@ -26,7 +26,7 @@ import {
 import EditionNamingModal from './editionNamingModal';
 import EditionRow from './editionRow';
 import SignupModal from '../classroomLessons/teach/signupModal';
-import CustomizeNavbar from '../navbar/customizeNavbar'
+import CreateCustomizedEditionNavbar from '../navbar/createCustomizedEditionNavbar'
 import { getParameterByName } from '../../libs/getParameterByName';
 import * as CustomizeIntF from '../../interfaces/customize';
 
@@ -300,7 +300,7 @@ class ChooseEdition extends React.Component<any, any> {
 
   render() {
     return (<div>
-      <CustomizeNavbar />
+      <CreateCustomizedEditionNavbar />
       <div className="choose-edition customize-page">
         {this.renderSignupModal()}
         {this.renderBackButton()}

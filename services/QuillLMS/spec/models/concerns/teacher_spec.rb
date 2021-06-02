@@ -537,25 +537,31 @@ describe User, type: :model do
   end
 
   describe '#number_of_assigned_students_per_activity_assigned' do
-    it 'should return the correct number of students assigned' do
-      teacher = create(:teacher, :with_classrooms_students_and_activities)
-      assigned_units = teacher.assigned_students_per_activity_assigned
-      assigned_units_arr = assigned_units.to_a
-      teacher.classroom_units.each { |cu|
-        cu.unit.unit_activities.each { |ua|
-          matching_element = assigned_units.detect {|u| u.id == ua.activity_id && u.assigned_student_ids == cu.assigned_student_ids}
-          expect(matching_element).to_not be_nil
-          expect(matching_element.assigned_student_ids).to eq(cu.assigned_student_ids)
-          expect(matching_element.created_at).to eq(ua.created_at)
-          assigned_units_arr.delete_at(assigned_units_arr.index(matching_element))
+    context 'assigned students' do 
+      let!(:teacher) { create(:teacher, :with_classrooms_students_and_activities) }
+      let!(:assigned_units) { teacher.assigned_students_per_activity_assigned }
+
+      it 'should return the correct number of students assigned' do
+
+        assigned_units_arr = assigned_units.to_a
+        teacher.classroom_units.each { |cu|
+          cu.unit.unit_activities.each { |ua|
+            matching_element = assigned_units.detect {|u| u.id == ua.activity_id && u.assigned_student_ids == cu.assigned_student_ids}
+            expect(matching_element).to_not be_nil
+            expect(matching_element.assigned_student_ids).to eq(cu.assigned_student_ids)
+            expect(matching_element.created_at).to eq(ua.created_at)
+            assigned_units_arr.delete_at(assigned_units_arr.index(matching_element))
+          }
         }
-      }
-      expect(assigned_units_arr).to be_empty
+        expect(assigned_units_arr).to be_empty
+      end
     end
 
-    it 'should return empty array if no students are assigned' do
-      teacher = create(:teacher)
-      expect(teacher.assigned_students_per_activity_assigned).to be_empty
+    context 'no assigned students' do 
+      it 'should return empty array if no students are assigned' do
+        teacher = create(:teacher)
+        expect(teacher.assigned_students_per_activity_assigned).to be_empty
+      end
     end
   end
 end

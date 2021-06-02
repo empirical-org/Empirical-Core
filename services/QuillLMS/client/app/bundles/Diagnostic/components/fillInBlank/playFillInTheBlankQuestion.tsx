@@ -8,11 +8,9 @@ import { getGradedResponsesWithCallback } from '../../actions/responses.js';
 import { submitResponse, } from '../../actions/diagnostics.js';
 import { submitQuestionResponse } from '../renderForQuestions/submitResponse.js';
 import updateResponseResource from '../renderForQuestions/updateResponseResource.js';
-import Cues from '../renderForQuestions/cues.tsx';
-import translations from '../../libs/translations/index.js';
-import translationMap from '../../libs/translations/ellQuestionMapper.js';
+import Cues from '../renderForQuestions/cues';
 import { ENGLISH, rightToLeftLanguages } from '../../modules/translation/languagePageInfo';
-import Question from '../../interfaces/Question.ts';
+import { Question } from '../../interfaces/Question';
 import { hashToCollection, Prompt, Feedback, getLatestAttempt, renderPreviewFeedback } from '../../../Shared/index'
 
 interface PlayFillInTheBlankQuestionProps {
@@ -24,7 +22,8 @@ interface PlayFillInTheBlankQuestionProps {
   previewMode: boolean,
   question: Question,
   setResponse(response: any): any,
-  translate(key: any, opts?: any): any
+  translate(key: any, opts?: any): any,
+  isLastQuestion: boolean
 }
 
 interface PlayFillInTheBlankQuestionState {
@@ -105,30 +104,21 @@ export class PlayFillInTheBlankQuestion extends React.Component<PlayFillInTheBla
   }
 
   getInstructionText = () => {
-    const { diagnosticID, language, question, translate } = this.props;
+    const { language, question, translate } = this.props;
     const { instructions } = question;
-    const textKey = translationMap[question.key];
-    let text = instructions ? instructions : translations.english[textKey];
     if (!language) {
-      return <p dangerouslySetInnerHTML={{ __html: text, }} />;
-    } else if (language !== ENGLISH && diagnosticID === 'ell') {
-      const textClass = rightToLeftLanguages.includes(language) ? 'right-to-left' : '';
-      text += `<br/><br/><span class="${textClass}">${translations[language][textKey]}</span>`;
-      return <p dangerouslySetInnerHTML={{ __html: text, }} />;
-    } else if (diagnosticID === 'ell') {
-      return <p dangerouslySetInnerHTML={{ __html: text, }} />;
-    } else {
-      const text = `instructions^${instructions}`;
-      const textClass = rightToLeftLanguages.includes(language) ? 'right-to-left' : '';
-      const translationPresent = language !== ENGLISH;
-      return (
-        <div>
-          <p>{instructions}</p>
-          {translationPresent && <br />}
-          {translationPresent && <p className={textClass}>{translate(text)}</p>}
-        </div>
-      );
+      return <p dangerouslySetInnerHTML={{ __html: instructions, }} />;
     }
+    const text = `instructions^${instructions}`;
+    const textClass = rightToLeftLanguages.includes(language) ? 'right-to-left' : '';
+    const translationPresent = language !== ENGLISH;
+    return (
+      <div>
+        <p>{instructions}</p>
+        {translationPresent && <br />}
+        {translationPresent && <p className={textClass}>{translate(text)}</p>}
+      </div>
+    );
   }
 
   generateInputs(numberOfInputVals: number) {
@@ -316,22 +306,6 @@ export class PlayFillInTheBlankQuestion extends React.Component<PlayFillInTheBla
     }
   }
 
-  customText = () => {
-    const { language, question } = this.props
-    const { blankAllowed, } = this.state
-    const { cuesLabel } = question;
-    if (cuesLabel) {
-      return cuesLabel
-    } else {
-      let text = translations.english['add word bank cue'];
-      text = `${text}${blankAllowed ? ' or leave blank' : ''}`;
-      if (language && language !== ENGLISH) {
-        text += ` / ${translations[language]['add word bank cue']}`;
-      }
-      return text;
-    }
-  }
-
   renderFeedback = () => {
     const { diagnosticID, language, question, translate, previewMode } = this.props
     const { inputErrors, } = this.state
@@ -389,7 +363,6 @@ export class PlayFillInTheBlankQuestion extends React.Component<PlayFillInTheBla
             <div>
               <Prompt elements={this.getPromptElements()} style={styles.container} />
               <Cues
-                customText={this.customText()}
                 diagnosticID={diagnosticID}
                 displayArrowAndText={true}
                 language={language}

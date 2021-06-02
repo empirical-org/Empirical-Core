@@ -1,9 +1,9 @@
 require 'rails_helper'
 
 describe Teachers::ClassroomManagerController, type: :controller do
-  it { should use_before_filter :teacher_or_public_activity_packs }
-  it { should use_before_filter :authorize_owner! }
-  it { should use_before_filter :authorize_teacher! }
+  it { should use_before_action :teacher_or_public_activity_packs }
+  it { should use_before_action :authorize_owner! }
+  it { should use_before_action :authorize_teacher! }
 
   describe '#lesson_planner' do
     let!(:teacher) { create(:classrooms_teacher, user: user) }

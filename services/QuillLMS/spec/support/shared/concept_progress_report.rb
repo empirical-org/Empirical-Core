@@ -34,65 +34,93 @@ shared_context 'Concept Progress Report' do
                                         ) }
 
 
-  let!(:correct_writing_result1) { create(:concept_result,
-    activity_session: activity_session,
-    concept: writing_concept,
-    metadata: {
-      "correct" => 1
-    }) }
+  let!(:correct_writing_result1) do
+    create(:concept_result,
+      activity_session: activity_session,
+      concept: writing_concept,
+      metadata: {
+        "correct" => 1
+      }
+    )
+  end
 
-  let!(:correct_writing_result2) { create(:concept_result,
-    activity_session: activity_session,
-    concept: writing_concept,
-    metadata: {
-      "correct" => 1
-    }) }
+  let!(:correct_writing_result2) do
+    create(:concept_result,
+      activity_session: activity_session,
+      concept: writing_concept,
+      metadata: {
+        "correct" => 1
+      }
+    )
+  end
 
-  let!(:incorrect_writing_result) { create(:concept_result,
-    activity_session: activity_session,
-    concept: writing_concept,
-    metadata: {
-      "correct" => 0
-    }) }
+  let!(:incorrect_writing_result) do
+    create(:concept_result,
+      activity_session: activity_session,
+      concept: writing_concept,
+      metadata: {
+        "correct" => 0
+      }
+    )
+  end
 
-  let!(:correct_grammar_result) { create(:concept_result,
-    activity_session: activity_session,
-    concept: grammar_tag,
-    metadata: {
-      "correct" => 1
-    }) }
+  let!(:correct_grammar_result) do
+    create(:concept_result,
+      activity_session: activity_session,
+      concept: grammar_tag,
+      metadata: {
+        "correct" => 1
+      }
+    )
+  end
 
-  let!(:incorrect_grammar_result) { create(:concept_result,
-    activity_session: activity_session,
-    concept: grammar_tag,
-    metadata: {
-      "correct" => 0
-    }) }
+  let!(:incorrect_grammar_result) do
+    create(:concept_result,
+      activity_session: activity_session,
+      concept: grammar_tag,
+      metadata: {
+        "correct" => 0
+      }
+    )
+  end
 
   # Should not be visible on the report
   let!(:other_student) { create(:student) }
   let!(:other_classroom) { create(:classroom) }
   let!(:other_teacher) { other_classroom.owner }
   let!(:other_unit) { create(:unit) }
-  let!(:other_classroom_unit) { create(:classroom_unit,
-    classroom: other_classroom,
-    unit: other_unit
-  )}
-  let!(:other_unit_activity) { create(:unit_activity,
-    unit: other_unit,
-    activity: activity
-  )}
-  let!(:other_activity_session) { create(:activity_session,
-    classroom_unit: other_classroom_unit,
-    user: other_student,
-    state: 'finished',
-    percentage: 0.75) }
-  let!(:other_grammar_result) { create(:concept_result,
-    activity_session: other_activity_session,
-    concept: writing_concept,
-    metadata: {
-      "correct" => 1
-    }) }
+  let!(:other_classroom_unit) do
+    create(:classroom_unit,
+      classroom: other_classroom,
+      unit: other_unit
+    )
+  end
+
+  let!(:other_unit_activity) do
+    create(:unit_activity,
+      unit: other_unit,
+      activity: activity
+    )
+  end
+
+  let!(:other_activity_session) do
+     create(:activity_session,
+      classroom_unit: other_classroom_unit,
+      user: other_student,
+      state: 'finished',
+      percentage: 0.75
+    )
+  end
+
+  let!(:other_grammar_result) do
+    create(:concept_result,
+      activity_session: other_activity_session,
+      concept: writing_concept,
+      metadata: {
+        "correct" => 1
+      }
+    )
+  end
 
   let!(:writing_results) { [correct_writing_result1, correct_writing_result2, incorrect_writing_result] }
   let!(:grammar_results) { [correct_grammar_result, incorrect_grammar_result] }

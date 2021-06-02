@@ -46,7 +46,7 @@ class EditIncorrectSequencesContainer extends Component {
     const { questionID } = params;
     delete data.conceptResults.null;
     dispatch(actionFile.submitEditedIncorrectSequence(questionID, data, incorrectSequenceID));
-    window.history.back();
+    setTimeout(() => {window.history.back()}, 2000);
   };
 
   render() {

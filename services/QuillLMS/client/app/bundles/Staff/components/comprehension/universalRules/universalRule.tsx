@@ -8,7 +8,7 @@ import RuleForm from '../configureRules/ruleForm';
 import { updateRule, deleteRule, fetchRule } from '../../../utils/comprehension/ruleAPIs';
 import { RuleInterface } from '../../../interfaces/comprehensionInterfaces';
 import { DataTable, Error, Modal, Spinner } from '../../../../Shared/index';
-import { renderErrorsContainer } from "../../../helpers/comprehension/ruleHelpers";
+import { renderErrorsContainer } from '../../../helpers/comprehension';
 
 const UniversalRule = ({ history, location, match }) => {
   const { params } = match;
@@ -47,7 +47,7 @@ const UniversalRule = ({ history, location, match }) => {
       return [];
     }
     // format for DataTable to display labels on left side and values on right
-    const { feedbacks, name, rule_type, description, suborder, } = rule;
+    const { feedbacks, name, rule_type, note, suborder, } = rule;
     const attributesFields = handleAttributesFields(feedbacks);
     const firstFields = [
       {
@@ -59,8 +59,8 @@ const UniversalRule = ({ history, location, match }) => {
         value: name
       },
       {
-        label: 'Description',
-        value: description && stripHtml(description)
+        label: 'Rule Note',
+        value: note && stripHtml(note)
       },
       {
         label: 'Order',

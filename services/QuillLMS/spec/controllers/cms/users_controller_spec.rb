@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 describe Cms::UsersController do
-  it { should use_before_filter :signed_in! }
+  it { should use_before_action :signed_in! }
   it { should use_before_action :set_flags }
   it { should use_before_action :set_user }
   it { should use_before_action :set_search_inputs }
@@ -10,14 +10,10 @@ describe Cms::UsersController do
 
   let!(:user) { create(:staff) }
 
-  before do
-    allow(controller).to receive(:current_user) { user }
-  end
+  before { allow(controller).to receive(:current_user) { user } }
 
   describe '#index' do
-    before do
-      allow(ActiveRecord::Base.connection).to receive(:execute) { ["results"] }
-    end
+    before { allow(RawSqlRunner).to receive(:execute) { ["results"] } }
 
     it 'should assign the search query, the results, user flags and number of spaces' do
       get :index
@@ -44,27 +40,35 @@ describe Cms::UsersController do
       student = create(:student, classrooms: [classroom])
       class_code = classroom.code
       get :search, class_code: class_code
-      expect(JSON.parse(response.body)).to eq({"numberOfPages"=> 1, "userSearchQueryResults"=>
-        [{
-          "name"=> teacher.name,
-          "email"=> teacher.email,
-          "role"=> teacher.role,
-          "subscription"=> nil,
-          "last_sign_in"=> nil,
-          "school"=> nil,
-          "school_id"=> nil,
-          "id"=> teacher.id.to_s
-         },
-         {
-          "name" => student.name,
-          "email" => student.email,
-          "role" => student.role,
-          "subscription" => nil,
-          "last_sign_in" => nil,
-          "school" => nil,
-          "school_id" => nil,
-          "id" => student.id.to_s
-         }], "userSearchQuery"=> {"class_code"=> class_code}})
+      expect(JSON.parse(response.body)).to eq(
+        {
+          "numberOfPages"=> 1,
+          "userSearchQueryResults"=> [
+            {
+              "name"=> teacher.name,
+              "email"=> teacher.email,
+              "role"=> teacher.role,
+              "subscription"=> nil,
+              "last_sign_in"=> nil,
+              "school"=> nil,
+              "school_id"=> nil,
+              "id"=> teacher.id
+            },
+            {
+              "name" => student.name,
+              "email" => student.email,
+              "role" => student.role,
+              "subscription" => nil,
+              "last_sign_in" => nil,
+              "school" => nil,
+              "school_id" => nil,
+              "id" => student.id
+            }
+          ],
+          "userSearchQuery"=> {
+            "class_code"=> class_code
+          }
+        })
       expect(ChangeLog.last.action).to eq(ChangeLog::USER_ACTIONS[:search])
       expect(ChangeLog.last.explanation).to include('class_code')
     end

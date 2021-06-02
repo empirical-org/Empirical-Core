@@ -10,8 +10,10 @@ const grammarSrc = `${process.env.CDN_URL}/images/icons/tool-grammar-gray.svg`
 const proofreaderSrc = `${process.env.CDN_URL}/images/icons/tool-proofreader-gray.svg`
 const lessonsSrc = `${process.env.CDN_URL}/images/icons/tool-lessons-gray.svg`
 
-const LESSONS_ACTIVITY_CLASSIFICATION_ID = "6"
-const DIAGNOSTIC_ACTIVITY_CLASSIFICATION_ID = "4"
+const LESSONS_ACTIVITY_CLASSIFICATION_KEY = "lessons"
+const DIAGNOSTIC_ACTIVITY_CLASSIFICATION_KEY = "diagnostic"
+const COMPREHENSION_ACTIVITY_CLASSIFICATION_KEY = "comprehension"
+const UNGRADED_ACTIVITY_CLASSIFICATIONS = [LESSONS_ACTIVITY_CLASSIFICATION_KEY, DIAGNOSTIC_ACTIVITY_CLASSIFICATION_KEY, COMPREHENSION_ACTIVITY_CLASSIFICATION_KEY]
 const PROFICIENT_CUTOFF = 0.8
 const NEARLY_PROFICIENT_CUTOFF = 0.6
 
@@ -114,12 +116,12 @@ export default class StudentProfileUnit extends React.Component {
   }
 
   score = (act) => {
-    const { activity_classification_id, max_percentage, } = act
+    const { activity_classification_key, max_percentage, } = act
     const maxPercentage = Number(max_percentage)
-    if (activity_classification_id === DIAGNOSTIC_ACTIVITY_CLASSIFICATION_ID || activity_classification_id === LESSONS_ACTIVITY_CLASSIFICATION_ID) {
+    if (UNGRADED_ACTIVITY_CLASSIFICATIONS.includes(activity_classification_key)) {
       return (
         <Tooltip
-          tooltipText={`This type of activity is not graded.`}
+          tooltipText="This type of activity is not graded."
           tooltipTriggerText={
             <div className="score">
               <div className="completed" />
@@ -207,8 +209,9 @@ export default class StudentProfileUnit extends React.Component {
   }
 
   render() {
-    const { unitName, } = this.props
-    return (<div className="student-profile-unit">
+    const { unitName, id, isSelectedUnit, } = this.props
+    const className = isSelectedUnit ? "student-profile-unit selected-unit" : "student-profile-unit"
+    return (<div className={className} id={id}>
       <div className="unit-name">
         <h2>{unitName}</h2>
       </div>

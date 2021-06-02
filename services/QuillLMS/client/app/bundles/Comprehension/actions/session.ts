@@ -21,6 +21,8 @@ interface CompleteActivitySessionArguments {
   sessionID: string,
   percentage: number,
   conceptResults: any[],
+  timeTracking: { [key: number]: number },
+  activityId: number,
   callback: Function
 }
 
@@ -35,10 +37,11 @@ interface SaveActiveActivitySessionArguments {
   submittedResponses: { [key: string]: FeedbackObject[] }|{},
   activeStep: number,
   completedSteps: number[],
+  timeTracking: { [key: number]: number },
   callback: Function
 }
 
-export const completeActivitySession = (sessionID, percentage, conceptResults, callback) => {
+export const completeActivitySession = (sessionID, activityId, percentage, conceptResults, data, callback) => {
   return (dispatch: Function) => {
     const activitySessionUrl = `${process.env.DEFAULT_URL}/api/v1/activity_sessions/${sessionID}`
     const requestObject = {
@@ -46,7 +49,9 @@ export const completeActivitySession = (sessionID, percentage, conceptResults, c
       body: {
         state: 'finished',
         percentage,
-        concept_results: conceptResults
+        concept_results: conceptResults,
+        activity_id: activityId,
+        data
       },
       json: true,
     }
@@ -86,7 +91,7 @@ export const fetchActiveActivitySession = ({ sessionID, activityUID, callback, }
   }
 }
 
-export const saveActiveActivitySession = ({ sessionID, submittedResponses, activeStep, completedSteps, callback, }: SaveActiveActivitySessionArguments) => {
+export const saveActiveActivitySession = ({ sessionID, submittedResponses, activeStep, completedSteps, timeTracking, callback, }: SaveActiveActivitySessionArguments) => {
   return (dispatch: Function) => {
     const activeActivitySessionUrl = `${process.env.DEFAULT_URL}/api/v1/active_activity_sessions/${sessionID}`
 
@@ -96,7 +101,8 @@ export const saveActiveActivitySession = ({ sessionID, submittedResponses, activ
         active_activity_session: {
           submittedResponses,
           activeStep,
-          completedSteps
+          completedSteps,
+          timeTracking,
         }
       },
       json: true,
@@ -111,7 +117,8 @@ export const saveActiveActivitySession = ({ sessionID, submittedResponses, activ
 export const getFeedback = (args: GetFeedbackArguments) => {
   const { sessionID, activityUID, entry, promptID, promptText, attempt, previousFeedback, callback, } = args
   return (dispatch: Function) => {
-    const feedbackURL = 'https://us-central1-comprehension-247816.cloudfunctions.net/comprehension-endpoint-go'
+    const feedbackURL = `${process.env.GOLANG_FANOUT_URL}`
+
     const promptRegex = new RegExp(`^${promptText}`)
     const entryWithoutStem = entry.replace(promptRegex, "").trim()
     const mostRecentFeedback = previousFeedback.slice(-1)[0] || {}

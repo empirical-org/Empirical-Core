@@ -2,6 +2,32 @@
 <% still_doing_webinars = current_time_on_east_coast > Date.parse("20210103") && current_time_on_east_coast < Date.parse("20210520") %>
 
 <% if (still_doing_webinars && (!current_user || current_user.teacher?)) %>
+  <div class="banner" id="static-banner">
+    <div class="content-container">
+      <img alt="Video player with play symbol" class="banner-icon" src=<%= "#{ENV['CDN_URL']}/images/icons/live-stream.svg" %>>
+      <p>We have <a href="https://www.quill.org/teacher-center/quills-implementation-library#summer" rel="noopener noreferrer" target="_blank">brand new teacher resources to support you</a> as you finish the school year with Quill.</p>
+      <img alt="White X" id="close-static-banner" src=<%= "#{ENV['CDN_URL']}/images/icons/close-white.svg" %>>
+    </div>
+  </div>
+
+  <script>
+    window.addEventListener('load', function(e) {
+      if (document.cookie.indexOf('static_banner_closed=1') === -1) {
+        document.getElementById('static-banner').style.display = 'block';
+      }
+    });
+
+    document.getElementById('close-static-banner').addEventListener('click', function(e) {
+        e.preventDefault();
+        document.getElementById('static-banner').style.display = 'none';
+        let date = new Date();
+        // set the cookie to expire at the start of the next hour so we can show the next webinar
+        date.setHours(date.getHours() + 1,0,0);
+        document.cookie = `static_banner_closed=1; expires=${date.toGMTString()}; path=/`;
+    }, false);
+
+  </script>
+
   <% recurring_banner = RecurringBanner.new(current_time_on_east_coast) %>
   <% if recurring_banner.show?(current_user&.subscription&.account_type) %>
     <div class="banner" id="webinar-banner-recurring">

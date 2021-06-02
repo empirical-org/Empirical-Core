@@ -85,7 +85,7 @@ class GoogleIntegration::UnitAnnouncement
   end
 
   private def announcement_text
-    unit_url = classroom_url(classroom.id, anchor: unit.id)
+    unit_url = classroom_url(classroom.id, unit_id: unit.id)
 
     "New Unit: #{unit.name} #{unit_url}"
   end

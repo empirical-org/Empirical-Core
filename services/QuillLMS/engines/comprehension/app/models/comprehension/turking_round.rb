@@ -8,7 +8,7 @@ module Comprehension
 
     validates_presence_of :activity_id
     validates_presence_of :uuid, on: :update
-    validates :uuid, uniqueness: true
+    validates :uuid, uniqueness: { case_sensitive: false }
     validates :expires_at, presence: true
     validate :expires_at_in_future, on: :create
 

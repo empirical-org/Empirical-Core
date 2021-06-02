@@ -5,60 +5,100 @@ class ProgressReports::Standards::NewStandard
   end
 
   def results(filters)
-    standard_id = filters ? filters["standard_id"] : nil
-    student_id = filters ? filters["student_id"] : nil
-    ::Standard.with(best_activity_sessions:
-     ("SELECT activity_sessions.*, activities.standard_id FROM activity_sessions
-          JOIN classroom_units ON activity_sessions.classroom_unit_id = classroom_units.id
-          JOIN activities ON activity_sessions.activity_id = activities.id
-          JOIN classrooms ON classroom_units.classroom_id = classrooms.id
-          JOIN classrooms_teachers ON classrooms.id = classrooms_teachers.classroom_id AND classrooms_teachers.user_id = #{@teacher.id}
-          WHERE activity_sessions.is_final_score
-          #{standard_conditional(standard_id)}
-          #{student_conditional(student_id)}
-          AND activity_sessions.visible
-          AND classroom_units.visible"))
-      .with(best_per_standard_user: ProgressReports::Standards::Student.best_per_standard_user)
-      .select(<<-SQL
-        standards.id,
-        standards.name,
-        standard_levels.name as standard_level_name,
-        AVG(best_activity_sessions.percentage) as average_score,
-        COUNT(DISTINCT(best_activity_sessions.activity_id)) as total_activity_count,
-        COUNT(DISTINCT(best_activity_sessions.user_id)) as total_student_count,
-        COALESCE(AVG(proficient_count.user_count), 0)::integer as proficient_student_count,
-        COALESCE(AVG(not_proficient_count.user_count), 0)::integer as not_proficient_student_count
-      SQL
-    ).joins('JOIN best_activity_sessions ON standards.id = best_activity_sessions.standard_id')
-      .joins('JOIN standard_levels ON standard_levels.id = standards.standard_level_id')
-      .joins("LEFT JOIN (
-          select COUNT(DISTINCT(user_id)) as user_count, standard_id
-           from best_per_standard_user
-           where avg_score_in_standard >= #{@proficiency_cutoff}
-           group by standard_id
-        ) as proficient_count ON proficient_count.standard_id = standards.id"
-      ).joins(<<-JOINS
-      LEFT JOIN (
-          select COUNT(DISTINCT(user_id)) as user_count, standard_id
-           from best_per_standard_user
-           where avg_score_in_standard < #{@proficiency_cutoff}
-           group by standard_id
-        ) as not_proficient_count ON not_proficient_count.standard_id = standards.id
-      JOINS
+    @standard_id = filters ? filters["standard_id"] : nil
+    @student_id = filters ? filters["student_id"] : nil
+
+    ::Standard
+      .select(
+        <<-SQL
+          standards.id,
+          standards.name,
+          standard_levels.name AS standard_level_name,
+          AVG(best_activity_sessions.percentage) AS average_score,
+          COUNT(DISTINCT(best_activity_sessions.activity_id)) AS total_activity_count,
+          COUNT(DISTINCT(best_activity_sessions.user_id)) AS total_student_count,
+          COALESCE(AVG(proficient_count.user_count), 0)::integer AS proficient_student_count,
+          COALESCE(AVG(not_proficient_count.user_count), 0)::integer AS not_proficient_student_count
+        SQL
       )
+      .joins('JOIN standard_levels ON standard_levels.id = standards.standard_level_id')
+      .joins("JOIN #{best_activity_sessions} ON standards.id = best_activity_sessions.standard_id")
+      .joins("LEFT JOIN #{not_proficient_count} ON not_proficient_count.standard_id = standards.id")
+      .joins("LEFT JOIN #{proficient_count} ON proficient_count.standard_id = standards.id")
       .group('standards.id, standard_levels.name')
       .order('standards.name asc')
   end
 
-  def standard_conditional(standard_id)
-    if standard_id
-      "AND activities.standard_id = #{standard_id}"
-    end
+  private def best_activity_sessions
+    <<-SQL
+      (
+        SELECT
+          activity_sessions.*,
+          activities.standard_id
+        FROM activity_sessions
+          JOIN classroom_units
+            ON activity_sessions.classroom_unit_id = classroom_units.id
+          JOIN activities
+            ON activity_sessions.activity_id = activities.id
+          JOIN classrooms
+            ON classroom_units.classroom_id = classrooms.id
+          JOIN classrooms_teachers
+            ON classrooms.id = classrooms_teachers.classroom_id
+            AND classrooms_teachers.user_id = #{@teacher.id}
+        WHERE activity_sessions.is_final_score
+          #{standard_conditional}
+          #{student_conditional}
+          AND activity_sessions.visible
+          AND classroom_units.visible
+      ) AS best_activity_sessions
+    SQL
   end
 
-  def student_conditional(student_id)
-    if student_id
-      "AND activity_sessions.user_id = #{student_id}"
-    end
+  private def best_per_standard_user
+    <<-SQL
+      (
+        SELECT
+          standard_id,
+          user_id,
+          AVG(percentage) AS avg_score_in_standard
+        FROM #{best_activity_sessions}
+        GROUP By standard_id, user_id
+      ) AS best_per_standard_user
+    SQL
+  end
+
+  private def proficient_count
+    <<-SQL
+      (
+        SELECT
+          COUNT(DISTINCT(user_id)) AS user_count,
+          standard_id
+        FROM #{best_per_standard_user}
+        WHERE avg_score_in_standard >= #{@proficiency_cutoff}
+        GROUP BY standard_id
+      ) AS proficient_count
+    SQL
+  end
+
+  private def not_proficient_count
+    <<-SQL
+      (
+        SELECT
+          COUNT(DISTINCT(user_id)) AS user_count,
+          standard_id
+        FROM #{best_per_standard_user}
+        WHERE avg_score_in_standard < #{@proficiency_cutoff}
+        GROUP BY standard_id
+      ) AS not_proficient_count
+    SQL
+  end
+
+
+  private def standard_conditional
+    "AND activities.standard_id = #{@standard_id}" if @standard_id
+  end
+
+  private def student_conditional
+    "AND activity_sessions.user_id = #{@student_id}" if @student_id
   end
 end

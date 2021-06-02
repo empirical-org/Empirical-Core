@@ -1,6 +1,8 @@
 require 'rails_helper'
 
 describe ApplicationHelper do
+  include_context RSpec::ROUTING_URL_HELPERS
+
   describe "#combine" do
     it 'should add the arrays' do
       expect(combine([1, 2], [3, 4])).to eq [1, 2, 3, 4]

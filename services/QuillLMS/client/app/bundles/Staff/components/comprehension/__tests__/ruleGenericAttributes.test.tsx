@@ -8,13 +8,13 @@ const mockProps = {
   isUniversal: false,
   errors: {},
   ruleConceptUID: 'test-id',
-  ruleDescription: 'test description',
+  ruleNote: 'test description',
   ruleID: 17,
   ruleName: 'generic rule 17',
   ruleOptimal: false,
   ruleType: { value: 'plagiarism', label: 'Plagiarism'},
   setRuleConceptUID: jest.fn(),
-  setRuleDescription: jest.fn(),
+  setRuleNote: jest.fn(),
   setRuleName: jest.fn(),
   setRuleOptimal: jest.fn(),
   setRuleType: jest.fn(),
@@ -32,9 +32,9 @@ describe('RuleGenericAttributes component', () => {
   });
 
   it('should render the appropriate form components', () => {
-    // TextEditor: Rule Description (1)
+    // TextEditor: Rule Note (1)
     // Input: Name, Concept UID (2)
-    // DropdownInput: Type, Description (2)
+    // DropdownInput: Type, Note (2)
     expect(container.find(TextEditor).length).toEqual(1);
     expect(container.find(Input).length).toEqual(1);
     expect(container.find(DropdownInput).length).toEqual(3);

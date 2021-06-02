@@ -1,8 +1,7 @@
 class BlogPostsController < ApplicationController
   before_action :set_announcement, only: [:index, :show, :show_topic]
   before_action :set_role
-
-  skip_before_action :stick_to_leader_db, only: [:index, :show]
+  before_action :set_root_url
 
   def index
     topic_names = BlogPost::TEACHER_TOPICS
@@ -44,14 +43,19 @@ class BlogPostsController < ApplicationController
       flash[:error] = 'Oops! Please enter a search query.'
       return redirect_to :back
     end
-    @blog_posts = ActiveRecord::Base.connection.execute("
-      SELECT slug, preview_card_content
-      FROM blog_posts
-      WHERE draft IS FALSE
-      AND topic != '#{BlogPost::IN_THE_NEWS}'
-      AND tsv @@ plainto_tsquery(#{ActiveRecord::Base.sanitize(@query)})
-      ORDER BY ts_rank(tsv, plainto_tsquery(#{ActiveRecord::Base.sanitize(@query)}))
-    ").to_a
+    @blog_posts = RawSqlRunner.execute(
+      <<-SQL
+        SELECT
+          slug,
+          preview_card_content
+        FROM blog_posts
+        WHERE draft IS false
+          AND topic != '#{BlogPost::IN_THE_NEWS}'
+          AND tsv @@ plainto_tsquery(#{ActiveRecord::Base.sanitize(@query)})
+        ORDER BY ts_rank(tsv, plainto_tsquery(#{ActiveRecord::Base.sanitize(@query)}))
+      SQL
+    ).to_a
+
     @title = "Search: #{@query}"
     render 'index'
   end
@@ -83,5 +87,9 @@ class BlogPostsController < ApplicationController
 
   private def set_role
     @role = current_user ? current_user.role : nil
+  end
+
+  private def set_root_url
+    @root_url = root_url
   end
 end

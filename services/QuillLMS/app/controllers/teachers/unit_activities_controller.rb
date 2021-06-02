@@ -2,10 +2,10 @@ class Teachers::UnitActivitiesController < ApplicationController
   include QuillAuthentication
   require 'pusher'
   respond_to :json
-  before_filter :authorize!, :except => ["update_multiple_due_dates"]
-  before_filter :teacher!
-  before_filter :set_unit_activities, only: [:update, :hide]
-  before_filter :set_activity_session, only: :hide
+  before_action :authorize!, :except => ["update_multiple_due_dates"]
+  before_action :teacher!
+  before_action :set_unit_activities, only: [:update, :hide]
+  before_action :set_activity_session, only: :hide
 
   def update
     @unit_activities.each{ |unit_activity| unit_activity.try(:update_attributes, unit_activity_params)}

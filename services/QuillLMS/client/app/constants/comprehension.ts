@@ -1,4 +1,20 @@
 // TODO: update to reflect the accurate option values
+export const BECAUSE = 'because';
+export const BUT = 'but';
+export const SO = 'so';
+export const ALL = 'all';
+export const promptStems = [BECAUSE, BUT, SO];
+export const DEFAULT_MAX_ATTEMPTS = 5;
+export const FIRST = 'first';
+export const SECOND = 'second';
+export const NONE = 'none';
+export const PLAGIARISM = 'plagiarism';
+export const SCORED =  'scored';
+export const UNSCORED =  'unscored';
+export const WEAK =  'weak';
+export const COMPLETE =  'complete';
+export const INCOMPLETE =  'incomplete';
+export const STRONG =  'strong';
 
 export const flagOptions = [
   {
@@ -97,6 +113,15 @@ export const regexRuleSequenceOptions = [
   {"value":"required","label":"Required"}
 ];
 
+export const activitySessionFilterOptions = [
+  {"value":ALL,"label":"Show all sessions"},
+  {"value":SCORED,"label":"Show only scored sessions"},
+  {"value":UNSCORED,"label":"Show only unscored sessions"},
+  {"value":WEAK,"label":"Show sessions with weak responses"},
+  {"value":COMPLETE,"label":"Show complete sessions"},
+  {"value":INCOMPLETE,"label":"Show incomplete sessions"}
+];
+
 export const ruleOrder = {
   'AutoML': 1,
   'Grammar': 2,
@@ -105,16 +130,6 @@ export const ruleOrder = {
   'Regex': 5,
   'Spelling': 6
 }
-
-export const BECAUSE = 'because';
-export const BUT = 'but';
-export const SO = 'so';
-export const ALL = 'all';
-export const promptStems = [BECAUSE, BUT, SO];
-export const DEFAULT_MAX_ATTEMPTS = 5;
-export const FIRST = 'first';
-export const SECOND = 'second';
-export const NONE = 'none';
 
 export const PROMPT_ATTEMPTS_FEEDBACK_LABELS = {
   "1": {
@@ -207,11 +222,17 @@ export const blankUniversalRule = {
   ]
 }
 
+export const DEFAULT_CONCEPT_UIDS = {
+  because: 'qkjnIjFfXdTuKO7FgPzsIg', // Academic Writing | Using Evidence Appropriately | Using Precise Evidence to Illustrate a Cause
+  but: 'KwspxuelfGZQCq7yX6ThPQ', // Academic Writing | Using Evidence Appropriately | Using Precise Evidence to Illustrate a Contrast
+  so: 'IBdOFpAWi42LgfXvcz0scQ' // Academic Writing | Using Evidence Appropriately | Using Precise Evidence to Illustrate a Consequence
+}
+
 export const TITLE = 'Title';
 export const NAME = 'Name';
 export const SCORED_READING_LEVEL = 'Scored reading level';
 export const TARGET_READING_LEVEL = 'Target reading level';
-export const PARENT_ACTIVITY_ID = 'Parent activity ID'
+export const PARENT_ACTIVITY_ID = 'Parent Activity ID'
 export const PASSAGE = 'Passage';
 export const MAX_ATTEMPTS_FEEDBACK = 'Max attempts feedback';
 export const BECAUSE_STEM = 'Because stem';
@@ -225,7 +246,6 @@ export const activityFormKeys = [
   TITLE,
   SCORED_READING_LEVEL,
   TARGET_READING_LEVEL,
-  PARENT_ACTIVITY_ID,
   PASSAGE,
   MAX_ATTEMPTS_FEEDBACK,
   BECAUSE_STEM,
@@ -245,3 +265,69 @@ export const numericalWordOptions = {
   3: 'Fourth',
   4: 'Fifth'
 }
+
+export const FEEDBACK = 'feedback'
+export const HIGHLIGHT_TEXT = 'highlight text'
+export const HIGHLIGHT_ADDITION = 'highlight addition'
+export const HIGHLIGHT_REMOVAL = 'highlight removal'
+export const HIGHLIGHT_TYPE = 'highlight type'
+export const FEEDBACK_LAYER_ADDITION = 'feedback layer addition'
+export const FEEDBACK_LAYER_REMOVAL = 'feedback layer removal'
+
+export const activitySessionIndexResponseHeaders = [
+  {
+    Header: "Date | Time",
+    accessor: "datetime",
+    width: 150
+  },
+  {
+    Header: "Session ID",
+    accessor: "session_uid",
+    width: 100
+  },
+  {
+    Header: "Total Responses",
+    accessor: "total_attempts",
+    width: 150
+  },
+  {
+    Header: "Because",
+    accessor: "because_attempts",
+    width: 100
+  },
+  {
+    Header: "But",
+    accessor: "but_attempts",
+    width: 100
+  },
+  {
+    Header: "So",
+    accessor: "so_attempts",
+    width: 100
+  },
+  {
+    Header: "Scored",
+    accessor: "scored_count",
+    width: 100
+  },
+  {
+    Header: "Weak",
+    accessor: "weak_count",
+    width: 100
+  },
+  {
+    Header: "Strong",
+    accessor: "strong_count",
+    width: 100
+  },
+  {
+    Header: "Completed?",
+    accessor: "completed",
+    width: 100
+  },
+  {
+    Header: "",
+    accessor: "view_link",
+    width: 100
+  },
+]

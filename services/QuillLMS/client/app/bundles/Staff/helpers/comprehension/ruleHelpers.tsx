@@ -3,10 +3,20 @@ import { EditorState, ContentState } from 'draft-js';
 import stripHtml from "string-strip-html";
 
 import { validateForm } from '../comprehension';
-import { AUTO_ML, ACTIVE, INACTIVE } from '../../../../constants/comprehension';
+import {
+  AUTO_ML,
+  PLAGIARISM,
+  FEEDBACK,
+  HIGHLIGHT_TEXT,
+  HIGHLIGHT_ADDITION,
+  HIGHLIGHT_REMOVAL,
+  HIGHLIGHT_TYPE,
+  FEEDBACK_LAYER_ADDITION,
+  FEEDBACK_LAYER_REMOVAL,
+} from '../../../../constants/comprehension';
 import { InputEvent, DropdownObjectInterface } from '../../interfaces/comprehensionInterfaces';
 import { ruleTypeOptions, universalRuleTypeOptions, ruleHighlightOptions, numericalWordOptions, regexRuleSequenceOptions, regexRuleTypes } from '../../../../constants/comprehension';
-import { TextEditor, DropdownInput } from '../../../Shared/index';
+import { TextEditor, DropdownInput, Modal } from '../../../Shared/index';
 
 export function handleSetRuleType(ruleType: DropdownObjectInterface, setRuleType) { setRuleType(ruleType) };
 
@@ -18,7 +28,7 @@ export function handleSetRuleOptimal(ruleOptimal: DropdownObjectInterface, setRu
 
 export function handleSetRuleConceptUID(value, setRuleConceptUID) { setRuleConceptUID(value) };
 
-export function handleSetRuleDescription(text: string, setRuleDescription) { setRuleDescription(text) }
+export function handleSetRuleNote(text: string, setRuleNote) { setRuleNote(text) }
 
 export function handleSetPlagiarismText(text: string, plagiarismText, setPlagiarismText) {
   const plagiarismTextObject = {...plagiarismText};
@@ -132,23 +142,36 @@ export function handleSetFeedback({
     feedbackIndex,
     highlightIndex
 }) {
-  const updatedFeedback = [...feedback];
-  if(updateType === 'feedback') {
-    updatedFeedback[feedbackIndex].text = text;
-    setFeedback(updatedFeedback);
-  } else if(updateType === 'highlight text') {
-    updatedFeedback[feedbackIndex].highlights_attributes[highlightIndex].text = text;
-    setFeedback(updatedFeedback);
-  } else if(updateType === 'highlight addition') {
-    updatedFeedback[feedbackIndex].highlights_attributes.push({ text: '' });
-  } else if(updateType === 'highlight type') {
-    updatedFeedback[feedbackIndex].highlights_attributes[highlightIndex].highlight_type = text
-  } else if(updateType === 'feedback layer addition') {
-    updatedFeedback.push({
-      text: '',
-      order: feedback.length,
-      highlights_attributes: []
-    });
+  let updatedFeedback = [...feedback];
+  
+  switch(updateType) {
+    case FEEDBACK:
+      updatedFeedback[feedbackIndex].text = text;
+      setFeedback(updatedFeedback);
+      break
+    case HIGHLIGHT_TEXT:
+      updatedFeedback[feedbackIndex].highlights_attributes[highlightIndex].text = text;
+      setFeedback(updatedFeedback);
+      break
+    case HIGHLIGHT_ADDITION:
+      updatedFeedback[feedbackIndex].highlights_attributes.push({ text: '' });
+      break
+    case HIGHLIGHT_REMOVAL:
+      updatedFeedback[feedbackIndex].highlights_attributes = updatedFeedback[feedbackIndex].highlights_attributes.slice(0, -1)
+      break
+    case HIGHLIGHT_TYPE:
+      updatedFeedback[feedbackIndex].highlights_attributes[highlightIndex].highlight_type = text
+      break
+    case FEEDBACK_LAYER_ADDITION:
+      updatedFeedback.push({
+        text: '',
+        order: feedback.length,
+        highlights_attributes: []
+      });
+      break
+    case FEEDBACK_LAYER_REMOVAL:
+      updatedFeedback = updatedFeedback.slice(0, -1)
+      break
   }
   setFeedback(updatedFeedback);
 }
@@ -202,7 +225,7 @@ export function getInitialRuleType({ isUniversal, rule_type, universalRuleType }
 }
 
 export const returnInitialFeedback = (ruleType: string) => {
-  if(ruleType === 'plagiarism') {
+  if(ruleType === PLAGIARISM) {
     return [{ text: '', order: 0, highlights_attributes: [] }, { text: '', order: 1, highlights_attributes: [] }];
   }
   return [{ text: '', order: 0, highlights_attributes: [] }];
@@ -260,7 +283,7 @@ export const buildRule = ({
   rule,
   rulesCount,
   ruleConceptUID,
-  ruleDescription,
+  ruleNote,
   ruleName,
   ruleLabelName,
   ruleOptimal,
@@ -279,7 +302,7 @@ export const buildRule = ({
 
   let newOrUpdatedRule: any = {
     concept_uid: ruleConceptUID,
-    description: ruleDescription,
+    note: ruleNote,
     feedbacks_attributes: buildFeedbacks(ruleFeedbacks),
     name: ruleName,
     optimal: !!ruleOptimal.value,
@@ -302,7 +325,7 @@ export const buildRule = ({
       return rule;
     });
     newOrUpdatedRule.regex_rules_attributes = rules;
-  } else if(newOrUpdatedRule.rule_type === 'plagiarism') {
+  } else if(newOrUpdatedRule.rule_type === PLAGIARISM) {
     newOrUpdatedRule.plagiarism_text_attributes = {
       id: plagiarismText.id,
       text: stripHtml(plagiarismText.text)
@@ -326,7 +349,7 @@ export async function handleSubmitRule({
   ruleId,
   ruleLabelName,
   ruleConceptUID,
-  ruleDescription,
+  ruleNote,
   ruleOptimal,
   rulePrompts,
   rulePromptIds,
@@ -344,7 +367,7 @@ export async function handleSubmitRule({
     ruleName,
     ruleLabelName,
     ruleConceptUID,
-    ruleDescription,
+    ruleNote,
     ruleOptimal,
     rulePrompts,
     rulePromptIds,
@@ -363,7 +386,7 @@ export async function handleSubmitRule({
       keys.push(`Regex rule ${i + 1}`);
       state.push(regexRules[key].regex_text);
     });
-  } else if(ruleType.value === 'plagiarism') {
+  } else if(ruleType.value === PLAGIARISM) {
     keys = keys.concat(['Plagiarism Text', 'First Plagiarism Feedback', 'Second Plagiarism Feedback']);
     state = state.concat([plagiarismText.text, ruleFeedbacks[0].text, ruleFeedbacks[1].text]);
   } else if(ruleType.value === AUTO_ML) {
@@ -374,7 +397,7 @@ export async function handleSubmitRule({
     keys.push('Stem Applied');
     state.push(rulePrompts);
   }
-  const validationErrors = validateForm(keys, state);
+  const validationErrors = validateForm(keys, state, ruleType.value);
   if(validationErrors && Object.keys(validationErrors).length) {
     setErrors(validationErrors);
   } else {
@@ -384,30 +407,72 @@ export async function handleSubmitRule({
 }
 
 export function getRulesUrl(activityId: string, promptId: string, ruleType: string) {
-  let url = `activities/${activityId}/rules`;
-  if(promptId && !ruleType) {
-    url = `rules?prompt_id=${promptId}`
+  const url = `activities/${activityId}/rules`;
+  if(activityId) {
+    return url;
+  } else if(promptId && !ruleType) {
+    return `rules?prompt_id=${promptId}`
   } else if(!promptId && ruleType) {
-    url = `rules?rule_type=${ruleType}`
+    return `rules?rule_type=${ruleType}`
   } else if(promptId && ruleType) {
-    url = `rules?prompt_id=${promptId}&rule_type=${ruleType}`
+    return `rules?prompt_id=${promptId}&rule_type=${ruleType}`
   }
   return url;
 }
 
-export function renderErrorsContainer(formErrorsPresent: boolean, requestErrors: string[]) {
-  if(formErrorsPresent) {
-    return(
-      <div className="error-message-container">
-        <p className="all-errors-message">Please check that all fields have been completed correctly.</p>
-      </div>
-    );
+export function getReturnLinkRuleType(ruleType) {
+  if(!ruleType) {
+    return 'rules';
   }
+  const { value } = ruleType
+  if(regexRuleTypes.includes(value)) {
+    return 'regex-rules';
+  } else if(value === PLAGIARISM) {
+    return 'plagiarism-rules';
+  }
+  return 'rules';
+}
+
+export function getReturnLinkLabel(ruleType) {
+  let label = '← Return to ';
+  if(!ruleType) {
+    return label + 'Rules Index';
+  }
+  const { value } = ruleType
+  if(regexRuleTypes.includes(value)) {
+    return label + 'Regex Rules Index';
+  } else if(value === PLAGIARISM) {
+    return label + 'Plagiarism Rules Index';
+  }
+  return label + 'Rules Index';
+}
+
+export function getPromptIdString(prompts) {
+  let promptIdString = '';
+  prompts.forEach((prompt, i) => {
+    if(i !== prompts.length - 1) {
+      promptIdString += `${prompt.id},`
+    } else {
+      promptIdString += `${prompt.id}`
+    }
+  });
+  return promptIdString;
+}
+
+export function renderDeleteRuleModal(handleDeleteRule, toggleShowDeleteRuleModal) {
   return(
-    <div className="error-message-container">
-      {requestErrors.map((error, i) => {
-        return <p className="all-errors-message" key={i}>{error}</p>
-      })}
-    </div>
-  )
+    <Modal>
+      <div className="delete-rule-container">
+        <p className="delete-rule-text">Are you sure that you want to delete this rule?</p>
+        <div className="delete-rule-button-container">
+          <button className="quill-button fun primary contained" id="delete-rule-button" onClick={handleDeleteRule} type="button">
+            Delete
+          </button>
+          <button className="quill-button fun primary contained" id="close-rule-modal-button" onClick={toggleShowDeleteRuleModal} type="button">
+            Cancel
+          </button>
+        </div>
+      </div>
+    </Modal>
+  );
 }

@@ -70,7 +70,7 @@
     },
     "cues": {
         "type one": "type one / １つ入力して下さい",
-        "type one in each blank": "それぞれの空欄に１つ入力して下さい。",
+        "type one in each blank": "type one in each blank / それぞれの空欄に１つ入力して下さい。",
         "type two or three": "type two or three / ２つ、又は３つ入力して下さい",
         "type three": "type three / ３つ入力して下さい",
         "choose one": "choose one / 1つ選ぶ",

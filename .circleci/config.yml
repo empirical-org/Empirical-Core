@@ -151,49 +151,7 @@ jobs:
           command: |
             cd packages/quill-marking-logic
             FORCE_COLOR=true npm run test --colors
-  comprehension_python_build:
-    working_directory: ~/Empirical-Core
-    docker:
-      - image: circleci/python:3.7.4
-        environment:
-          PG_HOST: "localhost"
-          PG_NAME: quill_comprehension_api_db
-          PG_USER: ubuntu
-          PG_PASS: ""
-          PG_PORT: "5432"
-          DJANGO_SETTINGS_MODULE: "mysite.settings.circle"
-      - image: postgres:10.5-alpine
-        environment:
-          POSTGRES_USER: ubuntu
-          POSTGRES_DB: quill_comprehension_api_db
-          POSTGRES_PASSWORD: ""
-    steps:
-      - checkout
-      - run:
-          name: Pip Install
-          command: |
-            cd services/comprehension/main-api
-            pip install --user -r requirements.txt.dev
-      - run:
-          name: Set up DB
-          command: |
-            cd services/comprehension/main-api
-            python manage.py migrate
-          environment:
-            PG_DB: quill_comprehension_api_db
-            PG_USER: ubuntu
-            PG_PASS: ""
-            DJANGO_SETTINGS_MODULE: "mysite.settings.circle"
-      - run:
-          name: Run tests
-          command: |
-            cd services/comprehension/main-api
-            python manage.py test
-          environment:
-            PG_DB: quill_comprehension_api_db
-            PG_USER: ubuntu
-            PG_PASS: ""
-            DJANGO_SETTINGS_MODULE: "mysite.settings.circle"
+
   comprehension_go_build:
     working_directory: ~/Empirical-Core
     docker:
@@ -309,7 +267,6 @@ workflows:
       - lms_node_build
       - marking_logic_node_build
       - cms_rails_build
-      - comprehension_python_build
       - comprehension_go_build
       - comprehension_rails_build
   lint-code:

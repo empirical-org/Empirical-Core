@@ -17,47 +17,80 @@ const Navigation = ({ location, match }) => {
   const { activityId, } = params
   const [showCreateActivityModal, setShowCreateActivityModal] = React.useState<boolean>(false);
   const [showSubmissionModal, setShowSubmissionModal] = React.useState<boolean>(false);
-  const [error, setError] = React.useState<string>('');
+  const [errors, setErrors] = React.useState<string[]>([]);
 
   const csrfToken = getCsrfToken();
   localStorage.setItem('csrfToken', csrfToken);
 
-  const checkOverviewActive = () => {
+  function checkOverviewActive() {
     if(!location) return false;
     return pathname === '/activities' && !showCreateActivityModal;
   }
 
-  const toggleCreateActivityModal = () => {
+  function toggleCreateActivityModal() {
     setShowCreateActivityModal(!showCreateActivityModal);
   }
 
-  const toggleSubmissionModal = () => {
+  function toggleSubmissionModal() {
     setShowSubmissionModal(!showSubmissionModal);
   }
 
-  const submitActivity = (activity: ActivityInterface) => {
+  function submitActivity(activity: ActivityInterface) {
     createActivity(activity).then((response) => {
-      const { error } = response;
-      if(error) setError(error);
-      setShowCreateActivityModal(false);
-      setShowSubmissionModal(true);
-
-      // update activities cache to display newly created activity
-      queryCache.refetchQueries('activities')
+      const { errors } = response;
+      if(errors && errors.length) {
+        setErrors(errors);
+      } else {
+        // update activities cache to display newly created activity
+        queryCache.refetchQueries('activities');
+        setErrors([]);
+        setShowCreateActivityModal(false);
+        setShowSubmissionModal(true);
+      }
     });
   }
 
-  const renderActivityForm = () => {
+  function renderActivityForm() {
     return(
       <Modal>
-        <ActivityForm activity={blankActivity} closeModal={toggleCreateActivityModal} submitActivity={submitActivity} />
+        <ActivityForm activity={blankActivity} closeModal={toggleCreateActivityModal} requestErrors={errors} submitActivity={submitActivity} />
       </Modal>
     );
   }
 
-  const renderSubmissionModal = () => {
-    const message = error ? error : 'Submission successful!';
-    return <SubmissionModal close={toggleSubmissionModal} message={message} />;
+  function renderSubmissionModal () {
+    return <SubmissionModal close={toggleSubmissionModal} message='Submission successful!' />;
+  }
+
+  let rulesAnalysisSubLinks
+  let semanticLabelsSubLinks
+
+  if (pathname.includes('rules-analysis')) {
+    rulesAnalysisSubLinks = (<React.Fragment>
+      <NavLink activeClassName="is-active" className="sublink" to={`/activities/${activityId}/rules-analysis/because`}>
+        Because
+      </NavLink>
+      <NavLink activeClassName="is-active" className="sublink" to={`/activities/${activityId}/rules-analysis/but`}>
+        But
+      </NavLink>
+      <NavLink activeClassName="is-active" className="sublink" to={`/activities/${activityId}/rules-analysis/so`}>
+        So
+      </NavLink>
+    </React.Fragment>)
+  }
+
+  if (pathname.includes('semantic-labels')) {
+    semanticLabelsSubLinks = (<React.Fragment>
+      <NavLink activeClassName="is-active" className="sublink" to={`/activities/${activityId}/semantic-labels/because`}>
+        Because
+      </NavLink>
+      <NavLink activeClassName="is-active" className="sublink" to={`/activities/${activityId}/semantic-labels/but`}>
+        But
+      </NavLink>
+      <NavLink activeClassName="is-active" className="sublink" to={`/activities/${activityId}/semantic-labels/so`}>
+        So
+      </NavLink>
+    </React.Fragment>)
   }
 
   let activityEditorAndResults
@@ -77,6 +110,7 @@ const Navigation = ({ location, match }) => {
         <NavLink activeClassName="is-active" to={`/activities/${activityId}/semantic-labels`}>
           Semantic Labels
         </NavLink>
+        {semanticLabelsSubLinks}
         <NavLink activeClassName="is-active" to={`/activities/${activityId}/regex-rules`}>
           RegEx Rules
         </NavLink>
@@ -100,6 +134,7 @@ const Navigation = ({ location, match }) => {
         <NavLink activeClassName="is-active" to={`/activities/${activityId}/rules-analysis`}>
           Rules Analysis
         </NavLink>
+        {rulesAnalysisSubLinks}
       </ul>
     </React.Fragment>)
   }

@@ -222,7 +222,6 @@ export class ELLStudentDiagnostic extends React.Component {
         <PlayTitleCard
           currentKey={playDiagnostic.currentQuestion.data.key}
           data={playDiagnostic.currentQuestion.data}
-          diagnosticID={diagnosticID}
           dispatch={dispatch}
           handleContinueClick={this.nextQuestionWithoutSaving}
           isLastQuestion={isLastQuestion}
@@ -372,13 +371,9 @@ export class ELLStudentDiagnostic extends React.Component {
   }
 
   renderFooter = () => {
-    const { match } = this.props;
-    const { params } = match;
-    const { diagnosticID } = params;
     if (!this.language()) { return }
 
     return (<Footer
-      diagnosticID={diagnosticID}
       handleClickOpenMobileLanguageMenu={this.onClickOpenMobileLanguageMenu}
       language={this.language()}
       updateLanguage={this.updateLanguage}
@@ -440,9 +435,9 @@ export class ELLStudentDiagnostic extends React.Component {
     } else {
       component = (<LanguagePage
         begin={this.startActivity}
-        diagnosticID={diagnosticID}
         dispatch={dispatch}
         previewMode={previewMode}
+        questionCount={playDiagnostic.questionSet && playDiagnostic.questionSet.length}
         setLanguage={this.updateLanguage}
       />);
     }

@@ -69,8 +69,11 @@ class ResponsesController < ApplicationController
   end
 
   # POST /questions/rematch_all
+  # params uid, type, delay (integer for seconds to delay job)
   def rematch_all_responses_for_question
-    RematchResponsesForQuestionWorker.perform_async(params[:uid], params[:type])
+    delay = params[:delay] || 0
+
+    RematchResponsesForQuestionWorker.perform_in(delay, params[:uid], params[:type])
   end
 
   def multiple_choice_options

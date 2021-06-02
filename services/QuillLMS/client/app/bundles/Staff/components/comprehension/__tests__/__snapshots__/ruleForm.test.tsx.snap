@@ -24,9 +24,9 @@ exports[`RuleForm component should render RuleForm 1`] = `
       errors={Object {}}
       isUniversal={false}
       ruleConceptUID="a34qreadbgt6"
-      ruleDescription=""
       ruleID={1}
       ruleName="remove all instances of \\"it contains methane\\""
+      ruleNote=""
       ruleOptimal={
         Object {
           "label": "Sub-Optimal",
@@ -39,9 +39,10 @@ exports[`RuleForm component should render RuleForm 1`] = `
           "value": "rules-based-1",
         }
       }
+      ruleTypeDisabled={false}
       setRuleConceptUID={[Function]}
-      setRuleDescription={[Function]}
       setRuleName={[Function]}
+      setRuleNote={[Function]}
       setRuleOptimal={[Function]}
       setRuleType={[Function]}
     />
@@ -71,6 +72,7 @@ exports[`RuleForm component should render RuleForm 1`] = `
     <RulePrompts
       errors={Object {}}
       rulePrompts={Object {}}
+      rulePromptsDisabled={false}
       setRulePrompts={[Function]}
     />
     <div

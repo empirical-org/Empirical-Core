@@ -1,8 +1,8 @@
 require 'rails_helper'
 
 describe Teachers::UnitsController, type: :controller do
-  it { should use_before_filter :teacher! }
-  it { should use_before_filter :authorize! }
+  it { should use_before_action :teacher! }
+  it { should use_before_action :authorize! }
 
   let!(:student) {create(:student)}
   let!(:classroom) { create(:classroom) }

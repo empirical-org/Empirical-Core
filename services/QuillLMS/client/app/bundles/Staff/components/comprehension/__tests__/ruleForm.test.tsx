@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { shallow } from 'enzyme';
 
+import { mockRule } from '../__mocks__/data';
 import RuleForm from '../configureRules/ruleForm';
 import RuleGenericAttributes from '../configureRules/ruleGenericAttributes';
 import RuleRegexAttributes from '../configureRules/ruleRegexAttributes';
@@ -10,9 +11,6 @@ jest.mock('../../../helpers/comprehension/ruleHelpers', () => ({
   getInitialRuleType: jest.fn().mockImplementation(() => {
     return { value: 'rules-based-1', label: 'Sentence Structure Regex' }
    }),
-  renderErrorsContainer: jest.fn().mockImplementation(() => {
-    return <strong>error!</strong>
-  }),
   formatInitialFeedbacks: jest.fn().mockImplementation(() => {
     return [{
       id: 7,
@@ -23,33 +21,11 @@ jest.mock('../../../helpers/comprehension/ruleHelpers', () => ({
     }];
   })
 }));
-
-const mockRule = {
-  id: 1,
-  rule_type: 'rules-based-1' ,
-  name: 'remove all instances of "it contains methane"',
-  universal: false,
-  optimal: false,
-  suborder: 0,
-  state: 'active',
-  concept_uid: 'a34qreadbgt6',
-  prompt_ids: [1, 2],
-  feedbacks: [
-    {
-      id: 7,
-      rule_id: 1,
-      text: 'Revise your work. Delete the phrase "it contains methane" because it repeats the first part of the sentence',
-      description: null,
-      order: 0,
-      highlights: []
-    }
-  ],
-  regex_rules: [
-    { id: 1, rule_id: 1, regex_text: 'it contain(s)? methane gas', case_sensitive: false },
-    { id: 2, rule_id: 1, regex_text: 'another reg(ex) line', case_sensitive: true },
-    { id: 3, rule_id: 1, regex_text: 'some m?ore reg(ex', case_sensitive: false }
-  ]
-}
+jest.mock('../../../helpers/comprehension', () => ({
+  renderErrorsContainer: jest.fn().mockImplementation(() => {
+    return <strong>error!</strong>
+  })
+}));
 
 const mockProps = {
   rule: mockRule,

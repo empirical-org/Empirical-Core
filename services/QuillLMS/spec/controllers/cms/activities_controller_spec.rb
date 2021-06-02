@@ -1,8 +1,8 @@
 require 'rails_helper'
 
 describe Cms::ActivitiesController, type: :controller do
-  it { should use_before_filter :find_classification }
-  it { should use_before_filter :set_activity }
+  it { should use_before_action :find_classification }
+  it { should use_before_action :set_activity }
 
   let!(:classification) { create(:activity_classification) }
   let(:activities) { double(:activities, production: "production set", flagged: "flagged set") }

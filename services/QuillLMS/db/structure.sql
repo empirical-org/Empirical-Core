@@ -2,8 +2,8 @@
 -- PostgreSQL database dump
 --
 
--- Dumped from database version 10.16
--- Dumped by pg_dump version 10.16
+-- Dumped from database version 10.15
+-- Dumped by pg_dump version 10.15
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -131,7 +131,7 @@ CREATE FUNCTION public.timespent_question(act_sess integer, question character v
           item timestamp;
         BEGIN
           SELECT created_at INTO as_created_at FROM activity_sessions WHERE id = act_sess;
-          
+
           -- backward compatibility block
           IF as_created_at IS NULL OR as_created_at < timestamp '2013-08-25 00:00:00.000000' THEN
             SELECT SUM(
@@ -146,11 +146,11 @@ CREATE FUNCTION public.timespent_question(act_sess integer, question character v
                       'epoch' FROM (activity_sessions.completed_at - activity_sessions.started_at)
                     )
                 END) INTO time_spent FROM activity_sessions WHERE id = act_sess AND state='finished';
-                
+
                 RETURN COALESCE(time_spent,0);
           END IF;
-          
-          
+
+
           first_item := NULL;
           last_item := NULL;
           max_item := NULL;
@@ -174,11 +174,11 @@ CREATE FUNCTION public.timespent_question(act_sess integer, question character v
 
             END IF;
           END LOOP;
-          
+
           IF max_item IS NOT NULL AND first_item IS NOT NULL THEN
             time_spent := time_spent + EXTRACT( EPOCH FROM max_item - first_item );
           END IF;
-          
+
           RETURN time_spent;
         END;
       $$;
@@ -193,7 +193,7 @@ CREATE FUNCTION public.timespent_student(student integer) RETURNS bigint
     AS $$
         SELECT COALESCE(SUM(time_spent),0) FROM (
           SELECT id,timespent_activity_session(id) AS time_spent FROM activity_sessions
-          WHERE activity_sessions.user_id = student 
+          WHERE activity_sessions.user_id = student
           GROUP BY id) as as_ids;
 
       $$;
@@ -450,6 +450,48 @@ CREATE SEQUENCE public.activity_classifications_id_seq
 --
 
 ALTER SEQUENCE public.activity_classifications_id_seq OWNED BY public.activity_classifications.id;
+
+
+--
+-- Name: activity_healths; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.activity_healths (
+    id integer NOT NULL,
+    name character varying,
+    url character varying,
+    activity_categories character varying[],
+    content_partners character varying[],
+    tool character varying,
+    recent_plays integer,
+    diagnostics character varying[],
+    avg_difficulty double precision,
+    avg_common_unmatched double precision,
+    standard_dev_difficulty double precision,
+    avg_mins_to_complete double precision,
+    flag character varying,
+    activity_packs jsonb
+);
+
+
+--
+-- Name: activity_healths_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.activity_healths_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: activity_healths_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.activity_healths_id_seq OWNED BY public.activity_healths.id;
 
 
 --
@@ -1461,11 +1503,11 @@ CREATE TABLE public.comprehension_rules (
     id integer NOT NULL,
     uid character varying NOT NULL,
     name character varying NOT NULL,
-    description character varying,
+    note character varying,
     universal boolean NOT NULL,
     rule_type character varying NOT NULL,
     optimal boolean NOT NULL,
-    suborder text,
+    suborder integer,
     concept_uid character varying,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
@@ -1939,6 +1981,18 @@ CREATE TABLE public.feedback_histories (
 
 
 --
+-- Name: feedback_histories_grouped_by_rule_uid; Type: MATERIALIZED VIEW; Schema: public; Owner: -
+--
+
+CREATE MATERIALIZED VIEW public.feedback_histories_grouped_by_rule_uid AS
+ SELECT array_agg(feedback_histories.id) AS feedback_history_ids,
+    feedback_histories.rule_uid
+   FROM public.feedback_histories
+  GROUP BY feedback_histories.rule_uid
+  WITH NO DATA;
+
+
+--
 -- Name: feedback_histories_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
@@ -1959,12 +2013,45 @@ ALTER SEQUENCE public.feedback_histories_id_seq OWNED BY public.feedback_histori
 
 
 --
+-- Name: feedback_history_flags; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.feedback_history_flags (
+    id integer NOT NULL,
+    feedback_history_id integer NOT NULL,
+    flag character varying NOT NULL,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: feedback_history_flags_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.feedback_history_flags_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: feedback_history_flags_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.feedback_history_flags_id_seq OWNED BY public.feedback_history_flags.id;
+
+
+--
 -- Name: feedback_history_ratings; Type: TABLE; Schema: public; Owner: -
 --
 
 CREATE TABLE public.feedback_history_ratings (
     id integer NOT NULL,
-    rating boolean NOT NULL,
+    rating boolean,
     feedback_history_id integer NOT NULL,
     user_id integer NOT NULL,
     created_at timestamp without time zone NOT NULL,
@@ -2473,6 +2560,45 @@ CREATE SEQUENCE public.partner_contents_id_seq
 --
 
 ALTER SEQUENCE public.partner_contents_id_seq OWNED BY public.partner_contents.id;
+
+
+--
+-- Name: prompt_healths; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.prompt_healths (
+    id integer NOT NULL,
+    text character varying,
+    url character varying,
+    flag character varying,
+    incorrect_sequences integer,
+    focus_points integer,
+    percent_common_unmatched double precision,
+    percent_specified_algorithms double precision,
+    difficulty double precision,
+    percent_reached_optimal double precision,
+    activity_health_id integer
+);
+
+
+--
+-- Name: prompt_healths_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.prompt_healths_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: prompt_healths_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.prompt_healths_id_seq OWNED BY public.prompt_healths.id;
 
 
 --
@@ -3642,6 +3768,13 @@ ALTER TABLE ONLY public.activity_classifications ALTER COLUMN id SET DEFAULT nex
 
 
 --
+-- Name: activity_healths id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.activity_healths ALTER COLUMN id SET DEFAULT nextval('public.activity_healths_id_seq'::regclass);
+
+
+--
 -- Name: activity_sessions id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -3936,6 +4069,13 @@ ALTER TABLE ONLY public.feedback_histories ALTER COLUMN id SET DEFAULT nextval('
 
 
 --
+-- Name: feedback_history_flags id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.feedback_history_flags ALTER COLUMN id SET DEFAULT nextval('public.feedback_history_flags_id_seq'::regclass);
+
+
+--
 -- Name: feedback_history_ratings id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -4038,6 +4178,13 @@ ALTER TABLE ONLY public.page_areas ALTER COLUMN id SET DEFAULT nextval('public.p
 --
 
 ALTER TABLE ONLY public.partner_contents ALTER COLUMN id SET DEFAULT nextval('public.partner_contents_id_seq'::regclass);
+
+
+--
+-- Name: prompt_healths id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.prompt_healths ALTER COLUMN id SET DEFAULT nextval('public.prompt_healths_id_seq'::regclass);
 
 
 --
@@ -4303,6 +4450,14 @@ ALTER TABLE ONLY public.activity_category_activities
 
 ALTER TABLE ONLY public.activity_classifications
     ADD CONSTRAINT activity_classifications_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: activity_healths activity_healths_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.activity_healths
+    ADD CONSTRAINT activity_healths_pkey PRIMARY KEY (id);
 
 
 --
@@ -4642,6 +4797,14 @@ ALTER TABLE ONLY public.feedback_histories
 
 
 --
+-- Name: feedback_history_flags feedback_history_flags_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.feedback_history_flags
+    ADD CONSTRAINT feedback_history_flags_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: feedback_history_ratings feedback_history_ratings_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -4759,6 +4922,14 @@ ALTER TABLE ONLY public.page_areas
 
 ALTER TABLE ONLY public.partner_contents
     ADD CONSTRAINT partner_contents_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: prompt_healths prompt_healths_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.prompt_healths
+    ADD CONSTRAINT prompt_healths_pkey PRIMARY KEY (id);
 
 
 --
@@ -5213,13 +5384,6 @@ CREATE INDEX index_announcements_on_start_and_end ON public.announcements USING 
 
 
 --
--- Name: index_auth_credentials_on_access_token; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_auth_credentials_on_access_token ON public.auth_credentials USING btree (access_token);
-
-
---
 -- Name: index_auth_credentials_on_provider; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -5507,13 +5671,6 @@ CREATE UNIQUE INDEX index_concept_feedbacks_on_uid_and_activity_type ON public.c
 
 
 --
--- Name: index_concept_results_on_activity_classification_id; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_concept_results_on_activity_classification_id ON public.concept_results USING btree (activity_classification_id);
-
-
---
 -- Name: index_concept_results_on_activity_session_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -5525,13 +5682,6 @@ CREATE INDEX index_concept_results_on_activity_session_id ON public.concept_resu
 --
 
 CREATE INDEX index_concept_results_on_concept_id ON public.concept_results USING btree (concept_id);
-
-
---
--- Name: index_concept_results_on_question_type; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_concept_results_on_question_type ON public.concept_results USING btree (question_type);
 
 
 --
@@ -5637,6 +5787,13 @@ CREATE INDEX index_feedback_histories_on_prompt_type_and_id ON public.feedback_h
 --
 
 CREATE INDEX index_feedback_histories_on_rule_uid ON public.feedback_histories USING btree (rule_uid);
+
+
+--
+-- Name: index_feedback_histories_on_rule_uid_grouped; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_feedback_histories_on_rule_uid_grouped ON public.feedback_histories_grouped_by_rule_uid USING btree (rule_uid);
 
 
 --
@@ -6158,13 +6315,6 @@ CREATE INDEX index_users_on_email ON public.users USING btree (email);
 
 
 --
--- Name: index_users_on_flags; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_users_on_flags ON public.users USING btree (flags);
-
-
---
 -- Name: index_users_on_google_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -6431,6 +6581,14 @@ ALTER TABLE ONLY public.unit_activities
 
 ALTER TABLE ONLY public.activity_topics
     ADD CONSTRAINT fk_rails_4c47083518 FOREIGN KEY (topic_id) REFERENCES public.topics(id);
+
+
+--
+-- Name: prompt_healths fk_rails_538824b31c; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.prompt_healths
+    ADD CONSTRAINT fk_rails_538824b31c FOREIGN KEY (activity_health_id) REFERENCES public.activity_healths(id) ON DELETE CASCADE;
 
 
 --
@@ -7451,3 +7609,24 @@ INSERT INTO schema_migrations (version) VALUES ('20210330160626');
 
 INSERT INTO schema_migrations (version) VALUES ('20210409161449');
 
+INSERT INTO schema_migrations (version) VALUES ('20210421181107');
+
+INSERT INTO schema_migrations (version) VALUES ('20210421190032');
+
+INSERT INTO schema_migrations (version) VALUES ('20210421191605');
+
+INSERT INTO schema_migrations (version) VALUES ('20210423165423');
+
+INSERT INTO schema_migrations (version) VALUES ('20210429151331');
+
+INSERT INTO schema_migrations (version) VALUES ('20210430212613');
+
+INSERT INTO schema_migrations (version) VALUES ('20210505150457');
+
+INSERT INTO schema_migrations (version) VALUES ('20210511161300');
+
+INSERT INTO schema_migrations (version) VALUES ('20210518151248');
+
+INSERT INTO schema_migrations (version) VALUES ('20210518162719');
+
+INSERT INTO schema_migrations (version) VALUES ('20210521152206');

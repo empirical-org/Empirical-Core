@@ -3,11 +3,12 @@ import { EditorState, ContentState } from 'draft-js';
 
 import {
   handleSetRuleConceptUID,
-  handleSetRuleDescription,
+  handleSetRuleNote,
   handleSetRuleName,
   handleSetRuleOptimal,
   handleSetRuleType,
 } from '../../../helpers/comprehension/ruleHelpers';
+import { renderIDorUID } from '../../../helpers/comprehension';
 import { ruleTypeOptions, universalRuleTypeOptions, ruleOptimalOptions } from '../../../../../constants/comprehension';
 import { InputEvent, DropdownObjectInterface } from '../../../interfaces/comprehensionInterfaces';
 import { Input, DropdownInput, TextEditor } from '../../../../Shared/index'
@@ -18,7 +19,8 @@ interface RuleGenericAttributesProps {
   isUniversal: boolean,
   errors: any,
   ruleConceptUID: string,
-  ruleDescription: string,
+  ruleTypeDisabled: boolean,
+  ruleNote: string,
   ruleID?: number,
   ruleUID?: string,
   ruleName: string,
@@ -26,7 +28,7 @@ interface RuleGenericAttributesProps {
   ruleType: any,
   concepts: any[],
   setRuleConceptUID: (ruleConceptUID: string) => void,
-  setRuleDescription: (ruleDescription: string) => void,
+  setRuleNote: (ruleNote: string) => void,
   setRuleName: (ruleName: string) => void,
   setRuleOptimal: (ruleOptimal: DropdownObjectInterface) => void,
   setRuleType: (ruleType: DropdownObjectInterface) => void
@@ -39,14 +41,15 @@ const RuleGenericAttributes = ({
   errors,
   concepts,
   ruleConceptUID,
-  ruleDescription,
+  ruleNote,
   ruleID,
   ruleUID,
   ruleName,
   ruleOptimal,
   ruleType,
+  ruleTypeDisabled,
   setRuleConceptUID,
-  setRuleDescription,
+  setRuleNote,
   setRuleName,
   setRuleOptimal,
   setRuleType
@@ -60,18 +63,8 @@ const RuleGenericAttributes = ({
 
   function onHandleSetRuleOptimal(ruleOptimal: DropdownObjectInterface) { handleSetRuleOptimal(ruleOptimal, setRuleOptimal) }
 
-  function onHandleSetRuleDescription(text: string) { handleSetRuleDescription(text, setRuleDescription)}
+  function onHandleSetRuleNote(text: string) { handleSetRuleNote(text, setRuleNote)}
 
-  function renderIDorUID(idOrRuleId, type) {
-    return(
-      <section className="label-status-container">
-        <p id="label-status-label">{type}</p>
-        <p id="label-status">{idOrRuleId}</p>
-      </section>
-    );
-  }
-
-  const ruleTypeDisabled = (ruleID || ruleType.value === 'autoML') ? 'disabled' : '';
   let options = isUniversal ? universalRuleTypeOptions : ruleTypeOptions;
   if(!isAutoML) {
     options = options.filter(option => option.value !== 'autoML');
@@ -79,12 +72,12 @@ const RuleGenericAttributes = ({
   const conceptOptions = concepts.map(c => ({ value: c.uid, label: c.name, }));
   const selectedConceptOption = conceptOptions.find(co => co.value === ruleConceptUID);
   const nameInputLabel = autoMLParams && autoMLParams['label'] ? autoMLParams['label'] : 'Name';
-  const descriptionLabel = autoMLParams && autoMLParams['notes'] ? autoMLParams['notes'] : 'Rule Description';
+  const noteLabel = autoMLParams && autoMLParams['notes'] ? autoMLParams['notes'] : 'Rule Note';
 
   return(
     <React.Fragment>
       <DropdownInput
-        className={`rule-type-input ${ruleTypeDisabled}`}
+        className={`rule-type-input ${ruleTypeDisabled ? 'disabled' : ''}`}
         disabled={!!ruleTypeDisabled}
         handleChange={onHandleSetRuleType}
         isSearchable={true}
@@ -118,13 +111,13 @@ const RuleGenericAttributes = ({
       />
       {ruleID && renderIDorUID(ruleID, 'Rule ID')}
       {ruleUID && renderIDorUID(ruleUID, 'Rule UID')}
-      <p className="form-subsection-label">{descriptionLabel}</p>
+      <p className="form-subsection-label">{noteLabel}</p>
       <TextEditor
         ContentState={ContentState}
         EditorState={EditorState}
-        handleTextChange={onHandleSetRuleDescription}
-        key="rule-description"
-        text={ruleDescription}
+        handleTextChange={onHandleSetRuleNote}
+        key="rule-note"
+        text={ruleNote}
       />
     </React.Fragment>
   )

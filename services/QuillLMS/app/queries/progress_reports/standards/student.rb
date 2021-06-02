@@ -5,46 +5,65 @@ class ProgressReports::Standards::Student
   end
 
   def results(filters)
-    best_activity_sessions = ProgressReports::Standards::ActivitySession.new(@teacher).results(filters)
-    User.from_cte('best_activity_sessions', best_activity_sessions)
-      .with(best_per_standard_user: ProgressReports::Standards::Student.best_per_standard_user)
-      .select(<<-SQL
-        users.id,
-        users.name,
-        #{User.sorting_name_sql},
-        AVG(best_activity_sessions.percentage) as average_score,
-        COUNT(DISTINCT(best_activity_sessions.standard_id)) as total_standard_count,
-        COUNT(DISTINCT(best_activity_sessions.activity_id)) as total_activity_count,
-        COALESCE(AVG(proficient_count.standard_count), 0)::integer as proficient_standard_count,
-        COALESCE(AVG(not_proficient_count.standard_count), 0)::integer as not_proficient_standard_count
-      SQL
-      ).joins('JOIN users ON users.id = best_activity_sessions.user_id')
-      .joins("
-      LEFT JOIN (
-          select COUNT(DISTINCT(standard_id)) as standard_count, user_id
-           from best_per_standard_user
-           where avg_score_in_standard >= #{@proficiency_cutoff}
-           group by user_id
-        ) as proficient_count ON proficient_count.user_id = users.id"
-      ).joins(<<-JOINS
-      LEFT JOIN (
-          select COUNT(DISTINCT(standard_id)) as standard_count, user_id
-           from best_per_standard_user
-           where avg_score_in_standard < #{@proficiency_cutoff}
-           group by user_id
-        ) as not_proficient_count ON not_proficient_count.user_id = users.id
-      JOINS
+    best_activity_sessions_query = ProgressReports::Standards::ActivitySession.new(@teacher).results(filters).to_sql
+    @best_activity_sessions = "( #{best_activity_sessions_query} ) AS best_activity_sessions"
+
+    User
+      .select(
+        <<-SQL
+          users.id,
+          users.name,
+          #{User.sorting_name_sql},
+          AVG(best_activity_sessions.percentage) AS average_score,
+          COUNT(DISTINCT(best_activity_sessions.standard_id)) AS total_standard_count,
+          COUNT(DISTINCT(best_activity_sessions.activity_id)) AS total_activity_count,
+          COALESCE(AVG(proficient_count.standard_count), 0)::integer AS proficient_standard_count,
+          COALESCE(AVG(not_proficient_count.standard_count), 0)::integer AS not_proficient_standard_count
+        SQL
       )
+      .joins("JOIN #{@best_activity_sessions} ON users.id = best_activity_sessions.user_id")
+      .joins("LEFT JOIN #{proficient_count} ON proficient_count.user_id = users.id")
+      .joins("LEFT JOIN #{not_proficient_count} ON not_proficient_count.user_id = users.id")
       .group('users.id, sorting_name')
-      .order('sorting_name asc')
+      .order('sorting_name ASC')
   end
 
-  # Helper method used as CTE in other queries. Do not attempt to use this by itself
-  def self.best_per_standard_user
-    <<-BEST
-      select standard_id, user_id, AVG(percentage) as avg_score_in_standard
-      from best_activity_sessions
-      group by standard_id, user_id
-    BEST
+  private def best_per_standard_user
+    <<-SQL
+      (
+        SELECT
+          standard_id,
+          user_id,
+          AVG(percentage) AS avg_score_in_standard
+        FROM #{@best_activity_sessions}
+        GROUP By standard_id, user_id
+      ) AS best_per_standard_user
+    SQL
+  end
+
+  private def not_proficient_count
+    <<-SQL
+      (
+        SELECT
+          COUNT(DISTINCT(standard_id)) AS standard_count,
+          user_id
+        FROM #{best_per_standard_user}
+        WHERE avg_score_in_standard < #{@proficiency_cutoff}
+        GROUP BY user_id
+      ) AS not_proficient_count
+    SQL
+  end
+
+  private def proficient_count
+    <<-SQL
+      (
+        SELECT
+          COUNT(DISTINCT(standard_id)) AS standard_count,
+          user_id
+        FROM #{best_per_standard_user}
+        WHERE avg_score_in_standard >= #{@proficiency_cutoff}
+        GROUP BY user_id
+      ) AS proficient_count
+    SQL
   end
 end

@@ -1,10 +1,10 @@
 import React from 'react';
 import { shallow } from 'enzyme';
+
 import { Cues } from '../cues.tsx';
 import { Cue, CueExplanation } from '../../../../Shared/index';
 
 let mockProps = {
-    customText: 'test text',
     diagnosticID: 'ell',
     displayArrowAndText: true,
     question: {
@@ -29,17 +29,8 @@ describe('Cues Component', () => {
     component.instance().translateCueLabel(mockProps.question, mockProps.translate);
     expect(mockProps.translate).toHaveBeenCalledWith(text);
   });
-  it('handleCustomText returns customText if diagnosticID is ell, otherwise calls this.translateCueLabel', () => {
-    const text = component.instance().handleCustomText();
-    expect(text).toEqual(mockProps.customText);
-    mockProps.diagnosticID = 'not-ell';
-    component = shallow(<Cues {...mockProps} />)
-    const request = component.instance().handleCustomText();
-    const response = component.instance().translateCueLabel(mockProps.question, mockProps.translate);
-    expect(request).toEqual(response)
-  });
   it('renderExplanation returns a CueExplanation component', () => {
     const explanation = component.instance().renderExplanation();
-    expect(explanation).toEqual(<CueExplanation />)
+    expect(explanation).toEqual(<CueExplanation text="choose one" />)
   });
 });

@@ -95,14 +95,16 @@ export default class StudentProfileUnits extends React.Component {
   }
 
   renderContent = () => {
-    const { loading, nextActivitySession, isBeingPreviewed, } = this.props
+    const { loading, nextActivitySession, isBeingPreviewed, selectedUnitId, } = this.props
     if (loading) { return <LoadingIndicator /> }
 
     const content = this.displayedUnits().map(unit => {
       const { unit_id, unit_name, } = unit[Object.keys(unit)[0]][0]
       return (<StudentProfileUnit
         data={unit}
+        id={unit_id}
         isBeingPreviewed={isBeingPreviewed}
+        isSelectedUnit={String(unit_id) === selectedUnitId}
         key={unit_id}
         nextActivitySession={nextActivitySession}
         onShowPreviewModal={this.handleShowPreviewModal}

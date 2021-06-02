@@ -13,11 +13,8 @@ exports[`TurkCompleted Component should match snapshot 1`] = `
   <p>
     Your responses will be used to develop our system so that millions of students around the world can improve their reading and writing skills.
   </p>
-  <h1>
-    Payment Directions
-  </h1>
   <p>
-    Use the following HIT code for payment:
+    Survey code:
   </p>
   <div
     className="code"

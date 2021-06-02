@@ -10,7 +10,7 @@ describe('AssignADiagnostic component', () => {
   it('should render AssignADiagnostic', () => {
     expect(component).toMatchSnapshot();
   });
-  it('should render 8 AssignmentCard components', ()=> {
-    expect(component.find(AssignmentCard)).toHaveLength(9);
+  it('should render 10 AssignmentCard components', ()=> {
+    expect(component.find(AssignmentCard)).toHaveLength(10);
   })
 });

@@ -44,9 +44,9 @@ module Comprehension
 
       context 'with actitivites' do
         setup do
-          @first_activity = create(:comprehension_activity, title: "First Activity", target_level: 8)
-          create(:comprehension_activity, title: "Second Activity",
-            target_level: 5)
+          # The controller sorts items alphabetically by "name"
+          @first_activity = create(:comprehension_activity, title: "First Activity", name: "Name 1", target_level: 8)
+          create(:comprehension_activity, title: "Second Activity", name: "Name 2", target_level: 5)
         end
 
         should "return successfully" do
@@ -58,6 +58,7 @@ module Comprehension
           assert_equal Array, parsed_response.class
           refute parsed_response.empty?
 
+          # We expect these to be ordered alphatbetically by name
           assert_equal  "First Activity", parsed_response.first['title']
           assert_equal  8, parsed_response.first['target_level']
           assert_equal  @first_activity.parent_activity.id, parsed_response.first['parent_activity_id']

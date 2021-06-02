@@ -1,6 +1,7 @@
 class IntegrationsController < ApplicationController
   include HTTParty
   layout "integrations"
+  before_action :set_root_url
 
   def amplify
     store_partner_session()
@@ -29,4 +30,7 @@ class IntegrationsController < ApplicationController
     }
   end
 
+  private def set_root_url
+    @root_url = root_url
+  end
 end

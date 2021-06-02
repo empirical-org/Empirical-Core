@@ -1,6 +1,6 @@
 class Teachers::StudentsController < ApplicationController
-  before_filter :teacher!
-  before_filter :authorize!
+  before_action :teacher!
+  before_action :authorize!
 
   def create
     valid_names = Creators::StudentCreator.check_names(params)

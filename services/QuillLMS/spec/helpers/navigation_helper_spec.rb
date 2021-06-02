@@ -3,9 +3,7 @@ require 'rails_helper'
 describe NavigationHelper do
   describe '#home_page_should_be_active?' do
     context 'when action name is dashboard, my account, teacher guide or google sync' do
-      before do
-        allow(helper).to receive(:action_name) { "dashboard" }
-      end
+      before { allow(helper).to receive(:action_name) { "dashboard" } }
 
       it 'should return true' do
         expect(helper.home_page_should_be_active?).to eq true
@@ -26,9 +24,7 @@ describe NavigationHelper do
 
   describe '#classes_page_should_be_active?' do
     context 'when teachers classroom controller' do
-      before do
-        allow(helper).to receive(:controller) { double(:controller, class: Teachers::ClassroomsController) }
-      end
+      before { allow(helper).to receive(:controller) { double(:controller, class: Teachers::ClassroomsController) } }
 
       it 'should return true' do
         expect(helper.classes_page_should_be_active?).to eq true
@@ -36,12 +32,15 @@ describe NavigationHelper do
     end
 
     context 'when invite_students action and not in concepts controller' do
-      let(:class_double) { double(:class, parent: "something") }
+      let(:class_double) { double(:klass, parent: "something") }
 
       before do
         allow(helper).to receive(:controller) { double(:controller, class: class_double) }
-        allow(helper).to receive(:action_name) { "invite_students" }
-        allow(helper).to receive(:controller_name) { "anything" }
+
+        without_partial_double_verification do
+          allow(helper).to receive(:action_name) { "invite_students" }
+          allow(helper).to receive(:controller_name) { "anything" }
+        end
       end
 
       it 'should return true' do
@@ -53,7 +52,7 @@ describe NavigationHelper do
   describe "#assign_activity_page_should_be_active?" do
     before do
       allow(helper).to receive(:controller) { double(:controller, class: Teachers::ClassroomManagerController) }
-      allow(helper).to receive(:action_name) { "assign" }
+      without_partial_double_verification { allow(helper).to receive(:action_name) { "assign" } }
     end
 
     it 'should return true when classroom manager controller and assign activities action' do
@@ -64,7 +63,7 @@ describe NavigationHelper do
   describe '#my_activities_page_should_be_active?' do
     before do
       allow(helper).to receive(:controller) { double(:controller, class: Teachers::ClassroomManagerController) }
-      allow(helper).to receive(:action_name) { "lesson_planner" }
+      without_partial_double_verification { allow(helper).to receive(:action_name) { "lesson_planner" } }
     end
 
     it 'should return true if classroom manager controller and lesson planner action' do
@@ -72,14 +71,8 @@ describe NavigationHelper do
     end
   end
 
-  describe '#student_reports_page_should_be_active' do
-
-  end
-
   describe '#admin_page_should_be_active?' do
-    before do
-      allow(helper).to receive(:action_name) { "admin_dashboard" }
-    end
+    before { allow(helper).to receive(:action_name) { "admin_dashboard" } }
 
     it 'should return true on admin dashboard action' do
       expect(helper.admin_page_should_be_active?).to eq true

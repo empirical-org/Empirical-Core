@@ -15,8 +15,7 @@ export const TurkCompleted = ({ code }) => {
       <h1>Activity Completed!</h1>
       <p>Thank you for completing this activity.</p>
       <p>Your responses will be used to develop our system so that millions of students around the world can improve their reading and writing skills.</p>
-      <h1>Payment Directions</h1>
-      <p>Use the following HIT code for payment:</p>
+      <p>Survey code:</p>
       <div className="code">{code}</div>
       {/* Logical shortcut for only displaying the button if the copy command exists */}
       {document.queryCommandSupported('copy') &&

@@ -16,6 +16,12 @@ jest.mock("react-query", () => ({
     isFetching: true,
   })),
 }));
+
+jest.mock('../../../helpers/comprehension', () => ({
+  titleCase: jest.fn().mockImplementation(() => {
+    return '';
+   }),
+}));
 const { firstBy } = jest.requireActual('thenby');
 
 describe('LabelsTable component', () => {

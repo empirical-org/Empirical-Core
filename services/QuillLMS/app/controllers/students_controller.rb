@@ -1,8 +1,9 @@
 class StudentsController < ApplicationController
   include QuillAuthentication
 
-  before_filter :authorize!, except: [:student_demo, :demo_ap, :join_classroom]
+  before_action :authorize!, except: [:student_demo, :demo_ap, :join_classroom]
   before_action :redirect_to_profile, only: [:index]
+  before_action :flash_missing_unit_error, only: [:index]
 
   def index
     @current_user = current_user
@@ -103,6 +104,19 @@ class StudentsController < ApplicationController
       flash[:error] = 'Oops! You do not belong to that classroom. Your teacher may have archived the class or removed you.'
       flash.keep(:error)
       redirect_to classes_path
+    end
+  end
+
+  private def flash_missing_unit_error
+    classroom_id = params["classroom"]
+    unit_id = params["unit_id"]
+
+    return unless classroom_id && unit_id
+
+    classroom_unit = ClassroomUnit.find_by(classroom_id: classroom_id, unit_id: unit_id)
+
+    unless classroom_unit && classroom_unit.assigned_student_ids.include?(current_user.id)
+      flash[:error] = 'Sorry, you do not have access to this activity pack because it has not been assigned to you. Please contact your teacher.'
     end
   end
 

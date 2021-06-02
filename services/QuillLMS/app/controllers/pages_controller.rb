@@ -1,7 +1,9 @@
 class PagesController < ApplicationController
   include HTTParty
   include PagesHelper
-  before_filter :determine_js_file, :determine_flag
+  before_action :determine_js_file, :determine_flag
+  before_action :set_root_url
+
   layout :determine_layout
 
   NUMBER_OF_SENTENCES = "NUMBER_OF_SENTENCES"
@@ -135,7 +137,7 @@ class PagesController < ApplicationController
         faqs: [
           {
             question: "I just signed up for Quill. Now what?",
-            answer: "<p>We have a getting started guide <a href='http://community.quill.org/wp-content/uploads/2015/11/Quill-Getting-Started-Guide-for-Teachers.pdf'>here.</a></p>"
+            answer: "<p>We have a getting started guide <a href='https://s3.amazonaws.com/quill-image-uploads/uploads/files/Getting_Started_Guide_for_Teachers_Updated_03_20_2020.pdf'>here.</a></p>"
           },
           {
             question: "How much time should my students spend on Quill?",
@@ -418,9 +420,27 @@ class PagesController < ApplicationController
     @user_belongs_to_school_that_has_paid = current_user&.school ? Subscription.school_or_user_has_ever_paid?(current_user&.school) : false
     @last_four = current_user&.last_four
 
-    @diagnostic_activity_count = Activity.where(classification: ActivityClassification.diagnostic, flags: ['production']).count
-    @lessons_activity_count = Activity.where(classification: ActivityClassification.lessons, flags: ['production']).count
-    @independent_practice_activity_count = Activity.where(classification: [ActivityClassification.connect, ActivityClassification.grammar, ActivityClassification.proofreader], flags: ['production']).count
+    @diagnostic_activity_count =
+      Activity.where(
+        flags: '{production}',
+        classification: ActivityClassification.diagnostic
+      ).count
+
+    @lessons_activity_count =
+      Activity.where(
+        flags: '{production}',
+        classification: ActivityClassification.lessons
+      ).count
+
+    @independent_practice_activity_count =
+      Activity.where(
+        flags: '{production}',
+        classification: [
+          ActivityClassification.connect,
+          ActivityClassification.grammar,
+          ActivityClassification.proofreader
+        ]
+      ).count
 
     @title = 'Premium'
   end
@@ -543,5 +563,9 @@ class PagesController < ApplicationController
 
   private def allow_iframe
     response.headers.delete "X-Frame-Options"
+  end
+
+  private def set_root_url
+    @root_url = root_url
   end
 end

@@ -308,7 +308,6 @@ Completa el espacio en blanco con una de estas palabras: a, an, the. Si no se ne
             </div>
           </Prompt>
           <Cues
-            customText="Add words or leave blank"
             displayArrowAndText={true}
             question={
               Object {
@@ -366,12 +365,12 @@ Completa el espacio en blanco con una de estas palabras: a, an, the. Si no se ne
                 src="undefined/images/icons/pointing-arrow.svg"
               />
               <CueExplanation
-                text="Add words or leave blank"
+                text="joining words"
               >
                 <div
                   className="cue-explanation"
                 >
-                  Add words or leave blank
+                  joining words
                 </div>
               </CueExplanation>
             </div>

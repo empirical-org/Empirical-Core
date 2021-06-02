@@ -34,7 +34,6 @@
 #  index_users_on_classcode           (classcode)
 #  index_users_on_clever_id           (clever_id)
 #  index_users_on_email               (email)
-#  index_users_on_flags               (flags)
 #  index_users_on_google_id           (google_id)
 #  index_users_on_role                (role)
 #  index_users_on_stripe_customer_id  (stripe_customer_id)
@@ -1228,9 +1227,6 @@ describe User, type: :model do
       expect(Invitation.where(invitee_email: new_email).count).to be(2)
     end
   end
-
-  it 'does not care about all the validation stuff when the user is temporary'
-  it 'disallows regular assignment of roles that are restricted'
 
   describe '#generate_referrer_id' do
     it 'creates ReferrerUser with the correct referrer code when a teacher is created' do

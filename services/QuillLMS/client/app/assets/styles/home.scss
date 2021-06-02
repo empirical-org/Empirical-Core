@@ -46,6 +46,18 @@ p.feature-heading {
   .header, .flags {
     width: 100% !important;
   }
+  .flags {
+    display: flex;
+    flex-direction: column;
+    .flags-row {
+      justify-content: space-around;
+      .flag-container {
+        .flag-label {
+          margin: 0;
+        }
+      }
+    }
+  }
 }
 
 .tool-container {

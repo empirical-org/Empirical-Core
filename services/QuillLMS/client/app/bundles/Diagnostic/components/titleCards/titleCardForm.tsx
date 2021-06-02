@@ -4,7 +4,7 @@ import { EditorState, ContentState } from 'draft-js'
 import {
   submitNewTitleCard,
   submitTitleCardEdit
-} from '../../actions/titleCards.ts'
+} from '../../actions/titleCards'
 import {
   hashToCollection,
   TextEditor
@@ -20,6 +20,7 @@ interface TitleCardFormState {
 export interface TitleCardFormProps {
   titleCards: any
   routing: any
+  history: any
   match: any
   dispatch(any): void
 }
@@ -32,10 +33,9 @@ class TitleCardForm extends React.Component<TitleCardFormProps, TitleCardFormSta
     if (props.match.params.titleCardID && props.titleCards.hasreceiveddata) {
       const {titleCardID} = props.match.params
       const titleCard = props.titleCards.data[titleCardID]
-      const {title, content} = titleCard
       this.state = {
-        content: content ? content : '',
-        title: title ? title : ''
+        content: titleCard && titleCard.content ? titleCard.content : '',
+        title: titleCard && titleCard.title ? titleCard.title : ''
       }
     } else {
       this.state = {
@@ -50,10 +50,9 @@ class TitleCardForm extends React.Component<TitleCardFormProps, TitleCardFormSta
       if (this.props.match.params.titleCardID && this.props.titleCards.hasreceiveddata) {
         const {titleCardID} = this.props.match.params
         const titleCard = this.props.titleCards.data[titleCardID]
-        const {title, content} = titleCard
         this.setState({
-          content: content ? content : this.state.content,
-          title: title ? title : this.state.title
+          content: titleCard && titleCard.content ? titleCard.content : this.state.content,
+          title: titleCard && titleCard.title ? titleCard.title : this.state.title
         })
       }
     }

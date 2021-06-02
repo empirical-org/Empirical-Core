@@ -48,5 +48,10 @@ describe "Cron", type: :model do
       expect(SetImpactMetricsWorker).to receive(:perform_async)
       Cron.run_saturday
     end
+
+    it 'enqueues PopulateAllActivityHealthsWorker' do
+      expect(PopulateAllActivityHealthsWorker).to receive(:perform_async)
+      Cron.run_saturday
+    end
   end
 end
