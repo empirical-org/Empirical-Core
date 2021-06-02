@@ -19,6 +19,7 @@ const ActivitySettings: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ m
   const [showEditActivityModal, setShowEditActivityModal] = React.useState<boolean>(false);
   // const [showEditFlagModal, setShowEditFlagModal] = React.useState<boolean>(false);
   const [showSubmissionModal, setShowSubmissionModal] = React.useState<boolean>(false);
+  const [errors, setErrors] = React.useState<string[]>([]);
   const { params } = match;
   const { activityId } = params;
 
@@ -47,15 +48,17 @@ const ActivitySettings: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ m
 
   const handleUpdateActivity = (activity: ActivityInterface) => {
     updateActivity(activity, activityId).then((response) => {
-      const { error } = response;
-      error && setErrorOrSuccessMessage(error);
-      queryCache.refetchQueries(`activity-${activityId}`)
-      if(!error) {
+      const { errors } = response;
+      if(errors && errors.length) {
+        setErrors(errors);
+      } else {
+        queryCache.refetchQueries(`activity-${activityId}`)
+        setErrors([]);
         setShowEditActivityModal(false);
         // reset errorOrSuccessMessage in case of subsequent submission
         setErrorOrSuccessMessage('Activity successfully updated!');
+        toggleSubmissionModal();
       }
-      toggleSubmissionModal();
     });
   }
 
@@ -96,7 +99,7 @@ const ActivitySettings: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ m
   const renderActivityForm = () => {
     return(
       <Modal>
-        <ActivityForm activity={data && data.activity} closeModal={toggleEditActivityModal} submitActivity={handleUpdateActivity} />
+        <ActivityForm activity={data && data.activity} closeModal={toggleEditActivityModal} requestErrors={errors} submitActivity={handleUpdateActivity} />
       </Modal>
     );
   }

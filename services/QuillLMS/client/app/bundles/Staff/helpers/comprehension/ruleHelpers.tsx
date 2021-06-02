@@ -459,23 +459,6 @@ export function getPromptIdString(prompts) {
   return promptIdString;
 }
 
-export function renderErrorsContainer(formErrorsPresent: boolean, requestErrors: string[]) {
-  if(formErrorsPresent) {
-    return(
-      <div className="error-message-container">
-        <p className="all-errors-message">Please check that all fields have been completed correctly.</p>
-      </div>
-    );
-  }
-  return(
-    <div className="error-message-container">
-      {requestErrors.map((error, i) => {
-        return <p className="all-errors-message" key={i}>{error}</p>
-      })}
-    </div>
-  )
-}
-
 export function renderDeleteRuleModal(handleDeleteRule, toggleShowDeleteRuleModal) {
   return(
     <Modal>
