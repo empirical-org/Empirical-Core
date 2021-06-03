@@ -52,6 +52,7 @@ describe TeacherActivityFeed, type: :model do
   describe '#text_for_score' do
     let(:lesson_activity_session) { create(:lesson_activity_session) }
     let(:diagnostic_activity_session) { create(:diagnostic_activity_session) }
+    let(:comprehension_activity_session) { create(:comprehension_activity_session) }
     let(:proficient_activity_session) { create(:connect_activity_session, percentage: 0.90) }
     let(:nearly_proficient_activity_session) { create(:grammar_activity_session, percentage: 0.75) }
     let(:not_yet_proficient_activity_session) { create(:proofreader_activity_session, percentage: 0.40) }
@@ -69,6 +70,14 @@ describe TeacherActivityFeed, type: :model do
     context 'when the activity session is a diagnostic activity' do
       it "returns #{ActivitySession::COMPLETED}" do
         text = feed.send(:text_for_score, diagnostic_activity_session.classification.key, diagnostic_activity_session.percentage)
+
+        expect(text).to eq(ActivitySession::COMPLETED)
+      end
+    end
+
+    context 'when the activity session is a comprehension activity' do
+      it "returns #{ActivitySession::COMPLETED}" do
+        text = feed.send(:text_for_score, comprehension_activity_session.classification.key, comprehension_activity_session.percentage)
 
         expect(text).to eq(ActivitySession::COMPLETED)
       end
@@ -116,7 +125,7 @@ describe TeacherActivityFeed, type: :model do
     end
 
     context 'when the timestamp was more than one minute but less than one hour ago' do
-      it 'should return "47 min ago"' do
+      it 'should return "47 mins ago"' do
         expect(feed.send(:text_for_completed, 47.minutes.ago)).to eq("47 mins ago")
       end
     end
@@ -145,21 +154,26 @@ describe TeacherActivityFeed, type: :model do
       end
     end
 
-    context 'when the timestamp was more than one week ago but this calendar year' do
-      it 'should return the written out date' do
-        date = 8.days.ago
-        if date.year == Time.now.year
-          expect(feed.send(:text_for_completed, date)).to eq(date.strftime("%b #{date.day.ordinalize}"))
-        else
-          expect(feed.text_for_completed(date)).to eq(date.strftime("%b #{date.day.ordinalize}, %Y"))
-        end
+    context 'when the timestamp was more than one week ago ' do
+      it 'should return the written out date if this calendar year' do
+        completed_at = Time.parse('2021-01-01')
+        now = Time.parse('2021-01-08')
+
+        expect(feed.send(:text_for_completed, completed_at, now)).to eq(completed_at.strftime("%b #{completed_at.day.ordinalize}"))
+      end
+
+      it 'should return the written out date if with year if not this calendar year' do
+        completed_at = Time.parse('2020-12-31')
+        now = Time.parse('2021-01-07')
+
+        expect(feed.send(:text_for_completed, completed_at, now)).to eq(completed_at.strftime("%b #{completed_at.day.ordinalize}, %Y"))
       end
     end
 
     context 'when the timestamp was a different calendar year' do
       it 'should return the written out date' do
-        date = 1.year.ago
-        expect(feed.send(:text_for_completed, date)).to eq(date.strftime("%b #{date.day.ordinalize}, %Y"))
+        completed_at = Time.parse('2019-12-31')
+        expect(feed.send(:text_for_completed, completed_at)).to eq(completed_at.strftime("%b #{completed_at.day.ordinalize}, %Y"))
       end
     end
   end

@@ -47,9 +47,11 @@ class TeacherActivityFeed < RedisFeed
   private def text_for_score(key, percentage)
     return '' unless percentage
 
-    if [ActivityClassification::DIAGNOSTIC_KEY, ActivityClassification::LESSONS_KEY].include?(key)
-      ActivitySession::COMPLETED
-    elsif percentage >= ProficiencyEvaluator.proficiency_cutoff
+    if ActivityClassification.unscored?(key)
+      return ActivitySession::COMPLETED
+    end
+
+    if percentage >= ProficiencyEvaluator.proficiency_cutoff
       ActivitySession::PROFICIENT
     elsif percentage >= ProficiencyEvaluator.nearly_proficient_cutoff
       ActivitySession::NEARLY_PROFICIENT
@@ -58,10 +60,10 @@ class TeacherActivityFeed < RedisFeed
     end
   end
 
-  private def text_for_completed(completed_at)
+  # NB, this only works with timestamps (not dates)
+  private def text_for_completed(completed_at, now = Time.now().in_time_zone.utc)
     return '' unless completed_at
 
-    now = Time.now().in_time_zone.utc
     diff = (now - completed_at).round.abs
 
     minutes = diff / 60

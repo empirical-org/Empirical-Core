@@ -36,6 +36,16 @@ class ActivityClassification < ActiveRecord::Base
   CONNECT_KEY = 'connect'
   GRAMMAR_KEY = 'sentence'
 
+  UNSCORED_KEYS = [
+    DIAGNOSTIC_KEY,
+    LESSONS_KEY,
+    COMPREHENSION_KEY
+  ]
+
+  def self.unscored?(key)
+    UNSCORED_KEYS.include?(key)
+  end
+
   def self.diagnostic
     find_by_key DIAGNOSTIC_KEY
   end
