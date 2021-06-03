@@ -9,8 +9,7 @@ end
 
 # CORE
 gem 'puma', '~> 4.3.8'
-gem 'rails', '~> 6.1'
-gem "actionpack", ">= 6.1.3.2"
+gem 'rails', '~> 6.1.3.2'
 
 # EARLY TO APPLY TO OTHER GEMS
 gem 'dotenv-rails', '~> 2.7'
