@@ -46,9 +46,9 @@ describe TeacherActivityFeedRefillWorker, type: :worker do
     let!(:activity_session1) {create(:activity_session, classroom_unit_id: classroom_unit.id, user_id: student1.id, completed_at: Time.zone.now - 2.days)}
     let!(:activity_session2) {create(:activity_session, classroom_unit_id: classroom_unit.id, user_id: student2.id, completed_at: Time.zone.now - 1.day )}
 
-    it 'should reset and refill activity feed' do
+    it 'should reset and refill activity feed with latest activities first' do
       expect(TeacherActivityFeed).to receive(:reset!).with(teacher.id).once
-      expect(TeacherActivityFeed).to receive(:add).with(teacher.id, [activity_session1.id, activity_session2.id])
+      expect(TeacherActivityFeed).to receive(:add).with(teacher.id, [activity_session2.id, activity_session1.id])
 
       worker.perform(teacher.id)
     end
