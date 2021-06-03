@@ -15,6 +15,9 @@ export const WEAK =  'weak';
 export const COMPLETE =  'complete';
 export const INCOMPLETE =  'incomplete';
 export const STRONG =  'strong';
+export const RULES_BASED_1 = 'rules-based-1';
+export const RULES_BASED_2 = 'rules-based-2';
+export const RULES_BASED_3 = 'rules-based-3';
 
 export const flagOptions = [
   {
