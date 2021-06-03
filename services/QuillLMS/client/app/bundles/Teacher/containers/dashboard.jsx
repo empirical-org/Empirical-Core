@@ -47,7 +47,7 @@ const Dashboard = ({ onboardingChecklist, firstName, mustSeeModal, linkedToCleve
     if (metrics && diagnostics && lessons && loading) {
       setLoading(false)
     }
-  }, [metrics, diagnostics, lessons])
+  }, [metrics, diagnostics, lessons, activityFeed])
 
   function getMetrics() {
     requestGet('/teacher_dashboard_metrics',
@@ -95,7 +95,6 @@ const Dashboard = ({ onboardingChecklist, firstName, mustSeeModal, linkedToCleve
         <KeyMetrics firstName={firstName} metrics={metrics} />
         <DiagnosticMini diagnostics={diagnostics} onMobile={onMobile()} />
         <LessonsMini lessons={lessons} onMobile={onMobile()} />
-        <ActivityFeed activityFeed={activityFeed} onMobile={onMobile()} />
       </main>
       <aside>
         <HandyActions linkedToClever={linkedToClever} />
