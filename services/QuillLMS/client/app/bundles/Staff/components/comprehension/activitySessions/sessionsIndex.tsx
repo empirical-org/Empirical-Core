@@ -17,6 +17,7 @@ const SessionsIndex = ({ match }) => {
   const { params } = match;
   const { activityId } = params;
 
+  const [showError, setShowError] = React.useState<boolean>(false);
   const [pageNumber, setPageNumber] = React.useState<DropdownObjectInterface>(null);
   const [pageDropdownOptions, setPageDropdownOptions] = React.useState<DropdownObjectInterface[]>(null);
   const [filterOption, setFilterOption] = React.useState<DropdownObjectInterface>(activitySessionFilterOptions[0]);
@@ -24,7 +25,9 @@ const SessionsIndex = ({ match }) => {
   const [sortInfo, setSortInfo] = React.useState<any>(null);
   const pageNumberForQuery = pageNumber && pageNumber.value ? pageNumber.value : 1;
   const [startDate, onStartDateChange] = React.useState<Date>(null);
+  const [startDateForQuery, setStartDate] = React.useState<string>('');
   const [endDate, onEndDateChange] = React.useState<Date>(null);
+  const [endDateForQuery, setEndDate] = React.useState<string>('');
 
   // cache activity data for updates
   const { data: activityData } = useQuery({
@@ -34,7 +37,7 @@ const SessionsIndex = ({ match }) => {
 
   // cache activity sessions data for updates
   const { data: sessionsData } = useQuery({
-    queryKey: [`activity-${activityId}-sessions`, activityId, pageNumberForQuery],
+    queryKey: [`activity-${activityId}-sessions`, activityId, pageNumberForQuery, startDateForQuery, endDateForQuery],
     queryFn: fetchActivitySessions
   });
 
@@ -50,6 +53,18 @@ const SessionsIndex = ({ match }) => {
       setRowData(rows);
     }
   }, [sessionsData]);
+
+  function handleFilterClick() {
+    if(!startDate) {
+      setShowError(true);
+      return;
+    }
+    setShowError(false);
+    setStartDate(startDate.toISOString());
+    if(endDate) {
+      setEndDate(endDate.toISOString());
+    }
+  }
 
   function getFilteredRows(filter: string, activitySessions: ActivitySessionInterface[]) {
     switch (filter) {
@@ -216,8 +231,11 @@ const SessionsIndex = ({ match }) => {
             onChange={onEndDateChange}
             value={endDate}
           />
-          <button className="quill-button fun primary contained" type="submit">Filter</button>
+          <button className="quill-button fun primary contained" onClick={handleFilterClick} type="submit">Filter</button>
         </section>
+        <div className="error-container">
+          {showError && <p className="error-message">Start date is required.</p>}
+        </div>
         <ReactTable
           className="activity-sessions-table"
           columns={activitySessionIndexResponseHeaders}

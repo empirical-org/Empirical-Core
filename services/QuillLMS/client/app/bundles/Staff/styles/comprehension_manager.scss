@@ -932,10 +932,22 @@
     .link-info-blurb {
       margin-top: 8px;
     }
+    .error-container {
+      justify-content: flex-start;
+      padding-top: 0;
+      margin-bottom: 16px;
+      min-height: 24px;
+      .error-message {
+        font-size: 12px;
+        font-weight: 600;
+        color: #ff0000;
+        margin: 0;
+      }
+    }
     .top-section {
       display: flex;
       align-items: center;
-      margin: 24px 0px 24px 0px;
+      margin: 24px 0px 8px 0px;
       .total-container {
         display: flex;
         align-items: center;
