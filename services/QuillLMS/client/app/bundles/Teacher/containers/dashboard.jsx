@@ -37,19 +37,17 @@ const Dashboard = ({ onboardingChecklist, firstName, mustSeeModal, linkedToCleve
   const [activityFeed, setActivityFeed] = React.useState(null)
   const [loading, setLoading] = React.useState(true);
 
-  // TODO remove activityFeed from initial deploy (here for testing)
   React.useEffect(() => {
     getMetrics();
     getDiagnostics()
     getLessons()
-    getActivityFeed()
   }, []);
 
   React.useEffect(() => {
-    if (metrics && diagnostics && lessons && activityFeed && loading) {
+    if (metrics && diagnostics && lessons && loading) {
       setLoading(false)
     }
-  }, [metrics, diagnostics, lessons, activityFeed])
+  }, [metrics, diagnostics, lessons])
 
   function getMetrics() {
     requestGet('/teacher_dashboard_metrics',
