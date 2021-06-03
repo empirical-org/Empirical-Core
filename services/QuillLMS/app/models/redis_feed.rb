@@ -34,14 +34,16 @@ class RedisFeed
 
   # add identifiers to a redis array, limit to a certain size
   # takes a stringy identifier or an array or stringy identifiers
-  # e.g. add(1), add("2"), add([5,4,3])
-  # note, array items are added one at a time starting with the first
-  # add([1,2,3]) will result in 3 as the first element, 2 as the second, 1 as the last
-  # See: https://redis.io/commands/lpush
+  # e.g. add(1), add("2"), add([1,2,3])
+  # add([1,2,3]) will result in 1 as the first element, 2 as the second, 3 as the third
   def add(id_or_ids)
-    $redis.lpush(redis_key, id_or_ids)
+    # reversing array to main order as pushed into redis (last is pushed on first)
+    # See: https://redis.io/commands/lpush
+    Array(id_or_ids).reverse.each do |id|
+      $redis.lpush(redis_key, id)
+      callback_on_add(id)
+    end
     $redis.ltrim(redis_key, 0, limit - 1)
-    callback_on_add(id_or_ids)
   end
 
   # returns an array of strings
@@ -69,8 +71,8 @@ class RedisFeed
     raise NotImplementedError
   end
 
-  # should handle a single id or array of ids
-  def callback_on_add(id_or_ids)
+  # should handle a single id
+  def callback_on_add(id)
     # Can be optionally defined by subclass
   end
 

@@ -14,9 +14,7 @@ class TeacherActivityFeedRefillWorker
     return if ids.empty?
 
     TeacherActivityFeed.reset!(user_id)
-    # Note, reversing id order since .add
-    # pops each from the front of the array
-    TeacherActivityFeed.add(user_id, ids.reverse)
+    TeacherActivityFeed.add(user_id, ids)
   end
 
   def ids_for_activity_feed(teacher)
