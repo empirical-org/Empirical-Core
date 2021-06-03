@@ -1,4 +1,5 @@
 import * as React from 'react'
+import VisibilitySensor from 'react-visibility-sensor'
 
 import QuestionAndAnswer from '../components/shared/QuestionAndAnswer.jsx'
 import lessons from '../components/modules/questionsAndAnswers/lessons'
@@ -7,10 +8,12 @@ import premium from '../components/modules/questionsAndAnswers/premium'
 import preap from '../components/modules/questionsAndAnswers/preap'
 import ap from '../components/modules/questionsAndAnswers/ap'
 import springboard from '../components/modules/questionsAndAnswers/springboard'
+import { QUESTIONS_AND_ANSWERS } from '../components/college_board/collegeBoardConstants';
 
 export interface QuestionsAndAnswersProps {
   questionsAndAnswersFile: string;
   supportLink: string;
+  handleChange?: Function;
 }
 
 interface QuestionsAndAnswersState {
@@ -58,12 +61,15 @@ export default class QuestionsAndAnswers extends React.Component<QuestionsAndAns
   }
 
   render() {
-    const { supportLink } = this.props;
+    const { supportLink, handleChange } = this.props;
     const style = `support-link ${!supportLink ? 'hidden' : ''}`;
     return(
       <div id="q-and-a">
         <div className="q-and-a-inner-wrapper">
-          <h1>Questions and Answers</h1>
+          {/* eslint-disable-next-line react/jsx-no-bind */}
+          <VisibilitySensor onChange={(isVisible) => handleChange(isVisible, QUESTIONS_AND_ANSWERS)}>
+            <h1>Questions and Answers</h1>
+          </VisibilitySensor>
           {this.renderQuestionsAndAnswers()}
           <a className={style} href={supportLink}>View all questions and answers</a>
         </div>

@@ -6,7 +6,7 @@ import stripHtml from "string-strip-html";
 import { promptsByConjunction, titleCase } from "../../../helpers/comprehension";
 import { getPromptIdString } from '../../../helpers/comprehension/ruleHelpers';
 import { ActivityRouteProps, RuleInterface } from '../../../interfaces/comprehensionInterfaces';
-import { BECAUSE, BUT, SO,  PLAGIARISM } from '../../../../../constants/comprehension';
+import { BECAUSE, BUT, SO, PLAGIARISM } from '../../../../../constants/comprehension';
 import { fetchRules } from '../../../utils/comprehension/ruleAPIs';
 import { fetchActivity } from '../../../utils/comprehension/activityAPIs';
 import { DataTable, Error, Spinner } from '../../../../Shared/index';
@@ -34,7 +34,7 @@ const PlagiarismRulesIndex: React.FC<RouteComponentProps<ActivityRouteProps>> = 
 
   const { data: plagiarismRulesData } = useQuery({
     // cache rules data for updates
-    queryKey: [`rules-${activityId}`, null, promptIds, PLAGIARISM],
+    queryKey: [`rules-${activityId}-${PLAGIARISM}`, null, promptIds, PLAGIARISM],
     queryFn: fetchRules
   });
 

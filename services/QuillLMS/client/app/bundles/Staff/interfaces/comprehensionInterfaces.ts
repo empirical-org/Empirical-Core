@@ -1,6 +1,7 @@
 export interface ActivityRouteProps {
   activityId: string,
-  type?: string
+  type?: string,
+  promptConjunction?: string
 }
 
 export interface ActivityInterface {

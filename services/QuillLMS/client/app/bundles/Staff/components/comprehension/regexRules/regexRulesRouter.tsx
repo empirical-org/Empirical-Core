@@ -9,6 +9,7 @@ import { fetchActivity } from '../../../utils/comprehension/activityAPIs';
 import { createRule, updateRule } from '../../../utils/comprehension/ruleAPIs';
 import { Error, Spinner } from '../../../../Shared/index';
 import { RuleInterface } from '../../../interfaces/comprehensionInterfaces';
+import { getRefetchQueryString } from '../../../helpers/comprehension/ruleHelpers';
 
 const RegexRulesRouter = ({ history, match }) => {
   const { params } = match;
@@ -36,9 +37,10 @@ const RegexRulesRouter = ({ history, match }) => {
       if(errors && errors.length) {
         setErrors(errors);
       } else {
+        const queryString = getRefetchQueryString(rule, activityId);
         setErrors([]);
         // update rules cache to display newly created rule
-        queryCache.refetchQueries(`rules-${activityId}`).then(() => {
+        queryCache.refetchQueries(queryString).then(() => {
           history.push(`/activities/${activityId}/regex-rules`);
         });
       }
@@ -54,7 +56,7 @@ const RegexRulesRouter = ({ history, match }) => {
       } else {
         setErrors([]);
         // update rules cache to display newly updated rule
-        queryCache.refetchQueries(`rules-${activityId}`).then(() => {
+        queryCache.refetchQueries(`rule-${ruleId}`).then(() => {
           history.push(`/activities/${activityId}/regex-rules`);
         });
       }

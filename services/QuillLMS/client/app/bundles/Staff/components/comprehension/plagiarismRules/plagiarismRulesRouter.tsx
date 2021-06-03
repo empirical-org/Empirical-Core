@@ -9,6 +9,7 @@ import { fetchActivity } from '../../../utils/comprehension/activityAPIs';
 import { createRule, updateRule } from '../../../utils/comprehension/ruleAPIs';
 import { Error, Spinner } from '../../../../Shared/index';
 import { RuleInterface } from '../../../interfaces/comprehensionInterfaces';
+import { getRefetchQueryString } from '../../../helpers/comprehension/ruleHelpers';
 
 const PlagiarismRulesRouter = ({ history, match }) => {
   const { params } = match;
@@ -37,8 +38,9 @@ const PlagiarismRulesRouter = ({ history, match }) => {
         setErrors(errors);
       } else {
         setErrors([]);
+        const queryString = getRefetchQueryString(rule, activityId);
         // update rules cache to display newly created rule
-        queryCache.refetchQueries(`rules-${activityId}`).then(() => {
+        queryCache.refetchQueries(queryString).then(() => {
           history.push(`/activities/${activityId}/plagiarism-rules`);
         });
       }
@@ -46,7 +48,7 @@ const PlagiarismRulesRouter = ({ history, match }) => {
     });
   }
 
-  function handleUpdateRule({rule}: {rule: RuleInterface}, ruleId) {
+  function handleUpdateRule({rule}: {rule: RuleInterface}, ruleId: number) {
     updateRule(ruleId, rule).then((response) => {
       const { errors } = response;
       if(errors && errors.length) {
@@ -54,7 +56,7 @@ const PlagiarismRulesRouter = ({ history, match }) => {
       } else {
         setErrors([]);
         // update rules cache to display newly updated rule
-        queryCache.refetchQueries(`rules-${activityId}`).then(() => {
+        queryCache.refetchQueries(`rule-${ruleId}`).then(() => {
           history.push(`/activities/${activityId}/plagiarism-rules`);
         });
       }
