@@ -61,15 +61,13 @@ export default class QuestionsAndAnswers extends React.Component<QuestionsAndAns
   }
 
   render() {
-    const { supportLink, handleChange } = this.props;
+    const { supportLink } = this.props;
     const style = `support-link ${!supportLink ? 'hidden' : ''}`;
     return(
       <div id="q-and-a">
         <div className="q-and-a-inner-wrapper">
           {/* eslint-disable-next-line react/jsx-no-bind */}
-          <VisibilitySensor onChange={(isVisible) => handleChange(isVisible, QUESTIONS_AND_ANSWERS)}>
-            <h1>Questions and Answers</h1>
-          </VisibilitySensor>
+          <h1>Questions and Answers</h1>
           {this.renderQuestionsAndAnswers()}
           <a className={style} href={supportLink}>View all questions and answers</a>
         </div>
