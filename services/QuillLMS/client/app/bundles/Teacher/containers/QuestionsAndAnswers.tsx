@@ -8,7 +8,7 @@ import premium from '../components/modules/questionsAndAnswers/premium'
 import preap from '../components/modules/questionsAndAnswers/preap'
 import ap from '../components/modules/questionsAndAnswers/ap'
 import springboard from '../components/modules/questionsAndAnswers/springboard'
-import { QUESTIONS_AND_ANSWERS } from '../components/college_board/collegeBoardConstants';
+import { QUESTIONS_AND_ANSWERS, AP, PRE_AP, SPRINGBOARD } from '../components/college_board/collegeBoardConstants';
 
 export interface QuestionsAndAnswersProps {
   questionsAndAnswersFile: string;
@@ -35,13 +35,13 @@ export default class QuestionsAndAnswers extends React.Component<QuestionsAndAns
       case 'premium':
         questionsAndAnswers = premium
         break
-      case 'preap':
+      case PRE_AP:
         questionsAndAnswers = preap
         break
-      case 'ap':
+      case AP:
         questionsAndAnswers = ap
         break
-      case 'springboard':
+      case SPRINGBOARD:
         questionsAndAnswers = springboard
         break
       default:
@@ -61,15 +61,19 @@ export default class QuestionsAndAnswers extends React.Component<QuestionsAndAns
   }
 
   render() {
-    const { supportLink, handleChange } = this.props;
+    const { supportLink, handleChange, questionsAndAnswersFile } = this.props;
     const style = `support-link ${!supportLink ? 'hidden' : ''}`;
+    const collegeBoardPages = [AP, PRE_AP, SPRINGBOARD];
+    const showVisibilitySensor = collegeBoardPages.includes(questionsAndAnswersFile);
+
     return(
       <div id="q-and-a">
         <div className="q-and-a-inner-wrapper">
           {/* eslint-disable-next-line react/jsx-no-bind */}
-          <VisibilitySensor onChange={(isVisible) => handleChange(isVisible, QUESTIONS_AND_ANSWERS)}>
+          {showVisibilitySensor && <VisibilitySensor onChange={(isVisible) => handleChange(isVisible, QUESTIONS_AND_ANSWERS)}>
             <h1>Questions and Answers</h1>
-          </VisibilitySensor>
+          </VisibilitySensor>}
+          {!showVisibilitySensor && <h1>Questions and Answers</h1>}
           {this.renderQuestionsAndAnswers()}
           <a className={style} href={supportLink}>View all questions and answers</a>
         </div>
