@@ -23,12 +23,17 @@ class TeacherActivityFeedRefillWorker
 
     return [] if classroom_unit_ids.empty?
 
-    ActivitySession.unscoped
+    # performing the sort in ruby to avoid order/limit on large table
+    # Original order/limit query was taking an hour for some teachers
+    ActivitySession
+      .unscoped
       .completed
       .visible
       .where(classroom_unit_id: classroom_unit_ids)
-      .order("completed_at DESC")
-      .limit(TeacherActivityFeed::LIMIT)
-      .pluck(:id)
+      .pluck(:id, :completed_at)
+      .sort_by(&:last) # sort by completed_at
+      .reverse # make sort DESC
+      .map(&:first)
+      .first(TeacherActivityFeed::LIMIT)
   end
 end
