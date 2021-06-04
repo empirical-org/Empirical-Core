@@ -51,7 +51,7 @@ class Api::V1::FeedbackHistoriesController < Api::ApiController
       :used,
       :time,
       :rule_uid,
-      :metadata: [
+      metadata: [
         :response_id,
         highlight: []
       ]
