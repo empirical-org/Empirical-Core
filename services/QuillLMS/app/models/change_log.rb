@@ -124,7 +124,7 @@ class ChangeLog < ActiveRecord::Base
   validates :changed_record_type, inclusion: CHANGED_RECORD_TYPES
 
   def applies_to_single_record?
-    ['Concept', 'Topic', 'Standard', 'StandardLevel', 'StandardCategory', 'Activity', 'Prompt', 'Universal Rule'].include?(changed_record_type) || !(GENERIC_USER_ACTIONS.include?(action))
+    ['Concept', 'Topic', 'Standard', 'StandardLevel', 'StandardCategory', 'Comprehension::Activity', 'Comprehension::Prompt', 'Comprehension::Rule'].include?(changed_record_type) || !(GENERIC_USER_ACTIONS.include?(action))
   end
 
   def record_is_not_being_created_from_cms?

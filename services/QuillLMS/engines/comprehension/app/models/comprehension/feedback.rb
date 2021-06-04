@@ -14,6 +14,9 @@ module Comprehension
     validates :text, presence: true, length: {minimum: MIN_FEEDBACK_LENGTH, maximum: MAX_FEEDBACK_LENGTH}
     validates :order, numericality: {only_integer: true, greater_than_or_equal_to: 0}, uniqueness: {scope: :rule_id}
 
+    after_create :log_creation
+    after_destroy :log_deletion
+    after_update :log_update, if: :text_changed?
     after_update :log_first_update, if: -> {semantic_rule && first_order && text_changed?}
     after_update :log_second_update, if: -> {semantic_rule && second_order && text_changed?}
 
@@ -52,6 +55,18 @@ module Comprehension
 
     private def change_text(change_index)
       "#{rule.label&.name} | #{rule.name}\n#{text_change[change_index]}"
+    end
+
+    private def log_creation
+      rule.log_update({feedback: text})
+    end
+
+    private def log_deletion
+      rule.log_update({feedback: nil}, {feedback: text})
+    end
+
+    private def log_update
+      rule.log_update({feedback: text_change[1]}, {feedback: text_change[0]})
     end
   end
 end

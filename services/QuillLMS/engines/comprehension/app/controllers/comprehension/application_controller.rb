@@ -18,5 +18,9 @@ module Comprehension
       options.merge(json: json.to_json)
     end
 
+    private def lms_user_id
+      session[:user_id]
+    end
+
   end
 end

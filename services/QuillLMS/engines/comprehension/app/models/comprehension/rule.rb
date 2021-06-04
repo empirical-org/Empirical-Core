@@ -28,13 +28,6 @@ module Comprehension
     }
 
     after_create :assign_to_all_prompts, if: :universal
-    after_create :log_regex_creation, if: :regex?
-    after_create :log_universal_creation, if: :universal?
-    after_create :log_plagiarism_creation, if: :plagiarism?
-    after_update :log_regex_update, if: :regex?
-    after_update :log_plagiarism_update, if: :plagiarism?
-    after_update :log_universal_update, if: :universal?
-    after_destroy :log_regex_deletion, if: :regex?
     before_validation :assign_uid_if_missing
     validate :one_plagiarism_per_prompt, on: :create, if: :plagiarism?
 
@@ -118,46 +111,44 @@ module Comprehension
       end
     end
 
-    private def log_regex_creation
-      prompts&.each do |prompt|
-        log_change(:create_regex, prompt, nil, nil, nil, change_text_regex)
+    def log_creation(user_id)
+      if regex?
+        send_change_log(user_id, :create_regex, change_text_regex)
+      elsif plagiarism?
+        send_change_log(user_id, :create_plagiarism, change_text_plagiarism)
+      elsif universal?
+        send_change_log(user_id, :create_universal, change_text_universal)
       end
     end
 
-    private def log_universal_creation
-      prompts&.each do |prompt|
-        log_change(:create_universal, prompt, nil, nil, nil, "#{name} - #{rule_type}")
+    def log_deletion(user_id)
+      if regex?
+        send_change_log(:delete_regex, nil, change_text_regex)
       end
     end
 
-    private def log_plagiarism_creation
-      prompts&.each do |prompt|
-        log_change(:create_plagiarism, prompt, nil, nil, nil, change_text_plagiarism)
+    def log_update(user_id, new_values=nil, prev_values=nil)
+      if regex?
+        send_change_log(:update_regex, new_values || change_text_regex(new_change_values), prev_values || change_text_regex(previous_change_values))
+      elsif plagiarism?
+        send_change_log(:update_plagiarism, new_values || change_text_plagiarism(new_change_values), prev_values || change_text_plagiarism(previous_change_values))
+      elsif universal?
+        send_change_log(:update_universal, new_values || change_text_universal(new_change_values), prev_values || change_text_universal(previous_change_values))
       end
     end
 
-    private def log_regex_update
+    private def send_change_log(user_id, action_type, new_value, prev_value=nil)
       prompts&.each do |prompt|
-        log_change(:update_regex, prompt, nil, nil, change_text_regex(filtered_changes.transform_values {|v| v[0]}), change_text_regex(filtered_changes.transform_values {|v| v[1]}))
+        log_change(user_id, action_type, prompt, nil, nil, prev_value, new_value)
       end
     end
 
-    private def log_plagiarism_update
-      prompts&.each do |prompt|
-        log_change(:update_plagiarism, prompt, nil, nil, change_text_plagiarism(filtered_changes.transform_values {|v| v[0]}), change_text_regex(filtered_changes.transform_values {|v| v[1]}))
-      end
+    private def previous_change_values
+      filtered_changes.transform_values {|v| v[0]}
     end
 
-    private def log_universal_update
-      prompts&.each do |prompt|
-        log_change(:update_universal, prompt, nil, nil, "#{name} - #{rule_type}\n#{filtered_changes.transform_values {|v| v[0]}}", "#{name} - #{rule_type}\n#{filtered_changes.transform_values {|v| v[1]}}")
-      end
-    end
-
-    private def log_regex_deletion
-      prompts&.each do |prompt|
-        log_change(:delete_regex, prompt, nil, nil, change_text_regex, nil)
-      end
+    private def new_change_values
+      filtered_changes.transform_values {|v| v[1]}
     end
 
     private def filtered_changes
@@ -169,7 +160,11 @@ module Comprehension
     end
 
     private def change_text_plagiarism(values=nil)
-      values.present? ? "#{name} - #{plagiarism_text.text} - #{feedbacks.first.text}\n#{values}" : "#{name} - #{plagiarism_text.text} - #{feedbacks.first.text}"
+      values.present? ? "#{name} - #{plagiarism_text&.text} - #{feedbacks&.first&.text}\n#{values}" : "#{name} - #{plagiarism_text&.text} - #{feedbacks&.first&.text}"
+    end
+
+    private def change_text_universal(values=nil)
+      values.present? ? "#{name} - #{rule_type}\n#{values}" : "#{name} - #{rule_type}"
     end
   end
 end

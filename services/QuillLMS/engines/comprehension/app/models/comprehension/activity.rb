@@ -9,9 +9,7 @@ module Comprehension
     MAX_TITLE_LENGTH = 100
     MAX_SCORED_LEVEL_LENGTH = 100
 
-    after_create :log_creation
     before_destroy :expire_turking_rounds
-    after_destroy :log_deletion
     before_validation :set_parent_activity, on: :create
 
     has_many :passages, inverse_of: :activity, dependent: :destroy
@@ -58,12 +56,12 @@ module Comprehension
       turking_rounds.each(&:expire!)
     end
 
-    private def log_creation
-      log_change(:create_activity, self)
+    def log_creation(user_id)
+      log_change(user_id, :create_activity, self, nil, nil, nil, "Comprehension Activity #{id} - active")
     end
 
-    private def log_deletion
-      log_change(:delete_activity, self)
+    def log_deletion(user_id)
+      log_change(user_id, :delete_activity, self, nil, nil, "Comprehension Activity #{id} - active", "Comprehension Activity #{id} - deleted")
     end
   end
 end

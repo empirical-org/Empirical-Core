@@ -9,8 +9,6 @@ module Comprehension
     validates_presence_of :activity
     validates :text, presence: true, length: {minimum: MIN_TEXT_LENGTH}
 
-    after_save :log_update, if: :text_changed?
-
     def serializable_hash(options = nil)
       options ||= {}
       super(options.reverse_merge(

@@ -1,8 +1,8 @@
 module Comprehension
   module ChangeLog
-    def log_change(action, changed_record, explanation = nil, changed_attribute = nil, previous_value = nil, new_value = nil)
+    def log_change(user_id, action, changed_record, explanation = nil, changed_attribute = nil, previous_value = nil, new_value = nil)
       change_log = {
-        user_id: 1,
+        user_id: user_id,
         action: Comprehension.change_log_class::COMPREHENSION_ACTIONS[action],
         changed_record_type: changed_record.class.name,
         changed_record_id: changed_record.id,

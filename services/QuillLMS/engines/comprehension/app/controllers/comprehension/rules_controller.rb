@@ -23,6 +23,7 @@ module Comprehension
       @rule = Comprehension::Rule.new(rule_params)
 
       if @rule.save
+        @rule.log_creation(lms_user_id)
         render json: @rule, status: :created
       else
         render json: @rule.errors, status: :unprocessable_entity

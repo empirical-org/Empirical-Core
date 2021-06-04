@@ -16,6 +16,9 @@ module Comprehension
     validates :highlight_type, presence: true, inclusion: {in: TYPES}
     validates :starting_index, numericality: {only_integer: true, greater_than_or_equal_to: 0}
 
+    after_create :log_creation
+    after_destroy :log_deletion
+    after_update :log_update, if: :text_changed?
     after_update :log_first_update, if: -> {semantic_rule && first_order && text_changed?}
     after_update :log_second_update, if: -> {semantic_rule && second_order && text_changed?}
 
@@ -53,6 +56,18 @@ module Comprehension
 
     private def change_text(change_index)
       "#{feedback&.rule&.label&.name} | #{feedback&.rule&.name}\n#{text_change[change_index]}"
+    end
+
+    private def log_creation
+      feedback&.rule&.log_update({highlight: text})
+    end
+
+    private def log_deletion
+      feedback&.rule&.log_update({highlight: nil}, {highlight: text})
+    end
+
+    private def log_update
+      feedback&.rule&.log_update({highlight: text_change[1]}, {highlight: text_change[0]})
     end
   end
 end

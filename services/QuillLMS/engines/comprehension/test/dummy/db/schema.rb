@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20210511160025) do
+ActiveRecord::Schema.define(version: 20210603191300) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -25,6 +25,22 @@ ActiveRecord::Schema.define(version: 20210511160025) do
   create_table "activity_classifications", force: :cascade do |t|
     t.string "key"
   end
+
+  create_table "change_logs", force: :cascade do |t|
+    t.text     "explanation"
+    t.string   "action",              null: false
+    t.integer  "changed_record_id",   null: false
+    t.string   "changed_record_type", null: false
+    t.integer  "user_id",             null: false
+    t.string   "changed_attribute"
+    t.string   "previous_value"
+    t.string   "new_value"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "change_logs", ["changed_record_id"], name: "index_change_logs_on_changed_record_id", using: :btree
+  add_index "change_logs", ["user_id"], name: "index_change_logs_on_user_id", using: :btree
 
   create_table "comprehension_activities", force: :cascade do |t|
     t.string   "title",              limit: 100

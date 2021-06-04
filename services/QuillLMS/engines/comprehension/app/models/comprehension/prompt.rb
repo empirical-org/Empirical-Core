@@ -16,7 +16,6 @@ module Comprehension
     has_many :change_logs
 
     after_create :assign_universal_rules
-    after_save :log_update, if: :text_changed?
     before_validation :downcase_conjunction
     before_validation :set_max_attempts, on: :create
 

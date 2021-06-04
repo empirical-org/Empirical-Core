@@ -68,6 +68,7 @@ module Comprehension
 
     context "create" do
       setup do
+        @controller.session[:user_id] = 1
         @activity = build(:comprehension_activity, parent_activity_id: 1, title: "First Activity", target_level: 8, scored_level: "4th grade", name: "First Activity - Name")
         Comprehension.parent_activity_classification_class.create(key: 'comprehension')
       end
@@ -81,6 +82,18 @@ module Comprehension
         assert_equal "First Activity", parsed_response['title']
         assert_equal "First Activity - Name", parsed_response['name']
         assert_equal 1, Activity.count
+      end
+
+      should "make a change log record after creating the Activity record" do
+        post :create, activity: { parent_activity_id: @activity.parent_activity_id, scored_level: @activity.scored_level, target_level: @activity.target_level, title: @activity.title, name: @activity.name }
+
+        activity = Activity.last
+        change_log = Comprehension.change_log_class.last
+        assert_equal change_log.action, "Comprehension Activity - created"
+        assert_equal change_log.user_id, 1
+        assert_equal change_log.changed_record_type, "Comprehension::Activity"
+        assert_equal change_log.changed_record_id, activity.id
+        assert_equal change_log.new_value, "Comprehension Activity #{activity.id} - active"
       end
 
       should "not create an invalid record and return errors as json" do
@@ -186,6 +199,19 @@ module Comprehension
         assert_equal ('Goodbye' * 20), @passage.text
       end
 
+      should "make a change log record after updating Passage text" do
+        old_text = @passage.text
+        put :update, id: @activity.id, activity: { passages_attributes: [{id: @passage.id, text: ('Goodbye' * 20)}] }
+
+        change_log = Comprehension.change_log_class.last
+        assert_equal change_log.action, "Comprehension Passage Text - updated"
+        assert_equal change_log.user_id, 1
+        assert_equal change_log.changed_record_type, "Comprehension::Activity"
+        assert_equal change_log.changed_record_id, activity.id
+        assert_equal change_log.previous_value, old_text
+        assert_equal change_log.new_value, ('Goodbye' * 20)
+      end
+
       should "update prompt if valid, return nothing" do
         put :update, id: @activity.id, activity: { prompts_attributes: [{id: @prompt.id, text: "this is a good thing."}] }
 
@@ -210,6 +236,7 @@ module Comprehension
 
     context 'destroy' do
       setup do
+        @controller.session[:user_id] = 1
         @activity = create(:comprehension_activity)
         @passage = create(:comprehension_passage, activity: @activity)
       end
@@ -224,30 +251,42 @@ module Comprehension
         assert @passage.id
         assert_nil Passage.find_by_id(@passage.id)
       end
-    end
 
-    context 'rules' do
-      setup do
-        @activity = create(:comprehension_activity)
-        @prompt = create(:comprehension_prompt, activity: @activity)
-        @rule = create(:comprehension_rule, prompts: [@prompt])
-        @passage = create(:comprehension_passage, activity: @activity)
-      end
+      should "make a change log record after destroying the Activity record" do
+        delete :destroy, id: @activity.id
 
-      should "return rules" do
-        get :rules, id: @activity.id
-
-        parsed_response = JSON.parse(response.body)
-
-        assert_equal 200, response.code.to_i
-        assert_equal parsed_response[0]['id'], @rule.id
-      end
-
-      should "404 if activity is invalid" do
-        assert_raises ActiveRecord::RecordNotFound do
-          get :rules, id: 99999
-        end
+        change_log = Comprehension.change_log_class.last
+        assert_equal change_log.action, "Comprehension Activity - deleted"
+        assert_equal change_log.user_id, 1
+        assert_equal change_log.changed_record_type, "Comprehension::Activity"
+        assert_equal change_log.changed_record_id, @activity.id
+        assert_equal change_log.previous_value, "Comprehension Activity #{@activity.id} - active"
+        assert_equal change_log.new_value, "Comprehension Activity #{@activity.id} - deleted"
       end
     end
+
+    # context 'rules' do
+    #   setup do
+    #     @activity = create(:comprehension_activity)
+    #     @prompt = create(:comprehension_prompt, activity: @activity)
+    #     @rule = create(:comprehension_rule, prompts: [@prompt])
+    #     @passage = create(:comprehension_passage, activity: @activity)
+    #   end
+
+    #   should "return rules" do
+    #     get :rules, id: @activity.id
+
+    #     parsed_response = JSON.parse(response.body)
+
+    #     assert_equal 200, response.code.to_i
+    #     assert_equal parsed_response[0]['id'], @rule.id
+    #   end
+
+    #   should "404 if activity is invalid" do
+    #     assert_raises ActiveRecord::RecordNotFound do
+    #       get :rules, id: 99999
+    #     end
+    #   end
+    # end
   end
 end
