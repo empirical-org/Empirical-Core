@@ -77,19 +77,19 @@ func AssembleUrls() ([8]string) {
 	return urls
 }
 
-func Endpoint(c *gin.Context) {
+func Endpoint(context *gin.Context) {
 	urls := AssembleUrls()
 
-	requestDump, err := httputil.DumpRequest(c.Request, true)
+	requestDump, err := httputil.DumpRequest(context.Request, true)
 	if err != nil {
 		fmt.Println(err)
 	}
 	fmt.Println(string(requestDump))
 
-	request_body, err := ioutil.ReadAll(c.Request.Body)
+	request_body, err := ioutil.ReadAll(context.Request.Body)
 	if err != nil {
 		//TODO make this response in the same format maybe?
-		c.String(http.StatusInternalServerError, err.Error())
+		context.String(http.StatusInternalServerError, err.Error())
 		return
 	}
 
@@ -135,9 +135,9 @@ func Endpoint(c *gin.Context) {
 
 	go batchRecordFeedback(request_object, results, GetBatchFeedbackHistoryUrl())
 
-	c.Header("Access-Control-Allow-Origin", "*")
-	c.Header("Content-Type", "application/json")
-	c.JSON(200, returnable_result)
+	context.Header("Access-Control-Allow-Origin", "*")
+	context.Header("Content-Type", "application/json")
+	context.JSON(200, returnable_result)
 
 	wg.Wait()
 }
