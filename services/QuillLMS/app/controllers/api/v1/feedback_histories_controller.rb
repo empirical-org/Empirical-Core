@@ -50,8 +50,11 @@ class Api::V1::FeedbackHistoriesController < Api::ApiController
       :optimal,
       :used,
       :time,
-      :metadata,
-      :rule_uid
+      :rule_uid,
+      metadata: [
+        :response_id,
+        highlight: []
+      ]
     )
   end
 
