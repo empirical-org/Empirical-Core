@@ -149,7 +149,7 @@ class FeedbackHistory < ActiveRecord::Base
     self.feedback_session_uid = FeedbackSession.get_uid_for_activity_session(feedback_session_uid)
   end
 
-  def self.list_by_activity_session(activity_id: nil, page: 1, start_date: self.first.time, end_date: Time.now, page_size: DEFAULT_PAGE_SIZE)
+  def self.list_by_activity_session(activity_id: nil, page: 1, start_date: FeedbackHistory.first&.time, end_date: Time.now, page_size: DEFAULT_PAGE_SIZE)
     query = select(
       <<-SQL
         feedback_histories.feedback_session_uid AS session_uid,
