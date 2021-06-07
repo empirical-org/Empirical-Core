@@ -4,6 +4,7 @@ module Comprehension
   class ActivitiesController < ApplicationController
     skip_before_action :verify_authenticity_token
     before_action :set_activity, only: [:show, :update, :destroy, :rules]
+    before_action :save_nested_vars_for_log, only: [:update]
 
     # GET /activities.json
     def index
@@ -32,10 +33,7 @@ module Comprehension
     # PATCH/PUT /activities/1.json
     def update
       if @activity.update(activity_params)
-        changed_passages = activity_params[:passages_attributes].select {|p| p[:text].present? }
-        changed_passages.each do |cp|
-          Comprehension::Passage.find(cp[:id]).log_update(lms_user_id)
-        end
+        log_nested_changes
         head :no_content
       else
         render json: @activity.errors, status: :unprocessable_entity
@@ -68,6 +66,26 @@ module Comprehension
         passages_attributes: [:id, :text, :image_link, :image_alt_text],
         prompts_attributes: [:id, :conjunction, :text, :max_attempts, :max_attempts_feedback]
       )
+    end
+
+    private def save_nested_vars_for_log
+      @prompts_vars = []
+      @passages_vars = []
+      activity_params[:passages_attributes]&.each do |pa|
+        @passages_vars.push({id: pa[:id], text: Comprehension::Passage.find(pa[:id]).text}) if pa[:id] && pa[:text]
+      end
+      activity_params[:prompts_attributes]&.each do |pp|
+        @prompts_vars.push({id: pp[:id], text: Comprehension::Prompt.find(pp[:id]).text}) if pp[:id] && pp[:text]
+      end
+    end
+
+    private def log_nested_changes
+      @prompts_vars.each do |pv|
+        Comprehension::Prompt.find(pv[:id]).log_update(lms_user_id, pv[:text])
+      end
+      @passages_vars.each do |pp|
+        Comprehension::Passage.find(pp[:id]).log_update(lms_user_id, pp[:text])
+      end
     end
   end
 end

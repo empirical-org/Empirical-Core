@@ -48,8 +48,8 @@ module Comprehension
       save!
     end
 
-    private def log_update
-      log_change(:update_prompt, self, nil, nil, text_change[0], text_change[1])
+    def log_update(user_id, prev_value)
+      log_change(user_id, :update_prompt, self, nil, nil, prev_value, text)
     end
   end
 end

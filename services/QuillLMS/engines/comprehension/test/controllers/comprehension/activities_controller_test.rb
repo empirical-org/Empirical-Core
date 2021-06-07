@@ -169,6 +169,7 @@ module Comprehension
 
     context "update" do
       setup do
+        @controller.session[:user_id] = 1
         @activity = create(:comprehension_activity, parent_activity_id: 1, title: "First Activity", target_level: 8, scored_level: "4th grade")
         @passage = create(:comprehension_passage, activity: @activity)
         @prompt = create(:comprehension_prompt, activity: @activity)
@@ -207,7 +208,7 @@ module Comprehension
         assert_equal change_log.action, "Comprehension Passage Text - updated"
         assert_equal change_log.user_id, 1
         assert_equal change_log.changed_record_type, "Comprehension::Activity"
-        assert_equal change_log.changed_record_id, activity.id
+        assert_equal change_log.changed_record_id, @activity.id
         assert_equal change_log.previous_value, old_text
         assert_equal change_log.new_value, ('Goodbye' * 20)
       end
