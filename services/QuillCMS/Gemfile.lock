@@ -222,7 +222,7 @@ GEM
     rb-inotify (0.10.1)
       ffi (~> 1.0)
     rb-readline (0.5.5)
-    redis (4.2.5)
+    redis (4.1.4)
     redis-namespace (1.8.1)
       redis (>= 3.0.4)
     rexml (3.2.5)
@@ -246,13 +246,14 @@ GEM
     ruby2_keywords (0.0.4)
     ruby_dep (1.5.0)
     rubyzip (2.3.0)
-    sidekiq (6.2.1)
-      connection_pool (>= 2.2.2)
+    sidekiq (5.2.9)
+      connection_pool (~> 2.2, >= 2.2.2)
       rack (~> 2.0)
-      redis (>= 4.2.0)
-    sidekiq-pro (5.2.2)
-      connection_pool (>= 2.2.3)
-      sidekiq (>= 6.2.0)
+      rack-protection (>= 1.5.0)
+      redis (>= 3.3.5, < 4.2)
+    sidekiq-pro (5.0.0)
+      concurrent-ruby (>= 1.0.5)
+      sidekiq (>= 5.2.7)
     sinatra (2.1.0)
       mustermann (~> 1.0)
       rack (~> 2.2)
@@ -311,7 +312,8 @@ DEPENDENCIES
   redis-namespace
   rspec-rails (~> 4.0)
   rubyzip
-  sidekiq-pro (>= 5.0.0)!
+  sidekiq (~> 5.2.9)
+  sidekiq-pro (= 5.0.0)!
   sinatra
   spring
   spring-watcher-listen (~> 2.0.0)
