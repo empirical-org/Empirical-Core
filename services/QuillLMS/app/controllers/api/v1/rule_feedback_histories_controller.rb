@@ -14,7 +14,9 @@ class Api::V1::RuleFeedbackHistoriesController < Api::ApiController
         raise ArgumentError unless params.include?('rule_uid') && params.include?('prompt_id')
         report = RuleFeedbackHistory.generate_rulewise_report(
             rule_uid: params['rule_uid'],
-            prompt_id: params['prompt_id']
+            prompt_id: params['prompt_id'],
+            start_date: params['start_date'],
+            end_date: params['end_date']
         )
         render(json: report)
     end
