@@ -10,7 +10,8 @@ func main() {
 	router := gin.Default()
 
 	if newrelic_key := os.Getenv("NEW_RELIC_LICENSE_KEY"); "" != newrelic_key {
-		cfg := newrelic.NewConfig("Comprehension Go (Production)", newrelic_key)
+		app_name := os.Getenv("NEW_RELIC_APP_NAME")
+		cfg := newrelic.NewConfig(app_name, newrelic_key)
 		cfg.Logger = newrelic.NewDebugLogger(os.Stdout)
 		app, err := newrelic.NewApplication(cfg)
 		if nil != err {
