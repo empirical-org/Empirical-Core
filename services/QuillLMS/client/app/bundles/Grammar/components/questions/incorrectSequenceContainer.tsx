@@ -5,7 +5,7 @@ import { EditorState, ContentState } from 'draft-js'
 
 import { TextEditor } from '../../../Shared/index';
 import * as questionActions from '../../actions/questions';
-import { SortableList, } from '../../../Shared/index';
+import { hashToCollection, SortableList, } from '../../../Shared/index';
 import dispatch from '../../../Comprehension/__mocks__/dispatch';
 
 class IncorrectSequencesContainer extends React.Component {
@@ -14,7 +14,7 @@ class IncorrectSequencesContainer extends React.Component {
     super(props);
 
     const question = this.props.questions.data[this.props.match.params.questionID]
-    this.state = { incorrectSequences: question.incorrectSequences }
+    this.state = { orderedIds: null, incorrectSequences: question.incorrectSequences }
   }
 
   UNSAFE_componentWillMount() {
@@ -108,13 +108,23 @@ class IncorrectSequencesContainer extends React.Component {
     return <input className={className} onChange={(e) => this.handleSequenceChange(e, key)} style={{ marginBottom: 5, minWidth: `${(text.length + 1) * 8}px`}} type="text" value={text || ''} />
   }
 
-  sortCallback = (sortInfo) => {
-    const { incorrectSequences } = this.state
-    const { dispatch, match, } = this.props
-    const newOrder = sortInfo.map(item => item.key);
-    const newIncorrectSequences = newOrder.map((key) => incorrectSequences[key])
-    dispatch(questionActions.updateIncorrectSequences(match.params.questionID, newIncorrectSequences))
-    this.setState({incorrectSequences: newIncorrectSequences})
+  sequencesSortedByOrder = () => {
+    const { orderedIds, incorrectSequences } = this.state
+    if (orderedIds) {
+      const sequencesCollection = hashToCollection(incorrectSequences)
+      return orderedIds.map(id => sequencesCollection.find(s => s.key === id))
+    } else {
+      return hashToCollection(incorrectSequences).sort((a, b) => a.order - b.order);
+    }
+  }
+
+  sortCallback = sortInfo => {
+    const { dispatch, match } = this.props;
+    const { params } = match;
+    const { questionID } = params;
+    const orderedIds = sortInfo.map(item => item.key);
+    this.setState({ orderedIds, });
+    dispatch(questionActions.updateIncorrectSequences(questionID, this.sequencesSortedByOrder()));
   }
 
 
@@ -141,18 +151,17 @@ class IncorrectSequencesContainer extends React.Component {
   }
 
   renderSequenceList() {
-    const { incorrectSequences } = this.state
     const { match } = this.props
-    const components = _.mapObject(incorrectSequences, (val, key) => {
-      const onClickDelete = () => { this.handleDeleteSequence(key) }
-      return (<div className="card is-fullwidth has-bottom-margin" key={key}>
+    const components = this.sequencesSortedByOrder().map((seq) => {
+      const onClickDelete = () => { this.handleDeleteSequence(seq.key) }
+      return (<div className="card is-fullwidth has-bottom-margin" key={seq.key}>
         <header className="card-header">
           <p className="card-header-title" style={{ display: 'inline-block', }}>
-            {this.renderTextInputFields(val.text, key)}
-            <button className="add-regex-button" onClick={(e) => this.addNewSequence(e, key)} type="button">+</button>
+            {this.renderTextInputFields(seq.text, seq.key)}
+            <button className="add-regex-button" onClick={(e) => this.addNewSequence(e, seq.key)} type="button">+</button>
           </p>
           <p className="card-header-icon">
-            {val.order}
+            {seq.order}
           </p>
         </header>
         <div className="card-content">
@@ -160,17 +169,17 @@ class IncorrectSequencesContainer extends React.Component {
           <TextEditor
             ContentState={ContentState}
             EditorState={EditorState}
-            handleTextChange={(e) => this.handleFeedbackChange(e, key)}
+            handleTextChange={(e) => this.handleFeedbackChange(e, seq.key)}
             key="feedback"
-            text={val.feedback}
+            text={seq.feedback}
           />
           <br />
-          {this.renderConceptResults(val.conceptResults, key)}
+          {this.renderConceptResults(seq.conceptResults, seq.key)}
         </div>
         <footer className="card-footer">
-          <a className="card-footer-item" href={`/grammar/#/admin/questions/${match.params.questionID}/incorrect-sequences/${key}/edit`}>Edit</a>
+          <a className="card-footer-item" href={`/grammar/#/admin/questions/${match.params.questionID}/incorrect-sequences/${seq.key}/edit`}>Edit</a>
           <button className="card-footer-item" onClick={onClickDelete} type="button">Delete</button>
-          <a className="card-footer-item" onClick={() => this.saveSequencesAndFeedback(key)}>Save</a>
+          <a className="card-footer-item" onClick={() => this.saveSequencesAndFeedback(seq.key)}>Save</a>
         </footer>
       </div>
     )});
