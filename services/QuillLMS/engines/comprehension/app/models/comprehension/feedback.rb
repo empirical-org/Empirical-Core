@@ -14,11 +14,11 @@ module Comprehension
     validates :text, presence: true, length: {minimum: MIN_FEEDBACK_LENGTH, maximum: MAX_FEEDBACK_LENGTH}
     validates :order, numericality: {only_integer: true, greater_than_or_equal_to: 0}, uniqueness: {scope: :rule_id}
 
-    after_create :log_creation
-    after_destroy :log_deletion
-    after_update :log_update, if: :text_changed?
-    after_update :log_first_update, if: -> {semantic_rule && first_order && text_changed?}
-    after_update :log_second_update, if: -> {semantic_rule && second_order && text_changed?}
+    # after_create :log_creation
+    # after_destroy :log_deletion
+    # after_update :log_update, if: :text_changed?
+    # after_update :log_first_update, if: -> {semantic_rule && first_order && text_changed?}
+    # after_update :log_second_update, if: -> {semantic_rule && second_order && text_changed?}
 
     def serializable_hash(options = nil)
       options ||= {}

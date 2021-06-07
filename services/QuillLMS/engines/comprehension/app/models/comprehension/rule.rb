@@ -123,19 +123,19 @@ module Comprehension
 
     def log_deletion(user_id)
       if regex?
-        send_change_log(:delete_regex, nil, change_text_regex)
+        send_change_log(user_id, :delete_regex, nil, change_text_regex)
       end
     end
 
-    def log_update(user_id, new_values=nil, prev_values=nil)
-      if regex?
-        send_change_log(:update_regex, new_values || change_text_regex(new_change_values), prev_values || change_text_regex(previous_change_values))
-      elsif plagiarism?
-        send_change_log(:update_plagiarism, new_values || change_text_plagiarism(new_change_values), prev_values || change_text_plagiarism(previous_change_values))
-      elsif universal?
-        send_change_log(:update_universal, new_values || change_text_universal(new_change_values), prev_values || change_text_universal(previous_change_values))
-      end
-    end
+    # def log_update(user_id, new_values=nil, prev_values=nil)
+    #   if regex?
+    #     send_change_log(:update_regex, new_values || change_text_regex(new_change_values), prev_values || change_text_regex(previous_change_values))
+    #   elsif plagiarism?
+    #     send_change_log(:update_plagiarism, new_values || change_text_plagiarism(new_change_values), prev_values || change_text_plagiarism(previous_change_values))
+    #   elsif universal?
+    #     send_change_log(:update_universal, new_values || change_text_universal(new_change_values), prev_values || change_text_universal(previous_change_values))
+    #   end
+    # end
 
     private def send_change_log(user_id, action_type, new_value, prev_value=nil)
       prompts&.each do |prompt|
@@ -156,7 +156,7 @@ module Comprehension
     end
 
     private def change_text_regex(values=nil)
-      values.present? ? "#{name} | #{display_name}\n#{values}" : "#{name} | #{display_name}"
+      values.present? ? "#{name} - #{display_name}\n#{values}" : "#{name} - #{display_name}"
     end
 
     private def change_text_plagiarism(values=nil)

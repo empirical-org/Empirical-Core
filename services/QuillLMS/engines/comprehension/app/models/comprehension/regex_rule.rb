@@ -20,9 +20,9 @@ module Comprehension
     validates :case_sensitive, inclusion: CASE_SENSITIVE_ALLOWED_VALUES
     validates :sequence_type, inclusion: SEQUENCE_TYPES
 
-    after_create :log_creation
-    after_destroy :log_deletion
-    after_update :log_update, if: :regex_text_changed?
+    # after_create :log_creation
+    # after_destroy :log_deletion
+    # after_update :log_update, if: :regex_text_changed?
 
     def serializable_hash(options = nil)
       options ||= {}

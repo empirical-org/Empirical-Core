@@ -42,6 +42,7 @@ module Comprehension
 
     # DELETE /rules/1.json
     def destroy
+      @rule.log_deletion(lms_user_id)
       @rule.destroy
       head :no_content
     end

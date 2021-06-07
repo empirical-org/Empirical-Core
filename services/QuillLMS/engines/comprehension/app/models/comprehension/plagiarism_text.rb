@@ -7,9 +7,9 @@ module Comprehension
     validates_presence_of :rule
     validates :text, presence: true
 
-    after_create :log_creation
-    after_destroy :log_deletion
-    after_update :log_update, if: :text_changed?
+    # after_create :log_creation
+    # after_destroy :log_deletion
+    # after_update :log_update, if: :text_changed?
 
     def serializable_hash(options = nil)
       options ||= {}

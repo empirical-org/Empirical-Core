@@ -21,8 +21,6 @@ module Comprehension
     validates :name, presence: true
     validates :state, inclusion: {in: ['active', 'inactive']}
 
-    after_create :log_creation
-
     def serializable_hash(options = nil)
       options ||= {}
 
@@ -51,7 +49,6 @@ module Comprehension
           rule.update!(state: Rule::STATE_ACTIVE) if labels.include?(rule.label&.name)
         end
       end
-      log_change(:activate_automl, prompt, nil, nil, nil, id)
       self
     rescue StandardError => e
       raise e unless e.is_a?(ActiveRecord::RecordInvalid)
@@ -118,8 +115,12 @@ module Comprehension
       model.display_name
     end
 
-    private def log_creation
-      log_change(:create_automl, prompt, nil, nil, nil, id)
+    def log_creation(user_id)
+      log_change(user_id, :create_automl, prompt, nil, nil, nil, id)
+    end
+
+    def log_activation(user_id)
+      log_change(user_id, :activate_automl, prompt, nil, nil, nil, id)
     end
   end
 end

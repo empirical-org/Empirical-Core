@@ -32,7 +32,10 @@ module Comprehension
     # PATCH/PUT /activities/1.json
     def update
       if @activity.update(activity_params)
-        @activity.log_update(lms_user_id)
+        changed_passages = activity_params[:passages_attributes].select {|p| p[:text].present? }
+        changed_passages.each do |cp|
+          Comprehension::Passage.find(cp[:id]).log_update(lms_user_id)
+        end
         head :no_content
       else
         render json: @activity.errors, status: :unprocessable_entity

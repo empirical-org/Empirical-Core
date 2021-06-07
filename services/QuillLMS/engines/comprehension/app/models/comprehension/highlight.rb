@@ -16,11 +16,11 @@ module Comprehension
     validates :highlight_type, presence: true, inclusion: {in: TYPES}
     validates :starting_index, numericality: {only_integer: true, greater_than_or_equal_to: 0}
 
-    after_create :log_creation
-    after_destroy :log_deletion
-    after_update :log_update, if: :text_changed?
-    after_update :log_first_update, if: -> {semantic_rule && first_order && text_changed?}
-    after_update :log_second_update, if: -> {semantic_rule && second_order && text_changed?}
+    # after_create :log_creation
+    # after_destroy :log_deletion
+    # after_update :log_update, if: :text_changed?
+    # after_update :log_first_update, if: -> {semantic_rule && first_order && text_changed?}
+    # after_update :log_second_update, if: -> {semantic_rule && second_order && text_changed?}
 
     def serializable_hash(options = nil)
       options ||= {}

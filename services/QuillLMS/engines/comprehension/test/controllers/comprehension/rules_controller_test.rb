@@ -109,8 +109,11 @@ module Comprehension
 
     context "create" do
       setup do
+        @controller.session[:user_id] = 1
         @prompt = create(:comprehension_prompt)
         @rule = build(:comprehension_rule)
+        @universal_rule = build(:comprehension_rule, prompts: [@prompt], universal: true, rule_type: Rule::TYPE_GRAMMAR)
+        @plagiarism_rule = build(:comprehension_rule, prompts: [@prompt], universal: true, rule_type: Rule::TYPE_PLAGIARISM)
       end
 
       should "create a valid record and return it as json" do
@@ -142,13 +145,63 @@ module Comprehension
         assert_equal 1, Rule.count
       end
 
-      should "make a change log record after creating the Rule record" do
-        @controller.session[:user_id] = 1
+      should "make a change log record after creating a regex Rule record" do
         post :create, rule: { concept_uid: @rule.concept_uid, note: @rule.note, name: @rule.name, optimal: @rule.optimal, state: @rule.state, suborder: @rule.suborder, rule_type: @rule.rule_type, universal: @rule.universal, prompt_ids: [@prompt.id] }
 
         change_log = Comprehension.change_log_class.last
         assert_equal change_log.action, "Regex Rule - created"
         assert_equal change_log.user_id, 1
+        assert_equal change_log.changed_record_id, @prompt.id
+        assert_equal change_log.changed_record_type, "Comprehension::Prompt"
+        assert_equal change_log.previous_value, nil
+        assert_equal change_log.new_value, "#{@rule.name} - #{@rule.display_name}"
+      end
+
+      should "make a change log record after creating a universal Rule record" do
+        post :create, rule: { concept_uid: @universal_rule.concept_uid, note: @universal_rule.note, name: @universal_rule.name, optimal: @universal_rule.optimal, state: @universal_rule.state, suborder: @universal_rule.suborder, rule_type: @universal_rule.rule_type, universal: @universal_rule.universal, prompt_ids: [@prompt.id] }
+
+        change_log = Comprehension.change_log_class.last
+        assert_equal change_log.action, "Universal Rule - created"
+        assert_equal change_log.user_id, 1
+        assert_equal change_log.changed_record_id, @prompt.id
+        assert_equal change_log.changed_record_type, "Comprehension::Prompt"
+        assert_equal change_log.previous_value, nil
+        assert_equal change_log.new_value, "#{@universal_rule.name} - #{@universal_rule.rule_type}"
+      end
+
+      should "make a change log record after creating a plagiarism Rule record" do
+        plagiarism_text = "Here is some text to be checked for plagiarism."
+        feedback = build(:comprehension_feedback)
+        post :create, rule: {
+              concept_uid: @plagiarism_rule.concept_uid,
+              note: @plagiarism_rule.note,
+              name: @plagiarism_rule.name,
+              optimal: @plagiarism_rule.optimal,
+              state: @plagiarism_rule.state,
+              suborder: @plagiarism_rule.suborder,
+              rule_type: @plagiarism_rule.rule_type,
+              universal: @plagiarism_rule.universal,
+              prompt_ids: [@prompt.id],
+              plagiarism_text_attributes: {
+                text: plagiarism_text
+              },
+              feedbacks_attributes:
+              [
+                {
+                  text: feedback.text,
+                  description: feedback.description,
+                  order: feedback.order
+                }
+              ]
+            }
+
+        change_log = Comprehension.change_log_class.last
+        assert_equal change_log.action, "Plagiarism - created"
+        assert_equal change_log.user_id, 1
+        assert_equal change_log.changed_record_id, @prompt.id
+        assert_equal change_log.changed_record_type, "Comprehension::Prompt"
+        assert_equal change_log.previous_value, nil
+        assert_equal change_log.new_value, "#{@plagiarism_rule.name} - #{plagiarism_text} - #{feedback.text}"
       end
 
       should "not create an invalid record and return errors as json" do
@@ -474,19 +527,33 @@ module Comprehension
 
   #   end
 
-  #   context 'destroy' do
-  #     setup do
-  #       @rule = create(:comprehension_rule)
-  #     end
+    context 'destroy' do
+      setup do
+        @controller.session[:user_id] = 1
+        @prompt = create(:comprehension_prompt)
+        @rule = create(:comprehension_rule, rule_type: 'rules-based-1', prompts: [@prompt])
+      end
 
-  #     should "destroy record at id" do
-  #       delete :destroy, id: @rule.id
+      should "destroy record at id" do
+        delete :destroy, id: @rule.id
 
-  #       assert_equal "", response.body
-  #       assert_equal 204, response.code.to_i
-  #       assert @rule.id # still in test memory
-  #       assert_nil Rule.find_by_id(@rule.id) # not in DB.
-  #     end
-  #   end
+        assert_equal "", response.body
+        assert_equal 204, response.code.to_i
+        assert @rule.id # still in test memory
+        assert_nil Rule.find_by_id(@rule.id) # not in DB.
+      end
+
+      should "make a change log record after destroying a regex rule" do
+        delete :destroy, id: @rule.id
+
+        change_log = Comprehension.change_log_class.last
+        assert_equal change_log.action, "Regex Rule - deleted"
+        assert_equal change_log.user_id, 1
+        assert_equal change_log.changed_record_id, @prompt.id
+        assert_equal change_log.changed_record_type, "Comprehension::Prompt"
+        assert_equal change_log.new_value, nil
+        assert_equal change_log.previous_value, "#{@rule.name} - #{@rule.display_name}"
+      end
+    end
   end
 end

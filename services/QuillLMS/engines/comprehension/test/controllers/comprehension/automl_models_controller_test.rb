@@ -47,7 +47,10 @@ module Comprehension
 
     context "create" do
       setup do
-        @automl_model = build(:comprehension_automl_model)
+        @controller.session[:user_id] = 1
+        @activity = create(:comprehension_activity, parent_activity_id: 1, title: "First Activity", target_level: 8, scored_level: "4th grade")
+        @prompt = create(:comprehension_prompt, activity: @activity, text: "it is good.")
+        @automl_model = build(:comprehension_automl_model, prompt: @prompt)
       end
 
       should "create a valid record and return it as json" do
@@ -100,6 +103,22 @@ module Comprehension
         assert_equal 422, response.code.to_i
         assert parsed_response['automl_model_id'].include?("can't be blank")
         assert_equal 0, AutomlModel.count
+      end
+
+      should "make a change log record after creating the AutoML record" do
+        AutomlModel.stub_any_instance(:automl_name, @automl_model.name) do
+          AutomlModel.stub_any_instance(:automl_labels, @automl_model.labels) do
+            post :create, automl_model: { prompt_id: @automl_model.prompt_id, automl_model_id: @automl_model.automl_model_id }
+          end
+        end
+
+        automl = AutomlModel.last
+        change_log = Comprehension.change_log_class.last
+        assert_equal change_log.action, "AutoML Model - created"
+        assert_equal change_log.user_id, 1
+        assert_equal change_log.changed_record_type, "Comprehension::Prompt"
+        assert_equal change_log.changed_record_id, automl.prompt_id
+        assert_equal change_log.new_value, automl.id.to_s
       end
     end
 
@@ -167,6 +186,7 @@ module Comprehension
 
     context 'activate' do
       setup do
+        @controller.session[:user_id] = 1
         @automl_model = create(:comprehension_automl_model)
       end
 
@@ -187,6 +207,19 @@ module Comprehension
 
           assert_equal 422, response.code.to_i
           assert_equal parsed_response['state'], AutomlModel::STATE_INACTIVE
+        end
+      end
+
+      should "make a change log record after activating the AutoML record" do
+        AutomlModel.stub_any_instance(:activate, true) do
+          patch :activate, id: @automl_model.id
+
+          change_log = Comprehension.change_log_class.last
+          assert_equal change_log.action, "AutoML Model - activated"
+          assert_equal change_log.user_id, 1
+          assert_equal change_log.changed_record_type, "Comprehension::Prompt"
+          assert_equal change_log.changed_record_id, @automl_model.prompt_id
+          assert_equal change_log.new_value, @automl_model.id.to_s
         end
       end
     end
