@@ -1,10 +1,12 @@
 class RuleFeedbackHistory
-    def self.generate_report(conjunction:, activity_id:)
-        sql_result = exec_query(conjunction: conjunction, activity_id: activity_id)
+    def self.generate_report(conjunction:, activity_id:, start_date:, end_date:)
+        sql_result = exec_query(conjunction: conjunction, activity_id: activity_id, start_date: start_date, end_date: end_date)
         format_sql_results(sql_result)
     end
 
-    def self.exec_query(conjunction:, activity_id:)
+    def self.exec_query(conjunction:, activity_id:, start_date:, end_date:)
+        start_date = start_date || Comprehension::Rule.first&.created_at
+        end_date = end_date || Time.now
         Comprehension::Rule.select(<<~SELECT
           comprehension_rules.uid AS rules_uid,
           prompts.activity_id AS activity_id,
@@ -25,6 +27,8 @@ class RuleFeedbackHistory
         .joins('LEFT JOIN feedback_history_ratings ON feedback_histories.id = feedback_history_ratings.feedback_history_id')
         .joins('LEFT JOIN feedback_history_flags ON feedback_histories.id = feedback_history_flags.feedback_history_id')
         .where("prompts.conjunction = ? AND activity_id = ?", conjunction, activity_id)
+        .where("comprehension_rules.created_at >= ?", start_date)
+        .where("comprehension_rules.created_at <= ?", end_date)
         .group('rules_uid, activity_id, rule_type, rule_suborder, rule_name, rule_note')
         .includes(:feedbacks)
     end

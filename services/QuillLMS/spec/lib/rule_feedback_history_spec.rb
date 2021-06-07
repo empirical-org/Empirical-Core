@@ -20,7 +20,7 @@ RSpec.describe RuleFeedbackHistory, type: :model do
       }.merge(yield)
     )
   end
- 
+
   describe '#generate_report' do
     it 'should format' do
       # activities
@@ -44,7 +44,7 @@ RSpec.describe RuleFeedbackHistory, type: :model do
       # users
       user1 = create(:user)
       user2 = create(:user)
-      
+
       #feedback ratings
       f_rating_1a = FeedbackHistoryRating.create!(feedback_history_id: f_h1.id, user_id: user1.id, rating: true)
       f_rating_1b = FeedbackHistoryRating.create!(feedback_history_id: f_h1.id, user_id: user2.id, rating: false)
@@ -55,7 +55,7 @@ RSpec.describe RuleFeedbackHistory, type: :model do
       flag_consecutive = create(:feedback_history_flag, feedback_history_id: f_h1.id, flag: FeedbackHistoryFlag::FLAG_REPEATED_RULE_CONSECUTIVE)
       flag_non_consecutive = create(:feedback_history_flag, feedback_history_id: f_h1.id, flag: FeedbackHistoryFlag::FLAG_REPEATED_RULE_NON_CONSECUTIVE)
 
-      report = RuleFeedbackHistory.generate_report(conjunction: 'so', activity_id: activity1.id)
+      report = RuleFeedbackHistory.generate_report(conjunction: 'so', activity_id: activity1.id, start_date: nil, end_date: nil)
 
       expected = {
         api_name: so_rule1.rule_type,
@@ -92,7 +92,7 @@ RSpec.describe RuleFeedbackHistory, type: :model do
       create(:feedback_history, rule_uid: so_rule1.uid)
       create(:feedback_history, rule_uid: so_rule1.uid)
 
-      sql_result = RuleFeedbackHistory.exec_query(conjunction: 'so', activity_id: activity1.id)
+      sql_result = RuleFeedbackHistory.exec_query(conjunction: 'so', activity_id: activity1.id, start_date: so_rule1.created_at, end_date: Time.now)
 
       expect(sql_result.all.length).to eq 1
       expect(sql_result[0].rule_type).to eq 'autoML'
@@ -107,7 +107,7 @@ RSpec.describe RuleFeedbackHistory, type: :model do
       f_h1 = create(:feedback_history, rule_uid: so_rule1.uid, prompt_id: 1)
       f_h2 = create(:feedback_history, rule_uid: so_rule1.uid, prompt_id: 1)
       f_h3 = create(:feedback_history, rule_uid: unused_rule.uid, prompt_id: 1)
-      
+
       result = RuleFeedbackHistory.generate_rulewise_report(
         rule_uid: so_rule1.uid,
         prompt_id: 1)
@@ -124,9 +124,9 @@ RSpec.describe RuleFeedbackHistory, type: :model do
 
     end
 
-    it 'should filter feedback histories by prompt id and used=true' do 
-      so_rule1 = rule_factory { { name: 'so_rule1', rule_type: 'autoML'} } 
-      unused_rule = rule_factory { { name: 'unused', rule_type: 'autoML'} } 
+    it 'should filter feedback histories by prompt id and used=true' do
+      so_rule1 = rule_factory { { name: 'so_rule1', rule_type: 'autoML'} }
+      unused_rule = rule_factory { { name: 'unused', rule_type: 'autoML'} }
 
       f_h1 = create(:feedback_history, rule_uid: so_rule1.uid)
       f_h2 = create(:feedback_history, rule_uid: so_rule1.uid, prompt_id: 1)
@@ -149,10 +149,10 @@ RSpec.describe RuleFeedbackHistory, type: :model do
       ).to be true
 
     end
-    
-    it 'should display the most recent feedback history rating, if it exists' do 
-      so_rule1 = rule_factory { { name: 'so_rule1', rule_type: 'autoML'} } 
-      unused_rule = rule_factory { { name: 'unused', rule_type: 'autoML'} } 
+
+    it 'should display the most recent feedback history rating, if it exists' do
+      so_rule1 = rule_factory { { name: 'so_rule1', rule_type: 'autoML'} }
+      unused_rule = rule_factory { { name: 'unused', rule_type: 'autoML'} }
 
       # users
       user1 = create(:user)

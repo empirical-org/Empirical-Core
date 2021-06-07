@@ -3,7 +3,9 @@ class Api::V1::RuleFeedbackHistoriesController < Api::ApiController
         raise ArgumentError unless params.include?('activity_id') && params.include?('conjunction')
         report = RuleFeedbackHistory.generate_report(
             conjunction: params['conjunction'],
-            activity_id: params['activity_id']
+            activity_id: params['activity_id'],
+            start_date: params['start_date'],
+            end_date: params['end_date']
         )
         render(json: report)
     end
