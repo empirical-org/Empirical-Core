@@ -8,7 +8,6 @@ import (
 	"bytes"
 	"encoding/json"
 	"reflect"
-	"strings"
 	"time"
 	"os"
 	"github.com/gin-gonic/gin"
@@ -225,22 +224,19 @@ func TestBuildFeedbackHistory(t *testing.T) {
 		Session_id: "test session_id",
 		Attempt: 1,
 	}
-	feedback := InternalAPIResponse {
-		Error: false,
-		APIResponse: APIResponse {
-			Concept_uid: "test concept_uid",
-			Feedback: "test feedback",
-			Feedback_type: "test feedback_type",
-			Optimal: false,
-			Response_id: "test response_id",
-			Labels: "test labels",
-			Highlight: []Highlight {
-				Highlight {
-					Type: "passage",
-					Text: "test highlight",
-					Category: "test highlight category",
-					Character: 0,
-				},
+	feedback := APIResponse {
+		Concept_uid: "test concept_uid",
+		Feedback: "test feedback",
+		Feedback_type: "test feedback_type",
+		Optimal: false,
+		Response_id: "test response_id",
+		Labels: "test labels",
+		Highlight: []Highlight {
+			Highlight {
+				Type: "passage",
+				Text: "test highlight",
+				Category: "test highlight category",
+				Character: 0,
 			},
 		},
 	}
@@ -251,97 +247,23 @@ func TestBuildFeedbackHistory(t *testing.T) {
 	expected := FeedbackHistory {
 		Feedback_session_uid: request_object.Session_id,
 		Prompt_id: request_object.Prompt_id,
-		Concept_uid: feedback.APIResponse.Concept_uid,
+		Concept_uid: feedback.Concept_uid,
 		Attempt: request_object.Attempt,
 		Entry: request_object.Entry,
-		Feedback_text: feedback.APIResponse.Feedback,
-		Feedback_type: feedback.APIResponse.Feedback_type,
-		Optimal: feedback.APIResponse.Optimal,
+		Feedback_text: feedback.Feedback,
+		Feedback_type: feedback.Feedback_type,
+		Optimal: feedback.Optimal,
 		Used: used,
 		Time: time_received,
 		Metadata: FeedbackHistoryMetadata{
-			Highlight: feedback.APIResponse.Highlight,
-			Labels: feedback.APIResponse.Labels,
-			Response_id: feedback.APIResponse.Response_id,
+			Highlight: feedback.Highlight,
+			Labels: feedback.Labels,
+			Response_id: feedback.Response_id,
 		},
 	}
 
 	if !reflect.DeepEqual(result, expected) {
 		t.Errorf("buildFeedbackHistory did not generate expected payload")
-	}
-}
-
-func TestBuildBatchFeedbackHistories(t *testing.T) {
-	api_request := APIRequest{Prompt_text: "They cut funding because", Entry: "they needed to save money.", Prompt_id: 4, Session_id: "Asfasdf", Attempt: 2}
-
-	results := map[int]InternalAPIResponse{}
-	results[0] = InternalAPIResponse { APIResponse: APIResponse { Concept_uid: "test_concept", Feedback: "Feedback text: optimal", Feedback_type: "type1", Optimal: true, Labels: "test_label" } }
-	results[1] = InternalAPIResponse { Error: true, APIResponse: APIResponse { Concept_uid: "test_concept", Feedback: "Feedback text: non-optimal", Feedback_type: "type2", Optimal: false, Labels: "test_label" } }
-	results[2] = InternalAPIResponse { APIResponse: APIResponse { Concept_uid: "test_concept", Feedback: "Feedback text: optimal", Feedback_type: "type3", Optimal: false, Labels: "test_label" } }
-	results[automl_index] = InternalAPIResponse { Error: true, APIResponse: default_api_response }
-
-	now := time.Now()
-
-	payload, _ := buildBatchFeedbackHistories(api_request, results, now)
-
-	expected := BatchHistoriesAPIRequest {
-		Feedback_histories: []FeedbackHistory{
-			FeedbackHistory {
-				Feedback_session_uid: api_request.Session_id,
-				Prompt_id: api_request.Prompt_id,
-				Concept_uid: results[0].APIResponse.Concept_uid,
-				Attempt: api_request.Attempt,
-				Entry: api_request.Entry,
-				Feedback_text: results[0].APIResponse.Feedback,
-				Feedback_type: results[0].APIResponse.Feedback_type,
-				Optimal: results[0].APIResponse.Optimal,
-				Used: false,
-				Time: now,
-				Metadata: FeedbackHistoryMetadata { Labels: results[0].APIResponse.Labels },
-			},
-			FeedbackHistory {
-				Feedback_session_uid: api_request.Session_id,
-				Prompt_id: api_request.Prompt_id,
-				Concept_uid: results[2].APIResponse.Concept_uid,
-				Attempt: api_request.Attempt,
-				Entry: api_request.Entry,
-				Feedback_text: results[2].APIResponse.Feedback,
-				Feedback_type: results[2].APIResponse.Feedback_type,
-				Optimal: results[2].APIResponse.Optimal,
-				Used: true,
-				Time: now,
-				Metadata: FeedbackHistoryMetadata { Labels: results[2].APIResponse.Labels },
-			},
-			FeedbackHistory {
-				Feedback_session_uid: api_request.Session_id,
-				Prompt_id: api_request.Prompt_id,
-				Concept_uid: default_api_response.Concept_uid,
-				Attempt: api_request.Attempt,
-				Entry: api_request.Entry,
-				Feedback_text: default_api_response.Feedback,
-				Feedback_type: default_api_response.Feedback_type,
-				Optimal: default_api_response.Optimal,
-				Used: false,
-				Time: now,
-				Metadata: FeedbackHistoryMetadata { Labels: default_api_response.Labels },
-			},
-		},
-	}
-
-	if len(payload.Feedback_histories) != len(expected.Feedback_histories){
-		t.Errorf("Batch Feedback History rolled up the wrong number of items.\nReceived: %d\nExpected: %d", len(payload.Feedback_histories), len(expected.Feedback_histories))
-	}
-
-	payload_json, _ := json.Marshal(payload)
-	payload_str := string(payload_json)
-	for _, feedback_history := range expected.Feedback_histories {
-		expected_json, _ := json.Marshal(feedback_history)
-		expected_str := string(expected_json)
-		if !strings.Contains(payload_str, expected_str) {
-			expected_json, _ := json.Marshal(expected)
-			expected_str := string(expected_json)
-			t.Errorf("Payload not properly formatted.\n\nReceived:\n%s\n\nExpected:\n%s", payload_str, expected_str)
-		}
 	}
 }
 

@@ -1,5 +1,5 @@
 import { ActivityInterface } from '../../interfaces/comprehensionInterfaces';
-import { handleApiError, apiFetch, mainApiFetch, } from '../../helpers/comprehension';
+import { handleApiError, apiFetch, mainApiFetch, handleRequestErrors, requestFailed } from '../../helpers/comprehension';
 
 export const fetchActivities = async () => {
   let activities: ActivityInterface[];
@@ -32,7 +32,14 @@ export const createActivity = async (activity: object) => {
     method: 'POST',
     body: JSON.stringify(activity)
   });
-  return { error: handleApiError('Failed to create activity, please try again.', response) };
+  const { status } = response;
+
+  if(requestFailed(status)) {
+    const errors = await response.json();
+    const returnedErrors = await handleRequestErrors(errors);
+    return { errors: returnedErrors };
+  }
+  return { errors: [] };
 }
 
 export const updateActivity = async (activity: object, activityId: string) => {
@@ -40,7 +47,14 @@ export const updateActivity = async (activity: object, activityId: string) => {
     method: 'PUT',
     body: JSON.stringify(activity)
   });
-  return { error: handleApiError('Failed to update activity, please try again.', response) }
+  const { status } = response;
+
+  if(requestFailed(status)) {
+    const errors = await response.json();
+    const returnedErrors = await handleRequestErrors(errors);
+    return { errors: returnedErrors };
+  }
+  return { errors: [] };
 }
 
 export const archiveParentActivity = async (parentActivityId: string) => {

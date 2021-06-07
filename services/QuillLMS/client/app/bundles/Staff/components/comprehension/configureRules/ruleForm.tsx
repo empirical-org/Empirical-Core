@@ -9,8 +9,8 @@ import RuleUniversalAttributes from './ruleUniversalAttributes';
 
 import { fetchRules, fetchUniversalRules } from '../../../utils/comprehension/ruleAPIs';
 import { fetchConcepts, } from '../../../utils/comprehension/conceptAPIs';
-import { formatPrompts } from '../../../helpers/comprehension';
-import { handleSubmitRule, getInitialRuleType, formatInitialFeedbacks, returnInitialFeedback, formatRegexRules, renderErrorsContainer } from '../../../helpers/comprehension/ruleHelpers';
+import { formatPrompts, renderErrorsContainer } from '../../../helpers/comprehension';
+import { handleSubmitRule, getInitialRuleType, formatInitialFeedbacks, returnInitialFeedback, formatRegexRules } from '../../../helpers/comprehension/ruleHelpers';
 import { ruleOptimalOptions, regexRuleTypes, PLAGIARISM } from '../../../../../constants/comprehension';
 import { ActivityInterface, RuleInterface, DropdownObjectInterface } from '../../../interfaces/comprehensionInterfaces';
 

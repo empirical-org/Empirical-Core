@@ -13,8 +13,11 @@ import {
   HIGHLIGHT_TYPE,
   FEEDBACK_LAYER_ADDITION,
   FEEDBACK_LAYER_REMOVAL,
+  RULES_BASED_1,
+  RULES_BASED_2,
+  RULES_BASED_3
 } from '../../../../constants/comprehension';
-import { InputEvent, DropdownObjectInterface } from '../../interfaces/comprehensionInterfaces';
+import { InputEvent, DropdownObjectInterface, RuleInterface } from '../../interfaces/comprehensionInterfaces';
 import { ruleTypeOptions, universalRuleTypeOptions, ruleHighlightOptions, numericalWordOptions, regexRuleSequenceOptions, regexRuleTypes } from '../../../../constants/comprehension';
 import { TextEditor, DropdownInput, Modal } from '../../../Shared/index';
 
@@ -143,7 +146,7 @@ export function handleSetFeedback({
     highlightIndex
 }) {
   let updatedFeedback = [...feedback];
-  
+
   switch(updateType) {
     case FEEDBACK:
       updatedFeedback[feedbackIndex].text = text;
@@ -447,6 +450,24 @@ export function getReturnLinkLabel(ruleType) {
   return label + 'Rules Index';
 }
 
+export function getRefetchQueryString(rule: RuleInterface, activityId: string) {
+  const { rule_type } = rule;
+  switch (rule_type) {
+    case RULES_BASED_1:
+      return `rules-${activityId}-${RULES_BASED_1}`;
+    case RULES_BASED_2:
+      return `rules-${activityId}-${RULES_BASED_2}`;
+    case RULES_BASED_3:
+      return `rules-${activityId}-${RULES_BASED_3}`;
+    case PLAGIARISM:
+      return `rules-${activityId}-${PLAGIARISM}`;
+    case AUTO_ML:
+      return `rules-${activityId}-${AUTO_ML}`;
+    default:
+      return `rules-${activityId}`;
+  }
+}
+
 export function getPromptIdString(prompts) {
   let promptIdString = '';
   prompts.forEach((prompt, i) => {
@@ -457,23 +478,6 @@ export function getPromptIdString(prompts) {
     }
   });
   return promptIdString;
-}
-
-export function renderErrorsContainer(formErrorsPresent: boolean, requestErrors: string[]) {
-  if(formErrorsPresent) {
-    return(
-      <div className="error-message-container">
-        <p className="all-errors-message">Please check that all fields have been completed correctly.</p>
-      </div>
-    );
-  }
-  return(
-    <div className="error-message-container">
-      {requestErrors.map((error, i) => {
-        return <p className="all-errors-message" key={i}>{error}</p>
-      })}
-    </div>
-  )
 }
 
 export function renderDeleteRuleModal(handleDeleteRule, toggleShowDeleteRuleModal) {

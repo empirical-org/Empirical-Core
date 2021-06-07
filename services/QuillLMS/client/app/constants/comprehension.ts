@@ -15,6 +15,9 @@ export const WEAK =  'weak';
 export const COMPLETE =  'complete';
 export const INCOMPLETE =  'incomplete';
 export const STRONG =  'strong';
+export const RULES_BASED_1 = 'rules-based-1';
+export const RULES_BASED_2 = 'rules-based-2';
+export const RULES_BASED_3 = 'rules-based-3';
 
 export const flagOptions = [
   {
@@ -232,7 +235,7 @@ export const TITLE = 'Title';
 export const NAME = 'Name';
 export const SCORED_READING_LEVEL = 'Scored reading level';
 export const TARGET_READING_LEVEL = 'Target reading level';
-export const PARENT_ACTIVITY_ID = 'Parent activity ID'
+export const PARENT_ACTIVITY_ID = 'Parent Activity ID'
 export const PASSAGE = 'Passage';
 export const MAX_ATTEMPTS_FEEDBACK = 'Max attempts feedback';
 export const BECAUSE_STEM = 'Because stem';
@@ -246,7 +249,6 @@ export const activityFormKeys = [
   TITLE,
   SCORED_READING_LEVEL,
   TARGET_READING_LEVEL,
-  PARENT_ACTIVITY_ID,
   PASSAGE,
   MAX_ATTEMPTS_FEEDBACK,
   BECAUSE_STEM,
