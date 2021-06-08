@@ -40,11 +40,11 @@ gem 'elasticsearch-rails', '~> 5.1'
 gem 'kaminari'
 
 # OTHER
-gem 'newrelic_rpm'
+gem 'newrelic_rpm', '~> 6.15.0'
 gem 'rubyzip'
 
 # WEBSOCKETS
-gem 'pusher'
+gem 'pusher', '~> 1.4.3'
 
 # HTTP
 gem 'httparty'
@@ -58,7 +58,7 @@ end
 group :development, :test do
   gem 'byebug', platforms: %i[mri mingw x64_mingw]
   gem 'factory_bot_rails', '~> 4.8.2'
-  gem 'pry'
+  gem 'pry', '~> 0.10.4'
   gem 'rb-readline'
   gem 'rspec-rails', '~> 4.0'
   gem 'webmock'
