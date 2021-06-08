@@ -33,10 +33,6 @@ RSpec.describe RuleFeedbackHistory, type: :model do
       # rules
       so_rule1 = rule_factory { { name: 'so_rule1', rule_type: 'autoML'} }
 
-      # feedbacks
-      create(:feedback_history, rule_uid: so_rule1.uid)
-      create(:feedback_history, rule_uid: so_rule1.uid)
-
       # feedback_histories
       f_h1 = create(:feedback_history, rule_uid: so_rule1.uid, entry: "f_h1 lorem")
       f_h2 = create(:feedback_history, rule_uid: so_rule1.uid, entry: "f_h2 ipsum")
@@ -65,7 +61,7 @@ RSpec.describe RuleFeedbackHistory, type: :model do
         rule_note: so_rule1.note,
         rule_uid: so_rule1.uid,
         strong_responses: 2,
-        total_responses: 3,
+        total_responses: 2,
         weak_responses: 1,
         repeated_consecutive_responses: 1,
         repeated_non_consecutive_responses: 1,

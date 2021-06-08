@@ -41,10 +41,11 @@ const Dashboard = ({ onboardingChecklist, firstName, mustSeeModal, linkedToCleve
     getMetrics();
     getDiagnostics()
     getLessons()
+    getActivityFeed()
   }, []);
 
   React.useEffect(() => {
-    if (metrics && diagnostics && lessons && loading) {
+    if (metrics && diagnostics && lessons && activityFeed && loading) {
       setLoading(false)
     }
   }, [metrics, diagnostics, lessons, activityFeed])
@@ -95,6 +96,7 @@ const Dashboard = ({ onboardingChecklist, firstName, mustSeeModal, linkedToCleve
         <KeyMetrics firstName={firstName} metrics={metrics} />
         <DiagnosticMini diagnostics={diagnostics} onMobile={onMobile()} />
         <LessonsMini lessons={lessons} onMobile={onMobile()} />
+        <ActivityFeed activityFeed={activityFeed} onMobile={onMobile()} />
       </main>
       <aside>
         <HandyActions linkedToClever={linkedToClever} />
