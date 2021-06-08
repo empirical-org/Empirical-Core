@@ -5,9 +5,7 @@ class RuleFeedbackHistory
     end
 
     def self.exec_query(conjunction:, activity_id:, start_date:, end_date:)
-        start_date_param = start_date || "1991-10-17T19:02:54.814Z"
-        end_date_param = end_date || Time.now
-        Comprehension::Rule.select(<<~SELECT
+        query = Comprehension::Rule.select(<<~SELECT
           comprehension_rules.uid AS rules_uid,
           prompts.activity_id AS activity_id,
           comprehension_rules.rule_type AS rule_type,
@@ -27,10 +25,11 @@ class RuleFeedbackHistory
         .joins('LEFT JOIN feedback_history_ratings ON feedback_histories.id = feedback_history_ratings.feedback_history_id')
         .joins('LEFT JOIN feedback_history_flags ON feedback_histories.id = feedback_history_flags.feedback_history_id')
         .where("prompts.conjunction = ? AND activity_id = ?", conjunction, activity_id)
-        .where("comprehension_rules.created_at >= ?", start_date_param)
-        .where("comprehension_rules.created_at <= ?", end_date_param)
         .group('rules_uid, activity_id, rule_type, rule_suborder, rule_name, rule_note')
         .includes(:feedbacks)
+        query = query.where("feedback_histories.time >= ?", start_date) if start_date
+        query = query.where("feedback_histories.time <= ?", end_date) if end_date
+        query
     end
 
     def self.feedback_history_to_json(f_h)
@@ -45,9 +44,9 @@ class RuleFeedbackHistory
     end
 
     def self.generate_rulewise_report(rule_uid:, prompt_id:, start_date:, end_date:)
-        start_date_param = start_date || "1991-10-17T19:02:54.814Z"
-        end_date_param = end_date || Time.now
-        feedback_histories = FeedbackHistory.where(rule_uid: rule_uid, prompt_id: prompt_id, used: true, created_at: start_date_param..end_date_param)
+        feedback_histories = FeedbackHistory.where(rule_uid: rule_uid, prompt_id: prompt_id, used: true)
+        feedback_histories = feedback_histories.where("created_at >= ?", start_date) if start_date
+        feedback_histories = feedback_histories.where("created_at <= ?", end_date) if end_date
         response_jsons = []
         feedback_histories.each do |f_h|
             response_jsons.append(feedback_history_to_json(f_h))
