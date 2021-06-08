@@ -41,5 +41,7 @@ Prerequisites:
 1. `QuillCMS$ git checkout production && git pull`
 1. `QuillCMS$ bash deploy.sh staging|prod` 
 
+If you need to ssh into an instance and `eb ssh` throws a publickey error exception, try `eb ssh --setup`. [More details here](https://serverfault.com/questions/941463/can-ssh-to-ec2-instance-but-cant-eb-ssh).
+
 ## Infrastructure
 TODO
